@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0623CC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 19:04:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A864FC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 19:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E03C10EB9D;
-	Mon,  2 May 2022 19:04:04 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A776A10EB7E
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 19:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32A0310EBB1;
+	Mon,  2 May 2022 19:04:29 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DE210EBB1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 19:04:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j+uxd1Hyyz+0ZsO07iRdolOl+wEyrjKGvmVqjXaWY8ThiwRkpq+R1c4GUB/xUuALYfGFjPhm91WrZlyLxb1mgZrDJgnwQ6EUzigZnEHWU7QrSb5A6KyBGASujLD4X+ctXxHHRO6HBgF8ELGCFGHJc6V1irSSwFwkR9OS6IyhxHlmDD7pxljWecfjI/pKfHMJ0jhP0c4BcAQAghfZhCW0r5p2Kri54ail/0DHQW2lNqoFL6LLOeX1GQ2KdQh5i0A5UKD6GItcLsHUpAZ5MiLR6M02qwpQKq4I/CZkCF/mR4EcE6gA4e9Zy4PGsu5/bVyHBysjNWNFm+gZ3TxHh41cww==
+ b=Gz47O3HurjWZGS0Atxj/BYehJ9355zhr40nTdl1pOi3EX3fWzIpkrKNmz/SutLC1zlhP5s0+iuMkhRS1XUcfc+y8jYeHF5gtPh7iEP0nA0XWreZ/kGlT9jEUbowuHQeXENpE8BXTSRX03/zWUcdbOTtHOz24XiJyjnyOJQpkbnx/HIa4/OcDlsDGlYry9sL1oUll2KHofZn99VPJJWqEoAeajPKT28Av7mRl/xI6ywFqTEi+j0EAdW3+BeByVHzs1lUl+wmoL2brx1szBBT5avCMFHWAv2H44sJ2F2sfOzYYnHYAynlsYbJDU4n1ivNqy2M50NyN55xzRq72TRNJ3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2lR7ZHhiNwCx/HfX4f5n5AoBqHKvevWKSWlx/xxu+Nc=;
- b=OIGUCL/enw6Ql6pO7/D2PVG4kK4g0y2zEK2ni1HL4JUc2zkRUKgaMNNS0/H1bXllvY0Z7C55+L3FAGPBhT7uOL88OQDOce1XUbSEPrWjzYFizEQ1pul0DcWstHLKit4p6OZ3s1BOoSk+rUpd9EQE4Hl09mVYZp0m5SBL+vttBIMEJMaLNvK4wo5N2YqfToorIk+roCNL7V6YduZFkSaJ7/b1pPuGqSVsGQoK7WrVBpca2dvZkZJvImn6PMSrDURN3Xzh97uav+BhzUoHeWbL5pRONjkD9wyx2U8iuHzZIgieIAaMRTcyge9oUTZ5ZtggEolWSZPbdc1c/t6D9u5agA==
+ bh=h0eZ0q2e4FnTS449EpgYbGTxC34bQnN4k+39N+9KsOE=;
+ b=k3pGAbjyBK+XuHBdfYvMSpcEhmhj1nt1qXNs5ZuhIedeL1EyZlyMZ+/UOa5eYP5+z/M9Bhbzygqh4S4WWgXHyBQtrSMWK5KTV9BMmFRxWzNal6ZJadc1cNZjyR1dkVJPHv0mKg1Ghj5Mi7xpUbbSSD4FBwvVsVBdmmVkgnv1Rcg8h6nvftDjfzwyHvc8qEDPD9i9Oa3G8xULhy6KB+TC+FNZHzgPx3OdQCGLzJliiDpWKStZypDiqWQr6+AZOEelxQEIlWHS931BLf+aOfgAVCRNUZu7t8Zn/cwAynSH00wcS9KWYXL3wdtulj16GqNpEx4x0kDBTE6CY/GDm70Qbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2lR7ZHhiNwCx/HfX4f5n5AoBqHKvevWKSWlx/xxu+Nc=;
- b=az3jMfjnsr/dymG5tZ8BIasOlLUzy5GEKM7nA36oKQCLdYldI435OgZ3AX+bTSCU/bX1TNxnEaW/HuciDXMnhOo8DfiU2vb0p9j1ZQ4bH1SXu6I8WsrAW3H31y+3mdfbI5IQcYXPDp6xlWqswkVifktnge7Dk9a6GkAVkS1/A1Y=
-Received: from MW4PR04CA0109.namprd04.prod.outlook.com (2603:10b6:303:83::24)
- by DM4PR12MB6062.namprd12.prod.outlook.com (2603:10b6:8:b2::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.13; Mon, 2 May 2022 19:03:59 +0000
+ bh=h0eZ0q2e4FnTS449EpgYbGTxC34bQnN4k+39N+9KsOE=;
+ b=pigr/p0Y/lRVKqoAZ9LRMHv6Umc1JiW8YBmtuS4C6alMX4GFT3VPvR933tzOoObVyWgBOScXlB7mw6XO71OddVCD7Re8dA5h0fmNW6A2XKi6zZceg/k8/QR5MBeLU2qHGbRjhvB34XhhGFdGXyMZCKHf2mFwduiwmjY4DQStgL4=
+Received: from MW4PR04CA0113.namprd04.prod.outlook.com (2603:10b6:303:83::28)
+ by DM6PR12MB3769.namprd12.prod.outlook.com (2603:10b6:5:14a::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Mon, 2 May
+ 2022 19:03:58 +0000
 Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::d0) by MW4PR04CA0109.outlook.office365.com
- (2603:10b6:303:83::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Mon, 2 May 2022 19:03:59 +0000
+ (2603:10b6:303:83:cafe::5d) by MW4PR04CA0113.outlook.office365.com
+ (2603:10b6:303:83::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
+ Transport; Mon, 2 May 2022 19:03:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,19 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Mon, 2 May 2022 19:03:59 +0000
+ 15.20.5206.12 via Frontend Transport; Mon, 2 May 2022 19:03:58 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 2 May
- 2022 14:03:56 -0500
+ 2022 14:03:54 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu: add initial support for sdma v6.0
-Date: Mon, 2 May 2022 15:03:42 -0400
-Message-ID: <20220502190343.783897-2-alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add sdma v6_0_0 pkt header v3
+Date: Mon, 2 May 2022 15:03:41 -0400
+Message-ID: <20220502190343.783897-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220502190343.783897-1-alexander.deucher@amd.com>
-References: <20220502190343.783897-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,27 +66,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 28c612da-8584-4b69-d77d-08da2c6e83b0
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6062:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB6062FD68B41D10FDC92AEA14F7C19@DM4PR12MB6062.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 8892eecc-b185-47a2-91b7-08da2c6e8326
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3769:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB376993B6F7C77BB718DA3076F7C19@DM6PR12MB3769.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 92Lq0gXaoXga3sdUq/meKERzGgXyKZeayx7RDpfJcRZXQRmMTT4eDLAtSKGNwQFP9EtLMlpjjm1OnKHay6QErEnE4fMqNYHJH2V4/G786UjbiYUtI9zRkJrZDxO76Qu2/l2F8SdXPhTN+88PNhx9E9+j3FblY+UZOeC8ylRW3m2Oa4Ete9r9Rf4+kg48awtFtAMshfefHzjOKypzEOFcSoPKZxa53a+PrMqWcL6uKjdRmlCpKTgRK9KGD1wIuPD7xalm8hspLrRonWuAlStXs184yRriA9vxaDKtVPqLOYecQpxp9nftf8mGWkka53Cl8OD6Br6soQZSMSKRWxuvowSsVGshMZbAevRMez0GmdkLzpTx5WNYRgS+UBNiMTmP74NagKZxfFpXQbZCp24AVQZAnSPyDsXy+yzgVVLuGBCXw7xSBahLqN21+MHzI6y1kSwKXL4xSFcjJ18UBydLJKwLgwQZ3RSfnYuRhv6rzcWzuCUMgWpY+cO5lpgbl02eE1JK4REOpmSo6DP+BOPh03PqFoksNCbn5M/NT2fsdP6OVCnWrct9sXAQ4ftY7iJ0RDHBNlOgpcny8D+vI6uDjLwaIp1pZ/KzZyGqm7qz8FvmpCwfGEM7tmyovsxIELVwK2wWgImRuO4bMGYnvttJt77T72nIHSTm3JI6PCJgOvZJqMLY2Hssr95l7rdZdWVKDsn12FkUjzVm0vKf4Zepi2SgBo90YsQs98P3TmQsaDc=
+X-Microsoft-Antispam-Message-Info: x/anYTeL9LMOont9AGZ9S1+gO7LYRnXehVlhWkvvoluJPVxvOC8L3VtWXEuZZzHSLOoKW/aeXoYDBoFq13npzPQ0d8ygGSoCzszlJ7i4lFpwl+UACvTZDqL9y0YcM5oAmcnUJ2ecCIz1uSmNHW4G1LSqio5Cw1rjVYwkHzyye38uNADhpCb+m34bHMlLe3S1iHce0LQx4s+TIY99dMCXciWbbS/CJCjf349fcK+ZxVodgXFjPjINWPoiQe6chtbFE4eBntyGHdrFnX4atup2Lwueg3OpyiKETOIND2R4y6BdKhh8O0jH4pivjyiVEKiznlvVKxSkjKdJEcGYayN73Qp5FQmfC3TQOxAJ1sKIBeGWercB1CmqWmi3kpacMPhkmgsH50SNCjhYDRhQbfGNu+2N8AXGRtgDzUI7uHOnCg+L/U4s4WiJev00t8ipBTHOAQuJEDxXy7V8XseSR5u8mdch2uzcNoCI3/7gt7W8sm9SO1ldA6Dn4yPFvlUMOEwMzun8p/thfuC+Mdwog9wBmrPmcPBrfE2ZH/+MHgbgl107js3NPH39bWMxKW4rPDmxW0wOtCwVfI3+ukilQAlU4gS0qKp8rPUcdxS1TL93cThDrJreHKLBNPo3lWgRAYlNMtygHGl7ehkvSJYZj16h1b588XxEcJYXy2xaubvgmjFDYS5bbHF0IsNm1OYGL0h0f+h4H/KnEsq50kQy9yiRlQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(30864003)(5660300002)(316002)(8936002)(2616005)(6666004)(81166007)(36756003)(26005)(54906003)(1076003)(356005)(2906002)(8676002)(40460700003)(70586007)(83380400001)(70206006)(36860700001)(16526019)(186003)(508600001)(4326008)(426003)(47076005)(336012)(7696005)(86362001)(82310400005)(6916009)(21314003)(36900700001)(559001)(579004);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(81166007)(4326008)(8936002)(70206006)(83380400001)(336012)(8676002)(426003)(70586007)(47076005)(508600001)(40460700003)(7696005)(82310400005)(26005)(54906003)(6666004)(1076003)(16526019)(6916009)(186003)(86362001)(316002)(2616005)(356005)(36756003)(2906002)(36860700001)(30864003)(5660300002)(36900700001)(559001)(579004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2022 19:03:59.2057 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28c612da-8584-4b69-d77d-08da2c6e83b0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2022 19:03:58.2839 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8892eecc-b185-47a2-91b7-08da2c6e8326
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6062
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,48 +99,32 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Stanley Yang <Stanley.Yang@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add functions for SDMA version 6.
+v1: add sdma v6_0_0 pkt definitions (Hawking)
+v2: add gcr control field definition (Likun)
+v3: correct some definitions (Likun)
 
-Signed-off-by: Stanley Yang <Stanley.Yang@amd.com>
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile    |    3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 1687 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.h |   30 +
- 3 files changed, 1719 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v6_0.h
+ .../gpu/drm/amd/amdgpu/sdma_v6_0_0_pkt_open.h | 5664 +++++++++++++++++
+ 1 file changed, 5664 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v6_0_0_pkt_open.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6a67210f282f..81088b0cc92e 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -142,7 +142,8 @@ amdgpu-y += \
- 	sdma_v4_0.o \
- 	sdma_v4_4.o \
- 	sdma_v5_0.o \
--	sdma_v5_2.o
-+	sdma_v5_2.o \
-+	sdma_v6_0.o
- 
- # add MES block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0_0_pkt_open.h b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0_0_pkt_open.h
 new file mode 100644
-index 000000000000..d1f2d804f928
+index 000000000000..6af23e7888ca
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -0,0 +1,1687 @@
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0_0_pkt_open.h
+@@ -0,0 +1,5664 @@
 +/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
++ * Copyright 2021 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -163,1707 +145,5648 @@ index 000000000000..d1f2d804f928
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/module.h>
-+#include <linux/pci.h>
-+
-+#include "amdgpu.h"
-+#include "amdgpu_ucode.h"
-+#include "amdgpu_trace.h"
-+
-+#include "gc/gc_11_0_0_offset.h"
-+#include "gc/gc_11_0_0_sh_mask.h"
-+#include "gc/gc_11_0_0_default.h"
-+#include "hdp/hdp_6_0_0_offset.h"
-+#include "ivsrcid/gfx/irqsrcs_gfx_11_0_0.h"
-+
-+#include "soc15_common.h"
-+#include "soc15.h"
-+#include "sdma_v6_0_0_pkt_open.h"
-+#include "nbio_v4_3.h"
-+#include "sdma_common.h"
-+#include "sdma_v6_0.h"
-+#include "v11_structs.h"
-+
-+MODULE_FIRMWARE("amdgpu/sdma_6_0_0.bin");
-+
-+#define SDMA1_REG_OFFSET 0x600
-+#define SDMA0_HYP_DEC_REG_START 0x5880
-+#define SDMA0_HYP_DEC_REG_END 0x589a
-+#define SDMA1_HYP_DEC_REG_OFFSET 0x20
-+
-+static void sdma_v6_0_set_ring_funcs(struct amdgpu_device *adev);
-+static void sdma_v6_0_set_buffer_funcs(struct amdgpu_device *adev);
-+static void sdma_v6_0_set_vm_pte_funcs(struct amdgpu_device *adev);
-+static void sdma_v6_0_set_irq_funcs(struct amdgpu_device *adev);
-+
-+static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u32 internal_offset)
-+{
-+	u32 base;
-+
-+	if (internal_offset >= SDMA0_HYP_DEC_REG_START &&
-+	    internal_offset <= SDMA0_HYP_DEC_REG_END) {
-+		base = adev->reg_offset[GC_HWIP][0][1];
-+		if (instance != 0)
-+			internal_offset += SDMA1_HYP_DEC_REG_OFFSET * instance;
-+	} else {
-+		base = adev->reg_offset[GC_HWIP][0][0];
-+		if (instance == 1)
-+			internal_offset += SDMA1_REG_OFFSET;
-+	}
-+
-+	return base + internal_offset;
-+}
-+
-+static int sdma_v6_0_init_inst_ctx(struct amdgpu_sdma_instance *sdma_inst)
-+{
-+	int err = 0;
-+	const struct sdma_firmware_header_v2_0 *hdr;
-+
-+	err = amdgpu_ucode_validate(sdma_inst->fw);
-+	if (err)
-+		return err;
-+
-+	hdr = (const struct sdma_firmware_header_v2_0 *)sdma_inst->fw->data;
-+	sdma_inst->fw_version = le32_to_cpu(hdr->header.ucode_version);
-+	sdma_inst->feature_version = le32_to_cpu(hdr->ucode_feature_version);
-+
-+	if (sdma_inst->feature_version >= 20)
-+		sdma_inst->burst_nop = true;
-+
-+	return 0;
-+}
-+
-+static void sdma_v6_0_destroy_inst_ctx(struct amdgpu_device *adev)
-+{
-+	release_firmware(adev->sdma.instance[0].fw);
-+
-+	memset((void*)adev->sdma.instance, 0,
-+	       sizeof(struct amdgpu_sdma_instance) * AMDGPU_MAX_SDMA_INSTANCES);
-+}
-+
-+/**
-+ * sdma_v6_0_init_microcode - load ucode images from disk
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Use the firmware interface to load the ucode images into
-+ * the driver (not loaded into hw).
-+ * Returns 0 on success, error on failure.
-+ */
-+
-+// emulation only, won't work on real chip
-+// sdma 6.0.0 real chip need to use PSP to load firmware
-+static int sdma_v6_0_init_microcode(struct amdgpu_device *adev)
-+{
-+	char fw_name[30];
-+	char ucode_prefix[30];
-+	int err = 0, i;
-+	struct amdgpu_firmware_info *info = NULL;
-+	const struct sdma_firmware_header_v2_0 *sdma_hdr;
-+
-+	DRM_DEBUG("\n");
-+
-+	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-+
-+	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
-+
-+	err = request_firmware(&adev->sdma.instance[0].fw, fw_name, adev->dev);
-+	if (err)
-+		goto out;
-+
-+	err = sdma_v6_0_init_inst_ctx(&adev->sdma.instance[0]);
-+	if (err)
-+		goto out;
-+
-+	for (i = 1; i < adev->sdma.num_instances; i++) {
-+		memcpy((void*)&adev->sdma.instance[i],
-+		       (void*)&adev->sdma.instance[0],
-+		       sizeof(struct amdgpu_sdma_instance));
-+	}
-+
-+	DRM_DEBUG("psp_load == '%s'\n",
-+		  adev->firmware.load_type == AMDGPU_FW_LOAD_PSP ? "true" : "false");
-+
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
-+		sdma_hdr = (const struct sdma_firmware_header_v2_0 *)adev->sdma.instance[0].fw->data;
-+		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_SDMA_UCODE_TH0];
-+		info->ucode_id = AMDGPU_UCODE_ID_SDMA_UCODE_TH0;
-+		info->fw = adev->sdma.instance[0].fw;
-+		adev->firmware.fw_size +=
-+			ALIGN(le32_to_cpu(sdma_hdr->ctx_ucode_size_bytes), PAGE_SIZE);
-+		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_SDMA_UCODE_TH1];
-+		info->ucode_id = AMDGPU_UCODE_ID_SDMA_UCODE_TH1;
-+		info->fw = adev->sdma.instance[0].fw;
-+		adev->firmware.fw_size +=
-+			ALIGN(le32_to_cpu(sdma_hdr->ctl_ucode_size_bytes), PAGE_SIZE);
-+	}
-+
-+out:
-+	if (err) {
-+		DRM_ERROR("sdma_v6_0: Failed to load firmware \"%s\"\n", fw_name);
-+		sdma_v6_0_destroy_inst_ctx(adev);
-+	}
-+	return err;
-+}
-+
-+static unsigned sdma_v6_0_ring_init_cond_exec(struct amdgpu_ring *ring)
-+{
-+	unsigned ret;
-+
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_COND_EXE));
-+	amdgpu_ring_write(ring, lower_32_bits(ring->cond_exe_gpu_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(ring->cond_exe_gpu_addr));
-+	amdgpu_ring_write(ring, 1);
-+	ret = ring->wptr & ring->buf_mask;/* this is the offset we need patch later */
-+	amdgpu_ring_write(ring, 0x55aa55aa);/* insert dummy here and patch it later */
-+
-+	return ret;
-+}
-+
-+static void sdma_v6_0_ring_patch_cond_exec(struct amdgpu_ring *ring,
-+					   unsigned offset)
-+{
-+	unsigned cur;
-+
-+	BUG_ON(offset > ring->buf_mask);
-+	BUG_ON(ring->ring[offset] != 0x55aa55aa);
-+
-+	cur = (ring->wptr - 1) & ring->buf_mask;
-+	if (cur > offset)
-+		ring->ring[offset] = cur - offset;
-+	else
-+		ring->ring[offset] = (ring->buf_mask + 1) - offset + cur;
-+}
-+
-+/**
-+ * sdma_v6_0_ring_get_rptr - get the current read pointer
-+ *
-+ * @ring: amdgpu ring pointer
-+ *
-+ * Get the current rptr from the hardware.
-+ */
-+static uint64_t sdma_v6_0_ring_get_rptr(struct amdgpu_ring *ring)
-+{
-+	u64 *rptr;
-+
-+	/* XXX check if swapping is necessary on BE */
-+	rptr = (u64 *)ring->rptr_cpu_addr;
-+
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
-+	return ((*rptr) >> 2);
-+}
-+
-+/**
-+ * sdma_v6_0_ring_get_wptr - get the current write pointer
-+ *
-+ * @ring: amdgpu ring pointer
-+ *
-+ * Get the current wptr from the hardware.
-+ */
-+static uint64_t sdma_v6_0_ring_get_wptr(struct amdgpu_ring *ring)
-+{
-+	u64 wptr = 0;
-+
-+	if (ring->use_doorbell) {
-+		/* XXX check if swapping is necessary on BE */
-+		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
-+	}
-+
-+	return wptr >> 2;
-+}
-+
-+/**
-+ * sdma_v6_0_ring_set_wptr - commit the write pointer
-+ *
-+ * @ring: amdgpu ring pointer
-+ *
-+ * Write the wptr back to the hardware.
-+ */
-+static void sdma_v6_0_ring_set_wptr(struct amdgpu_ring *ring)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+
-+	DRM_DEBUG("Setting write pointer\n");
-+	if (ring->use_doorbell) {
-+		DRM_DEBUG("Using doorbell -- "
-+				"wptr_offs == 0x%08x "
-+				"lower_32_bits(ring->wptr) << 2 == 0x%08x "
-+				"upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
-+				ring->wptr_offs,
-+				lower_32_bits(ring->wptr << 2),
-+				upper_32_bits(ring->wptr << 2));
-+		/* XXX check if swapping is necessary on BE */
-+		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
-+			     ring->wptr << 2);
-+		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
-+				ring->doorbell_index, ring->wptr << 2);
-+		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-+	} else {
-+		DRM_DEBUG("Not using doorbell -- "
-+				"regSDMA%i_GFX_RB_WPTR == 0x%08x "
-+				"regSDMA%i_GFX_RB_WPTR_HI == 0x%08x\n",
-+				ring->me,
-+				lower_32_bits(ring->wptr << 2),
-+				ring->me,
-+				upper_32_bits(ring->wptr << 2));
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, ring->me, regSDMA0_QUEUE0_RB_WPTR),
-+			lower_32_bits(ring->wptr << 2));
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, ring->me, regSDMA0_QUEUE0_RB_WPTR_HI),
-+			upper_32_bits(ring->wptr << 2));
-+	}
-+}
-+
-+static void sdma_v6_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
-+{
-+	struct amdgpu_sdma_instance *sdma = amdgpu_sdma_get_instance_from_ring(ring);
-+	int i;
-+
-+	for (i = 0; i < count; i++)
-+		if (sdma && sdma->burst_nop && (i == 0))
-+			amdgpu_ring_write(ring, ring->funcs->nop |
-+				SDMA_PKT_NOP_HEADER_COUNT(count - 1));
-+		else
-+			amdgpu_ring_write(ring, ring->funcs->nop);
-+}
-+
-+/**
-+ * sdma_v6_0_ring_emit_ib - Schedule an IB on the DMA engine
-+ *
-+ * @ring: amdgpu ring pointer
-+ * @ib: IB object to schedule
-+ *
-+ * Schedule an IB in the DMA ring.
-+ */
-+static void sdma_v6_0_ring_emit_ib(struct amdgpu_ring *ring,
-+				   struct amdgpu_job *job,
-+				   struct amdgpu_ib *ib,
-+				   uint32_t flags)
-+{
-+	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
-+	uint64_t csa_mc_addr = amdgpu_sdma_get_csa_mc_addr(ring, vmid);
-+
-+	/* An IB packet must end on a 8 DW boundary--the next dword
-+	 * must be on a 8-dword boundary. Our IB packet below is 6
-+	 * dwords long, thus add x number of NOPs, such that, in
-+	 * modular arithmetic,
-+	 * wptr + 6 + x = 8k, k >= 0, which in C is,
-+	 * (wptr + 6 + x) % 8 = 0.
-+	 * The expression below, is a solution of x.
-+	 */
-+	sdma_v6_0_ring_insert_nop(ring, (2 - lower_32_bits(ring->wptr)) & 7);
-+
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_INDIRECT) |
-+			  SDMA_PKT_INDIRECT_HEADER_VMID(vmid & 0xf));
-+	/* base must be 32 byte aligned */
-+	amdgpu_ring_write(ring, lower_32_bits(ib->gpu_addr) & 0xffffffe0);
-+	amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
-+	amdgpu_ring_write(ring, ib->length_dw);
-+	amdgpu_ring_write(ring, lower_32_bits(csa_mc_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(csa_mc_addr));
-+}
-+
-+/**
-+ * sdma_v6_0_ring_emit_mem_sync - flush the IB by graphics cache rinse
-+ *
-+ * @ring: amdgpu ring pointer
-+ * @job: job to retrieve vmid from
-+ * @ib: IB object to schedule
-+ *
-+ * flush the IB by graphics cache rinse.
-+ */
-+static void sdma_v6_0_ring_emit_mem_sync(struct amdgpu_ring *ring)
-+{
-+        uint32_t gcr_cntl = SDMA_GCR_GL2_INV | SDMA_GCR_GL2_WB | SDMA_GCR_GLM_INV |
-+                            SDMA_GCR_GL1_INV | SDMA_GCR_GLV_INV | SDMA_GCR_GLK_INV |
-+                            SDMA_GCR_GLI_INV(1);
-+
-+        /* flush entire cache L0/L1/L2, this can be optimized by performance requirement */
-+        amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_GCR_REQ));
-+        amdgpu_ring_write(ring, SDMA_PKT_GCR_REQ_PAYLOAD1_BASE_VA_31_7(0));
-+        amdgpu_ring_write(ring, SDMA_PKT_GCR_REQ_PAYLOAD2_GCR_CONTROL_15_0(gcr_cntl) |
-+                          SDMA_PKT_GCR_REQ_PAYLOAD2_BASE_VA_47_32(0));
-+        amdgpu_ring_write(ring, SDMA_PKT_GCR_REQ_PAYLOAD3_LIMIT_VA_31_7(0) |
-+                          SDMA_PKT_GCR_REQ_PAYLOAD3_GCR_CONTROL_18_16(gcr_cntl >> 16));
-+        amdgpu_ring_write(ring, SDMA_PKT_GCR_REQ_PAYLOAD4_LIMIT_VA_47_32(0) |
-+                          SDMA_PKT_GCR_REQ_PAYLOAD4_VMID(0));
-+}
-+
-+
-+/**
-+ * sdma_v6_0_ring_emit_hdp_flush - emit an hdp flush on the DMA ring
-+ *
-+ * @ring: amdgpu ring pointer
-+ *
-+ * Emit an hdp flush packet on the requested DMA ring.
-+ */
-+static void sdma_v6_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	u32 ref_and_mask = 0;
-+	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
-+
-+	ref_and_mask = nbio_hf_reg->ref_and_mask_sdma0 << ring->me;
-+
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_POLL_REGMEM) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(1) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_FUNC(3)); /* == */
-+	amdgpu_ring_write(ring, (adev->nbio.funcs->get_hdp_flush_done_offset(adev)) << 2);
-+	amdgpu_ring_write(ring, (adev->nbio.funcs->get_hdp_flush_req_offset(adev)) << 2);
-+	amdgpu_ring_write(ring, ref_and_mask); /* reference */
-+	amdgpu_ring_write(ring, ref_and_mask); /* mask */
-+	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
-+			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(10)); /* retry count, poll interval */
-+}
-+
-+/**
-+ * sdma_v6_0_ring_emit_fence - emit a fence on the DMA ring
-+ *
-+ * @ring: amdgpu ring pointer
-+ * @fence: amdgpu fence object
-+ *
-+ * Add a DMA fence packet to the ring to write
-+ * the fence seq number and DMA trap packet to generate
-+ * an interrupt if needed.
-+ */
-+static void sdma_v6_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 seq,
-+				      unsigned flags)
-+{
-+	bool write64bit = flags & AMDGPU_FENCE_FLAG_64BIT;
-+	/* write the fence */
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_FENCE) |
-+			  SDMA_PKT_FENCE_HEADER_MTYPE(0x3)); /* Ucached(UC) */
-+	/* zero in first two bits */
-+	BUG_ON(addr & 0x3);
-+	amdgpu_ring_write(ring, lower_32_bits(addr));
-+	amdgpu_ring_write(ring, upper_32_bits(addr));
-+	amdgpu_ring_write(ring, lower_32_bits(seq));
-+
-+	/* optionally write high bits as well */
-+	if (write64bit) {
-+		addr += 4;
-+		amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_FENCE) |
-+				  SDMA_PKT_FENCE_HEADER_MTYPE(0x3));
-+		/* zero in first two bits */
-+		BUG_ON(addr & 0x3);
-+		amdgpu_ring_write(ring, lower_32_bits(addr));
-+		amdgpu_ring_write(ring, upper_32_bits(addr));
-+		amdgpu_ring_write(ring, upper_32_bits(seq));
-+	}
-+
-+	if (flags & AMDGPU_FENCE_FLAG_INT) {
-+		uint32_t ctx = ring->is_mes_queue ?
-+			(ring->hw_queue_id | AMDGPU_FENCE_MES_QUEUE_FLAG) : 0;
-+		/* generate an interrupt */
-+		amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_TRAP));
-+		amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(ctx));
-+	}
-+}
-+
-+/**
-+ * sdma_v6_0_gfx_stop - stop the gfx async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Stop the gfx async dma ring buffers.
-+ */
-+static void sdma_v6_0_gfx_stop(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ring *sdma0 = &adev->sdma.instance[0].ring;
-+	struct amdgpu_ring *sdma1 = &adev->sdma.instance[1].ring;
-+	u32 rb_cntl, ib_cntl;
-+	int i;
-+
-+	if ((adev->mman.buffer_funcs_ring == sdma0) ||
-+	    (adev->mman.buffer_funcs_ring == sdma1))
-+		amdgpu_ttm_set_buffer_funcs_status(adev, false);
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		rb_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL));
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_ENABLE, 0);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL), rb_cntl);
-+		ib_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_IB_CNTL));
-+		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_QUEUE0_IB_CNTL, IB_ENABLE, 0);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_IB_CNTL), ib_cntl);
-+	}
-+
-+	sdma0->sched.ready = false;
-+	sdma1->sched.ready = false;
-+}
-+
-+/**
-+ * sdma_v6_0_rlc_stop - stop the compute async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Stop the compute async dma queues.
-+ */
-+static void sdma_v6_0_rlc_stop(struct amdgpu_device *adev)
-+{
-+	/* XXX todo */
-+}
-+
-+/**
-+ * sdma_v6_0_ctx_switch_enable - stop the async dma engines context switch
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @enable: enable/disable the DMA MEs context switch.
-+ *
-+ * Halt or unhalt the async dma engines context switch.
-+ */
-+static void sdma_v6_0_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
-+{
-+}
-+
-+/**
-+ * sdma_v6_0_enable - stop the async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @enable: enable/disable the DMA MEs.
-+ *
-+ * Halt or unhalt the async dma engines.
-+ */
-+static void sdma_v6_0_enable(struct amdgpu_device *adev, bool enable)
-+{
-+	u32 f32_cntl;
-+	int i;
-+
-+	if (!enable) {
-+		sdma_v6_0_gfx_stop(adev);
-+		sdma_v6_0_rlc_stop(adev);
-+	}
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		f32_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_F32_CNTL));
-+		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, enable ? 0 : 1);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_F32_CNTL), f32_cntl);
-+	}
-+}
-+
-+/**
-+ * sdma_v6_0_gfx_resume - setup and start the async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Set up the gfx DMA ring buffers and enable them.
-+ * Returns 0 for success, error for failure.
-+ */
-+static int sdma_v6_0_gfx_resume(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ring *ring;
-+	u32 rb_cntl, ib_cntl;
-+	u32 rb_bufsz;
-+	u32 doorbell;
-+	u32 doorbell_offset;
-+	u32 temp;
-+	u64 wptr_gpu_addr;
-+	int i, r;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		ring = &adev->sdma.instance[i].ring;
-+
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_SEM_WAIT_FAIL_TIMER_CNTL), 0);
-+
-+		/* Set ring buffer size in dwords */
-+		rb_bufsz = order_base_2(ring->ring_size / 4);
-+		rb_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL));
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_SIZE, rb_bufsz);
-+#ifdef __BIG_ENDIAN
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_SWAP_ENABLE, 1);
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL,
-+					RPTR_WRITEBACK_SWAP_ENABLE, 1);
-+#endif
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_PRIV, 1);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL), rb_cntl);
-+
-+		/* Initialize the ring buffer's read and write pointers */
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_RPTR), 0);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_RPTR_HI), 0);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR), 0);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR_HI), 0);
-+
-+		/* setup the wptr shadow polling */
-+		wptr_gpu_addr = ring->wptr_gpu_addr;
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR_POLL_ADDR_LO),
-+		       lower_32_bits(wptr_gpu_addr));
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR_POLL_ADDR_HI),
-+		       upper_32_bits(wptr_gpu_addr));
-+
-+		/* set the wb address whether it's enabled or not */
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_RPTR_ADDR_HI),
-+		       upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_RPTR_ADDR_LO),
-+		       lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
-+
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 1);
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, F32_WPTR_POLL_ENABLE, 1);
-+
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_BASE_HI), ring->gpu_addr >> 40);
-+
-+		ring->wptr = 0;
-+
-+		/* before programing wptr to a less value, need set minor_ptr_update first */
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_MINOR_PTR_UPDATE), 1);
-+
-+		if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
-+			WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR), lower_32_bits(ring->wptr) << 2);
-+			WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
-+		}
-+
-+		doorbell = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_DOORBELL));
-+		doorbell_offset = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_DOORBELL_OFFSET));
-+
-+		if (ring->use_doorbell) {
-+			doorbell = REG_SET_FIELD(doorbell, SDMA0_QUEUE0_DOORBELL, ENABLE, 1);
-+			doorbell_offset = REG_SET_FIELD(doorbell_offset, SDMA0_QUEUE0_DOORBELL_OFFSET,
-+					OFFSET, ring->doorbell_index);
-+		} else {
-+			doorbell = REG_SET_FIELD(doorbell, SDMA0_QUEUE0_DOORBELL, ENABLE, 0);
-+		}
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_DOORBELL), doorbell);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_DOORBELL_OFFSET), doorbell_offset);
-+
-+		if (i == 0)
-+			adev->nbio.funcs->sdma_doorbell_range(adev, i, ring->use_doorbell,
-+						      ring->doorbell_index,
-+						      adev->doorbell_index.sdma_doorbell_range * adev->sdma.num_instances);
-+
-+		if (amdgpu_sriov_vf(adev))
-+			sdma_v6_0_ring_set_wptr(ring);
-+
-+		/* set minor_ptr_update to 0 after wptr programed */
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_MINOR_PTR_UPDATE), 0);
-+
-+		/* Set up RESP_MODE to non-copy addresses */
-+		temp = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UTCL1_CNTL));
-+		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, RESP_MODE, 3);
-+		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, REDO_DELAY, 9);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UTCL1_CNTL), temp);
-+
-+		/* program default cache read and write policy */
-+		temp = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UTCL1_PAGE));
-+		/* clean read policy and write policy bits */
-+		temp &= 0xFF0FFF;
-+		temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) |
-+			 (CACHE_WRITE_POLICY_L2__DEFAULT << 14) |
-+			 SDMA0_UTCL1_PAGE__LLC_NOALLOC_MASK);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UTCL1_PAGE), temp);
-+
-+		if (!amdgpu_sriov_vf(adev)) {
-+			/* unhalt engine */
-+			temp = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_F32_CNTL));
-+			temp = REG_SET_FIELD(temp, SDMA0_F32_CNTL, HALT, 0);
-+			temp = REG_SET_FIELD(temp, SDMA0_F32_CNTL, TH1_RESET, 0);
-+			WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_F32_CNTL), temp);
-+		}
-+
-+		/* enable DMA RB */
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RB_ENABLE, 1);
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_CNTL), rb_cntl);
-+
-+		ib_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_IB_CNTL));
-+		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_QUEUE0_IB_CNTL, IB_ENABLE, 1);
-+#ifdef __BIG_ENDIAN
-+		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_QUEUE0_IB_CNTL, IB_SWAP_ENABLE, 1);
-+#endif
-+		/* enable DMA IBs */
-+		WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_IB_CNTL), ib_cntl);
-+
-+		ring->sched.ready = true;
-+
-+		if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
-+			sdma_v6_0_ctx_switch_enable(adev, true);
-+			sdma_v6_0_enable(adev, true);
-+		}
-+
-+		r = amdgpu_ring_test_helper(ring);
-+		if (r) {
-+			ring->sched.ready = false;
-+			return r;
-+		}
-+
-+		if (adev->mman.buffer_funcs_ring == ring)
-+			amdgpu_ttm_set_buffer_funcs_status(adev, true);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * sdma_v6_0_rlc_resume - setup and start the async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Set up the compute DMA queues and enable them.
-+ * Returns 0 for success, error for failure.
-+ */
-+static int sdma_v6_0_rlc_resume(struct amdgpu_device *adev)
-+{
-+	return 0;
-+}
-+
-+/**
-+ * sdma_v6_0_load_microcode - load the sDMA ME ucode
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Loads the sDMA0/1 ucode.
-+ * Returns 0 for success, -EINVAL if the ucode is not available.
-+ */
-+static int sdma_v6_0_load_microcode(struct amdgpu_device *adev)
-+{
-+	const struct sdma_firmware_header_v2_0 *hdr;
-+	const __le32 *fw_data;
-+	u32 fw_size;
-+	int i, j;
-+	bool use_broadcast;
-+
-+	/* halt the MEs */
-+	sdma_v6_0_enable(adev, false);
-+
-+	if (!adev->sdma.instance[0].fw)
-+		return -EINVAL;
-+
-+	/* use broadcast mode to load SDMA microcode by default */
-+	use_broadcast = true;
-+
-+	if (use_broadcast) {
-+		dev_info(adev->dev, "Use broadcast method to load SDMA firmware\n");
-+		/* load Control Thread microcode */
-+		hdr = (const struct sdma_firmware_header_v2_0 *)adev->sdma.instance[0].fw->data;
-+		amdgpu_ucode_print_sdma_hdr(&hdr->header);
-+		fw_size = le32_to_cpu(hdr->ctx_jt_offset + hdr->ctx_jt_size) / 4;
-+
-+		fw_data = (const __le32 *)
-+			(adev->sdma.instance[0].fw->data +
-+				le32_to_cpu(hdr->header.ucode_array_offset_bytes));
-+
-+		WREG32(sdma_v6_0_get_reg_offset(adev, 0, regSDMA0_BROADCAST_UCODE_ADDR), 0);
-+
-+		for (j = 0; j < fw_size; j++) {
-+			if (amdgpu_emu_mode == 1 && j % 500 == 0)
-+				msleep(1);
-+			WREG32(sdma_v6_0_get_reg_offset(adev, 0, regSDMA0_BROADCAST_UCODE_DATA), le32_to_cpup(fw_data++));
-+		}
-+
-+		/* load Context Switch microcode */
-+		fw_size = le32_to_cpu(hdr->ctl_jt_offset + hdr->ctl_jt_size) / 4;
-+
-+		fw_data = (const __le32 *)
-+			(adev->sdma.instance[0].fw->data +
-+				le32_to_cpu(hdr->ctl_ucode_offset));
-+
-+		WREG32(sdma_v6_0_get_reg_offset(adev, 0, regSDMA0_BROADCAST_UCODE_ADDR), 0x8000);
-+
-+		for (j = 0; j < fw_size; j++) {
-+			if (amdgpu_emu_mode == 1 && j % 500 == 0)
-+				msleep(1);
-+			WREG32(sdma_v6_0_get_reg_offset(adev, 0, regSDMA0_BROADCAST_UCODE_DATA), le32_to_cpup(fw_data++));
-+		}
-+	} else {
-+		dev_info(adev->dev, "Use legacy method to load SDMA firmware\n");
-+		for (i = 0; i < adev->sdma.num_instances; i++) {
-+			/* load Control Thread microcode */
-+			hdr = (const struct sdma_firmware_header_v2_0 *)adev->sdma.instance[0].fw->data;
-+			amdgpu_ucode_print_sdma_hdr(&hdr->header);
-+			fw_size = le32_to_cpu(hdr->ctx_jt_offset + hdr->ctx_jt_size) / 4;
-+
-+			fw_data = (const __le32 *)
-+				(adev->sdma.instance[0].fw->data +
-+					le32_to_cpu(hdr->header.ucode_array_offset_bytes));
-+
-+			WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_ADDR), 0);
-+
-+			for (j = 0; j < fw_size; j++) {
-+				if (amdgpu_emu_mode == 1 && j % 500 == 0)
-+					msleep(1);
-+				WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_DATA), le32_to_cpup(fw_data++));
-+			}
-+
-+			WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_ADDR), adev->sdma.instance[0].fw_version);
-+
-+			/* load Context Switch microcode */
-+			fw_size = le32_to_cpu(hdr->ctl_jt_offset + hdr->ctl_jt_size) / 4;
-+
-+			fw_data = (const __le32 *)
-+				(adev->sdma.instance[0].fw->data +
-+					le32_to_cpu(hdr->ctl_ucode_offset));
-+
-+			WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_ADDR), 0x8000);
-+
-+			for (j = 0; j < fw_size; j++) {
-+				if (amdgpu_emu_mode == 1 && j % 500 == 0)
-+					msleep(1);
-+				WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_DATA), le32_to_cpup(fw_data++));
-+			}
-+
-+			WREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_UCODE_ADDR), adev->sdma.instance[0].fw_version);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int sdma_v6_0_soft_reset(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	u32 grbm_soft_reset;
-+	u32 tmp;
-+	int i;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		grbm_soft_reset = REG_SET_FIELD(0,
-+						GRBM_SOFT_RESET, SOFT_RESET_SDMA0,
-+						1);
-+		grbm_soft_reset <<= i;
-+
-+		tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
-+		tmp |= grbm_soft_reset;
-+		DRM_DEBUG("GRBM_SOFT_RESET=0x%08X\n", tmp);
-+		WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
-+		tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
-+
-+		udelay(50);
-+
-+		tmp &= ~grbm_soft_reset;
-+		WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
-+		tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
-+
-+		udelay(50);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * sdma_v6_0_start - setup and start the async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Set up the DMA engines and enable them.
-+ * Returns 0 for success, error for failure.
-+ */
-+static int sdma_v6_0_start(struct amdgpu_device *adev)
-+{
-+	int r = 0;
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		sdma_v6_0_ctx_switch_enable(adev, false);
-+		sdma_v6_0_enable(adev, false);
-+
-+		/* set RB registers */
-+		r = sdma_v6_0_gfx_resume(adev);
-+		return r;
-+	}
-+
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+		r = sdma_v6_0_load_microcode(adev);
-+		if (r)
-+			return r;
-+
-+		/* The value of regSDMA_F32_CNTL is invalid the moment after loading fw */
-+		if (amdgpu_emu_mode == 1)
-+			msleep(1000);
-+	}
-+
-+	sdma_v6_0_soft_reset(adev);
-+	/* unhalt the MEs */
-+	sdma_v6_0_enable(adev, true);
-+	/* enable sdma ring preemption */
-+	sdma_v6_0_ctx_switch_enable(adev, true);
-+
-+	/* start the gfx rings and rlc compute queues */
-+	r = sdma_v6_0_gfx_resume(adev);
-+	if (r)
-+		return r;
-+	r = sdma_v6_0_rlc_resume(adev);
-+
-+	return r;
-+}
-+
-+static int sdma_v6_0_mqd_init(struct amdgpu_device *adev, void *mqd,
-+			      struct amdgpu_mqd_prop *prop)
-+{
-+	struct v11_sdma_mqd *m = mqd;
-+	uint64_t wb_gpu_addr;
-+
-+	m->sdmax_rlcx_rb_cntl =
-+		order_base_2(prop->queue_size / 4) << SDMA0_QUEUE0_RB_CNTL__RB_SIZE__SHIFT |
-+		1 << SDMA0_QUEUE0_RB_CNTL__RPTR_WRITEBACK_ENABLE__SHIFT |
-+		4 << SDMA0_QUEUE0_RB_CNTL__RPTR_WRITEBACK_TIMER__SHIFT;
-+
-+	m->sdmax_rlcx_rb_base = lower_32_bits(prop->hqd_base_gpu_addr >> 8);
-+	m->sdmax_rlcx_rb_base_hi = upper_32_bits(prop->hqd_base_gpu_addr >> 8);
-+
-+	wb_gpu_addr = prop->wptr_gpu_addr;
-+	m->sdmax_rlcx_rb_wptr_poll_addr_lo = lower_32_bits(wb_gpu_addr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr);
-+
-+	wb_gpu_addr = prop->rptr_gpu_addr;
-+	m->sdmax_rlcx_rb_rptr_addr_lo = lower_32_bits(wb_gpu_addr);
-+	m->sdmax_rlcx_rb_rptr_addr_hi = upper_32_bits(wb_gpu_addr);
-+
-+	m->sdmax_rlcx_ib_cntl = RREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, 0,
-+							regSDMA0_QUEUE0_IB_CNTL));
-+
-+	m->sdmax_rlcx_doorbell_offset =
-+		prop->doorbell_index << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__SHIFT;
-+
-+	m->sdmax_rlcx_doorbell = REG_SET_FIELD(0, SDMA0_QUEUE0_DOORBELL, ENABLE, 1);
-+
-+	m->sdmax_rlcx_skip_cntl = 0;
-+	m->sdmax_rlcx_context_status = 0;
-+	m->sdmax_rlcx_doorbell_log = 0;
-+
-+	m->sdmax_rlcx_rb_aql_cntl = regSDMA0_QUEUE0_RB_AQL_CNTL_DEFAULT;
-+	m->sdmax_rlcx_dummy_reg = regSDMA0_QUEUE0_DUMMY_REG_DEFAULT;
-+
-+	return 0;
-+}
-+
-+static void sdma_v6_0_set_mqd_funcs(struct amdgpu_device *adev)
-+{
-+	adev->mqds[AMDGPU_HW_IP_DMA].mqd_size = sizeof(struct v11_sdma_mqd);
-+	adev->mqds[AMDGPU_HW_IP_DMA].init_mqd = sdma_v6_0_mqd_init;
-+}
-+
-+/**
-+ * sdma_v6_0_ring_test_ring - simple async dma engine test
-+ *
-+ * @ring: amdgpu_ring structure holding ring information
-+ *
-+ * Test the DMA engine by writing using it to write an
-+ * value to memory.
-+ * Returns 0 for success, error for failure.
-+ */
-+static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	unsigned i;
-+	unsigned index;
-+	int r;
-+	u32 tmp;
-+	u64 gpu_addr;
-+	volatile uint32_t *cpu_ptr = NULL;
-+
-+	tmp = 0xCAFEDEAD;
-+
-+	if (ring->is_mes_queue) {
-+		uint32_t offset = 0;
-+		offset = amdgpu_mes_ctx_get_offs(ring,
-+					 AMDGPU_MES_CTX_PADDING_OFFS);
-+		gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+		*cpu_ptr = tmp;
-+	} else {
-+		r = amdgpu_device_wb_get(adev, &index);
-+		if (r) {
-+			dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
-+			return r;
-+		}
-+
-+		gpu_addr = adev->wb.gpu_addr + (index * 4);
-+		adev->wb.wb[index] = cpu_to_le32(tmp);
-+	}
-+
-+	r = amdgpu_ring_alloc(ring, 5);
-+	if (r) {
-+		DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
-+		amdgpu_device_wb_free(adev, index);
-+		return r;
-+	}
-+
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
-+			  SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR));
-+	amdgpu_ring_write(ring, lower_32_bits(gpu_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(gpu_addr));
-+	amdgpu_ring_write(ring, SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0));
-+	amdgpu_ring_write(ring, 0xDEADBEEF);
-+	amdgpu_ring_commit(ring);
-+
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		if (ring->is_mes_queue)
-+			tmp = le32_to_cpu(*cpu_ptr);
-+		else
-+			tmp = le32_to_cpu(adev->wb.wb[index]);
-+		if (tmp == 0xDEADBEEF)
-+			break;
-+		if (amdgpu_emu_mode == 1)
-+			msleep(1);
-+		else
-+			udelay(1);
-+	}
-+
-+	if (i >= adev->usec_timeout)
-+		r = -ETIMEDOUT;
-+
-+	if (!ring->is_mes_queue)
-+		amdgpu_device_wb_free(adev, index);
-+
-+	return r;
-+}
-+
-+/**
-+ * sdma_v6_0_ring_test_ib - test an IB on the DMA engine
-+ *
-+ * @ring: amdgpu_ring structure holding ring information
-+ *
-+ * Test a simple IB in the DMA ring.
-+ * Returns 0 on success, error on failure.
-+ */
-+static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_ib ib;
-+	struct dma_fence *f = NULL;
-+	unsigned index;
-+	long r;
-+	u32 tmp = 0;
-+	u64 gpu_addr;
-+	volatile uint32_t *cpu_ptr = NULL;
-+
-+	tmp = 0xCAFEDEAD;
-+	memset(&ib, 0, sizeof(ib));
-+
-+	if (ring->is_mes_queue) {
-+		uint32_t offset = 0;
-+		offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
-+		ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+
-+		offset = amdgpu_mes_ctx_get_offs(ring,
-+					 AMDGPU_MES_CTX_PADDING_OFFS);
-+		gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+		*cpu_ptr = tmp;
-+	} else {
-+		r = amdgpu_device_wb_get(adev, &index);
-+		if (r) {
-+			dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
-+			return r;
-+		}
-+
-+		gpu_addr = adev->wb.gpu_addr + (index * 4);
-+		adev->wb.wb[index] = cpu_to_le32(tmp);
-+
-+		r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
-+		if (r) {
-+			DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
-+			goto err0;
-+		}
-+	}
-+
-+	ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
-+	ib.ptr[1] = lower_32_bits(gpu_addr);
-+	ib.ptr[2] = upper_32_bits(gpu_addr);
-+	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
-+	ib.ptr[4] = 0xDEADBEEF;
-+	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
-+	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
-+	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
-+	ib.length_dw = 8;
-+
-+	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
-+	if (r)
-+		goto err1;
-+
-+	r = dma_fence_wait_timeout(f, false, timeout);
-+	if (r == 0) {
-+		DRM_ERROR("amdgpu: IB test timed out\n");
-+		r = -ETIMEDOUT;
-+		goto err1;
-+	} else if (r < 0) {
-+		DRM_ERROR("amdgpu: fence wait failed (%ld).\n", r);
-+		goto err1;
-+	}
-+
-+	if (ring->is_mes_queue)
-+		tmp = le32_to_cpu(*cpu_ptr);
-+	else
-+		tmp = le32_to_cpu(adev->wb.wb[index]);
-+
-+	if (tmp == 0xDEADBEEF)
-+		r = 0;
-+	else
-+		r = -EINVAL;
-+
-+err1:
-+	amdgpu_ib_free(adev, &ib, NULL);
-+	dma_fence_put(f);
-+err0:
-+	if (!ring->is_mes_queue)
-+		amdgpu_device_wb_free(adev, index);
-+	return r;
-+}
-+
-+
-+/**
-+ * sdma_v6_0_vm_copy_pte - update PTEs by copying them from the GART
-+ *
-+ * @ib: indirect buffer to fill with commands
-+ * @pe: addr of the page entry
-+ * @src: src addr to copy from
-+ * @count: number of page entries to update
-+ *
-+ * Update PTEs by copying them from the GART using sDMA.
-+ */
-+static void sdma_v6_0_vm_copy_pte(struct amdgpu_ib *ib,
-+				  uint64_t pe, uint64_t src,
-+				  unsigned count)
-+{
-+	unsigned bytes = count * 8;
-+
-+	ib->ptr[ib->length_dw++] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_COPY) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_COPY_LINEAR);
-+	ib->ptr[ib->length_dw++] = bytes - 1;
-+	ib->ptr[ib->length_dw++] = 0; /* src/dst endian swap */
-+	ib->ptr[ib->length_dw++] = lower_32_bits(src);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(src);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(pe);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(pe);
-+
-+}
-+
-+/**
-+ * sdma_v6_0_vm_write_pte - update PTEs by writing them manually
-+ *
-+ * @ib: indirect buffer to fill with commands
-+ * @pe: addr of the page entry
-+ * @addr: dst addr to write into pe
-+ * @count: number of page entries to update
-+ * @incr: increase next addr by incr bytes
-+ * @flags: access flags
-+ *
-+ * Update PTEs by writing them manually using sDMA.
-+ */
-+static void sdma_v6_0_vm_write_pte(struct amdgpu_ib *ib, uint64_t pe,
-+				   uint64_t value, unsigned count,
-+				   uint32_t incr)
-+{
-+	unsigned ndw = count * 2;
-+
-+	ib->ptr[ib->length_dw++] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(pe);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(pe);
-+	ib->ptr[ib->length_dw++] = ndw - 1;
-+	for (; ndw > 0; ndw -= 2) {
-+		ib->ptr[ib->length_dw++] = lower_32_bits(value);
-+		ib->ptr[ib->length_dw++] = upper_32_bits(value);
-+		value += incr;
-+	}
-+}
-+
-+/**
-+ * sdma_v6_0_vm_set_pte_pde - update the page tables using sDMA
-+ *
-+ * @ib: indirect buffer to fill with commands
-+ * @pe: addr of the page entry
-+ * @addr: dst addr to write into pe
-+ * @count: number of page entries to update
-+ * @incr: increase next addr by incr bytes
-+ * @flags: access flags
-+ *
-+ * Update the page tables using sDMA.
-+ */
-+static void sdma_v6_0_vm_set_pte_pde(struct amdgpu_ib *ib,
-+				     uint64_t pe,
-+				     uint64_t addr, unsigned count,
-+				     uint32_t incr, uint64_t flags)
-+{
-+	/* for physically contiguous pages (vram) */
-+	ib->ptr[ib->length_dw++] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_PTEPDE);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(pe); /* dst addr */
-+	ib->ptr[ib->length_dw++] = upper_32_bits(pe);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(flags); /* mask */
-+	ib->ptr[ib->length_dw++] = upper_32_bits(flags);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(addr); /* value */
-+	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
-+	ib->ptr[ib->length_dw++] = incr; /* increment size */
-+	ib->ptr[ib->length_dw++] = 0;
-+	ib->ptr[ib->length_dw++] = count - 1; /* number of entries */
-+}
-+
-+/**
-+ * sdma_v6_0_ring_pad_ib - pad the IB
-+ * @ib: indirect buffer to fill with padding
-+ *
-+ * Pad the IB with NOPs to a boundary multiple of 8.
-+ */
-+static void sdma_v6_0_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib)
-+{
-+	struct amdgpu_sdma_instance *sdma = amdgpu_sdma_get_instance_from_ring(ring);
-+	u32 pad_count;
-+	int i;
-+
-+	pad_count = (-ib->length_dw) & 0x7;
-+	for (i = 0; i < pad_count; i++)
-+		if (sdma && sdma->burst_nop && (i == 0))
-+			ib->ptr[ib->length_dw++] =
-+				SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_NOP) |
-+				SDMA_PKT_NOP_HEADER_COUNT(pad_count - 1);
-+		else
-+			ib->ptr[ib->length_dw++] =
-+				SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_NOP);
-+}
-+
-+/**
-+ * sdma_v6_0_ring_emit_pipeline_sync - sync the pipeline
-+ *
-+ * @ring: amdgpu_ring pointer
-+ *
-+ * Make sure all previous operations are completed (CIK).
-+ */
-+static void sdma_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
-+{
-+	uint32_t seq = ring->fence_drv.sync_seq;
-+	uint64_t addr = ring->fence_drv.gpu_addr;
-+
-+	/* wait for idle */
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_POLL_REGMEM) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(0) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_FUNC(3) | /* equal */
-+			  SDMA_PKT_POLL_REGMEM_HEADER_MEM_POLL(1));
-+	amdgpu_ring_write(ring, addr & 0xfffffffc);
-+	amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
-+	amdgpu_ring_write(ring, seq); /* reference */
-+	amdgpu_ring_write(ring, 0xffffffff); /* mask */
-+	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
-+			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
-+}
-+
-+/**
-+ * sdma_v6_0_ring_emit_vm_flush - vm flush using sDMA
-+ *
-+ * @ring: amdgpu_ring pointer
-+ * @vm: amdgpu_vm pointer
-+ *
-+ * Update the page table base and flush the VM TLB
-+ * using sDMA.
-+ */
-+static void sdma_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
-+					 unsigned vmid, uint64_t pd_addr)
-+{
-+	amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
-+}
-+
-+static void sdma_v6_0_ring_emit_wreg(struct amdgpu_ring *ring,
-+				     uint32_t reg, uint32_t val)
-+{
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_SRBM_WRITE) |
-+			  SDMA_PKT_SRBM_WRITE_HEADER_BYTE_EN(0xf));
-+	amdgpu_ring_write(ring, reg);
-+	amdgpu_ring_write(ring, val);
-+}
-+
-+static void sdma_v6_0_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32_t reg,
-+					 uint32_t val, uint32_t mask)
-+{
-+	amdgpu_ring_write(ring, SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_POLL_REGMEM) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(0) |
-+			  SDMA_PKT_POLL_REGMEM_HEADER_FUNC(3)); /* equal */
-+	amdgpu_ring_write(ring, reg << 2);
-+	amdgpu_ring_write(ring, 0);
-+	amdgpu_ring_write(ring, val); /* reference */
-+	amdgpu_ring_write(ring, mask); /* mask */
-+	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
-+			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(10));
-+}
-+
-+static void sdma_v6_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
-+						   uint32_t reg0, uint32_t reg1,
-+						   uint32_t ref, uint32_t mask)
-+{
-+	amdgpu_ring_emit_wreg(ring, reg0, ref);
-+	/* wait for a cycle to reset vm_inv_eng*_ack */
-+	amdgpu_ring_emit_reg_wait(ring, reg0, 0, 0);
-+	amdgpu_ring_emit_reg_wait(ring, reg1, mask, mask);
-+}
-+
-+static int sdma_v6_0_early_init(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	sdma_v6_0_set_ring_funcs(adev);
-+	sdma_v6_0_set_buffer_funcs(adev);
-+	sdma_v6_0_set_vm_pte_funcs(adev);
-+	sdma_v6_0_set_irq_funcs(adev);
-+	sdma_v6_0_set_mqd_funcs(adev);
-+
-+	return 0;
-+}
-+
-+static int sdma_v6_0_sw_init(void *handle)
-+{
-+	struct amdgpu_ring *ring;
-+	int r, i;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	/* SDMA trap event */
-+	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_GFX,
-+			      GFX_11_0_0__SRCID__SDMA_TRAP,
-+			      &adev->sdma.trap_irq);
-+	if (r)
-+		return r;
-+
-+	r = sdma_v6_0_init_microcode(adev);
-+	if (r) {
-+		DRM_ERROR("Failed to load sdma firmware!\n");
-+		return r;
-+	}
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		ring = &adev->sdma.instance[i].ring;
-+		ring->ring_obj = NULL;
-+		ring->use_doorbell = true;
-+		ring->me = i;
-+
-+		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
-+				ring->use_doorbell?"true":"false");
-+
-+		ring->doorbell_index =
-+			(adev->doorbell_index.sdma_engine[i] << 1); // get DWORD offset
-+
-+		sprintf(ring->name, "sdma%d", i);
-+		r = amdgpu_ring_init(adev, ring, 1024,
-+				     &adev->sdma.trap_irq,
-+				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
-+				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-+		if (r)
-+			return r;
-+	}
-+
-+	return r;
-+}
-+
-+static int sdma_v6_0_sw_fini(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int i;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++)
-+		amdgpu_ring_fini(&adev->sdma.instance[i].ring);
-+
-+	sdma_v6_0_destroy_inst_ctx(adev);
-+
-+	return 0;
-+}
-+
-+static int sdma_v6_0_hw_init(void *handle)
-+{
-+	int r;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	r = sdma_v6_0_start(adev);
-+
-+	return r;
-+}
-+
-+static int sdma_v6_0_hw_fini(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
-+	sdma_v6_0_ctx_switch_enable(adev, false);
-+	sdma_v6_0_enable(adev, false);
-+
-+	return 0;
-+}
-+
-+static int sdma_v6_0_suspend(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	return sdma_v6_0_hw_fini(adev);
-+}
-+
-+static int sdma_v6_0_resume(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	return sdma_v6_0_hw_init(adev);
-+}
-+
-+static bool sdma_v6_0_is_idle(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	u32 i;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		u32 tmp = RREG32(sdma_v6_0_get_reg_offset(adev, i, regSDMA0_STATUS_REG));
-+
-+		if (!(tmp & SDMA0_STATUS_REG__IDLE_MASK))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static int sdma_v6_0_wait_for_idle(void *handle)
-+{
-+	unsigned i;
-+	u32 sdma0, sdma1;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		sdma0 = RREG32(sdma_v6_0_get_reg_offset(adev, 0, regSDMA0_STATUS_REG));
-+		sdma1 = RREG32(sdma_v6_0_get_reg_offset(adev, 1, regSDMA0_STATUS_REG));
-+
-+		if (sdma0 & sdma1 & SDMA0_STATUS_REG__IDLE_MASK)
-+			return 0;
-+		udelay(1);
-+	}
-+	return -ETIMEDOUT;
-+}
-+
-+static int sdma_v6_0_ring_preempt_ib(struct amdgpu_ring *ring)
-+{
-+	int i, r = 0;
-+	struct amdgpu_device *adev = ring->adev;
-+	u32 index = 0;
-+	u64 sdma_gfx_preempt;
-+
-+	amdgpu_sdma_get_index_from_ring(ring, &index);
-+	sdma_gfx_preempt =
-+		sdma_v6_0_get_reg_offset(adev, index, regSDMA0_QUEUE0_PREEMPT);
-+
-+	/* assert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, false);
-+
-+	/* emit the trailing fence */
-+	ring->trail_seq += 1;
-+	amdgpu_ring_alloc(ring, 10);
-+	sdma_v6_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
-+				  ring->trail_seq, 0);
-+	amdgpu_ring_commit(ring);
-+
-+	/* assert IB preemption */
-+	WREG32(sdma_gfx_preempt, 1);
-+
-+	/* poll the trailing fence */
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		if (ring->trail_seq ==
-+		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (i >= adev->usec_timeout) {
-+		r = -EINVAL;
-+		DRM_ERROR("ring %d failed to be preempted\n", ring->idx);
-+	}
-+
-+	/* deassert IB preemption */
-+	WREG32(sdma_gfx_preempt, 0);
-+
-+	/* deassert the preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	return r;
-+}
-+
-+static int sdma_v6_0_set_trap_irq_state(struct amdgpu_device *adev,
-+					struct amdgpu_irq_src *source,
-+					unsigned type,
-+					enum amdgpu_interrupt_state state)
-+{
-+	u32 sdma_cntl;
-+
-+	u32 reg_offset = sdma_v6_0_get_reg_offset(adev, type, regSDMA0_CNTL);
-+
-+	sdma_cntl = RREG32(reg_offset);
-+	sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
-+		       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
-+	WREG32(reg_offset, sdma_cntl);
-+
-+	return 0;
-+}
-+
-+static int sdma_v6_0_process_trap_irq(struct amdgpu_device *adev,
-+				      struct amdgpu_irq_src *source,
-+				      struct amdgpu_iv_entry *entry)
-+{
-+	int instances, queue;
-+	uint32_t mes_queue_id = entry->src_data[0];
-+
-+	DRM_DEBUG("IH: SDMA trap\n");
-+
-+	if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
-+		struct amdgpu_mes_queue *queue;
-+
-+		mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
-+
-+		spin_lock(&adev->mes.queue_id_lock);
-+		queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
-+		if (queue) {
-+			DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
-+			amdgpu_fence_process(queue->ring);
-+		}
-+		spin_unlock(&adev->mes.queue_id_lock);
-+		return 0;
-+	}
-+
-+	queue = entry->ring_id & 0xf;
-+	instances = (entry->ring_id & 0xf0) >> 4;
-+	if (instances > 1) {
-+		DRM_ERROR("IH: wrong ring_ID detected, as wrong sdma instance\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (entry->client_id) {
-+	case SOC21_IH_CLIENTID_GFX:
-+		switch (queue) {
-+		case 0:
-+			amdgpu_fence_process(&adev->sdma.instance[instances].ring);
-+			break;
-+		default:
-+			break;
-+		}
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int sdma_v6_0_process_illegal_inst_irq(struct amdgpu_device *adev,
-+					      struct amdgpu_irq_src *source,
-+					      struct amdgpu_iv_entry *entry)
-+{
-+	return 0;
-+}
-+
-+static int sdma_v6_0_set_clockgating_state(void *handle,
-+					   enum amd_clockgating_state state)
-+{
-+	return 0;
-+}
-+
-+static int sdma_v6_0_set_powergating_state(void *handle,
-+					  enum amd_powergating_state state)
-+{
-+	return 0;
-+}
-+
-+static void sdma_v6_0_get_clockgating_state(void *handle, u64 *flags)
-+{
-+}
-+
-+const struct amd_ip_funcs sdma_v6_0_ip_funcs = {
-+	.name = "sdma_v6_0",
-+	.early_init = sdma_v6_0_early_init,
-+	.late_init = NULL,
-+	.sw_init = sdma_v6_0_sw_init,
-+	.sw_fini = sdma_v6_0_sw_fini,
-+	.hw_init = sdma_v6_0_hw_init,
-+	.hw_fini = sdma_v6_0_hw_fini,
-+	.suspend = sdma_v6_0_suspend,
-+	.resume = sdma_v6_0_resume,
-+	.is_idle = sdma_v6_0_is_idle,
-+	.wait_for_idle = sdma_v6_0_wait_for_idle,
-+	.soft_reset = sdma_v6_0_soft_reset,
-+	.set_clockgating_state = sdma_v6_0_set_clockgating_state,
-+	.set_powergating_state = sdma_v6_0_set_powergating_state,
-+	.get_clockgating_state = sdma_v6_0_get_clockgating_state,
-+};
-+
-+static const struct amdgpu_ring_funcs sdma_v6_0_ring_funcs = {
-+	.type = AMDGPU_RING_TYPE_SDMA,
-+	.align_mask = 0xf,
-+	.nop = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP),
-+	.support_64bit_ptrs = true,
-+	.vmhub = AMDGPU_GFXHUB_0,
-+	.get_rptr = sdma_v6_0_ring_get_rptr,
-+	.get_wptr = sdma_v6_0_ring_get_wptr,
-+	.set_wptr = sdma_v6_0_ring_set_wptr,
-+	.emit_frame_size =
-+		5 + /* sdma_v6_0_ring_init_cond_exec */
-+		6 + /* sdma_v6_0_ring_emit_hdp_flush */
-+		6 + /* sdma_v6_0_ring_emit_pipeline_sync */
-+		/* sdma_v6_0_ring_emit_vm_flush */
-+		SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
-+		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 6 +
-+		10 + 10 + 10, /* sdma_v6_0_ring_emit_fence x3 for user fence, vm fence */
-+	.emit_ib_size = 5 + 7 + 6, /* sdma_v6_0_ring_emit_ib */
-+	.emit_ib = sdma_v6_0_ring_emit_ib,
-+	.emit_mem_sync = sdma_v6_0_ring_emit_mem_sync,
-+	.emit_fence = sdma_v6_0_ring_emit_fence,
-+	.emit_pipeline_sync = sdma_v6_0_ring_emit_pipeline_sync,
-+	.emit_vm_flush = sdma_v6_0_ring_emit_vm_flush,
-+	.emit_hdp_flush = sdma_v6_0_ring_emit_hdp_flush,
-+	.test_ring = sdma_v6_0_ring_test_ring,
-+	.test_ib = sdma_v6_0_ring_test_ib,
-+	.insert_nop = sdma_v6_0_ring_insert_nop,
-+	.pad_ib = sdma_v6_0_ring_pad_ib,
-+	.emit_wreg = sdma_v6_0_ring_emit_wreg,
-+	.emit_reg_wait = sdma_v6_0_ring_emit_reg_wait,
-+	.emit_reg_write_reg_wait = sdma_v6_0_ring_emit_reg_write_reg_wait,
-+	.init_cond_exec = sdma_v6_0_ring_init_cond_exec,
-+	.patch_cond_exec = sdma_v6_0_ring_patch_cond_exec,
-+	.preempt_ib = sdma_v6_0_ring_preempt_ib,
-+};
-+
-+static void sdma_v6_0_set_ring_funcs(struct amdgpu_device *adev)
-+{
-+	int i;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		adev->sdma.instance[i].ring.funcs = &sdma_v6_0_ring_funcs;
-+		adev->sdma.instance[i].ring.me = i;
-+	}
-+}
-+
-+static const struct amdgpu_irq_src_funcs sdma_v6_0_trap_irq_funcs = {
-+	.set = sdma_v6_0_set_trap_irq_state,
-+	.process = sdma_v6_0_process_trap_irq,
-+};
-+
-+static const struct amdgpu_irq_src_funcs sdma_v6_0_illegal_inst_irq_funcs = {
-+	.process = sdma_v6_0_process_illegal_inst_irq,
-+};
-+
-+static void sdma_v6_0_set_irq_funcs(struct amdgpu_device *adev)
-+{
-+	adev->sdma.trap_irq.num_types = AMDGPU_SDMA_IRQ_INSTANCE0 +
-+					adev->sdma.num_instances;
-+	adev->sdma.trap_irq.funcs = &sdma_v6_0_trap_irq_funcs;
-+	adev->sdma.illegal_inst_irq.funcs = &sdma_v6_0_illegal_inst_irq_funcs;
-+}
-+
-+/**
-+ * sdma_v6_0_emit_copy_buffer - copy buffer using the sDMA engine
-+ *
-+ * @ring: amdgpu_ring structure holding ring information
-+ * @src_offset: src GPU address
-+ * @dst_offset: dst GPU address
-+ * @byte_count: number of bytes to xfer
-+ *
-+ * Copy GPU buffers using the DMA engine.
-+ * Used by the amdgpu ttm implementation to move pages if
-+ * registered as the asic copy callback.
-+ */
-+static void sdma_v6_0_emit_copy_buffer(struct amdgpu_ib *ib,
-+				       uint64_t src_offset,
-+				       uint64_t dst_offset,
-+				       uint32_t byte_count,
-+				       bool tmz)
-+{
-+	ib->ptr[ib->length_dw++] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_COPY) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_COPY_LINEAR) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_TMZ(tmz ? 1 : 0);
-+	ib->ptr[ib->length_dw++] = byte_count - 1;
-+	ib->ptr[ib->length_dw++] = 0; /* src/dst endian swap */
-+	ib->ptr[ib->length_dw++] = lower_32_bits(src_offset);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(src_offset);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(dst_offset);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(dst_offset);
-+}
-+
-+/**
-+ * sdma_v6_0_emit_fill_buffer - fill buffer using the sDMA engine
-+ *
-+ * @ring: amdgpu_ring structure holding ring information
-+ * @src_data: value to write to buffer
-+ * @dst_offset: dst GPU address
-+ * @byte_count: number of bytes to xfer
-+ *
-+ * Fill GPU buffers using the DMA engine.
-+ */
-+static void sdma_v6_0_emit_fill_buffer(struct amdgpu_ib *ib,
-+				       uint32_t src_data,
-+				       uint64_t dst_offset,
-+				       uint32_t byte_count)
-+{
-+	ib->ptr[ib->length_dw++] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_CONST_FILL);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(dst_offset);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(dst_offset);
-+	ib->ptr[ib->length_dw++] = src_data;
-+	ib->ptr[ib->length_dw++] = byte_count - 1;
-+}
-+
-+static const struct amdgpu_buffer_funcs sdma_v6_0_buffer_funcs = {
-+	.copy_max_bytes = 0x400000,
-+	.copy_num_dw = 7,
-+	.emit_copy_buffer = sdma_v6_0_emit_copy_buffer,
-+
-+	.fill_max_bytes = 0x400000,
-+	.fill_num_dw = 5,
-+	.emit_fill_buffer = sdma_v6_0_emit_fill_buffer,
-+};
-+
-+static void sdma_v6_0_set_buffer_funcs(struct amdgpu_device *adev)
-+{
-+	adev->mman.buffer_funcs = &sdma_v6_0_buffer_funcs;
-+	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+}
-+
-+static const struct amdgpu_vm_pte_funcs sdma_v6_0_vm_pte_funcs = {
-+	.copy_pte_num_dw = 7,
-+	.copy_pte = sdma_v6_0_vm_copy_pte,
-+	.write_pte = sdma_v6_0_vm_write_pte,
-+	.set_pte_pde = sdma_v6_0_vm_set_pte_pde,
-+};
-+
-+static void sdma_v6_0_set_vm_pte_funcs(struct amdgpu_device *adev)
-+{
-+	unsigned i;
-+
-+	adev->vm_manager.vm_pte_funcs = &sdma_v6_0_vm_pte_funcs;
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		adev->vm_manager.vm_pte_scheds[i] =
-+			&adev->sdma.instance[i].ring.sched;
-+	}
-+	adev->vm_manager.vm_pte_num_scheds = adev->sdma.num_instances;
-+}
-+
-+const struct amdgpu_ip_block_version sdma_v6_0_ip_block = {
-+	.type = AMD_IP_BLOCK_TYPE_SDMA,
-+	.major = 6,
-+	.minor = 0,
-+	.rev = 0,
-+	.funcs = &sdma_v6_0_ip_funcs,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.h b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.h
-new file mode 100644
-index 000000000000..e473ec7dfc8f
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.h
-@@ -0,0 +1,30 @@
++#ifndef __SDMA_V6_0_0_PKT_OPEN_H_
++#define __SDMA_V6_0_0_PKT_OPEN_H_
++
++#define SDMA_OP_NOP  0
++#define SDMA_OP_COPY  1
++#define SDMA_OP_WRITE  2
++#define SDMA_OP_INDIRECT  4
++#define SDMA_OP_FENCE  5
++#define SDMA_OP_TRAP  6
++#define SDMA_OP_SEM  7
++#define SDMA_OP_POLL_REGMEM  8
++#define SDMA_OP_COND_EXE  9
++#define SDMA_OP_ATOMIC  10
++#define SDMA_OP_CONST_FILL  11
++#define SDMA_OP_PTEPDE  12
++#define SDMA_OP_TIMESTAMP  13
++#define SDMA_OP_SRBM_WRITE  14
++#define SDMA_OP_PRE_EXE  15
++#define SDMA_OP_GPUVM_INV  16
++#define SDMA_OP_GCR_REQ  17
++#define SDMA_OP_DUMMY_TRAP  32
++#define SDMA_SUBOP_TIMESTAMP_SET  0
++#define SDMA_SUBOP_TIMESTAMP_GET  1
++#define SDMA_SUBOP_TIMESTAMP_GET_GLOBAL  2
++#define SDMA_SUBOP_COPY_LINEAR  0
++#define SDMA_SUBOP_COPY_LINEAR_SUB_WIND  4
++#define SDMA_SUBOP_COPY_TILED  1
++#define SDMA_SUBOP_COPY_TILED_SUB_WIND  5
++#define SDMA_SUBOP_COPY_T2T_SUB_WIND  6
++#define SDMA_SUBOP_COPY_SOA  3
++#define SDMA_SUBOP_COPY_DIRTY_PAGE  7
++#define SDMA_SUBOP_COPY_LINEAR_PHY  8
++#define SDMA_SUBOP_COPY_LINEAR_SUB_WIND_LARGE  36
++#define SDMA_SUBOP_COPY_LINEAR_BC  16
++#define SDMA_SUBOP_COPY_TILED_BC  17
++#define SDMA_SUBOP_COPY_LINEAR_SUB_WIND_BC  20
++#define SDMA_SUBOP_COPY_TILED_SUB_WIND_BC  21
++#define SDMA_SUBOP_COPY_T2T_SUB_WIND_BC  22
++#define SDMA_SUBOP_WRITE_LINEAR  0
++#define SDMA_SUBOP_WRITE_TILED  1
++#define SDMA_SUBOP_WRITE_TILED_BC  17
++#define SDMA_SUBOP_PTEPDE_GEN  0
++#define SDMA_SUBOP_PTEPDE_COPY  1
++#define SDMA_SUBOP_PTEPDE_RMW  2
++#define SDMA_SUBOP_PTEPDE_COPY_BACKWARDS  3
++#define SDMA_SUBOP_MEM_INCR  1
++#define SDMA_SUBOP_DATA_FILL_MULTI  1
++#define SDMA_SUBOP_POLL_REG_WRITE_MEM  1
++#define SDMA_SUBOP_POLL_DBIT_WRITE_MEM  2
++#define SDMA_SUBOP_POLL_MEM_VERIFY  3
++#define SDMA_SUBOP_VM_INVALIDATION  4
++#define HEADER_AGENT_DISPATCH  4
++#define HEADER_BARRIER  5
++#define SDMA_OP_AQL_COPY  0
++#define SDMA_OP_AQL_BARRIER_OR  0
++
++#define SDMA_GCR_RANGE_IS_PA		(1 << 18)
++#define SDMA_GCR_SEQ(x)			(((x) & 0x3) << 16)
++#define SDMA_GCR_GL2_WB			(1 << 15)
++#define SDMA_GCR_GL2_INV		(1 << 14)
++#define SDMA_GCR_GL2_DISCARD		(1 << 13)
++#define SDMA_GCR_GL2_RANGE(x)		(((x) & 0x3) << 11)
++#define SDMA_GCR_GL2_US			(1 << 10)
++#define SDMA_GCR_GL1_INV		(1 << 9)
++#define SDMA_GCR_GLV_INV		(1 << 8)
++#define SDMA_GCR_GLK_INV		(1 << 7)
++#define SDMA_GCR_GLK_WB			(1 << 6)
++#define SDMA_GCR_GLM_INV		(1 << 5)
++#define SDMA_GCR_GLM_WB			(1 << 4)
++#define SDMA_GCR_GL1_RANGE(x)		(((x) & 0x3) << 2)
++#define SDMA_GCR_GLI_INV(x)		(((x) & 0x3) << 0)
 +/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
++** Definitions for SDMA_PKT_COPY_LINEAR packet
++*/
 +
-+#ifndef __SDMA_V6_0_H__
-+#define __SDMA_V6_0_H__
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_HEADER_op_shift)
 +
-+extern const struct amd_ip_funcs sdma_v6_0_ip_funcs;
-+extern const struct amdgpu_ip_block_version sdma_v6_0_ip_block;
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_HEADER_sub_op_shift)
 +
-+#endif /* __SDMA_V6_0_H__ */
++/*define for encrypt field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_encrypt_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_encrypt_shift  16
++#define SDMA_PKT_COPY_LINEAR_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_encrypt_mask) << SDMA_PKT_COPY_LINEAR_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_LINEAR_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_cpv_mask) << SDMA_PKT_COPY_LINEAR_HEADER_cpv_shift)
++
++/*define for backwards field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_shift  25
++#define SDMA_PKT_COPY_LINEAR_HEADER_BACKWARDS(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_backwards_mask) << SDMA_PKT_COPY_LINEAR_HEADER_backwards_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_LINEAR_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_broadcast_mask) << SDMA_PKT_COPY_LINEAR_HEADER_broadcast_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift  18
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift  26
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 3
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 4
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 5
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 6
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_BC_HEADER_sub_op_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_LINEAR_BC_COUNT_count_offset 1
++#define SDMA_PKT_COPY_LINEAR_BC_COUNT_count_mask   0x003FFFFF
++#define SDMA_PKT_COPY_LINEAR_BC_COUNT_count_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_COUNT_count_mask) << SDMA_PKT_COPY_LINEAR_BC_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_sw_shift)
++
++/*define for dst_ha field*/
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_ha_offset 2
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_ha_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_ha_shift  19
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_DST_HA(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_ha_mask) << SDMA_PKT_COPY_LINEAR_BC_PARAMETER_dst_ha_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_sw_shift)
++
++/*define for src_ha field*/
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_ha_offset 2
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_ha_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_ha_shift  27
++#define SDMA_PKT_COPY_LINEAR_BC_PARAMETER_SRC_HA(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_ha_mask) << SDMA_PKT_COPY_LINEAR_BC_PARAMETER_src_ha_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_src_addr_31_0_offset 3
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_src_addr_63_32_offset 4
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_BC_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_dst_addr_31_0_offset 5
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_dst_addr_63_32_offset 6
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_BC_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_DIRTY_PAGE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_op_offset 0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_op_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_OP(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_HEADER_op_mask) << SDMA_PKT_COPY_DIRTY_PAGE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_HEADER_sub_op_mask) << SDMA_PKT_COPY_DIRTY_PAGE_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_HEADER_tmz_mask) << SDMA_PKT_COPY_DIRTY_PAGE_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_HEADER_cpv_mask) << SDMA_PKT_COPY_DIRTY_PAGE_HEADER_cpv_shift)
++
++/*define for all field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_all_offset 0
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_all_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_all_shift  31
++#define SDMA_PKT_COPY_DIRTY_PAGE_HEADER_ALL(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_HEADER_all_mask) << SDMA_PKT_COPY_DIRTY_PAGE_HEADER_all_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_COUNT_count_offset 1
++#define SDMA_PKT_COPY_DIRTY_PAGE_COUNT_count_mask   0x003FFFFF
++#define SDMA_PKT_COPY_DIRTY_PAGE_COUNT_count_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_COUNT_count_mask) << SDMA_PKT_COPY_DIRTY_PAGE_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_mtype field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_mtype_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_mtype_mask   0x00000007
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_mtype_shift  3
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_MTYPE(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_mtype_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_mtype_shift)
++
++/*define for dst_l2_policy field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_l2_policy_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_l2_policy_mask   0x00000003
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_l2_policy_shift  6
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_L2_POLICY(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_l2_policy_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_l2_policy_shift)
++
++/*define for dst_llc field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_llc_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_llc_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_llc_shift  8
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_LLC(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_llc_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_llc_shift)
++
++/*define for src_mtype field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_mtype_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_mtype_mask   0x00000007
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_mtype_shift  11
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_MTYPE(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_mtype_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_mtype_shift)
++
++/*define for src_l2_policy field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_l2_policy_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_l2_policy_mask   0x00000003
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_l2_policy_shift  14
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_L2_POLICY(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_l2_policy_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_l2_policy_shift)
++
++/*define for src_llc field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_llc_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_llc_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_llc_shift  16
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_LLC(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_llc_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_llc_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sw_shift  17
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sw_shift)
++
++/*define for dst_gcc field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gcc_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gcc_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gcc_shift  19
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_GCC(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gcc_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gcc_shift)
++
++/*define for dst_sys field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sys_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sys_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sys_shift  20
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_SYS(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sys_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_sys_shift)
++
++/*define for dst_snoop field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_snoop_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_snoop_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_snoop_shift  22
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_SNOOP(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_snoop_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_snoop_shift)
++
++/*define for dst_gpa field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gpa_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gpa_shift  23
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_DST_GPA(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gpa_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_dst_gpa_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sw_shift)
++
++/*define for src_sys field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sys_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sys_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sys_shift  28
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_SYS(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sys_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_sys_shift)
++
++/*define for src_snoop field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_snoop_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_snoop_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_snoop_shift  30
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_SNOOP(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_snoop_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_snoop_shift)
++
++/*define for src_gpa field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_gpa_offset 2
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_gpa_shift  31
++#define SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_SRC_GPA(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_gpa_mask) << SDMA_PKT_COPY_DIRTY_PAGE_PARAMETER_src_gpa_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_src_addr_31_0_offset 3
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_src_addr_63_32_offset 4
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_DIRTY_PAGE_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_dst_addr_31_0_offset 5
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_dst_addr_63_32_offset 6
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_DIRTY_PAGE_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_PHYSICAL_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_cpv_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_cpv_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_mask   0x003FFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_shift)
++
++/*define for addr_pair_num field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_offset 1
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_shift  24
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_ADDR_PAIR_NUM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_mtype field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_mask   0x00000007
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_shift  3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_MTYPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_shift)
++
++/*define for dst_l2_policy field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_l2_policy_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_l2_policy_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_l2_policy_shift  6
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_L2_POLICY(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_l2_policy_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_l2_policy_shift)
++
++/*define for dst_llc field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_llc_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_llc_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_llc_shift  8
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_LLC(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_llc_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_llc_shift)
++
++/*define for src_mtype field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_mask   0x00000007
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_shift  11
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_MTYPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_shift)
++
++/*define for src_l2_policy field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_l2_policy_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_l2_policy_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_l2_policy_shift  14
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_L2_POLICY(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_l2_policy_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_l2_policy_shift)
++
++/*define for src_llc field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_llc_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_llc_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_llc_shift  16
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_LLC(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_llc_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_llc_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_shift  17
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_gcc field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gcc_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gcc_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gcc_shift  19
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_GCC(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gcc_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gcc_shift)
++
++/*define for dst_sys field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_shift  20
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SYS(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_shift)
++
++/*define for dst_log field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_log_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_log_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_log_shift  21
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_LOG(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_log_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_log_shift)
++
++/*define for dst_snoop field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snoop_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snoop_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snoop_shift  22
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SNOOP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snoop_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snoop_shift)
++
++/*define for dst_gpa field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_shift  23
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_GPA(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_gcc field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gcc_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gcc_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gcc_shift  27
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_GCC(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gcc_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gcc_shift)
++
++/*define for src_sys field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_shift  28
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SYS(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_shift)
++
++/*define for src_snoop field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snoop_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snoop_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snoop_shift  30
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SNOOP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snoop_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snoop_shift)
++
++/*define for src_gpa field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_shift  31
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_GPA(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 4
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 5
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 6
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_BROADCAST_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_shift)
++
++/*define for encrypt field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_encrypt_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_encrypt_shift  16
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_encrypt_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_cpv_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_cpv_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst2_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_sw_shift  8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST2_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_sw_shift)
++
++/*define for dst2_cache_policy field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_cache_policy_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_cache_policy_shift  10
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST2_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_cache_policy_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst2_cache_policy_shift)
++
++/*define for dst1_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_shift  16
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_shift)
++
++/*define for dst1_cache_policy field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_cache_policy_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_cache_policy_shift  18
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_cache_policy_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_cache_policy_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_cache_policy_shift  26
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_cache_policy_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_cache_policy_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 4
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST1_ADDR_LO word*/
++/*define for dst1_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_offset 5
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_DST1_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_shift)
++
++/*define for DST1_ADDR_HI word*/
++/*define for dst1_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_offset 6
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_DST1_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_shift)
++
++/*define for DST2_ADDR_LO word*/
++/*define for dst2_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_offset 7
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_DST2_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_shift)
++
++/*define for DST2_ADDR_HI word*/
++/*define for dst2_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_offset 8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_DST2_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_SUBWIN packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_cpv_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_cpv_shift)
++
++/*define for elementsize field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_shift  29
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_ELEMENTSIZE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_shift)
++
++/*define for src_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_SRC_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_shift)
++
++/*define for DW_4 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_SRC_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_shift)
++
++/*define for src_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_mask   0x0007FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_shift  13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_SRC_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_shift)
++
++/*define for DW_5 word*/
++/*define for src_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_offset 5
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_SRC_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_offset 6
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_offset 7
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_8 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_DST_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_shift)
++
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_DST_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_shift)
++
++/*define for DW_9 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_DST_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_shift)
++
++/*define for dst_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_mask   0x0007FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_shift  13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_DST_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_shift)
++
++/*define for DW_10 word*/
++/*define for dst_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_offset 10
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_DST_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_shift)
++
++/*define for DW_11 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_RECT_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_RECT_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_shift)
++
++/*define for DW_12 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_RECT_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_cache_policy_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_cache_policy_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_DST_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_cache_policy_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_cache_policy_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_cache_policy_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_SRC_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_cache_policy_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_cache_policy_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_cpv_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_cpv_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_shift)
++
++/*define for DW_4 word*/
++/*define for src_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_SRC_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_shift)
++
++/*define for DW_5 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_offset 5
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_SRC_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_shift)
++
++/*define for DW_6 word*/
++/*define for src_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_offset 6
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_SRC_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_shift)
++
++/*define for DW_7 word*/
++/*define for src_slice_pitch_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_offset 7
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_SRC_SLICE_PITCH_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_shift)
++
++/*define for DW_8 word*/
++/*define for src_slice_pitch_47_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_SRC_SLICE_PITCH_47_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_offset 10
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_11 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_DST_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_shift)
++
++/*define for DW_12 word*/
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_DST_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_shift)
++
++/*define for DW_13 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_DST_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_shift)
++
++/*define for DW_14 word*/
++/*define for dst_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_offset 14
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_DST_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_shift)
++
++/*define for DW_15 word*/
++/*define for dst_slice_pitch_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_offset 15
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_DST_SLICE_PITCH_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_shift)
++
++/*define for DW_16 word*/
++/*define for dst_slice_pitch_47_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_SLICE_PITCH_47_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_shift)
++
++/*define for dst_policy field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_policy_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_policy_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_policy_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_shift)
++
++/*define for src_policy field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_policy_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_policy_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_policy_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_SRC_POLICY(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_policy_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_policy_shift)
++
++/*define for DW_17 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_offset 17
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_RECT_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_shift)
++
++/*define for DW_18 word*/
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_offset 18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_RECT_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_shift)
++
++/*define for DW_19 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_offset 19
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_RECT_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_SUBWIN_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_sub_op_shift)
++
++/*define for elementsize field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_elementsize_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_elementsize_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_elementsize_shift  29
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_ELEMENTSIZE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_elementsize_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_HEADER_elementsize_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_x_shift)
++
++/*define for src_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_y_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_SRC_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_3_src_y_shift)
++
++/*define for DW_4 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_z_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_z_mask   0x000007FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_SRC_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_z_shift)
++
++/*define for src_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_pitch_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_pitch_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_pitch_shift  13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_SRC_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_4_src_pitch_shift)
++
++/*define for DW_5 word*/
++/*define for src_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_src_slice_pitch_offset 5
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_src_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_src_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_SRC_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_src_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_5_src_slice_pitch_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_dst_addr_31_0_offset 6
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_dst_addr_63_32_offset 7
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_8 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_x_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_DST_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_x_shift)
++
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_y_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_DST_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_8_dst_y_shift)
++
++/*define for DW_9 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_z_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_z_mask   0x000007FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_DST_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_z_shift)
++
++/*define for dst_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_pitch_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_pitch_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_pitch_shift  13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_DST_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_9_dst_pitch_shift)
++
++/*define for DW_10 word*/
++/*define for dst_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_dst_slice_pitch_offset 10
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_dst_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_dst_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_DST_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_dst_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_10_dst_slice_pitch_shift)
++
++/*define for DW_11 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_x_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_RECT_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_y_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_RECT_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_11_rect_y_shift)
++
++/*define for DW_12 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_rect_z_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_rect_z_mask   0x000007FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_rect_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_RECT_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_rect_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_rect_z_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_sw_shift)
++
++/*define for dst_ha field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_ha_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_ha_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_ha_shift  19
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_DST_HA(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_ha_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_dst_ha_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_sw_shift)
++
++/*define for src_ha field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_ha_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_ha_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_ha_shift  27
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_SRC_HA(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_ha_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_BC_DW_12_src_ha_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_TILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_TILED_HEADER_op_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_HEADER_op_shift  0
++#define SDMA_PKT_COPY_TILED_HEADER_OP(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_op_mask) << SDMA_PKT_COPY_TILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_TILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_sub_op_mask) << SDMA_PKT_COPY_TILED_HEADER_sub_op_shift)
++
++/*define for encrypt field*/
++#define SDMA_PKT_COPY_TILED_HEADER_encrypt_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_encrypt_shift  16
++#define SDMA_PKT_COPY_TILED_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_encrypt_mask) << SDMA_PKT_COPY_TILED_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_TILED_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_tmz_mask) << SDMA_PKT_COPY_TILED_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_TILED_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_TILED_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_cpv_mask) << SDMA_PKT_COPY_TILED_HEADER_cpv_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_TILED_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_TILED_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_detile_mask) << SDMA_PKT_COPY_TILED_HEADER_detile_shift)
++
++/*define for TILED_ADDR_LO word*/
++/*define for tiled_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_offset 1
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_TILED_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_mask) << SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_shift)
++
++/*define for TILED_ADDR_HI word*/
++/*define for tiled_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_offset 2
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_TILED_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_mask) << SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_COPY_TILED_DW_3_width_offset 3
++#define SDMA_PKT_COPY_TILED_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_3_width_shift  0
++#define SDMA_PKT_COPY_TILED_DW_3_WIDTH(x) (((x) & SDMA_PKT_COPY_TILED_DW_3_width_mask) << SDMA_PKT_COPY_TILED_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_TILED_DW_4_height_offset 4
++#define SDMA_PKT_COPY_TILED_DW_4_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_4_height_shift  0
++#define SDMA_PKT_COPY_TILED_DW_4_HEIGHT(x) (((x) & SDMA_PKT_COPY_TILED_DW_4_height_mask) << SDMA_PKT_COPY_TILED_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_TILED_DW_4_depth_offset 4
++#define SDMA_PKT_COPY_TILED_DW_4_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_DW_4_depth_shift  16
++#define SDMA_PKT_COPY_TILED_DW_4_DEPTH(x) (((x) & SDMA_PKT_COPY_TILED_DW_4_depth_mask) << SDMA_PKT_COPY_TILED_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_shift  0
++#define SDMA_PKT_COPY_TILED_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_element_size_mask) << SDMA_PKT_COPY_TILED_DW_5_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_TILED_DW_5_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_mask) << SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_shift  9
++#define SDMA_PKT_COPY_TILED_DW_5_DIMENSION(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_dimension_mask) << SDMA_PKT_COPY_TILED_DW_5_dimension_shift)
++
++/*define for mip_max field*/
++#define SDMA_PKT_COPY_TILED_DW_5_mip_max_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_mip_max_mask   0x0000000F
++#define SDMA_PKT_COPY_TILED_DW_5_mip_max_shift  16
++#define SDMA_PKT_COPY_TILED_DW_5_MIP_MAX(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_mip_max_mask) << SDMA_PKT_COPY_TILED_DW_5_mip_max_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_COPY_TILED_DW_6_x_offset 6
++#define SDMA_PKT_COPY_TILED_DW_6_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_6_x_shift  0
++#define SDMA_PKT_COPY_TILED_DW_6_X(x) (((x) & SDMA_PKT_COPY_TILED_DW_6_x_mask) << SDMA_PKT_COPY_TILED_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_COPY_TILED_DW_6_y_offset 6
++#define SDMA_PKT_COPY_TILED_DW_6_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_6_y_shift  16
++#define SDMA_PKT_COPY_TILED_DW_6_Y(x) (((x) & SDMA_PKT_COPY_TILED_DW_6_y_mask) << SDMA_PKT_COPY_TILED_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_COPY_TILED_DW_7_z_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_DW_7_z_shift  0
++#define SDMA_PKT_COPY_TILED_DW_7_Z(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_z_mask) << SDMA_PKT_COPY_TILED_DW_7_z_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_shift  16
++#define SDMA_PKT_COPY_TILED_DW_7_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_linear_sw_mask) << SDMA_PKT_COPY_TILED_DW_7_linear_sw_shift)
++
++/*define for linear_cache_policy field*/
++#define SDMA_PKT_COPY_TILED_DW_7_linear_cache_policy_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_linear_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_7_linear_cache_policy_shift  18
++#define SDMA_PKT_COPY_TILED_DW_7_LINEAR_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_linear_cache_policy_mask) << SDMA_PKT_COPY_TILED_DW_7_linear_cache_policy_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_shift  24
++#define SDMA_PKT_COPY_TILED_DW_7_TILE_SW(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_tile_sw_mask) << SDMA_PKT_COPY_TILED_DW_7_tile_sw_shift)
++
++/*define for tile_cache_policy field*/
++#define SDMA_PKT_COPY_TILED_DW_7_tile_cache_policy_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_tile_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_7_tile_cache_policy_shift  26
++#define SDMA_PKT_COPY_TILED_DW_7_TILE_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_tile_cache_policy_mask) << SDMA_PKT_COPY_TILED_DW_7_tile_cache_policy_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_offset 8
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_offset 9
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for LINEAR_PITCH word*/
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_offset 10
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_mask   0x0007FFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_mask) << SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_shift)
++
++/*define for LINEAR_SLICE_PITCH word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_offset 11
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_mask) << SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_TILED_COUNT_count_offset 12
++#define SDMA_PKT_COPY_TILED_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_TILED_COUNT_count_shift  0
++#define SDMA_PKT_COPY_TILED_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_TILED_COUNT_count_mask) << SDMA_PKT_COPY_TILED_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_TILED_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_TILED_BC_HEADER_op_offset 0
++#define SDMA_PKT_COPY_TILED_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_BC_HEADER_op_shift  0
++#define SDMA_PKT_COPY_TILED_BC_HEADER_OP(x) (((x) & SDMA_PKT_COPY_TILED_BC_HEADER_op_mask) << SDMA_PKT_COPY_TILED_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_TILED_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_TILED_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_TILED_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_TILED_BC_HEADER_sub_op_mask) << SDMA_PKT_COPY_TILED_BC_HEADER_sub_op_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_TILED_BC_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_TILED_BC_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_BC_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_TILED_BC_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_TILED_BC_HEADER_detile_mask) << SDMA_PKT_COPY_TILED_BC_HEADER_detile_shift)
++
++/*define for TILED_ADDR_LO word*/
++/*define for tiled_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_tiled_addr_31_0_offset 1
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_tiled_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_tiled_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_TILED_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_tiled_addr_31_0_mask) << SDMA_PKT_COPY_TILED_BC_TILED_ADDR_LO_tiled_addr_31_0_shift)
++
++/*define for TILED_ADDR_HI word*/
++/*define for tiled_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_tiled_addr_63_32_offset 2
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_tiled_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_tiled_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_TILED_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_tiled_addr_63_32_mask) << SDMA_PKT_COPY_TILED_BC_TILED_ADDR_HI_tiled_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_3_width_offset 3
++#define SDMA_PKT_COPY_TILED_BC_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_BC_DW_3_width_shift  0
++#define SDMA_PKT_COPY_TILED_BC_DW_3_WIDTH(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_3_width_mask) << SDMA_PKT_COPY_TILED_BC_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_4_height_offset 4
++#define SDMA_PKT_COPY_TILED_BC_DW_4_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_BC_DW_4_height_shift  0
++#define SDMA_PKT_COPY_TILED_BC_DW_4_HEIGHT(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_4_height_mask) << SDMA_PKT_COPY_TILED_BC_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_4_depth_offset 4
++#define SDMA_PKT_COPY_TILED_BC_DW_4_depth_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_BC_DW_4_depth_shift  16
++#define SDMA_PKT_COPY_TILED_BC_DW_4_DEPTH(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_4_depth_mask) << SDMA_PKT_COPY_TILED_BC_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_element_size_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_BC_DW_5_element_size_shift  0
++#define SDMA_PKT_COPY_TILED_BC_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_element_size_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_element_size_shift)
++
++/*define for array_mode field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_array_mode_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_array_mode_mask   0x0000000F
++#define SDMA_PKT_COPY_TILED_BC_DW_5_array_mode_shift  3
++#define SDMA_PKT_COPY_TILED_BC_DW_5_ARRAY_MODE(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_array_mode_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_array_mode_shift)
++
++/*define for mit_mode field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mit_mode_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mit_mode_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mit_mode_shift  8
++#define SDMA_PKT_COPY_TILED_BC_DW_5_MIT_MODE(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_mit_mode_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_mit_mode_shift)
++
++/*define for tilesplit_size field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_tilesplit_size_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_tilesplit_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_BC_DW_5_tilesplit_size_shift  11
++#define SDMA_PKT_COPY_TILED_BC_DW_5_TILESPLIT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_tilesplit_size_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_tilesplit_size_shift)
++
++/*define for bank_w field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_w_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_w_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_w_shift  15
++#define SDMA_PKT_COPY_TILED_BC_DW_5_BANK_W(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_bank_w_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_bank_w_shift)
++
++/*define for bank_h field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_h_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_h_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_5_bank_h_shift  18
++#define SDMA_PKT_COPY_TILED_BC_DW_5_BANK_H(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_bank_h_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_bank_h_shift)
++
++/*define for num_bank field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_num_bank_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_num_bank_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_5_num_bank_shift  21
++#define SDMA_PKT_COPY_TILED_BC_DW_5_NUM_BANK(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_num_bank_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_num_bank_shift)
++
++/*define for mat_aspt field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mat_aspt_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mat_aspt_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_5_mat_aspt_shift  24
++#define SDMA_PKT_COPY_TILED_BC_DW_5_MAT_ASPT(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_mat_aspt_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_mat_aspt_shift)
++
++/*define for pipe_config field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_5_pipe_config_offset 5
++#define SDMA_PKT_COPY_TILED_BC_DW_5_pipe_config_mask   0x0000001F
++#define SDMA_PKT_COPY_TILED_BC_DW_5_pipe_config_shift  26
++#define SDMA_PKT_COPY_TILED_BC_DW_5_PIPE_CONFIG(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_5_pipe_config_mask) << SDMA_PKT_COPY_TILED_BC_DW_5_pipe_config_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_6_x_offset 6
++#define SDMA_PKT_COPY_TILED_BC_DW_6_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_BC_DW_6_x_shift  0
++#define SDMA_PKT_COPY_TILED_BC_DW_6_X(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_6_x_mask) << SDMA_PKT_COPY_TILED_BC_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_6_y_offset 6
++#define SDMA_PKT_COPY_TILED_BC_DW_6_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_BC_DW_6_y_shift  16
++#define SDMA_PKT_COPY_TILED_BC_DW_6_Y(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_6_y_mask) << SDMA_PKT_COPY_TILED_BC_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_7_z_offset 7
++#define SDMA_PKT_COPY_TILED_BC_DW_7_z_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_BC_DW_7_z_shift  0
++#define SDMA_PKT_COPY_TILED_BC_DW_7_Z(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_7_z_mask) << SDMA_PKT_COPY_TILED_BC_DW_7_z_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_7_linear_sw_offset 7
++#define SDMA_PKT_COPY_TILED_BC_DW_7_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_7_linear_sw_shift  16
++#define SDMA_PKT_COPY_TILED_BC_DW_7_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_7_linear_sw_mask) << SDMA_PKT_COPY_TILED_BC_DW_7_linear_sw_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_TILED_BC_DW_7_tile_sw_offset 7
++#define SDMA_PKT_COPY_TILED_BC_DW_7_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_BC_DW_7_tile_sw_shift  24
++#define SDMA_PKT_COPY_TILED_BC_DW_7_TILE_SW(x) (((x) & SDMA_PKT_COPY_TILED_BC_DW_7_tile_sw_mask) << SDMA_PKT_COPY_TILED_BC_DW_7_tile_sw_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_linear_addr_31_0_offset 8
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_linear_addr_63_32_offset 9
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_TILED_BC_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for LINEAR_PITCH word*/
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_linear_pitch_offset 10
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_linear_pitch_mask   0x0007FFFF
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_linear_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_linear_pitch_mask) << SDMA_PKT_COPY_TILED_BC_LINEAR_PITCH_linear_pitch_shift)
++
++/*define for LINEAR_SLICE_PITCH word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_linear_slice_pitch_offset 11
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_linear_slice_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_linear_slice_pitch_mask) << SDMA_PKT_COPY_TILED_BC_LINEAR_SLICE_PITCH_linear_slice_pitch_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_TILED_BC_COUNT_count_offset 12
++#define SDMA_PKT_COPY_TILED_BC_COUNT_count_mask   0x000FFFFF
++#define SDMA_PKT_COPY_TILED_BC_COUNT_count_shift  2
++#define SDMA_PKT_COPY_TILED_BC_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_TILED_BC_COUNT_count_mask) << SDMA_PKT_COPY_TILED_BC_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_L2T_BROADCAST packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_op_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_op_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_OP(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_op_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_sub_op_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_sub_op_shift)
++
++/*define for encrypt field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_encrypt_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_encrypt_shift  16
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_encrypt_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_tmz_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_cpv_shift  19
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_cpv_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_cpv_shift)
++
++/*define for videocopy field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_videocopy_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_videocopy_mask   0x00000001
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_videocopy_shift  26
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_VIDEOCOPY(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_videocopy_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_videocopy_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_L2T_BROADCAST_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_HEADER_broadcast_mask) << SDMA_PKT_COPY_L2T_BROADCAST_HEADER_broadcast_shift)
++
++/*define for TILED_ADDR_LO_0 word*/
++/*define for tiled_addr0_31_0 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_tiled_addr0_31_0_offset 1
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_tiled_addr0_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_tiled_addr0_31_0_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_TILED_ADDR0_31_0(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_tiled_addr0_31_0_mask) << SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_0_tiled_addr0_31_0_shift)
++
++/*define for TILED_ADDR_HI_0 word*/
++/*define for tiled_addr0_63_32 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_tiled_addr0_63_32_offset 2
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_tiled_addr0_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_tiled_addr0_63_32_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_TILED_ADDR0_63_32(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_tiled_addr0_63_32_mask) << SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_0_tiled_addr0_63_32_shift)
++
++/*define for TILED_ADDR_LO_1 word*/
++/*define for tiled_addr1_31_0 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_tiled_addr1_31_0_offset 3
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_tiled_addr1_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_tiled_addr1_31_0_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_TILED_ADDR1_31_0(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_tiled_addr1_31_0_mask) << SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_LO_1_tiled_addr1_31_0_shift)
++
++/*define for TILED_ADDR_HI_1 word*/
++/*define for tiled_addr1_63_32 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_tiled_addr1_63_32_offset 4
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_tiled_addr1_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_tiled_addr1_63_32_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_TILED_ADDR1_63_32(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_tiled_addr1_63_32_mask) << SDMA_PKT_COPY_L2T_BROADCAST_TILED_ADDR_HI_1_tiled_addr1_63_32_shift)
++
++/*define for DW_5 word*/
++/*define for width field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_5_width_offset 5
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_5_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_5_width_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_5_WIDTH(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_5_width_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_5_width_shift)
++
++/*define for DW_6 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_height_offset 6
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_height_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_HEIGHT(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_6_height_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_6_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_depth_offset 6
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_depth_shift  16
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_6_DEPTH(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_6_depth_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_6_depth_shift)
++
++/*define for DW_7 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_element_size_offset 7
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_element_size_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_7_element_size_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_7_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_swizzle_mode_offset 7
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_7_swizzle_mode_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_7_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_dimension_offset 7
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_dimension_shift  9
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_DIMENSION(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_7_dimension_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_7_dimension_shift)
++
++/*define for mip_max field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_mip_max_offset 7
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_mip_max_mask   0x0000000F
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_mip_max_shift  16
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_7_MIP_MAX(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_7_mip_max_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_7_mip_max_shift)
++
++/*define for DW_8 word*/
++/*define for x field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_x_offset 8
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_x_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_X(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_8_x_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_8_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_y_offset 8
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_y_shift  16
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_8_Y(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_8_y_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_8_y_shift)
++
++/*define for DW_9 word*/
++/*define for z field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_9_z_offset 9
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_9_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_9_z_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_9_Z(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_9_z_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_9_z_shift)
++
++/*define for DW_10 word*/
++/*define for dst2_sw field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_sw_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_sw_mask   0x00000003
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_sw_shift  8
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_DST2_SW(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_sw_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_sw_shift)
++
++/*define for dst2_cache_policy field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_cache_policy_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_cache_policy_shift  10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_DST2_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_cache_policy_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_dst2_cache_policy_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_sw_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_sw_shift  16
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_sw_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_sw_shift)
++
++/*define for linear_cache_policy field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_cache_policy_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_cache_policy_shift  18
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_LINEAR_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_cache_policy_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_linear_cache_policy_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_sw_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_sw_shift  24
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_TILE_SW(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_sw_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_sw_shift)
++
++/*define for tile_cache_policy field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_cache_policy_offset 10
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_cache_policy_shift  26
++#define SDMA_PKT_COPY_L2T_BROADCAST_DW_10_TILE_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_cache_policy_mask) << SDMA_PKT_COPY_L2T_BROADCAST_DW_10_tile_cache_policy_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_linear_addr_31_0_offset 11
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_linear_addr_63_32_offset 12
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for LINEAR_PITCH word*/
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_linear_pitch_offset 13
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_linear_pitch_mask   0x0007FFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_linear_pitch_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_linear_pitch_mask) << SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_PITCH_linear_pitch_shift)
++
++/*define for LINEAR_SLICE_PITCH word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_linear_slice_pitch_offset 14
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_linear_slice_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_linear_slice_pitch_mask) << SDMA_PKT_COPY_L2T_BROADCAST_LINEAR_SLICE_PITCH_linear_slice_pitch_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_L2T_BROADCAST_COUNT_count_offset 15
++#define SDMA_PKT_COPY_L2T_BROADCAST_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_L2T_BROADCAST_COUNT_count_shift  0
++#define SDMA_PKT_COPY_L2T_BROADCAST_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_L2T_BROADCAST_COUNT_count_mask) << SDMA_PKT_COPY_L2T_BROADCAST_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_T2T packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_T2T_HEADER_op_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_T2T_HEADER_op_shift  0
++#define SDMA_PKT_COPY_T2T_HEADER_OP(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_op_mask) << SDMA_PKT_COPY_T2T_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_T2T_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_T2T_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_T2T_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_sub_op_mask) << SDMA_PKT_COPY_T2T_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_T2T_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_T2T_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_tmz_mask) << SDMA_PKT_COPY_T2T_HEADER_tmz_shift)
++
++/*define for dcc field*/
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_shift  19
++#define SDMA_PKT_COPY_T2T_HEADER_DCC(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_dcc_mask) << SDMA_PKT_COPY_T2T_HEADER_dcc_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_T2T_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_HEADER_cpv_shift  28
++#define SDMA_PKT_COPY_T2T_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_cpv_mask) << SDMA_PKT_COPY_T2T_HEADER_cpv_shift)
++
++/*define for dcc_dir field*/
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_dir_offset 0
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_dir_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_HEADER_dcc_dir_shift  31
++#define SDMA_PKT_COPY_T2T_HEADER_DCC_DIR(x) (((x) & SDMA_PKT_COPY_T2T_HEADER_dcc_dir_mask) << SDMA_PKT_COPY_T2T_HEADER_dcc_dir_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_T2T_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_T2T_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_T2T_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_T2T_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_T2T_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_T2T_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_T2T_DW_3_src_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_T2T_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_T2T_DW_3_src_x_mask) << SDMA_PKT_COPY_T2T_DW_3_src_x_shift)
++
++/*define for src_y field*/
++#define SDMA_PKT_COPY_T2T_DW_3_src_y_offset 3
++#define SDMA_PKT_COPY_T2T_DW_3_src_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_3_src_y_shift  16
++#define SDMA_PKT_COPY_T2T_DW_3_SRC_Y(x) (((x) & SDMA_PKT_COPY_T2T_DW_3_src_y_mask) << SDMA_PKT_COPY_T2T_DW_3_src_y_shift)
++
++/*define for DW_4 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_T2T_DW_4_src_z_offset 4
++#define SDMA_PKT_COPY_T2T_DW_4_src_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_T2T_DW_4_src_z_shift  0
++#define SDMA_PKT_COPY_T2T_DW_4_SRC_Z(x) (((x) & SDMA_PKT_COPY_T2T_DW_4_src_z_mask) << SDMA_PKT_COPY_T2T_DW_4_src_z_shift)
++
++/*define for src_width field*/
++#define SDMA_PKT_COPY_T2T_DW_4_src_width_offset 4
++#define SDMA_PKT_COPY_T2T_DW_4_src_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_4_src_width_shift  16
++#define SDMA_PKT_COPY_T2T_DW_4_SRC_WIDTH(x) (((x) & SDMA_PKT_COPY_T2T_DW_4_src_width_mask) << SDMA_PKT_COPY_T2T_DW_4_src_width_shift)
++
++/*define for DW_5 word*/
++/*define for src_height field*/
++#define SDMA_PKT_COPY_T2T_DW_5_src_height_offset 5
++#define SDMA_PKT_COPY_T2T_DW_5_src_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_5_src_height_shift  0
++#define SDMA_PKT_COPY_T2T_DW_5_SRC_HEIGHT(x) (((x) & SDMA_PKT_COPY_T2T_DW_5_src_height_mask) << SDMA_PKT_COPY_T2T_DW_5_src_height_shift)
++
++/*define for src_depth field*/
++#define SDMA_PKT_COPY_T2T_DW_5_src_depth_offset 5
++#define SDMA_PKT_COPY_T2T_DW_5_src_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_T2T_DW_5_src_depth_shift  16
++#define SDMA_PKT_COPY_T2T_DW_5_SRC_DEPTH(x) (((x) & SDMA_PKT_COPY_T2T_DW_5_src_depth_mask) << SDMA_PKT_COPY_T2T_DW_5_src_depth_shift)
++
++/*define for DW_6 word*/
++/*define for src_element_size field*/
++#define SDMA_PKT_COPY_T2T_DW_6_src_element_size_offset 6
++#define SDMA_PKT_COPY_T2T_DW_6_src_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_DW_6_src_element_size_shift  0
++#define SDMA_PKT_COPY_T2T_DW_6_SRC_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_DW_6_src_element_size_mask) << SDMA_PKT_COPY_T2T_DW_6_src_element_size_shift)
++
++/*define for src_swizzle_mode field*/
++#define SDMA_PKT_COPY_T2T_DW_6_src_swizzle_mode_offset 6
++#define SDMA_PKT_COPY_T2T_DW_6_src_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_T2T_DW_6_src_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_T2T_DW_6_SRC_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_T2T_DW_6_src_swizzle_mode_mask) << SDMA_PKT_COPY_T2T_DW_6_src_swizzle_mode_shift)
++
++/*define for src_dimension field*/
++#define SDMA_PKT_COPY_T2T_DW_6_src_dimension_offset 6
++#define SDMA_PKT_COPY_T2T_DW_6_src_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_DW_6_src_dimension_shift  9
++#define SDMA_PKT_COPY_T2T_DW_6_SRC_DIMENSION(x) (((x) & SDMA_PKT_COPY_T2T_DW_6_src_dimension_mask) << SDMA_PKT_COPY_T2T_DW_6_src_dimension_shift)
++
++/*define for src_mip_max field*/
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_max_offset 6
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_max_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_max_shift  16
++#define SDMA_PKT_COPY_T2T_DW_6_SRC_MIP_MAX(x) (((x) & SDMA_PKT_COPY_T2T_DW_6_src_mip_max_mask) << SDMA_PKT_COPY_T2T_DW_6_src_mip_max_shift)
++
++/*define for src_mip_id field*/
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_id_offset 6
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_id_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_DW_6_src_mip_id_shift  20
++#define SDMA_PKT_COPY_T2T_DW_6_SRC_MIP_ID(x) (((x) & SDMA_PKT_COPY_T2T_DW_6_src_mip_id_mask) << SDMA_PKT_COPY_T2T_DW_6_src_mip_id_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_T2T_DST_ADDR_LO_dst_addr_31_0_offset 7
++#define SDMA_PKT_COPY_T2T_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_T2T_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_T2T_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_T2T_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_T2T_DST_ADDR_HI_dst_addr_63_32_offset 8
++#define SDMA_PKT_COPY_T2T_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_T2T_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_T2T_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_T2T_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_9 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_T2T_DW_9_dst_x_offset 9
++#define SDMA_PKT_COPY_T2T_DW_9_dst_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_9_dst_x_shift  0
++#define SDMA_PKT_COPY_T2T_DW_9_DST_X(x) (((x) & SDMA_PKT_COPY_T2T_DW_9_dst_x_mask) << SDMA_PKT_COPY_T2T_DW_9_dst_x_shift)
++
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_T2T_DW_9_dst_y_offset 9
++#define SDMA_PKT_COPY_T2T_DW_9_dst_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_9_dst_y_shift  16
++#define SDMA_PKT_COPY_T2T_DW_9_DST_Y(x) (((x) & SDMA_PKT_COPY_T2T_DW_9_dst_y_mask) << SDMA_PKT_COPY_T2T_DW_9_dst_y_shift)
++
++/*define for DW_10 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_T2T_DW_10_dst_z_offset 10
++#define SDMA_PKT_COPY_T2T_DW_10_dst_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_T2T_DW_10_dst_z_shift  0
++#define SDMA_PKT_COPY_T2T_DW_10_DST_Z(x) (((x) & SDMA_PKT_COPY_T2T_DW_10_dst_z_mask) << SDMA_PKT_COPY_T2T_DW_10_dst_z_shift)
++
++/*define for dst_width field*/
++#define SDMA_PKT_COPY_T2T_DW_10_dst_width_offset 10
++#define SDMA_PKT_COPY_T2T_DW_10_dst_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_10_dst_width_shift  16
++#define SDMA_PKT_COPY_T2T_DW_10_DST_WIDTH(x) (((x) & SDMA_PKT_COPY_T2T_DW_10_dst_width_mask) << SDMA_PKT_COPY_T2T_DW_10_dst_width_shift)
++
++/*define for DW_11 word*/
++/*define for dst_height field*/
++#define SDMA_PKT_COPY_T2T_DW_11_dst_height_offset 11
++#define SDMA_PKT_COPY_T2T_DW_11_dst_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_11_dst_height_shift  0
++#define SDMA_PKT_COPY_T2T_DW_11_DST_HEIGHT(x) (((x) & SDMA_PKT_COPY_T2T_DW_11_dst_height_mask) << SDMA_PKT_COPY_T2T_DW_11_dst_height_shift)
++
++/*define for dst_depth field*/
++#define SDMA_PKT_COPY_T2T_DW_11_dst_depth_offset 11
++#define SDMA_PKT_COPY_T2T_DW_11_dst_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_T2T_DW_11_dst_depth_shift  16
++#define SDMA_PKT_COPY_T2T_DW_11_DST_DEPTH(x) (((x) & SDMA_PKT_COPY_T2T_DW_11_dst_depth_mask) << SDMA_PKT_COPY_T2T_DW_11_dst_depth_shift)
++
++/*define for DW_12 word*/
++/*define for dst_element_size field*/
++#define SDMA_PKT_COPY_T2T_DW_12_dst_element_size_offset 12
++#define SDMA_PKT_COPY_T2T_DW_12_dst_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_DW_12_dst_element_size_shift  0
++#define SDMA_PKT_COPY_T2T_DW_12_DST_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_DW_12_dst_element_size_mask) << SDMA_PKT_COPY_T2T_DW_12_dst_element_size_shift)
++
++/*define for dst_swizzle_mode field*/
++#define SDMA_PKT_COPY_T2T_DW_12_dst_swizzle_mode_offset 12
++#define SDMA_PKT_COPY_T2T_DW_12_dst_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_T2T_DW_12_dst_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_T2T_DW_12_DST_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_T2T_DW_12_dst_swizzle_mode_mask) << SDMA_PKT_COPY_T2T_DW_12_dst_swizzle_mode_shift)
++
++/*define for dst_dimension field*/
++#define SDMA_PKT_COPY_T2T_DW_12_dst_dimension_offset 12
++#define SDMA_PKT_COPY_T2T_DW_12_dst_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_DW_12_dst_dimension_shift  9
++#define SDMA_PKT_COPY_T2T_DW_12_DST_DIMENSION(x) (((x) & SDMA_PKT_COPY_T2T_DW_12_dst_dimension_mask) << SDMA_PKT_COPY_T2T_DW_12_dst_dimension_shift)
++
++/*define for dst_mip_max field*/
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_max_offset 12
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_max_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_max_shift  16
++#define SDMA_PKT_COPY_T2T_DW_12_DST_MIP_MAX(x) (((x) & SDMA_PKT_COPY_T2T_DW_12_dst_mip_max_mask) << SDMA_PKT_COPY_T2T_DW_12_dst_mip_max_shift)
++
++/*define for dst_mip_id field*/
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_id_offset 12
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_id_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_DW_12_dst_mip_id_shift  20
++#define SDMA_PKT_COPY_T2T_DW_12_DST_MIP_ID(x) (((x) & SDMA_PKT_COPY_T2T_DW_12_dst_mip_id_mask) << SDMA_PKT_COPY_T2T_DW_12_dst_mip_id_shift)
++
++/*define for DW_13 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_T2T_DW_13_rect_x_offset 13
++#define SDMA_PKT_COPY_T2T_DW_13_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_13_rect_x_shift  0
++#define SDMA_PKT_COPY_T2T_DW_13_RECT_X(x) (((x) & SDMA_PKT_COPY_T2T_DW_13_rect_x_mask) << SDMA_PKT_COPY_T2T_DW_13_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_T2T_DW_13_rect_y_offset 13
++#define SDMA_PKT_COPY_T2T_DW_13_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_DW_13_rect_y_shift  16
++#define SDMA_PKT_COPY_T2T_DW_13_RECT_Y(x) (((x) & SDMA_PKT_COPY_T2T_DW_13_rect_y_mask) << SDMA_PKT_COPY_T2T_DW_13_rect_y_shift)
++
++/*define for DW_14 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_T2T_DW_14_rect_z_offset 14
++#define SDMA_PKT_COPY_T2T_DW_14_rect_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_T2T_DW_14_rect_z_shift  0
++#define SDMA_PKT_COPY_T2T_DW_14_RECT_Z(x) (((x) & SDMA_PKT_COPY_T2T_DW_14_rect_z_mask) << SDMA_PKT_COPY_T2T_DW_14_rect_z_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_T2T_DW_14_dst_sw_offset 14
++#define SDMA_PKT_COPY_T2T_DW_14_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_DW_14_dst_sw_shift  16
++#define SDMA_PKT_COPY_T2T_DW_14_DST_SW(x) (((x) & SDMA_PKT_COPY_T2T_DW_14_dst_sw_mask) << SDMA_PKT_COPY_T2T_DW_14_dst_sw_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_PKT_COPY_T2T_DW_14_dst_cache_policy_offset 14
++#define SDMA_PKT_COPY_T2T_DW_14_dst_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_DW_14_dst_cache_policy_shift  18
++#define SDMA_PKT_COPY_T2T_DW_14_DST_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_T2T_DW_14_dst_cache_policy_mask) << SDMA_PKT_COPY_T2T_DW_14_dst_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_T2T_DW_14_src_sw_offset 14
++#define SDMA_PKT_COPY_T2T_DW_14_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_DW_14_src_sw_shift  24
++#define SDMA_PKT_COPY_T2T_DW_14_SRC_SW(x) (((x) & SDMA_PKT_COPY_T2T_DW_14_src_sw_mask) << SDMA_PKT_COPY_T2T_DW_14_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_PKT_COPY_T2T_DW_14_src_cache_policy_offset 14
++#define SDMA_PKT_COPY_T2T_DW_14_src_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_DW_14_src_cache_policy_shift  26
++#define SDMA_PKT_COPY_T2T_DW_14_SRC_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_T2T_DW_14_src_cache_policy_mask) << SDMA_PKT_COPY_T2T_DW_14_src_cache_policy_shift)
++
++/*define for META_ADDR_LO word*/
++/*define for meta_addr_31_0 field*/
++#define SDMA_PKT_COPY_T2T_META_ADDR_LO_meta_addr_31_0_offset 15
++#define SDMA_PKT_COPY_T2T_META_ADDR_LO_meta_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_META_ADDR_LO_meta_addr_31_0_shift  0
++#define SDMA_PKT_COPY_T2T_META_ADDR_LO_META_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_T2T_META_ADDR_LO_meta_addr_31_0_mask) << SDMA_PKT_COPY_T2T_META_ADDR_LO_meta_addr_31_0_shift)
++
++/*define for META_ADDR_HI word*/
++/*define for meta_addr_63_32 field*/
++#define SDMA_PKT_COPY_T2T_META_ADDR_HI_meta_addr_63_32_offset 16
++#define SDMA_PKT_COPY_T2T_META_ADDR_HI_meta_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_META_ADDR_HI_meta_addr_63_32_shift  0
++#define SDMA_PKT_COPY_T2T_META_ADDR_HI_META_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_T2T_META_ADDR_HI_meta_addr_63_32_mask) << SDMA_PKT_COPY_T2T_META_ADDR_HI_meta_addr_63_32_shift)
++
++/*define for META_CONFIG word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_data_format_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_data_format_mask   0x0000007F
++#define SDMA_PKT_COPY_T2T_META_CONFIG_data_format_shift  0
++#define SDMA_PKT_COPY_T2T_META_CONFIG_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_data_format_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_data_format_shift)
++
++/*define for color_transform_disable field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_color_transform_disable_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_color_transform_disable_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_color_transform_disable_shift  7
++#define SDMA_PKT_COPY_T2T_META_CONFIG_COLOR_TRANSFORM_DISABLE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_color_transform_disable_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_color_transform_disable_shift)
++
++/*define for alpha_is_on_msb field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_alpha_is_on_msb_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_alpha_is_on_msb_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_alpha_is_on_msb_shift  8
++#define SDMA_PKT_COPY_T2T_META_CONFIG_ALPHA_IS_ON_MSB(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_alpha_is_on_msb_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_alpha_is_on_msb_shift)
++
++/*define for number_type field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_number_type_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_number_type_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_META_CONFIG_number_type_shift  9
++#define SDMA_PKT_COPY_T2T_META_CONFIG_NUMBER_TYPE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_number_type_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_number_type_shift)
++
++/*define for surface_type field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_surface_type_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_surface_type_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_META_CONFIG_surface_type_shift  12
++#define SDMA_PKT_COPY_T2T_META_CONFIG_SURFACE_TYPE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_surface_type_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_surface_type_shift)
++
++/*define for meta_llc field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_llc_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_llc_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_llc_shift  14
++#define SDMA_PKT_COPY_T2T_META_CONFIG_META_LLC(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_meta_llc_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_meta_llc_shift)
++
++/*define for max_comp_block_size field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_comp_block_size_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_comp_block_size_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_comp_block_size_shift  24
++#define SDMA_PKT_COPY_T2T_META_CONFIG_MAX_COMP_BLOCK_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_max_comp_block_size_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_max_comp_block_size_shift)
++
++/*define for max_uncomp_block_size field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_uncomp_block_size_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_uncomp_block_size_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_META_CONFIG_max_uncomp_block_size_shift  26
++#define SDMA_PKT_COPY_T2T_META_CONFIG_MAX_UNCOMP_BLOCK_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_max_uncomp_block_size_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_max_uncomp_block_size_shift)
++
++/*define for write_compress_enable field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_write_compress_enable_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_write_compress_enable_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_write_compress_enable_shift  28
++#define SDMA_PKT_COPY_T2T_META_CONFIG_WRITE_COMPRESS_ENABLE(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_write_compress_enable_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_write_compress_enable_shift)
++
++/*define for meta_tmz field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_tmz_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_meta_tmz_shift  29
++#define SDMA_PKT_COPY_T2T_META_CONFIG_META_TMZ(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_meta_tmz_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_meta_tmz_shift)
++
++/*define for pipe_aligned field*/
++#define SDMA_PKT_COPY_T2T_META_CONFIG_pipe_aligned_offset 17
++#define SDMA_PKT_COPY_T2T_META_CONFIG_pipe_aligned_mask   0x00000001
++#define SDMA_PKT_COPY_T2T_META_CONFIG_pipe_aligned_shift  31
++#define SDMA_PKT_COPY_T2T_META_CONFIG_PIPE_ALIGNED(x) (((x) & SDMA_PKT_COPY_T2T_META_CONFIG_pipe_aligned_mask) << SDMA_PKT_COPY_T2T_META_CONFIG_pipe_aligned_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_T2T_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_T2T_BC_HEADER_op_offset 0
++#define SDMA_PKT_COPY_T2T_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_T2T_BC_HEADER_op_shift  0
++#define SDMA_PKT_COPY_T2T_BC_HEADER_OP(x) (((x) & SDMA_PKT_COPY_T2T_BC_HEADER_op_mask) << SDMA_PKT_COPY_T2T_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_T2T_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_T2T_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_T2T_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_T2T_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_T2T_BC_HEADER_sub_op_mask) << SDMA_PKT_COPY_T2T_BC_HEADER_sub_op_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_T2T_BC_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_T2T_BC_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_3_src_x_mask) << SDMA_PKT_COPY_T2T_BC_DW_3_src_x_shift)
++
++/*define for src_y field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_y_offset 3
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_3_src_y_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_3_SRC_Y(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_3_src_y_mask) << SDMA_PKT_COPY_T2T_BC_DW_3_src_y_shift)
++
++/*define for DW_4 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_z_offset 4
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_z_mask   0x000007FF
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_z_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_4_SRC_Z(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_4_src_z_mask) << SDMA_PKT_COPY_T2T_BC_DW_4_src_z_shift)
++
++/*define for src_width field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_width_offset 4
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_4_src_width_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_4_SRC_WIDTH(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_4_src_width_mask) << SDMA_PKT_COPY_T2T_BC_DW_4_src_width_shift)
++
++/*define for DW_5 word*/
++/*define for src_height field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_height_offset 5
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_height_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_5_SRC_HEIGHT(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_5_src_height_mask) << SDMA_PKT_COPY_T2T_BC_DW_5_src_height_shift)
++
++/*define for src_depth field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_depth_offset 5
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_depth_mask   0x000007FF
++#define SDMA_PKT_COPY_T2T_BC_DW_5_src_depth_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_5_SRC_DEPTH(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_5_src_depth_mask) << SDMA_PKT_COPY_T2T_BC_DW_5_src_depth_shift)
++
++/*define for DW_6 word*/
++/*define for src_element_size field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_element_size_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_element_size_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_element_size_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_element_size_shift)
++
++/*define for src_array_mode field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_array_mode_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_array_mode_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_array_mode_shift  3
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_ARRAY_MODE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_array_mode_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_array_mode_shift)
++
++/*define for src_mit_mode field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mit_mode_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mit_mode_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mit_mode_shift  8
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_MIT_MODE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_mit_mode_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_mit_mode_shift)
++
++/*define for src_tilesplit_size field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_tilesplit_size_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_tilesplit_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_tilesplit_size_shift  11
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_TILESPLIT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_tilesplit_size_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_tilesplit_size_shift)
++
++/*define for src_bank_w field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_w_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_w_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_w_shift  15
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_BANK_W(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_w_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_w_shift)
++
++/*define for src_bank_h field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_h_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_h_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_h_shift  18
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_BANK_H(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_h_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_bank_h_shift)
++
++/*define for src_num_bank field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_num_bank_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_num_bank_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_num_bank_shift  21
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_NUM_BANK(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_num_bank_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_num_bank_shift)
++
++/*define for src_mat_aspt field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mat_aspt_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mat_aspt_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_mat_aspt_shift  24
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_MAT_ASPT(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_mat_aspt_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_mat_aspt_shift)
++
++/*define for src_pipe_config field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_pipe_config_offset 6
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_pipe_config_mask   0x0000001F
++#define SDMA_PKT_COPY_T2T_BC_DW_6_src_pipe_config_shift  26
++#define SDMA_PKT_COPY_T2T_BC_DW_6_SRC_PIPE_CONFIG(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_6_src_pipe_config_mask) << SDMA_PKT_COPY_T2T_BC_DW_6_src_pipe_config_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_dst_addr_31_0_offset 7
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_T2T_BC_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_dst_addr_63_32_offset 8
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_T2T_BC_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_9 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_x_offset 9
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_x_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_9_DST_X(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_9_dst_x_mask) << SDMA_PKT_COPY_T2T_BC_DW_9_dst_x_shift)
++
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_y_offset 9
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_9_dst_y_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_9_DST_Y(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_9_dst_y_mask) << SDMA_PKT_COPY_T2T_BC_DW_9_dst_y_shift)
++
++/*define for DW_10 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_z_offset 10
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_z_mask   0x000007FF
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_z_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_10_DST_Z(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_10_dst_z_mask) << SDMA_PKT_COPY_T2T_BC_DW_10_dst_z_shift)
++
++/*define for dst_width field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_width_offset 10
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_10_dst_width_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_10_DST_WIDTH(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_10_dst_width_mask) << SDMA_PKT_COPY_T2T_BC_DW_10_dst_width_shift)
++
++/*define for DW_11 word*/
++/*define for dst_height field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_height_offset 11
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_height_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_11_DST_HEIGHT(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_11_dst_height_mask) << SDMA_PKT_COPY_T2T_BC_DW_11_dst_height_shift)
++
++/*define for dst_depth field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_depth_offset 11
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_depth_mask   0x00000FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_11_dst_depth_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_11_DST_DEPTH(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_11_dst_depth_mask) << SDMA_PKT_COPY_T2T_BC_DW_11_dst_depth_shift)
++
++/*define for DW_12 word*/
++/*define for dst_element_size field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_element_size_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_element_size_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_element_size_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_element_size_shift)
++
++/*define for dst_array_mode field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_array_mode_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_array_mode_mask   0x0000000F
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_array_mode_shift  3
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_ARRAY_MODE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_array_mode_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_array_mode_shift)
++
++/*define for dst_mit_mode field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mit_mode_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mit_mode_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mit_mode_shift  8
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_MIT_MODE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_mit_mode_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_mit_mode_shift)
++
++/*define for dst_tilesplit_size field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_tilesplit_size_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_tilesplit_size_mask   0x00000007
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_tilesplit_size_shift  11
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_TILESPLIT_SIZE(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_tilesplit_size_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_tilesplit_size_shift)
++
++/*define for dst_bank_w field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_w_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_w_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_w_shift  15
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_BANK_W(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_w_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_w_shift)
++
++/*define for dst_bank_h field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_h_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_h_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_h_shift  18
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_BANK_H(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_h_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_bank_h_shift)
++
++/*define for dst_num_bank field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_num_bank_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_num_bank_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_num_bank_shift  21
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_NUM_BANK(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_num_bank_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_num_bank_shift)
++
++/*define for dst_mat_aspt field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mat_aspt_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mat_aspt_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_mat_aspt_shift  24
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_MAT_ASPT(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_mat_aspt_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_mat_aspt_shift)
++
++/*define for dst_pipe_config field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_pipe_config_offset 12
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_pipe_config_mask   0x0000001F
++#define SDMA_PKT_COPY_T2T_BC_DW_12_dst_pipe_config_shift  26
++#define SDMA_PKT_COPY_T2T_BC_DW_12_DST_PIPE_CONFIG(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_12_dst_pipe_config_mask) << SDMA_PKT_COPY_T2T_BC_DW_12_dst_pipe_config_shift)
++
++/*define for DW_13 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_x_offset 13
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_x_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_13_RECT_X(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_13_rect_x_mask) << SDMA_PKT_COPY_T2T_BC_DW_13_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_y_offset 13
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_T2T_BC_DW_13_rect_y_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_13_RECT_Y(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_13_rect_y_mask) << SDMA_PKT_COPY_T2T_BC_DW_13_rect_y_shift)
++
++/*define for DW_14 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_14_rect_z_offset 14
++#define SDMA_PKT_COPY_T2T_BC_DW_14_rect_z_mask   0x000007FF
++#define SDMA_PKT_COPY_T2T_BC_DW_14_rect_z_shift  0
++#define SDMA_PKT_COPY_T2T_BC_DW_14_RECT_Z(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_14_rect_z_mask) << SDMA_PKT_COPY_T2T_BC_DW_14_rect_z_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_14_dst_sw_offset 14
++#define SDMA_PKT_COPY_T2T_BC_DW_14_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_14_dst_sw_shift  16
++#define SDMA_PKT_COPY_T2T_BC_DW_14_DST_SW(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_14_dst_sw_mask) << SDMA_PKT_COPY_T2T_BC_DW_14_dst_sw_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_T2T_BC_DW_14_src_sw_offset 14
++#define SDMA_PKT_COPY_T2T_BC_DW_14_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_T2T_BC_DW_14_src_sw_shift  24
++#define SDMA_PKT_COPY_T2T_BC_DW_14_SRC_SW(x) (((x) & SDMA_PKT_COPY_T2T_BC_DW_14_src_sw_mask) << SDMA_PKT_COPY_T2T_BC_DW_14_src_sw_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_TILED_SUBWIN packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_op_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_op_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_OP(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_op_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_sub_op_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_tmz_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_tmz_shift)
++
++/*define for dcc field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_dcc_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_dcc_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_dcc_shift  19
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_DCC(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_dcc_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_dcc_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_cpv_shift  28
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_cpv_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_cpv_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_TILED_SUBWIN_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_HEADER_detile_mask) << SDMA_PKT_COPY_TILED_SUBWIN_HEADER_detile_shift)
++
++/*define for TILED_ADDR_LO word*/
++/*define for tiled_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_tiled_addr_31_0_offset 1
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_tiled_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_tiled_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_TILED_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_tiled_addr_31_0_mask) << SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_LO_tiled_addr_31_0_shift)
++
++/*define for TILED_ADDR_HI word*/
++/*define for tiled_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_tiled_addr_63_32_offset 2
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_tiled_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_tiled_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_TILED_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_tiled_addr_63_32_mask) << SDMA_PKT_COPY_TILED_SUBWIN_TILED_ADDR_HI_tiled_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for tiled_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_x_offset 3
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_TILED_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_x_shift)
++
++/*define for tiled_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_y_offset 3
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_3_TILED_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_3_tiled_y_shift)
++
++/*define for DW_4 word*/
++/*define for tiled_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_tiled_z_offset 4
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_tiled_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_tiled_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_TILED_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_4_tiled_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_4_tiled_z_shift)
++
++/*define for width field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_width_offset 4
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_width_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_4_WIDTH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_4_width_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_4_width_shift)
++
++/*define for DW_5 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_height_offset 5
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_height_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_HEIGHT(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_5_height_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_5_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_depth_offset 5
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_depth_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_5_DEPTH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_5_depth_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_5_depth_shift)
++
++/*define for DW_6 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_element_size_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_element_size_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_6_element_size_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_6_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_swizzle_mode_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_6_swizzle_mode_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_6_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_dimension_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_dimension_shift  9
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_DIMENSION(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_6_dimension_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_6_dimension_shift)
++
++/*define for mip_max field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_max_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_max_mask   0x0000000F
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_max_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_MIP_MAX(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_max_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_max_shift)
++
++/*define for mip_id field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_id_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_id_mask   0x0000000F
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_id_shift  20
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_6_MIP_ID(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_id_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_6_mip_id_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_linear_addr_31_0_offset 7
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_linear_addr_63_32_offset 8
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_TILED_SUBWIN_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for DW_9 word*/
++/*define for linear_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_x_offset 9
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_LINEAR_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_x_shift)
++
++/*define for linear_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_y_offset 9
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_9_LINEAR_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_9_linear_y_shift)
++
++/*define for DW_10 word*/
++/*define for linear_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_z_offset 10
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_LINEAR_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_z_shift)
++
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_pitch_offset 10
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_pitch_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_pitch_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_10_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_pitch_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_10_linear_pitch_shift)
++
++/*define for DW_11 word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_11_linear_slice_pitch_offset 11
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_11_linear_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_11_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_11_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_11_linear_slice_pitch_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_11_linear_slice_pitch_shift)
++
++/*define for DW_12 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_x_offset 12
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_RECT_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_y_offset 12
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_12_RECT_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_12_rect_y_shift)
++
++/*define for DW_13 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_rect_z_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_rect_z_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_rect_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_RECT_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_13_rect_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_13_rect_z_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_sw_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_sw_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_sw_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_sw_shift)
++
++/*define for linear_cache_policy field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_cache_policy_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_cache_policy_shift  18
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_LINEAR_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_cache_policy_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_13_linear_cache_policy_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_sw_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_sw_shift  24
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_TILE_SW(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_sw_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_sw_shift)
++
++/*define for tile_cache_policy field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_cache_policy_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_cache_policy_shift  26
++#define SDMA_PKT_COPY_TILED_SUBWIN_DW_13_TILE_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_cache_policy_mask) << SDMA_PKT_COPY_TILED_SUBWIN_DW_13_tile_cache_policy_shift)
++
++/*define for META_ADDR_LO word*/
++/*define for meta_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_meta_addr_31_0_offset 14
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_meta_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_meta_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_META_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_meta_addr_31_0_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_LO_meta_addr_31_0_shift)
++
++/*define for META_ADDR_HI word*/
++/*define for meta_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_meta_addr_63_32_offset 15
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_meta_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_meta_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_META_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_meta_addr_63_32_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_ADDR_HI_meta_addr_63_32_shift)
++
++/*define for META_CONFIG word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_data_format_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_data_format_mask   0x0000007F
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_data_format_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_data_format_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_data_format_shift)
++
++/*define for color_transform_disable field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_color_transform_disable_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_color_transform_disable_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_color_transform_disable_shift  7
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_COLOR_TRANSFORM_DISABLE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_color_transform_disable_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_color_transform_disable_shift)
++
++/*define for alpha_is_on_msb field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_alpha_is_on_msb_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_alpha_is_on_msb_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_alpha_is_on_msb_shift  8
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_ALPHA_IS_ON_MSB(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_alpha_is_on_msb_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_alpha_is_on_msb_shift)
++
++/*define for number_type field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_number_type_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_number_type_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_number_type_shift  9
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_NUMBER_TYPE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_number_type_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_number_type_shift)
++
++/*define for surface_type field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_surface_type_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_surface_type_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_surface_type_shift  12
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_SURFACE_TYPE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_surface_type_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_surface_type_shift)
++
++/*define for meta_llc field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_llc_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_llc_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_llc_shift  14
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_META_LLC(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_llc_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_llc_shift)
++
++/*define for max_comp_block_size field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_comp_block_size_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_comp_block_size_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_comp_block_size_shift  24
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_MAX_COMP_BLOCK_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_comp_block_size_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_comp_block_size_shift)
++
++/*define for max_uncomp_block_size field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_uncomp_block_size_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_uncomp_block_size_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_uncomp_block_size_shift  26
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_MAX_UNCOMP_BLOCK_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_uncomp_block_size_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_max_uncomp_block_size_shift)
++
++/*define for write_compress_enable field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_write_compress_enable_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_write_compress_enable_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_write_compress_enable_shift  28
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_WRITE_COMPRESS_ENABLE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_write_compress_enable_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_write_compress_enable_shift)
++
++/*define for meta_tmz field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_tmz_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_tmz_shift  29
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_META_TMZ(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_tmz_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_meta_tmz_shift)
++
++/*define for pipe_aligned field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_pipe_aligned_offset 16
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_pipe_aligned_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_pipe_aligned_shift  31
++#define SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_PIPE_ALIGNED(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_pipe_aligned_mask) << SDMA_PKT_COPY_TILED_SUBWIN_META_CONFIG_pipe_aligned_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_TILED_SUBWIN_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_op_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_op_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_OP(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_op_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_sub_op_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_sub_op_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_detile_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_HEADER_detile_shift)
++
++/*define for TILED_ADDR_LO word*/
++/*define for tiled_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_tiled_addr_31_0_offset 1
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_tiled_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_tiled_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_TILED_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_tiled_addr_31_0_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_LO_tiled_addr_31_0_shift)
++
++/*define for TILED_ADDR_HI word*/
++/*define for tiled_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_tiled_addr_63_32_offset 2
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_tiled_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_tiled_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_TILED_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_tiled_addr_63_32_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_TILED_ADDR_HI_tiled_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for tiled_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_x_offset 3
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_TILED_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_x_shift)
++
++/*define for tiled_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_y_offset 3
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_TILED_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_3_tiled_y_shift)
++
++/*define for DW_4 word*/
++/*define for tiled_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_tiled_z_offset 4
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_tiled_z_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_tiled_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_TILED_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_tiled_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_tiled_z_shift)
++
++/*define for width field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_width_offset 4
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_width_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_WIDTH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_width_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_4_width_shift)
++
++/*define for DW_5 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_height_offset 5
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_height_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_HEIGHT(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_height_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_depth_offset 5
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_depth_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_depth_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_DEPTH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_depth_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_5_depth_shift)
++
++/*define for DW_6 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_element_size_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_element_size_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_element_size_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_element_size_shift)
++
++/*define for array_mode field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_array_mode_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_array_mode_mask   0x0000000F
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_array_mode_shift  3
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_ARRAY_MODE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_array_mode_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_array_mode_shift)
++
++/*define for mit_mode field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mit_mode_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mit_mode_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mit_mode_shift  8
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_MIT_MODE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mit_mode_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mit_mode_shift)
++
++/*define for tilesplit_size field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_tilesplit_size_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_tilesplit_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_tilesplit_size_shift  11
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_TILESPLIT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_tilesplit_size_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_tilesplit_size_shift)
++
++/*define for bank_w field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_w_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_w_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_w_shift  15
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_BANK_W(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_w_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_w_shift)
++
++/*define for bank_h field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_h_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_h_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_h_shift  18
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_BANK_H(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_h_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_bank_h_shift)
++
++/*define for num_bank field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_num_bank_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_num_bank_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_num_bank_shift  21
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_NUM_BANK(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_num_bank_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_num_bank_shift)
++
++/*define for mat_aspt field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mat_aspt_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mat_aspt_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mat_aspt_shift  24
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_MAT_ASPT(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mat_aspt_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_mat_aspt_shift)
++
++/*define for pipe_config field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_pipe_config_offset 6
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_pipe_config_mask   0x0000001F
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_pipe_config_shift  26
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_PIPE_CONFIG(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_pipe_config_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_6_pipe_config_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_linear_addr_31_0_offset 7
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_linear_addr_63_32_offset 8
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for DW_9 word*/
++/*define for linear_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_x_offset 9
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_LINEAR_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_x_shift)
++
++/*define for linear_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_y_offset 9
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_LINEAR_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_9_linear_y_shift)
++
++/*define for DW_10 word*/
++/*define for linear_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_z_offset 10
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_z_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_LINEAR_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_z_shift)
++
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_pitch_offset 10
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_pitch_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_pitch_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_pitch_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_10_linear_pitch_shift)
++
++/*define for DW_11 word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_linear_slice_pitch_offset 11
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_linear_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_linear_slice_pitch_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_11_linear_slice_pitch_shift)
++
++/*define for DW_12 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_x_offset 12
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_x_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_RECT_X(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_x_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_y_offset 12
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_y_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_RECT_Y(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_y_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_12_rect_y_shift)
++
++/*define for DW_13 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_rect_z_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_rect_z_mask   0x000007FF
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_rect_z_shift  0
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_RECT_Z(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_rect_z_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_rect_z_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_linear_sw_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_linear_sw_shift  16
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_linear_sw_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_linear_sw_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_tile_sw_offset 13
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_tile_sw_shift  24
++#define SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_TILE_SW(x) (((x) & SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_tile_sw_mask) << SDMA_PKT_COPY_TILED_SUBWIN_BC_DW_13_tile_sw_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_STRUCT packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_STRUCT_HEADER_op_offset 0
++#define SDMA_PKT_COPY_STRUCT_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_STRUCT_HEADER_op_shift  0
++#define SDMA_PKT_COPY_STRUCT_HEADER_OP(x) (((x) & SDMA_PKT_COPY_STRUCT_HEADER_op_mask) << SDMA_PKT_COPY_STRUCT_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_STRUCT_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_STRUCT_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_STRUCT_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_STRUCT_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_STRUCT_HEADER_sub_op_mask) << SDMA_PKT_COPY_STRUCT_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_STRUCT_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_STRUCT_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_STRUCT_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_STRUCT_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_STRUCT_HEADER_tmz_mask) << SDMA_PKT_COPY_STRUCT_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COPY_STRUCT_HEADER_cpv_offset 0
++#define SDMA_PKT_COPY_STRUCT_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COPY_STRUCT_HEADER_cpv_shift  28
++#define SDMA_PKT_COPY_STRUCT_HEADER_CPV(x) (((x) & SDMA_PKT_COPY_STRUCT_HEADER_cpv_mask) << SDMA_PKT_COPY_STRUCT_HEADER_cpv_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_STRUCT_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_STRUCT_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_STRUCT_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_STRUCT_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_STRUCT_HEADER_detile_mask) << SDMA_PKT_COPY_STRUCT_HEADER_detile_shift)
++
++/*define for SB_ADDR_LO word*/
++/*define for sb_addr_31_0 field*/
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_sb_addr_31_0_offset 1
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_sb_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_sb_addr_31_0_shift  0
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_SB_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_sb_addr_31_0_mask) << SDMA_PKT_COPY_STRUCT_SB_ADDR_LO_sb_addr_31_0_shift)
++
++/*define for SB_ADDR_HI word*/
++/*define for sb_addr_63_32 field*/
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_sb_addr_63_32_offset 2
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_sb_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_sb_addr_63_32_shift  0
++#define SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_SB_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_sb_addr_63_32_mask) << SDMA_PKT_COPY_STRUCT_SB_ADDR_HI_sb_addr_63_32_shift)
++
++/*define for START_INDEX word*/
++/*define for start_index field*/
++#define SDMA_PKT_COPY_STRUCT_START_INDEX_start_index_offset 3
++#define SDMA_PKT_COPY_STRUCT_START_INDEX_start_index_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_START_INDEX_start_index_shift  0
++#define SDMA_PKT_COPY_STRUCT_START_INDEX_START_INDEX(x) (((x) & SDMA_PKT_COPY_STRUCT_START_INDEX_start_index_mask) << SDMA_PKT_COPY_STRUCT_START_INDEX_start_index_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_STRUCT_COUNT_count_offset 4
++#define SDMA_PKT_COPY_STRUCT_COUNT_count_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_COUNT_count_shift  0
++#define SDMA_PKT_COPY_STRUCT_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_STRUCT_COUNT_count_mask) << SDMA_PKT_COPY_STRUCT_COUNT_count_shift)
++
++/*define for DW_5 word*/
++/*define for stride field*/
++#define SDMA_PKT_COPY_STRUCT_DW_5_stride_offset 5
++#define SDMA_PKT_COPY_STRUCT_DW_5_stride_mask   0x000007FF
++#define SDMA_PKT_COPY_STRUCT_DW_5_stride_shift  0
++#define SDMA_PKT_COPY_STRUCT_DW_5_STRIDE(x) (((x) & SDMA_PKT_COPY_STRUCT_DW_5_stride_mask) << SDMA_PKT_COPY_STRUCT_DW_5_stride_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_sw_offset 5
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_sw_shift  16
++#define SDMA_PKT_COPY_STRUCT_DW_5_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_STRUCT_DW_5_linear_sw_mask) << SDMA_PKT_COPY_STRUCT_DW_5_linear_sw_shift)
++
++/*define for linear_cache_policy field*/
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_cache_policy_offset 5
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_STRUCT_DW_5_linear_cache_policy_shift  18
++#define SDMA_PKT_COPY_STRUCT_DW_5_LINEAR_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_STRUCT_DW_5_linear_cache_policy_mask) << SDMA_PKT_COPY_STRUCT_DW_5_linear_cache_policy_shift)
++
++/*define for struct_sw field*/
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_sw_offset 5
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_sw_mask   0x00000003
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_sw_shift  24
++#define SDMA_PKT_COPY_STRUCT_DW_5_STRUCT_SW(x) (((x) & SDMA_PKT_COPY_STRUCT_DW_5_struct_sw_mask) << SDMA_PKT_COPY_STRUCT_DW_5_struct_sw_shift)
++
++/*define for struct_cache_policy field*/
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_cache_policy_offset 5
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_cache_policy_mask   0x00000007
++#define SDMA_PKT_COPY_STRUCT_DW_5_struct_cache_policy_shift  26
++#define SDMA_PKT_COPY_STRUCT_DW_5_STRUCT_CACHE_POLICY(x) (((x) & SDMA_PKT_COPY_STRUCT_DW_5_struct_cache_policy_mask) << SDMA_PKT_COPY_STRUCT_DW_5_struct_cache_policy_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_linear_addr_31_0_offset 6
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_linear_addr_63_32_offset 7
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_STRUCT_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_WRITE_UNTILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_op_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_UNTILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_shift)
++
++/*define for encrypt field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_encrypt_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_HEADER_encrypt_shift  16
++#define SDMA_PKT_WRITE_UNTILED_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_encrypt_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_shift  18
++#define SDMA_PKT_WRITE_UNTILED_HEADER_TMZ(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_tmz_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_cpv_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_HEADER_cpv_shift  28
++#define SDMA_PKT_WRITE_UNTILED_HEADER_CPV(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_cpv_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_mask   0x000FFFFF
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_count_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_count_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sw_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sw_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sw_shift  24
++#define SDMA_PKT_WRITE_UNTILED_DW_3_SW(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_sw_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_sw_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_cache_policy_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_cache_policy_mask   0x00000007
++#define SDMA_PKT_WRITE_UNTILED_DW_3_cache_policy_shift  26
++#define SDMA_PKT_WRITE_UNTILED_DW_3_CACHE_POLICY(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_cache_policy_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_cache_policy_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DATA0_DATA0(x) (((x) & SDMA_PKT_WRITE_UNTILED_DATA0_data0_mask) << SDMA_PKT_WRITE_UNTILED_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_WRITE_TILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_TILED_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_op_mask) << SDMA_PKT_WRITE_TILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_TILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_sub_op_mask) << SDMA_PKT_WRITE_TILED_HEADER_sub_op_shift)
++
++/*define for encrypt field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_encrypt_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_encrypt_mask   0x00000001
++#define SDMA_PKT_WRITE_TILED_HEADER_encrypt_shift  16
++#define SDMA_PKT_WRITE_TILED_HEADER_ENCRYPT(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_encrypt_mask) << SDMA_PKT_WRITE_TILED_HEADER_encrypt_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_shift  18
++#define SDMA_PKT_WRITE_TILED_HEADER_TMZ(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_tmz_mask) << SDMA_PKT_WRITE_TILED_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_cpv_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_WRITE_TILED_HEADER_cpv_shift  28
++#define SDMA_PKT_WRITE_TILED_HEADER_CPV(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_cpv_mask) << SDMA_PKT_WRITE_TILED_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_WRITE_TILED_DW_3_width_offset 3
++#define SDMA_PKT_WRITE_TILED_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_3_width_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_3_WIDTH(x) (((x) & SDMA_PKT_WRITE_TILED_DW_3_width_mask) << SDMA_PKT_WRITE_TILED_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_WRITE_TILED_DW_4_height_offset 4
++#define SDMA_PKT_WRITE_TILED_DW_4_height_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_4_height_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_4_HEIGHT(x) (((x) & SDMA_PKT_WRITE_TILED_DW_4_height_mask) << SDMA_PKT_WRITE_TILED_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_offset 4
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_mask   0x00001FFF
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_4_DEPTH(x) (((x) & SDMA_PKT_WRITE_TILED_DW_4_depth_mask) << SDMA_PKT_WRITE_TILED_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_element_size_mask) << SDMA_PKT_WRITE_TILED_DW_5_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_shift  3
++#define SDMA_PKT_WRITE_TILED_DW_5_SWIZZLE_MODE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_mask) << SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_shift  9
++#define SDMA_PKT_WRITE_TILED_DW_5_DIMENSION(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_dimension_mask) << SDMA_PKT_WRITE_TILED_DW_5_dimension_shift)
++
++/*define for mip_max field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_mip_max_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_mip_max_mask   0x0000000F
++#define SDMA_PKT_WRITE_TILED_DW_5_mip_max_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_5_MIP_MAX(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_mip_max_mask) << SDMA_PKT_WRITE_TILED_DW_5_mip_max_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_WRITE_TILED_DW_6_x_offset 6
++#define SDMA_PKT_WRITE_TILED_DW_6_x_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_6_x_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_6_X(x) (((x) & SDMA_PKT_WRITE_TILED_DW_6_x_mask) << SDMA_PKT_WRITE_TILED_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_WRITE_TILED_DW_6_y_offset 6
++#define SDMA_PKT_WRITE_TILED_DW_6_y_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_6_y_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_6_Y(x) (((x) & SDMA_PKT_WRITE_TILED_DW_6_y_mask) << SDMA_PKT_WRITE_TILED_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_z_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_z_mask   0x00001FFF
++#define SDMA_PKT_WRITE_TILED_DW_7_z_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_7_Z(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_z_mask) << SDMA_PKT_WRITE_TILED_DW_7_z_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_shift  24
++#define SDMA_PKT_WRITE_TILED_DW_7_SW(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_sw_mask) << SDMA_PKT_WRITE_TILED_DW_7_sw_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_cache_policy_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_cache_policy_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_DW_7_cache_policy_shift  26
++#define SDMA_PKT_WRITE_TILED_DW_7_CACHE_POLICY(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_cache_policy_mask) << SDMA_PKT_WRITE_TILED_DW_7_cache_policy_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_TILED_COUNT_count_offset 8
++#define SDMA_PKT_WRITE_TILED_COUNT_count_mask   0x000FFFFF
++#define SDMA_PKT_WRITE_TILED_COUNT_count_shift  0
++#define SDMA_PKT_WRITE_TILED_COUNT_COUNT(x) (((x) & SDMA_PKT_WRITE_TILED_COUNT_count_mask) << SDMA_PKT_WRITE_TILED_COUNT_count_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_offset 9
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_shift  0
++#define SDMA_PKT_WRITE_TILED_DATA0_DATA0(x) (((x) & SDMA_PKT_WRITE_TILED_DATA0_data0_mask) << SDMA_PKT_WRITE_TILED_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_WRITE_TILED_BC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_TILED_BC_HEADER_op_mask) << SDMA_PKT_WRITE_TILED_BC_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_TILED_BC_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_TILED_BC_HEADER_sub_op_mask) << SDMA_PKT_WRITE_TILED_BC_HEADER_sub_op_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_TILED_BC_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_TILED_BC_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_3_width_offset 3
++#define SDMA_PKT_WRITE_TILED_BC_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_BC_DW_3_width_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DW_3_WIDTH(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_3_width_mask) << SDMA_PKT_WRITE_TILED_BC_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_height_offset 4
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_height_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_height_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_HEIGHT(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_4_height_mask) << SDMA_PKT_WRITE_TILED_BC_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_depth_offset 4
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_depth_mask   0x000007FF
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_depth_shift  16
++#define SDMA_PKT_WRITE_TILED_BC_DW_4_DEPTH(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_4_depth_mask) << SDMA_PKT_WRITE_TILED_BC_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_element_size_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_element_size_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_element_size_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_element_size_shift)
++
++/*define for array_mode field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_array_mode_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_array_mode_mask   0x0000000F
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_array_mode_shift  3
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_ARRAY_MODE(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_array_mode_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_array_mode_shift)
++
++/*define for mit_mode field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mit_mode_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mit_mode_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mit_mode_shift  8
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_MIT_MODE(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_mit_mode_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_mit_mode_shift)
++
++/*define for tilesplit_size field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_tilesplit_size_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_tilesplit_size_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_tilesplit_size_shift  11
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_TILESPLIT_SIZE(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_tilesplit_size_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_tilesplit_size_shift)
++
++/*define for bank_w field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_w_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_w_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_w_shift  15
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_BANK_W(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_bank_w_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_bank_w_shift)
++
++/*define for bank_h field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_h_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_h_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_bank_h_shift  18
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_BANK_H(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_bank_h_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_bank_h_shift)
++
++/*define for num_bank field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_num_bank_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_num_bank_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_num_bank_shift  21
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_NUM_BANK(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_num_bank_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_num_bank_shift)
++
++/*define for mat_aspt field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mat_aspt_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mat_aspt_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_mat_aspt_shift  24
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_MAT_ASPT(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_mat_aspt_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_mat_aspt_shift)
++
++/*define for pipe_config field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_pipe_config_offset 5
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_pipe_config_mask   0x0000001F
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_pipe_config_shift  26
++#define SDMA_PKT_WRITE_TILED_BC_DW_5_PIPE_CONFIG(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_5_pipe_config_mask) << SDMA_PKT_WRITE_TILED_BC_DW_5_pipe_config_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_x_offset 6
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_x_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_x_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_X(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_6_x_mask) << SDMA_PKT_WRITE_TILED_BC_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_y_offset 6
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_y_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_y_shift  16
++#define SDMA_PKT_WRITE_TILED_BC_DW_6_Y(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_6_y_mask) << SDMA_PKT_WRITE_TILED_BC_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_z_offset 7
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_z_mask   0x000007FF
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_z_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_Z(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_7_z_mask) << SDMA_PKT_WRITE_TILED_BC_DW_7_z_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_sw_offset 7
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_sw_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_sw_shift  24
++#define SDMA_PKT_WRITE_TILED_BC_DW_7_SW(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DW_7_sw_mask) << SDMA_PKT_WRITE_TILED_BC_DW_7_sw_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_TILED_BC_COUNT_count_offset 8
++#define SDMA_PKT_WRITE_TILED_BC_COUNT_count_mask   0x000FFFFF
++#define SDMA_PKT_WRITE_TILED_BC_COUNT_count_shift  2
++#define SDMA_PKT_WRITE_TILED_BC_COUNT_COUNT(x) (((x) & SDMA_PKT_WRITE_TILED_BC_COUNT_count_mask) << SDMA_PKT_WRITE_TILED_BC_COUNT_count_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_WRITE_TILED_BC_DATA0_data0_offset 9
++#define SDMA_PKT_WRITE_TILED_BC_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_BC_DATA0_data0_shift  0
++#define SDMA_PKT_WRITE_TILED_BC_DATA0_DATA0(x) (((x) & SDMA_PKT_WRITE_TILED_BC_DATA0_data0_mask) << SDMA_PKT_WRITE_TILED_BC_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_COPY packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_COPY_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_tmz_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_HEADER_tmz_shift  18
++#define SDMA_PKT_PTEPDE_COPY_HEADER_TMZ(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_tmz_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_tmz_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_cpv_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_HEADER_cpv_shift  28
++#define SDMA_PKT_PTEPDE_COPY_HEADER_CPV(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_cpv_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_cpv_shift)
++
++/*define for ptepde_op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_shift  31
++#define SDMA_PKT_PTEPDE_COPY_HEADER_PTEPDE_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_DW0 word*/
++/*define for mask_dw0 field*/
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_offset 5
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_MASK_DW0(x) (((x) & SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_mask) << SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_shift)
++
++/*define for MASK_DW1 word*/
++/*define for mask_dw1 field*/
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_offset 6
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_shift  0
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_MASK_DW1(x) (((x) & SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_mask) << SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_offset 7
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_mask   0x0007FFFF
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_shift  0
++#define SDMA_PKT_PTEPDE_COPY_COUNT_COUNT(x) (((x) & SDMA_PKT_PTEPDE_COPY_COUNT_count_mask) << SDMA_PKT_PTEPDE_COPY_COUNT_count_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_PKT_PTEPDE_COPY_COUNT_dst_cache_policy_offset 7
++#define SDMA_PKT_PTEPDE_COPY_COUNT_dst_cache_policy_mask   0x00000007
++#define SDMA_PKT_PTEPDE_COPY_COUNT_dst_cache_policy_shift  22
++#define SDMA_PKT_PTEPDE_COPY_COUNT_DST_CACHE_POLICY(x) (((x) & SDMA_PKT_PTEPDE_COPY_COUNT_dst_cache_policy_mask) << SDMA_PKT_PTEPDE_COPY_COUNT_dst_cache_policy_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_PKT_PTEPDE_COPY_COUNT_src_cache_policy_offset 7
++#define SDMA_PKT_PTEPDE_COPY_COUNT_src_cache_policy_mask   0x00000007
++#define SDMA_PKT_PTEPDE_COPY_COUNT_src_cache_policy_shift  29
++#define SDMA_PKT_PTEPDE_COPY_COUNT_SRC_CACHE_POLICY(x) (((x) & SDMA_PKT_PTEPDE_COPY_COUNT_src_cache_policy_mask) << SDMA_PKT_PTEPDE_COPY_COUNT_src_cache_policy_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_COPY_BACKWARDS packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_shift)
++
++/*define for pte_size field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_shift  28
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_PTE_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_shift)
++
++/*define for direction field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_direction_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_direction_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_direction_shift  30
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_DIRECTION(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_direction_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_direction_shift)
++
++/*define for ptepde_op field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_ptepde_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_ptepde_op_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_ptepde_op_shift  31
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_PTEPDE_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_ptepde_op_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_ptepde_op_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_BIT_FOR_DW word*/
++/*define for mask_first_xfer field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_offset 5
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_MASK_FIRST_XFER(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_shift)
++
++/*define for mask_last_xfer field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_offset 5
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_shift  8
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_MASK_LAST_XFER(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_shift)
++
++/*define for COUNT_IN_32B_XFER word*/
++/*define for count field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_offset 6
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_mask   0x0001FFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_COUNT(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_RMW packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_op_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_shift)
++
++/*define for mtype field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_mask   0x00000007
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_shift  16
++#define SDMA_PKT_PTEPDE_RMW_HEADER_MTYPE(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_mtype_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_mtype_shift)
++
++/*define for gcc field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gcc_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gcc_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gcc_shift  19
++#define SDMA_PKT_PTEPDE_RMW_HEADER_GCC(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_gcc_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_gcc_shift)
++
++/*define for sys field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_shift  20
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SYS(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_sys_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_sys_shift)
++
++/*define for snp field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_shift  22
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SNP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_snp_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_snp_shift)
++
++/*define for gpa field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_shift  23
++#define SDMA_PKT_PTEPDE_RMW_HEADER_GPA(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_gpa_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_gpa_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_l2_policy_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_PTEPDE_RMW_HEADER_l2_policy_shift  24
++#define SDMA_PKT_PTEPDE_RMW_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_l2_policy_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_llc_policy_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_llc_policy_shift  26
++#define SDMA_PKT_PTEPDE_RMW_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_llc_policy_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_cpv_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_cpv_shift  28
++#define SDMA_PKT_PTEPDE_RMW_HEADER_CPV(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_cpv_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_mask) << SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_mask) << SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_shift)
++
++/*define for MASK_LO word*/
++/*define for mask_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_offset 3
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_MASK_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_mask) << SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_shift)
++
++/*define for MASK_HI word*/
++/*define for mask_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_offset 4
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_MASK_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_mask) << SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_shift)
++
++/*define for VALUE_LO word*/
++/*define for value_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_offset 5
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_VALUE_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_mask) << SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_shift)
++
++/*define for VALUE_HI word*/
++/*define for value_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_offset 6
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_VALUE_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_mask) << SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_shift)
++
++/*define for COUNT word*/
++/*define for num_of_pte field*/
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_offset 7
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_shift  0
++#define SDMA_PKT_PTEPDE_RMW_COUNT_NUM_OF_PTE(x) (((x) & SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_mask) << SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_shift)
++
++
++/*
++** Definitions for SDMA_PKT_REGISTER_RMW packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_offset 0
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_shift  0
++#define SDMA_PKT_REGISTER_RMW_HEADER_OP(x) (((x) & SDMA_PKT_REGISTER_RMW_HEADER_op_mask) << SDMA_PKT_REGISTER_RMW_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_offset 0
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_shift  8
++#define SDMA_PKT_REGISTER_RMW_HEADER_SUB_OP(x) (((x) & SDMA_PKT_REGISTER_RMW_HEADER_sub_op_mask) << SDMA_PKT_REGISTER_RMW_HEADER_sub_op_shift)
++
++/*define for ADDR word*/
++/*define for addr field*/
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_offset 1
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_mask   0x000FFFFF
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_shift  0
++#define SDMA_PKT_REGISTER_RMW_ADDR_ADDR(x) (((x) & SDMA_PKT_REGISTER_RMW_ADDR_addr_mask) << SDMA_PKT_REGISTER_RMW_ADDR_addr_shift)
++
++/*define for aperture_id field*/
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_offset 1
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_mask   0x00000FFF
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_shift  20
++#define SDMA_PKT_REGISTER_RMW_ADDR_APERTURE_ID(x) (((x) & SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_mask) << SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_shift)
++
++/*define for MASK word*/
++/*define for mask field*/
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_offset 2
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_mask   0xFFFFFFFF
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_shift  0
++#define SDMA_PKT_REGISTER_RMW_MASK_MASK(x) (((x) & SDMA_PKT_REGISTER_RMW_MASK_mask_mask) << SDMA_PKT_REGISTER_RMW_MASK_mask_shift)
++
++/*define for VALUE word*/
++/*define for value field*/
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_offset 3
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_mask   0xFFFFFFFF
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_shift  0
++#define SDMA_PKT_REGISTER_RMW_VALUE_VALUE(x) (((x) & SDMA_PKT_REGISTER_RMW_VALUE_value_mask) << SDMA_PKT_REGISTER_RMW_VALUE_value_shift)
++
++/*define for MISC word*/
++/*define for stride field*/
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_offset 4
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_mask   0x000FFFFF
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_shift  0
++#define SDMA_PKT_REGISTER_RMW_MISC_STRIDE(x) (((x) & SDMA_PKT_REGISTER_RMW_MISC_stride_mask) << SDMA_PKT_REGISTER_RMW_MISC_stride_shift)
++
++/*define for num_of_reg field*/
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_offset 4
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_mask   0x00000FFF
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_shift  20
++#define SDMA_PKT_REGISTER_RMW_MISC_NUM_OF_REG(x) (((x) & SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_mask) << SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_shift)
++
++
++/*
++** Definitions for SDMA_PKT_WRITE_INCR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_INCR_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_INCR_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_op_mask) << SDMA_PKT_WRITE_INCR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_INCR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_sub_op_mask) << SDMA_PKT_WRITE_INCR_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_shift  24
++#define SDMA_PKT_WRITE_INCR_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_cache_policy_mask) << SDMA_PKT_WRITE_INCR_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_shift  28
++#define SDMA_PKT_WRITE_INCR_HEADER_CPV(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_cpv_mask) << SDMA_PKT_WRITE_INCR_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_DW0 word*/
++/*define for mask_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_offset 3
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_MASK_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_mask) << SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_shift)
++
++/*define for MASK_DW1 word*/
++/*define for mask_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_offset 4
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_MASK_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_mask) << SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_shift)
++
++/*define for INIT_DW0 word*/
++/*define for init_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_offset 5
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_INIT_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_mask) << SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_shift)
++
++/*define for INIT_DW1 word*/
++/*define for init_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_offset 6
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_INIT_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_mask) << SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_shift)
++
++/*define for INCR_DW0 word*/
++/*define for incr_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_offset 7
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_INCR_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_mask) << SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_shift)
++
++/*define for INCR_DW1 word*/
++/*define for incr_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_offset 8
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_INCR_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_mask) << SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_INCR_COUNT_count_offset 9
++#define SDMA_PKT_WRITE_INCR_COUNT_count_mask   0x0007FFFF
++#define SDMA_PKT_WRITE_INCR_COUNT_count_shift  0
++#define SDMA_PKT_WRITE_INCR_COUNT_COUNT(x) (((x) & SDMA_PKT_WRITE_INCR_COUNT_count_mask) << SDMA_PKT_WRITE_INCR_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_INDIRECT packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_INDIRECT_HEADER_op_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_INDIRECT_HEADER_op_shift  0
++#define SDMA_PKT_INDIRECT_HEADER_OP(x) (((x) & SDMA_PKT_INDIRECT_HEADER_op_mask) << SDMA_PKT_INDIRECT_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_shift  8
++#define SDMA_PKT_INDIRECT_HEADER_SUB_OP(x) (((x) & SDMA_PKT_INDIRECT_HEADER_sub_op_mask) << SDMA_PKT_INDIRECT_HEADER_sub_op_shift)
++
++/*define for vmid field*/
++#define SDMA_PKT_INDIRECT_HEADER_vmid_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_vmid_mask   0x0000000F
++#define SDMA_PKT_INDIRECT_HEADER_vmid_shift  16
++#define SDMA_PKT_INDIRECT_HEADER_VMID(x) (((x) & SDMA_PKT_INDIRECT_HEADER_vmid_mask) << SDMA_PKT_INDIRECT_HEADER_vmid_shift)
++
++/*define for priv field*/
++#define SDMA_PKT_INDIRECT_HEADER_priv_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_priv_mask   0x00000001
++#define SDMA_PKT_INDIRECT_HEADER_priv_shift  31
++#define SDMA_PKT_INDIRECT_HEADER_PRIV(x) (((x) & SDMA_PKT_INDIRECT_HEADER_priv_mask) << SDMA_PKT_INDIRECT_HEADER_priv_shift)
++
++/*define for BASE_LO word*/
++/*define for ib_base_31_0 field*/
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_offset 1
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_shift  0
++#define SDMA_PKT_INDIRECT_BASE_LO_IB_BASE_31_0(x) (((x) & SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_mask) << SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_shift)
++
++/*define for BASE_HI word*/
++/*define for ib_base_63_32 field*/
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_offset 2
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_shift  0
++#define SDMA_PKT_INDIRECT_BASE_HI_IB_BASE_63_32(x) (((x) & SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_mask) << SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_shift)
++
++/*define for IB_SIZE word*/
++/*define for ib_size field*/
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_offset 3
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_mask   0x000FFFFF
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_shift  0
++#define SDMA_PKT_INDIRECT_IB_SIZE_IB_SIZE(x) (((x) & SDMA_PKT_INDIRECT_IB_SIZE_ib_size_mask) << SDMA_PKT_INDIRECT_IB_SIZE_ib_size_shift)
++
++/*define for CSA_ADDR_LO word*/
++/*define for csa_addr_31_0 field*/
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_offset 4
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_shift  0
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_CSA_ADDR_31_0(x) (((x) & SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_mask) << SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_shift)
++
++/*define for CSA_ADDR_HI word*/
++/*define for csa_addr_63_32 field*/
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_offset 5
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_shift  0
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_CSA_ADDR_63_32(x) (((x) & SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_mask) << SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_SEMAPHORE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_op_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_SEMAPHORE_HEADER_op_shift  0
++#define SDMA_PKT_SEMAPHORE_HEADER_OP(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_op_mask) << SDMA_PKT_SEMAPHORE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_shift  8
++#define SDMA_PKT_SEMAPHORE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_sub_op_mask) << SDMA_PKT_SEMAPHORE_HEADER_sub_op_shift)
++
++/*define for write_one field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_shift  29
++#define SDMA_PKT_SEMAPHORE_HEADER_WRITE_ONE(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_write_one_mask) << SDMA_PKT_SEMAPHORE_HEADER_write_one_shift)
++
++/*define for signal field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_shift  30
++#define SDMA_PKT_SEMAPHORE_HEADER_SIGNAL(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_signal_mask) << SDMA_PKT_SEMAPHORE_HEADER_signal_shift)
++
++/*define for mailbox field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_shift  31
++#define SDMA_PKT_SEMAPHORE_HEADER_MAILBOX(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_mailbox_mask) << SDMA_PKT_SEMAPHORE_HEADER_mailbox_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_MEM_INCR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_MEM_INCR_HEADER_op_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_MEM_INCR_HEADER_op_shift  0
++#define SDMA_PKT_MEM_INCR_HEADER_OP(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_op_mask) << SDMA_PKT_MEM_INCR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_shift  8
++#define SDMA_PKT_MEM_INCR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_sub_op_mask) << SDMA_PKT_MEM_INCR_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_shift  24
++#define SDMA_PKT_MEM_INCR_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_l2_policy_mask) << SDMA_PKT_MEM_INCR_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_shift  26
++#define SDMA_PKT_MEM_INCR_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_llc_policy_mask) << SDMA_PKT_MEM_INCR_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_shift  28
++#define SDMA_PKT_MEM_INCR_HEADER_CPV(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_cpv_mask) << SDMA_PKT_MEM_INCR_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_MEM_INCR_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_mask) << SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_MEM_INCR_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_mask) << SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_VM_INVALIDATION packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_shift  0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_OP(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift  8
++#define SDMA_PKT_VM_INVALIDATION_HEADER_SUB_OP(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift)
++
++/*define for gfx_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_shift  16
++#define SDMA_PKT_VM_INVALIDATION_HEADER_GFX_ENG_ID(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_shift)
++
++/*define for mm_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_shift  24
++#define SDMA_PKT_VM_INVALIDATION_HEADER_MM_ENG_ID(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_shift)
++
++/*define for INVALIDATEREQ word*/
++/*define for invalidatereq field*/
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_offset 1
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift  0
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_INVALIDATEREQ(x) (((x) & SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask) << SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift)
++
++/*define for ADDRESSRANGELO word*/
++/*define for addressrangelo field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_offset 2
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_ADDRESSRANGELO(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift)
++
++/*define for ADDRESSRANGEHI word*/
++/*define for invalidateack field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask   0x0000FFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_INVALIDATEACK(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift)
++
++/*define for addressrangehi field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift  16
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_ADDRESSRANGEHI(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift)
++
++/*define for reserved field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask   0x000001FF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift  23
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_RESERVED(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift)
++
++
++/*
++** Definitions for SDMA_PKT_FENCE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_FENCE_HEADER_op_offset 0
++#define SDMA_PKT_FENCE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_FENCE_HEADER_op_shift  0
++#define SDMA_PKT_FENCE_HEADER_OP(x) (((x) & SDMA_PKT_FENCE_HEADER_op_mask) << SDMA_PKT_FENCE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_FENCE_HEADER_sub_op_offset 0
++#define SDMA_PKT_FENCE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_FENCE_HEADER_sub_op_shift  8
++#define SDMA_PKT_FENCE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_FENCE_HEADER_sub_op_mask) << SDMA_PKT_FENCE_HEADER_sub_op_shift)
++
++/*define for mtype field*/
++#define SDMA_PKT_FENCE_HEADER_mtype_offset 0
++#define SDMA_PKT_FENCE_HEADER_mtype_mask   0x00000007
++#define SDMA_PKT_FENCE_HEADER_mtype_shift  16
++#define SDMA_PKT_FENCE_HEADER_MTYPE(x) (((x) & SDMA_PKT_FENCE_HEADER_mtype_mask) << SDMA_PKT_FENCE_HEADER_mtype_shift)
++
++/*define for gcc field*/
++#define SDMA_PKT_FENCE_HEADER_gcc_offset 0
++#define SDMA_PKT_FENCE_HEADER_gcc_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_gcc_shift  19
++#define SDMA_PKT_FENCE_HEADER_GCC(x) (((x) & SDMA_PKT_FENCE_HEADER_gcc_mask) << SDMA_PKT_FENCE_HEADER_gcc_shift)
++
++/*define for sys field*/
++#define SDMA_PKT_FENCE_HEADER_sys_offset 0
++#define SDMA_PKT_FENCE_HEADER_sys_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_sys_shift  20
++#define SDMA_PKT_FENCE_HEADER_SYS(x) (((x) & SDMA_PKT_FENCE_HEADER_sys_mask) << SDMA_PKT_FENCE_HEADER_sys_shift)
++
++/*define for snp field*/
++#define SDMA_PKT_FENCE_HEADER_snp_offset 0
++#define SDMA_PKT_FENCE_HEADER_snp_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_snp_shift  22
++#define SDMA_PKT_FENCE_HEADER_SNP(x) (((x) & SDMA_PKT_FENCE_HEADER_snp_mask) << SDMA_PKT_FENCE_HEADER_snp_shift)
++
++/*define for gpa field*/
++#define SDMA_PKT_FENCE_HEADER_gpa_offset 0
++#define SDMA_PKT_FENCE_HEADER_gpa_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_gpa_shift  23
++#define SDMA_PKT_FENCE_HEADER_GPA(x) (((x) & SDMA_PKT_FENCE_HEADER_gpa_mask) << SDMA_PKT_FENCE_HEADER_gpa_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_FENCE_HEADER_l2_policy_offset 0
++#define SDMA_PKT_FENCE_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_FENCE_HEADER_l2_policy_shift  24
++#define SDMA_PKT_FENCE_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_FENCE_HEADER_l2_policy_mask) << SDMA_PKT_FENCE_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_FENCE_HEADER_llc_policy_offset 0
++#define SDMA_PKT_FENCE_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_llc_policy_shift  26
++#define SDMA_PKT_FENCE_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_FENCE_HEADER_llc_policy_mask) << SDMA_PKT_FENCE_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_FENCE_HEADER_cpv_offset 0
++#define SDMA_PKT_FENCE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_cpv_shift  28
++#define SDMA_PKT_FENCE_HEADER_CPV(x) (((x) & SDMA_PKT_FENCE_HEADER_cpv_mask) << SDMA_PKT_FENCE_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_FENCE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_FENCE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_FENCE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_FENCE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_FENCE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_FENCE_ADDR_HI_addr_63_32_shift)
++
++/*define for DATA word*/
++/*define for data field*/
++#define SDMA_PKT_FENCE_DATA_data_offset 3
++#define SDMA_PKT_FENCE_DATA_data_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_DATA_data_shift  0
++#define SDMA_PKT_FENCE_DATA_DATA(x) (((x) & SDMA_PKT_FENCE_DATA_data_mask) << SDMA_PKT_FENCE_DATA_data_shift)
++
++
++/*
++** Definitions for SDMA_PKT_SRBM_WRITE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_shift  0
++#define SDMA_PKT_SRBM_WRITE_HEADER_OP(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_op_mask) << SDMA_PKT_SRBM_WRITE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_shift  8
++#define SDMA_PKT_SRBM_WRITE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_sub_op_mask) << SDMA_PKT_SRBM_WRITE_HEADER_sub_op_shift)
++
++/*define for byte_en field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_mask   0x0000000F
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_shift  28
++#define SDMA_PKT_SRBM_WRITE_HEADER_BYTE_EN(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_byte_en_mask) << SDMA_PKT_SRBM_WRITE_HEADER_byte_en_shift)
++
++/*define for ADDR word*/
++/*define for addr field*/
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_offset 1
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_mask   0x0003FFFF
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_shift  0
++#define SDMA_PKT_SRBM_WRITE_ADDR_ADDR(x) (((x) & SDMA_PKT_SRBM_WRITE_ADDR_addr_mask) << SDMA_PKT_SRBM_WRITE_ADDR_addr_shift)
++
++/*define for apertureid field*/
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_offset 1
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_mask   0x00000FFF
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_shift  20
++#define SDMA_PKT_SRBM_WRITE_ADDR_APERTUREID(x) (((x) & SDMA_PKT_SRBM_WRITE_ADDR_apertureid_mask) << SDMA_PKT_SRBM_WRITE_ADDR_apertureid_shift)
++
++/*define for DATA word*/
++/*define for data field*/
++#define SDMA_PKT_SRBM_WRITE_DATA_data_offset 2
++#define SDMA_PKT_SRBM_WRITE_DATA_data_mask   0xFFFFFFFF
++#define SDMA_PKT_SRBM_WRITE_DATA_data_shift  0
++#define SDMA_PKT_SRBM_WRITE_DATA_DATA(x) (((x) & SDMA_PKT_SRBM_WRITE_DATA_data_mask) << SDMA_PKT_SRBM_WRITE_DATA_data_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PRE_EXE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PRE_EXE_HEADER_op_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_op_shift  0
++#define SDMA_PKT_PRE_EXE_HEADER_OP(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_op_mask) << SDMA_PKT_PRE_EXE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_shift  8
++#define SDMA_PKT_PRE_EXE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_sub_op_mask) << SDMA_PKT_PRE_EXE_HEADER_sub_op_shift)
++
++/*define for dev_sel field*/
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_shift  16
++#define SDMA_PKT_PRE_EXE_HEADER_DEV_SEL(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_dev_sel_mask) << SDMA_PKT_PRE_EXE_HEADER_dev_sel_shift)
++
++/*define for EXEC_COUNT word*/
++/*define for exec_count field*/
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_offset 1
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_mask   0x00003FFF
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_shift  0
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_EXEC_COUNT(x) (((x) & SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_mask) << SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COND_EXE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COND_EXE_HEADER_op_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COND_EXE_HEADER_op_shift  0
++#define SDMA_PKT_COND_EXE_HEADER_OP(x) (((x) & SDMA_PKT_COND_EXE_HEADER_op_mask) << SDMA_PKT_COND_EXE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_shift  8
++#define SDMA_PKT_COND_EXE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COND_EXE_HEADER_sub_op_mask) << SDMA_PKT_COND_EXE_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_shift  24
++#define SDMA_PKT_COND_EXE_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_COND_EXE_HEADER_cache_policy_mask) << SDMA_PKT_COND_EXE_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COND_EXE_HEADER_cpv_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COND_EXE_HEADER_cpv_shift  28
++#define SDMA_PKT_COND_EXE_HEADER_CPV(x) (((x) & SDMA_PKT_COND_EXE_HEADER_cpv_mask) << SDMA_PKT_COND_EXE_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_COND_EXE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_COND_EXE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_shift)
++
++/*define for REFERENCE word*/
++/*define for reference field*/
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_offset 3
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_shift  0
++#define SDMA_PKT_COND_EXE_REFERENCE_REFERENCE(x) (((x) & SDMA_PKT_COND_EXE_REFERENCE_reference_mask) << SDMA_PKT_COND_EXE_REFERENCE_reference_shift)
++
++/*define for EXEC_COUNT word*/
++/*define for exec_count field*/
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_offset 4
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_mask   0x00003FFF
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_shift  0
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_EXEC_COUNT(x) (((x) & SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_mask) << SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_CONSTANT_FILL packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_shift  0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_OP(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_op_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_shift  8
++#define SDMA_PKT_CONSTANT_FILL_HEADER_SUB_OP(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_mask   0x00000003
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_shift  16
++#define SDMA_PKT_CONSTANT_FILL_HEADER_SW(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_sw_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_sw_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_shift  24
++#define SDMA_PKT_CONSTANT_FILL_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_shift  28
++#define SDMA_PKT_CONSTANT_FILL_HEADER_CPV(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_cpv_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_cpv_shift)
++
++/*define for fillsize field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_mask   0x00000003
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_shift  30
++#define SDMA_PKT_CONSTANT_FILL_HEADER_FILLSIZE(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DATA word*/
++/*define for src_data_31_0 field*/
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_offset 3
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DATA_SRC_DATA_31_0(x) (((x) & SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_mask) << SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_offset 4
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_shift  0
++#define SDMA_PKT_CONSTANT_FILL_COUNT_COUNT(x) (((x) & SDMA_PKT_CONSTANT_FILL_COUNT_count_mask) << SDMA_PKT_CONSTANT_FILL_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_DATA_FILL_MULTI packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_OP(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_op_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_shift  8
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_SUB_OP(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_shift  24
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_shift  28
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_CPV(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_shift)
++
++/*define for memlog_clr field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_mask   0x00000001
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_shift  31
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_MEMLOG_CLR(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_shift)
++
++/*define for BYTE_STRIDE word*/
++/*define for byte_stride field*/
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_offset 1
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_BYTE_STRIDE(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_mask) << SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_shift)
++
++/*define for DMA_COUNT word*/
++/*define for dma_count field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_offset 2
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_DMA_COUNT(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_mask) << SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for BYTE_COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_offset 5
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_mask   0x03FFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_COUNT(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_mask) << SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_REGMEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_REGMEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_op_mask) << SDMA_PKT_POLL_REGMEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_REGMEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_REGMEM_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_shift  20
++#define SDMA_PKT_POLL_REGMEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_shift  24
++#define SDMA_PKT_POLL_REGMEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_cpv_mask) << SDMA_PKT_POLL_REGMEM_HEADER_cpv_shift)
++
++/*define for hdp_flush field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_shift  26
++#define SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_mask) << SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_shift)
++
++/*define for func field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_mask   0x00000007
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_shift  28
++#define SDMA_PKT_POLL_REGMEM_HEADER_FUNC(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_func_mask) << SDMA_PKT_POLL_REGMEM_HEADER_func_shift)
++
++/*define for mem_poll field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_shift  31
++#define SDMA_PKT_POLL_REGMEM_HEADER_MEM_POLL(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_mask) << SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_shift)
++
++/*define for VALUE word*/
++/*define for value field*/
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_offset 3
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_shift  0
++#define SDMA_PKT_POLL_REGMEM_VALUE_VALUE(x) (((x) & SDMA_PKT_POLL_REGMEM_VALUE_value_mask) << SDMA_PKT_POLL_REGMEM_VALUE_value_shift)
++
++/*define for MASK word*/
++/*define for mask field*/
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_offset 4
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_shift  0
++#define SDMA_PKT_POLL_REGMEM_MASK_MASK(x) (((x) & SDMA_PKT_POLL_REGMEM_MASK_mask_mask) << SDMA_PKT_POLL_REGMEM_MASK_mask_shift)
++
++/*define for DW5 word*/
++/*define for interval field*/
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_offset 5
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_mask   0x0000FFFF
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_shift  0
++#define SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(x) (((x) & SDMA_PKT_POLL_REGMEM_DW5_interval_mask) << SDMA_PKT_POLL_REGMEM_DW5_interval_shift)
++
++/*define for retry_count field*/
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_offset 5
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_mask   0x00000FFF
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_shift  16
++#define SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(x) (((x) & SDMA_PKT_POLL_REGMEM_DW5_retry_count_mask) << SDMA_PKT_POLL_REGMEM_DW5_retry_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_REG_WRITE_MEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_shift)
++
++/*define for SRC_ADDR word*/
++/*define for addr_31_2 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_offset 1
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_mask   0x3FFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_shift  2
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_ADDR_31_2(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_offset 2
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_offset 3
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_DBIT_WRITE_MEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_shift)
++
++/*define for ea field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_mask   0x00000003
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_shift  16
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_EA(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift)
++
++/*define for START_PAGE word*/
++/*define for addr_31_4 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_offset 3
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_mask   0x0FFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_shift  4
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_ADDR_31_4(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_shift)
++
++/*define for PAGE_NUM word*/
++/*define for page_num_31_0 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_offset 4
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_PAGE_NUM_31_0(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_MEM_VERIFY packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_OP(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_shift)
++
++/*define for mode field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_mask   0x00000001
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_shift  31
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_MODE(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_shift)
++
++/*define for PATTERN word*/
++/*define for pattern field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_offset 1
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_PATTERN(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_mask) << SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_shift)
++
++/*define for CMP0_ADDR_START_LO word*/
++/*define for cmp0_start_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_offset 2
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_CMP0_START_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_shift)
++
++/*define for CMP0_ADDR_START_HI word*/
++/*define for cmp0_start_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_offset 3
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_CMP0_START_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_shift)
++
++/*define for CMP0_ADDR_END_LO word*/
++/*define for cmp0_end_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_offset 4
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_CMP0_END_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_shift)
++
++/*define for CMP0_ADDR_END_HI word*/
++/*define for cmp0_end_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_offset 5
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_CMP0_END_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_shift)
++
++/*define for CMP1_ADDR_START_LO word*/
++/*define for cmp1_start_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_offset 6
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_CMP1_START_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_shift)
++
++/*define for CMP1_ADDR_START_HI word*/
++/*define for cmp1_start_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_offset 7
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_CMP1_START_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_shift)
++
++/*define for CMP1_ADDR_END_LO word*/
++/*define for cmp1_end_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_offset 8
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_CMP1_END_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_shift)
++
++/*define for CMP1_ADDR_END_HI word*/
++/*define for cmp1_end_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_offset 9
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_CMP1_END_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_shift)
++
++/*define for REC_ADDR_LO word*/
++/*define for rec_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_offset 10
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_REC_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_shift)
++
++/*define for REC_ADDR_HI word*/
++/*define for rec_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_offset 11
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_REC_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_shift)
++
++/*define for RESERVED word*/
++/*define for reserved field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_offset 12
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_RESERVED(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_mask) << SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_shift)
++
++
++/*
++** Definitions for SDMA_PKT_ATOMIC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_ATOMIC_HEADER_op_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_ATOMIC_HEADER_op_shift  0
++#define SDMA_PKT_ATOMIC_HEADER_OP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_op_mask) << SDMA_PKT_ATOMIC_HEADER_op_shift)
++
++/*define for loop field*/
++#define SDMA_PKT_ATOMIC_HEADER_loop_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_loop_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_loop_shift  16
++#define SDMA_PKT_ATOMIC_HEADER_LOOP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_loop_mask) << SDMA_PKT_ATOMIC_HEADER_loop_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_ATOMIC_HEADER_tmz_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_tmz_shift  18
++#define SDMA_PKT_ATOMIC_HEADER_TMZ(x) (((x) & SDMA_PKT_ATOMIC_HEADER_tmz_mask) << SDMA_PKT_ATOMIC_HEADER_tmz_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_shift  20
++#define SDMA_PKT_ATOMIC_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_ATOMIC_HEADER_cache_policy_mask) << SDMA_PKT_ATOMIC_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_ATOMIC_HEADER_cpv_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_cpv_shift  24
++#define SDMA_PKT_ATOMIC_HEADER_CPV(x) (((x) & SDMA_PKT_ATOMIC_HEADER_cpv_mask) << SDMA_PKT_ATOMIC_HEADER_cpv_shift)
++
++/*define for atomic_op field*/
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_mask   0x0000007F
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_shift  25
++#define SDMA_PKT_ATOMIC_HEADER_ATOMIC_OP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_atomic_op_mask) << SDMA_PKT_ATOMIC_HEADER_atomic_op_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_ATOMIC_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_mask) << SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_ATOMIC_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_mask) << SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_shift)
++
++/*define for SRC_DATA_LO word*/
++/*define for src_data_31_0 field*/
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_offset 3
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_shift  0
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_SRC_DATA_31_0(x) (((x) & SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_mask) << SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_shift)
++
++/*define for SRC_DATA_HI word*/
++/*define for src_data_63_32 field*/
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_offset 4
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_shift  0
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_SRC_DATA_63_32(x) (((x) & SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_mask) << SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_shift)
++
++/*define for CMP_DATA_LO word*/
++/*define for cmp_data_31_0 field*/
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_offset 5
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_shift  0
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_CMP_DATA_31_0(x) (((x) & SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_mask) << SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_shift)
++
++/*define for CMP_DATA_HI word*/
++/*define for cmp_data_63_32 field*/
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_offset 6
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_shift  0
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_CMP_DATA_63_32(x) (((x) & SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_mask) << SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_shift)
++
++/*define for LOOP_INTERVAL word*/
++/*define for loop_interval field*/
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_offset 7
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_mask   0x00001FFF
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_shift  0
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_LOOP_INTERVAL(x) (((x) & SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_mask) << SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_SET packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_SET_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_SET_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_shift)
++
++/*define for INIT_DATA_LO word*/
++/*define for init_data_31_0 field*/
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_offset 1
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_INIT_DATA_31_0(x) (((x) & SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_mask) << SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_shift)
++
++/*define for INIT_DATA_HI word*/
++/*define for init_data_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_INIT_DATA_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_mask) << SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_GET packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_shift  24
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_shift  26
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_shift  28
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_CPV(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_shift)
++
++/*define for WRITE_ADDR_LO word*/
++/*define for write_addr_31_3 field*/
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_offset 1
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_mask   0x1FFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_shift  3
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_WRITE_ADDR_31_3(x) (((x) & SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_mask) << SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_shift)
++
++/*define for WRITE_ADDR_HI word*/
++/*define for write_addr_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_WRITE_ADDR_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_mask) << SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_GET_GLOBAL packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_shift  24
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_shift  26
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_shift  28
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_CPV(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_shift)
++
++/*define for WRITE_ADDR_LO word*/
++/*define for write_addr_31_3 field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_offset 1
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_mask   0x1FFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_shift  3
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_WRITE_ADDR_31_3(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_shift)
++
++/*define for WRITE_ADDR_HI word*/
++/*define for write_addr_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_WRITE_ADDR_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TRAP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TRAP_HEADER_op_offset 0
++#define SDMA_PKT_TRAP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TRAP_HEADER_op_shift  0
++#define SDMA_PKT_TRAP_HEADER_OP(x) (((x) & SDMA_PKT_TRAP_HEADER_op_mask) << SDMA_PKT_TRAP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TRAP_HEADER_sub_op_offset 0
++#define SDMA_PKT_TRAP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TRAP_HEADER_sub_op_shift  8
++#define SDMA_PKT_TRAP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TRAP_HEADER_sub_op_mask) << SDMA_PKT_TRAP_HEADER_sub_op_shift)
++
++/*define for INT_CONTEXT word*/
++/*define for int_context field*/
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_offset 1
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_mask   0x0FFFFFFF
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_shift  0
++#define SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(x) (((x) & SDMA_PKT_TRAP_INT_CONTEXT_int_context_mask) << SDMA_PKT_TRAP_INT_CONTEXT_int_context_shift)
++
++
++/*
++** Definitions for SDMA_PKT_DUMMY_TRAP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_offset 0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_shift  0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_OP(x) (((x) & SDMA_PKT_DUMMY_TRAP_HEADER_op_mask) << SDMA_PKT_DUMMY_TRAP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_offset 0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_shift  8
++#define SDMA_PKT_DUMMY_TRAP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_mask) << SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_shift)
++
++/*define for INT_CONTEXT word*/
++/*define for int_context field*/
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_offset 1
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_mask   0x0FFFFFFF
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_shift  0
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_INT_CONTEXT(x) (((x) & SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_mask) << SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_shift)
++
++
++/*
++** Definitions for SDMA_PKT_GPUVM_INV packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_GPUVM_INV_HEADER_op_offset 0
++#define SDMA_PKT_GPUVM_INV_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_GPUVM_INV_HEADER_op_shift  0
++#define SDMA_PKT_GPUVM_INV_HEADER_OP(x) (((x) & SDMA_PKT_GPUVM_INV_HEADER_op_mask) << SDMA_PKT_GPUVM_INV_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_offset 0
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_shift  8
++#define SDMA_PKT_GPUVM_INV_HEADER_SUB_OP(x) (((x) & SDMA_PKT_GPUVM_INV_HEADER_sub_op_mask) << SDMA_PKT_GPUVM_INV_HEADER_sub_op_shift)
++
++/*define for PAYLOAD1 word*/
++/*define for per_vmid_inv_req field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_mask   0x0000FFFF
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_PER_VMID_INV_REQ(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_shift)
++
++/*define for flush_type field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_mask   0x00000007
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_shift  16
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_FLUSH_TYPE(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_shift)
++
++/*define for l2_ptes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_shift  19
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_shift)
++
++/*define for l2_pde0 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_shift  20
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE0(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_shift)
++
++/*define for l2_pde1 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_shift  21
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE1(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_shift)
++
++/*define for l2_pde2 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_shift  22
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE2(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_shift)
++
++/*define for l1_ptes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_shift  23
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L1_PTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_shift)
++
++/*define for clr_protection_fault_status_addr field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_shift  24
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_CLR_PROTECTION_FAULT_STATUS_ADDR(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_shift)
++
++/*define for log_request field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_shift  25
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_LOG_REQUEST(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_shift)
++
++/*define for four_kilobytes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_shift  26
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_FOUR_KILOBYTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_shift)
++
++/*define for PAYLOAD2 word*/
++/*define for s field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_offset 2
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_S(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD2_s_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD2_s_shift)
++
++/*define for page_va_42_12 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_offset 2
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_mask   0x7FFFFFFF
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_shift  1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_PAGE_VA_42_12(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_shift)
++
++/*define for PAYLOAD3 word*/
++/*define for page_va_47_43 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_offset 3
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_mask   0x0000003F
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_PAGE_VA_47_43(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_shift)
++
++
++/*
++** Definitions for SDMA_PKT_GCR_REQ packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_GCR_REQ_HEADER_op_offset 0
++#define SDMA_PKT_GCR_REQ_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_GCR_REQ_HEADER_op_shift  0
++#define SDMA_PKT_GCR_REQ_HEADER_OP(x) (((x) & SDMA_PKT_GCR_REQ_HEADER_op_mask) << SDMA_PKT_GCR_REQ_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_offset 0
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_shift  8
++#define SDMA_PKT_GCR_REQ_HEADER_SUB_OP(x) (((x) & SDMA_PKT_GCR_REQ_HEADER_sub_op_mask) << SDMA_PKT_GCR_REQ_HEADER_sub_op_shift)
++
++/*define for PAYLOAD1 word*/
++/*define for base_va_31_7 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_offset 1
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_mask   0x01FFFFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_shift  7
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_BASE_VA_31_7(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_mask) << SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_shift)
++
++/*define for PAYLOAD2 word*/
++/*define for base_va_47_32 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_offset 2
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_BASE_VA_47_32(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_mask) << SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_shift)
++
++/*define for gcr_control_15_0 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_offset 2
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_shift  16
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_GCR_CONTROL_15_0(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_mask) << SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_shift)
++
++/*define for PAYLOAD3 word*/
++/*define for gcr_control_18_16 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_offset 3
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_mask   0x00000007
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_GCR_CONTROL_18_16(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_mask) << SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_shift)
++
++/*define for limit_va_31_7 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_offset 3
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_mask   0x01FFFFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_shift  7
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_LIMIT_VA_31_7(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_mask) << SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_shift)
++
++/*define for PAYLOAD4 word*/
++/*define for limit_va_47_32 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_offset 4
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_LIMIT_VA_47_32(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_mask) << SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_shift)
++
++/*define for vmid field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_offset 4
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_mask   0x0000000F
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_shift  24
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_VMID(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_mask) << SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_shift)
++
++
++/*
++** Definitions for SDMA_PKT_NOP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_NOP_HEADER_op_offset 0
++#define SDMA_PKT_NOP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_NOP_HEADER_op_shift  0
++#define SDMA_PKT_NOP_HEADER_OP(x) (((x) & SDMA_PKT_NOP_HEADER_op_mask) << SDMA_PKT_NOP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_NOP_HEADER_sub_op_offset 0
++#define SDMA_PKT_NOP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_NOP_HEADER_sub_op_shift  8
++#define SDMA_PKT_NOP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_NOP_HEADER_sub_op_mask) << SDMA_PKT_NOP_HEADER_sub_op_shift)
++
++/*define for count field*/
++#define SDMA_PKT_NOP_HEADER_count_offset 0
++#define SDMA_PKT_NOP_HEADER_count_mask   0x00003FFF
++#define SDMA_PKT_NOP_HEADER_count_shift  16
++#define SDMA_PKT_NOP_HEADER_COUNT(x) (((x) & SDMA_PKT_NOP_HEADER_count_mask) << SDMA_PKT_NOP_HEADER_count_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_NOP_DATA0_data0_offset 1
++#define SDMA_PKT_NOP_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_NOP_DATA0_data0_shift  0
++#define SDMA_PKT_NOP_DATA0_DATA0(x) (((x) & SDMA_PKT_NOP_DATA0_data0_mask) << SDMA_PKT_NOP_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_HEADER packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_format_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_HEADER_HEADER_format_shift  0
++#define SDMA_AQL_PKT_HEADER_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_format_mask) << SDMA_AQL_PKT_HEADER_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_HEADER_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_barrier_mask) << SDMA_AQL_PKT_HEADER_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_HEADER_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_HEADER_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_HEADER_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_reserved_mask) << SDMA_AQL_PKT_HEADER_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_op_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_HEADER_HEADER_op_shift  16
++#define SDMA_AQL_PKT_HEADER_HEADER_OP(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_op_mask) << SDMA_AQL_PKT_HEADER_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_HEADER_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_subop_mask) << SDMA_AQL_PKT_HEADER_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_HEADER_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_cpv_mask) << SDMA_AQL_PKT_HEADER_HEADER_cpv_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_COPY_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_shift  16
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_OP(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_shift)
++
++/*define for RESERVED_DW1 word*/
++/*define for reserved_dw1 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_offset 1
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_RESERVED_DW1(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_shift)
++
++/*define for RETURN_ADDR_LO word*/
++/*define for return_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_offset 2
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_RETURN_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_shift)
++
++/*define for RETURN_ADDR_HI word*/
++/*define for return_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_offset 3
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_RETURN_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_offset 4
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_mask   0x003FFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_COUNT(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_mask) << SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_sw field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift  16
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift  18
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_DST_CACHE_POLICY(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift  26
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_SRC_CACHE_POLICY(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 6
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 7
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 8
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 9
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for RESERVED_DW10 word*/
++/*define for reserved_dw10 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_offset 10
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_RESERVED_DW10(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_shift)
++
++/*define for RESERVED_DW11 word*/
++/*define for reserved_dw11 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_offset 11
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_RESERVED_DW11(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_shift)
++
++/*define for RESERVED_DW12 word*/
++/*define for reserved_dw12 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_offset 12
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_RESERVED_DW12(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_shift)
++
++/*define for RESERVED_DW13 word*/
++/*define for reserved_dw13 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_offset 13
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_RESERVED_DW13(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_shift)
++
++/*define for COMPLETION_SIGNAL_LO word*/
++/*define for completion_signal_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_offset 14
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_COMPLETION_SIGNAL_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift)
++
++/*define for COMPLETION_SIGNAL_HI word*/
++/*define for completion_signal_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_offset 15
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_COMPLETION_SIGNAL_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_BARRIER_OR packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_format_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_shift  16
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_OP(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_op_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_shift)
++
++/*define for RESERVED_DW1 word*/
++/*define for reserved_dw1 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_offset 1
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_RESERVED_DW1(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_mask) << SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_shift)
++
++/*define for DEPENDENT_ADDR_0_LO word*/
++/*define for dependent_addr_0_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_offset 2
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_DEPENDENT_ADDR_0_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_shift)
++
++/*define for DEPENDENT_ADDR_0_HI word*/
++/*define for dependent_addr_0_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_offset 3
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_DEPENDENT_ADDR_0_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_shift)
++
++/*define for DEPENDENT_ADDR_1_LO word*/
++/*define for dependent_addr_1_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_offset 4
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_DEPENDENT_ADDR_1_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_shift)
++
++/*define for DEPENDENT_ADDR_1_HI word*/
++/*define for dependent_addr_1_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_offset 5
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_DEPENDENT_ADDR_1_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_shift)
++
++/*define for DEPENDENT_ADDR_2_LO word*/
++/*define for dependent_addr_2_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_offset 6
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_DEPENDENT_ADDR_2_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_shift)
++
++/*define for DEPENDENT_ADDR_2_HI word*/
++/*define for dependent_addr_2_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_offset 7
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_DEPENDENT_ADDR_2_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_shift)
++
++/*define for DEPENDENT_ADDR_3_LO word*/
++/*define for dependent_addr_3_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_offset 8
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_DEPENDENT_ADDR_3_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_shift)
++
++/*define for DEPENDENT_ADDR_3_HI word*/
++/*define for dependent_addr_3_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_offset 9
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_DEPENDENT_ADDR_3_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_shift)
++
++/*define for DEPENDENT_ADDR_4_LO word*/
++/*define for dependent_addr_4_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_offset 10
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_DEPENDENT_ADDR_4_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_shift)
++
++/*define for DEPENDENT_ADDR_4_HI word*/
++/*define for dependent_addr_4_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_offset 11
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_DEPENDENT_ADDR_4_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_shift)
++
++/*define for CACHE_POLICY word*/
++/*define for cache_policy0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_shift)
++
++/*define for cache_policy1 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_shift  5
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY1(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_shift)
++
++/*define for cache_policy2 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_shift  10
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY2(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_shift)
++
++/*define for cache_policy3 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_shift  15
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY3(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_shift)
++
++/*define for cache_policy4 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_shift  20
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY4(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_shift)
++
++/*define for RESERVED_DW13 word*/
++/*define for reserved_dw13 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_offset 13
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_RESERVED_DW13(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_mask) << SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_shift)
++
++/*define for COMPLETION_SIGNAL_LO word*/
++/*define for completion_signal_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_offset 14
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_COMPLETION_SIGNAL_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift)
++
++/*define for COMPLETION_SIGNAL_HI word*/
++/*define for completion_signal_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_offset 15
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_COMPLETION_SIGNAL_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift)
++
++
++#endif /* __SDMA_V6_0_0_PKT_OPEN_H_ */
 -- 
 2.35.1
 
