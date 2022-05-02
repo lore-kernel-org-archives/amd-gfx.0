@@ -4,80 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701D3C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F0E4C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 18:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F32EC10F086;
-	Mon,  2 May 2022 16:57:17 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E4310F086
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 16:57:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1651510635;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=K0Gq4g+r6nSFFN2UMiOU7agj8frQhJOC3wt5ScKN4WI=;
- b=VVwzwO59SzS0+Lzj+SrIY/Auhq1cFya02SAB75l5ytIZFavMtdZ09zH3GfXkCMZ+5fA8yp
- lFxlfbUH2uqedBLECNtfrR8u/AliTr/B7CVQdQj3aCh2w1576vxZliTQkWc4tQ4Ix5KKH6
- WbbKGAAfgm2ezWaVJ5dpSLKMFT/A4a4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-135-2pLqjvsQOneXrGffAIY4KQ-1; Mon, 02 May 2022 12:57:07 -0400
-X-MC-Unique: 2pLqjvsQOneXrGffAIY4KQ-1
-Received: by mail-wm1-f70.google.com with SMTP id
- n186-20020a1c27c3000000b00392ae974ca1so122724wmn.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 May 2022 09:57:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=K0Gq4g+r6nSFFN2UMiOU7agj8frQhJOC3wt5ScKN4WI=;
- b=uFzMclCF9qknsYTiVnUhZNn8agU2H6xw8Gu6N/fCV/p6MyMiU1YchRuDucHmc2+Mwo
- GZrbfAHxBUi3s+myo/2QgnEYQ82xjjoBjECRxW750+uSWBwYkS9CZ/zk8ggyHtwxRf0F
- xSocHlEkIEuPNrQepvmwEfaZA6BhK8tpW8nI5a45+TCE/IDlZenUscGNGmdugnEE+g/R
- cNCrB6+2Xky5sdrJX8aGCH10RTl7xbGp1ojPK0pok5fBaxdV8LyXSg5xQyfBwXOEx/vO
- PlYLi9BbPvvAOhD6E09TeW8o/KaGqErNONNC5M7XJFdOGfmdLFyqZj61RSP2PHwoQU3M
- zCkg==
-X-Gm-Message-State: AOAM533qiZC2AkEkwBxwDL88Fn70uSsmwL6N6HeCJIb7LyksJQmJcHbc
- m4JxHg+EvU8wGH1lwO9RYFnNgGGZhonI7DlKhLosSNbWx4yZVyhmo++KpLOLHsM75qCBklo2B79
- dpV5g6rUf7gBFfXBq9/jsOQpUbQ==
-X-Received: by 2002:a05:600c:4f08:b0:391:fe3c:40e6 with SMTP id
- l8-20020a05600c4f0800b00391fe3c40e6mr78539wmq.34.1651510626175; 
- Mon, 02 May 2022 09:57:06 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzBR5y6TmCRfu+8hzM0SQTGA4cZrpN3ZhuFriWyFUH2mb/ZbNn3olE2yOJI8bAuj+96a04yXQ==
-X-Received: by 2002:a05:600c:4f08:b0:391:fe3c:40e6 with SMTP id
- l8-20020a05600c4f0800b00391fe3c40e6mr78523wmq.34.1651510625948; 
- Mon, 02 May 2022 09:57:05 -0700 (PDT)
-Received: from [192.168.1.129] ([92.176.231.205])
- by smtp.gmail.com with ESMTPSA id
- r20-20020adfa154000000b0020c5253d8c7sm7273243wrr.19.2022.05.02.09.57.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 May 2022 09:57:05 -0700 (PDT)
-Message-ID: <ac202e93-cde2-99fa-5aca-abdc1cf6a3bf@redhat.com>
-Date: Mon, 2 May 2022 18:57:04 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A608710E66E;
+	Mon,  2 May 2022 18:00:43 +0000 (UTC)
+X-Greylist: delayed 450 seconds by postgrey-1.36 at gabe;
+ Mon, 02 May 2022 17:18:27 UTC
+Received: from forward103j.mail.yandex.net (forward103j.mail.yandex.net
+ [IPv6:2a02:6b8:0:801:2::106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FAA210EB2C;
+ Mon,  2 May 2022 17:18:27 +0000 (UTC)
+Received: from forward101q.mail.yandex.net (forward101q.mail.yandex.net
+ [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb98])
+ by forward103j.mail.yandex.net (Yandex) with ESMTP id 22C80100A0A;
+ Mon,  2 May 2022 20:10:55 +0300 (MSK)
+Received: from vla1-692e383ae130.qloud-c.yandex.net
+ (vla1-692e383ae130.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0d:4e82:0:640:692e:383a])
+ by forward101q.mail.yandex.net (Yandex) with ESMTP id 1D94E13E80013;
+ Mon,  2 May 2022 20:10:55 +0300 (MSK)
+Received: from vla3-3dd1bd6927b2.qloud-c.yandex.net
+ (vla3-3dd1bd6927b2.qloud-c.yandex.net [2a02:6b8:c15:350f:0:640:3dd1:bd69])
+ by vla1-692e383ae130.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
+ wAlxiCjCOW-Arg8C3hQ; Mon, 02 May 2022 20:10:55 +0300
+X-Yandex-Fwd: 2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lach.pw; s=mail;
+ t=1651511455; bh=EL8vW3m6OCPjznoXCXY4p2BDvFflry15CcmJdzjBFzA=;
+ h=In-Reply-To:References:Date:Subject:Cc:To:From:Message-Id;
+ b=RPvmFqyXyvXTbC7t2B4nTfJalnZxzc+ZnNhCz/ep8OGSnG0IjIKX1qMACxgxOCGil
+ lxgKYO5D8uCFhUUwa9VNVNUD08ctt9zK+iVWnseEnYmWJgpGb86KnMj4bsF4jwceOQ
+ NbqsrEgGtiuYr7bGiUu85sqiRrFPQCTzAQgkBBi4=
+Authentication-Results: vla1-692e383ae130.qloud-c.yandex.net;
+ dkim=pass header.i=@lach.pw
+Received: by vla3-3dd1bd6927b2.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id xTgxo8AHyR-ApMSX4BE; Mon, 02 May 2022 20:10:52 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [RESEND PATCH v2 1/2] drm/edid: parse DRM VESA dsc bpp target
+Date: Mon,  2 May 2022 20:10:30 +0300
+Message-Id: <20220502171031.11797-1-iam@lach.pw>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220220151940.58327-1-iam@lach.pw>
+References: <20220220151940.58327-1-iam@lach.pw>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v2 2/3] drm/fb-helper: Rename preferred_bpp
- drm_fbdev_generic_setup() parameter
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20220502153900.408522-1-javierm@redhat.com>
- <20220502153900.408522-3-javierm@redhat.com>
- <YnABz/4haOHe66Do@pendragon.ideasonboard.com>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <YnABz/4haOHe66Do@pendragon.ideasonboard.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 02 May 2022 18:00:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,57 +64,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, spice-devel@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "Lin, Wayne" <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yaroslav Bolyukin <iam@lach.pw>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/2/22 18:07, Laurent Pinchart wrote:
-> Hi Javier,
-> 
-> Thank you for the patch.
-> 
-> On Mon, May 02, 2022 at 05:38:59PM +0200, Javier Martinez Canillas wrote:
->> By default the bits per pixel for the emulated framebuffer device is set
->> to dev->mode_config.preferred_depth, but some devices need another value.
->>
->> Since this second parameter is only used by a few drivers, and to allow
->> drivers to use it for passing other configurations when registering the
->> fbdev, rename @preferred_bpp to @options and make it a multi-field param.
->>
->> The DRM_FB_OPTION() and DRM_FB_GET_OPTION() macros are provided to drivers
->> for computing options bitfield values and getting the values respectively
->>
->> For now, only the DRM_FB_BPP option exists but other options can be added.
->>
->> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
->> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->> ---
->>
->> Changes in v2:
->> - Rename DRM_FB_SET_OPTION() to DRM_FB_SET() and make more clear in the
-> 
-> I assume you meant DRM_FB_OPTION() here, not DRM_FB_SET().
-> 
->>   kernel-doc what this macro does (Laurent Pinchart).
->>
+As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
+VESA vendor-specific data block may contain target DSC bits per pixel
+fields
 
-Right, that's a typo. The patch description and content are correct though.
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ drivers/gpu/drm/drm_edid.c  | 33 ++++++++++++++++++++++-----------
+ include/drm/drm_connector.h |  6 ++++++
+ include/drm/drm_displayid.h |  4 ++++
+ 3 files changed, 32 insertions(+), 11 deletions(-)
 
-I'll fix the patch history log in v3.
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index bc43e1b32092..e2ced222a081 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -5433,7 +5433,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+ 		return;
+ 
+-	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
++	if (block->num_bytes < 5) {
+ 		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
+ 		return;
+ 	}
+@@ -5453,20 +5453,29 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 		break;
+ 	}
+ 
+-	if (!info->mso_stream_count) {
+-		info->mso_pixel_overlap = 0;
+-		return;
++	info->mso_pixel_overlap = 0;
++
++	if (info->mso_stream_count) {
++		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
++		if (info->mso_pixel_overlap > 8) {
++			drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
++				info->mso_pixel_overlap);
++			info->mso_pixel_overlap = 8;
++		}
++
++		drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
++			info->mso_stream_count, info->mso_pixel_overlap);
+ 	}
+ 
+-	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+-	if (info->mso_pixel_overlap > 8) {
+-		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
+-			    info->mso_pixel_overlap);
+-		info->mso_pixel_overlap = 8;
++	if (block->num_bytes < 7) {
++		/* DSC bpp is optional */
++		return;
+ 	}
+ 
+-	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
+-		    info->mso_stream_count, info->mso_pixel_overlap);
++	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16 +
++		FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
++
++	drm_dbg_kms(connector->dev, "DSC bits per pixel %u\n", info->dp_dsc_bpp);
+ }
+ 
+ static void drm_update_mso(struct drm_connector *connector, const struct edid *edid)
+@@ -5511,6 +5520,8 @@ drm_reset_display_info(struct drm_connector *connector)
+ 
+ 	info->mso_stream_count = 0;
+ 	info->mso_pixel_overlap = 0;
++
++	info->dp_dsc_bpp = 0;
+ }
+ 
+ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 3ac4bf87f257..77ce9515afc4 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -634,6 +634,12 @@ struct drm_display_info {
+ 	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
+ 	 */
+ 	u8 mso_pixel_overlap;
++
++	/**
++	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
++	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
++	 */
++	u16 dp_dsc_bpp;
+ };
+ 
+ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+index 7ffbd9f7bfc7..1be6deddcce3 100644
+--- a/include/drm/drm_displayid.h
++++ b/include/drm/drm_displayid.h
+@@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
+ 
+ #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+ #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
++#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
++#define DISPLAYID_VESA_DSC_BPP_FRACT GENMASK(3, 0)
+ 
+ struct displayid_vesa_vendor_specific_block {
+ 	struct displayid_block base;
+ 	u8 oui[3];
+ 	u8 data_structure_type;
+ 	u8 mso;
++	u8 dsc_bpp_int;
++	u8 dsc_bpp_fract;
+ } __packed;
+ 
+ /* DisplayID iteration */
 
+base-commit: 6a47a16dcef3fdda79a95452964d001a620db473
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Linux Engineering
-Red Hat
+2.35.1
 
