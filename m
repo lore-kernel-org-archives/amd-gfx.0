@@ -4,123 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3580DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 09:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B46D0C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 10:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC8110E9FF;
-	Mon,  2 May 2022 09:51:46 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCAC310E9E1
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 09:51:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LLfvWvYcEWrKVsYkk054Fdvk5FeKQhshwDyp/hcATFxuro7mHcjqqanIfW+NkKWtjEJL5u1gCwz+hC6BLmE8qQLu9aCXxyDjUeT6BOg8UZVxuJFT0bqSusSgF2CztKU/k0NSKBQuapot79FBOD1kaWOUhj6lXNG3COYgh7MTnFErrTIYn8RtYnEeqzowOUWnq+SN7cNRnsLqV0SzsDAXhsRGMmr/eF0NuNoUgBE6y52i9E2eXZaTMzUXK2ZL7cJNHH6tefeKPdUxqje1PqcSynPLMCM7e7XnDxIXQVNKXeArRripwB+S7bd/30GgWnSeNnOjbm8xTGr5uTsF08dSgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DIdEE7azzIVbNeGHVmAf0OANR4z456MeO7vPCMbiF+I=;
- b=GiwgrfjVzvxvgWPL36SmZQ2DQpOXHYvsQW59oGTfy/LxUH23ANay0gxokemjZT6KPIU6qR7VrwCeXSzZKUoWIsIot0J8DKuWlBA/XFMygiiFpHgIy8yVRYG2baMoRWnSj74nTw35a+meUVc15E+CJe37IvFWNY53fk2hMJsCFiGiCXeE8nHY/SQB0Bn8ZIFyAYBMm7W+9NW9bPqYsP88wLf1DfNBfOVzTnaxM9ZaD19Cg4xrrHRWg36dazNlTetdDP4Rhy7lxddUZkvlM6yPK8HqYOyFml6wXBdCBwyVxi1H0GZyECRG0LpF4HUCyVUmV+r2xjCtuxgITStUnSfTVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DIdEE7azzIVbNeGHVmAf0OANR4z456MeO7vPCMbiF+I=;
- b=sKhjK0KsUN8hwrCEZ/R0TjED5ea15CfLmc0Ceape9vGeahth+aYgLMu36Zqspt0MYvzS4xv+tklYzoRexNCzch6LTfOgUEpIDLWEwOBruReEcparHhiXlvKSvA4sOglFinZLSyWCwdov09BSaikuFKnPFkAHKJY7ykygLQRpki8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by MWHPR12MB1198.namprd12.prod.outlook.com (2603:10b6:300:d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Mon, 2 May
- 2022 09:51:36 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::812:88d6:77ae:1d87]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::812:88d6:77ae:1d87%8]) with mapi id 15.20.5186.028; Mon, 2 May 2022
- 09:51:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------0TFk0kqSvp5eODqzlMUj0uR2"
-Message-ID: <a2a802bf-2118-9a35-4415-f08d399dd8cd@amd.com>
-Date: Mon, 2 May 2022 15:21:26 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH] drm/amdgpu: Add out parameters to drm_amdgpu_sched
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20220430151428.237089-1-Arunpravin.PaneerSelvam@amd.com>
- <85927512-377e-39b1-d812-ef9bddcc2f02@gmail.com>
- <b42d6e3d-e646-8bcb-6166-bdb94ddd1d69@amd.com>
- <54568104-c607-eb76-6c20-67e91baec00f@amd.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <54568104-c607-eb76-6c20-67e91baec00f@amd.com>
-X-ClientProxiedBy: PN2PR01CA0059.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::34) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E795510E53D;
+	Mon,  2 May 2022 10:35:34 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F1B10E53D;
+ Mon,  2 May 2022 10:35:33 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CD1991F896;
+ Mon,  2 May 2022 10:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1651487731; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Dn9XSHCKolq6/lQSxksAI1EWQRJzfzUctxGyNj4FIbc=;
+ b=H4Pm0Q0yA3s++FBy4JhcAn+VXsuwbz8Fxq1+g7xdI//6lmgPdtYrk9qwl89iFjgY0q+v9A
+ vFfgslZCIPHnKronaXZ/xRH87DKgxyVR8/JSXQlT/q/Pwr5ghzvKTpZcu2JAFb64XOum3g
+ 5KuwBjjGXfL0jKv0D9JkVIZKHfgyH5c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1651487731;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Dn9XSHCKolq6/lQSxksAI1EWQRJzfzUctxGyNj4FIbc=;
+ b=ganiifpaAbCaoGrzd9cDb8HCGMIpNTyU2n6eScpJ0CJfhXLvFgc8nPVsZ6QrNcNCjCSg1R
+ 3/CwDrQVFXtGwPAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DFCC133E5;
+ Mon,  2 May 2022 10:35:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id dugIEvKzb2IfRQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 May 2022 10:35:30 +0000
+Message-ID: <c120e1c4-ac5c-afd5-8dd1-b4b51e0dcca9@suse.de>
+Date: Mon, 2 May 2022 12:35:29 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59a99ba0-aa02-45b9-2ce2-08da2c2158c9
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1198:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1198BAB30E62F2B52500C854E4C19@MWHPR12MB1198.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0IrTW00D1+9PtMXQyFcLCyvtSurHtUWqDELKllDrmu/jiWepJ7Bk+pxwYZX9IMXRSExiaf3+/t/K/TbQGEYDVijjgCXYnYUCwxZc2aVu2Jw68rHtbJ+ylIB2sPJJjeXrgwkxZ+edDb3lbUgprhIE3AXUD46T6qkGxhKpNjqBZM9NFTzoeaey1E/QBoRBdPe6TjFZJmV96Jy8V3v5CiEmEVj5g5GaClQxJqmCYU2dmiBf8NYH4cX5XEXA4/pkkjOi8JCTtdnehsfbvCOBzIwl2saHnjexth/DHahbvQk8PAbjtckBU0RytLOrtbWJolexTkMff6mtLPYgCHnVFYlAdeCDSn/lV789gmj2kjbhSLxzFa48A4dYv0W5dnITIx9HxFhnaehZPj7mp1uzGs+PUuIPxjGz07SppVlkIEHMBqhCKMVHARc6Zao4TzD4mHS+X5rw0uMLVa09FwaM+t8pop8ftKyRWVG2k6ZhP/kX8NnjiGxHlwD27eEg93HmrLIO+9JRsdXybhxDv1K6B81gsC6kiu0lIRI6GYlitYGOS2fzyoMixpub3eZbsdwjqjxeb/lVjDWZzfE9Y/595tugNSx+X8fev5Qs8S62qmJEG3nxouzbifYJAVinGdOuiy0GMlf2DCrSszinx/KqnXgcgValk5jLxQv7N+d2rmIpZE8Ypf7GUabUkBHASPNn55ljUsL9xHmgwinJWzBRCEqdePioORGos2KxHYDr40iBnmPTcvB/K5Ne+DYkskGfbwGt
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6512007)(6506007)(53546011)(33964004)(2906002)(26005)(86362001)(31696002)(38100700002)(508600001)(966005)(45080400002)(6486002)(8936002)(36756003)(30864003)(6666004)(166002)(5660300002)(8676002)(66476007)(66946007)(66556008)(83380400001)(31686004)(66574015)(316002)(186003)(6636002)(110136005)(2616005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmpYVVZrNUtPU1Z6OFlWaWREMVYzVUVpZHRoRHlRcnZrRFRiT1JNaXhubVZ6?=
- =?utf-8?B?aThTZTJzdGV3ZE1aMEpJMWNvSjFzVDlKTEh5UURsM3RHd2h6b3J4RGVWNmtm?=
- =?utf-8?B?Sis2Qlc2MmtxaCt5OW9mUkZKYUNpQVA3ejRzMFp1azhxVzBDcnBvYTMzSTVH?=
- =?utf-8?B?REFES1BpdHphMCtqUWZKbEEvK3MvRHZMZy9PM3VudHNYc0lINDhTTytaZ0tq?=
- =?utf-8?B?NWJGUFkzQy85ajlqdkdEWlROaC94ZlpKV1JYUXU5cUlKLzcraTZVMXdZdjJK?=
- =?utf-8?B?SDNsL2JjZzF6V3EraXVkNVlYdm11YTgvdFZadmpvaWs1Sk9Qa2c3OUQ0QTFy?=
- =?utf-8?B?ek5UQWxiYXhoUk03a2RIVjhsRU1FVDNrb0ZKNFVnT2VHbG9tdWRzbnRWS3RD?=
- =?utf-8?B?U3UreFRTY1FLR0lWNzFEY3Y1TTdPK2VzeG4xdHIzY3dEck9JVUkzNU5WWUJM?=
- =?utf-8?B?dExSUjVKZkpmOCt3SU5IOC8xUnZVdUxta09KRnJGemhLSjlXaVkvMHl4WGJO?=
- =?utf-8?B?VE9zNjdZb3hIUHVUMlJhcXV2K2N0dlRSZ2pCTElabDEwc1hiT2xKNHA1R0ha?=
- =?utf-8?B?MVJGdjU3cGVlSzJrZzIvK1JGS2I4VG0vc3V3SjUrcGpocFdIbGptRU9XVURh?=
- =?utf-8?B?ZGhYbHBxczJVYUJFSkVDcFFKMGhEcWJxemZJN2o2TGVkWlNOWmhHcUFSNUp3?=
- =?utf-8?B?YTczSWU4eElSYWZ3aGtjYWY4ZnNNR2ovWmFtZ1cwVjIyM1E0S1RjUENpQjN2?=
- =?utf-8?B?MzEvS1UyZXJVU2IzY0xXa1RhYW9hL3RHTmZtN1NkNFdDSk8ySWVHY3d6S2cv?=
- =?utf-8?B?cFdBQkVoTGNkRStvcEFrZWlEaWRPdnJUQk1Mc2t1K1dpd043RmFGRll2MjZM?=
- =?utf-8?B?SVpOc1ZDNitQMW00dFdMU29kN3BhcVYvSWVUU0F5QVVQRTQ4TjFoNjlaY2Vr?=
- =?utf-8?B?K1A0b29vMVZBbWczcm1ucHA0MDdIbU0vVjhzeEtVMXRGbU93Ui9UNGRLSG5V?=
- =?utf-8?B?V3A1WFlSMXE3UU9MSjhRT1k2TDRaOE5VTHBXRHU2U1U4K2hRZC8zLzF1bWhN?=
- =?utf-8?B?dlpxRWhYd3V6VVhuaFg5VW45a2pjN2JTalBiVTdvWWxLU0VTOUhWNWVmUUZE?=
- =?utf-8?B?RldFRlRqcnlJRHB5RlFHT2xnaTZBZWhDanVoSXQvZTA5aHhZczVaYnpVRzg5?=
- =?utf-8?B?bmhpRFJ3bkFKcUM1Vmw1Si94R1BHblk4T1hqWVI2TGpUWXdha1B4OHdoSi9r?=
- =?utf-8?B?QlV0Ym8zV3gyakdaMkc5b0Rzd25JbmVMRGY5YTltbzVIS2xFaXR6QU93VTBZ?=
- =?utf-8?B?RVMrTkxObWduVEhiOTFNNUEvUTUwdkZVS3lpdW1lNWFqYitoNk1JdXJESE4y?=
- =?utf-8?B?NFZra25ORVZCbE9kd0tmZGwxRGE2TWozZkZpOTM0bXF2TThLemNZdWh0UEt2?=
- =?utf-8?B?S2xyNVNhNGtGTHFGRkdBVk9uRVBSaGxLMGEveDlkN3hRYmlaUnJlclltYjM2?=
- =?utf-8?B?SGRWR0s1TnM1REFERmVUTVJlSGdzbGxtclFYenFvY1Rsb0FKVzlVa1pQRVNO?=
- =?utf-8?B?M01mTVN3ZmxSVVZMUFhIc01FVFIrc3ZMV2NqaFhsSlFyUk85eHk2WmZVVk1O?=
- =?utf-8?B?YUoyTzNZRytXbU05OEtMM2cydm10QlRQTGxhNG9uTU9MMTdNWlhOMTRoNTNt?=
- =?utf-8?B?aFM3SnNsQmFyVGhhb2hRSFkvajBkcXJ3WFJvU05Ubm5kangwYzdhRGluTXJj?=
- =?utf-8?B?V2cwbnlhNU5pRU9rNURLSlh4UzlibytTMENqN3hhYjJPc053YnJvWGw2MkZE?=
- =?utf-8?B?bnlwRnpEVDl4Q1RQWFp1ekN2a0JxUXVjeHdtM0hWbW1pRHBVSVZlTEVqaTBl?=
- =?utf-8?B?T0JuaVU2K1E5eCtGUDg1bmFnaGVPdytvVWlSZE1Lb3E5VWcwclJYOEZGVUR4?=
- =?utf-8?B?N1kwSkxpTVNBSXBHOVBnNVo2TzRBRENrUG9sdVFaNE1vd2QwVEdQZHVTNkRo?=
- =?utf-8?B?YzZWQ0JqdkFibUlzNEc1SDYxRDNyRDI5WTBEczdvMHFHZTdOdnVXanRuWktQ?=
- =?utf-8?B?c3FhQ2VjMS8xYVR3VituTGo1UVZCZ2NIb20ySURBcklNMjlFZENHNlV3dHZa?=
- =?utf-8?B?MWpqTnpYTHNveEkvTEEyQ1owZDcrTEJ1NjlYakJEckpRYm1Wa0RoeFFUVHRu?=
- =?utf-8?B?cEN5cFE5Y0dJZHVJWmhaY1l6MENhWGljRmRqWEEzYVp4WmZ3NDZYYUMvcFVm?=
- =?utf-8?B?VUl5dUp3Q055VVd3TEhacFpoeS9HV2ZNcFhhZUtGY0NFZFFteHNDUEZWQ1VG?=
- =?utf-8?B?RkZ1VmJxbXpUSG1maGxOeUJoMHRGcU5qaVdkWWNwTTlmSGprMlV4Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59a99ba0-aa02-45b9-2ce2-08da2c2158c9
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2022 09:51:36.4905 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xfs/je9/BAK1HD7O9qqqS+P8/EZ/HoXR2cseh/ArDcO+ZfzVMfneqois77UjpAI/DRTJCkMf0yqn9pWqaXF68Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1198
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH 0/3] drm: Allow simpledrm to setup its emulated FB as
+ firmware provided
+Content-Language: en-US
+To: Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org
+References: <20220502084830.285639-1-javierm@redhat.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20220502084830.285639-1-javierm@redhat.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------bZs9O7gVydbPyh0mFowmyKkQ"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,602 +69,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Emma Anholt <emma@anholt.net>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ David Airlie <airlied@linux.ie>, spice-devel@lists.freedesktop.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Stefan Agner <stefan@agner.ch>, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Paul Cercueil <paul@crapouillou.net>, Nirmoy Das <nirmoy.das@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, Marek Vasut <marex@denx.de>,
+ Hao Fang <fanghao11@huawei.com>, Brian Starkey <brian.starkey@arm.com>,
+ linux-aspeed@lists.ozlabs.org, Samuel Holland <samuel@sholland.org>,
+ Kevin Hilman <khilman@baylibre.com>, Neil Armstrong <narmstrong@baylibre.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Michal Simek <michal.simek@xilinx.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Chen Feng <puck.chen@hisilicon.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Alison Wang <alison.wang@nxp.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-mips@vger.kernel.org,
+ Sam Ravnborg <sam@ravnborg.org>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, John Stultz <john.stultz@linaro.org>,
+ dri-devel@lists.freedesktop.org, Alain Volmat <alain.volmat@foss.st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Mario Limonciello <mario.limonciello@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Yong Wu <yong.wu@mediatek.com>, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomba@kernel.org>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-renesas-soc@vger.kernel.org, Solomon Chiu <solomon.chiu@amd.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Jyri Sarha <jyri.sarha@iki.fi>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------0TFk0kqSvp5eODqzlMUj0uR2
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------bZs9O7gVydbPyh0mFowmyKkQ
+Content-Type: multipart/mixed; boundary="------------JAaQiYXsw1Wg2huPZuTUbFwL";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ linux-kernel@vger.kernel.org
+Cc: Alain Volmat <alain.volmat@foss.st.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Alison Wang <alison.wang@nxp.com>,
+ Andrew Jeffery <andrew@aj.id.au>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Brian Starkey <brian.starkey@arm.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Chen-Yu Tsai <wens@csie.org>, Chia-I Wu <olvaffe@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@linux.ie>, Emma Anholt <emma@anholt.net>,
+ Evan Quan <evan.quan@amd.com>, Fabio Estevam <festevam@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Hans de Goede <hdegoede@redhat.com>, Hao Fang <fanghao11@huawei.com>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Joel Stanley <joel@jms.id.au>,
+ John Stultz <john.stultz@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marek Vasut <marex@denx.de>, Mario Limonciello <mario.limonciello@amd.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Neil Armstrong
+ <narmstrong@baylibre.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nirmoy Das <nirmoy.das@amd.com>, =?UTF-8?Q?Noralf_Tr=c3=b8nnes?=
+ <noralf@tronnes.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Samuel Holland <samuel@sholland.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Solomon Chiu <solomon.chiu@amd.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Yong Wu <yong.wu@mediatek.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org
+Message-ID: <c120e1c4-ac5c-afd5-8dd1-b4b51e0dcca9@suse.de>
+Subject: Re: [PATCH 0/3] drm: Allow simpledrm to setup its emulated FB as
+ firmware provided
+References: <20220502084830.285639-1-javierm@redhat.com>
+In-Reply-To: <20220502084830.285639-1-javierm@redhat.com>
+
+--------------JAaQiYXsw1Wg2huPZuTUbFwL
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
+SGkgSmF2aWVyDQoNCkFtIDAyLjA1LjIyIHVtIDEwOjQ4IHNjaHJpZWIgSmF2aWVyIE1hcnRp
+bmV6IENhbmlsbGFzOg0KPiBIZWxsbywNCj4gDQo+IFRoaXMgc2VyaWVzIGNvbnRhaW4gcGF0
+Y2hlcyBzdWdnZXN0ZWQgYnkgVGhvbWFzIFppbW1lcm1hbm5hcyBhIGZlZWRiYWNrIGZvcg0K
+PiAiW1JGQyBQQVRDSCB2NCAwMC8xMV0gRml4IHNvbWUgcmFjZSBiZXR3ZWVuIHN5c2ZiIGRl
+dmljZSByZWdpc3RyYXRpb24gYW5kDQo+IGRyaXZlcnMgcHJvYmUiIFswXS4NCj4gDQo+IFNp
+bmNlIG90aGVyIGNoYW5nZXMgaW4gWzBdIHdlcmUgbW9yZSBjb250cm92ZXJzaWFsLCBJIGRl
+Y2lkZWQgdG8ganVzdCBzcGxpdA0KPiB0aGlzIHBhcnQgaW4gYSBuZXcgcGF0Y2gtc2V0IGFu
+ZCByZXZpc2l0IHRoZSByZXN0IG9mIHRoZSBwYXRjaGVzIGxhdGVyLg0KPiANCj4gUGF0Y2gg
+IzEgaXMganVzdCBhIGNsZWFudXAgc2luY2Ugd2hlbiB3b3JraW5nIG9uIHRoaXMgbm90aWNl
+ZCB0aGF0IHNvbWUgRFJNDQo+IGRyaXZlcnMgd2VyZSBwYXNzaW5nIGFzIHByZWZlcnJlZCBi
+aXRzIHBlciBwaXhlbCB0byBkcm1fZmJkZXZfZ2VuZXJpY19zZXR1cCgpDQo+IHRoZSB2YWx1
+ZSB0aGF0IGlzIHRoZSBkZWZhdWx0IGFueXdheXMuDQo+IA0KPiBQYXRjaCAjMiByZW5hbWVz
+IHRoZSAncHJlZmVycmVkX2JwcCcgZHJtX2ZiZGV2X2dlbmVyaWNfc2V0dXAoKSBwYXJhbWV0
+ZXIgdG8NCj4gJ29wdGlvbnMnLCBhbmQgbWFrZSB0aGlzIGEgbXVsdGkgZmllbGQgcGFyYW1l
+dGVyIHNvIHRoYXQgaXQgY2FuIGJlIGV4dGVuZGVkDQo+IGxhdGVyIHRvIHBhc3Mgb3RoZXIg
+b3B0aW9ucyBhcyB3ZWxsLg0KPiANCj4gUGF0Y2ggIzMgZmluYWxseSBhZGRzIHRoZSBuZXcg
+RFJNX0ZCX0ZXIG9wdGlvbiBhbmQgbWFrZXMgc2ltcGxlZHJtIHRvIHVzZSBpdA0KPiBzbyB0
+aGF0IHRoZSByZWdpc3RlcmVkIGZyYW1lYnVmZmVyIGRldmljZSBpcyBhbHNvIG1hcmtlZCBh
+cyBmaXJtd2FyZSBwcm92aWRlZC4NCg0KRm9yIHRoZSB3aG9sZSBwYXRjaHNldDoNCg0KUmV2
+aWV3ZWQtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KDQpU
+aGFua3MgYSBsb3QhDQoNCj4gDQo+IFswXTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGtt
+bC8yMDIyMDQyOTA4NDI1My4xMDg1OTExLTEtamF2aWVybUByZWRoYXQuY29tLw0KPiANCj4g
+DQo+IEphdmllciBNYXJ0aW5leiBDYW5pbGxhcyAoMyk6DQo+ICAgIGRybTogUmVtb3ZlIHN1
+cGVyZmx1b3VzIGFyZyB3aGVuIGNhbGxpbmcgdG8gZHJtX2ZiZGV2X2dlbmVyaWNfc2V0dXAo
+KQ0KPiAgICBkcm0vZmItaGVscGVyOiBSZW5hbWUgcHJlZmVycmVkX2JwcCBkcm1fZmJkZXZf
+Z2VuZXJpY19zZXR1cCgpDQo+ICAgICAgcGFyYW1ldGVyDQo+ICAgIGRybTogQWxsb3cgc2lt
+cGxlZHJtIHRvIHNldHVwIGl0cyBlbXVsYXRlZCBGQiBhcyBmaXJtd2FyZSBwcm92aWRlZA0K
+PiANCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgICAg
+fCAgNiArKystLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hcm0vaGRsY2RfZHJ2LmMgICAgICAg
+ICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FybS9tYWxpZHBfZHJ2LmMg
+ICAgICAgICAgICAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYXNwZWVkL2FzcGVl
+ZF9nZnhfZHJ2LmMgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hc3QvYXN0
+X2Rydi5jICAgICAgICAgICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2F0
+bWVsLWhsY2RjL2F0bWVsX2hsY2RjX2RjLmMgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9k
+cm0vZHJtX2Rydi5jICAgICAgICAgICAgICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9kcm1fZmJfaGVscGVyLmMgICAgICAgICAgICAgICB8IDI1ICsrKysrKysrKysr
+KysrKystLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vZnNsLWRjdS9mc2xfZGN1X2RybV9kcnYu
+YyAgICAgfCAgMiArLQ0KPiAgIC4uLi9ncHUvZHJtL2hpc2lsaWNvbi9oaWJtYy9oaWJtY19k
+cm1fZHJ2LmMgICB8ICAyICstDQo+ICAgLi4uL2dwdS9kcm0vaGlzaWxpY29uL2tpcmluL2tp
+cmluX2RybV9kcnYuYyAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vaW14L2Rjc3Mv
+ZGNzcy1rbXMuYyAgICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9pbXgv
+aW14LWRybS1jb3JlLmMgICAgICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2luZ2VuaWMvaW5nZW5pYy1kcm0tZHJ2LmMgICAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vbWNkZS9tY2RlX2Rydi5jICAgICAgICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2Rydi5jICAgICAgICB8ICAyICstDQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2Rydi5jICAgICAgICAgICAgIHwgIDIgKy0N
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vbXhzZmIvbXhzZmJfZHJ2LmMgICAgICAgICAgICAgfCAg
+MiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9wbDExMS9wbDExMV9kcnYuYyAgICAgICAgICAg
+ICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3F4bC9xeGxfZHJ2LmMgICAgICAgICAg
+ICAgICAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vcmNhci1kdS9yY2FyX2R1X2Ry
+di5jICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9zdGkvc3RpX2Rydi5j
+ICAgICAgICAgICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYu
+YyAgICAgICAgICAgICAgICAgICAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vc3Vu
+NGkvc3VuNGlfZHJ2LmMgICAgICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
+bS90aWRzcy90aWRzc19kcnYuYyAgICAgICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL3RpbGNkYy90aWxjZGNfZHJ2LmMgICAgICAgICAgIHwgIDIgKy0NCj4gICBkcml2
+ZXJzL2dwdS9kcm0vdGlueS9hcmNwZ3UuYyAgICAgICAgICAgICAgICAgfCAgMiArLQ0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS90aW55L2JvY2hzLmMgICAgICAgICAgICAgICAgICB8ICAyICst
+DQo+ICAgZHJpdmVycy9ncHUvZHJtL3RpbnkvY2lycnVzLmMgICAgICAgICAgICAgICAgIHwg
+IDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vdGlueS9zaW1wbGVkcm0uYyAgICAgICAgICAg
+ICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS90dmUyMDAvdHZlMjAwX2Rydi5jICAg
+ICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3Zib3h2aWRlby92Ym94X2Ry
+di5jICAgICAgICAgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9kcnYu
+YyAgICAgICAgICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS92aXJ0aW8v
+dmlydGdwdV9kcnYuYyAgICAgICAgICB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL3hs
+bngvenlucW1wX2Rwc3ViLmMgICAgICAgICAgIHwgIDIgKy0NCj4gICBpbmNsdWRlL2RybS9k
+cm1fZmJfaGVscGVyLmggICAgICAgICAgICAgICAgICAgfCAyMiArKysrKysrKysrKysrKysr
+DQo+ICAgMzYgZmlsZXMgY2hhbmdlZCwgODAgaW5zZXJ0aW9ucygrKSwgMzkgZGVsZXRpb25z
+KC0pDQo+IA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2
+ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRz
+dHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5i
+ZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
 
+--------------JAaQiYXsw1Wg2huPZuTUbFwL--
 
-On 5/2/2022 11:26 AM, Christian König wrote:
-> Am 01.05.22 um 21:45 schrieb Arunpravin Paneer Selvam:
->>
->> On 5/1/2022 12:59 AM, Christian König wrote:
->>> Am 30.04.22 um 17:14 schrieb Arunpravin Paneer Selvam:
->>>> - Add pipe and queue as out parameters to support high priority
->>>>    queue test enabled in libdrm basic test suite.
->>>>
->>>> - Fetch amdgpu_ring pointer and pass sched info to userspace
->>>>
->>>> - Improve amdgpu_sched_ioctl() function
->>>>
->>>> The related merge request for enabling high priority test case are
->>>> libdrm - 
->>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fdrm%2F-%2Fmerge_requests%2F235&amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=jXIBtdA4seXl%2BYKsY2SDu%2B9tPoH6tfvUUXIRl4IosJc%3D&amp;reserved=0
->>>> mesa - 
->>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fmesa%2F-%2Fmerge_requests%2F16262&amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=%2F%2FwMJ86SXxP7K9STA%2B1x5rox1F5CPEy3JIhFMCjqwiY%3D&amp;reserved=0
->>>>
->>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>> <Arunpravin.PaneerSelvam@amd.com>
->>>
->>> Well that is certainly a NAK since as far as I can see this breaks 
->>> the UAPI in a not backward compatible way.
->>>
->>> Then we absolutely should not pass scheduler info to userspace. That 
->>> should be completely transparent to userspace.
->>>
->>> So can you summarize once more why that should be necessary?
->> I added a new test case named high priority queue test in libdrm 
->> basic test suite to validate the kernel feature patch named
->> high priority gfx pipe. In the test case, we are creating a context 
->> and overriding the priority as HIGH, submitting a simple NOP
->> command to test the job scheduled on high priority pipe / queue. This 
->> we have manually verified using the sysfs entry
->> amdgpu_fence_info where fence signaled on gfx high priority pipe 
->> (gfx_0.1.0). To ensure this in a unit test case, we require
->> pipe and queue info.
->
-> Completely drop that requirement, it's not even remotely valid 
-> justification for an UAPI change.
->
-> The IOCTLs are for supporting userspace APIs like OpenGL, Vulkan, 
-> VA-API etc.. and *not* unit tests.
->
-> If you need additional information for unit tests we need to add that 
-> to debugfs instead and as you wrote we already have that in the form 
-> of the amdgpu_fence_info file.
-sure, we will drop this requirement.
+--------------bZs9O7gVydbPyh0mFowmyKkQ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Hi Alex,
-I verified the sysfs entry amdgpu_fence_info, a submitted high priority 
-job fence signaled on gfx_0.1.0, shall we push the kernel patch named 
-Enable high priority gfx queue
-into staging branch.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Arun.
->
-> Regards,
-> Christian.
->
->>
->> Thanks,
->> Arun
->>>
->>> Regards,
->>> Christian.
->>>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 114 
->>>> ++++++++--------------
->>>>   include/uapi/drm/amdgpu_drm.h             |  14 ++-
->>>>   2 files changed, 53 insertions(+), 75 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
->>>> index e9b45089a28a..fc2864b612d9 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
->>>> @@ -32,106 +32,72 @@
->>>>   #include "amdgpu_sched.h"
->>>>   #include "amdgpu_vm.h"
->>>>   -static int amdgpu_sched_process_priority_override(struct 
->>>> amdgpu_device *adev,
->>>> -                          int fd,
->>>> -                          int32_t priority)
->>>> +int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
->>>> +               struct drm_file *filp)
->>>>   {
->>>> -    struct fd f = fdget(fd);
->>>> +    union drm_amdgpu_sched *args = data;
->>>> +    struct amdgpu_ctx *ctx, *ctx_ptr;
->>>> +    struct drm_sched_entity *entity;
->>>>       struct amdgpu_fpriv *fpriv;
->>>> -    struct amdgpu_ctx *ctx;
->>>> -    uint32_t id;
->>>> -    int r;
->>>> -
->>>> -    if (!f.file)
->>>> -        return -EINVAL;
->>>> -
->>>> -    r = amdgpu_file_to_fpriv(f.file, &fpriv);
->>>> -    if (r) {
->>>> -        fdput(f);
->>>> -        return r;
->>>> -    }
->>>> -
->>>> -    idr_for_each_entry(&fpriv->ctx_mgr.ctx_handles, ctx, id)
->>>> -        amdgpu_ctx_priority_override(ctx, priority);
->>>> -
->>>> -    fdput(f);
->>>> -    return 0;
->>>> -}
->>>> -
->>>> -static int amdgpu_sched_context_priority_override(struct 
->>>> amdgpu_device *adev,
->>>> -                          int fd,
->>>> -                          unsigned ctx_id,
->>>> -                          int32_t priority)
->>>> -{
->>>> +    struct amdgpu_ring *ring;
->>>> +    u32 fd = args->in.fd;
->>>>       struct fd f = fdget(fd);
->>>> -    struct amdgpu_fpriv *fpriv;
->>>> -    struct amdgpu_ctx *ctx;
->>>> +    u32 id;
->>>>       int r;
->>>>         if (!f.file)
->>>>           return -EINVAL;
->>>>         r = amdgpu_file_to_fpriv(f.file, &fpriv);
->>>> -    if (r) {
->>>> -        fdput(f);
->>>> -        return r;
->>>> -    }
->>>> +    if (r)
->>>> +        goto out_fd;
->>>>   -    ctx = amdgpu_ctx_get(fpriv, ctx_id);
->>>> +    ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
->>>>         if (!ctx) {
->>>> -        fdput(f);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    amdgpu_ctx_priority_override(ctx, priority);
->>>> -    amdgpu_ctx_put(ctx);
->>>> -    fdput(f);
->>>> -
->>>> -    return 0;
->>>> -}
->>>> -
->>>> -int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
->>>> -               struct drm_file *filp)
->>>> -{
->>>> -    union drm_amdgpu_sched *args = data;
->>>> -    struct amdgpu_device *adev = drm_to_adev(dev);
->>>> -    int r;
->>>> -
->>>> -    /* First check the op, then the op's argument.
->>>> -     */
->>>> -    switch (args->in.op) {
->>>> -    case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
->>>> -    case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE:
->>>> -        break;
->>>> -    default:
->>>> -        DRM_ERROR("Invalid sched op specified: %d\n", args->in.op);
->>>> -        return -EINVAL;
->>>> +        r = -EINVAL;
->>>> +        goto out_fd;
->>>>       }
->>>>         if (!amdgpu_ctx_priority_is_valid(args->in.priority)) {
->>>>           WARN(1, "Invalid context priority %d\n", args->in.priority);
->>>> -        return -EINVAL;
->>>> +        r = -EINVAL;
->>>> +        goto out_ctx;
->>>>       }
->>>>         switch (args->in.op) {
->>>>       case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
->>>> -        r = amdgpu_sched_process_priority_override(adev,
->>>> -                               args->in.fd,
->>>> -                               args->in.priority);
->>>> +        /* Retrieve all ctx handles and override priority */
->>>> + idr_for_each_entry(&fpriv->ctx_mgr.ctx_handles, ctx_ptr, id)
->>>> +            amdgpu_ctx_priority_override(ctx_ptr, args->in.priority);
->>>>           break;
->>>>       case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE:
->>>> -        r = amdgpu_sched_context_priority_override(adev,
->>>> -                               args->in.fd,
->>>> -                               args->in.ctx_id,
->>>> -                               args->in.priority);
->>>> +        /* Override priority for a given context */
->>>> +        amdgpu_ctx_priority_override(ctx, args->in.priority);
->>>>           break;
->>>>       default:
->>>> -        /* Impossible.
->>>> -         */
->>>> +        DRM_ERROR("Invalid sched op specified: %d\n", args->in.op);
->>>>           r = -EINVAL;
->>>> -        break;
->>>> +        goto out_ctx;
->>>>       }
->>>>   +    r = amdgpu_ctx_get_entity(ctx, args->in.ip_type, 0, 
->>>> args->in.ring,
->>>> +                  &entity);
->>>> +    if (r)
->>>> +        goto out_ctx;
->>>> +
->>>> +    /* Fetch amdgpu_ring pointer */
->>>> +    ring = to_amdgpu_ring(entity->rq->sched);
->>>> +
->>>> +    /* Pass sched info to userspace */
->>>> +    memset(args, 0, sizeof(*args));
->>>> +    args->out.info.pipe = ring->pipe;
->>>> +    args->out.info.queue = ring->queue;
->>>> +
->>>> +out_ctx:
->>>> +    amdgpu_ctx_put(ctx);
->>>> +out_fd:
->>>> +    fdput(f);
->>>> +
->>>>       return r;
->>>>   }
->>>> diff --git a/include/uapi/drm/amdgpu_drm.h 
->>>> b/include/uapi/drm/amdgpu_drm.h
->>>> index 1d65c1fbc4ec..e93f1b6c4561 100644
->>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>> @@ -70,7 +70,7 @@ extern "C" {
->>>>   #define DRM_IOCTL_AMDGPU_WAIT_FENCES DRM_IOWR(DRM_COMMAND_BASE + 
->>>> DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
->>>>   #define DRM_IOCTL_AMDGPU_VM DRM_IOWR(DRM_COMMAND_BASE + 
->>>> DRM_AMDGPU_VM, union drm_amdgpu_vm)
->>>>   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE 
->>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union 
->>>> drm_amdgpu_fence_to_handle)
->>>> -#define DRM_IOCTL_AMDGPU_SCHED DRM_IOW(DRM_COMMAND_BASE + 
->>>> DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
->>>> +#define DRM_IOCTL_AMDGPU_SCHED DRM_IOWR(DRM_COMMAND_BASE + 
->>>> DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
->>>>     /**
->>>>    * DOC: memory domains
->>>> @@ -308,6 +308,11 @@ union drm_amdgpu_vm {
->>>>   #define AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE    1
->>>>   #define AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE    2
->>>>   +struct drm_amdgpu_sched_info {
->>>> +    __u32 pipe;
->>>> +    __u32 queue;
->>>> +};
->>>> +
->>>>   struct drm_amdgpu_sched_in {
->>>>       /* AMDGPU_SCHED_OP_* */
->>>>       __u32    op;
->>>> @@ -315,10 +320,17 @@ struct drm_amdgpu_sched_in {
->>>>       /** AMDGPU_CTX_PRIORITY_* */
->>>>       __s32    priority;
->>>>       __u32   ctx_id;
->>>> +    __u32   ip_type;
->>>> +    __u32   ring;
->>>> +};
->>>> +
->>>> +struct drm_amdgpu_sched_out {
->>>> +    struct drm_amdgpu_sched_info info;
->>>>   };
->>>>     union drm_amdgpu_sched {
->>>>       struct drm_amdgpu_sched_in in;
->>>> +    struct drm_amdgpu_sched_out out;
->>>>   };
->>>>     /*
->>>
->>
->
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmJvs/EFAwAAAAAACgkQlh/E3EQov+Bv
+yxAAyojQIwyTt0AkQrH8ujHQ2z3VZLLTBfvwuS0Xf7dxJnvpnddrmMLeQjx/dJgIsu5Kpoq+cC89
+JF4cEgYrs1G9WTVDlxCJ6aMAA8EV3lRH6ECyFZrbc8MNiebvArPucqStj6VQiaLNYDS/TMGBTBdO
+/rxHsubsTAALLJkWsuEoSJMATSrWyqdxzVwj0DUmMZCc2p3zF7+PakvAE8OHpzNOQYg++vORApLq
+4qHowqHrVSPpbACr+XhYpOMuzo4dWJDx98HuVrzXDNOBtcll5tTGTOuJv2tJw+aotRhGuV71ALNd
+yKPP2+GV+kCwNOVcr8OEnfCQa26DsIzooE2SlHwcnIRksqxoKiheTT9YCL+LA7cY0K+h2ybmjqaS
+awZ5pzqRq9egCdFc1KGCctvRxm+BVVnXHGJ4nsGtQp8Z34tClsjquHGR1BFfNw1NEG/jOh7iFY/j
+kvo5qlUcKW28ooufV/c7fZ/u0M++S9nJSgAO3XnXwG2DhZ0FtKz95EsfKAQZLY/fFv/m05mdr/KZ
+OIZ/OcBWfPLwNcR9MVHSArO1VYFUqQSsi8IJUhYZKKhpYmAXrF/h0YeUOLlLRvfB4OtuuOyZQ+zt
+Y2UtHrTmNm7pHfj2IOCPJDvnLfbMUsQQvYxpBWIF5lslFkzCrnECTSy/8Ue36oRlan7yclndRQvm
+h0A=
+=gWxx
+-----END PGP SIGNATURE-----
 
---------------0TFk0kqSvp5eODqzlMUj0uR2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 5/2/2022 11:26 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:54568104-c607-eb76-6c20-67e91baec00f@amd.com">
-      
-      Am 01.05.22 um 21:45 schrieb Arunpravin Paneer Selvam:<br>
-      <blockquote type="cite" cite="mid:b42d6e3d-e646-8bcb-6166-bdb94ddd1d69@amd.com"> <br>
-        On 5/1/2022 12:59 AM, Christian König wrote:<br>
-        <blockquote type="cite" cite="mid:85927512-377e-39b1-d812-ef9bddcc2f02@gmail.com">Am
-          30.04.22 um 17:14 schrieb Arunpravin Paneer Selvam: <br>
-          <blockquote type="cite">- Add pipe and queue as out parameters
-            to support high priority <br>
-            &nbsp;&nbsp; queue test enabled in libdrm basic test suite. <br>
-            <br>
-            - Fetch amdgpu_ring pointer and pass sched info to userspace
-            <br>
-            <br>
-            - Improve amdgpu_sched_ioctl() function <br>
-            <br>
-            The related merge request for enabling high priority test
-            case are <br>
-            libdrm - <a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fdrm%2F-%2Fmerge_requests%2F235&amp;amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=jXIBtdA4seXl%2BYKsY2SDu%2B9tPoH6tfvUUXIRl4IosJc%3D&amp;amp;reserved=0" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fdrm%2F-%2Fmerge_requests%2F235&amp;amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=jXIBtdA4seXl%2BYKsY2SDu%2B9tPoH6
- tfvUUXIRl4IosJc%3D&amp;amp;reserved=0</a><br>
-            mesa - <a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fmesa%2F-%2Fmerge_requests%2F16262&amp;amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=%2F%2FwMJ86SXxP7K9STA%2B1x5rox1F5CPEy3JIhFMCjqwiY%3D&amp;amp;reserved=0" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fmesa%2Fmesa%2F-%2Fmerge_requests%2F16262&amp;amp;data=05%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Ce7a876029be4439b742808da2adfb82a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637869437601696844%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=%2F%2FwMJ86SXxP7K9STA%2B1x
- 5rox1F5CPEy3JIhFMCjqwiY%3D&amp;amp;reserved=0</a><br>
-            <br>
-            Signed-off-by: Arunpravin Paneer Selvam <a class="moz-txt-link-rfc2396E" href="mailto:Arunpravin.PaneerSelvam@amd.com" moz-do-not-send="true">&lt;Arunpravin.PaneerSelvam@amd.com&gt;</a>
-            <br>
-          </blockquote>
-          <br>
-          Well that is certainly a NAK since as far as I can see this
-          breaks the UAPI in a not backward compatible way. <br>
-          <br>
-          Then we absolutely should not pass scheduler info to
-          userspace. That should be completely transparent to userspace.
-          <br>
-          <br>
-          So can you summarize once more why that should be necessary?<br>
-        </blockquote>
-        I added a new test case named high priority queue test in libdrm
-        basic test suite to validate the kernel feature patch named<br>
-        <span style="mso-spacerun:yes"></span>high priority gfx pipe. In
-        the test case, we are creating a context and overriding the
-        priority as HIGH, submitting a simple NOP<br>
-        command to test the job scheduled on high priority pipe / queue.
-        This we have manually verified using the sysfs entry<br>
-        amdgpu_fence_info where fence signaled on gfx high priority pipe
-        (gfx_0.1.0). To ensure this in a unit test case, we require<br>
-        pipe and queue info.<br>
-      </blockquote>
-      <br>
-      Completely drop that requirement, it's not even remotely valid
-      justification for an UAPI change.<br>
-      <br>
-      The IOCTLs are for supporting userspace APIs like OpenGL, Vulkan,
-      VA-API etc.. and *not* unit tests.<br>
-      <br>
-      If you need additional information for unit tests we need to add
-      that to debugfs instead and as you wrote we already have that in
-      the form of the amdgpu_fence_info file.<br>
-    </blockquote>
-    sure, we will drop this requirement.<br>
-    <br>
-    Hi Alex,<br>
-    I verified the sysfs entry amdgpu_fence_info, a submitted high
-    priority job fence signaled on gfx_0.1.0, shall we push the kernel
-    patch named Enable high priority gfx queue<br>
-    into staging branch.<br>
-    <br>
-    Thanks,<br>
-    Arun.<br>
-    <blockquote type="cite" cite="mid:54568104-c607-eb76-6c20-67e91baec00f@amd.com"> <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      <blockquote type="cite" cite="mid:b42d6e3d-e646-8bcb-6166-bdb94ddd1d69@amd.com"> <br>
-        Thanks,<br>
-        Arun<br>
-        <blockquote type="cite" cite="mid:85927512-377e-39b1-d812-ef9bddcc2f02@gmail.com"> <br>
-          Regards, <br>
-          Christian. <br>
-          <br>
-          <blockquote type="cite">--- <br>
-            &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 114
-            ++++++++-------------- <br>
-            &nbsp; include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 14 ++- <br>
-            &nbsp; 2 files changed, 53 insertions(+), 75 deletions(-) <br>
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c <br>
-            index e9b45089a28a..fc2864b612d9 100644 <br>
-            --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c <br>
-            +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c <br>
-            @@ -32,106 +32,72 @@ <br>
-            &nbsp; #include &quot;amdgpu_sched.h&quot; <br>
-            &nbsp; #include &quot;amdgpu_vm.h&quot; <br>
-            &nbsp; -static int amdgpu_sched_process_priority_override(struct
-            amdgpu_device *adev, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int fd, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t priority) <br>
-            +int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-            <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_file *filp) <br>
-            &nbsp; { <br>
-            -&nbsp;&nbsp;&nbsp; struct fd f = fdget(fd); <br>
-            +&nbsp;&nbsp;&nbsp; union drm_amdgpu_sched *args = data; <br>
-            +&nbsp;&nbsp;&nbsp; struct amdgpu_ctx *ctx, *ctx_ptr; <br>
-            +&nbsp;&nbsp;&nbsp; struct drm_sched_entity *entity; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_fpriv *fpriv; <br>
-            -&nbsp;&nbsp;&nbsp; struct amdgpu_ctx *ctx; <br>
-            -&nbsp;&nbsp;&nbsp; uint32_t id; <br>
-            -&nbsp;&nbsp;&nbsp; int r; <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; if (!f.file) <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL; <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; r = amdgpu_file_to_fpriv(f.file, &amp;fpriv); <br>
-            -&nbsp;&nbsp;&nbsp; if (r) { <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r; <br>
-            -&nbsp;&nbsp;&nbsp; } <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; idr_for_each_entry(&amp;fpriv-&gt;ctx_mgr.ctx_handles,
-            ctx, id) <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ctx_priority_override(ctx, priority); <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            -&nbsp;&nbsp;&nbsp; return 0; <br>
-            -} <br>
-            - <br>
-            -static int amdgpu_sched_context_priority_override(struct
-            amdgpu_device *adev, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int fd, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned ctx_id, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t priority) <br>
-            -{ <br>
-            +&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring; <br>
-            +&nbsp;&nbsp;&nbsp; u32 fd = args-&gt;in.fd; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct fd f = fdget(fd); <br>
-            -&nbsp;&nbsp;&nbsp; struct amdgpu_fpriv *fpriv; <br>
-            -&nbsp;&nbsp;&nbsp; struct amdgpu_ctx *ctx; <br>
-            +&nbsp;&nbsp;&nbsp; u32 id; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r; <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!f.file) <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL; <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_file_to_fpriv(f.file, &amp;fpriv); <br>
-            -&nbsp;&nbsp;&nbsp; if (r) { <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r; <br>
-            -&nbsp;&nbsp;&nbsp; } <br>
-            +&nbsp;&nbsp;&nbsp; if (r) <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_fd; <br>
-            &nbsp; -&nbsp;&nbsp;&nbsp; ctx = amdgpu_ctx_get(fpriv, ctx_id); <br>
-            +&nbsp;&nbsp;&nbsp; ctx = amdgpu_ctx_get(fpriv, args-&gt;in.ctx_id); <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ctx) { <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL; <br>
-            -&nbsp;&nbsp;&nbsp; } <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; amdgpu_ctx_priority_override(ctx, priority); <br>
-            -&nbsp;&nbsp;&nbsp; amdgpu_ctx_put(ctx); <br>
-            -&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; return 0; <br>
-            -} <br>
-            - <br>
-            -int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-            <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_file *filp) <br>
-            -{ <br>
-            -&nbsp;&nbsp;&nbsp; union drm_amdgpu_sched *args = data; <br>
-            -&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = drm_to_adev(dev); <br>
-            -&nbsp;&nbsp;&nbsp; int r; <br>
-            - <br>
-            -&nbsp;&nbsp;&nbsp; /* First check the op, then the op's argument. <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
-            -&nbsp;&nbsp;&nbsp; switch (args-&gt;in.op) { <br>
-            -&nbsp;&nbsp;&nbsp; case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE: <br>
-            -&nbsp;&nbsp;&nbsp; case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE: <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break; <br>
-            -&nbsp;&nbsp;&nbsp; default: <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid sched op specified: %d\n&quot;,
-            args-&gt;in.op); <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL; <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EINVAL; <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_fd; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
-            (!amdgpu_ctx_priority_is_valid(args-&gt;in.priority)) { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Invalid context priority %d\n&quot;,
-            args-&gt;in.priority); <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL; <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EINVAL; <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_ctx; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (args-&gt;in.op) { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE: <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_sched_process_priority_override(adev, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.fd, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.priority); <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Retrieve all ctx handles and override priority&nbsp;
-            */ <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            idr_for_each_entry(&amp;fpriv-&gt;ctx_mgr.ctx_handles,
-            ctx_ptr, id) <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ctx_priority_override(ctx_ptr,
-            args-&gt;in.priority); <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE: <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_sched_context_priority_override(adev, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.fd, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.ctx_id, <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.priority); <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Override priority for a given context */ <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ctx_priority_override(ctx,
-            args-&gt;in.priority); <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Impossible. <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid sched op specified: %d\n&quot;,
-            args-&gt;in.op); <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EINVAL; <br>
-            -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break; <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_ctx; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-            &nbsp; +&nbsp;&nbsp;&nbsp; r = amdgpu_ctx_get_entity(ctx, args-&gt;in.ip_type,
-            0, args-&gt;in.ring, <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;entity); <br>
-            +&nbsp;&nbsp;&nbsp; if (r) <br>
-            +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_ctx; <br>
-            + <br>
-            +&nbsp;&nbsp;&nbsp; /* Fetch amdgpu_ring pointer */ <br>
-            +&nbsp;&nbsp;&nbsp; ring = to_amdgpu_ring(entity-&gt;rq-&gt;sched); <br>
-            + <br>
-            +&nbsp;&nbsp;&nbsp; /* Pass sched info to userspace */ <br>
-            +&nbsp;&nbsp;&nbsp; memset(args, 0, sizeof(*args)); <br>
-            +&nbsp;&nbsp;&nbsp; args-&gt;out.info.pipe = ring-&gt;pipe; <br>
-            +&nbsp;&nbsp;&nbsp; args-&gt;out.info.queue = ring-&gt;queue; <br>
-            + <br>
-            +out_ctx: <br>
-            +&nbsp;&nbsp;&nbsp; amdgpu_ctx_put(ctx); <br>
-            +out_fd: <br>
-            +&nbsp;&nbsp;&nbsp; fdput(f); <br>
-            + <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r; <br>
-            &nbsp; } <br>
-            diff --git a/include/uapi/drm/amdgpu_drm.h
-            b/include/uapi/drm/amdgpu_drm.h <br>
-            index 1d65c1fbc4ec..e93f1b6c4561 100644 <br>
-            --- a/include/uapi/drm/amdgpu_drm.h <br>
-            +++ b/include/uapi/drm/amdgpu_drm.h <br>
-            @@ -70,7 +70,7 @@ extern &quot;C&quot; { <br>
-            &nbsp; #define DRM_IOCTL_AMDGPU_WAIT_FENCES&nbsp;&nbsp;&nbsp;
-            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union
-            drm_amdgpu_wait_fences) <br>
-            &nbsp; #define DRM_IOCTL_AMDGPU_VM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union
-            drm_amdgpu_vm) <br>
-            &nbsp; #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE
-            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE,
-            union drm_amdgpu_fence_to_handle) <br>
-            -#define DRM_IOCTL_AMDGPU_SCHED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union
-            drm_amdgpu_sched) <br>
-            +#define DRM_IOCTL_AMDGPU_SCHED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union
-            drm_amdgpu_sched) <br>
-            &nbsp; &nbsp; /** <br>
-            &nbsp;&nbsp; * DOC: memory domains <br>
-            @@ -308,6 +308,11 @@ union drm_amdgpu_vm { <br>
-            &nbsp; #define AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE&nbsp;&nbsp;&nbsp; 1 <br>
-            &nbsp; #define AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE&nbsp;&nbsp;&nbsp; 2 <br>
-            &nbsp; +struct drm_amdgpu_sched_info { <br>
-            +&nbsp;&nbsp;&nbsp; __u32 pipe; <br>
-            +&nbsp;&nbsp;&nbsp; __u32 queue; <br>
-            +}; <br>
-            + <br>
-            &nbsp; struct drm_amdgpu_sched_in { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* AMDGPU_SCHED_OP_* */ <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32&nbsp;&nbsp;&nbsp; op; <br>
-            @@ -315,10 +320,17 @@ struct drm_amdgpu_sched_in { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /** AMDGPU_CTX_PRIORITY_* */ <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __s32&nbsp;&nbsp;&nbsp; priority; <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32&nbsp;&nbsp; ctx_id; <br>
-            +&nbsp;&nbsp;&nbsp; __u32&nbsp;&nbsp; ip_type; <br>
-            +&nbsp;&nbsp;&nbsp; __u32&nbsp;&nbsp; ring; <br>
-            +}; <br>
-            + <br>
-            +struct drm_amdgpu_sched_out { <br>
-            +&nbsp;&nbsp;&nbsp; struct drm_amdgpu_sched_info info; <br>
-            &nbsp; }; <br>
-            &nbsp; &nbsp; union drm_amdgpu_sched { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_sched_in in; <br>
-            +&nbsp;&nbsp;&nbsp; struct drm_amdgpu_sched_out out; <br>
-            &nbsp; }; <br>
-            &nbsp; &nbsp; /* <br>
-          </blockquote>
-          <br>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------0TFk0kqSvp5eODqzlMUj0uR2--
+--------------bZs9O7gVydbPyh0mFowmyKkQ--
