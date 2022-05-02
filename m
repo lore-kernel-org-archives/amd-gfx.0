@@ -4,61 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F29B1C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701D3C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 883F010F019;
-	Mon,  2 May 2022 16:31:49 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C47410F019
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 16:31:48 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- gj17-20020a17090b109100b001d8b390f77bso16529380pjb.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 May 2022 09:31:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5DXG6OzenA4JxtNcAqNdKZ6Lnghc0/nVTmrMktg2yAk=;
- b=LlUW4MSGAJS1SLkyE1EdQEV65iwM7GxuDb2kIuMt4hooqHVfbTsRCpiX597FOdcwh1
- fNGA86LPOwPSszNc0Fc/qJ1ojsIUDlpdUMvNa3PRDJ4XorjGpGnJgplS4mlpAOhguYT0
- wH82H0baFaNP+FBMuq3GAxoRKqaaBvwIGMuFE/0AcPEJ0WLd8iz6wCnGQvHxPmAV6xKn
- QhLnEB4rsrtfTw6/BCcAWaUdSchoaODdFOv1Kr/MNGn3vw9wAUYn1gvzJmOc2Gmi9WGK
- RhHX3CKOOluMCZVXY3uAA1A4/c3tO+7uq3h8RLtUWAuC8scNjhg+8nH7OQ4or2Yv+ax4
- lRjg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id F32EC10F086;
+	Mon,  2 May 2022 16:57:17 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0E4310F086
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 May 2022 16:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651510635;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=K0Gq4g+r6nSFFN2UMiOU7agj8frQhJOC3wt5ScKN4WI=;
+ b=VVwzwO59SzS0+Lzj+SrIY/Auhq1cFya02SAB75l5ytIZFavMtdZ09zH3GfXkCMZ+5fA8yp
+ lFxlfbUH2uqedBLECNtfrR8u/AliTr/B7CVQdQj3aCh2w1576vxZliTQkWc4tQ4Ix5KKH6
+ WbbKGAAfgm2ezWaVJ5dpSLKMFT/A4a4=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-135-2pLqjvsQOneXrGffAIY4KQ-1; Mon, 02 May 2022 12:57:07 -0400
+X-MC-Unique: 2pLqjvsQOneXrGffAIY4KQ-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ n186-20020a1c27c3000000b00392ae974ca1so122724wmn.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 May 2022 09:57:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5DXG6OzenA4JxtNcAqNdKZ6Lnghc0/nVTmrMktg2yAk=;
- b=jtD6CyUup+ajKwnYKz7io1Ske9cfC1gO57wMqsadBRyV5VjWB3eCB53XuBUtFFIFIc
- zU98ElQRKAv3M3HEFBDrSHeyiljF/R2fBEKQR/a4KMQMLxcFT0wVA/wTU4A6lVQeBN5c
- n4xLDws6vg9R4Ce5kOIQQun77AL9gba70wGZR6g6ezjp4McDsd/HRk4DGmFTZnjJaXKf
- MoWykFRNFAYEUqrP+xkDu9ijeI19FlIGxMH+f5stBCC2YC08TlloR7XDg8DgH/iOlQW7
- rRQA1XZxtGbNJEPeXuH+WFxM8jzlgKNuIGna7JM0ViCsNMAh6kIahZvur3rz+bBmybOf
- 0/fg==
-X-Gm-Message-State: AOAM530ppQtpV9jAIRel2Agh+0p/W9AB4TE82PGIOj6At0Y6m2eIVXMG
- jnp0qtoHRmW3zLPbfqmaZUpL3Ef7uRc/MDl+Npq6RQ==
-X-Google-Smtp-Source: ABdhPJzP7IBFrgDen677xLa2KBjavhGqOeefQGiz2x7MgXuduTru3h3L+KFwL6GQGbduyB4IEEU4ukYbo6JWa851fUA=
-X-Received: by 2002:a17:902:c7d3:b0:15e:b2f1:15f4 with SMTP id
- r19-20020a170902c7d300b0015eb2f115f4mr1154642pla.39.1651509107921; Mon, 02
- May 2022 09:31:47 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=K0Gq4g+r6nSFFN2UMiOU7agj8frQhJOC3wt5ScKN4WI=;
+ b=uFzMclCF9qknsYTiVnUhZNn8agU2H6xw8Gu6N/fCV/p6MyMiU1YchRuDucHmc2+Mwo
+ GZrbfAHxBUi3s+myo/2QgnEYQ82xjjoBjECRxW750+uSWBwYkS9CZ/zk8ggyHtwxRf0F
+ xSocHlEkIEuPNrQepvmwEfaZA6BhK8tpW8nI5a45+TCE/IDlZenUscGNGmdugnEE+g/R
+ cNCrB6+2Xky5sdrJX8aGCH10RTl7xbGp1ojPK0pok5fBaxdV8LyXSg5xQyfBwXOEx/vO
+ PlYLi9BbPvvAOhD6E09TeW8o/KaGqErNONNC5M7XJFdOGfmdLFyqZj61RSP2PHwoQU3M
+ zCkg==
+X-Gm-Message-State: AOAM533qiZC2AkEkwBxwDL88Fn70uSsmwL6N6HeCJIb7LyksJQmJcHbc
+ m4JxHg+EvU8wGH1lwO9RYFnNgGGZhonI7DlKhLosSNbWx4yZVyhmo++KpLOLHsM75qCBklo2B79
+ dpV5g6rUf7gBFfXBq9/jsOQpUbQ==
+X-Received: by 2002:a05:600c:4f08:b0:391:fe3c:40e6 with SMTP id
+ l8-20020a05600c4f0800b00391fe3c40e6mr78539wmq.34.1651510626175; 
+ Mon, 02 May 2022 09:57:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzBR5y6TmCRfu+8hzM0SQTGA4cZrpN3ZhuFriWyFUH2mb/ZbNn3olE2yOJI8bAuj+96a04yXQ==
+X-Received: by 2002:a05:600c:4f08:b0:391:fe3c:40e6 with SMTP id
+ l8-20020a05600c4f0800b00391fe3c40e6mr78523wmq.34.1651510625948; 
+ Mon, 02 May 2022 09:57:05 -0700 (PDT)
+Received: from [192.168.1.129] ([92.176.231.205])
+ by smtp.gmail.com with ESMTPSA id
+ r20-20020adfa154000000b0020c5253d8c7sm7273243wrr.19.2022.05.02.09.57.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 May 2022 09:57:05 -0700 (PDT)
+Message-ID: <ac202e93-cde2-99fa-5aca-abdc1cf6a3bf@redhat.com>
+Date: Mon, 2 May 2022 18:57:04 +0200
 MIME-Version: 1.0
-References: <20220407054651.3924-1-Arunpravin.PaneerSelvam@amd.com>
- <CAHbf0-H5uE4RtZwY0L8Wz0VG6QnU1+E3yhg3fDFVc3n__=nrNQ@mail.gmail.com>
- <c0facbf4-0e14-fde5-4334-499135a36f0c@amd.com>
- <CAHbf0-FMqAA3vWx_uRDYG_vr=FX+tFoLAL6BZLDe5upv7KJqrg@mail.gmail.com>
- <CAHbf0-En606VT_HYDyeo6TtsfSZmR_+wsZaVgS4XiedLO9ndiA@mail.gmail.com>
- <8b99ca20-f711-ec32-0cd2-16fc52846ce0@amd.com>
-In-Reply-To: <8b99ca20-f711-ec32-0cd2-16fc52846ce0@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Mon, 2 May 2022 17:31:36 +0100
-Message-ID: <CAHbf0-EzPP5gAyZQmxeAo3Ep0g-rO4XbDgEB_SdsR84xY+at9A@mail.gmail.com>
-Subject: Re: [PATCH v12] drm/amdgpu: add drm buddy support to amdgpu
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH v2 2/3] drm/fb-helper: Rename preferred_bpp
+ drm_fbdev_generic_setup() parameter
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20220502153900.408522-1-javierm@redhat.com>
+ <20220502153900.408522-3-javierm@redhat.com>
+ <YnABz/4haOHe66Do@pendragon.ideasonboard.com>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <YnABz/4haOHe66Do@pendragon.ideasonboard.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,59 +89,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- matthew.auld@intel.com
+Cc: linux-aspeed@lists.ozlabs.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, spice-devel@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
+ linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2 May 2022 at 16:54, Arunpravin Paneer Selvam
-<arunpravin.paneerselvam@amd.com> wrote:
->
->
->
-> On 5/2/2022 8:41 PM, Mike Lothian wrote:
-> > On Wed, 27 Apr 2022 at 12:55, Mike Lothian <mike@fireburn.co.uk> wrote:
-> >> On Tue, 26 Apr 2022 at 17:36, Christian K=C3=B6nig <christian.koenig@a=
-md.com> wrote:
-> >>> Hi Mike,
-> >>>
-> >>> sounds like somehow stitching together the SG table for PRIME doesn't
-> >>> work any more with this patch.
-> >>>
-> >>> Can you try with P2P DMA disabled?
-> >> -CONFIG_PCI_P2PDMA=3Dy
-> >> +# CONFIG_PCI_P2PDMA is not set
-> >>
-> >> If that's what you're meaning, then there's no difference, I'll upload
-> >> my dmesg to the gitlab issue
-> >>
-> >>> Apart from that can you take a look Arun?
-> >>>
-> >>> Thanks,
-> >>> Christian.
-> > Hi
-> >
-> > Have you had any success in replicating this?
-> Hi Mike,
-> I couldn't replicate on my Raven APU machine. I see you have 2 cards
-> initialized, one is Renoir
-> and the other is Navy Flounder. Could you give some more details, are
-> you running Gravity Mark
-> on Renoir and what is your system RAM configuration?
-> >
-> > Cheers
-> >
-> > Mike
->
-Hi
+On 5/2/22 18:07, Laurent Pinchart wrote:
+> Hi Javier,
+> 
+> Thank you for the patch.
+> 
+> On Mon, May 02, 2022 at 05:38:59PM +0200, Javier Martinez Canillas wrote:
+>> By default the bits per pixel for the emulated framebuffer device is set
+>> to dev->mode_config.preferred_depth, but some devices need another value.
+>>
+>> Since this second parameter is only used by a few drivers, and to allow
+>> drivers to use it for passing other configurations when registering the
+>> fbdev, rename @preferred_bpp to @options and make it a multi-field param.
+>>
+>> The DRM_FB_OPTION() and DRM_FB_GET_OPTION() macros are provided to drivers
+>> for computing options bitfield values and getting the values respectively
+>>
+>> For now, only the DRM_FB_BPP option exists but other options can be added.
+>>
+>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+>> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>> ---
+>>
+>> Changes in v2:
+>> - Rename DRM_FB_SET_OPTION() to DRM_FB_SET() and make more clear in the
+> 
+> I assume you meant DRM_FB_OPTION() here, not DRM_FB_SET().
+> 
+>>   kernel-doc what this macro does (Laurent Pinchart).
+>>
 
-It's a PRIME laptop, it failed on the RENOIR too, it caused a lockup,
-but systemd managed to capture it, I'll attach it to the issue
+Right, that's a typo. The patch description and content are correct though.
 
-I've got 64GB RAM, the 6800M has 12GB VRAM
+I'll fix the patch history log in v3.
 
-Cheers
+-- 
+Best regards,
 
-Mike
+Javier Martinez Canillas
+Linux Engineering
+Red Hat
+
