@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4244C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 May 2022 20:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C61CC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 May 2022 20:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8313710EA27;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B7B10EA21;
 	Tue,  3 May 2022 20:09:22 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E26310EA1B
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2059.outbound.protection.outlook.com [40.107.212.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F2410EA2F
  for <amd-gfx@lists.freedesktop.org>; Tue,  3 May 2022 20:09:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZfVBTFaCpEiCD2HjIkpwgI2euHR6p7KTL5QhCrsoPuzqLNtPrQFILfZKNpBA9ISVuRBp1HIYGLUBM7JmPtr16DTYewIkhVZg1OkZOk+OHHDsI+SwFSR469ZDOUJMexoCqXnD+ZUC8q8Pqd8GAUec5F1AmC7r2VB9svCqMPfKsoNEaFmpC9S61x8fV4HF6MV9s4x6rIb84LZ14w7d5x3spg+Wv/DfjCW/3vIFzYOPM/JclB1e0lXcE2SVMQ0VeG88Snlhp5YxjRyTOYQJPl5d/t+tZJLI9zGNC7YMvg/drmbAfs7B3LEFYGu3KICp50n2o1Ppu2T9lNqp7wR3Y1t5wg==
+ b=EDK3rSv+n9N6A2OMXH9cWJNFGizz+8qajCmtkO0n2OLoedjw2P+8HJ476Pq0L75tVI2PC9W1LOE0TyRbCIDNm86uN+yQrdWJOi+DBtz8bmGOYqWgf4sNAQsKe8h6S2l54LCRi/qgSqn+/9/LCAz3q18//ec+gF/dXj4o5eMDPG/vT92+sbzznNzpwSkSMEffFHTDFJl0mVX3R3xeISlArSRh8qzsMYIyui6AvkYuhRPAkUCjpcrgFtt6rJuDjtVw8o7GJ1qgxTNsQqzZ3CPFA6wh4ZT4dTAT0NSNFnGYV7xV1+mObApXp/hCs8rCyGsuX417+rVXNfM3TFT7gb/UNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=huc+BI7vtj9MB79geBF7TvmIW50kNmRf9eNW+VkGcp8=;
- b=f1SbkZQLbPO5/1xys8hKJ30IN5/zbIv0V80IqAN8kekaa7dZxIbHd2GlHe0zEZTdJrU4xA31OGa7nF8ozbzUaZG5q3JhMuENOVEkFqW+lJp9eMAjyARF51G0KShltLFUDvDpqoRlJ/MAHP69EHRdJpNryuVg1lu5974SWR92UfuvUaIaw4XPjR9zHNteNVGJ/YRSRamrxK7KB/sMYrVZfKZU1xrJ2nFEZMPjxNHVLAEuujZnvOS7gA/ej93iZTC8CrN0DFOlVFN7wBu5kspySLtVIV9f25JgELSL/OCeU79urygQ67tnjykJl+Jiyy9DLQNyBZ+rmn0IyBBr+bavzA==
+ bh=l5NdwyM/HtsCG4e2wTs8kDJ8H9X8x8fQt9nl/jTQqP4=;
+ b=GVx8Z+D8pxPLA9SL66ZGaJ6ePZdJ7hLgWGKtNhqaXyeT9dVEiGLq17ckE4lDqY56iLbGnJiWv1VZn3ftvKwls19zGCI2RN1cdGcL+20U6/fxxe4trOLCyZqRlJrP1WUGY05YPNpUSQgp6bKTxhh4nR8sVJ+XF7mAkDiDYclaGuApnVf49A0Es1o8o5EBRg0PvBzT/VX6cYvPLmt7pFXSTPWyrDbY77rI9410nsFQg0Us5cnzBlticCxLaRSwvA+aM/tv38SadduzMCpDn7MMq5OfprJb0na6X7ZdVe2OQL3rzdDBTNc9midSInu61t1cyxit+eh24/6mAWEz3P2cug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huc+BI7vtj9MB79geBF7TvmIW50kNmRf9eNW+VkGcp8=;
- b=bqaDLB2UWB1d0jTG5uMOo3ZS2mkuqKRa1xiLsw16HX+4FB7FjzOuw4+ab7GOgMTx/NH2B6ehy7XcF4qJS9IK10dMexY7Va7V0MeQu5XzcsssEYlKA267wn6Rop/+wd2Y+RVQoekOIdFABAPpvHXOdgGyhPNlzLqS9u1CVaXU928=
-Received: from DM6PR06CA0050.namprd06.prod.outlook.com (2603:10b6:5:54::27) by
- DS7PR12MB6264.namprd12.prod.outlook.com (2603:10b6:8:94::18) with
+ bh=l5NdwyM/HtsCG4e2wTs8kDJ8H9X8x8fQt9nl/jTQqP4=;
+ b=RM4qmimiJo9VgllzjUaqTFysL3WEnU7dqB89rH/KGHJp31kqHfleJwk1hkb99OyLD0h2KlBvacWm7ZHyHbvf6l4oH/QTgXL6qUi4/Ul8gqN+vWFmZLxOK015Ir65R6s3UT/3so6BWmZt+tN4tGmuKRB842+lWI52Rae7EJhwEhM=
+Received: from DM6PR07CA0050.namprd07.prod.outlook.com (2603:10b6:5:74::27) by
+ DM5PR1201MB0122.namprd12.prod.outlook.com (2603:10b6:4:57::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.24; Tue, 3 May 2022 20:09:19 +0000
-Received: from DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:54:cafe::96) by DM6PR06CA0050.outlook.office365.com
- (2603:10b6:5:54::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24 via Frontend
+ 15.20.5186.15; Tue, 3 May 2022 20:09:19 +0000
+Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::10) by DM6PR07CA0050.outlook.office365.com
+ (2603:10b6:5:74::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.25 via Frontend
  Transport; Tue, 3 May 2022 20:09:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT022.mail.protection.outlook.com (10.13.172.210) with Microsoft SMTP
+ DM6NAM11FT066.mail.protection.outlook.com (10.13.173.179) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Tue, 3 May 2022 20:09:19 +0000
+ 15.20.5227.15 via Frontend Transport; Tue, 3 May 2022 20:09:18 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 3 May
  2022 15:09:15 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/gmc11: avoid cpu accessing registers to flush VM
-Date: Tue, 3 May 2022 16:08:47 -0400
-Message-ID: <20220503200855.1163186-17-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: enable clock gating for HDP 6.0
+Date: Tue, 3 May 2022 16:08:46 -0400
+Message-ID: <20220503200855.1163186-16-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503200855.1163186-1-alexander.deucher@amd.com>
 References: <20220503200855.1163186-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: faa64aec-364e-494d-a03f-08da2d40ce85
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6264:EE_
-X-Microsoft-Antispam-PRVS: <DS7PR12MB62644DCCF4EF5ED58E825245F7C09@DS7PR12MB6264.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f62c4a7f-055c-4808-8808-08da2d40ce66
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0122:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0122E4E5345D24EE821BF713F7C09@DM5PR1201MB0122.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r+JrpG5/0RMocGJFsWCyiWN3+AXOQ29hFbECMrC6gfwLg/QtlosGtxOyIyqyb70eTwqZJAthw9hYqk4gWEg/W543/C4kc0LPkO6AxosFHjRUdiXfhrSl5NK1jsKqdG/inoqIi8NW//hOPSKItq+OMvK+dby5Y6VL2NCV1cNPEGZhdmPVb5Mt82OFyLh6SKvcwXocVdJ1ZZDIlPv4AJ5Gj2C+ny5+5PQJhhB9o++ZeV9lrFqvGcFrRji0MPFkFxZ0d13fTJJ126qhUy2/pR79P4gDKgUYDv52Eu/arTuj5fyDXqbH15tfLZDBtwZfyiJm1sQtZLLNL1qQhdNuwXoXlWH1K1j+4vi02m5eaKLDBlAt+BzFu88hZlUV2wBqraIpf4CxSd39QtT6coIYDSnCGnxz9c/MsD8ZjO5kxW66lslIjwQWmHI/IRwJ+auCpY7yXJ0IGjAvU0+7zvl6ryxrgqjtBlaO3q072c/+oDpPKmjzOEqQE4qnojZevwEFKWI5egGEK2Vgj4NcInKe8Z0PlEMUwCFtqir64b0vbqjUCfod61LLk0WfWhfypvDbxI+viGC/NxwBCToeQ57d+5FBdpWHKMcw7+fpV05ZrjrgRg27ftMCUQOA4Eo2PtIWuOXkapAtZkmzV0OvaEDuvW/sTawcJdDwC5nx3AlTKElrNoSCZ6OBB65ze4tTRcfpSf/jpI2NIpF6RALiwlGk9yJcmg==
+X-Microsoft-Antispam-Message-Info: GrvGDizeILEXcHMT6aCFBjYtbGwfc8Mjcy6f26A9neWmgtRCi4QpgbkFAdBFvyg/CoMXXJcDDNXy7mB/vGea3tIR3zhZzj8m/H8q7CvbUOUHzFbGx7wQGK6AZIj6v1hfnfVIaIxe60r69aE/ZVEEgGR+uJxEmT3XXSvv4zls9JO0MabiHNMPGkrvSdxddEnvH+TgihmGB7eAEmFfvTTgeHB8KkeZeqNThta7uTSHI+aLo9jhh7Ogm1fuHWP8lOQob6S9j2lQSmBfaUvXdjarnGaPxh9nreDL6MkHZpNPwEizy4hCEYchzqem84u47/1j6ixhKRUzOyLJkZCLc0IsfIxcH/8IPbBma/lDj6uVrPAjEzmylpUQePWlGWgVDxsnG0wKckdlMLIsbvm8foguZSHX80VXbgduMbnoyKDwLTC18bFrTlxcskTITzmM8qYEograT6fXQKTNI/vk1hsO8gMFncdd7z+3LVoNqVIzLS9JQbvjPekMOdqdS9cjSyU9dkKU+/JCZjGCWoaTLvtGHcnBnkE4YTkBMs3YkealCNtgbphZMXXkPygeEU4RoxULj+OtwXsJtWUWOavNQ5/eXJJqg0S+sNLQjy1eBPsOz88Iu9+K0QLpLaW/5ecnWd1aXveBbu4Caz1WC96q0zP0mqtw9X5bs+ZUL7pJf+QaV7SRqvUJNSm1tzwZzTNz1MpwndoxHj/RxR9ab628XXN4eg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(7696005)(336012)(82310400005)(426003)(83380400001)(81166007)(26005)(2616005)(47076005)(40460700003)(356005)(316002)(86362001)(186003)(16526019)(36756003)(5660300002)(8936002)(1076003)(36860700001)(4326008)(70206006)(70586007)(6666004)(6916009)(8676002)(54906003)(2906002)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(2616005)(508600001)(40460700003)(186003)(36860700001)(1076003)(70586007)(70206006)(8676002)(6666004)(356005)(16526019)(26005)(7696005)(4326008)(81166007)(47076005)(426003)(336012)(54906003)(316002)(6916009)(83380400001)(2906002)(86362001)(5660300002)(8936002)(36756003)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2022 20:09:19.1273 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: faa64aec-364e-494d-a03f-08da2d40ce85
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2022 20:09:18.9235 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f62c4a7f-055c-4808-8808-08da2d40ce66
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6264
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,92 +100,163 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Xiao <Jack.Xiao@amd.com>
+From: Evan Quan <evan.quan@amd.com>
 
-Due to gfxoff on, cpu accessing registers is not expected.
+Enable HDP 6.0 clock gating.
 
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 51 +++++++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c | 100 ++++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/soc21.c    |   3 +-
+ 2 files changed, 73 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 61db2a378008..032414d7429d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -265,6 +265,12 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 					uint32_t vmhub, uint32_t flush_type)
- {
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct dma_fence *fence;
-+	struct amdgpu_job *job;
-+
-+	int r;
-+
- 	if ((vmhub == AMDGPU_GFXHUB_0) && !adev->gfx.is_poweron)
- 		return;
- 
-@@ -288,8 +294,51 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	}
- 
- 	mutex_lock(&adev->mman.gtt_window_lock);
--	gmc_v11_0_flush_vm_hub(adev, vmid, vmhub, 0);
-+
-+	if (vmhub == AMDGPU_MMHUB_0) {
-+		gmc_v11_0_flush_vm_hub(adev, vmid, AMDGPU_MMHUB_0, 0);
-+		mutex_unlock(&adev->mman.gtt_window_lock);
-+		return;
-+	}
-+
-+	BUG_ON(vmhub != AMDGPU_GFXHUB_0);
-+
-+	if (!adev->mman.buffer_funcs_enabled ||
-+	    !adev->ib_pool_ready ||
-+	    amdgpu_in_reset(adev) ||
-+	    ring->sched.ready == false) {
-+		gmc_v11_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB_0, 0);
-+		mutex_unlock(&adev->mman.gtt_window_lock);
-+		return;
-+	}
-+
-+	r = amdgpu_job_alloc_with_ib(adev, 16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
-+				     &job);
-+	if (r)
-+		goto error_alloc;
-+
-+	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
-+	job->vm_needs_flush = true;
-+	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
-+	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-+	r = amdgpu_job_submit(job, &adev->mman.entity,
-+			      AMDGPU_FENCE_OWNER_UNDEFINED, &fence);
-+	if (r)
-+		goto error_submit;
-+
-+	mutex_unlock(&adev->mman.gtt_window_lock);
-+
-+	dma_fence_wait(fence, false);
-+	dma_fence_put(fence);
-+
-+	return;
-+
-+error_submit:
-+	amdgpu_job_free(job);
-+
-+error_alloc:
- 	mutex_unlock(&adev->mman.gtt_window_lock);
-+	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
- 	return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
+index 1dab8f3fcbad..063eba619f2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
+@@ -38,33 +38,85 @@ static void hdp_v6_0_flush_hdp(struct amdgpu_device *adev,
  }
  
+ static void hdp_v6_0_update_clock_gating(struct amdgpu_device *adev,
+-						      bool enable)
++					 bool enable)
+ {
+-	uint32_t hdp_clk_cntl;
++	uint32_t hdp_clk_cntl, hdp_clk_cntl1;
++	uint32_t hdp_mem_pwr_cntl;
+ 
+-	if (!(adev->cg_flags & AMD_CG_SUPPORT_HDP_MGCG))
++	if (!(adev->cg_flags & (AMD_CG_SUPPORT_HDP_LS |
++				AMD_CG_SUPPORT_HDP_DS |
++				AMD_CG_SUPPORT_HDP_SD)))
+ 		return;
+ 
+-	hdp_clk_cntl = RREG32_SOC15(HDP, 0, regHDP_CLK_CNTL);
++	hdp_clk_cntl = hdp_clk_cntl1 = RREG32_SOC15(HDP, 0,regHDP_CLK_CNTL);
++	hdp_mem_pwr_cntl = RREG32_SOC15(HDP, 0, regHDP_MEM_POWER_CTRL);
+ 
++	/* Before doing clock/power mode switch,
++	 * forced on IPH & RC clock */
++	hdp_clk_cntl = REG_SET_FIELD(hdp_clk_cntl, HDP_CLK_CNTL,
++				     RC_MEM_CLK_SOFT_OVERRIDE, 1);
++	WREG32_SOC15(HDP, 0, regHDP_CLK_CNTL, hdp_clk_cntl);
++
++	/* disable clock and power gating before any changing */
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 ATOMIC_MEM_POWER_CTRL_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 ATOMIC_MEM_POWER_LS_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 ATOMIC_MEM_POWER_DS_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 ATOMIC_MEM_POWER_SD_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 RC_MEM_POWER_CTRL_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 RC_MEM_POWER_LS_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 RC_MEM_POWER_DS_EN, 0);
++	hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++					 RC_MEM_POWER_SD_EN, 0);
++	WREG32_SOC15(HDP, 0, regHDP_MEM_POWER_CTRL, hdp_mem_pwr_cntl);
++
++	/* Already disabled above. The actions below are for "enabled" only */
+ 	if (enable) {
+-		hdp_clk_cntl &=
+-			~(uint32_t)
+-			(HDP_CLK_CNTL__ATOMIC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-			 HDP_CLK_CNTL__RC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-			 HDP_CLK_CNTL__DBUS_CLK_SOFT_OVERRIDE_MASK |
+-			 HDP_CLK_CNTL__DYN_CLK_SOFT_OVERRIDE_MASK |
+-			 HDP_CLK_CNTL__XDP_REG_CLK_SOFT_OVERRIDE_MASK |
+-			 HDP_CLK_CNTL__HDP_REG_CLK_SOFT_OVERRIDE_MASK);
+-	} else {
+-		hdp_clk_cntl |= HDP_CLK_CNTL__ATOMIC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-			HDP_CLK_CNTL__RC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-			HDP_CLK_CNTL__DBUS_CLK_SOFT_OVERRIDE_MASK |
+-			HDP_CLK_CNTL__DYN_CLK_SOFT_OVERRIDE_MASK |
+-			HDP_CLK_CNTL__XDP_REG_CLK_SOFT_OVERRIDE_MASK |
+-			HDP_CLK_CNTL__HDP_REG_CLK_SOFT_OVERRIDE_MASK;
++		/* only one clock gating mode (LS/DS/SD) can be enabled */
++		if (adev->cg_flags & AMD_CG_SUPPORT_HDP_SD) {
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 ATOMIC_MEM_POWER_SD_EN, 1);
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 RC_MEM_POWER_SD_EN, 1);
++		} else if (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS) {
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 ATOMIC_MEM_POWER_LS_EN, 1);
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 RC_MEM_POWER_LS_EN, 1);
++		} else if (adev->cg_flags & AMD_CG_SUPPORT_HDP_DS) {
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 ATOMIC_MEM_POWER_DS_EN, 1);
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl,
++							 HDP_MEM_POWER_CTRL,
++							 RC_MEM_POWER_DS_EN, 1);
++		}
++
++		/* confirmed that IPH_MEM_POWER_CTRL_EN and RC_MEM_POWER_CTRL_EN have to
++		 * be set for SRAM LS/DS/SD */
++		if (adev->cg_flags & (AMD_CG_SUPPORT_HDP_LS | AMD_CG_SUPPORT_HDP_DS |
++				      AMD_CG_SUPPORT_HDP_SD)) {
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++							 ATOMIC_MEM_POWER_CTRL_EN, 1);
++			hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++							 RC_MEM_POWER_CTRL_EN, 1);
++			WREG32_SOC15(HDP, 0, regHDP_MEM_POWER_CTRL, hdp_mem_pwr_cntl);
++		}
+ 	}
+ 
++	/* disable IPH & RC clock override after clock/power mode changing */
++	hdp_clk_cntl = REG_SET_FIELD(hdp_clk_cntl, HDP_CLK_CNTL,
++				     RC_MEM_CLK_SOFT_OVERRIDE, 0);
+ 	WREG32_SOC15(HDP, 0, regHDP_CLK_CNTL, hdp_clk_cntl);
+ }
+ 
+@@ -73,16 +125,6 @@ static void hdp_v6_0_get_clockgating_state(struct amdgpu_device *adev,
+ {
+ 	uint32_t tmp;
+ 
+-	/* AMD_CG_SUPPORT_HDP_MGCG */
+-	tmp = RREG32_SOC15(HDP, 0, regHDP_CLK_CNTL);
+-	if (!(tmp & (HDP_CLK_CNTL__ATOMIC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-		     HDP_CLK_CNTL__RC_MEM_CLK_SOFT_OVERRIDE_MASK |
+-		     HDP_CLK_CNTL__DBUS_CLK_SOFT_OVERRIDE_MASK |
+-		     HDP_CLK_CNTL__DYN_CLK_SOFT_OVERRIDE_MASK |
+-		     HDP_CLK_CNTL__XDP_REG_CLK_SOFT_OVERRIDE_MASK |
+-		     HDP_CLK_CNTL__HDP_REG_CLK_SOFT_OVERRIDE_MASK)))
+-		*flags |= AMD_CG_SUPPORT_HDP_MGCG;
+-
+ 	/* AMD_CG_SUPPORT_HDP_LS/DS/SD */
+ 	tmp = RREG32_SOC15(HDP, 0, regHDP_MEM_POWER_CTRL);
+ 	if (tmp & HDP_MEM_POWER_CTRL__ATOMIC_MEM_POWER_LS_EN_MASK)
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 24ba5e36378f..7804f95b790b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -538,7 +538,8 @@ static int soc21_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_ATHUB_LS |
+ 			AMD_CG_SUPPORT_MC_MGCG |
+ 			AMD_CG_SUPPORT_MC_LS |
+-			AMD_CG_SUPPORT_IH_CG;
++			AMD_CG_SUPPORT_IH_CG |
++			AMD_CG_SUPPORT_HDP_SD;
+ 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
+ 			AMD_PG_SUPPORT_VCN_DPG |
+ 			AMD_PG_SUPPORT_JPEG |
 -- 
 2.35.1
 
