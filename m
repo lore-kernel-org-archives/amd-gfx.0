@@ -4,62 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33328C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 May 2022 17:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120F4C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA5F911211E;
-	Tue,  3 May 2022 17:38:17 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26B1A112092;
- Tue,  3 May 2022 17:02:59 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id a1so20585806edt.3;
- Tue, 03 May 2022 10:02:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0FE10E419;
+	Tue,  3 May 2022 18:19:24 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5394610E1FA;
+ Tue,  3 May 2022 18:19:22 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id k23so35028856ejd.3;
+ Tue, 03 May 2022 11:19:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=0ebsl3t9Q4A5ZhggZdMt0K6huVQ4nPLjVF1HT4eHwHY=;
- b=HaGnyx7pBoke+0aSLZ+0Cl9i2Z3rtc277xsE07lgnGx2lIPgKNR+/cHf1BHMJd+tWY
- xLxDVjfXM0LpLkK6W47aSnLqvt4qcngT1GxJ9qnMFGWSSL68ZSpCJur0Qp+flnz9TG9V
- 8iSPz7fXNdaty2uNHB4TWoNsqJrz0v03bb5rxLo5UKkUbCeepA8IK+d4f511ABt2QcWd
- ZpC42ODRQgilCYofK3JnmcBW/XdrLxgbLavwJlZDJe38uRpGjKQRfb1xNvaHi8pmKFwS
- 8RYFI+ibpzWIAh8L22MX0fUODrvS/rlJYgws3AcC0d8zDmBJEhPw91evXIyGqHtd9B1w
- 9Xiw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=XSx6NpBH8cInAqFE8X5356I+UKRxZpBCvdc1b/xk2hY=;
+ b=qr9JrgkQaC9A5O5K8QzYUMJFMRAxCNIJ52eDMQ/k6a0GgLts8W43JIxCkOstTZA9p/
+ JXlgRx5tJv0f8A5eKJ9lvmtJRFhJuBFMvuqO/tWW2cJMR4aZ1hhhUk3t6Hg0l5aqNEC4
+ LvTHGCe119PA672ox/mQlNx398utrvC23jBCsa4xvZmWqcFqOEV+HfUOo4W+6BCTgPsi
+ Ub5R63VuFduY78oh+m60gjHNMTFMiDgJUapoZlxuqqXkeA8R+652D3VCB0Zo6W5tzChu
+ It+QZSuGei4zat9uvmpn3MVRNnLyPolNSdTbgnbq5skFn3uzliyYaN1Y7WWa5geiQ0l2
+ nUiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=0ebsl3t9Q4A5ZhggZdMt0K6huVQ4nPLjVF1HT4eHwHY=;
- b=WyqOks+4qIIq2QxZFHB4sZFBCsHY8qjb6z4diu97ccDgFpMnfjCIZjkoda0b+cSMxa
- UTA4NXWaiN+kfQwQWOyFEv8eaOGOIzhF6LYN3tNBIq+9vYZeaiQZqQ6bxdeFg1SWO4G1
- 4eJNk1grTvf0epclWb3PGQZ3Ci/8xmREHms9gzK/hOVjsraiCH1J6W07SCTXjO94jjoH
- Dn6Or68hJsvHCtMsFb1mo3QjW8iHswrvlmLTDErIdfa7bBlj4JVZ57fD1jUvf6FF02VB
- Q8Rq/9PRJ/q3SV0CrdmLAjTtgXQQb0VHApXbrKVgsK8AL+8/hz63OR76unHNLAbXnlbB
- 4F0w==
-X-Gm-Message-State: AOAM530BFHH+k3r1oXK8xf/lGzoL7bxB6/H8S/k4QUUnTDd4XYTN2bi2
- 1KmIvS8e9V6opryEk8siOYI=
-X-Google-Smtp-Source: ABdhPJwhqGbymFuBTyPLL+yyc+nnpILMy/ni7d7XOhYbnZCBoZ0oS8dRxaoc/0h9PTlfn8SevSJmlw==
-X-Received: by 2002:a05:6402:1941:b0:413:2822:9c8 with SMTP id
- f1-20020a056402194100b00413282209c8mr18716302edz.13.1651597377548; 
- Tue, 03 May 2022 10:02:57 -0700 (PDT)
-Received: from kista.localnet (cpe1-3-76.cable.triera.net. [213.161.3.76])
- by smtp.gmail.com with ESMTPSA id
- q8-20020aa7cc08000000b0042617ba637esm8000905edt.8.2022.05.03.10.02.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 10:02:56 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: linux-kernel@vger.kernel.org, Javier Martinez Canillas <javierm@redhat.com>
-Subject: Re: [PATCH v3 2/3] drm/fb-helper: Rename preferred_bpp
- drm_fbdev_generic_setup() parameter
-Date: Tue, 03 May 2022 19:02:54 +0200
-Message-ID: <2626921.mvXUDI8C0e@kista>
-In-Reply-To: <20220503071540.471667-3-javierm@redhat.com>
-References: <20220503071540.471667-1-javierm@redhat.com>
- <20220503071540.471667-3-javierm@redhat.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=XSx6NpBH8cInAqFE8X5356I+UKRxZpBCvdc1b/xk2hY=;
+ b=He2beh7jCLQ2ha1jD2KcXP8tUi2JSbWWX7maO9ObW1ehI2omW2HHgeNN4dASmvii96
+ miLy9ayBlK7U5i6vI1U0hD9rY/ZwHzQl90Bf49KAdsPeaMDIKNBkJixiAVHIqH+Js5n2
+ pBEo8JkuHY5V72T2pb8QUQ7h0VYRLmjLJQ6xENqoP7LDKW6oRKjfI/rmAhjonPaVj3sv
+ XY0PiSDHTslJ8ckynbvaXHF/CeLMLN0jMi0v7UZG4TWk56IoEtfPeyR7GXOiVFe05Sr3
+ 9qxvViss+t8dFh7/dKjeAhXXfiQTolJWI66V2KLwPV3wXuBrQ6tTisUNiwtDEXdJDcO0
+ pwkA==
+X-Gm-Message-State: AOAM532LR58iP6XP7zbD2tRbb1rEV07lDaBkpbJj/GUKZJkgPWM0Nokl
+ SvOHndMF5e6hauMQ2ECAYrq0I+8x26wO1ty3ivo=
+X-Google-Smtp-Source: ABdhPJzr/0lmmw8Ey6l+z3+j5yG8sFsp2sM/2Ae5DB2LVlrpqWgmS9e3Y4vyyXIFnwg0iZw1gkl8yObHqZMqUbcyaag=
+X-Received: by 2002:a17:906:478b:b0:6db:8b6e:d5de with SMTP id
+ cw11-20020a170906478b00b006db8b6ed5demr17253446ejc.161.1651601960726; Tue, 03
+ May 2022 11:19:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Mailman-Approved-At: Tue, 03 May 2022 17:38:16 +0000
+References: <20220503063613.46925-1-christian.koenig@amd.com>
+ <CADnq5_PX91474D=DRxB0VQ3uHY1sGCS_40w9AjCvXSCHgm9Ozg@mail.gmail.com>
+In-Reply-To: <CADnq5_PX91474D=DRxB0VQ3uHY1sGCS_40w9AjCvXSCHgm9Ozg@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 4 May 2022 04:19:09 +1000
+Message-ID: <CAPM=9txqSfaXKSdgdJJbhc41jhRKQVq7taLdZBdXgxuBa6XSdA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix drm-next merge fallout
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,89 +64,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, spice-devel@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dne torek, 03. maj 2022 ob 09:15:39 CEST je Javier Martinez Canillas 
-napisal(a):
-> By default the bits per pixel for the emulated framebuffer device is set
-> to dev->mode_config.preferred_depth, but some devices need another value.
-> 
-> Since this second parameter is only used by a few drivers, and to allow
-> drivers to use it for passing other configurations when registering the
-> fbdev, rename @preferred_bpp to @options and make it a multi-field param.
-> 
-> The DRM_FB_OPTION() and DRM_FB_GET_OPTION() macros are provided to drivers
-> for computing options bitfield values and getting the values respectively
-> 
-> For now, only the DRM_FB_BPP option exists but other options can be added.
-> 
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> ---
-> 
-> Changes in v3:
-> - Drop the preferred_bpp local variable (Laurent Pinchart).
-> - Add a const qualifier to options parameter (Laurent Pinchart).
-> 
-> Changes in v2:
-> - Rename DRM_FB_SET_OPTION() to DRM_FB_OPTION() and make more clear in
->   the kernel-doc what this macro does (Laurent Pinchart).
-> - Fix some kernel-doc issues I didn't notice in v1.
-> - Add Reviewed-by tags from Thomas and Laurent.
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 +++--
->  drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
->  drivers/gpu/drm/arm/malidp_drv.c              |  2 +-
->  drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
->  drivers/gpu/drm/ast/ast_drv.c                 |  2 +-
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  2 +-
->  drivers/gpu/drm/drm_drv.c                     |  2 +-
->  drivers/gpu/drm/drm_fb_helper.c               | 26 ++++++++++++-------
->  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |  2 +-
->  .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  2 +-
->  drivers/gpu/drm/imx/dcss/dcss-kms.c           |  2 +-
->  drivers/gpu/drm/imx/imx-drm-core.c            |  2 +-
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  2 +-
->  drivers/gpu/drm/mcde/mcde_drv.c               |  2 +-
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +-
->  drivers/gpu/drm/meson/meson_drv.c             |  2 +-
->  drivers/gpu/drm/mxsfb/mxsfb_drv.c             |  2 +-
->  drivers/gpu/drm/pl111/pl111_drv.c             |  2 +-
->  drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
->  drivers/gpu/drm/rcar-du/rcar_du_drv.c         |  2 +-
->  drivers/gpu/drm/sti/sti_drv.c                 |  2 +-
->  drivers/gpu/drm/stm/drv.c                     |  2 +-
->  drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
+On Tue, 3 May 2022 at 23:03, Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Tue, May 3, 2022 at 2:36 AM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >
+> > That hunk somehow got missing while solving the conflict between the TT=
+M
+> > and AMDGPU changes for drm-next.
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
 
-For sun4i:
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+I'll pick this directly into drm-next.
 
-Best regard,
-Jernej
+Dave.
 
->  drivers/gpu/drm/tidss/tidss_drv.c             |  2 +-
->  drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  2 +-
->  drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
->  drivers/gpu/drm/tiny/bochs.c                  |  2 +-
->  drivers/gpu/drm/tve200/tve200_drv.c           |  2 +-
->  drivers/gpu/drm/vboxvideo/vbox_drv.c          |  2 +-
->  drivers/gpu/drm/vc4/vc4_drv.c                 |  2 +-
->  drivers/gpu/drm/virtio/virtgpu_drv.c          |  2 +-
->  drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |  2 +-
->  include/drm/drm_fb_helper.h                   | 14 +++++++++-
->  33 files changed, 64 insertions(+), 42 deletions(-)
-
-
-
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vm_pt.c
+> > index 7761a3ea172e..88de9f0d4728 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > @@ -631,9 +631,13 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_=
+base *entry)
+> >         if (!entry->bo)
+> >                 return;
+> >         shadow =3D amdgpu_bo_shadowed(entry->bo);
+> > +       if (shadow) {
+> > +               ttm_bo_set_bulk_move(&shadow->tbo, NULL);
+> > +               amdgpu_bo_unref(&shadow);
+> > +       }
+> > +       ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
+> >         entry->bo->vm_bo =3D NULL;
+> >         list_del(&entry->vm_status);
+> > -       amdgpu_bo_unref(&shadow);
+> >         amdgpu_bo_unref(&entry->bo);
+> >  }
+> >
+> > --
+> > 2.25.1
+> >
