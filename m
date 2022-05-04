@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74CD5C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D82C433FE
 	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 22:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 089A010F6EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 581CA10F6F3;
 	Wed,  4 May 2022 22:24:24 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43BA510F6EF
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 May 2022 22:24:22 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id m62so1631118wme.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 May 2022 15:24:22 -0700 (PDT)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F23510F6EF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 May 2022 22:24:23 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 1-20020a05600c248100b00393fbf11a05so4038691wms.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 May 2022 15:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IlmG38JLDQ7tL3IWq/SZhIp7eD3qDe0xKhj7EzzqosE=;
- b=qk+xXaz9TrKc4xBYbfuqDvC8OK0CUQAyrJAFMQAVTcqMf1VYTOswbJptlnSZxAnAqM
- OWxfb5c5St8rtAJfT5H3PORdaK8MDyJNl/G0BiC9AGUubVTAfTwJzS8plcwgbEZsFQdt
- DnEt0O6l1FnTqKimy4Nv5UDyvHJaAYtR1r9fSQJIC8nnsGTLM1Gn3dViOcMx5bloFK6R
- vXJiBM8Yt5NhKAAta3bZ8qKQalrO+rIxB1mCI4hZI7YhOEixvMknMZ6OvTUTGC5+fY0L
- dnOu/kJCzy5RvNDXGtNqmGdR9Jn4qBkQv+nI7PkPuCxTPzMVXL92+wxleeD0PSpac+wF
- wICg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6Ga5TkI0yD0gofCst1yemXxDxcwdSFNMnOHhUlbf2Po=;
+ b=emo1I8RO+J/FmkNRHVQO39lYHQjhypX7OU7l3XJ35s065wi99NnN7oHnJL8CAPPkEs
+ d4510bDOEydkUllul++8Bo7/sqQU27qsS4OcsC/kGcQWj9Y2PugTIMkkZQS6RdW1uZlv
+ Ab77cAS4AOVGkqMqriFHQMnrUmvfzfx5regECUQ2aV17kkluqKs8m8z8fbDOuMko8wbp
+ /t1pckf7ZPUcCbiEpe4g5FDTyI2MQigvY96ZqB9cJc6D6Sa3BE623hmvBCx8J6tLExD7
+ Wv89nr0YVK2Hv1LO+shybEJVSPAG/vgexc1zTGfykEzLmcv9inYanra//bNu+TuDqze7
+ gXtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IlmG38JLDQ7tL3IWq/SZhIp7eD3qDe0xKhj7EzzqosE=;
- b=X0AIVfG0j9++dhrDbatNEz21Fib+UsDUO3jM+HrKhH+bbA8Taw6GfK3hpaywyp0UaG
- vmjRhxHgyWlm54bCnouzRy7uclGm9sdZVcU/VNT0pAcpVIOcfOJ7/sfKSRgvl0vKhG0b
- JpYQ5ox75t0OohPJv4N5dZr3BtfNtaZJe56K9Ld0TPQ+WV8w2dI5e7ubUb/j9CL9Hq+6
- beTev3n/kmZ9qPZM1BX5lp8fDHtqvYk0iuY0f5+Q5GveWiXTnIgfTAsDNKN6d9D6OGBQ
- TOiYYR2M1/2FoGDonfLkW9436OY2nzPqB6a8i3E/wKD/U2CqLDJrdAjP61dKWqYqGVny
- w1pg==
-X-Gm-Message-State: AOAM532db9MN54QYk4q0xLlLMEEOIFLnOl2ikZno7tEDgJqo6xqYgT2g
- Dixf0c2fD6azfclXlsxs/KuwD9CHT48xYQ==
-X-Google-Smtp-Source: ABdhPJyuir3Ovvpci2SUl1YaNnfKhJp6vpQATM/x15mazu4iDzk6RsG8B/oOMV1Ddj/m5Ppk2zA9JQ==
-X-Received: by 2002:a7b:c7c3:0:b0:389:cbf1:fadf with SMTP id
- z3-20020a7bc7c3000000b00389cbf1fadfmr1435208wmk.147.1651703060364; 
- Wed, 04 May 2022 15:24:20 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6Ga5TkI0yD0gofCst1yemXxDxcwdSFNMnOHhUlbf2Po=;
+ b=aPynMUnQs0ktK2uxCcG66C4Xp47N9Z9r3svauqVJBI82NSg8ai7fPnUS6hbZXQgxq+
+ 5tLZJjKkV78U6SVvWyG/busChpitS0YdlKms2NxPDu3LqXma2TQc0Ms8s3te/nsP+XNe
+ PeeEo+90YMqNfT0fCrR8nzfyhGhaV2BJrz6lQc0SAfPp1cZTCkCqcZPIfwAVJytxiZjn
+ g91lK19b4pIGiTBDer98yb+tQWu5jJ94gY1uIM6s1V7c5G61RS7+11pHhLoN96Ogqc9n
+ iyO0WRx0zxh9MBcOyCoZub2X2uZN7MQxF/x322t2XMJqY6Q9FXh96ad8VM+y8YP8U+kh
+ Y4sw==
+X-Gm-Message-State: AOAM533p9Syw5bi4F23KiLogubzaU4TxVPCXR3fiUn8gJpUDfLb1eOtS
+ gU1L9ZHugrdUmVvLemNPAIvIwpUs8zAaNQ==
+X-Google-Smtp-Source: ABdhPJy2wES4qLRpAjqZPO9y0N+a0NbfFPrqxszP060FDqPbojiXcK97AeU558zclXt3+JgVJslInw==
+X-Received: by 2002:a05:600c:1c93:b0:394:4942:3518 with SMTP id
+ k19-20020a05600c1c9300b0039449423518mr1470189wms.82.1651703061291; 
+ Wed, 04 May 2022 15:24:21 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:f40e:900::24e])
  by smtp.gmail.com with ESMTPSA id
- f11-20020adfc98b000000b0020c5253d910sm13340443wrh.92.2022.05.04.15.24.19
+ f11-20020adfc98b000000b0020c5253d910sm13340443wrh.92.2022.05.04.15.24.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 15:24:19 -0700 (PDT)
+ Wed, 04 May 2022 15:24:20 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 0/2] drm/amdgpu: Fix a couple of clang warnings
-Date: Wed,  4 May 2022 23:24:12 +0100
-Message-Id: <20220504222414.95884-1-mike@fireburn.co.uk>
+Subject: [PATCH 1/2] drm/amdgpu/gfx10: Avoid uninitialised variable 'index'
+Date: Wed,  4 May 2022 23:24:13 +0100
+Message-Id: <20220504222414.95884-2-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220504222414.95884-1-mike@fireburn.co.uk>
+References: <20220504222414.95884-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,18 +74,41 @@ Cc: Mike Lothian <mike@fireburn.co.uk>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The 3rd patch from the previous series was already applied
+This stops clang complaining:
 
-This reworks the other two based on Alex's comments
+drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3846:6: warning: variable 'index' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+        if (ring->is_mes_queue) {
+            ^~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3903:30: note: uninitialized use occurs here
+        amdgpu_device_wb_free(adev, index);
+                                    ^~~~~
+drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3846:2: note: remove the 'if' if its condition is always false
+        if (ring->is_mes_queue) {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3839:16: note: initialize the variable 'index' to silence this warning
+        unsigned index;
+                      ^
+                       = 0
 
-Mike Lothian (2):
-  drm/amdgpu/gfx10: Avoid uninitialised variable 'index'
-  drm/amdgpu/gfx11: Avoid uninitialised variable 'index'
-
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+---
  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 3 ++-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index fc289ee54a47..043f8bc37f21 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3900,7 +3900,8 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		amdgpu_ib_free(adev, &ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+-	amdgpu_device_wb_free(adev, index);
++	if (!ring->is_mes_queue)
++		amdgpu_device_wb_free(adev, index);
+ 	return r;
+ }
+ 
 -- 
 2.35.1
 
