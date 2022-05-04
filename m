@@ -4,90 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7A5C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 19:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 324A7C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 21:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F0510E552;
-	Wed,  4 May 2022 19:05:01 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E73110E552;
- Wed,  4 May 2022 19:04:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HU+TWCDK6dqqdEXcO57JVrFt/AlYOYyqKqysnwsS9zXGfqnBKeGeK6foUMiun1mNnDakFi7Qr7zDGbu7ufJYfbK/O3eAXjRl31kfK5a+26g0ag22b8fNV/lKV4rpnuRyJEWaxdGbsYPl65hlgXWd87rkvyzBQwReC56MlVu/cQiTFuICQGOmHfObAIzTnZ1zl5Ugeaej4cOtWd+ULUCMbG6jS0dUY1GlTNRyaJURW+0DyI2Wh197CplybftRQQLnj8uAW2k/B+OBxDId6+bFjGjS5VjZ0EcFajRZSUrpakDC3jyLzGySM2v0hitvTb3ccwLklZM3aZddLrQ9FFcYPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9eksLX6yr/NVwSs4VuHChOXp+VPdV3fi35XinxKYfkg=;
- b=PYhKASHiIJk3/I37N+bIs/larsXVqqLTsRsDu9P4EkVinvGvE2bAbZwrqWo1GqGqURZxMkQGL4YdYjPEacWOHvYBWZf7CCUw8cicWVDQnpregGof4MnK2nJDEbyE5gnHgH7sXTN/YAL45GvgpoKzTxq4tuoEF2sFJ1UHevE7/l0Vffaaxjk1aytHBw8UnE6GGl1x7OR5Q5FR0mX3prSI9gfEBEfYPa/bLJkuzpcHufITkC5cXwkyiMpubbb+IqVW69+pbpOYK2bv/CpiKzng3VdLhiPCgqHD0hvUrs4JSqr+Dby0vXx32vyTMQpgK6bW9WcURjmO8592Hx75fFR5QQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9eksLX6yr/NVwSs4VuHChOXp+VPdV3fi35XinxKYfkg=;
- b=pe+yCyoQT/gMjg4E/wA6gbKk2fnI6YRYIEkH0k5IgCjSw/S7OmkRshHaPv2AIgAekYfs/70clM8yngoGYWTbdZx7lQApovMWOraybogK1tNLUrutX2rPErUy3F86rDFz3rTrtpxGyTwN+eeH7paTYS2Rbll2fkhYxUCpzgE/Cq8=
-Received: from BN9PR03CA0700.namprd03.prod.outlook.com (2603:10b6:408:ef::15)
- by MWHPR12MB1600.namprd12.prod.outlook.com (2603:10b6:301:f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Wed, 4 May
- 2022 19:04:57 +0000
-Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ef:cafe::2e) by BN9PR03CA0700.outlook.office365.com
- (2603:10b6:408:ef::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.12 via Frontend
- Transport; Wed, 4 May 2022 19:04:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5227.15 via Frontend Transport; Wed, 4 May 2022 19:04:57 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 4 May
- 2022 14:04:52 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-5.18
-Date: Wed, 4 May 2022 15:04:39 -0400
-Message-ID: <20220504190439.5723-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9676310EE41;
+	Wed,  4 May 2022 21:17:28 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08A0910EE41
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 May 2022 21:17:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651699045;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NWnZL5lkMOKlMG9IstTlOFF7mtOt1yrr5gvQ9Zo+fU0=;
+ b=eJxA3p2419st+C7UHUE/z9YYz7+hqEpm+3JGsR4YsSuKsoIyv5uajjcxYM4G8qM2XXR455
+ caAtKzuUOmffuBJbSLElsjziygXuUp8QZya+nGY/7dK7I/OmDKKuhWqTtPqADeqqgF4SvO
+ qIDrAYo3D9Hj+svc/696D2V5yTKfNuY=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-434-NegCETwaM7KigbHjDUZh6w-1; Wed, 04 May 2022 17:17:25 -0400
+X-MC-Unique: NegCETwaM7KigbHjDUZh6w-1
+Received: by mail-qt1-f200.google.com with SMTP id
+ w21-20020a05622a135500b002f3b801f51eso1964955qtk.23
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 May 2022 14:17:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=NWnZL5lkMOKlMG9IstTlOFF7mtOt1yrr5gvQ9Zo+fU0=;
+ b=DKosYQ5XtOsvNVU0uVw/SqREtbJCakPFCMatqCvimPltE4vH5RGqcArFkx3qsPFA5Y
+ udd7UDH5Leix4FOkD0cSmze4Q/yUIT5C2yKUM55hZRYoBDwHQCc0I/+oPaKGiuy1pN5g
+ LpxSLpI9M5zc4aTYRjlEdxYMrIYaC1GQfi/xBT+R844sCMHyayF0DlDwEgc7+2lHsfIZ
+ zK6BU233DZ6iovM+yKCGlY8ePuI53CbDujAwiGW4JES4m/bFL42MDgIkVFpeIw5vZSy8
+ gp/qRFBCL0D1qWR38pnZKrSoZbXnDBG38bX303vlPePn1LYw4G3EAnETwqaEa1Kr4SH7
+ gpgg==
+X-Gm-Message-State: AOAM532bzFLOOQlU8joKoPKtoZlPBJKnabi0VGHA3aGpxqvPt5l1SsJ5
+ 0hDL+6qfRiq4l0Ip3oUnWTVIbAfhbbDd7CZ3/7zy/2C0uzuaweMqj4fXaASrICnnU8vSgZMUTTm
+ /12eElM5+RaaukLQx9QGKp87BFw==
+X-Received: by 2002:ac8:4e95:0:b0:2e2:15e6:c10c with SMTP id
+ 21-20020ac84e95000000b002e215e6c10cmr20857129qtp.444.1651699044420; 
+ Wed, 04 May 2022 14:17:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwuqG8E0VbSM92oWVIe0tbDDcX4prN3tlL+fvEPBunjM2Y5YxWGrauQkjmXrPqUXKr6O39X+Q==
+X-Received: by 2002:ac8:4e95:0:b0:2e2:15e6:c10c with SMTP id
+ 21-20020ac84e95000000b002e215e6c10cmr20857116qtp.444.1651699044153; 
+ Wed, 04 May 2022 14:17:24 -0700 (PDT)
+Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
+ [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
+ m19-20020ac866d3000000b002f39b99f696sm7914618qtp.48.2022.05.04.14.17.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 May 2022 14:17:23 -0700 (PDT)
+Message-ID: <ad4ce2ddd2f2019f360b501c092680c799cb468c.camel@redhat.com>
+Subject: Re: Do we really need to increase/decrease MST VC payloads?
+From: Lyude Paul <lyude@redhat.com>
+To: Wayne Lin <Wayne.Lin@amd.com>, harry.wentland@amd.com, 
+ amd-gfx@lists.freedesktop.org, Fangzhi Zuo <Jerry.Zuo@amd.com>
+Date: Wed, 04 May 2022 17:17:22 -0400
+In-Reply-To: <dd5c63923636ec2ad78483899b1e4885e2235055.camel@redhat.com>
+References: <dd5c63923636ec2ad78483899b1e4885e2235055.camel@redhat.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a0821147-a1de-4018-97ef-08da2e00fb27
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1600:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB16005D472BBD5E6432A6C4B1F7C39@MWHPR12MB1600.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dDxtiDnZ0FMdy5BBPItR76jbGWrXdZhWESwnQ5/ouSx28ieqKcu4fHMKC7Ebz1UOb3Ez0T8XDo3KFettA9XnJ2JgOs1Aef5SU9nP70UzDc5i62c8WWih0GEuPQ4QA2ViPqnrgoAnn+v29cGdJtp6VR+88hp2S7wmrvAFHP20vO5DR8pWNEnT/c88OvfpkULvuIajqhusemAPx2Ot7r5N6ak/BbIHLo8RXA27SJvLF81uZDrTZfpiy5MjTka4PPMyYKFET2/WTdz4DN09QsG2jvnKx24Ul5vmaWsH2lhSgM1fw/LcbMdo/aGLJssKHBa4PtNlfNmfF4GIXVC1QIFq0f2V8fEI5ZWdLyQfCKTxQ/8m+8y4Kp/srbMua4XDfwYAR5gVvoM4+mxaQTBID1wbhG69GcYhuHYGVBnkUgVDMbdJPeBtT/1tkYxf3XxjpoWQF7JJzB+KisixyzDYoiYMFc+UAsShMTrZd/z4mAKv1WVa4huZyMhtrfcRpWLHCz2mAXT1rqwUWXwPetQYu4EJ4d2va/CxuKC8JX8o/260aY7Xv0SmoDvVzjQ0/AVpkRIVQACHLOyKy0oPzWUn6Fi9CLgYk4hykdW2GRgkDUIRDb7oruA9QwmOFril9Qw44vIxmr2/qK+PgNnciDdxCR7AB0IK6f2pllQ/Sy0/mIbqBaE53lY7sUNbRZs4WIfTg6VuJQ/dP7AG6rWZeFPK1esOUA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70586007)(5660300002)(70206006)(8936002)(426003)(83380400001)(36756003)(36860700001)(47076005)(336012)(86362001)(186003)(26005)(16526019)(1076003)(2616005)(2906002)(6666004)(7696005)(356005)(508600001)(40460700003)(110136005)(316002)(966005)(8676002)(4326008)(82310400005)(81166007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2022 19:04:57.4119 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0821147-a1de-4018-97ef-08da2e00fb27
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1600
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,41 +86,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Some good news: I actually came up with a way of handling this in the new MST
+code pretty nicely, so I think we should be able to move forward without
+having to disable this (although it would be very nice to know whether or not
+this is necessary for amdgpu to work, since it'd still be nice to split this
+into separate changes to make reviewing my big MST patch series easier. More
+comments down below:
 
-Fixes for 5.18.
+On Mon, 2022-05-02 at 18:40 -0400, Lyude Paul wrote:
+> Hi! So I kinda hate to ask this, but finding this in amdgpu completely took
+> me
+> by surprise and unfortunately is (while technically correct) an enormous
+> pain
+> and not really necessary as far as I'm aware.
+> 
+> So: it seems that amdgpu is currently the only driver that not only
+> allocates/deallocates payloads, but it also increases/decreases the size of
+> payloads as well. This was added in:
+> 
+>    d740e0bf8ed4 ("drm/amd/display: Add DP 2.0 MST DC Support")
+> 
+> This is fine, except that it's totally not at all a situation that the
+> current
+> payload management code we have (which, is the first place this should have
+> been implemented) knows how to handle, because every other driver simply
+> allocates/releases payloads. Having to increase the size of payloads means
+> that we no longer can count on the payload table being contiguous, and means
+> we have to resort to coming up with a more complicated solution to actually
+> do
+> payload management atomically.
+> 
+> I'm willing to try to do that (it should be doable by using bitmasks to
+> track
+> non-contiguous allocated slots), but considering:
+>  * This isn't actually needed for DP 2.0 to work as far as I'm aware (if I'm
+>    wrong please correct me! but I see no issue with just deallocating and
+>    allocating payloads). It's nice to have, but not necessary.
+>  * This was from the DSC MST series, which included a lot of code that I
+>    mentioned at the time needed to not live in amdgpu and be moved into
+> other
+>    helpers. That hasn't really happened yet, and there are no signs of it
+>    happening from amd's side - and I just plain do not want to have to be
+> the
+>    person to do that when I can help it. Going through amdgpu takes a
+> serious
+>    amount of energy because of all of the abstraction layers, enough so I
+>    honestly didn't even notice this VC table change when I looked at the
+>    series this was from. (Or maybe I did, but didn't fully grasp what was
+>    changing at the time :\).
+>  * Also on that note, are we even sure that this works with subsequent VC
+>    changes? E.g. has anyone tested this with physical hardware? I don't know
+>    that I actually have the hardware to test this out, but
+>    drm_dp_update_payload*() absolutely doesn't understand non-contiguous
+>    payloads which I would think could lead to the VCPI start slots getting
+>    miscalculated if a payload increase/decreases (happy to give further
+>    explanation on this if needed). Note if this is the case, please hold off
+> a
+>    bit before trying to fix it and consider just not doing this for the time
+>    being.
 
-The following changes since commit 9d9f720733b7e8d11e4cc53b53f461b117dab839:
+Sorry for being a bit vague with this! I typed this email at the end of
+the workday and didn't feel like going super into detail on this. So I
+guess I'll do that now (hopefully I didn't misread the MST spec
+somewhere):
 
-  Merge tag 'amd-drm-fixes-5.18-2022-04-27' of https://gitlab.freedesktop.org/agd5f/linux into drm-fixes (2022-04-29 10:27:05 +1000)
+For reference: the issue I was mentioning here was regarding the fact
+that the current payload management code we have doesn't keep track of
+exactly which VC slots are in use by a payload at any given time - only
+the starting slots and total slot counts of each payload. Which means
+that once we increase a MST payload, since the additional VC slots will
+be put at the end of the VC table regardless of the start of the
+payload. As such, it's possible that said payload will no longer be
+contiguous. An example, note for simplicity sake this example pretends
+we only have 8 VC slots instead of 64:
 
-are available in the Git repository at:
+Payloads: #1 == 2 slots, #2 == 1 slot, #3 == 2 slots
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.18-2022-05-04
+VC table looks like this, where each number corresponds to a VCPI and
+X means unused:
 
-for you to fetch changes up to 3dfe85fa87b2a26bdbd292b66653bba065cf9941:
+        |1 1 2 3 3 X X X|
 
-  drm/amd/display: Avoid reading audio pattern past AUDIO_CHANNELS_COUNT (2022-05-04 12:21:41 -0400)
+We decide we need to increase payload #1 from 2 slots to 3. The MST spec
+mandates that new slots always are added to the end, so we end up with
+this surprising VC table:
 
-----------------------------------------------------------------
-amd-drm-fixes-5.18-2022-05-04:
+        |1 1 2 3 3 1 X X|
 
-amdgpu:
-- Fix a xen dom0 regression on APUs
-- Fix a potential array overflow if a receiver were to
-  send an erroneous audio channel count
+Now, let's say we increase payload #2 to 2 slots:
 
-----------------------------------------------------------------
-Harry Wentland (1):
-      drm/amd/display: Avoid reading audio pattern past AUDIO_CHANNELS_COUNT
+        |1 1 2 3 3 1 2 X|
 
-Marek Marczykowski-Górecki (1):
-      drm/amdgpu: do not use passthrough mode in Xen dom0
+Surprise - the monitor for payload #1 was unplugged, so we need to
+remove it's payload. Note the MST spec doesn't allow holes between
+allocations, and makes branches repsonsible for automatically moving
+payloads to fill in the gaps which we have to keep track of locally.
+Normally the handling of holes would be fine, as our current payload
+management code loops through each payload to fill in any holes. But
+these payloads aren't contiguous and we only kept track of their start
+slots and total slot counts. So we would end up thinking we now have a
+VC table like this:
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c         | 4 +++-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+        |2 2 3 3 X X X X|
+
+But that's wrong, in reality the table will look like this on the MST
+hub:
+
+        |2 3 3 2 X X X X|
+
+Now things are broken, because we now have the wrong start slot for
+payload #3.
+
+Just figured I'd clarify :). if anyone is curious, I ended up fixing
+this by adding a bitmask of assigned VC slots to our atomic payload
+struct - and using that to keep track of the current start slots for
+each payload. Since we have a max of 64 VC slots which fits into a u64,
+this works rather elegantly!
+
+> 
+> I'd /very/ much like to just disable this behavior for the time being (not
+> the
+> whole commit for DP 2.0 support since that'd be unreasonable, just the
+> increase/decrease payload changes), and eventually have someone just
+> implement
+> this the proper way by adding support for this into the MST helpers and
+> teaching them how to handle non-contiguous payloads. I'm happy to leave as
+> much of the code intact as possible (maybe with #if 0 or whatever), and
+> ideally just add some code somewhere to avoid increasing/decreasing payloads
+> without a full modeset.
+> 
+> FWIW, the WIP of my atomic MST work is here: 
+> 
+> https://gitlab.freedesktop.org/lyudess/linux/-/commits/wip/mst-atomic-only-v1
+> 
+> I already have i915 and nouveau working with these changes JFYI.
+
+-- 
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
+
