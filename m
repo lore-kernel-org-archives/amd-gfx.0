@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF979C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 07:47:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74904C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 07:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28E3010F04F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E716610EEC2;
 	Wed,  4 May 2022 07:47:51 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 883E010EFA3;
- Wed,  4 May 2022 07:47:48 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id b24so746671edu.10;
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ABBF10EFE1;
+ Wed,  4 May 2022 07:47:49 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id n10so1295565ejk.5;
  Wed, 04 May 2022 00:47:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=oMnEBFkcdULE+q/7BiOK0sG48A7P15PmH4FydP/yeEo=;
- b=Nhl6x0p7YjO86ZfUw6IR4btzAvUjSUdibtlA4MYu3HUS7OI53YUIaoj/v5+7AkrC5x
- 8xwSQpGNHT190Cx5DCf6z+ABawz4L6DxUDSRocubrua0+Qfq/kRu/LlWRWDUAeOLkS8I
- 6/QUGXJcoXJC8P2e9sKmIRTMKqQh2pP2l2TzZ36YbnW61qkRrwV9NKg9wjhVxU2+66nm
- AqOE022YKjBBZ1WS3d7oxTIQ5zrjMRkpVh81Nd6M53Oei8nZxlrR/p1KHDGSrKq5yiR0
- 5H0igRjomm1mzL65VSnbZ/aaUSAi15K91XUuGWPROj4daujc9D63pO/XGt2Y/3+HvLXT
- RY0A==
+ bh=gKj4inyELYiQaz7CuZ53wfW0k0DnR0qJLD7sqxXbkTY=;
+ b=B+4dirvarx9ZlImgCyLKbr6fY4IogbygVdA3yJetg1XlenMLYkLisCHlRl+n68P4Jz
+ QgWtnQMH6Wsj1nV2ZJwvr2IDEswI4yrtpciRRlP7/2nmqdyALgZmxQoKHt9o9CbAVKoi
+ vQMCeVyDprk6vL84JbjiHjLHfgJFkTiswb3ZzGWZGkcsE/igj9usfE279PwDQC6tBJf8
+ Y9/yT7fFGO9gwKnmYhW2FuLnylcOU9xBsN3hBXnpubfHmzsQftONfC3Wj2KKrO0A/cnB
+ EUiO/QfaO/L8KWbg2qrEIE9uphaeDqw1XvWIzezcmIxsWKAdozG7UHprlyBGSGaBRvnc
+ RljA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=oMnEBFkcdULE+q/7BiOK0sG48A7P15PmH4FydP/yeEo=;
- b=fUcQhhMKD7uPp0SJ3xxK3XQDtIA3FJ6LX5M5jXHWfHR9pmObpGNX4dQAvBRg9CBbvP
- 3wjaSOmDCiUwsgzBBMSfiHUkcVYT1Ar2wO8pVbteTrlgnChNBs7fDxTiiie61r7Y1fsw
- vUd970WwjupBIU34UH1Ox537UlZ++w4BaYMufofS3eVDLi7QHRpTmQLzZ7bk3FzPxWau
- shadogKE3tSFgRk8Ta51/bJtBtZuUJfQpFDQysmwkJ0BDVrJH/L2E5KJKfZOSBMgWi0h
- jqQfK+wTczp6E8/xrlLz7ouApECeYkq3dLKIis1wM98dE+qVhK7DXa0KZITifAKk9+Gn
- qF2g==
-X-Gm-Message-State: AOAM533Nn1eNvMLk4BZP5o44v8MvQ/KtwlbS1a1jvrbCLZfr2mB/wHbi
- IcsqPYe049ONwNOPJ27qAL0vcNRH7AU=
-X-Google-Smtp-Source: ABdhPJwrSSxYCLdOjt06ein+gDzF3tasMJkqfga8ofh2Sp6ii3JbJ7KB/CMob0OrGBo1vWqTiTzdcQ==
-X-Received: by 2002:a05:6402:3719:b0:425:aa90:f174 with SMTP id
- ek25-20020a056402371900b00425aa90f174mr21510366edb.305.1651650466858; 
- Wed, 04 May 2022 00:47:46 -0700 (PDT)
+ bh=gKj4inyELYiQaz7CuZ53wfW0k0DnR0qJLD7sqxXbkTY=;
+ b=XzzyCc46kOK8jUo0NDBy35SvHbVQUf8u7VUPwfREzsa99fnoFkPK5fImY8fUx/Yyc4
+ 8Dvo55RMTVIRlYWO46JxxaXUuyuayu+CVM5DbZqHr48sUQwaqgh0jihbplH+AXhzPuQS
+ UCO/FcO56gkmikW/4Cf9KPaXCPQlok9gnQKXBi6l2/3Zo+DaSlUqJqIXGdSSC9whUJtl
+ ZD6VXgBovs0m8CV+SmvaL0jqtY/HY4k7Ch0esz9hbab4UyVVwdbxZMHVHTtRU9TfLFA9
+ hQfkdhSyn2dsDjePZg1kBccEKmM0W6GTsHROZSDXY92pZ9BgGg9SkV6dDMFt409fa0ud
+ UaVA==
+X-Gm-Message-State: AOAM5334syCcM1XnvsCcz64lv724jqUzI3Jckt/FlVbfyFqyAh1loOFy
+ JP/3t0w6lxRLZ51v5tGGRZ6b4kq3hmg=
+X-Google-Smtp-Source: ABdhPJyIugzxSnqorC7HXfifMKPn2H4/0BaEQ7wouCXPIJ9DpF8PHo8jJ/+olwhdsP0zBIODOWclmw==
+X-Received: by 2002:a17:907:3f04:b0:6e8:4b0e:438d with SMTP id
+ hq4-20020a1709073f0400b006e84b0e438dmr19133960ejc.391.1651650468673; 
+ Wed, 04 May 2022 00:47:48 -0700 (PDT)
 Received: from able.fritz.box (p57b0b7c9.dip0.t-ipconnect.de. [87.176.183.201])
  by smtp.gmail.com with ESMTPSA id
- jy10-20020a170907762a00b006f3ef214dc2sm5433686ejc.40.2022.05.04.00.47.45
+ jy10-20020a170907762a00b006f3ef214dc2sm5433686ejc.40.2022.05.04.00.47.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 00:47:46 -0700 (PDT)
+ Wed, 04 May 2022 00:47:48 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel@ffwll.ch
-Subject: [PATCH 5/8] drm/amdgpu: use the new drm_exec object for CS
-Date: Wed,  4 May 2022 09:47:36 +0200
-Message-Id: <20220504074739.2231-6-christian.koenig@amd.com>
+Subject: [PATCH 7/8] drm/qxl: switch to using drm_exec
+Date: Wed,  4 May 2022 09:47:38 +0200
+Message-Id: <20220504074739.2231-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220504074739.2231-1-christian.koenig@amd.com>
 References: <20220504074739.2231-1-christian.koenig@amd.com>
@@ -76,708 +76,190 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new component here as well and remove the old handling.
+Just a straightforward conversion without any optimization.
+
+Only compile tested for now.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  70 ++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 236 ++++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h      |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  22 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |   3 -
- 7 files changed, 126 insertions(+), 221 deletions(-)
+ drivers/gpu/drm/qxl/qxl_drv.h     |  7 ++--
+ drivers/gpu/drm/qxl/qxl_release.c | 67 ++++++++++++++++---------------
+ 2 files changed, 38 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index cdf0818088b3..08aae66557dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -55,7 +55,6 @@
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
+index 47c169673088..7bcf890e5a9b 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.h
++++ b/drivers/gpu/drm/qxl/qxl_drv.h
+@@ -38,6 +38,7 @@
+ 
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
++#include <drm/drm_exec.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_gem_ttm_helper.h>
+ #include <drm/drm_ioctl.h>
+@@ -45,7 +46,6 @@
+ #include <drm/qxl_drm.h>
  #include <drm/ttm/ttm_bo_api.h>
  #include <drm/ttm/ttm_bo_driver.h>
+-#include <drm/ttm/ttm_execbuf_util.h>
  #include <drm/ttm/ttm_placement.h>
--#include <drm/ttm/ttm_execbuf_util.h>
  
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_gem.h>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 714178f1b6c6..cdd0f9995496 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -28,6 +28,7 @@
-  *    Christian König <deathsimple@vodafone.de>
-  */
+ #include "qxl_dev.h"
+@@ -103,7 +103,8 @@ struct qxl_gem {
+ };
  
-+#include <linux/sort.h>
- #include <linux/uaccess.h>
+ struct qxl_bo_list {
+-	struct ttm_validate_buffer tv;
++	struct qxl_bo		*bo;
++	struct list_head	list;
+ };
  
- #include "amdgpu.h"
-@@ -50,13 +51,20 @@ static void amdgpu_bo_list_free(struct kref *ref)
- 						   refcount);
- 	struct amdgpu_bo_list_entry *e;
+ struct qxl_crtc {
+@@ -153,7 +154,7 @@ struct qxl_release {
+ 	struct qxl_bo *release_bo;
+ 	uint32_t release_offset;
+ 	uint32_t surface_release_id;
+-	struct ww_acquire_ctx ticket;
++	struct drm_exec	exec;
+ 	struct list_head bos;
+ };
  
--	amdgpu_bo_list_for_each_entry(e, list) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
-+	amdgpu_bo_list_for_each_entry(e, list)
-+		amdgpu_bo_unref(&e->bo);
-+	call_rcu(&list->rhead, amdgpu_bo_list_free_rcu);
-+}
- 
--		amdgpu_bo_unref(&bo);
--	}
-+static int amdgpu_bo_list_entry_cmp(const void *_a, const void *_b)
-+{
-+	const struct amdgpu_bo_list_entry *a = _a, *b = _b;
- 
--	call_rcu(&list->rhead, amdgpu_bo_list_free_rcu);
-+	if (a->priority > b->priority)
-+		return 1;
-+	if (a->priority < b->priority)
-+		return -1;
-+	return 0;
- }
- 
- int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
-@@ -118,7 +126,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 
- 		entry->priority = min(info[i].bo_priority,
- 				      AMDGPU_BO_LIST_MAX_PRIORITY);
--		entry->tv.bo = &bo->tbo;
-+		entry->bo = bo;
- 
- 		if (bo->preferred_domains == AMDGPU_GEM_DOMAIN_GDS)
- 			list->gds_obj = bo;
-@@ -133,6 +141,8 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 
- 	list->first_userptr = first_userptr;
- 	list->num_entries = num_entries;
-+	sort(array, last_entry, sizeof(struct amdgpu_bo_list_entry),
-+	     amdgpu_bo_list_entry_cmp, NULL);
- 
- 	trace_amdgpu_cs_bo_status(list->num_entries, total_size);
- 
-@@ -140,16 +150,10 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 	return 0;
- 
- error_free:
--	for (i = 0; i < last_entry; ++i) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(array[i].tv.bo);
--
--		amdgpu_bo_unref(&bo);
--	}
--	for (i = first_userptr; i < num_entries; ++i) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(array[i].tv.bo);
--
--		amdgpu_bo_unref(&bo);
--	}
-+	for (i = 0; i < last_entry; ++i)
-+		amdgpu_bo_unref(&array[i].bo);
-+	for (i = first_userptr; i < num_entries; ++i)
-+		amdgpu_bo_unref(&array[i].bo);
- 	kvfree(list);
- 	return r;
- 
-@@ -181,40 +185,6 @@ int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
- 	return -ENOENT;
- }
- 
--void amdgpu_bo_list_get_list(struct amdgpu_bo_list *list,
--			     struct list_head *validated)
--{
--	/* This is based on the bucket sort with O(n) time complexity.
--	 * An item with priority "i" is added to bucket[i]. The lists are then
--	 * concatenated in descending order.
--	 */
--	struct list_head bucket[AMDGPU_BO_LIST_NUM_BUCKETS];
--	struct amdgpu_bo_list_entry *e;
--	unsigned i;
--
--	for (i = 0; i < AMDGPU_BO_LIST_NUM_BUCKETS; i++)
--		INIT_LIST_HEAD(&bucket[i]);
--
--	/* Since buffers which appear sooner in the relocation list are
--	 * likely to be used more often than buffers which appear later
--	 * in the list, the sort mustn't change the ordering of buffers
--	 * with the same priority, i.e. it must be stable.
--	 */
--	amdgpu_bo_list_for_each_entry(e, list) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
--		unsigned priority = e->priority;
--
--		if (!bo->parent)
--			list_add_tail(&e->tv.head, &bucket[priority]);
--
--		e->user_pages = NULL;
--	}
--
--	/* Connect the sorted buckets in the output list. */
--	for (i = 0; i < AMDGPU_BO_LIST_NUM_BUCKETS; i++)
--		list_splice(&bucket[i], validated);
--}
--
- void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 368d26da0d6a..da7cd9cd58f9 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -121,13 +121,11 @@ qxl_release_free_list(struct qxl_release *release)
  {
- 	kref_put(&list->refcount, amdgpu_bo_list_free);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 529d52a204cf..248d9dc6c1fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -23,16 +23,17 @@
- #ifndef __AMDGPU_BO_LIST_H__
- #define __AMDGPU_BO_LIST_H__
+ 	while (!list_empty(&release->bos)) {
+ 		struct qxl_bo_list *entry;
+-		struct qxl_bo *bo;
  
--#include <drm/ttm/ttm_execbuf_util.h>
- #include <drm/amdgpu_drm.h>
- 
-+struct drm_file;
-+
- struct amdgpu_device;
- struct amdgpu_bo;
- struct amdgpu_bo_va;
- struct amdgpu_fpriv;
- 
- struct amdgpu_bo_list_entry {
--	struct ttm_validate_buffer	tv;
-+	struct amdgpu_bo		*bo;
- 	struct amdgpu_bo_va		*bo_va;
- 	uint32_t			priority;
- 	struct page			**user_pages;
-@@ -51,8 +52,6 @@ struct amdgpu_bo_list {
- 
- int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
- 		       struct amdgpu_bo_list **result);
--void amdgpu_bo_list_get_list(struct amdgpu_bo_list *list,
--			     struct list_head *validated);
- void amdgpu_bo_list_put(struct amdgpu_bo_list *list);
- int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 				      struct drm_amdgpu_bo_list_entry **info_param);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 8de283997769..a28b7947a034 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -44,7 +44,6 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
- 				      uint32_t *offset)
+ 		entry = container_of(release->bos.next,
+-				     struct qxl_bo_list, tv.head);
+-		bo = to_qxl_bo(entry->tv.bo);
+-		qxl_bo_unref(&bo);
+-		list_del(&entry->tv.head);
++				     struct qxl_bo_list, list);
++		qxl_bo_unref(&entry->bo);
++		list_del(&entry->list);
+ 		kfree(entry);
+ 	}
+ 	release->release_bo = NULL;
+@@ -172,8 +170,8 @@ int qxl_release_list_add(struct qxl_release *release, struct qxl_bo *bo)
  {
- 	struct drm_gem_object *gobj;
--	struct amdgpu_bo *bo;
- 	unsigned long size;
- 	int r;
+ 	struct qxl_bo_list *entry;
  
-@@ -52,21 +51,16 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
- 	if (gobj == NULL)
- 		return -EINVAL;
- 
--	bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
--	p->uf_entry.priority = 0;
--	p->uf_entry.tv.bo = &bo->tbo;
--	/* One for TTM and two for the CS job */
--	p->uf_entry.tv.num_shared = 3;
--
-+	p->uf_bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
- 	drm_gem_object_put(gobj);
- 
--	size = amdgpu_bo_size(bo);
-+	size = amdgpu_bo_size(p->uf_bo);
- 	if (size != PAGE_SIZE || (data->offset + 8) > size) {
- 		r = -EINVAL;
- 		goto error_unref;
+-	list_for_each_entry(entry, &release->bos, tv.head) {
+-		if (entry->tv.bo == &bo->tbo)
++	list_for_each_entry(entry, &release->bos, list) {
++		if (entry->bo == bo)
+ 			return 0;
  	}
  
--	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm)) {
-+	if (amdgpu_ttm_tt_get_usermm(p->uf_bo->tbo.ttm)) {
- 		r = -EINVAL;
- 		goto error_unref;
- 	}
-@@ -76,7 +70,7 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
- 	return 0;
+@@ -182,9 +180,8 @@ int qxl_release_list_add(struct qxl_release *release, struct qxl_bo *bo)
+ 		return -ENOMEM;
  
- error_unref:
--	amdgpu_bo_unref(&bo);
-+	amdgpu_bo_unref(&p->uf_bo);
- 	return r;
+ 	qxl_bo_ref(bo);
+-	entry->tv.bo = &bo->tbo;
+-	entry->tv.num_shared = 0;
+-	list_add_tail(&entry->tv.head, &release->bos);
++	entry->bo = bo;
++	list_add_tail(&entry->list, &release->bos);
+ 	return 0;
  }
  
-@@ -115,6 +109,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 	int i;
- 	int ret;
- 
-+	drm_exec_init(&p->exec, true);
-+
- 	if (cs->in.num_chunks == 0)
+@@ -221,21 +218,27 @@ int qxl_release_reserve_list(struct qxl_release *release, bool no_intr)
+ 	if (list_is_singular(&release->bos))
  		return 0;
  
-@@ -235,7 +231,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 		goto free_all_kdata;
+-	ret = ttm_eu_reserve_buffers(&release->ticket, &release->bos,
+-				     !no_intr, NULL);
+-	if (ret)
+-		return ret;
+-
+-	list_for_each_entry(entry, &release->bos, tv.head) {
+-		struct qxl_bo *bo = to_qxl_bo(entry->tv.bo);
+-
+-		ret = qxl_release_validate_bo(bo);
+-		if (ret) {
+-			ttm_eu_backoff_reservation(&release->ticket, &release->bos);
+-			return ret;
++	drm_exec_init(&release->exec, !no_intr);
++	drm_exec_while_not_all_locked(&release->exec) {
++		list_for_each_entry(entry, &release->bos, list) {
++			ret = drm_exec_prepare_obj(&release->exec,
++						   &entry->bo->tbo.base,
++						   1);
++			drm_exec_break_on_contention(&release->exec);
++			if (ret)
++				goto error;
+ 		}
  	}
- 
--	if (p->uf_entry.tv.bo)
-+	if (p->uf_bo)
- 		p->job->uf_addr = uf_offset;
- 	kvfree(chunk_array);
- 
-@@ -449,57 +445,20 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
- 	return r;
- }
- 
--static int amdgpu_cs_list_validate(struct amdgpu_cs_parser *p,
--			    struct list_head *validated)
--{
--	struct ttm_operation_ctx ctx = { true, false };
--	struct amdgpu_bo_list_entry *lobj;
--	int r;
--
--	list_for_each_entry(lobj, validated, tv.head) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(lobj->tv.bo);
--		struct mm_struct *usermm;
--
--		usermm = amdgpu_ttm_tt_get_usermm(bo->tbo.ttm);
--		if (usermm && usermm != current->mm)
--			return -EPERM;
--
--		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm) &&
--		    lobj->user_invalidated && lobj->user_pages) {
--			amdgpu_bo_placement_from_domain(bo,
--							AMDGPU_GEM_DOMAIN_CPU);
--			r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
--			if (r)
--				return r;
--
--			amdgpu_ttm_tt_set_user_pages(bo->tbo.ttm,
--						     lobj->user_pages);
--		}
--
--		r = amdgpu_cs_bo_validate(p, bo);
--		if (r)
--			return r;
--
--		kvfree(lobj->user_pages);
--		lobj->user_pages = NULL;
--	}
--	return 0;
--}
--
- static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 				union drm_amdgpu_cs *cs)
- {
- 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
-+	struct ttm_operation_ctx ctx = { true, false };
- 	struct amdgpu_vm *vm = &fpriv->vm;
- 	struct amdgpu_bo_list_entry *e;
--	struct list_head duplicates;
-+	struct drm_gem_object *obj;
- 	struct amdgpu_bo *gds;
- 	struct amdgpu_bo *gws;
- 	struct amdgpu_bo *oa;
-+	unsigned long index;
- 	int r;
- 
--	INIT_LIST_HEAD(&p->validated);
--
- 	/* p->bo_list could already be assigned if AMDGPU_CHUNK_ID_BO_HANDLES is present */
- 	if (cs->in.bo_list_handle) {
- 		if (p->bo_list)
-@@ -517,25 +476,13 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 			return r;
- 	}
- 
--	/* One for TTM and one for the CS job */
--	amdgpu_bo_list_for_each_entry(e, p->bo_list)
--		e->tv.num_shared = 2;
--
--	amdgpu_bo_list_get_list(p->bo_list, &p->validated);
--
--	INIT_LIST_HEAD(&duplicates);
--	amdgpu_vm_get_pd_bo(&fpriv->vm, &p->validated, &p->vm_pd);
--
--	if (p->uf_entry.tv.bo && !ttm_to_amdgpu_bo(p->uf_entry.tv.bo)->parent)
--		list_add(&p->uf_entry.tv.head, &p->validated);
--
- 	/* Get userptr backing pages. If pages are updated after registered
- 	 * in amdgpu_gem_userptr_ioctl(), amdgpu_cs_list_validate() will do
- 	 * amdgpu_ttm_backend_bind() to flush and invalidate new pages
- 	 */
- 	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
- 		bool userpage_invalidated = false;
-+		struct amdgpu_bo *bo = e->bo;
- 		int i;
- 
- 		e->user_pages = kvmalloc_array(bo->tbo.ttm->num_pages,
-@@ -562,18 +509,53 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		e->user_invalidated = userpage_invalidated;
- 	}
- 
--	r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
--				   &duplicates);
--	if (unlikely(r != 0)) {
--		if (r != -ERESTARTSYS)
--			DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
--		goto out;
-+	drm_exec_while_not_all_locked(&p->exec) {
-+		r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec);
-+		drm_exec_continue_on_contention(&p->exec);
-+		if (unlikely(r))
-+			return r;
 +
-+		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
-+			r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base, 2);
-+			drm_exec_break_on_contention(&p->exec);
-+			if (unlikely(r))
-+				return r;
-+
-+			e->bo_va = amdgpu_vm_bo_find(vm, e->bo);
-+		}
-+		drm_exec_continue_on_contention(&p->exec);
-+
-+		if (p->uf_bo) {
-+			r = drm_exec_prepare_obj(&p->exec, &p->uf_bo->tbo.base,
-+						 2);
-+			drm_exec_continue_on_contention(&p->exec);
-+			if (unlikely(r))
-+				return r;
-+		}
- 	}
- 
--	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
-+	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
-+		struct mm_struct *usermm;
-+
-+		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
-+		if (usermm && usermm != current->mm)
-+			return -EPERM;
-+
-+		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
-+		    e->user_invalidated && e->user_pages) {
-+			amdgpu_bo_placement_from_domain(e->bo,
-+							AMDGPU_GEM_DOMAIN_CPU);
-+			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
-+					    &ctx);
-+			if (r)
-+				return r;
-+
-+			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
-+						     e->user_pages);
-+		}
- 
--		e->bo_va = amdgpu_vm_bo_find(vm, bo);
-+		kvfree(e->user_pages);
-+		e->user_pages = NULL;
- 	}
- 
- 	/* Move fence waiting after getting reservation lock of
-@@ -583,7 +565,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 	if (unlikely(r != 0)) {
- 		if (r != -ERESTARTSYS)
- 			DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
--		goto error_validate;
-+		return r;
- 	}
- 
- 	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
-@@ -595,16 +577,20 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 				      amdgpu_cs_bo_validate, p);
- 	if (r) {
- 		DRM_ERROR("amdgpu_vm_validate_pt_bos() failed.\n");
--		goto error_validate;
-+		return r;
- 	}
- 
--	r = amdgpu_cs_list_validate(p, &duplicates);
--	if (r)
--		goto error_validate;
-+	drm_exec_for_each_duplicate_object(&p->exec, index, obj) {
-+		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
-+		if (unlikely(r))
-+			return r;
++	list_for_each_entry(entry, &release->bos, list) {
++		ret = qxl_release_validate_bo(entry->bo);
++		if (ret)
++			goto error;
 +	}
- 
--	r = amdgpu_cs_list_validate(p, &p->validated);
--	if (r)
--		goto error_validate;
-+	drm_exec_for_each_locked_object(&p->exec, index, obj) {
-+		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
-+		if (unlikely(r))
-+			return r;
-+	}
- 
- 	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
- 				     p->bytes_moved_vis);
-@@ -626,28 +612,25 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		p->job->oa_size = amdgpu_bo_size(oa) >> PAGE_SHIFT;
- 	}
- 
--	if (!r && p->uf_entry.tv.bo) {
--		struct amdgpu_bo *uf = ttm_to_amdgpu_bo(p->uf_entry.tv.bo);
-+	if (p->uf_bo) {
-+		r = amdgpu_ttm_alloc_gart(&p->uf_bo->tbo);
-+		if (unlikely(r))
-+			return r;
- 
--		r = amdgpu_ttm_alloc_gart(&uf->tbo);
--		p->job->uf_addr += amdgpu_bo_gpu_offset(uf);
-+		p->job->uf_addr += amdgpu_bo_gpu_offset(p->uf_bo);
- 	}
--
--error_validate:
--	if (r)
--		ttm_eu_backoff_reservation(&p->ticket, &p->validated);
--out:
--	return r;
-+	return 0;
- }
- 
- static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
- {
- 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
--	struct amdgpu_bo_list_entry *e;
-+	struct drm_gem_object *obj;
-+	unsigned long index;
- 	int r;
- 
--	list_for_each_entry(e, &p->validated, tv.head) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
-+	drm_exec_for_each_locked_object(&p->exec, index, obj) {
-+		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
- 		struct dma_resv *resv = bo->tbo.base.resv;
- 		enum amdgpu_sync_mode sync_mode;
- 
-@@ -664,20 +647,14 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
- /**
-  * amdgpu_cs_parser_fini() - clean parser states
-  * @parser:	parser structure holding parsing context.
-- * @error:	error number
-- * @backoff:	indicator to backoff the reservation
-  *
-- * If error is set then unvalidate buffer, otherwise just free memory
-- * used by parsing context.
-+ * Just free memory used by parsing context.
-  **/
--static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
--				  bool backoff)
-+static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
- {
- 	unsigned i;
- 
--	if (error && backoff)
--		ttm_eu_backoff_reservation(&parser->ticket,
--					   &parser->validated);
-+	drm_exec_fini(&parser->exec);
- 
- 	for (i = 0; i < parser->num_post_deps; i++) {
- 		drm_syncobj_put(parser->post_deps[i].syncobj);
-@@ -698,11 +675,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
- 	kvfree(parser->chunks);
- 	if (parser->job)
- 		amdgpu_job_free(parser->job);
--	if (parser->uf_entry.tv.bo) {
--		struct amdgpu_bo *uf = ttm_to_amdgpu_bo(parser->uf_entry.tv.bo);
--
--		amdgpu_bo_unref(&uf);
--	}
-+	amdgpu_bo_unref(&parser->uf_bo);
- }
- 
- static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
-@@ -806,11 +779,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 	}
- 
- 	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
--		/* ignore duplicates */
--		bo = ttm_to_amdgpu_bo(e->tv.bo);
--		if (!bo)
--			continue;
--
-+		bo = e->bo;
- 		bo_va = e->bo_va;
- 		if (bo_va == NULL)
- 			continue;
-@@ -840,15 +809,8 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 
- 	if (amdgpu_vm_debug) {
- 		/* Invalidate all BOs to test for userspace bugs */
--		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
--			struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
--
--			/* ignore duplicates */
--			if (!bo)
--				continue;
--
--			amdgpu_vm_bo_invalidate(adev, bo, false);
--		}
-+		amdgpu_bo_list_for_each_entry(e, p->bo_list)
-+			amdgpu_vm_bo_invalidate(adev, e->bo, false);
- 	}
- 
- 	return amdgpu_cs_sync_rings(p);
-@@ -1197,7 +1159,9 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
- 	struct drm_sched_entity *entity = p->entity;
- 	struct amdgpu_bo_list_entry *e;
-+	struct drm_gem_object *gobj;
- 	struct amdgpu_job *job;
-+	unsigned long index;
- 	uint64_t seq;
- 	int r;
- 
-@@ -1219,11 +1183,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	/* If userptr are invalidated after amdgpu_cs_parser_bos(), return
- 	 * -EAGAIN, drmIoctl in libdrm will restart the amdgpu_cs_ioctl.
- 	 */
--	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
--		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
--
--		r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
--	}
-+	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list)
-+		r |= !amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm);
- 	if (r) {
- 		r = -EAGAIN;
- 		goto error_abort;
-@@ -1246,16 +1207,20 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	amdgpu_job_free_resources(job);
- 
- 	trace_amdgpu_cs_ioctl(job);
--	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->ticket);
-+	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
- 	drm_sched_entity_push_job(&job->base);
- 
- 	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
- 
--	/* Make sure all BOs are remembered as writers */
--	amdgpu_bo_list_for_each_entry(e, p->bo_list)
--		e->tv.num_shared = 0;
-+	drm_exec_for_each_duplicate_object(&p->exec, index, gobj) {
-+		ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
-+		dma_resv_add_fence(gobj->resv, p->fence, DMA_RESV_USAGE_WRITE);
-+	}
-+	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
-+		ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
-+		dma_resv_add_fence(gobj->resv, p->fence, DMA_RESV_USAGE_WRITE);
-+	}
- 
--	ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
- 	mutex_unlock(&p->adev->notifier_lock);
- 
  	return 0;
-@@ -1285,7 +1250,6 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	union drm_amdgpu_cs *cs = data;
- 	struct amdgpu_cs_parser parser = {};
--	bool reserved_buffers = false;
- 	int r;
- 
- 	if (amdgpu_ras_intr_triggered())
-@@ -1323,8 +1287,6 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		goto out;
- 	}
- 
--	reserved_buffers = true;
--
- 	trace_amdgpu_cs_ibs(&parser);
- 
- 	r = amdgpu_cs_vm_handling(&parser);
-@@ -1333,7 +1295,7 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 	r = amdgpu_cs_submit(&parser, cs);
- out:
--	amdgpu_cs_parser_fini(&parser, r, reserved_buffers);
-+	amdgpu_cs_parser_fini(&parser);
- 
- 	return r;
++error:
++	drm_exec_fini(&release->exec);
++	return ret;
  }
-@@ -1665,7 +1627,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	*map = mapping;
  
- 	/* Double check that the BO is reserved by this CS */
--	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->ticket)
-+	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
- 		return -EINVAL;
+ void qxl_release_backoff_reserve_list(struct qxl_release *release)
+@@ -245,7 +248,7 @@ void qxl_release_backoff_reserve_list(struct qxl_release *release)
+ 	if (list_is_singular(&release->bos))
+ 		return;
  
- 	if (!((*bo)->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-index 30ecc4917f81..f447a9c533b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-@@ -23,6 +23,8 @@
- #ifndef __AMDGPU_CS_H__
- #define __AMDGPU_CS_H__
+-	ttm_eu_backoff_reservation(&release->ticket, &release->bos);
++	drm_exec_fini(&release->exec);
+ }
  
-+#include <drm/drm_exec.h>
-+
- #include "amdgpu_job.h"
- #include "amdgpu_bo_list.h"
- #include "amdgpu_ring.h"
-@@ -55,11 +57,9 @@ struct amdgpu_cs_parser {
- 	struct drm_sched_entity	*entity;
+ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+@@ -404,18 +407,18 @@ void qxl_release_unmap(struct qxl_device *qdev,
  
- 	/* buffer objects */
--	struct ww_acquire_ctx		ticket;
-+	struct drm_exec			exec;
- 	struct amdgpu_bo_list		*bo_list;
- 	struct amdgpu_mn		*mn;
--	struct amdgpu_bo_list_entry	vm_pd;
--	struct list_head		validated;
- 	struct dma_fence		*fence;
- 	uint64_t			bytes_moved_threshold;
- 	uint64_t			bytes_moved_vis_threshold;
-@@ -67,7 +67,7 @@ struct amdgpu_cs_parser {
- 	uint64_t			bytes_moved_vis;
+ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+ {
+-	struct ttm_buffer_object *bo;
+ 	struct ttm_device *bdev;
+-	struct ttm_validate_buffer *entry;
++	struct qxl_bo_list *entry;
+ 	struct qxl_device *qdev;
++	struct qxl_bo *bo;
  
- 	/* user fence */
--	struct amdgpu_bo_list_entry	uf_entry;
-+	struct amdgpu_bo		*uf_bo;
+ 	/* if only one object on the release its the release itself
+ 	   since these objects are pinned no need to reserve */
+ 	if (list_is_singular(&release->bos) || list_empty(&release->bos))
+ 		return;
  
- 	unsigned			num_post_deps;
- 	struct amdgpu_cs_post_dep	*post_deps;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c82c580f1df5..7e5cc8323329 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -618,28 +618,6 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device *adev,
- 	     amdgpu_vm_pt_continue_dfs((start), (entry));			\
- 	     (entry) = (cursor).entry, amdgpu_vm_pt_next_dfs((adev), &(cursor)))
+-	bo = list_first_entry(&release->bos, struct ttm_validate_buffer, head)->bo;
+-	bdev = bo->bdev;
++	bo = list_first_entry(&release->bos, struct qxl_bo_list, list)->bo;
++	bdev = bo->tbo.bdev;
+ 	qdev = container_of(bdev, struct qxl_device, mman.bdev);
  
--/**
-- * amdgpu_vm_get_pd_bo - add the VM PD to a validation list
-- *
-- * @vm: vm providing the BOs
-- * @validated: head of validation list
-- * @entry: entry to add
-- *
-- * Add the page directory to the list of BOs to
-- * validate for command submission.
-- */
--void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
--			 struct list_head *validated,
--			 struct amdgpu_bo_list_entry *entry)
--{
--	entry->priority = 0;
--	entry->tv.bo = &vm->root.bo->tbo;
--	/* Two for VM updates, one for TTM and one for the CS job */
--	entry->tv.num_shared = 4;
--	entry->user_pages = NULL;
--	list_add(&entry->tv.head, validated);
--}
+ 	/*
+@@ -426,14 +429,12 @@ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+ 		       release->id | 0xf0000000, release->base.seqno);
+ 	trace_dma_fence_emit(&release->base);
+ 
+-	list_for_each_entry(entry, &release->bos, head) {
++	list_for_each_entry(entry, &release->bos, list) {
+ 		bo = entry->bo;
+ 
+-		dma_resv_add_fence(bo->base.resv, &release->base,
++		dma_resv_add_fence(bo->tbo.base.resv, &release->base,
+ 				   DMA_RESV_USAGE_READ);
+-		ttm_bo_move_to_lru_tail_unlocked(bo);
+-		dma_resv_unlock(bo->base.resv);
++		ttm_bo_move_to_lru_tail_unlocked(&bo->tbo);
+ 	}
+-	ww_acquire_fini(&release->ticket);
++	drm_exec_fini(&release->exec);
+ }
 -
- /**
-  * amdgpu_vm_lock_pd - lock PD in drm_exec
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 15d26f442e70..75c8f10b5a39 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -382,9 +382,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
--void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
--			 struct list_head *validated,
--			 struct amdgpu_bo_list_entry *entry);
- int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec);
- bool amdgpu_vm_ready(struct amdgpu_vm *vm);
- int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
 -- 
 2.25.1
 
