@@ -4,91 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39849C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 May 2022 20:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A713C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 May 2022 06:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2312310F4BA;
-	Tue,  3 May 2022 20:51:39 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C1510F545
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 May 2022 20:51:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O09vqgNNOtIDYjPjVcemJD15HwMLKb/BL3YHwnjgq0PDKtwc+DOwrBTLS3jCBBlq9I8doVHfD+uvIhmM6tcq+WTYv82dDG/RBHK+pjMkowFuZRc6u4TGYZaYhhQeoLCPtwIw8cS3rJBw8e3embgoMvM+xnPrw+ZWkiO7Dr+D4zH896A/ySHt9uffnITHXMJQzLV8VidrdJjTnD3Wz1fgwRnL1B7IoAXwean4h3rw/nY+WU3pvzz2x7piDLOjkRuNs5/lTuXvTC2loBgb10GIPDElqSD8AKEQLcOHQOVhPPDe3or6Bl1+6SxfaEcsO1S2po10CeThDJjEbyTS+H9aXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ChvaYnSq31zn4II/KNxflqvaFm8HXoU0uZPCNosZzCw=;
- b=clBFfZaZGA6ZOF3lmEA0pQ9x7T9L+c9DzHkkunY+wn8CMEpFNTTbkcYhx7NZH9s6qVde+CXdOrEZpIRca0ZuZc3+sG4/0DQbH1+b5oVkDmj9jBxGnQtcQ7V2f8d2D8itOsp5TskVEP6X5mvur8FyVCOm1NNkXb85JcYv7U+hsNIkJuYxjI0Qo8IHo9tdpf1jCRs8qSZLVy4ZsNAJ/h/Cwf3M9MaFMRaObF3rBqyGb0U8uu+FGGfxFMjJu8IEv7i5NwrMX8ILwtkHi5lHRLzJI3JrLFQNCcuUensqKHn2DnPY1PWo0SZowqimZE+uhPGXeTF/v0VymfLE6KCJKKIBNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ChvaYnSq31zn4II/KNxflqvaFm8HXoU0uZPCNosZzCw=;
- b=o/9gzJH95tcr33TrKKZAsnA97gjm0xnoIaHAjUXSUKr6HL9XOLbitfPLImOpC0j9gWaBPzmZ9sgYUqRaMBXxfjgb91MFyt/5YkF6+RufP5Q93FklTRr+lLBetgx6bABs2csIovzfzIfAEIjB0AQeDtdc8L/gcj5vCye5+wwDh+A=
-Received: from DM6PR08CA0041.namprd08.prod.outlook.com (2603:10b6:5:1e0::15)
- by DM5PR1201MB0170.namprd12.prod.outlook.com (2603:10b6:4:59::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Tue, 3 May
- 2022 20:51:34 +0000
-Received: from DM6NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1e0:cafe::16) by DM6PR08CA0041.outlook.office365.com
- (2603:10b6:5:1e0::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24 via Frontend
- Transport; Tue, 3 May 2022 20:51:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT015.mail.protection.outlook.com (10.13.172.133) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Tue, 3 May 2022 20:51:34 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 3 May
- 2022 15:51:32 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/discovery: enable mes support for GC v11.0.1
-Date: Tue, 3 May 2022 16:51:12 -0400
-Message-ID: <20220503205112.1285958-18-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220503205112.1285958-1-alexander.deucher@amd.com>
-References: <20220503205112.1285958-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B429A10E64E;
+	Wed,  4 May 2022 06:25:42 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63EC10E5C7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 May 2022 06:25:41 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id g6so1004342ejw.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 May 2022 23:25:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=T6D/28l+uPvLErGGaz610qF6w+FJhNqdm4E9I0fGAl0=;
+ b=gZiVD/5ZPc2HNCxMSfJYym37R/nXRGPRtltQ2o9Ct5lWqBnOeVp4EEBhAYyrsAG96y
+ lDgDkLxr8B3wP0DjYN2cxvN0t5yjqH8z9tBgb+xyJivNxjfRne1nm8Zo2J8vjmHFoENN
+ u8Jb9jCu142pFlCPE66r5prbMdal7QSqVvmMnnR68IKzPHwKVtY3FC4IuxCwCt5lvZxh
+ xWmZC2mbnEmvuQgOQ7SlAbrIssXLlSayLKkGnsZYvCOamMg88XzX+k1OPRbLebYplwWZ
+ UVG58Npn5YtvKFc0X65vRGtiRFlZgQXRcKTokqvxWyoE13jqJ0qa2/G/TLjlBNHM2ttE
+ 8S5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=T6D/28l+uPvLErGGaz610qF6w+FJhNqdm4E9I0fGAl0=;
+ b=XOVIpz1JDcqFkEO5sn2Iu+Gg+IW6nOQtBJ0ogpufwAi+WqIik0ldGhTZx89LbsU1iw
+ UmRrsFAQVm2JTbe3TvYorMSOZbNbiCpflsTfEEnfCBSjSnrqTQy566JEwad+IM1IVhuv
+ QcO50tu2iLVLR3hsHCYUh98LWY/xk/EWo4dyfjtlPVWOvl4EJRbUGs73mBn2AO4CQmrW
+ M3BPvLzhJCUT2xEslitWJxv+rJWygL9R57QquKwSIq61uo46lyRn+oUMjsenq4HaakHz
+ WDvN3cZYpyOsLcxoHWr5GaIRbzC60cOOfKnvpReLNR4OaOFTmcv2/qhGkNEA9gQti3wj
+ YhMw==
+X-Gm-Message-State: AOAM531MN0ciSK5gfh9B/qBhVUj+xuxfvJq9OarJevvw3N5x/7iIz1AE
+ Ll5rrVFsxvy/WJ0ae2zayKM=
+X-Google-Smtp-Source: ABdhPJw1mIvEoIfvoeZa7VqXpN/aki6srVlLIzsrCVnhqbGpUlJ+A5zMG/3F/girhBrd28twLEU1/g==
+X-Received: by 2002:a17:907:60cf:b0:6f4:5128:233b with SMTP id
+ hv15-20020a17090760cf00b006f45128233bmr12685250ejc.239.1651645540204; 
+ Tue, 03 May 2022 23:25:40 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0b7c9.dip0.t-ipconnect.de.
+ [87.176.183.201]) by smtp.gmail.com with ESMTPSA id
+ gv1-20020a1709072bc100b006f3ef214dd2sm5388196ejc.56.2022.05.03.23.25.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 May 2022 23:25:39 -0700 (PDT)
+Message-ID: <04d2af18-1d38-5a8d-b272-a68c295ca213@gmail.com>
+Date: Wed, 4 May 2022 08:25:37 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f53d19c7-ed80-4aac-fc64-08da2d46b57c
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0170:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0170663FBBD7FA341D951DECF7C09@DM5PR1201MB0170.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pAjfdJNOpoe3waa4qRAy/9SngAyKQAGxFH7BnElXV8vTE2dVHItASV1qAw0LYF1sTlIvwoweauDQxX9Ecsqtx9+rBatjZIcbaZLV6jOnmv87N8X1Z6xFEkR22Zexr4Jy6ZIr6TFogIp2+m/6PIOiy7jqu/fmLL3OZUqS7imTHkJkd44L8AxZ926GoivdJl0zZds0nUybHVredG1RqYULI8di953G5SEjbm6VjSB3mCKAxQgLrs7HaEv3tP8kvPbLtm2+YoPoMy9fIbZGTvC6M7ocMjSKyt0mv3tKW5+/W0Iiio3FR2+KvlZXcFgxrZYAgozk2kYrJ6u8weDp8XvTSAcQYStIz7s+MIuNeC6X9FKkiKUT/jMPVS8/ov7coMg+UxJ3tl3vbqf6Q69PvpZ2aOVTOWCxGBQYED+q5odA/yStw9kMmcn7C7Q2QO1me22yXjxqv45XYh++++fRPGYLvl3kFjEsk1TsTXGIpov2IbELhC+bkDKgLBHtTYCw9QtQvQ3Kwp5Hns1C5wlQykpDEAAF+L02Wm9yomV4CXvbLw7lblKV0kuVGL9IzxiQdEdZY+U9adcinGyYu00DSJKofF3glD4picV1A0H2VneRIteJqCRQWNhpB2XZhyphqtAhwIz2FpD+eZGUQUrK8LLchYcXFIZF2haT2ex0c9O0+DpRVUpuc7SThT12dc8KXIbNm7DuAtIeO0o+rqs3+HowMQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36756003)(2616005)(16526019)(1076003)(426003)(47076005)(40460700003)(186003)(2906002)(83380400001)(336012)(26005)(8936002)(4744005)(5660300002)(7696005)(81166007)(6666004)(356005)(70206006)(508600001)(36860700001)(86362001)(4326008)(8676002)(70586007)(6916009)(54906003)(316002)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2022 20:51:34.1236 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f53d19c7-ed80-4aac-fc64-08da2d46b57c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0170
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/amdgpu/gmc11: avoid cpu accessing registers to flush
+ VM
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220503200855.1163186-1-alexander.deucher@amd.com>
+ <20220503200855.1163186-17-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220503200855.1163186-17-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,35 +74,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Huang Rui <ray.huang@amd.com>
+Am 03.05.22 um 22:08 schrieb Alex Deucher:
+> From: Jack Xiao <Jack.Xiao@amd.com>
+>
+> Due to gfxoff on, cpu accessing registers is not expected.
+>
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 51 +++++++++++++++++++++++++-
+>   1 file changed, 50 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 61db2a378008..032414d7429d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -265,6 +265,12 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
+>   static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   					uint32_t vmhub, uint32_t flush_type)
+>   {
+> +	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+> +	struct dma_fence *fence;
+> +	struct amdgpu_job *job;
+> +
+> +	int r;
+> +
+>   	if ((vmhub == AMDGPU_GFXHUB_0) && !adev->gfx.is_poweron)
+>   		return;
+>   
+> @@ -288,8 +294,51 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	}
+>   
+>   	mutex_lock(&adev->mman.gtt_window_lock);
+> -	gmc_v11_0_flush_vm_hub(adev, vmid, vmhub, 0);
+> +
+> +	if (vmhub == AMDGPU_MMHUB_0) {
+> +		gmc_v11_0_flush_vm_hub(adev, vmid, AMDGPU_MMHUB_0, 0);
+> +		mutex_unlock(&adev->mman.gtt_window_lock);
+> +		return;
+> +	}
+> +
+> +	BUG_ON(vmhub != AMDGPU_GFXHUB_0);
 
-GC v11.0.1 is using MES v11, so add IP block.
+I've already responded on the internal review that this BUG_ON is not 
+justified.
 
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Xiaojian Du <Xiaojian.Du@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+We should rather change the "if (vmhub ==..." above to make sure that 
+all other HUBs don't use the gfxoff workaround.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 9c44b2250a3c..263fedadbf5b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1908,6 +1908,7 @@ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
- 		}
- 		break;
- 	case IP_VERSION(11, 0, 0):
-+	case IP_VERSION(11, 0, 1):
- 	case IP_VERSION(11, 0, 2):
- 		amdgpu_device_ip_block_add(adev, &mes_v11_0_ip_block);
- 		adev->enable_mes = true;
--- 
-2.35.1
+Christian.
+
+> +
+> +	if (!adev->mman.buffer_funcs_enabled ||
+> +	    !adev->ib_pool_ready ||
+> +	    amdgpu_in_reset(adev) ||
+> +	    ring->sched.ready == false) {
+> +		gmc_v11_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB_0, 0);
+> +		mutex_unlock(&adev->mman.gtt_window_lock);
+> +		return;
+> +	}
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, 16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
+> +				     &job);
+> +	if (r)
+> +		goto error_alloc;
+> +
+> +	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
+> +	job->vm_needs_flush = true;
+> +	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
+> +	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
+> +	r = amdgpu_job_submit(job, &adev->mman.entity,
+> +			      AMDGPU_FENCE_OWNER_UNDEFINED, &fence);
+> +	if (r)
+> +		goto error_submit;
+> +
+> +	mutex_unlock(&adev->mman.gtt_window_lock);
+> +
+> +	dma_fence_wait(fence, false);
+> +	dma_fence_put(fence);
+> +
+> +	return;
+> +
+> +error_submit:
+> +	amdgpu_job_free(job);
+> +
+> +error_alloc:
+>   	mutex_unlock(&adev->mman.gtt_window_lock);
+> +	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
+>   	return;
+>   }
+>   
 
