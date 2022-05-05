@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 409BDC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 14:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBD7C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 14:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E01B710E06F;
-	Thu,  5 May 2022 14:23:50 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894C710E158
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C9B10E124;
+	Thu,  5 May 2022 14:23:51 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2040.outbound.protection.outlook.com [40.107.102.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F17D10E270
  for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 14:23:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aY+v1nYT2gEWJWuxlhLFmbt0CrcH0HXL92tQCrd4ETSOfGztPviwemZpYg0fO5FJ+GIBs/9+tsG2AkHtm+kh+h/ras3qDhzGknmHuSKo0nCU//vO6oJNkAOn6k9n0nc+u0WkLcBx/2257OyXVifaTFg/cwJtScwYyNUGll6/Rrs17olEQanNA3zu20s7oMy+X3Qceuey2z5mhq3uRGp9xup1Z2RnchEDWRSf+eFeqrGCR7VIj0wm6wPsf4Xjew5XbYb+GxIiqjDoQXRBYUEK6oQM3QXlaWtV3BE4dc+y3j5HsK0NfixTS5WPTbgPcVDCcw73alFLVQVtTLwDisPPQg==
+ b=UTAbTRUR9GvjwaQ9PdCTlicCi3/sctKBkwLYhAGD9InJgvopf7KIE4uBB7fR+NgD2EjYlGYcMwSYCfN2x4LBjKcz7bGUrBJUPGNxjHFv7Lyl70+ekMy8It349gP7DQp91sRVGXvCGWR1ZP5AVMgs+4VC2+SdtzoPglJ8/FByHmZ/8lfmPWEPOlztpHJ3pgACbE80Fc1Pj0yplzYJr3u5NgrVy7AASsfnm2haZJqMhvwH0jjyf8PHJWhXRs39/CNu6PkDfFWdV/pD/4g7mTq2mAmvwxfHYbyWZvHa8wjclOYcA8Y6aWjvahvwhzZO1s2cSOZodI8mowob84X9sj8zJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w8lsKLKewYQvcveG7SXUPh+MwcJbwhgyeSdthTxM43w=;
- b=FEyIY6NL07MuBQuQk9XqrcJC+6YX83VxSBHWfPktQdOO/Dxl/D4sNXDuy42WNpfPZ2QWOr2SDiNzSFnWKwBv+HfUsxEVjtsnTJsZNrmAU7+OPawTFymYQk72RethwckB31At0S2wquGkPr2pWOsRnDVN0R99MndZWBksL0asPkUg+I6bbLvywz7HNGEjvEWo8+7kbMdVEGX/gXaXJLPNMhelFIqrLF5FPR00+6Qed4OtTJ5vXeDsTiJoWn3ZVWt6rM6/k+4CfFm6IlsEhyNGlJBikbA53PeE8Nkdrofr0676Yw6nFMpt/E+jkMs6JDeIzRXcu/MEa30698jRMOLcGA==
+ bh=Dtv76hlIV2IUTnh2ykvtCJPLNelPT35kJNO4BEApYWM=;
+ b=XbcZ6oYnkK9yaLi9NmcePqX8epe6kPdPfiBH6/1IoqeTeNb84tjvc/+v63vmcKH216mZoX5J32p4dcj0UV0qlQg5mfKlQcNFUotiYHr8tE7ZFMU+dfx7WkucDb+UMvkyKufsmmkpcNJGCupXk3UaJKKLfC+MVlIdMC8qdjzTUITKG29hGQUn/ap8/KET7pvBhbbGJtiCICNBaHxjxpcbVyVUycORrt6Fb14zBYs0LPbMWjbsMfehne0LdE0qrD1veS/ORKLjvUyWHxjKwFhhRegMvylvZ/cWWIwSgfdv6ogLE7pzND9XeJ28wYOFPKX/m7gKGxVOTaPeDOHTV1+oYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w8lsKLKewYQvcveG7SXUPh+MwcJbwhgyeSdthTxM43w=;
- b=Mxr8v6Y/yMJ31aUaN+Nmxiud4slaTUAFXojxKxK3KZ/u3aZWS+C78biz/rbXM5eMnRL5xUScnF5o/e3y13l5sOzbJO/WjoYNrmT2AWnBmGjSJJdxOmhOPWlaQRcz9Q9FtzjVs1Jv+s1s1YhlHx4eVn6EQ9EDKegoU/Ha1O5OEPk=
-Received: from DM6PR03CA0010.namprd03.prod.outlook.com (2603:10b6:5:40::23) by
- MWHPR12MB1631.namprd12.prod.outlook.com (2603:10b6:301:f::19) with
+ bh=Dtv76hlIV2IUTnh2ykvtCJPLNelPT35kJNO4BEApYWM=;
+ b=Vj0K0k14o4NKfCQ6lM1vMXktm3ZTKArGgP0B+ryWkEjs85tY86Cq7JH5IgDQ9wjBefJHGA/FsxHsxmP4m+CAzrW9sEP0NXa8c2ma/tpVg7UHy2epdU+VHuA6zmFOZBHkcaIu/Pm3dEPgukur9Y9h9v6jmJV//++0P9/xVlFSRAY=
+Received: from DM6PR03CA0030.namprd03.prod.outlook.com (2603:10b6:5:40::43) by
+ CO6PR12MB5393.namprd12.prod.outlook.com (2603:10b6:5:356::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5186.23; Thu, 5 May 2022 14:23:46 +0000
+ 15.20.5206.24; Thu, 5 May 2022 14:23:44 +0000
 Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:40:cafe::74) by DM6PR03CA0010.outlook.office365.com
- (2603:10b6:5:40::23) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:40:cafe::50) by DM6PR03CA0030.outlook.office365.com
+ (2603:10b6:5:40::43) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Thu, 5 May 2022 14:23:46 +0000
+ Transport; Thu, 5 May 2022 14:23:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 14:23:46 +0000
+ 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 14:23:44 +0000
 Received: from Gundam.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 5 May
- 2022 09:23:43 -0500
+ 2022 09:23:42 -0500
 From: David Zhang <dingchen.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/17] drm/amd/display: revise Start/End SDP data
-Date: Thu, 5 May 2022 10:23:11 -0400
-Message-ID: <20220505142323.2566949-6-dingchen.zhang@amd.com>
+Subject: [PATCH 04/17] drm/amd/display: update GSP1 generic info packet for
+ PSRSU
+Date: Thu, 5 May 2022 10:23:10 -0400
+Message-ID: <20220505142323.2566949-5-dingchen.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220505142323.2566949-1-dingchen.zhang@amd.com>
 References: <20220505142323.2566949-1-dingchen.zhang@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 13afb604-976e-44fb-8bd0-08da2ea2ddac
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1631:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB163164C11077F78030E0CC898DC29@MWHPR12MB1631.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 66296edf-fdf3-44af-03c3-08da2ea2dc5a
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5393:EE_
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5393170A5D6AF82BF09B729D8DC29@CO6PR12MB5393.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GaF6bOF9c5lp334kr+oCf0twUTnxFG95QplOXTkf+ErKim5VnA5MJU1Ew4mX1usb9BNxSxCJXT2W5nPbYVcssnNpACq+3cXXAepuNjv8Xar+c8IRNAJLQ2npdF7WubSnSSMbC0FOQmMaS48q9UulT/wSFLuPSqkqOKUtgJL+udAEOcfmsQm8JkkTb1ECr+LbfJgNirjVLVX/NKKSkud6d44Ox4uKM8EjscGMB3D/dulrg3YKGB4IYyh5q9VNZcJaI0UCMArgN1I8/Td3fH34o2VjgcSHBOl8rhsTAq9aOTO0usZFxILCZ023Eh9I73qoCuW2jlcOvZdgAyGw0ta0MIsgshIVMYDFnla0Pl7tDHmUwJaXwz1IxHt/34ez0+5aTee3h/BRGVuWCoEBOcfVQHV2R0yxcJK2loFvdqp0V4NxMN5tdpa+2kdSC92acQNrMH3/eK8qhugMNfMWZh3nID8JGrRB5nGdbimMLEhhTINPnCFFzIO6LJ2khIaZtY5wQqwc1iUPC+S2tEVXdKq6avLH47I/YvSz/hjiGqJUBZYw5lf3qY6kve4vo4kGa8W+I7mFIaRVzdlqOjKgQNTuyd2QwVle4c+pwQBa4xcLL+rdcbc3I3iDHBC1ZOQxE0HaswqgL5BGG4BMZFWQNr296+8eXgbH7Rkn3AGcFnPH8WPG5APS8iKm1/SU6rU3qclgwShQW79u9a60rvPopNPRdQ==
+X-Microsoft-Antispam-Message-Info: QspmUc8msMqdnWiMu0pgaAXgPg09but1zG4zQ5TBSU4sz2DxC2ZGFK0+4Yv0uzAMfxXWIFhqWJ/sibU0+gbgNA8vsgMo2r3ao+P6K0TC5ewKIByLtQzuUp9kKd3IlVyCZX06Xbp1F+kVilyqI/k03T4bTtodDYTGPX2cVe20hKO894jCQEd0bUl8flQd9clQ375C/ALsCpHE8wX2uf9ZexA9HiyvBcgl7c3mMoxDPv/Qer+eAyQIm8nsnGU2x6kFFtRVdK/c62ToZdrJX6uqOFx9MK8jCUXjDoJ55iXN7gbrn5UJ3buT4ffZF5/aQBwN1/LsrH/oPt8jv9+aAp3DWOi7vcki+mHPmrjQeXvwjhTApIXo+qgVrfHFcDnJzcv0HTJosiX9ORm69OjOxcin+V72CgkjJbYaY9j14dKW6VsAQhgblN3S6gc9JNC88XcAIx41ub7ZPXaJkT9qQ5IVURXR61dHciKrJkN16gBo8oA6Lj7TZPOl6y1uvnfswDEAtfdGlqyyG7/S3S22SLViB6YcouJURD3poIN89SHxJM9eyyi58/XqZx1hisZTymYY/jO4dVheEdBsxdeg5dMzMHgAuGxoVp70Xt0I9v+GdFR14Xf2wh7d9D+mLLu1mIJLpQuEhGBs6o0etCftOR8uzW2hzqOMixrM+ht8SUKBevmnWelRQmLvE2lCtdbrfW1IsGk2FCCaXfVD75sA000kLY1Z0azK3q4yKZVkC6Fhekw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(6666004)(7696005)(5660300002)(8936002)(6916009)(508600001)(2906002)(81166007)(83380400001)(356005)(36860700001)(86362001)(26005)(2616005)(40460700003)(1076003)(426003)(47076005)(186003)(336012)(16526019)(8676002)(4326008)(82310400005)(70206006)(36756003)(70586007)(316002)(54906003)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(6666004)(40460700003)(1076003)(70206006)(70586007)(2906002)(83380400001)(15650500001)(8676002)(4326008)(2616005)(81166007)(82310400005)(36860700001)(54906003)(6916009)(36756003)(356005)(16526019)(26005)(186003)(7696005)(5660300002)(336012)(86362001)(508600001)(316002)(8936002)(47076005)(426003)(41533002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 14:23:46.3905 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13afb604-976e-44fb-8bd0-08da2ea2ddac
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 14:23:44.1875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66296edf-fdf3-44af-03c3-08da2ea2dc5a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1631
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5393
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,62 +110,41 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [why & how]
-We need to implement the VSC packet rev4 that is required by PSRSU.
-
-Follow the eDP 1.5 spec pg. 257
+Based on PSRSU specification, every selective update frame need to use
+two SDP to indicate the frame active range. So we occupy another GSP1
+for PSRSU execution.
 
 Signed-off-by: David Zhang <dingchen.zhang@amd.com>
 ---
- .../display/modules/info_packet/info_packet.c | 29 +++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+ .../display/dc/dcn30/dcn30_dio_stream_encoder.c   | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 79bc207415bc..c7d1b48c0478 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -145,8 +145,10 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- 		stereo3dSupport = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
+index a04ca4a98392..e40f01b596ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
+@@ -419,6 +419,21 @@ static void enc3_stream_encoder_update_dp_info_packets(
+ 				&info_frame->vsc,
+ 				true);
  	}
- 
--	/*VSC packet set to 2 when DP revision >= 1.2*/
--	if (stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
-+	/*VSC packet set to 4 for PSR-SU, or 2 for all other PSR support cases*/
-+	if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
-+		vsc_packet_revision = vsc_packet_rev4;
-+	else if (stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
- 		vsc_packet_revision = vsc_packet_rev2;
- 
- 	/* Update to revision 5 for extended colorimetry support */
-@@ -159,6 +161,29 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- 	if (vsc_packet_revision == vsc_packet_undefined)
- 		return;
- 
-+	if (vsc_packet_revision == vsc_packet_rev4) {
-+		/* Secondary-data Packet ID = 0*/
-+		info_packet->hb0 = 0x00;
-+		/* 07h - Packet Type Value indicating Video
-+		 * Stream Configuration packet
-+		 */
-+		info_packet->hb1 = 0x07;
-+		/* 04h = VSC SDP supporting 3D stereo + PSR/PSR2 + Y-coordinate
-+		 * (applies to eDP v1.4 or higher).
-+		 */
-+		info_packet->hb2 = 0x04;
-+		/* 0Eh = VSC SDP supporting 3D stereo + PSR2
-+		 * (HB2 = 04h), with Y-coordinate of first scan
-+		 * line of the SU region
-+		 */
-+		info_packet->hb3 = 0x0E;
-+
-+		for (i = 0; i < 28; i++)
-+			info_packet->sb[i] = 0;
-+
-+		info_packet->valid = true;
++	/* TODO: VSC SDP at packetIndex 1 should be restricted only if PSR-SU on.
++	 * There should have another Infopacket type (e.g. vsc_psrsu) for PSR_SU.
++	 * In addition, currently the driver check the valid bit then update and
++	 * send the corresponding Infopacket. For PSR-SU, the SDP only be sent
++	 * while entering PSR-SU mode. So we need another parameter(e.g. send)
++	 * in dc_info_packet to indicate which infopacket should be enabled by
++	 * default here.
++	 */
++	if (info_frame->vsc.valid) {
++		enc->vpg->funcs->update_generic_info_packet(
++				enc->vpg,
++				1,  /* packetIndex */
++				&info_frame->vsc,
++				true);
 +	}
-+
- 	if (vsc_packet_revision == vsc_packet_rev2) {
- 		/* Secondary-data Packet ID = 0*/
- 		info_packet->hb0 = 0x00;
+ 	if (info_frame->spd.valid) {
+ 		enc->vpg->funcs->update_generic_info_packet(
+ 				enc->vpg,
 -- 
 2.25.1
 
