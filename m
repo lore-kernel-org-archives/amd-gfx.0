@@ -4,120 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01395C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 10:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2578C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 10:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6457410F899;
-	Thu,  5 May 2022 10:02:21 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2083.outbound.protection.outlook.com [40.107.101.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D525410F804
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 10:02:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57F0D10F98C;
+	Thu,  5 May 2022 10:09:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89CAE10F98C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 10:09:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NRqqQVLR5N9k1zP4xttEHHyU7xM+C4Bjb+e6TFJ2JVWTe2f/S/OOdFumnerm2Bowg49TYmZzBVt9JcnTgLXKls6SDLFaLTkt4MBs4j4lUbDceqZlihCn7124rQh1VW5X1QONxrf0qugAfz2V4rArVqsOlrZFjlxJKgxNBFkW1pSMfQTboBCKop5TRlgnwEUD2csBOZ7EERZzsflq89ghr8kX30ab9UMBa4Ve8w5NNVVKGTJV2Lx+CNP3F8z3lthMUvKCWC3W3wDDpz0KqHHA7l63QduPzxM5eQQnGs3SOD+NZW44QVzaJ3D+fWlJO7yr4rVGB5R/ETzvVJT34r7VVA==
+ b=V495MNkYcZw0/9saFYYRpRmN/0EupdvSwWc9ZKvIGXRf9XYbu12+dkRXz8qOb6fnuaiN/ErBaQou8NVwlufsnpFx/8NFkD8zUeobzmWpEOuymP4mCtCwUxOMrJV1f4yWQCbP6D/quToqSdgXqEI3puCY3AObmzm8ttVU0+R0QfZAbR/HusZRmgAyKlfr4Egps8FdsEcmNtNVZsyv7x1Ky0xLeo812zfgBnvbM7/VctutZ03w5pNO2uBqWX42QXE9B5Z+1bPLqNQEjWUUunOtphJ27iXnjXa43mv9VS5EdPcjrIaXNeSqjGXBfV5GtjFrupQPu6sZpt/u0OVP4Ar11A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5yOFkithaxXj9gkXrmZZALDSDwB9ng/uWj4kEOCvG2o=;
- b=gwKALUERWMCk+/1Hr5kCyxu5u38OJPSn+PBU4thoIPC791iu4/CxPYQBXRo5C0Y3TPJ4EKN0fQNMvfQT6gpCDq5rfxVXgoLsgh+lG5gifOJ40su1Qm4+x2rFusqBcwYbMXx4EzvSK8kRG/6ecFzVyDIUAR1oW+HFJXiC9T5GfF13Gs9Ny+PxIylQMIodfI2OuLNf7iPJvemEn8ZG9YX6mSNoe3gg2S3KhdOs8IfW1rjNlhMpGJbz1qcDpzOVGD0qdnv+CJPcjNJ8sGWgl3xDYoJfqbZJaohyLPiumclUPH15kgvCLhnVoVJhvVA0Ji+IxqSM6JUEjRdq6/oH1f2omA==
+ bh=jUnBVl6FHuspOuaDPCsUOENDPULMoPaGj/mZZL1zKqY=;
+ b=a7LXm8HHgssUYUatw+uc7f2pIIYxsGsxlHMA3NXG+hzcbNF60jMD1gUdMPljkLzAHn6BmIxxK7sb1rfndNA4EXGPtPmmiL18bw5LCNwQi/wutO3gFC6zZIDMkUdCjOW5+ReFkeSMcp7CQcY7hMz0uU3UyiSRCtfQZiBA+OpnhOXSSkn+NCDzxr+5OYsgLwWCYFt8xGjlrGzfpsKgvfDk+kPoVY7QE4PmJI2y8pOGFnM+uK1E7z7wA/Fw1s71SaHNg16fyBHOyvr5i3fTto5AJVJmdOPDBKedUReJB6KfRsMNTcrIeRMbJ0EopktJ0x8lrZ2KVJmvAicD4ns5jGRnFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5yOFkithaxXj9gkXrmZZALDSDwB9ng/uWj4kEOCvG2o=;
- b=InlGOtmmtMOyR3MZBomSdDsMsGUDxEWw32QjgNCZkWKf4YbHxrGzTiWppu+yr5ar0QioS3t4E4ai3IMUtmq9js6u19AZKzlcQ286bAXgD/SHZYdOrotrlJDw6HvRYwdd7OExS8y6s6aXXMkxFQIjaJTs18ccWgHa5K1kGOJNfik=
-Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
- by BN8PR12MB3122.namprd12.prod.outlook.com (2603:10b6:408:44::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.17; Thu, 5 May
- 2022 10:02:16 +0000
-Received: from CO6PR12MB5489.namprd12.prod.outlook.com
- ([fe80::1c90:f807:7b0b:a862]) by CO6PR12MB5489.namprd12.prod.outlook.com
- ([fe80::1c90:f807:7b0b:a862%8]) with mapi id 15.20.5206.027; Thu, 5 May 2022
- 10:02:16 +0000
-From: "Lin, Wayne" <Wayne.Lin@amd.com>
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, Lyude Paul <lyude@redhat.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: Do we really need to increase/decrease MST VC payloads?
-Thread-Topic: Do we really need to increase/decrease MST VC payloads?
-Thread-Index: AQHYXnWxk9xTavhbfEObDNqlnlm3sq0PO8QAgABXcoCAAHfR3w==
-Date: Thu, 5 May 2022 10:02:15 +0000
-Message-ID: <CO6PR12MB54893ACC396FBC017AD2E276FCC29@CO6PR12MB5489.namprd12.prod.outlook.com>
-References: <dd5c63923636ec2ad78483899b1e4885e2235055.camel@redhat.com>
- <ad4ce2ddd2f2019f360b501c092680c799cb468c.camel@redhat.com>
- <BN8PR12MB334859526DE2D862EBBA0128E5C29@BN8PR12MB3348.namprd12.prod.outlook.com>
-In-Reply-To: <BN8PR12MB334859526DE2D862EBBA0128E5C29@BN8PR12MB3348.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-05-05T10:02:28.239Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=jUnBVl6FHuspOuaDPCsUOENDPULMoPaGj/mZZL1zKqY=;
+ b=bbtALy4FiWURjmqq4VF/9SGCTmL5lbdHqfvTmhSCRCIpDgbQ6zB/43KPbHR/uWzgGwNmNyuUjp5KsMFukXBoyLxoN/jMUW1md81G5kXBViv8dRWdmk5ts2qtCOsrE9gfTUPn8vxeH7AxL2Ncj9jD+Y5Na1qk2dGMxmgwHheRV8k=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b5feffe8-1a33-4894-1a24-08da2e7e5572
-x-ms-traffictypediagnostic: BN8PR12MB3122:EE_
-x-microsoft-antispam-prvs: <BN8PR12MB312219BB65CE18D0FD9ED49BFCC29@BN8PR12MB3122.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: V0rXUB9Ig6FGlPd2rTXS9xIuZawqHylfaEP1Js+CoUK9lX42H65K2kMZUgKY5fEoeothP1goJU0lbZDkH777yfmXrgMbayk7tYeJaHrFXYObz1KZ1VzExwOgKSJAAEbwxd52shpY3fLqIDMvrhL+KD0vOGBc4g1OvXgSFuk4yuI0WtViOkbpmRQwCJ9gCnbsEN51TPFVH6qm5j2a0XAgF/vaPjwRUSpM4J9yG1TxNa+xYPXp9QD/WP0+PKAqkt29R8l2VVIJlpi7B3jT18PZXPgBzpHhAi4hYmiQmgotG599v/ybkzWBU866NyxXddSt37jo6gez5RFnOADrzc0qSZXn0MxJ9WuoAOyKWhLs2BI0hbK1pzTanpfENaFL+HK6V3ShAeI6u83/Ridi4fneg5A/fMzOutSm1Qyh5wSm3XQ9TqnmlnqcGXtreuCQZxOyTNeBHjh3M6EJOY5QYwt9v2xgpCQ58qDkCxTtgV6T30OlEm+ohZ55j5RpNFE8QMSEvPb/TKxb836YPb2hSwAy+2HevXiKzwg0FVaZdTv3lg3C0I/ewtVefdDvxKjEmOdc5bMFW/d0ParnYQjlTKp5jYeN9h467eosfV4Rf69yDMYqouVdL2h2eabtfPn7/nhOYvTZgRJ+yrViJXtWx0+A5yJuHYDIrWPLAXfF2gwilcwNnkRrc+lRM0opV9HXrSv8vtnCYTmlqUVAbLFR3WIOsaBrudKtWG8IEdmKvmhbtmHN//FYoZ1JTvlV+55W4f4k7ecSHfqWSziNtK+MVng1+q/LR9BfukqXESgTDeV7fP4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(66476007)(86362001)(186003)(64756008)(8676002)(66946007)(76116006)(9686003)(966005)(26005)(66446008)(91956017)(508600001)(71200400001)(38070700005)(38100700002)(45080400002)(110136005)(8936002)(316002)(6506007)(53546011)(122000001)(33656002)(2906002)(5660300002)(83380400001)(52536014)(55016003)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?dOvZkWaXmTtHNWK0YMyu/cirRNHvaB81l1idmRw5lE97IENatj6tpRZP4d?=
- =?iso-8859-1?Q?qUqRo0EbJ+9ncFUWhDJIohmt4Pe8XiiJhh1Puy/gvSyRnM/S7T3gZ1P038?=
- =?iso-8859-1?Q?xfw8/Gg6Ol30JJ+tVISX4OPMQaJA1vXgW5DXlLYKs4AHTo8JglPqWgb0G8?=
- =?iso-8859-1?Q?M4puU5cdVXQxacvGcioG7yjiJuG3HOcLFu0jDoNVjbZD0/AS2Kt92Usk8C?=
- =?iso-8859-1?Q?VUK7QT1WE2eB2VMtESgAtZu6gSZzHlemBmX6z4ljvDwzoBhvhWzjbOQnhp?=
- =?iso-8859-1?Q?vJK3hA0HrZwGaJbrWXKZLy37ZC4oSf9x0iV8pBs2sk3uZCYWRQRrWrNLHc?=
- =?iso-8859-1?Q?xLQO173581KAv/Nm8eqpFDAw6tEyqSyaK51FlqWtcpjkwf/zbO6SeGkRVW?=
- =?iso-8859-1?Q?c2Kj73EX68HjpRyHNIc2zOhIiUTicQMM6vHs0f99PC/gLePi7J458bEWBk?=
- =?iso-8859-1?Q?fwwL+qOL00bhBdOq9Yjwtd0WRUONRbYK86Z2tcnm8I5pnun/fyyQiuvX8o?=
- =?iso-8859-1?Q?gWHSNltKCqUydotTe2ovYY1jvzijx/6u83iTIBnnv/sfAUW+ATn3hFSyyX?=
- =?iso-8859-1?Q?GOTdlMwzvITyUvtGsHjeeH6vI5bK1EGCIdzsI2Hwswp+02uKJJBmZ3y+Sm?=
- =?iso-8859-1?Q?ULlcPrZ1zrferYhU6Owq0kr3wlLhxKX0PhJT9izOqd9N1rIkv7Hm3lkzOT?=
- =?iso-8859-1?Q?NxSpDlDfB9S+gN1oOAAMwErXpF/DNsB4jlrTK9onL6Bj/VIqZx6NXS4LIG?=
- =?iso-8859-1?Q?mC73iNNn2yw0mbYMD6DYeIOH1ONYmm+z4Uu73n/LaD/dBzBXadE9B0HPsQ?=
- =?iso-8859-1?Q?cq2pKej3cSJDinxWj2/OGzbWsq8TwDUWumtx79TaAcA9g1vm3ChLcz3GRC?=
- =?iso-8859-1?Q?UMavhpum2PHEP6/U9FPAhAEYz3WAI3bCHtihPoFZ+EJsMSq6ntyjnvLyIp?=
- =?iso-8859-1?Q?bUOFiQpXiW417RugZE9V5oyiV04M/1WviRLsEdrfSYpJa/sN3gtdhhyh/I?=
- =?iso-8859-1?Q?I6Ni/e5UXH5q4ieiWgs0gYMEjh415X73tHoGe43MNSk/7UVS4oIbZPyJyR?=
- =?iso-8859-1?Q?Q+6nDzUQ4AUFJSeVH7fSZEdCzb5WV0IrjLbk+YRCj7rDYdyk6KFBBPXVvy?=
- =?iso-8859-1?Q?rFE/PXAly6x8Dn9KVwUeeWoW1f5+NTWVtBPxnMdE4nx5XjLV+OYhXGTJaP?=
- =?iso-8859-1?Q?xXpO2O7p0ffY9x4lCuNuNoAxVbC4SPfu+zuMAoOQ5G9q31GGtM2wwfP6wy?=
- =?iso-8859-1?Q?2JjGmMtbCJNdblo/hjxP6io5Rn/yQLiGUno9J2xEVNGSlbmAdfyDuqo64N?=
- =?iso-8859-1?Q?C21eltvcFW1ayfYGzUfKuDwseOwIQBt3s8mS7nTmBQU7lVjsOlOSguyQQZ?=
- =?iso-8859-1?Q?4k3UuO5ag9WxQqYceJEK9lxsMrrMNOzVEBSR8Dy+PjzITv8S3HYsSx1amH?=
- =?iso-8859-1?Q?7vSRWmrdm1rqWp+EO32E17F0cl6r9eeB8eS00JCyrpBemPM4tsxndBwh0s?=
- =?iso-8859-1?Q?99rq5KEUpaxfAcFNAKU4Yt8XJ0qwa7dwXmZx1rnI90LTdlGXYh0pr7lpNU?=
- =?iso-8859-1?Q?gnie9ra15ZAmjLYyP5HwH4uN1izTjO9f7cr/1umeN/TGS4y8lthy6+oX1K?=
- =?iso-8859-1?Q?b3R7XOGOmUFiGB2AyshaSR95ng4sBG6+Pi001D27lM1pJDmsi6zeyx6GWP?=
- =?iso-8859-1?Q?EFRc9EWYHqEzLLPeFoIByNlahHeTnQF4d9OJ6s6XRkusj64hbbCLHnAL2L?=
- =?iso-8859-1?Q?eYIhXK6M1yIKMEdDB7qeFBhRUZ6cbFREmjCmKtB6/SxXV5hWeJVgV7E8zJ?=
- =?iso-8859-1?Q?QTyssHyHLw=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM4PR12MB6373.namprd12.prod.outlook.com (2603:10b6:8:a4::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5206.14; Thu, 5 May 2022 10:09:48 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f%4]) with mapi id 15.20.5206.025; Thu, 5 May 2022
+ 10:09:48 +0000
+Message-ID: <7e9f45be-41a0-0764-8f4d-2787319477fb@amd.com>
+Date: Thu, 5 May 2022 12:09:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/amdgpu: Fix multiple GPU resets in XGMI hive.
+Content-Language: en-US
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR04CA0073.eurprd04.prod.outlook.com
+ (2603:10a6:20b:48b::27) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2db70e8e-4c4b-4fa6-1721-08da2e7f62c9
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6373:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB637339BA3F91450A7DC8F20283C29@DM4PR12MB6373.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cZ6ta2CxLZhZSeGV2SgcATlYyYXGu1pdu9vnnKFZv4HmOMiO9Ii2+O0fQ6ob5ANG8rdaNCqtwt3zW2LjBETjaAgcnCrMR8pkS1tIHwh7EzRZ9A9cJkdc6L3hxS6sVksZEYaCqpt2vy6AcpNkdZQPRPygJOPhOZlP3TNjScoYG3Ebz63Z6dXMR5jE6/zmr3ad1dW68OzgkiswvCTHopZjYcYU5KNawfj1ux0Ps8UdWF/62+NWTAZ5C85y1fyaSB3fl/LLdnFIFZyPZiReYxRriX8+X41Yd7WV52GDQw6qVIVFwCkMt9hvrwqH0gdOJkMtfq5yWvnUMtiDALbqVZOEKbwofDtrH9DKA3M6hNWGF2A2ngNQAPBMNQZ+CdCTwXOw1LsjDdKWNDqcvgRi1Fv1084gjmi+BuUrwmTjZ/kNW4aRJZU+GkdFJHWixyvuZxSO51JgdYiIXYYOze2Emw0atjz0LD10N78G9azptcGzHXT/Fjuq1wfhqYJb60pN83T6qJ5euaFI+1m5QeoNyAuAfps4iAmytuTXXr18tqQO5J76/TcqcS4nDGmlIrUyKpHBsGha9wBqe14hFm2RRsL4f7dy5Q7gFKCqHMDDvIrYmJrKXEHx+hx3/df3TOc3TKVOcsv7G3laGUhNnSMvQpMr7yUDxr3dT9hxXqIgRVJJF6RHMeDnJjyKq2nW4izHTKo/iSRHBSEkpl5ZWYJO+KvCuB9DxG/UzeyQM/ZXgKm2Lgwo1BtvoAM/6elTJepBJohX
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(2906002)(6506007)(6666004)(31686004)(316002)(36756003)(186003)(38100700002)(8936002)(83380400001)(8676002)(6486002)(66946007)(66476007)(508600001)(4326008)(66556008)(86362001)(31696002)(30864003)(26005)(6512007)(2616005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1hYQnkyTVdwZGtxNis1cTRUMkEzNFR2aDVoY211TzlLZi8rNmlYQ0dLOGwz?=
+ =?utf-8?B?VlptN0dJbFY3bXBDQTk4ZDFRbjdRSWpES0JlSm9yZzBBblpOTmlDYk5kMWpX?=
+ =?utf-8?B?ZjNiTEtwN0ptMGVMY290U0VxQWJHOVhQZStycC9uRURTMEp5a2Y4WWQxU2Rs?=
+ =?utf-8?B?YTl4V2ZnWFRQN1dzRktWajRHMkJTWHRkVVVzV2NWcFIzcGh2WGxWdWRORXZ6?=
+ =?utf-8?B?SlhBc28xbitPWnZNZEFvTXNqZHJWVU5qYnI2UEM3SitzOE5OL3ozclNDblZV?=
+ =?utf-8?B?Y0FGSTROUzRnNS9BcE5vbUpRYnU5QWt2UFlWOEptWGNIeWJ3d2hrcTlIcWlQ?=
+ =?utf-8?B?ZThqVjVTVTNZSnRMa2huV01ES2UzelNKMnJhaFNObzRPazgwdk00WHlSME9V?=
+ =?utf-8?B?Z2hXaGcwZU9BRW1sSmRydWcwSHVNQXFaZEY5MVMyQkdtZTUxK0o0RE5hM1F2?=
+ =?utf-8?B?R2dQeVlVZitsdG5WOUllUm80WVlTTUVrYkNiZWcxZlNCY1R3czRCNktVZUpv?=
+ =?utf-8?B?bkxrZ2lpNGZyc1ZpUjJmSWM4ZHpScW11dkNvaWVSWEZUSjA0cDNSRHo1RHY3?=
+ =?utf-8?B?Vkx0Y0ZZNmhwaWJmMTUvbjJVSE1UcnAyTWpmeXhqNjRndjErWFYwc3E2VHYw?=
+ =?utf-8?B?ekt2OHMrRW5iVWpxUUNkM0RwdmxKNkF0ZGpvQmFBMndmcEJSdjFJSUNSejgx?=
+ =?utf-8?B?WC9DRHI0QWlOMld6YzNCZDRyTmRQV2xNRWVxeUxNT0x1Wmx4ZmxqMHpKeC9o?=
+ =?utf-8?B?SmVKMkgvS0JiY3E1endUZkZDVmRWT1U1RU8rOGpxazZiNlkrckpENHBKMFNa?=
+ =?utf-8?B?Q3hBNGdHWHpQYnAvRFNPa1JtU2dsVkdFSXJHWmNXbkdnMDNpMFNRYU1aZFRp?=
+ =?utf-8?B?a3dIMXA0cTh6UTZXb1dvQ0RqcDdnb3NzT1VhMDZiSXBvQ3FqRzU0L1RKeFBK?=
+ =?utf-8?B?OGsydkltMDJ3LzhUOG1jMTFocUI4RmZLeHhPMDRGcVVsTDRJOHZPOWp4UENi?=
+ =?utf-8?B?MlBIZDcya05mUGlJM0JWdUl5WVlJK013dVpEUUhOOHBJRDBaazRxc3RRU3Fr?=
+ =?utf-8?B?S1pjUnluMEhqb09YMlllbThwQkdDU1Q1a3hUSXJJbDA4M3FaQUdQcFRzQjU0?=
+ =?utf-8?B?Tjkzdkg1SGtUai9aV040eGltWlNhTk44eXpWbXFsR3FWRWhaT2VMbWNhRVlz?=
+ =?utf-8?B?Z1JpWEl1OHQ4cnQ5VUxJaEVyK1MxRjlmRTByck5WK1VMcVB5elZLR3VRWVdG?=
+ =?utf-8?B?R1NDTVBkcS9lQ0kwYkF3KzBMb0pOUGhGd0syZzJSaG1xZVFOMzJnYzJQdlJU?=
+ =?utf-8?B?TG9HMGFCbXplUSthMy8yVFhja0lzRHMyRSsrQkR4R2NpTGV6MTRQTURJd3Fw?=
+ =?utf-8?B?SDZ3UVFjWmxYYWtxTVUzODdVLzFtaXRpTDFreXdUWUNBZ21DcHVCY3cyZFlw?=
+ =?utf-8?B?eFlZUCtPcDgyUFNLOFhLTHBmZkhPczJlUHVIcXlPN2R4d0E0K3BvZDVOWXNW?=
+ =?utf-8?B?VVdybzg4QU4vdWcvS3FSZnlQSThjUm9WRGN2SzY4bWZTdmsvNHVmSy9KOUtG?=
+ =?utf-8?B?RlZ0NXMzUGJWcWhvTndiWERQem1yTDNtZCtOWkt4VzZ2ZGZpUTgrMFBic0ht?=
+ =?utf-8?B?UGFWQW9XR1Qyby9ubFRZcUJ6RFhxSXRkY01aKytZQmhiQlk5bnI3RFg1bjJp?=
+ =?utf-8?B?aHVScitxR3E3aitRMGRoVWsyU2x1d0ZUWjJBMW9TYkxqUWN0VXF6eXZRYWZV?=
+ =?utf-8?B?ZWNBNUtuZXlCQmJqUm8zcnpPVXdhcHNkdE83WmZlS3lxdndHbExQR1ZReG4x?=
+ =?utf-8?B?b2YyOGJtRisyaFlJMmZJRStpT0pqVCtmeUlScjdNZ3h1OUZ4NU5ySnp4T3Nh?=
+ =?utf-8?B?b3NzYXBtUkVuVTVLUC90S1lHRjFPNzB4NnJtY0tON2p5dG4xUWhkS1pxcjUr?=
+ =?utf-8?B?NGp2eEV2OEp2YUJKa3ZOeHdyUXYxWVNmUE9RcG4rdzlBeGpRby8xRU0zR2ZN?=
+ =?utf-8?B?R1hNanhiVlAxTWJ0ZE5vVS8zRnh6Y3J2WkxqUm5rbkxFcEJlQkxadGNVeFJE?=
+ =?utf-8?B?REkvbUV6SUpQOUU5SzZjS0xvWVFlM01walgrOCs5c0ErUHN0ejY3a0QzcXR1?=
+ =?utf-8?B?VWVIVDhSQTAzWjk2VVhkWVRyTDU1azlWdVUvMEVZRkY1OWh6TW5IVjJlWDFI?=
+ =?utf-8?B?OHhJdTVwVDRtUmlCNTliT3I2aVphR3dlRklENFl4amdmbTJCWmk5Z3N6OUta?=
+ =?utf-8?B?UmZMd0ZyWXZwRFJRL1ZmMzhJdFNjNWRXeEZWdFNhcGtENCs1K2FoTmFrNS8v?=
+ =?utf-8?B?ejVJNnluQW9RbzNPZ1hqcVlpVnB0WVNaTG96bnI4WTZndjdWdVdkQT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2db70e8e-4c4b-4fa6-1721-08da2e7f62c9
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5feffe8-1a33-4894-1a24-08da2e7e5572
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2022 10:02:15.9707 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cx/64UEUXsPqrGT2jz0s06XsPk4lpqvi6vwP0QnxGk5GYytTuxwrQ+Ag8hYnNeZEDhf3Y9oOvF2+4hpmHtzkWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3122
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 10:09:48.1447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +zrInQfe+YE+rNil4pgf8jx3qjQq0wduie2RPX10JUhxD82iBnmx50snI4GzdiOK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,250 +128,374 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Bai Zoy <Zoy.Bai@amd.com>, lijo.lazar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-Hi Lyude,
-
-Thanks for raising this!
-Please see my comments inline : )
-________________________________________
-> From: Zuo, Jerry <Jerry.Zuo@amd.com>
-> Sent: Thursday, May 5, 2022 10:30
-> To: Lyude Paul; Lin, Wayne; Wentland, Harry; amd-gfx@lists.freedesktop.or=
-g
-> Subject: RE: Do we really need to increase/decrease MST VC payloads?
+Am 04.05.22 um 18:18 schrieb Andrey Grodzovsky:
+> Problem:
+> During hive reset caused by command timing out on a ring
+> extra resets are generated by triggered by KFD which is
+> unable to accesses registers on the resetting ASIC.
 >
-> [AMD Official Use Only - General]
+> Fix: Rework GPU reset to use a list of pending reset jobs
+> such that the first reset jobs that actaully resets the entire
+> reset domain will cancel all those pending redundant resets.
 >
-> Hi Lyude:
->
->      Sorry for replying late.
->
->      1. The payload increase/decrease routines are not for DP2.
->      2. mst_bw_update is not used in amdgpu_dm, so those two functions ar=
-e not getting used for now. I leave it there simply for future possible hoo=
-k up.
->
-> Regards,
-> Jerry
->
-> > -----Original Message-----
-> > From: Lyude Paul <lyude@redhat.com>
-> > Sent: Wednesday, May 4, 2022 5:17 PM
-> > To: Lin, Wayne <Wayne.Lin@amd.com>; Wentland, Harry
-> > <Harry.Wentland@amd.com>; amd-gfx@lists.freedesktop.org; Zuo, Jerry
-> > <Jerry.Zuo@amd.com>
-> > Subject: Re: Do we really need to increase/decrease MST VC payloads?
-> >
-> > Some good news: I actually came up with a way of handling this in the n=
-ew
-> > MST code pretty nicely, so I think we should be able to move forward
-> > without having to disable this (although it would be very nice to know
-> > whether or not this is necessary for amdgpu to work, since it'd still b=
-e nice to
-> > split this into separate changes to make reviewing my big MST patch ser=
-ies
-> > easier. More comments down below:
-> >
-> > On Mon, 2022-05-02 at 18:40 -0400, Lyude Paul wrote:
-> > > Hi! So I kinda hate to ask this, but finding this in amdgpu completel=
-y
-> > > took me by surprise and unfortunately is (while technically correct)
-> > > an enormous pain and not really necessary as far as I'm aware.
-> > >
-> > > So: it seems that amdgpu is currently the only driver that not only
-> > > allocates/deallocates payloads, but it also increases/decreases the
-> > > size of payloads as well. This was added in:
-> > >
-> > >    d740e0bf8ed4 ("drm/amd/display: Add DP 2.0 MST DC Support")
-> > >
-> > > This is fine, except that it's totally not at all a situation that th=
-e
-> > > current payload management code we have (which, is the first place
-> > > this should have been implemented) knows how to handle, because every
-> > > other driver simply allocates/releases payloads. Having to increase
-> > > the size of payloads means that we no longer can count on the payload
-> > > table being contiguous, and means we have to resort to coming up with
-> > > a more complicated solution to actually do payload management
-> > > atomically.
-> > >
-> > > I'm willing to try to do that (it should be doable by using bitmasks
-> > > to track non-contiguous allocated slots), but considering:
-> > >  * This isn't actually needed for DP 2.0 to work as far as I'm aware
-> > > (if I'm
-> > >    wrong please correct me! but I see no issue with just deallocating
-> > > and
-> > >    allocating payloads). It's nice to have, but not necessary.
-> > >  * This was from the DSC MST series, which included a lot of code tha=
-t
-> > > I
-> > >    mentioned at the time needed to not live in amdgpu and be moved
-> > > into other
-> > >    helpers. That hasn't really happened yet, and there are no signs o=
-f
-> > > it
-> > >    happening from amd's side - and I just plain do not want to have t=
-o
-> > > be the
-> > >    person to do that when I can help it. Going through amdgpu takes a
-> > > serious
-> > >    amount of energy because of all of the abstraction layers, enough
-> > > so I
-> > >    honestly didn't even notice this VC table change when I looked at
-> > > the
-> > >    series this was from. (Or maybe I did, but didn't fully grasp what
-> > > was
-> > >    changing at the time :\).
-> > >  * Also on that note, are we even sure that this works with subsequen=
-t
-> > > VC
-> > >    changes? E.g. has anyone tested this with physical hardware? I
-> > > don't know
-> > >    that I actually have the hardware to test this out, but
-> > >    drm_dp_update_payload*() absolutely doesn't understand
-> > > non-contiguous
-> > >    payloads which I would think could lead to the VCPI start slots
-> > > getting
-> > >    miscalculated if a payload increase/decreases (happy to give
-> > > further
-> > >    explanation on this if needed). Note if this is the case, please
-> > > hold off a
-> > >    bit before trying to fix it and consider just not doing this for
-> > > the time
-> > >    being.
-> >
-> > Sorry for being a bit vague with this! I typed this email at the end of=
- the
-> > workday and didn't feel like going super into detail on this. So I gues=
-s I'll do
-> > that now (hopefully I didn't misread the MST spec
-> > somewhere):
-> >
-> > For reference: the issue I was mentioning here was regarding the fact t=
-hat
-> > the current payload management code we have doesn't keep track of exact=
-ly
-> > which VC slots are in use by a payload at any given time - only the sta=
-rting
-> > slots and total slot counts of each payload. Which means that once we
-> > increase a MST payload, since the additional VC slots will be put at th=
-e end of
-> > the VC table regardless of the start of the payload. As such, it's poss=
-ible that
-> > said payload will no longer be contiguous. An example, note for simplic=
-ity
-> > sake this example pretends we only have 8 VC slots instead of 64:
-> >
-> > Payloads: #1 =3D=3D 2 slots, #2 =3D=3D 1 slot, #3 =3D=3D 2 slots
-> >
-> > VC table looks like this, where each number corresponds to a VCPI and X
-> > means unused:
-> >
-> >         |1 1 2 3 3 X X X|
-> >
-> > We decide we need to increase payload #1 from 2 slots to 3. The MST spe=
-c
-> > mandates that new slots always are added to the end, so we end up with =
-this
-> > surprising VC table:
+> This is in line with what we already do for redundant TDRs
+> in scheduler code.
 
-I think this shouldn't happen. Please refer to the figure 2-98 of DP spec 1=
-.4.
-The payload id table should be changed to below I think.
+Mhm, why exactly do you need the extra linked list then?
 
-        |1 1 1 2 3 3 X X|
+Let's talk about that on our call today.
 
-I skimmed over a bit of the implementation in drm. I think it should work f=
-ine
-except that we have to revise function drm_dp_init_vcpi() a bit.
-Since increasing/decreasing time slots should still use the same payload id=
-,
-we should add logic to skip trying to assign a new payload id under this ca=
-se.
-
-> >
-> >         |1 1 2 3 3 1 X X|
-> >
-> > Now, let's say we increase payload #2 to 2 slots:
-> >
-> >         |1 1 2 3 3 1 2 X|
-> >
-> > Surprise - the monitor for payload #1 was unplugged, so we need to remo=
-ve
-> > it's payload. Note the MST spec doesn't allow holes between allocations=
-, and
-> > makes branches repsonsible for automatically moving payloads to fill in=
- the
-> > gaps which we have to keep track of locally.
-> > Normally the handling of holes would be fine, as our current payload
-> > management code loops through each payload to fill in any holes. But th=
-ese
-> > payloads aren't contiguous and we only kept track of their start slots =
-and
-> > total slot counts. So we would end up thinking we now have a VC table l=
-ike
-> > this:
-> >
-> >         |2 2 3 3 X X X X|
-> >
-> > But that's wrong, in reality the table will look like this on the MST
-> > hub:
-> >
-> >         |2 3 3 2 X X X X|
-> >
-> > Now things are broken, because we now have the wrong start slot for
-> > payload #3.
-> >
-> > Just figured I'd clarify :). if anyone is curious, I ended up fixing th=
-is by adding
-> > a bitmask of assigned VC slots to our atomic payload struct - and using=
- that
-> > to keep track of the current start slots for each payload. Since we hav=
-e a max
-> > of 64 VC slots which fits into a u64, this works rather elegantly!
-> >
-> > >
-> > > I'd /very/ much like to just disable this behavior for the time being
-> > > (not the whole commit for DP 2.0 support since that'd be unreasonable=
-,
-> > > just the increase/decrease payload changes), and eventually have
-> > > someone just implement this the proper way by adding support for this
-> > > into the MST helpers and teaching them how to handle non-contiguous
-> > > payloads. I'm happy to leave as much of the code intact as possible
-> > > (maybe with #if 0 or whatever), and ideally just add some code
-> > > somewhere to avoid increasing/decreasing payloads without a full
-> > > modeset.
-> > >
-> > > FWIW, the WIP of my atomic MST work is here:
-> > >
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fg=
-itl
-> > > ab.freedesktop.org%2Flyudess%2Flinux%2F-%2Fcommits%2Fwip%2Fmst-
-> > atomic-
-> > > only-
-> > v1&amp;data=3D05%7C01%7Cjerry.zuo%40amd.com%7Cf669121b53414c0dbc9
-> > 40
-> > >
-> > 8da2e137e85%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6378
-> > 729585141
-> > >
-> > 60092%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2lu
-> > MzIiLCJB
-> > >
-> > TiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DIBn%2BF5
-> > 0r9WIeUfG
-> > > 9MUGStbACr5Kolu3PB5K0dyiiYwg%3D&amp;reserved=3D0
-> > >
-> > > I already have i915 and nouveau working with these changes JFYI.
-> >
-> > --
-> > Cheers,
-> >  Lyude Paul (she/her)
-> >  Software Engineer at Red Hat
-
---
 Regards,
-Wayne Lin
+Christian.
+
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Tested-by: Bai Zoy <Zoy.Bai@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 11 +---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 17 +++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  3 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 73 +++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  7 ++-
+>   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  7 ++-
+>   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  7 ++-
+>   8 files changed, 104 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 4264abc5604d..99efd8317547 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -109,6 +109,7 @@
+>   #include "amdgpu_fdinfo.h"
+>   #include "amdgpu_mca.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu_reset.h"
+>   
+>   #define MAX_GPU_INSTANCE		16
+>   
+> @@ -509,16 +510,6 @@ struct amdgpu_allowed_register_entry {
+>   	bool grbm_indexed;
+>   };
+>   
+> -enum amd_reset_method {
+> -	AMD_RESET_METHOD_NONE = -1,
+> -	AMD_RESET_METHOD_LEGACY = 0,
+> -	AMD_RESET_METHOD_MODE0,
+> -	AMD_RESET_METHOD_MODE1,
+> -	AMD_RESET_METHOD_MODE2,
+> -	AMD_RESET_METHOD_BACO,
+> -	AMD_RESET_METHOD_PCI,
+> -};
+> -
+>   struct amdgpu_video_codec_info {
+>   	u32 codec_type;
+>   	u32 max_width;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index e582f1044c0f..7fa82269c30f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5201,6 +5201,12 @@ int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
+>   	}
+>   
+>   	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
+> +
+> +	/* Drop all pending resets since we will reset now anyway */
+> +	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+> +					    reset_list);
+> +	amdgpu_reset_pending_list(tmp_adev->reset_domain);
+> +
+>   	/* Actual ASIC resets if needed.*/
+>   	/* Host driver will handle XGMI hive reset for SRIOV */
+>   	if (amdgpu_sriov_vf(adev)) {
+> @@ -5296,7 +5302,7 @@ int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
+>   }
+>   
+>   struct amdgpu_recover_work_struct {
+> -	struct work_struct base;
+> +	struct amdgpu_reset_work_struct base;
+>   	struct amdgpu_device *adev;
+>   	struct amdgpu_job *job;
+>   	int ret;
+> @@ -5304,7 +5310,7 @@ struct amdgpu_recover_work_struct {
+>   
+>   static void amdgpu_device_queue_gpu_recover_work(struct work_struct *work)
+>   {
+> -	struct amdgpu_recover_work_struct *recover_work = container_of(work, struct amdgpu_recover_work_struct, base);
+> +	struct amdgpu_recover_work_struct *recover_work = container_of(work, struct amdgpu_recover_work_struct, base.base.work);
+>   
+>   	recover_work->ret = amdgpu_device_gpu_recover_imp(recover_work->adev, recover_work->job);
+>   }
+> @@ -5316,12 +5322,15 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_recover_work_struct work = {.adev = adev, .job = job};
+>   
+> -	INIT_WORK(&work.base, amdgpu_device_queue_gpu_recover_work);
+> +	INIT_DELAYED_WORK(&work.base.base, amdgpu_device_queue_gpu_recover_work);
+> +	INIT_LIST_HEAD(&work.base.node);
+>   
+>   	if (!amdgpu_reset_domain_schedule(adev->reset_domain, &work.base))
+>   		return -EAGAIN;
+>   
+> -	flush_work(&work.base);
+> +	flush_delayed_work(&work.base.base);
+> +
+> +	amdgpu_reset_domain_del_pendning_work(adev->reset_domain, &work.base);
+>   
+>   	return work.ret;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> index c80af0889773..ffddd419c351 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> @@ -134,6 +134,9 @@ struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_d
+>   	atomic_set(&reset_domain->in_gpu_reset, 0);
+>   	init_rwsem(&reset_domain->sem);
+>   
+> +	INIT_LIST_HEAD(&reset_domain->pending_works);
+> +	mutex_init(&reset_domain->reset_lock);
+> +
+>   	return reset_domain;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> index 1949dbe28a86..863ec5720fc1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> @@ -24,7 +24,18 @@
+>   #ifndef __AMDGPU_RESET_H__
+>   #define __AMDGPU_RESET_H__
+>   
+> -#include "amdgpu.h"
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/mutex.h>
+> +#include <linux/list.h>
+> +#include <linux/kref.h>
+> +#include <linux/rwsem.h>
+> +#include <linux/workqueue.h>
+> +
+> +struct amdgpu_device;
+> +struct amdgpu_job;
+> +struct amdgpu_hive_info;
+> +
+>   
+>   enum AMDGPU_RESET_FLAGS {
+>   
+> @@ -32,6 +43,17 @@ enum AMDGPU_RESET_FLAGS {
+>   	AMDGPU_SKIP_HW_RESET = 1,
+>   };
+>   
+> +
+> +enum amd_reset_method {
+> +	AMD_RESET_METHOD_NONE = -1,
+> +	AMD_RESET_METHOD_LEGACY = 0,
+> +	AMD_RESET_METHOD_MODE0,
+> +	AMD_RESET_METHOD_MODE1,
+> +	AMD_RESET_METHOD_MODE2,
+> +	AMD_RESET_METHOD_BACO,
+> +	AMD_RESET_METHOD_PCI,
+> +};
+> +
+>   struct amdgpu_reset_context {
+>   	enum amd_reset_method method;
+>   	struct amdgpu_device *reset_req_dev;
+> @@ -40,6 +62,8 @@ struct amdgpu_reset_context {
+>   	unsigned long flags;
+>   };
+>   
+> +struct amdgpu_reset_control;
+> +
+>   struct amdgpu_reset_handler {
+>   	enum amd_reset_method reset_method;
+>   	struct list_head handler_list;
+> @@ -76,12 +100,21 @@ enum amdgpu_reset_domain_type {
+>   	XGMI_HIVE
+>   };
+>   
+> +
+> +struct amdgpu_reset_work_struct {
+> +	struct delayed_work base;
+> +	struct list_head node;
+> +};
+> +
+>   struct amdgpu_reset_domain {
+>   	struct kref refcount;
+>   	struct workqueue_struct *wq;
+>   	enum amdgpu_reset_domain_type type;
+>   	struct rw_semaphore sem;
+>   	atomic_t in_gpu_reset;
+> +
+> +	struct list_head pending_works;
+> +	struct mutex reset_lock;
+>   };
+>   
+>   
+> @@ -113,9 +146,43 @@ static inline void amdgpu_reset_put_reset_domain(struct amdgpu_reset_domain *dom
+>   }
+>   
+>   static inline bool amdgpu_reset_domain_schedule(struct amdgpu_reset_domain *domain,
+> -						struct work_struct *work)
+> +						struct amdgpu_reset_work_struct *work)
+>   {
+> -	return queue_work(domain->wq, work);
+> +	mutex_lock(&domain->reset_lock);
+> +
+> +	if (!queue_delayed_work(domain->wq, &work->base, 0)) {
+> +		mutex_unlock(&domain->reset_lock);
+> +		return false;
+> +	}
+> +
+> +	list_add_tail(&work->node, &domain->pending_works);
+> +	mutex_unlock(&domain->reset_lock);
+> +
+> +	return true;
+> +}
+> +
+> +static inline void amdgpu_reset_domain_del_pendning_work(struct amdgpu_reset_domain *domain,
+> +				  struct amdgpu_reset_work_struct *work)
+> +{
+> +	mutex_lock(&domain->reset_lock);
+> +	list_del_init(&work->node);
+> +	mutex_unlock(&domain->reset_lock);
+> +}
+> +
+> +static inline void amdgpu_reset_pending_list(struct amdgpu_reset_domain *domain)
+> +{
+> +	struct amdgpu_reset_work_struct *entry, *tmp;
+> +
+> +	mutex_lock(&domain->reset_lock);
+> +	list_for_each_entry_safe(entry, tmp, &domain->pending_works, node) {
+> +
+> +		list_del_init(&entry->node);
+> +
+> +		/* Stop any other related pending resets */
+> +		cancel_delayed_work(&entry->base);
+> +	}
+> +
+> +	mutex_unlock(&domain->reset_lock);
+>   }
+>   
+>   void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 239f232f9c02..574e870d3064 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -25,6 +25,7 @@
+>   #define AMDGPU_VIRT_H
+>   
+>   #include "amdgv_sriovmsg.h"
+> +#include "amdgpu_reset.h"
+>   
+>   #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS  (1 << 0) /* vBIOS is sr-iov ready */
+>   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is enabled on this GPU */
+> @@ -230,7 +231,7 @@ struct amdgpu_virt {
+>   	uint32_t			reg_val_offs;
+>   	struct amdgpu_irq_src		ack_irq;
+>   	struct amdgpu_irq_src		rcv_irq;
+> -	struct work_struct		flr_work;
+> +	struct amdgpu_reset_work_struct flr_work;
+>   	struct amdgpu_mm_table		mm_table;
+>   	const struct amdgpu_virt_ops	*ops;
+>   	struct amdgpu_vf_error_buffer	vf_errors;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> index b81acf59870c..f3d1c2be9292 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> @@ -251,7 +251,7 @@ static int xgpu_ai_set_mailbox_ack_irq(struct amdgpu_device *adev,
+>   
+>   static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
+>   {
+> -	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work);
+> +	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work.base.work);
+>   	struct amdgpu_device *adev = container_of(virt, struct amdgpu_device, virt);
+>   	int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
+>   
+> @@ -380,7 +380,8 @@ int xgpu_ai_mailbox_get_irq(struct amdgpu_device *adev)
+>   		return r;
+>   	}
+>   
+> -	INIT_WORK(&adev->virt.flr_work, xgpu_ai_mailbox_flr_work);
+> +	INIT_DELAYED_WORK(&adev->virt.flr_work.base, xgpu_ai_mailbox_flr_work);
+> +	INIT_LIST_HEAD(&adev->virt.flr_work.node);
+>   
+>   	return 0;
+>   }
+> @@ -389,6 +390,8 @@ void xgpu_ai_mailbox_put_irq(struct amdgpu_device *adev)
+>   {
+>   	amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
+>   	amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
+> +
+> +	amdgpu_reset_domain_del_pendning_work(adev->reset_domain, &adev->virt.flr_work);
+>   }
+>   
+>   static int xgpu_ai_request_init_data(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> index 22c10b97ea81..927b3d5bb1d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> @@ -275,7 +275,7 @@ static int xgpu_nv_set_mailbox_ack_irq(struct amdgpu_device *adev,
+>   
+>   static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
+>   {
+> -	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work);
+> +	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work.base.work);
+>   	struct amdgpu_device *adev = container_of(virt, struct amdgpu_device, virt);
+>   	int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
+>   
+> @@ -407,7 +407,8 @@ int xgpu_nv_mailbox_get_irq(struct amdgpu_device *adev)
+>   		return r;
+>   	}
+>   
+> -	INIT_WORK(&adev->virt.flr_work, xgpu_nv_mailbox_flr_work);
+> +	INIT_DELAYED_WORK(&adev->virt.flr_work.base, xgpu_nv_mailbox_flr_work);
+> +	INIT_LIST_HEAD(&adev->virt.flr_work.node);
+>   
+>   	return 0;
+>   }
+> @@ -416,6 +417,8 @@ void xgpu_nv_mailbox_put_irq(struct amdgpu_device *adev)
+>   {
+>   	amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
+>   	amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
+> +
+> +	amdgpu_reset_domain_del_pendning_work(adev->reset_domain, &adev->virt.flr_work);
+>   }
+>   
+>   const struct amdgpu_virt_ops xgpu_nv_virt_ops = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+> index 7b63d30b9b79..1d4ef5c70730 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+> @@ -512,7 +512,7 @@ static int xgpu_vi_set_mailbox_ack_irq(struct amdgpu_device *adev,
+>   
+>   static void xgpu_vi_mailbox_flr_work(struct work_struct *work)
+>   {
+> -	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work);
+> +	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, flr_work.base.work);
+>   	struct amdgpu_device *adev = container_of(virt, struct amdgpu_device, virt);
+>   
+>   	/* wait until RCV_MSG become 3 */
+> @@ -610,7 +610,8 @@ int xgpu_vi_mailbox_get_irq(struct amdgpu_device *adev)
+>   		return r;
+>   	}
+>   
+> -	INIT_WORK(&adev->virt.flr_work, xgpu_vi_mailbox_flr_work);
+> +	INIT_DELAYED_WORK(&adev->virt.flr_work.base, xgpu_vi_mailbox_flr_work);
+> +	INIT_LIST_HEAD(&adev->virt.flr_work.node);
+>   
+>   	return 0;
+>   }
+> @@ -619,6 +620,8 @@ void xgpu_vi_mailbox_put_irq(struct amdgpu_device *adev)
+>   {
+>   	amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
+>   	amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
+> +
+> +	amdgpu_reset_domain_del_pendning_work(adev->reset_domain, &adev->virt.flr_work);
+>   }
+>   
+>   const struct amdgpu_virt_ops xgpu_vi_virt_ops = {
+
