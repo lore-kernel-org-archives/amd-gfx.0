@@ -4,59 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DCF7C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 02:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDBCC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 02:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0A0610EA63;
-	Thu,  5 May 2022 02:11:44 +0000 (UTC)
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A68B910E8B4;
- Thu,  5 May 2022 02:11:04 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id e5so2570645pgc.5;
- Wed, 04 May 2022 19:11:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 788EB10ED31;
+	Thu,  5 May 2022 02:22:09 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2344F10ED31
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 02:22:08 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id m25so3066109oih.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 May 2022 19:22:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2JXqprHTSEwVqmxQ6E6dnaH9uepTywYAN4NcxLuZd6g=;
- b=BahfpvWfsZ5f932IPUJ2jABGavlcF1WDZZRQ1xqDVsDdv6eSrvo3aDFJKKKlW991/A
- QHBtOcY3VCtoHQTideoAXZigBBTPmmLNCh7gj8PPuqDL7getPhkiOxQGMhoh8AAwWVb7
- /0d8S/e63i68BJcrSa8koua2Reqb17gA1yKlM6KjVXnTSxhhHgUw0oqAxwcDpFBWXqiq
- Nac/PyrdR/EP3o+qf8AgOKKxmvu5rOYC/9a6f1+Yl4Kri1iPyhccktjHa/tWEJMGsM/a
- VxFKKBS6Ok7j25IFXwbIP70FzDCEXatGVpfFK/n7+uspR+zc7G0qTV1EeEgI+ifo4lyZ
- DyHg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RLwwz1hmLzLVo72mZyQYz/b9Oc0u2pa4zAwGH6/u5uU=;
+ b=CKLE1ZWV2K2FBb9mdLIWSEDlsiYf/qfJyvwAqC/zFmiOuTlRdFO5eDo3Ta0N4jNdPd
+ J/OTyvkjUSk1ap2/lSp+YQxvKcOOO0hd36Om6D6yCx9pJ+dWPOJSh0lcO15QOHDcSGRg
+ 25bI9jP/+1WEy4XivRkc1wQd2+PnF+7LMw2z1zk+bgJ46ngHRYf5sevKrqJkqPNKt/MQ
+ qPjpLrxD6G2dPVqPnlJe+Iglky5NHIrGSiiIUuLcyXIPIJFmG7BbFX3DuWqwD+gF5vWq
+ femEF18bDsKfn56iplHpQGL6bXVl4SUiLG+AB4ss/+Xl0wB9NPctPTq5nARTd0yRbEnM
+ v0fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2JXqprHTSEwVqmxQ6E6dnaH9uepTywYAN4NcxLuZd6g=;
- b=v+lnsCBq3Viqf8tY0PPRJujtdl8Wv3/DDuWxo8bvu5xjhxxP9xEXSewY8iQU17e1mk
- 2/K/EoaCl5UVIi8w+crvFWgkiLdHgjEIefuHo92zPznNNTAKOBH3UJ1Nc9vVwwCnQQxD
- l8G/Row9jls6bOeDSnK4tkKfjjR3486lzSR2pjJG6PSb1ACzYd083DEa0wyUPzFe5nbQ
- iRIJMVlKDx2n4enX02/cowVGMosmNVbXzzyYsML1raX8MAphHDX92ie7MTl0WFUIEzX7
- bcGBglaN7preBqeL/ZahT4M/BexEHkDxucq8RrS0ryx2r4DGxAe0FCtSLuthMebzVGYj
- ZmPA==
-X-Gm-Message-State: AOAM5303pMa0xIXGcCR7FApLP8G/n2gVzL4/tff0TMjJDkgAHSOjNRVh
- ggdfyNr12ZsKqTgLU3d1LeQ=
-X-Google-Smtp-Source: ABdhPJxAiLJ63+QLwKXUbnFKKWPgiJBSXZs2RaHbatNjT2OEkLNBoKx5qJaZbbQSUW6AwyU4PsilqA==
-X-Received: by 2002:a63:e60b:0:b0:3c2:2450:135a with SMTP id
- g11-20020a63e60b000000b003c22450135amr14174847pgh.8.1651716664263; 
- Wed, 04 May 2022 19:11:04 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- p13-20020a170902a40d00b0015e8d4eb200sm186977plq.74.2022.05.04.19.11.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 19:11:02 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: simplify the return expression
-Date: Thu,  5 May 2022 02:10:57 +0000
-Message-Id: <20220505021057.54044-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RLwwz1hmLzLVo72mZyQYz/b9Oc0u2pa4zAwGH6/u5uU=;
+ b=WuRn11/zKHxw/L5Rv+YTy9AhFtxIb9Siu2RDn8Kg9VgWib4aQMcqwpD8+j6NrTGVcA
+ 8TSqYqMRMEfmo9YnnX7d0UcHPyl0MfSCkC467gfoAfdlBmecYqkT3K0VbfSpu1sGE2Jx
+ n1unGMoeOImdS9tBYta3knRy9gtBJEz0QP0z2rRWhTu6yvQWmdeub1nxAThKk06gNsiA
+ 6MiybjCQdZUQiVdmCv7TH+19g//H0kysE+DcWaPAQaBHvExxWeenqJzZW0NuFC3Nn+xL
+ 92kvUxwjWSifz/4RFn53VB7tBTnm2EDyI6IUfSfruR4hbeGt/FEWk3jVhjFXxW/eblB+
+ k4Ig==
+X-Gm-Message-State: AOAM5312CIllegpWieO45acqwYOH4C6Im5rb3yi5adjsLmj6jdXbh/7u
+ OvMCXY8ePeBZF/bnf2KFVRbc0DtFM8eg0BCHMRe8JeY8
+X-Google-Smtp-Source: ABdhPJxu+2GsIhJLXZY16V95WEQCol1QLFozm7PscPSSDe6QvNW0xVPi4qCb5CB75vdJ7d0wx6gc6a44CZ5hgP6NCQU=
+X-Received: by 2002:a05:6808:f8d:b0:325:1e81:ffe5 with SMTP id
+ o13-20020a0568080f8d00b003251e81ffe5mr1291253oiw.253.1651717327422; Wed, 04
+ May 2022 19:22:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 05 May 2022 02:11:42 +0000
+References: <20220504222414.95884-1-mike@fireburn.co.uk>
+ <20220504222414.95884-3-mike@fireburn.co.uk>
+In-Reply-To: <20220504222414.95884-3-mike@fireburn.co.uk>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 May 2022 22:21:56 -0400
+Message-ID: <CADnq5_NafUq9BWuMBJJ-fSAzXP__YQmd2L=mRm5GBOoi7wgJfA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/gfx11: Avoid uninitialised variable 'index'
+To: Mike Lothian <mike@fireburn.co.uk>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,69 +62,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- Minghao Chi <chi.minghao@zte.com.cn>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Applied the series.  Thanks!
 
-Simplify the return expression.
+Alex
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 54446162db8b..3d8093bf1679 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4688,7 +4688,6 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
- static int gfx_v10_0_gfx_ring_init(struct amdgpu_device *adev, int ring_id,
- 				   int me, int pipe, int queue)
- {
--	int r;
- 	struct amdgpu_ring *ring;
- 	unsigned int irq_type;
- 
-@@ -4708,17 +4707,13 @@ static int gfx_v10_0_gfx_ring_init(struct amdgpu_device *adev, int ring_id,
- 	sprintf(ring->name, "gfx_%d.%d.%d", ring->me, ring->pipe, ring->queue);
- 
- 	irq_type = AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP + ring->pipe;
--	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
-+	return amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
- 			     AMDGPU_RING_PRIO_DEFAULT, NULL);
--	if (r)
--		return r;
--	return 0;
- }
- 
- static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 				       int mec, int pipe, int queue)
- {
--	int r;
- 	unsigned irq_type;
- 	struct amdgpu_ring *ring;
- 	unsigned int hw_prio;
-@@ -4743,12 +4738,8 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
- 			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
- 	/* type-2 packets are deprecated on MEC, use type-3 instead */
--	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
-+	return amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
- 			     hw_prio, NULL);
--	if (r)
--		return r;
--
--	return 0;
- }
- 
- static int gfx_v10_0_sw_init(void *handle)
--- 
-2.25.1
-
-
+On Wed, May 4, 2022 at 6:24 PM Mike Lothian <mike@fireburn.co.uk> wrote:
+>
+> This stops clang complaining:
+>
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:376:6: warning: variable 'index' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+>         if (ring->is_mes_queue) {
+>             ^~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:433:30: note: uninitialized use occurs here
+>         amdgpu_device_wb_free(adev, index);
+>                                     ^~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:376:2: note: remove the 'if' if its condition is always false
+>         if (ring->is_mes_queue) {
+>         ^~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:364:16: note: initialize the variable 'index' to silence this warning
+>         unsigned index;
+>                       ^
+>                        = 0
+>
+> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 141c64636577..c5655128fd9c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -430,7 +430,8 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>                 amdgpu_ib_free(adev, &ib, NULL);
+>         dma_fence_put(f);
+>  err1:
+> -       amdgpu_device_wb_free(adev, index);
+> +       if (!ring->is_mes_queue)
+> +               amdgpu_device_wb_free(adev, index);
+>         return r;
+>  }
+>
+> --
+> 2.35.1
+>
