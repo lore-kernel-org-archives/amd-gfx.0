@@ -4,60 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A83C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 02:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3107C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 02:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B09D410EDAA;
-	Thu,  5 May 2022 02:23:27 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3238510ED5C;
- Thu,  5 May 2022 02:22:45 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id i1so3117263plg.7;
- Wed, 04 May 2022 19:22:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4474010ED83;
+	Thu,  5 May 2022 02:24:32 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF05210ED83;
+ Thu,  5 May 2022 02:24:30 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ l9-20020a4abe09000000b0035eb3d4a2aeso509029oop.0; 
+ Wed, 04 May 2022 19:24:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4kWQfwEbK95xky/d4HhQ+FlkuBESmRWEkmfG0y0k6Yc=;
- b=E0/AMlIWlX2QfzeIjcII6CLO40b23wuotJIrvhbNd29xWOYF75GL9IxyRjbMEH3naM
- AsANCB3Fy3cr+5nzf3JHIOq+IjfbunSJufgQwTLzJbcW5i4TNAm/jUfGuve/2eOUzskf
- qXW4/DtXMQVPBSUo5zeSWcV+yX7YMsXsG4EhHGrVql08nzJ55l01RXDHJxKNwPzdHGQX
- bebb41ewRaKFw7OVwBKjJJgNLG7ib7GwVPZC3sivigfMwK1dVKPUz4fiEcy+v/U5yArC
- fIt9K9Ov6hZRs+8jNuT6VW9MPd5jf/P+fNfC7AWpBWs6ybvF7ber7gshyXRhW3tSeJ79
- NaOA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=D1b0HeUhFBeNKN2FYsIQkaN3rxaQMWP2KFVM4rsp4jc=;
+ b=UZ0DrSh8fY2ykyDbM3LBeIwSBJ9QEY3Kgh7jT+0AADbpCXCf2WJxAxNfPXedRrbY3d
+ XpibHEhpyIk1HyqalJ5MvHjYDejYiDn+T0nabIGwcCDckEEmWoWlWRV31Tk0P3eM4pSa
+ 0pfKhKWMAPSSaHkdeX7yX+1vOKWw8jvvWTjQThmO01WHVT77x4L0mKv8qJ8s2f1l5W37
+ U5BlcO0OvQMGPaG6zrL/dr4pUIqOKmJHyHQ8w6fSgfeQy/wus68WWhUwYmRDA1y4tSFT
+ eeEQaYOliZjS12LRzktPizxhlS8/mVvDOu4nY3/7VWQ9uA+gFvw4+f0C1EvGbmObs8qu
+ uKBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4kWQfwEbK95xky/d4HhQ+FlkuBESmRWEkmfG0y0k6Yc=;
- b=nKghclq9mQuDBjdibymMsVYDrs8a6op0zWRKuBLE5rRnijEYfXjw2zoHdnI+e8egG/
- +TZ9MT71lG+qThxPTjjA1DPYJtfV+MBYTSfGYYLGvRp9kOJWRqxCeB0xDS+XQlMQHVp1
- RBr/SgOGANLQeI0Co+5MDYVgKBQq7IPcyHHGkjN1jJTlR56Ey+CvdJPTcLejb8g8Nxdx
- d4v8Kc4NUxqaqkpf/3E2dQm8l0KTFt15Rsp5prJUANmkLnqT1VvyNmlxkuBbFu6QGeNX
- wn2yqn1Ag3rNAn6slF8rur6rGCiePmZFhASkLrAvqoXyUPmq+btkUQ+Xixz+KHUpNn34
- m9Fw==
-X-Gm-Message-State: AOAM530smwzlas9joPEhtW1yirs0SXQfQmRMwdovZ46wow9okEU0coC+
- 7yX9NkRYBqLJNCCwOAHUIS0=
-X-Google-Smtp-Source: ABdhPJw1cWNP932SAnVrBHZI77Y5r2z3v4pkPgX8TpSZkODTuCZDIKhl7JkWU4n/DJecOdGqzDQ5rw==
-X-Received: by 2002:a17:90b:380b:b0:1dc:6d24:76ff with SMTP id
- mq11-20020a17090b380b00b001dc6d2476ffmr3271725pjb.42.1651717364762; 
- Wed, 04 May 2022 19:22:44 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- q4-20020a056a00150400b0050dc76281a1sm86482pfu.123.2022.05.04.19.22.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 19:22:44 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: simplify the return expression of
- vega10_ih_hw_init()
-Date: Thu,  5 May 2022 02:22:39 +0000
-Message-Id: <20220505022239.58334-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D1b0HeUhFBeNKN2FYsIQkaN3rxaQMWP2KFVM4rsp4jc=;
+ b=hypGKS6IC+L5tjPE13svmzhBDnU5iGtHlbc/7tfNlLHNEs587k7z0GU88geO70x9S8
+ TYesrsxENmITzBMN+49MbCzbGP+yvyhFT+JYo8dlzN51ezLr1P/T2awkV11jdKVWhn72
+ V/TZsFXfDvgitvr1aLDOIA7dFb6nFxi8HHj/MtE6rYZ+vYOj/rgTYGbdctvcH7lYKJPq
+ aRuvgp8+dPOjYe6pfiexcsb68kSntiVdcd3UJS1VPimyMKEBExUHQmomKjNN4SXu7k1F
+ pwQ8j4zJsuT9EHrYQP/73FjZhX0nUN00hpW7CT3wFXwcl37IsFngEFqvo+gkV3g4pKUv
+ YlwA==
+X-Gm-Message-State: AOAM531RCtn+QZjsqfuhTChIM6xO2pxjXei7xKZ6HYPBJGkGLrN4nuhe
+ 4ePzkCzF83aOLtX+iD0P7hzYPMQpgBBtKiqhJYo=
+X-Google-Smtp-Source: ABdhPJwc1+OUJ0Ez3LmYL0k1WAFwiwBeLHeltqdtrVuvvYg7f9LzA2gXJvus9VH4s/4b1m8U6AfEDSHe0AlMr82SHR4=
+X-Received: by 2002:a4a:e2ca:0:b0:35e:b623:8799 with SMTP id
+ l10-20020a4ae2ca000000b0035eb6238799mr8437220oot.68.1651717470097; Wed, 04
+ May 2022 19:24:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 05 May 2022 02:23:27 +0000
+References: <20220505022239.58334-1-chi.minghao@zte.com.cn>
+In-Reply-To: <20220505022239.58334-1-chi.minghao@zte.com.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 May 2022 22:24:18 -0400
+Message-ID: <CADnq5_N1yG+Jpg-+0R=Xo4DL0pgnwb_bGEY+TUBXTv1v94-_KQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: simplify the return expression of
+ vega10_ih_hw_init()
+To: CGEL <cgel.zte@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +63,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrey.grodzovsky@amd.com, airlied@linux.ie, Felix.Kuehling@amd.com,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com,
+Cc: Dave Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Zeal Robot <zealci@zte.com.cn>,
  Minghao Chi <chi.minghao@zte.com.cn>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Applied.  Thanks!
 
-Simplify the return expression.
+Alex
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
----
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index 3070466f54e1..cdd599a08125 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -521,14 +521,9 @@ static int vega10_ih_sw_fini(void *handle)
- 
- static int vega10_ih_hw_init(void *handle)
- {
--	int r;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	r = vega10_ih_irq_init(adev);
--	if (r)
--		return r;
--
--	return 0;
-+	return vega10_ih_irq_init(adev);
- }
- 
- static int vega10_ih_hw_fini(void *handle)
--- 
-2.25.1
-
-
+On Wed, May 4, 2022 at 10:22 PM <cgel.zte@gmail.com> wrote:
+>
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+>
+> Simplify the return expression.
+>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index 3070466f54e1..cdd599a08125 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -521,14 +521,9 @@ static int vega10_ih_sw_fini(void *handle)
+>
+>  static int vega10_ih_hw_init(void *handle)
+>  {
+> -       int r;
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>
+> -       r = vega10_ih_irq_init(adev);
+> -       if (r)
+> -               return r;
+> -
+> -       return 0;
+> +       return vega10_ih_irq_init(adev);
+>  }
+>
+>  static int vega10_ih_hw_fini(void *handle)
+> --
+> 2.25.1
+>
+>
