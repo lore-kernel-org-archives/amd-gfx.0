@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2EAC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 20:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F12C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 20:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB0B10E481;
-	Thu,  5 May 2022 20:06:07 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287A110E481
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B61C10E4E3;
+	Thu,  5 May 2022 20:06:08 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7759B10E450
  for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 20:06:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ti10OAT3Jnjl+ZDm6TyuRgj9XJMJQ6654JLlwwZWnx9hjAHEEBZtGS53YX0U3CGtCbr+TXDLin+c/DxiEOZ9IIMVVU0PAEQMhKqP+id0s+L8GmWWPRg52IxYVHnZJCYvWkONYT4qx1oq7bzQcdJt3tuY0xITsXS1eB0k214zH9S/UzI99nZbLtxqqlKnN8Mmbax6VZPyWZE+EqoKTm3pxUNvVkO/Bc3c/8F0htdJSDUJLT3MIz7qe+4k1N8wdVshZpFUGrMP4Xv2bWPJjgUimjB2Vc5glrVjh8i4Hy5ZS8rIck8DSteiol7Rg7/ZxWOaocpw1P2m6eA+0rz4fZEMZw==
+ b=d8uXjZp1ZiU/B5FFW9Awg3/pQSazhAtBtTjCFi3N8MtFzRzH081Q892ffzyWQG3DK4pFhkFa+pcvpZIB3bwap8tsm6osgJh768jdYNNVkw6TzcekbEvvqjuYUail1/8E6ePC+hzzfqDgkSfzfL7PDVTcVN+E1i0Ip+dxmepbIoNmkHzlkBf9eEN5WItnJzqjbNZV6q3iBlrwjEmjq7LmFHPew5F+mpLH/znWJwm776Iq4WyNIusgGRba00K4hCYdhuTJHXB2IhOgPMfJk3rQrykZhAxEl4zuDq7npPJcvVJeXW/FNLwXaWpC5btzIyABsL6YrAZ/iUptZTREsDuf5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eTCYA6TZVbq4PPzPJPT6S4Mhc4lE/o9pM5D4XGoFxls=;
- b=SxcrHm7ly7L/2GH52OyuNBGheQcKDjzoCxltaEJbRB5MMNDr/wAcBgzx0jHNNvWf/jtgAmdeRr/HyFjpyo/GW2kuXRsQGf4IZa6rsmudkxikfl7XNErEmzDFRZp3hKs46PhG7oStrWgwu3Jhx5asdor3r5gBACdTgv5Rj8b+TkPAjOpeLFqZEzuMaJ++JpwZzXVy62nDjxVabFm9FddTVVTwAFkHnH1s+iLsuLVtYs6ngTJkXm7JaL92S14kXjtCBPZaL6Az6ds6SqRrmZlf5staPWrpqEkklcdNHj8T6tgPTu+Jeo40wdPH8axSOy4TBkcrMP/ddyYgp6niSiytwg==
+ bh=JKdWWtNoxTHyiz19Org9m6FdfMXrvT+dx2cLqR3KZ6E=;
+ b=kLgLG3MylcQgV4YPstyPuI2gwo1Q4NC/7MDhKk/MvXEulmob8AbrApFFtMORtSPYg4QpVOsUL0Qc/4KT1zRLxuCKZRnIcQ5UxijHhH6mrO2mGRXzqiuEOw2wTklxB2H7xhJ/yPz1EvXHV1+0Jd6uHNGBe8HhRAulsxubXXnEAYTbI4RD/Qzs+KVZav64KvIXva4S0IlkzlVXrfMJoqoY3MCfwmPiXRPz4Xdc5VTuVa9hwvUiLZbXmLaWQyX3gIKQZLWDHdOblSH1mgVIoQgP+TKqVizWYOy+Jb7hOjG6yjVMfjM4b7Fha16Dwx8I9jrERR7usKu/ERM4bavfufx9VA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eTCYA6TZVbq4PPzPJPT6S4Mhc4lE/o9pM5D4XGoFxls=;
- b=KvpjSmrsuQY+t5Tz0wXivQnptqOxz3F2cgP8G8unFW88N9K6I2WwTzds7ggIzia7PGlYj5Lzmpll/BgSxxEZ2zUb2okXQIoFex4Fp+agMPG6VUhUwtO7g52EDjzV/w6IYSbkUBZnwXsb/UEDe6JDCnz6eXgrq1ZW6JrxIeACv6Y=
-Received: from DS7PR03CA0087.namprd03.prod.outlook.com (2603:10b6:5:3bb::32)
- by SN1PR12MB2543.namprd12.prod.outlook.com (2603:10b6:802:2a::16) with
+ bh=JKdWWtNoxTHyiz19Org9m6FdfMXrvT+dx2cLqR3KZ6E=;
+ b=SwH+FbBTm/gNAv2t5zFGKO7FwZc/NdJ/c0X4ldtQ8VlZY8j3IFPiu8Wk4rp1TjyjGd6cmIc/uvHKxul8/3eYg7/3jgoC9GcVq2XhNq5WiWeCe3qmGrM16O2PXTIgkMnlgqnZj+UxxJc8X6rsuoPM0KR4UtZbAENbJAc2hWIBkCA=
+Received: from DS7PR03CA0066.namprd03.prod.outlook.com (2603:10b6:5:3bb::11)
+ by DM6PR12MB4762.namprd12.prod.outlook.com (2603:10b6:5:7b::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Thu, 5 May
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Thu, 5 May
  2022 20:06:04 +0000
 Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::1e) by DS7PR03CA0087.outlook.office365.com
- (2603:10b6:5:3bb::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.25 via Frontend
+ (2603:10b6:5:3bb:cafe::e0) by DS7PR03CA0066.outlook.office365.com
+ (2603:10b6:5:3bb::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
  Transport; Thu, 5 May 2022 20:06:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -51,12 +51,12 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 5 May
- 2022 15:06:02 -0500
+ 2022 15:06:03 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/4] drm/amdgpu/psp: Add VBIOS flash handler
-Date: Thu, 5 May 2022 16:05:36 -0400
-Message-ID: <20220505200538.1293584-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu/psp: Add vbflash sysfs interface support
+Date: Thu, 5 May 2022 16:05:37 -0400
+Message-ID: <20220505200538.1293584-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220505200538.1293584-1-alexander.deucher@amd.com>
 References: <20220505200538.1293584-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2d9eb062-0bac-4978-c70b-08da2ed2af16
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2543:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2543C53ACF262ED78E720A7BF7C29@SN1PR12MB2543.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 89010c44-7fbb-4a69-87d2-08da2ed2af59
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4762:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4762764DD6B1DFD32968303BF7C29@DM6PR12MB4762.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vDu8NZKcoJOUQHOeBDIXYwG2JcVdfBZPxQbAQQR4h7kq1AVGfJGS7IhDlR3H7HPZQWL7P0TJzTqasFrQGbrDCdwnV6iMwX6vqS633ff5ZniU6iiLI8QWsGHuebvGq7W5uniCzQO0X2zCsOG1eGnxYOI+VPMqxxUUs4/TTX0xNRUyRf93EimdGuIXNqHncbDL9jZ5J9tifoemKAYZGHUn/sBCX0bBW2qIywsHrHbFnGyKrD7vXkeKFhwj/av8oAG8o7bl+nSM233PXZZl0D2gwsrWAxdPSQpkYl0q8fEZNFbgvnc3RRTmcvHebSNAMY1a2beE+o+Lw1L7U72s+NWDbuJzGO3aD0tnbX3EuhBQr0nWFVi7BgbrskomzqHFIGLAPccN0GoZzsf2MEUPNmXEYkDhZ/O/uQubOQmcNlE7l70gK2YYsdNn4LA3AcIWn8UB9dPZytIDoE1Ma9kDp1ElxuogW431wHPegc7MCf9yDaj/1L+7Ea0M1b9BOKnHARmao9VZ+RXMJnrAyqzhMfES6LexT0cIKXZOPSXKgjEege0RXp7IiS7DqqOrOHCdzObCsXldrxPhGbjDOvTTahQvPKQCHmMZaZVfu6Vtnd9Nk1i9zTG8Ggoe0lQKrwFGHSxHWam1fN7DCdMqBohr+wIuV7IsolyDMo9YZyhOxELTomavHN+8nLTpJQbMdHPFFPqqqV822sJm29N4MWHXfjvPZQ==
+X-Microsoft-Antispam-Message-Info: lHtU80ixc29jV4m1Xs/NYdOKaNtaqoJ5lRmR821+kzXCw+CD3tosNlqNOAKCuOMuzc2XU+h9fjI8WBqUh/Xha3CeI5irQBvASp+kLvRqInzRXDgi6XTAw00IRsBO5V8EKYJk75StOzlihg05TLikTigw+1plx9EDAXLoCSBQx9DITK722D/kWGbv7kucyzkD3wS4rmthCs0YMRLw/EY+yJsOQaJna0gqWY/qe9/+/nMGVVBacwFwScShFS6vsJnENkYTe0fzcDHVvyvWLVzUgTWIMcIpwd6Olmbg/26eE6w+PHmA1a5aEqOvQRV1uSmh89ChlKGbTqQ3Vytg8rguylddHGrRxrwcWkYaVBo5JgQMhtelq4xhTjVzlakLkO/cscJqD7JSAjlXUYmKbkxowQ2fLlZp5B8rDU32AFaS49Rg/zGCg1EMVSLtm+mUOhj46t4riKYuWOMEa/kAgOz77W2g14T3ozYBxuUFY+sjkXxrE6Is1FXzHaTRVanWpGu9Yqw920xq4fs7nGzN1M2oo9TPMSV541Z/HfihtXKXl9ehjkgHNdpHMeFy6z9s1532YwX3Pz4PXFpvoFZ4/mGozWR/raiony9TPjUs8Amyyowto9dIXJMZcQpENPp67ALbKYrPG3ekcmmn7C3Z1GArH6BozcMvUHd+XkXzK/+M+nCKErKx7i4Bo7xg+cNaeoljvZjvuRuPrfUh4nI3Qo5d9g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(5660300002)(16526019)(186003)(336012)(7696005)(6916009)(83380400001)(2906002)(47076005)(426003)(54906003)(2616005)(1076003)(36756003)(8936002)(36860700001)(70206006)(40460700003)(70586007)(86362001)(316002)(82310400005)(26005)(8676002)(4326008)(6666004)(508600001)(81166007)(356005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(508600001)(54906003)(2906002)(316002)(26005)(6916009)(36860700001)(40460700003)(83380400001)(4326008)(86362001)(8676002)(6666004)(7696005)(70206006)(5660300002)(16526019)(186003)(8936002)(82310400005)(81166007)(70586007)(1076003)(336012)(426003)(47076005)(2616005)(356005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 20:06:04.0924 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d9eb062-0bac-4978-c70b-08da2ed2af16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 20:06:04.5299 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89010c44-7fbb-4a69-87d2-08da2ed2af59
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2543
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,143 +106,225 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-Add psp vbflash function for psp v13.
-
-v2: fix warnings
+Add sysfs interface to copy VBIOS.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  5 ++
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 74 ++++++++++++++++++++++++-
- 2 files changed, 78 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  10 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 117 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |   6 ++
+ 4 files changed, 134 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index a9fe05c38715..81ecbdeb1ddb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -129,6 +129,7 @@ struct psp_funcs
- 	void (*ring_set_wptr)(struct psp_context *psp, uint32_t value);
- 	int (*load_usbc_pd_fw)(struct psp_context *psp, uint64_t fw_pri_mc_addr);
- 	int (*read_usbc_pd_fw)(struct psp_context *psp, uint32_t *fw_ver);
-+	int (*update_spirom)(struct psp_context *psp, uint64_t fw_pri_mc_addr);
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 058f272e40ee..3c20c2eadf4e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1013,6 +1013,7 @@ struct amdgpu_device {
  
- #define AMDGPU_XGMI_MAX_CONNECTED_NODES		64
-@@ -417,6 +418,10 @@ struct amdgpu_psp_funcs {
- 	((psp)->funcs->read_usbc_pd_fw ? \
- 	(psp)->funcs->read_usbc_pd_fw((psp), fw_ver) : -EINVAL)
+ 	bool                            pm_sysfs_en;
+ 	bool                            ucode_sysfs_en;
++	bool                            psp_sysfs_en;
  
-+#define psp_update_spirom(psp, fw_pri_mc_addr) \
-+	((psp)->funcs->update_spirom ? \
-+	(psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
+ 	/* Chip product information */
+ 	char				product_number[16];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b07f295a449e..b583026dc893 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3868,6 +3868,14 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	} else
+ 		adev->ucode_sysfs_en = true;
+ 
++	r = amdgpu_psp_sysfs_init(adev);
++	if (r) {
++		adev->psp_sysfs_en = false;
++		if (!amdgpu_sriov_vf(adev))
++			DRM_ERROR("Creating psp sysfs failed\n");
++	} else
++		adev->psp_sysfs_en = true;
 +
- extern const struct amd_ip_funcs psp_ip_funcs;
+ 	/*
+ 	 * Register gpu instance before amdgpu_device_enable_mgpu_fan_boost.
+ 	 * Otherwise the mgpu fan boost feature will be skipped due to the
+@@ -4000,6 +4008,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 		amdgpu_pm_sysfs_fini(adev);
+ 	if (adev->ucode_sysfs_en)
+ 		amdgpu_ucode_sysfs_fini(adev);
++	if (adev->psp_sysfs_en)
++		amdgpu_psp_sysfs_fini(adev);
+ 	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
  
- extern const struct amdgpu_ip_block_version psp_v3_1_ip_block;
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index 9beb94681dd2..894ac0c64bf6 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -50,6 +50,15 @@ MODULE_FIRMWARE("amdgpu/psp_13_0_7_sos.bin");
- /* Read USB-PD from LFB */
- #define GFX_CMD_USB_PD_USE_LFB 0x480
+ 	/* disable ras feature must before hw fini */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 25c90ad2c0b7..7d0a37a94ea6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -42,6 +42,8 @@
+ #include "amdgpu_securedisplay.h"
+ #include "amdgpu_atomfirmware.h"
  
-+/* VBIOS gfl defines */
-+#define MBOX_READY_MASK 0x80000000
-+#define MBOX_STATUS_MASK 0x0000FFFF
-+#define MBOX_COMMAND_MASK 0x00FF0000
-+#define MBOX_READY_FLAG 0x80000000
-+#define C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_LO 0x2
-+#define C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_HI 0x3
-+#define C2PMSG_CMD_SPI_UPDATE_FLASH_IMAGE 0x4
++#define AMD_VBIOS_FILE_MAX_SIZE_B      (1024*1024*3)
 +
- static int psp_v13_0_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
-@@ -465,6 +474,68 @@ static int psp_v13_0_read_usbc_pd_fw(struct psp_context *psp, uint32_t *fw_ver)
+ static int psp_sysfs_init(struct amdgpu_device *adev);
+ static void psp_sysfs_fini(struct amdgpu_device *adev);
+ 
+@@ -3443,6 +3445,116 @@ int is_psp_fw_valid(struct psp_bin_desc bin)
+ 	return bin.size_bytes;
+ }
+ 
++static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
++					struct bin_attribute *bin_attr,
++					char *buffer, loff_t pos, size_t count)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	/* Safeguard against memory drain */
++	if (adev->psp.vbflash_image_size > AMD_VBIOS_FILE_MAX_SIZE_B) {
++		dev_err(adev->dev, "File size cannot exceed %u", AMD_VBIOS_FILE_MAX_SIZE_B);
++		vfree(adev->psp.vbflash_tmp_buf);
++		adev->psp.vbflash_tmp_buf = NULL;
++		adev->psp.vbflash_image_size = 0;
++		return -ENOMEM;
++	}
++
++	/* TODO Just allocate max for now and optimize to realloc later if needed */
++	if (!adev->psp.vbflash_tmp_buf) {
++		adev->psp.vbflash_tmp_buf = vmalloc(AMD_VBIOS_FILE_MAX_SIZE_B);
++		if (!adev->psp.vbflash_tmp_buf)
++			return -ENOMEM;
++	}
++
++	mutex_lock(&adev->psp.mutex);
++	memcpy(adev->psp.vbflash_tmp_buf + pos, buffer, count);
++	adev->psp.vbflash_image_size += count;
++	mutex_unlock(&adev->psp.mutex);
++
++	dev_info(adev->dev, "VBIOS flash write PSP done");
++
++	return count;
++}
++
++static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
++				       struct bin_attribute *bin_attr, char *buffer,
++				       loff_t pos, size_t count)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct amdgpu_bo *fw_buf_bo = NULL;
++	uint64_t fw_pri_mc_addr;
++	void *fw_pri_cpu_addr;
++	int ret;
++
++	dev_info(adev->dev, "VBIOS flash to PSP started");
++
++	ret = amdgpu_bo_create_kernel(adev, adev->psp.vbflash_image_size,
++					AMDGPU_GPU_PAGE_SIZE,
++					AMDGPU_GEM_DOMAIN_VRAM,
++					&fw_buf_bo,
++					&fw_pri_mc_addr,
++					&fw_pri_cpu_addr);
++	if (ret)
++		goto rel_buf;
++
++	memcpy_toio(fw_pri_cpu_addr, adev->psp.vbflash_tmp_buf, adev->psp.vbflash_image_size);
++
++	mutex_lock(&adev->psp.mutex);
++	ret = psp_update_spirom(&adev->psp, fw_pri_mc_addr);
++	mutex_unlock(&adev->psp.mutex);
++
++	amdgpu_bo_free_kernel(&fw_buf_bo, &fw_pri_mc_addr, &fw_pri_cpu_addr);
++
++rel_buf:
++	vfree(adev->psp.vbflash_tmp_buf);
++	adev->psp.vbflash_tmp_buf = NULL;
++	adev->psp.vbflash_image_size = 0;
++
++	if (ret) {
++		dev_err(adev->dev, "Failed to load VBIOS FW, err = %d", ret);
++		return ret;
++	}
++
++	dev_info(adev->dev, "VBIOS flash to PSP done");
++	return 0;
++}
++
++static const struct bin_attribute psp_vbflash_bin_attr = {
++	.attr = {.name = "psp_vbflash", .mode = 0664},
++	.size = 0,
++	.write = amdgpu_psp_vbflash_write,
++	.read = amdgpu_psp_vbflash_read,
++};
++
++int amdgpu_psp_sysfs_init(struct amdgpu_device *adev)
++{
++	int ret = 0;
++	struct psp_context *psp = &adev->psp;
++
++	if (amdgpu_sriov_vf(adev))
++		return -EINVAL;
++
++	switch (adev->ip_versions[MP0_HWIP][0]) {
++	case IP_VERSION(13, 0, 0):
++	case IP_VERSION(13, 0, 7):
++		if (!psp->adev) {
++			psp->adev = adev;
++			psp_v13_0_set_psp_funcs(psp);
++		}
++		ret = sysfs_create_bin_file(&adev->dev->kobj, &psp_vbflash_bin_attr);
++		if (ret)
++			dev_err(adev->dev, "Failed to create device file psp_vbflash");
++		return ret;
++	default:
++		return 0;
++	}
++}
++
+ const struct amd_ip_funcs psp_ip_funcs = {
+ 	.name = "psp",
+ 	.early_init = psp_early_init,
+@@ -3471,6 +3583,11 @@ static int psp_sysfs_init(struct amdgpu_device *adev)
  	return ret;
  }
  
-+static int psp_v13_0_exec_spi_cmd(struct psp_context *psp, int cmd)
++void amdgpu_psp_sysfs_fini(struct amdgpu_device *adev)
 +{
-+	uint32_t reg_status = 0, reg_val = 0;
-+	struct amdgpu_device *adev = psp->adev;
-+	int ret;
-+
-+	/* clear MBX ready (MBOX_READY_MASK bit is 0) and set update command */
-+	reg_val |= (cmd << 16);
-+	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_115,  reg_val);
-+
-+	/* Ring the doorbell */
-+	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_73, 1);
-+
-+	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_115),
-+				MBOX_READY_FLAG, MBOX_READY_MASK, false);
-+	if (ret) {
-+		dev_err(adev->dev, "SPI cmd %x timed out, ret = %d", cmd, ret);
-+		return ret;
-+	}
-+
-+	reg_status = RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_115);
-+	if ((reg_status & 0xFFFF) != 0) {
-+		dev_err(adev->dev, "SPI cmd %x failed, fail status = %04x\n",
-+				cmd, reg_status & 0xFFFF);
-+		return -EIO;
-+	}
-+
-+	return 0;
++	sysfs_remove_bin_file(&adev->dev->kobj, &psp_vbflash_bin_attr);
 +}
 +
-+int psp_v13_0_update_spirom(struct psp_context *psp, uint64_t fw_pri_mc_addr)
-+{
-+	struct amdgpu_device *adev = psp->adev;
-+	int ret;
+ static void psp_sysfs_fini(struct amdgpu_device *adev)
+ {
+ 	device_remove_file(adev->dev, &dev_attr_usbc_pd_fw);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 81ecbdeb1ddb..db7b7dbb9c93 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -372,6 +372,9 @@ struct psp_context
+ 	struct psp_memory_training_context mem_train_ctx;
+ 
+ 	uint32_t			boot_cfg_bitmask;
 +
-+	/* Confirm PSP is ready to start */
-+	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_115),
-+			   MBOX_READY_FLAG, MBOX_READY_MASK, false);
-+	if (ret) {
-+		dev_err(adev->dev, "PSP Not ready to start processing, ret = %d", ret);
-+		return ret;
-+	}
-+
-+	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_116, lower_32_bits(fw_pri_mc_addr));
-+
-+	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_LO);
-+	if (ret)
-+		return ret;
-+
-+	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_116, upper_32_bits(fw_pri_mc_addr));
-+
-+	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_HI);
-+	if (ret)
-+		return ret;
-+
-+	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_FLASH_IMAGE);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
- static const struct psp_funcs psp_v13_0_funcs = {
- 	.init_microcode = psp_v13_0_init_microcode,
- 	.bootloader_load_kdb = psp_v13_0_bootloader_load_kdb,
-@@ -481,7 +552,8 @@ static const struct psp_funcs psp_v13_0_funcs = {
- 	.ring_get_wptr = psp_v13_0_ring_get_wptr,
- 	.ring_set_wptr = psp_v13_0_ring_set_wptr,
- 	.load_usbc_pd_fw = psp_v13_0_load_usbc_pd_fw,
--	.read_usbc_pd_fw = psp_v13_0_read_usbc_pd_fw
-+	.read_usbc_pd_fw = psp_v13_0_read_usbc_pd_fw,
-+	.update_spirom = psp_v13_0_update_spirom
++	char *vbflash_tmp_buf;
++	size_t vbflash_image_size;
  };
  
- void psp_v13_0_set_psp_funcs(struct psp_context *psp)
+ struct amdgpu_psp_funcs {
+@@ -501,4 +504,7 @@ int psp_load_fw_list(struct psp_context *psp,
+ void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
+ 
+ int is_psp_fw_valid(struct psp_bin_desc bin);
++
++int amdgpu_psp_sysfs_init(struct amdgpu_device *adev);
++void amdgpu_psp_sysfs_fini(struct amdgpu_device *adev);
+ #endif
 -- 
 2.35.1
 
