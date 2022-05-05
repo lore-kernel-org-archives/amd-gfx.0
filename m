@@ -4,91 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCDCC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 14:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E97C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 15:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4714310E40C;
-	Thu,  5 May 2022 14:24:11 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9CC310E270
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 14:24:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VeCUN96Kb1kz21rvGaeGg7anAfi/8G0VBbcwnR/XRJJxfUNf6LepuFLMDMK/COCCIz2JRCSmzzpA/W3Dty6KMwOIYAlV3DE1j92LDZTl/TUV6YYtFl+rdmlkSbOM95WO4UeaL2wSIrZSvhqfm9juxwMU1Cjgrc1eT+p98uBJQ+nftCGIHBaYjXLq0L+hSwX1R7pei5ABBiVelqKLDbp3jot8QxjsfcksOaqNhKImuZYVDYfiKlJAjLkXBrIwUNFvmCcUsPEIZFnPzLJVzCf5owHcAZ0quUqZT66nKOH0gsuOh7BstinJS6qwS12HYGXHrd86Lh7MzZPogSUsgu2itg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6bSHrYzE9J/2u9SN4u6i9yiNNud7J9P4tARTEcv+zPk=;
- b=gZxvmF+LqLJ4P0Bh6PTvA0H8IsqdWw8op33c6KSaolRFkYOmt2ZD+D5BBgLYslsh/DtOt6HSlhcafWstH5ucumswUSh2KGLY2/kDmNhMZl+nbrigF2LdN8gAsNHAItWDWYSKgIOe1kX25xBpJG5TZVmcYJVqp1mXq0Z9mbKm1wkmzMHN1Oynywr/pnfkxGJhI1T/lms5/SgJplh34J5dNCtZ1xGOYcJlgWPzAF3TY803vptrwt/S1MM6PVUyGRUCjKslv7NO6DfOVrT36iFN9O4Q9VivYTSyMxNnlOfke/p5TBitiCZ6d2CXtucT3q+Lc5oAryoO7wOckrfwqmbwcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6bSHrYzE9J/2u9SN4u6i9yiNNud7J9P4tARTEcv+zPk=;
- b=K1aADu8GhqxnZEBi1xuZRfzr4M8Mc6QL7fd947IWh0+DnNwplLfzxWRLuJEBh09U8z8kcLc3Gc9GM4zs1f6wRw1f3857LujgmMx4YtUkRRJm0JiFL2hG++gPQwR47ZQehDKGQyjb1YVEi9efNqOjckhK5R29kb9Y4CZVBYPl9dE=
-Received: from DM6PR10CA0008.namprd10.prod.outlook.com (2603:10b6:5:60::21) by
- MN0PR12MB5737.namprd12.prod.outlook.com (2603:10b6:208:370::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Thu, 5 May
- 2022 14:24:07 +0000
-Received: from DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:60:cafe::70) by DM6PR10CA0008.outlook.office365.com
- (2603:10b6:5:60::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24 via Frontend
- Transport; Thu, 5 May 2022 14:24:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT059.mail.protection.outlook.com (10.13.172.92) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 14:24:07 +0000
-Received: from Gundam.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 5 May
- 2022 09:24:05 -0500
-From: David Zhang <dingchen.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 17/17] drm/amd/display: Implement MPO PSR SU
-Date: Thu, 5 May 2022 10:23:23 -0400
-Message-ID: <20220505142323.2566949-18-dingchen.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220505142323.2566949-1-dingchen.zhang@amd.com>
-References: <20220505142323.2566949-1-dingchen.zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD4810E544;
+	Thu,  5 May 2022 15:02:44 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83AE10E536
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 15:02:42 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-e93bbb54f9so4441312fac.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 May 2022 08:02:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=z9s03dD5PP/Wi90GFeSdvgurwLV0LCmCse8aLymRRvQ=;
+ b=XDVXO/0vP83cBZqCJafcrSUcpPagU2NRZfd8LvryYPuf7PnvWoz8Llzdb5H3m6uX79
+ SqBo3RXw7fIBnEoDLk2lCt5Jn+vxhop7/mLNkWI+3Wwqxd4KwYMLx7w/OyMyH17eNYAm
+ Jmpve9dHP0gN50FTNcjRK7HntH5ul0ggsNG51+BCZ65iFZdGbVTZ8sYti7zXPHwMaAgf
+ S4eW0//R5XbR9SRrBaWh6yCKUCtumgEdF7oqG4TYlUJ7kF7MvAgbolnGrL4UF78Mbww7
+ egZ6s9m+BrzDs+ivI3A7yaUphuWR3o23jd/rdRxiIuSqAKPW7FVPJJ1u7/+MEiO3KyTA
+ WMnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=z9s03dD5PP/Wi90GFeSdvgurwLV0LCmCse8aLymRRvQ=;
+ b=rrJf3fY17hoX6IkkYd5YI7Tkk4vcfOyzHkxk58jQ5HcKNPf2oFSZCxCOfi635cxbPc
+ EqHYTUXrQwDWwPf4jzKE68umzUNhlvUE17qHIzGizRbdd9wD1tX3x3mOJ6TR8em0z+kO
+ n26JOiN7Ag6d8TGmZYDy1JtatwrtM3usHsbgzPWtrskpfvujLT0Z3J7qT9eK239RfKB4
+ sxyO9DJGzK3hV+zlUeOqEChS05ssNECYa8fcLStHIvnaD+8IZ96UZLuwWEyKQVpbf04b
+ JajGzyV0BeNt9G3U8Eg4t1DMnvuVaxFXUXlvTp8J6+lAYMAO7h/B5mermWgc44xS8q87
+ aaEQ==
+X-Gm-Message-State: AOAM5313+MUPkEgshGvjF/B/v8Y6md3FHU3C1gCdo3gvToRTsCQ8dC4O
+ ijtvs4+E6E0zsUGY/NyW7bzQA4xM0J9ElmsFabA=
+X-Google-Smtp-Source: ABdhPJzI/Y+IwdEcl1VLGxXAtQ6v3JJYDCUv98pFZ3GxXupRht/h9wl9zOmjkmMuQAGjz+wd8ljBDz/8N7RDmcWfK7E=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr2481839oap.253.1651762961683; Thu, 05
+ May 2022 08:02:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 20358f49-748a-4497-13c2-08da2ea2ea0d
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5737:EE_
-X-Microsoft-Antispam-PRVS: <MN0PR12MB5737BB2BBC609ADAD715D47F8DC29@MN0PR12MB5737.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0zvbBONWXA3vurfLyJM9SwGo7s7+/geUT8zO/GdcDGS8P4Geg7jFMM0nIJ6eLFvnItNF0iBbtvOPMffxFnFS9U2aJl2+MI9vMpK4AS+rGqaoXgeSsQinzZz6mwUcmwQWG9rUvDzWgR+wurz9D5wdZpv5GLh59sOAuFDIJZQCiGnklmsuNeeIOprCEYFW2XUR7V894t5QiPebDqjtD1C0usHpYExxnmX4db4xvRTzuMqgeyD2l+Dm2G1NhXZuEVZWL3YB7X7gthP6fVCgrvY65jksIs3vGoshC2TESjKAO+wx2lrdIZGYb69mhMjG61Swptoi14/uwjauOBCMEmOwLkVSk9e5yrnKXRqF+CxDa9YR8Jg/WX6RNtJ5TXq6SPBx+TSab8P3uNo/ITOohN+AeDE6k2+wGY+OtjLbcv5i2fZ0qZZ3wMSXk0ZFQ/Bjix9UD7KYNF6QLxv0cqbvky56/wV0zlBs4Yld8Jg8YddPWKjeuwj8WTgyAy10D266ddlwK9b4Daus28yRueEnu2TQseC33EYmVWrdx1ykxhZkVfGhb09QGHYSIQRq7BzlnZCHvUQD/JHeCGLbzm8jwmV3Rw3pgClBOkQUNat63FwDVG19nIrifeQntvUB60wRUk3dWM7xGWA7CWMg44kZyPLxKq/lbsARvmu7UDaA4VDvLZJ8ErRZs80ohu/FyfppMIsZZkXPgQ08lihPbGlVXnBFEw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(6916009)(70586007)(8676002)(508600001)(4326008)(70206006)(316002)(54906003)(36756003)(86362001)(356005)(1076003)(40460700003)(81166007)(36860700001)(7696005)(426003)(336012)(186003)(26005)(6666004)(5660300002)(8936002)(82310400005)(2616005)(16526019)(2906002)(47076005)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 14:24:07.1714 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20358f49-748a-4497-13c2-08da2ea2ea0d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5737
+References: <20220505090619.171744-1-christian.koenig@amd.com>
+In-Reply-To: <20220505090619.171744-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 5 May 2022 11:02:30 -0400
+Message-ID: <CADnq5_N-A2x55wcwx8diGeZ0pNod4q09RNrQ0yqc4ddq-rgANw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: nuke dynamic gfx scratch reg allocation
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,262 +64,724 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Leo Li <sunpeng.li@amd.com>, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: Lang Yu <Lang.Yu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-[WHY]
-
-For additional power savings, PSR SU (also referred to as PSR2) can be
-enabled on eDP panels with PSR SU support.
-
-PSR2 saves more power compared to PSR1 by allowing more opportunities
-for the display hardware to be shut down. In comparison to PSR1, Shut
-down can now occur in-between frames, as well as in display regions
-where there is no visible update. In otherwords, it allows for some
-display hw components to be enabled only for a **selectively updated**
-region of the visible display. Hence PSR SU.
-
-[HOW]
-
-To define the SU region, support from the OS is required. OS needs to
-inform driver of damaged regions that need to be flushed to the eDP
-panel. Today, such support is lacking in most compositors.
-
-Therefore, an in-between solution is to implement PSR SU for MPO and
-cursor scenarios. The plane bounds can be used to define the damaged
-region to be flushed to panel. This is achieved by:
-
-* Leveraging dm_crtc_state->mpo_requested flag to identify when MPO is
-  enabled.
-* If MPO is enabled, only add updated plane bounds to dirty region.
-  Determine plane update by either:
-    * Existence of drm damaged clips attached to the plane (added by a
-      damage-aware compositor)
-    * Change in fb id (flip)
-    * Change in plane bounds (position and dimensions)
-* If cursor is enabled, the old_pos and new_pos of cursor plus cursor
-  size is used as damaged regions(*).
-
-(*) Cursor updates follow a different code path through DC. PSR SU for
-cursor is already implemented in DC, and the only thing required to
-enable is to set DC_PSR_VERSION_SU_1 on the eDP link. See
-dcn10_dmub_update_cursor_data().
-
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 +++++++++++++++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |   6 +-
- 2 files changed, 144 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 00ebda0bea44..dd949040c1aa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1263,10 +1263,20 @@ static void vblank_control_worker(struct work_struct *work)
- 
- 	DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
- 
--	/* Control PSR based on vblank requirements from OS */
-+	/*
-+	 * Control PSR based on vblank requirements from OS
-+	 *
-+	 * If panel supports PSR SU, there's no need to disable PSR when OS is
-+	 * submitting fast atomic commits (we infer this by whether the OS
-+	 * requests vblank events). Fast atomic commits will simply trigger a
-+	 * full-frame-update (FFU); a specific case of selective-update (SU)
-+	 * where the SU region is the full hactive*vactive region. See
-+	 * fill_dc_dirty_rects().
-+	 */
- 	if (vblank_work->stream && vblank_work->stream->link) {
- 		if (vblank_work->enable) {
--			if (vblank_work->stream->link->psr_settings.psr_allow_active)
-+			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
-+			    vblank_work->stream->link->psr_settings.psr_allow_active)
- 				amdgpu_dm_psr_disable(vblank_work->stream);
- 		} else if (vblank_work->stream->link->psr_settings.psr_feature_enabled &&
- 			   !vblank_work->stream->link->psr_settings.psr_allow_active &&
-@@ -5662,6 +5672,117 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+/**
-+ * fill_dc_dirty_rects() - Fill DC dirty regions for PSR selective updates
-+ *
-+ * @plane: DRM plane containing dirty regions that need to be flushed to the eDP
-+ *         remote fb
-+ * @old_plane_state: Old state of @plane
-+ * @new_plane_state: New state of @plane
-+ * @crtc_state: New state of CRTC connected to the @plane
-+ * @flip_addrs: DC flip tracking struct, which also tracts dirty rects
-+ *
-+ * For PSR SU, DC informs the DMUB uController of dirty rectangle regions
-+ * (referred to as "damage clips" in DRM nomenclature) that require updating on
-+ * the eDP remote buffer. The responsibility of specifying the dirty regions is
-+ * amdgpu_dm's.
-+ *
-+ * A damage-aware DRM client should fill the FB_DAMAGE_CLIPS property on the
-+ * plane with regions that require flushing to the eDP remote buffer. In
-+ * addition, certain use cases - such as cursor and multi-plane overlay (MPO) -
-+ * implicitly provide damage clips without any client support via the plane
-+ * bounds.
-+ *
-+ * Today, amdgpu_dm only supports the MPO and cursor usecase.
-+ *
-+ * TODO: Also enable for FB_DAMAGE_CLIPS
-+ */
-+static void fill_dc_dirty_rects(struct drm_plane *plane,
-+				struct drm_plane_state *old_plane_state,
-+				struct drm_plane_state *new_plane_state,
-+				struct drm_crtc_state *crtc_state,
-+				struct dc_flip_addrs *flip_addrs)
-+{
-+	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
-+	struct rect *dirty_rects = flip_addrs->dirty_rects;
-+	uint32_t num_clips;
-+	bool bb_changed;
-+	bool fb_changed;
-+	uint32_t i = 0;
-+
-+	flip_addrs->dirty_rect_count = 0;
-+
-+	/*
-+	 * Cursor plane has it's own dirty rect update interface. See
-+	 * dcn10_dmub_update_cursor_data and dmub_cmd_update_cursor_info_data
-+	 */
-+	if (plane->type == DRM_PLANE_TYPE_CURSOR)
-+		return;
-+
-+	/*
-+	 * Today, we only consider MPO use-case for PSR SU. If MPO not
-+	 * requested, and there is a plane update, do FFU.
-+	 */
-+	if (!dm_crtc_state->mpo_requested) {
-+		dirty_rects[0].x = 0;
-+		dirty_rects[0].y = 0;
-+		dirty_rects[0].width = dm_crtc_state->base.mode.crtc_hdisplay;
-+		dirty_rects[0].height = dm_crtc_state->base.mode.crtc_vdisplay;
-+		flip_addrs->dirty_rect_count = 1;
-+		DRM_DEBUG_DRIVER("[PLANE:%d] PSR FFU dirty rect size (%d, %d)\n",
-+				 new_plane_state->plane->base.id,
-+				 dm_crtc_state->base.mode.crtc_hdisplay,
-+				 dm_crtc_state->base.mode.crtc_vdisplay);
-+		return;
-+	}
-+
-+	/*
-+	 * MPO is requested. Add entire plane bounding box to dirty rects if
-+	 * flipped to or damaged.
-+	 *
-+	 * If plane is moved or resized, also add old bounding box to dirty
-+	 * rects.
-+	 */
-+	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-+	fb_changed = old_plane_state->fb->base.id !=
-+		     new_plane_state->fb->base.id;
-+	bb_changed = (old_plane_state->crtc_x != new_plane_state->crtc_x ||
-+		      old_plane_state->crtc_y != new_plane_state->crtc_y ||
-+		      old_plane_state->crtc_w != new_plane_state->crtc_w ||
-+		      old_plane_state->crtc_h != new_plane_state->crtc_h);
-+
-+	DRM_DEBUG_DRIVER("[PLANE:%d] PSR bb_changed:%d fb_changed:%d num_clips:%d\n",
-+			 new_plane_state->plane->base.id,
-+			 bb_changed, fb_changed, num_clips);
-+
-+	if (num_clips || fb_changed || bb_changed) {
-+		dirty_rects[i].x = new_plane_state->crtc_x;
-+		dirty_rects[i].y = new_plane_state->crtc_y;
-+		dirty_rects[i].width = new_plane_state->crtc_w;
-+		dirty_rects[i].height = new_plane_state->crtc_h;
-+		DRM_DEBUG_DRIVER("[PLANE:%d] PSR SU dirty rect at (%d, %d) size (%d, %d)\n",
-+				 new_plane_state->plane->base.id,
-+				 dirty_rects[i].x, dirty_rects[i].y,
-+				 dirty_rects[i].width, dirty_rects[i].height);
-+		i += 1;
-+	}
-+
-+	/* Add old plane bounding-box if plane is moved or resized */
-+	if (bb_changed) {
-+		dirty_rects[i].x = old_plane_state->crtc_x;
-+		dirty_rects[i].y = old_plane_state->crtc_y;
-+		dirty_rects[i].width = old_plane_state->crtc_w;
-+		dirty_rects[i].height = old_plane_state->crtc_h;
-+		DRM_DEBUG_DRIVER("[PLANE:%d] PSR SU dirty rect at (%d, %d) size (%d, %d)\n",
-+				old_plane_state->plane->base.id,
-+				dirty_rects[i].x, dirty_rects[i].y,
-+				dirty_rects[i].width, dirty_rects[i].height);
-+		i += 1;
-+	}
-+
-+	flip_addrs->dirty_rect_count = i;
-+}
-+
- static void update_stream_scaling_settings(const struct drm_display_mode *mode,
- 					   const struct dm_connector_state *dm_state,
- 					   struct dc_stream_state *stream)
-@@ -6610,6 +6731,7 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
- 	state->cm_has_degamma = cur->cm_has_degamma;
- 	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
- 	state->force_dpms_off = cur->force_dpms_off;
-+	state->mpo_requested = cur->mpo_requested;
- 	/* TODO Duplicate dc_stream after objects are stream object is flattened */
- 
- 	return &state->base;
-@@ -9254,6 +9376,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		bundle->surface_updates[planes_count].plane_info =
- 			&bundle->plane_infos[planes_count];
- 
-+		fill_dc_dirty_rects(plane, old_plane_state, new_plane_state,
-+				    new_crtc_state,
-+				    &bundle->flip_addrs[planes_count]);
-+
- 		/*
- 		 * Only allow immediate flips for fast updates that don't
- 		 * change FB pitch, DCC state, rotation or mirroing.
-@@ -9451,6 +9577,18 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 
- 			/* Allow PSR when skip count is 0. */
- 			acrtc_attach->dm_irq_params.allow_psr_entry = !aconn->psr_skip_count;
-+
-+			/*
-+			 * If sink supports PSR SU, there is no need to rely on
-+			 * a vblank event disable request to enable PSR. PSR SU
-+			 * can be enabled immediately once OS demonstrates an
-+			 * adequate number of fast atomic commits to notify KMD
-+			 * of update events. See `vblank_control_worker()`.
-+			 */
-+			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
-+			    acrtc_attach->dm_irq_params.allow_psr_entry &&
-+			    !acrtc_state->stream->link->psr_settings.psr_allow_active)
-+				amdgpu_dm_psr_enable(acrtc_state->stream);
- 		} else {
- 			acrtc_attach->dm_irq_params.allow_psr_entry = false;
- 		}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index ab8fa42156af..eee3150614fe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -83,10 +83,12 @@ void amdgpu_dm_set_psr_caps(struct dc_link *link)
- 		link->psr_settings.psr_feature_enabled = true;
- 	}
- 
--	DRM_INFO("PSR support %d, DC PSR ver %d, sink PSR ver %d\n",
-+	DRM_INFO("PSR support %d, DC PSR ver %d, sink PSR ver %d DPCD caps 0x%x su_y_granularity %d\n",
- 		link->psr_settings.psr_feature_enabled,
- 		link->psr_settings.psr_version,
--		link->dpcd_caps.psr_info.psr_version);
-+		link->dpcd_caps.psr_info.psr_version,
-+		link->dpcd_caps.psr_info.psr_dpcd_caps.raw,
-+		link->dpcd_caps.psr_info.psr2_su_y_granularity_cap);
- 
- }
- 
--- 
-2.25.1
-
+On Thu, May 5, 2022 at 5:06 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> It's over a decade ago that this was actually used for more than ring and
+> IB tests. Just use the static register directly where needed and nuke the
+> now useless infrastructure.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 36 --------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 13 -----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 27 ++---------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 25 ++--------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 54 ++++++---------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 64 +++++--------------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 24 ++--------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 26 ++--------
+>  8 files changed, 43 insertions(+), 226 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 5d6b04fc6206..ede2fa56f6c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -98,42 +98,6 @@ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_devi=
+ce *adev,
+>                         adev->gfx.me.queue_bitmap);
+>  }
+>
+> -/**
+> - * amdgpu_gfx_scratch_get - Allocate a scratch register
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @reg: scratch register mmio offset
+> - *
+> - * Allocate a CP scratch register for use by the driver (all asics).
+> - * Returns 0 on success or -EINVAL on failure.
+> - */
+> -int amdgpu_gfx_scratch_get(struct amdgpu_device *adev, uint32_t *reg)
+> -{
+> -       int i;
+> -
+> -       i =3D ffs(adev->gfx.scratch.free_mask);
+> -       if (i !=3D 0 && i <=3D adev->gfx.scratch.num_reg) {
+> -               i--;
+> -               adev->gfx.scratch.free_mask &=3D ~(1u << i);
+> -               *reg =3D adev->gfx.scratch.reg_base + i;
+> -               return 0;
+> -       }
+> -       return -EINVAL;
+> -}
+> -
+> -/**
+> - * amdgpu_gfx_scratch_free - Free a scratch register
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @reg: scratch register mmio offset
+> - *
+> - * Free a CP scratch register allocated for use by the driver (all asics=
+)
+> - */
+> -void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg)
+> -{
+> -       adev->gfx.scratch.free_mask |=3D 1u << (reg - adev->gfx.scratch.r=
+eg_base);
+> -}
+> -
+>  /**
+>   * amdgpu_gfx_parse_disable_cu - Parse the disable_cu module parameter
+>   *
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index 45522609d4b4..53526ffb2ce1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -110,15 +110,6 @@ struct amdgpu_kiq {
+>         const struct kiq_pm4_funcs *pmf;
+>  };
+>
+> -/*
+> - * GPU scratch registers structures, functions & helpers
+> - */
+> -struct amdgpu_scratch {
+> -       unsigned                num_reg;
+> -       uint32_t                reg_base;
+> -       uint32_t                free_mask;
+> -};
+> -
+>  /*
+>   * GFX configurations
+>   */
+> @@ -288,7 +279,6 @@ struct amdgpu_gfx {
+>         struct amdgpu_mec               mec;
+>         struct amdgpu_kiq               kiq;
+>         struct amdgpu_imu               imu;
+> -       struct amdgpu_scratch           scratch;
+>         bool                            rs64_enable; /* firmware format *=
+/
+>         const struct firmware           *me_fw; /* ME firmware */
+>         uint32_t                        me_fw_version;
+> @@ -376,9 +366,6 @@ static inline u32 amdgpu_gfx_create_bitmask(u32 bit_w=
+idth)
+>         return (u32)((1ULL << bit_width) - 1);
+>  }
+>
+> -int amdgpu_gfx_scratch_get(struct amdgpu_device *adev, uint32_t *reg);
+> -void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg);
+> -
+>  void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
+>                                  unsigned max_sh);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v10_0.c
+> index 64d36622ee23..4b66b9c93754 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -3744,13 +3744,6 @@ static void gfx_v10_0_init_golden_registers(struct=
+ amdgpu_device *adev)
+>         gfx_v10_0_init_spm_golden_registers(adev);
+>  }
+>
+> -static void gfx_v10_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH_=
+REG0);
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  static void gfx_v10_0_write_data_to_reg(struct amdgpu_ring *ring, int en=
+g_sel,
+>                                        bool wc, uint32_t reg, uint32_t va=
+l)
+>  {
+> @@ -3787,34 +3780,26 @@ static void gfx_v10_0_wait_reg_mem(struct amdgpu_=
+ring *ring, int eng_sel,
+>  static int gfx_v10_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r) {
+> -               DRM_ERROR("amdgpu: cp failed to get scratch reg (%d).\n",=
+ r);
+> -               return r;
+> -       }
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> -
+> +       WREG32_SOC15(GC, 0, mmSCRATCH_REG0, 0xCAFEDEAD);
+>         r =3D amdgpu_ring_alloc(ring, 3);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: cp failed to lock ring %d (%d).\n",
+>                           ring->idx, r);
+> -               amdgpu_gfx_scratch_free(adev, scratch);
+>                 return r;
+>         }
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
+> -       amdgpu_ring_write(ring, (scratch - PACKET3_SET_UCONFIG_REG_START)=
+);
+> +       amdgpu_ring_write(ring, SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0) -
+> +                         PACKET3_SET_UCONFIG_REG_START);
+>         amdgpu_ring_write(ring, 0xDEADBEEF);
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               tmp =3D RREG32(scratch);
+> +               tmp =3D RREG32_SOC15(GC, 0, mmSCRATCH_REG0);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 if (amdgpu_emu_mode =3D=3D 1)
+> @@ -3826,8 +3811,6 @@ static int gfx_v10_0_ring_test_ring(struct amdgpu_r=
+ing *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+> -
+>         return r;
+>  }
+>
+> @@ -4852,8 +4835,6 @@ static int gfx_v10_0_sw_init(void *handle)
+>
+>         adev->gfx.gfx_current_status =3D AMDGPU_GFX_NORMAL_MODE;
+>
+> -       gfx_v10_0_scratch_init(adev);
+> -
+>         r =3D gfx_v10_0_me_init(adev);
+>         if (r)
+>                 return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index f0f13eeb4b71..7bf09eeaced0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -297,13 +297,6 @@ static void gfx_v11_0_init_golden_registers(struct a=
+mdgpu_device *adev)
+>         gfx_v11_0_init_spm_golden_registers(adev);
+>  }
+>
+> -static void gfx_v11_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D SOC15_REG_OFFSET(GC, 0, regSCRATCH=
+_REG0);
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  static void gfx_v11_0_write_data_to_reg(struct amdgpu_ring *ring, int en=
+g_sel,
+>                                        bool wc, uint32_t reg, uint32_t va=
+l)
+>  {
+> @@ -340,24 +333,16 @@ static void gfx_v11_0_wait_reg_mem(struct amdgpu_ri=
+ng *ring, int eng_sel,
+>  static int gfx_v11_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+> +       uint32_t scratch =3D SOC15_REG_OFFSET(GC, 0, regSCRATCH_REG0);
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r) {
+> -               DRM_ERROR("amdgpu: cp failed to get scratch reg (%d).\n",=
+ r);
+> -               return r;
+> -       }
+> -
+>         WREG32(scratch, 0xCAFEDEAD);
+> -
+>         r =3D amdgpu_ring_alloc(ring, 5);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: cp failed to lock ring %d (%d).\n",
+>                           ring->idx, r);
+> -               amdgpu_gfx_scratch_free(adev, scratch);
+>                 return r;
+>         }
+>
+> @@ -365,7 +350,8 @@ static int gfx_v11_0_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>                 gfx_v11_0_ring_emit_wreg(ring, scratch, 0xDEADBEEF);
+>         } else {
+>                 amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, =
+1));
+> -               amdgpu_ring_write(ring, (scratch - PACKET3_SET_UCONFIG_RE=
+G_START));
+> +               amdgpu_ring_write(ring, scratch -
+> +                                 PACKET3_SET_UCONFIG_REG_START);
+>                 amdgpu_ring_write(ring, 0xDEADBEEF);
+>         }
+>         amdgpu_ring_commit(ring);
+> @@ -382,9 +368,6 @@ static int gfx_v11_0_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+> -
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+> -
+>         return r;
+>  }
+>
+> @@ -1631,8 +1614,6 @@ static int gfx_v11_0_sw_init(void *handle)
+>
+>         adev->gfx.gfx_current_status =3D AMDGPU_GFX_NORMAL_MODE;
+>
+> -       gfx_v11_0_scratch_init(adev);
+> -
+>         if (adev->gfx.imu.funcs) {
+>                 if (adev->gfx.imu.funcs->init_microcode) {
+>                         r =3D adev->gfx.imu.funcs->init_microcode(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v6_0.c
+> index 29a91b320d4f..204b246f0e3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -1778,39 +1778,26 @@ static void gfx_v6_0_constants_init(struct amdgpu=
+_device *adev)
+>         udelay(50);
+>  }
+>
+> -
+> -static void gfx_v6_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D mmSCRATCH_REG0;
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  static int gfx_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+>
+>         r =3D amdgpu_ring_alloc(ring, 3);
+>         if (r)
+> -               goto error_free_scratch;
+> +               return r;
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONFIG_REG, 1));
+> -       amdgpu_ring_write(ring, (scratch - PACKET3_SET_CONFIG_REG_START))=
+;
+> +       amdgpu_ring_write(ring, mmSCRATCH_REG0 - PACKET3_SET_CONFIG_REG_S=
+TART);
+>         amdgpu_ring_write(ring, 0xDEADBEEF);
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               tmp =3D RREG32(scratch);
+> +               tmp =3D RREG32(mmSCRATCH_REG0);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 udelay(1);
+> @@ -1818,9 +1805,6 @@ static int gfx_v6_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)
+>
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+> -
+> -error_free_scratch:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -1903,50 +1887,42 @@ static void gfx_v6_0_ring_emit_ib(struct amdgpu_r=
+ing *ring,
+>  static int gfx_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       struct amdgpu_ib ib;
+>         struct dma_fence *f =3D NULL;
+> -       uint32_t scratch;
+> +       struct amdgpu_ib ib;
+>         uint32_t tmp =3D 0;
+>         long r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+>         memset(&ib, 0, sizeof(ib));
+> -       r =3D amdgpu_ib_get(adev, NULL, 256,
+> -                                       AMDGPU_IB_POOL_DIRECT, &ib);
+> +       r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>         if (r)
+> -               goto err1;
+> +               return r;
+>
+>         ib.ptr[0] =3D PACKET3(PACKET3_SET_CONFIG_REG, 1);
+> -       ib.ptr[1] =3D ((scratch - PACKET3_SET_CONFIG_REG_START));
+> +       ib.ptr[1] =3D mmSCRATCH_REG0 - PACKET3_SET_CONFIG_REG_START;
+>         ib.ptr[2] =3D 0xDEADBEEF;
+>         ib.length_dw =3D 3;
+>
+>         r =3D amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+>         if (r)
+> -               goto err2;
+> +               goto error;
+>
+>         r =3D dma_fence_wait_timeout(f, false, timeout);
+>         if (r =3D=3D 0) {
+>                 r =3D -ETIMEDOUT;
+> -               goto err2;
+> +               goto error;
+>         } else if (r < 0) {
+> -               goto err2;
+> +               goto error;
+>         }
+> -       tmp =3D RREG32(scratch);
+> +       tmp =3D RREG32(mmSCRATCH_REG0);
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+>         else
+>                 r =3D -EINVAL;
+>
+> -err2:
+> +error:
+>         amdgpu_ib_free(adev, &ib, NULL);
+>         dma_fence_put(f);
+> -err1:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -3094,8 +3070,6 @@ static int gfx_v6_0_sw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       gfx_v6_0_scratch_init(adev);
+> -
+>         r =3D gfx_v6_0_init_microcode(adev);
+>         if (r) {
+>                 DRM_ERROR("Failed to load gfx firmware!\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v7_0.c
+> index ac3f2dbba726..0f2976507e48 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -2049,26 +2049,6 @@ static void gfx_v7_0_constants_init(struct amdgpu_=
+device *adev)
+>         udelay(50);
+>  }
+>
+> -/*
+> - * GPU scratch registers helpers function.
+> - */
+> -/**
+> - * gfx_v7_0_scratch_init - setup driver info for CP scratch regs
+> - *
+> - * @adev: amdgpu_device pointer
+> - *
+> - * Set up the number and offset of the CP scratch registers.
+> - * NOTE: use of CP scratch registers is a legacy interface and
+> - * is not used by default on newer asics (r6xx+).  On newer asics,
+> - * memory buffers are used for fences rather than scratch regs.
+> - */
+> -static void gfx_v7_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D mmSCRATCH_REG0;
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  /**
+>   * gfx_v7_0_ring_test_ring - basic gfx ring test
+>   *
+> @@ -2082,36 +2062,28 @@ static void gfx_v7_0_scratch_init(struct amdgpu_d=
+evice *adev)
+>  static int gfx_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+>         r =3D amdgpu_ring_alloc(ring, 3);
+>         if (r)
+> -               goto error_free_scratch;
+> +               return r;
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
+> -       amdgpu_ring_write(ring, (scratch - PACKET3_SET_UCONFIG_REG_START)=
+);
+> +       amdgpu_ring_write(ring, mmSCRATCH_REG0 - PACKET3_SET_UCONFIG_REG_=
+START);
+>         amdgpu_ring_write(ring, 0xDEADBEEF);
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               tmp =3D RREG32(scratch);
+> +               tmp =3D RREG32(mmSCRATCH_REG0);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 udelay(1);
+>         }
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+> -
+> -error_free_scratch:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -2355,48 +2327,40 @@ static int gfx_v7_0_ring_test_ib(struct amdgpu_ri=
+ng *ring, long timeout)
+>         struct amdgpu_device *adev =3D ring->adev;
+>         struct amdgpu_ib ib;
+>         struct dma_fence *f =3D NULL;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         long r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+>         memset(&ib, 0, sizeof(ib));
+> -       r =3D amdgpu_ib_get(adev, NULL, 256,
+> -                                       AMDGPU_IB_POOL_DIRECT, &ib);
+> +       r =3D amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
+>         if (r)
+> -               goto err1;
+> +               return r;
+>
+>         ib.ptr[0] =3D PACKET3(PACKET3_SET_UCONFIG_REG, 1);
+> -       ib.ptr[1] =3D ((scratch - PACKET3_SET_UCONFIG_REG_START));
+> +       ib.ptr[1] =3D mmSCRATCH_REG0 - PACKET3_SET_UCONFIG_REG_START;
+>         ib.ptr[2] =3D 0xDEADBEEF;
+>         ib.length_dw =3D 3;
+>
+>         r =3D amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+>         if (r)
+> -               goto err2;
+> +               goto error;
+>
+>         r =3D dma_fence_wait_timeout(f, false, timeout);
+>         if (r =3D=3D 0) {
+>                 r =3D -ETIMEDOUT;
+> -               goto err2;
+> +               goto error;
+>         } else if (r < 0) {
+> -               goto err2;
+> +               goto error;
+>         }
+> -       tmp =3D RREG32(scratch);
+> +       tmp =3D RREG32(mmSCRATCH_REG0);
+>         if (tmp =3D=3D 0xDEADBEEF)
+>                 r =3D 0;
+>         else
+>                 r =3D -EINVAL;
+>
+> -err2:
+> +error:
+>         amdgpu_ib_free(adev, &ib, NULL);
+>         dma_fence_put(f);
+> -err1:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -4489,8 +4453,6 @@ static int gfx_v7_0_sw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       gfx_v7_0_scratch_init(adev);
+> -
+>         r =3D gfx_v7_0_init_microcode(adev);
+>         if (r) {
+>                 DRM_ERROR("Failed to load gfx firmware!\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v8_0.c
+> index e4e779a19c20..90f64219d291 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -835,37 +835,25 @@ static void gfx_v8_0_init_golden_registers(struct a=
+mdgpu_device *adev)
+>         }
+>  }
+>
+> -static void gfx_v8_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D mmSCRATCH_REG0;
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  static int gfx_v8_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+>         r =3D amdgpu_ring_alloc(ring, 3);
+>         if (r)
+> -               goto error_free_scratch;
+> +               return r;
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
+> -       amdgpu_ring_write(ring, (scratch - PACKET3_SET_UCONFIG_REG_START)=
+);
+> +       amdgpu_ring_write(ring, mmSCRATCH_REG0 - PACKET3_SET_UCONFIG_REG_=
+START);
+>         amdgpu_ring_write(ring, 0xDEADBEEF);
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               tmp =3D RREG32(scratch);
+> +               tmp =3D RREG32(mmSCRATCH_REG0);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 udelay(1);
+> @@ -874,8 +862,6 @@ static int gfx_v8_0_ring_test_ring(struct amdgpu_ring=
+ *ring)
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+>
+> -error_free_scratch:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -2000,8 +1986,6 @@ static int gfx_v8_0_sw_init(void *handle)
+>
+>         adev->gfx.gfx_current_status =3D AMDGPU_GFX_NORMAL_MODE;
+>
+> -       gfx_v8_0_scratch_init(adev);
+> -
+>         r =3D gfx_v8_0_init_microcode(adev);
+>         if (r) {
+>                 DRM_ERROR("Failed to load gfx firmware!\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 06182b7e4351..83639b5ea6a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -950,13 +950,6 @@ static void gfx_v9_0_init_golden_registers(struct am=
+dgpu_device *adev)
+>                                                 (const u32)ARRAY_SIZE(gol=
+den_settings_gc_9_x_common));
+>  }
+>
+> -static void gfx_v9_0_scratch_init(struct amdgpu_device *adev)
+> -{
+> -       adev->gfx.scratch.num_reg =3D 8;
+> -       adev->gfx.scratch.reg_base =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH_=
+REG0);
+> -       adev->gfx.scratch.free_mask =3D (1u << adev->gfx.scratch.num_reg)=
+ - 1;
+> -}
+> -
+>  static void gfx_v9_0_write_data_to_reg(struct amdgpu_ring *ring, int eng=
+_sel,
+>                                        bool wc, uint32_t reg, uint32_t va=
+l)
+>  {
+> @@ -994,27 +987,23 @@ static void gfx_v9_0_wait_reg_mem(struct amdgpu_rin=
+g *ring, int eng_sel,
+>  static int gfx_v9_0_ring_test_ring(struct amdgpu_ring *ring)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t scratch;
+>         uint32_t tmp =3D 0;
+>         unsigned i;
+>         int r;
+>
+> -       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
+> -       if (r)
+> -               return r;
+> -
+> -       WREG32(scratch, 0xCAFEDEAD);
+> +       WREG32_SOC15(GC, 0, mmSCRATCH_REG0, 0xCAFEDEAD);
+>         r =3D amdgpu_ring_alloc(ring, 3);
+>         if (r)
+> -               goto error_free_scratch;
+> +               return r;
+>
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
+> -       amdgpu_ring_write(ring, (scratch - PACKET3_SET_UCONFIG_REG_START)=
+);
+> +       amdgpu_ring_write(ring, SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0) -
+> +                         PACKET3_SET_UCONFIG_REG_START);
+>         amdgpu_ring_write(ring, 0xDEADBEEF);
+>         amdgpu_ring_commit(ring);
+>
+>         for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               tmp =3D RREG32(scratch);
+> +               tmp =3D RREG32_SOC15(GC, 0, mmSCRATCH_REG0);
+>                 if (tmp =3D=3D 0xDEADBEEF)
+>                         break;
+>                 udelay(1);
+> @@ -1022,9 +1011,6 @@ static int gfx_v9_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)
+>
+>         if (i >=3D adev->usec_timeout)
+>                 r =3D -ETIMEDOUT;
+> -
+> -error_free_scratch:
+> -       amdgpu_gfx_scratch_free(adev, scratch);
+>         return r;
+>  }
+>
+> @@ -2338,8 +2324,6 @@ static int gfx_v9_0_sw_init(void *handle)
+>
+>         adev->gfx.gfx_current_status =3D AMDGPU_GFX_NORMAL_MODE;
+>
+> -       gfx_v9_0_scratch_init(adev);
+> -
+>         r =3D gfx_v9_0_init_microcode(adev);
+>         if (r) {
+>                 DRM_ERROR("Failed to load gfx firmware!\n");
+> --
+> 2.25.1
+>
