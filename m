@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 992E0C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 20:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2EAC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 May 2022 20:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24A4510E450;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB0B10E481;
 	Thu,  5 May 2022 20:06:07 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04B1B10E450
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 20:06:05 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 287A110E481
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 May 2022 20:06:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VKy6E2o0cp1S4NY6blFudyil6+GM3kdFN3R0C7LPlXRy8dkqfSbcFqcuRstzu6X6K3HV4kj93FmrarQE2Pbk9MXVIgnBuLnFi4HoBPpJlzbqAQkINfcLjtEKetf2XETyM7GOwTRU1Sa/WrQdHNgf3qV7+7PEBPPGJjZ/KbHpZjbt65nIEeHsmlaIDzCH/Yv1G8k2DCjFYYGx9gJbKePkuG1WpFx5YojZHTdjW/euIvbtSZNYdtLin4K+iU3LmyVhB/EJgSmif8940nsZ87rpz12gyey0eTD2KLQb2uZcbwbMBs2QTp/kFe4piSAwvCyVrEecODsNrc2xVzsUUz7vjg==
+ b=Ti10OAT3Jnjl+ZDm6TyuRgj9XJMJQ6654JLlwwZWnx9hjAHEEBZtGS53YX0U3CGtCbr+TXDLin+c/DxiEOZ9IIMVVU0PAEQMhKqP+id0s+L8GmWWPRg52IxYVHnZJCYvWkONYT4qx1oq7bzQcdJt3tuY0xITsXS1eB0k214zH9S/UzI99nZbLtxqqlKnN8Mmbax6VZPyWZE+EqoKTm3pxUNvVkO/Bc3c/8F0htdJSDUJLT3MIz7qe+4k1N8wdVshZpFUGrMP4Xv2bWPJjgUimjB2Vc5glrVjh8i4Hy5ZS8rIck8DSteiol7Rg7/ZxWOaocpw1P2m6eA+0rz4fZEMZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wtaVoSwNv8IlZK+KChXwXbXuqAKfEaDeaUDtRPKFBWk=;
- b=eERD1T8NMebHjhB20/+I2mCBG8D4x+XVHuz2vXJ6S3FQPGbgWMazTUhIN91LQaC/X4CSmIo5TRWCpUCMht7F4PFkOhK3gzQMCs7d4jdfv7RByXhYNgP27eCX5KMcPS5itpijtc8u3757eRjVEV6ex7aJUbYBSHpL9NiLJKEht4eZ2cGkMdHL2cACKPOw5CiPmSxcVV0XEZVAsIC5Q1K5qSojErHc7o8A5I9vUqJKM+mx33WzpJ95Hi3Mb3k/qGA4/H54nbkxxnPvnp6lTUtB1XWXY0TsIZtTUny2yb3H+fMS6aI6zZA3oE7b/LCyssft5oiNrhychsg7B5mmUhSq6g==
+ bh=eTCYA6TZVbq4PPzPJPT6S4Mhc4lE/o9pM5D4XGoFxls=;
+ b=SxcrHm7ly7L/2GH52OyuNBGheQcKDjzoCxltaEJbRB5MMNDr/wAcBgzx0jHNNvWf/jtgAmdeRr/HyFjpyo/GW2kuXRsQGf4IZa6rsmudkxikfl7XNErEmzDFRZp3hKs46PhG7oStrWgwu3Jhx5asdor3r5gBACdTgv5Rj8b+TkPAjOpeLFqZEzuMaJ++JpwZzXVy62nDjxVabFm9FddTVVTwAFkHnH1s+iLsuLVtYs6ngTJkXm7JaL92S14kXjtCBPZaL6Az6ds6SqRrmZlf5staPWrpqEkklcdNHj8T6tgPTu+Jeo40wdPH8axSOy4TBkcrMP/ddyYgp6niSiytwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wtaVoSwNv8IlZK+KChXwXbXuqAKfEaDeaUDtRPKFBWk=;
- b=TO0oEjI0+n2hUt7T6IBY/iddkhLzHegG7Ao7eBYz94esVkbh2FEDVDFQqTsIHKTwRj/axk0E+Ib9x6UQuKvwXLOmwCFJrEYPPF9mWijrEmpNJ5967okc0+A4DiVOzCnt9NqCfH/T8ONd78LzKmFdqA9z48+TnkmQD+IRYH+FHn8=
-Received: from DS7PR03CA0063.namprd03.prod.outlook.com (2603:10b6:5:3bb::8) by
- BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23) with
+ bh=eTCYA6TZVbq4PPzPJPT6S4Mhc4lE/o9pM5D4XGoFxls=;
+ b=KvpjSmrsuQY+t5Tz0wXivQnptqOxz3F2cgP8G8unFW88N9K6I2WwTzds7ggIzia7PGlYj5Lzmpll/BgSxxEZ2zUb2okXQIoFex4Fp+agMPG6VUhUwtO7g52EDjzV/w6IYSbkUBZnwXsb/UEDe6JDCnz6eXgrq1ZW6JrxIeACv6Y=
+Received: from DS7PR03CA0087.namprd03.prod.outlook.com (2603:10b6:5:3bb::32)
+ by SN1PR12MB2543.namprd12.prod.outlook.com (2603:10b6:802:2a::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Thu, 5 May
- 2022 20:06:03 +0000
+ 2022 20:06:04 +0000
 Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::bc) by DS7PR03CA0063.outlook.office365.com
- (2603:10b6:5:3bb::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Thu, 5 May 2022 20:06:03 +0000
+ (2603:10b6:5:3bb:cafe::1e) by DS7PR03CA0087.outlook.office365.com
+ (2603:10b6:5:3bb::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.25 via Frontend
+ Transport; Thu, 5 May 2022 20:06:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 20:06:03 +0000
+ 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 20:06:04 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 5 May
  2022 15:06:02 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/4] drm/amd/psp: Add C2P registers to mp_13_0_2 header
-Date: Thu, 5 May 2022 16:05:35 -0400
-Message-ID: <20220505200538.1293584-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu/psp: Add VBIOS flash handler
+Date: Thu, 5 May 2022 16:05:36 -0400
+Message-ID: <20220505200538.1293584-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220505200538.1293584-1-alexander.deucher@amd.com>
+References: <20220505200538.1293584-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 38ec0c91-eed6-4627-80d2-08da2ed2ae8c
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5356:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB535666821B482A29FCE8EA1EF7C29@BN9PR12MB5356.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 2d9eb062-0bac-4978-c70b-08da2ed2af16
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2543:EE_
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2543C53ACF262ED78E720A7BF7C29@SN1PR12MB2543.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T+UPixPc+0ka0g2jfFQ3/PGk54OYF9b7uqUdThOTb80BdHP/62wQ7DphZEmLcGOsDG8cS5gKo9ytnqZ17jbp15T1gFpwGDn7bP/U/uurZRhsMoikaUsQUprtNegcLLuQ5M8e2ou2oK2fz9zPhucik+XjlXChAmhPJYXzNGuQr10pGemlg1xaQEnv9ihH9FdMcKXhDhdxWnAFYAK4NRYAFYiSgJ+GZwSMAsG/8N8+VGR82pcbq3y6TJXYBkENZWEMZWgz8rL+mkGP1+qjMLg0XYjUwKqe4gkvhr3lOQR8FUkdObS2GJiXKr0ydFzy51fDC3EmshPPkx4sZERpM6lne3xbTZ5jzzLDbJY+EN0ETBEZPvyd9moXCl/7xBT5kouVyb/0C8cGYbPCJ45/mGYHFcPOuHqrmtHB17uUxG8AcU1aGtlpc6+KHes4mkbeTtCOjwtLH1GVMFSrYo6Cf2XmsF2JGsOSN4zQj9R13GJt/BnAmUk/KfHLpZAaaIKJAhDPAktnzCipi4DhvTSDgKQL2p7ktDau7x3o4H8RPMWg1GcAiMu8ROjl11/orYHYOgulq8+h3mV/WJ8Oe0gvBs32doa43rrn5KKLo+9W6ZwdqWm+BJ2MYgzZdDe+il9A+596Q0xN69gkaYyL+aSJbh5StE06GVLBuZQIUzfnM8InZUF55j9Fa4Z1dQDgM1S7F7IVracupBJ5YtaKCXHufSw2JQ==
+X-Microsoft-Antispam-Message-Info: vDu8NZKcoJOUQHOeBDIXYwG2JcVdfBZPxQbAQQR4h7kq1AVGfJGS7IhDlR3H7HPZQWL7P0TJzTqasFrQGbrDCdwnV6iMwX6vqS633ff5ZniU6iiLI8QWsGHuebvGq7W5uniCzQO0X2zCsOG1eGnxYOI+VPMqxxUUs4/TTX0xNRUyRf93EimdGuIXNqHncbDL9jZ5J9tifoemKAYZGHUn/sBCX0bBW2qIywsHrHbFnGyKrD7vXkeKFhwj/av8oAG8o7bl+nSM233PXZZl0D2gwsrWAxdPSQpkYl0q8fEZNFbgvnc3RRTmcvHebSNAMY1a2beE+o+Lw1L7U72s+NWDbuJzGO3aD0tnbX3EuhBQr0nWFVi7BgbrskomzqHFIGLAPccN0GoZzsf2MEUPNmXEYkDhZ/O/uQubOQmcNlE7l70gK2YYsdNn4LA3AcIWn8UB9dPZytIDoE1Ma9kDp1ElxuogW431wHPegc7MCf9yDaj/1L+7Ea0M1b9BOKnHARmao9VZ+RXMJnrAyqzhMfES6LexT0cIKXZOPSXKgjEege0RXp7IiS7DqqOrOHCdzObCsXldrxPhGbjDOvTTahQvPKQCHmMZaZVfu6Vtnd9Nk1i9zTG8Ggoe0lQKrwFGHSxHWam1fN7DCdMqBohr+wIuV7IsolyDMo9YZyhOxELTomavHN+8nLTpJQbMdHPFFPqqqV822sJm29N4MWHXfjvPZQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(356005)(40460700003)(6666004)(6916009)(2906002)(508600001)(316002)(5660300002)(86362001)(36756003)(81166007)(82310400005)(36860700001)(47076005)(2616005)(16526019)(186003)(336012)(426003)(7696005)(26005)(8936002)(4326008)(70586007)(70206006)(8676002)(1076003)(54906003)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(5660300002)(16526019)(186003)(336012)(7696005)(6916009)(83380400001)(2906002)(47076005)(426003)(54906003)(2616005)(1076003)(36756003)(8936002)(36860700001)(70206006)(40460700003)(70586007)(86362001)(316002)(82310400005)(26005)(8676002)(4326008)(6666004)(508600001)(81166007)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 20:06:03.1550 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38ec0c91-eed6-4627-80d2-08da2ed2ae8c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 20:06:04.0924 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d9eb062-0bac-4978-c70b-08da2ed2af16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5356
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2543
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,163 +101,148 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Likun Gao <Likun.Gao@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
+Add psp vbflash function for psp v13.
+
+v2: fix warnings
+
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../include/asic_reg/mp/mp_13_0_2_offset.h    | 48 +++++++++++++
- .../include/asic_reg/mp/mp_13_0_2_sh_mask.h   | 72 +++++++++++++++++++
- 2 files changed, 120 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  5 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 74 ++++++++++++++++++++++++-
+ 2 files changed, 78 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_offset.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_offset.h
-index 0b1e781fed7e..f6c0e2d2cee3 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_offset.h
-@@ -172,6 +172,54 @@
- #define regMP0_SMN_C2PMSG_102_BASE_IDX                                                                  0
- #define regMP0_SMN_C2PMSG_103                                                                           0x00a7
- #define regMP0_SMN_C2PMSG_103_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_104                                                                           0x00a8
-+#define regMP0_SMN_C2PMSG_104_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_105                                                                           0x00a9
-+#define regMP0_SMN_C2PMSG_105_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_106                                                                           0x00aa
-+#define regMP0_SMN_C2PMSG_106_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_107                                                                           0x00ab
-+#define regMP0_SMN_C2PMSG_107_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_108                                                                           0x00ac
-+#define regMP0_SMN_C2PMSG_108_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_109                                                                           0x00ad
-+#define regMP0_SMN_C2PMSG_109_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_110                                                                           0x00ae
-+#define regMP0_SMN_C2PMSG_110_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_111                                                                           0x00af
-+#define regMP0_SMN_C2PMSG_111_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_112                                                                           0x00b0
-+#define regMP0_SMN_C2PMSG_112_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_113                                                                           0x00b1
-+#define regMP0_SMN_C2PMSG_113_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_114                                                                           0x00b2
-+#define regMP0_SMN_C2PMSG_114_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_115                                                                           0x00b3
-+#define regMP0_SMN_C2PMSG_115_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_116                                                                           0x00b4
-+#define regMP0_SMN_C2PMSG_116_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_117                                                                           0x00b5
-+#define regMP0_SMN_C2PMSG_117_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_118                                                                           0x00b6
-+#define regMP0_SMN_C2PMSG_118_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_119                                                                           0x00b7
-+#define regMP0_SMN_C2PMSG_119_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_120                                                                           0x00b8
-+#define regMP0_SMN_C2PMSG_120_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_121                                                                           0x00b9
-+#define regMP0_SMN_C2PMSG_121_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_122                                                                           0x00ba
-+#define regMP0_SMN_C2PMSG_122_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_123                                                                           0x00bb
-+#define regMP0_SMN_C2PMSG_123_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_124                                                                           0x00bc
-+#define regMP0_SMN_C2PMSG_124_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_125                                                                           0x00bd
-+#define regMP0_SMN_C2PMSG_125_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_126                                                                           0x00be
-+#define regMP0_SMN_C2PMSG_126_BASE_IDX                                                                  0
-+#define regMP0_SMN_C2PMSG_127                                                                           0x00bf
-+#define regMP0_SMN_C2PMSG_127_BASE_IDX                                                                  0
- #define regMP0_SMN_IH_CREDIT                                                                            0x00c1
- #define regMP0_SMN_IH_CREDIT_BASE_IDX                                                                   0
- #define regMP0_SMN_IH_SW_INT                                                                            0x00c2
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-index 0af8e95dadab..6e29a185de51 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_2_sh_mask.h
-@@ -484,6 +484,78 @@
- //MP1_SMN_C2PMSG_103
- #define MP1_SMN_C2PMSG_103__CONTENT__SHIFT                                                                    0x0
- #define MP1_SMN_C2PMSG_103__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_104
-+#define MP1_SMN_C2PMSG_104__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_104__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_105
-+#define MP1_SMN_C2PMSG_105__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_105__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_106
-+#define MP1_SMN_C2PMSG_106__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_106__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_107
-+#define MP1_SMN_C2PMSG_107__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_107__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_108
-+#define MP1_SMN_C2PMSG_108__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_108__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_109
-+#define MP1_SMN_C2PMSG_109__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_109__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_110
-+#define MP1_SMN_C2PMSG_110__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_110__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_111
-+#define MP1_SMN_C2PMSG_111__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_111__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_112
-+#define MP1_SMN_C2PMSG_112__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_112__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_113
-+#define MP1_SMN_C2PMSG_113__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_113__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_114
-+#define MP1_SMN_C2PMSG_114__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_114__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_115
-+#define MP1_SMN_C2PMSG_115__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_115__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_116
-+#define MP1_SMN_C2PMSG_116__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_116__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_117
-+#define MP1_SMN_C2PMSG_117__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_117__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_118
-+#define MP1_SMN_C2PMSG_118__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_118__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_119
-+#define MP1_SMN_C2PMSG_119__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_119__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_120
-+#define MP1_SMN_C2PMSG_120__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_120__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_121
-+#define MP1_SMN_C2PMSG_121__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_121__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_122
-+#define MP1_SMN_C2PMSG_122__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_122__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_123
-+#define MP1_SMN_C2PMSG_123__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_123__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_124
-+#define MP1_SMN_C2PMSG_124__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_124__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_125
-+#define MP1_SMN_C2PMSG_125__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_125__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_126
-+#define MP1_SMN_C2PMSG_126__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_126__CONTENT_MASK                                                                      0xFFFFFFFFL
-+//MP1_SMN_C2PMSG_127
-+#define MP1_SMN_C2PMSG_127__CONTENT__SHIFT                                                                    0x0
-+#define MP1_SMN_C2PMSG_127__CONTENT_MASK                                                                      0xFFFFFFFFL
- //MP1_SMN_IH_CREDIT
- #define MP1_SMN_IH_CREDIT__CREDIT_VALUE__SHIFT                                                                0x0
- #define MP1_SMN_IH_CREDIT__CLIENT_ID__SHIFT                                                                   0x10
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index a9fe05c38715..81ecbdeb1ddb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -129,6 +129,7 @@ struct psp_funcs
+ 	void (*ring_set_wptr)(struct psp_context *psp, uint32_t value);
+ 	int (*load_usbc_pd_fw)(struct psp_context *psp, uint64_t fw_pri_mc_addr);
+ 	int (*read_usbc_pd_fw)(struct psp_context *psp, uint32_t *fw_ver);
++	int (*update_spirom)(struct psp_context *psp, uint64_t fw_pri_mc_addr);
+ };
+ 
+ #define AMDGPU_XGMI_MAX_CONNECTED_NODES		64
+@@ -417,6 +418,10 @@ struct amdgpu_psp_funcs {
+ 	((psp)->funcs->read_usbc_pd_fw ? \
+ 	(psp)->funcs->read_usbc_pd_fw((psp), fw_ver) : -EINVAL)
+ 
++#define psp_update_spirom(psp, fw_pri_mc_addr) \
++	((psp)->funcs->update_spirom ? \
++	(psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
++
+ extern const struct amd_ip_funcs psp_ip_funcs;
+ 
+ extern const struct amdgpu_ip_block_version psp_v3_1_ip_block;
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index 9beb94681dd2..894ac0c64bf6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -50,6 +50,15 @@ MODULE_FIRMWARE("amdgpu/psp_13_0_7_sos.bin");
+ /* Read USB-PD from LFB */
+ #define GFX_CMD_USB_PD_USE_LFB 0x480
+ 
++/* VBIOS gfl defines */
++#define MBOX_READY_MASK 0x80000000
++#define MBOX_STATUS_MASK 0x0000FFFF
++#define MBOX_COMMAND_MASK 0x00FF0000
++#define MBOX_READY_FLAG 0x80000000
++#define C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_LO 0x2
++#define C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_HI 0x3
++#define C2PMSG_CMD_SPI_UPDATE_FLASH_IMAGE 0x4
++
+ static int psp_v13_0_init_microcode(struct psp_context *psp)
+ {
+ 	struct amdgpu_device *adev = psp->adev;
+@@ -465,6 +474,68 @@ static int psp_v13_0_read_usbc_pd_fw(struct psp_context *psp, uint32_t *fw_ver)
+ 	return ret;
+ }
+ 
++static int psp_v13_0_exec_spi_cmd(struct psp_context *psp, int cmd)
++{
++	uint32_t reg_status = 0, reg_val = 0;
++	struct amdgpu_device *adev = psp->adev;
++	int ret;
++
++	/* clear MBX ready (MBOX_READY_MASK bit is 0) and set update command */
++	reg_val |= (cmd << 16);
++	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_115,  reg_val);
++
++	/* Ring the doorbell */
++	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_73, 1);
++
++	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_115),
++				MBOX_READY_FLAG, MBOX_READY_MASK, false);
++	if (ret) {
++		dev_err(adev->dev, "SPI cmd %x timed out, ret = %d", cmd, ret);
++		return ret;
++	}
++
++	reg_status = RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_115);
++	if ((reg_status & 0xFFFF) != 0) {
++		dev_err(adev->dev, "SPI cmd %x failed, fail status = %04x\n",
++				cmd, reg_status & 0xFFFF);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++int psp_v13_0_update_spirom(struct psp_context *psp, uint64_t fw_pri_mc_addr)
++{
++	struct amdgpu_device *adev = psp->adev;
++	int ret;
++
++	/* Confirm PSP is ready to start */
++	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_115),
++			   MBOX_READY_FLAG, MBOX_READY_MASK, false);
++	if (ret) {
++		dev_err(adev->dev, "PSP Not ready to start processing, ret = %d", ret);
++		return ret;
++	}
++
++	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_116, lower_32_bits(fw_pri_mc_addr));
++
++	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_LO);
++	if (ret)
++		return ret;
++
++	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_116, upper_32_bits(fw_pri_mc_addr));
++
++	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_ROM_IMAGE_ADDR_HI);
++	if (ret)
++		return ret;
++
++	ret = psp_v13_0_exec_spi_cmd(psp, C2PMSG_CMD_SPI_UPDATE_FLASH_IMAGE);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
+ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.init_microcode = psp_v13_0_init_microcode,
+ 	.bootloader_load_kdb = psp_v13_0_bootloader_load_kdb,
+@@ -481,7 +552,8 @@ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.ring_get_wptr = psp_v13_0_ring_get_wptr,
+ 	.ring_set_wptr = psp_v13_0_ring_set_wptr,
+ 	.load_usbc_pd_fw = psp_v13_0_load_usbc_pd_fw,
+-	.read_usbc_pd_fw = psp_v13_0_read_usbc_pd_fw
++	.read_usbc_pd_fw = psp_v13_0_read_usbc_pd_fw,
++	.update_spirom = psp_v13_0_update_spirom
+ };
+ 
+ void psp_v13_0_set_psp_funcs(struct psp_context *psp)
 -- 
 2.35.1
 
