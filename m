@@ -4,51 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 198C1C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 08:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B859C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 08:14:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9C3F10E416;
-	Fri,  6 May 2022 08:03:45 +0000 (UTC)
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58EA10E416
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 May 2022 08:03:44 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id q14so8342971ljc.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 May 2022 01:03:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=6F41mRp4zpNWqTmL3ML/TZgLRmfR37uVeFtOFbwguuA=;
- b=J66/TiRZ94uLRcOCM5hogpnMFXIXG1D8ChJg0j2oAv6p0eTjaz29NDH1VR2Su5FJXz
- 43AOjJqx3pUxPRiPEW3BsUFWbT27c5ajT2QcDKWue4lzIGGDU9HlVVaK72Fh0HPt2REb
- WQNipG7SjepzUasechA9xKg+JhUu0JaBk/MBP/GdjNfRQMiw0obexRKxECl+1JuoDNQG
- BzntRWk+zvsVNBuGInu2Z2TZjbtRXThcgh/wAOy+MEqGq5JW1qgLp50QMS8ZOZhR2pXr
- Nfa5InMtFuGtXbUcfdGEZibHXElq7iGAXa2cVhCjYOrVnuwqYk1SC+APq9R7hU5BAqTI
- fXlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=6F41mRp4zpNWqTmL3ML/TZgLRmfR37uVeFtOFbwguuA=;
- b=DaEMfBCdr98WAEnkXEpgxx5jueUob+ILDWCm5Z71TrnGDkGvx0yZ7k0xNbrfFR+0lk
- fY5wvfiG7y8YqLT7Q0TPIYV9kXAK0CZO77j1moDSoqlMohCKedy8n3AkDOaiM6GdOjfw
- XnNwFoJHrDhbqNynrsmlCWIjGpgXrNIaj2ffbIwGJmci2NtY99gwz5vuUKs70uuwWaLI
- i3wTIahUcIa7MgZLo45pLNRHOP+b5p9lVAf/bahRE5jktFEZkmYIJwREZtpT9DAGGbkl
- WrM5E23AqY1NE2W6uImLfg9QiN4ZsuP58qlVJ/wyxk4HMqQChcqNGUsiv2nn3WE4T4gs
- 7Ltw==
-X-Gm-Message-State: AOAM531ThQNP65f4SrA77/sl5yiyB11TlUeluCJUvRZATztXzU2Sq9xg
- CWhNvQFaNynyA22KQaj+Ce+JuYaRHAcCp7FEwnCWwrBDtFg=
-X-Google-Smtp-Source: ABdhPJzIVmh3wUKDqn5di6ce8yHV5WEWkQr0jHvjdUUoXjUgyDs3LK2B+hT9heLDwnnW5tyRULz3J6rtfXCjw0I24VI=
-X-Received: by 2002:a2e:bd13:0:b0:246:1ff8:6da1 with SMTP id
- n19-20020a2ebd13000000b002461ff86da1mr1302841ljq.219.1651824222024; Fri, 06
- May 2022 01:03:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C37C610ED2F;
+	Fri,  6 May 2022 08:14:43 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A642D10ED4D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 May 2022 08:14:42 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5aed56.dynamic.kabel-deutschland.de
+ [95.90.237.86])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7DF4A61EA192C;
+ Fri,  6 May 2022 10:14:40 +0200 (CEST)
+Message-ID: <41c39720-c0a5-1e6b-05b3-dac6b98427fa@molgen.mpg.de>
+Date: Fri, 6 May 2022 10:14:40 +0200
 MIME-Version: 1.0
-Received: by 2002:a05:6500:a81:b0:13c:1acf:f8c9 with HTTP; Fri, 6 May 2022
- 01:03:40 -0700 (PDT)
-From: Amol <suratiamol@gmail.com>
-Date: Fri, 6 May 2022 13:33:40 +0530
-Message-ID: <CA+nuEB93EJAHEKzOYUPtY-vVkuzZsZM7cvoLsGUQxYEUxjOV8g@mail.gmail.com>
-Subject: Re: [cedar] DMA ring test timeout [solved]
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] amdgpu/pm: Disable managing power profiles on SRIOV for
+ Sienna Cichlid
+Content-Language: en-US
+To: Danijel Slivka <danijel.slivka@amd.com>
+References: <20220506075239.3466527-1-danijel.slivka@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220506075239.3466527-1-danijel.slivka@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,27 +44,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: suratiamol@gmail.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 06/05/2022, Amol <suratiamol@gmail.com> wrote:
-> Hello,
->
-> While trying to program the HD 7350 Cedar GPU to run with DPM
-> under the 157MHz/200MHz sclk/mclk powerstate, for single_display,
-> and with forced LOW performance on the SMC, the DMA ring seems
-> to hang.
->
-. . .
-. . .
->
-> Does this mean that the GPU doesn't support running DMA ring at the
-> lowest perf profile (157Mhz/200MHz)? I do still believe that this
-> situation might be a result of faulty/missing programming on my part,
-> though I am not sure what exactly it is that is at fault or is missing.
+Dear Danijel,
 
-The mc_reg_table was being populated with invalid entries.
 
-Thanks,
-Amol
+Am 06.05.22 um 09:52 schrieb Danijel Slivka:
+
+Please add a reasoning/motivation in the commit message body.
+
+
+Kind regards,
+
+Paul
+
+
+> Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 70a0aad05426..59a662aeaaf3 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2025,6 +2025,8 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+>   	} else if (DEVICE_ATTR_IS(pp_power_profile_mode)) {
+>   		if (amdgpu_dpm_get_power_profile_mode(adev, NULL) == -EOPNOTSUPP)
+>   			*states = ATTR_STATE_UNSUPPORTED;
+> +		else if (gc_ver == IP_VERSION(10, 3, 0) && amdgpu_sriov_vf(adev))
+> +			*states = ATTR_STATE_UNSUPPORTED;
+>   	}
+>   
+>   	switch (gc_ver) {
+> @@ -2038,6 +2040,13 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+>   			dev_attr->store = NULL;
+>   		}
+>   		break;
+> +	case IP_VERSION(10, 3, 0):
+> +		if (DEVICE_ATTR_IS(power_dpm_force_performance_level) &&
+> +		    amdgpu_sriov_vf(adev)) {
+> +			dev_attr->attr.mode &= ~S_IWUGO;
+> +			dev_attr->store = NULL;
+> +		}
+> +		break;
+>   	default:
+>   		break;
+>   	}
