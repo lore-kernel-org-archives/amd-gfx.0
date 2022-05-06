@@ -4,31 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C98E6C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 10:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C126C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 10:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F40D10FD70;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E1810FD77;
 	Fri,  6 May 2022 10:20:19 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0248410FC2B;
- Thu,  5 May 2022 23:23:19 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R381e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DS; RN=11; SR=0; TI=SMTPD_---0VCP-YiH_1651792996; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VCP-YiH_1651792996) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 06 May 2022 07:23:17 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next 1/2] drm/amdgpu/gfx11: remove unneeded semicolon
-Date: Fri,  6 May 2022 07:23:12 +0800
-Message-Id: <20220505232312.129997-2-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20220505232312.129997-1-yang.lee@linux.alibaba.com>
-References: <20220505232312.129997-1-yang.lee@linux.alibaba.com>
+Received: from mail.meizu.com (edge05.meizu.com [157.122.146.251])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D845310E274;
+ Fri,  6 May 2022 02:05:42 +0000 (UTC)
+Received: from IT-EXMB-1-125.meizu.com (172.16.1.125) by mz-mail12.meizu.com
+ (172.16.1.108) with Microsoft SMTP Server (TLS) id 14.3.487.0; Fri, 6 May
+ 2022 10:04:40 +0800
+Received: from meizu.meizu.com (172.16.137.70) by IT-EXMB-1-125.meizu.com
+ (172.16.1.125) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Fri, 6 May
+ 2022 10:04:38 +0800
+From: Haowen Bai <baihaowen@meizu.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amdkfd: Return true/false (not 1/0) from bool functions
+Date: Fri, 6 May 2022 10:04:37 +0800
+Message-ID: <1651802677-10154-1-git-send-email-baihaowen@meizu.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.16.137.70]
+X-ClientProxiedBy: IT-EXMB-1-126.meizu.com (172.16.1.126) To
+ IT-EXMB-1-125.meizu.com (172.16.1.125)
 X-Mailman-Approved-At: Fri, 06 May 2022 10:20:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -41,35 +45,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Yang Li <yang.lee@linux.alibaba.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+Cc: Haowen Bai <baihaowen@meizu.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the following coccicheck warning:
-./drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:1222:2-3: Unneeded semicolon
+Return boolean values ("true" or "false") instead of 1 or 0 from bool
+functions.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Signed-off-by: Haowen Bai <baihaowen@meizu.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 184bf554acca..d2ab325e40b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1219,7 +1219,7 @@ static void gfx_v11_0_parse_rlc_toc(struct amdgpu_device *adev, void *rlc_toc)
- 		rlc_autoload_info[ucode->id].size = ucode->size * 4;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+index c3919aaa76e6..1431f0961769 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+@@ -241,14 +241,14 @@ static bool event_interrupt_isr_v11(struct kfd_dev *dev,
+ 	if (/*!KFD_IRQ_IS_FENCE(client_id, source_id) &&*/
+ 	    (vmid < dev->vm_info.first_vmid_kfd ||
+ 	    vmid > dev->vm_info.last_vmid_kfd))
+-		return 0;
++		return false;
  
- 		ucode++;
--	};
-+	}
- }
+ 	pasid = SOC15_PASID_FROM_IH_ENTRY(ih_ring_entry);
+ 	context_id0 = SOC15_CONTEXT_ID0_FROM_IH_ENTRY(ih_ring_entry);
  
- static uint32_t gfx_v11_0_calc_toc_total_size(struct amdgpu_device *adev)
+ 	if ((source_id == SOC15_INTSRC_CP_END_OF_PIPE) &&
+ 	    (context_id0 & AMDGPU_FENCE_MES_QUEUE_FLAG))
+-		return 0;
++		return false;
+ 
+ 	pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
+ 		 client_id, source_id, vmid, pasid);
+@@ -258,7 +258,7 @@ static bool event_interrupt_isr_v11(struct kfd_dev *dev,
+ 
+ 	/* If there is no valid PASID, it's likely a bug */
+ 	if (WARN_ONCE(pasid == 0, "Bug: No PASID in KFD interrupt"))
+-		return 0;
++		return false;
+ 
+ 	/* Interrupt types we care about: various signals and faults.
+ 	 * They will be forwarded to a work queue (see below).
 -- 
-2.20.1.7.g153144c
+2.7.4
 
