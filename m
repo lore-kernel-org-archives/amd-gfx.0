@@ -4,56 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 264A0C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 10:20:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA90CC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 11:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723E510FD80;
-	Fri,  6 May 2022 10:20:20 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5C4810FFFB;
- Fri,  6 May 2022 06:30:14 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3491B1F90A;
- Fri,  6 May 2022 06:30:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1651818613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=GdjZT5Kj3z2E6ejrSM3QsUGLV+3l0aIb+pzGQm1pVaE=;
- b=lFttra017T9J9JHPzyKKMlvUNXCVutPvhxrY4H4ToNoGwj6v475rSTOpzM4BHxQNahvbcW
- rbsoOGtQbKP/3wHXgL5LYq/8oL2S+PuqEzSSRMPjE1uN733sqr4alDLtUXSdkzeYRhJK02
- PEMP0imePqriCo/dX1A9MwHc5Y/IKgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1651818613;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=GdjZT5Kj3z2E6ejrSM3QsUGLV+3l0aIb+pzGQm1pVaE=;
- b=KqPi7ykhSAgdVv67LWnjScoMCLd8sgRGOp43Y+sFKBhKKnHpO3oqyBQb7QGWzIix3XPrGT
- 0KO6bNtslMild4AA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D92B813AA2;
- Fri,  6 May 2022 06:30:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id B/MNM3TAdGLKDwAAMHmgww
- (envelope-from <jroedel@suse.de>); Fri, 06 May 2022 06:30:12 +0000
-Date: Fri, 6 May 2022 08:30:11 +0200
-From: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
-To: Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com
-Subject: [BUG] Warning and NULL-ptr dereference in amdgpu driver with 5.18
-Message-ID: <YnTAc96Uv0CXcGhD@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62C0911211F;
+	Fri,  6 May 2022 11:23:17 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF80911211F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 May 2022 11:23:15 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id i19so13836469eja.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 May 2022 04:23:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AvC0oiX4mgP8fHfbPsPJ8AgmcICc2XQPgAkiAftPxJw=;
+ b=pYJvpNDA/rRhBHrJFZpBk7E27MhrhQ4N/k8lZeMKC6LmeUg+9aM2/R0X0JYlIKnhQP
+ IM2gH0mxDV4iprVHlqVzsxW4djN6Rtt5L32Lnve1vh8ZadhPJbXFPhpTGeMII/AsaGei
+ kWllBMCouDFJBL/ptcw5JSB0FHm+o7zsaPrWEMCeu0Y7sO386XpFndBAqrQp7UW4kliq
+ 455s2wIcItm1pze1FSvsyg+f4QAv29GhRJRZ6XBOwZtMn3jUkvFjTkxXyH1BCVcJlkLi
+ +nAHhAIquihQWiSQfREgjRPkm9nnPwLT64btTbTs8ph3LQU48Id58LN1L2CtfXuE6wn/
+ dS+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AvC0oiX4mgP8fHfbPsPJ8AgmcICc2XQPgAkiAftPxJw=;
+ b=nYi4gKhLARRpPc+b92MDfyerTM93cuJ9lOdL876i1Y0dBBBj+7WNFHEy3pXhgCScaF
+ 3Tl5CXDCtHU3tfkdJffKuAu5KLeDqPBrdZKPdAPqQQg2M6nfLR0r8TsI7v0p7SkAkARX
+ VOuVR8stsZltcv7Xt77+JunZqbCqoqQ3H9ISejHl/WZ8kanqsvY5kepn+3VDrfyc1+TR
+ gh6YrJ/Lb7s8CPNWr8dp4JJRPtMPWp9+ywW1hyYFjM+6+ogWS/vuCJEDK1j/Ctxygjm0
+ QZdRY2jMwO7kfsZTQufRHD+YxDkQgVNeF05otXpPDOhBaNs2INEeS8Ri8ZaX/R2uI29E
+ JxZg==
+X-Gm-Message-State: AOAM5308G7VksBl+yFA4/8kY0sCfj6N1GaQoqJsEFQvGNOLRMWUG5mb5
+ SoNt1kqF8pXX57LnPFpPDEI=
+X-Google-Smtp-Source: ABdhPJzfh1Exe3rG5U4UyH5XB+IWNi6EcHsQCeMwD2iCsYDv7in6pj4ecjfwYRdU7NeTrrZ6ojuTGw==
+X-Received: by 2002:a17:907:7202:b0:6f5:17f6:3bc5 with SMTP id
+ dr2-20020a170907720200b006f517f63bc5mr2464669ejc.279.1651836194289; 
+ Fri, 06 May 2022 04:23:14 -0700 (PDT)
+Received: from baker.fritz.box (p57b0b3fd.dip0.t-ipconnect.de.
+ [87.176.179.253]) by smtp.gmail.com with ESMTPSA id
+ a24-20020a170906369800b006f3ef214e37sm1816684ejc.157.2022.05.06.04.23.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 May 2022 04:23:13 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Marek.Olsak@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
+Date: Fri,  6 May 2022 13:23:10 +0200
+Message-Id: <20220506112312.347519-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 06 May 2022 10:20:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,155 +70,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Add a AMDGPU_GEM_CREATE_DISCARDABLE flag to note that the content of a BO
+doesn't needs to be preserved during eviction.
 
-since recently I started to experience warnings and NULL-ptr
-dereferences in the amdgpu driver with kernel 5.18-rc5+. Earlier
-5.18-based kernels might be affected as well, but I havn't seen this
-with 5.17.
+KFD was already using a similar functionality for SVM BOs so replace the
+internal flag with the new UAPI.
 
-The kernel was built from the iommu-next branch, based on 5.18-rc5.
+Only compile tested!
 
-The messages start with some PCIe error being reported:
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c       | 2 +-
+ include/uapi/drm/amdgpu_drm.h              | 4 ++++
+ 6 files changed, 9 insertions(+), 5 deletions(-)
 
-[20389.984993] pcieport 0000:00:03.1: AER: Multiple Corrected error received: 0000:0a:00.0
-[20389.985005] amdgpu 0000:0a:00.0: PCIe Bus Error: severity=Corrected, type=Data Link Layer, (Receiver ID)
-[20389.985007] amdgpu 0000:0a:00.0:   device [1002:6995] error status/mask=000000c0/00002000
-[20389.985010] amdgpu 0000:0a:00.0:    [ 6] BadTLP                
-[20389.985013] amdgpu 0000:0a:00.0:    [ 7] BadDLLP               
-
-Directly followed by a waring:
-
-[81829.087101] ------------[ cut here ]------------
-[81829.087105] WARNING: CPU: 4 PID: 644 at drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dce110/dce110_clk_mgr.c:140 dce110_fill_display_configs+0x4a/0x150 [amdgpu]
-[81829.087461] Modules linked in: snd_seq_dummy(E) snd_hrtimer(E) snd_seq(E) rfcomm(E) af_packet(E) ocrdma(E) ib_uverbs(E) ib_core(E) nft_fib_inet(E) nft_fib_ipv4(E) nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reject_ipv4(E) nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) nf_tables(E) ebtable_nat(E) ebtable_broute(E) ip6table_nat(E) ip6table_mangle(E) ip6table_raw(E) ip6table_security(E) iptable_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) iptable_mangle(E) iptable_raw(E) iptable_security(E) ip_set(E) nfnetlink(E) ebtable_filter(E) ebtables(E) ip6table_filter(E) ip6_tables(E) iptable_filter(E) bpfilter(E) cmac(E) algif_hash(E) algif_skcipher(E) af_alg(E) bnep(E) dmi_sysfs(E) intel_rapl_msr(E) intel_rapl_common(E) snd_hda_codec_realtek(E) eeepc_wmi(E) btusb(E) asus_wmi(E) kvm_amd(E) btrtl(E) snd_hda_codec_generic(E) nls_iso8859_1(E) battery(E) uvcvideo(E) sparse_keymap(E) ledtrig_audio(E) btbcm(E) video(E) wmi_bmof(E)
-[81829.087502]  platform_profile(E) mxm_wmi(E) snd_hda_codec_hdmi(E) nls_cp437(E) videobuf2_vmalloc(E) btintel(E) asus_wmi_sensors(E) btmtk(E) vfat(E) snd_hda_intel(E) videobuf2_memops(E) videobuf2_v4l2(E) snd_intel_dspcfg(E) bluetooth(E) kvm(E) videobuf2_common(E) fat(E) snd_usb_audio(E) snd_virtuoso(E) irqbypass(E) snd_usbmidi_lib(E) snd_hda_codec(E) snd_oxygen_lib(E) videodev(E) snd_hwdep(E) snd_mpu401_uart(E) mc(E) snd_hda_core(E) ecdh_generic(E) snd_rawmidi(E) snd_pcm(E) snd_seq_device(E) rfkill(E) pcspkr(E) i2c_piix4(E) efi_pstore(E) k10temp(E) snd_timer(E) ext4(E) igb(E) snd(E) dca(E) soundcore(E) mbcache(E) be2net(E) jbd2(E) wmi(E) gpio_amdpt(E) gpio_generic(E) tiny_power_button(E) button(E) acpi_cpufreq(E) fuse(E) configfs(E) ip_tables(E) x_tables(E) xfs(E) libcrc32c(E) dm_crypt(E) essiv(E) authenc(E) trusted(E) asn1_encoder(E) tee(E) hid_logitech_hidpp(E) hid_logitech_dj(E) hid_generic(E) usbhid(E) sr_mod(E) cdrom(E) uas(E) usb_storage(E) amdgpu(E)
-[81829.087551]  drm_ttm_helper(E) ttm(E) iommu_v2(E) gpu_sched(E) i2c_algo_bit(E) crct10dif_pclmul(E) drm_dp_helper(E) crc32_pclmul(E) crc32c_intel(E) drm_kms_helper(E) syscopyarea(E) sysfillrect(E) sysimgblt(E) fb_sys_fops(E) drm(E) xhci_pci(E) cec(E) ghash_clmulni_intel(E) xhci_pci_renesas(E) aesni_intel(E) crypto_simd(E) cryptd(E) sp5100_tco(E) xhci_hcd(E) ccp(E) rc_core(E) nvme(E) usbcore(E) nvme_core(E) sg(E) br_netfilter(E) bridge(E) stp(E) llc(E) dm_multipath(E) dm_mod(E) scsi_dh_rdac(E) scsi_dh_emc(E) scsi_dh_alua(E) ledtrig_timer(E) msr(E) efivarfs(E)
-[81829.087581] CPU: 4 PID: 644 Comm: kworker/4:1H Tainted: G            E     5.18.0-rc5-iommu-next+ #1 4d1b12f73ec264927e45e8f2e5d1c0c8e280bc7d
-[81829.087585] Hardware name: System manufacturer System Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-[81829.087588] Workqueue: events_highpri dm_irq_work_func [amdgpu]
-[81829.087928] RIP: 0010:dce110_fill_display_configs+0x4a/0x150 [amdgpu]
-[81829.088274] Code: 31 ff 4d 8d 98 f0 01 00 00 49 8b 0c f8 4c 89 da 31 c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 10 08 00 00 83 f8 06 75 e8 <0f> 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 00 48 8b 50 08 8b
-[81829.088277] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
-[81829.088280] RAX: 0000000000000006 RBX: ffff9719a6b60000 RCX: ffff971d08e07800
-[81829.088282] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 0000000000000001
-[81829.088284] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 0000000000000000
-[81829.088286] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9719a6b72980
-[81829.088287] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 0000000000003258
-[81829.088289] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) knlGS:0000000000000000
-[81829.088291] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[81829.088293] CR2: 00007fbc4800bb28 CR3: 00000002909c0000 CR4: 00000000003506e0
-[81829.088295] Call Trace:
-[81829.088298]  <TASK>
-[81829.088300]  dce11_pplib_apply_display_requirements+0x129/0x200 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.088646]  dce112_update_clocks+0x8d/0xf0 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.088992]  dc_commit_updates_for_stream+0x1a91/0x1ef0 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.089330]  ? detect_link_and_local_sink+0x3b4/0xb40 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.089665]  set_all_streams_dpms_off_for_link+0x10e/0x120 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.090002]  dc_link_detect+0x187/0x420 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.090336]  handle_hpd_irq_helper+0xe9/0x190 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.090701]  process_one_work+0x217/0x3e0
-[81829.090707]  worker_thread+0x4d/0x3c0
-[81829.090712]  ? rescuer_thread+0x380/0x380
-[81829.090715]  kthread+0xd9/0x100
-[81829.090719]  ? kthread_complete_and_exit+0x20/0x20
-[81829.090722]  ret_from_fork+0x22/0x30
-[81829.090728]  </TASK>
-[81829.090729] ---[ end trace 0000000000000000 ]---
-
-And this NULL-ptr dereference:
-
-[81829.090732] BUG: kernel NULL pointer dereference, address: 0000000000000008
-[81829.090737] #PF: supervisor read access in kernel mode
-[81829.090741] #PF: error_code(0x0000) - not-present page
-[81829.090744] PGD 0 P4D 0 
-[81829.090747] Oops: 0000 [#1] PREEMPT SMP NOPTI
-[81829.090751] CPU: 4 PID: 644 Comm: kworker/4:1H Tainted: G        W   E     5.18.0-rc5-iommu-next+ #1 4d1b12f73ec264927e45e8f2e5d1c0c8e280bc7d
-[81829.090756] Hardware name: System manufacturer System Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-[81829.090758] Workqueue: events_highpri dm_irq_work_func [amdgpu]
-[81829.091111] RIP: 0010:dce110_fill_display_configs+0x5b/0x150 [amdgpu]
-[81829.091455] Code: c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 10 08 00 00 83 f8 06 75 e8 0f 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 00 <48> 8b 50 08 8b 9a 44 03 00 00 49 63 d1 41 83 c1 01 48 8d 14 92 49
-[81829.091458] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
-[81829.091461] RAX: 0000000000000000 RBX: ffff9719a6b60000 RCX: ffff971d08e07800
-[81829.091463] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 0000000000000001
-[81829.091465] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 0000000000000000
-[81829.091467] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9719a6b72980
-[81829.091469] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 0000000000003258
-[81829.091471] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) knlGS:0000000000000000
-[81829.091474] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[81829.091476] CR2: 0000000000000008 CR3: 00000002909c0000 CR4: 00000000003506e0
-[81829.091479] Call Trace:
-[81829.091480]  <TASK>
-[81829.091482]  dce11_pplib_apply_display_requirements+0x129/0x200 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.091828]  dce112_update_clocks+0x8d/0xf0 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.092173]  dc_commit_updates_for_stream+0x1a91/0x1ef0 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.092509]  ? detect_link_and_local_sink+0x3b4/0xb40 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.092844]  set_all_streams_dpms_off_for_link+0x10e/0x120 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.093180]  dc_link_detect+0x187/0x420 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.093514]  handle_hpd_irq_helper+0xe9/0x190 [amdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
-[81829.093853]  process_one_work+0x217/0x3e0
-[81829.093858]  worker_thread+0x4d/0x3c0
-[81829.093861]  ? rescuer_thread+0x380/0x380
-[81829.093865]  kthread+0xd9/0x100
-[81829.093868]  ? kthread_complete_and_exit+0x20/0x20
-[81829.093872]  ret_from_fork+0x22/0x30
-[81829.093876]  </TASK>
-[81829.093878] Modules linked in: snd_seq_dummy(E) snd_hrtimer(E) snd_seq(E) rfcomm(E) af_packet(E) ocrdma(E) ib_uverbs(E) ib_core(E) nft_fib_inet(E) nft_fib_ipv4(E) nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reject_ipv4(E) nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) nf_tables(E) ebtable_nat(E) ebtable_broute(E) ip6table_nat(E) ip6table_mangle(E) ip6table_raw(E) ip6table_security(E) iptable_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) iptable_mangle(E) iptable_raw(E) iptable_security(E) ip_set(E) nfnetlink(E) ebtable_filter(E) ebtables(E) ip6table_filter(E) ip6_tables(E) iptable_filter(E) bpfilter(E) cmac(E) algif_hash(E) algif_skcipher(E) af_alg(E) bnep(E) dmi_sysfs(E) intel_rapl_msr(E) intel_rapl_common(E) snd_hda_codec_realtek(E) eeepc_wmi(E) btusb(E) asus_wmi(E) kvm_amd(E) btrtl(E) snd_hda_codec_generic(E) nls_iso8859_1(E) battery(E) uvcvideo(E) sparse_keymap(E) ledtrig_audio(E) btbcm(E) video(E) wmi_bmof(E)
-[81829.093913]  platform_profile(E) mxm_wmi(E) snd_hda_codec_hdmi(E) nls_cp437(E) videobuf2_vmalloc(E) btintel(E) asus_wmi_sensors(E) btmtk(E) vfat(E) snd_hda_intel(E) videobuf2_memops(E) videobuf2_v4l2(E) snd_intel_dspcfg(E) bluetooth(E) kvm(E) videobuf2_common(E) fat(E) snd_usb_audio(E) snd_virtuoso(E) irqbypass(E) snd_usbmidi_lib(E) snd_hda_codec(E) snd_oxygen_lib(E) videodev(E) snd_hwdep(E) snd_mpu401_uart(E) mc(E) snd_hda_core(E) ecdh_generic(E) snd_rawmidi(E) snd_pcm(E) snd_seq_device(E) rfkill(E) pcspkr(E) i2c_piix4(E) efi_pstore(E) k10temp(E) snd_timer(E) ext4(E) igb(E) snd(E) dca(E) soundcore(E) mbcache(E) be2net(E) jbd2(E) wmi(E) gpio_amdpt(E) gpio_generic(E) tiny_power_button(E) button(E) acpi_cpufreq(E) fuse(E) configfs(E) ip_tables(E) x_tables(E) xfs(E) libcrc32c(E) dm_crypt(E) essiv(E) authenc(E) trusted(E) asn1_encoder(E) tee(E) hid_logitech_hidpp(E) hid_logitech_dj(E) hid_generic(E) usbhid(E) sr_mod(E) cdrom(E) uas(E) usb_storage(E) amdgpu(E)
-[81829.093952]  drm_ttm_helper(E) ttm(E) iommu_v2(E) gpu_sched(E) i2c_algo_bit(E) crct10dif_pclmul(E) drm_dp_helper(E) crc32_pclmul(E) crc32c_intel(E) drm_kms_helper(E) syscopyarea(E) sysfillrect(E) sysimgblt(E) fb_sys_fops(E) drm(E) xhci_pci(E) cec(E) ghash_clmulni_intel(E) xhci_pci_renesas(E) aesni_intel(E) crypto_simd(E) cryptd(E) sp5100_tco(E) xhci_hcd(E) ccp(E) rc_core(E) nvme(E) usbcore(E) nvme_core(E) sg(E) br_netfilter(E) bridge(E) stp(E) llc(E) dm_multipath(E) dm_mod(E) scsi_dh_rdac(E) scsi_dh_emc(E) scsi_dh_alua(E) ledtrig_timer(E) msr(E) efivarfs(E)
-[81829.093978] CR2: 0000000000000008
-[81829.093980] ---[ end trace 0000000000000000 ]---
-[81829.338958] RIP: 0010:dce110_fill_display_configs+0x5b/0x150 [amdgpu]
-[81829.339333] Code: c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 10 08 00 00 83 f8 06 75 e8 0f 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 00 <48> 8b 50 08 8b 9a 44 03 00 00 49 63 d1 41 83 c1 01 48 8d 14 92 49
-[81829.339336] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
-[81829.339340] RAX: 0000000000000000 RBX: ffff9719a6b60000 RCX: ffff971d08e07800
-[81829.339343] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 0000000000000001
-[81829.339345] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 0000000000000000
-[81829.339347] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9719a6b72980
-[81829.339349] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 0000000000003258
-[81829.339352] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) knlGS:0000000000000000
-[81829.339355] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[81829.339357] CR2: 0000000000000008 CR3: 00000002909c0000 CR4: 00000000003506e0
-
-Usually one of the displays does not power on anymore after this and the
-machine locks up pretty soon as well, probably because the worker thread
-is dead.
-
-My GPU device is:
-
-0a:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon PRO WX 2100] (prog-if 00 [VGA controller])
-	Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Device 0b0c
-	Flags: bus master, fast devsel, latency 0, IRQ 90, IOMMU group 15
-	Memory at e0000000 (64-bit, prefetchable) [size=256M]
-	Memory at f0000000 (64-bit, prefetchable) [size=2M]
-	I/O ports at e000 [size=256]
-	Memory at fce00000 (32-bit, non-prefetchable) [size=256K]
-	Expansion ROM at 000c0000 [disabled] [size=128K]
-	Capabilities: <access denied>
-	Kernel driver in use: amdgpu
-	Kernel modules: amdgpu
-
-Please let me know if anything else is needed to debug this. Bisection
-is not really feasible, because the issue happens at random, sometimes
-after one or two days of uptime.
-
-Regards,
-
--- 
-Jörg Rödel
-jroedel@suse.de
-
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5
-90409 Nürnberg
-Germany
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 2e16484bf606..bf97d8f07f57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -302,8 +302,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      AMDGPU_GEM_CREATE_VRAM_CLEARED |
+ 		      AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
+ 		      AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
+-		      AMDGPU_GEM_CREATE_ENCRYPTED))
+-
++		      AMDGPU_GEM_CREATE_ENCRYPTED |
++		      AMDGPU_GEM_CREATE_DISCARDABLE))
+ 		return -EINVAL;
  
-(HRB 36809, AG Nürnberg)
-Geschäftsführer: Ivo Totev
+ 	/* reject invalid gem domains */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 8b7ee1142d9a..1944ef37a61e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -567,6 +567,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		bp->domain;
+ 	bo->allowed_domains = bo->preferred_domains;
+ 	if (bp->type != ttm_bo_type_kernel &&
++	    !(bp->flags & AMDGPU_GEM_CREATE_DISCARDABLE) &&
+ 	    bo->allowed_domains == AMDGPU_GEM_DOMAIN_VRAM)
+ 		bo->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 4c9cbdc66995..147b79c10cbb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -41,7 +41,6 @@
+ 
+ /* BO flag to indicate a KFD userptr BO */
+ #define AMDGPU_AMDKFD_CREATE_USERPTR_BO	(1ULL << 63)
+-#define AMDGPU_AMDKFD_CREATE_SVM_BO	(1ULL << 62)
+ 
+ #define to_amdgpu_bo_user(abo) container_of((abo), struct amdgpu_bo_user, bo)
+ #define to_amdgpu_bo_vm(abo) container_of((abo), struct amdgpu_bo_vm, bo)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 41d6f604813d..ba3221a25e75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -117,7 +117,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
+ 	}
+ 
+ 	abo = ttm_to_amdgpu_bo(bo);
+-	if (abo->flags & AMDGPU_AMDKFD_CREATE_SVM_BO) {
++	if (abo->flags & AMDGPU_GEM_CREATE_DISCARDABLE) {
+ 		placement->num_placement = 0;
+ 		placement->num_busy_placement = 0;
+ 		return;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 5ed8d9b549a4..835b5187f0b8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -531,7 +531,7 @@ svm_range_vram_node_new(struct amdgpu_device *adev, struct svm_range *prange,
+ 	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
+ 	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+ 	bp.flags |= clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
+-	bp.flags |= AMDGPU_AMDKFD_CREATE_SVM_BO;
++	bp.flags |= AMDGPU_GEM_CREATE_DISCARDABLE;
+ 	bp.type = ttm_bo_type_device;
+ 	bp.resv = NULL;
+ 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9a1d210d135d..57b9d8f0133a 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -140,6 +140,10 @@ extern "C" {
+  * not require GTT memory accounting
+  */
+ #define AMDGPU_GEM_CREATE_PREEMPTIBLE		(1 << 11)
++/* Flag that BO can be discarded under memory pressure without keeping the
++ * content.
++ */
++#define AMDGPU_GEM_CREATE_DISCARDABLE		(1 << 12)
+ 
+ struct drm_amdgpu_gem_create_in  {
+ 	/** the requested memory size */
+-- 
+2.25.1
 
