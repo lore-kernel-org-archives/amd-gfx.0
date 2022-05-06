@@ -4,57 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46538C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 14:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA66C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 May 2022 14:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C41310E893;
-	Fri,  6 May 2022 14:22:41 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB71510E893
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 May 2022 14:22:39 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-d6e29fb3d7so7325718fac.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 May 2022 07:22:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=VkTDBxo8HRG0orJi7pyZ1QrLmrlIiJFRlNmUNRMki9s=;
- b=Y2YxZKB7M7TLKI5le88v8rCvuSlhwjrTr/9u2suDErvmeFumOcsuni2vwrbSbeIxx7
- srOqr1CZgHY+sVKe/dlQIscGBQ8Fv/ULBK9pf2gZqyg7ehIXd5Sv2sKESYAh4v4xoBTI
- 6HQ6NyTua8YuKoXH0QSvnfS/W4mzgFSHQfEPCqUh2z9/ISeel7UeVVB73TU4wu/Uj+sm
- VartW0uz4A3ZNfJu4UvaF9fcAteADn4FTAaG41GdQBB3K5MTQRrfwOu8XxtbiyWfKCMR
- I16CIy6BkaboGC9Rk1uDoZGkiAkeRGPvNIqvRAY/BuCAQQLlRvEbLPb5NdFfrrw9OSwG
- EQgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=VkTDBxo8HRG0orJi7pyZ1QrLmrlIiJFRlNmUNRMki9s=;
- b=dZx3qYaU0xni9zC/RUiMwv9Gbz6C6RiAHYpYP7EIkT6wtyMzumczH0+MlPJPa0tUJE
- +wUqyyQRQzTnh73GtUpKUH7lbstpDljVHmwi+tcFiWUVGGnzxRB0Z50oT1090upBzA2U
- g0BbyUH+SAXa6rUxIR4PoAmhYSlPBJDUNsJHaV837AAfl33OnmFRxngin24MWOzLtq5N
- 3TLxGln4mGWITskhc2suxXikYihyI+S5/VvD9CfX9K3TiOkrhBSHz0cLfXaPIlcjiJz0
- TX+2WO+Lw1MRwSwPEt9TftL/HIzhSLr23dlWdiZsD+/jgZZQdlKJVOfIh+8JFLUo+W+y
- P4rA==
-X-Gm-Message-State: AOAM533/XUJEp0H1Dyl+NDkHfrHmcDeGUE/cCKeqdcRTktFQZZbJyosW
- JrkEO1UNFcxABq3gpRwbbel0cVCQQUFjffs2dRo=
-X-Google-Smtp-Source: ABdhPJxj56c6PT4ftizY9Dyobw7K0cKYww97gK1X1u2Y1j0aOetb8m8cj3EVbgdCREtr3v0KcSdY6bQ/72gHoq5rmGE=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr1427740oap.253.1651846959199; Fri, 06
- May 2022 07:22:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73C810E04D;
+	Fri,  6 May 2022 14:33:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3364010E04D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 May 2022 14:33:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NxTtTDg8MgbL/dq7ujOpT7dbSgTLwpQmmGDSwnkw1yyDgt5wyvdmGhWs92KP39+kHLViy/pme45cNyeJMabGc5GBEQlW8dqF6WS9taaEbzv4xZ9Qfw1rjLswbec0HA3eZMjsXyC833whTMaLAlfYFHXAMMqzS1+AMPQba11bcVlUu1w91BU78/Sw3jDaCbMx783s7UNC5cfaD0ZRzQhnQ0kvdfa2LUw3C3OrTeckH31LXNruX7DjGUQxNnOlt4Psx2Kbxqm1aqia6uC/0AmeKPfP/9tgzZKoQeDvkPf5zt4TRrMaz+lwAkMa4W3CPnts6Eq6uIXyhPI/pwmMcdiLqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O55Ms/vUB7aG9SH3Djpa5lD726hnfYz+2bEGyELNFl8=;
+ b=UzdqxELGQQnGougVb+tRjr4tWtN51JbFJqIjdPBOGUnp1zc3ucrU9ltJ5aq8LUvv4PmbffzF62ZWLrPJ7u1GS1a8kJJsZShpfK7QVZMpDKq2sBnqqZyKvwcVQEa2ie6LqtroeGy1Brq+74uEYNoMotz5aSEZMqfqiTvZuJ4WA27myeKDgG4J9mlUDPuQii4rQRrrKDnKBP71JagVqgVw2RuLOmOUn5tw8xAFakhQONcMlxJCZiCFM908f96UmZdfc6zoly4FYGPyzh3cq2FbH4hLhbXuWR3nmjaMzVsScEkbWBQMJWjSrj+zw7roaeKl23urY8ON2+RbGR+MLwntRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O55Ms/vUB7aG9SH3Djpa5lD726hnfYz+2bEGyELNFl8=;
+ b=qyDsJgoBIfgzJKqp7Lwa5rIv4iNgB7VCs0c4khDwppjsaJpWtnUraW3o8PDUXc/3bImtn1OIAi/V3r9cq0+Hl+5TIDOnlqkwsWlpqsd3vuix8RwaoGzUV40ASLB2gBfHiJpgtJ5WY9gDLakiMWTMgfDgCUjUOLdARrwoyTURKuk=
+Received: from BN9PR03CA0792.namprd03.prod.outlook.com (2603:10b6:408:13f::17)
+ by BN8PR12MB3201.namprd12.prod.outlook.com (2603:10b6:408:6c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Fri, 6 May
+ 2022 14:33:31 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::2d) by BN9PR03CA0792.outlook.office365.com
+ (2603:10b6:408:13f::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
+ Transport; Fri, 6 May 2022 14:33:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5227.15 via Frontend Transport; Fri, 6 May 2022 14:33:31 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 6 May
+ 2022 09:33:30 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: make smu_v13_0_7_check_fw_status() static
+Date: Fri, 6 May 2022 10:33:18 -0400
+Message-ID: <20220506143318.2467559-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220505200406.1293467-1-alexander.deucher@amd.com>
- <20220505200406.1293467-3-alexander.deucher@amd.com>
- <ac0c55f7-20ee-9cf4-f52f-1a168cc4e8f8@amd.com>
-In-Reply-To: <ac0c55f7-20ee-9cf4-f52f-1a168cc4e8f8@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 6 May 2022 10:22:28 -0400
-Message-ID: <CADnq5_OZE-vum4V7UJMeyZNJDj8gqgcSK1FJiF0LrR2s6dRd1Q@mail.gmail.com>
-Subject: Re: [PATCH 3/8] drm/amdgpu: support mem copy for LSDMA
-To: Luben Tuikov <luben.tuikov@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3c2c6870-be44-479f-d0d6-08da2f6d6489
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3201:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB32011D4B7514329018290899F7C59@BN8PR12MB3201.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DemUvyFOPK+NYiCa8+a3f1EQSZsx5yANFCT5tBDcrIMh3hS27JzxwyqHZyuDANJ3L6gAxDWjcE34e7BhXssLOEfPLErB9rFVbEhSsqbgyaqpTfUUGTnEsZXGAUMZ3f+SNcrVutLZ0yaTMu4iUWRgABYyIVyIStb1lNo8Oun9s86I4MCgDwdQkH+xZAv4fFUbzWad1KPxImrXBCVvC/PAuzO2amg7aTQ/+LWe7LHtVmad/clWEJjei77mBct083T9bYQynuIQD9uUd7pUTa1ik+KW1hWgGKllXLxjeD6NqOTIHVe5Y6pYvTielxsBvkRApEdTxs9g5m2LvzE0hcngvwRm9IC2ZtMno+9KM/v1VXGY90HVzvU6SUxY9uTGILwo8nwnoh2LCIRsVmDAjhJQEVxR217ANdrTv9j72dhTPLkaIGlm9fPIhNMZA/0quU/r0ujfR6LQNxrZvpbK7egUS300Vl3pO8zilubXzjF5RXNRH1/8H5aZ6swuNnjhxhJGehNaXmtm5AXVVmBd5OIndjWdafBiHrRaLf/RxeMmPX3h0pzaUpoaj9+wsB5cC4R5+VQB9VqJIW4oGpeII5Gw4T+D+Tv6J4OqRCibom13r85Iwgf0qJ3r6NTSaF30buVw+T84IOobzTp98x//gdgGHCWG3Yo6OZDOqidvhqZEom4aar1beD/CWl4SiS+APV+dFNPOfZZcKcf5KVi6zEFtDg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(316002)(6666004)(4326008)(70206006)(70586007)(36756003)(86362001)(2906002)(40460700003)(356005)(8936002)(8676002)(81166007)(5660300002)(26005)(7696005)(2616005)(6916009)(83380400001)(186003)(82310400005)(16526019)(1076003)(508600001)(336012)(426003)(47076005)(54906003)(36860700001)(4744005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2022 14:33:31.0259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c2c6870-be44-479f-d0d6-08da2f6d6489
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3201
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,176 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 6, 2022 at 1:02 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
->
->
-> On 2022-05-05 16:04, Alex Deucher wrote:
-> > From: Likun Gao <Likun.Gao@amd.com>
-> >
-> > Support memory to memory linear copy in PIO mode for LSDMA.
-> >
-> > Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c | 26 ++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h |  5 +++
-> >  drivers/gpu/drm/amd/amdgpu/lsdma_v6_0.c   | 44 +++++++++++++++++++++++
-> >  3 files changed, 75 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_lsdma.c
-> > index af00a66f8282..3f1c674afe41 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
-> > @@ -23,3 +23,29 @@
-> >
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_lsdma.h"
-> > +
-> > +#define AMDGPU_LSDMA_MAX_SIZE        0x2000000ULL
-> > +
-> > +int amdgpu_lsdma_copy_mem(struct amdgpu_device *adev,
-> > +                       uint64_t src_addr,
-> > +                       uint64_t dst_addr,
-> > +                       uint64_t mem_size)
-> > +{
-> > +     int ret;
-> > +
-> > +     if (mem_size =3D=3D 0)
-> > +             return -EINVAL;
-> > +
-> > +     while(mem_size > 0) {
->
-> Kernel style requires a space after the "while" and before the "(".
->
-> > +             uint64_t current_copy_size =3D min(mem_size, AMDGPU_LSDMA=
-_MAX_SIZE);
-> > +
-> > +             ret =3D adev->lsdma.funcs->copy_mem(adev, src_addr, dst_a=
-ddr, current_copy_size);
-> > +             if (ret)
-> > +                     return ret;
-> > +             src_addr +=3D current_copy_size;
-> > +             dst_addr +=3D current_copy_size;
-> > +             mem_size -=3D current_copy_size;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_lsdma.h
-> > index 4df4da423181..be397666e4c1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
-> > @@ -30,6 +30,11 @@ struct amdgpu_lsdma {
-> >
-> >  struct amdgpu_lsdma_funcs
-> >  {
-> > +     int (*copy_mem)(struct amdgpu_device *adev, uint64_t src_addr,
-> > +                    uint64_t dst_addr, uint64_t size);
-> >  };
-> >
-> > +int amdgpu_lsdma_copy_mem(struct amdgpu_device *adev, uint64_t src_add=
-r,
-> > +                          uint64_t dst_addr, uint64_t mem_size);
-> > +
-> >  #endif
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v6_0.c b/drivers/gpu/drm/=
-amd/amdgpu/lsdma_v6_0.c
-> > index b611ade53be2..0d2bdd04bd76 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/lsdma_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v6_0.c
-> > @@ -29,5 +29,49 @@
-> >  #include "lsdma/lsdma_6_0_0_offset.h"
-> >  #include "lsdma/lsdma_6_0_0_sh_mask.h"
-> >
-> > +static int lsdma_v6_0_copy_mem(struct amdgpu_device *adev,
-> > +                            uint64_t src_addr,
-> > +                            uint64_t dst_addr,
-> > +                            uint64_t size)
-> > +{
-> > +     uint32_t usec_timeout =3D 5000;  /* wait for 5ms */
-> > +     uint32_t tmp, expect_val;
-> > +     int i;
-> > +
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(sr=
-c_addr));
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(sr=
-c_addr));
-> > +
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(ds=
-t_addr));
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(ds=
-t_addr));
-> > +
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-> > +
-> > +     tmp =3D RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0)=
-;
-> > +     tmp =3D REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, CONSTANT_FILL, 0);
-> > +     WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-> > +
-> > +     expect_val =3D LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS=
-__PIO_FIFO_EMPTY_MASK;
-> > +     for (i =3D 0; i < usec_timeout; i++) {
-> > +             tmp =3D RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_STATUS);
-> > +             if ((tmp & expect_val) =3D=3D expect_val)
-> > +                     break;
-> > +             udelay(1);
-> > +     }
->
-> Does the hardware specify a minimum delay after the write to the LSDMA_PI=
-O_COMMAND,
-> and before we check the LSDMA_PIO_STATUS?
+It's not used outside of the this file.
 
-I'm not sure, but it should be pretty minimal.
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> At the moment the code above checks the status immediately after writing =
-to
-> LSDMA_PIO_COMMAND, and the copy wouldn't be completed.
->
-> If the poll timeout is 1 us, as the loop shows us, maybe the command comp=
-letion
-> is larger than that (the time after writing to LSDMA_PIO_COMMAND and befo=
-re
-> checking LSDMA_PIO_STATUS)?
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index cf5800822174..9949ee3ae090 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -291,7 +291,7 @@ static int smu_v13_0_7_store_powerplay_table(struct smu_context *smu)
+ 	return 0;
+ }
+ 
+-int smu_v13_0_7_check_fw_status(struct smu_context *smu) {
++static int smu_v13_0_7_check_fw_status(struct smu_context *smu) {
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t mp1_fw_flags;
+ 
+-- 
+2.35.1
 
-The time it takes for the copy will be dependent on the amount of data
-there is to copy.  While the command is probably not complete on the
-first read of the status register, it may be required to make sure the
-previous write goes through.
-
-Alex
-
->
-> > +
-> > +     if (i >=3D usec_timeout) {
-> > +             dev_err(adev->dev, "LSDMA PIO failed to copy memory!\n");
-> > +             return -ETIMEDOUT;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >  const struct amdgpu_lsdma_funcs lsdma_v6_0_funcs =3D {
-> > +     .copy_mem =3D lsdma_v6_0_copy_mem
-> >  };
->
-> Regards,
-> --
-> Luben
