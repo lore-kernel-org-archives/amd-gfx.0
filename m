@@ -4,118 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D11BFC43219
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 14:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622F6C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 14:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66D2710E976;
-	Tue, 10 May 2022 14:40:15 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2054.outbound.protection.outlook.com [40.107.95.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA07010EFE9
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 14:40:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EtUTYydjV2hJTLzc/UPFhT0mfZR8KY6cBtDlUmbvT44/5bPhrI6Zbbx+ap9zgWgNzoktqV+pip5s6QzdcpXYf1+DyFvzAt7cTQE3Qv3LyzficuYuCmUaXhAkYk+pSWHaFK0BoVLsoOUJRc+124mekzScDaOIZ23XdKStKfRzKjGf0htf1AmvJOiQmRpICkFdXbKUSNPtsVaRwZFVv1ZS7MqwKQI1LMMNFUuosOcK3DnlatgaGkTsz/kAKiBFRzW3rnC9xo8GaSq53Bw2ZA/OWrkIvaIs2u0O+peaWLBxo0rfMT/sqrhuqWLUzdGkOQUggGAqk50/8EROjD4lTdCh8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NH5zOrG9IyMe+ZSAHYb+6gmdYTotEtzWMkLOe6iLqjM=;
- b=VBt5sZ9+KHZJ/YwDj7qiNEmHSzWHmtHzcl7YUL5PsjOPT2Ewpo6h0PZle3LTja/pZTCxfpJh2tLdS0IpAufaDcVL8nU0LxiLIBh2FZolfynjnUWzdNTpFisl9S4PzG2gYtChLze4X7pO+cgQwYSOipMChd2GffcXUPrBevJtilP6teY6BMr4NFRdhYU58g6TJxcAkmI8yo15KL+iSJP3hXu/H8/rtJOUzrULq9W2dXFNggAO+QoIkPShP7uMeXn4gst8qZ8Rljmg/Zkr8IGYaJ/T59qIfEWT+ft8Lp1PVASUWhG9w8coZxEMNetq3spmcxeFQUUO0vvpgRrl7346QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NH5zOrG9IyMe+ZSAHYb+6gmdYTotEtzWMkLOe6iLqjM=;
- b=sA1lxicMlaWtGC6gXE1RXFI25qmvPCf5sjgUqhYhBi5GfM3FUcVuq6D/QjkhLSqWBFEXf9vRLAUESYhqZw9ol8oGJn2hJeRJwfyMygCCi2HfAtpbKl5RFA5uOwMNosRTdrBMjUD9rRASNOB5Qzx4OugTdEJLWe3JLtr9O4t6TQU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
- by MN2PR12MB4112.namprd12.prod.outlook.com (2603:10b6:208:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.22; Tue, 10 May
- 2022 14:40:11 +0000
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::1134:e908:ed64:d608]) by BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::1134:e908:ed64:d608%7]) with mapi id 15.20.5227.023; Tue, 10 May 2022
- 14:40:11 +0000
-Message-ID: <d74fffc9-2553-a3ac-0dd0-90a83e980832@amd.com>
-Date: Tue, 10 May 2022 09:40:09 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: Revert "drm/amd/pm: keep the BACO feature enabled for suspend"
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220510135144.551692-1-alexander.deucher@amd.com>
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <20220510135144.551692-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0208.namprd13.prod.outlook.com
- (2603:10b6:208:2be::33) To BL1PR12MB5157.namprd12.prod.outlook.com
- (2603:10b6:208:308::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D9C10EAC0;
+	Tue, 10 May 2022 14:42:58 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F20010F080
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 14:42:58 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id v66so18751404oib.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 07:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=rcAUBEzKdRwKsf/J7127bTpT0plvCMsJqAAQNdOc9sU=;
+ b=Fk7nEs/JhUkvXHqM5du/LXSCe5f2TRMz0zU8Ks7KS4PUS5UcV78kAZ6NYaNLNzYZlc
+ +cz4LX27kWPycKXW8855AJFjcB+ALT+GD+6xJUrgixuCh4LZJnHOssft4Tyl+hlfI2do
+ v1sxe+kI+aBVtzCNa0ZFjvV/u8kGB+4jcSjqrE7sa+ajpvnbwyD1bGvH9F8xCZV2cvtP
+ B4yicYgwxSKq7p7Amc9WatGWn2GejCV80++waNiglRB9fQLoCqSjoRASVQmWrO+4WCPk
+ tkyycN8D3cVkXTCwd4vZuR3SZfSeKy06NHJw8oYe6bKitmCSHvkIeh44M35GNgd5z5z9
+ h6gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=rcAUBEzKdRwKsf/J7127bTpT0plvCMsJqAAQNdOc9sU=;
+ b=PyUR/IoE98rhC+NoaR9osMgwfdQJdKUkrgFDdElZen4HrmzrBOvehJDD8vYPMwgKa5
+ subSuQ2WaQqmlnKTwnp5Dmi1Fdi3GTwDLUBNyxzSRJG+rOD9No488mid+Pwm04qtTWNZ
+ qeFYkNLW78SAoYLXEMS36N6BVmVBM1vT5s3qmoLrcYU706W6QlQhsPSH0gk3wpLIDGKp
+ REvQd/UrpomzYUD4ltkS5IRc39pUXNWjRW84GQMTZ5KQyAb2NPU7m00xygkgg/Tuwd1m
+ 9keuP2pjD4h3ZlZz1g50gwmDi2NDdCb+v70YqAHATop8LcHguqJTBFguDPErVS8XdYh3
+ PyDQ==
+X-Gm-Message-State: AOAM531WkSTiL8OMJ2+ki+ixeL4KmKuhO4Yn8gD0SwijbRzsU6iGBl43
+ 1AjExvV0zWwh1ajOF3HqlHyO4/W0oDwRVrzrIQc=
+X-Google-Smtp-Source: ABdhPJybqbO6khZDdugfs3OHxwGEATJpSjmMtkg8ndLUBGBb3VtEPezsYFnS61vuZid+yX5OigatdqYc67W4p3xg3Mk=
+X-Received: by 2002:a05:6808:f8e:b0:328:a601:a425 with SMTP id
+ o14-20020a0568080f8e00b00328a601a425mr185532oiw.253.1652193777595; Tue, 10
+ May 2022 07:42:57 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 669e333e-015d-4502-3faf-08da3292fcb2
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4112:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB41128C9A91E5D40A64CF1201E2C99@MN2PR12MB4112.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TM2QFvxm0AinsVl0p8wqbu2kLex2p/Z/GfvuMLed0JEnzgMZew+4F8fIfqUEWr1o8YXJAHJDJ26nc9su793Bftc+L4mezAitUL3AjdKBxhiX13aySvErfS5zTdDiYTblHgiXWYr3vQpwnysKF80cz7z3zfVeItZ6K1p03x5niUBMgMTZby6DBvCst17mqDHC56gVYkxMeNLqd3TTS4oEUhhO1urnMD4A21bLWzSNIFdjS5y5O02/y/+KjYSApTPWSWh6TeKPcJ1G+8wbw30AvJL9kiEvlK8FY9Z4D6b9FXaqZG0uc9rA+CQI4d6lnFfJhuGJUy726nVFpT0pHDgfT6TL7/RUoUsHMsFF6gzvoaQez3uWLCrhEu8y6/4aWBCYYG8Ofx+CBOpwv1LAOVK8YkDnjeXzpmIrLa/Vu2jR1BDsAhjIrz6SfXaRs3qsQuorISHkNo1fgayN5bSGNOhsHnBcxSHuy7yhu8iLvAt35ajJp509pRIpmtw3eESQY/iwpcY0FXse9z9gzzrAXBvMExMkiq3frQTyj0eViRdBFD/R5QAHa0WYeaNWrUXLNt29/r8Y+5pUpdIXxlm12m2SS4nlSiaMOUi3ZX2VA/fuLUdkiN1uZjYSz9JiAwDSQqpJ6DIEk5Ku5XKLLho6KlNJlOM3FdBbKehqYquHJ17/1EzA6adRiJljbFDuj5hwR7Y4slzKuqhROyfrQDLoRsnfPv7zWM3uoHvTIZPlUDEK7RNkSRHh/jRnFOaUfaemufzE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(31686004)(8936002)(36756003)(2906002)(31696002)(5660300002)(38100700002)(15650500001)(83380400001)(186003)(66946007)(66476007)(8676002)(66556008)(2616005)(508600001)(316002)(53546011)(6506007)(86362001)(6512007)(6486002)(966005)(26005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzRoalUyVGZrUnFFeUh3eUp1YXlFcUdWOERDR3dzbldxVCtKRmpWak9TZUUz?=
- =?utf-8?B?akNxVTBuZGtTVzdpQkUwcG9RVUs2VXFOUnZETjVFM1pNMUpsWk1sWTVPdk54?=
- =?utf-8?B?Ulo0dXBSNExvczh5ZHFHdmEvVmZQem9FbGxEcklzMWpxVlduMHhKY0k5QTJI?=
- =?utf-8?B?RW04bkZQQkg4a1BLMDNUVUNneFRad2JybUNrSThmK0pWOEp1YmJjek5XSWhF?=
- =?utf-8?B?TWtlbHY2bHp4bGh1SXJqbGxuelVqZVRJUXpCbUN0dHNmcVRjdy9NTWR0QzJN?=
- =?utf-8?B?WDVoZHRhMDNYRUdCVzhvQXhWR2piMWc2T0ZPcVgrZzlKbHgvRngyTWtHL3Fm?=
- =?utf-8?B?MVpkanBWdFR2SXEzNFNHcE0raStIT1NtSENjVzlQVkRPNDdqbWRaeXdmVmtr?=
- =?utf-8?B?eXNBNnRaNkNWRjJoU2NRWXdHMjFycUhRclpLd0lZNlBoOW1nb3o0S2ZYSTRk?=
- =?utf-8?B?bGk2MmtVcExQUmNlQ3cwWklMQmVwcDF0RnZlWCtKVDhIKzgxOEMzZHJWaU1h?=
- =?utf-8?B?RS9NcVVQMU1LOGY2QkFtZW44NGxkc1gvWDV1OC9qVmdDWHkzQlB5VHhPRnlw?=
- =?utf-8?B?azl4ak0zL0JGOEJmTTJxanVEUFlQUWgvQXZrdDBhL05pL0xEckYvRlRRTWxi?=
- =?utf-8?B?REpScldJZ1hlSDUyMk51d2pvN0dhTHZPcUY4OWVFWlVLR1dhNVBzMXYwYmg2?=
- =?utf-8?B?VVVZSjA3UmNnQVhBanRVbjBpWExiZ0FNY2hXeFJUSUgzdjJReDN2ak9Hb21t?=
- =?utf-8?B?RForWk5YU2hQYWVSdjBNdmNYaVBiU3BRK0NiVkN5OGVES1ZQSENqZzM2Z1cr?=
- =?utf-8?B?a2p4SEsramhVMXhkZENMWmM3TW9HT3lkbFA1YzZDeUI0UW9LZzA2dVg1aU1i?=
- =?utf-8?B?S2ZEa0NuQkFjM2dWYjVvUTg3UW9HT3l1QTY2c3A4SjRhQThKV2ovNmRMenFT?=
- =?utf-8?B?WFh4YUk4a2JyQnVsaTFQR3BpSHV4ZWFlZG4yWlpITGUraUpqeFdYQVlSTHBh?=
- =?utf-8?B?NGpFR3NhOTBkMmtQRm1sSVcwKzkxeTMvemROaGhkRXlGT3AxMkZBc2hheGVZ?=
- =?utf-8?B?R3AxcVNTWHJIb29ldnhaRGtwL3Vydlo3Q211aU1pcnZYWTZNVmhDTGMvak9y?=
- =?utf-8?B?aElMemMyTzJzb0lKRVAyMG1VUVhlaDcwNTF6ODBESHgxMExjTDVieEZDaXBF?=
- =?utf-8?B?eHJxRGU5NFpjV01LaDRpQnlBSnFUd2VVbmw5NTRZR2N5K211WjllbHNaWk1z?=
- =?utf-8?B?WXB3eE1Temg4dC9ybllCdWpRTnVkNzRkS2g3bHdlL1NnK1VoQkpCRDg2cHZE?=
- =?utf-8?B?dEs4RC8wcjN1R2RSU0tBKzJSUlJISnIwZ0tzQ2FQZm95eXJPczNDNWZIZnhE?=
- =?utf-8?B?NW9tdW1qZTNwNmx6dk1hNm9SNWVqWW93dlN3RlYzM2ZxRUxOUlgwbXEvT0lW?=
- =?utf-8?B?R1BNOFJybTZ4TjA5anBwSWdndHllUkxvaDR4MjQxbTRrUWpxVDB3R0lkdkZL?=
- =?utf-8?B?M1laRVZHanEyeWNKTDRmNU94aXBtOHFUUS9qTnlQclZNZ3loZUJQVEpieEJ4?=
- =?utf-8?B?Mk1laEMrdFVVckVONTduS1NDQmlEYUxzSTlTRTYrbDNrc21HVXcrcHF6bDdH?=
- =?utf-8?B?OEFNUVZuL1ZLc3RMNkVnZ051WCtoYjcrbjhWQ0JBUFNpMU4zZHBhRGNsa3Bj?=
- =?utf-8?B?RSs3dlNsWTVmSW14VU9UQUtWb1Z0YVNIOHN3alQ5eUNORzJTTnFBVFVnRFFr?=
- =?utf-8?B?TG12d3FFc1lQZCt4WkVySkxSRk4wL1U2TGRKOTZFbHJEYkd3ZUFpTWFIdDFX?=
- =?utf-8?B?TXFFV09lNGdMMkpMY2pvSXZXYThkd2s3MnhKQlFYL0VVTC9PUm1QeStReE1l?=
- =?utf-8?B?Yk9OVDI3U2JaOGJqT1pxWWZYWnVlL2dPWHNUU1pyQ1R4UG91QWtab0R0ZXJk?=
- =?utf-8?B?V0hDQjBpYTZYbThKZS9RSnoyWC95K3dLOGpFZS9jTWdQNitvT1I4V3BYSVBi?=
- =?utf-8?B?ZUI3RzVXTkhTWUg0KzR0MldyVzBpZExLWWxERUJTRmVKaVNmMmc0a1FXQ2p5?=
- =?utf-8?B?WTY2UExpUjBvT2cybzZEOGJvSWxCOUk1eHNENjFIOG5WdjcrcjZqOVQxTHJJ?=
- =?utf-8?B?eElDbzYxTWpqZVNObS9ndXRuTWwwelAvbTZPbkxaWmFqOWsySExnTmpRWkM4?=
- =?utf-8?B?RXJOWklNeXNlcG0xaHJIdVZhUVFQTE5TMUw2c3lHTGZlbVU3dVhpaVlyZmdG?=
- =?utf-8?B?SXFzbnZLYWNyZ0h5Vm93M3JYS1RQa0NHZEY2SXhvTW9iWW9RckRvMXVSRlhm?=
- =?utf-8?B?QTkrUW5CTUFNUGJMN2daRFY3cFJId3pUTmRjMTdKNXVQMVFHUEN2UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 669e333e-015d-4502-3faf-08da3292fcb2
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2022 14:40:11.6718 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OrC6Ym9/Ke751dhPSN2ZfOaMwGWm3IMOP+FgbzelP8NlyaH5hK2eqziSBOH05CtgJitY4sh6FUOOUyKkANN09w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
+References: <20220510113649.879821-1-christian.koenig@amd.com>
+In-Reply-To: <20220510113649.879821-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 May 2022 10:42:46 -0400
+Message-ID: <CADnq5_OkTfJO0KWRpfeoTZpXxU5Doi4Uw0xaHGVLxRVgdCKT2g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix start calculation in
+ amdgpu_vram_mgr_new
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,48 +64,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Arunpravin <arunpravin.paneerselvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/10/2022 08:51, Alex Deucher wrote:
-> This reverts commit eaa090538e8d21801c6d5f94590c3799e6a528b5.
-> 
-> Commit ebc002e3ee78 ("drm/amdgpu: don't use BACO for reset in S3")
-> stops using BACO for reset during suspend, so it's no longer
-> necessary to leave BACO enabled during suspend.  This fixes
-> resume from suspend on the navy flounder dGPU in the ASUS ROG
-> Strix G513QY.
-> 
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2008
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1982
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+On Tue, May 10, 2022 at 7:36 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> We still need to calculate a virtual start address for the resource to
+> aid checking of it is visible or not.
 
-Make sure to CC stable as ebc002e3ee78 also was.
+Does this fix a known issue or is it just something you noticed?
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 8 +-------
->   1 file changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index 395f266be690..956062496202 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1390,14 +1390,8 @@ static int smu_disable_dpms(struct smu_context *smu)
->   {
->   	struct amdgpu_device *adev = smu->adev;
->   	int ret = 0;
-> -	/*
-> -	 * TODO: (adev->in_suspend && !adev->in_s0ix) is added to pair
-> -	 * the workaround which always reset the asic in suspend.
-> -	 * It's likely that workaround will be dropped in the future.
-> -	 * Then the change here should be dropped together.
-> -	 */
->   	bool use_baco = !smu->is_apu &&
-> -		(((amdgpu_in_reset(adev) || (adev->in_suspend && !adev->in_s0ix)) &&
-> +		((amdgpu_in_reset(adev) &&
->   		  (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
->   		 ((adev->in_runpm || adev->in_s4) && amdgpu_asic_supports_baco(adev)));
->   
-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 22 +++++++++++++-------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 49e4092f447f..51d9d3a4456c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -496,16 +496,22 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_=
+manager *man,
+>                         list_splice_tail(trim_list, &vres->blocks);
+>         }
+>
+> -       list_for_each_entry(block, &vres->blocks, link)
+> -               vis_usage +=3D amdgpu_vram_mgr_vis_size(adev, block);
+> +       vres->base.start =3D 0;
+> +       list_for_each_entry(block, &vres->blocks, link) {
+> +               unsigned long start;
+>
+> -       block =3D amdgpu_vram_mgr_first_block(&vres->blocks);
+> -       if (!block) {
+> -               r =3D -EINVAL;
+> -               goto error_fini;
+> -       }
+> +               start =3D amdgpu_vram_mgr_block_start(block) +
+> +                       amdgpu_vram_mgr_block_size(block);
+> +               start >>=3D PAGE_SHIFT;
+>
+> -       vres->base.start =3D amdgpu_vram_mgr_block_start(block) >> PAGE_S=
+HIFT;
+> +               if (start > vres->base.num_pages)
+> +                       start -=3D vres->base.num_pages;
+> +               else
+> +                       start =3D 0;
+> +               vres->base.start =3D max(vres->base.start, start);
+> +
+> +               vis_usage +=3D amdgpu_vram_mgr_vis_size(adev, block);
+> +       }
+>
+>         if (amdgpu_is_vram_mgr_blocks_contiguous(&vres->blocks))
+>                 vres->base.placement |=3D TTM_PL_FLAG_CONTIGUOUS;
+> --
+> 2.25.1
+>
