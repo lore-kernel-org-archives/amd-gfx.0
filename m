@@ -4,124 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB759C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 15:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E81C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 15:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6482F10E57D;
-	Tue, 10 May 2022 15:26:15 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB1210E57D
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 15:26:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ON//p3Qrkm9bEXSkJJ/Ap4SW1CtVNVyd27odSB/aykhjpPALU9JEZLZKo4bdGjow4pffzgTFv+sHnoaeRSxSD9kKDFJREfBWbqjLKruUCIbUP3DslzmukjeHDXk7zvI014Vi+TqUw6OdGc1wD6iw4aYgzMj5mq+btOvFovMTXsxxQp8aKQITbWqrtB4L+y4JOKqzNvymp2MGP/fkARvc0fErCrt/lhQ+7ZOnq0MqX2N1iak+eAHr09x7+AtEEY0UbrDewx9Cpj85XRIONnuOCuaNXeA0JQlZAc/PM2NMQ5WUqEvVgLsefRjaz+SGao0d4WMFf8Ki528cneD4N3ljqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CY3MIlyB5uHYkCGstFviZEWdA69OtFQu/uqZ4eLaGJ4=;
- b=fuxQx+TLahs7EmVOhgo0DpXnXqnNhpU3P23jbu5qDIj1SbZp4JwCx7bEqTXNLOXys0UDGeHBdRXLEXJlyPx705Kczy72WO16n75MiZywYcWU35BfB7QYH0mNi/XfQGtRb6GbZHkA/x5KGzlZN2Hp4UxPCpkt4vVc8HDmzS+WPRPm9e2eWQCDggVaMxZUSlvXAzYFY7ytEvR2jlXjzp5N9+j7tULiilhC3Rrqz9GWYQxd8c8OU+FGdxLr8rJ7aPgoZF/L0AVMR9pItp1oyvD5bD+0haGVRN5CCJQ1T7cW/VPsULWEyYQDrnq5yLwQdLr8fwgKYHvzDz29/2/7etyhlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CY3MIlyB5uHYkCGstFviZEWdA69OtFQu/uqZ4eLaGJ4=;
- b=A/omdqbUT6VnslHT8Rh47N4nRxSs57F0CG5/+flumLAF3g+U2eZclS1Ly5UJ4XmoPvf1rtzr9+RC3vS71CNfjHw8P64n1suvERK3wiACTEbBdGIBgvMNLuHc1vFPijwdqfrS1KQYews7W7Eivsp+c2+SNmBUOxuRKf1vQ/mdPpk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BN8PR12MB3586.namprd12.prod.outlook.com (2603:10b6:408:47::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Tue, 10 May
- 2022 15:26:11 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::fdba:2c6c:b9ab:38f]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::fdba:2c6c:b9ab:38f%4]) with mapi id 15.20.5227.023; Tue, 10 May 2022
- 15:26:11 +0000
-Message-ID: <91bb776c-9898-51c5-dfdf-d514ac7a9305@amd.com>
-Date: Tue, 10 May 2022 17:26:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix start calculation in
- amdgpu_vram_mgr_new
-Content-Language: en-US
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220510113649.879821-1-christian.koenig@amd.com>
- <90f223dd-d6bc-3f98-a620-e61df3af6f5b@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <90f223dd-d6bc-3f98-a620-e61df3af6f5b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS8PR04CA0070.eurprd04.prod.outlook.com
- (2603:10a6:20b:313::15) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8121710E26D;
+	Tue, 10 May 2022 15:31:37 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1161510E15B;
+ Tue, 10 May 2022 15:31:36 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-d6e29fb3d7so18698992fac.7; 
+ Tue, 10 May 2022 08:31:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=A3C2Y5JnBnbYNhD+5UVTyjVuDk7iGLJEb4DhyztVkt8=;
+ b=Pz1mBlFBCcu0WcRSg4+psd9pn7Xyf58AdJDaYFm5NNz6AjRMG60yRGxErVIdKcLI+n
+ bZSxryxpcmbwLRfTRjEwNOAKimyaLERrSCBw2I3cQW6CDkKRPmebJZt46WTL35DKJURF
+ mOOrt7EMktFs473uAySR8o4QzsbcTOyhaTyXSO7u5DKm7+fFMw7kyFCXEResPrrLuGie
+ r7G+9pNTQbNUDmb5QJoM9QlSiOCQ3LsxSnYKoj9VxXbhZ5WBFwTkq6isd2IDEJ26k3xu
+ G6Xf8X4MivBYB323v2iSZU7WusvIgLkTrPQ3byR7XrF4I1PEC+aBFZ6JjKVhedRqUXP3
+ Cbrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=A3C2Y5JnBnbYNhD+5UVTyjVuDk7iGLJEb4DhyztVkt8=;
+ b=a8pxLKBHRpW9dA82ybf0waWDzDeJo9fWqiq4yVcXrlm6m7CUkZA2n3s6f9cEmmkFgZ
+ xKn5dY4DWgFLT2s5X98hs8HvPDNceNHYdvEZEn5eCr94JTkGwoRegDwlk2YxuAJsP024
+ WUGXfAZTawGyw27NmHJiUnSXumGRnklR6qyWnWeUVEYDxTDy53v2yRaIL9xffhk4BQ52
+ cNBPSWuDahTRQJPb7A5aQlPhXOo/9QlDnUqLJqVrptYJtlImoGynhsHQf8X86d5IIol7
+ ilh6MnA1IjbsB0F5DZUel4I7/JWrj2Bh8d9ihtl14hqxVj78mgbkjhqnrDmchyVVDdkl
+ u61A==
+X-Gm-Message-State: AOAM530gV6vw/HkXlovCcO+xklmlHnYUxh9dWFrj90n5GzM4jNGfSADf
+ D2dw9dGYMdo63J/6U91CA9eQ5Yt+b5MK6Guj1u4=
+X-Google-Smtp-Source: ABdhPJznI0Y4Evv1DPJe4fnOMpS+e+MVx31IvsR7XPyEWshyVNYic6thdcCHP3nUWS5ZuRNguMEFp4U2Qz9wr0cfzoQ=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr350285oap.253.1652196695239; Tue, 10 May
+ 2022 08:31:35 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 10ae1009-28ce-413c-7e15-08da329969bc
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3586:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3586AC6E8D5A8AD9CA5B46AB83C99@BN8PR12MB3586.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e1X0hX5v2wgscue5RsqxP7BKfO+QmhvitxZbtoN9XIdxEhxaXM89H3Gq/SBHtLPeMfHDNyYATnfo8jhLrEZA/A4dqSFrktqu6laWGXyWs+pw29Q96dEv2l0IDdCFt5/7K7Y3myg+9v0mV8oRCJuQyy6jYxHlD8pD2n4L/B1/t+fMluCR8gJ/PdUJHfQOeO9gKrCpSp1IWt3uNaqfZthoiV5Nfj6dwlxSuxbxAiB0F7iHWnfvsoxF26FBGCgM12p3Axr6S99Wjn7kY2ACbzMbOxQJuM0aZou3xc3ylrLTtmgo3vVC00YwpdjxMwLMvXdMFSzSHHfGP26saqlJQGDlgjR9z0slPRR1qEA+ljxCs17Gk0RnfuxQMSJAE6hFNaAJNKXu16zSBIF6rs+syiAoDl8egZ3X1em6MKZMkGG6Egk8bJa0Tb6lso5cx+h7UZ30t5XxgE+OupksUsxfq5ZQ52uovYFLlysuBSdTWxsvqGAWJjZyb2rAHQL0xoaBrILE8NhxknRzEjI23W6sa0qlVv+aB9YBIRPHNQW/s9OFhK2KhnRwM93/lx2tS8tDfnK7K7442ViaX1WrV6kM1Z5Azzv0W+PrXLccftrDPhr31uEF1tYVsowtXpGpV35u6g+LEiC54ped7s+0BPqBk0NAkfN5wY3xIhFLXxGT2bPSr5vZavDN6gKpHe6tX8xfXDrjRyS5KzqI/CwBzer5aCZ5HNAQwotloSNneRe8s0BFfVU0eNVKzS2q+ra11sKklyXY
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66574015)(508600001)(6512007)(6486002)(6666004)(316002)(86362001)(6506007)(186003)(2906002)(5660300002)(83380400001)(36756003)(2616005)(66476007)(8676002)(66946007)(66556008)(38100700002)(31686004)(8936002)(110136005)(31696002)(53546011)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VytKRUhqQlQyaVM4ZlF6NGlwMXdDaGJpMTQwMmR5TU0ydHhtVy9vMmc4K0N3?=
- =?utf-8?B?SWxEYkFjTFVCR2tsYkVzNlpUenpaNmJiY212anNoaWxtcEgrQnIxOS91SzBN?=
- =?utf-8?B?NjZLbHhhTnYrdSt3VVdRYWlZVk01NU5oNENtczRpZEhoMmZwY2VPcTgvcDhQ?=
- =?utf-8?B?QjBHbHpZT3FpN1h1UGhOcW00Zm91eTJRRjJVbmNYdjdGYTlHY3V4eXlhcGJr?=
- =?utf-8?B?MW4wUTFGakZOdDF4aCt4WHZCZW5sWk1JakhaUW5ibUMvTXUrMlFZcGFSUS9p?=
- =?utf-8?B?bjNmRU1jWUhSMFlRaHExVkpBUzQwR004c0pKaXFrZ2dsVVEvakwzR3MzNU50?=
- =?utf-8?B?ekNvcXVkTWFJZmdWMFZ1UXpWM1gvZmJCNFMzTUhocDdJZXlINzBqYzU1bWxZ?=
- =?utf-8?B?S2RzekxQb3VDVXlDSTYxODJKcnRaREJOdlZzVGRjN3dCS1J0YWlEekwvbmNa?=
- =?utf-8?B?ZlUvOEswMlNRWkxLQitNbSswSFRjWll5VVlvaHJrYUFrbWszREdhYUU0Zk9u?=
- =?utf-8?B?Y3ZuOG5ON0Z2TDJYZ0JZdzZJMisrbUd2dEttNCs0U0FFNHVySXBYdFFwU3dE?=
- =?utf-8?B?aXA4MXJsTm05Mk9TblV6VW1nbFJtSGdkN3AxRnJUN2ordWRKU2ZwS3NDdGxZ?=
- =?utf-8?B?WFdtc2lkU0RmdUR4M2o4Q0tZbFdDbVZmc2x4K1pwcythUGQ2bkFQWnRZbnZl?=
- =?utf-8?B?MUJLMHd2YnRCOE1FZ1FISjQ2aSs1OU5FT3E2Q3gzVHBoaGZoZFROcEhWK21q?=
- =?utf-8?B?cjhxN1cxNmY5ZWZldFQxVkJoYnB6N25XTFJ1VVFLQ0dzSkVZVUNZanJIcjg3?=
- =?utf-8?B?TmtQM1JsQit2MFl3Z0JVTnZsNlVCemF0WlJZcG5yc1krM1V4b0pWYjF4M3pr?=
- =?utf-8?B?NVVSTlM4cU1wKzdzWUhUSzFiYktlNTI1R3pLSHhUSHY3Qm9HdkoyaGE1RVVB?=
- =?utf-8?B?QnpuQndVVEhXQndYOS9OQndkTXBoeXdTNnl4WGFRL1Zoa3hYQ01xR1VQL2pZ?=
- =?utf-8?B?ZzNMTEUwczNndjMvZmkwZTZQMyt4ZUZyWHkyVlZLQ005MHhEdnljcVlZejdF?=
- =?utf-8?B?SlNtSEJLdGJGeU5leUhMVTVaZEIyUGxEZTRaM3ViU0xuQUxvSTFPNU9SNmtO?=
- =?utf-8?B?WnBNN3BjMnduTU00MUF5UXBndnRTMmFZYk9WSFdNU1JIM2JnVGRCM0xoQ2h3?=
- =?utf-8?B?ZWxLS3Q3TmlUOGlXL2t0VlU2ZTByeVEydHpsVG5CVW1ENFJHMGw2QUNMRzFV?=
- =?utf-8?B?cHZIbXlmeUF3NjJMK3c0em1NMTVQcWJtb3RrZWgrT2NoSDg3eVNkMVo3UDdE?=
- =?utf-8?B?UnVLdjBtWCs1S1J5OTJvR3JFeG1oWUxFb1RFaHQ0NkFBQWZsZ2hCRjZJZkd0?=
- =?utf-8?B?VmtBclVHSUxFK01sNkgvMkVDSkFjUW9DL0hjOEFiWEVBa2dhTkd0SjRUVk9S?=
- =?utf-8?B?QVVCM2RhTkZKOUlwT3JwZm9GcFlpOGJVL01tN0RvODd4OUFxclNaTEU5dnhi?=
- =?utf-8?B?eWNQZVhRNUN4SEZ2R2hJV3JYdU5wTG5ZVCt1a0pISmFTdjVPZ083TC9QNEhY?=
- =?utf-8?B?NEhBd0dSRDZmZW91K3VtUFBMMmZtUCtCWFdDUHBXZGUyeDhpWXIvMm4vemRZ?=
- =?utf-8?B?VzVFVHpMMk5HNXMxOTFTNlhxNmhOV1lWeXh5UzhPOG9JZVhxSy9pdE1KaG9S?=
- =?utf-8?B?ODNZNFhJcXV5RS9vSVVvUUxZOVdiUXJESHdlY2ducElsN0M4dlN0TkxFbE1B?=
- =?utf-8?B?ZjA3QVFLeDJOSW1sc2JBVTA1ZThXM1JtWks5N2NERHJ1T3ZCQ2piV2o2WFli?=
- =?utf-8?B?Nmc0Tzd3NEswUk8vSldOWTR6WnJUbDd5ODVIUjBLYU5MS2xXeUNUZkFtRlcv?=
- =?utf-8?B?bjIwWUFkTXlxWXR5TGtOVFFzbnhFcGJkdTNiUm5pU1ZVT3NIL2VGSy9MTlpj?=
- =?utf-8?B?Zi84V3FpbnE1czVQQlBwcWpPRmRHVGRRNityMGVKN1JEc21RL1dDN0VYUkhq?=
- =?utf-8?B?NEk3NXl0bzV5NnVEQ3pGRVg3ZTdpUGNvMll0bkptRGM0OTdNUDZFc3o0S2p6?=
- =?utf-8?B?WDNUSnkwZDdVSHprZEM5RjQyUTR5bkxqVVRUaFNhQUdQREMwa0paUDJ4WHJT?=
- =?utf-8?B?ekpyZ1hmNzBkZmlMdytYeC94cXIvdjlHSDJqZElQK28xSkQ1ZWJJdkROSGRZ?=
- =?utf-8?B?Q3Zhclo3NzhaR0h2TkVsd0NZWCsxNllYTWNwcWl5OXRKWDZ4U0ZJNWE5VkxO?=
- =?utf-8?B?QUhoV3plKzc4Rnk4NG9lWVBQNlhuUU16NHpnTXI1Ti9jUEw1VEpKTGRKWnBs?=
- =?utf-8?B?cGlmdmMrdHp4OHJyeVdLQkZXTkY5cThRME9lM0xNbjNQTUR1YVNYaHg3UERT?=
- =?utf-8?Q?AqMBjDLf0gnYbjtvqzd5Oyol/SFwU8OwMBa5aZZUc4ACv?=
-X-MS-Exchange-AntiSpam-MessageData-1: qDcGEu6QaQXZtQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10ae1009-28ce-413c-7e15-08da329969bc
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2022 15:26:11.4660 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sogMw92oWlPxcwHtWwDrao6KJIPLBpI9Y7UF39371j+E3ZcfvGtgs6w/GhJwzWML
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3586
+References: <YnTAc96Uv0CXcGhD@suse.de>
+ <CADnq5_NT3UtawpGuPDwF+dgmRdaoysb7sD_-oWWBC=T3BoUH7Q@mail.gmail.com>
+ <YnpIjdTT3esZ72Bf@suse.de>
+In-Reply-To: <YnpIjdTT3esZ72Bf@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 May 2022 11:31:24 -0400
+Message-ID: <CADnq5_NYVvjcUru9hfbnATfcHJR5+eiK9bJAA9m41WKa=OJsog@mail.gmail.com>
+Subject: Re: [BUG] Warning and NULL-ptr dereference in amdgpu driver with 5.18
+To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <jroedel@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,77 +66,321 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: David Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.05.22 um 17:20 schrieb Arunpravin Paneer Selvam:
-> Hi Christian,
+On Tue, May 10, 2022 at 7:12 AM J=C3=B6rg R=C3=B6del <jroedel@suse.de> wrot=
+e:
 >
-> On 5/10/2022 5:06 PM, Christian König wrote:
->> We still need to calculate a virtual start address for the resource to
->> aid checking of it is visible or not.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 22 +++++++++++++-------
->>   1 file changed, 14 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> index 49e4092f447f..51d9d3a4456c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> @@ -496,16 +496,22 @@ static int amdgpu_vram_mgr_new(struct 
->> ttm_resource_manager *man,
->>               list_splice_tail(trim_list, &vres->blocks);
->>       }
->>   -    list_for_each_entry(block, &vres->blocks, link)
->> -        vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
->> +    vres->base.start = 0;
->> +    list_for_each_entry(block, &vres->blocks, link) {
->> +        unsigned long start;
->>   -    block = amdgpu_vram_mgr_first_block(&vres->blocks);
->> -    if (!block) {
->> -        r = -EINVAL;
->> -        goto error_fini;
->> -    }
->> +        start = amdgpu_vram_mgr_block_start(block) +
->> +            amdgpu_vram_mgr_block_size(block);
->> +        start >>= PAGE_SHIFT;
->>   -    vres->base.start = amdgpu_vram_mgr_block_start(block) >> 
->> PAGE_SHIFT;
->> +        if (start > vres->base.num_pages)
->> +            start -= vres->base.num_pages;
-> I think this works for continuous blocks of addresses, but for a non 
-> continuous blocks allocated at different
-> locations and linked together using list, this might fetch an invalid 
-> address. I will check this patch on my
-> setup and inform you.
-
-It indeed does fetch an invalid address and that is perfectly expected 
-behavior.
-
-See the resource->start value for non-contiguous allocations is just the 
-maximum allocated address.
-
-This makes it possible to easily check if a buffer is inside the CPU 
-accessible VRAM window or not.
-
-As I said we should probably get rid of that, but for now it's necessary.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Arun
->> +        else
->> +            start = 0;
->> +        vres->base.start = max(vres->base.start, start);
->> +
->> +        vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
->> +    }
->>         if (amdgpu_is_vram_mgr_blocks_contiguous(&vres->blocks))
->>           vres->base.placement |= TTM_PL_FLAG_CONTIGUOUS;
+> Gentle ping. This is a 5.18 regression and I also see it with
+> 5.18-rc6. Please let me know if you need anything else to debug.
 >
 
+Are you doing anything special when it happens?  I.e., does it happen
+when the monitor is coming out of DPMS or something like that?
+
+Alex
+
+> Thanks,
+>
+>         Joerg
+>
+> On Fri, May 06, 2022 at 09:16:12AM -0400, Alex Deucher wrote:
+> > + some display folks
+> >
+> > On Fri, May 6, 2022 at 6:19 AM J=C3=B6rg R=C3=B6del <jroedel@suse.de> w=
+rote:
+> > >
+> > > Hi,
+> > >
+> > > since recently I started to experience warnings and NULL-ptr
+> > > dereferences in the amdgpu driver with kernel 5.18-rc5+. Earlier
+> > > 5.18-based kernels might be affected as well, but I havn't seen this
+> > > with 5.17.
+> > >
+> > > The kernel was built from the iommu-next branch, based on 5.18-rc5.
+> > >
+> > > The messages start with some PCIe error being reported:
+> > >
+> > > [20389.984993] pcieport 0000:00:03.1: AER: Multiple Corrected error r=
+eceived: 0000:0a:00.0
+> > > [20389.985005] amdgpu 0000:0a:00.0: PCIe Bus Error: severity=3DCorrec=
+ted, type=3DData Link Layer, (Receiver ID)
+> > > [20389.985007] amdgpu 0000:0a:00.0:   device [1002:6995] error status=
+/mask=3D000000c0/00002000
+> > > [20389.985010] amdgpu 0000:0a:00.0:    [ 6] BadTLP
+> > > [20389.985013] amdgpu 0000:0a:00.0:    [ 7] BadDLLP
+> > >
+> > > Directly followed by a waring:
+> > >
+> > > [81829.087101] ------------[ cut here ]------------
+> > > [81829.087105] WARNING: CPU: 4 PID: 644 at drivers/gpu/drm/amd/amdgpu=
+/../display/dc/clk_mgr/dce110/dce110_clk_mgr.c:140 dce110_fill_display_conf=
+igs+0x4a/0x150 [amdgpu]
+> > > [81829.087461] Modules linked in: snd_seq_dummy(E) snd_hrtimer(E) snd=
+_seq(E) rfcomm(E) af_packet(E) ocrdma(E) ib_uverbs(E) ib_core(E) nft_fib_in=
+et(E) nft_fib_ipv4(E) nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reje=
+ct_ipv4(E) nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) nf_ta=
+bles(E) ebtable_nat(E) ebtable_broute(E) ip6table_nat(E) ip6table_mangle(E)=
+ ip6table_raw(E) ip6table_security(E) iptable_nat(E) nf_nat(E) nf_conntrack=
+(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) iptable_mangle(E) iptable_raw(E) ip=
+table_security(E) ip_set(E) nfnetlink(E) ebtable_filter(E) ebtables(E) ip6t=
+able_filter(E) ip6_tables(E) iptable_filter(E) bpfilter(E) cmac(E) algif_ha=
+sh(E) algif_skcipher(E) af_alg(E) bnep(E) dmi_sysfs(E) intel_rapl_msr(E) in=
+tel_rapl_common(E) snd_hda_codec_realtek(E) eeepc_wmi(E) btusb(E) asus_wmi(=
+E) kvm_amd(E) btrtl(E) snd_hda_codec_generic(E) nls_iso8859_1(E) battery(E)=
+ uvcvideo(E) sparse_keymap(E) ledtrig_audio(E) btbcm(E) video(E) wmi_bmof(E=
+)
+> > > [81829.087502]  platform_profile(E) mxm_wmi(E) snd_hda_codec_hdmi(E) =
+nls_cp437(E) videobuf2_vmalloc(E) btintel(E) asus_wmi_sensors(E) btmtk(E) v=
+fat(E) snd_hda_intel(E) videobuf2_memops(E) videobuf2_v4l2(E) snd_intel_dsp=
+cfg(E) bluetooth(E) kvm(E) videobuf2_common(E) fat(E) snd_usb_audio(E) snd_=
+virtuoso(E) irqbypass(E) snd_usbmidi_lib(E) snd_hda_codec(E) snd_oxygen_lib=
+(E) videodev(E) snd_hwdep(E) snd_mpu401_uart(E) mc(E) snd_hda_core(E) ecdh_=
+generic(E) snd_rawmidi(E) snd_pcm(E) snd_seq_device(E) rfkill(E) pcspkr(E) =
+i2c_piix4(E) efi_pstore(E) k10temp(E) snd_timer(E) ext4(E) igb(E) snd(E) dc=
+a(E) soundcore(E) mbcache(E) be2net(E) jbd2(E) wmi(E) gpio_amdpt(E) gpio_ge=
+neric(E) tiny_power_button(E) button(E) acpi_cpufreq(E) fuse(E) configfs(E)=
+ ip_tables(E) x_tables(E) xfs(E) libcrc32c(E) dm_crypt(E) essiv(E) authenc(=
+E) trusted(E) asn1_encoder(E) tee(E) hid_logitech_hidpp(E) hid_logitech_dj(=
+E) hid_generic(E) usbhid(E) sr_mod(E) cdrom(E) uas(E) usb_storage(E) amdgpu=
+(E)
+> > > [81829.087551]  drm_ttm_helper(E) ttm(E) iommu_v2(E) gpu_sched(E) i2c=
+_algo_bit(E) crct10dif_pclmul(E) drm_dp_helper(E) crc32_pclmul(E) crc32c_in=
+tel(E) drm_kms_helper(E) syscopyarea(E) sysfillrect(E) sysimgblt(E) fb_sys_=
+fops(E) drm(E) xhci_pci(E) cec(E) ghash_clmulni_intel(E) xhci_pci_renesas(E=
+) aesni_intel(E) crypto_simd(E) cryptd(E) sp5100_tco(E) xhci_hcd(E) ccp(E) =
+rc_core(E) nvme(E) usbcore(E) nvme_core(E) sg(E) br_netfilter(E) bridge(E) =
+stp(E) llc(E) dm_multipath(E) dm_mod(E) scsi_dh_rdac(E) scsi_dh_emc(E) scsi=
+_dh_alua(E) ledtrig_timer(E) msr(E) efivarfs(E)
+> > > [81829.087581] CPU: 4 PID: 644 Comm: kworker/4:1H Tainted: G         =
+   E     5.18.0-rc5-iommu-next+ #1 4d1b12f73ec264927e45e8f2e5d1c0c8e280bc7d
+> > > [81829.087585] Hardware name: System manufacturer System Product Name=
+/PRIME X470-PRO, BIOS 5406 11/13/2019
+> > > [81829.087588] Workqueue: events_highpri dm_irq_work_func [amdgpu]
+> > > [81829.087928] RIP: 0010:dce110_fill_display_configs+0x4a/0x150 [amdg=
+pu]
+> > > [81829.088274] Code: 31 ff 4d 8d 98 f0 01 00 00 49 8b 0c f8 4c 89 da =
+31 c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 10 08 00 00 83 f8 06 75 =
+e8 <0f> 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 00 48 8b 50 08 8b
+> > > [81829.088277] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
+> > > [81829.088280] RAX: 0000000000000006 RBX: ffff9719a6b60000 RCX: ffff9=
+71d08e07800
+> > > [81829.088282] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 00000=
+00000000001
+> > > [81829.088284] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 00000=
+00000000000
+> > > [81829.088286] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9=
+719a6b72980
+> > > [81829.088287] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 00000=
+00000003258
+> > > [81829.088289] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) =
+knlGS:0000000000000000
+> > > [81829.088291] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > [81829.088293] CR2: 00007fbc4800bb28 CR3: 00000002909c0000 CR4: 00000=
+000003506e0
+> > > [81829.088295] Call Trace:
+> > > [81829.088298]  <TASK>
+> > > [81829.088300]  dce11_pplib_apply_display_requirements+0x129/0x200 [a=
+mdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.088646]  dce112_update_clocks+0x8d/0xf0 [amdgpu 1a7cfa9f14a3ef=
+2ba289fa21a3c241108d69cd98]
+> > > [81829.088992]  dc_commit_updates_for_stream+0x1a91/0x1ef0 [amdgpu 1a=
+7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.089330]  ? detect_link_and_local_sink+0x3b4/0xb40 [amdgpu 1a7c=
+fa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.089665]  set_all_streams_dpms_off_for_link+0x10e/0x120 [amdgpu=
+ 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.090002]  dc_link_detect+0x187/0x420 [amdgpu 1a7cfa9f14a3ef2ba2=
+89fa21a3c241108d69cd98]
+> > > [81829.090336]  handle_hpd_irq_helper+0xe9/0x190 [amdgpu 1a7cfa9f14a3=
+ef2ba289fa21a3c241108d69cd98]
+> > > [81829.090701]  process_one_work+0x217/0x3e0
+> > > [81829.090707]  worker_thread+0x4d/0x3c0
+> > > [81829.090712]  ? rescuer_thread+0x380/0x380
+> > > [81829.090715]  kthread+0xd9/0x100
+> > > [81829.090719]  ? kthread_complete_and_exit+0x20/0x20
+> > > [81829.090722]  ret_from_fork+0x22/0x30
+> > > [81829.090728]  </TASK>
+> > > [81829.090729] ---[ end trace 0000000000000000 ]---
+> > >
+> > > And this NULL-ptr dereference:
+> > >
+> > > [81829.090732] BUG: kernel NULL pointer dereference, address: 0000000=
+000000008
+> > > [81829.090737] #PF: supervisor read access in kernel mode
+> > > [81829.090741] #PF: error_code(0x0000) - not-present page
+> > > [81829.090744] PGD 0 P4D 0
+> > > [81829.090747] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> > > [81829.090751] CPU: 4 PID: 644 Comm: kworker/4:1H Tainted: G        W=
+   E     5.18.0-rc5-iommu-next+ #1 4d1b12f73ec264927e45e8f2e5d1c0c8e280bc7d
+> > > [81829.090756] Hardware name: System manufacturer System Product Name=
+/PRIME X470-PRO, BIOS 5406 11/13/2019
+> > > [81829.090758] Workqueue: events_highpri dm_irq_work_func [amdgpu]
+> > > [81829.091111] RIP: 0010:dce110_fill_display_configs+0x5b/0x150 [amdg=
+pu]
+> > > [81829.091455] Code: c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 =
+10 08 00 00 83 f8 06 75 e8 0f 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 =
+00 <48> 8b 50 08 8b 9a 44 03 00 00 49 63 d1 41 83 c1 01 48 8d 14 92 49
+> > > [81829.091458] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
+> > > [81829.091461] RAX: 0000000000000000 RBX: ffff9719a6b60000 RCX: ffff9=
+71d08e07800
+> > > [81829.091463] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 00000=
+00000000001
+> > > [81829.091465] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 00000=
+00000000000
+> > > [81829.091467] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9=
+719a6b72980
+> > > [81829.091469] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 00000=
+00000003258
+> > > [81829.091471] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) =
+knlGS:0000000000000000
+> > > [81829.091474] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > [81829.091476] CR2: 0000000000000008 CR3: 00000002909c0000 CR4: 00000=
+000003506e0
+> > > [81829.091479] Call Trace:
+> > > [81829.091480]  <TASK>
+> > > [81829.091482]  dce11_pplib_apply_display_requirements+0x129/0x200 [a=
+mdgpu 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.091828]  dce112_update_clocks+0x8d/0xf0 [amdgpu 1a7cfa9f14a3ef=
+2ba289fa21a3c241108d69cd98]
+> > > [81829.092173]  dc_commit_updates_for_stream+0x1a91/0x1ef0 [amdgpu 1a=
+7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.092509]  ? detect_link_and_local_sink+0x3b4/0xb40 [amdgpu 1a7c=
+fa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.092844]  set_all_streams_dpms_off_for_link+0x10e/0x120 [amdgpu=
+ 1a7cfa9f14a3ef2ba289fa21a3c241108d69cd98]
+> > > [81829.093180]  dc_link_detect+0x187/0x420 [amdgpu 1a7cfa9f14a3ef2ba2=
+89fa21a3c241108d69cd98]
+> > > [81829.093514]  handle_hpd_irq_helper+0xe9/0x190 [amdgpu 1a7cfa9f14a3=
+ef2ba289fa21a3c241108d69cd98]
+> > > [81829.093853]  process_one_work+0x217/0x3e0
+> > > [81829.093858]  worker_thread+0x4d/0x3c0
+> > > [81829.093861]  ? rescuer_thread+0x380/0x380
+> > > [81829.093865]  kthread+0xd9/0x100
+> > > [81829.093868]  ? kthread_complete_and_exit+0x20/0x20
+> > > [81829.093872]  ret_from_fork+0x22/0x30
+> > > [81829.093876]  </TASK>
+> > > [81829.093878] Modules linked in: snd_seq_dummy(E) snd_hrtimer(E) snd=
+_seq(E) rfcomm(E) af_packet(E) ocrdma(E) ib_uverbs(E) ib_core(E) nft_fib_in=
+et(E) nft_fib_ipv4(E) nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reje=
+ct_ipv4(E) nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) nf_ta=
+bles(E) ebtable_nat(E) ebtable_broute(E) ip6table_nat(E) ip6table_mangle(E)=
+ ip6table_raw(E) ip6table_security(E) iptable_nat(E) nf_nat(E) nf_conntrack=
+(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) iptable_mangle(E) iptable_raw(E) ip=
+table_security(E) ip_set(E) nfnetlink(E) ebtable_filter(E) ebtables(E) ip6t=
+able_filter(E) ip6_tables(E) iptable_filter(E) bpfilter(E) cmac(E) algif_ha=
+sh(E) algif_skcipher(E) af_alg(E) bnep(E) dmi_sysfs(E) intel_rapl_msr(E) in=
+tel_rapl_common(E) snd_hda_codec_realtek(E) eeepc_wmi(E) btusb(E) asus_wmi(=
+E) kvm_amd(E) btrtl(E) snd_hda_codec_generic(E) nls_iso8859_1(E) battery(E)=
+ uvcvideo(E) sparse_keymap(E) ledtrig_audio(E) btbcm(E) video(E) wmi_bmof(E=
+)
+> > > [81829.093913]  platform_profile(E) mxm_wmi(E) snd_hda_codec_hdmi(E) =
+nls_cp437(E) videobuf2_vmalloc(E) btintel(E) asus_wmi_sensors(E) btmtk(E) v=
+fat(E) snd_hda_intel(E) videobuf2_memops(E) videobuf2_v4l2(E) snd_intel_dsp=
+cfg(E) bluetooth(E) kvm(E) videobuf2_common(E) fat(E) snd_usb_audio(E) snd_=
+virtuoso(E) irqbypass(E) snd_usbmidi_lib(E) snd_hda_codec(E) snd_oxygen_lib=
+(E) videodev(E) snd_hwdep(E) snd_mpu401_uart(E) mc(E) snd_hda_core(E) ecdh_=
+generic(E) snd_rawmidi(E) snd_pcm(E) snd_seq_device(E) rfkill(E) pcspkr(E) =
+i2c_piix4(E) efi_pstore(E) k10temp(E) snd_timer(E) ext4(E) igb(E) snd(E) dc=
+a(E) soundcore(E) mbcache(E) be2net(E) jbd2(E) wmi(E) gpio_amdpt(E) gpio_ge=
+neric(E) tiny_power_button(E) button(E) acpi_cpufreq(E) fuse(E) configfs(E)=
+ ip_tables(E) x_tables(E) xfs(E) libcrc32c(E) dm_crypt(E) essiv(E) authenc(=
+E) trusted(E) asn1_encoder(E) tee(E) hid_logitech_hidpp(E) hid_logitech_dj(=
+E) hid_generic(E) usbhid(E) sr_mod(E) cdrom(E) uas(E) usb_storage(E) amdgpu=
+(E)
+> > > [81829.093952]  drm_ttm_helper(E) ttm(E) iommu_v2(E) gpu_sched(E) i2c=
+_algo_bit(E) crct10dif_pclmul(E) drm_dp_helper(E) crc32_pclmul(E) crc32c_in=
+tel(E) drm_kms_helper(E) syscopyarea(E) sysfillrect(E) sysimgblt(E) fb_sys_=
+fops(E) drm(E) xhci_pci(E) cec(E) ghash_clmulni_intel(E) xhci_pci_renesas(E=
+) aesni_intel(E) crypto_simd(E) cryptd(E) sp5100_tco(E) xhci_hcd(E) ccp(E) =
+rc_core(E) nvme(E) usbcore(E) nvme_core(E) sg(E) br_netfilter(E) bridge(E) =
+stp(E) llc(E) dm_multipath(E) dm_mod(E) scsi_dh_rdac(E) scsi_dh_emc(E) scsi=
+_dh_alua(E) ledtrig_timer(E) msr(E) efivarfs(E)
+> > > [81829.093978] CR2: 0000000000000008
+> > > [81829.093980] ---[ end trace 0000000000000000 ]---
+> > > [81829.338958] RIP: 0010:dce110_fill_display_configs+0x5b/0x150 [amdg=
+pu]
+> > > [81829.339333] Code: c0 48 39 0a 0f 84 e4 00 00 00 83 c0 01 48 81 c2 =
+10 08 00 00 83 f8 06 75 e8 0f 0b 31 c0 80 b9 48 03 00 00 00 0f 85 a9 00 00 =
+00 <48> 8b 50 08 8b 9a 44 03 00 00 49 63 d1 41 83 c1 01 48 8d 14 92 49
+> > > [81829.339336] RSP: 0018:ffffb891810c3be0 EFLAGS: 00010246
+> > > [81829.339340] RAX: 0000000000000000 RBX: ffff9719a6b60000 RCX: ffff9=
+71d08e07800
+> > > [81829.339343] RDX: ffff9719a6b63250 RSI: ffff9719a6b72980 RDI: 00000=
+00000000001
+> > > [81829.339345] RBP: ffff971a812f0000 R08: ffff9719a6b60000 R09: 00000=
+00000000000
+> > > [81829.339347] R10: ffff9719a6b72980 R11: ffff9719a6b601f0 R12: ffff9=
+719a6b72980
+> > > [81829.339349] R13: ffff9719a6b60000 R14: 0000000000000006 R15: 00000=
+00000003258
+> > > [81829.339352] FS:  0000000000000000(0000) GS:ffff97285eb00000(0000) =
+knlGS:0000000000000000
+> > > [81829.339355] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > [81829.339357] CR2: 0000000000000008 CR3: 00000002909c0000 CR4: 00000=
+000003506e0
+> > >
+> > > Usually one of the displays does not power on anymore after this and =
+the
+> > > machine locks up pretty soon as well, probably because the worker thr=
+ead
+> > > is dead.
+> > >
+> > > My GPU device is:
+> > >
+> > > 0a:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/=
+ATI] Lexa XT [Radeon PRO WX 2100] (prog-if 00 [VGA controller])
+> > >         Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Device 0b0c
+> > >         Flags: bus master, fast devsel, latency 0, IRQ 90, IOMMU grou=
+p 15
+> > >         Memory at e0000000 (64-bit, prefetchable) [size=3D256M]
+> > >         Memory at f0000000 (64-bit, prefetchable) [size=3D2M]
+> > >         I/O ports at e000 [size=3D256]
+> > >         Memory at fce00000 (32-bit, non-prefetchable) [size=3D256K]
+> > >         Expansion ROM at 000c0000 [disabled] [size=3D128K]
+> > >         Capabilities: <access denied>
+> > >         Kernel driver in use: amdgpu
+> > >         Kernel modules: amdgpu
+> > >
+> > > Please let me know if anything else is needed to debug this. Bisectio=
+n
+> > > is not really feasible, because the issue happens at random, sometime=
+s
+> > > after one or two days of uptime.
+> > >
+> > > Regards,
+> > >
+> > > --
+> > > J=C3=B6rg R=C3=B6del
+> > > jroedel@suse.de
+> > >
+> > > SUSE Software Solutions Germany GmbH
+> > > Maxfeldstr. 5
+> > > 90409 N=C3=BCrnberg
+> > > Germany
+> > >
+> > > (HRB 36809, AG N=C3=BCrnberg)
+> > > Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
+> > >
+>
+> --
+> J=C3=B6rg R=C3=B6del
+> jroedel@suse.de
+>
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5
+> 90409 N=C3=BCrnberg
+> Germany
+>
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
+>
