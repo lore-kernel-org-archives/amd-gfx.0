@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 990D6C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 12:56:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C5FC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 13:21:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4124E10EE5A;
-	Tue, 10 May 2022 12:56:47 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 593C010EE8D;
- Tue, 10 May 2022 12:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652187405; x=1683723405;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+3Ckek3LMrpjM+KPPDKCaAk0aD6flGvGfcZuoeS1fk8=;
- b=kbjY+JmjI1e7gw8M5et3eZyd/yAYwwHXdgS8qzaaI4j32nlqEergDGSa
- 51pcHcPsFZ/G+HbnBFQu7fc91vvHrx2MEQnON5RJchm3GkcAu0fsRat+U
- coJSeauQMmyKMVcA+N8BO5TbQUZnKnwbYz0fsCdQLbDsit1tfZeR9Jlvm
- 1Yi0k54Z/de8eGJLlYGNv6noZ1fzYScIBxaQJiHT4UzgPrX0euh6rdXnr
- eYlW97b9k3eZNetgI4p+wHNSyc1yifKfw02fSVlLv9NHCwS140qoTMrit
- L7tKxeZLjA0Us2Now1HRujZDF7Y5zCpstfkAivyyPhSFdhkHpiesEDer3 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="249264382"
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="249264382"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 05:56:44 -0700
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="738661558"
-Received: from rcpalaku-mobl1.ger.corp.intel.com (HELO [10.213.208.196])
- ([10.213.208.196])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 05:56:43 -0700
-Message-ID: <a8f8096c-5a4f-26d1-fd92-e24eeb52de77@linux.intel.com>
-Date: Tue, 10 May 2022 13:56:41 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A841C10F982;
+	Tue, 10 May 2022 13:21:51 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7694610F983
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 13:21:50 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-ee1e7362caso14118626fac.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 06:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=x48e/jIz/Eimg57HuFCm6GmPSC9pGBEcnmUV1VDLLtE=;
+ b=gCkMnSnHrqW3I6EkpkP8ByKviNNXtTqe4Nu6q5GuWQJtmwR+TerKUuvrZ7QngWkioP
+ Msnk3b0twV2Zo8DfAjjtbiIrGdtZHNxNxGENp7eJQn6kSxvodMcDhnKoop98EVCwothm
+ 5ITnCzuU6W4Cdbmjtclo3wdwGXyCeQIYzbTsZAPSOD7b7ob8a18ocqMDcOk1ZoasKCpa
+ +gUCPOijnJcOnAqwRFw7WgS7NzeOJO8tKXB3KLija6svTPokfBOO1q46hcPNEW2ZwMfE
+ b9EBcG9q48mDjsGdpdhLNhgU4/Du012kdqOtm1dbD8KAPH2/50cJuvN+UZraVo1oa6o2
+ 6eKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=x48e/jIz/Eimg57HuFCm6GmPSC9pGBEcnmUV1VDLLtE=;
+ b=o3toTp6ipzwZeMuJFrJaCXzdAFnjkBWU25R5sXc6xp3OAkL5PL3KWKOv1y+2jBFtpv
+ pZUVar7voYczrutTUiSipsGy+o0myLAOd8lBEbn274FrpQ2FgihadLxOOIzI1QiH+w/e
+ sqs+KOLrTkOE/D7joasgkb9k5nSurllhG73azTHxXNe7lwixeOqkGVB5Ln5CbLrJAqQ6
+ aeVom6fBD6Oghh/RAJekIkfgB6GtnOLJ1mmMJMcq0fCz3O5z2edk5uOzjbmdLdmclr7t
+ tvEClHjLxQlJyIsRhi5fT25EDK3YzgADHMne48Cqtg91KHr3Xup4usMO5RM9zetyu0Bu
+ zugg==
+X-Gm-Message-State: AOAM530i1mq0GmwI1SMJD+2jHcH612WnqtQsdw/JKLyp3+kjSIcSJqXp
+ G+CimeFSeoUqD43aN1LUA25FEVi8BaAggOQ/e9Y=
+X-Google-Smtp-Source: ABdhPJwJVKeOvCw48HzBzzuNXCQLMwcSETKoqTFKCEKrllYGaxctA0rBpS+yLbhkGfeWhsAV8wF95+MPpkAQ1i3Agqk=
+X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
+ v29-20020a056870311d00b000de9b6c362bmr8334oaa.200.1652188909689; Tue, 10 May
+ 2022 06:21:49 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [RFC] drm/amdgpu: Convert to common fdinfo format
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220510082315.992296-1-tvrtko.ursulin@linux.intel.com>
- <ddcb244d-dfed-d571-1d54-5e1ed24a03b7@gmail.com>
- <8e197b3d-513c-0ee3-fcd4-e397794f0a79@linux.intel.com>
- <ab9f12fc-e482-42ab-cfd2-0a5f3e5d5109@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <ab9f12fc-e482-42ab-cfd2-0a5f3e5d5109@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220509190657.478625-1-alexander.deucher@amd.com>
+ <661503a2-064f-476d-3683-d7a0bd40fb16@molgen.mpg.de>
+In-Reply-To: <661503a2-064f-476d-3683-d7a0bd40fb16@molgen.mpg.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 May 2022 09:21:38 -0400
+Message-ID: <CADnq5_Prf8KYwTqiqCn7LDvUimNUR3_rxyE_g2NLbDiVtReO7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx11: fix mes mqd settings and map_queue
+ packet
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,138 +66,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, May 10, 2022 at 3:30 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>
+> Dear Alex, dear Jack,
+>
+>
+> Thank you for the patch.
+>
+> Am 09.05.22 um 21:06 schrieb Alex Deucher:
+> > From: Jack Xiao <Jack.Xiao@amd.com>
+> >
+> > a. use correct mes mqd settings
+>
+> Can you please elaborate? What is wrong with the old ones, and what are
+> the correct ones?
 
-On 10/05/2022 12:26, Christian König wrote:
-> Am 10.05.22 um 12:50 schrieb Tvrtko Ursulin:
->>
->> Hi,
->>
->> On 10/05/2022 09:48, Christian König wrote:
->>> Hi Tvrtko,
->>>
->>> Am 10.05.22 um 10:23 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>>>
->>>> Convert fdinfo format to one documented in drm-usage-stats.rst.
->>>>
->>>> Opens/TODO:
->>>>   * Does someone from AMD want to take over this patch?
->>>>      (I have no access to amdgpu hardware so won't be able to test
->>>>       any hypothetical gputop work.)
->>>
->>> I can give that a try as soon as it is completed.
->>
->> And how to motivate someone on your side to pick up the amdgpu work? :)
-> 
-> Well if we could get more of my TTM/DRM patches reviewed I could have 
-> same free time to do this :)
+Use the gfx11 mqd structures rather than the gfx10 structures.
 
-Yeah, we have a bunch of folks dedicatedly working on TTM and scheduling 
-refactoring so I am hoping they will notice and get involved.
+>
+> > b. fix me field in map_queue packet
+>
+> Can you please add some background? The new value is 2. What does it do?
 
->>>>   * What are the semantics of AMD engine utilisation reported in 
->>>> percents?
->>>
->>> To be honest I haven't understood why we are using percents here 
->>> either, that is not something the kernel should mess with.
->>>
->>>>      * Can it align with what i915 does (same what msm will do) or need
->>>>        to document the alternative in the specification document? Both
->>>>        option are workable with instantaneous percent only needing 
->>>> support
->>>>        to be added to vendor agnostic gputop.
->>>
->>> I would prefer to just change to the ns format i915 and msm will be 
->>> using, that makes much more sense from my experience.
->>>
->>> As far as I know we haven't released any publicly available userspace 
->>> using the existing AMD specific format. So that should still be 
->>> possible.
->>
->> If amdgpu could export accumulated time context spent on engines that 
->> would indeed be perfect. It would make the gputop I sketched out most 
->> probably just work, as it did for Rob on msm.
->>
->> In which case, apart from the admgpu work, it would just be a matter 
->> of me tidying that tool a bit and re-sending out for review.
-> 
-> Could you push this to some repository on fdo and send me a link? Going 
-> to pick up this patch here and give it a try, shouldn't be more than a 
-> day of work.
+The ME is the microengine.  You need to select the right engine based
+on the queue type.
 
-Done, https://cgit.freedesktop.org/~tursulin/intel-gpu-tools/log/?h=gputop.
+>
+> It=E2=80=99d be great, if you could make it two patches.
+>
+> > Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> > Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c |  7 +++++--
+> >   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 20 ++++++++++----------
+> >   2 files changed, 15 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index 7614f38ff381..8a1bec70c719 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -145,16 +145,19 @@ static void gfx11_kiq_map_queues(struct amdgpu_ri=
+ng *kiq_ring,
+> >   {
+> >       uint64_t mqd_addr =3D amdgpu_bo_gpu_offset(ring->mqd_obj);
+> >       uint64_t wptr_addr =3D ring->wptr_gpu_addr;
+> > -     uint32_t eng_sel =3D 0;
+> > +     uint32_t me =3D 0, eng_sel =3D 0;
+> >
+> >       switch (ring->funcs->type) {
+> >       case AMDGPU_RING_TYPE_COMPUTE:
+> > +             me =3D 1;
+> >               eng_sel =3D 0;
+> >               break;
+> >       case AMDGPU_RING_TYPE_GFX:
+> > +             me =3D 0;
+> >               eng_sel =3D 4;
+> >               break;
+> >       case AMDGPU_RING_TYPE_MES:
+> > +             me =3D 2;
+> >               eng_sel =3D 5;
+> >               break;
+> >       default:
+> > @@ -168,7 +171,7 @@ static void gfx11_kiq_map_queues(struct amdgpu_ring=
+ *kiq_ring,
+> >                         PACKET3_MAP_QUEUES_VMID(0) | /* VMID */
+> >                         PACKET3_MAP_QUEUES_QUEUE(ring->queue) |
+> >                         PACKET3_MAP_QUEUES_PIPE(ring->pipe) |
+> > -                       PACKET3_MAP_QUEUES_ME((ring->me =3D=3D 1 ? 0 : =
+1)) |
+> > +                       PACKET3_MAP_QUEUES_ME((me)) |
+> >                         PACKET3_MAP_QUEUES_QUEUE_TYPE(0) | /*queue_type=
+: normal compute queue */
+> >                         PACKET3_MAP_QUEUES_ALLOC_FORMAT(0) | /* alloc f=
+ormat: all_on_one_pipe */
+> >                         PACKET3_MAP_QUEUES_ENGINE_SEL(eng_sel) |
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/mes_v11_0.c
+> > index 5d4d54cabf70..fcf51947bb18 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > @@ -29,7 +29,7 @@
+> >   #include "gc/gc_11_0_0_offset.h"
+> >   #include "gc/gc_11_0_0_sh_mask.h"
+> >   #include "gc/gc_11_0_0_default.h"
+> > -#include "v10_structs.h"
+> > +#include "v11_structs.h"
+> >   #include "mes_v11_api_def.h"
+> >
+> >   MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes.bin");
+> > @@ -637,7 +637,7 @@ static int mes_v11_0_allocate_eop_buf(struct amdgpu=
+_device *adev,
+> >
+> >   static int mes_v11_0_mqd_init(struct amdgpu_ring *ring)
+> >   {
+> > -     struct v10_compute_mqd *mqd =3D ring->mqd_ptr;
+> > +     struct v11_compute_mqd *mqd =3D ring->mqd_ptr;
+> >       uint64_t hqd_gpu_addr, wb_gpu_addr, eop_base_addr;
+> >       uint32_t tmp;
+> >
+> > @@ -724,22 +724,22 @@ static int mes_v11_0_mqd_init(struct amdgpu_ring =
+*ring)
+> >       mqd->cp_hqd_vmid =3D 0;
+> >       /* activate the queue */
+> >       mqd->cp_hqd_active =3D 1;
+> > -     mqd->cp_hqd_persistent_state =3D regCP_HQD_PERSISTENT_STATE_DEFAU=
+LT;
+> > +
+> > +     tmp =3D regCP_HQD_PERSISTENT_STATE_DEFAULT;
+> > +     tmp =3D REG_SET_FIELD(tmp, CP_HQD_PERSISTENT_STATE,
+> > +                         PRELOAD_SIZE, 0x55);
+> > +     mqd->cp_hqd_persistent_state =3D tmp;
+> > +
+> >       mqd->cp_hqd_ib_control =3D regCP_HQD_IB_CONTROL_DEFAULT;
+> >       mqd->cp_hqd_iq_timer =3D regCP_HQD_IQ_TIMER_DEFAULT;
+> >       mqd->cp_hqd_quantum =3D regCP_HQD_QUANTUM_DEFAULT;
+> >
+> > -     tmp =3D regCP_HQD_GFX_CONTROL_DEFAULT;
+> > -     tmp =3D REG_SET_FIELD(tmp, CP_HQD_GFX_CONTROL, DB_UPDATED_MSG_EN,=
+ 1);
+> > -     /* offset: 184 - this is used for CP_HQD_GFX_CONTROL */
+> > -     mqd->cp_hqd_suspend_cntl_stack_offset =3D tmp;
+> > -
+>
+> What was wrong with this?
 
-For extra reference the msm patch was this: 
-https://lore.kernel.org/lkml/20220225202614.225197-3-robdclark@gmail.com/
+It doesn't exist in the gfx11 structure.
 
-If you can expose the same fields gputtop should work.
+Alex
 
->>>>   * Can amdgpu expose drm-client-id? Without it gputop will not work.
->>>
->>> How is that determined on i915 ? Does struct drm_file has that 
->>> somewhere?
->>
->> It should correspond 1:1 with drm_file, since the purpose is to enable 
->> gputop distinguish between unique open file descriptors (aka clients).
-> 
-> Ah! We do have a 64bit counter for that already because of technical needs.
-> 
->>
->> In theory it could be just a hash value of a struct drm_file pointer 
->> but that could confuse userspace if the struct gets reused within a 
->> single userspace sampling period.
->>
->> Because of that I track it in i915 separately since I wanted to have 
->> an incrementing cyclic property to it - so that when a fd is closed 
->> and new opened there is no practical chance they would have the same 
->> drm-client-id.
->>
->>>> * drm-engine-capacity - does the concept translate etc.
->>>
->>> I don't think we are going to need that.
->>
->> Okay, that one is optional for cases when there is more than one 
->> engine of a type/class shown under a single entry in fdinfo. So when 
->> gputop translates accumulated time into percentages it can do the 
->> right thing. Code can already handle it not being present and assume one.
-> 
-> Yeah, we have that case for a couple of things. The GFX, SDMA and 
-> multimedia engines all have different queues which needs to be accounted 
-> together as far as I can see.
-> 
-> E.g. we have video decode and video encode as two separate rings, but 
-> essentially they use the same engine.
-> 
-> Need to think about how to represent that.
-
-I think you have some freedom there as to what to export - whether the 
-entity userspace submits to (is this ring in amdgpu?), or the entity 
-hardware actually executes on (your engine?).
-
-We have somewhat similar setup in i915 and I decided to expose the 
-former. This makes it both (almost) match what our total metrics show 
-(engine performance counters exported via perf/pmu).
-
-So in case of your video decode and encode rings which lead to the same 
-hw engine, that would mean exposing them as two entities, decode and encode.
-
-But as said, my spec does prescribe that so it is up to implementations. 
-As long as it is useful for users as first port of enquiry for 
-performance problems I think it is fine.
-
-Analogue would be hyper-threading from the CPU scheduling world and how 
-top(1) cannot distinguish why one core at 0% does not mean there is half 
-of the performance still one the table.
-
-And then for a deeper down into performance more specialized GPU 
-profiling tools are required.
-
-Regards,
-
-Tvrtko
+>
+>
+> Kind regards,
+>
+> Paul
+>
+>
+> >       return 0;
+> >   }
+> >
+> >   static void mes_v11_0_queue_init_register(struct amdgpu_ring *ring)
+> >   {
+> > -     struct v10_compute_mqd *mqd =3D ring->mqd_ptr;
+> > +     struct v11_compute_mqd *mqd =3D ring->mqd_ptr;
+> >       struct amdgpu_device *adev =3D ring->adev;
+> >       uint32_t data =3D 0;
+> >
+> > @@ -910,7 +910,7 @@ static int mes_v11_0_kiq_ring_init(struct amdgpu_de=
+vice *adev)
+> >   static int mes_v11_0_mqd_sw_init(struct amdgpu_device *adev,
+> >                                enum admgpu_mes_pipe pipe)
+> >   {
+> > -     int r, mqd_size =3D sizeof(struct v10_compute_mqd);
+> > +     int r, mqd_size =3D sizeof(struct v11_compute_mqd);
+> >       struct amdgpu_ring *ring;
+> >
+> >       if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE)
