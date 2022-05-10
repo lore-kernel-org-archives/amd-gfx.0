@@ -4,54 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05B8EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 20:44:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7C7C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 20:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71EA610E1CF;
-	Tue, 10 May 2022 20:44:22 +0000 (UTC)
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D89A110E1CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 20:44:21 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- a15-20020a17090ad80f00b001dc2e23ad84so2957184pjv.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 13:44:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=J+d/kcDH1jHfdFE6XmtkyhvhJjT4rleujrYoB9bi5SQ=;
- b=pqvoQ3LjPxzgUsDaKKJGDRnhw7TYZhViPqzbHzRuASHTSb/o18KHr/iwopr0KWii+O
- RHXXfUyCyl2M7Kyk0FzeRuLMJ5c3UznhQlLNOjmisM7FxGD4A790IHwGu8tyhjuKEU45
- iUaebiItZ6Gekefb/Clt0dBaYBrEfJaXq/iAt95SuhXfhauDudOz2dHhc8mpRSOaR9tx
- OMBozMD8ZlxPRzJHo2/QiU8ojq9rEfHiMmvFzrB2p/Q4vbX353XMotnNdvY5k75zED7T
- HkoEKt/V4ofrn2GO9iPN5Rp3PCvPTiXJqenLTLNa6iB5IXL9Dw4Y93v7uCHK69iXgNHS
- cVxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=J+d/kcDH1jHfdFE6XmtkyhvhJjT4rleujrYoB9bi5SQ=;
- b=bzHwR3EvuVFzEdrGtavb0v5PpO5xTYcPCmjJ0EporBZyZ5CChSwYpyilBzHv6lQwCA
- LgWPG2jirelcn6SLnCKYEMiNiiyprfkXnmV4kjV0Pxou0tRJDlRPLynN2/0fo9eviPQM
- ChdL5mRpIHxns5+ZjyI4uZhR1liiMQRAAjwb8V/jBfhYE7Labgb9TZtdphTBoUZjv3vR
- qRgNvBRTBJnaLLKT9xW/b9sfiMb71nbwzlLm4l2x8MQ0gGRrxJqebxgLDfLD2ehxHmgN
- pAdDUU8HxR6lkbgzmyZSytfik7ynk8gKa5d2IWeDFwXyE2IQPLdXqStvq9+k+UVMWHNQ
- wj+A==
-X-Gm-Message-State: AOAM5332fTAu6L8Dycimlptr2EoplDEiIbVjpUSBMwDbw3Ed3dYUb90s
- ItUy7JBHXPrYDMXJwB35Lf3rw+zr39vFkHagJ+PwVaA1NkM=
-X-Google-Smtp-Source: ABdhPJzvTU4uuv32cDcFtRY91ZJzj9jT/164xECIfhlh+dPOu7FfF/cojBzUOVU49F+w9eA8c6LxJL6YImFb7o7IjEw=
-X-Received: by 2002:a17:902:d4c2:b0:15e:aec8:6a6e with SMTP id
- o2-20020a170902d4c200b0015eaec86a6emr22740314plg.57.1652215461348; Tue, 10
- May 2022 13:44:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08FDA10E7E7;
+	Tue, 10 May 2022 20:45:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26C710E7E7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 20:45:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iqepVUCIMDMogecjDBWOW8vUXQPE0QyJlKT521/n3/gik79fl3nVZM7LyqQq2r/jLPrK43KYnaPMt9YLx2Pik6MaKWlkC93uoaL5J5k6AWcZmHm9VB1Lu3RHgO5B2Qxk10bdPiUSpah+Za7y67s10rKUZCBZlf48wWUg2+ND8YRiUaPupP3eawdo3w0Yj+0EMI/Chisf4X57hZ+Qw8RvePaIqSdFcFUoJ7GH1v8V4pYgxDEedm4m7cupnSFUhUwZaZA1CtJBlNxMgwAjma8knHTr/GaMXVYuzv9k3Js8/nes/L2MgM0z8vyo204H6Uq8iqRcgzwgpuvHR3tkDYXk7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wQk2vB+kzpOuC05mEpIUAl/Wk1M/PqOwOPugiuiB2so=;
+ b=Hk+v/4mIBw5Bth7yFYS2SfX0KP14hMk0+Kezjen/2BoKf3VcTruLYg0fbDc5IHd3pRhd6GdDN2OIAVFaoaBHR7hlKTSE0NltwLthiUeX8jkXLAvtSZQ1S1p/Z6NW9hal+qvwCLQajMjbqzWMSvWkCKfI9+aueBETVsgdfiesFRclQXMRcLFI0DVrSMHh+M0DxyltSp4Moz2VDBcN76CSv2SO+COHWvbxJOjtZtOKSmot2n3mAmqRXOUSAhecRQfmje0Im30gVgYrfBiBaFZ1YEzr941c2N7BOK8s5rSK3QmjohoQMAwjm7xAWV+Ra7WD/nH4c0y5JwnnIP+chfy5Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wQk2vB+kzpOuC05mEpIUAl/Wk1M/PqOwOPugiuiB2so=;
+ b=rZVu9+R0lRnb8Kzz+B8dbDfoLokexjCSfoCJWEtJdsu8bjLSVnYx82PL4Vz7tLtS6Hc8yyK+l+c2XKBk6BF1MCViYwro8pCqZg93hMWizAyZhguZwDerpSD2IvznSp6ag9I3hSw0NFzO7JRxB66MFbLouUDwZPQ+cPV2CPm6hsk=
+Received: from MW4PR04CA0075.namprd04.prod.outlook.com (2603:10b6:303:6b::20)
+ by DM5PR12MB2391.namprd12.prod.outlook.com (2603:10b6:4:b3::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23; Tue, 10 May
+ 2022 20:45:22 +0000
+Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::1b) by MW4PR04CA0075.outlook.office365.com
+ (2603:10b6:303:6b::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24 via Frontend
+ Transport; Tue, 10 May 2022 20:45:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5227.15 via Frontend Transport; Tue, 10 May 2022 20:45:21 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 10 May
+ 2022 15:45:20 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 10 May
+ 2022 13:45:20 -0700
+Received: from xiaoT.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.24 via Frontend
+ Transport; Tue, 10 May 2022 15:45:15 -0500
+From: David Zhang <dingchen.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 00/19] DC/DM changes needed for amdgpu PSR-SU
+Date: Tue, 10 May 2022 16:44:49 -0400
+Message-ID: <20220510204508.506089-1-dingchen.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
-In-Reply-To: <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 10 May 2022 16:43:44 -0400
-Message-ID: <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000aa87ea05deae6310"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8420ee29-03f9-4c4e-b7f3-08da32c6007d
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2391:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2391C753B047F018D701F9138DC99@DM5PR12MB2391.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i9rfI0d/O3rgXeGvsGN/a5s8/dLbfw9o4bAJuGXhTvw9LW67eHxCJ20UAz/83V7PawfRFUrL0Oyug56WP4dqK71sY4xo9vUPpJP+BWn8vmVh0L5nrZ0Y/NBJkZBeeHhZBzO4rcCKqngwBDCd1V2SGDy32UUkZeb8qdql/xjIMsoVXWa7jnqgn4TCWZ5vsG0b49cWAFhEvU7J6+jXgemHW2PArCBS6bfaAnBlse/sjSLbzmqXVP3GJyzGONfxgPulE8qhDUljSW0Y5caBuijabfRsV37pgJeyOHpj5aKwrcPWKUnf+IuE2bCWejF/BwG1xYo2SFFEUx0FLd3D6TWszfIIwgKMEA+4ovAVzTrtPoxTn5UozJjtX13bEb7/2mbr55aqAwX6PQDxL5PR7lr4hv/9R/x+Q/VpQ2uc+RW3++vfwkvpv1A07W2lcK29eYUnrll4qeZsWv7BEuKI+dEZ6QedOOnCsiIdkfGntpR2yogYj3z5MbhmtsM/n9fFFWdwcY6nkeQwqXMN59d3A4fFe+H6/FZTup6HiBhTp67l7ihNW3ttNskT34n5bUtTfpNWKMwt6KuJz/uRczZUoxrTmKg3OSrJ2KRLdMF5NV95P0Sg+ESh1BQKLHRgyAgozMH8HrQpzKrZTb5v2Acpzln1yvIIdUPyXe7PUkme3VemHKbyJkYnJJNeChmxPO4L0cHeKNKLB2CCNx7w11FRzBgWsw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(186003)(508600001)(36860700001)(83380400001)(26005)(1076003)(2616005)(2906002)(36756003)(336012)(426003)(47076005)(82310400005)(40460700003)(86362001)(356005)(8936002)(7696005)(5660300002)(70586007)(54906003)(70206006)(6916009)(81166007)(8676002)(4326008)(316002)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2022 20:45:21.7624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8420ee29-03f9-4c4e-b7f3-08da32c6007d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2391
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,304 +102,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: stylon.wang@amd.com, David Zhang <dingchen.zhang@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000aa87ea05deae6310
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+changes in v2:
+-----------------------
+- set vsc_packet_rev2 for PSR1 which is safer
+- add exposure of AMD specific DPCD regs for PSR-SU-RC (rate-control)
+- add DC/DM change related to amdgpu PSR-SU-RC
 
-A better flag name would be:
-AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
 
-Marek
+David Zhang (18):
+  drm/amd/display: align dmub cmd header to latest dmub FW to support
+    PSR-SU
+  drm/amd/display: feed PSR-SU as psr version to dmub FW
+  drm/amd/display: combine dirty rectangles in DMUB FW
+  drm/amd/display: update GSP1 generic info packet for PSRSU
+  drm/amd/display: revise Start/End SDP data
+  drm/amd/display: program PSR2 DPCD Configuration
+  drm/amd/display: Passing Y-granularity to dmub fw
+  drm/amd/display: Set default value of line_capture_indication
+  drm/amd/display: add vline time in micro sec to PSR context
+  drm/amd/display: fix system hang when PSR exits
+  drm/amd/display: Set PSR level to enable ALPM by default
+  drm/amd/display: use HW lock mgr for PSR-SU
+  drm/amd/display: PSRSU+DSC WA for specific TCON
+  drm/amd/display: add shared helpers to update psr config fields to
+    power module
+  drm/amd/display: calculate psr config settings in runtime in DM
+  drm/amd/display: update cursor position to DMUB FW
+  drm/amd/display: expose AMD source specific DPCD for FreeSync PSR
+    support
+  drm/amd/display: PSR-SU rate control support in DC
 
-On Tue, May 10, 2022 at 4:13 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
-ote:
+Leo Li (1):
+  drm/amd/display: Implement MPO PSR SU
 
-> Does this really guarantee VRAM placement? The code doesn't say anything
-> about that.
->
-> Marek
->
->
-> On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken@gmail.com> wrote:
->
->> Add a AMDGPU_GEM_CREATE_DISCARDABLE flag to note that the content of a B=
-O
->> doesn't needs to be preserved during eviction.
->>
->> KFD was already using a similar functionality for SVM BOs so replace the
->> internal flag with the new UAPI.
->>
->> Only compile tested!
->>
->> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 4 ++--
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 1 +
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 1 -
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
->>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c       | 2 +-
->>  include/uapi/drm/amdgpu_drm.h              | 4 ++++
->>  6 files changed, 9 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 2e16484bf606..bf97d8f07f57 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -302,8 +302,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev,
->> void *data,
->>                       AMDGPU_GEM_CREATE_VRAM_CLEARED |
->>                       AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
->>                       AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
->> -                     AMDGPU_GEM_CREATE_ENCRYPTED))
->> -
->> +                     AMDGPU_GEM_CREATE_ENCRYPTED |
->> +                     AMDGPU_GEM_CREATE_DISCARDABLE))
->>                 return -EINVAL;
->>
->>         /* reject invalid gem domains */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 8b7ee1142d9a..1944ef37a61e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -567,6 +567,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->>                 bp->domain;
->>         bo->allowed_domains =3D bo->preferred_domains;
->>         if (bp->type !=3D ttm_bo_type_kernel &&
->> +           !(bp->flags & AMDGPU_GEM_CREATE_DISCARDABLE) &&
->>             bo->allowed_domains =3D=3D AMDGPU_GEM_DOMAIN_VRAM)
->>                 bo->allowed_domains |=3D AMDGPU_GEM_DOMAIN_GTT;
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> index 4c9cbdc66995..147b79c10cbb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> @@ -41,7 +41,6 @@
->>
->>  /* BO flag to indicate a KFD userptr BO */
->>  #define AMDGPU_AMDKFD_CREATE_USERPTR_BO        (1ULL << 63)
->> -#define AMDGPU_AMDKFD_CREATE_SVM_BO    (1ULL << 62)
->>
->>  #define to_amdgpu_bo_user(abo) container_of((abo), struct
->> amdgpu_bo_user, bo)
->>  #define to_amdgpu_bo_vm(abo) container_of((abo), struct amdgpu_bo_vm, b=
-o)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 41d6f604813d..ba3221a25e75 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -117,7 +117,7 @@ static void amdgpu_evict_flags(struct
->> ttm_buffer_object *bo,
->>         }
->>
->>         abo =3D ttm_to_amdgpu_bo(bo);
->> -       if (abo->flags & AMDGPU_AMDKFD_CREATE_SVM_BO) {
->> +       if (abo->flags & AMDGPU_GEM_CREATE_DISCARDABLE) {
->>                 placement->num_placement =3D 0;
->>                 placement->num_busy_placement =3D 0;
->>                 return;
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> index 5ed8d9b549a4..835b5187f0b8 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> @@ -531,7 +531,7 @@ svm_range_vram_node_new(struct amdgpu_device *adev,
->> struct svm_range *prange,
->>         bp.domain =3D AMDGPU_GEM_DOMAIN_VRAM;
->>         bp.flags =3D AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
->>         bp.flags |=3D clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
->> -       bp.flags |=3D AMDGPU_AMDKFD_CREATE_SVM_BO;
->> +       bp.flags |=3D AMDGPU_GEM_CREATE_DISCARDABLE;
->>         bp.type =3D ttm_bo_type_device;
->>         bp.resv =3D NULL;
->>
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm=
-.h
->> index 9a1d210d135d..57b9d8f0133a 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -140,6 +140,10 @@ extern "C" {
->>   * not require GTT memory accounting
->>   */
->>  #define AMDGPU_GEM_CREATE_PREEMPTIBLE          (1 << 11)
->> +/* Flag that BO can be discarded under memory pressure without keeping
->> the
->> + * content.
->> + */
->> +#define AMDGPU_GEM_CREATE_DISCARDABLE          (1 << 12)
->>
->>  struct drm_amdgpu_gem_create_in  {
->>         /** the requested memory size */
->> --
->> 2.25.1
->>
->>
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 +++++++++-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  21 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  54 ++++
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  47 +++-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |   4 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   5 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  23 +-
+ .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |   2 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  64 +++++
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h |   2 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c |   2 +
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 131 +++++++++
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c |   2 +
+ .../dc/dcn30/dcn30_dio_stream_encoder.c       |  15 ++
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   1 +
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |  21 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 250 +++++++++++++++++-
+ .../amd/display/include/ddc_service_types.h   |   1 +
+ .../display/modules/info_packet/info_packet.c |  29 +-
+ .../amd/display/modules/power/power_helpers.c |  84 ++++++
+ .../amd/display/modules/power/power_helpers.h |   6 +
+ 21 files changed, 887 insertions(+), 19 deletions(-)
 
---000000000000aa87ea05deae6310
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+-- 
+2.25.1
 
-<div dir=3D"ltr"><div>A better flag name would be:</div><div>AMDGPU_GEM_CRE=
-ATE_BEST_PLACEMENT_OR_DISCARD</div><div><br></div><div>Marek<br></div></div=
-><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tu=
-e, May 10, 2022 at 4:13 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:mara=
-eo@gmail.com">maraeo@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Does this really guaran=
-tee VRAM placement? The code doesn&#39;t say anything about that.</div><div=
-><br></div><div>Marek<br></div><br></div><br><div class=3D"gmail_quote"><di=
-v dir=3D"ltr" class=3D"gmail_attr">On Fri, May 6, 2022 at 7:23 AM Christian=
- K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=
-=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">Add a AMDGPU_GEM_CREATE_DISCARD=
-ABLE flag to note that the content of a BO<br>
-doesn&#39;t needs to be preserved during eviction.<br>
-<br>
-KFD was already using a similar functionality for SVM BOs so replace the<br=
->
-internal flag with the new UAPI.<br>
-<br>
-Only compile tested!<br>
-<br>
-Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0 =C2=A0 | 4 ++--<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 1 +<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 1 -<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0 =C2=A0 | 2 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_svm.c=C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 +-=
-<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | 4 ++++<br>
-=C2=A06 files changed, 9 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gem.c<br>
-index 2e16484bf606..bf97d8f07f57 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-@@ -302,8 +302,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, voi=
-d *data,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 AMDGPU_GEM_CREATE_VRAM_CLEARED |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 AMDGPU_GEM_CREATE_EXPLICIT_SYNC |<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0AMDGPU_GEM_CREATE_ENCRYPTED))<br>
--<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0AMDGPU_GEM_CREATE_ENCRYPTED |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0AMDGPU_GEM_CREATE_DISCARDABLE))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* reject invalid gem domains */<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c<br>
-index 8b7ee1142d9a..1944ef37a61e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-@@ -567,6 +567,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bp-&gt;domain;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bo-&gt;allowed_domains =3D bo-&gt;preferred_dom=
-ains;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (bp-&gt;type !=3D ttm_bo_type_kernel &amp;&a=
-mp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!(bp-&gt;flags &amp; AMDGPU_GEM_C=
-REATE_DISCARDABLE) &amp;&amp;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bo-&gt;allowed_domains =3D=3D AMD=
-GPU_GEM_DOMAIN_VRAM)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bo-&gt;allowed_doma=
-ins |=3D AMDGPU_GEM_DOMAIN_GTT;<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.h<br>
-index 4c9cbdc66995..147b79c10cbb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-@@ -41,7 +41,6 @@<br>
-<br>
-=C2=A0/* BO flag to indicate a KFD userptr BO */<br>
-=C2=A0#define AMDGPU_AMDKFD_CREATE_USERPTR_BO=C2=A0 =C2=A0 =C2=A0 =C2=A0 (1=
-ULL &lt;&lt; 63)<br>
--#define AMDGPU_AMDKFD_CREATE_SVM_BO=C2=A0 =C2=A0 (1ULL &lt;&lt; 62)<br>
-<br>
-=C2=A0#define to_amdgpu_bo_user(abo) container_of((abo), struct amdgpu_bo_u=
-ser, bo)<br>
-=C2=A0#define to_amdgpu_bo_vm(abo) container_of((abo), struct amdgpu_bo_vm,=
- bo)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c<br>
-index 41d6f604813d..ba3221a25e75 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-@@ -117,7 +117,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_object=
- *bo,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 abo =3D ttm_to_amdgpu_bo(bo);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (abo-&gt;flags &amp; AMDGPU_AMDKFD_CREATE_SV=
-M_BO) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (abo-&gt;flags &amp; AMDGPU_GEM_CREATE_DISCA=
-RDABLE) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 placement-&gt;num_p=
-lacement =3D 0;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 placement-&gt;num_b=
-usy_placement =3D 0;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c<br>
-index 5ed8d9b549a4..835b5187f0b8 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-@@ -531,7 +531,7 @@ svm_range_vram_node_new(struct amdgpu_device *adev, str=
-uct svm_range *prange,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bp.domain =3D AMDGPU_GEM_DOMAIN_VRAM;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bp.flags =3D AMDGPU_GEM_CREATE_NO_CPU_ACCESS;<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bp.flags |=3D clear ? AMDGPU_GEM_CREATE_VRAM_CL=
-EARED : 0;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0bp.flags |=3D AMDGPU_AMDKFD_CREATE_SVM_BO;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bp.flags |=3D AMDGPU_GEM_CREATE_DISCARDABLE;<br=
->
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bp.type =3D ttm_bo_type_device;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bp.resv =3D NULL;<br>
-<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index 9a1d210d135d..57b9d8f0133a 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -140,6 +140,10 @@ extern &quot;C&quot; {<br>
-=C2=A0 * not require GTT memory accounting<br>
-=C2=A0 */<br>
-=C2=A0#define AMDGPU_GEM_CREATE_PREEMPTIBLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 (1 &lt;&lt; 11)<br>
-+/* Flag that BO can be discarded under memory pressure without keeping the=
-<br>
-+ * content.<br>
-+ */<br>
-+#define AMDGPU_GEM_CREATE_DISCARDABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (1=
- &lt;&lt; 12)<br>
-<br>
-=C2=A0struct drm_amdgpu_gem_create_in=C2=A0 {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** the requested memory size */<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div>
-</blockquote></div>
-
---000000000000aa87ea05deae6310--
