@@ -4,45 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A57C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 08:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B5BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 08:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA22710F3CF;
-	Tue, 10 May 2022 08:24:19 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD9B410F3CF;
- Tue, 10 May 2022 08:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652171058; x=1683707058;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ZOg0Y5cUcy5gp07l4H0IN65dZHCl9qF1/pDmdGpMyCQ=;
- b=KUNXdGG3KnY2i2MHBrzmYr0CRc2tUiW84VDDu92nQOuvq2dFxT2bZYBe
- E+mGWwo/JOugriJVeFWQlI0uLMIMMVvZkNVLEAzmF49B0Gth5cACoSnPz
- VHvVFUcIhvXfkE3/uMV5UAP0rgyCtwW6HBPIxH84L1zBy5IX9qdiYr55U
- tJZV9WCSaDdXZSxH0adhpppwsWNeypgWN5xTLjgQg/J3xmsljYXPrpt/g
- Tx2fhoOQV6apkJqxB5tw/px69+CAoINA5dicl6H3sdBdXEzqs72xUurg2
- uuDV1mL336w7XjWTWa8lDOh+AG17TDOobf6Xc8uCx0R1PIgjjVcC7c6c4 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="269441472"
-X-IronPort-AV: E=Sophos;i="5.91,213,1647327600"; d="scan'208";a="269441472"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 01:24:17 -0700
-X-IronPort-AV: E=Sophos;i="5.91,213,1647327600"; d="scan'208";a="593381270"
-Received: from rcpalaku-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
- ([10.213.208.196])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 01:24:15 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [RFC] drm/amdgpu: Convert to common fdinfo format
-Date: Tue, 10 May 2022 09:23:15 +0100
-Message-Id: <20220510082315.992296-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9983210F606;
+	Tue, 10 May 2022 08:37:23 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2031910F606
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 08:37:22 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5aeae3.dynamic.kabel-deutschland.de
+ [95.90.234.227])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 9040C61EA1923;
+ Tue, 10 May 2022 10:37:20 +0200 (CEST)
+Content-Type: multipart/mixed; boundary="------------0svoNg2nlmSd1VWlwVhizSm5"
+Message-ID: <66e1d78c-bf27-80b4-9804-6c9f3a8c5547@molgen.mpg.de>
+Date: Tue, 10 May 2022 10:37:20 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+References: <note_1375796@gitlab.freedesktop.org>
+Subject: Fwd: Re: amd | ASUS ROG Strix G513QY fails to resume from suspend
+ [regression] (#2008)
+Content-Language: en-US
+To: regressions@lists.linux.dev
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <note_1375796@gitlab.freedesktop.org>
+X-Forwarded-Message-Id: <note_1375796@gitlab.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,147 +44,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David M Nieto <David.Nieto@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+This is a multi-part message in MIME format.
+--------------0svoNg2nlmSd1VWlwVhizSm5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Convert fdinfo format to one documented in drm-usage-stats.rst.
+Dear Linux regressions folks,
 
-Opens/TODO:
- * Does someone from AMD want to take over this patch?
-    (I have no access to amdgpu hardware so won't be able to test
-     any hypothetical gputop work.)
- * What are the semantics of AMD engine utilisation reported in percents?
-    * Can it align with what i915 does (same what msm will do) or need
-      to document the alternative in the specification document? Both
-      option are workable with instantaneous percent only needing support
-      to be added to vendor agnostic gputop.
- * Can amdgpu expose drm-client-id? Without it gputop will not work.
- * drm-engine-capacity - does the concept translate etc.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: David M Nieto <David.Nieto@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- Documentation/gpu/amdgpu/usage-stats.rst   | 28 ++++++++++++++++++++++
- Documentation/gpu/drm-usage-stats.rst      |  7 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 18 ++++++++++----
- 3 files changed, 47 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/gpu/amdgpu/usage-stats.rst
+A user reported a regression [1], which also trickled down to the stable 
+series, for example between 5.15.13 and 5.15.14.
 
-diff --git a/Documentation/gpu/amdgpu/usage-stats.rst b/Documentation/gpu/amdgpu/usage-stats.rst
-new file mode 100644
-index 000000000000..8be5009bd1a9
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/usage-stats.rst
-@@ -0,0 +1,28 @@
-+.. _amdgpu-usage-stats:
-+
-+============================================
-+AMDGPU DRM client usage stats implementation
-+============================================
-+
-+The amdgpu driver implements the DRM client usage stats specification as
-+documented in :ref:`drm-client-usage-stats`.
-+
-+Example of the output showing the implemented key value pairs and entirety of
-+the currenly possible format options:
-+
-+::
-+
-+      pos:    0
-+      flags:  0100002
-+      mnt_id: 21
-+      drm-driver: amdgpu
-+      drm-pdev:   0000:03:00.0
-+      drm-memory-vram: 0 KiB
-+      drm-memory-gtt: 0 KiB
-+      drm-memory-cpu: 0 KiB
-+      drm-engine-...: 0 %
-+                 ...
-+
-+Possible `drm-memory-` key names are: `vram`, `gtt`, `cpu`.
-+
-+Possible `drm-engine-` key names are: ``.
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 6c9f166a8d6f..2d0ff6f2cc74 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -69,7 +69,7 @@ scope of each device, in which case `drm-pdev` shall be present as well.
- Userspace should make sure to not double account any usage statistics by using
- the above described criteria in order to associate data to individual clients.
- 
--- drm-engine-<str>: <uint> ns
-+- drm-engine-<str>: <uint> [ns|%]
- 
- GPUs usually contain multiple execution engines. Each shall be given a stable
- and unique name (str), with possible values documented in the driver specific
-@@ -84,6 +84,9 @@ larger value within a reasonable period. Upon observing a value lower than what
- was previously read, userspace is expected to stay with that larger previous
- value until a monotonic update is seen.
- 
-+Where time unit is given as a percentage...[AMD folks to fill the semantics
-+and interpretation of that]...
-+
- - drm-engine-capacity-<str>: <uint>
- 
- Engine identifier string must be the same as the one specified in the
-@@ -110,3 +113,5 @@ Driver specific implementations
- ===============================
- 
- :ref:`i915-usage-stats`
-+
-+:ref:`amdgpu-usage-stats`
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 5a6857c44bb6..8cbae61f1b3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -32,6 +32,7 @@
- 
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_debugfs.h>
-+#include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
-@@ -83,11 +84,18 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	amdgpu_bo_unreserve(root);
- 	amdgpu_bo_unref(&root);
- 
--	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
-+	/*
-+	 * ******************************************************************
-+	 * For text output format description please see drm-usage-stats.rst!
-+	 * ******************************************************************
-+	 */
-+
-+	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
-+	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
- 			dev, fn, fpriv->vm.pasid);
--	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
--	seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
--	seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
-+	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-+	seq_printf(m, "drm-memory-gtt:\t%llu KiB\n", gtt_mem/1024UL);
-+	seq_printf(m, "drm-memory-cpu:\t%llu KiB\n", cpu_mem/1024UL);
- 	for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
- 		uint32_t count = amdgpu_ctx_num_entities[i];
- 		int idx = 0;
-@@ -103,7 +111,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 			perc = div64_u64(10000 * total, min);
- 			frac = perc % 100;
- 
--			seq_printf(m, "%s%d:\t%d.%d%%\n",
-+			seq_printf(m, "drm-engine-%s%d:\t%d.%d %%\n",
- 					amdgpu_ip_name[i],
- 					idx, perc/100, frac);
- 		}
+
+Kind regards,
+
+Paul
+
+
+[1]: https://gitlab.freedesktop.org/drm/amd/-/issues/2008
+--------------0svoNg2nlmSd1VWlwVhizSm5
+Content-Type: message/rfc822; name="Re: amd | ASUS ROG Strix G513QY fails to
+ resume from suspend [regression] (#2008).eml"
+Content-Disposition: attachment; filename*0="Re: amd | ASUS ROG Strix G513QY
+ fails to resume from suspend"; filename*1=" [regression] (#2008).eml"
+Content-Transfer-Encoding: 7bit
+
+Return-Path: <gitlab@gitlab.freedesktop.org>
+Received: from mx.molgen.mpg.de (mx.molgen.mpg.de [141.14.17.8])
+	 by tldr.molgen.mpg.de (Cyrus 2.5.3) with LMTPA;
+	 Tue, 10 May 2022 10:09:52 +0200
+X-Sieve: CMU Sieve 2.4
+Received: from a1241.mx.srv.dfn.de (a1241.mx.srv.dfn.de [194.95.232.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx2.molgen.mpg.de (Postfix) with ESMTPS id 9C06461EA1923
+	for <pmenzel+gitlab.freedesktop.org@molgen.mpg.de>; Tue, 10 May 2022 10:09:52 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by a1241.mx.srv.dfn.de (Postfix) with ESMTP id 7ED61320085
+	for <pmenzel+gitlab.freedesktop.org@molgen.mpg.de>; Tue, 10 May 2022 10:09:52 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at mgw6-han.srv.dfn.de
+Received: from a1241.mx.srv.dfn.de ([127.0.0.1])
+	by localhost (mgw6-han.srv.dfn.de [127.0.0.1]) (amavisd-new, port 20030)
+	with ESMTP id 6KHhpr0XRj9S
+	for <pmenzel+gitlab.freedesktop.org@molgen.mpg.de>;
+	Tue, 10 May 2022 10:09:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by a1241.mx.srv.dfn.de (Postfix) with ESMTPS
+	for <pmenzel+gitlab.freedesktop.org@molgen.mpg.de>; Tue, 10 May 2022 10:09:17 +0200 (CEST)
+Received: from gitlab.freedesktop.org (unknown [139.178.65.18])
+	by gabe.freedesktop.org (Postfix) with ESMTPSA id 51BD210F1F9
+	for <pmenzel+gitlab.freedesktop.org@molgen.mpg.de>; Tue, 10 May 2022 08:08:47 +0000 (UTC)
+Date: Tue, 10 May 2022 08:08:46 +0000
+From: "spin83 (@spin83)" <gitlab@gitlab.freedesktop.org>
+Reply-To: GitLab <noreply@freedesktop.org>
+To: pmenzel+gitlab.freedesktop.org@molgen.mpg.de
+Message-ID: <note_1375796@gitlab.freedesktop.org>
+In-Reply-To: <issue_54035@gitlab.freedesktop.org>
+References: <issue_54035@gitlab.freedesktop.org>
+Subject: Re: amd | ASUS ROG Strix G513QY fails to resume from suspend
+ [regression] (#2008)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_627a1d8e3c2cc_154289c149f6";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: amd
+X-GitLab-Project-Id: 4522
+X-GitLab-Project-Path: drm/amd
+List-Id: drm/amd <4522.amd.drm.gitlab.freedesktop.org>
+List-Unsubscribe: <https://gitlab.freedesktop.org/-/sent_notifications/e6179f6336692b71190e18265f7cdf85/unsubscribe?force=true>
+X-GitLab-Issue-ID: 54035
+X-GitLab-Issue-IID: 2008
+X-GitLab-NotificationReason: subscribed
+X-GitLab-Discussion-ID: 74f4fe9555791956a10bb4fb07e7b3f5a781f0f5
+X-GitLab-Reply-Key: e6179f6336692b71190e18265f7cdf85
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
+
+
+----==_mimepart_627a1d8e3c2cc_154289c149f6
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+
+spin83 commented:
+
+
+It doesn't work either.
+
 -- 
-2.32.0
+View it on GitLab: https://gitlab.freedesktop.org/drm/amd/-/issues/2008#note_1375796
+You're receiving this email because of your account on gitlab.freedesktop.org.
 
+
+
+----==_mimepart_627a1d8e3c2cc_154289c149f6
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html lang="en">
+<head>
+<meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
+<title>
+GitLab
+</title>
+
+
+<style>img {
+max-width: 100%; height: auto;
+}
+</style>
+</head>
+<body>
+<div class="content">
+
+<p style="color: #777777;">
+<a href="https://gitlab.freedesktop.org/spin83">spin83</a>
+<a href="https://gitlab.freedesktop.org/drm/amd/-/issues/2008#note_1375796">commented</a>:
+</p>
+<div class="md" style="">
+<p dir="auto">It doesn't work either.</p>
+</div>
+
+
+</div>
+<div class="footer" style="margin-top: 10px;">
+<p style="font-size: small; color: #666;">
+&#8212;
+<br>
+<a href="https://gitlab.freedesktop.org/drm/amd/-/issues/2008#note_1375796">View it on GitLab</a>.
+<br>
+You're receiving this email because of your account on gitlab.freedesktop.org.
+If you'd like to receive fewer emails, you can
+<a href="https://gitlab.freedesktop.org/-/sent_notifications/e6179f6336692b71190e18265f7cdf85/unsubscribe">unsubscribe</a>
+from this thread or
+adjust your notification settings.
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"EmailMessage","action":{"@type":"ViewAction","name":"View Issue","url":"https://gitlab.freedesktop.org/drm/amd/-/issues/2008#note_1375796"}}</script>
+
+
+</p>
+</div>
+</body>
+</html>
+
+----==_mimepart_627a1d8e3c2cc_154289c149f6--
+
+--------------0svoNg2nlmSd1VWlwVhizSm5--
