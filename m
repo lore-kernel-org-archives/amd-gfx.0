@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C5FC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 13:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25BE7C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 13:48:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A841C10F982;
-	Tue, 10 May 2022 13:21:51 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7694610F983
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 13:21:50 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-ee1e7362caso14118626fac.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 06:21:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43BA10EFD6;
+	Tue, 10 May 2022 13:48:12 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1047310EFD6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 13:48:12 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-ee1e7362caso14208736fac.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 06:48:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=x48e/jIz/Eimg57HuFCm6GmPSC9pGBEcnmUV1VDLLtE=;
- b=gCkMnSnHrqW3I6EkpkP8ByKviNNXtTqe4Nu6q5GuWQJtmwR+TerKUuvrZ7QngWkioP
- Msnk3b0twV2Zo8DfAjjtbiIrGdtZHNxNxGENp7eJQn6kSxvodMcDhnKoop98EVCwothm
- 5ITnCzuU6W4Cdbmjtclo3wdwGXyCeQIYzbTsZAPSOD7b7ob8a18ocqMDcOk1ZoasKCpa
- +gUCPOijnJcOnAqwRFw7WgS7NzeOJO8tKXB3KLija6svTPokfBOO1q46hcPNEW2ZwMfE
- b9EBcG9q48mDjsGdpdhLNhgU4/Du012kdqOtm1dbD8KAPH2/50cJuvN+UZraVo1oa6o2
- 6eKw==
+ :cc; bh=eYBhS8UoaBCw8Jwia3GAxGifsXgfxWJFfdBJVHXCIPY=;
+ b=nRLjR/jjrNcciXSagfFfKIMWKOOYjJWgUgtebb4i1+gnzLOphFipyWYZHouNOsVnIq
+ M5XHmSwKjqQLUI/K+FS7cu21nwG6vFxdXqJ2PK1jDf2dY2aY2nVT1KpOaIxOzfGSF4zv
+ UYjjozPsNbAyAf+VD9hUczrRA5X/Nza09wchxh3iWHM15WJe5OEteITuWsVYhvJgfhbk
+ laDK7db5SA+xLiZFyJzkj5WZBgDdAI54IJSQlXfASmn41Cz0A1S90GQv/gwjfZdMZaZA
+ J6kcO1j+Jy9CktT4asu1OosWNApOGMmEErBDLhmkGx8aS8p2LufU+WDBPfmX2ndya6B4
+ FTqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=x48e/jIz/Eimg57HuFCm6GmPSC9pGBEcnmUV1VDLLtE=;
- b=o3toTp6ipzwZeMuJFrJaCXzdAFnjkBWU25R5sXc6xp3OAkL5PL3KWKOv1y+2jBFtpv
- pZUVar7voYczrutTUiSipsGy+o0myLAOd8lBEbn274FrpQ2FgihadLxOOIzI1QiH+w/e
- sqs+KOLrTkOE/D7joasgkb9k5nSurllhG73azTHxXNe7lwixeOqkGVB5Ln5CbLrJAqQ6
- aeVom6fBD6Oghh/RAJekIkfgB6GtnOLJ1mmMJMcq0fCz3O5z2edk5uOzjbmdLdmclr7t
- tvEClHjLxQlJyIsRhi5fT25EDK3YzgADHMne48Cqtg91KHr3Xup4usMO5RM9zetyu0Bu
- zugg==
-X-Gm-Message-State: AOAM530i1mq0GmwI1SMJD+2jHcH612WnqtQsdw/JKLyp3+kjSIcSJqXp
- G+CimeFSeoUqD43aN1LUA25FEVi8BaAggOQ/e9Y=
-X-Google-Smtp-Source: ABdhPJwJVKeOvCw48HzBzzuNXCQLMwcSETKoqTFKCEKrllYGaxctA0rBpS+yLbhkGfeWhsAV8wF95+MPpkAQ1i3Agqk=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr8334oaa.200.1652188909689; Tue, 10 May
- 2022 06:21:49 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=eYBhS8UoaBCw8Jwia3GAxGifsXgfxWJFfdBJVHXCIPY=;
+ b=yqsipYJtYHbV9LgJuPt2gEWionMdAs6XfPgHOZz1i3XuC86SPNdrSCT7bGmhKmnhAI
+ DGs0kQk1QPq9OwvuBT2aPrEftqG6uo7VV9PdmgdTgA63rr2SSsLmqd3v9dKtyGBX9cx/
+ LxWjP2MHmKwZoqrtvDM3ygAc0lhQM/GhtIJKxTM36PYZGg54RSXMh51mN4H08J1ZO1GF
+ bPdcFAmfGshdUA+vIfyNUrWKs7ozEPqAAgyEsgKTgBLGOIYUJ4/YYP3xBMoZKyVlS/3n
+ R3An6OqTl+sidDXP36hh7Sls2zbVUQReCsVsMn2V7E660e07segQ8LK3dERlSLgmi0GL
+ 4h8w==
+X-Gm-Message-State: AOAM530Nzj0vDh8zIPu7oJgEWmrma0nk5EuK6TkGgEw20W+aO7iK78hP
+ uRWiGkEZokVduHA6h2kAnzlZywJOMA4FAJsbimU=
+X-Google-Smtp-Source: ABdhPJzpCQjQPw+BKJ7L0bJV0kvd1CtjJ5ftGQ3aqPuQcGO+seGHTN2Y4WO9GdwAcy/YAp49Sb73DbPQIlq0GqfIlpo=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr57238oap.253.1652190491380; Tue, 10 May
+ 2022 06:48:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220509190657.478625-1-alexander.deucher@amd.com>
- <661503a2-064f-476d-3683-d7a0bd40fb16@molgen.mpg.de>
-In-Reply-To: <661503a2-064f-476d-3683-d7a0bd40fb16@molgen.mpg.de>
+References: <20220509170732.791710-1-yongqiang.sun@amd.com>
+ <c354ffaf-ffcb-363e-12b1-3a9909087c35@molgen.mpg.de>
+In-Reply-To: <c354ffaf-ffcb-363e-12b1-3a9909087c35@molgen.mpg.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 May 2022 09:21:38 -0400
-Message-ID: <CADnq5_Prf8KYwTqiqCn7LDvUimNUR3_rxyE_g2NLbDiVtReO7A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx11: fix mes mqd settings and map_queue
- packet
+Date: Tue, 10 May 2022 09:48:00 -0400
+Message-ID: <CADnq5_NC-W+rxFxWFi5+6bhcjc8itzbWWKYPwaOOBX7WPMpB1A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Check kernel version for 'hypervisor_is_type'
 To: Paul Menzel <pmenzel@molgen.mpg.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,139 +63,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Yongqiang Sun <yongqiang.sun@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 10, 2022 at 3:30 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+On Tue, May 10, 2022 at 3:12 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
 >
-> Dear Alex, dear Jack,
+> Dear Yongqiang,
 >
 >
-> Thank you for the patch.
+> Thank you for your patch.
 >
-> Am 09.05.22 um 21:06 schrieb Alex Deucher:
-> > From: Jack Xiao <Jack.Xiao@amd.com>
+> Am 09.05.22 um 19:07 schrieb Yongqiang Sun:
+> > hypervisor_is_type is added since kernel 4.15, dkms package failed to
+>
+> Also mention the commit hash and summary of the commit adding that.
+>
+> > install on older kernel e.g. 3.10.
 > >
-> > a. use correct mes mqd settings
+> > Use marcro check kernel version to determine whether the function is
 >
-> Can you please elaborate? What is wrong with the old ones, and what are
-> the correct ones?
-
-Use the gfx11 mqd structures rather than the gfx10 structures.
-
+> macro (found by my spell checker)
 >
-> > b. fix me field in map_queue packet
+> > used.
 >
-> Can you please add some background? The new value is 2. What does it do?
-
-The ME is the microengine.  You need to select the right engine based
-on the queue type.
-
+> Please reflow for 75 characters per line.
 >
-> It=E2=80=99d be great, if you could make it two patches.
+> The Signed-off-by line is missing.
 >
-> > Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
-> > Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c |  7 +++++--
-> >   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 20 ++++++++++----------
-> >   2 files changed, 15 insertions(+), 12 deletions(-)
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 4 +++-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 +++-
+> >   2 files changed, 6 insertions(+), 2 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v11_0.c
-> > index 7614f38ff381..8a1bec70c719 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -145,16 +145,19 @@ static void gfx11_kiq_map_queues(struct amdgpu_ri=
-ng *kiq_ring,
-> >   {
-> >       uint64_t mqd_addr =3D amdgpu_bo_gpu_offset(ring->mqd_obj);
-> >       uint64_t wptr_addr =3D ring->wptr_gpu_addr;
-> > -     uint32_t eng_sel =3D 0;
-> > +     uint32_t me =3D 0, eng_sel =3D 0;
-> >
-> >       switch (ring->funcs->type) {
-> >       case AMDGPU_RING_TYPE_COMPUTE:
-> > +             me =3D 1;
-> >               eng_sel =3D 0;
-> >               break;
-> >       case AMDGPU_RING_TYPE_GFX:
-> > +             me =3D 0;
-> >               eng_sel =3D 4;
-> >               break;
-> >       case AMDGPU_RING_TYPE_MES:
-> > +             me =3D 2;
-> >               eng_sel =3D 5;
-> >               break;
-> >       default:
-> > @@ -168,7 +171,7 @@ static void gfx11_kiq_map_queues(struct amdgpu_ring=
- *kiq_ring,
-> >                         PACKET3_MAP_QUEUES_VMID(0) | /* VMID */
-> >                         PACKET3_MAP_QUEUES_QUEUE(ring->queue) |
-> >                         PACKET3_MAP_QUEUES_PIPE(ring->pipe) |
-> > -                       PACKET3_MAP_QUEUES_ME((ring->me =3D=3D 1 ? 0 : =
-1)) |
-> > +                       PACKET3_MAP_QUEUES_ME((me)) |
-> >                         PACKET3_MAP_QUEUES_QUEUE_TYPE(0) | /*queue_type=
-: normal compute queue */
-> >                         PACKET3_MAP_QUEUES_ALLOC_FORMAT(0) | /* alloc f=
-ormat: all_on_one_pipe */
-> >                         PACKET3_MAP_QUEUES_ENGINE_SEL(eng_sel) |
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_v11_0.c
-> > index 5d4d54cabf70..fcf51947bb18 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > @@ -29,7 +29,7 @@
-> >   #include "gc/gc_11_0_0_offset.h"
-> >   #include "gc/gc_11_0_0_sh_mask.h"
-> >   #include "gc/gc_11_0_0_default.h"
-> > -#include "v10_structs.h"
-> > +#include "v11_structs.h"
-> >   #include "mes_v11_api_def.h"
-> >
-> >   MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes.bin");
-> > @@ -637,7 +637,7 @@ static int mes_v11_0_allocate_eop_buf(struct amdgpu=
-_device *adev,
-> >
-> >   static int mes_v11_0_mqd_init(struct amdgpu_ring *ring)
-> >   {
-> > -     struct v10_compute_mqd *mqd =3D ring->mqd_ptr;
-> > +     struct v11_compute_mqd *mqd =3D ring->mqd_ptr;
-> >       uint64_t hqd_gpu_addr, wb_gpu_addr, eop_base_addr;
-> >       uint32_t tmp;
-> >
-> > @@ -724,22 +724,22 @@ static int mes_v11_0_mqd_init(struct amdgpu_ring =
-*ring)
-> >       mqd->cp_hqd_vmid =3D 0;
-> >       /* activate the queue */
-> >       mqd->cp_hqd_active =3D 1;
-> > -     mqd->cp_hqd_persistent_state =3D regCP_HQD_PERSISTENT_STATE_DEFAU=
-LT;
-> > +
-> > +     tmp =3D regCP_HQD_PERSISTENT_STATE_DEFAULT;
-> > +     tmp =3D REG_SET_FIELD(tmp, CP_HQD_PERSISTENT_STATE,
-> > +                         PRELOAD_SIZE, 0x55);
-> > +     mqd->cp_hqd_persistent_state =3D tmp;
-> > +
-> >       mqd->cp_hqd_ib_control =3D regCP_HQD_IB_CONTROL_DEFAULT;
-> >       mqd->cp_hqd_iq_timer =3D regCP_HQD_IQ_TIMER_DEFAULT;
-> >       mqd->cp_hqd_quantum =3D regCP_HQD_QUANTUM_DEFAULT;
-> >
-> > -     tmp =3D regCP_HQD_GFX_CONTROL_DEFAULT;
-> > -     tmp =3D REG_SET_FIELD(tmp, CP_HQD_GFX_CONTROL, DB_UPDATED_MSG_EN,=
- 1);
-> > -     /* offset: 184 - this is used for CP_HQD_GFX_CONTROL */
-> > -     mqd->cp_hqd_suspend_cntl_stack_offset =3D tmp;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > index 88b852b3a2cb..963b2e68205e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > @@ -28,7 +28,7 @@
+> >   #ifdef CONFIG_X86
+> >   #include <asm/hypervisor.h>
+> >   #endif
 > > -
+> > +#include <linux/version.h>
+> >   #include "amdgpu.h"
+> >   #include "amdgpu_gmc.h"
+> >   #include "amdgpu_ras.h"
+> > @@ -653,10 +653,12 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+> >                * VEGA10 SRIOV VF with MS_HYPERV host needs some firmware reserved area.
+> >                */
+> >   #ifdef CONFIG_X86
+> > +#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
+> >               if (amdgpu_sriov_vf(adev) && hypervisor_is_type(X86_HYPER_MS_HYPERV)) {
+> >                       adev->mman.stolen_reserved_offset = 0x500000;
+> >                       adev->mman.stolen_reserved_size = 0x200000;
+> >               }
+> > +#endif
 >
-> What was wrong with this?
+> `scripts/checkpatch.pl` warns about using `LINUX_VERSION_CODE`.
+>
+> >   #endif
+> >               break;
+> >       case CHIP_RAVEN:
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > index 02b161a1287b..5a50122a1161 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > @@ -26,7 +26,7 @@
+> >   #ifdef CONFIG_X86
+> >   #include <asm/hypervisor.h>
+> >   #endif
+> > -
+> > +#include <linux/version.h>
+> >   #include <drm/drm_drv.h>
+> >   #include <xen/xen.h>
+> >
+> > @@ -728,8 +728,10 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+> >               case CHIP_VEGA10:
+> >                       soc15_set_virt_ops(adev);
+> >   #ifdef CONFIG_X86
+> > +#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
+> >                       /* not send GPU_INIT_DATA with MS_HYPERV*/
+> >                       if (!hypervisor_is_type(X86_HYPER_MS_HYPERV))
+> > +#endif
+> >   #endif
+> >                               /* send a dummy GPU_INIT_DATA request to host on vega10 */
+> >                               amdgpu_virt_request_init_data(adev);
+>
+> Is this patch for inclusion to the Linux kernel or just for people
+> building the newer code as module for older Linux kernel versions?
 
-It doesn't exist in the gfx11 structure.
+This was meant for our dkms branches for building against enterprise
+distro kernels not for upstream.
 
 Alex
 
@@ -207,25 +165,3 @@ Alex
 > Kind regards,
 >
 > Paul
->
->
-> >       return 0;
-> >   }
-> >
-> >   static void mes_v11_0_queue_init_register(struct amdgpu_ring *ring)
-> >   {
-> > -     struct v10_compute_mqd *mqd =3D ring->mqd_ptr;
-> > +     struct v11_compute_mqd *mqd =3D ring->mqd_ptr;
-> >       struct amdgpu_device *adev =3D ring->adev;
-> >       uint32_t data =3D 0;
-> >
-> > @@ -910,7 +910,7 @@ static int mes_v11_0_kiq_ring_init(struct amdgpu_de=
-vice *adev)
-> >   static int mes_v11_0_mqd_sw_init(struct amdgpu_device *adev,
-> >                                enum admgpu_mes_pipe pipe)
-> >   {
-> > -     int r, mqd_size =3D sizeof(struct v10_compute_mqd);
-> > +     int r, mqd_size =3D sizeof(struct v11_compute_mqd);
-> >       struct amdgpu_ring *ring;
-> >
-> >       if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE)
