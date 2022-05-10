@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A38C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 20:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AEE4C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 May 2022 20:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8F010E501;
-	Tue, 10 May 2022 20:35:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 005AD10EC96;
- Tue, 10 May 2022 18:17:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 961251F8C1;
- Tue, 10 May 2022 18:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1652206659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iiGLHqQlexjKp2BCk/wVVn8oKcq1hyMdphZCk4Mecmk=;
- b=FJ/35b9BVDalbSkvNr3+Dnf4RLDEqQwFxW2y25rnm7oKIqQ32a0DwCX5vKaxteDBm4+64q
- q1VKW5GZPX/L2Rbvh9kjtN6ZXFshll6uQndDSttzC2+UBjLynlnjSPMTkD/Vx430llG3ns
- 6G6V2NShE4ICZGJkalATUxc7sV05Qd8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1652206659;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iiGLHqQlexjKp2BCk/wVVn8oKcq1hyMdphZCk4Mecmk=;
- b=wAaQwnykYpP5wcAAHomQMuBG/2Magts3Quiv9hbSXtw62XmDGlxZA0Xvl10KK3N5FLOVxp
- gLH6fX3lvkLIv4BA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 295FB13AA5;
- Tue, 10 May 2022 18:17:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lug+CEOsemL4LgAAMHmgww
- (envelope-from <jroedel@suse.de>); Tue, 10 May 2022 18:17:39 +0000
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
-Subject: Re: [BUG] Warning and NULL-ptr dereference in amdgpu driver with 5.18
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <jroedel@suse.de>
-In-Reply-To: <CADnq5_NYVvjcUru9hfbnATfcHJR5+eiK9bJAA9m41WKa=OJsog@mail.gmail.com>
-Date: Tue, 10 May 2022 20:17:38 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <505081FC-4323-4424-87A9-89B95A89515D@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B7110E735;
+	Tue, 10 May 2022 20:42:11 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA8BE10E705;
+ Tue, 10 May 2022 20:42:09 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id q8so356610oif.13;
+ Tue, 10 May 2022 13:42:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=VIAQOazJPjJfrZdIk0eSxwF2xbtTrMY68Mwjij7d8gE=;
+ b=WCBx2+IfqAmZC8sXmKqzLtNc8sHWu8odkNtBLzkoy3C8snxpSkQIsZ5EaT/JcbeW1I
+ FpzmywcEv1N9JRw3dvg2+UuJ4xV+7lQQ0JIaIYxyikEWF6w00JzdeN+kdA4G3t/oLd3j
+ 7Gb11tLiEjhmT4XNI0DlsXRpz0g4De9qK8I1prbAHKcPD9eCnIn71VWnRY7BXX8LELRw
+ ZVns+2/DAi4ZnhuYldcbuf/2foYJ9wKJqOAlZXWt2VoUqNuAHcdVrSSi9cLx9W3ovx6O
+ /NiurRgWVIk1qXf81GsW296h7fzNIkmi8+vMcuMIKreliJjY4lUp6lxRG+zUrlRSSany
+ 2QVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=VIAQOazJPjJfrZdIk0eSxwF2xbtTrMY68Mwjij7d8gE=;
+ b=Cm/GZNaFTvsbBGCnJNO/h97ou6nwjYOiLOwwudIiq2wwgw7p6NjuRLV4Qwuwtl8glB
+ Qq5axr5sXZsYcjyvQtwhJIwVjglVUMV3MmgOTsqcWyuq/G/Y0XDNBx64l/lRrOsGaR95
+ ld79MMJI/MpuX0qdhWGGiicOaQWXnEMnBwZIeZr759wUBTCDIAP/ymljOrQ7QY613n5e
+ 8qPLh/WiMja8B97c0e5+cqw6g9axrwDBPgArwlDXMfjjYDs3j3sVjR1RNqHGl/PHfnJ+
+ DoPhO5xw+s2567JTEBFzhBCcyCAAhNf57vtleq3Zz47SpRmKhuYfJOm7ryw8QO1kSN+U
+ dT7w==
+X-Gm-Message-State: AOAM532b/7evBF4i1yUohIfR38RfjBsNrsWW+LIxxt2ztKFMMMzIcIA1
+ HZhm5+QlW0aEDPPUksewQTQGcnD9rHu5L2S+LLQ=
+X-Google-Smtp-Source: ABdhPJyiYvR8gCRPu/xnvVY/i7Ko/yIUH9sG0FYEQoYT5AaJrawyX4S+NkTMMg/TFQj6Z7EX1WGqeksfxdGAvinnHOU=
+X-Received: by 2002:a05:6808:f8e:b0:328:a601:a425 with SMTP id
+ o14-20020a0568080f8e00b00328a601a425mr963626oiw.253.1652215328989; Tue, 10
+ May 2022 13:42:08 -0700 (PDT)
+MIME-Version: 1.0
 References: <YnTAc96Uv0CXcGhD@suse.de>
  <CADnq5_NT3UtawpGuPDwF+dgmRdaoysb7sD_-oWWBC=T3BoUH7Q@mail.gmail.com>
  <YnpIjdTT3esZ72Bf@suse.de>
  <CADnq5_NYVvjcUru9hfbnATfcHJR5+eiK9bJAA9m41WKa=OJsog@mail.gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-X-Mailer: Apple Mail (2.3693.60.0.1.1)
-X-Mailman-Approved-At: Tue, 10 May 2022 20:35:57 +0000
+ <505081FC-4323-4424-87A9-89B95A89515D@suse.de>
+In-Reply-To: <505081FC-4323-4424-87A9-89B95A89515D@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 May 2022 16:41:57 -0400
+Message-ID: <CADnq5_PoWLHydAGqHXKNwBnnc_Uz7xc01Mmp2ri-h+RtnRqgfQ@mail.gmail.com>
+Subject: Re: [BUG] Warning and NULL-ptr dereference in amdgpu driver with 5.18
+To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <jroedel@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,34 +78,46 @@ Cc: David Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-> Am 10.05.2022 um 17:31 schrieb Alex Deucher <alexdeucher@gmail.com>:
->=20
-> On Tue, May 10, 2022 at 7:12 AM J=C3=B6rg R=C3=B6del <jroedel@suse.de> =
+On Tue, May 10, 2022 at 2:17 PM J=C3=B6rg R=C3=B6del <jroedel@suse.de> wrot=
+e:
+>
+>
+> > Am 10.05.2022 um 17:31 schrieb Alex Deucher <alexdeucher@gmail.com>:
+> >
+> > On Tue, May 10, 2022 at 7:12 AM J=C3=B6rg R=C3=B6del <jroedel@suse.de> =
 wrote:
->>=20
->> Gentle ping. This is a 5.18 regression and I also see it with
->> 5.18-rc6. Please let me know if you need anything else to debug.
->>=20
->=20
-> Are you doing anything special when it happens?  I.e., does it happen
-> when the monitor is coming out of DPMS or something like that?
->=20
+> >>
+> >> Gentle ping. This is a 5.18 regression and I also see it with
+> >> 5.18-rc6. Please let me know if you need anything else to debug.
+> >>
+> >
+> > Are you doing anything special when it happens?  I.e., does it happen
+> > when the monitor is coming out of DPMS or something like that?
+> >
+>
+> Yes, it usually happens when I return to the machine and press some butto=
+n on the keyboard to get the screens enabled again. It doesn=E2=80=99t happ=
+en always, it seems to depend on how slow the monitors come out of power sa=
+ving mode.
+>
 
-Yes, it usually happens when I return to the machine and press some =
-button on the keyboard to get the screens enabled again. It doesn=E2=80=99=
-t happen always, it seems to depend on how slow the monitors come out of =
-power saving mode.
+Does setting amdgpu.runpm=3D0 on the kernel command line in grub help?
+If so, that should fixed with:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3Df95af4a9236695caed24fe6401256bb974e8f2a7
 
-Regards,
+Alex
 
-J=C3=B6rg R=C3=B6del
-jroedel@suse.de
 
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5
-90409 N=C3=BCrnberg
-Germany
-=20
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev=
+> Regards,
+>
+> J=C3=B6rg R=C3=B6del
+> jroedel@suse.de
+>
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5
+> 90409 N=C3=BCrnberg
+> Germany
+>
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
