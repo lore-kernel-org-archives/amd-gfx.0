@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC37DC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 06:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF7CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 06:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFE710E2AC;
-	Wed, 11 May 2022 06:04:46 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57EE210E2AC
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 06:04:45 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- m2-20020a1ca302000000b003943bc63f98so578100wme.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 23:04:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90B210E4A2;
+	Wed, 11 May 2022 06:06:45 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 162A210E4A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 06:06:44 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ v64-20020a1cac43000000b0038cfd1b3a6dso2509825wme.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 23:06:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to;
- bh=QO9k23A1U1t2qaoROQDKdRQCwCTwpUcpI0dcdYsTwYM=;
- b=WoolrPUCGSCGN/GdCTe0HFJ7UhsBCdw64CR7ArIIyIfNyqrkMNAyCYWpKDX1FGePDn
- PZb+nel9HW2usH3FWUIMQrpOx7re+fiPJbBatiypryxaWyqff+v6uaCadzuM+N0024Md
- SaB0NA6EkYqENUxoBIKc3OuLJ8OSqD+i41Q7sFNn39lN2eODnQ0Tm6nxDORT5fUh6hm0
- YMYbKdOAKYm9uwwqdThaNf8Cde+lU3XOG/cDuzu5DIg3MEtPn0POzCl1kktFeMhOvAA7
- i4SOOW+oVYmUPYGGZksL1HrYmHG8m8WOvEdrIT4Mu4+PBwxziYMRFiwYuU0fsHp9n/Ot
- sWcA==
+ bh=uU+wxjNh7kMiapejgylsdENbiB4nwJKmXQjawLFrxAU=;
+ b=Te8Kc7VWTz3v8P2NaJEE5iNDno1zaeK14DvPa/IfRwg9ChKLT1n27sBjpAzJW+XmUe
+ MDXtlq9dzt/jUh648t+jPeX8a1hyqReOHjVXEQMy4J2fCEzWHrAnfseiBr6Hxoya651O
+ kSWuZYy9ZIv3GnjoCBfvNp0hLGk5VaXm7W8rxvaj9Nf6r7krZWAugYfvk4HFbB3gBbif
+ WJJxGbTRiHAKfTiloLYKWuX6BYv33WGevaWi6l4GZQXI1+Pl6bXfc383rMIzlW5nSg0B
+ mwfL+thbJE8Oq1/aBYGDi87TmmuMZCOWBB5a4yZBWy+wDoiPnioV30JAhwzXVk71Ukt5
+ T0KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to;
- bh=QO9k23A1U1t2qaoROQDKdRQCwCTwpUcpI0dcdYsTwYM=;
- b=2rKaSpVIh8HWsn+rpM9YICbWlX7LLJFnodxrq1bCbBi6gf7+i0ySqo+fdSrx1LFPEX
- 3BR58DMkyobAHRZXyC4iQv1CpygDI//VtPmeX1I3Y+4q0f11bfcNKfPCGwOAfysj/W8d
- KSvx9LUw9FwlaT2w8tL9bEyZJNaSfZNghWjuUpbV/OMcA05P9D+oVpJO8rhb9LuvGqeg
- xgQgakyYBCBzc3IL20eWc+h7Fqh6ivAKxTv00yI5IyugmpRKjS859JUuhPMMnQ9Zi9os
- MA0MDOhsiEdOrvIeFlz7EE+cxOs0tkTT/dHD14nCKTEcvwXCKkI5doRBuAzNrzxj5hvl
- LK1w==
-X-Gm-Message-State: AOAM530K13FUzRB2lLEwY0LKkpWwaV0NpeX9fX/bUSWcwENkDN/KONCH
- JT9hChTFdiEswlswAqBkdvU=
-X-Google-Smtp-Source: ABdhPJzbhO+zonBwTOAhJpxUyWoUOMV9qUOqGotrBQGv2J89jIDVpBnU1cz+gRb5e3S1adNZ6fUc/A==
-X-Received: by 2002:a1c:5410:0:b0:394:1976:76e4 with SMTP id
- i16-20020a1c5410000000b00394197676e4mr2999200wmb.11.1652249083733; 
- Tue, 10 May 2022 23:04:43 -0700 (PDT)
+ bh=uU+wxjNh7kMiapejgylsdENbiB4nwJKmXQjawLFrxAU=;
+ b=NS63TU1MZfBtv5Lm5ia+xpqmAjQ+B8PtNbrxfDELJ50CNyPfBhy7oh66W6HEjrGHkh
+ 3VXye7JHJIpsdTnFRpEnAMQN+Y4uFP94bDfqdOaIwvRXFX6miURdZKUULd5nc0+x99yT
+ R+1PlD6NcvayAG6iyg+87uNsGUw8I4X0usJOLXMgr8MOBneghvNP9b6OO6XZeZvtWv2e
+ 7QNJlRS9GsfHRQSy3G8F296YFbTdIolk0HaqTW8KmboWDIUzASvq/4RD+t3MNxnxmmlj
+ Ow/nHlLdi/5Kpcqt659GD5Exl0NN2yxnDjyZQ9hsz2//QpHPv2KyeSBipmOeJaw72FvO
+ uHcA==
+X-Gm-Message-State: AOAM530bk9Hndos9YrtWFPrc7xtP3siYGHbaDw+DBR3QlxjWFx2YQccs
+ YOdQf0/bHqplyFnEUrq2EXs=
+X-Google-Smtp-Source: ABdhPJwBxLeg70pvwDym7YiFwDK96v+TBJHF/yXXQvYbdvhnSnzJPYEa4v5iy84uiOHppttV/eQsAg==
+X-Received: by 2002:a05:600c:3b17:b0:394:88f0:a4b with SMTP id
+ m23-20020a05600c3b1700b0039488f00a4bmr3067413wms.129.1652249202471; 
+ Tue, 10 May 2022 23:06:42 -0700 (PDT)
 Received: from [192.168.178.21] (p57b0be56.dip0.t-ipconnect.de.
  [87.176.190.86]) by smtp.gmail.com with ESMTPSA id
- l3-20020a1c2503000000b003942a244ecfsm936889wml.20.2022.05.10.23.04.42
+ d13-20020a5d4f8d000000b0020c5253d911sm696888wru.93.2022.05.10.23.06.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 May 2022 23:04:43 -0700 (PDT)
+ Tue, 10 May 2022 23:06:42 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------H04tKLNKU8wUeZ8ur3YibHm0"
-Message-ID: <d4f8f7fc-e3dc-fcf8-0543-62039c7460d3@gmail.com>
-Date: Wed, 11 May 2022 08:04:42 +0200
+ boundary="------------HvU0i1DinKmp5ghfEeWOTFWm"
+Message-ID: <8695802e-6835-a717-c0ee-83b76d8a8875@gmail.com>
+Date: Wed, 11 May 2022 08:06:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
+Subject: Re: [PATCH 2/3] drm/amdgpu: add AMDGPU_VM_NOALLOC
 Content-Language: en-US
 To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 References: <20220506112312.347519-1-christian.koenig@amd.com>
- <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
- <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
+ <20220506112312.347519-2-christian.koenig@amd.com>
+ <CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
+In-Reply-To: <CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,55 +79,105 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a multi-part message in MIME format.
---------------H04tKLNKU8wUeZ8ur3YibHm0
+--------------HvU0i1DinKmp5ghfEeWOTFWm
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Marek,
+Mhm, it doesn't really bypass MALL. It just doesn't allocate any MALL 
+entries on write.
 
-Am 10.05.22 um 22:43 schrieb Marek Olšák:
-> A better flag name would be:
-> AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
+How about AMDGPU_VM_PAGE_NO_MALL ?
 
-A bit long for my taste and I think the best placement is just a side 
-effect.
+Christian.
 
+Am 10.05.22 um 23:21 schrieb Marek Olšák:
+> A better name would be:
+> AMDGPU_VM_PAGE_BYPASS_MALL
 >
 > Marek
 >
-> On Tue, May 10, 2022 at 4:13 PM Marek Olšák <maraeo@gmail.com> wrote:
+> On Fri, May 6, 2022 at 7:23 AM Christian König 
+> <ckoenig.leichtzumerken@gmail.com> wrote:
 >
->     Does this really guarantee VRAM placement? The code doesn't say
->     anything about that.
+>     Add the AMDGPU_VM_NOALLOC flag to let userspace control MALL
+>     allocation.
+>
+>     Only compile tested!
+>
+>     Signed-off-by: Christian König <christian.koenig@amd.com>
+>     ---
+>      drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++
+>      drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 3 +++
+>      drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 3 +++
+>      include/uapi/drm/amdgpu_drm.h           | 2 ++
+>      4 files changed, 10 insertions(+)
+>
+>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     index bf97d8f07f57..d8129626581f 100644
+>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     @@ -650,6 +650,8 @@ uint64_t amdgpu_gem_va_map_flags(struct
+>     amdgpu_device *adev, uint32_t flags)
+>                     pte_flag |= AMDGPU_PTE_WRITEABLE;
+>             if (flags & AMDGPU_VM_PAGE_PRT)
+>                     pte_flag |= AMDGPU_PTE_PRT;
+>     +       if (flags & AMDGPU_VM_PAGE_NOALLOC)
+>     +               pte_flag |= AMDGPU_PTE_NOALLOC;
+>
+>             if (adev->gmc.gmc_funcs->map_mtype)
+>                     pte_flag |= amdgpu_gmc_map_mtype(adev,
+>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>     b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>     index b8c79789e1e4..9077dfccaf3c 100644
+>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>     @@ -613,6 +613,9 @@ static void gmc_v10_0_get_vm_pte(struct
+>     amdgpu_device *adev,
+>             *flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
+>             *flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
+>
+>     +       *flags &= ~AMDGPU_PTE_NOALLOC;
+>     +       *flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
+>     +
+>             if (mapping->flags & AMDGPU_PTE_PRT) {
+>                     *flags |= AMDGPU_PTE_PRT;
+>                     *flags |= AMDGPU_PTE_SNOOPED;
+>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>     b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>     index 8d733eeac556..32ee56adb602 100644
+>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>     @@ -508,6 +508,9 @@ static void gmc_v11_0_get_vm_pte(struct
+>     amdgpu_device *adev,
+>             *flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
+>             *flags |= (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK);
+>
+>     +       *flags &= ~AMDGPU_PTE_NOALLOC;
+>     +       *flags |= (mapping->flags & AMDGPU_PTE_NOALLOC);
+>     +
+>             if (mapping->flags & AMDGPU_PTE_PRT) {
+>                     *flags |= AMDGPU_PTE_PRT;
+>                     *flags |= AMDGPU_PTE_SNOOPED;
+>     diff --git a/include/uapi/drm/amdgpu_drm.h
+>     b/include/uapi/drm/amdgpu_drm.h
+>     index 57b9d8f0133a..9d71d6330687 100644
+>     --- a/include/uapi/drm/amdgpu_drm.h
+>     +++ b/include/uapi/drm/amdgpu_drm.h
+>     @@ -533,6 +533,8 @@ struct drm_amdgpu_gem_op {
+>      #define AMDGPU_VM_MTYPE_UC             (4 << 5)
+>      /* Use Read Write MTYPE instead of default MTYPE */
+>      #define AMDGPU_VM_MTYPE_RW             (5 << 5)
+>     +/* don't allocate MALL */
+>     +#define AMDGPU_VM_PAGE_NOALLOC         (1 << 9)
+>
+>      struct drm_amdgpu_gem_va {
+>             /** GEM object handle */
+>     -- 
+>     2.25.1
 >
 
-Yes, see the code here:
-
->
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->         index 8b7ee1142d9a..1944ef37a61e 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->         @@ -567,6 +567,7 @@ int amdgpu_bo_create(struct amdgpu_device
->         *adev,
->                         bp->domain;
->                 bo->allowed_domains = bo->preferred_domains;
->                 if (bp->type != ttm_bo_type_kernel &&
->         +           !(bp->flags & AMDGPU_GEM_CREATE_DISCARDABLE) &&
->                     bo->allowed_domains == AMDGPU_GEM_DOMAIN_VRAM)
->                         bo->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
->
-
-The only case where this could be circumvented is when you try to 
-allocate more than physically available on an APU.
-
-E.g. you only have something like 32 MiB VRAM and request 64 MiB, then 
-the GEM code will catch the error and fallback to GTT (IIRC).
-
-Regards,
-Christian.
---------------H04tKLNKU8wUeZ8ur3YibHm0
+--------------HvU0i1DinKmp5ghfEeWOTFWm
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -136,26 +186,22 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    Hi Marek,<br>
+    Mhm, it doesn't really bypass MALL. It just doesn't allocate any
+    MALL entries on write.<br>
     <br>
-    <div class="moz-cite-prefix">Am 10.05.22 um 22:43 schrieb Marek
+    How about AMDGPU_VM_PAGE_NO_MALL ?<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 10.05.22 um 23:21 schrieb Marek
       Olšák:<br>
     </div>
     <blockquote type="cite"
-cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
+cite="mid:CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com">
       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
       <div dir="ltr">
-        <div>A better flag name would be:</div>
-        <div>AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD</div>
-      </div>
-    </blockquote>
-    <br>
-    A bit long for my taste and I think the best placement is just a
-    side effect.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
-      <div dir="ltr">
+        <div>A better name would be:</div>
+        <div>AMDGPU_VM_PAGE_BYPASS_MALL</div>
         <div><br>
         </div>
         <div>Marek<br>
@@ -163,63 +209,102 @@ cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
       </div>
       <br>
       <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Tue, May 10, 2022 at 4:13
-          PM Marek Olšák &lt;<a href="mailto:maraeo@gmail.com"
-            moz-do-not-send="true" class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
+        <div dir="ltr" class="gmail_attr">On Fri, May 6, 2022 at 7:23 AM
+          Christian König &lt;<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
           wrote:<br>
         </div>
         <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div dir="ltr">
-            <div>Does this really guarantee VRAM placement? The code
-              doesn't say anything about that.</div>
-          </div>
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Add
+          the AMDGPU_VM_NOALLOC flag to let userspace control MALL
+          allocation.<br>
+          <br>
+          Only compile tested!<br>
+          <br>
+          Signed-off-by: Christian König &lt;<a
+            href="mailto:christian.koenig@amd.com" target="_blank"
+            moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
+          ---<br>
+           drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++<br>
+           drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 3 +++<br>
+           drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 3 +++<br>
+           include/uapi/drm/amdgpu_drm.h           | 2 ++<br>
+           4 files changed, 10 insertions(+)<br>
+          <br>
+          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          index bf97d8f07f57..d8129626581f 100644<br>
+          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          @@ -650,6 +650,8 @@ uint64_t amdgpu_gem_va_map_flags(struct
+          amdgpu_device *adev, uint32_t flags)<br>
+                          pte_flag |= AMDGPU_PTE_WRITEABLE;<br>
+                  if (flags &amp; AMDGPU_VM_PAGE_PRT)<br>
+                          pte_flag |= AMDGPU_PTE_PRT;<br>
+          +       if (flags &amp; AMDGPU_VM_PAGE_NOALLOC)<br>
+          +               pte_flag |= AMDGPU_PTE_NOALLOC;<br>
+          <br>
+                  if (adev-&gt;gmc.gmc_funcs-&gt;map_mtype)<br>
+                          pte_flag |= amdgpu_gmc_map_mtype(adev,<br>
+          diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+          b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+          index b8c79789e1e4..9077dfccaf3c 100644<br>
+          --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+          @@ -613,6 +613,9 @@ static void gmc_v10_0_get_vm_pte(struct
+          amdgpu_device *adev,<br>
+                  *flags &amp;= ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
+                  *flags |= (mapping-&gt;flags &amp;
+          AMDGPU_PTE_MTYPE_NV10_MASK);<br>
+          <br>
+          +       *flags &amp;= ~AMDGPU_PTE_NOALLOC;<br>
+          +       *flags |= (mapping-&gt;flags &amp;
+          AMDGPU_PTE_NOALLOC);<br>
+          +<br>
+                  if (mapping-&gt;flags &amp; AMDGPU_PTE_PRT) {<br>
+                          *flags |= AMDGPU_PTE_PRT;<br>
+                          *flags |= AMDGPU_PTE_SNOOPED;<br>
+          diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+          b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
+          index 8d733eeac556..32ee56adb602 100644<br>
+          --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
+          @@ -508,6 +508,9 @@ static void gmc_v11_0_get_vm_pte(struct
+          amdgpu_device *adev,<br>
+                  *flags &amp;= ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
+                  *flags |= (mapping-&gt;flags &amp;
+          AMDGPU_PTE_MTYPE_NV10_MASK);<br>
+          <br>
+          +       *flags &amp;= ~AMDGPU_PTE_NOALLOC;<br>
+          +       *flags |= (mapping-&gt;flags &amp;
+          AMDGPU_PTE_NOALLOC);<br>
+          +<br>
+                  if (mapping-&gt;flags &amp; AMDGPU_PTE_PRT) {<br>
+                          *flags |= AMDGPU_PTE_PRT;<br>
+                          *flags |= AMDGPU_PTE_SNOOPED;<br>
+          diff --git a/include/uapi/drm/amdgpu_drm.h
+          b/include/uapi/drm/amdgpu_drm.h<br>
+          index 57b9d8f0133a..9d71d6330687 100644<br>
+          --- a/include/uapi/drm/amdgpu_drm.h<br>
+          +++ b/include/uapi/drm/amdgpu_drm.h<br>
+          @@ -533,6 +533,8 @@ struct drm_amdgpu_gem_op {<br>
+           #define AMDGPU_VM_MTYPE_UC             (4 &lt;&lt; 5)<br>
+           /* Use Read Write MTYPE instead of default MTYPE */<br>
+           #define AMDGPU_VM_MTYPE_RW             (5 &lt;&lt; 5)<br>
+          +/* don't allocate MALL */<br>
+          +#define AMDGPU_VM_PAGE_NOALLOC         (1 &lt;&lt; 9)<br>
+          <br>
+           struct drm_amdgpu_gem_va {<br>
+                  /** GEM object handle */<br>
+          -- <br>
+          2.25.1<br>
+          <br>
         </blockquote>
       </div>
     </blockquote>
     <br>
-    Yes, see the code here:<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
-      <div class="gmail_quote">
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-          <div class="gmail_quote">
-            <blockquote class="gmail_quote" style="margin:0px 0px 0px
-              0.8ex;border-left:1px solid
-              rgb(204,204,204);padding-left:1ex">
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-              index 8b7ee1142d9a..1944ef37a61e 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-              @@ -567,6 +567,7 @@ int amdgpu_bo_create(struct
-              amdgpu_device *adev,<br>
-                              bp-&gt;domain;<br>
-                      bo-&gt;allowed_domains = bo-&gt;preferred_domains;<br>
-                      if (bp-&gt;type != ttm_bo_type_kernel &amp;&amp;<br>
-              +           !(bp-&gt;flags &amp;
-              AMDGPU_GEM_CREATE_DISCARDABLE) &amp;&amp;<br>
-                          bo-&gt;allowed_domains ==
-              AMDGPU_GEM_DOMAIN_VRAM)<br>
-                              bo-&gt;allowed_domains |=
-              AMDGPU_GEM_DOMAIN_GTT;<br>
-            </blockquote>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-    The only case where this could be circumvented is when you try to
-    allocate more than physically available on an APU.<br>
-    <br>
-    E.g. you only have something like 32 MiB VRAM and request 64 MiB,
-    then the GEM code will catch the error and fallback to GTT (IIRC).<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
   </body>
 </html>
 
---------------H04tKLNKU8wUeZ8ur3YibHm0--
+--------------HvU0i1DinKmp5ghfEeWOTFWm--
