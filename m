@@ -4,90 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05EBBC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 05:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC37DC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 06:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A675A10E796;
-	Wed, 11 May 2022 05:44:38 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71AB810E796
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 05:44:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ByZR++bFS1tLMgMmQ+vGMzbvW8IOLjMOO+GHj0+l1IIAxf3P+Ptl/F8or6voNZWJB75rKRWisL+EBYSZqHn0sfx1qGC3yf6aJESYx43/+YyjBPIr/xgJHiTapablRefuHl+zxnGGTLqfTBo5jsSWHO9aen8qvhdBaUSvz5AqGfJmWbJZGeQA+Rh2Ia/nO911iKkCrbKBd/EgJSadc5d/yA4qq1x6EAeYRcKAjnwhlpskBiEkLgQln1KuZf/VfJwMWWMQYB0nI1VW27b9wQGdoGEZxb4094AJpeWgrE/lYPDFtlGV9Y0q0MAOzqirDWl0SIFbKKnE4wg1gRMiqQ6L3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q2t7GXDyZpPMW7WcmMV5/NlLtu3fWT4VewYF6XNCBPk=;
- b=P3pV2iAzk16O/Y/M0t+N9WhndNfcAP6kHXgOp7WzYH62jUFLU/2dh+d8ZK/Hd1FPlbneDaTnrGu/+PwZFB7w8Mi+l7N+CXQh5FpRc/UfX5hAftb8r5GIB43ukxG9MZ9aTP2B4AlEFR39JKvpjx3o97Z9/vs05a3fNyimG0LVbVth4nU6M2NwqYEYcVuzsQmGhUR7CGOj0qt9YmmB6tnvMoi6yGparZqmSqDo4MpL6dh6TS6/zCAnZ4AI/eX72cyaan0S3eFSoE0QdFvL4CXGwF7fxv0T0QUqbcpTwdPW/iS17DzArv5rtb6Adu+ZDDJm9fl2DuwmVudV//9cpuWCrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q2t7GXDyZpPMW7WcmMV5/NlLtu3fWT4VewYF6XNCBPk=;
- b=qOMxRlFQ/AKWP9KgMpyo+qD4NZNmtgNUxs8aJDk1acZF+v87XA7b3X3m2HyqGFG/fFrlqwne7eegWNZS1TKfKOo5LA+E8t363lRJ+sQ5kPX/9y7vU5hDtr4oPROR1duOJtybrrd42Z4XB499K5mykw6C5BzzCTPdPXXzX4F6iNM=
-Received: from BN1PR10CA0015.namprd10.prod.outlook.com (2603:10b6:408:e0::20)
- by BY5PR12MB4833.namprd12.prod.outlook.com (2603:10b6:a03:1f6::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Wed, 11 May
- 2022 05:44:33 +0000
-Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e0:cafe::60) by BN1PR10CA0015.outlook.office365.com
- (2603:10b6:408:e0::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13 via Frontend
- Transport; Wed, 11 May 2022 05:44:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Wed, 11 May 2022 05:44:32 +0000
-Received: from dapowell-ubuntu-200400-1.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 11 May 2022 00:44:31 -0500
-From: Darren Powell <darren.powell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 1/2] amdgpu/pm: Fix incorrect variable for size of clocks
- array
-Date: Wed, 11 May 2022 01:44:16 -0400
-Message-ID: <20220511054417.25819-1-darren.powell@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFE710E2AC;
+	Wed, 11 May 2022 06:04:46 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57EE210E2AC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 06:04:45 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ m2-20020a1ca302000000b003943bc63f98so578100wme.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 May 2022 23:04:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to;
+ bh=QO9k23A1U1t2qaoROQDKdRQCwCTwpUcpI0dcdYsTwYM=;
+ b=WoolrPUCGSCGN/GdCTe0HFJ7UhsBCdw64CR7ArIIyIfNyqrkMNAyCYWpKDX1FGePDn
+ PZb+nel9HW2usH3FWUIMQrpOx7re+fiPJbBatiypryxaWyqff+v6uaCadzuM+N0024Md
+ SaB0NA6EkYqENUxoBIKc3OuLJ8OSqD+i41Q7sFNn39lN2eODnQ0Tm6nxDORT5fUh6hm0
+ YMYbKdOAKYm9uwwqdThaNf8Cde+lU3XOG/cDuzu5DIg3MEtPn0POzCl1kktFeMhOvAA7
+ i4SOOW+oVYmUPYGGZksL1HrYmHG8m8WOvEdrIT4Mu4+PBwxziYMRFiwYuU0fsHp9n/Ot
+ sWcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to;
+ bh=QO9k23A1U1t2qaoROQDKdRQCwCTwpUcpI0dcdYsTwYM=;
+ b=2rKaSpVIh8HWsn+rpM9YICbWlX7LLJFnodxrq1bCbBi6gf7+i0ySqo+fdSrx1LFPEX
+ 3BR58DMkyobAHRZXyC4iQv1CpygDI//VtPmeX1I3Y+4q0f11bfcNKfPCGwOAfysj/W8d
+ KSvx9LUw9FwlaT2w8tL9bEyZJNaSfZNghWjuUpbV/OMcA05P9D+oVpJO8rhb9LuvGqeg
+ xgQgakyYBCBzc3IL20eWc+h7Fqh6ivAKxTv00yI5IyugmpRKjS859JUuhPMMnQ9Zi9os
+ MA0MDOhsiEdOrvIeFlz7EE+cxOs0tkTT/dHD14nCKTEcvwXCKkI5doRBuAzNrzxj5hvl
+ LK1w==
+X-Gm-Message-State: AOAM530K13FUzRB2lLEwY0LKkpWwaV0NpeX9fX/bUSWcwENkDN/KONCH
+ JT9hChTFdiEswlswAqBkdvU=
+X-Google-Smtp-Source: ABdhPJzbhO+zonBwTOAhJpxUyWoUOMV9qUOqGotrBQGv2J89jIDVpBnU1cz+gRb5e3S1adNZ6fUc/A==
+X-Received: by 2002:a1c:5410:0:b0:394:1976:76e4 with SMTP id
+ i16-20020a1c5410000000b00394197676e4mr2999200wmb.11.1652249083733; 
+ Tue, 10 May 2022 23:04:43 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0be56.dip0.t-ipconnect.de.
+ [87.176.190.86]) by smtp.gmail.com with ESMTPSA id
+ l3-20020a1c2503000000b003942a244ecfsm936889wml.20.2022.05.10.23.04.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 May 2022 23:04:43 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------H04tKLNKU8wUeZ8ur3YibHm0"
+Message-ID: <d4f8f7fc-e3dc-fcf8-0543-62039c7460d3@gmail.com>
+Date: Wed, 11 May 2022 08:04:42 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 700f5635-96a7-4fad-aafc-08da3311530c
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4833:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB48331D57F3272A02E628AA49F0C89@BY5PR12MB4833.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HQlpI3zy1XBHyKxl82mO/TbA9uTkmaiBLCS74/IiXo9TFMwfGhcyIybwbGiEVH0KhVQnJVk7nX50ADWsOcBefB5B318AlO5VhSEt6S9mSXde2KG/Pek9AoAO95ewRsXB05CQnBTRJvkjNzsoE+UACjs0vO8n7QdxvoWQDdcNSBYeKLZdkqNau+YiYWEqhtPe56npJmAJtuvGEtbVdrvMgf+iK9LUitTSocwHmth6LzpfTVmlpYdo2306WRvWQNgoHTvaaaSLJ6cURpmt4zMMlxG9FWQHav0MoAsKGyrcGcJpiAJh1PFmQGU6VfFz8pZohrxjLMbkWtTWfJSwHZ+VnSQ0T25arSSJ5meN3HOkz0jHOIWelXPvmYVYrEQUZUoYraHtvAACOK7pkp4PxJGRb8EA6BtJfdiQT5aYXFwu3M5YGGPxi4+U/1f0sbkTFlTP2FeUzSbqaKkY6J+gjcoFiUTy0L7dfvewCaho9uMfDolsuOB0BElNAAItG2STypKDuYozxFIRIv52ooJigRfchKAk28HSAwvMO4CC8PVL2gyTUU3UyY8uO5cEcO328vM7xsi2nnrKnsKFaWdRWe4r/hAbOtbJO21n14/xHJl2czqVsYu0SQTzp5DLbk/LSay9SvXaWx6RKZtB5hfZp9o0mHvTKFFkc8k18BLUXPzg9S3A4NLsytqYjku3EIkVHBOPw2kvF231SXhN4YgZ1cB+pw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(2616005)(40460700003)(36860700001)(26005)(82310400005)(54906003)(316002)(8676002)(6916009)(4326008)(1076003)(16526019)(336012)(47076005)(186003)(426003)(70206006)(36756003)(70586007)(6666004)(8936002)(2906002)(86362001)(7696005)(81166007)(356005)(83380400001)(5660300002)(44832011)(508600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 05:44:32.6521 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 700f5635-96a7-4fad-aafc-08da3311530c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4833
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
+Content-Language: en-US
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20220506112312.347519-1-christian.koenig@amd.com>
+ <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
+ <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,73 +74,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kevin1.wang@amd.com, lijo.lazar@amd.com, Le.Ma@amd.com,
- Darren Powell <darren.powell@amd.com>, evan.quan@amd.com, kenneth.feng@amd.com
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- [v2]
-No Changes, added RB
- [v1]
-Size of pp_clock_levels_with_latency is PP_MAX_CLOCK_LEVELS, not MAX_NUM_CLOCKS.
-Both are currently defined as 16, modifying in case one value is modified in future
-Changed code in both arcturus and aldabaran.
+This is a multi-part message in MIME format.
+--------------H04tKLNKU8wUeZ8ur3YibHm0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Also removed unneeded var count, and used min_t function
+Hi Marek,
 
-Signed-off-by: Darren Powell <darren.powell@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 9 +++++----
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 9 +++++----
- 2 files changed, 10 insertions(+), 8 deletions(-)
+Am 10.05.22 um 22:43 schrieb Marek Olšák:
+> A better flag name would be:
+> AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 201563072189..bdd1e1a35a12 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -573,12 +573,13 @@ static int arcturus_get_clk_table(struct smu_context *smu,
- 			struct pp_clock_levels_with_latency *clocks,
- 			struct smu_11_0_dpm_table *dpm_table)
- {
--	int i, count;
-+	uint32_t i;
- 
--	count = (dpm_table->count > MAX_NUM_CLOCKS) ? MAX_NUM_CLOCKS : dpm_table->count;
--	clocks->num_levels = count;
-+	clocks->num_levels = min_t(uint32_t,
-+				   dpm_table->count,
-+				   (uint32_t)PP_MAX_CLOCK_LEVELS);
- 
--	for (i = 0; i < count; i++) {
-+	for (i = 0; i < clocks->num_levels; i++) {
- 		clocks->data[i].clocks_in_khz =
- 			dpm_table->dpm_levels[i].value * 1000;
- 		clocks->data[i].latency_in_us = 0;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 38af648cb857..6a4fca47ae53 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -549,12 +549,13 @@ static int aldebaran_get_clk_table(struct smu_context *smu,
- 				   struct pp_clock_levels_with_latency *clocks,
- 				   struct smu_13_0_dpm_table *dpm_table)
- {
--	int i, count;
-+	uint32_t i;
- 
--	count = (dpm_table->count > MAX_NUM_CLOCKS) ? MAX_NUM_CLOCKS : dpm_table->count;
--	clocks->num_levels = count;
-+	clocks->num_levels = min_t(uint32_t,
-+				   dpm_table->count,
-+				   (uint32_t)PP_MAX_CLOCK_LEVELS);
- 
--	for (i = 0; i < count; i++) {
-+	for (i = 0; i < clocks->num_levels; i++) {
- 		clocks->data[i].clocks_in_khz =
- 			dpm_table->dpm_levels[i].value * 1000;
- 		clocks->data[i].latency_in_us = 0;
+A bit long for my taste and I think the best placement is just a side 
+effect.
 
-base-commit: 8bb14fbec5ae45c31cbefe217db2418cc683612f
--- 
-2.35.1
+>
+> Marek
+>
+> On Tue, May 10, 2022 at 4:13 PM Marek Olšák <maraeo@gmail.com> wrote:
+>
+>     Does this really guarantee VRAM placement? The code doesn't say
+>     anything about that.
+>
 
+Yes, see the code here:
+
+>
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>         index 8b7ee1142d9a..1944ef37a61e 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>         @@ -567,6 +567,7 @@ int amdgpu_bo_create(struct amdgpu_device
+>         *adev,
+>                         bp->domain;
+>                 bo->allowed_domains = bo->preferred_domains;
+>                 if (bp->type != ttm_bo_type_kernel &&
+>         +           !(bp->flags & AMDGPU_GEM_CREATE_DISCARDABLE) &&
+>                     bo->allowed_domains == AMDGPU_GEM_DOMAIN_VRAM)
+>                         bo->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
+>
+
+The only case where this could be circumvented is when you try to 
+allocate more than physically available on an APU.
+
+E.g. you only have something like 32 MiB VRAM and request 64 MiB, then 
+the GEM code will catch the error and fallback to GTT (IIRC).
+
+Regards,
+Christian.
+--------------H04tKLNKU8wUeZ8ur3YibHm0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Hi Marek,<br>
+    <br>
+    <div class="moz-cite-prefix">Am 10.05.22 um 22:43 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div>A better flag name would be:</div>
+        <div>AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD</div>
+      </div>
+    </blockquote>
+    <br>
+    A bit long for my taste and I think the best placement is just a
+    side effect.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
+      <div dir="ltr">
+        <div><br>
+        </div>
+        <div>Marek<br>
+        </div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Tue, May 10, 2022 at 4:13
+          PM Marek Olšák &lt;<a href="mailto:maraeo@gmail.com"
+            moz-do-not-send="true" class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+          <div dir="ltr">
+            <div>Does this really guarantee VRAM placement? The code
+              doesn't say anything about that.</div>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+    Yes, see the code here:<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com">
+      <div class="gmail_quote">
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+          <div class="gmail_quote">
+            <blockquote class="gmail_quote" style="margin:0px 0px 0px
+              0.8ex;border-left:1px solid
+              rgb(204,204,204);padding-left:1ex">
+              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              index 8b7ee1142d9a..1944ef37a61e 100644<br>
+              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              @@ -567,6 +567,7 @@ int amdgpu_bo_create(struct
+              amdgpu_device *adev,<br>
+                              bp-&gt;domain;<br>
+                      bo-&gt;allowed_domains = bo-&gt;preferred_domains;<br>
+                      if (bp-&gt;type != ttm_bo_type_kernel &amp;&amp;<br>
+              +           !(bp-&gt;flags &amp;
+              AMDGPU_GEM_CREATE_DISCARDABLE) &amp;&amp;<br>
+                          bo-&gt;allowed_domains ==
+              AMDGPU_GEM_DOMAIN_VRAM)<br>
+                              bo-&gt;allowed_domains |=
+              AMDGPU_GEM_DOMAIN_GTT;<br>
+            </blockquote>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+    The only case where this could be circumvented is when you try to
+    allocate more than physically available on an APU.<br>
+    <br>
+    E.g. you only have something like 32 MiB VRAM and request 64 MiB,
+    then the GEM code will catch the error and fallback to GTT (IIRC).<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+  </body>
+</html>
+
+--------------H04tKLNKU8wUeZ8ur3YibHm0--
