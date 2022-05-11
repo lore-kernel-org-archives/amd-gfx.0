@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DACA0C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 15:38:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B761C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 15:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859B110FB93;
-	Wed, 11 May 2022 15:38:10 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A1B10FB93
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 15:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEE5410EDB7;
+	Wed, 11 May 2022 15:39:58 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE2710EDB7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 15:39:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O6IalvOkkcOFd3lrWay0NGh4TdLqSNSNa7IpCtyq87CjyX2pbFF0NmbVT4K3WxuPOVEYqpYUqfnv3DLvx84BnZ2XbHl4O/c0E8ZUSLJzWx+U4+XXEt2e4fKgTPu2ApHa6ShMnDezEfT+ADZTg0B5fJhImVXM1FGdwFuwOLnIsaJv4NC8Pa84xHzfixqMI4PVJ204EnzJY0+nY74veiK0wnO0N8+pLe3ZXUrDGYW/89BbPzQBRa0XXaFUfI/KlXfTLycFJUWvb0T3D9kE9GGOyZP4bPtreIpIH+7yeAQvKq+2GJFFV4n9Zy5CcTR3ycBAJ+eiF8rQriEscKzN6LQctA==
+ b=eDcTst21iQgqvraFrzQvPIMYyrEQ79gvEANls6n9Lz2/IkoCn7NCKrmTsjJSi8HYZXvvvs0FhN0z3CEmfENj05k/5EBpLyWtEewDnRcgu2mMhAZkMR5sIuZDUbf4bi3r6ccgjBdR1A9x1qCLUR92oC0glxVemzpQ9+JB3pjC7JK6LM9BLeYRwXLkkwomiNTEujPl0LY7ccUDGLnpXyhB0rwpZIONk5azaFUaDDpSnKxHtEXV6iR1uHyrnoD9d6nmimlvW3LDpC/PUqFYjMuvrJQEfqFmH5W3+uKdDLGu9WD5/UVDHjfN8Xjyiya9o6IkluZzIHphGl67uKw/Ezt2OQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/yvwDAJdP+2wsMPxDUmahFqv3SSJGWzSr0cE1XNygIk=;
- b=VbXbKp1cekVhz5OS5Cxt/4ENpfwG6Za1OuGfgW6DFg6xaSSmRg5NMPHwoRL2QapCDFR1P+BFkw5lHgHSmXmjWerdOvBhJYpAebRta8DP6BSURwib4wXi1CbmzK+xiSH59Kkm1OUksIxvVdrR9VBY/dR6jD2qBCH6BbBtulJV4NMekaHJ2JXgqo8/1dA6Rlu7GUlCQBIo5gyhkDFazUPewVT1Tgi09nUWxFmH+BX8SeZoC+QM9Vzyp8a8j0J06rrPsaRjF0fLJEVE4q53tzUj9NrUE7xYLrLuDoImZ5s0BRqIrW9QbxPHg+Rjo2nkAkYPEKsNWlZXsWgT7IrUmXvQCw==
+ bh=ZkUBhQ0/j47i0wuRa3ouZbX/pjRB5jX4W+EMarSBghk=;
+ b=Np1/E2khx0SdDw44FfsvWTpBMYJafeZ6TiQbjVNhVDl/Kn6ki+f7qporsukfrThm61w4lLlcf0FomBeFvqVEtHIOBP1a3HM/6ygAT9JW60PQ7xPtz0pOQ/vi00yRHsi4cYGaNhP2sZdZ5JySThKqCAfJkMbogKV+KbxtedqkOOiGkB6Ek/BDjEDkWxsQARmOyd50ZjtKzUb6kI81RfQDDXAiUhU8ZWMvuhGuQp/dbeGSDPYaOpX9SJH7V8kJENMCCSxyquLKS/4NoY80XIKQ7wvQ+vR7tNkpAqGuCui1YFYp1nSW7bbKQZE8izZOM98KobutD65hksfx8pzjBXjmnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/yvwDAJdP+2wsMPxDUmahFqv3SSJGWzSr0cE1XNygIk=;
- b=xzUTPf9ZjaZQ74jgyU4zx5WDqFtrmAaUH1NKgwl6q4UYjFHgPf2k5Rj4pLWsPBm0CP/3iGL7dRgNSIF1m7Z/gWtbgLwSkZiwpxgztR0UkZnlg2Tppp2vbycKLJeWEnAiiUIC+bO+kSp4pnFqSEhUzH+FptJUpHVE1dQookZKypc=
+ bh=ZkUBhQ0/j47i0wuRa3ouZbX/pjRB5jX4W+EMarSBghk=;
+ b=X8f7aibp3tDaZfrUIudJfLtB89YhTBaJE4JO6bTmBHsQM2fsd/aclJgrl3BdRnYxTrpDdFfb724K3XHVrD2XXciBsXrP1GDHkHvl9ncsIileac+Tdx4MPK02zx/2Nwo4UqpwrOCUsaJ4sZyPJa7GrAL8CjcJsKacr9jwBafW1k8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by MN2PR12MB4472.namprd12.prod.outlook.com (2603:10b6:208:267::11)
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BY5PR12MB3875.namprd12.prod.outlook.com (2603:10b6:a03:1ae::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Wed, 11 May
- 2022 15:38:06 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b1d2:8be:626b:7c2f]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b1d2:8be:626b:7c2f%5]) with mapi id 15.20.5227.023; Wed, 11 May 2022
- 15:38:06 +0000
-Message-ID: <e5c8d83f-5b8d-8820-404d-94df6021b4ec@amd.com>
-Date: Wed, 11 May 2022 21:07:54 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13; Wed, 11 May
+ 2022 15:39:46 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f%4]) with mapi id 15.20.5227.023; Wed, 11 May 2022
+ 15:39:46 +0000
+Message-ID: <4a52a938-f758-4b51-1f71-599a4af23e20@amd.com>
+Date: Wed, 11 May 2022 17:39:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Subject: Re: [PATCH] drm/amdgpu: Fix multiple GPU resets in XGMI hive.
 Content-Language: en-US
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
@@ -68,76 +68,78 @@ References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
  <6699d9ec-501d-d2d5-2220-88fb754819a7@amd.com>
  <27535877-a13f-75fc-368f-68105dffc7f8@amd.com>
  <7330c50f-4623-c377-9486-c9a8fa884e15@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 In-Reply-To: <7330c50f-4623-c377-9486-c9a8fa884e15@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN0PR01CA0020.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4e::8) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+X-ClientProxiedBy: AS8PR04CA0156.eurprd04.prod.outlook.com
+ (2603:10a6:20b:331::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5c750288-1aec-4768-62c2-08da33643de8
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4472:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4472141B94D5A47FBB7F0F6F97C89@MN2PR12MB4472.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 51041cb3-8807-4e5b-4344-08da336479fe
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3875:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3875F7A563BD82421B6E497A83C89@BY5PR12MB3875.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pFXNPv/uaF/tAcpOfEFkyJu9+wkdbJuhh4ZoFqInrEPtLghlqLZXcZAC/wQwHlUg0+lSKp+wZijvamd23EUzr4U0X3bVewIcMBgu/9WmZzGCznyQLuVBs97yzDqPfsaWyfI2HIs/g9bBIC7dk90cYiV0JnCr+kjE2Azdf9MWZlvExisT/i6BcuIX9GEEKUDmTKl5cp0wbiIsSZrkP5yAWylgJT/GSy5AmnxVTMP90cMFxUPdWlvl0wbaR+FBNgm3cOczKrX0qD/Wv4TPBe5BbqIFKQOk/pMXUL24+UwTHYVuzmDYmgPq7Aq/OiTaWUcrqF+JJSuuHcfaf1Q1UEU4/EPYAOSKoIGeSpTRizLMihcEIFOXvmxdJNd1wL3PCrbFYnGfA5gW8poVgLuOkk8YlMqyYDgFk1e1w337G1FhEoJDjAmMTUxv1fAfnVnZPSzFZZd0LoH2OLaUf8i3BU69kASzYE8bhFzVi265cEpn9OiCuguu56Le866DHDTHi8nv5fAo0t1KSU6Dyk+bjz4u/OdQb09UvyxQuc8lRySi/cu0Kj4av6L1QtJNBGatwEtxv43+z90G80lstpvcVqhPehloCRUrN9qzbT68vQPhAuZvLo466zXD27F0Or+Fcc6Z77hyt9NKTUYgubqwIXP+iMp4xQJNfAssLo/wwvsP2zLRT+PjSXXjf9zZ4ZPOmiRFxpLdIP0FcsUiipGn0Q05gFLnUyTw1THPwmyhrdlUVHEwxQkUOeb7ejbE5/ixp0Pj
+X-Microsoft-Antispam-Message-Info: zBzJ7PmHACS5Q3YTIeBQ7zZuePePmPVZPmqL3pa9ApNzu2T2Ww+0tJMXhGfQwWW7osOl1qaA3PhkfUFuOK86eFFt43fVLhsra5xqSmcBBDlerwNNA2QXtrRmxnjDDHEQkdU/3WurpBaykWqMzGQfrdyI+UX2WnIOw2Sq5b2YM8Db6gqSVYXqflLy0N64sRg2BEi9EpVgQ3Hg1O0twb+317U1si3XO8ty+sPFOcNBc5LKfONsdLjFJYmxcXiE9LmuSiTuaQXZHNlUKkgVVdevORI6iNlSbj1rzN4rfIUB3kMCvym10iMu9WbGnrIgL/G8g2r5/HTLOpTibcWI5VgvGOt0dCHq6PkeoEQuqjms445P/vENvLoJIKkz1vbE+OakmQ+UnQNDZrjZLlfLjYHwnzLAuDQ0n+4Q2045v+z3VQcBjlpfg0DVCe4eUYLbc4t+t3eao0crjkTYau9VnRc5yN8Yiclp3o2vdFU2UENWjUItImLQtw63NhoxFLPIDx0leWYudxTeg1wh6GyuboKpEwfJgcTwhAIfUgL7V5lVhbN1c8J6gHWA+rXzKg6y6UrrJM5JD4Sn+Y4zIkY4qJY2kJj12Bc3pol6W4OsGVwZrNV9LK7Pu1BpUuIyhjZ3fJ4D07Wy1uFt9FfvYo0tjdsWIbF0T1weXOETEvljxLju36l3PCQVViEmEq7RJa2um747Bq+PbDjKEbld0/+4XSXiGBF0SecheBI4+obuygGhGBkmFMWGkOqAP1ZtTo9fLYd8
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(30864003)(66556008)(6512007)(6666004)(316002)(66946007)(6486002)(66574015)(508600001)(66476007)(2906002)(186003)(110136005)(4326008)(31696002)(8676002)(38100700002)(2616005)(26005)(8936002)(31686004)(6506007)(83380400001)(53546011)(5660300002)(36756003)(86362001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6666004)(53546011)(38100700002)(6506007)(30864003)(6512007)(5660300002)(2906002)(508600001)(86362001)(6486002)(31696002)(316002)(8936002)(2616005)(4326008)(8676002)(186003)(83380400001)(36756003)(66574015)(31686004)(66946007)(110136005)(66476007)(66556008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1FiamNBaDdDYlBGendCdGJwZFovbVhIWHVZMktOVHM0NTAweEpUdEw3OEVE?=
- =?utf-8?B?ajk3NlJWVFp1UFlIOVFvdExZWWNqajN1Tm53emZCbXE5Yy8vWWFwMS9yeFRn?=
- =?utf-8?B?ZTJweW5vT3Nsc28ya1hvandYVENPRERwM2U5WHM5L0NZa1RvVGhQNjlaengx?=
- =?utf-8?B?TlN3OWhhMkhCWWlLUnE2MU9iOGhLRUh5Ni9pUDk3RWhMTDJqcElleDR2V0ls?=
- =?utf-8?B?Tis2T1Vhb2M4eHVEOWFtNm5seDRhaHV5OVRHN0hEUFhSTHhTOURMQUdUbDdY?=
- =?utf-8?B?N1JVU3ZqazhOclV1NGx3a1BvL0VnMlVMSTZuYU9wR1k0YjlPdTgybExzZCsr?=
- =?utf-8?B?cFZKU3Ivd1p6akU4cFNUeWN0YWJqRW92L1VEWHVaUVV0UHRNeGhCaVJtSlRX?=
- =?utf-8?B?V1drNUN0TDB5VjVqVXkrbEhhRGJCekVEWkpXTWNtZU9UZGJpQzd5UlBmRVlr?=
- =?utf-8?B?eUJZTUZJdWNNSExtSUNZRzVGdk94a211R3k0SXhvYjJGb1ZwT09nUktxaHZl?=
- =?utf-8?B?UG84SHhiWGRzL0xua09IcUhROTNZTWluZEw4ZFUxd0NvSWk4dVNndjJrRVYr?=
- =?utf-8?B?QUEwU0ZaRDRIVkx1YWpFOEVlR3p4dm1nTlFVOXA5ZXI1RmdheTI1SXZEYStI?=
- =?utf-8?B?Y1FMYjZZT2w4NkJRWUx0RldLZVNycmgxdWYxOXhyZks0b1RSZlc3YzRTZTV6?=
- =?utf-8?B?UXc5UEpacjc4dU5RYk96RGovLzlZVDFLRVNRcWhWekJZZi9pMDArNkJidkFS?=
- =?utf-8?B?Z2p2NVEyU2dIQ1JJdGw2SUYxMEtneitpeXc0Zk9GVjNXTGQwK2MwS0Zkd3RR?=
- =?utf-8?B?N1lWUzMycTdzNVFURE1nL3dQWWJBTnQ3VWdmVEJSb3hiU05SMkM0SjlGUG9U?=
- =?utf-8?B?N054T3Uvc0FwMFBhL3FQVlBSUzZFdksyNmVxeU5Vcy9yMTNuUVd3S1dpWmQy?=
- =?utf-8?B?M3RQMDE5YS9tc2dqYVhjN3NMMzNxREhJS0c1Q0lwdnl6U05oWUg2NXhYVEQy?=
- =?utf-8?B?N1o2UUc3MkVuaFhwbXJFQXZPckVjbnVJNHNHQVJmWlZQb09wVUIweFdCRlVH?=
- =?utf-8?B?dC84cGJxMVpvUWpQeE9YcFZEditTNzV2Vk0rSjRhciswU0Z2TTlxZU8yUkJO?=
- =?utf-8?B?blEwQWVjNG51MGYxcStLT0RGSHNjM2plblJpUFpLTVFBc0REY1NQYk5sakg4?=
- =?utf-8?B?QTRPZ29SUUo5SGdFYWVlOW5mRzBhQS9iTUd1dkllalBHS3ZaVElVanhaM1Zq?=
- =?utf-8?B?RkE3ZWY3aHZaK0UxbFZ1VFZLZ3BnUnV6Qmg2WDRNd3JLbjdjbExZbStnY3dm?=
- =?utf-8?B?OHFtUUxiN01BZkUvMXlpbllHVGRTdnNRTjc2NGw4RFpMZ21sOU9YRVdVKzNw?=
- =?utf-8?B?L3RJOEVXdDBLTTIvS3MzYVgxaTVuZlZJeXNCNWJPN1ZFdURnWWlibmhNem9k?=
- =?utf-8?B?VEVCVStrNHhkQm1LVlpvTnVidkxtR0x4bXkzUEY0QmNZYmh4ckdJTUI4RzV1?=
- =?utf-8?B?Z3FKK0ZTaWU4NW9aOGU4ZWlRSTFTSCtsYmY4dFBmdmJMNU9yb0p2M05MTE5F?=
- =?utf-8?B?MFpWZXJNaTIrenc5OTZyZG9FN08vQnEya1o5cVA3WHpTMWtKeUp0R2RzbFY0?=
- =?utf-8?B?ZmxkNW4rY25jWHdtVDBha0hIVEpDV1hrdkVwbmxqVEsxbUtUMWpZZllmL3Nt?=
- =?utf-8?B?M3VzY1hiNSsydG9xS0FmelAycEdXbWZCTXF0VG1RMUtYd2x1V1pjMXF2UFlk?=
- =?utf-8?B?Y1pJY2REQmVjOHRodEdWN25HYmxGangwam5NTkFFK3NtVHdwdWJGbElScy9T?=
- =?utf-8?B?R3Y2cUREd3pMeWlGTUtjanNIbmhvMmNNZDZQcXBWbWpndjRzVXBhYTMxYkRa?=
- =?utf-8?B?b0o0SEQ5aEJFeC91R0NkZkl4S0VTNjFXOFV5RVNGQXN3dDRDYkh2U1VwMjVr?=
- =?utf-8?B?TDZKWVpOQlJ3dFV0SXR3TjNOL3NpRnVRMW94NGw4OFZWQVBQbmZMcldJYXlN?=
- =?utf-8?B?d0lvSmNVZWhLVWtzbnNqbFRYY2ZneGYvTGJuNHA2MDJYa0VQcWk0enFSR3JM?=
- =?utf-8?B?TnJQb29FQXZJNm9CUFdKK1BwYVJpREZSNHZWb0NLKzRIZHhPbUlIOTM4ajBo?=
- =?utf-8?B?WjhDbk9uU2ExcCt4cVBpdFBLZ3dIcTlJbHcrWnc2ZDV3UzhrYXNUdlZkRHR5?=
- =?utf-8?B?MUsvYkxOUGRvUENkQUcrRSttbURxSEg1b3ZjdzJrSDk5cUVsSkRFa2s0RWhp?=
- =?utf-8?B?cUNsUzdGWjBsOTZwVTdXdGNLN1d0eWYrMUZkcUhGcmNvOFpGYU83UkMrcHJu?=
- =?utf-8?B?aGNFZ21sRWVPTTJodzBiSkU4YUI0K3hEdlljWlNNdmJSK3lnSU9sZz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVlPQXlabXdzaXFZLzRaVjZzbUxiMWdWMDM0VjJROHhibEFQUXlsL3ByTFgz?=
+ =?utf-8?B?ZUpQZ2cxVFRsaDllc0w0QURBenZFc1lPekhuR0hQZENnRXYrWHVFZ3N5VkV4?=
+ =?utf-8?B?MzFsK3lvNE8vVTNyd3ZSaWdmblowYUZ2MVJhRzNKR2cwWmtVY0xwWVYzSUtC?=
+ =?utf-8?B?SWVURUNJS3UycnRQZmlNZ0wyRlk3UHFFRXYxVG5xWDYwSndlaU5wSFlIQ1Iy?=
+ =?utf-8?B?WHJseExSbkZ4QndqV1RyRWJhVW1FTHNZdndxK2ZmVUtXVmcwQjE0N1UySFNX?=
+ =?utf-8?B?YU11RWFQOWhVNEpiekJESDV3VkdzajJIbmNpVlhqYmUrck9qQ2VuNmo0QzE3?=
+ =?utf-8?B?MVYyU0hWaGV4bmh6dHJtZW84WUluZEg5V05iODh0aCtCVVZuYWgwa2M2Wjc1?=
+ =?utf-8?B?MG1wZzF0UVZOZ0VDMUdPY29SZE83eFZTaC9lVFcwalAwbklCamF3THpob1N3?=
+ =?utf-8?B?ZEN4Q2JHT3R2OThpc1ZoNlVwa3ZLZ0MweGhnSG1MZk5pRjJ5VGExNlEyd0Np?=
+ =?utf-8?B?Z0QrMjRSSUZPMGU5c1hnTGs3ZXlxWGgvT01oQk5jTS9GZ0VxS3F1YWNsQTh2?=
+ =?utf-8?B?R1VvenZRcU01RlVxdGtxbGQrRnlFRjBDVXZleG0xd2Fxc3RYRS9sSU95dHRM?=
+ =?utf-8?B?N0tMOWM4ZHIrUWovWjJRUWx1TFdRZlBPY3BUcmtyNXBabktVU0V2TUI0Tk00?=
+ =?utf-8?B?WmxPUTlJTFd0b2tmeVhUbFQvQ2ZoZUdDVzFIVklUQWRYWWd4ZjFHNTBUbHlk?=
+ =?utf-8?B?RDZkV3FkSlFYV1p2WXlReEZWMExFbWp3Sjk5REplZXY0bzMyTWVYMHpoOFVi?=
+ =?utf-8?B?U28wS1JXaElQZUpveDNjd2VEQStjUXR4YXVhdVNSWmYyUXUxUThEZWMyN1Jm?=
+ =?utf-8?B?a3BnUXFwMm1sOUFLTjZQVXErem1jYmtYRldqRDlRUzNwek0rZm9BSmZoN1Rm?=
+ =?utf-8?B?L2NyYjZuTEtpRXd1bDRjdTBuM25jNEI2TDFickhTYVI0Skp0RjIzc3JqS2xu?=
+ =?utf-8?B?amNVTFZURGtHRUw3a2FPeXNYZytPbDgwb05udklmakszUkloM1ZxbCs2RmFT?=
+ =?utf-8?B?ZUpqTzhLczdSbVZvaEV4bGwxS2hIbXEyc3UzNmJxbEp5YnA4Mjh2NlJ2NXJO?=
+ =?utf-8?B?TFpIVTA5L0pMMlRpMGxDbWFPUldiY2o3ZzBpNTZmS1I4Q2FMRW53S3FjTWs4?=
+ =?utf-8?B?Mm9KSW9VN3gweFBHSW12cUlUMFJ1aWIxTWZ0bTlRVkZHRWF0Nndqd2J2cHNV?=
+ =?utf-8?B?WlAreml5WHdTRzRvcFJJSTJSKzVCb0FTNDBxcWhTdzd6RTIyNUREK2FwYVVH?=
+ =?utf-8?B?TjRNSmFteU9EMUNIL0dvM2lvWnk3WjRKamRGWTNtOEFpYi9LQnVSdktqT0I2?=
+ =?utf-8?B?VkQ1TDhlS0xQTzhuRS94NDQ0K0VwaG0xL1V2cWwramY3T0ZibEwwVTcwT2JF?=
+ =?utf-8?B?elVyc29xTUdrNndPZGxHdjdMcGcwTGIraExFM0pvZWx3RWdTM0FuRVhTRjA0?=
+ =?utf-8?B?RFc4b3NQRWhnMi9aa29zYTd2U1JvS0NLa3UxK0RRMk4xUzN3ZXBKN29RUTNT?=
+ =?utf-8?B?MjRZRmFFUGVTTTdNMkNiOWduQlVjUmZGd2JVdE4rM0RnU0RKb3FyVkhFNDBE?=
+ =?utf-8?B?QVBzMFh2SWdXS0xlUDNtZDN1M0k1YzN1di9hT0JYYlFQeHdDemtQckM1UXZ2?=
+ =?utf-8?B?VWZDUGRNV3VJenZEeS9hWklrRTZldVhUN2k4ZStpYWpjM2tqTXBNRzF5VmZp?=
+ =?utf-8?B?Y1QybDdZU1lzRDlZRUJOa0oxQzB4cEhWdWRDTlJMekZ4aXBjeGtEeEtzeXVV?=
+ =?utf-8?B?QzQ3Sk51bTNNZXBRL2NIQkJqL09haVZma2t2di81RVQyNldnQTBTMlRJd3Fk?=
+ =?utf-8?B?Y3ZzZTFWcTNSdHRWYk1qQXQxOVJjQmlIbUFBcTBxb2RpK05BbnhKelJOZWMz?=
+ =?utf-8?B?eW5JSkRBQ3NNdFpRSENvWXpaVmpCNHZrendLVjhQb2lqWEF1cm00R1hvRC9K?=
+ =?utf-8?B?elRaQjFOUU01cHNTWkxPeFdyMWwxQ2c4TmVzOUUzVXRMckE4ZVlKekJJbjdx?=
+ =?utf-8?B?bGZDZW9XbjRKQXI0blMrUlU3VlFPZlJEenQvQmNHR2c1STlpYnJiWHFjUVZv?=
+ =?utf-8?B?bUdodTlaakhCaUdDdm5LdCtqajlmUWlhcHZzL0ZDeFZRL3hWTVlVd2xveVJQ?=
+ =?utf-8?B?MDZ5czIrSndacmZiN2xSakg2OHZXc29tVFVtOFNVaWhLOVVrNXdXSEQ2TytI?=
+ =?utf-8?B?a0FLMGtaSmw4M005TmFtOVNGM2VxK0ZZMzdSTGZJV05wMUdCd294L1JJSk1H?=
+ =?utf-8?B?ZUtYMkdiLy9yb0NTMlBLT01IR25CS0FMZ05HWm9oS1NhRmkvckJTQUhFZlND?=
+ =?utf-8?Q?tdjnVM/dxdNSLN+n02CYkGA/QhubUP/N681uu5vi9PFoY?=
+X-MS-Exchange-AntiSpam-MessageData-1: Sr9U1gnfoh+VRw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c750288-1aec-4768-62c2-08da33643de8
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51041cb3-8807-4e5b-4344-08da336479fe
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 15:38:05.8482 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 15:39:46.5923 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +laFXxNDw/kDNqUCE0WB84y0bq2yQlbv1oi9dUGhkP/beH6s5LUNNqNImd7PariH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4472
+X-MS-Exchange-CrossTenant-UserPrincipalName: OYn1bK1SjgDGTSFbNwlKH+X2qP7dWDSfT3jF7hx9ul64JZTAlS3F6RDAZ9AIC5Rd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,10 +155,7 @@ Cc: Bai Zoy <Zoy.Bai@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 5/11/2022 9:05 PM, Andrey Grodzovsky wrote:
-> 
+Am 11.05.22 um 17:35 schrieb Andrey Grodzovsky:
 > On 2022-05-11 11:20, Lazar, Lijo wrote:
 >>
 >>
@@ -182,8 +181,8 @@ On 5/11/2022 9:05 PM, Andrey Grodzovsky wrote:
 >>>>>>> Christian.
 >>>>>>
 >>>>>>
->>>>>> I don't say we care if it fired once or twice (I need to add a fix 
->>>>>> to only insert reset work to pending reset list if it's not 
+>>>>>> I don't say we care if it fired once or twice (I need to add a 
+>>>>>> fix to only insert reset work to pending reset list if it's not 
 >>>>>> already there), the point of using list (or array) to which you 
 >>>>>> add and from which you remove is that the logic of this is 
 >>>>>> encapsulated within reset domain. In your way we need to be aware 
@@ -206,9 +205,9 @@ On 5/11/2022 9:05 PM, Andrey Grodzovsky wrote:
 >>>> share 'reset source' (meaning a delayed work) with another client 
 >>>> (i.e. RAS and KFD) it means you make assumption that the other 
 >>>> client always proceeds with the
->>>> reset exactly the same way as you expect. So today we have this only 
->>>> in scheduler vs non scheduler reset happening - non scheduler reset 
->>>> clients assume the reset is always fully executed in HW while 
+>>>> reset exactly the same way as you expect. So today we have this 
+>>>> only in scheduler vs non scheduler reset happening - non scheduler 
+>>>> reset clients assume the reset is always fully executed in HW while 
 >>>> scheduler based reset makes shortcuts and not always does HW reset 
 >>>> hence they cannot share 'reset source' (delayed work). Yes, we can 
 >>>> always add this in the future if and when such problem will arise 
@@ -251,27 +250,32 @@ On 5/11/2022 9:05 PM, Andrey Grodzovsky wrote:
 >>
 >> Thanks,
 >> Lijo
-> 
-> 
+>
+>
 > It's possible though it makes harder to generalize reset_domain later 
 > for other drivers.
-
-The current reset domain queue design is not good for a hierarchichal 
-reset within amdgpu itself :)
-
-Thanks,
-Lijo
-
-> But still one caveat, look at amdgpu_recover_work_struct and it's usage 
-> in amdgpu_device_gpu_recover and in gpu_recover_get,
+> But still one caveat, look at amdgpu_recover_work_struct and it's 
+> usage in amdgpu_device_gpu_recover and in gpu_recover_get,
 > At least for debugfs i need to return back the result of GPU reset and 
 > so I cannot store actual work items in the array mentioned above
 > but rather pointers to work_item because i need a way to get back the 
 > return value from gpu_recover like I do now in amdgpu_device_gpu_recover.
-> 
+
+You should try to avoid that as well.
+
+See when the debugfs reset is canceled because of a scheduler reset you 
+won't get a useful return code either.
+
+What we should do instead is to cache the status of the last reset in 
+the reset domain.
+
+Regards,
+Christian.
+
+>
 > Andrey
-> 
-> 
+>
+>
 >>
 >>> Not 100% sure if that works, but something like that should do the 
 >>> trick.
@@ -295,8 +299,8 @@ Lijo
 >>>>>> a plan as far as i remember) this explicit mention of each reset 
 >>>>>> works for cancellation is again less suitable in my opinion.
 >>>>>
->>>>> Well we could put the work item for the scheduler independent reset 
->>>>> source into the reset domain as well. But I'm not sure those 
+>>>>> Well we could put the work item for the scheduler independent 
+>>>>> reset source into the reset domain as well. But I'm not sure those 
 >>>>> additional reset sources should be part of any common handling, 
 >>>>> that is largely amdgpu specific.
 >>>>
@@ -348,32 +352,32 @@ Lijo
 >>>>>>>>>>> Regards,
 >>>>>>>>>>> Christian.
 >>>>>>>>>>>
->>>>>>>>>>>>> You can see that if many different reset sources share same 
->>>>>>>>>>>>> work struct what can happen is that the first to obtain the 
->>>>>>>>>>>>> lock you describe bellow might opt out from full HW reset 
->>>>>>>>>>>>> because his bad job did signal for example or because his 
->>>>>>>>>>>>> hunged IP block was able to recover through SW reset but in 
->>>>>>>>>>>>> the meantime another reset source who needed an actual HW 
->>>>>>>>>>>>> reset just silently returned and we end up with unhandled 
->>>>>>>>>>>>> reset request. True that today this happens only to job 
->>>>>>>>>>>>> timeout reset sources that are handled form within the 
->>>>>>>>>>>>> scheduler and won't use this single work struct but no one 
->>>>>>>>>>>>> prevents a future case for this to happen and also, if we 
->>>>>>>>>>>>> actually want to unify scheduler time out handlers within 
->>>>>>>>>>>>> reset domain (which seems to me the right design approach) 
->>>>>>>>>>>>> we won't be able to use just one work struct for this 
->>>>>>>>>>>>> reason anyway.
+>>>>>>>>>>>>> You can see that if many different reset sources share 
+>>>>>>>>>>>>> same work struct what can happen is that the first to 
+>>>>>>>>>>>>> obtain the lock you describe bellow might opt out from 
+>>>>>>>>>>>>> full HW reset because his bad job did signal for example 
+>>>>>>>>>>>>> or because his hunged IP block was able to recover through 
+>>>>>>>>>>>>> SW reset but in the meantime another reset source who 
+>>>>>>>>>>>>> needed an actual HW reset just silently returned and we 
+>>>>>>>>>>>>> end up with unhandled reset request. True that today this 
+>>>>>>>>>>>>> happens only to job timeout reset sources that are handled 
+>>>>>>>>>>>>> form within the scheduler and won't use this single work 
+>>>>>>>>>>>>> struct but no one prevents a future case for this to 
+>>>>>>>>>>>>> happen and also, if we actually want to unify scheduler 
+>>>>>>>>>>>>> time out handlers within reset domain (which seems to me 
+>>>>>>>>>>>>> the right design approach) we won't be able to use just 
+>>>>>>>>>>>>> one work struct for this reason anyway.
 >>>>>>>>>>>>>
 >>>>>>>>>>>>
 >>>>>>>>>>>> Just to add to this point - a reset domain is co-operative 
->>>>>>>>>>>> domain. In addition to sharing a set of clients from various 
->>>>>>>>>>>> reset sources for one device, it also will have a set of 
->>>>>>>>>>>> devices like in XGMI hive. The job timeout on one device may 
->>>>>>>>>>>> not eventually result in result, but a RAS error happening 
->>>>>>>>>>>> on another device at the same time would need a reset. The 
->>>>>>>>>>>> second device's RAS error cannot return seeing  that a reset 
->>>>>>>>>>>> work already started, or ignore the reset work given that 
->>>>>>>>>>>> another device has filled the reset data.
+>>>>>>>>>>>> domain. In addition to sharing a set of clients from 
+>>>>>>>>>>>> various reset sources for one device, it also will have a 
+>>>>>>>>>>>> set of devices like in XGMI hive. The job timeout on one 
+>>>>>>>>>>>> device may not eventually result in result, but a RAS error 
+>>>>>>>>>>>> happening on another device at the same time would need a 
+>>>>>>>>>>>> reset. The second device's RAS error cannot return seeing  
+>>>>>>>>>>>> that a reset work already started, or ignore the reset work 
+>>>>>>>>>>>> given that another device has filled the reset data.
 >>>>>>>>>>>>
 >>>>>>>>>>>> When there is a reset domain, it should take care of the 
 >>>>>>>>>>>> work scheduled and keeping it in device or any other level 
@@ -389,8 +393,8 @@ Lijo
 >>>>>>>>>>>>>> I'd put the reset work struct into the reset_domain 
 >>>>>>>>>>>>>> struct. That way you'd have exactly one worker for the 
 >>>>>>>>>>>>>> reset domain. You could implement a lock-less scheme to 
->>>>>>>>>>>>>> decide whether you need to schedule a reset, e.g. using an 
->>>>>>>>>>>>>> atomic counter in the shared work struct that gets 
+>>>>>>>>>>>>>> decide whether you need to schedule a reset, e.g. using 
+>>>>>>>>>>>>>> an atomic counter in the shared work struct that gets 
 >>>>>>>>>>>>>> incremented when a client wants to trigger a reset 
 >>>>>>>>>>>>>> (atomic_add_return). If that counter is exactly 1 after 
 >>>>>>>>>>>>>> incrementing, you need to fill in the rest of the work 
@@ -411,25 +415,26 @@ Lijo
 >>>>>>>>>>>>>>>>
 >>>>>>>>>>>>>>>> Additional to that keep in mind that you can't allocate 
 >>>>>>>>>>>>>>>> any memory before or during the GPU reset nor wait for 
->>>>>>>>>>>>>>>> the reset to complete (so you can't allocate anything on 
->>>>>>>>>>>>>>>> the stack either).
+>>>>>>>>>>>>>>>> the reset to complete (so you can't allocate anything 
+>>>>>>>>>>>>>>>> on the stack either).
 >>>>>>>>>>>>>>>
 >>>>>>>>>>>>>>>
 >>>>>>>>>>>>>>> There is no dynamic allocation here, regarding stack 
 >>>>>>>>>>>>>>> allocations - we do it all the time when we call 
 >>>>>>>>>>>>>>> functions, even during GPU resets, how on stack 
->>>>>>>>>>>>>>> allocation of work struct in amdgpu_device_gpu_recover is 
->>>>>>>>>>>>>>> different from any other local variable we allocate in 
->>>>>>>>>>>>>>> any function we call ?
+>>>>>>>>>>>>>>> allocation of work struct in amdgpu_device_gpu_recover 
+>>>>>>>>>>>>>>> is different from any other local variable we allocate 
+>>>>>>>>>>>>>>> in any function we call ?
 >>>>>>>>>>>>>>>
->>>>>>>>>>>>>>> I am also not sure why it's not allowed to wait for reset 
->>>>>>>>>>>>>>> to complete ? Also, see in amdgpu_ras_do_recovery and 
->>>>>>>>>>>>>>> gpu_recover_get (debugfs) - the caller expects the reset 
->>>>>>>>>>>>>>> to complete before he returns. I can probably work around 
->>>>>>>>>>>>>>> it in RAS code by calling atomic_set(&ras->in_recovery, 
->>>>>>>>>>>>>>> 0) from some callback within actual reset function but 
->>>>>>>>>>>>>>> regarding sysfs it actually expects a result returned 
->>>>>>>>>>>>>>> indicating whether the call was successful or not.
+>>>>>>>>>>>>>>> I am also not sure why it's not allowed to wait for 
+>>>>>>>>>>>>>>> reset to complete ? Also, see in amdgpu_ras_do_recovery 
+>>>>>>>>>>>>>>> and gpu_recover_get (debugfs) - the caller expects the 
+>>>>>>>>>>>>>>> reset to complete before he returns. I can probably work 
+>>>>>>>>>>>>>>> around it in RAS code by calling 
+>>>>>>>>>>>>>>> atomic_set(&ras->in_recovery, 0) from some callback 
+>>>>>>>>>>>>>>> within actual reset function but regarding sysfs it 
+>>>>>>>>>>>>>>> actually expects a result returned indicating whether 
+>>>>>>>>>>>>>>> the call was successful or not.
 >>>>>>>>>>>>>>>
 >>>>>>>>>>>>>>> Andrey
 >>>>>>>>>>>>>>>
@@ -440,9 +445,9 @@ Lijo
 >>>>>>>>>>>>>>>> Regards,
 >>>>>>>>>>>>>>>> Christian.
 >>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> Also in general seems to me it's cleaner approach where 
->>>>>>>>>>>>>>>>> this logic (the work items) are held and handled in 
->>>>>>>>>>>>>>>>> reset_domain and are not split in each adev or any 
+>>>>>>>>>>>>>>>>> Also in general seems to me it's cleaner approach 
+>>>>>>>>>>>>>>>>> where this logic (the work items) are held and handled 
+>>>>>>>>>>>>>>>>> in reset_domain and are not split in each adev or any 
 >>>>>>>>>>>>>>>>> other entity. We might want in the future to even move 
 >>>>>>>>>>>>>>>>> the scheduler handling into reset domain since reset 
 >>>>>>>>>>>>>>>>> domain is supposed to be a generic things and not only 
@@ -493,11 +498,11 @@ Lijo
 >>>>>>>>>>>>>>>>>>>>>   };
 >>>>>>>>>>>>>>>>>>>>>   -enum amd_reset_method {
 >>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_NONE = -1,
->>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_LEGACY = 0,
->>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_MODE0,
->>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_MODE1,
->>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_MODE2,
->>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_BACO,
+>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_LEGACY = 0,
+>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE0,
+>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE1,
+>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE2,
+>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_BACO,
 >>>>>>>>>>>>>>>>>>>>> -    AMD_RESET_METHOD_PCI,
 >>>>>>>>>>>>>>>>>>>>> -};
 >>>>>>>>>>>>>>>>>>>>> -
@@ -517,8 +522,8 @@ Lijo
 >>>>>>>>>>>>>>>>>>>>> tmp_vram_lost_counter = 
 >>>>>>>>>>>>>>>>>>>>> atomic_read(&((adev)->vram_lost_counter));
 >>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>> +    /* Drop all pending resets since we will reset 
->>>>>>>>>>>>>>>>>>>>> now anyway */
+>>>>>>>>>>>>>>>>>>>>> +    /* Drop all pending resets since we will 
+>>>>>>>>>>>>>>>>>>>>> reset now anyway */
 >>>>>>>>>>>>>>>>>>>>> +    tmp_adev = 
 >>>>>>>>>>>>>>>>>>>>> list_first_entry(device_list_handle, struct 
 >>>>>>>>>>>>>>>>>>>>> amdgpu_device,
@@ -551,7 +556,7 @@ Lijo
 >>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_recover_work_struct 
 >>>>>>>>>>>>>>>>>>>>> *recover_work = container_of(work, struct 
 >>>>>>>>>>>>>>>>>>>>> amdgpu_recover_work_struct, base.base.work);
->>>>>>>>>>>>>>>>>>>>>         recover_work->ret = 
+>>>>>>>>>>>>>>>>>>>>> recover_work->ret = 
 >>>>>>>>>>>>>>>>>>>>> amdgpu_device_gpu_recover_imp(recover_work->adev, 
 >>>>>>>>>>>>>>>>>>>>> recover_work->job);
 >>>>>>>>>>>>>>>>>>>>>   }
@@ -621,11 +626,11 @@ Lijo
 >>>>>>>>>>>>>>>>>>>>>   +
 >>>>>>>>>>>>>>>>>>>>> +enum amd_reset_method {
 >>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_NONE = -1,
->>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_LEGACY = 0,
->>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_MODE0,
->>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_MODE1,
->>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_MODE2,
->>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_BACO,
+>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_LEGACY = 0,
+>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE0,
+>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE1,
+>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE2,
+>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_BACO,
 >>>>>>>>>>>>>>>>>>>>> +    AMD_RESET_METHOD_PCI,
 >>>>>>>>>>>>>>>>>>>>> +};
 >>>>>>>>>>>>>>>>>>>>> +
@@ -867,3 +872,4 @@ Lijo
 >>>>>>>
 >>>>>
 >>>
+
