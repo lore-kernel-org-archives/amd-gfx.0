@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 617D9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 15:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88FEBC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 15:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0C9210FB49;
-	Wed, 11 May 2022 15:23:53 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7819310FB4C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 15:23:53 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id j6so4722059ejc.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 08:23:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=AT84es+mzAkWpeG89QxlhH2c/t9GOUkVvEs9eFmXxXY=;
- b=NNBZtQLUELY+A16ufEkDAgLbHtNaTOaEVr7ROnlXcr07b5QSGVqeBmUSezNQv701YR
- YRrDJBNgYXuYhA0WwcTDUq8Ycg+eBvKe/J9DebgM5DwDrxs57sELS9Fhix5AI/Sh1bFI
- VHR8Xo2QL+u49qpgvIIFVNhk7BeE3DRJbpHLA=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BAAA10FB4C;
+	Wed, 11 May 2022 15:24:02 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B92110FB4C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 15:24:01 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id w123so3108776oiw.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 08:24:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TAdomiGQGmzZu1OKu7SQ5G6J4kpGNspVzAe4amli3uw=;
+ b=TxLuTKZ2PFQLo+V9CV9KWkIsYtzZHNp+s5Iw311+agqfFim1toVLW8DDcw9DgQHiS+
+ L6sUcoLpQh1Sx0DFQYq2vLUzjd81V0DeMZeqNTLFZVvfNpDb6q8fK84LMm6C5v4nxyrb
+ 9c16UDXZZ1buzQPeYViISYPirWqPGf/+MCiebAbR07qdPGOLkYU2xOYEV8506E906icp
+ 3G/Z3HPNcgIzl+qgoSK1i0qUpRf13KjFIeAV/uh4PhYXsfuRsvW9y5v+jL6Js99nFrB+
+ zRYcazEC93IK8zEVMsAIra5a9b0orBpIn4nunsYdq6DjjOodjUyWh2ZJHFFm/Mbe7qVU
+ H5Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=AT84es+mzAkWpeG89QxlhH2c/t9GOUkVvEs9eFmXxXY=;
- b=U54kkvISdTcW/Cz5TyZQTsLMlmR70Fm5MozqD3SC7mUElNqXvGdpP99cgGCgeI/MYk
- NRV9NdYbmJ52z42r6NKwSMflzTa+30OWMHZ1hhujmhihX1IzGWsvskN+Q4NCnHAVnT6q
- U4LWE6cysYxOQl9E1BG3XYSxYAK3EOGZShshrChY0lM3mHX8aKqjkReTP2xN5ka3y7P3
- Vny1CV7TYcmAk9IAEtwvAk9j3CKfXe1DfZLPWLB2lzxp0GJOyLWIR+NmiVPt66Jk9bQP
- zp4wNI+4eOFXyo+UUfJVjhpCrjTscUhJ2CFLMzaXrU8PWmrZr4OeW6YqsIfEPyQ3/I/p
- ifPA==
-X-Gm-Message-State: AOAM531O5e4y7GSpOez9rQMTLROkGeHs4uv4jULcwG6rC63oDMGQynQJ
- xQsyMb+3+ZXsgzOlPeyVsvNQ+g==
-X-Google-Smtp-Source: ABdhPJwG6/+9X7iQEfq44Dv13d6abORwMoRw/J8Pv91GEXFMsUZVS/46SGzBeaEu+ite8DiIh6bbIg==
-X-Received: by 2002:a17:907:7fac:b0:6f4:6b70:33d9 with SMTP id
- qk44-20020a1709077fac00b006f46b7033d9mr24228407ejc.380.1652282631911; 
- Wed, 11 May 2022 08:23:51 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- fv36-20020a17090750a400b006f3ef214e60sm1060465ejc.198.2022.05.11.08.23.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 08:23:51 -0700 (PDT)
-Date: Wed, 11 May 2022 17:23:49 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/8] drm: execution context for GEM buffers v2
-Message-ID: <YnvVBdGo+1SO4zrV@phenom.ffwll.local>
-References: <20220504074739.2231-1-christian.koenig@amd.com>
- <20220504074739.2231-2-christian.koenig@amd.com>
- <Ynkl1VSLYDeGF4Ik@phenom.ffwll.local>
- <639687d0-ee0c-975a-93c0-b54422c74719@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TAdomiGQGmzZu1OKu7SQ5G6J4kpGNspVzAe4amli3uw=;
+ b=RrYtCrY6x5nDuAuALGwYNK4A2eVrR5IUUng45YvxXCSCSsZl8mgIR5yNsj6mP7fcxT
+ TNGaBHEH7U8BeZvOOiykrjifFyLZz/JQ5hArN9RiBxLgtHaHUviAr5SxM+EGuzsQy3DM
+ 1DtxDUmPYu0HHQrYceWOcK/pJxCWjLz3AyK1EmjRwjfLtsUmt/xDo4OAtWk8JZMJJtkA
+ nalyPcUBgazq26yoT0f8GAlPENY5NwNA4Dmo6G228ePBZX2f+aKRBDxgWTWefk2zsvua
+ 7m7XNAad68MT95nl5Meqhz5cyYI6HNX0+aov2C58RL+7DvabpPW5dbbS3J8tsHfxui23
+ ZPEg==
+X-Gm-Message-State: AOAM532XbZu3s32JserZ+1rN6GJLB3Kl8nQll1ulVAvpxEYwfKUxyo+x
+ esS+obpjBYQcUtAnHAUOqLmU/MHkBW8EyuMPOWk=
+X-Google-Smtp-Source: ABdhPJzpequTBinKnl7TFAccOQOCsQIMcOGebiqDlxvVQbdEJfMs3YdUrnwexoARH7SGyURucfqkCaWOR76C8HrPb1w=
+X-Received: by 2002:a05:6808:f8e:b0:328:a601:a425 with SMTP id
+ o14-20020a0568080f8e00b00328a601a425mr2784691oiw.253.1652282640565; Wed, 11
+ May 2022 08:24:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <639687d0-ee0c-975a-93c0-b54422c74719@amd.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+References: <20220430073400.2494-1-ricetons@gmail.com>
+ <CADnq5_Mq7tCYusk0HNge_4FXLhmT4i3e93Pbjo5Z2GNgJPshnQ@mail.gmail.com>
+ <CAHpOOhErddPws33nm_UVL+kL3_kxfjtJUP1gdUWEK-VHbS-50A@mail.gmail.com>
+ <CADnq5_ODwSJB_qDuscsJ5YnpjTt91Ly9G_TzP2+b92ytyESJHA@mail.gmail.com>
+ <CAHpOOhF2ZacCjYwADfri_Zwkg-mRyu5zYgbjCmN0fOWNE8QHCg@mail.gmail.com>
+ <CADnq5_MSEAajNga2J8fSL4vOYdvCX_W4C3_X6n+8tquVqYoYfA@mail.gmail.com>
+ <CAHpOOhGuYww6qNzFx8jfYiPJm5SEaxw0p=as3FTVXGcXaxD2hQ@mail.gmail.com>
+ <CADnq5_PA+dqMqBDiJ_QOa=6cnevp6etuNC9nomc-N50UgP_L8g@mail.gmail.com>
+ <CAHpOOhFU4C=j6DwKihnG+bAJxejpH2N-Z4YrqH0HbQApatMAbQ@mail.gmail.com>
+In-Reply-To: <CAHpOOhFU4C=j6DwKihnG+bAJxejpH2N-Z4YrqH0HbQApatMAbQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 May 2022 11:23:49 -0400
+Message-ID: <CADnq5_M8cthEpLaEMaYayov0mpRoXhaXKVV1iP0mqvh3DTmS0Q@mail.gmail.com>
+Subject: Re: [PATCH v6] drm/amdgpu: Ensure the DMA engine is deactivated
+ during set ups
+To: Haohui Mai <ricetons@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,176 +70,297 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Lang Yu <lang.yu@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 09, 2022 at 05:01:33PM +0200, Christian König wrote:
-> Am 09.05.22 um 16:31 schrieb Daniel Vetter:
-> > On Wed, May 04, 2022 at 09:47:32AM +0200, Christian König wrote:
-> > > [SNIP]
-> > > +/* Make sure we have enough room and add an object the container */
-> > > +static int drm_exec_objects_add(struct drm_exec_objects *container,
-> > > +				struct drm_gem_object *obj)
-> > > +{
-> > > +	if (unlikely(container->num_objects == container->max_objects)) {
-> > > +		size_t size = container->max_objects * sizeof(void *);
-> > > +		void *tmp;
-> > > +
-> > > +		tmp = kvrealloc(container->objects, size, size + PAGE_SIZE,
-> > > +				GFP_KERNEL);
-> > > +		if (!tmp)
-> > > +			return -ENOMEM;
-> > > +
-> > > +		container->objects = tmp;
-> > > +		container->max_objects += PAGE_SIZE / sizeof(void *);
-> > Might be worth it to inquire the actual allocation size here, since if
-> > it's kmalloc the generic buckets only cover doubling of sizes, so once
-> > it's big it goes up a lot quicker than PAGE_SIZE.
-> > 
-> > But also krealloc checks this internally already so maybe better to not
-> > break the abstraction.
-> 
-> How can I actually do this? ksize() only works with kmalloc().
-> 
-> Or do we had a function to figure out if vmalloc or kmalloc was used by
-> kvrealloc()?
+I've applied it with the change to the commit message.  Sorry for the confusion.
 
-kvfree has a is_vmalloc_addr so it would boil down to open-code that a
-bit.
+Alex
 
-Probably not worth the trouble really, otoh looking at kvrealloc it
-doesn't use krealloc underneath, so it's not doing that check. Maybe we
-should just push that check into kvrealloc for the !vmalloc_addr case.
-
-> > > [SNIP]
-> > > +/**
-> > > + * drm_exec_cleanup - cleanup when contention is detected
-> > > + * @exec: the drm_exec object to cleanup
-> > > + *
-> > > + * Cleanup the current state and return true if we should stay inside the retry
-> > > + * loop, false if there wasn't any contention detected and we can keep the
-> > > + * objects locked.
-> > > + */
-> > > +bool drm_exec_cleanup(struct drm_exec *exec)
-> > > +{
-> > > +	if (likely(!exec->contended)) {
-> > > +		ww_acquire_done(&exec->ticket);
-> > > +		return false;
-> > > +	}
-> > > +
-> > > +	if (likely(exec->contended == DRM_EXEC_DUMMY)) {
-> > > +		exec->contended = NULL;
-> > > +		ww_acquire_init(&exec->ticket, &reservation_ww_class);
-> > Not sure why this is here instead of in _init()? I thought you're playing
-> > some really dangerous tricks with re-initting the acquire ctx, which would
-> > at least be questionable, but does not look like that.
-> 
-> That was my initial design, but the problem with this approach is that all
-> locks taken between drm_exec_init() and the loop suddenly have a lockdep
-> dependency on reservation_ww_class. And that in turn goes boom immediately.
-> 
-> Took me a moment to realize what's wrong with that as well.
-
-Uh crap, indeed. I think minimally this needs to be document, but
-personally I'm leaning towards drm_exec_prepare_init(), which does this
-explicitly.
-
-I do agree we need this split, especially so we can eventually add helpers
-for bo lookup, or maybe userptr/hmm prep and things like that, which all
-has to be outside of the acquire_ctx.
-
-> > [SNIP]
-> > +/**
-> > + * drm_exec_has_duplicates - check for duplicated GEM object
-> > + * @exec: drm_exec object
-> > + *
-> > + * Return true if the drm_exec object has encountered some already locked GEM
-> > + * objects while trying to lock them. This can happen if multiple GEM objects
-> > + * share the same underlying resv object.
-> > + */
-> > +static inline bool drm_exec_has_duplicates(struct drm_exec *exec)
-> > +{
-> > +	return exec->duplicates.num_objects > 0;
-> > Definitely an aside, but in our i915 efforts to get rid of temporary pins
-> > we run into some fun where the eviction code couldn't differentiate from
-> > memory we need reserved for the CS and memory we just keep locked because
-> > we evicted it and fun stuff like that. So maybe we need a bit more
-> > tracking here eventually, but that's only when we have this somehow glued
-> > into ttm eviction code.
-> 
-> Hehe, yeah that's what I was thinking about as well. But then I though one
-> step at a time.
-> 
-> > Also the even more massive step would be to glue this into dma-buf so you
-> > can do dynamic dma-buf eviction and still keep track of all the buffers. I
-> > think with some clever pointer tagging and a bit more indirection we could
-> > nest drm_exec structures (so that a driver could insert it's entire
-> > drm_exec structure with a drm_exec-level callback for handling refcounting
-> > and stuff like that).
-> 
-> I considered in which component to put this quite a bit as well, but then
-> intentionally decided against DMA-buf.
-> 
-> One major reason was that not all buffers which needs to be locked this way
-> are actually exported as DMA-buf.
-> 
-> Another reason is that DMA-buf doesn't necessary need a concept of an
-> execution context. As far as I can see that's something GPU/DRM driver
-> specific.
-
-Yeah I think putting this into driver subsystem is right. I just wanted to
-point that even with that driver subsystem design we can still pretty
-easily put this into dma-buf eventually. And still have the benefit that
-each driver would have a structure which operates on the native buffer
-object.
-
-> > So anyway I think this all looks good, just one more thing before I think
-> > we should land this:
-> > 
-> > gem helpers in drm_gem_lock_reservations() has something which is
-> > practically compatible already, except that you bulk-add the entire set of
-> > objects. I think if you add a bulk-prepare function then we could also
-> > replace all those. Maybe even nicer if the bulk-prepare takes the array of
-> > handles and does the handle lookup too, but at least something which can
-> > subsititue drm_gem_lock_reservations with drm_exec would be nice to
-> > validate the helpers a bit more and really make sure we only have one of
-> > them left.
-> 
-> I was considering that as well, but then also thought one step at a time.
-> Not sure if it's possible to look up handles without running into some
-> locking fun, thought.
-
-Since you pointed out the acquire_ctx fun I think that's really the only
-issue. It's the combo of e.g. v3d_lookup_bos() and
-v3d_lock_bo_reservations().
--Daniel
-
-
-> Thanks for the review,
-> Christian.
-> 
-> > 
-> > Thoughts?
-> > -Daniel
-> > 
-> > > +}
-> > > +
-> > > +void drm_exec_init(struct drm_exec *exec, bool interruptible);
-> > > +void drm_exec_fini(struct drm_exec *exec);
-> > > +bool drm_exec_cleanup(struct drm_exec *exec);
-> > > +int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
-> > > +			 unsigned int num_fences);
-> > > +
-> > > +#endif
-> > > -- 
-> > > 2.25.1
-> > > 
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Wed, May 11, 2022 at 12:05 AM Haohui Mai <ricetons@gmail.com> wrote:
+>
+> It should be an identical patch except for the commit message. Do you
+> want me to send out a new one? Either way is fine with me.
+>
+> ~Haohui
+>
+> On Tue, May 10, 2022 at 10:14 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Tue, May 10, 2022 at 6:53 AM Haohui Mai <ricetons@gmail.com> wrote:
+> > >
+> > > Hi Alex,
+> > >
+> > > Is there anything open before it can be merged?
+> >
+> > Were you going to send an updated patch?
+> >
+> > Alex
+> >
+> > >
+> > > Thanks,
+> > > Haohui
+> > >
+> > > On Mon, May 9, 2022 at 10:48 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > >
+> > > > On Fri, May 6, 2022 at 10:30 PM Haohui Mai <ricetons@gmail.com> wrote:
+> > > > >
+> > > > > What about
+> > > > >
+> > > > > Setting the HALT bit of SDMA_F32_CNTL in all paths before programming
+> > > > > the ring buffer of the SDMA engine.
+> > > > >
+> > > >
+> > > > Sounds fine to me.
+> > > >
+> > > > Alex
+> > > >
+> > > > > No other changes are required in the patch.
+> > > > >
+> > > > > ~Haohui
+> > > > >
+> > > > > On Fri, May 6, 2022 at 9:36 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > > > >
+> > > > > > On Fri, May 6, 2022 at 1:11 AM Haohui Mai <ricetons@gmail.com> wrote:
+> > > > > > >
+> > > > > > > The only thing that matters is that the IP should be halted before
+> > > > > > > programming the ring buffers.
+> > > > > > >
+> > > > > > > What about rephrasing the commit messages to highlight the issue a
+> > > > > > > little bit better?
+> > > > > >
+> > > > > > Yeah, that is fine.  Thanks!
+> > > > > >
+> > > > > > Alex
+> > > > > >
+> > > > > > >
+> > > > > > > On Fri, May 6, 2022 at 12:33 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > On Sat, Apr 30, 2022 at 3:34 AM <ricetons@gmail.com> wrote:
+> > > > > > > > >
+> > > > > > > > > From: Haohui Mai <ricetons@gmail.com>
+> > > > > > > > >
+> > > > > > > > > The patch fully deactivates the DMA engine before setting up the ring
+> > > > > > > > > buffer to avoid potential data races and crashes.
+> > > > > > > >
+> > > > > > > > Does this actually fix an issue you are seeing?  I don't think it will
+> > > > > > > > hurt anything, but I also don't think it's strictly necessary.  AFAIK,
+> > > > > > > > only the HALT bit really matters.  So the commit message might be
+> > > > > > > > somewhat misleading.
+> > > > > > > >
+> > > > > > > > Alex
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Haohui Mai <ricetons@gmail.com>
+> > > > > > > > > ---
+> > > > > > > > >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 109 +++++++++++++++----------
+> > > > > > > > >  1 file changed, 64 insertions(+), 45 deletions(-)
+> > > > > > > > >
+> > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > > > > > > index 013d2dec81d0..1fac9d8e99de 100644
+> > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> > > > > > > > > @@ -459,7 +459,6 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+> > > > > > > > >         }
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > > -
+> > > > > > > > >  /**
+> > > > > > > > >   * sdma_v5_2_gfx_stop - stop the gfx async dma engines
+> > > > > > > > >   *
+> > > > > > > > > @@ -505,17 +504,21 @@ static void sdma_v5_2_rlc_stop(struct amdgpu_device *adev)
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > >  /**
+> > > > > > > > > - * sdma_v5_2_ctx_switch_enable - stop the async dma engines context switch
+> > > > > > > > > + * sdma_v5_2_ctx_switch_enable_for_instance - start the async dma engines
+> > > > > > > > > + * context switch for an instance
+> > > > > > > > >   *
+> > > > > > > > >   * @adev: amdgpu_device pointer
+> > > > > > > > > - * @enable: enable/disable the DMA MEs context switch.
+> > > > > > > > > + * @instance_idx: the index of the SDMA instance
+> > > > > > > > >   *
+> > > > > > > > > - * Halt or unhalt the async dma engines context switch.
+> > > > > > > > > + * Unhalt the async dma engines context switch.
+> > > > > > > > >   */
+> > > > > > > > > -static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
+> > > > > > > > > +static void sdma_v5_2_ctx_switch_enable_for_instance(struct amdgpu_device *adev, int instance_idx)
+> > > > > > > > >  {
+> > > > > > > > >         u32 f32_cntl, phase_quantum = 0;
+> > > > > > > > > -       int i;
+> > > > > > > > > +
+> > > > > > > > > +       if (WARN_ON(instance_idx >= adev->sdma.num_instances)) {
+> > > > > > > > > +               return;
+> > > > > > > > > +       }
+> > > > > > > > >
+> > > > > > > > >         if (amdgpu_sdma_phase_quantum) {
+> > > > > > > > >                 unsigned value = amdgpu_sdma_phase_quantum;
+> > > > > > > > > @@ -539,50 +542,68 @@ static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
+> > > > > > > > >                 phase_quantum =
+> > > > > > > > >                         value << SDMA0_PHASE0_QUANTUM__VALUE__SHIFT |
+> > > > > > > > >                         unit  << SDMA0_PHASE0_QUANTUM__UNIT__SHIFT;
+> > > > > > > > > -       }
+> > > > > > > > > -
+> > > > > > > > > -       for (i = 0; i < adev->sdma.num_instances; i++) {
+> > > > > > > > > -               if (enable && amdgpu_sdma_phase_quantum) {
+> > > > > > > > > -                       WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE0_QUANTUM),
+> > > > > > > > > -                              phase_quantum);
+> > > > > > > > > -                       WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE1_QUANTUM),
+> > > > > > > > > -                              phase_quantum);
+> > > > > > > > > -                       WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE2_QUANTUM),
+> > > > > > > > > -                              phase_quantum);
+> > > > > > > > > -               }
+> > > > > > > > >
+> > > > > > > > > -               if (!amdgpu_sriov_vf(adev)) {
+> > > > > > > > > -                       f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
+> > > > > > > > > -                       f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
+> > > > > > > > > -                                       AUTO_CTXSW_ENABLE, enable ? 1 : 0);
+> > > > > > > > > -                       WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
+> > > > > > > > > -               }
+> > > > > > > > > +               WREG32_SOC15_IP(GC,
+> > > > > > > > > +                       sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE0_QUANTUM),
+> > > > > > > > > +                       phase_quantum);
+> > > > > > > > > +               WREG32_SOC15_IP(GC,
+> > > > > > > > > +                       sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE1_QUANTUM),
+> > > > > > > > > +                   phase_quantum);
+> > > > > > > > > +               WREG32_SOC15_IP(GC,
+> > > > > > > > > +                       sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE2_QUANTUM),
+> > > > > > > > > +                   phase_quantum);
+> > > > > > > > >         }
+> > > > > > > > >
+> > > > > > > > > +       if (!amdgpu_sriov_vf(adev)) {
+> > > > > > > > > +               f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL));
+> > > > > > > > > +               f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
+> > > > > > > > > +                               AUTO_CTXSW_ENABLE, 1);
+> > > > > > > > > +               WREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL), f32_cntl);
+> > > > > > > > > +       }
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > >  /**
+> > > > > > > > > - * sdma_v5_2_enable - stop the async dma engines
+> > > > > > > > > + * sdma_v5_2_ctx_switch_disable_all - stop the async dma engines context switch
+> > > > > > > > >   *
+> > > > > > > > >   * @adev: amdgpu_device pointer
+> > > > > > > > > - * @enable: enable/disable the DMA MEs.
+> > > > > > > > >   *
+> > > > > > > > > - * Halt or unhalt the async dma engines.
+> > > > > > > > > + * Halt the async dma engines context switch.
+> > > > > > > > >   */
+> > > > > > > > > -static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
+> > > > > > > > > +static void sdma_v5_2_ctx_switch_disable_all(struct amdgpu_device *adev)
+> > > > > > > > >  {
+> > > > > > > > >         u32 f32_cntl;
+> > > > > > > > >         int i;
+> > > > > > > > >
+> > > > > > > > > -       if (!enable) {
+> > > > > > > > > -               sdma_v5_2_gfx_stop(adev);
+> > > > > > > > > -               sdma_v5_2_rlc_stop(adev);
+> > > > > > > > > +       if (amdgpu_sriov_vf(adev))
+> > > > > > > > > +               return;
+> > > > > > > > > +
+> > > > > > > > > +       for (i = 0; i < adev->sdma.num_instances; i++) {
+> > > > > > > > > +               f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
+> > > > > > > > > +               f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
+> > > > > > > > > +                               AUTO_CTXSW_ENABLE, 0);
+> > > > > > > > > +               WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
+> > > > > > > > >         }
+> > > > > > > > > +}
+> > > > > > > > > +
+> > > > > > > > > +/**
+> > > > > > > > > + * sdma_v5_2_halt - stop the async dma engines
+> > > > > > > > > + *
+> > > > > > > > > + * @adev: amdgpu_device pointer
+> > > > > > > > > + *
+> > > > > > > > > + * Halt the async dma engines.
+> > > > > > > > > + */
+> > > > > > > > > +static void sdma_v5_2_halt(struct amdgpu_device *adev)
+> > > > > > > > > +{
+> > > > > > > > > +       int i;
+> > > > > > > > > +       u32 f32_cntl;
+> > > > > > > > > +
+> > > > > > > > > +       sdma_v5_2_gfx_stop(adev);
+> > > > > > > > > +       sdma_v5_2_rlc_stop(adev);
+> > > > > > > > >
+> > > > > > > > >         if (!amdgpu_sriov_vf(adev)) {
+> > > > > > > > >                 for (i = 0; i < adev->sdma.num_instances; i++) {
+> > > > > > > > >                         f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
+> > > > > > > > > -                       f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, enable ? 0 : 1);
+> > > > > > > > > +                       f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
+> > > > > > > > >                         WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
+> > > > > > > > >                 }
+> > > > > > > > >         }
+> > > > > > > > > @@ -594,6 +615,9 @@ static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
+> > > > > > > > >   * @adev: amdgpu_device pointer
+> > > > > > > > >   *
+> > > > > > > > >   * Set up the gfx DMA ring buffers and enable them.
+> > > > > > > > > + * It assumes that the dma engine is stopped for each instance.
+> > > > > > > > > + * The function enables the engine and preemptions sequentially for each instance.
+> > > > > > > > > + *
+> > > > > > > > >   * Returns 0 for success, error for failure.
+> > > > > > > > >   */
+> > > > > > > > >  static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+> > > > > > > > > @@ -737,10 +761,7 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+> > > > > > > > >
+> > > > > > > > >                 ring->sched.ready = true;
+> > > > > > > > >
+> > > > > > > > > -               if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
+> > > > > > > > > -                       sdma_v5_2_ctx_switch_enable(adev, true);
+> > > > > > > > > -                       sdma_v5_2_enable(adev, true);
+> > > > > > > > > -               }
+> > > > > > > > > +               sdma_v5_2_ctx_switch_enable_for_instance(adev, i);
+> > > > > > > > >
+> > > > > > > > >                 r = amdgpu_ring_test_ring(ring);
+> > > > > > > > >                 if (r) {
+> > > > > > > > > @@ -784,7 +805,7 @@ static int sdma_v5_2_load_microcode(struct amdgpu_device *adev)
+> > > > > > > > >         int i, j;
+> > > > > > > > >
+> > > > > > > > >         /* halt the MEs */
+> > > > > > > > > -       sdma_v5_2_enable(adev, false);
+> > > > > > > > > +       sdma_v5_2_halt(adev);
+> > > > > > > > >
+> > > > > > > > >         for (i = 0; i < adev->sdma.num_instances; i++) {
+> > > > > > > > >                 if (!adev->sdma.instance[i].fw)
+> > > > > > > > > @@ -856,8 +877,8 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+> > > > > > > > >         int r = 0;
+> > > > > > > > >
+> > > > > > > > >         if (amdgpu_sriov_vf(adev)) {
+> > > > > > > > > -               sdma_v5_2_ctx_switch_enable(adev, false);
+> > > > > > > > > -               sdma_v5_2_enable(adev, false);
+> > > > > > > > > +               sdma_v5_2_ctx_switch_disable_all(adev);
+> > > > > > > > > +               sdma_v5_2_halt(adev);
+> > > > > > > > >
+> > > > > > > > >                 /* set RB registers */
+> > > > > > > > >                 r = sdma_v5_2_gfx_resume(adev);
+> > > > > > > > > @@ -881,12 +902,10 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+> > > > > > > > >                 amdgpu_gfx_off_ctrl(adev, false);
+> > > > > > > > >
+> > > > > > > > >         sdma_v5_2_soft_reset(adev);
+> > > > > > > > > -       /* unhalt the MEs */
+> > > > > > > > > -       sdma_v5_2_enable(adev, true);
+> > > > > > > > > -       /* enable sdma ring preemption */
+> > > > > > > > > -       sdma_v5_2_ctx_switch_enable(adev, true);
+> > > > > > > > >
+> > > > > > > > > -       /* start the gfx rings and rlc compute queues */
+> > > > > > > > > +       /* Soft reset supposes to disable the dma engine and preemption.
+> > > > > > > > > +        * Now start the gfx rings and rlc compute queues.
+> > > > > > > > > +        */
+> > > > > > > > >         r = sdma_v5_2_gfx_resume(adev);
+> > > > > > > > >         if (adev->in_s0ix)
+> > > > > > > > >                 amdgpu_gfx_off_ctrl(adev, true);
+> > > > > > > > > @@ -1340,8 +1359,8 @@ static int sdma_v5_2_hw_fini(void *handle)
+> > > > > > > > >         if (amdgpu_sriov_vf(adev))
+> > > > > > > > >                 return 0;
+> > > > > > > > >
+> > > > > > > > > -       sdma_v5_2_ctx_switch_enable(adev, false);
+> > > > > > > > > -       sdma_v5_2_enable(adev, false);
+> > > > > > > > > +       sdma_v5_2_ctx_switch_disable_all(adev);
+> > > > > > > > > +       sdma_v5_2_halt(adev);
+> > > > > > > > >
+> > > > > > > > >         return 0;
+> > > > > > > > >  }
+> > > > > > > > > --
+> > > > > > > > > 2.25.1
+> > > > > > > > >
