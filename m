@@ -4,119 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74CDFC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 08:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41977C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 08:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2FF910E8E1;
-	Wed, 11 May 2022 08:14:43 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F4610E8E1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 08:14:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C559510F87A;
+	Wed, 11 May 2022 08:42:32 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2083.outbound.protection.outlook.com [40.107.102.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF4710F87A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 08:42:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V5pd6wy04HzlT/Je5CEpqLYWr0futDZbQkFkpvQ9L2QtA9hXE+joSzeT4Nu0Tk9+EovwqyZ2retFHuzt8xjER482W6RXYpNqjq8bcZZ0s/odNQP7RoDLuDnAvB7WvC3SSJNEPmgQlfB3kvSrY5Yvh83f88IaNBXjBmy2IPMoczQUUPVI2tIhD/EpO0C1stbhqe2i9KMlUtxqK6pXH0sc+OkEwbepkkMfGUwcFF0d1oOzwb7XWBLe/XJAtnr4LaKY0XG0KLWMyeUiC1rMMjIPNsxCGu38EEIXpbnK0uvleUWZjF2XMmEWIV1FPus407U9XjkIL/JOMa5U3xBNzQGDEg==
+ b=SLN2rbNUtis+Ykym78u6YAEobyCvMdS61s2yqs8DGT+HvrxAXwDiOmR8ETz9IMVFHwC6D5Ki9pxJeFxgabwpoqNBpXPsfuxNlFXGHrfKHkQudcpmKP2/IcWfH7ftKfUmVXqeD5kthz2/+QMzk77OrE2VA10nDGmqp9JSHOY1YwskQAwiHV15JiFKs9vulsTemCW9oUdy78o/0XfkI0/CI3qj84mJ35yLXxzLMNmWsp7N05qALKUxke3fbEPFNB97Wpa9cOogXn7uCQ/DIR/Zre6OE+B/1kDnddcVeU63QtprsRrV7nssogGlf6/Mg0KaAD1qtL3H6+NYtMkBblf8qA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hzXDFAO5ciI9fQkBPbkipsO2Tmwwixorcpngg+TA/EQ=;
- b=V/gFiWG2dvVlYvcjXgKEPhxffbAezvwZKw27FACKR1cgUS/xegSrXbbtX9gJY94We8Ef4zJxdRUuuLRWW29t2/q3ruNGP4LOgHG3HNGDl5MxvrAxCcYaMGQm9O+QPc05oyCUat0U56Yv3q+7CihKoabrfrxcr5ikMGypVvIlsWCBHz7+qJI2HyJHrwmCnXMc9QXjRIIXb77FwjF/luSqwNpn8Z5aVRPFOMuOxF/YnP9rgVLbq+08bFRHc4tv4fU8dLxLum8JuAvGkvKt0AaXQsXtVzsaMYoAzZKFlpI+hExcNQs1rT9HjiI+F+gm3Wk75XIdNQRbQHgnZpc3Wwo8ew==
+ bh=bE4SgQAUdQF91WsypW+l+offBmkMelKlISPZQlSI14E=;
+ b=KTBnejFl8mT9LFR+0ppjIMuFB3P88RTNHgCNfijyrF1cTS8zEqiw0rJ1WMCjnaqCVWRZqz+uIXrai6jQbRWkPXuJJWiRj/a0IFI1VDeckMvvFplyK1vaWRwL01CGFnulmIqlBy85ShN/biS6dtTo6+GuVoFPZ1Pv6Jr82GLhSWR0lUcy/IC5fpbKOdb2B6cZ1j8nFT6aXMnJPxmLUyP0EtkPJiByQHgXQBaFddI8TDn7Y9nBY/h+sTn3BTCKwypxZgBzKM0P56LlXhK5XsUUaDOUFYek3A6R1SloxiJUDvpCf+CX1eRMvDYAl4fbzyepEK73t73660nJuIR3b+n8rw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hzXDFAO5ciI9fQkBPbkipsO2Tmwwixorcpngg+TA/EQ=;
- b=v/PjwRmql0EcSAcLiZ4k/4W+AwUSr7zFJnI6XYwtWD10PBt4qJZntEU8UjbwSeHPT9o0qXSfE3w4EdYrVynlEjlSwRBzemj1KcvlmT0uDn6cT5BgwPeYp1vt3ZyBAt8Zof17tchry4PxRrts6C9eevOSC8vhbf7uXSJvfOJFYkU=
-Authentication-Results: dkim=none (message not signed)
+ bh=bE4SgQAUdQF91WsypW+l+offBmkMelKlISPZQlSI14E=;
+ b=FllxGBd7zolQQNapTSQmj0eGU+POklmBnjPf/vnvVOf8OT6rP1swALBdb5Gtlu/uSXFIhrEZ/43uTjZBhjP9YyaXnpr1N5I8lMOx2C4rKocBQxvWdJh9qg4Iyy9uYkukPcEK/C3+m1S9e4gPso5/dDSMTde4yCo7j0KWs65jioI=
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
+ DM6PR12MB4092.namprd12.prod.outlook.com (2603:10b6:5:214::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5227.21; Wed, 11 May 2022 08:42:26 +0000
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::9c68:a1fd:1445:49ad]) by DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::9c68:a1fd:1445:49ad%6]) with mapi id 15.20.5227.023; Wed, 11 May 2022
+ 08:42:26 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kL3BtOiBhZGQgc211IHBvd2VyX2xpbWl0?=
+ =?gb2312?B?IGNhbGxiYWNrIGZvciBzbXVfdjEzXzBfNw==?=
+Thread-Topic: [PATCH] drm/amd/pm: add smu power_limit callback for smu_v13_0_7
+Thread-Index: AQHYZQT40ZONK5cdokK63mp0E8E7wq0ZW9ug
+Date: Wed, 11 May 2022 08:42:26 +0000
+Message-ID: <DM4PR12MB5165352C5D7E0F98C7839F048EC89@DM4PR12MB5165.namprd12.prod.outlook.com>
+References: <20220511070121.809540-1-KevinYang.Wang@amd.com>
+In-Reply-To: <20220511070121.809540-1-KevinYang.Wang@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-11T08:41:46.2449999Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
+authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1943.namprd12.prod.outlook.com (2603:10b6:903:11b::7)
- by BN8PR12MB2851.namprd12.prod.outlook.com (2603:10b6:408:9f::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Wed, 11 May
- 2022 08:14:40 +0000
-Received: from CY4PR12MB1943.namprd12.prod.outlook.com
- ([fe80::bc8d:b8b1:ae83:788a]) by CY4PR12MB1943.namprd12.prod.outlook.com
- ([fe80::bc8d:b8b1:ae83:788a%9]) with mapi id 15.20.5227.023; Wed, 11 May 2022
- 08:14:39 +0000
-Message-ID: <d6d67602-bba4-c628-119b-2c6c8457ea00@amd.com>
-Date: Wed, 11 May 2022 13:44:29 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amd/pm: support ss metrics read for smu11
-Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220511072150.1595528-1-sathishkumar.sundararaju@amd.com>
- <d96e2bca-891f-57e5-2b2a-91959590ee15@amd.com>
-From: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>
-In-Reply-To: <d96e2bca-891f-57e5-2b2a-91959590ee15@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN0PR01CA0021.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4e::6) To CY4PR12MB1943.namprd12.prod.outlook.com
- (2603:10b6:903:11b::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4a6bdc58-180f-45b4-c305-08da33264ae9
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2851:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB2851C7F54A4B1B5BAB76406C9DC89@BN8PR12MB2851.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RspmfR9YaSZP0jVn4NqSqwhm1ve/faPRe4/WUj1e8Qq/pJY+ZnyWI/TjCNHnZhyCppkloIqBvgKMP2EZnVFgaURk2yAr8HJNS4qb8bg1VpMpXndW+AySSOxIM3IhoW9KGq2wr/1A7gt+fCOotBj0LpGZLCWUSyAM3ejd7ojc7hn3p8F8rCH7se35vAqxAX5e8Sh3jbUWnAtAGCLqYYH7TJ8G4Weu+aBxhRwNAJxVNR0yrX4Flkv/53x2CDcPeP977JH4sa3hL2v2v4jmxJfAqH2RWpPbsj7YLck1nAYN85sdI6RFcgtODo9OsSHx+2Gi6U3P5V1OL7rwKbfsZ++ACNJgcTHOzVNSPiTDyyaa3tqGE1TDI5B4l38kb1qsN9dUijgLnQ+Q+kGpKLHnseMqiEQjxDIemVvnuZemBaALbAyMOvn2X6ZkPuzLdgb6FyiUG78+AlLfGdqhjkaQUelFm+P+BjhRBfS3cwpHz6L9KviIoei1X5cBTTHLFrB8y3xqdHQn0+PyMiOOu52BJkEm7PMhlwjwSM4X7eDluWv8EXLWUQ2UZC97/Clx4IhSdfRGJwOOrIKJT+5253O6doYoBa4Rons2WY4Zh4VYEgEiO3yH8TgVwsrDVs/ptE+TOJFKgGJcT+8QIOJyGDuvXy8MiKLnpaw5pMwA46PbmnwAEj23zKmnAaOw/02qjFbXjtD2bizYQbpD7QrOJppuNr8CxY8RrmI9jaRFNXGfp/60Ak4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1943.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(30864003)(86362001)(66476007)(316002)(4326008)(66556008)(6512007)(31696002)(2616005)(8936002)(186003)(8676002)(26005)(5660300002)(83380400001)(508600001)(6486002)(38100700002)(2906002)(36756003)(31686004)(53546011)(6506007)(6666004)(43740500002)(45980500001);
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a888f775-471a-4ed1-90e8-08da332a2d13
+x-ms-traffictypediagnostic: DM6PR12MB4092:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB409214290324EED5080846338EC89@DM6PR12MB4092.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: xAU4KQhL55NSKP9f4FIOjBk9QDdVE8/6wtGCnz9IIBwixvwbiTTShHoFCvKUcyer8VuHDtxn2he6Edc6a20ittSk43DAhtuovmBsnDoFHu0ycGEzinbA0D7TQ4VieWN2zSRMk4P8sJtiXlRRi4+2HTiMiZHateVjRGnyOFWMcQPdyMkJc5pU7ZkHgNlPgJx0iEuNqkqcY0JywsgGx2HziowzIp+q1rSChv0eLRB7y3Xof5Uj/5oPgGD1Vz5ZAXotp6yG0gMRXD0sszLC1zAYSFu86JTYCy/sMETg5mt8Oiir0dfZJwKkScTZepgzQK3ByDWzvkzzvFFFK3q88BARIPeWKfMGMSLW/03i/0dVoD+yxV76RfSAHHEsQUKkFd9pnsR/4/rPA1DATiL0PiDQqtiJmoC7zNvvywp4Vu5sUnWRuG0tTKAd0fGcrmCZHWJNR4+7J5kqXfSKs0hM/0zrq2+C+G8AHpR24uDrPUg4s9+ipCuRkUbUjR71CN2KBG+AJn+HkzUDISxUqPoYOScsxbqT5CkGfwbMX6Zhf4/+RRNyx6czY272tjVLJLyPB8l1BQYUce6JkRlEgpnn43w9PwVbcIvdOaPOCGiz7duQ5SXIEo08X/t62bq7fb9d8uZT/FyShMwu5dD/Vf1vFS1aXv80CasCANINMxiglCZtxiGKbNDX5WIC4IrPe2WnhMa+idhoUe7BzYy/PJy+wCubzoKfEHnbRi5vEAoF+Ic4PMpTZsSxHeKmdJ1+TB6Kystg
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38070700005)(38100700002)(55016003)(9686003)(122000001)(26005)(66446008)(4326008)(224303003)(64756008)(186003)(76116006)(91956017)(316002)(110136005)(66946007)(66476007)(66556008)(5660300002)(2906002)(71200400001)(6506007)(86362001)(508600001)(7696005)(8936002)(33656002)(52536014)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHU1cXZhUlVjMktOTDB1NEt0Y0VYbW1MWnl4aE5rbUNKdmdZVTdqNWdBaXVm?=
- =?utf-8?B?Wm5zNDc4WC9Xd2dPTVVrNjhzY05rWnU3Y1V1S1NRR0dtbkVaMEV3RG9yM2VV?=
- =?utf-8?B?eDJFVFhOdWZ0Y0tIcHFPV21aZDVqUjNILy9jYVBnVmRzbXRPc2o2eVNtYlhS?=
- =?utf-8?B?b0pQdlJHZE05TW42ZzFCeEFkcWpBajNsL3hOUUZmUmRKaXlyZkNpN3RHVk95?=
- =?utf-8?B?a1RITHhIY0lIcWI2QUFrYk40Z2x6a0tzaUtPblk4cHlVQ3o5Mno4QklnN3lm?=
- =?utf-8?B?cGNjUHJtaUhnQ2MzM09yekxOWTdlOVFnWG9DV2JsVXFiVEIzUkRQbWRnNk95?=
- =?utf-8?B?ak1rRnhyVUIxWERVMGFHUlowa21CSUhPZTRQV0RNb3BtV3RnMXlZUEdrc3Nv?=
- =?utf-8?B?aGlZODhJY0VlRjJBSGVnZ1lIQjBhQUNVcWo2aENXK0dXQ2hmUzc3eTJXT0ww?=
- =?utf-8?B?M2UwVng5WnFHR1FXdXd1NkpOWEN5M1pUSEZ2eGdVUWg5SjIzTFRwdzRmTGlV?=
- =?utf-8?B?bXB5VWlyV2hQa3cvUVZEdGJYSlpvQ2VSWlhscjlVV1p1ZmF3SGxFOTI1MS9h?=
- =?utf-8?B?bzdrcEhmRDEvTkZrUDhEeW9GN2JmaHYrejFiVUU0TVlaL0xSQ2NxcW9SOW83?=
- =?utf-8?B?WUZRYVd6U1c3aFFwZ1pVNkpUUVpTTUFVWGpqdCtKVkhUYktYMk5rTFZOb0Jr?=
- =?utf-8?B?cXQva2dBS0M1bThxcWtidzRJZGJBYkRjZFh1cFJRQ01Ka0ptZm9CN0EwRzR1?=
- =?utf-8?B?eXMrL2l6djM0emx0cEx1eHpPSkJjbXFuQkt0bXQyQnJubWpWK002aFdlOElW?=
- =?utf-8?B?L3pYOEhtUW9rRUJ2R3JoNFplVVZ6Vkx1TFdhMjB5N2ROdUVEOS9BZy9RUUNa?=
- =?utf-8?B?ZVVCZVFNaFFwMWgzN3lpK3BMcGEvS3ZOeTNwaThqOEdXU2pFMDZqaDd2M3lQ?=
- =?utf-8?B?eCtkRVdRT3lMZEt1bzRvN3RJdENqeDdiTUp6NXRsT210dWhXT21UcXc4MG1E?=
- =?utf-8?B?dG9MdDR5VE11N0RmWjdrUkhxK0JSdzBNUDM4Z2VNd2xtMGcwYmFGUUFiNi90?=
- =?utf-8?B?bFVmVXhDZzBML1lrOGpIc1JsNUNLOGxWWlJ4dkZ1d0xVell5K0w3WmtyaTQ3?=
- =?utf-8?B?eFNON0dJd3RSb1hNWmlLNlZZTENmdEp5L2F0QnVDMEd5eUJ0MEtSd0RrRkhK?=
- =?utf-8?B?cW5LczBrUVpnRDB1SmRocFZYUHhLNHEvNkNUcDlLL3B1bXhRdCt4VHBOTXlx?=
- =?utf-8?B?alZ6WmJaYzI4MkZaYjVoOExlRkV3WjlFRkVUbVdSSnRwcjA0eDl4N3owRE00?=
- =?utf-8?B?VWl2eHh4SU9qMnZKbGFhR244Tkp3UVRNeFlJU2ppL1hMQjJKN2JUMWUyRjlY?=
- =?utf-8?B?VWZUQ09ha0NDVWZaOW9rN0JPb21XM25jZVY0NXNRR0gxVlBMdWdsTzJYNGQz?=
- =?utf-8?B?WFBqdUE0ZWxuK2RvM0liVmk1Ti9USXNOZzBtREFpUEkrNzBSb3RUdE5NRFZa?=
- =?utf-8?B?YkJhdXZWdzg4QmFQMkFYTlFvaWd4ZTc3MUFiZEU5Rmo4RVpzVSttZU5MbXky?=
- =?utf-8?B?U3hzb0xJWURxM2ZZR0xZdHlXT3J5M20yM2xoZXVLRDFlVHZ6a002MS8rZEZ6?=
- =?utf-8?B?ZExOQ3VkYkJWdzNTQUg3UzRHOXVzb2QxbWJHdEZSYVZXeVhwamNsS1pkZkJm?=
- =?utf-8?B?WFFQbW9LZmdTMDFNTzFlM2FndnUxV0h0UTcxOHRGODJQS0xKN21NQkx6YWRv?=
- =?utf-8?B?T0dvUDJvWVgwSjZHTmNSbTdaeHR6NW8zRFFKNk85aEgzNTNxbFdmaDQ4Rml5?=
- =?utf-8?B?Tnhhc250RnpvSHo5OEd1cnpvKzhheVkwRmlsQmVDcWVjS1NrcXdwK0tSTDY5?=
- =?utf-8?B?R3MxU0hqZW5XOVJkbVkxM0Vtb1dKRUVCUnhzUklqemFUSW9BbHRLbU5uUDU3?=
- =?utf-8?B?azUrcURoajQxcUYvbzAzREEwejNqTjIrcnlhaW1lU2pCZ2lpNFkwMHhHcFhO?=
- =?utf-8?B?cHpOSHc1REFGOEVpZU9OeGQ4RXpTemtLUklFaUd2a2dTWnNpT2VhWTZCbmZD?=
- =?utf-8?B?eThteXZUTkdYK3k3SXpsRkpJTzJ6aUFtMEZNbXhrNUZ3RWdJTUZrenlMMHdh?=
- =?utf-8?B?aG1id0NsaWVJN1V1WDJnelF6M2RrRC9EK05Oc0ovUFJPWjNEV3ZGcS9hRU9B?=
- =?utf-8?B?aWtQNUpNRW1UR0FyTnlic1ZSeU1kQWppa1A5TWx3c0kyMHpBTWh6Mk5GZGVV?=
- =?utf-8?B?ZXdCL3dwNlFNVXoxT251VFVkd2wvZS91d2NYNXNOQVdKRnI2b1hPTWpqMmhk?=
- =?utf-8?B?L1VQeG16QVJhOEVhWGhPQ2krZjY3b0lSbjVzZkhGQUg1L2huNDVkQT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?Z0JaUEZUU1FSN3N1VDJ1OEgxcUN6UmJ2YnJoREltY1ZsL1RwNDRJcEZDWGdX?=
+ =?gb2312?B?VWE1Q1B1UVRZSVVhazFJaEpobzVNMFF6cTlHYVF2dWJsdmc1WENNcEZ4em83?=
+ =?gb2312?B?aEVaNWlXbDh5cWk3d1FrcTJkTHBuNGp6VWgyeHRFemFKM2RPMHpuTEcxUEd6?=
+ =?gb2312?B?SVFuY3Z3SnBSSkRWeWw3UllXNGc5MmJSMFhwRGtHRzFTcC8wUmRJTXVMUjBq?=
+ =?gb2312?B?blovNnNMYm9vTmRtQk1nNGl4ekxpenhEc0lza1p0NE14dGZPakZieXlMVjMy?=
+ =?gb2312?B?TytrTTNTbTBmcnhHYWh5dVMxb1F4L0c0cG9iekZLZUNGR0pvaGQveXlVbElF?=
+ =?gb2312?B?WEZ3anE2aHdIOExXNjQ0VVpvaS9NLy9uOU9YUTRMbWs3eXJablprR3huOVBM?=
+ =?gb2312?B?TWg3Q0ZOcHhxYkdvamdVenBFbUFQNlY2c0lLZzdGV3FsR0hDTVNsMjFad3Ns?=
+ =?gb2312?B?a1hwdW5hZDZuNE9BRldqODlqQk9ERmxsNm9PcFkzMGVXdjFWSzVRR3RsL0l4?=
+ =?gb2312?B?TnFNUjg1ZXRETWNTSjRKRndBUGZtODJUcytZWFNlL3Q5WG82dFNpcU5LS0hJ?=
+ =?gb2312?B?MHcwaXI5YTg0L2hxdVVOS0ZabnkxQXFzMm05bWg5UWNlVXRYRGdSUm5JbE9a?=
+ =?gb2312?B?c094bUl2S0lvVzZOb29SNFNPQTgwdytQWElnM3o3T08zRnVIWndGMkZBcFFK?=
+ =?gb2312?B?NlZRUVpYOUVvM2syck0vSko4MUxWSHpWbTVXeUhPbGtyOW9RaWg3RkdKL3lE?=
+ =?gb2312?B?L3B4YmJ6eERIVlJXTHJZa0toV2tIODE5MnVhR1BqaWdYbWFzOE4yWnBDcVpI?=
+ =?gb2312?B?U3RqTTlzbEZ2WjFzbnZUT3c3amVuSFBUeHNLODJtUVFFaDdvdTNtSVE1N0Zv?=
+ =?gb2312?B?L0wrb3F1SERtUnNueTN6dmM4UjNiTzA0eEJlbEFMZWVFdmpwb1JXK0owMHdP?=
+ =?gb2312?B?QVhoNGQzK280OUg1eFhac3lIKzNERWNCQzhWY3drZXg4NHlVY3JLYlhRMEZD?=
+ =?gb2312?B?Q1JMV3lMOTZ0UnRBYUZySmpZZmk1bVFWb29FQWZILzI3akdkMEkyWlZmTVk1?=
+ =?gb2312?B?TTVzVCsxWUtEZkZZenBhcFVaU2Ryc1VFU0xiVW9BaFF2SUthSklZT05YYTZo?=
+ =?gb2312?B?TUNLa3IwbkQ1akhSSGtHYVZhRDRaTm1WMUtqSGRXdnQ4SE41QklSYzRIMVRp?=
+ =?gb2312?B?Z1kwUWR1RE9GbUp6bVNMeS9hRWNra2l3SlhDSnJ0c3R5Y1NMUHl4K3J1WFcr?=
+ =?gb2312?B?WStHTEFKVkVuUUpOdmtwR0s5V3NkTFJaU1dUZWpRWUw3Rzl6M1Y4a2U3WklB?=
+ =?gb2312?B?Y2x2VWtDc0llU3ozamw5M25DWlc5ZWh1eVZRSnJFSTN3UTd2UTF6ek9LdGJG?=
+ =?gb2312?B?TGVXekpKdXFMbXNiS0oxSGV2Mk1xQVRWZnBYcnRic211ZmFBZ1UxM1pMTldh?=
+ =?gb2312?B?L2svWWdqL3N5ZVdQSTVRTm9DVHMrSk1CSjhWNDF6ZVd5ZTQ2YWdEeGczUUlC?=
+ =?gb2312?B?RjZDaFRnZmdZWXQ2dVVxb3FPMGhmVHFDRFdSRjlRUDhTcmJQbDNKVk9lKytM?=
+ =?gb2312?B?enJUcXB2UGd4V2JnNFhQd1ZQcUM4MlJxMno5eGVzUjB4RUlBZmRMWlE5TUZx?=
+ =?gb2312?B?b2F1WTVmZHl3ZUhGbVYrd3pRWGkyQmp1eEQ0SExQeGliMFNBWGJiTzNPNHQ3?=
+ =?gb2312?B?ZG1SOFN1eFRHNU9UbTVONXp1SzBWdHpsU3l1bkgrcTY5V1pNQXpFZWdtR09T?=
+ =?gb2312?B?ckZvWkRQcmtVc0ZmbThKWWRVb1FiZ2lWRllrSEJpa1Z1cFRQc0Roc3NXRzlm?=
+ =?gb2312?B?UWRxZzlXNU9MS3B1WjdsdG5nRU1kZ3lKSGIrSExITnMwQU5pMTlpcXFpNDMw?=
+ =?gb2312?B?TkpraytxVisyVHFkd2JiYzdYdllDUmNYZDJNZUp1K2Q0bEU1TVczTmx4YWxY?=
+ =?gb2312?B?bmZRajh6UkNDSUVmT050c1pPZXJyYkxQUGUrTmk1YlhjWkJrOGVCQlVXMUcw?=
+ =?gb2312?B?cno5RElQR3Y1Z1NER0F6a2gyOGVpOHA2SG1DcE0wc1A1VTZld01JVUdhWFBm?=
+ =?gb2312?B?TFBmaFFkWWFiV0ZXekszSlE4ZmFVSnBJNTVHUzNtR0NNVlZyTXRjSGdsMy9p?=
+ =?gb2312?B?bk5Ycm9QRnpwNlFhNk9XOEFmV2tydy96Ymw5Rk83TUZOU0dydUl1dDlRMkJj?=
+ =?gb2312?B?QmFMOVllcnFNS0k4cyt3a0JkbklNbU5mYWxSQ214QlJwS0Q4ckNPNHBONVZo?=
+ =?gb2312?B?OUhaVFdRQVBkZ0ZWWlpjWkxRRHI1L0tsKzlKS2UvWlJhNVBVTGRHVmhNUDNt?=
+ =?gb2312?B?WXhQMVpTNm0rbm55V3h2NDVGUHc0VUVKZ1JickN0QXp6aklJaVlPZ0xYTWFv?=
+ =?gb2312?Q?XQZRhJ1eUsLQVMUY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB5165352C5D7E0F98C7839F048EC89DM4PR12MB5165namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6bdc58-180f-45b4-c305-08da33264ae9
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1943.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 08:14:38.9328 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xSbyoeORYSZCVTg69kO9oMAlnj1ffYEx68BczU+4cdWPvfjxrTB99GLAJm/DL2pCpVtP1LweFw21krF7QsVOQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2851
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a888f775-471a-4ed1-90e8-08da332a2d13
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2022 08:42:26.3934 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QFSlMKYbDAWXLx17MpM9O+nRfvwx7uX9IAYwkI+9eNUdJZl7+i18cHu6Bx+5VHWn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4092
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,354 +135,349 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM4PR12MB5165352C5D7E0F98C7839F048EC89DM4PR12MB5165namp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-On 5/11/2022 1:14 PM, Lazar, Lijo wrote:
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClJldmlld2VkLWJ5OiBLZW5uZXRo
+IEZlbmcgPGtlbm5ldGguZmVuZ0BhbWQuY29tPG1haWx0bzprZW5uZXRoLmZlbmdAYW1kLmNvbT4+
+DQoNCkJlc3Qgd2lzaGVzDQpLZW5uZXRoIEZlbmcNCg0KDQq3orz+yMs6IGFtZC1nZnggPGFtZC1n
+ZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+ILT6se0gWWFuZyBXYW5nIDxLZXZpbllh
+bmcuV2FuZ0BhbWQuY29tPg0KyNXG2jog0MfG2sj9LCAyMDIyxOo11MIxMcjVIDE1OjAxDQrK1bz+
+yMs6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZz4NCrOty806IFdhbmcsIFlhbmcoS2V2aW4pIDxLZXZpbllhbmcuV2FuZ0BhbWQuY29t
+Pg0K1vfM4jogW1BBVENIXSBkcm0vYW1kL3BtOiBhZGQgc211IHBvd2VyX2xpbWl0IGNhbGxiYWNr
+IGZvciBzbXVfdjEzXzBfNw0KW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQ0KDQotIGdldF9wb3dl
+cl9saW1pdA0KLSBzZXRfcG93ZXJfbGltaXQNCg0KYWRkIGFib3ZlIGNhbGxiYWNrIGZ1bmN0aW9u
+cyB0byBlbmFibGUgcG93ZXJfY2FwIGh3bW9uIG5vZGUuDQoNClNpZ25lZC1vZmYtYnk6IFlhbmcg
+V2FuZyA8S2V2aW5ZYW5nLldhbmdAYW1kLmNvbT4NCi0tLQ0KIC4uLi9kcm0vYW1kL3BtL3N3c211
+L3NtdTEzL3NtdV92MTNfMF83X3BwdC5jICB8IDM5ICsrKysrKysrKysrKysrKysrKysNCiAxIGZp
+bGUgY2hhbmdlZCwgMzkgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG0vc3dzbXUvc211MTMvc211X3YxM18wXzdfcHB0LmMNCmluZGV4IDdjOWUwYmE3YWI1
+MC4uNGUxODYxZmIyYzZhIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
+dS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9z
+d3NtdS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYw0KQEAgLTEzNjcsNiArMTM2Nyw0MyBAQCBzdGF0
+aWMgaW50IHNtdV92MTNfMF83X2VuYWJsZV9tZ3B1X2Zhbl9ib29zdChzdHJ1Y3Qgc211X2NvbnRl
+eHQgKnNtdSkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+TlVMTCk7DQogfQ0KDQorc3RhdGljIGludCBzbXVfdjEzXzBfN19nZXRfcG93ZXJfbGltaXQoc3Ry
+dWN0IHNtdV9jb250ZXh0ICpzbXUsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB1aW50MzJfdCAqY3VycmVudF9wb3dlcl9saW1pdCwNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHVpbnQzMl90ICpkZWZhdWx0X3Bvd2VyX2xpbWl0LA0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgKm1heF9wb3dlcl9saW1p
+dCkNCit7DQorICAgICAgIHN0cnVjdCBzbXVfdGFibGVfY29udGV4dCAqdGFibGVfY29udGV4dCA9
+ICZzbXUtPnNtdV90YWJsZTsNCisgICAgICAgc3RydWN0IHNtdV8xM18wXzdfcG93ZXJwbGF5X3Rh
+YmxlICpwb3dlcnBsYXlfdGFibGUgPQ0KKyAgICAgICAgICAgICAgIChzdHJ1Y3Qgc211XzEzXzBf
+N19wb3dlcnBsYXlfdGFibGUgKil0YWJsZV9jb250ZXh0LT5wb3dlcl9wbGF5X3RhYmxlOw0KKyAg
+ICAgICBQUFRhYmxlX3QgKnBwdGFibGUgPSB0YWJsZV9jb250ZXh0LT5kcml2ZXJfcHB0YWJsZTsN
+CisgICAgICAgU2t1VGFibGVfdCAqc2t1dGFibGUgPSAmcHB0YWJsZS0+U2t1VGFibGU7DQorICAg
+ICAgIHVpbnQzMl90IHBvd2VyX2xpbWl0LCBvZF9wZXJjZW50Ow0KKw0KKyAgICAgICBpZiAoc211
+X3YxM18wX2dldF9jdXJyZW50X3Bvd2VyX2xpbWl0KHNtdSwgJnBvd2VyX2xpbWl0KSkNCisgICAg
+ICAgICAgICAgICBwb3dlcl9saW1pdCA9IHNtdS0+YWRldi0+cG0uYWNfcG93ZXIgPw0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc2t1dGFibGUtPlNvY2tldFBvd2VyTGltaXRBY1tQUFRf
+VEhST1RUTEVSX1BQVDBdIDoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNrdXRhYmxl
+LT5Tb2NrZXRQb3dlckxpbWl0RGNbUFBUX1RIUk9UVExFUl9QUFQwXTsNCisNCisgICAgICAgaWYg
+KGN1cnJlbnRfcG93ZXJfbGltaXQpDQorICAgICAgICAgICAgICAgKmN1cnJlbnRfcG93ZXJfbGlt
+aXQgPSBwb3dlcl9saW1pdDsNCisgICAgICAgaWYgKGRlZmF1bHRfcG93ZXJfbGltaXQpDQorICAg
+ICAgICAgICAgICAgKmRlZmF1bHRfcG93ZXJfbGltaXQgPSBwb3dlcl9saW1pdDsNCisNCisgICAg
+ICAgaWYgKG1heF9wb3dlcl9saW1pdCkgew0KKyAgICAgICAgICAgICAgIGlmIChzbXUtPm9kX2Vu
+YWJsZWQpIHsNCisgICAgICAgICAgICAgICAgICAgICAgIG9kX3BlcmNlbnQgPSBsZTMyX3RvX2Nw
+dShwb3dlcnBsYXlfdGFibGUtPm92ZXJkcml2ZV90YWJsZS5tYXhbU01VXzEzXzBfN19PRFNFVFRJ
+TkdfUE9XRVJQRVJDRU5UQUdFXSk7DQorDQorICAgICAgICAgICAgICAgICAgICAgICBkZXZfZGJn
+KHNtdS0+YWRldi0+ZGV2LCAiT0RTRVRUSU5HX1BPV0VSUEVSQ0VOVEFHRTogJWQgKGRlZmF1bHQ6
+ICVkKVxuIiwgb2RfcGVyY2VudCwgcG93ZXJfbGltaXQpOw0KKw0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgcG93ZXJfbGltaXQgKj0gKDEwMCArIG9kX3BlcmNlbnQpOw0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgcG93ZXJfbGltaXQgLz0gMTAwOw0KKyAgICAgICAgICAgICAgIH0NCisgICAgICAg
+ICAgICAgICAqbWF4X3Bvd2VyX2xpbWl0ID0gcG93ZXJfbGltaXQ7DQorICAgICAgIH0NCisNCisg
+ICAgICAgcmV0dXJuIDA7DQorfQ0KKw0KIHN0YXRpYyBpbnQgc211X3YxM18wXzdfZ2V0X3Bvd2Vy
+X3Byb2ZpbGVfbW9kZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgY2hhciAqYnVmKQ0KIHsNCiAg
+ICAgICAgRHBtQWN0aXZpdHlNb25pdG9yQ29lZmZJbnRFeHRlcm5hbF90IGFjdGl2aXR5X21vbml0
+b3JfZXh0ZXJuYWxbUFBfU01DX1BPV0VSX1BST0ZJTEVfQ09VTlRdOw0KQEAgLTE1MzksNiArMTU3
+Niw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyBzbXVfdjEzXzBfN19wcHRf
+ZnVuY3MgPSB7DQogICAgICAgIC5nZXRfZmFuX2NvbnRyb2xfbW9kZSA9IHNtdV92MTNfMF9nZXRf
+ZmFuX2NvbnRyb2xfbW9kZSwNCiAgICAgICAgLnNldF9mYW5fY29udHJvbF9tb2RlID0gc211X3Yx
+M18wX3NldF9mYW5fY29udHJvbF9tb2RlLA0KICAgICAgICAuZW5hYmxlX21ncHVfZmFuX2Jvb3N0
+ID0gc211X3YxM18wXzdfZW5hYmxlX21ncHVfZmFuX2Jvb3N0LA0KKyAgICAgICAuZ2V0X3Bvd2Vy
+X2xpbWl0ID0gc211X3YxM18wXzdfZ2V0X3Bvd2VyX2xpbWl0LA0KKyAgICAgICAuc2V0X3Bvd2Vy
+X2xpbWl0ID0gc211X3YxM18wX3NldF9wb3dlcl9saW1pdCwNCiAgICAgICAgLmdldF9wb3dlcl9w
+cm9maWxlX21vZGUgPSBzbXVfdjEzXzBfN19nZXRfcG93ZXJfcHJvZmlsZV9tb2RlLA0KICAgICAg
+ICAuc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IHNtdV92MTNfMF83X3NldF9wb3dlcl9wcm9maWxl
+X21vZGUsDQogICAgICAgIC5zZXRfdG9vbF90YWJsZV9sb2NhdGlvbiA9IHNtdV92MTNfMF9zZXRf
+dG9vbF90YWJsZV9sb2NhdGlvbiwNCi0tDQoyLjI1LjENCg==
+
+--_000_DM4PR12MB5165352C5D7E0F98C7839F048EC89DM4PR12MB5165namp_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=CB=CE=CC=E5;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=CB=CE=CC=E5";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@=B5=C8=CF=DF";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:=CB=CE=CC=E5;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:DengXian;
+	color:windowtext;}
+span.searchhighlight
+	{mso-style-name:searchhighlight;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span class=3D"searchhighlight"><span lang=3D"EN-US"=
+ style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;,serif;co=
+lor:#070706;background:#FFEE94">Reviewed-by</span></span><span lang=3D"EN-U=
+S" style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;,serif;=
+color:black">:
+ Kenneth Feng &lt;</span><span lang=3D"EN-US" style=3D"color:black"><a href=
+=3D"mailto:kenneth.feng@amd.com" title=3D"mailto:kenneth.feng@amd.com"><spa=
+n style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;,serif;c=
+olor:#0078D4">kenneth.feng@amd.com</span></a></span><span lang=3D"EN-US" st=
+yle=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;,serif;color=
+:black">&gt;</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:DengXian"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Best wishes<o:p></o:p></span></=
+p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Kenneth Feng&nbsp;<o:p></o:p></=
+span></p>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:DengXian"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:DengXian"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"col=
+or:black">=B7=A2=BC=FE=C8=CB</span></b><b><span lang=3D"EN-US" style=3D"fon=
+t-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span lang=
+=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"=
+> amd-gfx
+ &lt;amd-gfx-bounces@lists.freedesktop.org&gt; </span><span style=3D"color:=
+black">=B4=FA=B1=ED</span><span lang=3D"EN-US" style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"> Yang Wang &lt;KevinYang.Wang@amd.com&=
+gt;<br>
+</span><b><span style=3D"color:black">=C8=D5=C6=DA</span></b><b><span lang=
+=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"=
+>:</span></b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,=
+sans-serif;color:black">
+</span><span style=3D"color:black">=D0=C7=C6=DA=C8=FD</span><span lang=3D"E=
+N-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">, 20=
+22</span><span style=3D"color:black">=C4=EA</span><span lang=3D"EN-US" styl=
+e=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">5</span><span =
+style=3D"color:black">=D4=C2</span><span lang=3D"EN-US" style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">11</span><span style=3D"color=
+:black">=C8=D5</span><span lang=3D"EN-US" style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black">
+ 15:01<br>
+</span><b><span style=3D"color:black">=CA=D5=BC=FE=C8=CB</span></b><b><span=
+ lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:b=
+lack">:</span></b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&q=
+uot;,sans-serif;color:black"> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lis=
+ts.freedesktop.org&gt;<br>
+</span><b><span style=3D"color:black">=B3=AD=CB=CD</span></b><b><span lang=
+=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"=
+>:</span></b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,=
+sans-serif;color:black"> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;<b=
+r>
+</span><b><span style=3D"color:black">=D6=F7=CC=E2</span></b><b><span lang=
+=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"=
+>:</span></b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,=
+sans-serif;color:black"> [PATCH] drm/amd/pm: add smu power_limit callback
+ for smu_v13_0_7<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
+style=3D"font-size:11.0pt">[CAUTION: External Email]<br>
+<br>
+- get_power_limit<br>
+- set_power_limit<br>
+<br>
+add above callback functions to enable power_cap hwmon node.<br>
+<br>
+Signed-off-by: Yang Wang &lt;KevinYang.Wang@amd.com&gt;<br>
+---<br>
+&nbsp;.../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c&nbsp; | 39 +++++++++++++=
+++++++<br>
+&nbsp;1 file changed, 39 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
+index 7c9e0ba7ab50..4e1861fb2c6a 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
+@@ -1367,6 +1367,43 @@ static int smu_v13_0_7_enable_mgpu_fan_boost(struct =
+smu_context *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL);<br>
+&nbsp;}<br>
+<br>
++static int smu_v13_0_7_get_power_limit(struct smu_context *smu,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u=
+int32_t *current_power_limit,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u=
+int32_t *default_power_limit,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u=
+int32_t *max_power_limit)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *table_conte=
+xt =3D &amp;smu-&gt;smu_table;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_7_powerplay_table *po=
+werplay_table =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (struct smu_13_0_7_powerplay_table *)table_context-&gt;power_pla=
+y_table;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D table_context-=
+&gt;driver_pptable;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SkuTable_t *skutable =3D &amp;pptable=
+-&gt;SkuTable;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t power_limit, od_percent;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_v13_0_get_current_power_limit=
+(smu, &amp;power_limit))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; power_limit =3D smu-&gt;adev-&gt;pm.ac_power ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; skutable-&gt;SocketPowerLimitAc[PPT_THROTTLER_PPT0] :<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; skutable-&gt;SocketPowerLimitDc[PPT_THROTTLER_PPT0];<br=
 >
->
-> On 5/11/2022 12:51 PM, Sathishkumar S wrote:
->> support reading smartshift apu and dgpu power for smu11 based asic
->>
->> v2: add new version of SmuMetrics and make calculation more readable 
->> (Lijo)
->> v3: avoid calculations that result in -ve values and skip related checks
->> v4: use the current power limit on dGPU and exclude smu 11_0_7 (Lijo)
->>
->> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>   .../pmfw_if/smu11_driver_if_sienna_cichlid.h  |  63 +++++++
->>   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 161 ++++++++++++++----
->>   2 files changed, 187 insertions(+), 37 deletions(-)
->>
->> diff --git 
->> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h 
->> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h 
->>
->> index 08f0bb2af5d2..280d42778f28 100644
->> --- 
->> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
->> +++ 
->> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
->> @@ -1540,11 +1540,74 @@ typedef struct {
->>     } SmuMetrics_V3_t;
->>   +typedef struct {
->> +    uint32_t CurrClock[PPCLK_COUNT];
->> +
->> +    uint16_t AverageGfxclkFrequencyPreDs;
->> +    uint16_t AverageGfxclkFrequencyPostDs;
->> +    uint16_t AverageFclkFrequencyPreDs;
->> +    uint16_t AverageFclkFrequencyPostDs;
->> +    uint16_t AverageUclkFrequencyPreDs;
->> +    uint16_t AverageUclkFrequencyPostDs;
->> +
->> +
->> +    uint16_t AverageGfxActivity;
->> +    uint16_t AverageUclkActivity;
->> +    uint8_t  CurrSocVoltageOffset;
->> +    uint8_t  CurrGfxVoltageOffset;
->> +    uint8_t  CurrMemVidOffset;
->> +    uint8_t  Padding8;
->> +    uint16_t AverageSocketPower;
->> +    uint16_t TemperatureEdge;
->> +    uint16_t TemperatureHotspot;
->> +    uint16_t TemperatureMem;
->> +    uint16_t TemperatureVrGfx;
->> +    uint16_t TemperatureVrMem0;
->> +    uint16_t TemperatureVrMem1;
->> +    uint16_t TemperatureVrSoc;
->> +    uint16_t TemperatureLiquid0;
->> +    uint16_t TemperatureLiquid1;
->> +    uint16_t TemperaturePlx;
->> +    uint16_t Padding16;
->> +    uint32_t AccCnt;
->> +    uint8_t  ThrottlingPercentage[THROTTLER_COUNT];
->> +
->> +
->> +    uint8_t  LinkDpmLevel;
->> +    uint8_t  CurrFanPwm;
->> +    uint16_t CurrFanSpeed;
->> +
->> +    //BACO metrics, PMFW-1721
->> +    //metrics for D3hot entry/exit and driver ARM msgs
->> +    uint8_t D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
->> +    uint8_t D3HotExitCountPerMode[D3HOT_SEQUENCE_COUNT];
->> +    uint8_t ArmMsgReceivedCountPerMode[D3HOT_SEQUENCE_COUNT];
->> +
->> +    //PMFW-4362
->> +    uint32_t EnergyAccumulator;
->> +    uint16_t AverageVclk0Frequency;
->> +    uint16_t AverageDclk0Frequency;
->> +    uint16_t AverageVclk1Frequency;
->> +    uint16_t AverageDclk1Frequency;
->> +    uint16_t VcnUsagePercentage0;
->> +    uint16_t VcnUsagePercentage1;
->> +    uint8_t  PcieRate;
->> +    uint8_t  PcieWidth;
->> +    uint16_t AverageGfxclkFrequencyTarget;
->> +
->> +    uint8_t  ApuSTAPMSmartShiftLimit;
->> +    uint8_t  AverageApuSocketPower;
->> +    uint8_t  ApuSTAPMLimit;
->> +    uint8_t  Padding8_2;
->> +
->> +} SmuMetrics_V4_t;
->> +
->>   typedef struct {
->>     union {
->>       SmuMetrics_t SmuMetrics;
->>       SmuMetrics_V2_t SmuMetrics_V2;
->>       SmuMetrics_V3_t SmuMetrics_V3;
->> +    SmuMetrics_V4_t SmuMetrics_V4;
->
-> I see some extra indentation here <Thunderbird>.
-I used tab and the current code here is using 4 spaces, will match it to 
-existing code.
->
->>     };
->>     uint32_t Spare[1];
->>   diff --git 
->> a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c 
->> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->> index 86ab276b6b0b..503439754f08 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->> @@ -585,6 +585,102 @@ static uint32_t 
->> sienna_cichlid_get_throttler_status_locked(struct smu_context *s
->>       return throttler_status;
->>   }
->>   +static int sienna_cichlid_get_power_limit(struct smu_context *smu,
->> +                      uint32_t *current_power_limit,
->> +                      uint32_t *default_power_limit,
->> +                      uint32_t *max_power_limit)
->> +{
->> +    struct smu_11_0_7_powerplay_table *powerplay_table =
->> +        (struct smu_11_0_7_powerplay_table 
->> *)smu->smu_table.power_play_table;
->> +    uint32_t power_limit, od_percent;
->> +    uint16_t *table_member;
->> +
->> +    GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
->> +
->> +    if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
->> +        power_limit =
->> +            table_member[PPT_THROTTLER_PPT0];
->> +    }
->> +
->> +    if (current_power_limit)
->> +        *current_power_limit = power_limit;
->> +    if (default_power_limit)
->> +        *default_power_limit = power_limit;
->> +
->> +    if (max_power_limit) {
->> +        if (smu->od_enabled) {
->> +            od_percent =
->> + le32_to_cpu(powerplay_table->overdrive_table.max[
->> + SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
->> +
->> +            dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d 
->> (default: %d)\n",
->> +                    od_percent, power_limit);
->> +
->> +            power_limit *= (100 + od_percent);
->> +            power_limit /= 100;
->> +        }
->> +        *max_power_limit = power_limit;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static void sienna_cichlid_get_smartshift_power_percentage(struct 
->> smu_context *smu,
->> +                    uint32_t *apu_percent,
->> +                    uint32_t *dgpu_percent)
->> +{
->> +    struct smu_table_context *smu_table = &smu->smu_table;
->> +    SmuMetrics_V4_t *metrics_v4 =
->> +        &(((SmuMetricsExternal_t 
->> *)(smu_table->metrics_table))->SmuMetrics_V4);
->> +    uint16_t *table_member;
->> +    uint16_t powerRatio = 0;
->> +    uint16_t apu_power_limit = 0;
->> +    uint16_t dgpu_power_limit = 0;
->> +    uint32_t apu_boost = 0;
->> +    uint32_t dgpu_boost = 0;
->> +    uint32_t cur_power_limit;
->> +
->> +    sienna_cichlid_get_power_limit(smu, &cur_power_limit, NULL, NULL);
->> +    if (metrics_v4->ApuSTAPMSmartShiftLimit != 0) {
->> +        GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
->
-> This is not required now.
-Missed to remove this, will remove it.
->
->> +        apu_power_limit = metrics_v4->ApuSTAPMLimit;
->> +        dgpu_power_limit = cur_power_limit;
->> +        powerRatio = (((apu_power_limit +
->> +                          dgpu_power_limit) * 100) /
->> + metrics_v4->ApuSTAPMSmartShiftLimit);
->> +        if (powerRatio > 100) {
->> +            apu_power_limit = (apu_power_limit * 100) /
->> +                                     powerRatio;
->> +            dgpu_power_limit = (dgpu_power_limit * 100) /
->> +                                      powerRatio;
->> +        }
->> +        if (metrics_v4->AverageApuSocketPower > apu_power_limit &&
->> +             apu_power_limit != 0) {
->> +            apu_boost = ((metrics_v4->AverageApuSocketPower -
->> +                            apu_power_limit) * 100) /
->> +                            apu_power_limit;
->> +            if (apu_boost > 100)
->> +                apu_boost = 100;
->> +        }
->> +
->> +        if (metrics_v4->AverageSocketPower > dgpu_power_limit &&
->> +             dgpu_power_limit != 0) {
->> +            dgpu_boost = ((metrics_v4->AverageSocketPower -
->> +                             dgpu_power_limit) * 100) /
->> +                             dgpu_power_limit;
->> +            if (dgpu_boost > 100)
->> +                dgpu_boost = 100;
->> +        }
->> +
->> +        if (dgpu_boost >= apu_boost)
->> +            apu_boost = 0;
->> +        else
->> +            dgpu_boost = 0;
->> +    }
->> +    *apu_percent = apu_boost;
->> +    *dgpu_percent = dgpu_boost;
->> +}
->> +
->>   static int sienna_cichlid_get_smu_metrics_data(struct smu_context 
->> *smu,
->>                              MetricsMember_t member,
->>                              uint32_t *value)
->> @@ -600,6 +696,8 @@ static int 
->> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
->>       bool use_metrics_v3 = false;
->>       uint16_t average_gfx_activity;
->>       int ret = 0;
->> +    uint32_t apu_percent = 0;
->> +    uint32_t dgpu_percent = 0;
->>         if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 
->> 7)) &&
->>           (smu->smc_fw_version >= 0x3A4900))
->> @@ -738,6 +836,15 @@ static int 
->> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
->>           /* Only supported in 0x3A5300+, metrics_v3 requires 
->> 0x3A4900+ */
->>           *value = use_metrics_v3 ? 
->> metrics_v3->PublicSerialNumLower32 : 0;
->>           break;
->> +    case METRICS_SS_APU_SHARE:
->> +        sienna_cichlid_get_smartshift_power_percentage(smu, 
->> &apu_percent, &dgpu_percent);
->> +        *value = apu_percent;
->> +        break;
->> +    case METRICS_SS_DGPU_SHARE:
->> +        sienna_cichlid_get_smartshift_power_percentage(smu, 
->> &apu_percent, &dgpu_percent);
->> +        *value = dgpu_percent;
->> +        break;
->> +
->>       default:
->>           *value = UINT_MAX;
->>           break;
->> @@ -1728,6 +1835,7 @@ static int sienna_cichlid_read_sensor(struct 
->> smu_context *smu,
->>   {
->>       int ret = 0;
->>       uint16_t *temp;
->> +    struct amdgpu_device *adev = smu->adev;
->>         if(!data || !size)
->>           return -EINVAL;
->> @@ -1788,6 +1896,22 @@ static int sienna_cichlid_read_sensor(struct 
->> smu_context *smu,
->>           ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
->>           *size = 4;
->>           break;
->> +    case AMDGPU_PP_SENSOR_SS_APU_SHARE:
->> +        if (adev->ip_versions[MP1_HWIP][0] != IP_VERSION(11, 0, 7)) {
->> +            ret = sienna_cichlid_get_smu_metrics_data(smu,
->> +                        METRICS_SS_APU_SHARE, (uint32_t *)data);
->> +            *size = 4;
->> +        } else
->> +            ret = -EOPNOTSUPP;
->
-> Matching braces required here and in below else case.
-Okay, will update it.
->
-> With those changes:
->
->     Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Thank you, will fix the changes mentioned.
->
-> Thanks,
-> Lijo
->
->> +        break;
->> +    case AMDGPU_PP_SENSOR_SS_DGPU_SHARE:
->> +        if (adev->ip_versions[MP1_HWIP][0] != IP_VERSION(11, 0, 7)) {
->> +            ret = sienna_cichlid_get_smu_metrics_data(smu,
->> +                        METRICS_SS_DGPU_SHARE, (uint32_t *)data);
->> +            *size = 4;
->> +        } else
->> +            ret = -EOPNOTSUPP;
->> +        break;
->>       default:
->>           ret = -EOPNOTSUPP;
->>           break;
->> @@ -1907,43 +2031,6 @@ static int 
->> sienna_cichlid_display_disable_memory_clock_switch(struct smu_context
->>       return ret;
->>   }
->>   -static int sienna_cichlid_get_power_limit(struct smu_context *smu,
->> -                      uint32_t *current_power_limit,
->> -                      uint32_t *default_power_limit,
->> -                      uint32_t *max_power_limit)
->> -{
->> -    struct smu_11_0_7_powerplay_table *powerplay_table =
->> -        (struct smu_11_0_7_powerplay_table 
->> *)smu->smu_table.power_play_table;
->> -    uint32_t power_limit, od_percent;
->> -    uint16_t *table_member;
->> -
->> -    GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
->> -
->> -    if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
->> -        power_limit =
->> -            table_member[PPT_THROTTLER_PPT0];
->> -    }
->> -
->> -    if (current_power_limit)
->> -        *current_power_limit = power_limit;
->> -    if (default_power_limit)
->> -        *default_power_limit = power_limit;
->> -
->> -    if (max_power_limit) {
->> -        if (smu->od_enabled) {
->> -            od_percent = 
->> le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
->> -
->> -            dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d 
->> (default: %d)\n", od_percent, power_limit);
->> -
->> -            power_limit *= (100 + od_percent);
->> -            power_limit /= 100;
->> -        }
->> -        *max_power_limit = power_limit;
->> -    }
->> -
->> -    return 0;
->> -}
->> -
->>   static int sienna_cichlid_update_pcie_parameters(struct smu_context 
->> *smu,
->>                        uint32_t pcie_gen_cap,
->>                        uint32_t pcie_width_cap)
->>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (current_power_limit)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *current_power_limit =3D power_limit;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (default_power_limit)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *default_power_limit =3D power_limit;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (max_power_limit) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (smu-&gt;od_enabled) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; od_percent =3D l=
+e32_to_cpu(powerplay_table-&gt;overdrive_table.max[SMU_13_0_7_ODSETTING_POW=
+ERPERCENTAGE]);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_dbg(smu-&gt;=
+adev-&gt;dev, &quot;ODSETTING_POWERPERCENTAGE: %d (default: %d)\n&quot;, od=
+_percent, power_limit);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power_limit *=3D=
+ (100 + od_percent);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power_limit /=3D=
+ 100;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *max_power_limit =3D power_limit;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
++}<br>
++<br>
+&nbsp;static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu=
+, char *buf)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DpmActivityMonitorCoeffIntExtern=
+al_t activity_monitor_external[PP_SMC_POWER_PROFILE_COUNT];<br>
+@@ -1539,6 +1576,8 @@ static const struct pptable_funcs smu_v13_0_7_ppt_fun=
+cs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fan_control_mode =3D smu_v1=
+3_0_get_fan_control_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_control_mode =3D smu_v1=
+3_0_set_fan_control_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .enable_mgpu_fan_boost =3D smu_v=
+13_0_7_enable_mgpu_fan_boost,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_power_limit =3D smu_v13_0_7_get_=
+power_limit,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_power_limit =3D smu_v13_0_set_po=
+wer_limit,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_power_profile_mode =3D smu_=
+v13_0_7_get_power_profile_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_power_profile_mode =3D smu_=
+v13_0_7_set_power_profile_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_tool_table_location =3D smu=
+_v13_0_set_tool_table_location,<br>
+--<br>
+2.25.1<o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB5165352C5D7E0F98C7839F048EC89DM4PR12MB5165namp_--
