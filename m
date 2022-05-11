@@ -4,58 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D769C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 18:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50D24C43217
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 19:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDFE8112B0C;
-	Wed, 11 May 2022 18:55:40 +0000 (UTC)
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8040B112B0C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 18:55:39 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id a19so2357835pgw.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 11:55:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QAXDDFT+lUDKcnpv0sfgQht6JfxGaKiFTGg0wIMuYao=;
- b=p57FRSg+f7WwsbPv6TtzV7tGMzIk0Z7c70scx5l/gxWFecwJyekiJMi3iaL2nPO2Ct
- imtstc9j23VGiiMxBclTZvhgVudWWzNkjQRDZQiofSctW9YYunC9cm+8VuT0HtRri1wC
- J6AISVbckSAzJ0mkO74sBnErvnpDf1Ke2dB+5QeYJnszWx1nE2Hs85HHmf080y4R9OLJ
- 8tNlKsbh+uze1hM2gCdNossveb5NIp6ochKTj4fQTRCYnztYCCSCSSIex8PkQfeQoh8R
- NWBR277WBKE+qJ5qJtNVK+RzDbHXIfDxhw+couRCCI19Cr+whLnDO97TEIDxg7gKkcY1
- mfSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QAXDDFT+lUDKcnpv0sfgQht6JfxGaKiFTGg0wIMuYao=;
- b=xEwLcmXdWre4j/C9tUfgQxokDpurGhvLOXpwg58U98nO/BjXFhSehWX4HslIAbzvqB
- LpCQgCPavheo/bFQjFHUvlm0O+CwcR9Fz8qyszOk5yRF5c3Zj9xG3mbgXTcnKiegeZ2/
- mz2WCfKtI4tbQuyTo6rO6Ln5V3GBSkQF6D8gR4X6EQrCQokpRpbx9ENsdi2Ku+PDgu/k
- cF4jvoQA9fp9hycXxZv0qJSuA36MFg/cyxF6nfhcQqfJSr3lW7plZbhgSpP/fWmKz9Qe
- OWie8Si6W11zQKXXd3/XVvAShVz9yqnjTD1RxPVi0Hd218fch2vQH9+ZURQjoqWJs5WS
- i5aw==
-X-Gm-Message-State: AOAM532+bMEw/GkatpUJoyj25O78wKR0ogBZiKxWYpvUHfMPHefSW5Wx
- +Pb/KgvOMZwgj4G7U83zgHDgNOY2sXCGgRFbovY=
-X-Google-Smtp-Source: ABdhPJxJg5aEzwsp8QevrJsZeMCDdTz9czbBTFPnj6FklFjFRrHc/1sw8QcD35h0Z9gkLg1C3N3RVLl4QIqKH43Xlrg=
-X-Received: by 2002:a63:9a11:0:b0:3a3:3a8a:1006 with SMTP id
- o17-20020a639a11000000b003a33a8a1006mr21882051pge.116.1652295339078; Wed, 11
- May 2022 11:55:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABE86112B30;
+	Wed, 11 May 2022 19:07:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 840EE112AA8;
+ Wed, 11 May 2022 18:50:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A16rpWhIJbaWfx2EPe4EmWFiXlxYiYyD6yuCdYCEztCdAv/a8YClUpKDyvFO9tMeBEgRAIt36OQRl8NTRZ+4bClf/aepr1ZZwS0fgF2h34d0yMI8WkIJcaDJmxtsKHON8LV7yirDbYExcQ8Hj4MsbWH1o4fEYlMInPbAkrLn+onGd4WciHEP3pY8/yF6Q6/iMw5IJbpWoE17Wjwk+3sylpQOU3ALhu6wcVARTjCsGCySXaWDbCFS9n2KeIN8zhf1SOdMrlrzMR0kGHAvWYGDBnvgKWIUtabi42Qz8Czjsk6URE6Q1OV8ITUBPQmwUUZb+NuEwjEp5RWeYKhHERqImw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1g0FPoddCsx+E8iv8Wi5XQ+yXn1cAKoxCA2KD2pkSIQ=;
+ b=JPwJybf18e9EbTB0f+OXIvIwj8Ob+H3hGzfO1blKjN69LXt2Yhfvq2U/zYlrTXVSQcL0RCyfQ1Q8VrmU95QFuAeg5SP2eSG4iMd/ZQDOG8XyCt/zybyHeTSqkmgPcegyQ1OxLK7HNLnalDggULdPSZuYizMqXu3KR5fyVhA392wsuqilFDm9oSJ4euwrf6fjxGPFQQFTifRcS9guQm5T/t5sDt5T/3keo6EbhbEwilkNNxKwyi5Z8e/arzVIy69P2XmrY1Ir57pis40Nnv+9VZf5rvn1vUY1mHHsbKL9Qd7Rljv/vSAh69YJFQvza2T18MTrK544e7un1UmHnqXAAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1g0FPoddCsx+E8iv8Wi5XQ+yXn1cAKoxCA2KD2pkSIQ=;
+ b=Xk9jKwnGYLTbEmCCnJHVYxkzzBjB2xQTxn1+KBtUyTh6b0BBxfG2IpWb7t9hiiXT9c08b6PRbeKgaYIyKQSidB4afaz06tYoY+mSBSDOd9oKX7d+gfKfZU2SvgDf25f+ENg9gcSJe7sgLas8IWAWc7kf0RRLJCdZcpweYltGilUbVRm+W0t1dWa30MrQoeBG4mt8NdJJAY2EIBUi9WahwU95jVSqiHnMH85oKmW37Jr+Pcq96sAPjcGcmhk2yNnVzCykVYhVP/04F0zK168lhfWpNfuMRHMpYmCCpeF3xMe7TZgJSQHCSmPWVTa2Wzt2zx5IEL0za2ALiprgIBVgSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
+ by BN8PR12MB3281.namprd12.prod.outlook.com (2603:10b6:408:6e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Wed, 11 May
+ 2022 18:50:13 +0000
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::ec2d:9167:1b47:2db2]) by MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::ec2d:9167:1b47:2db2%5]) with mapi id 15.20.5250.013; Wed, 11 May 2022
+ 18:50:13 +0000
+Date: Wed, 11 May 2022 15:50:12 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alex Sierra <alex.sierra@amd.com>
+Subject: Re: [PATCH v1 13/15] mm: handling Non-LRU pages returned by
+ vm_normal_pages
+Message-ID: <20220511185012.GM49344@nvidia.com>
+References: <20220505213438.25064-1-alex.sierra@amd.com>
+ <20220505213438.25064-14-alex.sierra@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220505213438.25064-14-alex.sierra@amd.com>
+X-ClientProxiedBy: BL0PR05CA0029.namprd05.prod.outlook.com
+ (2603:10b6:208:91::39) To MN2PR12MB4192.namprd12.prod.outlook.com
+ (2603:10b6:208:1d5::15)
 MIME-Version: 1.0
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <20220506112312.347519-2-christian.koenig@amd.com>
- <CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com>
- <8695802e-6835-a717-c0ee-83b76d8a8875@gmail.com>
- <5941d83c-6d2b-6e3b-bd5c-b22779929d5e@amd.com>
- <CAAxE2A7-crNh7oTTzgm7W7J412_ijrmoiN9ip9iiS1MJmmaB4A@mail.gmail.com>
- <e3de3d01-25fb-8839-c793-bde9188ba77a@gmail.com>
-In-Reply-To: <e3de3d01-25fb-8839-c793-bde9188ba77a@gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 11 May 2022 14:55:26 -0400
-Message-ID: <CAAxE2A4P1avEwz0cniZupD9ZkXfnxKJY+1OzAOPRQqnOUcE5OQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: add AMDGPU_VM_NOALLOC
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000bff86505dec0fc85"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 975e0cb6-1cae-42e3-6680-08da337f14f1
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3281:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB328109CAC779F7493772B311C2C89@BN8PR12MB3281.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RF1jQ4Bo30T1It63mDp+LGqs5FV+LetTF+lgQSRzmf2ciGGpJvOVfd1dpJNOW41/2CXuh21hnii9FC1r68z+GTUAIwSc34feYKRjbZVQsScC3G4pvSErZLEA23MeC2E7oiQlAXblJwvysdisRr3oUJSO99sqm3cxnp2WFDIVD9AxT6Fm4GqMEwFluKr37eAyD7XjU6nWQRvxuVp9AGhGw85CzGcgkKLyAV4e34zS6y/fH6Tvfbipc3EYbXlz8vGNEy9l6N0lRLwlnWEZtfTzdZx7perRCWOB2p7sY63RyzEshdqzF8+wyfmIHrRFT2jM9yxxqj1XZN/gir+EJdvdtUqXWy31QweiG+tVeFNWQXseN5PWls/5sE++MCHMTRZYsPFOUO95hX8Om0s0bBTuaGn6VvtajBw/IdcaPFWwWEW8JVkOiBsE3w1LuPn7Kcpsyd+qAl4L+bHGXBFhBK7tLUFiKGHg53oguf3CB3+zS3Am9l3hXmqHqsVKKPUQP6NHuy10iA5PJrXqojrM/cvc8A2iAjG9dkWnNKN57Ki6Xvqwphs30i39Hx8uFm/WZXyXvh9MZxYB9/8EZWwuh0P7e2BPDzomKKArqYTlQoeYw1kULeIS+1Oe9OwcUq2HxKA2mXkd0tkQdU5SzjOwpRuUcA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8676002)(4326008)(6916009)(66476007)(316002)(508600001)(6506007)(38100700002)(66556008)(66946007)(6512007)(26005)(4744005)(36756003)(1076003)(33656002)(2906002)(186003)(5660300002)(6486002)(86362001)(7416002)(8936002)(2616005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VXeI4TGIR7OlomdUi3o61UcKGiMx/fblucIB5fmF7gqfjdgBmNp78Pa6VjuD?=
+ =?us-ascii?Q?iQH9XiEoSKntOl/f5DHCwh/a3z/zH9sTSr2L3LvDDKRoILPHlW94lwBtP2SX?=
+ =?us-ascii?Q?N/mzJm/H+bt5okXiynUqz966SZlu/IVy8N13F1LnAuhbzMo5N8oBTPH495+8?=
+ =?us-ascii?Q?E6rxeNpW+btooTwRMocWxTgiiuUJlHHaVpt7SOmZw/OXuOWPZM9wJ1SQJlGD?=
+ =?us-ascii?Q?yElu6BFv5uGkQIyaxctTQ2cFSVW7cp4/jtaj/Uk6DfzADvlvpOd6A67CSAGE?=
+ =?us-ascii?Q?aIQ2r57ltUUHKCt3trm9wOWsHZdYKcSWNvYsWeP4v69c8Jao2wpE/V7wpfdZ?=
+ =?us-ascii?Q?l8+6eVLGriK8A0JqDgYCK7FYm/dM1TVE9m8RS/f6LGUUuhvsShcULL9qx4tR?=
+ =?us-ascii?Q?BBZ2CzKiGUhPzjtn50dNb/zL9fwJdEgVsQq9m5HmNM+AslCdjTaKS4I5zOWa?=
+ =?us-ascii?Q?HuX4UFrTOV27OfIK/0AHLAcyXSFLCbN4vaC9azI9v2oOLIxigoWN0Ffa6LVV?=
+ =?us-ascii?Q?8MpTcrGQzkbV6SgHhTnoILqelX+JNbPZnSBui3YfzwvSIerGvPbDAG4z2RU1?=
+ =?us-ascii?Q?piLu1+n/MzfY5uqVsY3J1uHdV6Qbz/6spR2+KGXX4hDSVpNS6ftjPujqrXtS?=
+ =?us-ascii?Q?v3Ef6pZJIoq0yo17hGyebeOyx673fU1lKC6y9MES/ga3+4xG2NB2wTpWzQSj?=
+ =?us-ascii?Q?xtJJdB8q3Mi+g2Rk7MCtTrVK6Sk1CVemO75RDF/jXPoD98DvKiXfA86L3f8v?=
+ =?us-ascii?Q?rR/i/mEeeVPl2fGderxTpv4yEiwd34Tm+vgxpXNu2PSHKOSt7KC3mqaKLDmV?=
+ =?us-ascii?Q?wyT6xJQ8eyfZj+ly4gilD6lIL2pZDRfkCSiXP4HZ537r6nV66hngFsPgAXEJ?=
+ =?us-ascii?Q?iLeDTLAUCHTZQlhOLJ2tvSzZKqiwOxkgZxbS6Fo44JnbBclT/wCHQ7S2zv7C?=
+ =?us-ascii?Q?AcO1XUOV9SZRJzbWK2Tv0Zx9JYPjKOl6B25Ufis7n7gK8cXz3KY4DJP4dJaP?=
+ =?us-ascii?Q?6C7RPReWiZMkRrk5l1aEPBN92JOWDYfrMNgKRZDsJIV14ZatVrmhvp4l9Yfo?=
+ =?us-ascii?Q?2Hawu9uU3RMz1C0P+YHBeykYaUCzFwPM/YLp0plKswhCT/wykiW17qkVOQNu?=
+ =?us-ascii?Q?bFLP04TvSmTMoKY5rcJPYLjqZH8Fw23Vds/w1i8MBhrSYLzBv/nOnDQaTzXb?=
+ =?us-ascii?Q?XXSZ2jqfOh/bQjswRduA1XUfjPU8Gf2k8uaxBZk58BEb0hCv63yl1Ez7jpjv?=
+ =?us-ascii?Q?5bw9PyFdMrUKnWxGn4lsqXKQjKmxmAFmVrZtCsnDxGWn7IstdFBIAgvPDc1k?=
+ =?us-ascii?Q?KB20uSG2N9Xr3AOCd6GDYiH6TiefGBrVYs9s+Ep+pINyedUYOY0el3ndtk7e?=
+ =?us-ascii?Q?p6fbuPixtsyeT1GYGOIpMyAb/l6M+MVgAaTZHEz9xPou6FQ5N4fisxGpCshM?=
+ =?us-ascii?Q?fCqVWmbd6KVJjiccJLGzZeid9TKMZvAbSqhDILMSh3Phk4ZPCtajtd4QgLFt?=
+ =?us-ascii?Q?utEL1JqYFSwuwb0HKRo0vJQEhG/zmMbaOY7wQMna2LNNA7+iN38WClr4TTPX?=
+ =?us-ascii?Q?A27lsTopsLpVfaVMr2bJLnipGxm6SDAKbCKdgOyf6dccEuc7V/wpAEvXmauj?=
+ =?us-ascii?Q?vk2aYk45pXxKkRIiPCmuNIQXCJRbCq4f4XuTCbOA90GFSw5XI5zc5+aG8CZw?=
+ =?us-ascii?Q?W5hUAoMXK1XwnBAxFQ0tp3x3SK8W/NkJYktic7Dam46q3rfntgqvATw66hNu?=
+ =?us-ascii?Q?IqMxZ8j9zA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 975e0cb6-1cae-42e3-6680-08da337f14f1
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 18:50:13.3136 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSzZ/Sju3P7QEIdvF9dnGCNImeuiNe/1R7vKVUcPHkRhwZlvo4+fTw4Q1R3SjIBP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3281
+X-Mailman-Approved-At: Wed, 11 May 2022 19:07:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,414 +119,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
+ Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000bff86505dec0fc85
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, May 05, 2022 at 04:34:36PM -0500, Alex Sierra wrote:
 
-Ok sounds good.
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 76e3af9639d9..892c4cc54dc2 100644
+> +++ b/mm/memory.c
+> @@ -621,6 +621,13 @@ struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
+>  		if (is_zero_pfn(pfn))
+>  			return NULL;
+>  		if (pte_devmap(pte))
+> +/*
+> + * NOTE: Technically this should goto check_pfn label. However, page->_mapcount
+> + * is never incremented for device pages that are mmap through DAX mechanism
+> + * using pmem driver mounted into ext4 filesystem. When these pages are unmap,
+> + * zap_pte_range is called and vm_normal_page return a valid page with
+> + * page_mapcount() = 0, before page_remove_rmap is called.
+> + */
+>  			return NULL;
 
-Marek
+? Where does this series cause device coherent to be returned?
 
-On Wed., May 11, 2022, 03:43 Christian K=C3=B6nig, <
-ckoenig.leichtzumerken@gmail.com> wrote:
+Wasn't the plan to not set pte_devmap() ?
 
-> It really *is* a NOALLOC feature. In other words there is no latency
-> improvement on reads because the cache is always checked, even with the
-> noalloc flag set.
->
-> The only thing it affects is that misses not enter the cache and so don't
-> cause any additional pressure on evicting cache lines.
->
-> You might want to double check with the hardware guys, but I'm something
-> like 95% sure that it works this way.
->
-> Christian.
->
-> Am 11.05.22 um 09:22 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> Bypass means that the contents of the cache are ignored, which decreases
-> latency at the cost of no coherency between bypassed and normal memory
-> requests. NOA (noalloc) means that the cache is checked and can give you
-> cache hits, but misses are not cached and the overall latency is higher. =
-I
-> don't know what the hw does, but I hope it was misnamed and it really mea=
-ns
-> bypass because there is no point in doing cache lookups on every memory
-> request if the driver wants to disable caching to *decrease* latency in t=
-he
-> situations when the cache isn't helping.
->
-> Marek
->
-> On Wed, May 11, 2022 at 2:15 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->>
->>
->> On 5/11/2022 11:36 AM, Christian K=C3=B6nig wrote:
->> > Mhm, it doesn't really bypass MALL. It just doesn't allocate any MALL
->> > entries on write.
->> >
->> > How about AMDGPU_VM_PAGE_NO_MALL ?
->>
->> One more - AMDGPU_VM_PAGE_LLC_* [ LLC =3D last level cache, * =3D some s=
-ort
->> of attribute which decides LLC behaviour]
->>
->> Thanks,
->> Lijo
->>
->> >
->> > Christian.
->> >
->> > Am 10.05.22 um 23:21 schrieb Marek Ol=C5=A1=C3=A1k:
->> >> A better name would be:
->> >> AMDGPU_VM_PAGE_BYPASS_MALL
->> >>
->> >> Marek
->> >>
->> >> On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig
->> >> <ckoenig.leichtzumerken@gmail.com> wrote:
->> >>
->> >>     Add the AMDGPU_VM_NOALLOC flag to let userspace control MALL
->> >>     allocation.
->> >>
->> >>     Only compile tested!
->> >>
->> >>     Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> >>     ---
->> >>      drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++
->> >>      drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 3 +++
->> >>      drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 3 +++
->> >>      include/uapi/drm/amdgpu_drm.h           | 2 ++
->> >>      4 files changed, 10 insertions(+)
->> >>
->> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> >>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> >>     index bf97d8f07f57..d8129626581f 100644
->> >>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> >>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> >>     @@ -650,6 +650,8 @@ uint64_t amdgpu_gem_va_map_flags(struct
->> >>     amdgpu_device *adev, uint32_t flags)
->> >>                     pte_flag |=3D AMDGPU_PTE_WRITEABLE;
->> >>             if (flags & AMDGPU_VM_PAGE_PRT)
->> >>                     pte_flag |=3D AMDGPU_PTE_PRT;
->> >>     +       if (flags & AMDGPU_VM_PAGE_NOALLOC)
->> >>     +               pte_flag |=3D AMDGPU_PTE_NOALLOC;
->> >>
->> >>             if (adev->gmc.gmc_funcs->map_mtype)
->> >>                     pte_flag |=3D amdgpu_gmc_map_mtype(adev,
->> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> >>     b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> >>     index b8c79789e1e4..9077dfccaf3c 100644
->> >>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> >>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> >>     @@ -613,6 +613,9 @@ static void gmc_v10_0_get_vm_pte(struct
->> >>     amdgpu_device *adev,
->> >>             *flags &=3D ~AMDGPU_PTE_MTYPE_NV10_MASK;
->> >>             *flags |=3D (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK)=
-;
->> >>
->> >>     +       *flags &=3D ~AMDGPU_PTE_NOALLOC;
->> >>     +       *flags |=3D (mapping->flags & AMDGPU_PTE_NOALLOC);
->> >>     +
->> >>             if (mapping->flags & AMDGPU_PTE_PRT) {
->> >>                     *flags |=3D AMDGPU_PTE_PRT;
->> >>                     *flags |=3D AMDGPU_PTE_SNOOPED;
->> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->> >>     b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->> >>     index 8d733eeac556..32ee56adb602 100644
->> >>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->> >>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->> >>     @@ -508,6 +508,9 @@ static void gmc_v11_0_get_vm_pte(struct
->> >>     amdgpu_device *adev,
->> >>             *flags &=3D ~AMDGPU_PTE_MTYPE_NV10_MASK;
->> >>             *flags |=3D (mapping->flags & AMDGPU_PTE_MTYPE_NV10_MASK)=
-;
->> >>
->> >>     +       *flags &=3D ~AMDGPU_PTE_NOALLOC;
->> >>     +       *flags |=3D (mapping->flags & AMDGPU_PTE_NOALLOC);
->> >>     +
->> >>             if (mapping->flags & AMDGPU_PTE_PRT) {
->> >>                     *flags |=3D AMDGPU_PTE_PRT;
->> >>                     *flags |=3D AMDGPU_PTE_SNOOPED;
->> >>     diff --git a/include/uapi/drm/amdgpu_drm.h
->> >>     b/include/uapi/drm/amdgpu_drm.h
->> >>     index 57b9d8f0133a..9d71d6330687 100644
->> >>     --- a/include/uapi/drm/amdgpu_drm.h
->> >>     +++ b/include/uapi/drm/amdgpu_drm.h
->> >>     @@ -533,6 +533,8 @@ struct drm_amdgpu_gem_op {
->> >>      #define AMDGPU_VM_MTYPE_UC             (4 << 5)
->> >>      /* Use Read Write MTYPE instead of default MTYPE */
->> >>      #define AMDGPU_VM_MTYPE_RW             (5 << 5)
->> >>     +/* don't allocate MALL */
->> >>     +#define AMDGPU_VM_PAGE_NOALLOC         (1 << 9)
->> >>
->> >>      struct drm_amdgpu_gem_va {
->> >>             /** GEM object handle */
->> >>     --
->> >>     2.25.1
->> >>
->> >
->>
->
->
-
---000000000000bff86505dec0fc85
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Ok sounds good.<div dir=3D"auto"><br></div><div dir=3D"au=
-to">Marek</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Wed., May 11, 2022, 03:43 Christian K=C3=B6nig, &lt;<a h=
-ref=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmai=
-l.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div>
-    It really *is* a NOALLOC feature. In other words there is no latency
-    improvement on reads because the cache is always checked, even with
-    the noalloc flag set.<br>
-    <br>
-    The only thing it affects is that misses not enter the cache and so
-    don&#39;t cause any additional pressure on evicting cache lines.<br>
-    <br>
-    You might want to double check with the hardware guys, but I&#39;m
-    something like 95% sure that it works this way.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div>Am 11.05.22 um 09:22 schrieb Marek
-      Ol=C5=A1=C3=A1k:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div dir=3D"ltr">Bypass means that the contents of the cache are
-          ignored, which decreases latency at the cost of no coherency
-          between bypassed and normal memory requests. NOA (noalloc)
-          means that the cache is checked and can give you cache hits,
-          but misses are not cached and the overall latency is higher. I
-          don&#39;t know what the hw does, but I hope it was misnamed and i=
-t
-          really means bypass because there is no point in doing cache
-          lookups on every memory request if the driver wants to disable
-          caching to *decrease* latency in the situations when the cache
-          isn&#39;t helping.<br>
-        </div>
-        <div dir=3D"ltr"><br>
-        </div>
-        <div>Marek<br>
-        </div>
-        <br>
-        <div class=3D"gmail_quote">
-          <div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 11, 2022 at 2:1=
-5
-            AM Lazar, Lijo &lt;<a href=3D"mailto:lijo.lazar@amd.com" target=
-=3D"_blank" rel=3D"noreferrer">lijo.lazar@amd.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-            <br>
-            On 5/11/2022 11:36 AM, Christian K=C3=B6nig wrote:<br>
-            &gt; Mhm, it doesn&#39;t really bypass MALL. It just doesn&#39;=
-t
-            allocate any MALL <br>
-            &gt; entries on write.<br>
-            &gt; <br>
-            &gt; How about AMDGPU_VM_PAGE_NO_MALL ?<br>
-            <br>
-            One more - AMDGPU_VM_PAGE_LLC_* [ LLC =3D last level cache, *
-            =3D some sort <br>
-            of attribute which decides LLC behaviour]<br>
-            <br>
-            Thanks,<br>
-            Lijo<br>
-            <br>
-            &gt; <br>
-            &gt; Christian.<br>
-            &gt; <br>
-            &gt; Am 10.05.22 um 23:21 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-            &gt;&gt; A better name would be:<br>
-            &gt;&gt; AMDGPU_VM_PAGE_BYPASS_MALL<br>
-            &gt;&gt;<br>
-            &gt;&gt; Marek<br>
-            &gt;&gt;<br>
-            &gt;&gt; On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig <b=
-r>
-            &gt;&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com=
-" target=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a>=
-&gt;
-            wrote:<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0Add the AMDGPU_VM_NOALLOC flag to l=
-et userspace
-            control MALL<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0allocation.<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0Only compile tested!<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0Signed-off-by: Christian K=C3=B6nig=
- &lt;<a href=3D"mailto:christian.koenig@amd.com" target=3D"_blank" rel=3D"n=
-oreferrer">christian.koenig@amd.com</a>&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0---<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/amdgpu/am=
-dgpu_gem.c | 2 ++<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/amdgpu/gm=
-c_v10_0.c=C2=A0 | 3
-            +++<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/amdgpu/gm=
-c_v11_0.c=C2=A0 | 3
-            +++<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0include/uapi/drm/amdgpu_drm.h=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 ++<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A04 files changed, 10 insertion=
-s(+)<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --git
-            a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/amdgpu/amdgpu=
-_gem.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0index bf97d8f07f57..d8129626581f 10=
-0644<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/amdgpu/am=
-dgpu_gem.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/amdgpu/am=
-dgpu_gem.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -650,6 +650,8 @@ uint64_t
-            amdgpu_gem_va_map_flags(struct<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_device *adev, uint32_t flags=
-)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 pte_flag |=3D
-            AMDGPU_PTE_WRITEABLE;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (fla=
-gs &amp; AMDGPU_VM_PAGE_PRT)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 pte_flag |=3D AMDGPU_PTE_PRT;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (fla=
-gs &amp; AMDGPU_VM_PAGE_NOALLOC)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0pte_flag |=3D AMDGPU_PTE_NOALLOC;<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 if
-            (adev-&gt;gmc.gmc_funcs-&gt;map_mtype)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 pte_flag |=3D
-            amdgpu_gmc_map_mtype(adev,<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --git
-            a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/amdgpu/gmc_v1=
-0_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0index b8c79789e1e4..9077dfccaf3c 10=
-0644<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/amdgpu/gm=
-c_v10_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/amdgpu/gm=
-c_v10_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -613,6 +613,9 @@ static void
-            gmc_v10_0_get_vm_pte(struct<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_device *adev,<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 *flags =
-&amp;=3D
-            ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 *flags =
-|=3D (mapping-&gt;flags &amp;
-            AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0*flags =
-&amp;=3D ~AMDGPU_PTE_NOALLOC;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0*flags =
-|=3D (mapping-&gt;flags &amp;
-            AMDGPU_PTE_NOALLOC);<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (map=
-ping-&gt;flags &amp;
-            AMDGPU_PTE_PRT) {<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D AMDGPU_PTE_PRT;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D AMDGPU_PTE_SNOOPED;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --git
-            a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/amdgpu/gmc_v1=
-1_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0index 8d733eeac556..32ee56adb602 10=
-0644<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/amdgpu/gm=
-c_v11_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/amdgpu/gm=
-c_v11_0.c<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -508,6 +508,9 @@ static void
-            gmc_v11_0_get_vm_pte(struct<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_device *adev,<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 *flags =
-&amp;=3D
-            ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 *flags =
-|=3D (mapping-&gt;flags &amp;
-            AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0*flags =
-&amp;=3D ~AMDGPU_PTE_NOALLOC;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0*flags =
-|=3D (mapping-&gt;flags &amp;
-            AMDGPU_PTE_NOALLOC);<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (map=
-ping-&gt;flags &amp;
-            AMDGPU_PTE_PRT) {<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D AMDGPU_PTE_PRT;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D AMDGPU_PTE_SNOOPED;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --git a/include/uapi/drm/amdgp=
-u_drm.h<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0b/include/uapi/drm/amdgpu_drm.h<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0index 57b9d8f0133a..9d71d6330687 10=
-0644<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0--- a/include/uapi/drm/amdgpu_drm.h=
-<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++ b/include/uapi/drm/amdgpu_drm.h=
-<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -533,6 +533,8 @@ struct drm_amdg=
-pu_gem_op {<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0#define AMDGPU_VM_MTYPE_UC=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(4
-            &lt;&lt; 5)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0/* Use Read Write MTYPE inste=
-ad of default
-            MTYPE */<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0#define AMDGPU_VM_MTYPE_RW=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(5
-            &lt;&lt; 5)<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+/* don&#39;t allocate MALL */<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0+#define AMDGPU_VM_PAGE_NOALLOC=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(1
-            &lt;&lt; 9)<br>
-            &gt;&gt;<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0struct drm_amdgpu_gem_va {<br=
->
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** GEM=
- object handle */<br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A0-- <br>
-            &gt;&gt;=C2=A0 =C2=A0 =C2=A02.25.1<br>
-            &gt;&gt;<br>
-            &gt; <br>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </div>
-
-</blockquote></div>
-
---000000000000bff86505dec0fc85--
+Jason
