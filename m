@@ -4,60 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B71FC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 12:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0395DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 May 2022 12:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A2E10E41A;
-	Wed, 11 May 2022 12:02:55 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D4910E419
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 12:02:54 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id bv19so3578197ejb.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 05:02:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=g0etqpz4M4URxFbgNiLjVqBMW9vYCGuI+YjLShhob6Q=;
- b=N71f+mr9jQfUefr3YoVCaoQOn9vAsgs/szbuOgYOsN2ASWRYPOl8jFtrLqIPiPQawO
- 3p7MbBJSkR7kd+nQ1Nl9B6HdhjbeLwFrWS1uL/jleY0pKyLsZ3firfyeqthjtwuzdOHN
- Y4Qr2rQIH0RBI1VDb8zopIllvS/LBiHcKf/q9H9nGhxix+zWsKY1vdAR0mv89VohqvCS
- 8QnyAWmIsRLRijMF22P2LXFrQiZ61cLyVZfBSu9XX9j3K+WhxKkurKYFEYaR2+dghWIi
- E/4UkgGEj+9WBjDe157bq5r5mpPq40Xzh6wW30knXkQQstEtgR58GEzwRq5L2fYRtWuS
- OINw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=g0etqpz4M4URxFbgNiLjVqBMW9vYCGuI+YjLShhob6Q=;
- b=pp+Oc78fCMxOZmr7v3ad0CD731p2FlX4+GRdaK6heKX++mtsxF1IXPuOkMb3+0oBNW
- VltOew1ZnxqBxmBGDyK3dP930WkcoPrTCoX53SrYgo5e+1+9ESOksBTmCOq3mBiSOeuo
- e3cCZwb6b00Xxnw9JNSAf2L8l4s4sHe5Essy+KWsY58+ezQzaLqU/U/Vz41qyaq9t+aL
- Jcwtt7efOPK34rTP8Hjx5w2PQrnbMQkQb2nDHHv5vydUCgmsOZ/hDS4+T7Z6R6lA8QlA
- q5PxYrw8tBWvbSv96S5WUGdXUrMjB7hm6qH8+LGHOuimURO/y0jE6H6Y195XBPEq4nHE
- lqkQ==
-X-Gm-Message-State: AOAM531opAamcDwa22BaRlkM0ZfyaguKEZiYSglk2aULnQIPa4ppd7y5
- IYd2VU4lxNG0PYHfjVukjT+HRn6gveI=
-X-Google-Smtp-Source: ABdhPJwKRI1S5pQMl9Q2kYOa2jNOVwQaKGt6dAwUS2f/irmJ0nulTZzuIFGXD4vs736o1KH9asE+1Q==
-X-Received: by 2002:a17:907:1c0f:b0:6f5:fd1:39cd with SMTP id
- nc15-20020a1709071c0f00b006f50fd139cdmr24774422ejc.516.1652270572758; 
- Wed, 11 May 2022 05:02:52 -0700 (PDT)
-Received: from able.fritz.box (p57b0be56.dip0.t-ipconnect.de. [87.176.190.86])
- by smtp.gmail.com with ESMTPSA id
- i3-20020aa7c703000000b0042617ba638esm1132424edq.24.2022.05.11.05.02.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 05:02:52 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: Convert to common fdinfo format v3
-Date: Wed, 11 May 2022 14:02:49 +0200
-Message-Id: <20220511120250.3066-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D17A10E130;
+	Wed, 11 May 2022 12:03:54 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2066.outbound.protection.outlook.com [40.107.101.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE6C410E130
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 12:03:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=foPQXUjQG3ishp8BL2laV3obPGm9ttXNTCMxdlENFT4hm2AjbIBTFZ7zJZUKQyhy8I4u3XrkDOqNjeabHpxb825YjuvuuVQ0bjYCEh2JKsnqnPKTpmxsVpJzHZ8kwnLl5Moaz126ZmdGVgvw1EVD8agmJYfq03z4+j98JfnRftH4fiJElQIC2k+fjELss51+wcrGPYeY0z9/feAB+4VcSC6USkCJFWlQwTVaB+ufQembzGRh9ZOfo915wdsbokABhyXpEw83Kfnv2/XIO35XTtL+1rgivk9/gkc06C9RK8w67ZK1KEd1O333TaQZf+2ZrBfnNvhediiMcOY2MUocOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TH/ziabvz3ZSHIjmdtsbOkZoXLg0R5s/SR0ntx/ivRQ=;
+ b=iWNcKkWpB4U6Zwe77nM45nlE3VLr0GKH06OBlxXMFwrrMJo1hFr2iXFShRoiEsvsMiMb9+eA7ac026JP5+I6slTMSYZdFGF3pUsq8NA6rymMP5o2+WTwhk+9PkasABOLd8YNXwXC7bnKiVjvek7ef9/1kku/qoaoPC8yd+21pLJv0EZ2HN/7ulpvU13EeATvr0ER8nYJZwhu1520VnDZQv67uqIRRvL8XGc9hzuI6GF5EEqNniskvFnyjC+uqUn6Z+krfwkdvC0cJ4NLYLyBo3udVFfGyoEQrNkWPBRke5CbwE2rAS8tnAZDsH/kS6eX64FAbHncFVqWuiKM2fNJJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TH/ziabvz3ZSHIjmdtsbOkZoXLg0R5s/SR0ntx/ivRQ=;
+ b=2feA9zYyKMnEUJ9exeO6WpRhG8a6Yt2oSQy2Og+bgoxMiU5Nt+fLIUeltOnK7BJERCWUAOHPov/ouKCaKsALnz6F2b9xt37IBCtRYL5yxEYglNfNeuAoLh2lVFAQyBKDeYFW5FYjaA+5uGEcNWR/WE6prFFOVWHgYqGakLdhZ2A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1943.namprd12.prod.outlook.com (2603:10b6:903:11b::7)
+ by DM6PR12MB4028.namprd12.prod.outlook.com (2603:10b6:5:1ce::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.22; Wed, 11 May
+ 2022 12:03:50 +0000
+Received: from CY4PR12MB1943.namprd12.prod.outlook.com
+ ([fe80::bc8d:b8b1:ae83:788a]) by CY4PR12MB1943.namprd12.prod.outlook.com
+ ([fe80::bc8d:b8b1:ae83:788a%9]) with mapi id 15.20.5227.023; Wed, 11 May 2022
+ 12:03:49 +0000
+Message-ID: <78bbb31c-ad1b-a0a2-5890-5dd9b332b58f@amd.com>
+Date: Wed, 11 May 2022 17:33:40 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/amd/pm: update smartshift powerboost calc for smu13
+Content-Language: en-US
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220511114628.2542190-1-sathishkumar.sundararaju@amd.com>
+ <ad73bd91-ff2a-e1ff-a4e3-4c4b4a634448@amd.com>
+From: "Sundararaju, Sathishkumar" <sathishkumar.sundararaju@amd.com>
+In-Reply-To: <ad73bd91-ff2a-e1ff-a4e3-4c4b4a634448@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0121.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::17) To CY4PR12MB1943.namprd12.prod.outlook.com
+ (2603:10b6:903:11b::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 63a9f1a1-f01f-40da-b615-08da33464f11
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4028:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4028EC232BD68CEE1E6094259DC89@DM6PR12MB4028.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6Jps9DnfE4su6pqKXGXhbRVjcTj69nr7KVvATHw3Dol4K0Q630lnuj8J+prhmCKEQpIYWNPAQ7q9DbGFkvLJJmG9i3D34ww/wf+0VPJHRvT869ixqmR23Jw+ZKbGGtsb2HT1KJr8jk6MdZwRYlibhwB3GVlEjp3yNdlQxPqWF9Yd1pTC6J999+hGaUBS39Va2GZCCB2buJsp9eQbsmHUE9d0DMTunM3Eb96Hd+ZX1lh0Bi93iicdLCai8H5WdIoXDnIdN4fma8iHj+VTrMzdjnN9xZySp60YE55xrIBhGQeAh/NJcM4GDFMgY7+HV66foQ3fX0xupmMqRzQkP1zUSXesdpqmQzyL9st0hrBW/GAhQvwP66Y6ULzWP5dPbMZCrWxVYrnQCcXyAaH2WbktYc7WEVKtBv8ljPn0vceJ/I+10ahxZB04r9EKKNqaifDsiU9PPt+OGaA96wXmLBMH5U0JnzIaewBoRz/HTMwfIDXzMxG6bPVt/C0WMT1TaDhdzZFYoFwaKfr/tIQ1qvdQwBxpuds3qInlwoD5wdvt+R6URktB6nL/IE+qTNzUZBClqFIuTBe84R7N2O20n/srEIfndvNVAdsv/GKjK+Ciqiqyk1RV/NXKpeBMeJYcAxynUI2SzgGmfzTpHHb9/QPSwnkSJoPQAAJYQLMWxNQvFVUA2n/icRLyalX9iOFYg6aGwnOyutJzJ8VU+Rib0FbCDogJvQvnrgdSDATntgyijND62ZC1NqCBMQshZkXvaIT9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1943.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66946007)(66476007)(2616005)(66556008)(8676002)(4326008)(508600001)(186003)(83380400001)(6486002)(86362001)(6512007)(6666004)(26005)(316002)(53546011)(6506007)(31696002)(31686004)(8936002)(36756003)(2906002)(5660300002)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dW9iYktncGhYZm96KzEyRXNxbDZkM2xSTmtxbHMzZXRvYU9rWXp1TGxXai9p?=
+ =?utf-8?B?Z2RmVU1zdWp2SE8xYnR0NWN4RVVzYXpMYklmdi9pU0xqVS8wTlBZRWVEbDdz?=
+ =?utf-8?B?MHBlM1JBNll1UkFvQm5vN093QzJ0eGRVRGFQY3FPblFNL1R1azdZZVB4SW9T?=
+ =?utf-8?B?YXRDc0VJZ2drWU5uQXgzZ3RzQUFOUDhHN3FzY2pjRkRHeG0vREZPd3dndnox?=
+ =?utf-8?B?Slp6RnVuYzFRZnV2bEM3d0FXYllhKzhRcUVab2RGZTlmcjZvQmpnT3RNQ3R2?=
+ =?utf-8?B?bm5RVFpRM1oxR05vakJZWmFxa1RSUUVFUmZOdjNjZjhXTGU5STZjUkU3MHAz?=
+ =?utf-8?B?NXhFTUtmdlpOT0hHbnB2TW5kR09Vczc4UGc5VVRGVlhzZGdUZUJ1NWN5UGlt?=
+ =?utf-8?B?OWd5dlUxektyUm1LRHZwVEltRjlaTjZ3SlhYOVcyN3NMc0NtYjAxZjdyM1Zi?=
+ =?utf-8?B?NWxRbkFCSjdmaGdzVjdpN2JTSnN5UHVqcHNTTEZFUnhCK05tVDVNQktFWjgw?=
+ =?utf-8?B?SjZwRWduQVhuK1pIeDlRc3BnTjhTWHVUM1o0NlZhT2txWU1tWDFqVHYyNTdn?=
+ =?utf-8?B?MXo1TzlsOSszN0x3NnNZWlZHYTErSlpId1lHd1dpWXJ3KzJRYi9FYVhWeGNY?=
+ =?utf-8?B?L3I3eElFclFodFVWUDdKNnNZYURjL1BFejd6T1FHcXhtTkJUZU5HTjVpcSt5?=
+ =?utf-8?B?RmRVNjFLTGJEVmEwd1lkYVZPM3hkSDVmWjc5VzJNcWlsV3JOOHdoTnEyL0l4?=
+ =?utf-8?B?K3dMYWNsZlZ0eDQwRXFpQ04vS3ZiTUgyZ3RaSDRFMk9nYXBNVFo4eHVQa0du?=
+ =?utf-8?B?ZDVGdXJFR04yZmU4VkpNL2xVbDVGRm9QL3ZHb29rY3VsWWlWdjZ4ZkRlaith?=
+ =?utf-8?B?eEJhYnU3TTJ5NlN5UTZES2U3RjRmOGtFSFpKWXlIclhnWVFxNVJ2Y1VWZFFR?=
+ =?utf-8?B?cmx1WndwckMxeG9pQ0dnNjhtU095WU4yN2NmdnJHK1ZMUFJEeG91U0gvUUdR?=
+ =?utf-8?B?eGl1MWE2OGMrVEhIYzRpU0djVFlDSC9jWUwwS3RxZWVVSDJiR0hwUEdPYUZI?=
+ =?utf-8?B?V0dEb2F2WWFGV01LWWhGN2V1RXN1Z1I4aHc2U0w0VnR2WEtCakpKSE9sTm1M?=
+ =?utf-8?B?NU5qY3JGeCs2Sks4azdyczJuemRrNytyVFlBdElNZFpYb1NDL29OVHM1UDZM?=
+ =?utf-8?B?aGFuUmpMVFVLbmtVNytmaWwwbC9sVWM5ZkQ1VkdXdDRsYjBaa2c4OU5lTUpC?=
+ =?utf-8?B?ZjB0SkF2MXcyUXBFOWNpUmtzU3o3LzNWeVlXREJ4NWJMalgrZVZMRnR2cHh5?=
+ =?utf-8?B?eTV0cDZlNG82czJZK1k2emEwVE1paTcweVVKRXU3Tk9sSW9wSEc1NnFXdG5I?=
+ =?utf-8?B?ZEFTamJHTzFQTkJRTmNmWmxyTU5sTFFPU2hyUkVpSWhQaHZ2OEFCRllGK3Fn?=
+ =?utf-8?B?ZDFISFdIdmZRQSsvZzM2bUt0YWpjQ1p6ZzdmQmV4dVZ0eGVHQURoTFpZK2VL?=
+ =?utf-8?B?NStQL2ZGYWgydTA5UmRtOGlYVHNnTGtROVZIVDlKTDZqQitpRGRqbjg0TlBO?=
+ =?utf-8?B?UVZ4TFVhVmF6bHFJQ2o2c1Fzckw1UlVaUXZBREZsUTg3UHZoRmVRellQdmlN?=
+ =?utf-8?B?WlRGaWI5UG05RGpDeDJEKzFFUU5JRkFUQVJXOXEyc0tvK0xIRzhvRGU5THdN?=
+ =?utf-8?B?Vm16STVZbkdZL0tOMC9leDUrN2loMjIvMVRrai92djBZR3owdGlCQk1zUVVs?=
+ =?utf-8?B?QXFlVnc4VytzU3NUcGoyZjJrZS9tMmRoWlVuUDMwMTMzTnlXbTZyR2RrSHU5?=
+ =?utf-8?B?NW4vbWdJajM5V1FqbmRRdzFuak9LRmlLWEpySVJwVE5nM1FiQTNVNFd0ZSsv?=
+ =?utf-8?B?ZUhxcW95ZHJWcXZVaTd2bkVKVVdaakIra3ZGTDhqS0xRdnpBWnc1NitUVjBO?=
+ =?utf-8?B?QjVaM05XWnFkUUhpMmVxRkRkYnZUd2hUdE5YTklSZFlqNzlMemdrcDI2WVZr?=
+ =?utf-8?B?bzEyWnRrNnlhcVpqSTV3b0xmRGdZK3NJcEhtQm9DRWpMQkVJV0twYjliZEl6?=
+ =?utf-8?B?RUF1RUdJYVF2K1V0QjFsQXdNSjZTSjJua0UwdCsreTU0dG1aVnkvMzZOcklT?=
+ =?utf-8?B?Y3NVL1NVOWtJZnBxZXNSbHNEMzJJZThtb2lXYkFKSDVBend1ZjVCbjlqaHZU?=
+ =?utf-8?B?YW5hRGJaNWRYc2FGQTQyVlJhc3drRys0cGhBaG9UQmk5Q2tSMjVwSkI3NCs1?=
+ =?utf-8?B?QTc4VDVlOEs2QjlTQ3ZVNE5HV2FMeGE1K0U3V2Z3ZmV0U203N3RmU1lyem5K?=
+ =?utf-8?B?OXBZWThQRnh0OVFMRmdaTTBSMTA4VG5aNjlOamIvd3hSVlcyZ2xQdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63a9f1a1-f01f-40da-b615-08da33464f11
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1943.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 12:03:49.7540 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EjcB9ChZvVv9ibbpT8w3YgREmu/4B2ZPHZKtY59s4mMBSJ9YO53bodBTci53BWQL54GRTuot6m5gfV5N0+3g4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,576 +128,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tvrtko.ursulin@linux.intel.com, Shashank.Sharma@amd.com, daniel@ffwll.ch,
- Alexander.Deucher@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David M Nieto <David.Nieto@amd.com>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert fdinfo format to one documented in drm-usage-stats.rst.
 
-It turned out that the existing implementation was actually completely
-nonsense. The calculated percentages indeed represented the usage of the
-engine, but with varying time slices.
-
-So 10% usage for application A could mean something completely different
-than 10% usage for application B.
-
-Completely nuke that and just use the now standardized nanosecond
-interface.
-
-v2: drop the documentation change for now, nuke percentage calculation
-v3: only account for each hw_ip, move the time_spend to the ctx mgr.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Cc: David M Nieto <David.Nieto@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 234 ++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |  23 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  41 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |   2 +-
- 5 files changed, 153 insertions(+), 149 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 01853431249d..43b97ad3c6be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1239,7 +1239,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 
- 	p->fence = dma_fence_get(&job->base.s_fence->finished);
- 
--	amdgpu_ctx_add_fence(p->ctx, entity, p->fence, &seq);
-+	seq = amdgpu_ctx_add_fence(&fpriv->ctx_mgr, p->ctx, entity, p->fence);
- 	amdgpu_cs_post_dependencies(p);
- 
- 	if ((job->preamble_status & AMDGPU_PREAMBLE_IB_PRESENT) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 8f0e6d93bb9c..5a0d67cc3d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -135,9 +135,9 @@ static enum amdgpu_ring_priority_level amdgpu_ctx_sched_prio_to_ring_prio(int32_
- 
- static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
- {
--	struct amdgpu_device *adev = ctx->adev;
--	int32_t ctx_prio;
-+	struct amdgpu_device *adev = ctx->mgr->adev;
- 	unsigned int hw_prio;
-+	int32_t ctx_prio;
- 
- 	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
- 			ctx->init_priority : ctx->override_priority;
-@@ -162,17 +162,49 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
- 	return hw_prio;
- }
- 
-+/* Calculate the time spend on the hw */
-+static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
-+{
-+	struct drm_sched_fence *s_fence;
-+
-+	if (!fence)
-+		return ns_to_ktime(0);
-+
-+	/* When the fence is not even scheduled it can't have spend time */
-+	s_fence = to_drm_sched_fence(fence);
-+	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
-+		return ns_to_ktime(0);
-+
-+	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
-+		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
-+
-+	return ktime_sub(s_fence->finished.timestamp,
-+			 s_fence->scheduled.timestamp);
-+}
-+
-+static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
-+				      struct amdgpu_ctx_entity *centity)
-+{
-+	ktime_t res = ns_to_ktime(0);
-+	uint32_t i;
-+
-+	spin_lock(&ctx->ring_lock);
-+	for (i = 0; i < amdgpu_sched_jobs; i++) {
-+		res = ktime_add(res, amdgpu_ctx_fence_time(centity->fences[i]));
-+	}
-+	spin_unlock(&ctx->ring_lock);
-+	return res;
-+}
- 
- static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 				  const u32 ring)
- {
--	struct amdgpu_device *adev = ctx->adev;
--	struct amdgpu_ctx_entity *entity;
- 	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
--	unsigned num_scheds = 0;
--	int32_t ctx_prio;
--	unsigned int hw_prio;
-+	struct amdgpu_device *adev = ctx->mgr->adev;
-+	struct amdgpu_ctx_entity *entity;
- 	enum drm_sched_priority drm_prio;
-+	unsigned int hw_prio, num_scheds;
-+	int32_t ctx_prio;
- 	int r;
- 
- 	entity = kzalloc(struct_size(entity, fences, amdgpu_sched_jobs),
-@@ -182,6 +214,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 
- 	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
- 			ctx->init_priority : ctx->override_priority;
-+	entity->hw_ip = hw_ip;
- 	entity->sequence = 1;
- 	hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
- 	drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
-@@ -220,11 +253,29 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 	return r;
- }
- 
--static int amdgpu_ctx_init(struct amdgpu_device *adev,
-+static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
-+{
-+	ktime_t res = ns_to_ktime(0);
-+	int i;
-+
-+	if (!entity)
-+		return res;
-+
-+	for (i = 0; i < amdgpu_sched_jobs; ++i) {
-+		res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
-+		dma_fence_put(entity->fences[i]);
-+	}
-+
-+	kfree(entity);
-+	return res;
-+}
-+
-+static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr,
- 			   int32_t priority,
- 			   struct drm_file *filp,
- 			   struct amdgpu_ctx *ctx)
- {
-+	struct amdgpu_device *adev = mgr->adev;
- 	int r;
- 
- 	r = amdgpu_ctx_priority_permit(filp, priority);
-@@ -233,9 +284,8 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
- 
- 	memset(ctx, 0, sizeof(*ctx));
- 
--	ctx->adev = adev;
--
- 	kref_init(&ctx->refcount);
-+	ctx->mgr = mgr;
- 	spin_lock_init(&ctx->ring_lock);
- 	mutex_init(&ctx->lock);
- 
-@@ -249,24 +299,10 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
--{
--
--	int i;
--
--	if (!entity)
--		return;
--
--	for (i = 0; i < amdgpu_sched_jobs; ++i)
--		dma_fence_put(entity->fences[i]);
--
--	kfree(entity);
--}
--
- static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 *stable_pstate)
- {
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_device *adev = ctx->mgr->adev;
- 	enum amd_dpm_forced_level current_level;
- 
- 	current_level = amdgpu_dpm_get_performance_level(adev);
-@@ -294,7 +330,7 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 stable_pstate)
- {
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_device *adev = ctx->mgr->adev;
- 	enum amd_dpm_forced_level level;
- 	int r;
- 
-@@ -340,7 +376,8 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
- static void amdgpu_ctx_fini(struct kref *ref)
- {
- 	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_ctx_mgr *mgr = ctx->mgr;
-+	struct amdgpu_device *adev = mgr->adev;
- 	unsigned i, j, idx;
- 
- 	if (!adev)
-@@ -348,8 +385,10 @@ static void amdgpu_ctx_fini(struct kref *ref)
- 
- 	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
- 		for (j = 0; j < AMDGPU_MAX_ENTITY_NUM; ++j) {
--			amdgpu_ctx_fini_entity(ctx->entities[i][j]);
--			ctx->entities[i][j] = NULL;
-+			ktime_t spend;
-+
-+			spend = amdgpu_ctx_fini_entity(ctx->entities[i][j]);
-+			atomic64_add(ktime_to_ns(spend), &mgr->time_spend[i]);
- 		}
- 	}
- 
-@@ -416,7 +455,7 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
- 	}
- 
- 	*id = (uint32_t)r;
--	r = amdgpu_ctx_init(adev, priority, filp, ctx);
-+	r = amdgpu_ctx_init(mgr, priority, filp, ctx);
- 	if (r) {
- 		idr_remove(&mgr->ctx_handles, *id);
- 		*id = 0;
-@@ -666,19 +705,20 @@ int amdgpu_ctx_put(struct amdgpu_ctx *ctx)
- 	return 0;
- }
- 
--void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
--			  struct drm_sched_entity *entity,
--			  struct dma_fence *fence, uint64_t *handle)
-+uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx_mgr *mgr,
-+			      struct amdgpu_ctx *ctx,
-+			      struct drm_sched_entity *entity,
-+			      struct dma_fence *fence)
- {
- 	struct amdgpu_ctx_entity *centity = to_amdgpu_ctx_entity(entity);
- 	uint64_t seq = centity->sequence;
- 	struct dma_fence *other = NULL;
- 	unsigned idx = 0;
-+	ktime_t spend;
- 
- 	idx = seq & (amdgpu_sched_jobs - 1);
- 	other = centity->fences[idx];
--	if (other)
--		BUG_ON(!dma_fence_is_signaled(other));
-+	BUG_ON(other && !dma_fence_is_signaled(other));
- 
- 	dma_fence_get(fence);
- 
-@@ -687,9 +727,40 @@ void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
- 	centity->sequence++;
- 	spin_unlock(&ctx->ring_lock);
- 
-+	spend = amdgpu_ctx_fence_time(other);
-+	atomic64_add(ktime_to_ns(spend), &mgr->time_spend[centity->hw_ip]);
-+
- 	dma_fence_put(other);
--	if (handle)
--		*handle = seq;
-+	return seq;
-+}
-+
-+ktime_t amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hw_ip)
-+{
-+	struct amdgpu_ctx *ctx;
-+	unsigned int i;
-+	uint32_t id;
-+	ktime_t res;
-+
-+	/*
-+	 * This is a little bit racy because it can be that ctx or fences are
-+	 * destroyed just in the moment we try to account them. But that is ok
-+	 * since exactly that case is explicitely allowed by the interface.
-+	 */
-+	mutex_lock(&mgr->lock);
-+	res = ns_to_ktime(atomic64_read(&mgr->time_spend[hw_ip]));
-+	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
-+		for (i = 0; i < amdgpu_ctx_num_entities[hw_ip]; ++i) {
-+			struct amdgpu_ctx_entity *centity;
-+
-+			centity = ctx->entities[hw_ip][i];
-+			if (!centity)
-+				continue;
-+			res = ktime_add(res, amdgpu_ctx_entity_time(ctx,
-+								    centity));
-+		}
-+	}
-+	mutex_unlock(&mgr->lock);
-+	return res;
- }
- 
- struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
-@@ -726,7 +797,7 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
- 					   int hw_ip,
- 					   int32_t priority)
- {
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_device *adev = ctx->mgr->adev;
- 	unsigned int hw_prio;
- 	struct drm_gpu_scheduler **scheds = NULL;
- 	unsigned num_scheds;
-@@ -791,10 +862,17 @@ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
- 	return r;
- }
- 
--void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr)
-+void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
-+			 struct amdgpu_device *adev)
- {
-+	unsigned int i;
-+
-+	mgr->adev = adev;
- 	mutex_init(&mgr->lock);
- 	idr_init(&mgr->ctx_handles);
-+
-+	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-+		atomic64_set(&mgr->time_spend[i], 0);
- }
- 
- long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
-@@ -869,81 +947,3 @@ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
- 	idr_destroy(&mgr->ctx_handles);
- 	mutex_destroy(&mgr->lock);
- }
--
--static void amdgpu_ctx_fence_time(struct amdgpu_ctx *ctx,
--		struct amdgpu_ctx_entity *centity, ktime_t *total, ktime_t *max)
--{
--	ktime_t now, t1;
--	uint32_t i;
--
--	*total = *max = 0;
--
--	now = ktime_get();
--	for (i = 0; i < amdgpu_sched_jobs; i++) {
--		struct dma_fence *fence;
--		struct drm_sched_fence *s_fence;
--
--		spin_lock(&ctx->ring_lock);
--		fence = dma_fence_get(centity->fences[i]);
--		spin_unlock(&ctx->ring_lock);
--		if (!fence)
--			continue;
--		s_fence = to_drm_sched_fence(fence);
--		if (!dma_fence_is_signaled(&s_fence->scheduled)) {
--			dma_fence_put(fence);
--			continue;
--		}
--		t1 = s_fence->scheduled.timestamp;
--		if (!ktime_before(t1, now)) {
--			dma_fence_put(fence);
--			continue;
--		}
--		if (dma_fence_is_signaled(&s_fence->finished) &&
--			s_fence->finished.timestamp < now)
--			*total += ktime_sub(s_fence->finished.timestamp, t1);
--		else
--			*total += ktime_sub(now, t1);
--		t1 = ktime_sub(now, t1);
--		dma_fence_put(fence);
--		*max = max(t1, *max);
--	}
--}
--
--ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
--		uint32_t idx, uint64_t *elapsed)
--{
--	struct idr *idp;
--	struct amdgpu_ctx *ctx;
--	uint32_t id;
--	struct amdgpu_ctx_entity *centity;
--	ktime_t total = 0, max = 0;
--
--	if (idx >= AMDGPU_MAX_ENTITY_NUM)
--		return 0;
--	idp = &mgr->ctx_handles;
--	mutex_lock(&mgr->lock);
--	idr_for_each_entry(idp, ctx, id) {
--		ktime_t ttotal, tmax;
--
--		if (!ctx->entities[hwip][idx])
--			continue;
--
--		centity = ctx->entities[hwip][idx];
--		amdgpu_ctx_fence_time(ctx, centity, &ttotal, &tmax);
--
--		/* Harmonic mean approximation diverges for very small
--		 * values. If ratio < 0.01% ignore
--		 */
--		if (AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(tmax, ttotal))
--			continue;
--
--		total = ktime_add(total, ttotal);
--		max = ktime_after(tmax, max) ? tmax : max;
--	}
--
--	mutex_unlock(&mgr->lock);
--	if (elapsed)
--		*elapsed = max;
--
--	return total;
--}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index 142f2f87d44c..a28ebf3be764 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -23,16 +23,20 @@
- #ifndef __AMDGPU_CTX_H__
- #define __AMDGPU_CTX_H__
- 
-+#include <linux/ktime.h>
-+#include <linux/types.h>
-+
- #include "amdgpu_ring.h"
- 
- struct drm_device;
- struct drm_file;
- struct amdgpu_fpriv;
-+struct amdgpu_ctx_mgr;
- 
- #define AMDGPU_MAX_ENTITY_NUM 4
--#define AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(max, total) ((max) > 16384ULL*(total))
- 
- struct amdgpu_ctx_entity {
-+	uint32_t		hw_ip;
- 	uint64_t		sequence;
- 	struct drm_sched_entity	entity;
- 	struct dma_fence	*fences[];
-@@ -40,7 +44,7 @@ struct amdgpu_ctx_entity {
- 
- struct amdgpu_ctx {
- 	struct kref			refcount;
--	struct amdgpu_device		*adev;
-+	struct amdgpu_ctx_mgr		*mgr;
- 	unsigned			reset_counter;
- 	unsigned			reset_counter_query;
- 	uint32_t			vram_lost_counter;
-@@ -61,6 +65,7 @@ struct amdgpu_ctx_mgr {
- 	struct mutex		lock;
- 	/* protected by lock */
- 	struct idr		ctx_handles;
-+	atomic64_t		time_spend[AMDGPU_HW_IP_NUM];
- };
- 
- extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
-@@ -70,9 +75,10 @@ int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
- 
- int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
- 			  u32 ring, struct drm_sched_entity **entity);
--void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
--			  struct drm_sched_entity *entity,
--			  struct dma_fence *fence, uint64_t *seq);
-+uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx_mgr *mgr,
-+			      struct amdgpu_ctx *ctx,
-+			      struct drm_sched_entity *entity,
-+			      struct dma_fence *fence);
- struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
- 				       struct drm_sched_entity *entity,
- 				       uint64_t seq);
-@@ -85,10 +91,11 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
- int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
- 			       struct drm_sched_entity *entity);
- 
--void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr);
-+void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
-+			 struct amdgpu_device *adev);
- void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
- long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout);
- void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
--ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
--		uint32_t idx, uint64_t *elapsed);
-+ktime_t amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 5a6857c44bb6..52c2b90925a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -32,6 +32,7 @@
- 
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_debugfs.h>
-+#include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
-@@ -55,10 +56,10 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
- void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- {
- 	struct amdgpu_fpriv *fpriv;
--	uint32_t bus, dev, fn, i, domain;
- 	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
- 	struct drm_file *file = f->private_data;
- 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
-+	uint32_t bus, dev, fn, domain, hw_ip;
- 	struct amdgpu_bo *root;
- 	int ret;
- 
-@@ -83,29 +84,25 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	amdgpu_bo_unreserve(root);
- 	amdgpu_bo_unref(&root);
- 
--	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
--			dev, fn, fpriv->vm.pasid);
--	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
--	seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
--	seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
--	for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
--		uint32_t count = amdgpu_ctx_num_entities[i];
--		int idx = 0;
--		uint64_t total = 0, min = 0;
--		uint32_t perc, frac;
-+	/*
-+	 * ******************************************************************
-+	 * For text output format description please see drm-usage-stats.rst!
-+	 * ******************************************************************
-+	 */
- 
--		for (idx = 0; idx < count; idx++) {
--			total = amdgpu_ctx_mgr_fence_usage(&fpriv->ctx_mgr,
--				i, idx, &min);
--			if ((total == 0) || (min == 0))
--				continue;
-+	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
-+	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
-+			dev, fn, fpriv->vm.pasid);
-+	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-+	seq_printf(m, "drm-memory-gtt:\t%llu KiB\n", gtt_mem/1024UL);
-+	seq_printf(m, "drm-memory-cpu:\t%llu KiB\n", cpu_mem/1024UL);
-+	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
-+		ktime_t usage = amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, hw_ip);
- 
--			perc = div64_u64(10000 * total, min);
--			frac = perc % 100;
-+		if (!usage)
-+			continue;
- 
--			seq_printf(m, "%s%d:\t%d.%d%%\n",
--					amdgpu_ip_name[i],
--					idx, perc/100, frac);
--		}
-+		seq_printf(m, "drm-engine-%s:\t%Ld ns\n",
-+			   amdgpu_ip_name[hw_ip], ktime_to_ns(usage));
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 6b626c293e72..0814e6508a00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1144,7 +1144,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	mutex_init(&fpriv->bo_list_lock);
- 	idr_init(&fpriv->bo_list_handles);
- 
--	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr);
-+	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
- 
- 	file_priv->driver_priv = fpriv;
- 	goto out_suspend;
--- 
-2.25.1
-
+On 5/11/2022 5:27 PM, Lazar, Lijo wrote:
+>
+>
+> On 5/11/2022 5:16 PM, Sathishkumar S wrote:
+>> smartshift apu and dgpu power boost are reported as percentage
+>> with respect to their power limits. adjust the units of power before
+>> calculating the percentage of boost.
+>>
+>> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+>> ---
+>>   .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 60 ++++++++++++++-----
+>>   1 file changed, 44 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c 
+>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>> index e2d099409123..35fbeb72c05c 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>> @@ -276,6 +276,40 @@ static int yellow_carp_mode2_reset(struct 
+>> smu_context *smu)
+>>       return yellow_carp_mode_reset(smu, SMU_RESET_MODE_2);
+>>   }
+>>   +
+>> +static void yellow_carp_get_ss_power_percent(SmuMetrics_t *metrics,
+>> +                    uint32_t *apu_percent, uint32_t *dgpu_percent)
+>> +{
+>> +    uint32_t apu_boost = 0;
+>> +    uint32_t dgpu_boost = 0;
+>> +    uint16_t apu_limit = 0;
+>> +    uint16_t dgpu_limit = 0;
+>> +    uint16_t apu_power = 0;
+>> +    uint16_t dgpu_power = 0;
+>> +
+>> +    apu_power = metrics->ApuPower/1000;
+>> +    apu_limit = metrics->StapmOpnLimit;
+>> +    if (apu_power > apu_limit && apu_limit != 0)
+>> +        apu_boost =  ((apu_power - apu_limit) * 100) / apu_limit;
+>> +    apu_boost = (apu_boost > 100) ? 100 : apu_boost;
+>> +
+>> +    dgpu_power = metrics->dGpuPower/1000;
+>
+> Before submitting (not expecting another version here), may add a 
+> comment that APU/dGPU power values are reported in milli Watts and 
+> STAPM power limits in Watts.
+Okay, will add the comment here . Thank you.
+>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+>
+> Thanks,
+> Lijo
+>
+>> +    if (metrics->StapmCurrentLimit > metrics->StapmOpnLimit)
+>> +        dgpu_limit = metrics->StapmCurrentLimit - 
+>> metrics->StapmOpnLimit;
+>> +    if (dgpu_power > dgpu_limit && dgpu_limit != 0)
+>> +        dgpu_boost = ((dgpu_power - dgpu_limit) * 100) / dgpu_limit;
+>> +    dgpu_boost = (dgpu_boost > 100) ? 100 : dgpu_boost;
+>> +
+>> +    if (dgpu_boost >= apu_boost)
+>> +        apu_boost = 0;
+>> +    else
+>> +        dgpu_boost = 0;
+>> +
+>> +    *apu_percent = apu_boost;
+>> +    *dgpu_percent = dgpu_boost;
+>> +
+>> +}
+>> +
+>>   static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+>>                               MetricsMember_t member,
+>>                               uint32_t *value)
+>> @@ -284,6 +318,8 @@ static int 
+>> yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+>>         SmuMetrics_t *metrics = (SmuMetrics_t 
+>> *)smu_table->metrics_table;
+>>       int ret = 0;
+>> +    uint32_t apu_percent = 0;
+>> +    uint32_t dgpu_percent = 0;
+>>         ret = smu_cmn_get_metrics_table(smu, NULL, false);
+>>       if (ret)
+>> @@ -332,26 +368,18 @@ static int 
+>> yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+>>           *value = metrics->Voltage[1];
+>>           break;
+>>       case METRICS_SS_APU_SHARE:
+>> -        /* return the percentage of APU power with respect to APU's 
+>> power limit.
+>> -         * percentage is reported, this isn't boost value. 
+>> Smartshift power
+>> -         * boost/shift is only when the percentage is more than 100.
+>> +        /* return the percentage of APU power boost
+>> +         * with respect to APU's power limit.
+>>            */
+>> -        if (metrics->StapmOpnLimit > 0)
+>> -            *value =  (metrics->ApuPower * 100) / 
+>> metrics->StapmOpnLimit;
+>> -        else
+>> -            *value = 0;
+>> +        yellow_carp_get_ss_power_percent(metrics, &apu_percent, 
+>> &dgpu_percent);
+>> +        *value = apu_percent;
+>>           break;
+>>       case METRICS_SS_DGPU_SHARE:
+>> -        /* return the percentage of dGPU power with respect to 
+>> dGPU's power limit.
+>> -         * percentage is reported, this isn't boost value. 
+>> Smartshift power
+>> -         * boost/shift is only when the percentage is more than 100.
+>> +        /* return the percentage of dGPU power boost
+>> +         * with respect to dGPU's power limit.
+>>            */
+>> -        if ((metrics->dGpuPower > 0) &&
+>> -            (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
+>> -            *value = (metrics->dGpuPower * 100) /
+>> -                  (metrics->StapmCurrentLimit - 
+>> metrics->StapmOpnLimit);
+>> -        else
+>> -            *value = 0;
+>> +        yellow_carp_get_ss_power_percent(metrics, &apu_percent, 
+>> &dgpu_percent);
+>> +        *value = dgpu_percent;
+>>           break;
+>>       default:
+>>           *value = UINT_MAX;
+>>
