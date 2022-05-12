@@ -4,119 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB165C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 20:54:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06956C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 21:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46D7D10E0B0;
-	Thu, 12 May 2022 20:54:00 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E79910E0B0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 20:53:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SxsWu+RfnEv+hkfWMr1Jx8QrOUaKJihgGnZaINRfMVKMmPYHy9dEBuN+eweAJO5wRIzVRz4t+sJwfFnOuAAXOVwiuwneP9X19OeL9YWx/u6bQ7PMZXFyDuOmjJGs2dYVFnq1DI1paxx1WmpaQmT7Lf7p5WwcgOQAY+0cF5OekAL7QgRriai9X/qBN/9oK7/BzrmYoeww6IEzeBxRJmbhdbQyNG2bfp+KN/rv8kq7cQYkgAhC3djSfacgWU/tHcVnDVrUrPyu3bJSqKvpwiKpbLxDtFmIDCNjiTOZtj8eAHMyIBPG76npvhJWzvE3n7Vgc6+xs6N3p3QTmpcycbGYVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SL2fpR5aeveRw/B9FWC6mSG6ClBcfqTJp5mQliF7AWI=;
- b=c1OeRQj2ben6ogIR3gy6kNO9v1xotnYKhoUQUmsoVYTIbCOnNkQ8DYebKBXss8I9bFgmZ1bJNCp7hkKlTF5rgYCxEZVSKeKsdVZ2nZSy/sgWKidjugxNP2OveLNxTsaTAPurhm+d6te3XDimBCC13ym1y6kgg9diNEaPCvKjV/sjy06jg3nSOevpRJy2JstBS2cvbewusLcvfi+g72zb7+yN2LSRR3t4k8MDpAkjiFA/f/Edk3P69UaaKXORuoiiQmAbspioepTGDHPOIc+51DY1wAxH+UldI/PJgsVe43x4QgG60oxjqik+5lr6QO34fc3FVG0qpWjKyi43ja6big==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SL2fpR5aeveRw/B9FWC6mSG6ClBcfqTJp5mQliF7AWI=;
- b=LYcVWe2LCkp8+lwaIYkXsP32Ephw3TOU3Y+x/OCEZDm89QhSbVz5LmvpW+DW9V3Bh9q148aEu+i2/wDyfYbXLMYUv8Dnzva7pvkF4NHVL4oRxjL02R/wjDQMkkzchnKufi8b4EQCuiD7CFCXl6gcHMZ6TJMLlrmj1POwvc6l7mM=
-Received: from MN2PR12MB3054.namprd12.prod.outlook.com (2603:10b6:208:d1::15)
- by BYAPR12MB2966.namprd12.prod.outlook.com (2603:10b6:a03:df::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23; Thu, 12 May
- 2022 20:53:57 +0000
-Received: from MN2PR12MB3054.namprd12.prod.outlook.com
- ([fe80::543a:9edd:6fea:5d0]) by MN2PR12MB3054.namprd12.prod.outlook.com
- ([fe80::543a:9edd:6fea:5d0%3]) with mapi id 15.20.5227.023; Thu, 12 May 2022
- 20:53:57 +0000
-From: "Kim, Sung joon" <Sungjoon.Kim@amd.com>
-To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH] drm/amd/display: add Coverage blend mode for overlay plane
-Thread-Topic: [PATCH] drm/amd/display: add Coverage blend mode for overlay
- plane
-Thread-Index: AQHYZkHqqPj6Ij/gb0SrqroePalzUa0bt9HQ
-Date: Thu, 12 May 2022 20:53:56 +0000
-Message-ID: <MN2PR12MB30544B1DAFCE33B87EA432FC97CB9@MN2PR12MB3054.namprd12.prod.outlook.com>
-References: <20220512204746.4533-1-Sungjoon.Kim@amd.com>
-In-Reply-To: <20220512204746.4533-1-Sungjoon.Kim@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=68bd0c53-f261-4776-a9fa-0dfe9bb17c49;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-12T20:52:17Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0bbb00fb-5930-4918-451b-08da34598841
-x-ms-traffictypediagnostic: BYAPR12MB2966:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB29667FD26BFDFE342FA4446497CB9@BYAPR12MB2966.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Vi3ZEy6qqYJu3u3P2oAsRR6Og2rQlCaGcEyjfOmyNvQ+OFrU1MVUCf4L8OHb4DpcfKo1BRzs9xZUU/mB+6XUL8gC5JVgBb87Zo1GjIbaeTnSO3kV0SMHAtefcUyG0jz54Yd2mQBv2hqww86pWlho6y3WyJ2kzdotnpRZMIRCB5n76pQV3j4E73X1USySPVXcFxmrYwlxMetICzpZM+xJOSE2pdDhxdtOp9iVx2lgAv5b4bR2C22au6R55SMj7jtBZIUoobKJaaNvdjvG5wDNApGqKI2N7AJlwVYVjjpzN0UCKUDdePSJTeTWjHdBlpGb1+rbuTArJ3Y3eyqD1nRwojeV4pAtRZPJlcqIjRGTK5pwNCR3c0m4aLkLCeHiBxVQNaPLQg+nI6mFgwHnMemAJIjk/+DiIKO5G7orU11RehmBuJg8n5l6Vsb4MH6Rq/dycz+lGVoMLWHK+UmAPoC9xRl/6go020eswzvTkZg9zAASMP264CWyVdtjALRHhWkrRzT6QYPh1fHMXGy/0gm1A7fpnIeffyXsahJ4+4cJ6vmA8WVpLMjtJyDVsXFCR6S14HKITgvGozKxt5ZWTgYjgNPkBbA3ssuayHQWzIBaIHHMnLKnyA3d6OXOD+iq2tyymCQ8yxpuSlDkG4iFD2NDXUZz6vTE/jYzlp0r89PiaQvMAK8DRvTcr6hTs5sMBLJL2s9+yQmJ5fJl/M0/CIYPDLNXiUgtcKWElVyyDlWYHO4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3054.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(54906003)(71200400001)(33656002)(53546011)(76116006)(6636002)(55016003)(66946007)(966005)(8936002)(52536014)(508600001)(7696005)(921005)(8676002)(64756008)(110136005)(186003)(66446008)(66476007)(66556008)(6506007)(4326008)(38100700002)(316002)(38070700005)(9686003)(5660300002)(86362001)(26005)(2906002)(83380400001)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?c483rkSFPqLXgJtljpKNq5m1QbTRU5mUEuxLm5xMx0z7OOIvwnhtXGR5tKVH?=
- =?us-ascii?Q?w7VpZ8vT8jI4uTVuOyxX64vIs01jPFCfXzehRkGO7B0EcqW9Exai3pxmOUsJ?=
- =?us-ascii?Q?UcmbLRmnWM9K/DKbUKY3cHK+xanfn1t62i1L2Evh3/dDAKxfFJGdzVMQoFxi?=
- =?us-ascii?Q?LtofaiJ5prJVLWPENc8TR2ID7bXlOsFDThXqeIeMZeA5KpPiB8BVtRJWRiCQ?=
- =?us-ascii?Q?CMBO7U0EyTWfaVOYEPHXpoAJ5bY62s6gFlcGcwtuaPD5IpH4egp0KtjKZ+GR?=
- =?us-ascii?Q?PBrsBHaIAiU49JVbpDTjqyRd1bmS1HLxIEexTgYGHbE6KPKTkpxfxFV/QSJG?=
- =?us-ascii?Q?IzO0s9/J0wLahEJtS44SHPlMkj0HJaHpUKKc/WVz3jsso3y0l8aMIMDp0tFQ?=
- =?us-ascii?Q?JmybLxrEDG9V8Dnm5tohhOU01mvkdPF753TkWSNdZcpAPS+lRHRxEvMYyBSa?=
- =?us-ascii?Q?4YoyY08AGMiXDeTFR3SjvLUuMO32Tar9sSHbQ8PJa6WzRMe/yXG62erIO8T/?=
- =?us-ascii?Q?v4BCooNatr9MiqeIQsxEh5oL6msJ1Nsi6HyVroShZYYOc9tJUazM2llhokr0?=
- =?us-ascii?Q?/A0TrZCL3oSwFK4iCOtW1GBINbrDWjLsHrZrT7WgBux7MSaueXCbylPB/nrO?=
- =?us-ascii?Q?EuNyJZEQPcC3qZyUeHeTA4k46m13fhvasVuuvda1QJuoldu7XnBVYaN18J5t?=
- =?us-ascii?Q?boZLjfktX5xfvbEiRhv8KQdftz1r6Ba9S3rBDY5YHDZSLjS/7PyvqRRm1TXL?=
- =?us-ascii?Q?ndIORHHJz7f/t30XYVgSl0IpmqhrPpbEeTN2lGzUzcGhw7CIAlFWjs8GnouI?=
- =?us-ascii?Q?n36bjZWsyRz8kc3c2vE2cZQYS6uV9A/o5wKSZ64Mq4O44CUSyudCSNNT8Kg8?=
- =?us-ascii?Q?5wfMJuLeyNYwmbIGrXArmqWXYszxJkuVkvJqkX11kfq+3oatcUXV/HchfG9J?=
- =?us-ascii?Q?vZNjsi4dCjx9S2leXlxfVgEhqUIwcw7hNro9qbdYv0DBRquoqKfnvD49BgAe?=
- =?us-ascii?Q?JdT2hJvTR7MoAlKzBV2V1gQ2A8daXaQzLeAtCYajaP08dXE96HUCLtVoMxnc?=
- =?us-ascii?Q?ahbTqyaMsXmMxLIEfhBNE8mGrXgLyyFziR4ND91HKn9EXtBMb67B3q7I9OWL?=
- =?us-ascii?Q?HpkdVA8xNgsRv8AFdQxW0f/mMXWL2q7qsvwwXmGEvOiVHnTdAyjjgpgmHUqF?=
- =?us-ascii?Q?kKwgEczwqNQwoUAJmHev2ID3UUPZlcTGcD0KswQoUDDQK4UV3bX5FcaIDlZv?=
- =?us-ascii?Q?B1MDuZD9c4ju6/Ev2+lJp/fygsfj/CtYWf0frnXkrelMNKS37vfCoEhWrAXt?=
- =?us-ascii?Q?/LSAxhVtExodXcPCHb4J8pWoXCWI1H2Oc69g2BRGFW5dRY2SYfDsN3w/odkY?=
- =?us-ascii?Q?9sKqgHFEo4pESPq+6bfvWmH3TxiVAni4zfsMYf0WZjobrMFhbkLmI90mRjN6?=
- =?us-ascii?Q?ZZ3UQtDF99f4Vsfs2ArskQfRpuK7t6Sb4Kkw9kG+w3iEe0FAxm17r26NOUt2?=
- =?us-ascii?Q?sMZk5c81gyU80OL0yfYTypzuW0pF/WizF0KyrcrXIBX+vzHjOnVIRjyAUOJ2?=
- =?us-ascii?Q?/FLDryE4T++myUAnyKDXKH00o3FlsHM/pZDZDgX/77kgQUOvi8iqboBomu8W?=
- =?us-ascii?Q?C/0QpW3oQsc5guU/HCHI+o+6IVrnI2z1VJLmqAA4+qPSL75OT2pYCW7swZEu?=
- =?us-ascii?Q?kwkAs0SW5PoLOPYRcWXF6uNTMBcK49wAXw1X7xGubusvpOif?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD9810F67D;
+	Thu, 12 May 2022 21:08:04 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C43010F27C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 20:45:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1652388345;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=voSDiQ+FP3AClH6AEODSIDBdZ2XM5RwIw6B0aLIcIMA=;
+ b=TSLDfQTReXF2gixZUzI/N2TAAAgRwBCQdrbLIpfWRySLF1p7Fi27zgWY+uCh0aqrOUvrfD
+ ZQoKAemownMuczut/gtd/Z2PWAkGGO86173mlBZgFKj8tiF22iKjDIvKUkuqayO/BsoMBY
+ VjhnNH2tEyG0tlhuBliOlf8Zvj12UhM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-255-vhCw6dnjPFS0C684EqC4Lw-1; Thu, 12 May 2022 16:45:40 -0400
+X-MC-Unique: vhCw6dnjPFS0C684EqC4Lw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CAC43AF42AF;
+ Thu, 12 May 2022 20:45:39 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.27])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5375B40CF8E2;
+ Thu, 12 May 2022 20:45:38 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Evan Quan <evan.quan@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>
+Subject: [PATCH] drm/amdgpu: Move mutex_init(&smu->message_lock) to
+ smu_early_init()
+Date: Thu, 12 May 2022 22:45:33 +0200
+Message-Id: <20220512204533.3924-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3054.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bbb00fb-5930-4918-451b-08da34598841
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 May 2022 20:53:56.8590 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wKfuPrr2QpthuCVqgQrvEgP/+tmf+bJRmF1ht/iPrlHqcYwYsrqyPQn8JZWVop9s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2966
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mailman-Approved-At: Thu, 12 May 2022 21:08:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,193 +65,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "mwen@igalia.com" <mwen@igalia.com>,
- "contact@emersion.fr" <contact@emersion.fr>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "markyacoub@chromium.org" <markyacoub@chromium.org>
+Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Lockdep complains about the smu->message_lock mutex being used before
+it is initialized through the following call path:
 
-Made a spelling mistake in the amd-gfx email, sending again.
+amdgpu_device_init()
+ amdgpu_dpm_mode2_reset()
+  smu_mode2_reset()
+   smu_v12_0_mode2_reset()
+    smu_cmn_send_smc_msg_with_param()
 
------Original Message-----
-From: Kim, Sung joon <Sungjoon.Kim@amd.com>
-Sent: Thursday, May 12, 2022 4:48 PM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Deucher, Alexande=
-r <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: amd-gfx@lists.freekdesktop.org; mwen@igalia.com; contact@emersion.fr; m=
-arkyacoub@chromium.org; Kim, Sung joon <Sungjoon.Kim@amd.com>
-Subject: [PATCH] drm/amd/display: add Coverage blend mode for overlay plane
+Move the mutex_init() call to smu_early_init() to fix the mutex being
+used before it is initialized.
 
-According to the KMS man page, there is a "Coverage" alpha blend mode that =
-assumes the pixel color values have NOT been pre-multiplied and will be don=
-e when the actual blending to the background color values happens.
+This fixes the following lockdep splat:
 
-Previously, this mode hasn't been enabled in our driver and it was assumed =
-that all normal overlay planes are pre-multiplied by default.
+[    3.867331] ------------[ cut here ]------------
+[    3.867335] fbcon: Taking over console
+[    3.867338] DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+[    3.867340] WARNING: CPU: 14 PID: 491 at kernel/locking/mutex.c:579 __mutex_lock+0x44c/0x830
+[    3.867349] Modules linked in: amdgpu(+) crct10dif_pclmul drm_ttm_helper crc32_pclmul ttm crc32c_intel ghash_clmulni_intel hid_lg_g15 iommu_v2 sp5100_tco nvme gpu_sched drm_dp_helper nvme_core ccp wmi video hid_logitech_dj ip6_tables ip_tables ipmi_devintf ipmi_msghandler fuse i2c_dev
+[    3.867363] CPU: 14 PID: 491 Comm: systemd-udevd Tainted: G          I       5.18.0-rc5+ #33
+[    3.867366] Hardware name: Micro-Star International Co., Ltd. MS-7C95/B550M PRO-VDH WIFI (MS-7C95), BIOS 2.90 12/23/2021
+[    3.867369] RIP: 0010:__mutex_lock+0x44c/0x830
+[    3.867372] Code: ff 85 c0 0f 84 33 fc ff ff 8b 0d b7 50 25 01 85 c9 0f 85 25 fc ff ff 48 c7 c6 fb 41 82 99 48 c7 c7 6b 63 80 99 e8 88 2a f8 ff <0f> 0b e9 0b fc ff ff f6 83 b9 0c 00 00 01 0f 85 64 ff ff ff 4c 89
+[    3.867377] RSP: 0018:ffffaef8c0fc79f0 EFLAGS: 00010286
+[    3.867380] RAX: 0000000000000028 RBX: 0000000000000000 RCX: 0000000000000027
+[    3.867382] RDX: ffff9ccc0dda0928 RSI: 0000000000000001 RDI: ffff9ccc0dda0920
+[    3.867384] RBP: ffffaef8c0fc7a80 R08: 0000000000000000 R09: ffffaef8c0fc7820
+[    3.867386] R10: 0000000000000003 R11: ffff9ccc2a2fffe8 R12: 0000000000000002
+[    3.867388] R13: ffff9cc990808058 R14: 0000000000000000 R15: ffff9cc98bfc0000
+[    3.867390] FS:  00007fc4d830f580(0000) GS:ffff9ccc0dd80000(0000) knlGS:0000000000000000
+[    3.867394] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    3.867396] CR2: 0000560a77031410 CR3: 000000010f522000 CR4: 0000000000750ee0
+[    3.867398] PKRU: 55555554
+[    3.867399] Call Trace:
+[    3.867401]  <TASK>
+[    3.867403]  ? smu_cmn_send_smc_msg_with_param+0x98/0x240 [amdgpu]
+[    3.867533]  ? __mutex_lock+0x90/0x830
+[    3.867535]  ? amdgpu_dpm_mode2_reset+0x37/0x60 [amdgpu]
+[    3.867653]  ? smu_cmn_send_smc_msg_with_param+0x98/0x240 [amdgpu]
+[    3.867758]  smu_cmn_send_smc_msg_with_param+0x98/0x240 [amdgpu]
+[    3.867857]  smu_mode2_reset+0x2b/0x50 [amdgpu]
+[    3.867953]  amdgpu_dpm_mode2_reset+0x46/0x60 [amdgpu]
+[    3.868096]  amdgpu_device_init.cold+0x1069/0x1e78 [amdgpu]
+[    3.868219]  ? _raw_spin_unlock_irqrestore+0x30/0x50
+[    3.868222]  ? pci_conf1_read+0x9b/0xf0
+[    3.868226]  amdgpu_driver_load_kms+0x15/0x110 [amdgpu]
+[    3.868314]  amdgpu_pci_probe+0x1a9/0x3c0 [amdgpu]
+[    3.868398]  local_pci_probe+0x41/0x80
+[    3.868401]  pci_device_probe+0xab/0x200
+[    3.868404]  really_probe+0x1a1/0x370
+[    3.868407]  __driver_probe_device+0xfc/0x170
+[    3.868410]  driver_probe_device+0x1f/0x90
+[    3.868412]  __driver_attach+0xbf/0x1a0
+[    3.868414]  ? __device_attach_driver+0xe0/0xe0
+[    3.868416]  bus_for_each_dev+0x65/0x90
+[    3.868419]  bus_add_driver+0x151/0x1f0
+[    3.868421]  driver_register+0x89/0xd0
+[    3.868423]  ? 0xffffffffc0bd4000
+[    3.868425]  do_one_initcall+0x5d/0x300
+[    3.868428]  ? do_init_module+0x22/0x240
+[    3.868431]  ? rcu_read_lock_sched_held+0x3c/0x70
+[    3.868434]  ? trace_kmalloc+0x30/0xe0
+[    3.868437]  ? kmem_cache_alloc_trace+0x1e6/0x3a0
+[    3.868440]  do_init_module+0x4a/0x240
+[    3.868442]  __do_sys_finit_module+0x93/0xf0
+[    3.868446]  do_syscall_64+0x5b/0x80
+[    3.868449]  ? rcu_read_lock_sched_held+0x3c/0x70
+[    3.868451]  ? lockdep_hardirqs_on_prepare+0xd9/0x180
+[    3.868454]  ? do_syscall_64+0x67/0x80
+[    3.868456]  ? do_syscall_64+0x67/0x80
+[    3.868458]  ? do_syscall_64+0x67/0x80
+[    3.868460]  ? do_syscall_64+0x67/0x80
+[    3.868462]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[    3.868465] RIP: 0033:0x7fc4d8ec1ced
+[    3.868467] Code: 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d fb 70 0e 00 f7 d8 64 89 01 48
+[    3.868472] RSP: 002b:00007fff687ae6b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+[    3.868475] RAX: ffffffffffffffda RBX: 0000560a76fbca60 RCX: 00007fc4d8ec1ced
+[    3.868477] RDX: 0000000000000000 RSI: 00007fc4d902343c RDI: 0000000000000011
+[    3.868479] RBP: 00007fc4d902343c R08: 0000000000000000 R09: 0000560a76fb59c0
+[    3.868481] R10: 0000000000000011 R11: 0000000000000246 R12: 0000000000020000
+[    3.868484] R13: 0000560a76f8bfd0 R14: 0000000000000000 R15: 0000560a76fc2d10
+[    3.868487]  </TASK>
+[    3.868489] irq event stamp: 120617
+[    3.868490] hardirqs last  enabled at (120617): [<ffffffff9817169e>] __up_console_sem+0x5e/0x70
+[    3.868494] hardirqs last disabled at (120616): [<ffffffff98171683>] __up_console_sem+0x43/0x70
+[    3.868497] softirqs last  enabled at (119684): [<ffffffff980ee83a>] __irq_exit_rcu+0xca/0x100
+[    3.868501] softirqs last disabled at (119679): [<ffffffff980ee83a>] __irq_exit_rcu+0xca/0x100
+[    3.868504] ---[ end trace 0000000000000000 ]---
 
-When a 3rd party app is used to input a image in a specific format, e.g. PN=
-G, as a source of a overlay plane to blend with the background primary plan=
-e, the pixel color values are not pre-multiplied. So by adding "Coverage" b=
-lend mode, our driver will support those cases.
-
-Reference:
-https://dri.freedesktop.org/docs/drm/gpu/drm-kms.html#plane-composition-pro=
-perties
-
-Signed-off-by: Sung Joon Kim <Sungjoon.Kim@amd.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 ++++++++++++-----
- drivers/gpu/drm/amd/display/dc/dc.h             |  2 ++
- .../gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c  | 15 +++++++++------
- 3 files changed, 23 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2ea20dd7fccf..48a179182d22 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5380,17 +5380,19 @@ fill_plane_buffer_attributes(struct amdgpu_device *=
-adev,
-
- static void
- fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
--                              bool *per_pixel_alpha, bool *global_alpha,
--                              int *global_alpha_value)
-+                              bool *per_pixel_alpha, bool *alpha_not_pre_m=
-ultiplied,
-+                              bool *global_alpha, int *global_alpha_value)
- {
-        *per_pixel_alpha =3D false;
-+       *alpha_not_pre_multiplied =3D false;
-        *global_alpha =3D false;
-        *global_alpha_value =3D 0xff;
-
-        if (plane_state->plane->type !=3D DRM_PLANE_TYPE_OVERLAY)
-                return;
-
--       if (plane_state->pixel_blend_mode =3D=3D DRM_MODE_BLEND_PREMULTI) {
-+       if (plane_state->pixel_blend_mode =3D=3D DRM_MODE_BLEND_PREMULTI ||
-+               plane_state->pixel_blend_mode =3D=3D DRM_MODE_BLEND_COVERAG=
-E) {
-                static const uint32_t alpha_formats[] =3D {
-                        DRM_FORMAT_ARGB8888,
-                        DRM_FORMAT_RGBA8888,
-@@ -5405,6 +5407,9 @@ fill_blending_from_plane_state(const struct drm_plane=
-_state *plane_state,
-                                break;
-                        }
-                }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index f1544755d8b4..a44a6f41fa1e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -576,6 +576,8 @@ static int smu_early_init(void *handle)
+ 	smu->smu_baco.platform_support = false;
+ 	smu->user_dpm_profile.fan_mode = -1;
+ 
++	mutex_init(&smu->message_lock);
 +
-+               if (per_pixel_alpha && plane_state->pixel_blend_mode =3D=3D=
- DRM_MODE_BLEND_COVERAGE)
-+                       *alpha_not_pre_multiplied =3D true;
-        }
-
-        if (plane_state->alpha < 0xffff) {
-@@ -5567,7 +5572,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *ade=
-v,
-                return ret;
-
-        fill_blending_from_plane_state(
--               plane_state, &plane_info->per_pixel_alpha,
-+               plane_state, &plane_info->per_pixel_alpha,
-+&plane_info->alpha_not_pre_multiplied,
-                &plane_info->global_alpha, &plane_info->global_alpha_value)=
-;
-
-        return 0;
-@@ -5614,6 +5619,7 @@ static int fill_dc_plane_attributes(struct amdgpu_dev=
-ice *adev,
-        dc_plane_state->tiling_info =3D plane_info.tiling_info;
-        dc_plane_state->visible =3D plane_info.visible;
-        dc_plane_state->per_pixel_alpha =3D plane_info.per_pixel_alpha;
-+       dc_plane_state->alpha_not_pre_multiplied =3D
-+plane_info.alpha_not_pre_multiplied;
-        dc_plane_state->global_alpha =3D plane_info.global_alpha;
-        dc_plane_state->global_alpha_value =3D plane_info.global_alpha_valu=
-e;
-        dc_plane_state->dcc =3D plane_info.dcc;
-@@ -7905,7 +7911,8 @@ static int amdgpu_dm_plane_init(struct amdgpu_display=
-_manager *dm,
-        if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY &&
-            plane_cap && plane_cap->per_pixel_alpha) {
-                unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE) =
-|
--                                         BIT(DRM_MODE_BLEND_PREMULTI);
-+                                         BIT(DRM_MODE_BLEND_PREMULTI) |
-+                                         BIT(DRM_MODE_BLEND_COVERAGE);
-
-                drm_plane_create_alpha_property(plane);
-                drm_plane_create_blend_mode_property(plane, blend_caps); di=
-ff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/displa=
-y/dc/dc.h
-index 26c24db8f1da..714047d0c4f9 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1011,6 +1011,7 @@ struct dc_plane_state {
-
-        bool is_tiling_rotated;
-        bool per_pixel_alpha;
-+       bool alpha_not_pre_multiplied;
-        bool global_alpha;
-        int  global_alpha_value;
-        bool visible;
-@@ -1045,6 +1046,7 @@ struct dc_plane_info {
-        bool horizontal_mirror;
-        bool visible;
-        bool per_pixel_alpha;
-+       bool alpha_not_pre_multiplied;
-        bool global_alpha;
-        int  global_alpha_value;
-        bool input_csc_enabled;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/g=
-pu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index e1f87bd72e4a..e541fe85c455 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -2346,12 +2346,15 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_c=
-tx *pipe_ctx)
-        blnd_cfg.overlap_only =3D false;
-        blnd_cfg.global_gain =3D 0xff;
-
--       if (per_pixel_alpha && pipe_ctx->plane_state->global_alpha) {
--               blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALP=
-HA_COMBINED_GLOBAL_GAIN;
--               blnd_cfg.global_gain =3D pipe_ctx->plane_state->global_alph=
-a_value;
--       } else if (per_pixel_alpha) {
--               blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALP=
-HA;
-+       if (per_pixel_alpha) {
-+               blnd_cfg.pre_multiplied_alpha =3D pipe_ctx->plane_state->al=
-pha_not_pre_multiplied ? false : true;
-+               if (pipe_ctx->plane_state->global_alpha) {
-+                       blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_P=
-IXEL_ALPHA_COMBINED_GLOBAL_GAIN;
-+                       blnd_cfg.global_gain =3D pipe_ctx->plane_state->glo=
-bal_alpha_value;
-+               } else
-+                       blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_P=
-IXEL_ALPHA;
-        } else {
-+               blnd_cfg.pre_multiplied_alpha =3D false;
-                blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_GLOBAL_ALPHA;
-        }
-
-@@ -2365,7 +2368,7 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx=
- *pipe_ctx)
-        blnd_cfg.top_gain =3D 0x1f000;
-        blnd_cfg.bottom_inside_gain =3D 0x1f000;
-        blnd_cfg.bottom_outside_gain =3D 0x1f000;
--       blnd_cfg.pre_multiplied_alpha =3D per_pixel_alpha;
-+
-        if (pipe_ctx->plane_state->format
-                        =3D=3D SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA)
-                blnd_cfg.pre_multiplied_alpha =3D false;
---
-2.20.1
+ 	adev->powerplay.pp_handle = smu;
+ 	adev->powerplay.pp_funcs = &swsmu_pm_funcs;
+ 
+@@ -975,8 +977,6 @@ static int smu_sw_init(void *handle)
+ 	bitmap_zero(smu->smu_feature.supported, SMU_FEATURE_MAX);
+ 	bitmap_zero(smu->smu_feature.allowed, SMU_FEATURE_MAX);
+ 
+-	mutex_init(&smu->message_lock);
+-
+ 	INIT_WORK(&smu->throttling_logging_work, smu_throttling_logging_work_fn);
+ 	INIT_WORK(&smu->interrupt_work, smu_interrupt_work_fn);
+ 	atomic64_set(&smu->throttle_int_counter, 0);
+-- 
+2.36.0
 
