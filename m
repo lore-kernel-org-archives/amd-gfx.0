@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DE5C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 13:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F86CC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 13:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5740F10E933;
-	Thu, 12 May 2022 13:55:56 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2BBB10E288;
- Thu, 12 May 2022 13:45:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C0710EC9D;
+	Thu, 12 May 2022 13:55:57 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFE910E121;
+ Thu, 12 May 2022 13:44:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AAE4AB8282F;
- Thu, 12 May 2022 13:45:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC03DC385B8;
- Thu, 12 May 2022 13:45:50 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 577DAB82802;
+ Thu, 12 May 2022 13:43:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B543FC385B8;
+ Thu, 12 May 2022 13:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1652363151;
- bh=amecu+b7hUyD2IyYoX4OpKTSZNdIjnCsR7PoGb+bGAc=;
+ s=korg; t=1652363038;
+ bh=Ny9aSMJASj83tTOxWHOoG7Y4T0OdfwU9wy/scAsojjY=;
  h=Subject:To:Cc:From:Date:From;
- b=IOhDtMRUZBGPQP+3A8XQS7QOz7Gi0CbTl7/hv84rognT3t7yk0slf64k9/U8X8TC2
- jJciE15Kpk+Qdi/2in7jxvGKbTrEBweaWPwZtJ2iioAfa2zxa3wFPWVyoYprfcy1uK
- 3ZYNXJKipRj/VRrynHyN+6eav3EeCVq45j8/Q78Q=
+ b=YIuAUXbtUhifawa9CAPCyKE6OlOQRN9SFGLMbQL1h5poHaKALSE/3UK14mMwBMFIT
+ hGt7kN2+BBynNAvGCv/4IsCUFMfOUu2/pR4qgnJekNFSUN571LRTiNK0SnO/RUabR/
+ gKpRoH9A16WT889R4QTek2nsk2sIKkv/1dprNUVw=
 Subject: Patch "drm/amd/display/dc/gpio/gpio_service: Pass around correct
- dce_{version, environment} types" has been added to the 5.4-stable tree
+ dce_{version, environment} types" has been added to the 5.10-stable tree
 To: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, harry.wentland@amd.com, lee.jones@linaro.org,
  nathan@kernel.org, sunpeng.li@amd.com
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 12 May 2022 15:45:34 +0200
-Message-ID: <1652363134130192@kroah.com>
+Date: Thu, 12 May 2022 15:43:47 +0200
+Message-ID: <1652363027140132@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -62,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amd/display/dc/gpio/gpio_service: Pass around correct dce_{version, environment} types
 
-to the 5.4-stable tree which can be found at:
+to the 5.10-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amd-display-dc-gpio-gpio_service-pass-around-correct-dce_-version-environment-types.patch
-and it can be found in the queue-5.4 subdirectory.
+and it can be found in the queue-5.10 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -157,5 +156,5 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from lee.jones@linaro.org are
 
-queue-5.4/drm-amd-display-dc-gpio-gpio_service-pass-around-correct-dce_-version-environment-types.patch
-queue-5.4/block-drbd-drbd_nl-make-conversion-to-enum-drbd_ret_code-explicit.patch
+queue-5.10/drm-amd-display-dc-gpio-gpio_service-pass-around-correct-dce_-version-environment-types.patch
+queue-5.10/block-drbd-drbd_nl-make-conversion-to-enum-drbd_ret_code-explicit.patch
