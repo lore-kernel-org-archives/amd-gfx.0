@@ -4,61 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 266E8C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 06:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 555D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 06:06:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD64610FC6A;
-	Thu, 12 May 2022 06:03:15 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC1BA10FC6A
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 06:03:13 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id gh6so8150960ejb.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 23:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=kA0CzWDQv62epTeLp6H3i1UWVXCkuZ/aQ0vFlJDZdFg=;
- b=TCvyqcFHPDUplNj+BgmshSFJGH4HLjpTarlmA0DiH/0VlkrxryUox331W3BBlNcHC3
- dyeBKz8znLnPiGbh1wUbA+E3b78+3njC5AxOanKqPiZuQu2DI+CFgXu8E+WQCH+F6m55
- acvxGDzXNmbUm36Y+M0MEVGQDH+3IfKIfLYeznEUlQfgyRNhJ9ZNTT2XGv8eimQ09hjW
- OAqCPPMk20AK4pjMZ58weJj4NFOZ3EcBTUPiIBVbHmxS8uJWr/nBL104qFPFuJFXSIw4
- gV0JvswqqfCbsDwaA9/SAh9UIA5U0XDXeT1AUtZrO45ojrtuw9/o9DGBv07priix++LH
- IjLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=kA0CzWDQv62epTeLp6H3i1UWVXCkuZ/aQ0vFlJDZdFg=;
- b=lNIeekudie2z4Yu0PFlzFwL6W5UTXPzRyIzgOi5hoRDh/DvhJNfKfaFdQktmkaqxf0
- LcMaXs1g2unmXDLZVW0UbKeE8grHTz2DZsDn1DRTYtf2eN0uPoGEy+PFHeT6Bcu/iOmQ
- YWixNdGXR1NCZ2qgRbGYJznmFDeXyjR0vmD0Ushk5usWQRif84SrPG+feBQErA9hlWOH
- Q2h7xKJ3BvK7Bwt9AgFRm2MMjcjkKZBoRv/USJsgpJsbENG/vyAQqBiCizJHDMGXS9/C
- pB2MevSiSpmv8eLGO12ZZ91Ha1aWNIjODoiaLx/sNXl95anJtNoBwomcPcO1W8l1xK7g
- akuA==
-X-Gm-Message-State: AOAM530vxXn5Jx50GqBrjofA+n4hxYNOJ05Ma7Zr162cWm+5/KdI1fEI
- 7Gc2IKhFdxB3F+dSk1o/+wo=
-X-Google-Smtp-Source: ABdhPJz9vhP10rNZ3FZpepv8yd/C4unFAEJ98HM8wdCVjAMEgrKQGT5Ub9ExLRyuPUfLXGz9UTpgBw==
-X-Received: by 2002:a17:907:8a20:b0:6f4:bb5d:9e19 with SMTP id
- sc32-20020a1709078a2000b006f4bb5d9e19mr27392858ejc.190.1652335392118; 
- Wed, 11 May 2022 23:03:12 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea033.dip0.t-ipconnect.de. [91.14.160.51])
- by smtp.gmail.com with ESMTPSA id
- x34-20020a50baa5000000b0042938301fa3sm2078796ede.38.2022.05.11.23.03.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 May 2022 23:03:11 -0700 (PDT)
-Message-ID: <a1ba4b3e-3a28-49ea-4923-50e0ae6f16da@gmail.com>
-Date: Thu, 12 May 2022 08:03:09 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BFB10FCEE;
+	Thu, 12 May 2022 06:06:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66AE210FD17
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 06:06:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i9pYDgluHKCKOV+diWSNlNtgWrDaVmGOn86PrasA86OSM9KmjBJLahMXf7Z45Cc3O9+UHrWeFOopjlFsQVbCR+YkDK7B1BGAH6WvO4PH9mMaTuMyMmvjpS9JA8WPUlIczFz227/2XfHNmu3HZDuMVQTOD+BD8GU9FRhF2XoaZZxTNfO7YvCN+TwH1S8ten/Q/Ew0QO75QLVIlcDRpuSsJRA+Cs61fAf7HvcJ9qVGM4QudhuXmOf9MkywbHyAo+P0haXeInCApQr9MmpDMVCV5wePvJKZpYEF0wOip0wP44f5/jkoNP81tjHJg9j1tbLINMD4IdqUgoYfnrsc2vEiDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LPCB9+zncfs/RXLaYTQsudOKvXN+ckecaNG5bEkoKZU=;
+ b=KzyF970c2/C32pPZ35o6O7shJBCIztl99knYppKcqGM4aRSNZ1C0Xua6CaCaYrFHYW1iq7WNoR9QlAjDbZT2oZB+qwLJA8VXH+4TgpUywv/4IoD9iO2bnSXnT/nXWmnH6VNO56Q7z/QoL3YIuIeL2jlxt70whGDsPAnSaN48BEZMfqu/KHNnLHA3kAeewqUIhIWHqhnZOFn9yne2Ywa07cSEII5os1HiHj5hQfIEhcI2aTqgRp1wJ09DWln8MOihsyJVdqtNqcoAoktlIuGmUD9cdLRRJZmz2t7liwy5EwkTs3GKart1EwbDwyJd49+WoLuaaVseFXm7eja77663Qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LPCB9+zncfs/RXLaYTQsudOKvXN+ckecaNG5bEkoKZU=;
+ b=ZT0J2TXGe+zC8R9NS8WR71CB8khBnYhJXlvQRsdkGp6klkmKvK3nJhIehs0EZXjacqARbk1etZhvNxw6FfA9IX36IWM0LxDF5OAdmd7Ajf4xfLr9HIKf8fSP+nKJGyd95w3+3InXuRL9YoiQPr/X98+p63JpjPP4JwezjEkSljo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
+ by MW2PR12MB2395.namprd12.prod.outlook.com (2603:10b6:907:3::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.22; Thu, 12 May
+ 2022 06:06:17 +0000
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::557c:5a0c:56ac:3af]) by BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::557c:5a0c:56ac:3af%5]) with mapi id 15.20.5250.013; Thu, 12 May 2022
+ 06:06:17 +0000
+Message-ID: <4e88f5a0-11b7-ac14-ce77-7e69c2ce75c1@amd.com>
+Date: Thu, 12 May 2022 08:06:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Subject: Re: [PATCH] drm/amdgpu: Fix multiple GPU resets in XGMI hive.
 Content-Language: en-US
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Lazar, Lijo" <lijo.lazar@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- amd-gfx@lists.freedesktop.org
+ "Lazar, Lijo" <lijo.lazar@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
  <8ea0a998-b056-8cbf-d666-5305fd124a5d@amd.com>
  <40baeccc-86c0-5fc2-c970-c0bf8b6b6943@amd.com>
@@ -78,11 +67,77 @@ References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
  <27535877-a13f-75fc-368f-68105dffc7f8@amd.com>
  <7330c50f-4623-c377-9486-c9a8fa884e15@amd.com>
  <4a52a938-f758-4b51-1f71-599a4af23e20@amd.com>
- <be946517-4355-0f9f-4dad-9653af3f9140@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <be946517-4355-0f9f-4dad-9653af3f9140@amd.com>
+ <b9fd9cf5-1ae1-a599-576d-74f13b0351d5@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <b9fd9cf5-1ae1-a599-576d-74f13b0351d5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6P192CA0081.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:209:8d::22) To BYAPR12MB3589.namprd12.prod.outlook.com
+ (2603:10b6:a03:df::29)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9a0d8517-6366-42da-9ed1-08da33dd8692
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2395:EE_
+X-Microsoft-Antispam-PRVS: <MW2PR12MB23954E794F1BF394ACBE3DCA83CB9@MW2PR12MB2395.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TSQe83nQmr6qTtvagwgQVWIIpKhKVfsPaKnr2CUNaHNK7WAwyMxsF1SBI9a++GItHG8lnFrRasXnj14hGutj346Mo0l6PqPotmMsLgbW542SGC1OhdfnJF8C7Krnk3kxWXe9uA4nYtRRYbGqqAkb8b3O10pY3NXqEIkLIKfApvysNpG0y9R6HHW9JOLKdLlHsdFJYbzmGNskGG33iqR4g//eRfcyGZVUKbj43XhiPDknLTTY+GTahe/YOO4f/5xMlZW+vXI9QAagS8xNZ7DvP412Mqa/ldpHPC3GDd2zlDtsk7lgIy8N1j0uRqK8ZU/kCE3sxIDSCTJuT3flAIN44nYtKGA+/Tl2DTpVEL7SKHqD4K5es+Cl+SzH1RmZ3c8EI+TFbfssjNKaKD3qFcfcr2hods4SxeHsePmhXKPwVyFiOtG1UZoWI9+e6PtnUM1i+2cMTSE4qdWVx3M+ipb8ded41SiUqd9pLpqi0zxR04/M5zPEeNX6rzRLja6UjX3RIDBV4FCLX46qjgDrIY3+uQcOrJyPtvxpphWiWAGOBDaxEMl98IzEAdJSNbyql7tIz+Wt3t8FJ+mcXFMaBNOG0AoEnoRKlmn/9R4T2dEGW7VtE0Das6BYwbds9sxDyEdoWPlRCMg+w7RcSkHPWP4+lF+MpRmhnCh6ppLBpoCrxFoM0O/ufJUNDn2KOyYO53v3okMHHyOT8f4UcfDauGRNfoCsKlyIhld1gdF5D3H1VDc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(53546011)(31686004)(6666004)(86362001)(2616005)(6512007)(4326008)(66946007)(66556008)(8676002)(66476007)(31696002)(6506007)(38100700002)(66574015)(186003)(26005)(8936002)(6486002)(36756003)(508600001)(316002)(5660300002)(2906002)(110136005)(30864003)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzBMMFJqRUxSVFJyRkp6OGRUcVRWbUF4aG5RNDhpbFFWWnlkZTN2K2dSODc3?=
+ =?utf-8?B?RWNVM1cvU2V6WW0xOGg4S25yaktiQkJCcG5sQVZtSjhhRlFPdzdVcUJxZCs2?=
+ =?utf-8?B?Zk9lS2dlalBpZk5GZ2krVXo4MnVSMkNsUXprbjFaVDhmdUxkVlRtczIxRHBh?=
+ =?utf-8?B?VHd1UjQ3MnFiQzhQYU0zTGxka1VwcnBCZHRIYThjVSttUGNyWTI3RFY5MERn?=
+ =?utf-8?B?U0RQNEVwUlB1THhTTlRVRmVNQkNXdjB3OWswNDc5bWtkV3A0WU5TamxyMkR2?=
+ =?utf-8?B?akRUaEJoZC9yQlBZd05GcGRHVzU3ZE5tV1hkM0RFZjBKNk01eXJGOVVDL0Vo?=
+ =?utf-8?B?R3pRaTA4aWk2bnNKa2lTRU1xeXhpdHdKcGlMK0Z1M0dlSVZVNndkMXJCblFU?=
+ =?utf-8?B?YTJuekgyd2djY1kzSE1JNGFUL2JsekpTdUdIRER5UVBqWGpnaEFCS3Rvd2tr?=
+ =?utf-8?B?d29nbjZKTDEwTEJ1YTl1OE1udmdhQVNub3E5WldnZnlVYk5ZRHYxVnZKalk2?=
+ =?utf-8?B?b0hITXlSZlNkcVowWmRVSnE0eVdMU1QvZEczZlcvK2EyaU9sTWpYL21ncTNu?=
+ =?utf-8?B?Ykg5Wmd6NUs5M0xhS21sS3RKZzBMTWRyVUJaeDlVNlZlOEI2M0I5anh2NzNn?=
+ =?utf-8?B?T1N6M0lhRktXY3JHOEVZQXgvY1g1Vk16OXJzVlJ4VEtmSm92Y05MRVdCYi9l?=
+ =?utf-8?B?ZmM2bDFLNEplZlRkdjlYOWtpbFlyQXZXTEovZTBrSUk2NnUrNWJwT05zVWl3?=
+ =?utf-8?B?V0lrMFp1UmhsbnNyckhyUE9jVHdzMGJyc2xLZGRWbFVvUEZQWmJTbyszdGtC?=
+ =?utf-8?B?MlNVVCtQY04yYnJicTZyRmUzcWpJQlRkT0Y3bXdsME9uUjBpODJ3MTZGZGds?=
+ =?utf-8?B?Tjhnb0pONlo2UTdud2xkZ3VwWnlWTktiMzFqSkt2eW5TL3Boc2hreVZtRGlT?=
+ =?utf-8?B?Sm5TZEZBY3VNNkpQazFRU1hIVjYwTE5COHB0L1YweWJXZEtYU3lITmlyUm9s?=
+ =?utf-8?B?UzF2cWRLZS9iVk5BR1Y1UGtzbzdBellPb01aV2dxMVg4aTV6aE9CNU9TNGRF?=
+ =?utf-8?B?Y0FVT0dYdGFsT2dXRHVrTXduZHNTYXpjdlU4bW5sNDhoVHFhbVhqOXdMa3Iy?=
+ =?utf-8?B?MC9sN3BQVHF2Ym9pNFFvdmc4WlVFNklCVC9wNTc5U3JzSW4wM054aFBLRXdR?=
+ =?utf-8?B?OWNyNVZrVjhSa3hqaFZwYXE1TnFWNFhIT0lZaU1Xa1pXSndrMFlUL0tYZ0pE?=
+ =?utf-8?B?b3hzZlpzT1U5dG0vditIVU5acEpIcUhmY1dVeXJISEFPU1RBd253Z2V5aUdr?=
+ =?utf-8?B?OWI4WFVCdVhSRWw2QWhZbys1bTFVMUhDNVdERDhaWXFTSVFjdTRmVitoMHVG?=
+ =?utf-8?B?TTFybUdlQ1lZenNaaHZtM0VuSy9qWnI2QVVhK0h1REFBVE15dnFBeFhHL3c5?=
+ =?utf-8?B?MlBBNllNZGdaT1Z3ZU93dzJvam9oNWw3QUFWM2lYUTNjb2Jqd3QvVjZLMi80?=
+ =?utf-8?B?eDJ0Y3RIRCtKUSthYkd2TzUxY3pSTlhLM0V1cG1PTDhvNjhrcktKUHZMVjhM?=
+ =?utf-8?B?cUV1STBVcDRqNmNZTGVCdHJsdVJ6NXR4c1NLRXJoNUN3VUNPVWFVTG0xVVBW?=
+ =?utf-8?B?eUtWNC95bUlTWk9WZkZLaFBoVGxhaUhzNmFtb2Z5NytYT1NWTWdOMk8zbUpX?=
+ =?utf-8?B?aEN6TVNPV2x0S1M3Y2RiWkZmc2dkOFhxS0ZnUEs4K01wMWNvU3RITmdwTlY1?=
+ =?utf-8?B?NHRQMWwwWHBlb0pQNFBtL1VRVGR0cmZkYVpSSE0wUnF2L05mdkF5UnVSemw4?=
+ =?utf-8?B?cTdPV3M3Z3hDSUtiWnNNVmpGZWpxRFVBSjRwY3djc2pNZHhwUVdTcUZON3lx?=
+ =?utf-8?B?UDJ4L2lURmZvWXc0MjJTQVNpQ3dXTkIrN2YvdjA0eE9vbEFDTjhpNTRLN0U5?=
+ =?utf-8?B?VTIwbUwrU29zRWlNMXBBUU84T21PMTE3M2dSb0N1TCtNK2YzeVAzcFIyK1d5?=
+ =?utf-8?B?RW9xRlUxem13MVN4Z3Z5V1dhRjhCeXFTcmhVdmRBdnJxbm4rZnhmMDFPQWw4?=
+ =?utf-8?B?TWx5bmFJN1ljYndBOWFaQmN1cU5Yd1FxUFRlU2dWM3dDdk9IQ05vYmFDenYy?=
+ =?utf-8?B?RFp5Nk5rWHZaZTdMbUJOM0dHZWR2L2pqL3U2NHVZY2NxTnlxeGZKV1RVL0Va?=
+ =?utf-8?B?c3FROWtIcDg3MXpOMGk0R1c4Y00vNlNybWl6TWR6QWYrakJIeE0vV3VwdzVQ?=
+ =?utf-8?B?U0RheG45bitmcElZYWNvc3Vqc3NjSmo3ZnVUdFFrNlpzTERkb2pzVVEwYUxh?=
+ =?utf-8?B?Y2p6OTR4aUdlZklyY0JaeFlPRVJXNVlJdGJwNVh1YXJRZDZKdVd2QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0d8517-6366-42da-9ed1-08da33dd8692
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2022 06:06:16.8641 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: raOKoFzCbyJyGDTszVe3oCPZmpXozgarspYXJHbP2ebQyucsZrjtzaA4lKlrECOR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2395
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,8 +153,71 @@ Cc: Bai Zoy <Zoy.Bai@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.05.22 um 17:57 schrieb Andrey Grodzovsky:
-> [SNIP]
+Am 11.05.22 um 22:27 schrieb Andrey Grodzovsky:
+>
+> On 2022-05-11 11:39, Christian König wrote:
+>> Am 11.05.22 um 17:35 schrieb Andrey Grodzovsky:
+>>> On 2022-05-11 11:20, Lazar, Lijo wrote:
+>>>>
+>>>>
+>>>> On 5/11/2022 7:28 PM, Christian König wrote:
+>>>>> Am 11.05.22 um 15:43 schrieb Andrey Grodzovsky:
+>>>>>> On 2022-05-11 03:38, Christian König wrote:
+>>>>>>> Am 10.05.22 um 20:53 schrieb Andrey Grodzovsky:
+>>>>>>>> [SNIP]
+>>>>>>>>> E.g. in the reset code (either before or after the reset, 
+>>>>>>>>> that's debatable) you do something like this:
+>>>>>>>>>
+>>>>>>>>> for (i = 0; i < num_ring; ++i)
+>>>>>>>>>     cancel_delayed_work(ring[i]->scheduler....)
+>>>>>>>>> cancel_work(adev->ras_work);
+>>>>>>>>> cancel_work(adev->iofault_work);
+>>>>>>>>> cancel_work(adev->debugfs_work);
+>>>>>>>>> ...
+>>>>>>>>>
+>>>>>>>>> You don't really need to track which reset source has fired 
+>>>>>>>>> and which hasn't, because that would be racy again. Instead 
+>>>>>>>>> just bluntly reset all possible sources.
+>>>>>>>>>
+>>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> I don't say we care if it fired once or twice (I need to add a 
+>>>>>>>> fix to only insert reset work to pending reset list if it's not 
+>>>>>>>> already there), the point of using list (or array) to which you 
+>>>>>>>> add and from which you remove is that the logic of this is 
+>>>>>>>> encapsulated within reset domain. In your way we need to be 
+>>>>>>>> aware who exactly schedules reset work and explicitly cancel 
+>>>>>>>> them, this also means that for any new source added in the 
+>>>>>>>> future you will need to remember to add him
+>>>>>>>
+>>>>>>> I don't think that this is a valid argument. Additionally to the 
+>>>>>>> schedulers we probably just need less than a handful of reset 
+>>>>>>> sources, most likely even just one or two is enough.
+>>>>>>>
+>>>>>>> The only justification I can see of having additional separate 
+>>>>>>> reset sources would be if somebody wants to know if a specific 
+>>>>>>> source has been handled or not (e.g. call flush_work() or 
+>>>>>>> work_pending()). Like in the case of a reset triggered through 
+>>>>>>> debugfs.
+>>>>>>
+>>>>>>
+>>>>>> This is indeed one reason, another is as we said before that if 
+>>>>>> you share 'reset source' (meaning a delayed work) with another 
+>>>>>> client (i.e. RAS and KFD) it means you make assumption that the 
+>>>>>> other client always proceeds with the
+>>>>>> reset exactly the same way as you expect. So today we have this 
+>>>>>> only in scheduler vs non scheduler reset happening - non 
+>>>>>> scheduler reset clients assume the reset is always fully executed 
+>>>>>> in HW while scheduler based reset makes shortcuts and not always 
+>>>>>> does HW reset hence they cannot share 'reset source' (delayed 
+>>>>>> work). Yes, we can always add this in the future if and when such 
+>>>>>> problem will arise but no one will remember this then and a new 
+>>>>>> bug will be introduced and will take time to find and resolve.
+>>>>>
+>>>>> Mhm, so your main concern is that we forget to correctly handle 
+>>>>> the new reset sources?
+>>>>>
 >>>>> How about we do it like this then:
 >>>>>
 >>>>> struct amdgpu_reset_domain {
@@ -146,52 +264,33 @@ Am 11.05.22 um 17:57 schrieb Andrey Grodzovsky:
 >>> amdgpu_device_gpu_recover.
 >>
 >> You should try to avoid that as well.
->
->
-> Why ?
-
-Because pointers need a lifetime. When the work items are allocated as 
-part of the structure you can be sure that they are not freed not reused 
-for something else.
-
->
+>>
+>> See when the debugfs reset is canceled because of a scheduler reset 
+>> you won't get a useful return code either.
 >>
 >> What we should do instead is to cache the status of the last reset in 
 >> the reset domain.
+>>
+>> Regards,
+>> Christian.
 >
 >
-> Probably an atomic ret in reset_domain then.
->
-> Another 2 points i forgot to ask -
->
-> 1) What race condition you had in mind about insertion and extraction 
-> from the list if all is done under lock ?
+> Another problem with this approach -  to execute  the actaul GPU reset 
+> I need accesses  to concrete amdgpu_device pointer from work struct 
+> (see xgpu_ai_mailbox_flr_work) as example. If i store all work items in
+> array in amdgpu_reset_domain the most i can only retrieve is the 
+> reset_domain struct itself which won't help since it's dynamically 
+> allocated, not embedded in hive or adev and can can be one per device 
+> or per entire hive in case of XGMI and so there is no way for me to 
+> reach back to amdgpu_device. Back pointer to adev* from 
+> amdgpu_reset_domain will only work for single device but not for XGMI 
+> hive where there are multiple devices in a hive.
 
-A work item is essentially a linked list and a function to call when the 
-worker thread has time to process the item. This means you now have two 
-linked lists representing essentially the same.
+Which is exactly the reason why I think we should always allocate the 
+hive structure, even if we only have one device. And a GPU reset should 
+then always work with the hive data structure and not adev.
 
-To make it even worse those two lists are protected by two different 
-locks. The work item list is protected by the worker lock and the reset 
-item by our own.
-
-Keeping all that synced up is rather racy.
-
->
-> 2) This I asked already - why you opposed so much to allocation on the 
-> stack ? I understand the problem with dynamic memory allocations but 
-> why stack ? We do multiple allocations on the stack for any function
-> we call during GPU reset, what so special in this case where we 
-> allocate work struct on the stack? It's not like the work struct is 
-> especially big compared to other stuff we allocate on the stack.
-
-The problem is once more the lifetime. When the reset work items are 
-allocated on the stack we absolutely need to make sure that their 
-pointer is not flying around anywhere when the function returns. Keep in 
-mind that a stack is just another form of memory management.
-
-It's certainly possible to get that right, but it's just the more error 
-prone approach.
+Adding a pointer from your reset work item back to the hive is then trivial.
 
 Regards,
 Christian.
@@ -200,9 +299,6 @@ Christian.
 > Andrey
 >
 >
->>
->> Regards,
->> Christian.
 >>
 >>>
 >>> Andrey
