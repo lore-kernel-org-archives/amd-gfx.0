@@ -4,140 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 555D2C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 06:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E58C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 06:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BFB10FCEE;
-	Thu, 12 May 2022 06:06:21 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66AE210FD17
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 06:06:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0241C10FE3D;
+	Thu, 12 May 2022 06:17:59 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2053.outbound.protection.outlook.com [40.107.101.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF4910FE3D;
+ Thu, 12 May 2022 06:17:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i9pYDgluHKCKOV+diWSNlNtgWrDaVmGOn86PrasA86OSM9KmjBJLahMXf7Z45Cc3O9+UHrWeFOopjlFsQVbCR+YkDK7B1BGAH6WvO4PH9mMaTuMyMmvjpS9JA8WPUlIczFz227/2XfHNmu3HZDuMVQTOD+BD8GU9FRhF2XoaZZxTNfO7YvCN+TwH1S8ten/Q/Ew0QO75QLVIlcDRpuSsJRA+Cs61fAf7HvcJ9qVGM4QudhuXmOf9MkywbHyAo+P0haXeInCApQr9MmpDMVCV5wePvJKZpYEF0wOip0wP44f5/jkoNP81tjHJg9j1tbLINMD4IdqUgoYfnrsc2vEiDw==
+ b=EFYrPYMRG4cTZzIEPKjiTXm0Kn23hRX42XOiPdnQd3XMTPUoVb7oHo81bFQVqdrP4JbBuCkUNxBxbtXonOZHn6gm0Zyut7sy3OuqTl12EgTla6cwbWITypsDConMpYxffLEB3/g9hLFifXBexoY9v1USLkTXf1A9eKSV3gzhgYnp74qo63gbrLwvAhT7Mut0PJl1puJ8agEjZYEQyFeKeAX+fz1bAESaQkxDDiNm3eSP0bwsZXYDkS4Z0IFLUCtMinZVR2okW/jzIulNg0dhpyMaC5YoeNyQ/zOaRZk003vm8pGVyeQIc35Aa/LHqAaZx9Y5DTeP8hfyHkudgASZfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LPCB9+zncfs/RXLaYTQsudOKvXN+ckecaNG5bEkoKZU=;
- b=KzyF970c2/C32pPZ35o6O7shJBCIztl99knYppKcqGM4aRSNZ1C0Xua6CaCaYrFHYW1iq7WNoR9QlAjDbZT2oZB+qwLJA8VXH+4TgpUywv/4IoD9iO2bnSXnT/nXWmnH6VNO56Q7z/QoL3YIuIeL2jlxt70whGDsPAnSaN48BEZMfqu/KHNnLHA3kAeewqUIhIWHqhnZOFn9yne2Ywa07cSEII5os1HiHj5hQfIEhcI2aTqgRp1wJ09DWln8MOihsyJVdqtNqcoAoktlIuGmUD9cdLRRJZmz2t7liwy5EwkTs3GKart1EwbDwyJd49+WoLuaaVseFXm7eja77663Qw==
+ bh=u3RjInYZBHWdKjhxEbjU2gHVisuxzL7N8uK/YEVJTg4=;
+ b=HHciG8vrOpc0MM7PAmguK78K+mU8MEDFCnZSC2mOX1TMsrtUF5JQxCgzsxUPK8yJW/0pdzxaRD2/6Q3BPWJRoh2IV4SGO1VNHb6lovPVla18Z+ITxLIPyruhQrrRjHsCmApl35RwOZ5uqrHNhfeLLV0/mxw2edZTqz36uRQSny5z2dbTXNOaIjJcYLQfyQivNQS0krqG6/QosM0xByRDtCQszFdtz35HvRd4oOsTdBVDWyT0fq7GSvie4Q29zRtqXfb8Yjw7qQ+wSZTAaNCAA/AerCYT/QDUWGfGJqxlaWOCWHSu6z24q1peTACi4q9qTeRGz9dR54/1+rwVd5MnOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LPCB9+zncfs/RXLaYTQsudOKvXN+ckecaNG5bEkoKZU=;
- b=ZT0J2TXGe+zC8R9NS8WR71CB8khBnYhJXlvQRsdkGp6klkmKvK3nJhIehs0EZXjacqARbk1etZhvNxw6FfA9IX36IWM0LxDF5OAdmd7Ajf4xfLr9HIKf8fSP+nKJGyd95w3+3InXuRL9YoiQPr/X98+p63JpjPP4JwezjEkSljo=
+ bh=u3RjInYZBHWdKjhxEbjU2gHVisuxzL7N8uK/YEVJTg4=;
+ b=JY87c+K9oOyPflQPf+D+ifUmDvBWzM756avIw4Emtdy2dmOMnEFkV62XVCb3zmEBvyVIVWSfye4ghUm8GNC0VwKXVRprTEVybj+CEXPuQ33rq658/OWk7IP8mOPSeae/k6MbM5uinhmtaPU67LyPQO2fF56/m8xpFSGKxlTPxgg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
- by MW2PR12MB2395.namprd12.prod.outlook.com (2603:10b6:907:3::16) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN0PR12MB6222.namprd12.prod.outlook.com (2603:10b6:208:3c2::19)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.22; Thu, 12 May
- 2022 06:06:17 +0000
-Received: from BYAPR12MB3589.namprd12.prod.outlook.com
- ([fe80::557c:5a0c:56ac:3af]) by BYAPR12MB3589.namprd12.prod.outlook.com
- ([fe80::557c:5a0c:56ac:3af%5]) with mapi id 15.20.5250.013; Thu, 12 May 2022
- 06:06:17 +0000
-Message-ID: <4e88f5a0-11b7-ac14-ce77-7e69c2ce75c1@amd.com>
-Date: Thu, 12 May 2022 08:06:08 +0200
+ 2022 06:17:55 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::fdba:2c6c:b9ab:38f%4]) with mapi id 15.20.5227.024; Thu, 12 May 2022
+ 06:17:53 +0000
+Message-ID: <beb6cbd2-445f-c864-3283-ebdacaed37ac@amd.com>
+Date: Thu, 12 May 2022 08:17:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amdgpu: Fix multiple GPU resets in XGMI hive.
+Subject: Re: [PATCH] drm/amdgpu: Add 'modeset' module parameter
 Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- "Lazar, Lijo" <lijo.lazar@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220504161841.24669-1-andrey.grodzovsky@amd.com>
- <8ea0a998-b056-8cbf-d666-5305fd124a5d@amd.com>
- <40baeccc-86c0-5fc2-c970-c0bf8b6b6943@amd.com>
- <384abcbc-c5e9-3732-7257-7f7bbf4c704b@amd.com>
- <05a18be9-dcc3-9246-b572-e47ccf5e804b@amd.com>
- <5f49de9e-dfa0-3371-c800-581f00556820@amd.com>
- <82cf78c6-9246-e892-bc42-99f6ec668481@amd.com>
- <ffad0f2b-b975-c099-a96d-98f82bc972ab@gmail.com>
- <3cefe63f-1f27-db1c-aeee-3731ca1e6d1d@amd.com>
- <df5deb8c-1a33-e177-ce26-eaccae179786@amd.com>
- <2b9b0047-6eb9-4117-9fa3-4396be39d39a@amd.com>
- <fb066a24-3737-ad5d-d098-ef0b5d4a54d4@amd.com>
- <2d366654-8df3-c6ae-d6fc-4fa94fc32fb1@amd.com>
- <3e0c3d24-2135-b02f-93a3-ab2a597c794f@gmail.com>
- <9cd38f76-13d0-7e99-9c8c-dff847c6cf2b@amd.com>
- <6699d9ec-501d-d2d5-2220-88fb754819a7@amd.com>
- <27535877-a13f-75fc-368f-68105dffc7f8@amd.com>
- <7330c50f-4623-c377-9486-c9a8fa884e15@amd.com>
- <4a52a938-f758-4b51-1f71-599a4af23e20@amd.com>
- <b9fd9cf5-1ae1-a599-576d-74f13b0351d5@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Lyude Paul <lyude@redhat.com>
+References: <20220511181935.810735-1-lyude@redhat.com>
+ <CADnq5_OWH-Bat3OyCmHz6hTE++7hPLXqqMgg2=Nk6HB_Qk61JA@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b9fd9cf5-1ae1-a599-576d-74f13b0351d5@amd.com>
+In-Reply-To: <CADnq5_OWH-Bat3OyCmHz6hTE++7hPLXqqMgg2=Nk6HB_Qk61JA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P192CA0081.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:8d::22) To BYAPR12MB3589.namprd12.prod.outlook.com
- (2603:10b6:a03:df::29)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::16) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9a0d8517-6366-42da-9ed1-08da33dd8692
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2395:EE_
-X-Microsoft-Antispam-PRVS: <MW2PR12MB23954E794F1BF394ACBE3DCA83CB9@MW2PR12MB2395.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 64a0d01f-e4c7-4001-00a2-08da33df2568
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6222:EE_
+X-Microsoft-Antispam-PRVS: <MN0PR12MB6222149E620874B5A8BC081083CB9@MN0PR12MB6222.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TSQe83nQmr6qTtvagwgQVWIIpKhKVfsPaKnr2CUNaHNK7WAwyMxsF1SBI9a++GItHG8lnFrRasXnj14hGutj346Mo0l6PqPotmMsLgbW542SGC1OhdfnJF8C7Krnk3kxWXe9uA4nYtRRYbGqqAkb8b3O10pY3NXqEIkLIKfApvysNpG0y9R6HHW9JOLKdLlHsdFJYbzmGNskGG33iqR4g//eRfcyGZVUKbj43XhiPDknLTTY+GTahe/YOO4f/5xMlZW+vXI9QAagS8xNZ7DvP412Mqa/ldpHPC3GDd2zlDtsk7lgIy8N1j0uRqK8ZU/kCE3sxIDSCTJuT3flAIN44nYtKGA+/Tl2DTpVEL7SKHqD4K5es+Cl+SzH1RmZ3c8EI+TFbfssjNKaKD3qFcfcr2hods4SxeHsePmhXKPwVyFiOtG1UZoWI9+e6PtnUM1i+2cMTSE4qdWVx3M+ipb8ded41SiUqd9pLpqi0zxR04/M5zPEeNX6rzRLja6UjX3RIDBV4FCLX46qjgDrIY3+uQcOrJyPtvxpphWiWAGOBDaxEMl98IzEAdJSNbyql7tIz+Wt3t8FJ+mcXFMaBNOG0AoEnoRKlmn/9R4T2dEGW7VtE0Das6BYwbds9sxDyEdoWPlRCMg+w7RcSkHPWP4+lF+MpRmhnCh6ppLBpoCrxFoM0O/ufJUNDn2KOyYO53v3okMHHyOT8f4UcfDauGRNfoCsKlyIhld1gdF5D3H1VDc=
+X-Microsoft-Antispam-Message-Info: C3Vrxe/60FAD6N2c87ZEGyVnPlTPu5qBFQUo9IvfO3oyhjyhfv3opxbmkqug+OrA0UZBYvSKvN1+N+/SqwOsbT9EweFiUVIyjoAVwWHyfh1edgaBBc6yNepLVbKA4L7w2GsKwgTYr4CmsnWKOxjVUzmaZMckXMoN9ncYlTniMvHJ4aq8QpM6o2r2oVt97PW0e/KQ4JxqxU6TOf9a9ump3WcfSU40oUHVWmf9lwkrexzABvO1dU0gr9E0F4mMAhf7oKxhsLyviEvaEDj9h6v38lPHfwlhi7ed0+s0oECUJqZSN+XoVduPdNWgEPERdrEuZaNT1CdOVcaH+fGqLLAwZCzkb9HcV7ffk2V+tONYNZpTteDh5Eas0edpfNnOmHA0JIszfluiZSZTvW+8u6n90MdAgr/Ym1RllSkxDjs6QfGBkYO8N2N7/2cka9PG+KFYSPOFRx9+gvqtiz6ZRl/VmtjSG824bNHigN285B2lDNOPxLOsR/Ul5pS2CnyTOlkqRvoZUPA9MkAhBdBrMBdXSIRTiQEmIBQJ4L6h16jQ70UHWPO+8/YJ2pref4zJR3B62oV/JoJkEbuXyQloOO4x8YWXo9hs9HcZETTbWs8SFNYcXTx6CzzH+kU7yeziNAHKOfMP5iCvsU0JhUSZIc3pGR20/XcAO9AXg0hn2p7noUnBfP0CZWhgXyw21Md5tLHZMS9bPeyPwn6OR6AehRt8zEvG9tD729HIRhSaW46wsfg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(53546011)(31686004)(6666004)(86362001)(2616005)(6512007)(4326008)(66946007)(66556008)(8676002)(66476007)(31696002)(6506007)(38100700002)(66574015)(186003)(26005)(8936002)(6486002)(36756003)(508600001)(316002)(5660300002)(2906002)(110136005)(30864003)(83380400001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(36756003)(316002)(6666004)(54906003)(2616005)(186003)(31686004)(5660300002)(110136005)(83380400001)(31696002)(86362001)(4326008)(66476007)(66556008)(6512007)(26005)(8676002)(38100700002)(66946007)(53546011)(508600001)(2906002)(6486002)(6506007)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzBMMFJqRUxSVFJyRkp6OGRUcVRWbUF4aG5RNDhpbFFWWnlkZTN2K2dSODc3?=
- =?utf-8?B?RWNVM1cvU2V6WW0xOGg4S25yaktiQkJCcG5sQVZtSjhhRlFPdzdVcUJxZCs2?=
- =?utf-8?B?Zk9lS2dlalBpZk5GZ2krVXo4MnVSMkNsUXprbjFaVDhmdUxkVlRtczIxRHBh?=
- =?utf-8?B?VHd1UjQ3MnFiQzhQYU0zTGxka1VwcnBCZHRIYThjVSttUGNyWTI3RFY5MERn?=
- =?utf-8?B?U0RQNEVwUlB1THhTTlRVRmVNQkNXdjB3OWswNDc5bWtkV3A0WU5TamxyMkR2?=
- =?utf-8?B?akRUaEJoZC9yQlBZd05GcGRHVzU3ZE5tV1hkM0RFZjBKNk01eXJGOVVDL0Vo?=
- =?utf-8?B?R3pRaTA4aWk2bnNKa2lTRU1xeXhpdHdKcGlMK0Z1M0dlSVZVNndkMXJCblFU?=
- =?utf-8?B?YTJuekgyd2djY1kzSE1JNGFUL2JsekpTdUdIRER5UVBqWGpnaEFCS3Rvd2tr?=
- =?utf-8?B?d29nbjZKTDEwTEJ1YTl1OE1udmdhQVNub3E5WldnZnlVYk5ZRHYxVnZKalk2?=
- =?utf-8?B?b0hITXlSZlNkcVowWmRVSnE0eVdMU1QvZEczZlcvK2EyaU9sTWpYL21ncTNu?=
- =?utf-8?B?Ykg5Wmd6NUs5M0xhS21sS3RKZzBMTWRyVUJaeDlVNlZlOEI2M0I5anh2NzNn?=
- =?utf-8?B?T1N6M0lhRktXY3JHOEVZQXgvY1g1Vk16OXJzVlJ4VEtmSm92Y05MRVdCYi9l?=
- =?utf-8?B?ZmM2bDFLNEplZlRkdjlYOWtpbFlyQXZXTEovZTBrSUk2NnUrNWJwT05zVWl3?=
- =?utf-8?B?V0lrMFp1UmhsbnNyckhyUE9jVHdzMGJyc2xLZGRWbFVvUEZQWmJTbyszdGtC?=
- =?utf-8?B?MlNVVCtQY04yYnJicTZyRmUzcWpJQlRkT0Y3bXdsME9uUjBpODJ3MTZGZGds?=
- =?utf-8?B?Tjhnb0pONlo2UTdud2xkZ3VwWnlWTktiMzFqSkt2eW5TL3Boc2hreVZtRGlT?=
- =?utf-8?B?Sm5TZEZBY3VNNkpQazFRU1hIVjYwTE5COHB0L1YweWJXZEtYU3lITmlyUm9s?=
- =?utf-8?B?UzF2cWRLZS9iVk5BR1Y1UGtzbzdBellPb01aV2dxMVg4aTV6aE9CNU9TNGRF?=
- =?utf-8?B?Y0FVT0dYdGFsT2dXRHVrTXduZHNTYXpjdlU4bW5sNDhoVHFhbVhqOXdMa3Iy?=
- =?utf-8?B?MC9sN3BQVHF2Ym9pNFFvdmc4WlVFNklCVC9wNTc5U3JzSW4wM054aFBLRXdR?=
- =?utf-8?B?OWNyNVZrVjhSa3hqaFZwYXE1TnFWNFhIT0lZaU1Xa1pXSndrMFlUL0tYZ0pE?=
- =?utf-8?B?b3hzZlpzT1U5dG0vditIVU5acEpIcUhmY1dVeXJISEFPU1RBd253Z2V5aUdr?=
- =?utf-8?B?OWI4WFVCdVhSRWw2QWhZbys1bTFVMUhDNVdERDhaWXFTSVFjdTRmVitoMHVG?=
- =?utf-8?B?TTFybUdlQ1lZenNaaHZtM0VuSy9qWnI2QVVhK0h1REFBVE15dnFBeFhHL3c5?=
- =?utf-8?B?MlBBNllNZGdaT1Z3ZU93dzJvam9oNWw3QUFWM2lYUTNjb2Jqd3QvVjZLMi80?=
- =?utf-8?B?eDJ0Y3RIRCtKUSthYkd2TzUxY3pSTlhLM0V1cG1PTDhvNjhrcktKUHZMVjhM?=
- =?utf-8?B?cUV1STBVcDRqNmNZTGVCdHJsdVJ6NXR4c1NLRXJoNUN3VUNPVWFVTG0xVVBW?=
- =?utf-8?B?eUtWNC95bUlTWk9WZkZLaFBoVGxhaUhzNmFtb2Z5NytYT1NWTWdOMk8zbUpX?=
- =?utf-8?B?aEN6TVNPV2x0S1M3Y2RiWkZmc2dkOFhxS0ZnUEs4K01wMWNvU3RITmdwTlY1?=
- =?utf-8?B?NHRQMWwwWHBlb0pQNFBtL1VRVGR0cmZkYVpSSE0wUnF2L05mdkF5UnVSemw4?=
- =?utf-8?B?cTdPV3M3Z3hDSUtiWnNNVmpGZWpxRFVBSjRwY3djc2pNZHhwUVdTcUZON3lx?=
- =?utf-8?B?UDJ4L2lURmZvWXc0MjJTQVNpQ3dXTkIrN2YvdjA0eE9vbEFDTjhpNTRLN0U5?=
- =?utf-8?B?VTIwbUwrU29zRWlNMXBBUU84T21PMTE3M2dSb0N1TCtNK2YzeVAzcFIyK1d5?=
- =?utf-8?B?RW9xRlUxem13MVN4Z3Z5V1dhRjhCeXFTcmhVdmRBdnJxbm4rZnhmMDFPQWw4?=
- =?utf-8?B?TWx5bmFJN1ljYndBOWFaQmN1cU5Yd1FxUFRlU2dWM3dDdk9IQ05vYmFDenYy?=
- =?utf-8?B?RFp5Nk5rWHZaZTdMbUJOM0dHZWR2L2pqL3U2NHVZY2NxTnlxeGZKV1RVL0Va?=
- =?utf-8?B?c3FROWtIcDg3MXpOMGk0R1c4Y00vNlNybWl6TWR6QWYrakJIeE0vV3VwdzVQ?=
- =?utf-8?B?U0RheG45bitmcElZYWNvc3Vqc3NjSmo3ZnVUdFFrNlpzTERkb2pzVVEwYUxh?=
- =?utf-8?B?Y2p6OTR4aUdlZklyY0JaeFlPRVJXNVlJdGJwNVh1YXJRZDZKdVd2QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXBDc0dac0VnakFHSk92WE1kL2l5NmpOQVNVa3ZlVVdva3dNUnZiamt3YWJr?=
+ =?utf-8?B?aTFFZkNLZVYzdjh4cHIvZWd3YWFhVDhtSUdyejdmeTEzaCtpcDB5a3QwcHNH?=
+ =?utf-8?B?UHYzUzdEZWpMajBtT1UvTVpURzVrZEpFOHFYUnRKNTZBNFFUYXZiOWJxK3M3?=
+ =?utf-8?B?M1NPUUd0NnFldFMwQnc4ZGFzQ1VJaTVHWHErZVZUR3Q1OHpXUy95QVF6ZHpS?=
+ =?utf-8?B?WjloRmNMSGoyakN3QStuWXlDZGErNWU0NnJ6QzgzSWVVSVZISXQxT1NMSUtB?=
+ =?utf-8?B?NmRmOVEwL014eUhtREp3Qm16SmlucXdQaEZlTUtrOHNtNUhQcHhQd1JFWDVS?=
+ =?utf-8?B?SnI5ZnliS3g0TGNTNk40ZVZRZWpmN1I3L2hIRDVNVERVUzVGVjhSWXR4Zm5G?=
+ =?utf-8?B?Q0ZQQ2ZqNUV0UUZvMXBweUcvVmdFMmZIM0d5b3RFbEpNYVVaTEtmNGE5eTMz?=
+ =?utf-8?B?Yi8rQUtiRXlsT2F5YzdUNFdWaW9IL0o5RG93ZFBhRGVGTmxSeFZwdVFMSUhu?=
+ =?utf-8?B?K1lyTE1pOGZRQ0JoeUE4OUhPcmdPTjY0S0lJVWkwTThPUDZoUS9kZHgra1hr?=
+ =?utf-8?B?aGd4V3ZLMXBMdUVhdlhVcG9GeERGYk1zOUlFSnFvZUNLazZZWUtpbmxZYnZH?=
+ =?utf-8?B?MkNhRlJuVUQxUHNHbTZGeXhJMUFRVjhTakFTeXMycVpHTjI3ekFpcUltNlJO?=
+ =?utf-8?B?eGovUzFDZlFFUWR1VzJrQk5NS3FoTStrbUd0QVh5NlBpcVhHRjBUeG1RSkM2?=
+ =?utf-8?B?VytXYUdPK2dwVU8yY2J1WFhDTlpVYnJqbEE1N0FFUUV4bGlOOGprdWVvcUNp?=
+ =?utf-8?B?N0tZODdPaFhDQ1dvUDdhMkVOc3FHbmhEWldTWFRBYkExZU1tMUR2SmVXcUZZ?=
+ =?utf-8?B?UUZsa2x3c0F1cUJWZmxETmg3Vkh6MWlTTTR6WjdQMUZCV1IrVTZJaDN6S1M0?=
+ =?utf-8?B?aE9IYmlBTUh5Q2x2ZjBQUFkxWCt5c0lYc3pkMVFQTERmSGEzSG91Y3RabjRp?=
+ =?utf-8?B?Q01vc0hPZUpDemsySTF1YndkWUNuWEgyUDh6RkcxeWpnLzRsUk9sWWhTblU1?=
+ =?utf-8?B?eTRRcGNIdktUUFdJZ1RoUFppVjRsK0RMRVFIRDFEaW95WTlVUUVYalIxWUFs?=
+ =?utf-8?B?WGM4bWN5TWV0V0t6bC9zOG1ET2JKbHdZSTR1dFR1TTZWN0ZMa1lUTlZYU2RM?=
+ =?utf-8?B?dGJsTnYxbjMrYUhJK0RIdExtd1VXd2k2NFExc0Izc2pPaUdTbFNSYVRUN3U3?=
+ =?utf-8?B?S2VWYVVKR2t5Zm5BREZoUEJWSG80OTdtTWh2VS9yU3RwQmVhKzEydlQvQUht?=
+ =?utf-8?B?WXI5b3J2S244b0pVOWZzUFBzeFRPU2ZzSFdjR1hjQUNxRHlHVWMxN1JrNFBj?=
+ =?utf-8?B?YWs2dnY5MjFYMUFrWEJuK2R1cnVlYzJtN1hQZ0tTY2FXL243TE9ScFEyUENk?=
+ =?utf-8?B?a2hoUnJveW1iT3BsREFCZTdjUmZJbG4zTGxRK0JmdFB6NlQxaWhZMHlIUjVY?=
+ =?utf-8?B?Um5aMEpacTY4bXBEajlyQUE1YzJUM0t6Q053ZGZXS3BjcGJucVVldDhHL0Qv?=
+ =?utf-8?B?SzZwSHJZVWF5eEg5TjNaUm5UZkFHS2xqOSt3aUtDRHFFT3lXN0lrRGorbHl5?=
+ =?utf-8?B?WnpLQTdRejVkOG5vTUV6aGNSSW9oRzNrdjJ4MlpvWjZqMmVJT1UzbkhiRGdu?=
+ =?utf-8?B?QVluT1dzT0VNcGc0YTRpOUlzYkl4akJqY1FWaTROZkF6b0Q2UitPdW9WL3dW?=
+ =?utf-8?B?OU5LdGlKeWhGM25TazMvaHE0MFRpMy9idEZidjNXMGRJUTBJM1VISTFMRzM4?=
+ =?utf-8?B?amtramV3bm00cTVaUzV0OTNWcjVSckFQUUZsSUtDSElBZTBmeUFJRmV2Y3RF?=
+ =?utf-8?B?NG9hZnlrREkyZWZUT2gzdkJQSDdpT3FlcFZuU1BSZ2prRHYvS3JIbVNhYWxj?=
+ =?utf-8?B?ckZ4TWtaTTI3OVhmVDE4ZUxJaGs0YTlaWi9vQWJRazRMcTY4NnhTYzNHSjVv?=
+ =?utf-8?B?TDJISzBEckJOc0FuVDhvVlZjK3pUN1JxdXo0M2UvUlR1MklSSjdEbnA4enZR?=
+ =?utf-8?B?blA4WW5WOFpoM2p6RjFXN1M4V3dwclVyNTJvUVBMaFgxdEU3ZDNZR21kamtC?=
+ =?utf-8?B?V1RkL0wvTkhiUGJpTnRJVTlHSkhPRkYwMnI1VCt5WWtxUGxlZWladzNBWisv?=
+ =?utf-8?B?UGk0d2U1THNCOVVMRnFMWk85eVl2alRCdFE3ZHZZMXNxZFBYRkxjbm9ZZnJU?=
+ =?utf-8?B?T2dja282Z0xkaUF6aXA2TitJUEJoM2hlWTRjTkNPRjd6LzFDamhiSlZDQWox?=
+ =?utf-8?B?SHJXckdqTm5aR1NvR1VBM2toMHRuaFRSVFpTY1NDcjYvM3MzS3JyUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0d8517-6366-42da-9ed1-08da33dd8692
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64a0d01f-e4c7-4001-00a2-08da33df2568
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2022 06:06:16.8641 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2022 06:17:52.7611 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: raOKoFzCbyJyGDTszVe3oCPZmpXozgarspYXJHbP2ebQyucsZrjtzaA4lKlrECOR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2395
+X-MS-Exchange-CrossTenant-UserPrincipalName: jkLcLrl6ISU4fTc4XPaOYplxmc0h3NuWTu7wFuCAyd2NSK0C+6s5BcrNhaHH/IWs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6222
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,774 +128,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bai Zoy <Zoy.Bai@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Solomon Chiu <solomon.chiu@amd.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.05.22 um 22:27 schrieb Andrey Grodzovsky:
->
-> On 2022-05-11 11:39, Christian König wrote:
->> Am 11.05.22 um 17:35 schrieb Andrey Grodzovsky:
->>> On 2022-05-11 11:20, Lazar, Lijo wrote:
->>>>
->>>>
->>>> On 5/11/2022 7:28 PM, Christian König wrote:
->>>>> Am 11.05.22 um 15:43 schrieb Andrey Grodzovsky:
->>>>>> On 2022-05-11 03:38, Christian König wrote:
->>>>>>> Am 10.05.22 um 20:53 schrieb Andrey Grodzovsky:
->>>>>>>> [SNIP]
->>>>>>>>> E.g. in the reset code (either before or after the reset, 
->>>>>>>>> that's debatable) you do something like this:
->>>>>>>>>
->>>>>>>>> for (i = 0; i < num_ring; ++i)
->>>>>>>>>     cancel_delayed_work(ring[i]->scheduler....)
->>>>>>>>> cancel_work(adev->ras_work);
->>>>>>>>> cancel_work(adev->iofault_work);
->>>>>>>>> cancel_work(adev->debugfs_work);
->>>>>>>>> ...
->>>>>>>>>
->>>>>>>>> You don't really need to track which reset source has fired 
->>>>>>>>> and which hasn't, because that would be racy again. Instead 
->>>>>>>>> just bluntly reset all possible sources.
->>>>>>>>>
->>>>>>>>> Christian.
->>>>>>>>
->>>>>>>>
->>>>>>>> I don't say we care if it fired once or twice (I need to add a 
->>>>>>>> fix to only insert reset work to pending reset list if it's not 
->>>>>>>> already there), the point of using list (or array) to which you 
->>>>>>>> add and from which you remove is that the logic of this is 
->>>>>>>> encapsulated within reset domain. In your way we need to be 
->>>>>>>> aware who exactly schedules reset work and explicitly cancel 
->>>>>>>> them, this also means that for any new source added in the 
->>>>>>>> future you will need to remember to add him
->>>>>>>
->>>>>>> I don't think that this is a valid argument. Additionally to the 
->>>>>>> schedulers we probably just need less than a handful of reset 
->>>>>>> sources, most likely even just one or two is enough.
->>>>>>>
->>>>>>> The only justification I can see of having additional separate 
->>>>>>> reset sources would be if somebody wants to know if a specific 
->>>>>>> source has been handled or not (e.g. call flush_work() or 
->>>>>>> work_pending()). Like in the case of a reset triggered through 
->>>>>>> debugfs.
->>>>>>
->>>>>>
->>>>>> This is indeed one reason, another is as we said before that if 
->>>>>> you share 'reset source' (meaning a delayed work) with another 
->>>>>> client (i.e. RAS and KFD) it means you make assumption that the 
->>>>>> other client always proceeds with the
->>>>>> reset exactly the same way as you expect. So today we have this 
->>>>>> only in scheduler vs non scheduler reset happening - non 
->>>>>> scheduler reset clients assume the reset is always fully executed 
->>>>>> in HW while scheduler based reset makes shortcuts and not always 
->>>>>> does HW reset hence they cannot share 'reset source' (delayed 
->>>>>> work). Yes, we can always add this in the future if and when such 
->>>>>> problem will arise but no one will remember this then and a new 
->>>>>> bug will be introduced and will take time to find and resolve.
->>>>>
->>>>> Mhm, so your main concern is that we forget to correctly handle 
->>>>> the new reset sources?
->>>>>
->>>>> How about we do it like this then:
->>>>>
->>>>> struct amdgpu_reset_domain {
->>>>>      ....
->>>>>      union {
->>>>>          struct {
->>>>>              struct work_item debugfs;
->>>>>              struct work_item ras;
->>>>>              ....
->>>>>          };
->>>>>          struct work_item array[]
->>>>>      } reset_sources;
->>>>> }
->>>>>
->>>>
->>>> If it's only about static array,
->>>>
->>>> enum amdgpu_reset_soruce {
->>>>
->>>> AMDGPU_RESET_SRC_RAS,
->>>> AMDGPU_RESET_SRC_ABC,
->>>> .....
->>>> AMDGPU_RESET_SRC_XYZ,
->>>> AMDGPU_RESET_SRC_MAX
->>>>
->>>> };
->>>>
->>>> struct work_struct reset_work[AMDGPU_RESET_SRC_MAX]; => An index 
->>>> for each work item
->>>>
->>>>
->>>> Thanks,
->>>> Lijo
->>>
->>>
->>> It's possible though it makes harder to generalize reset_domain 
->>> later for other drivers.
->>> But still one caveat, look at amdgpu_recover_work_struct and it's 
->>> usage in amdgpu_device_gpu_recover and in gpu_recover_get,
->>> At least for debugfs i need to return back the result of GPU reset 
->>> and so I cannot store actual work items in the array mentioned above
->>> but rather pointers to work_item because i need a way to get back 
->>> the return value from gpu_recover like I do now in 
->>> amdgpu_device_gpu_recover.
->>
->> You should try to avoid that as well.
->>
->> See when the debugfs reset is canceled because of a scheduler reset 
->> you won't get a useful return code either.
->>
->> What we should do instead is to cache the status of the last reset in 
->> the reset domain.
->>
->> Regards,
->> Christian.
->
->
-> Another problem with this approach -  to execute  the actaul GPU reset 
-> I need accesses  to concrete amdgpu_device pointer from work struct 
-> (see xgpu_ai_mailbox_flr_work) as example. If i store all work items in
-> array in amdgpu_reset_domain the most i can only retrieve is the 
-> reset_domain struct itself which won't help since it's dynamically 
-> allocated, not embedded in hive or adev and can can be one per device 
-> or per entire hive in case of XGMI and so there is no way for me to 
-> reach back to amdgpu_device. Back pointer to adev* from 
-> amdgpu_reset_domain will only work for single device but not for XGMI 
-> hive where there are multiple devices in a hive.
+Am 11.05.22 um 20:36 schrieb Alex Deucher:
+> On Wed, May 11, 2022 at 2:20 PM Lyude Paul <lyude@redhat.com> wrote:
+>> Many DRM drivers feature a 'modeset' argument, which can be used to
+>> enable/disable the entire driver (as opposed to passing nomodeset to the
+>> kernel, which would disable modesetting globally and make it difficult to
+>> load amdgpu afterwards). Apparently amdgpu is actually missing this
+>> however, so let's add it!
+> You can already do that by passing modprobe.blacklist=amdgpu on the
+> kernel command line.  I don't think we need another option to do that.
 
-Which is exactly the reason why I think we should always allocate the 
-hive structure, even if we only have one device. And a GPU reset should 
-then always work with the hive data structure and not adev.
+Yeah, this already came up multiple times and so far we have always 
+rejected it.
 
-Adding a pointer from your reset work item back to the hive is then trivial.
+Stuffing that into drivers is not a good approach I think. If we want to 
+prevent some device from exposing it's display functionalities we should 
+rather push that into the drm layer.
 
 Regards,
 Christian.
 
 >
-> Andrey
 >
+>> Keep in mind that this currently just lets one enable or disable amdgpu, I
+>> haven't bothered adding a headless mode like nouveau has - however I'm sure
+>> someone else can add this if needed.
+> You can do this as well by passing an IP block mask which disables the
+> display IP, or media IP, etc.
 >
+> Alex
+>
+>> Signed-off-by: Lyude Paul <lyude@redhat.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 ++++++++++++++
+>>   1 file changed, 14 insertions(+)
 >>
->>>
->>> Andrey
->>>
->>>
->>>>
->>>>> Not 100% sure if that works, but something like that should do the 
->>>>> trick.
->>>>>
->>>>> My main concern is that I don't want to allocate the work items on 
->>>>> the stack and dynamic allocation (e.g. kmalloc) is usually not 
->>>>> possible either.
->>>>>
->>>>> Additional to that putting/removing work items from a list, array 
->>>>> or other container is a very common source for race conditions.
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>
->>>>>>>> to the cancellation list which you showed above. In current way 
->>>>>>>> all this done automatically within reset_domain code and it's 
->>>>>>>> agnostic to specific driver and it's specific list of reset 
->>>>>>>> sources. Also in case we would want to generalize reset_domain 
->>>>>>>> to other GPU drivers (which was
->>>>>>>> a plan as far as i remember) this explicit mention of each 
->>>>>>>> reset works for cancellation is again less suitable in my opinion.
->>>>>>>
->>>>>>> Well we could put the work item for the scheduler independent 
->>>>>>> reset source into the reset domain as well. But I'm not sure 
->>>>>>> those additional reset sources should be part of any common 
->>>>>>> handling, that is largely amdgpu specific.
->>>>>>
->>>>>>
->>>>>> So it's for sure more then one source for the reasons described 
->>>>>> above, also note that for scheduler we already cancel delayed 
->>>>>> work in drm_sched_stop so calling them again in amdgpu code kind 
->>>>>> of superfluous.
->>>>>>
->>>>>> Andrey
->>>>>>
->>>>>>
->>>>>>>
->>>>>>> Christian.
->>>>>>>
->>>>>>>>
->>>>>>>> Andrey
->>>>>>>>
->>>>>>>>
->>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> Andrey
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>> The only difference is I chose to do the canceling right 
->>>>>>>>>>>> BEFORE the HW reset and not AFTER. I did this because I see 
->>>>>>>>>>>> a possible race where a new reset request is being 
->>>>>>>>>>>> generated exactly after we finished the HW reset but before 
->>>>>>>>>>>> we canceled out all pending resets - in such case you wold 
->>>>>>>>>>>> not want to cancel this 'border line new' reset request.
->>>>>>>>>>>
->>>>>>>>>>> Why not? Any new reset request directly after a hardware 
->>>>>>>>>>> reset is most likely just falsely generated by the reset 
->>>>>>>>>>> itself.
->>>>>>>>>>>
->>>>>>>>>>> Ideally I would cancel all sources after the reset, but 
->>>>>>>>>>> before starting any new work.
->>>>>>>>>>>
->>>>>>>>>>> Regards,
->>>>>>>>>>> Christian.
->>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>> Andrey
->>>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>>>
->>>>>>>>>>>>> Regards,
->>>>>>>>>>>>> Christian.
->>>>>>>>>>>>>
->>>>>>>>>>>>>>> You can see that if many different reset sources share 
->>>>>>>>>>>>>>> same work struct what can happen is that the first to 
->>>>>>>>>>>>>>> obtain the lock you describe bellow might opt out from 
->>>>>>>>>>>>>>> full HW reset because his bad job did signal for example 
->>>>>>>>>>>>>>> or because his hunged IP block was able to recover 
->>>>>>>>>>>>>>> through SW reset but in the meantime another reset 
->>>>>>>>>>>>>>> source who needed an actual HW reset just silently 
->>>>>>>>>>>>>>> returned and we end up with unhandled reset request. 
->>>>>>>>>>>>>>> True that today this happens only to job timeout reset 
->>>>>>>>>>>>>>> sources that are handled form within the scheduler and 
->>>>>>>>>>>>>>> won't use this single work struct but no one prevents a 
->>>>>>>>>>>>>>> future case for this to happen and also, if we actually 
->>>>>>>>>>>>>>> want to unify scheduler time out handlers within reset 
->>>>>>>>>>>>>>> domain (which seems to me the right design approach) we 
->>>>>>>>>>>>>>> won't be able to use just one work struct for this 
->>>>>>>>>>>>>>> reason anyway.
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Just to add to this point - a reset domain is 
->>>>>>>>>>>>>> co-operative domain. In addition to sharing a set of 
->>>>>>>>>>>>>> clients from various reset sources for one device, it 
->>>>>>>>>>>>>> also will have a set of devices like in XGMI hive. The 
->>>>>>>>>>>>>> job timeout on one device may not eventually result in 
->>>>>>>>>>>>>> result, but a RAS error happening on another device at 
->>>>>>>>>>>>>> the same time would need a reset. The second device's RAS 
->>>>>>>>>>>>>> error cannot return seeing that a reset work already 
->>>>>>>>>>>>>> started, or ignore the reset work given that another 
->>>>>>>>>>>>>> device has filled the reset data.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> When there is a reset domain, it should take care of the 
->>>>>>>>>>>>>> work scheduled and keeping it in device or any other 
->>>>>>>>>>>>>> level doesn't sound good.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Thanks,
->>>>>>>>>>>>>> Lijo
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>> Andrey
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>> I'd put the reset work struct into the reset_domain 
->>>>>>>>>>>>>>>> struct. That way you'd have exactly one worker for the 
->>>>>>>>>>>>>>>> reset domain. You could implement a lock-less scheme to 
->>>>>>>>>>>>>>>> decide whether you need to schedule a reset, e.g. using 
->>>>>>>>>>>>>>>> an atomic counter in the shared work struct that gets 
->>>>>>>>>>>>>>>> incremented when a client wants to trigger a reset 
->>>>>>>>>>>>>>>> (atomic_add_return). If that counter is exactly 1 after 
->>>>>>>>>>>>>>>> incrementing, you need to fill in the rest of the work 
->>>>>>>>>>>>>>>> struct and schedule the work. Otherwise, it's already 
->>>>>>>>>>>>>>>> scheduled (or another client is in the process of 
->>>>>>>>>>>>>>>> scheduling it) and you just return. When the worker 
->>>>>>>>>>>>>>>> finishes (after confirming a successful reset), it 
->>>>>>>>>>>>>>>> resets the counter to 0, so the next client requesting 
->>>>>>>>>>>>>>>> a reset will schedule the worker again.
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>> Regards,
->>>>>>>>>>>>>>>>   Felix
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> Additional to that keep in mind that you can't 
->>>>>>>>>>>>>>>>>> allocate any memory before or during the GPU reset 
->>>>>>>>>>>>>>>>>> nor wait for the reset to complete (so you can't 
->>>>>>>>>>>>>>>>>> allocate anything on the stack either).
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> There is no dynamic allocation here, regarding stack 
->>>>>>>>>>>>>>>>> allocations - we do it all the time when we call 
->>>>>>>>>>>>>>>>> functions, even during GPU resets, how on stack 
->>>>>>>>>>>>>>>>> allocation of work struct in amdgpu_device_gpu_recover 
->>>>>>>>>>>>>>>>> is different from any other local variable we allocate 
->>>>>>>>>>>>>>>>> in any function we call ?
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> I am also not sure why it's not allowed to wait for 
->>>>>>>>>>>>>>>>> reset to complete ? Also, see in 
->>>>>>>>>>>>>>>>> amdgpu_ras_do_recovery and gpu_recover_get (debugfs) - 
->>>>>>>>>>>>>>>>> the caller expects the reset to complete before he 
->>>>>>>>>>>>>>>>> returns. I can probably work around it in RAS code by 
->>>>>>>>>>>>>>>>> calling atomic_set(&ras->in_recovery, 0) from some 
->>>>>>>>>>>>>>>>> callback within actual reset function but regarding 
->>>>>>>>>>>>>>>>> sysfs it actually expects a result returned indicating 
->>>>>>>>>>>>>>>>> whether the call was successful or not.
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> Andrey
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> I don't think that concept you try here will work.
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> Regards,
->>>>>>>>>>>>>>>>>> Christian.
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> Also in general seems to me it's cleaner approach 
->>>>>>>>>>>>>>>>>>> where this logic (the work items) are held and 
->>>>>>>>>>>>>>>>>>> handled in reset_domain and are not split in each 
->>>>>>>>>>>>>>>>>>> adev or any other entity. We might want in the 
->>>>>>>>>>>>>>>>>>> future to even move the scheduler handling into 
->>>>>>>>>>>>>>>>>>> reset domain since reset domain is supposed to be a 
->>>>>>>>>>>>>>>>>>> generic things and not only or AMD.
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> Andrey
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>> Andrey
->>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>> Regards,
->>>>>>>>>>>>>>>>>>>>>> Christian.
->>>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>>> Signed-off-by: Andrey Grodzovsky 
->>>>>>>>>>>>>>>>>>>>>>> <andrey.grodzovsky@amd.com>
->>>>>>>>>>>>>>>>>>>>>>> Tested-by: Bai Zoy <Zoy.Bai@amd.com>
->>>>>>>>>>>>>>>>>>>>>>> ---
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu.h | 11 +---
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 17 
->>>>>>>>>>>>>>>>>>>>>>> +++--
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 3 +
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h | 73 
->>>>>>>>>>>>>>>>>>>>>>> +++++++++++++++++++++-
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 3 +-
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 7 ++-
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 7 ++-
->>>>>>>>>>>>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 7 ++-
->>>>>>>>>>>>>>>>>>>>>>>   8 files changed, 104 insertions(+), 24 
->>>>>>>>>>>>>>>>>>>>>>> deletions(-)
->>>>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>>>>>>>>>>>>>>>>>> index 4264abc5604d..99efd8317547 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>>>>>>>>>>>>>>>>>> @@ -109,6 +109,7 @@
->>>>>>>>>>>>>>>>>>>>>>>   #include "amdgpu_fdinfo.h"
->>>>>>>>>>>>>>>>>>>>>>>   #include "amdgpu_mca.h"
->>>>>>>>>>>>>>>>>>>>>>>   #include "amdgpu_ras.h"
->>>>>>>>>>>>>>>>>>>>>>> +#include "amdgpu_reset.h"
->>>>>>>>>>>>>>>>>>>>>>>     #define MAX_GPU_INSTANCE 16
->>>>>>>>>>>>>>>>>>>>>>>   @@ -509,16 +510,6 @@ struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_allowed_register_entry {
->>>>>>>>>>>>>>>>>>>>>>>       bool grbm_indexed;
->>>>>>>>>>>>>>>>>>>>>>>   };
->>>>>>>>>>>>>>>>>>>>>>>   -enum amd_reset_method {
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_NONE = -1,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_LEGACY = 0,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE0,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE1,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_MODE2,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_BACO,
->>>>>>>>>>>>>>>>>>>>>>> - AMD_RESET_METHOD_PCI,
->>>>>>>>>>>>>>>>>>>>>>> -};
->>>>>>>>>>>>>>>>>>>>>>> -
->>>>>>>>>>>>>>>>>>>>>>>   struct amdgpu_video_codec_info {
->>>>>>>>>>>>>>>>>>>>>>>       u32 codec_type;
->>>>>>>>>>>>>>>>>>>>>>>       u32 max_width;
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>>>>>>>>>>>>> index e582f1044c0f..7fa82269c30f 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>>>>>>>>>>>>> @@ -5201,6 +5201,12 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_gpu_recover_imp(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>>>>>>>>>>>>>       }
->>>>>>>>>>>>>>>>>>>>>>> tmp_vram_lost_counter = 
->>>>>>>>>>>>>>>>>>>>>>> atomic_read(&((adev)->vram_lost_counter));
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +    /* Drop all pending resets since we will 
->>>>>>>>>>>>>>>>>>>>>>> reset now anyway */
->>>>>>>>>>>>>>>>>>>>>>> +    tmp_adev = 
->>>>>>>>>>>>>>>>>>>>>>> list_first_entry(device_list_handle, struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device,
->>>>>>>>>>>>>>>>>>>>>>> + reset_list);
->>>>>>>>>>>>>>>>>>>>>>> + 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_pending_list(tmp_adev->reset_domain);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>       /* Actual ASIC resets if needed.*/
->>>>>>>>>>>>>>>>>>>>>>>       /* Host driver will handle XGMI hive reset 
->>>>>>>>>>>>>>>>>>>>>>> for SRIOV */
->>>>>>>>>>>>>>>>>>>>>>>       if (amdgpu_sriov_vf(adev)) {
->>>>>>>>>>>>>>>>>>>>>>> @@ -5296,7 +5302,7 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_gpu_recover_imp(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     struct amdgpu_recover_work_struct {
->>>>>>>>>>>>>>>>>>>>>>> -    struct work_struct base;
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_reset_work_struct base;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_device *adev;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_job *job;
->>>>>>>>>>>>>>>>>>>>>>>       int ret;
->>>>>>>>>>>>>>>>>>>>>>> @@ -5304,7 +5310,7 @@ struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_recover_work_struct {
->>>>>>>>>>>>>>>>>>>>>>>     static void 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_queue_gpu_recover_work(struct 
->>>>>>>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> -    struct amdgpu_recover_work_struct 
->>>>>>>>>>>>>>>>>>>>>>> *recover_work = container_of(work, struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_recover_work_struct, base);
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_recover_work_struct 
->>>>>>>>>>>>>>>>>>>>>>> *recover_work = container_of(work, struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_recover_work_struct, base.base.work);
->>>>>>>>>>>>>>>>>>>>>>> recover_work->ret = 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_gpu_recover_imp(recover_work->adev, 
->>>>>>>>>>>>>>>>>>>>>>> recover_work->job);
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>> @@ -5316,12 +5322,15 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_gpu_recover(struct amdgpu_device 
->>>>>>>>>>>>>>>>>>>>>>> *adev,
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_recover_work_struct work = 
->>>>>>>>>>>>>>>>>>>>>>> {.adev = adev, .job = job};
->>>>>>>>>>>>>>>>>>>>>>>   - INIT_WORK(&work.base, 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_queue_gpu_recover_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_DELAYED_WORK(&work.base.base, 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device_queue_gpu_recover_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_LIST_HEAD(&work.base.node);
->>>>>>>>>>>>>>>>>>>>>>>         if 
->>>>>>>>>>>>>>>>>>>>>>> (!amdgpu_reset_domain_schedule(adev->reset_domain, 
->>>>>>>>>>>>>>>>>>>>>>> &work.base))
->>>>>>>>>>>>>>>>>>>>>>>           return -EAGAIN;
->>>>>>>>>>>>>>>>>>>>>>>   - flush_work(&work.base);
->>>>>>>>>>>>>>>>>>>>>>> + flush_delayed_work(&work.base.base);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_del_pendning_work(adev->reset_domain, 
->>>>>>>>>>>>>>>>>>>>>>> &work.base);
->>>>>>>>>>>>>>>>>>>>>>>         return work.ret;
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>>>>>>>>>>>>>>>>>>>>>> index c80af0889773..ffddd419c351 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>>>>>>>>>>>>>>>>>>>>>> @@ -134,6 +134,9 @@ struct amdgpu_reset_domain 
->>>>>>>>>>>>>>>>>>>>>>> *amdgpu_reset_create_reset_domain(enum 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_d
->>>>>>>>>>>>>>>>>>>>>>> atomic_set(&reset_domain->in_gpu_reset, 0);
->>>>>>>>>>>>>>>>>>>>>>> init_rwsem(&reset_domain->sem);
->>>>>>>>>>>>>>>>>>>>>>>   + INIT_LIST_HEAD(&reset_domain->pending_works);
->>>>>>>>>>>>>>>>>>>>>>> + mutex_init(&reset_domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>       return reset_domain;
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>   diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>>>>>>>>>>>>>>>>>>>>> index 1949dbe28a86..863ec5720fc1 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>>>>>>>>>>>>>>>>>>>>> @@ -24,7 +24,18 @@
->>>>>>>>>>>>>>>>>>>>>>>   #ifndef __AMDGPU_RESET_H__
->>>>>>>>>>>>>>>>>>>>>>>   #define __AMDGPU_RESET_H__
->>>>>>>>>>>>>>>>>>>>>>>   -#include "amdgpu.h"
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/atomic.h>
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/mutex.h>
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/list.h>
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/kref.h>
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/rwsem.h>
->>>>>>>>>>>>>>>>>>>>>>> +#include <linux/workqueue.h>
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +struct amdgpu_device;
->>>>>>>>>>>>>>>>>>>>>>> +struct amdgpu_job;
->>>>>>>>>>>>>>>>>>>>>>> +struct amdgpu_hive_info;
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>     enum AMDGPU_RESET_FLAGS {
->>>>>>>>>>>>>>>>>>>>>>>   @@ -32,6 +43,17 @@ enum AMDGPU_RESET_FLAGS {
->>>>>>>>>>>>>>>>>>>>>>> AMDGPU_SKIP_HW_RESET = 1,
->>>>>>>>>>>>>>>>>>>>>>>   };
->>>>>>>>>>>>>>>>>>>>>>>   +
->>>>>>>>>>>>>>>>>>>>>>> +enum amd_reset_method {
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_NONE = -1,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_LEGACY = 0,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE0,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE1,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_MODE2,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_BACO,
->>>>>>>>>>>>>>>>>>>>>>> + AMD_RESET_METHOD_PCI,
->>>>>>>>>>>>>>>>>>>>>>> +};
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>   struct amdgpu_reset_context {
->>>>>>>>>>>>>>>>>>>>>>>       enum amd_reset_method method;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_device *reset_req_dev;
->>>>>>>>>>>>>>>>>>>>>>> @@ -40,6 +62,8 @@ struct amdgpu_reset_context {
->>>>>>>>>>>>>>>>>>>>>>>       unsigned long flags;
->>>>>>>>>>>>>>>>>>>>>>>   };
->>>>>>>>>>>>>>>>>>>>>>>   +struct amdgpu_reset_control;
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>   struct amdgpu_reset_handler {
->>>>>>>>>>>>>>>>>>>>>>>       enum amd_reset_method reset_method;
->>>>>>>>>>>>>>>>>>>>>>>       struct list_head handler_list;
->>>>>>>>>>>>>>>>>>>>>>> @@ -76,12 +100,21 @@ enum 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_type {
->>>>>>>>>>>>>>>>>>>>>>>       XGMI_HIVE
->>>>>>>>>>>>>>>>>>>>>>>   };
->>>>>>>>>>>>>>>>>>>>>>>   +
->>>>>>>>>>>>>>>>>>>>>>> +struct amdgpu_reset_work_struct {
->>>>>>>>>>>>>>>>>>>>>>> +    struct delayed_work base;
->>>>>>>>>>>>>>>>>>>>>>> +    struct list_head node;
->>>>>>>>>>>>>>>>>>>>>>> +};
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>>   struct amdgpu_reset_domain {
->>>>>>>>>>>>>>>>>>>>>>>       struct kref refcount;
->>>>>>>>>>>>>>>>>>>>>>>       struct workqueue_struct *wq;
->>>>>>>>>>>>>>>>>>>>>>>       enum amdgpu_reset_domain_type type;
->>>>>>>>>>>>>>>>>>>>>>>       struct rw_semaphore sem;
->>>>>>>>>>>>>>>>>>>>>>>       atomic_t in_gpu_reset;
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +    struct list_head pending_works;
->>>>>>>>>>>>>>>>>>>>>>> +    struct mutex reset_lock;
->>>>>>>>>>>>>>>>>>>>>>>   };
->>>>>>>>>>>>>>>>>>>>>>>     @@ -113,9 +146,43 @@ static inline void 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_put_reset_domain(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain *dom
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     static inline bool 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_schedule(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain *domain,
->>>>>>>>>>>>>>>>>>>>>>> - struct work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>> + struct amdgpu_reset_work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> -    return queue_work(domain->wq, work);
->>>>>>>>>>>>>>>>>>>>>>> + mutex_lock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +    if (!queue_delayed_work(domain->wq, 
->>>>>>>>>>>>>>>>>>>>>>> &work->base, 0)) {
->>>>>>>>>>>>>>>>>>>>>>> + mutex_unlock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> +        return false;
->>>>>>>>>>>>>>>>>>>>>>> +    }
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + list_add_tail(&work->node, 
->>>>>>>>>>>>>>>>>>>>>>> &domain->pending_works);
->>>>>>>>>>>>>>>>>>>>>>> + mutex_unlock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +    return true;
->>>>>>>>>>>>>>>>>>>>>>> +}
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +static inline void 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_del_pendning_work(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain *domain,
->>>>>>>>>>>>>>>>>>>>>>> + struct amdgpu_reset_work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>> +{
->>>>>>>>>>>>>>>>>>>>>>> + mutex_lock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> + list_del_init(&work->node);
->>>>>>>>>>>>>>>>>>>>>>> + mutex_unlock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> +}
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +static inline void 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_pending_list(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain *domain)
->>>>>>>>>>>>>>>>>>>>>>> +{
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_reset_work_struct *entry, *tmp;
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + mutex_lock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>> + list_for_each_entry_safe(entry, tmp, 
->>>>>>>>>>>>>>>>>>>>>>> &domain->pending_works, node) {
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + list_del_init(&entry->node);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> +        /* Stop any other related pending 
->>>>>>>>>>>>>>>>>>>>>>> resets */
->>>>>>>>>>>>>>>>>>>>>>> + cancel_delayed_work(&entry->base);
->>>>>>>>>>>>>>>>>>>>>>> +    }
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + mutex_unlock(&domain->reset_lock);
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     void amdgpu_device_lock_reset_domain(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain *reset_domain);
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->>>>>>>>>>>>>>>>>>>>>>> index 239f232f9c02..574e870d3064 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->>>>>>>>>>>>>>>>>>>>>>> @@ -25,6 +25,7 @@
->>>>>>>>>>>>>>>>>>>>>>>   #define AMDGPU_VIRT_H
->>>>>>>>>>>>>>>>>>>>>>>     #include "amdgv_sriovmsg.h"
->>>>>>>>>>>>>>>>>>>>>>> +#include "amdgpu_reset.h"
->>>>>>>>>>>>>>>>>>>>>>>     #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS (1 << 
->>>>>>>>>>>>>>>>>>>>>>> 0) /* vBIOS is sr-iov ready */
->>>>>>>>>>>>>>>>>>>>>>>   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV (1 << 1) 
->>>>>>>>>>>>>>>>>>>>>>> /* sr-iov is enabled on this GPU */
->>>>>>>>>>>>>>>>>>>>>>> @@ -230,7 +231,7 @@ struct amdgpu_virt {
->>>>>>>>>>>>>>>>>>>>>>>       uint32_t reg_val_offs;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_irq_src ack_irq;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_irq_src rcv_irq;
->>>>>>>>>>>>>>>>>>>>>>> -    struct work_struct flr_work;
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_reset_work_struct flr_work;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_mm_table mm_table;
->>>>>>>>>>>>>>>>>>>>>>>       const struct amdgpu_virt_ops *ops;
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_vf_error_buffer vf_errors;
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>>>>>> index b81acf59870c..f3d1c2be9292 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>>>>>> @@ -251,7 +251,7 @@ static int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_ai_set_mailbox_ack_irq(struct amdgpu_device 
->>>>>>>>>>>>>>>>>>>>>>> *adev,
->>>>>>>>>>>>>>>>>>>>>>>     static void xgpu_ai_mailbox_flr_work(struct 
->>>>>>>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> -    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, flr_work);
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, 
->>>>>>>>>>>>>>>>>>>>>>> flr_work.base.work);
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_device *adev = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(virt, struct amdgpu_device, virt);
->>>>>>>>>>>>>>>>>>>>>>>       int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
->>>>>>>>>>>>>>>>>>>>>>>   @@ -380,7 +380,8 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_ai_mailbox_get_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>           return r;
->>>>>>>>>>>>>>>>>>>>>>>       }
->>>>>>>>>>>>>>>>>>>>>>>   - INIT_WORK(&adev->virt.flr_work, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_ai_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_DELAYED_WORK(&adev->virt.flr_work.base, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_ai_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_LIST_HEAD(&adev->virt.flr_work.node);
->>>>>>>>>>>>>>>>>>>>>>>         return 0;
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>> @@ -389,6 +390,8 @@ void 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_ai_mailbox_put_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_del_pendning_work(adev->reset_domain, 
->>>>>>>>>>>>>>>>>>>>>>> &adev->virt.flr_work);
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     static int xgpu_ai_request_init_data(struct 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>>>>>> index 22c10b97ea81..927b3d5bb1d0 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>>>>>> @@ -275,7 +275,7 @@ static int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_set_mailbox_ack_irq(struct amdgpu_device 
->>>>>>>>>>>>>>>>>>>>>>> *adev,
->>>>>>>>>>>>>>>>>>>>>>>     static void xgpu_nv_mailbox_flr_work(struct 
->>>>>>>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> -    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, flr_work);
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, 
->>>>>>>>>>>>>>>>>>>>>>> flr_work.base.work);
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_device *adev = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(virt, struct amdgpu_device, virt);
->>>>>>>>>>>>>>>>>>>>>>>       int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
->>>>>>>>>>>>>>>>>>>>>>>   @@ -407,7 +407,8 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_mailbox_get_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>           return r;
->>>>>>>>>>>>>>>>>>>>>>>       }
->>>>>>>>>>>>>>>>>>>>>>>   - INIT_WORK(&adev->virt.flr_work, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_DELAYED_WORK(&adev->virt.flr_work.base, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_LIST_HEAD(&adev->virt.flr_work.node);
->>>>>>>>>>>>>>>>>>>>>>>         return 0;
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>> @@ -416,6 +417,8 @@ void 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_mailbox_put_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_del_pendning_work(adev->reset_domain, 
->>>>>>>>>>>>>>>>>>>>>>> &adev->virt.flr_work);
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     const struct amdgpu_virt_ops 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_nv_virt_ops = {
->>>>>>>>>>>>>>>>>>>>>>> diff --git 
->>>>>>>>>>>>>>>>>>>>>>> a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c 
->>>>>>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->>>>>>>>>>>>>>>>>>>>>>> index 7b63d30b9b79..1d4ef5c70730 100644
->>>>>>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->>>>>>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->>>>>>>>>>>>>>>>>>>>>>> @@ -512,7 +512,7 @@ static int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_set_mailbox_ack_irq(struct amdgpu_device 
->>>>>>>>>>>>>>>>>>>>>>> *adev,
->>>>>>>>>>>>>>>>>>>>>>>     static void xgpu_vi_mailbox_flr_work(struct 
->>>>>>>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> -    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, flr_work);
->>>>>>>>>>>>>>>>>>>>>>> +    struct amdgpu_virt *virt = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(work, struct amdgpu_virt, 
->>>>>>>>>>>>>>>>>>>>>>> flr_work.base.work);
->>>>>>>>>>>>>>>>>>>>>>>       struct amdgpu_device *adev = 
->>>>>>>>>>>>>>>>>>>>>>> container_of(virt, struct amdgpu_device, virt);
->>>>>>>>>>>>>>>>>>>>>>>         /* wait until RCV_MSG become 3 */
->>>>>>>>>>>>>>>>>>>>>>> @@ -610,7 +610,8 @@ int 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_mailbox_get_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>           return r;
->>>>>>>>>>>>>>>>>>>>>>>       }
->>>>>>>>>>>>>>>>>>>>>>>   - INIT_WORK(&adev->virt.flr_work, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_DELAYED_WORK(&adev->virt.flr_work.base, 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_mailbox_flr_work);
->>>>>>>>>>>>>>>>>>>>>>> + INIT_LIST_HEAD(&adev->virt.flr_work.node);
->>>>>>>>>>>>>>>>>>>>>>>         return 0;
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>> @@ -619,6 +620,8 @@ void 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_mailbox_put_irq(struct amdgpu_device *adev)
->>>>>>>>>>>>>>>>>>>>>>>   {
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.ack_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_irq_put(adev, &adev->virt.rcv_irq, 0);
->>>>>>>>>>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>>>>>>>>>> + 
->>>>>>>>>>>>>>>>>>>>>>> amdgpu_reset_domain_del_pendning_work(adev->reset_domain, 
->>>>>>>>>>>>>>>>>>>>>>> &adev->virt.flr_work);
->>>>>>>>>>>>>>>>>>>>>>>   }
->>>>>>>>>>>>>>>>>>>>>>>     const struct amdgpu_virt_ops 
->>>>>>>>>>>>>>>>>>>>>>> xgpu_vi_virt_ops = {
->>>>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>
->>>>>>>
->>>>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index ebd37fb19cdb..24e6fb4517cc 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -872,6 +872,15 @@ MODULE_PARM_DESC(smu_pptable_id,
+>>          "specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
+>>   module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
+>>
+>> +/**
+>> + * DOC: modeset (int)
+>> + * Used to enable/disable modesetting for amdgpu exclusively.
+>> + */
+>> +bool amdgpu_enable_modeset = true;
+>> +MODULE_PARM_DESC(modeset,
+>> +                "Enable or disable display driver (1 = on (default), 0 = off");
+>> +module_param_named(modeset, amdgpu_enable_modeset, bool, 0444);
+>> +
+>>   /* These devices are not supported by amdgpu.
+>>    * They are supported by the mach64, r128, radeon drivers
+>>    */
+>> @@ -2003,6 +2012,11 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>>          bool is_fw_fb;
+>>          resource_size_t base, size;
+>>
+>> +       if (!amdgpu_enable_modeset) {
+>> +               DRM_INFO("modeset=0 passed to amdgpu, driver will not be enabled\n");
+>> +               return -ENODEV;
+>> +       }
+>> +
+>>          /* skip devices which are owned by radeon */
+>>          for (i = 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
+>>                  if (amdgpu_unsupported_pciidlist[i] == pdev->device)
+>> --
+>> 2.35.1
 >>
 
