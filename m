@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD314C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 13:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A38C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 13:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 117A710E8E7;
-	Thu, 12 May 2022 13:47:43 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9973F10E7B3;
- Thu, 12 May 2022 13:47:41 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-ed9a75c453so6642282fac.11; 
- Thu, 12 May 2022 06:47:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=lAKLw82Wxg+eOurBghu8fJNyA1GqYs5wj0gY1XCz7Ro=;
- b=m/GTkuGjI1B5jx6nL5P/4EflzdI3QMBGmNFCquv0Dxr0fCYznNF6rzRzEHPTPKHxXC
- DXkAKLOzNRwhfxSdESZFpIRvG+4ceQQN+sJ5+0VpUfTCScU4gdBJ9VySZxgLIceicUds
- Ul+KyFqAPUGMw/oPmRPKxvrhebfFVHvbJF+yf079NmUheQb5udeUeydhsXZbaHMmno/M
- tnPkY9nJec+JaKIn08CcOWzb7djbqDDajDyMz/aUcIC+q5F/D4P1UtsbQeBaR5gM8q3D
- eU1114Kx4jWdj/jaaqyOGLuTD+X0YmsNDvim0dLXzohhh4FKhdxtFfSkSxthfQj4E1GD
- 89Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=lAKLw82Wxg+eOurBghu8fJNyA1GqYs5wj0gY1XCz7Ro=;
- b=W2CUUgK7pFPiIfM+ZTqIYYldEvrQY0ns+jAA76o51/l2qaXZmmkuHSgjR7VcEXujYh
- 6+ytN3v12NWrgISvKZpQ7CLEQrPqXEQMwnt1O7Ss4s6f34Z6eFqa5ZGzynou0OTdUohu
- HCUoLLGFpcpMkGZgLvlV+nc8pOtJaPitV2aWjOMl+p67h55BNXgGCXVscs9j5DSBpgD8
- Qroa+xw64XbwfEyK2SBR7svzAZDAB7zztWDNjo8Py0j7bUJ181H1neyAaP5I01vY1A5I
- FJbiBwT9l0XNm/9cLPqpDW7HTzGRdj61u6syMvAPDeZNAK0ob7y8kBg2YWjylcvqoVM8
- 2e3Q==
-X-Gm-Message-State: AOAM5311s7AUx/AEdBK+Pep3xc0L6pS3yM68Niv8UXfywE2Y9fOkgMOk
- PE62oOgj47w1EzY5QzL+vPlLDOyvGwAeTBFTUaY=
-X-Google-Smtp-Source: ABdhPJz3l54A1RhbIxHH695Vm5HWA0Vfm/tkaukXHol2A8LN/cits8d9LpM4S5YTojnhgCH97a8Hlo69iiYpmwq9/30=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr5725345oap.253.1652363260913; Thu, 12
- May 2022 06:47:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 117FA10E7B3;
+	Thu, 12 May 2022 13:55:56 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C8310E208;
+ Thu, 12 May 2022 13:44:37 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9E043CE296E;
+ Thu, 12 May 2022 13:44:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA30C34114;
+ Thu, 12 May 2022 13:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1652363070;
+ bh=IwxOQWNXuxD0T9d3Ah9v6xFN9N6CEj1uRP/Wg+TFVzc=;
+ h=Subject:To:Cc:From:Date:From;
+ b=FNrh4Tm4hYjccBV3FRTPkGOEmWFbNvd+hmeblLkZrksGRrkE28z1e8uHAeGadWOQS
+ 2tQN1Z2tCnV5dikGhUS3pFtwsxH5pJrGYNIswQaJU41oUe1Esnbx/OKqNbpgSCV8Zs
+ ggsz2eWJ/v0YVqt+kA9KRuiP72z5WrAWbvnqRTl4=
+Subject: Patch "drm/amd/display/dc/gpio/gpio_service: Pass around correct
+ dce_{version, environment} types" has been added to the 4.19-stable tree
+To: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, lee.jones@linaro.org,
+ nathan@kernel.org, sunpeng.li@amd.com
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 12 May 2022 15:44:10 +0200
+Message-ID: <165236305077126@kroah.com>
 MIME-Version: 1.0
-References: <YnTAc96Uv0CXcGhD@suse.de>
- <CADnq5_NT3UtawpGuPDwF+dgmRdaoysb7sD_-oWWBC=T3BoUH7Q@mail.gmail.com>
- <YnpIjdTT3esZ72Bf@suse.de>
- <CADnq5_NYVvjcUru9hfbnATfcHJR5+eiK9bJAA9m41WKa=OJsog@mail.gmail.com>
- <505081FC-4323-4424-87A9-89B95A89515D@suse.de>
- <CADnq5_PoWLHydAGqHXKNwBnnc_Uz7xc01Mmp2ri-h+RtnRqgfQ@mail.gmail.com>
- <YnzG1KE9tasxdUbX@suse.de>
-In-Reply-To: <YnzG1KE9tasxdUbX@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 May 2022 09:47:29 -0400
-Message-ID: <CADnq5_OyfTZ1ma_9rc9ePqhRUqcuNbdCPh7eAYUC7zdX+ZOuyA@mail.gmail.com>
-Subject: Re: [BUG] Warning and NULL-ptr dereference in amdgpu driver with 5.18
-To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <jroedel@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Mailman-Approved-At: Thu, 12 May 2022 13:55:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,58 +52,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: stable-commits@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 12, 2022 at 4:35 AM J=C3=B6rg R=C3=B6del <jroedel@suse.de> wrot=
-e:
->
-> On Tue, May 10, 2022 at 04:41:57PM -0400, Alex Deucher wrote:
-> > Does setting amdgpu.runpm=3D0 on the kernel command line in grub help?
-> > If so, that should fixed with:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Df95af4a9236695caed24fe6401256bb974e8f2a7
->
-> Unfortunatly, no, this option doesn't help. Tested with v5.18-rc6, full
-> dmesg attached.
->
-> Any idea what the BadTLP messages migh be caused by?
 
-Are those new?  Maybe the card is not seated correctly?  Can you try
-another slot?
+This is a note to let you know that I've just added the patch titled
 
-As for the null pointer defer in the display code, @Wentland, Harry
-any ideas?  I don't see why that should happen.  Maybe some hotplug
-pin is faulty or the display has input detection and that is causing
-some sort of hotplug interrupt that causes a race somewhere in the
-driver?  Can you make sure the monitor connector is firmly seated on
-the GPU?
+    drm/amd/display/dc/gpio/gpio_service: Pass around correct dce_{version, environment} types
 
-Alex
+to the 4.19-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-amd-display-dc-gpio-gpio_service-pass-around-correct-dce_-version-environment-types.patch
+and it can be found in the queue-4.19 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
->
-> Regards,
->
->         Joerg
->
-> --
-> J=C3=B6rg R=C3=B6del
-> jroedel@suse.de
->
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5
-> 90409 N=C3=BCrnberg
-> Germany
->
-> (HRB 36809, AG N=C3=BCrnberg)
-> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
->
+From 353f7f3a9dd5fd2833b6462bac89ec1654c9c3aa Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Wed, 26 May 2021 09:47:06 +0100
+Subject: drm/amd/display/dc/gpio/gpio_service: Pass around correct dce_{version, environment} types
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Lee Jones <lee.jones@linaro.org>
+
+commit 353f7f3a9dd5fd2833b6462bac89ec1654c9c3aa upstream.
+
+Fixes the following W=1 kernel build warning(s):
+
+ drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/gpio_service.c: In function ‘dal_gpio_service_create’:
+ drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/gpio_service.c:71:4: warning: implicit conversion from ‘enum dce_version’ to ‘enum dce_environment’ [-Wenum-conversion]
+ drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/gpio_service.c:77:4: warning: implicit conversion from ‘enum dce_version’ to ‘enum dce_environment’ [-Wenum-conversion]
+
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c           |   12 +++++------
+ drivers/gpu/drm/amd/display/include/gpio_service_interface.h |    4 +--
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+--- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
+@@ -51,8 +51,8 @@
+  */
+ 
+ struct gpio_service *dal_gpio_service_create(
+-	enum dce_version dce_version_major,
+-	enum dce_version dce_version_minor,
++	enum dce_version dce_version,
++	enum dce_environment dce_environment,
+ 	struct dc_context *ctx)
+ {
+ 	struct gpio_service *service;
+@@ -66,14 +66,14 @@ struct gpio_service *dal_gpio_service_cr
+ 		return NULL;
+ 	}
+ 
+-	if (!dal_hw_translate_init(&service->translate, dce_version_major,
+-			dce_version_minor)) {
++	if (!dal_hw_translate_init(&service->translate, dce_version,
++			dce_environment)) {
+ 		BREAK_TO_DEBUGGER();
+ 		goto failure_1;
+ 	}
+ 
+-	if (!dal_hw_factory_init(&service->factory, dce_version_major,
+-			dce_version_minor)) {
++	if (!dal_hw_factory_init(&service->factory, dce_version,
++			dce_environment)) {
+ 		BREAK_TO_DEBUGGER();
+ 		goto failure_1;
+ 	}
+--- a/drivers/gpu/drm/amd/display/include/gpio_service_interface.h
++++ b/drivers/gpu/drm/amd/display/include/gpio_service_interface.h
+@@ -42,8 +42,8 @@ void dal_gpio_destroy(
+ 	struct gpio **ptr);
+ 
+ struct gpio_service *dal_gpio_service_create(
+-	enum dce_version dce_version_major,
+-	enum dce_version dce_version_minor,
++	enum dce_version dce_version,
++	enum dce_environment dce_environment,
+ 	struct dc_context *ctx);
+ 
+ struct gpio *dal_gpio_service_create_irq(
+
+
+Patches currently in stable-queue which might be from lee.jones@linaro.org are
+
+queue-4.19/drm-amd-display-dc-gpio-gpio_service-pass-around-correct-dce_-version-environment-types.patch
+queue-4.19/block-drbd-drbd_nl-make-conversion-to-enum-drbd_ret_code-explicit.patch
