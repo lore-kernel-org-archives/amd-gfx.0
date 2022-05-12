@@ -4,54 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF3A0C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 02:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3B8C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 May 2022 03:06:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6893B10F088;
-	Thu, 12 May 2022 02:39:33 +0000 (UTC)
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED9E910F088
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 May 2022 02:39:31 +0000 (UTC)
-Received: by mail-pl1-x62d.google.com with SMTP id j14so3615084plx.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 May 2022 19:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4fYFmupOUgWyAJnsfpIwOyUViYkOwo0UdiBZO3vkBg8=;
- b=FF03I63dx6FB7O9+okb9VIKvwShr+fhoHXHuyWaA2ozOcSXRgXCP7K/B8gHDk4zXAq
- 2jHS4PEzT4XX1BAyO+sE/8alTnjNW/0UmC9/ZopaIVmB2j2YZrr+X4llM9M+8IkMoMnM
- ZoU7adaOrgW4t1gy8uvvWRctOIbjmdjVK+3YYxUmnIB96z1FMdbv8D2oeFs0cOaLkGBg
- V8//Kn+P220VcYTxNiVAYX2XXHzvmvxdFKU7qeAmx+Hxu+9i9uDGXOONnjd/jVryFLzC
- vWpKB4j2c9f7Nv6n7sZZp8WQC7NgnedQy6edPd4G8qsE3YYT+jahWUE6rALukrmA1EEa
- D2Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4fYFmupOUgWyAJnsfpIwOyUViYkOwo0UdiBZO3vkBg8=;
- b=dwdgUKtwAHQSBkF9auXmM2X3sjGH/jZdIclr4y2Wqm6zWKnR0VTESiy3iAFhzrKCeg
- 7NLgl9Zt+uXkezzF8YbwVa2H/i8R72yD2r6u2GIZEfbqeEoh76GELMIdinxMiRqqvdjw
- B1avJDeKOOlcTU3Rcp3nn++PD/k4FPYUqu8WWlM3vc6ziXc5eccEEUzEuIbSiAmpRT9H
- RjPq0+Urw19EJB/FI/u8PxJZSkvARNmlrZjD4aQefZlh8hKno9R4sqsr/tFNLuH0pDCa
- vHcYofy/kWsHe9a/1onrUuCPgFsMvq9tWxPy0vRp6zjU1209kkpwmOawBh/0R8AcbMVG
- h/BA==
-X-Gm-Message-State: AOAM530I65Zq+jDxozwlNQIwOWETxdgNSTBiVb/gTEcCFRwYhQm1XkQB
- sIjVXkJkBs9+DTWSN3DJJeVosWclarUvlqs0WGcttLLc3gQ=
-X-Google-Smtp-Source: ABdhPJx392I0LNb885olo7C8ppiDxxJiCqnOHcms53qrCV5paHmcI0IqgmQseIevUu3qqsEp3UmBtL6DJY0Mro3yfCc=
-X-Received: by 2002:a17:903:18a:b0:15e:c983:7c2e with SMTP id
- z10-20020a170903018a00b0015ec9837c2emr27619106plg.29.1652323171490; Wed, 11
- May 2022 19:39:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC36F10E642;
+	Thu, 12 May 2022 03:06:39 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDF6E10FD9C;
+ Thu, 12 May 2022 02:57:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JoOUnNAcq13YsTuP3sNLF5JofphHe8u+VypkCnuDuIjcY/EtNh88Wg5q7dwilXCDz0Dq98g37MBS5DPLgvX7S1la+jhXFmzQXCMZCMIzwfgFsNsRfxl7GD07HHMC/WnLeNLlQDKrSdGnhH+3C/w8cn6VTYHeOAkaCkM+HCbPZgNiDCWwVm5DG/wOgUceVn9G1b3AEZtPsIhiWKyIuIpK/Jl4Z/Kz+B8fEZEBRJzLmsi2kMPaXsZdv/vry3FAKp6aV3q5JBUiEe/jUWqxWUOua4YEl96a9lJuvLr/nghLtnc9Ztqe/gOiBTieewhOw6EqfOpjVBvmW79SPbNRzyirAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DaexaYEwujO48q287Trhj9X5PhJm400sAtz9sET7r04=;
+ b=XrQulxvCOz1fVXdsm8CesgSRl5TVHvtI0rRZztOx+EoHCYMC2V0z0cygI+Vc3wtH8En30CiGdXZbOW9Vn6xTVOn6zUoO4XEHTNpILxAYgLrG3KFC2bZtLBfWoUF+2pHAuT3BrcqbE4N4rL6rhtkC5MmpobjQA3+xuVG4WCI0oQ34MvyZ1piIcchXo2FcyJ/HC2nH/33UHZyvMsYkpqZAvkzjSJaWG/zhcsPEhdsZucM2WVEDAMrrtiKaMrs4vLZHNwcgxCLBvRZufNstcksl8E5r8l7PTUu8itjtlEffxEbU1tEoXVzfjgE7cCaEtnvVuscfcnVrngqUFAV8Yx4WUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DaexaYEwujO48q287Trhj9X5PhJm400sAtz9sET7r04=;
+ b=Rofs7RfNCoPVwBeQxAdWQicegq4pTvb5UXy3ClJdkeXoWk02a/aZrvo3/0GL8nmY5MK5sruJ63t8CJl0jYXkxuCGNN9GBIfzGsnED9augUWplwwKYLSqwTuBonVNs7BYINXJ6zr8lDZwzxPLzd/kZeyzdJmgV3wNhjzc150Tp65e9QXqiBcvje1m/7TtmKt8LRYeb6HESzttUpLLJhNmNFuyeVDGwPB6IPZt0jp+UWBfnFy7Gccd4UrCzL9uP36vVtuWq4uZcxMYwzWcXdTLZ1QD8D51su9IEhfSs9bJgnmPAGGTtCI3fZdkPBJQBgP2c2W3JkkhL8jeIZURTgRUDA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by DM6PR12MB3836.namprd12.prod.outlook.com (2603:10b6:5:1c3::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13; Thu, 12 May
+ 2022 02:57:38 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::2d17:b68a:e101:4c18]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::2d17:b68a:e101:4c18%6]) with mapi id 15.20.5227.023; Thu, 12 May 2022
+ 02:57:38 +0000
+References: <20220505213438.25064-1-alex.sierra@amd.com>
+ <20220505213438.25064-5-alex.sierra@amd.com>
+ <SN6PR12MB27173F2F37294D6DDBC3457CFDC29@SN6PR12MB2717.namprd12.prod.outlook.com>
+User-agent: mu4e 1.6.9; emacs 27.1
+From: Alistair Popple <apopple@nvidia.com>
+To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>
+Subject: Re: [PATCH v1 04/15] mm: add device coherent checker to remove
+ migration pte
+Date: Thu, 12 May 2022 12:39:16 +1000
+In-reply-to: <SN6PR12MB27173F2F37294D6DDBC3457CFDC29@SN6PR12MB2717.namprd12.prod.outlook.com>
+Message-ID: <87fslfqwyo.fsf@nvdebian.thelocal>
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0259.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::24) To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <20220506112312.347519-3-christian.koenig@amd.com>
- <CADnq5_ONANC=SML3sHv3RKG5X2ZYNiv5gvzW_ExRdQdbg=oyhg@mail.gmail.com>
-In-Reply-To: <CADnq5_ONANC=SML3sHv3RKG5X2ZYNiv5gvzW_ExRdQdbg=oyhg@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 11 May 2022 22:38:55 -0400
-Message-ID: <CAAxE2A4W+crVwwz4qNgSTNGc1DXRWu7-WZdAqApNr2cjpz+=Ng@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: bump minor version number
-To: Alex Deucher <alexdeucher@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000b0e0c505dec77704"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 73d153d8-e246-41f9-25a6-08da33c32c47
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3836:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3836F69B82E47FB2C1FE9E78DFCB9@DM6PR12MB3836.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: w/pPmjDfbxu3ft4PrCPoAJpYKVUdyoKgAATBVvg8dKkLJYlaujobsFJKG3LbbYmlgXHh2CJIXatw0lNp6aOsl6h4+qyFRGO/TSDV8TlU3FN5949HdC9BAc3xFHT2kusVtqc1boldRPSImsZ0L38oOKG6k2fgxvpoUOc4Z6t35b6rpvGS/YNTS75kAAr15nRt6CeCxH8Xr4l3ZxZhsLZqQEtl3lCpiSbpuXIrqFLuAr5fu3v0Iw3gBmO0ReAhZsh1iHvYTJtLrJh8aZ/nf0sVQA1TNrlvQovgkB6UaOEXsRBLS9lpF3Cee1tefi6eIElX51s7zmB9k1b+F7pfQngKsgMyleyojW41u8HaFSr+L3GpU/llx3LPz0YeKgLjZbpFPDOB4NzxoMgSs0wpw41+VAYKO1Ma+ef1RKeoC78N24lSRBQsfmSe1j+U5dVVzYVeZAMiilnBue20lIEyfdmxzvyTLA0rOjRM7vXxzEwo1QGKh7N1lGanSUrrxXKWfrfDHCZKQ1WU3GkpIrHVR2EQLRWfEebAt3lhyqNeGsURuMRPm7XGoBafd2qoEoRV6n985LXi4L3rgnADy5ADp+AQ0ejpr48ERSwmu9CSjsROwcFceBV5VKFvNY7G/25u8IpJOXkd4ksivf/k/XZYin7Hof9d+zDKJdxFgZhNKYQ2a3TaTyAg8OhI+YqbDQlVIqXeMYnydP69UJ90xgz9dm9I2hn1KY6Zkyx4WpQ/El2lrcs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(53546011)(66476007)(6486002)(66946007)(54906003)(508600001)(4326008)(8676002)(66556008)(6506007)(6916009)(6512007)(26005)(9686003)(6666004)(38100700002)(86362001)(2906002)(8936002)(316002)(186003)(5660300002)(83380400001)(7416002)(966005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?P+O5kbRwh0tJFrP7gNfNVaD/xRBVVkGEHYZjDJPhxgqRkuQ3IrTj9QY2UkC3?=
+ =?us-ascii?Q?ZKuqN4kNiSiNet0yMJBBGapBnIj0LUHHBcEBHvO3kufYljOqyjpHM5zDNJf6?=
+ =?us-ascii?Q?sx3nU0wsw3A4Zfu6pYeAQctjqxk7Y4ColL6qTvbSaYGk7P1iNc565qVjBLV+?=
+ =?us-ascii?Q?hjsQ2bgeX9u25bTAFOXEudAjtvJqMjDvwab5q4+N1jbyyKxXI7SiZhplAWOQ?=
+ =?us-ascii?Q?1F5rzp3jSuJxjFwY160MS2Qu/oCylmkAM3gTFU0OdYb1qzIyPY5thmdUK8fM?=
+ =?us-ascii?Q?zaTXoO9uV5aeJp2D17KBTQ53dHmqTlDMOFejuMrzivyiBG14PO7g79CkDJcD?=
+ =?us-ascii?Q?THYOIHWuDRwwBEnvT66wYbhkl4ngwGij9Pv8ilu3XKWBLjgUR4QGH03IitqB?=
+ =?us-ascii?Q?dV0ODFNpBItkz8DHCngsfFs5QCTKKbpLtr9vF1d+ABNaQbK16HZLO9bcvwH5?=
+ =?us-ascii?Q?+eWBCzM0SkNpACRV2BbXIjw5oqldkwHPRNgUVr1OcDWPClVkbsr5AnYAW4VC?=
+ =?us-ascii?Q?q+K+NI/K3+S8UkHRiWAALLKyqdCKvYErtRgsQ9yVsbKsDNUOeN7GFnFqod0J?=
+ =?us-ascii?Q?gXKXsiUYCINDYK21Esa+lbkNgWX2k2dovh9e15Tcw+YlTrbv6oamyuFOt1oO?=
+ =?us-ascii?Q?Z3A5CUsVshnUKzQc+zYFVOSCD15L57E9RvtW35hhZTqXSgizVfLyVO6qBeBV?=
+ =?us-ascii?Q?daQauYhBEcPvmetHI99O6hCA5/rwShWqYzIIk4YfzBw+3IeCeF6+6kFAIMNq?=
+ =?us-ascii?Q?p1MOlsllQUWsF3xq4EPXhCsoBm8SSA/HLFUXQrFng0BHlb4C5P8uPaAsmCg6?=
+ =?us-ascii?Q?sTbnLPqhUQGVfUv0BHzfFdjYenbtbrMgHZrRyAgyPHA/XCxEEClVrzXKX3Lf?=
+ =?us-ascii?Q?Y7gc90G0CXbFgYAuoRij/RMRjKlbJNapxpGhGUwvxkRVggrbM06TIu5f/rtc?=
+ =?us-ascii?Q?glQJZlnTvAI5JE8K2fy0oKIzwb17dNitOBcWVuZTKwwoQU2wg+X4Vp9iTYVY?=
+ =?us-ascii?Q?EysTTnNsnZM3uN6G61zdSQ6iXzqvreW/1wmGd6FeQLKvRxxIZK8qhItlqXpN?=
+ =?us-ascii?Q?CgrU2/WbDYh3XE8M+RRbtfS0F8/Al8rEaZCVGChfvuhVnRbV8mwo9pJPBgsT?=
+ =?us-ascii?Q?CxjyhgRtYNz3QaXDD7DR9n40VpNovGu67fssyXjSnuofKETWiBDBmdlfs9De?=
+ =?us-ascii?Q?zG3r6mxVzy6iCsnVT/OLJmESXZykLHo8F2QGHAexFA6njIeNriKv7ou0faCZ?=
+ =?us-ascii?Q?lhFRjYP2+aNX2OOO8a2qLED7W87qHBf9ZP8GJZ7LuZxV2tA/EXrLSCXtCu/B?=
+ =?us-ascii?Q?rC4jCw6mH9RnkMQ9Ls/3UTTFb1jU6mO6M2NmCDq4RLV/ZcP2tTHjL59frp5A?=
+ =?us-ascii?Q?/Ly1zY7KE6311RKtXjuqMt5ydTVUFyvrLs6sNT8X0KTmLjA7dE/Eut99Yi11?=
+ =?us-ascii?Q?RCA1C6MqNZcpGfNza2IiqdORKPFfxBagpIVUrm1QPCuQnKvYMB7LHrZEYgNI?=
+ =?us-ascii?Q?RSUfp9Jfv5fJ88NKkB8VmzjdrsPRu9AP8tBX/+9UqZ14GOmRbmYiVuYAfuPM?=
+ =?us-ascii?Q?GGWDzT014xZxg8IF3J1YQ7S1NXPGWRXmM1LxEXm9y+K9HVszvttRkPPnUThP?=
+ =?us-ascii?Q?1yfEjkJADdaTw00DL1wIQW3GJAkXcm/vYM7XIuIgaEXmTUf2e4dPdzGQK0dj?=
+ =?us-ascii?Q?wxZy9t1s2PJCIQs9zm8gk+6RsyiPkmtNXoVC4OlRAFW/FGw11eoS0Os4WOZg?=
+ =?us-ascii?Q?0BvEjoRmLg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73d153d8-e246-41f9-25a6-08da33c32c47
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2022 02:57:38.4908 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6qDQ2HV38/aF3MMNFuDDqDNoSUEBtv9J2drnDa+Z7zhbMM1neZw5lh1hApa91kri7xq57Kr2HVfQCoBj7Vsr5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3836
+X-Mailman-Approved-At: Thu, 12 May 2022 03:06:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,124 +120,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "rcampbell@nvidia.com" <rcampbell@nvidia.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "david@redhat.com" <david@redhat.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "jglisse@redhat.com" <jglisse@redhat.com>,
+ "willy@infradead.org" <willy@infradead.org>, "jgg@nvidia.com" <jgg@nvidia.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "hch@lst.de" <hch@lst.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000b0e0c505dec77704
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/16466
+"Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com> writes:
 
-Marek
-
-On Fri, May 6, 2022 at 9:35 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-
-> On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >
-> > Increase the minor version number to indicate that the new flags are
-> > avaiable.
+> @apopple@nvidia.com Could you please check this patch? It's somehow related to migrate_device_page() for long term device coherent pages.
 >
-> typo: available.  Other than that the series is:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Once we get the Mesa patches.
->
-> Alex
->
->
-> >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 16871baee784..3dbf406b4194 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -99,10 +99,11 @@
-> >   * - 3.43.0 - Add device hot plug/unplug support
-> >   * - 3.44.0 - DCN3 supports DCC independent block settings: !64B &&
-> 128B, 64B && 128B
-> >   * - 3.45.0 - Add context ioctl stable pstate interface
-> > - * * 3.46.0 - To enable hot plug amdgpu tests in libdrm
-> > + * - 3.46.0 - To enable hot plug amdgpu tests in libdrm
-> > + * * 3.47.0 - Add AMDGPU_GEM_CREATE_DISCARDABLE and AMDGPU_VM_NOALLOC
-> flags
-> >   */
-> >  #define KMS_DRIVER_MAJOR       3
-> > -#define KMS_DRIVER_MINOR       46
-> > +#define KMS_DRIVER_MINOR       47
-> >  #define KMS_DRIVER_PATCHLEVEL  0
-> >
-> >  int amdgpu_vram_limit;
-> > --
-> > 2.25.1
-> >
->
+> Regards,
+> Alex Sierra
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+>> Sierra
+>> Sent: Thursday, May 5, 2022 4:34 PM
+>> To: jgg@nvidia.com
+>> Cc: rcampbell@nvidia.com; willy@infradead.org; david@redhat.com;
+>> Kuehling, Felix <Felix.Kuehling@amd.com>; apopple@nvidia.com; amd-
+>> gfx@lists.freedesktop.org; linux-xfs@vger.kernel.org; linux-mm@kvack.org;
+>> jglisse@redhat.com; dri-devel@lists.freedesktop.org; akpm@linux-
+>> foundation.org; linux-ext4@vger.kernel.org; hch@lst.de
+>> Subject: [PATCH v1 04/15] mm: add device coherent checker to remove
+>> migration pte
+>>
+>> During remove_migration_pte(), entries for device coherent type pages that
+>> were not created through special migration ptes, ignore _PAGE_RW flag. This
+>> path can be found at migrate_device_page(), where valid vma is not
+>> required. In this case, migrate_vma_collect_pmd() is not called and special
+>> migration ptes are not set.
 
---000000000000b0e0c505dec77704
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+It's true that we don't call migrate_vma_collect_pmd() for
+migrate_device_page(), but this doesn't imply migration entries are not
+created. We still call migrate_vma_unmap() which calls try_to_migrate()
+to install migration entries.
 
-<div dir=3D"ltr"><div><a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-=
-/merge_requests/16466">https://gitlab.freedesktop.org/mesa/mesa/-/merge_req=
-uests/16466</a></div><div><br></div><div>Marek<br></div></div><br><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 6, 2022=
- at 9:35 AM Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexd=
-eucher@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig<br>
-&lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank">c=
-koenig.leichtzumerken@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Increase the minor version number to indicate that the new flags are<b=
-r>
-&gt; avaiable.<br>
-<br>
-typo: available.=C2=A0 Other than that the series is:<br>
-Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" =
-target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-Once we get the Mesa patches.<br>
-<br>
-Alex<br>
-<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.ko=
-enig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--<br>
-&gt;=C2=A0 1 file changed, 3 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_drv.c<br>
-&gt; index 16871baee784..3dbf406b4194 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; @@ -99,10 +99,11 @@<br>
-&gt;=C2=A0 =C2=A0* - 3.43.0 - Add device hot plug/unplug support<br>
-&gt;=C2=A0 =C2=A0* - 3.44.0 - DCN3 supports DCC independent block settings:=
- !64B &amp;&amp; 128B, 64B &amp;&amp; 128B<br>
-&gt;=C2=A0 =C2=A0* - 3.45.0 - Add context ioctl stable pstate interface<br>
-&gt; - * * 3.46.0 - To enable hot plug amdgpu tests in libdrm<br>
-&gt; + * - 3.46.0 - To enable hot plug amdgpu tests in libdrm<br>
-&gt; + * * 3.47.0 - Add AMDGPU_GEM_CREATE_DISCARDABLE and AMDGPU_VM_NOALLOC=
- flags<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 #define KMS_DRIVER_MAJOR=C2=A0 =C2=A0 =C2=A0 =C2=A03<br>
-&gt; -#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A046<br>
-&gt; +#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A047<br>
-&gt;=C2=A0 #define KMS_DRIVER_PATCHLEVEL=C2=A0 0<br>
-&gt;<br>
-&gt;=C2=A0 int amdgpu_vram_limit;<br>
-&gt; --<br>
-&gt; 2.25.1<br>
-&gt;<br>
-</blockquote></div>
+When we have a vma migrate_vma_collect_pmd() is a fast path for the
+common case a page is only mapped once. So migrate_vma_collect_pmd()
+should fairly closely match try_to_migrate_one(). I did experiment
+locally with removing the fast path to simplify the code, but it does
+provide a meaningful performance improvement so I abandoned it.
 
---000000000000b0e0c505dec77704--
+I think you're running into the problem addressed by
+https://lkml.kernel.org/r/20211018045247.3128058-1-apopple@nvidia.com
+but for DEVICE_COHERENT pages.
+
+Based on that I think the approach below is wrong. You should update
+try_to_migrate_one() to deal with DEVICE_COHERENT pages. It would make
+sense to do that as part of patch 1 in this series.
+
+The problem is that try_to_migrate_one() assumes folio_is_zone_device()
+implies it is a DEVICE_PRIVATE page due to the check in
+try_to_migrate().
+
+>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>> ---
+>>  mm/migrate.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/migrate.c b/mm/migrate.c index
+>> 6c31ee1e1c9b..e18ddee56f37 100644
+>> --- a/mm/migrate.c
+>> +++ b/mm/migrate.c
+>> @@ -206,7 +206,8 @@ static bool remove_migration_pte(struct folio *folio,
+>>  		 * Recheck VMA as permissions can change since migration
+>> started
+>>  		 */
+>>  		entry = pte_to_swp_entry(*pvmw.pte);
+>> -		if (is_writable_migration_entry(entry))
+>> +		if (is_writable_migration_entry(entry) ||
+>> +		    is_device_coherent_page(pfn_to_page(pvmw.pfn)))
+>>  			pte = maybe_mkwrite(pte, vma);
+>>  		else if (pte_swp_uffd_wp(*pvmw.pte))
+>>  			pte = pte_mkuffd_wp(pte);
+>> --
+>> 2.32.0
