@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88CCBC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 20:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58DD3C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 20:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D6E10E979;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0F410E98E;
 	Fri, 13 May 2022 20:51:36 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEB910E922
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 20:51:33 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E25010E955
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 20:51:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QsnlZjO5I2ZCyYs52IetswzXlAYY/7TEaNkly+H6QK+EhWOpAu8Wr4tWx79VW8Zp/IHv2ISzQzOcTlCNKQX1FrZoeiEbnG14Iuvw/NXM6XYNobWSd7XfGrNhr7uozN/WPBtYHU+7my+WtzD1ckwDSwR4o5oFgHZH3XxAmME6L/z8X3vFIeevsnjiw3DGBezyHKI1LueySDMveaIjISKt5rllFznww6O3H1sfempdTA9PavrPQZgSorhGUI/vqPE/LA65ZaaX29MKXybZemJkVcxz//6/0TuxtcsT2X8ngrmwgxpLiFHNebRVmzdxBa/6dt9mHSkucUkBHTN0cy8HYQ==
+ b=NmDHgZnZYrqz44tpjNX5/BEqxXx5Hq35/7imz7AX06esb6aJrnQtX3kV5a7/VnzXvh4Yx6d7OZjDwu3OEQut/OAs5ZVpWghfgecxNobkEYJiX5+6+CZXsreMjg9EwEbB9K3lLh/47lVDb4EPRVHYsu/xHx+PpIRHHEghp9yCHdsBr5ebTt0dIWUNTJs56JCfND/eWL9Ar75y4T4X/YuUNKBlNh3cQun2VbDlUJ9AAFio+p1ov4KbBhEgC+kqJ3aJyyriXAjkJAG1wqqLvJwdczUwn8C/gYRLls5sq8ltcszXxAcE8K+URDEerjGJz8QH8jVqgju4aQmxPC7Ohtovqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cWCxgivtBajgjAWyXzTRGFNlmQxkyLFWKQZBX/5raXo=;
- b=W4gA7P6HxhPZcaLtjXyJZtNJ/T4yY+4CHtS+1nB0J94nEYwjBk3FCEc30uKAGFexFaDO6BnoJuWAIRyE3MElnHzdOTshYspzErVsqA3T58kHy60VkFXev4nn2n7Tj8fUA6SF1MfSllyqu0vreMU2vmDX0TSma7pYw3QuLJaNDWmAJ862eLnZw75kY1f0uuqn5AdHoO3mg7TYQFzTB/TIEf+Gv2VuafE2B5y1uonPSHB9yxAqmOnSx66X0gg9l2SEQSWPEaVltHBY4EiqfdSsqGyab00ZQeeb3Owh/7wUldGCdwucMghww4i29njIz998vaDw66XMuCM/3e5swf1WYw==
+ bh=p7M+bFN68Vm9HIdCODdCAs7UKGi4Z0PYK0mfHIJ7yBk=;
+ b=Nwy9qfqy8kHkrdWqUd4ZX7+r9DF7wK0ZEb7Y7pBM92/ewFATEd06zC3JR0me+SW/XuErYM1iDDUxKV5mqbP8R8UCWRe/b0D70HzLWy1qez7J0CXdTMnLe9T/iumOEQG9veBiNmeCju04XHAhzTfVMpFhfkDZgFeAc3TFblOZNSqOz5iyvweR8ppwKmiKvuOjtk4N7oswYdPHmyafT2CdC7YOHbgr3PH4ol741wAJV1kel9XAnPf6oEnNVdotON16hLgZU5Ra0E08zSnfLXaoZX3FhSu1BEiN916VWYsKF9yUYqq90IDIF0k4o0vUkII6Rfu5AnqHsRSD6PX0/P9IdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cWCxgivtBajgjAWyXzTRGFNlmQxkyLFWKQZBX/5raXo=;
- b=hxsJ/IY92tp/XDjqmXDG1XE8Av00dTMCAc6gNkfY12MN+76RFd6LDMHoUk2ulkslF2Z/fdlwtYBvlF3AiddILeNepTumur+XZb+tQTl9kRWmaxWIQPo2QDiMLxsrIVZiinDsmTO77kXhhySJDAFXqpybEOJVwDtqGbM0JxfF7Uo=
-Received: from MW4PR03CA0280.namprd03.prod.outlook.com (2603:10b6:303:b5::15)
- by CH2PR12MB5004.namprd12.prod.outlook.com (2603:10b6:610:62::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.14; Fri, 13 May
- 2022 20:51:30 +0000
+ bh=p7M+bFN68Vm9HIdCODdCAs7UKGi4Z0PYK0mfHIJ7yBk=;
+ b=YQ3q6vMqny+1H5YRembSsoI2G2kPA9JjE4lzVmYVSZTGNWSyQBi1RHUkeIlQAPmF3MKBz6988iDA7Ho4gwWxuEpypTHRWsX2glsOB/hoPvlV6XLzpp8zCZ4HfxSwCOUttuTWG0XFlUflh5o/ihO51oqc04yMX+O8XIbUuMuQ04A=
+Received: from MW4PR03CA0289.namprd03.prod.outlook.com (2603:10b6:303:b5::24)
+ by DM6PR12MB3836.namprd12.prod.outlook.com (2603:10b6:5:1c3::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13; Fri, 13 May
+ 2022 20:51:31 +0000
 Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b5:cafe::9d) by MW4PR03CA0280.outlook.office365.com
- (2603:10b6:303:b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.16 via Frontend
- Transport; Fri, 13 May 2022 20:51:30 +0000
+ (2603:10b6:303:b5:cafe::d7) by MW4PR03CA0289.outlook.office365.com
+ (2603:10b6:303:b5::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.15 via Frontend
+ Transport; Fri, 13 May 2022 20:51:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Fri, 13 May 2022 20:51:30 +0000
+ 15.20.5250.13 via Frontend Transport; Fri, 13 May 2022 20:51:31 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 13 May
- 2022 15:51:28 -0500
+ 2022 15:51:29 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/11] drm/amd/display: Allow individual control of eDP
- hotplug support
-Date: Fri, 13 May 2022 16:50:36 -0400
-Message-ID: <20220513205041.1311639-7-qingqing.zhuo@amd.com>
+Subject: [PATCH 07/11] drm/amd/display: Check zero planes for OTG disable W/A
+ on clock change
+Date: Fri, 13 May 2022 16:50:37 -0400
+Message-ID: <20220513205041.1311639-8-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220513205041.1311639-1-qingqing.zhuo@amd.com>
 References: <20220513205041.1311639-1-qingqing.zhuo@amd.com>
@@ -69,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bf151fb3-578d-4f4a-127b-08da35225b85
-X-MS-TrafficTypeDiagnostic: CH2PR12MB5004:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB50045FF37046466AD1F85875FBCA9@CH2PR12MB5004.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 403946dd-ae50-4e04-6ed5-08da35225be4
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3836:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB383640766FFBEF29B649E232FBCA9@DM6PR12MB3836.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qbBtV5vtpEC6T4a+1XVFBI4x0R8wFCC959VdeLFVvTF8sMCMZiMyS7L0zTzxeniqerRECEgaaeRO1oJk6UlIP6MSakwysnCSjyUqEOrS78ygLcRYV69PTCWy4+JXVtxYPsK12Q0AsagQyAaQQ857oJ1p9UUymeKz0tKp6PI6yYkEE/6A/TYShxArhltu7Z2VsLkEawEF8MVv/0zlLFo+UofGA/Pgjl4s+7HIZHgYIrxj23caUHttxgd2U4pVkQyVArgNfhRneXCEQ8hrRp+2TXNnDals2h8s+j2wTIgpTjEWtWy6mVkMcezum5eed/klj1zzqTR+IhkU9GxVA1aQC0h+vhdzaYKO7wWR2CD2GUBGR3hHJlXxbl7TvqUzkz3ahnEYrJIZq4dIZrWXukJWZzxw2N+rnIGvk+DH1wDxuIWFgSRY+MBIPDHFl4kJlWr+4Et7QWTMVEAlqU5qIVL012MFTXPN6XRs8kDOp7yRuBs9m1yQo2gY2S00OGfOS9JtJMWDhxolwbGUup9U8DKNxeJhst+1F9daHCXzooFh8m+P7rxM3As/6oYH5A5jjY8yelJXJBvsLsBIeSdH1BVxRDAAWwJC8wiAcpwRabGfzjIXxPM3Apk4ADvEEPpIRV3if8s75kYbwgNQYi4jV85Du+Mer/2fMAHpBxWxJklhJrrxjpF+lV5rYmjDKNWPBSp4Qas6bcGZ9VFkgyzDdQ2QLg==
+X-Microsoft-Antispam-Message-Info: KhEUths2Th4yJJVkjZ6zGNwYPIA5Iq1xshb8XmK1cB4hUwJ7GQFy0OS3uMKq1cx39lcDyjTGrc21ECsSUl7gz1K3JhtLDvQ/rBXY4U9nYK/onpNLMBkY8s3h0xxsNKGx/bMedZRG18nrxsY1WVIFrVDH5uyFZN7BsyhcFfIzfFa08/uibOAf/2R+2ZU4xqPn2MEND5/yxqItatRNzF9pBPtcOK+aeqD8x5nY7LKQDDTnEj82aMk2oAEspXzdGyxdue4MVPG9MEye5j578BYyvQEHdy3cZRxeSna6WT8N4tIOnXA65NwNk9/ZqLl0eeqhmMRsmmrFcXJdGiD3UvwgrnyU8CJp2Yg2VQo+Lc8IfWI6j8msd5Zr9AlINr9vP7H0D+8m/cs7nAYiHmPXe8AcOqK5Za1OrJJgvRIp5mjhaI/X97rOUrz22x9FPoH4lqrjHspp99PEaQ9BesRBqnB98QshS08hqyV3BsuwQjJwymsyuNMyxYQNlWKEzqFmQoqeMSiu8eJhbWwnIxo83vjEcHUEfOPLwEetWOwik2JOoIsmdkrZqo8YIWGuQ9fQhQM6Tq+GNYFnB4vovCVGpgefJ3egVgygEnUDr0UdRf2Yia3LjalkCDGyK8/OdnCxjq4J1B1oCr1x5XyDjKhnEeM5zWow916SjF6Sxv5BaEC4QB+bsRJyBTVrPvgRoX6kMnom+i087loKM+sPstfyNZMPLw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(8676002)(2616005)(70586007)(4326008)(44832011)(70206006)(6916009)(82310400005)(16526019)(186003)(426003)(47076005)(5660300002)(336012)(54906003)(6666004)(26005)(356005)(81166007)(86362001)(36756003)(36860700001)(2906002)(83380400001)(8936002)(316002)(40460700003)(1076003)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(81166007)(16526019)(316002)(36756003)(2616005)(2906002)(186003)(40460700003)(6666004)(356005)(54906003)(82310400005)(36860700001)(6916009)(8676002)(4326008)(336012)(70206006)(426003)(70586007)(44832011)(47076005)(26005)(5660300002)(86362001)(508600001)(8936002)(83380400001)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2022 20:51:30.5079 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf151fb3-578d-4f4a-127b-08da35225b85
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2022 20:51:31.1329 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 403946dd-ae50-4e04-6ed5-08da35225be4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5004
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3836
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,79 +101,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Derek Lai <Derek.Lai@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+Cc: stylon.wang@amd.com, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Derek Lai <Derek.Lai@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-Second eDP can send display off notification through HPD
-but DC isn't hooked up to handle. Some primary eDP panels
-will toggle on/off incorrectly if it's enabled generically.
+A display clock change hang can occur when switching between DIO and HPO
+enabled modes during the optimize_bandwidth in dc_commit_state_no_check
+call.
+
+This happens when going from 4k120 8bpc 420 to 4k144 10bpc 444.
+
+Display clock in the DIO case is 1200MHz, but pixel rate is 600MHz
+because the pixel format is 420.
+
+Display clock in the HPO case is less (800MHz?) because of ODM combine
+which results in a smaller divider.
+
+The DIO is still active in prepare but not active in the optimize which
+results in the hang occuring.
+
+During this change there are no planes on the stream so it's safe to
+apply the workaround, but dpms_off = false and signal type is not
+virtual.
 
 [How]
-Extend the debug option to allow individually enabling hotplug
-either the first eDP or the second eDP in a dual eDP system.
+Check for plane_count == 0, no planes on the stream.
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+It's easiest to check pipe->plane_state == NULL as an equivalent check
+rather than trying to search for the stream status in the context
+associated with the stream, so let's do that.
+
+The primary, non MPO pipe should not have a NULL plane state.
+
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Derek Lai <Derek.Lai@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 21 +++++++++++++++++--
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index b40abd2bf7f6..a789ea8af27f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1605,8 +1605,25 @@ static bool dc_link_construct_legacy(struct dc_link *link,
- 		if (link->hpd_gpio) {
- 			if (!link->dc->config.allow_edp_hotplug_detection)
- 				link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
--			link->irq_source_hpd_rx =
--					dal_irq_get_rx_source(link->hpd_gpio);
-+
-+			switch (link->dc->config.allow_edp_hotplug_detection) {
-+			case 1: // only the 1st eDP handles hotplug
-+				if (link->link_index == 0)
-+					link->irq_source_hpd_rx =
-+						dal_irq_get_rx_source(link->hpd_gpio);
-+				else
-+					link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
-+				break;
-+			case 2: // only the 2nd eDP handles hotplug
-+				if (link->link_index == 1)
-+					link->irq_source_hpd_rx =
-+						dal_irq_get_rx_source(link->hpd_gpio);
-+				else
-+					link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
-+				break;
-+			default:
-+				break;
-+			}
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+index 27501b735a9c..a2ade6e93f5e 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+@@ -91,7 +91,8 @@ static void dcn315_disable_otg_wa(struct clk_mgr *clk_mgr_base, bool disable)
  
- 		break;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 26c24db8f1da..7cfc04a8ef15 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -329,7 +329,7 @@ struct dc_config {
- 	bool disable_dmcu;
- 	bool enable_4to1MPC;
- 	bool enable_windowed_mpo_odm;
--	bool allow_edp_hotplug_detection;
-+	uint32_t allow_edp_hotplug_detection;
- 	bool clamp_min_dcfclk;
- 	uint64_t vblank_alignment_dto_params;
- 	uint8_t  vblank_alignment_max_frame_time_diff;
+ 		if (pipe->top_pipe || pipe->prev_odm_pipe)
+ 			continue;
+-		if (pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal))) {
++		if (pipe->stream && (pipe->stream->dpms_off || pipe->plane_state == NULL ||
++				     dc_is_virtual_signal(pipe->stream->signal))) {
+ 			if (disable)
+ 				pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
+ 			else
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+index 3121dd2d2a91..fc3af81ed6c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+@@ -122,7 +122,8 @@ static void dcn316_disable_otg_wa(struct clk_mgr *clk_mgr_base, bool disable)
+ 
+ 		if (pipe->top_pipe || pipe->prev_odm_pipe)
+ 			continue;
+-		if (pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal))) {
++		if (pipe->stream && (pipe->stream->dpms_off || pipe->plane_state == NULL ||
++				     dc_is_virtual_signal(pipe->stream->signal))) {
+ 			if (disable)
+ 				pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
+ 			else
 -- 
 2.25.1
 
