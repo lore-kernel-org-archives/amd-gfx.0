@@ -4,65 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29363C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 10:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2629C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 11:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5BFE10FBA0;
-	Fri, 13 May 2022 10:25:23 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1582810FBA0
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 10:25:22 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id ks9so15377899ejb.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 03:25:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF0910E2A5;
+	Fri, 13 May 2022 11:24:33 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5981E10E29F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 11:24:31 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id z19so9580991edx.9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 04:24:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=CETqr8ydFms8MWZxco2i4EEBTir6wgF6kgBI2CtxzJQ=;
- b=clCZnv5tcABq6BT3BKjpg594x8BZL0hORB+giCFMiMHQdqmQubaWcAoABXHgY+U8yf
- DzizCCVimvxL4qRh9+lg1RNrxzeZ7orVvjHWOWT/rW9U6i3yPsR8S+c6W3BkBf4t13Hk
- VsGbZDDmrfT64fLakmPE3Alzl5A2bxAm4o0S3lASdE/EZt+H1Lm7rdlSKcHZXvqZBYeT
- fC2ObN+AHpYQQACaAGuyQpSvvw7PpbuTLRsolNe1bfVC70m3sjPuKklcm7ad3LBTUp6q
- NLOIiUoGT7Qvo2z3wLLRhbk1fUpKrdADEOMoieuLP3KIkGL1OnYpAOdNYKm2mE9s2Yee
- 7N6g==
+ :cc:references:from:in-reply-to;
+ bh=RtFlB8M+6XS2nBj7bk7hiutHv26sa7FTtb1PSd488Ps=;
+ b=gvK1hXj8n+N0NSWwkPSpFUgAPBZDk8kCDQiOOp5w5MsMP3xFPN3xMjD7V5LjHu2vFp
+ WI2iZ0+2m7PamWsuHS6nNdF2d+XFBG1hmxFTmjSLxsOyldgWlaGK9ra5HmIOgzQ4z3RX
+ 1qJpQsUjUzxgn6K04FWV3L03nj6vrMtXlwr6aA8NOwC+uaR8ZHXZxCbTtmm3MtzbeqUn
+ WbUsE4PDWyhThto9usj4IBNtPKmCCZ6ft/AGWaPOEgztLl0SAYj5qj6OT8d7p8LZFoId
+ afTFkkWvU5CxtujjDmCFxzL2J16I+noRfQpV9PlWufeQT10h5BK3Fkq8Pa8XOnQnV+lh
+ pwtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=CETqr8ydFms8MWZxco2i4EEBTir6wgF6kgBI2CtxzJQ=;
- b=IwGwOXJl2/frMdgQRM3qE07ogERm03DJv+tweqvkB0Dx7s39oPRMcelN5rxtDT7yE3
- Qay4CXJcD+vZAx9C9550bmbNvP4LRzYU8IjLKTIsol8aj7wWOEBdh9i6Y4l/BR5Zz8kZ
- sU+SSBIMeRoHDYhzMl41jBAQ6y77JQsXEMvj6BR0c+8BY68h/RnWZ+woCCjn8IchkGN5
- djb6S7VljtrMviaQvN1H0xDVudF3AFX4AcoaFTlusGFWjil+s+M1xOgZGOA1Pxa6yuKK
- pGTNOTqYsK8VLh5YQxmT+gkmFTPPeTSzuZJa/SMz0qSEsoqtVIaVRFNP7Zblr9MIUw6I
- oS3Q==
-X-Gm-Message-State: AOAM533t81XK2XSjRPQbbjokr0Nd2yhaiYMIAAmQj8ZP+tsrBF4zvpiN
- pwOoo4RlkOwDo2/rorgz7Pw=
-X-Google-Smtp-Source: ABdhPJx6y+yWV3UfRCyxleG4/SmEMLfbNyhwXDedaZx4qVkxj1i5GXLSGyIabFbEl0xilCj+qvr6vg==
-X-Received: by 2002:a17:907:6284:b0:6e0:f895:15a with SMTP id
- nd4-20020a170907628400b006e0f895015amr3609360ejc.713.1652437520474; 
- Fri, 13 May 2022 03:25:20 -0700 (PDT)
+ :content-language:to:cc:references:from:in-reply-to;
+ bh=RtFlB8M+6XS2nBj7bk7hiutHv26sa7FTtb1PSd488Ps=;
+ b=nd/dl9lbAQuL09ipNRvF0YRwORUvTneLs+MVSsYxnaSKlbJbnxpr571RyXTvlCGzUl
+ n1MGPQibm15pzJWyDDhaJYdRSQKUbJ4lmYbmjqgQmmoh8Sl+ZS9xjsMIbagkti+0d4Nb
+ D0AISOHAdBLi8TFzXDjLtP5DkPLAAbyEWm6zoGchJzdPL2l5FE/h6epU9YCqZnh2xcDX
+ Id7+PcJa/L8myhz9SHOTjjb3dfGLJBK57QyZaTJFtgjITH3dhIVBiHSreJNwRZDnnIB/
+ TFVZLv17DJ4vxyfK5b834WkbPKkaFELcqAfYYneyKSa45yhvCJiRm0FfZsC8mu3WlIPy
+ cxRA==
+X-Gm-Message-State: AOAM533fSlOF6PIxyNR8AR1QcOTdAQwe8tRVAl8bOJkLKiTbVUPGh0aV
+ YYG2CscIFx3Oxk3Ywe4/aBgCmAceVE0=
+X-Google-Smtp-Source: ABdhPJyE6wyuIGZtWXIMO2l9tbV1rOT+P2IhzN6qyIN9ICApi8AoMLapcfTf/LB5m0wfRqtECc1C/w==
+X-Received: by 2002:a05:6402:51d3:b0:428:ce4a:69b with SMTP id
+ r19-20020a05640251d300b00428ce4a069bmr15618615edd.72.1652441069773; 
+ Fri, 13 May 2022 04:24:29 -0700 (PDT)
 Received: from ?IPV6:2a02:908:1256:79a0:4107:8049:874f:2444?
  ([2a02:908:1256:79a0:4107:8049:874f:2444])
  by smtp.gmail.com with ESMTPSA id
- y21-20020a056402171500b0042617ba639esm770803edu.40.2022.05.13.03.25.19
+ v18-20020a1709063bd200b006f3ef214e57sm641783ejf.189.2022.05.13.04.24.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 May 2022 03:25:19 -0700 (PDT)
-Message-ID: <51fac87f-d2c0-c64b-6440-3225d98d89c6@gmail.com>
-Date: Fri, 13 May 2022 12:25:18 +0200
+ Fri, 13 May 2022 04:24:29 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------iR0vBbYBnuWj0mmQQJdZthWk"
+Message-ID: <63d547b5-c0a3-812c-e019-ed2a2010fe4b@gmail.com>
+Date: Fri, 13 May 2022 13:24:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] drm/amdgpu: Convert to common fdinfo format v3
+Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
 Content-Language: en-US
-To: "Sharma, Shashank" <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220511120250.3066-1-christian.koenig@amd.com>
- <45400d34-b7c8-851a-bc15-e9b4171c0356@amd.com>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20220506112312.347519-1-christian.koenig@amd.com>
+ <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
+ <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
+ <d4f8f7fc-e3dc-fcf8-0543-62039c7460d3@gmail.com>
+ <CAAxE2A60-rNUGB3PNL7kq6pJBWf7V-6cAE0Hx6zH31ad7z_1gA@mail.gmail.com>
+ <CAAxE2A6BaiGfXXGnmCH9Zk36oWuOwk_84QBYbZ97QhyZQfwBKQ@mail.gmail.com>
+ <CAAxE2A6wiL5fnegVo+tMsHBNb+HC3Nw=cmR4MdNVqLpEQYH1ug@mail.gmail.com>
+ <11d9492c-f727-f149-d473-9cda4bab2760@gmail.com>
+ <CAAxE2A5jc0FhpnM2tBskS2puKY-jidC_xdMTZhQ5p9U31O_0KA@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <45400d34-b7c8-851a-bc15-e9b4171c0356@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAxE2A5jc0FhpnM2tBskS2puKY-jidC_xdMTZhQ5p9U31O_0KA@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,259 +80,437 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, tvrtko.ursulin@linux.intel.com,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, daniel@ffwll.ch,
- David M Nieto <David.Nieto@amd.com>
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.05.22 um 10:18 schrieb Sharma, Shashank:
-> Hey Christian,
->
-> On 5/11/2022 2:02 PM, Christian König wrote:
->> [SNIP]
->> @@ -162,17 +162,49 @@ static unsigned int 
->> amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
->>       return hw_prio;
->>   }
->>   +/* Calculate the time spend on the hw */
->> +static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
->> +{
->> +    struct drm_sched_fence *s_fence;
->> +
->> +    if (!fence)
->> +        return ns_to_ktime(0);
->> +
->> +    /* When the fence is not even scheduled it can't have spend time */
->> +    s_fence = to_drm_sched_fence(fence);
->> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
->> &s_fence->scheduled.flags))
->> +        return ns_to_ktime(0);
->> +
->> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
->> &s_fence->finished.flags))
->> +        return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
-> shouldn't this be s_fence->finished.timestamp instead of 
-> s_fence->scheduled.timestamp ?
+This is a multi-part message in MIME format.
+--------------iR0vBbYBnuWj0mmQQJdZthWk
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-No, the finished fence is not yet signaled. So it's timestamp isn't valid.
+Well the best placement is guaranteed as long as the application doesn't 
+do any nonsense (e.g. trying to allocate a buffer larger than available 
+VRAM).
 
->> +
->> +    return ktime_sub(s_fence->finished.timestamp,
->> +             s_fence->scheduled.timestamp);
->> +}
->> +
->> +static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
->> +                      struct amdgpu_ctx_entity *centity)
->> +{
->> +    ktime_t res = ns_to_ktime(0);
->> +    uint32_t i;
->> +
->> +    spin_lock(&ctx->ring_lock);
->> +    for (i = 0; i < amdgpu_sched_jobs; i++) {
->> +        res = ktime_add(res, 
->> amdgpu_ctx_fence_time(centity->fences[i]));
->> +    }
->> +    spin_unlock(&ctx->ring_lock);
->> +    return res;
->> +}
->>     static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
->>                     const u32 ring)
->>   {
->> -    struct amdgpu_device *adev = ctx->adev;
->> -    struct amdgpu_ctx_entity *entity;
->>       struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
->> -    unsigned num_scheds = 0;
->> -    int32_t ctx_prio;
->> -    unsigned int hw_prio;
->> +    struct amdgpu_device *adev = ctx->mgr->adev;
->> +    struct amdgpu_ctx_entity *entity;
->>       enum drm_sched_priority drm_prio;
->> +    unsigned int hw_prio, num_scheds;
->> +    int32_t ctx_prio;
->>       int r;
->>         entity = kzalloc(struct_size(entity, fences, amdgpu_sched_jobs),
->> @@ -182,6 +214,7 @@ static int amdgpu_ctx_init_entity(struct 
->> amdgpu_ctx *ctx, u32 hw_ip,
->>         ctx_prio = (ctx->override_priority == 
->> AMDGPU_CTX_PRIORITY_UNSET) ?
->>               ctx->init_priority : ctx->override_priority;
->> +    entity->hw_ip = hw_ip;
->>       entity->sequence = 1;
->>       hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
->>       drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
->> @@ -220,11 +253,29 @@ static int amdgpu_ctx_init_entity(struct 
->> amdgpu_ctx *ctx, u32 hw_ip,
->>       return r;
->>   }
->>   -static int amdgpu_ctx_init(struct amdgpu_device *adev,
->> +static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
->> +{
->> +    ktime_t res = ns_to_ktime(0);
->> +    int i;
->> +
->> +    if (!entity)
->> +        return res;
->> +
->> +    for (i = 0; i < amdgpu_sched_jobs; ++i) {
->> +        res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
->> +        dma_fence_put(entity->fences[i]);
-> Don't we need a corresponding _get() for this put() ?
+The VM_ALWAYS_VALID flag doesn't affect any of that handling.
 
-The get is in amdgpu_ctx_add_fence().
-
-> I had a quick look at amdgpu_ctx_fence_time() too, and it seems it had 
-> its own pair of get/put.
-
-Yeah, which was completely superfluous. The fence is guaranteed to stay 
-valid as long as the lock is hold.
-
-> [SNIP]
->>
->> @@ -40,7 +44,7 @@ struct amdgpu_ctx_entity {
->>     struct amdgpu_ctx {
->>       struct kref            refcount;
->> -    struct amdgpu_device        *adev;
->> +    struct amdgpu_ctx_mgr        *mgr;
-> A suggestion here, should we split this patch in 2 parts:
-> - introduce ctx_mgr and change the respective APIs
-> - use ctx_mgr and calculate the time spent per context
->
-> It would make it easier to read and review.
-
-Good point.
-
-Thanks,
+Regards,
 Christian.
 
+Am 13.05.22 um 00:17 schrieb Marek Olšák:
+> Would it be better to set the VM_ALWAYS_VALID flag to have a greater 
+> guarantee that the best placement will be chosen?
 >
-> - Shashank
+> See, the main feature is getting the best placement, not being 
+> discardable. The best placement is a hw design requirement due to 
+> using memory for uses that are expected to have performance similar to 
+> onchip SRAMs. We need to make sure the best placement is guaranteed if 
+> it's VRAM.
 >
->>       unsigned            reset_counter;
->>       unsigned            reset_counter_query;
->>       uint32_t            vram_lost_counter;
->> @@ -61,6 +65,7 @@ struct amdgpu_ctx_mgr {
->>       struct mutex        lock;
->>       /* protected by lock */
->>       struct idr        ctx_handles;
->> +    atomic64_t        time_spend[AMDGPU_HW_IP_NUM];
->>   };
->>     extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
->> @@ -70,9 +75,10 @@ int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
->>     int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 
->> instance,
->>                 u32 ring, struct drm_sched_entity **entity);
->> -void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
->> -              struct drm_sched_entity *entity,
->> -              struct dma_fence *fence, uint64_t *seq);
->> +uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx_mgr *mgr,
->> +                  struct amdgpu_ctx *ctx,
->> +                  struct drm_sched_entity *entity,
->> +                  struct dma_fence *fence);
->>   struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
->>                          struct drm_sched_entity *entity,
->>                          uint64_t seq);
->> @@ -85,10 +91,11 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void 
->> *data,
->>   int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
->>                      struct drm_sched_entity *entity);
->>   -void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr);
->> +void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
->> +             struct amdgpu_device *adev);
->>   void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
->>   long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long 
->> timeout);
->>   void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
->> -ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, 
->> uint32_t hwip,
->> -        uint32_t idx, uint64_t *elapsed);
->> +ktime_t amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr, uint32_t 
->> hwip);
->> +
->>   #endif
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->> index 5a6857c44bb6..52c2b90925a0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->> @@ -32,6 +32,7 @@
->>     #include <drm/amdgpu_drm.h>
->>   #include <drm/drm_debugfs.h>
->> +#include <drm/drm_drv.h>
->>     #include "amdgpu.h"
->>   #include "amdgpu_vm.h"
->> @@ -55,10 +56,10 @@ static const char 
->> *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
->>   void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
->>   {
->>       struct amdgpu_fpriv *fpriv;
->> -    uint32_t bus, dev, fn, i, domain;
->>       uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
->>       struct drm_file *file = f->private_data;
->>       struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
->> +    uint32_t bus, dev, fn, domain, hw_ip;
->>       struct amdgpu_bo *root;
->>       int ret;
->>   @@ -83,29 +84,25 @@ void amdgpu_show_fdinfo(struct seq_file *m, 
->> struct file *f)
->>       amdgpu_bo_unreserve(root);
->>       amdgpu_bo_unref(&root);
->>   -    seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", 
->> domain, bus,
->> -            dev, fn, fpriv->vm.pasid);
->> -    seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
->> -    seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
->> -    seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
->> -    for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
->> -        uint32_t count = amdgpu_ctx_num_entities[i];
->> -        int idx = 0;
->> -        uint64_t total = 0, min = 0;
->> -        uint32_t perc, frac;
->> +    /*
->> +     * 
->> ******************************************************************
->> +     * For text output format description please see 
->> drm-usage-stats.rst!
->> +     * 
->> ******************************************************************
->> +     */
->>   -        for (idx = 0; idx < count; idx++) {
->> -            total = amdgpu_ctx_mgr_fence_usage(&fpriv->ctx_mgr,
->> -                i, idx, &min);
->> -            if ((total == 0) || (min == 0))
->> -                continue;
->> +    seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
->> +    seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", 
->> domain, bus,
->> +            dev, fn, fpriv->vm.pasid);
->> +    seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
->> +    seq_printf(m, "drm-memory-gtt:\t%llu KiB\n", gtt_mem/1024UL);
->> +    seq_printf(m, "drm-memory-cpu:\t%llu KiB\n", cpu_mem/1024UL);
->> +    for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
->> +        ktime_t usage = amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, hw_ip);
->>   -            perc = div64_u64(10000 * total, min);
->> -            frac = perc % 100;
->> +        if (!usage)
->> +            continue;
->>   -            seq_printf(m, "%s%d:\t%d.%d%%\n",
->> -                    amdgpu_ip_name[i],
->> -                    idx, perc/100, frac);
->> -        }
->> +        seq_printf(m, "drm-engine-%s:\t%Ld ns\n",
->> +               amdgpu_ip_name[hw_ip], ktime_to_ns(usage));
->>       }
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index 6b626c293e72..0814e6508a00 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -1144,7 +1144,7 @@ int amdgpu_driver_open_kms(struct drm_device 
->> *dev, struct drm_file *file_priv)
->>       mutex_init(&fpriv->bo_list_lock);
->>       idr_init(&fpriv->bo_list_handles);
->>   -    amdgpu_ctx_mgr_init(&fpriv->ctx_mgr);
->> +    amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
->>         file_priv->driver_priv = fpriv;
->>       goto out_suspend;
+> Marek
+>
+> On Thu., May 12, 2022, 03:26 Christian König, 
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>
+>     Am 12.05.22 um 00:06 schrieb Marek Olšák:
+>>     3rd question: Is it worth using this on APUs?
+>
+>     It makes memory management somewhat easier when we are really OOM.
+>
+>     E.g. it should also work for GTT allocations and when the core
+>     kernel says "Hey please free something up or I will start the
+>     OOM-killer" it's something we can easily throw away.
+>
+>     Not sure how many of those buffers we have, but marking everything
+>     which is temporary with that flag is probably a good idea.
+>
+>>
+>>     Thanks,
+>>     Marek
+>>
+>>     On Wed, May 11, 2022 at 5:58 PM Marek Olšák <maraeo@gmail.com> wrote:
+>>
+>>         Will the kernel keep all discardable buffers in VRAM if VRAM
+>>         is not overcommitted by discardable buffers, or will other
+>>         buffers also affect the placement of discardable buffers?
+>>
+>
+>     Regarding the eviction pressure the buffers will be handled like
+>     any other buffer, but instead of preserving the content it is just
+>     discarded on eviction.
+>
+>>
+>>         Do evictions deallocate the buffer, or do they keep an
+>>         allocation in GTT and only the copy is skipped?
+>>
+>
+>     It really deallocates the backing store of the buffer, just keeps
+>     a dummy page array around where all entries are NULL.
+>
+>     There is a patch set on the mailing list to make this a little bit
+>     more efficient, but even using the dummy page array should only
+>     have a few bytes overhead.
+>
+>     Regards,
+>     Christian.
+>
+>>
+>>         Thanks,
+>>         Marek
+>>
+>>         On Wed, May 11, 2022 at 3:08 AM Marek Olšák
+>>         <maraeo@gmail.com> wrote:
+>>
+>>             OK that sounds good.
+>>
+>>             Marek
+>>
+>>             On Wed, May 11, 2022 at 2:04 AM Christian König
+>>             <ckoenig.leichtzumerken@gmail.com> wrote:
+>>
+>>                 Hi Marek,
+>>
+>>                 Am 10.05.22 um 22:43 schrieb Marek Olšák:
+>>>                 A better flag name would be:
+>>>                 AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
+>>
+>>                 A bit long for my taste and I think the best
+>>                 placement is just a side effect.
+>>
+>>>
+>>>                 Marek
+>>>
+>>>                 On Tue, May 10, 2022 at 4:13 PM Marek Olšák
+>>>                 <maraeo@gmail.com> wrote:
+>>>
+>>>                     Does this really guarantee VRAM placement? The
+>>>                     code doesn't say anything about that.
+>>>
+>>
+>>                 Yes, see the code here:
+>>
+>>>
+>>>                         diff --git
+>>>                         a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>                         b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>                         index 8b7ee1142d9a..1944ef37a61e 100644
+>>>                         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>                         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>                         @@ -567,6 +567,7 @@ int
+>>>                         amdgpu_bo_create(struct amdgpu_device *adev,
+>>>                                         bp->domain;
+>>>                                 bo->allowed_domains =
+>>>                         bo->preferred_domains;
+>>>                                 if (bp->type != ttm_bo_type_kernel &&
+>>>                         +           !(bp->flags &
+>>>                         AMDGPU_GEM_CREATE_DISCARDABLE) &&
+>>>                                     bo->allowed_domains ==
+>>>                         AMDGPU_GEM_DOMAIN_VRAM)
+>>>                         bo->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
+>>>
+>>
+>>                 The only case where this could be circumvented is
+>>                 when you try to allocate more than physically
+>>                 available on an APU.
+>>
+>>                 E.g. you only have something like 32 MiB VRAM and
+>>                 request 64 MiB, then the GEM code will catch the
+>>                 error and fallback to GTT (IIRC).
+>>
+>>                 Regards,
+>>                 Christian.
+>>
+>
 
+--------------iR0vBbYBnuWj0mmQQJdZthWk
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Well the best placement is guaranteed as long as the application
+    doesn't do any nonsense (e.g. trying to allocate a buffer larger
+    than available VRAM).<br>
+    <br>
+    The VM_ALWAYS_VALID flag doesn't affect any of that handling.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 13.05.22 um 00:17 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A5jc0FhpnM2tBskS2puKY-jidC_xdMTZhQ5p9U31O_0KA@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="auto">Would it be better to set the VM_ALWAYS_VALID flag
+        to have a greater guarantee that the best placement will be
+        chosen?
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">See, the main feature is getting the best
+          placement, not being discardable. The best placement is a hw
+          design requirement due to using memory for uses that are
+          expected to have performance similar to onchip SRAMs. We need
+          to make sure the best placement is guaranteed if it's VRAM.</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">Marek</div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Thu., May 12, 2022, 03:26
+          Christian König, &lt;<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0 0 0
+          .8ex;border-left:1px #ccc solid;padding-left:1ex">
+          <div> Am 12.05.22 um 00:06 schrieb Marek Olšák:<br>
+            <blockquote type="cite">
+              <div dir="ltr">
+                <div>3rd question: Is it worth using this on APUs?</div>
+              </div>
+            </blockquote>
+            <br>
+            It makes memory management somewhat easier when we are
+            really OOM.<br>
+            <br>
+            E.g. it should also work for GTT allocations and when the
+            core kernel says "Hey please free something up or I will
+            start the OOM-killer" it's something we can easily throw
+            away.<br>
+            <br>
+            Not sure how many of those buffers we have, but marking
+            everything which is temporary with that flag is probably a
+            good idea.<br>
+            <br>
+            <blockquote type="cite">
+              <div dir="ltr">
+                <div><br>
+                </div>
+                <div>Thanks,</div>
+                <div>Marek<br>
+                </div>
+              </div>
+              <br>
+              <div class="gmail_quote">
+                <div dir="ltr" class="gmail_attr">On Wed, May 11, 2022
+                  at 5:58 PM Marek Olšák &lt;<a
+                    href="mailto:maraeo@gmail.com" target="_blank"
+                    rel="noreferrer" moz-do-not-send="true"
+                    class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
+                  wrote:<br>
+                </div>
+                <blockquote class="gmail_quote" style="margin:0px 0px
+                  0px 0.8ex;border-left:1px solid
+                  rgb(204,204,204);padding-left:1ex">
+                  <div dir="ltr">
+                    <div>Will the kernel keep all discardable buffers in
+                      VRAM if VRAM is not overcommitted by discardable
+                      buffers, or will other buffers also affect the
+                      placement of discardable buffers?</div>
+                  </div>
+                </blockquote>
+              </div>
+            </blockquote>
+            <br>
+            Regarding the eviction pressure the buffers will be handled
+            like any other buffer, but instead of preserving the content
+            it is just discarded on eviction.<br>
+            <br>
+            <blockquote type="cite">
+              <div class="gmail_quote">
+                <blockquote class="gmail_quote" style="margin:0px 0px
+                  0px 0.8ex;border-left:1px solid
+                  rgb(204,204,204);padding-left:1ex">
+                  <div dir="ltr">
+                    <div><br>
+                    </div>
+                    <div>Do evictions deallocate the buffer, or do they
+                      keep an allocation in GTT and only the copy is
+                      skipped?</div>
+                  </div>
+                </blockquote>
+              </div>
+            </blockquote>
+            <br>
+            It really deallocates the backing store of the buffer, just
+            keeps a dummy page array around where all entries are NULL.<br>
+            <br>
+            There is a patch set on the mailing list to make this a
+            little bit more efficient, but even using the dummy page
+            array should only have a few bytes overhead.<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            <blockquote type="cite">
+              <div class="gmail_quote">
+                <blockquote class="gmail_quote" style="margin:0px 0px
+                  0px 0.8ex;border-left:1px solid
+                  rgb(204,204,204);padding-left:1ex">
+                  <div dir="ltr">
+                    <div><br>
+                    </div>
+                    <div>Thanks,</div>
+                    <div>Marek<br>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="gmail_quote">
+                    <div dir="ltr" class="gmail_attr">On Wed, May 11,
+                      2022 at 3:08 AM Marek Olšák &lt;<a
+                        href="mailto:maraeo@gmail.com" target="_blank"
+                        rel="noreferrer" moz-do-not-send="true"
+                        class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
+                      wrote:<br>
+                    </div>
+                    <blockquote class="gmail_quote" style="margin:0px
+                      0px 0px 0.8ex;border-left:1px solid
+                      rgb(204,204,204);padding-left:1ex">
+                      <div dir="ltr">
+                        <div>OK that sounds good.</div>
+                        <div><br>
+                        </div>
+                        <div>Marek<br>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="gmail_quote">
+                        <div dir="ltr" class="gmail_attr">On Wed, May
+                          11, 2022 at 2:04 AM Christian König &lt;<a
+                            href="mailto:ckoenig.leichtzumerken@gmail.com"
+                            target="_blank" rel="noreferrer"
+                            moz-do-not-send="true"
+                            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+                          wrote:<br>
+                        </div>
+                        <blockquote class="gmail_quote"
+                          style="margin:0px 0px 0px
+                          0.8ex;border-left:1px solid
+                          rgb(204,204,204);padding-left:1ex">
+                          <div> Hi Marek,<br>
+                            <br>
+                            <div>Am 10.05.22 um 22:43 schrieb Marek
+                              Olšák:<br>
+                            </div>
+                            <blockquote type="cite">
+                              <div dir="ltr">
+                                <div>A better flag name would be:</div>
+                                <div>AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD</div>
+                              </div>
+                            </blockquote>
+                            <br>
+                            A bit long for my taste and I think the best
+                            placement is just a side effect.<br>
+                            <br>
+                            <blockquote type="cite">
+                              <div dir="ltr">
+                                <div><br>
+                                </div>
+                                <div>Marek<br>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="gmail_quote">
+                                <div dir="ltr" class="gmail_attr">On
+                                  Tue, May 10, 2022 at 4:13 PM Marek
+                                  Olšák &lt;<a
+                                    href="mailto:maraeo@gmail.com"
+                                    target="_blank" rel="noreferrer"
+                                    moz-do-not-send="true"
+                                    class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
+                                  wrote:<br>
+                                </div>
+                                <blockquote class="gmail_quote"
+                                  style="margin:0px 0px 0px
+                                  0.8ex;border-left:1px solid
+                                  rgb(204,204,204);padding-left:1ex">
+                                  <div dir="ltr">
+                                    <div>Does this really guarantee VRAM
+                                      placement? The code doesn't say
+                                      anything about that.</div>
+                                  </div>
+                                </blockquote>
+                              </div>
+                            </blockquote>
+                            <br>
+                            Yes, see the code here:<br>
+                            <br>
+                            <blockquote type="cite">
+                              <div class="gmail_quote">
+                                <blockquote class="gmail_quote"
+                                  style="margin:0px 0px 0px
+                                  0.8ex;border-left:1px solid
+                                  rgb(204,204,204);padding-left:1ex"><br>
+                                  <div class="gmail_quote">
+                                    <blockquote class="gmail_quote"
+                                      style="margin:0px 0px 0px
+                                      0.8ex;border-left:1px solid
+                                      rgb(204,204,204);padding-left:1ex">
+                                      diff --git
+                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                                      index 8b7ee1142d9a..1944ef37a61e
+                                      100644<br>
+                                      ---
+                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                                      +++
+                                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                                      @@ -567,6 +567,7 @@ int
+                                      amdgpu_bo_create(struct
+                                      amdgpu_device *adev,<br>
+                                                      bp-&gt;domain;<br>
+                                              bo-&gt;allowed_domains =
+                                      bo-&gt;preferred_domains;<br>
+                                              if (bp-&gt;type !=
+                                      ttm_bo_type_kernel &amp;&amp;<br>
+                                      +           !(bp-&gt;flags &amp;
+                                      AMDGPU_GEM_CREATE_DISCARDABLE)
+                                      &amp;&amp;<br>
+                                                  bo-&gt;allowed_domains
+                                      == AMDGPU_GEM_DOMAIN_VRAM)<br>
+                                                     
+                                      bo-&gt;allowed_domains |=
+                                      AMDGPU_GEM_DOMAIN_GTT;<br>
+                                    </blockquote>
+                                  </div>
+                                </blockquote>
+                              </div>
+                            </blockquote>
+                            <br>
+                            The only case where this could be
+                            circumvented is when you try to allocate
+                            more than physically available on an APU.<br>
+                            <br>
+                            E.g. you only have something like 32 MiB
+                            VRAM and request 64 MiB, then the GEM code
+                            will catch the error and fallback to GTT
+                            (IIRC).<br>
+                            <br>
+                            Regards,<br>
+                            Christian.<br>
+                          </div>
+                        </blockquote>
+                      </div>
+                    </blockquote>
+                  </div>
+                </blockquote>
+              </div>
+            </blockquote>
+            <br>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------iR0vBbYBnuWj0mmQQJdZthWk--
