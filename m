@@ -4,89 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 515FFC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 09:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29363C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 10:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD77B10F9D5;
-	Fri, 13 May 2022 09:59:34 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC9E10F9D5
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 09:59:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d3xYGgLsKDq9u/WXBEeilLzSUmC0/tPDXeXCC+SsqSc20CuQ15RI/WrdONVYtaqEPSXFx+ls4SfOR+Ra2fktdN59gXcW3si888pnX00TSEN36wq3RNUImdB77D6TFyhpKHDMHk4JO8VlBrMhzF0tfx46MV3EW9Y+QUCxfujxNuDORmw7jC1OrhvxFbmroGenT9qR6mhlhIi4SMbvQL7o3doLU1oUq6m/F11Rqbr90uNo3DC9Mt9tR2V7gIHE2K021xSz8llfIZVd8PlH/xaj6doVZ/ZhzmoLnWv9hVXHADO9Tjy5tNSyH2AUjGMuWV/EWJVYTNF/p9FdV9/A5xSqfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4fBMLS+p1OobNF4+b9Z53ZVoJ1Ks7RWhqor1XTfXWmk=;
- b=AvvemdFebYAWzpwamK4wWIVLgxsaFHQ/kUNaDX1L/mM2cAe8mMuU8ADR27R5ZLDS7sUUD5Nz/o6/dhOkSN/x3a6Ps2mEoJAZuL29GPV3yTVVXkU56vvlQpzbaJXpZm48kfP9vYs8cSWSVQ6IgryuUkyuQJzBHmwjVDVaBprEi+CZPvEm66HTRB2oirpENDm3GqYbjUEcv7KCksZWxsxjUp5uXqDlDSMlusND7I+ISTKkIZ+SPGvJiE0JgRFNrjvMi0ZsrCyb4Ye2zWChYWcZtqwEDpeUWTqI4CKg5ZjTUYThsIOCv+mx8d47MWfOsIpovtoH4JQ3om5BZwcqWIgx0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4fBMLS+p1OobNF4+b9Z53ZVoJ1Ks7RWhqor1XTfXWmk=;
- b=tY8lWqShtcNW4VasEC9Nmp198YGz4EII0kxXn7xdfmVoKWzG28RCBWiFQrU9NXSHoZnJN1Y61DxSZ5iFHTK2hjNX8koiCSa+jX1UJ5BVVojhOFLWZGzi8zGuFKwnoBSk2fu6Yk6NBIOwVyD8kT2Mm1ocNwoDP3OtyG1HP/sM6IE=
-Received: from BN9PR03CA0126.namprd03.prod.outlook.com (2603:10b6:408:fe::11)
- by MN0PR12MB5715.namprd12.prod.outlook.com (2603:10b6:208:372::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23; Fri, 13 May
- 2022 09:59:29 +0000
-Received: from BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::96) by BN9PR03CA0126.outlook.office365.com
- (2603:10b6:408:fe::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.14 via Frontend
- Transport; Fri, 13 May 2022 09:59:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT060.mail.protection.outlook.com (10.13.177.211) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Fri, 13 May 2022 09:59:29 +0000
-Received: from sathish-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Fri, 13 May 2022 04:59:27 -0500
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amd/pm: consistent approach for smartshift
-Date: Fri, 13 May 2022 15:29:13 +0530
-Message-ID: <20220513095913.512256-1-sathishkumar.sundararaju@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5BFE10FBA0;
+	Fri, 13 May 2022 10:25:23 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1582810FBA0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 10:25:22 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id ks9so15377899ejb.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 May 2022 03:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=CETqr8ydFms8MWZxco2i4EEBTir6wgF6kgBI2CtxzJQ=;
+ b=clCZnv5tcABq6BT3BKjpg594x8BZL0hORB+giCFMiMHQdqmQubaWcAoABXHgY+U8yf
+ DzizCCVimvxL4qRh9+lg1RNrxzeZ7orVvjHWOWT/rW9U6i3yPsR8S+c6W3BkBf4t13Hk
+ VsGbZDDmrfT64fLakmPE3Alzl5A2bxAm4o0S3lASdE/EZt+H1Lm7rdlSKcHZXvqZBYeT
+ fC2ObN+AHpYQQACaAGuyQpSvvw7PpbuTLRsolNe1bfVC70m3sjPuKklcm7ad3LBTUp6q
+ NLOIiUoGT7Qvo2z3wLLRhbk1fUpKrdADEOMoieuLP3KIkGL1OnYpAOdNYKm2mE9s2Yee
+ 7N6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=CETqr8ydFms8MWZxco2i4EEBTir6wgF6kgBI2CtxzJQ=;
+ b=IwGwOXJl2/frMdgQRM3qE07ogERm03DJv+tweqvkB0Dx7s39oPRMcelN5rxtDT7yE3
+ Qay4CXJcD+vZAx9C9550bmbNvP4LRzYU8IjLKTIsol8aj7wWOEBdh9i6Y4l/BR5Zz8kZ
+ sU+SSBIMeRoHDYhzMl41jBAQ6y77JQsXEMvj6BR0c+8BY68h/RnWZ+woCCjn8IchkGN5
+ djb6S7VljtrMviaQvN1H0xDVudF3AFX4AcoaFTlusGFWjil+s+M1xOgZGOA1Pxa6yuKK
+ pGTNOTqYsK8VLh5YQxmT+gkmFTPPeTSzuZJa/SMz0qSEsoqtVIaVRFNP7Zblr9MIUw6I
+ oS3Q==
+X-Gm-Message-State: AOAM533t81XK2XSjRPQbbjokr0Nd2yhaiYMIAAmQj8ZP+tsrBF4zvpiN
+ pwOoo4RlkOwDo2/rorgz7Pw=
+X-Google-Smtp-Source: ABdhPJx6y+yWV3UfRCyxleG4/SmEMLfbNyhwXDedaZx4qVkxj1i5GXLSGyIabFbEl0xilCj+qvr6vg==
+X-Received: by 2002:a17:907:6284:b0:6e0:f895:15a with SMTP id
+ nd4-20020a170907628400b006e0f895015amr3609360ejc.713.1652437520474; 
+ Fri, 13 May 2022 03:25:20 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:4107:8049:874f:2444?
+ ([2a02:908:1256:79a0:4107:8049:874f:2444])
+ by smtp.gmail.com with ESMTPSA id
+ y21-20020a056402171500b0042617ba639esm770803edu.40.2022.05.13.03.25.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 May 2022 03:25:19 -0700 (PDT)
+Message-ID: <51fac87f-d2c0-c64b-6440-3225d98d89c6@gmail.com>
+Date: Fri, 13 May 2022 12:25:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: Convert to common fdinfo format v3
+Content-Language: en-US
+To: "Sharma, Shashank" <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220511120250.3066-1-christian.koenig@amd.com>
+ <45400d34-b7c8-851a-bc15-e9b4171c0356@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <45400d34-b7c8-851a-bc15-e9b4171c0356@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 37f7419c-e201-428a-b318-08da34c74579
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5715:EE_
-X-Microsoft-Antispam-PRVS: <MN0PR12MB571556F93EEE06CB1183156D9DCA9@MN0PR12MB5715.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UO3VjKH0ERvt0vmNhz5801/gsM5r2oSNXEOHCOqNHxfMlnzQsrmHIZUD3oRnlTZsKbRvGYXf6+wlds6gMtS/iXlMIP8mzQ4JQl3ZJK9SiBlvnzC4B3n9OWZN5sXgNF2EvYBL6NB51oeJlWcdN1FB2Xuigd4p76DDnN6wHUPCItwy1BzsUHgpcc3Ehsn2UZLw67L/KC4MgWvJvlGpgpIr6GbsyhqHzkHTYdsKPyN+yZuZ15utaNIQfnwg4eAl0jbvkZRNAxi+iOUCNRMxd4gRC8HpEdcbnRkeWYMvKq3mLa+noTf16JTHN4AZMEIXhKPmeHrcvJyXXJ/QmqxerIq+MZ14sKK647tJNtKDe9D/0/BE3lP8LwdMriujofsIDB2yW177YjeR2OwSo7pI0RuIRfZSAnipRg4uJt7oBpuGuSXRbUQ0fLZtgQS4t7huWuwVjEsjHJtQeOUSmrWhCtg0n1MPtAB1iF/SdbUiOc9cFAeR0fnuTOGPku4jAiIXD0jVyQGtu3vDJanAhbBpDDdzrhBFZRIiVYmMtL4n7fSX1HWJQ1h4mD0G7kkd6Grisz0vK8RPqnStiN5r+t7nSgDp1QC0C6p058vC0e0h9H9X/zl0btmd2mvO5ei2ZA/yM60npBkfuAkzR4YNz9VwKcofHLOmTYNixixhRteAvjGMSPGlPpwBLZkpd9IoGuAkif1L1Rx7oruqQ2JqZmdEekLp+w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(356005)(186003)(86362001)(83380400001)(6666004)(16526019)(7696005)(2906002)(2616005)(26005)(1076003)(36756003)(47076005)(336012)(82310400005)(40460700003)(426003)(8936002)(508600001)(5660300002)(6916009)(70206006)(70586007)(54906003)(8676002)(81166007)(4326008)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2022 09:59:29.4461 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37f7419c-e201-428a-b318-08da34c74579
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT060.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5715
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,198 +74,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Lazar Lijo <Lijo.Lazar@amd.com>
+Cc: Alexander.Deucher@amd.com, tvrtko.ursulin@linux.intel.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, daniel@ffwll.ch,
+ David M Nieto <David.Nieto@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-create smartshift sysfs attributes from dGPU device even
-on smartshift 1.0 platform to be consistent. Do not populate
-the attributes on platforms that have APU only but not dGPU
-or vice versa.
+Am 13.05.22 um 10:18 schrieb Sharma, Shashank:
+> Hey Christian,
+>
+> On 5/11/2022 2:02 PM, Christian König wrote:
+>> [SNIP]
+>> @@ -162,17 +162,49 @@ static unsigned int 
+>> amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+>>       return hw_prio;
+>>   }
+>>   +/* Calculate the time spend on the hw */
+>> +static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+>> +{
+>> +    struct drm_sched_fence *s_fence;
+>> +
+>> +    if (!fence)
+>> +        return ns_to_ktime(0);
+>> +
+>> +    /* When the fence is not even scheduled it can't have spend time */
+>> +    s_fence = to_drm_sched_fence(fence);
+>> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
+>> &s_fence->scheduled.flags))
+>> +        return ns_to_ktime(0);
+>> +
+>> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
+>> &s_fence->finished.flags))
+>> +        return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+> shouldn't this be s_fence->finished.timestamp instead of 
+> s_fence->scheduled.timestamp ?
 
-V2:
- avoid checking for the number of VGA/DISPLAY devices (Lijo)
- move code to read from dGPU or APU into a function and reuse (Lijo)
+No, the finished fence is not yet signaled. So it's timestamp isn't valid.
 
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 130 ++++++++++++++---------------
- 1 file changed, 62 insertions(+), 68 deletions(-)
+>> +
+>> +    return ktime_sub(s_fence->finished.timestamp,
+>> +             s_fence->scheduled.timestamp);
+>> +}
+>> +
+>> +static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
+>> +                      struct amdgpu_ctx_entity *centity)
+>> +{
+>> +    ktime_t res = ns_to_ktime(0);
+>> +    uint32_t i;
+>> +
+>> +    spin_lock(&ctx->ring_lock);
+>> +    for (i = 0; i < amdgpu_sched_jobs; i++) {
+>> +        res = ktime_add(res, 
+>> amdgpu_ctx_fence_time(centity->fences[i]));
+>> +    }
+>> +    spin_unlock(&ctx->ring_lock);
+>> +    return res;
+>> +}
+>>     static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+>>                     const u32 ring)
+>>   {
+>> -    struct amdgpu_device *adev = ctx->adev;
+>> -    struct amdgpu_ctx_entity *entity;
+>>       struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
+>> -    unsigned num_scheds = 0;
+>> -    int32_t ctx_prio;
+>> -    unsigned int hw_prio;
+>> +    struct amdgpu_device *adev = ctx->mgr->adev;
+>> +    struct amdgpu_ctx_entity *entity;
+>>       enum drm_sched_priority drm_prio;
+>> +    unsigned int hw_prio, num_scheds;
+>> +    int32_t ctx_prio;
+>>       int r;
+>>         entity = kzalloc(struct_size(entity, fences, amdgpu_sched_jobs),
+>> @@ -182,6 +214,7 @@ static int amdgpu_ctx_init_entity(struct 
+>> amdgpu_ctx *ctx, u32 hw_ip,
+>>         ctx_prio = (ctx->override_priority == 
+>> AMDGPU_CTX_PRIORITY_UNSET) ?
+>>               ctx->init_priority : ctx->override_priority;
+>> +    entity->hw_ip = hw_ip;
+>>       entity->sequence = 1;
+>>       hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
+>>       drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
+>> @@ -220,11 +253,29 @@ static int amdgpu_ctx_init_entity(struct 
+>> amdgpu_ctx *ctx, u32 hw_ip,
+>>       return r;
+>>   }
+>>   -static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>> +static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+>> +{
+>> +    ktime_t res = ns_to_ktime(0);
+>> +    int i;
+>> +
+>> +    if (!entity)
+>> +        return res;
+>> +
+>> +    for (i = 0; i < amdgpu_sched_jobs; ++i) {
+>> +        res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
+>> +        dma_fence_put(entity->fences[i]);
+> Don't we need a corresponding _get() for this put() ?
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index d3228216b2da..5e318b3f6c0f 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1734,22 +1734,11 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
- 	return size;
- }
- 
--/**
-- * DOC: smartshift_apu_power
-- *
-- * The amdgpu driver provides a sysfs API for reporting APU power
-- * share if it supports smartshift. The value is expressed as
-- * the proportion of stapm limit where stapm limit is the total APU
-- * power limit. The result is in percentage. If APU power is 130% of
-- * STAPM, then APU is using 30% of the dGPU's headroom.
-- */
--
--static ssize_t amdgpu_get_smartshift_apu_power(struct device *dev, struct device_attribute *attr,
--					       char *buf)
-+static int amdgpu_device_read_powershift(struct amdgpu_device *adev,
-+						uint32_t *ss_power, bool dgpu_share)
- {
--	struct drm_device *ddev = dev_get_drvdata(dev);
--	struct amdgpu_device *adev = drm_to_adev(ddev);
--	uint32_t ss_power, size;
-+	struct drm_device *ddev = adev_to_drm(adev);
-+	uint32_t size;
- 	int r = 0;
- 
- 	if (amdgpu_in_reset(adev))
-@@ -1763,61 +1752,77 @@ static ssize_t amdgpu_get_smartshift_apu_power(struct device *dev, struct device
- 		return r;
- 	}
- 
--	r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
--				   (void *)&ss_power, &size);
--	if (r)
--		goto out;
--
--	r = sysfs_emit(buf, "%u%%\n", ss_power);
-+	if (dgpu_share)
-+		r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
-+				   (void *)ss_power, &size);
-+	else
-+		r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
-+				   (void *)ss_power, &size);
- 
--out:
- 	pm_runtime_mark_last_busy(ddev->dev);
- 	pm_runtime_put_autosuspend(ddev->dev);
- 	return r;
- }
- 
--/**
-- * DOC: smartshift_dgpu_power
-- *
-- * The amdgpu driver provides a sysfs API for reporting the dGPU power
-- * share if the device is in HG and supports smartshift. The value
-- * is expressed as the proportion of stapm limit where stapm limit
-- * is the total APU power limit. The value is in percentage. If dGPU
-- * power is 20% higher than STAPM power(120%), it's using 20% of the
-- * APU's power headroom.
-- */
--
--static ssize_t amdgpu_get_smartshift_dgpu_power(struct device *dev, struct device_attribute *attr,
--						char *buf)
-+static int amdgpu_show_powershift_percent(struct device *dev,
-+					char *buf, bool dgpu_share)
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	uint32_t ss_power, size;
--	int r = 0;
--
--	if (amdgpu_in_reset(adev))
--		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
--
--	r = pm_runtime_get_sync(ddev->dev);
--	if (r < 0) {
--		pm_runtime_put_autosuspend(ddev->dev);
--		return r;
-+	uint32_t ss_power;
-+	int r = 0, i;
-+
-+	r = amdgpu_device_read_powershift(adev, &ss_power, dgpu_share);
-+	if (r == -EOPNOTSUPP) {
-+		/* sensor not available on dGPU, try to read from APU */
-+		adev = NULL;
-+		mutex_lock(&mgpu_info.mutex);
-+		for (i = 0; i < mgpu_info.num_gpu; i++) {
-+			if (mgpu_info.gpu_ins[i].adev->flags & AMD_IS_APU) {
-+				adev = mgpu_info.gpu_ins[i].adev;
-+				break;
-+			}
-+		}
-+		mutex_unlock(&mgpu_info.mutex);
-+		if (adev)
-+			r = amdgpu_device_read_powershift(adev, &ss_power, dgpu_share);
- 	}
- 
--	r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
--				   (void *)&ss_power, &size);
-+	if (!r)
-+		r = sysfs_emit(buf, "%u%%\n", ss_power);
- 
--	if (r)
--		goto out;
-+	return r;
-+}
-+/**
-+ * DOC: smartshift_apu_power
-+ *
-+ * The amdgpu driver provides a sysfs API for reporting APU power
-+ * shift in percentage if platform supports smartshift. Value 0 means that
-+ * there is no powershift and values between [1-100] means that the power
-+ * is shifted to APU, the percentage of boost is with respect to APU power
-+ * limit on the platform.
-+ */
- 
--	r = sysfs_emit(buf, "%u%%\n", ss_power);
-+static ssize_t amdgpu_get_smartshift_apu_power(struct device *dev, struct device_attribute *attr,
-+					       char *buf)
-+{
-+	return amdgpu_show_powershift_percent(dev, buf, false);
-+}
- 
--out:
--	pm_runtime_mark_last_busy(ddev->dev);
--	pm_runtime_put_autosuspend(ddev->dev);
--	return r;
-+/**
-+ * DOC: smartshift_dgpu_power
-+ *
-+ * The amdgpu driver provides a sysfs API for reporting dGPU power
-+ * shift in percentage if platform supports smartshift. Value 0 means that
-+ * there is no powershift and values between [1-100] means that the power is
-+ * shifted to dGPU, the percentage of boost is with respect to dGPU power
-+ * limit on the platform.
-+ */
-+
-+static ssize_t amdgpu_get_smartshift_dgpu_power(struct device *dev, struct device_attribute *attr,
-+						char *buf)
-+{
-+	return amdgpu_show_powershift_percent(dev, buf, true);
- }
- 
- /**
-@@ -1884,18 +1889,7 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
- static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
- 				uint32_t mask, enum amdgpu_device_attr_states *states)
- {
--	uint32_t ss_power, size;
--
--	if (!amdgpu_acpi_is_power_shift_control_supported())
--		*states = ATTR_STATE_UNSUPPORTED;
--	else if ((adev->flags & AMD_IS_PX) &&
--		 !amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
--		*states = ATTR_STATE_UNSUPPORTED;
--	else if (amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
--		 (void *)&ss_power, &size))
--		*states = ATTR_STATE_UNSUPPORTED;
--	else if (amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
--		 (void *)&ss_power, &size))
-+	if (!amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
- 		*states = ATTR_STATE_UNSUPPORTED;
- 
- 	return 0;
--- 
-2.25.1
+The get is in amdgpu_ctx_add_fence().
+
+> I had a quick look at amdgpu_ctx_fence_time() too, and it seems it had 
+> its own pair of get/put.
+
+Yeah, which was completely superfluous. The fence is guaranteed to stay 
+valid as long as the lock is hold.
+
+> [SNIP]
+>>
+>> @@ -40,7 +44,7 @@ struct amdgpu_ctx_entity {
+>>     struct amdgpu_ctx {
+>>       struct kref            refcount;
+>> -    struct amdgpu_device        *adev;
+>> +    struct amdgpu_ctx_mgr        *mgr;
+> A suggestion here, should we split this patch in 2 parts:
+> - introduce ctx_mgr and change the respective APIs
+> - use ctx_mgr and calculate the time spent per context
+>
+> It would make it easier to read and review.
+
+Good point.
+
+Thanks,
+Christian.
+
+>
+> - Shashank
+>
+>>       unsigned            reset_counter;
+>>       unsigned            reset_counter_query;
+>>       uint32_t            vram_lost_counter;
+>> @@ -61,6 +65,7 @@ struct amdgpu_ctx_mgr {
+>>       struct mutex        lock;
+>>       /* protected by lock */
+>>       struct idr        ctx_handles;
+>> +    atomic64_t        time_spend[AMDGPU_HW_IP_NUM];
+>>   };
+>>     extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
+>> @@ -70,9 +75,10 @@ int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
+>>     int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 
+>> instance,
+>>                 u32 ring, struct drm_sched_entity **entity);
+>> -void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+>> -              struct drm_sched_entity *entity,
+>> -              struct dma_fence *fence, uint64_t *seq);
+>> +uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx_mgr *mgr,
+>> +                  struct amdgpu_ctx *ctx,
+>> +                  struct drm_sched_entity *entity,
+>> +                  struct dma_fence *fence);
+>>   struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+>>                          struct drm_sched_entity *entity,
+>>                          uint64_t seq);
+>> @@ -85,10 +91,11 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void 
+>> *data,
+>>   int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
+>>                      struct drm_sched_entity *entity);
+>>   -void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr);
+>> +void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+>> +             struct amdgpu_device *adev);
+>>   void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
+>>   long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long 
+>> timeout);
+>>   void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
+>> -ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, 
+>> uint32_t hwip,
+>> -        uint32_t idx, uint64_t *elapsed);
+>> +ktime_t amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr, uint32_t 
+>> hwip);
+>> +
+>>   #endif
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> index 5a6857c44bb6..52c2b90925a0 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> @@ -32,6 +32,7 @@
+>>     #include <drm/amdgpu_drm.h>
+>>   #include <drm/drm_debugfs.h>
+>> +#include <drm/drm_drv.h>
+>>     #include "amdgpu.h"
+>>   #include "amdgpu_vm.h"
+>> @@ -55,10 +56,10 @@ static const char 
+>> *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+>>   void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>>   {
+>>       struct amdgpu_fpriv *fpriv;
+>> -    uint32_t bus, dev, fn, i, domain;
+>>       uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
+>>       struct drm_file *file = f->private_data;
+>>       struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
+>> +    uint32_t bus, dev, fn, domain, hw_ip;
+>>       struct amdgpu_bo *root;
+>>       int ret;
+>>   @@ -83,29 +84,25 @@ void amdgpu_show_fdinfo(struct seq_file *m, 
+>> struct file *f)
+>>       amdgpu_bo_unreserve(root);
+>>       amdgpu_bo_unref(&root);
+>>   -    seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", 
+>> domain, bus,
+>> -            dev, fn, fpriv->vm.pasid);
+>> -    seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
+>> -    seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
+>> -    seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
+>> -    for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
+>> -        uint32_t count = amdgpu_ctx_num_entities[i];
+>> -        int idx = 0;
+>> -        uint64_t total = 0, min = 0;
+>> -        uint32_t perc, frac;
+>> +    /*
+>> +     * 
+>> ******************************************************************
+>> +     * For text output format description please see 
+>> drm-usage-stats.rst!
+>> +     * 
+>> ******************************************************************
+>> +     */
+>>   -        for (idx = 0; idx < count; idx++) {
+>> -            total = amdgpu_ctx_mgr_fence_usage(&fpriv->ctx_mgr,
+>> -                i, idx, &min);
+>> -            if ((total == 0) || (min == 0))
+>> -                continue;
+>> +    seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
+>> +    seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", 
+>> domain, bus,
+>> +            dev, fn, fpriv->vm.pasid);
+>> +    seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
+>> +    seq_printf(m, "drm-memory-gtt:\t%llu KiB\n", gtt_mem/1024UL);
+>> +    seq_printf(m, "drm-memory-cpu:\t%llu KiB\n", cpu_mem/1024UL);
+>> +    for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>> +        ktime_t usage = amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, hw_ip);
+>>   -            perc = div64_u64(10000 * total, min);
+>> -            frac = perc % 100;
+>> +        if (!usage)
+>> +            continue;
+>>   -            seq_printf(m, "%s%d:\t%d.%d%%\n",
+>> -                    amdgpu_ip_name[i],
+>> -                    idx, perc/100, frac);
+>> -        }
+>> +        seq_printf(m, "drm-engine-%s:\t%Ld ns\n",
+>> +               amdgpu_ip_name[hw_ip], ktime_to_ns(usage));
+>>       }
+>>   }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> index 6b626c293e72..0814e6508a00 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> @@ -1144,7 +1144,7 @@ int amdgpu_driver_open_kms(struct drm_device 
+>> *dev, struct drm_file *file_priv)
+>>       mutex_init(&fpriv->bo_list_lock);
+>>       idr_init(&fpriv->bo_list_handles);
+>>   -    amdgpu_ctx_mgr_init(&fpriv->ctx_mgr);
+>> +    amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
+>>         file_priv->driver_priv = fpriv;
+>>       goto out_suspend;
 
