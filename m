@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CC8C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 16:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3C7FC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 May 2022 16:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA4010E773;
-	Fri, 13 May 2022 16:36:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB4410F89D;
- Fri, 13 May 2022 14:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F52510E783;
+	Fri, 13 May 2022 16:36:50 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 519E410E87C;
+ Fri, 13 May 2022 14:26:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 943E862154;
- Fri, 13 May 2022 14:27:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66961C34100;
- Fri, 13 May 2022 14:27:31 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7E8C5B8306E;
+ Fri, 13 May 2022 14:25:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94600C34100;
+ Fri, 13 May 2022 14:25:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1652452052;
- bh=1AoLTDAALQr7QOhpcU99xOeIqr+N6b46LV8dUcsNKbs=;
+ s=korg; t=1652451957;
+ bh=5TQdR9CfD/pFNVGjxcqLRAGHcY/q8Rinz6NZhij5HSw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wpBWzMIn5uHHY2no+27zb+/KGRH4NGUzEO7+SrtOhW7gguOeKfAkihd8UaRgGCwXa
- ZYfCesZYi1+SE/3U4tHq2HT3SflakMlnaBxbtaFoLcqQioY2Z/Enc+zTFryqq9QHh5
- 2KKetrW7RJABo9l7Fz1YpqFGE3grK5Z6G3V/SXpk=
+ b=ga8+prMOVvKBLYpaOONtxdP9eDAlopCwtHRziEGZ9vyEkKNc/VaMygOGzEyXxyeY8
+ tJyj8g9GGGdTPxKWcvkw/EvMyFh4oF5iMw4Qg7pLdC0MhsiI78cN1lbe60X58iWgrf
+ uCD9xkRuvQitZFq0XBMkpenGdVnJL/f/4owBDRxE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.10 04/10] drm/amd/display/dc/gpio/gpio_service: Pass around
+Subject: [PATCH 4.19 03/15] drm/amd/display/dc/gpio/gpio_service: Pass around
  correct dce_{version, environment} types
-Date: Fri, 13 May 2022 16:23:48 +0200
-Message-Id: <20220513142228.435635841@linuxfoundation.org>
+Date: Fri, 13 May 2022 16:23:25 +0200
+Message-Id: <20220513142227.998453147@linuxfoundation.org>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220513142228.303546319@linuxfoundation.org>
-References: <20220513142228.303546319@linuxfoundation.org>
+In-Reply-To: <20220513142227.897535454@linuxfoundation.org>
+References: <20220513142227.897535454@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -92,7 +92,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
 +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-@@ -53,8 +53,8 @@
+@@ -51,8 +51,8 @@
   */
  
  struct gpio_service *dal_gpio_service_create(
@@ -103,7 +103,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	struct dc_context *ctx)
  {
  	struct gpio_service *service;
-@@ -67,14 +67,14 @@ struct gpio_service *dal_gpio_service_cr
+@@ -66,14 +66,14 @@ struct gpio_service *dal_gpio_service_cr
  		return NULL;
  	}
  
