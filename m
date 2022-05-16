@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF729C43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 23:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48974C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 23:15:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA3E10E7BA;
-	Mon, 16 May 2022 23:15:10 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2620710E9E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D85C510EB2B;
+	Mon, 16 May 2022 23:15:11 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2078.outbound.protection.outlook.com [40.107.100.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7131C10EAB6;
  Mon, 16 May 2022 23:15:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qxpn3Ng79XJ6NCZ1PuIQGxKccc0v12wvp2nJXDrAvE5W01p7vdVCjzIt/iV/hXHabuMwOUF1MhCkItbbl9XNVPZ+WQSObSl0/UPYOwB4jI5fsNhjCGEP2+L/jMa/QBzmoI7/Voa/as1FhPBPwqMrg1UNXZJB8YsJLGrfEAE0FeP0fFhTVN+toKQ62n7KXjyagHvyZyinxeNEuMaSqm3r6k7mKJMJIranQt23fF8+RqtgFF2/WM2bd0H7A6QsTLXUuqMpIoCsiFkSdPk0sQsq4fdRS5aePmRlx8OYgDscIMAb5/2/lBt56SSrW0Ed62t8fENODj5G/T3D3U93SpT/AQ==
+ b=P1pnwNVd/vd6yD+RlpvDmUMVDteM3Vvio0h4v7cQGe7RWhqOEkY8kwDdw2BAdBGct+rtRxWBQ+TOV12x8etNqWaDd/5QiCvmdsoryVlBhqMq6uDujw/k+PVn7yJdfpnCCC1kkggWfv1k324KKtX3chWAjtFVXoakbV/C/TY/RJt+SzqChQ6yzmSqPjkBvX+iZXcXCVh1myQnuVu5vUeh4XGDPIxeN8BvjvlgbKVyg/jvNvKwf/2JUgojiNGaPZtkRXeTVS5QIspZ+t+7VH42m2mdrBfr24mQQLjWH8wCpdwh7dF5XayEykRxGObmjCHwc/oCFOcGbEKMSK21dTFSRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nl288P0aFMxHvyTdajqKdYE2bhkbzZtjR6cg4VQwpEg=;
- b=kRnIxbrKUHTvmTqumiYUL+Eb7ORNwOWDKpBYzK2MYvzpSwQxei83mY78NctGwsnJQApFjysr8s7WDpM+Dp60MxvAm0JyY6golbRdU9EEjfyIlDakkEgnMPoTOB1PUNEGT5ER/RGXPf6F8mYWZRXrDvGv4oyBlNY4axmmJjodOGpTTldbJ59DoO9rXXZyjxkcFJVhzE3UJmZv1RLOpPJxuFsoDlvb1oNKODtsQ/6MdHvyN9mes4En3Mh/oW28ioHKyloW8x8rvdSCy8znglCCyqFNi+fz5VdYdLlFqLh5xr2tsVfKKO4q+uC+oueSlAGfFZerq5G6ZZxwucnNFMAOdQ==
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=GDQLkC6St/MwUk9t4qd3gcej/gJjSxB+seeDQmzvOPNxaDAY9vah8pRTdi7bYTeWLk0GCLt13ikB7UuFzrwVx4yQlW0rtldbhhAIsKmpVq/xZr7JNTMKmUktdi6xhSBm7TClGi9ZNvsMmzeQsnc4Q/BsODDzdQklmuo/EbDr23w9Pkk9NfjpBzC0MBa5zlVFFRZfTrY+vSoB1tlSD5ZqHwBu7uAk61aZDQMWD7aeKYRs6GRJynGIzyLDRtMFdgUaVCribk4+MX7jLn9o2C6budItRA7lAUHs6jElHjVCJuZk0KIRDnjrG7A8nw1EQzE3LwZiIcCr4VGIa1Fp1HaNbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nl288P0aFMxHvyTdajqKdYE2bhkbzZtjR6cg4VQwpEg=;
- b=ocvCMLTec9+0iVnrea0FBdWwHKS4DXrA7nQyFaLpohD+ZJvpit8n5Z2jvIHkK+RzQl4nqNDhY3AGI4cc7oxZubBVxlEXll0MR+HEniaxinhKLMl3XGZ0Y6jiBl5puf8/rhrBa08EMI2/gPF9icrmTx4g+jYKYTF5CX12XZ3JVMc=
-Received: from BN9PR03CA0369.namprd03.prod.outlook.com (2603:10b6:408:f7::14)
- by MN2PR12MB3182.namprd12.prod.outlook.com (2603:10b6:208:107::28)
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=MvY5hrCIREeMeUOihUkvQqp4JKXVxGRAJUdzLgUgHkBlzI2TAOGWLjMStmJlmbtEq1R+xJUjZ//w16G1WWaMGZO5K7imOXddfoXXzJy6NNTlCmB9wFG1ZnizQjBgFpZ90g7n5A8CoDpsa1xrMwczOj8xnfxpi+znTCZZtKRm4Vg=
+Received: from BN9PR03CA0717.namprd03.prod.outlook.com (2603:10b6:408:ef::32)
+ by IA1PR12MB6305.namprd12.prod.outlook.com (2603:10b6:208:3e7::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.18; Mon, 16 May
- 2022 23:15:00 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::e) by BN9PR03CA0369.outlook.office365.com
- (2603:10b6:408:f7::14) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 23:15:05 +0000
+Received: from BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ef:cafe::9a) by BN9PR03CA0717.outlook.office365.com
+ (2603:10b6:408:ef::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.14 via Frontend
- Transport; Mon, 16 May 2022 23:15:00 +0000
+ Transport; Mon, 16 May 2022 23:15:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
+ BN8NAM11FT041.mail.protection.outlook.com (10.13.177.18) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Mon, 16 May 2022 23:15:00 +0000
+ 15.20.5250.13 via Frontend Transport; Mon, 16 May 2022 23:15:05 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 16 May
- 2022 18:14:59 -0500
+ 2022 18:15:03 -0500
 From: Alex Sierra <alex.sierra@amd.com>
 To: <jgg@nvidia.com>
-Subject: [PATCH v2 05/13] drm/amdkfd: add SPM support for SVM
-Date: Mon, 16 May 2022 18:14:24 -0500
-Message-ID: <20220516231432.20200-6-alex.sierra@amd.com>
+Subject: [PATCH v2 10/13] tools: update test_hmm script to support SP config
+Date: Mon, 16 May 2022 18:14:29 -0500
+Message-ID: <20220516231432.20200-11-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220516231432.20200-1-alex.sierra@amd.com>
 References: <20220516231432.20200-1-alex.sierra@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a86ff996-e302-4bcc-8987-08da3791e698
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3182:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3182ACE7F5F87EADD7DB1FC0FDCF9@MN2PR12MB3182.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 1f54dd1b-7e43-4712-cf66-08da3791e995
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6305:EE_
+X-Microsoft-Antispam-PRVS: <IA1PR12MB6305237B2DA6CE8D7E1D0C2EFDCF9@IA1PR12MB6305.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CMhDJrvW7UMUslFmym0jG1ZSwj40AJceDoZXsLDRX1xQ+4UiEV6X4UrNFULG7sNHhEkytyOphp0leebXJ9nk7jERDr4kWNdsRs0R+z6arnIWmr//Y6tnKPXZZzq/wb6hYsaVdYMsEGwQBEAIzH3DNa0naf3YJWC3hCi6YPGI3PylZYBooZ05jiMb5UZALc/6T4U5icE2RaHlZX5PnN3+kiR+JCVnWGdzw3htV4ny7xS7C9CFKo7PkTJkv/Jc3ZUzxJEpyM7tK8T5Oi1pJoHeNIdcc7kQpkeCxg6KYCIBPPff4uA27lQWCbRjEa5Y2axeocDg4stF6pVhxraZHSSl5TxVBSSuWy796Pnm/xVIYttKOADUWGC35+bKtCntkkcsrLiPhyzAAhLOmyTyCTZV2e0lr35Pt1brjG9bUQ8gnzvoRKp1xkYtRtAGIfbLuZQYQlUxohRAadouWIPTeViylNKQlMn6IncVVuYTahcm/dFGR6K3q6UR6256ihF9s2jKNGDz2wk0oNlZYzo+2xq1vQKO4XWBXUfESjZZEs5tfbYqDRQkZxQk6SCbnAUkF8Ca6yS9QUuyAM/WHCVzz6/EpD1laHa2isj03BhvJF11Hs7T9jHMmz/2qW8rROQKfg+b3KBlDlxbzCAqcyFKIV9stq5EJrDNDRC0KMce73oTRMzW6bHpRyg5/qD7C09F3Yds+nN1lxdM2TqDCPQUeiWmBQ==
+X-Microsoft-Antispam-Message-Info: 8c4pZ1gq6MhFIE8irMsc3thW1QW2qz2d/eYN4IpjVMrlWpByJ455oIryNvDeqNmlVpioB7Ni9noo8VISHxtfKABH0Er/VvWQREGM3Jz0/5ymJiPmCEsW5XtmqWzgVa8BPagff1VXEpDXbOI7S/EliQUg0S3N7HXtNkOJpTrWyJKKSPKxC9tay/r5LZzC9prr1wEEB4gNL/UBsGxU4zk4oVzBtmgpko51AoNoQBtjkwECF/7lea0+lNEK7GqhYurdwpLET7p1MLiZpkCsG0JAg3jE46tO8rpg1Jr29xAmAm438ZpVsBxI45jSFlnDWsP7sH8TB7P4eVOYoGTLf8z94rWnSC/P70avMaOOZqDb1SXAeLaNpjA6Bxfi1MXTw7v8rZS6+jzFYdd9nGHb9QNrYTYbxp9NhFslW8aEbLznZ5a5FXZeLaDeyBnz2m8hYEgkYOgp5AX/5gFdro/d1AOJuFyvz060ISGDwDW9LaXpxLePkDNCRknyWjEptlpgm7ObS1+6RsHzLFoLFbLDvKpIvYS1wbW0bUPCPrRr/zRJcQ4o3gbbiholK1hj13B/3okKwfmEXYaLfLfe7ymVWEsKEsEY0fGqMBrIrz0V1z/uJgpXskWUC/O/I8PkH/VMg+ywPXRi4RSCrd1VMEDILwVpwEcW/MAlxgS9AgliIwIT37O1e4ReeOTU5WUos8OMS8DiVX+0y9TLiCxXj63hzRK42Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(44832011)(508600001)(5660300002)(70206006)(7416002)(70586007)(8936002)(4326008)(8676002)(86362001)(40460700003)(186003)(1076003)(16526019)(26005)(36756003)(2616005)(7696005)(2906002)(54906003)(47076005)(426003)(356005)(336012)(6666004)(81166007)(36860700001)(83380400001)(82310400005)(6916009)(316002)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(508600001)(83380400001)(81166007)(316002)(7696005)(8936002)(36756003)(6666004)(2906002)(8676002)(1076003)(26005)(86362001)(2616005)(336012)(47076005)(426003)(16526019)(40460700003)(5660300002)(186003)(4326008)(6916009)(70206006)(82310400005)(7416002)(54906003)(44832011)(36860700001)(70586007)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2022 23:15:00.4107 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a86ff996-e302-4bcc-8987-08da3791e698
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2022 23:15:05.4416 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f54dd1b-7e43-4712-cf66-08da3791e995
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3182
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,94 +108,79 @@ Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When CPU is connected throug XGMI, it has coherent
-access to VRAM resource. In this case that resource
-is taken from a table in the device gmc aperture base.
-This resource is used along with the device type, which could
-be DEVICE_PRIVATE or DEVICE_COHERENT to create the device
-page map region.
-Also, MIGRATE_VMA_SELECT_DEVICE_COHERENT flag is selected for
-coherent type case during migration to device.
+Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
+addresses. These two parameters configure the start SP
+addresses for each device in test_hmm driver.
+Consequently, this configures zone device type as coherent.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 33 +++++++++++++++---------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+ tools/testing/selftests/vm/test_hmm.sh | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 7e3a7fcb9fe6..25c9f7a4325d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -673,9 +673,12 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.vma = vma;
- 	migrate.start = start;
- 	migrate.end = end;
--	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
+diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
+index 0647b525a625..539c9371e592 100755
+--- a/tools/testing/selftests/vm/test_hmm.sh
++++ b/tools/testing/selftests/vm/test_hmm.sh
+@@ -40,11 +40,26 @@ check_test_requirements()
  
-+	if (adev->gmc.xgmi.connected_to_cpu)
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_COHERENT;
-+	else
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
- 	size *= npages;
- 	buf = kvmalloc(size, GFP_KERNEL | __GFP_ZERO);
-@@ -948,7 +951,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
+ load_driver()
  {
- 	struct kfd_dev *kfddev = adev->kfd.dev;
- 	struct dev_pagemap *pgmap;
--	struct resource *res;
-+	struct resource *res = NULL;
- 	unsigned long size;
- 	void *r;
+-	modprobe $DRIVER > /dev/null 2>&1
++	if [ $# -eq 0 ]; then
++		modprobe $DRIVER > /dev/null 2>&1
++	else
++		if [ $# -eq 2 ]; then
++			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
++				> /dev/null 2>&1
++		else
++			echo "Missing module parameters. Make sure pass"\
++			"spm_addr_dev0 and spm_addr_dev1"
++			usage
++		fi
++	fi
+ 	if [ $? == 0 ]; then
+ 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
+ 		mknod /dev/hmm_dmirror0 c $major 0
+ 		mknod /dev/hmm_dmirror1 c $major 1
++		if [ $# -eq 2 ]; then
++			mknod /dev/hmm_dmirror2 c $major 2
++			mknod /dev/hmm_dmirror3 c $major 3
++		fi
+ 	fi
+ }
  
-@@ -963,28 +966,34 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	 * should remove reserved size
- 	 */
- 	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
--	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
--	if (IS_ERR(res))
--		return -ENOMEM;
-+	if (adev->gmc.xgmi.connected_to_cpu) {
-+		pgmap->range.start = adev->gmc.aper_base;
-+		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
-+		pgmap->type = MEMORY_DEVICE_COHERENT;
-+	} else {
-+		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-+		if (IS_ERR(res))
-+			return -ENOMEM;
-+		pgmap->range.start = res->start;
-+		pgmap->range.end = res->end;
-+		pgmap->type = MEMORY_DEVICE_PRIVATE;
-+	}
+@@ -58,7 +73,7 @@ run_smoke()
+ {
+ 	echo "Running smoke test. Note, this test provides basic coverage."
  
--	pgmap->type = MEMORY_DEVICE_PRIVATE;
- 	pgmap->nr_range = 1;
--	pgmap->range.start = res->start;
--	pgmap->range.end = res->end;
- 	pgmap->ops = &svm_migrate_pgmap_ops;
- 	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
--	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
--
-+	pgmap->flags = 0;
- 	/* Device manager releases device-specific resources, memory region and
- 	 * pgmap when driver disconnects from device.
- 	 */
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
- 		pr_err("failed to register HMM device memory\n");
--
- 		/* Disable SVM support capability */
- 		pgmap->type = 0;
--		devm_release_mem_region(adev->dev, res->start, resource_size(res));
-+		if (pgmap->type == MEMORY_DEVICE_PRIVATE)
-+			devm_release_mem_region(adev->dev, res->start,
-+						res->end - res->start + 1);
- 		return PTR_ERR(r);
- 	}
+-	load_driver
++	load_driver $1 $2
+ 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
+ 	unload_driver
+ }
+@@ -75,6 +90,9 @@ usage()
+ 	echo "# Smoke testing"
+ 	echo "./${TEST_NAME}.sh smoke"
+ 	echo
++	echo "# Smoke testing with SPM enabled"
++	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
++	echo
+ 	exit 0
+ }
  
+@@ -84,7 +102,7 @@ function run_test()
+ 		usage
+ 	else
+ 		if [ "$1" = "smoke" ]; then
+-			run_smoke
++			run_smoke $2 $3
+ 		else
+ 			usage
+ 		fi
 -- 
 2.32.0
 
