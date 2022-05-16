@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 404A7C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 19:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 113B8C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 19:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4B4710E0D7;
-	Mon, 16 May 2022 19:00:33 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479B310E0D7
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 19:00:32 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-e5e433d66dso21395597fac.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 12:00:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XVlXdzoaavuqem50OalPLi3P9k2tHAkJLJokPMqH3D4=;
- b=R53zvnUhKT3W0IKRpzJ+/7ZKu/9oHESQ16SW4LB5wr2aXg9kI5L1LEx40zeLaZPNtI
- o9eM/1d/MiTm1rGo0r7tjAQuV7NeuTvcP/gOEePNThDwR9ZELJ2cjAIpHecmoGS4HS3g
- +IxFqRXj2I/C2E155hwPRoEP27jCh68pMqo+CMUDm5Xq3Y6qMZ/X0J6JZS7PxqNoa34F
- gYBsfHreDzmImS4R62q76V475CijNCv17aItxeAFAGIiph4ewGoAD3Ddz1dGz9Y1ySPy
- iIIsLCDqYj/z2lmH6aPjKUy2w74u2HWnqKQwCFzqD+FsKxWwSj0zKiiI7Z7NOwAAeciM
- +tkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XVlXdzoaavuqem50OalPLi3P9k2tHAkJLJokPMqH3D4=;
- b=jYtJ6OQhHmVj5fw0Ob9pQot6kdLw8RGKpdhcft4zVDd2jRE1vHDR/7cK9VcFaFxfe8
- MebLwBvpYLc8u5beYuBIC7F8L0jOKV13f1xIVlqME9nq3LWgm1e1rY/3QQM/F0KDmYlC
- 2UCYSUYXNHEP/dJ+0SauH9dgsfSYI4ng78BBYjDCV/i8Jlq06iusnu4CR5Mc/55ohgF5
- 6BTHXyxhqAM43RsUYBJcH3XqvuDoNTBdrCZTmoyyNK0iU/iZYtKBa6Z2ZgQWSc4hfpfY
- BORTMSgPsY5euaZwjaZzsLFVl7rhfElrhv7JhODnLWZ6QAb78IklWDgPmT45hr3xND0n
- P7CQ==
-X-Gm-Message-State: AOAM531nhNAS7EwB1FeVftNp+L2+uQ4XRjVu3/zEkZutYeDzHh/FKS18
- 4lw7hiFocYh5NURlsspJzKSohuzQDLpeC2Ydv+o=
-X-Google-Smtp-Source: ABdhPJx3oIKVUmFqAnn0WYnZtzfSx4PY2KYuaMU+ugFH3UNoX9AOV2abKbGr/PROUjz9xnZEDNIDx+H0tYJtvoP65Ik=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr15269809oaa.200.1652727631461; Mon, 16
- May 2022 12:00:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 805CF10E65F;
+	Mon, 16 May 2022 19:06:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACCE910E65F;
+ Mon, 16 May 2022 19:06:11 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D4D63614C6;
+ Mon, 16 May 2022 19:06:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83024C385AA;
+ Mon, 16 May 2022 19:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652727967;
+ bh=2Resw6p+2SXUmxtcyRn6SOdYMRyAbxOVblDDKJZfhuk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=BSfKI3ipMdkFD4rYZrdaySQegpDAWsCAylzId9ynBGOuOqecfeWt14fH5AoEc7BHS
+ V8gAZ8FUYAWZ7+5K/4PIDrD6pGIIdrV0O2Jn6D6ulUbwttrVFEhG/G9b0Md4pdqADY
+ 53Xfp2wtiTvaziCmhPIFbYVTjPjsMkMemaBd4jPHGp7NQtU+tEhOGlW+KsaU0+Uy//
+ GqydFI+z4tPURPZqkSW3aoa95B2I32CoYGYQEgbbShn5S4SKud+VDFCFP1PSKk/hrU
+ wBLkQLJ+Vw6ANisqhMcgiJZpjptSCT72a9hpW4OU0IhEEp1d+2ZA0FAxOElhbv5Pqe
+ BtFm85iRWxmGA==
+Date: Mon, 16 May 2022 12:06:05 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 1e1b28b936aed946122b4e0991e7144fdbbfd77e
+Message-ID: <20220516120605.7a6bb562@kernel.org>
+In-Reply-To: <6280f965.kTCPpIEVY9TwoNre%lkp@intel.com>
+References: <6280f965.kTCPpIEVY9TwoNre%lkp@intel.com>
 MIME-Version: 1.0
-References: <20220516120053.22963-1-ricetons@gmail.com>
-In-Reply-To: <20220516120053.22963-1-ricetons@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 May 2022 15:00:20 -0400
-Message-ID: <CADnq5_PWksoFcFuwMJVc5wKR-0sf+0fmh29nezfxzRub=6JQYg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Clean up of initializing doorbells for gfx_v9
- and gfx_v10
-To: Haohui Mai <ricetons@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,84 +52,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-hwmon@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ kvm@vger.kernel.org, linux-sh@vger.kernel.org, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-staging@lists.linux.dev,
+ linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
+ linux-kselftest@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, linux-omap@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Sun, 15 May 2022 21:00:21 +0800 kernel test robot wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 1e1b28b936aed946122b4e0991e7144fdbbfd77e  Add linux-next specific files for 20220513
+> 
+> Error/Warning reports:
+> 
+> https://lore.kernel.org/linux-mm/202204181931.klAC6fWo-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202204291924.vTGZmerI-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202205031017.4TwMan3l-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202205041248.WgCwPcEV-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202205122113.uLKzd3SZ-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202205150051.3RzuooAG-lkp@intel.com
+> https://lore.kernel.org/linux-mm/202205150117.sd6HzBVm-lkp@intel.com
+> https://lore.kernel.org/lkml/202205100617.5UUm3Uet-lkp@intel.com
+> https://lore.kernel.org/llvm/202204210555.DNvfHvIb-lkp@intel.com
+> https://lore.kernel.org/llvm/202205060132.uhqyUx1l-lkp@intel.com
+> https://lore.kernel.org/llvm/202205120010.zWBednzM-lkp@intel.com
+> https://lore.kernel.org/llvm/202205141122.qihFGUem-lkp@intel.com
+> 
+> Error/Warning: (recently discovered and may have been fixed)
+> 
+> <command-line>: fatal error: ./include/generated/utsrelease.h: No such file or directory
+> arch/arm/mach-versatile/versatile.c:56:14: warning: no previous prototype for function 'mmc_status' [-Wmissing-prototypes]
+> arch/x86/kvm/pmu.h:20:32: warning: 'vmx_icl_pebs_cpu' defined but not used [-Wunused-const-variable=]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5102:7: warning: variable 'allow_lttpr_non_transparent_mode' set but not used [-Wunused-but-set-variable]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5147:6: warning: no previous prototype for function 'dp_parse_lttpr_mode' [-Wmissing-prototypes]
+> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1364:5: warning: no previous prototype for 'amdgpu_discovery_get_mall_info' [-Wmissing-prototypes]
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:1983:6: warning: no previous prototype for function 'gfx_v11_0_rlc_stop' [-Wmissing-prototypes]
+> drivers/gpu/drm/amd/amdgpu/soc21.c:171:6: warning: no previous prototype for 'soc21_grbm_select' [-Wmissing-prototypes]
+> drivers/gpu/drm/solomon/ssd130x-spi.c:154:35: warning: 'ssd130x_spi_table' defined but not used [-Wunused-const-variable=]
+> drivers/hwmon/nct6775-platform.c:199:9: sparse:    unsigned char
+> drivers/hwmon/nct6775-platform.c:199:9: sparse:    void
+> drivers/video/fbdev/omap/hwa742.c:492:5: warning: no previous prototype for 'hwa742_update_window_async' [-Wmissing-prototypes]
+> fs/buffer.c:2254:5: warning: stack frame size (2144) exceeds limit (1024) in 'block_read_full_folio' [-Wframe-larger-than]
+> fs/ntfs/aops.c:378:12: warning: stack frame size (2224) exceeds limit (1024) in 'ntfs_read_folio' [-Wframe-larger-than]
+> kernel/trace/fgraph.c:37:12: warning: no previous prototype for 'ftrace_enable_ftrace_graph_caller' [-Wmissing-prototypes]
+> kernel/trace/fgraph.c:46:12: warning: no previous prototype for 'ftrace_disable_ftrace_graph_caller' [-Wmissing-prototypes]
 
-Alex
-
-On Mon, May 16, 2022 at 8:01 AM <ricetons@gmail.com> wrote:
->
-> From: Haohui Mai <ricetons@gmail.com>
->
-> Clean up redundant, copy-paste code blocks during the intialization of
-> the doorbells in mqd_init().
->
-> Signed-off-by: Haohui Mai <ricetons@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 17 -----------------
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 17 -----------------
->  2 files changed, 34 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 4b66b9c93754..12f63d6aab12 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -6919,23 +6919,6 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
->         mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
->         mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
->
-> -       tmp = 0;
-> -       /* enable the doorbell if requested */
-> -       if (prop->use_doorbell) {
-> -               tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                               DOORBELL_OFFSET, prop->doorbell_index);
-> -
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                   DOORBELL_EN, 1);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                   DOORBELL_SOURCE, 0);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                   DOORBELL_HIT, 0);
-> -       }
-> -
-> -       mqd->cp_hqd_pq_doorbell_control = tmp;
-> -
->         /* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
->         mqd->cp_hqd_pq_rptr = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 83639b5ea6a9..f49a2dd89ee7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3535,23 +3535,6 @@ static int gfx_v9_0_mqd_init(struct amdgpu_ring *ring)
->         mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
->         mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
->
-> -       tmp = 0;
-> -       /* enable the doorbell if requested */
-> -       if (ring->use_doorbell) {
-> -               tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                               DOORBELL_OFFSET, ring->doorbell_index);
-> -
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                        DOORBELL_EN, 1);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                        DOORBELL_SOURCE, 0);
-> -               tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> -                                        DOORBELL_HIT, 0);
-> -       }
-> -
-> -       mqd->cp_hqd_pq_doorbell_control = tmp;
-> -
->         /* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
->         ring->wptr = 0;
->         mqd->cp_hqd_pq_rptr = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR);
-> --
-> 2.25.1
->
+Is this report CCed everywhere or there's a reason why netdev@ is CCed?
+I'm trying to figure out we need to care and it's not obvious..
