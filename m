@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B21AC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 12:01:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7F68C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 May 2022 12:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C228C10E084;
-	Mon, 16 May 2022 12:01:02 +0000 (UTC)
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E16D10E1B4
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 12:01:01 +0000 (UTC)
-Received: by mail-pl1-x62d.google.com with SMTP id i8so264950plr.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 05:01:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=4zW7/IM45biovSAFxfr0e9jnSyoSEDs07sHgbcv8EKo=;
- b=FTVPj2555PWozfjz6MOg6i89SuUsGkyLrf6bLrnsLSPEM+KDVDydeee+Fq+4b1GCXQ
- mMUfhPfgIN0P7DdKfEO+VbK6mhQ13fa1Xf8gRsU5kg9u8eihnjaKbIdc10Wtq/NrEEG3
- ocSiuOPfqOnUlk07bmUxtB+252oqjxv1O9FVoLiPdrcRMSCi92LMyjIq1cJtR2YyquGI
- tlIIj74Ac7ZpldZi6q03nxCkVkS5wR1Oz4BxppXTB9/U8SVa9aQu8ZtEWVtcclbS5uTk
- Dqc4SybQ7QTcBhec8QpqXGcgmbpOg+yUUHsJ8YZ7N0TvwChsvyQRznI6yTFbM26tRoOh
- +kfQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8277110E7DA;
+	Mon, 16 May 2022 12:40:45 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF1210E72D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 12:40:43 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id p12so13965301pfn.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 05:40:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=R1YUMQxCDcM35RTFnHhCw25BZ+U5YZ8RA6iC/sZIXQM=;
+ b=RTFJlIvbLnDxPz2Cq8usHeaB7CDO/wxB7cGoo9eaKQNeDgzBlVJfgNkPlYwQfAr2GR
+ iyMmLq7wntvMvijdTetEiExGCiDyVYsHHzpAjMAlS/Ts+UbhXPSlfCEMkyvIA+5CXeA2
+ e146eXUmFSwH8sj+wO217P3mwAiyTfVDbk1Swm86w9WywfUcCTbeSevwniOimUWS/+yd
+ E5cFtECswCHLtGA5hnl1DaH8RafYGi9hc9FcGxP1Wut9/xdUoY/tYBrmPemmdtdm95Am
+ KRmi2o70bUWHT3veqp+X9TX4SpZVt4QY+fZpfRtH9yZmwX0qRErmAlDvT/moEZo88iJ6
+ AUMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=4zW7/IM45biovSAFxfr0e9jnSyoSEDs07sHgbcv8EKo=;
- b=pKOi7VI30YFybvY4dVdj4GfrzjuHehjvpmTW6tPwuFaenjST3lCtIPzC8Dyc+a/auY
- OYx+Yiv2ckZKsDzPg4awRVU5zoCa9KtWuqd2UYlHDhloYGdFVMaGc71TUsTFG2Tt/I7f
- QPmEwJ+eFB5Pi9OmsrpJZhT625uOU6nZk1ixV+xn9BzOSiKyB6FXM8EMDfZaAZoc2LV4
- gwaaytW+2LQ5g6NbT2SNLZ8Zp66VqcnnldAKXuOTGDSa+dw0yWR8tg5aUrWSPHqll+Wj
- qXwpAn72GZjeNKCeXmUZ8oC13pluvxvbwWuV7wfj5yE9Fe/PksuHo5+jxUg0Ss3A/lmH
- iJcw==
-X-Gm-Message-State: AOAM533C+DB+d0MKAiWY1ZFrI8zkstkXVfLDN7/n9zLE9GTvg/xqcR4E
- TX8lnWvYeIEXs6fh4IvepRFjWLIxD41H5DCZ
-X-Google-Smtp-Source: ABdhPJzNKO0MSo1irBOgja7183pnOacvcvI/19XkwFONbPBCwuAexmItXivCIBzYruBh9C9hRsR49Q==
-X-Received: by 2002:a17:902:864b:b0:15e:f9e0:20ca with SMTP id
- y11-20020a170902864b00b0015ef9e020camr17141784plt.122.1652702460952; 
- Mon, 16 May 2022 05:01:00 -0700 (PDT)
-Received: from chachonne.lan ([2600:1700:8a10:4fd0::e])
- by smtp.gmail.com with ESMTPSA id
- b16-20020a62a110000000b005104c6d7941sm6658455pff.31.2022.05.16.05.01.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 May 2022 05:01:00 -0700 (PDT)
-From: ricetons@gmail.com
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Clean up of initializing doorbells for gfx_v9 and
- gfx_v10
-Date: Mon, 16 May 2022 05:00:53 -0700
-Message-Id: <20220516120053.22963-1-ricetons@gmail.com>
-X-Mailer: git-send-email 2.17.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=R1YUMQxCDcM35RTFnHhCw25BZ+U5YZ8RA6iC/sZIXQM=;
+ b=XP1EQdJ/FF0FelUmgOM0qqnNWmvypej/cPWelpSowBgsY3XyNFXGc79zVly33dxnZc
+ joJb5RwmE/AooPzXt3jl4X4RftYrW7llUuJa29IpZAF9XuOJt16rccJEJNhGPVKAQMli
+ VZT/+Oo3YX1v7nGPl82HiOpP9LiR1C8bbKMhmGgBaOaL2cFlTqIF1vaNRfaUlcYHxe7+
+ 8SRZ06KOTx/5pV9yI3v2fyNo5RANrOmfYKNO5f+OK5jKhQ3TXHgcsP8ckalkYe2tJrRQ
+ +PoRye7TzegZxSod3CO5xG1d2PXi+d/jEldFfAxy168G+thVgoXYEk14EjGAVakM2U+k
+ +Z2Q==
+X-Gm-Message-State: AOAM532jNWXlGwHoezyKoNrV+SAoR9w27JUq1LW9+QzP74iFMxS1qy91
+ 4A6b0sM9//LEe2X6AvUbIIApDGPnHeaUnRhYssuJHuY9LyM=
+X-Google-Smtp-Source: ABdhPJwW/iMB4UKOH4RWN2ux9AWoZwCRIbMPHlHBLUJR5X2zjnmPqWybWNvc5+rNyDOOBG0FFiF0jvW2IHRHMA4LMdw=
+X-Received: by 2002:a63:7d04:0:b0:378:fb34:5162 with SMTP id
+ y4-20020a637d04000000b00378fb345162mr15228776pgc.487.1652704842822; Mon, 16
+ May 2022 05:40:42 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220407054651.3924-1-Arunpravin.PaneerSelvam@amd.com>
+ <CAHbf0-H5uE4RtZwY0L8Wz0VG6QnU1+E3yhg3fDFVc3n__=nrNQ@mail.gmail.com>
+ <c0facbf4-0e14-fde5-4334-499135a36f0c@amd.com>
+ <CAHbf0-FMqAA3vWx_uRDYG_vr=FX+tFoLAL6BZLDe5upv7KJqrg@mail.gmail.com>
+ <CAHbf0-En606VT_HYDyeo6TtsfSZmR_+wsZaVgS4XiedLO9ndiA@mail.gmail.com>
+ <8b99ca20-f711-ec32-0cd2-16fc52846ce0@amd.com>
+ <CAHbf0-EzPP5gAyZQmxeAo3Ep0g-rO4XbDgEB_SdsR84xY+at9A@mail.gmail.com>
+In-Reply-To: <CAHbf0-EzPP5gAyZQmxeAo3Ep0g-rO4XbDgEB_SdsR84xY+at9A@mail.gmail.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Mon, 16 May 2022 13:40:31 +0100
+Message-ID: <CAHbf0-G-rnvNXaXxMzkPerW6h=9vkxJyysUUV-oJV5UGD67KqA@mail.gmail.com>
+Subject: Re: [PATCH v12] drm/amdgpu: add drm buddy support to amdgpu
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +70,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com, ckoenig.leichtzumerken@gmail.com,
- Haohui Mai <ricetons@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Haohui Mai <ricetons@gmail.com>
+Hi
 
-Clean up redundant, copy-paste code blocks during the intialization of
-the doorbells in mqd_init().
+The merge window for 5.19 will probably be opening next week, has
+there been any progress with this bug?
 
-Signed-off-by: Haohui Mai <ricetons@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 17 -----------------
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 17 -----------------
- 2 files changed, 34 deletions(-)
+Thanks
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 4b66b9c93754..12f63d6aab12 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -6919,23 +6919,6 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
- 	mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
- 	mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
- 
--	tmp = 0;
--	/* enable the doorbell if requested */
--	if (prop->use_doorbell) {
--		tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--				DOORBELL_OFFSET, prop->doorbell_index);
--
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--				    DOORBELL_EN, 1);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--				    DOORBELL_SOURCE, 0);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--				    DOORBELL_HIT, 0);
--	}
--
--	mqd->cp_hqd_pq_doorbell_control = tmp;
--
- 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
- 	mqd->cp_hqd_pq_rptr = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 83639b5ea6a9..f49a2dd89ee7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3535,23 +3535,6 @@ static int gfx_v9_0_mqd_init(struct amdgpu_ring *ring)
- 	mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
- 	mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
- 
--	tmp = 0;
--	/* enable the doorbell if requested */
--	if (ring->use_doorbell) {
--		tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--				DOORBELL_OFFSET, ring->doorbell_index);
--
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--					 DOORBELL_EN, 1);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--					 DOORBELL_SOURCE, 0);
--		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
--					 DOORBELL_HIT, 0);
--	}
--
--	mqd->cp_hqd_pq_doorbell_control = tmp;
--
- 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
- 	ring->wptr = 0;
- 	mqd->cp_hqd_pq_rptr = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR);
--- 
-2.25.1
+Mike
 
+On Mon, 2 May 2022 at 17:31, Mike Lothian <mike@fireburn.co.uk> wrote:
+>
+> On Mon, 2 May 2022 at 16:54, Arunpravin Paneer Selvam
+> <arunpravin.paneerselvam@amd.com> wrote:
+> >
+> >
+> >
+> > On 5/2/2022 8:41 PM, Mike Lothian wrote:
+> > > On Wed, 27 Apr 2022 at 12:55, Mike Lothian <mike@fireburn.co.uk> wrot=
+e:
+> > >> On Tue, 26 Apr 2022 at 17:36, Christian K=C3=B6nig <christian.koenig=
+@amd.com> wrote:
+> > >>> Hi Mike,
+> > >>>
+> > >>> sounds like somehow stitching together the SG table for PRIME doesn=
+'t
+> > >>> work any more with this patch.
+> > >>>
+> > >>> Can you try with P2P DMA disabled?
+> > >> -CONFIG_PCI_P2PDMA=3Dy
+> > >> +# CONFIG_PCI_P2PDMA is not set
+> > >>
+> > >> If that's what you're meaning, then there's no difference, I'll uplo=
+ad
+> > >> my dmesg to the gitlab issue
+> > >>
+> > >>> Apart from that can you take a look Arun?
+> > >>>
+> > >>> Thanks,
+> > >>> Christian.
+> > > Hi
+> > >
+> > > Have you had any success in replicating this?
+> > Hi Mike,
+> > I couldn't replicate on my Raven APU machine. I see you have 2 cards
+> > initialized, one is Renoir
+> > and the other is Navy Flounder. Could you give some more details, are
+> > you running Gravity Mark
+> > on Renoir and what is your system RAM configuration?
+> > >
+> > > Cheers
+> > >
+> > > Mike
+> >
+> Hi
+>
+> It's a PRIME laptop, it failed on the RENOIR too, it caused a lockup,
+> but systemd managed to capture it, I'll attach it to the issue
+>
+> I've got 64GB RAM, the 6800M has 12GB VRAM
+>
+> Cheers
+>
+> Mike
