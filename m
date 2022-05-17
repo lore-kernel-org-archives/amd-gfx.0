@@ -4,75 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3122BC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 06:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF61C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 10:36:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A215610E025;
-	Tue, 17 May 2022 06:33:11 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFE510E025
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 06:33:10 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id z2so32695884ejj.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 23:33:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E51D1131D8;
+	Tue, 17 May 2022 10:36:51 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09371131D8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 10:36:50 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id fd25so9209223edb.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 03:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to;
- bh=X6F7iBeKkLpFt2DQ3u6Ul8s3eCvBBrgQjRPzCyRKwa0=;
- b=mxHhyFBm9a9CPuBr+kIm9C0DvRWT2Fuybrm1SzH24gjVad5IL2fSHRM4TxyHaOPM48
- LHzCw7NHRCk5Yk8zLDI4+HvhyBNVQVQMrcx5nOZlXCXd3Dcy86Ll4+HOUfa9SViZEMEv
- 4JToA0z7QsurTVa7F2azndNT3HWU1Z+u3/krFKVHHX7V02Smf2XhJ31E57eMwTYQQq6x
- LICziQsvvNfIU0n3L5QUcG/W5hAfxajqpR9LT1TW0Ez6Ydq9OPeJKXOoVGGSTLt9sYZu
- /Zua2gf2/pMYFrtcxO2ZPTO7TVdaMlUis3G+awFwGJ5reMc6O3OhuTLerUUj72mjdNFY
- 1SHw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=smRPQEAUrmVgZ4pTs4oXScRuKu2acfM2kbBdlMlkYaY=;
+ b=PRMkk/H/pbOQx5lYg1D4OBYdQvhG8w/WnQXW9a1IbDkYvkwWXOy76WPdrV3blciMTS
+ 3rM5HW0/HYJ03vxMArtkZTZi7mp92a6Zdld7tRlNkqs6VZnJqGpbntTut9v9M1K1zJKd
+ rFukpjtFGl71vN1RJDSxinT9akACez8BvpwtVsklOtYAe9Otr2X/wYER21SaGbsMOskX
+ QC3qlrCLIMvNxHqkkHqBy14q1DTDaj9UMKgfPypxx38NmEJO7ySG6yEOisNxwhBohlQx
+ Av50rifRFQrE3wNcffYH1DODu8kB7F9agIvICD311foYe04DihmzW69H7INqI9hHXnis
+ 5bEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to;
- bh=X6F7iBeKkLpFt2DQ3u6Ul8s3eCvBBrgQjRPzCyRKwa0=;
- b=P2tQ+46gdW4xZyB2rpuZ5mi1RXPI7wiNWIKXYv9WON+yXazElpC4yrYo+fh2+4kGhc
- eMGHpuHiOt2YwIYyhN3FfARJ6Ti29T2vHHGpvHJDHIkdObDBld9qRKDamMTc32GFVAst
- +hehlIwZqTwHf9je4YId2+dVCLn8F4c1pJge0N38D368fOUEIs65sVKeiIJxblzohBa9
- EcHWh09/A5yKtth+QV/Pd494JtDvA3eDO1H/I3KhT46uzlcxVhotYqqNcO5JQaOpke4O
- T3s8gr8GTQfwLz3jrzqUh6d7deMLxMsFwEKPU/J8FsQT2jxgYt2KLU/nrLF+JAkof2Nd
- +v6g==
-X-Gm-Message-State: AOAM533OnllpynzeuIv3EdgUlC8LopyDZBKDdZ2ZHtn6jNbSTnUGnasI
- FQzL0Ax5YYjgFsk3t3OF9pI=
-X-Google-Smtp-Source: ABdhPJw1ULySew6qA9sU0FYCGYvAqbK1qXbafkabIenYTwi2ijFi8gebmqMhT0OqxyseAav1E6Y8yg==
-X-Received: by 2002:a17:907:7745:b0:6f3:674a:339 with SMTP id
- kx5-20020a170907774500b006f3674a0339mr18100855ejc.207.1652769188702; 
- Mon, 16 May 2022 23:33:08 -0700 (PDT)
-Received: from [192.168.178.21] (p57b0bdaa.dip0.t-ipconnect.de.
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=smRPQEAUrmVgZ4pTs4oXScRuKu2acfM2kbBdlMlkYaY=;
+ b=gjjjV7T85carFVtJBifYu5cnnzJpQ748k24zH1+h/XTX4tSLhV81+zM7MUGLKaI3NG
+ Sc6IkP+lQeEPRVR6Z9LysW2s61h5ywfKXCeT0I7vIQc5FlolVyz51S/z04f5giCXMuU1
+ Qxz8Iw4x31jG5y22zpOqBvrqIBkJ728qLMK5reTUY/NyYajvH2T/GGEIRJGV16aUtD/7
+ pdyCk/QXvy+sE/kkariB2qriK5bno2ebFUFKhugUXNIxJXcwUrrHyie78CcJ846H9GjS
+ 3GKZMsqP0atEDFKwoWL/tvhDgRyJt1WxTfCZ7V8S++CKSePEfpeY8fhduAFoT5RVYvSq
+ Sopw==
+X-Gm-Message-State: AOAM530dGZlZKf63zp91HEuArHRqCI1rkFHChxDlgn96YpwgY9qK4QjU
+ i+qwKks+nH/nXp8EFkHj9CevK7Pvbf0=
+X-Google-Smtp-Source: ABdhPJwbwFLSyI7kxgT4vHkBxhZXdeXM8p5IKlCyIpCfDEv7V+As4+zfCE9sVoUgne9rooXuiaqrmQ==
+X-Received: by 2002:aa7:da85:0:b0:42a:a5a4:794b with SMTP id
+ q5-20020aa7da85000000b0042aa5a4794bmr14061557eds.104.1652783808974; 
+ Tue, 17 May 2022 03:36:48 -0700 (PDT)
+Received: from baker.fritz.box (p57b0bdaa.dip0.t-ipconnect.de.
  [87.176.189.170]) by smtp.gmail.com with ESMTPSA id
- h9-20020a50cdc9000000b0042617ba63d5sm6467636edj.95.2022.05.16.23.33.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 May 2022 23:33:08 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------WoYFNGesFBkx5ZX7gBur4Vhn"
-Message-ID: <083064af-c8b7-b5a3-0351-45392478260f@gmail.com>
-Date: Tue, 17 May 2022 08:33:06 +0200
+ ht7-20020a170907608700b006f3ef214e66sm870343ejc.204.2022.05.17.03.36.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 May 2022 03:36:48 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Alexander.Deucher@amd.com,
+	shashank.sharma@amd.com
+Subject: [PATCH 1/2] drm/amdgpu: Convert to common fdinfo format v5
+Date: Tue, 17 May 2022 12:36:45 +0200
+Message-Id: <20220517103646.1553-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 2/3] drm/amdgpu: add AMDGPU_VM_NOALLOC
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <20220506112312.347519-2-christian.koenig@amd.com>
- <CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com>
- <8695802e-6835-a717-c0ee-83b76d8a8875@gmail.com>
- <5941d83c-6d2b-6e3b-bd5c-b22779929d5e@amd.com>
- <CAAxE2A7-crNh7oTTzgm7W7J412_ijrmoiN9ip9iiS1MJmmaB4A@mail.gmail.com>
- <e3de3d01-25fb-8839-c793-bde9188ba77a@gmail.com>
- <CAAxE2A4P1avEwz0cniZupD9ZkXfnxKJY+1OzAOPRQqnOUcE5OQ@mail.gmail.com>
- <CAAxE2A5yVDo-6HW9Jt_pO-VwnBFQXQJP9-r0kNThP5XO1KWkFw@mail.gmail.com>
- <CAAxE2A7TPhshFx7EJir9iS580XO7-1N1hJCpeoKXRvMH7au1gQ@mail.gmail.com>
- <e33d0e1a-8992-142d-5084-a8667110c172@gmail.com>
- <CAAxE2A6-1znDCdZ-3WUbqjQw_B=Sr4qpXz3Hw4o8VA8EAPuVDg@mail.gmail.com>
- <c0eb4a43-95b3-9db9-b095-685e900819cb@gmail.com>
- <CAAxE2A4YLny1a5p-WHd_=gTTXWZYa3x50DSeE2zW+zV3iBtWYw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A4YLny1a5p-WHd_=gTTXWZYa3x50DSeE2zW+zV3iBtWYw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,731 +70,432 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: tvrtko.ursulin@linux.intel.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------WoYFNGesFBkx5ZX7gBur4Vhn
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Convert fdinfo format to one documented in drm-usage-stats.rst.
 
-Ok that sounds like a rather simple bug. I will try to take a look.
+It turned out that the existing implementation was actually completely
+nonsense. The calculated percentages indeed represented the usage of the
+engine, but with varying time slices.
 
-Thanks,
-Christian.
+So 10% usage for application A could mean something completely different
+than 10% usage for application B.
 
-Am 17.05.22 um 02:12 schrieb Marek Olšák:
-> Dmesg doesn't contain anything. There is no backtrace because it's not 
-> a crash. The VA map ioctl just fails with the new flag. It looks like 
-> the flag is considered invalid.
->
-> Marek
->
-> On Mon., May 16, 2022, 12:13 Christian König, 
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->
->     I don't have access to any gfx10 hardware.
->
->     Can you give me a dmesg and/or backtrace, etc..?
->
->     I can't push this unless it's working properly.
->
->     Christian.
->
->     Am 16.05.22 um 14:56 schrieb Marek Olšák:
->>     Reproduction steps:
->>     - use mesa/main on gfx10.3 (not sure what other GPUs do)
->>     - run: radeonsi_mall_noalloc=true glxgears
->>
->>     Marek
->>
->>     On Mon, May 16, 2022 at 7:53 AM Christian König
->>     <ckoenig.leichtzumerken@gmail.com> wrote:
->>
->>         Crap, do you have a link to the failure?
->>
->>         Am 16.05.22 um 13:10 schrieb Marek Olšák:
->>>         I forgot to say: The NOALLOC flag causes an allocation
->>>         failure, so there is a kernel bug somewhere.
->>>
->>>         Marek
->>>
->>>         On Mon, May 16, 2022 at 7:06 AM Marek Olšák
->>>         <maraeo@gmail.com> wrote:
->>>
->>>             FYI, I think it's time to merge this because the Mesa
->>>             commits are going to be merged in ~30 minutes if Gitlab
->>>             CI is green, and that includes updated amdgpu_drm.h.
->>>
->>>             Marek
->>>
->>>             On Wed, May 11, 2022 at 2:55 PM Marek Olšák
->>>             <maraeo@gmail.com> wrote:
->>>
->>>                 Ok sounds good.
->>>
->>>                 Marek
->>>
->>>                 On Wed., May 11, 2022, 03:43 Christian König,
->>>                 <ckoenig.leichtzumerken@gmail.com> wrote:
->>>
->>>                     It really *is* a NOALLOC feature. In other words
->>>                     there is no latency improvement on reads because
->>>                     the cache is always checked, even with the
->>>                     noalloc flag set.
->>>
->>>                     The only thing it affects is that misses not
->>>                     enter the cache and so don't cause any
->>>                     additional pressure on evicting cache lines.
->>>
->>>                     You might want to double check with the hardware
->>>                     guys, but I'm something like 95% sure that it
->>>                     works this way.
->>>
->>>                     Christian.
->>>
->>>                     Am 11.05.22 um 09:22 schrieb Marek Olšák:
->>>>                     Bypass means that the contents of the cache are
->>>>                     ignored, which decreases latency at the cost of
->>>>                     no coherency between bypassed and normal memory
->>>>                     requests. NOA (noalloc) means that the cache is
->>>>                     checked and can give you cache hits, but misses
->>>>                     are not cached and the overall latency is
->>>>                     higher. I don't know what the hw does, but I
->>>>                     hope it was misnamed and it really means bypass
->>>>                     because there is no point in doing cache
->>>>                     lookups on every memory request if the driver
->>>>                     wants to disable caching to *decrease* latency
->>>>                     in the situations when the cache isn't helping.
->>>>
->>>>                     Marek
->>>>
->>>>                     On Wed, May 11, 2022 at 2:15 AM Lazar, Lijo
->>>>                     <lijo.lazar@amd.com> wrote:
->>>>
->>>>
->>>>
->>>>                         On 5/11/2022 11:36 AM, Christian König wrote:
->>>>                         > Mhm, it doesn't really bypass MALL. It
->>>>                         just doesn't allocate any MALL
->>>>                         > entries on write.
->>>>                         >
->>>>                         > How about AMDGPU_VM_PAGE_NO_MALL ?
->>>>
->>>>                         One more - AMDGPU_VM_PAGE_LLC_* [ LLC =
->>>>                         last level cache, * = some sort
->>>>                         of attribute which decides LLC behaviour]
->>>>
->>>>                         Thanks,
->>>>                         Lijo
->>>>
->>>>                         >
->>>>                         > Christian.
->>>>                         >
->>>>                         > Am 10.05.22 um 23:21 schrieb Marek Olšák:
->>>>                         >> A better name would be:
->>>>                         >> AMDGPU_VM_PAGE_BYPASS_MALL
->>>>                         >>
->>>>                         >> Marek
->>>>                         >>
->>>>                         >> On Fri, May 6, 2022 at 7:23 AM Christian
->>>>                         König
->>>>                         >> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>                         >>
->>>>                         >>     Add the AMDGPU_VM_NOALLOC flag to
->>>>                         let userspace control MALL
->>>>                         >>     allocation.
->>>>                         >>
->>>>                         >>     Only compile tested!
->>>>                         >>
->>>>                         >>  Signed-off-by: Christian König
->>>>                         <christian.koenig@amd.com>
->>>>                         >>     ---
->>>>                         >>
->>>>                           drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |
->>>>                         2 ++
->>>>                         >>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>                         | 3 +++
->>>>                         >>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>                         | 3 +++
->>>>                         >>   include/uapi/drm/amdgpu_drm.h        
->>>>                          | 2 ++
->>>>                         >>      4 files changed, 10 insertions(+)
->>>>                         >>
->>>>                         >>     diff --git
->>>>                         a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>                         >>  b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>                         >>     index bf97d8f07f57..d8129626581f 100644
->>>>                         >>     ---
->>>>                         a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>                         >>     +++
->>>>                         b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>                         >>     @@ -650,6 +650,8 @@ uint64_t
->>>>                         amdgpu_gem_va_map_flags(struct
->>>>                         >>     amdgpu_device *adev, uint32_t flags)
->>>>                         >>   pte_flag |= AMDGPU_PTE_WRITEABLE;
->>>>                         >>             if (flags & AMDGPU_VM_PAGE_PRT)
->>>>                         >>   pte_flag |= AMDGPU_PTE_PRT;
->>>>                         >>     +       if (flags &
->>>>                         AMDGPU_VM_PAGE_NOALLOC)
->>>>                         >>     +    pte_flag |= AMDGPU_PTE_NOALLOC;
->>>>                         >>
->>>>                         >>             if
->>>>                         (adev->gmc.gmc_funcs->map_mtype)
->>>>                         >>   pte_flag |= amdgpu_gmc_map_mtype(adev,
->>>>                         >>     diff --git
->>>>                         a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>                         >>  b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>                         >>     index b8c79789e1e4..9077dfccaf3c 100644
->>>>                         >>     ---
->>>>                         a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>                         >>     +++
->>>>                         b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>                         >>     @@ -613,6 +613,9 @@ static void
->>>>                         gmc_v10_0_get_vm_pte(struct
->>>>                         >>     amdgpu_device *adev,
->>>>                         >> *flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
->>>>                         >> *flags |= (mapping->flags &
->>>>                         AMDGPU_PTE_MTYPE_NV10_MASK);
->>>>                         >>
->>>>                         >>     +  *flags &= ~AMDGPU_PTE_NOALLOC;
->>>>                         >>     +  *flags |= (mapping->flags &
->>>>                         AMDGPU_PTE_NOALLOC);
->>>>                         >>     +
->>>>                         >>             if (mapping->flags &
->>>>                         AMDGPU_PTE_PRT) {
->>>>                         >>   *flags |= AMDGPU_PTE_PRT;
->>>>                         >>   *flags |= AMDGPU_PTE_SNOOPED;
->>>>                         >>     diff --git
->>>>                         a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>                         >>  b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>                         >>     index 8d733eeac556..32ee56adb602 100644
->>>>                         >>     ---
->>>>                         a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>                         >>     +++
->>>>                         b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>                         >>     @@ -508,6 +508,9 @@ static void
->>>>                         gmc_v11_0_get_vm_pte(struct
->>>>                         >>     amdgpu_device *adev,
->>>>                         >> *flags &= ~AMDGPU_PTE_MTYPE_NV10_MASK;
->>>>                         >> *flags |= (mapping->flags &
->>>>                         AMDGPU_PTE_MTYPE_NV10_MASK);
->>>>                         >>
->>>>                         >>     +  *flags &= ~AMDGPU_PTE_NOALLOC;
->>>>                         >>     +  *flags |= (mapping->flags &
->>>>                         AMDGPU_PTE_NOALLOC);
->>>>                         >>     +
->>>>                         >>             if (mapping->flags &
->>>>                         AMDGPU_PTE_PRT) {
->>>>                         >>   *flags |= AMDGPU_PTE_PRT;
->>>>                         >>   *flags |= AMDGPU_PTE_SNOOPED;
->>>>                         >>     diff --git
->>>>                         a/include/uapi/drm/amdgpu_drm.h
->>>>                         >>  b/include/uapi/drm/amdgpu_drm.h
->>>>                         >>     index 57b9d8f0133a..9d71d6330687 100644
->>>>                         >>     --- a/include/uapi/drm/amdgpu_drm.h
->>>>                         >>     +++ b/include/uapi/drm/amdgpu_drm.h
->>>>                         >>     @@ -533,6 +533,8 @@ struct
->>>>                         drm_amdgpu_gem_op {
->>>>                         >>      #define AMDGPU_VM_MTYPE_UC      (4
->>>>                         << 5)
->>>>                         >>      /* Use Read Write MTYPE instead of
->>>>                         default MTYPE */
->>>>                         >>      #define AMDGPU_VM_MTYPE_RW      (5
->>>>                         << 5)
->>>>                         >>     +/* don't allocate MALL */
->>>>                         >>     +#define AMDGPU_VM_PAGE_NOALLOC    
->>>>                          (1 << 9)
->>>>                         >>
->>>>                         >>      struct drm_amdgpu_gem_va {
->>>>                         >>             /** GEM object handle */
->>>>                         >>     --
->>>>                         >>     2.25.1
->>>>                         >>
->>>>                         >
->>>>
->>>
->>
->
+Completely nuke that and just use the now standardized nanosecond
+interface.
 
---------------WoYFNGesFBkx5ZX7gBur4Vhn
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+v2: drop the documentation change for now, nuke percentage calculation
+v3: only account for each hw_ip, move the time_spend to the ctx mgr.
+v4: move general ctx changes into separate patch, rework the fdinfo to
+    ctx_mgr interface so that all usages are calculated at once, drop
+    some unecessary and dangerous refcount dance.
+v5: add one more comment how we calculate the time spend
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Ok that sounds like a rather simple bug. I will try to take a look.<br>
-    <br>
-    Thanks,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 17.05.22 um 02:12 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4YLny1a5p-WHd_=gTTXWZYa3x50DSeE2zW+zV3iBtWYw@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="auto">Dmesg doesn't contain anything. There is no
-        backtrace because it's not a crash. The VA map ioctl just fails
-        with the new flag. It looks like the flag is considered invalid.
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Marek</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Mon., May 16, 2022, 12:13
-          Christian König, &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">
-          <div> I don't have access to any gfx10 hardware.<br>
-            <br>
-            Can you give me a dmesg and/or backtrace, etc..?<br>
-            <br>
-            I can't push this unless it's working properly.<br>
-            <br>
-            Christian.<br>
-            <br>
-            <div>Am 16.05.22 um 14:56 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">
-                <div dir="ltr">Reproduction steps:</div>
-                <div>- use mesa/main on gfx10.3 (not sure what other
-                  GPUs do)<br>
-                </div>
-                <div>- run: radeonsi_mall_noalloc=true glxgears</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-                <br>
-                <div class="gmail_quote">
-                  <div dir="ltr" class="gmail_attr">On Mon, May 16, 2022
-                    at 7:53 AM Christian König &lt;<a
-                      href="mailto:ckoenig.leichtzumerken@gmail.com"
-                      target="_blank" rel="noreferrer"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                    wrote:<br>
-                  </div>
-                  <blockquote class="gmail_quote" style="margin:0px 0px
-                    0px 0.8ex;border-left:1px solid
-                    rgb(204,204,204);padding-left:1ex">
-                    <div> Crap, do you have a link to the failure?<br>
-                      <br>
-                      <div>Am 16.05.22 um 13:10 schrieb Marek Olšák:<br>
-                      </div>
-                      <blockquote type="cite">
-                        <div dir="ltr">
-                          <div>I forgot to say: The NOALLOC flag causes
-                            an allocation failure, so there is a kernel
-                            bug somewhere.</div>
-                          <div><br>
-                          </div>
-                          <div>Marek<br>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="gmail_quote">
-                          <div dir="ltr" class="gmail_attr">On Mon, May
-                            16, 2022 at 7:06 AM Marek Olšák &lt;<a
-                              href="mailto:maraeo@gmail.com"
-                              target="_blank" rel="noreferrer"
-                              moz-do-not-send="true"
-                              class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
-                            wrote:<br>
-                          </div>
-                          <blockquote class="gmail_quote"
-                            style="margin:0px 0px 0px
-                            0.8ex;border-left:1px solid
-                            rgb(204,204,204);padding-left:1ex">
-                            <div dir="ltr">
-                              <div>FYI, I think it's time to merge this
-                                because the Mesa commits are going to be
-                                merged in ~30 minutes if Gitlab CI is
-                                green, and that includes updated
-                                amdgpu_drm.h.</div>
-                              <div><br>
-                              </div>
-                              <div>Marek<br>
-                              </div>
-                            </div>
-                            <br>
-                            <div class="gmail_quote">
-                              <div dir="ltr" class="gmail_attr">On Wed,
-                                May 11, 2022 at 2:55 PM Marek Olšák &lt;<a
-                                  href="mailto:maraeo@gmail.com"
-                                  target="_blank" rel="noreferrer"
-                                  moz-do-not-send="true"
-                                  class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
-                                wrote:<br>
-                              </div>
-                              <blockquote class="gmail_quote"
-                                style="margin:0px 0px 0px
-                                0.8ex;border-left:1px solid
-                                rgb(204,204,204);padding-left:1ex">
-                                <div dir="auto">Ok sounds good.
-                                  <div dir="auto"><br>
-                                  </div>
-                                  <div dir="auto">Marek</div>
-                                </div>
-                                <br>
-                                <div class="gmail_quote">
-                                  <div dir="ltr" class="gmail_attr">On
-                                    Wed., May 11, 2022, 03:43 Christian
-                                    König, &lt;<a
-                                      href="mailto:ckoenig.leichtzumerken@gmail.com"
-                                      target="_blank" rel="noreferrer"
-                                      moz-do-not-send="true"
-                                      class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                                    wrote:<br>
-                                  </div>
-                                  <blockquote class="gmail_quote"
-                                    style="margin:0px 0px 0px
-                                    0.8ex;border-left:1px solid
-                                    rgb(204,204,204);padding-left:1ex">
-                                    <div> It really *is* a NOALLOC
-                                      feature. In other words there is
-                                      no latency improvement on reads
-                                      because the cache is always
-                                      checked, even with the noalloc
-                                      flag set.<br>
-                                      <br>
-                                      The only thing it affects is that
-                                      misses not enter the cache and so
-                                      don't cause any additional
-                                      pressure on evicting cache lines.<br>
-                                      <br>
-                                      You might want to double check
-                                      with the hardware guys, but I'm
-                                      something like 95% sure that it
-                                      works this way.<br>
-                                      <br>
-                                      Christian.<br>
-                                      <br>
-                                      <div>Am 11.05.22 um 09:22 schrieb
-                                        Marek Olšák:<br>
-                                      </div>
-                                      <blockquote type="cite">
-                                        <div dir="ltr">
-                                          <div dir="ltr">Bypass means
-                                            that the contents of the
-                                            cache are ignored, which
-                                            decreases latency at the
-                                            cost of no coherency between
-                                            bypassed and normal memory
-                                            requests. NOA (noalloc)
-                                            means that the cache is
-                                            checked and can give you
-                                            cache hits, but misses are
-                                            not cached and the overall
-                                            latency is higher. I don't
-                                            know what the hw does, but I
-                                            hope it was misnamed and it
-                                            really means bypass because
-                                            there is no point in doing
-                                            cache lookups on every
-                                            memory request if the driver
-                                            wants to disable caching to
-                                            *decrease* latency in the
-                                            situations when the cache
-                                            isn't helping.<br>
-                                          </div>
-                                          <div dir="ltr"><br>
-                                          </div>
-                                          <div>Marek<br>
-                                          </div>
-                                          <br>
-                                          <div class="gmail_quote">
-                                            <div dir="ltr"
-                                              class="gmail_attr">On Wed,
-                                              May 11, 2022 at 2:15 AM
-                                              Lazar, Lijo &lt;<a
-                                                href="mailto:lijo.lazar@amd.com"
-                                                rel="noreferrer
-                                                noreferrer"
-                                                target="_blank"
-                                                moz-do-not-send="true"
-                                                class="moz-txt-link-freetext">lijo.lazar@amd.com</a>&gt;
-                                              wrote:<br>
-                                            </div>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0px 0px 0px
-                                              0.8ex;border-left:1px
-                                              solid
-                                              rgb(204,204,204);padding-left:1ex"><br>
-                                              <br>
-                                              On 5/11/2022 11:36 AM,
-                                              Christian König wrote:<br>
-                                              &gt; Mhm, it doesn't
-                                              really bypass MALL. It
-                                              just doesn't allocate any
-                                              MALL <br>
-                                              &gt; entries on write.<br>
-                                              &gt; <br>
-                                              &gt; How about
-                                              AMDGPU_VM_PAGE_NO_MALL ?<br>
-                                              <br>
-                                              One more -
-                                              AMDGPU_VM_PAGE_LLC_* [ LLC
-                                              = last level cache, * =
-                                              some sort <br>
-                                              of attribute which decides
-                                              LLC behaviour]<br>
-                                              <br>
-                                              Thanks,<br>
-                                              Lijo<br>
-                                              <br>
-                                              &gt; <br>
-                                              &gt; Christian.<br>
-                                              &gt; <br>
-                                              &gt; Am 10.05.22 um 23:21
-                                              schrieb Marek Olšák:<br>
-                                              &gt;&gt; A better name
-                                              would be:<br>
-                                              &gt;&gt;
-                                              AMDGPU_VM_PAGE_BYPASS_MALL<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt; Marek<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt; On Fri, May 6,
-                                              2022 at 7:23 AM Christian
-                                              König <br>
-                                              &gt;&gt; &lt;<a
-                                                href="mailto:ckoenig.leichtzumerken@gmail.com"
-                                                rel="noreferrer
-                                                noreferrer"
-                                                target="_blank"
-                                                moz-do-not-send="true"
-                                                class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                                              wrote:<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;     Add the
-                                              AMDGPU_VM_NOALLOC flag to
-                                              let userspace control MALL<br>
-                                              &gt;&gt;     allocation.<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;     Only compile
-                                              tested!<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;   
-                                               Signed-off-by: Christian
-                                              König &lt;<a
-                                                href="mailto:christian.koenig@amd.com"
-                                                rel="noreferrer
-                                                noreferrer"
-                                                target="_blank"
-                                                moz-do-not-send="true"
-                                                class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
-                                              &gt;&gt;     ---<br>
-                                              &gt;&gt;   
-                                                drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-                                              | 2 ++<br>
-                                              &gt;&gt;   
-                                                drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
-                                              | 3 +++<br>
-                                              &gt;&gt;   
-                                                drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c 
-                                              | 3 +++<br>
-                                              &gt;&gt;   
-                                                include/uapi/drm/amdgpu_drm.h 
-                                                       | 2 ++<br>
-                                              &gt;&gt;      4 files
-                                              changed, 10 insertions(+)<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;     diff --git
-                                              a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                                              &gt;&gt;   
-                                               b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                                              &gt;&gt;     index
-                                              bf97d8f07f57..d8129626581f
-                                              100644<br>
-                                              &gt;&gt;     ---
-                                              a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                                              &gt;&gt;     +++
-                                              b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-                                              &gt;&gt;     @@ -650,6
-                                              +650,8 @@ uint64_t
-                                              amdgpu_gem_va_map_flags(struct<br>
-                                              &gt;&gt;     amdgpu_device
-                                              *adev, uint32_t flags)<br>
-                                              &gt;&gt;                  
-                                                pte_flag |=
-                                              AMDGPU_PTE_WRITEABLE;<br>
-                                              &gt;&gt;             if
-                                              (flags &amp;
-                                              AMDGPU_VM_PAGE_PRT)<br>
-                                              &gt;&gt;                  
-                                                pte_flag |=
-                                              AMDGPU_PTE_PRT;<br>
-                                              &gt;&gt;     +       if
-                                              (flags &amp;
-                                              AMDGPU_VM_PAGE_NOALLOC)<br>
-                                              &gt;&gt;     +           
-                                                 pte_flag |=
-                                              AMDGPU_PTE_NOALLOC;<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;             if
-                                              (adev-&gt;gmc.gmc_funcs-&gt;map_mtype)<br>
-                                              &gt;&gt;                  
-                                                pte_flag |=
-                                              amdgpu_gmc_map_mtype(adev,<br>
-                                              &gt;&gt;     diff --git
-                                              a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                                              &gt;&gt;   
-                                               b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                                              &gt;&gt;     index
-                                              b8c79789e1e4..9077dfccaf3c
-                                              100644<br>
-                                              &gt;&gt;     ---
-                                              a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                                              &gt;&gt;     +++
-                                              b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                                              &gt;&gt;     @@ -613,6
-                                              +613,9 @@ static void
-                                              gmc_v10_0_get_vm_pte(struct<br>
-                                              &gt;&gt;     amdgpu_device
-                                              *adev,<br>
-                                              &gt;&gt;            
-                                              *flags &amp;=
-                                              ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-                                              &gt;&gt;            
-                                              *flags |=
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;     +     
-                                               *flags &amp;=
-                                              ~AMDGPU_PTE_NOALLOC;<br>
-                                              &gt;&gt;     +     
-                                               *flags |=
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_NOALLOC);<br>
-                                              &gt;&gt;     +<br>
-                                              &gt;&gt;             if
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_PRT) {<br>
-                                              &gt;&gt;                  
-                                                *flags |=
-                                              AMDGPU_PTE_PRT;<br>
-                                              &gt;&gt;                  
-                                                *flags |=
-                                              AMDGPU_PTE_SNOOPED;<br>
-                                              &gt;&gt;     diff --git
-                                              a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
-                                              &gt;&gt;   
-                                               b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
-                                              &gt;&gt;     index
-                                              8d733eeac556..32ee56adb602
-                                              100644<br>
-                                              &gt;&gt;     ---
-                                              a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
-                                              &gt;&gt;     +++
-                                              b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
-                                              &gt;&gt;     @@ -508,6
-                                              +508,9 @@ static void
-                                              gmc_v11_0_get_vm_pte(struct<br>
-                                              &gt;&gt;     amdgpu_device
-                                              *adev,<br>
-                                              &gt;&gt;            
-                                              *flags &amp;=
-                                              ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-                                              &gt;&gt;            
-                                              *flags |=
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;     +     
-                                               *flags &amp;=
-                                              ~AMDGPU_PTE_NOALLOC;<br>
-                                              &gt;&gt;     +     
-                                               *flags |=
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_NOALLOC);<br>
-                                              &gt;&gt;     +<br>
-                                              &gt;&gt;             if
-                                              (mapping-&gt;flags &amp;
-                                              AMDGPU_PTE_PRT) {<br>
-                                              &gt;&gt;                  
-                                                *flags |=
-                                              AMDGPU_PTE_PRT;<br>
-                                              &gt;&gt;                  
-                                                *flags |=
-                                              AMDGPU_PTE_SNOOPED;<br>
-                                              &gt;&gt;     diff --git
-                                              a/include/uapi/drm/amdgpu_drm.h<br>
-                                              &gt;&gt;   
-                                               b/include/uapi/drm/amdgpu_drm.h<br>
-                                              &gt;&gt;     index
-                                              57b9d8f0133a..9d71d6330687
-                                              100644<br>
-                                              &gt;&gt;     ---
-                                              a/include/uapi/drm/amdgpu_drm.h<br>
-                                              &gt;&gt;     +++
-                                              b/include/uapi/drm/amdgpu_drm.h<br>
-                                              &gt;&gt;     @@ -533,6
-                                              +533,8 @@ struct
-                                              drm_amdgpu_gem_op {<br>
-                                              &gt;&gt;      #define
-                                              AMDGPU_VM_MTYPE_UC       
-                                                   (4 &lt;&lt; 5)<br>
-                                              &gt;&gt;      /* Use Read
-                                              Write MTYPE instead of
-                                              default MTYPE */<br>
-                                              &gt;&gt;      #define
-                                              AMDGPU_VM_MTYPE_RW       
-                                                   (5 &lt;&lt; 5)<br>
-                                              &gt;&gt;     +/* don't
-                                              allocate MALL */<br>
-                                              &gt;&gt;     +#define
-                                              AMDGPU_VM_PAGE_NOALLOC   
-                                                   (1 &lt;&lt; 9)<br>
-                                              &gt;&gt;<br>
-                                              &gt;&gt;      struct
-                                              drm_amdgpu_gem_va {<br>
-                                              &gt;&gt;             /**
-                                              GEM object handle */<br>
-                                              &gt;&gt;     -- <br>
-                                              &gt;&gt;     2.25.1<br>
-                                              &gt;&gt;<br>
-                                              &gt; <br>
-                                            </blockquote>
-                                          </div>
-                                        </div>
-                                      </blockquote>
-                                      <br>
-                                    </div>
-                                  </blockquote>
-                                </div>
-                              </blockquote>
-                            </div>
-                          </blockquote>
-                        </div>
-                      </blockquote>
-                      <br>
-                    </div>
-                  </blockquote>
-                </div>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 177 +++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  57 +++----
+ 3 files changed, 125 insertions(+), 121 deletions(-)
 
---------------WoYFNGesFBkx5ZX7gBur4Vhn--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index a5fef5213fc5..a1d5275a2e78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -162,17 +162,50 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ 	return hw_prio;
+ }
+ 
++/* Calculate the time spend on the hw */
++static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
++{
++	struct drm_sched_fence *s_fence;
++
++	if (!fence)
++		return ns_to_ktime(0);
++
++	/* When the fence is not even scheduled it can't have spend time */
++	s_fence = to_drm_sched_fence(fence);
++	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
++		return ns_to_ktime(0);
++
++	/* When it is still running account how much already spend */
++	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
++		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
++
++	return ktime_sub(s_fence->finished.timestamp,
++			 s_fence->scheduled.timestamp);
++}
++
++static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
++				      struct amdgpu_ctx_entity *centity)
++{
++	ktime_t res = ns_to_ktime(0);
++	uint32_t i;
++
++	spin_lock(&ctx->ring_lock);
++	for (i = 0; i < amdgpu_sched_jobs; i++) {
++		res = ktime_add(res, amdgpu_ctx_fence_time(centity->fences[i]));
++	}
++	spin_unlock(&ctx->ring_lock);
++	return res;
++}
+ 
+ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 				  const u32 ring)
+ {
++	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
+ 	struct amdgpu_device *adev = ctx->mgr->adev;
+ 	struct amdgpu_ctx_entity *entity;
+-	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
+-	unsigned num_scheds = 0;
+-	int32_t ctx_prio;
+-	unsigned int hw_prio;
+ 	enum drm_sched_priority drm_prio;
++	unsigned int hw_prio, num_scheds;
++	int32_t ctx_prio;
+ 	int r;
+ 
+ 	entity = kzalloc(struct_size(entity, fences, amdgpu_sched_jobs),
+@@ -182,6 +215,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 
+ 	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
+ 			ctx->init_priority : ctx->override_priority;
++	entity->hw_ip = hw_ip;
+ 	entity->sequence = 1;
+ 	hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
+ 	drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
+@@ -220,6 +254,23 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	return r;
+ }
+ 
++static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
++{
++	ktime_t res = ns_to_ktime(0);
++	int i;
++
++	if (!entity)
++		return res;
++
++	for (i = 0; i < amdgpu_sched_jobs; ++i) {
++		res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
++		dma_fence_put(entity->fences[i]);
++	}
++
++	kfree(entity);
++	return res;
++}
++
+ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 			   struct drm_file *filp, struct amdgpu_ctx *ctx)
+ {
+@@ -245,20 +296,6 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 	return 0;
+ }
+ 
+-static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+-{
+-
+-	int i;
+-
+-	if (!entity)
+-		return;
+-
+-	for (i = 0; i < amdgpu_sched_jobs; ++i)
+-		dma_fence_put(entity->fences[i]);
+-
+-	kfree(entity);
+-}
+-
+ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+ 					u32 *stable_pstate)
+ {
+@@ -350,8 +387,10 @@ static void amdgpu_ctx_fini(struct kref *ref)
+ 
+ 	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+ 		for (j = 0; j < AMDGPU_MAX_ENTITY_NUM; ++j) {
+-			amdgpu_ctx_fini_entity(ctx->entities[i][j]);
+-			ctx->entities[i][j] = NULL;
++			ktime_t spend;
++
++			spend = amdgpu_ctx_fini_entity(ctx->entities[i][j]);
++			atomic64_add(ktime_to_ns(spend), &mgr->time_spend[i]);
+ 		}
+ 	}
+ 
+@@ -687,6 +726,9 @@ uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+ 	centity->sequence++;
+ 	spin_unlock(&ctx->ring_lock);
+ 
++	atomic64_add(ktime_to_ns(amdgpu_ctx_fence_time(other)),
++		     &ctx->mgr->time_spend[centity->hw_ip]);
++
+ 	dma_fence_put(other);
+ 	return seq;
+ }
+@@ -793,9 +835,14 @@ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
+ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+ 			 struct amdgpu_device *adev)
+ {
++	unsigned int i;
++
+ 	mgr->adev = adev;
+ 	mutex_init(&mgr->lock);
+ 	idr_init(&mgr->ctx_handles);
++
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
++		atomic64_set(&mgr->time_spend[i], 0);
+ }
+ 
+ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+@@ -871,80 +918,38 @@ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
+ 	mutex_destroy(&mgr->lock);
+ }
+ 
+-static void amdgpu_ctx_fence_time(struct amdgpu_ctx *ctx,
+-		struct amdgpu_ctx_entity *centity, ktime_t *total, ktime_t *max)
+-{
+-	ktime_t now, t1;
+-	uint32_t i;
+-
+-	*total = *max = 0;
+-
+-	now = ktime_get();
+-	for (i = 0; i < amdgpu_sched_jobs; i++) {
+-		struct dma_fence *fence;
+-		struct drm_sched_fence *s_fence;
+-
+-		spin_lock(&ctx->ring_lock);
+-		fence = dma_fence_get(centity->fences[i]);
+-		spin_unlock(&ctx->ring_lock);
+-		if (!fence)
+-			continue;
+-		s_fence = to_drm_sched_fence(fence);
+-		if (!dma_fence_is_signaled(&s_fence->scheduled)) {
+-			dma_fence_put(fence);
+-			continue;
+-		}
+-		t1 = s_fence->scheduled.timestamp;
+-		if (!ktime_before(t1, now)) {
+-			dma_fence_put(fence);
+-			continue;
+-		}
+-		if (dma_fence_is_signaled(&s_fence->finished) &&
+-			s_fence->finished.timestamp < now)
+-			*total += ktime_sub(s_fence->finished.timestamp, t1);
+-		else
+-			*total += ktime_sub(now, t1);
+-		t1 = ktime_sub(now, t1);
+-		dma_fence_put(fence);
+-		*max = max(t1, *max);
+-	}
+-}
+-
+-ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
+-		uint32_t idx, uint64_t *elapsed)
++void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
++			  ktime_t usage[AMDGPU_HW_IP_NUM])
+ {
+-	struct idr *idp;
+ 	struct amdgpu_ctx *ctx;
++	unsigned int hw_ip, i;
+ 	uint32_t id;
+-	struct amdgpu_ctx_entity *centity;
+-	ktime_t total = 0, max = 0;
+ 
+-	if (idx >= AMDGPU_MAX_ENTITY_NUM)
+-		return 0;
+-	idp = &mgr->ctx_handles;
++	/*
++	 * This is a little bit racy because it can be that a ctx or a fence are
++	 * destroyed just in the moment we try to account them. But that is ok
++	 * since exactly that case is explicitely allowed by the interface.
++	 */
+ 	mutex_lock(&mgr->lock);
+-	idr_for_each_entry(idp, ctx, id) {
+-		ktime_t ttotal, tmax;
++	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
++		uint64_t ns = atomic64_read(&mgr->time_spend[hw_ip]);
+ 
+-		if (!ctx->entities[hwip][idx])
+-			continue;
++		usage[hw_ip] = ns_to_ktime(ns);
++	}
+ 
+-		centity = ctx->entities[hwip][idx];
+-		amdgpu_ctx_fence_time(ctx, centity, &ttotal, &tmax);
++	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
++		for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
++			for (i = 0; i < amdgpu_ctx_num_entities[hw_ip]; ++i) {
++				struct amdgpu_ctx_entity *centity;
++				ktime_t spend;
+ 
+-		/* Harmonic mean approximation diverges for very small
+-		 * values. If ratio < 0.01% ignore
+-		 */
+-		if (AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(tmax, ttotal))
+-			continue;
+-
+-		total = ktime_add(total, ttotal);
+-		max = ktime_after(tmax, max) ? tmax : max;
++				centity = ctx->entities[hw_ip][i];
++				if (!centity)
++					continue;
++				spend = amdgpu_ctx_entity_time(ctx, centity);
++				usage[hw_ip] = ktime_add(usage[hw_ip], spend);
++			}
++		}
+ 	}
+-
+ 	mutex_unlock(&mgr->lock);
+-	if (elapsed)
+-		*elapsed = max;
+-
+-	return total;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 3ceebab9c6ea..0fa0e56daf67 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -23,16 +23,20 @@
+ #ifndef __AMDGPU_CTX_H__
+ #define __AMDGPU_CTX_H__
+ 
++#include <linux/ktime.h>
++#include <linux/types.h>
++
+ #include "amdgpu_ring.h"
+ 
+ struct drm_device;
+ struct drm_file;
+ struct amdgpu_fpriv;
++struct amdgpu_ctx_mgr;
+ 
+ #define AMDGPU_MAX_ENTITY_NUM 4
+-#define AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(max, total) ((max) > 16384ULL*(total))
+ 
+ struct amdgpu_ctx_entity {
++	uint32_t		hw_ip;
+ 	uint64_t		sequence;
+ 	struct drm_sched_entity	entity;
+ 	struct dma_fence	*fences[];
+@@ -60,6 +64,7 @@ struct amdgpu_ctx_mgr {
+ 	struct mutex		lock;
+ 	/* protected by lock */
+ 	struct idr		ctx_handles;
++	atomic64_t		time_spend[AMDGPU_HW_IP_NUM];
+ };
+ 
+ extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
+@@ -89,6 +94,7 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
+ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout);
+ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
+-ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
+-		uint32_t idx, uint64_t *elapsed);
++void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
++			  ktime_t usage[AMDGPU_HW_IP_NUM]);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index 5a6857c44bb6..4d453845235c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -32,6 +32,7 @@
+ 
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_debugfs.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_vm.h"
+@@ -54,26 +55,23 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+ 
+ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+ {
+-	struct amdgpu_fpriv *fpriv;
+-	uint32_t bus, dev, fn, i, domain;
+-	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
+ 	struct drm_file *file = f->private_data;
+ 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
++	struct amdgpu_fpriv *fpriv = file->driver_priv;
++
++	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
++	ktime_t usage[AMDGPU_HW_IP_NUM];
++	uint32_t bus, dev, fn, domain;
+ 	struct amdgpu_bo *root;
++	unsigned int hw_ip;
+ 	int ret;
+ 
+-	ret = amdgpu_file_to_fpriv(f, &fpriv);
+-	if (ret)
+-		return;
+ 	bus = adev->pdev->bus->number;
+ 	domain = pci_domain_nr(adev->pdev->bus);
+ 	dev = PCI_SLOT(adev->pdev->devfn);
+ 	fn = PCI_FUNC(adev->pdev->devfn);
+ 
+-	root = amdgpu_bo_ref(fpriv->vm.root.bo);
+-	if (!root)
+-		return;
+-
++	root = fpriv->vm.root.bo;
+ 	ret = amdgpu_bo_reserve(root, false);
+ 	if (ret) {
+ 		DRM_ERROR("Fail to reserve bo\n");
+@@ -81,31 +79,26 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+ 	}
+ 	amdgpu_vm_get_memory(&fpriv->vm, &vram_mem, &gtt_mem, &cpu_mem);
+ 	amdgpu_bo_unreserve(root);
+-	amdgpu_bo_unref(&root);
+ 
+-	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
+-			dev, fn, fpriv->vm.pasid);
+-	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
+-	seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
+-	seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
+-	for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
+-		uint32_t count = amdgpu_ctx_num_entities[i];
+-		int idx = 0;
+-		uint64_t total = 0, min = 0;
+-		uint32_t perc, frac;
++	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
+ 
+-		for (idx = 0; idx < count; idx++) {
+-			total = amdgpu_ctx_mgr_fence_usage(&fpriv->ctx_mgr,
+-				i, idx, &min);
+-			if ((total == 0) || (min == 0))
+-				continue;
++	/*
++	 * ******************************************************************
++	 * For text output format description please see drm-usage-stats.rst!
++	 * ******************************************************************
++	 */
+ 
+-			perc = div64_u64(10000 * total, min);
+-			frac = perc % 100;
++	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
++	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
++	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
++	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
++	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
++	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
++	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
++		if (!usage[hw_ip])
++			continue;
+ 
+-			seq_printf(m, "%s%d:\t%d.%d%%\n",
+-					amdgpu_ip_name[i],
+-					idx, perc/100, frac);
+-		}
++		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
++			   ktime_to_ns(usage[hw_ip]));
+ 	}
+ }
+-- 
+2.25.1
+
