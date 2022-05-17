@@ -4,129 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8EFBC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 17:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07415C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 17:00:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419AC113265;
-	Tue, 17 May 2022 17:00:16 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2062.outbound.protection.outlook.com [40.107.212.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D776113262
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 17:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C975113279;
+	Tue, 17 May 2022 17:00:43 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0454113278
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 17:00:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h1vOHCnrF2cYuDw0BQHWZujbcCilKoKI20UHdrDr3O2cjEY76Z6rZCmeSQOLh6e35PHLjUl7h/g6A89ZTmH4twInRjJKK/ae93wi0ZNk6YHLhC7B2N9hQ6z+F5gm7G9DrmsockKbTqP8HfyXpNEUd2oBoHOKzP7WyKAk7+iOZ2SgmAi6iY2VpAUyE5s5YZzPE75yed2Ol+Tbi7Lwg1WbUnIR8LrqQFredhCvzKlnuemq3YD/dQypfrgg3QrSKNpvVqEqr/VNIe/EgZERmF2rNFuP2Yp/e6kgdGN9shJxsch9bgBVABnooyfRo2ecJnJYjDbW1YU4PwYR9KVn8yIjQQ==
+ b=gdgw945ZycITZLrJ0QUARYzqU7Aw172ewJ9v+coTraotc7f3RTIkrBfGE/OpZsjHradd24iz2MRzEP3bqOUWzz2LrCqN1o5XRec+Zu0VblKR87DSxCxTwUGqQY8MKcochs3ReqHOx1uJEX10cAToony8XIXAO8KhVoY/4lhJ0inMofBaU5QLBQCVxqfVTiXujL/v2olGJxbPy1av5AHaXu84x/BgTsTY8dgJtx9V5aJHGKfYqGf6x59IE8g7J+cyrJOXHhJPs5qVYn87gKCNNnPo8mzMxFQdjV6Htm8CFG4LUhTeEtz4+KTB1X1x1qypkYQ7QFQO5MxdUA1liOg+4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1kpeXpb8ZQHl2wKdhO6R993mYaHJJnGikfjWeCYM6Ds=;
- b=QemLLlPsulRXOZiYewmQi8l8o0R8/i9vmMpDcfczaCnrr2mMMk82yoxAsxtmL7kOYggNjrv/z3b9Yve7SU/iYP7h1LXURmZksqNvyth/0aTM5tSDF/tJZcqDtTKj1AqhgadW4QZREbO/EpNLya2olc0fTU3mjMtxLoUu0uBkqHVwJbX8LJh43mjzRzutbHFEY/MwQfOP/aRpiwexVnygn4GWp5Sl1hkxrARkMn1B7tY/ug95g6lp0eQE7Wl5xA079IILcOFR6QGka7uTIDENBtW54RMVxH8EAneOKSjJtIQYIzJK4sFhn7f/EDiPjv/AvPpgoC3GwHez6c51PXpCew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=NYCSuEW7nmS30SnQsCkLbY+EhA6xHCxFQTPHZ/DqP78=;
+ b=X0rOFJAt2Kc1dxToD2Bm9i3B2m+0uZE9fkbqSt5L5CWf9t/h3lgeE5RyCZgQRvhhF5LeRe1AWco2aF4MIBycA7DXIwZyQkIz6DjTpBpM5tUyNwRECyFk5WGMGYoF94Ubd4vh4UkBGmkxoPPWbsAszj6mvKP241w5OZeETRKijAlZswfhL9hOGG9cO2O2g3ktsiZLY64719RzU9e5KSVfMkRNs5YxTPO79nUDaAPz15WrLF2WeyaQLbNiA4vxtgqZ3zongnwmcs5Lk24Qoho666H9aZN1njduCx7oajLFrv34rcwlOA3qEDE6St5czAz31s3MOM9GupEMLLWHntOiuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1kpeXpb8ZQHl2wKdhO6R993mYaHJJnGikfjWeCYM6Ds=;
- b=k/9GHRZ4d0Us6y8eyOBlallxrRBtZawFh1C1MaAAE+1rz0/mV7NUYAF5umj6R8c5CIFN0MMBzYd4MnZ1hiMIa1jfklgtRrcQZQRm3Uvm7Qdh4l8CzySLEoL+LKzAcrF7Ayq1HUbiGBfqa7awBmncOkm7zaskLd0LO0T1idJjljE=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SA0PR12MB4477.namprd12.prod.outlook.com (2603:10b6:806:92::12)
+ bh=NYCSuEW7nmS30SnQsCkLbY+EhA6xHCxFQTPHZ/DqP78=;
+ b=MtQuVJBwQrEp2DZoSNKLXyv2KjGub2cKl6Tf2sMttC9sTwSiq2Ay5pwv6CZv9W1t4dcQxvPZeKcN9pbaOeXOaj1UBUlt6k1zI5kwQihhKqA3WzacrJLUNl3qi2wsu2HW/i6qLZo7SAVY/GSthwisx2olg4TbVa3BRLdKEdge3J0=
+Received: from BN8PR12CA0002.namprd12.prod.outlook.com (2603:10b6:408:60::15)
+ by PH7PR12MB5856.namprd12.prod.outlook.com (2603:10b6:510:1d7::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Tue, 17 May
- 2022 17:00:09 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::d42b:7413:ba19:e8db]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::d42b:7413:ba19:e8db%6]) with mapi id 15.20.5250.018; Tue, 17 May 2022
- 17:00:09 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd: Don't reset dGPUs if the system is going to
- s2idle
-Thread-Topic: [PATCH] drm/amd: Don't reset dGPUs if the system is going to
- s2idle
-Thread-Index: AQHYafOSaEN0/701nU+0Pi+gyRxwTq0jQW2AgAAAMSCAAAcJgIAAAnIA
-Date: Tue, 17 May 2022 17:00:09 +0000
-Message-ID: <MN0PR12MB61018A4ADCCF1CFFC37F2986E2CE9@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20220517133944.25612-1-mario.limonciello@amd.com>
- <BYAPR12MB461409FFEB1FE826259EAC9097CE9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <MN0PR12MB6101B804A6C68D3ED85262C7E2CE9@MN0PR12MB6101.namprd12.prod.outlook.com>
- <BYAPR12MB4614D0C7DAAB796E9FFCC06697CE9@BYAPR12MB4614.namprd12.prod.outlook.com>
-In-Reply-To: <BYAPR12MB4614D0C7DAAB796E9FFCC06697CE9@BYAPR12MB4614.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-05-17T17:00:07Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-05-17T17:00:07Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 811ee713-678d-4304-8441-442b5ab494f6
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fbdbe628-f648-4ddb-c800-08da3826b32f
-x-ms-traffictypediagnostic: SA0PR12MB4477:EE_
-x-microsoft-antispam-prvs: <SA0PR12MB44775B84565C45223C81BB7AE2CE9@SA0PR12MB4477.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2mmVqP+PHMktUZx86NEv+7rBqzMGxo0MrcKW972UdejAaKPAKlZVUXlcDg7feS1LRgiSD9uVc0adrUN16DoE1dW9Q8eXZFon+b1EmI6DDjHnr2tl0Zod3AgaeXnJA3hzddY3gn9K5R+QtlTW7nI97oEjpEydJ7sAcJh/vubQTG+QeAUOFwzK2jRfG92w+Gg63ZPg/zmBRTUoYzh2Py3K5RhhMquOsyaP8hSHWL8duWkwUzvfR2U1aTjmThUCvKw5SfzFpMHcKh/Zy1L7AcYGFRWgNv6Oot+OWwxpWiE88O/2ZITflPRiesL9/sXM7PgwwhA9jksoq6/7qPMOpouXfaU590MUW+AxYJ4RYtcNqqYfByi5P5enWeEzEbgiuzy5DtT/fzsp9VDdM42IZkOch/M0eWSS6xI1nyrFksm7eT3wRQfehg3nIdgS/A+nFk0suBEwPRKbhldDrmNIEhR+NQ91ROf/5ih3aqkbVwGdDgjULHgESONnJ914iC24B6tAwUyuuKQ5ubnMOwFcoWyIn24OpBDRGJq0UZn8sB35BBfHvOn2CFA37Fa7dpOAdWg8EM2W8a4aWQ2qPUnW48Ix2zE66iH5Lzcs9lLuJsXjy8dOIrjPnEBX+xt7sJ8Q9mEtaatIXwwDjlH4NhrNA8/BHnhWkW+WCXss33qAro0rSS7nJi6nl1MuzsAJbkX5mopf4wAB54qBdgzFGtQbH4Kg2A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(8676002)(6506007)(5660300002)(122000001)(33656002)(2906002)(316002)(38100700002)(9686003)(7696005)(86362001)(110136005)(66446008)(66946007)(66556008)(64756008)(186003)(53546011)(66476007)(38070700005)(83380400001)(71200400001)(55016003)(76116006)(52536014)(8936002)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kztFekBHTJRse98fdl13e+baRHg1IMHpBNrAmYUXYGW9Yusku4aOcLr2+4Gt?=
- =?us-ascii?Q?MrhaLmnjyeuGEXZyqO5PHR9w+TagD9kvTNWJnFCcrWOGEcciRDF/F0WfEq8J?=
- =?us-ascii?Q?I3YS6i9zA1YnfQb2lNSo5bLB8TwQcM4+xNzoKH8xD7eMu+63U9S54rg3CiVY?=
- =?us-ascii?Q?BX43sh5khYfOMTJ+AUR9+OAw6xj444xYPhRp2gpVOFu43c0TLxoqZXpT6kFc?=
- =?us-ascii?Q?na1yd2IsG+JMrww95YYkpTwOUSnB2Nij3oUHrfe8uaEU39TxePjtD4TRBdIR?=
- =?us-ascii?Q?VuVgMTa7FJj3pVu25MDIIFllhPcAP5xrspRdK+HHZ4ytmUKbNrJX8EqcMlc8?=
- =?us-ascii?Q?s6D8PtmNU5Jwsck4QmeWpusIm3t6DojRU8yCfCXfAKbjBHnbWgVDbujY1tpC?=
- =?us-ascii?Q?Ga4Cs8Xia5fq4p2O8xokbGx7nRS3QfLWGoLfz8Jsn1zqDpW9RSPAwoQfp3aS?=
- =?us-ascii?Q?ksLhct6Inm9ZsDXD+BJgs5p3F6f4p5kZo0O2yFcrd2GUz5WksB7QBB6J0bZc?=
- =?us-ascii?Q?4u7agNE/zr26/muackzYLhOeaL/kLRUrDUzo+i9BWh0EV+c0JKRa/ElCaoKl?=
- =?us-ascii?Q?WDEvsDqfq5n5LmrTgQKnaQFq/ZHEYVD5jqj4PNxPO46SeYyE3Tcm1WhqeRcL?=
- =?us-ascii?Q?R3hgw454qbJFX1mrX5EIKXuu2u+/DA535odcb6XBWy2p4lNP5wlKpLrvggGN?=
- =?us-ascii?Q?7p2Z3e4qgjm6T6uWLcDgXFRFrnG00mug1VHjQTMpUS2IZMMZIvtcvah2DohI?=
- =?us-ascii?Q?EaBljF1mVGbz+C6aH1P9HSyU6f1JTbvLfoXoC5yafXmKoYqqzdXkZBPE2k80?=
- =?us-ascii?Q?QI13yTYsBhWaXfmSs2wF51ytufYPSk06hw1qK2+nC0onfwLXqI7UQuSAhPj0?=
- =?us-ascii?Q?awI+o7IwxpqKijFt7FGc39xn9cmBR83Gck/ucblp0Rz0LpTqVb8kA5JeL3t8?=
- =?us-ascii?Q?vGeOW/f7H3BLOqI0HOkaBpAU9u4uWgV2v2kP8OlKDdjs9T9+OfKz5XjBwmgW?=
- =?us-ascii?Q?pc63JbN1u6suqrj8Vid5UOt36O2EQ7ZFC3eNTlXH+5VIXRfpcdu5FBC8Ct0+?=
- =?us-ascii?Q?AXqmPyQfsCZATnUSRf3C6QXnLwSyiRRRwoDqtoYXF61HpqHQqZgmo1hrdHxf?=
- =?us-ascii?Q?oE5jE7FaytsLsUmrAXY3VqRtXU354ZyXvhadxSgp0rYUpK9vjeXZZd+ZS6Zl?=
- =?us-ascii?Q?QFipjmo9w46+QTEE/eOp07z85BHeqYxtgDndBfGCixhiOxatj9Je78bkXDWu?=
- =?us-ascii?Q?OtCUajyEKpfqps0a6+ZC9+SZ2sFaiq+XN1xs2z9wxFOuYX0I8iWu1aEnXtiI?=
- =?us-ascii?Q?CdAkBUli/+PRLaV02TpmDUNGTXTRmV4nqXNHahDBaIaIchZYbmzGRIWcsWt3?=
- =?us-ascii?Q?Jmz0EYt65biyLLmhHcyqfTH1tx0V9FkL9qCDvezRD6Y3W28rVbxeYmL7G3O3?=
- =?us-ascii?Q?fKBBwkDkAi4VMKN3A5b3XhyapSVX0OSGb7oTbEzj7IK25CJ9wIcVL+EgCynH?=
- =?us-ascii?Q?8U36n0K0VQjz213tXe/v/qnlOnxJA3IKh4enQQ7TpQ+mZVaWCwgqOOKkd3vY?=
- =?us-ascii?Q?k6D545kv9Qn3RKT35aK2C04biLYybc8uZV2QZSYR4Na6wjix4cFzuWX/PhZX?=
- =?us-ascii?Q?DXlk9DMm3bn0d2H7GCHOoXxwMwCHWiOOGL6lNHC0KM3mgXpSwt0kP85lsCSS?=
- =?us-ascii?Q?4BP6FXct8AWtqbhYtW6UA8JF6URYT8Da9t9mO+Y3fjuDwgjeR2vF0VmZ+xlQ?=
- =?us-ascii?Q?8lOmYJOFZzWtgd8FW0Q0wP+BzanpzYO/DUzPNj+mhQk8Iv88lknNrrnfWRBg?=
-x-ms-exchange-antispam-messagedata-1: sRhq8Insy1IErA==
-Content-Type: multipart/alternative;
- boundary="_000_MN0PR12MB61018A4ADCCF1CFFC37F2986E2CE9MN0PR12MB6101namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.18; Tue, 17 May
+ 2022 17:00:35 +0000
+Received: from BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:60:cafe::21) by BN8PR12CA0002.outlook.office365.com
+ (2603:10b6:408:60::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.13 via Frontend
+ Transport; Tue, 17 May 2022 17:00:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT063.mail.protection.outlook.com (10.13.177.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5273.14 via Frontend Transport; Tue, 17 May 2022 17:00:35 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 17 May
+ 2022 12:00:34 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amd: Don't reset dGPUs if the system is going to s2idle
+Date: Tue, 17 May 2022 12:00:37 -0500
+Message-ID: <20220517170037.6505-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b13f3f92-75b7-4a82-1c40-08da3826c2af
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5856:EE_
+X-Microsoft-Antispam-PRVS: <PH7PR12MB58565DC5009D63841F6445B3E2CE9@PH7PR12MB5856.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pa6bfgc94gpKGs5qqAVW6NC1qgcHyyoOsETvByEgzCkbZ530WEEH5svuDMVnf925Y80Pr9SnyhuWG6SivdRGpK/1qgRwjrrOCb7rc9pemHIbaueYEDSHySfy9o6ukteEIW91qZbl3080F2ZBXh7fuJRrD51i1/bZrPb6jNuR1Q6PugKfM8jjp1EIBnhsC6WKFlxWlj4VN5v4IErmMkE1qqJuA74hcV2iuXt0wNkyU/4L9e9eT0eVqB99QFEMWzDk3QJT0Y9GPUYPEAwnorLUUYiCAw+kclNRrb3j8llm39VeyXQZhtZa08R0lvC5QiNJJhD9LRn7iuBvSk0sRALWAiq+QyItFPPDm+rokj5jYynhBCNLUvV1df5GeqzsvuetpovCVMD89hCh2jzmsE9F0je/SJUXyYDZ5A4OGJEHYkLkkqFP4Bda99qKRlef1Up8WQ/nMRYfk/oIeAkGpCSRE4PuycS+cuSIy9nMiQWBsGRg3ZIbJ4STXlGmTyJr7qYiTxr8BJdo27E+Src6WUl2tiAs7x2GHbgk77Lunbgx6hxAlBjLCIR22qAOdbH/u72Id5Lni1XzzXMLc3hpKZkF8gSp2UYsYLKmx8GGz0K0p0xNnB38FpdOuMZbqB2vU8ZgjOdje+RVLtkm6Ao8+ZGmLQipMw3oyRj4uI5NFkLsp23x3cl8wLfBFQ9+4jaHlEwKfxaRzWkPF2GC6BttKMNYrw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(316002)(36860700001)(6916009)(82310400005)(26005)(36756003)(186003)(336012)(426003)(4326008)(16526019)(44832011)(40460700003)(7696005)(8936002)(966005)(70586007)(70206006)(508600001)(5660300002)(86362001)(83380400001)(47076005)(81166007)(356005)(1076003)(2616005)(2906002)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbdbe628-f648-4ddb-c800-08da3826b32f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2022 17:00:09.2356 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s2QXW1oVdVNvC40l+hflGVC7HJATDkrBhXUSrgeiSzBCIFA7I4c7XadvJ/EJJq6/34atzhJQYn+UkljgacB21w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4477
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2022 17:00:35.1733 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b13f3f92-75b7-4a82-1c40-08da3826c2af
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5856
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,329 +98,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MN0PR12MB61018A4ADCCF1CFFC37F2986E2CE9MN0PR12MB6101namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+An A+A configuration on ASUS ROG Strix G513QY proves that the ASIC
+reset for handling aborted suspend can't work with s2idle.
 
-[Public]
+This functionality was introduced in commit daf8de0874ab5b ("drm/amdgpu:
+always reset the asic in suspend (v2)").  A few other commits have
+gone on top of the ASIC reset, but this still doesn't work on the A+A
+configuration in s2idle.
 
-No, it mode2 reset that it uses for failure case.
+Avoid doing the reset on dGPUs specifically when using s2idle.
 
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, May 17, 2022 11:51
-To: Limonciello, Mario <Mario.Limonciello@amd.com>; amd-gfx@lists.freedeskt=
-op.org
-Subject: Re: [PATCH] drm/amd: Don't reset dGPUs if the system is going to s=
-2idle
+Fixes: daf8de0874ab5b ("drm/amdgpu: always reset the asic in suspend (v2)")
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2008
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v1->v2:
+ * Add missing stub function for non CONFIG_ACPI case
 
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  2 +-
+ 3 files changed, 17 insertions(+), 1 deletion(-)
 
-[Public]
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 3c20c2eadf4e..76df583663c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1378,9 +1378,11 @@ static inline int amdgpu_acpi_smart_shift_update(struct drm_device *dev,
+ 
+ #if defined(CONFIG_ACPI) && defined(CONFIG_SUSPEND)
+ bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
++bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev);
+ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+ #else
+ static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) { return false; }
++static inline bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev) { return false; }
+ static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { return false; }
+ #endif
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 0e12315fa0cb..98ac53ee6bb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1045,6 +1045,20 @@ bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
+ 		(pm_suspend_target_state == PM_SUSPEND_MEM);
+ }
+ 
++/**
++ * amdgpu_acpi_should_gpu_reset
++ *
++ * @adev: amdgpu_device_pointer
++ *
++ * returns true if should reset GPU, false if not
++ */
++bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev)
++{
++	if (adev->flags & AMD_IS_APU)
++		return false;
++	return pm_suspend_target_state != PM_SUSPEND_TO_IDLE;
++}
++
+ /**
+  * amdgpu_acpi_is_s0ix_active
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 16871baee784..a84766c13ac5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2315,7 +2315,7 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 
+-	if (!adev->in_s0ix)
++	if (amdgpu_acpi_should_gpu_reset(adev))
+ 		return amdgpu_asic_reset(adev);
+ 
+ 	return 0;
+-- 
+2.25.1
 
-Ya, second is too lengthy.  Better to leave it as it is.
-
-BTW, is this specific to reset by BACO? BACO entry/exit may take longer (be=
-tter chance of suspend entry abort by some wake-up source).
-
-Thanks,
-Lijo
-________________________________
-From: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciell=
-o@amd.com>>
-Sent: Tuesday, May 17, 2022 10:00:16 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
-sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fr=
-eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Subject: RE: [PATCH] drm/amd: Don't reset dGPUs if the system is going to s=
-2idle
-
-
-[Public]
-
-
-
-> PM_SUSPEND_TO_IDLE should be under a compile guard
-
-
-
-It is actually.  All of the amdgpu_acpi_* are.  It's not obvious though loo=
-king at the patch, you need to apply it to notice it.
-
-
-
-> It makes sense to rename to something like amdgpu_need_reset_on_suspend()=
- as it decides on reset only for a suspend situation.
-
-
-
-Remember it's in amdgpu_acpi.c.  So it would be amdgpu_acpi_need_reset_on_s=
-uspend()?  It's a bit lengthy.
-
-
-
-From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
-Sent: Tuesday, May 17, 2022 11:25
-To: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@=
-amd.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.o=
-rg>
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@=
-amd.com>>
-Subject: Re: [PATCH] drm/amd: Don't reset dGPUs if the system is going to s=
-2idle
-
-
-
-[Public]
-
-
-
-A couple of things -
-
-
-
-PM_SUSPEND_TO_IDLE should be under a compile guard
-
-
-
-It makes sense to rename to something like amdgpu_need_reset_on_suspend() a=
-s it decides on reset only for a suspend situation.
-
-
-
-Thanks,
-Lijo
-
---_000_MN0PR12MB61018A4ADCCF1CFFC37F2986E2CE9MN0PR12MB6101namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-p.xmsonormal, li.xmsonormal, div.xmsonormal
-	{mso-style-name:x_msonormal;
-	margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.xmsipheaderc10f11a2, li.xmsipheaderc10f11a2, div.xmsipheaderc10f11a2
-	{mso-style-name:x_msipheaderc10f11a2;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
-	{mso-style-name:msipheaderc10f11a2;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
-pan><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">No, it mode2 reset that it uses for failure case.<o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
-<br>
-<b>Sent:</b> Tuesday, May 17, 2022 11:51<br>
-<b>To:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd: Don't reset dGPUs if the system is goi=
-ng to s2idle<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">Ya, second is too lengthy.&nbsp; Better to leave it as it is.<o:p></o:=
-p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">BTW, is this specific to reset by BACO? BACO entry/exit may take longe=
-r (better chance of suspend entry abort by some wake-up source).<o:p></o:p>=
-</span></p>
-</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<p class=3D"MsoNormal">Thanks,<br>
-Lijo<o:p></o:p></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limo=
-nciello@amd.com">Mario.Limonciello@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, May 17, 2022 10:00:16 PM<br>
-<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
-@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd: Don't reset dGPUs if the system is goi=
-ng to s2idle</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"xmsipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</=
-span><o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:bla=
-ck">&gt;</span><span style=3D"color:#212121"> PM_SUSPEND_TO_IDLE should be =
-under a compile guard</span><o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p class=3D"xmsonormal">It is actually.&nbsp; All of the amdgpu_acpi_* are.=
-&nbsp; It&#8217;s not obvious though looking at the patch, you need to appl=
-y it to notice it.<o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:bla=
-ck">&gt;</span><span style=3D"color:#212121"> It makes sense to rename to s=
-omething like amdgpu_need_reset_on_suspend() as it decides on reset only fo=
-r a suspend situation.</span><o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p class=3D"xmsonormal">Remember it&#8217;s in amdgpu_acpi.c.&nbsp; So it w=
-ould be amdgpu_acpi_need_reset_on_suspend()?&nbsp; It&#8217;s a bit lengthy=
-.<o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"xmsonormal"><b>From:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo=
-.Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;
-<br>
-<b>Sent:</b> Tuesday, May 17, 2022 11:25<br>
-<b>To:</b> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.c=
-om">Mario.Limonciello@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<b>Cc:</b> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.c=
-om">Mario.Limonciello@amd.com</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd: Don't reset dGPUs if the system is goi=
-ng to s2idle<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]</span><o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">A couple of things -</span><o:p></o:p></p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">&nbsp;</span><o:p></o:p></p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">PM_SUSPEND_TO_IDLE should be under a compile guard</span><o:p></o:p><=
-/p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">&nbsp;</span><o:p></o:p></p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">It makes sense to rename to something like amdgpu_need_reset_on_suspe=
-nd() as it decides on reset only for a suspend situation.</span><o:p></o:p>=
-</p>
-</div>
-<div id=3D"x_ms-outlook-mobile-signature">
-<div>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-</div>
-<p class=3D"xmsonormal">Thanks,<br>
-Lijo<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN0PR12MB61018A4ADCCF1CFFC37F2986E2CE9MN0PR12MB6101namp_--
