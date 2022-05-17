@@ -4,63 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FDDC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 10:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F456C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 11:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 971491131E5;
-	Tue, 17 May 2022 10:36:55 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D941131D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 10:36:51 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id c10so662503edr.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 03:36:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D488410E349;
+	Tue, 17 May 2022 11:24:42 +0000 (UTC)
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B099110E349
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 11:24:41 +0000 (UTC)
+Received: by mail-pg1-x52c.google.com with SMTP id h186so14021589pgc.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 04:24:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=N5B/h84+cqwYTAzKPfPGQz3MaVoisoY+YSHHxu5ia2c=;
- b=SQQEIOtVwSTm8+xx7fs0XTnDj5apK0Fdr84ojC1NwJ//XvxpPlS17GY1JKpazRzxpu
- yqKIoUSKX/3G83bzD7h0F3JjpG4H+jmsN3Q4oGXuzUXhvd5/9XvSFDJwywnvPmV4H+wG
- 8iz4fFLT0sJv71rHr1gM58PcxG5Ms54p9v7zP3HO1IW5CSp+jLX4Pu0P0y6HxtxgnGQ/
- 0AIbhl48DSvc+A8PW1TxzPh6TWoR16e/gTlTXJob8/Rp6qDEdfouXp+r94fRv3yZB0X0
- 5t3+CF61S9K+LzodQbaw6L+emOhy7hU+mi6avC0+CZCjPkL+zrm9B+hufgL+bnFSElqG
- NY5g==
+ h=from:to:cc:subject:date:message-id;
+ bh=3pp/XCauLjPTMdIAv4bWe5U3GzgmpHRIaLNWt1Zp+aA=;
+ b=gh7TxZaXiQbVRACakD1r6xqEuqC4KCLTAW/uWOx9N36CapHNiDj83rzQguLSddlw6c
+ /SzfcE3mc1UySA+M/nxJWzrQZ2jbpWZ65JrUOekYklwIYt1veCaFlizfnytcO35dVl4u
+ w9sca9skC7JbvfVaoTKBwc8kINswAxnUnFjfcWjffx2MXqyO0KnymUM5RjEpCynxBp2P
+ IqfbRzB/1BvxJPeQ1ARENscVO1Br6GfEwEMU4XmfKAqDX0jAt0ZZJV5kGuMeoVL+umlk
+ 60EchJNAlKqXRGOIvxTA2vjMDVgkM4ooEc11LlLRLiBmXiXXhG1gSP3qERhHCmYUNIaU
+ r44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=N5B/h84+cqwYTAzKPfPGQz3MaVoisoY+YSHHxu5ia2c=;
- b=lgZj6s+4+yBnWaSxJo7Nwu/aPt2Exh4HIRP+q2tlDOIKgZkviJ3hSznhvsnqrTUeS8
- 7OY7vMOgi4q/81eABFNHGl9hNvWltn00b8xPtDA7otu84EUE4NX71KwYjQ0HTuPjIetO
- iSQH29U4iA4IYQgrk+abHN2chIXtxxkX9r3JBfvfNXX6HFYiGI6WyEX+K++SOffb4NIk
- 5lfUslnq3kThWXM64nem/+JjybNSheA89us/Gmb3Dz6JL6Sy6gDG4T7B1lC7mDKhDAYB
- cp8o5D9JiZ7A/0xJ7y+P4ivzPktOiqZrr9DKxI8g+LYi4uxJVSYcKF+cgp2a8JygD5MY
- 3A7w==
-X-Gm-Message-State: AOAM531x4C9AVPJnvysfqeg5MFO7dXg/YN5rCJFLCOaSRJQ4wQN7fOYI
- HEWcEyGegGymSzdlBE9Nkfk=
-X-Google-Smtp-Source: ABdhPJy6k29zAGU/j3f83epO0rDH3v9wr/t74owGhtypiLRokOchiZRrKzkAKt3jgW5DPKZ3Q1df9Q==
-X-Received: by 2002:a05:6402:2d6:b0:42a:bb5f:a7d2 with SMTP id
- b22-20020a05640202d600b0042abb5fa7d2mr6667236edx.96.1652783809966; 
- Tue, 17 May 2022 03:36:49 -0700 (PDT)
-Received: from baker.fritz.box (p57b0bdaa.dip0.t-ipconnect.de.
- [87.176.189.170]) by smtp.gmail.com with ESMTPSA id
- ht7-20020a170907608700b006f3ef214e66sm870343ejc.204.2022.05.17.03.36.49
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=3pp/XCauLjPTMdIAv4bWe5U3GzgmpHRIaLNWt1Zp+aA=;
+ b=luzJlg2oc5jY38rH1p3xtig1HSrDzzbBp4e7LlCfCRHZ9QpRKIlJzCvsgZHP7gr7UG
+ 6p0xKwEX1/5UeDUCTUUw69OarVdNVVvYSgh8ufY/0nVX7hj20RgDuz7VdsSwOGTIqhMI
+ C5FQqWgGoOLAAgZfl4tBhs8P1S/1leot7nJBh+DUhIA2GhQsWVfqWcP8IK8HaeIkrTda
+ edii/9bIQsmJyRZS94UwBMSVu2arxdiDOafIubSeyIDFH97+jr/XNFHWQN7sID80Gnv4
+ Rfbkk19fTH2HhUOwUsVz8OrQndEqYHMwzV5TRb6cZcTAVG+o/bRA7VVQ77+YY7QDmlA9
+ Pqbw==
+X-Gm-Message-State: AOAM531nBFWHWQDQue13S3QH+AXJKgCstDxPGcFHQQQ4i5dDTClLL2Hu
+ d6UTMiylW4/16BTBpLoHeCYFvuQlrexP2mqfQPg=
+X-Google-Smtp-Source: ABdhPJxRHV5mEDuJgEiPKXP5RrJKNKf7L0V1V2+lCzShyTbxnCUAbUMGqGWjnAE33GEk2GzuvsuqQQ==
+X-Received: by 2002:a63:6b42:0:b0:3da:ebd8:2e38 with SMTP id
+ g63-20020a636b42000000b003daebd82e38mr19225610pgc.273.1652786680769; 
+ Tue, 17 May 2022 04:24:40 -0700 (PDT)
+Received: from chachonne.lan ([2600:1700:8a10:4fd0::e])
+ by smtp.gmail.com with ESMTPSA id
+ i13-20020a17090a7e0d00b001deb3cbd8f1sm1417987pjl.27.2022.05.17.04.24.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 May 2022 03:36:49 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Alexander.Deucher@amd.com,
-	shashank.sharma@amd.com
-Subject: [PATCH 2/2] drm/amdgpu: add drm-client-id to fdinfo v2
-Date: Tue, 17 May 2022 12:36:46 +0200
-Message-Id: <20220517103646.1553-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220517103646.1553-1-christian.koenig@amd.com>
-References: <20220517103646.1553-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ Tue, 17 May 2022 04:24:40 -0700 (PDT)
+From: ricetons@gmail.com
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fully disable the queues and doorbeels in gfx_v10
+ before programing the kiq registers
+Date: Tue, 17 May 2022 04:24:38 -0700
+Message-Id: <20220517112438.5223-1-ricetons@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +63,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tvrtko.ursulin@linux.intel.com, amd-gfx@lists.freedesktop.org
+Cc: alexdeucher@gmail.com, ckoenig.leichtzumerken@gmail.com,
+ Haohui Mai <ricetons@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is enough to get gputop working :)
+From: Haohui Mai <ricetons@gmail.com>
 
-v2: rebase and some addition cleanup
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Shashank Sharma <shashank.sharma@amd.com> (v1)
+Signed-off-by: Haohui Mai <ricetons@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 4d453845235c..99a7855ab1bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -58,11 +58,11 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	struct drm_file *file = f->private_data;
- 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
- 	struct amdgpu_fpriv *fpriv = file->driver_priv;
-+	struct amdgpu_vm *vm = &fpriv->vm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index dd8f4344eeb8..9a1b42cc8500 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -6956,20 +6956,6 @@ static int gfx_v10_0_kiq_init_register(struct amdgpu_ring *ring)
+ 	/* disable wptr polling */
+ 	WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
  
- 	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
- 	ktime_t usage[AMDGPU_HW_IP_NUM];
- 	uint32_t bus, dev, fn, domain;
--	struct amdgpu_bo *root;
- 	unsigned int hw_ip;
- 	int ret;
+-	/* write the EOP addr */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR,
+-	       mqd->cp_hqd_eop_base_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI,
+-	       mqd->cp_hqd_eop_base_addr_hi);
+-
+-	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL,
+-	       mqd->cp_hqd_eop_control);
+-
+-	/* enable doorbell? */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+-	       mqd->cp_hqd_pq_doorbell_control);
+-
+ 	/* disable the queue if it's active */
+ 	if (RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1) {
+ 		WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
+@@ -6988,6 +6974,19 @@ static int gfx_v10_0_kiq_init_register(struct amdgpu_ring *ring)
+ 		       mqd->cp_hqd_pq_wptr_hi);
+ 	}
  
-@@ -71,14 +71,12 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	dev = PCI_SLOT(adev->pdev->devfn);
- 	fn = PCI_FUNC(adev->pdev->devfn);
- 
--	root = fpriv->vm.root.bo;
--	ret = amdgpu_bo_reserve(root, false);
--	if (ret) {
--		DRM_ERROR("Fail to reserve bo\n");
-+	ret = amdgpu_bo_reserve(vm->root.bo, false);
-+	if (ret)
- 		return;
--	}
--	amdgpu_vm_get_memory(&fpriv->vm, &vram_mem, &gtt_mem, &cpu_mem);
--	amdgpu_bo_unreserve(root);
++	/* disable doorbells */
++	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL, 0);
 +
-+	amdgpu_vm_get_memory(vm, &vram_mem, &gtt_mem, &cpu_mem);
-+	amdgpu_bo_unreserve(vm->root.bo);
- 
- 	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
- 
-@@ -91,6 +89,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
- 	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
- 	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
-+	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
- 	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
- 	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
- 	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
++	/* write the EOP addr */
++	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR,
++	       mqd->cp_hqd_eop_base_addr_lo);
++	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI,
++	       mqd->cp_hqd_eop_base_addr_hi);
++
++	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
++	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL,
++	       mqd->cp_hqd_eop_control);
++
+ 	/* set the pointer to the MQD */
+ 	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR,
+ 	       mqd->cp_mqd_base_addr_lo);
 -- 
 2.25.1
 
