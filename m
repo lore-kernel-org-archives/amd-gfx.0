@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D5EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 15:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA370C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 15:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A32A112EA5;
-	Tue, 17 May 2022 15:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 783AD112E00;
+	Tue, 17 May 2022 15:24:19 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC5C11206D
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 15:23:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C85E7112CAF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 15:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652801033;
+ s=mimecast20190719; t=1652801041;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uYXEw23QaybZczrEyMlwByxGA3gLwXOpa6JX6bmKDxI=;
- b=L070wv6HqXWegBLSiIJ85/KbElc42xwLOvE1g/LoMwiFrs8k0TGSYwHsHo9/93ZNTvYSbJ
- Kdt1WTk4LroOtP/Qlq7QjLvrXlLWg6OWn7pLToc2qaZQ7stwqomPwhEpoGW/egQGlhn2ZU
- uwTP6Su5cpDqpBQSFmswxDx/UQ6laMw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=sbKbgxKeWNRiPObZFk8Py7N2yB0e9SBa2BgfmtpZj3c=;
+ b=W43tNWChmuCeHPKCBeQfpfUhYU6F6i2jEgcThY1q89ksvwBgUvJ+5Sl1jS3udC2RwIsfTX
+ m4+EfA9LM2EB3J22tpen/hxwiTbg66wnnazWjddltMJzDgFBx1iA4oTNLeA/rtsGfDIQuf
+ /JLJDlQ+Lkva3n+TrzdSTLhV3Ctwj/k=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-157-iQdxcSsTO2GfeSk7xvwBTQ-1; Tue, 17 May 2022 11:23:49 -0400
-X-MC-Unique: iQdxcSsTO2GfeSk7xvwBTQ-1
+ us-mta-435-l7vbtma-MUS5bLsB3LxK-A-1; Tue, 17 May 2022 11:24:00 -0400
+X-MC-Unique: l7vbtma-MUS5bLsB3LxK-A-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2BFC2999B24;
- Tue, 17 May 2022 15:23:47 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E253780418F;
+ Tue, 17 May 2022 15:23:58 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.162])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 48CBFC15D75;
- Tue, 17 May 2022 15:23:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 655F5C080BC;
+ Tue, 17 May 2022 15:23:55 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -54,10 +54,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	"Rafael J . Wysocki" <rafael@kernel.org>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH 02/14] drm/i915: Don't register backlight when another
+Subject: [PATCH 05/14] drm/nouveau: Don't register backlight when another
  backlight should be used
-Date: Tue, 17 May 2022 17:23:19 +0200
-Message-Id: <20220517152331.16217-3-hdegoede@redhat.com>
+Date: Tue, 17 May 2022 17:23:22 +0200
+Message-Id: <20220517152331.16217-6-hdegoede@redhat.com>
 In-Reply-To: <20220517152331.16217-1-hdegoede@redhat.com>
 References: <20220517152331.16217-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -94,34 +94,34 @@ another backlight device should be used.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_backlight.c | 7 +++++++
+ drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
  1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 98f7ea44042f..582d7f48575d 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -6,6 +6,8 @@
- #include <linux/kernel.h>
- #include <linux/pwm.h>
+diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+index daf9f87477ba..f56ff797c78c 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
++++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+@@ -34,6 +34,8 @@
+ #include <linux/backlight.h>
+ #include <linux/idr.h>
  
 +#include <acpi/video.h>
 +
- #include "intel_backlight.h"
- #include "intel_connector.h"
- #include "intel_de.h"
-@@ -948,6 +950,11 @@ int intel_backlight_device_register(struct intel_connector *connector)
- 
- 	WARN_ON(panel->backlight.max == 0);
+ #include "nouveau_drv.h"
+ #include "nouveau_reg.h"
+ #include "nouveau_encoder.h"
+@@ -404,6 +406,11 @@ nouveau_backlight_init(struct drm_connector *connector)
+ 		goto fail_alloc;
+ 	}
  
 +	if (acpi_video_get_backlight_type(true) != acpi_backlight_native) {
-+		DRM_INFO("Skipping intel_backlight registration\n");
-+		return 0;
++		NV_INFO(drm, "Skipping nv_backlight registration\n");
++		goto fail_alloc;
 +	}
 +
- 	memset(&props, 0, sizeof(props));
- 	props.type = BACKLIGHT_RAW;
- 
+ 	if (!nouveau_get_backlight_name(backlight_name, bl)) {
+ 		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
+ 		goto fail_alloc;
 -- 
 2.36.0
 
