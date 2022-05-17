@@ -4,65 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 445F6C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 00:12:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96677C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 00:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C147F10E365;
-	Tue, 17 May 2022 00:12:30 +0000 (UTC)
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DC3B10E365
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 00:12:29 +0000 (UTC)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-2ff155c239bso26134077b3.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 May 2022 17:12:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tffnRruQBUKhyc7fK5acUSHFHJRr20h/clASbwajb8k=;
- b=mWhbH28/VNXYXtJ1z51ATdPjeF5jlDElqunaM1zJw56GkW/QfvMciilx/nAaKoBc6D
- OGGpw6OWq7zbLR38yvGLG/nkFe0SLuOeoWU+xbZQD8k4qIFd08QZqe9TMC9Y7wgFDzxB
- rV78lCVw/XcVDIbBP4aiYufUemI84TADSY/BxnoBJSSSvzQKWsG6OXtOoHjUzf85XzgP
- 5vLC2fqAa5T6CyVA6IERlp+Z21yVzgt1axsQdX0Gz2gHs2PGBn+ZxgsElmthZ3qiDLuV
- 3W2mGQRW/iust8Xu980y3ac8Uk9wdaW0jPRNWY4uWFGM5AaN9p1kRc13H8YprL+pyT3J
- DZTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tffnRruQBUKhyc7fK5acUSHFHJRr20h/clASbwajb8k=;
- b=DSqkJniGuRWW/U0/aEO+9V2XGJsPvj+oiNA7nEEzmTukla9AQ7AmSThhyPGs1V/6vs
- qd1eN7I/ccjne2Bf5V0Ok5Il9SBiSmnZ+Bhj3hWyQW7C6eJcUrlR8F+1pW6kiZEI/EER
- yzPMw6khk8prnZLiUoc1f3XTyyq6zEJ85gT3ysHY66aHdguwFIAx9/OW5x52sTmBo3Tr
- bV6ybstLMtuD9bDurhF2RqKBWwmEf11imdV9USEPtHUhVQXiFwOTH4nb/k7U2n+LdMX5
- 8WCEjCUHNibBnEK2LdF56X7ImUlmMpZkxYmE1EYfYJ0RrQQH5k6Q2H7HPgbynDrgQozW
- 2//A==
-X-Gm-Message-State: AOAM532+OKParKjVmFLT+FW0SwWf3QeFCIQbbmTY6UTl35BEecxyy6hh
- B90dd2nEGWc4cVbtg8gbWIIrLFYyJsxZl6lAFbI=
-X-Google-Smtp-Source: ABdhPJwAMXHJ3g8rXFhv0yKnF46gkADt4ypAD6NUdJIby4YwdomeOuA620mVxB8uUO4hT2t8CyaiHH530D20acLUbVU=
-X-Received: by 2002:a0d:f305:0:b0:2ef:21e3:54dd with SMTP id
- c5-20020a0df305000000b002ef21e354ddmr14367955ywf.438.1652746348265; Mon, 16
- May 2022 17:12:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F370B10E158;
+	Tue, 17 May 2022 00:58:03 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C607E10E158;
+ Tue, 17 May 2022 00:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652749083; x=1684285083;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=000D+w6c9+o/iIArI5e5AkAY8TBtbH1cExDaLUDxzdY=;
+ b=Htj/9S75a/s9aZSrctH6y7k8IY1VyTizTI9u8LpxNDFGRoQvrSzbfRTx
+ aL7L1o9p6ACMXBR8DMWqHQKDg3okQYCSX0PQsDk5IVZDJnISktAe2Tn9q
+ Wzwm/DKRWO0HIOZL7vyF06g82iPWzPTVPKqOSQK0/ArusTZhWof+Alo7O
+ rOVd6dMOTn8hy7+YwqV3R9JJ8W6UV8P4pAw8GB2L5ZrOVY+Xnp/3k5Qlo
+ F4Yd+Ui0wvDk+twuBQ0UqDtYyjYv+H+5ySaXUkKVUZ/mO5jrpHOzvS1Dj
+ xyfyqEdtjY9Ee/Db7aQJ7+OF2bqcROKrYMqnZcN/IQ7rC3E+ezQma5EZp Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10349"; a="253062064"
+X-IronPort-AV: E=Sophos;i="5.91,231,1647327600"; d="scan'208";a="253062064"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2022 17:58:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,231,1647327600"; d="scan'208";a="555525387"
+Received: from lkp-server02.sh.intel.com (HELO 242b25809ac7) ([10.239.97.151])
+ by orsmga002.jf.intel.com with ESMTP; 16 May 2022 17:57:58 -0700
+Received: from kbuild by 242b25809ac7 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nqlXB-0000SL-T8;
+ Tue, 17 May 2022 00:57:57 +0000
+Date: Tue, 17 May 2022 08:56:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 3f7bdc402fb06f897ff1f492a2d42e1f7c2efedb
+Message-ID: <6282f2d9.GP5VHNfZqwSMzmr+%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <20220506112312.347519-2-christian.koenig@amd.com>
- <CAAxE2A7+-MKrh1BoXhGNBY38_7PkvrmZvn-tg4-4CFNXBvdKqw@mail.gmail.com>
- <8695802e-6835-a717-c0ee-83b76d8a8875@gmail.com>
- <5941d83c-6d2b-6e3b-bd5c-b22779929d5e@amd.com>
- <CAAxE2A7-crNh7oTTzgm7W7J412_ijrmoiN9ip9iiS1MJmmaB4A@mail.gmail.com>
- <e3de3d01-25fb-8839-c793-bde9188ba77a@gmail.com>
- <CAAxE2A4P1avEwz0cniZupD9ZkXfnxKJY+1OzAOPRQqnOUcE5OQ@mail.gmail.com>
- <CAAxE2A5yVDo-6HW9Jt_pO-VwnBFQXQJP9-r0kNThP5XO1KWkFw@mail.gmail.com>
- <CAAxE2A7TPhshFx7EJir9iS580XO7-1N1hJCpeoKXRvMH7au1gQ@mail.gmail.com>
- <e33d0e1a-8992-142d-5084-a8667110c172@gmail.com>
- <CAAxE2A6-1znDCdZ-3WUbqjQw_B=Sr4qpXz3Hw4o8VA8EAPuVDg@mail.gmail.com>
- <c0eb4a43-95b3-9db9-b095-685e900819cb@gmail.com>
-In-Reply-To: <c0eb4a43-95b3-9db9-b095-685e900819cb@gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 16 May 2022 20:12:11 -0400
-Message-ID: <CAAxE2A4YLny1a5p-WHd_=gTTXWZYa3x50DSeE2zW+zV3iBtWYw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: add AMDGPU_VM_NOALLOC
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000fe075d05df29fe28"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,677 +57,353 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org, linux-pm@vger.kernel.org,
+ netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org, linux-omap@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000fe075d05df29fe28
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 3f7bdc402fb06f897ff1f492a2d42e1f7c2efedb  Add linux-next specific files for 20220516
 
-Dmesg doesn't contain anything. There is no backtrace because it's not a
-crash. The VA map ioctl just fails with the new flag. It looks like the
-flag is considered invalid.
+Error/Warning reports:
 
-Marek
+https://lore.kernel.org/linux-mm/202204291924.vTGZmerI-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205041248.WgCwPcEV-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205122113.uLKzd3SZ-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205150051.3RzuooAG-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205150117.sd6HzBVm-lkp@intel.com
+https://lore.kernel.org/llvm/202205170327.TVBbIsh2-lkp@intel.com
+https://lore.kernel.org/llvm/202205170352.5YjuBP5H-lkp@intel.com
 
-On Mon., May 16, 2022, 12:13 Christian K=C3=B6nig, <
-ckoenig.leichtzumerken@gmail.com> wrote:
+Error/Warning: (recently discovered and may have been fixed)
 
-> I don't have access to any gfx10 hardware.
->
-> Can you give me a dmesg and/or backtrace, etc..?
->
-> I can't push this unless it's working properly.
->
-> Christian.
->
-> Am 16.05.22 um 14:56 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> Reproduction steps:
-> - use mesa/main on gfx10.3 (not sure what other GPUs do)
-> - run: radeonsi_mall_noalloc=3Dtrue glxgears
->
-> Marek
->
-> On Mon, May 16, 2022 at 7:53 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken@gmail.com> wrote:
->
->> Crap, do you have a link to the failure?
->>
->> Am 16.05.22 um 13:10 schrieb Marek Ol=C5=A1=C3=A1k:
->>
->> I forgot to say: The NOALLOC flag causes an allocation failure, so there
->> is a kernel bug somewhere.
->>
->> Marek
->>
->> On Mon, May 16, 2022 at 7:06 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>=
- wrote:
->>
->>> FYI, I think it's time to merge this because the Mesa commits are going
->>> to be merged in ~30 minutes if Gitlab CI is green, and that includes
->>> updated amdgpu_drm.h.
->>>
->>> Marek
->>>
->>> On Wed, May 11, 2022 at 2:55 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com=
-> wrote:
->>>
->>>> Ok sounds good.
->>>>
->>>> Marek
->>>>
->>>> On Wed., May 11, 2022, 03:43 Christian K=C3=B6nig, <
->>>> ckoenig.leichtzumerken@gmail.com> wrote:
->>>>
->>>>> It really *is* a NOALLOC feature. In other words there is no latency
->>>>> improvement on reads because the cache is always checked, even with t=
-he
->>>>> noalloc flag set.
->>>>>
->>>>> The only thing it affects is that misses not enter the cache and so
->>>>> don't cause any additional pressure on evicting cache lines.
->>>>>
->>>>> You might want to double check with the hardware guys, but I'm
->>>>> something like 95% sure that it works this way.
->>>>>
->>>>> Christian.
->>>>>
->>>>> Am 11.05.22 um 09:22 schrieb Marek Ol=C5=A1=C3=A1k:
->>>>>
->>>>> Bypass means that the contents of the cache are ignored, which
->>>>> decreases latency at the cost of no coherency between bypassed and no=
-rmal
->>>>> memory requests. NOA (noalloc) means that the cache is checked and ca=
-n give
->>>>> you cache hits, but misses are not cached and the overall latency is
->>>>> higher. I don't know what the hw does, but I hope it was misnamed and=
- it
->>>>> really means bypass because there is no point in doing cache lookups =
-on
->>>>> every memory request if the driver wants to disable caching to *decre=
-ase*
->>>>> latency in the situations when the cache isn't helping.
->>>>>
->>>>> Marek
->>>>>
->>>>> On Wed, May 11, 2022 at 2:15 AM Lazar, Lijo <lijo.lazar@amd.com>
->>>>> wrote:
->>>>>
->>>>>>
->>>>>>
->>>>>> On 5/11/2022 11:36 AM, Christian K=C3=B6nig wrote:
->>>>>> > Mhm, it doesn't really bypass MALL. It just doesn't allocate any
->>>>>> MALL
->>>>>> > entries on write.
->>>>>> >
->>>>>> > How about AMDGPU_VM_PAGE_NO_MALL ?
->>>>>>
->>>>>> One more - AMDGPU_VM_PAGE_LLC_* [ LLC =3D last level cache, * =3D so=
-me
->>>>>> sort
->>>>>> of attribute which decides LLC behaviour]
->>>>>>
->>>>>> Thanks,
->>>>>> Lijo
->>>>>>
->>>>>> >
->>>>>> > Christian.
->>>>>> >
->>>>>> > Am 10.05.22 um 23:21 schrieb Marek Ol=C5=A1=C3=A1k:
->>>>>> >> A better name would be:
->>>>>> >> AMDGPU_VM_PAGE_BYPASS_MALL
->>>>>> >>
->>>>>> >> Marek
->>>>>> >>
->>>>>> >> On Fri, May 6, 2022 at 7:23 AM Christian K=C3=B6nig
->>>>>> >> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>>> >>
->>>>>> >>     Add the AMDGPU_VM_NOALLOC flag to let userspace control MALL
->>>>>> >>     allocation.
->>>>>> >>
->>>>>> >>     Only compile tested!
->>>>>> >>
->>>>>> >>     Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com=
->
->>>>>> >>     ---
->>>>>> >>      drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++
->>>>>> >>      drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 3 +++
->>>>>> >>      drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 3 +++
->>>>>> >>      include/uapi/drm/amdgpu_drm.h           | 2 ++
->>>>>> >>      4 files changed, 10 insertions(+)
->>>>>> >>
->>>>>> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>>> >>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>>> >>     index bf97d8f07f57..d8129626581f 100644
->>>>>> >>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>>> >>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>>>> >>     @@ -650,6 +650,8 @@ uint64_t amdgpu_gem_va_map_flags(struct
->>>>>> >>     amdgpu_device *adev, uint32_t flags)
->>>>>> >>                     pte_flag |=3D AMDGPU_PTE_WRITEABLE;
->>>>>> >>             if (flags & AMDGPU_VM_PAGE_PRT)
->>>>>> >>                     pte_flag |=3D AMDGPU_PTE_PRT;
->>>>>> >>     +       if (flags & AMDGPU_VM_PAGE_NOALLOC)
->>>>>> >>     +               pte_flag |=3D AMDGPU_PTE_NOALLOC;
->>>>>> >>
->>>>>> >>             if (adev->gmc.gmc_funcs->map_mtype)
->>>>>> >>                     pte_flag |=3D amdgpu_gmc_map_mtype(adev,
->>>>>> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> >>     b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> >>     index b8c79789e1e4..9077dfccaf3c 100644
->>>>>> >>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> >>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>>>>> >>     @@ -613,6 +613,9 @@ static void gmc_v10_0_get_vm_pte(struct
->>>>>> >>     amdgpu_device *adev,
->>>>>> >>             *flags &=3D ~AMDGPU_PTE_MTYPE_NV10_MASK;
->>>>>> >>             *flags |=3D (mapping->flags &
->>>>>> AMDGPU_PTE_MTYPE_NV10_MASK);
->>>>>> >>
->>>>>> >>     +       *flags &=3D ~AMDGPU_PTE_NOALLOC;
->>>>>> >>     +       *flags |=3D (mapping->flags & AMDGPU_PTE_NOALLOC);
->>>>>> >>     +
->>>>>> >>             if (mapping->flags & AMDGPU_PTE_PRT) {
->>>>>> >>                     *flags |=3D AMDGPU_PTE_PRT;
->>>>>> >>                     *flags |=3D AMDGPU_PTE_SNOOPED;
->>>>>> >>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>>> >>     b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>>> >>     index 8d733eeac556..32ee56adb602 100644
->>>>>> >>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>>> >>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
->>>>>> >>     @@ -508,6 +508,9 @@ static void gmc_v11_0_get_vm_pte(struct
->>>>>> >>     amdgpu_device *adev,
->>>>>> >>             *flags &=3D ~AMDGPU_PTE_MTYPE_NV10_MASK;
->>>>>> >>             *flags |=3D (mapping->flags &
->>>>>> AMDGPU_PTE_MTYPE_NV10_MASK);
->>>>>> >>
->>>>>> >>     +       *flags &=3D ~AMDGPU_PTE_NOALLOC;
->>>>>> >>     +       *flags |=3D (mapping->flags & AMDGPU_PTE_NOALLOC);
->>>>>> >>     +
->>>>>> >>             if (mapping->flags & AMDGPU_PTE_PRT) {
->>>>>> >>                     *flags |=3D AMDGPU_PTE_PRT;
->>>>>> >>                     *flags |=3D AMDGPU_PTE_SNOOPED;
->>>>>> >>     diff --git a/include/uapi/drm/amdgpu_drm.h
->>>>>> >>     b/include/uapi/drm/amdgpu_drm.h
->>>>>> >>     index 57b9d8f0133a..9d71d6330687 100644
->>>>>> >>     --- a/include/uapi/drm/amdgpu_drm.h
->>>>>> >>     +++ b/include/uapi/drm/amdgpu_drm.h
->>>>>> >>     @@ -533,6 +533,8 @@ struct drm_amdgpu_gem_op {
->>>>>> >>      #define AMDGPU_VM_MTYPE_UC             (4 << 5)
->>>>>> >>      /* Use Read Write MTYPE instead of default MTYPE */
->>>>>> >>      #define AMDGPU_VM_MTYPE_RW             (5 << 5)
->>>>>> >>     +/* don't allocate MALL */
->>>>>> >>     +#define AMDGPU_VM_PAGE_NOALLOC         (1 << 9)
->>>>>> >>
->>>>>> >>      struct drm_amdgpu_gem_va {
->>>>>> >>             /** GEM object handle */
->>>>>> >>     --
->>>>>> >>     2.25.1
->>>>>> >>
->>>>>> >
->>>>>>
->>>>>
->>>>>
->>
->
+<command-line>: fatal error: ./include/generated/utsrelease.h: No such file or directory
+ERROR: modpost: "__udivdi3" [drivers/mtd/parsers/scpart.ko] undefined!
+arch/riscv/include/asm/tlbflush.h:23:2: error: expected assembly-time absolute expression
+arch/x86/kvm/pmu.h:20:32: warning: 'vmx_icl_pebs_cpu' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1364:5: warning: no previous prototype for 'amdgpu_discovery_get_mall_info' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/soc21.c:171:6: warning: no previous prototype for 'soc21_grbm_select' [-Wmissing-prototypes]
+drivers/gpu/drm/solomon/ssd130x-spi.c:154:35: warning: 'ssd130x_spi_table' defined but not used [-Wunused-const-variable=]
+drivers/video/fbdev/omap/hwa742.c:492:5: warning: no previous prototype for 'hwa742_update_window_async' [-Wmissing-prototypes]
+fs/buffer.c:2254:5: warning: stack frame size (2152) exceeds limit (1024) in 'block_read_full_folio' [-Wframe-larger-than]
+fs/ntfs/aops.c:378:12: warning: stack frame size (2216) exceeds limit (1024) in 'ntfs_read_folio' [-Wframe-larger-than]
+kernel/trace/fgraph.c:37:12: warning: no previous prototype for 'ftrace_enable_ftrace_graph_caller' [-Wmissing-prototypes]
+kernel/trace/fgraph.c:46:12: warning: no previous prototype for 'ftrace_disable_ftrace_graph_caller' [-Wmissing-prototypes]
 
---000000000000fe075d05df29fe28
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-<div dir=3D"auto">Dmesg doesn&#39;t contain anything. There is no backtrace=
- because it&#39;s not a crash. The VA map ioctl just fails with the new fla=
-g. It looks like the flag is considered invalid.<div dir=3D"auto"><br></div=
-><div dir=3D"auto">Marek</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon., May 16, 2022, 12:13 Christian K=C3=
-=B6nig, &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.lei=
-chtzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex=
-">
- =20
-   =20
- =20
-  <div>
-    I don&#39;t have access to any gfx10 hardware.<br>
-    <br>
-    Can you give me a dmesg and/or backtrace, etc..?<br>
-    <br>
-    I can&#39;t push this unless it&#39;s working properly.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div>Am 16.05.22 um 14:56 schrieb Marek
-      Ol=C5=A1=C3=A1k:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div dir=3D"ltr">Reproduction steps:</div>
-        <div>- use mesa/main on gfx10.3 (not sure what other GPUs do)<br>
-        </div>
-        <div>- run: radeonsi_mall_noalloc=3Dtrue glxgears</div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-        <br>
-        <div class=3D"gmail_quote">
-          <div dir=3D"ltr" class=3D"gmail_attr">On Mon, May 16, 2022 at 7:5=
-3
-            AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzum=
-erken@gmail.com" target=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerke=
-n@gmail.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-            <div> Crap, do you have a link to the failure?<br>
-              <br>
-              <div>Am 16.05.22 um 13:10 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-              </div>
-              <blockquote type=3D"cite">
-                <div dir=3D"ltr">
-                  <div>I forgot to say: The NOALLOC flag causes an
-                    allocation failure, so there is a kernel bug
-                    somewhere.</div>
-                  <div><br>
-                  </div>
-                  <div>Marek<br>
-                  </div>
-                </div>
-                <br>
-                <div class=3D"gmail_quote">
-                  <div dir=3D"ltr" class=3D"gmail_attr">On Mon, May 16, 202=
-2
-                    at 7:06 AM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:=
-maraeo@gmail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com</a>=
-&gt;
-                    wrote:<br>
-                  </div>
-                  <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-                    <div dir=3D"ltr">
-                      <div>FYI, I think it&#39;s time to merge this because
-                        the Mesa commits are going to be merged in ~30
-                        minutes if Gitlab CI is green, and that includes
-                        updated amdgpu_drm.h.</div>
-                      <div><br>
-                      </div>
-                      <div>Marek<br>
-                      </div>
-                    </div>
-                    <br>
-                    <div class=3D"gmail_quote">
-                      <div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 11,
-                        2022 at 2:55 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=
-=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gm=
-ail.com</a>&gt;
-                        wrote:<br>
-                      </div>
-                      <blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-                        <div dir=3D"auto">Ok sounds good.
-                          <div dir=3D"auto"><br>
-                          </div>
-                          <div dir=3D"auto">Marek</div>
-                        </div>
-                        <br>
-                        <div class=3D"gmail_quote">
-                          <div dir=3D"ltr" class=3D"gmail_attr">On Wed., Ma=
-y
-                            11, 2022, 03:43 Christian K=C3=B6nig, &lt;<a hr=
-ef=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank" rel=3D"nor=
-eferrer">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                            wrote:<br>
-                          </div>
-                          <blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
->
-                            <div> It really *is* a NOALLOC feature. In
-                              other words there is no latency
-                              improvement on reads because the cache is
-                              always checked, even with the noalloc flag
-                              set.<br>
-                              <br>
-                              The only thing it affects is that misses
-                              not enter the cache and so don&#39;t cause an=
-y
-                              additional pressure on evicting cache
-                              lines.<br>
-                              <br>
-                              You might want to double check with the
-                              hardware guys, but I&#39;m something like 95%
-                              sure that it works this way.<br>
-                              <br>
-                              Christian.<br>
-                              <br>
-                              <div>Am 11.05.22 um 09:22 schrieb Marek
-                                Ol=C5=A1=C3=A1k:<br>
-                              </div>
-                              <blockquote type=3D"cite">
-                                <div dir=3D"ltr">
-                                  <div dir=3D"ltr">Bypass means that the
-                                    contents of the cache are ignored,
-                                    which decreases latency at the cost
-                                    of no coherency between bypassed and
-                                    normal memory requests. NOA
-                                    (noalloc) means that the cache is
-                                    checked and can give you cache hits,
-                                    but misses are not cached and the
-                                    overall latency is higher. I don&#39;t
-                                    know what the hw does, but I hope it
-                                    was misnamed and it really means
-                                    bypass because there is no point in
-                                    doing cache lookups on every memory
-                                    request if the driver wants to
-                                    disable caching to *decrease*
-                                    latency in the situations when the
-                                    cache isn&#39;t helping.<br>
-                                  </div>
-                                  <div dir=3D"ltr"><br>
-                                  </div>
-                                  <div>Marek<br>
-                                  </div>
-                                  <br>
-                                  <div class=3D"gmail_quote">
-                                    <div dir=3D"ltr" class=3D"gmail_attr">O=
-n
-                                      Wed, May 11, 2022 at 2:15 AM
-                                      Lazar, Lijo &lt;<a href=3D"mailto:lij=
-o.lazar@amd.com" rel=3D"noreferrer noreferrer" target=3D"_blank">lijo.lazar=
-@amd.com</a>&gt;
-                                      wrote:<br>
-                                    </div>
-                                    <blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex"><br>
-                                      <br>
-                                      On 5/11/2022 11:36 AM, Christian
-                                      K=C3=B6nig wrote:<br>
-                                      &gt; Mhm, it doesn&#39;t really bypas=
-s
-                                      MALL. It just doesn&#39;t allocate an=
-y
-                                      MALL <br>
-                                      &gt; entries on write.<br>
-                                      &gt; <br>
-                                      &gt; How about
-                                      AMDGPU_VM_PAGE_NO_MALL ?<br>
-                                      <br>
-                                      One more - AMDGPU_VM_PAGE_LLC_* [
-                                      LLC =3D last level cache, * =3D some
-                                      sort <br>
-                                      of attribute which decides LLC
-                                      behaviour]<br>
-                                      <br>
-                                      Thanks,<br>
-                                      Lijo<br>
-                                      <br>
-                                      &gt; <br>
-                                      &gt; Christian.<br>
-                                      &gt; <br>
-                                      &gt; Am 10.05.22 um 23:21 schrieb
-                                      Marek Ol=C5=A1=C3=A1k:<br>
-                                      &gt;&gt; A better name would be:<br>
-                                      &gt;&gt;
-                                      AMDGPU_VM_PAGE_BYPASS_MALL<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt; Marek<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt; On Fri, May 6, 2022 at
-                                      7:23 AM Christian K=C3=B6nig <br>
-                                      &gt;&gt; &lt;<a href=3D"mailto:ckoeni=
-g.leichtzumerken@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blank"=
->ckoenig.leichtzumerken@gmail.com</a>&gt;
-                                      wrote:<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0Add the
-                                      AMDGPU_VM_NOALLOC flag to let
-                                      userspace control MALL<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0allocatio=
-n.<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0Only comp=
-ile tested!<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0Signed-of=
-f-by:
-                                      Christian K=C3=B6nig &lt;<a href=3D"m=
-ailto:christian.koenig@amd.com" rel=3D"noreferrer noreferrer" target=3D"_bl=
-ank">christian.koenig@amd.com</a>&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0---<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0=C2=A0drivers/gpu/drm/amd/amdgp=
-u/amdgpu_gem.c
-                                      | 2 ++<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0=C2=A0drivers/gpu/drm/amd/amdgp=
-u/gmc_v10_0.c=C2=A0
-                                      | 3 +++<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0=C2=A0drivers/gpu/drm/amd/amdgp=
-u/gmc_v11_0.c=C2=A0
-                                      | 3 +++<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0=C2=A0include/uapi/drm/amdgpu_d=
-rm.h=C2=A0 =C2=A0
-                                      =C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 ++<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A04 f=
-iles changed, 10
-                                      insertions(+)<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --gi=
-t
-                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_g=
-em.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0b/drivers/gpu/drm/amd/amdgpu/am=
-dgpu_gem.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0index
-                                      bf97d8f07f57..d8129626581f 100644<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0---
-                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_g=
-em.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++
-                                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_g=
-em.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -650,6=
- +650,8 @@
-                                      uint64_t
-                                      amdgpu_gem_va_map_flags(struct<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_de=
-vice *adev,
-                                      uint32_t flags)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      pte_flag |=3D AMDGPU_PTE_WRITEABLE;<b=
-r>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 if (flags
-                                      &amp; AMDGPU_VM_PAGE_PRT)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      pte_flag |=3D AMDGPU_PTE_PRT;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0if (flags
-                                      &amp; AMDGPU_VM_PAGE_NOALLOC)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      =C2=A0pte_flag |=3D AMDGPU_PTE_NOALLO=
-C;<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 if
-                                      (adev-&gt;gmc.gmc_funcs-&gt;map_mtype=
-)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      pte_flag |=3D
-                                      amdgpu_gmc_map_mtype(adev,<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --gi=
-t
-                                      a/drivers/gpu/drm/amd/amdgpu/gmc_v10_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0b/drivers/gpu/drm/amd/amdgpu/gm=
-c_v10_0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0index
-                                      b8c79789e1e4..9077dfccaf3c 100644<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0---
-                                      a/drivers/gpu/drm/amd/amdgpu/gmc_v10_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++
-                                      b/drivers/gpu/drm/amd/amdgpu/gmc_v10_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -613,6=
- +613,9 @@
-                                      static void
-                                      gmc_v10_0_get_vm_pte(struct<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_de=
-vice *adev,<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags &amp;=3D
-                                      ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0*flags &amp;=3D
-                                      ~AMDGPU_PTE_NOALLOC;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0*flags |=3D
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_NOALLOC);<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 if
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_PRT) {<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      *flags |=3D AMDGPU_PTE_PRT;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      *flags |=3D AMDGPU_PTE_SNOOPED;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --gi=
-t
-                                      a/drivers/gpu/drm/amd/amdgpu/gmc_v11_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0b/drivers/gpu/drm/amd/amdgpu/gm=
-c_v11_0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0index
-                                      8d733eeac556..32ee56adb602 100644<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0---
-                                      a/drivers/gpu/drm/amd/amdgpu/gmc_v11_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++
-                                      b/drivers/gpu/drm/amd/amdgpu/gmc_v11_=
-0.c<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -508,6=
- +508,9 @@
-                                      static void
-                                      gmc_v11_0_get_vm_pte(struct<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_de=
-vice *adev,<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags &amp;=3D
-                                      ~AMDGPU_PTE_MTYPE_NV10_MASK;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *flags |=3D
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_MTYPE_NV10_MASK);<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0*flags &amp;=3D
-                                      ~AMDGPU_PTE_NOALLOC;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0*flags |=3D
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_NOALLOC);<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 if
-                                      (mapping-&gt;flags &amp;
-                                      AMDGPU_PTE_PRT) {<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      *flags |=3D AMDGPU_PTE_PRT;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                      *flags |=3D AMDGPU_PTE_SNOOPED;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0diff --gi=
-t
-                                      a/include/uapi/drm/amdgpu_drm.h<br>
-                                      &gt;&gt;=C2=A0 =C2=A0
-                                      =C2=A0b/include/uapi/drm/amdgpu_drm.h=
-<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0index
-                                      57b9d8f0133a..9d71d6330687 100644<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0---
-                                      a/include/uapi/drm/amdgpu_drm.h<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+++
-                                      b/include/uapi/drm/amdgpu_drm.h<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0@@ -533,6=
- +533,8 @@
-                                      struct drm_amdgpu_gem_op {<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0#de=
-fine
-                                      AMDGPU_VM_MTYPE_UC=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(4
-                                      &lt;&lt; 5)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0/* =
-Use Read Write
-                                      MTYPE instead of default MTYPE */<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0#de=
-fine
-                                      AMDGPU_VM_MTYPE_RW=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(5
-                                      &lt;&lt; 5)<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+/* don&#=
-39;t allocate
-                                      MALL */<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0+#define
-                                      AMDGPU_VM_PAGE_NOALLOC=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0(1
-                                      &lt;&lt; 9)<br>
-                                      &gt;&gt;<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0str=
-uct
-                                      drm_amdgpu_gem_va {<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 /** GEM
-                                      object handle */<br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A0-- <br>
-                                      &gt;&gt;=C2=A0 =C2=A0 =C2=A02.25.1<br=
->
-                                      &gt;&gt;<br>
-                                      &gt; <br>
-                                    </blockquote>
-                                  </div>
-                                </div>
-                              </blockquote>
-                              <br>
-                            </div>
-                          </blockquote>
-                        </div>
-                      </blockquote>
-                    </div>
-                  </blockquote>
-                </div>
-              </blockquote>
-              <br>
-            </div>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </div>
+Error: Section .bss not empty in prom_init.c
+Makefile:686: arch/h8300/Makefile: No such file or directory
+arch/Kconfig:10: can't open file "arch/h8300/Kconfig"
+arch/arm64/kvm/pmu.c:9:46: warning: tentative definition of variable with internal linkage has incomplete non-array type 'typeof(struct kvm_pmu_events)' (aka 'struct kvm_pmu_events') [-Wtentative-definition-incomplete-type]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5102:14: warning: variable 'allow_lttpr_non_transparent_mode' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5147:6: warning: no previous prototype for 'dp_parse_lttpr_mode' [-Wmissing-prototypes]
+drivers/gpu/drm/bridge/adv7511/adv7511.h:229:17: warning: 'ADV7511_REG_CEC_RX_FRAME_HDR' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/bridge/adv7511/adv7511.h:235:17: warning: 'ADV7511_REG_CEC_RX_FRAME_LEN' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:46 sysfs_gt_attribute_w_func() error: uninitialized symbol 'ret'.
+drivers/opp/core.c:1499:13: warning: Uninitialized variable: iter->rate [uninitvar]
+drivers/opp/core.c:1533:14: warning: Uninitialized variable: temp->removed [uninitvar]
+drivers/opp/core.c:2682:16: warning: Uninitialized variable: tmp_opp->rate [uninitvar]
+drivers/opp/core.c:365:12: warning: Uninitialized variable: opp->available [uninitvar]
+drivers/opp/core.c:442:17: warning: Uninitialized variable: temp_opp->available [uninitvar]
+drivers/opp/core.c:491:17: warning: Uninitialized variable: temp_opp->level [uninitvar]
+drivers/opp/core.c:60:26: warning: Uninitialized variables: opp_table.node, opp_table.lazy, opp_table.head, opp_table.dev_list, opp_table.opp_list, opp_table.kref, opp_table.lock, opp_table.np, opp_table.clock_latency_ns_max, opp_table.voltage_tolerance_v1, opp_table.parsed_static_opps, opp_table.shared_opp, opp_table.current_rate, opp_table.current_opp, opp_table.suspend_opp, opp_table.genpd_virt_dev_lock, opp_table.genpd_virt_devs, opp_table.required_opp_tables, opp_table.required_opp_count, opp_table.supported_hw, opp_table.supported_hw_count, opp_table.prop_name, opp_table.clk, opp_table.regulators, opp_table.regulator_count, opp_table.paths, opp_table.path_count, opp_table.enabled, opp_table.genpd_performance_state, opp_table.is_genpd, opp_table.set_opp, opp_table.sod_supplies, opp_table.set_opp_data [uninitvar]
+kernel/bpf/verifier.c:5354 process_kptr_func() warn: passing zero to 'PTR_ERR'
+make[1]: *** No rule to make target 'arch/h8300/Makefile'.
+mm/shmem.c:1910 shmem_getpage_gfp() warn: should '(((1) << 12) / 512) << folio_order(folio)' be a 64 bit type?
+{standard input}:1991: Error: unknown pseudo-op: `.lc'
 
-</blockquote></div>
+Error/Warning ids grouped by kconfigs:
 
---000000000000fe075d05df29fe28--
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-video-fbdev-omap-hwa742.c:warning:no-previous-prototype-for-hwa742_update_window_async
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-video-fbdev-omap-hwa742.c:warning:no-previous-prototype-for-hwa742_update_window_async
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- h8300-allyesconfig
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- h8300-randconfig-r001-20220516
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- i386-allyesconfig
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- drivers-gpu-drm-solomon-ssd13-spi.c:warning:ssd13_spi_table-defined-but-not-used
+|-- i386-debian-10.3
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- i386-debian-10.3-kselftests
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- i386-randconfig-a011-20220516
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   `-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|-- i386-randconfig-m021-20220516
+|   |-- kernel-bpf-verifier.c-process_kptr_func()-warn:passing-zero-to-PTR_ERR
+|   `-- mm-shmem.c-shmem_getpage_gfp()-warn:should-((()-)-)-folio_order(folio)-be-a-bit-type
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- ia64-randconfig-r005-20220516
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- microblaze-randconfig-s031-20220516
+|   |-- kernel-trace-fgraph.c:warning:no-previous-prototype-for-ftrace_disable_ftrace_graph_caller
+|   `-- kernel-trace-fgraph.c:warning:no-previous-prototype-for-ftrace_enable_ftrace_graph_caller
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- powerpc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- powerpc-randconfig-c004-20220516
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- powerpc64-randconfig-r011-20220516
+|   `-- Error:Section-.bss-not-empty-in-prom_init.c
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- sh-allmodconfig
+|   `-- standard-input:Error:unknown-pseudo-op:lc
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- x86_64-allyesconfig
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- drivers-gpu-drm-solomon-ssd13-spi.c:warning:ssd13_spi_table-defined-but-not-used
+|-- x86_64-kexec
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-randconfig-a012-20220516
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   `-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|-- x86_64-randconfig-a014-20220516
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-randconfig-c002-20220516
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- x86_64-randconfig-m001-20220516
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c-sysfs_gt_attribute_w_func()-error:uninitialized-symbol-ret-.
+|   `-- kernel-bpf-verifier.c-process_kptr_func()-warn:passing-zero-to-PTR_ERR
+|-- x86_64-rhel-8.3
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-func
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-kselftests
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-kunit
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-syz
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- xtensa-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-dp_parse_lttpr_mode
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:variable-allow_lttpr_non_transparent_mode-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+`-- xtensa-randconfig-p002-20220516
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:iter-rate-uninitvar
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:opp-available-uninitvar
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:temp-removed-uninitvar
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:temp_opp-available-uninitvar
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:temp_opp-level-uninitvar
+    |-- drivers-opp-core.c:warning:Uninitialized-variable:tmp_opp-rate-uninitvar
+    `-- drivers-opp-core.c:warning:Uninitialized-variables:opp_table.node-opp_table.lazy-opp_table.head-opp_table.dev_list-opp_table.opp_list-opp_table.kref-opp_table.lock-opp_table.np-opp_table.clock_latency
+
+clang_recent_errors
+|-- arm64-randconfig-r001-20220516
+|   `-- arch-arm64-kvm-pmu.c:warning:tentative-definition-of-variable-with-internal-linkage-has-incomplete-non-array-type-typeof(struct-kvm_pmu_events)-(aka-struct-kvm_pmu_events-)
+|-- hexagon-randconfig-r045-20220516
+|   |-- fs-buffer.c:warning:stack-frame-size-()-exceeds-limit-()-in-block_read_full_folio
+|   `-- fs-ntfs-aops.c:warning:stack-frame-size-()-exceeds-limit-()-in-ntfs_read_folio
+|-- i386-randconfig-r004-20220516
+|   `-- ERROR:__udivdi3-drivers-mtd-parsers-scpart.ko-undefined
+`-- riscv-randconfig-r036-20220516
+    `-- arch-riscv-include-asm-tlbflush.h:error:expected-assembly-time-absolute-expression
+
+elapsed time: 728m
+
+configs tested: 104
+configs skipped: 3
+
+gcc tested configs:
+arm                              allmodconfig
+arm                              allyesconfig
+arm                                 defconfig
+arm64                               defconfig
+arm64                            allyesconfig
+i386                 randconfig-c001-20220516
+ia64                          tiger_defconfig
+mips                            gpr_defconfig
+mips                       bmips_be_defconfig
+arm                        spear6xx_defconfig
+powerpc                       maple_defconfig
+sh                 kfr2r09-romimage_defconfig
+mips                         db1xxx_defconfig
+powerpc                      cm5200_defconfig
+sh                           se7619_defconfig
+xtensa                  audio_kc705_defconfig
+sh                           se7780_defconfig
+sh                           se7705_defconfig
+powerpc                     sequoia_defconfig
+ia64                             allmodconfig
+ia64                                defconfig
+ia64                             allyesconfig
+m68k                             allyesconfig
+m68k                             allmodconfig
+m68k                                defconfig
+alpha                               defconfig
+csky                                defconfig
+alpha                            allyesconfig
+nios2                            allyesconfig
+h8300                            allyesconfig
+arc                                 defconfig
+sh                               allmodconfig
+xtensa                           allyesconfig
+parisc                              defconfig
+s390                             allmodconfig
+parisc                           allyesconfig
+s390                                defconfig
+s390                             allyesconfig
+parisc64                            defconfig
+i386                   debian-10.3-kselftests
+i386                              debian-10.3
+i386                                defconfig
+i386                             allyesconfig
+sparc                            allyesconfig
+sparc                               defconfig
+nios2                               defconfig
+arc                              allyesconfig
+mips                             allyesconfig
+mips                             allmodconfig
+powerpc                           allnoconfig
+powerpc                          allmodconfig
+powerpc                          allyesconfig
+x86_64               randconfig-a012-20220516
+x86_64               randconfig-a011-20220516
+x86_64               randconfig-a013-20220516
+x86_64               randconfig-a014-20220516
+x86_64               randconfig-a016-20220516
+x86_64               randconfig-a015-20220516
+i386                 randconfig-a011-20220516
+i386                 randconfig-a013-20220516
+i386                 randconfig-a015-20220516
+i386                 randconfig-a012-20220516
+i386                 randconfig-a016-20220516
+i386                 randconfig-a014-20220516
+arc                  randconfig-r043-20220516
+riscv                randconfig-r042-20220516
+s390                 randconfig-r044-20220516
+riscv                             allnoconfig
+riscv                            allyesconfig
+riscv                            allmodconfig
+riscv                    nommu_k210_defconfig
+riscv                          rv32_defconfig
+riscv                    nommu_virt_defconfig
+riscv                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                              defconfig
+x86_64                           allyesconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                                  kexec
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+x86_64                               rhel-8.3
+x86_64                         rhel-8.3-kunit
+
+clang tested configs:
+arm                         orion5x_defconfig
+arm                       aspeed_g4_defconfig
+powerpc                      katmai_defconfig
+powerpc                   microwatt_defconfig
+powerpc                     akebono_defconfig
+powerpc                    mvme5100_defconfig
+i386                 randconfig-a003-20220516
+i386                 randconfig-a001-20220516
+i386                 randconfig-a004-20220516
+i386                 randconfig-a006-20220516
+i386                 randconfig-a002-20220516
+i386                 randconfig-a005-20220516
+x86_64               randconfig-a002-20220516
+x86_64               randconfig-a001-20220516
+x86_64               randconfig-a003-20220516
+x86_64               randconfig-a005-20220516
+x86_64               randconfig-a004-20220516
+x86_64               randconfig-a006-20220516
+hexagon              randconfig-r045-20220516
+hexagon              randconfig-r041-20220516
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
