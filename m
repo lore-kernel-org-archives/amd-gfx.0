@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA370C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 15:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90AB1C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 May 2022 15:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 783AD112E00;
-	Tue, 17 May 2022 15:24:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9B1112E13;
+	Tue, 17 May 2022 15:24:18 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C85E7112CAF
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 15:24:02 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98E8811206D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 May 2022 15:23:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652801041;
+ s=mimecast20190719; t=1652801036;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=sbKbgxKeWNRiPObZFk8Py7N2yB0e9SBa2BgfmtpZj3c=;
- b=W43tNWChmuCeHPKCBeQfpfUhYU6F6i2jEgcThY1q89ksvwBgUvJ+5Sl1jS3udC2RwIsfTX
- m4+EfA9LM2EB3J22tpen/hxwiTbg66wnnazWjddltMJzDgFBx1iA4oTNLeA/rtsGfDIQuf
- /JLJDlQ+Lkva3n+TrzdSTLhV3Ctwj/k=
+ bh=nrgaigmhtT/c3yNhuGBcztXKchf7HdgOC/zOZ1F01Vw=;
+ b=GrgFr4/0h3kHrTkZD9EWjrF0Odj2YQ3un15opjrPnufS9iL5cZ3xo25P1RYeQdr2Z2L8DP
+ qhHtXzf4Ffw1EynaFZAhIWKH3ewWz/pvFJKQKCvl1pAkY8aE6kZiYHNITFgdOGmKIpcbvF
+ IIGsdD51CIW4IwbsSRAM1lLoGJtpbiQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-435-l7vbtma-MUS5bLsB3LxK-A-1; Tue, 17 May 2022 11:24:00 -0400
-X-MC-Unique: l7vbtma-MUS5bLsB3LxK-A-1
+ us-mta-596-m8jAcUa4PfG3b5nOVxKb1g-1; Tue, 17 May 2022 11:23:52 -0400
+X-MC-Unique: m8jAcUa4PfG3b5nOVxKb1g-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E253780418F;
- Tue, 17 May 2022 15:23:58 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B0AD10665A4;
+ Tue, 17 May 2022 15:23:51 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.162])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 655F5C080BC;
- Tue, 17 May 2022 15:23:55 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 03F98C15D70;
+ Tue, 17 May 2022 15:23:47 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -54,10 +54,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	"Rafael J . Wysocki" <rafael@kernel.org>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH 05/14] drm/nouveau: Don't register backlight when another
+Subject: [PATCH 03/14] drm/amdgpu: Don't register backlight when another
  backlight should be used
-Date: Tue, 17 May 2022 17:23:22 +0200
-Message-Id: <20220517152331.16217-6-hdegoede@redhat.com>
+Date: Tue, 17 May 2022 17:23:20 +0200
+Message-Id: <20220517152331.16217-4-hdegoede@redhat.com>
 In-Reply-To: <20220517152331.16217-1-hdegoede@redhat.com>
 References: <20220517152331.16217-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -94,34 +94,73 @@ another backlight device should be used.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/Kconfig                           | 1 +
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c    | 7 +++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+ 3 files changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index daf9f87477ba..f56ff797c78c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -34,6 +34,8 @@
- #include <linux/backlight.h>
- #include <linux/idr.h>
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index f1422bee3dcc..ddbeb2124df7 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -280,6 +280,7 @@ config DRM_AMDGPU
+ 	select HWMON
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
++	select ACPI_VIDEO if ACPI && X86 && INPUT
+ 	help
+ 	  Choose this option if you have a recent AMD Radeon graphics card.
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+index a92d86e12718..f9c62cd84a18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
++++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+@@ -26,6 +26,8 @@
+ 
+ #include <linux/pci.h>
  
 +#include <acpi/video.h>
 +
- #include "nouveau_drv.h"
- #include "nouveau_reg.h"
- #include "nouveau_encoder.h"
-@@ -404,6 +406,11 @@ nouveau_backlight_init(struct drm_connector *connector)
- 		goto fail_alloc;
- 	}
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/amdgpu_drm.h>
+ #include "amdgpu.h"
+@@ -186,6 +188,11 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
+ 	if (!(adev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
+ 		return;
  
 +	if (acpi_video_get_backlight_type(true) != acpi_backlight_native) {
-+		NV_INFO(drm, "Skipping nv_backlight registration\n");
-+		goto fail_alloc;
++		DRM_INFO("Skipping amdgpu atom DIG backlight registration\n");
++		return;
 +	}
 +
- 	if (!nouveau_get_backlight_name(backlight_name, bl)) {
- 		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
- 		goto fail_alloc;
+ 	pdata = kmalloc(sizeof(struct amdgpu_backlight_privdata), GFP_KERNEL);
+ 	if (!pdata) {
+ 		DRM_ERROR("Memory allocation failed\n");
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 62139ff35476..a838c7b5d942 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -83,6 +83,8 @@
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_audio_component.h>
+ 
++#include <acpi/video.h>
++
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
+@@ -4079,6 +4081,11 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
+ 	amdgpu_dm_update_backlight_caps(dm, dm->num_of_edps);
+ 	dm->brightness[dm->num_of_edps] = AMDGPU_MAX_BL_LEVEL;
+ 
++	if (acpi_video_get_backlight_type(true) != acpi_backlight_native) {
++		DRM_INFO("Skipping amdgpu DM backlight registration\n");
++		return;
++	}
++
+ 	props.max_brightness = AMDGPU_MAX_BL_LEVEL;
+ 	props.brightness = AMDGPU_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
 -- 
 2.36.0
 
