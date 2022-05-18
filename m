@@ -4,141 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6914C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 17:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBD6C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 17:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75C9B10FD32;
-	Wed, 18 May 2022 17:38:59 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D4910FCCC
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 17:38:57 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24IGgwCt001104;
- Wed, 18 May 2022 17:38:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
- bh=SFAQY/MAC2dMaza+q0s9dnIKBbVaq4xIaNvjwiDTLd8=;
- b=k1CxIixe1HsteMTKuECqMa0f4F1bWkQrrvlgqGJBhHPSA1TnT4Pvr+7KWbkzjLOVetE7
- xACynCuJtsQrKGxlzWLJ0CUtNLBflNBEYOQ4nEk6S9LUUwKqKa8Isxzbrus7XBwBsAq5
- XR+H8wDqZWulocoX2nTA5j2Znm9QKTV2DiA2jS27F9+H3Uxmh0gf52ySMVTDoVmjGtOW
- nQvFzNOQCggLo9gdpZGXptr7dllEu5SJFc6GU5b7gyF0PEdg2emssveAy/lshHkDTX3F
- /VLqT0A7JQ5QnIZZFrMootsKPsbe/cyeFmrXGCxD8NogKu4uunI4Tn/f2oAy7y9fTk70 Cw== 
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3g241sa2c8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 18 May 2022 17:38:54 +0000
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 24IHZbZs014093; Wed, 18 May 2022 17:38:53 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2100.outbound.protection.outlook.com [104.47.58.100])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
- 3g22v4874w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 18 May 2022 17:38:53 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aQZhYj+Qpr0v/THkHvpYv6z/PoYVvsEsKAGs9dm5+S5y9DrRIfsoh68usLm/rC2bGFyIE/tZmA3e8sWI3rS2EgGj6/Fk/GZkOqjrKiSTxw5prUrYxIHMjT9Qo28zPLtycvWO/kFPEPrHLw6rMqK203mgmIjM122q+tVqRT9kHvV8WgLiNOmEFlXdJWay0ce2gn/O+5wFc5f6EmOJ7j84nkgNe8SXfED87A4OGDmcrQ/cZiv8K6zujVLXHDsN0jactu2R4kIBjjCjcP7fQzGJhmNRLlv7p1qj2p0ncamUhLh9nqbz91KSEEJQ4WiGcxiy0cKLUuuDOE+P1TqmNE9iig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SFAQY/MAC2dMaza+q0s9dnIKBbVaq4xIaNvjwiDTLd8=;
- b=jQ1hjNIX2LHl0e71wJPosTh9aWOsvx2prb96zw9JX2wYVO2nQlGey5LNymVjFxEuBHSBBcfJ9zUfnSjcD6ie3dST64S4BZw3p8EKDl+QFIHR3zwKupLfJOyTwmkDzDrcWwRBKaJ6qjWrRRIfYGPl3zYekoC7jHepHNPPpJHugFzpOQDlV2GvGdfptcXTS1iR2GQ7jt/USbnknqdEF79vZ0m64E1yuafnu5D3EjdheSYaeU1ZnGiL2bLy3kPs18Tra5950u8gguq6EvZzd28rLbw9VQPTNEpsrLj44Mx4ivQyvg9F2gxZ1fqHGdDLGzReyDJkcIRbfouoUpxWYPl1ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SFAQY/MAC2dMaza+q0s9dnIKBbVaq4xIaNvjwiDTLd8=;
- b=QSFk02ukfRtlLYV775+rSdyIl/a3gk/sgZAY0iYHTr3QUKYRG4bJSQvc0qRjR1Hv/CVCmgEBKMhMdBMs0pVklgWlGxpDJ7Dn6na9nNOg6o97J7lFGqmzXoYkhPs51+aiqN57OhM8sFGwLbXSDhJEt48Fzv/Vvf01b6NYdiqbqsc=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by BYAPR10MB2919.namprd10.prod.outlook.com
- (2603:10b6:a03:89::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.14; Wed, 18 May
- 2022 17:38:50 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::86f:81ba:9951:5a7e]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::86f:81ba:9951:5a7e%2]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 17:38:50 +0000
-Date: Wed, 18 May 2022 20:38:36 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Evan Quan <evan.quan@amd.com>, Tim Huang <tim.huang@amd.com>
-Subject: [PATCH] drm/amdgpu/pm: smu_v13_0_4: delete duplicate condition
-Message-ID: <YoUvHGsEaMtloBXN@kili>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-ClientProxiedBy: ZR0P278CA0105.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:23::20) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F24A9113E89;
+	Wed, 18 May 2022 17:39:59 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A426C113E83
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 17:39:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1652895597;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=gDGt/Rg9AZsxvRBAhR5KeMESGNTYZAfpSxQWVhbVFk4=;
+ b=aHVEiwnWBk0+bNDlKvdW7YJL8Bd5u/UpHJTC2PfM55nP+om+NkEm0VXGBuZNeK82X3rl4J
+ Ew7sDpjXOoLfcc1oLhXwJ35SWlMepEk+k5JiJtlxWBT1FFIgftvQoE3VIiTCuemUn0i6Pd
+ Uy+QcSCH/pJfN66S78Rl3JqSYjGJhc0=
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-635-H9i1zgaQMSuyHVVg43URqg-1; Wed, 18 May 2022 13:39:56 -0400
+X-MC-Unique: H9i1zgaQMSuyHVVg43URqg-1
+Received: by mail-vs1-f72.google.com with SMTP id
+ h2-20020a056102214200b00335bd8ddb82so316272vsg.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 10:39:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=gDGt/Rg9AZsxvRBAhR5KeMESGNTYZAfpSxQWVhbVFk4=;
+ b=Z31qAY6mdQw8Fhhly2FDnMon/HPVXbsgRMj5/R1lm8fr1jirQOnbhQscWbkmGo1jUf
+ fRDGxQVDTndclU4DleFPXmnhXd33ms2uJ7STR2aDQ+CMKbm6jWrr668eeTAKo8Y+pjo2
+ 0J6NUQdtfUrMOzZ8PrfuDWVprJa7+oQ/gq1Vdgsi8Z93wwT0SAJ/cjKd57AVU0Jy83pE
+ C7T7v0zApcyiBHHNARn9Hc+sX9HzbinZdlqnunThS9iA4mw57M6j6SFyZOO/Tp2LPVA+
+ xoM7GePAWlAt5v3UDWI91VjbVd+lq5REQUL8u5ARq0eiGHAdYrzNSZQsGVHpvINpT5gN
+ l/tg==
+X-Gm-Message-State: AOAM531oR8mwN3mdgj7PS5pQaKdOSadhaKgO/4XmdE+BxS2qgrEfdPYp
+ FJk4yQGa7VM/tIsSYQItbwMPozGhPrhBLPUI0dc4+QuBxcaH2hJlNWxJGqHYYuc3NczNyM2l5Q+
+ V4VOp2MMAKXEpqz5ckgWLTmLK+w==
+X-Received: by 2002:a05:6102:3706:b0:335:80be:bdf8 with SMTP id
+ s6-20020a056102370600b0033580bebdf8mr527599vst.17.1652895595664; 
+ Wed, 18 May 2022 10:39:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy+wcU/dWMJlXfe/1930TJzCPdcc6Su+ICGYsTy4q9ZBSUQnSN+lF31nL1TGBauw8+rrCkI6g==
+X-Received: by 2002:a05:6102:3706:b0:335:80be:bdf8 with SMTP id
+ s6-20020a056102370600b0033580bebdf8mr527593vst.17.1652895595399; 
+ Wed, 18 May 2022 10:39:55 -0700 (PDT)
+Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
+ [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
+ 143-20020a1f1995000000b0034e6f1fd055sm246132vkz.31.2022.05.18.10.39.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 May 2022 10:39:54 -0700 (PDT)
+Message-ID: <0c9c2c59ca9c351769921c47beb49dda79ddd5de.camel@redhat.com>
+Subject: Re: [PATCH 12/14] drm/nouveau: Register ACPI video backlight when
+ nv_backlight registration fails
+From: Lyude Paul <lyude@redhat.com>
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, 
+ Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Xinhui
+ <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Mika
+ Westerberg <mika.westerberg@linux.intel.com>, Mark Gross
+ <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
+Date: Wed, 18 May 2022 13:39:52 -0400
+In-Reply-To: <20220517152331.16217-13-hdegoede@redhat.com>
+References: <20220517152331.16217-1-hdegoede@redhat.com>
+ <20220517152331.16217-13-hdegoede@redhat.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 67d9797c-3969-4493-39f5-08da38f544e4
-X-MS-TrafficTypeDiagnostic: BYAPR10MB2919:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR10MB291948A643CF485CAB39DB4D8ED19@BYAPR10MB2919.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: X0VpJNHeH4li9icvP1uvEgQTNZeBlQiIli60DwNCy8JPFTEf/6gKsrGHNw2L3OiqFSRbjEeliaYWY1gYUNNXuvdOARGtX8QWZKT7A8yJi+73XChvH7dRChZMgZPowkVSuRNFdOGc1Na8gIJb9obQiPMvldM3xYUAT9VBHNNWiHXO7w1Z8EwDa5LL3v7pjnqAeEEaaLLwAWYso5I+mI72H92YdZH44HyPLkK3lc6dvKljaYlzHPUzT4gUa3aTYEuUeVHbeBqvpPrMoZPUqp+q9yb0/WO8Gs2DQJ4z21Bydd65zPCMOD9uHXEThX2aIL2+OkSUyJBB7o0c/OpN+rdjhz9ygu4ylPaZ3+zCVQs4bY6yvZbTC3DQPMd5CyQbKZVbjFZjt/e1HE70SY0Cn1gtxqPd1ZeErc5TqB0alEvS7KGicu0MIAZpd5LD5Nweg3lmMJCm8Cndxza0iZC2kyQYQqKowCdJWPjupfIREdVJkLT4DPiFBjuEssg1Z3jgokRxTVaj805bcCfGK54mbXj0WY74wxxpGM5On17Oc/N8Uh+K0gdDVa3p+2obctl/aLXsD4DbkVbq7E7DcICU2Dm+Qy1Sz0hPFVXERmvLZtT0smigT2jwi4mGWWqr51gFhuaYn6cvfhK2OlJHZRIzu0xHRS059MBTyTY8bIITwulCBzs+IEUUKLp6doTRQYhx1YmW2T0NDluCagzexFYkmP/bmA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(366004)(6486002)(52116002)(316002)(186003)(6512007)(33716001)(86362001)(8676002)(4326008)(66556008)(66476007)(83380400001)(8936002)(9686003)(6666004)(66946007)(26005)(44832011)(508600001)(6506007)(54906003)(110136005)(38100700002)(38350700002)(2906002)(7416002)(5660300002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wN4IcZYRMukZhJvPcNqvOln9vcGdccn0p6Nyt33zbJwOGCAalX6Jg3ZaG//S?=
- =?us-ascii?Q?Pokl3jfvrtOUjQd2LY5ce45cPofuq8bQU/ASqMlAspZ3gsy7mzfWnlSahG/t?=
- =?us-ascii?Q?uuDIa7I38i8vokWlIcHbe0woqUvq/vbSDsT0jC13FRuAr5hMfWtEQxVPJdU7?=
- =?us-ascii?Q?dmnktB7giNsjBmlFesLYjiz35SmQxldEpluThaAOZq9InQL8mrETmDB6lQ4E?=
- =?us-ascii?Q?0Mi/EovaTLUAVeUFJIptH1pcZu4BTwkXDgPhnOgP5uY1ERLm7T6dqwmT9vxv?=
- =?us-ascii?Q?sgt47K0WH4NOb9CGLfkneG6yq//oMT1cPn2J3CWAh6MoiMbgbDaPZnB1sTtY?=
- =?us-ascii?Q?oPG3mbm9Fs9YaNVAo490FBSH/wzwRHBvrSlWrZ8f7vBhcfZI2g/ktip9aGWo?=
- =?us-ascii?Q?fUI525pPfKhcUoIvugj1QMYghd8S8LbANYBeoIp3eooKQMG+riH02uZ7PCz0?=
- =?us-ascii?Q?e85Aag9ioEIvEBVs48JyOkfe2JnBmcOxKmsxyzbz6UY6RpnppidClZ+5i4/a?=
- =?us-ascii?Q?NWOHkiQC0dLTcGi+GAg6GgcL8kc4YCm/eNzVUCNk4CQlZYks1B3TyyQrwGra?=
- =?us-ascii?Q?NWM2lILjC9hSdZnsWS4Aa0gJ9bvZZs4mboDcWrGulws3E3fICCffWjhIo62j?=
- =?us-ascii?Q?XlzdHxUyNikBFNQzqi5V2aNKhGyWySuHO7bBEJKYZyvvXJqdNU5NWU9xsaT3?=
- =?us-ascii?Q?RCIKH7OtpOi8Hq3EQ1Cr7odWlxG8AtTsf/iU7gh/D/vNsduq1CG98JkwX+ei?=
- =?us-ascii?Q?p5Iyar/15pvffG2VziPKEzmBWwmOg1mP4R1qz/kudtD8kf/tAcIxA5JbF8No?=
- =?us-ascii?Q?Wj5z7goASEjTGmYSRdhh0x7IkwaLmIkGpLeofYH+Z7fEP30YGrXzHuYrPf0X?=
- =?us-ascii?Q?JS2cFMiM+7j9VDa7NekK4vJkZVgbc/Y6HdNYleYN6DzW/kSB4/jSFCGBNNnV?=
- =?us-ascii?Q?HJwVjqZIIOazOv1N4pyr6AG46kAVKJok9tQis/P8a/hfXczml9MMCAzajAOj?=
- =?us-ascii?Q?BzKRG+qkfxwfJj/TptFCfHGC3W+Fo+oN71lndwgibCV3zIOtFyxkV/JLrhFa?=
- =?us-ascii?Q?oQtnU1pUvA/SM8O4j6tq0Ij3cbsAWJ84QE5A4rdTkIrup/SgrEQIFaYPE6gj?=
- =?us-ascii?Q?lkP/JYYASq+l8OnXn+htnNA7H0yV1xGhARWQcffN42x0Q4EZcRLyy6/u4q7m?=
- =?us-ascii?Q?etHVe1RE57V0d/96PdP7lbQAQP20UIrn8VEV70Uuw5LERKTCDQUGD1MRTg65?=
- =?us-ascii?Q?/xdijmqMDbrlOA9RAuCzDma5o9j1UNW9+4wAPwfSMzv2QER/ip88tcnAs45j?=
- =?us-ascii?Q?uhi9/3gNAN1U6Qt4BWJTDbKlEysT0wPNnQwma7D9x88SJVYcO6iqLyhCam0y?=
- =?us-ascii?Q?JKtvNEsPnk55be+lCGAoLhac7GlHDI7q+IjpmWhsujH8WrPuzg0UmlkWLzo9?=
- =?us-ascii?Q?A/ceiUL4KJI1jZAG2P71BUlFng4aEATY6Z+XsjPYxaUkpAiarExzb2aDT7kZ?=
- =?us-ascii?Q?0SDOqDiyx6AOwUslUYtjah4BEOtC0LN0Zln4iMUBlJGTaQ8AnbCUBrdZitQN?=
- =?us-ascii?Q?jq/3XJx+tYVzjR49CgBGSSEZEf/wxz5LylbvFbKEs12+wZB733IfMGMxAvx7?=
- =?us-ascii?Q?A2bVm4fQ27t0QDl1UG8+zrzQk9M1THG0iz0VG9A9itUR09tpWITytAAcCBOB?=
- =?us-ascii?Q?HgKaWJxxRw5LsK11ZDeARHZvsHdvFonBRFnP9BEr4+TcUOvCOixrLYiPYVEj?=
- =?us-ascii?Q?zk7PWck1FMbes+zeWksWi5I5+KuqZGo=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67d9797c-3969-4493-39f5-08da38f544e4
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 17:38:50.2328 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yWeJPENkhrWDDrgJqSkyXnafC0QdYU1Pywrn7yVNnUvGwXp7qelclUmeJttU7/hEVP5Xy3IyFhxAdI0ZRtI4RL7HiGuc7mjpFA4J1eAuaxo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2919
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486, 18.0.874
- definitions=2022-05-18_06:2022-05-17,
- 2022-05-18 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 suspectscore=0
- phishscore=0 bulkscore=0 adultscore=0 mlxlogscore=999 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2205180105
-X-Proofpoint-GUID: WHc8i1_0adx78WD7M6UOMn5AG0e5HiTu
-X-Proofpoint-ORIG-GUID: WHc8i1_0adx78WD7M6UOMn5AG0e5HiTu
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,100 +98,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaomeng Hou <Xiaomeng.Hou@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
- Aaron Liu <aaron.liu@amd.com>, amd-gfx@lists.freedesktop.org,
- Huang Rui <ray.huang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no need to check if "clock_ranges' is non-NULL.  It is checked
-already on the line before.
+On Tue, 2022-05-17 at 17:23 +0200, Hans de Goede wrote:
+> Typically the acpi_video driver will initialize before nouveau, which
+> used to cause /sys/class/backlight/acpi_video0 to get registered and then
+> nouveau would register its own nv_backlight device later. After which
+> the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
+> to avoid there being 2 backlight devices.
+> 
+> This means that userspace used to briefly see 2 devices and the
+> disappearing of acpi_video0 after a brief time confuses the systemd
+> backlight level save/restore code, see e.g.:
+> https://bbs.archlinux.org/viewtopic.php?id=269920
+> 
+> To fix this the ACPI video code has been modified to make backlight class
+> device registration a separate step, relying on the drm/kms driver to
+> ask for the acpi_video backlight registration after it is done setting up
+> its native backlight device.
+> 
+> Add a call to the new acpi_video_register_backlight() when native backlight
+> device registration has failed / was skipped to ensure that there is a
+> backlight device available before the drm_device gets registered with
+> userspace.
+> 
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> index f56ff797c78c..0ae8793357a4 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+> @@ -436,6 +436,13 @@ nouveau_backlight_init(struct drm_connector *connector)
+>  
+>  fail_alloc:
+>         kfree(bl);
+> +       /*
+> +        * If we get here we have an internal panel, but no nv_backlight,
+> +        * try registering an ACPI video backlight device instead.
+> +        */
+> +       if (ret == 0)
+> +               acpi_video_register_backlight();
 
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  | 62 +++++++++----------
- 1 file changed, 30 insertions(+), 32 deletions(-)
+Assuming we don't need to return the value of acpi_video_register_backlight()
+here:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index 7d6ff141b43f..5a17b51aa0f9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -644,42 +644,40 @@ static int smu_v13_0_4_set_watermarks_table(struct smu_context *smu,
- 	if (!table || !clock_ranges)
- 		return -EINVAL;
- 
--	if (clock_ranges) {
--		if (clock_ranges->num_reader_wm_sets > NUM_WM_RANGES ||
--			clock_ranges->num_writer_wm_sets > NUM_WM_RANGES)
--			return -EINVAL;
--
--		for (i = 0; i < clock_ranges->num_reader_wm_sets; i++) {
--			table->WatermarkRow[WM_DCFCLK][i].MinClock =
--				clock_ranges->reader_wm_sets[i].min_drain_clk_mhz;
--			table->WatermarkRow[WM_DCFCLK][i].MaxClock =
--				clock_ranges->reader_wm_sets[i].max_drain_clk_mhz;
--			table->WatermarkRow[WM_DCFCLK][i].MinMclk =
--				clock_ranges->reader_wm_sets[i].min_fill_clk_mhz;
--			table->WatermarkRow[WM_DCFCLK][i].MaxMclk =
--				clock_ranges->reader_wm_sets[i].max_fill_clk_mhz;
--
--			table->WatermarkRow[WM_DCFCLK][i].WmSetting =
--				clock_ranges->reader_wm_sets[i].wm_inst;
--		}
-+	if (clock_ranges->num_reader_wm_sets > NUM_WM_RANGES ||
-+		clock_ranges->num_writer_wm_sets > NUM_WM_RANGES)
-+		return -EINVAL;
- 
--		for (i = 0; i < clock_ranges->num_writer_wm_sets; i++) {
--			table->WatermarkRow[WM_SOCCLK][i].MinClock =
--				clock_ranges->writer_wm_sets[i].min_fill_clk_mhz;
--			table->WatermarkRow[WM_SOCCLK][i].MaxClock =
--				clock_ranges->writer_wm_sets[i].max_fill_clk_mhz;
--			table->WatermarkRow[WM_SOCCLK][i].MinMclk =
--				clock_ranges->writer_wm_sets[i].min_drain_clk_mhz;
--			table->WatermarkRow[WM_SOCCLK][i].MaxMclk =
--				clock_ranges->writer_wm_sets[i].max_drain_clk_mhz;
--
--			table->WatermarkRow[WM_SOCCLK][i].WmSetting =
--				clock_ranges->writer_wm_sets[i].wm_inst;
--		}
-+	for (i = 0; i < clock_ranges->num_reader_wm_sets; i++) {
-+		table->WatermarkRow[WM_DCFCLK][i].MinClock =
-+			clock_ranges->reader_wm_sets[i].min_drain_clk_mhz;
-+		table->WatermarkRow[WM_DCFCLK][i].MaxClock =
-+			clock_ranges->reader_wm_sets[i].max_drain_clk_mhz;
-+		table->WatermarkRow[WM_DCFCLK][i].MinMclk =
-+			clock_ranges->reader_wm_sets[i].min_fill_clk_mhz;
-+		table->WatermarkRow[WM_DCFCLK][i].MaxMclk =
-+			clock_ranges->reader_wm_sets[i].max_fill_clk_mhz;
-+
-+		table->WatermarkRow[WM_DCFCLK][i].WmSetting =
-+			clock_ranges->reader_wm_sets[i].wm_inst;
-+	}
- 
--		smu->watermarks_bitmap |= WATERMARKS_EXIST;
-+	for (i = 0; i < clock_ranges->num_writer_wm_sets; i++) {
-+		table->WatermarkRow[WM_SOCCLK][i].MinClock =
-+			clock_ranges->writer_wm_sets[i].min_fill_clk_mhz;
-+		table->WatermarkRow[WM_SOCCLK][i].MaxClock =
-+			clock_ranges->writer_wm_sets[i].max_fill_clk_mhz;
-+		table->WatermarkRow[WM_SOCCLK][i].MinMclk =
-+			clock_ranges->writer_wm_sets[i].min_drain_clk_mhz;
-+		table->WatermarkRow[WM_SOCCLK][i].MaxMclk =
-+			clock_ranges->writer_wm_sets[i].max_drain_clk_mhz;
-+
-+		table->WatermarkRow[WM_SOCCLK][i].WmSetting =
-+			clock_ranges->writer_wm_sets[i].wm_inst;
- 	}
- 
-+	smu->watermarks_bitmap |= WATERMARKS_EXIST;
-+
- 	/* pass data to smu controller */
- 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
- 	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+
+> +
+>         return ret;
+>  }
+>  
+
 -- 
-2.35.1
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
