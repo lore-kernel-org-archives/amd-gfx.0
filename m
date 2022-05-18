@@ -4,123 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5833C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 13:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FDC1C43219
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 13:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18AE810EEB0;
-	Wed, 18 May 2022 13:22:38 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2046.outbound.protection.outlook.com [40.107.100.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2CE10EEB0;
- Wed, 18 May 2022 13:22:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0199210E113;
+	Wed, 18 May 2022 13:46:31 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4184F10E113
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 13:46:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UnJzE1lOQCQS+L1Zl55ifAdP3ep5nzzikyzJ20y9YKyEtUhXwYEXm4ejqbwJAjGJ0CMT7Ta9G20mhMjJZ8vmx3TXwRqzpVMrS4H2xi0Ujzp6sNx7EK0RlC5ETSGTayc/WyqLv67RqBFQSc/+TyhmrQn1WJLLVKjunYfvnX6TSFz4r9PPMe26O0JY1YPlFcxtI+hum3YRToTaQws71aoq03VH+Kovu2YKCBG0bm8KG9iE7Qu+sAG6kZdOjxSLPCLQ5xafB5/G6nulGW/676/OHhT6YUvLuX56CtnWM8V3j2VYdu+WcG49/eD9PWDq4DdFpU3IDNqI89AclSw1gUu69A==
+ b=Nj2oHyhQ479fpcvea9lvgr70p2gl1D5M4GxKuTzncEYMVcgxbmSjLTFQFYBGN6yOj5fGjVOoZ7DNwiDYt4bOjTEo49SyCrOihxxR/NTEvtFzBp5EjkImsLmLoHCPAfpvkSNF2y4v6pKMBIaGwcp81yrEeB6rJVTUZ2andP5FE+qiIE4fDN4plzfFGOGjt2sGn/CpwcqIXMoMWNBO7vPddzpb0+Uy713wR0L/mJZtKEjIstxZwTbEUrlwqMeUURmyKazsrUnAoGRRnt8V2XfXZNXdc66CpxlaurEqdfL5pep/UxjqurSYxcBSR4dsIHfktjI9K4CxdYcGTC3XMUX7Aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DHGaF/Lbvxwtgoz0c+l5wTOMbsRPdVzUzQ2RKgegkcA=;
- b=g0UryPGGF5UEZe4/DtNm5wVTAugH50TusMY6mnyfGf3dieIfLgvds0oeF0L16JriW3MwtHc5Lsn0aq4sInWUror4aFFRzbHs6i2SuX9yV8htH0WsVnnK0TBk1Q3b2N+QSwkj3Da7/u4EdUBrPvjroswLYAkO96m1LV6djEH1IhLpbPPI3np23EKkR2nqhkksHY4oW1w2BYfqbA6hlg4xOsMvcHAfWLmhEe3AD7b2tQkQY432INYhpyDCaZsMyShbRQUmJoF8ieuNpcPiwW+z/a/h+MVtVGQRufF+RcYOAfxvq6aFL8WNhgGQKrJtacOSL3CcOfqDuJS0A8dG3AiAgw==
+ bh=MJbRrJGtdrPYccv3u0BHS6HZBAgk7ArAq6/uVKJjPxQ=;
+ b=kBnf2lxqaOmC0WC8t+CC7NOitBsNpcSALyMieHivSmtw0yVu3x9Ebj8C6a/OnjZiWFJcMIl3phntBIUGJvrrbp+z6SgyVr2i2zFZ8BdHs6ePmRbHU/VrJdvwiP9nt4yK2huGjIoCdq9SY4zYIgwH8ZOzUQDjBDOzSi/wfnchFgjnsu3Ph+8MLuf16jvhN4oUbvazAieRx5Y9YII16Q6SxCvyzFlvLHQG6tpshE5IGkfws1PAHshgHInzc4cdhWZkiNcjRKiXUX+gbTikzxMWsTXJGEWKX2qyy2WGVRn8HXFXh6WEyfYygaMRdQJz6qBpueLvvBTw/9S1R1Xv1MbmdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DHGaF/Lbvxwtgoz0c+l5wTOMbsRPdVzUzQ2RKgegkcA=;
- b=UR73Y3FsLXWgnv9QK08f01RONhy02aPEGk2Q1v5OEOiCJHD1ilZS4HMLPVydWVfSpGF55Rqwnj3F4YB+1Dmxhl1n0LJdNlXlaYp7Lwy9VJF3WALOXtI56FONa2fbK7VpGxA2Wm2Mra4PMYMvIPeIYDNAzYOeKmwHxeDnN2+NEWY=
-Received: from CH0PR12MB5139.namprd12.prod.outlook.com (2603:10b6:610:be::9)
- by CY4PR12MB1527.namprd12.prod.outlook.com (2603:10b6:910:5::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.17; Wed, 18 May
- 2022 13:22:32 +0000
-Received: from CH0PR12MB5139.namprd12.prod.outlook.com
- ([fe80::29f8:a744:2bea:23a7]) by CH0PR12MB5139.namprd12.prod.outlook.com
- ([fe80::29f8:a744:2bea:23a7%4]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 13:22:32 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "VURDIGERENATARAJ, CHANDAN" <CHANDAN.VURDIGERENATARAJ@amd.com>, Sasha
- Levin <sashal@kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.17 13/23] drm/amd/display: undo clearing of z10
- related function pointers
-Thread-Topic: [PATCH AUTOSEL 5.17 13/23] drm/amd/display: undo clearing of z10
- related function pointers
-Thread-Index: AQHYarKg56zIqRXpvUiucrNC/4AWdK0kknIAgAAMj/8=
-Date: Wed, 18 May 2022 13:22:32 +0000
-Message-ID: <CH0PR12MB513911CB22A1842FD391126BF7D19@CH0PR12MB5139.namprd12.prod.outlook.com>
-References: <20220518122641.342120-1-sashal@kernel.org>
- <20220518122641.342120-13-sashal@kernel.org>
- <MW4PR12MB5668AA4277ABA5A76CAABB1F96D19@MW4PR12MB5668.namprd12.prod.outlook.com>
-In-Reply-To: <MW4PR12MB5668AA4277ABA5A76CAABB1F96D19@MW4PR12MB5668.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: Nicholas.Kazlauskas@amd.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-05-18T13:22:32.253Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=MJbRrJGtdrPYccv3u0BHS6HZBAgk7ArAq6/uVKJjPxQ=;
+ b=AaAXG8c0n6+oPy82kX8YQQjBgOh3daEeng8JHErFcIixpUXG21gU6gSV2sAk7BMr7k7xXBecLHQ2lvoHOrXr+EuZMr1AAgOh4r5Y6Fs1zH79H67V/KFov0AFMGCJSPvz3ou1Xs+xJCG8D+zUHKfj/Xwv5mYK8zOmrMWH9gdq5nE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a0f960c7-0364-4e6b-51a9-08da38d17768
-x-ms-traffictypediagnostic: CY4PR12MB1527:EE_
-x-microsoft-antispam-prvs: <CY4PR12MB1527FB281E990189F8ABB881F7D19@CY4PR12MB1527.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fUCxp6tEJ/kPoLsojJ5JimtNkQqJdGYF7LyI17qcXnu6vM8rglelkCPdVvKOYdjPIOBah9Fs622kaXkGDETRLDo6pajq4CVXsaq0kCIcEIiZ1YFDTeTvqwBqum8seArvz7enm5WULs6pcWlmVolwCKiMJaSj+AhqNLRygq1dPLZzBD/UdbyTsuebeHQO59w/fhHIvcAVtyzVgwJ9ECCh7+BKH1JV5CkK1dPjm3kWyEjZ7cKn8bsfElaJ/a4IAf3TviJH9HKUucj+T3Ls2PiqiTJEYiGCKORszMHwA2VYxF3WiRKeDH0X0o2xC4pUCqNLEx1cN6PLurdD17q6xHh4qUkwYZbraYPBf4+JtDMnlxyilh4WRw/sGVoa6EEOBmXSx2UxQmPjt1IlPyRzOM/WpYo7x1lN176CxePDytxBz1eH8LI3iIp2GUy0IfK0F3tuhsjUYaWdDRKdVDHZXemmdZht2VmksGuv/33MMp268gTXRWWlKhJ4ix1LYyhZx8r7yF+AFYHRykzFJhl0RrHO1wXLguvYLjFxKigMy2Xnb4cJfc8GH8UNZ1zkGOu0fmf4p0wrPo8OdU4SoC9IA8ajb2jh77UuW4P7jGAdaCJtarB2kkoqNlPZOgMxen8xf8+m6/htBp5Zx2j/S009dD3ZNW0or2PyF1o/yMgpx4oRyZArWZkI1Su3Acx3BDdWIV+bSx4NyCV2d3DORrCWcKEeww==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5139.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(71200400001)(6506007)(55016003)(66556008)(4326008)(66446008)(7696005)(186003)(19627405001)(2906002)(66946007)(76116006)(110136005)(53546011)(86362001)(9686003)(33656002)(26005)(52536014)(8936002)(83380400001)(508600001)(5660300002)(122000001)(316002)(54906003)(64756008)(91956017)(66476007)(38100700002)(38070700005)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ctB5Ya2vRdoK814dKqa1Z0EpDqrP+ub3TcjxAVqRKdTiYRYho7UFIjlZhQno?=
- =?us-ascii?Q?qJe+30Pc8mlPQ7g00kDy65vVYJQnAUsBPFY0DS5s4bsUHnH+Y92Y6FIemcL4?=
- =?us-ascii?Q?+zDcWtPMZYliGqzMhGsBhMIIEZMTEmom5wmxWnhu6GaS9ycXjGQOXkfVH///?=
- =?us-ascii?Q?lEatvxgAQqexFVEvLYbZKpZZj6mJSbKgUj9LI/TWaX06YYMS8UfKyI3uljwN?=
- =?us-ascii?Q?hA82Oxz5wQKRSBMJHU6Q/YKs1S5GMfILKnQXe15WhBOcvPUnsTNwBBzR/4z3?=
- =?us-ascii?Q?Dzd7uzgan487vWHgBB3N2wsouPSzN/zupZm9VuFN60J15DbVr73bImWGJiT7?=
- =?us-ascii?Q?XKv39fb5pOp6Vou27rtCcA7Zn+tumXlqB6ZQqwbVD+zc2L+qSSrYczSOJUtz?=
- =?us-ascii?Q?rI23L0V3Y05Mz1TtGLmCo3yrlOMAmTv9a2F8Nxc2Tkt9OlQp2GPejRGe3kgK?=
- =?us-ascii?Q?+7Qj+apdtnEMu+Ag6Od2z0FLwM+QeKCIz6SFKcLw9Xt7SW2Eb5FkD06c2qc6?=
- =?us-ascii?Q?327US97/pyWRyYeYi1zNA7U7NRmRF+Is+3cxB6LS0XrMBoRLaahXy44loLap?=
- =?us-ascii?Q?5CgmMBcMb5OeuzJ6Vv2jd5Xkg3tQLhricPFPH7lPS7TYWRAvbmjBH0Fm/i2B?=
- =?us-ascii?Q?BpWDd/wffNVZim7BjZCJOwUz3ffn62Hr2a1P3hWpAZlS1qauCpAUHT9nmq7a?=
- =?us-ascii?Q?j02StKyZsz1QbPuwVcJPHawWrumifUuUpHcpEtmgfRhc9+TGYn53KOWFPcqX?=
- =?us-ascii?Q?JjCQmjaCQ3uVaihbBCQi8JU1e4AMtVZS/bphsZqUCfiF4HvD42s3H2HYb1eZ?=
- =?us-ascii?Q?LuQFB8YnImOfIInCjC8qldnwIzDC+rVMZua2Odk+5DR7boGyepUa4/esXBOn?=
- =?us-ascii?Q?zobnDSgz4B5AqOtCYPqwEMz5ccjgXuipjNvMoMeX44gZW3EntkM1L004BM71?=
- =?us-ascii?Q?OfvmyGX7jU5RM8N50g5p4uyY6Bc56cIlzFyyLitEmpCxjN3n7fSc9tHv4JZt?=
- =?us-ascii?Q?zD7JcJ5/9dSXJi1ethQqoojyDUevjvtqo58ksh8X1C9d686Ifnmv/9fGf3CO?=
- =?us-ascii?Q?QU+whEZ+n0w4sRbybrPqyATwVHaCJNMuAw+QERuLoF9GoV0vUe+6d6cYVlzm?=
- =?us-ascii?Q?SwlyO2b+pSSs7tMsYh7iDxgsmsNAs2Wr8O+CzxBgWvImKyh+iiJXMpQZKz6h?=
- =?us-ascii?Q?2JDvJW3c7rmqCSi8A5qsYzMtjEbwYgTeNr+XKJJyMXO1li/4DKf8aaG/sUI3?=
- =?us-ascii?Q?h6mt+TtkF/3Xn1d5JFo4zLQMJiN9qPpitvVYHFqtuJg+ohX4hyRcpb+t8w5E?=
- =?us-ascii?Q?WHVFTLlnfu/O6hdD9cr5SLIsca/gsICkwn5KTRNWc5jmmHLlu2tGUhtDIMvJ?=
- =?us-ascii?Q?kGDyVSPiw4nhUAGm5ojl15x91evqLSe8tax2zK7fHJVdpkQL+dXZRmzPKwHU?=
- =?us-ascii?Q?B0RBENWNro9e6vYPElIdiEskqw+VtnXwV2bohWhVr6R0Kbrtp00UuRuqGC3t?=
- =?us-ascii?Q?Y6Dkm5sjdxl2Dn32tDhRQQAhR2ZiaG/M9UX5sI6bA+g7TbDOZXDwjZH1EjWD?=
- =?us-ascii?Q?qy7X3nfO7SHICfL+fDMfwnJV6ls0VEPP9ty5e6Y10WdBQSCvAIr/LD1SnUrC?=
- =?us-ascii?Q?wp63xEAqyj292Rdjh5R1aVsopKxosIqb5fN+8UOT1Vx3NLKINbQeI4AoKdJY?=
- =?us-ascii?Q?AYBkfdBM28r7j2Os6RyRl2Atg8tjNRCaKqUozCObRCvkpd7GJdvwNXooB7wu?=
- =?us-ascii?Q?/4W9/jzOlA=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB513911CB22A1842FD391126BF7D19CH0PR12MB5139namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN2PR12MB4829.namprd12.prod.outlook.com (2603:10b6:208:1b6::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Wed, 18 May
+ 2022 13:46:27 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5273.013; Wed, 18 May 2022
+ 13:46:27 +0000
+Message-ID: <0e8e9f79-1089-f2a4-7966-3ac50d77c771@amd.com>
+Date: Wed, 18 May 2022 09:46:25 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [QUESTION] sh_mem_bases: amdkfd vs amdgpu
+Content-Language: en-US
+To: "robert.dazi@yahoo.com" <robert.dazi@yahoo.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <919822485.7462667.1652833945250.ref@mail.yahoo.com>
+ <919822485.7462667.1652833945250@mail.yahoo.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <919822485.7462667.1652833945250@mail.yahoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT2PR01CA0020.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ff43ae4-7728-4bb9-c795-08da38d4ce24
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4829:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4829C24EBAC13B4F9467882392D19@MN2PR12MB4829.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zFprgHVWizWHcZr+bWAfXkQMbOW7bb1/6brkPIttlkDE/IO+w/OHqeDhk7pWMs/me+g2LPRNoqMs2Uhicy8x8GRvdVyIcidTRmautZmswFHqvJ2TG6dmUBaYaTvH+IlIsAFziee8xTSAo1b8nMvi6P5WhhpWht3gTKI+WO919Y7rjO1TogqGKoEEM86TID4cJimVhkknUDfUm9uTVRUF8KkusWg6g6Ocj0Wl8e9C8oiA0JQGSae3u+LJKoHdrYl4HaNASliC7YyGHl4rtVrXmeYCPaKljlVV82npyVprk3C180+SCEuull6MfTJzylkbSyrQjwWcBonYMCA2iW/qKJ4cA98oH2ubbZpjgn2oEbe4n9+7M+Xu5z74/gKFYykKVeFzEVd0ih6bLLkhjHiunwH7HKP4VOLMjwLjLYQReGLMqZ1eujG8rEKktgoDnUl35n+Mp7CjnHI2y2Z0J/ck4kJRhE3Jf1W6VdEMbrGXgin3EXYyHLE6kJilRj6buU09DmRPd61Rhy4nHN5W5YNCIbP64EirPKMInATAyoZRgY2PpCflOu9HOlNTevL/myKLOM31oQTr1GCHKT48cC1knrgIMDnoJVHAgdepmb2u0uil0TpZncQUQVzWV/qKyWuXwdDiuCDjItZhCF5b5axUw9NYrN5b0nnt1umIIGwHAnI5S+iLS3X78Eeazt4BdZf7GH6xUNbdQ2UZDHIs/h51s6fR8RTp6qHFwbni63TlePkTrrVEUa/rmdUOCtsz8HD/
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6486002)(8676002)(5660300002)(26005)(6506007)(316002)(6512007)(44832011)(186003)(31696002)(508600001)(2906002)(2616005)(86362001)(8936002)(31686004)(36756003)(110136005)(38100700002)(66556008)(66476007)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmxRV3ExS1FFeHpyb3NVblNpK3lYV3Q0V0FCbGtoWFRFVUZtR0lDTzNKVXNY?=
+ =?utf-8?B?VlJqWjB0bTBZNldjRzc1aVgrTUpka0dTVU82Sy9nQVBVZGV4UUxQcUVmNngv?=
+ =?utf-8?B?QmZJbi9pVENPUkl4aWtjWEoyay81cmtSZis5aWpHMTNCemJwRWQvVHg0L2ly?=
+ =?utf-8?B?NTQ2eitWb0d5a3hhM2syYjQ0OTFwZFQ1L0k2WW9PakhjVWdjUWFYT1lmVkcv?=
+ =?utf-8?B?VEVjQlVBVmRzTmlQbkl1TjIzVXNDMzFTa2kxZ05QMDd1clBMMGtLUWIyWXR6?=
+ =?utf-8?B?NWJKOEx6SkJONTFmbmFoSm04cTc3QWUyTEpIYk5rbHhmRDV5WlpDSTdyME1x?=
+ =?utf-8?B?ZDk4bmhNTUhJd1ozS2ZMWG5KVElBVEJMMWh5dS94dHBLSmQ5V2kwRUcvZktu?=
+ =?utf-8?B?MTFCWDBuVlROSjMzZkE4dmxXNEd5dGgyWS9GR0kvb0RrUHlUSDhUaG5PZ3pY?=
+ =?utf-8?B?cElvanl2bU9BQWo1WUtmd1hSdTM1NFpsb0s4bktCYWxkcGd5NFc1aUQxYVdX?=
+ =?utf-8?B?YjNMV1I5MzNZbSt4aktDZXV3b0Vqb1FXYlBlMytXSS82Wkg1M1Zib1F2NFRY?=
+ =?utf-8?B?aXQ4TzF4cVpaZ3BwZkkxaGhzTkhPMUFHQVBpUlQwZ0lMNmNQUzFhQjBzbGVD?=
+ =?utf-8?B?bnJOQmRKWHRJTWdUVnhlZG9yWVI1WHdEYllSNXFVdExYaVhYVENMK3B4bUU3?=
+ =?utf-8?B?eUVoODFMSFZNMkg3Vko3YzlQSmpwME9obHArcU55YllYYmNFbVNTdGFvUWVR?=
+ =?utf-8?B?QitWOGswVGtoV3Z6cWcrYm9XQTViL0ZiWnh0eTJ0ZGZRcHUybk42SUR0NWVM?=
+ =?utf-8?B?WU9xK3lpbGQva1h3cDMrK0g3K3lDcjZzMy9XSXBaQUlwVExaWmlrekYrZ3lu?=
+ =?utf-8?B?M1RnQ0llSzlwYWN0UWZzdVBRd2hqZnpoNjVDa3hQWUVRUEt0aGxRNkZRZjVT?=
+ =?utf-8?B?aWFwWHpMdFJuVncvVGlMc282eGRIRVVPQmoyUmQyem14cDV5aDBiaEFsS3Fq?=
+ =?utf-8?B?SlY0dVBINTBDRXNER1hNUEIrTlRzc1JyempUQWZ0Wkl2ZXpuWWMzc0dLMWtu?=
+ =?utf-8?B?RE5yeUl1Mzl4Qm93eEl1Y1BGbVJDMjdPRGhYbjhJWUs5Zll0TzhQdEJqT29v?=
+ =?utf-8?B?cEJ5STZ2L3ZQTUNTUnJEVGZSWEQ3Z1l4RGMyY25UNzFhZnlaSnhCS0s3d2pp?=
+ =?utf-8?B?YU0zWnpGdE5aVW84Z0FJT1owVE96eWc2eEUzSjc4S1NpbHBzOVpIMXBpUmFs?=
+ =?utf-8?B?SGV4N3R5c1M1SjVMbW5hbXNvU3hqVEhrelkwYmEvdC9iWTFaa2IvMkdQaVVp?=
+ =?utf-8?B?YVB3YjkwU2wxdmh1dkxpRk1SaWRiQzlkaDd2cHVoaEEyWU1SSnN3a0VOd2E4?=
+ =?utf-8?B?dFpnYzNlY1JyNXlYTE5wUTF5MTJPZVo2NzNQR0ZXRFdHa3RKdnFhbk5PaDI4?=
+ =?utf-8?B?azFoUzQ2cnpSZWZBMFEyTUpZeis5V0FGYVN6eXBkbzNRSHRoVDR3cWNLNzZp?=
+ =?utf-8?B?VnQyMkNmZmNjSHVEK0xZV3RzbU9MV0YyWFh5UFpJcFRMbmhZWDBOWFZyZ3Er?=
+ =?utf-8?B?OHVQMEVWRzhLbWdMVFU5OVpuRkFCek40aUxsakNyaHdrNTdXSVpzWmhza1Ra?=
+ =?utf-8?B?SndlSlJRSDFvemJwNXlrYWpZcGtPcW1Ib05BQWZCNGdjcEFReGhVMG8zMk1D?=
+ =?utf-8?B?RmlsTXJkMnJ5eHNGdGRxR1dqWGd3eCtBZkdSby9tTkR3UjZMTEZiRDVEbkla?=
+ =?utf-8?B?R0oxWTVHSkNDSmtuNUhLdXZtRW0rYUdQZnNISlo5aUJDeTc1VmMzdlQvNDRk?=
+ =?utf-8?B?bWdzRkUwNkY4bWhTQU43aHB4dCtnNXdRQXV0aXkvaHI2YUFsNmhEMHI0WVk2?=
+ =?utf-8?B?VDVlN29ZOEhFd0UyU1d3WGVta25rZWpWS1VOdER0d3U3R1UyY0FHVzJpbDc1?=
+ =?utf-8?B?VUx1bHJ0TFZkQU1tSlY3a09nZVNFNnBKV2d4blJVMC9FdzF3UkpMZUlzeVp5?=
+ =?utf-8?B?dDZnMWZwQnpXTVBJK042V1czdUFWLzA3NWFXV2tYcEpveWpZSVB1TXhFVXo0?=
+ =?utf-8?B?OVJhblBsRmk0ZWVUUkVnZklnek1uRm1Db3FuVzNGMEhMbGErQkJZRVVVeGIz?=
+ =?utf-8?B?SURRZXdjMXN4T3lZdUt3U3RpQVo0ZTJZVGx6TlRwbVZiM204SmdNYXRwZTB0?=
+ =?utf-8?B?cXJ5UUZwSE9mejRNcTNIdDhoWXMrcUl6clJJUGJ0K1BITmI4akEzYkk4WFg4?=
+ =?utf-8?B?MC9VVUFtNnFNVVFkdUVDbG9GbG1QRXUyZDQrdFFmRmErWERvMCtSb2FYRWZ2?=
+ =?utf-8?B?K09sUHBsUzJuN01XQy9ydkpkV2NRR2c1Q3UxZDFZNHJ1UDF6ekp2UT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ff43ae4-7728-4bb9-c795-08da38d4ce24
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5139.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0f960c7-0364-4e6b-51a9-08da38d17768
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2022 13:22:32.8835 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dmDN+Vjg391d09ydRAJ6mh9wJ2be1BAxwaN/htni+l/iKVzVTGhExpCXa961dZPAT5uLeG8l5MLT2kZYMl43FA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1527
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 13:46:27.2366 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jHvooXSIMnqTk/6ls05lzM5lz0ooaoLcluQbr/EB8Bb+xMKT69QVoJjdmoLYWBE85RwLgtI+fRc42kBXD8ZWsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4829
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,216 +129,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yang, Eric" <Eric.Yang2@amd.com>,
- "haonan.wang2@amd.com" <haonan.wang2@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Pan, 
- Xinhui" <Xinhui.Pan@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "wyatt.wood@amd.com" <wyatt.wood@amd.com>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB513911CB22A1842FD391126BF7D19CH0PR12MB5139namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-DCN 3.1.6 needs it, but I don't know if yellow carp needs it.  I think this=
- is only applicable to kernel 5.18.  @Kazlauskas, Nicholas<mailto:Nicholas.=
-Kazlauskas@amd.com> can you verify?
-
-Alex
-
-________________________________
-From: VURDIGERENATARAJ, CHANDAN <CHANDAN.VURDIGERENATARAJ@amd.com>
-Sent: Wednesday, May 18, 2022 8:36 AM
-To: Sasha Levin <sashal@kernel.org>; linux-kernel@vger.kernel.org <linux-ke=
-rnel@vger.kernel.org>; stable@vger.kernel.org <stable@vger.kernel.org>
-Cc: Yang, Eric <Eric.Yang2@amd.com>; haonan.wang2@amd.com <haonan.wang2@amd=
-.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Pan, Xinhui <Xinhui.Pan@amd=
-.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; amd-gfx@lists.freedesk=
-top.org <amd-gfx@lists.freedesktop.org>; Koenig, Christian <Christian.Koeni=
-g@amd.com>; airlied@linux.ie <airlied@linux.ie>; dri-devel@lists.freedeskto=
-p.org <dri-devel@lists.freedesktop.org>; daniel@ffwll.ch <daniel@ffwll.ch>;=
- wyatt.wood@amd.com <wyatt.wood@amd.com>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>; mikita.lipski@amd.com <mikita.lipski@amd.com>; Wentland, Har=
-ry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.=
-com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
-Subject: RE: [PATCH AUTOSEL 5.17 13/23] drm/amd/display: undo clearing of z=
-10 related function pointers
-
-Hi,
-
-Is S0i3 verified for DCN 3.1.6 with this?
-
-BR,
-Chandan V N
-
->From: Eric Yang <Eric.Yang2@amd.com>
+Am 2022-05-17 um 20:32 schrieb robert.dazi@yahoo.com:
+> Hi,
 >
->[ Upstream commit 9b9bd3f640640f94272a461b2dfe558f91b322c5 ]
+> There is an interesting feature divergence between amdgpu and amdkfd concerning the shared/private apertures. I restricted my analysis to gfx9, it may differ with other gfx.
 >
-> [Why]
->Z10 and S0i3 have some shared path. Previous code clean up , incorrectly r=
-emoved these pointers, which breaks s0i3 restore
+> In amdgpu, the pair of aperture start addresses is defined the following way (in gmc_v9_0.c):
 >
-> [How]
->Do not clear the function pointers based on Z10 disable.
+> * shared_aperture_start = 0x2000000000000000ULL
+> * private_aperture_start = 0x1000000000000000ULL
 >
->Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
->Acked-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
->Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
->Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->Signed-off-by: Sasha Levin <sashal@kernel.org>
->---
-> drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c | 5 -----
-> 1 file changed, 5 deletions(-)
+> In amdkfd, the pair is reversed (cf kfd_flat_memory.c and kfd_device_queue_manager_v9.c):
 >
->diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/g=
-pu/drm/amd/display/dc/dcn31/dcn31_init.c
->index d7559e5a99ce..e708f07fe75a 100644
->--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
->+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
->@@ -153,9 +153,4 @@ void dcn31_hw_sequencer_construct(struct dc *dc)
->                dc->hwss.init_hw =3D dcn20_fpga_init_hw;
->                dc->hwseq->funcs.init_pipes =3D NULL;
->        }
->-      if (dc->debug.disable_z10) {
->-              /*hw not support z10 or sw disable it*/
->-              dc->hwss.z10_restore =3D NULL;
->-              dc->hwss.z10_save_init =3D NULL;
->-      }
-> }
->--
->2.35.1
->
+> * lds_base (ie shared_aperture_start) = (0x1UL) << 48
+> * scratch_base (ie private_aperture_start) = (0x2UL) << 48
 
---_000_CH0PR12MB513911CB22A1842FD391126BF7D19CH0PR12MB5139namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+It's more than just reversed. If I counted 0s correctly, the aperture 
+start addresses in gmc_v9_0.c expressed the same way would be
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-DCN 3.1.6 needs it, but I don't know if yellow carp needs it.&nbsp; I think=
- this is only applicable to kernel 5.18.&nbsp;
-<a id=3D"OWAAM829909" class=3D"t0qjo mention ms-bgc-nlr ms-fcl-b" href=3D"m=
-ailto:Nicholas.Kazlauskas@amd.com">
-@Kazlauskas, Nicholas</a> can you verify?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> VURDIGERENATARAJ, CHA=
-NDAN &lt;CHANDAN.VURDIGERENATARAJ@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, May 18, 2022 8:36 AM<br>
-<b>To:</b> Sasha Levin &lt;sashal@kernel.org&gt;; linux-kernel@vger.kernel.=
-org &lt;linux-kernel@vger.kernel.org&gt;; stable@vger.kernel.org &lt;stable=
-@vger.kernel.org&gt;<br>
-<b>Cc:</b> Yang, Eric &lt;Eric.Yang2@amd.com&gt;; haonan.wang2@amd.com &lt;=
-haonan.wang2@amd.com&gt;; Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Pa=
-n, Xinhui &lt;Xinhui.Pan@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueir=
-a@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.=
-org&gt;;
- Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; airlied@linux.ie &lt;a=
-irlied@linux.ie&gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.fr=
-eedesktop.org&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;; wyatt.wood@amd.=
-com &lt;wyatt.wood@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
-d.com&gt;;
- mikita.lipski@amd.com &lt;mikita.lipski@amd.com&gt;; Wentland, Harry &lt;H=
-arry.Wentland@amd.com&gt;; Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd=
-.com&gt;; Kotarac, Pavle &lt;Pavle.Kotarac@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH AUTOSEL 5.17 13/23] drm/amd/display: undo cleari=
-ng of z10 related function pointers</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hi,<br>
-<br>
-Is S0i3 verified for DCN 3.1.6 with this?<br>
-<br>
-BR,<br>
-Chandan V N<br>
-<br>
-&gt;From: Eric Yang &lt;Eric.Yang2@amd.com&gt;<br>
-&gt;<br>
-&gt;[ Upstream commit 9b9bd3f640640f94272a461b2dfe558f91b322c5 ]<br>
-&gt;<br>
-&gt; [Why]<br>
-&gt;Z10 and S0i3 have some shared path. Previous code clean up , incorrectl=
-y removed these pointers, which breaks s0i3 restore<br>
-&gt;<br>
-&gt; [How]<br>
-&gt;Do not clear the function pointers based on Z10 disable.<br>
-&gt;<br>
-&gt;Reviewed-by: Nicholas Kazlauskas &lt;Nicholas.Kazlauskas@amd.com&gt;<br=
->
-&gt;Acked-by: Pavle Kotarac &lt;Pavle.Kotarac@amd.com&gt;<br>
-&gt;Signed-off-by: Eric Yang &lt;Eric.Yang2@amd.com&gt;<br>
-&gt;Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-&gt;Signed-off-by: Sasha Levin &lt;sashal@kernel.org&gt;<br>
-&gt;---<br>
-&gt; drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c | 5 -----<br>
-&gt; 1 file changed, 5 deletions(-)<br>
-&gt;<br>
-&gt;diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/driver=
-s/gpu/drm/amd/display/dc/dcn31/dcn31_init.c<br>
-&gt;index d7559e5a99ce..e708f07fe75a 100644<br>
-&gt;--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c<br>
-&gt;+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c<br>
-&gt;@@ -153,9 +153,4 @@ void dcn31_hw_sequencer_construct(struct dc *dc)<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dc-&gt;hwss.init_hw =3D dcn20_fpga_init_hw;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dc-&gt;hwseq-&gt;funcs.init_pipes =3D NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc-&gt;debug.disable_z10) {<br>
-&gt;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; /*hw not support z10 or sw disable it*/<br>
-&gt;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; dc-&gt;hwss.z10_restore =3D NULL;<br>
-&gt;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; dc-&gt;hwss.z10_save_init =3D NULL;<br>
-&gt;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; }<br>
-&gt;--<br>
-&gt;2.35.1<br>
-&gt;<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+shared_aperture_start = 0x2ULL << 60;
+private_aperture_start = 0x1ULL << 60;
 
---_000_CH0PR12MB513911CB22A1842FD391126BF7D19CH0PR12MB5139namp_--
+
+>
+> Is there any reason why those two definitions diverge ?
+
+I don't think there is any deliberate reason for them to diverge. But 
+there is also no reason for them to be the same. The sh_mem_bases 
+register is per-VMID, which means these settings can be different for 
+every address space. The address spaces for graphics and compute are 
+defined independently of each other, and there was no reason to 
+coordinate these settings.
+
+Regards,
+   Felix
+
+
+>
+> Thanks,
+>
+> RD
