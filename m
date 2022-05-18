@@ -4,119 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90991C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 06:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 931ACC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 07:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E995C113E16;
-	Wed, 18 May 2022 06:07:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4F2113E16
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 06:07:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KI1CHTS2FCQCqtIFg0XyLwQT/nIyZhbH327GaCCUf4ZOAEmWzJMhy6+8+0PGIiEc40SWJTVCnMDwFVB026F1f2PEXwMz+bNiYz42vwE72dPbvWOUo99TZl588wNQlBy8H1aCaS32054luWzlFRuni8vxl6xTfPrEYwIAsjry+bNssHS/pMjybt5RFBZBaYfiiUQ3ujMi43SladGJsA6fJFnvwYtLNqHS4mfjsxyJ6/BRVHIpOSBTmld/847CD7CocYkeHcT077WgMUbmjgPXKqVKydn3HpSJq4hwmbHvdyj87HhGputfp6E261CnmLSdrtFDmXlBeYScapZ8fUw6zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HVYBmtxd4lZQli6RSA+yRK8kJuM13IwvjMhDjs6dCrc=;
- b=bOJyIuFMypsI/cvW2TFRrqtCSg0PuxIOOobfNL96JcT53AwENbSfWvSz7F9ZegJ64xkSENM1nVArQNEX5X3sfuHQbA2NuWnl0Rnc/s18H3YfkmuLBz52wZMkMymzw7weElPaVqtnkSz3haQFJzNDZONzsw6K3zOUGs5y1KSYf3tEtKBT8p1UGxss7PAnWqCB8nVnTWYJk/EF1kdRrnuoGHlmuvZNAJ5zg2xGtOgitBxE9zWKW4vYOGi3v43RY1GOupc1lKRMheyjsJzFr9oZEtx+Ls3Rg2gkf7c+uz5RrY0n6f4SOP15My9PHEvdSXVwbDsopQQt6pWDILKmx5wZZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HVYBmtxd4lZQli6RSA+yRK8kJuM13IwvjMhDjs6dCrc=;
- b=c/6xZYovv5gAA2/QsiRsH3gJLpcKmRmBvNkjTh0Cp281nF9gq/BcHiuAHHKETM9uIn3wCHGE4gVM7+LjbWlmz53XH8wXE/BTzFK5ok9zWHzmdNqewJ5p/QL25yG6v6SWsXflBaUvOqxvb5SD5+Gp1157AHslN9HlpuzXTO0bNTo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM5PR1201MB0250.namprd12.prod.outlook.com (2603:10b6:4:54::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.18; Wed, 18 May
- 2022 06:07:15 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7146:65ee:8fd3:dd03]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7146:65ee:8fd3:dd03%4]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 06:07:15 +0000
-Message-ID: <1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com>
-Date: Wed, 18 May 2022 08:07:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH v2 0/7] Fix multiple GPU resets in XGMI hive.
-Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220517192102.238176-1-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220517192102.238176-1-andrey.grodzovsky@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0154.eurprd04.prod.outlook.com
- (2603:10a6:20b:331::9) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 924E3113E27;
+	Wed, 18 May 2022 07:13:41 +0000 (UTC)
+Received: from sonic313-21.consmr.mail.ir2.yahoo.com
+ (sonic313-21.consmr.mail.ir2.yahoo.com [77.238.179.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B683410E530
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 00:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1652833761; bh=HI+VfEe6tOHYE/yKwfP0rXLoiBOX05BUg3O9pFnl7ss=;
+ h=Date:From:To:Subject:References:From:Subject:Reply-To;
+ b=VKx7v5IDpErPqN/Dp3MbnCmMyx5k2Nv/ux5cBvglIcmkdnsGV9sD0vrO3Y4FDWo6Py8sbhVfc3wK1YyK3oo6MBq/r3YOjmJ99t280uUIcwM3IXhdepu3pVbJliMWuampovbGFuSyic1usnojThDj8HiDePgknpdzzeLG4G+q1bV4tcGtKchI4uR1rgd1W60TBhgl/PE9ll6WeNAHqdVlR8DOT3Vt9P8iZKTKji2qE/nAm8hbHDy3ZLGGuTTXzdCebMqOvWm8C7gau++j+ddYx01Vv8QWvOfQXFIFI78UfwTH2ujsgOUV2kX5EI+wlHEiLB0AbaKnD3NsnqR/UMxnew==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1652833761; bh=4WQ154L3NcgX007R0n6qmzH01bRs5k99vrK5rznVZWd=;
+ h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
+ b=RTyYoCSRh1NPwFuw2CQNB4QTrCRJdQXozUlGVc+jFXZLoKeQPJhYoLpj3KT/WlMZshLd0tMfxOHuRR3twg8rG32DGKwZlbB+kNCI3k9904jkVAlCdiEmmQdUIU93ZM0vKsWNJG+9pNesyUQnoMqBBdr4aOsIYorD2YA+x4Zm3NdqNdsADYcQ3pCCzAiFdSmASQGIC2GnZNuMnbb6czs2JhVPT5Nv0b1aIh1qUIqgJyS0PElHG0m1YUkekpNf2I06T1hVx83/LvDSwH10OcIRW9kmfJAsPeIJo4q6Xrzi1gck1rS62TtvsnPTunKrgu4/An2fgAt4rm20482MYPm95Q==
+X-YMail-OSG: KS6rXWYVM1klS01PAHP3tW_ETrBrq4H6gT6Sh1mrKjNKdNQEsXg.Q.13u.TVK0H
+ ebMV1qf2pdSV35SSOiVJ8xHGkwUAEv0Us3GJP4cI1H5hwv77tCWNAloIFfmU5I_lpFLVmnoMlEMG
+ 74gRb7yDS.nYTSfSGfOiQZJKNVM3SM4sQITEiyWKoqLHLb8FitW.6zFy3vbZhUjwmscEo7C7HM1v
+ .BsFWx7Jg9QNeqs2H_XDTwGLf0KkosiXOeWXJzvrPNZJLbRgkAmE5aWox3I3XYUk5.PbgaUFL73f
+ cKCrXok8M.bOgicyTAvQG.AZC2_NDtE8mFjy5c7uzM200lo_5l8IK5AN19K4Mh996nhHMgYZCIIW
+ rK5x0DsdBnIkdruaj8F2zP.d1d7By_Nhzp5qEbTsIf.ILb8Qgeru7k_8PGaAUvHYpxAFB1_fzLUi
+ UCgyJoMviT2X0hRWj.76f0whvEaQFRu9wiSXL5igt45HCWYYzKxwIWDesIHqD29RJOv9VyW_iy.c
+ CRxuqlOAYI371nEeD1sxOavGGhnVoPGwDndC_dDuAyiGiTMcbCNZs5.L4xIBV6td0x_hI0OgRE9a
+ WJckO2wdw6ZJCgRvrQ85hnboUIxFatLFoH9kOf.71NtTX28Z2RGfZAFiqy2T0zTW25J3y2G0gfTd
+ Nf2r.GsN9Xby5mjUjda0s_dnF4x8LEdG.auZUhOWtSFcbI6HA.dpF92HKfX_jzyZoWGCjMTMkZt0
+ I8BSXvtqVltVT9IYNyZrb2YopW4fCECQzoo9A_FT6WsN02r73T5eZceED8b2TiSFoxuyzhtU4S0k
+ bpLyPMRxa0fXcPod6Mr5NVUl77.n9W.shx8D085n2eeN.nxj2mz55.8G_D99VuNNfuQoHPnTZBFK
+ _ZWqJCbgfFIDLBc5zGUQ46x_QJKYnN2gPswW.bbiAHt9J43V8g8qBQdBgn7xaa02bM0gw6cwQZdw
+ 9gSLsrVqNdzWefyDE.qgAQ_L.OWghcm0eXibQR.BOD8wxOHkiKU5y4XpOQY_irlrRaUW14vbhvMo
+ fwX4LRVOTYNEejLvDab7wPietQAQxYQ4oKtKuv_RRRAaPQgZttfpKt0bd1i5n3Kj1vt6BmrpmFEG
+ PYGco4hdPjsqSvjaCL0c6kuHQb1_ow9VzuzfilA6eMM7GaDZIwVJsN4Ni.ONnO5MUOt4SkZ5o6B6
+ wl9VQp5mJ2v6EczuHLacmXR_ip4MV6m0sD96FfHC7.sp_IuxUXpjIDRYRRoKfifva.V.WzCwARCa
+ ysudpZNy7bqggcKCCSVAvvuvZ0Mb.A0IapLvfVjRu7l6rgvJJKHmF.RWELgWmChDKBFgG7Kq4tzL
+ O1sfgzO9fMFgm64laYWm0FUk_Yhh2Ye3dXaTuLdMhbfCeH_KYfrprChJZzOOpfhljTC_.geDUXg.
+ 71FMRhA6sw1G3TnKxMKtMitDe86U5KW8MN0gN5wgLEqjYbYkOek2kmGe.Qo1b2AUT4I7q3ioBCVk
+ xxk4uDXYm8h.5iT9e0hn.vZGTWpGxdKxL.GXrTn2CWE9PnbT70pAHEYB4o.hOctvaXTkJOEoqpZU
+ dI1Zyu1yC3Czqpj3T41KS.Lt3hXWhI.Oq4fbYa1Oa14xSA.07F.c2slleesx1PRdfQqBXtPqsQOj
+ mJtZYzwKaNzvDnNXSZmEorXbwBa74E46Ljt.dPsf1Ff75Ld63Iv3QIj1bkcR1Cz_hFogkgFPzWcd
+ MhHlsjnIpYb_iXEW7kwy185oVAl0sH6UnfU0Yb0Z_ezlufG0dZlGJZhRRxdlsL8io79ohUfBgg65
+ 6Hp6DMaVSL8nttHlOeCl5PnDwY4W4JQNDf5.UR8FGUedfqggQpb1AvfKTSJdWVuy7OtOgYiT1AID
+ 2gfHG.w2MroUrX2IpOT13Z1zY2AhAb.D7bWkQje99McZQf.LgKE6wpDCpNOgT6ZILDX87lp_iFRk
+ hSCKWBpwL6nTAmRj8Oznfegk22JLznttAzJlzTobZWPtZqm9Y5Q2rKtaCMgOnhV3iluoZQPYVVvZ
+ 6PW.KyNcyqBQrdxI5KgYtfP5JRKLkpbhwkGfPhowSiahCu0M4MOIIyZ4dP921ifOnuVf_rLWmLwb
+ r4PF7dOlvYkXiIm5Pkt1KN4USxRDv6N6ZgmbGiUv1Lls8sde1CNG18aNGUuafIDR_hjKCotRNJuH
+ H_4vZoIkVbiobUoWVxfnIozTkM4txVG08_Jeb56mqsb8OOTFU5cFwq5Lvb.2aau5mEYl6FQ6Q9zm
+ z6nIeJM1Id.dwB6FSOuR5NQ--
+X-Sonic-MF: <robert.dazi@yahoo.com>
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic313.consmr.mail.ir2.yahoo.com with HTTP; Wed, 18 May 2022 00:29:21 +0000
+Date: Wed, 18 May 2022 00:32:25 +0000 (UTC)
+From: "robert.dazi@yahoo.com" <robert.dazi@yahoo.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Message-ID: <919822485.7462667.1652833945250@mail.yahoo.com>
+Subject: [QUESTION] sh_mem_bases: amdkfd vs amdgpu
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6a431ae4-8dce-433b-636a-08da3894a7f8
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0250:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0250DF375DF43DC0AB55D92483D19@DM5PR1201MB0250.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 44F+Oe9fNxPLqlUIyFk1eiO1SrvRiKuFrmZKcR1KgxKSlChVBxXkGp3ArcFJcuSlKnLqpoHJSRoMiEhz8vu92Q8zMRE+TuvsMusLVE27MPJ3Pqxjqvk+AouHAP2cm3SmFVQHx15Gs1UkIfBVb+1oKAWMvcrMRPd4XdaGBLyDOFWLvZEZPPeq0bUY5PyDmCPxgAYL1Gc38sVe6r3RWY2kPmMkZ7+fVAxDLBXiYya9gEe9dXwdGB9NRJ+GPB1yEnEwafL7er+kLMj8Ccva8jQDXCIXQH0i0YqlAE78o1kOajQiK9DZ6sdSCvmYoy2MxhuHJljDksdyeeqzL1mSDmOZdlPXuS5O3L/o1teAItPr0LnXSQFYo8g0R0ljcwWL67MNiiClKCoulUIwsZw/J9zlB6aSLvQjEUXsLDgO+TeMsFzHOB7/P0214wljKsiyFpcI8Olo13f05u54f++vw43sHAC8L81EQiAdfWnWqZH7ntpeYXqCHRexhE4qGyeO0qqpytsLwRfiY+bLiY10r4DuEdkmlQP1K+gwe4KdCsHaeEiv0msksFHJqAPoIp7cY1RMmBJAP5sfLAq5iY9daUyTvRqpuZIDWSDCQOBjGAqgQ0GnnkwMyI563XFDd0XMQEwBAttI11CX8AXCoD9pyjDgXRXgTF7UpybwD4uakEHCaAKO6jv2m16aNW/90CdlLh8xK8CDobvu19fbltPw1ZZ0GGcut12YSvIIAcIbHUcRJMn0MQEF9z7dsPGrgjYcOSgOLdKUi0BDN3IrBZOAQg6MyZPXx54idQkFfFdSU0TN+jM6qf06qCeO/6ldGDR34a9+bfFsYnGoQOS/GrtucOObsA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(316002)(6666004)(36756003)(6512007)(31686004)(86362001)(186003)(966005)(8936002)(4326008)(8676002)(2616005)(6486002)(508600001)(66556008)(66946007)(66476007)(38100700002)(26005)(2906002)(31696002)(83380400001)(5660300002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnJNbVZ0dW4vb09INXArRTNMdWtTWXhJekpEMHdvWk5BTUwwMjFLeWV0U3lB?=
- =?utf-8?B?RERhbDZlWWRUbEV4RXhpdmZYWHFiaDgrK3k5bjRhYnFuUGNudUpycTJGbGJs?=
- =?utf-8?B?QWhjS0VOWVVVZXJ2MmU5L29mSG9hU2FwSkwyTFYzMGx5OEticUpJQWFuTS9N?=
- =?utf-8?B?c0lueWJRbmUwYVhPcHJibXNldE1OK2pWc243Q3JnVnpFS1lsNTkyZ0lmMU45?=
- =?utf-8?B?V1B1enVCZ2ZTUnQ3b3AzbWRNYTA0OXJoTVQrb3ZYbTFNdm1LSGVwMmlCcWly?=
- =?utf-8?B?blZUVlgvNUVXWWRhMERGN0tuVm1VYkZONmFrUGpXQzUwbyswQlZQQ0VpbmdE?=
- =?utf-8?B?L3VHa3NyMkNIeEV1RmVURVd4U29zRFd2UkpYR1JxNjNYUElrRzlqWE9pdTNU?=
- =?utf-8?B?VEhNaFFvSlkyTktkTEttbEY1LzBjQ05POEhTNmZqOFJrYlRFajFqT0lXcG5m?=
- =?utf-8?B?bWVCMTNOaTFiNm9taUFMOTBtSWRmVXdHVndJRlYrWUZpMEJDZ2JXOVhIck5k?=
- =?utf-8?B?TTE5ajl2S01sR1pudUtsYVg3a0Y3SzkyeEUwVmZnUVg3NVJUeXlYYWhTSVdV?=
- =?utf-8?B?Sm5ScHluNDBQMUp2TlJPalNkQnBTbnYzcWttSGJ1VmhrU3grVDlxV3pLOEZX?=
- =?utf-8?B?eGpvNUFTUW1RdE9ZUHdPUFRZc0RaOUFMWkN4WUpEdVJXRTYwdzAzV1Jid2lx?=
- =?utf-8?B?SU9Mby9rOGtkcC8yeXBnRS83VTBYSkVkbVI4d2ZITlNrQkJ5dmpqclI3MUZT?=
- =?utf-8?B?Uy9BNXp1Y0cxRUdOSWV0S29kNU9wakxzSW9nQkVCL0E5TXBEKzB3VkVOK3lR?=
- =?utf-8?B?SVBjZHhMdUpSaXU2N0pTTTFFZ2lzNXZxdnhnWHkzdHNVcTIxRFNSRy9DZjNo?=
- =?utf-8?B?MTVGMTVMbkFGNWwvcE0yMGN3ZWhxVEdNR2pQbGovaGpFQXFRbUdyMXUramxz?=
- =?utf-8?B?ZW5RMTlKRy9wOFJOZ0tHNTNOUjJpRjJ5MHhEZklvUFh5TEtvQUg2aWNwUThn?=
- =?utf-8?B?ajhjSkhPeXhieC9yUldka2E3bGEwVzl2emZVR3FRTDRHaDhUeFZIZnF4MU1T?=
- =?utf-8?B?ZTVqUy9MM1dWejNpcXp1cXNDdjBXME5TaEVZMi9CTmpoZ1c0dGgzY20yQXUz?=
- =?utf-8?B?WlFKb2xTYjBBSmZkNHJrS0liRHhDNVM5SEJVL0dHeExUblcyRFVTaGhVR2hs?=
- =?utf-8?B?U1NkVlNWakJWVkRMSnNBNUF5eFptS3EwOE9iN1JWaXJZd01zR3h6ZG0rNlhV?=
- =?utf-8?B?QzZvOWFPamN0emtYWlNTTU5TeGhsNTl6L29vOUZDdXNGMlZDODdLQWkxZmt6?=
- =?utf-8?B?cTljZ2dOMEl1VFlaWHZCRWpQWU43eXh1aDZIb29mMk53dnpzS0QwSnhOeTFZ?=
- =?utf-8?B?eUtMZlhjWjN6L3l4cVFBNGFkdUpWRTlmMlh2MHJ6blhmM1JSY2Y5cXFUN0J1?=
- =?utf-8?B?cWFyc1MzaE12OHFhWEwrZzVTK0RjQ2Rhb2Q2d05mc1BEcm1OTGpjZ0VUTTdX?=
- =?utf-8?B?UWhIU2wrQm1sR0h6UkwrT1hONWlYNHlEZUpJaEVwMmc0K05JVjZtdlFOVVM4?=
- =?utf-8?B?WC9XUTRxS1VWUFhGODJGVVNjRUs2TFlHbnpVK3Q5ZHRkWXNtOTZyd1EzcENY?=
- =?utf-8?B?Qi96ZnBDb1hhalQvbG1NeGw0dHNGcUVITFhCbzNqVHFFckhRd0Y3V2EvOWpW?=
- =?utf-8?B?SDVjOHBCME8xT2pRclFKVEJPUEM2MFFQQ3pzekxxY2JFajZFRUYxZGJhQWJz?=
- =?utf-8?B?U0xBWDVLMXZEc2liREVVcEVaekswS2gvd2NQZ0ZwMHRvQXVIL0gyeUNUVGZS?=
- =?utf-8?B?bFErUTRoMWFjMncxVStVeFZUc0xGemhEemRNMTdhbFJIZXpNL2g3dFhJNjN0?=
- =?utf-8?B?aHRuZmFxeEo2L0t4cGtkemI2QkpUblZIQ2w3dGpJclRjWml3dUN3dVIzaDRF?=
- =?utf-8?B?aVFDai9NaGhUcnpCeWhycEo1cXZwZDhueTBuM1BOMlVaWnpBUXB6TU5zR3FY?=
- =?utf-8?B?Yk1WVDFWbnZNVHJyL0ZxN2NoNGY3NU1vQTNnVUVTek1HZzVsQVFEOU1KblNy?=
- =?utf-8?B?NzYyWC9hOFVGTUJISmFIZElZZGtHTTNZRUM4bGlRb2dyNUZpbjFQSElDa1Zm?=
- =?utf-8?B?THJpaXRqVElReE13MXRNSGRWM2RvUkwrelQ5aXJ3VE9JWDNpUjVJaG9aVUtx?=
- =?utf-8?B?QmNaUjl5VjZGamovQkdZZEdmL2srRzJZV1Jaak40RkdhTHcvRXFEa3VuSmxR?=
- =?utf-8?B?UmlnYmllVHQ5d29uQmRzdUlybExmbTFYbjBIWUJjZHROZmhlRkU1dTBMbjR3?=
- =?utf-8?B?U0M5QnYxYm92Wm80S3NHdmZZMmRyU0FaTzc3aXFicndZVkRGbE5kZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a431ae4-8dce-433b-636a-08da3894a7f8
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 06:07:15.3235 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: le/qTZotwUA3DunVfQwqgtuSdKSni0UwesC0CtEYk1cmsk4nlGVlmwQmmb2Zaixn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0250
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <919822485.7462667.1652833945250.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.20188 YMailNorrin
+X-Mailman-Approved-At: Wed, 18 May 2022 07:13:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,61 +77,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zoy.Bai@amd.com, lijo.lazar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.05.22 um 21:20 schrieb Andrey Grodzovsky:
-> Problem:
-> During hive reset caused by command timing out on a ring
-> extra resets are generated by triggered by KFD which is
-> unable to accesses registers on the resetting ASIC.
->
-> Fix: Rework GPU reset to actively stop any pending reset
-> works while another in progress.
->
-> v2: Switch from generic list as was in v1[1] to eplicit
-> stopping of each reset request from each reset source
-> per each request submitter.
+Hi,
 
-Looks mostly good to me.
+There is an interesting feature divergence between amdgpu and amdkfd concerning the shared/private apertures. I restricted my analysis to gfx9, it may differ with other gfx.
 
-Apart from the naming nit pick on patch #1 the only thing I couldn't of 
-hand figure out is why you are using a delayed work everywhere instead 
-of a just a work item.
+In amdgpu, the pair of aperture start addresses is defined the following way (in gmc_v9_0.c):
 
-That needs a bit further explanation what's happening here.
+* shared_aperture_start = 0x2000000000000000ULL
+* private_aperture_start = 0x1000000000000000ULL 
 
-Christian.
+In amdkfd, the pair is reversed (cf kfd_flat_memory.c and kfd_device_queue_manager_v9.c):
 
->
-> [1] - https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/
->
-> Andrey Grodzovsky (7):
->    drm/amdgpu: Cache result of last reset at reset domain level.
->    drm/amdgpu: Switch to delayed work from work_struct.
->    drm/admgpu: Serialize RAS recovery work directly into reset domain
->      queue.
->    drm/amdgpu: Add delayed work for GPU reset from debugfs
->    drm/amdgpu: Add delayed work for GPU reset from kfd.
->    drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to
->      amdgpu_device_gpu_recover
->    drm/amdgpu: Stop any pending reset if another in progress.
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 +++++++++++-----------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +--
->   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +--
->   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +--
->   14 files changed, 87 insertions(+), 54 deletions(-)
->
+* lds_base (ie shared_aperture_start) = (0x1UL) << 48
+* scratch_base (ie private_aperture_start) = (0x2UL) << 48
 
+Is there any reason why those two definitions diverge ?
+
+Thanks,
+
+RD
