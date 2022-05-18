@@ -4,135 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78555C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 14:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B965C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 14:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0E9410F08B;
-	Wed, 18 May 2022 14:08:46 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B2A10EFF0;
- Wed, 18 May 2022 14:08:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E9A10F1D7;
+	Wed, 18 May 2022 14:25:03 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3776D10F187
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 14:25:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a2c9JAhJnhtxu263BEcjn8dgHUpjX87s5OOXoM+ANBw3k7HYAng8d5bxZRw48Exx5gj5o7kcVOjh87/6CWkJbxZ1GXTaURJWo8xEjqJMHG5Gc4LkMzgMCYB1F8g+9KxXSWpwWqttc8e7r/0YxZxqZ7MCGp1eCElnjdnO3yE4xzSRl2X08l1VMxar5nbb+7cMtmETY+2uCO/91wihDzPHSm+BBZk6JKSbDxMNT4XapM1aaqkXEV1UnDRBycWoUg2+sP3fV0FTBqGtLC5zwcafMPIxHADWkR+qr6PNVifyJx4n9PT8Lf6BPLdQ7AzEDD9AtxvxL0kbcF2MuFcTGJz2cA==
+ b=diyPjy6fV7FFBHkpQXGz348JyeOOSVqkBh8tfZP2YPAfaJNPNkWtCneimDVn0buH24V+RHlQvpKHDVBVf9PPqpuuEyYlkWvPxw79bTMZp8UUaC+qyGonDFmy/In8fgA7S0vooOFKQlFU0pvo5dEWYP12Ku2ki2YQgcQQuzUxqTCEnyt4iIL0SBdMCAFAzgAEx77lVXLg2qTbnxvYAorav61c+hEJi+CuKFvZeIfhBe6bAFaNgKOr2YrVa/cMReSTxiTuanolXSc23xnTyJ4WRqGZmh0b3zvm7J3kiMhoSEYJRGnO8cRW69vj57keAYWMUVaOie3P7v6IPNoNVU2krg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UAHLnudMYGSCuegRJLDHot21ZhxLoxod6jwDCcFy6nA=;
- b=UcjXSYaB0fENLW63uFHGS+ccZVAskkAs3d+cpVmhD8nzn7uxxOrkekG7JW8Occj8a/bBfhHStM4Fc0Y1HC0/6OiPrv3gBstQV/H9uSHj8ZQC7KPZflptkj5KToPchviE6TqeitrSfECMwk+8AYENcwoHGBOx3mx1gScymHY8V7CZjbUyUT75QcIGg1Frp2LN8gY3ni5xN3uXHZVLzLywzFhcWvp8NZPG8BMsGzTWupl3suzza4RmU5mqCXq2eocugXLkWB9vyqZ8PWJceZEzKnfMucaY6aR7ayZtRgETjNc8KFIC2wS4LL+eT4zxhALH1xg1ks4lFMx1iJMIQfjnAg==
+ bh=1r+Gq3hxpYNQen26NFnupeKmSN9OMXwfgrB9DYL3Ht0=;
+ b=fs4AYlR97tpLGCzQumgCdRpTim5xruAF2jFrXPQ232BonQpXMjgdojAKl5l8Q+DYoXF/Hp68W/n/9U0KUKuM2iq7omAeX4Qnv4K59H/x2Cm2YM4hDYoV8oWQ3yhph8WygSTyqknObmm3iSKU5J17qz+10oGjGFBDIoE8ln6GWFeaW+vn2qWZWAYyK9jn7Aiyr06dyzaFmUlX5rF8DHeSEwYbf+3Y55UnEF9FjTvqsxRQat3jhsLY0ptOWmH8QTwkFXw6gYb/wd9nRnUJrn++bJJCAuMaURlqHyttWbYp+m4lwo9fPxOepTdqPaJDlf+8SC2MIjnL2BM+QNgdosGQZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UAHLnudMYGSCuegRJLDHot21ZhxLoxod6jwDCcFy6nA=;
- b=TpkcEJPKYCVqOOuL2ZqGbaOsAOzM2vzyyiGYHp663PCSIhpVoLwIdDrs6mb6aB3VIef4xmHfaFFGGP1zsv0K1ejaZ8tZ6d04tTdofS8XHPUrDxTfqrvVVTVS1Z2zEb8SwsPlVLCvs7eWSoqNyly74FOdH2CRBRECZyzHfUWg7x8=
+ bh=1r+Gq3hxpYNQen26NFnupeKmSN9OMXwfgrB9DYL3Ht0=;
+ b=zJIRFK+MRv7l0z4wuil+r5IKLeWDL+fafZDIUyDRL4qJ0odQJku/NdAWeF/nt8oggF7m4KyJvvr3Y3ynR1b+JeeKoWqCRQqfmo7lV1F0xAq9mhi+uk/PS7MWwcpJbm1Oz1j4XaDAQdP1VLyIVIX/2RHt+QWEGEkyInfeWEbyt5Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16) with
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by CH2PR12MB3766.namprd12.prod.outlook.com (2603:10b6:610:16::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Wed, 18 May
- 2022 14:08:41 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d%7]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 14:08:41 +0000
-Message-ID: <8110a6e0-1ba0-35dc-7fb6-1f4282cec4ff@amd.com>
-Date: Wed, 18 May 2022 10:08:37 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Wed, 18 May
+ 2022 14:24:47 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9d18:7a38:7c5d:4a40]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9d18:7a38:7c5d:4a40%10]) with mapi id 15.20.5250.018; Wed, 18 May
+ 2022 14:24:47 +0000
+Content-Type: multipart/alternative;
+ boundary="------------4HDrxrv93gboxmghHKel16ea"
+Message-ID: <ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com>
+Date: Wed, 18 May 2022 10:24:45 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [Intel-gfx] [V2 3/3] drm/amd/display: Move connector debugfs to
- drm
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v2 0/7] Fix multiple GPU resets in XGMI hive.
 Content-Language: en-US
-To: "Modem, Bhanuprakash" <bhanuprakash.modem@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "Sharma, Swati2" <swati2.sharma@intel.com>
-References: <20220411095129.1652096-1-bhanuprakash.modem@intel.com>
- <20220411095129.1652096-4-bhanuprakash.modem@intel.com>
- <DM6PR11MB31778321FCA58010AE44D867BAFC9@DM6PR11MB3177.namprd11.prod.outlook.com>
- <29f40e83-a9a8-c0ac-1702-f9d0bf0f8861@intel.com>
- <8a9ba046-5e2c-442f-aec2-f1683097d100@amd.com>
- <576d5993-8108-218e-45a0-bab1ae4ca84b@intel.com>
- <b87db6af-a2a0-8fba-b204-140db03ab79b@amd.com>
- <642bd366-7918-0f0f-a6fb-e6422eb7501d@amd.com> <87mtfhhnx4.fsf@intel.com>
- <7a61da79-90ac-b4e2-d06d-758616b12855@intel.com>
-From: Harry Wentland <hwentlan@amd.com>
-In-Reply-To: <7a61da79-90ac-b4e2-d06d-758616b12855@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR14CA0005.namprd14.prod.outlook.com
- (2603:10b6:610:60::15) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220517192102.238176-1-andrey.grodzovsky@amd.com>
+ <1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com>
+X-ClientProxiedBy: YT3PR01CA0025.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::29) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f898d05e-33d7-4a0a-0635-08da38d7e907
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4432:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR12MB44321EF2C744E4F6490F93BA8CD19@SA0PR12MB4432.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: cf4f4c0a-65b9-4145-71ed-08da38da2925
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3766:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3766C9F73F6B25403FCC716AEAD19@CH2PR12MB3766.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3jjeqpIDyaJ9He+EHNZIB0gYdqcpInbRf70yojTvCZB3MTJjy7UCzlNDzA5azBz5CP0r7iwsBuXS2P0V261TtaDWW9YIx/LfcG1CGkbGNypTK2XNCsMWVpcvrRSYQ/IeRi/fQ3MRpLnS8Hv+qH5MIC91C0+4pxxVNEJDqUngb05JrLl1BRqImHj6OO7VBnFwmqLES7B7Ex4coAS1le1Dl+T1fe1iz6LH4ZsPZm7mucnJpAQfl+pryH1rGmaPVezNHqLKBQsc8e/e5gkcUgSVKdp/Xz6Xn9QdKprS8UF/3CU1ukWgXXGvsI1PCIn58qb+5sO80OwJqO/IpuRvews7CzaDpiDxUYD+AuSoA2V5PAYyRMWwZcsWvx9dhjzRIvZcO6yO8j+MuzML7otBvFE0pQFOfn0sugnsz0I33n8gZ9W/L3alU4d1FZHYra5kf5mtxMf442+LoOQd2SmHEudXV99+qT8TrYlhkqYHNY6Ov8dmxF8u6fTUVy4/EJTZYt/GdTtHC4vKZ7KW99egOZg5EfIbHss1NeSoI7fCk7vr7vJtLnKV8M5kHk1QvkXNQlXQZ7UHjCTVAfK/RvRUjdo54lTNRQbiaOMTG2UvLR4s0I4ObEkc1jt2M2AIRIf7fTMNPDG5+zYrK5ONnztsTJdf1UGjzty9UmOrPE4GgSjFDtZ9IDjR6EmXMLlu5F9uG+gvM1bzNXlwUe4V2V827gqLNBNkTzJvsVYZFe+zU+KuEO9XmQob6HzvXD9Ubw2bppZg
+X-Microsoft-Antispam-Message-Info: Fgpajw37bUqWSoucbslwNMjmqOG+J22GP6muhR7vTkFWxBPa2imPcMNS5w0jo+qrAjABzivQARAzlhvFbN78P+ZGG65SWfHNr3qJ0g6J4h1odKUaNdmDT+3i3XbyfUvMmS7vZ26LgayBqZdMKhlxGa3xIxEQZmgOHomelqkj5y1vOaZLACSiE5dbSfnVSl//p/EXJ9+k5RV35hSjUmRkSessM2gPW2ls0rNWuS/OdAHXiJRxrZjsptaR7Vuhcr7m9nOc4HHgwUVay84fltFV1yN39DQrZDlb0kSdA4YYe0SPDKfNKwg702d+y+5I6SDr5+a5OKDVdwD0VpX05PeLJcD7iuu5kJ+8on9KeDsKZhGdBs6sqMBe/sBWWuzJnkTiShiw383mKuE3vT5Bx914ptjBDaCM9jK742qrySLv93BSQK7o2oyPwSnn43wgcR/cHvxCB1BCbWyfJWZOT0MAv94InSNQRRa4NubCviBoAAktQhhVXxYtAqbJE5S988yryRiTz2CA/ZXvN8SX+YHUP0YNd6zuiq7krw7Vf+rJZPxXuTgLv86cHfJqOyxpomnzHczmgBABp98aADm0ZNJvngHFrs6PcCkSre7Y1P3dbRlXtlSpgQLj9cZjqidUejCjavC11VdBPyGPMV7mXdf5cjxgG6x8QeRxP5PZiL5J4RQK8bXdn98YVnIuXag4Ple4Oba4T0GdeuqGaxdvPdIp1Cz/9RhzavxY7RQhwuc+PVtGwqltKta4Kg60WVYaiaMeS3AwKfMmZs4wqiBW1vIvrIEn8CN+jUjpwK2q+oa0hi+UMY2mi2D9bNDWoWwIK4Ch
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(4744005)(5660300002)(316002)(31696002)(8936002)(6512007)(6506007)(26005)(53546011)(6666004)(36756003)(38100700002)(110136005)(186003)(31686004)(2616005)(921005)(8676002)(4326008)(66946007)(66556008)(66476007)(6486002)(508600001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6512007)(5660300002)(31686004)(53546011)(186003)(33964004)(44832011)(166002)(6506007)(36756003)(83380400001)(66574015)(2616005)(8936002)(66476007)(38100700002)(66556008)(508600001)(966005)(2906002)(6486002)(86362001)(31696002)(8676002)(4326008)(66946007)(316002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3VmKzFpc0pZdG1nekV6c3krYjNQeTVYR2g1bVp4eFdlN0FUQ29Yck5ZV0d1?=
- =?utf-8?B?NitkaFBKbllJdlphL25BMXJJdmNSNTJYZHJMUjltRXN2SSsvYU04QjgzUlVo?=
- =?utf-8?B?WkJnZzFIYzg0dUtNSytQMml5UENXSkNCWFB4VWNXYmphTXpEdGR5RHU3OVRX?=
- =?utf-8?B?QWluQVRyeTRSNXZQNDhWZjlJYUl0VytGNk9NQkFicHlOOWY1bXJENHdzamtu?=
- =?utf-8?B?K09VZ2ErTmVNcCt3OXd5NzZEbzQ5QnIzTWNGRmszRjJKenFIRzg4UHhSL3Qw?=
- =?utf-8?B?eWhWb25sUmdsNC9JOUp1RFM1cnJPYjFtMnMxakQwY3M3V1o3NDhBbDZQVFlx?=
- =?utf-8?B?VkxpNFpscmhHYmNXYzlMRjl5WXRJM3JMOWV0Z2grRXVvN1BYWVBPczFWR3E4?=
- =?utf-8?B?eURvYlVNQlJoY21yNUpTU2dQWndEKzdRVXMxUWw1eTNPaTQ4N25PdzdlRjRh?=
- =?utf-8?B?b1BtMkIrcmFBcy8zQm5qUzVuVHZPTEpyTWFWOStZYTR2Z2tJMnFBQTZNU1Fj?=
- =?utf-8?B?V29CVjM0OUtYalE3b3pIZEVIck84Sk5yU3VIQ2NVOVZPN0xYcW1JNk55WnR4?=
- =?utf-8?B?SEo4enlDNXdhTm1uYlN4eE1ZRHZJbUxOcTBRZEhLdVEwN1dVNGtlZElGRkV6?=
- =?utf-8?B?VmdYMEt4U2I4bFNkOUZaemVVcExpNUttY09TdVAyY1dscGZsYnczbjU5YzhO?=
- =?utf-8?B?U1JZLzNyMUtkNysxNEdNNm0xQ3ROTlRoM21RUnoyZjZMRENMQjkzT0JtRjhw?=
- =?utf-8?B?SFJ5T0I1MFgrY04vemlnR2tEUml5ZzA3TG1TR2xXU3BEN0U1SGNMZTI1bWFX?=
- =?utf-8?B?TEVwWi9MdVBrUER4Y2xLMW83VmhrazhwUnNkTyt5eS9GS2g1c0dFZHd5RWFP?=
- =?utf-8?B?ak05eE5GRG4xQTEvSlh2TllVdUMzWHFiQlE1QlZ5Wnp0eXlhV0xFMWNvand6?=
- =?utf-8?B?aStYU3l2dUNVOG4vc09DSkNaUzFpM25UVnV2M2VVRDVvdzBFajV6WVZNeUdw?=
- =?utf-8?B?ZVh3eUszVWZEbVBJcE1OVDN1OFhVMGV1SWVtNXRoMUJhcnh6dmw1WkZETzJ1?=
- =?utf-8?B?RXJXOFhtdGw2VVdlTnVKR2xQWXRhVENEYmgwMTVDU01WUllUS1BrRldaUml0?=
- =?utf-8?B?eGt2b2dzdTQxMGJiSVlhZ1NiWk9IanBwN0pJaUZJREIwcTF2ZWF3a2xBcUlF?=
- =?utf-8?B?RUloTll0WTBZQ24vdEtjdWh4a3BJMjVoREpzeXEwU1hjNjZYcXdFNFJicFM5?=
- =?utf-8?B?TEE3dVhoWFh4SnR0NlVRNW9URVBnTmRPc0dJQmxETkI2K25YVmJTMWNIWUF5?=
- =?utf-8?B?bDF5UWk1V2UwQU1jdVNKdFVESDFOeUZDVHpGVElQVm5lUlpPTzg0UGxITDkw?=
- =?utf-8?B?ZWJKRmdhOWxVc2cxa3BvaTlTcHY4ZzhRdmRVOE9UaWlsU3JaVUZHRlNLdWZP?=
- =?utf-8?B?QnY2bWRoLzZQdU1EeGRvZmZieDhFdjZQblFHUnFuZmtiNUlqUWppOWxFZlBa?=
- =?utf-8?B?UTkrSk8ydURqVGs5SDVvd3VMWUJ5YVVzSEdxTFd5eEp0aW9VQ3E1d01yTVcv?=
- =?utf-8?B?VUhRSnI2bE5pRStvWGFxUTlvbVhiNlJiL25VUVBNbDVjYmVjbEVqU3UzRm5O?=
- =?utf-8?B?bDVjZDAwbFJzYkhyWGp6R3pCeU4zNkNNTklrblRYL3drbzI5MTlUU0pCRE9N?=
- =?utf-8?B?eUFzWFROSVVOUXRLdDh1Ky9aU2pPTnA4NEFkTERQbFJRUW9OU1lnZXhMOGVL?=
- =?utf-8?B?QitLTDZHN3UwUHlYZHFDUC9rN0dvcmZqQnZBMngzLzJSditsbHUwWC84Qnln?=
- =?utf-8?B?b1IvQ3hKSHEwVzBDT2dqWmVlUjRSOUhEM1JIdmczOTRFeXBQdjVhV1cvcWpU?=
- =?utf-8?B?V2JvaUJMT2JSSCt0SEdXdGNaOVV3am90ZXpkQUdCalJPNnpZZ1RFcGxRMlV6?=
- =?utf-8?B?UW5QWUJpL1JsOEhtNzd0L0x4TW1GNUU2ZmUrY0ZNM2U0RW44TzNjN3JRNXFr?=
- =?utf-8?B?Qjc5K05EMWJnbjAzR2I2QTg4NU1wUTJIWkUyZ3BuZjJFZk9xb1Bnc0NOZ200?=
- =?utf-8?B?Zmozb1Jnd2wvelB6UlIwMFJPNTFGWEoyZ0U4VStYN0xWL3NGc1RTS08yV0c5?=
- =?utf-8?B?NXlnUW9iTHh2SXJ6TEJnZjVTZHpWWmN0VGVDdmRodGNDNmJTK1VFQmp3eGEz?=
- =?utf-8?B?azF0MUlGVDBkclhWbS9rSXp1SjFWYUJGcENybUI0eTZwa2t1VENzUm1LOFZn?=
- =?utf-8?B?UGh0MVVoWjdhL2FzWDY2TFpRN1htWVRUL0FiOGxwa2E0OU92RXhmME5LSSsx?=
- =?utf-8?B?RnRCQ29ZMkJLSjd4ajQwanZMMGtNdE91T2IrUTl4WkZnNEUzVy9jZz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnRYemtmVXRGMHFjT0psTTU1TXEwSnpmelhtYU5iQWx6SzB5Vmxua1lNUGdL?=
+ =?utf-8?B?TCs3YlJnVm1NWFFqdHVsN2U2WXdUc0t1YVFxcU5nWVhmSUNtL2pwUEs5Z2hS?=
+ =?utf-8?B?eWYxU1VYSkxjck1uMmZvaElsalBNM3RhbGxVWUVBWnZwUFM4TU91d1FUU1dw?=
+ =?utf-8?B?U0FjMFJMaURHaVNHNWFTKzBTYitsc3lxOW9IeVRHSWxTWXFxV1JVTGdtNnRD?=
+ =?utf-8?B?RitENTMzeHpoYWVvN0w4VXhTTk9xMkJxb1lOYkVZYWY1S3c2NVN4djN5L09v?=
+ =?utf-8?B?SGxxb0RTaWxiYUU4eE02aFdCU1l2enEyZERoYmt2bWw3WDR5UThGNmlNc3hV?=
+ =?utf-8?B?Ym5CeFVuR2NsM1hDRnV4Vk1mdzh2NHZ0c05MUzlJQlFQakpzYW9JaW9wck9y?=
+ =?utf-8?B?Mm16NXVZTDNHd3NVK1ljMGNjMGIvTkptYTRDQ2ozSW43SHRJSDNyUWxPMUhq?=
+ =?utf-8?B?dnIyTVZhczNxKytXRWRSMEMxSnBSL1JSRzlqOERLK2hhZHZOeXdMMU1qdnZ1?=
+ =?utf-8?B?a1VuYm1WNnNYT3JSb2haS1ZyVTVqVWdEM1h3bm5CaXN4R0NFRzRRbzJUaFV3?=
+ =?utf-8?B?NjFtaEFheTFsdHQ4Vm9LcFJMNnZ1MjhUdWdOWFpyQzFmTXl4bkI1ekg4UUV4?=
+ =?utf-8?B?aGRTNGpKcERyT0k4eVkrMThXV0VoZ0Vzc21wR25leDZZMjlvNDdhcGRJQzNS?=
+ =?utf-8?B?SEkxQytnQjFzeU05OC9DdDRiMkJFRGIvdUNCUHZvckVyQU84b0NvYWJZd2dJ?=
+ =?utf-8?B?aU80eXQ3bzNHek5ZUGErcGd3VDFaUGhyWHljVDFRbVJpTERTN2VpYUpnZGQ3?=
+ =?utf-8?B?M3oxckxKWWpFK01jVUR2TFJxOWY0ZXdYKzdLWVYwc0VicjlaMFoyanlLU0Fn?=
+ =?utf-8?B?ZFJMYlM4S0l2MjdDSFdodXFqSEtUbUl6VW81RklDOTFob3E1SGcrYkNFVTY4?=
+ =?utf-8?B?YzQ3VjRIK3JLR21mZVNCQWxtTlgzc1NhYk9WSWtWR3BnQ09uKzVkd3lpYW5Q?=
+ =?utf-8?B?MnBNRE0xMm1yYzM5L25oclFhdG12Rjh3Z29Fb0dIVEc4bjBlTUdIWUdqUGMy?=
+ =?utf-8?B?RVB0THo0emdhTnJkaXhYN293NWpuUnAxN0JTaVpoZVZ3UThTaUMxNG5xb0cv?=
+ =?utf-8?B?R3dBMWdDSWoxbENxTGZnUHdTSS8za3BXOHRQLzZVRXU5eEJEc2h1VFYzNlEr?=
+ =?utf-8?B?WDZndTJlY2hUckFBZlNsQ1c2TEkrd01tZWJ1aFVXTnhZOTk5RG11QzZGRFox?=
+ =?utf-8?B?eDdndk1RM0Q1MkxmU2wxT0RScHp4cklZWnNRdDZLQUp3UXdSYXYwRTVkZ3Ix?=
+ =?utf-8?B?OWdVbCtqR2xLMHZ5UmxQV21Ydm1BcDBKNFM4OVhYTlZWTGpvRzExekdHZkJ1?=
+ =?utf-8?B?Qko1V0ZJYjBvM2EyMktPRGEzeHhmZ1BKdWJ5TDRFNEhySDFYMUpWQ2R3Rkhh?=
+ =?utf-8?B?M2NQV2crVERTRlRveVVJSEpnL2RYVzAxNE9LSVZjT1lXZlNEOUNxT0VMeHJV?=
+ =?utf-8?B?QVBCb0NzbCtLMVFrT2JLQzJaRjdBblZrRjlpeUtyamFvbVA3UDVzd3JEMGdq?=
+ =?utf-8?B?NmRiMDIwMjdIdVJkMnp1cjBzTFV2RUF0ZjdkL241cU50eGVURUNRdmIvTGRl?=
+ =?utf-8?B?TklXZkhYZjBQZkt6d1NETEQzdHlZY2tBRk9SaTUzUHlmZTYrNU5zaStlWlY4?=
+ =?utf-8?B?Z0FKWlJBcDRRR0Y3UUpjZmlUUnJ2QlJOWTc2Rkx5ZmRqRUZ6bDJtejBNSU0v?=
+ =?utf-8?B?Ky9jWTRaUGZ5UlFMSklJaFhDQzVDdlhMRisvVXBGUU96MEhMLzZsdjVWZ1hq?=
+ =?utf-8?B?bDZ1Qk01a0dNdjI0Nlo4MU5YSnVLT2lCb3oxMGk5N3JWekJPNG9tVHdZNHVC?=
+ =?utf-8?B?N1RQcXo2SHBobCs1NkFPMk9lRlhGeE4xdzlDMEFZYjlSZjFsRmhobTc2VVBi?=
+ =?utf-8?B?dnBzUWw1TFdYZHBVSDMrWWh1UE45RXhMUjZXQ0VxSWNmczJJSHlTMmdGTDhm?=
+ =?utf-8?B?NTNDTzVKMFd5Mk54WjhDUTRwcmVwYllpWEs1aG04TVR1MHliT2p2c0hURWtV?=
+ =?utf-8?B?TndUc3FjZ2o2WVpTcHpBR09KRS9OeGZRekhjOTlhMEsyS0t1bko0YjZHRTVT?=
+ =?utf-8?B?dTZ1MmVUd3F1WXA5TnN4RVpGQUx0UWt3TTJRMEsvbVQvakxuTTlxZGtBRmlX?=
+ =?utf-8?B?Uk0xczRHQlNRM0MwbnV4UUJveUlUV2VWekVZcEZ4WHRkVW4xNXg5dnoreW5P?=
+ =?utf-8?B?N3JLaUFEYnlCZkd2WU5Yc3pheUp6VEY1WFhSUTA4Qjg1eHpLcG43ZG94SlNE?=
+ =?utf-8?B?ZURIUWw2TjBzS3ZsdlJMdGVXK3ZOZU4yYzNBTjJ5U0ZxbVRhUDgvWEhqUThx?=
+ =?utf-8?Q?65s2CjXrqaLoZZTvnad0y6PQxFWHHAh6CTd2uKcCtmohf?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4fQFJSBw8UWCyw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f898d05e-33d7-4a0a-0635-08da38d7e907
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf4f4c0a-65b9-4145-71ed-08da38da2925
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 14:08:41.0802 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 14:24:47.1942 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p4mZNdnMoR5yLIklJezr8wHM87I00k2Y4coejs1+XnzttX+PLjwG6R0tjBNsIlYytDGVtxoiJYScYA07YE0LsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xv/QCZ7ofLSdnx20/oZBbasrYGUsK3DBTkHEJHjVUG6lXnJWUWbyseDS4VmXA2ivUUsLYqsmsH3/6W6jqDvQcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3766
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,40 +131,248 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Zoy.Bai@amd.com, lijo.lazar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------4HDrxrv93gboxmghHKel16ea
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-On 5/18/22 01:38, Modem, Bhanuprakash wrote:
-> On Mon-16-05-2022 02:09 pm, Jani Nikula wrote:
->> On Mon, 02 May 2022, Harry Wentland <harry.wentland@amd.com> wrote:
->>> Both the kernel and IGT series look good to me.
->>>
->>> I recommend you merge the entire kernel set as one into drm-next. We
->>> can pull it into amd-staging-drm-next so as not to break our CI once
->>> the IGT patches land.
-> 
-> @Harry
-> 
-> Can we have your Ack-by to merge this series via drm-misc-next?
-> IGT patches are already landed. :-)
-
-Sure. :)
-
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> 
-> - Bhanu
-> 
+On 2022-05-18 02:07, Christian König wrote:
+> Am 17.05.22 um 21:20 schrieb Andrey Grodzovsky:
+>> Problem:
+>> During hive reset caused by command timing out on a ring
+>> extra resets are generated by triggered by KFD which is
+>> unable to accesses registers on the resetting ASIC.
 >>
->> Can we read that as an ack to merge via drm-misc-next? :)
+>> Fix: Rework GPU reset to actively stop any pending reset
+>> works while another in progress.
 >>
->> BR,
->> Jani.
+>> v2: Switch from generic list as was in v1[1] to eplicit
+>> stopping of each reset request from each reset source
+>> per each request submitter.
+>
+> Looks mostly good to me.
+>
+> Apart from the naming nit pick on patch #1 the only thing I couldn't 
+> of hand figure out is why you are using a delayed work everywhere 
+> instead of a just a work item.
+>
+> That needs a bit further explanation what's happening here.
+>
+> Christian.
+
+
+Check APIs for cancelling work vs. delayed work -
+
+For work_struct the only public API is this - 
+https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214 
+- blocking cancel.
+
+For delayed_work we have both blocking and non blocking public APIs -
+
+https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
+
+https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
+
+I prefer not to go now into convincing core kernel people of exposing 
+another interface for our own sake - from my past experience API changes 
+in core code has slim chances and a lot of time spent on back and forth 
+arguments.
+
+"If the mountain will not come to Muhammad, then Muhammad must go to the 
+mountain" ;)*
+*
+
+Andrey
+
+>
 >>
+>> [1] - 
+>> https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/
 >>
-> 
+>> Andrey Grodzovsky (7):
+>>    drm/amdgpu: Cache result of last reset at reset domain level.
+>>    drm/amdgpu: Switch to delayed work from work_struct.
+>>    drm/admgpu: Serialize RAS recovery work directly into reset domain
+>>      queue.
+>>    drm/amdgpu: Add delayed work for GPU reset from debugfs
+>>    drm/amdgpu: Add delayed work for GPU reset from kfd.
+>>    drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to
+>>      amdgpu_device_gpu_recover
+>>    drm/amdgpu: Stop any pending reset if another in progress.
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 +++++++++++-----------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +-
+>>   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +--
+>>   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +--
+>>   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +--
+>>   14 files changed, 87 insertions(+), 54 deletions(-)
+>>
+>
+--------------4HDrxrv93gboxmghHKel16ea
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-05-18 02:07, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com">Am
+      17.05.22 um 21:20 schrieb Andrey Grodzovsky:
+      <br>
+      <blockquote type="cite">Problem:
+        <br>
+        During hive reset caused by command timing out on a ring
+        <br>
+        extra resets are generated by triggered by KFD which is
+        <br>
+        unable to accesses registers on the resetting ASIC.
+        <br>
+        <br>
+        Fix: Rework GPU reset to actively stop any pending reset
+        <br>
+        works while another in progress.
+        <br>
+        <br>
+        v2: Switch from generic list as was in v1[1] to eplicit
+        <br>
+        stopping of each reset request from each reset source
+        <br>
+        per each request submitter.
+        <br>
+      </blockquote>
+      <br>
+      Looks mostly good to me.
+      <br>
+      <br>
+      Apart from the naming nit pick on patch #1 the only thing I
+      couldn't of hand figure out is why you are using a delayed work
+      everywhere instead of a just a work item.
+      <br>
+      <br>
+      That needs a bit further explanation what's happening here.
+      <br>
+      <br>
+      Christian.
+      <br>
+    </blockquote>
+    <p><br>
+    </p>
+    <p>Check APIs for cancelling work vs. delayed work -</p>
+    <p>For work_struct the only public API is this -
+      <a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214</a>
+      - blocking cancel.</p>
+    <p>For delayed_work we have both blocking and non blocking public
+      APIs - <br>
+    </p>
+    <p><a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
+    <p><a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
+    <p>I prefer not to go now into convincing core kernel people of
+      exposing another interface for our own sake - from my past
+      experience API changes in core code has slim chances and a lot of
+      time spent on back and forth arguments.</p>
+    <p>&quot;<span style="color: rgb(32, 33, 36); font-family: arial,
+        sans-serif; font-size: 16px; font-style: normal;
+        font-variant-ligatures: normal; font-variant-caps: normal;
+        letter-spacing: normal; orphans: 2; text-align: left;
+        text-indent: 0px; text-transform: none; white-space: normal;
+        widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
+        background-color: rgb(255, 255, 255); text-decoration-thickness:
+        initial; text-decoration-style: initial; text-decoration-color:
+        initial;">If the mountain will not come to Muhammad, then
+        Muhammad must go to the mountain&quot; ;)</span><b style="color:
+        rgb(32, 33, 36); font-family: arial, sans-serif; font-size:
+        16px; font-style: normal; font-variant-ligatures: normal;
+        font-variant-caps: normal; letter-spacing: normal; orphans: 2;
+        text-align: left; text-indent: 0px; text-transform: none;
+        white-space: normal; widows: 2; word-spacing: 0px;
+        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,
+        255); text-decoration-thickness: initial; text-decoration-style:
+        initial; text-decoration-color: initial;"><br>
+      </b></p>
+    <p>Andrey</p>
+    <blockquote type="cite" cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com">
+      <br>
+      <blockquote type="cite">
+        <br>
+        [1] -
+<a class="moz-txt-link-freetext" href="https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/">https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/</a><br>
+        <br>
+        Andrey Grodzovsky (7):
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Cache result of last reset at reset domain level.
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Switch to delayed work from work_struct.
+        <br>
+        &nbsp;&nbsp; drm/admgpu: Serialize RAS recovery work directly into reset
+        domain
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; queue.
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Add delayed work for GPU reset from debugfs
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Add delayed work for GPU reset from kfd.
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_recover
+        <br>
+        &nbsp;&nbsp; drm/amdgpu: Stop any pending reset if another in progress.
+        <br>
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |&nbsp; 1 +
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62
+        +++++++++++-----------
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c&nbsp; | 19 ++++++-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_job.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c&nbsp;&nbsp;&nbsp; | 10 ++--
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h&nbsp;&nbsp;&nbsp; |&nbsp; 2 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c&nbsp; |&nbsp; 1 +
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h&nbsp; |&nbsp; 5 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h&nbsp;&nbsp; |&nbsp; 2 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 +--
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 +--
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 +--
+        <br>
+        &nbsp; 14 files changed, 87 insertions(+), 54 deletions(-)
+        <br>
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
+</html>
+
+--------------4HDrxrv93gboxmghHKel16ea--
