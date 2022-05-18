@@ -4,89 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBD6C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 17:40:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FB6C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 May 2022 17:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24A9113E89;
-	Wed, 18 May 2022 17:39:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A426C113E83
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 17:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652895597;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gDGt/Rg9AZsxvRBAhR5KeMESGNTYZAfpSxQWVhbVFk4=;
- b=aHVEiwnWBk0+bNDlKvdW7YJL8Bd5u/UpHJTC2PfM55nP+om+NkEm0VXGBuZNeK82X3rl4J
- Ew7sDpjXOoLfcc1oLhXwJ35SWlMepEk+k5JiJtlxWBT1FFIgftvQoE3VIiTCuemUn0i6Pd
- Uy+QcSCH/pJfN66S78Rl3JqSYjGJhc0=
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-635-H9i1zgaQMSuyHVVg43URqg-1; Wed, 18 May 2022 13:39:56 -0400
-X-MC-Unique: H9i1zgaQMSuyHVVg43URqg-1
-Received: by mail-vs1-f72.google.com with SMTP id
- h2-20020a056102214200b00335bd8ddb82so316272vsg.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 10:39:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=gDGt/Rg9AZsxvRBAhR5KeMESGNTYZAfpSxQWVhbVFk4=;
- b=Z31qAY6mdQw8Fhhly2FDnMon/HPVXbsgRMj5/R1lm8fr1jirQOnbhQscWbkmGo1jUf
- fRDGxQVDTndclU4DleFPXmnhXd33ms2uJ7STR2aDQ+CMKbm6jWrr668eeTAKo8Y+pjo2
- 0J6NUQdtfUrMOzZ8PrfuDWVprJa7+oQ/gq1Vdgsi8Z93wwT0SAJ/cjKd57AVU0Jy83pE
- C7T7v0zApcyiBHHNARn9Hc+sX9HzbinZdlqnunThS9iA4mw57M6j6SFyZOO/Tp2LPVA+
- xoM7GePAWlAt5v3UDWI91VjbVd+lq5REQUL8u5ARq0eiGHAdYrzNSZQsGVHpvINpT5gN
- l/tg==
-X-Gm-Message-State: AOAM531oR8mwN3mdgj7PS5pQaKdOSadhaKgO/4XmdE+BxS2qgrEfdPYp
- FJk4yQGa7VM/tIsSYQItbwMPozGhPrhBLPUI0dc4+QuBxcaH2hJlNWxJGqHYYuc3NczNyM2l5Q+
- V4VOp2MMAKXEpqz5ckgWLTmLK+w==
-X-Received: by 2002:a05:6102:3706:b0:335:80be:bdf8 with SMTP id
- s6-20020a056102370600b0033580bebdf8mr527599vst.17.1652895595664; 
- Wed, 18 May 2022 10:39:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy+wcU/dWMJlXfe/1930TJzCPdcc6Su+ICGYsTy4q9ZBSUQnSN+lF31nL1TGBauw8+rrCkI6g==
-X-Received: by 2002:a05:6102:3706:b0:335:80be:bdf8 with SMTP id
- s6-20020a056102370600b0033580bebdf8mr527593vst.17.1652895595399; 
- Wed, 18 May 2022 10:39:55 -0700 (PDT)
-Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
- [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
- 143-20020a1f1995000000b0034e6f1fd055sm246132vkz.31.2022.05.18.10.39.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 May 2022 10:39:54 -0700 (PDT)
-Message-ID: <0c9c2c59ca9c351769921c47beb49dda79ddd5de.camel@redhat.com>
-Subject: Re: [PATCH 12/14] drm/nouveau: Register ACPI video backlight when
- nv_backlight registration fails
-From: Lyude Paul <lyude@redhat.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, 
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Xinhui
- <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Mika
- Westerberg <mika.westerberg@linux.intel.com>, Mark Gross
- <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Date: Wed, 18 May 2022 13:39:52 -0400
-In-Reply-To: <20220517152331.16217-13-hdegoede@redhat.com>
-References: <20220517152331.16217-1-hdegoede@redhat.com>
- <20220517152331.16217-13-hdegoede@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD735113F3E;
+	Wed, 18 May 2022 17:56:02 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8D97113F3E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 May 2022 17:56:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SiCuYBvGIw5XROMGo+ofOYN4CZ1P8BCbF71Aj7xwYL3mYM135Zg88hN6avGG0p67fe5kH1JwoYGsHNDpIW7VUZThDAAIWATceZxUWxrmXZjbVRBUqEjRbIhMI9Sh+q76HzOkr79rbhQhEiNBAP5X+xhrokPgkVyh9ubEH9iGOB7KAWPKqRU8DbPrQaHWywcBoaAALCi/o2PH8BbSTHveHXBNrYV++Jn1yskN4HyTlxCCR4t5P/73X554ZxOo7fF+Ooylx5ETLzj6YXyeOOb62MY3242kvglR5eW0fg72VjPmaAVs2Wq77o9QhTqCGWjxXc66WNQeH9EtRzB2GE3mJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y07HY/bkiQULcc4f28Dmkhw+DCbLRDe8I6hBmX7oHEI=;
+ b=Br6oOoX4v6XdauJGTpPsnECd7fNoNPJfwWdP3ww+tv6zhbfLuMeym9ZtzcnvJFW7z4GFVk7UH8+zjZnB1WrhBVzCS0IO/czIuyAfLRBMHTpErnjuvK/q158AQ4f5R4KbbLINqTTzANJ3WhaMKqAhWMh5Grys9nnfYKZS4ZJ7JDAk7t4NgXqnom5AoggiY2T7vST9Y0vgaSjRcnrHndC4+v0w7F9dsVYnebFXYjp2wo/O8F8I3iYX8nKNgp8fqh/FNaksCC3JlZ+KmjXm94c4PgekJ+7aPGL0SIx20kGvgsH8cppBldARSAuxMS201ZLOwRQnIunmcFAhYZRQ9O6DNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y07HY/bkiQULcc4f28Dmkhw+DCbLRDe8I6hBmX7oHEI=;
+ b=VA6aWO0weGjxz27WQvD3zeAjI6DH2hkTlJMp75J9EMthyJM9d5A1vmVAo3MDI3Z8BvN/6jVvHwJMMZuehd4ZWnaUsPLDQhxHZPA4oOEwv7Mutv2ytat94CN6jUtKw4EojxaSFfGZjiNJWaTQQ26ITMbKhbcFtSNPpZcrinJlkNU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by BYAPR12MB2680.namprd12.prod.outlook.com (2603:10b6:a03:63::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.18; Wed, 18 May
+ 2022 17:55:59 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e1cf:e31a:2a89:f226]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e1cf:e31a:2a89:f226%8]) with mapi id 15.20.5250.018; Wed, 18 May 2022
+ 17:55:59 +0000
+Message-ID: <1e136059-5e56-8709-c252-bee43dec2c1d@amd.com>
+Date: Wed, 18 May 2022 13:55:57 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH 1/2] drm/amdgpu: remove acc_size from reserve/unreserve mem
+Content-Language: en-US
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220517231108.14048-1-alex.sierra@amd.com>
+From: philip yang <yangp@amd.com>
+In-Reply-To: <20220517231108.14048-1-alex.sierra@amd.com>
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0137.namprd13.prod.outlook.com
+ (2603:10b6:208:2bb::22) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f7275df0-79e6-465c-fb71-08da38f7aa35
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2680:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2680283A9899331A0F3DEA94E6D19@BYAPR12MB2680.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AivgnxXG8J1hzbjmtwEJHhISmfzrKK4vi69pXbP/ZGOzvaSrwXY8gROWVtkPnsAEKTiq2kKmI/XZj8d+Y4KEFU0hAoo7ofIxWR2s0GUuIBRPXko37JvfA3eSQyxj1ffWvmCRx6gK0Y3lGdPtlfvam0sHZGAN5Lee+YjUbIJNpv1wCS7t8yZEmnLxV5C1HRedJHORqnb2IG9muXVZkaH8hCd1uq1kJmOXsLUac/UDuFge8ZOJXE1Cng6BgHctsUDqk/8u0W+5JlzXfG3irawKjPXIDoSmTByUfg1Ajt6m8VMw0CTJrxFtKf8rlntzNxc/PY3A0NZnqPYi+vN3yf5GvVlo19YT2F+65upUWR14AlWdflYCSo4UzA55plt08yO21nTQ6ZRU3xMwTrcjd2zV2MzgoVGk4ZqCqNrOaoSdK5dxgPVbqT0IM+zmjxfqHtAtaeqIpGogQG7+Mk1CXNrRWS8m6gp2D1CfEUVqMTD4y+IqAuMX4LN5ARDi9AiqLlfZT57OhUfka9daHXYnSPRx2XE33vuPlkMPGQI/daPhLH1cX+LWMW6XW9/PusKdQ/lbrtlOu2YpiMF/5/EuVp8Iy4mYUrvsNIU9BqN5NjckhxWJzoQA2fMkfaEw7+SbE+puu2suHZYMw7aiq3H9fHtsSld/SwOFYf3nYSujCMwDJ6B4NXW/tHHzvS4W7X8vJgAEXFkdR3a8M3KvssAde4oAwbb4Cw9W3Xxw+OGZSAlApNY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(31696002)(66476007)(38100700002)(6486002)(316002)(8936002)(186003)(66946007)(53546011)(6506007)(5660300002)(508600001)(26005)(31686004)(2906002)(36756003)(83380400001)(66556008)(6512007)(8676002)(2616005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXZ3Um5QcUhjamtkV1YzQUVFWVJVb00waFdneHFiMCtsRWx2OTVxKzJYNG9s?=
+ =?utf-8?B?R01CaDYweXBCZFJEQUE1MS9nN1M1dTRQQks3OW14ZFhWaXYvNmNzWmRaS0V6?=
+ =?utf-8?B?V3Uxc2F5dkxLNmZWa1RNTG5hTE1wcTZ6S0t4bk1FaTNUSjh6TWdDQVFBeS9Q?=
+ =?utf-8?B?Ky9PWFZseXcrRVJHRDg1VS9HejMrS1ovaWxFQy8wUFQ4NFFlS2tTN25FN3Zk?=
+ =?utf-8?B?K0l0aGRPdFJhcUhCWXJoY3R6ZkI5Um95ODV0MXpPK2pQckVaanNhcTQ5YTU2?=
+ =?utf-8?B?N29pWG0vVnN1NVZhNDVFQXZ5KzllK1c1RUJtUzl0RllNZ3I5WTRtV1IxZXRS?=
+ =?utf-8?B?M0loSGFjQjdOWUVVbVMxQ0Iyd0d1N0NVazhTaWxKYUtwS01hVHpZZzlmcEdF?=
+ =?utf-8?B?MDQrb0xJY0FtL203bGsxUUpqYTFScnpnc1FkT3ZKdjU2ZEZveEp6UjRJc0JK?=
+ =?utf-8?B?NEN6T3FGWlpMOVZNSmRUaktySnBZbTZhbjVoNEVRTG96RldkSTdYbHVyblNS?=
+ =?utf-8?B?SGhKN245dFhGY2pabFg5cjJ4dHlaNE5ibjloQ0FQZ2picmc3RmNvaUZBZ1g3?=
+ =?utf-8?B?eFFBaUpKWFh3QllETXYwUzBmOUJDSi85QUZBZXRFM2gyaURHcDgyWVJMMGVa?=
+ =?utf-8?B?Q0krazZXeVM5Yy9ta1RyOXZFN0ttUlJpS1hQYk1xbHcwZG1yMjFsOG5ZVXFD?=
+ =?utf-8?B?MFVuek1DUFZiQm9lVmFLVmVvYXhEQ3hzRHVpd2FEYnBYcVJGMHB2UFNjVGtr?=
+ =?utf-8?B?YnNQdkdUM1d3M1VSNTdDck5uTnJHV0N4QkVZYTYyUXFTV2NQMEh6OVR5L1BM?=
+ =?utf-8?B?SGVPS0xSNUVldzljNEVMQ1N2UXdvc3dwNEFzSHpISlNQRCtzRnZVZ3Q2bWFP?=
+ =?utf-8?B?WEJXVUUvcXZRVXJxZlFSK2JMc1IyUFVQY1YrRjlzYzNQZjlLT2UxRGNzeWRJ?=
+ =?utf-8?B?OWExOUVaaEIvS3R1TEN4b1BlRy9ybFpUd2MzeEJwR2VZd2RodlV4dStMVnQ2?=
+ =?utf-8?B?akxvenJacFJLVWpOcENBaWRNc2phbk9rZEp3L1FIZXQ0TzYwZ1YxVFlIeStm?=
+ =?utf-8?B?azhkc21saVdmVlFHNzhaZ2VVSXVDZCs3SS80dlUyZDgrVWY0NElhMzU3amdh?=
+ =?utf-8?B?b2Z6Z3JDeUEvV1RiUHVNU0c3QmFoQkhPNWxVMG9RQ0x2Umt5emROS2E2SERR?=
+ =?utf-8?B?QXNxU2o2RURmM25JcnA0QnVhYXo2akxkWjBxc2dYeDkxc0NNT1pPbjJwTk4r?=
+ =?utf-8?B?aTF6YXBNOWkrVFQ5cjZvK2lsWWRNNGZmdmltSk1KSk5qQTIyTzMrRmkrL0xO?=
+ =?utf-8?B?WFRyUGE0QWRoOThTQjVBTXhvMllkTU9lOU9jdDhpS2c1YUd1QnVVUTFyUjJG?=
+ =?utf-8?B?d2xmK2grRkkrVW1aajA2WDhCYUc5OFdscHNqV01GNTc5S3RsTm8yWHhWK3hC?=
+ =?utf-8?B?d0pyTU1PRzMwWFRQRmQ0TkZGWkJYaWhGNkRsVS8rM1h5R0lFckEwbzBTZmVM?=
+ =?utf-8?B?YjBWQ0hjbDhwNmZuUGFDUlN2N0RkQTVNVUZTU3dza1FaaUVuN3dPK3dmSjh0?=
+ =?utf-8?B?RzNEbFBLK1E4Q3IxdVhLRmtGSE4zbnJlOG54SDhjSnNFd3B5VzlINW1hTVJo?=
+ =?utf-8?B?NE1ybHNrbzlsMzF2YTBPVWlLdDRjWnlqYllkKzlhUkREOXVBY0lYZVgvVklr?=
+ =?utf-8?B?RlFrMU5vSmhZcEhCdStiT3RlazNNQ1A0anY3LzNvTW82bXA0Zy9qd2gzY1U0?=
+ =?utf-8?B?NktNMk5iVVRRemVuL3V5VXQxRzR1Y3ZXYWZ0Z2s0NEk4eElHa20zU01IMkFD?=
+ =?utf-8?B?UkJCeFB1TDFjZFNFTWViTmdFYXVUMGtSeXBrU3FZSDVMMmpMWEt1Vlk1cEk1?=
+ =?utf-8?B?SDRBdXUyaWY2S1BDckZBYUhJbStVaDhtT3N1TGlKdXgyL3NDOUdncmtUc1lO?=
+ =?utf-8?B?cWJuZnNMd1hGZkF6cldNWnVoNTIvOTJMSHhsRGpwb1YxZUhFWWUzOTZxaU93?=
+ =?utf-8?B?cUhjZzdFWDFvMVg0dkVIQTZzRDE4UGd6U3o4QngzbkUwVkE4dHdxQmp4cUtz?=
+ =?utf-8?B?TXRETlNLdnJhU292dHoyUUlRb0dXdEo4MENRVmRnRXpOUEZWS1h5WWYwNW9z?=
+ =?utf-8?B?TGdiZ1dlS2t1VE43cW1KRmFsM0V0ZVh2cUhoVzJ1dzl3QjBOS1UvVC9HWStH?=
+ =?utf-8?B?a0ljcFBXVXhubGdWb0FHZCtVc25RenhtcnNYYlNBZytyOWF3M1didi9pK0I0?=
+ =?utf-8?B?WjIyV1g5WmZOMEJIMDV3Q1lpdXFzOXhITmNyTm9qS2F2RFJJNitOWkRadk1N?=
+ =?utf-8?B?RU52L09NZExBNlRrOGpZdWJnOEdzWi9ubnNWZ3AzTFplbEp5RXc5Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7275df0-79e6-465c-fb71-08da38f7aa35
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 17:55:59.1963 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZbmSMwemeazjYKTSHUJLprRn0NXTTIH0Y6xGQBJEMkNOJlohIZtrBr4Dh0F4MRWX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2680
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,69 +127,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2022-05-17 at 17:23 +0200, Hans de Goede wrote:
-> Typically the acpi_video driver will initialize before nouveau, which
-> used to cause /sys/class/backlight/acpi_video0 to get registered and then
-> nouveau would register its own nv_backlight device later. After which
-> the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-> to avoid there being 2 backlight devices.
-> 
-> This means that userspace used to briefly see 2 devices and the
-> disappearing of acpi_video0 after a brief time confuses the systemd
-> backlight level save/restore code, see e.g.:
-> https://bbs.archlinux.org/viewtopic.php?id=269920
-> 
-> To fix this the ACPI video code has been modified to make backlight class
-> device registration a separate step, relying on the drm/kms driver to
-> ask for the acpi_video backlight registration after it is done setting up
-> its native backlight device.
-> 
-> Add a call to the new acpi_video_register_backlight() when native backlight
-> device registration has failed / was skipped to ensure that there is a
-> backlight device available before the drm_device gets registered with
-> userspace.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->  drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> index f56ff797c78c..0ae8793357a4 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> @@ -436,6 +436,13 @@ nouveau_backlight_init(struct drm_connector *connector)
->  
->  fail_alloc:
->         kfree(bl);
-> +       /*
-> +        * If we get here we have an internal panel, but no nv_backlight,
-> +        * try registering an ACPI video backlight device instead.
-> +        */
-> +       if (ret == 0)
-> +               acpi_video_register_backlight();
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-05-17 19:11, Alex Sierra wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20220517231108.14048-1-alex.sierra@amd.com">
+      <pre class="moz-quote-pre" wrap="">TTM used to track the &quot;acc_size&quot; of all BOs internally. We needed to
+keep track of it in our memory reservation to avoid TTM running out
+of memory in its own accounting. However, that &quot;acc_size&quot; accounting
+has since been removed from TTM. Therefore we don't really need to
+track it any more.
+</pre>
+    </blockquote>
+    <p>acc_size is size of amdgpu_bo data structure plus size of pages
+      array and dma_address array, it is needed for each BO, so should
+      track as system_mem_needed. It can be removed from ttm_mem_needed
+      as this is not allocated by TTM as GTT memory.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <p>
+    </p>
+    <blockquote type="cite" cite="mid:20220517231108.14048-1-alex.sierra@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+Signed-off-by: Alex Sierra <a class="moz-txt-link-rfc2396E" href="mailto:alex.sierra@amd.com">&lt;alex.sierra@amd.com&gt;</a>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 57 ++++++-------------
+ 1 file changed, 16 insertions(+), 41 deletions(-)
 
-Assuming we don't need to return the value of acpi_video_register_backlight()
-here:
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-> +
->         return ret;
->  }
->  
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index fada3b149361..e985cf9c7ec0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -108,17 +108,8 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+  * compromise that should work in most cases without reserving too
+  * much memory for page tables unnecessarily (factor 16K, &gt;&gt; 14).
+  */
+-#define ESTIMATE_PT_SIZE(mem_size) ((mem_size) &gt;&gt; 14)
+-
+-static size_t amdgpu_amdkfd_acc_size(uint64_t size)
+-{
+-	size &gt;&gt;= PAGE_SHIFT;
+-	size *= sizeof(dma_addr_t) + sizeof(void *);
+ 
+-	return __roundup_pow_of_two(sizeof(struct amdgpu_bo)) +
+-		__roundup_pow_of_two(sizeof(struct ttm_tt)) +
+-		PAGE_ALIGN(size);
+-}
++#define ESTIMATE_PT_SIZE(mem_size) ((mem_size) &gt;&gt; 14)
+ 
+ /**
+  * amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
+@@ -136,28 +127,22 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ {
+ 	uint64_t reserved_for_pt =
+ 		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+-	size_t acc_size, system_mem_needed, ttm_mem_needed, vram_needed;
++	size_t system_mem_needed, ttm_mem_needed, vram_needed;
+ 	int ret = 0;
+ 
+-	acc_size = amdgpu_amdkfd_acc_size(size);
+-
++	system_mem_needed = 0;
++	ttm_mem_needed = 0;
+ 	vram_needed = 0;
+ 	if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
+-		system_mem_needed = acc_size + size;
+-		ttm_mem_needed = acc_size + size;
++		system_mem_needed = size;
++		ttm_mem_needed = size;
+ 	} else if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-		system_mem_needed = acc_size;
+-		ttm_mem_needed = acc_size;
+ 		vram_needed = size;
+ 	} else if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+-		system_mem_needed = acc_size + size;
+-		ttm_mem_needed = acc_size;
+-	} else if (alloc_flag &amp;
+-		   (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
+-		    KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
+-		system_mem_needed = acc_size;
+-		ttm_mem_needed = acc_size;
+-	} else {
++		system_mem_needed = size;
++	} else if (!(alloc_flag &amp;
++				(KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
++				 KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
+ 		pr_err(&quot;%s: Invalid BO type %#x\n&quot;, __func__, alloc_flag);
+ 		return -ENOMEM;
+ 	}
+@@ -193,28 +178,18 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ static void unreserve_mem_limit(struct amdgpu_device *adev,
+ 		uint64_t size, u32 alloc_flag)
+ {
+-	size_t acc_size;
+-
+-	acc_size = amdgpu_amdkfd_acc_size(size);
+-
+ 	spin_lock(&amp;kfd_mem_limit.mem_limit_lock);
+ 
+ 	if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
+-		kfd_mem_limit.system_mem_used -= (acc_size + size);
+-		kfd_mem_limit.ttm_mem_used -= (acc_size + size);
++		kfd_mem_limit.system_mem_used -= size;
++		kfd_mem_limit.ttm_mem_used -= size;
+ 	} else if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-		kfd_mem_limit.system_mem_used -= acc_size;
+-		kfd_mem_limit.ttm_mem_used -= acc_size;
+ 		adev-&gt;kfd.vram_used -= size;
+ 	} else if (alloc_flag &amp; KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+-		kfd_mem_limit.system_mem_used -= (acc_size + size);
+-		kfd_mem_limit.ttm_mem_used -= acc_size;
+-	} else if (alloc_flag &amp;
+-		   (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
+-		    KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
+-		kfd_mem_limit.system_mem_used -= acc_size;
+-		kfd_mem_limit.ttm_mem_used -= acc_size;
+-	} else {
++		kfd_mem_limit.system_mem_used -= size;
++	} else if (!(alloc_flag &amp;
++				(KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
++				 KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
+ 		pr_err(&quot;%s: Invalid BO type %#x\n&quot;, __func__, alloc_flag);
+ 		goto release;
+ 	}
+</pre>
+    </blockquote>
+  </body>
+</html>
