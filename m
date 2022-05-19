@@ -4,46 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8F2C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01141C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 13:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF64411B322;
-	Thu, 19 May 2022 09:55:03 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77A4511B327;
- Thu, 19 May 2022 09:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652954099; x=1684490099;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=XsbZCYbBbnba1CBDltDOxPXUjcKxWpMBUmL7u9S8k94=;
- b=VCHvlOEp5EkWFdhgPH0Icjj+1N+XTc298xcHjdRoLDwmG6fXIgky7nwT
- 72Nst1gVBf8/KnwMhvU4o42lqt/LAjLp868iHorqIW7ZnQKvNZJo/WqCp
- DXk9la5xD2KteOv0UcE7izIO8G6jzelThh2fYxP3F7ou2HByL7g1vAyyu
- /xb88RAUuLRKA6KTOLxN4Ybtpo/oNto+WbMZsrA/MEbRkFgNYTxoLzaES
- t9QRuyLEFt03m0kX8k4pltBykw75MOszM/QEJ1pDUJvYRIAvOO73+QHi7
- 0Iy2KuOk52sx1pgPK3P5VIJFnSZ2+Y+h6z5HS5ZGPNHS9bqgj9/f20nPV A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="252019988"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="252019988"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:54:58 -0700
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="606404200"
-Received: from bhanu-nuclab.iind.intel.com ([10.145.162.173])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:54:55 -0700
-From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [CI 3/3] drm/amd/display: Move connector debugfs to drm
-Date: Thu, 19 May 2022 15:21:49 +0530
-Message-Id: <20220519095149.3560034-4-bhanuprakash.modem@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220519095149.3560034-1-bhanuprakash.modem@intel.com>
-References: <20220519095149.3560034-1-bhanuprakash.modem@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76AAA113E34;
+	Thu, 19 May 2022 13:16:41 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DD0113E34
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 13:16:39 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id m25so6441148oih.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 06:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Cs9DLx8eWsu1qa7RAlc/H60rSPEmNW9aoVf2VunHHNM=;
+ b=IP268cvHCRM/Ynjz/GKYyUnz2t1WQ0yCX0z9bFOePOCKxcAMGfbfZUgYtKPHty/0L7
+ i4zelNdiuQVPHTl6SlkW79tELEoQEbJj42ZAgwlBmJLSoPl9JPZpbJRMm0ESGcIdgOT8
+ EGR21UD9fTya4jauhC9zWjZO7NmeNWV/uLWmopMzk8UOndmHxLWhQVs5yuV6WKMGyJKp
+ MssOMHKp208Ji+SyxnWVjNtj1xsvh/5gpg86QWGU+sqCmk/Mmda/WHWYgi9l4J6mJfcD
+ 3mDlQcPbVOACJ3fja/jrumDW15YY7il4nojWuadIqtikKoJEQl8dBdX9SN/mIHq3EBpG
+ s2EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Cs9DLx8eWsu1qa7RAlc/H60rSPEmNW9aoVf2VunHHNM=;
+ b=dJeRCdHB7aR4Kt1CHWxfmXbYmey+Zz30tu7kV7gSYwzrdjsGvlN88N6YTcrS7ptkvN
+ +ViR/QkDKBrR6EZ1UHMPvMHcrmgf58zAKY2NSSdp+C4oTi0rEGi2aMtv+IvtdV1x2d/h
+ dcUG9ZFoxr1JL9VSMLAHSrcU2mM5Eeznb0qLMjLEPHGO/kKEJjPZ0jJvktBPaOV58x3S
+ Vfz+Alggjl+gXKtegjdO3DsUGD4GXpGc6Vbxab+A59bhr5y+mU2U7y7+6eF+F999ESgz
+ n4CmKRrwQY0Sqg8nEoSpAFUXTfUDs1gPPiV3odU4iCPcZWce8DlPDLAoEu/du/3MxhbQ
+ oS0w==
+X-Gm-Message-State: AOAM53067PRO7WRpXmdkBS/lwJgKln/eGBLbqQRCEJiq9+wSLHAqs0fu
+ 1i0YzqlO3xZqAV7jjUC4wHrXDaPrpxXfu7VGhn8=
+X-Google-Smtp-Source: ABdhPJyCV/jasvQwA4Kz6HYfJFF8O4DgKow9e8qEk6Zbg+BchDWQAJwwvyHgxjf68+hcHAPlITHLwxsrQPVStqNmtHY=
+X-Received: by 2002:a05:6808:f8e:b0:328:a601:a425 with SMTP id
+ o14-20020a0568080f8e00b00328a601a425mr2601394oiw.253.1652966199225; Thu, 19
+ May 2022 06:16:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220519093150.1244888-1-evan.quan@amd.com>
+In-Reply-To: <20220519093150.1244888-1-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 19 May 2022 09:16:28 -0400
+Message-ID: <CADnq5_Prdphq_7ZmZxbpqV834Gios7KMcEb6LdmpHioZfq=Cog@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: suppress some compile warnings
+To: Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,176 +61,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arun R Murthy <arun.r.murthy@intel.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, kernel test robot <lkp@intel.com>,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ kernel test robot <lkp@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As drm_connector already have the display_info, instead of creating
-"output_bpc" debugfs in vendor specific driver, move the logic to
-the drm layer.
+On Thu, May 19, 2022 at 5:32 AM Evan Quan <evan.quan@amd.com> wrote:
+>
+> Suppress two compile warnings about "no previous prototype".
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-This patch will also move "Current" bpc to the crtc debugfs from
-connector debugfs, since we are getting this info from crtc_state.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 --
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 38 +++++++------------
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.h |  2 -
- 3 files changed, 13 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f9ce8cb45e6d..dae0b772865c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6617,14 +6617,12 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
- 	return &state->base;
- }
-
--#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
- {
- 	crtc_debugfs_init(crtc);
-
- 	return 0;
- }
--#endif
-
- static inline int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
- {
-@@ -6722,9 +6720,7 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
- 	.enable_vblank = dm_enable_vblank,
- 	.disable_vblank = dm_disable_vblank,
- 	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
--#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 	.late_register = amdgpu_dm_crtc_late_register,
--#endif
- };
-
- static enum drm_connector_status
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 188039f14544..78f3974ef7b8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -873,28 +873,18 @@ static int psr_capability_show(struct seq_file *m, void *data)
- }
-
- /*
-- * Returns the current and maximum output bpc for the connector.
-- * Example usage: cat /sys/kernel/debug/dri/0/DP-1/output_bpc
-+ * Returns the current bpc for the crtc.
-+ * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_bpc
-  */
--static int output_bpc_show(struct seq_file *m, void *data)
-+static int amdgpu_current_bpc_show(struct seq_file *m, void *data)
- {
--	struct drm_connector *connector = m->private;
--	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
-+	struct drm_crtc *crtc = m->private;
-+	struct drm_device *dev = crtc->dev;
- 	struct dm_crtc_state *dm_crtc_state = NULL;
- 	int res = -ENODEV;
- 	unsigned int bpc;
-
- 	mutex_lock(&dev->mode_config.mutex);
--	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--
--	if (connector->state == NULL)
--		goto unlock;
--
--	crtc = connector->state->crtc;
--	if (crtc == NULL)
--		goto unlock;
--
- 	drm_modeset_lock(&crtc->mutex, NULL);
- 	if (crtc->state == NULL)
- 		goto unlock;
-@@ -924,18 +914,15 @@ static int output_bpc_show(struct seq_file *m, void *data)
- 	}
-
- 	seq_printf(m, "Current: %u\n", bpc);
--	seq_printf(m, "Maximum: %u\n", connector->display_info.bpc);
- 	res = 0;
-
- unlock:
--	if (crtc)
--		drm_modeset_unlock(&crtc->mutex);
--
--	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+	drm_modeset_unlock(&crtc->mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
-
- 	return res;
- }
-+DEFINE_SHOW_ATTRIBUTE(amdgpu_current_bpc);
-
- /*
-  * Example usage:
-@@ -2541,7 +2528,6 @@ static int target_backlight_show(struct seq_file *m, void *unused)
- DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
- DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
- DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
--DEFINE_SHOW_ATTRIBUTE(output_bpc);
- DEFINE_SHOW_ATTRIBUTE(dp_lttpr_status);
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
-@@ -2788,7 +2774,6 @@ static const struct {
- 	const struct file_operations *fops;
- } connector_debugfs_entries[] = {
- 		{"force_yuv420_output", &force_yuv420_output_fops},
--		{"output_bpc", &output_bpc_fops},
- 		{"trigger_hotplug", &trigger_hotplug_debugfs_fops},
- 		{"internal_display", &internal_display_fops}
- };
-@@ -3172,9 +3157,10 @@ static int crc_win_update_get(void *data, u64 *val)
-
- DEFINE_DEBUGFS_ATTRIBUTE(crc_win_update_fops, crc_win_update_get,
- 			 crc_win_update_set, "%llu\n");
--
-+#endif
- void crtc_debugfs_init(struct drm_crtc *crtc)
- {
-+#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- 	struct dentry *dir = debugfs_lookup("crc", crtc->debugfs_entry);
-
- 	if (!dir)
-@@ -3190,9 +3176,11 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
- 				   &crc_win_y_end_fops);
- 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
- 				   &crc_win_update_fops);
--
--}
- #endif
-+	debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_entry,
-+			    crtc, &amdgpu_current_bpc_fops);
-+}
-+
- /*
-  * Writes DTN log state to the user supplied buffer.
-  * Example usage: cat /sys/kernel/debug/dri/0/amdgpu_dm_dtn_log
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-index 3366cb644053..071200473c27 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-@@ -31,8 +31,6 @@
-
- void connector_debugfs_init(struct amdgpu_dm_connector *connector);
- void dtn_debugfs_init(struct amdgpu_device *adev);
--#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- void crtc_debugfs_init(struct drm_crtc *crtc);
--#endif
-
- #endif
---
-2.35.1
-
+> Change-Id: I74d029c6ebd8bf6bc08edada7a992d04786330d8
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/soc21.c            | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 881570dced41..16cdfb30b013 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -1361,7 +1361,7 @@ union mall_info {
+>         struct mall_info_v1_0 v1;
+>  };
+>
+> -int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+> +static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+>  {
+>         struct binary_header *bhdr;
+>         union mall_info *mall_info;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index c6a8520053bb..9e18a2b22607 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -42,6 +42,7 @@
+>
+>  #include "soc15.h"
+>  #include "soc15_common.h"
+> +#include "soc21.h"
+>
+>  static const struct amd_ip_funcs soc21_common_ip_funcs;
+>
+> --
+> 2.29.0
+>
