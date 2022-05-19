@@ -4,66 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6838C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 07:58:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE527C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:03:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E39A11AF0B;
-	Thu, 19 May 2022 07:58:11 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA34611AF0B
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 07:58:09 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id h11so4829075eda.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 00:58:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to;
- bh=VtfiXNVfhqVF6VE650yCzOFgrQ7Apj+dP/J/xnWisCs=;
- b=qWNMx1DVtxbLNKWhHoXfXZYUqE3wZM/97V9VP3TiyGskE2lsKmdvUaLzgsl1XZbbx+
- 8df22firB1tv9sf8VhUnsbiTd3/Kr6KI+YPsdYLiAbpl3zbQ78hpgu4pxsk7cedNUqXF
- 1NXVjqUdMuzhndM1g7f4yYyzn+Tjguqv+EEey8f5GaU7sNyLxyk+lqSEKETCr8LJ5vWk
- adLZXzYE1YGwXzhaTp37UiVPfsJ9h4ofDm4Bza95HTmNHUFuZ8L5cD49O5jHBrA+7gPI
- A7WszSgT0GQEQby9I2BJ9gaVrYnxHHHrcCFmBNPXS1ZgPHlkGu2621XBhXu4Uj1dvGRv
- JWkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to;
- bh=VtfiXNVfhqVF6VE650yCzOFgrQ7Apj+dP/J/xnWisCs=;
- b=o37dDui17gmZJIt+h/9qfWpzTgtabKDFbiKJJNUpmhK5q4GKot7EYjfGqSTSdy87KH
- ggVDilu+WWxEfkzqx1jUqQyl02CUZsBC99qyucDz7tk7mHJemM2OE/tKyZiBhWeHQyPN
- FKwg1BI8i7e4XORUE7yx4XDh8Oo+FDmik3pdhIQpIZJht3MzceU4nk3g/voUSI8IfvjS
- S7H9jyEuMYy2SqwrdYUGiveTFLEXIj9qsNHX+P8rxLmnwvRgZMAJ9rBaJqs2wq0urzJT
- S50BQGicREo75szGU1CeQUJQYjBAqRAjFpXK94kHACaQksAdJgi2Hu2FLOKEKIOcs+eM
- eE9Q==
-X-Gm-Message-State: AOAM530v7OgYwi/h8cYZsTq2oOvL471F2Z5ndUDuh2nAiRUVwaKSrhfn
- ycxfoj8QnHwktMR/ZcoUo9k=
-X-Google-Smtp-Source: ABdhPJyiu2EuQ4lnEmtITAqenuKwiSuNBgjV2k7i1UUq9436RLBQgRMryZzcSveKFaHiv5po3qBTbQ==
-X-Received: by 2002:a05:6402:1e95:b0:42a:c466:52ad with SMTP id
- f21-20020a0564021e9500b0042ac46652admr3962207edf.340.1652947088243; 
- Thu, 19 May 2022 00:58:08 -0700 (PDT)
-Received: from [192.168.178.21] (p57b0bdaa.dip0.t-ipconnect.de.
- [87.176.189.170]) by smtp.gmail.com with ESMTPSA id
- hy16-20020a1709068a7000b006f3ef214e27sm1773478ejc.141.2022.05.19.00.58.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 May 2022 00:58:07 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------LQrtz0tD09MrzznbZ1CSDzzO"
-Message-ID: <3abdd2a3-2cb8-fc8f-fd5d-a8a7cd5fc828@gmail.com>
-Date: Thu, 19 May 2022 09:58:05 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBC811B0B2;
+	Thu, 19 May 2022 09:02:59 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E55411B0B1;
+ Thu, 19 May 2022 09:02:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652950978; x=1684486978;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=hAoQkRu47IyaWQTtveq3c7aHdT3liXee0nWJIpO68aY=;
+ b=KnfdPscxlT8KXdzqv75Z1ANV1KHBgEGg+OdxYgkoWkDUH8X5cV0uVJEB
+ 5fOfAZhJCy/DzImsYRScRePnUMfzMyCHNTEgvtEfb0U/JdEBgdmshYMPN
+ Um+82sYVNuLCjS4AFqdfqQ/ig6ORQs3JxLp9eBxjspcGULTIhe2ldBnLo
+ 9iHHyAVlkB2OcTTTMIe5uC7lr4T2V+j9oHd9cP9DzzVyfuxHheTtRTXTW
+ rqB/oWg+bdc5MyV5eei86tVUbrERwFQWq/a9G50r3xUYuzIlxuCWZb89Y
+ pnD/6oXJC5Ww8rKbMCzLkM9wHexDfSWSZaZ+IVxmXbeflj4cH5lGF10Vm Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="297405542"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="297405542"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 02:02:57 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="545991736"
+Received: from tszulist-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.146.157])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 02:02:49 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
+ <ddadap@nvidia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH 01/14] ACPI: video: Add a native function parameter to
+ acpi_video_get_backlight_type()
+In-Reply-To: <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220517152331.16217-1-hdegoede@redhat.com>
+ <20220517152331.16217-2-hdegoede@redhat.com> <87y1yzdxtk.fsf@intel.com>
+ <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
+Date: Thu, 19 May 2022 12:02:46 +0300
+Message-ID: <87pmk9dhe1.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH v2 0/7] Fix multiple GPU resets in XGMI hive.
-Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220517192102.238176-1-andrey.grodzovsky@amd.com>
- <1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com>
- <ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com>
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,299 +69,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zoy.Bai@amd.com, lijo.lazar@amd.com
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------LQrtz0tD09MrzznbZ1CSDzzO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-Am 18.05.22 um 16:24 schrieb Andrey Grodzovsky:
+On Wed, 18 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
+> Hi,
 >
->
-> On 2022-05-18 02:07, Christian König wrote:
->> Am 17.05.22 um 21:20 schrieb Andrey Grodzovsky:
->>> Problem:
->>> During hive reset caused by command timing out on a ring
->>> extra resets are generated by triggered by KFD which is
->>> unable to accesses registers on the resetting ASIC.
+> On 5/18/22 10:55, Jani Nikula wrote:
+>> On Tue, 17 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
+>>> ATM on x86 laptops where we want userspace to use the acpi_video backlight
+>>> device we often register both the GPU's native backlight device and
+>>> acpi_video's firmware acpi_video# backlight device. This relies on
+>>> userspace preferring firmware type backlight devices over native ones, but
+>>> registering 2 backlight devices for a single display really is undesirable.
 >>>
->>> Fix: Rework GPU reset to actively stop any pending reset
->>> works while another in progress.
+>>> On x86 laptops where the native GPU backlight device should be used,
+>>> the registering of other backlight devices is avoided by their drivers
+>>> using acpi_video_get_backlight_type() and only registering their backlight
+>>> if the return value matches their type.
 >>>
->>> v2: Switch from generic list as was in v1[1] to eplicit
->>> stopping of each reset request from each reset source
->>> per each request submitter.
->>
->> Looks mostly good to me.
->>
->> Apart from the naming nit pick on patch #1 the only thing I couldn't 
->> of hand figure out is why you are using a delayed work everywhere 
->> instead of a just a work item.
->>
->> That needs a bit further explanation what's happening here.
->>
->> Christian.
->
->
-> Check APIs for cancelling work vs. delayed work -
->
-> For work_struct the only public API is this - 
-> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214 
-> - blocking cancel.
->
-> For delayed_work we have both blocking and non blocking public APIs -
->
-> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
->
-> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
->
-> I prefer not to go now into convincing core kernel people of exposing 
-> another interface for our own sake - from my past experience API 
-> changes in core code has slim chances and a lot of time spent on back 
-> and forth arguments.
->
-> "If the mountain will not come to Muhammad, then Muhammad must go to 
-> the mountain" ;)*
-> *
->
-
-Ah, good point. The cancel_work() function was removed a few years ago:
-
-commit 6417250d3f894e66a68ba1cd93676143f2376a6f
-Author: Stephen Hemminger <stephen@networkplumber.org>
-Date:   Tue Mar 6 19:34:42 2018 -0800
-
-     workqueue: remove unused cancel_work()
-
-     Found this by accident.
-     There are no usages of bare cancel_work() in current kernel source.
-
-     Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
-     Signed-off-by: Tejun Heo <tj@kernel.org>
-
-
-Maybe just revert that patch, export the function and use it. I think 
-there is plenty of justification for this.
-
-Thanks,
-Christian.
-
-> **
->
-> Andrey
->
->>
+>>> acpi_video_get_backlight_type() uses
+>>> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
+>>> driver is available and will never return native if this returns
+>>> false. This means that the GPU's native backlight registering code
+>>> cannot just call acpi_video_get_backlight_type() to determine if it
+>>> should register its backlight, since acpi_video_get_backlight_type() will
+>>> never return native until the native backlight has already registered.
 >>>
->>> [1] - 
->>> https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/
->>>
->>> Andrey Grodzovsky (7):
->>>    drm/amdgpu: Cache result of last reset at reset domain level.
->>>    drm/amdgpu: Switch to delayed work from work_struct.
->>>    drm/admgpu: Serialize RAS recovery work directly into reset domain
->>>      queue.
->>>    drm/amdgpu: Add delayed work for GPU reset from debugfs
->>>    drm/amdgpu: Add delayed work for GPU reset from kfd.
->>>    drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to
->>>      amdgpu_device_gpu_recover
->>>    drm/amdgpu: Stop any pending reset if another in progress.
->>>
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 
->>> +++++++++++-----------
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++--
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 +
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +-
->>>   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +--
->>>   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +--
->>>   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +--
->>>   14 files changed, 87 insertions(+), 54 deletions(-)
->>>
->>
+>>> To fix this add a native function parameter to
+>>> acpi_video_get_backlight_type(), which when set to true will make
+>>> acpi_video_get_backlight_type() behave as if a native backlight has
+>>> already been registered.
 
---------------LQrtz0tD09MrzznbZ1CSDzzO
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Regarding the question below, this is the part that throws me off.
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">Am 18.05.22 um 16:24 schrieb Andrey
-      Grodzovsky:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 2022-05-18 02:07, Christian König
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com">Am
-        17.05.22 um 21:20 schrieb Andrey Grodzovsky: <br>
-        <blockquote type="cite">Problem: <br>
-          During hive reset caused by command timing out on a ring <br>
-          extra resets are generated by triggered by KFD which is <br>
-          unable to accesses registers on the resetting ASIC. <br>
-          <br>
-          Fix: Rework GPU reset to actively stop any pending reset <br>
-          works while another in progress. <br>
-          <br>
-          v2: Switch from generic list as was in v1[1] to eplicit <br>
-          stopping of each reset request from each reset source <br>
-          per each request submitter. <br>
-        </blockquote>
-        <br>
-        Looks mostly good to me. <br>
-        <br>
-        Apart from the naming nit pick on patch #1 the only thing I
-        couldn't of hand figure out is why you are using a delayed work
-        everywhere instead of a just a work item. <br>
-        <br>
-        That needs a bit further explanation what's happening here. <br>
-        <br>
-        Christian. <br>
-      </blockquote>
-      <p><br>
-      </p>
-      <p>Check APIs for cancelling work vs. delayed work -</p>
-      <p>For work_struct the only public API is this - <a
-          class="moz-txt-link-freetext"
-href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214"
-          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214</a>
-        - blocking cancel.</p>
-      <p>For delayed_work we have both blocking and non blocking public
-        APIs - <br>
-      </p>
-      <p><a class="moz-txt-link-freetext"
-href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295"
-          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
-      <p><a class="moz-txt-link-freetext"
-href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295"
-          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
-      <p>I prefer not to go now into convincing core kernel people of
-        exposing another interface for our own sake - from my past
-        experience API changes in core code has slim chances and a lot
-        of time spent on back and forth arguments.</p>
-      <p>"<span style="color: rgb(32, 33, 36); font-family: arial,
-          sans-serif; font-size: 16px; font-style: normal;
-          font-variant-ligatures: normal; font-variant-caps: normal;
-          letter-spacing: normal; orphans: 2; text-align: left;
-          text-indent: 0px; text-transform: none; white-space: normal;
-          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
-          background-color: rgb(255, 255, 255);
-          text-decoration-thickness: initial; text-decoration-style:
-          initial; text-decoration-color: initial;">If the mountain will
-          not come to Muhammad, then Muhammad must go to the mountain"
-          ;)</span><b style="color: rgb(32, 33, 36); font-family: arial,
-          sans-serif; font-size: 16px; font-style: normal;
-          font-variant-ligatures: normal; font-variant-caps: normal;
-          letter-spacing: normal; orphans: 2; text-align: left;
-          text-indent: 0px; text-transform: none; white-space: normal;
-          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
-          background-color: rgb(255, 255, 255);
-          text-decoration-thickness: initial; text-decoration-style:
-          initial; text-decoration-color: initial;"><br>
-        </b></p>
-    </blockquote>
-    <br>
-    Ah, good point. The cancel_work() function was removed a few years
-    ago:<br>
-    <br>
-    commit 6417250d3f894e66a68ba1cd93676143f2376a6f<br>
-    Author: Stephen Hemminger <a class="moz-txt-link-rfc2396E" href="mailto:stephen@networkplumber.org">&lt;stephen@networkplumber.org&gt;</a><br>
-    Date:   Tue Mar 6 19:34:42 2018 -0800<br>
-    <br>
-        workqueue: remove unused cancel_work()<br>
-        <br>
-        Found this by accident.<br>
-        There are no usages of bare cancel_work() in current kernel
-    source.<br>
-        <br>
-        Signed-off-by: Stephen Hemminger
-    <a class="moz-txt-link-rfc2396E" href="mailto:stephen@networkplumber.org">&lt;stephen@networkplumber.org&gt;</a><br>
-        Signed-off-by: Tejun Heo <a class="moz-txt-link-rfc2396E" href="mailto:tj@kernel.org">&lt;tj@kernel.org&gt;</a><br>
-    <br>
-    <br>
-    Maybe just revert that patch, export the function and use it. I
-    think there is plenty of justification for this.<br>
-    <br>
-    Thanks,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com">
-      <p><b style="color: rgb(32, 33, 36); font-family: arial,
-          sans-serif; font-size: 16px; font-style: normal;
-          font-variant-ligatures: normal; font-variant-caps: normal;
-          letter-spacing: normal; orphans: 2; text-align: left;
-          text-indent: 0px; text-transform: none; white-space: normal;
-          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
-          background-color: rgb(255, 255, 255);
-          text-decoration-thickness: initial; text-decoration-style:
-          initial; text-decoration-color: initial;"> </b></p>
-      <p>Andrey</p>
-      <blockquote type="cite"
-        cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com"> <br>
-        <blockquote type="cite"> <br>
-          [1] -
-          <a class="moz-txt-link-freetext"
-href="https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/"
-            moz-do-not-send="true">https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/</a><br>
-          <br>
-          Andrey Grodzovsky (7): <br>
-             drm/amdgpu: Cache result of last reset at reset domain
-          level. <br>
-             drm/amdgpu: Switch to delayed work from work_struct. <br>
-             drm/admgpu: Serialize RAS recovery work directly into reset
-          domain <br>
-               queue. <br>
-             drm/amdgpu: Add delayed work for GPU reset from debugfs <br>
-             drm/amdgpu: Add delayed work for GPU reset from kfd. <br>
-             drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to <br>
-               amdgpu_device_gpu_recover <br>
-             drm/amdgpu: Stop any pending reset if another in progress.
-          <br>
-          <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 + <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62
-          +++++++++++----------- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++-- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 + <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +- <br>
-            drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +-- <br>
-            drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +-- <br>
-            drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +-- <br>
-            14 files changed, 87 insertions(+), 54 deletions(-) <br>
-          <br>
-        </blockquote>
-        <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
+>>>
+>>> Note that all current callers are updated to pass false for the new
+>>> parameter, so this change in itself causes no functional changes.
+>> 
+>> 
+>>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+>>> index becc198e4c22..0a06f0edd298 100644
+>>> --- a/drivers/acpi/video_detect.c
+>>> +++ b/drivers/acpi/video_detect.c
+>>> @@ -17,12 +17,14 @@
+>>>   * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
+>>>   * sony_acpi,... can take care about backlight brightness.
+>>>   *
+>>> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
+>>> - * which driver should handle the backlight.
+>>> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
+>>> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
+>>> + * pass true for the native function argument, other drivers must pass false.
+>>>   *
+>>>   * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
+>>>   * this file will not be compiled and acpi_video_get_backlight_type() will
+>>> - * always return acpi_backlight_vendor.
+>>> + * return acpi_backlight_native when its native argument is true and
+>>> + * acpi_backlight_vendor when it is false.
+>>>   */
+>> 
+>> Frankly, I think the boolean native parameter here, and at the call
+>> sites, is confusing, and the slightly different explanations in the
+>> commit message and comment here aren't helping.
+>
+> Can you elaborate the "slightly different explanations in the
+> commit message and comment" part a bit (so that I can fix this) ?
+>
+>> I suggest adding a separate function that the native backlight drivers
+>> should use. I think it's more obvious all around, and easier to document
+>> too.
+>
+> Code wise I think this would mean renaming the original and
+> then adding 2 wrappers, but that is fine with me. I've no real
+> preference either way and I'm happy with adding a new variant of
+> acpi_video_get_backlight_type() for the native backlight drivers
+> any suggestion for a name ?
 
---------------LQrtz0tD09MrzznbZ1CSDzzO--
+Alternatively, do the native backlight drivers have any need for the
+actual backlight type information from acpi? They only need to be able
+to ask if they should register themselves, right?
+
+I understand this sounds like bikeshedding, but I'm trying to avoid
+duplicating the conditions in the drivers where a single predicate
+function call could be sufficient, and the complexity could be hidden in
+acpi.
+
+	if (!acpi_video_backlight_use_native())
+		return;
+
+Perhaps all the drivers/platform/x86/* backlight drivers could use:
+
+	if (acpi_video_backlight_use_vendor())
+		...
+
+You can still use the native parameter etc. internally, but just hide
+the details from everyone else, and, hopefully, make it harder for them
+to do silly things?
+
+BR,
+Jani.
+
+
+>
+> Regards,
+>
+> Hans
+>
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
