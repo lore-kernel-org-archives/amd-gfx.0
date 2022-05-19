@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D34AC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 07:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6838C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 07:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268A611ADA5;
-	Thu, 19 May 2022 07:35:42 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E50A11A413;
- Thu, 19 May 2022 03:41:32 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id v66so5067162oib.3;
- Wed, 18 May 2022 20:41:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E39A11AF0B;
+	Thu, 19 May 2022 07:58:11 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA34611AF0B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 07:58:09 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id h11so4829075eda.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 00:58:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:message-id:date:mime-version:user-agent:content-language:to
- :cc:references:from:subject:in-reply-to:content-transfer-encoding;
- bh=E+Jeeum5dAYeu7JrVKgmUScX8K6q6nSaD3V1Uo7Z0xo=;
- b=KFjvSCT6GXj5Kr0HO4phTFW0x5Mhrxpol/LwndM9mgk+gt2L/LZ/5khjHvxx9tCYCl
- ccDkePOGAv4JpJmRo0Xqzh6ClQpZnN/1/b7sQl4OHAEBLezdGI2XWE9/o/Z1OZFdJplA
- hvInyanC3HKTFBbmtIho+sxxjhNvtMvXN/SpDUcK6pzwbtXhkX4B8r6bM063uhwPRf2Y
- cRgCWW0s7tOlAD3+MsxhCIYV0WDd/vE6gTqXbb2/O3YdWrgPTUK3f0QWoOCgnNy5j+zJ
- Pm+2UwK0eLGDknVSYV48h5O6crlLJ0idezAZuMW3TB+ty1IBtVt29pHwTXbVrYvZnNon
- S1IA==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to;
+ bh=VtfiXNVfhqVF6VE650yCzOFgrQ7Apj+dP/J/xnWisCs=;
+ b=qWNMx1DVtxbLNKWhHoXfXZYUqE3wZM/97V9VP3TiyGskE2lsKmdvUaLzgsl1XZbbx+
+ 8df22firB1tv9sf8VhUnsbiTd3/Kr6KI+YPsdYLiAbpl3zbQ78hpgu4pxsk7cedNUqXF
+ 1NXVjqUdMuzhndM1g7f4yYyzn+Tjguqv+EEey8f5GaU7sNyLxyk+lqSEKETCr8LJ5vWk
+ adLZXzYE1YGwXzhaTp37UiVPfsJ9h4ofDm4Bza95HTmNHUFuZ8L5cD49O5jHBrA+7gPI
+ A7WszSgT0GQEQby9I2BJ9gaVrYnxHHHrcCFmBNPXS1ZgPHlkGu2621XBhXu4Uj1dvGRv
+ JWkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:subject:in-reply-to
- :content-transfer-encoding;
- bh=E+Jeeum5dAYeu7JrVKgmUScX8K6q6nSaD3V1Uo7Z0xo=;
- b=alLxFgFcZK2TR4rusGjOR9GAp8LxfgCayNRPWdV9Jwz3seDAKN0Lc+iCkyZPsZcbfN
- RfTPjl0aj/ttQHHUjQyiC0i8BIYhkY0o76bjW+4/fI4ooNG3VwrLM2y60DdzcgpSDgAV
- Ok+nDquEfTY51N7lUGeM28gmgamP/3+B6/SogV6KNV8aMIAWO1P6Mud7kMKOrtBPlEnd
- 4riC21ffpA2HLuH2STL3pylfTrq6GFihi9eATt/ebQrDHkd/BxBsYYlOTI9hn8JVhDb9
- 038nr1ub0w+SgcCV4y1UTcVXJRP7bbaaELWSJ1r9TSXMw0Q1mCoHkNbQ7iypwdwiTIl5
- jPZw==
-X-Gm-Message-State: AOAM531KQR97RzdtatA4fU1lD/9viS8yw1HYe1jJGjnZkvD+m8WurhRx
- v86FsdtDnH2fQIPTf+h2XOVDfnr99FnR2w==
-X-Google-Smtp-Source: ABdhPJzNbyvmXREi3jFpQ1BXha9I4ZZcQvTagfhdtbiKBgx1gr2M0BpSR/Ospfm2JXh/HEBEZ+zfpQ==
-X-Received: by 2002:aca:4154:0:b0:322:7a9c:7daa with SMTP id
- o81-20020aca4154000000b003227a9c7daamr1784072oia.52.1652931691271; 
- Wed, 18 May 2022 20:41:31 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- p4-20020aca4204000000b0032694a9925esm1451284oia.10.2022.05.18.20.41.28
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to;
+ bh=VtfiXNVfhqVF6VE650yCzOFgrQ7Apj+dP/J/xnWisCs=;
+ b=o37dDui17gmZJIt+h/9qfWpzTgtabKDFbiKJJNUpmhK5q4GKot7EYjfGqSTSdy87KH
+ ggVDilu+WWxEfkzqx1jUqQyl02CUZsBC99qyucDz7tk7mHJemM2OE/tKyZiBhWeHQyPN
+ FKwg1BI8i7e4XORUE7yx4XDh8Oo+FDmik3pdhIQpIZJht3MzceU4nk3g/voUSI8IfvjS
+ S7H9jyEuMYy2SqwrdYUGiveTFLEXIj9qsNHX+P8rxLmnwvRgZMAJ9rBaJqs2wq0urzJT
+ S50BQGicREo75szGU1CeQUJQYjBAqRAjFpXK94kHACaQksAdJgi2Hu2FLOKEKIOcs+eM
+ eE9Q==
+X-Gm-Message-State: AOAM530v7OgYwi/h8cYZsTq2oOvL471F2Z5ndUDuh2nAiRUVwaKSrhfn
+ ycxfoj8QnHwktMR/ZcoUo9k=
+X-Google-Smtp-Source: ABdhPJyiu2EuQ4lnEmtITAqenuKwiSuNBgjV2k7i1UUq9436RLBQgRMryZzcSveKFaHiv5po3qBTbQ==
+X-Received: by 2002:a05:6402:1e95:b0:42a:c466:52ad with SMTP id
+ f21-20020a0564021e9500b0042ac46652admr3962207edf.340.1652947088243; 
+ Thu, 19 May 2022 00:58:08 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bdaa.dip0.t-ipconnect.de.
+ [87.176.189.170]) by smtp.gmail.com with ESMTPSA id
+ hy16-20020a1709068a7000b006f3ef214e27sm1773478ejc.141.2022.05.19.00.58.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 May 2022 20:41:30 -0700 (PDT)
-Message-ID: <0530d502-1291-23f3-64ac-97bd38a26bd4@roeck-us.net>
-Date: Wed, 18 May 2022 20:41:27 -0700
+ Thu, 19 May 2022 00:58:07 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------LQrtz0tD09MrzznbZ1CSDzzO"
+Message-ID: <3abdd2a3-2cb8-fc8f-fd5d-a8a7cd5fc828@gmail.com>
+Date: Thu, 19 May 2022 09:58:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
+Subject: Re: [PATCH v2 0/7] Fix multiple GPU resets in XGMI hive.
 Content-Language: en-US
-To: kernel test robot <lkp@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>
-References: <6285958d.+Z2aDZ4O1Y9eiazd%lkp@intel.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 736ee37e2e8eed7fe48d0a37ee5a709514d478b3
-In-Reply-To: <6285958d.+Z2aDZ4O1Y9eiazd%lkp@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 19 May 2022 07:35:41 +0000
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220517192102.238176-1-andrey.grodzovsky@amd.com>
+ <1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com>
+ <ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +75,299 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, linux-fbdev@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kvm@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-nvme@lists.infradead.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org
+Cc: Zoy.Bai@amd.com, lijo.lazar@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/18/22 17:55, kernel test robot wrote:
-> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> branch HEAD: 736ee37e2e8eed7fe48d0a37ee5a709514d478b3  Add linux-next specific files for 20220518
-> 
-> Error/Warning reports:
-> 
-> https://lore.kernel.org/linux-mm/202204291924.vTGZmerI-lkp@intel.com
-> https://lore.kernel.org/linux-mm/202205041248.WgCwPcEV-lkp@intel.com
-> https://lore.kernel.org/linux-mm/202205122113.uLKzd3SZ-lkp@intel.com
-> https://lore.kernel.org/linux-mm/202205172344.3GFeaum1-lkp@intel.com
-> https://lore.kernel.org/linux-mm/202205190527.o9wVEvHI-lkp@intel.com
-> 
-> Error/Warning: (recently discovered and may have been fixed)
-> 
-[ .. ]
-> drivers/hwmon/nct6775-platform.c:199:9: sparse:    unsigned char
-> drivers/hwmon/nct6775-platform.c:199:9: sparse:    void
+This is a multi-part message in MIME format.
+--------------LQrtz0tD09MrzznbZ1CSDzzO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This is getting tiresome. Every driver using outb() on m68k will
-experience that "problem". As far as I can see, it is caused by
 
-#define out_8(addr,b) (void)((*(__force volatile u8 *) (unsigned long)(addr)) = (b))
 
-in arch/m68k/include/asm/raw_io.h. I have no idea what the
-"(void)" is for, but removing it "fixes" the problem.
-Either case, this is not a problem with the nct6775 driver,
-nor is it a new problem.
+Am 18.05.22 um 16:24 schrieb Andrey Grodzovsky:
+>
+>
+> On 2022-05-18 02:07, Christian König wrote:
+>> Am 17.05.22 um 21:20 schrieb Andrey Grodzovsky:
+>>> Problem:
+>>> During hive reset caused by command timing out on a ring
+>>> extra resets are generated by triggered by KFD which is
+>>> unable to accesses registers on the resetting ASIC.
+>>>
+>>> Fix: Rework GPU reset to actively stop any pending reset
+>>> works while another in progress.
+>>>
+>>> v2: Switch from generic list as was in v1[1] to eplicit
+>>> stopping of each reset request from each reset source
+>>> per each request submitter.
+>>
+>> Looks mostly good to me.
+>>
+>> Apart from the naming nit pick on patch #1 the only thing I couldn't 
+>> of hand figure out is why you are using a delayed work everywhere 
+>> instead of a just a work item.
+>>
+>> That needs a bit further explanation what's happening here.
+>>
+>> Christian.
+>
+>
+> Check APIs for cancelling work vs. delayed work -
+>
+> For work_struct the only public API is this - 
+> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214 
+> - blocking cancel.
+>
+> For delayed_work we have both blocking and non blocking public APIs -
+>
+> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
+>
+> https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295
+>
+> I prefer not to go now into convincing core kernel people of exposing 
+> another interface for our own sake - from my past experience API 
+> changes in core code has slim chances and a lot of time spent on back 
+> and forth arguments.
+>
+> "If the mountain will not come to Muhammad, then Muhammad must go to 
+> the mountain" ;)*
+> *
+>
 
-Guenter
+Ah, good point. The cancel_work() function was removed a few years ago:
+
+commit 6417250d3f894e66a68ba1cd93676143f2376a6f
+Author: Stephen Hemminger <stephen@networkplumber.org>
+Date:   Tue Mar 6 19:34:42 2018 -0800
+
+     workqueue: remove unused cancel_work()
+
+     Found this by accident.
+     There are no usages of bare cancel_work() in current kernel source.
+
+     Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
+     Signed-off-by: Tejun Heo <tj@kernel.org>
+
+
+Maybe just revert that patch, export the function and use it. I think 
+there is plenty of justification for this.
+
+Thanks,
+Christian.
+
+> **
+>
+> Andrey
+>
+>>
+>>>
+>>> [1] - 
+>>> https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/
+>>>
+>>> Andrey Grodzovsky (7):
+>>>    drm/amdgpu: Cache result of last reset at reset domain level.
+>>>    drm/amdgpu: Switch to delayed work from work_struct.
+>>>    drm/admgpu: Serialize RAS recovery work directly into reset domain
+>>>      queue.
+>>>    drm/amdgpu: Add delayed work for GPU reset from debugfs
+>>>    drm/amdgpu: Add delayed work for GPU reset from kfd.
+>>>    drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to
+>>>      amdgpu_device_gpu_recover
+>>>    drm/amdgpu: Stop any pending reset if another in progress.
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 
+>>> +++++++++++-----------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++--
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 +
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +--
+>>>   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +--
+>>>   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +--
+>>>   14 files changed, 87 insertions(+), 54 deletions(-)
+>>>
+>>
+
+--------------LQrtz0tD09MrzznbZ1CSDzzO
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class="moz-cite-prefix">Am 18.05.22 um 16:24 schrieb Andrey
+      Grodzovsky:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 2022-05-18 02:07, Christian König
+        wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com">Am
+        17.05.22 um 21:20 schrieb Andrey Grodzovsky: <br>
+        <blockquote type="cite">Problem: <br>
+          During hive reset caused by command timing out on a ring <br>
+          extra resets are generated by triggered by KFD which is <br>
+          unable to accesses registers on the resetting ASIC. <br>
+          <br>
+          Fix: Rework GPU reset to actively stop any pending reset <br>
+          works while another in progress. <br>
+          <br>
+          v2: Switch from generic list as was in v1[1] to eplicit <br>
+          stopping of each reset request from each reset source <br>
+          per each request submitter. <br>
+        </blockquote>
+        <br>
+        Looks mostly good to me. <br>
+        <br>
+        Apart from the naming nit pick on patch #1 the only thing I
+        couldn't of hand figure out is why you are using a delayed work
+        everywhere instead of a just a work item. <br>
+        <br>
+        That needs a bit further explanation what's happening here. <br>
+        <br>
+        Christian. <br>
+      </blockquote>
+      <p><br>
+      </p>
+      <p>Check APIs for cancelling work vs. delayed work -</p>
+      <p>For work_struct the only public API is this - <a
+          class="moz-txt-link-freetext"
+href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214"
+          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3214</a>
+        - blocking cancel.</p>
+      <p>For delayed_work we have both blocking and non blocking public
+        APIs - <br>
+      </p>
+      <p><a class="moz-txt-link-freetext"
+href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295"
+          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
+      <p><a class="moz-txt-link-freetext"
+href="https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295"
+          moz-do-not-send="true">https://elixir.bootlin.com/linux/latest/source/kernel/workqueue.c#L3295</a></p>
+      <p>I prefer not to go now into convincing core kernel people of
+        exposing another interface for our own sake - from my past
+        experience API changes in core code has slim chances and a lot
+        of time spent on back and forth arguments.</p>
+      <p>"<span style="color: rgb(32, 33, 36); font-family: arial,
+          sans-serif; font-size: 16px; font-style: normal;
+          font-variant-ligatures: normal; font-variant-caps: normal;
+          letter-spacing: normal; orphans: 2; text-align: left;
+          text-indent: 0px; text-transform: none; white-space: normal;
+          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
+          background-color: rgb(255, 255, 255);
+          text-decoration-thickness: initial; text-decoration-style:
+          initial; text-decoration-color: initial;">If the mountain will
+          not come to Muhammad, then Muhammad must go to the mountain"
+          ;)</span><b style="color: rgb(32, 33, 36); font-family: arial,
+          sans-serif; font-size: 16px; font-style: normal;
+          font-variant-ligatures: normal; font-variant-caps: normal;
+          letter-spacing: normal; orphans: 2; text-align: left;
+          text-indent: 0px; text-transform: none; white-space: normal;
+          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
+          background-color: rgb(255, 255, 255);
+          text-decoration-thickness: initial; text-decoration-style:
+          initial; text-decoration-color: initial;"><br>
+        </b></p>
+    </blockquote>
+    <br>
+    Ah, good point. The cancel_work() function was removed a few years
+    ago:<br>
+    <br>
+    commit 6417250d3f894e66a68ba1cd93676143f2376a6f<br>
+    Author: Stephen Hemminger <a class="moz-txt-link-rfc2396E" href="mailto:stephen@networkplumber.org">&lt;stephen@networkplumber.org&gt;</a><br>
+    Date:   Tue Mar 6 19:34:42 2018 -0800<br>
+    <br>
+        workqueue: remove unused cancel_work()<br>
+        <br>
+        Found this by accident.<br>
+        There are no usages of bare cancel_work() in current kernel
+    source.<br>
+        <br>
+        Signed-off-by: Stephen Hemminger
+    <a class="moz-txt-link-rfc2396E" href="mailto:stephen@networkplumber.org">&lt;stephen@networkplumber.org&gt;</a><br>
+        Signed-off-by: Tejun Heo <a class="moz-txt-link-rfc2396E" href="mailto:tj@kernel.org">&lt;tj@kernel.org&gt;</a><br>
+    <br>
+    <br>
+    Maybe just revert that patch, export the function and use it. I
+    think there is plenty of justification for this.<br>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:ce60a983-9906-e33f-a2cc-6fedb958a124@amd.com">
+      <p><b style="color: rgb(32, 33, 36); font-family: arial,
+          sans-serif; font-size: 16px; font-style: normal;
+          font-variant-ligatures: normal; font-variant-caps: normal;
+          letter-spacing: normal; orphans: 2; text-align: left;
+          text-indent: 0px; text-transform: none; white-space: normal;
+          widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;
+          background-color: rgb(255, 255, 255);
+          text-decoration-thickness: initial; text-decoration-style:
+          initial; text-decoration-color: initial;"> </b></p>
+      <p>Andrey</p>
+      <blockquote type="cite"
+        cite="mid:1a7fd05f-490b-9999-5f0b-e84af26504a9@amd.com"> <br>
+        <blockquote type="cite"> <br>
+          [1] -
+          <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/"
+            moz-do-not-send="true">https://lore.kernel.org/all/20220504161841.24669-1-andrey.grodzovsky@amd.com/</a><br>
+          <br>
+          Andrey Grodzovsky (7): <br>
+             drm/amdgpu: Cache result of last reset at reset domain
+          level. <br>
+             drm/amdgpu: Switch to delayed work from work_struct. <br>
+             drm/admgpu: Serialize RAS recovery work directly into reset
+          domain <br>
+               queue. <br>
+             drm/amdgpu: Add delayed work for GPU reset from debugfs <br>
+             drm/amdgpu: Add delayed work for GPU reset from kfd. <br>
+             drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to <br>
+               amdgpu_device_gpu_recover <br>
+             drm/amdgpu: Stop any pending reset if another in progress.
+          <br>
+          <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 +++++- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 + <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62
+          +++++++++++----------- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 19 ++++++- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 10 ++-- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  2 +- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  |  1 + <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  5 +- <br>
+            drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 +- <br>
+            drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  6 +-- <br>
+            drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  6 +-- <br>
+            drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 +-- <br>
+            14 files changed, 87 insertions(+), 54 deletions(-) <br>
+          <br>
+        </blockquote>
+        <br>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------LQrtz0tD09MrzznbZ1CSDzzO--
