@@ -4,60 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE527C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:03:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A568DC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBC811B0B2;
-	Thu, 19 May 2022 09:02:59 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E55411B0B1;
- Thu, 19 May 2022 09:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652950978; x=1684486978;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=hAoQkRu47IyaWQTtveq3c7aHdT3liXee0nWJIpO68aY=;
- b=KnfdPscxlT8KXdzqv75Z1ANV1KHBgEGg+OdxYgkoWkDUH8X5cV0uVJEB
- 5fOfAZhJCy/DzImsYRScRePnUMfzMyCHNTEgvtEfb0U/JdEBgdmshYMPN
- Um+82sYVNuLCjS4AFqdfqQ/ig6ORQs3JxLp9eBxjspcGULTIhe2ldBnLo
- 9iHHyAVlkB2OcTTTMIe5uC7lr4T2V+j9oHd9cP9DzzVyfuxHheTtRTXTW
- rqB/oWg+bdc5MyV5eei86tVUbrERwFQWq/a9G50r3xUYuzIlxuCWZb89Y
- pnD/6oXJC5Ww8rKbMCzLkM9wHexDfSWSZaZ+IVxmXbeflj4cH5lGF10Vm Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="297405542"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="297405542"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:02:57 -0700
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="545991736"
-Received: from tszulist-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.146.157])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:02:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
- <ddadap@nvidia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH 01/14] ACPI: video: Add a native function parameter to
- acpi_video_get_backlight_type()
-In-Reply-To: <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220517152331.16217-1-hdegoede@redhat.com>
- <20220517152331.16217-2-hdegoede@redhat.com> <87y1yzdxtk.fsf@intel.com>
- <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
-Date: Thu, 19 May 2022 12:02:46 +0300
-Message-ID: <87pmk9dhe1.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F8A11B251;
+	Thu, 19 May 2022 09:32:20 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB43E11B250
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 09:32:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y/aL27+cSF8PlEcySYy/SLpf6YOhUaf75AQsFNs0pDQ0H0D0EI/sWpBRytsEfNWGW1dCa7i2O2kzrvURQ6cd7zbC212ad5IaV/95gIrHvdSfCdzLuCiLTWlRZst7EjYDJsj0Wi9JODeKtbmbqSgn4VOatTrfLmSu1Zf7idPq+ir4zbRXung02kWMy1n9ro0jV/R86c+anqYwkTkfaCjtNBRDjVg2VQbzBDO0VHpsf7iAAuBitcuHAMsjEjJiw6va491JyEeND64pnhM9730d/uuRZAiPL8JevceQOdEymx2RPwR5JOgnkYVUjer2dV8LiT8PIj9df9sdtJkvgvzF2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NfODawHg80ix91Kfr5Wpj7vvMGmFIEWQzg6vbvbZcSQ=;
+ b=hhVZhSzshVKmxxkcEPcI+7xPdZ6rYWGLe2FcVG0Uhnvpj6grXLiFCBTEGnO4e66Y8wOxlj8PAyPXNtt+6CeUe/cXjckzUuPKnLqzsTKtyPGxqD3LPIet9urRDt1nKtYLxOFOzKWIPvN2M9Tv4z09AHyfvGzTzDa5iHVwiupr1zTwfhm/J1B/B9ASjpVLuHd+Du0NxhWyNWP6TxR5rcyi9EPnw8d3WA/VuAZ+lNjzzxQUWvC9i+D5N2HulNdrLTuFJ7QxhEQxsN0keNAT0wllck573bkA0finSGJflALROzGe428jzem82AcvqiH/BzUU3GGby+CzDYWnIrL/UMDgUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NfODawHg80ix91Kfr5Wpj7vvMGmFIEWQzg6vbvbZcSQ=;
+ b=mkzWtqZa/ZnmIv/bbUtVLOOTiSQNgtpkj/nB6a9qtm9YAOi2V2jSnVCslAUpgoR0L/e9mK1i7BCbn3eabqTAMaJGWsRl6qZuaAg9HrHi+4Lf8zxmuJipXyw7/eqo3MoqtoLuQLPquG2F6rjFXe/h0N46e6DfNsR2IE769Sdq9xk=
+Received: from DS7PR05CA0096.namprd05.prod.outlook.com (2603:10b6:8:56::28) by
+ MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Thu, 19 May
+ 2022 09:32:15 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:56:cafe::e0) by DS7PR05CA0096.outlook.office365.com
+ (2603:10b6:8:56::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.7 via Frontend
+ Transport; Thu, 19 May 2022 09:32:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5273.14 via Frontend Transport; Thu, 19 May 2022 09:32:15 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 19 May
+ 2022 04:32:13 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: suppress some compile warnings
+Date: Thu, 19 May 2022 17:31:50 +0800
+Message-ID: <20220519093150.1244888-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bce847dc-a1bc-4f41-f153-08da397a762b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4128:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB412858D986331E617D8C4CAEE4D09@MN2PR12MB4128.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MwySKvrHhJCZcTQR04jbnnT/yDfNEtTMdxWJiJ1DG/fKcylwKQDYqS1pKRn4t1DgyjhORvG2HkVgvnbNfxyqBLJ3Uj5jFgzQ4zlR4hO+STT1dRVUlBvAvW88Blj0rkc5/koyPUW9wSnCBG0AfFdOZNZwZDpaeOYQQw9Kdsso0Mn9gcaA21oQ2CWeURKTQ35VubzAkv+xVhNA5tYehEpQMXnxx3S4HMcrR7WAAWyzjFucQZ3GYLpZ45DZrNtq3PxmZPSHk6gNh4xAQ7q+tuwQMNcUE7mWXSC9A6QCqr8wN2qEYE85ufY+kMO71t/Y2PnIrDbHoXUmAB6653668MBTpt7GwMXgpVRRchCweVsjmPL3QlJsoPYOwb931IAV53jNHt+Mivsn+RE0VwgJFG7iMOgECm0nz2lqrR6Wi90wU+V/PvaxFI+DfuSS0igVM64SGb7j9w095oybc/lP9EAi7oeWvWi+FRuM5eVHPOqyawE/qpGAyX6xJ7Fczw2tC+c1MT15nWxzTf4Xlx7/OPZb2MPEv466O3xB691iITFqQpjmNQGOB313aOcQPXAx8WgJgLHt/66HdCcO1a87APosZ6lfa+X3ITf9e6kIq9f4qaW61003/1mu37z+HnEXoyF/jMDj/uv9kvrKVvZG/TRPnkbQ7xjJX6Gz7QSvbuBgDwFUxMjAOArz1Crdm9wOUkA0fQTWNAweQyWKhkC70b8d4Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(508600001)(82310400005)(8936002)(36860700001)(70206006)(70586007)(54906003)(6916009)(316002)(8676002)(356005)(6666004)(2906002)(2616005)(1076003)(86362001)(81166007)(44832011)(186003)(26005)(7696005)(36756003)(5660300002)(16526019)(4326008)(336012)(47076005)(426003)(40460700003)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2022 09:32:15.6012 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bce847dc-a1bc-4f41-f153-08da397a762b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4128
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,118 +98,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>, kernel test
+ robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 18 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
-> Hi,
->
-> On 5/18/22 10:55, Jani Nikula wrote:
->> On Tue, 17 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
->>> ATM on x86 laptops where we want userspace to use the acpi_video backlight
->>> device we often register both the GPU's native backlight device and
->>> acpi_video's firmware acpi_video# backlight device. This relies on
->>> userspace preferring firmware type backlight devices over native ones, but
->>> registering 2 backlight devices for a single display really is undesirable.
->>>
->>> On x86 laptops where the native GPU backlight device should be used,
->>> the registering of other backlight devices is avoided by their drivers
->>> using acpi_video_get_backlight_type() and only registering their backlight
->>> if the return value matches their type.
->>>
->>> acpi_video_get_backlight_type() uses
->>> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
->>> driver is available and will never return native if this returns
->>> false. This means that the GPU's native backlight registering code
->>> cannot just call acpi_video_get_backlight_type() to determine if it
->>> should register its backlight, since acpi_video_get_backlight_type() will
->>> never return native until the native backlight has already registered.
->>>
->>> To fix this add a native function parameter to
->>> acpi_video_get_backlight_type(), which when set to true will make
->>> acpi_video_get_backlight_type() behave as if a native backlight has
->>> already been registered.
+Suppress two compile warnings about "no previous prototype".
 
-Regarding the question below, this is the part that throws me off.
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I74d029c6ebd8bf6bc08edada7a992d04786330d8
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c            | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
->>>
->>> Note that all current callers are updated to pass false for the new
->>> parameter, so this change in itself causes no functional changes.
->> 
->> 
->>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
->>> index becc198e4c22..0a06f0edd298 100644
->>> --- a/drivers/acpi/video_detect.c
->>> +++ b/drivers/acpi/video_detect.c
->>> @@ -17,12 +17,14 @@
->>>   * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
->>>   * sony_acpi,... can take care about backlight brightness.
->>>   *
->>> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
->>> - * which driver should handle the backlight.
->>> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
->>> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
->>> + * pass true for the native function argument, other drivers must pass false.
->>>   *
->>>   * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
->>>   * this file will not be compiled and acpi_video_get_backlight_type() will
->>> - * always return acpi_backlight_vendor.
->>> + * return acpi_backlight_native when its native argument is true and
->>> + * acpi_backlight_vendor when it is false.
->>>   */
->> 
->> Frankly, I think the boolean native parameter here, and at the call
->> sites, is confusing, and the slightly different explanations in the
->> commit message and comment here aren't helping.
->
-> Can you elaborate the "slightly different explanations in the
-> commit message and comment" part a bit (so that I can fix this) ?
->
->> I suggest adding a separate function that the native backlight drivers
->> should use. I think it's more obvious all around, and easier to document
->> too.
->
-> Code wise I think this would mean renaming the original and
-> then adding 2 wrappers, but that is fine with me. I've no real
-> preference either way and I'm happy with adding a new variant of
-> acpi_video_get_backlight_type() for the native backlight drivers
-> any suggestion for a name ?
-
-Alternatively, do the native backlight drivers have any need for the
-actual backlight type information from acpi? They only need to be able
-to ask if they should register themselves, right?
-
-I understand this sounds like bikeshedding, but I'm trying to avoid
-duplicating the conditions in the drivers where a single predicate
-function call could be sufficient, and the complexity could be hidden in
-acpi.
-
-	if (!acpi_video_backlight_use_native())
-		return;
-
-Perhaps all the drivers/platform/x86/* backlight drivers could use:
-
-	if (acpi_video_backlight_use_vendor())
-		...
-
-You can still use the native parameter etc. internally, but just hide
-the details from everyone else, and, hopefully, make it harder for them
-to do silly things?
-
-BR,
-Jani.
-
-
->
-> Regards,
->
-> Hans
->
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 881570dced41..16cdfb30b013 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1361,7 +1361,7 @@ union mall_info {
+ 	struct mall_info_v1_0 v1;
+ };
+ 
+-int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
++static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+ {
+ 	struct binary_header *bhdr;
+ 	union mall_info *mall_info;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index c6a8520053bb..9e18a2b22607 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -42,6 +42,7 @@
+ 
+ #include "soc15.h"
+ #include "soc15_common.h"
++#include "soc21.h"
+ 
+ static const struct amd_ip_funcs soc21_common_ip_funcs;
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.29.0
+
