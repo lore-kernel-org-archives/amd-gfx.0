@@ -4,59 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABE4C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 13:16:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A518C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 13:20:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8707D10EA42;
-	Fri, 20 May 2022 13:16:44 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C13910FCA5;
- Fri, 20 May 2022 12:40:34 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id e17so6555667qvj.11;
- Fri, 20 May 2022 05:40:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=AW3WbgwLSP0WZKYPK3Y6DQ8WAhPkJkHKkMhSdaktb4M=;
- b=oIktYKJy8OXpStZlQucbfcTiSfAhoZL2H6uMl5g6aggdJSSHaDgRsH0A2X72hWq+XQ
- t7ETPjQf0WRJhoOSJ0e0i3bnVXKRdcP5AfCZsqMeHm8xV6neWiApwl/sxglb1iIY1zw9
- 57eSkM9c0j35sJejOQEzxqBd8TXENT2mRq7aDX0r5rsVem/7eByrbMI/iwldF6QrII1S
- xixFUuq5Ry3ZoinFiDOfbLPSRmdiMEsA/KPFJEisIw2q7sldt0txsRp1R5seZ/V7nsro
- WO/CB9IOJFVl5zjtEAPHRoEC8sPc4rYaOL/duXOPF1sZMIUVyHfHYaBLzkYjlCGKyGHn
- a0Lg==
-X-Gm-Message-State: AOAM530ZSLcQCBP6bCG72OKF+1Z1m8ZrE2cQRL7mJakE95UYnF1BtoqS
- eg77SlYf5/eusuzJ21SXKWQlH46jQT619Q==
-X-Google-Smtp-Source: ABdhPJzoDPH4hjveHByZO4pz3tl1VwE2ezVP4OC6WC4yT17OZkzJet8Juxf6Ce8eCd6k7W7/ajCtEQ==
-X-Received: by 2002:a05:6214:1cc5:b0:443:6a15:5894 with SMTP id
- g5-20020a0562141cc500b004436a155894mr7293846qvd.59.1653050432863; 
- Fri, 20 May 2022 05:40:32 -0700 (PDT)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com.
- [209.85.128.180]) by smtp.gmail.com with ESMTPSA id
- h124-20020a375382000000b0069fc13ce222sm3142448qkb.83.2022.05.20.05.40.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 May 2022 05:40:32 -0700 (PDT)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-2ef5380669cso85618337b3.9; 
- Fri, 20 May 2022 05:40:32 -0700 (PDT)
-X-Received: by 2002:a81:9b0c:0:b0:2f4:c522:7d3c with SMTP id
- s12-20020a819b0c000000b002f4c5227d3cmr9969695ywg.316.1653050431948; Fri, 20
- May 2022 05:40:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A701B10E60D;
+	Fri, 20 May 2022 13:20:54 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4BA10E60D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 13:20:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Dz7IBXKogEvhFui36zzC7br/4F1sx9lVPzN2XBL36SfogLOqOS/J027VyK2WZf9F3WxZjF3gnUhRRVfQ7hwhkSmSLEpei2K2pCPCID9nFiP0tS7nmQ5VC3PddXNASf8vi/o+JW3kxzx1hlp1608Tjvj4XR8OR15mH0FxFgLwGjaCDDHmwr4mLg7hPOdD1xY8m4JbRz3ZiV/DhY2B/SdMo0z8iNBoCLCDBfyHqpONh5dZxobcb/A7YTN+1kxdXGXNw8Ov/py+pOMbhKgAa8YgCxnrqMV4SVulilcKMzujloJymGiP3gW3M4wdWbwZuY0xpKEfrBfNbX/NdaBjHBFlRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7pzU8AIguVv6DX7wS3+3tZW7redgKAB/XgKrCr7vMjw=;
+ b=fsm8WfJOymq8n7vP+zJsJG4raf4ZfliDHkrDvJ0ze7AvCgeqFQhtL50hSBnI/kXiCGOxk/O5IcG/8/i39v6P/i/hkLiy23UHdwSNuvXambpw8xn718XmqZCAWRUB+MoE91gp2vqRy85aOjz/d5dE6Di7sLtFr/HbuzLCBSj5d0xyaEBETPokz2NmxOCFmjE36ImMZT2AAv70l4CP1w4EVTK3wGNo9XdPfhSu6cqF1aAM/GCy6ZRn6cyvJn9XJuLE+QNlzQMmNR9C0AItEn+4BemCWs1wNlwPekele4ZkJiMZgJzMaDVVGOP+43NhMdGbHN/yt23sfAyEfdmclHWzxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7pzU8AIguVv6DX7wS3+3tZW7redgKAB/XgKrCr7vMjw=;
+ b=GXrmhsKEgisNVH8CyLgfCK5Na5MaTKS469AEFHdHjkheAuOjGkJ/TW3XwO4xxGCbPRKwNCySW3LIkxsGPv3rBC9GtY7oT6ZIaYEawE8RN9rlWhXR4cMXCzQ5L5UDuxCmpEpZddKhbFstMW8MPf5mpbaSXlqNvWZuK7dMZL7/8JQ=
+Received: from BN6PR19CA0100.namprd19.prod.outlook.com (2603:10b6:404:a0::14)
+ by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Fri, 20 May
+ 2022 13:20:52 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:a0:cafe::72) by BN6PR19CA0100.outlook.office365.com
+ (2603:10b6:404:a0::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17 via Frontend
+ Transport; Fri, 20 May 2022 13:20:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5273.14 via Frontend Transport; Fri, 20 May 2022 13:20:51 +0000
+Received: from canli.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
+ 2022 08:20:50 -0500
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Resolve pcie_bif RAS recovery bug
+Date: Fri, 20 May 2022 21:20:33 +0800
+Message-ID: <20220520132033.25135-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <6285958d.+Z2aDZ4O1Y9eiazd%lkp@intel.com>
- <0530d502-1291-23f3-64ac-97bd38a26bd4@roeck-us.net>
-In-Reply-To: <0530d502-1291-23f3-64ac-97bd38a26bd4@roeck-us.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 20 May 2022 14:40:20 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU3SYOwE5ftDwymQpVwWmpbC=1Ytyp0Y9GaeUS2i1cP+A@mail.gmail.com>
-Message-ID: <CAMuHMdU3SYOwE5ftDwymQpVwWmpbC=1Ytyp0Y9GaeUS2i1cP+A@mail.gmail.com>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 736ee37e2e8eed7fe48d0a37ee5a709514d478b3
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 20 May 2022 13:16:42 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 13c86f4a-6b9c-477e-6892-08da3a638ff6
+X-MS-TrafficTypeDiagnostic: DS7PR12MB6189:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR12MB6189D0D3BD45D71F40FECBD491D39@DS7PR12MB6189.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2Eqefsh7hIL0shaUimQ0nnK73ekNd5wf+R864ZHs+1ixfuE4HgHq8G0kPELUw7Xo2HOuF9L2tycZwPnc77mTcw44fPlYuPT3F0LkP9wLU6ATOfh7hTJD4c1OAc441tLCgg/tKX3GbRiwbgoPG+fW0z5ut/i/E2ON0K/Ya4ugGFXpFWVsvlYvrlTv/6TcykJmaHGCFxiqfV3gEwFmd8IpCoVo6aK5vNumHK2Xrs50nv/yT0hqw9YbzuljzLX1YuPcGU44Ieo21sRo7MSUgrOe5LBlTyawkWWg4lMuS5IhkmMIE/Rf8LlU2sWGDJ9CuCouL4Lsah9z0xLNUHgvrWf5WlAblx16v1Fa7TyJewXkAjSeYfEyB5VEvEBDD2LKTJQ2tNWhI8z4lPdxiRq9jxZmKBmlbZfLC8bhQJGk/4l0WyoCdOe9rmESRlCACkbpN7uricDySB+RefJgR/+lBteIUmHtPBWJkgEARNib34Z+IdRopEviM6OW+UIkcqG/buQOAFLbz1XwHzLrxxKVwUym0H+RK6YjS90l1c55Jp7gNYVscrdqM4GLsQHHcm2+tpy87sO23M9mToFZafWVMy+ujVA7K8AKLdJz4w6hvCLeRBEtxvRCcTWPBddHlrxwnX5ghp4nT4dhO7BTu5u1h1XmXJLBL8SIlY2JxLt0swD8RrH/a1MuD+DJymmuge9qi5S2LXikdQ/BoefyfBKl+ojKGA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(508600001)(5660300002)(356005)(81166007)(44832011)(316002)(86362001)(2906002)(6916009)(4744005)(8936002)(7696005)(82310400005)(8676002)(70206006)(2616005)(1076003)(40460700003)(47076005)(426003)(336012)(186003)(16526019)(6666004)(26005)(36756003)(83380400001)(4326008)(70586007)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 13:20:51.7029 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13c86f4a-6b9c-477e-6892-08da3a638ff6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,142 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org,
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- kernel test robot <lkp@intel.com>, KVM list <kvm@vger.kernel.org>,
- linux-staging@lists.linux.dev, linux-m68k <linux-m68k@lists.linux-m68k.org>,
- linux-nvme@lists.infradead.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-sparse@vger.kernel.org,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "open list:TI ETHERNET SWITCH DRIVER \(CPSW\)" <linux-omap@vger.kernel.org>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc: Candice Li <candice.li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi G=C3=BCnter
+Check shared buf instead of init flag for xgmi ta shared buf init
+during xgmi ta initialization.
 
-On Thu, May 19, 2022 at 8:48 AM Guenter Roeck <linux@roeck-us.net> wrote:
-> On 5/18/22 17:55, kernel test robot wrote:
-> > tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux=
--next.git master
-> > branch HEAD: 736ee37e2e8eed7fe48d0a37ee5a709514d478b3  Add linux-next s=
-pecific files for 20220518
-> >
-> > Error/Warning reports:
-> >
-> > https://lore.kernel.org/linux-mm/202204291924.vTGZmerI-lkp@intel.com
-> > https://lore.kernel.org/linux-mm/202205041248.WgCwPcEV-lkp@intel.com
-> > https://lore.kernel.org/linux-mm/202205122113.uLKzd3SZ-lkp@intel.com
-> > https://lore.kernel.org/linux-mm/202205172344.3GFeaum1-lkp@intel.com
-> > https://lore.kernel.org/linux-mm/202205190527.o9wVEvHI-lkp@intel.com
-> >
-> > Error/Warning: (recently discovered and may have been fixed)
-> >
-> [ .. ]
-> > drivers/hwmon/nct6775-platform.c:199:9: sparse:    unsigned char
-> > drivers/hwmon/nct6775-platform.c:199:9: sparse:    void
->
-> This is getting tiresome. Every driver using outb() on m68k will
-> experience that "problem". As far as I can see, it is caused by
->
-> #define out_8(addr,b) (void)((*(__force volatile u8 *) (unsigned long)(ad=
-dr)) =3D (b))
->
-> in arch/m68k/include/asm/raw_io.h. I have no idea what the
-> "(void)" is for,
+Signed-off-by: Candice Li <candice.li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The "(void)" makes sure there is no return value.
-Which matters if the result of a function returning void is propagated
-to another function returning void.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 214e4e89a02876..e9411c28d88ba8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1177,7 +1177,7 @@ int psp_xgmi_initialize(struct psp_context *psp, bool set_extended_data, bool lo
+ 	psp->xgmi_context.context.mem_context.shared_mem_size = PSP_XGMI_SHARED_MEM_SIZE;
+ 	psp->xgmi_context.context.ta_load_type = GFX_CMD_ID_LOAD_TA;
+ 
+-	if (!psp->xgmi_context.context.initialized) {
++	if (!psp->xgmi_context.context.mem_context.shared_buf) {
+ 		ret = psp_ta_init_shared_buf(psp, &psp->xgmi_context.context.mem_context);
+ 		if (ret)
+ 			return ret;
+-- 
+2.17.1
 
-> but removing it "fixes" the problem.
-
-This introduces new problems (m68k all{mod,yes}config):
-
-    In file included from arch/m68k/include/asm/io_mm.h:25,
-                     from arch/m68k/include/asm/io.h:8,
-                     from include/linux/io.h:13,
-                     from include/linux/of_address.h:7,
-                     from drivers/gpu/drm/msm/adreno/adreno_gpu.c:13:
-    drivers/gpu/drm/msm/adreno/a6xx_gmu.h: In function =E2=80=98gmu_write_r=
-scc=E2=80=99:
-    arch/m68k/include/asm/raw_io.h:34:80: error: =E2=80=98return=E2=80=99 w=
-ith a
-value, in function returning void [-Werror=3Dreturn-type]
-       34 | #define out_le32(addr,l) ((*(__force volatile __le32 *)
-(unsigned long)(addr)) =3D cpu_to_le32(l))
-          |
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-    arch/m68k/include/asm/io_mm.h:397:26: note: in expansion of macro =E2=
-=80=98out_le32=E2=80=99
-      397 | #define writel(val,addr) out_le32((addr),(val))
-          |                          ^~~~~~~~
-    drivers/gpu/drm/msm/msm_drv.h:468:32: note: in expansion of macro =E2=
-=80=98writel=E2=80=99
-      468 | #define msm_writel(data, addr) writel((data), (addr))
-          |                                ^~~~~~
-    /drivers/gpu/drm/msm/adreno/a6xx_gmu.h:141:9: note: in expansion
-of macro =E2=80=98msm_writel=E2=80=99
-      141 |  return msm_writel(value, gmu->rscc + (offset << 2));
-          |         ^~~~~~~~~~
-    In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu.h:11,
-                     from drivers/gpu/drm/msm/adreno/adreno_gpu.c:20:
-    drivers/gpu/drm/msm/adreno/a6xx_gmu.h:139:20: note: declared here
-      139 | static inline void gmu_write_rscc(struct a6xx_gmu *gmu,
-u32 offset, u32 value)
-          |                    ^~~~~~~~~~~~~~
-
-These can be fixed using e.g. (there are more in the Adreno driver):
-
-     static inline void gmu_write(struct a6xx_gmu *gmu, u32 offset, u32 val=
-ue)
-     {
-    -       return msm_writel(value, gmu->mmio + (offset << 2));
-    +       msm_writel(value, gmu->mmio + (offset << 2));
-     }
-
-> Either case, this is not a problem with the nct6775 driver,
-> nor is it a new problem.
-
-Indeed.
-
-For the sparse people:
-
-The full error is:
-
-        drivers/net/appletalk/cops.c:382:17: error: incompatible types
-in conditional expression (different base types):
-        drivers/net/appletalk/cops.c:382:17:    unsigned char
-        drivers/net/appletalk/cops.c:382:17:    void
-
-Basically, sparse doesn't like "a ? b : c", if the return types of
-b and c don't match, even if the resulting value is not used.
-
-E.g. outb() on m68k:
-
-    #define outb(val, port) (((port) < 1024 && ISA_TYPE =3D=3D
-ISA_TYPE_ENEC) ? isa_rom_outb((val), (port)) : isa_outb((val),
-(port)))
-
-where isa_rom_outb() leads to rom_out_8() returning u8, while
-isa_outb() leads to the out_8() that includes the cast to void.
-
-So the best solution seems to be to add more "(void)" casts, to e.g.
-rom_out_8() and friends?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
