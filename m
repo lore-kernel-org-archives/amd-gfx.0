@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7902C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 14:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE30C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 15:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BBA10E1B7;
-	Fri, 20 May 2022 14:52:45 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5985C10E1B7
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 14:52:43 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id q10so10219114oia.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 07:52:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=OwzUJfvpDQMDoYRJbR8M2kuP05MX8OCwljv9/gtYRLU=;
- b=jzasruQknWepqrIEmET6Xwo1rG3nhIDVYm+MpRrZ9JenMFqg6e/BWW5AXtrP+hYfV4
- PawZK1SWoOBgRU+N9q53nTd2exQ6OdAShtCW8bbxYoiQgoYTTSh+m4I8tKVPIHwbwSgJ
- y2gJeIsK+/7WL/QSi7mYGAQzYgvF86hhs1spFi38g9/HJFXF7JyU8IKJx8sF1mw5L7pi
- qIbEvHRH2K0jC/nMq6TjTpBTNa5ciwV/FNzZBrbD73Ul6jWU9bgGURHKRUxyDIPlsufm
- 4mxgpUbQqV56HeZAf7ZJqrzTXeVWmTMVecFgGYJoRtfSUTAApRzIeAcIbCDkujywrv76
- UYOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=OwzUJfvpDQMDoYRJbR8M2kuP05MX8OCwljv9/gtYRLU=;
- b=7/gINzWXBL5szG3CfVka3jf5As4stG0S0Og8dJ0KhEIknFvRtIo/U4B3OqlUFBm5s1
- 4jEQLaWenQZlwMZxPeI3Fnr83PW7VyvWfyOJsBDS5TTNk/yKP9ko43P4wJ1WUMBS0Tjx
- RVQE/IJMwCCOzBwoQNHUcUwrJtvR5gqG1v18gYNHOBRVgqv7J4OEJvwmMd/VRh5tf2Ti
- 56kOU6Q1/bKIxLwSmzjOtWm4fRSKdKTw0nrn5SiD2ICm/glrm0tLAQ8i3qRCBpBIL5QX
- 6PDWV4DGTNZQawEqT7zk/xX+pOgdz4tiVUxruQTBwiTN331MaUXI5rNwisYDnBT4C92X
- XYZA==
-X-Gm-Message-State: AOAM530O/4ilDXQAZ64oy+Ih3JqPDme4QhQEDwQMcrcFtfG2k8iJpMUn
- yc6c/tmaBirixhdhTTbvlbwjWgjQtZQe58A15HNKju7S
-X-Google-Smtp-Source: ABdhPJwrYOfTVow916Y2yGUQumF2OH6B0QLsnfrhPBAVcuyEm6g/aRe1TVvKauCAX9TTqquAPaSeLr8W45YZoxs4DQE=
-X-Received: by 2002:a05:6808:f8e:b0:328:a601:a425 with SMTP id
- o14-20020a0568080f8e00b00328a601a425mr5860532oiw.253.1653058362680; Fri, 20
- May 2022 07:52:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C86E210E184;
+	Fri, 20 May 2022 15:09:31 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B31CF10E184
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 15:09:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j5t5KyBxNXd2fRSatHPZipamMv5AxjcqpkWcBHGZATS8AWkWfhuMvn0NdPVuOydecUv1ahPBbE8zf3wSlQnR91s534oZb22zRyhf8Tv+3ZdhR1++0sEC16fRFbb5+BTX0y6rV6dncn16na1/dZIhR91W1+lxFDdzKrVY5+mzxSXt+0jq4F1XJm8jKWj55hgOKSrloyDX/ItoKdqIlwYzb5qrFsZEpoNKiuio0eEB9JxE27/9J8smUZu4DJ2mQghPC9SbQe1EyoDXm/MNf54Q2+wBLdmn014V/MZjzeJIuOskaNY6s22lnaEPSM4xWotk47O/Mh9oLzJ0WYueTswIgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jv/xQDC0nc0GSEkdgVvE2EZ2I7hM6HZ9g4OVpB3CAGw=;
+ b=XnI0KfsxOmroxbXyvOg10nwogFt6yB3e9A9vjqUtUzjfgkaYqIdVkAnAx6uVEtahZX/1UfsuP4jj/0F+kqGQcCrLl4gohUyKMe6yJZ02RM2MchflAZycwYLVBplYpC5s2bILyEtIB7Tq+8MipwLkZTlsMLhf5KI7Ba/YAE01o+MJtzanxyuUvvfFt+mG5Gxiqs5e4l7TE5vomdsqfJHjl4B8+bO09HU1dkFTlG+tECIWBmGrB0HG8+3xx9SqiPJYhKqk6JBTIrDyT1L+rJbx8pEycMNH4tHNEs188MvwnojKo4qvOMrKgxofUi2NOqUyu6wtfoW2hfvYM5n/625HHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jv/xQDC0nc0GSEkdgVvE2EZ2I7hM6HZ9g4OVpB3CAGw=;
+ b=UpOzUsYVSfK46v+yYalaxeqRjkCWfYPWhvMPMYfW6C85KP1pGRFA2ABqWjGmDv1e8TkvZc7GFv3mcs2OOW8YJMoOfHInKCZVWsGpy/2kl64e3l5qwpJEg2VQyjqhmabs4ptCK3C2QQnn2VuA4q3SIfA5/mSk7KK4vv6tcURXiyo=
+Received: from DM6PR13CA0061.namprd13.prod.outlook.com (2603:10b6:5:134::38)
+ by BYAPR12MB3559.namprd12.prod.outlook.com (2603:10b6:a03:d9::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.16; Fri, 20 May
+ 2022 15:09:27 +0000
+Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::2) by DM6PR13CA0061.outlook.office365.com
+ (2603:10b6:5:134::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.7 via Frontend
+ Transport; Fri, 20 May 2022 15:09:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5273.14 via Frontend Transport; Fri, 20 May 2022 15:09:26 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
+ 2022 10:09:25 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+Date: Fri, 20 May 2022 11:09:12 -0400
+Message-ID: <20220520150912.762831-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <20220520075932.186691-1-danijel.slivka@amd.com>
- <CADnq5_P8p5zKiW20xek0M0DVs+YRDX6qcy+b01NWXP_NUs9O5Q@mail.gmail.com>
- <BYAPR12MB3094F87BED21F64FE5BD4C4798D39@BYAPR12MB3094.namprd12.prod.outlook.com>
- <CADnq5_PArQi9FdOufwO7XnHXf85euPN_H_3hvqyJYUW47nHFCg@mail.gmail.com>
- <BYAPR12MB30941FC0900BB87D03F2C20898D39@BYAPR12MB3094.namprd12.prod.outlook.com>
-In-Reply-To: <BYAPR12MB30941FC0900BB87D03F2C20898D39@BYAPR12MB3094.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 20 May 2022 10:52:31 -0400
-Message-ID: <CADnq5_NEw929TkfWuT359wzMDfnS9_=+896PByf1kFeCst8zFw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Skip init fbdev if virtual_display is enabled
-To: "Slivka, Danijel" <Danijel.Slivka@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0dff354b-c06a-4ac1-c1a6-08da3a72bb2f
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3559:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3559660734340CD2C9DB5F9BF7D39@BYAPR12MB3559.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DQVqYDP5iTFj5ayKtpF4acpk95uIbIrn9JUdW4Zw7QxOYY+z+nSut8FDbnJw+9lqOIdUApOxQ8mtTSAmg84T8TefnSq/dfd4khDmILhlFgXJx6ncgIgkrpQLhxDSQdBjm2ld7AUFRuD2KRfQN1dHsNDtZSQ0W5jYg6i1KkhDJ9eDZw6hZ+zc+QdbuvE1BkgDB0vGeepOCeP1ej/rS2zTSbQUVE8AH/QMR5gUUl6Y4vhbC/07kj6wM8wFLNHndfN+022SqiW4gm/XA3yausCIXRT5F3gU96VB2h4OBG5FS718zrUSzVuR62RlkjqkffPZOQY4c05kTydD0mzPleEZYuu5DK2KtTxjEIzQuWVa37gnyi9tmcCiNlpLQh3PpYKxLUOgoFo9WPSWblpUqVtACedWeGXpcqIsPB+wGgBQdQxw0XV1nTE6iB5W2S0XzJlzkfIpP1x4HKbmn+F/RJWkv4Hp8HvS3OQxT7AhaB9FMBsGvmI3Y314+/96AP0boZhGM0LSt6HdgjXRhpmBeEv+zkLgQLIYWuKj5ecfaahYFe+TN2VZbkrQa/WDLJ/lsUCsAkbBCZsAw89Jj8+53wPWp1ffr57BBqK8R6S28Et9zqYIGolDis6Wwb+gIBP6n8CBs5xfmLQkJzPkJSjuf3dvdvXn2zzgBAsCwa7RyjPMz6VEOGWZjGrH1bHXYVjqeEhnXwlzmk7dJxOWm7mFbdzJ+A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(5660300002)(356005)(508600001)(81166007)(316002)(86362001)(2906002)(6916009)(8936002)(7696005)(82310400005)(70206006)(8676002)(2616005)(1076003)(40460700003)(47076005)(426003)(336012)(186003)(16526019)(6666004)(26005)(36756003)(83380400001)(4326008)(70586007)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 15:09:26.6560 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dff354b-c06a-4ac1-c1a6-08da3a72bb2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3559
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,113 +98,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 20, 2022 at 10:49 AM Slivka, Danijel <Danijel.Slivka@amd.com> w=
-rote:
->
-> [AMD Official Use Only - General]
->
-> But for virtual display enabled we are not using display capability so sh=
-ouldn't it be considered as hw without DCE.
+Certain GL unit tests for large textures can cause problems
+with the OOM killer since there is no way to link this memory
+to a process.  This was originally mitigated (but not necessarily
+eliminated) by limiting the GTT size.  The problem is this limit
+is often too low for many modern games so just make the limit 1/2
+of system memory. The OOM accounting needs to be addressed, but
+we shouldn't prevent common 3D applications from being usable
+just to potentially mitigate that corner case.
 
-I thought the goal of virtual DCE was for it to be just like real DCE.
-Why would you want to treat it differently?  There is no need to
-register an fbdev device if there is no display hardware, virtual or
-real, but I don't see why you would want to treat virtual DCE any
-differently than real DCE.
+Set default GTT size to max(3G, 1/2 of system ram) by default.
 
-Alex
+v2: drop previous logic and default to 3/4 of ram
+v3: default to half of ram to align with ttm
 
->
-> BR,
-> Danijel Slivka
->
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Friday, May 20, 2022 4:33 PM
-> To: Slivka, Danijel <Danijel.Slivka@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] drm/amdgpu: Skip init fbdev if virtual_display is en=
-abled
->
-> On Fri, May 20, 2022 at 10:12 AM Slivka, Danijel <Danijel.Slivka@amd.com>=
- wrote:
-> >
-> > [AMD Official Use Only - General]
-> >
-> > Hi,
-> >
-> > Based on the code we shouldn't init the fbdev on hw without DCE:
->
-> That comment means don't init fbdev on chips without display hardware (ei=
-ther real or virtual).  E.g., iceland or MI100.
->
-> Alex
->
-> >
-> >         /*
-> >          * 1. don't init fbdev on hw without DCE
-> >          * 2. don't init fbdev if there are no connectors
-> >          */
-> >         if (adev->mode_info.mode_config_initialized &&
-> >             !list_empty(&adev_to_drm(adev)->mode_config.connector_list)=
-) {
-> >                 /* select 8 bpp console on low vram cards */
-> >                 if (adev->gmc.real_vram_size <=3D (32*1024*1024))
-> >                         drm_fbdev_generic_setup(adev_to_drm(adev), 8);
-> >                 else
-> >                         drm_fbdev_generic_setup(adev_to_drm(adev), 32);
-> >         }
-> >
-> > For virtualization we always use virtual_display and doesn=E2=80=99t ha=
-ve the hw DCE for that reason setting up fbdev should be skipped.
-> >
-> >
-> > BR,
-> > Danijel Slivka
-> >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Friday, May 20, 2022 3:30 PM
-> > To: Slivka, Danijel <Danijel.Slivka@amd.com>
-> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> > Subject: Re: [PATCH] drm/amdgpu: Skip init fbdev if virtual_display is
-> > enabled
-> >
-> > On Fri, May 20, 2022 at 3:59 AM Danijel Slivka <danijel.slivka@amd.com>=
- wrote:
-> > >
-> > > In case virtaul_display is enabled there is no hw DCE so need to
-> > > skip setting up fbdev.
-> >
-> > Wouldn't you theoretically still want fbdev even if it is virtual?
-> >
-> > Alex
-> >
-> > >
-> > > Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > index 3b9dc1803be9..8d03eec49eef 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > @@ -2095,6 +2095,7 @@ static int amdgpu_pci_probe(struct pci_dev *pde=
-v,
-> > >          * 2. don't init fbdev if there are no connectors
-> > >          */
-> > >         if (adev->mode_info.mode_config_initialized &&
-> > > +           !adev->enable_virtual_display &&
-> > >             !list_empty(&adev_to_drm(adev)->mode_config.connector_lis=
-t)) {
-> > >                 /* select 8 bpp console on low vram cards */
-> > >                 if (adev->gmc.real_vram_size <=3D (32*1024*1024))
-> > > --
-> > > 2.25.1
-> > >
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index d2b5cccb45c3..7195ed77c85a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+ 		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
+ 
+-	/* Compute GTT size, either bsaed on 3/4th the size of RAM size
++	/* Compute GTT size, either bsaed on 1/2 the size of RAM size
+ 	 * or whatever the user passed on module init */
+ 	if (amdgpu_gtt_size == -1) {
+ 		struct sysinfo si;
+ 
+ 		si_meminfo(&si);
+-		gtt_size = min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
+-			       adev->gmc.mc_vram_size),
+-			       ((uint64_t)si.totalram * si.mem_unit * 3/4));
+-	}
+-	else
++		/* Certain GL unit tests for large textures can cause problems
++		 * with the OOM killer since there is no way to link this memory
++		 * to a process.  This was originally mitigated (but not necessarily
++		 * eliminated) by limiting the GTT size.  The problem is this limit
++		 * is often too low for many modern games so just make the limit 1/2
++		 * of system memory which aligns with TTM. The OOM accounting needs
++		 * to be addressed, but we shouldn't prevent common 3D applications
++		 * from being usable just to potentially mitigate that corner case.
++		 */
++		gtt_size = max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
++			       (u64)si.totalram * si.mem_unit / 2);
++	} else {
+ 		gtt_size = (uint64_t)amdgpu_gtt_size << 20;
++	}
+ 
+ 	/* Initialize GTT memory pool */
+ 	r = amdgpu_gtt_mgr_init(adev, gtt_size);
+-- 
+2.35.3
+
