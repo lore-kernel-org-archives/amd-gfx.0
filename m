@@ -4,55 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B59FC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 10:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA788C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 10:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70D010EEDB;
-	Fri, 20 May 2022 10:15:05 +0000 (UTC)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B306910ED61
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 10:15:04 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id a11so7401071pff.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 03:15:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tER7IhwylpKOsFXSAgvwshpwK5Jsh4a50SR+7a3MTCA=;
- b=ZQmox5u9lOBoV4dtny5bLs4MILT/nrxcdnPOCgJ81VtShFCjBR06ox5H2EjhD6CKVU
- pMmWCpdR2zClTbULGoL+YoUYpuRNcoPYh/AWp1kIDCs9N4bvphDyC5B1y2Pb0eitmUNW
- qkIPFaCKS4qQV/R1eONe4NCd5PAWkbbGfyCkxJVz9jw0KuhRw0+r/2EPArNa1TCiFl1A
- QRmJxgunKCFsLutt/kP6lrTL1dkft12WuSLkJyOqwte98FsEf83ufM2/YjMPida8kHMJ
- Ry0x5m02JunXsIgVcK7E7A2I8CZSwgbebBQG66iiOBfy2b1VVcdeOnepVf3UXjAV+pk2
- jsNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tER7IhwylpKOsFXSAgvwshpwK5Jsh4a50SR+7a3MTCA=;
- b=rudUkkKg2NJ0PyhAHjvdhu/01WZtI27CfidSw8GpHW1T/Qi0uE4q8wapK+ufmKlDLf
- D57izZcTyUlDIqN8Cfr5bjAlPYFQNHzkyCt5tpH6isiQZYyr3KFUZxgF4HX6hjd0e9IP
- kAcj3rw+tkmLgZEmD0kBDuAKKXzRlm3JalK5uZPyJbWicLVaPXHrVowaZisAKoRc2kbF
- 2SulZCcCv49Qu++hwf/xqF8plwLVSxMVwWIp+AMW9jhpSqyQd+PSKqUXDEffEHASdAv7
- 8YwazX78KrePM+kl1Gzs1jHg70LzTbP5FUyJKgKpopQXEOVOxHYv4kVqAX/BviPlzloG
- VRSw==
-X-Gm-Message-State: AOAM530ISCztsDxaj6bH9r9j0DfzXyz3JKNUUnauSpDV5E6m6RFyhaAo
- VDUPHo4aecGZS48gujAckQpC7n/DOcb1jphEULg=
-X-Google-Smtp-Source: ABdhPJwoCTYDfQ1jhFewnwzW1I02nHzpDVoFlG0zfrdAkxyG7do4pCvQJK/g23iQiD2ftJOml92O1LruvNgAVTBIR7I=
-X-Received: by 2002:a05:6a00:c95:b0:517:f266:465 with SMTP id
- a21-20020a056a000c9500b00517f2660465mr9251451pfv.42.1653041704266; Fri, 20
- May 2022 03:15:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D21C10E9A8;
+	Fri, 20 May 2022 10:36:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05F8F10E9A8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 10:36:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=natJtmpdQw5sU+3rhDMrdODONQBj97OoIO2vWE6CCwi0yhyM/qhHNI5pfYORHlv1+vsB1jVB1AXR7vSVBhyktUDFeUustwGyAcGMf1217CoiOUbPMU6qd+Hn0a/b0pL5E/5zggInWsnNSbMkZQZx+fWsl4CrFn85loWAcfsghef5RsD0aEpGDEuKkt9J8+m1xhOBjRLcRoKUuVXW5Sru5ohnvIu/XwIUrEBWhGxE5CMIRzyQLmEr904YDEN5I5cMBHy9ZthAaUt8jRETMYBFAJWOVRP1y5pLtgH8Ue7Sw5hfX8RpGyO/rMps0eu+nZSTqpTdvc/g08bLJJbvJXQebw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T2Ng88IMZs4Te5DnRDlLglyjGQMJRjsnQjUc4BePxTk=;
+ b=MaZvjTUUES6JukhZTnrAq8vDc9h1Pu+OXuz+/7la1fk2Tz/K0I5jnjS45bPc2kP94RO6kio4q8bwMq91skDnAgRGzUuHSsKRvrpCnk6HBmislXDRkdjeVZmXxeGk7W23UAZkdO/qVLz7sC1efRswTkZt9Ltee8DYS5ajkHr+pcHEJ+uIqRG9z6T913W7j0zEjkNgdQ6FlL5wHI1l85aK0vPwVgMjWeObNiOS52P6Df1IB+HeuD+KB0nKrJDq3L9NAifiIJPKlZg0Ra4O0lw4LFPdvTpEf05xtjs3C7CxbxypTO3suizzc0mTqbeXfnzpFmMLJLMkUCO19AebermRDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T2Ng88IMZs4Te5DnRDlLglyjGQMJRjsnQjUc4BePxTk=;
+ b=S/hJuNY+QnqEnVLQDXCYZb8b1PZtttAjXerQEpHzGFw9NJ/+biS76cMyGvVksqnIDeT/cCjdI5R6F1qoGcPvlwwG+EJBsCiBs19QXAjwePkXHJj3ZeFnD2F8E4FuEamP1+L9jZxQNse2vylZj8oyK6BE5eodV4q2+OyAiN1V/kk=
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
+ CH0PR12MB5300.namprd12.prod.outlook.com (2603:10b6:610:d7::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5273.15; Fri, 20 May 2022 10:36:37 +0000
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::b846:d865:5901:f76d]) by DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::b846:d865:5901:f76d%7]) with mapi id 15.20.5273.014; Fri, 20 May 2022
+ 10:36:37 +0000
+From: "Huang, Ray" <Ray.Huang@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: clean up asd on the ta_firmware_header_v2_0
+Thread-Topic: [PATCH] drm/amdgpu: clean up asd on the ta_firmware_header_v2_0
+Thread-Index: AQHYbBEQWQDMAvcXR0SguYf5BGBB+K0nkq6A
+Date: Fri, 20 May 2022 10:36:37 +0000
+Message-ID: <DM5PR12MB2504B33AB28BD08817F243C0ECD39@DM5PR12MB2504.namprd12.prod.outlook.com>
+References: <1653027110-15667-1-git-send-email-Prike.Liang@amd.com>
+In-Reply-To: <1653027110-15667-1-git-send-email-Prike.Liang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-20T10:36:05Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e168b16d-1066-4263-9f49-db792c3df4c7;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-05-20T10:36:35Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 949890fa-de27-4701-b33a-c85a4e61eb7f
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c74f450d-aff5-4b6b-8c38-08da3a4c9e81
+x-ms-traffictypediagnostic: CH0PR12MB5300:EE_
+x-microsoft-antispam-prvs: <CH0PR12MB530083C3FDD382112995A8E8ECD39@CH0PR12MB5300.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lRBmtA7bFJI0Tintx17KHZvSuOV2Dlcs/YKHG3h79qJIrgPoFH4GL6xlHmNf1SVO9uMnJQkJFmBioCEvmK4+jQtM76nVF13ia03E4vFgPCtF8EzcUG+l2UZPpqoyfEIvypWKyxRu0erjp9vPXxsO7mb61Dxgs9mfHIZECt6u/Jc2Qzm6Qq9M4eC9OBajLejEltRmTmAmEc1EWRpU0P76Kdh3OoqonmNN2SLATrsOdpqoQbaQ3GiWPnxDnr2O5TKGuSMfA5PToMeGmWTEKcXd2M+IuNsAD4URvALrlDcgUxf/jQuMrHX4TFVeDryMv0JiMGDabRj+t0vgWFBPhPXqAWswEesKWnrhZo/GrmyAFcCUDgEE500+cbHJ/mmStKUcjJe1NPLBk767Uyul2zCugwm3xZaoM06AhXAMkL3xC4cVOsZSUoG7KRYCHnz+hZ5V+xU0ct9AsdK19gckf5EPymyREJmD5keThzrJO8blz3IvGOTBJGjEl0i2KCqjoPWjnc5gwOu2jkem3gSXY+H9QS6BG2EtUgeauRoqRR7gmza80C4xos1GQvE/bj98OPHUHY8eGBTITAi+YD9HBDAIv22Yy1WAb1bdBDvCcHBxh8Y79KRmX4kDIN/9c4boWKfnD2IVJtNmgh1RQVmNOS1q3KZRuJsPgr904FgYBiZWwthekkkREuHtf1d53qS3A2fsielGQDYcWHbrK9wrM6PtBA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2504.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38070700005)(86362001)(186003)(33656002)(316002)(83380400001)(508600001)(38100700002)(71200400001)(53546011)(26005)(7696005)(6506007)(9686003)(110136005)(54906003)(55016003)(8676002)(4326008)(5660300002)(52536014)(2906002)(122000001)(76116006)(64756008)(66446008)(66476007)(66556008)(66946007)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?a4NYTVE8RvkRw4lMT+FsEXcdFV1RA6BQmVe+rHOu8qe9Q+bZhduB0ySQv9gf?=
+ =?us-ascii?Q?oB2rDiiDgkV5uUpcWmuG2Ee3GTD6draITT1tBMud/pceKtupTea3KFHofryi?=
+ =?us-ascii?Q?jryo5c53/sEUfux3uPmvTLprTvC2dswUgMreYiWy/2ZJWUNiN9iVKPkQ+jp9?=
+ =?us-ascii?Q?5uMeLKiDHsg/MDHSr2FjOtLv60pNhdwBWA96CkdKUDq12902G+UtU56vKjal?=
+ =?us-ascii?Q?Xn+3S3rXJSOd2x13z56cbZP1iu7CkdA6EwFM07T8cfU5iu7EWHmEtrDG/im+?=
+ =?us-ascii?Q?iDbXWOuC+oFp2/9UsZiip5YiJEKU8I3z3+OoxL/3gbIbfACOG1Vz8kS5hS7P?=
+ =?us-ascii?Q?igr0YV31aE0T6AlcTbNX+79gVlfzHq6IGoFqCqX+zFivGW/nBOuz/jLJh5M0?=
+ =?us-ascii?Q?RRJwQAu/WoCJ/ATJXLnBvDYoqbJBqNMfuJHd/MTds2c9Lyz+JLnyg4v18ooh?=
+ =?us-ascii?Q?Y7lqduGWkEoEG7f5mzKojSiiiW/w8y+Wol5dzE53Q8U+bnpiB2pzDs/9u866?=
+ =?us-ascii?Q?lksMSd2dq8Oeln82uy8S4xUG5ugNOruIh2qEQWZiEjYPyDDuF3hsyFDKcRAu?=
+ =?us-ascii?Q?4CkxdiCQJfNMXa+MaGSUld/Rb1IhXLDEe0gwgSelzHatuND8lti24QLqJYnb?=
+ =?us-ascii?Q?v/R2wX18ULaqnINhBZpvn2FBxEwzyGpZkVrX6UeWZLKrI2iW1SjH54ykT2us?=
+ =?us-ascii?Q?5JHnYidcpEsRTefqvi+JrG6z3fz2NaLcDChu/mSrjYqTqyoqnhHSU6mevQkk?=
+ =?us-ascii?Q?pVFQCxPchV/GlgmRcuRc8uj9whkkTj7WRt6gG4c7iQjUORFX7v74tjB/OqJT?=
+ =?us-ascii?Q?W3AN9No6nVEfMUCedQpGYBWuGZIiok1TQtG39wuEfubzT3Rc9r4oZ2TFCGEY?=
+ =?us-ascii?Q?xE2vDstWiDNXQrPXWac6I2Xa4/zOo726JQFxs8LW5SeDFxThe+h1MhurShMA?=
+ =?us-ascii?Q?n+/YdF1ezKTnYDxIAdYTvvUVExSlOrbaru7M8+D41ITvfFSVNeN6MjKAtK2D?=
+ =?us-ascii?Q?aIsL5VwsczypYkx682uvOqKgUCCg2Be2CAjlx6kXF0K3z/ilge2cozltkoa6?=
+ =?us-ascii?Q?i5zrtE5GXrShRdivhNpqOY7J73mMxRfteCUqylZz0W957ZRoAM/wZ7O8qJIK?=
+ =?us-ascii?Q?WgJQoQuhHbwQYbiht78zHPIHHKpQ5k8RXCGGHMpMyHZamIl2JvG7bMS29UeE?=
+ =?us-ascii?Q?71UgSqJZctWV/HmG9iOLToJGEQoVpgPH5MtGufiRPmiEKded+FDuvnZzRHUY?=
+ =?us-ascii?Q?ZaoCzFZhfwbCShxYpbgRVvfLKuenlx3O5tFIMa28hL2Uilp8rFf1T3MzDeKR?=
+ =?us-ascii?Q?lrByj8Yjoz3eIZZUz4A8O+SGk3tb6c2LcAHSOlqWRcLqTcbmf81KcZ+2HJpn?=
+ =?us-ascii?Q?xLZivv5iwbISL1c04iHP4O0cHBnz500zCTLGSovx+IdYIWlRADxF2+s7antY?=
+ =?us-ascii?Q?igbMJYKExRoRAMPH5jY0dDOtTdkwCeJowww5yTwOUxNDvZsHgOm9RP0wjTjk?=
+ =?us-ascii?Q?LB8E+RgE7h4ScsUjGTRakqbphuc0CYf/XcJp4abM2+nTTSx3kWULu8uCDWzn?=
+ =?us-ascii?Q?6dzTReNM6uhgMLRINPF8mF4S0/AM4UiDZL8A+7gVcq6mt+CiqfReDJjHbZJE?=
+ =?us-ascii?Q?iscbowA9K1rsglpYHT4EUJ77Nt+wJZd7cDFC4r5rGUX1X2WTAP/Lou6B9Ohm?=
+ =?us-ascii?Q?aORohbZmFJb/d6ErJCC4OKfA+My2toBYRvPioVto/MvhczaxFGaouSDPOy99?=
+ =?us-ascii?Q?9p1ou67xcQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20220519143446.74326-1-alexander.deucher@amd.com>
- <981e5ec0-2073-3308-0f66-488300d36065@gmail.com>
- <CAAxE2A7iJT19myNfU8TbqqounG=Yvm1_N4aakvTbPipRxrg1gA@mail.gmail.com>
- <151a0478-8dbb-49c7-ab45-99dd9a1fcc2d@gmail.com>
-In-Reply-To: <151a0478-8dbb-49c7-ab45-99dd9a1fcc2d@gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 20 May 2022 06:14:52 -0400
-Message-ID: <CAAxE2A7oRFDw5HPaSNSJ24bPzCXQ3-edkV+k=Xo1fG9+5PuFaw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Adjust logic around GTT size
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000094ee8605df6ec38b"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c74f450d-aff5-4b6b-8c38-08da3a4c9e81
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2022 10:36:37.6937 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: d4eKuYOGvl9OUVSda8Ux/x74o2RGp/fbcfStsMaY3sHscA0E8Amr3/AS8U2zAY3aklKWGBp83LwFeWO+LqiHPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5300
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,334 +133,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000094ee8605df6ec38b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only - General]
 
-1. So make gtt =3D ram/2. There's your 50%.
+Acked-by: Huang Rui <ray.huang@amd.com>
 
-2. Not our problem.
+-----Original Message-----
+From: Liang, Prike <Prike.Liang@amd.com>=20
+Sent: Friday, May 20, 2022 2:12 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Liu, Aaron <Aaron.Liu@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com=
+>; Liang, Prike <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: clean up asd on the ta_firmware_header_v2_0
 
-Marek
+On the psp13 series use ta_firmware_header_v2_0 and the asd firmware was bu=
+ildin ta, so needn't request asd firmware separately.
 
-On Fri., May 20, 2022, 05:42 Christian K=C3=B6nig, <
-ckoenig.leichtzumerken@gmail.com> wrote:
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-> In theory we should allow much more than that. The problem is just that w=
-e
-> can't.
->
-> We have the following issues:
-> 1. For swapping out stuff we need to make sure that we can allocate
-> temporary pages.
->     Because of this TTM has a fixed 50% limit where it starts to unmap
-> memory from GPUs.
->     So currently even with a higher GTT limit you can't actually use this=
-.
->
-> 2. Apart from the test case of allocating textures with increasing power
-> of two until it fails we also have a bunch of extremely stupid applicatio=
-ns.
->     E.g. stuff like looking at the amount of memory available and trying
-> preallocate everything.
->
-> I'm working on this for years, but there aren't easy solutions to those
-> issues. Felix has opted out for adding a separate domain for KFD
-> allocations, but sooner or later we need to find a solution which works f=
-or
-> everybody.
->
-> Christian.
->
-> Am 20.05.22 um 11:14 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> Ignore the silly tests. We only need to make sure games work. The current
-> minimum requirement for running modern games is 8GB of GPU memory. Soon i=
-t
-> will be 12GB. APUs will need to support that.
->
-> Marek
->
-> On Fri., May 20, 2022, 03:52 Christian K=C3=B6nig, <
-> ckoenig.leichtzumerken@gmail.com> wrote:
->
->> Am 19.05.22 um 16:34 schrieb Alex Deucher:
->> > The current somewhat strange logic is in place because certain
->> > GL unit tests for large textures can cause problems with the
->> > OOM killer since there is no way to link this memory to a
->> > process.  The problem is this limit is often too low for many
->> > modern games on systems with more memory so limit the logic to
->> > systems with less than 8GB of main memory.  For systems with 8
->> > or more GB of system memory, set the GTT size to 3/4 of system
->> > memory.
->>
->> It's unfortunately not only the unit tests, but some games as well.
->>
->> 3/4 of total system memory sounds reasonable to be, but I'm 100% sure
->> that this will break some tests.
->>
->> Christian.
->>
->> >
->> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> > ---
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 25 ++++++++++++++++++++---=
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v13_0.c
+index d6d79e97def9..f2e3b6ede77b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -32,13 +32,10 @@
+ MODULE_FIRMWARE("amdgpu/aldebaran_sos.bin");
+ MODULE_FIRMWARE("amdgpu/aldebaran_ta.bin");
+ MODULE_FIRMWARE("amdgpu/aldebaran_cap.bin");
+-MODULE_FIRMWARE("amdgpu/yellow_carp_asd.bin");
+ MODULE_FIRMWARE("amdgpu/yellow_carp_toc.bin");
+ MODULE_FIRMWARE("amdgpu/yellow_carp_ta.bin");
+-MODULE_FIRMWARE("amdgpu/psp_13_0_5_asd.bin");
+ MODULE_FIRMWARE("amdgpu/psp_13_0_5_toc.bin");
+ MODULE_FIRMWARE("amdgpu/psp_13_0_5_ta.bin");
+-MODULE_FIRMWARE("amdgpu/psp_13_0_8_asd.bin");
+ MODULE_FIRMWARE("amdgpu/psp_13_0_8_toc.bin");
+ MODULE_FIRMWARE("amdgpu/psp_13_0_8_ta.bin");
+ MODULE_FIRMWARE("amdgpu/psp_13_0_0_sos.bin");
+@@ -93,9 +90,6 @@ static int psp_v13_0_init_microcode(struct psp_context *p=
+sp)
+ 	case IP_VERSION(13, 0, 3):
+ 	case IP_VERSION(13, 0, 5):
+ 	case IP_VERSION(13, 0, 8):
+-		err =3D psp_init_asd_microcode(psp, chip_name);
+-		if (err)
+-			return err;
+ 		err =3D psp_init_toc_microcode(psp, chip_name);
+ 		if (err)
+ 			return err;
 --
->> >   1 file changed, 20 insertions(+), 5 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> > index 4b9ee6e27f74..daa0babcf869 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> > @@ -1801,15 +1801,30 @@ int amdgpu_ttm_init(struct amdgpu_device *adev=
-)
->> >       /* Compute GTT size, either bsaed on 3/4th the size of RAM size
->> >        * or whatever the user passed on module init */
->> >       if (amdgpu_gtt_size =3D=3D -1) {
->> > +             const u64 eight_GB =3D 8192ULL * 1024 * 1024;
->> >               struct sysinfo si;
->> > +             u64 total_memory, default_gtt_size;
->> >
->> >               si_meminfo(&si);
->> > -             gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
->> > -                            adev->gmc.mc_vram_size),
->> > -                            ((uint64_t)si.totalram * si.mem_unit *
->> 3/4));
->> > -     }
->> > -     else
->> > +             total_memory =3D (u64)si.totalram * si.mem_unit;
->> > +             default_gtt_size =3D total_memory * 3 / 4;
->> > +             /* This somewhat strange logic is in place because
->> certain GL unit
->> > +              * tests for large textures can cause problems with the
->> OOM killer
->> > +              * since there is no way to link this memory to a proces=
-s.
->> > +              * The problem is this limit is often too low for many
->> modern games
->> > +              * on systems with more memory so limit the logic to
->> systems with
->> > +              * less than 8GB of main memory.
->> > +              */
->> > +             if (total_memory < eight_GB) {
->> > +                     gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB=
- <<
->> 20),
->> > +                                        adev->gmc.mc_vram_size),
->> > +                                    default_gtt_size);
->> > +             } else {
->> > +                     gtt_size =3D default_gtt_size;
->> > +             }
->> > +     } else {
->> >               gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
->> > +     }
->> >
->> >       /* Initialize GTT memory pool */
->> >       r =3D amdgpu_gtt_mgr_init(adev, gtt_size);
->>
->>
->
-
---00000000000094ee8605df6ec38b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">1. So make gtt =3D ram/2. There&#39;s your 50%.<div dir=
-=3D"auto"><br></div><div dir=3D"auto">2. Not our problem.</div><div dir=3D"=
-auto"><br></div><div dir=3D"auto">Marek</div></div><br><div class=3D"gmail_=
-quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri., May 20, 2022, 05:42 C=
-hristian K=C3=B6nig, &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com=
-">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
-ding-left:1ex">
- =20
-   =20
- =20
-  <div>
-    In theory we should allow much more than that. The problem is just
-    that we can&#39;t.<br>
-    <br>
-    We have the following issues:<br>
-    1. For swapping out stuff we need to make sure that we can allocate
-    temporary pages.<br>
-    =C2=A0=C2=A0=C2=A0 Because of this TTM has a fixed 50% limit where it s=
-tarts to
-    unmap memory from GPUs.<br>
-    =C2=A0=C2=A0=C2=A0 So currently even with a higher GTT limit you can&#3=
-9;t actually use
-    this.<br>
-    <br>
-    2. Apart from the test case of allocating textures with increasing
-    power of two until it fails we also have a bunch of extremely stupid
-    applications.<br>
-    =C2=A0=C2=A0=C2=A0 E.g. stuff like looking at the amount of memory avai=
-lable and
-    trying preallocate everything.<br>
-    <br>
-    I&#39;m working on this for years, but there aren&#39;t easy solutions =
-to
-    those issues. Felix has opted out for adding a separate domain for
-    KFD allocations, but sooner or later we need to find a solution
-    which works for everybody.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div>Am 20.05.22 um 11:14 schrieb Marek
-      Ol=C5=A1=C3=A1k:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"auto">Ignore the silly tests. We only need to make sure
-        games work. The current minimum requirement for running modern
-        games is 8GB of GPU memory. Soon it will be 12GB. APUs will need
-        to support that.
-        <div dir=3D"auto"><br>
-        </div>
-        <div dir=3D"auto">Marek</div>
-      </div>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"ltr" class=3D"gmail_attr">On Fri., May 20, 2022, 03:52
-          Christian K=C3=B6nig, &lt;<a href=3D"mailto:ckoenig.leichtzumerke=
-n@gmail.com" target=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gm=
-ail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
--left:1px #ccc solid;padding-left:1ex">Am 19.05.22
-          um 16:34 schrieb Alex Deucher:<br>
-          &gt; The current somewhat strange logic is in place because
-          certain<br>
-          &gt; GL unit tests for large textures can cause problems with
-          the<br>
-          &gt; OOM killer since there is no way to link this memory to a<br=
->
-          &gt; process.=C2=A0 The problem is this limit is often too low fo=
-r
-          many<br>
-          &gt; modern games on systems with more memory so limit the
-          logic to<br>
-          &gt; systems with less than 8GB of main memory.=C2=A0 For systems
-          with 8<br>
-          &gt; or more GB of system memory, set the GTT size to 3/4 of
-          system<br>
-          &gt; memory.<br>
-          <br>
-          It&#39;s unfortunately not only the unit tests, but some games as
-          well.<br>
-          <br>
-          3/4 of total system memory sounds reasonable to be, but I&#39;m
-          100% sure <br>
-          that this will break some tests.<br>
-          <br>
-          Christian.<br>
-          <br>
-          &gt;<br>
-          &gt; Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.=
-deucher@amd.com" rel=3D"noreferrer noreferrer" target=3D"_blank">alexander.=
-deucher@amd.com</a>&gt;<br>
-          &gt; ---<br>
-          &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 25
-          ++++++++++++++++++++-----<br>
-          &gt;=C2=A0 =C2=A01 file changed, 20 insertions(+), 5 deletions(-)=
-<br>
-          &gt;<br>
-          &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-          &gt; index 4b9ee6e27f74..daa0babcf869 100644<br>
-          &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-          &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-          &gt; @@ -1801,15 +1801,30 @@ int amdgpu_ttm_init(struct
-          amdgpu_device *adev)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Compute GTT size, either bsaed =
-on 3/4th the size
-          of RAM size<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * or whatever the user passed on =
-module init */<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_gtt_size =3D=3D -1) {<b=
-r>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const u64 e=
-ight_GB =3D 8192ULL * 1024 * 1024;<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct=
- sysinfo si;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 total_m=
-emory, default_gtt_size;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0si_mem=
-info(&amp;si);<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gtt_size =
-=3D
-          min(max((AMDGPU_DEFAULT_GTT_SIZE_MB &lt;&lt; 20),<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gmc.mc_vram_size),<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)si.totalram *
-          si.mem_unit * 3/4));<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0else<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0total_memor=
-y =3D (u64)si.totalram *
-          si.mem_unit;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default_gtt=
-_size =3D total_memory * 3 / 4;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* This som=
-ewhat strange logic is in place
-          because certain GL unit<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * tests fo=
-r large textures can cause
-          problems with the OOM killer<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * since th=
-ere is no way to link this
-          memory to a process.<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * The prob=
-lem is this limit is often too
-          low for many modern games<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * on syste=
-ms with more memory so limit the
-          logic to systems with<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * less tha=
-n 8GB of main memory.<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (total_m=
-emory &lt; eight_GB) {<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0gtt_size =3D
-          min(max((AMDGPU_DEFAULT_GTT_SIZE_MB &lt;&lt; 20),<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-          adev-&gt;gmc.mc_vram_size),<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default_=
-gtt_size);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br=
->
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0gtt_size =3D default_gtt_size;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gtt_si=
-ze =3D (uint64_t)amdgpu_gtt_size
-          &lt;&lt; 20;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Initialize GTT memory pool */<b=
-r>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_gtt_mgr_init(adev, gt=
-t_size);<br>
-          <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </div>
-
-</blockquote></div>
-
---00000000000094ee8605df6ec38b--
+2.25.1
