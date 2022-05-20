@@ -4,88 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E3BC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 06:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5C6C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 06:22:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEAC011B4B4;
-	Fri, 20 May 2022 06:16:05 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2045.outbound.protection.outlook.com [40.107.102.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1B711B4B3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 06:16:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Di3Zlp4eR8ZU0wLLIliPKRdVHapc9TEQfUKGjv4JPTGTco0pTazv9k3COZaaI9A3kixl0UztX566ahMyKN3mis29pY4XN4lbcMDgpMWtbxxkcmlTjEXDU4qMelV82eJlxhdndxk7kL1ZjD7/UDPBpiIbgJb02BasAtfc5Td23fGbrOLobA1Ke73AG6lHw6f3pi6mz05rCGon5vJJnWMAbDh4Q8TWERDeamoysdrSWId1bkWoot28H4gWoCxJO8lzhHvseoapAORYYgj82oiBulqgm9I6wKOO/PRcYLjCrdJc55EeA8vcVE67cqPgzUipQjqV+lPuvVYzXrU4b8EEqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kNFbWXfHDEP4SG77hraXQUIn0qoSwEr7P/Bt4/NyEXw=;
- b=gxSLjw93eiiHNQCTBbRu2yIEcYmmB/RB2YEUuIOmuMZdoIWH6q4jaTHFZoMiwYuTNsu+dt424nW3MKe++5WZ7jXLFr/roRNlEndJFVG7pA8F9xEDOFosArW11a0yRfEe4p7zAqrYhDAVLWNkp/54U13NHNlxZw1zvDyJHe8JoQnP+2/YnKoVzsZnoIXJQFS5ox85BzVugFD4S5P3tFBeSupbKydScL8wLop8TXDjRz8Xpbolmw2g7c7l8DgdNC0cRGMTfWMUIMzz0KkK1krNAv8wOuetmxKino0XKmvvncsx84nMBcxDdKUxlFshFWxm8Q4MNJJY706+jbp7Ed0+HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kNFbWXfHDEP4SG77hraXQUIn0qoSwEr7P/Bt4/NyEXw=;
- b=1u5q4KOK4cOEJEhKdEO/lPJzW9PvB5a3q6br4t9oNeR+DM2Ygrnx9scLa+VqzX7+DEOO3TERTVT463jxkIIUGjyvdcCqDxyImcDc9OU/yaDU5/UM/E/vgMaoYaZ7QhIMzmJuPS728aIW3MfxbreSGJIjoGc2HQmaAYGbDPDDXbE=
-Received: from DM5PR18CA0088.namprd18.prod.outlook.com (2603:10b6:3:3::26) by
- BN6PR12MB1666.namprd12.prod.outlook.com (2603:10b6:405:3::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.14; Fri, 20 May 2022 06:16:00 +0000
-Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:3:cafe::df) by DM5PR18CA0088.outlook.office365.com
- (2603:10b6:3:3::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22 via Frontend
- Transport; Fri, 20 May 2022 06:16:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5273.14 via Frontend Transport; Fri, 20 May 2022 06:16:00 +0000
-Received: from prike.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 20 May
- 2022 01:15:51 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: clean up asd on the ta_firmware_header_v2_0
-Date: Fri, 20 May 2022 14:11:50 +0800
-Message-ID: <1653027110-15667-1-git-send-email-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C57611B52F;
+	Fri, 20 May 2022 06:22:43 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C37411B533
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 06:22:43 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id j4so5095774edq.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 May 2022 23:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=2qNVFmiF/TTMdfF9KQaUQuxRKJ4iuZ6iN+QlrxgUKnA=;
+ b=SFqt9UOrMboZYYQDF1PI76h4elHYHxG9uQtEJeGv3ZvDqDMBr9VzkLWaLhdRXWG2SH
+ 1+OV1sAY8Wvdbb4ZXAE7Eh3aPpJXBYh7e276E8QCCCTG5NowqLGohiwSS7H/Rztz5Otg
+ pklPeKeyiicDHIjwDmwePAzTtGdZxNGc8bqZCIwQ9qebOzQbOYT3XXStluuiQzNYZ0+M
+ /gy0KzA1+HEkAzFNAH5aiH6H2FBLjYakLk/CzQaew8o9P6mP2jA31s0L/AG+MW4SBP14
+ Yg6At+iZtGX/4zp151xto235Yk3ipky07JrMfaNrC0pagnGaq/1J/nqO8kbOZYlQEphS
+ gjxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=2qNVFmiF/TTMdfF9KQaUQuxRKJ4iuZ6iN+QlrxgUKnA=;
+ b=BYbF0HHWQSttvnwxCjXKW+aLaUcTP1XnhWk5Q4Iq84NWAqlTZ4/ATsfL4uGakQaACg
+ hG7qMHVGbL0zKKMvWW4/dyL7G7VZvDtmTFbMmO5woAaU7oN9ooVmzjErdHs5s7aPu6PY
+ fEgE/eSrQn1/WWChXRAZZ3uEffdXHIj5rqBPPjlurT1F/qTBUE4HbM3J3I180SD5JOlC
+ yh/nL6D9jVGAoAnJiiEldQyHyYA+j1nIjBXqdybotp0Zr2jZjaqwxJqhLgeEiNbFtt8c
+ L/keG5TMvK0jWJhcprORP+l9kjFt1BFBNRuascHof7kcyrJHaX0DOxeZIUNF0lZmtf0l
+ T0lQ==
+X-Gm-Message-State: AOAM531H3VdM1fyXQXuF+YfMmpGvIa6pmGylLTSnEjYqV0eubLCUNOzc
+ RrjZiNdXn+yvn3UU34vM6sg=
+X-Google-Smtp-Source: ABdhPJw53K8igu5RpJ7t4nDpoJn09N8/AdK9nO7GxYmBWHaKQiibcUV7d6mxgSlKXJ6K0kEE0Sds7g==
+X-Received: by 2002:aa7:d6c3:0:b0:42a:cc78:1764 with SMTP id
+ x3-20020aa7d6c3000000b0042acc781764mr9089918edr.134.1653027761559; 
+ Thu, 19 May 2022 23:22:41 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:66f:9303:6022:1507?
+ ([2a02:908:1256:79a0:66f:9303:6022:1507])
+ by smtp.gmail.com with ESMTPSA id
+ qs24-20020a170906459800b006f3ef214dabsm2886921ejc.17.2022.05.19.23.22.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 May 2022 23:22:41 -0700 (PDT)
+Message-ID: <045157bb-31a0-2d76-18b7-4272fab218ef@gmail.com>
+Date: Fri, 20 May 2022 08:22:39 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 198c45b9-641d-428d-1f96-08da3a2835c6
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1666:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1666EADC6F806B2D66A51780FBD39@BN6PR12MB1666.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z9WCtbk+8akjuGPQecBXhQMiWbw/E13PygZn3ko5l4Xm4oBUe+GlKu2gq1WeWJ5EhmlkL5qpNsCz5gb/nEa1OPdiX7ir7j4TVPMsG2YWiLMj+9YL+dGvnnp8IljaeaSFDpM8nJzc5nB8Vp63KjCsXCcsnUJR/6GFDhUrSzc2Nq822SQ0+jVRjrdSzRUxXQVRRQg7pAqN6hGcGEVDI1mYDWaILqGUOHXMJE80Ut8/WlqpVhEDKk+MRZHo4Ez9R7LAFQUnX9u589WOlvgNOSDg9QZJ9wDr8BpCyhPAhqi4pFbGp4rISFgMaH5WpptcAaLDhMYlN0H0bd5lU6euKkYJZ4bqZIZu+dSGadkOPOi1XCoVLaJvYpTZj4IOOmmdPWC/tv+p+urqlGOMhKRk4YwjTN4zJF2LoJSokRkXj47Lx31gpiUk6rA5IPsDegSvw8LtmO3sAbKojT+OhxDDXSFaGY8sMhjUe3N5axiSL6xQsUkgBsfdlR5+E+o1tcQ7l39T5gnCadPQoNlerwJgqC+GuOy0ytYjYEhyp907+HOQ/E9dP+ysGOIYALrjNLuMRJP4qoE4mUq3R980Pq2aqP74S353zQ20UyfsOLJEO6u8Yd+PqXG6BAMLy6sYta/S2yLvXlbA5WB3A6a2pQiSUsbbUQ8V9QYuoayJePkWAXIkFIVPU+vf4dhD9hIyWw4ptAqslhuM9hhWbnm86dFoW9HNiw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(2906002)(70206006)(4326008)(8676002)(70586007)(47076005)(316002)(7696005)(508600001)(82310400005)(6916009)(54906003)(40460700003)(86362001)(426003)(336012)(36860700001)(83380400001)(2616005)(356005)(16526019)(5660300002)(81166007)(8936002)(36756003)(186003)(26005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 06:16:00.0688 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 198c45b9-641d-428d-1f96-08da3a2835c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1666
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] Revert "workqueue: remove unused cancel_work()"
+Content-Language: en-US
+To: Lai Jiangshan <jiangshanlai@gmail.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+References: <20220519135642.83209-1-andrey.grodzovsky@amd.com>
+ <CAJhGHyBQ60Lh3WZCa+2cE4T36t3vjNxYTBCxS7J0xhZr8Eb2wg@mail.gmail.com>
+ <e1e2e63d-a1a9-12ad-97a7-a3771210edda@amd.com>
+ <CAJhGHyC7VLM1PnXMu2zmdX=xtSNKo6VGO5p0AkUnaaMsuZytpA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAJhGHyC7VLM1PnXMu2zmdX=xtSNKo6VGO5p0AkUnaaMsuZytpA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,47 +77,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.Zhang@amd.com,
- Prike Liang <Prike.Liang@amd.com>, ray.huang@amd.com, Aaron.Liu@amd.com
+Cc: Tejun Heo <tj@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On the psp13 series use ta_firmware_header_v2_0 and the asd firmware
-was buildin ta, so needn't request asd firmware separately.
+Am 20.05.22 um 02:47 schrieb Lai Jiangshan:
+> On Thu, May 19, 2022 at 11:04 PM Andrey Grodzovsky
+> <andrey.grodzovsky@amd.com> wrote:
+>> See this patch-set https://www.spinics.net/lists/amd-gfx/msg78514.html, specifically patch
+>> 'drm/amdgpu: Switch to delayed work from work_struct.
+>>
+>> I will just reiterate here -
+>>
+>> We need to be able to do non blocking cancel pending reset works
+>> from within GPU reset. Currently kernel API allows this only
+>> for delayed_work and not for work_struct.
+>>
+> I'm OK with the change.
+>
+> With an updated changelog:
+>
+> Reviewed-by: Lai Jiangshan<jiangshanlai@gmail.com>
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 6 ------
- 1 file changed, 6 deletions(-)
+Good morning guys,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index d6d79e97def9..f2e3b6ede77b 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -32,13 +32,10 @@
- MODULE_FIRMWARE("amdgpu/aldebaran_sos.bin");
- MODULE_FIRMWARE("amdgpu/aldebaran_ta.bin");
- MODULE_FIRMWARE("amdgpu/aldebaran_cap.bin");
--MODULE_FIRMWARE("amdgpu/yellow_carp_asd.bin");
- MODULE_FIRMWARE("amdgpu/yellow_carp_toc.bin");
- MODULE_FIRMWARE("amdgpu/yellow_carp_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_5_asd.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_5_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_5_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_8_asd.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_8_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_8_ta.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_0_sos.bin");
-@@ -93,9 +90,6 @@ static int psp_v13_0_init_microcode(struct psp_context *psp)
- 	case IP_VERSION(13, 0, 3):
- 	case IP_VERSION(13, 0, 5):
- 	case IP_VERSION(13, 0, 8):
--		err = psp_init_asd_microcode(psp, chip_name);
--		if (err)
--			return err;
- 		err = psp_init_toc_microcode(psp, chip_name);
- 		if (err)
- 			return err;
--- 
-2.25.1
+for the patch itself Reviewed-by: Christian König <christian.koenig@amd.com>
+
+And just for the record: We plan to push this upstream through the drm 
+branches, if anybody has any objections to that please speak up.
+
+Thanks,
+Christian.
+
+>
+>
+> Thanks
+> Lai
 
