@@ -4,126 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D35DC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 17:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9982EC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 17:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE8EC10EB7D;
-	Fri, 20 May 2022 17:55:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2532210EB7D
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 17:55:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4394A10F31A;
+	Fri, 20 May 2022 17:56:59 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9372510F31A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 17:56:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MiVoCIAJHBJPHspMHE+j8NtD26FpRgU7liMlJ86dCyJKdVVZPE+2VaFl7/7dXHUvUKjeQD2IAmRPrQy2W/6todaDKkIUg/ESAEznSGK1oHVjvm2fMdITtJRzMdOqc33IwbwhymYIGQaSnE0T9AVH7cG86+nlfc3MZmji+cLZS5nxz2ZoTgLq8z9PG1HX/Un79ngObPgAqWrP+NbaErW9ZmUkV551AsGBHLhsilcdUrgcjpHsicq2lGHZzlMvaFDDuszkCD2CROpqtUxP++nF2vTfBGx8vzZaTDDZZBDlBb1ic89o/RNQ3yCO387w5P3zEKaXwIHXZQhqdirm5/BZ3g==
+ b=ety5IwG+zjOQ8B33EKGVrUK/h4xEWkdj0vuCitCtb96wF3dtrgWSbedtDF6jaXhpXTtQtrq7Ym2WuKsBNh666OfLm/3QdQPC5e6CBIhb4OggZJr73E/Le0BvNTPiLBG1M7n0n8dWN5I9T2c3kOd908gbeOo7B1jpwrkoqGudfVtbDZH5HR+WmZfSEmPQbxeZT/r0afBkN6MwFvV/T/haBzPQFwImTqREPw1eLAWqzm4ACvIiiGs1y3+XIw3H0DlKrkHa9MDDYgiVUyvEAp+fo71TnldS0WcmSOtZsNgvWZl0GzqUQkPx6mlMBdhwhhfm37xXDjZh/722SzvL0KS1wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HFGfX55UaPRh5+ntHd9fcZ+sxaVCBMX44Yc+tz5hRlA=;
- b=ZO91tny3HSkBHCuKnFhwAeF2i6a93+ot/BLXlpHfNZHzRWftpEFsvjJ6zSdIFR994ypfKvj4cf44i6230JUI39H1gpmVRniXmE/N2qAbSO7Lccaa0zcvK/92LcP5VvEptfuHjNFY55a2j1xMhvDVEys8zV63QiXOb5bpQIlNRs3WG3CvwoBqbWbtnvsAYdYBweV4NZOG1bcD/owXF7i+IlLq4WZHspkhOJnmVegjPy+2QqBG28r847CQdm1L0lInAcXJXgzqxxpTBaLkAsD4al9S2dKYK3EdR7mgl8EgIThmPiDQRVurmOC6hMwWUIRsiht3yO29sVHx+i1o2u7lDw==
+ bh=PXjbdVJP/6JXeNXC5AwgzgWS1Wit0sK0VvN0OORic9Y=;
+ b=Ee+glfNSRML0TI8CGKynFfLbvubGF/HnmaonRmanYZTqyRBw/IAeGF51hN6eX95PLwKV1t1+IUEQDDKhSVyW/GTyk7rrrcx0mTau2+yVXiiVrpEv2KL+wLbOZ++nMx+yz2QlhL3LEocQFvRSMZBhnzCsKPD4EneRx2Kf+CeQqSbUXKLJoLfoq1NxxXFRQi1OlYQ8jPT+bDuLdYNiESPRAPVLwIKgEiuKnp0BEhr9/NAdAEoSG+ESj6obvghDCDD4V5hmtWtQoTn/DJrArJf53S0mhfXi41vbs7o9IRH6wXsDiQUJnYbmoXNFMlrLfR/seu6VGqChDCKy8CIvU69/cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFGfX55UaPRh5+ntHd9fcZ+sxaVCBMX44Yc+tz5hRlA=;
- b=E8mF1J0USzU/IWPGRXBXblmeuVlfJxoc4dgpR4Am1ieAOBtzCmSx1z0cq84RKZid06nAZEn88LZS/x1G86b3Cn0VouVbZKm+Fl+AmJ1eqV2BgbCaDD/GBCxkD4EW8/BZG2xCejwk5EaNVXLTSlliWGmquot9sXDDdDXaghTb46Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM5PR12MB2439.namprd12.prod.outlook.com (2603:10b6:4:b4::32) with
+ bh=PXjbdVJP/6JXeNXC5AwgzgWS1Wit0sK0VvN0OORic9Y=;
+ b=JPW0kqRlUbrzCwA7Yg7us0N2Dluz4XWiNJot9PT1y/NIkHEQ3kdXOVAw3VWA4F5dGsvsdUeiEjLbKylMqReRskQnYZoIRk9dzZvoR0COexcTIpVBQ5/1IpHO6pNt0P9kwvswc+QiS+/4vt5rnKdARM4ue+SkeOEDvAL5w8D9D20=
+Received: from DM5PR12MB1308.namprd12.prod.outlook.com (2603:10b6:3:76::7) by
+ BY5PR12MB4643.namprd12.prod.outlook.com (2603:10b6:a03:1ff::28) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Fri, 20 May
- 2022 17:55:56 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d%7]) with mapi id 15.20.5273.018; Fri, 20 May 2022
- 17:55:56 +0000
-Message-ID: <7a95d6a4-bc2f-b0e8-83f8-8cc5b75599f2@amd.com>
-Date: Fri, 20 May 2022 13:55:29 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v2] drm/amd/display: add Coverage blend mode for overlay
- plane
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17; Fri, 20 May
+ 2022 17:56:54 +0000
+Received: from DM5PR12MB1308.namprd12.prod.outlook.com
+ ([fe80::7594:d12a:7bb7:34a9]) by DM5PR12MB1308.namprd12.prod.outlook.com
+ ([fe80::7594:d12a:7bb7:34a9%6]) with mapi id 15.20.5273.015; Fri, 20 May 2022
+ 17:56:54 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+Thread-Topic: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+Thread-Index: AQHYbFuevhqc4noDaU+WVtEntTUi/60oDQrw
+Date: Fri, 20 May 2022 17:56:54 +0000
+Message-ID: <DM5PR12MB13081742FCCDCD1117AC806185D39@DM5PR12MB1308.namprd12.prod.outlook.com>
+References: <20220520150912.762831-1-alexander.deucher@amd.com>
+In-Reply-To: <20220520150912.762831-1-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Kim, Sung joon" <Sungjoon.Kim@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20220513202200.4698-1-Sungjoon.Kim@amd.com>
- <8b8c0c85-1d79-5cfd-f0d2-ebc8b732e0c9@amd.com>
- <3bceb02a-45d3-352b-358b-aa0b57e2da5f@amd.com>
- <MN2PR12MB30549D174773BB4F023DEE3997D39@MN2PR12MB3054.namprd12.prod.outlook.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <MN2PR12MB30549D174773BB4F023DEE3997D39@MN2PR12MB3054.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0317.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6c::11) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eeec137e-2ff1-4423-bf62-08da3a89fd03
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2439:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB243981D7C5B9B0816A88A2168CD39@DM5PR12MB2439.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vry01m/23G6wD5LHxcNOB2VYlutegQ9+aDJRCQd193c9QCVmCyfKZJciws7YuFJDerlEmlLPVCnbiAjqpiBpeQOXRegD/fjHUB/ljQDo7riDsP3qawA3M+WjqFAx7uVXFK4MwtDvemC/I8/wuL3zvX7Cd01ClpAkF24gJQisDAurS5O+9/l/dH6YmhSR81eGazRwSTcFFI0Q06vJ6ma+p+AIe71a8wMxWQTeCHgOLq9OHzew0rHFlwq4iD60XcByMSOXp4GwADU3L/K6r0/poUANV83xS8On3Ohfh0AC70UFasYWudchxdQwmG12Hc8EjCgXLf8U8PtPBkFv5q/hOu0n1/jcFJzZtYGfRPUYa2m6jYF6GNQndeUu72+fT77Yo6FC0vxhvKb+R4o9C2IV8tqUURDUXN8vWI3n7uzOi8a+P/CKBBTkRbyuU+q2KT2YS4U0YDtdefcgFbwsTTCosC3xJxiDczTshY6PjDHc6BlBb4NNjUmhlfUWGzbceC907DwF7rkEPPNFqpLA1+fMlk6ObNmCCT2du+Z1O62FIM6eQyrrkGtdIJBpP+oSroT+k5XUy/HSgieUgRJWOqrH1EHPH9pDXdOPiCZ3Gk7B+ozoB9QAvmX8oD/gWC80PRncVjrKlL1Los6xc+HOx4cb+8C+WIRgt2E9ezuxbHWfr3/7NVpgh9xVlkXshMdCaDb095JuYDHG6KPKwQh+d+mg9u3GaxaK8ZFOi1dMqfeF6aMWIO7ocXbvRCZyeSeRQhPf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(44832011)(966005)(36756003)(6506007)(26005)(2616005)(508600001)(186003)(5660300002)(2906002)(6666004)(6486002)(83380400001)(8936002)(53546011)(6512007)(31686004)(86362001)(921005)(110136005)(31696002)(66556008)(6636002)(54906003)(4326008)(316002)(8676002)(66476007)(66946007)(38100700002)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-20T17:56:53Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c482d70e-bd4c-4861-8d66-e80c1c94fd8b;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a5c7c98a-393f-4cd9-ba21-08da3a8a2013
+x-ms-traffictypediagnostic: BY5PR12MB4643:EE_
+x-microsoft-antispam-prvs: <BY5PR12MB4643AE004ABE56A71B79B56285D39@BY5PR12MB4643.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: N48QlCSoomf61IijlD+csUEBIyM2St739L6/Y9DKIjMzEReWYK5Om4dDvz1UeQLehQlKKhm3gfuqAL0bT4tFD2iDZvMmM31ptfHC8npXyjL5ob5B/2Axf/gUv+S+lkf/mZwnDSkpYqBTX0Ji4ViF/gmo4r56DGE6bPBPTdK1iVbZ0ZIHqsjaGmR28lq4uGREXpzo426ESGavMi3usUSKPvFZfc5Q5ZvS9f3z2s6WX1D2WPIkHScO/KI8a06v6Z5AhGptTvKXeDF9p6rWOFgmYRf1vKHYXim2dNcCMDEvGWd2G+ovEHv4SkkYw9wi8wu1/qhr8Jil7EiwW/SukRreIPadFSarSCfJ0ZI6/KYyWTojdR1KStRcLIzJpwOFg0iiDtlwfXrHywgaqgCg0/6IYPSiEw4zXH9mrm6cyQTyrRY996sjIKUaqDItl9Hl+pROtcAU36fSvsCBKeCVEE6jQt/58aqsUIjvKRiJnVeuT8hrMYY5M+KNgUFXSWyknI/78fdYt8Lrm23ZZUeoUk4Jt8bqa4IcN5Pd+6Hl4O5fjIsK+LiuMBKEyBqHCLf+HrBrjA0D7ChnkXBt3DPJFbI//1smk1vGSd4AlYj5KRMHvqeikTUxyQ1bSKOp2DuhcwzYUlohrgeiS8QpVKZw0ReRythbhsKy5XlzhDO57iIYQR6UJ/RCoCfvHScTMTMl22bLtu6d493AP/hMXSQZuIOqHA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1308.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38070700005)(38100700002)(9686003)(122000001)(186003)(86362001)(83380400001)(52536014)(33656002)(71200400001)(4326008)(76116006)(66946007)(66556008)(66446008)(66476007)(8676002)(64756008)(5660300002)(55016003)(8936002)(2906002)(508600001)(110136005)(53546011)(6506007)(7696005)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUNjOTJ0N1d2ZS81eWNKc2p6eWx5YS9JNk5hZTlmeWpvQUd3cmhLZ3Zkc2JZ?=
- =?utf-8?B?V0szS2QydUd0aVhuTnQrYzZqUHAydHJya0xLUUd2NFZmVEpzaWFJRG1reDNJ?=
- =?utf-8?B?RE5RQUpBMi9hZncvZW9QMzd0YXNGNXhHM0FteStEVmwwZ3RRd3VyYlZ2Nk9K?=
- =?utf-8?B?MDB5bklsM2pjZmkvRm83bkhtWFZHL2hGSGtNYVdqa0Zzd25rVmhMdFNDcWVC?=
- =?utf-8?B?V2xqa2VYMFpXRVhpNUtJTFdiUWkwaDh4Uy9pUGxoL3lhVnJLS3BwcURrMnN1?=
- =?utf-8?B?L0U0Ty91YUhoYW81K0ZzRjV4c0Joa1NWTnNqMmNDd2xkamlDN2NYMDRZRWtW?=
- =?utf-8?B?RTZzTU1XaGZGWkNhb0hYanpramMzMHZnc0VZdndMUVJ6ZkpPSVA1dVFoNUN3?=
- =?utf-8?B?NWk4ZzVwUHBleUcyYm9wVVNFc01BR0dpK2JsODl4eDRIS2RYeHNhWjQwWjZD?=
- =?utf-8?B?bHJQTEZWOHo3a29SREp3SVJXd0tJYnBEYWViK3pDQXlCaVhvLzlJMTZINWlX?=
- =?utf-8?B?STdxVXBUQ3M1N3EzdC9TcThSY3dyVzhhM0NpNUVlQTV5WG1XYXdhNHZJakJN?=
- =?utf-8?B?aEVsSGduUjg0dnlNWUV6YU83YXQ5RnMrNWsvL3RndVNUQ3IwNFE1UVB4VmIx?=
- =?utf-8?B?NStYV2Jxc3pyRnpRYVh0MUxLL3FLR1ppTktyMURvNTRibE5RdjVSYkcxOSto?=
- =?utf-8?B?WlJ4dWVwYzg2THJOa2tVNi9jY3F1UG4wWVI5OHZUM0wzbENlSWlENHlTWDRy?=
- =?utf-8?B?U0RtOTFaV0ordUZ4Zkk4OXQ2azZvR3pDdTI1Q29BNEZIdFZqSitvSmRJaWZR?=
- =?utf-8?B?bGhLcnUzS0lVSzUwSW1teEpkVk9Va25sbWpqRVlnbUlYeGJYUWIxUjl1M3ox?=
- =?utf-8?B?ZUFWY1o4Z0cvUS81dSswYldDTjNBWVFVeUlmazVXQlNlRi8wdUsrMUdHZ2d0?=
- =?utf-8?B?TkdqbjY3bXJlV2pweTVaV2s3dmJqOUhIRkZuSXdaMG9PQytpV0NTVGRtTm13?=
- =?utf-8?B?UGlDREZGcDFBS0x1NGhURGQ4UU16ck0xQUlReEpXbmFucFZLeFYyb09GSERn?=
- =?utf-8?B?UWt1MDE3RWNpaDJWM3pUVnFWOFdMTE5ZU0pPdjZiWk9nRHZJYXFtMm9SZ1ZT?=
- =?utf-8?B?RlFHN1orYlhyTVlzUjZRaFpsbTFQNkcxMTNiZDh5REVFQy9TRm5VT1c1NDUy?=
- =?utf-8?B?azM4WG51aElxZllTZFJwRzMxRGlIQ0xzL0JLUFViNnFsTGNXSnljaUVNTG5y?=
- =?utf-8?B?NGJzRlBoSERtTTNjY1lHaTdRNmJsYnZHVTlkTEJBa0lPb2FmR2lldjdtQjdm?=
- =?utf-8?B?M0EwTnRWNy9MOHhTS0ZGcHo0YzlRKzVVVWZFVEFyWjZYVERlUDIwdUlDWmxC?=
- =?utf-8?B?dG9KTGoyb0JFcE9laVpUMzhvOHJjWVIydElpNVlmdS9SVGM5QmVwbHB4aUpq?=
- =?utf-8?B?eGpZajZBc0NPZEtPQnV2SVg2S09GT0xHTDBGMnNmbkhVV1RLeVJFQ1h3NUUw?=
- =?utf-8?B?Umh1WmtQRWJUb3EzVCtDOElPY3k4UFQvODZJRU5jekhFY0FocUpvT3ROQmlv?=
- =?utf-8?B?bU1ReTBHSUgzamtrU21zRTBnRzFQUG9RZGNQV1NlSVBZUnczQUVUODlDR0Fa?=
- =?utf-8?B?Y3M0RnBOT0RMRTJTRDdIVVZZY2VGd3hzMHZaTW1PWEFId2VDbGRRbkdkemxk?=
- =?utf-8?B?K2gzbFhwQ0Q5REJBM3YrSlUxVDl6UGhsMFdjcFhPMDBzR09QMUtXTFhCOEtH?=
- =?utf-8?B?ZnV4Vy9NUXFzMzBOVzQ1UXkzMUw4VDBVeld0MXRSS1NVRVFVcHF2ZmVXTHQ5?=
- =?utf-8?B?dWtsdFQvOHpBYVdMTy9yeDhPMUFQc2RBSEFjUXN0ejdiZWswWVpWMmdSV2dY?=
- =?utf-8?B?c0NkNm1NK2E0SnBVMTlXK3dYQmcxcTJ1OXprOEkvSDFVSzJZd0NReG5JMi9t?=
- =?utf-8?B?a01zVkZCalJQK0tKa1NQWEFYYUlIKzlmYTBHVVBTMnArZUl1WEpHUjBjTmRo?=
- =?utf-8?B?WDRHKzVFSWxqaXJTT3BlenNXajNYTFFZN0VyVHVaN0FLdTZiNTdiMEZiQ044?=
- =?utf-8?B?aFVJTU1RV0dSWWp2VC93L3ZrRUo5cmRrWVpSVjMrVXEzblJIVFV3QllVRW0z?=
- =?utf-8?B?L2luajQ5VC9rVG0wdTlDenZDQStxbUtWZ1RRc1NSeldGS2JKLzdyWVlmUUVj?=
- =?utf-8?B?NnR6akVmTDFrWWsxK1dGZ3ZUc0tETXdmVGswcW94amhlWFJlTFZ4WXZadXBR?=
- =?utf-8?B?a1JYc3VvUDdjazZKNGtBcGZQZHAwUlBISmtrQStCdzdlVHE3L0pvS0pkd2w2?=
- =?utf-8?B?UVNhbnlzZDF6ejdpYUx3a1ZXVlF4eGJtZWRUVmQwMUJTWDdhdnpkZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KcdJEq9g2fiao/y+kHL6tjZN4ruOjVA848sTm5PNyLMm9CrNY+KsqPo/YrXw?=
+ =?us-ascii?Q?JRqkrFckEPYs/Q4cjST8u8MgcdttZZ8mPwtC2SOAWmx0KFQWPAmbV/mYa4p5?=
+ =?us-ascii?Q?h3wmVHcHLfGvfwfoQs3q8zOZA83qWbPpsAt62aGz8EKeJfLOyz8CcwT2xhiD?=
+ =?us-ascii?Q?jqoLsXGBPJ6NxMsiBp7dJbmb4NGBnNCAGMwZo9xNa5cdLBWtMfw6ou78V/mn?=
+ =?us-ascii?Q?s5E6adrFpVYES+7T9p3FhmdFgHOH2TPrsQan/7KDfoq5Y24F/835OILoNuCI?=
+ =?us-ascii?Q?hifUFxRoy+2yhg4GLreQp9PK3DxnNP2XEEBB6kgOaUGIY3gp90L5WfDe+Oiw?=
+ =?us-ascii?Q?MCGzzzMiuQp5zEOCzekeMqrOpRj6DTAV6jk2JdDl+xuUWj9wm0xfciYIcHLR?=
+ =?us-ascii?Q?cwrZTUnHoTidtJlpPChN3tmuYqIeHqhyB4/UC2vcnu0bGMFmBrKQrbytW9GD?=
+ =?us-ascii?Q?eGVwJdj8G3uo3IbQQ6nAzuW4SxOn9M+yFMm8AUnHSE7fOrw5ueflzQeS2C93?=
+ =?us-ascii?Q?ZY0N+eL93zrqf6iTz7Lwgfj/Nx2S/R+qThDDgO3XtvgUQ7+AwzfCO3T2kxRo?=
+ =?us-ascii?Q?hatTpudMUMiL3emK4A17uSjXGb+f5qAziBBSrkkzsgqwwdOPkT9LJNWPV+g/?=
+ =?us-ascii?Q?/vfpjHKEbsNGaiJzN+jVnA2xtPhPXdDSjfjnC1i8ZNb6aXrS2pxiWRRRByWV?=
+ =?us-ascii?Q?J5F6sy0DGu8Z2VTAp6P+QZqztCwJ+eqr4wTkh3QLQCwQU7SlQ6fILg7zc4kZ?=
+ =?us-ascii?Q?WgZ/k3d6cvusFFLgsQkVn8mbJz0tc+esv/2mT0CBVvXQcSMbz/j0GoYZisVf?=
+ =?us-ascii?Q?EUTUdhGyjkMKsXzGaD7rppL80OPrmLcA+VrN0G82AvcAmqDvQILS9sVe+yMd?=
+ =?us-ascii?Q?3KqiZSEmR+dOZz1nCH405LISOtKlGiBFkE4JjNsev+rPi3QB2rk4RSP1YMWL?=
+ =?us-ascii?Q?ka2yplCS2+I16oFnWGtn684ORs7fhPFonaxKJwZGtrYAvVp+5qDDcQOgtJig?=
+ =?us-ascii?Q?FAeWSEnCT7w656SQYeoc8L3DTe37lbFv0VMaUu3EaxiAjtiKtsJdoIWnPw7r?=
+ =?us-ascii?Q?HAhlsXmxwxQbaeuI0gKswTaF2XV9B9NGy7OGAf8ljXbnbgc9n2OVIbbtjR+o?=
+ =?us-ascii?Q?MCZBDof9NeiBZaQCcAcArtP1+Iu5xeHhIknoMDiRynwJgAc2Q9O2SaM5zufW?=
+ =?us-ascii?Q?/hIAI1tGhsQM9a7u8G2D+Qh8YM5HxSLL/khurk9xYt8+7IvyUPZffPfinF9J?=
+ =?us-ascii?Q?DbInskk+VakUxOfh+lbcuciNCPDYxvgQTc/WyYSe3WUSE62DiR06lBriYLbj?=
+ =?us-ascii?Q?XyEZ/sli4JWoLIvNh0ypseOs5o8oiHNEirw/yNHXoJcY+h/L2DaGGbmnLnyA?=
+ =?us-ascii?Q?+uaNgUdwiCklpBkYHEihfdpT0UWPtACtvsUYZjGgPMo0/HWq1sOY3Xw2VlZ8?=
+ =?us-ascii?Q?NveFYGY2eMZzO9gdvrYdXItyNXnwl3Y+xV9NBQGs7Qmy341W7Kstq2OT69r2?=
+ =?us-ascii?Q?jGfMVkna5x3F6WnNJvpxO96hJLSv1AOKlpPmADWJm9Xtgz4g8gxA4mfiLJr/?=
+ =?us-ascii?Q?5gaE6pAo6FrUhH8uvmZW19YdLraiczk+Gx0TUSd+6tTz6nythNYlLYubBCsI?=
+ =?us-ascii?Q?n0kXy9Cn07Z75bCSM2PvFnqlG7JYSrYZm6ic4eZ0Hsa6pU+VzngU3tHPTbek?=
+ =?us-ascii?Q?QSSdg8AON+qkEuEup9h8TnaVbQgjNaMi3Gdo7eQdevzE7smELWYdaKTtYMMZ?=
+ =?us-ascii?Q?gVBoGDyxRoPAS1xwwU9RQEV+Kg55gQuizjI+mzTfFJ+Z3Nzb39psD2IONXvC?=
+x-ms-exchange-antispam-messagedata-1: XD+4GvxWpZAcZA==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eeec137e-2ff1-4423-bf62-08da3a89fd03
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 17:55:55.8345 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nheQj5YSH6QV7yTL/7vNpjQYxiOC5UzX4puoeqUwTjEQFiR0ZHwOo91vm04us8PNoDqoLQwMTVoaCplAMTJqHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2439
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1308.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5c7c98a-393f-4cd9-ba21-08da3a8a2013
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2022 17:56:54.4251 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: khEtE+Auua5xQBlEhZjpcRinS8lh3/yejDXKJn+IACt9zP5h/B1PsygV2m6nvjnIEmvfbgHq7c06nBS9sdxEvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,124 +127,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "mwen@igalia.com" <mwen@igalia.com>,
- "contact@emersion.fr" <contact@emersion.fr>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "markyacoub@chromium.org" <markyacoub@chromium.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
-<snip>
+I'll defer to Felix/Christian for the actual change, but a small typo in a =
+comment:
 
-> 
-> On 2022-05-19 16:42, Harry Wentland wrote:
->>
->>
->> On 2022-05-13 16:22, Sung Joon Kim wrote:
->>> Issue fixed: Overlay plane alpha channel blending is incorrect
->>>
->>> Issue tracker: https://gitlab.freedesktop.org/drm/amd/-/issues/1769
->>>
->>> According to the KMS man page, there is a "Coverage" alpha blend mode
->>> that assumes the pixel color values have NOT been pre-multiplied and
->>> will be done when the actual blending to the background color values
->>> happens.
->>>
->>> Previously, this mode hasn't been enabled in our driver and it was
->>> assumed that all normal overlay planes are pre-multiplied by default.
->>>
->>> When a 3rd party app is used to input a image in a specific format,
->>> e.g. PNG, as a source of a overlay plane to blend with the background
->>> primary plane, the pixel color values are not pre-multiplied. So by
->>> adding "Coverage" blend mode, our driver will support those cases.
->>>
->>> Reference:
->>> https://dri.freedesktop.org/docs/drm/gpu/drm-kms.html#plane-compositi
->>> on-properties
->>>
->>> Adding Coverage support also enables IGT kms_plane_alpha_blend
->>> Coverage subtests:
->>> 1. coverage-7efc
->>> 2. coverage-vs-premult-vs-constant
->>>
->>> Signed-off-by: Sung Joon Kim <Sungjoon.Kim@amd.com>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Friday, May 20, 2022 11:09 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+>=20
+> Certain GL unit tests for large textures can cause problems
+> with the OOM killer since there is no way to link this memory
+> to a process.  This was originally mitigated (but not necessarily
+> eliminated) by limiting the GTT size.  The problem is this limit
+> is often too low for many modern games so just make the limit 1/2
+> of system memory. The OOM accounting needs to be addressed, but
+> we shouldn't prevent common 3D applications from being usable
+> just to potentially mitigate that corner case.
+>=20
+> Set default GTT size to max(3G, 1/2 of system ram) by default.
+>=20
+> v2: drop previous logic and default to 3/4 of ram
+> v3: default to half of ram to align with ttm
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index d2b5cccb45c3..7195ed77c85a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device
+> *adev)
+>  	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+>  		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
+>=20
+> -	/* Compute GTT size, either bsaed on 3/4th the size of RAM size
+> +	/* Compute GTT size, either bsaed on 1/2 the size of RAM size
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+ ^ s/bsaed/based
 
-<snip>
+ Kent
 
->>> @@ -2564,14 +2573,6 @@ void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
->>>      else
->>>              blnd_cfg.global_alpha = 0xff;
->>>
->>> -    /* DCN1.0 has output CM before MPC which seems to screw with
->>> -     * pre-multiplied alpha.
->>> -     */
->>> -    blnd_cfg.pre_multiplied_alpha = is_rgb_cspace(
->>> -                    pipe_ctx->stream->output_color_space)
->>> -                                    && per_pixel_alpha;
->>> -
->>
->> Could this break color management use-cases on DCN1.x for Windows?
->> Dmytro Laktyushkin added this code 5 years ago. Maybe check with him.
->>
->> Overall I like this patch but let's see if we can confirm that this
->> won't break DCN1.x on Windows.
->>
->> See commit ad32734699da4dd185405637459bf915a4f4cff6.
->>
->> Harry
-> 
-> I spoke with Dmytro and he is okay with the change
-> 
-
-Thanks for checking.
-
-Harry
-
-> Joon
->>
->>> -
->>>      /*
->>>       * TODO: remove hack
->>>       * Note: currently there is a bug in init_hw such that diff --git
->>> a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
->>> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
->>> index e1f87bd72e4a..c117830b8b9d 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
->>> @@ -2346,12 +2346,16 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
->>>      blnd_cfg.overlap_only = false;
->>>      blnd_cfg.global_gain = 0xff;
->>>
->>> -    if (per_pixel_alpha && pipe_ctx->plane_state->global_alpha) {
->>> -            blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA_COMBINED_GLOBAL_GAIN;
->>> -            blnd_cfg.global_gain = pipe_ctx->plane_state->global_alpha_value;
->>> -    } else if (per_pixel_alpha) {
->>> -            blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA;
->>> +    if (per_pixel_alpha) {
->>> +            blnd_cfg.pre_multiplied_alpha = pipe_ctx->plane_state->pre_multiplied_alpha;
->>> +            if (pipe_ctx->plane_state->global_alpha) {
->>> +                    blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA_COMBINED_GLOBAL_GAIN;
->>> +                    blnd_cfg.global_gain = pipe_ctx->plane_state->global_alpha_value;
->>> +            } else {
->>> +                    blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA;
->>> +            }
->>>      } else {
->>> +            blnd_cfg.pre_multiplied_alpha = false;
->>>              blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_GLOBAL_ALPHA;
->>>      }
->>>
->>> @@ -2365,7 +2369,7 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
->>>      blnd_cfg.top_gain = 0x1f000;
->>>      blnd_cfg.bottom_inside_gain = 0x1f000;
->>>      blnd_cfg.bottom_outside_gain = 0x1f000;
->>> -    blnd_cfg.pre_multiplied_alpha = per_pixel_alpha;
->>> +
->>>      if (pipe_ctx->plane_state->format
->>>                      == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA)
->>>              blnd_cfg.pre_multiplied_alpha = false;
->>
-> 
-
+>  	 * or whatever the user passed on module init */
+>  	if (amdgpu_gtt_size =3D=3D -1) {
+>  		struct sysinfo si;
+>=20
+>  		si_meminfo(&si);
+> -		gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB <<
+> 20),
+> -			       adev->gmc.mc_vram_size),
+> -			       ((uint64_t)si.totalram * si.mem_unit * 3/4));
+> -	}
+> -	else
+> +		/* Certain GL unit tests for large textures can cause problems
+> +		 * with the OOM killer since there is no way to link this
+> memory
+> +		 * to a process.  This was originally mitigated (but not
+> necessarily
+> +		 * eliminated) by limiting the GTT size.  The problem is this
+> limit
+> +		 * is often too low for many modern games so just make the
+> limit 1/2
+> +		 * of system memory which aligns with TTM. The OOM
+> accounting needs
+> +		 * to be addressed, but we shouldn't prevent common 3D
+> applications
+> +		 * from being usable just to potentially mitigate that corner
+> case.
+> +		 */
+> +		gtt_size =3D max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
+> +			       (u64)si.totalram * si.mem_unit / 2);
+> +	} else {
+>  		gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
+> +	}
+>=20
+>  	/* Initialize GTT memory pool */
+>  	r =3D amdgpu_gtt_mgr_init(adev, gtt_size);
+> --
+> 2.35.3
