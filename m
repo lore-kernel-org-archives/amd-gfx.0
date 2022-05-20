@@ -4,92 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B525C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 03:05:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F7EC43219
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 May 2022 06:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088B011ADA7;
-	Fri, 20 May 2022 03:05:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD7F11ADA8
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 May 2022 03:05:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kokvDeYldl8p+LDHplduDY/12HpNtNBpHEQPICaLjalOr+8jLWWGEJWaKmQEtslgKlCwl5UYZfDMEW6XPFgMhJKQvn9JRY6iKtw3LV9szTkQyP+UwKcfTJjmMVdpiyi5A860+O6IgcgZLKkUc+88bkagKfOz6n96OZSkBrbnb7MWaXY/UaQIbs6SMppG1frgRDJ9XYve26y6z/aAe1J4fIa2yJRtbuqIy3vvt8m36Ewes7ojPi9WpzoU82Bm62IAIbc3uwQA8Lc8jVEEmlo9gg2e0HjLQDRTqzdJtlcLvIpu4zG++Svpo6pS41XhnHGjxg2GE/uA7yEwPuU7pFiHqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POKF4jr+l8a1d3NoQCaI9XcXFcDyctyx43aEoNqLDzA=;
- b=X3bRAVq6InBmM1CtXvVZ04HEiYorCSC3oXMrFtNlPZsvUJ6ixv25Jvw/bpfngLYi+XqshLuhXNqzfz13/TMSXyc8cXhbe3eWr91aJguSpCWs+osSxCB32DByaHx5Ey+KLGBdz/M3Iyl3i6/eIPQvB1PwGkaAZ8yDkb0BouQJUc/Myyhfz+WnDf0vld6AcDMKhw+bYl9tvlqgzuTYpUsPFtJzmra8l5F5Igb/IQwcIsAkC93mgMO1Y5Yrnwj23f1hRP8Efmnl3mp70OEedX/C9mS09Aasa/P2GTOV1uyy75+aSJnNa5LzQn9VIrj6Hj9mRf/EW/SV9SZI5h16AybOVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POKF4jr+l8a1d3NoQCaI9XcXFcDyctyx43aEoNqLDzA=;
- b=yQ5HG8+H20ObTedTFo5FnIsJpHs6mEEeFmIZF9It2O4SfT6M47VDg331f7dQf+RcrytRZyS2C3bNhsDfD58u8SUxqJKCKiQMGT8LtCOQkhhWnHtJhBQFDQtTFrx4b3YV75wAJPUUwt4YzUaBM45/U4DUH5MBhSUEvga/nSP/Zvk=
-Received: from BN6PR19CA0119.namprd19.prod.outlook.com (2603:10b6:404:a0::33)
- by BN6PR12MB1586.namprd12.prod.outlook.com (2603:10b6:405:f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Fri, 20 May
- 2022 03:05:00 +0000
-Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:a0:cafe::ee) by BN6PR19CA0119.outlook.office365.com
- (2603:10b6:404:a0::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21 via Frontend
- Transport; Fri, 20 May 2022 03:05:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5273.14 via Frontend Transport; Fri, 20 May 2022 03:04:59 +0000
-Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 19 May
- 2022 22:04:55 -0500
-From: Huang Rui <ray.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: use the callback function for reset status
- polling on IMU
-Date: Fri, 20 May 2022 11:04:05 +0800
-Message-ID: <20220520030405.1308133-2-ray.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220520030405.1308133-1-ray.huang@amd.com>
-References: <20220520030405.1308133-1-ray.huang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B62111B474;
+	Fri, 20 May 2022 06:10:10 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E903111B3AE;
+ Fri, 20 May 2022 06:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653027009; x=1684563009;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0IGNZy702JKiu4Ffd+miSfnDB5aL95QU70i4umciOZU=;
+ b=TKYXgI6BTAzMtqv9GmWFgcUXKN7/2zCtdORXykAOQSHhArIBlhh+Rn25
+ LJqTAsEReu78iBAWbtJC8CmsOArWCj7INVkHvOsmAoE+qwxFuwHt56BOV
+ a3Hec+00Sxlp6hD21uNHpnRRtqmlredu3guOlN+QZec0q/bIniNqxcDno
+ IMM5Pp/N+BR1hq3jSvUVwneLu/BaMko8tUPEoHUq6xg0WeTpZqbF5b8t+
+ ah8QArrch1bjdmGjbfEGSpcgkI1N2rnn7ZZjQRGvKFQQpOSYrcnSN8uUK
+ gcM/4wkXGE/CaZU+NBxEmdMbDV5MSDpkwRInuRCyH+dGOKKVdhAkrtda+ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10352"; a="253019643"
+X-IronPort-AV: E=Sophos;i="5.91,238,1647327600"; d="scan'208";a="253019643"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 23:10:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,238,1647327600"; d="scan'208";a="576024797"
+Received: from lkp-server02.sh.intel.com (HELO 242b25809ac7) ([10.239.97.151])
+ by fmsmga007.fm.intel.com with ESMTP; 19 May 2022 23:10:03 -0700
+Received: from kbuild by 242b25809ac7 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nrvpr-0004Lj-5P;
+ Fri, 20 May 2022 06:10:03 +0000
+Date: Fri, 20 May 2022 14:08:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 21498d01d045c5b95b93e0a0625ae965b4330ebe
+Message-ID: <62873074.g1g0twvcKbX70gr/%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2533bb82-046d-46b3-92b5-08da3a0d8703
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1586:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB15867C66DBC05935A95C55AAECD39@BN6PR12MB1586.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dbb0YaMKYvsIAWsM+PR7IreHVhjZdr5W/yQAYDfkHSJlbPju1t0QVFUmj2B/4Fxc2LLkZSRm050yDoIJD/JBbn7RNKjc6WASKezrYtnhvSJFMCqNFoPOmquqwuDM8FlrP6+Bap+GoIJPTaWIyxt4dA9Qyq1p7QOTJysn3rgG8LQjEQz0BUEXhmuIyhda8UxRRHxXXtNSFSjFnRT3cUiqtL0jljm9lFGULeEyCBFKgeQHfAW5iBXlwuOq9DzqRsxeMWH0DqAGtAR1zpSjZ9tvJJMztd0nkY/OUo+r3w4gu3D4j/6GCCIeiGsgUqeedwio/4dyvwSjfNYwX4UcYcxt3RAllxKfkskYk/Nd+NpzqL0HgO0JKhVBmdILSvDXWgUFNMTeayKpyftqPcfgys8w9DJXt2L46ANO7ysT3HXOta0xS6S90IM+QRcM9PNfvicRUU5XYV6qkVKDvD4+B9uDq1M+TvagdyViaiyeNSZ+vlH3GLmnDUWEtOOybioD+C3JFEfZOXTLppWK+RAjBNZYUXfBRaEDaE6ZAXDeObel2Rx/1GHJ63pIuJPLuG9CMVRx6HFEx8xNKKcqKXI2yWfXhe71wa0lz+Y6n8aE0unoQgh+ff9Sm/B8oPgWYLDfkZwqBl9MB3PRIOOq/T4pk8wsde0tOGcoZIqfUggOlP1Jbrdx15HabKhyaaFnaRwD/jsclSZcs4K91PjtdvpY95OkAg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(54906003)(81166007)(8676002)(4326008)(6666004)(16526019)(86362001)(2906002)(356005)(6916009)(5660300002)(26005)(7696005)(47076005)(70206006)(336012)(426003)(186003)(316002)(36756003)(83380400001)(1076003)(82310400005)(8936002)(70586007)(40460700003)(2616005)(508600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 03:04:59.9709 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2533bb82-046d-46b3-92b5-08da3a0d8703
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1586
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,89 +57,500 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: linux-hwmon@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ kvm@vger.kernel.org, linux-parisc@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-staging@lists.linux.dev,
+ linux-nvme@lists.infradead.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ bpf@vger.kernel.org, linux-omap@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch to use the callback function to poll the reset status on IMU.
-Because it will have different sequency on other ASICs.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 21498d01d045c5b95b93e0a0625ae965b4330ebe  Add linux-next specific files for 20220519
 
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h |  1 +
- drivers/gpu/drm/amd/amdgpu/imu_v11_0.c  | 35 ++++++++++++++++---------
- 2 files changed, 23 insertions(+), 13 deletions(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
-index cfc4a92837f0..484e936812e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
-@@ -35,6 +35,7 @@ struct amdgpu_imu_funcs {
-     void (*setup_imu)(struct amdgpu_device *adev);
-     int (*start_imu)(struct amdgpu_device *adev);
-     void (*program_rlc_ram)(struct amdgpu_device *adev);
-+    int (*wait_for_reset_status)(struct amdgpu_device *adev);
- };
- 
- struct imu_rlc_ram_golden {
-diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-index da18d6724125..64da0ad688d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-@@ -117,6 +117,25 @@ static int imu_v11_0_load_microcode(struct amdgpu_device *adev)
- 	return 0;
- }
- 
-+static int imu_v11_0_wait_for_reset_status(struct amdgpu_device *adev)
-+{
-+	int i, imu_reg_val = 0;
-+
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		imu_reg_val = RREG32_SOC15(GC, 0, regGFX_IMU_GFX_RESET_CTRL);
-+		if ((imu_reg_val & 0x1f) == 0x1f)
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (i >= adev->usec_timeout) {
-+		dev_err(adev->dev, "init imu: IMU start timeout\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+	return 0;
-+}
-+
- static void imu_v11_0_setup(struct amdgpu_device *adev)
- {
- 	int imu_reg_val;
-@@ -146,19 +165,8 @@ static int imu_v11_0_start(struct amdgpu_device *adev)
- 	imu_reg_val &= 0xfffffffe;
- 	WREG32_SOC15(GC, 0, regGFX_IMU_CORE_CTRL, imu_reg_val);
- 
--	if (adev->gfx.imu.mode == DEBUG_MODE) {
--		for (i = 0; i < adev->usec_timeout; i++) {
--			imu_reg_val = RREG32_SOC15(GC, 0, regGFX_IMU_GFX_RESET_CTRL);
--			if ((imu_reg_val & 0x1f) == 0x1f)
--				break;
--			udelay(1);
--		}
--
--		if (i >= adev->usec_timeout) {
--			dev_err(adev->dev, "init imu: IMU start timeout\n");
--			return -ETIMEDOUT;
--		}
--	}
-+	if (adev->gfx.imu.mode == DEBUG_MODE)
-+		return imu_v11_0_wait_for_reset_status(adev);
- 
- 	return 0;
- }
-@@ -368,4 +376,5 @@ const struct amdgpu_imu_funcs gfx_v11_0_imu_funcs = {
- 	.setup_imu = imu_v11_0_setup,
- 	.start_imu = imu_v11_0_start,
- 	.program_rlc_ram = imu_v11_0_program_rlc_ram,
-+	.wait_for_reset_status = imu_v11_0_wait_for_reset_status,
- };
+https://lore.kernel.org/linux-mm/202204291924.vTGZmerI-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205041248.WgCwPcEV-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205122113.uLKzd3SZ-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205172344.3GFeaum1-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205192041.eAjgoXSY-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205192334.DNijFnTC-lkp@intel.com
+https://lore.kernel.org/linux-mm/202205200219.llzx7zfy-lkp@intel.com
+https://lore.kernel.org/llvm/202205052057.2TyEsXsL-lkp@intel.com
+https://lore.kernel.org/llvm/202205060132.uhqyUx1l-lkp@intel.com
+https://lore.kernel.org/llvm/202205170352.5YjuBP5H-lkp@intel.com
+https://lore.kernel.org/llvm/202205200012.68rPHREP-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+<command-line>: fatal error: ./include/generated/utsrelease.h: No such file or directory
+ERROR: modpost: "devm_ioremap_resource" [drivers/net/can/ctucanfd/ctucanfd_platform.ko] undefined!
+arch/x86/kvm/hyperv.c:1983:22: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
+arch/x86/kvm/pmu.h:20:32: warning: 'vmx_icl_pebs_cpu' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1364:5: warning: no previous prototype for 'amdgpu_discovery_get_mall_info' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:1986:6: warning: no previous prototype for function 'gfx_v11_0_rlc_stop' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/soc21.c:171:6: warning: no previous prototype for 'soc21_grbm_select' [-Wmissing-prototypes]
+drivers/gpu/drm/solomon/ssd130x-spi.c:154:35: warning: 'ssd130x_spi_table' defined but not used [-Wunused-const-variable=]
+drivers/hwmon/nct6775-platform.c:199:9: sparse:    unsigned char
+drivers/hwmon/nct6775-platform.c:199:9: sparse:    void
+drivers/net/ethernet/dec/tulip/eeprom.c:120:54: error: 'struct pci_dev' has no member named 'pdev'; did you mean 'dev'?
+drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.h:22:6: warning: no previous prototype for function 'mlx5_lag_mpesw_init' [-Wmissing-prototypes]
+drivers/net/ethernet/mellanox/mlx5/core/lag/mpesw.h:23:6: warning: no previous prototype for function 'mlx5_lag_mpesw_cleanup' [-Wmissing-prototypes]
+drivers/nvme/host/fc.c:1914: undefined reference to `blkcg_get_fc_appid'
+drivers/video/fbdev/omap/hwa742.c:492:5: warning: no previous prototype for 'hwa742_update_window_async' [-Wmissing-prototypes]
+include/asm-generic/bitops/const_hweight.h:21:76: warning: right shift count >= width of type [-Wshift-count-overflow]
+kernel/trace/fgraph.c:37:12: warning: no previous prototype for function 'ftrace_enable_ftrace_graph_caller' [-Wmissing-prototypes]
+kernel/trace/fgraph.c:46:12: warning: no previous prototype for function 'ftrace_disable_ftrace_graph_caller' [-Wmissing-prototypes]
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+Makefile:686: arch/h8300/Makefile: No such file or directory
+arch/Kconfig:10: can't open file "arch/h8300/Kconfig"
+arch/riscv/include/asm/tlbflush.h:23:2: error: expected assembly-time absolute expression
+drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1364:5: warning: no previous prototype for function 'amdgpu_discovery_get_mall_info' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:129:6: warning: no previous prototype for function 'amdgpu_ucode_print_imu_hdr' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/imu_v11_0.c:302:6: warning: no previous prototype for function 'program_imu_rlc_ram' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/soc21.c:171:6: warning: no previous prototype for function 'soc21_grbm_select' [-Wmissing-prototypes]
+drivers/gpu/drm/bridge/adv7511/adv7511.h:229:17: warning: 'ADV7511_REG_CEC_RX_FRAME_HDR' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/bridge/adv7511/adv7511.h:235:17: warning: 'ADV7511_REG_CEC_RX_FRAME_LEN' defined but not used [-Wunused-const-variable=]
+drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:276:27: error: implicit declaration of function 'sysfs_gt_attribute_r_max_func' [-Werror=implicit-function-declaration]
+drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:327:16: error: implicit declaration of function 'sysfs_gt_attribute_w_func' [-Werror=implicit-function-declaration]
+drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:416:24: error: implicit declaration of function 'sysfs_gt_attribute_r_min_func' [-Werror=implicit-function-declaration]
+drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:47 sysfs_gt_attribute_w_func() error: uninitialized symbol 'ret'.
+drivers/gpu/drm/i915/gt/intel_rps.c:2325 rps_read_mmio() error: uninitialized symbol 'val'.
+drivers/infiniband/hw/hns/hns_roce_hw_v2.c:309:9: sparse: sparse: dubious: x & !y
+drivers/staging/vt6655/card.c:759:16: sparse: sparse: cast to restricted __le64
+fc.c:(.text+0x432): undefined reference to `blkcg_get_fc_appid'
+fc.c:(.text+0x492): undefined reference to `blkcg_get_fc_appid'
+fc.c:(.text+0x5fe): undefined reference to `blkcg_get_fc_appid'
+fc.c:(.text+0x790): undefined reference to `blkcg_get_fc_appid'
+fc.c:(.text+0x7de): undefined reference to `blkcg_get_fc_appid'
+kernel/bpf/verifier.c:5354 process_kptr_func() warn: passing zero to 'PTR_ERR'
+ld.lld: error: undefined symbol: blkcg_get_fc_appid
+make[1]: *** No rule to make target 'arch/h8300/Makefile'.
+mm/shmem.c:1910 shmem_getpage_gfp() warn: should '(((1) << 12) / 512) << folio_order(folio)' be a 64 bit type?
+powerpc64-linux-ld: drivers/gpu/drm/bridge/analogix/analogix_dp_reg.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/gpu/drm/bridge/analogix/analogix_dp_core.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/mfd/mt6397-irq.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/mfd/mt6397-core.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/mmc/core/host.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/mmc/core/bus.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/mtd/mtdchar.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/mtd/mtdsuper.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/nfc/nxp-nci/firmware.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/nfc/nxp-nci/core.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/nfc/s3fwrn5/nci.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/nfc/s3fwrn5/firmware.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/soundwire/master.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/soundwire/bus.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: drivers/staging/greybus/audio_manager_module.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/staging/greybus/audio_manager.o:(.bss+0x40): first defined here
+powerpc64-linux-ld: drivers/w1/w1_int.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; drivers/w1/w1.o:(.bss+0x40): first defined here
+powerpc64-linux-ld: fs/exfat/namei.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; fs/exfat/inode.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: fs/hpfs/anode.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; fs/hpfs/alloc.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: fs/omfs/dir.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; fs/omfs/bitmap.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: fs/pstore/pmsg.o:(.bss+0x40): multiple definition of `____cacheline_aligned'; fs/pstore/platform.o:(.bss+0x40): first defined here
+powerpc64-linux-ld: net/decnet/dn_route.o:(.bss+0x40): multiple definition of `____cacheline_aligned'; net/decnet/dn_nsp_out.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: net/nfc/nci/ntf.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; net/nfc/nci/data.o:(.bss+0x0): first defined here
+powerpc64-linux-ld: net/nfc/rawsock.o:(.bss+0x40): multiple definition of `____cacheline_aligned'; net/nfc/af_nfc.o:(.bss+0x40): first defined here
+powerpc64-linux-ld: net/unix/sysctl_net_unix.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; net/unix/garbage.o:(.bss+0x40): first defined here
+powerpc64-linux-ld: sound/soc/bcm/bcm63xx-pcm-whistler.o:(.bss+0x0): multiple definition of `____cacheline_aligned'; sound/soc/bcm/bcm63xx-i2s-whistler.o:(.bss+0x0): first defined here
+{standard input}:1991: Error: unknown pseudo-op: `.lc'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- alpha-randconfig-s032-20220519
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- arc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- arc-randconfig-r043-20220519
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- arm-allmodconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-video-fbdev-omap-hwa742.c:warning:no-previous-prototype-for-hwa742_update_window_async
+|-- arm-allyesconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-video-fbdev-omap-hwa742.c:warning:no-previous-prototype-for-hwa742_update_window_async
+|-- arm-randconfig-r024-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- arm-rpc_defconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- arm64-allmodconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- arm64-allyesconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- arm64-randconfig-r006-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- csky-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- csky-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- h8300-allmodconfig
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- h8300-allyesconfig
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- i386-allmodconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- i386-allyesconfig
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- drivers-gpu-drm-solomon-ssd13-spi.c:warning:ssd13_spi_table-defined-but-not-used
+|-- i386-debian-10.3
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- i386-debian-10.3-kselftests
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- i386-randconfig-a003
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   `-- include-asm-generic-bitops-const_hweight.h:warning:right-shift-count-width-of-type
+|-- i386-randconfig-a012
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   `-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|-- i386-randconfig-a014
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- fc.c:(.text):undefined-reference-to-blkcg_get_fc_appid
+|-- i386-randconfig-a016
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   `-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|-- i386-randconfig-c001
+|   `-- fc.c:(.text):undefined-reference-to-blkcg_get_fc_appid
+|-- i386-randconfig-m021
+|   |-- kernel-bpf-verifier.c-process_kptr_func()-warn:passing-zero-to-PTR_ERR
+|   `-- mm-shmem.c-shmem_getpage_gfp()-warn:should-((()-)-)-folio_order(folio)-be-a-bit-type
+|-- i386-randconfig-s001
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_max_func
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_min_func
+|   `-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_w_func
+|-- i386-randconfig-s002
+|   `-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- ia64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- m68k-allmodconfig
+|   |-- drivers-hwmon-nct6775-platform.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
+|   |-- drivers-hwmon-nct6775-platform.c:sparse:unsigned-char
+|   `-- drivers-hwmon-nct6775-platform.c:sparse:void
+|-- m68k-allyesconfig
+|   |-- drivers-hwmon-nct6775-platform.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
+|   |-- drivers-hwmon-nct6775-platform.c:sparse:unsigned-char
+|   `-- drivers-hwmon-nct6775-platform.c:sparse:void
+|-- mips-allmodconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- mips-allyesconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- mips-randconfig-r014-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- nios2-randconfig-r015-20220519
+|   `-- drivers-nvme-host-fc.c:undefined-reference-to-blkcg_get_fc_appid
+|-- parisc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-net-ethernet-dec-tulip-eeprom.c:error:struct-pci_dev-has-no-member-named-pdev
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-net-ethernet-dec-tulip-eeprom.c:error:struct-pci_dev-has-no-member-named-pdev
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- parisc-defconfig
+|   `-- drivers-net-ethernet-dec-tulip-eeprom.c:error:struct-pci_dev-has-no-member-named-pdev
+|-- parisc64-allmodconfig
+|   `-- drivers-net-ethernet-dec-tulip-eeprom.c:error:struct-pci_dev-has-no-member-named-pdev
+|-- parisc64-defconfig
+|   `-- drivers-net-ethernet-dec-tulip-eeprom.c:error:struct-pci_dev-has-no-member-named-pdev
+|-- powerpc-allmodconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- powerpc-allyesconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- powerpc-randconfig-r001-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- powerpc-randconfig-r005-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- powerpc64-randconfig-c003-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- powerpc64-randconfig-r036-20220519
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-gpu-drm-bridge-analogix-analogix_dp_core.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-mfd-mt6397-core.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-mmc-core-bus.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-mtd-mtdsuper.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-nfc-nxp-nci-core.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-nfc-s3fwrn5-firmware.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-soundwire-bus.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-staging-greybus-audio_manager.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-drivers-w1-w1.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-fs-exfat-inode.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-fs-hpfs-alloc.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-fs-omfs-bitmap.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-fs-pstore-platform.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-net-decnet-dn_nsp_out.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-net-nfc-af_nfc.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-net-nfc-nci-data.o:(.bss):first-defined-here
+|   |-- multiple-definition-of-____cacheline_aligned-net-unix-garbage.o:(.bss):first-defined-here
+|   `-- multiple-definition-of-____cacheline_aligned-sound-soc-bcm-bcm63xx-i2s-whistler.o:(.bss):first-defined-here
+|-- riscv-allmodconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- riscv-allyesconfig
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|-- riscv-randconfig-r034-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- s390-allmodconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- s390-allyesconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- s390-randconfig-r002-20220519
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- s390-randconfig-r034-20220519
+|   `-- ERROR:devm_ioremap_resource-drivers-net-can-ctucanfd-ctucanfd_platform.ko-undefined
+|-- sh-allmodconfig
+|   |-- arch-sh-kernel-crash_dump.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-addr-got-void-noderef-__iomem
+|   `-- standard-input:Error:unknown-pseudo-op:lc
+|-- sh-allyesconfig
+|   |-- arch-sh-kernel-crash_dump.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-addr-got-void-noderef-__iomem
+|   `-- standard-input:Error:unknown-pseudo-op:lc
+|-- sparc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-infiniband-hw-hns-hns_roce_hw_v2.c:sparse:sparse:dubious:x-y
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   `-- drivers-staging-vt6655-card.c:sparse:sparse:cast-to-restricted-__le64
+|-- x86_64-allmodconfig
+|   `-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|-- x86_64-allyesconfig
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   |-- command-line:fatal-error:.-include-generated-utsrelease.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- drivers-gpu-drm-solomon-ssd13-spi.c:warning:ssd13_spi_table-defined-but-not-used
+|-- x86_64-kexec
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-randconfig-a002
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   `-- fc.c:(.text):undefined-reference-to-blkcg_get_fc_appid
+|-- x86_64-randconfig-a011
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_max_func
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_min_func
+|   `-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_w_func
+|-- x86_64-randconfig-a015
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   `-- fc.c:(.text):undefined-reference-to-blkcg_get_fc_appid
+|-- x86_64-randconfig-c002
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_max_func
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_r_min_func
+|   `-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c:error:implicit-declaration-of-function-sysfs_gt_attribute_w_func
+|-- x86_64-randconfig-s021
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_HDR-defined-but-not-used
+|   |-- drivers-gpu-drm-bridge-adv7511-adv7511.h:warning:ADV7511_REG_CEC_RX_FRAME_LEN-defined-but-not-used
+|   `-- fc.c:(.text):undefined-reference-to-blkcg_get_fc_appid
+|-- x86_64-rhel-8.3
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-func
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-kselftests
+|   |-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|   |-- drivers-gpu-drm-i915-gt-intel_gt_sysfs_pm.c-sysfs_gt_attribute_w_func()-error:uninitialized-symbol-ret-.
+|   |-- drivers-gpu-drm-i915-gt-intel_rps.c-rps_read_mmio()-error:uninitialized-symbol-val-.
+|   `-- kernel-bpf-verifier.c-process_kptr_func()-warn:passing-zero-to-PTR_ERR
+|-- x86_64-rhel-8.3-kunit
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- x86_64-rhel-8.3-syz
+|   `-- arch-x86-kvm-pmu.h:warning:vmx_icl_pebs_cpu-defined-but-not-used
+|-- xtensa-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+|   `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+`-- xtensa-allyesconfig
+    |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-amdgpu_discovery_get_mall_info
+    `-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-soc21_grbm_select
+
+clang_recent_errors
+|-- i386-randconfig-a002
+|   `-- arch-x86-kvm-hyperv.c:error:shift-count-width-of-type-Werror-Wshift-count-overflow
+|-- i386-randconfig-a004
+|   `-- ld.lld:error:undefined-symbol:blkcg_get_fc_appid
+|-- i386-randconfig-a015
+|   |-- drivers-net-ethernet-mellanox-mlx5-core-lag-mpesw.h:warning:no-previous-prototype-for-function-mlx5_lag_mpesw_cleanup
+|   `-- drivers-net-ethernet-mellanox-mlx5-core-lag-mpesw.h:warning:no-previous-prototype-for-function-mlx5_lag_mpesw_init
+|-- riscv-randconfig-r042-20220519
+|   |-- arch-riscv-include-asm-tlbflush.h:error:expected-assembly-time-absolute-expression
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_discovery.c:warning:no-previous-prototype-for-function-amdgpu_discovery_get_mall_info
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ucode.c:warning:no-previous-prototype-for-function-amdgpu_ucode_print_imu_hdr
+|   |-- drivers-gpu-drm-amd-amdgpu-gfx_v11_0.c:warning:no-previous-prototype-for-function-gfx_v11_0_rlc_stop
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0.c:warning:no-previous-prototype-for-function-program_imu_rlc_ram
+|   |-- drivers-gpu-drm-amd-amdgpu-soc21.c:warning:no-previous-prototype-for-function-soc21_grbm_select
+|   |-- kernel-trace-fgraph.c:warning:no-previous-prototype-for-function-ftrace_disable_ftrace_graph_caller
+|   `-- kernel-trace-fgraph.c:warning:no-previous-prototype-for-function-ftrace_enable_ftrace_graph_caller
+`-- x86_64-randconfig-a003
+    `-- ld.lld:error:undefined-symbol:blkcg_get_fc_appid
+
+elapsed time: 1189m
+
+configs tested: 102
+configs skipped: 4
+
+gcc tested configs:
+arm                              allmodconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+arm                                 defconfig
+arm64                               defconfig
+x86_64                           allyesconfig
+i386                             allyesconfig
+ia64                             allmodconfig
+mips                             allyesconfig
+riscv                            allyesconfig
+um                           x86_64_defconfig
+riscv                            allmodconfig
+um                             i386_defconfig
+mips                             allmodconfig
+powerpc                          allmodconfig
+m68k                             allyesconfig
+s390                             allmodconfig
+s390                             allyesconfig
+m68k                             allmodconfig
+powerpc                          allyesconfig
+i386                          randconfig-c001
+sparc                            allyesconfig
+parisc                           allyesconfig
+sh                               allmodconfig
+h8300                            allyesconfig
+xtensa                           allyesconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+nios2                            allyesconfig
+powerpc                     mpc83xx_defconfig
+sh                           se7705_defconfig
+powerpc                     taishan_defconfig
+arm                             rpc_defconfig
+m68k                       m5208evb_defconfig
+m68k                        mvme147_defconfig
+ia64                                defconfig
+ia64                             allyesconfig
+m68k                                defconfig
+alpha                               defconfig
+csky                                defconfig
+arc                                 defconfig
+parisc                              defconfig
+s390                                defconfig
+parisc64                            defconfig
+i386                   debian-10.3-kselftests
+i386                              debian-10.3
+i386                                defconfig
+sparc                               defconfig
+nios2                               defconfig
+powerpc                           allnoconfig
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+arc                  randconfig-r043-20220519
+riscv                    nommu_k210_defconfig
+riscv                          rv32_defconfig
+riscv                    nommu_virt_defconfig
+riscv                               defconfig
+riscv                             allnoconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+x86_64                                  kexec
+x86_64                               rhel-8.3
+x86_64                              defconfig
+
+clang tested configs:
+powerpc                     mpc512x_defconfig
+arm                          pxa168_defconfig
+mips                      pic32mzda_defconfig
+mips                  cavium_octeon_defconfig
+mips                malta_qemu_32r6_defconfig
+arm                       mainstone_defconfig
+powerpc                   bluestone_defconfig
+arm                          ixp4xx_defconfig
+powerpc                  mpc866_ads_defconfig
+mips                           rs90_defconfig
+arm                         socfpga_defconfig
+x86_64                        randconfig-a005
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a015
+hexagon              randconfig-r041-20220519
+hexagon              randconfig-r045-20220519
+s390                 randconfig-r044-20220519
+riscv                randconfig-r042-20220519
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
