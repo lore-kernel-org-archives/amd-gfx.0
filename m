@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78007C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 19:07:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF41C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 19:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E0B10F197;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F32BA10F223;
 	Tue, 24 May 2022 19:07:32 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A273410F1F8;
- Tue, 24 May 2022 19:07:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD70310F197;
+ Tue, 24 May 2022 19:07:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bu6TjzO5zfxdF22hYV2QBgLVmFJgcUDwIE9eMQQyLCU939ppI8dE2BiidXIH86EaIas2QdG1zpHGv9oyzbzfwXOPzgjnBGs4jaE0TSs26AAgcSzDTy8bC2jxJVFhBS833V4HywomVlEpZMKtBVhg7d2i4vu0Iq+JkPxB0+iUsaVKiXN++MihGFfeeNKLH+vJbByf1/qC9ZHO77rP0030kPlHemaUInNZIDafWQbt50PBwSCdM8fzcSIrAnetXgXi7ztXmRpqeqUEZ72LhKlmBlHrZke+/2mzKBDG/DQQDl3xsjgfeYCGDhiR9DKH6NRvyLJnJdED2FYBlICQGTqkKw==
+ b=UXUXkYQgnQrzoHmMALp/x8wde62uFkIJ/4+WD6dgvXMvB8rrZLGunWIR9cKuGnS8V3lZTpA0g+/2ACAPI5N33MeIXSyj3S0XFqFp10Zfyk0wWW07SRbxsJWCXvo+xyv+iVMncA6T//i47uByeOj9fPUcSO/OWaiJ89AxY9WR1x+ZdUuRN+dIyri/pJsVi3ZRTxgysKp98aou1GRC6WBsb26k4R4iqOMwTNpSWK12ytiuajkpYAolgx5oZkP/Peudxn7IkF3mILLWwH84tRUmWxg6u5qDE+UNZ7lP3GtFJZwVpuSvnCZI2Xz39NGkCChukbMDNSXhehr/u/oLuXqQtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vW0Kci1BxH/G6MOqRePi9dIvH+J6rgyknG8pfmabAb0=;
- b=YLHdBvN+/F1vPl5f8C7F44lWIYu4gyFlbbe5oVFq2fPWcE3M4MTcMRJU9WD++iAerSBftPeOJIWkEzM42q9vVgyl281+RP49esJtnHG9l+NXvGCUcTPVO6sdokQyTFt6OrTs3f6oKbLpDZey9+Ja0g4zpwXsucmMFcFj3pIeVbDPxgmEz29vAr3HXSzmDmBAzQ6sKVLsbYUPjhmDlk1AphkoX5wte3KkZyC2CU0Zzgj3UVq0gEBkuWuX0GFUcjAxYM6BV70NKPDHpdOLd+FDdS+3dKdOYsR90UwDBTFaaflZP9r034yHz/MAo2jS5W2ksm7jBxPmsSlZN7DNB8Q3xQ==
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=KWdjNGfPL+1B2d9F7kU6A9ejzyPlXntDodT1C5OIl+hDX/hSj1GNqOZrzWx+Y5ZiXgjwDMbD6S5DczNSFwpVq+MUCgIKrFYlqjfXv6OZQkhWm0OJSgHVvST3z0L5JypKm0+tI4dP5sW5OtspFSbIYYrUCInNmiUOY62Deo9QM2xTbSvSBgJ2ZoPQYoVwUA0ReKrIODqymLbWyTA8hUN5LktXJYW4XZUwUcXIQDgGxoCGpLMpA6aCcIG9SHb+6B+cG2v0M23F8/DsG0wffNyJQW8emS6uKmDh4vVstyayAcR6hUKbYLpWTs1Ax8IdY7cypCAdknBIuIJl2PbC5BpDyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vW0Kci1BxH/G6MOqRePi9dIvH+J6rgyknG8pfmabAb0=;
- b=0OhBwbKlHpu6Np8bWWVYghbY8JlUA9VYxT+JPXS/x1INh/v/XaOmZVI2y0NqmnaHkYKBW2MKW/vuXTaiICvcCx6HWF8IhatguYd+1iQJZBhriH9eazBhcwZvP8ot3dyU8bt2iT9lejR6rqAwotBxFXlDTJKXyFDJEyKwSNWdY1E=
-Received: from DM5PR17CA0058.namprd17.prod.outlook.com (2603:10b6:3:13f::20)
- by DM6PR12MB3417.namprd12.prod.outlook.com (2603:10b6:5:118::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.19; Tue, 24 May
- 2022 19:07:24 +0000
-Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13f:cafe::8) by DM5PR17CA0058.outlook.office365.com
- (2603:10b6:3:13f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Tue, 24 May 2022 19:07:24 +0000
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=AGNc/Q2K1Hbe6s+fFNlfXRXN/Cqg90O/GZz1u4KAPoJ2EmYMtbdVjLpGT/QoQFndKusd9zA63ZwGL2J+ak7/aE8IgYfMGBrpu4RLHphjQQ+g/F5tFaSCvkBAimQqNVCxzJc2ymU8T6JfFYLTjogVe0OjT3jTpd6Us7YnJ8gnW0Y=
+Received: from DM5PR19CA0035.namprd19.prod.outlook.com (2603:10b6:3:9a::21) by
+ DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5273.14; Tue, 24 May 2022 19:07:28 +0000
+Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:9a:cafe::97) by DM5PR19CA0035.outlook.office365.com
+ (2603:10b6:3:9a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.23 via Frontend
+ Transport; Tue, 24 May 2022 19:07:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
+ DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5273.14 via Frontend Transport; Tue, 24 May 2022 19:07:24 +0000
+ 15.20.5293.13 via Frontend Transport; Tue, 24 May 2022 19:07:28 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 24 May
- 2022 14:07:18 -0500
+ 2022 14:07:25 -0500
 From: Alex Sierra <alex.sierra@amd.com>
 To: <jgg@nvidia.com>
-Subject: [PATCH v3 03/13] mm: add device coherent vma selection for memory
- migration
-Date: Tue, 24 May 2022 14:06:22 -0500
-Message-ID: <20220524190632.3304-4-alex.sierra@amd.com>
+Subject: [PATCH v3 11/13] tools: update test_hmm script to support SP config
+Date: Tue, 24 May 2022 14:06:30 -0500
+Message-ID: <20220524190632.3304-12-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220524190632.3304-1-alex.sierra@amd.com>
 References: <20220524190632.3304-1-alex.sierra@amd.com>
@@ -69,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a65c8d27-6d89-4695-a847-08da3db8a2ed
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3417:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB34178CDF987E277EB37A5889FDD79@DM6PR12MB3417.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: c761fa70-9132-4c7d-5f60-08da3db8a546
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4338:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4338B2456C1F61A85D3EAFD3FDD79@DM6PR12MB4338.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 17pQ4SBU8wbSGlHhFaZz+QIbTnwyfCKgYnzwsWJfT4SugeepQaBppQgfyNJ7j077U1w4a/zB7pnZil2J/Ww6PXitZK2PpmQDuJv55ZK+sVR3/3DifEy+RHs5jxAQcaCbPuIhGX2WF4KWlURR3Oq7D46+Mam5s0LvVBzUnDp+xqwd0swDmKxtd0/flRwFEkoln2zOh1KwEOa3ef8JSHkzNQI/ABe+mBkNunKZJ4X6vPHY9Smmnhjs2AwxiuOwBZOWjm1KNDQGwFoMskInsREV3hxMm2iJwro1orQSurItDELqPuqTeR3H4jyp6gfqmpT09lwkOEZIVN7EZON3K2+oUrFiKz8N+fvOAotG4AvtShJEJceOFaQxpDpsri6uqnzJsLqlnW2Eb8fUe1PqGLAAjmB5PunDwNCL59oyBMU1wMxqVdU3CTm+QR7gHkto4x4zgzPJ6mufk5NJgGJIScWPu5D4WT+0Jr2IY0ErEOcYUrSJhAQFIdAs/we02QVdkEXfa/ctYG6hMGZxiBkrbvVZNaAoAw8A67K8zw0Sq8x5MdB/OUalMc7J5D335nEEH11Ugrd2tX1LSnJY3SHCB2wJM+wWaRUxNbSyS3J7IBAxifO2lla1Ns4t7bxQitVq9SiFNEQC4UNhX01RIswtXizul2s2Mu/zod2otYK5z5NTwgbI5R1j78hVwzjkK385KHWKQO4xEcg88U4i1gJ62iqFGQ==
+X-Microsoft-Antispam-Message-Info: JxgJ1r7W70lmTXsxM86VPYqOe504bot8uNBBl7W/Ya5Bm6C/+mUgLXZsrzB2xShKcMYKXiQlsL5LPnwC1+hdpp4+vnGWXj0emog0/T+j1hiJ2Kd7aQhetya7jZlpr+odbxp2eBBfADUJWKZZ5qpVeMQpVYbwtCkrN5nycZ4P9LwdZnUEFNxZINgsJtG0hNR7vc1B3JD47oCB7F0XHVhO3N3lp1gZNRk2SAVImHD3IW5jHBwhgLwVAm4DGvGGiZCEvPSrlwgGlKGa/FiArFjdJx4KMJUJvr0KGSfkNjPgRShpNfCJbpQ556IwpX8/++/7/3tAWIfDbWiDbumQDHhioTbQ4UAmSioR1hwWHb9mlx8sJ0HNizRjLL6hGRNelbAY01keqQtIFF4p7Ri+sO+Q+6/NCfaedf1LXKDxLBrZZK+rc9PcI7TOaPyTOFU9eprX7IvjAf3LRh711aAngmywt+R4LNHkifPU1Hjbpr/kzxY1XJkWQU7vsCx32TOHoJabGwonmp0rnXdcZWaUBcuHRKRKDTqbLNTdaNrcEKFiGHtrhQDnT13ziznv6xhHTB9w6A8XoNebTvZZQ4vwMFFpOb65/p4B+alNqsUxFyRhSmvNNSyNYg3eZy4adhWEJy/GUTQaJXLE5/zY9doa1LoeEE3b7Sab1yFxLI8mFSOVg4B6nrEGa+bp1RuJLCiDaxVI29sqWxW/AqZUbUqIT++PXA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(508600001)(7696005)(2616005)(6666004)(16526019)(26005)(5660300002)(356005)(8936002)(1076003)(7416002)(186003)(44832011)(81166007)(86362001)(83380400001)(36756003)(4326008)(40460700003)(316002)(82310400005)(426003)(70206006)(47076005)(8676002)(336012)(70586007)(6916009)(36860700001)(54906003)(2906002)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(81166007)(1076003)(36756003)(54906003)(316002)(6916009)(356005)(82310400005)(7696005)(2906002)(36860700001)(44832011)(6666004)(4326008)(47076005)(508600001)(26005)(70586007)(70206006)(83380400001)(8676002)(86362001)(16526019)(186003)(8936002)(2616005)(5660300002)(426003)(336012)(7416002)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 19:07:24.2013 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a65c8d27-6d89-4695-a847-08da3db8a2ed
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 19:07:28.1382 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c761fa70-9132-4c7d-5f60-08da3db8a546
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3417
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,60 +108,79 @@ Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This case is used to migrate pages from device memory, back to system
-memory. Device coherent type memory is cache coherent from device and CPU
-point of view.
+Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
+addresses. These two parameters configure the start SP
+addresses for each device in test_hmm driver.
+Consequently, this configures zone device type as coherent.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Poppple <apopple@nvidia.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/migrate.h |  1 +
- mm/migrate_device.c     | 12 +++++++++---
- 2 files changed, 10 insertions(+), 3 deletions(-)
+ tools/testing/selftests/vm/test_hmm.sh | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index 90e75d5a54d6..a4a336fd81fc 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -138,6 +138,7 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
- enum migrate_vma_direction {
- 	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
- 	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
-+	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
- };
+diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
+index 0647b525a625..539c9371e592 100755
+--- a/tools/testing/selftests/vm/test_hmm.sh
++++ b/tools/testing/selftests/vm/test_hmm.sh
+@@ -40,11 +40,26 @@ check_test_requirements()
  
- struct migrate_vma {
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 7e267142ea34..a0b997935cf9 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -148,15 +148,21 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 			if (is_writable_device_private_entry(entry))
- 				mpfn |= MIGRATE_PFN_WRITE;
- 		} else {
--			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
--				goto next;
- 			pfn = pte_pfn(pte);
--			if (is_zero_pfn(pfn)) {
-+			if (is_zero_pfn(pfn) &&
-+			    (migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
- 				mpfn = MIGRATE_PFN_MIGRATE;
- 				migrate->cpages++;
- 				goto next;
- 			}
- 			page = vm_normal_page(migrate->vma, addr, pte);
-+			if (page && !is_zone_device_page(page) &&
-+			    !(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-+				goto next;
-+			else if (page && is_device_coherent_page(page) &&
-+			    (!(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
-+			     page->pgmap->owner != migrate->pgmap_owner))
-+				goto next;
- 			mpfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
- 			mpfn |= pte_write(pte) ? MIGRATE_PFN_WRITE : 0;
- 		}
+ load_driver()
+ {
+-	modprobe $DRIVER > /dev/null 2>&1
++	if [ $# -eq 0 ]; then
++		modprobe $DRIVER > /dev/null 2>&1
++	else
++		if [ $# -eq 2 ]; then
++			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
++				> /dev/null 2>&1
++		else
++			echo "Missing module parameters. Make sure pass"\
++			"spm_addr_dev0 and spm_addr_dev1"
++			usage
++		fi
++	fi
+ 	if [ $? == 0 ]; then
+ 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
+ 		mknod /dev/hmm_dmirror0 c $major 0
+ 		mknod /dev/hmm_dmirror1 c $major 1
++		if [ $# -eq 2 ]; then
++			mknod /dev/hmm_dmirror2 c $major 2
++			mknod /dev/hmm_dmirror3 c $major 3
++		fi
+ 	fi
+ }
+ 
+@@ -58,7 +73,7 @@ run_smoke()
+ {
+ 	echo "Running smoke test. Note, this test provides basic coverage."
+ 
+-	load_driver
++	load_driver $1 $2
+ 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
+ 	unload_driver
+ }
+@@ -75,6 +90,9 @@ usage()
+ 	echo "# Smoke testing"
+ 	echo "./${TEST_NAME}.sh smoke"
+ 	echo
++	echo "# Smoke testing with SPM enabled"
++	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
++	echo
+ 	exit 0
+ }
+ 
+@@ -84,7 +102,7 @@ function run_test()
+ 		usage
+ 	else
+ 		if [ "$1" = "smoke" ]; then
+-			run_smoke
++			run_smoke $2 $3
+ 		else
+ 			usage
+ 		fi
 -- 
 2.32.0
 
