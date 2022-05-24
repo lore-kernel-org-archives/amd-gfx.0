@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6F1C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 17:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3CBC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 17:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A57310F74A;
-	Tue, 24 May 2022 17:57:56 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2067.outbound.protection.outlook.com [40.107.102.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B049010F74A
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 May 2022 17:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F90810F8AF;
+	Tue, 24 May 2022 17:57:59 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845A110F8AF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 May 2022 17:57:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=crLroOgVZik0YnT/CJ+Il6BKv8QKX9zOCJh28GGNciwkicnSHu185agLGqvT5Qjgxcq5lDReBPENhglkm+0PIMIhuFHevxPz4fmRWcnhTqk+K+ac/S5qt/6T7aMGI+YnzKBA5npEnrm/9AZ8qDwgFb3Z/04zhauDbyoP14+SZpTbFxlmq1LGKlW8zj7GdU58tBnOVOA7vwJi60Fal4dEhYdzCfONWvOAZ+vrVnw3anWU8QU16tX33ZH2aopLaNp2vgpou4B34Vf9pw4y5bucgCEjHOmedk+Gll9xy84NZEBU1Rgz24nP4HElkUs2n+PIVkbOmVsntJwhw4efa5SiSw==
+ b=QCyw/Gq2brA7C5JEvtZ0qZRKpFn/xjvmIamliAu4rnKutgHeIXg3rdkDbM50HdNNTv8UQsEZdaNBm4+0DPjkgamdxYDUW1pDvAIBHFKbQ1bG4a7AqaF63Lo8MqUud09MTAP4hAuWs7hQPN0Y0QKnnRyxFkAtOvQeA/pa76+EagS8v17NHgt35jI6yWvFGT8m5W/7VNe4pTt9xA9uc0flHtP0ub8Pd1IQEx/emJ7y2W08IoVl4e5LMcdjCRtH1tJyEHrdr2gqhnFc37ODn4q8F8QX8uVJqzTeCztlhckIv3/zZgPQJYOs6oGS7KIWOemnix3K7Ug4H51KrpJcqZQ7lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o/BnCLs0t+2+UN/wz4xrmhOe1Uc+29uxs27phU40XGk=;
- b=XdZbvd5VNCGNzZU2dc/MZ2iG51NEpfSMr1QxJz8CHw+PD06pUg6zxvZJks6btJoPataRDgqFx+G7ZkceGs/lmrzGtPuS5pb2V9fY16VKUYcES++u+yYef8UfU+7KbcYsdbTrHJYV18Cq9LK28NBm38HkvAM2j4+Dqu5xHhAdD7k6UUcM0qkAYiSZ8O0BUDVGdOaxnM7fug9csXzwHajd8bOl+R2SBudDPeWVN2DIfIrTWv3Ch4vClVPynZ7Ba00pPF/3I7iA2aVwt8xUypxzDXGQJVsoxP5PWoEBXLdBFJf52MMZPq5gKC+kkOfZwCGcWvpr0U8lxhsddY5pHQRSfQ==
+ bh=q0pQp2O9wuz5oI0GIlOqli7yfb9nkNddCPlJ2d0fAm4=;
+ b=SALD/7Q/bShdWMli8yfNnWqIderiIGL4KClI+nirHfLVwMDdPDC+lUEshkGJNhkQa7rV9XJw1qQA0PoetkuzvvckkoM03kpIm4ZO6p6F1vmwELYwQR99dQYt4NC7Jv1EIHqXDpGbuv1qJf4N1dNwptnAA164DmczF/bOeHq6v9a0s8cEYCWcQPFFT2pFcmihbj6ToLEkxTH/lpO72bN4gI3BcGnpWEOt5KxyXYq4uT/3WEnQw4BMaGSCxQ3mWdMQniK/TOCCUNLE38L4g4AUWZlNRRkdW/sxt2iWCZksfdPk+ERtocuuq+CyUmsJ+Wrdu5cdl4T++s73XAw1P6Y/UA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o/BnCLs0t+2+UN/wz4xrmhOe1Uc+29uxs27phU40XGk=;
- b=tKPR88YD2kQUxh/vLgPMGYLSZUxC818qr6zJQm9unvZAKigUAeo+fAM8bRzzJ05gLJ/rZAATr+gHCiykF+8BfDjyhPy4ycg25LJLm6NOza4ii474rIXupzwLUh9L8z3p9c/cMt87D1mD8SNgjrR9YCI7G2ddgjQSiwFm+hMpISc=
-Received: from BN8PR15CA0053.namprd15.prod.outlook.com (2603:10b6:408:80::30)
- by BY5PR12MB3730.namprd12.prod.outlook.com (2603:10b6:a03:1ac::14)
+ bh=q0pQp2O9wuz5oI0GIlOqli7yfb9nkNddCPlJ2d0fAm4=;
+ b=3gQsSwpxDluL0vCYr1cAiFm8k3vmWD6QBC0ViSHrc9Ix0k9OeR5THXLbKFfOXOnYmx8NQDd2YwWLMsqAC4pJGRAFOUCPTlj2C01AQ4LC6GioishjHZg7ZdgNAy0NWH3RfM7LJR3zieCG9MpxFK8yKE5j7lZLCUq70x0dGQZbefc=
+Received: from BN9P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::10)
+ by MN2PR12MB3279.namprd12.prod.outlook.com (2603:10b6:208:105::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Tue, 24 May
- 2022 17:57:51 +0000
-Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:80:cafe::b6) by BN8PR15CA0053.outlook.office365.com
- (2603:10b6:408:80::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.23 via Frontend
- Transport; Tue, 24 May 2022 17:57:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.16; Tue, 24 May
+ 2022 17:57:55 +0000
+Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::85) by BN9P220CA0005.outlook.office365.com
+ (2603:10b6:408:13e::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15 via Frontend
+ Transport; Tue, 24 May 2022 17:57:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
+ BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5273.14 via Frontend Transport; Tue, 24 May 2022 17:57:51 +0000
+ 15.20.5273.14 via Frontend Transport; Tue, 24 May 2022 17:57:55 +0000
 Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 24 May 2022 12:57:48 -0500
+ 15.1.2375.24; Tue, 24 May 2022 12:57:51 -0500
 From: Jasdeep Dhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/8] drm/amd/display: Pass the new context into disable OTG WA
-Date: Tue, 24 May 2022 13:57:18 -0400
-Message-ID: <20220524175724.126380-3-jdhillon@amd.com>
+Subject: [PATCH 3/8] drm/amd/display: Wait DMCUB to idle state before reset.
+Date: Tue, 24 May 2022 13:57:19 -0400
+Message-ID: <20220524175724.126380-4-jdhillon@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220524175724.126380-1-jdhillon@amd.com>
 References: <20220524175724.126380-1-jdhillon@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 16f633a6-b609-4729-61e3-08da3daeebb3
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3730:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3730DAE4BED5B27A029E07D4FBD79@BY5PR12MB3730.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 2b9d47aa-cf6d-45f8-d657-08da3daeee10
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3279:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3279EF8897B14B45D60461CCFBD79@MN2PR12MB3279.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tNXr/AsT3krFxKxgtNmIududtQhWKWYWvx9eACkNltvuPuzO4eEXFP+ms2E6nMg+XVTpzdk/g0AQjkcYt8Dum+AvEB3wUwGl9RIn9Dt69ItrrM6lZadCanoFSraVm0TMShgJCrsN+iaioAAhZAZ5i0/2OEpCKbmXQgt1oP6W8jZ2bZFGmidJgHg3VhnMxxiX8OXLKFTlBVpvXua5E3lFx7gEvA1d6YBjZ/IL2vicFXC08WN0MMZyV0gTJro6Tr4g7MrM5CCzckqyxoTtb4CeStAVzo5Dk47Bmm0TzCDjUxcAWloLp9nSQYEfkmp414uyxXFey3KUS4Hxq7vTrjQECtoFEYKUEMjOZm9UcUDniwMibw0B+6cF2tEGwi/i8enG4myjCyg/pb+dmh9B9N4yOHzJLQEgnNW1q9z/6jwZoF9Gjkm/11O0mTD8+eF3Q2qjEGLscApHlftElvm3u9c4M8Rq8ucaWx+tGUciovaATcp+4loBEdJMijr1GqQJQKNYmybTng/3+3kPHnT4R1omSlkCtHvMCKZ4WozZBviW7BK63xBOjUGltNHxU/ecgmyQzBTQUEJECyZnZ/zycA5OVhxTO9Of2OCXYG51VS0HPPFdhPE2GJClOUrKWGe8N8mgGAdti2h/ZQChKQSsBl/caCkAkpPeXOsrgaFZAalcBJC+xT6jgp4qlscA6R/hCILTigGc7Edr2VWJqgb6P6mYhQ==
+X-Microsoft-Antispam-Message-Info: kEI87PwtzUu9+nj1FMzijnH20AiOlSMmoZMrEQmpwXsKve+FU9+7P/LMpRqa8KwR4dbAiWjiin2LEP4R8QTz+E9HTtPUCx+D/FWtjFtY99Vl3NJVS4mt9SsRlzAiKdiNyE/0KS6Qooi2lePubYfNk06Wh+qyPv5KGnvuJGtO97GGD/OnCrVxzBtZDK8tBh2ZVQaHH6j8f6IPmUT6fskc6Hf6aBThU8F59PDsKcq4TC/HLYNsdtyErF+uoT8Gu0miXz4u5QFsZwjVEWEDG1qfdD5ORRKR/KAWVO5OJXiATfib2CVpeJtaXUDjWufygtjh1tHEphcQqQPhJLc/olUovySLJF37LqTKCUnUYzwpMRTLryqHPz4Ig1Z3ztjkKd5Dv0FzWbybb7EDfv4A9FAPYVX8H0XmYcFqIY40XTwbEq72paew5v1GqCKrK27IJHn24WofYvunkVm6Qr+4JnbT7nR5Ty2k5BAmSvyvXlCa+Wifwdyb/mQ56cPH5uzy9cglN9Lm5PLjhItQlazJerxTaFr2hdWHK1++ZsSt0IQjPVrQ1S074xa8NJmU5djXPqGIK/IXhOo3qxsGpS5PSncZKhxkYHJEQ3A61uB4Ygnh/OxagoJa+IYp+fA3dv9bXxgzRrxpCcmq/cxLhhT5iGuHQJ09vKQ4TcBvoh+y09B44dBg1kLkL8v0EO1rEUiFErYu4eR5EeNjPGldrzw7f6Yt7A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(508600001)(426003)(2616005)(26005)(47076005)(1076003)(40460700003)(336012)(186003)(16526019)(36756003)(82310400005)(6666004)(36860700001)(2906002)(5660300002)(6916009)(54906003)(81166007)(316002)(83380400001)(4326008)(70586007)(70206006)(8676002)(356005)(8936002)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(508600001)(316002)(186003)(336012)(1076003)(426003)(16526019)(2616005)(36756003)(36860700001)(6666004)(70586007)(26005)(82310400005)(54906003)(47076005)(8936002)(5660300002)(81166007)(356005)(83380400001)(2906002)(40460700003)(6916009)(4326008)(8676002)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 17:57:51.3570 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16f633a6-b609-4729-61e3-08da3daeebb3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 17:57:55.3249 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b9d47aa-cf6d-45f8-d657-08da3daeee10
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3730
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,164 +100,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Jasdeep Dhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, hengzhou <Hengyong.Zhou@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Jasdeep Dhillon <jdhillon@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: hengzhou <Hengyong.Zhou@amd.com>
 
-[Why]
-When enabling an HPO stream for the first time after having previously
-enabled a DIO stream there may be lingering DIO FIFO errors even though
-the DIO is no longer enabled.
+[WHY]
+Very low rate to cause memory access issue while resetting
+DMCUB after the halt command was sent to it.
+The process of stopping fw of DMCUB may be timeout, that means
+it is not in idle state, such as the window frames may still be
+kept in cache, so reset by force will cause MMHUB hang.
 
-These can cause display clock change to hang if we don't apply the
-OTG disable workaround since the ramping logic is tied to OTG on.
+[HOW]
+After the halt command was sent, keep checking the DMCUB state until
+it is idle.
 
-[How]
-The workaround wasn't being applied in the sequence of:
-
-1 DIO stream
-0 streams
-1 HPO stream
-
-because current_state has no stream or planes in its context - and
-it's only swapped after optimize has finished.
-
-We should be using the incoming context instead to determine whether
-this logic is needed or not.
-
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Eric Yang <Eric.Yang2@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: hengzhou <Hengyong.Zhou@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 8 ++++----
- .../drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c    | 8 ++++----
- .../drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c    | 8 ++++----
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h              | 2 +-
- 4 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h      | 2 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 9 ++++++++-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h | 3 ++-
+ 3 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-index 051322580014..7310482b2784 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-@@ -99,13 +99,13 @@ static int dcn31_get_active_display_cnt_wa(
- 	return display_count;
- }
- 
--static void dcn31_disable_otg_wa(struct clk_mgr *clk_mgr_base, bool disable)
-+static void dcn31_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context, bool disable)
- {
- 	struct dc *dc = clk_mgr_base->ctx->dc;
- 	int i;
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; ++i) {
--		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 
- 		if (pipe->top_pipe || pipe->prev_odm_pipe)
- 			continue;
-@@ -211,11 +211,11 @@ void dcn31_update_clocks(struct clk_mgr *clk_mgr_base,
- 	}
- 
- 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
--		dcn31_disable_otg_wa(clk_mgr_base, true);
-+		dcn31_disable_otg_wa(clk_mgr_base, context, true);
- 
- 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
- 		dcn31_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
--		dcn31_disable_otg_wa(clk_mgr_base, false);
-+		dcn31_disable_otg_wa(clk_mgr_base, context, false);
- 
- 		update_dispclk = true;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index 29a3bf57b157..a50e1e519dff 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -81,13 +81,13 @@ static int dcn315_get_active_display_cnt_wa(
- 	return display_count;
- }
- 
--static void dcn315_disable_otg_wa(struct clk_mgr *clk_mgr_base, bool disable)
-+static void dcn315_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context, bool disable)
- {
- 	struct dc *dc = clk_mgr_base->ctx->dc;
- 	int i;
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; ++i) {
--		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 
- 		if (pipe->top_pipe || pipe->prev_odm_pipe)
- 			continue;
-@@ -175,11 +175,11 @@ static void dcn315_update_clocks(struct clk_mgr *clk_mgr_base,
- 	}
- 
- 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
--		dcn315_disable_otg_wa(clk_mgr_base, true);
-+		dcn315_disable_otg_wa(clk_mgr_base, context, true);
- 
- 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
- 		dcn315_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
--		dcn315_disable_otg_wa(clk_mgr_base, false);
-+		dcn315_disable_otg_wa(clk_mgr_base, context, false);
- 
- 		update_dispclk = true;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-index ab0f772ae25d..4423f41b40de 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-@@ -112,13 +112,13 @@ static int dcn316_get_active_display_cnt_wa(
- 	return display_count;
- }
- 
--static void dcn316_disable_otg_wa(struct clk_mgr *clk_mgr_base, bool disable)
-+static void dcn316_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context, bool disable)
- {
- 	struct dc *dc = clk_mgr_base->ctx->dc;
- 	int i;
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; ++i) {
--		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 
- 		if (pipe->top_pipe || pipe->prev_odm_pipe)
- 			continue;
-@@ -221,11 +221,11 @@ static void dcn316_update_clocks(struct clk_mgr *clk_mgr_base,
- 	}
- 
- 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
--		dcn316_disable_otg_wa(clk_mgr_base, true);
-+		dcn316_disable_otg_wa(clk_mgr_base, context, true);
- 
- 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
- 		dcn316_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
--		dcn316_disable_otg_wa(clk_mgr_base, false);
-+		dcn316_disable_otg_wa(clk_mgr_base, context, false);
- 
- 		update_dispclk = true;
- 	}
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-index cc358a5ba537..4c880b64f8ca 100644
+index 4c880b64f8ca..c7021915bac8 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-@@ -120,7 +120,7 @@ struct dccg_funcs {
+@@ -62,7 +62,7 @@ struct dccg {
+ 	int ref_dppclk;
+ 	//int dtbclk_khz[MAX_PIPES];/* TODO needs to be removed */
+ 	//int audio_dtbclk_khz;/* TODO needs to be removed */
+-	//int ref_dtbclk_khz;/* TODO needs to be removed */
++	int ref_dtbclk_khz;/* TODO needs to be removed */
+ };
  
- 	void (*set_dtbclk_dto)(
- 			struct dccg *dccg,
--			const struct dtbclk_dto_params *params);
-+			struct dtbclk_dto_params *dto_params);
+ struct dtbclk_dto_params {
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+index 7c9330a61ac1..8d4574895757 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+@@ -84,7 +84,7 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
+ {
+ 	union dmub_gpint_data_register cmd;
+ 	const uint32_t timeout = 100;
+-	uint32_t in_reset, scratch, i;
++	uint32_t in_reset, scratch, i, pwait_mode;
  
- 	void (*set_audio_dtbclk_dto)(
- 			struct dccg *dccg,
+ 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
+ 
+@@ -115,6 +115,13 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
+ 			udelay(1);
+ 		}
+ 
++		for (i = 0; i < timeout; ++i) {
++			REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &pwait_mode);
++			if (pwait_mode & (1 << 0))
++				break;
++
++			udelay(1);
++		}
+ 		/* Force reset in case we timed out, DMCUB is likely hung. */
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
+index 59ddc81b5a0e..f6db6f89d45d 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
+@@ -151,7 +151,8 @@ struct dmub_srv;
+ 	DMUB_SF(DCN_VM_FB_OFFSET, FB_OFFSET) \
+ 	DMUB_SF(DMCUB_INBOX0_WPTR, DMCUB_INBOX0_WPTR) \
+ 	DMUB_SF(DMCUB_INTERRUPT_ENABLE, DMCUB_GPINT_IH_INT_EN) \
+-	DMUB_SF(DMCUB_INTERRUPT_ACK, DMCUB_GPINT_IH_INT_ACK)
++	DMUB_SF(DMCUB_INTERRUPT_ACK, DMCUB_GPINT_IH_INT_ACK) \
++	DMUB_SF(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS)
+ 
+ struct dmub_srv_dcn31_reg_offset {
+ #define DMUB_SR(reg) uint32_t reg;
 -- 
 2.25.1
 
