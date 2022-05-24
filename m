@@ -4,30 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC777C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 13:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C10C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 13:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56EBB10E5B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7799A10E5B5;
 	Tue, 24 May 2022 13:05:33 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F31610E4A0;
- Tue, 24 May 2022 08:12:08 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R711e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=alimailimapcm10staff010182156082;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=14; SR=0;
- TI=SMTPD_---0VEHD8XS_1653379916; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VEHD8XS_1653379916) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 24 May 2022 16:12:04 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu/discovery: make amdgpu_discovery_get_mall_info
- static
-Date: Tue, 24 May 2022 16:11:54 +0800
-Message-Id: <20220524081154.35061-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB3210F065;
+ Tue, 24 May 2022 10:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653388796; x=1684924796;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xu8FmKMr9TBT/1V60fCmMGsVqc8y1LIUAzbZM/oURTk=;
+ b=ZNu3+IWIEAO2PPfnAMUiCbiLb5v/YvBsTDAIVRLFkKsbqDhaMx7jgHX4
+ YgeznpyhsRjwGn/fMfWdYDGXlmLqEqR8uhMmyyvmpvZsWHnKHfg5t5A1x
+ vataNqlCKNG28qhR0Vzurqpp1/sJVK2DQxoMXSlq7EgQzDp1tSQ5k/EjG
+ lRtIkeEMBNR3ZuWtczDgL54iHv91UkNyhQkOXmh9Ic2A5zisPScksikNi
+ BwDEUzrsuWE/sMvkj/htdePd4mpBmmAG7GS1AxsONBo48JlgOyzIQtg7D
+ iFCaBFi5t5xm6ByvDAPUug0D6DH86ckJsC01k+puYzPAOj2Ewe0zepkKb Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10356"; a="261101116"
+X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="261101116"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2022 03:39:55 -0700
+X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="601163833"
+Received: from zychseba-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.136.104])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2022 03:39:47 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Subject: [PATCH v1 00/13] drm/edid: expand on struct drm_edid usage
+Date: Tue, 24 May 2022 13:39:22 +0300
+Message-Id: <cover.1653381821.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 May 2022 13:05:31 +0000
@@ -42,41 +57,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yifan1.zhang@amd.com, Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- airlied@linux.ie, Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- luben.tuikov@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Likun.Gao@amd.com, flora.cui@amd.com, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Karol Herbst <kherbst@redhat.com>, Neil Armstrong <narmstrong@baylibre.com>,
+ jani.nikula@intel.com, Robert Foss <robert.foss@linaro.org>,
+ Xinhui Pan <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Adam Jackson <ajax@redhat.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
+ nouveau@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ ville.syrjala@linux.intel.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This symbol is not used outside of amdgpu_discovery.c, so marks it static.
+Hey all, I'm adding a bunch of people to the cover letter, sorry for the
+noise.
 
-Fixes the following w1 warning:
+I've been putting a lot of effort lately into cleaning up our EDID
+parsing. It's been long overdue. Here, we finally leverage all that prep
+work to implement the HDMI Forum HF-EEODB extension. In short, HF-EEODB
+lets an EDID extension override the number of extensions indicated in
+the base block. That has a lot of implications when it comes to EDID
+parsing and memory allocation that is currently spread around the
+subsystem.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1364:5: warning: no
-previous prototype for ‘amdgpu_discovery_get_mall_info’
-[-Wmissing-prototypes].
+I've added the opaque struct drm_edid in commit e4ccf9a777d3 ("drm/edid:
+add struct drm_edid container"). The commit message is worth a
+read. Here, I'm expanding struct drm_edid to the interfaces for EDID
+reading and parsing. They all get an overhaul, along with the probe
+helper .get_modes() hook.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In my mind, there is really no alternative to centralizing the EDID
+parsing, and hiding the details in drm_edid.c.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 881570dced41..16cdfb30b013 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1361,7 +1361,7 @@ union mall_info {
- 	struct mall_info_v1_0 v1;
- };
- 
--int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
-+static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
- {
- 	struct binary_header *bhdr;
- 	union mall_info *mall_info;
+I'm also adding a TODO entry; there's still a bunch of work to be done
+across the subsystem.
+
+
+BR,
+Jani.
+
+
+Cc: Adam Jackson <ajax@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Ben Skeggs <bskeggs@redhat.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Karol Herbst <kherbst@redhat.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>
+Cc: Robert Foss <robert.foss@linaro.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+
+Jani Nikula (13):
+  drm/edid: add block count and data helper functions for drm_edid
+  drm/edid: keep track of alloc size in drm_do_get_edid()
+  drm/edid: add new interfaces around struct drm_edid
+  drm/edid: add drm_edid_connector_update()
+  drm/probe-helper: abstract .get_modes() connector helper call
+  drm/probe-helper: make .get_modes() optional, add default action
+  drm/probe-helper: add .get_edid() callback
+  drm/edid: add drm_edid_raw() to access the raw EDID data
+  drm/i915/edid: convert DP, HDMI and LVDS to drm_edid
+  drm/edid: do invalid block filtering in-place
+  drm/edid: add HF-EEODB support to EDID read and allocation
+  drm/edid: take HF-EEODB extension count into account
+  drm/todo: add entry for converting the subsystem to struct drm_edid
+
+ Documentation/gpu/todo.rst                    |  25 +
+ drivers/gpu/drm/drm_connector.c               |   2 +
+ drivers/gpu/drm/drm_edid.c                    | 538 ++++++++++++++++--
+ drivers/gpu/drm/drm_probe_helper.c            |  48 +-
+ .../gpu/drm/i915/display/intel_connector.c    |   4 +-
+ .../drm/i915/display/intel_display_types.h    |   4 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |  72 +--
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  26 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c     |  35 +-
+ include/drm/drm_edid.h                        |  12 +
+ include/drm/drm_modeset_helper_vtables.h      |  19 +
+ 11 files changed, 650 insertions(+), 135 deletions(-)
+
 -- 
-2.20.1.7.g153144c
+2.30.2
 
