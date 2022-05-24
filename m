@@ -4,121 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A64C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 06:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23ADFC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 May 2022 07:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B4C10E2C4;
-	Tue, 24 May 2022 06:42:40 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C1E10E2C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 May 2022 06:42:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RjekGHMAFiR8d6iRF9MBksaox0zfBS/bZEtOclGpX9wz9/2nt4zuzWihoAvU4CuQZV6mDOfBL9sAuziC8b9S54btg0z38yEZfxgI4npGDrzIhs3cTYYo78Zyy6bLIoICA7D/utQrm7QPLWa6N1RVmIa687Ck24xolYTzM9MLYKextLQLuMrjVT5oMcPghlZw4Jcv46mqhysLHUY4oDuayvrod+6O9r2h95p4D8YpPjOBxo2F/aAPogmBhj6pjv5Ak+x1KtX21MeKcpPbvJqyePuSP9jPZJ6TAJQ047m8YAXNAJv+V6RHKWZi7BaiDZCKn6o3EFNlESFnPge4QuyF7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rN3S/C9bdzw2dUmfoVW2sRqtw6l0OChm2z8MurLG/c=;
- b=ATZ/vZm+YszsXJ8uhziM9ZUI/cUEkcyiUgP1kX2/9iqEkI+bKcOGbq4bGm4Z3TgmRfmb53OoI1CZRUUZOsWA/ZFZvmJ2c7gN/wso1CxM8Ex1Laf6PHAyK8w6OqXcn7NnmM4nuT6ZtLydUpn9ykyIjtQkHVQGwcIC4FTqYxw2EkfLJhSx28E9TjNsj0Bdp28RLqbTYMQbpsp18ayg8tXdfps5oW9a7KTkcvI9onBsvRyRzIYBjkvuXrzQAFIZJjQgsN1n4o4iOE8sk0cjttKVX8tX5cjXDKImdFR8VgiMbhYM4jdf9S0HpkiYtxioAtnH1AWw8UPdwb7mcyFv9qLHsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+rN3S/C9bdzw2dUmfoVW2sRqtw6l0OChm2z8MurLG/c=;
- b=XWKgRbYP1Pqm86K+gRXDfXYmworHLQMKNtxdl2SDJMnCRp5uqyHPLORm7lGu1w+W2ipQNBZ68w3H3A5F8H9oOnO/9qaocl9r4UOQhnsRll0PSSFnDXnIdyJf8kFk0hb4ySiHErpegyn19+oczp36kPX4ZS4eLu86R1XpAYmbcd4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com (2603:10b6:5:1ca::24)
- by DS0PR12MB6632.namprd12.prod.outlook.com (2603:10b6:8:d0::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.22; Tue, 24 May 2022 06:42:35 +0000
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::d88f:683a:1421:dde3]) by DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::d88f:683a:1421:dde3%7]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 06:42:34 +0000
-Content-Type: multipart/alternative;
- boundary="------------Lm1f2HpysicSST4z1KdPQGkk"
-Message-ID: <18da952a-25d7-1d52-5d1b-016432066211@amd.com>
-Date: Tue, 24 May 2022 12:12:24 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v1 2/2] drm/amdgpu: adding device coredump support
-Content-Language: en-US
-To: "Sharma, Shashank" <shashank.sharma@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220520134909.92781-1-Amaranath.Somalapuram@amd.com>
- <20220520134909.92781-2-Amaranath.Somalapuram@amd.com>
- <588a0599-7d0c-0041-9877-4429b416e7ed@amd.com>
-From: "Somalapuram, Amaranath" <asomalap@amd.com>
-In-Reply-To: <588a0599-7d0c-0041-9877-4429b416e7ed@amd.com>
-X-ClientProxiedBy: BM1PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::23) To DM6PR12MB3897.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::24)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3F310E4E6;
+	Tue, 24 May 2022 07:46:59 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCDE910E3CD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 May 2022 07:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1653376973;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Rm/M+ffTEUa7aIDhK9zXABzAH48Pquc/I+FfLiaEMhA=;
+ b=cmVNNsxfHaKJmaKRu1AoYoBGq7WQzw+zhq/fKuvWQqrGUus70EJTFYtMP5Ncf3Abbs2Zhk
+ 8wP6iChjuRGcTXAaGnn1e7HDaKr3nM0MRBQ4l7Unw3qEQs83D+0wXHTMLXjwn2cPLWQnqT
+ BubiQi/qM6Q+GjZYxcL18bbPawd+/lQ=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-41-eVZqpBugMsS-GJqxWA-lSQ-1; Tue, 24 May 2022 03:22:52 -0400
+X-MC-Unique: eVZqpBugMsS-GJqxWA-lSQ-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ h11-20020aa7c60b000000b0042ab2287015so12063455edq.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 May 2022 00:22:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Rm/M+ffTEUa7aIDhK9zXABzAH48Pquc/I+FfLiaEMhA=;
+ b=e9LDoLQW7hsfTMAxZ43AchHDtnbd4L44NUlI6+8Jrtz1Ab+N6xJVcquPbP038NXf2q
+ 8W1rzlHva+VvcmdkpLUGqNM7p6xLhMgeBXsW8Vm88WnHXo8cOFOVK/m0hThpQD7HUBXu
+ HVitU0Jdi4Ry85X/oFcYhRSIkOLWAxl+pllPK7B0UtZw6Nn2sQH5li91ozgX6o0CJJHD
+ y+lYXrTfDb+DVS3EtCRXTb7SUfbLejmC9kUQbPjfBZJ5Sqd0PDP4Rh4brvbgGhCIsxJX
+ quQDtW6uYCxflD6eGTAdk0DETybiyVjuc35g6CwH12dOY45yG50bJoF8Jem762U+3+VU
+ Da9g==
+X-Gm-Message-State: AOAM533Ss2ghBlf4hCYDIgdGjqV5YoPXOiinaUy1iTcCx+8Gmx+XGcb/
+ SfpI6q5Hn7SwtE3DHm7EC+yJEKrlPZh1Jjnyjw85Jqq296V8SmsVfEGklefI/xjbe81wP5rD/8P
+ fhsQ1tVJ4cazaqJZLGzcbCrK2Gg==
+X-Received: by 2002:a05:6402:520a:b0:42b:4576:b407 with SMTP id
+ s10-20020a056402520a00b0042b4576b407mr14504253edd.198.1653376216545; 
+ Tue, 24 May 2022 00:10:16 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwNaNElrshw2hlQQf83n0EU8K78Tld8MyIgAeom/hV40aMeNAFmWh4fLyu/wh8NiS8S0ET4sg==
+X-Received: by 2002:a05:6402:520a:b0:42b:4576:b407 with SMTP id
+ s10-20020a056402520a00b0042b4576b407mr14504204edd.198.1653376216062; 
+ Tue, 24 May 2022 00:10:16 -0700 (PDT)
+Received: from [192.168.45.129] ([185.238.219.59])
+ by smtp.gmail.com with ESMTPSA id
+ md17-20020a170906ae9100b006feaf472637sm4399518ejb.53.2022.05.24.00.10.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 May 2022 00:10:15 -0700 (PDT)
+Message-ID: <8a1a684c-fb51-20ab-1047-89c0204ff78b@redhat.com>
+Date: Tue, 24 May 2022 09:10:13 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9805e1e2-dadf-4d1f-b960-08da3d5095c6
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6632:EE_
-X-Microsoft-Antispam-PRVS: <DS0PR12MB6632166003C97159ACDD647FF8D79@DS0PR12MB6632.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y5h8KCt8OOwVkxdIt0LnHQDfiBeoPnM9Z78l+Y1X0r8miIZPoI/lF8nVsEaKWbJz5RVKRcfuUWfRGsPGywN4eAIRqfBOipVDGsruWxn+1lMFO4fphsGR95I1iXEjFvk9bI9keFqnznZh5kvPpvfv5XruX511CQ2xGix/nchSslfa+zHdxw7Mo6kJ0SO+3gsS508dEYMEPJmT3huK7aqa3NsvAYoHaIdXBL5y1B67yYBbo8fplhby7kVVPTprgJS3JBCbmuIZT+9sz/aqclRJZ6sty5ts5d4GKoXTaqkDZYWqdj8VQahPbIxA80Xd2dRR2VG4f8LVntCpoVQLtVoPbfuZlCtyl5NBV6rXJ4KV0uyXD9a2qCk+X/gu8fyTOdH2j4IQufZq2gqLMKHvkPzEeYwN0+PI8XORn20dnC5G9FHjLK9nA2rSskPO9E33yWPEiw0J4OcqiVBEJDFPXtgb0wJqtFjfW7x77iop1inT3sMSx3aymFB90DIEXaiXDM69GDYZELmIGg5R75CY1NpfbdaKzIQXzftIvRwye5yQOAyuogKwo+VzmHZPV6X84hL+zP5eqj8qXaZw6ufxZJNi4LNpG+K+9y9WKgzQq3mWGOoM4zpDB+DaWMj1YFoB2N2euRP03SDp9+ppgGJhuO/qNQ4D3z+bRQsZVtCR/pMOUpHKNIl+CfupQ/JEnB2KW+OP/cODZnCjNSInre72V/1BpiuiA0CGQokpUasHFuoJDiM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3897.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(8676002)(8936002)(31686004)(33964004)(26005)(316002)(6506007)(4326008)(31696002)(66556008)(66946007)(66476007)(2906002)(36756003)(110136005)(6666004)(2616005)(186003)(6486002)(508600001)(53546011)(5660300002)(38100700002)(6512007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUpvdkxPT29ENUZBVUJhUnBWWVZoWUJ5ZHhFNmpaZGtPemVzTVRyaVhXVFNW?=
- =?utf-8?B?RTNReDBVek1sMFlzZ0k2YzJGNmlXc1YrYlEzcFRrQzNhU2JHSXI4QW94UWRF?=
- =?utf-8?B?RmVkcUErZXBjc3o0VEVGWnhHT3laZ0RkVm0wdzFnemVJTmNNUmkrNXR6dHpU?=
- =?utf-8?B?Mlk1bUdGanpiRkcxTWlWUWdjZlo4U2ViR3htTDFieTY2ek5KTk42RnVNTVR2?=
- =?utf-8?B?M0VaMEVnV0VaN3lRQ2NGV29mQnNCVndSQjV0MnhIU1ZQaXdzU0hCZUZUTTRp?=
- =?utf-8?B?WHZTc0JtVGxkbHFXMzBOSVI2NDdSZnFPa2E4alBDYUpwU1ZGZ3phcGxLSm5x?=
- =?utf-8?B?VDZMQlUxcVBZdmNpVlRxTm85SWxsWjliUkUrV3o4cjE3SUl2bjJnTHFEUmZ4?=
- =?utf-8?B?Q2x4eDVMWU90d25PVFEwOE5wVDFaVXlOVGlFQ3RpVVBQajFKZDl2M2xCVHdr?=
- =?utf-8?B?VlBxeHAxOGRhVzNoSVRVMWZ1RlVqVlprSC9yTEN4VitDWmhOcjF0c3RUYzRn?=
- =?utf-8?B?SVFlMThFMFRnYlZkSmhQWnJianYzbEltaldSOFljSnlQUHllL1dxaGdEZDRO?=
- =?utf-8?B?bFowQ3pKaytua3FzTUxMU2NKY3dpaTlUWEUwdjhBMFl6K0ZTci9TMFRuQjFL?=
- =?utf-8?B?cHRPNkVNZk81M0lMSU1sdm4yMlc1U2hSaEJvdFJuY2U4dllOa0o5OERtQnNK?=
- =?utf-8?B?SlBLNWdsZzhveEllWmNlcXY3TzdRb0hGS1ZoaUFyUkZuOXJrSGdWMFk2eFZU?=
- =?utf-8?B?MkZSNW9uMjRHUlk4dnRKaDI4dCs3NTBaeGJsbUVoYnc3SHphNkFkR1JpNTl1?=
- =?utf-8?B?SlhRaG5SSW54a0RORUJCbnEwamZncXROWm1GcVFhSGpRbXhuVkttQ0d2OFFj?=
- =?utf-8?B?VFR2YUlxOElUcXFZYjJ4LyttcEUzeC9PTkpTdjdhbk5RYnAyb21VSlJwb1VL?=
- =?utf-8?B?aVp2bTNMQ1Fnay9YVElhMGRYcm5YUm95NUh2MzV1aS9GRFRZcHZldi9sWHFj?=
- =?utf-8?B?SEpucVNTU0xpMTU2ZnBrRklrZlAwUTZveHpjeTJxZTRVTHU5UVk4NUdUMVBu?=
- =?utf-8?B?ejR0VlpCRnZOTFNrd01hZ253YmZCWTBqTWd5Q1MvaGZjTVNNRXRDWHBWdFp1?=
- =?utf-8?B?TEdxRjlUbnR5NGp4OXZpZnZ6VlNQcWlKdVNQVnhBWXRrUlk2QUcyZWVtSE1q?=
- =?utf-8?B?OUsrcUJreEZ2K0d6dDlOZzdzeFFtTGo3K3dsN2MyVnR3bFJOSnN5T1NhQk5T?=
- =?utf-8?B?Mnk0M2VCV0sveTcxOEdQYmpQWnFIeUlvemhwSTdEbWE0b0JZWnhaaTF0blJh?=
- =?utf-8?B?S25ma09ERFJJR1RxSUtpRWpqRWpNS2NTeXE1K0RZWlVRKzNVaVp1eEhIV2RE?=
- =?utf-8?B?RVJGWkZsckFGRHljaTJ3ajNwU1pmWEVnRDdIbGhtYkwzdGlaZ2FIQ3o3bG90?=
- =?utf-8?B?elpIYThKaWNmdVRSc2hKbFdxdkZqQ3hUOGplRVRJZFZVWjIvSDBGWnY4elFK?=
- =?utf-8?B?SVFkYnUwdk9LUVVIWkx0RFE1SDlRYjFXOHhYdjZWOWpZaEhJQWN4T2E4T3RV?=
- =?utf-8?B?VzRMNVlFdUlYdUd0dHVBQmRlVG1YanBvcDFtYmNoMDhoUHNJYS9ZSDY3dVV4?=
- =?utf-8?B?OEhRbzY1WUoxYm5sbDBzRVk0RlBVWVZkcU9HVUhCeEtmdHYwdW1tVE44RGlT?=
- =?utf-8?B?czZvajlyd25RSlU4WnJRRTBxYkRZMGNWZXNZdmNOZVQ1TE1zanlpQzNraUpC?=
- =?utf-8?B?ZlJteUZhckVqSFR0UkNlTnZaNHFhS0lkNnJJVDlLK1hPQzBnb0FZSjc4WkJX?=
- =?utf-8?B?MmZSYStXQitCM0hXYjcrVW1lbFZuQXE5QlV6VURQYXRidXFjYmRIQzNnT2hV?=
- =?utf-8?B?REM3NFI0Yks2R0kzWDNDaEptdCs3QmhmVzNmZU82NGMxZHNNeXRpZWZieVhQ?=
- =?utf-8?B?c3BaSFNaNXI1R3hkTE9CM1VDU3NwY09PQ1Q1L2YySWdRRGxOVFlNTmZhV3pF?=
- =?utf-8?B?L0VTYktsS0dpMWdDN1dvNkIybjFINXppaDBWbzBNTGpWVWFQSmsyV2d4cVlK?=
- =?utf-8?B?Uytka21SdFZ5eVlFWjZzdFVjcDBlbU9kRVhwVmpwV21lL0pvenVIQXZXRzJG?=
- =?utf-8?B?WS91Z3dDTjErZVZtN3YwaHlaRFlPb3FKVnBoUFhsUXZaUVMwRVpyMHdVUnN4?=
- =?utf-8?B?V0o1eFJXVlpuSFRzeDNZVmJWcWp3NmZxU0JCZXoxb1oreXlFYUg3WlY4Nnln?=
- =?utf-8?B?dnF2ekZ5a0JOTTJEQWgzTjVnL0VWWHBEZ0VhVDZDRi9lS3crMFN3bUNWN0pO?=
- =?utf-8?B?SHZ0ckMrNm4reDBmdFpCMzZCQzhIcGpsYmdEL2dwajQreFZQM0d5UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9805e1e2-dadf-4d1f-b960-08da3d5095c6
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3897.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 06:42:34.9134 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wdYrTfbx4vQAc64vrr/GWwExjCdhBD9P+y9LUue/UMXMUSfWI+WPeiskYBED1Lt6AMkMR6DwZfkn7529prHUzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6632
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH 09/14] ACPI: video: Make backlight class device
+ registration a separate step
+To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
+References: <20220517152331.16217-1-hdegoede@redhat.com>
+ <20220517152331.16217-10-hdegoede@redhat.com>
+ <80fa1ee5-6204-6178-e7e2-ac98038cd8d8@nvidia.com>
+ <c3741f32-87f8-5c7b-b505-4c3213774436@nvidia.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <c3741f32-87f8-5c7b-b505-4c3213774436@nvidia.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 24 May 2022 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,465 +103,284 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------Lm1f2HpysicSST4z1KdPQGkk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi,
 
+On 5/24/22 01:25, Daniel Dadap wrote:
+> On 5/20/22 16:41, Daniel Dadap wrote:
+>>
+>> On 5/17/22 10:23, Hans de Goede wrote:
+>>> On x86/ACPI boards the acpi_video driver will usually initializing before
+>>> the kms driver (except i915). This causes /sys/class/backlight/acpi_video0
+>>> to show up and then the kms driver registers its own native backlight
+>>> device after which the drivers/acpi/video_detect.c code unregisters
+>>> the acpi_video0 device (when acpi_video_get_backlight_type()==native).
+>>>
+>>> This means that userspace briefly sees 2 devices and the disappearing of
+>>> acpi_video0 after a brief time confuses the systemd backlight level
+>>> save/restore code, see e.g.:
+>>> https://bbs.archlinux.org/viewtopic.php?id=269920
+>>>
+>>> To fix this make backlight class device registration a separate step
+>>> done by a new acpi_video_register_backlight() function. The intend is for
+>>> this to be called by the drm/kms driver *after* it is done setting up its
+>>> own native backlight device. So that acpi_video_get_backlight_type() knows
+>>> if a native backlight will be available or not at acpi_video backlight
+>>> registration time, avoiding the add + remove dance.
+>>
+>>
+>> If I'm understanding this correctly, it seems we will want to call acpi_video_register_backlight() from the NVIDIA proprietary driver in a fallback path in case the driver's own GPU-controlled backlight handler either should not be used, or fails to register. That sounds reasonable enough, but I'm not sure what should be done about drivers like nvidia-wmi-ec-backlight, which are independent of the GPU hardware, and wouldn't be part of the acpi_video driver, either. There are a number of other similar vendor-y/platform-y type backlight drivers in drivers/video/backlight and drivers/platform/x86 that I think would be in a similar situation.
+>>
+>> From a quick skim of the ACPI video driver, it seems that perhaps nvidia-wmi-ec-backlight is missing a call to acpi_video_set_dmi_backlight_type(), perhaps with the acpi_backlight_vendor value? But I'm not familiar enough with this code to be sure that nobody will be checking acpi_video_get_backlight_type() before nvidia-wmi-ec-backlight loads. I'll take a closer look to try to convince myself that it makes sense.
+>>
+>>
+>>> Note the new acpi_video_register_backlight() function is also called from
+>>> a delayed work to ensure that the acpi_video backlight devices does get
+>>> registered if necessary even if there is no drm/kms driver or when it is
+>>> disabled.
+>>
+>>
+>> It sounds like maybe everything should be fine as long as nvidia-wmi-ec-backlight (and other vendor-y/platform-y type drivers) gets everything set up before the delayed work which calls acpi_video_register_backlight()? But then is it really necessary to explicitly call acpi_video_register_backlight() from the DRM drivers if it's going to be called later if no GPU driver registered a backlight handler, anyway? Then we'd just need to make sure that the iGPU and dGPU drivers won't attempt to register a backlight handler on systems where a vendor-y/platform-y driver is supposed to handle the backlight instead, which sounds like it has the potential to be quite messy.
+>>
+> 
+> Ah, I see you addressed this concern in your RFC (sorry for missing that, earlier):
+> 
+>> The above only takes native vs acpi_video backlight issues into
+>> account, there are also a couple of other scenarios which may
+>> lead to multiple backlight-devices getting registered:
+>>
+>> 1) Apple laptops using the apple_gmux driver
+>> 2) Nvidia laptops using the (new) nvidia-wmi-ec-backlight driver
+>> 3) drivers/platform/x86 drivers calling acpi_video_set_dmi_backlight_type()
+>>    to override the normal acpi_video_get_backlight_type() heuristics after
+>>    the native/acpi_video drivers have already loaded
+>>
+>> The plan for 1) + 2) is to extend the acpi_backlight_type enum with
+>> acpi_backlight_gmux and acpi_backlight_nvidia_wmi_ec values and to add
+>> detection of these 2 to acpi_video_get_backlight_type().
+> 
+> Is there a reason these shouldn't have the same, generic, type, rather than separate, driver-specific ones?
 
-On 5/20/2022 7:52 PM, Sharma, Shashank wrote:
->
->
-> On 5/20/2022 3:49 PM, Somalapuram Amaranath wrote:
->> Added device coredump information:
->> - Kernel version
->> - Module
->> - Time
->> - VRAM status
->> - Guilty process name and PID
->> - GPU register dumps
->>
->> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 59 ++++++++++++++++++++++
->>   2 files changed, 62 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index c79d9992b113..f28d9c563f74 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -1044,6 +1044,9 @@ struct amdgpu_device {
->>       uint32_t                        *reset_dump_reg_list;
->>       uint32_t            *reset_dump_reg_value;
->>       int                             num_regs;
->> +    struct amdgpu_task_info         reset_context_task_info;
->> +    bool                            reset_context_vram_lost;
->
-> How about drop the 'context' from name and just reset_task_info and 
-> reset_vram_lost ?
-OK.
->
->> +    struct timespec64 reset_time;
->>         struct amdgpu_reset_domain    *reset_domain;
->>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 963c897a76e6..f9b710e741a7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -32,6 +32,8 @@
->>   #include <linux/slab.h>
->>   #include <linux/iommu.h>
->>   #include <linux/pci.h>
->> +#include <linux/devcoredump.h>
->> +#include <generated/utsrelease.h>
->>     #include <drm/drm_atomic_helper.h>
->>   #include <drm/drm_probe_helper.h>
->> @@ -4733,6 +4735,55 @@ static int amdgpu_reset_reg_dumps(struct 
->> amdgpu_device *adev)
->>       return 0;
->>   }
->>   +#ifdef CONFIG_DEV_COREDUMP
->> +static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
->> +        size_t count, void *data, size_t datalen)
->> +{
->> +    struct drm_printer p;
->> +    struct amdgpu_device *adev = data;
->> +    struct drm_print_iterator iter;
->> +    int i;
->> +
->
-> A NULL check for 'buffer' here could prevent a segfault later.
->
+In case it is not clear, this needs to be separate from "vendor" because vendor is
+meant for the old (often pre windows XP) vendor specific BIOS interfaces used
+by the likes of dell-laptopo, thinkpad_acpi, etc. And acpi_video_get_backlight_type()
+returns vendor when it cannot find any other types, iow it is the type of
+last resort.
+
+So vendor is the fallback where as nvidia_wmi_ec and apple_gmux both
+must take precedence over anything else if detected.
+
+As for why not have a single type for nvidia_wmi_ec and apple_gmux,
+these will have 2 separate detection helper functions, so it seems
+cleaner to me to use 2 separate types to match this.
+Most drivers check for type != my-type, so an extra type does not hurt.
+
+> I don't foresee any situation where a system would need to use these two particular drivers simultaneously.
+
 Agreed.
->> +    iter.data = buffer;
->> +    iter.offset = 0;
->> +    iter.start = offset;
->> +    iter.remain = count;
->> +
->> +    p = drm_coredump_printer(&iter);
->> +
->> +    drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
->> +    drm_printf(&p, "kernel: " UTS_RELEASE "\n");
->> +    drm_printf(&p, "module: " KBUILD_MODNAME "\n");
->> +    drm_printf(&p, "time: %lld.%09ld\n", adev->reset_time.tv_sec, 
->> adev->reset_time.tv_nsec);
->> +    if (adev->reset_context_task_info.pid)
->> +        drm_printf(&p, "process_name: %s PID: %d\n",
->> + adev->reset_context_task_info.process_name,
->> + adev->reset_context_task_info.pid);
-> Please fix the alignment of print variables.
->
-I will cross check this.
->> +
->> +    if (adev->reset_context_vram_lost)
->> +        drm_printf(&p, "VRAM is lost due to GPU reset!\n");
->> +    if (adev->num_regs) {
->> +        drm_printf(&p, "AMDGPU register dumps:\nOffset: Value:\n");
->> +
->> +        for (i = 0; i < adev->num_regs; i++)
->> +            drm_printf(&p, "0x%08x: 0x%08x\n",
->> +                    adev->reset_dump_reg_list[i],
->> +                    adev->reset_dump_reg_value[i]);
->> +    }
->> +
->> +    return count - iter.remain;
->> +}
->> +
->> +static void amdgpu_reset_capture_coredumpm(struct amdgpu_device *adev)
->> +{
->> +    struct drm_device *dev = adev_to_drm(adev);
->> +
->> +    ktime_get_ts64(&adev->reset_time);
->> +    dev_coredumpm(dev->dev, THIS_MODULE, adev, 0, GFP_KERNEL,
->> +            amdgpu_devcoredump_read, NULL);
-> instead of registering NULL as free function, I would prefer you to 
-> have a dummy no_op free function registered, which we can consume if 
-> something changes.
-you mean something like this (function without any code):
-staticvoidamdgpu_devcoredump_free(void*data)
-{
-}
->> +}
->> +#endif
->> +
->>   int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->>                struct amdgpu_reset_context *reset_context)
->>   {
->> @@ -4817,6 +4868,14 @@ int amdgpu_do_asic_reset(struct list_head 
->> *device_list_handle,
->>                       goto out;
->>                     vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
->> +#ifdef CONFIG_DEV_COREDUMP
->> +                tmp_adev->reset_context_vram_lost = vram_lost;
->> +                tmp_adev->reset_context_task_info.pid = 0;
-> why is the PID hardcoded to 0 ?
-in case of reset context reset_context->job->vm  is null (possibility 
-that reset can be non VM related).
-If we don't set tmp_adev->reset_context_task_info.pid = 0, it will show 
-previous reset valid PID.
 
+> Multiple DRM drivers can coexist on the same system, and even though the goal here is to remove the existing "multiple backlight interfaces for the same panel" situation, there shouldn't be any reason why more than one DRM driver couldn't register backlight handlers at the same time, so long as they are driving distinct panels. If we don't need separate backlight types for individual DRM drivers, why should we have them for apple_gmux and nvidia_wmi_ec_backlight?
+
+I don't think we need them, but as said since they use separate detection
+methods, it just feels cleaner.
+
+The drivers/acpi/video_detect.c code at the moment has the following detection
+methods:
+
+1. Check if any GPU drivers have *told* it that the GPU driver will register
+a GPU native backlight device for the panel (either direct PWM driving or
+over DP aux, etc.)
+
+2. Check if the ACPI tables have the ACPI video backlight control bits
+
+3. None of the above, assume vendor.
+
+For nvidia-wmi-ec and apple-gmux 2 separate detection helper functions +
+steps will get added and as said it just feels cleaner to have 2
+separate types to match.
+
+> I still think that relying on the GPU drivers to correctly know whether they should register their backlight handlers when a platform-level device is supposed to register one instead might be easier said than done, especially on systems where the same panel could potentially be driven by more than one GPU (but not at the same time).
+
+ATM the GPU drivers unconditionally register their native
+backlight device if they believe (e.g. the video bios tables say so)
+they can control the backlight.
+
+And then in the case of e.g. windows XP era laptops, where often
+the EC was still used, the GPU drivers atm rely on acpi_video also
+registering a backlight device and userspace then preferring that one.
+
+IOW atm the native GPU drivers rely on userspace ignoring their
+backlight device if another one is present.
+
+The adding of something like e.g.:
+
+	if (acpi_video_get_backlight_type(true) != acpi_backlight_native) {
+		NV_INFO(drm, "Skipping nv_backlight registration\n");
+		goto fail_alloc;
+	}
+
+To the code-paths doing the backlight-device registration, skipping
+tthe registration just replaces the "lets hope userspace ignores this
+if necessary" with outright skipping the registration of the sysfs
+backlight class device in the cases where before we would hope
+userspace behaves as expected.
+
+Also note that this just skips the registration of the sysfs class
+device, any prep work is still done, so as to not cause any behavior
+changes from the pov of which GPU registers get poked.
+
+>> Recall that on at least one system, both amdgpu and the NVIDIA proprietary driver registered a handler even when it shouldn't: https://patchwork.kernel.org/project/platform-driver-x86/patch/20220316203325.2242536-1-ddadap@nvidia.com/ - I didn't have direct access to this system, but the fact that the NVIDIA driver registered a handler was almost certainly a bug in either the driver or the system's firmware (on other systems with the same type of backlight hardware, NVIDIA does not register a handler), and I imagine the same is true of the amdgpu driver. In all likelihood nouveau would have probably tried to register one too; I am not certain whether the person who reported the issue to me had tested with nouveau. I'm not convinced that the GPU drivers can reliably determine whether or not they are supposed to register, but maybe cases where they aren't, such as the system mentioned above, are supposed to be handled in a quirks table somewhere.
+
+Right video_detect.c already has a DMI table for this which
+overrides the value returned by acpi_video_get_backlight_type().
+
+Although in this specific case it seems we may want
+acpi_video_get_backlight_type() to return native when
+called from the amdgpu driver and none when called from
+the nvidia/nouveau driver ?   That is not supported atm, but if
+necessary it seems reasonable to:
+
+1. Add a "const char *driver_name" to acpi_video_get_backlight_type()
+and maybe agree on nouveau and nvidia to pass the same value.
+
+2. Extend the quirk mechanism to allow using the driver_name to
+return different results to different drivers.
 
 Regards,
-S.Amarnath
->> +                if (reset_context->job && reset_context->job->vm)
->> +                    tmp_adev->reset_context_task_info =
->> + reset_context->job->vm->task_info;
->> +                amdgpu_reset_capture_coredumpm(tmp_adev);
->> +#endif
->>                   if (vram_lost) {
->>                       DRM_INFO("VRAM is lost due to GPU reset!\n");
+
+Hans
+
+
+
+
 >>
-> - Shashank
->                      amdgpu_inc_vram_lost(tmp_adev);
---------------Lm1f2HpysicSST4z1KdPQGkk
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+>>
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>> ---
+>>>   drivers/acpi/acpi_video.c | 45 ++++++++++++++++++++++++++++++++++++---
+>>>   include/acpi/video.h      |  2 ++
+>>>   2 files changed, 44 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+>>> index 95d4868f6a8c..79e75dc86243 100644
+>>> --- a/drivers/acpi/acpi_video.c
+>>> +++ b/drivers/acpi/acpi_video.c
+>>> @@ -31,6 +31,12 @@
+>>>   #define ACPI_VIDEO_BUS_NAME        "Video Bus"
+>>>   #define ACPI_VIDEO_DEVICE_NAME        "Video Device"
+>>>   +/*
+>>> + * Display probing is known to take up to 5 seconds, so delay the fallback
+>>> + * backlight registration by 5 seconds + 3 seconds for some extra margin.
+>>> + */
+>>> +#define ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY    (8 * HZ)
+>>> +
+>>>   #define MAX_NAME_LEN    20
+>>>     MODULE_AUTHOR("Bruno Ducrot");
+>>> @@ -80,6 +86,9 @@ static LIST_HEAD(video_bus_head);
+>>>   static int acpi_video_bus_add(struct acpi_device *device);
+>>>   static int acpi_video_bus_remove(struct acpi_device *device);
+>>>   static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
+>>> +static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
+>>> +static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
+>>> +                acpi_video_bus_register_backlight_work);
+>>>   void acpi_video_detect_exit(void);
+>>>     /*
+>>> @@ -1862,8 +1871,6 @@ static int acpi_video_bus_register_backlight(struct acpi_video_bus *video)
+>>>       if (video->backlight_registered)
+>>>           return 0;
+>>>   -    acpi_video_run_bcl_for_osi(video);
+>>> -
+>>>       if (acpi_video_get_backlight_type(false) != acpi_backlight_video)
+>>>           return 0;
+>>>   @@ -2089,7 +2096,11 @@ static int acpi_video_bus_add(struct acpi_device *device)
+>>>       list_add_tail(&video->entry, &video_bus_head);
+>>>       mutex_unlock(&video_list_lock);
+>>>   -    acpi_video_bus_register_backlight(video);
+>>> +    /*
+>>> +     * The userspace visible backlight_device gets registered separately
+>>> +     * from acpi_video_register_backlight().
+>>> +     */
+>>> +    acpi_video_run_bcl_for_osi(video);
+>>>       acpi_video_bus_add_notify_handler(video);
+>>>         return 0;
+>>> @@ -2128,6 +2139,11 @@ static int acpi_video_bus_remove(struct acpi_device *device)
+>>>       return 0;
+>>>   }
+>>>   +static void acpi_video_bus_register_backlight_work(struct work_struct *ignored)
+>>> +{
+>>> +    acpi_video_register_backlight();
+>>> +}
+>>> +
+>>>   static int __init is_i740(struct pci_dev *dev)
+>>>   {
+>>>       if (dev->device == 0x00D1)
+>>> @@ -2238,6 +2254,17 @@ int acpi_video_register(void)
+>>>        */
+>>>       register_count = 1;
+>>>   +    /*
+>>> +     * acpi_video_bus_add() skips registering the userspace visible
+>>> +     * backlight_device. The intend is for this to be registered by the
+>>> +     * drm/kms driver calling acpi_video_register_backlight() *after* it is
+>>> +     * done setting up its own native backlight device. The delayed work
+>>> +     * ensures that acpi_video_register_backlight() always gets called
+>>> +     * eventually, in case there is no drm/kms driver or it is disabled.
+>>> +     */
+>>> +    schedule_delayed_work(&video_bus_register_backlight_work,
+>>> +                  ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY);
+>>> +
+>>>   leave:
+>>>       mutex_unlock(&register_count_mutex);
+>>>       return ret;
+>>> @@ -2248,6 +2275,7 @@ void acpi_video_unregister(void)
+>>>   {
+>>>       mutex_lock(&register_count_mutex);
+>>>       if (register_count) {
+>>> +        cancel_delayed_work_sync(&video_bus_register_backlight_work);
+>>>           acpi_bus_unregister_driver(&acpi_video_bus);
+>>>           register_count = 0;
+>>>       }
+>>> @@ -2255,6 +2283,17 @@ void acpi_video_unregister(void)
+>>>   }
+>>>   EXPORT_SYMBOL(acpi_video_unregister);
+>>>   +void acpi_video_register_backlight(void)
+>>> +{
+>>> +    struct acpi_video_bus *video;
+>>> +
+>>> +    mutex_lock(&video_list_lock);
+>>> +    list_for_each_entry(video, &video_bus_head, entry)
+>>> +        acpi_video_bus_register_backlight(video);
+>>> +    mutex_unlock(&video_list_lock);
+>>> +}
+>>> +EXPORT_SYMBOL(acpi_video_register_backlight);
+>>> +
+>>>   void acpi_video_unregister_backlight(void)
+>>>   {
+>>>       struct acpi_video_bus *video;
+>>> diff --git a/include/acpi/video.h b/include/acpi/video.h
+>>> index e31afb93379a..b2f7dc1f354a 100644
+>>> --- a/include/acpi/video.h
+>>> +++ b/include/acpi/video.h
+>>> @@ -53,6 +53,7 @@ enum acpi_backlight_type {
+>>>   #if IS_ENABLED(CONFIG_ACPI_VIDEO)
+>>>   extern int acpi_video_register(void);
+>>>   extern void acpi_video_unregister(void);
+>>> +extern void acpi_video_register_backlight(void);
+>>>   extern int acpi_video_get_edid(struct acpi_device *device, int type,
+>>>                      int device_id, void **edid);
+>>>   extern enum acpi_backlight_type acpi_video_get_backlight_type(bool native);
+>>> @@ -68,6 +69,7 @@ extern int acpi_video_get_levels(struct acpi_device *device,
+>>>   #else
+>>>   static inline int acpi_video_register(void) { return -ENODEV; }
+>>>   static inline void acpi_video_unregister(void) { return; }
+>>> +static inline void acpi_video_register_backlight(void) { return; }
+>>>   static inline int acpi_video_get_edid(struct acpi_device *device, int type,
+>>>                         int device_id, void **edid)
+>>>   {
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/20/2022 7:52 PM, Sharma, Shashank
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <br>
-      <br>
-      On 5/20/2022 3:49 PM, Somalapuram Amaranath wrote:
-      <br>
-      <blockquote type="cite">Added device coredump information:
-        <br>
-        - Kernel version
-        <br>
-        - Module
-        <br>
-        - Time
-        <br>
-        - VRAM status
-        <br>
-        - Guilty process name and PID
-        <br>
-        - GPU register dumps
-        <br>
-        <br>
-        Signed-off-by: Somalapuram Amaranath
-        <a class="moz-txt-link-rfc2396E" href="mailto:Amaranath.Somalapuram@amd.com">&lt;Amaranath.Somalapuram@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 ++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 59
-        ++++++++++++++++++++++
-        <br>
-        &nbsp; 2 files changed, 62 insertions(+)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        index c79d9992b113..f28d9c563f74 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        @@ -1044,6 +1044,9 @@ struct amdgpu_device {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *reset_dump_reg_list;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *reset_dump_reg_value;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_regs;
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct amdgpu_task_info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset_context_task_info;
-        <br>
-        +&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset_context_vram_lost;
-        <br>
-      </blockquote>
-      <br>
-      How about drop the 'context' from name and just reset_task_info
-      and reset_vram_lost ?
-      <br>
-    </blockquote>
-    OK.<br>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <br>
-      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; struct timespec64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        reset_time;
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_domain&nbsp;&nbsp;&nbsp; *reset_domain;
-        <br>
-        &nbsp; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        index 963c897a76e6..f9b710e741a7 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        @@ -32,6 +32,8 @@
-        <br>
-        &nbsp; #include &lt;linux/slab.h&gt;
-        <br>
-        &nbsp; #include &lt;linux/iommu.h&gt;
-        <br>
-        &nbsp; #include &lt;linux/pci.h&gt;
-        <br>
-        +#include &lt;linux/devcoredump.h&gt;
-        <br>
-        +#include &lt;generated/utsrelease.h&gt;
-        <br>
-        &nbsp; &nbsp; #include &lt;drm/drm_atomic_helper.h&gt;
-        <br>
-        &nbsp; #include &lt;drm/drm_probe_helper.h&gt;
-        <br>
-        @@ -4733,6 +4735,55 @@ static int amdgpu_reset_reg_dumps(struct
-        amdgpu_device *adev)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; +#ifdef CONFIG_DEV_COREDUMP
-        <br>
-        +static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t
-        offset,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t count, void *data, size_t datalen)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct drm_printer p;
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = data;
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct drm_print_iterator iter;
-        <br>
-        +&nbsp;&nbsp;&nbsp; int i;
-        <br>
-        +
-        <br>
-      </blockquote>
-      <br>
-      A NULL check for 'buffer' here could prevent a segfault later.
-      <br>
-      <br>
-    </blockquote>
-    Agreed.<br>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; iter.data = buffer;
-        <br>
-        +&nbsp;&nbsp;&nbsp; iter.offset = 0;
-        <br>
-        +&nbsp;&nbsp;&nbsp; iter.start = offset;
-        <br>
-        +&nbsp;&nbsp;&nbsp; iter.remain = count;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; p = drm_coredump_printer(&amp;iter);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;**** AMDGPU Device Coredump ****\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;kernel: &quot; UTS_RELEASE &quot;\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;module: &quot; KBUILD_MODNAME &quot;\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;time: %lld.%09ld\n&quot;,
-        adev-&gt;reset_time.tv_sec, adev-&gt;reset_time.tv_nsec);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (adev-&gt;reset_context_task_info.pid)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;process_name: %s PID: %d\n&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        adev-&gt;reset_context_task_info.process_name,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        adev-&gt;reset_context_task_info.pid);
-        <br>
-      </blockquote>
-      Please fix the alignment of print variables.
-      <br>
-      <br>
-    </blockquote>
-    I will cross check this.<br>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <blockquote type="cite">+
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (adev-&gt;reset_context_vram_lost)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;VRAM is lost due to GPU reset!\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (adev-&gt;num_regs) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;AMDGPU register dumps:\nOffset:&nbsp;&nbsp;&nbsp;&nbsp;
-        Value:\n&quot;);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; adev-&gt;num_regs; i++)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(&amp;p, &quot;0x%08x: 0x%08x\n&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;reset_dump_reg_list[i],
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;reset_dump_reg_value[i]);
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; return count - iter.remain;
-        <br>
-        +}
-        <br>
-        +
-        <br>
-        +static void amdgpu_reset_capture_coredumpm(struct amdgpu_device
-        *adev)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct drm_device *dev = adev_to_drm(adev);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; ktime_get_ts64(&amp;adev-&gt;reset_time);
-        <br>
-        +&nbsp;&nbsp;&nbsp; dev_coredumpm(dev-&gt;dev, THIS_MODULE, adev, 0,
-        GFP_KERNEL,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devcoredump_read, NULL);
-        <br>
-      </blockquote>
-      instead of registering NULL as free function, I would prefer you
-      to have a dummy no_op free function registered, which we can
-      consume if something changes.
-      <br>
-    </blockquote>
-    you mean something like this (function without any code):<br>
-    <div style="color: #000000;background-color: #ffffff;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #0000ff;">static</span><span style="color: #000000;"> </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> amdgpu_devcoredump_free(</span><span style="color: #0000ff;">void</span><span style="color: #000000;"> *data)</span></div></div>
-    <div style="color: #000000;background-color: #ffffff;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #000000;">{</span></div><div><span style="color: #000000;">}</span></div>
-</div>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <blockquote type="cite">+}
-        <br>
-        +#endif
-        <br>
-        +
-        <br>
-        &nbsp; int amdgpu_do_asic_reset(struct list_head *device_list_handle,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_context *reset_context)
-        <br>
-        &nbsp; {
-        <br>
-        @@ -4817,6 +4868,14 @@ int amdgpu_do_asic_reset(struct list_head
-        *device_list_handle,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vram_lost =
-        amdgpu_device_check_vram_lost(tmp_adev);
-        <br>
-        +#ifdef CONFIG_DEV_COREDUMP
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev-&gt;reset_context_vram_lost =
-        vram_lost;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev-&gt;reset_context_task_info.pid = 0;
-        <br>
-      </blockquote>
-      why is the PID hardcoded to 0 ?
-      <br>
-    </blockquote>
-    in case of reset context reset_context-&gt;job-&gt;vm&nbsp; is null
-    (possibility that reset can be non VM related). <br>
-    If we don't set tmp_adev-&gt;reset_context_task_info.pid = 0, it
-    will show previous reset valid PID.
-    <p><br>
-    </p>
-    Regards,<br>
-    S.Amarnath<br>
-    <blockquote type="cite" cite="mid:588a0599-7d0c-0041-9877-4429b416e7ed@amd.com">
-      <blockquote type="cite">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (reset_context-&gt;job
-        &amp;&amp; reset_context-&gt;job-&gt;vm)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev-&gt;reset_context_task_info =
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        reset_context-&gt;job-&gt;vm-&gt;task_info;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_reset_capture_coredumpm(tmp_adev);
-        <br>
-        +#endif
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vram_lost) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;VRAM is lost due to GPU
-        reset!\n&quot;);
-        <br>
-        &nbsp;
-        <br>
-      </blockquote>
-      - Shashank
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_inc_vram_lost(tmp_adev);
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------Lm1f2HpysicSST4z1KdPQGkk--
