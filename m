@@ -4,62 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE463C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 15:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EEFEC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4761C10E98F;
-	Wed, 25 May 2022 15:12:27 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCFD10E152
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 15:12:25 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- m32-20020a05600c3b2000b0039756bb41f2so3536541wms.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 08:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=fGUpPWSrdU78NE568Vi5RUu5F1/oAZko7D0EGEMZcTs=;
- b=ly2REis4yQXudDb1MLYh74zNRkgBN/c6oZzobXxjktwZkuhhTU0Wx+HAWxzKCS7VWZ
- AL0iLQNjukhoN/0FwbkyqDSqtfMdPDN7nnTUMcHoIBGRhPcYWHZsbpU0ublXE9/O2gdf
- 3K2Mr3bZT4Qe9HolD2eHLcIXkLcL24PMSCON8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=fGUpPWSrdU78NE568Vi5RUu5F1/oAZko7D0EGEMZcTs=;
- b=WkVY9L1rRcu8s2glM8kZPjEqtLfztjhziq68wUUqrLQp8TUCxPunUxhmbQpSiFPKcu
- 6fYpAm3mSVhZGyz2QoCXO+qbYEk0fM3wi3BcwihGdlsL+dUb0nekmN7TIhf6/tFu6jA3
- EU+s7pMRNG1Wz+onh7RnJfE1+pxGel3mtVHrAJ99XwfNo8cZyqlnocMk6vmcVftUU82a
- xMqpFsVsk4lRU7j9ZkBOXgTP5BjRVoE1L8EfIZXjw1VbuyfbdwMFojEX2jK0RL7mA9zL
- yP8kCWL9E81EJq8AINt4p/YRh0pPFQpH9V3ataOaFOPd0DYqxK8CV0yue4RmGiuoh9Hs
- HCvQ==
-X-Gm-Message-State: AOAM531+Sc9HbL6jvP7fFLP+zMYgB7pDjeG9vU8GUOouTp1/n6jN6X/W
- pppbBNkx//3gLOH1JB1t+elTjA==
-X-Google-Smtp-Source: ABdhPJyf5MZFhqZum/8sY+o7JAm0UvmGWJpAAUbWNAawaQCAVL/h8KmxD+PlAyEjOXhtMiQTzOq6Jw==
-X-Received: by 2002:a05:600c:4e91:b0:394:8d30:d6dd with SMTP id
- f17-20020a05600c4e9100b003948d30d6ddmr8444794wmq.21.1653491543368; 
- Wed, 25 May 2022 08:12:23 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- u14-20020a5d434e000000b0020c5253d8fcsm2669373wrr.72.2022.05.25.08.12.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 May 2022 08:12:22 -0700 (PDT)
-Date: Wed, 25 May 2022 17:12:20 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH 00/14] drm/kms: Stop registering multiple
- /sys/class/backlight devs for a single display
-Message-ID: <Yo5HVDb5Ak4Ddqt/@phenom.ffwll.local>
-References: <20220517152331.16217-1-hdegoede@redhat.com>
- <871qwrfcwr.fsf@intel.com>
- <614a7cef-bfe6-c631-dc4c-d9e99a0b0937@redhat.com>
- <87r14rdu9a.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABD910E57E;
+	Wed, 25 May 2022 16:20:05 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2059.outbound.protection.outlook.com [40.107.95.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC62B10E57E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J5hL868pPA4+37Fyd0XyotBOqqb7Lkcc/5O9a2nR72saLXyeBo/ZThJ9A/eyzT9Avu+smBM76fJQkBaGZPjD/2fdd0vPmilnUDTp4e7DB8IJCwz66L2Q9Dl1+TMDpBOARj/GkAWyJPkbJxhUKQQC6YNCJN9VOqGEN7OqIxwYSDLa7X07XfA+OFfpQYC+CQ8uXJWrUR824aNQfMcO/UbAgXTOZ957QxYDL3E5Ph3VdSoE6l/+X2RjGbR1HOkBgcRw6XCz7cH7Ep5ULtkETPj6MAclYeRIG69LxgOl1yBgbtqWcE1LYcNQlgRW36YBPgNiWsh/2da12RyO7loIeAuDmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HAHazlIV7xJ9/rP73B68c8KYaaRuWK86ytaxCLg2UEs=;
+ b=kacOA+32/LV1s/jRsxcmNRUkHS+Q9cpWa3rn3T6KDbnE2x9HE+u96CE8BFfsB6OI4Eh+FjJPMVXKQGIdlEtsAULCMgzhVYeMQ+wTICHCff5W/+WoES3/+rJR1PhiXkvVZbT5IhSA2P2DrIVLn7q85KO34e/jmH0hDUMAwtH3a30XKM+qz52JGI6EZmhLkOVGJupYn31FtvR8zRXEGlvkR5y7EisOHRoy7myBNn/DG86+O+Hmprh+jtRqInlkQVoPvHWW7rYz2xHW7k62lcn1J3Q4xAnIUbi4MY9kghEBvPPI46vAeSQfNcsreFxvMvoK4NfMVEhiY3JsvhPssKRL0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HAHazlIV7xJ9/rP73B68c8KYaaRuWK86ytaxCLg2UEs=;
+ b=GSL1scyJ1tI2Krczr4lRjJKTZ2HZfopOeJIiFZPZr1DrisG8tnNngtrNsv6Sz1m38S05hAGdEZFeK04QdeveOtFosTjxlmPDaa82iKUtPSNig20LSfsGsNhyAWpSYzEdq+nkzExqn/BJUwnt1JU+Teb4XV5idmQg7BcQvmD4O1s=
+Received: from DM6PR04CA0030.namprd04.prod.outlook.com (2603:10b6:5:334::35)
+ by SJ0PR12MB5611.namprd12.prod.outlook.com (2603:10b6:a03:426::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.22; Wed, 25 May
+ 2022 16:20:02 +0000
+Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:334:cafe::ee) by DM6PR04CA0030.outlook.office365.com
+ (2603:10b6:5:334::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
+ Transport; Wed, 25 May 2022 16:20:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:02 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
+ 2022 11:20:00 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 02/43] drm/amd: Add atomfirmware.h definitions needed for
+ DCN32/321
+Date: Wed, 25 May 2022 12:19:01 -0400
+Message-ID: <20220525161941.2544055-3-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220525161941.2544055-1-alexander.deucher@amd.com>
+References: <20220525161941.2544055-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87r14rdu9a.fsf@intel.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5c20a8fd-53d3-4f4a-4574-08da3e6a6c27
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5611:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB5611A19943A2438989E048BDF7D69@SJ0PR12MB5611.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VMsPYfuHOv6WACdyQXZZBDaJv5WajFeHtGdTyEYZxQKVk83HjIrh78Lv61rceA6M0vZD2+F819c8XYnjMl3qzWPuA/mNCf2Je3dmjby1muFURvj44ptEpJ7hhS8w2C+J9VMXXZA8YIHcUSrU2u7K7QKc6mXm7G0/SDr8FVAsqQ9JOFGgySLoqMScidGS5RjDQilh/VRLbOkuzCUGR3xOWiZy5bH+xvHXC21/mnwMi22u09GblMwgtCQDqYIQan4gLriSkHo/F31uWbIlIplSrf/4V+GpQTsjJOzI1O4YgQITnfWg88eXPfTFjl8zQ6Kx6KqpV8UZpIeDnLz3BL6DJd44creCog9FS69H5tz7cYCcjt3K05yx1yE2A6RT25qh9sdpYWx9JIUsxu+WcPOuCmtu3J6Qei5DUBmQj77iGidUmMd0E5i5+rxQ7Pc2pZeSeSjjex7lDpvTDcRLZnNd2pXlu4JlIQuB2p9a3A8X25B/VzZ7YmV+VNmL553Q16J7ej7+XE9jPlBftQJGSqElvixTdCpQtPLTtCDwpfrrnMStt/OsdmdTnUhwWOmFMd8/R5JR7cG3kLpBLtzPBtNEmlJGOIItMHkBtz8A7tADWoplDdSKgQc1ZRJLfZZ3EgVCSm+osXxDo4u3UYK4b6Vl8BX2iZxkatGu1avPDBU/l8FFFLZ92hYJgFr2JbdCHjZE7995bYRNPXQtV7V629ViGQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(356005)(54906003)(40460700003)(6916009)(47076005)(2616005)(508600001)(1076003)(83380400001)(82310400005)(5660300002)(26005)(426003)(70206006)(70586007)(316002)(36756003)(186003)(16526019)(86362001)(8676002)(4326008)(81166007)(2906002)(36860700001)(8936002)(7696005)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:02.7221 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c20a8fd-53d3-4f4a-4574-08da3e6a6c27
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5611
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,238 +101,285 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- Ben Skeggs <bskeggs@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 18, 2022 at 01:12:33PM +0300, Jani Nikula wrote:
-> On Wed, 18 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
-> > Hi,
-> >
-> > On 5/18/22 10:44, Jani Nikula wrote:
-> >> On Tue, 17 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
-> >>> Hi All,
-> >>>
-> >>> As mentioned in my RFC titled "drm/kms: control display brightness through
-> >>> drm_connector properties":
-> >>> https://lore.kernel.org/dri-devel/0d188965-d809-81b5-74ce-7d30c49fee2d@redhat.com/
-> >>>
-> >>> The first step towards this is to deal with some existing technical debt
-> >>> in backlight handling on x86/ACPI boards, specifically we need to stop
-> >>> registering multiple /sys/class/backlight devs for a single display.
-> >> 
-> >> I guess my question here is, how do you know it's for a *single*
-> >> display?
-> >> 
-> >> There are already designs out there with two flat panels, with
-> >> independent brightness controls. They're still rare and I don't think we
-> >> handle them very well. But we've got code to register multiple native
-> >> backlight interfaces, see e.g. commit 20f85ef89d94 ("drm/i915/backlight:
-> >> use unique backlight device names").
-> >> 
-> >> So imagine a design where one of the panels needs backlight control via
-> >> ACPI and the other via native backlight control. Granted, I don't know
-> >> if one exists, but I think it's very much in the realm of possible
-> >> things the OEMs might do. For example, have an EC PWM for primary panel
-> >> backlight, and use GPU PWM for secondary. How do you know you actually
-> >> do need to register two interfaces?
-> >
-> > On x86/ACPI devices this is all driven by acpi_video_get_backlight_type() /
-> > by the drivers/acpi/video_detect.c code. That code already will break on
-> > systems where there are 2 backlight controls, with one being ACPI based
-> > and the other a native GPU PWM backlight device.
-> >
-> > In this scenario as soon as the native GPU PWM backlight device shows up
-> > then, if acpi_video_get_backlight_type()==native, video_detect.c will
-> > currently unregister the acpi_video# backlight device(s) since userspace
-> > prefers the firmware type over the native type, so for userspace to
-> > actually honor the acpi_video_get_backlight_type()==native we need to get
-> > the acpi_video# backlight device "out of the way" which is currently
-> > handled by unregistering it.
-> >
-> > Note in a way we already have a case where userspace sees 2 panels,
-> > in hybrid laptop setups with a mux and on those systems we may see
-> > either 2 native backlight devices; or 2 native backlight devices +
-> > 2 acpi_video backlight devices with userspace preferring the ACPI
-> > ones.
-> >
-> > Also note that userspace already has code to detect if the related
-> > panel is active (iow which way the mux between the GPU and the panels
-> > points) and then uses that backlight device. Userspace here very
-> > much assumes a single panel though.
-> >
-> >> I'm fine with dealing with such cases as they arise to avoid
-> >> over-engineering up front, but I also don't want us to completely paint
-> >> ourselves in a corner either.
-> >
-> > Right. Note that the current code (both with and without this patchset)
-> > already will work fine from a kernel pov as long as both panels
-> > are either using native GPU PWM or are both using ACPI. But if we
-> > ever get a mix then this will need special handling.
-> >
-> > Note that all userspace code I know is currently hardcoded
-> > to assume a single panel. Userspace already picks one preferred
-> > device under /sys/class/backlight and ignores the rest. Actually
-> > atm userspace must behave this way, because on x86/ACPI boards we
-> > do often register multiple backlight devices for a single panel.
-> >
-> > So in a way moving to registering only a single backlight device
-> > prepares for actually having multiple panels work.
-> >
-> > Also keep in mind that this is preparation work for making the
-> > panel brightness a drm_connector property. When the panel uses
-> > a backlight device other then the native GPU PWM to control the
-> > brightness then the helper code for this needs to have a way to
-> > select which backlight_device to use then and the non native
-> > types are not "linked" to a specific connector so in this case
-> > we really need there to be only 1 backlight device registered
-> > so that the code looking up the (non native) backlight device
-> > for the connector gets the right one and not merely the one
-> > which happened to get registered first.
-> >
-> > And I believe that having the panel brightness be a drm_connector
-> > property is the way to make it possible for userspace to deal
-> > with the multiple panels which each have a separate brightness
-> > control case.
-> 
-> Agreed.
-> 
-> Thanks for the explanations and recording them here.
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-Can we stuff a summary of all the things we've discussed here into
-Documentation/gpu/todo.rst so that we have this recorded somewhere more
-permanently? Also good place to make sure everyone who was part of these
-discussions has a chance to ack the overall plan as part of merging such a
-patch.
+Add new structures for DCN 3.2.x.
 
-Just feels like this is big&complex enough to justify a todo entry with
-what's going on and what's still to be done.
--Daniel
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/include/atomfirmware.h | 209 ++++++++++++++++++---
+ 1 file changed, 187 insertions(+), 22 deletions(-)
 
-
-> 
-> BR,
-> Jani.
-> 
-> >
-> > Regards,
-> >
-> > Hans
-> >
-> >
-> >
-> >
-> >
-> >> 
-> >> BR,
-> >> Jani.
-> >> 
-> >> 
-> >>>
-> >>> This series implements my RFC describing my plan for these cleanups:
-> >>> https://lore.kernel.org/dri-devel/98519ba0-7f18-201a-ea34-652f50343158@redhat.com/
-> >>>
-> >>> Specifically patches 1-6 implement the "Fixing kms driver unconditionally
-> >>> register their "native" backlight dev" part.
-> >>>
-> >>> And patches 7-14 implement the "Fixing acpi_video0 getting registered for
-> >>> a brief time" time.
-> >>>
-> >>> Note this series does not deal yet with the "Other issues" part, I plan
-> >>> to do a follow up series for that.
-> >>>
-> >>> The changes in this series are good to have regardless of the further
-> >>> "drm/kms: control display brightness through drm_connector properties"
-> >>> plans. So I plan to push these upstream once they are ready (once
-> >>> reviewed). Since this crosses various subsystems / touches multiple
-> >>> kms drivers my plan is to provide an immutable branch based on say
-> >>> 5.19-rc1 and then have that get merged into all the relevant trees.
-> >>>
-> >>> Please review.
-> >>>
-> >>> Regards,
-> >>>
-> >>> Hans
-> >>>
-> >>>
-> >>> Hans de Goede (14):
-> >>>   ACPI: video: Add a native function parameter to
-> >>>     acpi_video_get_backlight_type()
-> >>>   drm/i915: Don't register backlight when another backlight should be
-> >>>     used
-> >>>   drm/amdgpu: Don't register backlight when another backlight should be
-> >>>     used
-> >>>   drm/radeon: Don't register backlight when another backlight should be
-> >>>     used
-> >>>   drm/nouveau: Don't register backlight when another backlight should be
-> >>>     used
-> >>>   ACPI: video: Drop backlight_device_get_by_type() call from
-> >>>     acpi_video_get_backlight_type()
-> >>>   ACPI: video: Remove acpi_video_bus from list before tearing it down
-> >>>   ACPI: video: Simplify acpi_video_unregister_backlight()
-> >>>   ACPI: video: Make backlight class device registration a separate step
-> >>>   ACPI: video: Remove code to unregister acpi_video backlight when a
-> >>>     native backlight registers
-> >>>   drm/i915: Call acpi_video_register_backlight()
-> >>>   drm/nouveau: Register ACPI video backlight when nv_backlight
-> >>>     registration fails
-> >>>   drm/amdgpu: Register ACPI video backlight when skipping amdgpu
-> >>>     backlight registration
-> >>>   drm/radeon: Register ACPI video backlight when skipping radeon
-> >>>     backlight registration
-> >>>
-> >>>  drivers/acpi/acpi_video.c                     | 69 ++++++++++++++-----
-> >>>  drivers/acpi/video_detect.c                   | 53 +++-----------
-> >>>  drivers/gpu/drm/Kconfig                       |  2 +
-> >>>  .../gpu/drm/amd/amdgpu/atombios_encoders.c    | 14 +++-
-> >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 +++
-> >>>  .../gpu/drm/i915/display/intel_backlight.c    |  7 ++
-> >>>  drivers/gpu/drm/i915/display/intel_display.c  |  1 +
-> >>>  drivers/gpu/drm/i915/display/intel_opregion.c |  2 +-
-> >>>  drivers/gpu/drm/nouveau/nouveau_backlight.c   | 14 ++++
-> >>>  drivers/gpu/drm/radeon/atombios_encoders.c    |  7 ++
-> >>>  drivers/gpu/drm/radeon/radeon_encoders.c      | 11 ++-
-> >>>  .../gpu/drm/radeon/radeon_legacy_encoders.c   |  7 ++
-> >>>  drivers/platform/x86/acer-wmi.c               |  2 +-
-> >>>  drivers/platform/x86/asus-laptop.c            |  2 +-
-> >>>  drivers/platform/x86/asus-wmi.c               |  4 +-
-> >>>  drivers/platform/x86/compal-laptop.c          |  2 +-
-> >>>  drivers/platform/x86/dell/dell-laptop.c       |  2 +-
-> >>>  drivers/platform/x86/eeepc-laptop.c           |  2 +-
-> >>>  drivers/platform/x86/fujitsu-laptop.c         |  4 +-
-> >>>  drivers/platform/x86/ideapad-laptop.c         |  2 +-
-> >>>  drivers/platform/x86/intel/oaktrail.c         |  2 +-
-> >>>  drivers/platform/x86/msi-laptop.c             |  2 +-
-> >>>  drivers/platform/x86/msi-wmi.c                |  2 +-
-> >>>  drivers/platform/x86/samsung-laptop.c         |  2 +-
-> >>>  drivers/platform/x86/sony-laptop.c            |  2 +-
-> >>>  drivers/platform/x86/thinkpad_acpi.c          |  4 +-
-> >>>  drivers/platform/x86/toshiba_acpi.c           |  2 +-
-> >>>  include/acpi/video.h                          |  8 ++-
-> >>>  28 files changed, 156 insertions(+), 84 deletions(-)
-> >> 
-> >
-> 
-> -- 
-> Jani Nikula, Intel Open Source Graphics Center
-
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index ae8f6d299ed9..ff855cb21d3f 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -726,18 +726,20 @@ struct vram_usagebyfirmware_v2_1
+   ***************************************************************************
+ */
+ 
+-enum atom_object_record_type_id 
+-{
+-  ATOM_I2C_RECORD_TYPE =1,
+-  ATOM_HPD_INT_RECORD_TYPE =2,
+-  ATOM_OBJECT_GPIO_CNTL_RECORD_TYPE =9,
+-  ATOM_CONNECTOR_HPDPIN_LUT_RECORD_TYPE =16,
+-  ATOM_CONNECTOR_AUXDDC_LUT_RECORD_TYPE =17,
+-  ATOM_ENCODER_CAP_RECORD_TYPE=20,
+-  ATOM_BRACKET_LAYOUT_RECORD_TYPE=21,
+-  ATOM_CONNECTOR_FORCED_TMDS_CAP_RECORD_TYPE=22,
+-  ATOM_DISP_CONNECTOR_CAPS_RECORD_TYPE=23,
+-  ATOM_RECORD_END_TYPE  =0xFF,
++enum atom_object_record_type_id {
++	ATOM_I2C_RECORD_TYPE = 1,
++	ATOM_HPD_INT_RECORD_TYPE = 2,
++	ATOM_CONNECTOR_CAP_RECORD_TYPE = 3,
++	ATOM_CONNECTOR_SPEED_UPTO = 4,
++	ATOM_OBJECT_GPIO_CNTL_RECORD_TYPE = 9,
++	ATOM_CONNECTOR_HPDPIN_LUT_RECORD_TYPE = 16,
++	ATOM_CONNECTOR_AUXDDC_LUT_RECORD_TYPE = 17,
++	ATOM_ENCODER_CAP_RECORD_TYPE = 20,
++	ATOM_BRACKET_LAYOUT_RECORD_TYPE = 21,
++	ATOM_CONNECTOR_FORCED_TMDS_CAP_RECORD_TYPE = 22,
++	ATOM_DISP_CONNECTOR_CAPS_RECORD_TYPE = 23,
++	ATOM_BRACKET_LAYOUT_V2_RECORD_TYPE = 25,
++	ATOM_RECORD_END_TYPE = 0xFF,
+ };
+ 
+ struct atom_common_record_header
+@@ -760,6 +762,19 @@ struct atom_hpd_int_record
+   uint8_t  plugin_pin_state;
+ };
+ 
++struct atom_connector_caps_record {
++	struct atom_common_record_header
++		record_header; //record_type = ATOM_CONN_CAP_RECORD_TYPE
++	uint16_t connector_caps; //01b if internal display is checked; 10b if internal BL is checked; 0 of Not
++};
++
++struct atom_connector_speed_record {
++	struct atom_common_record_header
++		record_header; //record_type = ATOM_CONN_SPEED_UPTO
++	uint32_t connector_max_speed; // connector Max speed attribute, it sets 8100 in Mhz when DP connector @8.1Ghz.
++	uint16_t reserved;
++};
++
+ // Bit maps for ATOM_ENCODER_CAP_RECORD.usEncoderCap
+ enum atom_encoder_caps_def
+ {
+@@ -885,6 +900,21 @@ struct  atom_bracket_layout_record
+   uint8_t reserved;
+   struct atom_connector_layout_info  conn_info[1];
+ };
++struct atom_bracket_layout_record_v2 {
++	struct atom_common_record_header
++		record_header; //record_type =  ATOM_BRACKET_LAYOUT_RECORD_TYPE
++	uint8_t bracketlen; //Bracket Length in mm
++	uint8_t bracketwidth; //Bracket Width in mm
++	uint8_t conn_num; //Connector numbering
++	uint8_t mini_type; //Mini Type (0 = Normal; 1 = Mini)
++	uint8_t reserved1;
++	uint8_t reserved2;
++};
++
++enum atom_connector_layout_info_mini_type_def {
++	MINI_TYPE_NORMAL = 0,
++	MINI_TYPE_MINI = 1,
++};
+ 
+ enum atom_display_device_tag_def{
+   ATOM_DISPLAY_LCD1_SUPPORT            = 0x0002, //an embedded display is either an LVDS or eDP signal type of display
+@@ -911,6 +941,19 @@ struct atom_display_object_path_v2
+   uint8_t  reserved;
+ };
+ 
++struct atom_display_object_path_v3 {
++	uint16_t display_objid; //Connector Object ID or Misc Object ID
++	uint16_t disp_recordoffset;
++	uint16_t encoderobjid; //first encoder closer to the connector, could be either an external or intenal encoder
++	uint16_t reserved1; //only on USBC case, otherwise always = 0
++	uint16_t reserved2; //reserved and always = 0
++	uint16_t reserved3; //reserved and always = 0
++	//a supported device vector, each display path starts with this.the paths are enumerated in the way of priority,
++	//a path appears first
++	uint16_t device_tag;
++	uint16_t reserved4; //reserved and always = 0
++};
++
+ struct display_object_info_table_v1_4
+ {
+   struct    atom_common_table_header  table_header;
+@@ -920,6 +963,15 @@ struct display_object_info_table_v1_4
+   struct    atom_display_object_path_v2 display_path[8];   //the real number of this included in the structure is calculated by using the (whole structure size - the header size- number_of_path)/size of atom_display_object_path
+ };
+ 
++struct display_object_info_table_v1_5 {
++	struct atom_common_table_header table_header;
++	uint16_t supporteddevices;
++	uint8_t number_of_path;
++	uint8_t reserved;
++	// the real number of this included in the structure is calculated by using the
++	// (whole structure size - the header size- number_of_path)/size of atom_display_object_path
++	struct atom_display_object_path_v3 display_path[8];
++};
+ 
+ /* 
+   ***************************************************************************
+@@ -1080,17 +1132,73 @@ struct atom_dc_golden_table_v1
+ 	uint32_t reserved[23];
+ };
+ 
+-enum dce_info_caps_def
++enum dce_info_caps_def {
++	// only for VBIOS
++	DCE_INFO_CAPS_FORCE_DISPDEV_CONNECTED = 0x02,
++	// only for VBIOS
++	DCE_INFO_CAPS_DISABLE_DFP_DP_HBR2 = 0x04,
++	// only for VBIOS
++	DCE_INFO_CAPS_ENABLE_INTERLAC_TIMING = 0x08,
++	// only for VBIOS
++	DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE = 0x20,
++	DCE_INFO_CAPS_VBIOS_LTTPR_TRANSPARENT_ENABLE = 0x40,
++};
++
++struct atom_display_controller_info_v4_5
+ {
+-  // only for VBIOS
+-  DCE_INFO_CAPS_FORCE_DISPDEV_CONNECTED  =0x02,      
+-  // only for VBIOS
+-  DCE_INFO_CAPS_DISABLE_DFP_DP_HBR2      =0x04,
+-  // only for VBIOS
+-  DCE_INFO_CAPS_ENABLE_INTERLAC_TIMING   =0x08,
+-  // only for VBIOS
+-  DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE	 =0x20,
+-  DCE_INFO_CAPS_VBIOS_LTTPR_TRANSPARENT_ENABLE = 0x40,
++  struct  atom_common_table_header  table_header;
++  uint32_t display_caps;
++  uint32_t bootup_dispclk_10khz;
++  uint16_t dce_refclk_10khz;
++  uint16_t i2c_engine_refclk_10khz;
++  uint16_t dvi_ss_percentage;       // in unit of 0.001%
++  uint16_t dvi_ss_rate_10hz;
++  uint16_t hdmi_ss_percentage;      // in unit of 0.001%
++  uint16_t hdmi_ss_rate_10hz;
++  uint16_t dp_ss_percentage;        // in unit of 0.001%
++  uint16_t dp_ss_rate_10hz;
++  uint8_t  dvi_ss_mode;             // enum of atom_spread_spectrum_mode
++  uint8_t  hdmi_ss_mode;            // enum of atom_spread_spectrum_mode
++  uint8_t  dp_ss_mode;              // enum of atom_spread_spectrum_mode
++  uint8_t  ss_reserved;
++  // DFP hardcode mode number defined in StandardVESA_TimingTable when EDID is not available
++  uint8_t  dfp_hardcode_mode_num;
++  // DFP hardcode mode refreshrate defined in StandardVESA_TimingTable when EDID is not available
++  uint8_t  dfp_hardcode_refreshrate;
++  // VGA hardcode mode number defined in StandardVESA_TimingTable when EDID is not avablable
++  uint8_t  vga_hardcode_mode_num;
++  // VGA hardcode mode number defined in StandardVESA_TimingTable when EDID is not avablable
++  uint8_t  vga_hardcode_refreshrate;
++  uint16_t dpphy_refclk_10khz;
++  uint16_t hw_chip_id;
++  uint8_t  dcnip_min_ver;
++  uint8_t  dcnip_max_ver;
++  uint8_t  max_disp_pipe_num;
++  uint8_t  max_vbios_active_disp_pipe_num;
++  uint8_t  max_ppll_num;
++  uint8_t  max_disp_phy_num;
++  uint8_t  max_aux_pairs;
++  uint8_t  remotedisplayconfig;
++  uint32_t dispclk_pll_vco_freq;
++  uint32_t dp_ref_clk_freq;
++  // Worst case blackout duration for a memory clock frequency (p-state) change, units of 100s of ns (0.1 us)
++  uint32_t max_mclk_chg_lat;
++  // Worst case memory self refresh exit time, units of 100ns of ns (0.1us)
++  uint32_t max_sr_exit_lat;
++  // Worst case memory self refresh entry followed by immediate exit time, units of 100ns of ns (0.1us)
++  uint32_t max_sr_enter_exit_lat;
++  uint16_t dc_golden_table_offset;  // point of struct of atom_dc_golden_table_vxx
++  uint16_t dc_golden_table_ver;
++  uint32_t aux_dphy_rx_control0_val;
++  uint32_t aux_dphy_tx_control_val;
++  uint32_t aux_dphy_rx_control1_val;
++  uint32_t dc_gpio_aux_ctrl_0_val;
++  uint32_t dc_gpio_aux_ctrl_1_val;
++  uint32_t dc_gpio_aux_ctrl_2_val;
++  uint32_t dc_gpio_aux_ctrl_3_val;
++  uint32_t dc_gpio_aux_ctrl_4_val;
++  uint32_t dc_gpio_aux_ctrl_5_val;
++  uint32_t reserved[26];
+ };
+ 
+ /* 
+@@ -1806,6 +1914,63 @@ struct atom_smu_info_v3_3 {
+   uint32_t reserved;
+ };
+ 
++struct atom_smu_info_v3_5
++{
++  struct   atom_common_table_header  table_header;
++  uint8_t  smuip_min_ver;
++  uint8_t  smuip_max_ver;
++  uint8_t  waflclk_ss_mode;
++  uint8_t  gpuclk_ss_mode;
++  uint16_t sclk_ss_percentage;
++  uint16_t sclk_ss_rate_10hz;
++  uint16_t gpuclk_ss_percentage;    // in unit of 0.001%
++  uint16_t gpuclk_ss_rate_10hz;
++  uint32_t core_refclk_10khz;
++  uint32_t syspll0_1_vco_freq_10khz;
++  uint32_t syspll0_2_vco_freq_10khz;
++  uint8_t  pcc_gpio_bit;            // GPIO bit shift in SMU_GPIOPAD_A configured for PCC, =0xff means invalid
++  uint8_t  pcc_gpio_polarity;       // GPIO polarity for CTF
++  uint16_t smugoldenoffset;
++  uint32_t syspll0_0_vco_freq_10khz;
++  uint32_t bootup_smnclk_10khz;
++  uint32_t bootup_socclk_10khz;
++  uint32_t bootup_mp0clk_10khz;
++  uint32_t bootup_mp1clk_10khz;
++  uint32_t bootup_lclk_10khz;
++  uint32_t bootup_dcefclk_10khz;
++  uint32_t ctf_threshold_override_value;
++  uint32_t syspll3_0_vco_freq_10khz;
++  uint32_t syspll3_1_vco_freq_10khz;
++  uint32_t bootup_fclk_10khz;
++  uint32_t bootup_waflclk_10khz;
++  uint32_t smu_info_caps;
++  uint16_t waflclk_ss_percentage;    // in unit of 0.001%
++  uint16_t smuinitoffset;
++  uint32_t bootup_dprefclk_10khz;
++  uint32_t bootup_usbclk_10khz;
++  uint32_t smb_slave_address;
++  uint32_t cg_fdo_ctrl0_val;
++  uint32_t cg_fdo_ctrl1_val;
++  uint32_t cg_fdo_ctrl2_val;
++  uint32_t gdfll_as_wait_ctrl_val;
++  uint32_t gdfll_as_step_ctrl_val;
++  uint32_t bootup_dtbclk_10khz;
++  uint32_t fclk_syspll_refclk_10khz;
++  uint32_t smusvi_svc0_val;
++  uint32_t smusvi_svc1_val;
++  uint32_t smusvi_svd0_val;
++  uint32_t smusvi_svd1_val;
++  uint32_t smusvi_svt0_val;
++  uint32_t smusvi_svt1_val;
++  uint32_t cg_tach_ctrl_val;
++  uint32_t cg_pump_ctrl1_val;
++  uint32_t cg_pump_tach_ctrl_val;
++  uint32_t thm_ctf_delay_val;
++  uint32_t thm_thermal_int_ctrl_val;
++  uint32_t thm_tmon_config_val;
++  uint32_t reserved[16];
++};
++
+ struct atom_smu_info_v3_6
+ {
+ 	struct   atom_common_table_header  table_header;
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.35.3
+
