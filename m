@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F24C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 19:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81347C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 19:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5939B10E3C0;
-	Wed, 25 May 2022 19:05:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D538710E3C0
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 19:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C4F10E6B3;
+	Wed, 25 May 2022 19:05:24 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F2310E618
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 19:05:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q+4WEeuetOQVdrXBRJat8O5n1k1j7PNGu+klMJdVJhhoSlYB4D2J8lncskU4ADmvz8LFuXiZTjr0e9+6tlXjvJrL9UumaKFi1rpTD+xcGo8PTr0yQaoJZRoYsdKcgX0rs3Vil3iAvuMz7sES7mDUlxctK8fGZL45p1eHKsoEIVppsJuLrLxDyB+ZjLocnP0AnfPQ0bbaYtgkgVtfZ632r+ZOJYDXwVXAaVQCJxYXpzTKobjPO8eYtgvXs2rYWXhwTsUjH5PjLYFL2YuC3oXfeiHh1wqh0DixypjrEL1S31f2FiAH8NhYmjPvVMTlSqsPo5/BZOTazL/FaNbDmT5ofQ==
+ b=aTXkxVeg4TkqN2tgvDAgkApTp0P6xQjcTM4HfUiB2Zvx1ZZO+I1A5LlL0VjVRDik4SmFCZchkPPTdgR9CLjGsJdp2zPr5pN7giz67b9GVg6wdvN+Z7WIMBD/cJGx4/FZq8/qwWtJqKCI8dHgFRlPXVkn5JPaErl9hag8/0R4pHnL028yucjNW8CqhqnwZH/YKmRtgerqN6SKpJUma3b9qymaVl34tJuF8ZapVeXB6GY8AlnYSfj/CnzV11QeHmRLqUnVEKVbzSEXN0Pw3+TEckkwf7c0PErlhS3LI56UuU65tSo7GAk9Lf2xttlwgu9hLtC22mQMLmSyojaSOBkBgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zozolg9LImf8qWRvoLikhVDhPu9E/r3azFhA8fPFTd0=;
- b=Uq5Ly/+RIz/FiiIYpueqrOucKTl1Syy+3em8xWgpFu+HHRPBryNJMXEDLSjtkniSDESEvlJHvpl9R42QGGwY6r9lvc/6LgvcEFj9N/7hSyltylNxSGnN8gJkQG5bFQ3cMT4wfylzKf96hnVP7rYLV0A1YUuCZ/IA0FRMVPhH/kxNihmBJkB2NNq8ck0/9RkWJncrKXUUzn7uXm1/UNnD0i34nUGqt2hxENcPaR2D7ndyvQfOwofpw9UOtbWj1ig10Gchot9L61CeE3FndggOF4UqGvbwcODblYkBGjREPh01MWBm7IPM9DnCE00XEcPV8+5l7v8SuKNvlAGLue1T4A==
+ bh=pinRKnbGu2Sqy2aNcrTVqaaq0SZAcpCliKcif3tyCEM=;
+ b=b9Locvabe/6onGq6VBPsx2y7MBu6pZox2WDs6pYOzdH5PS9X45e7k2Er4s8Sq1Cw0hPGHqbPc41bS0AX74u3tjvH6XmPJnKd3uZT08XJ//MagdhIDoju1/QdPUXPmP5Kzqht0obGIDZoh//yUTK+Qh5guKa3/oQwfVZLxWq8p6JQ9Lgs6JOpFxfaGWsr4qSiqaM3DHuaDS/nR0h4XOENeJaXLySUH5469UkSJ2whNJHTOaFC+Qt6mGbDpn9ZdBg3qCE+2yLNebcoiQBRlUT3UumVrQJGeKuHZ1Zg7y+bO/6tTaTmIdH3mXE+WJL73lqRpQiSKkfWnyoaVftWIDFPXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zozolg9LImf8qWRvoLikhVDhPu9E/r3azFhA8fPFTd0=;
- b=MdkmSL6PG+T0VD9INa7ugVmdMUsej9ld6m1AbYPGttU+28D6QpEwyAnab/+8ZO+AqEZ4xI7rH7dg+8JsHwRGoqS+3lRQs33Y18wxZueIuFmZd4BTIFf0Z/pKMYlGYrbZwDg/fs0Xup+pggG7C0IiWIrJMaTu+HBqDgsLKGsHVlQ=
-Received: from BN9PR03CA0218.namprd03.prod.outlook.com (2603:10b6:408:f8::13)
- by MW3PR12MB4508.namprd12.prod.outlook.com (2603:10b6:303:5b::20)
+ bh=pinRKnbGu2Sqy2aNcrTVqaaq0SZAcpCliKcif3tyCEM=;
+ b=Uv5pcINjAER35wXvVB7UIeaMNRjFkVqIR8g4ykHCcGrRBixW/rI6Y8EsfiA55O2HJUrEVll1caIAO+cunHmLuWKhGomSFBymW0VIuDv+rOZ7UUYWbnZPMHyXxwPa4izQRCF+++NMFeKjPVkN53vtOTvWpRIXrfayEdaOC6afQxg=
+Received: from BN0PR04CA0086.namprd04.prod.outlook.com (2603:10b6:408:ea::31)
+ by MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Wed, 25 May
- 2022 19:05:17 +0000
-Received: from BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f8:cafe::a5) by BN9PR03CA0218.outlook.office365.com
- (2603:10b6:408:f8::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23; Wed, 25 May
+ 2022 19:05:20 +0000
+Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::9) by BN0PR04CA0086.outlook.office365.com
+ (2603:10b6:408:ea::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Wed, 25 May 2022 19:05:17 +0000
+ Transport; Wed, 25 May 2022 19:05:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT030.mail.protection.outlook.com (10.13.177.146) with Microsoft SMTP
+ BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 19:05:16 +0000
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 19:05:19 +0000
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 25 May 2022 14:05:15 -0500
+ 15.1.2375.24; Wed, 25 May 2022 14:05:18 -0500
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 5/7] drm/amdgpu: Add work_struct for GPU reset from kfd.
-Date: Wed, 25 May 2022 15:04:45 -0400
-Message-ID: <20220525190447.239867-6-andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 7/7] drm/amdgpu: Stop any pending reset if another in
+ progress.
+Date: Wed, 25 May 2022 15:04:47 -0400
+Message-ID: <20220525190447.239867-8-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220525190447.239867-1-andrey.grodzovsky@amd.com>
 References: <20220525190447.239867-1-andrey.grodzovsky@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 34d08f61-492e-4f82-1311-08da3e81817e
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4508:EE_
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4508EE37154ED750786DDE0DEAD69@MW3PR12MB4508.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9d418558-9198-41e2-c66a-08da3e81832f
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_
+X-Microsoft-Antispam-PRVS: <MW4PR12MB566730A2DF337766E0CEEF69EAD69@MW4PR12MB5667.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9B9DN5mFCBzspGP8eQ6MRGh0T14zXUGqxlBC4soUqH8oq5QYOZjWdA8vJdWy7pJX39+QJd5wAa8gmnMHYvNpdpEJ7HZpGgA6OdM2Me2dbDdsGXBIz7uyG2KdqPoXrJd2jioyl0k/BvojEgg2kradx+ce6FMTeTp39lm3h0iGwkhEVCpI/8etrSQaunuG4xEVYp2x9NZikSEbuTAFuRja8HLyaLWp+X2piqALj2lWHEYBVNSai1Bs9mcCNjbtwD341BcDQZacgQSlwDjMck/WI+ThcqGGvvdc3Bbt8Ed9DJLnTWZe1zIK8P0z3nkW2phSwTzL+koThaSbYOVHSv/aJwgINTvpK9i2gKEE0HYNZPyJi5/KTG6coCsibkxpXkzUDZBVTz4vR7o6dQjCiPR9OYXI/WfgUmNL6gMWWkTxE8NMz7dq9sbc4M7WDB09UPVQXjssxeYAzmNRQyz1UcCmqADvurFwOtshMOu0yAoCbAOv7yV5KwEDFUoV86bspgRPbPmKqkyPolqwEOElZexbemICn/nftCcei8E6N+mFJ8rZOhkqD734W/7LQBwkHdiOHRJmLrfWOJY/KQ+QffNkEVmKkH7WxZT8tuGt9WCaGg35jXv2ZV+SLNDs7hKwIi2HQHzsPKAV7zd4SXo0gDABwKphUd1flHzHiJtituAJn6SNRHVYWaBwib1veUKGLVqul9h0rw4URkYuuEc6ijpqbQ==
+X-Microsoft-Antispam-Message-Info: 4Oyc/6RrcVCik3eo9m14ulygg5P5qkTxKhrRs0Q/v6hpTrYsHldF8Y+NAik6W80As0SxDnTZtbHG9nfJ15xsrVNM7B1dJ48/foMmwBpwmlv7J8KQYW9p0AZWWpoGWFFQ6zUroBFIs9dhWcwtTjOOU7IqSXVEUyirbPIsfsYtvdzBwBlT/kYmkQKxf+xcqvBQZ8t9U7JjxpfqkYTW8cSWLOETx/O7ynqWqQKPT1tS2st6Kdduxq2zKFSA/0tGaAkzNDVx6MaXhFf4HUFJFhY14VAfPwh6NlXuN0AMKKxkM5X7XJ0LMQ443KVbDBB2j0rSUO0lx1k7VuNyxSXOoBGbloxqSDHbrRNT/qXPEaZMKQY2DBc50d6EOtsUjEPl2Q+7K76q0WblaKeNTV6DDIfYgEsdB/CyPvLN3rPlHy2PEZ7wb0vkPt3zuRDEMwKV/CtR9p3TYE4feLiYBgki4Ap4u0FmMpTtXTQtMnkOVmiE4daGm5q0d9OraAa24cpD22/5L8gfc+aZUyqkYT9BgFtvWkGjndkZc5yz1CRZ1294YaHeuTcAHq/jfY2hiehOqbPEJqiLy5egQzsDqlaCx9TISEZKO/Ync4FKk02w6pHcZ+uJKNiRTRMp1WTEu4DQWHePEWqdb54LmCkBzY+1tBsshYdJOWTnpMOs2hm/BpoWC3IF+CwR7tDR5vSN1PkMkBgIhAlOuCID/D08aqTljrEKTQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(16526019)(186003)(1076003)(2616005)(36860700001)(40460700003)(83380400001)(82310400005)(47076005)(2906002)(36756003)(44832011)(8936002)(26005)(5660300002)(70206006)(54906003)(6916009)(8676002)(316002)(4326008)(70586007)(81166007)(6666004)(508600001)(426003)(86362001)(336012)(7696005)(356005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(70586007)(86362001)(186003)(508600001)(8936002)(356005)(26005)(4326008)(83380400001)(47076005)(36860700001)(54906003)(8676002)(7696005)(336012)(16526019)(426003)(6916009)(40460700003)(1076003)(2616005)(82310400005)(6666004)(2906002)(44832011)(36756003)(5660300002)(81166007)(70206006)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 19:05:16.9948 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34d08f61-492e-4f82-1311-08da3e81817e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 19:05:19.8371 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d418558-9198-41e2-c66a-08da3e81832f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4508
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5667
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,117 +106,58 @@ Cc: Zoy.Bai@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need to have a work_struct to cancel this reset if another
-already in progress.
+We skip rest requests if another one is already in progress.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 15 ++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ----------------------
- 3 files changed, 15 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 1f8161cd507f..a23abc0e86e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -33,6 +33,7 @@
- #include <uapi/linux/kfd_ioctl.h>
- #include "amdgpu_ras.h"
- #include "amdgpu_umc.h"
-+#include "amdgpu_reset.h"
- 
- /* Total memory size in system memory and all GPU VRAM. Used to
-  * estimate worst case amount of memory to reserve for page tables
-@@ -122,6 +123,15 @@ static void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
- 	}
- }
- 
-+
-+static void amdgpu_amdkfd_reset_work(struct work_struct *work)
-+{
-+	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
-+						  kfd.reset_work);
-+
-+	amdgpu_device_gpu_recover_imp(adev, NULL);
-+}
-+
- void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- {
- 	int i;
-@@ -180,6 +190,8 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 
- 		adev->kfd.init_complete = kgd2kfd_device_init(adev->kfd.dev,
- 						adev_to_drm(adev), &gpu_resources);
-+
-+		INIT_WORK(&adev->kfd.reset_work, amdgpu_amdkfd_reset_work);
- 	}
- }
- 
-@@ -247,7 +259,8 @@ int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev)
- void amdgpu_amdkfd_gpu_reset(struct amdgpu_device *adev)
- {
- 	if (amdgpu_device_should_recover_gpu(adev))
--		amdgpu_device_gpu_recover(adev, NULL);
-+		amdgpu_reset_domain_schedule(adev->reset_domain,
-+					     &adev->kfd.reset_work);
- }
- 
- int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index f8b9f27adcf5..e0709af5a326 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -96,6 +96,7 @@ struct amdgpu_kfd_dev {
- 	struct kfd_dev *dev;
- 	uint64_t vram_used;
- 	bool init_complete;
-+	struct work_struct reset_work;
- };
- 
- enum kgd_engine_type {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bfdd8883089a..e3e2a5d17cc2 100644
+index 424571e46cf5..e1f7ee604ea4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5312,37 +5312,6 @@ int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
- 	return r;
+@@ -5054,6 +5054,27 @@ static void amdgpu_device_recheck_guilty_jobs(
+ 	}
  }
  
--struct amdgpu_recover_work_struct {
--	struct work_struct base;
--	struct amdgpu_device *adev;
--	struct amdgpu_job *job;
--	int ret;
--};
--
--static void amdgpu_device_queue_gpu_recover_work(struct work_struct *work)
--{
--	struct amdgpu_recover_work_struct *recover_work = container_of(work, struct amdgpu_recover_work_struct, base);
--
--	amdgpu_device_gpu_recover_imp(recover_work->adev, recover_work->job);
--}
--/*
-- * Serialize gpu recover into reset domain single threaded wq
-- */
--int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
--				    struct amdgpu_job *job)
--{
--	struct amdgpu_recover_work_struct work = {.adev = adev, .job = job};
--
--	INIT_WORK(&work.base, amdgpu_device_queue_gpu_recover_work);
--
--	if (!amdgpu_reset_domain_schedule(adev->reset_domain, &work.base))
--		return -EAGAIN;
--
--	flush_work(&work.base);
--
--	return atomic_read(&adev->reset_domain->reset_res);
--}
--
++static inline void amdggpu_device_stop_pedning_resets(struct amdgpu_device* adev)
++{
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++
++#if defined(CONFIG_DEBUG_FS)
++	if (!amdgpu_sriov_vf(adev))
++		cancel_work(&adev->reset_work);
++#endif
++
++	if (adev->kfd.dev)
++		cancel_work(&adev->kfd.reset_work);
++
++	if (amdgpu_sriov_vf(adev))
++		cancel_work(&adev->virt.flr_work);
++
++	if (con && adev->ras_enabled)
++		cancel_work(&con->recovery_work);
++
++}
++
++
  /**
-  * amdgpu_device_get_pcie_info - fence pcie info about the PCIE slot
+  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
   *
+@@ -5209,6 +5230,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 				  r, adev_to_drm(tmp_adev)->unique);
+ 			tmp_adev->asic_reset_res = r;
+ 		}
++
++		/*
++		 * Drop all pending non scheduler resets. Scheduler resets
++		 * were already dropped during drm_sched_stop
++		 */
++		amdggpu_device_stop_pedning_resets(tmp_adev);
+ 	}
+ 
+ 	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
 -- 
 2.25.1
 
