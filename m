@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A15C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C2DC43217
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0876010EEC7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BB9010F2A7;
 	Wed, 25 May 2022 16:20:31 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2081.outbound.protection.outlook.com [40.107.223.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA5610E677
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F3310E7E0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jaiSrurkZ6mXhiKU0fO5+fxy3Unh9VyOvhf0VsPxErQasYiImpETezv6j4ph4i6Ie5nMCV1720xT13XJ9DgL/gATNZfQDT3dvVNAzFemPXnqAUQxKPZ+0sdS9aIKy8f4gFdzADYUXimTjPCq78yDMeyzTZWiZXuOoKYVXdqCh1O0Upk4Ygy6sR2VLcrqwvqQ2KmgW2re0h9zluPPIleN8/7dNqvulew8RVOUBA01LmAfHZ7F7D5ZTPPgNspnQ1N35ljZfxp8b+rYMZ1HXEpnJGEIK/otfttujD1cWI8Hh5xF99MhneNJBv2umQUShVy9NkObcgfnEduWo6yw973AVQ==
+ b=k5n1CX0bRwRxucO5UXZxpBywWMneiUSSlP6kaN+WDKpMQftlT02m/4uv+yXYnaUuJLcF6P+EM2Ohwi5dHYL8vf7D31Es3/2vIBwj2LYmzDP31KFfaW2B6Zbpz7gt+i6TIvkTtzUJyG0Ds3B+dQvKrw08h+TD8GtPRPPym6uZp+UcwdTFiVS7te/ATs+miHDJHtLAA5I9ldUkpep7ZW2+m+RBpKe2rjqymRv17sRdnK0XsMpYIv7Z2T56O5uw7sHwcEsxOVzj45OtvQkdLpTncAGzEINqSln+0xkhFQ2TMnrUuYuvFGrangBurA12W5JVM22zv9CJg+qxU0Gdspph+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p+lB99sogz4TDNDYE/3q+KBFsZj4yl5BhMYQutEWl6k=;
- b=ZxYB3ghH1AYyfUYvrciPa3tOQnFH10YlUCxI1kPKX40+ux8pqfC7asnlmHGevy7mtLTWoucSiG6XNzWSd/nosElRh7ZlDtVzMbAp/a8JLcQuBDBpL3H7+H4DGPVe7ZewGhvGwoJQBC0I/B420+33E7osEUEs62K544+Z+SJxXYUwaJIhLpH7fjmve3ZVWeoUmS41+pYGynBMI71gh7FDhKZXQLTLXImVzCzv7i0/p6KGIR7ReMyVRVngMmhm5cgaNQXeoOMw+lEamzsO9VRYg5u/cjJYu0XwvOpxupFHY5+cXDb4/CenvIGjOjAVrS1Gtg6KgDhCg5dwj9zutTWLLA==
+ bh=FA3tcIgsTGWTW2eGG7lii9yYxNpl6JfKXH9/M6GSBQs=;
+ b=WhY6yGl6nRJgujfvGP0XlAB1JTBaUbMDmcgjDknE9HLiU7PzuN8fIrHoE5lwkfvXhFc4kF/3Gl8/UooYDgMZTGDaiN8MAy2wgbeBnKLbS0Iw/UEdvzi3+p9pJoVZtJd+OhVmYxpRpakrr0EuZz3w/2DOMZEf1lI8+5nM/0J3dCGMEFUixj4YdDdEkK4YRoS5Bi/GLht/jSeHhPQgRyHMp2jdlRTRHvv0AG1DF5NduN6UffRAw2Ambe+latlxagKadHXaBdmdRK/kEaHdGkK9k2dsc2HqgQCQSTBLqwPYM+QJ8Bxkw0qX0IErxeIoEQThhkOPHvFy5p1ac2cUbhNpqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+lB99sogz4TDNDYE/3q+KBFsZj4yl5BhMYQutEWl6k=;
- b=WPBA2KqPnEL/I8ZTGQRTul8N12Wgh5BdhZGdYJgobO7QhFa3zzkBHGTeFx3aFZO9OV6xjVf7rUwI/ZF0wMyoGN3+YwLS4VVX9Vnr3bcvalcv0ltU9HGZl4LCsnivNlb+56SHH8yP32J7eS/mWMSigc8gYaWgKvs8G6DFLtzVxzo=
-Received: from DM5PR05CA0001.namprd05.prod.outlook.com (2603:10b6:3:d4::11) by
- BN8PR12MB3300.namprd12.prod.outlook.com (2603:10b6:408:6a::32) with
+ bh=FA3tcIgsTGWTW2eGG7lii9yYxNpl6JfKXH9/M6GSBQs=;
+ b=oVaKcaN7uVaHvZE/+iCYxnPlixPh42mhchN6DmE161Nh/li+jCfZ2OV5DN27AcxK219XasHoQ7hJ8c1bmzp6bxkbGKnOrLFzoxpeJpZcQYox6oyG4ldgKVa1wQH4ggOYWIQjuYTC/CZoTr/mSbXUsEFSCUK095LYDEbpTazpg2w=
+Received: from DS7PR05CA0096.namprd05.prod.outlook.com (2603:10b6:8:56::28) by
+ BL0PR12MB4706.namprd12.prod.outlook.com (2603:10b6:208:82::25) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.17; Wed, 25 May 2022 16:20:24 +0000
-Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:d4:cafe::e0) by DM5PR05CA0001.outlook.office365.com
- (2603:10b6:3:d4::11) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5273.19; Wed, 25 May 2022 16:20:15 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:56:cafe::f9) by DS7PR05CA0096.outlook.office365.com
+ (2603:10b6:8:56::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.5 via Frontend
- Transport; Wed, 25 May 2022 16:20:23 +0000
+ Transport; Wed, 25 May 2022 16:20:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:23 +0000
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:15 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
- 2022 11:20:21 -0500
+ 2022 11:20:11 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 39/43] drm/amd/display: FCLK P-state support updates
-Date: Wed, 25 May 2022 12:19:37 -0400
-Message-ID: <20220525161941.2544055-39-alexander.deucher@amd.com>
+Subject: [PATCH 21/43] drm/amd/display: add missing interrupt handlers for
+ DCN32/DCN321
+Date: Wed, 25 May 2022 12:19:19 -0400
+Message-ID: <20220525161941.2544055-21-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220525161941.2544055-1-alexander.deucher@amd.com>
 References: <20220525161941.2544055-1-alexander.deucher@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea7043cd-32ef-4dc5-e013-08da3e6a78ae
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3300:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB330009285B409E7F5871C16FF7D69@BN8PR12MB3300.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 839bcbcc-d61f-4cb6-7307-08da3e6a73be
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4706:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB47061B2AA14B9231F0255439F7D69@BL0PR12MB4706.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z6t573vlo48tHq38mUFpteX97gog91UYRgmgxSLxPv6HOmLL6VwoqMa7NUkTcZ8td3cDCYz3vPjEflvNoXbzeHhKmUC/N4kuANjUYbl61EYjPVEpxDA//Pap0hx6Bae/V2otwM6NlBYMU09O3mb3Q4SfsrViw17CMIje3oxKF/QDZ5w+wn5LDNtKN9hLyFoEYVJp72vLXbBmop28y43K9NJ0jbSw3G583fnE1dlCoefDyGWGwhm62JTMWd3zJ4BiEi7FTE37FA7waX76hSHd/XdK7hRZdbccV+ZeIGbNggqZXnYCoy6Kmy5zDjCg4JmMR36uRcKsWOouA+jy2A6pdveG9eWE9csGiPjMq4hP7MAla7rZuY6RcTcEhnGfh9Chon36r3S5yFWrVxUon2RYL//m0UEckY/De4ipUrA2U6bH5JeZSnlIuiPbNV/Sq8eHCI0gMmnmQUbn4mlLJQmfmxPjMlAO6DMNqhzZm7mPliaiT9ykEKg3nXQajjqJkQytTjSQku8I5A/ULXOPFBLbjPJsEJ6Rz/PUVkKVgAM4isSHIKLx7tdeIg1oUfMmWDhA8dyP9KUr2jQR4nDeSToaBQIRyw62uSCQcYyyT8ljQoKfPNxykz4LnHuzmrRTnBk90Wk1KTHWFu7fDUR6+/c2h/WQIc6oJ73l6flfRo3DTXNl25VuZIKky7KA7udAcrKwZi7cl28QAnS0dY0xDquPlQ==
+X-Microsoft-Antispam-Message-Info: zsCN99iTFX+DYmTA6W+bhzeX/h9OHSNp+t8xnl8S9g/5V4z3ADrCGdsravzIOHWABQiZQXVo5Clz9kBBQCNdUShiGCm0c8ixmtqmszi0RVnkfyYzBWE6AZBrT7BN5te0eqchfdzLI53h5E4RdZvF65ofEp82pKj+WQE0B8gtw7YSNGONgZr2t3R2CzRPtXhiJm3y8CPJW+cz7jK0/C2RPczRBdoXEn05qfFvK1XMw4eec1vlNm54V1vvoOaic0773XSzu4xbWS0quCxYpikaIv+WtSIpzmfRjPNzdPdqX29HZ35iuPIHOYqnbh0o5Hkwj9WcDxMTGFKHBIlKxzGHJK1uATMoxxM6MQLdpiQT4Hs7Tc7b8SW2KDjLWzuL4Kp+1mSHVCRcaabp5OJ6s+jtXXfNjViJSqMLHtrnKiML5mzjXJ9bFaI2tfy4JLy/QIMRwzJrHZviHpqZGYldKUV0LXozByV1M8AApM41U0vvwdrNtTvD5mPlADTU1DGN2ZQsdatCk6uScAJrAACnRGz5U9c0smN5SJx2IWe9zWPkV6eBrN+wbdCpX/ikIYlgcyJGgrBM0gOf4KFrCgYW+POtzqQ8rp5l339yE/2K9EPJDxEVTcIJP6GovrPjMiwz50XkepciRGdkb45wpQ/ls0c/Xa6TjwXNHjHFbFxyFQ8ysWufhefiWTRIBr+HuQNgYMui9r/unoADNoTB4kR9+7SWng==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(316002)(6916009)(1076003)(336012)(4326008)(83380400001)(356005)(82310400005)(70206006)(70586007)(36860700001)(15650500001)(426003)(47076005)(186003)(16526019)(36756003)(54906003)(2616005)(8676002)(26005)(5660300002)(86362001)(40460700003)(8936002)(2906002)(508600001)(6666004)(7696005)(81166007)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(82310400005)(36860700001)(81166007)(7696005)(8936002)(40460700003)(5660300002)(2906002)(86362001)(70206006)(508600001)(356005)(36756003)(54906003)(336012)(83380400001)(6916009)(26005)(8676002)(316002)(1076003)(4326008)(16526019)(47076005)(2616005)(186003)(426003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:23.7591 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea7043cd-32ef-4dc5-e013-08da3e6a78ae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:15.4569 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 839bcbcc-d61f-4cb6-7307-08da3e6a73be
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3300
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,76 +101,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jerry Zuo <jerry.zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Dhere <chaitanya.dhere@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why]
-Previously we used to send FCLK P-state enable messages upon each call
-to update_clocks based on dml output. This resulted in increased message
-transactions between DC and PMFW.
-
-[How]
-Update the code to check safe_to_lower status and send the message based
-on dml input only on boot. This reduces message transactions. Also
-remove other unwanted code based on current code status.
-
-Signed-off-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Acked-by: Jerry Zuo <jerry.zuo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 11 +++++++----
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h  |  1 -
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ .../display/dc/irq/dcn32/irq_service_dcn32.c  | 65 ++++++++++++++++++-
+ 1 file changed, 64 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 390432537305..6a1d7c86e6b7 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -284,7 +284,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 	bool dpp_clock_lowered = false;
- 	struct dmcu *dmcu = clk_mgr_base->ctx->dc->res_pool->dmcu;
- 	bool force_reset = false;
--	bool update_uclk = false;
-+	bool update_uclk = false, update_fclk = false;
- 	bool p_state_change_support;
- 	bool fclk_p_state_change_support;
- 	int total_plane_count;
-@@ -371,14 +371,17 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 			update_uclk = true;
- 		}
- 
-+		/* Always update saved value, even if new value not set due to P-State switching unsupported. Also check safe_to_lower for FCLK */
-+		if (safe_to_lower && (clk_mgr_base->clks.fclk_p_state_change_support != clk_mgr_base->clks.fclk_prev_p_state_change_support)) {
-+			update_fclk = true;
-+		}
-+
- 		/* set UCLK to requested value if P-State switching is supported, or to re-enable P-State switching */
- 		if (clk_mgr_base->clks.p_state_change_support &&
- 				(update_uclk || !clk_mgr_base->clks.prev_p_state_change_support))
- 			dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dramclk_khz));
- 
--		if (clk_mgr_base->clks.fclk_p_state_change_support &&
--				(update_uclk || !clk_mgr_base->clks.fclk_prev_p_state_change_support)) {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+index 3f9d6531c563..3a213ca2f077 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+@@ -54,6 +54,18 @@ enum dc_irq_source to_dal_irq_source_dcn32(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
++	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC1_VLINE0;
++	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC2_VLINE0;
++	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC3_VLINE0;
++	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC4_VLINE0;
++	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC5_VLINE0;
++	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -78,7 +90,8 @@ enum dc_irq_source to_dal_irq_source_dcn32(
+ 		return DC_IRQ_SOURCE_VUPDATE5;
+ 	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE6;
 -
-+		if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && clk_mgr_base->clks.fclk_p_state_change_support && update_fclk) {
- 			/* Handle the code for sending a message to PMFW that FCLK P-state change is supported */
- 			dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_SUPPORTED);
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-index ee6259108add..5f69cdcb9885 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-@@ -33,7 +33,6 @@
- #define FCLK_PSTATE_SUPPORTED          0x01
++	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
++		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -168,6 +181,16 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 	.ack = NULL
+ };
  
- /* TODO Remove this MSG ID define after it becomes available in dalsmc */
--#define DALSMC_MSG_SetFclkSwitchAllow	0x11
- #define DALSMC_MSG_SetCabForUclkPstate	0x12
- #define DALSMC_Result_OK				0x1
++static const struct irq_source_info_funcs outbox_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs vline0_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
  
+@@ -179,6 +202,10 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 	BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 			reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_DMUB(reg_name)\
++	BASE(reg ## reg_name ## _BASE_IDX) + \
++			reg ## reg_name
++
+ #define IRQ_REG_ENTRY(block, reg_num, reg1, mask1, reg2, mask2)\
+ 	.enable_reg = SRI(reg1, block, reg_num),\
+ 	.enable_mask = \
+@@ -193,6 +220,20 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 	.ack_value = \
+ 		block ## reg_num ## _ ## reg2 ## __ ## mask2 ## _MASK \
+ 
++#define IRQ_REG_ENTRY_DMUB(reg1, mask1, reg2, mask2)\
++	.enable_reg = SRI_DMUB(reg1),\
++	.enable_mask = \
++		reg1 ## __ ## mask1 ## _MASK,\
++	.enable_value = {\
++		reg1 ## __ ## mask1 ## _MASK,\
++		~reg1 ## __ ## mask1 ## _MASK \
++	},\
++	.ack_reg = SRI_DMUB(reg2),\
++	.ack_mask = \
++		reg2 ## __ ## mask2 ## _MASK,\
++	.ack_value = \
++		reg2 ## __ ## mask2 ## _MASK \
++
+ #define hpd_int_entry(reg_num)\
+ 	[DC_IRQ_SOURCE_HPD1 + reg_num] = {\
+ 		IRQ_REG_ENTRY(HPD, reg_num,\
+@@ -237,6 +278,21 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 		.funcs = &vblank_irq_info_funcs\
+ }
+ 
++#define vline0_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE0 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
++		.funcs = &vline0_irq_info_funcs\
++	}
++#define dmub_outbox_int_entry()\
++	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
++		IRQ_REG_ENTRY_DMUB(\
++			DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
++			DMCUB_INTERRUPT_ACK, DMCUB_OUTBOX1_READY_INT_ACK),\
++		.funcs = &outbox_irq_info_funcs\
++	}
++
+ #define dummy_irq_entry() \
+ 	{\
+ 		.funcs = &dummy_irq_info_funcs\
+@@ -339,6 +395,13 @@ irq_source_info_dcn32[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vblank_int_entry(1),
+ 	vblank_int_entry(2),
+ 	vblank_int_entry(3),
++	vline0_int_entry(0),
++	vline0_int_entry(1),
++	vline0_int_entry(2),
++	vline0_int_entry(3),
++	[DC_IRQ_SOURCE_DC5_VLINE1] = dummy_irq_entry(),
++	[DC_IRQ_SOURCE_DC6_VLINE1] = dummy_irq_entry(),
++	dmub_outbox_int_entry(),
+ };
+ 
+ static const struct irq_service_funcs irq_service_funcs_dcn32 = {
 -- 
 2.35.3
 
