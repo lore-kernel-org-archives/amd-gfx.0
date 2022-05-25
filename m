@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62431C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C99C43219
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA5510EF44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE7C10F01B;
 	Wed, 25 May 2022 16:20:31 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2046.outbound.protection.outlook.com [40.107.100.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 207DB10EEC7
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:22 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB36410E677
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ox7/eyov4LYcV9KWv3EDcIdlO/nlmKnM+IHVT1Tq9J7LeZkJh+skjGqEahfhTrXIruabGFV9nYSVYuqlUPBXe2Kic8hm4Ng1BDLPHh34Zb+r0ddAf/t3ZZJQPis0lHg/EWsS5OVBmVVSdKi1WRh9W9iSuYVw3UPZRhtS62LKdNXucAVX5cYs4rBdVVK5MQ8K1YOEYOyXo4mBbA4LXVqVk0E1eTWGPtAtJBfvlgeVo5tgpRHDAcQZaYcUeQanMHqNazlpzuAIC/fY/ljNedVuUQWT1W1fTwKm1J83M7tYUCkC+Wv/a0gb4+SI6xGuyw7ZMXuid0BYRCgYVDrXt+x1Jw==
+ b=GjcS4ZMt8qlX8C46cLFQw5PLTINCESmqjLS0nqpnCF+KGU9JHeuOj/pfniZGRPslec9koOMOuosTcMB1H0z/8G9A+DdYqVJVPbpYkb56w1WymQGhsxMQ4NMiMIYGf1fsN+lSD4YdMTceb4oDIUINM06x+V8TZ5hrdJs4QUt5dTSy8SxWR0KJ1iQkVDVSMEwui4E04vW/2Dg+hu5n7l60nHhzyAThnSLqbHMC2A2OFfbGciUuEtV8+WvEjLccwvSs7oPkEfCe8isXS3fF4pkH53mavJyjqycQx0wyut52IztlqOi07FL8gQxPmUgCRCldhDtmIZ3geOE37zKK8vVzgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ranuC5YnNnIsysYbKVVQ6Gyy0FnyRQwLtnLFdD1Xy8M=;
- b=mqu0OiwxB0yogqyqw6iQmbKs1d/TjV4z8Ns7UjZZZNokDtOXh6YfOG18XzR8fRilj0NO+nkjYvLt3K+4kiMF0g0P8plxRrf0eswGQ7DKPt0eeTYuyO2LLMlXEuCb1IZfYRiBhC3+rPHujDVZHDrp4niR6eJezekoUsgGkgm3rVNpHQNlRxrl0Kr3S41vh6H7+Xtl4DjYKdGNMugKKD6joK/mBUhc/rD1P2PYqE0SGiIgO6WUhbdPcs9xFQJyoIrKEX8dUiJtd0m1qcaUtDHKWOa0Iqksy1AdXR/GXonaJTGCAFQIKadI42zQAvqXe9yOoM4woVhADwAEl74fKUzfSQ==
+ bh=oG6cZarKgWfguWEgH2itSrSDk+27/6O5fFn9+4DJl1Y=;
+ b=hvdH7q0jfp+t3VtZsnle4vfGbqV2QxZuy8x6FfiwzuML7Hs4hBG52v5lNE02CSZbctWRfBbOndGGKFoal3e5f9Ru0jzdyRcEn2HaXHkPkXwWJvdthfvZvRL5LoKs2LBYszDm61DbJTIu2/dEfeDVuPV+MrfsvaCyznpWUcU3DKqoxFglnL2tsjnMtyAmrX/KQr3+mmSvM1dW36/F4CfwWbwn68OS2uY0njd6OF0KjrQ6YJrKGIqYexaI5uA+mXx8/QpDsz8m/muPfku2FheLjMH75aT81DS123Lp1WDoZk9nyqzMTDxKVJ3zLhlBEjyXOJbqTvOUkwG/es98R6P/EA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ranuC5YnNnIsysYbKVVQ6Gyy0FnyRQwLtnLFdD1Xy8M=;
- b=DGmBUtwcfx3pKt8QYT2IDwsj2IjHDSi260rr9RCw7wbez9t7ImIyHlr7MpCe7GulhFp6jN+e9v9oarjqYgdwt9giYOnQvvibyxuC6Fqcrj71mIwsn5ZnhtxY24DRBoc95eJZA7nQiXGFpEO2rG0icE6oQbH4IDCI4iUn8ai2tzY=
-Received: from DM5PR05CA0020.namprd05.prod.outlook.com (2603:10b6:3:d4::30) by
- CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.22; Wed, 25 May 2022 16:20:18 +0000
+ bh=oG6cZarKgWfguWEgH2itSrSDk+27/6O5fFn9+4DJl1Y=;
+ b=aTesh1nSpvwG5b1hzVDFediZ8dtklO4Ew4rkDrdK/tgWpAhXCKJR+55OJKxzJstg4YYSY782+OwduclPqe5VyOgqKYedmSutdwMX3uY+HOqlQRMoZ3At1i9vuB0nNreMM0YyOq0o0b5+NHYYUQ5BHexVjmnD/o4WBTz3MmOqfyg=
+Received: from DM5PR05CA0016.namprd05.prod.outlook.com (2603:10b6:3:d4::26) by
+ CY4PR1201MB0183.namprd12.prod.outlook.com (2603:10b6:910:20::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.19; Wed, 25 May
+ 2022 16:20:21 +0000
 Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:d4:cafe::3b) by DM5PR05CA0020.outlook.office365.com
- (2603:10b6:3:d4::30) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:3:d4:cafe::78) by DM5PR05CA0016.outlook.office365.com
+ (2603:10b6:3:d4::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.5 via Frontend
- Transport; Wed, 25 May 2022 16:20:17 +0000
+ Transport; Wed, 25 May 2022 16:20:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:17 +0000
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:20 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
- 2022 11:20:16 -0500
+ 2022 11:20:19 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/43] drm/amd/display: set dram speed for all states
-Date: Wed, 25 May 2022 12:19:26 -0400
-Message-ID: <20220525161941.2544055-28-alexander.deucher@amd.com>
+Subject: [PATCH 34/43] drm/amd/display: set link fec status during init for
+ DCN32
+Date: Wed, 25 May 2022 12:19:32 -0400
+Message-ID: <20220525161941.2544055-34-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220525161941.2544055-1-alexander.deucher@amd.com>
 References: <20220525161941.2544055-1-alexander.deucher@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 19b82b95-9d8e-4921-414a-08da3e6a7514
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6179:EE_
-X-Microsoft-Antispam-PRVS: <CY5PR12MB61794823ED005DCD3855D4B2F7D69@CY5PR12MB6179.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9fe364f7-9065-4659-e6cc-08da3e6a7708
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0183:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB018399A248C27B930D4EA9D2F7D69@CY4PR1201MB0183.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2o8FNhTBV80vOvGHw78+Z/rmVuwhwOXvDVSg/7Nregj42BayXFJCb8RoIyOBoVbz7+zWupEtBTp3X+U/K86WZeTOqa8DK1MeBmwGnWHQYzlsUGAV3MqZXZ79f4uOZTw7VoN7fWgkLDKi5T2Se61qL+ZoPG0z1c03djjRGWzkhxYUILZifDxWw2wceT52AZQaF/hOlCuM+lKwSMDOIg5KNGDruqKDLKtDhvKacwaptPvzVDqCJmHRzbWuw7t+P2XelkmNzGcEBLgHoQKeK88SmY179eGCF0725Wyfuy7FvLgbPOYGiV6QVflUufQNM2tNHJcyNUjxMdRX9rEzODgk8F29kPVZGdk37LBgx5CBpWKee0urwUpeYiN2X7rCUT0goOvnRHjUhOhsQkEx5VozXdxICOIHS5piT/Ieu1ZmD1MLS5yY0jeIyYgVWRvtUaehfW9ZTgjZchJFA8xwYpP2VfOmQphOjj0caSplOtHuwlvbdqbiaaijXe4B3vn76W8jd/RNgotcJ26fKOnKRNpS9O/ajy86xlO1/NC+HxlsfbaZkBnKdbTHzjiX8NCEBaHklE+94EcqxN/8cQ3+SzdjRj6a2/2U6LPCz5EMjJMQBk/HwHYor0zrqfdSg+FISjAfq/J2WGXyNZevQ6xFZE4bR5+TWn0jYj6BEmtJIOtkMmplW9qb+0mPWFDlUVmDFsclKeuowPgno+D+lW+XVYzEgQ==
+X-Microsoft-Antispam-Message-Info: PauBlxwei698Gy212bQwkYi6cPOJ/mB8K7ULKL2V6O6kd46osAeScMxT9ubSVNBTGm8UTSHdbl6LLJvA8N/7spS9k3/oaYqaQvweogUtIadeANvJzbJ4lgtj0toXe6Z8VQcxlJUBxoz3C9prlWqWuIRKiFnvf9YMS1gb14zZzKpgcD1Jc2fojWladsZBueFYheiPkUIEhXg4VNx62M/J7l32ACG7SW0gDCi5fbL4UT51Bq6gyTKgm6mN8tntBw60QgwfFM2ycFO6RGG7+ylYECH0oDquiiMMiyQRDhoXfI1zIlotr8wIF2Q1TNbWswFWKB3fvZbMhRv92OttPvjwShiZcGY03mhyjQF1N3U3mr7CM5Drz9uB2OsRlNcK5WkeHKCB3n6wVP2o6bIRGiutFEqVyS5MHF5OUb1jfItSgqifl2Y4D+qPq/1lx0KI3Cj0sSlTTXOOFxSpU/y/nC4n0+GayZ4w4rxTheAy0qCPF+ZSHTQakgAYECAnwrQueR1BrCcpxRSLSvPk0ybxUkXrpwYEx1t6QlFcWiFT8WCD7mcZFs2AHwk34eHbX6QHhNTQhxkxvccAdOcvCs7yw89G6MP2PEfMJ5BlKN2H/iYdzi0ii5NszqROc6GBK9btMu4pHXy0FL9cbLUAkv9WFuYaJiB5gspLdmzScf+Y6nriZP7ZyoAT01BOAwgm8TNXG6SLGAXvvIuXfRH8M9M5SLGBmQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(316002)(82310400005)(36756003)(4326008)(8936002)(2906002)(70586007)(70206006)(40460700003)(86362001)(8676002)(5660300002)(7696005)(336012)(81166007)(54906003)(36860700001)(47076005)(1076003)(26005)(186003)(83380400001)(6916009)(16526019)(356005)(6666004)(426003)(2616005)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(8936002)(83380400001)(5660300002)(40460700003)(26005)(54906003)(186003)(1076003)(16526019)(6916009)(2616005)(6666004)(508600001)(356005)(47076005)(81166007)(7696005)(36860700001)(336012)(426003)(70586007)(70206006)(4326008)(8676002)(86362001)(2906002)(316002)(82310400005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:17.6970 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19b82b95-9d8e-4921-414a-08da3e6a7514
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:20.9780 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fe364f7-9065-4659-e6cc-08da3e6a7708
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,74 +102,38 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- Dillon Varone <dillon.varone@amd.com>
+ Jingwen Zhu <Jingwen.Zhu@github.amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <dillon.varone@amd.com>
+From: Jingwen Zhu <Jingwen.Zhu@github.amd.com>
 
-[WHY?]
-If higher states have memory speed set to 0 MT/s currently they do not get set
-to the highest value which can cause validation failures.
+We can now enable FEC.
 
-[HOW?]
-Set unpopulated higher states to max value.
-
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Jingwen Zhu <Jingwen.Zhu@github.amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c   | 6 +++++-
- drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 6 +++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 7772beadd000..3f93b1f2d872 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -3549,7 +3549,6 @@ static void dcn32_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw
- 			dcn3_2_soc.clock_limits[i].state = i;
- 			dcn3_2_soc.clock_limits[i].dcfclk_mhz = dcfclk_mhz[i];
- 			dcn3_2_soc.clock_limits[i].fabricclk_mhz = dcfclk_mhz[i];
--			dcn3_2_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 5994edc3dd0c..04360553a43f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -635,8 +635,12 @@ void dcn32_init_hw(struct dc *dc)
  
- 			/* Fill all states with max values of all these clocks */
- 			dcn3_2_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz;
-@@ -3568,6 +3567,11 @@ static void dcn32_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw
- 			else
- 				dcn3_2_soc.clock_limits[i].socclk_mhz = bw_params->clk_table.entries[i].socclk_mhz;
+ 		/* Check for enabled DIG to identify enabled display */
+ 		if (link->link_enc->funcs->is_dig_enabled &&
+-			link->link_enc->funcs->is_dig_enabled(link->link_enc))
++			link->link_enc->funcs->is_dig_enabled(link->link_enc)) {
+ 			link->link_status.link_active = true;
++			if (link->link_enc->funcs->fec_is_active &&
++					link->link_enc->funcs->fec_is_active(link->link_enc))
++				link->fec_state = dc_link_fec_enabled;
++		}
+ 	}
  
-+			if (!dram_speed_mts[i] && i > 0)
-+				dcn3_2_soc.clock_limits[i].dram_speed_mts = dcn3_2_soc.clock_limits[i-1].dram_speed_mts;
-+			else
-+				dcn3_2_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
-+
- 			/* These clocks cannot come from bw_params, always fill from dcn3_2_soc[0] */
- 			/* PHYCLK_D18, PHYCLK_D32 */
- 			dcn3_2_soc.clock_limits[i].phyclk_d18_mhz = dcn3_2_soc.clock_limits[0].phyclk_d18_mhz;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-index 0b420466b6dd..27d3aa7d751f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-@@ -1899,7 +1899,6 @@ static void dcn321_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
- 			dcn3_21_soc.clock_limits[i].state = i;
- 			dcn3_21_soc.clock_limits[i].dcfclk_mhz = dcfclk_mhz[i];
- 			dcn3_21_soc.clock_limits[i].fabricclk_mhz = dcfclk_mhz[i];
--			dcn3_21_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
- 
- 			/* Fill all states with max values of all these clocks */
- 			dcn3_21_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz;
-@@ -1918,6 +1917,11 @@ static void dcn321_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
- 			else
- 				dcn3_21_soc.clock_limits[i].socclk_mhz = bw_params->clk_table.entries[i].socclk_mhz;
- 
-+			if (!dram_speed_mts[i] && i > 0)
-+				dcn3_21_soc.clock_limits[i].dram_speed_mts = dcn3_21_soc.clock_limits[i-1].dram_speed_mts;
-+			else
-+				dcn3_21_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
-+
- 			/* These clocks cannot come from bw_params, always fill from dcn3_21_soc[0] */
- 			/* PHYCLK_D18, PHYCLK_D32 */
- 			dcn3_21_soc.clock_limits[i].phyclk_d18_mhz = dcn3_21_soc.clock_limits[0].phyclk_d18_mhz;
+ 	/* Power gate DSCs */
 -- 
 2.35.3
 
