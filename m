@@ -4,92 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2085C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 19:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF6FC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 19:28:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E27510E607;
-	Wed, 25 May 2022 19:05:25 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EFDB10E3C0
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 19:05:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CiR3dmd2dNOtG0H7akXMQ6FdW72SPRmQ0o4fX5kPNqTehTiF4rB3JesqCQHzCJ32f1ePMKQH/9svxPkakkPjcQ5tY1LA4jqxVZY3AayKa7PNxnvz6oaznWFKVUgE+FwJZVyD8oTez9V78VFr2TBcYi9wdxENFO6iAXCY67HIRnVIUE7Hf0OHWY719Prsqcb2QR0WNNtApwvE2fEFPeaz5H30EvI8wnUIg1wXV3BDR1uAuO46gn8NBbcN708G3hetX1EAEIMeDmKoC4/JzJjMiieUAebFoKQZXeP0vCXmaHQ2EBuGH67oN51ngQqD0ObsgzDtiTkgf2orgUB0IF3lNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oy9He+Li39cVsdWEvmILtEeUeUzRJKUyfDMfEioFIdw=;
- b=Stbz3eqwiwBNdj8ZGzANPGGjbB3EH4ICIfdpFPhpBEI7/Hun7acbxLtlhlQuiTRDjDE+txRshV+s4fz1sVZnRntxDdAXT5Z/VBgTjXDo9KuFNwaeQbQpLpqHF8J0HjrEMueI40SWrgJLd2+rd/Etvut2hfUEcIre616XQpjfwXxhXZlCLR3k7rFh8QepO5nqjhDHIFb4oyoHvDe6y5CcJ0ttpPvXVviy2kRYcPwlOABCGOyEHeoIYD9yWksFUMcgMMeuArGMTtSZY0Y5Lybl88AzLDopDqxBeqbCqpLMRiYRMIVTpRhdQxuT8iZZj1fe65rqgqRmQzrHNttXBE5AnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oy9He+Li39cVsdWEvmILtEeUeUzRJKUyfDMfEioFIdw=;
- b=Xx7tTS0wR4hg2tXS8J/qu4TrRq4roXTy6Kz/cIfkb7GaAify2tAtFx+WShH8P//dr9dqwYE4w5uK4JNnLuJE0eGs3LQugyuUnioeQb8OesfxjStbBXjDna/yAsiPpxKLLodkcKas7M9EYAahshMssCDDXyobRzhwWd+I/GiNT2s=
-Received: from BN6PR19CA0075.namprd19.prod.outlook.com (2603:10b6:404:133::13)
- by DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.15; Wed, 25 May 2022 19:05:18 +0000
-Received: from BN8NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:133:cafe::3b) by BN6PR19CA0075.outlook.office365.com
- (2603:10b6:404:133::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Wed, 25 May 2022 19:05:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT016.mail.protection.outlook.com (10.13.176.97) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 19:05:18 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 25 May 2022 14:05:17 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 6/7] drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back
- to amdgpu_device_gpu_recover
-Date: Wed, 25 May 2022 15:04:46 -0400
-Message-ID: <20220525190447.239867-7-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220525190447.239867-1-andrey.grodzovsky@amd.com>
-References: <20220525190447.239867-1-andrey.grodzovsky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D533510E6BF;
+	Wed, 25 May 2022 19:28:06 +0000 (UTC)
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE2A10E6BF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 19:28:05 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id j21so19468815pga.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 12:28:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pH35YM7yeVM2Z6YK2fmADssGmceZ/QV71UC4Y7PruEo=;
+ b=OWidnEJEiFRaEJeDKjpFxAnR82jQix3tD8sT8ZcH10ii4lLdkyjZHgyCygyI8YQM4R
+ xKOoy4QDeaOciTiMIghlpe7XtifdMe7rNnxLMxFpbDV6HLkwzF3tUyuo8Kg/W9sNuCuA
+ 3yi3vOOy3ARAbQYUDTZ9hQQCaTbGI2QErRfDnkyLC4hxzm1FlNHzuTgDzLxEWidJNJyy
+ Tz3eCtHQXc1j4nz7IsUOKbHvUVroHYrh5fhhcp1yu2tYu5vuJN2E5VZoR7OqPammZd2g
+ Roey90LNKQdv2WgA6sFyS1VS4ewUl9zhgpJzrNRduB0JTiuj0V9N3QHr821KvleO6tvF
+ Rcyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pH35YM7yeVM2Z6YK2fmADssGmceZ/QV71UC4Y7PruEo=;
+ b=PdSD1rg3ZaPtWVeDGCe0JcsDtYhOk6obptfGRJd0jHv8KKEuo0mStrMMyAseOItTgI
+ BWhQtFk/9810evK4QZyfghyYxo67nlshwlV9HETWpgYFNxbWuWVkZ8z3JpgPt73OzUUG
+ gBDkeI7TT7Cpfi5EGyYcepeAaMyYz40O4vqD8eXrfU7WT79S5A/QrAFZD05j/Mp4/76Y
+ sarTzRKg9LvbL6XSUIBPjlh/fB9UTZU+6ljihE4jisTqW5pZa9eZ2qIcEWGLls/h6e3C
+ 3FBtBaMjhnhmBtR5xByg4j79oiouBH23DgC5AmrHT0lPTdaxZQ+7iCcy8vFpCcTcCPuS
+ bA5w==
+X-Gm-Message-State: AOAM532Vwy02S3VlmhVKGGqRx99Oy1RLh3pu5z1egBLHnHjI/zLP5DkO
+ UoPfhRoYQ0os5THVQ8AW22JPcC4vZpxMpTNSij6TdZOe4iQ=
+X-Google-Smtp-Source: ABdhPJxJARF/jy4rVQgtKCFn7e++iqgXkgosg5hY35PGZoqI0RyEIOnDdDNJ2z+bcVkAvg4OmX7qbj/XyfKIyFobxp0=
+X-Received: by 2002:a05:6a00:299a:b0:518:9489:2c32 with SMTP id
+ cj26-20020a056a00299a00b0051894892c32mr19406776pfb.29.1653506884741; Wed, 25
+ May 2022 12:28:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dcb273f6-6889-4a57-80c6-08da3e81824c
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB13550D5DE7058B0EE2E78395EAD69@DM5PR12MB1355.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UIm/9WH2naxruY+P+QTdDmZmO78Hvsr1WFoKUP5l2jKODxIMt97khN7Gyls3Smf+OghKDTHMZdLG+s4UcFt3HwlTBdkkaTEY4HXm6B8fDZCtzChk40jPu+4fmPDsSR4ouXDEV06EZFhdUhn1Iv8LlJaPPp9Fr6o9mk9IqfGfJbxYHpH1K/+rIVmT4ov9jRivzQgVSgjsn+TXatITBtbrKSe8z7p7cItSO7VrPsJNwCkpgI0OAeggYHwuQ9QuCwhsHuYYXcoQ2u8DshzOCmJE6FJCr9MyfST4hkvB58piq0wxOvs6+QKPcrTdL1HiMr/bZO83nH2AQmOY6mt4ssmPwDXTlTkLsblTquvFNBn+VTEbOkn6kOO7XsWqYgAVF1lpqhb0aehcbOYwnu0kK5BlekY7ya+4Z15/SadrXuMmbxhEsFNR1ZeUmMV7EjVT1MkZpMhni6dazzfkBb8Ja+RnQpLOMpGPzYe4H79vJHfXOteVw2SCcO3GLWBTIuZxKweAcJ5dlU31GMZUav/FGWDACG4CPiA/LJES1nW4/9VRwnr1fcNLFXwKCslW6ql25ruOQncLfJT7HF2CLyUUsboF96ENFQKLNny8SWPH9JItFf4i37ii+W6f12nQJ8HqIlq9lCre+Fxu4mR6sb1XfOr/8ffEF37y0mySZnTTAvDGWF6kiptpzEfCtyOBEwG9ibtYgt1ets/w0usTGddDoJ7C8w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(336012)(6916009)(70206006)(70586007)(508600001)(316002)(82310400005)(4326008)(44832011)(5660300002)(2906002)(86362001)(26005)(2616005)(8676002)(36756003)(81166007)(356005)(36860700001)(16526019)(83380400001)(186003)(426003)(8936002)(7696005)(6666004)(1076003)(47076005)(40460700003)(54906003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 19:05:18.3476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcb273f6-6889-4a57-80c6-08da3e81824c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT016.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
+References: <20220525161941.2544055-1-alexander.deucher@amd.com>
+ <20220525161941.2544055-14-alexander.deucher@amd.com>
+In-Reply-To: <20220525161941.2544055-14-alexander.deucher@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 25 May 2022 15:27:28 -0400
+Message-ID: <CAAxE2A4DsJV3_0a7RejRodMAydgeJCtRK1CaA8M4i_Jj3u9Ztg@mail.gmail.com>
+Subject: Re: [PATCH 14/43] drm/amd: Add GFX11 modifiers support to AMDGPU
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000007fb2b305dfdb121e"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,144 +62,804 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zoy.Bai@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- lijo.lazar@amd.com, Christian.Koenig@amd.com
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We removed the wrapper that was queueing the recover function
-into reset domain queue who was using this name.
+--0000000000007fb2b305dfdb121e
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      | 2 +-
- 9 files changed, 9 insertions(+), 9 deletions(-)
+On Wed, May 25, 2022 at 12:20 PM Alex Deucher <alexander.deucher@amd.com>
+wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 8165ee5b0457..664ed0a6deab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1244,7 +1244,7 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
- bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
- int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			      struct amdgpu_job* job);
--int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
-+int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			      struct amdgpu_job *job);
- void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
- int amdgpu_device_pci_reset(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index a23abc0e86e7..513c57f839d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -129,7 +129,7 @@ static void amdgpu_amdkfd_reset_work(struct work_struct *work)
- 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
- 						  kfd.reset_work);
- 
--	amdgpu_device_gpu_recover_imp(adev, NULL);
-+	amdgpu_device_gpu_recover(adev, NULL);
- }
- 
- void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e3e2a5d17cc2..424571e46cf5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5065,7 +5065,7 @@ static void amdgpu_device_recheck_guilty_jobs(
-  * Returns 0 for success or an error on failure.
-  */
- 
--int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
-+int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			      struct amdgpu_job *job)
- {
- 	struct list_head device_list, *device_list_handle =  NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index b0498ffcf7c3..957437a5558c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -819,7 +819,7 @@ static void amdgpu_debugfs_reset_work(struct work_struct *work)
- 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
- 						  reset_work);
- 
--	amdgpu_device_gpu_recover_imp(adev, NULL);
-+	amdgpu_device_gpu_recover(adev, NULL);
- }
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index dfe7f2b8f0aa..10aa073600d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -64,7 +64,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
- 
- 	if (amdgpu_device_should_recover_gpu(ring->adev)) {
--		r = amdgpu_device_gpu_recover_imp(ring->adev, job);
-+		r = amdgpu_device_gpu_recover(ring->adev, job);
- 		if (r)
- 			DRM_ERROR("GPU Recovery Failed: %d\n", r);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index a439c04223b5..bc0049308207 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1922,7 +1922,7 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
- 	}
- 
- 	if (amdgpu_device_should_recover_gpu(ras->adev))
--		amdgpu_device_gpu_recover_imp(ras->adev, NULL);
-+		amdgpu_device_gpu_recover(ras->adev, NULL);
- 	atomic_set(&ras->in_recovery, 0);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index b81acf59870c..7ec5b5cf4bb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -284,7 +284,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
- 	if (amdgpu_device_should_recover_gpu(adev)
- 		&& (!amdgpu_device_has_job_running(adev) ||
- 		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT))
--		amdgpu_device_gpu_recover_imp(adev, NULL);
-+		amdgpu_device_gpu_recover(adev, NULL);
- }
- 
- static int xgpu_ai_set_mailbox_rcv_irq(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-index 22c10b97ea81..e18b75c8fde6 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -311,7 +311,7 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
- 		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
- 		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
- 		adev->video_timeout == MAX_SCHEDULE_TIMEOUT))
--		amdgpu_device_gpu_recover_imp(adev, NULL);
-+		amdgpu_device_gpu_recover(adev, NULL);
- }
- 
- static int xgpu_nv_set_mailbox_rcv_irq(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-index 7b63d30b9b79..c5016a926331 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-@@ -523,7 +523,7 @@ static void xgpu_vi_mailbox_flr_work(struct work_struct *work)
- 
- 	/* Trigger recovery due to world switch failure */
- 	if (amdgpu_device_should_recover_gpu(adev))
--		amdgpu_device_gpu_recover_imp(adev, NULL);
-+		amdgpu_device_gpu_recover(adev, NULL);
- }
- 
- static int xgpu_vi_set_mailbox_rcv_irq(struct amdgpu_device *adev,
--- 
-2.25.1
+> From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+>
+> GFX11 IP introduces new tiling mode. Various combinations of DCC
+> settings are possible and the most preferred settings must be exposed
+> for optimal use of the hardware.
+>
+> add_gfx11_modifiers() is based on recommendation from Marek for the
+> preferred tiling modifier that are most efficient for the hardware.
+>
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 40 ++++++++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 74 ++++++++++++++++++-
+>  include/uapi/drm/drm_fourcc.h                 |  2 +
+>  3 files changed, 108 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index ec395fe427f2..a54081a89282 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -30,6 +30,9 @@
+>  #include "atom.h"
+>  #include "amdgpu_connectors.h"
+>  #include "amdgpu_display.h"
+> +#include "soc15_common.h"
+> +#include "gc/gc_11_0_0_offset.h"
+> +#include "gc/gc_11_0_0_sh_mask.h"
+>  #include <asm/div64.h>
+>
+>  #include <linux/pci.h>
+> @@ -662,6 +665,11 @@ static int convert_tiling_flags_to_modifier(struct
+> amdgpu_framebuffer *afb)
+>  {
+>         struct amdgpu_device *adev = drm_to_adev(afb->base.dev);
+>         uint64_t modifier = 0;
+> +       int num_pipes = 0;
+> +       int num_pkrs = 0;
+> +
+> +       num_pkrs = adev->gfx.config.gb_addr_config_fields.num_pkrs;
+> +       num_pipes = adev->gfx.config.gb_addr_config_fields.num_pipes;
+>
+>         if (!afb->tiling_flags || !AMDGPU_TILING_GET(afb->tiling_flags,
+> SWIZZLE_MODE)) {
+>                 modifier = DRM_FORMAT_MOD_LINEAR;
+> @@ -674,7 +682,7 @@ static int convert_tiling_flags_to_modifier(struct
+> amdgpu_framebuffer *afb)
+>                 int bank_xor_bits = 0;
+>                 int packers = 0;
+>                 int rb = 0;
+> -               int pipes =
+> ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +               int pipes = ilog2(num_pipes);
+>                 uint32_t dcc_offset = AMDGPU_TILING_GET(afb->tiling_flags,
+> DCC_OFFSET_256B);
+>
+>                 switch (swizzle >> 2) {
+> @@ -690,12 +698,17 @@ static int convert_tiling_flags_to_modifier(struct
+> amdgpu_framebuffer *afb)
+>                 case 6: /* 64 KiB _X */
+>                         block_size_bits = 16;
+>                         break;
+> +               case 7: /* 256 KiB */
+> +                       block_size_bits = 18;
+> +                       break;
+>                 default:
+>                         /* RESERVED or VAR */
+>                         return -EINVAL;
+>                 }
+>
+> -               if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
+> +               if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 0))
+> +                       version = AMD_FMT_MOD_TILE_VER_GFX11;
+> +               else if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10,
+> 3, 0))
+>                         version = AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS;
+>                 else if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10,
+> 0, 0))
+>                         version = AMD_FMT_MOD_TILE_VER_GFX10;
+> @@ -718,7 +731,17 @@ static int convert_tiling_flags_to_modifier(struct
+> amdgpu_framebuffer *afb)
+>                 }
+>
 
+The switch statement right above this that is not in this patch and changes
+"version" should be skipped on >= gfx11. Under no circumstances should the
+version be changed on gfx11.
+
+Marek
+
+
+>
+>                 if (has_xor) {
+> +                       if (num_pipes == num_pkrs && num_pkrs == 0) {
+> +                               DRM_ERROR("invalid number of pipes and
+> packers\n");
+> +                               return -EINVAL;
+> +                       }
+> +
+>                         switch (version) {
+> +                       case AMD_FMT_MOD_TILE_VER_GFX11:
+> +                               pipe_xor_bits = min(block_size_bits - 8,
+> pipes);
+> +                               packers = min(block_size_bits - 8 -
+> pipe_xor_bits,
+> +
+>  ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs));
+> +                               break;
+>                         case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:
+>                                 pipe_xor_bits = min(block_size_bits - 8,
+> pipes);
+>                                 packers = min(block_size_bits - 8 -
+> pipe_xor_bits,
+> @@ -752,9 +775,10 @@ static int convert_tiling_flags_to_modifier(struct
+> amdgpu_framebuffer *afb)
+>                         u64 render_dcc_offset;
+>
+>                         /* Enable constant encode on RAVEN2 and later. */
+> -                       bool dcc_constant_encode = adev->asic_type >
+> CHIP_RAVEN ||
+> +                       bool dcc_constant_encode = (adev->asic_type >
+> CHIP_RAVEN ||
+>                                                    (adev->asic_type ==
+> CHIP_RAVEN &&
+> -                                                   adev->external_rev_id
+> >= 0x81);
+> +                                                   adev->external_rev_id
+> >= 0x81)) &&
+> +
+>  adev->ip_versions[GC_HWIP][0] < IP_VERSION(11, 0, 0);
+>
+>                         int max_cblock_size = dcc_i64b ?
+> AMD_FMT_MOD_DCC_BLOCK_64B :
+>                                               dcc_i128b ?
+> AMD_FMT_MOD_DCC_BLOCK_128B :
+> @@ -869,10 +893,11 @@ static unsigned int get_dcc_block_size(uint64_t
+> modifier, bool rb_aligned,
+>                 return max(10 + (rb_aligned ? (int)AMD_FMT_MOD_GET(RB,
+> modifier) : 0), 12);
+>         }
+>         case AMD_FMT_MOD_TILE_VER_GFX10:
+> -       case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS: {
+> +       case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:
+> +       case AMD_FMT_MOD_TILE_VER_GFX11: {
+>                 int pipes_log2 = AMD_FMT_MOD_GET(PIPE_XOR_BITS, modifier);
+>
+> -               if (ver == AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS && pipes_log2
+> > 1 &&
+> +               if (ver >= AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS && pipes_log2
+> > 1 &&
+>                     AMD_FMT_MOD_GET(PACKERS, modifier) == pipes_log2)
+>                         ++pipes_log2;
+>
+> @@ -965,6 +990,9 @@ static int amdgpu_display_verify_sizes(struct
+> amdgpu_framebuffer *rfb)
+>                         case DC_SW_64KB_S_X:
+>                                 block_size_log2 = 16;
+>                                 break;
+> +                       case DC_SW_VAR_S_X:
+> +                               block_size_log2 = 18;
+> +                               break;
+>                         default:
+>                                 drm_dbg_kms(rfb->base.dev,
+>                                             "Swizzle mode with unknown
+> block size: %d\n", swizzle);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a93affc37c53..badd136f5686 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -88,10 +88,14 @@
+>  #include "dcn/dcn_1_0_offset.h"
+>  #include "dcn/dcn_1_0_sh_mask.h"
+>  #include "soc15_hw_ip.h"
+> +#include "soc15_common.h"
+>  #include "vega10_ip_offset.h"
+>
+>  #include "soc15_common.h"
+>
+> +#include "gc/gc_11_0_0_offset.h"
+> +#include "gc/gc_11_0_0_sh_mask.h"
+> +
+>  #include "modules/inc/mod_freesync.h"
+>  #include "modules/power/power_helpers.h"
+>  #include "modules/inc/mod_info_packet.h"
+> @@ -4885,7 +4889,9 @@ fill_gfx9_tiling_info_from_modifier(const struct
+> amdgpu_device *adev,
+>         unsigned int mod_bank_xor_bits = AMD_FMT_MOD_GET(BANK_XOR_BITS,
+> modifier);
+>         unsigned int mod_pipe_xor_bits = AMD_FMT_MOD_GET(PIPE_XOR_BITS,
+> modifier);
+>         unsigned int pkrs_log2 = AMD_FMT_MOD_GET(PACKERS, modifier);
+> -       unsigned int pipes_log2 = min(4u, mod_pipe_xor_bits);
+> +       unsigned int pipes_log2;
+> +
+> +       pipes_log2 = min(5u, mod_pipe_xor_bits);
+>
+>         fill_gfx9_tiling_info_from_device(adev, tiling_info);
+>
+> @@ -5221,6 +5227,67 @@ add_gfx10_3_modifiers(const struct amdgpu_device
+> *adev,
+>                     AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX9));
+>  }
+>
+> +static void
+> +add_gfx11_modifiers(const struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int num_pipes = 0;
+> +       int pipe_xor_bits = 0;
+> +       int num_pkrs = 0;
+> +       int pkrs = 0;
+> +       u32 gb_addr_config;
+> +       unsigned swizzle_r_x;
+> +       uint64_t modifier_r_x;
+> +       uint64_t modifier_dcc_best;
+> +       uint64_t modifier_dcc_4k;
+> +
+> +       /* TODO: GFX11 IP HW init hasnt finish and we get zero if we read
+> from
+> +        * adev->gfx.config.gb_addr_config_fields.num_{pkrs,pipes} */
+> +       gb_addr_config = RREG32_SOC15(GC, 0, regGB_ADDR_CONFIG);
+> +       ASSERT(gb_addr_config != 0);
+> +
+> +       num_pkrs = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG,
+> NUM_PKRS);
+> +       pkrs = ilog2(num_pkrs);
+> +       num_pipes = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG,
+> NUM_PIPES);
+> +       pipe_xor_bits = ilog2(num_pipes);
+> +
+> +    /* R_X swizzle modes are the best for rendering and DCC requires
+> them. */
+> +    swizzle_r_x = num_pipes > 16 ? AMD_FMT_MOD_TILE_GFX11_256K_R_X :
+> +
+> AMD_FMT_MOD_TILE_GFX9_64K_R_X;
+> +
+> +       modifier_r_x = AMD_FMT_MOD |
+> +                            AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX11) |
+> +                            AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
+> +                            AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits)
+> |
+> +                            AMD_FMT_MOD_SET(PACKERS, pkrs);
+> +
+> +    /* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11
+> (it's implied to be 1). */
+> +       modifier_dcc_best = modifier_r_x |
+> +                            AMD_FMT_MOD_SET(DCC, 1) |
+> +                            AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |
+> +                            AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                            AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_128B);
+> +
+> +    /* DCC settings for 4K and greater resolutions. (required by display
+> hw) */
+> +       modifier_dcc_4k = modifier_r_x |
+> +                            AMD_FMT_MOD_SET(DCC, 1) |
+> +                            AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                            AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                            AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_64B);
+> +
+> +       add_modifier(mods, size, capacity, modifier_dcc_best);
+> +       add_modifier(mods, size, capacity, modifier_dcc_4k);
+> +
+> +       add_modifier(mods, size, capacity, modifier_dcc_best |
+> AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> +       add_modifier(mods, size, capacity, modifier_dcc_4k |
+> AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> +
+> +       add_modifier(mods, size, capacity, modifier_r_x);
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +             AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+> +                        AMD_FMT_MOD_SET(TILE,
+> AMD_FMT_MOD_TILE_GFX9_64K_D));
+> +}
+> +
+>  static int
+>  get_plane_modifiers(const struct amdgpu_device *adev, unsigned int
+> plane_type, uint64_t **mods)
+>  {
+> @@ -5254,6 +5321,9 @@ get_plane_modifiers(const struct amdgpu_device
+> *adev, unsigned int plane_type, u
+>                 else
+>                         add_gfx10_1_modifiers(adev, mods, &size,
+> &capacity);
+>                 break;
+> +       case AMDGPU_FAMILY_GC_11_0_0:
+> +               add_gfx11_modifiers(adev, mods, &size, &capacity);
+> +               break;
+>         }
+>
+>         add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> @@ -5292,7 +5362,7 @@ fill_gfx9_plane_attributes_from_modifiers(struct
+> amdgpu_device *adev,
+>                 dcc->enable = 1;
+>                 dcc->meta_pitch = afb->base.pitches[1];
+>                 dcc->independent_64b_blks = independent_64b_blks;
+> -               if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) ==
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {
+> +               if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) >=
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {
+>                         if (independent_64b_blks && independent_128b_blks)
+>                                 dcc->dcc_ind_blk =
+> hubp_ind_block_64b_no_128bcl;
+>                         else if (independent_128b_blks)
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> index fc0c1454d275..14cb2dafb0fa 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -1294,6 +1294,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64
+> modifier)
+>  #define AMD_FMT_MOD_TILE_VER_GFX9 1
+>  #define AMD_FMT_MOD_TILE_VER_GFX10 2
+>  #define AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS 3
+> +#define AMD_FMT_MOD_TILE_VER_GFX11 4
+>
+>  /*
+>   * 64K_S is the same for GFX9/GFX10/GFX10_RBPLUS and hence has GFX9 as
+> canonical
+> @@ -1309,6 +1310,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64
+> modifier)
+>  #define AMD_FMT_MOD_TILE_GFX9_64K_S_X 25
+>  #define AMD_FMT_MOD_TILE_GFX9_64K_D_X 26
+>  #define AMD_FMT_MOD_TILE_GFX9_64K_R_X 27
+> +#define AMD_FMT_MOD_TILE_GFX11_256K_R_X 31
+>
+>  #define AMD_FMT_MOD_DCC_BLOCK_64B 0
+>  #define AMD_FMT_MOD_DCC_BLOCK_128B 1
+> --
+> 2.35.3
+>
+>
+
+--0000000000007fb2b305dfdb121e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 25, 2022 at 12:20 PM Alex=
+ Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com">alexander.deucher=
+@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex">From: Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.c=
+om" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
+<br>
+GFX11 IP introduces new tiling mode. Various combinations of DCC<br>
+settings are possible and the most preferred settings must be exposed<br>
+for optimal use of the hardware.<br>
+<br>
+add_gfx11_modifiers() is based on recommendation from Marek for the<br>
+preferred tiling modifier that are most efficient for the hardware.<br>
+<br>
+Signed-off-by: Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.=
+com" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
+Acked-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" tar=
+get=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=C2=A0 =C2=A0| 40 ++++++++=
+--<br>
+=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 74 ++++++++++++++++++=
+-<br>
+=C2=A0include/uapi/drm/drm_fourcc.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 2 +<br>
+=C2=A03 files changed, 108 insertions(+), 8 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_display.c<br>
+index ec395fe427f2..a54081a89282 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
+@@ -30,6 +30,9 @@<br>
+=C2=A0#include &quot;atom.h&quot;<br>
+=C2=A0#include &quot;amdgpu_connectors.h&quot;<br>
+=C2=A0#include &quot;amdgpu_display.h&quot;<br>
++#include &quot;soc15_common.h&quot;<br>
++#include &quot;gc/gc_11_0_0_offset.h&quot;<br>
++#include &quot;gc/gc_11_0_0_sh_mask.h&quot;<br>
+=C2=A0#include &lt;asm/div64.h&gt;<br>
+<br>
+=C2=A0#include &lt;linux/pci.h&gt;<br>
+@@ -662,6 +665,11 @@ static int convert_tiling_flags_to_modifier(struct amd=
+gpu_framebuffer *afb)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_device *adev =3D drm_to_adev(afb-=
+&gt;<a href=3D"http://base.dev" rel=3D"noreferrer" target=3D"_blank">base.d=
+ev</a>);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t modifier =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int num_pipes =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int num_pkrs =3D 0;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pkrs =3D adev-&gt;gfx.config.gb_addr_config=
+_fields.num_pkrs;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pipes =3D adev-&gt;gfx.config.gb_addr_confi=
+g_fields.num_pipes;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!afb-&gt;tiling_flags || !AMDGPU_TILING_GET=
+(afb-&gt;tiling_flags, SWIZZLE_MODE)) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 modifier =3D DRM_FO=
+RMAT_MOD_LINEAR;<br>
+@@ -674,7 +682,7 @@ static int convert_tiling_flags_to_modifier(struct amdg=
+pu_framebuffer *afb)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int bank_xor_bits =
+=3D 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int packers =3D 0;<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int rb =3D 0;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int pipes =3D ilog2=
+(adev-&gt;gfx.config.gb_addr_config_fields.num_pipes);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int pipes =3D ilog2=
+(num_pipes);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t dcc_offset=
+ =3D AMDGPU_TILING_GET(afb-&gt;tiling_flags, DCC_OFFSET_256B);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 switch (swizzle &gt=
+;&gt; 2) {<br>
+@@ -690,12 +698,17 @@ static int convert_tiling_flags_to_modifier(struct am=
+dgpu_framebuffer *afb)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case 6: /* 64 KiB _=
+X */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 block_size_bits =3D 16;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case 7: /* 256 KiB =
+*/<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0block_size_bits =3D 18;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 /* RESERVED or VAR */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 return -EINVAL;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;ip_ver=
+sions[GC_HWIP][0] &gt;=3D IP_VERSION(10, 3, 0))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;ip_ver=
+sions[GC_HWIP][0] &gt;=3D IP_VERSION(11, 0, 0))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0version =3D AMD_FMT_MOD_TILE_VER_GFX11;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else if (adev-&gt;i=
+p_versions[GC_HWIP][0] &gt;=3D IP_VERSION(10, 3, 0))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 version =3D AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else if (adev-&gt;i=
+p_versions[GC_HWIP][0] &gt;=3D IP_VERSION(10, 0, 0))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 version =3D AMD_FMT_MOD_TILE_VER_GFX10;<br>
+@@ -718,7 +731,17 @@ static int convert_tiling_flags_to_modifier(struct amd=
+gpu_framebuffer *afb)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br></blockquote><=
+div><br></div><div>The switch statement right above this that is not in thi=
+s patch and changes &quot;version&quot; should be skipped on &gt;=3D gfx11.=
+ Under no circumstances should the version be changed on gfx11.<br></div><d=
+iv><br></div><div>Marek<br></div><div>=C2=A0</div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (has_xor) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0if (num_pipes =3D=3D num_pkrs &amp;&amp; num_pkrs =3D=3D 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;invalid number of pip=
+es and packers\n&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0}<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 switch (version) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0case AMD_FMT_MOD_TILE_VER_GFX11:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_xor_bits =3D min(block_size_bits=
+ - 8, pipes);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0packers =3D min(block_size_bits - 8 -=
+ pipe_xor_bits,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0ilog2(adev-&gt;gfx.config.gb_addr_config_fields.num_pkr=
+s));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pipe_xor_bits =3D min(block_size_bit=
+s - 8, pipes);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 packers =3D min(block_size_bits - 8 =
+- pipe_xor_bits,<br>
+@@ -752,9 +775,10 @@ static int convert_tiling_flags_to_modifier(struct amd=
+gpu_framebuffer *afb)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 u64 render_dcc_offset;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 /* Enable constant encode on RAVEN2 and later. */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0bool dcc_constant_encode =3D adev-&gt;asic_type &gt; CHIP_RAVEN |=
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0bool dcc_constant_encode =3D (adev-&gt;asic_type &gt; CHIP_RAVEN =
+||<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(adev-&gt;asic_type =3D=3D CHIP_RAVEN &am=
+p;&amp;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;external_rev_id &gt;=3D 0x81);<b=
+r>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;external_rev_id &gt;=3D 0x81)) &=
+amp;&amp;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;ip_versions[GC_HWIP][0] &lt; IP_=
+VERSION(11, 0, 0);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 int max_cblock_size =3D dcc_i64b ? AMD_FMT_MOD_DCC_BLOCK_64B :<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 dcc_i128b ? AMD_FMT_MOD_DCC_BLOCK_128B :<br>
+@@ -869,10 +893,11 @@ static unsigned int get_dcc_block_size(uint64_t modif=
+ier, bool rb_aligned,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return max(10 + (rb=
+_aligned ? (int)AMD_FMT_MOD_GET(RB, modifier) : 0), 12);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMD_FMT_MOD_TILE_VER_GFX10:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS: {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_VER_GFX11: {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int pipes_log2 =3D =
+AMD_FMT_MOD_GET(PIPE_XOR_BITS, modifier);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ver =3D=3D AMD_=
+FMT_MOD_TILE_VER_GFX10_RBPLUS &amp;&amp; pipes_log2 &gt; 1 &amp;&amp;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ver &gt;=3D AMD=
+_FMT_MOD_TILE_VER_GFX10_RBPLUS &amp;&amp; pipes_log2 &gt; 1 &amp;&amp;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_GET(PACKERS, modifier) =3D=3D pipes_log2)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 ++pipes_log2;<br>
+<br>
+@@ -965,6 +990,9 @@ static int amdgpu_display_verify_sizes(struct amdgpu_fr=
+amebuffer *rfb)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 case DC_SW_64KB_S_X:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 block_size_log2 =3D 16;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0case DC_SW_VAR_S_X:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0block_size_log2 =3D 18;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 default:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_dbg_kms(rfb-&gt;<a href=3D"http:=
+//base.dev" rel=3D"noreferrer" target=3D"_blank">base.dev</a>,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 &quot;Swizzle mode with unknown block size: %d\n&quot;, swizzle);<br=
+>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index a93affc37c53..badd136f5686 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -88,10 +88,14 @@<br>
+=C2=A0#include &quot;dcn/dcn_1_0_offset.h&quot;<br>
+=C2=A0#include &quot;dcn/dcn_1_0_sh_mask.h&quot;<br>
+=C2=A0#include &quot;soc15_hw_ip.h&quot;<br>
++#include &quot;soc15_common.h&quot;<br>
+=C2=A0#include &quot;vega10_ip_offset.h&quot;<br>
+<br>
+=C2=A0#include &quot;soc15_common.h&quot;<br>
+<br>
++#include &quot;gc/gc_11_0_0_offset.h&quot;<br>
++#include &quot;gc/gc_11_0_0_sh_mask.h&quot;<br>
++<br>
+=C2=A0#include &quot;modules/inc/mod_freesync.h&quot;<br>
+=C2=A0#include &quot;modules/power/power_helpers.h&quot;<br>
+=C2=A0#include &quot;modules/inc/mod_info_packet.h&quot;<br>
+@@ -4885,7 +4889,9 @@ fill_gfx9_tiling_info_from_modifier(const struct amdg=
+pu_device *adev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int mod_bank_xor_bits =3D AMD_FMT_MOD_=
+GET(BANK_XOR_BITS, modifier);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int mod_pipe_xor_bits =3D AMD_FMT_MOD_=
+GET(PIPE_XOR_BITS, modifier);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int pkrs_log2 =3D AMD_FMT_MOD_GET(PACK=
+ERS, modifier);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int pipes_log2 =3D min(4u, mod_pipe_xo=
+r_bits);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int pipes_log2;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pipes_log2 =3D min(5u, mod_pipe_xor_bits);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 fill_gfx9_tiling_info_from_device(adev, tiling_=
+info);<br>
+<br>
+@@ -5221,6 +5227,67 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
+ev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));<br>
+=C2=A0}<br>
+<br>
++static void<br>
++add_gfx11_modifiers(const struct amdgpu_device *adev,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0uint64_t **mods, uint64_t *size, uint64_t *capacity)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int num_pipes =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int pipe_xor_bits =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int num_pkrs =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int pkrs =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 gb_addr_config;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned swizzle_r_x;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t modifier_r_x;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t modifier_dcc_best;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t modifier_dcc_4k;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* TODO: GFX11 IP HW init hasnt finish and we g=
+et zero if we read from<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * adev-&gt;gfx.config.gb_addr_config_fields.nu=
+m_{pkrs,pipes} */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0gb_addr_config =3D RREG32_SOC15(GC, 0, regGB_AD=
+DR_CONFIG);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ASSERT(gb_addr_config !=3D 0);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pkrs =3D 1 &lt;&lt; REG_GET_FIELD(gb_addr_c=
+onfig, GB_ADDR_CONFIG, NUM_PKRS);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pkrs =3D ilog2(num_pkrs);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pipes =3D 1 &lt;&lt; REG_GET_FIELD(gb_addr_=
+config, GB_ADDR_CONFIG, NUM_PIPES);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_xor_bits =3D ilog2(num_pipes);<br>
++<br>
++=C2=A0 =C2=A0 /* R_X swizzle modes are the best for rendering and DCC requ=
+ires them. */<br>
++=C2=A0 =C2=A0 swizzle_r_x =3D num_pipes &gt; 16 ? AMD_FMT_MOD_TILE_GFX11_2=
+56K_R_X :<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 AMD_FMT_MOD_TILE_GFX9_64K_R_X;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0modifier_r_x =3D AMD_FMT_MOD |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER=
+_GFX11) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(TILE, swizzle_r_x) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(PACKERS, pkrs);<br>
++<br>
++=C2=A0 =C2=A0 /* DCC_CONSTANT_ENCODE is not set because it can&#39;t vary =
+with gfx11 (it&#39;s implied to be 1). */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0modifier_dcc_best =3D modifier_r_x |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_=
+MOD_DCC_BLOCK_128B);<br>
++<br>
++=C2=A0 =C2=A0 /* DCC settings for 4K and greater resolutions. (required by=
+ display hw) */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0modifier_dcc_4k =3D modifier_r_x |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_=
+MOD_DCC_BLOCK_64B);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, modifier_dcc=
+_best);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, modifier_dcc=
+_4k);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, modifier_dcc=
+_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, modifier_dcc=
+_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, modifier_r_x=
+);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_FMT_MOD_SET(TILE_VERSI=
+ON, AMD_FMT_MOD_TILE_VER_GFX11) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D));<br>
++}<br>
++<br>
+=C2=A0static int<br>
+=C2=A0get_plane_modifiers(const struct amdgpu_device *adev, unsigned int pl=
+ane_type, uint64_t **mods)<br>
+=C2=A0{<br>
+@@ -5254,6 +5321,9 @@ get_plane_modifiers(const struct amdgpu_device *adev,=
+ unsigned int plane_type, u<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 add_gfx10_1_modifiers(adev, mods, &amp;size, &amp;capacity);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_FAMILY_GC_11_0_0:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0add_gfx11_modifiers=
+(adev, mods, &amp;size, &amp;capacity);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, &amp;size, &amp;capacity, DR=
+M_FORMAT_MOD_LINEAR);<br>
+@@ -5292,7 +5362,7 @@ fill_gfx9_plane_attributes_from_modifiers(struct amdg=
+pu_device *adev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dcc-&gt;enable =3D =
+1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dcc-&gt;meta_pitch =
+=3D afb-&gt;base.pitches[1];<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dcc-&gt;independent=
+_64b_blks =3D independent_64b_blks;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (AMD_FMT_MOD_GET=
+(TILE_VERSION, modifier) =3D=3D AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (AMD_FMT_MOD_GET=
+(TILE_VERSION, modifier) &gt;=3D AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (independent_64b_blks &amp;&amp; independent_128b_blks)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dcc-&gt;dcc_ind_blk =3D hubp_ind_blo=
+ck_64b_no_128bcl;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 else if (independent_128b_blks)<br>
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h<=
+br>
+index fc0c1454d275..14cb2dafb0fa 100644<br>
+--- a/include/uapi/drm/drm_fourcc.h<br>
++++ b/include/uapi/drm/drm_fourcc.h<br>
+@@ -1294,6 +1294,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modif=
+ier)<br>
+=C2=A0#define AMD_FMT_MOD_TILE_VER_GFX9 1<br>
+=C2=A0#define AMD_FMT_MOD_TILE_VER_GFX10 2<br>
+=C2=A0#define AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS 3<br>
++#define AMD_FMT_MOD_TILE_VER_GFX11 4<br>
+<br>
+=C2=A0/*<br>
+=C2=A0 * 64K_S is the same for GFX9/GFX10/GFX10_RBPLUS and hence has GFX9 a=
+s canonical<br>
+@@ -1309,6 +1310,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modif=
+ier)<br>
+=C2=A0#define AMD_FMT_MOD_TILE_GFX9_64K_S_X 25<br>
+=C2=A0#define AMD_FMT_MOD_TILE_GFX9_64K_D_X 26<br>
+=C2=A0#define AMD_FMT_MOD_TILE_GFX9_64K_R_X 27<br>
++#define AMD_FMT_MOD_TILE_GFX11_256K_R_X 31<br>
+<br>
+=C2=A0#define AMD_FMT_MOD_DCC_BLOCK_64B 0<br>
+=C2=A0#define AMD_FMT_MOD_DCC_BLOCK_128B 1<br>
+-- <br>
+2.35.3<br>
+<br>
+</blockquote></div></div>
+
+--0000000000007fb2b305dfdb121e--
