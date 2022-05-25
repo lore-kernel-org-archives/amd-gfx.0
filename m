@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E52C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 12:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A00EAC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 12:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7812B10E027;
-	Wed, 25 May 2022 12:33:45 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C82010E027
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 12:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0F610E9B5;
+	Wed, 25 May 2022 12:38:55 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05A510E98F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 12:38:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bWbYGBxpyojngL+qpK4r3HhaLTGsxYDG9+N/nL/UyxxcVHhHeJNGeoN8UvNEyLRgJGb+DIkppwzjRBYw2cA3IigWpgeFHZc1vMNmFMF3QiPMJNt8Of3cgV2xwk9gUQ/8Ox7AaBF9Nfv1y2F5wkz6QU3e+eGH9nclddgmShANVIDGYB9SsuoTbVg2mHe2iMdRIG8h+xhOJMznQgYHmmN3NiVfHeA5HaPXWUKNlgMVTtMjh1voIv3SvgxUUhrGX+V9JesGgTlvBXfdn6clProLsU6ryrsfk0GXToswgJjsqpB/kdqit3E3euc6GN1bjoXXJ6W4MoZghYgMfDjlMkgKsg==
+ b=B1pFDMFNycO0t+JnF6nW6/ay34Zqs3fv2vk5VfdvcXx6nffopzYifJAyehPEVmeS0vQmYkoebc1iNPDPRiKiDwYBOQBeRtyUxMC4a2not+GeCiOcyhBGSsk7Nnnl7Yc9skzvRsXuaVo5V/dpjBKIcpCnWBD+j1iRBjEk4frvEafnyY39KVg2LkeXRgTa5sxxwceOaD2kkDgfZ08Dly5TCoUnphyYzK8r6E6fjdby8E2UcuzpEQP7nSw+BSyWXESEp/Zrz206YxLaGVr8wloSm2Wh5pseh3nqL39S02J98Ej+y2DJRh5PYv2g9SiZkpFYxVhsg6b8nBWRm0QAef4xUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pY3kmci8/1Cr5yEYGoVeSsnsAWXBWk2jQeIWnud/Wgo=;
- b=mAvtM1ATSkbAEAWtDEsJ91cnMVpeSdsLZaKFdGKyAFcrHZ/f9KaEs2d4MsN2vHVKAgdF8FGCaV/ATzxSDaBH05W1vl+Kw42Ui4pP1qBx2jJRVYIiLXXle9ebzz57V/DK4yJ4DAm1pxDOLYdCTLNPFLsiiqCdtkZx3/1+jNtn4WXxrqt+UioTmX1GA6w/U2/R4dOHswdnwD8wKBF3RJVgJWh/kg3gyoOhlhff5cZ3hBT1pcMy5bHeVW5JZXQBYHCbknRd66N9O27TlS60VtRB2iCM9yEgIDcfd+aMO79QiTeBjjwebI3err9XNJCKlHnrD7DDnpHxz/srw8Z68ROziw==
+ bh=thfzZ5UbgrgnROiYMchsV1uQvE9EiC7QYqOiF6aIVhY=;
+ b=MGdOX+d4jCQl7VrqtZorNtjfwkF/msCY16x6e09L1qDDXoNkcjSjSY0Ib5Qen+wSS/oJdDPB0MsAB9mhePQIiptbpnFcazg8Wpq3DcvDMPU5+km69Qc+ycjZ/cDIrr+RvYnTpzwrLBV2x0nl2YxzrZpBLLXhlzsxO/zLG3xDaK7W2C6gn/M/YMdtEMt07d2hl3HgV6rnm21Zv6pRxxPl3fJ4v64bL61JfzHzTds+iQvDQpifUSoZckMCUpqqElWEobJLkWWZGA6qlYnhgzmyGELp2K0ueRyT80T2umTDOaHUBj3f+G15V94iA+JMdURQVmOQOOUDCYxFmvjnuexJFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pY3kmci8/1Cr5yEYGoVeSsnsAWXBWk2jQeIWnud/Wgo=;
- b=wt8av8DSRvCpAICpEx7o7zwCsd2Va80KL69kgLyqkg8e0MFmKOPv7+YBYts9A+9gLE17ptNwOKtrCLmRvhUQsN84UAhu1zEcmL8GCjSoX6xVdFt29GT2nTgQd53DUyBh1T0hbSCEppaVah1q9mVfQAUHSoDytR25r6Ho6e5cEUI=
+ bh=thfzZ5UbgrgnROiYMchsV1uQvE9EiC7QYqOiF6aIVhY=;
+ b=co8Tw2VQYX7OmJhfp2kI1BJMniIz6OP2GET0IpmtcMlzQcvM0KHAmj8whniSXeMxdC24Kouh7jy/J6bcGvSf+wkSqeyIGB8QQu5l2aJc1VZOReW6CV9DXP702rTSw6LxzOBLUCeBJAWId/kJktXiB/unNzY1HL4K9r4eSmHlQV4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM4PR12MB5296.namprd12.prod.outlook.com (2603:10b6:5:39d::21) with
+ by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Wed, 25 May
- 2022 12:33:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Wed, 25 May
+ 2022 12:38:51 +0000
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::c59:9713:48a5:da53]) by BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::c59:9713:48a5:da53%7]) with mapi id 15.20.5273.023; Wed, 25 May 2022
- 12:33:41 +0000
-Message-ID: <9ff0386e-95bf-f421-83b9-ab295968b4fb@amd.com>
-Date: Wed, 25 May 2022 18:03:31 +0530
+ 12:38:51 +0000
+Message-ID: <0333920f-7db9-404f-7f15-acd2204586fc@amd.com>
+Date: Wed, 25 May 2022 18:08:41 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH Review v3 1/2] drm/amdgpu/pm: support mca_ceumc_addr in
- ecctable
+Subject: Re: [PATCH Review v3 2/2] drm/amdgpu: print umc correctable error
+ address
 Content-Language: en-US
 To: "Stanley.Yang" <Stanley.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
  hawking.zhang@amd.com, tao.zhou1@amd.com, evan.quan@amd.com
 References: <20220525061047.26529-1-Stanley.Yang@amd.com>
+ <20220525061047.26529-2-Stanley.Yang@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20220525061047.26529-1-Stanley.Yang@amd.com>
+In-Reply-To: <20220525061047.26529-2-Stanley.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0005.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4f::10) To BYAPR12MB4614.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0171.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:de::14) To BYAPR12MB4614.namprd12.prod.outlook.com
  (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: af12ab38-1330-4303-ec68-08da3e4acced
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5296:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5296483E30BAE8E2551D147997D69@DM4PR12MB5296.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9c917b16-4159-45fa-acbd-08da3e4b8547
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5768:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR12MB57689C2C1B30C762E2B4585497D69@DS7PR12MB5768.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tUvcKQuF7qhEjAE6O2Mo7IFxoYd4ircOq22nWeyHlfMERjip9Tyx3gopX6TNfk2Wnlx0CB5LBuHEypviWlxF5obyHHZWxlbdtihDS0OHNz1vAqWhl2IMzlhJKmZQYZ9XH7wXLxirT1poQUZSHiXPiwNSSo21y3U0mA/y3SOitpa+Xrog/yvpZcLIcFyw40MVcx+KzFLaurSAr1tN41Eq5QtKnuD+d569jICmGLVvAnyZmK4IL3RyyB+O4ndX5Y0QVt7Chm3XCYDqK720rkadIdw8C7a55NR2bJEyTvgCJ0DJIWqn7qctK78iF/RhVltE27GAWgrcUDIDugwOD5D2fSoZLzMXnCr/Hl1FZHGh4BcICw4/XdRZ5IACZHg/vf/aTS38GNghiw+FxpZa1cNTDbv+k/5ECJPe5zNw53efpik2ZRk3tib13Gzky2fQ/zMKThNAaFsxlxP0UMgHVpj9a4khif9j/xbx/KcMsfq6UBUOvJp0z+ptLvVzGntGmnukBZMXKR2vYSvjY2+wHnJjcGTcbyvKQJPc7Blv1rQN/QeeAwalMmvJW1nfcPlHP1ozXFX6rTOsuF7NpIDDqCjcQeAWHOj5no61UkveUPt3SrFYN6eMzjl/ky1ghuQgUaXbGMThZVUaejRL+v32G3rILwWdUUvQX/dVMGeL3SKIM4K5iQnzupmaErSpftAsZWVDFlOD4aaLox2g124p6JmIDqj+Zgy+JEzb4mdMOmJa+jk=
+X-Microsoft-Antispam-Message-Info: QVs4Ijm0tbLyDhDb6rSvlCR92HDQ1WUD3AM4ycQubque6n+LYe+jV5TGLVIewcjhNaUPMGck9etcGNi8vQe3RqWZEL/MWIlhjjT35F0mYMMhgB/vFftpEhB4K6+dYJFPnOOj2+ALaSuHkZklY27YJc8K05EkGdJm2qB6nrAKBHvrpjGqzrvJSWz/mpVc49VKI/TAnS3hb3nptIbxLBtuT2ZBSxk6SjQbPSi7Ju6iZzue3FouguFscCXjto6hWrhTSG84jbszDsndoD5kxRQefSuXof49hOpa0rKFSNrBwboxxpqiaphDYszmt2tdz9CQyg+LIORA/6rWMvy7elSe5JFv/ESy4lYjPqES2R8JeuatZKXU3XAkD0sRyI8XJ+ELvw10lZHPGHkHjjsj1PDNRBwEYvFhTl6ArAY4ggAvUuju7EDdZ3NZ2g0a74dmQ1Yya1CUPEVvXftF6iHpjpHLkydFnDxwS2CbYH2xIec1z+1NAEo+5AQAUT8/j0NAz4OIcm/Lt27gctb+fHaaHL5UcaWDYpq820XVA1yyMrAnoK7Q/7novW0Cb8D+nJ0FgYycwhSAu8Azvk2cpRDqUnG825hkry0NegZ/hFMKNUy7xGSxB2RlxkkCNKcL3N1Rjm8zyU3xGclOD035HLjtxQE5OViKCFwRk8gbhRA6S7cZOToFBH+3bKVASVVZa3y9/gg0DVkMORrvA+k1epS7SSpHxC5auLULAz7Ah9IOqWs0vgRixm2i0AB5vaz+69V1WVcw
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(38100700002)(8676002)(6636002)(5660300002)(8936002)(66556008)(31696002)(316002)(6666004)(508600001)(66476007)(66946007)(86362001)(6512007)(6486002)(26005)(6506007)(186003)(53546011)(31686004)(2616005)(83380400001)(36756003)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(2906002)(36756003)(38100700002)(53546011)(508600001)(66556008)(8676002)(66946007)(66476007)(31686004)(6506007)(6666004)(6486002)(86362001)(31696002)(186003)(8936002)(6512007)(83380400001)(6636002)(5660300002)(2616005)(316002)(26005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE42T0tNMWZZcVQwcU9tTTVJTXZEcE9uWitWQ3h1V1c3RzlMSmdjOUNTWWpu?=
- =?utf-8?B?RlJtSGpoVkNzSDhNMnhJWklMa2pmekwraFNJMGJxZ3lGbCtNQW81VElKK256?=
- =?utf-8?B?T0taOXlxMncwUHk5WUFlcEpJeVJib29mTGFZVi95TU9IZ3RaQ09mL1ViRkNN?=
- =?utf-8?B?RzU2cEZYWXBRSWtPeUdhbk1WdFBFbjkyR3Nya3I0N2lBNi83c29vV3NNTHBI?=
- =?utf-8?B?b0YzOEkyQTRnSFRCd1AzdDJWb1F2U2w4SlZLNGVQQi9IZmwyUkp6ZUxUTk12?=
- =?utf-8?B?NDl2SEhlY2piVEtIT3FucEkxejR2OEZVRzdCL2k5RUFmUXBnRGNscWxKUWR1?=
- =?utf-8?B?dzA3ZVYyWUdqV0kzNkxKRExtQ1VOMUtQcFNKQWtPRU9iYXZqb2FNc3ZDYk5U?=
- =?utf-8?B?US9MS0Q3RWxGeHRNaU9NT3ZtRmVYcENHTXVJZG5UN3ZSbHVldVB2VUE3VXh1?=
- =?utf-8?B?Q01kd0FhbUxJTEV0dXQwd2Y2TUR6TkloNGlSdnlUanVWNWFtUHlXVEdqVG5G?=
- =?utf-8?B?bGFwTU9IMHlnNVV5SmJKMnl1bENORFAvSzI4d0lURXlEYU85eTNCdHA3WFhv?=
- =?utf-8?B?VnN2OTZvYWlYSlptSG1tNmlOQk9UckpWYnpPbHZNRncwMzhQSmdRS3BYS3hu?=
- =?utf-8?B?YUlHckhVQVJnZHVTSklUY1M3S3FNNVArYlBRSG42UEpRMURsVVhGY1dDYysw?=
- =?utf-8?B?L1l1M1ZwWkxwa3M1djhVbWxvcld6S3FvK1FHV0l0ckgrdmZoUThCd0pXZFFs?=
- =?utf-8?B?ZE1tV1BScXhrU3pWazVsc0FER0o2WmdyR2dzUkxDRmVZRVRMeU90VWgyM1cw?=
- =?utf-8?B?dFQwNlorK3lZM3BucWFVbkNXVlJVUUFPdEpDMHk4WVhOMStlQi9ROVJLdVN6?=
- =?utf-8?B?OHJsVmYvZjUxL1lSeW8zSm12ZFJSeGxhekJSUnpCbTAva0xxTGlCR0VNVTRF?=
- =?utf-8?B?eURRMk1oSTcxVGpuaE5qVm1XTFNGY3lDODBYZ3Mzald4V2VRZGVyZVNUNHhj?=
- =?utf-8?B?Skt0Zk1ZSmNZSWNmOW5ZcWxzdGFOQnVjL3Fma0NjWVhRSG9KYmQyMnpEenh4?=
- =?utf-8?B?cVV5eU9NbVFZRUxjUy8xU212NTV2ZktQTzM4QTR0MEExZThmNXI4bjBkaTJq?=
- =?utf-8?B?eElZdzBXU0JFU01sbnI2ZGdScjJHbDY0TFdLenBmWVJ5R2Y4b0hjREg0dms5?=
- =?utf-8?B?YitLZUJ2N0VORGVZaE5xeEh5Mkg4OUxNZlI4SE5QRlZ2cmxjV0F6ZGhwUys4?=
- =?utf-8?B?ajkrZXUrblJ4NjlrdFZEOHRHejdmczRjVG9RY0wrWmtoMHQxTmRzQUhYVkxu?=
- =?utf-8?B?azQrR0t3emRwQy8xTkhxcUVLN2h3Wm9QNDNsbWdPc1pjSHpSZzFzeXdKNEJt?=
- =?utf-8?B?aU1TNk9PSU5IbEt3bjkwU1JKTUJyWGdtVnRsM2ExS01SMUN2T2pNK051V1M1?=
- =?utf-8?B?Nm00bDJtK09ETk5kRlFCajZjYzBsOXhqSTdvalp2bjdBbnlKcFo2NU9lZzlN?=
- =?utf-8?B?VXZVMjlrL2pSSlZxOWdFT1Q0aUtYR0htSFdGQ1UyV1ZpZ1hyb1Z4N1gxQith?=
- =?utf-8?B?WkNDK0wxK3ZrMnFwNzQ3d1FmL3IwelI0Wko4U1J4cWtaWitKTXRjc1VmL05t?=
- =?utf-8?B?OXlWZjZ6TWJUV09XN25MaCtCN3hLTW96YlJRMUtHT0JmUE9oZXJ0cDJNaDJW?=
- =?utf-8?B?WDl4aDFGM2JiQlY4TEFrUGcyWllCT3l2VFN6SWJwSE02dGoxdnQrZ3NkYTEx?=
- =?utf-8?B?eEhJd1Y4a0dWTHdEWkJneDVPTmV3ZW9HZ2lXUTdZNHBKSW9OZlFFaTJOcXpo?=
- =?utf-8?B?L1lqbkxhbFZDclYvMUtSRGlSeHdRQ0VxRGsySmNKRmNxeFNRZjEyOU1YeDds?=
- =?utf-8?B?dVFDNjY1dVFPRXBhOWNJL1VKSWhDanN2U05BakNGbUdaOWtpV0NDRzg4NGd6?=
- =?utf-8?B?Rnl5ak5ZRVpLbHNxemRzam5HdmF4V1hudVEySlpYZlR6V1ZzTEhCeDMvNHlU?=
- =?utf-8?B?TGs4cXRrN0JoQXd2TkZaa1NzWWZWamlxUVhTd0EyUExGZEdaamw1K0VCSTBJ?=
- =?utf-8?B?eWVlVXdoZmU2ZURldXBJN2tJU2lPUCtRVjlteE15blFhYnJMMVQxaGRZdjFW?=
- =?utf-8?B?QW5FOVgrZks1a2FjY05WL1RtL0NJNFhHZzl6UTQrZ3Jla0NPUkdYNUdCWGhV?=
- =?utf-8?B?bG50TEd4US9hUG5QeTl2U3NwZHlJa05VNkRscUhsOFJXbWpQaUlLSjdKWEhN?=
- =?utf-8?B?T0RiWFR1M2Ivc2FQNlppMmRIMEhrQzVEanJqTjUxaDVielN3b3A4RXdxWEdR?=
- =?utf-8?B?ZGxkMEZ0dzVGNVB1NjJlNzZIT0w5eXBGSTdZR2R6SmFyRFhuUUwvdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnlwY3NlSEhKRXUzTlFhUEhIZEZHQ2F0WkQwRTZRSkdyekowd251NlNjdnlY?=
+ =?utf-8?B?ZExsa3AwQ1I1a0w5OXY5cmRZOUJhTzBQQlhhSDdnNnZTM1lRNUZsUXZralFN?=
+ =?utf-8?B?MjdFNlQ4MERvSUFySnA5V1p4T2hpNmdoa05LLzlUZW5PSUFrZk1kcUl6MjJ1?=
+ =?utf-8?B?T3l1WWZaNS9ncXA5d3BhRmNvR2hHUysyNzJ1NzI4S1habUtjaWFaR0xndC9u?=
+ =?utf-8?B?VDZmMkNCam81UFYzempQSE5VcFduck9YWmUwWjBWSGJnZ05KSkw3TmpaVE80?=
+ =?utf-8?B?TzlYRjBpWERtZitJalNTajBrcVNTVkp0eTdlWWYwdGxScGQxQitOamI0YVhN?=
+ =?utf-8?B?V0FaZkxrN0F1OThqU0NyUXNudThPNWU5UWZlV1RMc3ZvY01yNnd5aHF6VFlm?=
+ =?utf-8?B?T3A1MTRkeTVxeVRBbE1xT2ZMSzQrRWQ3c1lBUzd0SmlrdytTVkEyT3habzE0?=
+ =?utf-8?B?SDRHZ3VzZVcvcW1kRjlhWFhCa3drM280Yzc4Z3BZZXhna1VRTFdZbEl4aU9X?=
+ =?utf-8?B?WHJCRE9tYUd2c1lSNjdkVmtQRU9HZzNTaS8yQ0ozcFhSd1lNM1BrdjNkZUpl?=
+ =?utf-8?B?WFRKRUtyS3c1OC9LY2k0OHZlNWhydVBubngwLytRblhvd1hpVmxYbGs1b0hw?=
+ =?utf-8?B?dVBhMkFzTUllYkFBOGZZdG5vZUxUQWRTUDRSVkxqcnF2am01L2xrZUlpZ1dj?=
+ =?utf-8?B?Q0JibWd1ZTRFWTIyMjdpVmYwU0tQYThBMEROVmc2OXlrNnNONjVkVGM0UGJ6?=
+ =?utf-8?B?cG5iTmhOejdDTkxTdEZuREZrVXpxVXVvWHJBUEE1UTlQZWgyRkwzTWNGaEVB?=
+ =?utf-8?B?NDdnQTQxeUJTbGRjMDFUOTNDdTZ6S1V2Um15NkFWSnNoRlMxeE5sRCtFTlJI?=
+ =?utf-8?B?K1pkeHM3Skwvd1gybC9qRFFCZ2VaN1Z4WFV2bmlZUVFrTVIrR1BrM1lXdEhs?=
+ =?utf-8?B?MkdoNFdXVFM5VWdTZ3YwQm1GUnlUa3hGVVRZdFBOMmc1VWFuTHNvVk80SHBN?=
+ =?utf-8?B?VlJxZDZYS0tIbGhqOGp0aW11MStVd25OZ2xkQmVTclgvS09rMkE2WjgxZHNh?=
+ =?utf-8?B?c3krVVo3eDBhQzUrMVFldmU5U2l4TzhtNGdBdjAvdzM3c0Z5R201RzJBUUZz?=
+ =?utf-8?B?d0hIUXlCWXh1TVJRampMY0tyZHFXNkFJeW5vL0J4SS9GNG1SV1FXSkZ2MFRN?=
+ =?utf-8?B?ZTdnSjFrYVEramRoTVFRdTBkdW5ib2I5N09pS1Y3SVBZcFNQV1YxaHQrd3Js?=
+ =?utf-8?B?aFNmT3c5WnRSTTJnd0JDbEdiTllTRGYrZmNOVDYxN2l2RGRGc0t6R0lpSHFk?=
+ =?utf-8?B?Wm1aelJCZzRSNEhpMDJYWU9NUFpHUDU4VFM0QkQ4TlNuYjMwV0QzMUtsUUlG?=
+ =?utf-8?B?b3dMT0l3NVYwNDBmYXpReWNaUzZZT0t3QXFSZm5ucjNoa3dBQThjTE5ZVzJQ?=
+ =?utf-8?B?R3kvc1JTQTJzanhjM2hvN2VPb1M3MWZhTFlta2RDM2VwY3JPczNWTmNBOHc5?=
+ =?utf-8?B?YlhMdGsyVnVpaGcxcFJxbCtsa094bUhnWDEwelBDMGdyalVnamEvR0U4TnFI?=
+ =?utf-8?B?ZmNnUnNQakZnSUIrNmJCN1pieXJXeWlHK2RIVXpvOXVEQnhWV1o5YTBUNVFC?=
+ =?utf-8?B?MlhsTDU0RnpENWNUamdaVEU4ZXVGdmREUHl5L3AzcVkxWk1zR1dvd2xzdmdr?=
+ =?utf-8?B?YlFqT1B6d0VyYUM5elN4ZklUblRHVXN0cXk1YU5GV2NUbG1QUFR3Z0VKMWFs?=
+ =?utf-8?B?TWNySVRiVGFwcE5PeTFZN2JDaW84bE9xVTYva3ordmtkNmNLWTNiam5ORHN2?=
+ =?utf-8?B?bUdJRTdPZEhReFZpWHllNkw2aU52VmpkSE10UzZjS2U3RHhEN0lad0FKRndr?=
+ =?utf-8?B?Z2lNRWdlRmJ3NjdCUHdRb0diN0o4Q2RSUkV1clpEYzhJZTE4NmFJQk5HVU13?=
+ =?utf-8?B?Wmk5cnlXSG94UTJPa1ZKc2tDZTREVmo3bWpsYi9kdnIzNFhGU09FdHVlQ3Zy?=
+ =?utf-8?B?bGRpc1EvV1Z1KytLNzhHTjV1eEhxTlNmWjJNTFc2RGcwZUdPRm5MQllQMEdS?=
+ =?utf-8?B?aTBQc0NZYWdJUmphN0FvbWJFY0ExTDY4NENvMHNxTXZXSHZESmhQRXAxQ3lZ?=
+ =?utf-8?B?SHdUMGFtSk5KWWJHbjY0WVNRSXZoRS83UjBHUjBySzllZ3BtT1lxMEdod2JU?=
+ =?utf-8?B?U2QrSGx5TDNmait6M1FzbkE2c05PS05Qa1JDVk9LZ2t3Qk4zQmlBRTJpVXJB?=
+ =?utf-8?B?QWQxeWhKUHhMa0pOOUdCczROYzRkZ3k5ZlpLSk5UWUtKM08zdVBON0hoYVJp?=
+ =?utf-8?B?RTE3alJGU2dsRzNVMXRvMXplUTVjRmxpY3pRbTg4aVVQcWYrdkZrUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af12ab38-1330-4303-ec68-08da3e4acced
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c917b16-4159-45fa-acbd-08da3e4b8547
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 12:33:41.6899 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 12:38:50.9632 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DJYyMK3Q5CwFEtiAaWY1bSQzNUZx6zuq0hAICEgbpNc8lULC1UnlWJOS9YlPbc1D
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5296
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5PxUAKMSiDuar1kCm05UHEaJxVCIzfTVf4XeqtwB6flASU6TnQpFjUK1hwTC13kb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,160 +136,136 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 5/25/2022 11:40 AM, Stanley.Yang wrote:
-> SMU add a new variable mca_ceumc_addr to record
-> umc correctable error address in EccInfo table,
-> driver side add EccInfo_V2_t to support this feature
-> 
 > Changed from V1:
-> 	remove ecc_table_v2 and unnecessary table id, define union struct include
-> 	EccInfo_t and EccInfo_V2_t.
+> 	remove unnecessary same row physical address calculation
 > 
 > Changed from V2:
-> 	sync patch verion
+> 	move record_ce_addr_supported to umc_ecc_info struct
 > 
 > Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  5 ++
+>   drivers/gpu/drm/amd/amdgpu/umc_v6_7.c         | 50 ++++++++++++++++++-
+>   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 +
+>   3 files changed, 54 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index 28e603243b67..bf5a95104ec1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -333,6 +333,11 @@ struct ecc_info_per_ch {
+>   
+>   struct umc_ecc_info {
+>   	struct ecc_info_per_ch ecc[MAX_UMC_CHANNEL_NUM];
+> +
+> +	/* Determine smu ecctable whether support
+> +	 * record correctable error address
+> +	 */
+> +	int record_ce_addr_supported;
+>   };
+>   
+>   struct amdgpu_ras {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> index 606892dbea1c..bf7524f16b66 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> @@ -119,6 +119,24 @@ static void umc_v6_7_ecc_info_query_correctable_error_count(struct amdgpu_device
+>   		*error_count += 1;
+>   
+>   		umc_v6_7_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
+> +
+> +		if (ras->umc_ecc.record_ce_addr_supported)	{
+> +			uint64_t err_addr, soc_pa;
+> +			uint32_t channel_index =
+> +				adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
+> +
+> +			err_addr = ras->umc_ecc.ecc[eccinfo_table_idx].mca_ceumc_addr;
+> +			err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
+> +			/* translate umc channel address to soc pa, 3 parts are included */
+> +			soc_pa = ADDR_OF_8KB_BLOCK(err_addr) |
+> +					ADDR_OF_256B_BLOCK(channel_index) |
+> +					OFFSET_IN_256B_BLOCK(err_addr);
+> +
+> +			/* The umc channel bits are not original values, they are hashed */
+> +			SET_CHANNEL_HASH(channel_index, soc_pa);
+> +
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+UMC address to PA conversion is common regardless of UE/CE error 
+addresses. You may want to pack it in a small function.
+
+Regardless,
+	Acked-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  1 +
->   .../inc/pmfw_if/smu13_driver_if_aldebaran.h   | 16 +++++-
->   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 53 ++++++++++++++-----
->   3 files changed, 57 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index b9a6fac2b8b2..28e603243b67 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -328,6 +328,7 @@ struct ecc_info_per_ch {
->   	uint16_t ce_count_hi_chip;
->   	uint64_t mca_umc_status;
->   	uint64_t mca_umc_addr;
-> +	uint64_t mca_ceumc_addr;
->   };
+> +			dev_info(adev->dev, "Error Address(PA): 0x%llx\n", soc_pa);
+> +		}
+>   	}
+>   }
 >   
->   struct umc_ecc_info {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_aldebaran.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_aldebaran.h
-> index 0f67c56c2863..6f92038470ec 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_aldebaran.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_aldebaran.h
-> @@ -519,7 +519,21 @@ typedef struct {
->   } EccInfo_t;
+> @@ -251,7 +269,9 @@ static void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device *adev
 >   
->   typedef struct {
-> -	EccInfo_t  EccInfo[ALDEBARAN_UMC_CHANNEL_NUM];
-> +	uint64_t mca_umc_status;
-> +	uint64_t mca_umc_addr;
-> +	uint64_t mca_ceumc_addr;
-> +
-> +	uint16_t ce_count_lo_chip;
-> +	uint16_t ce_count_hi_chip;
-> +
-> +	uint32_t eccPadding;
-> +} EccInfo_V2_t;
-> +
-> +typedef struct {
-> +	union {
-> +		EccInfo_t  EccInfo[ALDEBARAN_UMC_CHANNEL_NUM];
-> +		EccInfo_V2_t EccInfo_V2[ALDEBARAN_UMC_CHANNEL_NUM];
-> +	};
->   } EccInfoTable_t;
+>   static void umc_v6_7_query_correctable_error_count(struct amdgpu_device *adev,
+>   						   uint32_t umc_reg_offset,
+> -						   unsigned long *error_count)
+> +						   unsigned long *error_count,
+> +						   uint32_t ch_inst,
+> +						   uint32_t umc_inst)
+>   {
+>   	uint32_t ecc_err_cnt_sel, ecc_err_cnt_sel_addr;
+>   	uint32_t ecc_err_cnt, ecc_err_cnt_addr;
+> @@ -295,6 +315,31 @@ static void umc_v6_7_query_correctable_error_count(struct amdgpu_device *adev,
+>   		*error_count += 1;
 >   
->   // These defines are used with the following messages:
+>   		umc_v6_7_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
+> +
+> +		{
+> +			uint64_t err_addr, soc_pa;
+> +			uint32_t mc_umc_addrt0;
+> +			uint32_t channel_index;
+> +
+> +			mc_umc_addrt0 =
+> +				SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_ADDRT0);
+> +
+> +			channel_index =
+> +				adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
+> +
+> +			err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
+> +			err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
+> +
+> +			/* translate umc channel address to soc pa, 3 parts are included */
+> +			soc_pa = ADDR_OF_8KB_BLOCK(err_addr) |
+> +					ADDR_OF_256B_BLOCK(channel_index) |
+> +					OFFSET_IN_256B_BLOCK(err_addr);
+> +
+> +			/* The umc channel bits are not original values, they are hashed */
+> +			SET_CHANNEL_HASH(channel_index, soc_pa);
+> +
+> +			dev_info(adev->dev, "Error Address(PA): 0x%llx\n", soc_pa);
+> +		}
+>   	}
+>   }
+>   
+> @@ -395,7 +440,8 @@ static void umc_v6_7_query_ras_error_count(struct amdgpu_device *adev,
+>   							 ch_inst);
+>   		umc_v6_7_query_correctable_error_count(adev,
+>   						       umc_reg_offset,
+> -						       &(err_data->ce_count));
+> +						       &(err_data->ce_count),
+> +						       ch_inst, umc_inst);
+>   		umc_v6_7_querry_uncorrectable_error_count(adev,
+>   							  umc_reg_offset,
+>   							  &(err_data->ue_count));
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 38af648cb857..9cdfeea58085 100644
+> index 9cdfeea58085..c7e0fec614ea 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -82,6 +82,12 @@
->    */
->   #define SUPPORT_ECCTABLE_SMU_VERSION 0x00442a00
->   
-> +/*
-> + * SMU support mca_ceumc_addr in ECCTABLE since version 68.55.0,
-> + * use this to check mca_ceumc_addr record whether support
-> + */
-> +#define SUPPORT_ECCTABLE_V2_SMU_VERSION 0x00443700
-> +
->   /*
->    * SMU support BAD CHENNEL info MSG since version 68.51.00,
->    * use this to check ECCTALE feature whether support
-> @@ -1802,7 +1808,8 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
->   	return sizeof(struct gpu_metrics_v1_3);
->   }
->   
-> -static int aldebaran_check_ecc_table_support(struct smu_context *smu)
-> +static int aldebaran_check_ecc_table_support(struct smu_context *smu,
-> +		int *ecctable_version)
->   {
->   	uint32_t if_version = 0xff, smu_version = 0xff;
->   	int ret = 0;
-> @@ -1815,6 +1822,11 @@ static int aldebaran_check_ecc_table_support(struct smu_context *smu)
->   
->   	if (smu_version < SUPPORT_ECCTABLE_SMU_VERSION)
->   		ret = -EOPNOTSUPP;
-> +	else if (smu_version >= SUPPORT_ECCTABLE_SMU_VERSION &&
-> +			smu_version < SUPPORT_ECCTABLE_V2_SMU_VERSION)
-> +		*ecctable_version = 1;
-> +	else
-> +		*ecctable_version = 2;
->   
->   	return ret;
->   }
-> @@ -1826,9 +1838,10 @@ static ssize_t aldebaran_get_ecc_info(struct smu_context *smu,
->   	EccInfoTable_t *ecc_table = NULL;
->   	struct ecc_info_per_ch *ecc_info_per_channel = NULL;
->   	int i, ret = 0;
-> +	int table_version = 0;
->   	struct umc_ecc_info *eccinfo = (struct umc_ecc_info *)table;
->   
-> -	ret = aldebaran_check_ecc_table_support(smu);
-> +	ret = aldebaran_check_ecc_table_support(smu, &table_version);
->   	if (ret)
->   		return ret;
->   
-> @@ -1844,16 +1857,32 @@ static ssize_t aldebaran_get_ecc_info(struct smu_context *smu,
->   
->   	ecc_table = (EccInfoTable_t *)smu_table->ecc_table;
->   
-> -	for (i = 0; i < ALDEBARAN_UMC_CHANNEL_NUM; i++) {
-> -		ecc_info_per_channel = &(eccinfo->ecc[i]);
-> -		ecc_info_per_channel->ce_count_lo_chip =
-> -			ecc_table->EccInfo[i].ce_count_lo_chip;
-> -		ecc_info_per_channel->ce_count_hi_chip =
-> -			ecc_table->EccInfo[i].ce_count_hi_chip;
-> -		ecc_info_per_channel->mca_umc_status =
-> -			ecc_table->EccInfo[i].mca_umc_status;
-> -		ecc_info_per_channel->mca_umc_addr =
-> -			ecc_table->EccInfo[i].mca_umc_addr;
-> +	if (table_version == 1) {
-> +		for (i = 0; i < ALDEBARAN_UMC_CHANNEL_NUM; i++) {
-> +			ecc_info_per_channel = &(eccinfo->ecc[i]);
-> +			ecc_info_per_channel->ce_count_lo_chip =
-> +				ecc_table->EccInfo[i].ce_count_lo_chip;
-> +			ecc_info_per_channel->ce_count_hi_chip =
-> +				ecc_table->EccInfo[i].ce_count_hi_chip;
-> +			ecc_info_per_channel->mca_umc_status =
-> +				ecc_table->EccInfo[i].mca_umc_status;
-> +			ecc_info_per_channel->mca_umc_addr =
-> +				ecc_table->EccInfo[i].mca_umc_addr;
-> +		}
-> +	} else if (table_version == 2) {
-> +		for (i = 0; i < ALDEBARAN_UMC_CHANNEL_NUM; i++) {
-> +			ecc_info_per_channel = &(eccinfo->ecc[i]);
-> +			ecc_info_per_channel->ce_count_lo_chip =
-> +				ecc_table->EccInfo_V2[i].ce_count_lo_chip;
-> +			ecc_info_per_channel->ce_count_hi_chip =
-> +				ecc_table->EccInfo_V2[i].ce_count_hi_chip;
-> +			ecc_info_per_channel->mca_umc_status =
-> +				ecc_table->EccInfo_V2[i].mca_umc_status;
-> +			ecc_info_per_channel->mca_umc_addr =
-> +				ecc_table->EccInfo_V2[i].mca_umc_addr;
-> +			ecc_info_per_channel->mca_ceumc_addr =
-> +				ecc_table->EccInfo_V2[i].mca_ceumc_addr;
-> +		}
+> @@ -1883,6 +1883,7 @@ static ssize_t aldebaran_get_ecc_info(struct smu_context *smu,
+>   			ecc_info_per_channel->mca_ceumc_addr =
+>   				ecc_table->EccInfo_V2[i].mca_ceumc_addr;
+>   		}
+> +		eccinfo->record_ce_addr_supported =1;
 >   	}
 >   
 >   	return ret;
