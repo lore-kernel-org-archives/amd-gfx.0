@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4917DC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A68C43217
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4202910F8A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AECC510F864;
 	Wed, 25 May 2022 16:20:47 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2069.outbound.protection.outlook.com [40.107.95.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B76610E7E0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B05A10E625
  for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KT+YI4qyX731cOnS0pcspyO7wXsByYgh9Rh7wSxjtL5ruqmdB8uvXI2we9S6kRxVLn8my/qTN084FAyqt2u7vdihRAmnvloSqdBJHSyYQhgbMVxfYyzEgjJs7vnkpRA3ajdCCBb7O+5PjdfrmC59otZF68IR5/S6ZwzAePJfrjNTOCjOUhf9R8/5TKSnjutfGogcXs4ZvaqZutIcr4nZQCmz7AB7992PjU+1DDRytao3SwyY+EvHynb3yyUCRSDm4347ofmJ5AAOgpT0S115favJWcccC1+1wOouZDFtKRHONXD/ohLxRLLGXkyoFz90wozNd6t8Ct9+PD+8saiEQg==
+ b=Q0ArOqDYNZHjyqnWkB7cXgu72Bq3vf+G398NbH/XwW5zmQPd1QX50BgzqC/JUP2QaWa/6uupNCGp7c5PPTKXhBztLEfClNizi9546IJdrwNmODsycJxPYDYOUU3TTUugWBBxwyh732KvRvawpXCPNrYuywYFCJTRs74cI+m7XloO82WmDfF+VdZAW8/YPuEEbtYy4IR57zmDW3U53jztDwjH0dxtny+C57nR+uUh8rVRrwBfRLaXHP+SKzcOhOA7TjpWEjVlsGP8CD90ET9WxCH7HssMXyW6GQhmh9yIRDpfpIp/+O9wtLF8DMms1A/qwq0QoDOZHaxFtk+GK5TcCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VReUgcuPrDVzW0Sy0LgZtRrmCGOLdvMdDyI7Fo2ojHE=;
- b=QrIU3AxqUd8ek5EUdMl8EFyU9me9xAPnRU35FSH4i3CsIpQDsJwPs0TvXYt7/VlLPT5PvZteOnAdzJJ5L6CN560y/gtPDKm2va10znbOHg04cPHt+AB0TUO/uV6+Uk0jsOf1LpB7PM2t1hribYtwhuoYErorHEB8HGb8zBgcOkCukv/RXapnNAdHtmvWrryCnk18iFsIDZqBa2e6ZGJYktivH+w8WCSmYMydSRggas5b2/e/6CvipU9YkYECYXtro2neHF0L0+wkrPdLX1qBk1Jg29sgZF4NjiDtz3eZ5HV5feSj9siXYLS+a+vGC6jeG21fQ8C0KOXRxbwAiGbXCA==
+ bh=9zqvpIXJ99CJVbGQ+fI3UPmDwgTvdyMNU/eVTTiKhVo=;
+ b=ftUcl5xwMFWq+jcXdLO58M7/NAfajcTR1n6lTcvb2I9f406VtyIRlcsM3B5gHuCZiuWJOjzYV89A1549VVLyjaZGp/H9BpOczYQ6VByfg0WWTPMnfrbkjPxniwh1sQvwdGJ5gKwRScTyQEpnbddX4uMzkm8UsTNP/U3psv8jgeZBldBZYbR85CjF0QkwMeP7FOE2nMoIHcqlIuTf07qe/lZxsylyPd4pPALCbeQWlyjhZG9MMIjaxoJ5S2Q/eC54SWf3nmZktBh6+OtmY/fvA/MnusOWpSgHfLo9hZ+7SKL/fEh2dK5iapyDLJUQsbJ1ql2OKCGnBER93jbJGoTuFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VReUgcuPrDVzW0Sy0LgZtRrmCGOLdvMdDyI7Fo2ojHE=;
- b=qQGztNc3NTNDWCXVX8Fdqi9vkTFWG6CYI2g2UtLX6DWpyGrRdeg4dd0porhba2sUIo2HEF0TR/vq2XnIgq0pt+GTtfou9hgOQ3/yJIqYufHjypLeSOjenJUbdo/Rg3WTetNwE4oYfsxJfP9yX1T67efDE+X8fdOsG+Pw8SqgvQQ=
-Received: from DS7PR05CA0090.namprd05.prod.outlook.com (2603:10b6:8:56::13) by
- DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.17; Wed, 25 May 2022 16:20:17 +0000
-Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::83) by DS7PR05CA0090.outlook.office365.com
- (2603:10b6:8:56::13) with Microsoft SMTP Server (version=TLS1_2,
+ bh=9zqvpIXJ99CJVbGQ+fI3UPmDwgTvdyMNU/eVTTiKhVo=;
+ b=qT3KLBaNZJX+a2i1dRdHEQF7DFpuZzFBJci3QMrk2LpZYoPEwPj/WTZ0Ch7G8klZuBvdikhDPWGYdi/n1fFIyOYoNnJs5ZJSflHw9vcsg6DxYC1ztuolzH4xnVqdv3UFVY7aILwC0aHfoQ/tr9A6t+rdse5jE6oguMSSCQqtEdk=
+Received: from DM5PR05CA0012.namprd05.prod.outlook.com (2603:10b6:3:d4::22) by
+ BYAPR12MB4599.namprd12.prod.outlook.com (2603:10b6:a03:107::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17; Wed, 25 May
+ 2022 16:20:18 +0000
+Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:d4:cafe::ed) by DM5PR05CA0012.outlook.office365.com
+ (2603:10b6:3:d4::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.5 via Frontend
- Transport; Wed, 25 May 2022 16:20:17 +0000
+ Transport; Wed, 25 May 2022 16:20:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:16 +0000
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:18 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
- 2022 11:20:14 -0500
+ 2022 11:20:17 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 25/43] drm/amd/display: Ensure that DMCUB fw in use is loaded
- by DC and not VBIOS
-Date: Wed, 25 May 2022 12:19:23 -0400
-Message-ID: <20220525161941.2544055-25-alexander.deucher@amd.com>
+Subject: [PATCH 30/43] drm/amd/display: change dsc image width cap for dcn32
+ and dcn321
+Date: Wed, 25 May 2022 12:19:28 -0400
+Message-ID: <20220525161941.2544055-30-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220525161941.2544055-1-alexander.deucher@amd.com>
 References: <20220525161941.2544055-1-alexander.deucher@amd.com>
@@ -69,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f3aa9370-4c0d-4f4f-2a41-08da3e6a749c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB29883DC0BAF677A145732167F7D69@DM6PR12MB2988.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6e35931f-aec3-4512-c69b-08da3e6a755b
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4599:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB459937752F5BB83498203F56F7D69@BYAPR12MB4599.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jbmOIsTM9KX5RJpjgsozX9L/cetYpiHcr25h3gmFzceF2wFkB+tzboNmsvua1tHU5EmDw1BvFkV8QwkD7sga+B3I1ZpxZ1y9He51vSDXLphNwTz7e579RiP97gkHpnta7C0TJj4506ALVTOZi+8BrSSWfwGv/Cgun8PVPnBiawKL7t2mYgWO1dgVsFO/iasRcJ4YtXiO24kI6dnYNyfY+otNN42Cl6RA7OcNzheNceHlzfleGiWtK84YZE9nsnLZjzB1bojEmeCShGu8JEc8wU+OYLA4AvNEIr8QgOHuT0DS+QlbfItKROe69cyVWGj7Ra5Eg+tmjzyh/7XnmDgxVg5ZagInvH2jvNY8qGZixTzoUWOtBxtPzFw2vWDefnm/w/wdB5/U9qX9DejAp5ZEMIj42iZYv4Jh1sa5MN3yv0XDBMfvtWYgB0nGRrDJWSpp20bvdjTk2FnhPwRKaNHyUnAv8KudOjhRFX6iG6iZ09nylc3Ove0iTzXylP3IFLpH2SXPXBSlIVdaio2962QbSqZmPvePpivy6fMbki92ORshzBuoqeSVd8JNYaA4pYgJCGC62hCYEa601h2e0+2svRGmLJpNnwZI/0ewwTFT76jL+I5ceYdbekCx5+GftxneJtTTr8I310wKenND73Hs08Prk5AFlc/px+bkV3rKqn4io7gGVE5AQDy47qv/0elkfOywG/QVT1wCs+RKfs/Uug==
+X-Microsoft-Antispam-Message-Info: X2t1EpZZjSvsz5mqSUPY2gjk+ex+91QAVQUuJuC+s2phsWAE5mozkTRIpaQ9YTT7SC00s3ZdBvvla7qhzHZ4IP5gePSATjYwexkZwx6AvQgPpWf2wACHjoXyEQwwweEyO7TvxYVAwmvBKXyvqMCZHwFM+USTJOa1AoQydluapKP+jnXw1FTFPLD/U6Nr5gaCN2sXh9T/2wUc5jF1E2/3me7RrgnU0LCCFUiuON9EWsTSSIww1T4ZRFElmbtmpbJdjLvtd+Vf58lhuuXvvzl3xUe9YRYHzzWfPkKayNt83O8H7SqQ0NMqhDD8W2b3tO8PgGuQcr//QGqKIPIqTSeOZwG6bTAth/hBY8umaAgrsSIAaYQSwRJI9U1D3PgzEl2CFbQJgsKcDZQZ39Nr9lz/H9BQFBgVHoRRGu6bHSmn7AhGiOw5SBQg2A73qtamZiIzzpoEXzJzreXxnu3URP7ExIMVziLh8S5d/8W4GjJL+TzvJjbLa1tDVyJinqVSa3KAZdgG7fPMnOO85PXEYqhYgxj41Tx9MHbCru2Ih/13stc1NtJOvzVyegxQ4wj1dX12n8D8I9mxcxv+TKEGr+AhkR/A/gRwgN2S+qbhs5khw9xjTRwiIhA+fX2ElrYvz6wCKIGvDYqt63cfk+CV1QONTEoqdmIDxcKkFA8ikz/8FClInfhhXxfb+YQPVDlhIfrna5K0iOHDX1vFHK3UCfQv4w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(70206006)(54906003)(4326008)(83380400001)(356005)(70586007)(8676002)(86362001)(6916009)(508600001)(316002)(186003)(26005)(36860700001)(16526019)(6666004)(81166007)(7696005)(40460700003)(426003)(2616005)(1076003)(47076005)(336012)(2906002)(8936002)(5660300002)(36756003)(82310400005)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2906002)(508600001)(8676002)(4326008)(54906003)(6666004)(70206006)(81166007)(8936002)(316002)(356005)(5660300002)(36860700001)(2616005)(1076003)(6916009)(336012)(426003)(47076005)(36756003)(70586007)(7696005)(82310400005)(16526019)(186003)(40460700003)(86362001)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:16.9099 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3aa9370-4c0d-4f4f-2a41-08da3e6a749c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:18.1657 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e35931f-aec3-4512-c69b-08da3e6a755b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4599
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,48 +101,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Dillon Varone <dillon.varone@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dillon Varone <dillon.varone@amd.com>
 
-[Why?]
-On wake from S3/S4, driver checks if DMUB is initialized. On S4 VBIOS loads
-DMUB, and driver does not reload as it appears to be initialized already.
+Set appropriate caps for DCN3.2.x.
 
-[How?]
-Add a check for the DAL_FW bit to ensure that loaded FW is from driver and
-not VBIOS.
-
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c   | 3 +++
+ drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index 0a498082ccc6..d298f6016e0b 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -299,11 +299,13 @@ void dmub_dcn32_set_outbox1_rptr(struct dmub_srv *dmub, uint32_t rptr_offset)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 3f93b1f2d872..f2850071478c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -1695,6 +1695,9 @@ static struct display_stream_compressor *dcn32_dsc_create(
+ 	}
  
- bool dmub_dcn32_is_hw_init(struct dmub_srv *dmub)
- {
-+	union dmub_fw_boot_status status;
- 	uint32_t is_hw_init;
- 
-+	status.all = REG_READ(DMCUB_SCRATCH0);
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_hw_init);
- 
--	return is_hw_init != 0;
-+	return is_hw_init != 0 && status.bits.dal_fw;
+ 	dsc2_construct(dsc, ctx, inst, &dsc_regs[inst], &dsc_shift, &dsc_mask);
++
++	dsc->max_image_width = 6016;
++
+ 	return &dsc->base;
  }
  
- bool dmub_dcn32_is_supported(struct dmub_srv *dmub)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index 27d3aa7d751f..376dd586b643 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -1679,6 +1679,9 @@ static struct display_stream_compressor *dcn321_dsc_create(
+ 	}
+ 
+ 	dsc2_construct(dsc, ctx, inst, &dsc_regs[inst], &dsc_shift, &dsc_mask);
++
++	dsc->max_image_width = 6016;
++
+ 	return &dsc->base;
+ }
+ 
 -- 
 2.35.3
 
