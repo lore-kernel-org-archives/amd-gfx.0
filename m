@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F7C3C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98614C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 May 2022 16:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AED710E686;
-	Wed, 25 May 2022 16:20:12 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2051.outbound.protection.outlook.com [40.107.96.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D123910E2AA
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF2010E6AB;
+	Wed, 25 May 2022 16:20:15 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D291810E2AA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 May 2022 16:20:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IcQx15cKTxcqm/bTtmKG6jGEJHPws8SmJZ/EqrUH9PgidaUcKjRwtfRnYltd8zTm626VLeFDNPkNmneEfyu9XmArKCJBGmUbDx2cJY2Nc6EUxj9G9gFKI2gWRQprmr27poVcf2W2018i9XFJkjzn+CUBsYIomH/2wIum2lVWD+HWdYo6sZf0TdpFoG+ueoY4yqUmaPtG9cCbj11YptW2nEvlDslo+nFiNKUMbPdQtOS4medL9j/2Axe1C8jxD+2SL5oJOKin49GQP+FoVjJ4Pcaiv8pyBPluowZGBg6oiEgQ5H8XM0XHp963Q6Z9TsjZqM0nOvIH1YpgiMXjcBLGxQ==
+ b=BnqLlhC4en+AhpweHyid4Lpuee72+ISDT455+2PF0jhrm5KZ7E3pRPlfnJinNT4yFhqrrrUF50y42VO3PlCxM+wn/iVyA0YFUhU7aOewFCMaF//IKPxzI3dlVqaVX7bF/eAJNn+s8dlsHyXZqaW5qfyQV/gwwZVsw2maGPkpQsFtay/3AYZ4RjqopkXTGERIDHW9gLiMgNkfeVRJnxhGjD/AoJ3Bd3Lkfpdj0Es96cLh844IL6UltgyiIyQuHrm3OhjKENroQ5G+6/+VTVqJKHjFcOMe6NJ8MQSORV+U4y4uEwFA+h5CxveQ3cF71ub+Zj0K+zsFAREClP8a80Vuzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NsqZOh9+aC8jylrt365BS+lGI/gkthT3bfLMTNvP8/4=;
- b=iNDCY9ojFQKFseyMyKIAeg9uyyqQzs1/wxNxIlRbDGqQ8ZwmrBzfpF9FhVVG2J2kPPUz+cxYgtgOgNejWQpjXZ6SBdyr0yMPbdS2V23s7cKAiTY9S8sGFDBr9QPlk3ZOEpV1/+6PcdcCPG5TVIZ+oWAVVGV0oFDm9cbpFcZRRIwnti6QntNWrPz0lB+1mMMSPpf4JpZuMIb1gRvb93KmlUK3yiqobdJSJ4delDCyBJN37mnxOjNaSjP9MlgOQW9kOqM7kjbytBE5kTPPELcHavgmadPgRvywGUn6JRUqP1yJCWOCu9E2CHrBbzFgZL42n8W76x2no69xc88jrcRZYw==
+ bh=31NFqnQywqrEb76IXhl9xdE4XVUUbTYtTBzj7MsCDg0=;
+ b=MFGaeF9Z+XGTIPz6H1xhB8lVn/WRm7z23KxpsSKsJDo73YY4MPq8aeyp16uyyY4nVXvWi5o/dyBm7GUxAH7duZ6rbcoM8onXLMsR7FJBG+9v8FgFz6Vfcc/AZV5WZUUUesUiiKLePrP8Fyy33Y3vZlfB6LJ73imMnoeQxpcdNAJJbODET3EVYP124aSn/Huwbo4c0hPgKig63lt2afQaTSuwfPjZzgIgM3pYEYCguzoSBUF0rlRHVHn79koo/5pBqNMiD7YDjgJYTcc5h+0GoT9MkwzZKRNw1jjVkGZPVi9+46HRRewgoi+2a/FRAqdHG2S4Zb7peRYwQy9shQe/tA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NsqZOh9+aC8jylrt365BS+lGI/gkthT3bfLMTNvP8/4=;
- b=yOitkPlawEzmiC7jl0yROGMvJnsMIu36CkUaoJY6u4n7zu06DKk/LeXQbs6SPidGvenhYtZaQrqpBMaxHfVMeB4cbrxNr4ulskE0x6g56ohCm5U5BxxtSOnPhNrFjLWxQa6UJjbVU1rWm+Cyd03kBuRYUAmdaujnYSRCYkVslg4=
-Received: from DM6PR04CA0023.namprd04.prod.outlook.com (2603:10b6:5:334::28)
- by MN2PR12MB4391.namprd12.prod.outlook.com (2603:10b6:208:269::21) with
+ bh=31NFqnQywqrEb76IXhl9xdE4XVUUbTYtTBzj7MsCDg0=;
+ b=f7WB349IXqfBDKxjbWgTiQsfAx4jFy2WIbTsBe78dgjN6rqeVTKOGbTA2m862MX47xcMdS5LTRjALEZkk6jjTZeRcKw0zp9+1lgb88OJzmgIvxyR+58XA6oVsBtPr1R8pKjKQsgKH9yzLz1+qjg/c+ZzdJUtPSFnkn6LhpUADYE=
+Received: from DM6PR04CA0030.namprd04.prod.outlook.com (2603:10b6:5:334::35)
+ by BN9PR12MB5382.namprd12.prod.outlook.com (2603:10b6:408:103::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Wed, 25 May
- 2022 16:20:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Wed, 25 May
+ 2022 16:20:04 +0000
 Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:334:cafe::8e) by DM6PR04CA0023.outlook.office365.com
- (2603:10b6:5:334::28) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:334:cafe::ee) by DM6PR04CA0030.outlook.office365.com
+ (2603:10b6:5:334::35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Wed, 25 May 2022 16:20:03 +0000
+ Transport; Wed, 25 May 2022 16:20:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:03 +0000
+ 15.20.5293.13 via Frontend Transport; Wed, 25 May 2022 16:20:04 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 25 May
- 2022 11:20:01 -0500
+ 2022 11:20:02 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/43] drm/amd/display: Add DMCUB source files and changes for
- DCN32/321
-Date: Wed, 25 May 2022 12:19:03 -0400
-Message-ID: <20220525161941.2544055-5-alexander.deucher@amd.com>
+Subject: [PATCH 07/43] drm/amd/display: add GPIO changes for DCN32/321
+Date: Wed, 25 May 2022 12:19:05 -0400
+Message-ID: <20220525161941.2544055-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220525161941.2544055-1-alexander.deucher@amd.com>
 References: <20220525161941.2544055-1-alexander.deucher@amd.com>
@@ -69,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 24854844-2168-45c6-b1a4-08da3e6a6cb8
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4391:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4391CD341FA028F8E0AE11D1F7D69@MN2PR12MB4391.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6537a864-561f-48dd-f6ed-08da3e6a6d42
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5382:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB538290AF74681661A302040FF7D69@BN9PR12MB5382.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ghe3+YbtYnnlGpj9DIivtOkoPU0uhXNxGvoUMkY1n6BfPILoXdLVbBPtzxw5moYohz3Hka8xltKtOw7X9/kgc6BTbvQUKyqTcpq+tSr0K2+jTOzCeIhPXJlxtdBB49+IY6pY0J9VS5V6YnTKyc8PJeH/c2wOz3NTOuMAaqARonAstDxl73yRNApqP0ABWHbcEYt8WMpjIPls1Skem4pvbNTz4/mDs6OFP3o8ve1PWp1V+aYQcTZNWXfsCb+GJ7UGqZq6yZdhSdBqkC1bgifBZdxlblXAhbPlpenqiRpEfkpOBcTBfvIY/dDIwV1maqhzcn/+NY3iWz9XoJGuqSKGKuCx54nUw2RtlPi8lccT1PkgxQyo5ezbwBLWzx+L4GodIbh6FTXqQdqKYR/AHQN8P2ApQ+AgBGRYKzR10i+MNM5EJO6XnPN5a6YQ0IOGSQrYZKyrtbBMyRUMHs/RRYQ0lq+js1ZkVyJN1EyhOClRAutDeZoKSRSRDAoUgAnE6zoh1ZO+TvDFePKJhxGpFk/H3Q4nX4sACGwAxOj0Qjkdy8UFfa5r3KGiAzNGhiWTn2RYqOTYv5jkrgQ16qHjFrvj8h8H1uerLlaAw7Z4V/zKlLyv7lDLfZPMteU9Yu2t8vlinurgZQJEBUM8iWALNcNUPAGwXzzWM7V5xOvQBeQaE6lvXVurU3ktnP7f8tTWUY21d5pS+5ihu/uhSg0LWIqH8w==
+X-Microsoft-Antispam-Message-Info: b/11fnVJMHuQtaks6HE//qC2qMdFI4TipDZLlAzrR7PVmWW3GBqHyeuYsR+oxhvZ23SgBDx9aHboALs6fzgM5vqgf0Ladb8qjdcofkR+B7RXzI5IKTXBEFw5iSXAp2JdNG8apxgmibIPRbEbmJnmkI339g+05HFKcQrAmW+LYvuxZLQM30JkH2w9bF4JzNaBzNrMThi/3NfGTVjAB2uBnUw+jMxU5Yc5vskJVbReI31TFwdtioAbg1C7iCmA7WvZJSNmjTfwU1djb3WAvzkADzqTv0i4UvEJ+Pky8i1iisvwvZD8zBaR85R4jxZo36TdevaEMkvxU4uyiaspdd1aso05kvd0e3KORW0ySowa6Fuske6/nIDnkxNgERRtfz1XeYq16Ib3cEGlrM13Yf7xvV3j/Cge3AzWxvddKqOQo3Z2vBrV86MPeRCnmcDg7DvzuRmv2XUaatBqy1LuJxI4pmLOlBzO5ADwcUwS79mP/LlVhji1fptxjFSG3Ko30BFZ7mFI4wSj+ELsBhnKMYQqkU9kOPJXTChVb1Tm3PMq7nMAeG/4/jQIE59F7ESyST8ODetaTMgABTDhx4sfO+987EVx0r3hfY5RYyLEIq4WIEmbGbzyFR1NTNQDnMfdJxrDPxnbC/xLNKwIZnWWY9n5H8bV9Y+Vz/Cnv0RS0+cXvL/tfrRwIImWbXaZxm38+N9Zf7NZiTn0581B0gsIAAVnhQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(47076005)(336012)(1076003)(16526019)(2616005)(426003)(186003)(86362001)(81166007)(6916009)(356005)(40460700003)(83380400001)(316002)(4326008)(26005)(30864003)(54906003)(36756003)(36860700001)(5660300002)(82310400005)(2906002)(8936002)(8676002)(70586007)(70206006)(508600001)(7696005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(7696005)(16526019)(186003)(4326008)(26005)(81166007)(30864003)(82310400005)(316002)(47076005)(426003)(336012)(2616005)(1076003)(36756003)(2906002)(83380400001)(6916009)(5660300002)(86362001)(36860700001)(54906003)(356005)(40460700003)(8936002)(508600001)(70586007)(70206006)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:03.6751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24854844-2168-45c6-b1a4-08da3e6a6cb8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2022 16:20:04.5813 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6537a864-561f-48dd-f6ed-08da3e6a6d42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4391
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,187 +107,348 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-DMCUB is the display engine microcontroller which aids in modesetting
-and other display related features.
+Add support for the GPIO changes for DCN3.2.x.
 
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  31 ++
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   2 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   6 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  26 +-
- drivers/gpu/drm/amd/display/dmub/src/Makefile |   1 +
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 488 ++++++++++++++++++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.h | 256 +++++++++
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  51 +-
- 8 files changed, 859 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
- create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
+ drivers/gpu/drm/amd/display/dc/gpio/Makefile  |   8 +-
+ .../display/dc/gpio/dcn32/hw_factory_dcn32.c  | 255 +++++++++++++
+ .../hw_factory_dcn32.h}                       |  13 +-
+ .../dc/gpio/dcn32/hw_translate_dcn32.c        | 349 ++++++++++++++++++
+ .../hw_translate_dcn32.h}                     |  11 +-
+ .../dc/gpio/diagnostics/hw_factory_diag.c     |  62 ----
+ .../dc/gpio/diagnostics/hw_translate_diag.c   |  41 --
+ .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |  16 +-
+ .../drm/amd/display/dc/gpio/hw_translate.c    |  13 +-
+ .../display/dc/irq/dcn32/irq_service_dcn32.c  |   2 +
+ 10 files changed, 630 insertions(+), 140 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+ rename drivers/gpu/drm/amd/display/dc/gpio/{diagnostics/hw_factory_diag.h => dcn32/hw_factory_dcn32.h} (81%)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.c
+ rename drivers/gpu/drm/amd/display/dc/gpio/{diagnostics/hw_translate_diag.h => dcn32/hw_translate_dcn32.h} (82%)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.c
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.c
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 541376fabbef..11597bca966a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -250,6 +250,37 @@ void dc_dmub_trace_event_control(struct dc *dc, bool enable)
- 	dm_helpers_dmub_outbox_interrupt_control(dc->ctx, enable);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/Makefile b/drivers/gpu/drm/amd/display/dc/gpio/Makefile
+index 0f4a22be8c40..bc47481a158e 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/gpio/Makefile
+@@ -115,10 +115,10 @@ AMD_DAL_GPIO_DCN315 = $(addprefix $(AMDDALPATH)/dc/gpio/dcn315/,$(GPIO_DCN315))
+ AMD_DISPLAY_FILES += $(AMD_DAL_GPIO_DCN315)
  
-+void dc_dmub_srv_query_caps_cmd(struct dmub_srv *dmub)
-+{
-+	union dmub_rb_cmd cmd = { 0 };
-+	enum dmub_status status;
+ ###############################################################################
+-# Diagnostics on FPGA
++# DCN 3.2
+ ###############################################################################
+-GPIO_DIAG_FPGA = hw_translate_diag.o hw_factory_diag.o
++GPIO_DCN32 = hw_translate_dcn32.o hw_factory_dcn32.o
+ 
+-AMD_DAL_GPIO_DIAG_FPGA = $(addprefix $(AMDDALPATH)/dc/gpio/diagnostics/,$(GPIO_DIAG_FPGA))
++AMD_DAL_GPIO_DCN32 = $(addprefix $(AMDDALPATH)/dc/gpio/dcn32/,$(GPIO_DCN32))
+ 
+-AMD_DISPLAY_FILES += $(AMD_DAL_GPIO_DIAG_FPGA)
++AMD_DISPLAY_FILES += $(AMD_DAL_GPIO_DCN32)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+new file mode 100644
+index 000000000000..d635b73af46f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+@@ -0,0 +1,255 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++#include "dm_services.h"
++#include "include/gpio_types.h"
++#include "../hw_factory.h"
 +
-+	if (!dmub) {
++
++#include "../hw_gpio.h"
++#include "../hw_ddc.h"
++#include "../hw_hpd.h"
++#include "../hw_generic.h"
++
++#include "hw_factory_dcn32.h"
++
++#include "dcn/dcn_3_2_0_offset.h"
++#include "dcn/dcn_3_2_0_sh_mask.h"
++
++#include "reg_helper.h"
++#include "../hpd_regs.h"
++
++#define DCN_BASE__INST0_SEG2                       0x000034C0
++
++/* begin *********************
++ * macros to expend register list macro defined in HW object header file */
++
++/* DCN */
++#define block HPD
++#define reg_num 0
++
++#undef BASE_INNER
++#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
++
++#define BASE(seg) BASE_INNER(seg)
++
++
++
++#define REG(reg_name)\
++		BASE(reg ## reg_name ## _BASE_IDX) + reg ## reg_name
++
++#define SF_HPD(reg_name, field_name, post_fix)\
++	.field_name = HPD0_ ## reg_name ## __ ## field_name ## post_fix
++
++#define REGI(reg_name, block, id)\
++	BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++				reg ## block ## id ## _ ## reg_name
++
++#define SF(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++/* macros to expend register list macro defined in HW object header file
++ * end *********************/
++
++
++
++#define hpd_regs(id) \
++{\
++	HPD_REG_LIST(id)\
++}
++
++static const struct hpd_registers hpd_regs[] = {
++	hpd_regs(0),
++	hpd_regs(1),
++	hpd_regs(2),
++	hpd_regs(3),
++	hpd_regs(4),
++};
++
++static const struct hpd_sh_mask hpd_shift = {
++		HPD_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct hpd_sh_mask hpd_mask = {
++		HPD_MASK_SH_LIST(_MASK)
++};
++
++#include "../ddc_regs.h"
++
++ /* set field name */
++#define SF_DDC(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++static const struct ddc_registers ddc_data_regs_dcn[] = {
++	ddc_data_regs_dcn2(1),
++	ddc_data_regs_dcn2(2),
++	ddc_data_regs_dcn2(3),
++	ddc_data_regs_dcn2(4),
++	ddc_data_regs_dcn2(5),
++	{
++			DDC_GPIO_VGA_REG_LIST(DATA),
++			.ddc_setup = 0,
++			.phy_aux_cntl = 0,
++			.dc_gpio_aux_ctrl_5 = 0
++	}
++};
++
++static const struct ddc_registers ddc_clk_regs_dcn[] = {
++	ddc_clk_regs_dcn2(1),
++	ddc_clk_regs_dcn2(2),
++	ddc_clk_regs_dcn2(3),
++	ddc_clk_regs_dcn2(4),
++	ddc_clk_regs_dcn2(5),
++	{
++			DDC_GPIO_VGA_REG_LIST(CLK),
++			.ddc_setup = 0,
++			.phy_aux_cntl = 0,
++			.dc_gpio_aux_ctrl_5 = 0
++	}
++};
++
++static const struct ddc_sh_mask ddc_shift[] = {
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 1),
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 2),
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 3),
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 4),
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 5),
++	DDC_MASK_SH_LIST_DCN2(__SHIFT, 6)
++};
++
++static const struct ddc_sh_mask ddc_mask[] = {
++	DDC_MASK_SH_LIST_DCN2(_MASK, 1),
++	DDC_MASK_SH_LIST_DCN2(_MASK, 2),
++	DDC_MASK_SH_LIST_DCN2(_MASK, 3),
++	DDC_MASK_SH_LIST_DCN2(_MASK, 4),
++	DDC_MASK_SH_LIST_DCN2(_MASK, 5),
++	DDC_MASK_SH_LIST_DCN2(_MASK, 6)
++};
++
++#include "../generic_regs.h"
++
++/* set field name */
++#define SF_GENERIC(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++#define generic_regs(id) \
++{\
++	GENERIC_REG_LIST(id)\
++}
++
++static const struct generic_registers generic_regs[] = {
++	generic_regs(A),
++	generic_regs(B),
++};
++
++static const struct generic_sh_mask generic_shift[] = {
++	GENERIC_MASK_SH_LIST(__SHIFT, A),
++	GENERIC_MASK_SH_LIST(__SHIFT, B),
++};
++
++static const struct generic_sh_mask generic_mask[] = {
++	GENERIC_MASK_SH_LIST(_MASK, A),
++	GENERIC_MASK_SH_LIST(_MASK, B),
++};
++
++static void define_generic_registers(struct hw_gpio_pin *pin, uint32_t en)
++{
++	struct hw_generic *generic = HW_GENERIC_FROM_BASE(pin);
++
++	generic->regs = &generic_regs[en];
++	generic->shifts = &generic_shift[en];
++	generic->masks = &generic_mask[en];
++	generic->base.regs = &generic_regs[en].gpio;
++}
++
++static void define_ddc_registers(
++		struct hw_gpio_pin *pin,
++		uint32_t en)
++{
++	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
++
++	switch (pin->id) {
++	case GPIO_ID_DDC_DATA:
++		ddc->regs = &ddc_data_regs_dcn[en];
++		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
++		break;
++	case GPIO_ID_DDC_CLOCK:
++		ddc->regs = &ddc_clk_regs_dcn[en];
++		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
++		break;
++	default:
++		ASSERT_CRITICAL(false);
 +		return;
 +	}
 +
-+	memset(&cmd, 0, sizeof(cmd));
++	ddc->shifts = &ddc_shift[en];
++	ddc->masks = &ddc_mask[en];
 +
-+	/* Prepare fw command */
-+	cmd.query_feature_caps.header.type = DMUB_CMD__QUERY_FEATURE_CAPS;
-+	cmd.query_feature_caps.header.sub_type = 0;
-+	cmd.query_feature_caps.header.ret_status = 1;
-+	cmd.query_feature_caps.header.payload_bytes = sizeof(struct dmub_cmd_query_feature_caps_data);
-+
-+	/* Send command to fw */
-+	status = dmub_srv_cmd_with_reply_data(dmub, &cmd);
-+
-+	ASSERT(status == DMUB_STATUS_OK);
-+
-+	/* If command was processed, copy feature caps to dmub srv */
-+	if (status == DMUB_STATUS_OK &&
-+	    cmd.query_feature_caps.header.ret_status == 0) {
-+		memcpy(&dmub->feature_caps,
-+		       &cmd.query_feature_caps.query_feature_caps_data,
-+		       sizeof(struct dmub_feature_caps));
-+	}
 +}
 +
- bool dc_dmub_srv_get_diagnostic_data(struct dc_dmub_srv *dc_dmub_srv, struct dmub_diagnostic_data *diag_data)
- {
- 	if (!dc_dmub_srv || !dc_dmub_srv->dmub || !diag_data)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index 7e4e2ec5915d..50e44b53f14c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -68,6 +68,8 @@ bool dc_dmub_srv_get_dmub_outbox0_msg(const struct dc *dc, struct dmcub_trace_bu
- 
- void dc_dmub_trace_event_control(struct dc *dc, bool enable);
- 
-+void dc_dmub_srv_query_caps_cmd(struct dmub_srv *dmub);
++static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
++{
++	struct hw_hpd *hpd = HW_HPD_FROM_BASE(pin);
 +
- void dc_dmub_srv_clear_inbox0_ack(struct dc_dmub_srv *dmub_srv);
- void dc_dmub_srv_wait_for_inbox0_ack(struct dc_dmub_srv *dmub_srv);
- void dc_dmub_srv_send_inbox0_cmd(struct dc_dmub_srv *dmub_srv, union dmub_inbox0_data_register data);
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 7dbc9fb55459..04049dc5d9df 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -246,6 +246,7 @@ struct dmub_srv_hw_params {
- 	bool dpia_supported;
- 	bool disable_dpia;
- 	bool usb4_cm_version;
-+	bool fw_in_system_memory;
- };
- 
- /**
-@@ -310,6 +311,9 @@ struct dmub_srv_hw_funcs {
- 			      const struct dmub_window *cw0,
- 			      const struct dmub_window *cw1);
- 
-+	void (*backdoor_load_zfb_mode)(struct dmub_srv *dmub,
-+			      const struct dmub_window *cw0,
-+			      const struct dmub_window *cw1);
- 	void (*setup_windows)(struct dmub_srv *dmub,
- 			      const struct dmub_window *cw2,
- 			      const struct dmub_window *cw3,
-@@ -365,6 +369,7 @@ struct dmub_srv_hw_funcs {
- 
- 	uint32_t (*get_gpint_dataout)(struct dmub_srv *dmub);
- 
-+	void (*configure_dmub_in_system_memory)(struct dmub_srv *dmub);
- 	void (*clear_inbox0_ack_register)(struct dmub_srv *dmub);
- 	uint32_t (*read_inbox0_ack_register)(struct dmub_srv *dmub);
- 	void (*send_inbox0_cmd)(struct dmub_srv *dmub, union dmub_inbox0_data_register data);
-@@ -412,6 +417,7 @@ struct dmub_srv {
- 	/* private: internal use only */
- 	const struct dmub_srv_common_regs *regs;
- 	const struct dmub_srv_dcn31_regs *regs_dcn31;
-+	const struct dmub_srv_dcn32_regs *regs_dcn32;
- 
- 	struct dmub_srv_base_funcs funcs;
- 	struct dmub_srv_hw_funcs hw_funcs;
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 385c28238beb..8fc1846f0708 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -641,7 +641,10 @@ enum dmub_cmd_type {
- 	 * Command type used for all panel control commands.
- 	 */
- 	DMUB_CMD__PANEL_CNTL = 74,
--
-+	/**
-+	 * Command type used for <TODO:description>
-+	 */
-+	DMUB_CMD__CAB_FOR_SS = 75,
- 	/**
- 	 * Command type used for interfacing with DPIA.
- 	 */
-@@ -878,6 +881,23 @@ struct dmub_rb_cmd_mall {
- 	uint8_t reserved2; /**< Reserved bits */
- };
- 
-+/**
-+ * enum dmub_cmd_cab_type - TODO:
-+ */
-+enum dmub_cmd_cab_type {
-+	DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION = 0,
-+	DMUB_CMD__CAB_NO_DCN_REQ = 1,
-+	DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB = 2,
-+};
++	hpd->regs = &hpd_regs[en];
++	hpd->shifts = &hpd_shift;
++	hpd->masks = &hpd_mask;
++	hpd->base.regs = &hpd_regs[en].gpio;
++}
 +
-+/**
-+ * struct dmub_rb_cmd_cab_for_ss - TODO:
-+ */
-+struct dmub_rb_cmd_cab_for_ss {
-+	struct dmub_cmd_header header;
-+	uint8_t cab_alloc_ways; /* total number of ways */
-+	uint8_t debug_bits;     /* debug bits */
++
++/* fucntion table */
++static const struct hw_factory_funcs funcs = {
++	.init_ddc_data = dal_hw_ddc_init,
++	.init_generic = dal_hw_generic_init,
++	.init_hpd = dal_hw_hpd_init,
++	.get_ddc_pin = dal_hw_ddc_get_pin,
++	.get_hpd_pin = dal_hw_hpd_get_pin,
++	.get_generic_pin = dal_hw_generic_get_pin,
++	.define_hpd_registers = define_hpd_registers,
++	.define_ddc_registers = define_ddc_registers,
++	.define_generic_registers = define_generic_registers
 +};
- /**
-  * enum dmub_cmd_idle_opt_type - Idle optimization command type.
++/*
++ * dal_hw_factory_dcn32_init
++ *
++ * @brief
++ * Initialize HW factory function pointers and pin info
++ *
++ * @param
++ * struct hw_factory *factory - [out] struct of function pointers
++ */
++void dal_hw_factory_dcn32_init(struct hw_factory *factory)
++{
++	factory->number_of_pins[GPIO_ID_DDC_DATA] = 6;
++	factory->number_of_pins[GPIO_ID_DDC_CLOCK] = 6;
++	factory->number_of_pins[GPIO_ID_GENERIC] = 4;
++	factory->number_of_pins[GPIO_ID_HPD] = 5;
++	factory->number_of_pins[GPIO_ID_GPIO_PAD] = 28;
++	factory->number_of_pins[GPIO_ID_VIP_PAD] = 0;
++	factory->number_of_pins[GPIO_ID_SYNC] = 0;
++	factory->number_of_pins[GPIO_ID_GSL] = 0;/*add this*/
++
++	factory->funcs = &funcs;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.h b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.h
+similarity index 81%
+rename from drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.h
+rename to drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.h
+index bf68eb1d9a1d..71138d0e192b 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.h
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.h
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2013-16 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a
+  * copy of this software and associated documentation files (the "Software"),
+@@ -22,13 +22,10 @@
+  * Authors: AMD
+  *
   */
-@@ -2693,6 +2713,10 @@ union dmub_rb_cmd {
- 	 * Definition of a DMUB_CMD__MALL command.
- 	 */
- 	struct dmub_rb_cmd_mall mall;
-+	/**
-+	 * Definition of a DMUB_CMD__CAB command.
-+	 */
-+	struct dmub_rb_cmd_cab_for_ss cab;
- 	/**
- 	 * Definition of a DMUB_CMD__IDLE_OPT_DCN_RESTORE command.
- 	 */
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/Makefile b/drivers/gpu/drm/amd/display/dmub/src/Makefile
-index 856c7f48de7a..0589ad4778ee 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/Makefile
-+++ b/drivers/gpu/drm/amd/display/dmub/src/Makefile
-@@ -23,6 +23,7 @@
- DMUB = dmub_srv.o dmub_srv_stat.o dmub_reg.o dmub_dcn20.o dmub_dcn21.o
- DMUB += dmub_dcn30.o dmub_dcn301.o dmub_dcn302.o dmub_dcn303.o
- DMUB += dmub_dcn31.o dmub_dcn315.o dmub_dcn316.o
-+DMUB += dmub_dcn32.o
+-
+-#ifndef __DAL_HW_FACTORY_DIAG_FPGA_H__
+-#define __DAL_HW_FACTORY_DIAG_FPGA_H__
+-
+-struct hw_factory;
++#ifndef __DAL_HW_FACTORY_DCN32_H__
++#define __DAL_HW_FACTORY_DCN32_H__
  
- AMD_DAL_DMUB = $(addprefix $(AMDDALPATH)/dmub/src/,$(DMUB))
+ /* Initialize HW factory function pointers and pin info */
+-void dal_hw_factory_diag_fpga_init(struct hw_factory *factory);
++void dal_hw_factory_dcn32_init(struct hw_factory *factory);
  
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
+-#endif /* __DAL_HW_FACTORY_DIAG_FPGA_H__ */
++#endif /* __DAL_HW_FACTORY_DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.c
 new file mode 100644
-index 000000000000..0a498082ccc6
+index 000000000000..8493b9981f9e
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -0,0 +1,488 @@
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.c
+@@ -0,0 +1,349 @@
 +/*
 + * Copyright 2022 Advanced Micro Devices, Inc.
 + *
@@ -314,821 +474,568 @@ index 000000000000..0a498082ccc6
 + *
 + */
 +
-+#include "../dmub_srv.h"
-+#include "dmub_reg.h"
-+#include "dmub_dcn32.h"
++/*
++ * Pre-requisites: headers required by header of this unit
++ */
++#include "hw_translate_dcn32.h"
++
++#include "dm_services.h"
++#include "include/gpio_types.h"
++#include "../hw_translate.h"
 +
 +#include "dcn/dcn_3_2_0_offset.h"
 +#include "dcn/dcn_3_2_0_sh_mask.h"
 +
 +#define DCN_BASE__INST0_SEG2                       0x000034C0
 +
-+#define BASE_INNER(seg) DCN_BASE__INST0_SEG##seg
-+#define CTX dmub
-+#define REGS dmub->regs_dcn32
-+#define REG_OFFSET_EXP(reg_name) (BASE(reg##reg_name##_BASE_IDX) + reg##reg_name)
++/* begin *********************
++ * macros to expend register list macro defined in HW object header file */
 +
-+const struct dmub_srv_dcn32_regs dmub_srv_dcn32_regs = {
-+#define DMUB_SR(reg) REG_OFFSET_EXP(reg),
-+		{ DMUB_DCN32_REGS() },
-+#undef DMUB_SR
++/* DCN */
++#define block HPD
++#define reg_num 0
 +
-+#define DMUB_SF(reg, field) FD_MASK(reg, field),
-+		{ DMUB_DCN32_FIELDS() },
-+#undef DMUB_SF
++#undef BASE_INNER
++#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
 +
-+#define DMUB_SF(reg, field) FD_SHIFT(reg, field),
-+		{ DMUB_DCN32_FIELDS() },
-+#undef DMUB_SF
-+};
++#define BASE(seg) BASE_INNER(seg)
 +
-+static void dmub_dcn32_get_fb_base_offset(struct dmub_srv *dmub,
-+		uint64_t *fb_base,
-+		uint64_t *fb_offset)
++#undef REG
++#define REG(reg_name)\
++		BASE(reg ## reg_name ## _BASE_IDX) + reg ## reg_name
++#define SF_HPD(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++
++/* macros to expend register list macro defined in HW object header file
++ * end *********************/
++
++
++static bool offset_to_id(
++	uint32_t offset,
++	uint32_t mask,
++	enum gpio_id *id,
++	uint32_t *en)
 +{
-+	uint32_t tmp;
-+
-+	if (dmub->fb_base || dmub->fb_offset) {
-+		*fb_base = dmub->fb_base;
-+		*fb_offset = dmub->fb_offset;
-+		return;
-+	}
-+
-+	REG_GET(DCN_VM_FB_LOCATION_BASE, FB_BASE, &tmp);
-+	*fb_base = (uint64_t)tmp << 24;
-+
-+	REG_GET(DCN_VM_FB_OFFSET, FB_OFFSET, &tmp);
-+	*fb_offset = (uint64_t)tmp << 24;
-+}
-+
-+static inline void dmub_dcn32_translate_addr(const union dmub_addr *addr_in,
-+		uint64_t fb_base,
-+		uint64_t fb_offset,
-+		union dmub_addr *addr_out)
-+{
-+	addr_out->quad_part = addr_in->quad_part - fb_base + fb_offset;
-+}
-+
-+void dmub_dcn32_reset(struct dmub_srv *dmub)
-+{
-+	union dmub_gpint_data_register cmd;
-+	const uint32_t timeout = 30;
-+	uint32_t in_reset, scratch, i;
-+
-+	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
-+
-+	if (in_reset == 0) {
-+		cmd.bits.status = 1;
-+		cmd.bits.command_code = DMUB_GPINT__STOP_FW;
-+		cmd.bits.param = 0;
-+
-+		dmub->hw_funcs.set_gpint(dmub, cmd);
-+
-+		/**
-+		 * Timeout covers both the ACK and the wait
-+		 * for remaining work to finish.
-+		 *
-+		 * This is mostly bound by the PHY disable sequence.
-+		 * Each register check will be greater than 1us, so
-+		 * don't bother using udelay.
-+		 */
-+
-+		for (i = 0; i < timeout; ++i) {
-+			if (dmub->hw_funcs.is_gpint_acked(dmub, cmd))
-+				break;
++	switch (offset) {
++	/* GENERIC */
++	case REG(DC_GPIO_GENERIC_A):
++		*id = GPIO_ID_GENERIC;
++		switch (mask) {
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK:
++			*en = GPIO_GENERIC_A;
++			return true;
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK:
++			*en = GPIO_GENERIC_B;
++			return true;
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK:
++			*en = GPIO_GENERIC_C;
++			return true;
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK:
++			*en = GPIO_GENERIC_D;
++			return true;
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK:
++			*en = GPIO_GENERIC_E;
++			return true;
++		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK:
++			*en = GPIO_GENERIC_F;
++			return true;
++		default:
++			ASSERT_CRITICAL(false);
++			return false;
 +		}
-+
-+		for (i = 0; i < timeout; ++i) {
-+			scratch = dmub->hw_funcs.get_gpint_response(dmub);
-+			if (scratch == DMUB_GPINT__STOP_FW_RESPONSE)
-+				break;
++	break;
++	/* HPD */
++	case REG(DC_GPIO_HPD_A):
++		*id = GPIO_ID_HPD;
++		switch (mask) {
++		case DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK:
++			*en = GPIO_HPD_1;
++			return true;
++		case DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK:
++			*en = GPIO_HPD_2;
++			return true;
++		case DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK:
++			*en = GPIO_HPD_3;
++			return true;
++		case DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK:
++			*en = GPIO_HPD_4;
++			return true;
++		case DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK:
++			*en = GPIO_HPD_5;
++			return true;
++		default:
++			ASSERT_CRITICAL(false);
++			return false;
 +		}
-+
-+		/* Clear the GPINT command manually so we don't reset again. */
-+		cmd.all = 0;
-+		dmub->hw_funcs.set_gpint(dmub, cmd);
-+
-+		/* Force reset in case we timed out, DMCUB is likely hung. */
++	break;
++	/* REG(DC_GPIO_GENLK_MASK */
++	case REG(DC_GPIO_GENLK_A):
++		*id = GPIO_ID_GSL;
++		switch (mask) {
++		case DC_GPIO_GENLK_A__DC_GPIO_GENLK_CLK_A_MASK:
++			*en = GPIO_GSL_GENLOCK_CLOCK;
++			return true;
++		case DC_GPIO_GENLK_A__DC_GPIO_GENLK_VSYNC_A_MASK:
++			*en = GPIO_GSL_GENLOCK_VSYNC;
++			return true;
++		case DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_A_A_MASK:
++			*en = GPIO_GSL_SWAPLOCK_A;
++			return true;
++		case DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_B_A_MASK:
++			*en = GPIO_GSL_SWAPLOCK_B;
++			return true;
++		default:
++			ASSERT_CRITICAL(false);
++			return false;
++		}
++	break;
++	/* DDC */
++	/* we don't care about the GPIO_ID for DDC
++	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
++	 * directly in the create method */
++	case REG(DC_GPIO_DDC1_A):
++		*en = GPIO_DDC_LINE_DDC1;
++		return true;
++	case REG(DC_GPIO_DDC2_A):
++		*en = GPIO_DDC_LINE_DDC2;
++		return true;
++	case REG(DC_GPIO_DDC3_A):
++		*en = GPIO_DDC_LINE_DDC3;
++		return true;
++	case REG(DC_GPIO_DDC4_A):
++		*en = GPIO_DDC_LINE_DDC4;
++		return true;
++	case REG(DC_GPIO_DDC5_A):
++		*en = GPIO_DDC_LINE_DDC5;
++		return true;
++	case REG(DC_GPIO_DDCVGA_A):
++		*en = GPIO_DDC_LINE_DDC_VGA;
++		return true;
++	default:
++		ASSERT_CRITICAL(false);
++		return false;
 +	}
-+
-+	REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 1);
-+	REG_UPDATE(DMCUB_CNTL, DMCUB_ENABLE, 0);
-+	REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 1);
-+	REG_WRITE(DMCUB_INBOX1_RPTR, 0);
-+	REG_WRITE(DMCUB_INBOX1_WPTR, 0);
-+	REG_WRITE(DMCUB_OUTBOX1_RPTR, 0);
-+	REG_WRITE(DMCUB_OUTBOX1_WPTR, 0);
-+	REG_WRITE(DMCUB_SCRATCH0, 0);
 +}
 +
-+void dmub_dcn32_reset_release(struct dmub_srv *dmub)
++static bool id_to_offset(
++	enum gpio_id id,
++	uint32_t en,
++	struct gpio_pin_info *info)
 +{
-+	REG_WRITE(DMCUB_GPINT_DATAIN1, 0);
-+	REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 0);
-+	REG_WRITE(DMCUB_SCRATCH15, dmub->psp_version & 0x001100FF);
-+	REG_UPDATE_2(DMCUB_CNTL, DMCUB_ENABLE, 1, DMCUB_TRACEPORT_EN, 1);
-+	REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 0);
-+}
-+
-+void dmub_dcn32_backdoor_load(struct dmub_srv *dmub,
-+		const struct dmub_window *cw0,
-+		const struct dmub_window *cw1)
-+{
-+	union dmub_addr offset;
-+	uint64_t fb_base, fb_offset;
-+
-+	dmub_dcn32_get_fb_base_offset(dmub, &fb_base, &fb_offset);
-+
-+	REG_UPDATE(DMCUB_SEC_CNTL, DMCUB_SEC_RESET, 1);
-+
-+	dmub_dcn32_translate_addr(&cw0->offset, fb_base, fb_offset, &offset);
-+
-+	REG_WRITE(DMCUB_REGION3_CW0_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW0_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW0_BASE_ADDRESS, cw0->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW0_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW0_TOP_ADDRESS, cw0->region.top,
-+			DMCUB_REGION3_CW0_ENABLE, 1);
-+
-+	dmub_dcn32_translate_addr(&cw1->offset, fb_base, fb_offset, &offset);
-+
-+	REG_WRITE(DMCUB_REGION3_CW1_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW1_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW1_BASE_ADDRESS, cw1->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW1_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW1_TOP_ADDRESS, cw1->region.top,
-+			DMCUB_REGION3_CW1_ENABLE, 1);
-+
-+	REG_UPDATE_2(DMCUB_SEC_CNTL, DMCUB_SEC_RESET, 0, DMCUB_MEM_UNIT_ID,
-+			0x20);
-+}
-+
-+void dmub_dcn32_backdoor_load_zfb_mode(struct dmub_srv *dmub,
-+		      const struct dmub_window *cw0,
-+		      const struct dmub_window *cw1)
-+{
-+	union dmub_addr offset;
-+
-+	REG_UPDATE(DMCUB_SEC_CNTL, DMCUB_SEC_RESET, 1);
-+
-+	offset = cw0->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW0_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW0_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW0_BASE_ADDRESS, cw0->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW0_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW0_TOP_ADDRESS, cw0->region.top,
-+			DMCUB_REGION3_CW0_ENABLE, 1);
-+
-+	offset = cw1->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW1_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW1_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW1_BASE_ADDRESS, cw1->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW1_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW1_TOP_ADDRESS, cw1->region.top,
-+			DMCUB_REGION3_CW1_ENABLE, 1);
-+
-+	REG_UPDATE_2(DMCUB_SEC_CNTL, DMCUB_SEC_RESET, 0, DMCUB_MEM_UNIT_ID,
-+			0x20);
-+}
-+
-+void dmub_dcn32_setup_windows(struct dmub_srv *dmub,
-+		const struct dmub_window *cw2,
-+		const struct dmub_window *cw3,
-+		const struct dmub_window *cw4,
-+		const struct dmub_window *cw5,
-+		const struct dmub_window *cw6)
-+{
-+	union dmub_addr offset;
-+
-+	offset = cw3->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW3_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW3_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW3_BASE_ADDRESS, cw3->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW3_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW3_TOP_ADDRESS, cw3->region.top,
-+			DMCUB_REGION3_CW3_ENABLE, 1);
-+
-+	offset = cw4->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW4_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW4_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW4_BASE_ADDRESS, cw4->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW4_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW4_TOP_ADDRESS, cw4->region.top,
-+			DMCUB_REGION3_CW4_ENABLE, 1);
-+
-+	offset = cw5->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW5_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW5_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW5_BASE_ADDRESS, cw5->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW5_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW5_TOP_ADDRESS, cw5->region.top,
-+			DMCUB_REGION3_CW5_ENABLE, 1);
-+
-+	REG_WRITE(DMCUB_REGION5_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION5_OFFSET_HIGH, offset.u.high_part);
-+	REG_SET_2(DMCUB_REGION5_TOP_ADDRESS, 0,
-+			DMCUB_REGION5_TOP_ADDRESS,
-+			cw5->region.top - cw5->region.base - 1,
-+			DMCUB_REGION5_ENABLE, 1);
-+
-+	offset = cw6->offset;
-+
-+	REG_WRITE(DMCUB_REGION3_CW6_OFFSET, offset.u.low_part);
-+	REG_WRITE(DMCUB_REGION3_CW6_OFFSET_HIGH, offset.u.high_part);
-+	REG_WRITE(DMCUB_REGION3_CW6_BASE_ADDRESS, cw6->region.base);
-+	REG_SET_2(DMCUB_REGION3_CW6_TOP_ADDRESS, 0,
-+			DMCUB_REGION3_CW6_TOP_ADDRESS, cw6->region.top,
-+			DMCUB_REGION3_CW6_ENABLE, 1);
-+}
-+
-+void dmub_dcn32_setup_mailbox(struct dmub_srv *dmub,
-+		const struct dmub_region *inbox1)
-+{
-+	REG_WRITE(DMCUB_INBOX1_BASE_ADDRESS, inbox1->base);
-+	REG_WRITE(DMCUB_INBOX1_SIZE, inbox1->top - inbox1->base);
-+}
-+
-+uint32_t dmub_dcn32_get_inbox1_rptr(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_INBOX1_RPTR);
-+}
-+
-+void dmub_dcn32_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset)
-+{
-+	REG_WRITE(DMCUB_INBOX1_WPTR, wptr_offset);
-+}
-+
-+void dmub_dcn32_setup_out_mailbox(struct dmub_srv *dmub,
-+		const struct dmub_region *outbox1)
-+{
-+	REG_WRITE(DMCUB_OUTBOX1_BASE_ADDRESS, outbox1->base);
-+	REG_WRITE(DMCUB_OUTBOX1_SIZE, outbox1->top - outbox1->base);
-+}
-+
-+uint32_t dmub_dcn32_get_outbox1_wptr(struct dmub_srv *dmub)
-+{
-+	/**
-+	 * outbox1 wptr register is accessed without locks (dal & dc)
-+	 * and to be called only by dmub_srv_stat_get_notification()
-+	 */
-+	return REG_READ(DMCUB_OUTBOX1_WPTR);
-+}
-+
-+void dmub_dcn32_set_outbox1_rptr(struct dmub_srv *dmub, uint32_t rptr_offset)
-+{
-+	/**
-+	 * outbox1 rptr register is accessed without locks (dal & dc)
-+	 * and to be called only by dmub_srv_stat_get_notification()
-+	 */
-+	REG_WRITE(DMCUB_OUTBOX1_RPTR, rptr_offset);
-+}
-+
-+bool dmub_dcn32_is_hw_init(struct dmub_srv *dmub)
-+{
-+	uint32_t is_hw_init;
-+
-+	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_hw_init);
-+
-+	return is_hw_init != 0;
-+}
-+
-+bool dmub_dcn32_is_supported(struct dmub_srv *dmub)
-+{
-+	uint32_t supported = 0;
-+
-+	REG_GET(CC_DC_PIPE_DIS, DC_DMCUB_ENABLE, &supported);
-+
-+	return supported;
-+}
-+
-+void dmub_dcn32_set_gpint(struct dmub_srv *dmub,
-+		union dmub_gpint_data_register reg)
-+{
-+	REG_WRITE(DMCUB_GPINT_DATAIN1, reg.all);
-+}
-+
-+bool dmub_dcn32_is_gpint_acked(struct dmub_srv *dmub,
-+		union dmub_gpint_data_register reg)
-+{
-+	union dmub_gpint_data_register test;
-+
-+	reg.bits.status = 0;
-+	test.all = REG_READ(DMCUB_GPINT_DATAIN1);
-+
-+	return test.all == reg.all;
-+}
-+
-+uint32_t dmub_dcn32_get_gpint_response(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_SCRATCH7);
-+}
-+
-+uint32_t dmub_dcn32_get_gpint_dataout(struct dmub_srv *dmub)
-+{
-+	uint32_t dataout = REG_READ(DMCUB_GPINT_DATAOUT);
-+
-+	REG_UPDATE(DMCUB_INTERRUPT_ENABLE, DMCUB_GPINT_IH_INT_EN, 0);
-+
-+	REG_WRITE(DMCUB_GPINT_DATAOUT, 0);
-+	REG_UPDATE(DMCUB_INTERRUPT_ACK, DMCUB_GPINT_IH_INT_ACK, 1);
-+	REG_UPDATE(DMCUB_INTERRUPT_ACK, DMCUB_GPINT_IH_INT_ACK, 0);
-+
-+	REG_UPDATE(DMCUB_INTERRUPT_ENABLE, DMCUB_GPINT_IH_INT_EN, 1);
-+
-+	return dataout;
-+}
-+
-+union dmub_fw_boot_status dmub_dcn32_get_fw_boot_status(struct dmub_srv *dmub)
-+{
-+	union dmub_fw_boot_status status;
-+
-+	status.all = REG_READ(DMCUB_SCRATCH0);
-+	return status;
-+}
-+
-+void dmub_dcn32_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmub_srv_hw_params *params)
-+{
-+	union dmub_fw_boot_options boot_options = {0};
-+
-+	boot_options.bits.z10_disable = params->disable_z10;
-+
-+	REG_WRITE(DMCUB_SCRATCH14, boot_options.all);
-+}
-+
-+void dmub_dcn32_skip_dmub_panel_power_sequence(struct dmub_srv *dmub, bool skip)
-+{
-+	union dmub_fw_boot_options boot_options;
-+	boot_options.all = REG_READ(DMCUB_SCRATCH14);
-+	boot_options.bits.skip_phy_init_panel_sequence = skip;
-+	REG_WRITE(DMCUB_SCRATCH14, boot_options.all);
-+}
-+
-+void dmub_dcn32_setup_outbox0(struct dmub_srv *dmub,
-+		const struct dmub_region *outbox0)
-+{
-+	REG_WRITE(DMCUB_OUTBOX0_BASE_ADDRESS, outbox0->base);
-+
-+	REG_WRITE(DMCUB_OUTBOX0_SIZE, outbox0->top - outbox0->base);
-+}
-+
-+uint32_t dmub_dcn32_get_outbox0_wptr(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_OUTBOX0_WPTR);
-+}
-+
-+void dmub_dcn32_set_outbox0_rptr(struct dmub_srv *dmub, uint32_t rptr_offset)
-+{
-+	REG_WRITE(DMCUB_OUTBOX0_RPTR, rptr_offset);
-+}
-+
-+uint32_t dmub_dcn32_get_current_time(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_TIMER_CURRENT);
-+}
-+
-+void dmub_dcn32_get_diagnostic_data(struct dmub_srv *dmub, struct dmub_diagnostic_data *diag_data)
-+{
-+	uint32_t is_dmub_enabled, is_soft_reset, is_sec_reset;
-+	uint32_t is_traceport_enabled, is_cw0_enabled, is_cw6_enabled;
-+
-+	if (!dmub || !diag_data)
-+		return;
-+
-+	memset(diag_data, 0, sizeof(*diag_data));
-+
-+	diag_data->dmcub_version = dmub->fw_version;
-+
-+	diag_data->scratch[0] = REG_READ(DMCUB_SCRATCH0);
-+	diag_data->scratch[1] = REG_READ(DMCUB_SCRATCH1);
-+	diag_data->scratch[2] = REG_READ(DMCUB_SCRATCH2);
-+	diag_data->scratch[3] = REG_READ(DMCUB_SCRATCH3);
-+	diag_data->scratch[4] = REG_READ(DMCUB_SCRATCH4);
-+	diag_data->scratch[5] = REG_READ(DMCUB_SCRATCH5);
-+	diag_data->scratch[6] = REG_READ(DMCUB_SCRATCH6);
-+	diag_data->scratch[7] = REG_READ(DMCUB_SCRATCH7);
-+	diag_data->scratch[8] = REG_READ(DMCUB_SCRATCH8);
-+	diag_data->scratch[9] = REG_READ(DMCUB_SCRATCH9);
-+	diag_data->scratch[10] = REG_READ(DMCUB_SCRATCH10);
-+	diag_data->scratch[11] = REG_READ(DMCUB_SCRATCH11);
-+	diag_data->scratch[12] = REG_READ(DMCUB_SCRATCH12);
-+	diag_data->scratch[13] = REG_READ(DMCUB_SCRATCH13);
-+	diag_data->scratch[14] = REG_READ(DMCUB_SCRATCH14);
-+	diag_data->scratch[15] = REG_READ(DMCUB_SCRATCH15);
-+
-+	diag_data->undefined_address_fault_addr = REG_READ(DMCUB_UNDEFINED_ADDRESS_FAULT_ADDR);
-+	diag_data->inst_fetch_fault_addr = REG_READ(DMCUB_INST_FETCH_FAULT_ADDR);
-+	diag_data->data_write_fault_addr = REG_READ(DMCUB_DATA_WRITE_FAULT_ADDR);
-+
-+	diag_data->inbox1_rptr = REG_READ(DMCUB_INBOX1_RPTR);
-+	diag_data->inbox1_wptr = REG_READ(DMCUB_INBOX1_WPTR);
-+	diag_data->inbox1_size = REG_READ(DMCUB_INBOX1_SIZE);
-+
-+	diag_data->inbox0_rptr = REG_READ(DMCUB_INBOX0_RPTR);
-+	diag_data->inbox0_wptr = REG_READ(DMCUB_INBOX0_WPTR);
-+	diag_data->inbox0_size = REG_READ(DMCUB_INBOX0_SIZE);
-+
-+	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
-+	diag_data->is_dmcub_enabled = is_dmub_enabled;
-+
-+	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
-+	diag_data->is_dmcub_soft_reset = is_soft_reset;
-+
-+	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
-+	diag_data->is_dmcub_secure_reset = is_sec_reset;
-+
-+	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
-+	diag_data->is_traceport_en  = is_traceport_enabled;
-+
-+	REG_GET(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE, &is_cw0_enabled);
-+	diag_data->is_cw0_enabled = is_cw0_enabled;
-+
-+	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
-+	diag_data->is_cw6_enabled = is_cw6_enabled;
-+}
-+void dmub_dcn32_configure_dmub_in_system_memory(struct dmub_srv *dmub)
-+{
-+	/* DMCUB_REGION3_TMR_AXI_SPACE values:
-+	 * 0b011 (0x3) - FB physical address
-+	 * 0b100 (0x4) - GPU virtual address
-+	 *
-+	 * Default value is 0x3 (FB Physical address for TMR). When programming
-+	 * DMUB to be in system memory, change to 0x4. The system memory allocated
-+	 * is accessible by both GPU and CPU, so we use GPU virtual address.
-+	 */
-+	REG_WRITE(DMCUB_REGION3_TMR_AXI_SPACE, 0x4);
-+}
-+
-+void dmub_dcn32_send_inbox0_cmd(struct dmub_srv *dmub, union dmub_inbox0_data_register data)
-+{
-+	REG_WRITE(DMCUB_INBOX0_WPTR, data.inbox0_cmd_common.all);
-+}
-+
-+void dmub_dcn32_clear_inbox0_ack_register(struct dmub_srv *dmub)
-+{
-+	REG_WRITE(DMCUB_SCRATCH17, 0);
-+}
-+
-+uint32_t dmub_dcn32_read_inbox0_ack_register(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_SCRATCH17);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-new file mode 100644
-index 000000000000..7d1a6eb4d665
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-@@ -0,0 +1,256 @@
-+/*
-+ * Copyright 2022 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef _DMUB_DCN32_H_
-+#define _DMUB_DCN32_H_
-+
-+#include "dmub_dcn31.h"
-+
-+struct dmub_srv;
-+
-+/* DCN32 register definitions. */
-+
-+#define DMUB_DCN32_REGS() \
-+	DMUB_SR(DMCUB_CNTL) \
-+	DMUB_SR(DMCUB_CNTL2) \
-+	DMUB_SR(DMCUB_SEC_CNTL) \
-+	DMUB_SR(DMCUB_INBOX0_SIZE) \
-+	DMUB_SR(DMCUB_INBOX0_RPTR) \
-+	DMUB_SR(DMCUB_INBOX0_WPTR) \
-+	DMUB_SR(DMCUB_INBOX1_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_INBOX1_SIZE) \
-+	DMUB_SR(DMCUB_INBOX1_RPTR) \
-+	DMUB_SR(DMCUB_INBOX1_WPTR) \
-+	DMUB_SR(DMCUB_OUTBOX0_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_OUTBOX0_SIZE) \
-+	DMUB_SR(DMCUB_OUTBOX0_RPTR) \
-+	DMUB_SR(DMCUB_OUTBOX0_WPTR) \
-+	DMUB_SR(DMCUB_OUTBOX1_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_OUTBOX1_SIZE) \
-+	DMUB_SR(DMCUB_OUTBOX1_RPTR) \
-+	DMUB_SR(DMCUB_OUTBOX1_WPTR) \
-+	DMUB_SR(DMCUB_REGION3_CW0_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW1_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW2_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW3_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW4_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW5_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW6_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW7_OFFSET) \
-+	DMUB_SR(DMCUB_REGION3_CW0_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW1_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW2_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW3_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW4_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW5_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW6_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW7_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION3_CW0_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW1_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW2_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW3_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW4_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW5_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW6_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW7_BASE_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW0_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW1_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW2_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW3_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW4_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW5_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW6_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION3_CW7_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION4_OFFSET) \
-+	DMUB_SR(DMCUB_REGION4_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION4_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_REGION5_OFFSET) \
-+	DMUB_SR(DMCUB_REGION5_OFFSET_HIGH) \
-+	DMUB_SR(DMCUB_REGION5_TOP_ADDRESS) \
-+	DMUB_SR(DMCUB_SCRATCH0) \
-+	DMUB_SR(DMCUB_SCRATCH1) \
-+	DMUB_SR(DMCUB_SCRATCH2) \
-+	DMUB_SR(DMCUB_SCRATCH3) \
-+	DMUB_SR(DMCUB_SCRATCH4) \
-+	DMUB_SR(DMCUB_SCRATCH5) \
-+	DMUB_SR(DMCUB_SCRATCH6) \
-+	DMUB_SR(DMCUB_SCRATCH7) \
-+	DMUB_SR(DMCUB_SCRATCH8) \
-+	DMUB_SR(DMCUB_SCRATCH9) \
-+	DMUB_SR(DMCUB_SCRATCH10) \
-+	DMUB_SR(DMCUB_SCRATCH11) \
-+	DMUB_SR(DMCUB_SCRATCH12) \
-+	DMUB_SR(DMCUB_SCRATCH13) \
-+	DMUB_SR(DMCUB_SCRATCH14) \
-+	DMUB_SR(DMCUB_SCRATCH15) \
-+	DMUB_SR(DMCUB_SCRATCH16) \
-+	DMUB_SR(DMCUB_SCRATCH17) \
-+	DMUB_SR(DMCUB_GPINT_DATAIN1) \
-+	DMUB_SR(DMCUB_GPINT_DATAOUT) \
-+	DMUB_SR(CC_DC_PIPE_DIS) \
-+	DMUB_SR(MMHUBBUB_SOFT_RESET) \
-+	DMUB_SR(DCN_VM_FB_LOCATION_BASE) \
-+	DMUB_SR(DCN_VM_FB_OFFSET) \
-+	DMUB_SR(DMCUB_TIMER_CURRENT) \
-+	DMUB_SR(DMCUB_INST_FETCH_FAULT_ADDR) \
-+	DMUB_SR(DMCUB_UNDEFINED_ADDRESS_FAULT_ADDR) \
-+	DMUB_SR(DMCUB_DATA_WRITE_FAULT_ADDR) \
-+	DMUB_SR(DMCUB_REGION3_TMR_AXI_SPACE) \
-+	DMUB_SR(DMCUB_INTERRUPT_ENABLE) \
-+	DMUB_SR(DMCUB_INTERRUPT_ACK)
-+
-+#define DMUB_DCN32_FIELDS() \
-+	DMUB_SF(DMCUB_CNTL, DMCUB_ENABLE) \
-+	DMUB_SF(DMCUB_CNTL, DMCUB_TRACEPORT_EN) \
-+	DMUB_SF(DMCUB_CNTL2, DMCUB_SOFT_RESET) \
-+	DMUB_SF(DMCUB_SEC_CNTL, DMCUB_SEC_RESET) \
-+	DMUB_SF(DMCUB_SEC_CNTL, DMCUB_MEM_UNIT_ID) \
-+	DMUB_SF(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS) \
-+	DMUB_SF(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW1_TOP_ADDRESS, DMCUB_REGION3_CW1_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW1_TOP_ADDRESS, DMCUB_REGION3_CW1_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW2_TOP_ADDRESS, DMCUB_REGION3_CW2_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW2_TOP_ADDRESS, DMCUB_REGION3_CW2_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW3_TOP_ADDRESS, DMCUB_REGION3_CW3_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW3_TOP_ADDRESS, DMCUB_REGION3_CW3_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW4_TOP_ADDRESS, DMCUB_REGION3_CW4_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW4_TOP_ADDRESS, DMCUB_REGION3_CW4_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW5_TOP_ADDRESS, DMCUB_REGION3_CW5_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW5_TOP_ADDRESS, DMCUB_REGION3_CW5_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE) \
-+	DMUB_SF(DMCUB_REGION3_CW7_TOP_ADDRESS, DMCUB_REGION3_CW7_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION3_CW7_TOP_ADDRESS, DMCUB_REGION3_CW7_ENABLE) \
-+	DMUB_SF(DMCUB_REGION4_TOP_ADDRESS, DMCUB_REGION4_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION4_TOP_ADDRESS, DMCUB_REGION4_ENABLE) \
-+	DMUB_SF(DMCUB_REGION5_TOP_ADDRESS, DMCUB_REGION5_TOP_ADDRESS) \
-+	DMUB_SF(DMCUB_REGION5_TOP_ADDRESS, DMCUB_REGION5_ENABLE) \
-+	DMUB_SF(CC_DC_PIPE_DIS, DC_DMCUB_ENABLE) \
-+	DMUB_SF(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET) \
-+	DMUB_SF(DCN_VM_FB_LOCATION_BASE, FB_BASE) \
-+	DMUB_SF(DCN_VM_FB_OFFSET, FB_OFFSET) \
-+	DMUB_SF(DMCUB_INBOX0_WPTR, DMCUB_INBOX0_WPTR) \
-+	DMUB_SF(DMCUB_REGION3_TMR_AXI_SPACE, DMCUB_REGION3_TMR_AXI_SPACE) \
-+	DMUB_SF(DMCUB_INTERRUPT_ENABLE, DMCUB_GPINT_IH_INT_EN) \
-+	DMUB_SF(DMCUB_INTERRUPT_ACK, DMCUB_GPINT_IH_INT_ACK)
-+
-+struct dmub_srv_dcn32_reg_offset {
-+#define DMUB_SR(reg) uint32_t reg;
-+	DMUB_DCN32_REGS()
-+	DMCUB_INTERNAL_REGS()
-+#undef DMUB_SR
-+};
-+
-+struct dmub_srv_dcn32_reg_shift {
-+#define DMUB_SF(reg, field) uint8_t reg##__##field;
-+	DMUB_DCN32_FIELDS()
-+#undef DMUB_SF
-+};
-+
-+struct dmub_srv_dcn32_reg_mask {
-+#define DMUB_SF(reg, field) uint32_t reg##__##field;
-+	DMUB_DCN32_FIELDS()
-+#undef DMUB_SF
-+};
-+
-+struct dmub_srv_dcn32_regs {
-+	const struct dmub_srv_dcn32_reg_offset offset;
-+	const struct dmub_srv_dcn32_reg_mask mask;
-+	const struct dmub_srv_dcn32_reg_shift shift;
-+};
-+
-+extern const struct dmub_srv_dcn32_regs dmub_srv_dcn32_regs;
-+
-+void dmub_dcn32_reset(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_reset_release(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_backdoor_load(struct dmub_srv *dmub,
-+			      const struct dmub_window *cw0,
-+			      const struct dmub_window *cw1);
-+
-+void dmub_dcn32_backdoor_load_zfb_mode(struct dmub_srv *dmub,
-+		      const struct dmub_window *cw0,
-+		      const struct dmub_window *cw1);
-+
-+void dmub_dcn32_setup_windows(struct dmub_srv *dmub,
-+			      const struct dmub_window *cw2,
-+			      const struct dmub_window *cw3,
-+			      const struct dmub_window *cw4,
-+			      const struct dmub_window *cw5,
-+			      const struct dmub_window *cw6);
-+
-+void dmub_dcn32_setup_mailbox(struct dmub_srv *dmub,
-+			      const struct dmub_region *inbox1);
-+
-+uint32_t dmub_dcn32_get_inbox1_rptr(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset);
-+
-+void dmub_dcn32_setup_out_mailbox(struct dmub_srv *dmub,
-+			      const struct dmub_region *outbox1);
-+
-+uint32_t dmub_dcn32_get_outbox1_wptr(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_set_outbox1_rptr(struct dmub_srv *dmub, uint32_t rptr_offset);
-+
-+bool dmub_dcn32_is_hw_init(struct dmub_srv *dmub);
-+
-+bool dmub_dcn32_is_supported(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_set_gpint(struct dmub_srv *dmub,
-+			  union dmub_gpint_data_register reg);
-+
-+bool dmub_dcn32_is_gpint_acked(struct dmub_srv *dmub,
-+			       union dmub_gpint_data_register reg);
-+
-+uint32_t dmub_dcn32_get_gpint_response(struct dmub_srv *dmub);
-+
-+uint32_t dmub_dcn32_get_gpint_dataout(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmub_srv_hw_params *params);
-+
-+void dmub_dcn32_skip_dmub_panel_power_sequence(struct dmub_srv *dmub, bool skip);
-+
-+union dmub_fw_boot_status dmub_dcn32_get_fw_boot_status(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_setup_outbox0(struct dmub_srv *dmub,
-+			      const struct dmub_region *outbox0);
-+
-+uint32_t dmub_dcn32_get_outbox0_wptr(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_set_outbox0_rptr(struct dmub_srv *dmub, uint32_t rptr_offset);
-+
-+uint32_t dmub_dcn32_get_current_time(struct dmub_srv *dmub);
-+
-+void dmub_dcn32_get_diagnostic_data(struct dmub_srv *dmub, struct dmub_diagnostic_data *diag_data);
-+
-+void dmub_dcn32_configure_dmub_in_system_memory(struct dmub_srv *dmub);
-+void dmub_dcn32_send_inbox0_cmd(struct dmub_srv *dmub, union dmub_inbox0_data_register data);
-+void dmub_dcn32_clear_inbox0_ack_register(struct dmub_srv *dmub);
-+uint32_t dmub_dcn32_read_inbox0_ack_register(struct dmub_srv *dmub);
-+
-+#endif /* _DMUB_DCN32_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 66db5e538c7f..4c6a624f04a7 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -34,6 +34,7 @@
- #include "dmub_dcn31.h"
- #include "dmub_dcn315.h"
- #include "dmub_dcn316.h"
-+#include "dmub_dcn32.h"
- #include "os_types.h"
- /*
-  * Note: the DMUB service is standalone. No additional headers should be
-@@ -260,6 +261,43 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 
- 		break;
- 
-+	case DMUB_ASIC_DCN32:
-+	case DMUB_ASIC_DCN321:
-+		dmub->regs_dcn32 = &dmub_srv_dcn32_regs;
-+		funcs->configure_dmub_in_system_memory = dmub_dcn32_configure_dmub_in_system_memory;
-+		funcs->send_inbox0_cmd = dmub_dcn32_send_inbox0_cmd;
-+		funcs->clear_inbox0_ack_register = dmub_dcn32_clear_inbox0_ack_register;
-+		funcs->read_inbox0_ack_register = dmub_dcn32_read_inbox0_ack_register;
-+		funcs->reset = dmub_dcn32_reset;
-+		funcs->reset_release = dmub_dcn32_reset_release;
-+		funcs->backdoor_load = dmub_dcn32_backdoor_load;
-+		funcs->backdoor_load_zfb_mode = dmub_dcn32_backdoor_load_zfb_mode;
-+		funcs->setup_windows = dmub_dcn32_setup_windows;
-+		funcs->setup_mailbox = dmub_dcn32_setup_mailbox;
-+		funcs->get_inbox1_rptr = dmub_dcn32_get_inbox1_rptr;
-+		funcs->set_inbox1_wptr = dmub_dcn32_set_inbox1_wptr;
-+		funcs->setup_out_mailbox = dmub_dcn32_setup_out_mailbox;
-+		funcs->get_outbox1_wptr = dmub_dcn32_get_outbox1_wptr;
-+		funcs->set_outbox1_rptr = dmub_dcn32_set_outbox1_rptr;
-+		funcs->is_supported = dmub_dcn32_is_supported;
-+		funcs->is_hw_init = dmub_dcn32_is_hw_init;
-+		funcs->set_gpint = dmub_dcn32_set_gpint;
-+		funcs->is_gpint_acked = dmub_dcn32_is_gpint_acked;
-+		funcs->get_gpint_response = dmub_dcn32_get_gpint_response;
-+		funcs->get_gpint_dataout = dmub_dcn32_get_gpint_dataout;
-+		funcs->get_fw_status = dmub_dcn32_get_fw_boot_status;
-+		funcs->enable_dmub_boot_options = dmub_dcn32_enable_dmub_boot_options;
-+		funcs->skip_dmub_panel_power_sequence = dmub_dcn32_skip_dmub_panel_power_sequence;
-+
-+		/* outbox0 call stacks */
-+		funcs->setup_outbox0 = dmub_dcn32_setup_outbox0;
-+		funcs->get_outbox0_wptr = dmub_dcn32_get_outbox0_wptr;
-+		funcs->set_outbox0_rptr = dmub_dcn32_set_outbox0_rptr;
-+		funcs->get_current_time = dmub_dcn32_get_current_time;
-+		funcs->get_diagnostic_data = dmub_dcn32_get_diagnostic_data;
++	bool result = true;
++
++	switch (id) {
++	case GPIO_ID_DDC_DATA:
++		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
++		switch (en) {
++		case GPIO_DDC_LINE_DDC1:
++			info->offset = REG(DC_GPIO_DDC1_A);
++		break;
++		case GPIO_DDC_LINE_DDC2:
++			info->offset = REG(DC_GPIO_DDC2_A);
++		break;
++		case GPIO_DDC_LINE_DDC3:
++			info->offset = REG(DC_GPIO_DDC3_A);
++		break;
++		case GPIO_DDC_LINE_DDC4:
++			info->offset = REG(DC_GPIO_DDC4_A);
++		break;
++		case GPIO_DDC_LINE_DDC5:
++			info->offset = REG(DC_GPIO_DDC5_A);
++		break;
++		case GPIO_DDC_LINE_DDC_VGA:
++			info->offset = REG(DC_GPIO_DDCVGA_A);
++		break;
++		case GPIO_DDC_LINE_I2C_PAD:
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_DDC_CLOCK:
++		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
++		switch (en) {
++		case GPIO_DDC_LINE_DDC1:
++			info->offset = REG(DC_GPIO_DDC1_A);
++		break;
++		case GPIO_DDC_LINE_DDC2:
++			info->offset = REG(DC_GPIO_DDC2_A);
++		break;
++		case GPIO_DDC_LINE_DDC3:
++			info->offset = REG(DC_GPIO_DDC3_A);
++		break;
++		case GPIO_DDC_LINE_DDC4:
++			info->offset = REG(DC_GPIO_DDC4_A);
++		break;
++		case GPIO_DDC_LINE_DDC5:
++			info->offset = REG(DC_GPIO_DDC5_A);
++		break;
++		case GPIO_DDC_LINE_DDC_VGA:
++			info->offset = REG(DC_GPIO_DDCVGA_A);
++		break;
++		case GPIO_DDC_LINE_I2C_PAD:
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_GENERIC:
++		info->offset = REG(DC_GPIO_GENERIC_A);
++		switch (en) {
++		case GPIO_GENERIC_A:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK;
++		break;
++		case GPIO_GENERIC_B:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK;
++		break;
++		case GPIO_GENERIC_C:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK;
++		break;
++		case GPIO_GENERIC_D:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK;
++		break;
++		case GPIO_GENERIC_E:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK;
++		break;
++		case GPIO_GENERIC_F:
++			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK;
++		break;
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_HPD:
++		info->offset = REG(DC_GPIO_HPD_A);
++		switch (en) {
++		case GPIO_HPD_1:
++			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK;
++		break;
++		case GPIO_HPD_2:
++			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK;
++		break;
++		case GPIO_HPD_3:
++			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK;
++		break;
++		case GPIO_HPD_4:
++			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK;
++		break;
++		case GPIO_HPD_5:
++			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK;
++		break;
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_GSL:
++		switch (en) {
++		case GPIO_GSL_GENLOCK_CLOCK:
++				/*not implmented*/
++			ASSERT_CRITICAL(false);
++			result = false;
++		break;
++		case GPIO_GSL_GENLOCK_VSYNC:
++			/*not implmented*/
++			ASSERT_CRITICAL(false);
++			result = false;
++		break;
++		case GPIO_GSL_SWAPLOCK_A:
++			/*not implmented*/
++			ASSERT_CRITICAL(false);
++			result = false;
++		break;
++		case GPIO_GSL_SWAPLOCK_B:
++			/*not implmented*/
++			ASSERT_CRITICAL(false);
++			result = false;
 +
 +		break;
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_SYNC:
++	case GPIO_ID_VIP_PAD:
++	default:
++		ASSERT_CRITICAL(false);
++		result = false;
++	}
 +
++	if (result) {
++		info->offset_y = info->offset + 2;
++		info->offset_en = info->offset + 1;
++		info->offset_mask = info->offset - 1;
++
++		info->mask_y = info->mask;
++		info->mask_en = info->mask;
++		info->mask_mask = info->mask;
++	}
++
++	return result;
++}
++
++/* function table */
++static const struct hw_translate_funcs funcs = {
++	.offset_to_id = offset_to_id,
++	.id_to_offset = id_to_offset,
++};
++
++/*
++ * dal_hw_translate_dcn32_init
++ *
++ * @brief
++ * Initialize Hw translate function pointers.
++ *
++ * @param
++ * struct hw_translate *tr - [out] struct of function pointers
++ *
++ */
++void dal_hw_translate_dcn32_init(struct hw_translate *tr)
++{
++	tr->funcs = &funcs;
++}
++
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.h b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.h
+similarity index 82%
+rename from drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.h
+rename to drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.h
+index 4f053241fe96..af64e104d84c 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.h
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_translate_dcn32.h
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2013-16 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a
+  * copy of this software and associated documentation files (the "Software"),
+@@ -22,13 +22,12 @@
+  * Authors: AMD
+  *
+  */
+-
+-#ifndef __DAL_HW_TRANSLATE_DIAG_FPGA_H__
+-#define __DAL_HW_TRANSLATE_DIAG_FPGA_H__
++#ifndef __DAL_HW_TRANSLATE_DCN32_H__
++#define __DAL_HW_TRANSLATE_DCN32_H__
+ 
+ struct hw_translate;
+ 
+ /* Initialize Hw translate function pointers */
+-void dal_hw_translate_diag_fpga_init(struct hw_translate *tr);
++void dal_hw_translate_dcn32_init(struct hw_translate *tr);
+ 
+-#endif /* __DAL_HW_TRANSLATE_DIAG_FPGA_H__ */
++#endif /* __DAL_HW_TRANSLATE_DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.c b/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.c
+deleted file mode 100644
+index c6e28f6bf1a2..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_factory_diag.c
++++ /dev/null
+@@ -1,62 +0,0 @@
+-/*
+- * Copyright 2013-16 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-/*
+- * Pre-requisites: headers required by header of this unit
+- */
+-
+-#include "dm_services.h"
+-#include "hw_factory_diag.h"
+-#include "include/gpio_types.h"
+-#include "../hw_factory.h"
+-
+-/*
+- * Header of this unit
+- */
+-
+-#include "../hw_gpio.h"
+-#include "../hw_ddc.h"
+-#include "../hw_hpd.h"
+-#include "../hw_generic.h"
+-
+-/* function table */
+-static const struct hw_factory_funcs funcs = {
+-	.init_ddc_data = NULL,
+-	.init_generic = NULL,
+-	.init_hpd = NULL,
+-};
+-
+-void dal_hw_factory_diag_fpga_init(struct hw_factory *factory)
+-{
+-	factory->number_of_pins[GPIO_ID_DDC_DATA] = 8;
+-	factory->number_of_pins[GPIO_ID_DDC_CLOCK] = 8;
+-	factory->number_of_pins[GPIO_ID_GENERIC] = 7;
+-	factory->number_of_pins[GPIO_ID_HPD] = 6;
+-	factory->number_of_pins[GPIO_ID_GPIO_PAD] = 31;
+-	factory->number_of_pins[GPIO_ID_VIP_PAD] = 0;
+-	factory->number_of_pins[GPIO_ID_SYNC] = 2;
+-	factory->number_of_pins[GPIO_ID_GSL] = 4;
+-	factory->funcs = &funcs;
+-}
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.c b/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.c
+deleted file mode 100644
+index e5138a5a8eb5..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/gpio/diagnostics/hw_translate_diag.c
++++ /dev/null
+@@ -1,41 +0,0 @@
+-/*
+- * Copyright 2013-16 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-#include "dm_services.h"
+-#include "hw_translate_diag.h"
+-#include "include/gpio_types.h"
+-
+-#include "../hw_translate.h"
+-
+-/* function table */
+-static const struct hw_translate_funcs funcs = {
+-	.offset_to_id = NULL,
+-	.id_to_offset = NULL,
+-};
+-
+-void dal_hw_translate_diag_fpga_init(struct hw_translate *tr)
+-{
+-	tr->funcs = &funcs;
+-}
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
+index ef4f69612097..9756640411b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
+@@ -53,23 +53,13 @@
+ #include "dcn21/hw_factory_dcn21.h"
+ #include "dcn30/hw_factory_dcn30.h"
+ #include "dcn315/hw_factory_dcn315.h"
+-
+-#include "diagnostics/hw_factory_diag.h"
+-
+-/*
+- * This unit
+- */
++#include "dcn32/hw_factory_dcn32.h"
+ 
+ bool dal_hw_factory_init(
+ 	struct hw_factory *factory,
+ 	enum dce_version dce_version,
+ 	enum dce_environment dce_environment)
+ {
+-	if (IS_FPGA_MAXIMUS_DC(dce_environment)) {
+-		dal_hw_factory_diag_fpga_init(factory);
+-		return true;
+-	}
+-
+ 	switch (dce_version) {
+ #if defined(CONFIG_DRM_AMD_DC_SI)
+ 	case DCE_VERSION_6_0:
+@@ -118,6 +108,10 @@ bool dal_hw_factory_init(
+ 	case DCN_VERSION_3_15:
+ 		dal_hw_factory_dcn315_init(factory);
+ 		return true;
++	case DCN_VERSION_3_2:
++	case DCN_VERSION_3_21:
++		dal_hw_factory_dcn32_init(factory);
++		return true;
  	default:
+ 		ASSERT_CRITICAL(false);
  		return false;
- 	}
-@@ -501,6 +539,9 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	cw1.region.base = DMUB_CW1_BASE;
- 	cw1.region.top = cw1.region.base + stack_fb->size - 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+index 1db4f1414d7e..82aad7bc0300 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+@@ -51,8 +51,7 @@
+ #include "dcn21/hw_translate_dcn21.h"
+ #include "dcn30/hw_translate_dcn30.h"
+ #include "dcn315/hw_translate_dcn315.h"
+-
+-#include "diagnostics/hw_translate_diag.h"
++#include "dcn32/hw_translate_dcn32.h"
  
-+	if (params->fw_in_system_memory && dmub->hw_funcs.configure_dmub_in_system_memory)
-+		dmub->hw_funcs.configure_dmub_in_system_memory(dmub);
+ /*
+  * This unit
+@@ -63,11 +62,6 @@ bool dal_hw_translate_init(
+ 	enum dce_version dce_version,
+ 	enum dce_environment dce_environment)
+ {
+-	if (IS_FPGA_MAXIMUS_DC(dce_environment)) {
+-		dal_hw_translate_diag_fpga_init(translate);
+-		return true;
+-	}
+-
+ 	switch (dce_version) {
+ #if defined(CONFIG_DRM_AMD_DC_SI)
+ 	case DCE_VERSION_6_0:
+@@ -113,7 +107,10 @@ bool dal_hw_translate_init(
+ 	case DCN_VERSION_3_15:
+ 		dal_hw_translate_dcn315_init(translate);
+ 		return true;
+-
++	case DCN_VERSION_3_2:
++	case DCN_VERSION_3_21:
++		dal_hw_translate_dcn32_init(translate);
++		return true;
+ 	default:
+ 		BREAK_TO_DEBUGGER();
+ 		return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+index 5c87057a6abc..3f9d6531c563 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+@@ -34,6 +34,8 @@
+ 
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
++#define DCN_BASE__INST0_SEG2                       0x000034C0
 +
- 	if (params->load_inst_const && dmub->hw_funcs.backdoor_load) {
- 		/**
- 		 * Read back all the instruction memory so we don't hang the
-@@ -508,7 +549,11 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 		 * flushed yet. This only occurs in backdoor loading.
- 		 */
- 		dmub_flush_buffer_mem(inst_fb);
--		dmub->hw_funcs.backdoor_load(dmub, &cw0, &cw1);
-+
-+		if (params->fw_in_system_memory && dmub->hw_funcs.backdoor_load_zfb_mode)
-+			dmub->hw_funcs.backdoor_load_zfb_mode(dmub, &cw0, &cw1);
-+		else
-+			dmub->hw_funcs.backdoor_load(dmub, &cw0, &cw1);
- 	}
- 
- 	cw2.offset.quad_part = data_fb->gpu_addr;
-@@ -583,6 +628,10 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	if (dmub->hw_funcs.enable_dmub_boot_options)
- 		dmub->hw_funcs.enable_dmub_boot_options(dmub, params);
- 
-+	if (dmub->hw_funcs.skip_dmub_panel_power_sequence)
-+		dmub->hw_funcs.skip_dmub_panel_power_sequence(dmub,
-+			params->skip_panel_power_sequence);
-+
- 	if (dmub->hw_funcs.reset_release)
- 		dmub->hw_funcs.reset_release(dmub);
- 
+ enum dc_irq_source to_dal_irq_source_dcn32(
+ 		struct irq_service *irq_service,
+ 		uint32_t src_id,
 -- 
 2.35.3
 
