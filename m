@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0335C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 762EDC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E3610EE92;
-	Fri, 27 May 2022 07:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7290310EE9D;
+	Fri, 27 May 2022 07:15:24 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D9410FA22;
- Thu, 26 May 2022 23:54:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBFB10F3E3;
+ Thu, 26 May 2022 23:54:35 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id E84531F459ED
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 990981F409FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609290;
- bh=a6CciZvu/niFj4gUJ7nmx5idPKuwsFoNvS/I3tYS4zY=;
+ s=mail; t=1653609273;
+ bh=eF2XX5/j1kKfeZpCaTpZ0jlF7vtBDjwSe+BehMSKUaU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WGNfPLqGoNps/+DSLrepwv9EQg2HT/Vjb2fWG+klzDhKtzKgTkNc6akuOSiIZrnAL
- jSfAnstFuKBe9Oo4rLCuS+SbAQjn6fpsUy2CAs+d6q7twRJi2aobsl3R6YgbCD4oVP
- L72O5Rr4QHy4/A9Qf2yQhzq5nm6554SYVmTW+eT5s/HRqCTsb2n5JC8jTatnbmlLpS
- J3z8OWGv1bK4Kp/Ol3IXc69207qWAcJLtvsKLSQhouNY8Udugypc7bq1huPS35p1RJ
- S5W897eU44N8wVcjuTKs+Kvk6KhS/AeKz47+xSc663FPGf8B9hTP+41NIJMb+oO8XV
- ywGN87A7zBj6Q==
+ b=LuHwpeims5dqdJ816i/QR4pJpGilSUoC+x5O7sFLvpBzeMOiEBIRt9XydEwI26Qt6
+ GIdgccQ0FwpJ5B/hBGc9WbWI007BhxShN8d9k7fJsf6osiPeaqGKpRZzWysZ8eJW6d
+ P77xJbRQoGhG6h58qPG8cMFY2Lc+g4jS7hYVyvlGEc6tspExJ5xh5P51q1aZyQ5qJ5
+ pinN/CF5bo4occ8NNLGhJT3UeAJq0kWVh0GouNQTGnkn2hhoakpwMF1JEOveST3+Ta
+ G7ZQRqMiS0HZSVgBfom3f6xfgpsdvS3F6SvOF9S/ERyDRkPoUaB+NeuCGRrWgfCZ8b
+ oseNggf8SpziQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,16 +52,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 12/22] drm/virtio: Simplify error handling of
- virtio_gpu_object_create()
-Date: Fri, 27 May 2022 02:50:30 +0300
-Message-Id: <20220526235040.678984-13-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 08/22] drm/virtio: Unlock reservations on
+ dma_resv_reserve_fences() error
+Date: Fri, 27 May 2022 02:50:26 +0300
+Message-Id: <20220526235040.678984-9-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 May 2022 07:15:10 +0000
+X-Mailman-Approved-At: Fri, 27 May 2022 07:15:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,52 +82,31 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the order of SHMEM initialization and reservation locking
-to make code cleaner and to prepare for transitioning of the common
-GEM SHMEM code to use the GEM's reservation lock instead of the
-shmem.page_lock.
+Unlock reservations on dma_resv_reserve_fences() error to fix recursive
+locking of the reservations when this error happens.
 
-There is no need to lock reservation during allocation of the SHMEM pages
-because the lock is needed only to avoid racing with the async host-side
-allocation. Hence we can safely move the SHMEM initialization out of the
-reservation lock.
-
+Cc: stable@vger.kernel.org
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_object.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_gem.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index 21c19cdedce0..18f70ef6b4d0 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -236,6 +236,10 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index 580a78809836..7db48d17ee3a 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -228,8 +228,10 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
  
- 	bo->dumb = params->dumb;
- 
-+	ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents, &nents);
-+	if (ret != 0)
-+		goto err_put_id;
-+
- 	if (fence) {
- 		ret = -ENOMEM;
- 		objs = virtio_gpu_array_alloc(1);
-@@ -248,15 +252,6 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
- 			goto err_put_objs;
+ 	for (i = 0; i < objs->nents; ++i) {
+ 		ret = dma_resv_reserve_fences(objs->objs[i]->resv, 1);
+-		if (ret)
++		if (ret) {
++			virtio_gpu_array_unlock_resv(objs);
+ 			return ret;
++		}
  	}
- 
--	ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents, &nents);
--	if (ret != 0) {
--		if (fence)
--			virtio_gpu_array_unlock_resv(objs);
--		virtio_gpu_array_put_free(objs);
--		virtio_gpu_free_object(&shmem_obj->base);
--		return ret;
--	}
--
- 	if (params->blob) {
- 		if (params->blob_mem == VIRTGPU_BLOB_MEM_GUEST)
- 			bo->guest_blob = true;
+ 	return ret;
+ }
 -- 
 2.35.3
 
