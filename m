@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25FA0C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582A1C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 009FD10EE7D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A83610EE81;
 	Fri, 27 May 2022 07:15:23 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7161910EFD4;
- Thu, 26 May 2022 23:54:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8607A10F3E3;
+ Thu, 26 May 2022 23:54:25 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 62C221F40887
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 874411F409DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609255;
- bh=5LIdhJtan+LZ6LnQ64jsbMrAvP7fINcUYf3MaY5BoNM=;
+ s=mail; t=1653609264;
+ bh=S5lPIOkFBZ/pxkGf3spJfxaVtSGwy0y8jmdOsiAMgdc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=f3hb0zk7VJGPn7ap02Rwgz7TrZ/O5CjxmjebLky7DXFjxwh1bGhEp5KdhmP9PuAlW
- ZVs/oT2mQG2LHjkG94AHUpI5j+6jkKfSTeC666f+Vnzg0MCBoFk/HB3KqNV3aFCeci
- mpb/yMpgDiuKC91hpp/ErpjhLFcDMsOCGcnUis/tlNxRRYM9dL5Uuyh0AVkOuuqyZO
- XjbeTgTToclrmOeI+ZEO+N7ioYFvs6q7MdaRDWNUK8Q/TVFV5+m5BBeUhPTERr1jrH
- ZVjKt8stdo9RGE876EpODo2XGhnQLHZHg8h4JGFnvYopRH/EBRHZs+lbAB8TtOY3Jk
- oFSx0RPGOuLSw==
+ b=Lg62DDh21vtmkdIS8xg6XG5/5n+/FkMQv6yZUvNboK4hEgCbL5z172KDGIXNi8qCW
+ w23AGO/Wp1pfJUwN+TRwVvu/hKAD9bRftGl8r0EiZ8uelJoxeg5y6cREYkrk6mpKD2
+ BNpSZI58w/DauiFQ0rE30zrNr/LAkKkUR2ZSopplZ6eGAw5GgLEwIfKM6iknDVZ+n1
+ eLrn5re2tv478zMT5HSTum8cHePRcWFV0K7oZ0fG7bnZt9Ykcr+uYtRisDSVhOZHsL
+ mD3woWmqFPrJRAtMV3SJHPWk7+lNthgUecjl23OO+1L9CpKIvpwJ7JS8oyFU+iu8gg
+ LhuBMhFoETsVQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,10 +52,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 02/22] drm/gem: Move mapping of imported dma-bufs to
- drm_gem_mmap_obj()
-Date: Fri, 27 May 2022 02:50:20 +0300
-Message-Id: <20220526235040.678984-3-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 05/22] drm/virtio: Correct drm_gem_shmem_get_sg_table()
+ error handling
+Date: Fri, 27 May 2022 02:50:23 +0300
+Message-Id: <20220526235040.678984-6-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
@@ -82,74 +82,34 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
-handle imported dma-bufs properly, which results in mapping of something
-else than the imported dma-buf. For example, on NVIDIA Tegra we get a hard
-lockup when userspace writes to the memory mapping of a dma-buf that was
-imported into Tegra's DRM GEM.
-
-To fix this bug, move mapping of imported dma-bufs to drm_gem_mmap_obj().
-Now mmaping of imported dma-bufs works properly for all DRM drivers.
+drm_gem_shmem_get_sg_table() never ever returned NULL on error. Correct
+the error handling to avoid crash on OOM.
 
 Cc: stable@vger.kernel.org
+Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem.c              | 3 +++
- drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
- drivers/gpu/drm/tegra/gem.c            | 4 ++++
- 3 files changed, 7 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_object.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 86d670c71286..7c0b025508e4 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
- 	if (obj_size < vma->vm_end - vma->vm_start)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
+index f293e6ad52da..3d0c8d4d1c20 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_object.c
++++ b/drivers/gpu/drm/virtio/virtgpu_object.c
+@@ -168,9 +168,11 @@ static int virtio_gpu_object_shmem_init(struct virtio_gpu_device *vgdev,
+ 	 * since virtio_gpu doesn't support dma-buf import from other devices.
+ 	 */
+ 	shmem->pages = drm_gem_shmem_get_sg_table(&bo->base);
+-	if (!shmem->pages) {
++	ret = PTR_ERR_OR_ZERO(shmem->pages);
++	if (ret) {
+ 		drm_gem_shmem_unpin(&bo->base);
+-		return -EINVAL;
++		shmem->pages = NULL;
++		return ret;
+ 	}
  
-+	if (obj->import_attach)
-+		return dma_buf_mmap(obj->dma_buf, vma, 0);
-+
- 	/* Take a ref for this mapping of the object, so that the fault
- 	 * handler can dereference the mmap offset's pointer to the object.
- 	 * This reference is cleaned up by the corresponding vm_close
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 8ad0e02991ca..6190f5018986 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -609,17 +609,8 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
-  */
- int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct *vma)
- {
--	struct drm_gem_object *obj = &shmem->base;
- 	int ret;
- 
--	if (obj->import_attach) {
--		/* Drop the reference drm_gem_mmap_obj() acquired.*/
--		drm_gem_object_put(obj);
--		vma->vm_private_data = NULL;
--
--		return dma_buf_mmap(obj->dma_buf, vma, 0);
--	}
--
- 	ret = drm_gem_shmem_get_pages(shmem);
- 	if (ret) {
- 		drm_gem_vm_close(vma);
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index 7c7dd84e6db8..f92aa20d63bb 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -564,6 +564,10 @@ int __tegra_gem_mmap(struct drm_gem_object *gem, struct vm_area_struct *vma)
- {
- 	struct tegra_bo *bo = to_tegra_bo(gem);
- 
-+	/* imported dmu-buf is mapped by drm_gem_mmap_obj()  */
-+	if (gem->import_attach)
-+		return 0;
-+
- 	if (!bo->pages) {
- 		unsigned long vm_pgoff = vma->vm_pgoff;
- 		int err;
+ 	if (use_dma_api) {
 -- 
 2.35.3
 
