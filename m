@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582A1C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0307C433EF
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A83610EE81;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C086310EE88;
 	Fri, 27 May 2022 07:15:23 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8607A10F3E3;
- Thu, 26 May 2022 23:54:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADB510F05D;
+ Thu, 26 May 2022 23:54:19 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 874411F409DA
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 7343C1F4088D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609264;
- bh=S5lPIOkFBZ/pxkGf3spJfxaVtSGwy0y8jmdOsiAMgdc=;
+ s=mail; t=1653609258;
+ bh=5Mavp4oALIXdPN+ziHKcCdoikrrk4yQKrexW04s8O+A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Lg62DDh21vtmkdIS8xg6XG5/5n+/FkMQv6yZUvNboK4hEgCbL5z172KDGIXNi8qCW
- w23AGO/Wp1pfJUwN+TRwVvu/hKAD9bRftGl8r0EiZ8uelJoxeg5y6cREYkrk6mpKD2
- BNpSZI58w/DauiFQ0rE30zrNr/LAkKkUR2ZSopplZ6eGAw5GgLEwIfKM6iknDVZ+n1
- eLrn5re2tv478zMT5HSTum8cHePRcWFV0K7oZ0fG7bnZt9Ykcr+uYtRisDSVhOZHsL
- mD3woWmqFPrJRAtMV3SJHPWk7+lNthgUecjl23OO+1L9CpKIvpwJ7JS8oyFU+iu8gg
- LhuBMhFoETsVQ==
+ b=GCNfDyHwva3jnk23dJ6QCm8KOFAi1gjRCYP9xvOs94W2p7deUvj44P68aLsjE/7u4
+ yfwcfvNQr4nmbq52kvoniOE8I9kqYDxW3E/zJsq0wztbyxUJoWfBM+sGz5sj1vP3H1
+ 2vGOjrTvEf1oTtWzvBJYCeI30H+IFh8vs5cf8GYlVPtAuYsIX/4NOWwLNjQpHii/el
+ xpF91QL9vdycQFlnx5rTQyBbB8eKCgGWzed9YAwG2heRHBLbIhmlReZDCc5gSLh54+
+ qewVvEolbc/vSS/eRiv+h9jFugsNQsuaCSWUqlG3uE3J5QZULCTn9GPAlkp9ZR9mS8
+ 1NxdCkIbiyuoQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,10 +52,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 05/22] drm/virtio: Correct drm_gem_shmem_get_sg_table()
- error handling
-Date: Fri, 27 May 2022 02:50:23 +0300
-Message-Id: <20220526235040.678984-6-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 03/22] drm/panfrost: Put mapping instead of shmem obj on
+ panfrost_mmu_map_fault_addr() error
+Date: Fri, 27 May 2022 02:50:21 +0300
+Message-Id: <20220526235040.678984-4-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
@@ -82,34 +82,30 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_gem_shmem_get_sg_table() never ever returned NULL on error. Correct
-the error handling to avoid crash on OOM.
+When panfrost_mmu_map_fault_addr() fails, the BO's mapping should be
+unreferenced and not the shmem object which backs the mapping.
 
 Cc: stable@vger.kernel.org
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
+Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_object.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index f293e6ad52da..3d0c8d4d1c20 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -168,9 +168,11 @@ static int virtio_gpu_object_shmem_init(struct virtio_gpu_device *vgdev,
- 	 * since virtio_gpu doesn't support dma-buf import from other devices.
- 	 */
- 	shmem->pages = drm_gem_shmem_get_sg_table(&bo->base);
--	if (!shmem->pages) {
-+	ret = PTR_ERR_OR_ZERO(shmem->pages);
-+	if (ret) {
- 		drm_gem_shmem_unpin(&bo->base);
--		return -EINVAL;
-+		shmem->pages = NULL;
-+		return ret;
- 	}
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index d3f82b26a631..b285a8001b1d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -518,7 +518,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ err_pages:
+ 	drm_gem_shmem_put_pages(&bo->base);
+ err_bo:
+-	drm_gem_object_put(&bo->base.base);
++	panfrost_gem_mapping_put(bomapping);
+ 	return ret;
+ }
  
- 	if (use_dma_api) {
 -- 
 2.35.3
 
