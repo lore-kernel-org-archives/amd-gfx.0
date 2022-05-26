@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0307C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31598C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C086310EE88;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0BB710EE8C;
 	Fri, 27 May 2022 07:15:23 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADB510F05D;
- Thu, 26 May 2022 23:54:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B141D10EF7E;
+ Thu, 26 May 2022 23:54:43 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 7343C1F4088D
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id B73371F409FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609258;
- bh=5Mavp4oALIXdPN+ziHKcCdoikrrk4yQKrexW04s8O+A=;
+ s=mail; t=1653609282;
+ bh=LFlzHZwAyFsCuldzWdNWjboYshAvld5NVcB549Tumb8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GCNfDyHwva3jnk23dJ6QCm8KOFAi1gjRCYP9xvOs94W2p7deUvj44P68aLsjE/7u4
- yfwcfvNQr4nmbq52kvoniOE8I9kqYDxW3E/zJsq0wztbyxUJoWfBM+sGz5sj1vP3H1
- 2vGOjrTvEf1oTtWzvBJYCeI30H+IFh8vs5cf8GYlVPtAuYsIX/4NOWwLNjQpHii/el
- xpF91QL9vdycQFlnx5rTQyBbB8eKCgGWzed9YAwG2heRHBLbIhmlReZDCc5gSLh54+
- qewVvEolbc/vSS/eRiv+h9jFugsNQsuaCSWUqlG3uE3J5QZULCTn9GPAlkp9ZR9mS8
- 1NxdCkIbiyuoQ==
+ b=GigVHXqPQ1UcTCnTuhxphImtODnG4CrWAiWlc/yC2oNfRDmECLgFzjbCbAqw6EqH4
+ DPtlp2TWrOSVV6pGFDCFYmNLgEOptU8xcB0QOIlh0yWVfKeAaN9PCezXe3xK6Mvrko
+ lSylmljH7iRLpOWD46t5xooOTpr0QnnfMIohLV7J58MsxWCv8OZgEjyHYZfiVquXLs
+ uGYkUAkUFtI6WdG3LX5ervwkZ1Lx0jLKsUeob7yi2N1kJ8hYtzVvu6EEpogKBGG1e7
+ 2L8cjj9dcRrwg0HPMXFBuWbzWGKBTo2O2dYBlPnAl2pp4j5ilPU7yIz5HHHbTT+5B0
+ 49FbriWR//k1g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,16 +52,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 03/22] drm/panfrost: Put mapping instead of shmem obj on
- panfrost_mmu_map_fault_addr() error
-Date: Fri, 27 May 2022 02:50:21 +0300
-Message-Id: <20220526235040.678984-4-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 11/22] drm/shmem-helper: Correct doc-comment of
+ drm_gem_shmem_get_sg_table()
+Date: Fri, 27 May 2022 02:50:29 +0300
+Message-Id: <20220526235040.678984-12-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 May 2022 07:15:11 +0000
+X-Mailman-Approved-At: Fri, 27 May 2022 07:15:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,30 +82,39 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When panfrost_mmu_map_fault_addr() fails, the BO's mapping should be
-unreferenced and not the shmem object which backs the mapping.
+drm_gem_shmem_get_sg_table() never returns NULL on error, but a ERR_PTR.
+Correct the doc comment which says that it returns NULL on error.
 
-Cc: stable@vger.kernel.org
-Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
-Reviewed-by: Steven Price <steven.price@arm.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index d3f82b26a631..b285a8001b1d 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -518,7 +518,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- err_pages:
- 	drm_gem_shmem_put_pages(&bo->base);
- err_bo:
--	drm_gem_object_put(&bo->base.base);
-+	panfrost_gem_mapping_put(bomapping);
- 	return ret;
- }
- 
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 54b0ba28aa0a..7232e321fdb4 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -654,7 +654,8 @@ EXPORT_SYMBOL(drm_gem_shmem_print_info);
+  * drm_gem_shmem_get_pages_sgt() instead.
+  *
+  * Returns:
+- * A pointer to the scatter/gather table of pinned pages or NULL on failure.
++ * A pointer to the scatter/gather table of pinned pages or an ERR_PTR()-encoded
++ * error code on failure.
+  */
+ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
+ {
+@@ -680,7 +681,8 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
+  * drm_gem_shmem_get_sg_table() should not be directly called by drivers.
+  *
+  * Returns:
+- * A pointer to the scatter/gather table of pinned pages or errno on failure.
++ * A pointer to the scatter/gather table of pinned pages or an ERR_PTR()-encoded
++ * error code on failure.
+  */
+ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
+ {
 -- 
 2.35.3
 
