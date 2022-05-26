@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A43C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273DAC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB8110EEA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B28AE10EEA8;
 	Fri, 27 May 2022 07:15:24 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B4E10F05D;
- Thu, 26 May 2022 23:54:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E49810F3E3;
+ Thu, 26 May 2022 23:54:28 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 7FE781F40878
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 8F3AE1F40887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609261;
- bh=mb8OzuWYSbm/AwBqD3mtEmj7ojjTOwTQHEjozWJ6AEk=;
+ s=mail; t=1653609267;
+ bh=xPahHFXhmzFRvwHWi9um3lr6dS/zSQQnyahtz13WrNk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PhWK+IykYUYDFR1HcPNf0jNTY7TZY0Ln8bRitBt0kB04+hQst9WEWAPvJrsPNbW/Z
- zIQsLj3s8FkbFS4J6AAh9FGS2SwW1x8ICQ0O/cvyoPbSY9PlksO1KkHleCnmYzw7Z6
- Ps8r6ksbvWvvZMDMZbofS5W+UPPdelQLtTYTEoz/XHigCcMJC4tMpERsMpTB6zdAic
- 8fb8WgUWkUOccDal1GJu2bE6uZh0Ptg5/jLFxQaJtKw60Ga4PMr48eHgPMc+RrV70m
- KD8BH07+7/LJbMYplSdVI7Vrv32FhCvxsaGBiQiOPaDk68WNK5CFK34N2/2GNSCthp
- uuNX5S9HTuVQQ==
+ b=E2dOSzH2bYscAM2yw+OsJQF6ASXzoHeHyCW2JAYd9BoRUHhbsYdmJ8LiEFfuw4PKg
+ 9+sypQggxGc7h/M7vxZP9YcFWj+u2FkT5drukiTUXFiPtzBrkBwqGJLQAYK8ZZQPqC
+ 3kIkbt0/wh1LzZa6jReVPQMdIoyAGL+sOirNZZxosMKbaVhSAEbSsQCPio5EaWc6g2
+ 7WBVF1do7xnITJPp47lKbqvEd1BHUmph+ejBV/8nPwS+v5ywMOtUccLe0UFQInaddj
+ TOuGZOeaBJhIkpw56yt4VLRZXcb/qMhwx6cBABDqhHh0pnxPh/p6ttBjiKP2QVO80L
+ jV8dOkXnd5L5A==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,10 +52,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 04/22] drm/panfrost: Fix shrinker list corruption by
- madvise IOCTL
-Date: Fri, 27 May 2022 02:50:22 +0300
-Message-Id: <20220526235040.678984-5-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 06/22] drm/virtio: Check whether transferred 2D BO is shmem
+Date: Fri, 27 May 2022 02:50:24 +0300
+Message-Id: <20220526235040.678984-7-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
@@ -82,33 +81,29 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Calling madvise IOCTL twice on BO causes memory shrinker list corruption
-and crashes kernel because BO is already on the list and it's added to
-the list again, while BO should be removed from from the list before it's
-re-added. Fix it.
+Transferred 2D BO always must be a shmem BO. Add check for that to prevent
+NULL dereference if userspace passes a VRAM BO.
 
 Cc: stable@vger.kernel.org
-Fixes: 013b65101315 ("drm/panfrost: Add madvise and shrinker support")
+Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 087e69b98d06..b1e6d238674f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -433,8 +433,8 @@ static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 7c052efe8836..2edf31806b74 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -595,7 +595,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
+ 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
+ 	struct virtio_gpu_object_shmem *shmem = to_virtio_gpu_shmem(bo);
  
- 	if (args->retained) {
- 		if (args->madv == PANFROST_MADV_DONTNEED)
--			list_add_tail(&bo->base.madv_list,
--				      &pfdev->shrinker_list);
-+			list_move_tail(&bo->base.madv_list,
-+				       &pfdev->shrinker_list);
- 		else if (args->madv == PANFROST_MADV_WILLNEED)
- 			list_del_init(&bo->base.madv_list);
- 	}
+-	if (use_dma_api)
++	if (virtio_gpu_is_shmem(bo) && use_dma_api)
+ 		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
+ 					    shmem->pages, DMA_TO_DEVICE);
+ 
 -- 
 2.35.3
 
