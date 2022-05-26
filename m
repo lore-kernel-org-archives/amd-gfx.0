@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA7EC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEB7C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD8AA10EE52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDB3210EE5A;
 	Fri, 27 May 2022 07:15:11 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F68D10EF7E;
- Thu, 26 May 2022 23:54:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59ADE10EF7E;
+ Thu, 26 May 2022 23:54:13 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 946501F409B2
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 59AAC1F40878
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609270;
- bh=GyVgUUI60R9kfFpC7zHb2iBoubCtP9Z4j/Xh4ZS18dE=;
+ s=mail; t=1653609252;
+ bh=hQQeDrOOx+1JCRSXi7OKWs0mUskygEo1Q1XD4BRlE0w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Nn5sw/ZBitN9MFcIz3dgoN1ioDPFU3hpYeDRVqXC4lpUBS+Aa/rVxTekzPvCX4liQ
- rsO7ZZLzBsZpuCjl2wba2FHpjPRzYupNGyMWgZ/KgbMYuDshKkSuL+Co7MjgACqRBu
- n3o2N7AH31AKp0ThCJ0WlHwoYCMoY77msQqXt9Padc9/q/tmGsKqgrWqH+xa8YVRY4
- 05/PUhygOAtITGKC/dNWaseNEgyoJkY2hW5Ffptf1NKu5sEAMQAhJpWebn6LaWe0kI
- UxzlIcFj/Hy0uEFSoZlCRNPZnEW1j6x27uoh/+K7sYfwR8MKPos1RFiMJwYvhU+18V
- kIVpRwvKzwIIQ==
+ b=denQs0WIZ08+E6kW9JjgKq0KczlpedRQBync8cvXdUc/idQKbB6uafoeg89eoZRXX
+ fd0O+TV9m9gN9MnlfFYQ6hiAqeG7PjzLToZEKGh3pruZK5PnOBbvPCW+UXHPzaJVaA
+ Bgigrnz4HvCZBsAm0uP0lmQWOPKJiQb56yz07hyFtvKMbCGXvoUHcMfIWTmDFJ1YI8
+ moEUQReSjPpVzp90kx4McPoRvrc/gFUZfdb/ufWZd2v6Zsy7YknSLXuDteEl4Fh2Rh
+ lP82QwUta8X7dfbA7HPR3fq60l8kPX0Zxm9aa5TMUQOCc/1UKNp1W8HRCOYp01Cbuo
+ VSTuDPrFCedhw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,10 +52,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 07/22] drm/virtio: Unlock reservations on
- virtio_gpu_object_shmem_init() error
-Date: Fri, 27 May 2022 02:50:25 +0300
-Message-Id: <20220526235040.678984-8-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 01/22] drm/gem: Properly annotate WW context on
+ drm_gem_lock_reservations() error
+Date: Fri, 27 May 2022 02:50:19 +0300
+Message-Id: <20220526235040.678984-2-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
@@ -82,30 +82,40 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Unlock reservations in the error code path of virtio_gpu_object_create()
-to silence debug warning splat produced by ww_mutex_destroy(&obj->lock)
-when GEM is released with the held lock.
+Use ww_acquire_fini() in the error code paths. Otherwise lockdep
+thinks that lock is held when lock's memory is freed after the
+drm_gem_lock_reservations() error. The WW needs to be annotated
+as "freed", which fixes the noisy "WARNING: held lock freed!" splat
+of VirtIO-GPU driver with CONFIG_DEBUG_MUTEXES=y and enabled lockdep.
 
 Cc: stable@vger.kernel.org
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_object.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_gem.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index 3d0c8d4d1c20..21c19cdedce0 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -250,6 +250,8 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index eb0c2d041f13..86d670c71286 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1226,7 +1226,7 @@ drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
+ 		ret = dma_resv_lock_slow_interruptible(obj->resv,
+ 								 acquire_ctx);
+ 		if (ret) {
+-			ww_acquire_done(acquire_ctx);
++			ww_acquire_fini(acquire_ctx);
+ 			return ret;
+ 		}
+ 	}
+@@ -1251,7 +1251,7 @@ drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
+ 				goto retry;
+ 			}
  
- 	ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents, &nents);
- 	if (ret != 0) {
-+		if (fence)
-+			virtio_gpu_array_unlock_resv(objs);
- 		virtio_gpu_array_put_free(objs);
- 		virtio_gpu_free_object(&shmem_obj->base);
- 		return ret;
+-			ww_acquire_done(acquire_ctx);
++			ww_acquire_fini(acquire_ctx);
+ 			return ret;
+ 		}
+ 	}
 -- 
 2.35.3
 
