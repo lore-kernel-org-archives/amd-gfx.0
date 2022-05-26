@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273DAC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC275C433F5
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B28AE10EEA8;
-	Fri, 27 May 2022 07:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9280710EEA6;
+	Fri, 27 May 2022 07:15:25 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E49810F3E3;
- Thu, 26 May 2022 23:54:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8507910FCFB;
+ Thu, 26 May 2022 23:55:20 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 8F3AE1F40887
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 73A211F459FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609267;
- bh=xPahHFXhmzFRvwHWi9um3lr6dS/zSQQnyahtz13WrNk=;
+ s=mail; t=1653609319;
+ bh=e7WawsCreQZA6oq9juG2n98bdBThV2TqnbrdmbGR/iM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E2dOSzH2bYscAM2yw+OsJQF6ASXzoHeHyCW2JAYd9BoRUHhbsYdmJ8LiEFfuw4PKg
- 9+sypQggxGc7h/M7vxZP9YcFWj+u2FkT5drukiTUXFiPtzBrkBwqGJLQAYK8ZZQPqC
- 3kIkbt0/wh1LzZa6jReVPQMdIoyAGL+sOirNZZxosMKbaVhSAEbSsQCPio5EaWc6g2
- 7WBVF1do7xnITJPp47lKbqvEd1BHUmph+ejBV/8nPwS+v5ywMOtUccLe0UFQInaddj
- TOuGZOeaBJhIkpw56yt4VLRZXcb/qMhwx6cBABDqhHh0pnxPh/p6ttBjiKP2QVO80L
- jV8dOkXnd5L5A==
+ b=ZDjpXRH1m6FKUcq+BXCWaqIO/5RtOY9SMw67juPPt67p9qIENyjxZio3RG2eXtbIU
+ EFxCTrqqkl2e/2bubVhWZ7DGgqpjrW4mi9eXtLce1ntgPuqWZslCqVdudNCN7C8SgX
+ nkxR08+/Du4jh2tfvHMAuzjd1RKrErCYTuBd96vgRxyegNdSegbJmT54xlrS8kkj70
+ KDeTWHTi2CTu3cS6m+kc/AQaRyCFLKFZJYXeSOe1zhEnTdVzXqlHBNynf7tG6lANHw
+ pYOb1K4aWEKDCzYQUNSSd06+CPx3hsEc4BhNLfjm4BSrZh+o+b7OVw+ICTgQ1bLHKn
+ wDHwAPmaNjcBA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,9 +52,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 06/22] drm/virtio: Check whether transferred 2D BO is shmem
-Date: Fri, 27 May 2022 02:50:24 +0300
-Message-Id: <20220526235040.678984-7-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 21/22] drm/virtio: Return proper error codes instead of -1
+Date: Fri, 27 May 2022 02:50:39 +0300
+Message-Id: <20220526235040.678984-22-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
@@ -81,29 +81,46 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Transferred 2D BO always must be a shmem BO. Add check for that to prevent
-NULL dereference if userspace passes a VRAM BO.
+Don't return -1 in error cases, return proper error code. The returned
+error codes propagate to error messages and to userspace and it's always
+good to have a meaningful error number for debugging purposes.
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_vq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 7c052efe8836..2edf31806b74 100644
+index 2a04dad1ae89..40402367d593 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -595,7 +595,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
- 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
- 	struct virtio_gpu_object_shmem *shmem = to_virtio_gpu_shmem(bo);
+@@ -320,7 +320,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 		if (fence && vbuf->objs)
+ 			virtio_gpu_array_unlock_resv(vbuf->objs);
+ 		free_vbuf(vgdev, vbuf);
+-		return -1;
++		return -ENODEV;
+ 	}
  
--	if (use_dma_api)
-+	if (virtio_gpu_is_shmem(bo) && use_dma_api)
- 		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
- 					    shmem->pages, DMA_TO_DEVICE);
+ 	if (vgdev->has_indirect)
+@@ -384,7 +384,7 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct virtio_gpu_device *vgdev,
+ 			if (!sgt) {
+ 				if (fence && vbuf->objs)
+ 					virtio_gpu_array_unlock_resv(vbuf->objs);
+-				return -1;
++				return -ENOMEM;
+ 			}
  
+ 			elemcnt += sg_ents;
+@@ -750,7 +750,7 @@ static int virtio_get_edid_block(void *data, u8 *buf,
+ 	size_t start = block * EDID_LENGTH;
+ 
+ 	if (start + len > le32_to_cpu(resp->size))
+-		return -1;
++		return -EINVAL;
+ 	memcpy(buf, resp->edid + start, len);
+ 	return 0;
+ }
 -- 
 2.35.3
 
