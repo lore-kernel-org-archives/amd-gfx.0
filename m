@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B02C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 May 2022 14:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD8EC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 May 2022 14:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6FD910E3C5;
-	Thu, 26 May 2022 14:35:34 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE56010E194;
- Thu, 26 May 2022 14:28:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=k7apNoi1g1YhGHKMlKvo5ejDwWGQrfqPL3Ty5xTWm5Q=; b=jt2D3c7xgVZUKhGsBafhmm2sFE
- 7iHXpIRdAmkRqKCTrByt8vvIu4Y3EGktUCpnmPTFxq5LEtvIgLU7neTQ7C/IsI99LeEY7HaXKuYy7
- 5ZrEicxpMCl0i/enkPZwHxhNQ3wSCLz0PWMpopuxkJst9ua3Mey2ATEpeisJ/smtNzknhVcxsQdkT
- dSKtJhfNJpH19fcWEk13NeBfTP6RD6LPE68nShdvuaPUklK12w19DAh/i1OVAzpUZ0A5rCLZKasUp
- WeWqziAdu0JgzoPn8WlmbMtIWF1JBvKksSw7KZdNfdrklRu0O6zxydJrgJF+gvKG7sfmTWPCyIS6G
- yc+jDrmg==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nuETR-001JAt-Fo; Thu, 26 May 2022 14:28:25 +0000
-Date: Thu, 26 May 2022 15:28:25 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 8cb8311e95e3bb58bd84d6350365f14a718faa6d
-Message-ID: <Yo+OiR6abzVksVTM@casper.infradead.org>
-References: <628ea118.wJYf60YnZco0hs9o%lkp@intel.com>
- <20220525145056.953631743a4c494aabf000dc@linux-foundation.org>
- <F0E25DFF-8256-48FF-8B88-C0E3730A3E5E@jrtc27.com>
- <20220525152006.e87d3fa50aca58fdc1b43b6a@linux-foundation.org>
- <Yo7U8kglHlcvQ0Ri@casper.infradead.org>
- <20220526084832.GC2146@kadam>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B398F10E622;
+	Thu, 26 May 2022 14:49:55 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF9F510E622
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 May 2022 14:49:54 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-f16a3e0529so2468815fac.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 May 2022 07:49:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=I8bejh+dU9oiLlUCogSMJUQGO+PLd0P/tRGvDXKQt2k=;
+ b=GBYVe9JfyorxovaUz/N3g5TA3XC+BP/sYgehRDt/c4MrSSVBKAJvc0Cj43m/ULPPqj
+ P/4pe8qtZYRDanV/cBIVIiAo2lqpYnSvviklRpUcWg7zWBnVk4XkYd9g+BAapaT+dPdH
+ +ryv03CDKlPX4W7izHqE9QvitOk1SCCmtluhxaQybEjmUAqkgOu7vg6NhWgcz/UVY9ua
+ x4PM5rOiDEd/E141uZk2sFjw4/dVMv5AW+VeK6LwFJXKo7qJzCuZUdZfXHVRUtc8oJmX
+ wd+qEonCCtC41i11OSu2d1p1WOb7kjq3+y/sdll1doOA8xsgBtKjnPLcM3igU94OOGPC
+ +HZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=I8bejh+dU9oiLlUCogSMJUQGO+PLd0P/tRGvDXKQt2k=;
+ b=5WyGq5lY2A59SOYCONq2KUkEDkbqTlM5A2nXAZu4uMC2O49/OzFEsuc0RBYu8cy3e6
+ upk3C9mNoST7GzgGQxs62RMokF5etQdOvG88+cQbBloCoi8m5CeczyRLFefIYiG86tHu
+ h6WOBbmUSudrE1RZXFJ/DzjQ3dXPISl0M9C3hyZDh8LLKKFt359CWyZVDELsVD9Q+Wws
+ Zw+DCBak2g2vcwBccng8jbDDL3EmElEG+9oaBYSsRLU6GUCiwbgrd5ovxocyyYjROQk3
+ QPVYbSIaOiV15yKOU7ku1WP4P7wZWunv56gprOi3Up63I40DZm/AAlENk97GoJy9/5fz
+ M9RQ==
+X-Gm-Message-State: AOAM533vOkTq2913M/Y2F8SVpsqXNYs6sHVhFwTlhKbFM0jQxY9EiNGI
+ 2n6oZVsUrFGykg51MxKCl6admCueLZ9J+wimOSnoIWbx
+X-Google-Smtp-Source: ABdhPJyfefsJ0MwqlxHX5uJVrgDbjIjoiWyiZpmJbFzkAGSR7dlppeLa6WlnUHeYOBZPEZ7NZOnZeudXJDAfn7gEiCY=
+X-Received: by 2002:a05:6870:3105:b0:f2:9615:ff8e with SMTP id
+ v5-20020a056870310500b000f29615ff8emr1354567oaa.200.1653576593957; Thu, 26
+ May 2022 07:49:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220526084832.GC2146@kadam>
-X-Mailman-Approved-At: Thu, 26 May 2022 14:35:34 +0000
+References: <20220520030405.1308133-1-ray.huang@amd.com>
+ <20220520030405.1308133-2-ray.huang@amd.com>
+In-Reply-To: <20220520030405.1308133-2-ray.huang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 26 May 2022 10:49:43 -0400
+Message-ID: <CADnq5_Mt4QJYRt1AOCuoAtdX405OnNDrZdg6Gy-JgE9jW8smog@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: use the callback function for reset
+ status polling on IMU
+To: Huang Rui <ray.huang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,35 +64,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-fbdev@vger.kernel.org,
- kernel test robot <lkp@intel.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
- linux-staging@lists.linux.dev, bpf@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-omap@vger.kernel.org,
- Jessica Clarke <jrtc27@jrtc27.com>, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-parport@lists.infradead.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 26, 2022 at 11:48:32AM +0300, Dan Carpenter wrote:
-> On Thu, May 26, 2022 at 02:16:34AM +0100, Matthew Wilcox wrote:
-> > Bizarre this started showing up now.  The recent patch was:
-> > 
-> > -       info->alloced += compound_nr(page);
-> > -       inode->i_blocks += BLOCKS_PER_PAGE << compound_order(page);
-> > +       info->alloced += folio_nr_pages(folio);
-> > +       inode->i_blocks += BLOCKS_PER_PAGE << folio_order(folio);
-> > 
-> > so it could tell that compound_order() was small, but folio_order()
-> > might be large?
-> 
-> The old code also generates a warning on my test system.  Smatch thinks
-> both compound_order() and folio_order() are 0-255.  I guess because of
-> the "unsigned char compound_order;" in the struct page.
+Series is: Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-It'd be nice if we could annotate that as "contains a value between
-1 and BITS_PER_LONG - PAGE_SHIFT".  Then be able to optionally enable
-a checker that ensures that's true on loads/stores.  Maybe we need a
-language that isn't C :-P  Ada can do this ... I don't think Rust can.
+On Thu, May 19, 2022 at 11:05 PM Huang Rui <ray.huang@amd.com> wrote:
+>
+> Switch to use the callback function to poll the reset status on IMU.
+> Because it will have different sequency on other ASICs.
+>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/imu_v11_0.c  | 35 ++++++++++++++++---------
+>  2 files changed, 23 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
+> index cfc4a92837f0..484e936812e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_imu.h
+> @@ -35,6 +35,7 @@ struct amdgpu_imu_funcs {
+>      void (*setup_imu)(struct amdgpu_device *adev);
+>      int (*start_imu)(struct amdgpu_device *adev);
+>      void (*program_rlc_ram)(struct amdgpu_device *adev);
+> +    int (*wait_for_reset_status)(struct amdgpu_device *adev);
+>  };
+>
+>  struct imu_rlc_ram_golden {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+> index da18d6724125..64da0ad688d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+> @@ -117,6 +117,25 @@ static int imu_v11_0_load_microcode(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> +static int imu_v11_0_wait_for_reset_status(struct amdgpu_device *adev)
+> +{
+> +       int i, imu_reg_val = 0;
+> +
+> +       for (i = 0; i < adev->usec_timeout; i++) {
+> +               imu_reg_val = RREG32_SOC15(GC, 0, regGFX_IMU_GFX_RESET_CTRL);
+> +               if ((imu_reg_val & 0x1f) == 0x1f)
+> +                       break;
+> +               udelay(1);
+> +       }
+> +
+> +       if (i >= adev->usec_timeout) {
+> +               dev_err(adev->dev, "init imu: IMU start timeout\n");
+> +               return -ETIMEDOUT;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static void imu_v11_0_setup(struct amdgpu_device *adev)
+>  {
+>         int imu_reg_val;
+> @@ -146,19 +165,8 @@ static int imu_v11_0_start(struct amdgpu_device *adev)
+>         imu_reg_val &= 0xfffffffe;
+>         WREG32_SOC15(GC, 0, regGFX_IMU_CORE_CTRL, imu_reg_val);
+>
+> -       if (adev->gfx.imu.mode == DEBUG_MODE) {
+> -               for (i = 0; i < adev->usec_timeout; i++) {
+> -                       imu_reg_val = RREG32_SOC15(GC, 0, regGFX_IMU_GFX_RESET_CTRL);
+> -                       if ((imu_reg_val & 0x1f) == 0x1f)
+> -                               break;
+> -                       udelay(1);
+> -               }
+> -
+> -               if (i >= adev->usec_timeout) {
+> -                       dev_err(adev->dev, "init imu: IMU start timeout\n");
+> -                       return -ETIMEDOUT;
+> -               }
+> -       }
+> +       if (adev->gfx.imu.mode == DEBUG_MODE)
+> +               return imu_v11_0_wait_for_reset_status(adev);
+>
+>         return 0;
+>  }
+> @@ -368,4 +376,5 @@ const struct amdgpu_imu_funcs gfx_v11_0_imu_funcs = {
+>         .setup_imu = imu_v11_0_setup,
+>         .start_imu = imu_v11_0_start,
+>         .program_rlc_ram = imu_v11_0_program_rlc_ram,
+> +       .wait_for_reset_status = imu_v11_0_wait_for_reset_status,
+>  };
+> --
+> 2.25.1
+>
