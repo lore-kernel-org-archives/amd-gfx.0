@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 786F2C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30841C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 07:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA75010EE71;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A670D10EE70;
 	Fri, 27 May 2022 07:15:12 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF86110EF7E;
- Thu, 26 May 2022 23:54:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D2910F5F3;
+ Thu, 26 May 2022 23:55:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id A34931F40887
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 52C691F459FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1653609276;
- bh=yzbiLRskhwUnKi8FuSZ/Li8as+mXkO3KrAAU56S2aFI=;
+ s=mail; t=1653609310;
+ bh=nPEuKswQlR9Y3lB1Q2WuSBCu+q4IQv1b2R4ojzwKwKQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Af352/Ponwfde8alC1lYZz/ODMV/pdk2FiMi8cKYhruO+snZP/fcdv8DtPSyIEPkX
- C1NG915yozGxnkojZrMnDlnj5C27toqp2ZJpeVSvcRYUxbcaEfjThosEKK85jBMN1w
- fAsLdL6H+f2EflalAZPwIwhwEFKJUWsvUL9DLuriWb4HSVRiPVgVfZFSjE619sOqli
- G25+CcmWgHfVtCbTMGKjjlIEQqZF9iTLv5sgnF2DB9ug0DcrXa9cuogSjOfVSTF2Pp
- n7o6ra1QeQB/8XMHMuxYJ8lqET2Bk+X+agYoE3cglAqFCsOU1BNXL48zdmy4l+WeN2
- NcZLjif3gYXfg==
+ b=m8aIO9spexkXB7Y8oBGI0YPYaWs/o9KynNSMnYM+QCOBYGce+N6mI0toHIP/pevv4
+ PlxmoM6raMVUbKMbZU4yqFIrwNzX1L2fR6z8pjpPqjpWVyI1qQHkbwl826zk1RkvCd
+ B5p8s8la4i7uXnsYcU3b5rqVkgspWV12oarc04KFQ/srmesKgwe5Sq7hNvA1SrrU4w
+ laM5D27QHrw8jeXLouHaAsmKIwEEmHZ5fbqrcQBamm8jCQT3HtFNnC2ZoX358vRF+o
+ 3PW+ug5rE3stsfRINXRuPTcGQtOQs2d7EniYZPtWRp8voclYkmCeOajhS9ARnK6w+9
+ 3tk/7Z0yybMwg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -52,16 +52,15 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v6 09/22] drm/virtio: Use appropriate atomic state in
- virtio_gpu_plane_cleanup_fb()
-Date: Fri, 27 May 2022 02:50:27 +0300
-Message-Id: <20220526235040.678984-10-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 18/22] drm/gem: Add drm_gem_pin_unlocked()
+Date: Fri, 27 May 2022 02:50:36 +0300
+Message-Id: <20220526235040.678984-19-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 May 2022 07:15:10 +0000
+X-Mailman-Approved-At: Fri, 27 May 2022 07:15:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,39 +81,73 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make virtio_gpu_plane_cleanup_fb() to clean the state which DRM core
-wants to clean up and not the current plane's state. Normally the older
-atomic state is cleaned up, but the newer state could also be cleaned up
-in case of aborted commits.
+Add unlocked variants of drm_gem_un/pin() functions and make them public.
+These new helpers will take care of GEM dma-reservation locking for DRM
+drivers.
 
-Cc: stable@vger.kernel.org
+We are going to add memory shrinking support to the VirtIO-GPU driver
+that will need to pin framebuffers explicitly to prevent eviction of the
+actively used buffers by the shrinker. VirtIO-GPU driver will use these
+new generic helpers to pin shmem framebuffers.
+
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_plane.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_gem.c | 29 +++++++++++++++++++++++++++++
+ include/drm/drm_gem.h     |  3 +++
+ 2 files changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 6d3cc9e238a4..7148f3813d8b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -266,14 +266,14 @@ static int virtio_gpu_plane_prepare_fb(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index c61674887582..c909c935cfda 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1179,6 +1179,35 @@ void drm_gem_unpin(struct drm_gem_object *obj)
+ 		obj->funcs->unpin(obj);
  }
  
- static void virtio_gpu_plane_cleanup_fb(struct drm_plane *plane,
--					struct drm_plane_state *old_state)
-+					struct drm_plane_state *state)
++int drm_gem_pin_unlocked(struct drm_gem_object *obj)
++{
++	int ret;
++
++	if (!obj->funcs->pin)
++		return 0;
++
++	ret = dma_resv_lock_interruptible(obj->resv, NULL);
++	if (ret)
++		return ret;
++
++	ret = obj->funcs->pin(obj);
++	dma_resv_unlock(obj->resv);
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_gem_pin_unlocked);
++
++void drm_gem_unpin_unlocked(struct drm_gem_object *obj)
++{
++	if (!obj->funcs->unpin)
++		return;
++
++	dma_resv_lock(obj->resv, NULL);
++	obj->funcs->unpin(obj);
++	dma_resv_unlock(obj->resv);
++}
++EXPORT_SYMBOL(drm_gem_unpin_unlocked);
++
+ int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
  {
- 	struct virtio_gpu_framebuffer *vgfb;
+ 	int ret;
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 0b427939f466..870d81e7a104 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -413,4 +413,7 @@ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+ int drm_gem_vmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
+ void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
  
--	if (!plane->state->fb)
-+	if (!state->fb)
- 		return;
- 
--	vgfb = to_virtio_gpu_framebuffer(plane->state->fb);
-+	vgfb = to_virtio_gpu_framebuffer(state->fb);
- 	if (vgfb->fence) {
- 		dma_fence_put(&vgfb->fence->f);
- 		vgfb->fence = NULL;
++int drm_gem_pin_unlocked(struct drm_gem_object *obj);
++void drm_gem_unpin_unlocked(struct drm_gem_object *obj);
++
+ #endif /* __DRM_GEM_H__ */
 -- 
 2.35.3
 
