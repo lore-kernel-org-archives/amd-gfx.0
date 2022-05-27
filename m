@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A1FC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 12:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D25C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 13:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7E5710FA6D;
-	Fri, 27 May 2022 12:58:07 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A986F10F4D7
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 May 2022 12:45:00 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 49B8B1F8B5;
- Fri, 27 May 2022 12:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1653655499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QMQDKMfjpYWyX/3tRv8LDken8BHXTV2zfOpRzWIV52Y=;
- b=IXRZ6IGoJf33MOln5QqVx5cN8lQJT/0fWn4MZxPy+t2c/VShnug1m/OUh4AJNVoZis5aJ3
- 49nxlDp0Zb4ZWpuYrS2qa7kkv2Qly8tXb2kmGEYOO62+3wn8Q1psZCjqvotK3vbCLwoK+g
- 42+UjLaHQ94Lw7nUDzU6nnJ25LGfQMA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1653655499;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QMQDKMfjpYWyX/3tRv8LDken8BHXTV2zfOpRzWIV52Y=;
- b=AO4L36mbm6K7KBiFaSrzGtuGLvBcPwFdcIByA1J+zw7aYS0ZysjwyAqUvBIox7kYqh50XH
- /+sId8s6V0/tkMCw==
-Received: from lion.mk-sys.cz (unknown [10.100.200.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 3F99B2C142;
- Fri, 27 May 2022 12:44:59 +0000 (UTC)
-Received: by lion.mk-sys.cz (Postfix, from userid 1000)
- id 13615608E0; Fri, 27 May 2022 14:44:59 +0200 (CEST)
-Date: Fri, 27 May 2022 14:44:59 +0200
-From: Michal Kubecek <mkubecek@suse.cz>
-To: amd-gfx@lists.freedesktop.org
-Subject: (REGRESSION bisected) Re: amdgpu errors (VM fault / GPU fault
- detected) with 5.19 merge window snapshots
-Message-ID: <20220527124459.mfo4tjdsjohamsvy@lion.mk-sys.cz>
-References: <20220527090039.pdrazo5e6mwgo3d3@lion.mk-sys.cz>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70C3910EB51;
+	Fri, 27 May 2022 13:22:34 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC48610F6B7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 May 2022 13:22:32 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-e656032735so5782548fac.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 May 2022 06:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=b6223VG41YQj2COFt5LSu8VrWTgFAalqG/2PoQbZedk=;
+ b=eOLxSt/twHXuswTX1wpKd2SWknRFQmQkOQsMs0ngid/8gvQ4h+iQmt+fUybyUYAVtT
+ RXi0JRY3wfA3GJBdT5b1UiZv2o0NuUhmr5kE/wfp0QQZ8jG9G0mznUCHuwBf/gTRmoEK
+ kqwh6JML6MMh0PramSSeVP4lCUyZui6sTg8OGewplcLYO6Ny92i9kmVFvsvR7lAMxEQo
+ jmmwMctwFFhqcjjTDVxEjfl/gEJwRx6J1LdKBWbi9Xq4OkDXYnZ8TIVnZAZIoU4VJlQW
+ fL2vNM33JepGTds77d1tmFXONiOjB6ZtyvIgSAV4WWfgA01ExKCv+hBXgHPhKv3g0qbv
+ T1rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=b6223VG41YQj2COFt5LSu8VrWTgFAalqG/2PoQbZedk=;
+ b=edRPFG4C9wUJ32hpGTvexJA5zR9UdizJEdjENVlkhqI/ZJ2FA3V3D+NjPNu8Bbmcgv
+ wp9wyP9j7XLbjGFTNf9bhjpwt5HXgTlVo3t2+N1hA551rSagXVArA1MwSp09BGz8XHNq
+ DaOs/42ZBa5cINx0wIYQn5vXT8kuU6gMWzOneVXapppwZ5hAclPHdBTr0KNTRp+jmWHZ
+ jEqGa3jN7H4ks+EHutvcxvBNrq7P6A9I5W0YFIj7DCgbA/ATbPkVsHOqqO3FCsIDAdP8
+ hjekZd/NBgKagtR+AwcCN0SxyCWd12c7bR/GDbajDccLuvqyxFDLo1rdeoIXQ+Vg0rNi
+ 2p9A==
+X-Gm-Message-State: AOAM530dMcgKay/0GLkR5B4RqI5h4ukiWA7Lo4XgtHvM5EvsGFgad9gU
+ dcZ4EuN6PeMKjozKx14kDhcrpR0A5ifmABn8a3oPcONA
+X-Google-Smtp-Source: ABdhPJwP9cfR/pi1aQmZYRb695aNPAhISMkL8A8KSFJG/KJubKNfpFxv7B8yHZmI2qSITz4E5lVOjKoNoTENj5riLdg=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr4212146oap.253.1653657752029; Fri, 27
+ May 2022 06:22:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="avjog5ybobv7z5zu"
-Content-Disposition: inline
-In-Reply-To: <20220527090039.pdrazo5e6mwgo3d3@lion.mk-sys.cz>
-X-Mailman-Approved-At: Fri, 27 May 2022 12:58:06 +0000
+References: <20220527094620.3064524-1-kenneth.feng@amd.com>
+In-Reply-To: <20220527094620.3064524-1-kenneth.feng@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 27 May 2022 09:22:21 -0400
+Message-ID: <CADnq5_M0qsjxaiwr2PKVLGfmqCObx3GGPnN59hu-pA9CBOpy+A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: align the cg and pg settings
+To: Kenneth Feng <kenneth.feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +62,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, May 27, 2022 at 5:46 AM Kenneth Feng <kenneth.feng@amd.com> wrote:
+>
+> align the cg and pg settings between gc_v11_0 and gc_v11_2
+>
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 
---avjog5ybobv7z5zu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, May 27, 2022 at 11:00:39AM +0200, Michal Kubecek wrote:
-> Hello,
->=20
-> while testing 5.19 merge window snapshots (commits babf0bb978e3 and
-> 7e284070abe5), I keep getting errors like below. I have not seen them
-> with 5.18 final or older.
->=20
-> ------------------------------------------------------------------------
-> [  247.150333] gmc_v8_0_process_interrupt: 46 callbacks suppressed
-> [  247.150336] amdgpu 0000:0c:00.0: amdgpu: GPU fault detected: 147 0x000=
-20802 for process firefox pid 6101 thread firefox:cs0 pid 6116
-> [  247.150339] amdgpu 0000:0c:00.0: amdgpu:   VM_CONTEXT1_PROTECTION_FAUL=
-T_ADDR   0x00107800
-> [  247.150340] amdgpu 0000:0c:00.0: amdgpu:   VM_CONTEXT1_PROTECTION_FAUL=
-T_STATUS 0x0D008002
-> [  247.150341] amdgpu 0000:0c:00.0: amdgpu: VM fault (0x02, vmid 6, pasid=
- 32780) at page 1079296, write from 'TC2' (0x54433200) (8)
-[...]
-> [  249.925909] amdgpu 0000:0c:00.0: amdgpu: IH ring buffer overflow (0x00=
-0844C0, 0x00004A00, 0x000044D0)
-> [  250.434986] [drm] Fence fallback timer expired on ring sdma0
-> [  466.621568] gmc_v8_0_process_interrupt: 122 callbacks suppressed
-[...]
-> ------------------------------------------------------------------------
->=20
-> There does not seem to be any apparent immediate problem with graphics
-> but when running commit babf0bb978e3, there seemed to be a noticeable
-> lag in some operations, e.g. when moving a window or repainting large
-> part of the terminal window in konsole (no idea if it's related).
->=20
-> My GPU is Radeon Pro WX 2100 (1002:6995). What other information should
-> I collect to help debugging the issue?
-
-Bisected to commit 5255e146c99a ("drm/amdgpu: rework TLB flushing").
-There seem to be later commits depending on it so I did not test
-a revert on top of current mainline.
-
-I should also mention that most commits tested as "bad" during the
-bisect did behave much worse than current mainline (errors starting as
-early as with sddm, visibly damaged screen content, sometimes even
-crashes). But all of them issued messages similar to those above into
-kernel log.
-
-Michal Kubecek
-
---avjog5ybobv7z5zu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEWN3j3bieVmp26mKO538sG/LRdpUFAmKQx8UACgkQ538sG/LR
-dpXbnQf9EBOUK6JjIxFbeBAUHln7TMl1+8wR5V/hqAlspjjaTXfZjPm86Q2tMHqB
-Isx5zZ8ax5B5pB+4jqQwSZmqkPBd6n8uXPxkjJ56/WnFKTs1Eh+oeFAwyxrJPb0I
-z+6M5JPCOG5kaaewzkjYom66vJcDTq2PCghR13GwAwd8xTUAXFfx3EODbUP8YZvS
-AmGSKIUsh7r2A+DFvQ790SjWfHsjX2f4I7YWhx1V6uzj00wHhAp7rxEOJVeKD56r
-3ToX438mMPD3GH25wVUijnVazjqG3IQcao1TJ8/Ll9i8r4HBgMaS227YDnpSHoqW
-M2ClzFJBd95wkrazHyuwXAkjzQIrCA==
-=kLOY
------END PGP SIGNATURE-----
-
---avjog5ybobv7z5zu--
+> ---
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index 5566ddbfd188..26fda7a170da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -546,12 +546,17 @@ static int soc21_common_early_init(void *handle)
+>                 adev->cg_flags =
+>                         AMD_CG_SUPPORT_GFX_CGCG |
+>                         AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_REPEATER_FGCG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_JPEG_MGCG;
+> +                       AMD_CG_SUPPORT_JPEG_MGCG |
+> +                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> +                       AMD_CG_SUPPORT_ATHUB_LS;
+>                 adev->pg_flags =
+>                         AMD_PG_SUPPORT_VCN |
+>                         AMD_PG_SUPPORT_VCN_DPG |
+> -                       AMD_PG_SUPPORT_JPEG;
+> +                       AMD_PG_SUPPORT_JPEG |
+> +                       AMD_PG_SUPPORT_ATHUB |
+> +                       AMD_PG_SUPPORT_MMHUB;
+>                 adev->external_rev_id = adev->rev_id + 0x10;
+>                 break;
+>         default:
+> --
+> 2.25.1
+>
