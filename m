@@ -4,121 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FD3C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 12:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86A6C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 May 2022 12:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3CC910FA66;
-	Fri, 27 May 2022 12:58:06 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1105C10E290;
- Fri, 27 May 2022 08:20:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GNgg75KtFq1cjKFkggxi4n5f2tMTu4WIQZv12E22FiBWkq1Nye0E43Zj1oM9PaAEDObrPSZt0/6VyNIlD1sHJ8Zr+VWmvXDzBY2lXFVmV5WYKx3n5sD0tp6vk2MopuLhXhSMUeKT4BKnrY24JOMCRWPvFN8gU1maq+9JduLJU+SZ4XVGZYZyzjNrP6u6Ir8oY6RVNzFY6wF5N3Y0p9fanB1aYwQHoovsoOTws4A1fjLvyYoRolGFuNDBmkdvge1JvJp7fHe3HHNQmrC42r/8XIe7Pk8+Su8XxIUU+U10Pzc2qn2KBAq/IYRZ2CEbuuXI29nn/icBBCOQ/WoS5hz5Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HyX7auqOZxEG9qRK3vYhQwBT1ani5seAI/SWjzaT6G0=;
- b=YM4F0O8PIBhUu7rAIRw2OmgWRFVxkNzj//loff3aiJncynBQ9PXm8VKXM+WFRKR3zmTpfGgJOXtaUjKLFMgKuKdKWwyp25b6DvT46CIYLQZHQB2IL+YG8eF/YWINye4YsLgrvUT2X5xxWJyasFYitZRIEuwvQfIfgQc27h9SXxu5506MwebNKLVUSyX2tpDMWnhnTbOX9H6MCLGycY10gXVPPujhuazKRUh8JphoqJ0/SrcoBCfzEZ9sGwPrNK0HU0giQSfUuJCOKB3g9dbMTO7SMlMUMZlcXyrxO/1Cvf3O/wkFBGhf1z1t91PF1h34BEjBUh1N6wXYkh1enqK+KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HyX7auqOZxEG9qRK3vYhQwBT1ani5seAI/SWjzaT6G0=;
- b=SOrIHwdkLtw9zFHtyKEgr6taPYuPL5cGsUc041iYetSASC6/KBYL93jKXfoHiJl2MW83Jty4fFcd+mIg6LBvgs9ACPyW5jg6aqXiscPTJ5se8kEeeU290xGyYPbTknxwRCReJEYnIQXsGXSy40niaAQycsyC02w2sC2m/YNiLGRcoc5z6cWPCKwHxGg7f7DPanQTspqBOeKVOkffJckqoslZk7PC5iPXAUZV+KZX9OnQutZh0IR8AfItbXmS5UyGokceYvu8LL8sgGKY0/5g8dyjHcGPx/HfoomWQXET3Vm0q6RLfGxDlNk0f6nmvjAa7IvXiqkvBMma9K4q+l3GIg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by CY5PR12MB6455.namprd12.prod.outlook.com (2603:10b6:930:35::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Fri, 27 May
- 2022 08:20:14 +0000
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::59cf:d090:5d26:6e7b]) by BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::59cf:d090:5d26:6e7b%5]) with mapi id 15.20.5293.013; Fri, 27 May 2022
- 08:20:14 +0000
-References: <20220524190632.3304-1-alex.sierra@amd.com>
- <20220524190632.3304-3-alex.sierra@amd.com>
- <87leuqf4oj.fsf@nvdebian.thelocal>
- <a3619730-7aa8-1f0f-c524-bf37f6fd5125@amd.com>
-User-agent: mu4e 1.6.9; emacs 27.1
-From: Alistair Popple <apopple@nvidia.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH v3 02/13] mm: handling Non-LRU pages returned by
- vm_normal_pages
-Date: Fri, 27 May 2022 18:02:11 +1000
-In-reply-to: <a3619730-7aa8-1f0f-c524-bf37f6fd5125@amd.com>
-Message-ID: <87tu9b9ykm.fsf@nvdebian.thelocal>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: SY6PR01CA0149.ausprd01.prod.outlook.com
- (2603:10c6:10:1ba::10) To BYAPR12MB3176.namprd12.prod.outlook.com
- (2603:10b6:a03:134::26)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16FDB10FA68;
+	Fri, 27 May 2022 12:58:07 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B358D10E326;
+ Fri, 27 May 2022 11:48:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: alyssa) with ESMTPSA id 1959F1F41BCA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1653652104;
+ bh=xcx3TellMJcq6esop1B7ZmMNwnhsKyZx0+rHkC0A2xI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XYVauD5VZzwta5S8wqxvdl7xMWe3d5yMyyW789dUSVDs6NEJymjjqMrmWBdg2XkhL
+ g8u9ajFqIcSmD+wYUmTz32VixB+QZa48XFz/5YeEW4HV7fezUFsQQiObuTKrCrTzG7
+ dGjKA/9HgMcUVVjQ4ZYCLfULQY/c1kwEGmnQvt0ZnOS7Z3VLv5/IQpbz6T237PEtnS
+ OMAuRoqwIXHn+rA/wjacBNTVsu8L0vt0WOmK9OPZQEL9ggY0RyemKOrHPAoY9PNm3G
+ f8kbED4B7fCB2YoYQvi2qM+wIo11eZkUx8qDNA2zImB9YucqAF8PoZfTyBKU6IBTFo
+ 8dr75xh4P13Kg==
+Date: Fri, 27 May 2022 07:48:11 -0400
+From: Alyssa Rosenzweig <alyssa@collabora.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Subject: Re: [PATCH v6 22/22] drm/panfrost: Switch to generic memory shrinker
+Message-ID: <YpC6e9kw8r3UJG31@maud>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-23-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d2cd54f9-c437-418b-624b-08da3fb9b987
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6455:EE_
-X-Microsoft-Antispam-PRVS: <CY5PR12MB6455198D2874C7617728F3B6DFD89@CY5PR12MB6455.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vZkpnL7eS3TVNhY8Im/tgT3oys9tFrs15pj81Og5cUWJFnDxCJ9Dp2Tt9KRSJLw2V5rp4bQknsvl7O+7eziiVS8az8UPwZ3LGI3pm8ErDfJjs3OBhiHBRLEcCGbAFa7jQbPRD+dyP7d8ExjhflYsFHUy3h1Vtz9tAsejYqzA0seghVwATJ2IJFZtiZRWTPjf7KCyFREjc6VBtMrCP+PnE7FoBYrf8hWD6TBYyN2BvUeoKIfXEuwVackSjUM0iAD8+8mvtlzOKEdGA4knqxkmuCnh2LAQXjBd3lDpq6Nd6cSRBGHRcjHHa37/2kaKslUmsuVxDq9sWD7bulXlk8aq7fjPxd13AsUp+qFzztKlfJQbeU89HDjeZKSM6LtRXDTNS670WK+3ScmzSJM8Jf/l4kZhFZeVjLTL6xvOBZKGsavUq/EEjcZUypVOECgziqsdcysKDnHGvy2RaxRFFC05SvuLfNySsavqjJb2w59j7SDBaNS+n4las08KS9SU1dQkqbzIz2j9Ks7QHKPYRspJlGq52rEa4D9pgJPDV5hfDg79+cwnxOSm77vzVkdIySlvpWJOeqb9gszLcP0yYHJcam2eC2oYKR5rnJ678PHyTHWNrXS3Sk1/wIBfQELdIp1lZIPD2JPutGJujIl37kVQxw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6486002)(186003)(26005)(6512007)(9686003)(6506007)(316002)(508600001)(6666004)(8936002)(2906002)(4326008)(86362001)(66476007)(66556008)(66946007)(6916009)(5660300002)(30864003)(7416002)(38100700002)(83380400001)(8676002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2pkanFmaTRvTXU5NlBScEdJRVRMOERnSEJrZ0lqVk8xc0trbjJSc1RLTkJD?=
- =?utf-8?B?a0RYdlF3Q3ZIenJhdEUwSTM0SkFYK014cEdGcFRoMXpFR214Qi9FZzdhZDVG?=
- =?utf-8?B?S2NIY05VM29yNDVkejk1ZjByT1R5YVdLTmdFclNiekVDTmdwbXV2K1dwZXJX?=
- =?utf-8?B?ZkdDenpJYTQ0eWNUVkhtK1FMbFREU0R5ODA0RkhJL1VQZXpOZHh0YTNXTksx?=
- =?utf-8?B?S1JvcHdNQ2NYSDBsZS8vcE5rZWtaNHNtSitaVS9kd3lFcWZXZFVnMUNiM1o1?=
- =?utf-8?B?OTJaWXNSRTRvTlRiNWt6eGxOcCtocWttaW5kZm1KWnl2ZTUyT3FHR1I5Uno0?=
- =?utf-8?B?cWVhcDVidkxoV3NpUHpGLytPVStoVi9iMHlMYUprVkd5WFVqN09ZSXJldzJU?=
- =?utf-8?B?eUE4Q2FIVVc3amxRb09HcERCSWJrRmVJcE9NSjQ4L0dxaElGVnB1ejdldGtC?=
- =?utf-8?B?L1FUQ2VSQ3ByZjZGWEptcGdUdHlkOWNPbStEbnpPd3k2SFZmcjg1cm8yZVNX?=
- =?utf-8?B?R2dvSjhDUFcvNTRwcmlRcWZpakNraHlYaHJ3akZhKy9iV3BHUW5sL2pqWGpY?=
- =?utf-8?B?TUJmWlZuZmxYWVFGSTdPTFViQkQ4My9DSjI3MTcyTjFUVUs4MUlQb2VXWEti?=
- =?utf-8?B?Z1VsalhEc3p1M0VCTXFicHNVN0dMRjA3RW4wYVREbmtMMG9tMm9QVW1vUjgz?=
- =?utf-8?B?S3g0SWtWcUxQMTY2ZWNsVTQ3NEIzdzEwaUZyRVJVQ0ZsbWhndmJSd2k2STA1?=
- =?utf-8?B?Qk9kZStrMDFlZjU1N1hCV0NmVk9TLzc2ODZrZnZlRzI1dUNuT0tYUyt4WTZ6?=
- =?utf-8?B?eER6YWpIZSsxeWFyclNXenZuWVh3MFJGYjNNa1FGdzBHOHdjVmZDdVhvZmJz?=
- =?utf-8?B?ZTJINkxiUE5oeGVJMW9OTEVvRXh6K2RxVlM2NG5ENGJiQjBXY1U3VnR6QTND?=
- =?utf-8?B?Zi9rZkRIZ0dDNW5QVE9FODVwZTBIU3BCNkZBcUJFd3ZPM0lWMnZvRHBuRUd5?=
- =?utf-8?B?R2t4bUw5L1prR2swVEZSL3ZSK28yL1F1VUJHZ1prVmJ3Y0dqZC9KZnB1OHdm?=
- =?utf-8?B?YjJpOVlWeVpPaGxZd1krRDd5a3Y4OGt0MXh5Y1BEbjQvSHBoWGFWYWN4Nlpy?=
- =?utf-8?B?d0JXOGtyWm1OTGxRRkpzU0VwbVBrQ28xeU95ZmxjUHUyOUxLSDkrdElmbFhi?=
- =?utf-8?B?ZDlGNTk5Y3Rpa3VFemVQekJVQkhvaDlBZzBiaE42dFpSTk9DM2NTbVZoZnF5?=
- =?utf-8?B?MzFRQnJZS2JXdGhTKzJ5YklYSkdQL1R1V3JyUTQ3SWlGOW9YcENxekU5NExw?=
- =?utf-8?B?c3NVT0MwSjQyU3Bsb21lcEwwVm5HK3cvRXE3c04ybjhmVENjK25RdjRJQ3d3?=
- =?utf-8?B?UGlCdjU5OGVlL3hLSXJvc1BJNTJqcXljaEpxMVdJbk5kTmFOWUlWcC9YWmdp?=
- =?utf-8?B?c3BZRTJnZUZ4b0xPS0NOejBTbU50dUpMWThrNmd0dFFYL0xTNXFOSU5wWDdi?=
- =?utf-8?B?Qm9tTFMrUDVMMjR3aDQ5N05iNjMwRm82bWxJYTI0bkRUd0Joelc5MjcyRW1R?=
- =?utf-8?B?RWtqb3pjQnNaMGI1UmdmSEZkQUYyQ2tmcFo3TVduRnNWWk4yNDdiWCs3WXNh?=
- =?utf-8?B?K2xiRUZweXA0bENJdldNbHpiRFFIRzc0RklTaVhqRnBFeFR5SnVyRWkxVFB1?=
- =?utf-8?B?cnVTVXhHbHBKOUJIL2oyV0Q0Zmh0RkZpUE1HdDNhZW5Rb1pDL3ZLSXZvMVJZ?=
- =?utf-8?B?cU51Yk9VMHVaUXBHNkwzV1VVbGk4R2ZjWVUrQXFQa1FpN1VMeG5jcHNRNDEw?=
- =?utf-8?B?WmpsRzBadlRteWxwUnRtOUlWK1RqMktuc3JLeXJ5eTRYRWE5Um9aWnZxNGhz?=
- =?utf-8?B?cnp1eE5ucEVMemFrZnZhdk42bE9lM2JYRHNkRHhKSjN2Y0M2UnV2ejhUcjZ6?=
- =?utf-8?B?b3o4aHgzUVN3LzNHZmFOTDhtR1NYSE1sMHY0ajRRVldjNzNTRHh1a0UrSkVH?=
- =?utf-8?B?TURrWmtBdVNyZ1NRQVZrc3ZjN0cyVFkwQjNJNzErYlRSeGVoOTViVHUxRFhK?=
- =?utf-8?B?YlBPbjB6Y1hGUVRMcjhLQWxrb2s5TzJpb0dUcXNDY29sTThLd2ZYNmR0K0pK?=
- =?utf-8?B?WDg2WWlNK0ttT1dLUUd5OVY0bXlBampoa1d5WU5FNzQxNmVyNVZMdTYzWktw?=
- =?utf-8?B?K2NyMTBZaUl1YU1mNlRxbzdVWFRGOWFZQjhxTzhnMytSaTdFbXRNaWMwVmV0?=
- =?utf-8?B?Lzdkcm9ReUF1bG9Kc1JSNUk0SHdGNWNIUndOdmFNRkRwYlJ5UHZZZXc3Rzdo?=
- =?utf-8?B?a0lQSWVlaWZINTByRHBaZ2xETnlwRVBPS1VxRThtOUdHY1plYTR0UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2cd54f9-c437-418b-624b-08da3fb9b987
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2022 08:20:14.3472 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b0b3cMDzySRXnBvE1bIw59yTElki4t01Wq2Zx+1V5jBr2JyJCww8JI8aTXhIBkEoIcf944CbZu9JvCFGQGvvkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6455
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220526235040.678984-23-dmitry.osipenko@collabora.com>
 X-Mailman-Approved-At: Fri, 27 May 2022 12:58:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,389 +47,425 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
- willy@infradead.org, david@redhat.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
+ Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
+ Tomasz Figa <tfiga@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
+ Christian K??nig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Acked-by: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
 
-Felix Kuehling <felix.kuehling@amd.com> writes:
-
-> Am 2022-05-25 um 00:11 schrieb Alistair Popple:
->> Alex Sierra <alex.sierra@amd.com> writes:
->>
->>> With DEVICE_COHERENT, we'll soon have vm_normal_pages() return
->>> device-managed anonymous pages that are not LRU pages. Although they
->>> behave like normal pages for purposes of mapping in CPU page, and for
->>> COW. They do not support LRU lists, NUMA migration or THP.
->>>
->>> We also introduced a FOLL_LRU flag that adds the same behaviour to
->>> follow_page and related APIs, to allow callers to specify that they
->>> expect to put pages on an LRU list.
->> Continuing the follow up from the thread for v2:
->>
->>>> This means by default GUP can return non-LRU pages. I didn't see
->>>> anywhere that would be a problem but I didn't check everything. Did yo=
-u
->>>> check this or is there some other reason I've missed that makes this n=
-ot
->>>> a problem?
->>> I have double checked all gup and pin_user_pages callers and none of th=
-em seem
->>> to have interaction with LRU APIs.
->> And actually if I'm understanding things correctly callers of
->> GUP/PUP/follow_page_pte() should already expect to get non-LRU pages
->> returned:
->>
->>      page =3D vm_normal_page(vma, address, pte);
->>      if ((flags & FOLL_LRU) && page && is_zone_device_page(page))
->>          page =3D NULL;
->>      if (!page && pte_devmap(pte) && (flags & (FOLL_GET | FOLL_PIN))) {
->>          /*
->>           * Only return device mapping pages in the FOLL_GET or FOLL_PIN
->>           * case since they are only valid while holding the pgmap
->>           * reference.
->>           */
->>          *pgmap =3D get_dev_pagemap(pte_pfn(pte), *pgmap);
->>          if (*pgmap)
->>              page =3D pte_page(pte);
->>
->> Which I think makes FOLL_LRU confusing, because if understand correctly
->> even with FOLL_LRU it is still possible for follow_page_pte() to return
->> a non-LRU page. Could we do something like this to make it consistent:
->>
->>      if ((flags & FOLL_LRU) && (page && is_zone_device_page(page) ||
->>          !page && pte_devmap(pte)))
->
-> This alone won't help if it still goes into the if (!page && pte_devmap(p=
-te)
-> ...) afterwards. I think what you're suggesting is:
->
-> +	if ((flags & FOLL_LRU) && (page && is_zone_device_page(page) ||
-> +				   !page && pte_devmap(pte)))
-> +		page =3D NULL;
-> -	|if (!page && pte_devmap(pte) && (flags & (FOLL_GET | FOLL_PIN))) { + e=
-lse
->      if (!page && pte_devmap(pte) && (flags & (FOLL_GET | FOLL_PIN))) { |
->
-> Is that what you meant?
-
-Oh my bad. Yes, that is what I meant. Although as Alex pointed out we
-should goto no_page as well. However we also need to fix up the return
-code, because returning NULL will cause GUP to try and fault the page in
-when it already possibly exists. So I think something like this should
-work:
-
-      page =3D vm_normal_page(vma, address, pte);
-      if ((flags & FOLL_LRU) && (page && is_zone_device_page(page) ||
-          !page && pte_devmap(pte))) {
-          page =3D ERR_PTR(-EEXIST);
-          goto out;
-      } else if (!page && pte_devmap(pte) && (flags & (FOLL_GET | FOLL_PIN)=
-)) {
-          /*
-           * Only return device mapping pages in the FOLL_GET or FOLL_PIN
-           * case since they are only valid while holding the pgmap
-           * reference.
-           */
-          *pgmap =3D get_dev_pagemap(pte_pfn(pte), *pgmap);
-          if (*pgmap)
-              page =3D pte_page(pte);
-
-> Regards,
-> =C2=A0 Felix
->
->
->>
->> Looking at callers that currently use FOLL_LRU I don't think this would
->> change any behaviour as they already filter out devmap through various
->> other means.
->>
->>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>> ---
->>>   fs/proc/task_mmu.c | 2 +-
->>>   include/linux/mm.h | 3 ++-
->>>   mm/gup.c           | 2 ++
->>>   mm/huge_memory.c   | 2 +-
->>>   mm/khugepaged.c    | 9 ++++++---
->>>   mm/ksm.c           | 6 +++---
->>>   mm/madvise.c       | 4 ++--
->>>   mm/memory.c        | 9 ++++++++-
->>>   mm/mempolicy.c     | 2 +-
->>>   mm/migrate.c       | 4 ++--
->>>   mm/mlock.c         | 2 +-
->>>   mm/mprotect.c      | 2 +-
->>>   12 files changed, 30 insertions(+), 17 deletions(-)
->>>
->>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
->>> index f46060eb91b5..5d620733f173 100644
->>> --- a/fs/proc/task_mmu.c
->>> +++ b/fs/proc/task_mmu.c
->>> @@ -1785,7 +1785,7 @@ static struct page *can_gather_numa_stats(pte_t p=
-te, struct vm_area_struct *vma,
->>>   		return NULL;
->>>
->>>   	page =3D vm_normal_page(vma, addr, pte);
->>> -	if (!page)
->>> +	if (!page || is_zone_device_page(page))
->>>   		return NULL;
->>>
->>>   	if (PageReserved(page))
->>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>> index 9f44254af8ce..d7f253a0c41e 100644
->>> --- a/include/linux/mm.h
->>> +++ b/include/linux/mm.h
->>> @@ -601,7 +601,7 @@ struct vm_operations_struct {
->>>   #endif
->>>   	/*
->>>   	 * Called by vm_normal_page() for special PTEs to find the
->>> -	 * page for @addr.  This is useful if the default behavior
->>> +	 * page for @addr. This is useful if the default behavior
->>>   	 * (using pte_page()) would not find the correct page.
->>>   	 */
->>>   	struct page *(*find_special_page)(struct vm_area_struct *vma,
->>> @@ -2929,6 +2929,7 @@ struct page *follow_page(struct vm_area_struct *v=
-ma, unsigned long address,
->>>   #define FOLL_NUMA	0x200	/* force NUMA hinting page fault */
->>>   #define FOLL_MIGRATION	0x400	/* wait for page to replace migration en=
-try */
->>>   #define FOLL_TRIED	0x800	/* a retry, previous pass started an IO */
->>> +#define FOLL_LRU        0x1000  /* return only LRU (anon or page cache=
-) */
->>>   #define FOLL_REMOTE	0x2000	/* we are working on non-current tsk/mm */
->>>   #define FOLL_COW	0x4000	/* internal GUP flag */
->>>   #define FOLL_ANON	0x8000	/* don't do file mappings */
->>> diff --git a/mm/gup.c b/mm/gup.c
->>> index 501bc150792c..c9cbac06bcc5 100644
->>> --- a/mm/gup.c
->>> +++ b/mm/gup.c
->>> @@ -479,6 +479,8 @@ static struct page *follow_page_pte(struct vm_area_=
-struct *vma,
->>>   	}
->>>
->>>   	page =3D vm_normal_page(vma, address, pte);
->>> +	if ((flags & FOLL_LRU) && page && is_zone_device_page(page))
->>> +		page =3D NULL;
->>>   	if (!page && pte_devmap(pte) && (flags & (FOLL_GET | FOLL_PIN))) {
->>>   		/*
->>>   		 * Only return device mapping pages in the FOLL_GET or FOLL_PIN
->>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->>> index 910a138e9859..eed80696c5fd 100644
->>> --- a/mm/huge_memory.c
->>> +++ b/mm/huge_memory.c
->>> @@ -2856,7 +2856,7 @@ static int split_huge_pages_pid(int pid, unsigned=
- long vaddr_start,
->>>   		}
->>>
->>>   		/* FOLL_DUMP to ignore special (like zero) pages */
->>> -		page =3D follow_page(vma, addr, FOLL_GET | FOLL_DUMP);
->>> +		page =3D follow_page(vma, addr, FOLL_GET | FOLL_DUMP | FOLL_LRU);
->>>
->>>   		if (IS_ERR(page))
->>>   			continue;
->>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->>> index a4e5eaf3eb01..8bf4126b6b9c 100644
->>> --- a/mm/khugepaged.c
->>> +++ b/mm/khugepaged.c
->>> @@ -627,7 +627,7 @@ static int __collapse_huge_page_isolate(struct vm_a=
-rea_struct *vma,
->>>   			goto out;
->>>   		}
->>>   		page =3D vm_normal_page(vma, address, pteval);
->>> -		if (unlikely(!page)) {
->>> +		if (unlikely(!page) || unlikely(is_zone_device_page(page))) {
->>>   			result =3D SCAN_PAGE_NULL;
->>>   			goto out;
->>>   		}
->>> @@ -1276,7 +1276,7 @@ static int khugepaged_scan_pmd(struct mm_struct *=
-mm,
->>>   			writable =3D true;
->>>
->>>   		page =3D vm_normal_page(vma, _address, pteval);
->>> -		if (unlikely(!page)) {
->>> +		if (unlikely(!page) || unlikely(is_zone_device_page(page))) {
->>>   			result =3D SCAN_PAGE_NULL;
->>>   			goto out_unmap;
->>>   		}
->>> @@ -1484,7 +1484,8 @@ void collapse_pte_mapped_thp(struct mm_struct *mm=
-, unsigned long addr)
->>>   			goto abort;
->>>
->>>   		page =3D vm_normal_page(vma, addr, *pte);
->>> -
->>> +		if (WARN_ON_ONCE(page && is_zone_device_page(page)))
->>> +			page =3D NULL;
->>>   		/*
->>>   		 * Note that uprobe, debugger, or MAP_PRIVATE may change the
->>>   		 * page table, but the new page will not be a subpage of hpage.
->>> @@ -1502,6 +1503,8 @@ void collapse_pte_mapped_thp(struct mm_struct *mm=
-, unsigned long addr)
->>>   		if (pte_none(*pte))
->>>   			continue;
->>>   		page =3D vm_normal_page(vma, addr, *pte);
->>> +		if (WARN_ON_ONCE(page && is_zone_device_page(page)))
->>> +			goto abort;
->>>   		page_remove_rmap(page, vma, false);
->>>   	}
->>>
->>> diff --git a/mm/ksm.c b/mm/ksm.c
->>> index 063a48eeb5ee..f16056efca21 100644
->>> --- a/mm/ksm.c
->>> +++ b/mm/ksm.c
->>> @@ -474,7 +474,7 @@ static int break_ksm(struct vm_area_struct *vma, un=
-signed long addr)
->>>   	do {
->>>   		cond_resched();
->>>   		page =3D follow_page(vma, addr,
->>> -				FOLL_GET | FOLL_MIGRATION | FOLL_REMOTE);
->>> +				FOLL_GET | FOLL_MIGRATION | FOLL_REMOTE | FOLL_LRU);
->>>   		if (IS_ERR_OR_NULL(page))
->>>   			break;
->>>   		if (PageKsm(page))
->>> @@ -559,7 +559,7 @@ static struct page *get_mergeable_page(struct rmap_=
-item *rmap_item)
->>>   	if (!vma)
->>>   		goto out;
->>>
->>> -	page =3D follow_page(vma, addr, FOLL_GET);
->>> +	page =3D follow_page(vma, addr, FOLL_GET | FOLL_LRU);
->>>   	if (IS_ERR_OR_NULL(page))
->>>   		goto out;
->>>   	if (PageAnon(page)) {
->>> @@ -2288,7 +2288,7 @@ static struct rmap_item *scan_get_next_rmap_item(=
-struct page **page)
->>>   		while (ksm_scan.address < vma->vm_end) {
->>>   			if (ksm_test_exit(mm))
->>>   				break;
->>> -			*page =3D follow_page(vma, ksm_scan.address, FOLL_GET);
->>> +			*page =3D follow_page(vma, ksm_scan.address, FOLL_GET | FOLL_LRU);
->>>   			if (IS_ERR_OR_NULL(*page)) {
->>>   				ksm_scan.address +=3D PAGE_SIZE;
->>>   				cond_resched();
->>> diff --git a/mm/madvise.c b/mm/madvise.c
->>> index 1873616a37d2..e9c24c834e98 100644
->>> --- a/mm/madvise.c
->>> +++ b/mm/madvise.c
->>> @@ -413,7 +413,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t =
-*pmd,
->>>   			continue;
->>>
->>>   		page =3D vm_normal_page(vma, addr, ptent);
->>> -		if (!page)
->>> +		if (!page || is_zone_device_page(page))
->>>   			continue;
->>>
->>>   		/*
->>> @@ -628,7 +628,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsig=
-ned long addr,
->>>   		}
->>>
->>>   		page =3D vm_normal_page(vma, addr, ptent);
->>> -		if (!page)
->>> +		if (!page || is_zone_device_page(page))
->>>   			continue;
->>>
->>>   		/*
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index 76e3af9639d9..571a26805ee1 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -621,6 +621,13 @@ struct page *vm_normal_page(struct vm_area_struct =
-*vma, unsigned long addr,
->>>   		if (is_zero_pfn(pfn))
->>>   			return NULL;
->>>   		if (pte_devmap(pte))
->>> +/*
->>> + * NOTE: New uers of ZONE_DEVICE will not set pte_devmap() and will ha=
-ve
->>> + * refcounts incremented on their struct pages when they are inserted =
-into
->>> + * PTEs, thus they are safe to return here. Legacy ZONE_DEVICE pages t=
-hat set
->>> + * pte_devmap() do not have refcounts. Example of legacy ZONE_DEVICE i=
-s
->>> + * MEMORY_DEVICE_FS_DAX type in pmem or virtio_fs drivers.
->>> + */
->>>   			return NULL;
->>>
->>>   		print_bad_pte(vma, addr, pte, NULL);
->>> @@ -4422,7 +4429,7 @@ static vm_fault_t do_numa_page(struct vm_fault *v=
-mf)
->>>   	pte =3D pte_modify(old_pte, vma->vm_page_prot);
->>>
->>>   	page =3D vm_normal_page(vma, vmf->address, pte);
->>> -	if (!page)
->>> +	if (!page || is_zone_device_page(page))
->>>   		goto out_map;
->>>
->>>   	/* TODO: handle PTE-mapped THP */
->>> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
->>> index 8c74107a2b15..e32edbecb0cd 100644
->>> --- a/mm/mempolicy.c
->>> +++ b/mm/mempolicy.c
->>> @@ -528,7 +528,7 @@ static int queue_pages_pte_range(pmd_t *pmd, unsign=
-ed long addr,
->>>   		if (!pte_present(*pte))
->>>   			continue;
->>>   		page =3D vm_normal_page(vma, addr, *pte);
->>> -		if (!page)
->>> +		if (!page || is_zone_device_page(page))
->>>   			continue;
->>>   		/*
->>>   		 * vm_normal_page() filters out zero pages, but there might
->>> diff --git a/mm/migrate.c b/mm/migrate.c
->>> index 6c31ee1e1c9b..c5d50e96ecd7 100644
->>> --- a/mm/migrate.c
->>> +++ b/mm/migrate.c
->>> @@ -1611,7 +1611,7 @@ static int add_page_for_migration(struct mm_struc=
-t *mm, unsigned long addr,
->>>   		goto out;
->>>
->>>   	/* FOLL_DUMP to ignore special (like zero) pages */
->>> -	page =3D follow_page(vma, addr, FOLL_GET | FOLL_DUMP);
->>> +	page =3D follow_page(vma, addr, FOLL_GET | FOLL_DUMP | FOLL_LRU);
->>>
->>>   	err =3D PTR_ERR(page);
->>>   	if (IS_ERR(page))
->>> @@ -1802,7 +1802,7 @@ static void do_pages_stat_array(struct mm_struct =
-*mm, unsigned long nr_pages,
->>>   			goto set_status;
->>>
->>>   		/* FOLL_DUMP to ignore special (like zero) pages */
->>> -		page =3D follow_page(vma, addr, FOLL_DUMP);
->>> +		page =3D follow_page(vma, addr, FOLL_DUMP | FOLL_LRU);
->>>
->>>   		err =3D PTR_ERR(page);
->>>   		if (IS_ERR(page))
->>> diff --git a/mm/mlock.c b/mm/mlock.c
->>> index 716caf851043..b14e929084cc 100644
->>> --- a/mm/mlock.c
->>> +++ b/mm/mlock.c
->>> @@ -333,7 +333,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned lon=
-g addr,
->>>   		if (!pte_present(*pte))
->>>   			continue;
->>>   		page =3D vm_normal_page(vma, addr, *pte);
->>> -		if (!page)
->>> +		if (!page || is_zone_device_page(page))
->>>   			continue;
->>>   		if (PageTransCompound(page))
->>>   			continue;
->>> diff --git a/mm/mprotect.c b/mm/mprotect.c
->>> index b69ce7a7b2b7..a6f3587ea29a 100644
->>> --- a/mm/mprotect.c
->>> +++ b/mm/mprotect.c
->>> @@ -91,7 +91,7 @@ static unsigned long change_pte_range(struct vm_area_=
-struct *vma, pmd_t *pmd,
->>>   					continue;
->>>
->>>   				page =3D vm_normal_page(vma, addr, oldpte);
->>> -				if (!page || PageKsm(page))
->>> +				if (!page || is_zone_device_page(page) || PageKsm(page))
->>>   					continue;
->>>
->>>   				/* Also skip shared copy-on-write pages */
+On Fri, May 27, 2022 at 02:50:40AM +0300, Dmitry Osipenko wrote:
+> Replace Panfrost's memory shrinker with a generic drm-shmem memory
+> shrinker.
+> 
+> Tested-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/Makefile             |   1 -
+>  drivers/gpu/drm/panfrost/panfrost_device.h    |   4 -
+>  drivers/gpu/drm/panfrost/panfrost_drv.c       |  19 +--
+>  drivers/gpu/drm/panfrost/panfrost_gem.c       |  33 +++--
+>  drivers/gpu/drm/panfrost/panfrost_gem.h       |   9 --
+>  .../gpu/drm/panfrost/panfrost_gem_shrinker.c  | 129 ------------------
+>  drivers/gpu/drm/panfrost/panfrost_job.c       |  18 ++-
+>  7 files changed, 42 insertions(+), 171 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> 
+> diff --git a/drivers/gpu/drm/panfrost/Makefile b/drivers/gpu/drm/panfrost/Makefile
+> index b71935862417..ecf0864cb515 100644
+> --- a/drivers/gpu/drm/panfrost/Makefile
+> +++ b/drivers/gpu/drm/panfrost/Makefile
+> @@ -5,7 +5,6 @@ panfrost-y := \
+>  	panfrost_device.o \
+>  	panfrost_devfreq.o \
+>  	panfrost_gem.o \
+> -	panfrost_gem_shrinker.o \
+>  	panfrost_gpu.o \
+>  	panfrost_job.o \
+>  	panfrost_mmu.o \
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+> index 8b25278f34c8..fe04b21fc044 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+> @@ -115,10 +115,6 @@ struct panfrost_device {
+>  		atomic_t pending;
+>  	} reset;
+>  
+> -	struct mutex shrinker_lock;
+> -	struct list_head shrinker_list;
+> -	struct shrinker shrinker;
+> -
+>  	struct panfrost_devfreq pfdevfreq;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 859e240161d1..b77c99ba2475 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -160,7 +160,6 @@ panfrost_lookup_bos(struct drm_device *dev,
+>  			break;
+>  		}
+>  
+> -		atomic_inc(&bo->gpu_usecount);
+>  		job->mappings[i] = mapping;
+>  	}
+>  
+> @@ -392,7 +391,6 @@ static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
+>  {
+>  	struct panfrost_file_priv *priv = file_priv->driver_priv;
+>  	struct drm_panfrost_madvise *args = data;
+> -	struct panfrost_device *pfdev = dev->dev_private;
+>  	struct drm_gem_object *gem_obj;
+>  	struct panfrost_gem_object *bo;
+>  	int ret = 0;
+> @@ -409,7 +407,6 @@ static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
+>  	if (ret)
+>  		goto out_put_object;
+>  
+> -	mutex_lock(&pfdev->shrinker_lock);
+>  	mutex_lock(&bo->mappings.lock);
+>  	if (args->madv == PANFROST_MADV_DONTNEED) {
+>  		struct panfrost_gem_mapping *first;
+> @@ -435,17 +432,8 @@ static int panfrost_ioctl_madvise(struct drm_device *dev, void *data,
+>  
+>  	args->retained = drm_gem_shmem_madvise(&bo->base, args->madv);
+>  
+> -	if (args->retained) {
+> -		if (args->madv == PANFROST_MADV_DONTNEED)
+> -			list_move_tail(&bo->base.madv_list,
+> -				       &pfdev->shrinker_list);
+> -		else if (args->madv == PANFROST_MADV_WILLNEED)
+> -			list_del_init(&bo->base.madv_list);
+> -	}
+> -
+>  out_unlock_mappings:
+>  	mutex_unlock(&bo->mappings.lock);
+> -	mutex_unlock(&pfdev->shrinker_lock);
+>  	dma_resv_unlock(bo->base.base.resv);
+>  out_put_object:
+>  	drm_gem_object_put(gem_obj);
+> @@ -577,9 +565,6 @@ static int panfrost_probe(struct platform_device *pdev)
+>  	ddev->dev_private = pfdev;
+>  	pfdev->ddev = ddev;
+>  
+> -	mutex_init(&pfdev->shrinker_lock);
+> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
+> -
+>  	err = panfrost_device_init(pfdev);
+>  	if (err) {
+>  		if (err != -EPROBE_DEFER)
+> @@ -601,7 +586,7 @@ static int panfrost_probe(struct platform_device *pdev)
+>  	if (err < 0)
+>  		goto err_out1;
+>  
+> -	panfrost_gem_shrinker_init(ddev);
+> +	drm_gem_shmem_shrinker_register(ddev);
+>  
+>  	return 0;
+>  
+> @@ -619,8 +604,8 @@ static int panfrost_remove(struct platform_device *pdev)
+>  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+>  	struct drm_device *ddev = pfdev->ddev;
+>  
+> +	drm_gem_shmem_shrinker_unregister(ddev);
+>  	drm_dev_unregister(ddev);
+> -	panfrost_gem_shrinker_cleanup(ddev);
+>  
+>  	pm_runtime_get_sync(pfdev->dev);
+>  	pm_runtime_disable(pfdev->dev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> index 293e799e2fe8..f1436405e3a0 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> @@ -19,16 +19,6 @@ static void panfrost_gem_free_object(struct drm_gem_object *obj)
+>  	struct panfrost_gem_object *bo = to_panfrost_bo(obj);
+>  	struct panfrost_device *pfdev = obj->dev->dev_private;
+>  
+> -	/*
+> -	 * Make sure the BO is no longer inserted in the shrinker list before
+> -	 * taking care of the destruction itself. If we don't do that we have a
+> -	 * race condition between this function and what's done in
+> -	 * panfrost_gem_shrinker_scan().
+> -	 */
+> -	mutex_lock(&pfdev->shrinker_lock);
+> -	list_del_init(&bo->base.madv_list);
+> -	mutex_unlock(&pfdev->shrinker_lock);
+> -
+>  	/*
+>  	 * If we still have mappings attached to the BO, there's a problem in
+>  	 * our refcounting.
+> @@ -209,6 +199,25 @@ static const struct drm_gem_object_funcs panfrost_gem_funcs = {
+>  	.vm_ops = &drm_gem_shmem_vm_ops,
+>  };
+>  
+> +static int panfrost_shmem_evict(struct drm_gem_shmem_object *shmem)
+> +{
+> +	struct panfrost_gem_object *bo = to_panfrost_bo(&shmem->base);
+> +
+> +	if (!drm_gem_shmem_is_purgeable(shmem))
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!mutex_trylock(&bo->mappings.lock))
+> +		return -EBUSY;
+> +
+> +	panfrost_gem_teardown_mappings_locked(bo);
+> +
+> +	drm_gem_shmem_purge(shmem);
+> +
+> +	mutex_unlock(&bo->mappings.lock);
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * panfrost_gem_create_object - Implementation of driver->gem_create_object.
+>   * @dev: DRM device
+> @@ -230,6 +239,7 @@ struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t
+>  	mutex_init(&obj->mappings.lock);
+>  	obj->base.base.funcs = &panfrost_gem_funcs;
+>  	obj->base.map_wc = !pfdev->coherent;
+> +	obj->base.evict = panfrost_shmem_evict;
+>  
+>  	return &obj->base.base;
+>  }
+> @@ -266,6 +276,9 @@ panfrost_gem_create_with_handle(struct drm_file *file_priv,
+>  	if (ret)
+>  		return ERR_PTR(ret);
+>  
+> +	if (!bo->is_heap)
+> +		drm_gem_shmem_set_purgeable(shmem);
+> +
+>  	return bo;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> index 8088d5fd8480..09da064f1c07 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> @@ -30,12 +30,6 @@ struct panfrost_gem_object {
+>  		struct mutex lock;
+>  	} mappings;
+>  
+> -	/*
+> -	 * Count the number of jobs referencing this BO so we don't let the
+> -	 * shrinker reclaim this object prematurely.
+> -	 */
+> -	atomic_t gpu_usecount;
+> -
+>  	bool noexec		:1;
+>  	bool is_heap		:1;
+>  };
+> @@ -84,7 +78,4 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+>  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+>  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+>  
+> -void panfrost_gem_shrinker_init(struct drm_device *dev);
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> -
+>  #endif /* __PANFROST_GEM_H__ */
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> deleted file mode 100644
+> index 7cc32556f908..000000000000
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> +++ /dev/null
+> @@ -1,129 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0
+> -/* Copyright (C) 2019 Arm Ltd.
+> - *
+> - * Based on msm_gem_freedreno.c:
+> - * Copyright (C) 2016 Red Hat
+> - * Author: Rob Clark <robdclark@gmail.com>
+> - */
+> -
+> -#include <linux/list.h>
+> -
+> -#include <drm/drm_device.h>
+> -#include <drm/drm_gem_shmem_helper.h>
+> -
+> -#include "panfrost_device.h"
+> -#include "panfrost_gem.h"
+> -#include "panfrost_mmu.h"
+> -
+> -static bool panfrost_gem_shmem_is_purgeable(struct drm_gem_shmem_object *shmem)
+> -{
+> -	return (shmem->madv > 0) &&
+> -		!shmem->pages_pin_count && shmem->sgt &&
+> -		!shmem->base.dma_buf && !shmem->base.import_attach;
+> -}
+> -
+> -static unsigned long
+> -panfrost_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+> -{
+> -	struct panfrost_device *pfdev =
+> -		container_of(shrinker, struct panfrost_device, shrinker);
+> -	struct drm_gem_shmem_object *shmem;
+> -	unsigned long count = 0;
+> -
+> -	if (!mutex_trylock(&pfdev->shrinker_lock))
+> -		return 0;
+> -
+> -	list_for_each_entry(shmem, &pfdev->shrinker_list, madv_list) {
+> -		if (panfrost_gem_shmem_is_purgeable(shmem))
+> -			count += shmem->base.size >> PAGE_SHIFT;
+> -	}
+> -
+> -	mutex_unlock(&pfdev->shrinker_lock);
+> -
+> -	return count;
+> -}
+> -
+> -static bool panfrost_gem_purge(struct drm_gem_object *obj)
+> -{
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> -	struct panfrost_gem_object *bo = to_panfrost_bo(obj);
+> -	bool ret = false;
+> -
+> -	if (atomic_read(&bo->gpu_usecount))
+> -		return false;
+> -
+> -	if (!mutex_trylock(&bo->mappings.lock))
+> -		return false;
+> -
+> -	if (!dma_resv_trylock(shmem->base.resv))
+> -		goto unlock_mappings;
+> -
+> -	panfrost_gem_teardown_mappings_locked(bo);
+> -	drm_gem_shmem_purge(&bo->base);
+> -	ret = true;
+> -
+> -	dma_resv_unlock(shmem->base.resv);
+> -
+> -unlock_mappings:
+> -	mutex_unlock(&bo->mappings.lock);
+> -	return ret;
+> -}
+> -
+> -static unsigned long
+> -panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> -{
+> -	struct panfrost_device *pfdev =
+> -		container_of(shrinker, struct panfrost_device, shrinker);
+> -	struct drm_gem_shmem_object *shmem, *tmp;
+> -	unsigned long freed = 0;
+> -
+> -	if (!mutex_trylock(&pfdev->shrinker_lock))
+> -		return SHRINK_STOP;
+> -
+> -	list_for_each_entry_safe(shmem, tmp, &pfdev->shrinker_list, madv_list) {
+> -		if (freed >= sc->nr_to_scan)
+> -			break;
+> -		if (drm_gem_shmem_is_purgeable(shmem) &&
+> -		    panfrost_gem_purge(&shmem->base)) {
+> -			freed += shmem->base.size >> PAGE_SHIFT;
+> -			list_del_init(&shmem->madv_list);
+> -		}
+> -	}
+> -
+> -	mutex_unlock(&pfdev->shrinker_lock);
+> -
+> -	if (freed > 0)
+> -		pr_info_ratelimited("Purging %lu bytes\n", freed << PAGE_SHIFT);
+> -
+> -	return freed;
+> -}
+> -
+> -/**
+> - * panfrost_gem_shrinker_init - Initialize panfrost shrinker
+> - * @dev: DRM device
+> - *
+> - * This function registers and sets up the panfrost shrinker.
+> - */
+> -void panfrost_gem_shrinker_init(struct drm_device *dev)
+> -{
+> -	struct panfrost_device *pfdev = dev->dev_private;
+> -	pfdev->shrinker.count_objects = panfrost_gem_shrinker_count;
+> -	pfdev->shrinker.scan_objects = panfrost_gem_shrinker_scan;
+> -	pfdev->shrinker.seeks = DEFAULT_SEEKS;
+> -	WARN_ON(register_shrinker(&pfdev->shrinker));
+> -}
+> -
+> -/**
+> - * panfrost_gem_shrinker_cleanup - Clean up panfrost shrinker
+> - * @dev: DRM device
+> - *
+> - * This function unregisters the panfrost shrinker.
+> - */
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> -{
+> -	struct panfrost_device *pfdev = dev->dev_private;
+> -
+> -	if (pfdev->shrinker.nr_deferred) {
+> -		unregister_shrinker(&pfdev->shrinker);
+> -	}
+> -}
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index 7c4208476fbd..5c327a79455f 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -271,6 +271,19 @@ static void panfrost_attach_object_fences(struct drm_gem_object **bos,
+>  		dma_resv_add_fence(bos[i]->resv, fence, DMA_RESV_USAGE_WRITE);
+>  }
+>  
+> +static int panfrost_objects_prepare(struct drm_gem_object **bos, int bo_count)
+> +{
+> +	struct panfrost_gem_object *bo;
+> +	int ret = 0;
+> +
+> +	while (!ret && bo_count--) {
+> +		bo = to_panfrost_bo(bos[bo_count]);
+> +		ret = bo->base.madv ? -ENOMEM : 0;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>  int panfrost_job_push(struct panfrost_job *job)
+>  {
+>  	struct panfrost_device *pfdev = job->pfdev;
+> @@ -282,6 +295,10 @@ int panfrost_job_push(struct panfrost_job *job)
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = panfrost_objects_prepare(job->bos, job->bo_count);
+> +	if (ret)
+> +		goto unlock;
+> +
+>  	mutex_lock(&pfdev->sched_lock);
+>  	drm_sched_job_arm(&job->base);
+>  
+> @@ -323,7 +340,6 @@ static void panfrost_job_cleanup(struct kref *ref)
+>  			if (!job->mappings[i])
+>  				break;
+>  
+> -			atomic_dec(&job->mappings[i]->obj->gpu_usecount);
+>  			panfrost_gem_mapping_put(job->mappings[i]);
+>  		}
+>  		kvfree(job->mappings);
+> -- 
+> 2.35.3
+> 
