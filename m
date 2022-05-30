@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B9EC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DA0C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:41:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6310E8D3;
-	Mon, 30 May 2022 13:38:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 621AF10E8CE;
- Mon, 30 May 2022 13:30:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB79B10E9A3;
+	Mon, 30 May 2022 13:41:09 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D5510E990;
+ Mon, 30 May 2022 13:41:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9906460EE0;
- Mon, 30 May 2022 13:30:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A386C385B8;
- Mon, 30 May 2022 13:30:15 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 801C9B80B3A;
+ Mon, 30 May 2022 13:41:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE76FC3411E;
+ Mon, 30 May 2022 13:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917417;
- bh=iJOWEQeEya++FDpv90BhXob+T4+XbmP5vzMKKkYsioE=;
+ s=k20201202; t=1653918065;
+ bh=AmtNEIONDz4TR6XNEOBdkvo95XyT+gqj55BrSboz7xA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bKtreNDRboOS8xz2cfuWluXQVFtg03Uo7hJFq80cTwAXWVxaimtiCqInuPYL4yf7c
- 5XBdpl4mUNSOGytq7ExQbaFSqwUgGnRDPGNcGFBJqloHe6ZNIGjnZbAeOwCP6FamsB
- PdxJyvEPh/Sph9TBqqepfQiF/DdTLns67wrLNvV2zFSYxZgAEDCkgZ0RR9LdJc5s14
- XHa8olabFtAvIJhQhavSi/nyuaUWIQMm3RBt+uJZgHIUI6Mzhhio7/h/haSw3wODKM
- AI0Lvm3HZWmKpjf5KFUponR7ZZgIeL1YNv5j6tBQZI49nO0cVU3Z77LzvZTFFTPVF5
- 3TtRzqgQDlDgA==
+ b=s7UGS2yukqvS5QX9yU05toETgqQmkzDwWUktsmXDCQRZudXKGIL1kNL4WrptOLL+e
+ 93AxppO5zBWzB41ea+vRssTz0EpL574Nbd415jiTDn6KJ7SsMj2H/53Mf5YDjh50QR
+ VTQ14UK8oB2K9btJPN09AKA0q5kFqv7jGwr/0igOGyUVRPiJ84aDRtkxQT2AnwrmAm
+ ngRnimJlRk9F1KnYm7d57yTir6qOCp9qJqpH3sV/hFa+kt/5oTrttkXLuRlx0GPkvl
+ dO6p764Yrrw6ppYAch1U/ZSNScuMS4epFuW7H1m87ddbG7iqI2oT02wfUZq0moAecT
+ LTdSnf87yXA8A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 129/159] drm/amd/pm: update smartshift powerboost
- calc for smu12
-Date: Mon, 30 May 2022 09:23:54 -0400
-Message-Id: <20220530132425.1929512-129-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 047/109] drm/amd/pm: fix the compile warning
+Date: Mon, 30 May 2022 09:37:23 -0400
+Message-Id: <20220530133825.1933431-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
-References: <20220530132425.1929512-1-sashal@kernel.org>
+In-Reply-To: <20220530133825.1933431-1-sashal@kernel.org>
+References: <20220530133825.1933431-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,121 +53,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>, Xinhui.Pan@amd.com,
- guchun.chen@amd.com, airlied@linux.ie, Lijo Lazar <lijo.lazar@amd.com>,
- amd-gfx@lists.freedesktop.org, Prike.Liang@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, darren.powell@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com, lang.yu@amd.com,
- christian.koenig@amd.com, Graham.Sider@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com,
+ kernel test robot <lkp@intel.com>, airlied@linux.ie, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+From: Evan Quan <evan.quan@amd.com>
 
-[ Upstream commit 138292f1dc00e7e0724f44769f9da39cf2f3bf0b ]
+[ Upstream commit 555238d92ac32dbad2d77ad2bafc48d17391990c ]
 
-smartshift apu and dgpu power boost are reported as percentage with
-respect to their power limits. This value[0-100] reflects the boost
-for the respective device.
+Fix the compile warning below:
+drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/kv_dpm.c:1641
+kv_get_acp_boot_level() warn: always true condition '(table->entries[i]->clk >= 0) => (0-u32max >= 0)'
 
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 60 ++++++++++++++-----
- 1 file changed, 44 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index fd6c44ece168..012e3bd99cc2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -1119,6 +1119,39 @@ static int renoir_get_power_profile_mode(struct smu_context *smu,
- 	return size;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+index bcae42cef374..6ba4c2ae69a6 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+@@ -1609,19 +1609,7 @@ static int kv_update_samu_dpm(struct amdgpu_device *adev, bool gate)
+ 
+ static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
+ {
+-	u8 i;
+-	struct amdgpu_clock_voltage_dependency_table *table =
+-		&adev->pm.dpm.dyn_state.acp_clock_voltage_dependency_table;
+-
+-	for (i = 0; i < table->count; i++) {
+-		if (table->entries[i].clk >= 0) /* XXX */
+-			break;
+-	}
+-
+-	if (i >= table->count)
+-		i = table->count - 1;
+-
+-	return i;
++	return 0;
  }
  
-+static void renoir_get_ss_power_percent(SmuMetrics_t *metrics,
-+					uint32_t *apu_percent, uint32_t *dgpu_percent)
-+{
-+	uint32_t apu_boost = 0;
-+	uint32_t dgpu_boost = 0;
-+	uint16_t apu_limit = 0;
-+	uint16_t dgpu_limit = 0;
-+	uint16_t apu_power = 0;
-+	uint16_t dgpu_power = 0;
-+
-+	apu_power = metrics->ApuPower;
-+	apu_limit = metrics->StapmOriginalLimit;
-+	if (apu_power > apu_limit && apu_limit != 0)
-+		apu_boost =  ((apu_power - apu_limit) * 100) / apu_limit;
-+	apu_boost = (apu_boost > 100) ? 100 : apu_boost;
-+
-+	dgpu_power = metrics->dGpuPower;
-+	if (metrics->StapmCurrentLimit > metrics->StapmOriginalLimit)
-+		dgpu_limit = metrics->StapmCurrentLimit - metrics->StapmOriginalLimit;
-+	if (dgpu_power > dgpu_limit && dgpu_limit != 0)
-+		dgpu_boost = ((dgpu_power - dgpu_limit) * 100) / dgpu_limit;
-+	dgpu_boost = (dgpu_boost > 100) ? 100 : dgpu_boost;
-+
-+	if (dgpu_boost >= apu_boost)
-+		apu_boost = 0;
-+	else
-+		dgpu_boost = 0;
-+
-+	*apu_percent = apu_boost;
-+	*dgpu_percent = dgpu_boost;
-+}
-+
-+
- static int renoir_get_smu_metrics_data(struct smu_context *smu,
- 				       MetricsMember_t member,
- 				       uint32_t *value)
-@@ -1127,6 +1160,9 @@ static int renoir_get_smu_metrics_data(struct smu_context *smu,
- 
- 	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
- 	int ret = 0;
-+	uint32_t apu_percent = 0;
-+	uint32_t dgpu_percent = 0;
-+
- 
- 	ret = smu_cmn_get_metrics_table(smu,
- 					NULL,
-@@ -1171,26 +1207,18 @@ static int renoir_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->Voltage[1];
- 		break;
- 	case METRICS_SS_APU_SHARE:
--		/* return the percentage of APU power with respect to APU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
-+		/* return the percentage of APU power boost
-+		 * with respect to APU's power limit.
- 		 */
--		if (metrics->StapmOriginalLimit > 0)
--			*value =  (metrics->ApuPower * 100) / metrics->StapmOriginalLimit;
--		else
--			*value = 0;
-+		renoir_get_ss_power_percent(metrics, &apu_percent, &dgpu_percent);
-+		*value = apu_percent;
- 		break;
- 	case METRICS_SS_DGPU_SHARE:
--		/* return the percentage of dGPU power with respect to dGPU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
-+		/* return the percentage of dGPU power boost
-+		 * with respect to dGPU's power limit.
- 		 */
--		if ((metrics->dGpuPower > 0) &&
--		    (metrics->StapmCurrentLimit > metrics->StapmOriginalLimit))
--			*value = (metrics->dGpuPower * 100) /
--				  (metrics->StapmCurrentLimit - metrics->StapmOriginalLimit);
--		else
--			*value = 0;
-+		renoir_get_ss_power_percent(metrics, &apu_percent, &dgpu_percent);
-+		*value = dgpu_percent;
- 		break;
- 	default:
- 		*value = UINT_MAX;
+ static void kv_update_acp_boot_level(struct amdgpu_device *adev)
 -- 
 2.35.1
 
