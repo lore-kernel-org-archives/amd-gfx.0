@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B15CC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1177C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D48310F575;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73FE710F57E;
 	Tue, 31 May 2022 07:45:35 +0000 (UTC)
-Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
- [IPv6:2607:f8b0:4864:20::e36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EEB210E357
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 11:34:54 +0000 (UTC)
-Received: by mail-vs1-xe36.google.com with SMTP id h4so10548266vsr.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 04:34:54 -0700 (PDT)
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66FAF10E048
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 08:19:38 +0000 (UTC)
+Received: by mail-pg1-x536.google.com with SMTP id v15so9505095pgk.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 01:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qavSBhjyJguHpZQtpsLoQunCmJj0UaxeZNUkFbvKHQI=;
- b=nylRUfykXAR4BPxN2kUQcQBx4UFaWucm9OU50Q26J8eVjUxEfey2e3vXkpeXlJPdBw
- yk04wEP2nFeCYhiVSzO2zQEQN7BleasMfad4K+q10YYI80QpMv9sXRHHxhDiw+J4mjqe
- y47MsyfOZhDnFZ0lbA46oIfYX2KDrn8RZ59ME=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=0FDANzoD+ved+kLqkfGfvHR/pdrWdYCkcffUnS1gfwU=;
+ b=EGj3J9IVTCdQAdPBammRVILB8q1w15Xcl7B4hV147t6lruwgmdowastMDeg50FrM4A
+ Ds9V3H86IryQlC6KV4iX5TGgLG04/0gOrc6j1Y31gCWhI534zZoCg93dEK211ACoOi5q
+ 2fxY2lyR/VS+yq2eiIqTUPtlHMbj067JlnVoA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qavSBhjyJguHpZQtpsLoQunCmJj0UaxeZNUkFbvKHQI=;
- b=OyKEcihT6zIfshmobHmH0C5c58qj2TyBU6ZYzo+e6zxDAaVZ9lpeobRkqGuGf+Y+Kj
- EWos3YV8mdb3xl5yVqDrnJK+uLID/pxYPCLomZtAeRALyItYeIIdyOKD43VT0Ay0g4u/
- 4JfOkRPmVMdFABcQvD06G0HWJxrRI4TElZlmD5yveyGvBL49veeAMLdflHJ7v8sZbsRN
- IJKN/H00/WWJFO7h0x6VYW3k83GOKm0o8UfXKIoNFjWM3kCp9r+RE4zqKQnegIJHIci7
- VDu+bKnL19TYUbd5/VySJ6wplCp/mBZvDK1/tCOFBMutcQYkw2sogd4iAwLmFuBb8O3C
- 7cbw==
-X-Gm-Message-State: AOAM532v+jcllZ4iJSrte8klqW+eYuo/ntnZ0tE8PI+wHTtABYOMO79g
- oC9PY5PmFnjZRjDxPItjY7PkJFxmJqihLf8XJGFapg==
-X-Google-Smtp-Source: ABdhPJz7U/gg2bILW7eDQUEq+WiZSAg270VcwmISAU4Df/YG59TiLQ7aY2VN1tkTv7lkJuqBw4E/tvdvjiwMPfduP50=
-X-Received: by 2002:a05:6102:1008:b0:335:e260:9ff1 with SMTP id
- q8-20020a056102100800b00335e2609ff1mr21708870vsp.32.1653910493009; Mon, 30
- May 2022 04:34:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220530081910.3947168-1-hsinyi@chromium.org>
- <a8d1fe13-e747-016a-2d45-bfb50f23f2d9@redhat.com>
-In-Reply-To: <a8d1fe13-e747-016a-2d45-bfb50f23f2d9@redhat.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=0FDANzoD+ved+kLqkfGfvHR/pdrWdYCkcffUnS1gfwU=;
+ b=2yihe8VidLf6JNKQCVNFb6L5Wc2h5a6uLKPODoYkX/ub4HHqoGR6s1nTAgXcKFuAKu
+ 8amNJWX74ok8u0DCXPWpQebx1QKzjilRXiNtiidXsOUyGhxgGy4WvErVBtVyou00DBU4
+ m4b47ZycQ08LeXq67fgUqAP90Sa7TJxh1II+MMJkTjNRow86nUBarcmnWslsLlCTWN6Y
+ R/0Zm2FAYNvD9SckH1HaSNLLdYTkrPdvtoiB/fLf2BuSSBStj4MADwCdh8TLMHUIGO8c
+ I9PZbbqEHiEwVfrqgeT84SCaAAmEPn5AFwYPcUNsci8W/MFZB2rXOAJ7TRASbLzOJzBj
+ zPLg==
+X-Gm-Message-State: AOAM532aAv7eCCTVjnYMslrStN48B8wNZchiPoyJL+N2rwIx7olgwOsE
+ 5dPs527UQ17ctUDKtEdJfZt2XQ==
+X-Google-Smtp-Source: ABdhPJxC6hh+IA2nmnrMvgr7EIZHEawv5NbrZ/B9hfbxzJ5J4ENWWvjvBaWIFpEhTfiwlYPQDqCDTQ==
+X-Received: by 2002:a65:4183:0:b0:3fc:1370:9c37 with SMTP id
+ a3-20020a654183000000b003fc13709c37mr4005861pgq.4.1653898777736; 
+ Mon, 30 May 2022 01:19:37 -0700 (PDT)
+Received: from hsinyi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:ae1c:3d63:abec:1097])
+ by smtp.gmail.com with ESMTPSA id
+ m1-20020a170902f64100b001618b70dcc9sm8537900plg.101.2022.05.30.01.19.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 May 2022 01:19:37 -0700 (PDT)
 From: Hsin-Yi Wang <hsinyi@chromium.org>
-Date: Mon, 30 May 2022 19:34:27 +0800
-Message-ID: <CAJMQK-iM-ip7edA2mBOhp-8maWKG5+kTceZUM5U6BOLLBq1H4Q@mail.gmail.com>
-Subject: Re: [PATCH v10 0/4] Separate panel orientation property creating and
- value setting
-To: Hans de Goede <hdegoede@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v10 4/4] arm64: dts: mt8183: Add panel rotation
+Date: Mon, 30 May 2022 16:19:10 +0800
+Message-Id: <20220530081910.3947168-5-hsinyi@chromium.org>
+X-Mailer: git-send-email 2.36.1.124.g0e6072fb45-goog
+In-Reply-To: <20220530081910.3947168-1-hsinyi@chromium.org>
+References: <20220530081910.3947168-1-hsinyi@chromium.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 31 May 2022 07:45:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,95 +69,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org,
+Cc: Rob Clark <robdclark@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>, Maxime Ripard <mripard@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Alex Deucher <alexander.deucher@amd.com>,
  Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
  Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Simon Ser <contact@emersion.fr>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
+ Hans de Goede <hdegoede@redhat.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 30, 2022 at 4:53 PM Hans de Goede <hdegoede@redhat.com> wrote:
->
-> Hi,
->
-> On 5/30/22 10:19, Hsin-Yi Wang wrote:
-> > Some drivers, eg. mtk_drm and msm_drm, rely on the panel to set the
-> > orientation. Panel calls drm_connector_set_panel_orientation() to create
-> > orientation property and sets the value. However, connector properties
-> > can't be created after drm_dev_register() is called. The goal is to
-> > separate the orientation property creation, so drm drivers can create it
-> > earlier before drm_dev_register().
->
-> Sorry for jumping in pretty late in the discussion (based on the v10
-> I seem to have missed this before).
->
-> This sounds to me like the real issue here is that drm_dev_register()
-> is getting called too early?
->
-Right.
+krane, kakadu, and kodama boards have a default panel rotation.
 
-> To me it seems sensible to delay calling drm_dev_register() and
-> thus allowing userspace to start detecting available displays +
-> features until after the panel has been probed.
->
+Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
+Reviewed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Tested-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+---
+ arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-Most panels set this value very late, in .get_modes callback (since it
-is when the connector is known), though the value was known during
-panel probe.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+index 8d5bf73a9099..f0dd5a06629d 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+@@ -276,6 +276,7 @@ panel: panel@0 {
+ 		avee-supply = <&ppvarp_lcd>;
+ 		pp1800-supply = <&pp1800_lcd>;
+ 		backlight = <&backlight_lcd0>;
++		rotation = <270>;
+ 		port {
+ 			panel_in: endpoint {
+ 				remote-endpoint = <&dsi_out>;
+-- 
+2.36.1.124.g0e6072fb45-goog
 
-I think we can also let drm check if they have remote panel nodes: If
-there is a panel and the panel sets the orientation, let the drm read
-this value and set the property. Does this workflow sound reasonable?
-
-The corresponding patch to implement this:
-https://patchwork.kernel.org/project/linux-mediatek/patch/20220530113033.124072-1-hsinyi@chromium.org/
-
-Thanks
-
-> I see a devicetree patch in this series, so I guess that the panel
-> is described in devicetree. Especially in the case of devicetree
-> I would expect the kernel to have enough info to do the right
-> thing and make sure the panel is probed before calling
-> drm_dev_register() ?
->
-> Regards,
->
-> Hans
->
->
->
->
-> >
-> > After this series, drm_connector_set_panel_orientation() works like
-> > before. It won't affect existing callers of
-> > drm_connector_set_panel_orientation(). The only difference is that
-> > some drm drivers can call drm_connector_init_panel_orientation_property()
-> > earlier.
-> >
-> > Hsin-Yi Wang (4):
-> >   gpu: drm: separate panel orientation property creating and value
-> >     setting
-> >   drm/mediatek: init panel orientation property
-> >   drm/msm: init panel orientation property
-> >   arm64: dts: mt8183: Add panel rotation
-> >
-> >  .../arm64/boot/dts/mediatek/mt8183-kukui.dtsi |  1 +
-> >  drivers/gpu/drm/drm_connector.c               | 58 ++++++++++++++-----
-> >  drivers/gpu/drm/mediatek/mtk_dsi.c            |  7 +++
-> >  drivers/gpu/drm/msm/dsi/dsi_manager.c         |  4 ++
-> >  include/drm/drm_connector.h                   |  2 +
-> >  5 files changed, 59 insertions(+), 13 deletions(-)
-> >
->
