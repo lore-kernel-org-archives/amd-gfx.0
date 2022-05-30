@@ -4,75 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2E0C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 06:02:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B9BC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 06:10:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B2310E9AC;
-	Mon, 30 May 2022 06:02:42 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F3C10E99C;
- Mon, 30 May 2022 06:02:40 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- d5-20020a05600c34c500b0039776acee62so3928835wmq.1; 
- Sun, 29 May 2022 23:02:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=stC9EFhI7+6UGa360KSWWIzphU4ZEQIlBW0zuTPcZWw=;
- b=KJI4pXydZOPKX6r4YCVdsLLYo1ITFqFsAAOc8b8/0XcZIwkGUfkJZG+o58Rs8xIeUA
- OqqOk4bm4irI3poESRU9d1MhSM+fmCO52Pi/uiltiQwSWayKluHcXOyT0zYZTxp2eLWz
- XsYDgSTOhnFRuF5gK2hSLLWOveYUbPiVC4oXKIVqM/HHSWjAaprFdiN8ZDgI7x3Ag0bI
- py4G1fLzJM4YvcGYyW6r59Z9lpLbgQ4Ni3eo9xeFv2UH+eK24Ho4yAH6ajhM4VKJtRaI
- jWRHjfLhrS/qwtfLW6kG9g3L610slt6Gcej4je+b2K44kCSYONoTIekFYalipwAqODFL
- KiyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=stC9EFhI7+6UGa360KSWWIzphU4ZEQIlBW0zuTPcZWw=;
- b=Y2oNzOgdd+oSFJTe9btAyVw1SUbNi3xZpKtI5a79w98yt4Zh9IebrcndAlYLP4nkNx
- O1LLH1gTCpOA+AGOlr+vjJXdcM+VPdltyknixOPbCWX5sMMoj/4A/8+3Wv9ToAvJSc3a
- yWdrix9CkT44U4YR6/svfmd7hAtJDzGZ8xtcLEmdwJA+zBmk1OtxUGZcBwUC6mZXRO1F
- Ofx01n+BTlpvtItgVeJQAAN35mXnr6GisOgTDYajCemCdOcnFmqaOpUL7GjiY7WJItXF
- 3i0D5X4Bb2Do5SOuq/DEI+kq6I5FcuYI79ejvqHAYHk3qyjTTI3PVIOgk+YYltncAJzP
- pv+A==
-X-Gm-Message-State: AOAM530p5kDk93KmrkpUmaadX4TOntoBJDRIiuWCrhVR35+t1ayLdABX
- 2tPSvREQFtKv/XtUXWtF4yY=
-X-Google-Smtp-Source: ABdhPJx1K05y6WnmLQ52xnVpB9ZXRm+8ZJoO6jFbU2oizpKYmLBI3MYt328y743escx8q5igOaVTlg==
-X-Received: by 2002:a05:600c:3c91:b0:39b:6b:d5de with SMTP id
- bg17-20020a05600c3c9100b0039b006bd5demr6275935wmb.132.1653890559143; 
- Sun, 29 May 2022 23:02:39 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea17a.dip0.t-ipconnect.de.
- [91.14.161.122]) by smtp.gmail.com with ESMTPSA id
- e5-20020a05600c254500b003942a244f49sm9206907wma.34.2022.05.29.23.02.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 May 2022 23:02:38 -0700 (PDT)
-Message-ID: <5c9a514d-53a3-c821-5549-07aa7fb8e756@gmail.com>
-Date: Mon, 30 May 2022 08:02:36 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C69910E4F0;
+	Mon, 30 May 2022 06:10:34 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2052.outbound.protection.outlook.com [40.107.100.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8015D10E4F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 06:10:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ja3Apa/IPnTFxlzah8PsR0ll3m74qYPB8cT+q6INr2+QhA373XH9iDuhPsIXrkXzi8hzV2GCAx4LxT6Cv4zI5BeW2u75gHW6iGbwAA4AO6Nu2igOP8CqP1sy8gTZkDZBFRPJzTJvmPQ7UL2SffhzOqOfABGHElwpuJ1UPwcsSQqL+IDY9v5JhTW0Z5WF/dFhKOErJUxOEbK0ZUWwA15aoyDPuq4OOnfj6aQaWgobXDnSBd1nSTXOzvlmcRqdP88kXY3PxJYTMrTwcmHzd+VeL1+K+FlDSrK7vSt0xU1AiGQf92TL0nB4NoIHhae9ntgb8vl9yDu56sQSDKRLD82vCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XcJKwj+/ystblNrTUdU8+O/m4/byK1ItP8V4WRxdBZM=;
+ b=MrB4iBgn+h/r7C2YUh+FSx4mQvSZHdr7hR6LZlWWYMmKpJGCCb/JtD4u/LhE0Rmu1Kauz68t2tmN3iZiAzhjV840LEDa8gQnOwZNrZugEY2tjvfWvFaeHbfh65/G2SXwOs0oOHZM5Bejzi3nJgqudy8OfAuEQAsCsNKytYMZdu9UMKRu+rR0/xdfRzHVMvZIylQ8a6LkRJGIhnIxHYAwYFSihX7te07Ag7PFup1l5zXhowWdLBn4rWUxrk+UXnmtUkFvm4SVPwHDU/cL2kxxgFCFiOS0Y+jEnJ76zU1axg7lSniT0V0Qn/ikRoJggTHHz74LWbU1+sjuHRKQYfMVrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XcJKwj+/ystblNrTUdU8+O/m4/byK1ItP8V4WRxdBZM=;
+ b=q9Tx1T8jOxVXOBK3qPz4PeirxrXkpkeHEM78QSRT/m7X7QLGvI0IGFfXFJsoev3txe4ZXjlAUYErxr7aPUlGoqOqRDBUPv++GWxkt2JXTAWSmSK0FB0zT07uUjcjRq40CWvGWab+uml54q8cwkScUnncnmc87Gs8D/UrSIBVbZ4=
+Received: from MW4PR03CA0298.namprd03.prod.outlook.com (2603:10b6:303:b5::33)
+ by DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Mon, 30 May
+ 2022 06:10:30 +0000
+Received: from CO1NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::12) by MW4PR03CA0298.outlook.office365.com
+ (2603:10b6:303:b5::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
+ Transport; Mon, 30 May 2022 06:10:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT020.mail.protection.outlook.com (10.13.174.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5293.13 via Frontend Transport; Mon, 30 May 2022 06:10:29 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 30 May
+ 2022 01:10:27 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: suppress compile warnings about possible
+ unaligned accesses
+Date: Mon, 30 May 2022 14:09:11 +0800
+Message-ID: <20220530060911.345435-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v12] drm/amdgpu: add drm buddy support to amdgpu
-Content-Language: en-US
-To: Mike Lothian <mike@fireburn.co.uk>,
- "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
-References: <20220407054651.3924-1-Arunpravin.PaneerSelvam@amd.com>
- <CAHbf0-H5uE4RtZwY0L8Wz0VG6QnU1+E3yhg3fDFVc3n__=nrNQ@mail.gmail.com>
- <c0facbf4-0e14-fde5-4334-499135a36f0c@amd.com>
- <CAHbf0-FMqAA3vWx_uRDYG_vr=FX+tFoLAL6BZLDe5upv7KJqrg@mail.gmail.com>
- <CAHbf0-En606VT_HYDyeo6TtsfSZmR_+wsZaVgS4XiedLO9ndiA@mail.gmail.com>
- <8b99ca20-f711-ec32-0cd2-16fc52846ce0@amd.com>
- <CAHbf0-EzPP5gAyZQmxeAo3Ep0g-rO4XbDgEB_SdsR84xY+at9A@mail.gmail.com>
- <CAHbf0-G-rnvNXaXxMzkPerW6h=9vkxJyysUUV-oJV5UGD67KqA@mail.gmail.com>
- <CADnq5_PTRPTsCvGwKFzNA_k7diAVqYEv1xV1yJszRD1K-v2FfQ@mail.gmail.com>
- <MN2PR12MB43425B6EC07A7F6877B884C7E4DB9@MN2PR12MB4342.namprd12.prod.outlook.com>
- <CAHbf0-G8Qgv-uKHBYxhv=SLUv7-z4gzjMziN_x+oAobTrqW0PQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAHbf0-G8Qgv-uKHBYxhv=SLUv7-z4gzjMziN_x+oAobTrqW0PQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9aeb938d-eaff-48a5-c158-08da420318ef
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4156:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB415682642C55AC8164A39D98E4DD9@DM6PR12MB4156.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IjLxNdkqZ0+imggA4oAo6qfXsOqGN9TAXShBO5bkrNf12vi3M9qbD2uNqoQaBiUpZIn5fWlIn8JXuoRrOdyFrxg3emQ9ocNNnRSwI9oGghGLaT1ts6UasxbasZjjU4DHG/1wMdW3KlawqDiipG9ApoGWqOA+bgKjOtvOAHplbZfZ0yU74J6Fqcf4F/x7g9Jw7Q/bABwmIXwmJTkklyPZLBqSMBBqPVNOiJyCNLTMG8V8c8XrBwSzTR+PE/QCXGU73V5KO3EH45NB2FXHUJeGXDtlZBBBMzLBXSt3OdHSnNtDIuzc1VOIHXlv5ksO9gBOwIbAPxX87Ocb/8EfzxUxsNuXZCqqoKiNM8K7sxDJ5jlt29YRiB/XXhIG8nNZCCOxo7R+XS3kiqnvg9uX+mdMB5dnDig3o7ZBRjk1zdptWO1IJAOhl0qo+bQcrppEncMzr9NxpM4ghC8kwzk99yNhd/wxHS22ztlvpD8e4og530MDVVuCOPhcnegwGNJhraiSuViafVd02dvwZA57VLsKi/HMt0Hz05bABQiuLzHSpL2/8zxewzxNuQkUMS6rUzpWWwwID5CP+0KDQ/4vi72YDUGSJIl60cdFr33RfBFa/VNmBwqrpyxn82iV0sIfmBz4FgtQoMf1sLEojMpdEaJGIxPT+MExOmkTaoATLetV/wbJ9AH6wuTOFoxXosGOudZNrbDfmsxgHkThc5yw4wqQqg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(16526019)(508600001)(36756003)(426003)(336012)(186003)(83380400001)(4326008)(70206006)(70586007)(2616005)(86362001)(2906002)(47076005)(1076003)(36860700001)(26005)(81166007)(7696005)(356005)(5660300002)(8936002)(44832011)(82310400005)(40460700003)(6916009)(316002)(8676002)(54906003)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2022 06:10:29.5328 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9aeb938d-eaff-48a5-c158-08da420318ef
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4156
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,40 +99,185 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, Matthew Auld <matthew.auld@intel.com>
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.05.22 um 01:52 schrieb Mike Lothian:
-> On Sat, 28 May 2022 at 08:44, Paneer Selvam, Arunpravin
-> <Arunpravin.PaneerSelvam@amd.com> wrote:
->> [Public]
->>
->> Hi,
->>
->> After investigating quite some time on this issue, found freeze problem is not with the amdgpu part of buddy allocator patch as the patch doesn’t throw any issues when applied separately on top of the stable base of drm-next. After digging more into this issue, the below patch seems to be the cause of this problem,
->>
->> drm/ttm: rework bulk move handling v5
->> https://cgit.freedesktop.org/drm/drm/commit/?id=fee2ede155423b0f7a559050a39750b98fe9db69
->>
->> when this patch applied on top of the stable (working version) of drm-next without buddy allocator patch, we can see multiple issues listed below, each thrown randomly at every GravityMark run, 1. general protection fault at ttm_lru_bulk_move_tail() 2. NULL pointer deference at ttm_lru_bulk_move_tail() 3. NULL pointer deference at ttm_resource_init().
->>
->> Regards,
->> Arun.
-> Thanks for tracking it down, fee2ede155423b0f7a559050a39750b98fe9db69
-> isn't trivial to revert
->
-> Hopefully Christian can figure it out
+Suppress the following compile warnings:
+>> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/inc/smu_v11_0_pptable.h:163:17:
+warning: field smc_pptable within 'struct smu_11_0_powerplay_table' is
+less aligned than 'PPTable_t' and is usually due to 'struct smu_11_0_powerplay_table'
+being packed, which can lead to unaligned accesses [-Wunaligned-access]
+         PPTable_t smc_pptable;                        //PPTable_t in smu11_driver_if.h
+                   ^
+   1 warning generated.
+--
+>> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/inc/smu_v11_0_7_pptable.h:193:17:
+warning: field smc_pptable within 'struct smu_11_0_7_powerplay_table' is
+less aligned than 'PPTable_t' and is usually due to 'struct smu_11_0_7_powerplay_table'
+being packed, which can lead to unaligned accesses [-Wunaligned-access]
+         PPTable_t smc_pptable;                        //PPTable_t in smu11_driver_if.h
+                   ^
+   1 warning generated.
+--
+>> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/inc/smu_v13_0_pptable.h:161:12:
+warning: field smc_pptable within 'struct smu_13_0_powerplay_table' is less aligned than
+'PPTable_t' and is usually due to 'struct smu_13_0_powerplay_table' being packed, which
+can lead to unaligned accesses [-Wunaligned-access]
 
-Arun is unfortunately running into the wrong direction with his testing. 
-The merge fallout from "drm/ttm: rework bulk move handling v5" is 
-already fixed by "drm/amdgpu: fix drm-next merge fallout", but your 
-problem with the buddy allocator is separate to that.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I855062e987effd563ccc09336caad75f02751bb6
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h |  9 ++++++---
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h   |  9 ++++++---
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h |  5 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h   | 10 +++++++---
+ 4 files changed, 23 insertions(+), 10 deletions(-)
 
-Regards,
-Christian.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
+index 247c6e9632ba..1cb399dbc7cc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
+@@ -22,6 +22,7 @@
+ #ifndef SMU_11_0_7_PPTABLE_H
+ #define SMU_11_0_7_PPTABLE_H
+ 
++#pragma pack(push, 1)
+ 
+ #define SMU_11_0_7_TABLE_FORMAT_REVISION                  15
+ 
+@@ -139,7 +140,7 @@ struct smu_11_0_7_overdrive_table
+     uint32_t max[SMU_11_0_7_MAX_ODSETTING];                   //default maximum settings
+     uint32_t min[SMU_11_0_7_MAX_ODSETTING];                   //default minimum settings
+     int16_t  pm_setting[SMU_11_0_7_MAX_PMSETTING];            //Optimized power mode feature settings
+-} __attribute__((packed));
++};
+ 
+ enum SMU_11_0_7_PPCLOCK_ID {
+     SMU_11_0_7_PPCLOCK_GFXCLK = 0,
+@@ -166,7 +167,7 @@ struct smu_11_0_7_power_saving_clock_table
+     uint32_t count;                                           //power_saving_clock_count = SMU_11_0_7_PPCLOCK_COUNT
+     uint32_t max[SMU_11_0_7_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Maximum array In MHz
+     uint32_t min[SMU_11_0_7_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Minimum array In MHz
+-} __attribute__((packed));
++};
+ 
+ struct smu_11_0_7_powerplay_table
+ {
+@@ -191,6 +192,8 @@ struct smu_11_0_7_powerplay_table
+       struct smu_11_0_7_overdrive_table               overdrive_table;
+ 
+       PPTable_t smc_pptable;                        //PPTable_t in smu11_driver_if.h
+-} __attribute__((packed));
++};
++
++#pragma pack(pop)
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+index 7a63cf8e85ed..0116e3d04fad 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+@@ -22,6 +22,7 @@
+ #ifndef SMU_11_0_PPTABLE_H
+ #define SMU_11_0_PPTABLE_H
+ 
++#pragma pack(push, 1)
+ 
+ #define SMU_11_0_TABLE_FORMAT_REVISION                  12
+ 
+@@ -109,7 +110,7 @@ struct smu_11_0_overdrive_table
+     uint8_t  cap[SMU_11_0_MAX_ODFEATURE];                     //OD feature support flags
+     uint32_t max[SMU_11_0_MAX_ODSETTING];                     //default maximum settings
+     uint32_t min[SMU_11_0_MAX_ODSETTING];                     //default minimum settings
+-} __attribute__((packed));
++};
+ 
+ enum SMU_11_0_PPCLOCK_ID {
+     SMU_11_0_PPCLOCK_GFXCLK = 0,
+@@ -133,7 +134,7 @@ struct smu_11_0_power_saving_clock_table
+     uint32_t count;                                           //power_saving_clock_count = SMU_11_0_PPCLOCK_COUNT
+     uint32_t max[SMU_11_0_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Maximum array In MHz
+     uint32_t min[SMU_11_0_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Minimum array In MHz
+-} __attribute__((packed));
++};
+ 
+ struct smu_11_0_powerplay_table
+ {
+@@ -162,6 +163,8 @@ struct smu_11_0_powerplay_table
+ #ifndef SMU_11_0_PARTIAL_PPTABLE
+       PPTable_t smc_pptable;                        //PPTable_t in smu11_driver_if.h
+ #endif
+-} __attribute__((packed));
++};
++
++#pragma pack(pop)
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h
+index 3f29f4327378..478862ded0bd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h
+@@ -22,6 +22,8 @@
+ #ifndef SMU_13_0_7_PPTABLE_H
+ #define SMU_13_0_7_PPTABLE_H
+ 
++#pragma pack(push, 1)
++
+ #define SMU_13_0_7_TABLE_FORMAT_REVISION 15
+ 
+ //// POWERPLAYTABLE::ulPlatformCaps
+@@ -194,7 +196,8 @@ struct smu_13_0_7_powerplay_table
+     struct smu_13_0_7_overdrive_table overdrive_table;
+     uint8_t padding1;
+     PPTable_t smc_pptable; //PPTable_t in driver_if.h
+-} __attribute__((packed));
++};
+ 
++#pragma pack(pop)
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
+index 1f311396b706..043307485528 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
+@@ -22,6 +22,8 @@
+ #ifndef SMU_13_0_PPTABLE_H
+ #define SMU_13_0_PPTABLE_H
+ 
++#pragma pack(push, 1)
++
+ #define SMU_13_0_TABLE_FORMAT_REVISION                  1
+ 
+ //// POWERPLAYTABLE::ulPlatformCaps
+@@ -109,7 +111,7 @@ struct smu_13_0_overdrive_table {
+ 	uint8_t  cap[SMU_13_0_MAX_ODFEATURE];                     //OD feature support flags
+ 	uint32_t max[SMU_13_0_MAX_ODSETTING];                     //default maximum settings
+ 	uint32_t min[SMU_13_0_MAX_ODSETTING];                     //default minimum settings
+-} __attribute__((packed));
++};
+ 
+ enum SMU_13_0_PPCLOCK_ID {
+ 	SMU_13_0_PPCLOCK_GFXCLK = 0,
+@@ -132,7 +134,7 @@ struct smu_13_0_power_saving_clock_table {
+ 	uint32_t count;                                           //power_saving_clock_count = SMU_11_0_PPCLOCK_COUNT
+ 	uint32_t max[SMU_13_0_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Maximum array In MHz
+ 	uint32_t min[SMU_13_0_MAX_PPCLOCK];                       //PowerSavingClock Mode Clock Minimum array In MHz
+-} __attribute__((packed));
++};
+ 
+ struct smu_13_0_powerplay_table {
+ 	struct atom_common_table_header header;
+@@ -160,6 +162,8 @@ struct smu_13_0_powerplay_table {
+ #ifndef SMU_13_0_PARTIAL_PPTABLE
+ 	PPTable_t smc_pptable;                        //PPTable_t in driver_if.h
+ #endif
+-} __attribute__((packed));
++};
++
++#pragma pack(pop)
+ 
+ #endif
+-- 
+2.29.0
+
