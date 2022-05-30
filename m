@@ -4,83 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B89C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBA8C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA0E310F587;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB8B10F590;
 	Tue, 31 May 2022 07:45:35 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 485E910E416
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 08:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1653901036;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rT8KdjlnUjd5Uq9SviQ3T6SzqdWFKXJhxwciu6WG4YY=;
- b=QDrrYZTGmr7lZ4/FIJAomH5UjZjCTKm6jViEjXNkuweR94tgbjbYA+USVmqAYIjlTWumoB
- p6Mi4Js7979YbBkkiDbCCQjlZXaY+cV63SqIyWFGQqG6QCVxQGdvCKzB/Tzb+hAkZhGQ+d
- agYRH4GNuWqeYdwlkuHkDvt91C1N7i0=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-vLtkCMS9MZeZaGKZS7Ak-A-1; Mon, 30 May 2022 04:57:15 -0400
-X-MC-Unique: vLtkCMS9MZeZaGKZS7Ak-A-1
-Received: by mail-ed1-f69.google.com with SMTP id
- eh10-20020a0564020f8a00b0042dd9bf7c57so136138edb.17
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 01:57:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=rT8KdjlnUjd5Uq9SviQ3T6SzqdWFKXJhxwciu6WG4YY=;
- b=fw86MBgmohf8FIzUacKBHE0ai+be36mqDf78roz/SUzHTjMVRVxweWISHnWR1iJPms
- uTzAyfcU2547pGBzIMAsK2TnWj0wjZC8ssSz44d11mL+YBzIsK9V6bzurpj2SxKiAssd
- FbJmiU06jfjXyydDKmNt8pPB2f3J49Nozp+eIqtZWPpVgd0uhEc3WBwj87sw+e9TK+rM
- Qyw+8NK+wBSkw9njF92fmyT//Qb/UYq/4ff2X5tdvBXLueM5+xX7jMXyboFFQMT2vK9+
- CD4XqjKP7FIZekOCcfaW4k9SaOYWY1QGx8WkyBmatMuFht9Ly/c5JES88wMSm1zoltSU
- wDvA==
-X-Gm-Message-State: AOAM531dkA4oTuWBc8hMSMa96M4vHbt9onqfPQLvf3GquYxhduqaKx/y
- qdbFDkTNvVSJ5EiiR2NSH7YgmIqfbI1UEeclrDv9Nvs7KBg2x1MQHuufmlekGC0QcrMjTNih0qk
- 0lIfdQI9iCBnf/cpELXluqlHjpw==
-X-Received: by 2002:a17:907:3e04:b0:6f5:1132:59de with SMTP id
- hp4-20020a1709073e0400b006f5113259demr50478488ejc.755.1653901033620; 
- Mon, 30 May 2022 01:57:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxwGZdZ2OECzTT2+3qCTNs8teETzS7iCL734rRtG3rxb48mizDGq2nXgRSvB4Ap1KHNuXXr0A==
-X-Received: by 2002:a17:907:3e04:b0:6f5:1132:59de with SMTP id
- hp4-20020a1709073e0400b006f5113259demr50478470ejc.755.1653901033388; 
- Mon, 30 May 2022 01:57:13 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- m22-20020a1709062ad600b006f3ef214db2sm3802987eje.24.2022.05.30.01.57.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 May 2022 01:57:12 -0700 (PDT)
-Message-ID: <3ae6d7d1-fcf2-a769-5e4d-f80328ae06fe@redhat.com>
-Date: Mon, 30 May 2022 10:57:12 +0200
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3B310ECFA;
+ Mon, 30 May 2022 13:57:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id B98F41F417FE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1653919049;
+ bh=2XRBuky6ctLBMkVpHH42tRbnrHaVzoRJDfOS/8wLl/E=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=mPwSP+W1lUR0EdMvCliWfZoiylZ8CVpOpjwgflCUTZaI9WHJh5tJXhk8DyguPhNeN
+ HogdCkNBgtGD2G8U9Ep2K49/vmqE56g1BgD7MA21xGk1ZVBj+VJcIxxm08FCLdNgVK
+ RmZOwzc+caJBzV5axbiwKDrCGcHjZmvJd24egZXw9xLh3XfQFPhTT3EpgfN70g8mqC
+ 9sjT+smifz0WHNiGEqr7+RZqCI9QQehNyQ19Mpiv9LWCOB9wzR78FM0tska4e7lqKe
+ 50oVtOr/eGMjVeh2uPvpXIVZhL/NQ2LFQ3MNEmBcidBDh44gsd28fmmYzNC+2ue0aj
+ H9xWHCkQ7dKmg==
+Message-ID: <7372dd1b-06f7-5336-4738-15f9b4d4d4b3@collabora.com>
+Date: Mon, 30 May 2022 16:57:22 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v10 1/4] gpu: drm: separate panel orientation property
- creating and value setting
-To: Hsin-Yi Wang <hsinyi@chromium.org>, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20220530081910.3947168-1-hsinyi@chromium.org>
- <20220530081910.3947168-2-hsinyi@chromium.org>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20220530081910.3947168-2-hsinyi@chromium.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v6 14/22] dma-buf: Introduce new locking convention
 Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-15-dmitry.osipenko@collabora.com>
+ <0a02a31d-a256-4ca4-0e35-e2ea1868a8ae@amd.com>
+ <e6e17c52-43c2-064b-500e-325bb3ba3b2c@collabora.com>
+ <02e7946b-34ca-b48e-1ba6-e7b63740a2d9@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <02e7946b-34ca-b48e-1ba6-e7b63740a2d9@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 31 May 2022 07:45:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,220 +76,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Douglas Anderson <dianders@chromium.org>, Maxime Ripard <mripard@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Alex Deucher <alexander.deucher@amd.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 5/30/22 10:19, Hsin-Yi Wang wrote:
-> drm_dev_register() sets connector->registration_state to
-> DRM_CONNECTOR_REGISTERED and dev->registered to true. If
-> drm_connector_set_panel_orientation() is first called after
-> drm_dev_register(), it will fail several checks and results in following
-> warning.
+On 5/30/22 16:41, Christian König wrote:
+> Hi Dmitry,
 > 
-> Add a function to create panel orientation property and set default value
-> to UNKNOWN, so drivers can call this function to init the property earlier
-> , and let the panel set the real value later.
+> Am 30.05.22 um 15:26 schrieb Dmitry Osipenko:
+>> Hello Christian,
+>>
+>> On 5/30/22 09:50, Christian König wrote:
+>>> Hi Dmitry,
+>>>
+>>> First of all please separate out this patch from the rest of the series,
+>>> since this is a complex separate structural change.
+>> I assume all the patches will go via the DRM tree in the end since the
+>> rest of the DRM patches in this series depend on this dma-buf change.
+>> But I see that separation may ease reviewing of the dma-buf changes, so
+>> let's try it.
 > 
-> [    4.480976] ------------[ cut here ]------------
-> [    4.485603] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:45 __drm_mode_object_add+0xb4/0xbc
-> <snip>
-> [    4.609772] Call trace:
-> [    4.612208]  __drm_mode_object_add+0xb4/0xbc
-> [    4.616466]  drm_mode_object_add+0x20/0x2c
-> [    4.620552]  drm_property_create+0xdc/0x174
-> [    4.624723]  drm_property_create_enum+0x34/0x98
-> [    4.629241]  drm_connector_set_panel_orientation+0x64/0xa0
-> [    4.634716]  boe_panel_get_modes+0x88/0xd8
-> [    4.638802]  drm_panel_get_modes+0x2c/0x48
-> [    4.642887]  panel_bridge_get_modes+0x1c/0x28
-> [    4.647233]  drm_bridge_connector_get_modes+0xa0/0xd4
-> [    4.652273]  drm_helper_probe_single_connector_modes+0x218/0x700
-> [    4.658266]  drm_mode_getconnector+0x1b4/0x45c
-> [    4.662699]  drm_ioctl_kernel+0xac/0x128
-> [    4.666611]  drm_ioctl+0x268/0x410
-> [    4.670002]  drm_compat_ioctl+0xdc/0xf0
-> [    4.673829]  __arm64_compat_sys_ioctl+0xc8/0x100
-> [    4.678436]  el0_svc_common+0xf4/0x1c0
-> [    4.682174]  do_el0_svc_compat+0x28/0x3c
-> [    4.686088]  el0_svc_compat+0x10/0x1c
-> [    4.689738]  el0_sync_compat_handler+0xa8/0xcc
-> [    4.694171]  el0_sync_compat+0x178/0x180
-> [    4.698082] ---[ end trace b4f2db9d9c88610b ]---
-> [    4.702721] ------------[ cut here ]------------
-> [    4.707329] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:243 drm_object_attach_property+0x48/0xb8
-> <snip>
-> [    4.833830] Call trace:
-> [    4.836266]  drm_object_attach_property+0x48/0xb8
-> [    4.840958]  drm_connector_set_panel_orientation+0x84/0xa0
-> [    4.846432]  boe_panel_get_modes+0x88/0xd8
-> [    4.850516]  drm_panel_get_modes+0x2c/0x48
-> [    4.854600]  panel_bridge_get_modes+0x1c/0x28
-> [    4.858946]  drm_bridge_connector_get_modes+0xa0/0xd4
-> [    4.863984]  drm_helper_probe_single_connector_modes+0x218/0x700
-> [    4.869978]  drm_mode_getconnector+0x1b4/0x45c
-> [    4.874410]  drm_ioctl_kernel+0xac/0x128
-> [    4.878320]  drm_ioctl+0x268/0x410
-> [    4.881711]  drm_compat_ioctl+0xdc/0xf0
-> [    4.885536]  __arm64_compat_sys_ioctl+0xc8/0x100
-> [    4.890142]  el0_svc_common+0xf4/0x1c0
-> [    4.893879]  do_el0_svc_compat+0x28/0x3c
-> [    4.897791]  el0_svc_compat+0x10/0x1c
-> [    4.901441]  el0_sync_compat_handler+0xa8/0xcc
-> [    4.905873]  el0_sync_compat+0x178/0x180
-> [    4.909783] ---[ end trace b4f2db9d9c88610c ]---
+> That sounds like you are underestimating a bit how much trouble this
+> will be.
 > 
-> Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
-> Reviewed-by: Sean Paul <seanpaul@chromium.org>
-> ---
-> v9->v10: rebase to latest linux-next.
-> v9: https://patchwork.kernel.org/project/linux-mediatek/patch/20220318074825.3359978-2-hsinyi@chromium.org/
-> v8: https://patchwork.kernel.org/project/linux-mediatek/patch/20220208084234.1684930-1-hsinyi@chromium.org/
-> v7: https://patchwork.kernel.org/project/linux-mediatek/patch/20220208073714.1540390-1-hsinyi@chromium.org/
-> ---
->  drivers/gpu/drm/drm_connector.c | 58 +++++++++++++++++++++++++--------
->  include/drm/drm_connector.h     |  2 ++
->  2 files changed, 47 insertions(+), 13 deletions(-)
+>>> I have tried this before and failed because catching all the locks in
+>>> the right code paths are very tricky. So expect some fallout from this
+>>> and make sure the kernel test robot and CI systems are clean.
+>> Sure, I'll fix up all the reported things in the next iteration.
+>>
+>> BTW, have you ever posted yours version of the patch? Will be great if
+>> we could compare the changed code paths.
 > 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 1c48d162c77e..d68cc78f6684 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->   *	INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
->   *	coordinates, so if userspace rotates the picture to adjust for
->   *	the orientation it must also apply the same transformation to the
-> - *	touchscreen input coordinates. This property is initialized by calling
-> + *	touchscreen input coordinates. This property value is set by calling
->   *	drm_connector_set_panel_orientation() or
->   *	drm_connector_set_panel_orientation_with_quirk()
->   *
-> @@ -2310,8 +2310,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
->   * @connector: connector for which to set the panel-orientation property.
->   * @panel_orientation: drm_panel_orientation value to set
->   *
-> - * This function sets the connector's panel_orientation and attaches
-> - * a "panel orientation" property to the connector.
-> + * This function sets the connector's panel_orientation value. If the property
-> + * doesn't exist, it will try to create one.
->   *
->   * Calling this function on a connector where the panel_orientation has
->   * already been set is a no-op (e.g. the orientation has been overridden with
-> @@ -2343,18 +2343,13 @@ int drm_connector_set_panel_orientation(
->  
->  	prop = dev->mode_config.panel_orientation_property;
->  	if (!prop) {
-> -		prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
-> -				"panel orientation",
-> -				drm_panel_orientation_enum_list,
-> -				ARRAY_SIZE(drm_panel_orientation_enum_list));
-> -		if (!prop)
-> +		if (drm_connector_init_panel_orientation_property(connector) < 0)
->  			return -ENOMEM;
-> -
-> -		dev->mode_config.panel_orientation_property = prop;
-> +		prop = dev->mode_config.panel_orientation_property;
->  	}
->  
-> -	drm_object_attach_property(&connector->base, prop,
-> -				   info->panel_orientation);
-> +	drm_object_property_set_value(&connector->base, prop,
-> +				      info->panel_orientation);
->  	return 0;
->  }
->  EXPORT_SYMBOL(drm_connector_set_panel_orientation);
-> @@ -2362,7 +2357,7 @@ EXPORT_SYMBOL(drm_connector_set_panel_orientation);
->  /**
->   * drm_connector_set_panel_orientation_with_quirk - set the
->   *	connector's panel_orientation after checking for quirks
-> - * @connector: connector for which to init the panel-orientation property.
-> + * @connector: connector for which to set the panel-orientation property.
->   * @panel_orientation: drm_panel_orientation value to set
->   * @width: width in pixels of the panel, used for panel quirk detection
->   * @height: height in pixels of the panel, used for panel quirk detection
-> @@ -2389,6 +2384,43 @@ int drm_connector_set_panel_orientation_with_quirk(
->  }
->  EXPORT_SYMBOL(drm_connector_set_panel_orientation_with_quirk);
->  
-> +/**
-> + * drm_connector_init_panel_orientation_property -
-> + * 	create the connector's panel orientation property
-> + *
-> + * This function attaches a "panel orientation" property to the connector
-> + * and initializes its value to DRM_MODE_PANEL_ORIENTATION_UNKNOWN.
-> + *
-> + * The value of the property can be set by drm_connector_set_panel_orientation()
-> + * or drm_connector_set_panel_orientation_with_quirk() later.
-> + *
-> + * Returns:
-> + * Zero on success, negative errno on failure.
-> + */
-> +int drm_connector_init_panel_orientation_property(
-> +	struct drm_connector *connector)
-> +{
-> +	struct drm_device *dev = connector->dev;
-> +	struct drm_property *prop;
-> +
-> +	if(dev->mode_config.panel_orientation_property)
-> +		return 0;
-> +
-> +	prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
-> +			"panel orientation",
-> +			drm_panel_orientation_enum_list,
-> +			ARRAY_SIZE(drm_panel_orientation_enum_list));
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	dev->mode_config.panel_orientation_property = prop;
-> +	drm_object_attach_property(&connector->base, prop,
-> +				   DRM_MODE_PANEL_ORIENTATION_UNKNOWN);
+> No, I never even finished creating it after realizing how much work it
+> would be.
+> 
+>>>> This patch introduces new locking convention for dma-buf users. From
+>>>> now
+>>>> on all dma-buf importers are responsible for holding dma-buf
+>>>> reservation
+>>>> lock around operations performed over dma-bufs.
+>>>>
+>>>> This patch implements the new dma-buf locking convention by:
+>>>>
+>>>>     1. Making dma-buf API functions to take the reservation lock.
+>>>>
+>>>>     2. Adding new locked variants of the dma-buf API functions for
+>>>> drivers
+>>>>        that need to manage imported dma-bufs under the held lock.
+>>> Instead of adding new locked variants please mark all variants which
+>>> expect to be called without a lock with an _unlocked postfix.
+>>>
+>>> This should make it easier to remove those in a follow up patch set and
+>>> then fully move the locking into the importer.
+>> Do we really want to move all the locks to the importers? Seems the
+>> majority of drivers should be happy with the dma-buf helpers handling
+>> the locking for them.
+> 
+> Yes, I clearly think so.
+> 
+>>
+>>>>     3. Converting all drivers to the new locking scheme.
+>>> I have strong doubts that you got all of them. At least radeon and
+>>> nouveau should grab the reservation lock in their ->attach callbacks
+>>> somehow.
+>> Radeon and Nouveau use gem_prime_import_sg_table() and they take resv
+>> lock already, seems they should be okay (?)
+> 
+> You are looking at the wrong side. You need to fix the export code path,
+> not the import ones.
+> 
+> See for example attach on radeon works like this
+> drm_gem_map_attach->drm_gem_pin->radeon_gem_prime_pin->radeon_bo_reserve->ttm_bo_reserve->dma_resv_lock.
 
-DRM_MODE_PANEL_ORIENTATION_UNKNOWN is -1 which is not a valid value
-for an enum. IOW when the panel-orientation is DRM_MODE_PANEL_ORIENTATION_UNKNOWN
-then the property should not be created on the drm-connector object at all.
+Yeah, I was looking at the both sides, but missed this one.
 
-Which brings us back to what I said in reply to the coverletter,
-it seems that you have a probe ordering problem here; and fixing that
-issue would make this patch-set unnecessary.
+> Same for nouveau and probably a few other exporters as well. That will
+> certainly cause a deadlock if you don't fix it.
+> 
+> I strongly suggest to do this step by step, first attach/detach and then
+> the rest.
 
-Regards,
+Thank you very much for the suggestions. I'll implement them in the next
+version.
 
-Hans
-
-
-
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_connector_init_panel_orientation_property);
-> +
->  static const struct drm_prop_enum_list privacy_screen_enum[] = {
->  	{ PRIVACY_SCREEN_DISABLED,		"Disabled" },
->  	{ PRIVACY_SCREEN_ENABLED,		"Enabled" },
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 3ac4bf87f257..f0681091c617 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -1802,6 +1802,8 @@ int drm_connector_set_panel_orientation_with_quirk(
->  	struct drm_connector *connector,
->  	enum drm_panel_orientation panel_orientation,
->  	int width, int height);
-> +int drm_connector_init_panel_orientation_property(
-> +	struct drm_connector *connector);
->  int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
->  					  int min, int max);
->  void drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
-
+-- 
+Best regards,
+Dmitry
