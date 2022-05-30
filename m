@@ -4,82 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5CD3C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C98DFC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 07:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A0F810F582;
-	Tue, 31 May 2022 07:45:35 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8FB010E1E3
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 08:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1653900795;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RhvgJCFXfv5RG+0oVTAct7gmCCzDguggkQSBJ+VAo/A=;
- b=fXliv7pHM2Jre6LMEQLlatcvDILw79rqi6Gypb6ohnbVrIBF4xpKqOggZPI9HNhPwX24+V
- 1RchNcgvKJeYTD0ccHvO0yjR0zjGaFRhMXsa13qEmeqGGPbLcD+0MnTh8PJ048EfTuMFCr
- 5BgyhjKhs/sYLII3dwdFnxfGFLTohC4=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-577-Nlv_z6bWP9OShWvcOn60TA-1; Mon, 30 May 2022 04:53:14 -0400
-X-MC-Unique: Nlv_z6bWP9OShWvcOn60TA-1
-Received: by mail-ej1-f72.google.com with SMTP id
- bt15-20020a170906b14f00b006fe9c3afbc2so3819921ejb.17
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 01:53:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BD010F56E;
+	Tue, 31 May 2022 07:45:34 +0000 (UTC)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F16110E11A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 08:19:30 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id 202so10004541pfu.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 01:19:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=aXGQfQ7lsNUfjhcCcz/m8HUah1p/vDnEfDkpaJXX40Q=;
+ b=j7HdUtSWpyZjY31tsETWgaBomYbcUL4NPjLRCEhLhcJhNgIJMPG4h8aVerkAWtdhJA
+ 6xH+tfkb3bQV9uMkXvjv7squthw5m7QHVK9FPoxGwWesDXlxRpcFVzLVr8fh8Qp0i1Oy
+ Cqr4umRydtfoIGytttZl5eX60xAiPR+cvlQfE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=RhvgJCFXfv5RG+0oVTAct7gmCCzDguggkQSBJ+VAo/A=;
- b=TV403LZIcmtILG1rMYw6P7mIQyNPpdXUTNmoNAA1ZxSBEE6TfPvRQrMGhNuVDLykz5
- NFCRMyn8K0S2N7wPG3lCrjpSKeQr4JcAO/6DFlQ1rJhFtKcipRk4DkFvC2TwFDBEnPBO
- qKuNu6llUeLJPzDnwShG2Sb+jktmBtUdDS9+fOBC1GunqHnczUPgH7ZsY6kR810vXg6W
- hKR3lOaQ96dUeghsdnRMIbum8K2A5eqCJcVsftbBJ4rcXtMcdmgJ1OuMfROv804E6lVO
- Dq8hB0CYVZT2agUv0nAVEhtCoqCsQ3rdCUz7SAWsfSXIUQ3pqkBrmo3GZvrxhD1xo930
- o4gA==
-X-Gm-Message-State: AOAM531pe7XUYOzzuVAgeadpyN1vkVnD6YojTnpVS8tRzfU6b4+3vLhK
- bpM3gqXcJ0WMEOMJVn8VHz1LpXKJwJNBRtMrMYXcOE8OrLZBdjVCOndhztz3V+MRy/ORc2lEbkf
- 6b14NtmaUDUY/inpqDkRqHaOzeQ==
-X-Received: by 2002:a17:907:6e20:b0:6ff:1541:8d34 with SMTP id
- sd32-20020a1709076e2000b006ff15418d34mr20498805ejc.447.1653900793061; 
- Mon, 30 May 2022 01:53:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzLS9X1+J2YlCZd50xUKza5F2TAaKjqsoBWgZZta9P6P5hLJgXAWFm13+BAHE9yuTPrdLSHXw==
-X-Received: by 2002:a17:907:6e20:b0:6ff:1541:8d34 with SMTP id
- sd32-20020a1709076e2000b006ff15418d34mr20498786ejc.447.1653900792873; 
- Mon, 30 May 2022 01:53:12 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=aXGQfQ7lsNUfjhcCcz/m8HUah1p/vDnEfDkpaJXX40Q=;
+ b=neRZBunr/kFfVcZDqBArppAcn/iAvsPb0G33Pbk8TLHeil8YlK0yYZm/mFIsm6aTRM
+ +LQrwpXaqPQCFFoo4S6tDc71CsfD4uawKTaCCk2dxqOdXM1t6t073ajDgdgELnD2hqdY
+ XnAtyJvjkxFD2fd62SeC225tTjplZw2QEhqRnjM/z8Gyevz7VKjFlc67OT0QiSIpWOQl
+ fRxnFahUrjUO08CNNKYiTj1A9winVM9Q7wNgycp9przVG0m4j5E2LtgTt/D/v4ymM+Xr
+ nrQwfoNyNO92MYAf48OY4IqWFW6dB1igikQfnaghiML4E+h8BAOY8PbVsSmFGKAhU6dK
+ FJ9g==
+X-Gm-Message-State: AOAM532mca4/aVZ9YXhZr1mKX3Z90mTQi4v+Zabtp8boxcwHpQHSF0hN
+ Lkp2CAHG2R3bMb38kOKWDzFLTw==
+X-Google-Smtp-Source: ABdhPJznWw2scunjHm2cr/VTVq8k2dY3+xmqHFPQlQtp4K4hBNUYcOpZOCvf/PBzDXdbEYlNMCt0bA==
+X-Received: by 2002:a63:2107:0:b0:3fb:ac79:50ed with SMTP id
+ h7-20020a632107000000b003fbac7950edmr12877684pgh.105.1653898769559; 
+ Mon, 30 May 2022 01:19:29 -0700 (PDT)
+Received: from hsinyi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:ae1c:3d63:abec:1097])
  by smtp.gmail.com with ESMTPSA id
- v16-20020a1709062f1000b006fea2705d18sm3807438eji.210.2022.05.30.01.53.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 May 2022 01:53:12 -0700 (PDT)
-Message-ID: <a8d1fe13-e747-016a-2d45-bfb50f23f2d9@redhat.com>
-Date: Mon, 30 May 2022 10:53:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v10 0/4] Separate panel orientation property creating and
- value setting
-To: Hsin-Yi Wang <hsinyi@chromium.org>, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20220530081910.3947168-1-hsinyi@chromium.org>
-From: Hans de Goede <hdegoede@redhat.com>
+ m1-20020a170902f64100b001618b70dcc9sm8537900plg.101.2022.05.30.01.19.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 May 2022 01:19:29 -0700 (PDT)
+From: Hsin-Yi Wang <hsinyi@chromium.org>
+To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v10 2/4] drm/mediatek: init panel orientation property
+Date: Mon, 30 May 2022 16:19:08 +0800
+Message-Id: <20220530081910.3947168-3-hsinyi@chromium.org>
+X-Mailer: git-send-email 2.36.1.124.g0e6072fb45-goog
 In-Reply-To: <20220530081910.3947168-1-hsinyi@chromium.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20220530081910.3947168-1-hsinyi@chromium.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 31 May 2022 07:45:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,62 +80,37 @@ Cc: Rob Clark <robdclark@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
  Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org
+ Hans de Goede <hdegoede@redhat.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Init panel orientation property after connector is initialized. Let the
+panel driver decides the orientation value later.
 
-On 5/30/22 10:19, Hsin-Yi Wang wrote:
-> Some drivers, eg. mtk_drm and msm_drm, rely on the panel to set the
-> orientation. Panel calls drm_connector_set_panel_orientation() to create
-> orientation property and sets the value. However, connector properties
-> can't be created after drm_dev_register() is called. The goal is to
-> separate the orientation property creation, so drm drivers can create it
-> earlier before drm_dev_register().
+Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
+Acked-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+---
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Sorry for jumping in pretty late in the discussion (based on the v10
-I seem to have missed this before).
-
-This sounds to me like the real issue here is that drm_dev_register()
-is getting called too early?
-
-To me it seems sensible to delay calling drm_dev_register() and
-thus allowing userspace to start detecting available displays +
-features until after the panel has been probed.
-
-I see a devicetree patch in this series, so I guess that the panel
-is described in devicetree. Especially in the case of devicetree
-I would expect the kernel to have enough info to do the right
-thing and make sure the panel is probed before calling
-drm_dev_register() ?
-
-Regards,
-
-Hans
-
-
-
-
-> 
-> After this series, drm_connector_set_panel_orientation() works like
-> before. It won't affect existing callers of
-> drm_connector_set_panel_orientation(). The only difference is that
-> some drm drivers can call drm_connector_init_panel_orientation_property()
-> earlier.
-> 
-> Hsin-Yi Wang (4):
->   gpu: drm: separate panel orientation property creating and value
->     setting
->   drm/mediatek: init panel orientation property
->   drm/msm: init panel orientation property
->   arm64: dts: mt8183: Add panel rotation
-> 
->  .../arm64/boot/dts/mediatek/mt8183-kukui.dtsi |  1 +
->  drivers/gpu/drm/drm_connector.c               | 58 ++++++++++++++-----
->  drivers/gpu/drm/mediatek/mtk_dsi.c            |  7 +++
->  drivers/gpu/drm/msm/dsi/dsi_manager.c         |  4 ++
->  include/drm/drm_connector.h                   |  2 +
->  5 files changed, 59 insertions(+), 13 deletions(-)
-> 
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index d9f10a33e6fa..3db44d9b161a 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -822,6 +822,13 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
+ 		ret = PTR_ERR(dsi->connector);
+ 		goto err_cleanup_encoder;
+ 	}
++
++	ret = drm_connector_init_panel_orientation_property(dsi->connector);
++	if (ret) {
++		DRM_ERROR("Unable to init panel orientation\n");
++		goto err_cleanup_encoder;
++	}
++
+ 	drm_connector_attach_encoder(dsi->connector, &dsi->encoder);
+ 
+ 	return 0;
+-- 
+2.36.1.124.g0e6072fb45-goog
 
