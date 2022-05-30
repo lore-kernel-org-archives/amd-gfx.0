@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDEFC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:43:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A467AC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9112610E9CF;
-	Mon, 30 May 2022 13:43:16 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA54510E9BD;
- Mon, 30 May 2022 13:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C8310E9DC;
+	Mon, 30 May 2022 13:44:52 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 981B810E967;
+ Mon, 30 May 2022 13:44:50 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 89A48B80DB7;
- Mon, 30 May 2022 13:43:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53650C3411A;
- Mon, 30 May 2022 13:43:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0B51E60F32;
+ Mon, 30 May 2022 13:44:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF13C36AE3;
+ Mon, 30 May 2022 13:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653918192;
- bh=dRHnLty4MtAIw+i5ImmnnIcgHxwQeHJnYQbo8DkdFr4=;
+ s=k20201202; t=1653918289;
+ bh=QBOKpU9FLpN80m8mad13Ydk7s0gfGAfX4dnPlkXcfts=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WbFrmUR+3EK2OMt0V4X7S7/lAHtqOEWNx5YJ/IX+h9CWteQI4HfbolCred7s8P9fD
- +vhncctS0zQ8CNOGBS4WYEBDaAFWd0vfAlCnKIgSiKBtDQIlksHIKEQwq8KJLWkVlv
- qEHxAyF87KDLSyYAk+E74t6W8IMkQCvRH4ywMZP5rrX/APe5bBSxG5+oRhzchq+rmz
- p75X0gClg9yJKKB3FeDthjEuytKxvF4Dd1i5gf4Hx2RXpTuNcZcutgwJKybIXSSSFC
- 61F4/l3UmkUjwV61a4gPBWI6sbjMLpUgzAgPb/FMojYi/jSViXOrOoLgtpQ3+FLrD6
- pngahsbDfLrdQ==
+ b=RSY+NFyalWTeySP3D+q+zsvVk4+z9vCuvY5ItBzHE4ihiGtY6dEDdsdeFWTV7J+cK
+ tC0wGUn0UDFrm7IZBIJ9Khkdtz0PQ9uRnU1yQPPgwy27GlLiz048PGJgO3Dc/lioi4
+ zQ/noekdushFOevdpne1gb6rYIdhEjGgC1Tw23+KmKwI0smIr2a2hezIKYc9/HFHtf
+ UQaFVSRA/A5kieBF8RIfBLzB0KFgKJKB6YF0bpi+J32ghyi/Tfa/84dtPYGzMNRVHG
+ HAVRZzrLVnSQvHKyoMuUzSI9dYBLMbKwb4eMWHcIc21yVzgz6X3ofrAGGtjq76oK0R
+ crZGhGD5NDU+g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 089/109] drm/amd/pm: update smartshift powerboost
- calc for smu13
-Date: Mon, 30 May 2022 09:38:05 -0400
-Message-Id: <20220530133825.1933431-89-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 19/76] drm/amd/pm: fix double free in
+ si_parse_power_table()
+Date: Mon, 30 May 2022 09:43:09 -0400
+Message-Id: <20220530134406.1934928-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530133825.1933431-1-sashal@kernel.org>
-References: <20220530133825.1933431-1-sashal@kernel.org>
+In-Reply-To: <20220530134406.1934928-1-sashal@kernel.org>
+References: <20220530134406.1934928-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,124 +55,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>, Xinhui.Pan@amd.com,
- Xiaomeng.Hou@amd.com, kevin1.wang@amd.com, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
- aaron.liu@amd.com, amd-gfx@lists.freedesktop.org, ray.huang@amd.com,
- mario.limonciello@amd.com, daniel@ffwll.ch,
+Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com, airlied@linux.ie,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- christian.koenig@amd.com
+ christian.koenig@amd.com, Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+From: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
 
-[ Upstream commit cdf4c8ec39872a61a58d62f19b4db80f0f7bc586 ]
+[ Upstream commit f3fa2becf2fc25b6ac7cf8d8b1a2e4a86b3b72bd ]
 
-smartshift apu and dgpu power boost are reported as percentage
-with respect to their power limits. adjust the units of power before
-calculating the percentage of boost.
+In function si_parse_power_table(), array adev->pm.dpm.ps and its member
+is allocated. If the allocation of each member fails, the array itself
+is freed and returned with an error code. However, the array is later
+freed again in si_dpm_fini() function which is called when the function
+returns an error.
 
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+This leads to potential double free of the array adev->pm.dpm.ps, as
+well as leak of its array members, since the members are not freed in
+the allocation function and the array is not nulled when freed.
+In addition adev->pm.dpm.num_ps, which keeps track of the allocated
+array member, is not updated until the member allocation is
+successfully finished, this could also lead to either use after free,
+or uninitialized variable access in si_dpm_fini().
+
+Fix this by postponing the free of the array until si_dpm_fini() and
+increment adev->pm.dpm.num_ps everytime the array member is allocated.
+
+Signed-off-by: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 62 ++++++++++++++-----
- 1 file changed, 46 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index 0e1a843608e4..33bd5430c6de 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -305,6 +305,42 @@ static int yellow_carp_mode2_reset(struct smu_context *smu)
- 	return yellow_carp_mode_reset(smu, SMU_RESET_MODE_2);
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+index a1e7ba5995c5..d6544a6dabc7 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+@@ -7250,17 +7250,15 @@ static int si_parse_power_table(struct amdgpu_device *adev)
+ 	if (!adev->pm.dpm.ps)
+ 		return -ENOMEM;
+ 	power_state_offset = (u8 *)state_array->states;
+-	for (i = 0; i < state_array->ucNumEntries; i++) {
++	for (adev->pm.dpm.num_ps = 0, i = 0; i < state_array->ucNumEntries; i++) {
+ 		u8 *idx;
+ 		power_state = (union pplib_power_state *)power_state_offset;
+ 		non_clock_array_index = power_state->v2.nonClockInfoIndex;
+ 		non_clock_info = (struct _ATOM_PPLIB_NONCLOCK_INFO *)
+ 			&non_clock_info_array->nonClockInfo[non_clock_array_index];
+ 		ps = kzalloc(sizeof(struct  si_ps), GFP_KERNEL);
+-		if (ps == NULL) {
+-			kfree(adev->pm.dpm.ps);
++		if (ps == NULL)
+ 			return -ENOMEM;
+-		}
+ 		adev->pm.dpm.ps[i].ps_priv = ps;
+ 		si_parse_pplib_non_clock_info(adev, &adev->pm.dpm.ps[i],
+ 					      non_clock_info,
+@@ -7282,8 +7280,8 @@ static int si_parse_power_table(struct amdgpu_device *adev)
+ 			k++;
+ 		}
+ 		power_state_offset += 2 + power_state->v2.ucNumDPMLevels;
++		adev->pm.dpm.num_ps++;
+ 	}
+-	adev->pm.dpm.num_ps = state_array->ucNumEntries;
  
-+
-+static void yellow_carp_get_ss_power_percent(SmuMetrics_t *metrics,
-+					uint32_t *apu_percent, uint32_t *dgpu_percent)
-+{
-+	uint32_t apu_boost = 0;
-+	uint32_t dgpu_boost = 0;
-+	uint16_t apu_limit = 0;
-+	uint16_t dgpu_limit = 0;
-+	uint16_t apu_power = 0;
-+	uint16_t dgpu_power = 0;
-+
-+	/* APU and dGPU power values are reported in milli Watts
-+	 * and STAPM power limits are in Watts */
-+	apu_power = metrics->ApuPower/1000;
-+	apu_limit = metrics->StapmOpnLimit;
-+	if (apu_power > apu_limit && apu_limit != 0)
-+		apu_boost =  ((apu_power - apu_limit) * 100) / apu_limit;
-+	apu_boost = (apu_boost > 100) ? 100 : apu_boost;
-+
-+	dgpu_power = metrics->dGpuPower/1000;
-+	if (metrics->StapmCurrentLimit > metrics->StapmOpnLimit)
-+		dgpu_limit = metrics->StapmCurrentLimit - metrics->StapmOpnLimit;
-+	if (dgpu_power > dgpu_limit && dgpu_limit != 0)
-+		dgpu_boost = ((dgpu_power - dgpu_limit) * 100) / dgpu_limit;
-+	dgpu_boost = (dgpu_boost > 100) ? 100 : dgpu_boost;
-+
-+	if (dgpu_boost >= apu_boost)
-+		apu_boost = 0;
-+	else
-+		dgpu_boost = 0;
-+
-+	*apu_percent = apu_boost;
-+	*dgpu_percent = dgpu_boost;
-+
-+}
-+
- static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
- 							MetricsMember_t member,
- 							uint32_t *value)
-@@ -313,6 +349,8 @@ static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
- 
- 	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
- 	int ret = 0;
-+	uint32_t apu_percent = 0;
-+	uint32_t dgpu_percent = 0;
- 
- 	mutex_lock(&smu->metrics_lock);
- 
-@@ -365,26 +403,18 @@ static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->Voltage[1];
- 		break;
- 	case METRICS_SS_APU_SHARE:
--		/* return the percentage of APU power with respect to APU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
-+		/* return the percentage of APU power boost
-+		 * with respect to APU's power limit.
- 		 */
--		if (metrics->StapmOpnLimit > 0)
--			*value =  (metrics->ApuPower * 100) / metrics->StapmOpnLimit;
--		else
--			*value = 0;
-+		yellow_carp_get_ss_power_percent(metrics, &apu_percent, &dgpu_percent);
-+		*value = apu_percent;
- 		break;
- 	case METRICS_SS_DGPU_SHARE:
--		/* return the percentage of dGPU power with respect to dGPU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
-+		/* return the percentage of dGPU power boost
-+		 * with respect to dGPU's power limit.
- 		 */
--		if ((metrics->dGpuPower > 0) &&
--		    (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
--			*value = (metrics->dGpuPower * 100) /
--				  (metrics->StapmCurrentLimit - metrics->StapmOpnLimit);
--		else
--			*value = 0;
-+		yellow_carp_get_ss_power_percent(metrics, &apu_percent, &dgpu_percent);
-+		*value = dgpu_percent;
- 		break;
- 	default:
- 		*value = UINT_MAX;
+ 	/* fill in the vce power states */
+ 	for (i = 0; i < adev->pm.dpm.num_of_vce_states; i++) {
 -- 
 2.35.1
 
