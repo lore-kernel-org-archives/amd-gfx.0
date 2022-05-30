@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E384C43219
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56DCDC43217
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F5B10EA69;
-	Mon, 30 May 2022 13:47:39 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D864C10EA69;
- Mon, 30 May 2022 13:47:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC0E10EAD8;
+	Mon, 30 May 2022 13:48:06 +0000 (UTC)
+Received: from dfw.source.kernel.org (unknown [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E17D310EAA7;
+ Mon, 30 May 2022 13:48:04 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 72A48B80D89;
- Mon, 30 May 2022 13:47:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BFFC3411A;
- Mon, 30 May 2022 13:47:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6B96460FCC;
+ Mon, 30 May 2022 13:48:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74601C385B8;
+ Mon, 30 May 2022 13:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653918456;
- bh=cVaZcLGwbKC5d/IW4BBGSpZFFZmjg+VtkO7FpKZARkI=;
+ s=k20201202; t=1653918483;
+ bh=meTKEfhwvJQNPNSEHlua5iCIaCbkJ5tZEhnI42ZDXNY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hynRXW6ycF1tWWP6d5LhkQysjKnh1yVYn0s+2BKQaFt7mnvrzPJ7B7mQcHSmfSlt0
- DjmnP4Qu6Q3S8/nMC1m3h2tWMWvgtlkvvZ89fPdGNZU3/aTKeCQDxl6u1RV4nowaoS
- aZDeMLP4kX0boVe+6KJ0Bh5g6RT6T6AtD2l+QQWt3/ji+57EP+1esjn2fzNpl9NOLa
- yQrjx6GJSigRArMvxd7Lu1MdDvnD6PO1fXHS8f8+aeSixw92FRRjEA+oO9W0qRasQA
- 4hstBLRAOVATNvxpRKX4Lq5iMxcv+clBbfFTgHDOVeaOyy2bF5RPb0gsrqNtRyn22W
- PT7684msF0FMw==
+ b=h1jmeTdQpECdIaNrOGNAdeCjdcaD5jYnQDnJ4p0ezWbaY36V0DHI7EMtpa0fl0s6b
+ 6IMQDXy+nMSx1ztbukR+z7kDaVTYFHfS1tTel4eGo66cqyRZBULJBxFwWkWwF4oHj+
+ xNFuLXU8gMMJ4ao8xV/5o+LSfPdg+qYpCx79FrtE7ufymQeHQa1IaCHAV2cFR2dKQ8
+ hE8y2W6BptlRGfWbD7C/HgruDhCe/H0f3ymwgyPjX01ppuZ8acy9+1WZpzFWXY3Qli
+ 32GBCr+m4lywKUmPHxwVr5VBB1u9sM3mCa3wAfwE8D0DhOU29q3bzMqBNyr1Fni+KK
+ 4IkACCTs0+5Bg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 13/55] drm/amd/pm: fix double free in
- si_parse_power_table()
-Date: Mon, 30 May 2022 09:46:19 -0400
-Message-Id: <20220530134701.1935933-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 24/55] drm/amd/pm: fix the compile warning
+Date: Mon, 30 May 2022 09:46:30 -0400
+Message-Id: <20220530134701.1935933-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530134701.1935933-1-sashal@kernel.org>
 References: <20220530134701.1935933-1-sashal@kernel.org>
@@ -54,75 +53,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
+Cc: Sasha Levin <sashal@kernel.org>, kernel test robot <lkp@intel.com>,
+ airlied@linux.ie, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
+From: Evan Quan <evan.quan@amd.com>
 
-[ Upstream commit f3fa2becf2fc25b6ac7cf8d8b1a2e4a86b3b72bd ]
+[ Upstream commit 555238d92ac32dbad2d77ad2bafc48d17391990c ]
 
-In function si_parse_power_table(), array adev->pm.dpm.ps and its member
-is allocated. If the allocation of each member fails, the array itself
-is freed and returned with an error code. However, the array is later
-freed again in si_dpm_fini() function which is called when the function
-returns an error.
+Fix the compile warning below:
+drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/kv_dpm.c:1641
+kv_get_acp_boot_level() warn: always true condition '(table->entries[i]->clk >= 0) => (0-u32max >= 0)'
 
-This leads to potential double free of the array adev->pm.dpm.ps, as
-well as leak of its array members, since the members are not freed in
-the allocation function and the array is not nulled when freed.
-In addition adev->pm.dpm.num_ps, which keeps track of the allocated
-array member, is not updated until the member allocation is
-successfully finished, this could also lead to either use after free,
-or uninitialized variable access in si_dpm_fini().
-
-Fix this by postponing the free of the array until si_dpm_fini() and
-increment adev->pm.dpm.num_ps everytime the array member is allocated.
-
-Signed-off-by: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
+Reported-by: kernel test robot <lkp@intel.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/si_dpm.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-index 4cb4c891120b..9931d5c17cfb 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-@@ -7250,17 +7250,15 @@ static int si_parse_power_table(struct amdgpu_device *adev)
- 	if (!adev->pm.dpm.ps)
- 		return -ENOMEM;
- 	power_state_offset = (u8 *)state_array->states;
--	for (i = 0; i < state_array->ucNumEntries; i++) {
-+	for (adev->pm.dpm.num_ps = 0, i = 0; i < state_array->ucNumEntries; i++) {
- 		u8 *idx;
- 		power_state = (union pplib_power_state *)power_state_offset;
- 		non_clock_array_index = power_state->v2.nonClockInfoIndex;
- 		non_clock_info = (struct _ATOM_PPLIB_NONCLOCK_INFO *)
- 			&non_clock_info_array->nonClockInfo[non_clock_array_index];
- 		ps = kzalloc(sizeof(struct  si_ps), GFP_KERNEL);
--		if (ps == NULL) {
--			kfree(adev->pm.dpm.ps);
-+		if (ps == NULL)
- 			return -ENOMEM;
--		}
- 		adev->pm.dpm.ps[i].ps_priv = ps;
- 		si_parse_pplib_non_clock_info(adev, &adev->pm.dpm.ps[i],
- 					      non_clock_info,
-@@ -7282,8 +7280,8 @@ static int si_parse_power_table(struct amdgpu_device *adev)
- 			k++;
- 		}
- 		power_state_offset += 2 + power_state->v2.ucNumDPMLevels;
-+		adev->pm.dpm.num_ps++;
- 	}
--	adev->pm.dpm.num_ps = state_array->ucNumEntries;
+diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+index 4b3faaccecb9..c8a5a5698edd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+@@ -1609,19 +1609,7 @@ static int kv_update_samu_dpm(struct amdgpu_device *adev, bool gate)
  
- 	/* fill in the vce power states */
- 	for (i = 0; i < adev->pm.dpm.num_of_vce_states; i++) {
+ static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
+ {
+-	u8 i;
+-	struct amdgpu_clock_voltage_dependency_table *table =
+-		&adev->pm.dpm.dyn_state.acp_clock_voltage_dependency_table;
+-
+-	for (i = 0; i < table->count; i++) {
+-		if (table->entries[i].clk >= 0) /* XXX */
+-			break;
+-	}
+-
+-	if (i >= table->count)
+-		i = table->count - 1;
+-
+-	return i;
++	return 0;
+ }
+ 
+ static void kv_update_acp_boot_level(struct amdgpu_device *adev)
 -- 
 2.35.1
 
