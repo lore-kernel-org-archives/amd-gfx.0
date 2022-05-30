@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD0F2C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36DCAC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDC910E951;
-	Mon, 30 May 2022 13:33:12 +0000 (UTC)
-Received: from ams.source.kernel.org (unknown [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5281D10E8B3;
- Mon, 30 May 2022 13:33:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7383A10E89E;
+	Mon, 30 May 2022 13:34:04 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D53610E6A9;
+ Mon, 30 May 2022 13:34:02 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 084E4B80D89;
- Mon, 30 May 2022 13:33:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28666C385B8;
- Mon, 30 May 2022 13:33:06 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E12B5B80DB2;
+ Mon, 30 May 2022 13:34:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0AFC385B8;
+ Mon, 30 May 2022 13:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917587;
- bh=w+Mx4L1UD8ofc/ecEwIzqvOnTw6oXAnw/UDczpyP7ds=;
+ s=k20201202; t=1653917639;
+ bh=zgyO2gpZZw90ug3nLHg7ZzMYZjUrfV0DfpEeyX8JpOA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tINqDDl20Xdk4Yc+J5AOl+JRFGUMtXlVlC+LW8bymu2ZKYrVBg7fnziVpyX3GyF/P
- +eoPP8bfLpCDlUS8IN+Px+ntqy2wsqKoJWDoClTUb/RjMmX3MspGop+ZAZZ+S9r5Hz
- dOq/yXKnFXcfAEKZIohmIdTf1BB55lnKTQpphXMgeTC73dEr21JphbgeRDJ7Y1upo+
- mNjHgM03LWdVI7zQfPqx/LCoXmX/+oz+IKRZ7wGCIt8Im4KBUhxt6dOD6FO6terKS2
- OWamTVmJYuUwAtb78qFeNxBciVqe81FMkhzVUZBpOM4cWfrKRTNKLND1etQQLRvbhJ
- oM8o4DGQ5Ejig==
+ b=INmDh00V2MJECx1yFVs5n1MmrgzKsyl+UH0EpV/VX17dCM60tCPN2I55VTujrAXmP
+ Xo//rVqPp6Lvakg4DUYE6zPiXgx3uH3dQwTGuOYj9lSDeAojlXRDt3wLi+mOP23S4U
+ vqslPC2HG9sIFD/LVd+xDKqilhf15+SmM5/TISGjMA+X2Lp8PEpOg6PZjlj0RlQmos
+ cqVE9bWwvCQfgNIDeBiChtM4mupS5nM7DdPFqxT//kbvmIBfdsMaq5SOgFt9Dybvhi
+ wSsaRoigrL78Mgtfu603ePPuqwQOlJVODPKclKgCEMFDN4isahCNCDnuKSpkjSoFcG
+ 4TsF6lgJZhg+w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 035/135] drm/amd/pm: fix double free in
- si_parse_power_table()
-Date: Mon, 30 May 2022 09:29:53 -0400
-Message-Id: <20220530133133.1931716-35-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 049/135] drm/amdgpu/sdma: Fix incorrect
+ calculations of the wptr of the doorbells
+Date: Mon, 30 May 2022 09:30:07 -0400
+Message-Id: <20220530133133.1931716-49-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530133133.1931716-1-sashal@kernel.org>
 References: <20220530133133.1931716-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -54,77 +55,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com, airlied@linux.ie,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- christian.koenig@amd.com, Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>,
+Cc: Sasha Levin <sashal@kernel.org>, Jack.Xiao@amd.com, tao.zhou1@amd.com,
+ airlied@linux.ie, Bokun.Zhang@amd.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, Haohui Mai <ricetons@gmail.com>,
+ amd-gfx@lists.freedesktop.org, rajib.mahapatra@amd.com, Prike.Liang@amd.com,
+ YiPeng.Chai@amd.com, rohit.khaire@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Lang.Yu@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
+From: Haohui Mai <ricetons@gmail.com>
 
-[ Upstream commit f3fa2becf2fc25b6ac7cf8d8b1a2e4a86b3b72bd ]
+[ Upstream commit 7dba6e838e741caadcf27ef717b6dcb561e77f89 ]
 
-In function si_parse_power_table(), array adev->pm.dpm.ps and its member
-is allocated. If the allocation of each member fails, the array itself
-is freed and returned with an error code. However, the array is later
-freed again in si_dpm_fini() function which is called when the function
-returns an error.
+This patch fixes the issue where the driver miscomputes the 64-bit
+values of the wptr of the SDMA doorbell when initializing the
+hardware. SDMA engines v4 and later on have full 64-bit registers for
+wptr thus they should be set properly.
 
-This leads to potential double free of the array adev->pm.dpm.ps, as
-well as leak of its array members, since the members are not freed in
-the allocation function and the array is not nulled when freed.
-In addition adev->pm.dpm.num_ps, which keeps track of the allocated
-array member, is not updated until the member allocation is
-successfully finished, this could also lead to either use after free,
-or uninitialized variable access in si_dpm_fini().
+Older generation hardwares like CIK / SI have only 16 / 20 / 24bits
+for the WPTR, where the calls of lower_32_bits() will be removed in a
+following patch.
 
-Fix this by postponing the free of the array until si_dpm_fini() and
-increment adev->pm.dpm.num_ps everytime the array member is allocated.
-
-Signed-off-by: Keita Suzuki <keitasuzuki.park@sslab.ics.keio.ac.jp>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Haohui Mai <ricetons@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
+ 3 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-index 81f82aa05ec2..66fc63f1f1c1 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-@@ -7247,17 +7247,15 @@ static int si_parse_power_table(struct amdgpu_device *adev)
- 	if (!adev->pm.dpm.ps)
- 		return -ENOMEM;
- 	power_state_offset = (u8 *)state_array->states;
--	for (i = 0; i < state_array->ucNumEntries; i++) {
-+	for (adev->pm.dpm.num_ps = 0, i = 0; i < state_array->ucNumEntries; i++) {
- 		u8 *idx;
- 		power_state = (union pplib_power_state *)power_state_offset;
- 		non_clock_array_index = power_state->v2.nonClockInfoIndex;
- 		non_clock_info = (struct _ATOM_PPLIB_NONCLOCK_INFO *)
- 			&non_clock_info_array->nonClockInfo[non_clock_array_index];
- 		ps = kzalloc(sizeof(struct  si_ps), GFP_KERNEL);
--		if (ps == NULL) {
--			kfree(adev->pm.dpm.ps);
-+		if (ps == NULL)
- 			return -ENOMEM;
--		}
- 		adev->pm.dpm.ps[i].ps_priv = ps;
- 		si_parse_pplib_non_clock_info(adev, &adev->pm.dpm.ps[i],
- 					      non_clock_info,
-@@ -7279,8 +7277,8 @@ static int si_parse_power_table(struct amdgpu_device *adev)
- 			k++;
- 		}
- 		power_state_offset += 2 + power_state->v2.ucNumDPMLevels;
-+		adev->pm.dpm.num_ps++;
- 	}
--	adev->pm.dpm.num_ps = state_array->ucNumEntries;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index f0638db57111..66b6b175ae90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -772,8 +772,8 @@ static void sdma_v4_0_ring_set_wptr(struct amdgpu_ring *ring)
  
- 	/* fill in the vce power states */
- 	for (i = 0; i < adev->pm.dpm.num_of_vce_states; i++) {
+ 		DRM_DEBUG("Using doorbell -- "
+ 				"wptr_offs == 0x%08x "
+-				"lower_32_bits(ring->wptr) << 2 == 0x%08x "
+-				"upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
++				"lower_32_bits(ring->wptr << 2) == 0x%08x "
++				"upper_32_bits(ring->wptr << 2) == 0x%08x\n",
+ 				ring->wptr_offs,
+ 				lower_32_bits(ring->wptr << 2),
+ 				upper_32_bits(ring->wptr << 2));
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 81e033549dda..6982735e88ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -400,8 +400,8 @@ static void sdma_v5_0_ring_set_wptr(struct amdgpu_ring *ring)
+ 	if (ring->use_doorbell) {
+ 		DRM_DEBUG("Using doorbell -- "
+ 				"wptr_offs == 0x%08x "
+-				"lower_32_bits(ring->wptr) << 2 == 0x%08x "
+-				"upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
++				"lower_32_bits(ring->wptr << 2) == 0x%08x "
++				"upper_32_bits(ring->wptr << 2) == 0x%08x\n",
+ 				ring->wptr_offs,
+ 				lower_32_bits(ring->wptr << 2),
+ 				upper_32_bits(ring->wptr << 2));
+@@ -780,9 +780,9 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
+ 
+ 		if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
+ 			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
+-			       lower_32_bits(ring->wptr) << 2);
++			       lower_32_bits(ring->wptr << 2));
+ 			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
+-			       upper_32_bits(ring->wptr) << 2);
++			       upper_32_bits(ring->wptr << 2));
+ 		}
+ 
+ 		doorbell = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index d3d6d5b045b8..ce3a3d1bdaa8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -287,8 +287,8 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_ring *ring)
+ 	if (ring->use_doorbell) {
+ 		DRM_DEBUG("Using doorbell -- "
+ 				"wptr_offs == 0x%08x "
+-				"lower_32_bits(ring->wptr) << 2 == 0x%08x "
+-				"upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
++				"lower_32_bits(ring->wptr << 2) == 0x%08x "
++				"upper_32_bits(ring->wptr << 2) == 0x%08x\n",
+ 				ring->wptr_offs,
+ 				lower_32_bits(ring->wptr << 2),
+ 				upper_32_bits(ring->wptr << 2));
+@@ -664,8 +664,8 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+ 		WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
+ 
+ 		if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
+-			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr) << 2);
+-			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
++			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr << 2));
++			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
+ 		}
+ 
+ 		doorbell = RREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
 -- 
 2.35.1
 
