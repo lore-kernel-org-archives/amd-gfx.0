@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96F92C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CADC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 13:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CAD10E88C;
-	Mon, 30 May 2022 13:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 371DD10E905;
+	Mon, 30 May 2022 13:29:55 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A43C10E88C;
- Mon, 30 May 2022 13:27:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BEA10E8B3;
+ Mon, 30 May 2022 13:29:54 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 15ED9B80DA9;
- Mon, 30 May 2022 13:27:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A931C3411A;
- Mon, 30 May 2022 13:27:17 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5E324B80DAF;
+ Mon, 30 May 2022 13:28:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FBEC36AEB;
+ Mon, 30 May 2022 13:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917238;
- bh=4Ka0zqH5BPXKlynHTbbm9h1V2CMI319SCy/R6j+8HWI=;
+ s=k20201202; t=1653917288;
+ bh=mkOZcs9H0Fc6oEmSvunN1C04xzrsehRv9BhzW7OHhdE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DgcAgxtTBWnpSoDE7hm0GapGsQK6NbsnaYK6bN11VSZ51bm3iE+upRjbnoXiW53uR
- DXl5IHxznec3sDO+wmC354UbVZGQsceaJaqsIJAnTtXpSV9UXjiR0izTuKUOQvY+S4
- +Drp5ZufUmeelPWVjEPTlUZk7slR7C1L76LirOnTkyghmVtvfKIQmbsfspBr8vux04
- vlBrKAYIVOtXweRrR9rO+4A+1CBNKT55oHiZ4vMVn4H/NNH0sRGZwFg2qPfsrpibmz
- 3Gq7zo0hJJzqLxoGj/5IPqTTTg+bh6vcRvj7nIAJr3+9SUFirtEFIJQXWU59AWEFUl
- l3sAeKF9UdeSQ==
+ b=VojYc2GhQRlvfNqN3l7lLVB59QxQBsS9tDUWYG9Dg/mxJcS8bYNkMmfhZd1+TbzXP
+ 5wnlGbVh9bfkYPwQOOo1GhzLyG9jAeH1bRPFSW3mf77Ey0fPe1N4rYBX+meiCh8LLC
+ cZqEjYo8yI5oDkhkpyJBQYM/fvdxlgrjZwaBEAoET197YJn9Hs6XQugQh//+tFIjN0
+ WXeMNRlSFppS0e5RqH78xpJk+9zOHpAbH6sRspFDHiVjsYvXn3NqfxtvJXVjoRTo+y
+ Zl84bUqz3U+bufCQmOfSh4/SO/nIwWTfSEAJGucc2h6aYQht8K/QvRZHb+xB/3Er0A
+ ndcJHvwvIUZ9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 067/159] drm/amd/pm: fix the compile warning
-Date: Mon, 30 May 2022 09:22:52 -0400
-Message-Id: <20220530132425.1929512-67-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 083/159] drm/amdgpu/ucode: Remove firmware load
+ type check in amdgpu_ucode_free_bo
+Date: Mon, 30 May 2022 09:23:08 -0400
+Message-Id: <20220530132425.1929512-83-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
 References: <20220530132425.1929512-1-sashal@kernel.org>
@@ -53,57 +54,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com,
- kernel test robot <lkp@intel.com>, airlied@linux.ie, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, lang.yu@amd.com,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ Alice Wong <shiwei.wong@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com,
+ candice.li@amd.com, john.clements@amd.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <evan.quan@amd.com>
+From: Alice Wong <shiwei.wong@amd.com>
 
-[ Upstream commit 555238d92ac32dbad2d77ad2bafc48d17391990c ]
+[ Upstream commit ab0cd4a9ae5b4679b714d8dbfedc0901fecdce9f ]
 
-Fix the compile warning below:
-drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/kv_dpm.c:1641
-kv_get_acp_boot_level() warn: always true condition '(table->entries[i]->clk >= 0) => (0-u32max >= 0)'
+When psp_hw_init failed, it will set the load_type to AMDGPU_FW_LOAD_DIRECT.
+During amdgpu_device_ip_fini, amdgpu_ucode_free_bo checks that load_type is
+AMDGPU_FW_LOAD_DIRECT and skips deallocating fw_buf causing memory leak.
+Remove load_type check in amdgpu_ucode_free_bo.
 
-Reported-by: kernel test robot <lkp@intel.com>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alice Wong <shiwei.wong@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 8b23cc9f098a..8fd0782a2b20 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -1623,19 +1623,7 @@ static int kv_update_samu_dpm(struct amdgpu_device *adev, bool gate)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index ca3350502618..aebafbc327fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -714,8 +714,7 @@ int amdgpu_ucode_create_bo(struct amdgpu_device *adev)
  
- static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
+ void amdgpu_ucode_free_bo(struct amdgpu_device *adev)
  {
--	u8 i;
--	struct amdgpu_clock_voltage_dependency_table *table =
--		&adev->pm.dpm.dyn_state.acp_clock_voltage_dependency_table;
--
--	for (i = 0; i < table->count; i++) {
--		if (table->entries[i].clk >= 0) /* XXX */
--			break;
--	}
--
--	if (i >= table->count)
--		i = table->count - 1;
--
--	return i;
-+	return 0;
+-	if (adev->firmware.load_type != AMDGPU_FW_LOAD_DIRECT)
+-		amdgpu_bo_free_kernel(&adev->firmware.fw_buf,
++	amdgpu_bo_free_kernel(&adev->firmware.fw_buf,
+ 		&adev->firmware.fw_buf_mc,
+ 		&adev->firmware.fw_buf_ptr);
  }
- 
- static void kv_update_acp_boot_level(struct amdgpu_device *adev)
 -- 
 2.35.1
 
