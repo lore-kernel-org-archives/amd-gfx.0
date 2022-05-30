@@ -4,68 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96024C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 09:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDFD6C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 May 2022 11:17:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3150410E4EC;
-	Mon, 30 May 2022 09:57:19 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C913210E4EC
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 09:57:17 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id l19so1928175ejr.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 May 2022 02:57:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=fgBNeNcmdvsmH/lO6QTRJ77hU9oEojp6fjwtK1y3SMw=;
- b=ZtbN5E/C8/V4s9CO/nv/94g2dCMzQXpGm72c8nu3EsxWEoDMCyOUAajrtKmS3Ve1RL
- jVvo8PnZkm0IvljM/oYg5sD6QUbhk4mK8Fj4bY3Ts5Xr9g1dgT1GrSNn7tPESpj2jUwp
- FxAPfjqfS+Pux7O++cPG6ZDOuEAIPTfzquPxqQ8jwQ3rfcKWiyGtxkq/tSv68eeD7Amp
- SR+J8NBTO5dVVoXoTYBWoxW+p9YDIOwzWR9/e0dbfhw4sZ7ciZYFNpBaEakA4DZP487O
- fMhWV0jPgoqoj6JK3U+E9KTf3TNTp/6MDJrb/A2BiN7KFSO6I4+/A0nlcd28oAAHfLx6
- QwYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=fgBNeNcmdvsmH/lO6QTRJ77hU9oEojp6fjwtK1y3SMw=;
- b=r7t9tLrtQul5WLl4IlC6Bh0OI1OqOtNekAqGC/K2964mXbaFZTR6sYc3SJNpgTqYmI
- m/obbBgmb2wCxhv6eiulIwE/0Ni181Hxr+QEOcJnLtdWhFzPupzU5VDCAMo4jkXAb0yC
- Ro69LM0mWrK9mwjHNA9RV68EgNDcJTEAj3PpADO8mczTPmieGaKMknj4RmhLHaLKP/Wg
- FXhVJ33eBVQoEZydjBXzNbllC2kw/TTO11+EAWQuPA2Y+vod31W4ByHhngEy+eQFhInN
- 71M2BBuKbvjIHkBgWPMMOFEy2m0rD7uyJHnX/tuj1Rj8h9TgWWM1KX2OKjF69k73NCrM
- gcVQ==
-X-Gm-Message-State: AOAM530rFRtfHxiHEV2qmnS7zBe8nKSIvY7EZvk5HUs9N27Ua6TsS1Qs
- 26dlkrRquxYFEepfdeDpSxg=
-X-Google-Smtp-Source: ABdhPJwWKnlW1NnT5IUf3W9d9ofaq4vKgBFRYuf278MdqyNqverNc8FGpa66QmAv901sA8j3h26ykw==
-X-Received: by 2002:a17:907:7d8a:b0:6fe:dccb:cf4c with SMTP id
- oz10-20020a1709077d8a00b006fedccbcf4cmr34496189ejc.714.1653904636310; 
- Mon, 30 May 2022 02:57:16 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea17a.dip0.t-ipconnect.de.
- [91.14.161.122]) by smtp.gmail.com with ESMTPSA id
- r27-20020a056402235b00b0042abf2affebsm6181861eda.67.2022.05.30.02.57.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 May 2022 02:57:15 -0700 (PDT)
-Message-ID: <4dab5c26-367d-3271-e1ff-155927a85fb7@gmail.com>
-Date: Mon, 30 May 2022 11:57:14 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72CC110E3E3;
+	Mon, 30 May 2022 11:17:19 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4061810E3E3;
+ Mon, 30 May 2022 11:17:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KtsaNEjfdmczm/NVytNKjbrtotoxHBGZi0ik7Ly42SSEF+HS4pUWNfOf6xL5vjzFkCYqQRh4/VDCBKWEDNgBfeUEVs9opdxOp31flJ9DqMcrUkunxxYnAAqovovbjqYyLhtcfyS+S2U69iIPGrtivmZjrJ/id1VpheqzGSDWXvr+Tvr3qTMEsBd+ebjRvNL6r2rK0Pg1VETSyrfLqfR6yeWGCBfTgvucLOOkzd2upvTXyDBMWoj92Q80Wr09ODBOn9bw43S6XaE+0+2a/76qXN2PlBBMpiZE4MR9erqiPTlYVXaGxFKiyOKrhkMTWjz3NO0IDC2SQ+1kFIWzu+bMSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c1HqXc6ZUQUfeVE9nPrbhhSXTzga2Uc3FbMfu0n3ncE=;
+ b=JMAyopKdXCrKQNervchD1yZrvUGw40HiD2dBp/Jh0DOnMhpYWpYTID3uTYR0AmygkSQN5uGuBbHeFYP0ge061LSRTAsEv63TdKORJ6jjSUBj+W4kBI1puUM78vUljhxSK6q/KITM3zrt5nvjGddy01jA29tNUtn6PMu4oFzsp4gEHYlFObtHMyNg0tr8wj9wX1i0IH1I5pFvuFSOr4GPEhe6Uxae3MXIUQFEnvOtCoko6c86sidlaYtVmGFDlxxxAcj8b5p7ePvxD/uDmCEReDTo948udw14aQRWyB4QkDiH8XSPgiiqu0acxXrFFXchDy2Kr07kXQfX1JRY7x4CyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c1HqXc6ZUQUfeVE9nPrbhhSXTzga2Uc3FbMfu0n3ncE=;
+ b=gNrR/2bye0KrehEc/pzmaChsbHqX0ShZgbVckTu9UjxAtYpU0KqJ+Dc2JqSEfb9OaGxCQNNutuCd+Skz+s5wad4enJDXRv16MFGIClTVhnyBWGuTG+LV9fAS5zRfOB3TZA5pePcDGKOLW3nRjQOpnmx1pLNquKQO6P+V5JgAPZk=
+Received: from BN0PR03CA0028.namprd03.prod.outlook.com (2603:10b6:408:e6::33)
+ by DM6PR12MB4028.namprd12.prod.outlook.com (2603:10b6:5:1ce::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.16; Mon, 30 May
+ 2022 11:17:14 +0000
+Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e6:cafe::27) by BN0PR03CA0028.outlook.office365.com
+ (2603:10b6:408:e6::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
+ Transport; Mon, 30 May 2022 11:17:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5293.13 via Frontend Transport; Mon, 30 May 2022 11:17:13 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 30 May
+ 2022 06:17:13 -0500
+Received: from Ryan-AMD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Mon, 30 May 2022 06:16:44 -0500
+From: Ryan Lin <tsung-hua.lin@amd.com>
+To: 
+Subject: [PATCH] BACKPORT: drm/amdgpu/disply: set num_crtc earlier
+Date: Mon, 30 May 2022 17:29:02 +0800
+Message-ID: <20220530092902.810336-1-tsung-hua.lin@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amdkfd: don't add DOORBELL and MMIO BOs to validate
- list
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, Lang Yu <Lang.Yu@amd.com>
-References: <20220525084324.1354886-1-Lang.Yu@amd.com>
- <eebb0612-6703-9408-ebf6-2813e13139ef@gmail.com>
- <Yo31/hZQ7qzs2KyO@lang-desktop>
- <77ece2f1-97e6-f44d-0a30-971b28693c3c@gmail.com>
- <e46a9b9f-f8ca-a701-530c-20080f50a3f8@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <e46a9b9f-f8ca-a701-530c-20080f50a3f8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5741dfe9-c5db-4581-b1b5-08da422df2ba
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4028:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4028F45A2810DBCBF835D158B2DD9@DM6PR12MB4028.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GLIgqRbzsCtNrKttQ1bNiwZ+9hYzWbwRrNnwYAhBNIOrLieUYpAHHjberQT/j38Pgsui0eH3NS/l0iWURU+TBglkOkTuDlo/htxGtg0IU48vXHfzkPlRP5Pq3eokUzZ7oPKZxkcQnLUhFz4fLKSqno0R/9Du6ZBf3kMsLEVcYGhSEIdYxnGBorjS7X2+N/OPiGKWya57jjg+b5PlFHAwOjor1xXvprXtJl4FI1KsxJ86aOAIGF1Az1NR+9a4523SAwfjWY0FVwnoPPtZxKYaZCsnwvd2l9V0RizU6wKN6coK3LQR8084g6+ew5T8nRvb/gL2ndkcW3uoS0TEsOb/T5UHIEVedJL+g9AHHNWtCHQoWtny3Hxx3iMCRRQ0o7HsS8VP7n6J6sRKATpagHt7de9MjGTEx+P26aaGb9ia3ZaAwUjl4lnn6ebPxycX/E2hfQnQUZahbiXQuLRVgjeG/eqkEBIn2bVxC17dp7tJ4f86dMZ3onnBWQZAMddNDSxEvpIqhv0Rb3FCuhU7gm+zlWTSrO4+iYg67hD+RsQyWBZ6L+Lfx6v7pqHCGmOGoGGa3DBDF0jy/LPGOk9p7l4/hK1DjpjGDV5oandU6BCf4WR4M2AzTwsko1Qp52xAXNyg8+C3xYCFsy+Dr5eexz/LZrP+vk+dxJ7AJA62Af/svqVztNDUi8eHTVY4jlsD/h8BH5KSjikn3Cp1rY8I5/f3JIlOBJ95vygI+PPWo7HedvKAGoAw+dAkHYlJOiELlmR61vFZHM4Va4/oMW2n4b7r9NSjGZRFuFkNyoK+Ke8jMZUUsUAGkY2wdgv63pn8W3Zb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(316002)(47076005)(8936002)(54906003)(966005)(426003)(36756003)(336012)(508600001)(86362001)(40460700003)(5660300002)(7416002)(4326008)(82310400005)(70586007)(70206006)(8676002)(26005)(2906002)(6666004)(7696005)(109986005)(186003)(1076003)(2616005)(356005)(83380400001)(81166007)(36860700001)(266003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2022 11:17:13.9004 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5741dfe9-c5db-4581-b1b5-08da422df2ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,120 +98,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, leon.li@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ikshwaku Chauhan <ikshwaku.chauhan@amd.corp-partner.google.com>,
+ Sasha Levin <sashal@kernel.org>,
+ "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, praful.swarnakar@amd.com,
+ Leo Li <sunpeng.li@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ ching-shih.li@amd.com, Simon Ser <contact@emersion.fr>,
+ Roman Li <Roman.Li@amd.com>, stable@vger.kernel.org, shirish.s@amd.com, Daniel
+ Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Mark
+ Yacoub <markyacoub@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.05.22 um 00:17 schrieb Felix Kuehling:
->
-> On 2022-05-25 06:37, Christian König wrote:
->> Am 25.05.22 um 11:25 schrieb Lang Yu:
->>> On 05/25/ , Christian König wrote:
->>>> Am 25.05.22 um 10:43 schrieb Lang Yu:
->>>>> DOORBELL and MMIO BOs never move once created.
->>>>> No need to validate them after that.
->>>> Yeah, but you still need to make sure their page tables are up to 
->>>> date.
->>>>
->>>> So this here might break horrible.
->>> These BOs(and attachments) are validated when allocated and mapped.
->>> Their page tables should be determined at this time.
->>>
->>> The kfd_bo_list is used to restore BOs after evictions.
->>>
->>> Do you mean their page tabes could be changed? Thanks.
->>
->> Yes, page tables can be destroyed under memory pressure as well.
->
-> Is that actually happening today, or is that some future optimization 
-> you have in mind? I know page tables can get evicted, but I didn't 
-> think they were destroyed unless the memory at that address is 
-> unmapped (which never happens for pinned BOs).
+From: Alex Deucher <alexander.deucher@amd.com>
 
-We partially already do that, but it is largely for future optimizations.
+To avoid a recently added warning:
+ Bogus possible_crtcs: [ENCODER:65:TMDS-65] possible_crtcs=0xf (full crtc mask=0x7)
+ WARNING: CPU: 3 PID: 439 at drivers/gpu/drm/drm_mode_config.c:617 drm_mode_config_validate+0x178/0x200 [drm]
+In this case the warning is harmless, but confusing to users.
 
-Currently page tables are moved to system memory and occupy system 
-pages. But that's just utterly nonsense because they are re-created 
-anyway when they move back in.
+Fixes: 0df108237433 ("drm: Validate encoder->possible_crtcs")
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=209123
+Reviewed-by: Daniel Vetter <daniel@ffwll.ch>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 
->>
->> Not sure how the KFD handles that, but in theory we should have every 
->> BO used by a process on the validation list. Even the ones pinned.
->
-> Then we already have some other broken cases for the small number of 
-> kmapped BOs that are pinned and currently removed from the validation 
-> list (see amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel).
+Conflicts:
+	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+	[Ryan Lin: Fixed the conflict, remove the non-main changed part
+	of this patch]
 
-That's indeed broken then and only works by coincidence (the pinned and 
-unpinned probably BOs don't overlap an evicted page table).
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Regards,
-Christian.
-
->
-> Regards,
->   Felix
->
->
->>
->> Regards,
->> Christian.
->>
->>>
->>>
->>>> Christian.
->>>>
->>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 14 
->>>>> +++++++++-----
->>>>>    1 file changed, 9 insertions(+), 5 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> index 34ba9e776521..45de9cadd771 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> @@ -808,6 +808,10 @@ static void add_kgd_mem_to_kfd_bo_list(struct 
->>>>> kgd_mem *mem,
->>>>>        struct ttm_validate_buffer *entry = &mem->validate_list;
->>>>>        struct amdgpu_bo *bo = mem->bo;
->>>>> +    if (mem->alloc_flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
->>>>> +                KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))
->>>>> +        return;
->>>>> +
->>>>>        INIT_LIST_HEAD(&entry->head);
->>>>>        entry->num_shared = 1;
->>>>>        entry->bo = &bo->tbo;
->>>>> @@ -824,6 +828,10 @@ static void 
->>>>> remove_kgd_mem_from_kfd_bo_list(struct kgd_mem *mem,
->>>>>    {
->>>>>        struct ttm_validate_buffer *bo_list_entry;
->>>>> +    if (mem->alloc_flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
->>>>> +                KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))
->>>>> +        return;
->>>>> +
->>>>>        bo_list_entry = &mem->validate_list;
->>>>>        mutex_lock(&process_info->lock);
->>>>>        list_del(&bo_list_entry->head);
->>>>> @@ -1649,7 +1657,6 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->>>>>        unsigned long bo_size = mem->bo->tbo.base.size;
->>>>>        struct kfd_mem_attachment *entry, *tmp;
->>>>>        struct bo_vm_reservation_context ctx;
->>>>> -    struct ttm_validate_buffer *bo_list_entry;
->>>>>        unsigned int mapped_to_gpu_memory;
->>>>>        int ret;
->>>>>        bool is_imported = false;
->>>>> @@ -1677,10 +1684,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->>>>>        }
->>>>>        /* Make sure restore workers don't access the BO any more */
->>>>> -    bo_list_entry = &mem->validate_list;
->>>>> -    mutex_lock(&process_info->lock);
->>>>> -    list_del(&bo_list_entry->head);
->>>>> -    mutex_unlock(&process_info->lock);
->>>>> +    remove_kgd_mem_from_kfd_bo_list(mem, process_info);
->>>>>        /* No more MMU notifiers */
->>>>>        amdgpu_mn_unregister(mem->bo);
->>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fb918b7890ac..5ef88a2d2161 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -766,9 +766,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		goto error;
+ 	}
+ 
+-	/* Update the actual used number of crtc */
+-	adev->mode_info.num_crtc = adev->dm.display_indexes_num;
+-
+ 	/* TODO: Add_display_info? */
+ 
+ 	/* TODO use dynamic cursor width */
+@@ -2448,6 +2445,10 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 	enum dc_connection_type new_connection_type = dc_connection_none;
+ 	const struct dc_plane_cap *plane;
+ 
++	dm->display_indexes_num = dm->dc->caps.max_streams;
++	/* Update the actual used number of crtc */
++	adev->mode_info.num_crtc = adev->dm.display_indexes_num;
++
+ 	link_cnt = dm->dc->caps.max_links;
+ 	if (amdgpu_dm_mode_config_init(dm->adev)) {
+ 		DRM_ERROR("DM: Failed to initialize mode config\n");
+@@ -2509,8 +2510,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 			goto fail;
+ 		}
+ 
+-	dm->display_indexes_num = dm->dc->caps.max_streams;
+-
+ 	/* loops over all connectors on the board */
+ 	for (i = 0; i < link_cnt; i++) {
+ 		struct dc_link *link = NULL;
+-- 
+2.25.1
 
