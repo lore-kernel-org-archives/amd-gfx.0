@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8A6C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E807C4332F
 	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C050D112621;
-	Tue, 31 May 2022 10:00:32 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2FC3112603;
- Tue, 31 May 2022 10:00:27 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id c2so7260328edf.5;
- Tue, 31 May 2022 03:00:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D75A0112636;
+	Tue, 31 May 2022 10:00:36 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4731B1125E5;
+ Tue, 31 May 2022 10:00:26 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id v19so9456819edd.4;
+ Tue, 31 May 2022 03:00:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NiGv7XqpyS2XED0WdTZJaaW3qxD3EEwJnBgFNlUBlKA=;
- b=aUB5B9Qt8tVriEh42JHF6p0XPngykorf81VEvkU+jbQb7CSF/l+p5bKKOyZ20uEgsA
- E43T85l2RNnZ7ArvqSkvuaTiD93Z/Q+CcF5nsxGUHtbZPnk25OSTrL4t5vJROge1iv08
- D43ebZ6vcKHFJLX+daUhnhKonDnOhJN9wbzFrqgWFfIh7GjGBXxWi48JT9I+x8K6ogvq
- Gyvusf+zhEL6Gk09/w34fLwp6G9rdW/r/FFrInAhnujV6+INA3rKvI4kTTFmibLu1J5X
- yfuU2boXQuUY1zqYSg/AQttssmci0RltzIdFgKtVRPa9qApgcGl9lqhFBcWEyD7XIwTB
- xPcg==
+ bh=CBtdyMzsAJ1/aOexJ9rl7ZeO2ErFHAD5HxTQN3Dqn3Q=;
+ b=clhRBft+k4X+UmpE7If794qBfOtGFA7pbEByZ2pinyy2YRsA2O6lLDOynJMSIVJoFM
+ Wvro65LH9mtebwNBzBwhrtxkvox46+r6wwZH4eYd+mYlM8gfp2s7dxCrtouRZ2HvQ9rb
+ 5qqKVWSj4jEdYbd8S6LPV6K7PJCG4fHMCcDZkvLBlGNukalvsGNQKBVKwFWP7x+ZUNc0
+ mZXiAkmse4krF81HSAGDete8t78Ll4SG7G5gaBi9gesUSTbQOYIe2O3LdV31q8XNetNL
+ YzKH8enFbBx54aGHmjR5bRjrnOqioVrO6oNE62MwqlFCmvCaYYCBPM8DqoQ36EIiOpxJ
+ EWLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NiGv7XqpyS2XED0WdTZJaaW3qxD3EEwJnBgFNlUBlKA=;
- b=Dmk8UH0WLtkjLYrhuO72XfH5LH2T7XHADLYJCFnOJPn2DcH1JWbWVm4xTqPbZyNAcC
- bNyK133oA4nAOdQDLcNGRN9ExSylso3aBpNoPSOqSWflRd2ACgfEg9lkiALkheGcOfM3
- d0XDveHauySZZvClGbGomxer40XUIaFpRLBKFpZt2WhgsJptYWgDCUvJEEodAfzhqQLC
- TVH94Nxngy+yCinDt8Kbp+bi4oCb6J/K8nPwCRX1WbXYbxLe2qpenD0ebGHg8l/jN8nL
- K8Dzugbdp7auSX/AQlhkEw7OksetMZpFw+iqzhscHWe3elD4+9e5Nltrnh9MwT97ALEb
- blbQ==
-X-Gm-Message-State: AOAM5331xDDhn0gHSVcijZGuKzbIvP2W3ztGBkMbC2E/YDXWFh4Njeb8
- iBEPGw+n9s7VfBC2YXUfHPU=
-X-Google-Smtp-Source: ABdhPJxaefghKbMHCtIN9ZsUiLrQ9JGsM6ui0kyhG9BoMRuUMSSLwMZQJupGKdHga/0PvqPhhZrEmQ==
-X-Received: by 2002:a05:6402:90d:b0:428:c1ad:1e74 with SMTP id
- g13-20020a056402090d00b00428c1ad1e74mr63021246edz.345.1653991227420; 
- Tue, 31 May 2022 03:00:27 -0700 (PDT)
+ bh=CBtdyMzsAJ1/aOexJ9rl7ZeO2ErFHAD5HxTQN3Dqn3Q=;
+ b=S8DRI9NZVRjAOoLYXCty90+06GLEbaLBYY8TRotfovmRk4A1rv+TSSHtr/xbfF9khB
+ q1XjzgzjgnF138UUx39y63Vll9GGTxI+tNiIF8d7besSlWxqu1IGAFfk9xfuM6aA5XCR
+ F86OaNnOqZj4mPkGvq/P/YRhu/KjFvFwEOHo3/EYYsfvdNweG5Tsq0lfO+8zgb99b+Ce
+ fCV1hxNnNfFQYaHFy0lEBa0yXK7RWqH7ZFAbfKjbPpeukv9QAFQmrsncz+xo9rUBSQCp
+ iP1jFM4kXwayWsqX5zEpv4Ib9XGaUPjzCGR6d7M8h11MhmwsgacP9We3UblK4XoA0P3n
+ +xSg==
+X-Gm-Message-State: AOAM533240JZ6Wr1ML5OcHBjKAY1UsBihuo7G42Y/MJZTSFxtyZ2etrM
+ jzoiJ1iYyxFCGl1uIPwcdHI=
+X-Google-Smtp-Source: ABdhPJw42FrkjYM4LnR278q9mfBravYOk4Zj2lNKJYJUZ/HCUi9Q4cA6PZiVhbQJK68MTRAAzi0sdA==
+X-Received: by 2002:aa7:d285:0:b0:42d:ca4f:a046 with SMTP id
+ w5-20020aa7d285000000b0042dca4fa046mr13232089edq.354.1653991224557; 
+ Tue, 31 May 2022 03:00:24 -0700 (PDT)
 Received: from able.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.26
+ r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 03:00:27 -0700 (PDT)
+ Tue, 31 May 2022 03:00:24 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -54,9 +54,9 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH 12/13] drm/vmwgfx: use drm_oom_badness
-Date: Tue, 31 May 2022 12:00:06 +0200
-Message-Id: <20220531100007.174649-13-christian.koenig@amd.com>
+Subject: [PATCH 10/13] drm/nouveau: use drm_oom_badness
+Date: Tue, 31 May 2022 12:00:04 +0200
+Message-Id: <20220531100007.174649-11-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
 References: <20220531100007.174649-1-christian.koenig@amd.com>
@@ -84,21 +84,21 @@ This allows the OOM killer to make a better decision which process to reap.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 1 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 01a5b47e95f9..e447e8ae29be 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -1577,6 +1577,7 @@ static const struct file_operations vmwgfx_driver_fops = {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 561309d447e0..5439b6938455 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1218,6 +1218,7 @@ nouveau_driver_fops = {
+ 	.compat_ioctl = nouveau_compat_ioctl,
  #endif
  	.llseek = noop_llseek,
- 	.get_unmapped_area = vmw_get_unmapped_area,
 +	.oom_badness = drm_oom_badness,
  };
  
- static const struct drm_driver driver = {
+ static struct drm_driver
 -- 
 2.25.1
 
