@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 064ACC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25442C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D891120D9;
-	Tue, 31 May 2022 10:00:15 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F31301125B9;
- Tue, 31 May 2022 10:00:13 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id jx22so25471832ejb.12;
- Tue, 31 May 2022 03:00:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 016FE1125BA;
+	Tue, 31 May 2022 10:00:19 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC63A1125BA;
+ Tue, 31 May 2022 10:00:17 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id y13so25606634eje.2;
+ Tue, 31 May 2022 03:00:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=s/d7KhR0z000Hs/IA+QwE65RKZidQwaLcmmsuNIx8Rk=;
- b=jlmbD0lwi6rUzLqjCUjXO1DNk/hQQjjKuOHlr6e8k22ViZDgKVzUz93W5EYx10np0/
- Xh2ALDpQ6yIyeIe45k8a2sJl4amrOM+41IYI/txxFcT5UiQiv8db1GOFm4nHNEit2nsT
- t6Lk/Ru1k3XgR2+zaythLqoBQNPWx0Sq35QwntG6y1Dagw4XSMLJoD/MgsY7xDjJfu0E
- RDqGAq6AuvEeKHy4q+b3C0gubIRXhKGHY2dodSyKGXyL5yGmdZeVPY58oq3Uvft0jR6c
- xVeACw7Idp6VxMTOsOvsq4Sy7+v2x6+Yzp3O+8Z7K9aogRlAi/UblC7icee5ruMftqkd
- rgVw==
+ bh=Nne0qJckA/hMuSOr0O9+SBShBUR9gCrIksc3pugIfaw=;
+ b=O04QHlDY6DBBsKrGQS2x+dxNPUvaLGwatBhA9Ypf6fUvXeQn4u2iZyLs+G4Gopi2gn
+ lMPnA9p2Gz45t7ICtHVl6tg1eE8albLaPc/BmmQBPg3ZJxqBikRQy57f7Gd//Yisj1mq
+ 76jYCx/vPIdNy0UXH2etO7PDMMWd1OqeisBEgyFTI9zNlOQxBgL6irhDuYoGR91FeUzH
+ EGqVWW4gL9+MALPxEAxgJkeLA1KAldYG/7fZPitSHzltfhEhG1K7I0p/7oGL1xaLWwU1
+ IWCc36zCKbmVtfqPjeE1k5dNjDQMnB1bXMwDXVEhisX6bguza7GDvQPXMaO9uEGf9zR/
+ OIgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=s/d7KhR0z000Hs/IA+QwE65RKZidQwaLcmmsuNIx8Rk=;
- b=fxP8psntly/uX/WEWhsUixR5eNFSQ6K4Jiz/va5qXSgvZg2JNuh3pn9nWVHeMgZ7VX
- R6pH+NMgHx5xE0GxLxMA9z7PWu+tNCbsIFM/aZ/r7EuZedtyZCN9WRoDjcz1B2/OtiIn
- sv8NcMWkzbE3l2WF2+bizZ5BIF6dTQk3V8ypKNMmPNvvd1kWb2j0sE2H+V1Y3J8NwtAv
- WMV095XCb8/ZCJy9oSV+md4hXmF9wKpDhfFKjuBIn/5u9uynKaPkTyQzLpr6pbId84uR
- jJs8fBOOaIMCRfcWtugYaCHsVGC8e3J9RHtgOnwyvF0AEc5UQDH5klS3Ay98AaNpjuXp
- sYuA==
-X-Gm-Message-State: AOAM533meAfg0Z7rP/+8m1m88rnYIkU7No0BjQLVV9rfZVnX4qUch4IB
- bRmsSf0CjxQmkhM/os7ziY8=
-X-Google-Smtp-Source: ABdhPJyprdDlfIYDCtP3JSXlPBRA6lpUaNM/DoimNqu/NR7jJ7DMpCFACqCWHS14mUBV5Y9XUPfxDg==
-X-Received: by 2002:a17:907:9483:b0:6ff:b1:467a with SMTP id
- dm3-20020a170907948300b006ff00b1467amr31727121ejc.683.1653991211970; 
- Tue, 31 May 2022 03:00:11 -0700 (PDT)
+ bh=Nne0qJckA/hMuSOr0O9+SBShBUR9gCrIksc3pugIfaw=;
+ b=FMs3zx2SH+5TneYLwNhIzgcJP3JZq/0sWoyrV3KWZFcr5Zn0Ubn9pxnGeAn2Rdkh3R
+ lm2lTGl5GS5dOazR8K3bwO0W61fz/HnnuDCHn3jXs00pPvwx+0TcrY98vxp/IyXxOJVR
+ 3Rc+j7gJSaOAOB9bP9e14lnqnD5I1rsuxxGy41EGDSIRVki449wYYAyOzlFJ8XCpmkiV
+ 3a11PBDZVF2J00XUtD3G/e8ACNqxePdeQ4TFdD7SVn/GqzXa/LnhS38j5HtCPkMvLgCy
+ Vrz3hl/kBzUvIkDA5iyqEakw52GaOUftuhQN8MwxKXugqkrOUMmgb+itsO+/UFiTbCGp
+ 3b7g==
+X-Gm-Message-State: AOAM532Y1b6aQpnX9OKveVCm4pezpZnNbOtHKRSxe8pkndm8jp16S2kM
+ h9vuegB3VbTWIMpSPYk68+IqeYrOs58+Ng==
+X-Google-Smtp-Source: ABdhPJxmWnOcxxDaVC0tQGNbj0CSrxLQR0xy8ghD6daeqEn1NVbnq/aFqlXxIqVHd6RNxE0nHnKb2Q==
+X-Received: by 2002:a17:907:3f13:b0:6ff:18ad:6936 with SMTP id
+ hq19-20020a1709073f1300b006ff18ad6936mr25394163ejc.158.1653991216188; 
+ Tue, 31 May 2022 03:00:16 -0700 (PDT)
 Received: from able.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.10
+ r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 03:00:11 -0700 (PDT)
+ Tue, 31 May 2022 03:00:15 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -54,10 +54,9 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH 01/13] fs: add OOM badness callback to file_operatrations
- struct
-Date: Tue, 31 May 2022 11:59:55 +0200
-Message-Id: <20220531100007.174649-2-christian.koenig@amd.com>
+Subject: [PATCH 04/13] dma-buf: provide oom badness for DMA-buf files
+Date: Tue, 31 May 2022 11:59:58 +0200
+Message-Id: <20220531100007.174649-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
 References: <20220531100007.174649-1-christian.koenig@amd.com>
@@ -81,52 +80,40 @@ Cc: andrey.grodzovsky@amd.com, hughd@google.com, viro@zeniv.linux.org.uk,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+For now just return the size of the DMA-buf in pages as badness in the
+OOM situation. That should probably be extended to be in control of the
+exporter in the future.
 
-This allows file_operation implementations to specify an additional
-badness for the OOM killer when they allocate memory on behalf of
-userspace.
-
-This badness is per file because file descriptor and therefor the
-reference to the allocated memory can migrate between processes.
-
-For easy debugging this also adds printing of the per file oom badness
-to fdinfo inside procfs.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- fs/proc/fd.c       | 4 ++++
- include/linux/fs.h | 1 +
- 2 files changed, 5 insertions(+)
+ drivers/dma-buf/dma-buf.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/proc/fd.c b/fs/proc/fd.c
-index 172c86270b31..d1905c05cb3a 100644
---- a/fs/proc/fd.c
-+++ b/fs/proc/fd.c
-@@ -59,6 +59,10 @@ static int seq_show(struct seq_file *m, void *v)
- 		   real_mount(file->f_path.mnt)->mnt_id,
- 		   file_inode(file)->i_ino);
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index a2f9a1815e38..bdd4e8767cd3 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -388,6 +388,12 @@ static void dma_buf_show_fdinfo(struct seq_file *m, struct file *file)
+ 	spin_unlock(&dmabuf->name_lock);
+ }
  
-+	if (file->f_op->oom_badness)
-+		seq_printf(m, "oom_badness:\t%lu\n",
-+			   file->f_op->oom_badness(file));
++static long dma_buf_oom_badness(struct file *file)
++{
++	/* TODO: This should probably be controlled by a flag */
++	return i_size_read(file_inode(file)) >> PAGE_SHIFT;
++}
 +
- 	/* show_fd_locks() never deferences files so a stale value is safe */
- 	show_fd_locks(m, file, files);
- 	if (seq_has_overflowed(m))
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index bbde95387a23..d5222543aeb0 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1995,6 +1995,7 @@ struct file_operations {
- 				   struct file *file_out, loff_t pos_out,
- 				   loff_t len, unsigned int remap_flags);
- 	int (*fadvise)(struct file *, loff_t, loff_t, int);
-+	long (*oom_badness)(struct file *);
- } __randomize_layout;
+ static const struct file_operations dma_buf_fops = {
+ 	.release	= dma_buf_file_release,
+ 	.mmap		= dma_buf_mmap_internal,
+@@ -396,6 +402,7 @@ static const struct file_operations dma_buf_fops = {
+ 	.unlocked_ioctl	= dma_buf_ioctl,
+ 	.compat_ioctl	= compat_ptr_ioctl,
+ 	.show_fdinfo	= dma_buf_show_fdinfo,
++	.oom_badness	= dma_buf_oom_badness,
+ };
  
- struct inode_operations {
+ /*
 -- 
 2.25.1
 
