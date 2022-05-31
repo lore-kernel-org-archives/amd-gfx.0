@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1F7C43219
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F768C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52E3411263B;
-	Tue, 31 May 2022 10:00:37 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4626911260A;
- Tue, 31 May 2022 10:00:29 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id w27so10102988edl.7;
- Tue, 31 May 2022 03:00:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E08D4112648;
+	Tue, 31 May 2022 10:00:42 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B36F91125D9;
+ Tue, 31 May 2022 10:00:24 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id l19so7699302ejr.8;
+ Tue, 31 May 2022 03:00:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dox2mMkLl/5c9D2gga469zGN9zQ+j614KEWkuEZ4MV4=;
- b=TtHtny7NdbtnaKMNgHxxZ1P6YiZMqlmrfAD504KQpkpUdOed8kz6s4qe73Oso8t6aL
- GH45XnJdlS9fPbcsu06cjzlIDPfSLe4vdmLZk7L0colYmkysDdcFQUfaXrpgfhWM8Uu9
- mwNsso9fA2grp70nK3W+gfRLzK4em/GxgeHMyOxZAQwF2uHJZHUlKeoWDTsO9Pf3mIoR
- +MU2pw1Hj93sIubQtkBk95FwjgyvioAIuxLDOXetbKFAI5WclUufvdU4gR+xUVC90tO0
- kjPZ8sljqOzsGufGGBR2iVo/n5ohkrTAeCPS+lQRYxTn5nYYxcG4Bmjfy2K5n7PsifJS
- ohDA==
+ bh=SAtySkLvcNUXzz7ib9IziiicjVedfmYHvbHXwfWUJSo=;
+ b=ezNoQAUxlApzRSlxG4JiS/YCWxGANQEMBMCQgATxnhP3gp3+ZMVr411g/URtHp2KFA
+ f2ChR3RFwngrCVs7MCiQWoekB8YkFKK+caOAEKNtMtGAJPRZLUJ7j2c00h0X9TNtL0T+
+ aHJui7m2EbzQadDD+FbLWipH1ktNgQpHm6lf1sj28ZZvD/1iiXkps8ipinLAy0O42RLY
+ zTTegaIaDQYL53vJKk+O5RhcAs4qMBsDl6YHcQkYjXJTY1EOfzlpFLZZ/uwgiQXHKYDy
+ rZAwphV2HGF7mwKPv8gVMLQ03jkfQzE4TopEkv5xWw0C5eXfVpfmNZ6CvesBT9o5ZvqD
+ ltxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dox2mMkLl/5c9D2gga469zGN9zQ+j614KEWkuEZ4MV4=;
- b=imi0Qj16FYhVJi/p2+Y27RNEDBIoZXL98b7moPah3qHDOEARHWu8SrCcekL2pE/YUX
- wC2CMoMu3LZ+6mJXRXq3kXkCrEKmr6ZPw1z14tkIm7fYkaDPChxqvVfJdGNbRalI1KkB
- YFwrmqFRXC4+q7K8uwa0rzgaW/QPT2oByl71hhi/aj/5i/6NwjhkR0JzfTP5E8Du7Oqr
- Qwrwnn2W+m5wwTTaBpLirr1eHm6RL22JaalHXAC0sZqzotcZ1iBxCStm0NvPFYa57AJD
- e/+Am4DATMogfcl29t9Vihf7sldz2XdT2rJdS3UJn0DtZzgi9Is8RWgwwLjvEVpBhxbM
- A3mg==
-X-Gm-Message-State: AOAM530/Go3CYMo+7VCENaPFeVJmUgM8cwvPCnuDQjIfN2FTomMaIld+
- bxEevIWmpA+sRpROZpfnofE=
-X-Google-Smtp-Source: ABdhPJwaDMI96aKfbI0lqqtNolmvi5yHB6A4EjRXIsAbd+0AZ25rrn/qiMxaKibl1aGvqzYNEfcjIQ==
-X-Received: by 2002:aa7:db02:0:b0:42d:c3ba:9c86 with SMTP id
- t2-20020aa7db02000000b0042dc3ba9c86mr14927377eds.337.1653991228918; 
- Tue, 31 May 2022 03:00:28 -0700 (PDT)
+ bh=SAtySkLvcNUXzz7ib9IziiicjVedfmYHvbHXwfWUJSo=;
+ b=zg8+Pm1GFbIL2vZXJB16o5KBFsS+ytcY0pzhNK/BTk/+Ko8gNvLhsTJOeFzMaSFaMs
+ SBVcmF0evZnvAsUzgKAArXamyi3IFArZwFeZOwcGZQ8iZ79JVH+JC2wxAeqrovVppZQs
+ DA/lSyYKUE/qSMR6+Ngpea89Zw30rGTaA2i/FmZoq1dr0ZmsbwTRk78r3pPB5cHg2mcL
+ L7N9Y7+IJSjIkbMrR3jMy/teDGiklzgCtdt6sf6hnb/2I43WSjFDhDlfmwZyIb++1mxa
+ q6eKG66wS3z482hVvOjoG8xAIWOhOtuzXumyH+uHzztPcb6hbrYl2hjFguyRFmcTiR9J
+ xE9A==
+X-Gm-Message-State: AOAM533HhUbFx3U1lQaWGb+Neo7qy8rfrFGza0ILbHOpIWpulsZri/Ig
+ pr7gKcjy+FQYKbY5RZUGElr4Psa6hxnm2Q==
+X-Google-Smtp-Source: ABdhPJxwBRRiOzRIc4wcP7bPQevp2uh1nTKIEri7IbT6+yRjL76vQVcRcKWHOXi4dB6U6w/w9RxFJg==
+X-Received: by 2002:a17:906:974e:b0:6f5:2d44:7e3c with SMTP id
+ o14-20020a170906974e00b006f52d447e3cmr51605009ejy.167.1653991223194; 
+ Tue, 31 May 2022 03:00:23 -0700 (PDT)
 Received: from able.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.27
+ r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 03:00:28 -0700 (PDT)
+ Tue, 31 May 2022 03:00:22 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -54,9 +54,9 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH 13/13] drm/tegra: use drm_oom_badness
-Date: Tue, 31 May 2022 12:00:07 +0200
-Message-Id: <20220531100007.174649-14-christian.koenig@amd.com>
+Subject: [PATCH 09/13] drm/i915: use drm_oom_badness
+Date: Tue, 31 May 2022 12:00:03 +0200
+Message-Id: <20220531100007.174649-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
 References: <20220531100007.174649-1-christian.koenig@amd.com>
@@ -84,21 +84,21 @@ This allows the OOM killer to make a better decision which process to reap.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/tegra/drm.c | 1 +
+ drivers/gpu/drm/i915/i915_driver.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index 9464f522e257..89ea4f658815 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -803,6 +803,7 @@ static const struct file_operations tegra_drm_fops = {
- 	.read = drm_read,
- 	.compat_ioctl = drm_compat_ioctl,
- 	.llseek = noop_llseek,
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 3ffb617d75c9..f9676a5b8aeb 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1748,6 +1748,7 @@ static const struct file_operations i915_driver_fops = {
+ #ifdef CONFIG_PROC_FS
+ 	.show_fdinfo = i915_drm_client_fdinfo,
+ #endif
 +	.oom_badness = drm_oom_badness,
  };
  
- static int tegra_drm_context_cleanup(int id, void *p, void *data)
+ static int
 -- 
 2.25.1
 
