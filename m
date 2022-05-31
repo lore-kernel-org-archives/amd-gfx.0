@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB5F2C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 21:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C56C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 22:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1AD10E5A6;
-	Tue, 31 May 2022 21:22:38 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBC210E585;
- Tue, 31 May 2022 21:22:36 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id l84so81616oif.10;
- Tue, 31 May 2022 14:22:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7177C10ED05;
+	Tue, 31 May 2022 22:01:04 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0507310ECFF;
+ Tue, 31 May 2022 22:01:04 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ h9-20020a056830400900b0060b03bfe792so10482433ots.12; 
+ Tue, 31 May 2022 15:01:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XNsVAgAOaHBeTW3uh6pa2YZZKM4GP68jx8jpyunwFns=;
- b=XjasywrCMQ2pl8wC1KYGo2pSOLjGyfKW/h8uK/C8gGc2ZwM07WIcx2WjPq4glWpVMk
- uQj3ixsCVywkyoraZKoNb3dym5R74OpRPyeQfm9N0XGL+knCvyK7N52ET6d5xqAYvZDY
- D+qHu6/O5dSbDzqLdvAOBFMdqUuusYPWkfj1Xj0Nbrs1VlVPoK+geDPWSqqxB+8GNIFH
- sE6HYEEOV9X2Xp8QMOE9fTaHAH2UWSMPhyppkkboq0/6Ae9H1y64CIiM4j9AbQXZCasu
- 6jua8F6hw8uE6XNjOqjclD/eFH13AwZ31YdPgVes3M8g9t4jeVFTWj9Or08/qqP6QjpG
- sVDw==
+ :cc:content-transfer-encoding;
+ bh=1kcpHZfon90bWFf3C0opWYOsOsDgVYWIWfKF1sbIHOg=;
+ b=PzDb+I+odIVJv+v3SJAjJiieVhfK9TLxSG7HEepT0URrxw1QQp7kRmiwJBPWRRavIc
+ 4OMfjNbouVwJ9QQpQgLBXk6+QrfrsPci7ETu9MqS7ke/cmB5AaDwyt0mTTrETEI0nla8
+ ZoLP0cqrGh6Dw6Q5ps0yJtVdbye1Xjh4O23j3NOeVtWJfStBz4VKNrCPsD2YUn78wnbi
+ Ukl+m69RJ4e1Q6zPLsNeTDpLPDG05ZQrka2NfxXfSb0vOdwt0Bvb0jIKeCOCB3zfJalh
+ 4mvF/uQXHPN8cAyYKnxmvof/pxdnJb1AtX2kW5llJ/84g0tUGQEq+0RBuVEWhFw0MnUm
+ /27Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XNsVAgAOaHBeTW3uh6pa2YZZKM4GP68jx8jpyunwFns=;
- b=ocyVEC3PaaDUoe9DeQroUBpK494uwQMj9oFfPKzTX3Wo2gX2L0z/4qsUsu4nxj19Uu
- 0EIeqdsVS8M0pHeeA/k8HXhd9gyQA3iZrA63+Geu5QHTF3gDq2y/7EUzwAb58iZaFp5b
- z0iVU2WyTzRLQyDUzDoIOpvC1Xe1cJa9fRqG4NHoe7rORTTHozgmT5BuJeF8IWsYEKSd
- DPeSfSN0bS98uezf90y/Q5xNnGLcWFoe1rceNNLtppg7W9Oz+rmIJa3HBaYklfY6omue
- jGUfn++ekXhPGR+pNDkH1cpwnewapDoAknEflNqDN8tqzGUJTs6jMr8vVOtrqQaoRiNZ
- ujMw==
-X-Gm-Message-State: AOAM533OkWAbre+x1mjgtCpeygyHxc2BCeJOmHy2cM9S1qgbbqUDMp/t
- To4Lv54V2/hDchK2uhTeadKaM9y5ORX54auta7A=
-X-Google-Smtp-Source: ABdhPJzh4fJZOKIURodl4DucHPyqo5K3DTZ+seM4qZE6q57I5p519DBcqrSHJnow/0/s07Cb7Hy539r0j9t7QEWPBN0=
-X-Received: by 2002:a05:6808:114f:b0:32b:1be0:2316 with SMTP id
- u15-20020a056808114f00b0032b1be02316mr12747067oiu.200.1654032155821; Tue, 31
- May 2022 14:22:35 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1kcpHZfon90bWFf3C0opWYOsOsDgVYWIWfKF1sbIHOg=;
+ b=Uhwi9Kw0W/1aDFPqx1IPUjm8W2iiObrgojU01KCTrf/O2GHSK6+dRGmXlo7t46uSsy
+ NImPT7WlF1RzxIc/9qhWezQwGVjEPDyNTOanOlc1W2jyPYzCCxjZFtigYFwLNpF3w2ei
+ Z5cgdcYGd2ByUb0szQ4rtmwW4zIzqZHgGPIt27qrDtzF6ZIGeC/qhiHDFJQdGPAGNmkO
+ R6NCZiGVDK6RlJHHF9rK52gWWaEQVunCixSRM49rl+Afk+v/6LDtAggpuqzmFD2vR8/E
+ iPmRDeav2vn6cX8vNLZ+JV3zB+EKnzna62EuUy3yyk9vTSvm3PQbqIuUF7AuVZneKb2q
+ jlbA==
+X-Gm-Message-State: AOAM533LMvJArGMLfnGVAXbdUOHkg3g8YCfl1VyIV/Pm86w8SETH+Zxh
+ gciPAcLUgiiGr3QlTsDW/gWbdngrLGjMoi77jbs=
+X-Google-Smtp-Source: ABdhPJyKVYOkJ1d9Y7SW5ELtHTlhTKMcjbccQa1ILmaqZpJll1OzACOy0Pf6i7ZX6i42bY3GxbQOusF+tYcIkZKsQbg=
+X-Received: by 2002:a9d:6b98:0:b0:60b:c54:e22b with SMTP id
+ b24-20020a9d6b98000000b0060b0c54e22bmr18226057otq.357.1654034462389; Tue, 31
+ May 2022 15:01:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220529062631.304316-1-sunliming@kylinos.cn>
-In-Reply-To: <20220529062631.304316-1-sunliming@kylinos.cn>
+References: <20220531100007.174649-1-christian.koenig@amd.com>
+In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 May 2022 17:22:24 -0400
-Message-ID: <CADnq5_N0SRW94Vvis16kyCmpZxLemOhPS5O-Yr2YQe=5BL6x8w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: make gfx_v11_0_rlc_stop static
-To: sunliming <sunliming@kylinos.cn>
+Date: Tue, 31 May 2022 18:00:51 -0400
+Message-ID: <CADnq5_Ng7oe_NMSb6GdL=_T_zw22Gk0B6ePDXRiU7Ljind6Gww@mail.gmail.com>
+Subject: Re: Per file OOM badness
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +65,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- Dave Airlie <airlied@linux.ie>, kelulanainsley@gmail.com,
- xinhui pan <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ linux-mm <linux-mm@kvack.org>, nouveau <nouveau@lists.freedesktop.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Hugh Dickens <hughd@google.com>, LKML <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Mike Lothian <mike@fireburn.co.uk>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, hristian.koenig@amd.com, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-tegra@vger.kernel.org, "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ linux-media <linux-media@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
++ dri-devel
 
-Alex
-
-On Sun, May 29, 2022 at 7:50 AM sunliming <sunliming@kylinos.cn> wrote:
+On Tue, May 31, 2022 at 6:00 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> This symbol is not used outside of gfx_v11_0.c, so marks it static.
+> Hello everyone,
 >
-> Fixes the following w1 warning:
+> To summarize the issue I'm trying to address here: Processes can allocate
+> resources through a file descriptor without being held responsible for it=
+.
 >
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:1945:6: warning: no previous
-> prototype for function 'gfx_v11_0_rlc_stop' [-Wmissing-prototypes].
+> Especially for the DRM graphics driver subsystem this is rather
+> problematic. Modern games tend to allocate huge amounts of system memory
+> through the DRM drivers to make it accessible to GPU rendering.
 >
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: sunliming <sunliming@kylinos.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> But even outside of the DRM subsystem this problem exists and it is
+> trivial to exploit. See the following simple example of
+> using memfd_create():
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 8c0a3fc7aaa6..cb581cfc7464 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1983,7 +1983,7 @@ static int gfx_v11_0_init_csb(struct amdgpu_device *adev)
->         return 0;
->  }
+>          fd =3D memfd_create("test", 0);
+>          while (1)
+>                  write(fd, page, 4096);
 >
-> -void gfx_v11_0_rlc_stop(struct amdgpu_device *adev)
-> +static void gfx_v11_0_rlc_stop(struct amdgpu_device *adev)
->  {
->         u32 tmp = RREG32_SOC15(GC, 0, regRLC_CNTL);
+> Compile this and you can bring down any standard desktop system within
+> seconds.
 >
-> --
-> 2.25.1
+> The background is that the OOM killer will kill every processes in the
+> system, but just not the one which holds the only reference to the memory
+> allocated by the memfd.
+>
+> Those problems where brought up on the mailing list multiple times now
+> [1][2][3], but without any final conclusion how to address them. Since
+> file descriptors are considered shared the process can not directly held
+> accountable for allocations made through them. Additional to that file
+> descriptors can also easily move between processes as well.
+>
+> So what this patch set does is to instead of trying to account the
+> allocated memory to a specific process it adds a callback to struct
+> file_operations which the OOM killer can use to query the specific OOM
+> badness of this file reference. This badness is then divided by the
+> file_count, so that every process using a shmem file, DMA-buf or DRM
+> driver will get it's equal amount of OOM badness.
+>
+> Callbacks are then implemented for the two core users (memfd and DMA-buf)
+> as well as 72 DRM based graphics drivers.
+>
+> The result is that the OOM killer can now much better judge if a process
+> is worth killing to free up memory. Resulting a quite a bit better system
+> stability in OOM situations, especially while running games.
+>
+> The only other possibility I can see would be to change the accounting of
+> resources whenever references to the file structure change, but this woul=
+d
+> mean quite some additional overhead for a rather common operation.
+>
+> Additionally I think trying to limit device driver allocations using
+> cgroups is orthogonal to this effort. While cgroups is very useful, it
+> works on per process limits and tries to enforce a collaborative model on
+> memory management while the OOM killer enforces a competitive model.
+>
+> Please comment and/or review, we have that problem flying around for year=
+s
+> now and are not at a point where we finally need to find a solution for
+> this.
+>
+> Regards,
+> Christian.
+>
+> [1] https://lists.freedesktop.org/archives/dri-devel/2015-September/08977=
+8.html
+> [2] https://lkml.org/lkml/2018/1/18/543
+> [3] https://lkml.org/lkml/2021/2/4/799
+>
 >
