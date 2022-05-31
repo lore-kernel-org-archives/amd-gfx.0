@@ -4,65 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F768C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB916C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E08D4112648;
-	Tue, 31 May 2022 10:00:42 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36F91125D9;
- Tue, 31 May 2022 10:00:24 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id l19so7699302ejr.8;
- Tue, 31 May 2022 03:00:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=SAtySkLvcNUXzz7ib9IziiicjVedfmYHvbHXwfWUJSo=;
- b=ezNoQAUxlApzRSlxG4JiS/YCWxGANQEMBMCQgATxnhP3gp3+ZMVr411g/URtHp2KFA
- f2ChR3RFwngrCVs7MCiQWoekB8YkFKK+caOAEKNtMtGAJPRZLUJ7j2c00h0X9TNtL0T+
- aHJui7m2EbzQadDD+FbLWipH1ktNgQpHm6lf1sj28ZZvD/1iiXkps8ipinLAy0O42RLY
- zTTegaIaDQYL53vJKk+O5RhcAs4qMBsDl6YHcQkYjXJTY1EOfzlpFLZZ/uwgiQXHKYDy
- rZAwphV2HGF7mwKPv8gVMLQ03jkfQzE4TopEkv5xWw0C5eXfVpfmNZ6CvesBT9o5ZvqD
- ltxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=SAtySkLvcNUXzz7ib9IziiicjVedfmYHvbHXwfWUJSo=;
- b=zg8+Pm1GFbIL2vZXJB16o5KBFsS+ytcY0pzhNK/BTk/+Ko8gNvLhsTJOeFzMaSFaMs
- SBVcmF0evZnvAsUzgKAArXamyi3IFArZwFeZOwcGZQ8iZ79JVH+JC2wxAeqrovVppZQs
- DA/lSyYKUE/qSMR6+Ngpea89Zw30rGTaA2i/FmZoq1dr0ZmsbwTRk78r3pPB5cHg2mcL
- L7N9Y7+IJSjIkbMrR3jMy/teDGiklzgCtdt6sf6hnb/2I43WSjFDhDlfmwZyIb++1mxa
- q6eKG66wS3z482hVvOjoG8xAIWOhOtuzXumyH+uHzztPcb6hbrYl2hjFguyRFmcTiR9J
- xE9A==
-X-Gm-Message-State: AOAM533HhUbFx3U1lQaWGb+Neo7qy8rfrFGza0ILbHOpIWpulsZri/Ig
- pr7gKcjy+FQYKbY5RZUGElr4Psa6hxnm2Q==
-X-Google-Smtp-Source: ABdhPJxwBRRiOzRIc4wcP7bPQevp2uh1nTKIEri7IbT6+yRjL76vQVcRcKWHOXi4dB6U6w/w9RxFJg==
-X-Received: by 2002:a17:906:974e:b0:6f5:2d44:7e3c with SMTP id
- o14-20020a170906974e00b006f52d447e3cmr51605009ejy.167.1653991223194; 
- Tue, 31 May 2022 03:00:23 -0700 (PDT)
-Received: from able.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
- by smtp.gmail.com with ESMTPSA id
- r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 03:00:22 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH 09/13] drm/i915: use drm_oom_badness
-Date: Tue, 31 May 2022 12:00:03 +0200
-Message-Id: <20220531100007.174649-10-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
-References: <20220531100007.174649-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2F110E91B;
+	Tue, 31 May 2022 10:17:56 +0000 (UTC)
+X-Greylist: delayed 489 seconds by postgrey-1.36 at gabe;
+ Tue, 31 May 2022 10:17:54 UTC
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org
+ [IPv6:2001:67c:2050:0:465::202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA57510E91B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 May 2022 10:17:54 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4LC7LC745Yz9srx;
+ Tue, 31 May 2022 12:09:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1653991780;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QQxPiyLxaGZGk2GEkpvomuOBIggphz35fMOUl8/1/7Q=;
+ b=oWqCX+29OfciCrGmHal6QoqOpvBbKu8jEmskEJ1S5mLhIWA18wert4/jzikok6RqrUtbA8
+ n1QaQVY1L/ia9s0HiaqmcUww9cdArAhvr3t+rcp0wm+5bepDcXEb63OFphLybO+eoPeIDO
+ bSjKnpjzN3/V4OIkRO1A1H8AhlsITv+dxf1FcgFf/mbasnF4tgFaNLYm+mf9kKIgVLeArq
+ WYRJp5glrHqB8rU2gvb3ijpp2v0QL25KOwlBpkzBVbXLO+ksKFnjROjLKCzkQt209k5qZQ
+ 2xS5LA853RQpUopT8LrZBg5GYLf9FRxPOvfP3rPnBXndvI29DICKgnuA/GbgRA==
+Message-ID: <59bcf343-0fb1-f08e-bab0-4e4cd97e32c5@mailbox.org>
+Date: Tue, 31 May 2022 12:09:38 +0200
 MIME-Version: 1.0
+Subject: Re: [PATCH] drm/amdgpu: suppress the compile warning about 64 bit type
+Content-Language: en-CA
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220530070657.678863-1-evan.quan@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20220530070657.678863-1-evan.quan@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: n6zwptkhjjjdgzs8suijn9fqe3ey4b86
+X-MBO-RS-ID: 11f45f69e9f7ceede3b
+X-Rspamd-Queue-Id: 4LC7LC745Yz9srx
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,31 +59,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrey.grodzovsky@amd.com, hughd@google.com, viro@zeniv.linux.org.uk,
- daniel@ffwll.ch, alexander.deucher@amd.com, akpm@linux-foundation.org,
- christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, kernel test robot <lkp@intel.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows the OOM killer to make a better decision which process to reap.
+On 2022-05-30 09:06, Evan Quan wrote:
+> Suppress the compile warning below:
+> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:1292
+> gfx_v11_0_rlc_backdoor_autoload_copy_ucode() warn: should '1 << id' be a 64 bit type?
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Change-Id: If5f83daeb4039d87c5b47c221f9c963c941400e1
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index cb581cfc7464..9039021361a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1316,7 +1316,7 @@ static void gfx_v11_0_rlc_backdoor_autoload_copy_ucode(struct amdgpu_device *ade
+>  		memset(ptr + toc_offset + fw_size, 0, toc_fw_size - fw_size);
+>  
+>  	if ((id != SOC21_FIRMWARE_ID_RS64_PFP) && (id != SOC21_FIRMWARE_ID_RS64_ME))
+> -		*(uint64_t *)fw_autoload_mask |= 1 << id;
+> +		*(uint64_t *)fw_autoload_mask |= 1ULL << id;
+>  }
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/i915/i915_driver.c | 1 +
- 1 file changed, 1 insertion(+)
+This doesn't just suppress the warning, it actually fixes the bug where the code wouldn't have worked as intended for id >= 32.
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 3ffb617d75c9..f9676a5b8aeb 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1748,6 +1748,7 @@ static const struct file_operations i915_driver_fops = {
- #ifdef CONFIG_PROC_FS
- 	.show_fdinfo = i915_drm_client_fdinfo,
- #endif
-+	.oom_badness = drm_oom_badness,
- };
- 
- static int
+
 -- 
-2.25.1
-
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
