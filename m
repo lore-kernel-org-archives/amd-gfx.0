@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFA97C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 20:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4BDDC43219
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 20:01:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B40110E580;
-	Tue, 31 May 2022 20:01:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2D0410E52C;
+	Tue, 31 May 2022 20:01:11 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CB110E52C;
- Tue, 31 May 2022 20:01:05 +0000 (UTC)
+ (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0E4610E480;
+ Tue, 31 May 2022 20:01:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AKvFkCeP4lDN8CIZgmy+ToFYCXPbwrx1czeJvzUNKmtcdt3k6X2nKypYQw+bvbo136V+kUvOVPhtlYyYS22Cn4wbAX8R98dAXFKlv80Jx+/+9vhi9ntNmytirZWgUW30JxmqwQr0R4ZrgmfyHQJVzmNuIaqVm41FWy7DoVr6umAg9O9XbV9fbcaa7LQYoBcjTRPpR747VVxXfo9eJwVk/4d6D1ZOs3S/3bWKKhQ2FRbgg42AdUhwmRyfNRXiRgNpbU6ICr+JPWyXI6fP6ClwimD7m9ya7UynTogMyUuWw3cvy14e6u7qp9phI8LhYSiNPn2FFzFhzxusnNhQRor23g==
+ b=ANg0ssv87wEb2XlAkSXvQ2aM2moJqsHnzpBZUZEibwiJnW7XN8c9nIxHcSwA6fb4GXpJSnSNOD3FaLeph5QFsfI0VoMbRh7aw734EMqDAJ6gVHSIsZ7Ii5nQBKtKo48o5KnR1K6me6uUAqDNIMF9CIf1xyqvqAU1DiFdrgPLfIJ0g1bBY4BGnMowIqwTqhQ2kbOnAXU7GkrkZo/ZQmPXP3Rt6+244yPrvxwA/sYL9sw5KTGzLG4e5B4nHLJY7L6+u17JH5nFOJuJi3Imz3yQWd+z/s+dIC9rYhVWwvdKR9QScjYB/RArzzBrb091trmNAjix5fjFqVNBwN/lYGYVNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xa846fnxeU9bk+TyhpVkrT9/4QOUTaeNbDS2MCZJQec=;
- b=g8eFA0yNXv/Kvwyc0gPSCGt7KHYSKAba40RT2OFnoGg26soy4lFOhaY2QsNjrzXCRApAeGL5+w8J/liT8mRuhp4qBcJY8PpAAruEbuucTxRDkCHHiaYb/g4aY0HqTtlLCuOtGY2+M3TDW92LhZl326U2CGwYwz2yuMNxxwf6zaxsy9ZjjEdW0uEzd6y+0eauuUnxCIux1eZd9tP92crP8yk1ZyiM6MJw7/m5g+nr+3kXeHAScII3jpIx5gVXwCKpofWSz2KQt4RB1wSkASnHW8aQTGcWSqTP+tu9nqtW3cK0l3tqMOqF4N76h+b+TJDknvl59Mihy7YaCV+6DKAZ2g==
+ bh=Tsm1npeQJz5adlkprwdiF30iBrFOX7mFKo901b9QP1o=;
+ b=NzV1MfjFkfeNjlfSQJWq9Lj++LiagKnpb249faNZDkSQqjms/g0iWuSD89IAWmycxW+UXEAbvQd7sQZ+XIE3dxueMB6aG6sRyvekqYyQhEwtQpJXEeqfEMu+/rBJQeslZC9SGs8bvQmCW86tXLpD20wPdjtQkWOl9MHJUcLjP/tAJVZHifpMX2THkOQlUQ4odPkt7j5fGxSxo3SG0YLW3Zg8hU65GWHKX8HvcZzouLQaq4NwfyvTMSNr45vUMGAweFEUuWyr4yQHH4p3PQKdgb+HE6auDP9RrFh5r/xpWNO5yq/z71bO52LfqsiHhSkqB0JzipCf8R9NBkHtNTWG0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xa846fnxeU9bk+TyhpVkrT9/4QOUTaeNbDS2MCZJQec=;
- b=Xpj2bBXhnJZHBgd6hOfg2sS+/n5HbnSQeEyK1yw0lQFqQXcxcul2yLnQUsmrnFAWNBEi6NvvndNVAkn7me1MfVUJAtyqiil7KNimwDMsLN5b92w7Atr3beNabDlfq/JSh+2enRAYIoWx3Ktf21LXXmM7qcTXMm/sKsVXRMkE6lI=
-Received: from BN9PR03CA0414.namprd03.prod.outlook.com (2603:10b6:408:111::29)
- by MWHPR12MB1661.namprd12.prod.outlook.com (2603:10b6:301:3::17) with
+ bh=Tsm1npeQJz5adlkprwdiF30iBrFOX7mFKo901b9QP1o=;
+ b=i6QtpeqwY7WedUfcYi41+sR5m8T4W1bUzEiLKPTUPrmEtIj3UBQEgi0JlC1+IPwPo3Zhp9t+3zZw61QfdMzz4idTN+1g2b9g9zrBQ4Rbl0lT0KsXF+Qko4+ObmbjKojSq5/IfooYz3rk1mBJKp47EIuaTZlSYXHngtzmt6U3Q88=
+Received: from BN9PR03CA0410.namprd03.prod.outlook.com (2603:10b6:408:111::25)
+ by DM6PR12MB3769.namprd12.prod.outlook.com (2603:10b6:5:14a::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Tue, 31 May
- 2022 20:01:00 +0000
+ 2022 20:00:57 +0000
 Received: from BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:111:cafe::f4) by BN9PR03CA0414.outlook.office365.com
- (2603:10b6:408:111::29) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:111:cafe::78) by BN9PR03CA0410.outlook.office365.com
+ (2603:10b6:408:111::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Tue, 31 May 2022 20:01:00 +0000
+ Transport; Tue, 31 May 2022 20:00:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT027.mail.protection.outlook.com (10.13.177.96) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5293.13 via Frontend Transport; Tue, 31 May 2022 20:01:00 +0000
+ 15.20.5293.13 via Frontend Transport; Tue, 31 May 2022 20:00:57 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 31 May
- 2022 15:00:58 -0500
+ 2022 15:00:55 -0500
 From: Alex Sierra <alex.sierra@amd.com>
 To: <jgg@nvidia.com>
-Subject: [PATCH v5 06/13] drm/amdkfd: add SPM support for SVM
-Date: Tue, 31 May 2022 15:00:34 -0500
-Message-ID: <20220531200041.24904-7-alex.sierra@amd.com>
+Subject: [PATCH v5 03/13] mm: add device coherent vma selection for memory
+ migration
+Date: Tue, 31 May 2022 15:00:31 -0500
+Message-ID: <20220531200041.24904-4-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220531200041.24904-1-alex.sierra@amd.com>
 References: <20220531200041.24904-1-alex.sierra@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d2d37d13-0a44-4ee5-3a20-08da434048eb
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1661:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB16613BEC76276FA7261335CBFDDC9@MWHPR12MB1661.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 0bba815c-d1b5-489e-bd25-08da434046de
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3769:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB376983E617B315DAFDCB276CFDDC9@DM6PR12MB3769.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ajwy4Z7kWfKiOcWn9eDQNf2LEaJ0BMbD8toVnQfX3YxxAfrJSC29F9L+N81NGx2t0RnCIir8CucUM2eGqyI/BTZCGKT4XmlwUnC/Z+CddX3HhoubXTPv53xcalilvwSs+ZXVYdfB5smLo7ZotTSJlSkTe9/ZCaeEzOu1lNhF9a2wJvY7017E6CjJA5w2ApXMM+z+kVAS9TvoINHDlkHiViN9bTiEg/JDDrHtQEUp2RQNBaiboydiG3easpYL5FTXu23wsPjJJHcYOGKyj0TzinIdogG5w3WLJm+U+HG3Lpoog8Z6Jmu86n0wSH8EZIzcIcFozfFh864UFdICPIFMHOVzj32s2Jgxxx9T/NlUSp9PdoCaQrXdyxpW4WdqYllf4PXvXO/S0Tf/rxLXHHWUCyAsBmfHl/Cvrv2CJBZeO4HN7MMzOBcRhliCsQYxo7MREhGDeFoXIafUnq6cIzjHLmWchJgfUvcW18LAlgnZ8qk/s9Xk584JM484kLxdfOpZIrF4vCq1hpyVl3f53qPi/Kvit9yMDlDo/KNp7w3Olvham+M2vpybpdaOAAPHMKlOj4JQeBhLHw6uj0dgWOj7B5/YfGm8U4Z+ahvHuG6oMtOH30I8lpvYzulJoMi2vp8osk7jOt/cmJAsA7QeMb9j8Q9XSGGpCOleBI0cfwFBDrf6CrlG7KvGvifKXJxQgFlGTCrA7yjEboW5UJu9HEF5qg==
+X-Microsoft-Antispam-Message-Info: MWqTiNeofnuKHB6n/0vxzk/17wAYkpSXhmJVdm5AteM7m6npVmQLKZdvBBNTtApdDJ6sadq+RcdSVbjFLje2RhYF3GFgKNUkP+KqZV6bqHYIdnen6O9rZAzut4gl34tlU92TanLFqALuTPsvLCsDS9FWNkoH10h3CSYOKBdSdnOn9HRGcyaA+U+nWs6/MdHLzL2yVeqnHULFuCey+lQCwa+OvxT/v7ZU2v6eKddoNofWLwHskN9hsyvEYtUdnJepMg4//oRALx8HAUMQd9zl00/KJW61ePCH8bFvZxWMs293DIEdBvIPLxUZJXo8jbLUVKGRkc3v++KnhGCOMomP1BPFn01D6zkDYHjZqInmnxRmcE34gjLPsFeYOsbJzHPApqWNJazZ5fWqOl626YKGjiCmX688z9GZxW3CiFSLRUSnzjbHls1LOGqConcHl1QYvVyS4FdeBR93dzzo8O5/3VL6+O+x0se4y4DXNaYAWE8CfO2zcv90P6zT7up0FnHyV+Bly8UTZBdrVqtxlJ/7480AvBEjoHVWgVRN478Thk1irOcas6/2wdp0ahiBN4caUwdNBT97SMIwPtGQOO4UctCEYnctWnkVSgm+kywMnoxZDDLy2Vvg+yE53K00rA+SV0bfRTh7D6D2KarUiX2fssr5usjCKD69RUN78V8hzc5/lq2X8zXlL83p+BxNZp49et4X74p9K61sGuz8VOJeQA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(8676002)(2906002)(2616005)(26005)(54906003)(82310400005)(316002)(44832011)(6916009)(36860700001)(356005)(508600001)(47076005)(7696005)(336012)(81166007)(6666004)(86362001)(40460700003)(16526019)(186003)(426003)(83380400001)(36756003)(8936002)(70206006)(7416002)(1076003)(4326008)(70586007)(5660300002)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(54906003)(81166007)(316002)(2906002)(26005)(7696005)(6916009)(36756003)(356005)(47076005)(83380400001)(336012)(426003)(8936002)(4326008)(16526019)(2616005)(7416002)(70206006)(5660300002)(70586007)(82310400005)(8676002)(44832011)(86362001)(40460700003)(508600001)(186003)(1076003)(36860700001)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2022 20:01:00.6064 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2d37d13-0a44-4ee5-3a20-08da434048eb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2022 20:00:57.1692 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bba815c-d1b5-489e-bd25-08da434046de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1661
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,98 +109,60 @@ Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When CPU is connected throug XGMI, it has coherent
-access to VRAM resource. In this case that resource
-is taken from a table in the device gmc aperture base.
-This resource is used along with the device type, which could
-be DEVICE_PRIVATE or DEVICE_COHERENT to create the device
-page map region.
-Also, MIGRATE_VMA_SELECT_DEVICE_COHERENT flag is selected for
-coherent type case during migration to device.
+This case is used to migrate pages from device memory, back to system
+memory. Device coherent type memory is cache coherent from device and CPU
+point of view.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Poppple <apopple@nvidia.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 34 +++++++++++++++---------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+ include/linux/migrate.h |  1 +
+ mm/migrate_device.c     | 12 +++++++++---
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 997650d597ec..39b8c4710caf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -671,13 +671,15 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.vma = vma;
- 	migrate.start = start;
- 	migrate.end = end;
--	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
-+	if (adev->gmc.xgmi.connected_to_cpu)
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_COHERENT;
-+	else
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 069a89e847f3..b84908debe5c 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -148,6 +148,7 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
+ enum migrate_vma_direction {
+ 	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
+ 	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
++	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
+ };
  
- 	buf = kvcalloc(npages,
- 		       2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t),
- 		       GFP_KERNEL);
--
- 	if (!buf)
- 		goto out;
- 
-@@ -947,7 +949,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
- {
- 	struct kfd_dev *kfddev = adev->kfd.dev;
- 	struct dev_pagemap *pgmap;
--	struct resource *res;
-+	struct resource *res = NULL;
- 	unsigned long size;
- 	void *r;
- 
-@@ -962,28 +964,34 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	 * should remove reserved size
- 	 */
- 	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
--	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
--	if (IS_ERR(res))
--		return -ENOMEM;
-+	if (adev->gmc.xgmi.connected_to_cpu) {
-+		pgmap->range.start = adev->gmc.aper_base;
-+		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
-+		pgmap->type = MEMORY_DEVICE_COHERENT;
-+	} else {
-+		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-+		if (IS_ERR(res))
-+			return -ENOMEM;
-+		pgmap->range.start = res->start;
-+		pgmap->range.end = res->end;
-+		pgmap->type = MEMORY_DEVICE_PRIVATE;
-+	}
- 
--	pgmap->type = MEMORY_DEVICE_PRIVATE;
- 	pgmap->nr_range = 1;
--	pgmap->range.start = res->start;
--	pgmap->range.end = res->end;
- 	pgmap->ops = &svm_migrate_pgmap_ops;
- 	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
--	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
--
-+	pgmap->flags = 0;
- 	/* Device manager releases device-specific resources, memory region and
- 	 * pgmap when driver disconnects from device.
- 	 */
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
- 		pr_err("failed to register HMM device memory\n");
--
- 		/* Disable SVM support capability */
- 		pgmap->type = 0;
--		devm_release_mem_region(adev->dev, res->start, resource_size(res));
-+		if (pgmap->type == MEMORY_DEVICE_PRIVATE)
-+			devm_release_mem_region(adev->dev, res->start,
-+						res->end - res->start + 1);
- 		return PTR_ERR(r);
- 	}
- 
+ struct migrate_vma {
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index a4847ad65da3..18bc6483f63a 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -148,15 +148,21 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+ 			if (is_writable_device_private_entry(entry))
+ 				mpfn |= MIGRATE_PFN_WRITE;
+ 		} else {
+-			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
+-				goto next;
+ 			pfn = pte_pfn(pte);
+-			if (is_zero_pfn(pfn)) {
++			if (is_zero_pfn(pfn) &&
++			    (migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
+ 				mpfn = MIGRATE_PFN_MIGRATE;
+ 				migrate->cpages++;
+ 				goto next;
+ 			}
+ 			page = vm_normal_page(migrate->vma, addr, pte);
++			if (page && !is_zone_device_page(page) &&
++			    !(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
++				goto next;
++			else if (page && is_device_coherent_page(page) &&
++			    (!(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
++			     page->pgmap->owner != migrate->pgmap_owner))
++				goto next;
+ 			mpfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
+ 			mpfn |= pte_write(pte) ? MIGRATE_PFN_WRITE : 0;
+ 		}
 -- 
 2.32.0
 
