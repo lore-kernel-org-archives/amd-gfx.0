@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A733BC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A624C38A2B
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 10:00:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 892F01125E0;
-	Tue, 31 May 2022 10:00:25 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD6A31125C7;
- Tue, 31 May 2022 10:00:21 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id gi33so25608887ejc.3;
- Tue, 31 May 2022 03:00:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 643051125E6;
+	Tue, 31 May 2022 10:00:26 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C8C91125C5;
+ Tue, 31 May 2022 10:00:19 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id y13so25606758eje.2;
+ Tue, 31 May 2022 03:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=RT3RFL0VBSkluM1f3vm/WSgrGA2Qjw/08Ja0Fnc8nAM=;
- b=pn14iMQ9n0FDWwmArA4Jf35k//oaml9s3mxFl2ky/DMcmh2eS5QQUAfVDrFOHrWe0F
- KMtAdL2ItYXoMBH38/cM7Y5adUTzh6hcJoR+bDw3M9kaX7/WIFSLDyC89uegMORBvy8a
- BHKTy4vuZTReGoejbiTSY6UKILNxobjAL1xvmGcoXh1D/U10MyxWoiEN1o6YdrZUfevt
- sj80RQonfCLZAawaQ34qBTRrlatRa3mUKNi0wDk1pC3/0cWVa8FNjNAuvChUXdFusk2T
- xG3+L8wayhRfjE/jFGd2K1s01WQzFRlhAG5nSv/aQI6SJBaKFuP7a15DEZJ3u2J3fVab
- 1s1A==
+ bh=TNC+q1HYAjRPp62MTH/zi2loKTLmxRGj7rz2onfHvYc=;
+ b=GBXq9vHHCJxrvvL36ccyiGaBUxAA4gOuuAE6JJqw7rKR68K9hwr5XNyqXOEIIT7vcs
+ b+n0Pi155O7ZJ3hNSKyRz9mXIkUEKm2lcFNblLxTflNcxgkeUjq/QrKdI4HYMHPMzWAq
+ SVmk2ARrocIRZTeQ2RslzCLdsKehpXg+Kq0kTeKoNXvG6sD16XOQ01MvqTpq1vkjhPtq
+ +sWJbuWYYHK+e5WSj+SIwpEX66Y+xGwye9J3sHcOAM1TU5DbXJA7e3WOh4GWP04ovYuJ
+ BVp7Cx+40rXPVhuLagJwI31hssTpBLyHz/XRKyjdzt8EQGLbOfMOhG6RJdTATBNFmuK2
+ 0Y5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=RT3RFL0VBSkluM1f3vm/WSgrGA2Qjw/08Ja0Fnc8nAM=;
- b=Xr5QmFEnit0tmfV9dfkBC970exKfmplgGBpkcCZvx8R/5gvR9x0EMs4G5i2in5nvRE
- TWUIYhZYB8BwsVTykOIhbPFsLICJcdHWP+GPUblRZJs+gcMpB9tzHEsXyd9/MulVgvkE
- MzFaYTNpYIUcjCFuLn2HFIrnKr8Ek+SRsES2A7gMryFW82gR0yHIKoava4EWLlCRIATc
- mJeH/AOQBfvAt3wTprRq6fEzqqR7qSwhozUASiGHmw9I0hKxtA6pqhHY2c3UT/bldDNt
- ecZA19XUtJJ1COyjOvi5NqoF3EuP0VJJnZVwghcP4jCx61M0SbMTgrpHFNaIoBM5ldd+
- kJhA==
-X-Gm-Message-State: AOAM533AoPbZGB7PL7BTdSJlyd+aok2EPg0kdmN6Z5Wnou3YyQw47/gB
- ieoZmHm0AOENG2mwHttBcUw=
-X-Google-Smtp-Source: ABdhPJw2HPaoRajF+IeqkgNAoVDs/MgxP3po1idYa4R4fWsq47S5BbJXHf6FD6GIdoI/D1SZlKNRiA==
-X-Received: by 2002:a17:907:2cc4:b0:6fe:2100:de21 with SMTP id
- hg4-20020a1709072cc400b006fe2100de21mr52095547ejc.462.1653991220342; 
- Tue, 31 May 2022 03:00:20 -0700 (PDT)
+ bh=TNC+q1HYAjRPp62MTH/zi2loKTLmxRGj7rz2onfHvYc=;
+ b=Q4WMxqwRFvNpRgiBJ+UcAiGx+qSBPnV5ocfZX+Hk5te6z316APLj1E+bGEvYLIlsq+
+ 10omascfPp0eW5nkjUEV6kchblgOuyGoYLyZG5wJdjbagy5ntzl5CHZjgJNpjUmwj9L+
+ KC1Xj1tP/hkNXRXT59wI74w6uSF9Ife4KKI2XxxwQUN2M7wMel18w0APit4L0iWBt9VV
+ MC8UBE8dmKA6LI3AT2QLAlnCsVPQ5Kv2pwBkrMhbD/diWVyO2HWbd+XOS0PnsosU9iJ4
+ lPNUwAUCRD0zLX1AKLciwAK3jBEsDeDKhREolA+I30wwB6zdPXoAHN1CnHced/rurqRS
+ utjg==
+X-Gm-Message-State: AOAM531T2gohLIO8K98UP5loIRKPX3qGHcKELOzauNRy65m3kU/48wRZ
+ 8TcxfwCYx+h+JcotNqpreQI=
+X-Google-Smtp-Source: ABdhPJw0gyeFnw57oxp0sq6bqgANIsrzObxRClwQk6Sv+DHCrMObVZ1M7XOYXmXPr5CJvAsoBP5qig==
+X-Received: by 2002:a17:907:1b03:b0:6ff:78d4:c140 with SMTP id
+ mp3-20020a1709071b0300b006ff78d4c140mr8861505ejc.554.1653991217575; 
+ Tue, 31 May 2022 03:00:17 -0700 (PDT)
 Received: from able.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.19
+ r13-20020a056402018d00b0042617ba6389sm582062edv.19.2022.05.31.03.00.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 03:00:19 -0700 (PDT)
+ Tue, 31 May 2022 03:00:17 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -54,9 +54,9 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH 07/13] drm/amdgpu: Use drm_oom_badness for amdgpu
-Date: Tue, 31 May 2022 12:00:01 +0200
-Message-Id: <20220531100007.174649-8-christian.koenig@amd.com>
+Subject: [PATCH 05/13] drm/gem: adjust per file OOM badness on handling buffers
+Date: Tue, 31 May 2022 11:59:59 +0200
+Message-Id: <20220531100007.174649-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220531100007.174649-1-christian.koenig@amd.com>
 References: <20220531100007.174649-1-christian.koenig@amd.com>
@@ -81,28 +81,132 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-This allows the OOM killer to make a better decision which process to reap.
+Large amounts of VRAM are usually not CPU accessible, so they are not mapped
+into the processes address space. But since the device drivers usually support
+swapping buffers from VRAM to system memory we can still run into an out of
+memory situation when userspace starts to allocate to much.
+
+This patch gives the OOM killer another hint which process is
+holding references to memory resources.
+
+A GEM helper is provided and automatically used for all drivers using the
+DEFINE_DRM_GEM_FOPS() and DEFINE_DRM_GEM_CMA_FOPS() macros.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_file.c       | 19 +++++++++++++++++++
+ drivers/gpu/drm/drm_gem.c        |  5 +++++
+ include/drm/drm_file.h           |  9 +++++++++
+ include/drm/drm_gem.h            |  1 +
+ include/drm/drm_gem_cma_helper.h |  1 +
+ 5 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ebd37fb19cdb..9d6e57c93d3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2651,8 +2651,9 @@ static const struct file_operations amdgpu_driver_kms_fops = {
- 	.compat_ioctl = amdgpu_kms_compat_ioctl,
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index ed25168619fc..1959a5b7029e 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -1049,3 +1049,22 @@ unsigned long drm_get_unmapped_area(struct file *file,
+ #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+ EXPORT_SYMBOL_GPL(drm_get_unmapped_area);
+ #endif /* CONFIG_MMU */
++
++
++/**
++ * drm_oom_badness() - get oom badness for struct drm_file
++ * @f: struct drm_file to get the badness from
++ *
++ * Return how many pages are allocated for this client.
++ */
++long drm_oom_badness(struct file *f)
++{
++
++	struct drm_file *file_priv = f->private_data;
++
++	if (file_priv)
++		return atomic_long_read(&file_priv->f_oom_badness);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_oom_badness);
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index eb0c2d041f13..768b28b198cd 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -256,6 +256,7 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
+ 	drm_gem_remove_prime_handles(obj, file_priv);
+ 	drm_vma_node_revoke(&obj->vma_node, file_priv);
+ 
++	atomic_long_sub(obj->size >> PAGE_SHIFT, &file_priv->f_oom_badness);
+ 	drm_gem_object_handle_put_unlocked(obj);
+ 
+ 	return 0;
+@@ -291,6 +292,8 @@ drm_gem_handle_delete(struct drm_file *filp, u32 handle)
+ 	idr_remove(&filp->object_idr, handle);
+ 	spin_unlock(&filp->table_lock);
+ 
++	atomic_long_sub(obj->size >> PAGE_SHIFT, &filp->f_oom_badness);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_gem_handle_delete);
+@@ -399,6 +402,8 @@ drm_gem_handle_create_tail(struct drm_file *file_priv,
+ 	}
+ 
+ 	*handlep = handle;
++
++	atomic_long_add(obj->size >> PAGE_SHIFT, &file_priv->f_oom_badness);
+ 	return 0;
+ 
+ err_revoke:
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index e0a73a1e2df7..5926766d79f0 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -366,6 +366,13 @@ struct drm_file {
+ #if IS_ENABLED(CONFIG_DRM_LEGACY)
+ 	unsigned long lock_count; /* DRI1 legacy lock count */
  #endif
- #ifdef CONFIG_PROC_FS
--	.show_fdinfo = amdgpu_show_fdinfo
-+	.show_fdinfo = amdgpu_show_fdinfo,
- #endif
-+	.oom_badness = drm_oom_badness,
++
++	/**
++	 * @f_oom_badness:
++	 *
++	 * How many pages are allocated through this driver connection.
++	 */
++	atomic_long_t		f_oom_badness;
  };
  
- int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
+ /**
+@@ -430,4 +437,6 @@ unsigned long drm_get_unmapped_area(struct file *file,
+ #endif /* CONFIG_MMU */
+ 
+ 
++long drm_oom_badness(struct file *f);
++
+ #endif /* _DRM_FILE_H_ */
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 9d7c61a122dc..0adf8c2f62e8 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -338,6 +338,7 @@ struct drm_gem_object {
+ 		.read		= drm_read,\
+ 		.llseek		= noop_llseek,\
+ 		.mmap		= drm_gem_mmap,\
++		.oom_badness	= drm_oom_badness,\
+ 	}
+ 
+ void drm_gem_object_release(struct drm_gem_object *obj);
+diff --git a/include/drm/drm_gem_cma_helper.h b/include/drm/drm_gem_cma_helper.h
+index fbda4ce5d5fb..455ce1aa6d2c 100644
+--- a/include/drm/drm_gem_cma_helper.h
++++ b/include/drm/drm_gem_cma_helper.h
+@@ -273,6 +273,7 @@ unsigned long drm_gem_cma_get_unmapped_area(struct file *filp,
+ 		.read		= drm_read,\
+ 		.llseek		= noop_llseek,\
+ 		.mmap		= drm_gem_mmap,\
++		.oom_badness	= drm_oom_badness,\
+ 		DRM_GEM_CMA_UNMAPPED_AREA_FOPS \
+ 	}
+ 
 -- 
 2.25.1
 
