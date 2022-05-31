@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83BB2C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 21:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AAC0C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 May 2022 21:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE74910E528;
-	Tue, 31 May 2022 21:13:26 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1324810E2E4
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 May 2022 21:13:25 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- t22-20020a0568301e3600b0060b333f7a1eso10480514otr.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 May 2022 14:13:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF19C10E61E;
+	Tue, 31 May 2022 21:13:38 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF2F10E585
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 May 2022 21:13:37 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-f16a3e0529so107733fac.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 May 2022 14:13:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5MhKbrzE7l2G6zypqCyJNtPUy9Fhv96I92Zq+CIWdWY=;
- b=X7pcueqNhxHm6byD4fQc25bTGQDP5G6vL5AKzgEax43oBAtuX0gdpC3WI5L5RV3wz7
- eaWBBlIoT8YxBGAR1lxFRICVNaWfirEE1CcEMmRb3PR4xqj1JlpBk6bAwx1i6Vx1CCDS
- xdrlJF2lpjc4AdTjlX+cNUKFxjfQQb1xuTa7uuBI7twcSErZpIlIWsTZ3WU91kveE7U2
- ul0vGlqAroYRIC/mQ6sO1BhpErpmobrik9+nrzhmq+A23szE+e4zLVFrgdwkXAFTeyZG
- X0uMu7NfoYGqTBTXGF1gDRbRtScXaGRZc3006Vvd+sAPFqiTDUFKL0RxvF1Z37AfmsiM
- 1B+g==
+ :cc; bh=0iFqr5PP1EuugXkA1O8Xc3S1UZCB1JjvppypLn9yLqE=;
+ b=N/slr4o0JQ2gJB+r+YSKYm++8BDmhm91Tu1NQ1dhVUwBSb4ZRhnrjyPT4MtvzUYlKZ
+ jCzxjcL57DRo/5TfNSM6/8u/U84JfoP3N4Yh6JIZLdbOrVOSgxFSyvEd7KJJ2PupGswI
+ 58Wf7hpwpI33ot1Sz5yqgxOJ9SaRY5lxDNDjUbhosyDSCQyGwbPeZe11SiYXvbECoGTX
+ zt0uN2mNfs6Lg6pO3Ptcd20tR2ArpO98IXdfponDHt0PaLkelNuEXB4+9oYSxGRI7YtN
+ pR9BzxahFqISfrzS3nvlSp/YhRzRvgKL7AqaHAqauu/GimTdYMlXcKXtOEnLXtq4ZI5L
+ XaEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=5MhKbrzE7l2G6zypqCyJNtPUy9Fhv96I92Zq+CIWdWY=;
- b=HqOrEgCQgTwADkH7ySgy5dMJvIFEfCALGIvS+aoz5aQ7eyqOS/n8hYcP9noc6sQYF0
- yZ5/MfdlgCMWPLyEHdXcJB5CEQ3Q90AMUv7//IwpWGld3QmGAmdrnoy3aFQZfsJsCmYn
- N9OCrq/lStzF5fa16v0zlmYWY2yKbvyPEpMdU7GJqdJ9DY8fTfuW+PQdVLpKSPT6PbWs
- UIyVfh1ih41vz/fIt5p2nzroBtn2y/ZamtXmcw/0kO3IktziMS5nBZx1JLS7SdvfJ7ui
- hPdsy3aXFrh4Kg5sciSe/pTCTisv/upfuFUK0EcudGOfkYuVTJtKi/NqkS99BZQLGDQH
- gzbw==
-X-Gm-Message-State: AOAM532XBYOnK2wEzoPzaf1WwnG5dQPR5AcdESn40Ihr6mlOP1RcDxnW
- BgqzEf9KV3i0ynqbPPJEbwtdLOgwD0nMZvVbtjg=
-X-Google-Smtp-Source: ABdhPJzy6WkLI+DbJ8RsvuhE4SJtxXLo4jpX6OqsfL865K6Jpb0w4IfjAcaHd9cSpgeL6OXwWOm7ckrplNfnL64For0=
-X-Received: by 2002:a9d:6b98:0:b0:60b:c54:e22b with SMTP id
- b24-20020a9d6b98000000b0060b0c54e22bmr18157431otq.357.1654031604332; Tue, 31
- May 2022 14:13:24 -0700 (PDT)
+ bh=0iFqr5PP1EuugXkA1O8Xc3S1UZCB1JjvppypLn9yLqE=;
+ b=F2aGEvzE66ulaDZ3YKoN4EuD3kTEAsmYfqE4Uxv3BXeA0XzN/IcqgDpn7STtT7TD8l
+ NIbK4Hocuu0qzrz5VBqa2dXuCNFbM+MKrC5+qygel73ajqVxe9eEp8rUX+P60/ricZG/
+ HtwxbMk3nmp0/Tj7wMnwqJzZvGJncSZH3HOsd92IVLvn9RvpOvqMBQmrebLcQ735rdFA
+ MWpdEmJRROEkb7jR6HLDLKtYp0xk81O5Kx1pH5fhDf032pt2bYTKDqNsXRndDNpAsgS5
+ l8L6DcfU5vaG8ngb+1QHHvovuwcfjOzskRU9rCmW5WNCS/UGpS34l6Xu10rddjXlYjcA
+ +PfQ==
+X-Gm-Message-State: AOAM532IQaoDZN0MEwl8nYXJOa1Z0c8GdpWn9pqJmns+Jk4Y9ieOTIDM
+ AIsR3K250bUohMUfSPToADRYBVdJhQ2JSAaaxGo=
+X-Google-Smtp-Source: ABdhPJzg3pbD/NaYW7VsqfNyboio6IBeNxVVpkeiz3UaNMYvdPFb8vJn8UX26pBX70CA6bZQpEcwLbtyvWibzyvK3NY=
+X-Received: by 2002:a05:6870:3105:b0:f2:9615:ff8e with SMTP id
+ v5-20020a056870310500b000f29615ff8emr13912922oaa.200.1654031617015; Tue, 31
+ May 2022 14:13:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220525020926.1951685-1-alexander.deucher@amd.com>
-In-Reply-To: <20220525020926.1951685-1-alexander.deucher@amd.com>
+ <20220525020926.1951685-2-alexander.deucher@amd.com>
+In-Reply-To: <20220525020926.1951685-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 May 2022 17:13:13 -0400
-Message-ID: <CADnq5_M-UonUf0Kxy=_64q4DREsGqOes4XAk2M5_bzF4CZi+Jw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: convert
- sienna_cichlid_populate_umd_state_clk() to use IP version
+Date: Tue, 31 May 2022 17:13:26 -0400
+Message-ID: <CADnq5_NqOGL6g435kS6NmqiU8+wdbzpowVwbzBqoVCnYJj4otA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: simplify the logic in
+ amdgpu_device_parse_gpu_info_fw()
 To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,42 +72,53 @@ Ping?
 
 On Tue, May 24, 2022 at 10:09 PM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> Rather than asic type.
+> Drop all of the extra cases in the default case.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 ----------------------
+>  1 file changed, 29 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 78f3d9e722bb..871435cca3c1 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -1464,19 +1464,19 @@ static int sienna_cichlid_populate_umd_state_clk(struct smu_context *smu)
->         pstate_table->socclk_pstate.min = soc_table->min;
->         pstate_table->socclk_pstate.peak = soc_table->max;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 4daa0e893965..7f7d475c46b4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1942,35 +1942,6 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+>         }
 >
-> -       switch (adev->asic_type) {
+>         switch (adev->asic_type) {
+> -#ifdef CONFIG_DRM_AMDGPU_SI
+> -       case CHIP_VERDE:
+> -       case CHIP_TAHITI:
+> -       case CHIP_PITCAIRN:
+> -       case CHIP_OLAND:
+> -       case CHIP_HAINAN:
+> -#endif
+> -#ifdef CONFIG_DRM_AMDGPU_CIK
+> -       case CHIP_BONAIRE:
+> -       case CHIP_HAWAII:
+> -       case CHIP_KAVERI:
+> -       case CHIP_KABINI:
+> -       case CHIP_MULLINS:
+> -#endif
+> -       case CHIP_TOPAZ:
+> -       case CHIP_TONGA:
+> -       case CHIP_FIJI:
+> -       case CHIP_POLARIS10:
+> -       case CHIP_POLARIS11:
+> -       case CHIP_POLARIS12:
+> -       case CHIP_VEGAM:
+> -       case CHIP_CARRIZO:
+> -       case CHIP_STONEY:
+> -       case CHIP_VEGA20:
+> -       case CHIP_ALDEBARAN:
 > -       case CHIP_SIENNA_CICHLID:
 > -       case CHIP_NAVY_FLOUNDER:
-> +       switch (adev->ip_versions[MP1_HWIP][0]) {
-> +       case IP_VERSION(11, 0, 7):
-> +       case IP_VERSION(11, 0, 11):
->                 pstate_table->gfxclk_pstate.standard = SIENNA_CICHLID_UMD_PSTATE_PROFILING_GFXCLK;
->                 pstate_table->uclk_pstate.standard = SIENNA_CICHLID_UMD_PSTATE_PROFILING_MEMCLK;
->                 pstate_table->socclk_pstate.standard = SIENNA_CICHLID_UMD_PSTATE_PROFILING_SOCCLK;
->                 break;
 > -       case CHIP_DIMGREY_CAVEFISH:
-> +       case IP_VERSION(11, 0, 12):
->                 pstate_table->gfxclk_pstate.standard = DIMGREY_CAVEFISH_UMD_PSTATE_PROFILING_GFXCLK;
->                 pstate_table->uclk_pstate.standard = DIMGREY_CAVEFISH_UMD_PSTATE_PROFILING_MEMCLK;
->                 pstate_table->socclk_pstate.standard = DIMGREY_CAVEFISH_UMD_PSTATE_PROFILING_SOCCLK;
->                 break;
 > -       case CHIP_BEIGE_GOBY:
-> +       case IP_VERSION(11, 0, 13):
->                 pstate_table->gfxclk_pstate.standard = BEIGE_GOBY_UMD_PSTATE_PROFILING_GFXCLK;
->                 pstate_table->uclk_pstate.standard = BEIGE_GOBY_UMD_PSTATE_PROFILING_MEMCLK;
->                 pstate_table->socclk_pstate.standard = BEIGE_GOBY_UMD_PSTATE_PROFILING_SOCCLK;
+>         default:
+>                 return 0;
+>         case CHIP_VEGA10:
 > --
 > 2.35.3
 >
