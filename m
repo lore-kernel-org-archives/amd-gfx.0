@@ -4,121 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AE7C43334
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 16:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 355C3C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 16:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA9B10EF28;
-	Wed,  1 Jun 2022 16:39:44 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9CCF10EF21
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 16:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E56510EF27;
+	Wed,  1 Jun 2022 16:40:08 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CBE910EF27
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 16:40:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X1yotNzq1uNYBxl/ibzEs5v6xYui6REj3q7P8aFVahZuGdRP/ge2zd076PJxhQll5D6DdrvgkCUl92W+FzAcEnNSqWklIk9M/hXjJ59sJB2b0LU9XCBggqE7bU+egGNcegCqK/k37+iZjjsvtbvLQ2sr2SnoxrwQotbRu4vIAte9d8LS6xuQn9YxRgA+Fu2RQt6HkzwaqyOY6HZL68afskkjtn5VI8fkzmrYKAsm4mPoyKVdRjtSWVLoJO1pQsJzkgqHtmJX1wTXInEiiqywG51JtCcSIzBDG1VyqOjMCO87yFq59QRWiulxSktcvyLJQfWhKCVw0dLk9EkpLimKGw==
+ b=RybHlOmhs1tQUxSklwNO1lQKHMmIFcWnaMoaTAHNnj8Cl0uQiMsokfLRbI8uJV/YfJv3GXI/EJpTHiIctuVlsa4/3x51ofihGNvhUi5STHTFjhKmFXfnR0f3Gfjnmjt3DGel0O2GBr3qaz+3zNk1iqgcHUJxqtxt8K1dcMBkMQtT3K4is6rGEt0Yguslk+uU76jpEIdaVsVPFHhg1OM4tW7ZWwKY02A9RI9JLQUqOD2Girv//rbKsnIa4d4dMljfo/cOMEIPhF5Dygi3koCDh5db7oqBxq3/e2UoXVaagq/K1ELUNZYCe9fnDMUdyLIHQPcpShME9Zr4tm763Izl3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a0o73RS9p5RQbwQz478MYoESvpoLFndaUe9T7AooYBE=;
- b=AwHZ385qhzJl4RjTBtYR8ddHkb4uHwyUyySNpGHb0ZhYH5HQtujSEqsHWaQVUVrPQsnLGuPkfA6qypL3AVF94Jv9uv1kXOx2je91S75zbjeoaqCnk4drBKcG323XnmKwFyn6pChHACC+kafN2Zg7V5gjP5h/UpG9KLg83Nu97fshFaQ3tXaTpnYNKKHCDWGqLXTsho8OxgrkDZYU5v+8YkDMqGB1QJTo5vD49yR/dq4zO/4sEdAX/b6TEdzZobTk991hSydwnh5LAC/UAOixEFLjadybqx1PrtgpmVbWi0V67pp/A63iEWN/Rm5WIWI9qqBBi5R49B5TQuKYsam7qQ==
+ bh=QlhA+cdingmMbnNlZxnwtRVe+NidD2cdH9TafUMUQao=;
+ b=X2/Ci+TzUNQ5mgjyDVdmiQrcSUTvVRoUjCUKjjEYhkkI3ewvQFeob0R1qo3wYN9UjiA40RV7yoVeSe70H89IUip3La90n3+JVHWDl5ljnx3PN/vrKf+JRb8UDcbJ21MWBasx7MM6vRuD6Gpo1oyTyRARZR4jCPtsHKt9vIyRpBx0mPBB9dMNYSCKq9CTGxA/0OKV3+Rw2YaLunLSrsTRFLFTeNL5ke5Xyuas8hW6HdqefcZZ+SX508Cjmh93YsOe0NMBx91kayQcR92O5lwZQRvoBwhZtClydlWVcbyLX5LdGw3JVqVKc9XXwD71Asiv8CU2rJvU4fvgPqWXbsnOyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a0o73RS9p5RQbwQz478MYoESvpoLFndaUe9T7AooYBE=;
- b=Dl9oe9WGvhlQBcBCjKg4L1XEVleUQuszYeODhKfp8xvzlS0s5DFlu/b00q90mEaI3f8eR7wvoAsdvAJMeatAI3yCir/eNfViD/FGqqJ3Df/ZZj7yIsT9gYtTHpsA4M1gXgkcu8P5VEJ2x01dyjkMJajhfTZi1xOhY6Qq5KxVlhM=
+ bh=QlhA+cdingmMbnNlZxnwtRVe+NidD2cdH9TafUMUQao=;
+ b=Ea/LLvOSYHksQVIuURLS0l2s46vmZ6udULt0xJ0M/TEhE73bDmtrNEN0N/afjOMLgHGeS8aC/s53fJGWdl0gX2dJYSg4cyfRb7WMIlIzhVif+/876hhbnY1iKSjExT3yKdEgo1hcwYVlVnVznumxRfxo86+NbZmqQHSNzwN4wkU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB3465.namprd12.prod.outlook.com (2603:10b6:5:3a::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.17; Wed, 1 Jun
- 2022 16:39:37 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7146:65ee:8fd3:dd03]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7146:65ee:8fd3:dd03%4]) with mapi id 15.20.5314.013; Wed, 1 Jun 2022
- 16:39:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------fR4H1lNtsKcarZm2SjeWWDN6"
-Message-ID: <35d469ee-ef32-75a9-f391-019b4e31ba57@amd.com>
-Date: Wed, 1 Jun 2022 18:39:30 +0200
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM4PR12MB5745.namprd12.prod.outlook.com (2603:10b6:8:5c::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5314.12; Wed, 1 Jun 2022 16:40:05 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5314.013; Wed, 1 Jun 2022
+ 16:40:05 +0000
+Message-ID: <990aa220-ba2b-417f-7e7a-85a7df4998b0@amd.com>
+Date: Wed, 1 Jun 2022 12:40:03 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: Explicit VM updates
+Subject: Re: [PATCH 3/3] drm/amdkfd: Extend KFD device topology to surface
+ peer-to-peer links
 Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <293d9f72-c3e5-913d-08d1-0a8591299c46@amd.com>
- <CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com>
-X-ClientProxiedBy: AM6PR02CA0026.eurprd02.prod.outlook.com
- (2603:10a6:20b:6e::39) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220531170301.819284-1-Ramesh.Errabolu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220531170301.819284-1-Ramesh.Errabolu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0025.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 977a4de1-2034-4e72-2043-08da43ed50b9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3465:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3465ED085ED4EE24070541B183DF9@DM6PR12MB3465.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 5ecb2a7a-08d7-4b0b-fc6e-08da43ed618f
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5745:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5745E4740227A8B6D05017F792DF9@DM4PR12MB5745.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Tx9tQ8h8p+m7FwXM+ccazott4n1K7ZQFdWrsPWr+V7Hm9kdRSnMcMSl10pMus5Yp7CGyibxWE0Kwo1Ty2G6mBr1moiwhZzObwxaYWhWkpyrqYLIzi8qwYRQl5h8xiDGXlO+1I5lB2r8bNefONpB8/y4IIm/y1cuC5+AEYAtm138fY9eTWuNf8NrN+Rp625RgzDz2xMrkwd42Zbi39WNKSF0kxOlmeefdEtoqC+g9LnVO5U+kD10rwCsaHDA/0C+4KkEG7c2pz0qOZfUXSAKmXecUltX/nQvRhKx1HOzW2zJRSSuy33/pbcnYkRDFGIItJeOn7eMlD/NJJH/efMz+Oky508eoJieqmfmzuhkJuRcdwTv09wpeCGmjFaa7JIdFhyRU6W4qja+n8H6nxFleFC96QfnwFkKORESqs4Rsv2yafD2yDv2Jwsp7ODDmHzBhjFwpqVKrqk72FREOEg4pIJTLqQ1NmhAgIBQRiT0CIVIjTKi4qFGQKnKmO2AH483hA5PEQLXXkmVwClNUGtQ74rkIM8qRk9xdYKxTciInQWRkaUiJPM7o/79jSrzM9+ae5g1jqxqEmkcqOopYjQOcdjs0SlMtbKGsJezePJRX/jaL2BQzjC9JnlYk69SEODOy6QwbFoCfXX+b0l+Fui35JWd3XePGzRoyi6ZAjGqPU2mL+tXUpNglbAB96m0QgOmR2haSl7FwRVhhmytNQE7OhBFNnXvGmArLAh3eRHDkOSXKi90GeWtlOqEJ+JLmKpXz
+X-Microsoft-Antispam-Message-Info: KnlGcvnOuj3Kfq8Xmc3OSKKXDJJm0ZfwFZcg5eolYndeJY314wEFmMmqwmL096hhepGdSvr2HAkhu3GrZzaanKvFB3fwvIO529JqggmALEYQEd2GAfXSfDtISYgcrjZH7zb9HQ6TumdZTh4M0PlG0AC9UQXKHhOQzmGqao3/BYbuwPWqNNC8WJYJ7kzteDm8EssqZRWdUlyWeJa5of6829lZjckoYaNad7pu+gbilniH48PalGEMzvBtzPxbVr6n2oyOH39lrWl9RXtOfsqUBrzSlnERIfwH6NNR0rowcMy9DcKDxNF58BiQ1T6tiWJipBLlrVJvXkm2x2Yn8io3RGMdunols0h49h6WMu/iWy2VBqaptI+GckYVrRmK7dRt8OcwqyR4YhryMLw6C7z7QG3+dNBL/eFbD4lUyliWIdZoScNZWqV8lPhydcGkxM4qLXSjA3IQ2y1GFXD0/fQnrwMnS4cnb3eSMETzh74vgdZonCc15XUdGaRTLCCX/NY6IymEM15v4N5W14oWKwT3mwkyofb42D2kVn7j7YPDLnXhGwulpnvFeMZZmWWAih7jE8O1+TAMb3md+INtDBeQdrDw3aHvmcfrHoadv58NsanaYQdWHF7q8k2xfVuRRRT6sa0SvA5Td2XhVwT4sj0ncuWlDqBKwjBzNfA9f2FUyYs74qIfmweXlxLL6w2uNrhY3niIVNRiRm0m9cRh88vnh4p6/1PGcpHctuM6HoDRcZpAWASdZK8kzKc6hDajNHKk
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(54906003)(3480700007)(8936002)(6916009)(508600001)(316002)(5660300002)(8676002)(38100700002)(66476007)(83380400001)(66946007)(66556008)(7116003)(6666004)(6506007)(6512007)(53546011)(4326008)(6486002)(66574015)(33964004)(31696002)(86362001)(15650500001)(31686004)(2616005)(186003)(2906002)(36756003)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(6512007)(2906002)(38100700002)(2616005)(186003)(86362001)(31696002)(316002)(44832011)(26005)(8936002)(66476007)(30864003)(31686004)(66946007)(66556008)(8676002)(5660300002)(6506007)(508600001)(36756003)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVRMWDB0ZWJhVWg5bll6bGJoRXd0VTNzYVJMTDdNb3kwc2pOVURIQWYrNFkr?=
- =?utf-8?B?NCt1UGEwRWhOL2tya0YySFJaWUxEWmk1MmZMQjZIcjFSWGRlcW9JcmVrY05n?=
- =?utf-8?B?eVZRMzRpb1ViUjYzS3VNZk5pMnRuWExXbXNhN2FuVWhUT3N6akR5TEQwTStv?=
- =?utf-8?B?SkV3d3c3UjZBVUhWWVpPdnJ1MHgvYitFcjIrKzFEMGFYSi9pOHRSQ3UydXNi?=
- =?utf-8?B?d08vT1Vya3VKRlZWb3p6eVc3R245ZjVSWEE2dnFZZkJEUEVjWkFMeU10Ulor?=
- =?utf-8?B?eTVMa1A1b0xHY2ZCTjZJdEVJWGN2S2xMUkV1V1NtR3YyNUdOaXJMNUx0TE4z?=
- =?utf-8?B?Tzk0NHFZREVuQi8xOWpjOXpYNkUvNGF0Smg5NXJOTTIwMUVVWElrMFdZVGVl?=
- =?utf-8?B?bUd0Vks0WDhsbDhsRngrRGVNeXdZZUMvYkdtY1FuSCs2QVAzck01blZTaG1O?=
- =?utf-8?B?RThRT2E1eEtpR3RZZk52STFEY3lOSmREd2FTNE4xa2t3Q2tEUFdmQUh0T28x?=
- =?utf-8?B?YjhFNVlISTNxWTRiUk51dnRxb003WnZ2SEY4a094d28rUWh3Vk5tcXBxOFcx?=
- =?utf-8?B?bzJsZkkxbzdaTjdtWlhDbFBaN1ltdTcyeGhWaVJvbnVTUWNtc21CRHA2YTZ3?=
- =?utf-8?B?ZlA4NjEvV3dmSUcwWC8rallQVnVDYjIreSt1aHNVUzBGVThTV0tDTy9LSW1u?=
- =?utf-8?B?dWl6dC9xNVkvVysrSjMwUWJVZHM5MUc1Wm1nbExtcEZnbmpmNGJzTjJDSGNJ?=
- =?utf-8?B?VFVCKzFTdGxjazhMeTBtaGV0SC9odFQ2ZnJMaE9aV2RHUXA3TWJudU16RGta?=
- =?utf-8?B?QnQ5aUVuNEZLaXJ6b3dVV0JBWkRCdGFYTEtvcm5hN3RPNTdrbUxLQW5rN2tp?=
- =?utf-8?B?M2V0dEJ6ME12OUJuSG9HZGE0ZVY2N0dJajd5T1N6T3p6R2JOdXd5YlJpTFlT?=
- =?utf-8?B?N1NoRmZVcDI1Nzh3T09qQnpLOTRCNzNnb2tLUGZWVkJvekxlTkRQVkpOZ3dV?=
- =?utf-8?B?L1h5QW1FbFlpbHB1T0wwYUJRN2ZXaHl1d1NpZVlXRXRoN1lIbzJvOTllMkxp?=
- =?utf-8?B?RkpnYlJnVnM4SXhVNkpQQUh1bWZkRUJPSnB4cHdhQ3VRZXF4Vm5FaTVFRnZl?=
- =?utf-8?B?OVl2VGNxbG5icGhkTFRJb0poL0pHVE5ZK0p1dGRkMFRZQjg5MVIxYnJydDhN?=
- =?utf-8?B?VHVTdmhVTnpGbEJQSXFpeHdtRWFPRjMyRWZhbzJSd2QvQkJZN0dVeGsrNnhI?=
- =?utf-8?B?MStzMmRQbkp2SzlQMDdZY2U1MDRwdzZwZXNLQ05Zd3lTaFZWUVB1SEJPeE5S?=
- =?utf-8?B?YmFyQk8zRndrNGc4RnJhSDh4dXM3eE5HU1dqZEJhaVorWlM3NHFtKzU2Q1hj?=
- =?utf-8?B?Ylk2Z28zd0ZNMm9Id3BqMkhuRDJCazlRaVRxME9ZUEJ5UzQrY3dXckN5TGZZ?=
- =?utf-8?B?ZUp6UXRKL2FMUUkrQlc5djdmL0VsbStNTGFPb25PcDV6U040aTkwOWYzWlN4?=
- =?utf-8?B?NENyVmxiNDQwNWZPeUV2bWU4SmpPd3BpbGxZa1ZhUEZuK1NQYmp4UVlPMWxO?=
- =?utf-8?B?R0ZNRkNLYlZONmZCOGh5QVlWdGpKa3FlbVh1NkI5NTBJb0F1NEN6TXJWY1B3?=
- =?utf-8?B?U3dRQ0crZjVWQ2lNaFRSTDV1YWtsSWU1dWU0OXUyRml1RGVxUndFQ0JaOW5t?=
- =?utf-8?B?V2tEKzJCZlJDZXhLM04ySmthYTRGUXNwbkhDbGNPdGpseDI0R1lXZmNnWW0y?=
- =?utf-8?B?NmcrZ3p1a25qVFZPV3ozd2k2blZJTktkUEYxc2R4U3k4Qlk1YnRETHJ2RENa?=
- =?utf-8?B?dTBpakl4N29OVWhwNXllZm9EZWRPQ1RCRWk3UVoxQjhLNDVCSlBUb3VLeGo0?=
- =?utf-8?B?Mi9xYyttQUJKdzJXV3BZdTE1eWhZSGVzZHJnZU4ySWttaWtjMnR5Y0diR255?=
- =?utf-8?B?ZENHZlZTNStzd2MvcDV2SGJ2SUtMZTArMlhrbktZWG1jdzAyOEVYSk96OTJ0?=
- =?utf-8?B?NTEwbkZhK0hheHlnZ0xuc20xTlVBNUMrUFFKOUR2cDhrYUVPU1ZoSjIvM2c2?=
- =?utf-8?B?b0pieG9tazRhcjFNeWxpNkx0WVZZNVJBbFJYdWlCN05CSTVPN0JXZnZwbU9p?=
- =?utf-8?B?RDJvNnRXa0p5dzVWckczemxVNThxN0xuSzU4Nm1zbCtlQWw3NklXdVhDTFpH?=
- =?utf-8?B?Zm0zWjB4dXZzenVLaTB2bXB5UjR4QVJMa0pIdHFUQldHREF2czV5N0ZGYW1a?=
- =?utf-8?B?akVoMXBTcHpJUGlVeE1pQ1hxTnNUUWgyU1NrYnhMSzdPRFlIV0FIOGxnRVBh?=
- =?utf-8?B?R01yRjNnRkpEZVJhUGVuSWhBa2o4NjlGUEVSTVZ6WmkySS9xNytwOENiQkdC?=
- =?utf-8?Q?oXjHZNsVlRY9fBB2RjV30kqWP2ltnBvclba1Hmm+AfDpg?=
-X-MS-Exchange-AntiSpam-MessageData-1: oiRGA/EN/1K5qg==
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0d4cy9MWlM2QkIySjNiMit4aFVJTHl6cnlyb21FSXN3c0hZSUR2NWtUa2l5?=
+ =?utf-8?B?ekR0NTRFVjZJSXZTQ0JwYmFOQUhlVXZHZnFtMm1BOVljSnVXRWkwbzFTcHAw?=
+ =?utf-8?B?cXhhWjNraXo2N0VVenhwOVhuRTR5MVYrN0JnNGRCak90WFRwRFl5MWlvMldU?=
+ =?utf-8?B?L1RaWjhnVFJZenJWZEppQWhTMHFQOVNKSGhjQURuWWxVV1VBeVBTNDdRTktz?=
+ =?utf-8?B?aGMzMElYZGJodWFtQVUyVi9JcmNueXQ0bjFkY3dnS0RZMENoOEk4c2c2cEpG?=
+ =?utf-8?B?R3hHWCtmbjRCZVVacjkrYmFyNGt1aFZZUkNDU0FtSDkvcVVuZVB4Y0EyVUZ6?=
+ =?utf-8?B?eUhucE9TUnlTenBQak1pTXNxNXVzRHFVaUc2cXhhemVyVTdYL1RncXhJSzBS?=
+ =?utf-8?B?WHJvR2haZXFhOGZQd2pMb3JOY0xTWmVOTWlGU3d3T01VYTAyWWlUZHFPTzlI?=
+ =?utf-8?B?cS9uZVNadzBpNG1VRkFNYUtURGpmK0NVU0kxRDlZYSs0RkFvZzJGOHVKNG9a?=
+ =?utf-8?B?MVlsNXZGdU9TbjloN0FvRGU5U3IvdmcxMnpXQVlhUGlPM2JRUU8zUGVYSWNm?=
+ =?utf-8?B?dWNjbnF5MFVUNDlFRTRLeUNtTTMzaisvN3NYRW51Q1p2ZEFOQlJ5N3phbkJS?=
+ =?utf-8?B?L3RKMGpIWC80KzVJc2V2bDhZRERhY1gvZ0FuSGZZK3dkajBwRTFwRStpVzNH?=
+ =?utf-8?B?Y0RWQUlGNGVMREhSSWIzMG1yK2pwOXNXZWpYNGF0MTNmb2ZJZmRhT2V1S2Ju?=
+ =?utf-8?B?SGxSaEpHdzFQMEovNW9nVWpaYVFXYktTZFpyZnF1UkpJMUM1M2xvM1hyZkNR?=
+ =?utf-8?B?dnZtdVVPOWE4dUcvck83Qm1MbXJST0MwWFhtUXo3OTNMY2Y5ak03L0xsbW1i?=
+ =?utf-8?B?b25TRDNGbjh2bWVSaDRidDFqM1F6NmdUeFpyWkFxTi9tVlFZU3g4U1FqYUZH?=
+ =?utf-8?B?VUl2Sy9LVnZWLzRzOEpqellFb2pxcWxDTW4xTUhXUzJjT05lcnE5cUwrQ3JT?=
+ =?utf-8?B?MEFJUTJUVmVsNFMrTlZKQ1FUNUJzWlpOd1JleTJSdzQ2ZzA4c01pSjZ3S0VS?=
+ =?utf-8?B?SHVyUlpNM3BkenRqYWh2RzZSdnpKb3loazBuL1lJN3FxVWFxWk5SclBmVWdU?=
+ =?utf-8?B?QzV0aEYydTRhVTBnbk9NSDRkbGcxRWNBdVNGZkpXVkhGZlE3TlBqelNVWmk2?=
+ =?utf-8?B?aVAxeVZzYVVnRWtiMGtHS3g3ZW9FWEhuR3MrNHhGU3doRlNvRThOMGplT3RQ?=
+ =?utf-8?B?RmFWM1picEowSlVjTm1nYVY5RjZPc1I4dy8vVXNFYUdYQlFNNFhRN3JFaWVr?=
+ =?utf-8?B?ZHd2a1AveTJyZmh6dTZ5aVdObUM1SVJYVTFsNkh0WUJSVk1CMWdJWUVvaGo1?=
+ =?utf-8?B?Y1pqS1hIeXo0TWkzZWMzbTh5TlJZeEdYM1dyNmxRZUdoai80YjNnUE1qTnh1?=
+ =?utf-8?B?eUdwTzB1MEIyTm9FQjl3NE9LbWJDVHZ0NWlxcjFLVnZaejZTRVgvaDB1M3JY?=
+ =?utf-8?B?NUtCemhScWJtc1JiRUwwN3pONEhNb1NpUDhRaEYvbTZJdG9adFc0YzE3ZUxC?=
+ =?utf-8?B?T1VOaVo5VEkzYXpXSlBaZ000ai8xbGRvWjl4UGk3KzNNU2NENEtvb0J1NTBH?=
+ =?utf-8?B?NFB3SVJISkVPQW9SWXREOEdtWXM5UE5wS0pRR0lVei9oSm1pTXlaTDNqaFBv?=
+ =?utf-8?B?VXdIQVlLZVNZSFVsM0l6ZFlvNXkwcm96S2ZMd0JiM0pxaDg2bVVVWHhNbDhF?=
+ =?utf-8?B?L2trMFpwUHBkaVRPNndWZWw4d0NPK3lQM2o4aGxxWUZtU3F2dUszZkZKUGhR?=
+ =?utf-8?B?MnFZZDhncDNjb2VCN01zbmxsVmxxWS81NTlWalU3YkdxcnhBaHJINHg2U2dy?=
+ =?utf-8?B?c01BVnZmYkZVaXpWeEIxR3c2RmpsYlY1TVc1WGVZRWRaci9jVXFMNlI2dXZY?=
+ =?utf-8?B?eXVyQzdZUVBSelVjUUNOZW9yVWpFWTZUeGw3ei9aSmQwU1IxeGF2RndiR0Nv?=
+ =?utf-8?B?MVI5MEFkVFQvbWVrejNndjh4Mk9OQlVYUEQ2NlBEL0pEdHlrdzFQYnp4a3Az?=
+ =?utf-8?B?bno4SjhsdVIvWCtBZUlYYklLVXRnTEJwVmFtc094N2twOVM2RW11VWtZZnZD?=
+ =?utf-8?B?VWpJRStzcGRqckUwL3hMMTRpSGZtUG4xa3VQRnhtMzUwRHExQkpRZXlHZ2x3?=
+ =?utf-8?B?YS9BSWJyQ3FrNjNwSkVUSnNKbnkvL1A2eWxBbVdJMWJ4dkozVVdTNGRocGVV?=
+ =?utf-8?B?SVFBOWdMZytEMElIVklCMEdJajZ4N0dPOVJOLzQvL0hrRGxDbFJWRW9TOTlp?=
+ =?utf-8?B?MjdBUDdybkJNSGFyWnF5eGpDY2lXYVdZZTk4ZlBJRnk3RmpCZGtydz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 977a4de1-2034-4e72-2043-08da43ed50b9
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ecb2a7a-08d7-4b0b-fc6e-08da43ed618f
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 16:39:36.8841 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 16:40:05.1994 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9/r4c2ADecwoA0V4J4mqJ3d5RQJKJppgXf8UyN9B19xY96wZ9UtA00hylTf0UB8m
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3465
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kk7qagCUEZWAAyP5uTJfLXRJAZvTtNGClwXIbxR+JFLMiL11MZdZUEwAoBHk+/20f8pxPPcPsmnlmagdhzLsiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5745
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,219 +128,535 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------fR4H1lNtsKcarZm2SjeWWDN6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 2022-05-31 um 13:03 schrieb Ramesh Errabolu:
+> Extend KFD device topology to surface peer-to-peer links among
+> GPU devices connected over PCIe or xGMI. Enabling HSA_AMD_P2P is
+> REQUIRED to surface peer-to-peer links.
 
-Bas has the problem that CS implicitly waits for VM updates.
+This patch needs more of an explanation.
 
-Currently when you unmap a BO the operation will only be executed after 
-all the previously made CS are finished.
+Old upstream KFD did not expose to user mode any P2P links or indirect 
+links that go over two or more direct hops. Old versions of the Thunk 
+used to make up their own P2P and indirect links without the information 
+about peer-accessibility and chipset support available to the kernel 
+mode driver. In this patch we expose P2P links in a new sysfs directory 
+to provide more reliable P2P link information to user mode.
 
-Similar for mapping BOs. The next CS will only start after all the 
-pending page table updates are completed.
+Old versions of the Thunk will continue to work as before and ignore the 
+new directory. This avoids conflicts between P2P links exposed by KFD 
+and P2P links created by the Thunk itself. New versions of the Thunk 
+will use only the P2P links provided in the new p2p_links directory, if 
+it exists, or fall back to the old code path on older KFDs that don't 
+expose p2p_links.
 
-The mapping case was already handled by my prototype patch set, but the 
-unmapping case still hurts a bit.
+See more comments inline.
 
-This implicit sync between CS and map/unmap operations can really hurt 
-the performance of applications which massively use PRTs.
+
+>
+> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 332 +++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   3 +
+>   2 files changed, 333 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 8d50d207cf66..6bdc22d6f6ab 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -40,6 +40,7 @@
+>   #include "kfd_svm.h"
+>   #include "amdgpu_amdkfd.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu.h"
+>   
+>   /* topology_device_list - Master list of all topology devices */
+>   static struct list_head topology_device_list;
+> @@ -148,6 +149,7 @@ static void kfd_release_topology_device(struct kfd_topology_device *dev)
+>   	struct kfd_mem_properties *mem;
+>   	struct kfd_cache_properties *cache;
+>   	struct kfd_iolink_properties *iolink;
+> +	struct kfd_iolink_properties *p2plink;
+>   	struct kfd_perf_properties *perf;
+>   
+>   	list_del(&dev->list);
+> @@ -173,6 +175,13 @@ static void kfd_release_topology_device(struct kfd_topology_device *dev)
+>   		kfree(iolink);
+>   	}
+>   
+> +	while (dev->p2p_link_props.next != &dev->p2p_link_props) {
+> +		p2plink = container_of(dev->p2p_link_props.next,
+> +				struct kfd_iolink_properties, list);
+> +		list_del(&p2plink->list);
+> +		kfree(p2plink);
+> +	}
+> +
+>   	while (dev->perf_props.next != &dev->perf_props) {
+>   		perf = container_of(dev->perf_props.next,
+>   				struct kfd_perf_properties, list);
+> @@ -214,6 +223,7 @@ struct kfd_topology_device *kfd_create_topology_device(
+>   	INIT_LIST_HEAD(&dev->mem_props);
+>   	INIT_LIST_HEAD(&dev->cache_props);
+>   	INIT_LIST_HEAD(&dev->io_link_props);
+> +	INIT_LIST_HEAD(&dev->p2p_link_props);
+>   	INIT_LIST_HEAD(&dev->perf_props);
+>   
+>   	list_add_tail(&dev->list, device_list);
+> @@ -465,6 +475,8 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+>   			      dev->node_props.caches_count);
+>   	sysfs_show_32bit_prop(buffer, offs, "io_links_count",
+>   			      dev->node_props.io_links_count);
+> +	sysfs_show_32bit_prop(buffer, offs, "p2p_links_count",
+> +			      dev->node_props.p2p_links_count);
+>   	sysfs_show_32bit_prop(buffer, offs, "cpu_core_id_base",
+>   			      dev->node_props.cpu_core_id_base);
+>   	sysfs_show_32bit_prop(buffer, offs, "simd_id_base",
+> @@ -568,6 +580,7 @@ static void kfd_remove_sysfs_file(struct kobject *kobj, struct attribute *attr)
+>   
+>   static void kfd_remove_sysfs_node_entry(struct kfd_topology_device *dev)
+>   {
+> +	struct kfd_iolink_properties *p2plink;
+>   	struct kfd_iolink_properties *iolink;
+>   	struct kfd_cache_properties *cache;
+>   	struct kfd_mem_properties *mem;
+> @@ -585,6 +598,18 @@ static void kfd_remove_sysfs_node_entry(struct kfd_topology_device *dev)
+>   		dev->kobj_iolink = NULL;
+>   	}
+>   
+> +	if (dev->kobj_p2plink) {
+> +		list_for_each_entry(p2plink, &dev->p2p_link_props, list)
+> +			if (p2plink->kobj) {
+> +				kfd_remove_sysfs_file(p2plink->kobj,
+> +							&p2plink->attr);
+> +				p2plink->kobj = NULL;
+> +			}
+> +		kobject_del(dev->kobj_p2plink);
+> +		kobject_put(dev->kobj_p2plink);
+> +		dev->kobj_p2plink = NULL;
+> +	}
+> +
+>   	if (dev->kobj_cache) {
+>   		list_for_each_entry(cache, &dev->cache_props, list)
+>   			if (cache->kobj) {
+> @@ -631,6 +656,7 @@ static void kfd_remove_sysfs_node_entry(struct kfd_topology_device *dev)
+>   static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
+>   		uint32_t id)
+>   {
+> +	struct kfd_iolink_properties *p2plink;
+>   	struct kfd_iolink_properties *iolink;
+>   	struct kfd_cache_properties *cache;
+>   	struct kfd_mem_properties *mem;
+> @@ -668,6 +694,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
+>   	if (!dev->kobj_iolink)
+>   		return -ENOMEM;
+>   
+> +	dev->kobj_p2plink = kobject_create_and_add("p2p_links", dev->kobj_node);
+> +	if (!dev->kobj_p2plink)
+> +		return -ENOMEM;
+> +
+>   	dev->kobj_perf = kobject_create_and_add("perf", dev->kobj_node);
+>   	if (!dev->kobj_perf)
+>   		return -ENOMEM;
+> @@ -757,6 +787,27 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
+>   		i++;
+>   	}
+>   
+> +	i = 0;
+> +	list_for_each_entry(p2plink, &dev->p2p_link_props, list) {
+> +		p2plink->kobj = kzalloc(sizeof(struct kobject), GFP_KERNEL);
+> +		if (!p2plink->kobj)
+> +			return -ENOMEM;
+> +		ret = kobject_init_and_add(p2plink->kobj, &iolink_type,
+> +				dev->kobj_p2plink, "%d", i);
+> +		if (ret < 0) {
+> +			kobject_put(p2plink->kobj);
+> +			return ret;
+> +		}
+> +
+> +		p2plink->attr.name = "properties";
+> +		p2plink->attr.mode = KFD_SYSFS_FILE_MODE;
+> +		sysfs_attr_init(&iolink->attr);
+> +		ret = sysfs_create_file(p2plink->kobj, &p2plink->attr);
+> +		if (ret < 0)
+> +			return ret;
+> +		i++;
+> +	}
+> +
+>   	/* All hardware blocks have the same number of attributes. */
+>   	num_attrs = ARRAY_SIZE(perf_attr_iommu);
+>   	list_for_each_entry(perf, &dev->perf_props, list) {
+> @@ -1145,6 +1196,7 @@ static struct kfd_topology_device *kfd_assign_gpu(struct kfd_dev *gpu)
+>   	struct kfd_mem_properties *mem;
+>   	struct kfd_cache_properties *cache;
+>   	struct kfd_iolink_properties *iolink;
+> +	struct kfd_iolink_properties *p2plink;
+>   
+>   	down_write(&topology_lock);
+>   	list_for_each_entry(dev, &topology_device_list, list) {
+> @@ -1165,6 +1217,8 @@ static struct kfd_topology_device *kfd_assign_gpu(struct kfd_dev *gpu)
+>   				cache->gpu = dev->gpu;
+>   			list_for_each_entry(iolink, &dev->io_link_props, list)
+>   				iolink->gpu = dev->gpu;
+> +			list_for_each_entry(p2plink, &dev->p2p_link_props, list)
+> +				p2plink->gpu = dev->gpu;
+>   			break;
+>   		}
+>   	}
+> @@ -1287,6 +1341,248 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+>   			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
+>   		}
+>   	}
+> +
+> +	/* Create indirect links so apply flags setting to all */
+> +	list_for_each_entry(link, &dev->p2p_link_props, list) {
+> +		link->flags = CRAT_IOLINK_FLAGS_ENABLED;
+> +		kfd_set_iolink_no_atomics(dev, NULL, link);
+> +		peer_dev = kfd_topology_device_by_proximity_domain(
+> +				link->node_to);
+> +
+> +		if (!peer_dev)
+> +			continue;
+> +
+> +		list_for_each_entry(inbound_link, &peer_dev->p2p_link_props,
+> +									list) {
+> +			if (inbound_link->node_to != link->node_from)
+> +				continue;
+> +
+> +			inbound_link->flags = CRAT_IOLINK_FLAGS_ENABLED;
+> +			kfd_set_iolink_no_atomics(peer_dev, dev, inbound_link);
+> +			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
+> +		}
+> +	}
+> +}
+> +
+> +static int kfd_build_p2p_node_entry(struct kfd_topology_device *dev,
+> +				struct kfd_iolink_properties *p2plink)
+> +{
+> +	int ret;
+> +
+> +	p2plink->kobj = kzalloc(sizeof(struct kobject), GFP_KERNEL);
+> +	if (!p2plink->kobj)
+> +		return -ENOMEM;
+> +
+> +	ret = kobject_init_and_add(p2plink->kobj, &iolink_type,
+> +			dev->kobj_p2plink, "%d", dev->node_props.p2p_links_count - 1);
+> +	if (ret < 0) {
+> +		kobject_put(p2plink->kobj);
+> +		return ret;
+> +	}
+> +
+> +	p2plink->attr.name = "properties";
+> +	p2plink->attr.mode = KFD_SYSFS_FILE_MODE;
+> +	sysfs_attr_init(&p2plink->attr);
+> +	ret = sysfs_create_file(p2plink->kobj, &p2plink->attr);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int kfd_create_in_direct_link_prop(struct kfd_topology_device *kdev, int gpu_node)
+> +{
+> +	struct kfd_iolink_properties *props = NULL, *props2 = NULL;
+> +	struct kfd_iolink_properties *gpu_link, *cpu_link;
+> +	struct kfd_topology_device *cpu_dev;
+> +	int ret = 0;
+> +	int i, num_cpu;
+> +
+> +	num_cpu = 0;
+> +	list_for_each_entry(cpu_dev, &topology_device_list, list) {
+> +		if (cpu_dev->gpu)
+> +			break;
+> +		num_cpu++;
+> +	}
+> +
+> +	gpu_link = list_first_entry(&kdev->io_link_props,
+> +					struct kfd_iolink_properties, list);
+> +	if (!gpu_link)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < num_cpu; i++) {
+> +		/* CPU <--> GPU */
+> +		if (gpu_link->node_to == i)
+> +			continue;
+> +
+> +		/* find CPU <-->  CPU links */
+> +		cpu_dev = kfd_topology_device_by_proximity_domain(i);
+> +		if (cpu_dev) {
+> +			list_for_each_entry(cpu_link,
+> +					&cpu_dev->io_link_props, list) {
+> +				if (cpu_link->node_to == gpu_link->node_to)
+> +					break;
+> +			}
+> +		}
+> +
+> +		if (cpu_link->node_to != gpu_link->node_to)
+> +			return -ENOMEM;
+> +
+> +		/* CPU <--> CPU <--> GPU, GPU node*/
+> +		props = kfd_alloc_struct(props);
+> +		if (!props)
+> +			return -ENOMEM;
+> +
+> +		memcpy(props, gpu_link, sizeof(struct kfd_iolink_properties));
+> +		props->weight = gpu_link->weight + cpu_link->weight;
+> +		props->min_latency = gpu_link->min_latency + cpu_link->min_latency;
+> +		props->max_latency = gpu_link->max_latency + cpu_link->max_latency;
+> +		props->min_bandwidth = min(gpu_link->min_bandwidth, cpu_link->min_bandwidth);
+> +		props->max_bandwidth = min(gpu_link->max_bandwidth, cpu_link->max_bandwidth);
+> +
+> +		props->node_from = gpu_node;
+> +		props->node_to = i;
+> +		kdev->node_props.p2p_links_count++;
+> +		list_add_tail(&props->list, &kdev->p2p_link_props);
+> +		ret = kfd_build_p2p_node_entry(kdev, props);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		/* for small Bar, no CPU --> GPU in-direct links */
+> +		if (kfd_dev_is_large_bar(kdev->gpu)) {
+> +			/* CPU <--> CPU <--> GPU, CPU node*/
+> +			props2 = kfd_alloc_struct(props2);
+> +			if (!props2)
+> +				return -ENOMEM;
+> +
+> +			memcpy(props2, props, sizeof(struct kfd_iolink_properties));
+> +			props2->node_from = i;
+> +			props2->node_to = gpu_node;
+> +			props2->kobj = NULL;
+> +			cpu_dev->node_props.p2p_links_count++;
+> +			list_add_tail(&props2->list, &cpu_dev->p2p_link_props);
+> +			ret = kfd_build_p2p_node_entry(cpu_dev, props2);
+> +			if (ret < 0)
+> +				return ret;
+> +		}
+> +	}
+> +	return ret;
+> +}
+> +
+> +static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
+> +		struct kfd_topology_device *peer, int from, int to)
+
+If P2P is not enabled, the compiler will give you a warning here about 
+an unused static function. This whole function should be guarded by an 
+#ifdef.
+
+
+> +{
+> +	struct kfd_iolink_properties *props = NULL;
+> +	struct kfd_iolink_properties *iolink1, *iolink2, *iolink3;
+> +	struct kfd_topology_device *cpu_dev;
+> +	int ret = 0;
+> +
+> +	if (!amdgpu_device_is_peer_accessible(
+> +				kdev->gpu->adev,
+> +				peer->gpu->adev))
+> +		return ret;
+> +
+> +	iolink1 = list_first_entry(&kdev->io_link_props,
+> +							struct kfd_iolink_properties, list);
+> +	if (!iolink1)
+> +		return -ENOMEM;
+> +
+> +	iolink2 = list_first_entry(&peer->io_link_props,
+> +							struct kfd_iolink_properties, list);
+> +	if (!iolink2)
+> +		return -ENOMEM;
+> +
+> +	props = kfd_alloc_struct(props);
+> +	if (!props)
+> +		return -ENOMEM;
+> +
+> +	memcpy(props, iolink1, sizeof(struct kfd_iolink_properties));
+> +
+> +	props->weight = iolink1->weight + iolink2->weight;
+> +	props->min_latency = iolink1->min_latency + iolink2->min_latency;
+> +	props->max_latency = iolink1->max_latency + iolink2->max_latency;
+> +	props->min_bandwidth = min(iolink1->min_bandwidth, iolink2->min_bandwidth);
+> +	props->max_bandwidth = min(iolink2->max_bandwidth, iolink2->max_bandwidth);
+> +
+> +	if (iolink1->node_to != iolink2->node_to) {
+> +		/* CPU->CPU  link*/
+> +		cpu_dev = kfd_topology_device_by_proximity_domain(iolink1->node_to);
+> +		if (cpu_dev) {
+> +			list_for_each_entry(iolink3, &cpu_dev->io_link_props, list)
+> +				if (iolink3->node_to == iolink2->node_to)
+> +					break;
+> +
+> +			props->weight += iolink3->weight;
+> +			props->min_latency += iolink3->min_latency;
+> +			props->max_latency += iolink3->max_latency;
+> +			props->min_bandwidth = min(props->min_bandwidth,
+> +							iolink3->min_bandwidth);
+> +			props->max_bandwidth = min(props->max_bandwidth,
+> +							iolink3->max_bandwidth);
+> +		} else {
+> +			WARN(1, "CPU node not found");
+> +		}
+> +	}
+> +
+> +	props->node_from = from;
+> +	props->node_to = to;
+> +	peer->node_props.p2p_links_count++;
+> +	list_add_tail(&props->list, &peer->p2p_link_props);
+> +	ret = kfd_build_p2p_node_entry(peer, props);
+> +
+> +	return ret;
+> +}
+> +
+> +static int kfd_dev_create_p2p_links(void)
+> +{
+> +	struct kfd_topology_device *dev;
+> +	struct kfd_topology_device *new_dev;
+> +	uint32_t i, k;
+> +	int ret = 0;
+> +
+> +	k = 0;
+> +	list_for_each_entry(dev, &topology_device_list, list)
+> +		k++;
+> +	if (k < 2)
+> +		return 0;
+> +
+> +	new_dev = list_last_entry(&topology_device_list, struct kfd_topology_device, list);
+> +	if (WARN_ON(!new_dev->gpu))
+> +		return 0;
+> +
+> +	k--;
+> +	i = 0;
+> +
+> +	/* create in-direct links */
+> +	ret = kfd_create_in_direct_link_prop(new_dev, k);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	/* create p2p links */
+> +#if defined(CONFIG_HSA_AMD_P2P)
+> +	list_for_each_entry(dev, &topology_device_list, list) {
+> +		if (dev == new_dev)
+> +			break;
+> +		if (!dev->gpu || !dev->gpu->adev ||
+> +		    (dev->gpu->hive_id &&
+> +		     dev->gpu->hive_id == new_dev->gpu->hive_id))
+> +			goto next;
+> +
+> +		/* check if node(s) is/are peer accessible in one direction or bi-direction */
+> +		ret = kfd_add_peer_prop(new_dev, dev, i, k);
+> +		if (ret < 0)
+> +			goto out;
+> +
+> +		ret = kfd_add_peer_prop(dev, new_dev, k, i);
+> +		if (ret < 0)
+> +			goto out;
+> +next:
+> +		i++;
+> +	}
+> +#endif
+> +
+> +out:
+> +	return ret;
+>   }
+>   
+>   int kfd_topology_add_device(struct kfd_dev *gpu)
+> @@ -1305,9 +1601,23 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   	INIT_LIST_HEAD(&temp_topology_device_list);
+>   
+>   	gpu_id = kfd_generate_gpu_id(gpu);
+> -
+>   	pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
+>   
+> +	/* Include the CPU in xGMI hive if xGMI connected by assigning it the hive ID. */
+
+This looks like an unrelated change that should probably have been 
+upstreamed separately.
 
 Regards,
-Christian.
+   Felix
 
-Am 01.06.22 um 18:27 schrieb Marek Olšák:
-> Can you please summarize what this is about?
->
-> Thanks,
-> Marek
->
-> On Wed, Jun 1, 2022 at 8:40 AM Christian König 
-> <christian.koenig@amd.com> wrote:
->
->     Hey guys,
->
->     so today Bas came up with a new requirement regarding the explicit
->     synchronization to VM updates and a bunch of prototype patches.
->
->     I've been thinking about that stuff for quite some time before,
->     but to
->     be honest it's one of the most trickiest parts of the driver.
->
->     So my current thinking is that we could potentially handle those
->     requirements like this:
->
->     1. We add some new EXPLICIT flag to context (or CS?) and VM IOCTL.
->     This
->     way we either get the new behavior for the whole CS+VM or the old
->     one,
->     but never both mixed.
->
->     2. When memory is unmapped we keep around the last unmap operation
->     inside the bo_va.
->
->     3. When memory is freed we add all the CS fences which could
->     access that
->     memory + the last unmap operation as BOOKKEEP fences to the BO and as
->     mandatory sync fence to the VM.
->
->     Memory freed either because of an eviction or because of userspace
->     closing the handle will be seen as a combination of unmap+free.
->
->
->     The result is the following semantic for userspace to avoid implicit
->     synchronization as much as possible:
->
->     1. When you allocate and map memory it is mandatory to either wait
->     for
->     the mapping operation to complete or to add it as dependency for
->     your CS.
->          If this isn't followed the application will run into CS faults
->     (that's what we pretty much already implemented).
->
->     2. When memory is freed you must unmap that memory first and then
->     wait
->     for this unmap operation to complete before freeing the memory.
->          If this isn't followed the kernel will add a forcefully wait
->     to the
->     next CS to block until the unmap is completed.
->
->     3. All VM operations requested by userspace will still be executed in
->     order, e.g. we can't run unmap + map in parallel or something like
->     this.
->
->     Is that something you guys can live with? As far as I can see it
->     should
->     give you the maximum freedom possible, but is still doable.
->
->     Regards,
->     Christian.
->
 
---------------fR4H1lNtsKcarZm2SjeWWDN6
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Bas has the problem that CS implicitly waits for VM updates.<br>
-    <br>
-    Currently when you unmap a BO the operation will only be executed
-    after all the previously made CS are finished.<br>
-    <br>
-    Similar for mapping BOs. The next CS will only start after all the
-    pending page table updates are completed.<br>
-    <br>
-    The mapping case was already handled by my prototype patch set, but
-    the unmapping case still hurts a bit.<br>
-    <br>
-    This implicit sync between CS and map/unmap operations can really
-    hurt the performance of applications which massively use PRTs.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 01.06.22 um 18:27 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com">
-      
-      <div dir="ltr">
-        <div>Can you please summarize what this is about?</div>
-        <div><br>
-        </div>
-        <div>Thanks,</div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Wed, Jun 1, 2022 at 8:40 AM
-          Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hey
-          guys,<br>
-          <br>
-          so today Bas came up with a new requirement regarding the
-          explicit <br>
-          synchronization to VM updates and a bunch of prototype
-          patches.<br>
-          <br>
-          I've been thinking about that stuff for quite some time
-          before, but to <br>
-          be honest it's one of the most trickiest parts of the driver.<br>
-          <br>
-          So my current thinking is that we could potentially handle
-          those <br>
-          requirements like this:<br>
-          <br>
-          1. We add some new EXPLICIT flag to context (or CS?) and VM
-          IOCTL. This <br>
-          way we either get the new behavior for the whole CS+VM or the
-          old one, <br>
-          but never both mixed.<br>
-          <br>
-          2. When memory is unmapped we keep around the last unmap
-          operation <br>
-          inside the bo_va.<br>
-          <br>
-          3. When memory is freed we add all the CS fences which could
-          access that <br>
-          memory + the last unmap operation as BOOKKEEP fences to the BO
-          and as <br>
-          mandatory sync fence to the VM.<br>
-          <br>
-          Memory freed either because of an eviction or because of
-          userspace <br>
-          closing the handle will be seen as a combination of
-          unmap+free.<br>
-          <br>
-          <br>
-          The result is the following semantic for userspace to avoid
-          implicit <br>
-          synchronization as much as possible:<br>
-          <br>
-          1. When you allocate and map memory it is mandatory to either
-          wait for <br>
-          the mapping operation to complete or to add it as dependency
-          for your CS.<br>
-          &nbsp;&nbsp;&nbsp;&nbsp; If this isn't followed the application will run into CS
-          faults <br>
-          (that's what we pretty much already implemented).<br>
-          <br>
-          2. When memory is freed you must unmap that memory first and
-          then wait <br>
-          for this unmap operation to complete before freeing the
-          memory.<br>
-          &nbsp;&nbsp;&nbsp;&nbsp; If this isn't followed the kernel will add a forcefully
-          wait to the <br>
-          next CS to block until the unmap is completed.<br>
-          <br>
-          3. All VM operations requested by userspace will still be
-          executed in <br>
-          order, e.g. we can't run unmap + map in parallel or something
-          like this.<br>
-          <br>
-          Is that something you guys can live with? As far as I can see
-          it should <br>
-          give you the maximum freedom possible, but is still doable.<br>
-          <br>
-          Regards,<br>
-          Christian.<br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------fR4H1lNtsKcarZm2SjeWWDN6--
+> +	if (gpu->hive_id && gpu->adev->gmc.xgmi.connected_to_cpu) {
+> +		struct kfd_topology_device *top_dev;
+> +
+> +		down_read(&topology_lock);
+> +
+> +		list_for_each_entry(top_dev, &topology_device_list, list) {
+> +			if (top_dev->gpu)
+> +				break;
+> +			top_dev->node_props.hive_id = gpu->hive_id;
+> +		}
+> +
+> +		up_read(&topology_lock);
+> +	}
+> +
+>   	/* Check to see if this gpu device exists in the topology_device_list.
+>   	 * If so, assign the gpu to that device,
+>   	 * else create a Virtual CRAT for this gpu device and then parse that
+> @@ -1362,6 +1672,8 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   	dev->gpu_id = gpu_id;
+>   	gpu->id = gpu_id;
+>   
+> +	kfd_dev_create_p2p_links();
+> +
+>   	/* TODO: Move the following lines to function
+>   	 *	kfd_add_non_crat_information
+>   	 */
+> @@ -1507,7 +1819,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   static void kfd_topology_update_io_links(int proximity_domain)
+>   {
+>   	struct kfd_topology_device *dev;
+> -	struct kfd_iolink_properties *iolink, *tmp;
+> +	struct kfd_iolink_properties *iolink, *p2plink, *tmp;
+>   
+>   	list_for_each_entry(dev, &topology_device_list, list) {
+>   		if (dev->proximity_domain > proximity_domain)
+> @@ -1529,6 +1841,22 @@ static void kfd_topology_update_io_links(int proximity_domain)
+>   					iolink->node_to--;
+>   			}
+>   		}
+> +
+> +		list_for_each_entry_safe(p2plink, tmp, &dev->p2p_link_props, list) {
+> +			/*
+> +			 * If there is a p2p link to the dev being deleted
+> +			 * then remove that p2p link also.
+> +			 */
+> +			if (p2plink->node_to == proximity_domain) {
+> +				list_del(&p2plink->list);
+> +				dev->node_props.p2p_links_count--;
+> +			} else {
+> +				if (p2plink->node_from > proximity_domain)
+> +					p2plink->node_from--;
+> +				if (p2plink->node_to > proximity_domain)
+> +					p2plink->node_to--;
+> +			}
+> +		}
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> index 4f80d2ea1000..2fb5664e1041 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> @@ -38,6 +38,7 @@ struct kfd_node_properties {
+>   	uint32_t mem_banks_count;
+>   	uint32_t caches_count;
+>   	uint32_t io_links_count;
+> +	uint32_t p2p_links_count;
+>   	uint32_t cpu_core_id_base;
+>   	uint32_t simd_id_base;
+>   	uint32_t capability;
+> @@ -131,12 +132,14 @@ struct kfd_topology_device {
+>   	struct list_head		cache_props;
+>   	uint32_t			io_link_count;
+>   	struct list_head		io_link_props;
+> +	struct list_head		p2p_link_props;
+>   	struct list_head		perf_props;
+>   	struct kfd_dev			*gpu;
+>   	struct kobject			*kobj_node;
+>   	struct kobject			*kobj_mem;
+>   	struct kobject			*kobj_cache;
+>   	struct kobject			*kobj_iolink;
+> +	struct kobject			*kobj_p2plink;
+>   	struct kobject			*kobj_perf;
+>   	struct attribute		attr_gpuid;
+>   	struct attribute		attr_name;
