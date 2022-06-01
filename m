@@ -4,120 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FFA7C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 15:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92873C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 15:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9936D10E708;
-	Wed,  1 Jun 2022 15:05:24 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B69D10E404
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 15:05:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21B3A10E71B;
+	Wed,  1 Jun 2022 15:45:20 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF7B910E008
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 15:45:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g/qauIRnqnJGL85a4vSixqKWkWRQ/ha8/dGXx5A0wnDOq7J7qq6qLLhuhsVplykuV/oTE/PGHe/JLmi0S6B+hRwP4okyyqx5CxL0CKaS129ON3opIabDCZpmtxo20mg84WBjzFOiEnUJBDy68PW3zca401CM0vPtN8usnvtzj3gWN+2vH3EXuuKc+UuCIrkDiSJBWE8+9CKCal7mx4iIC4b9JdZukSUq6TCD+Fjrt7sW9ctecI/K/fG7ra2uECabRyuXT2wgitQZhj6DAwrEQiquRUjJH4NZMEVxNKysckjURmdxCxRmUOS5lWf3cB9UWZ83b42Dz9LlzBTHxcTMOg==
+ b=iPdUos+pmy+GpLbCkyln+kigfpUZOiTudryYMW5saSCItYvQNzINB+iBW9NW6dyqzFvxdBbcxyzDqGCv4W72q8oyQaImk9JJDoaZgJBvdpQWeVnvd3nfR9PKkVA0mamlmBOmSwmORilS0ht53ov7KGX4FLlzKDMLDrU9xwlyaO9V9yWa/+rZsgSveo2VCA8AQegVajyULyIdF0JqXnFVg7sPTZPjBWOalD6sA5PxFZd7Tdyovsufw7ewWAZLUGycIBgUnKxb5tDGgMdFe2CjrNZw1ElOpYI3zyfv8+cW/0uc0mVv30Yrr2OngBxrJuknYe+9J6I2uEHxAY84TH0roA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nkVGKbUxkuz4Vl49NikaTM7x3vPfqeRaHz80bo8pmwY=;
- b=i1TGYw2zZ0QlxzI+LbB3ODGZNrfhSIYgotkrwwQ3hc1aljWqYvKe6KiP0xv/fL/V/U0JGAfg9I3MdllzNmxXMHYMRTdhEHXspWKoipnxutVcQ5v7THBT9h8kIyvpc4rpoP5RNdRqmTL5sU2JIsGaL6Y3wxdvrqlY90YSHrJEm8WVJu+3cSGpqD+QK2zj2UG0CQHb2GKEEyGS9FgadtMzIEBxVoYO4fY9t5h67LJHXjEmSkkLc5jBTI3tXrZzVDdZgBm4A5zs5gnAlXJc9wE9ijNIkF57Jv9/6NH6mQikZDf0DBub+VfAsqX0RtAbUgTciNtVfttDGfMT7x+Ip+PmPQ==
+ bh=vXA3vcvp7c+rfHzgk8vQ6px7jWGeaf1SGqZmR0IkeWQ=;
+ b=U7XgF3l3loCwrfHEDsYTszc/z8m6xFNoTpEO5q4RXctSpWFjrRhw8wCCh2VmCPPtXT4lkraw7eJg5qmvFiTLUmA07XNtdlCNH8xuHz63FSZIHMW6TglmcfsR8kS8y4xUXuaf/0khmkpcaIQz/pzupu2k6weSzNSYn3lycyzpXfoGyZWVoEwOuUXfwZ8fdKFH9pvjd7VExkw4TB6qezXggQQ8zGC+CIovUtZmBiTV+P+5wVITs84OtVDVeJ3JtDFBPb9EitEC4Mph8O/7zDESvxEfHjjDQ+4bdkIrLmqg42Cy69wCDk53W+v0lkkf1xgCmU+nnsYg8uAkU3kPaytKNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nkVGKbUxkuz4Vl49NikaTM7x3vPfqeRaHz80bo8pmwY=;
- b=5KjGrxCmKgzl25lkPkc519rCkENxjb31mCR/ayQdgHct8RMs8FmywPaNmTXVbAYpRG2myMkzyPo6JtFZ/jhsQTOB5wL6GQc/VZWErvjPtQF+Ori2LrSNc4gp8DaNgRVSIIrxO0GbbiPvJmYvXbhAxjQ7nSGVQFau1Rpwoby7Ntc=
+ bh=vXA3vcvp7c+rfHzgk8vQ6px7jWGeaf1SGqZmR0IkeWQ=;
+ b=MVd5XriyPVQItQsMIIrAaq3eBgQVMKNpsTQKD0jQfkSz9mirRiVbdjdKlkgWZXoi/vATaufrE773bwozIQozMhLCsFbDwuCgD94ufqEqYdJlYi3MPs2VcZPv2iQy/mu/VK1wHCeKr5j1f0HNpYQULdX/NqZkG3m71uVymK5QiVE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL1PR12MB5031.namprd12.prod.outlook.com (2603:10b6:208:31a::5)
+ by CH2PR12MB5017.namprd12.prod.outlook.com (2603:10b6:610:36::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Wed, 1 Jun
- 2022 15:05:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.15; Wed, 1 Jun
+ 2022 15:45:16 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5314.013; Wed, 1 Jun 2022
- 15:05:21 +0000
-Message-ID: <022d86d0-6301-70da-f320-b17c4859443b@amd.com>
-Date: Wed, 1 Jun 2022 11:05:19 -0400
+ 15:45:16 +0000
+Message-ID: <f6d7a96a-1550-8513-8590-ebeb79943d08@amd.com>
+Date: Wed, 1 Jun 2022 11:45:14 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: Explicit VM updates
+Subject: Re: [PATCH 1/3] drm/amdkfd: Define config HSA_AMD_P2P to support
+ peer-to-peer
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "Olsak, Marek" <Marek.Olsak@amd.com>
-References: <293d9f72-c3e5-913d-08d1-0a8591299c46@amd.com>
+To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220531170237.809884-1-Ramesh.Errabolu@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <293d9f72-c3e5-913d-08d1-0a8591299c46@amd.com>
+In-Reply-To: <20220531170237.809884-1-Ramesh.Errabolu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0151.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::30) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT3PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::20) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1138178d-a0ee-4048-629e-08da43e025aa
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5031:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5031EEF96402C84E7D01A61992DF9@BL1PR12MB5031.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 4c58ec0f-b787-4765-1efc-08da43e5b97b
+X-MS-TrafficTypeDiagnostic: CH2PR12MB5017:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB5017F2B5821632D2484DDD6592DF9@CH2PR12MB5017.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PiTJbbuTo1lkgCMEgcI8wbEsldFjqUa0W9MjQ/nvyazBQ5PfVtZLhdBexM03f027NAq8XBWFB/DgGeo0OFB9rNr29VXzvVZVRAuR3Kki98AZ6JqAm8sM4we2gAnmM64XA8I1R7jzkD37PcTOnxQUpz7H9wpjVKcX1idXKpSFoBpfI58Y+jhU/Ht74B7npvKZZuHVPZgXD/Rn9opSwnKh/hCwgTXR0YF1OwOdVmVltkwpJ7JJZSyhK7CfyRT5+YUJgmoMMQWOZjMkCtYnVLWBvlPyUDPO+FDSVHguW2P2y9UrHP7fKLmD45Lu+nItLZFu+t2H79SkafWU5OnJkRbW1Em7d97mZjkQ/2pPBeqMq67wqweFmlbTK3jA1FAc2sCS0bdWNdqsXKdlQsONTbisVMDjTnLTUDiu8xehDEO1VoarKdJOJfmpvPiwMYSLYsxgJYkm5W+FgtRex3dV6avG6MlbtQyHKfw1iy7HKiXWnFG9ofCQ6IlcLh0O5mhm8aNTeCuY9B1t9BIMcaPPTlF1m4QbMrY5fejza/s1lFR+9N8mPgzM9JgcIwDvf9b/az0RBsh/Ad4ITVZbdg2fdAQZSBgsF2HUsWSqQeCCAFBW5GmTMHfH8CpuLThwSvAZ6t8aJQGf9K0WcIlC2xHtVK1Sa/xonmUJvNO4DcVkkd5rtlkD5wUPqSYIKecU4RLY0KVlCwXegZjImHxiE1D+rtWcVfNA0duj+eSnyfECnvKTDro=
+X-Microsoft-Antispam-Message-Info: VBI/U3EdZOsw0lugodXcllXSonSVLU0BpfLQyhkHUpelk/BMvtVjsYYAgk0UBd7IdR6xOQ/VSrW1SIqE4Y+akvIWgDWWxGO5CSMMgU4XMAV/XjonjOcGQstw9S5Qkr4XuJIfSRJei9F4CCyEvPsW37dYxldGnDDsTq+Bpy20PiTXrysp47rRjcwCyr2xlLAZs4IYakFDE6Zbr6qaZMUCgbDdBW9M0TEoy2L4NhBF7UiI2Aq5JnFqMlcdXluFtY1espQTtf8DFBZP5pUWk9B0Q0oLzxhat92Z7GbcPQLqwKI5zVz8xI4YbZTkka87TSKWyxiMC/g9KWK+Z5hXaDw4jprIM5mwUEHHdYTnwHfkAR70QLLgcG+qWZ+2CxS86wyTnBKPsPhKiZZfwn15KUSovQ473f2t/NQHkIESmv+Vjtk07GsAf379U/GN3U7aiqFBk8JvZjZJh1mX9+Z0fkHWgFvhKap/iMJZ49vg92DGJ3uNQilnU8OsQzqY2BwdSBa8f4pVQfYuckNhHCsoaN8xa5lSbU4CI6dQLvMoBosq0tBTDe6Ut0hju7vKm/PYR82Gqk1Nq5kiyIJmF3GY4+Yvn9R33Gll+1wHUlX/i4R4gZEgcNbfwIZiCQDn3V1LrwSc16gQXqukXuWGKmWmlmxlpuBig5kA632VyecBVGDDq5kERePwExBzw6KJnLVpPJett1IYR88mwCLgcmDMF6eY++O7TvkGNovs/H3SHqJaKCcUtjMvPy15vbft7IRJQm97
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66574015)(26005)(2616005)(6506007)(31696002)(6486002)(86362001)(3480700007)(2906002)(31686004)(36756003)(110136005)(8676002)(38100700002)(4326008)(316002)(66946007)(66556008)(66476007)(6636002)(44832011)(7116003)(15650500001)(6512007)(186003)(83380400001)(5660300002)(8936002)(508600001)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(38100700002)(8936002)(186003)(8676002)(66476007)(66556008)(66946007)(2616005)(36756003)(6486002)(26005)(6512007)(6506007)(508600001)(316002)(86362001)(5660300002)(2906002)(31686004)(83380400001)(44832011)(31696002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzdYS1RYZXl2dEphTlVuRmgyazFVVzAvWCs3WmVvdTRKNlhoblpzWkpzcndY?=
- =?utf-8?B?OHl4MURvYVlneDlrRmJLWUdua1JSZUozZDBVcmtRK0RmalVpRVc3clh3K3NU?=
- =?utf-8?B?ekJnUkRvSGE5VjJtZm5lVVNUVERmUnpTZ0Z2NkRQWmpRWFNtQitkK2xaZ2Jj?=
- =?utf-8?B?djlVREd0OVF6NkVuMGlhR2tpMjlmWExxNVZzalNOVWRhZDZUZ0dJSitoWGY3?=
- =?utf-8?B?eW02Y3N4WUt6c0hncjluTi94TzFoWTFyWWt1ZWs5OXgxbXp1aU1jU2NWbUZC?=
- =?utf-8?B?d281bk50QmpnZjhBd2FMd28zT2R2RnlLWTdFZ3VIYis5TEZGUmltY0k0Rkhv?=
- =?utf-8?B?OUhCcVExQWYrVVRzb09kcER5VzltL3NVODN5SkZQaHpqWEk1ZzNWdXFOWkhJ?=
- =?utf-8?B?MW5iMU1qWDVwdlVhZ3JTWGt2R1hYSzJsY2dhcExXd1B6ZGYzUlFIeEIvK2JY?=
- =?utf-8?B?MFV0QzhLR3VBcUZzRTN2SjhnejV4TmNTZEJQMVRkaStYV1dVZTUyK1RFV3pq?=
- =?utf-8?B?Y1hzQWM5T3R1RmF0U3hKMDVDeTZJS2JDUG1pU2ttSk9kY2dnYVRpNHJDcEc1?=
- =?utf-8?B?WXRvOHVRUE1rKzFidk5zTVdYQ1ozdkRBTVRTUkpZRnhrUzBzY0VEVnk0Yi9G?=
- =?utf-8?B?VUZGZTJiRXlSdFR0Nmp4RWdQZGdQR1U5TUxqeG41RVZjUjVRaU8yNmIvcWlS?=
- =?utf-8?B?V09PSDlVNVFEN05nNWJUdG5aYlJyYXRLcklHTjJwWlZ0SmpmMDVBQWwvUnBX?=
- =?utf-8?B?WnlUOFZLV003UVhpUys3SExvRkllOEFmVWVFQk5aMTlPM3hPc2ZJN0hKUjla?=
- =?utf-8?B?Q3JNUWNBTXoxdTBtUU9ERVRVVkFldjBvVDI0WEVNVjdSTHYvVGZERUVrTU9s?=
- =?utf-8?B?SUZoZWt5TmpqM25adHNJSjlIZVZnQ0pscGVQVGhnT0dLRytnOVNadWYrK0VS?=
- =?utf-8?B?Mi9Jc3had3pvb2IrZ0RSL2VsbE9DWEplN0hGZ3U1Uzc3S1dmdlBCMURUUzht?=
- =?utf-8?B?U3l2cndlbFVleUpNVzFBZElXOHdQcXUwQk9vQ3ArQjMweUMxek01d1czMjVM?=
- =?utf-8?B?b2d1Q3NESHdHZ2ZHYzJ6WVd5L1BYZm5qemtxVXJPaGV2WDlaY1lqb3FoOGRM?=
- =?utf-8?B?R1J3TDA5WER2clp3aG1kZzByYWJoUnVSd2RpWUFiZk4rZ2YzaDh1RHFTVVFp?=
- =?utf-8?B?MkNxL0x4UGl6VWROVnA1aC9jVVF2NnJobkFFVzNvY3Z0Rmk2R3I4Tk5yMHk0?=
- =?utf-8?B?enRwK0UzL2x5NURGeWZZTU1LYmoyT3JjdFVmeE1IRC85QXVjRDdabXQ1ekhK?=
- =?utf-8?B?a0M2MmFKYUZBalBDa25KcW9tUVZiVUw2WVVPNll2NkVnK3lnU3ZSazhTQXpC?=
- =?utf-8?B?ckpIME5qUStTbXE2OGQrMEhGK2lqUDdjd04vQklUNW16YmNMTkFzVDJDbE1E?=
- =?utf-8?B?WCt6SEhRb2ErRzRISDVRTFJXVzlEd1BkVTd5UDVJV2lnN0RJVnJkQlRkRUN5?=
- =?utf-8?B?bytqSURrTEhkUG9FM2hoclFDV0ExaE9oMDFTMGNQL1pOVk1iRndXLzQrQmdJ?=
- =?utf-8?B?UlVtd2RuY2FXOHJFbGJnRmd2eDJ2Ymd3R2VSMHJ0d3k3RWNWMEc2TlVVTEdq?=
- =?utf-8?B?T0EraTlpUUR2eFJaYmNuUEdZZmtBN3ZHU0MzVXRtT2RYWjVGMGpyMEc5c21L?=
- =?utf-8?B?VXBLRVI0WWhVWWtwL0ZRK2c1OWtMb2JzSiswYlh6eVB5S2NtK3EvQlZvNE1J?=
- =?utf-8?B?a3JzVlZhY3RvZlJ6RFBWZklreXlKa2FuNmd6cFcreGI5clh2bHRaTCt0WmRn?=
- =?utf-8?B?RlRQNERRQjduL1B4NUhpdFRURU5pQzZjZHlTTUFFdUpvMDVIeCtNOEhhdHNv?=
- =?utf-8?B?TzAwS1pmbjdwQXhXems3SmJQV2NPUVlEaXcxeWtZb2JiVk5kY21KQlBXNVJw?=
- =?utf-8?B?em54cnJQMnFFWXFCeFBMTzg5Z0tySkNyQW9sT2JLdko2NDZ4QWlCTlBNZ1B1?=
- =?utf-8?B?VXgwcXEzRkUwaWxzUEVYZHhCaGtLWXdJcmVSSEd5U21PMVN5MURyWmU0Nkts?=
- =?utf-8?B?bDR6UXVtbm9iK2JnL3gzbFE5V0YzeVpOMmhEcWZNR0hML0h5dTBxREVTK1Y1?=
- =?utf-8?B?VlY2bFcxNE51Z0htc2Q3NmI4Sm5aNlZuVTFmOWJvSkE0MHV1cHNaeVdwc1d6?=
- =?utf-8?B?ZVE5TFdXb3NIZ1Z4elU4alViNnJqa1kyOVQ0Qm5RNkxjVEJkK04yQzIvY2lq?=
- =?utf-8?B?empmQUw5Rjdxc2FmOWlMZVphUTZsMlI2cHQ4UmdZQnZJSXhQQU8rdm5DNHBY?=
- =?utf-8?B?ZDdOc2NYT0pKd2NwM0xBbDQ3YTNUeW9mRDFaVGV0M2I0YWc5bFlTZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SU11NkdVdU02ZjZhOURRV3hENGkzQ2F2WlNDRFlQYUNrbktCbXQyVC8xdGlW?=
+ =?utf-8?B?MGsxZURUS2pMbzdXQ0hhV2lQT1NlajBGOVV1ZEZKb1oyeXNsVE84VkpVdnBZ?=
+ =?utf-8?B?SkpDVjVaeGF1QmkyVDh3dzZXQlNkODREOFFja09jRVZHelNZc3FBaGVLM2l2?=
+ =?utf-8?B?WmtUUC9yMWprTlNnNldVNUkyS1FFMlZycWhWVVdiV1FDaGJhYTNkZjY3dnJI?=
+ =?utf-8?B?U3N6dlI1RktZVmcwNWN5TVo4VDZJYlVZVkE0ZlFLQU9yalRSUUtOYWpZZTlY?=
+ =?utf-8?B?RFJKeGg3d1JPMnhDeG5zWkhadkdXV2lCSHgwcHV1WEtud2lJanV1VGJvSEdi?=
+ =?utf-8?B?MFp0bzZlZkRVR000WTdJeTJ6YSttb0h4WUpvVENqaTduSkx1M1YrZGhzd2pi?=
+ =?utf-8?B?cHpPTDZ6VmhvYyt2anc2Uy80a1gzK3UyUyt4NU9RcWVJSU1vSWVGb1F4YkEr?=
+ =?utf-8?B?OVkzZi9vMU11YTV0ZndPdnFJcURkZ2ZuK1hBaGRUTjd3RkFzcXdWdCtvWDhH?=
+ =?utf-8?B?L0JoYy9JeFVkRUFZczBKTThJbDE1U0JJejBVb1lOL0VDVWVQaGFRbmVFOFBZ?=
+ =?utf-8?B?RDZmK3hPaFZkL3psanZaNzNqdGlHM1RzWTR1UkMzbkxhQVV0eU92N2VTQjVX?=
+ =?utf-8?B?T2Q3WEcyeTNQT2JPWW9kN0ltTU5KRkFrV3d4cjJGYzNTbHF2NW0zV2dEVkpa?=
+ =?utf-8?B?Qk4zd1NoV2hVTGNBMVlzdk5NRys3M1duc1RNQWhtTk9QaHFZeFFXUm1PNjM4?=
+ =?utf-8?B?amExZ3lRWSsvVmpQSTIxZXVGb2UybFhWSUN1Zlh6LzZDa1pJZGdYNW5RWjd5?=
+ =?utf-8?B?YlNJRXRWQlVBTGxXdHU4bXd6bTF1OXNtcFRrNmJ4MU9zZUcyRTlGYTNpWDN5?=
+ =?utf-8?B?d1R3c1JiRmxSUmhOeGg1UG55RFlqRVRSVEh1ZVZPNVFOd0ZzUG1LVHhWNUd3?=
+ =?utf-8?B?bEFLSEUvOEtDckFNZ3VzT3pRaTR0ZkNkVEZKRXlXUi9MbldqellmRXFCcGRy?=
+ =?utf-8?B?b29xWHZTY0FaczZVejliQlVyTEZqeVVTK1ZHSGs0QlJIRlhJaUtjMy9adXJw?=
+ =?utf-8?B?V2NpSTV6SkszdEJsbG9tQ3RoRWRkMHNTUnlrcFE5ZWJVV3NUdGdVckhKbzQx?=
+ =?utf-8?B?K2xMUG93OEVScWU0Yy9XbVhmMlJxMXF0OTIwS2tQci8vY053QXRGVVpJSzhV?=
+ =?utf-8?B?YlRKellGZXJLQVJDWFZaM3pzMVJoTXVTZWp1diswbUJwSUszYXpSZUJSUGxJ?=
+ =?utf-8?B?ZmR1V3JWdTRqWHBhckMvWHNnL09YNTgyaTdPQnNacEUxL1U3TXlacWRiSTJq?=
+ =?utf-8?B?ZGpocldFMDIvaGNoaWNqbVRrTlA2Q1VnOVRiS0NCbHRvTnVSdmtpbk1xTW1y?=
+ =?utf-8?B?ZHVVeVgrMWNJNlVrbC82Y3FHWU82MjhPRVdMQ0JnODI2QWJOUy9PUU9KT0o0?=
+ =?utf-8?B?TngyVFpYQkJtZ2p6WkZmVm1qM2wrSzBMaDlhYk5rcXhyVDREWW9sU0NYRmR1?=
+ =?utf-8?B?czBCcVFBTkJvR1hoNDd3cWRtczY2enJVZjBkOEpCa1lBZnpicW1waW41ZGVJ?=
+ =?utf-8?B?cTNWU1pKSXdIaWpvNUh3YXhrREhSNzBzakZRK3c0a1FRaUFrb3hreGVIdjRt?=
+ =?utf-8?B?MklKVENsalVZRE5teFdOeitlbXlHN2ZXZTdkamp0ZWliRXd3VlVzS096Z1U3?=
+ =?utf-8?B?dUx0OG12ZVVrTUxhS3BNWit1OGVQS0hwOEtpTE45UldVOENhT2ZmRmUwT3d6?=
+ =?utf-8?B?bW56QkFTYWdoa0x5T3JMRnM3Q3o2NXhtbzZHVmZLOXBjUUlTeHIxMzIwY05G?=
+ =?utf-8?B?Zy8rUEdGR09kUUZ6L1lPODFMZ2hjVUs4RlgxRmJPNGVpLzVWUENCV0QvUWFp?=
+ =?utf-8?B?bHNRalBVc1I4UUdyZWNsMmpyN2FrcTBuc1U5QTZVckpNWDJEc1l0MnhYdjdH?=
+ =?utf-8?B?ZStReGNtTktZRjZkRlhESHFWMHNsUUZMUWQyTWltZlRoZStTRmQ3Qm5JUklL?=
+ =?utf-8?B?WlNRWGZDS2FlVzlTTmp3c0pTYU0zemxqMEpyZWFhVXZ0emxKSzVoMDkyc0lP?=
+ =?utf-8?B?cFhaR0xtM3dUUUYrTWJwRXVaUmJNRFozSTg1WFpvb09TVTcxd04vZDJ6ZUtX?=
+ =?utf-8?B?T2E3OXU1QTcxTzdqME9hMXFlY2J6Q2ZqdFoza3hvQ2Uzek5SMU9rMStTTDdL?=
+ =?utf-8?B?aGFKVUFIK0xGYW85NHl5eUh0U1MrUEZpa1Y0cUxoM3R2OUwxbEVFN3dMZkhB?=
+ =?utf-8?B?dUpKQVcyekdFbURYVlJ2NDlUSng5dkVVaXAxc1dLN055Mm1oS1VSWGJkamhG?=
+ =?utf-8?B?UXhoZDU1Qm1lZXpEMXB2MExxVkxhNlRVN3g1d2pnVkFmb1VEWFltQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1138178d-a0ee-4048-629e-08da43e025aa
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c58ec0f-b787-4765-1efc-08da43e5b97b
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 15:05:21.0786 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 15:45:16.6021 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: af0x8IuJPjxyMi78FdTJfv0dw4OFAc5JeSO0f1uqrIid8NGSKpQFuK/PvljFPoRlebYUoSFPhVJ7oHSd5wloSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5031
+X-MS-Exchange-CrossTenant-UserPrincipalName: za8TEEJeyc9nHEHGPiLCZjpRATjoeqMPh2HMZJBB45BPF6rGaqYBRytyNVqjo9AVAuAmQbvsKbspzNKqcrKqcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5017
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,76 +128,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2022-05-31 um 13:02 schrieb Ramesh Errabolu:
+> Extend current kernel config requirements of amdgpu by adding
+> config HSA_AMD_P2P. Enabling HSA_AMD_P2P is REQUIRED to support
+> peer-to-peer communication, in both data and control planes, among
+> AMD GPU devices that are connected via PCIe and have large BAR vBIOS
+>
+> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/Kconfig | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+> index 8cc0a76ddf9f..26614f5f20ea 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+> @@ -25,3 +25,11 @@ config HSA_AMD_SVM
+>   	  preemptions and one based on page faults. To enable page fault
+>   	  based memory management on most GFXv9 GPUs, set the module
+>   	  parameter amdgpu.noretry=0.
+> +
+> +config HSA_AMD_P2P
+> +	bool "HSA kernel driver support for peer-to-peer for AMD GPU devices"
+> +	depends on HSA_AMD && PCI_P2PDMA && DMABUF_MOVE_NOTIFY
+> +	help
+> +	  Enable this if you want to access AMD GPU peer devices, in both data
+> +	  and control planes, that are connected via PCIe and have large BAR vBIOS
 
-Am 2022-06-01 um 08:40 schrieb Christian König:
-> Hey guys,
->
-> so today Bas came up with a new requirement regarding the explicit 
-> synchronization to VM updates and a bunch of prototype patches.
->
-> I've been thinking about that stuff for quite some time before, but to 
-> be honest it's one of the most trickiest parts of the driver.
->
-> So my current thinking is that we could potentially handle those 
-> requirements like this:
->
-> 1. We add some new EXPLICIT flag to context (or CS?) and VM IOCTL. 
-> This way we either get the new behavior for the whole CS+VM or the old 
-> one, but never both mixed.
->
-> 2. When memory is unmapped we keep around the last unmap operation 
-> inside the bo_va.
->
-> 3. When memory is freed we add all the CS fences which could access 
-> that memory + the last unmap operation as BOOKKEEP fences to the BO 
-> and as mandatory sync fence to the VM.
->
-> Memory freed either because of an eviction or because of userspace 
-> closing the handle will be seen as a combination of unmap+free.
->
->
-> The result is the following semantic for userspace to avoid implicit 
-> synchronization as much as possible:
->
-> 1. When you allocate and map memory it is mandatory to either wait for 
-> the mapping operation to complete or to add it as dependency for your CS.
->     If this isn't followed the application will run into CS faults 
-> (that's what we pretty much already implemented).
+I have not seen the terms "data plane" and "control plane" used in the 
+context of GPUs. As far as I can tell, this terminology is more common 
+in the context network routing. I think it could cause confusion to 
+introduce these terms without an explanation to users.
 
-This makes sense.
+The sentence "... if you want to access AMD GPU peer devices ..." seems 
+to address someone writing an application. This help message is meant 
+for users and admins building a kernel, who may want to run compute 
+applications, not for compute application developers.
 
+I would also not mention large-BAR VBIOSes because the BAR can often be 
+resized even with a small-BAR VBIOS.
 
->
-> 2. When memory is freed you must unmap that memory first and then wait 
-> for this unmap operation to complete before freeing the memory.
->     If this isn't followed the kernel will add a forcefully wait to 
-> the next CS to block until the unmap is completed.
+Therefore I would recommend an alternative text here that avoids 
+uncommon terminology and addresses the concerns of users rather than 
+application developers:
 
-This would work for now, but it won't work for user mode submission in 
-the future. I find it weird that user mode needs to wait for the unmap. 
-For user mode, unmap and free should always be asynchronous. I can't 
-think of any good reasons to make user mode wait for the driver to clean 
-up its stuff.
+    Enable peer-to-peer (P2P) communication between AMD GPUs over the
+    PCIe bus. This can improve performance of multi-GPU compute
+    applications and libraries by enabling GPUs to access data directly
+    in peer GPUs' memory without intermediate copies in system memory.
 
-Could the waiting be done in kernel mode instead? TTM already does 
-delayed freeing if there are fences outstanding on a BO being freed. 
-This should make it easy to delay freeing until the unmap is done 
-without blocking the user mode thread.
+    This P2P feature is only enabled on compatible chipsets, and between
+    GPUs with large memory BARs that expose the entire VRAM in PCI bus
+    address space within the physical address limits of the GPUs.
 
 Regards,
    Felix
 
 
->
-> 3. All VM operations requested by userspace will still be executed in 
-> order, e.g. we can't run unmap + map in parallel or something like this.
->
-> Is that something you guys can live with? As far as I can see it 
-> should give you the maximum freedom possible, but is still doable.
->
-> Regards,
-> Christian.
+> +
