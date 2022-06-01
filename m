@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9C1C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 18:44:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A278BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 18:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0DE110F317;
-	Wed,  1 Jun 2022 18:44:10 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F07810F317
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 18:44:09 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-f2cd424b9cso3867077fac.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jun 2022 11:44:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4290B10F348;
+	Wed,  1 Jun 2022 18:46:59 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B8E10F348
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 18:46:57 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id s188so3806390oie.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jun 2022 11:46:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hoMiNZYJrAfbuhQrGDapdgZz3vciw9pWtItN8E0slnw=;
- b=od8SH/Ys8gt43a9X8iPqlOmXKL+R0dCjlhw+7x4xGPXOwq1laMrsXksFC1Lpm6raHl
- hjrUwgOu2u+Hi9vpAU57nizmNVmQxC5bqUmEnE40bAbAQgdfYk09bmtPLwkCwtL8aEXu
- Kf9hVdDD4PbpqmbCNRmVbccAOAWKxv/fNNau/Bzv6/zNGHc1g8dBCBTpHBCc+mbl0z8j
- MAu+Ks11lNNkWp9UvJWpv8IPTnPBJ2sDIoDHwFr/ZIet9kPNM/wuRMtLqK1PIS5jzsMr
- PgOjbm19yYAIWXntuaURWePdXVw4oWAiEWBmLjid4em4AmXpN2PwsnaSmpAhJu9LOw5H
- sGTw==
+ :cc; bh=f7ePlvGaUoiv82uA9fpuHBehewbB/3wH4W+yDdmOpHA=;
+ b=DDVRbcMFzfyNGPLs5L/1lRUcvNJSv6thmJC587vtTCPHFlkW2aVM0mpp4WEBDguSor
+ a33xCjJgUrldnEEVH0ZWoyIs6kTck0Z+p8e9Y3LApZkiqeaxBeLOzJj1F8XE1fY1fIOM
+ coymLeDr+CC/J0z9ydQ3MePb1YsessvsfZY/QRP6fknIar/KV55K6Es3SqfrIY3KMTPC
+ ca6cOTwiZIG0LYaGXqm4Km+tN5PGvBcdG+niEDJ8RT0/jU4zlUyc3kNScQ/QYIAqgsY5
+ U217iUx0KatCO+p0L+5nZ96G2vNb2iisnYYL8yXNy8RFAhBcYribTh4GLeDmkdsIjnBx
+ 9irQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=hoMiNZYJrAfbuhQrGDapdgZz3vciw9pWtItN8E0slnw=;
- b=TSVkEiblvKWm6f9cCwMTYwXJgyhIx4AIendSJmSOLwzKzDbINJR9G8cqsfj1rqj7ca
- GzZCh7ucdi0wFFHAtZoZWWQI8ZJNddCitGdMYqZ6o9v/LblUSOrz7MALS1xiQNdsV3ys
- zHZq6tQ8SH7Bkytp1CuozZ9WIJfKukIinONmUJScZiBQ2C9SY2d7mkA8dcsiOpw8+Fk/
- Ev06AsFy8dq+cdj3bvelq8m4oN9MiVByHBjVfwAmk4SWpG+GZGX8xYJDWXkfymR/Zyz0
- 2jOcHecimCTjgat1TQ+7Vq8qJSizN4QLwPTypvRKecwHqUkDcia7x7BeICBo6N/2ErCy
- CFEA==
-X-Gm-Message-State: AOAM531cDna2ll1L+lz47b23SIRCryvoR1J9HJbyUR1/hB54feVkabxd
- 3rKOxQ5ARxpphLs8hc0JD3FMjkLIoiEfka6lnPQ=
-X-Google-Smtp-Source: ABdhPJwCz0AR8tTDpwwpJwpn0hIyY9iBlRIBDsDRqY0K1uMvlFffYks4KZRXhOfNGAabRjU1AhahBhnuTolYMzPy+eQ=
-X-Received: by 2002:a05:6870:3105:b0:f2:9615:ff8e with SMTP id
- v5-20020a056870310500b000f29615ff8emr16722560oaa.200.1654109048402; Wed, 01
- Jun 2022 11:44:08 -0700 (PDT)
+ bh=f7ePlvGaUoiv82uA9fpuHBehewbB/3wH4W+yDdmOpHA=;
+ b=v7VEh4v/MHmJJLacgWlncV8q/EuHLfNMmzHl6Jr/4nAe25UrmOOPYg1XNW3zFSepmf
+ EDgYwobrFyODp/SH8ZSysO3cgGmR1dDOPM3ke5eytWKxx3sOS0KL+JEFMp9fJ3B6JVOB
+ Der+aJfdoQ5CESAXEnQzadKKwOfoHogIs36Q8ftC8J0DssdyVdR97Ni6ZLScMDXqi5Qc
+ xhXV6jRsDGHyOse1CwJv5xOsWu2CnpOTnpmNxFEqUVRlqpvy0dBVBIOTQkjRCahAR/Fa
+ 1BwtFD4L8A+31yuHJm0eLk9dvpq4nCJlDQExD5OHKKI7+Ud/ykbm6Lapr2fLZCNS7HvW
+ 4QVQ==
+X-Gm-Message-State: AOAM530FsTS3IgEYDMIFwYgq7SbOThj1SdzjmAjnHjGIPY3np72JORuJ
+ i5+lODxcbi72RmKpC5SyqVg8XpiGiBSRSXe1mFI=
+X-Google-Smtp-Source: ABdhPJxjJHA+rxXyWyFeIboan8p/bOHZySJWVhCoyvwvl+KpJjRB1JzNsA5WJWYD+2Wou4pggWMJfWMjaBJcVfa1O2s=
+X-Received: by 2002:a05:6808:15a7:b0:32b:aeac:84d0 with SMTP id
+ t39-20020a05680815a700b0032baeac84d0mr500009oiw.253.1654109216989; Wed, 01
+ Jun 2022 11:46:56 -0700 (PDT)
 MIME-Version: 1.0
-References: <202205271546.oV14N2r8-lkp@intel.com>
-In-Reply-To: <202205271546.oV14N2r8-lkp@intel.com>
+References: <YpStoW0tbsYOg5Jx@kili>
+In-Reply-To: <YpStoW0tbsYOg5Jx@kili>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 1 Jun 2022 14:43:57 -0400
-Message-ID: <CADnq5_NOkqRsoqELkLayNU+xArXd-4RO=_banvJpXHtSW4-YdA@mail.gmail.com>
-Subject: Re: [kbuild] drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1433
- amdgpu_discovery_get_vcn_info() error: buffer overflow
- 'adev->vcn.vcn_codec_disable_mask' 2 <= 3
+Date: Wed, 1 Jun 2022 14:46:45 -0400
+Message-ID: <CADnq5_O41CK=0+OHfXQt2iUxzhQu4nE1K=+J3OXOnTtVot1ijA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: delete duplicate condition in
+ gfx_v11_0_soft_reset()
 To: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,94 +62,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, kernel test robot <lkp@intel.com>,
- kbuild@lists.01.org, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ kernel-janitors@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mike Lothian <mike@fireburn.co.uk>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 27, 2022 at 3:46 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
->
-> [ kbuild bot sent this warning on May 4 but I never heard back and it's
->   May 27 now so sending a duplicate warning is probably for the best. -dan]
->
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git  master
-> head:   7e284070abe53d448517b80493863595af4ab5f0
-> commit: 622469c87fc3e6c90a980be3e2287d82bd55c977 drm/amdgpu/discovery: add a function to parse the vcn info table
-> config: arc-randconfig-m031-20220524 (https://download.01.org/0day-ci/archive/20220527/202205271546.oV14N2r8-lkp@intel.com/config )
-> compiler: arceb-elf-gcc (GCC) 11.3.0
->
-> If you fix the issue, kindly add following tag where applicable
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
->
-> smatch warnings:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1433 amdgpu_discovery_get_vcn_info() error: buffer overflow 'adev->vcn.vcn_codec_disable_mask' 2 <= 3
->
-> vim +1433 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1403  int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1404  {
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1405    struct binary_header *bhdr;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1406    union vcn_info *vcn_info;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1407    u16 offset;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1408    int v;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1409
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1410    if (!adev->mman.discovery_bin) {
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1411            DRM_ERROR("ip discovery uninitialized\n");
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1412            return -EINVAL;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1413    }
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1414
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1415    if (adev->vcn.num_vcn_inst > VCN_INFO_TABLE_MAX_NUM_INSTANCES) {
->
-> Capped to 4
->
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1416            dev_err(adev->dev, "invalid vcn instances\n");
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1417            return -EINVAL;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1418    }
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1419
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1420    bhdr = (struct binary_header *)adev->mman.discovery_bin;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1421    offset = le16_to_cpu(bhdr->table_list[VCN_INFO].offset);
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1422
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1423    if (!offset) {
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1424            dev_err(adev->dev, "invalid vcn table offset\n");
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1425            return -EINVAL;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1426    }
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1427
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1428    vcn_info = (union vcn_info *)(adev->mman.discovery_bin + offset);
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1429
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1430    switch (le16_to_cpu(vcn_info->v1.header.version_major)) {
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1431    case 1:
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1432            for (v = 0; v < adev->vcn.num_vcn_inst; v++) {
-> 622469c87fc3e6 Alex Deucher 2022-03-30 @1433                    adev->vcn.vcn_codec_disable_mask[v] =
->
-> But this array doesn't have 4 elements
-
-Correct, but num_vcn_inst can't be larger than
-AMDGPU_MAX_VCN_INSTANCES (2) at the moment thanks to:
-https://patchwork.freedesktop.org/patch/486289/
+Applied.  Thanks!
 
 Alex
 
+On Mon, May 30, 2022 at 7:42 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
 >
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1434                            le32_to_cpu(vcn_info->v1.instance_info[v].fuse_data.all_bits);
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1435            }
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1436            break;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1437    default:
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1438            dev_err(adev->dev,
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1439                    "Unhandled VCN info table %d.%d\n",
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1440                    le16_to_cpu(vcn_info->v1.header.version_major),
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1441                    le16_to_cpu(vcn_info->v1.header.version_minor));
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1442            return -EINVAL;
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1443    }
-> 622469c87fc3e6 Alex Deucher 2022-03-30  1444    return 0;
-> f39f5bb1c9d68d Xiaojie Yuan 2019-06-20  1445  }
+> We know that "grbm_soft_reset" is true because we're already inside an
+> if (grbm_soft_reset) condition.  No need to test again.
 >
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 24 +++++++++++-------------
+>  1 file changed, 11 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 8c0a3fc7aaa6..4bca63a346b4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -4780,19 +4780,17 @@ static int gfx_v11_0_soft_reset(void *handle)
+>                 /* Disable MEC parsing/prefetching */
+>                 gfx_v11_0_cp_compute_enable(adev, false);
+>
+> -               if (grbm_soft_reset) {
+> -                       tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+> -                       tmp |= grbm_soft_reset;
+> -                       dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
+> -                       WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
+> -                       tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+> -
+> -                       udelay(50);
+> -
+> -                       tmp &= ~grbm_soft_reset;
+> -                       WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
+> -                       tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+> -               }
+> +               tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+> +               tmp |= grbm_soft_reset;
+> +               dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
+> +               WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
+> +               tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+> +
+> +               udelay(50);
+> +
+> +               tmp &= ~grbm_soft_reset;
+> +               WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
+> +               tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
+>
+>                 /* Wait a little for things to settle down */
+>                 udelay(50);
 > --
-> 0-DAY CI Kernel Test Service
-> https://01.org/lkp
-> _______________________________________________
-> kbuild mailing list -- kbuild@lists.01.org
-> To unsubscribe send an email to kbuild-leave@lists.01.org
+> 2.35.1
 >
