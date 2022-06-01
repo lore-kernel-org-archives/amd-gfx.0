@@ -4,123 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362D6C43334
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 16:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AE7C43334
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 16:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B08F310EF26;
-	Wed,  1 Jun 2022 16:29:46 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2049.outbound.protection.outlook.com [40.107.96.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB6A710EF30
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 16:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEA9B10EF28;
+	Wed,  1 Jun 2022 16:39:44 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9CCF10EF21
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jun 2022 16:39:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XJmN2721i0fhBiwKx8RyTJAlf4qwdbtH3ZkjCuD/Wy739RWchq4Morre577xBj/FFvp+S2wlerfnVKp4WF5mDYzJOt5LeYZLS0l8lOMXPlTsd/L+Hi5asneS8kPAVXz42wVdBtvqS8bErY/1kNRiZgAyVHSL6XPeLURdQOtn6gBr9xFAJbyqVSLIudB0w8nJa+lLFhw3EFpPGemfOQbd01P85zThHu9t0tVjDgeULdLoB8JjVtBmxilRTcd7btnexVkSU396eh7z5tlROmU+Mklj1SC3Wcu88K+KrbhV3KOq7hbjLh8d/XJKbmRrppryqwXRc4PddYBdiXmfDzzLyw==
+ b=X1yotNzq1uNYBxl/ibzEs5v6xYui6REj3q7P8aFVahZuGdRP/ge2zd076PJxhQll5D6DdrvgkCUl92W+FzAcEnNSqWklIk9M/hXjJ59sJB2b0LU9XCBggqE7bU+egGNcegCqK/k37+iZjjsvtbvLQ2sr2SnoxrwQotbRu4vIAte9d8LS6xuQn9YxRgA+Fu2RQt6HkzwaqyOY6HZL68afskkjtn5VI8fkzmrYKAsm4mPoyKVdRjtSWVLoJO1pQsJzkgqHtmJX1wTXInEiiqywG51JtCcSIzBDG1VyqOjMCO87yFq59QRWiulxSktcvyLJQfWhKCVw0dLk9EkpLimKGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F3Y4FTIXIE/U/KeyaZw14wUOkVOJG7Sxk6ZY1VMyTSg=;
- b=R9audB7dvrn/roSDwvvluCwEOB6HAJvh+SorBwYbAWZ3e2VZ78NhbNeYxGN4Pjb8KoHr5NYwWqGluKahSAv91S+bjU4+2W2bHntyWN6g7eGJSdH6qnlb0lF7yUrJ8A2lcjAJVE2Tv+TfE74cPRgUX5YHYb6DY94Ti+TWYHgjUqXQ7IzQs4I5T4DsKP4J3ELuTC4e1GFKWpf4xp5f4FTgkKcnvKeYZ+2nz7FpbeEkCEZSTuiugG9Gh9EFcn5V9VzwSZvpClHlfm6p5HDlkHidDhXB398nqGIlBGnbRajELjZoBEeKKblA0AsdVs1mQCIajwq3nXojTgrg/kyKsMB9pg==
+ bh=a0o73RS9p5RQbwQz478MYoESvpoLFndaUe9T7AooYBE=;
+ b=AwHZ385qhzJl4RjTBtYR8ddHkb4uHwyUyySNpGHb0ZhYH5HQtujSEqsHWaQVUVrPQsnLGuPkfA6qypL3AVF94Jv9uv1kXOx2je91S75zbjeoaqCnk4drBKcG323XnmKwFyn6pChHACC+kafN2Zg7V5gjP5h/UpG9KLg83Nu97fshFaQ3tXaTpnYNKKHCDWGqLXTsho8OxgrkDZYU5v+8YkDMqGB1QJTo5vD49yR/dq4zO/4sEdAX/b6TEdzZobTk991hSydwnh5LAC/UAOixEFLjadybqx1PrtgpmVbWi0V67pp/A63iEWN/Rm5WIWI9qqBBi5R49B5TQuKYsam7qQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F3Y4FTIXIE/U/KeyaZw14wUOkVOJG7Sxk6ZY1VMyTSg=;
- b=XNoqF3j+YLLMFu/ywtVGvQpSwQB48b6UKlDoJoTidlTgnFg9HMcH6Jb8OfP4dhJ1AfygDzJIV8OO9FTHGSh8roNsJsf2dnlfNVex4NdzKhMgneboY4U5j2/hN/XBpu345tCnmq+USmML3wvHwgH1aXly24d14YCd+3KYHi27X5o=
+ bh=a0o73RS9p5RQbwQz478MYoESvpoLFndaUe9T7AooYBE=;
+ b=Dl9oe9WGvhlQBcBCjKg4L1XEVleUQuszYeODhKfp8xvzlS0s5DFlu/b00q90mEaI3f8eR7wvoAsdvAJMeatAI3yCir/eNfViD/FGqqJ3Df/ZZj7yIsT9gYtTHpsA4M1gXgkcu8P5VEJ2x01dyjkMJajhfTZi1xOhY6Qq5KxVlhM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB4297.namprd12.prod.outlook.com (2603:10b6:5:211::20) with
+ by DM6PR12MB3465.namprd12.prod.outlook.com (2603:10b6:5:3a::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Wed, 1 Jun
- 2022 16:29:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.17; Wed, 1 Jun
+ 2022 16:39:37 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::7146:65ee:8fd3:dd03]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::7146:65ee:8fd3:dd03%4]) with mapi id 15.20.5314.013; Wed, 1 Jun 2022
- 16:29:42 +0000
-Message-ID: <412a23fc-eb92-8f3c-e339-0bc3918c0f18@amd.com>
-Date: Wed, 1 Jun 2022 18:29:29 +0200
+ 16:39:36 +0000
+Content-Type: multipart/alternative;
+ boundary="------------fR4H1lNtsKcarZm2SjeWWDN6"
+Message-ID: <35d469ee-ef32-75a9-f391-019b4e31ba57@amd.com>
+Date: Wed, 1 Jun 2022 18:39:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
 Subject: Re: Explicit VM updates
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "Olsak, Marek" <Marek.Olsak@amd.com>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 References: <293d9f72-c3e5-913d-08d1-0a8591299c46@amd.com>
- <022d86d0-6301-70da-f320-b17c4859443b@amd.com>
+ <CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <022d86d0-6301-70da-f320-b17c4859443b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR06CA0236.eurprd06.prod.outlook.com
- (2603:10a6:20b:45e::27) To BN8PR12MB3587.namprd12.prod.outlook.com
+In-Reply-To: <CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com>
+X-ClientProxiedBy: AM6PR02CA0026.eurprd02.prod.outlook.com
+ (2603:10a6:20b:6e::39) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 20b909d4-f5b7-4902-93cd-08da43ebee5e
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4297:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB42977EDA4E1A91DA4582CC1183DF9@DM6PR12MB4297.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 977a4de1-2034-4e72-2043-08da43ed50b9
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3465:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3465ED085ED4EE24070541B183DF9@DM6PR12MB3465.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UMpShuCa8Eas7p3HpOM+2Jop5JnPiBxBxj4JGRKeEKKrFgaWgomBVg7lW6CPMd8DorUU9QxwLwAo2VT++56JKZJiEcLNFvA//aLkkPjTnr+6W5iESfZmZrln97iTTrYY6kE8ZmbVygP1Y9YssOdekJidgTxhFyCxAe/n33ybNVSEDsoLL677kdbcUx/Xs/NM8wDZTJ6XUePJjnhva3tAVRjmWBRnvYjnGHMUDdha+K1Oa6YCEYY6J/eN0g2szqIvmNzPiIhNtECFU6O5rd+bF+UVmajCHMgjpNtNcDwxgdIEkCN4a6G2y0naiZpz8F8Y7MKG4ACjDI+0r1d7nBNAhdQLcF5KvTn5WeBE4kYUDhNDk3ceml01JwMdUS0bgDmwcpDfjj/KC1bceEPAyJ1IdOmH0uE4l0+amSzU+IgO8eV7sLow2ZSZyQfNjdZbGMPQxx6mJkLOkSnMuCxK7Nqwhd56HDnHw9ndO9iDdyDiOdqLia7moZha4wPh9lJQAZKsyPPGl3OJxkEiaOGh20PZ+aOjnsdez8NMnD+nEKg1S8+YRyKWYGOSEpChQvmDg5mBXUU75nEgmWwkjtxFSeJTEVIgBwA5pJqkJOWRZ8XNKxwkxP2i76TzI10JGeyts7VLJxZ6oIsh9nvh19T2iPdhmNF7UBoTSgi4EjUJ8PUiS0vI79mOQnqHwc+FLZKdzckbCSUDOxOkWwqWiCjdrSKr8Be83M+rF4e9Z2KFCLj1GZo=
+X-Microsoft-Antispam-Message-Info: Tx9tQ8h8p+m7FwXM+ccazott4n1K7ZQFdWrsPWr+V7Hm9kdRSnMcMSl10pMus5Yp7CGyibxWE0Kwo1Ty2G6mBr1moiwhZzObwxaYWhWkpyrqYLIzi8qwYRQl5h8xiDGXlO+1I5lB2r8bNefONpB8/y4IIm/y1cuC5+AEYAtm138fY9eTWuNf8NrN+Rp625RgzDz2xMrkwd42Zbi39WNKSF0kxOlmeefdEtoqC+g9LnVO5U+kD10rwCsaHDA/0C+4KkEG7c2pz0qOZfUXSAKmXecUltX/nQvRhKx1HOzW2zJRSSuy33/pbcnYkRDFGIItJeOn7eMlD/NJJH/efMz+Oky508eoJieqmfmzuhkJuRcdwTv09wpeCGmjFaa7JIdFhyRU6W4qja+n8H6nxFleFC96QfnwFkKORESqs4Rsv2yafD2yDv2Jwsp7ODDmHzBhjFwpqVKrqk72FREOEg4pIJTLqQ1NmhAgIBQRiT0CIVIjTKi4qFGQKnKmO2AH483hA5PEQLXXkmVwClNUGtQ74rkIM8qRk9xdYKxTciInQWRkaUiJPM7o/79jSrzM9+ae5g1jqxqEmkcqOopYjQOcdjs0SlMtbKGsJezePJRX/jaL2BQzjC9JnlYk69SEODOy6QwbFoCfXX+b0l+Fui35JWd3XePGzRoyi6ZAjGqPU2mL+tXUpNglbAB96m0QgOmR2haSl7FwRVhhmytNQE7OhBFNnXvGmArLAh3eRHDkOSXKi90GeWtlOqEJ+JLmKpXz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(186003)(5660300002)(508600001)(6506007)(8676002)(66476007)(38100700002)(66556008)(36756003)(66946007)(4326008)(31686004)(2616005)(8936002)(15650500001)(2906002)(6666004)(31696002)(86362001)(6486002)(6636002)(66574015)(6512007)(7116003)(110136005)(3480700007)(316002)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(54906003)(3480700007)(8936002)(6916009)(508600001)(316002)(5660300002)(8676002)(38100700002)(66476007)(83380400001)(66946007)(66556008)(7116003)(6666004)(6506007)(6512007)(53546011)(4326008)(6486002)(66574015)(33964004)(31696002)(86362001)(15650500001)(31686004)(2616005)(186003)(2906002)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFgzdEdtVG9jR2dUTk0rK3djODUxOXM4YzIrYU1lRWdBemVMN2xMM3RyWndX?=
- =?utf-8?B?Z3ZFeFlVcmRhYTFBYWl2OWtCczBxWERGY1c0UlkwRW50WkU4VHZwNXMvY1dS?=
- =?utf-8?B?bU5JNHZ4SGVtaXJuUDlqV0R6Y2R0Y2VTM1NZZ0ZqaDZ6RTNzbWpiWXh3dUJH?=
- =?utf-8?B?VXJLbnVoaE1JYlNTUFAwbVNSRnBiZEpwRThjWmt2MS9VRHRXbzBrVnhIbklE?=
- =?utf-8?B?L0xDNTJoMWtESnFRd2JzclB5d1ErRnBSeEhsdUQ3eUZWMVMzdGYxamE4M25h?=
- =?utf-8?B?NWk0eTFFZVYwT212WTBnTmtiemNLUDVQVEU4TEpvY2IyY0lZRnRRUjMzdXFE?=
- =?utf-8?B?NktCTkdQSXN2VW1yeEtzN2VRM1c4VzZ2Lzl5QTBFMjBqczRBUm5WVVlZaHM1?=
- =?utf-8?B?ZnBxWHlmc0FiTW5ndjh2OVRsNFhRcXVJTDB6UDFkQy9Pb1lhemdvaGdOSWQ1?=
- =?utf-8?B?NXhDdHMzNitxV3NtbVhvY2hGakRZblNKdnVIQW9JS3I3THVXL0FHOFdOYkFQ?=
- =?utf-8?B?dWprUjdrOXNianFETkFqcWd1ZDdMQTFveVhUREhPMmc4eW9mMStXNlFJUklU?=
- =?utf-8?B?bmxHMk5jTmtOTVU2ZTdWR0RURmZYUG5lZzI2ak5ZVmFYS0hSb3F0cm1YQWlS?=
- =?utf-8?B?bk5RK2tRUWNBQjRHN3dJS0kxelBTSGdnb2UyUkhzVVZBUFV5OGVQZ29PV01Y?=
- =?utf-8?B?QlcxSnQ5WmpOeXorckV1RDE3NXM3NWFjQUJzd1EycGtYOVhpSXBKb1JCQ1Jz?=
- =?utf-8?B?N2g0N1ZpblVseVhBSkhCYWFsbm40dVQyeTJidHVSVDh1RHBTb1RBVzltZ1pr?=
- =?utf-8?B?Qm5mc0hHT3o5bno2blFna05Zb2plNjVVUzRTMTdocDAxWGNTNWIramoxblFx?=
- =?utf-8?B?bHJYSlVGQW5GY0pkeGNpV1kwNFpUcTYyMVhHZnJmd2cvNlNvNHhVQUFheWpB?=
- =?utf-8?B?SjhlaGdxQkE0OS9uU1hIeTBIN2tTRUkxU2NYekt0NzIvOStnRlhDSkVLUXBj?=
- =?utf-8?B?c3hOZkJkWHdlTUUxNlZaKzdkWG5FQ2R5bXpuN2RWczhZcFUxN2lDenVyajhJ?=
- =?utf-8?B?YzlxZUhYVWNpc2Q5RTRTbjgwYXg2YjQyVXNFR3dqRVVCbkVQMWM3Y3hMMDE2?=
- =?utf-8?B?K2xIUXZFRFFUaGk2VDNxV3VRcGZiSDBnMUs4OFYrT0U5VkFWZEVlTk5VZ2FM?=
- =?utf-8?B?Q1JsWUIvallqa09Yenp2ajF3QU13ZCtRT09USi9LTUNiZzNxMnEyYVJHVlYz?=
- =?utf-8?B?bzRIT0IvbldydlcwaTdacEplc2lMdkZhaHJpRHlQSlg3U0w3NFAwRm1seGsv?=
- =?utf-8?B?ZlA3c1JIYjZNQU96VmhLL1NpZHhWVW00QndneUttTTJnelNXelBpZlN5bXdZ?=
- =?utf-8?B?cWk0TUEva1JWa0pyMXNMRTZCcENGNHQ5T0ZTcFBJRVdGZDhON1dCTWIxQkpG?=
- =?utf-8?B?UUFDMHhNNXoyVWtEMjVGVmh0QjJPeGp2dS9PWGtUREJnbURSSHJyaGRuQzFT?=
- =?utf-8?B?V29mS0xLVW5lcTNHdThNcVV5cTNldDB1VElFa08rUnpMc0IrZEpZQU1hK0dY?=
- =?utf-8?B?L29zUE5jcWkvZEd2dDhhb29JRXFNcGwrb2RQOUtKVkdhRkVoNmppbWNFd05F?=
- =?utf-8?B?WHNMRTM5ZlFSYnhSVWMvNXRtRkpBblFuNHdVanpFeHE3QmdTYzRBWXh2a2dC?=
- =?utf-8?B?c0lMbmJRakJvaFV4cWc1S29NZytpRHY4UUkwQ205bGc3NkVwbTlHSTBwdkFn?=
- =?utf-8?B?Yjh6M1M3MnE1cDVCNG80VUVzTzZhdUwwQTZ1aTdJUU5yWWtFY3dKQW5HK21m?=
- =?utf-8?B?blhYeHZqanJTZGdhOWZRTysvRzlEVW5LVU10K2szMWo0QncxS1ZNT0N2MzRy?=
- =?utf-8?B?UEMwZVgxdDlET3ZVY0RzTmtuRkgvc3U4ZG1ZWkdrZFpOUE8xOTRITjNTNW1I?=
- =?utf-8?B?dkR0UjlIL3BYWTFsWm9yQlh0UkVuNkJhSFBNd3JxREdDODJSOVJkYnAra09Y?=
- =?utf-8?B?a0t0QTlZS1hxYk56MTMrdDB3L0IxekZUekRyTk5YSnZmSEIzb1JHOVJoVUlI?=
- =?utf-8?B?bC9KMUZmalBOME1hejRBSTJTRDJQTXZXNE9XRitpbzZ3RmVtZW5HRGdtOG55?=
- =?utf-8?B?WC9iczlrMVBGTlJzR0Y4ZU80OTJaeE1iK3AyNm1GN0M0MDc1U0ZocTB0WjZz?=
- =?utf-8?B?T01ZMlBRZ1B4b096c2RrUVVCSVFCTzFPQjUrVW4yUWI2VExiL0JtVU1sd1NE?=
- =?utf-8?B?ZkNvanl3SENVdmpXWlFDMjF5TnVMTmRuTzMvb2lURWJWczZORVYwMWFraUlk?=
- =?utf-8?B?cU5TSHFvZCtVbWszSG5TeWNTUzh5TFlVekxxQ3lSL24yMXVnYWt1VGsvRksw?=
- =?utf-8?Q?p4cQOqcYgvv+gt+dwNjEYOlEitDHDV69xk9oxgd9Vnb7C?=
-X-MS-Exchange-AntiSpam-MessageData-1: 5FGeXbCHQp1WkA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVRMWDB0ZWJhVWg5bll6bGJoRXd0VTNzYVJMTDdNb3kwc2pOVURIQWYrNFkr?=
+ =?utf-8?B?NCt1UGEwRWhOL2tya0YySFJaWUxEWmk1MmZMQjZIcjFSWGRlcW9JcmVrY05n?=
+ =?utf-8?B?eVZRMzRpb1ViUjYzS3VNZk5pMnRuWExXbXNhN2FuVWhUT3N6akR5TEQwTStv?=
+ =?utf-8?B?SkV3d3c3UjZBVUhWWVpPdnJ1MHgvYitFcjIrKzFEMGFYSi9pOHRSQ3UydXNi?=
+ =?utf-8?B?d08vT1Vya3VKRlZWb3p6eVc3R245ZjVSWEE2dnFZZkJEUEVjWkFMeU10Ulor?=
+ =?utf-8?B?eTVMa1A1b0xHY2ZCTjZJdEVJWGN2S2xMUkV1V1NtR3YyNUdOaXJMNUx0TE4z?=
+ =?utf-8?B?Tzk0NHFZREVuQi8xOWpjOXpYNkUvNGF0Smg5NXJOTTIwMUVVWElrMFdZVGVl?=
+ =?utf-8?B?bUd0Vks0WDhsbDhsRngrRGVNeXdZZUMvYkdtY1FuSCs2QVAzck01blZTaG1O?=
+ =?utf-8?B?RThRT2E1eEtpR3RZZk52STFEY3lOSmREd2FTNE4xa2t3Q2tEUFdmQUh0T28x?=
+ =?utf-8?B?YjhFNVlISTNxWTRiUk51dnRxb003WnZ2SEY4a094d28rUWh3Vk5tcXBxOFcx?=
+ =?utf-8?B?bzJsZkkxbzdaTjdtWlhDbFBaN1ltdTcyeGhWaVJvbnVTUWNtc21CRHA2YTZ3?=
+ =?utf-8?B?ZlA4NjEvV3dmSUcwWC8rallQVnVDYjIreSt1aHNVUzBGVThTV0tDTy9LSW1u?=
+ =?utf-8?B?dWl6dC9xNVkvVysrSjMwUWJVZHM5MUc1Wm1nbExtcEZnbmpmNGJzTjJDSGNJ?=
+ =?utf-8?B?VFVCKzFTdGxjazhMeTBtaGV0SC9odFQ2ZnJMaE9aV2RHUXA3TWJudU16RGta?=
+ =?utf-8?B?QnQ5aUVuNEZLaXJ6b3dVV0JBWkRCdGFYTEtvcm5hN3RPNTdrbUxLQW5rN2tp?=
+ =?utf-8?B?M2V0dEJ6ME12OUJuSG9HZGE0ZVY2N0dJajd5T1N6T3p6R2JOdXd5YlJpTFlT?=
+ =?utf-8?B?N1NoRmZVcDI1Nzh3T09qQnpLOTRCNzNnb2tLUGZWVkJvekxlTkRQVkpOZ3dV?=
+ =?utf-8?B?L1h5QW1FbFlpbHB1T0wwYUJRN2ZXaHl1d1NpZVlXRXRoN1lIbzJvOTllMkxp?=
+ =?utf-8?B?RkpnYlJnVnM4SXhVNkpQQUh1bWZkRUJPSnB4cHdhQ3VRZXF4Vm5FaTVFRnZl?=
+ =?utf-8?B?OVl2VGNxbG5icGhkTFRJb0poL0pHVE5ZK0p1dGRkMFRZQjg5MVIxYnJydDhN?=
+ =?utf-8?B?VHVTdmhVTnpGbEJQSXFpeHdtRWFPRjMyRWZhbzJSd2QvQkJZN0dVeGsrNnhI?=
+ =?utf-8?B?MStzMmRQbkp2SzlQMDdZY2U1MDRwdzZwZXNLQ05Zd3lTaFZWUVB1SEJPeE5S?=
+ =?utf-8?B?YmFyQk8zRndrNGc4RnJhSDh4dXM3eE5HU1dqZEJhaVorWlM3NHFtKzU2Q1hj?=
+ =?utf-8?B?Ylk2Z28zd0ZNMm9Id3BqMkhuRDJCazlRaVRxME9ZUEJ5UzQrY3dXckN5TGZZ?=
+ =?utf-8?B?ZUp6UXRKL2FMUUkrQlc5djdmL0VsbStNTGFPb25PcDV6U040aTkwOWYzWlN4?=
+ =?utf-8?B?NENyVmxiNDQwNWZPeUV2bWU4SmpPd3BpbGxZa1ZhUEZuK1NQYmp4UVlPMWxO?=
+ =?utf-8?B?R0ZNRkNLYlZONmZCOGh5QVlWdGpKa3FlbVh1NkI5NTBJb0F1NEN6TXJWY1B3?=
+ =?utf-8?B?U3dRQ0crZjVWQ2lNaFRSTDV1YWtsSWU1dWU0OXUyRml1RGVxUndFQ0JaOW5t?=
+ =?utf-8?B?V2tEKzJCZlJDZXhLM04ySmthYTRGUXNwbkhDbGNPdGpseDI0R1lXZmNnWW0y?=
+ =?utf-8?B?NmcrZ3p1a25qVFZPV3ozd2k2blZJTktkUEYxc2R4U3k4Qlk1YnRETHJ2RENa?=
+ =?utf-8?B?dTBpakl4N29OVWhwNXllZm9EZWRPQ1RCRWk3UVoxQjhLNDVCSlBUb3VLeGo0?=
+ =?utf-8?B?Mi9xYyttQUJKdzJXV3BZdTE1eWhZSGVzZHJnZU4ySWttaWtjMnR5Y0diR255?=
+ =?utf-8?B?ZENHZlZTNStzd2MvcDV2SGJ2SUtMZTArMlhrbktZWG1jdzAyOEVYSk96OTJ0?=
+ =?utf-8?B?NTEwbkZhK0hheHlnZ0xuc20xTlVBNUMrUFFKOUR2cDhrYUVPU1ZoSjIvM2c2?=
+ =?utf-8?B?b0pieG9tazRhcjFNeWxpNkx0WVZZNVJBbFJYdWlCN05CSTVPN0JXZnZwbU9p?=
+ =?utf-8?B?RDJvNnRXa0p5dzVWckczemxVNThxN0xuSzU4Nm1zbCtlQWw3NklXdVhDTFpH?=
+ =?utf-8?B?Zm0zWjB4dXZzenVLaTB2bXB5UjR4QVJMa0pIdHFUQldHREF2czV5N0ZGYW1a?=
+ =?utf-8?B?akVoMXBTcHpJUGlVeE1pQ1hxTnNUUWgyU1NrYnhMSzdPRFlIV0FIOGxnRVBh?=
+ =?utf-8?B?R01yRjNnRkpEZVJhUGVuSWhBa2o4NjlGUEVSTVZ6WmkySS9xNytwOENiQkdC?=
+ =?utf-8?Q?oXjHZNsVlRY9fBB2RjV30kqWP2ltnBvclba1Hmm+AfDpg?=
+X-MS-Exchange-AntiSpam-MessageData-1: oiRGA/EN/1K5qg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20b909d4-f5b7-4902-93cd-08da43ebee5e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 977a4de1-2034-4e72-2043-08da43ed50b9
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 16:29:42.4553 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2022 16:39:36.8841 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q/xMi4RiWQOWtsHin3aJg8DRrtzSapM3WjGZmfzj2514+VFhGcekULl4FFSfVHh/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4297
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9/r4c2ADecwoA0V4J4mqJ3d5RQJKJppgXf8UyN9B19xY96wZ9UtA00hylTf0UB8m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,90 +130,219 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.06.22 um 17:05 schrieb Felix Kuehling:
->
-> Am 2022-06-01 um 08:40 schrieb Christian König:
->> Hey guys,
->>
->> so today Bas came up with a new requirement regarding the explicit 
->> synchronization to VM updates and a bunch of prototype patches.
->>
->> I've been thinking about that stuff for quite some time before, but 
->> to be honest it's one of the most trickiest parts of the driver.
->>
->> So my current thinking is that we could potentially handle those 
->> requirements like this:
->>
->> 1. We add some new EXPLICIT flag to context (or CS?) and VM IOCTL. 
->> This way we either get the new behavior for the whole CS+VM or the 
->> old one, but never both mixed.
->>
->> 2. When memory is unmapped we keep around the last unmap operation 
->> inside the bo_va.
->>
->> 3. When memory is freed we add all the CS fences which could access 
->> that memory + the last unmap operation as BOOKKEEP fences to the BO 
->> and as mandatory sync fence to the VM.
->>
->> Memory freed either because of an eviction or because of userspace 
->> closing the handle will be seen as a combination of unmap+free.
->>
->>
->> The result is the following semantic for userspace to avoid implicit 
->> synchronization as much as possible:
->>
->> 1. When you allocate and map memory it is mandatory to either wait 
->> for the mapping operation to complete or to add it as dependency for 
->> your CS.
->>     If this isn't followed the application will run into CS faults 
->> (that's what we pretty much already implemented).
->
-> This makes sense.
->
->
->>
->> 2. When memory is freed you must unmap that memory first and then 
->> wait for this unmap operation to complete before freeing the memory.
->>     If this isn't followed the kernel will add a forcefully wait to 
->> the next CS to block until the unmap is completed.
->
-> This would work for now, but it won't work for user mode submission in 
-> the future. I find it weird that user mode needs to wait for the 
-> unmap. For user mode, unmap and free should always be asynchronous. I 
-> can't think of any good reasons to make user mode wait for the driver 
-> to clean up its stuff.
->
-> Could the waiting be done in kernel mode instead? TTM already does 
-> delayed freeing if there are fences outstanding on a BO being freed. 
-> This should make it easy to delay freeing until the unmap is done 
-> without blocking the user mode thread.
+--------------fR4H1lNtsKcarZm2SjeWWDN6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This is not about blocking, but synchronization dependencies.
+Bas has the problem that CS implicitly waits for VM updates.
 
-In other words the free is not waiting for the unmap to complete, but 
-causes command submissions through the kernel to depend on the unmap.
+Currently when you unmap a BO the operation will only be executed after 
+all the previously made CS are finished.
 
-User mode submissions are completely unrelated to that.
+Similar for mapping BOs. The next CS will only start after all the 
+pending page table updates are completed.
+
+The mapping case was already handled by my prototype patch set, but the 
+unmapping case still hurts a bit.
+
+This implicit sync between CS and map/unmap operations can really hurt 
+the performance of applications which massively use PRTs.
 
 Regards,
 Christian.
 
+Am 01.06.22 um 18:27 schrieb Marek Olšák:
+> Can you please summarize what this is about?
 >
-> Regards,
->   Felix
+> Thanks,
+> Marek
+>
+> On Wed, Jun 1, 2022 at 8:40 AM Christian König 
+> <christian.koenig@amd.com> wrote:
+>
+>     Hey guys,
+>
+>     so today Bas came up with a new requirement regarding the explicit
+>     synchronization to VM updates and a bunch of prototype patches.
+>
+>     I've been thinking about that stuff for quite some time before,
+>     but to
+>     be honest it's one of the most trickiest parts of the driver.
+>
+>     So my current thinking is that we could potentially handle those
+>     requirements like this:
+>
+>     1. We add some new EXPLICIT flag to context (or CS?) and VM IOCTL.
+>     This
+>     way we either get the new behavior for the whole CS+VM or the old
+>     one,
+>     but never both mixed.
+>
+>     2. When memory is unmapped we keep around the last unmap operation
+>     inside the bo_va.
+>
+>     3. When memory is freed we add all the CS fences which could
+>     access that
+>     memory + the last unmap operation as BOOKKEEP fences to the BO and as
+>     mandatory sync fence to the VM.
+>
+>     Memory freed either because of an eviction or because of userspace
+>     closing the handle will be seen as a combination of unmap+free.
 >
 >
->>
->> 3. All VM operations requested by userspace will still be executed in 
->> order, e.g. we can't run unmap + map in parallel or something like this.
->>
->> Is that something you guys can live with? As far as I can see it 
->> should give you the maximum freedom possible, but is still doable.
->>
->> Regards,
->> Christian.
+>     The result is the following semantic for userspace to avoid implicit
+>     synchronization as much as possible:
+>
+>     1. When you allocate and map memory it is mandatory to either wait
+>     for
+>     the mapping operation to complete or to add it as dependency for
+>     your CS.
+>          If this isn't followed the application will run into CS faults
+>     (that's what we pretty much already implemented).
+>
+>     2. When memory is freed you must unmap that memory first and then
+>     wait
+>     for this unmap operation to complete before freeing the memory.
+>          If this isn't followed the kernel will add a forcefully wait
+>     to the
+>     next CS to block until the unmap is completed.
+>
+>     3. All VM operations requested by userspace will still be executed in
+>     order, e.g. we can't run unmap + map in parallel or something like
+>     this.
+>
+>     Is that something you guys can live with? As far as I can see it
+>     should
+>     give you the maximum freedom possible, but is still doable.
+>
+>     Regards,
+>     Christian.
+>
 
+--------------fR4H1lNtsKcarZm2SjeWWDN6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Bas has the problem that CS implicitly waits for VM updates.<br>
+    <br>
+    Currently when you unmap a BO the operation will only be executed
+    after all the previously made CS are finished.<br>
+    <br>
+    Similar for mapping BOs. The next CS will only start after all the
+    pending page table updates are completed.<br>
+    <br>
+    The mapping case was already handled by my prototype patch set, but
+    the unmapping case still hurts a bit.<br>
+    <br>
+    This implicit sync between CS and map/unmap operations can really
+    hurt the performance of applications which massively use PRTs.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 01.06.22 um 18:27 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite" cite="mid:CAAxE2A5Apz3u7cxCcpPuhYDj=s2Jg2vwd=2jhXbnR=3X8ZWxFw@mail.gmail.com">
+      
+      <div dir="ltr">
+        <div>Can you please summarize what this is about?</div>
+        <div><br>
+        </div>
+        <div>Thanks,</div>
+        <div>Marek<br>
+        </div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Wed, Jun 1, 2022 at 8:40 AM
+          Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hey
+          guys,<br>
+          <br>
+          so today Bas came up with a new requirement regarding the
+          explicit <br>
+          synchronization to VM updates and a bunch of prototype
+          patches.<br>
+          <br>
+          I've been thinking about that stuff for quite some time
+          before, but to <br>
+          be honest it's one of the most trickiest parts of the driver.<br>
+          <br>
+          So my current thinking is that we could potentially handle
+          those <br>
+          requirements like this:<br>
+          <br>
+          1. We add some new EXPLICIT flag to context (or CS?) and VM
+          IOCTL. This <br>
+          way we either get the new behavior for the whole CS+VM or the
+          old one, <br>
+          but never both mixed.<br>
+          <br>
+          2. When memory is unmapped we keep around the last unmap
+          operation <br>
+          inside the bo_va.<br>
+          <br>
+          3. When memory is freed we add all the CS fences which could
+          access that <br>
+          memory + the last unmap operation as BOOKKEEP fences to the BO
+          and as <br>
+          mandatory sync fence to the VM.<br>
+          <br>
+          Memory freed either because of an eviction or because of
+          userspace <br>
+          closing the handle will be seen as a combination of
+          unmap+free.<br>
+          <br>
+          <br>
+          The result is the following semantic for userspace to avoid
+          implicit <br>
+          synchronization as much as possible:<br>
+          <br>
+          1. When you allocate and map memory it is mandatory to either
+          wait for <br>
+          the mapping operation to complete or to add it as dependency
+          for your CS.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp; If this isn't followed the application will run into CS
+          faults <br>
+          (that's what we pretty much already implemented).<br>
+          <br>
+          2. When memory is freed you must unmap that memory first and
+          then wait <br>
+          for this unmap operation to complete before freeing the
+          memory.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp; If this isn't followed the kernel will add a forcefully
+          wait to the <br>
+          next CS to block until the unmap is completed.<br>
+          <br>
+          3. All VM operations requested by userspace will still be
+          executed in <br>
+          order, e.g. we can't run unmap + map in parallel or something
+          like this.<br>
+          <br>
+          Is that something you guys can live with? As far as I can see
+          it should <br>
+          give you the maximum freedom possible, but is still doable.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------fR4H1lNtsKcarZm2SjeWWDN6--
