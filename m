@@ -4,89 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC08DCCA478
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F302FC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 663B3113119;
-	Thu,  2 Jun 2022 16:46:08 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9774A113119
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:46:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NXPJ3h6j4RrCj9oU5UITPXOd194gNS5ii2DhZlUYe+HAbISRMurHUgS14sJtWpDE5hWqe2OTVnkPsYAKRNsyhnYVziIM95kpCGLkn7EsxtXYXFBojvxPZ5Tsb7xBYy+g9kkebf5zogefUDimnzB+da1wQgxt/XAMwtr9tZyRM8o3B9SIYYCsu5AgE29cgTWnFqnz1XAaoC1DaQhttLyqLmpbACcbh987X6W5/FwcS1z96rBakpn8Pm2xyghpseXC5IPqP37HP0kTtKH8rqul7Lxe3g+kL07+U73JK1y1cZgZQYywKwUSfZnINv5S667cqxwnokSC0fl85uPC0ABVBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xafqe41GZZ/RxRi3YA1jXhLtvl8Mzcu4JKLxM8i6uW8=;
- b=myKIpJoxl66hD6sMm599/k2mPWvF4KM5q+atd53q/s5RTBx1AdlHhQVdEPPoFmsKywL5Ovf2UUc2pXDVjw0wbCU38yGNis0io5bqQ1FvBGDJWp9j7p3gSWqwTgtF9oMW0Yf8FL03GRfl5zmH6OhQ2o/g+RAcpwRGmoBe9ab5cu8HJYqNaIY3PdoCmcCRBP68/Ka/H3qgm3mNKIfRy11BIesoVCWwFe1gn8NkVuZcP5ZxRnP/EB9lsCmBV+C86zTC/UyhyOBS5FGMrziYwNuwVZmie8AAAhKMJYpN3CTUG0uVTg6VPj73K/PdiqbeWnSYQA7T09FCvzn1QzoNLdXiJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xafqe41GZZ/RxRi3YA1jXhLtvl8Mzcu4JKLxM8i6uW8=;
- b=b4xc6/8ka/n+hCNEt48VDEYfJ5LoAv89rLqqDqlTuRKsclYjr+l4ArQld3loND5+/nQ7spxKBJ+2lja+Es1RanjM+BPmDaW4in/FB/lrR6VU+R5CcpV7lh2f85V/yxiPnKYpREm3dJpRWvsQ4u6Q5w5h8Kede5YcuwsBDI3Ixfo=
-Received: from BN7PR06CA0053.namprd06.prod.outlook.com (2603:10b6:408:34::30)
- by BL1PR12MB5160.namprd12.prod.outlook.com (2603:10b6:208:311::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Thu, 2 Jun
- 2022 16:46:05 +0000
-Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:34:cafe::87) by BN7PR06CA0053.outlook.office365.com
- (2603:10b6:408:34::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
- Transport; Thu, 2 Jun 2022 16:46:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5314.12 via Frontend Transport; Thu, 2 Jun 2022 16:46:05 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 2 Jun
- 2022 11:46:04 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/discovery: add comments about VCN instance handling
-Date: Thu, 2 Jun 2022 12:45:47 -0400
-Message-ID: <20220602164547.1171254-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C234113143;
+	Thu,  2 Jun 2022 16:54:39 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D1C113143
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:54:38 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-f2bb84f9edso7442308fac.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 09:54:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=uKy6NGcMex8K+xZxTDbxq0Qid5sHRyh4SH6lUclEbOc=;
+ b=lPOol9QjY5Tup2k0HI/6kYbDD2o0kSkWC9tQsAHNCuxskkTiAygUkIf1Dlm+HX6ITQ
+ 8W+VZ8QQ4Rbvd73hqRTQs6Fjlr/yie36M8+NOX0REUiXMoM5Zpl8LSX7DILbhkIKAUs6
+ qNIgZE5xegpgMm2EtlYjG9M6Om7/twzbIiLYh4WAiwPdVOBpcuC5DIF5yVJ+B1mf0uLD
+ 9EluDogAOsv8J3tk8mZonTYwDIs8BThXsnfVlqZe/mKlG8bGs/Hh7wTZYk6rdxYaLgDk
+ HFmnwh40NE1bJo0vlZxyuF/Pq0wR4VrhP9b9XPl8yGBYh8A1hjl6sPewjBa+ssRaS2Vo
+ SRTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=uKy6NGcMex8K+xZxTDbxq0Qid5sHRyh4SH6lUclEbOc=;
+ b=0v1pwn8k8/lOPb8ZBmsV+6WIEPt18VRrXUrOWPtdZuTxVlW+ESslvi3dmr5PJePXMc
+ W89TyWOUUbBJHXeOhILG0wn92jMELNNx56K7pCdhgykVakkkos25KIWVfLo3loKmuAvu
+ 9Ra6ab9ev08ufHP/zWXyvwGCle0wtk39vwFIsGPy7mK+d5FjkglxxOzAd0TIYjB5fK1E
+ lE+OzajFID6gOX6nQOKD57URYlvIskfYRk7F6ZFzDXZKPgsKGsgS3JJCWN/6MDKbFQsw
+ KEmYnDWyJnSoMKUtB5GXuRJoyQwrfc8Mhgv5Ey+mJi3MGrV/Fz9XpQPEYGe7uvFcVnxW
+ wQqg==
+X-Gm-Message-State: AOAM533fjVdgmo4sB5bd2qQBSNWNq0VK2C8uC9EnWV+HaP7R7zn2gP/m
+ Zr/WpadUCrfBIpr81hLHU60DbH++cFYmnauDvm9YzJys5Es=
+X-Google-Smtp-Source: ABdhPJwGIKSbvVBkFgLFcH1Kz87MQdd0o/qUnyIcqhpMgyPY4A4MffwC+QzE/chOYdMu11cDh5mQ8cpm6fZ+LoS5h34=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr3339500oap.253.1654188877443; Thu, 02
+ Jun 2022 09:54:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f3303db9-6e75-4061-0816-08da44b762bb
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5160:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5160691F133AB3D887EC42A8F7DE9@BL1PR12MB5160.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dwmzc11+xMcy7guenk2KA4KZnb9bDgaG76jgk3o/W1lJtIA/PddsvAy6kMUVjxcf6ZR0K51jVznqgY1avrmV0pBg/cofPrBTGOT6v36j42LCCHpMMojYye+lONRfIioCcP4lECmlgiHfq15oaiM1vlw44hm2bW6HVAW0EcGCvU5WasRloneWE2TZd0wCKwN80Ho3GePdTLIIEV7TnB96CcEHZ67v1I4lK2AvFBOOmQqAzB+xy6rNbVA0sPbqKrHL8w7SB6kQSB/dqkBxZbmk20bTDQXf3VFNtqH4QDvj7w9MlSgC+hu57Ki+X8FAw6BKgiakMP10anYecHtgBG8epoPdXbqSa9PvqJWicgTXTqGEKUp2CV/HOcfbg9Abb1Rjbg69Y6UlcOzyfrNOyqxw4LawHvODMba+LnI332xiok1MrZedK75cNsgl9or2nQnpuliF5mw9qnqoTXsedTRW33kwBNkmVsRwnBrA2mrPou8ATV4jd3igLp5gPFrNtRDjlcuoybtgZnxJZXJ0Lzy7sb5ui3RFR570AX3JV+dikJOC+BollnVM1F7GVedRc+irwb2GdOekhE30FLiz+B1AE9WV4Vs1Km71ZgMMl28OuMsfJP55xqrp/XMpjRY4EkteltoNWHHrBRBXpFRKw9cmYIbbmSkswe0IBmszX8irDo9MGYUNRwBBFT8zBR9vHMSq9RJyOLCtd7DgOAI4ZLxckw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(36756003)(81166007)(8936002)(6666004)(36860700001)(47076005)(508600001)(356005)(2616005)(40460700003)(4326008)(8676002)(70206006)(70586007)(82310400005)(1076003)(86362001)(186003)(316002)(16526019)(966005)(5660300002)(26005)(7696005)(54906003)(426003)(6916009)(336012)(83380400001)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2022 16:46:05.1537 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3303db9-6e75-4061-0816-08da44b762bb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5160
+References: <20220602154734.7854-1-christian.koenig@amd.com>
+In-Reply-To: <20220602154734.7854-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 2 Jun 2022 12:54:26 -0400
+Message-ID: <CADnq5_MopB5aUpzo_iWz5TXbxAxYXttm8L6L_SwFayUPEyZxhw@mail.gmail.com>
+Subject: Re: [PATCH] drm/ttm: fix bulk move handling during resource init
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Mike Lothian <mike@fireburn.co.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,47 +65,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add comments to clarify code that is safe, but triggers and
-smatch warning.
+On Thu, Jun 2, 2022 at 11:47 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> The resource must be on the LRU before ttm_lru_bulk_move_add() is called.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Link: https://lists.freedesktop.org/archives/amd-gfx/2022-June/079905.html
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+This should at least fix the null pointer in these bugs:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 91f21b725a43..b0811287f017 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1435,6 +1435,11 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
-+	/* num_vcn_inst is currently limited to AMDGPU_MAX_VCN_INSTANCES
-+	 * which is smaller than VCN_INFO_TABLE_MAX_NUM_INSTANCES
-+	 * but that may change in the future with new GPUs so keep this
-+	 * check for defensive purposes.
-+	 */
- 	if (adev->vcn.num_vcn_inst > VCN_INFO_TABLE_MAX_NUM_INSTANCES) {
- 		dev_err(adev->dev, "invalid vcn instances\n");
- 		return -EINVAL;
-@@ -1450,6 +1455,9 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
- 
- 	switch (le16_to_cpu(vcn_info->v1.header.version_major)) {
- 	case 1:
-+		/* num_vcn_inst is currently limited to AMDGPU_MAX_VCN_INSTANCES
-+		 * so this won't overflow.
-+		 */
- 		for (v = 0; v < adev->vcn.num_vcn_inst; v++) {
- 			adev->vcn.vcn_codec_disable_mask[v] =
- 				le32_to_cpu(vcn_info->v1.instance_info[v].fuse_data.all_bits);
--- 
-2.35.3
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1992
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2034
 
+Alex
+
+> ---
+>  drivers/gpu/drm/ttm/ttm_resource.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm=
+_resource.c
+> index 65889b3caf50..928b9140f3c5 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -169,15 +169,17 @@ void ttm_resource_init(struct ttm_buffer_object *bo=
+,
+>         res->bus.is_iomem =3D false;
+>         res->bus.caching =3D ttm_cached;
+>         res->bo =3D bo;
+> -       INIT_LIST_HEAD(&res->lru);
+>
+>         man =3D ttm_manager_type(bo->bdev, place->mem_type);
+>         spin_lock(&bo->bdev->lru_lock);
+>         man->usage +=3D res->num_pages << PAGE_SHIFT;
+> -       if (bo->bulk_move)
+> +       if (bo->bulk_move) {
+> +               list_add_tail(&res->lru, &man->lru[bo->priority]);
+>                 ttm_lru_bulk_move_add(bo->bulk_move, res);
+> -       else
+> +       } else {
+> +               INIT_LIST_HEAD(&res->lru);
+>                 ttm_resource_move_to_lru_tail(res);
+> +       }
+>         spin_unlock(&bo->bdev->lru_lock);
+>  }
+>  EXPORT_SYMBOL(ttm_resource_init);
+> --
+> 2.25.1
+>
