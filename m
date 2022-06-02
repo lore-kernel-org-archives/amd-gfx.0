@@ -4,72 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38CF2C43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 18:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DBCC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 18:55:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0C4E11361A;
-	Thu,  2 Jun 2022 18:52:22 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7322011361A
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 18:52:21 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id q1so11660666ejz.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 11:52:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D74B2113592;
+	Thu,  2 Jun 2022 18:55:45 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1652211358A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 18:55:44 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id v1so989209ejg.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 11:55:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=MPhwZrQg9S84Wf6vg7uVPhlMm+f5CY8dqV/VLyAfuBw=;
- b=oq0Oj5WZrtVeCToBd1kuna2pDIG/OIcSP5sCE/a9nKTmq4UyBNAnFYgpUySZKQEOBN
- NPl0MIQUTZVafnBL5PEFuyr1VoqI7xYwlSQ1xGo32Vym/LoAVvR8SjxZYcb/euBs1i6A
- oYMB+9Kvwg8AjeNPcy3ML09vqcL/X9qMIi1ZqsvDOZtzyqjrDrPGZvo+p924KSX3LtDe
- b+/kflORVXp8V61UMV3QlocZtJia2KMWZt9yD270A/bP4fg1v3wTgz/PIaFBYwdFrqLK
- l7JHPM85wdhNlAo2ND6HJGU/bCV0Up62TjyqwXpAzHgO5c2/60r+UJJlxhlWXTAQTYpU
- GqwQ==
+ bh=oaEhO2FV6xt9uxLW6/eglQvoqwM7Wcz3cScTxNbXGsM=;
+ b=P20/vXCnY9cTrhyMD3UKovx+YY8H4ZrxBt3QxB2zZqK/t7emu45VNnnojoMLo4O8wb
+ rx7AsY3MP8pniCE30ZCEQGoO4dKWUxNYnyY+lgyPiCwTZlU3+VERLbRZc+E9YhvKy2So
+ lK2qiwLwcvEE3Bu3AAOwlKlGU08BjJC3wYP1fchksjZyhfM9LBfdN3cZjdrTMdThAU0a
+ WSovAEIxkVWTS4yApv5fCm+/rxIu4qBRluUZ//bDI0b26LsP0s9T38Jrsc6xBdVDjtm/
+ dWiDR1DD4ZQqbwX2iaDJ23UZbcIBnsjhEWc0rtwVc0gix9tGwT6XG0mqCa8fP75ZzexR
+ 2/8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=MPhwZrQg9S84Wf6vg7uVPhlMm+f5CY8dqV/VLyAfuBw=;
- b=cTwRq3rM7Y08GgL48+PH7tsbPhZaib7x3amWMyp/m14Ie+fdygHxISxZhyuH1UAClE
- 9uHuGSvrJh1lcL5ixUHD3nINfOIw34D+aaDFqby+iDAiP7IUM8LmwCi5U0yR/29GMMtL
- iWk5YCw2b2SWWHLiavJqsr6Uei00V7+tWAYyYTVRUaXDgdv4lBkDddxlXZS+t/RFmMLl
- pR40/Wr0aO1xqzk2CXXUDVT/avvBouSmYViMa+zLC2f2p0aPwMxQbUfkoemuMtXK3asl
- laKFXo+YxTaFP43emQacVKFzEoROVROc76IwUTK3bfO0rWaIWsQxjRPvizLxcdINsL3R
- 4wiw==
-X-Gm-Message-State: AOAM531Xz/2ZtI1CN5fZnjyWAajDDUQVZJWBnRL/6YRT/OGA3YAE+Y8p
- 02PwVE4c2FFrdz4PDCskvmY=
-X-Google-Smtp-Source: ABdhPJyf5gBogZIyln8GiCAO7vugc81ub5iuc53SRiQPxxUngbTe3nSBGMwX0iFW/ZAUd9imvkecRQ==
-X-Received: by 2002:a17:907:720a:b0:6ff:2e1c:f22f with SMTP id
- dr10-20020a170907720a00b006ff2e1cf22fmr5610486ejc.16.1654195939812; 
- Thu, 02 Jun 2022 11:52:19 -0700 (PDT)
+ bh=oaEhO2FV6xt9uxLW6/eglQvoqwM7Wcz3cScTxNbXGsM=;
+ b=BeIHfYhXoX3hl6LDRNY5QXYybnP6XQV2/Km0KsbEjU3iaZwB2IQjZNOpvcn1exwQdV
+ 19fHtb1B2ygyQ2BL/34blp01ENdEIf5+RymYnm6F/sNmtm4D3GyqeluLt8nUNjq6vjwR
+ t1/gNQZel41IJn96Lwgq4SvYnUSoaJG4e1GCYq4AxN3rHwOXmPhUGIWsLkVSauFgjXZS
+ IMoXSmjCdB2F+F10uSXZXQovVwuDA2Phw9Hd2XH1tMijJilx90kXLRR3/kllWRyvPeIF
+ h+e+q+K8H5wi8gEWPuLWaO9fVQqKL/7mWiN7CypMNmwZFqlGVtdwBRc7RbGsq3S/mDo/
+ t9NA==
+X-Gm-Message-State: AOAM532qPTDRy1sLJmdpOxzjscWNsqPAC5W5TN4Do8kPY41KZCDXusVr
+ NsYpA8DcoV4qmiu2CrXaxCQ=
+X-Google-Smtp-Source: ABdhPJxZhtb6OMjO00E20u1xUGn2iqDaM/fzsKjw6LNFjlB5go03CFTSsLOY0JK6oKpxxHrEaP9i5w==
+X-Received: by 2002:a17:907:d27:b0:6ff:d8b:9564 with SMTP id
+ gn39-20020a1709070d2700b006ff0d8b9564mr5485968ejc.364.1654196142572; 
+ Thu, 02 Jun 2022 11:55:42 -0700 (PDT)
 Received: from ?IPV6:2a02:908:1256:79a0:80:e84d:46c:65f5?
  ([2a02:908:1256:79a0:80:e84d:46c:65f5])
  by smtp.gmail.com with ESMTPSA id
- m9-20020a170906580900b006feb7b1379dsm1934465ejq.181.2022.06.02.11.52.18
+ a14-20020a170906368e00b006fec5cef701sm2001346ejc.197.2022.06.02.11.55.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jun 2022 11:52:18 -0700 (PDT)
-Message-ID: <f55b41ef-25d3-9839-29f0-d614ad5f1bda@gmail.com>
-Date: Thu, 2 Jun 2022 20:52:17 +0200
+ Thu, 02 Jun 2022 11:55:42 -0700 (PDT)
+Message-ID: <bc546040-cbc5-0193-07d9-0dfe74592598@gmail.com>
+Date: Thu, 2 Jun 2022 20:55:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: Explicit VM updates
+Subject: Re: [PATCH] drm/ttm: fix bulk move handling during resource init
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "Olsak, Marek" <Marek.Olsak@amd.com>
-References: <293d9f72-c3e5-913d-08d1-0a8591299c46@amd.com>
- <022d86d0-6301-70da-f320-b17c4859443b@amd.com>
- <412a23fc-eb92-8f3c-e339-0bc3918c0f18@amd.com>
- <4d563bf0-ade6-fc3e-9de1-cc2522c4a57f@amd.com>
- <743af352-bdce-a69c-7ecc-2fc99441c82b@amd.com>
- <58b622db-3a30-f6c5-cdda-0136d85b531a@amd.com>
- <14a39f90-4ba9-3dea-bc38-324d0ee34193@amd.com>
- <337ce13f-b852-f02b-b6e1-53c0b3bbff80@amd.com>
+To: Mike Lothian <mike@fireburn.co.uk>, Alex Deucher <alexdeucher@gmail.com>
+References: <20220602154734.7854-1-christian.koenig@amd.com>
+ <CADnq5_MopB5aUpzo_iWz5TXbxAxYXttm8L6L_SwFayUPEyZxhw@mail.gmail.com>
+ <CAHbf0-FZJnD7PQNFhVkg64XqKvwbuhN115yVFDd8_XG54nD_Ow@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <337ce13f-b852-f02b-b6e1-53c0b3bbff80@amd.com>
+In-Reply-To: <CAHbf0-FZJnD7PQNFhVkg64XqKvwbuhN115yVFDd8_XG54nD_Ow@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,173 +75,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.06.22 um 16:21 schrieb Felix Kuehling:
-> [SNIP]
->>>>>>
->>>>>> In other words the free is not waiting for the unmap to complete, 
->>>>>> but causes command submissions through the kernel to depend on 
->>>>>> the unmap.
->>>>>
->>>>> I guess I don't understand that dependency. The next command 
->>>>> submission obviously cannot use the memory that was unmapped. But 
->>>>> why does it need to synchronize with the unmap operation?
->>>>
->>>> Because of the necessary TLB flush, only after that one is executed 
->>>> we can be sure that nobody has access to the memory any more and 
->>>> actually free it.
->>>
->>> So freeing the memory has to wait for the TLB flush. Why does the 
->>> next command submission need to wait?
->>
->> Because that's the one triggering the TLB flush. The issue is that 
->> flushing the TLB while the VMID is in use is really unreliable on 
->> most hardware generations.
->
-> It's been working well enough with ROCm. With user mode command 
-> submission there is no way to block GPU work while a TLB flush is in 
-> progress.
+That's because drm-misc-next is currently broken and needs a backmerge.
 
-Yeah, but at least on Navi 1x that's so horrible broken that the SDMA 
-could write anywhere when we would try this.
-
->>
->>>>>>
->>>>>> User mode submissions are completely unrelated to that.
->>>>>
->>>>> I mention user mode command submission because there is no way to 
->>>>> enforce the synchronization you describe here on a user mode 
->>>>> queue. So this approach is not very future proof.
->>>>
->>>> With user mode queues you need to wait for the work on the queue to 
->>>> finish anyway or otherwise you run into VM faults if you just unmap 
->>>> or free the memory.
->>>
->>> If the next command submission doesn't use the unmapped/freed 
->>> memory, why does it need to wait for the TLB flush?
->>
->> Because it could potentially use it. When userspace lies to the 
->> kernel and still accesses the mapping we would allow access to freed 
->> up memory and create a major security problem.
->
-> I'm aware of the potential security problem. That's why I'm 
-> recommending you don't actually free the memory until the TLB flush is 
-> done. So a bogus access will either harmlessly access memory that's 
-> not freed yet, or it will VM fault. It will never access memory that's 
-> already freed and potentially allocated by someone else.
-
-Yes, that's the idea. The question is just when we can do the TLB flush.
-
->>> If it is using the unmapped/freed memory, that's a user mode bug. 
->>> But waiting for the TLB flush won't fix that. It will only turn a 
->>> likely VM fault into a certain VM fault.
->>
->> Yeah, exactly that's the intention here.
->>
->>>
->>> The guarantee you need to give is, that the memory is not freed and 
->>> reused by anyone else until the TLB flush is done. This dependency 
->>> requires synchronization of the "free" operation with the TLB flush. 
->>> It does not require synchronization with any future command 
->>> submissions in the context that freed the memory.
->>
->> See above, the future command submission is what triggers the TLB 
->> flush because only then we can easily execute it without to much hassle.
->
-> That seems to be a limitation of your current command submission 
-> model. User mode command submission will not be able to trigger a TLB 
-> flush. Unmapping or freeing memory should be the trigger in that case.
->
-> That's how it works with KFD. That said, our TLB flushes aren't as 
-> well pipelined (which could probably be improved), and your strategy 
-> can probably batch more TLB flushes, so I see where you're coming from.
-
-Well the mapping/unmapping IOCTL should certainly trigger the TLB 
-flushes for the user mode queues, but as I said this is completely 
-independent to this here.
-
-The limitation is on the kernel CS IOCTL, not the VM IOCTL. So that is 
-completely unrelated to this.
-
->>
->> For Vega and Navi 2x we could use async TLB flushes and on gfx6, gfx7 
->> and gfx8 we could use double TLB flushes with grace time, but Navi 1x 
->> is so horrible broken regarding this that I don't see how else we 
->> could do that.
->
-> We're using heavy-weight TLB flushes on SOC15 GPUs. On Vega20 with 
-> XGMI we need double flushes to be safe.
->
-> I'm raising my concerns because I don't think making user mode wait is 
-> a good strategy long-term. And I believe this explicit sync and 
-> explicit VM update should be designed with an eye for future user-mode 
-> command submission models.
-
-Yeah, but as already discussed with Daniel and Jason that will never 
-ever work correctly. IOCTLs can't depend on user mode queues in any way. 
-So user space can only block or rather call the map, unmap, free 
-functions at the right time.
-
-> If you need short-term workarounds for broken hardware, that's another 
-> issue. But it would be good if that could be kept out of the API.
-
-Well as I said that is completely unrelated to user mode queues. The 
-restriction is on the CS API, not the VM API.
+Please try this patch on top of drm-next.
 
 Regards,
 Christian.
 
+Am 02.06.22 um 20:08 schrieb Mike Lothian:
+> Hi
 >
+> I'm still seeing Null pointers against Linus's tree and drm-misc with this patch
 >
-> Regards,
->   Felix
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: BUG: kernel NULL pointer
+> dereference, address: 0000000000000008
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: #PF: supervisor write
+> access in kernel mode
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: #PF: error_code(0x0002) -
+> not-present page
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: PGD 11ee04067 P4D
+> 11ee04067 PUD 15eccb067 PMD 0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Oops: 0002 [#1] PREEMPT SMP NOPTI
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CPU: 0 PID: 1021 Comm:
+> GravityMark.x64 Tainted: G        W         5.18.0-tip+ #3177
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Hardware name: ASUSTeK
+> COMPUTER INC. ROG Strix G513QY_G513QY/G513QY, BIOS G513QY.318
+> 03/29/2022
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RIP:
+> 0010:ttm_resource_init+0x108/0x210
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Code: 48 8b 74 0a 08 48
+> 39 de 0f 84 82 00 00 00 48 8b 7b 38 4c 8b 4b 40 4c 8d 44 0a 08 48 8d
+> 56 38 4c 89 4f 08 49 89 39 48 8b 4e 38 <48> 89 41 08 48 89 4b 38 48 89
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RSP:
+> 0018:ffff888112e73918 EFLAGS: 00010202
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RAX: ffff888206b715d8
+> RBX: ffff888206b715a0 RCX: 0000000000000000
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RDX: ffff888206b71cf8
+> RSI: ffff888206b71cc0 RDI: ffff888110605b00
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RBP: ffff88816c848c08
+> R08: ffff88812235c790 R09: ffff8881306a4bd8
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: R10: 0000000000000000
+> R11: ffffffff81851320 R12: ffff888110605ad0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: R13: ffff888206b715a0
+> R14: ffff88816c848c58 R15: ffff888110605ad0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: FS:
+> 00007f4c257c1740(0000) GS:ffff888fde400000(0000)
+> knlGS:0000000000000000
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
+> 0000 CR0: 0000000080050033
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
+> CR3: 00000001183fc000 CR4: 0000000000350ef0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Call Trace:
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  <TASK>
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_vram_mgr_new+0xbb/0x4b0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? ttm_bo_mem_space+0x89/0x1e0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? ttm_bo_validate+0x80/0x1a0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_bo_validate+0xe9/0x2b0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> amdgpu_syncobj_lookup_and_add_to_sync+0xa0/0xa0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> amdgpu_vm_validate_pt_bos+0xce/0x1c0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_parser_bos+0x522/0x6e0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_ioctl+0x7fe/0xd00
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> amdgpu_cs_report_moved_bytes+0x60/0x60
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? drm_ioctl_kernel+0xcb/0x130
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? drm_ioctl+0x2f5/0x400
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> amdgpu_cs_report_moved_bytes+0x60/0x60
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_drm_ioctl+0x42/0x80
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? __x64_sys_ioctl+0x5e/0xa0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? do_syscall_64+0x6a/0x90
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> exit_to_user_mode_prepare+0x19/0x90
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
+> entry_SYSCALL_64_after_hwframe+0x46/0xb0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel:  </TASK>
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Modules linked in:
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: ---[ end trace
+> 0000000000000000 ]---
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RIP:
+> 0010:ttm_resource_init+0x108/0x210
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: Code: 48 8b 74 0a 08 48
+> 39 de 0f 84 82 00 00 00 48 8b 7b 38 4c 8b 4b 40 4c 8d 44 0a 08 48 8d
+> 56 38 4c 89 4f 08 49 89 39 48 8b 4e 38 <48> 89 41 08 48 89 4b 38 48 89
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RSP:
+> 0018:ffff888112e73918 EFLAGS: 00010202
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RAX: ffff888206b715d8
+> RBX: ffff888206b715a0 RCX: 0000000000000000
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RDX: ffff888206b71cf8
+> RSI: ffff888206b71cc0 RDI: ffff888110605b00
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: RBP: ffff88816c848c08
+> R08: ffff88812235c790 R09: ffff8881306a4bd8
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: R10: 0000000000000000
+> R11: ffffffff81851320 R12: ffff888110605ad0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: R13: ffff888206b715a0
+> R14: ffff88816c848c58 R15: ffff888110605ad0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: FS:
+> 00007f4c257c1740(0000) GS:ffff888fde400000(0000)
+> knlGS:0000000000000000
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
+> 0000 CR0: 0000000080050033
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
+> CR3: 00000001183fc000 CR4: 0000000000350ef0
+> Jun 02 19:04:05 axion.fireburn.co.uk kernel: note:
+> GravityMark.x64[1021] exited with preempt_count 1
 >
->
->>
->> Regards,
->> Christian.
->>
+> On Thu, 2 Jun 2022 at 17:54, Alex Deucher <alexdeucher@gmail.com> wrote:
+>> On Thu, Jun 2, 2022 at 11:47 AM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> The resource must be on the LRU before ttm_lru_bulk_move_add() is called.
 >>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>>
->>>> The signal that TLB flush is completed comes from the MES in this 
->>>> case.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Regards,
->>>>>   Felix
->>>>>
->>>>>
->>>>>>
->>>>>> Regards,
->>>>>> Christian.
->>>>>>
->>>>>>>
->>>>>>> Regards,
->>>>>>>   Felix
->>>>>>>
->>>>>>>
->>>>>>>>
->>>>>>>> 3. All VM operations requested by userspace will still be 
->>>>>>>> executed in order, e.g. we can't run unmap + map in parallel or 
->>>>>>>> something like this.
->>>>>>>>
->>>>>>>> Is that something you guys can live with? As far as I can see 
->>>>>>>> it should give you the maximum freedom possible, but is still 
->>>>>>>> doable.
->>>>>>>>
->>>>>>>> Regards,
->>>>>>>> Christian.
->>>>>>
->>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> This should at least fix the null pointer in these bugs:
 >>
+>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1992
+>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2034
+>>
+>> Alex
+>>
+>>> ---
+>>>   drivers/gpu/drm/ttm/ttm_resource.c | 8 +++++---
+>>>   1 file changed, 5 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+>>> index 65889b3caf50..928b9140f3c5 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+>>> @@ -169,15 +169,17 @@ void ttm_resource_init(struct ttm_buffer_object *bo,
+>>>          res->bus.is_iomem = false;
+>>>          res->bus.caching = ttm_cached;
+>>>          res->bo = bo;
+>>> -       INIT_LIST_HEAD(&res->lru);
+>>>
+>>>          man = ttm_manager_type(bo->bdev, place->mem_type);
+>>>          spin_lock(&bo->bdev->lru_lock);
+>>>          man->usage += res->num_pages << PAGE_SHIFT;
+>>> -       if (bo->bulk_move)
+>>> +       if (bo->bulk_move) {
+>>> +               list_add_tail(&res->lru, &man->lru[bo->priority]);
+>>>                  ttm_lru_bulk_move_add(bo->bulk_move, res);
+>>> -       else
+>>> +       } else {
+>>> +               INIT_LIST_HEAD(&res->lru);
+>>>                  ttm_resource_move_to_lru_tail(res);
+>>> +       }
+>>>          spin_unlock(&bo->bdev->lru_lock);
+>>>   }
+>>>   EXPORT_SYMBOL(ttm_resource_init);
+>>> --
+>>> 2.25.1
+>>>
 
