@@ -4,119 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57683C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58138C43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:40:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFB4310FDFB;
-	Thu,  2 Jun 2022 16:15:23 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77CCB10FDC9
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:15:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Anm0hU1Cf0Q4vI1MWQBwR/2q1BBbDOV4e5jqw/pvpdTtAyQyOoyWr9F5XdKRT7cnw8RHEYL+1xmxVlhKFhuXdx+Ms9k5/bOCHmH/MCZAf4d+xaXs0J1+XEgFqj/nE4hCDY5SerSld+4/9krkH+O53D1aLC+w6t3+2OlhhLqXAaAjZFrmmkrZpgm3fcbhIj6Pe9+E01RNOfZVA5TBhPVdJom0DI5hmC8EPND35CwablRnP+1ksSOlUPvsxiPpp8QDV8Z03LaYsk9dpv1gwxjyquZh/sBWxRRcoiqnh/nQjejYdOcG3HyVa54Fv9tBzhZf59tb299JNbrGSDPdSJ2RMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jjYXS24Ojk6yePNWTu+D09HykbjUPSTwdUFkDAW2RQE=;
- b=ln/G2AdZn373RuSzFliGYeRu3EXOLMxCvaYk63scJTfOL9hIuXlaMtwZqfX0QIMhezxUgjpiCKkwLqLFkdiKZHoS4NenyMcTLed0Hun7tMVLSWMmbJYOHNmqbD2WEVHKG5vIF8IcDsmEGZRZLfk0iCs0x7+9XlhNxjlD9hZ/PPkHBSYsxBZflTUYz/6VnLC4wawn36HSxks5q7Taug6w8NXbuce/vmCq9/jTtYXVfFJEByKML5tQNRnM83Us2XT0GaO348GskrDlA3zOwk/n4pfvz1Cw32eX6y+Gw+p0fhLwxd07VtxCsF4tkxpw4IoN3mjlpti67ESLm/jTvl6viw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjYXS24Ojk6yePNWTu+D09HykbjUPSTwdUFkDAW2RQE=;
- b=HGmCt7GnLi9JOfjvMLg3TtpJtB2w93Ui43gEoyla3pHmp+3lfpRvuR80D0PEngAdZBduesWasV6GZk+dw2vCSwlPvf+9rs8w+vEOaV4gYjTt8Xpu5PaqUr2E+LvZ9DUQwajuC3Y6Dl/tL0Tevxf9r5GC40D3VtZxgrMP2WkfkCA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- BN6PR12MB1396.namprd12.prod.outlook.com (2603:10b6:404:1b::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5314.12; Thu, 2 Jun 2022 16:15:20 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::f85e:63df:8fde:b620]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::f85e:63df:8fde:b620%5]) with mapi id 15.20.5314.012; Thu, 2 Jun 2022
- 16:15:20 +0000
-Message-ID: <e664b5f3-2641-4414-3256-2aa0b70d945c@amd.com>
-Date: Thu, 2 Jun 2022 12:15:16 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH] drm/ttm: fix bulk move handling during resource init
-Content-Language: en-CA
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, Arunpravin.PaneerSelvam@amd.com
-References: <20220602154734.7854-1-christian.koenig@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20220602154734.7854-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:82::8) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFE7A1130BD;
+	Thu,  2 Jun 2022 16:40:56 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB3761130BD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:40:55 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-f2e0a41009so7416980fac.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 09:40:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZxpEdJOYtMK0inapIOVant4E0EttsmEOZelWajqhOtw=;
+ b=Lq0mUUu4jpA4WF/IGa3h7MaBp/8g5+FvfYCtAXB5GprRvL//SlooWDBRM7TZZhOriw
+ HggTtGXd+Aa8bVT1vFS6EMb0l8O0Tk++cRRo55fN//yXD00yxBxfs31H4ZUF6/DeGWvH
+ QbWU/TEKqbBrkUuGvGFix1O81GGDgoi3/sqauikHfAM5MkU08QvUC5o1ChMOmlFloIyU
+ szKydF5SjauC7hgnk9UK9aU5npvn1HvX9bFVBWE/xVkl0vkv+jYiw//B6Ve6TubdEAkw
+ 8I3SEE7SbTgkH4d+3KN0h0+1M+dIyjD3NpTE6ASwTAKf3EkfKhXpLh0g8FLsXtmAkFpi
+ KtQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZxpEdJOYtMK0inapIOVant4E0EttsmEOZelWajqhOtw=;
+ b=B+4yJ9ZkK04r7VSFqd923BBVQoK81t/ezGNx94G1sBm3Dxzm9eJf+3q7cDeOq64aFC
+ ee/fVOcmc3lPstnsKr95o+7QQhRoK9lnFYkzaZqCB4+m+3D3XMHzkaKI25OF5IrGRr/P
+ GJr96fdbXC1iEohe4iWxlhrwKrXWyL+mn+iSm3Rla0H6N7YtorE2U+N5257b2sLWxanM
+ +tKUmBGjTpgDP7IfPxXe57E5QqtZa/aceQy70JCmMhFz2nFylxF+z4ZTjogSyjLv+9iY
+ SvdVJ9kZVswKG76cJpkeeW2qK+rWQy1r3B7/H3FdtS0OioHsv1mXlIAxl4XksI6V6qwt
+ u+tw==
+X-Gm-Message-State: AOAM5330fNh5UHh5bhLq05EV06n67VS9MS2CQhUUQ03oV0nN+hOhu2Wo
+ jSrB72Adj5e6KqwBne4E8YkT32eJvNQtDbtvqqOn2jib
+X-Google-Smtp-Source: ABdhPJw9svu9g10hzPWusfAM9mePlDK55vydFJftJzcUgwCJyUyXln4QxtVLMwZzFmvYi8NyCA1962us/1QPluRlZ2o=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr3303637oap.253.1654188055237; Thu, 02
+ Jun 2022 09:40:55 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f6136e31-44a1-464a-0c56-08da44b316ef
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1396:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB139647B64EFE4F88C68554CB99DE9@BN6PR12MB1396.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NxaQRRP0WDEA2HdufEtXvwelSjVDG8kZepB99xYz4/kkGpjSHfsJQFzF6diAnNawxrb6nrztK8HKZ7T4B5ThjIx8I2fGyEKJdPpj25Mrm7jcPvYQgRAKS1w5f6rm/F/u9ixmny8ai6CcKq2TcXZN1C10+dplohvgK7tOxl+JIE9qj9wAnPG5BzoRjZIu6FquykYWfdV4G4P27XO+nCpRusppNhJkOEirBUCJ97QzftTywe4b3sBVgRUZjtxriLJn7x1XADGaGvgSXpD2hHtdOQaahikTOjk/xijFakB+7FrTjxKwAvoutBf8ibWse/NtoG++SYT48cmPBWX3zqt4d33DIKY4ci73APKGEnjTDk92EsffFQtYREOodfXVDeyzC2K++hnjAyLL4d/E0eUZTCSzwi8n22e7M2xZRgRv7tIGGOuh85E232RjHYrXwjv3k5z82LL/BKd/vngjZ93r+79GTwMC3GGge/uN2S3wYbLERrcL6/hlIDUx+Xkp4939RMuDkxpJRgNkuj7iRYzB2yXVdOHmAsm54uz6qW5RwzEg3xv1rS0+aX6qTWL1HQfxQT16PpTaHwEqz7QdMiGqy+BeP7G1ZSz8hez/Q9KsrWuY8Dexfd8ovolCXT+GDGAdP4gMddEGYiwsLPN6HEyMWvvd3t9x+8DXu99NODE/3+3I9tyzfEYBDrF9jASkhHJMvdypUFNGpMsMo4gsWOkFFIAOhHeyeigwEP78zVTJPJg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(26005)(5660300002)(6512007)(31696002)(508600001)(6506007)(53546011)(8936002)(6486002)(8676002)(2906002)(38100700002)(6666004)(44832011)(66476007)(66556008)(66946007)(86362001)(83380400001)(66574015)(6636002)(31686004)(2616005)(36756003)(316002)(186003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVNwZ0dHRVdsME5GM1F6YXV3SXVnV3lPaTl4cmRNYWY5NXRpOWtBdVZiZDh5?=
- =?utf-8?B?T1VmL2o0Q0RjVlgvSjR0SFkzaWpMakpTdENSc0o4NC84N1JiL3RqQjAxRXJU?=
- =?utf-8?B?aU8waXdLTnQwU0ZjTkxkWlNTdkM1MHhPSjJPRHVNeU9tUGhhenZaeFJ4d2RV?=
- =?utf-8?B?NEZ5ankxTFNMdzMraWZlaHhrbm9Ic2VDNUJpbjlnaUF4aEFiWjRLZTNLMENm?=
- =?utf-8?B?WDBjbk9wYUdoOUpJbVRyQWZwdFM1cE5hTkZaQzNvcG5zNGx2M3hlbmdYUWNx?=
- =?utf-8?B?aFhjY2FjMndnYUxMTmRSTDVLaXhEc1NlM0ZGVGVDdHJ4c2VNVUxxb2MwdUVJ?=
- =?utf-8?B?S3RSWWszZEtkTUIvTTZWZHdKTy9iSTNhaTZCMHdEM1NUejlCbUZuUm81UjVX?=
- =?utf-8?B?N1lFb2plN21UV3dZMW9YMGhoL1NEMC8ySnhadXRjUFVNNkZOVUNJSzBCdXM4?=
- =?utf-8?B?NDNZRGhkMEFWeHhYK0E0TTMzQWNoeHR2eDVJenI4K0VVMnEyZFJJRFd2ckgz?=
- =?utf-8?B?RSs4VkhpV1lLU09xcTZndnpTUjM0MkJRK3VZOWRZQzgxTmJvQVBVL2w5aHdr?=
- =?utf-8?B?RWJDRmxJWmdBcC9WRkU3NjJuKzBIRUVoT0RLQjVCT3N4MjNEd3pEbVpidWxl?=
- =?utf-8?B?a2t2UEh3aFN6ZFBETzNmU1JXWFZENjVMMi9EdWRKbU5DNUd0VXE2dURBVHJH?=
- =?utf-8?B?NTdtRFBzYnlFcXBKa3RNaXNBbng2ckZ5VXM1dVBhZjc3NXNtSERpYTE4Y0ZO?=
- =?utf-8?B?c0QzRmdLM1lPU2tuUzRZQ3NoN01lS0Mwd0xOTFNHalV0VzFSaHRtTmFvUTFE?=
- =?utf-8?B?NTlnMzhCa1BSUXpZMU9ISm4wdUh4NGQzUmdESE5hZFlRc0RkWlRhOG5hM3lw?=
- =?utf-8?B?bzcrTGIranpKVFM0NUVtdkV4UXBLZ3UreTdzb3VxMjZzUC9zU2lhUUhJb3Jv?=
- =?utf-8?B?NGxINHd6UzVrb203N01vZ2NSOTFjL2pSVWtNN2xtTGYySEtYaDBuVTdrd1FK?=
- =?utf-8?B?VzlZU1h1WEUvVXRYQllEUis2WDc2RndQVGtKRWN4MEg3MWhYY3FXUXVHR3FX?=
- =?utf-8?B?VUNVNHpLVkxOWWQzVmtDcTVtazg0MzUyc0hCMHNqUmZoWUx4eVcxb2V5SHRL?=
- =?utf-8?B?TXpvaG5yWmtmVEpYUW53NFNXOEdlRXZObXgxTUpYaFNwVk00UVNOU0RJenRK?=
- =?utf-8?B?N29EaTdTWS81dVN2dXVxdmNRb296SFNTbmdKV01maGJGVkhlM0MxdTk4WlVM?=
- =?utf-8?B?U2o5YTZSUGNteXpQVlRDRVpJZ09RckNBc2k0ZmI4WU1ubTc0aEd2cWdGY09s?=
- =?utf-8?B?bXRKaG8wRDhRS1lmcHFZa1BEUUZoSkhxZ21Dc1dvM1lkZXJCUzJvelhuWVBk?=
- =?utf-8?B?bUZTaWpzeSt0K3I3d2QvNjFMZHg4WmJsd1FYcEdabmdpZklWWUFRZjZzOTN6?=
- =?utf-8?B?eEYwOTd3QTdSeExRWUNWSzRSZ0IrTytrSGZ4TUIwTS82cnNpZjZVOHNBS1Vs?=
- =?utf-8?B?UFVLOVlJTzkxendyeW9ISy8yZ21TTTgzN2dOVWYzUTNsTnVOWHdtZ3Z4VHkr?=
- =?utf-8?B?NnBvTlFUM3IyeThBQjRReFh6SnJqaERLSWFiQURlajV2U3RsUTFLSWNTaTg5?=
- =?utf-8?B?alRDb21RdENBaHZIUzJ2MFdrYzBsYnUyY0gvZ0hsaWlJOFQvYi85TXU3SmNR?=
- =?utf-8?B?Wk03bnBGaExxRkNULzkrY2lMVC82RmhQSUlOWDlkclNVVXdjYk5BRlZpSjZJ?=
- =?utf-8?B?Rmdwb3cxWE1Fd3FaYnVCWjVhNWNDR2w1c3RGajBoRW9QekxsR0VVbndSbVZW?=
- =?utf-8?B?cGpXUHlPRTBjcFVrYzZIYk0xaDhXd3R6ODJScTFET1djTHVWNnJKamcyQmVE?=
- =?utf-8?B?OWQrWkNuL0VBb21OVEJlandob29wbis2WmV2UWRwUTVsL1JYc0pMMVlQTEFi?=
- =?utf-8?B?YmdhemNXUFJPbUsyK1Fpc0lZVzhTUXY0N1FiODBEamY2VTZIKzZYUTFEaGRH?=
- =?utf-8?B?K1I2VDlDT25uL3pTeVJFemZ6K0ZqSmpYWWp0cnVxT0RnTS9KQS93MkJNY2xV?=
- =?utf-8?B?NkdWRlp4eUtPWFMvV2h3TWxLU25TWWxEeHBVNzRoWXdJQy82NXUyVTlOQnZv?=
- =?utf-8?B?V2NIM3VLcmtQRkFxSUp4amkzTFdEZDVMWWx1cnp2TGsxVVhsbkpSOW1RVUcx?=
- =?utf-8?B?eGtqUFhYSjVKcm50Q1dyRElMbnFqVTlybTd1ODBwaDFnd2YxMlpPR1NCKy9q?=
- =?utf-8?B?WmV1KzZhelo5NURUUUpUTzJteDVPNEZweU9HWWlrNHJJajBDS25oalFNL2Mz?=
- =?utf-8?B?aVp5R2FrblRwNFlpUWl2ZktUVFRjQm8vVDE1OUpmVW9CL2hKcWFqZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6136e31-44a1-464a-0c56-08da44b316ef
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2022 16:15:20.2508 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WJoApDy/iZYMYgcgau1gCoz3AMIiiHi9IUpuyb6yYNmnrrKsYvasOFxdin5Z/SMI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1396
+References: <20220520150912.762831-1-alexander.deucher@amd.com>
+In-Reply-To: <20220520150912.762831-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 2 Jun 2022 12:40:43 -0400
+Message-ID: <CADnq5_OZ5e1hfA_6O1q=evs0RbVsH1xf8xybcarTMztZhdvEsg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,48 +63,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+@Christian Koenig
+Any objections to this?  I realize that fixing the OOM killer is
+ultimately the right approach, but I don't really see how this makes
+things worse.  The current scheme is biased towards dGPUs as they have
+lots of on board memory so on dGPUs we can end up setting gtt size to
+3/4 of system memory already in a lot of cases since there is often as
+much vram as system memory.  Due to the limits in ttm, we can't use
+more than half at the moment anway, so this shouldn't make things
+worse on dGPUs and would help a lot of APUs.  Once could make the
+argument that with more vram there is less need for gtt so less chance
+for OOM, but I think it is more of a scale issue.  E.g., on dGPUs
+you'll generally be running higher resolutions and texture quality,
+etc. so the overall memory footprint is just scaled up.
 
-Regards,
-Luben
+Alex
 
-On 2022-06-02 11:47, Christian König wrote:
-> The resource must be on the LRU before ttm_lru_bulk_move_add() is called.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+On Fri, May 20, 2022 at 11:09 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+>
+> Certain GL unit tests for large textures can cause problems
+> with the OOM killer since there is no way to link this memory
+> to a process.  This was originally mitigated (but not necessarily
+> eliminated) by limiting the GTT size.  The problem is this limit
+> is often too low for many modern games so just make the limit 1/2
+> of system memory. The OOM accounting needs to be addressed, but
+> we shouldn't prevent common 3D applications from being usable
+> just to potentially mitigate that corner case.
+>
+> Set default GTT size to max(3G, 1/2 of system ram) by default.
+>
+> v2: drop previous logic and default to 3/4 of ram
+> v3: default to half of ram to align with ttm
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/ttm/ttm_resource.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 65889b3caf50..928b9140f3c5 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -169,15 +169,17 @@ void ttm_resource_init(struct ttm_buffer_object *bo,
->  	res->bus.is_iomem = false;
->  	res->bus.caching = ttm_cached;
->  	res->bo = bo;
-> -	INIT_LIST_HEAD(&res->lru);
->  
->  	man = ttm_manager_type(bo->bdev, place->mem_type);
->  	spin_lock(&bo->bdev->lru_lock);
->  	man->usage += res->num_pages << PAGE_SHIFT;
-> -	if (bo->bulk_move)
-> +	if (bo->bulk_move) {
-> +		list_add_tail(&res->lru, &man->lru[bo->priority]);
->  		ttm_lru_bulk_move_add(bo->bulk_move, res);
-> -	else
-> +	} else {
-> +		INIT_LIST_HEAD(&res->lru);
->  		ttm_resource_move_to_lru_tail(res);
-> +	}
->  	spin_unlock(&bo->bdev->lru_lock);
->  }
->  EXPORT_SYMBOL(ttm_resource_init);
-
-Regards,
--- 
-Luben
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index d2b5cccb45c3..7195ed77c85a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>         DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+>                  (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
+>
+> -       /* Compute GTT size, either bsaed on 3/4th the size of RAM size
+> +       /* Compute GTT size, either bsaed on 1/2 the size of RAM size
+>          * or whatever the user passed on module init */
+>         if (amdgpu_gtt_size == -1) {
+>                 struct sysinfo si;
+>
+>                 si_meminfo(&si);
+> -               gtt_size = min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
+> -                              adev->gmc.mc_vram_size),
+> -                              ((uint64_t)si.totalram * si.mem_unit * 3/4));
+> -       }
+> -       else
+> +               /* Certain GL unit tests for large textures can cause problems
+> +                * with the OOM killer since there is no way to link this memory
+> +                * to a process.  This was originally mitigated (but not necessarily
+> +                * eliminated) by limiting the GTT size.  The problem is this limit
+> +                * is often too low for many modern games so just make the limit 1/2
+> +                * of system memory which aligns with TTM. The OOM accounting needs
+> +                * to be addressed, but we shouldn't prevent common 3D applications
+> +                * from being usable just to potentially mitigate that corner case.
+> +                */
+> +               gtt_size = max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
+> +                              (u64)si.totalram * si.mem_unit / 2);
+> +       } else {
+>                 gtt_size = (uint64_t)amdgpu_gtt_size << 20;
+> +       }
+>
+>         /* Initialize GTT memory pool */
+>         r = amdgpu_gtt_mgr_init(adev, gtt_size);
+> --
+> 2.35.3
+>
