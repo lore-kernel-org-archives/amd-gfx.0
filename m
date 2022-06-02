@@ -4,54 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58138C43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:40:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC08DCCA478
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 16:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE7A1130BD;
-	Thu,  2 Jun 2022 16:40:56 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB3761130BD
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:40:55 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-f2e0a41009so7416980fac.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 09:40:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZxpEdJOYtMK0inapIOVant4E0EttsmEOZelWajqhOtw=;
- b=Lq0mUUu4jpA4WF/IGa3h7MaBp/8g5+FvfYCtAXB5GprRvL//SlooWDBRM7TZZhOriw
- HggTtGXd+Aa8bVT1vFS6EMb0l8O0Tk++cRRo55fN//yXD00yxBxfs31H4ZUF6/DeGWvH
- QbWU/TEKqbBrkUuGvGFix1O81GGDgoi3/sqauikHfAM5MkU08QvUC5o1ChMOmlFloIyU
- szKydF5SjauC7hgnk9UK9aU5npvn1HvX9bFVBWE/xVkl0vkv+jYiw//B6Ve6TubdEAkw
- 8I3SEE7SbTgkH4d+3KN0h0+1M+dIyjD3NpTE6ASwTAKf3EkfKhXpLh0g8FLsXtmAkFpi
- KtQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZxpEdJOYtMK0inapIOVant4E0EttsmEOZelWajqhOtw=;
- b=B+4yJ9ZkK04r7VSFqd923BBVQoK81t/ezGNx94G1sBm3Dxzm9eJf+3q7cDeOq64aFC
- ee/fVOcmc3lPstnsKr95o+7QQhRoK9lnFYkzaZqCB4+m+3D3XMHzkaKI25OF5IrGRr/P
- GJr96fdbXC1iEohe4iWxlhrwKrXWyL+mn+iSm3Rla0H6N7YtorE2U+N5257b2sLWxanM
- +tKUmBGjTpgDP7IfPxXe57E5QqtZa/aceQy70JCmMhFz2nFylxF+z4ZTjogSyjLv+9iY
- SvdVJ9kZVswKG76cJpkeeW2qK+rWQy1r3B7/H3FdtS0OioHsv1mXlIAxl4XksI6V6qwt
- u+tw==
-X-Gm-Message-State: AOAM5330fNh5UHh5bhLq05EV06n67VS9MS2CQhUUQ03oV0nN+hOhu2Wo
- jSrB72Adj5e6KqwBne4E8YkT32eJvNQtDbtvqqOn2jib
-X-Google-Smtp-Source: ABdhPJw9svu9g10hzPWusfAM9mePlDK55vydFJftJzcUgwCJyUyXln4QxtVLMwZzFmvYi8NyCA1962us/1QPluRlZ2o=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr3303637oap.253.1654188055237; Thu, 02
- Jun 2022 09:40:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 663B3113119;
+	Thu,  2 Jun 2022 16:46:08 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9774A113119
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 16:46:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NXPJ3h6j4RrCj9oU5UITPXOd194gNS5ii2DhZlUYe+HAbISRMurHUgS14sJtWpDE5hWqe2OTVnkPsYAKRNsyhnYVziIM95kpCGLkn7EsxtXYXFBojvxPZ5Tsb7xBYy+g9kkebf5zogefUDimnzB+da1wQgxt/XAMwtr9tZyRM8o3B9SIYYCsu5AgE29cgTWnFqnz1XAaoC1DaQhttLyqLmpbACcbh987X6W5/FwcS1z96rBakpn8Pm2xyghpseXC5IPqP37HP0kTtKH8rqul7Lxe3g+kL07+U73JK1y1cZgZQYywKwUSfZnINv5S667cqxwnokSC0fl85uPC0ABVBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xafqe41GZZ/RxRi3YA1jXhLtvl8Mzcu4JKLxM8i6uW8=;
+ b=myKIpJoxl66hD6sMm599/k2mPWvF4KM5q+atd53q/s5RTBx1AdlHhQVdEPPoFmsKywL5Ovf2UUc2pXDVjw0wbCU38yGNis0io5bqQ1FvBGDJWp9j7p3gSWqwTgtF9oMW0Yf8FL03GRfl5zmH6OhQ2o/g+RAcpwRGmoBe9ab5cu8HJYqNaIY3PdoCmcCRBP68/Ka/H3qgm3mNKIfRy11BIesoVCWwFe1gn8NkVuZcP5ZxRnP/EB9lsCmBV+C86zTC/UyhyOBS5FGMrziYwNuwVZmie8AAAhKMJYpN3CTUG0uVTg6VPj73K/PdiqbeWnSYQA7T09FCvzn1QzoNLdXiJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xafqe41GZZ/RxRi3YA1jXhLtvl8Mzcu4JKLxM8i6uW8=;
+ b=b4xc6/8ka/n+hCNEt48VDEYfJ5LoAv89rLqqDqlTuRKsclYjr+l4ArQld3loND5+/nQ7spxKBJ+2lja+Es1RanjM+BPmDaW4in/FB/lrR6VU+R5CcpV7lh2f85V/yxiPnKYpREm3dJpRWvsQ4u6Q5w5h8Kede5YcuwsBDI3Ixfo=
+Received: from BN7PR06CA0053.namprd06.prod.outlook.com (2603:10b6:408:34::30)
+ by BL1PR12MB5160.namprd12.prod.outlook.com (2603:10b6:208:311::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Thu, 2 Jun
+ 2022 16:46:05 +0000
+Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:34:cafe::87) by BN7PR06CA0053.outlook.office365.com
+ (2603:10b6:408:34::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
+ Transport; Thu, 2 Jun 2022 16:46:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5314.12 via Frontend Transport; Thu, 2 Jun 2022 16:46:05 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 2 Jun
+ 2022 11:46:04 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/discovery: add comments about VCN instance handling
+Date: Thu, 2 Jun 2022 12:45:47 -0400
+Message-ID: <20220602164547.1171254-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <20220520150912.762831-1-alexander.deucher@amd.com>
-In-Reply-To: <20220520150912.762831-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Jun 2022 12:40:43 -0400
-Message-ID: <CADnq5_OZ5e1hfA_6O1q=evs0RbVsH1xf8xybcarTMztZhdvEsg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f3303db9-6e75-4061-0816-08da44b762bb
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5160:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5160691F133AB3D887EC42A8F7DE9@BL1PR12MB5160.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dwmzc11+xMcy7guenk2KA4KZnb9bDgaG76jgk3o/W1lJtIA/PddsvAy6kMUVjxcf6ZR0K51jVznqgY1avrmV0pBg/cofPrBTGOT6v36j42LCCHpMMojYye+lONRfIioCcP4lECmlgiHfq15oaiM1vlw44hm2bW6HVAW0EcGCvU5WasRloneWE2TZd0wCKwN80Ho3GePdTLIIEV7TnB96CcEHZ67v1I4lK2AvFBOOmQqAzB+xy6rNbVA0sPbqKrHL8w7SB6kQSB/dqkBxZbmk20bTDQXf3VFNtqH4QDvj7w9MlSgC+hu57Ki+X8FAw6BKgiakMP10anYecHtgBG8epoPdXbqSa9PvqJWicgTXTqGEKUp2CV/HOcfbg9Abb1Rjbg69Y6UlcOzyfrNOyqxw4LawHvODMba+LnI332xiok1MrZedK75cNsgl9or2nQnpuliF5mw9qnqoTXsedTRW33kwBNkmVsRwnBrA2mrPou8ATV4jd3igLp5gPFrNtRDjlcuoybtgZnxJZXJ0Lzy7sb5ui3RFR570AX3JV+dikJOC+BollnVM1F7GVedRc+irwb2GdOekhE30FLiz+B1AE9WV4Vs1Km71ZgMMl28OuMsfJP55xqrp/XMpjRY4EkteltoNWHHrBRBXpFRKw9cmYIbbmSkswe0IBmszX8irDo9MGYUNRwBBFT8zBR9vHMSq9RJyOLCtd7DgOAI4ZLxckw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(36756003)(81166007)(8936002)(6666004)(36860700001)(47076005)(508600001)(356005)(2616005)(40460700003)(4326008)(8676002)(70206006)(70586007)(82310400005)(1076003)(86362001)(186003)(316002)(16526019)(966005)(5660300002)(26005)(7696005)(54906003)(426003)(6916009)(336012)(83380400001)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2022 16:46:05.1537 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3303db9-6e75-4061-0816-08da44b762bb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,84 +98,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-@Christian Koenig
-Any objections to this?  I realize that fixing the OOM killer is
-ultimately the right approach, but I don't really see how this makes
-things worse.  The current scheme is biased towards dGPUs as they have
-lots of on board memory so on dGPUs we can end up setting gtt size to
-3/4 of system memory already in a lot of cases since there is often as
-much vram as system memory.  Due to the limits in ttm, we can't use
-more than half at the moment anway, so this shouldn't make things
-worse on dGPUs and would help a lot of APUs.  Once could make the
-argument that with more vram there is less need for gtt so less chance
-for OOM, but I think it is more of a scale issue.  E.g., on dGPUs
-you'll generally be running higher resolutions and texture quality,
-etc. so the overall memory footprint is just scaled up.
+Add comments to clarify code that is safe, but triggers and
+smatch warning.
 
-Alex
+Link: https://lists.freedesktop.org/archives/amd-gfx/2022-June/079905.html
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-On Fri, May 20, 2022 at 11:09 AM Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Certain GL unit tests for large textures can cause problems
-> with the OOM killer since there is no way to link this memory
-> to a process.  This was originally mitigated (but not necessarily
-> eliminated) by limiting the GTT size.  The problem is this limit
-> is often too low for many modern games so just make the limit 1/2
-> of system memory. The OOM accounting needs to be addressed, but
-> we shouldn't prevent common 3D applications from being usable
-> just to potentially mitigate that corner case.
->
-> Set default GTT size to max(3G, 1/2 of system ram) by default.
->
-> v2: drop previous logic and default to 3/4 of ram
-> v3: default to half of ram to align with ttm
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index d2b5cccb45c3..7195ed77c85a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->         DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
->                  (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
->
-> -       /* Compute GTT size, either bsaed on 3/4th the size of RAM size
-> +       /* Compute GTT size, either bsaed on 1/2 the size of RAM size
->          * or whatever the user passed on module init */
->         if (amdgpu_gtt_size == -1) {
->                 struct sysinfo si;
->
->                 si_meminfo(&si);
-> -               gtt_size = min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
-> -                              adev->gmc.mc_vram_size),
-> -                              ((uint64_t)si.totalram * si.mem_unit * 3/4));
-> -       }
-> -       else
-> +               /* Certain GL unit tests for large textures can cause problems
-> +                * with the OOM killer since there is no way to link this memory
-> +                * to a process.  This was originally mitigated (but not necessarily
-> +                * eliminated) by limiting the GTT size.  The problem is this limit
-> +                * is often too low for many modern games so just make the limit 1/2
-> +                * of system memory which aligns with TTM. The OOM accounting needs
-> +                * to be addressed, but we shouldn't prevent common 3D applications
-> +                * from being usable just to potentially mitigate that corner case.
-> +                */
-> +               gtt_size = max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
-> +                              (u64)si.totalram * si.mem_unit / 2);
-> +       } else {
->                 gtt_size = (uint64_t)amdgpu_gtt_size << 20;
-> +       }
->
->         /* Initialize GTT memory pool */
->         r = amdgpu_gtt_mgr_init(adev, gtt_size);
-> --
-> 2.35.3
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 91f21b725a43..b0811287f017 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1435,6 +1435,11 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+ 
++	/* num_vcn_inst is currently limited to AMDGPU_MAX_VCN_INSTANCES
++	 * which is smaller than VCN_INFO_TABLE_MAX_NUM_INSTANCES
++	 * but that may change in the future with new GPUs so keep this
++	 * check for defensive purposes.
++	 */
+ 	if (adev->vcn.num_vcn_inst > VCN_INFO_TABLE_MAX_NUM_INSTANCES) {
+ 		dev_err(adev->dev, "invalid vcn instances\n");
+ 		return -EINVAL;
+@@ -1450,6 +1455,9 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
+ 
+ 	switch (le16_to_cpu(vcn_info->v1.header.version_major)) {
+ 	case 1:
++		/* num_vcn_inst is currently limited to AMDGPU_MAX_VCN_INSTANCES
++		 * so this won't overflow.
++		 */
+ 		for (v = 0; v < adev->vcn.num_vcn_inst; v++) {
+ 			adev->vcn.vcn_codec_disable_mask[v] =
+ 				le32_to_cpu(vcn_info->v1.instance_info[v].fuse_data.all_bits);
+-- 
+2.35.3
+
