@@ -4,58 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E4EBC43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 19:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F515C43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jun 2022 19:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DDE113629;
-	Thu,  2 Jun 2022 19:02:13 +0000 (UTC)
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E3F113623
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 19:02:11 +0000 (UTC)
-Received: by mail-pg1-x52f.google.com with SMTP id u4so2529548pgk.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 12:02:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Qepe5DdWclhl2e4ZZhduPHMnj++5ANMg+Qb/KsbYb0M=;
- b=4NpeJNVxKFtIO9iTrrpDj8Ti1fRTmE+shbWcHdVrdaBz2HJXBIGA2MaCn7sGokZxkQ
- HstU2xRbOGd1mdx8/1aBmGhglCspsCIOhj1bEoR1HwGpez16jlRL308ixkS6kxRttRf7
- 1L0iDJyxEZuKBAbxumVwIOa+6uIkc5hGRss7QQ7zkHwbdUJhKa1/2jjzcC7DS62bqpPx
- Wm8fqgdfcOKzJcfko0X+O3YfLLAH78652CBcPcoVhFEm2N0hUEHBttTRR25WIQYNHSpu
- I0fDEAPyyTvFLYqGanyT0hLjsF4kWC+eO/cR0Ap5bd4Trcniu6O0J9b0eyZv6lIgG78u
- pe3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Qepe5DdWclhl2e4ZZhduPHMnj++5ANMg+Qb/KsbYb0M=;
- b=bSBJHOkQk0ygGDdvDpIyr+3I0Z5BlXBvAc7PoerrOWzw8H8AsVUoubffXusLQyom0n
- mKpZ7g1E73rOIeuuY6Syc7Lmu9B+lynQFXmna5GZh6nYxFxTpxNioQks0w7Nx5LREIpE
- wNTu+LjYHaq1EHBLnymalSBy6jiOG+du5GyoOnWjy7jkhlO9fDaFrrX6EQk8fpS7MhpO
- AdLHTkGeX8VTe+OLI6Iy+ECLaGxHH2M77AdFBasOkRZdGC1vPanTcxXkM1X2eK9S++iU
- 3z7abBZCp8dkiP60vvdfb3b5OvwCATEqfQg+84L28oia+ZZJDzBvxwRdUUcQMo+y49wA
- I7IQ==
-X-Gm-Message-State: AOAM531mZpagA3mttf3Vp2US3NNsH7OuOdncx2QvJgzc5MemEiTkjdoO
- wJcyONdc81zZQvT2okBTIhYrPFOrMJloZ7J2rwG0tg==
-X-Google-Smtp-Source: ABdhPJxHUFAMWRIvSOMq16HS2vXn6CiYUBd/3InKyCqVDDKCNuYLdNHDRwVgR9mLdDYJ/xgxvgOYjuomtHu7zsg/Ixw=
-X-Received: by 2002:a63:d747:0:b0:3db:74a9:ff92 with SMTP id
- w7-20020a63d747000000b003db74a9ff92mr5453876pgi.293.1654196531346; Thu, 02
- Jun 2022 12:02:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AAB210ED29;
+	Thu,  2 Jun 2022 19:15:23 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2066.outbound.protection.outlook.com [40.107.102.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEDF10ED29
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jun 2022 19:15:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SS3F1KdsYKTJzhT16L04bqlCLGrsFEX9jwUKSZ8/yeyMVJeFJVeSodS4eojWAUG6LjuC36xxxHbM72lzjysmTL6IFTMqq9ld0lJmjrFSIqoV+4sPQL/73pzIP5Q11eW0umNRavWf4c8+nqbe9ni9GVZ0aHSk1dTtB0RPOAe0QQRMmgZyb91m6BYV3woKELLl4CbNapdIlO0+PxC+VuHmth+FMDt3/NF185AY06RYvDNlrw2vi/7tmexKbf0GdazRAeS0ACLXwtyJgMU7dKUuZ+bpPLNjsIaNrO5DJ3FwoT1MPDwE64e57Ux4+LHvZjYFF0PsqFNH3WejPVzPrPhxMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SU8m8eFqbPf4sg2obmvCcNBufe3G3WgmtlZsR+VYoMQ=;
+ b=CRSrYP+32qvO4rX2e2BcMofwQBHar68hrVTAQM7KSbCckL6jAKH1s1itPUDRtaACRJdPQzIf8a+FM6l4/nYoGjOUjK733sbAVPC/bViucBGVR2hh3sYoSWwqENRLr0RM2WBVHKERTLJIKOpckXpV9LdgMPzFhERZGOklnYAG1QXg84r/svY9mNq4OXGUSKi8G8qt+qKcW+RPRwBl+GIo2T/nE3O9vF1JWgDVe7aDg4MaoSYK4WAif5BJYwbIh11gYyIWrvj4l8Ljq3TrBu45h9QxXZub0W0GFXGGzTpGm3Pl61Bh1aq/CM+05itnOH6UOx0AMinf4QgszizDCNP1Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SU8m8eFqbPf4sg2obmvCcNBufe3G3WgmtlZsR+VYoMQ=;
+ b=Q8FQEFv4hSiHUtne5Z5hg/RzwK41F37Wdkhc15E3gSXgcwSRyVf62etm6Ixk08gDXJtR5XkkfKCV8pT1DBtCNgznlcFJ98onZ/nBowdja6W0PTPLqa+mZuUcCfWMnPRnmTQsVOwDgWHUwXFovKpDwoJHqijen1/5h6672OfpHlE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by CH0PR12MB5330.namprd12.prod.outlook.com (2603:10b6:610:d5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Thu, 2 Jun
+ 2022 19:15:21 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::2d9d:f26a:77a4:c19]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::2d9d:f26a:77a4:c19%5]) with mapi id 15.20.5314.012; Thu, 2 Jun 2022
+ 19:15:21 +0000
+Message-ID: <577bd14c-9c61-d233-9872-8ae28dd7a071@amd.com>
+Date: Thu, 2 Jun 2022 15:15:19 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v2 1/1] drm/amdgpu: Update PDEs flush TLB if PTB/PDB moved
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220602132029.6225-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220602132029.6225-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0279.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::10) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
-References: <20220602154734.7854-1-christian.koenig@amd.com>
- <CADnq5_MopB5aUpzo_iWz5TXbxAxYXttm8L6L_SwFayUPEyZxhw@mail.gmail.com>
- <CAHbf0-FZJnD7PQNFhVkg64XqKvwbuhN115yVFDd8_XG54nD_Ow@mail.gmail.com>
- <bc546040-cbc5-0193-07d9-0dfe74592598@gmail.com>
-In-Reply-To: <bc546040-cbc5-0193-07d9-0dfe74592598@gmail.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Thu, 2 Jun 2022 20:02:00 +0100
-Message-ID: <CAHbf0-HoL2v9GGcZP_aA56LD46cEXCDKjrdjZkmTTki+p__jow@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: fix bulk move handling during resource init
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 652bdcb6-7564-48d1-f653-08da44cc3cc7
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5330:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5330DC9D7E9EFE604ED5F5F592DE9@CH0PR12MB5330.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LvUnY1CwLfGz5VYrriv05qrQ4ApJb6egKrkmxuBwZYxdtr1U6A+78aQVfa5ak/HVmP2J+Px5f3L5JbcBJYQIbZIOPfWTE2jS0jRZS6S+8gEl9hxXlFnvH/5dUHmL3zLNXeHwHtUupx9L/fcZ9DJy8OszlL7t8Dovud4kFKH4YV2wxdapCArBTb2VBYRRYlQsjYYpK6o3+u7sPHRwyov8oF4rFecEYBzWgeLqJLSjjXm6zQRn0sZvPSXHOru0p75KPDfSQUqS8x/BIdKBh1Dg1lcCSzdyX1smq3cWngRgDdkYfGsJTh9OYljlNxo9ZRB2YLkNm0RzIBVU5CBg5M7zEfjuFr41SvcNRffJveP1XwS3RbLCzfLIFlQDvUuUhkDVlK8a6trgxrQRJnu6XLuk20yyytpu21N6M7q6/RFWCuPxeJSTsjeuDngjXmOyPmzlU/COhpdg5qNn9urNqYiQGu8nBqJb4cCyWm5qvq//3hOPR9MrsrNvliHhFfgoWZDaXUQye2m4jF2sow6xMAz8AMQuKA38Rxp9XIKEgCwN8BKH9Mg+1LmMJIwzVfSbtOzFmy4HWxNXJnWzegI4+AuDA2xHtNp25KjKWmSBVvOaSpkovbzvta5K/GMBc74G5mQlLKrTMIAFiEoHxQl93z+yJ+Bs+ikhOtnR39OOtyKpFToVE2/UbFR5OS+NuX+iY+c/9pI/vtoVGU7bUuSIlbQeT96lgcpa4tNVmob2zGWZLT2WQfQb4kQekQ4B9b1uvNni
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2616005)(6512007)(6506007)(66946007)(66476007)(26005)(8676002)(66556008)(6486002)(86362001)(31696002)(508600001)(38100700002)(316002)(83380400001)(186003)(66574015)(8936002)(5660300002)(44832011)(15650500001)(36756003)(31686004)(2906002)(4326008)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cm9jNWMxSjlCQlVZZmFmVEJZamNyV3kzdktWb1h2eHhXTW9OL2RqUmhaWFM0?=
+ =?utf-8?B?TC81SGVpaVhRRUp3V1hFbWpwclBTOUpLUVc1MWd4N0VZSFBQYzBFVEdtbUNE?=
+ =?utf-8?B?Nnh1blc4bWN3c25LcE1rTW5BYnNGMEtyanZybk5jTnRkYkFLOTJpemhuOXJh?=
+ =?utf-8?B?Y1lrYmN4T0ZWTVRVb201UzVQRTluTkY0czJzMkVmOC9iSldGK25FL2JMZGxt?=
+ =?utf-8?B?b1o5L1orZjdCa2pQNVRhQTB4eHJPdzhaS3pCUzhVaFFSV2pNamJUL3dFYW5n?=
+ =?utf-8?B?cThwMWpTeFJobGo0Z0xkVUJOT2J3QStKSm9yS3lOSzZ1MjVOcWJGVUw4YURW?=
+ =?utf-8?B?RnZQa3ZadjVvMHV0RzhZVlUxZGRxVGJIVGlUbkIvd1FQM09Lcisxbjl4ZEJS?=
+ =?utf-8?B?Rktob1praWlNamZBcTR0OFFESDkzamNKeGlhQ3BtZ2hiTkEwVVBjcWNOdUlI?=
+ =?utf-8?B?cjVkbGJWTjFlM0s3Q1c2Qno0c1g4dldGazVvbzBNbnM4N0IwV1pwaWlhd0RJ?=
+ =?utf-8?B?Y3MzbUcrVWY5OS9WN3JWejd5aUR1elgvamwzUnl6c2JMam05S0l6S3JjZENO?=
+ =?utf-8?B?dFpIOExTQVdGZ2p1cEo0TjVhSyt2QUF3bnZLcFRJcHo4ejA2MFMvSHVaaTZG?=
+ =?utf-8?B?V2UvUExEZCtoOUNvWUdJZFJiVWozR1hYdk0rajdnN2dua3l3RW9IK01SYy83?=
+ =?utf-8?B?MStwR2RmelFkMnl0WXJncU91aHhITWtBNnZqM21pUWMxZUc1bXVPRUIwUWp0?=
+ =?utf-8?B?RGR3cGdtaWQrNWgrVVJZY0hJY2c3ZFlsOGNtdllEK1hTM2R6bFJJMHFYNEt4?=
+ =?utf-8?B?MTRYeFZxZEhlQkpJVTQwdUxKRzRGdlAxek5VWUFTU1pvbmdISkJBbm1aMDc5?=
+ =?utf-8?B?ZG5iOTNFUmJjUzR5bFhucFUzSU95T2ZpSUR4Y3hsYVRmMm1XZXZ1aG9vc1I1?=
+ =?utf-8?B?T3h6bDlLa0xZRWwxNHAxWE94MXBpem9ndjA3MjVIb0pMT1ZiNkZZem9Zb0Vt?=
+ =?utf-8?B?SzVQa0M5anJQQk42SWd5UnVEU1B3cVFkcFNodFltVWNxL0RpalNjOStLa0ZT?=
+ =?utf-8?B?QmZMTmVoSFI3bG05bWRWSlAreFdDTUM4bDFSR1lOZ2RYOHdFRTNsV01EWXhp?=
+ =?utf-8?B?MVRxK0VUY25nekpBNm9LWFFpTWpLcTErSzZSQUdtYWpKMWZjQmVTeHdGdlVm?=
+ =?utf-8?B?SGZuWUQvNzkwbFk2d0RiSlQxUnp2NG1VeHd0aVMxOHUzV2ZuSFVLSC9yazRT?=
+ =?utf-8?B?TjgvcUVqSTNJbGx2dkwxYWNFNnFkWndTUEtnRUc1R2FzWnovYk9ZWDdmVGRo?=
+ =?utf-8?B?SmNBT1krd1E5SGtGeHprNHlENVh0alR2ZHM2enl2eENETzZyUDl1dTdpcENs?=
+ =?utf-8?B?bGpuYWU2WjVqVkVaQ0NQbDlDbkxUVGs2QW9qVXNJVitRZ3VhMGhPZEp4N25M?=
+ =?utf-8?B?UmkwVWNPZW9BSjhmNVYzWW9qNldCWTRqOW9yM0dpYU55c2NsYmxaempBZllY?=
+ =?utf-8?B?OGZUeEFQNXovVUJ6dTBkdVo1cXVZaGhxMGE1ai9PbHFyUHhkWEYxb3pTYzRo?=
+ =?utf-8?B?WCt4M1Q0T2NjN0tDbDFEOFJtaFdTS0dVc2hNenpISkpPeWhRSkg2RUhkdVRZ?=
+ =?utf-8?B?MTE3clFLeStVN1lRdjBQektRODFsUFFIVnRFd292dEhkaUhLYndORjdnTVVM?=
+ =?utf-8?B?VHpHOFYrQ2RaY0JqUGNJTGhiSFhubXNNaWE5cGZvZVZOQ0pwdWhQS0lLRGV2?=
+ =?utf-8?B?NXJFRnVpMEZnYWJveUxsTHY2bVFDN2EyOW5QbHBJWm41NnRKZnNJc1B1bjhG?=
+ =?utf-8?B?RGdxdkhjMWNWR3V1NWRtZGdBZXZjcnltT040RkduWHJFMTFVMXlyVXFuRUVI?=
+ =?utf-8?B?cWY1K3JVdlZPVnhOVXgwVGtnMjNjTTBmbkVnK0dzckRMTUtEYnAvQlMyUVNT?=
+ =?utf-8?B?Z0Y3dTlGR3dSdHMrMWJBV2htcitiWlB2M3VLZHdlcUYyQnBLNzhJdUNoKzNu?=
+ =?utf-8?B?UG5rNGhzdkxqQVNkRnU0TytRMFUvY3lPUk9hL3hzcUcwNGxIbisxa1VrWGdl?=
+ =?utf-8?B?UHJkSjVqeUJDSHlhTWVEVG5XeFYyc0c3d3FGVW1vSWl6UnZlTDg5OG9Nbnll?=
+ =?utf-8?B?OTJLNjMrMHFtZUt3UXFTY0lxQmVxb2ppbFVyd1FDd3RMSVZQaWVjQ1NyOGd4?=
+ =?utf-8?B?TTJrdnNFZmJGQXJIdzhpSFBCMWJ4Qm4wcWNlMU1KcWd6MHJyWTcyWU5ZWE1w?=
+ =?utf-8?B?UitRRTh4WCtaNU9uMWNKTUNscXBMamxFR2o4Vkp1R3Z4dnNaOW43WVJxODR5?=
+ =?utf-8?B?S0pNeWl6Ui9VQjB3QkZwdXhvSmt1Tlk3eVVHMnJzbVFCUVFRZHhFZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 652bdcb6-7564-48d1-f653-08da44cc3cc7
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2022 19:15:21.3225 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: q/XDNIP7KFcpCI7nI8evZ/28CqgEJekX7Fvq4iRcxPBCLDr5vcppQInY4Rnmc+1qkZOw6s3p+Sgl0VsEjZ30KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5330
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,272 +127,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Null pointer against drm-next:
+Am 2022-06-02 um 09:20 schrieb Philip Yang:
+> Flush TLBs when existing PDEs are updated because a PTB or PDB moved,
+> but avoids unnecessary TLB flushes when new PDBs or PTBs are added to
+> the page table, which commonly happens when memory is mapped for the
+> first time.
+>
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: BUG: kernel NULL pointer
-dereference, address: 00000000000000d8
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: #PF: supervisor read
-access in kernel mode
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: #PF: error_code(0x0000) -
-not-present page
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: PGD 118700067 P4D
-118700067 PUD 11f116067 PMD 0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Oops: 0000 [#1] PREEMPT SMP NO=
-PTI
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CPU: 4 PID: 1029 Comm:
-GravityMark.x64 Tainted: G        W         5.18.0-rc5-drm+ #1070
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Hardware name: ASUSTeK
-COMPUTER INC. ROG Strix G513QY_G513QY/G513QY, BIOS G513QY.318
-03/29/2022
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RIP:
-0010:ttm_device_swapout+0x6a/0x3d0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Code: 85 ed 74 51 80 7d
-01 00 74 4b 48 89 e6 48 89 ef e8 7b dd ff ff 48 85 c0 74 3b 48 89 c3
-49 89 e6 48 8b 7b 30 4c 89 ee 44 89 e2 <4c> 8b bf d8 00 00 00 e8 fa a5
->
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RSP:
-0000:ffff8881605dfc70 EFLAGS: 00010282
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RAX: ffff888104f85ac8
-RBX: ffff888104f85ac8 RCX: 0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RDX: 0000000000000cc0
-RSI: ffff8881605dfd50 RDI: 0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RBP: ffff888104f85140
-R08: ffff888101566240 R09: ffff88814e57b880
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: R10: 0000000000000063
-R11: ffffffff818238a0 R12: 0000000000000cc0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: R13: ffff8881605dfd50
-R14: ffff8881605dfc70 R15: 0000000000691000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: FS:
-00007f4623fb9740(0000) GS:ffff888fde500000(0000)
-knlGS:0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
-0000 CR0: 0000000080050033
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CR2: 00000000000000d8
-CR3: 0000000102e3c000 CR4: 0000000000150ee0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Call Trace:
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  <TASK>
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? ttm_global_swapout+0xae/0xc=
-0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? ttm_tt_populate+0x7d/0x130
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ?
-ttm_bo_vm_fault_reserved+0x237/0x270
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? amdgpu_gem_fault+0x92/0xd0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? do_fault+0x28e/0x4b0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? handle_mm_fault+0x849/0xa80
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? amdgpu_drm_ioctl+0x68/0x80
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? do_user_addr_fault+0x275/0x=
-450
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? asm_exc_page_fault+0x9/0x30
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? exc_page_fault+0x5f/0x150
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  ? asm_exc_page_fault+0x1f/0x3=
-0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel:  </TASK>
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Modules linked in:
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CR2: 00000000000000d8
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: ---[ end trace
-0000000000000000 ]---
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RIP:
-0010:ttm_device_swapout+0x6a/0x3d0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: Code: 85 ed 74 51 80 7d
-01 00 74 4b 48 89 e6 48 89 ef e8 7b dd ff ff 48 85 c0 74 3b 48 89 c3
-49 89 e6 48 8b 7b 30 4c 89 ee 44 89 e2 <4c> 8b bf d8 00 00 00 e8 fa a5
->
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RSP:
-0000:ffff8881605dfc70 EFLAGS: 00010282
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RAX: ffff888104f85ac8
-RBX: ffff888104f85ac8 RCX: 0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RDX: 0000000000000cc0
-RSI: ffff8881605dfd50 RDI: 0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: RBP: ffff888104f85140
-R08: ffff888101566240 R09: ffff88814e57b880
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: R10: 0000000000000063
-R11: ffffffff818238a0 R12: 0000000000000cc0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: R13: ffff8881605dfd50
-R14: ffff8881605dfc70 R15: 0000000000691000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: FS:
-00007f4623fb9740(0000) GS:ffff888fde500000(0000)
-knlGS:0000000000000000
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
-0000 CR0: 0000000080050033
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: CR2: 00000000000000d8
-CR3: 0000000102e3c000 CR4: 0000000000150ee0
-Jun 02 19:59:50 axion.fireburn.co.uk kernel: note:
-GravityMark.x64[1029] exited with preempt_count 1
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-On Thu, 2 Jun 2022 at 19:55, Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
 >
-> That's because drm-misc-next is currently broken and needs a backmerge.
->
-> Please try this patch on top of drm-next.
->
-> Regards,
-> Christian.
->
-> Am 02.06.22 um 20:08 schrieb Mike Lothian:
-> > Hi
-> >
-> > I'm still seeing Null pointers against Linus's tree and drm-misc with t=
-his patch
-> >
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: BUG: kernel NULL pointer
-> > dereference, address: 0000000000000008
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: #PF: supervisor write
-> > access in kernel mode
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: #PF: error_code(0x0002) -
-> > not-present page
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: PGD 11ee04067 P4D
-> > 11ee04067 PUD 15eccb067 PMD 0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Oops: 0002 [#1] PREEMPT SM=
-P NOPTI
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CPU: 0 PID: 1021 Comm:
-> > GravityMark.x64 Tainted: G        W         5.18.0-tip+ #3177
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Hardware name: ASUSTeK
-> > COMPUTER INC. ROG Strix G513QY_G513QY/G513QY, BIOS G513QY.318
-> > 03/29/2022
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RIP:
-> > 0010:ttm_resource_init+0x108/0x210
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Code: 48 8b 74 0a 08 48
-> > 39 de 0f 84 82 00 00 00 48 8b 7b 38 4c 8b 4b 40 4c 8d 44 0a 08 48 8d
-> > 56 38 4c 89 4f 08 49 89 39 48 8b 4e 38 <48> 89 41 08 48 89 4b 38 48 89
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RSP:
-> > 0018:ffff888112e73918 EFLAGS: 00010202
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RAX: ffff888206b715d8
-> > RBX: ffff888206b715a0 RCX: 0000000000000000
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RDX: ffff888206b71cf8
-> > RSI: ffff888206b71cc0 RDI: ffff888110605b00
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RBP: ffff88816c848c08
-> > R08: ffff88812235c790 R09: ffff8881306a4bd8
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: R10: 0000000000000000
-> > R11: ffffffff81851320 R12: ffff888110605ad0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: R13: ffff888206b715a0
-> > R14: ffff88816c848c58 R15: ffff888110605ad0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: FS:
-> > 00007f4c257c1740(0000) GS:ffff888fde400000(0000)
-> > knlGS:0000000000000000
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
-> > 0000 CR0: 0000000080050033
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
-> > CR3: 00000001183fc000 CR4: 0000000000350ef0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Call Trace:
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  <TASK>
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_vram_mgr_new+0xb=
-b/0x4b0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? ttm_bo_mem_space+0x89/0=
-x1e0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? ttm_bo_validate+0x80/0x=
-1a0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_bo_validate+0=
-xe9/0x2b0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > amdgpu_syncobj_lookup_and_add_to_sync+0xa0/0xa0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > amdgpu_vm_validate_pt_bos+0xce/0x1c0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_parser_bos+0x=
-522/0x6e0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_cs_ioctl+0x7fe/0=
-xd00
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > amdgpu_cs_report_moved_bytes+0x60/0x60
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? drm_ioctl_kernel+0xcb/0=
-x130
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? drm_ioctl+0x2f5/0x400
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > amdgpu_cs_report_moved_bytes+0x60/0x60
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? amdgpu_drm_ioctl+0x42/0=
-x80
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? __x64_sys_ioctl+0x5e/0x=
-a0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ? do_syscall_64+0x6a/0x90
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > exit_to_user_mode_prepare+0x19/0x90
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  ?
-> > entry_SYSCALL_64_after_hwframe+0x46/0xb0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel:  </TASK>
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Modules linked in:
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: ---[ end trace
-> > 0000000000000000 ]---
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RIP:
-> > 0010:ttm_resource_init+0x108/0x210
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: Code: 48 8b 74 0a 08 48
-> > 39 de 0f 84 82 00 00 00 48 8b 7b 38 4c 8b 4b 40 4c 8d 44 0a 08 48 8d
-> > 56 38 4c 89 4f 08 49 89 39 48 8b 4e 38 <48> 89 41 08 48 89 4b 38 48 89
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RSP:
-> > 0018:ffff888112e73918 EFLAGS: 00010202
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RAX: ffff888206b715d8
-> > RBX: ffff888206b715a0 RCX: 0000000000000000
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RDX: ffff888206b71cf8
-> > RSI: ffff888206b71cc0 RDI: ffff888110605b00
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: RBP: ffff88816c848c08
-> > R08: ffff88812235c790 R09: ffff8881306a4bd8
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: R10: 0000000000000000
-> > R11: ffffffff81851320 R12: ffff888110605ad0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: R13: ffff888206b715a0
-> > R14: ffff88816c848c58 R15: ffff888110605ad0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: FS:
-> > 00007f4c257c1740(0000) GS:ffff888fde400000(0000)
-> > knlGS:0000000000000000
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CS:  0010 DS: 0000 ES:
-> > 0000 CR0: 0000000080050033
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: CR2: 0000000000000008
-> > CR3: 00000001183fc000 CR4: 0000000000350ef0
-> > Jun 02 19:04:05 axion.fireburn.co.uk kernel: note:
-> > GravityMark.x64[1021] exited with preempt_count 1
-> >
-> > On Thu, 2 Jun 2022 at 17:54, Alex Deucher <alexdeucher@gmail.com> wrote=
-:
-> >> On Thu, Jun 2, 2022 at 11:47 AM Christian K=C3=B6nig
-> >> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>> The resource must be on the LRU before ttm_lru_bulk_move_add() is cal=
-led.
-> >>>
-> >>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> This should at least fix the null pointer in these bugs:
-> >>
-> >> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1992
-> >> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2034
-> >>
-> >> Alex
-> >>
-> >>> ---
-> >>>   drivers/gpu/drm/ttm/ttm_resource.c | 8 +++++---
-> >>>   1 file changed, 5 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm=
-/ttm_resource.c
-> >>> index 65889b3caf50..928b9140f3c5 100644
-> >>> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> >>> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> >>> @@ -169,15 +169,17 @@ void ttm_resource_init(struct ttm_buffer_object=
- *bo,
-> >>>          res->bus.is_iomem =3D false;
-> >>>          res->bus.caching =3D ttm_cached;
-> >>>          res->bo =3D bo;
-> >>> -       INIT_LIST_HEAD(&res->lru);
-> >>>
-> >>>          man =3D ttm_manager_type(bo->bdev, place->mem_type);
-> >>>          spin_lock(&bo->bdev->lru_lock);
-> >>>          man->usage +=3D res->num_pages << PAGE_SHIFT;
-> >>> -       if (bo->bulk_move)
-> >>> +       if (bo->bulk_move) {
-> >>> +               list_add_tail(&res->lru, &man->lru[bo->priority]);
-> >>>                  ttm_lru_bulk_move_add(bo->bulk_move, res);
-> >>> -       else
-> >>> +       } else {
-> >>> +               INIT_LIST_HEAD(&res->lru);
-> >>>                  ttm_resource_move_to_lru_tail(res);
-> >>> +       }
-> >>>          spin_unlock(&bo->bdev->lru_lock);
-> >>>   }
-> >>>   EXPORT_SYMBOL(ttm_resource_init);
-> >>> --
-> >>> 2.25.1
-> >>>
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 9596c22fded6..1ea204218903 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -737,6 +737,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_vm_update_params params;
+>   	struct amdgpu_vm_bo_base *entry;
+> +	bool flush_tlb_needed = false;
+>   	int r, idx;
+>   
+>   	if (list_empty(&vm->relocated))
+> @@ -755,6 +756,9 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   		goto error;
+>   
+>   	list_for_each_entry(entry, &vm->relocated, vm_status) {
+> +		/* vm_flush_needed after updating moved PDEs */
+> +		flush_tlb_needed |= entry->moved;
+> +
+>   		r = amdgpu_vm_pde_update(&params, entry);
+>   		if (r)
+>   			goto error;
+> @@ -764,8 +768,8 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	if (r)
+>   		goto error;
+>   
+> -	/* vm_flush_needed after updating PDEs */
+> -	atomic64_inc(&vm->tlb_seq);
+> +	if (flush_tlb_needed)
+> +		atomic64_inc(&vm->tlb_seq);
+>   
+>   	while (!list_empty(&vm->relocated)) {
+>   		entry = list_first_entry(&vm->relocated,
