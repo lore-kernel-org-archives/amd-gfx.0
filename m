@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA8FC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 13:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9016AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 13:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D911134A6;
-	Fri,  3 Jun 2022 13:05:09 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9A1134A0
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 13:05:07 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id s6so4243825eja.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jun 2022 06:05:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1681E1134A0;
+	Fri,  3 Jun 2022 13:05:30 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370091134A0
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 13:05:29 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id m20so15775138ejj.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jun 2022 06:05:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=OM4UkC68c61HiPbQiKbgtyI119SLGp5pkzfA9eJcOUk=;
- b=DSY59Cm53E/RCsjP2hu4WFD7NRbnd6b+9KGP4VKwFvcB2IzhrMSOsMR3DkSLAscehe
- MSs0f1Ctb9zrFHXfJb3g0xuJSb/PDYxsRwesk8k+xu9H4+XW55RlyfrXnJmHhPQ4osHU
- t+2SQJEv1jb+2Pt7CvK39HzPAy7HdXwXiZ1UvYoZCThvsfME/3G0YtXYkzzwaqoffsrN
- TmSqTJXINhlAZLm0gqXRUeU2YgEJXrKreHyKQ90YXHaeNel7R9cMwhNGaFY1G+xDF7Nc
- q7a8OSgqwkFL7EEFN+AqJODka6IxxVHqipbYsfj8vMntz+UCZTsZHkcwCwvC8Y91T05n
- 61GQ==
+ b=EzjaU6aPm3PKgROCcYVK+x/Gvfe6sh1sKRHX/nPtQqVkxOD0pPD/HAPSR8DsOrfDQQ
+ fRY7Xh3hthxgq6TqggmKPxbpJpzQoiTYO4I/fJbVwv6G2R56rJ+MYcw1j4xe9RygwHvt
+ ZWXvW+HERIbJRWG2Yz3cCd32QE40JWkKqa5N3s27KzRdKP4jK8I0WxRWSPRCbnYc2Bbz
+ WgOwhn63TTr2JQ1+ugC71g0W7do5sXZLm8EEz5apbhuwZFzWyLz6Ge5sF3PhlQzi35hf
+ WWDShd4FkK1of4GXUi2Qypzsro5JgHYM5Zb4J8nj6ESs5cKdOh1VIr8QRnx89404yREq
+ vnsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=OM4UkC68c61HiPbQiKbgtyI119SLGp5pkzfA9eJcOUk=;
- b=P4TRw1Mq7xpNwkt6PE+y08fWD4bJt9NLYWnBhlY0cMFTaPtvgoW470DiZRtRvPx7Lx
- QNzBVv0IH7XpLhxWteqDaf2nzEIzGy0ubwwUY/OmXt8sPTfNv36fSwGEyPkceKAq4hzQ
- xs+cL1hIxRgDa9T2NIrHA4d3yHDwFbJ9A94sMd97KiyElczvxTCGldIxg5sOIbPKzT5C
- hoDlsrFJS7g9FE+NDcdXSX5LY6L2nL1dItqGw1AMdk+dVQ18AIcN6Ghjk0CzLOqJqsud
- SfQKsQ4m3ttZYVMv67Hso2wC8u3qoZj5qLylWClBIycKs+ITKZYAvGBdu6w497ZHWDHL
- oRYw==
-X-Gm-Message-State: AOAM530YcO/2MmXMj9XCejFmb/eez1Ly8P0342J2pd8A7zf13myLpvzt
- pnZBA2jS49tIbofF5nMyvFQYM7LuK1grFA==
-X-Google-Smtp-Source: ABdhPJyKAcgZXP0AJPmlxytJLYOL28ZqIC20hyvQjYZ7bjldR8JvttVM5cB6kBgFcHi8lvKRy9Zb1Q==
-X-Received: by 2002:a17:907:7282:b0:6fa:9365:f922 with SMTP id
- dt2-20020a170907728200b006fa9365f922mr8427495ejc.262.1654261506038; 
- Fri, 03 Jun 2022 06:05:06 -0700 (PDT)
+ b=Yg6d3ENkE44rk/HF82P/L6ho4LPDFs4outnB+ieSSBurM8YP1tFP7fCMJW7s+OpeeU
+ X2bedfKl69Rll06pzWra0rB0Hv1KS4rJ8ZzkkmaLU1MmVkU4c3LWgdsOXv703QeVeP54
+ ZuR0ygT/ZAD+pJgIRN9eU5zckcyy+KKoDANZGL9T3yQlgcF8YhRHjUL6y+RzP4koMn0x
+ hI3p6EaxS2ld3LbjuiLBF9JP/YfYbD1R6Z8xg0zAHLCjQsjj7A6oMGv+5IYmutu6M8GY
+ NnEA51GcnYW/tMvOjeaF52nYdoBRsQ0PiajzpLoDGex3mrXRu0ufhklo9dDbqQgrzNpZ
+ Esyw==
+X-Gm-Message-State: AOAM5310mK3cuXAJWLouwb3vFuR8UnRhDm2lr2KOddIR7ptcvPq1CQgj
+ GIsaTuWGBzDh/h0m3nXzEQo=
+X-Google-Smtp-Source: ABdhPJyKNY/5u5BhV7Kr+UlQ/37Hh8X9kNzkzDCBgOBzEvkSETNSy3SKJg/y+BFfh9TD8XoXc3q7LA==
+X-Received: by 2002:a17:906:656:b0:6f4:ebc2:da81 with SMTP id
+ t22-20020a170906065600b006f4ebc2da81mr8609045ejb.757.1654261527666; 
+ Fri, 03 Jun 2022 06:05:27 -0700 (PDT)
 Received: from baker.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- fx3-20020a1709069e8300b007072dc80e06sm2750455ejc.190.2022.06.03.06.05.05
+ aj12-20020a1709069a4c00b006fec56c57f3sm2814906ejc.178.2022.06.03.06.05.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jun 2022 06:05:05 -0700 (PDT)
+ Fri, 03 Jun 2022 06:05:27 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
-To: Arunpravin.PaneerSelvam@amd.com,
+To: pierre-eric.pelloux-prayer@amd.com,
 	amd-gfx@lists.freedesktop.org
 Subject: [PATCH] drm/amdgpu: always flush the TLB on gfx8
-Date: Fri,  3 Jun 2022 15:05:04 +0200
-Message-Id: <20220603130504.81147-1-christian.koenig@amd.com>
+Date: Fri,  3 Jun 2022 15:05:25 +0200
+Message-Id: <20220603130525.81198-1-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
