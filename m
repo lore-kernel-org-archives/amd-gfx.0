@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 567CDCCA473
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 20:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9EF5C43334
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 20:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5357C1123E5;
-	Fri,  3 Jun 2022 20:12:41 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10D161123E5
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 20:12:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DAB61123E2;
+	Fri,  3 Jun 2022 20:12:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A52D1123E2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 20:12:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HDG+VJiSkJwNdEsk6n2C4UwXju5Ex0aKWxk+jaE3oV2gEGiM/k0k6mmybvm8XcLdeyCSMfMujQ8x2AvH1ImFpk6WMNp7OgnTBRk1cNW4PoOhl3oQPY64Ac3u04nj/WkmmtCpf8vvuxDJLCAskarZMsuvgXflvc1/NxK1InaQhTkcUkQSRpQeSJHvp/62/CTrQuwStRQhWCEKMs+s6tjXeghaSH/k9BpwcvYUt0Z2/XOl90A9jM/hOUwdiprSNmHrPc8r3fTg/H0kXecxZOQstI+/+g0iUa/75ipvqKBl8t0w41MPlV3Vohfcmxs+iqivRRSigqewLNYD0wxu9uWWBg==
+ b=R4TGCpLJKRlyuppNt/2Q29vjsza9u7NzoxlKlWFtD5uYGKfy7livP/vRadNV0u3uoVOpznPLfJSKHLQ5UNx22o01ktMaNyR2/T1hABYJE2/If+dS83PKUeAGMxE/ZC7MAwOLJeFcLpt/pxZD7tyRDDj4ldaqQK7hAWoQ9SJyFvXl6a2yAyfbn8Umzs8cKos5Lkf6O87EHSW/nPMI9kRyqGLsvLdobnWO6jqhCidx4CFuZfLDaTmluMxgoNqfunvRT/T7c+FD5SGAJGWYtmnhQAvg8FXveLZcayx92WVd0xNuTZLbDdREdsmgTduWAdX0PKhGllV3jLvotCFCfHk15A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bf8POyiHiKJHqe8qyDxKM2IKLwtds+7Fe2GSSI1/P8Q=;
- b=SeVbZgKKCtYN5PCZqGIFByyfkb2K0emH09NOAl4MO6xToBcPHJ6oL5pUBm9XxGINAIXRqZX0cqhrVWfDx9/6VEVSkrQ69WVA0NV0zgt+P6xx7zuq6VuAHkE5yKrUq7BEpwBxEc/z4VnP2F7lke9JXhyp0wrcH1FROf0NOnf12srI8VjZXbhn82XNQeguQWGzfffC8LDUUqZEnuVmE5GeB8V9NWcMBBCOrUyuRTNJpNGd+BL9BRN/oW3G1vslhnrMfKRzWFGFvEuDHs8jOP+O1qbLqmtTC4fGnmTkYlp/PkV8YzmZwXrjnAVlrt2ezMin/zw8k6PGvom2A0MiuiY2tg==
+ bh=S44vxZLw+IIB5/evQHDe5NjFtpFXmflRIEBaXwGMKd8=;
+ b=Hy1E2opJPOTuoayc9/gjkOZY+diBYWdS2NuvA4gb9KJIKF1V0VdQanSkgi0kohCXcM3cwuMWc/p6EwWDpnv0PuOaP1DiUbvYvv6cSP0n6p0YDHBr0Te3c33DeWVaj0QESrsWD+bk11tL3bxZIO0DzpcI7R4bXvp8t92O1u4Cpz0/deLZVq/rA/S3HEI2JUbnJw6dn/deT7M+cxxnT/qNBqE49n6XzVFFAHAm+J8+8c/8XayCnPyMwfExklCmp8gSOavJHxbLofuBMd0TN4VmLJLsnUQIIYg3RI1SvhMwBAPMYFqCkYmDxunFnQ2BJRTmgW9//z3qIGSjPEnA8KpwVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bf8POyiHiKJHqe8qyDxKM2IKLwtds+7Fe2GSSI1/P8Q=;
- b=bhjvasw1Br0eT5sxJwzc8uW6tetbBwXfnhNzJdQHKbNkHwKd7GbbtUsUfXdNpkwTRhQnaNKwVltanbjguPPbBn/RKk0kIrYtsRa416OR8/rkjen9HkPH8Xi69kkDED9e5EVUcGKYjEx5RGdvytk04yrJem9pVYexDIq5GT2n/kI=
-Received: from DM5PR16CA0024.namprd16.prod.outlook.com (2603:10b6:3:c0::34) by
- DM5PR1201MB0201.namprd12.prod.outlook.com (2603:10b6:4:5b::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5314.13; Fri, 3 Jun 2022 20:12:35 +0000
-Received: from DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:c0:cafe::7e) by DM5PR16CA0024.outlook.office365.com
- (2603:10b6:3:c0::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15 via Frontend
- Transport; Fri, 3 Jun 2022 20:12:35 +0000
+ bh=S44vxZLw+IIB5/evQHDe5NjFtpFXmflRIEBaXwGMKd8=;
+ b=W8V15z/NSC5t0lqptj2gVo1TcYUphzLuBZZosurSPOkAi+SvaY8w3dQJEVyohhsHaR1MqQ7pRVFRGnMMhnCEcZfvt+qpj5dvjtkU2AtB5S9ku6ljdmfpJJS4HPJ/IoMk/Xn1SSwb6LwEvG8Ww7ufQa0/0/xwB2kX1j/WJGrKDRo=
+Received: from DM6PR17CA0027.namprd17.prod.outlook.com (2603:10b6:5:1b3::40)
+ by MWHPR12MB1566.namprd12.prod.outlook.com (2603:10b6:301:11::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Fri, 3 Jun
+ 2022 20:12:38 +0000
+Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1b3:cafe::77) by DM6PR17CA0027.outlook.office365.com
+ (2603:10b6:5:1b3::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.19 via Frontend
+ Transport; Fri, 3 Jun 2022 20:12:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT022.mail.protection.outlook.com (10.13.172.210) with Microsoft SMTP
+ DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5314.12 via Frontend Transport; Fri, 3 Jun 2022 20:12:35 +0000
+ 15.20.5314.12 via Frontend Transport; Fri, 3 Jun 2022 20:12:38 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 3 Jun
- 2022 15:12:33 -0500
+ 2022 15:12:36 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/16] drm/amd/display: add DP sanity checks during enable
- stream
-Date: Fri, 3 Jun 2022 16:11:37 -0400
-Message-ID: <20220603201147.121817-7-hamza.mahfooz@amd.com>
+Subject: [PATCH 08/16] drm/amd/display: Enable 3 plane MPO
+Date: Fri, 3 Jun 2022 16:11:39 -0400
+Message-ID: <20220603201147.121817-9-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220603201147.121817-1-hamza.mahfooz@amd.com>
 References: <20220603201147.121817-1-hamza.mahfooz@amd.com>
@@ -69,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5e0d42db-6559-4bd2-b826-08da459d6677
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0201:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB02011A39A10883138DF0F4B3F4A19@DM5PR1201MB0201.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: b5ddd540-ace2-4ffc-6af0-08da459d6820
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1566:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1566FA969930875215DA0DF6F4A19@MWHPR12MB1566.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K043HwQbg4bYI1hmVkHDV0rLe35Ds2kPIXdhgDORkEigzj3eAIOHkntk7gl92MZWIjspLsDPNkLAkbg0a/Mxd3P9zWQIFUtMbFeM1BLlPnRp0dcXlUWBXTUlR4rxk8sIv6qx61G0hi0G+BrE6cQcGi/9xCLP9FBfh5zP5MV4Gkyi2cdYBVz2PO/LQ6abOmOiddqxVtAyBsRWms6Wt69doyssnifeR08eR3d/m5ZfT3kftggeNrogVhK11jBvB2F2Pq6UqoQY4sXFp44tdxbYp6JZNochMTBK0fA58IprA4B4oAyjX/qEJaitrjYn6twqlzKAB0gF40bsAWvvvDxqN3n7/Fe1HxnZPAYbvcHCurb80Zy9ABVRK3UtojlN4MlX9UBeW4SZjL3SRoAG74da6ZVrPWVAL2ytCz2mNO4GpxOoAwD6tYqP7W+FdQC7Dwq4UkQMrQ2+Sw2u/ZZDcWBVQBACUEpzcRnBdCwwuUeMVmoQ5j4zrstU+hTgHH3uDSm9ZL4DZJZ4wKjwOjlBrKEcOtAjvH6ewuvxyCW5QFaOm46quNZDSsFJnYKub/YxK+rsU6s2IVUH7kTVW6reQwY3EezYT2lcKGdEuivZ7jNQNB8FPWMND9JR3NY6MWVT9qyC4Thi1VZ4v4HPItXBt4Ev1bHTT5iS0jVjiD7/jPlB+0L4zjCncZQZ6LRq8G5g5rVM9XmxdmeaaLfp7dPK8s2zlg==
+X-Microsoft-Antispam-Message-Info: aFx1ET0BYcKEuSKXYLqI3sSVYh4JNsomln4bCHWB4xabwyHQzPKYnHQKxH2cew6rIuNddUYnXFjjCBxYzwhqTMUx88FOIl3iyzKVdVrP9TOSgVqjSv0P/vnlzmaHFN3z43TuGIQMXa1dCs0uFB3l36X6dKWmHqKLQXHDJgnQMLKoeYW3wcDJ09BWv05kt17vDwX4CVTkP67r4iSxs0MP5DzA3w97l1YsCEfxgLh6Q+/tiOJEyXStYPFFNqSKn5IeU8Wu2u2ooBBeL9eV7u2e60TOzpmklEBMuRWVl1n9Hn3y9E9mgvK0mvvCeH3H7ghw9LXe8JGA+Tia2j8EMDqYv7ChdQXHcoHcqPS8AU5nF+djGhh09QgpUJEnKdOLzuplY4QpWkh2DNE0RDcrKQ2M1Dzt24PBfg7K65ym9qxtqWqcshgpAnkDwVkKC/pffVa2QWslXrGNjS5Wse0tL8SNFNWpwEho120K3/3RByEiETejSv+ezn4eYJuz6S/ciUjTIkrxggEVNV+hNrIlvJzSXuQlLlucOHDjSxgbdHyxQaxSYLUP3xizNQyGjVG1dgbSS0PvOaEWAkp50Zv74Lmf/jDTZvbyHL7Yack8wNQPRzRaOWrO4M2lYzygSKAZ+6XPrRKng1FKW1Eyl+Um1RYHfoQllR4nNd+Ddg31EXu1DDI94ZbjJ+ZGicMjN/WfMDEHmKA9y6BNgQBSe8+OP2ohQg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36756003)(81166007)(82310400005)(44832011)(26005)(54906003)(6916009)(8936002)(2906002)(336012)(5660300002)(40460700003)(426003)(47076005)(356005)(4326008)(2616005)(8676002)(316002)(86362001)(70206006)(70586007)(36860700001)(508600001)(186003)(16526019)(83380400001)(1076003)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(8936002)(26005)(82310400005)(47076005)(36860700001)(426003)(336012)(2906002)(81166007)(16526019)(86362001)(186003)(40460700003)(70586007)(356005)(70206006)(4326008)(8676002)(83380400001)(316002)(5660300002)(36756003)(6916009)(1076003)(54906003)(508600001)(44832011)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2022 20:12:35.5931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0d42db-6559-4bd2-b826-08da459d6677
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2022 20:12:38.3608 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5ddd540-ace2-4ffc-6af0-08da459d6820
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0201
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1566
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,132 +100,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- George Shen <George.Shen@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, solomon.chiu@amd.com, jerry.zuo@amd.com,
- Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
+ Hansen Dsouza <Hansen.Dsouza@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, jerry.zuo@amd.com,
+ Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com, wayne.lin@amd.com, Krunoslav
+ Kovac <Krunoslav.Kovac@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Hansen Dsouza <Hansen.Dsouza@amd.com>
 
-[why]
-1. When HPD deassertion is pulled in the middle of
-enabe stream link training, we will abort current training
-and turn off PHY. This causes current link settings
-to be zeroed this causes later stream enablement
-sequence to fail as we prefer to carry on enablement
-process despite of link training failure for SST.
-2. When HPD is toggled after detection before before
-the enable stream sequence as a result. There could be
-a race condition where we could end up enable stream based
-on the previous link even though the link is updated
-after the HPD toggle. This causes an issue where our link
-bandwidth is no longer enough to accommodate the timing
-therefore causes us to oversubscribe MST payload time
-slots. As discussed we decided to add basic sanity check
-to make sure that our code can handle the oversubscription
-failure silently without system hang.
+[why and how]
+3 plane MPO is a new feature missing in a few resource files
+Enable 3 plane MPO by setting slave planes to 2
 
-[how]
-1. Keep PHY powered on when HPD is deasserted during
-enable stream and wait for the detection sequence to power
-it off later.
-2. Do not allocate payload if the required timeslot for
-current timing is greater than 64 timeslots.
-
+Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
 Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Reviewed-by: George Shen <George.Shen@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_debug.c   |  2 ++
- drivers/gpu/drm/amd/display/dc/core/dc_link.c    |  1 +
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 16 +++++++++++-----
- drivers/gpu/drm/amd/display/dc/inc/core_status.h |  2 +-
- 4 files changed, 15 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c | 6 +++---
+ drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-index 72376075db0c..283957dbdf93 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-@@ -422,6 +422,8 @@ char *dc_status_to_str(enum dc_status status)
- 		return "The value specified is not supported.";
- 	case DC_NO_LINK_ENC_RESOURCE:
- 		return "No link encoder resource";
-+	case DC_FAIL_DP_PAYLOAD_ALLOCATION:
-+		return "Fail dp payload allocation";
- 	case DC_ERROR_UNEXPECTED:
- 		return "Unexpected error";
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 818a605dcab1..3a5e87ca557f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3566,6 +3566,7 @@ static enum dc_status dc_link_update_sst_payload(struct pipe_ctx *pipe_ctx,
- 						"allocation table for "
- 						"pipe idx: %d\n",
- 						pipe_ctx->pipe_idx);
-+		return DC_FAIL_DP_PAYLOAD_ALLOCATION;
- 	}
- 
- 	proposed_table.stream_allocations[0].hpo_dp_stream_enc = pipe_ctx->stream_res.hpo_dp_stream_enc;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index bea77172bd14..b70fdab5a97f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2875,10 +2875,13 @@ bool perform_link_training_with_retries(
- 
- 		fail_count++;
- 		dp_trace_lt_fail_count_update(link, fail_count, false);
--		/* latest link training still fail, skip delay and keep PHY on
--		 */
--		if (j == (attempts - 1) && link->ep_type == DISPLAY_ENDPOINT_PHY)
--			break;
-+		if (link->ep_type == DISPLAY_ENDPOINT_PHY) {
-+			/* latest link training still fail or link training is aborted
-+			 * skip delay and keep PHY on
-+			 */
-+			if (j == (attempts - 1) || (status == LINK_TRAINING_ABORT))
-+				break;
-+		}
- 
- 		DC_LOG_WARNING("%s: Link training attempt %u of %d failed @ rate(%d) x lane(%d)\n",
- 			__func__, (unsigned int)j + 1, attempts, cur_link_settings.link_rate,
-@@ -6869,6 +6872,10 @@ bool dpcd_write_128b_132b_sst_payload_allocation_table(
- 	if (allocate)	{
- 		avg_time_slots_per_mtp = calculate_sst_avg_time_slots_per_mtp(stream, link);
- 		req_slot_count = dc_fixpt_ceil(avg_time_slots_per_mtp);
-+		/// Validation should filter out modes that exceed link BW
-+		ASSERT(req_slot_count <= MAX_MTP_SLOT_COUNT);
-+		if (req_slot_count > MAX_MTP_SLOT_COUNT)
-+			return false;
- 	} else {
- 		/// Leave req_slot_count = 0 if allocate is false.
- 	}
-@@ -6896,7 +6903,6 @@ bool dpcd_write_128b_132b_sst_payload_allocation_table(
- 			&start_time_slot,
- 			1);
- 
--	ASSERT(req_slot_count <= MAX_MTP_SLOT_COUNT); /// Validation should filter out modes that exceed link BW
- 	core_link_write_dpcd(
- 			link,
- 			DP_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_status.h b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
-index 444182a97e6e..8eb8d4afa876 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_status.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
-@@ -54,7 +54,7 @@ enum dc_status {
- 	DC_UNSUPPORTED_VALUE = 25,
- 
- 	DC_NO_LINK_ENC_RESOURCE = 26,
--
-+	DC_FAIL_DP_PAYLOAD_ALLOCATION = 27,
- 	DC_ERROR_UNEXPECTED = -1
- };
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+index 2b42af030b33..4f45753484fe 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+@@ -1762,9 +1762,9 @@ static bool dcn315_resource_construct(
+ 	dc->caps.max_cursor_size = 256;
+ 	dc->caps.min_horizontal_blanking_period = 80;
+ 	dc->caps.dmdata_alloc_size = 2048;
+-	dc->caps.max_slave_planes = 1;
+-	dc->caps.max_slave_yuv_planes = 1;
+-	dc->caps.max_slave_rgb_planes = 1;
++	dc->caps.max_slave_planes = 2;
++	dc->caps.max_slave_yuv_planes = 2;
++	dc->caps.max_slave_rgb_planes = 2;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	dc->caps.dp_hpo = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+index ef16260b7f3f..f9cee05aeccc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+@@ -1764,9 +1764,9 @@ static bool dcn316_resource_construct(
+ 	dc->caps.max_cursor_size = 256;
+ 	dc->caps.min_horizontal_blanking_period = 80;
+ 	dc->caps.dmdata_alloc_size = 2048;
+-	dc->caps.max_slave_planes = 1;
+-	dc->caps.max_slave_yuv_planes = 1;
+-	dc->caps.max_slave_rgb_planes = 1;
++	dc->caps.max_slave_planes = 2;
++	dc->caps.max_slave_yuv_planes = 2;
++	dc->caps.max_slave_rgb_planes = 2;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	dc->caps.dp_hpo = true;
 -- 
 2.36.1
 
