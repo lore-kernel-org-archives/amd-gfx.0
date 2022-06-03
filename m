@@ -4,93 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDFD3C43334
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 08:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC55C43334
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 10:21:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B3510F3C9;
-	Fri,  3 Jun 2022 08:02:13 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D224211348D
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 06:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1654239351;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7E5lR+VTALld2mTfNQxdusQn4aNxYfVVAc9A8NqQeSE=;
- b=FgO2PjeXBmNXC6qJi5/kBJCZDpJXicut2hLaX7C/8tFU2mCFCkj3P2G01BRcJDGIMEazGj
- JjM+ypB1dQeeJpVhu6iMgpNchu8bUlMknxn1LlAwDUOQDxmrNUujVT04t32lLd3+BLS+gg
- eLAtCqs5nHRnvuUXd5N7IDvtQWd2vx4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-451-0quTKh-gOfGyY4Djpaf_ow-1; Fri, 03 Jun 2022 02:55:50 -0400
-X-MC-Unique: 0quTKh-gOfGyY4Djpaf_ow-1
-Received: by mail-wm1-f70.google.com with SMTP id
- o2-20020a05600c510200b0039747b0216fso6393695wms.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jun 2022 23:55:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE8C10FAA3;
+	Fri,  3 Jun 2022 10:21:12 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62AFF10FA6F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 10:21:10 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id t13so9795201wrg.9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jun 2022 03:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QdT7qmTqHRj1pwwDHYGCrlsIEYCWJ2CBunw9tOz730U=;
+ b=BaUMkVODFtgvO8huKrbXzdME7UEueQzPKek2Ph60yo5/dhCmFMeo6aF2mQfZrqYmvW
+ AxhcIbut/lNrTLERP9hZhNDOu7h/LqNDCF1vR2qgz3sAeODuDI74bF4hb8KIE/ZRqGW5
+ fUhBC3kDUKyHnlMO3dcBZ5qnR25zjFf/wNDiBHXC3cf0NXP8UP6/WO6pmGmnfU1E6AQB
+ 8aXEk03WhjWo4Ang1PD/EgfVBpGigMGFDdCQdI86/5nyMgE342aaRn3KNydne4vR+Mat
+ qXpg4kaA/yxLKaOJstJRCBhj4G7rr/57iSO93WYwKOaMnE86lbv4Wl++Jt65RvN2zHPr
+ kXMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=7E5lR+VTALld2mTfNQxdusQn4aNxYfVVAc9A8NqQeSE=;
- b=Q/fTMdW3LpASgXoscN5JwRoIdw84Dcrhs1x48vMhmHkdx9nSnkEOWaYpRMh0G2aq6Z
- 9UITp4HfU8G0nR+fggKmB2uAg6V2rQ/4zrO7fJcAo990tdM61ASyELXyDdBsaB7E7AO1
- sDyA7KOp7HqdDkgJNQ5gghEyCs3ZrIAKYJL8iHxlSCZ1jfAheOiSs0kZG5tULzlgFuKH
- fct58wtG85TNEJH8TcoxH45J4UTwCcYDJPzIOCOAMs46ZD7tq3caO+m/8ix7rVBvFh0X
- 0MEItLIWC7CedZmuS1C+fVCt88Yj8MTLEFKVcIQlVfj7T6sXMNHFf7dpaxrBMKSAAual
- /I8Q==
-X-Gm-Message-State: AOAM533TCdn27FafwyxbMriqkIK2WuJSE1xzAPKWKSH47GX1JHYFM6SP
- 7sXDCtaErope5CmEOAGBluWl1YD83/nvKsJaUM94w8S+rCWOugoLbdfHrSHsyiPb02uf/zo8+CQ
- 9zed5YjQYBpXEXhss2z1P6ArvxQ==
-X-Received: by 2002:a05:600c:1c86:b0:39c:eeb:39a3 with SMTP id
- k6-20020a05600c1c8600b0039c0eeb39a3mr7114017wms.40.1654239349236; 
- Thu, 02 Jun 2022 23:55:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxrSRa5Dxj7z6MY5xtT+kIz0IbbtMCxkQJLgdqcN5Ae38x2SZ7pJ1GoY/N+E8qgoPHMEiuqSQ==
-X-Received: by 2002:a05:600c:1c86:b0:39c:eeb:39a3 with SMTP id
- k6-20020a05600c1c8600b0039c0eeb39a3mr7113980wms.40.1654239348953; 
- Thu, 02 Jun 2022 23:55:48 -0700 (PDT)
-Received: from [172.28.2.131] (163.106.124.80.rev.sfr.net. [80.124.106.163])
+ bh=QdT7qmTqHRj1pwwDHYGCrlsIEYCWJ2CBunw9tOz730U=;
+ b=p+RlKkv4tHcaCAzqUP1qNZa7O4TyNZzWNlU+o9749msEz7MIdzGT//HPGCRBwlDtdt
+ dLVqWnssNMEJuXnoTRXrjov/H5Cftq9kMMrXQ4wWo2WdMrpTOq8ldX3OTD9hPmsiEqkc
+ 9F/ufDbvFC/0YHiW7jM9J/GLobZj1hNOKYtq2ZQ1hmB4JpWm6OFAYACTD09jmtwy2pmV
+ umNnlrpbSBeWdmvBAu4MxNRfE2Wm2j6E++RCTNACufbtRG/Pb7IzJGYbrFwp7VQCs9Tj
+ gh6AJ/1o8OR2sJ91QHVv6Rc5POmPhaF4zqfsYY+ITrEzU5OKhqSQ/gT/k0nExyMgEFIl
+ s/6Q==
+X-Gm-Message-State: AOAM530pvTj0Q1SXcRBe0nI1eFf0Yh5QLRi0MQ4+McpolMi0MfYDdUlC
+ en4kB6WWxMG0nN8TQzTpei0=
+X-Google-Smtp-Source: ABdhPJzTduaNLqQdSj663PqRqfKu0d+GYpxrggaOmoZnJ5dR7Goj1yBnqHgd86tz1T/1Bxwa5cLHxg==
+X-Received: by 2002:adf:f08e:0:b0:213:b7f7:58ff with SMTP id
+ n14-20020adff08e000000b00213b7f758ffmr3623989wro.123.1654251668842; 
+ Fri, 03 Jun 2022 03:21:08 -0700 (PDT)
+Received: from baker.fritz.box (p5b0ea02f.dip0.t-ipconnect.de. [91.14.160.47])
  by smtp.gmail.com with ESMTPSA id
- l10-20020a5d410a000000b0020fc6590a12sm6256206wrp.41.2022.06.02.23.55.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jun 2022 23:55:48 -0700 (PDT)
-Message-ID: <a3cd0f3f-9e97-706a-27af-4e5b6f63eb05@redhat.com>
-Date: Fri, 3 Jun 2022 08:55:47 +0200
+ m11-20020a5d624b000000b0020ff3a2a925sm8407274wrv.63.2022.06.03.03.21.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jun 2022 03:21:08 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Pierre-eric.Pelloux-prayer@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix limiting AV1 to the first instance on VCN3
+Date: Fri,  3 Jun 2022 12:21:06 +0200
+Message-Id: <20220603102106.149508-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 12/14] drm/nouveau: Register ACPI video backlight when
- nv_backlight registration fails
-To: Lyude Paul <lyude@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-References: <20220517152331.16217-1-hdegoede@redhat.com>
- <20220517152331.16217-13-hdegoede@redhat.com>
- <0c9c2c59ca9c351769921c47beb49dda79ddd5de.camel@redhat.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <0c9c2c59ca9c351769921c47beb49dda79ddd5de.camel@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 03 Jun 2022 08:02:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,73 +70,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Lyude,
+The job is not yet initialized here.
 
-Thank you for the reviews.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: 1027d5d791b7 ("drm/amdgpu: use job and ib structures directly in CS parsers")
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-On 5/18/22 19:39, Lyude Paul wrote:
-> On Tue, 2022-05-17 at 17:23 +0200, Hans de Goede wrote:
->> Typically the acpi_video driver will initialize before nouveau, which
->> used to cause /sys/class/backlight/acpi_video0 to get registered and then
->> nouveau would register its own nv_backlight device later. After which
->> the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
->> to avoid there being 2 backlight devices.
->>
->> This means that userspace used to briefly see 2 devices and the
->> disappearing of acpi_video0 after a brief time confuses the systemd
->> backlight level save/restore code, see e.g.:
->> https://bbs.archlinux.org/viewtopic.php?id=269920
->>
->> To fix this the ACPI video code has been modified to make backlight class
->> device registration a separate step, relying on the drm/kms driver to
->> ask for the acpi_video backlight registration after it is done setting up
->> its native backlight device.
->>
->> Add a call to the new acpi_video_register_backlight() when native backlight
->> device registration has failed / was skipped to ensure that there is a
->> backlight device available before the drm_device gets registered with
->> userspace.
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> b/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> index f56ff797c78c..0ae8793357a4 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> @@ -436,6 +436,13 @@ nouveau_backlight_init(struct drm_connector *connector)
->>  
->>  fail_alloc:
->>         kfree(bl);
->> +       /*
->> +        * If we get here we have an internal panel, but no nv_backlight,
->> +        * try registering an ACPI video backlight device instead.
->> +        */
->> +       if (ret == 0)
->> +               acpi_video_register_backlight();
-> 
-> Assuming we don't need to return the value of acpi_video_register_backlight()
-> here:
-
-The function return type is void, so no return value to check :)
-
-> 
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> 
->> +
->>         return ret;
->>  }
->>  
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 3cabceee5f57..39405f0db824 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1761,23 +1761,21 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_sw_ring_vm_funcs = {
+ 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
+ };
+ 
+-static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
+-				struct amdgpu_job *job)
++static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p)
+ {
+ 	struct drm_gpu_scheduler **scheds;
+ 
+ 	/* The create msg must be in the first IB submitted */
+-	if (atomic_read(&job->base.entity->fence_seq))
++	if (atomic_read(&p->entity->fence_seq))
+ 		return -EINVAL;
+ 
+ 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC]
+ 		[AMDGPU_RING_PRIO_DEFAULT].sched;
+-	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
++	drm_sched_entity_modify_sched(p->entity, scheds, 1);
+ 	return 0;
+ }
+ 
+-static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+-			    uint64_t addr)
++static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, uint64_t addr)
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va_mapping *map;
+@@ -1848,7 +1846,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
+ 			continue;
+ 
+-		r = vcn_v3_0_limit_sched(p, job);
++		r = vcn_v3_0_limit_sched(p);
+ 		if (r)
+ 			goto out;
+ 	}
+@@ -1862,7 +1860,7 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_job *job,
+ 					   struct amdgpu_ib *ib)
+ {
+-	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
++	struct amdgpu_ring *ring = to_amdgpu_ring(p->entity->rq->sched);
+ 	uint32_t msg_lo = 0, msg_hi = 0;
+ 	unsigned i;
+ 	int r;
+@@ -1881,8 +1879,7 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 			msg_hi = val;
+ 		} else if (reg == PACKET0(p->adev->vcn.internal.cmd, 0) &&
+ 			   val == 0) {
+-			r = vcn_v3_0_dec_msg(p, job,
+-					     ((u64)msg_hi) << 32 | msg_lo);
++			r = vcn_v3_0_dec_msg(p, ((u64)msg_hi) << 32 | msg_lo);
+ 			if (r)
+ 				return r;
+ 		}
+-- 
+2.25.1
 
