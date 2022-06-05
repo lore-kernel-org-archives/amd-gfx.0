@@ -4,120 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAA2C43334
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 13:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820ECC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 13:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C08D112E6F;
-	Mon,  6 Jun 2022 13:15:48 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA3061125DE;
- Mon,  6 Jun 2022 13:15:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LiZPKfIxm3XrB36wBDvoNMHflDGHBJrkYLBIiG9TgjsrURnO/VtjIfRCswdbTRoAsEn4D4ypZNy4JczcObYcWMliPQjQM1/4V+/SFSmIqxsQJ+rH0PEtPd0IrfNolN2cbwwzbxVd3hBQ2FRWkQZs39f5cTHFc10XsesZAPWDEOMp5/MGB98Ak3ra/O1A4Ll4Nlb1k8Z8zIJkQYcZnvyxBAq0P8rGEv25SXZBXI24gXrsrnFLyideBvPN9sdoyByw1rgyxcRPwI3mCPD1cIPZTlFQIEUWtwkgSliwZzl7gs4n0JYnVZlaYnd+5bwJFgMRfkDsAXohlEDdphhDwMw7kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0TvHLgjOH+hEw4SlCVkcb2n8fc62Cka6ThLev1jXxEA=;
- b=PG1eKINzejA9ltp74eaHyaDBMOjq9v796vf6A2X3VuAYuiMtLkdouVVlSLk6djwhjv7dM3z8fdjy0EGwQFQxEop3vf+xvcR/4xq3ifjLTrKd9uZlD5DSGR4D3iCGd4SBebg7vX9zJt80fnBTji4FLgoIZn64E/glmmt0M9UVD3s126dgVPaLks09Z19dhjjnoaVdkx73I2tMg0YHKdH5mmbanqe9P1ijnoiE43TpWV0Hv3s9usGSDWEo9riCVku237CtsC0IVwywM+MUSofbOme1cWxcSPJDpStuF/6WrhxfVr0eQx6NQuADVch1gaBIboGAIw8DnlEXQX2M22rzQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0TvHLgjOH+hEw4SlCVkcb2n8fc62Cka6ThLev1jXxEA=;
- b=Dd4/h72EWqMGKoeC1JX0mvPN1U+sq8j//LNFg0byUHCeR/2VcRuoQ5q7jVWJq1bYLDYm5qf3qCsJxkXYYZGtoAJEXW5JNX1u3RFrOpgd1JBMMUIsI5mlhFj7Zl2TMp1rBIvefDZlH8oV7iQE70yiGuAeXFTH/CBbdDmDMwpKsLg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY4PR1201MB0104.namprd12.prod.outlook.com (2603:10b6:910:1d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.17; Mon, 6 Jun
- 2022 13:15:44 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
- 13:15:44 +0000
-Message-ID: <91627755-c7da-960e-eaac-6d6644b71490@amd.com>
-Date: Mon, 6 Jun 2022 09:15:42 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/ttm: fix missing NULL check in ttm_device_swapout
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- mike@fireburn.co.uk, dri-devel@lists.freedesktop.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <20220603104604.456991-1-christian.koenig@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220603104604.456991-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0075.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB3E210E8D0;
+	Mon,  6 Jun 2022 13:26:38 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1827010E272
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jun 2022 22:00:59 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 0F0FD1F8EC;
+ Sun,  5 Jun 2022 22:00:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1654466458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dTEcuA2D7TEeoU7NwsaAOFhQhGWh46VsSuybBXH2gWU=;
+ b=NVxclZERlIKTSQaQovTAoOz1dVCAQYV3CQi8GPP4kRNzbaOFFpMJwfLvUEwew37E+uq7T3
+ 6h6w0IT7DI9FIxU3BhqzPTio8GXjJfx3MF9kR7wLnwTMqbW62Z3cDF3EvfVaS3YUsQ+aa5
+ Me5QaoiLopdw9vDzAXbgvKH3/N2eYmg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1654466458;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dTEcuA2D7TEeoU7NwsaAOFhQhGWh46VsSuybBXH2gWU=;
+ b=ardHJPFAY0rPsHVJy52efRq4iqD0cT53nSQeMnPP2GPkuq//Pwxq85/wuw2w3yKeRKzAwX
+ njE1hyKDPPQgphCw==
+Received: from lion.mk-sys.cz (unknown [10.100.200.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id F16692C141;
+ Sun,  5 Jun 2022 22:00:57 +0000 (UTC)
+Received: by lion.mk-sys.cz (Postfix, from userid 1000)
+ id 4B084608F8; Mon,  6 Jun 2022 00:00:55 +0200 (CEST)
+Date: Mon, 6 Jun 2022 00:00:55 +0200
+From: Michal Kubecek <mkubecek@suse.cz>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: (REGRESSION bisected) Re: amdgpu errors (VM fault / GPU fault
+ detected) with 5.19 merge window snapshots
+Message-ID: <20220605220055.cshuzyveneu5a4hf@lion.mk-sys.cz>
+References: <20220527090039.pdrazo5e6mwgo3d3@lion.mk-sys.cz>
+ <20220527124459.mfo4tjdsjohamsvy@lion.mk-sys.cz>
+ <CADnq5_Pr-FKfhuXT9DR2rYD=dMfD=+Dfev+CO-xeaPGnhwSQaA@mail.gmail.com>
+ <20220602142254.2ck7dw7u3xlzdnt2@lion.mk-sys.cz>
+ <CADnq5_MiQKX4JA-3xbxGYXKHpJqD0Px1NYSiL6yPeTwseoNVGg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8d9fdc95-cd66-4095-2e7b-08da47bea9b1
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0104:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB010451D06A3E8A6A61080ED992A29@CY4PR1201MB0104.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3m5DxPa/MtnDdqLJICcwKU6xqROrOWDlHgGujtbx7s16TvtlcoOIhqAbKW1ZDuYiXYdyGYSi93jP4KL7Bc83khsaCWqFK09VNe2XmzzgfsXDAT8+z5dyJCWXVuztg05iALLZ+ANATY/csKUzPKDwhW5ZNRAEHCWFcC9HGFZzfFceK6M+hLUr+uCaD5wzor3tlwD+8nEsLOvsZeep4NvjgnDpdIYze5A6wa99wfa2BzGxEYyj28glMFWMUpiQeg7ZiSRbAaDucJowQ4JnUREPHrBdeWSZXn/KRH2uz7tRMUhUKmZDDIVtS/ckPsly+aIWa6+W0eWjH/crvVSQohDWhOEgxX1CWdOLO9Xe5vlLJQ4QT7UZ4vHHiJoja3Pqc8MZZ8YYUQa+ZDkEVy+YaOvdBAiEGN/sQDg3KCGahgZyTORQsCPVz0Nu43+xx2n5cyx0Cnqv9ypl1MurAeUzXuZWm40WDZ2gYGw+vNAl7rypIDXSHC0PLJwWMN3oH2diORxkPO2EL9eOqmQF1sVDUIiv+mNdCu2aHdX1exsGC9S4lYELprsPBuW/H3UjO1cQGtBfaYR4hUANdt5UqhhkX3ZEDcSMiFyMBB0WrcAp26zhucYGS5KoI49CsAno6we/8urYKPNCXaqrbiJZ9sVX8RhyMMG8OZRsfLRP7EGHU+7QemU1Nc1PA3R9mV+rn7zYWX03XsSQAH++KsXqfKicia7f/Qwv9h/EtT5BeNQDZqJdkJzZ+VQElZhzZVBP/pIL1ua9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(36756003)(31686004)(66574015)(186003)(2616005)(6486002)(6512007)(66946007)(26005)(6506007)(66556008)(66476007)(110136005)(8936002)(38100700002)(44832011)(86362001)(316002)(508600001)(8676002)(31696002)(4326008)(5660300002)(4744005)(2906002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUdydy9ENHJYUEFVWFF2MHptT2FnSXFqTkh6QWl3MitVTG9lemdrM0lEUGxy?=
- =?utf-8?B?N01CRzc1c3hEQTY3UTZNQ1VYdVZqbER6bkZVS285Nk5hZ3A1d1JXbGZOTldk?=
- =?utf-8?B?WmlhbnJzUEZaLzU0VHVuZCtLcFpYemxIRSs3VVV6YitneC9lUlBMY0w1Q2xL?=
- =?utf-8?B?VTg2TTBEQm0yOWFDWmJ2MlR1UUhOTFNFb2R6MnJPYjZXUUpwU09mOFR5QjVs?=
- =?utf-8?B?YmlrSUFnSEhUaDZTaU9PZnZHTHRyYWkzQ2VMOElDQWFmbnR1a2Q4K3F3ZHpR?=
- =?utf-8?B?Q2NTTnBvQkNMdEhpNU9RNzE3QUg1NFhsSUsyWWJXbEtJREZOa3Y1WWtQZy9T?=
- =?utf-8?B?dnE0dytCME5YU2hHV2FKZk1ZUjF2dDVoRGFMcGdzVE9aMEtTeTRwYzNmdTFF?=
- =?utf-8?B?UHpjOGNrQU52ZEtrSVVuQjNMQThqYnN1MSt6cm45ZjFZVHlFRUFiNCsxUStL?=
- =?utf-8?B?NVM1K3lKK2NwMS9IaUNSUHNNNkVxSU5taG1hR24wQ2M1MFN6ckRiZHMrQ2dq?=
- =?utf-8?B?UjN4R21WRjAxNW1sMGt0RVZGT29TZ3dTYk1HR29ESFhYMzduSkNYZ1Q0WGVx?=
- =?utf-8?B?YXpyelc0K3dOaFZySTRxc1lJSE9uTlovcVBxVHR2WFpIM0RYd0lURUFiZVJM?=
- =?utf-8?B?K3prVVUzOTN3NGVXQ0dxbUVHTyszSGtNb2dTdjdoSXVtMmZpejFCYnRxcmpu?=
- =?utf-8?B?bURXT0o4UWs4WE8wc2lBRVRXMXY2aHJGUkgva2krQzFBVmlDZDhUT1ZYMUR3?=
- =?utf-8?B?RnpCemZ4N3kvV2FRcFpWOUZIK1JXTm5ISlFGK2FadFNtNDVGN3VFaGVOM29j?=
- =?utf-8?B?N2dyNTlwWEJubWY1ZmJYMlBRSFpKTEdWOXl5dFJoTnBENVlsa3lCTkY5a1Jn?=
- =?utf-8?B?VjJLa0Z1cE9UdHRIc3JTdTRWMzcvSWdSWHdHTGxoQjFhQmJSdjlRZm4wZkE1?=
- =?utf-8?B?d3djd3ZSNm5QUldwQktwaEtqM0drMWdOV3RyVnBZajNReUpzTFlaODQ1T3NY?=
- =?utf-8?B?VDBhSUpQem5ldkJtem91cVQyblNrem4wU01DZjZDdjc4TUxaOW1lT3dWcnNp?=
- =?utf-8?B?VktBeXV6dEZMd2wrQTdTbjZEWlpsL3hGTG5XaXJ5eXFWSkxVam9FZ1RDMmRN?=
- =?utf-8?B?eTdLamlxYkxxajlxanpvNUJFcHFESnF1blRzNlBaZjB0NExXbEtsMlZQN1FN?=
- =?utf-8?B?cmVhQ2p2Ni82Q1hNaXluSWxidkM2Ym1DZFNEU2IzS1ZQaUlGQmNMdGQ1VlRi?=
- =?utf-8?B?L1dZZDRLd0JXeUIrbVFtS1BHRWs1OVZZVzFuM05peXZLTEM0UzUvYk92emlr?=
- =?utf-8?B?MzI5Q0tiZ3ZocGxBcDFvTDBOcnFFZHRWZFpsRUl0WUlGNklFdTBBV1hNVit4?=
- =?utf-8?B?US9kNXdmcFVEck00MmJVLzJTMEo1bmFKMHMyK21ZWGQzU1J2ZHNnNkdNMHFj?=
- =?utf-8?B?UGFyYUVNQXV1TmxGeHEvOGQ3emFnRko4WjNEeE5tY2ZFRUcvdmx4WC9RREk0?=
- =?utf-8?B?MWY1VkdRMFNjMXJaUVZHN1U4ZkxpTUFwZHNXalMvcEZkWTdIcWZTdUVmaEtw?=
- =?utf-8?B?UnBKN0VNa3BILzdEM2t3dFBWSkdXRlN1a1VUVzRFdnRCdUlPaHBnbVFVNTVa?=
- =?utf-8?B?S2pTVjFjYnNtbzdMZDlzMHhRYXhmRGhCNmNNdVZaQ3pIR3A2R01yQkhxcEc4?=
- =?utf-8?B?aHN0QlZHRjF2QzFqWjhxKzZDbEJYZy9JWEVxRGl4N3RqNk9taEF6UUxzVGF3?=
- =?utf-8?B?REdVY1pYQkx1a2ZMaEJPbXdTbytWTGNMU0ZjQ0NTWmc4TytGSTRJUFZ0RzJv?=
- =?utf-8?B?TDJyajh5YU1xUUhlbHZwYStKbGJzSXpQQkZvL3ZnaTJuMFN4RlJzL3JjWEF1?=
- =?utf-8?B?ekQwYmFSejdXaWZWdFRGYXdSVWcyUG9nbzF2b3V2ZHZsUzI1ZGx1UDBYbHBP?=
- =?utf-8?B?NjErYXp3U0FuTGs3V3lGekJ0bk9MT2tnWjdNNUtwUDZhTzlBZTNVUytNclJs?=
- =?utf-8?B?WGJ0cXJJT29rYkkvWUM1L3JmRWpNcEx4Vkg2Z1g4QTBwQjBkUVhscVFZQUFB?=
- =?utf-8?B?M0tTOXdPZXNscVpEUjBLV1c0S2RDYlVGVlNyQjRJY0V6by9neUhobWdCdTl6?=
- =?utf-8?B?S2tmcGMwNmhCVXhuRjdza1NSNUJOWEN0R2lqSWlUaXY3SmgrMGZ5cVUyYWp2?=
- =?utf-8?B?cXU1ZVZNNkQvTENSV29aLzluR0N5azIxM1RiQmtpcEx5ZEE0QjdTYnRiSWFH?=
- =?utf-8?B?eS8wek9JRU1aSUkxcEt3U2dqclFzRDMxMjFCL1VCbTZ1bFFBbkJVOVdzdXVh?=
- =?utf-8?B?VWhid2p0ZGwrK3VEamdFTXpCUGtRMUJWNzUyVWNiNHYxWjh4Rm9JUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d9fdc95-cd66-4095-2e7b-08da47bea9b1
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 13:15:44.4072 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EVelgUiErgtBHZD4Sm3IItfPlK0nNk/Y+A28AC3zovMTTOal/vF0Pq2Z0Bdn3IaE9w/zbeEKOWPn7CO6Ogkbyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0104
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="omajwfih3jpp6cl7"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MiQKX4JA-3xbxGYXKHpJqD0Px1NYSiL6yPeTwseoNVGg@mail.gmail.com>
+X-Mailman-Approved-At: Mon, 06 Jun 2022 13:26:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,38 +66,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Yang, Philip" <Philip.Yang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-Am 2022-06-03 um 06:46 schrieb Christian König:
-> Resources about to be destructed are not tied to BOs any more.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+--omajwfih3jpp6cl7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+On Fri, Jun 03, 2022 at 11:49:31AM -0400, Alex Deucher wrote:
+> On Thu, Jun 2, 2022 at 10:22 AM Michal Kubecek <mkubecek@suse.cz> wrote:
+> >
+> > On Thu, Jun 02, 2022 at 09:58:22AM -0400, Alex Deucher wrote:
+> > > On Fri, May 27, 2022 at 8:58 AM Michal Kubecek <mkubecek@suse.cz> wro=
+te:
+> > > > On Fri, May 27, 2022 at 11:00:39AM +0200, Michal Kubecek wrote:
+> > > > > Hello,
+> > > > >
+> > > > > while testing 5.19 merge window snapshots (commits babf0bb978e3 a=
+nd
+> > > > > 7e284070abe5), I keep getting errors like below. I have not seen =
+them
+> > > > > with 5.18 final or older.
+> > > > >
+> > > > > -----------------------------------------------------------------=
+-------
+> > > > > [  247.150333] gmc_v8_0_process_interrupt: 46 callbacks suppressed
+> > > > > [  247.150336] amdgpu 0000:0c:00.0: amdgpu: GPU fault detected: 1=
+47 0x00020802 for process firefox pid 6101 thread firefox:cs0 pid 6116
+> > > > > [  247.150339] amdgpu 0000:0c:00.0: amdgpu:   VM_CONTEXT1_PROTECT=
+ION_FAULT_ADDR   0x00107800
+> > > > > [  247.150340] amdgpu 0000:0c:00.0: amdgpu:   VM_CONTEXT1_PROTECT=
+ION_FAULT_STATUS 0x0D008002
+> > > > > [  247.150341] amdgpu 0000:0c:00.0: amdgpu: VM fault (0x02, vmid =
+6, pasid 32780) at page 1079296, write from 'TC2' (0x54433200) (8)
+> > > > [...]
+> > > > > [  249.925909] amdgpu 0000:0c:00.0: amdgpu: IH ring buffer overfl=
+ow (0x000844C0, 0x00004A00, 0x000044D0)
+> > > > > [  250.434986] [drm] Fence fallback timer expired on ring sdma0
+> > > > > [  466.621568] gmc_v8_0_process_interrupt: 122 callbacks suppress=
+ed
+> > > > [...]
+> > > > > -----------------------------------------------------------------=
+-------
+> > > > >
+> > > > > There does not seem to be any apparent immediate problem with gra=
+phics
+> > > > > but when running commit babf0bb978e3, there seemed to be a notice=
+able
+> > > > > lag in some operations, e.g. when moving a window or repainting l=
+arge
+> > > > > part of the terminal window in konsole (no idea if it's related).
+> > > > >
+> > > > > My GPU is Radeon Pro WX 2100 (1002:6995). What other information =
+should
+> > > > > I collect to help debugging the issue?
+> > > >
+> > > > Bisected to commit 5255e146c99a ("drm/amdgpu: rework TLB flushing").
+> > > > There seem to be later commits depending on it so I did not test
+> > > > a revert on top of current mainline.
+> > > >
+> > > > I should also mention that most commits tested as "bad" during the
+> > > > bisect did behave much worse than current mainline (errors starting=
+ as
+> > > > early as with sddm, visibly damaged screen content, sometimes even
+> > > > crashes). But all of them issued messages similar to those above in=
+to
+> > > > kernel log.
+> > >
+> > > Can you verify that the kernel you tested has this patch:
+> > > https://cgit.freedesktop.org/drm/drm/commit/?id=3D5be323562c6a699d384=
+30bc068a3fd192be8ed0d
+> >
+> > Yes, both of them:
+> >
+> > mike@lion:~/work/git/kernel-upstream> git merge-base --is-ancestor 5be3=
+23562c6a babf0bb978e3 && echo yes
+> > yes
+> >
+> > (7e284070abe5 is a later mainline snapshot so it also contains
+> > 5be323562c6a)
+> >
+> > But it's likely that commit 5be323562c6a fixed most of the problem and
+> > only some corner case was left as most bisect steps had many more error
+> > messages and some even crashed before I was able to even log into KDE.
+> > Compared to that, the mainline snapshots show much fewer errors, no
+> > distorted picture and no crash; on the other hand, applications like
+> > firefox or stellarium seem to trigger the errors quite consistently.
+>=20
+> This patch should help:
+> https://patchwork.freedesktop.org/patch/488258/
 
+After ~48 hours with this patch, still no apparent issues.
 
-> ---
->   drivers/gpu/drm/ttm/ttm_device.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-> index a0562ab386f5..e7147e304637 100644
-> --- a/drivers/gpu/drm/ttm/ttm_device.c
-> +++ b/drivers/gpu/drm/ttm/ttm_device.c
-> @@ -156,8 +156,12 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
->   
->   		ttm_resource_manager_for_each_res(man, &cursor, res) {
->   			struct ttm_buffer_object *bo = res->bo;
-> -			uint32_t num_pages = PFN_UP(bo->base.size);
-> +			uint32_t num_pages;
->   
-> +			if (!bo)
-> +				continue;
-> +
-> +			num_pages = PFN_UP(bo->base.size);
->   			ret = ttm_bo_swapout(bo, ctx, gfp_flags);
->   			/* ttm_bo_swapout has dropped the lru_lock */
->   			if (!ret)
+Tested-by: Michal Kubecek <mkubecek@suse.cz>
+
+Michal
+
+--omajwfih3jpp6cl7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEWN3j3bieVmp26mKO538sG/LRdpUFAmKdJ5IACgkQ538sG/LR
+dpUx0Af+M7oxvfeOEtzroMH35tcMnCDj6oIsvFCsAJ85Qfr03lO5X8WeDjHOIRRg
+wTfTLT5rEBu/5rcAia+PzkmXBzptdQ0jwq075LYOUrgKSrbXj3GJnXCpuDWAKR4s
+8ysjrcu0bzM5Sksiop+qtQGoeTrxe6UdZIDSESYT8witp5S6eoTFnuBz5CeVlCu6
+HYaeXbv3r6zR9kOqmkG4DK5IyAvq4oS5xZZzVm+72Qn0w+AYR+rmUKZoC9KCOeqp
+9K66rWZHDUUY3THfg+awwjyOh/mZHPdzLG9v2ChEJP/uPbgBepThcDoCGF9OpkXP
+25IvI+S3/Q5ibq3iSC9IBQE1tUX4hg==
+=jedm
+-----END PGP SIGNATURE-----
+
+--omajwfih3jpp6cl7--
