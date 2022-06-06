@@ -4,120 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24137C43334
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 14:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D13DC43334
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 14:16:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2F5F10EAA6;
-	Mon,  6 Jun 2022 14:11:53 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C613010EAA6
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 14:11:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C78B10EAAE;
+	Mon,  6 Jun 2022 14:16:49 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82FE110ECD0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 14:16:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KMjZRmEHM8+t9PwRaZpsyD4KvK0mYbsYhZVE/0KpsMkwHEprysZK+Q6S5mk5ocsg7V1QHP4VvtwafDbAMF10NBYDFS8U/5VEOjlmuX2Li0TId0Dq3cA8R5Bh3aw/Xe3u7KXOtEiTYv5snDOeAEU8rtukdTwOHMqz/A1LW5DGzTPwIIDSuWfR24m25SZuod5+SV4AoskGoIlpndpsXpdhNBxjqqpPaszE/6LTkCOJ8VHVbWt7iLA5sV5OMspO/bhnH7s00M57mkSgiXlRqEumaIS46jP6CnjPXe58O9ilF2p0ptkSdviTQWpze6c0Wi34Zd6Z5LCwIY3ZAV16xTIuzg==
+ b=n/dgkbph4+q9FXT0wUkLdqvfAILrrmozVv4LkPX1ffKvDXNKmT3KsBjymZTlvcyrItCZ4Hfp0oV/m5CPpMn9AFT7ZDpjqy7Xom8B6W1gvJdJxK+Oio3ybI4dH7x0zcJkEC8oGsV5olqwzJAkIQUsAcaDzT2B3KznxQIYu/Mik1CgEBfzO2MPdVg3jDbFdZj4T8mxcV+vdVx7swbwWme7JwZi7EaEdnVjvP3WPA6DvlS0x7H6PHLvdP12f7XUrKtoeJ2e49exdYMgiQG419y0BqpX89JRlVhIrKYzBgTeVXbJhk1Bx4UydPQRtjEGIzjnrEVKTv8Yy7qi8UTCLcRLTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uxA108PIyKSeir6OmZ0F7cjTKf1znfvDrZI/IozxiEU=;
- b=DQhqw1kFXtRk1SrTJsPQbvUDVSescE93EcpFBIOaN1VctOyqxrhbaC43ts8JV8UUM4R7Ry+YUR/cT4dTFyDXFSR0Bg1zfjEr/qcSW5k01ggBuKtDx2pKhzQpLSh4Lpw4BiqqzvuJNBTBrBgKFHFDR8TnSWDXDT5x9rJpYAR+jqH72TWexz5SgAgEqJMbeP4gCmHWFECeqnsH6P/5xh/vjsdWSTRfXKJGtyUHvNrTtGiyUL32mW7Na0RRWoSj8aD3Q/wve750PQoBUu2LBIV/BJbZr+tQvoVDss6NjCp65DVGWCl2MxSQf9glVkd4m6oWs0njIvgbfAa+X7L60HYsCg==
+ bh=TvzxoFwsdXc3OcukBKifeLmPAMAMclbuBPut40NLy6w=;
+ b=hV0GhTLyX32TDScQ1pMd6bz4VdCAFRMStYtEg1haRujVl/Hmd9LaKnaLQCGerBpPX08V/72QOdxowg//bWn3dpWc4WQAUPWBvs/mQKCjXV6QTiXfoRUzd+O/hJzuLbjEIE1YEgaDT2ZH8fxaqUfd9LG76U0tPqH5/7YC7kAFQKx4yqG95CM3f9gztBoKrsXSichvHG7jGszhIgYGR2bSxzgoT1/EUkb2LtnV4hgx+ecPtiq0dfSc0L25dHHXtY/slE9PlTpWGDwCzLhE/rpokBejZV5C2xgPKlMJe3g+Zx2euj+JcT0X7M2fVk7YdQorvwv06/nAyybNOLj56GYgGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uxA108PIyKSeir6OmZ0F7cjTKf1znfvDrZI/IozxiEU=;
- b=ToU2z9OpjMYIFwpifLIc3golfh1YWv6PKp2zKA/8EFcw6cHGn8iLSPFjMH/6YsKGHUUm3v00CTXZ9IgwDR0KadgCiwApKzGTjgztDQHeSAVF3/YC3tIAq6JP1meziIE3ivo6Ef9t78blBno8O6BicEsEkUskS/f5uljVX0PdqHI=
+ bh=TvzxoFwsdXc3OcukBKifeLmPAMAMclbuBPut40NLy6w=;
+ b=i3Wi7UvORdw4In04Rk2wJVMkgJ1PXCwYxEFP7s/HFQdZupBT3pCJa8l9u45V3WaOxGAuVIZ/Pi0oJKPHweSboMq5wpB501SMEdSWuO09qvSUqs0euL9vKGcgwz8FOKW0kXYerGJE8aqH3U/+3z1coxz7XRxm6FnAJWaFXIrvols=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CY4PR1201MB2502.namprd12.prod.outlook.com (2603:10b6:903:da::21) with
+ by PH7PR12MB5688.namprd12.prod.outlook.com (2603:10b6:510:13c::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.18; Mon, 6 Jun
- 2022 14:11:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Mon, 6 Jun
+ 2022 14:16:46 +0000
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::540e:d76a:bdf0:ed0d%6]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
- 14:11:50 +0000
-Message-ID: <a2f385ac-4e05-e40c-b339-e8ba07553aa8@amd.com>
-Date: Mon, 6 Jun 2022 10:11:17 -0400
+ 14:16:46 +0000
+Message-ID: <24e1099e-bf3c-dca2-a8a9-8cd0196248a2@amd.com>
+Date: Mon, 6 Jun 2022 10:16:13 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH 5/6] drm/amd/display: Reduce frame size in the bouding box
- for DCN21
+Subject: Re: [PATCH 6/6] Revert "drm/amd/display: Drop unnecessary guard from
+ DC resource"
 Content-Language: en-US
 To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220603185042.3408844-1-Rodrigo.Siqueira@amd.com>
- <20220603185042.3408844-6-Rodrigo.Siqueira@amd.com>
+ <20220603185042.3408844-7-Rodrigo.Siqueira@amd.com>
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220603185042.3408844-6-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20220603185042.3408844-7-Rodrigo.Siqueira@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0002.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::7) To CO6PR12MB5427.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT2PR01CA0011.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::16) To CO6PR12MB5427.namprd12.prod.outlook.com
  (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 62bb1b1a-28d3-4f07-17e8-08da47c67feb
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB2502:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB2502325CAF0E6F56F51C5B7C8CA29@CY4PR1201MB2502.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6d748c6c-b26c-4820-74d4-08da47c73042
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5688:EE_
+X-Microsoft-Antispam-PRVS: <PH7PR12MB56884045323A2972D9860C358CA29@PH7PR12MB5688.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AWZZs9E9DZf3LRLfinTiacG4+sRMXwKDB4LiBCe0IyQ0RD7c6gq4ScD6QsoiO5r7dNG9luioSkxAx9d7Cfy+ISfS+BVoB0AsTfjqmxFC+3ImtPo5mIUQo6ckIWNUre61OkMwVawWjhOYCzuYWAnoazz6yR7DwKEzVflHPQbc0CQBTDUuBZhqeTDRrnHXUXvcegUZhynWZcIGzP1Cdv8MMgPiKRs/GlBiTzqZd5VdBcdVzpuZtOlcVopjkHq66ZpF5Yj3oaGEKd9jVaxCuk6MaGeCXNrbwASDjER5JewGeslXUCIgF+2GP7hrkgGluYM0TcfhTMZG9fLNnQwtAsZw91Umh/ODxBJNPjsoNMn7sDjXmTWZB4hMULFzRFGm7xqpH3zoTeHwXwjr1dwbvzSGl4eyCRVuouoqlQ7okHDpaUVNWuRoaWqV0/gyGftL49t+yo4Lhc3CZ5euZppTifUCfTHY+tRXTbvxh1wvLvEmV3ueIkhRyAhBHtrybs5LZAf4s46OkSja0Aw9dwFnlkBQpbZTFfWmi+2EF+L25egMUodznXvwvZA72wnonNy3iw7T6jRlfmLRIrRQPn8pCzrgivmaJEocAM8Y0cdARQoFcU9gcxjQB2pXYqgxmwdyflZLLSkQgozuuU1W8k8R+pgXGCaMI5nfN+bsX+/5njexWiHPVY1JE7PusFdTwBZ/KtyC4gBqMgyG9uo6wtMilQA3TuNQYpHSYLlzRqyTRO/x+azcPwEde8lJpjv/VA6oj+vK
+X-Microsoft-Antispam-Message-Info: 1cE+BhKidyvhgAV0vfeM6zSzvz6vqeEupYqWmUiK7IHIzTCqAGlzACEodhFBMPiV6m8a7tdFpSzIzOupttf0ltniggO/tzLOUevRlpwpOCT7dn4KvGHy0CmB3DYfpDsMkDfUHUIivMJ/XPDNz1EnfybiNRsth8lF2co292229at8LkKf4toWGVQO4LEoSS1MXuvU8/VcYuFOYOFiVMg/M2YAX3GZX9vNLJaQcbLiL8RVHzguPJR6UwjcWdcCtKCtf0N6cEOS5WFkgRcHOeJWYYLYasHeu+4MAtPI+FT4gGYYdOs0Mogl6FBdDE3Fm3msyoShpzaa98AEn/gxkj75kf+z8hWYgtVj5Ez1ITO7zpuKo3CmszxL7RGx4u44dgASpxfvPe/t8Ow86gFsGW0nbOuUZkVAgzsETieaVDKtlSmbxMCHMySpAJMuAiwJr3InZ2cwe+h1dMpu5IKGzTJuam2aTO6YcRmdthKMmsUn/FqVOtlio/lpKadlnwLzcPRSGGuGkK4cyKOXTR9bGvSjGz4vV+on2ypt2MNoygyNNstFLdsREoj5j2Z5uOX1Boevwh3/a7kOaPbUnW/H2+hsUDvVMfdQFsMnFQ9vF6fFUwZ7ZyJucqGe0yJjffttEdPvA7r2a0rQeSkSGBReAaQPBwEUSIH2QxzaqPvBlc+nzP9PzKBy/MdYF2UeoforCF4tnKydhfUV/rscoLlHAzE7Ka87/ozxBai37vTR0LjmqKOD6sVbgzYikXPNXTg4AZkc
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(86362001)(31696002)(36756003)(8936002)(38100700002)(6486002)(6666004)(31686004)(508600001)(8676002)(44832011)(4326008)(5660300002)(66946007)(66476007)(66556008)(54906003)(316002)(26005)(2906002)(186003)(6512007)(2616005)(53546011)(6506007)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(6506007)(2616005)(38100700002)(508600001)(6666004)(6486002)(8936002)(66946007)(31686004)(31696002)(66476007)(5660300002)(66556008)(2906002)(186003)(44832011)(316002)(86362001)(36756003)(83380400001)(6512007)(26005)(4326008)(8676002)(53546011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnU5RzNWWEJJVWtpV2JuY2FyWUdVQXZmUGtISnV4UktXNSswQXhTZCtjUHVp?=
- =?utf-8?B?K3VoWHJ4eWlVVm44L1Q5ZDRLK05uMGFad2RNQmVoYUVOek0rN3BrUi9JQkg4?=
- =?utf-8?B?TnR1LzdWNlVJRy9CZEJEMWVsZFJMOHVMSS9lUlhLTXIrT3dSUEd3UnJFVm1s?=
- =?utf-8?B?S3c2YUhwVWU5YUgxaVY5ZHdEczhIODQ1WGxuTnNveEZsdE5mTE8yQmhvU1pC?=
- =?utf-8?B?K2w3L1hUZTZ1NGN1WkgvK1lJc01rNzlvWnBwSzlYL1JSNEtWRmRGbExUbks2?=
- =?utf-8?B?SDJzY2tTN2dQajVhWXpMYzBjQ29xTExOUDB3Y0NkaWxkZ21TSUtiaXdKVUJh?=
- =?utf-8?B?Tk5WSGE4YUYwYytucTBtYlQzQjhkeTdaN1lHTEtwK25STGYwSjd3Y0pCUHY1?=
- =?utf-8?B?bkdzbkg5ZWVaSXBJVlhWcDBySkJkcWs4cVY2eHFacGtGYWc2S21JV2FtWG4x?=
- =?utf-8?B?ZUFVckpNM2hLKzBJZzdWOHVZK1hoTSs4M0EvTjlvTHNybzdCLzh4eEM2OEJu?=
- =?utf-8?B?YmJwKzNzclBYNHViSGgvL0J2TFBrdTdIdkZhSHl0OVRJNnR5UVFGNnMrRWFZ?=
- =?utf-8?B?dGkzdTZueDJ1UjYrdit2Q3pKdm5OK08yMFdwY0xCbnQ1WGNWMzRPZnkxNWVS?=
- =?utf-8?B?dnQxbTRVY1dnNzBMcW9kdElVRnA1anZ6ODJsR0RaVW1iMmxwWERvaHBjd29l?=
- =?utf-8?B?TFg1R1JjSUkxZUVRWDl3YXVHbDFyaG8xQWRubnQ1Y0t5VDFTVVA3QWJZYWsw?=
- =?utf-8?B?UUxuR2JKZlg1UHVYVEJDcDhrdldZT3p4Nlh6N0NyV1pXL3pyVmt0Nm42WWEw?=
- =?utf-8?B?QjVOTHlmaXd1Wm5zZGpnZnlhQ3dNUDd3VXN1dDBQYW01dStFSXhMQ2lGR3h1?=
- =?utf-8?B?NjI2ZG4vSjNYekhOeHRwRThqVmd3a3pMaTJScHpTWllvQXlzbHNORXFYYjJC?=
- =?utf-8?B?MUU5eEZGbmFHeGx1bWRIbWswV2pCaUZzUjdtTVdzTTNwOS9nNG8wY0M2NWM2?=
- =?utf-8?B?Q2Q4a1ZLZHhuVlFCL1V0ZUFjLzIxdytPVUpQTEdlb3VkVmFyODFHdENZeHpX?=
- =?utf-8?B?UTBQS3RBK0F3NzlscVlpZjUxRHRGSU9LN0NLN2FPeWhKdHRGVkYzT1lVbURY?=
- =?utf-8?B?Nm4rYXdMalRYMkdMZWdxVW44V20wMVdmUzJSUkxOZ1VVaGp4VDNqY1l5bDJO?=
- =?utf-8?B?b3BObVl2ei9jQmhHaVd0Tit0SmhPbHp1ZkJJSzFMZVk2U1FXRDZESUJTL0ZO?=
- =?utf-8?B?UnpnWjFoM0tsbzllUmRkYTFYUjZQL1F2cTY1elZBSWlPQnFLQWJBaGFyVzZq?=
- =?utf-8?B?K0lZT1lxeExIKzNhRHNyOVp6cUtNVkFabkNRL0Yxdjh6ZVRSeEpwQ0Z0Zzlv?=
- =?utf-8?B?cUszZFZBa3g2Q2lZcklzRHZCVW8yODEreE8zcUtOYkpxSU5OUFNSVFArcE90?=
- =?utf-8?B?NnZEVGt0UCtFaStRYllnQS9SQnY2MEU3VVVoZzRsNE9BSUNvejVZSCtURVQ0?=
- =?utf-8?B?dVlhWExwd3QySnpwczBqbTk1RTJyVjI2NVhCMmpGWWs5NkxNa2dXT3RWRzNj?=
- =?utf-8?B?dnlEZlphR2puNzQ2NUZ1ZitnR1ptM0QrYzNtcjdHaVltajlvaVRIdnRDZ0pV?=
- =?utf-8?B?cjhsYmpGYUx4TGl6eFAvV3hmb3lYdTE5cVZtQkdpL2ttL2xWMVJSenNGYnla?=
- =?utf-8?B?VzZuemN4MmJTRFZPc29zK3ZTL1RoRnZvcXN2aXl1NThvZjluMFhwTTMwY2Fz?=
- =?utf-8?B?b1Y4ZGplR01qZzJGOWJJMVBCdnZxRVdOSUpLVUd3c0p6YTluS0xIV3RjUy9N?=
- =?utf-8?B?U1ZrZ1B2ek1zalVxRDliMHdIQUNEQjBLaGxtWnZDU3p6aWRYWnVaZ1FBcTBD?=
- =?utf-8?B?WnJXMmZvWHlYVDdtUGp2bHEvYThSb1g5TmZRVUpjZnJpZFEvVUdRdmZvajFO?=
- =?utf-8?B?S3ZtcFlzNktKeFVPNHE5MUE5TnJtbVczN0FPYXVsQ0crZ3RxZTJFSFBHWDlL?=
- =?utf-8?B?c251YU53c3BuL0hTS0NyNndEMjRkdU1EV0grTGNHcTlqZXl5Zy9rL21uWmZt?=
- =?utf-8?B?TWl2UnQ1YXF1OEg0MXdzNTNIczlOdEh6Ry9EckkvVXB3bVhPMzV0d2RYektW?=
- =?utf-8?B?WU5nbzhXUEtxNXRvNGZlb2FvMGx0NjJKQkZCREttL1hSazZNb3RNVnNIMnlr?=
- =?utf-8?B?L2ZMRnVlNHUxcTBxMFlIZ09VTXpRSFgzM3g3QS9NTzFkMTJoTzl3RENGNG5D?=
- =?utf-8?B?czhHVlk1YTdyMTVNWUF4NU56ejMxeXY0K28wQ1dWb2NJWHlxVmZsUk5iK3dl?=
- =?utf-8?B?S0htOXJxTlc0Tk83K29OdUxYRWsvYXdOaUg1NUVCVmdSdEVDd2hrdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NndVNi9qWGxpTWltNGh5MCtkVkplWXZKakR6Y05Kbkd0TUNieEV4NFA5QXhP?=
+ =?utf-8?B?QUVzcDdwdy9XeGZyWVB1MXZHZnNHWWZZbFZaR0k0SUpyWm5kMzR5bzVYL2V1?=
+ =?utf-8?B?Qjh3Q2JLeUVSeStjUDd5b0QvU0FoWnJIUGJjTW9uR1dpSzc4Z2k3KzJUbW1q?=
+ =?utf-8?B?OG9Yc0lmOXFHcXhYb0QvYURKUGFFem1jbnpvWHBHSGQ1b0h1UHdUd0VOVGdV?=
+ =?utf-8?B?ZXBNK1FHeGxVWUFrUm9XQVNwQitLNkRBWFRsTHovWHk2OGNaZ3BWOFpqQU9P?=
+ =?utf-8?B?UDBEbmJnNElWMlJMS0xsZFZmQ0tGSk84SGQ1a0lWRU5oRlB6VklVQTlHMlVQ?=
+ =?utf-8?B?cjM0M1BBcFczUkt5bk83aGx2NnFtSkIyZXI5dGQ2RkZQQitTYzJwSnhEa1ls?=
+ =?utf-8?B?Rm5uR0h3SmFLemJSc1JnM1FZUy9CTWFITXNXUXBTamFlUXpSRVFPM3FrZDhP?=
+ =?utf-8?B?bVZiWVBkOU8ralRGeWhGRHo2bCs3SGtsblN2bXFHaW80UGFGd2FWeTZjVmNv?=
+ =?utf-8?B?c0F1elJPMUdPTTZzcVpzbDIyR1JDcmVpZXR2RnJuYjA1T3ZUYW82RnNPTnZo?=
+ =?utf-8?B?Zk1nSTZMOEhBM001bFFFc256UnpaeWtvR1ZUSldNUGhMK1pGeEY3MDhJdW5a?=
+ =?utf-8?B?c3BoSVB2b21HVjR2ZXRKa0hKcHo4OHR5RHR5TVArSmZ4d1Q5eDR1alJ6TTJY?=
+ =?utf-8?B?a29aQVBpOTFJWndUQkhEUGx3NEszczlrV2JCT2JPRlRuNGVONWpCZExURkpD?=
+ =?utf-8?B?eDY3MzhnZENjNlcvSGhEQlgxRUJHQ3FQOWVRSXhMQjF4NS9ma003RDdFSkZ4?=
+ =?utf-8?B?ZUk2dkNDaldUc0V1RDZZMXJvU3JQS01CNVgvZUNyNUFiQ0gzaVNMa0hUT0pB?=
+ =?utf-8?B?NGxrSVdia2luVWJnYnFmQndJYmErNzY1cWtQQ2xIdWRrWWh4anErTVYwNldv?=
+ =?utf-8?B?VFNNbVlMWEFud05VblMzY1FHWEpDaHMwUnhzaFVJSm1WdTBqVXVGL2R3NElL?=
+ =?utf-8?B?VTBSdzJiTEF3WGpwZXVDU1hXaTMzV0lUNENFejJJODlqTmZjQUcxSWREbVo3?=
+ =?utf-8?B?dXVFYk1QcHgwTlJxdXhSUUZob25GajY1UEc5aThWZU5iMkhCc0NJZVJ6Y1hC?=
+ =?utf-8?B?M2Q2a0VaTVNGbDVhc0hvZk5wM25WNjhSazh5dGJpeCtIeTdyMDNpOGxJSGZn?=
+ =?utf-8?B?R1RoZ0p3dlFPTjZDQURablYvODlHNDNLbzQxbWxHU0htREc4MkRCNXV0R0FV?=
+ =?utf-8?B?aUtVNTgxMFMremxiNEc4VzJCOG9IZDBnbkM4bXZWaTY2aGZteVc1VURPSGN6?=
+ =?utf-8?B?MWFuZHFvbWZRL1BTdGNIdU92eGk0akE3dktLdWlOS3d4amJVemc1RiticGJv?=
+ =?utf-8?B?QkpGQ00vSWdWNHRJL1VKejV2SDNZTm43NVpOaWNOVFBFQzhrTFFzOW1Yai9K?=
+ =?utf-8?B?NXZwMkwzdnNmZGFHYWNXbjBJYW5YNjFHaXU5NjkxQjhsVDZydGlaSUR0eHdh?=
+ =?utf-8?B?MkZsWjIwQ05wSHhhbnNHdndpdGlkd3pkNVFNL0FPL1JaUWgrMHluZXFRT1Nh?=
+ =?utf-8?B?TVVuQXE5d2dRTzY1NE4vYXZWMjVzUFRlWjNKbkFFRTBiUHNkckNEcGRrSE9a?=
+ =?utf-8?B?bUZtNVFLcmlreWhnVGxYQmh3RVF0dW9GaXk4cFFFLzJNS3V1VXMxRXRyQzl0?=
+ =?utf-8?B?dDl4L1A3ckI0V2hpM2QzemlxeTlyS0k2VFNybXVrMTd4QWFwTlpyVnJzWVpT?=
+ =?utf-8?B?RmFQNGVpbVJoY1JIb0VwV25FTThFSHJEN2pocFVWd0tPQWdFVHd5dVBqYlJ0?=
+ =?utf-8?B?QU1oMzZjelZoelJPL3ZSUG9lcWUyaHVycXNpWSszVEJmODlYQ3JhTithSTdn?=
+ =?utf-8?B?SjhSTFJVS2lhY3dHQWlDSllPaEF1ZHNQeEtTYmdwVEsvQlhOWUdjSkx3N0hp?=
+ =?utf-8?B?MWlSeFFwM0k1ejBoN0ZiVGRxSVpNQ1ZWa3ZhRFdTbm13Ni91Y3BCZUYvcERy?=
+ =?utf-8?B?TFJiaENSVkJSWDNhbHBkN2tCV2J5dVNJcGF5SHZpKzh5MU5RRUVHM3poK0Vu?=
+ =?utf-8?B?STMyeWtzUnduam1nZ215ZisxSzc5MDVYb3hRazd0VFhsSEpZZXVCVC9EYWR0?=
+ =?utf-8?B?V29zUjh3R1FicUNqZkxNbFFzS0RldGY2UDAxVkVtaExkSnV4b1NXN1NYWW5x?=
+ =?utf-8?B?UFNxWmJ4MkxQQkhaKythN3BXR3dRdk9XV0t3K0MxNTBHSlpwdVdZb1c1cmhV?=
+ =?utf-8?B?c2xRYnNHNFR4dnREU3NrR24rSytCeWxKd1ZRWEQwYWE2ai8zOEV6VmJjMDFj?=
+ =?utf-8?B?UVJEUU5KVWp6OEN1cTFlYTRuRkM0OWVwS1cyTG9Sd0xzRy9TSmdsUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62bb1b1a-28d3-4f07-17e8-08da47c67feb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d748c6c-b26c-4820-74d4-08da47c73042
 X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 14:11:50.4681 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 14:16:46.1946 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lBGWa1LmrPlr1JdBgtGHCqqG8HTAJPEbRinxuF0B5SeinuW/mDqZSAkWsfT10FGmUqAkReO3jJ6gETFk3OBNFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2502
+X-MS-Exchange-CrossTenant-UserPrincipalName: uGaj4mmoMteCDfc1xClb529/GHN2Uc2KBxSmGArT7JlI6peixv5f0VJt6Nh9u9nBZCsgxBV6eibtDGD/+ZKDwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5688
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,91 +129,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2022-06-03 14:50, Rodrigo Siqueira wrote:
-> GCC throw warnings for the function dcn21_update_bw_bounding_box and
-> dcn316_update_bw_bounding_box due to its frame size that looks like
-> this:
+> This reverts commit 78baa3c4dfff4375b109bc5e19663a2f7fad1190.
 > 
->  error: the frame size of 1936 bytes is larger than 1024 bytes [-Werror=frame-larger-than=]
+> This commit introduced the below compilation error when using
+> allmodconfig:
 > 
-> For fixing this issue I dropped an intermadiate variable.
+> error: implicit declaration of function ‘remove_hpo_dp_link_enc_from_ctx’; did you mean ‘add_hpo_dp_link_enc_to_ctx’? [-Werror=implicit-function-declaration]
+>  2010 |   remove_hpo_dp_link_enc_from_ctx(&new_ctx->res_ctx, del_pipe, del_pipe->stream);
+>       |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>       |   add_hpo_dp_link_enc_to_ctx
 > 
-> Cc: Stephen Rothwell <sfr@canb.auug.org.au>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Fixes: 78baa3c4dfff43 ("drm/amd/display: Drop unnecessary guard from DC resource")
 > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index 7357efb8b439..9bbdfcd6b3a4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -2002,6 +2002,7 @@ enum dc_status dc_remove_stream_from_ctx(
+>  	if (dc->res_pool->funcs->link_enc_unassign)
+>  		dc->res_pool->funcs->link_enc_unassign(new_ctx, del_pipe->stream);
+>  
+> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+>  	if (is_dp_128b_132b_signal(del_pipe)) {
+>  		update_hpo_dp_stream_engine_usage(
+>  			&new_ctx->res_ctx, dc->res_pool,
+> @@ -2009,6 +2010,7 @@ enum dc_status dc_remove_stream_from_ctx(
+>  			false);
+>  		remove_hpo_dp_link_enc_from_ctx(&new_ctx->res_ctx, del_pipe, del_pipe->stream);
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Wouldn't a better solution be to drop the DCN guards around
+remove_hpo_dp_link_enc_from_ctx and release_hpo_dp_link_enc?
+Not sure why those were guarded in the first place.
 
 Harry
 
-> ---
->  .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 29 +++++++++----------
->  1 file changed, 13 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-> index d9cc178f6980..c2fec0d85da4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-> @@ -2004,7 +2004,6 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
->  {
->  	struct dcn21_resource_pool *pool = TO_DCN21_RES_POOL(dc->res_pool);
->  	struct clk_limit_table *clk_table = &bw_params->clk_table;
-> -	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
->  	unsigned int i, closest_clk_lvl = 0, k = 0;
->  	int j;
->  
-> @@ -2017,7 +2016,7 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
->  	ASSERT(clk_table->num_entries);
->  	/* Copy dcn2_1_soc.clock_limits to clock_limits to avoid copying over null states later */
->  	for (i = 0; i < dcn2_1_soc.num_states + 1; i++) {
-> -		clock_limits[i] = dcn2_1_soc.clock_limits[i];
-> +		dcn2_1_soc.clock_limits[i] = dcn2_1_soc.clock_limits[i];
 >  	}
+> +#endif
 >  
->  	for (i = 0; i < clk_table->num_entries; i++) {
-> @@ -2033,24 +2032,22 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
->  		if (i == 1)
->  			k++;
->  
-> -		clock_limits[k].state = k;
-> -		clock_limits[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-> -		clock_limits[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> -		clock_limits[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> -		clock_limits[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
-> +		dcn2_1_soc.clock_limits[k].state = k;
-> +		dcn2_1_soc.clock_limits[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
->  
-> -		clock_limits[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
-> -		clock_limits[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
-> -		clock_limits[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> -		clock_limits[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> -		clock_limits[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> -		clock_limits[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> -		clock_limits[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> +		dcn2_1_soc.clock_limits[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> +		dcn2_1_soc.clock_limits[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> +		dcn2_1_soc.clock_limits[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
->  
->  		k++;
->  	}
-> -	for (i = 0; i < clk_table->num_entries + 1; i++)
-> -		dcn2_1_soc.clock_limits[i] = clock_limits[i];
->  	if (clk_table->num_entries) {
->  		dcn2_1_soc.num_states = clk_table->num_entries + 1;
->  		/* fill in min DF PState */
+>  	if (del_pipe->stream_res.audio)
+>  		update_audio_usage(
 
