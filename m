@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8540BCCA47B
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jun 2022 18:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04585C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 02:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB9D10FDE2;
-	Sun,  5 Jun 2022 18:45:31 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF4A10FD9E
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jun 2022 18:45:29 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-f2cbceefb8so16796801fac.11
- for <amd-gfx@lists.freedesktop.org>; Sun, 05 Jun 2022 11:45:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RTuoGqz0Ti9HTKcUOilJWLR1sRJfo0rMsOsSDeUnAgY=;
- b=Ms98BwJRyFHTj5e9JyQZMXvAr0YuX29ySfIdBgbEuiSpmF8aogqvakxUkJPzXwStFL
- wNAE7mJxaX0es62x5Sk/yw2RPDqWRLgCgq+khf5OorGBQVgjNDvmkQccHcRUBacAyXEw
- QdfQP8AdCchDeR44e/UJ78/fN2RRaj3omIg2w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RTuoGqz0Ti9HTKcUOilJWLR1sRJfo0rMsOsSDeUnAgY=;
- b=I7d98ES9a7kyT+G7ncFT+2U8rIzzCcdSmmx3RJ1ILyNTp50J18bmvS1s0GJA3tO+J1
- 2pKiitQvC3oAblyxz/LzZIECYoXXaaqdY3bRn+uO3hX6pWcfqLRMnAgmEyaRIVUUjEMP
- WbGpJNfmJpDLmGt/WxgG1HD0WhzdhFu1mfDPmf8vLxuuZkPudQlkws3F/A1rT5NF3PnD
- /RpFVq8FsDy1vijs7YB1DvsPCdmPvl9QAhgEtKE18uBb37vL4L6iE0+mSGiZM4gZXdsj
- BPq5NnGOcVmQn8KCO1D9ZlYNVl9Ex3RrueYNOfvijuwu7LBSSEGh6EPrY4bjiuVYRHPu
- Qc8g==
-X-Gm-Message-State: AOAM533DiM/t654Xc/Xj4FYllts1Kx/x7HUxraPsAWW5zEfs6C/4rbeU
- iegMJ4algczb7YAfzMX3TMXBP2WzmCXE80Kiee7JSQ==
-X-Google-Smtp-Source: ABdhPJyQsZMCA/1r+UniIVNZ7C5GzpHQZrgFThben9DIiOe3k0VbdT6lK2Qy27glOhEPozH5OzA7Rpi1ML5tygh2DT4=
-X-Received: by 2002:a05:6870:3053:b0:f3:2997:659a with SMTP id
- u19-20020a056870305300b000f32997659amr11565703oau.7.1654454728576; Sun, 05
- Jun 2022 11:45:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638B610E0AE;
+	Mon,  6 Jun 2022 02:14:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D995310E0AE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 02:14:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XkO0SGVffXqYKJ16F1GpfOtRLXJUQ16sBZnSav8s7J8JZ/te4wOA4WZCwIommVwxnOc5lcF18twa+rf8GJP4XfPDOAQ6DjbAwowIAwLYyigaF4TyBDeEIwRvBntWByV1EGVcB989ogGE7Gn+orMb3jotjfp5DTNxxXtVSBHsZQZpTcPXp5k1T61A6M9sweo8HC5GETtx84XvH47t1Xry0F2gg8vmKz4zmBAA2JEUafhN9ozqe81ym3P1a14Z+ii0++HJ2yUw5Ak4/0we3ApGabr6ltSCwzbsHHbQTLmJy/oEwFGqRmaU/YduT7hbvyh/+32wTznUedMz9cfHmJNGQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IzK1H0yWBz/YoRHDyi4KMDMqLy7tdKbc7/Kh/Hdnu6w=;
+ b=T34BRYS68+fmqHRWi1XrFnSUlzpr/8pZeDnj8yUUVfw0zQe4cGl7C/ue0M/KI2rm3UTAVZXdd+1iEVk/GZRv2yKtew3Pel5svecY/YN5+XFKMUare14/oSxLfhTo5kNAZPgWR5gkrmeF3QxaNprqUiCMc8tt2yQnJlUVUiGsWvHRphbIRnhcYzEvL1VbP/pgMCCtDEbUZMV+QoHuv9IOQN28JNwfC6xW6gqYDeREX0rz68u4CHqL+DzNLhErCa0Ns9q1uv1j0ScwcUjyFlF+EdBJt2+01FTdxDBsuqS0aQa53B0JBE5SCzCbopCTJvDlSHlEB06Conx2awMxGo2U2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IzK1H0yWBz/YoRHDyi4KMDMqLy7tdKbc7/Kh/Hdnu6w=;
+ b=4LsFU3Tt6L36ba7Q6ofL+k0Jv3A/xa+LS48ai43yoheYPZDM3UZXLgicbaKFE3INoJmUjiR8ewHVd1or86T3clSB9PHVdyDJVCmmWRKjhNhTb2Q9wdoRWrSoS2PF6DPE8/qDuEqksKStDJI6B7kEyehzcFTI8iTRGDzBOqlPJHA=
+Received: from DM6PR02CA0095.namprd02.prod.outlook.com (2603:10b6:5:1f4::36)
+ by BN6PR12MB1794.namprd12.prod.outlook.com (2603:10b6:404:100::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Mon, 6 Jun
+ 2022 02:14:24 +0000
+Received: from DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::e1) by DM6PR02CA0095.outlook.office365.com
+ (2603:10b6:5:1f4::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15 via Frontend
+ Transport; Mon, 6 Jun 2022 02:14:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT025.mail.protection.outlook.com (10.13.172.197) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5314.12 via Frontend Transport; Mon, 6 Jun 2022 02:14:24 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Sun, 5 Jun 2022 21:14:21 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>
+Subject: [PATCH] Revert "drm/amdgpu: Ensure the DMA engine is deactivated
+ during set ups"
+Date: Mon, 6 Jun 2022 10:14:00 +0800
+Message-ID: <20220606021400.10764-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-18-dmitry.osipenko@collabora.com>
- <CAKMK7uHQ+iMkXtrsCWiJL9X1AM9Xkq-wNmj=hhfnenf0r9717g@mail.gmail.com>
- <CAF6AEGtVGW8FTuFV0Gt9jx33My3ebdbUAcYQwVGvevzByCpecw@mail.gmail.com>
-In-Reply-To: <CAF6AEGtVGW8FTuFV0Gt9jx33My3ebdbUAcYQwVGvevzByCpecw@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Sun, 5 Jun 2022 20:45:17 +0200
-Message-ID: <CAKMK7uFnChxNsN=tBjy=0JA-DxtsXgju8fc1U0-sJU2BE41caw@mail.gmail.com>
-Subject: Re: [PATCH v6 17/22] drm/shmem-helper: Add generic memory shrinker
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b90b0532-2e1d-4383-9413-08da476246b4
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1794:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB17940C35A3C0E573D75E7792F1A29@BN6PR12MB1794.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wdW3JVQ4PZ2EddUERLkVdaM+tuL2k+JuOV3pBwKxMkEp5eGL4XH9scsqLINhkT7HSUWwxwsKgobArzKkp2G0qCEJI6VeH09BEyEaeVXW3tWEBrnx0I9mujlHDYZgzDubM1lqiuRk4p1zA+T5J1YuhOckltk2LArKVjxDEqPnTNgqj3KvX/oa4CtheNXP4wMTmSkrgamj27I70VWVDwAI+RpFnroDMILAFHZM11q1Gtqw19/mYmPOHavkcxixWMrP5VZTOSooPU3VP8xT/wihL7oyvCfC7cJl+jDU2a830Wy2PlBo2ZNi45MZuuV5nwIkO42ySevZXo/vWw+BvIEgxBnEL0NoFAdu+ypc1CN2HYcZJutZ9kDo5BRGIJzpdFFYfx0/Hx5dTx9cagi6pKwQu1CFBGzNtsUFx0y9513zXjDlYnOVanGT59E7PU4TJVZYA+QVmNrPjIXzd0Eq/dPdZFEno8KaRYBrwBEBNVLKBgccOWAus+bs3SNtDFhVsSWnR2LIHLg/PXvTwy8VaqveAHvlYpb4XyNc7h3xySfTeOFhz854PM/RGNn9VfySkKiBi2dBeVnVwcxMHgJT8mibjFvdTFqLbjwIAWshTlZJ17S8g9/jZgH7wfwEosF87ZGG6k/t8oPTLdicC2TQjYUuM82VxZKI/9KNCrMhHv7DkwDSdxSXQ/WEYrVGV2LufYd23b2GbQTwhOd3m4lAJ2qddw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(8676002)(4326008)(82310400005)(5660300002)(81166007)(356005)(36860700001)(86362001)(110136005)(1076003)(70206006)(186003)(336012)(316002)(426003)(2616005)(47076005)(6636002)(70586007)(16526019)(83380400001)(54906003)(8936002)(6666004)(2906002)(7696005)(508600001)(36756003)(40460700003)(44832011)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 02:14:24.4015 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b90b0532-2e1d-4383-9413-08da476246b4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1794
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,1054 +99,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Rob Clark <robdclark@chromium.org>, Rob Herring <robh@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, Qiang Yu <yuq825@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>, ricetons@gmail.com,
+ Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 5 Jun 2022 at 20:32, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Sun, Jun 5, 2022 at 9:47 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Fri, 27 May 2022 at 01:55, Dmitry Osipenko
-> > <dmitry.osipenko@collabora.com> wrote:
-> > >
-> > > Introduce a common DRM SHMEM shrinker framework that allows to reduce
-> > > code duplication among DRM drivers by replacing theirs custom shrinker
-> > > implementations with the generic shrinker.
-> > >
-> > > In order to start using DRM SHMEM shrinker drivers should:
-> > >
-> > > 1. Implement new evict() shmem object callback.
-> > > 2. Register shrinker using drm_gem_shmem_shrinker_register(drm_device).
-> > > 3. Use drm_gem_shmem_set_purgeable(shmem) and alike API functions to
-> > >    activate shrinking of shmem GEMs.
-> > >
-> > > This patch is based on a ideas borrowed from Rob's Clark MSM shrinker,
-> > > Thomas' Zimmermann variant of SHMEM shrinker and Intel's i915 shrinker.
-> > >
-> > > Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> > > Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> >
-> > So I guess I get a price for being blind since forever, because this
-> > thing existed since at least 2013. I just stumbled over
-> > llist_lru.[hc], a purpose built list helper for shrinkers. I think we
-> > should try to adopt that so that our gpu shrinkers look more like
-> > shrinkers for everything else.
->
-> followup from a bit of irc discussion w/ danvet about list_lru:
->
-> * It seems to be missing a way to bail out of iteration before
->   nr_to_scan is hit.. which is going to be inconvenient if you
->   want to allow active bos on the LRU but bail scanning once
->   you encounter the first one.
->
-> * Not sure if the numa node awareness is super useful for GEM
->   bos
->
-> First issue is perhaps not too hard to fix.  But maybe a better
-> idea is a drm_gem_lru helper type thing which is more tailored
-> to GEM buffers?
+This reverts commit da38a66ac46e334f198afcd1b4d4554b4ddca0df.
 
-Yeah I guess reusing list_lru isn't that good idea. So just
-open-coding it for now, and then drm_gem_bo_lru or so if we need to
-share it separately from shmem helpers with other drivers. Maybe will
-be needed for ttm or so.
--Daniel
+This causes regression in GPU reset related test.
 
->
-> BR,
-> -R
->
-> > Apologies for this, since I fear this might cause a bit of churn.
-> > Hopefully it's all contained to the list manipulation code in shmem
-> > helpers, I don't think this should leak any further.
-> > -Daniel
-> >
-> > > ---
-> > >  drivers/gpu/drm/drm_gem_shmem_helper.c        | 540 ++++++++++++++++--
-> > >  .../gpu/drm/panfrost/panfrost_gem_shrinker.c  |   9 +-
-> > >  drivers/gpu/drm/virtio/virtgpu_drv.h          |   3 +
-> > >  include/drm/drm_device.h                      |   4 +
-> > >  include/drm/drm_gem_shmem_helper.h            |  87 ++-
-> > >  5 files changed, 594 insertions(+), 49 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > > index 555fe212bd98..4cd0b5913492 100644
-> > > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > > @@ -126,6 +126,42 @@ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t
-> > >  }
-> > >  EXPORT_SYMBOL_GPL(drm_gem_shmem_create);
-> > >
-> > > +static bool drm_gem_shmem_is_evictable(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       return (shmem->madv >= 0) && shmem->evict &&
-> > > +               shmem->eviction_enabled && shmem->pages_use_count &&
-> > > +               !shmem->pages_pin_count && !shmem->base.dma_buf &&
-> > > +               !shmem->base.import_attach && shmem->sgt && !shmem->evicted;
-> > > +}
-> > > +
-> > > +static void
-> > > +drm_gem_shmem_update_pages_state(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       struct drm_gem_object *obj = &shmem->base;
-> > > +       struct drm_gem_shmem_shrinker *gem_shrinker = obj->dev->shmem_shrinker;
-> > > +
-> > > +       dma_resv_assert_held(shmem->base.resv);
-> > > +
-> > > +       if (!gem_shrinker || obj->import_attach)
-> > > +               return;
-> > > +
-> > > +       mutex_lock(&gem_shrinker->lock);
-> > > +
-> > > +       if (drm_gem_shmem_is_evictable(shmem) ||
-> > > +           drm_gem_shmem_is_purgeable(shmem))
-> > > +               list_move_tail(&shmem->madv_list, &gem_shrinker->lru_evictable);
-> > > +       else if (shmem->madv < 0)
-> > > +               list_del_init(&shmem->madv_list);
-> > > +       else if (shmem->evicted)
-> > > +               list_move_tail(&shmem->madv_list, &gem_shrinker->lru_evicted);
-> > > +       else if (!shmem->pages)
-> > > +               list_del_init(&shmem->madv_list);
-> > > +       else
-> > > +               list_move_tail(&shmem->madv_list, &gem_shrinker->lru_pinned);
-> > > +
-> > > +       mutex_unlock(&gem_shrinker->lock);
-> > > +}
-> > > +
-> > >  /**
-> > >   * drm_gem_shmem_free - Free resources associated with a shmem GEM object
-> > >   * @shmem: shmem GEM object to free
-> > > @@ -142,6 +178,9 @@ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem)
-> > >         } else {
-> > >                 dma_resv_lock(shmem->base.resv, NULL);
-> > >
-> > > +               /* take out shmem GEM object from the memory shrinker */
-> > > +               drm_gem_shmem_madvise(shmem, -1);
-> > > +
-> > >                 WARN_ON(shmem->vmap_use_count);
-> > >
-> > >                 if (shmem->sgt) {
-> > > @@ -150,7 +189,7 @@ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem)
-> > >                         sg_free_table(shmem->sgt);
-> > >                         kfree(shmem->sgt);
-> > >                 }
-> > > -               if (shmem->pages)
-> > > +               if (shmem->pages_use_count)
-> > >                         drm_gem_shmem_put_pages(shmem);
-> > >
-> > >                 WARN_ON(shmem->pages_use_count);
-> > > @@ -163,18 +202,82 @@ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem)
-> > >  }
-> > >  EXPORT_SYMBOL_GPL(drm_gem_shmem_free);
-> > >
-> > > -static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
-> > > +/**
-> > > + * drm_gem_shmem_set_evictable() - Make GEM evictable by memory shrinker
-> > > + * @shmem: shmem GEM object
-> > > + *
-> > > + * Tell memory shrinker that this GEM can be evicted. Initially eviction is
-> > > + * disabled for all GEMs. If GEM was purged, then -ENOMEM is returned.
-> > > + *
-> > > + * Returns:
-> > > + * 0 on success or a negative error code on failure.
-> > > + */
-> > > +int drm_gem_shmem_set_evictable(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       dma_resv_lock(shmem->base.resv, NULL);
-> > > +
-> > > +       if (shmem->madv < 0)
-> > > +               return -ENOMEM;
-> > > +
-> > > +       shmem->eviction_enabled = true;
-> > > +
-> > > +       dma_resv_unlock(shmem->base.resv);
-> > > +
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_set_evictable);
-> > > +
-> > > +/**
-> > > + * drm_gem_shmem_set_purgeable() - Make GEM purgeable by memory shrinker
-> > > + * @shmem: shmem GEM object
-> > > + *
-> > > + * Tell memory shrinker that this GEM can be purged. Initially purging is
-> > > + * disabled for all GEMs. If GEM was purged, then -ENOMEM is returned.
-> > > + *
-> > > + * Returns:
-> > > + * 0 on success or a negative error code on failure.
-> > > + */
-> > > +int drm_gem_shmem_set_purgeable(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       dma_resv_lock(shmem->base.resv, NULL);
-> > > +
-> > > +       if (shmem->madv < 0)
-> > > +               return -ENOMEM;
-> > > +
-> > > +       shmem->purge_enabled = true;
-> > > +
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > > +       dma_resv_unlock(shmem->base.resv);
-> > > +
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_set_purgeable);
-> > > +
-> > > +static int
-> > > +drm_gem_shmem_acquire_pages(struct drm_gem_shmem_object *shmem)
-> > >  {
-> > >         struct drm_gem_object *obj = &shmem->base;
-> > >         struct page **pages;
-> > >
-> > > -       if (shmem->pages_use_count++ > 0)
-> > > +       dma_resv_assert_held(shmem->base.resv);
-> > > +
-> > > +       if (shmem->madv < 0) {
-> > > +               WARN_ON(shmem->pages);
-> > > +               return -ENOMEM;
-> > > +       }
-> > > +
-> > > +       if (shmem->pages) {
-> > > +               WARN_ON(!shmem->evicted);
-> > >                 return 0;
-> > > +       }
-> > > +
-> > > +       if (WARN_ON(!shmem->pages_use_count))
-> > > +               return -EINVAL;
-> > >
-> > >         pages = drm_gem_get_pages(obj);
-> > >         if (IS_ERR(pages)) {
-> > >                 DRM_DEBUG_KMS("Failed to get pages (%ld)\n", PTR_ERR(pages));
-> > > -               shmem->pages_use_count = 0;
-> > >                 return PTR_ERR(pages);
-> > >         }
-> > >
-> > > @@ -193,6 +296,58 @@ static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
-> > >         return 0;
-> > >  }
-> > >
-> > > +static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       int err;
-> > > +
-> > > +       dma_resv_assert_held(shmem->base.resv);
-> > > +
-> > > +       if (shmem->madv < 0)
-> > > +               return -ENOMEM;
-> > > +
-> > > +       if (shmem->pages_use_count++ > 0) {
-> > > +               err = drm_gem_shmem_swap_in(shmem);
-> > > +               if (err)
-> > > +                       goto err_zero_use;
-> > > +
-> > > +               return 0;
-> > > +       }
-> > > +
-> > > +       err = drm_gem_shmem_acquire_pages(shmem);
-> > > +       if (err)
-> > > +               goto err_zero_use;
-> > > +
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > > +       return 0;
-> > > +
-> > > +err_zero_use:
-> > > +       shmem->pages_use_count = 0;
-> > > +
-> > > +       return err;
-> > > +}
-> > > +
-> > > +static void
-> > > +drm_gem_shmem_release_pages(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       struct drm_gem_object *obj = &shmem->base;
-> > > +
-> > > +       if (!shmem->pages) {
-> > > +               WARN_ON(!shmem->evicted && shmem->madv >= 0);
-> > > +               return;
-> > > +       }
-> > > +
-> > > +#ifdef CONFIG_X86
-> > > +       if (shmem->map_wc)
-> > > +               set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
-> > > +#endif
-> > > +
-> > > +       drm_gem_put_pages(obj, shmem->pages,
-> > > +                         shmem->pages_mark_dirty_on_put,
-> > > +                         shmem->pages_mark_accessed_on_put);
-> > > +       shmem->pages = NULL;
-> > > +}
-> > > +
-> > >  /*
-> > >   * drm_gem_shmem_put_pages - Decrease use count on the backing pages for a shmem GEM object
-> > >   * @shmem: shmem GEM object
-> > > @@ -201,8 +356,6 @@ static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
-> > >   */
-> > >  void drm_gem_shmem_put_pages(struct drm_gem_shmem_object *shmem)
-> > >  {
-> > > -       struct drm_gem_object *obj = &shmem->base;
-> > > -
-> > >         dma_resv_assert_held(shmem->base.resv);
-> > >
-> > >         if (WARN_ON_ONCE(!shmem->pages_use_count))
-> > > @@ -211,15 +364,9 @@ void drm_gem_shmem_put_pages(struct drm_gem_shmem_object *shmem)
-> > >         if (--shmem->pages_use_count > 0)
-> > >                 return;
-> > >
-> > > -#ifdef CONFIG_X86
-> > > -       if (shmem->map_wc)
-> > > -               set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
-> > > -#endif
-> > > +       drm_gem_shmem_release_pages(shmem);
-> > >
-> > > -       drm_gem_put_pages(obj, shmem->pages,
-> > > -                         shmem->pages_mark_dirty_on_put,
-> > > -                         shmem->pages_mark_accessed_on_put);
-> > > -       shmem->pages = NULL;
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > >  }
-> > >  EXPORT_SYMBOL(drm_gem_shmem_put_pages);
-> > >
-> > > @@ -235,11 +382,17 @@ EXPORT_SYMBOL(drm_gem_shmem_put_pages);
-> > >   */
-> > >  int drm_gem_shmem_pin(struct drm_gem_shmem_object *shmem)
-> > >  {
-> > > +       int ret;
-> > > +
-> > >         dma_resv_assert_held(shmem->base.resv);
-> > >
-> > >         WARN_ON(shmem->base.import_attach);
-> > >
-> > > -       return drm_gem_shmem_get_pages(shmem);
-> > > +       ret = drm_gem_shmem_get_pages(shmem);
-> > > +       if (!ret)
-> > > +               shmem->pages_pin_count++;
-> > > +
-> > > +       return ret;
-> > >  }
-> > >  EXPORT_SYMBOL(drm_gem_shmem_pin);
-> > >
-> > > @@ -257,6 +410,8 @@ void drm_gem_shmem_unpin(struct drm_gem_shmem_object *shmem)
-> > >         WARN_ON(shmem->base.import_attach);
-> > >
-> > >         drm_gem_shmem_put_pages(shmem);
-> > > +
-> > > +       shmem->pages_pin_count--;
-> > >  }
-> > >  EXPORT_SYMBOL(drm_gem_shmem_unpin);
-> > >
-> > > @@ -299,7 +454,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
-> > >                         return 0;
-> > >                 }
-> > >
-> > > -               ret = drm_gem_shmem_get_pages(shmem);
-> > > +               ret = drm_gem_shmem_pin(shmem);
-> > >                 if (ret)
-> > >                         goto err_zero_use;
-> > >
-> > > @@ -322,7 +477,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
-> > >
-> > >  err_put_pages:
-> > >         if (!obj->import_attach)
-> > > -               drm_gem_shmem_put_pages(shmem);
-> > > +               drm_gem_shmem_unpin(shmem);
-> > >  err_zero_use:
-> > >         shmem->vmap_use_count = 0;
-> > >
-> > > @@ -359,7 +514,7 @@ void drm_gem_shmem_vunmap(struct drm_gem_shmem_object *shmem,
-> > >                         return;
-> > >
-> > >                 vunmap(shmem->vaddr);
-> > > -               drm_gem_shmem_put_pages(shmem);
-> > > +               drm_gem_shmem_unpin(shmem);
-> > >         }
-> > >
-> > >         shmem->vaddr = NULL;
-> > > @@ -403,41 +558,77 @@ int drm_gem_shmem_madvise(struct drm_gem_shmem_object *shmem, int madv)
-> > >
-> > >         madv = shmem->madv;
-> > >
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > >         return (madv >= 0);
-> > >  }
-> > >  EXPORT_SYMBOL(drm_gem_shmem_madvise);
-> > >
-> > > -void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
-> > > +/**
-> > > + * drm_gem_shmem_swap_in() - Moves shmem GEM back to memory and enables
-> > > + *                           hardware access to the memory.
-> > > + * @shmem: shmem GEM object
-> > > + *
-> > > + * This function moves shmem GEM back to memory if it was previously evicted
-> > > + * by the memory shrinker. The GEM is ready to use on success.
-> > > + *
-> > > + * Returns:
-> > > + * 0 on success or a negative error code on failure.
-> > > + */
-> > > +int drm_gem_shmem_swap_in(struct drm_gem_shmem_object *shmem)
-> > >  {
-> > >         struct drm_gem_object *obj = &shmem->base;
-> > > -       struct drm_device *dev = obj->dev;
-> > > +       struct sg_table *sgt;
-> > > +       int err;
-> > >
-> > >         dma_resv_assert_held(shmem->base.resv);
-> > >
-> > > -       WARN_ON(!drm_gem_shmem_is_purgeable(shmem));
-> > > +       if (shmem->evicted) {
-> > > +               err = drm_gem_shmem_acquire_pages(shmem);
-> > > +               if (err)
-> > > +                       return err;
-> > > +
-> > > +               sgt = drm_gem_shmem_get_sg_table(shmem);
-> > > +               if (IS_ERR(sgt))
-> > > +                       return PTR_ERR(sgt);
-> > > +
-> > > +               err = dma_map_sgtable(obj->dev->dev, sgt,
-> > > +                                     DMA_BIDIRECTIONAL, 0);
-> > > +               if (err) {
-> > > +                       sg_free_table(sgt);
-> > > +                       kfree(sgt);
-> > > +                       return err;
-> > > +               }
-> > >
-> > > -       dma_unmap_sgtable(dev->dev, shmem->sgt, DMA_BIDIRECTIONAL, 0);
-> > > -       sg_free_table(shmem->sgt);
-> > > -       kfree(shmem->sgt);
-> > > -       shmem->sgt = NULL;
-> > > +               shmem->sgt = sgt;
-> > > +               shmem->evicted = false;
-> > >
-> > > -       drm_gem_shmem_put_pages(shmem);
-> > > +               drm_gem_shmem_update_pages_state(shmem);
-> > > +       }
-> > >
-> > > -       shmem->madv = -1;
-> > > +       if (!shmem->pages)
-> > > +               return -ENOMEM;
-> > >
-> > > -       drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
-> > > -       drm_gem_free_mmap_offset(obj);
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_swap_in);
-> > >
-> > > -       /* Our goal here is to return as much of the memory as
-> > > -        * is possible back to the system as we are called from OOM.
-> > > -        * To do this we must instruct the shmfs to drop all of its
-> > > -        * backing pages, *now*.
-> > > -        */
-> > > -       shmem_truncate_range(file_inode(obj->filp), 0, (loff_t)-1);
-> > > +static void drm_gem_shmem_unpin_pages(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       struct drm_gem_object *obj = &shmem->base;
-> > > +       struct drm_device *dev = obj->dev;
-> > >
-> > > -       invalidate_mapping_pages(file_inode(obj->filp)->i_mapping, 0, (loff_t)-1);
-> > > +       if (shmem->evicted)
-> > > +               return;
-> > > +
-> > > +       dma_unmap_sgtable(dev->dev, shmem->sgt, DMA_BIDIRECTIONAL, 0);
-> > > +       drm_gem_shmem_release_pages(shmem);
-> > > +       drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
-> > > +
-> > > +       sg_free_table(shmem->sgt);
-> > > +       kfree(shmem->sgt);
-> > > +       shmem->sgt = NULL;
-> > >  }
-> > > -EXPORT_SYMBOL(drm_gem_shmem_purge);
-> > >
-> > >  /**
-> > >   * drm_gem_shmem_dumb_create - Create a dumb shmem buffer object
-> > > @@ -488,22 +679,33 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> > >         vm_fault_t ret;
-> > >         struct page *page;
-> > >         pgoff_t page_offset;
-> > > +       bool pages_unpinned;
-> > > +       int err;
-> > >
-> > >         /* We don't use vmf->pgoff since that has the fake offset */
-> > >         page_offset = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-> > >
-> > >         dma_resv_lock(shmem->base.resv, NULL);
-> > >
-> > > -       if (page_offset >= num_pages ||
-> > > -           WARN_ON_ONCE(!shmem->pages) ||
-> > > -           shmem->madv < 0) {
-> > > +       /* Sanity-check that we have the pages pointer when it should present */
-> > > +       pages_unpinned = (shmem->evicted || shmem->madv < 0 || !shmem->pages_use_count);
-> > > +       WARN_ON_ONCE(!shmem->pages ^ pages_unpinned);
-> > > +
-> > > +       if (page_offset >= num_pages || (!shmem->pages && !shmem->evicted)) {
-> > >                 ret = VM_FAULT_SIGBUS;
-> > >         } else {
-> > > +               err = drm_gem_shmem_swap_in(shmem);
-> > > +               if (err) {
-> > > +                       ret = VM_FAULT_OOM;
-> > > +                       goto unlock;
-> > > +               }
-> > > +
-> > >                 page = shmem->pages[page_offset];
-> > >
-> > >                 ret = vmf_insert_pfn(vma, vmf->address, page_to_pfn(page));
-> > >         }
-> > >
-> > > +unlock:
-> > >         dma_resv_unlock(shmem->base.resv);
-> > >
-> > >         return ret;
-> > > @@ -513,13 +715,15 @@ static void drm_gem_shmem_vm_open(struct vm_area_struct *vma)
-> > >  {
-> > >         struct drm_gem_object *obj = vma->vm_private_data;
-> > >         struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
-> > > -       int ret;
-> > >
-> > >         WARN_ON(shmem->base.import_attach);
-> > >
-> > >         dma_resv_lock(shmem->base.resv, NULL);
-> > > -       ret = drm_gem_shmem_get_pages(shmem);
-> > > -       WARN_ON_ONCE(ret != 0);
-> > > +
-> > > +       if (drm_gem_shmem_get_pages(shmem))
-> > > +               shmem->pages_use_count++;
-> > > +
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > >         dma_resv_unlock(shmem->base.resv);
-> > >
-> > >         drm_gem_vm_open(vma);
-> > > @@ -583,6 +787,8 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_mmap);
-> > >  void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
-> > >                               struct drm_printer *p, unsigned int indent)
-> > >  {
-> > > +       drm_printf_indent(p, indent, "eviction_enabled=%d\n", shmem->eviction_enabled);
-> > > +       drm_printf_indent(p, indent, "purge_enabled=%d\n", shmem->purge_enabled);
-> > >         drm_printf_indent(p, indent, "pages_use_count=%u\n", shmem->pages_use_count);
-> > >
-> > >         if (shmem->base.import_attach)
-> > > @@ -592,7 +798,9 @@ void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
-> > >                 drm_printf_indent(p, indent, "vmap_use_count=%u\n",
-> > >                                   shmem->vmap_use_count);
-> > >
-> > > +       drm_printf_indent(p, indent, "evicted=%d\n", shmem->evicted);
-> > >         drm_printf_indent(p, indent, "vaddr=%p\n", shmem->vaddr);
-> > > +       drm_printf_indent(p, indent, "madv=%d\n", shmem->madv);
-> > >  }
-> > >  EXPORT_SYMBOL(drm_gem_shmem_print_info);
-> > >
-> > > @@ -667,6 +875,8 @@ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
-> > >
-> > >         shmem->sgt = sgt;
-> > >
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > >         dma_resv_unlock(shmem->base.resv);
-> > >
-> > >         return sgt;
-> > > @@ -717,6 +927,250 @@ drm_gem_shmem_prime_import_sg_table(struct drm_device *dev,
-> > >  }
-> > >  EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_import_sg_table);
-> > >
-> > > +static struct drm_gem_shmem_shrinker *
-> > > +to_drm_shrinker(struct shrinker *shrinker)
-> > > +{
-> > > +       return container_of(shrinker, struct drm_gem_shmem_shrinker, base);
-> > > +}
-> > > +
-> > > +static unsigned long
-> > > +drm_gem_shmem_shrinker_count_objects(struct shrinker *shrinker,
-> > > +                                    struct shrink_control *sc)
-> > > +{
-> > > +       struct drm_gem_shmem_shrinker *gem_shrinker = to_drm_shrinker(shrinker);
-> > > +       struct drm_gem_shmem_object *shmem;
-> > > +       unsigned long count = 0;
-> > > +
-> > > +       if (!mutex_trylock(&gem_shrinker->lock))
-> > > +               return 0;
-> > > +
-> > > +       list_for_each_entry(shmem, &gem_shrinker->lru_evictable, madv_list) {
-> > > +               count += shmem->base.size;
-> > > +
-> > > +               if (count >= SHRINK_EMPTY)
-> > > +                       break;
-> > > +       }
-> > > +
-> > > +       mutex_unlock(&gem_shrinker->lock);
-> > > +
-> > > +       if (count >= SHRINK_EMPTY)
-> > > +               return SHRINK_EMPTY - 1;
-> > > +
-> > > +       return count ?: SHRINK_EMPTY;
-> > > +}
-> > > +
-> > > +int drm_gem_shmem_evict(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       WARN_ON(!drm_gem_shmem_is_evictable(shmem));
-> > > +       WARN_ON(shmem->evicted);
-> > > +
-> > > +       drm_gem_shmem_unpin_pages(shmem);
-> > > +
-> > > +       shmem->evicted = true;
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_evict);
-> > > +
-> > > +int drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       struct drm_gem_object *obj = &shmem->base;
-> > > +
-> > > +       WARN_ON(!drm_gem_shmem_is_purgeable(shmem));
-> > > +
-> > > +       drm_gem_shmem_unpin_pages(shmem);
-> > > +       drm_gem_free_mmap_offset(obj);
-> > > +
-> > > +       /* Our goal here is to return as much of the memory as
-> > > +        * is possible back to the system as we are called from OOM.
-> > > +        * To do this we must instruct the shmfs to drop all of its
-> > > +        * backing pages, *now*.
-> > > +        */
-> > > +       shmem_truncate_range(file_inode(obj->filp), 0, (loff_t)-1);
-> > > +
-> > > +       invalidate_mapping_pages(file_inode(obj->filp)->i_mapping, 0, (loff_t)-1);
-> > > +
-> > > +       shmem->madv = -1;
-> > > +       shmem->evicted = false;
-> > > +       drm_gem_shmem_update_pages_state(shmem);
-> > > +
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_purge);
-> > > +
-> > > +static unsigned long
-> > > +drm_gem_shmem_shrinker_run_objects_scan(struct shrinker *shrinker,
-> > > +                                       unsigned long nr_to_scan,
-> > > +                                       bool *lock_contention,
-> > > +                                       bool evict)
-> > > +{
-> > > +       struct drm_gem_shmem_shrinker *gem_shrinker = to_drm_shrinker(shrinker);
-> > > +       struct drm_gem_shmem_object *shmem;
-> > > +       struct list_head still_in_list;
-> > > +       struct drm_gem_object *obj;
-> > > +       unsigned long freed = 0;
-> > > +       size_t page_count;
-> > > +       int err;
-> > > +
-> > > +       INIT_LIST_HEAD(&still_in_list);
-> > > +
-> > > +       mutex_lock(&gem_shrinker->lock);
-> > > +
-> > > +       while (freed < nr_to_scan) {
-> > > +               shmem = list_first_entry_or_null(&gem_shrinker->lru_evictable,
-> > > +                                                typeof(*shmem), madv_list);
-> > > +               if (!shmem)
-> > > +                       break;
-> > > +
-> > > +               obj = &shmem->base;
-> > > +               page_count = obj->size >> PAGE_SHIFT;
-> > > +               list_move_tail(&shmem->madv_list, &still_in_list);
-> > > +
-> > > +               if (evict) {
-> > > +                       if (!drm_gem_shmem_is_evictable(shmem) ||
-> > > +                           get_nr_swap_pages() < page_count)
-> > > +                               continue;
-> > > +               } else {
-> > > +                       if (!drm_gem_shmem_is_purgeable(shmem))
-> > > +                               continue;
-> > > +               }
-> > > +
-> > > +               /*
-> > > +                * If it's in the process of being freed, gem_object->free()
-> > > +                * may be blocked on lock waiting to remove it.  So just
-> > > +                * skip it.
-> > > +                */
-> > > +               if (!kref_get_unless_zero(&obj->refcount))
-> > > +                       continue;
-> > > +
-> > > +               mutex_unlock(&gem_shrinker->lock);
-> > > +
-> > > +               /* prevent racing with job-submission code paths */
-> > > +               if (!dma_resv_trylock(obj->resv)) {
-> > > +                       *lock_contention |= true;
-> > > +                       goto shrinker_lock;
-> > > +               }
-> > > +
-> > > +               /* prevent racing with the dma-buf importing/exporting */
-> > > +               if (!mutex_trylock(&gem_shrinker->dev->object_name_lock)) {
-> > > +                       *lock_contention |= true;
-> > > +                       goto resv_unlock;
-> > > +               }
-> > > +
-> > > +               /* check whether h/w uses this object */
-> > > +               if (!dma_resv_test_signaled(obj->resv, DMA_RESV_USAGE_WRITE))
-> > > +                       goto object_name_unlock;
-> > > +
-> > > +               /* re-check whether eviction status hasn't changed */
-> > > +               if (!drm_gem_shmem_is_evictable(shmem) &&
-> > > +                   !drm_gem_shmem_is_purgeable(shmem))
-> > > +                       goto object_name_unlock;
-> > > +
-> > > +               err = shmem->evict(shmem);
-> > > +               if (!err)
-> > > +                       freed += obj->size >> PAGE_SHIFT;
-> > > +
-> > > +object_name_unlock:
-> > > +               mutex_unlock(&gem_shrinker->dev->object_name_lock);
-> > > +resv_unlock:
-> > > +               dma_resv_unlock(obj->resv);
-> > > +shrinker_lock:
-> > > +               drm_gem_object_put(&shmem->base);
-> > > +               mutex_lock(&gem_shrinker->lock);
-> > > +       }
-> > > +
-> > > +       list_splice_tail(&still_in_list, &gem_shrinker->lru_evictable);
-> > > +
-> > > +       mutex_unlock(&gem_shrinker->lock);
-> > > +
-> > > +       return freed;
-> > > +}
-> > > +
-> > > +static unsigned long
-> > > +drm_gem_shmem_shrinker_scan_objects(struct shrinker *shrinker,
-> > > +                                   struct shrink_control *sc)
-> > > +{
-> > > +       unsigned long nr_to_scan = sc->nr_to_scan;
-> > > +       bool lock_contention = false;
-> > > +       unsigned long freed;
-> > > +
-> > > +       /* purge as many objects as we can */
-> > > +       freed = drm_gem_shmem_shrinker_run_objects_scan(shrinker, nr_to_scan,
-> > > +                                                       &lock_contention, false);
-> > > +
-> > > +       /* evict as many objects as we can */
-> > > +       if (freed < nr_to_scan)
-> > > +               freed += drm_gem_shmem_shrinker_run_objects_scan(shrinker,
-> > > +                                                                nr_to_scan - freed,
-> > > +                                                                &lock_contention,
-> > > +                                                                true);
-> > > +
-> > > +       return (!freed && !lock_contention) ? SHRINK_STOP : freed;
-> > > +}
-> > > +
-> > > +/**
-> > > + * drm_gem_shmem_shrinker_register() - Register shmem shrinker
-> > > + * @dev: DRM device
-> > > + *
-> > > + * Returns:
-> > > + * 0 on success or a negative error code on failure.
-> > > + */
-> > > +int drm_gem_shmem_shrinker_register(struct drm_device *dev)
-> > > +{
-> > > +       struct drm_gem_shmem_shrinker *gem_shrinker;
-> > > +       int err;
-> > > +
-> > > +       if (WARN_ON(dev->shmem_shrinker))
-> > > +               return -EBUSY;
-> > > +
-> > > +       gem_shrinker = kzalloc(sizeof(*gem_shrinker), GFP_KERNEL);
-> > > +       if (!gem_shrinker)
-> > > +               return -ENOMEM;
-> > > +
-> > > +       gem_shrinker->base.count_objects = drm_gem_shmem_shrinker_count_objects;
-> > > +       gem_shrinker->base.scan_objects = drm_gem_shmem_shrinker_scan_objects;
-> > > +       gem_shrinker->base.seeks = DEFAULT_SEEKS;
-> > > +       gem_shrinker->dev = dev;
-> > > +
-> > > +       INIT_LIST_HEAD(&gem_shrinker->lru_evictable);
-> > > +       INIT_LIST_HEAD(&gem_shrinker->lru_evicted);
-> > > +       INIT_LIST_HEAD(&gem_shrinker->lru_pinned);
-> > > +       mutex_init(&gem_shrinker->lock);
-> > > +
-> > > +       dev->shmem_shrinker = gem_shrinker;
-> > > +
-> > > +       err = register_shrinker(&gem_shrinker->base);
-> > > +       if (err) {
-> > > +               dev->shmem_shrinker = NULL;
-> > > +               kfree(gem_shrinker);
-> > > +               return err;
-> > > +       }
-> > > +
-> > > +       return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_shrinker_register);
-> > > +
-> > > +/**
-> > > + * drm_gem_shmem_shrinker_unregister() - Unregister shmem shrinker
-> > > + * @dev: DRM device
-> > > + */
-> > > +void drm_gem_shmem_shrinker_unregister(struct drm_device *dev)
-> > > +{
-> > > +       struct drm_gem_shmem_shrinker *gem_shrinker = dev->shmem_shrinker;
-> > > +
-> > > +       if (gem_shrinker) {
-> > > +               unregister_shrinker(&gem_shrinker->base);
-> > > +               WARN_ON(!list_empty(&gem_shrinker->lru_evictable));
-> > > +               WARN_ON(!list_empty(&gem_shrinker->lru_evicted));
-> > > +               WARN_ON(!list_empty(&gem_shrinker->lru_pinned));
-> > > +               mutex_destroy(&gem_shrinker->lock);
-> > > +               dev->shmem_shrinker = NULL;
-> > > +               kfree(gem_shrinker);
-> > > +       }
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(drm_gem_shmem_shrinker_unregister);
-> > > +
-> > >  MODULE_DESCRIPTION("DRM SHMEM memory-management helpers");
-> > >  MODULE_IMPORT_NS(DMA_BUF);
-> > >  MODULE_LICENSE("GPL v2");
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > > index a4bedfeb2ec4..7cc32556f908 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > > @@ -15,6 +15,13 @@
-> > >  #include "panfrost_gem.h"
-> > >  #include "panfrost_mmu.h"
-> > >
-> > > +static bool panfrost_gem_shmem_is_purgeable(struct drm_gem_shmem_object *shmem)
-> > > +{
-> > > +       return (shmem->madv > 0) &&
-> > > +               !shmem->pages_pin_count && shmem->sgt &&
-> > > +               !shmem->base.dma_buf && !shmem->base.import_attach;
-> > > +}
-> > > +
-> > >  static unsigned long
-> > >  panfrost_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
-> > >  {
-> > > @@ -27,7 +34,7 @@ panfrost_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc
-> > >                 return 0;
-> > >
-> > >         list_for_each_entry(shmem, &pfdev->shrinker_list, madv_list) {
-> > > -               if (drm_gem_shmem_is_purgeable(shmem))
-> > > +               if (panfrost_gem_shmem_is_purgeable(shmem))
-> > >                         count += shmem->base.size >> PAGE_SHIFT;
-> > >         }
-> > >
-> > > diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> > > index b2d93cb12ebf..81bacc7e1873 100644
-> > > --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-> > > +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> > > @@ -89,6 +89,7 @@ struct virtio_gpu_object {
-> > >         uint32_t hw_res_handle;
-> > >         bool dumb;
-> > >         bool created;
-> > > +       bool detached;
-> > >         bool host3d_blob, guest_blob;
-> > >         uint32_t blob_mem, blob_flags;
-> > >
-> > > @@ -453,6 +454,8 @@ int virtio_gpu_object_create(struct virtio_gpu_device *vgdev,
-> > >
-> > >  bool virtio_gpu_is_shmem(struct virtio_gpu_object *bo);
-> > >
-> > > +int virtio_gpu_reattach_shmem_object(struct virtio_gpu_object *bo);
-> > > +
-> > >  int virtio_gpu_resource_id_get(struct virtio_gpu_device *vgdev,
-> > >                                uint32_t *resid);
-> > >  /* virtgpu_prime.c */
-> > > diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> > > index 9923c7a6885e..929546cad894 100644
-> > > --- a/include/drm/drm_device.h
-> > > +++ b/include/drm/drm_device.h
-> > > @@ -16,6 +16,7 @@ struct drm_vblank_crtc;
-> > >  struct drm_vma_offset_manager;
-> > >  struct drm_vram_mm;
-> > >  struct drm_fb_helper;
-> > > +struct drm_gem_shmem_shrinker;
-> > >
-> > >  struct inode;
-> > >
-> > > @@ -277,6 +278,9 @@ struct drm_device {
-> > >         /** @vram_mm: VRAM MM memory manager */
-> > >         struct drm_vram_mm *vram_mm;
-> > >
-> > > +       /** @shmem_shrinker: SHMEM GEM memory shrinker */
-> > > +       struct drm_gem_shmem_shrinker *shmem_shrinker;
-> > > +
-> > >         /**
-> > >          * @switch_power_state:
-> > >          *
-> > > diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-> > > index 9a8983ee8abe..62c640678a91 100644
-> > > --- a/include/drm/drm_gem_shmem_helper.h
-> > > +++ b/include/drm/drm_gem_shmem_helper.h
-> > > @@ -6,6 +6,7 @@
-> > >  #include <linux/fs.h>
-> > >  #include <linux/mm.h>
-> > >  #include <linux/mutex.h>
-> > > +#include <linux/shrinker.h>
-> > >
-> > >  #include <drm/drm_file.h>
-> > >  #include <drm/drm_gem.h>
-> > > @@ -15,6 +16,7 @@
-> > >  struct dma_buf_attachment;
-> > >  struct drm_mode_create_dumb;
-> > >  struct drm_printer;
-> > > +struct drm_device;
-> > >  struct sg_table;
-> > >
-> > >  /**
-> > > @@ -39,12 +41,21 @@ struct drm_gem_shmem_object {
-> > >          */
-> > >         unsigned int pages_use_count;
-> > >
-> > > +       /**
-> > > +        * @pages_pin_count:
-> > > +        *
-> > > +        * Reference count on the pinned pages table.
-> > > +        * The pages can be evicted by memory shrinker
-> > > +        * when the count reaches zero.
-> > > +        */
-> > > +       unsigned int pages_pin_count;
-> > > +
-> > >         /**
-> > >          * @madv: State for madvise
-> > >          *
-> > >          * 0 is active/inuse.
-> > > +        * 1 is not-needed/can-be-purged
-> > >          * A negative value is the object is purged.
-> > > -        * Positive values are driver specific and not used by the helpers.
-> > >          */
-> > >         int madv;
-> > >
-> > > @@ -91,6 +102,39 @@ struct drm_gem_shmem_object {
-> > >          * @map_wc: map object write-combined (instead of using shmem defaults).
-> > >          */
-> > >         bool map_wc;
-> > > +
-> > > +       /**
-> > > +        * @eviction_enabled:
-> > > +        *
-> > > +        * The shmem pages can be evicted only if @eviction_enabled is set to true.
-> > > +        * Used internally by memory shrinker.
-> > > +        */
-> > > +       bool eviction_enabled;
-> > > +
-> > > +       /**
-> > > +        * @purge_enabled:
-> > > +        *
-> > > +        * The shmem pages can be purged only if @purge_enabled is set to true.
-> > > +        * Used internally by memory shrinker.
-> > > +        */
-> > > +       bool purge_enabled;
-> > > +
-> > > +       /**
-> > > +        * @evicted: True if shmem pages are evicted by the memory shrinker.
-> > > +        * Used internally by memory shrinker.
-> > > +        */
-> > > +       bool evicted;
-> > > +
-> > > +       /**
-> > > +        * @evict:
-> > > +        *
-> > > +        * Invoked by shmem shrinker before evicting shmem GEM from memory.
-> > > +        * GEM's DMA reservation is kept locked by the shrinker. This is
-> > > +        * optional callback that should be specified by drivers.
-> > > +        *
-> > > +        * Returns 0 on success, or -errno on error.
-> > > +        */
-> > > +       int (*evict)(struct drm_gem_shmem_object *shmem);
-> > >  };
-> > >
-> > >  #define to_drm_gem_shmem_obj(obj) \
-> > > @@ -110,14 +154,21 @@ int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct
-> > >
-> > >  int drm_gem_shmem_madvise(struct drm_gem_shmem_object *shmem, int madv);
-> > >
-> > > +int drm_gem_shmem_set_purgeable(struct drm_gem_shmem_object *shmem);
-> > > +int drm_gem_shmem_set_evictable(struct drm_gem_shmem_object *shmem);
-> > > +
-> > >  static inline bool drm_gem_shmem_is_purgeable(struct drm_gem_shmem_object *shmem)
-> > >  {
-> > > -       return (shmem->madv > 0) &&
-> > > -               !shmem->vmap_use_count && shmem->sgt &&
-> > > -               !shmem->base.dma_buf && !shmem->base.import_attach;
-> > > +       return (shmem->madv > 0) && shmem->evict &&
-> > > +               shmem->purge_enabled && shmem->pages_use_count &&
-> > > +               !shmem->pages_pin_count && !shmem->base.dma_buf &&
-> > > +               !shmem->base.import_attach && (shmem->sgt || shmem->evicted);
-> > >  }
-> > >
-> > > -void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem);
-> > > +int drm_gem_shmem_swap_in(struct drm_gem_shmem_object *shmem);
-> > > +
-> > > +int drm_gem_shmem_evict(struct drm_gem_shmem_object *shmem);
-> > > +int drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem);
-> > >
-> > >  struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem);
-> > >  struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem);
-> > > @@ -260,6 +311,32 @@ static inline int drm_gem_shmem_object_mmap(struct drm_gem_object *obj, struct v
-> > >         return drm_gem_shmem_mmap(shmem, vma);
-> > >  }
-> > >
-> > > +/**
-> > > + * struct drm_gem_shmem_shrinker - Generic memory shrinker for shmem GEMs
-> > > + */
-> > > +struct drm_gem_shmem_shrinker {
-> > > +       /** @base: Shrinker for purging shmem GEM objects */
-> > > +       struct shrinker base;
-> > > +
-> > > +       /** @lock: Protects @lru_* */
-> > > +       struct mutex lock;
-> > > +
-> > > +       /** @lru_pinned: List of pinned shmem GEM objects */
-> > > +       struct list_head lru_pinned;
-> > > +
-> > > +       /** @lru_evictable: List of shmem GEM objects to be evicted */
-> > > +       struct list_head lru_evictable;
-> > > +
-> > > +       /** @lru_evicted: List of evicted shmem GEM objects */
-> > > +       struct list_head lru_evicted;
-> > > +
-> > > +       /** @dev: DRM device that uses this shrinker */
-> > > +       struct drm_device *dev;
-> > > +};
-> > > +
-> > > +int drm_gem_shmem_shrinker_register(struct drm_device *dev);
-> > > +void drm_gem_shmem_shrinker_unregister(struct drm_device *dev);
-> > > +
-> > >  /*
-> > >   * Driver ops
-> > >   */
-> > > --
-> > > 2.35.3
-> > >
-> >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Cc: ricetons@gmail.com
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 109 ++++++++++---------------
+ 1 file changed, 45 insertions(+), 64 deletions(-)
 
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 06b2635b142a..83c6ccaaa9e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -469,6 +469,7 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+ 	}
+ }
+ 
++
+ /**
+  * sdma_v5_2_gfx_stop - stop the gfx async dma engines
+  *
+@@ -514,21 +515,17 @@ static void sdma_v5_2_rlc_stop(struct amdgpu_device *adev)
+ }
+ 
+ /**
+- * sdma_v5_2_ctx_switch_enable_for_instance - start the async dma engines
+- * context switch for an instance
++ * sdma_v5_2_ctx_switch_enable - stop the async dma engines context switch
+  *
+  * @adev: amdgpu_device pointer
+- * @instance_idx: the index of the SDMA instance
++ * @enable: enable/disable the DMA MEs context switch.
+  *
+- * Unhalt the async dma engines context switch.
++ * Halt or unhalt the async dma engines context switch.
+  */
+-static void sdma_v5_2_ctx_switch_enable_for_instance(struct amdgpu_device *adev, int instance_idx)
++static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
+ {
+ 	u32 f32_cntl, phase_quantum = 0;
+-
+-	if (WARN_ON(instance_idx >= adev->sdma.num_instances)) {
+-		return;
+-	}
++	int i;
+ 
+ 	if (amdgpu_sdma_phase_quantum) {
+ 		unsigned value = amdgpu_sdma_phase_quantum;
+@@ -552,68 +549,50 @@ static void sdma_v5_2_ctx_switch_enable_for_instance(struct amdgpu_device *adev,
+ 		phase_quantum =
+ 			value << SDMA0_PHASE0_QUANTUM__VALUE__SHIFT |
+ 			unit  << SDMA0_PHASE0_QUANTUM__UNIT__SHIFT;
+-
+-		WREG32_SOC15_IP(GC,
+-			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE0_QUANTUM),
+-			phase_quantum);
+-		WREG32_SOC15_IP(GC,
+-			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE1_QUANTUM),
+-		    phase_quantum);
+-		WREG32_SOC15_IP(GC,
+-			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE2_QUANTUM),
+-		    phase_quantum);
+ 	}
+ 
+-	if (!amdgpu_sriov_vf(adev)) {
+-		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL));
+-		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
+-				AUTO_CTXSW_ENABLE, 1);
+-		WREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL), f32_cntl);
++	for (i = 0; i < adev->sdma.num_instances; i++) {
++		if (enable && amdgpu_sdma_phase_quantum) {
++			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE0_QUANTUM),
++			       phase_quantum);
++			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE1_QUANTUM),
++			       phase_quantum);
++			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE2_QUANTUM),
++			       phase_quantum);
++		}
++
++		if (!amdgpu_sriov_vf(adev)) {
++			f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
++			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
++					AUTO_CTXSW_ENABLE, enable ? 1 : 0);
++			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
++		}
+ 	}
++
+ }
+ 
+ /**
+- * sdma_v5_2_ctx_switch_disable_all - stop the async dma engines context switch
++ * sdma_v5_2_enable - stop the async dma engines
+  *
+  * @adev: amdgpu_device pointer
++ * @enable: enable/disable the DMA MEs.
+  *
+- * Halt the async dma engines context switch.
++ * Halt or unhalt the async dma engines.
+  */
+-static void sdma_v5_2_ctx_switch_disable_all(struct amdgpu_device *adev)
++static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
+ {
+ 	u32 f32_cntl;
+ 	int i;
+ 
+-	if (amdgpu_sriov_vf(adev))
+-		return;
+-
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
+-		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
+-				AUTO_CTXSW_ENABLE, 0);
+-		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
++	if (!enable) {
++		sdma_v5_2_gfx_stop(adev);
++		sdma_v5_2_rlc_stop(adev);
+ 	}
+-}
+-
+-/**
+- * sdma_v5_2_halt - stop the async dma engines
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * Halt the async dma engines.
+- */
+-static void sdma_v5_2_halt(struct amdgpu_device *adev)
+-{
+-	int i;
+-	u32 f32_cntl;
+-
+-	sdma_v5_2_gfx_stop(adev);
+-	sdma_v5_2_rlc_stop(adev);
+ 
+ 	if (!amdgpu_sriov_vf(adev)) {
+ 		for (i = 0; i < adev->sdma.num_instances; i++) {
+ 			f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
+-			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
++			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, enable ? 0 : 1);
+ 			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
+ 		}
+ 	}
+@@ -625,9 +604,6 @@ static void sdma_v5_2_halt(struct amdgpu_device *adev)
+  * @adev: amdgpu_device pointer
+  *
+  * Set up the gfx DMA ring buffers and enable them.
+- * It assumes that the dma engine is stopped for each instance.
+- * The function enables the engine and preemptions sequentially for each instance.
+- *
+  * Returns 0 for success, error for failure.
+  */
+ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+@@ -769,7 +745,10 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
+ 
+ 		ring->sched.ready = true;
+ 
+-		sdma_v5_2_ctx_switch_enable_for_instance(adev, i);
++		if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
++			sdma_v5_2_ctx_switch_enable(adev, true);
++			sdma_v5_2_enable(adev, true);
++		}
+ 
+ 		r = amdgpu_ring_test_ring(ring);
+ 		if (r) {
+@@ -813,7 +792,7 @@ static int sdma_v5_2_load_microcode(struct amdgpu_device *adev)
+ 	int i, j;
+ 
+ 	/* halt the MEs */
+-	sdma_v5_2_halt(adev);
++	sdma_v5_2_enable(adev, false);
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+ 		if (!adev->sdma.instance[i].fw)
+@@ -885,8 +864,8 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+ 	int r = 0;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+-		sdma_v5_2_ctx_switch_disable_all(adev);
+-		sdma_v5_2_halt(adev);
++		sdma_v5_2_ctx_switch_enable(adev, false);
++		sdma_v5_2_enable(adev, false);
+ 
+ 		/* set RB registers */
+ 		r = sdma_v5_2_gfx_resume(adev);
+@@ -910,10 +889,12 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+ 		amdgpu_gfx_off_ctrl(adev, false);
+ 
+ 	sdma_v5_2_soft_reset(adev);
++	/* unhalt the MEs */
++	sdma_v5_2_enable(adev, true);
++	/* enable sdma ring preemption */
++	sdma_v5_2_ctx_switch_enable(adev, true);
+ 
+-	/* Soft reset supposes to disable the dma engine and preemption.
+-	 * Now start the gfx rings and rlc compute queues.
+-	 */
++	/* start the gfx rings and rlc compute queues */
+ 	r = sdma_v5_2_gfx_resume(adev);
+ 	if (adev->in_s0ix)
+ 		amdgpu_gfx_off_ctrl(adev, true);
+@@ -1447,8 +1428,8 @@ static int sdma_v5_2_hw_fini(void *handle)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
+-	sdma_v5_2_ctx_switch_disable_all(adev);
+-	sdma_v5_2_halt(adev);
++	sdma_v5_2_ctx_switch_enable(adev, false);
++	sdma_v5_2_enable(adev, false);
+ 
+ 	return 0;
+ }
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.17.1
+
