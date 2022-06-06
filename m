@@ -4,119 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD320C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 14:11:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24137C43334
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 14:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7007C10F9DE;
-	Mon,  6 Jun 2022 14:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2F5F10EAA6;
+	Mon,  6 Jun 2022 14:11:53 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6A10F9DE
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 14:11:09 +0000 (UTC)
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C613010EAA6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 14:11:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mRnSp4vCNswccBCXsTdnMtfJjAInOydAd1ooTTbABwjuAa9kOzRk3h3wCBx1KQlcJdesv3YJLh3EpBjgxvjxLr6budPRnRooq2n4wAZj++ASibhB7MANvBN6sTYkcLQD4bcsm4naR9Gixm43uxNdeO5/MPG678Fg0WBe8G/4z7Y1xfI7O0s5Kfja5ppoUNpx6iaiUHV+2zIBlhqaQ65+Fsz5UazqDLuHI2FKT1ZB6Y5f1kfoCQb8fX/P+FuDV6rKYly73YOhQyuxmxtLwM7IFSTzra34DgBQE8u0X8TIkyjW3krUZTZjVCTkJwGqaw1uwM+jgmEd77g5Kd8wP9njfg==
+ b=KMjZRmEHM8+t9PwRaZpsyD4KvK0mYbsYhZVE/0KpsMkwHEprysZK+Q6S5mk5ocsg7V1QHP4VvtwafDbAMF10NBYDFS8U/5VEOjlmuX2Li0TId0Dq3cA8R5Bh3aw/Xe3u7KXOtEiTYv5snDOeAEU8rtukdTwOHMqz/A1LW5DGzTPwIIDSuWfR24m25SZuod5+SV4AoskGoIlpndpsXpdhNBxjqqpPaszE/6LTkCOJ8VHVbWt7iLA5sV5OMspO/bhnH7s00M57mkSgiXlRqEumaIS46jP6CnjPXe58O9ilF2p0ptkSdviTQWpze6c0Wi34Zd6Z5LCwIY3ZAV16xTIuzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9KlkfBHeovysl0NYg19bQzOBztyb+NtxI6iE6Gq/vp4=;
- b=IMrnmnp7QuQo+PzqTHQg/PjhO6DoUcepX3yJtG5h09rGlWe2nApzny8dXmvlhEm5GuWJhFdigWY0cDapTjhnrqixswgSX6w3z6td41J0d5INakXQvjTIAO5knN62ggHzTjRByiHgwYQlLOTZTARUA0rq/2WJHZkURMT5eH4y5WjKdCOlqWsKn6AU+uUQ639stfeOSbQ0tnKkx47y/dpR5GB5o8OSyY3pNc/SW4r/7PLmMM23zQRuHDx7CJvGhN77WhrAVjlAxiU8nPf8sP1aq6hDTzmZiL9V4Xlt5it1/Wpi5V/ltUVuhEoDayCVjIditZ64NiaMuxLqlug6LHOgVQ==
+ bh=uxA108PIyKSeir6OmZ0F7cjTKf1znfvDrZI/IozxiEU=;
+ b=DQhqw1kFXtRk1SrTJsPQbvUDVSescE93EcpFBIOaN1VctOyqxrhbaC43ts8JV8UUM4R7Ry+YUR/cT4dTFyDXFSR0Bg1zfjEr/qcSW5k01ggBuKtDx2pKhzQpLSh4Lpw4BiqqzvuJNBTBrBgKFHFDR8TnSWDXDT5x9rJpYAR+jqH72TWexz5SgAgEqJMbeP4gCmHWFECeqnsH6P/5xh/vjsdWSTRfXKJGtyUHvNrTtGiyUL32mW7Na0RRWoSj8aD3Q/wve750PQoBUu2LBIV/BJbZr+tQvoVDss6NjCp65DVGWCl2MxSQf9glVkd4m6oWs0njIvgbfAa+X7L60HYsCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9KlkfBHeovysl0NYg19bQzOBztyb+NtxI6iE6Gq/vp4=;
- b=wusMbwNyoRO9HvWsTuv+TJtVMSwckDXAnuTN+iEKhqY85xJxOmwWsU0ZqGQtV6meKQepBIKO9IDuMf3pZ/EkXP3rrlLN0A2hD8mZ33nsGrWUJ1n6j7loZmNy5C0jkfba+kOxOHGSmA7LLrcer8xElx8s/D2QuD6Xb0vR91QuikU=
+ bh=uxA108PIyKSeir6OmZ0F7cjTKf1znfvDrZI/IozxiEU=;
+ b=ToU2z9OpjMYIFwpifLIc3golfh1YWv6PKp2zKA/8EFcw6cHGn8iLSPFjMH/6YsKGHUUm3v00CTXZ9IgwDR0KadgCiwApKzGTjgztDQHeSAVF3/YC3tIAq6JP1meziIE3ivo6Ef9t78blBno8O6BicEsEkUskS/f5uljVX0PdqHI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
  by CY4PR1201MB2502.namprd12.prod.outlook.com (2603:10b6:903:da::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.18; Mon, 6 Jun
- 2022 14:11:04 +0000
+ 2022 14:11:50 +0000
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::540e:d76a:bdf0:ed0d%6]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
- 14:11:03 +0000
-Message-ID: <b6d6fb40-c4be-89ef-cc9e-28f7a21750e2@amd.com>
-Date: Mon, 6 Jun 2022 10:10:29 -0400
+ 14:11:50 +0000
+Message-ID: <a2f385ac-4e05-e40c-b339-e8ba07553aa8@amd.com>
+Date: Mon, 6 Jun 2022 10:11:17 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH 4/6] drm/amd/display: Reduce frame size in the bouding box
- for DCN31/316
+Subject: Re: [PATCH 5/6] drm/amd/display: Reduce frame size in the bouding box
+ for DCN21
 Content-Language: en-US
 To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220603185042.3408844-1-Rodrigo.Siqueira@amd.com>
- <20220603185042.3408844-5-Rodrigo.Siqueira@amd.com>
+ <20220603185042.3408844-6-Rodrigo.Siqueira@amd.com>
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220603185042.3408844-5-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20220603185042.3408844-6-Rodrigo.Siqueira@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0015.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::20) To CO6PR12MB5427.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT2PR01CA0002.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::7) To CO6PR12MB5427.namprd12.prod.outlook.com
  (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7a92a73b-b60b-463b-b6f2-08da47c6641c
+X-MS-Office365-Filtering-Correlation-Id: 62bb1b1a-28d3-4f07-17e8-08da47c67feb
 X-MS-TrafficTypeDiagnostic: CY4PR1201MB2502:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB250237098B24C32AE42ACE9F8CA29@CY4PR1201MB2502.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB2502325CAF0E6F56F51C5B7C8CA29@CY4PR1201MB2502.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uXe6fMqosd58L4kTcodCMKpA4xgx27OsiOT/j8TBfjcEPYWE+eP5rLX3U2GA71bjOJlRuuLnPFJdn2FCVAmdBPRAT0GZhR6cmgXASKujSRjjqv0f4x8tMCGxdm6MgUegfTyn5og8P5KEtvjVP+V3q2qYr/xY9nuM9iK1ot6Q9zFz1JLr8XngO5nRBNKXNjo8YqLnIZ9ZhoUZZspdOZjRh4632ZwiPTwfnMjYHgM6vukcU4aEUsLF5EoAzcsO4Zx7106YQ80bhROlaHx/K6JV2ou8EBP3GwutcNgvbcPzfl+hHcd3x8ziQ8JUvr9NiAvNIBpwtq33/Dwurj5bEKjF+8BT5yHQ16nVlNLjUCjGRtJh2Iootp0w4XmZvsoFQymdFuUTdKnFg2mRHfttkPOa3xZovsAVcvv9o3Pgtwh8xT8nXVSz24/hGgmzQosN9L5sfoBdLY+kvustWTYZIADdAtiTlpsY/G36d/dYavDnvXvAt6oHKJzf2lioKcegU5+Hq0/p2oYRVFTT2ah8x7zT6eRUfIUhjovXyuFhPSlm3BBLUCu0rpjcUfaHGrPF0CWesPRGxoHKhYJx51PDOzuihem9BOXwX0CyPx0JqYRzjcBl0gy3R6Uhy0MES+sDCy6AyBwzZJZZN5RaCZ11HqTypYD1WD6gWrzz6/JRwgoTtSqCesRP75MLOeNoSpmcrxglT1y5rlTHBeIZ0wAW7StPdVSko+Iny7X7nTxV8dNhW4c=
+X-Microsoft-Antispam-Message-Info: AWZZs9E9DZf3LRLfinTiacG4+sRMXwKDB4LiBCe0IyQ0RD7c6gq4ScD6QsoiO5r7dNG9luioSkxAx9d7Cfy+ISfS+BVoB0AsTfjqmxFC+3ImtPo5mIUQo6ckIWNUre61OkMwVawWjhOYCzuYWAnoazz6yR7DwKEzVflHPQbc0CQBTDUuBZhqeTDRrnHXUXvcegUZhynWZcIGzP1Cdv8MMgPiKRs/GlBiTzqZd5VdBcdVzpuZtOlcVopjkHq66ZpF5Yj3oaGEKd9jVaxCuk6MaGeCXNrbwASDjER5JewGeslXUCIgF+2GP7hrkgGluYM0TcfhTMZG9fLNnQwtAsZw91Umh/ODxBJNPjsoNMn7sDjXmTWZB4hMULFzRFGm7xqpH3zoTeHwXwjr1dwbvzSGl4eyCRVuouoqlQ7okHDpaUVNWuRoaWqV0/gyGftL49t+yo4Lhc3CZ5euZppTifUCfTHY+tRXTbvxh1wvLvEmV3ueIkhRyAhBHtrybs5LZAf4s46OkSja0Aw9dwFnlkBQpbZTFfWmi+2EF+L25egMUodznXvwvZA72wnonNy3iw7T6jRlfmLRIrRQPn8pCzrgivmaJEocAM8Y0cdARQoFcU9gcxjQB2pXYqgxmwdyflZLLSkQgozuuU1W8k8R+pgXGCaMI5nfN+bsX+/5njexWiHPVY1JE7PusFdTwBZ/KtyC4gBqMgyG9uo6wtMilQA3TuNQYpHSYLlzRqyTRO/x+azcPwEde8lJpjv/VA6oj+vK
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230001)(4636009)(366004)(83380400001)(86362001)(31696002)(36756003)(8936002)(38100700002)(6486002)(6666004)(31686004)(508600001)(8676002)(44832011)(4326008)(5660300002)(66946007)(66476007)(66556008)(54906003)(316002)(26005)(2906002)(186003)(6512007)(2616005)(53546011)(6506007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnRER2VkYkdhMS9vRXh6NDhxaFdNcnAvaEJ0emtjMlRIa1IzY084d2Q3ajRO?=
- =?utf-8?B?MHQvWUFRQWVObXFWWmNzQWx6QlFxQy90QVkyTlA5Tyt6cTRLNlhCK3FiTTg4?=
- =?utf-8?B?MWc3STZtV3M2OFlPQmMrNjJSMzVRNkd3TnFYcGJ6QUJWM2JVckVhQUFtOStn?=
- =?utf-8?B?R0V1UlltbzhtWnI1TDlHSXdjYWFnWE5JZUFqaDlQZ2VwZk1rRmhtalhHSGdG?=
- =?utf-8?B?UlVKeU5YUlZzSm94UEYrS1pSc1UrckZwdW9sUU5jeSszQ09OOTRXQS9NV0du?=
- =?utf-8?B?eWRzc3VUNWFiN0ZCTkVJakM5czBjYWR3V21KdGxYdVFsSVRhQnUzNndpMWR4?=
- =?utf-8?B?Rk5yQTEwaXVPWnpXZGlxQW5Td1VDNG93WHFPRjF5Z2FQS3pGSzNoeTVzNmxt?=
- =?utf-8?B?azFNMHI3aEIzNk1EK3lmTWdlRWhmS0tlQjNSLzFsSnoybi9XaDIxWW9SRXEv?=
- =?utf-8?B?bDVabExrcldXRWUxVy9XUUNrQnBRVjZJVjk3cldTRStVTHpXTTFxWGZnL3p3?=
- =?utf-8?B?VXRQRlh0bmlOeTdhTGVndUlHeHBYcU5LSHhnaTJoTTJHMU5sUTVlYmFwNXk4?=
- =?utf-8?B?NExVN0JYbGRTWnZ5R3diMmlNOWZsTDgvRTlwZ0ZnL08vOWRPWitIQVZsQU14?=
- =?utf-8?B?MEkwdllOZFRZbG45L0xYL0hNbHdvaVM5YVgrMkRVWXBnd3FRM2xLbTVNVU9s?=
- =?utf-8?B?akFHRlpiSUtNc0Nwc1lrTnR2T3doQnVMWEo3SmFIN2x3TEFxUUJPSkhOS2xX?=
- =?utf-8?B?M3RXQTlTMDR3bVZsZk02NDhpSnZqSVJBQi95eS9kenlqSVd4S0JLK0l1OUUz?=
- =?utf-8?B?MlF0NENjYXVqOHhUSXlQV3Q5MUxzakFXTnEzdm9uSktOVVZxNnB0TGNuZGo1?=
- =?utf-8?B?OFpqVHgxMDRBWlMrdFM2NXVGL3pUNXY2Uk5Hb1ZITEplc0x3K0RJQXNpYmha?=
- =?utf-8?B?a1k2M1RWYW93eE1oVGdiVnNaSTJGeVV2dUVkcm9iTm85MWtYVjJNSVVRaUFB?=
- =?utf-8?B?ckdjbE96cElkRmIwellIQ29uMG00SzBQN1ZrTWdnU2RwdlpMMENSUnhEanUr?=
- =?utf-8?B?MXBicWRxZ1R4SisvWk5yeXJIWGtNVnE5bTVPTzFuS1dWaldyN2QzUjBJNllR?=
- =?utf-8?B?ZlVZTEU4WjZSUU1sL0RGSEd2SmVyY1VhOUVqV292K3BxNUdsY1dLME0weSs5?=
- =?utf-8?B?TlVGN3AzVnpNdWoxdTVzRGVSMEdDZ2NONmwrWHh2dUd3NXR3OGZpSjQrcWdp?=
- =?utf-8?B?RXFDdG5yb2ZSTm1PR1VIZ2s4VWFoSEI3L2Jic2hKZzVKbUMxcHVma0plWUhE?=
- =?utf-8?B?d2Nqc1BkYzh6Yk1WYzJVaHNjT2Q1Sm5MUEZYUlJrUFpUR0psbFVOaW1PZVl4?=
- =?utf-8?B?VkFXTkhhWU00ZzVzRkV2dzVjQ0R1c2pjODVvZ0Z3TkpxdkpPN1NTdWFRY1JJ?=
- =?utf-8?B?TG50bUJiMnFTTy9OTXdYOHNKanpMZjZVUDNNYmlKNFlQRkNFT0dWVFdZbks0?=
- =?utf-8?B?NDNKdTM4V24zWldXdW9QaHhSa095YUhVRlhIYm1wMldDdWFaYlg3NkJmMzNF?=
- =?utf-8?B?WXd2N2FnempLa2FnNzBiREgvNEtTVmoyYzN3dHZSeGdmOVZ6SXlzQU9TczZk?=
- =?utf-8?B?SW5IdDdwWDloRWNmUytrOVJJaU1GOHV6UVhpYjh4NTRlTm9mZ2cvUnVhR0pn?=
- =?utf-8?B?UVpJaXJOUEtEUzlYUkNOSXpoT1RPeWh2TXEreE9KdmgrUC9pVzZJdzBXdTFE?=
- =?utf-8?B?em1yRVEyeUZMZFFDNml3bVZFMzdGWDNhVTlHRHRRb3Q4VVAzMU8vMjVKZWtR?=
- =?utf-8?B?elFVMHUwS1I3bEtFUi9YdkZsRkdjVWgrUDl6NmVJcndzV0dGYWlSM0hNT1RO?=
- =?utf-8?B?NkxiZURsOVRCYXM5V0hsNmV4RW5DaWJGVXdpQmNmaW1ROFJkOVhXYmtKYVZz?=
- =?utf-8?B?aHNXaFJzUGdoVytBNVZsV29sRlZUWjRkMnAxcXIxenY5TzRZa2dFWFJFdkk4?=
- =?utf-8?B?VzZTN3puV2NzNDNDU3dyN2FZeFd1Y1h1M1RJZE9zOXN4N3ZsNHN6dG9yNVFl?=
- =?utf-8?B?a2pmdXpXanYvUkY2RzBFTDhXckZWL29JVXZXUXBiSW5PMGtJZStWS1ZsZXpX?=
- =?utf-8?B?b3BFeGhvWnJiNEM1YkdLT2s1TXRaRWJVWCt3aHNMTVMxRjN4byttcytqaTZY?=
- =?utf-8?B?M2cya2gyaytyNXpidHJjTVUxLzBhUC9CcWxjaXRrZTNJVTZvL0xsVXhvR1gv?=
- =?utf-8?B?SXdESGNlQWp4VmNXMGNzQU54UURkcmV5TUNCZ0FkM0NNMEtFMGRLeTZiMmhK?=
- =?utf-8?B?MmZsVmk2VFJsL0dYd3NyQ0lTRWhmUW8zY2g5aGZoSjBsLzdBbGw5dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnU5RzNWWEJJVWtpV2JuY2FyWUdVQXZmUGtISnV4UktXNSswQXhTZCtjUHVp?=
+ =?utf-8?B?K3VoWHJ4eWlVVm44L1Q5ZDRLK05uMGFad2RNQmVoYUVOek0rN3BrUi9JQkg4?=
+ =?utf-8?B?TnR1LzdWNlVJRy9CZEJEMWVsZFJMOHVMSS9lUlhLTXIrT3dSUEd3UnJFVm1s?=
+ =?utf-8?B?S3c2YUhwVWU5YUgxaVY5ZHdEczhIODQ1WGxuTnNveEZsdE5mTE8yQmhvU1pC?=
+ =?utf-8?B?K2w3L1hUZTZ1NGN1WkgvK1lJc01rNzlvWnBwSzlYL1JSNEtWRmRGbExUbks2?=
+ =?utf-8?B?SDJzY2tTN2dQajVhWXpMYzBjQ29xTExOUDB3Y0NkaWxkZ21TSUtiaXdKVUJh?=
+ =?utf-8?B?Tk5WSGE4YUYwYytucTBtYlQzQjhkeTdaN1lHTEtwK25STGYwSjd3Y0pCUHY1?=
+ =?utf-8?B?bkdzbkg5ZWVaSXBJVlhWcDBySkJkcWs4cVY2eHFacGtGYWc2S21JV2FtWG4x?=
+ =?utf-8?B?ZUFVckpNM2hLKzBJZzdWOHVZK1hoTSs4M0EvTjlvTHNybzdCLzh4eEM2OEJu?=
+ =?utf-8?B?YmJwKzNzclBYNHViSGgvL0J2TFBrdTdIdkZhSHl0OVRJNnR5UVFGNnMrRWFZ?=
+ =?utf-8?B?dGkzdTZueDJ1UjYrdit2Q3pKdm5OK08yMFdwY0xCbnQ1WGNWMzRPZnkxNWVS?=
+ =?utf-8?B?dnQxbTRVY1dnNzBMcW9kdElVRnA1anZ6ODJsR0RaVW1iMmxwWERvaHBjd29l?=
+ =?utf-8?B?TFg1R1JjSUkxZUVRWDl3YXVHbDFyaG8xQWRubnQ1Y0t5VDFTVVA3QWJZYWsw?=
+ =?utf-8?B?UUxuR2JKZlg1UHVYVEJDcDhrdldZT3p4Nlh6N0NyV1pXL3pyVmt0Nm42WWEw?=
+ =?utf-8?B?QjVOTHlmaXd1Wm5zZGpnZnlhQ3dNUDd3VXN1dDBQYW01dStFSXhMQ2lGR3h1?=
+ =?utf-8?B?NjI2ZG4vSjNYekhOeHRwRThqVmd3a3pMaTJScHpTWllvQXlzbHNORXFYYjJC?=
+ =?utf-8?B?MUU5eEZGbmFHeGx1bWRIbWswV2pCaUZzUjdtTVdzTTNwOS9nNG8wY0M2NWM2?=
+ =?utf-8?B?Q2Q4a1ZLZHhuVlFCL1V0ZUFjLzIxdytPVUpQTEdlb3VkVmFyODFHdENZeHpX?=
+ =?utf-8?B?UTBQS3RBK0F3NzlscVlpZjUxRHRGSU9LN0NLN2FPeWhKdHRGVkYzT1lVbURY?=
+ =?utf-8?B?Nm4rYXdMalRYMkdMZWdxVW44V20wMVdmUzJSUkxOZ1VVaGp4VDNqY1l5bDJO?=
+ =?utf-8?B?b3BObVl2ei9jQmhHaVd0Tit0SmhPbHp1ZkJJSzFMZVk2U1FXRDZESUJTL0ZO?=
+ =?utf-8?B?UnpnWjFoM0tsbzllUmRkYTFYUjZQL1F2cTY1elZBSWlPQnFLQWJBaGFyVzZq?=
+ =?utf-8?B?K0lZT1lxeExIKzNhRHNyOVp6cUtNVkFabkNRL0Yxdjh6ZVRSeEpwQ0Z0Zzlv?=
+ =?utf-8?B?cUszZFZBa3g2Q2lZcklzRHZCVW8yODEreE8zcUtOYkpxSU5OUFNSVFArcE90?=
+ =?utf-8?B?NnZEVGt0UCtFaStRYllnQS9SQnY2MEU3VVVoZzRsNE9BSUNvejVZSCtURVQ0?=
+ =?utf-8?B?dVlhWExwd3QySnpwczBqbTk1RTJyVjI2NVhCMmpGWWs5NkxNa2dXT3RWRzNj?=
+ =?utf-8?B?dnlEZlphR2puNzQ2NUZ1ZitnR1ptM0QrYzNtcjdHaVltajlvaVRIdnRDZ0pV?=
+ =?utf-8?B?cjhsYmpGYUx4TGl6eFAvV3hmb3lYdTE5cVZtQkdpL2ttL2xWMVJSenNGYnla?=
+ =?utf-8?B?VzZuemN4MmJTRFZPc29zK3ZTL1RoRnZvcXN2aXl1NThvZjluMFhwTTMwY2Fz?=
+ =?utf-8?B?b1Y4ZGplR01qZzJGOWJJMVBCdnZxRVdOSUpLVUd3c0p6YTluS0xIV3RjUy9N?=
+ =?utf-8?B?U1ZrZ1B2ek1zalVxRDliMHdIQUNEQjBLaGxtWnZDU3p6aWRYWnVaZ1FBcTBD?=
+ =?utf-8?B?WnJXMmZvWHlYVDdtUGp2bHEvYThSb1g5TmZRVUpjZnJpZFEvVUdRdmZvajFO?=
+ =?utf-8?B?S3ZtcFlzNktKeFVPNHE5MUE5TnJtbVczN0FPYXVsQ0crZ3RxZTJFSFBHWDlL?=
+ =?utf-8?B?c251YU53c3BuL0hTS0NyNndEMjRkdU1EV0grTGNHcTlqZXl5Zy9rL21uWmZt?=
+ =?utf-8?B?TWl2UnQ1YXF1OEg0MXdzNTNIczlOdEh6Ry9EckkvVXB3bVhPMzV0d2RYektW?=
+ =?utf-8?B?WU5nbzhXUEtxNXRvNGZlb2FvMGx0NjJKQkZCREttL1hSazZNb3RNVnNIMnlr?=
+ =?utf-8?B?L2ZMRnVlNHUxcTBxMFlIZ09VTXpRSFgzM3g3QS9NTzFkMTJoTzl3RENGNG5D?=
+ =?utf-8?B?czhHVlk1YTdyMTVNWUF4NU56ejMxeXY0K28wQ1dWb2NJWHlxVmZsUk5iK3dl?=
+ =?utf-8?B?S0htOXJxTlc0Tk83K29OdUxYRWsvYXdOaUg1NUVCVmdSdEVDd2hrdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a92a73b-b60b-463b-b6f2-08da47c6641c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62bb1b1a-28d3-4f07-17e8-08da47c67feb
 X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 14:11:03.7546 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 14:11:50.4681 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cEpqS42QvUgzTnCxDFktuMi3lGimgnAkhm2lPhzsyknIzWtnStCCgTaTqfTFjgju4wUsJDFpkPg6Av+VRtINIg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: lBGWa1LmrPlr1JdBgtGHCqqG8HTAJPEbRinxuF0B5SeinuW/mDqZSAkWsfT10FGmUqAkReO3jJ6gETFk3OBNFA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2502
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,7 +137,7 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2022-06-03 14:50, Rodrigo Siqueira wrote:
-> GCC throw warnings for the function dcn31_update_bw_bounding_box and
+> GCC throw warnings for the function dcn21_update_bw_bounding_box and
 > dcn316_update_bw_bounding_box due to its frame size that looks like
 > this:
 > 
@@ -155,118 +155,65 @@ Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Harry
 
 > ---
->  .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 58 +++++++++----------
->  1 file changed, 26 insertions(+), 32 deletions(-)
+>  .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 29 +++++++++----------
+>  1 file changed, 13 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-> index 54db2eca9e6b..ee898bc93fd5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-> @@ -574,7 +574,6 @@ void dcn31_calculate_wm_and_dlg_fp(
->  void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> index d9cc178f6980..c2fec0d85da4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> @@ -2004,7 +2004,6 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
 >  {
+>  	struct dcn21_resource_pool *pool = TO_DCN21_RES_POOL(dc->res_pool);
 >  	struct clk_limit_table *clk_table = &bw_params->clk_table;
 > -	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
->  	unsigned int i, closest_clk_lvl;
+>  	unsigned int i, closest_clk_lvl = 0, k = 0;
 >  	int j;
 >  
-> @@ -607,29 +606,27 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
->  				}
->  			}
+> @@ -2017,7 +2016,7 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+>  	ASSERT(clk_table->num_entries);
+>  	/* Copy dcn2_1_soc.clock_limits to clock_limits to avoid copying over null states later */
+>  	for (i = 0; i < dcn2_1_soc.num_states + 1; i++) {
+> -		clock_limits[i] = dcn2_1_soc.clock_limits[i];
+> +		dcn2_1_soc.clock_limits[i] = dcn2_1_soc.clock_limits[i];
+>  	}
 >  
-> -			clock_limits[i].state = i;
-> +			dcn3_1_soc.clock_limits[i].state = i;
+>  	for (i = 0; i < clk_table->num_entries; i++) {
+> @@ -2033,24 +2032,22 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+>  		if (i == 1)
+>  			k++;
 >  
->  			/* Clocks dependent on voltage level. */
-> -			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-> -			clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> -			clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> -			clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
-> +			dcn3_1_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
+> -		clock_limits[k].state = k;
+> -		clock_limits[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+> -		clock_limits[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+> -		clock_limits[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
+> -		clock_limits[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
+> +		dcn2_1_soc.clock_limits[k].state = k;
+> +		dcn2_1_soc.clock_limits[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
 >  
->  			/* Clocks independent of voltage level. */
-> -			clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
-> +			dcn3_1_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
->  				dcn3_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+> -		clock_limits[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+> -		clock_limits[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+> -		clock_limits[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+> -		clock_limits[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+> -		clock_limits[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+> -		clock_limits[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+> -		clock_limits[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+> +		dcn2_1_soc.clock_limits[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+> +		dcn2_1_soc.clock_limits[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+> +		dcn2_1_soc.clock_limits[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
 >  
-> -			clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
-> +			dcn3_1_soc.clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
->  				dcn3_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
->  
-> -			clock_limits[i].dram_bw_per_chan_gbps = dcn3_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> -			clock_limits[i].dscclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> -			clock_limits[i].dtbclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> -			clock_limits[i].phyclk_d18_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> -			clock_limits[i].phyclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].dram_bw_per_chan_gbps = dcn3_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> +			dcn3_1_soc.clock_limits[i].dscclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].dtbclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> +			dcn3_1_soc.clock_limits[i].phyclk_d18_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> +			dcn3_1_soc.clock_limits[i].phyclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
->  		}
-> -		for (i = 0; i < clk_table->num_entries; i++)
-> -			dcn3_1_soc.clock_limits[i] = clock_limits[i];
->  		if (clk_table->num_entries) {
->  			dcn3_1_soc.num_states = clk_table->num_entries;
->  		}
-> @@ -701,7 +698,6 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
->  void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
->  {
->  	struct clk_limit_table *clk_table = &bw_params->clk_table;
-> -	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
->  	unsigned int i, closest_clk_lvl;
->  	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
->  	int j;
-> @@ -739,34 +735,32 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
->  				closest_clk_lvl = dcn3_16_soc.num_states - 1;
->  			}
->  
-> -			clock_limits[i].state = i;
-> +			dcn3_16_soc.clock_limits[i].state = i;
->  
->  			/* Clocks dependent on voltage level. */
-> -			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
->  			if (clk_table->num_entries == 1 &&
-> -				clock_limits[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
-> +				dcn3_16_soc.clock_limits[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
->  				/*SMU fix not released yet*/
-> -				clock_limits[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
-> +				dcn3_16_soc.clock_limits[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
->  			}
-> -			clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> -			clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> -			clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
-> +			dcn3_16_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
->  
->  			/* Clocks independent of voltage level. */
-> -			clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
-> +			dcn3_16_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
->  				dcn3_16_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
->  
-> -			clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
-> +			dcn3_16_soc.clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
->  				dcn3_16_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
->  
-> -			clock_limits[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> -			clock_limits[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> -			clock_limits[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> -			clock_limits[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> -			clock_limits[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-> +			dcn3_16_soc.clock_limits[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-> +			dcn3_16_soc.clock_limits[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-> +			dcn3_16_soc.clock_limits[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
->  		}
-> -		for (i = 0; i < clk_table->num_entries; i++)
-> -			dcn3_16_soc.clock_limits[i] = clock_limits[i];
->  		if (clk_table->num_entries) {
->  			dcn3_16_soc.num_states = clk_table->num_entries;
->  		}
+>  		k++;
+>  	}
+> -	for (i = 0; i < clk_table->num_entries + 1; i++)
+> -		dcn2_1_soc.clock_limits[i] = clock_limits[i];
+>  	if (clk_table->num_entries) {
+>  		dcn2_1_soc.num_states = clk_table->num_entries + 1;
+>  		/* fill in min DF PState */
 
