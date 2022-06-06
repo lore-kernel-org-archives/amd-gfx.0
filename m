@@ -4,120 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7093EC43334
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 20:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EEFACCA473
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jun 2022 21:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 092F010EBB0;
-	Mon,  6 Jun 2022 20:22:57 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACCFF10EBB0
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 20:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4D810F09E;
+	Mon,  6 Jun 2022 21:04:49 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2080.outbound.protection.outlook.com [40.107.96.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CFA710F8A5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jun 2022 21:04:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lFiTqYMBohbmJD4pu6TxVMvMXBru7+6jFrmE+AfBP2wdi4VMUShNOu1JUXWpXkTcmL9zWzlY+cCYH7E/i9ysJvhLIin4BC8TDVOON2XAx7AVShrPiwcp5szW8+XR8Fz8mWOyvSrLvnrtzxpv50tJ8IwUSaZTfW5ObYtKSE17J6HhL5eRepPsN6r4gUjQlW4THRuZGin87he3WzfGUSxpNe+AXpZpQlPfifdiZMT4mTndPdWrbgPowF1rtSTG4cOaJaUgibAV0v52f2KTo1/0kemokznuu0Tltc/fss7FrVFCfNOxouXnX77yh1QeIcNQxn7Cbqr+hNjzBLbnJFje0A==
+ b=nL8drb1Fqemrra6Be9e+Tvwww9MTkDlzji55SkDfdZ8BAGYNUDXt4a7ZOmxBp4La2uUuoqh6vAAYrVXyFeUGAeK+ucf7oYvG7scKE//pWJGTsS4ip6tGHYMN/0UxyzDUkoo0dOP4xW3J45D9DDc56uAbKdNBN3BkvziZG0kvW3kmUYByl5k2uMTgYwP2JJIwyg26fbGvTwpVKz9QpTALXmdygtLWt2ihSRcwxvWJ3b9FfWqSarT9IYVsTzF/HopPtgUyF+/Ewnnyccgy8cAXpmqSqGdi89N3S3oocTu33kYx5DecqQSEzyamjwUnOnc9l7C7ULSkkABJr5fnwT5iKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cR2GklQNokPDNlSKhnxZ0t3O8fMWhAdBI3bWv4DQwkQ=;
- b=IbJvGjTXZRmHhsD3Q1VdNJtK4RETWgDoRZHN8qmvNkO8GXIFybYtrg9q4me2iUEgKoKpfEzbGOL8BQrD9pVLcFozSuB6UStxK8hlnjvsC8V4JF0pqhtYHKfCc1cYDlOFAsdDLU96wmi0hwxtKFzpOLs+yy7O1k1y++SzR197vhKacgM0//ja+LeK9WFA6IntmEmKmqR2ffkKsxBRsBS95cgQxffYAVevQIR/y0PGnoQveZBouxQYeOyblXZLoHmr1H/wyKoXwZGpii9skF9IEUpL22hluF9lxDphpvQgrJqIhhZdgHeMlHjQdTMd34f9BvMwJ4UK79mmfJf57OZLeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=u4OQc8tgbBxfOKwQv2EB06NI7VjqAk/Rs/Fx0d7c/9I=;
+ b=dXpxF5+iNnoZjTmHNv13FvuCc/oOMWCtaQODqCgeoI8yaeqj3wc0pgA5QVTbf5fnav1dh/PePt2+2OKhGAFvdU/j5BRImIPHodbSsZZWDAm1S/BSVwgUJKHeWsF6+yXcj0egqXzju0gVsQuccZ0GyOqN6T+9TS0rCaIWYkY6LTOnWAtk8xJb6tGYxofi/2nRdbDOnTjFPD6ofpObpLsC1MU5mOlsnRboAZWEYWAIyevCb44+rKOaNf2UttlOflOmMx30stOezUoTYN6Vy2mkXNZcGE2AqmeWpTwonLCLKq+CKxnFZfApYRTvHFEEYzO5PR3YWABRizpg9mPfcQ63+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cR2GklQNokPDNlSKhnxZ0t3O8fMWhAdBI3bWv4DQwkQ=;
- b=oAWFxl9E3LsAHDWfsNYA2IPOAW3LM/xx0BawxZxhgDDJi0RsrWATxbFFF2gWq7d7S6IHkmhdd1xT7QenmgJDpGT2kATGWeIdoNSkb7xj8l9gummqzhMVj7XDV8rMoj5t23xFa8bs6eFBzaMzp+GmlpqVqcwXlQLeRAUWqmiDB8o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14)
+ bh=u4OQc8tgbBxfOKwQv2EB06NI7VjqAk/Rs/Fx0d7c/9I=;
+ b=ANw4DPlZ3+pAYPjTi8g2tglVXMMhJG4vHTvK6XqsxL9ZDoAWGmh9m2i9v4O8E6dXnb+skk3731BOgQpKnDWuq+B/UM7uHHYMG8vHfrv8Xp1nnOCbvRMyiogEC6ltQFn/kxY+vqqp2DB/MToQ6CGjBJ9NQH+ol8Yp85uyWoR3HLM=
+Received: from BN9PR03CA0036.namprd03.prod.outlook.com (2603:10b6:408:fb::11)
+ by BN8PR12MB2851.namprd12.prod.outlook.com (2603:10b6:408:9f::27)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Mon, 6 Jun
- 2022 20:22:53 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
- 20:22:52 +0000
-Message-ID: <700776c9-4ed2-9ac4-50c0-1f261a6a7678@amd.com>
-Date: Mon, 6 Jun 2022 16:22:50 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 2/3] drm/amdgpu: Add peer-to-peer support among PCIe
- connected AMD GPUs
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220606180742.3313561-1-Ramesh.Errabolu@amd.com>
- <650bb659-e29c-d0af-b104-5897d6c3ac03@amd.com>
-In-Reply-To: <650bb659-e29c-d0af-b104-5897d6c3ac03@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0126.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::35) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Mon, 6 Jun
+ 2022 21:04:44 +0000
+Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fb:cafe::69) by BN9PR03CA0036.outlook.office365.com
+ (2603:10b6:408:fb::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.14 via Frontend
+ Transport; Mon, 6 Jun 2022 21:04:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5314.12 via Frontend Transport; Mon, 6 Jun 2022 21:04:44 +0000
+Received: from jgreatho-ryzen-vega20-01.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Mon, 6 Jun 2022 16:04:43 -0500
+From: Joseph Greathouse <Joseph.Greathouse@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] umr: print MODE register as part of wave state
+Date: Mon, 6 Jun 2022 16:04:32 -0500
+Message-ID: <20220606210432.116508-1-Joseph.Greathouse@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e6806486-e89a-4fcc-3939-08da47fa54dc
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4289:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4289A338681864046E73997592A29@BY5PR12MB4289.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 46582c55-a444-4a8c-2161-08da48002e7e
+X-MS-TrafficTypeDiagnostic: BN8PR12MB2851:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB2851D45DB28113F51DFEBE74F9A29@BN8PR12MB2851.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6uVLn6SeMLucfWFVLpzrATab44AJjYJCIaA8OleAzVXR+ifZI5lsR4HBhG3icBlFY92kLPZEtrDyrvquWl47Htm4EfjgbbHJWspL2BnKqVJByPVdX1HGYAw++NYFzKFx6nWTS1H2I0p5BUI5Z5zTrcT4xZ1vgIiP3nIoslzaPJehNjq+Qc9sbaVuJLwnzGJDCA2UbYrp6z/oDfhmGBnb/uGag1lisjVLrUJswekQzt2HuDMu/BSY00T7f4q++cFXO7enebUNw6Dgu4YLBrudeUAMyItSEei0LOPb1UXbW3RChqfpbzyqFBozLBHPusSoUlynVHVQspZi7tIyBRdMAQ4Cw6IjliTrZLmxorYjhKU1l8FBnoOYeTLg+O7wRxyYlhFqpZvtyw5J5S6qp1CHcK/HWV+5veKbCUGHxggq1kNSqy6Cdm4+OICk8fupP6CKG+6BJp1Q6eT4Mm5b/8G0znfozZiG9lASops6dNX/qAAvnpizBLjdAStZoKodOX8l5RWxM0lNgoCVOfMpqY3e5bdf25/v8OsMJY1XkoNUJzn/YUbmTJ4VD/MjD4WkT9H023NFejpnDWxhuDL095+b26MoUQe2tfFKp3VoqOXlMY4COqpPMnrr+p62T/LJMG405QdbHG4rLjW7O+Ms6qPATA7ePo53l7B/SbeRqKVpEDnQ/dpi4nlABFhV+ZPxxXMMDqRCdyLqeRLwEBQnUVhki0P/9fGYOteJMz7lD3lB5XBCJ3RNxbsGhCSBiB+4shOu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(66476007)(38100700002)(31686004)(31696002)(66946007)(8676002)(36756003)(2906002)(5660300002)(44832011)(508600001)(26005)(8936002)(6486002)(2616005)(316002)(83380400001)(6506007)(6512007)(86362001)(186003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: GyFJ6tu1bUi6PUwBlwEM4bHmErR9F7z+2lwLcSQ+e4i0nKtXnAB7PKO9+azbfB8bq5Mw3rZdMmvDELNP+scPRwWqLNXkQAINsQRc3O1dQSwg5kOy6QI7LCWuUR6dn3U/STBcBbsZ2e6PeK1PauthrLDh2uAvZ1FY8x3PWdGiqIu8Z/wZGXHqmBPHqf1bW/neiPFR6DVcuEk+QfU6BniCfIYSUECakNKcOmQQGt/pc5C2noD13zSAa+EaVWZqov5jtAhrB0KP4IM+ZyVK91HWCKAsVlu3t5ef89RuXCLT7C5WVOaMPRl8b47fmyNdKSt8aG+t2e/10Fpj8fXZeXh1hwUBaZgK8E6mFfjLkGxK6PDBQeYjmBgAb73RVlQIi8nhNYz1Bl78N6RY2RMingEZr36KNojROFpJTNAnzFXimqZiLzKc/o7DJKZbE8sQxP1vcto21SLJWHjk/Skr1CNGmxY6RzjCbf2oJG4Ajjj0EoUUGG6GkB5bOEDtNrHHESsG3N89a3SZ70HkC5GvGBId95bW0Tu28Wju8u4o7y8M3E8XTYydovPHigOSYtWLxnbBdP2dRJ8MEs4bNduMqtY1aPFReKAziepqrZvUIX5uOZ9VFZCDAWjhX9Jqp7L8c8VsTKZK5sZbX8O+tlpjrnZlo0Se1wmaQ0d0mFLqFaGa3tB4IUU4flj40lTs+zdZJj0yqOYKkQNCP/MfStSoCwH/ng==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36756003)(508600001)(1076003)(8936002)(54906003)(4326008)(81166007)(5660300002)(7696005)(26005)(2616005)(6666004)(82310400005)(426003)(336012)(47076005)(6916009)(83380400001)(186003)(36860700001)(16526019)(316002)(2906002)(86362001)(70586007)(8676002)(70206006)(40460700003)(30864003)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTRFUWdmN0Z3QUo4S3hDaWFzVmxkSzVVVkFSOTMvYXQ1OEplby9LRkNGc0th?=
- =?utf-8?B?L1lmdGc4aFRmaHlZVUNJRndEYkQxWU1ueUZ1YXdKSE1oOGtxeTRjYnduWlBT?=
- =?utf-8?B?RWNoVGFYYkZjMEM2dEFVNUx3ZUJsOFh4YnNKdC9mWnFDciszVnRJVlY2K2dM?=
- =?utf-8?B?anlldEJ5ZkRrOXhxSGR1VjlJeENQMUttOTJHL2sydjFzcEVsSTBjZzFNSXpy?=
- =?utf-8?B?ancreVc0Z256L05YMlNnN2JCWTJVOTlrL2lGdnl2amVOT25KbGRWZHU0WGwr?=
- =?utf-8?B?dnkraldnZ2p3QzNrRzBoTjBHYzlVRnJjRDd2VGpjVHR5YVVDOTN4dGlVbWhP?=
- =?utf-8?B?RC96d1RXcG1RSWpsMDJFRkhRTkpCZHM3RThYUzdSeExpdS9nSXlySHF2Z1dY?=
- =?utf-8?B?dklFcEowdXc4V1k1UGQ5MDhIM3RyWkxjTFJqdktyME1vdEl0cG8wSFZwcVBv?=
- =?utf-8?B?ZDhMaVE3eFFTS3dWcGpMMFVRZ3BSclBqQ1BQY2pMQ015TTdubmFDQ1JMb1lu?=
- =?utf-8?B?MTI3UE85bGt1S2FSTkZ5eW1pUkhnU3E2dWtaaTIvVitBODh4MVc3QmpaMGNN?=
- =?utf-8?B?NncwR1pEbFp1cGNZSXpmdVVtR3d2TjBORU9NWjlndUU0dGVhellvekpDYVZR?=
- =?utf-8?B?TGIvbGpveGNWdi9TY3BDNXdMbWVjZWtyRCtmb3VYMHgvZWJ4MGt5QzBad2Zv?=
- =?utf-8?B?MmU2cXRvV2ljY3pETUV4UzdTeWxMYUIxMEZyRmN4LzR1Uk8ycXUwTVAzMTRU?=
- =?utf-8?B?NDBKRDhOTFF6akRrN2lLYk9PZ3ZDTGxSSmpyRWFja3F4UWdKcXZVT3BLMlBw?=
- =?utf-8?B?TCtkWWMzTjBMQlFTdVJIc3F3cEgyZCszTmFXajRtZC9QL0lnVkliY05ydyt0?=
- =?utf-8?B?V2s0b2dhaUZGaWJXVlNuN3pOMjNTNmdZWHdjZ3JiSUFOcVdhY2IyN25NaFJI?=
- =?utf-8?B?TU1aaDNkdUc3MzZsdEs2RGRzblptVFkzWnFLTDJmcjZiMHpoa3FncitXSnFS?=
- =?utf-8?B?M2RhNnJuOTEySWFUV2h2S3dCendVK3dsUWU0UmNKbkJoMUhKYUliOFlEV1Vq?=
- =?utf-8?B?MzMrbitGMUJIcUVVdDA0Y2NHMEFMUnJ4c3RadDZLekNPQjJtdVpUaG53V3A5?=
- =?utf-8?B?NDdYSmNlOExwL0dyR2E3b2gvdmZteThRc1pNZTlFVGpZRmN3SmFzUUVnQ1Iz?=
- =?utf-8?B?MkkrUCtVaCtPTkxoQTBFME9rYjVxQ0FpM0hvYjdBWE9IMmVPYkdCajRKZlFP?=
- =?utf-8?B?UTZCcVJaRUlFRXF1cG1vcDNNc0VWYTVFVWVnSW1EWUZZdlR2TkhZVTFaS2Nh?=
- =?utf-8?B?KzJzMW1RNjE5UHFHYmJQYllad3RITDdMa0FGRnRpZXFzQ2t1UTdQajFQTWJZ?=
- =?utf-8?B?a253V1pzd2haWmhsUUMwcVBCRWc2elNnVUFtb1dGb1VpUXRKWGdmOGt5eTF0?=
- =?utf-8?B?TGtZWlJyV2lNcW1pUG05OTRrRHN5cjR3V3BkVHB2UGZxcVBDcWRKYUZ6cnIy?=
- =?utf-8?B?dWpmR2U0RHVoYzlzSFNDN28zUVZvb3NDMDQ2VnRtdVRtZWxhcFlxTnNmaXJq?=
- =?utf-8?B?b1B2ZTE0TGwwTDUvUXZqOUpzN2tmdVNuWFlUM1hrWEpycTJ2RUdCMzRqNXRQ?=
- =?utf-8?B?d1RKK1ZqMi9Tbkl5eW1nTG54Ui9wbmRGRE9sU2hkQVBITnRnTkszcFFvZFh1?=
- =?utf-8?B?c1RSRlBvbStiUVB5MmhXd0lZUXgrWHVoZ3orNXlkRkpCUUxXK3Rjci9qdEtv?=
- =?utf-8?B?MERMb0JPaWRvTStRMld4dTI3c0huUnc0czNleldsRXA2bDNvY0RWZ01LR0tw?=
- =?utf-8?B?WldhNmZwekdCZjVPMXUxZTdvQzVFYWRvM1JxMGRNeFNzdVpBeTVqWlk3VDlO?=
- =?utf-8?B?YnpabmExb1VMMVF6WWtRd2JCNWhDdzVmTDBodnpGbE5rNUNaSThKYlNzVnVV?=
- =?utf-8?B?NDBoZzFxRXROYmhaU3RvWm5TclJBWUpSek1uR2NBb2dQU04rbWdoRXJ2UDY3?=
- =?utf-8?B?d0pmUHlybjZoKytOZlhETlI5c1BkN1F1dlFMbjQ0a2xqWm9KempaL3pHbkl0?=
- =?utf-8?B?MEs0SC9QNm9lNG54dkRNeWVaNVFVeHVQZUZNaVNFaXA4MjdmdXJSemtRa0pZ?=
- =?utf-8?B?M1k5MDRIOURvN2ZnR1F1QWoxNTdpRlo0M2RRMGMyemV2aCtKTlJnS3dHck93?=
- =?utf-8?B?TWcrRHBrdEhsNERTZ2RNckZDam96TnU2QmIzbHNtRmNOWWdEbXk3SWRyMEVs?=
- =?utf-8?B?VThoblR2SW51dSszNVMvZ1VUd3JNQjVVMEkrcDRCYlhsMUZDTFhUUWtOVjBR?=
- =?utf-8?B?ZnZWeEN1aEdqWmZReitRZTRRQjBXdGdiMmExMm50QnhxdXN4ampGdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6806486-e89a-4fcc-3939-08da47fa54dc
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 20:22:51.9023 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 21:04:44.2783 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46582c55-a444-4a8c-2161-08da48002e7e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ea3QuIX1YM8HDAVhE7xOLtCmlB3o+unnUciRau8+BaPr1XyYRL+ZSJbtJRIoYLLBN1a/DWjCZCk0aqwhGiSnqA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2851
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,107 +98,232 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tom.StDenis@amd.com, Joseph Greathouse <Joseph.Greathouse@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The MODE register contains detailed per-wave information, but UMR
+skipped printing it. This patch adds the ability to print each wave's
+MODE register as part of the wave scan operation, and prints the MODE
+register's sub-fields as part of the deeper print option.
 
-Am 2022-06-06 um 16:04 schrieb Felix Kuehling:
-> Am 2022-06-06 um 14:07 schrieb Ramesh Errabolu:
->> Add support for peer-to-peer communication among AMD GPUs over PCIe
->> bus. Support REQUIRES enablement of config HSA_AMD_P2P.
->>
->> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
->
-> Sorry, one more nit-pick inline. With that fixed, the patch is
->
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+---
+ src/app/print_waves.c | 41 ++++++++++++++++++++++++++++++++++------
+ src/lib/scan_waves.c  | 44 +++++++++++++++++++++++++++++++++++++++++++
+ src/umr.h             | 19 +++++++++++++++++++
+ 3 files changed, 98 insertions(+), 6 deletions(-)
 
-Really inline now ...
+diff --git a/src/app/print_waves.c b/src/app/print_waves.c
+index 07dae2d..daedc24 100644
+--- a/src/app/print_waves.c
++++ b/src/app/print_waves.c
+@@ -91,7 +91,7 @@ static void umr_print_waves_si_ai(struct umr_asic *asic)
+ 		if (!asic->options.bitfields && first) {
+ 			static const char* titles[] = {
+ 				"WAVE_STATUS", "PC_HI", "PC_LO", "INST_DW0", "INST_DW1", "EXEC_HI", "EXEC_LO", "HW_ID", "GPRALLOC",
+-				"LDSALLOC", "TRAPSTS", "IBSTS", "TBA_HI", "TBA_LO", "TMA_HI", "TMA_LO", "IB_DBG0", "M0", NULL
++				"LDSALLOC", "TRAPSTS", "IBSTS", "TBA_HI", "TBA_LO", "TMA_HI", "TMA_LO", "IB_DBG0", "M0", "MODE", NULL
+ 			};
+ 			first = 0;
+ 			printf("SE SH CU SIMD WAVE# ");
+@@ -106,13 +106,13 @@ static void umr_print_waves_si_ai(struct umr_asic *asic)
+ "   %08lx %08lx %08lx " // wave_status pc/hi/lo
+ "%08lx %08lx %08lx %08lx " // inst0/1 exec hi/lo
+ "%08lx %08lx %08lx %08lx %08lx " // HW_ID GPR/LDSALLOC TRAP/IB STS
+-"%08lx %08lx %08lx %08lx %08lx %08lx " // TBA_HI TBA_LO TMA_HI TMA_LO IB_DBG0 M0\n");
++"%08lx %08lx %08lx %08lx %08lx %08lx %08lx " // TBA_HI TBA_LO TMA_HI TMA_LO IB_DBG0 M0 MODE\n");
+ "\n",
+ (unsigned)wd->se, (unsigned)wd->sh, (unsigned)wd->cu, (unsigned)wd->ws.hw_id.simd_id, (unsigned)wd->ws.hw_id.wave_id,
+ (unsigned long)wd->ws.wave_status.value, (unsigned long)wd->ws.pc_hi, (unsigned long)wd->ws.pc_lo,
+ (unsigned long)wd->ws.wave_inst_dw0, (unsigned long)wd->ws.wave_inst_dw1, (unsigned long)wd->ws.exec_hi, (unsigned long)wd->ws.exec_lo,
+ (unsigned long)wd->ws.hw_id.value, (unsigned long)wd->ws.gpr_alloc.value, (unsigned long)wd->ws.lds_alloc.value, (unsigned long)wd->ws.trapsts.value, (unsigned long)wd->ws.ib_sts.value,
+-(unsigned long)wd->ws.tba_hi, (unsigned long)wd->ws.tba_lo, (unsigned long)wd->ws.tma_hi, (unsigned long)wd->ws.tma_lo, (unsigned long)wd->ws.ib_dbg0, (unsigned long)wd->ws.m0
++(unsigned long)wd->ws.tba_hi, (unsigned long)wd->ws.tba_lo, (unsigned long)wd->ws.tma_hi, (unsigned long)wd->ws.tma_lo, (unsigned long)wd->ws.ib_dbg0, (unsigned long)wd->ws.m0, (unsigned long)wd->ws.mode.value
+ );
+ 			if (wd->ws.wave_status.halt || wd->ws.wave_status.fatal_halt) {
+ 				for (x = 0; x < ((wd->ws.gpr_alloc.sgpr_size + 1) << shift); x += 4)
+@@ -318,6 +318,24 @@ static void umr_print_waves_si_ai(struct umr_asic *asic)
+ 			PP(trapsts, excp_cycle);
+ 			PP(trapsts, dp_rate);
+ 
++			Hv("MODE", wd->ws.mode.value);
++			PP(mode, fp_round);
++			PP(mode, fp_denorm);
++			PP(mode, dx10_clamp);
++			PP(mode, ieee);
++			PP(mode, lod_clamped);
++			PP(mode, debug_en);
++			PP(mode, excp_en);
++			if (asic->family > FAMILY_VI)
++				PP(mode, fp16_ovfl);
++			PP(mode, pops_packer0);
++			PP(mode, pops_packer1);
++			if (asic->family > FAMILY_VI)
++				PP(mode, disable_perf);
++			PP(mode, gpr_idx_en);
++			PP(mode, vskip);
++			PP(mode, csp);
++
+ 			printf("\n"); col = 0;
+ 		}
+ 		wd = wd->next;
+@@ -393,7 +411,7 @@ static void umr_print_waves_nv(struct umr_asic *asic)
+ 	while (wd) {
+ 		if (!asic->options.bitfields && first) {
+ 			static const char* titles[] = {
+-				"WAVE_STATUS", "PC_HI", "PC_LO", "INST_DW0", "EXEC_HI", "EXEC_LO", "HW_ID1", "HW_ID2", "GPRALLOC", "LDSALLOC", "TRAPSTS", "IBSTS1", "IBSTS2", "IB_DBG1", "M0", NULL
++				"WAVE_STATUS", "PC_HI", "PC_LO", "INST_DW0", "EXEC_HI", "EXEC_LO", "HW_ID1", "HW_ID2", "GPRALLOC", "LDSALLOC", "TRAPSTS", "IBSTS1", "IBSTS2", "IB_DBG1", "M0", "MODE", NULL
+ 			};
+ 			first = 0;
+ 			printf("SE SA WGP SIMD WAVE# ");
+@@ -408,13 +426,13 @@ static void umr_print_waves_nv(struct umr_asic *asic)
+ "   %08lx %08lx %08lx " // wave_status pc/hi/lo
+ "%08lx %08lx %08lx " // inst0 exec hi/lo
+ "%08lx %08lx %08lx %08lx %08lx %08lx %08lx " // HW_ID1 HW_ID2 GPR/LDSALLOC TRAP/IB STS
+-"%08lx %08lx " // IB_DBG1 M0\n");
++"%08lx %08lx %08lx " // IB_DBG1 M0 MODE\n");
+ "\n",
+ (unsigned)wd->se, (unsigned)wd->sh, (unsigned)wd->cu, (unsigned)wd->ws.hw_id1.simd_id, (unsigned)wd->ws.hw_id1.wave_id, // TODO: wgp printed out won't match geometry for now w.r.t. to SPI
+ (unsigned long)wd->ws.wave_status.value, (unsigned long)wd->ws.pc_hi, (unsigned long)wd->ws.pc_lo,
+ (unsigned long)wd->ws.wave_inst_dw0, (unsigned long)wd->ws.exec_hi, (unsigned long)wd->ws.exec_lo,
+ (unsigned long)wd->ws.hw_id1.value, (unsigned long)wd->ws.hw_id2.value, (unsigned long)wd->ws.gpr_alloc.value, (unsigned long)wd->ws.lds_alloc.value, (unsigned long)wd->ws.trapsts.value,
+-(unsigned long)wd->ws.ib_sts.value, (unsigned long)wd->ws.ib_sts2.value, (unsigned long)wd->ws.ib_dbg1, (unsigned long)wd->ws.m0);
++(unsigned long)wd->ws.ib_sts.value, (unsigned long)wd->ws.ib_sts2.value, (unsigned long)wd->ws.ib_dbg1, (unsigned long)wd->ws.m0, (unsigned long)wd->ws.mode.value);
+ 			if (wd->ws.wave_status.halt || wd->ws.wave_status.fatal_halt) {
+ 				for (x = 0; x < 112; x += 4)
+ 					printf(">SGPRS[%u..%u] = { %08lx, %08lx, %08lx, %08lx }\n",
+@@ -627,6 +645,17 @@ static void umr_print_waves_nv(struct umr_asic *asic)
+ 			PP(trapsts, excp_group_mask);
+ 			PP(trapsts, utc_error);
+ 
++			Hv("MODE", wd->ws.mode.value);
++			PP(mode, fp_round);
++			PP(mode, fp_denorm);
++			PP(mode, dx10_clamp);
++			PP(mode, ieee);
++			PP(mode, lod_clamped);
++			PP(mode, debug_en);
++			PP(mode, excp_en);
++			PP(mode, fp16_ovfl);
++			PP(mode, disable_perf);
++
+ 			printf("\n"); col = 0;
+ 		}
+ 		wd = wd->next;
+diff --git a/src/lib/scan_waves.c b/src/lib/scan_waves.c
+index dae858e..71e595f 100644
+--- a/src/lib/scan_waves.c
++++ b/src/lib/scan_waves.c
+@@ -139,6 +139,7 @@ int umr_read_wave_status_via_mmio_gfx8_9(struct umr_asic *asic, uint32_t simd, u
+ 	}
+ 	dst[(*no_fields)++] = wave_read_ind(asic, simd, wave, umr_find_reg_data(asic, "ixSQ_WAVE_IB_DBG0")->addr);
+ 	dst[(*no_fields)++] = wave_read_ind(asic, simd, wave, umr_find_reg_data(asic, "ixSQ_WAVE_M0")->addr);
++	dst[(*no_fields)++] = wave_read_ind(asic, simd, wave, umr_find_reg_data(asic, "ixSQ_WAVE_MODE")->addr);
+ 
+ 	return 0;
+ }
+@@ -163,6 +164,7 @@ int umr_read_wave_status_via_mmio_gfx10(struct umr_asic *asic, uint32_t wave, ui
+ 	dst[(*no_fields)++] = wave_read_ind_nv(asic, wave, umr_find_reg_data(asic, "ixSQ_WAVE_IB_STS2")->addr);
+ 	dst[(*no_fields)++] = wave_read_ind_nv(asic, wave, umr_find_reg_data(asic, "ixSQ_WAVE_IB_DBG1")->addr);
+ 	dst[(*no_fields)++] = wave_read_ind_nv(asic, wave, umr_find_reg_data(asic, "ixSQ_WAVE_M0")->addr);
++	dst[(*no_fields)++] = wave_read_ind_nv(asic, wave, umr_find_reg_data(asic, "ixSQ_WAVE_MODE")->addr);
+ 
+ 	return 0;
+ }
+@@ -258,6 +260,19 @@ static int umr_parse_wave_data_gfx_8(struct umr_asic *asic, struct umr_wave_stat
+ 	ws->tma_hi = buf[x++];
+ 	ws->ib_dbg0 = buf[x++];
+ 	ws->m0 = buf[x++];
++
++	ws->mode.value = value = buf[x++];
++		reg = umr_find_reg_data(asic, "ixSQ_WAVE_MODE");
++		ws->mode.fp_round = umr_bitslice_reg(asic, reg, "FP_ROUND", value);
++		ws->mode.fp_denorm = umr_bitslice_reg(asic, reg, "FP_DENORM", value);
++		ws->mode.dx10_clamp = umr_bitslice_reg(asic, reg, "DX10_CLAMP", value);
++		ws->mode.ieee = umr_bitslice_reg(asic, reg, "IEEE", value);
++		ws->mode.lod_clamped = umr_bitslice_reg(asic, reg, "LOD_CLAMPED", value);
++		ws->mode.debug_en = umr_bitslice_reg(asic, reg, "DEBUG_EN", value);
++		ws->mode.excp_en = umr_bitslice_reg(asic, reg, "EXCP_EN", value);
++		ws->mode.gpr_idx_en = umr_bitslice_reg(asic, reg, "GPR_IDX_EN", value);
++		ws->mode.vskip = umr_bitslice_reg(asic, reg, "VSKIP", value);
++		ws->mode.csp = umr_bitslice_reg(asic, reg, "CSP", value);
+ 	return 0;
+ }
+ 
+@@ -348,6 +363,23 @@ static int umr_parse_wave_data_gfx_9(struct umr_asic *asic, struct umr_wave_stat
+ 
+ 	ws->ib_dbg0 = buf[x++];
+ 	ws->m0 = buf[x++];
++
++	ws->mode.value = value = buf[x++];
++		reg = umr_find_reg_data(asic, "ixSQ_WAVE_MODE");
++		ws->mode.fp_round = umr_bitslice_reg(asic, reg, "FP_ROUND", value);
++		ws->mode.fp_denorm = umr_bitslice_reg(asic, reg, "FP_DENORM", value);
++		ws->mode.dx10_clamp = umr_bitslice_reg(asic, reg, "DX10_CLAMP", value);
++		ws->mode.ieee = umr_bitslice_reg(asic, reg, "IEEE", value);
++		ws->mode.lod_clamped = umr_bitslice_reg(asic, reg, "LOD_CLAMPED", value);
++		ws->mode.debug_en = umr_bitslice_reg(asic, reg, "DEBUG_EN", value);
++		ws->mode.excp_en = umr_bitslice_reg(asic, reg, "EXCP_EN", value);
++		ws->mode.fp16_ovfl = umr_bitslice_reg(asic, reg, "FP16_OVFL", value);
++		ws->mode.pops_packer0 = umr_bitslice_reg(asic, reg, "POPS_PACKER0", value);
++		ws->mode.pops_packer1 = umr_bitslice_reg(asic, reg, "POPS_PACKER1", value);
++		ws->mode.disable_perf = umr_bitslice_reg(asic, reg, "DISABLE_PERF", value);
++		ws->mode.gpr_idx_en = umr_bitslice_reg(asic, reg, "GPR_IDX_EN", value);
++		ws->mode.vskip = umr_bitslice_reg(asic, reg, "VSKIP", value);
++		ws->mode.csp = umr_bitslice_reg(asic, reg, "CSP", value);
+ 	return 0;
+ }
+ 
+@@ -468,6 +500,18 @@ static int umr_parse_wave_data_gfx_10(struct umr_asic *asic, struct umr_wave_sta
+ 
+ 	ws->ib_dbg1 = buf[x++];
+ 	ws->m0 = buf[x++];
++
++	ws->mode.value = value = buf[x++];
++		reg = umr_find_reg_data(asic, "ixSQ_WAVE_MODE");
++		ws->mode.fp_round = umr_bitslice_reg(asic, reg, "FP_ROUND", value);
++		ws->mode.fp_denorm = umr_bitslice_reg(asic, reg, "FP_DENORM", value);
++		ws->mode.dx10_clamp = umr_bitslice_reg(asic, reg, "DX10_CLAMP", value);
++		ws->mode.ieee = umr_bitslice_reg(asic, reg, "IEEE", value);
++		ws->mode.lod_clamped = umr_bitslice_reg(asic, reg, "LOD_CLAMPED", value);
++		ws->mode.debug_en = umr_bitslice_reg(asic, reg, "DEBUG_EN", value);
++		ws->mode.excp_en = umr_bitslice_reg(asic, reg, "EXCP_EN", value);
++		ws->mode.fp16_ovfl = umr_bitslice_reg(asic, reg, "FP16_OVFL", value);
++		ws->mode.disable_perf = umr_bitslice_reg(asic, reg, "DISABLE_PERF", value);
+ 	return 0;
+ }
+ 
+diff --git a/src/umr.h b/src/umr.h
+index ca62560..f541dd3 100644
+--- a/src/umr.h
++++ b/src/umr.h
+@@ -713,6 +713,25 @@ struct umr_wave_status {
+ 			excp_group_mask,
+ 			utc_error;
+ 	} trapsts;
++
++	struct {
++		uint32_t
++			value,
++			fp_round,
++			fp_denorm,
++			dx10_clamp,
++			ieee,
++			lod_clamped,
++			debug_en,
++			excp_en,
++			fp16_ovfl,
++			pops_packer0,
++			pops_packer1,
++			disable_perf,
++			gpr_idx_en,
++			vskip,
++			csp;
++	} mode;
+ };
+ 
+ struct umr_wave_data {
+-- 
+2.25.1
 
-
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index be0baacc5942..8e88e7c88d26 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -34,6 +34,7 @@
->>   #include <linux/pci.h>
->>   #include <linux/devcoredump.h>
->>   #include <generated/utsrelease.h>
->> +#include <linux/pci-p2pdma.h>
->>     #include <drm/drm_atomic_helper.h>
->>   #include <drm/drm_probe_helper.h>
->> @@ -129,6 +130,8 @@ const char *amdgpu_asic_name[] = {
->>       "LAST",
->>   };
->>   +extern bool pcie_p2p;
->> +
-
-This should be declared in amdgpu.h along with other module parameters.
-
-
->>   /**
->>    * DOC: pcie_replay_count
->>    *
->> @@ -5498,6 +5501,36 @@ static void amdgpu_device_get_pcie_info(struct 
->> amdgpu_device *adev)
->>       }
->>   }
->>   +/**
->> + * amdgpu_device_is_peer_accessible - Check peer access through PCIe 
->> BAR
->> + *
->> + * @adev: amdgpu_device pointer
->> + * @peer_adev: amdgpu_device pointer for peer device trying to 
->> access @adev
->> + *
->> + * Return true if @peer_adev can access (DMA) @adev through the PCIe
->> + * BAR, i.e. @adev is "large BAR" and the BAR matches the DMA mask of
->> + * @peer_adev.
->> + */
->> +bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
->> +                      struct amdgpu_device *peer_adev)
->> +{
->> +#ifdef CONFIG_HSA_AMD_P2P
->> +    uint64_t address_mask = peer_adev->dev->dma_mask ?
->> +        ~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
->> +    resource_size_t aper_limit =
->> +        adev->gmc.aper_base + adev->gmc.aper_size - 1;
->> +    bool p2p_access = !(pci_p2pdma_distance_many(adev->pdev,
->> +                    &peer_adev->dev, 1, true) < 0);
->> +
->> +    return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
->> +        adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
->> +        !(adev->gmc.aper_base & address_mask ||
->> +          aper_limit & address_mask));
->> +#else
->> +    return false;
->> +#endif
->> +}
->> +
->>   int amdgpu_device_baco_enter(struct drm_device *dev)
->>   {
->>       struct amdgpu_device *adev = drm_to_adev(dev);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index bed4ed88951f..d1c82a9e8569 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -802,6 +802,14 @@ MODULE_PARM_DESC(no_queue_eviction_on_vm_fault, 
->> "No queue eviction on VM fault (
->>   module_param_named(no_queue_eviction_on_vm_fault, 
->> amdgpu_no_queue_eviction_on_vm_fault, int, 0444);
->>   #endif
->>   +/**
->> + * DOC: pcie_p2p (bool)
->> + * Enable PCIe P2P (requires large-BAR). Default value: true (on)
->> + */
->> +bool pcie_p2p = true;
->> +module_param(pcie_p2p, bool, 0444);
->> +MODULE_PARM_DESC(pcie_p2p, "Enable PCIe P2P (requires large-BAR). (N 
->> = off, Y = on(default))");
->> +
->>   /**
->>    * DOC: dcfeaturemask (uint)
->>    * Override display features enabled. See enum DC_FEATURE_MASK in 
->> drivers/gpu/drm/amd/include/amd_shared.h.
