@@ -4,116 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3D5C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 14:50:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5975EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 14:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC4F10E07A;
-	Tue,  7 Jun 2022 14:50:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83EB910E07A
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 14:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E1110E0F5;
+	Tue,  7 Jun 2022 14:54:50 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB7710E0F5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 14:54:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RCoua2mszs1E6ROhYOgVOsiOVC5j9U0Ws8L+Gy7MxkjWUPU/dqEqcCx4ADSb3AhR++Wb2o8M/5Lhz3fH4KkcVngFsg/QD/Sev/VvdW4QFFW9ckqkCyo855X16Ov3vbwnxd7ZCbUQ0Eyp5VT+kEj5gRmk2921Md9fP9qv2WWf2vy//+RzIcukQRAeTc0d36z38PDUxmGf21a0AYfYjC+Y0jbCFQ1CF1gFzRpkTVxBMGyqgGqmLg1DASvliLkx9qBanzt9EbJ3i1C4MiAsnn1fkapoZlAmGzSy/nbuaVMwm5kh2cYHJCUxzhObxT5t0EertEz2olFM2OFA/EobW1mzSA==
+ b=FDefmgqPEGDuP7tiRpOGesfq+R7wQCMyDSAsss21fBvUtUFXpCfVrPzzH8WoJFB1ygvEx/RQrzJZSYUcuFCv/O11WxIwEybir3MvP6xTR8A4ot42rz5zPnd6GdhjjxoEeejEknSn/esQkn7b2w++Z2JPau9B/dSJ05LC7qgpeMNku3hzsaX9e8k9lbZ7W0LsRFNDoLRDK8jG/NHslMJsnSNMgkgJWD+JLjxuSygDWYExitqIdnJflOzVc2tSb/1JhXTkqUgDenYcxGJvm8GpJMuMTu8HRRdnR0MD8y390iqPN7Oxm1kQDCa8fLgOdW/LClUMRcBsGbj0aOo0WBW4CA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3o9TwYylbcF044kPIII8cYcpkPeyN2FemQ+doXdPo80=;
- b=cwqm+1nvB4y58d6UD4ghEiIxNkCMbYLFHocQFaO7d8t3Zqt4i98ehWOSWFxeAax6UvoIrn/JMcsGiZsJ2UCjsH28/YXzKXEDXcMK9HXGXzH4fpr3U/8UP4s53Jrs1RZHSud8EKI61JjT/duEVP6EIVY4RigGucpZ1VcZtydW+r5LxOLLYxXMXVs3YNqfGv3jHyxvwdM775PTjMVuTYAd0UspfxRfasii9901IbdTDX9ED95F4Wq8p8TF5rHhpb5y/QGeN2BtFswURPBC8JN9skFXH+5DqCNcfK7vRXbSN26uKIPGOUA/f/reY/jBCPSKM5PHy+MuxAWRbWOG7DqhpQ==
+ bh=SxKLCT+R4wDmPWDL+jy0O1gsw59kVSQ856TrPyx4Mpo=;
+ b=YTWSPLViMEiBGGrUcOmQj3HC2d+cS7sEeoQZmE1n4hxozovH3oNFaOz8hEsqeZocsf0ziblaFLHv98u/aZ5v+7XRaVim4o0/JSWJqs3r11EHBAePohIzWdpxhCcaKPVW24nyQA5thjeNF5QgPo4iF2ACjt9n48i32237oaGeiJ7sseVMgYkXRSPjFLH1oMK/DhnCsILIg2pJ8SeKqm/QAopQXu3ASDPzgGDWDlPfxvUdYQMelQYS9kpKu3QbR832tW2sRMuMx4pK07QU5DbgZVnRF0pf7HelTIbhZw6g6VoCvegSqxBSCoc+v/2NMx/mkNjpklJWSSc4Voc84sUbGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3o9TwYylbcF044kPIII8cYcpkPeyN2FemQ+doXdPo80=;
- b=MfBh/UI/FlpezOQHEk7dB8sy1K+VWBpSrAZ3yKL92XuyiqcCOjb7FruIH7yusauyqRpt8qIWoKj0y7FCQQaQI2J+PYSaBdgmvWVZTMy0XkdNr3NfTgaUFMOz0dapnZf99xbFiF7efj40pJZMO2Lw24xHviRwVPoJNpovPpb4yyU=
+ bh=SxKLCT+R4wDmPWDL+jy0O1gsw59kVSQ856TrPyx4Mpo=;
+ b=bquGmy5B/X40nNca13WWBYMzQ8oxOmhBa7d4rJMFWbtxNR3Rs+j+51Ah7vIjZPc4YIcgk7xG0ymf756K5ulHlW1cDjiB55K0dHY1B8mQohmCyS5G1cyPHBaHxqeSCyLN91/1W7Ra2MRM4AbcaiREThYsFOglTFBXkTV/evEvs0g=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM6PR12MB3546.namprd12.prod.outlook.com (2603:10b6:5:18d::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ by BN9PR12MB5050.namprd12.prod.outlook.com (2603:10b6:408:133::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Tue, 7 Jun
- 2022 14:50:15 +0000
+ 2022 14:54:47 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::589b:a1f6:9c87:a8ba]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::589b:a1f6:9c87:a8ba%6]) with mapi id 15.20.5314.019; Tue, 7 Jun 2022
- 14:50:15 +0000
+ 14:54:47 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: Add fw version for 10.3.6
-Thread-Topic: [PATCH] drm/amdkfd: Add fw version for 10.3.6
-Thread-Index: Adh6GnCehdqG02mRTeC6U2QKMn0rNAAY2c86
-Date: Tue, 7 Jun 2022 14:50:15 +0000
-Message-ID: <BL1PR12MB514463378545DC24A38DA345F7A59@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <DM4PR12MB5152E4FE7DB27155C242620BE3A59@DM4PR12MB5152.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB5152E4FE7DB27155C242620BE3A59@DM4PR12MB5152.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu/mes: only invalid/prime icache after finish
+ loading both pipe MES FWs.
+Thread-Topic: [PATCH] drm/amdgpu/mes: only invalid/prime icache after finish
+ loading both pipe MES FWs.
+Thread-Index: AQHYeZIFnFjPLJgQokODHQ4yfl/Grq1EBM8AgAAE8gg=
+Date: Tue, 7 Jun 2022 14:54:46 +0000
+Message-ID: <BL1PR12MB5144C65545B53C25082A61D6F7A59@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220606104007.3801900-1-yifan1.zhang@amd.com>
+ <CY5PR12MB6369D69C432A2052DF49B587C1A59@CY5PR12MB6369.namprd12.prod.outlook.com>
+In-Reply-To: <CY5PR12MB6369D69C432A2052DF49B587C1A59@CY5PR12MB6369.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-06-07T14:50:14.613Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-06-07T14:54:46.460Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b5840489-2c1d-417b-6249-08da48950834
-x-ms-traffictypediagnostic: DM6PR12MB3546:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB3546F965465AB3DA33B18221F7A59@DM6PR12MB3546.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 98bf7103-b716-4db1-6d4d-08da4895aa3e
+x-ms-traffictypediagnostic: BN9PR12MB5050:EE_
+x-microsoft-antispam-prvs: <BN9PR12MB5050B8319365A85FB797D792F7A59@BN9PR12MB5050.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XjbLjNlRrdz/s06cOIeCaa8giBIF6/Na569V17uy+6UoXvoic0zRDUACfK9A00Ff/aNNUbE319RzROJVHr6onsPtzUOFRhoM92A23HMW6GX9T5+M5ITURbtit4+dCsVJaZ3hLo4qupnzydYadmtxLn5gh8YK80DK4o30LXOLVOcQSe8x6WPtsBcqB2s16Wa0MTraDERxQIgoE9PLAraejbnciXGiXZ3e/9Shvz4YhikE+7t/nPugxL6pKHOZcN1TvMjzzDLPv8nsg4fkBe4tOS3RMNi+27DSAw6xYWT/nd0tYdqJLp/l7tnTRqfsnpqGNVUwHi8GEVt1SF6hcJyhNnB2/bsbQZ6VCgYrxQAUcru6RSaEt4VQ6g5kkqQPpfBpM1kX2WAmIHbYLcx1fx0JFApOg2cAmb6ftdYiTC9IFvhQeTh/yJ8dpwwYS/eBjVyxbWtMJSUFyLK3i3MnF887qndzDugK7p90l5LE0M0rxjUrEVVtfk3uCxZIN8oOeMP+MPXMrYs0KIJUNL9dIOFv1uGmfyRdqyor1CJvrYCRAQBLqQJsV26IukUWpio37t3Tue6p87Kxh3xRN1a6ifE21i0bQ1Oe12BOIH7V0zec+6HGQZXxdacCt5ZAynnrrLl121ldIFO9H9NWapctafp/xqJZRYCG3YbSN0Rx5NSfGOkSaznVQLHvv4qSGg7zbvUUwearo1TpThultIrKtqngVA==
+x-microsoft-antispam-message-info: 3jRWg/76TT8IsEtdHs7kCvx6akLdh+4kLKY13+SHhncZUhbvCqPibxARyz+WFP+furLRAY+Pwe6TadJHwgHMds3INhaznwb5JJxkTXZ6kC2pBCwwF6lZJmoeZ29/Itg2BSRiWIBg/e/pj4EfmdCgg7H83ulEwWc3x6w7AEy13nc2jqPN72OOWZGW0ajFRU5PDMhuOnU6b3vMD8nmEEhH0nO1uKesuXH+LAPsjJmSu5VL2eePooRI/oKxlzR3kRbalV4GMoFrjoTPdCc4px8jkiHM9jyYdUvi8lFcFIugJKZGi/6PDNqIGH/3EfTmyKXuNzv3xsYH5OUS2rGub2LhxixaSJWdkdMdbi3/GHuujp1op6haIqA4FMDXgnewMtuS38mGep/Cmi23zfEXLJMtSOZrR1DGkX6L7VGBMvZk9KmVQvkHNMDfmouQ7ryOumkjY9pS39xbhCGTxbZ0PTB82B1E58eCG20cnEpJPHhbEGzf27Rz6+2N47UCzZ8uL5xss0y9bL0xAjDZMdJzrEOhGx5YdyGT/PQjgxQw9WMLcCHpIwFlalksiu4G9105kz40WUQk8l5NFvw42CrujWNCcmTMfgOql2+wxj1bS4uTf9b4tcJpd7tUKNHbpiCXl2ABSik7B/7CpiSgKyjDuN70+iulYpIUh5Kjnfr/PG/TbBkAQLgmexT9q5ijw6uFWpZlouGKc3htxlWDMc6Zx/OKag==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(7696005)(6506007)(71200400001)(54906003)(76116006)(66946007)(8936002)(5660300002)(66556008)(508600001)(52536014)(186003)(64756008)(110136005)(4326008)(8676002)(66446008)(66476007)(38100700002)(26005)(55016003)(19627405001)(53546011)(33656002)(2906002)(122000001)(316002)(83380400001)(86362001)(19627235002)(9686003)(38070700005);
+ SFS:(13230001)(4636009)(366004)(64756008)(66946007)(19627405001)(66556008)(38070700005)(4326008)(83380400001)(2906002)(71200400001)(55016003)(26005)(9686003)(110136005)(316002)(54906003)(6506007)(186003)(53546011)(7696005)(33656002)(5660300002)(38100700002)(76116006)(508600001)(8676002)(8936002)(66476007)(66446008)(52536014)(122000001)(86362001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zokzmF1RvQZRNcNmZXQLp6zaqR2wjxn1WrpTUabX5ptXPKNrvpYmvnYVVzg5?=
- =?us-ascii?Q?Rmlv56z4jpUsEWPEUySNk22VL5eho/bWGFziBZDjtGwBLVFoGEkbhhsRSGbY?=
- =?us-ascii?Q?pBi27+pY0ot+4vh7nRfQmxHkuy/kaLZAh/3XFzVOpkT0sls/F/d6We+uoJoc?=
- =?us-ascii?Q?B/f+cmyNpH5ETtj+iiqXqEWNJ4smPxbgh0YM8rvfdU4uTWwZoe+YbxwFZiLP?=
- =?us-ascii?Q?WxFSpB2n8lXoGXIbq7GpaHmP8RMVm7/4kZyLoxlnYza6RAQXcpUjQRpSGRHE?=
- =?us-ascii?Q?D0GlDQn6M0TBB6elrun5e4NXz0ffsCqZ2yxc28SJEOdbgqTm8i299hGAWNG3?=
- =?us-ascii?Q?RIQxBLXfgLJ9eTgpencNWBPbr0IjoAzja8pXvUd0ffQpveTsAPJDMrGO0Gb2?=
- =?us-ascii?Q?qkBDzPR6Z99fC0fGM4UcCSM88SlCuLnhmxIK7gxhD0+W3XK63BIpPxWiu2z+?=
- =?us-ascii?Q?Unz/Ft4+6/o37dqJlsul2imtDzmtOD6gbWnB74jhFHFVCm6s0k01ncVDkv2+?=
- =?us-ascii?Q?xdcPvxE1PkS1QUbMs6zVw9ImEaT/xtOpClVz3mQ/wS49KrwhGCz91Vt2Nyk6?=
- =?us-ascii?Q?cQWAjsvQ287PnSuZPRRgV6Z7ZLn8YY5S2n1C7cKjdtFuXsy76kQNJWkbykgG?=
- =?us-ascii?Q?EfEUMK6o7Znol6HupsuIBDtfhrWbBr/2hLc2O3q+5AGmFyO3mLmXRT6HBqLt?=
- =?us-ascii?Q?SvGD63jJMa1CNhZcU46dM+7sOxBrJ1XcjPtxbZbW91R5nso90x/6aG2eDTGi?=
- =?us-ascii?Q?XDPqFIyUzGaY364vKMokH2AWCQCr3XzR5nUby2LTJfnZPgYhaOakw6CGpy1r?=
- =?us-ascii?Q?qzPM+/fL5ATtCV2lBrPMX+KIZLKmsrxROACSeAGFz1r9UUrSrJf5nb77D+nZ?=
- =?us-ascii?Q?ZqAOq1wIaYdbZSgh6nv8rGxedQYbUVviCEaRp0//69VGS9UXQs8l14zKzGou?=
- =?us-ascii?Q?JA2ob+ibzKYyWrH7d39ujXSBez/MX48cpTe4uulIgV3YkUVIdCjNkoPr18uY?=
- =?us-ascii?Q?TbyQMWD6Y3HKB3wtGNClUmr4sEkD90lskaWfQDY9m7v7b+UOB4n7cZpMZ73Q?=
- =?us-ascii?Q?zRK7gvYDjeNgUvh901g4qFdbFtfU/3ySHUNFUHgVl43+pEuHMAOICfeMaghh?=
- =?us-ascii?Q?HR0JH/UpLc+5oVH5UVIYAKUxkWZbNG5f47x02HE2GwPLlnNM93/zEoi8DUHf?=
- =?us-ascii?Q?EzwwatRqQw7Ca147gdAjaIwPzh5YnqZvbI+re7WWOb+0lQZqlqkhOtjfV/Gj?=
- =?us-ascii?Q?8294NKWlt5O2n5CUZ2UVcc7UUsCuywl+ybdXD+u15Y7MLcYhP13IiHF6Fx1r?=
- =?us-ascii?Q?Kl7x1PMHRdShpf158/CfspnJbHwqD20dwmVr8HJjJQOgfBCtr6JyeZ2vQ52n?=
- =?us-ascii?Q?JkcNL8Hy7eDEEocBg1cxWyt+2jyv8xPJhDX2XqG5jAL49e1B5L7EJ/TuLxbb?=
- =?us-ascii?Q?ZpNw85/a3n7N1DtBTOk8zI8s5KLqLhXSZYmPQwto5VVTpb0tw/tZBtayJtgI?=
- =?us-ascii?Q?uoklnvRXFTZA8tZIavssLnFPqxasGZx8emolY/2ziLGSSE2N7UTmgdqNt9BV?=
- =?us-ascii?Q?Qwkzkto7K42APeqRSd9VyvRmfrPuLnWny0UWqLIksYJSTaS+vUPLxD5WNDd7?=
- =?us-ascii?Q?TyP+ff8NYKn1N6QEDXtpwa3Fh9R5XMCuxMuYCZ15I9bTzIFKK/RM3rpcXYgh?=
- =?us-ascii?Q?Ee+P+gKXaRaR2b7G3F9mrdg4BEc2wdJdyxs5Onwh1O1d560ph2dQ7iojDxlD?=
- =?us-ascii?Q?hXP8hUC/5g=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6gyNdW7yNWvPZpYOOY6P8HiGlOrG4dKszB5VtjFsNCDdIhn0OQyVvcvV0VsP?=
+ =?us-ascii?Q?89umxrUK7WFAhHG6Frx/WxEB+uyhzXN9jDaDsSPfciYsnZjEjjw17y8BU5/V?=
+ =?us-ascii?Q?oxo6JtcorDHAAvO4cNmvT9+axHwDaMotkG2cWJ4hzH46UwroWx6PDHd+CJKZ?=
+ =?us-ascii?Q?aayY2dDTiOHSnXwoayKujlUvZAoEwk9nZM1YIKCffGPt3LwmqUVpSKIW+XF6?=
+ =?us-ascii?Q?ffuo94UX8YrbodIww4BXVtJWApWjhG+iA2LEGqlgkET3v2zM5ydsNHQsfdHB?=
+ =?us-ascii?Q?i9iBe/bIxk8PLdXpKnenHPHWjWfM69dYAFd/FjO+nvNYOSqoV4Aal8zpKAZS?=
+ =?us-ascii?Q?1TONu+U37jwN6GeilYKqZPUiVimuXWngF13dnXt4Tn6h6dXfqkUOGUXJj+Kk?=
+ =?us-ascii?Q?uvd9/iFZT15WDi9wJvNAeCcN57lEB7tknCPYuJZdeYVz2P9IDvHmjCrxQWpP?=
+ =?us-ascii?Q?F48jg+WqDCQ263/RmAJRAHI9onTsI0q/mGlbJlyHK9XyElWhjH2EepNR4UA2?=
+ =?us-ascii?Q?lGQueX+MQP0u7UQ8GCGwKQpsMBPKwXuR/i4gMdOpozeVUPSm1+I46BS0Kn7b?=
+ =?us-ascii?Q?oCdGLBxyZfyHc1n9SvoJmRHwQn7Q28pl/Ah4bEG+40jiLcKc0zZ9wIAhMOKR?=
+ =?us-ascii?Q?QCzYfkfaAp5u4wBEkhWFg9bHAbOGpjm3OWKJ8/j49Tjd13om1nbVFPZxQWec?=
+ =?us-ascii?Q?IJQvOSdE2cPRuooTiwFGtmCaz3kfD6vEOtMdWz+2a7p1N9yt3LGiqwGTrFIj?=
+ =?us-ascii?Q?3FzjGq4ayGpLJ7yJk/wumchxkuzHX4KT5wbozZj+2R3QqhXTKYeZ3/jUAcKw?=
+ =?us-ascii?Q?qy73GkTawXmUYMFiT0iZVNVoOtVFIxyW1se6sOS9VaY2lc26aKqm3wGjRMOO?=
+ =?us-ascii?Q?WabJE4uvi8iFu3B3dke7I5rtvSAoQjQ+D4EvZGLr+swLKVrPHiuAl6xiad7A?=
+ =?us-ascii?Q?HQLY4oGQAxk/qJMpYmp5QxubSXs2L38HXVT3XpcAKbkVo/VWn0C85Vsd/ohE?=
+ =?us-ascii?Q?ikD2lzHEZGevrm+mNmsJQUQpYqe1MjKx7pIGCE9aiLDyqiravSAvt2qLx3wt?=
+ =?us-ascii?Q?4aEa6augicwHdkIefPQ5BiWWUtDRt+oaq08ZIWPzgyG9ohRyRMAL5cmdZlD3?=
+ =?us-ascii?Q?+C2vfDIfdICRbPZHuIjIOqdEHA6CKzdicHERts7LSAL5bcCJTjii3RLBgWC8?=
+ =?us-ascii?Q?OiJLi4kLj82je6GEbfqw6hXwp5EVOkTyh4vxyYfIJ5kWJngCR1Em6PWEkgyK?=
+ =?us-ascii?Q?ofF3/FSZcqP4rwPbxDevZYMZy8UXY2I2UPFR7Y5hUPJBBNIlJw50hLy8t9fy?=
+ =?us-ascii?Q?/3xrU71Kv9orEIkNQEUt5wlCqQfmcNGjMfF656CeiDylKQS45IS/Ag6Nv1XL?=
+ =?us-ascii?Q?FB6VocUsW4quNaViaCv/UzRP/DMOFgGVXn1S4cH1croO/x8XGSsCOqQIAQcg?=
+ =?us-ascii?Q?WBgTTkvIH7ulW8r1rHUB17NuIxOsHk2aBgByRRP2EzkCHPO8wLeIWLjhD0xn?=
+ =?us-ascii?Q?x/IHLJt0/Qb08Ua1pOFgR4BF3krNSEx1ArKK2fzMv8iKbLJuhzZUGikKunIX?=
+ =?us-ascii?Q?Vaeq4gx8AMcn1glJ+9FT2rX0Zo+upMDhRVFTsy9hbkwGwj4kd+/T+JMI0+oL?=
+ =?us-ascii?Q?fnoOMcSsJ7gJA7wOLXqpLiRfZMAGSaoVBvb4tG4/yrUQ6qlUp9gutVLR0NT+?=
+ =?us-ascii?Q?D+iB302HJ1H7nwHnfrgl9krOZTUpU/mfVWTswUeZkyHdB2/zbTHMsWY2SvL2?=
+ =?us-ascii?Q?hu9yTINUtQ=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514463378545DC24A38DA345F7A59BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB5144C65545B53C25082A61D6F7A59BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5840489-2c1d-417b-6249-08da48950834
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2022 14:50:15.0699 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98bf7103-b716-4db1-6d4d-08da4895aa3e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2022 14:54:46.9421 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cVLg8YR7t3ok6XTtqt0KnBqSi+2ULpl/sPNonfkcrr2K2fUD2CzLKS/6WW8mgM2Z84t4VgSmDO+vsxVgsNcjQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3546
+X-MS-Exchange-CrossTenant-userprincipalname: 0Ptc+FPNfPLmSqqOBflCkIRncdRnRWgYr8ERTrlk749PL9DZzjImxFUiH1YNFVD39m1swRhlG3QLbJmZtZoVTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5050
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,111 +128,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Chang, David" <David.Chang@amd.com>
+Cc: "Huang, Tim" <Tim.Huang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Du,
+ Xiaojian" <Xiaojian.Du@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514463378545DC24A38DA345F7A59BL1PR12MB5144namp_
+--_000_BL1PR12MB5144C65545B53C25082A61D6F7A59BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
+[Public]
 
-Does this need an update for GC 10.3.7 as well?
-
-Alex
-
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Sent: Monday, June 6, 2022 11:20 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Limonciello, Mario <Mar=
-io.Limonciello@amd.com>; Chang, David <David.Chang@amd.com>; Kuehling, Feli=
-x <Felix.Kuehling@amd.com>
-Subject: [PATCH] drm/amdkfd: Add fw version for 10.3.6
-
+From: Zhang, Yifan <Yifan1.Zhang@amd.com>
+Sent: Tuesday, June 7, 2022 10:36 AM
+To: Zhang, Yifan <Yifan1.Zhang@amd.com>; amd-gfx@lists.freedesktop.org <amd=
+-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Huang, Tim <Tim.Huang@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/mes: only invalid/prime icache after finish=
+ loading both pipe MES FWs.
 
 [AMD Official Use Only - General]
 
+Ping
 
-It will happed error on loading firmware.   we need add firmware version in=
-formation.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yifan Zh=
+ang
+Sent: Monday, June 6, 2022 6:40 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
+ang@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+Subject: [PATCH] drm/amdgpu/mes: only invalid/prime icache after finish loa=
+ding both pipe MES FWs.
 
+invalid/prime icahce operation takes effect on both pipes cuconrrently, the=
+refore CP_MES_IC_BASE_LO/HI and CP_MES_MDBASE_LO/HI have to be both set bef=
+ore prime icache. Otherwise MES hardware gets garbage data in above regster=
+s and causes page fault
 
+[  470.873200] amdgpu 0000:33:00.0: amdgpu: [gfxhub] page fault (src_id:0 r=
+ing:217 vmid:0 pasid:0, for process  pid 0 thread  pid 0)
+[  470.873222] amdgpu 0000:33:00.0: amdgpu:   in page starting at address 0=
+x000092cb89b00000 from client 10
+[  470.873234] amdgpu 0000:33:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_STATUS=
+:0x00000BB3
+[  470.873242] amdgpu 0000:33:00.0: amdgpu:      Faulty UTCL2 client ID: CP=
+C (0x5)
+[  470.873247] amdgpu 0000:33:00.0: amdgpu:      MORE_FAULTS: 0x1
+[  470.873251] amdgpu 0000:33:00.0: amdgpu:      WALKER_ERROR: 0x1
+[  470.873256] amdgpu 0000:33:00.0: amdgpu:      PERMISSION_FAULTS: 0xb
+[  470.873260] amdgpu 0000:33:00.0: amdgpu:      MAPPING_ERROR: 0x1
+[  470.873264] amdgpu 0000:33:00.0: amdgpu:      RW: 0x0
 
-[  309.650118] [drm] kiq ring mec 2 pipe 1 q 0
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 32 +++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-[  309.652595] [drm] VCN decode and encode initialized successfully(under D=
-PG Mode).
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
+index fcf51947bb18..9741b7ff4224 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -541,7 +541,7 @@ static void mes_v11_0_enable(struct amdgpu_device *adev=
+, bool enable)
 
-[  309.653402] kfd kfd: amdgpu: skipped device 1002:164e, PCI rejects atomi=
-cs 18<92
+ /* This function is for backdoor MES firmware */  static int mes_v11_0_loa=
+d_microcode(struct amdgpu_device *adev,
+-                                   enum admgpu_mes_pipe pipe)
++                                   enum admgpu_mes_pipe pipe, bool prime_i=
+cache)
+ {
+         int r;
+         uint32_t data;
+@@ -593,16 +593,18 @@ static int mes_v11_0_load_microcode(struct amdgpu_dev=
+ice *adev,
+         /* Set 0x3FFFF (256K-1) to CP_MES_MDBOUND_LO */
+         WREG32_SOC15(GC, 0, regCP_MES_MDBOUND_LO, 0x3FFFF);
 
+-       /* invalidate ICACHE */
+-       data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);
+-       data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0);
+-       data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE, 1=
+);
+-       WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);
+-
+-       /* prime the ICACHE. */
+-       data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);
+-       data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1);
+-       WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);
++       if (prime_icache) {
++               /* invalidate ICACHE */
++               data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);
++               data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACH=
+E, 0);
++               data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_=
+CACHE, 1);
++               WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);
++
++               /* prime the ICACHE. */
++               data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);
++               data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACH=
+E, 1);
++               WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);
++       }
 
+         soc21_grbm_select(adev, 0, 0, 0, 0);
+         mutex_unlock(&adev->srbm_mutex);
+@@ -1044,17 +1046,19 @@ static int mes_v11_0_kiq_hw_init(struct amdgpu_devi=
+ce *adev)
+         int r =3D 0;
 
+         if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_DIRECT) {
+-               r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_KIQ_PIPE);
++
++               r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_KIQ_PIPE, t=
+rue);
+                 if (r) {
+                         DRM_ERROR("failed to load MES kiq fw, r=3D%d\n", r=
+);
+                         return r;
+                 }
 
+-               r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_SCHED_PIPE)=
+;
++               r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_SCHED_PIPE,=
+ false);
+                 if (r) {
+                         DRM_ERROR("failed to load MES fw, r=3D%d\n", r);
+                         return r;
+                 }
++
+         }
 
-Signed-off-by: Jesse Zhang Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.com>
+         mes_v11_0_enable(adev, true);
+@@ -1086,7 +1090,7 @@ static int mes_v11_0_hw_init(void *handle)
+         if (!adev->enable_mes_kiq) {
+                 if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_DIRECT)=
+ {
+                         r =3D mes_v11_0_load_microcode(adev,
+-                                            AMDGPU_MES_SCHED_PIPE);
++                                            AMDGPU_MES_SCHED_PIPE, true);
+                         if (r) {
+                                 DRM_ERROR("failed to MES fw, r=3D%d\n", r)=
+;
+                                 return r;
+--
+2.35.1
 
-
-
-    Reviewed-by: Alex Deucher alexander.deucher@amd.com<mailto:alexander.de=
-ucher@amd.com>
-
-
-
-    Reviewed-by: Mario Limonciello mario.limonciello@amd.com<mailto:mario.l=
-imonciello@amd.com>
-
-
-
-    Reviewed-by: Felix Kuehling Felix.Kuehling@amd.com<mailto:Felix.Kuehlin=
-g@amd.com>
-
-    Change-Id: I9c8d70071efdfce85c860ebf19690d52fb8d2383
-
-
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-
-index f8635e768513..bf4200457772 100644
-
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-
-@@ -182,7 +182,9 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
-
-
-
-                if (gc_version < IP_VERSION(11, 0, 0)) {
-
-                        /* Navi2x+, Navi1x+ */
-
--                       if (gc_version >=3D IP_VERSION(10, 3, 0))
-
-+                       if (gc_version =3D=3D IP_VERSION(10, 3, 6))
-
-+                               kfd->device_info.no_atomic_fw_version =3D 1=
-4;
-
-+                       else if (gc_version >=3D IP_VERSION(10, 3, 0))
-
-                                kfd->device_info.no_atomic_fw_version =3D 9=
-2;
-
-                        else if (gc_version >=3D IP_VERSION(10, 1, 1))
-
-                                kfd->device_info.no_atomic_fw_version =3D 1=
-45;
-
-
-
-
-
---_000_BL1PR12MB514463378545DC24A38DA345F7A59BL1PR12MB5144namp_
+--_000_BL1PR12MB5144C65545B53C25082A61D6F7A59BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -241,148 +291,228 @@ Content-Transfer-Encoding: quoted-printable
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
 </p>
 <br>
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Does this need an update for GC 10.3.7 as well?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Jesse(Jie) &lt=
-;Jesse.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Monday, June 6, 2022 11:20 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Limonciell=
-o, Mario &lt;Mario.Limonciello@amd.com&gt;; Chang, David &lt;David.Chang@am=
-d.com&gt;; Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdkfd: Add fw version for 10.3.6</font>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Yifan &lt;Yifa=
+n1.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 7, 2022 10:36 AM<br>
+<b>To:</b> Zhang, Yifan &lt;Yifan1.Zhang@amd.com&gt;; amd-gfx@lists.freedes=
+ktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
+ &lt;Ray.Huang@amd.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&gt;; Du, Xiaoj=
+ian &lt;Xiaojian.Du@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu/mes: only invalid/prime icache after=
+ finish loading both pipe MES FWs.</font>
 <div>&nbsp;</div>
 </div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-span.x_EmailStyle17
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-family:"Calibri",sans-serif}
-@page WordSection1
-	{margin:72.0pt 72.0pt 72.0pt 72.0pt}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
-reak-word">
-<p class=3D"x_msipheaderdf3d92d6" align=3D"Left" style=3D"margin:0"><span s=
-tyle=3D"font-size:10.0pt; font-family:Arial; color:#0000FF">[AMD Official U=
-se Only - General]</span></p>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[AMD Official Use Only - General]<br>
 <br>
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">It will happed error on loading firmware. &nbsp;&n=
-bsp;we need add firmware version information.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">[&nbsp; 309.650118] [drm] kiq ring mec 2 pipe 1 q =
-0</p>
-<p class=3D"x_MsoNormal">[&nbsp; 309.652595] [drm] VCN decode and encode in=
-itialized successfully(under DPG Mode).</p>
-<p class=3D"x_MsoNormal">[&nbsp; 309.653402] kfd kfd: amdgpu: skipped devic=
-e 1002:164e, PCI rejects atomics 18&lt;92</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Signed-off-by: Jesse Zhang <a href=3D"mailto:Jesse=
-.Zhang@amd.com">
-Jesse.Zhang@amd.com</a></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Alex Deucher <a hr=
-ef=3D"mailto:alexander.deucher@amd.com">
-alexander.deucher@amd.com</a></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Mario Limonciello =
-<a href=3D"mailto:mario.limonciello@amd.com">
-mario.limonciello@amd.com</a></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Felix Kuehling <a =
-href=3D"mailto:Felix.Kuehling@amd.com">
-Felix.Kuehling@amd.com</a></p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Change-Id: I9c8d70071efdfce85c8=
-60ebf19690d52fb8d2383</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device=
-.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c</p>
-<p class=3D"x_MsoNormal">index f8635e768513..bf4200457772 100644</p>
-<p class=3D"x_MsoNormal">--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c</p>
-<p class=3D"x_MsoNormal">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c</p>
-<p class=3D"x_MsoNormal">@@ -182,7 +182,9 @@ static void kfd_device_info_in=
-it(struct kfd_dev *kfd,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gc_version &lt; IP_VERSION(11,=
- 0, 0)) {</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+Ping<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Yi=
+fan Zhang<br>
+Sent: Monday, June 6, 2022 6:40 PM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yifan &lt;=
+Yifan1.Zhang@amd.com&gt;; Huang, Ray &lt;Ray.Huang@amd.com&gt;<br>
+Subject: [PATCH] drm/amdgpu/mes: only invalid/prime icache after finish loa=
+ding both pipe MES FWs.<br>
+<br>
+invalid/prime icahce operation takes effect on both pipes cuconrrently, the=
+refore CP_MES_IC_BASE_LO/HI and CP_MES_MDBASE_LO/HI have to be both set bef=
+ore prime icache. Otherwise MES hardware gets garbage data in above regster=
+s and causes page fault<br>
+<br>
+[&nbsp; 470.873200] amdgpu 0000:33:00.0: amdgpu: [gfxhub] page fault (src_i=
+d:0 ring:217 vmid:0 pasid:0, for process&nbsp; pid 0 thread&nbsp; pid 0)<br=
+>
+[&nbsp; 470.873222] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp; in page starti=
+ng at address 0x000092cb89b00000 from client 10<br>
+[&nbsp; 470.873234] amdgpu 0000:33:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_S=
+TATUS:0x00000BB3<br>
+[&nbsp; 470.873242] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; Faulty UTCL2 client ID: CPC (0x5)<br>
+[&nbsp; 470.873247] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; MORE_FAULTS: 0x1<br>
+[&nbsp; 470.873251] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WALKER_ERROR: 0x1<br>
+[&nbsp; 470.873256] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; PERMISSION_FAULTS: 0xb<br>
+[&nbsp; 470.873260] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; MAPPING_ERROR: 0x1<br>
+[&nbsp; 470.873264] amdgpu 0000:33:00.0: amdgpu:&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RW: 0x0<br>
+<br>
+Signed-off-by: Yifan Zhang &lt;yifan1.zhang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 32 +++++++++++++++----------=
+-<br>
+&nbsp;1 file changed, 18 insertions(+), 14 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c<br>
+index fcf51947bb18..9741b7ff4224 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+@@ -541,7 +541,7 @@ static void mes_v11_0_enable(struct amdgpu_device *adev=
+, bool enable)<br>
+&nbsp;<br>
+&nbsp;/* This function is for backdoor MES firmware */&nbsp; static int mes=
+_v11_0_load_microcode(struct amdgpu_device *adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; /* Navi2x+, Navi1x+ */</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; if (gc_version &gt;=3D IP_VERSION(10, 3, 0))</p>
-<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; if (gc_version =3D=3D IP_VERSION(10, 3, 6))</p>
-<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_inf=
-o.no_atomic_fw_version =3D 14;</p>
-<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; else if (gc_version &gt;=3D IP_VERSION(10, 3, 0))</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum admgpu_mes_pip=
+e pipe)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;devic=
-e_info.no_atomic_fw_version =3D 92;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum admgpu_mes_pip=
+e pipe, bool prime_icache)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+@@ -593,16 +593,18 @@ static int mes_v11_0_load_microcode(struct amdgpu_dev=
+ice *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Set 0x3FFFF (256K-1) to=
+ CP_MES_MDBOUND_LO */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regCP_=
+MES_MDBOUND_LO, 0x3FFFF);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* invalidate ICACHE */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32_SOC15(GC, 0, regCP_ME=
+S_IC_OP_CNTL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_I=
+C_OP_CNTL, PRIME_ICACHE, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_I=
+C_OP_CNTL, INVALIDATE_CACHE, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regCP_MES_IC_OP_C=
+NTL, data);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* prime the ICACHE. */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32_SOC15(GC, 0, regCP_ME=
+S_IC_OP_CNTL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_I=
+C_OP_CNTL, PRIME_ICACHE, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regCP_MES_IC_OP_C=
+NTL, data);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (prime_icache) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* invalidate ICACHE */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0)=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE=
+, 1);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* prime the ICACHE. */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data =3D RREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data =3D REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1)=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, regCP_MES_IC_OP_CNTL, data);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc21_grbm_select(adev, 0,=
+ 0, 0, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt=
+;srbm_mutex);<br>
+@@ -1044,17 +1046,19 @@ static int mes_v11_0_kiq_hw_init(struct amdgpu_devi=
+ce *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load=
+_type =3D=3D AMDGPU_FW_LOAD_DIRECT) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_KIQ_PIPE);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_KIQ_PIPE, true);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_E=
+RROR(&quot;failed to load MES kiq fw, r=3D%d\n&quot;, r);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_SCHED_PIPE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v11_0_load_microcode(adev, AMDGPU_MES_SCHED_PIPE, fals=
+e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_E=
+RROR(&quot;failed to load MES fw, r=3D%d\n&quot;, r);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_v11_0_enable(adev, tru=
+e);<br>
+@@ -1086,7 +1090,7 @@ static int mes_v11_0_hw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;enable_mes_k=
+iq) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD=
+_DIRECT) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
+ mes_v11_0_load_microcode(adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; else if (gc_version &gt;=3D IP_VERSION(10, 1, 1))</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_MES_SCHED_PIPE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;devic=
-e_info.no_atomic_fw_version =3D 145;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_MES_SCHED_PIPE, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
+) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;failed to MES fw=
+, r=3D%d\n&quot;, r);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+--<br>
+2.35.1<br>
 </div>
-</div>
+</span></font></div>
 </div>
 </body>
 </html>
 
---_000_BL1PR12MB514463378545DC24A38DA345F7A59BL1PR12MB5144namp_--
+--_000_BL1PR12MB5144C65545B53C25082A61D6F7A59BL1PR12MB5144namp_--
