@@ -4,67 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3635C43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C648CCA47C
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDF810E128;
-	Tue,  7 Jun 2022 19:25:17 +0000 (UTC)
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0F910E128
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:25:16 +0000 (UTC)
-Received: by mail-pg1-x531.google.com with SMTP id g186so7915223pgc.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jun 2022 12:25:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=szR7r+mhCiyllPHOYpWCvCcgEkcODKa3DHmlzg25Uuc=;
- b=YxOVYFIXNDL2R9Bp5NP7sFBCXOpoBOSoM2+6V+lnOBnYxPPzfDjs2/v/oTsXj4uhLS
- 078BRiHzhGwm+ESUcmIhulF8W4QCV6GSulm+/klLNoOsu0JbpU1VZvx/TBp4Fen3EBH7
- /jj0leaQxRcNbCpvW6hZMD8BLq397vAcPTfDhJe3C26YNJoQkrv87gKE/wcOPh7xxi5o
- QCRIdWFaPOS4K/eIwD87pekU6QM+YI/CHK5K6Gic1G7v7fGKPzWBpaF3tvNwt42+LPJk
- KsE7eVpzhBKnfe7hGrCKvIZU5E3bMVAAdH8DHASpfdSkoz6ia8Lr61B9+lKpxySWVQM/
- emBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=szR7r+mhCiyllPHOYpWCvCcgEkcODKa3DHmlzg25Uuc=;
- b=m/KuwbNp+nucmiudhyiD8SrWivp4aq5bAqkjVIXoFtDMSd+PCqf3p05hqZ/aRQ5CoP
- tzctCtyKhHHTciBqwMZNXaod8uZKzO3aGQGM8ME9jZroSWjthU2dliUMqKj6P9eFzH4j
- UtFJUj2umWK9QLny/jP4tUE4OIJio4Kc05GpGwfIX902a/PoRITPOj+Tc0fQ6fmGvSOY
- subYmSx34p+WSvaTruxle6CoDg+xuR/PYgiL2WVJISqGAzfoq4OdSscYPHvbqxsto6D4
- SDZMxrBGrbhJtyLTAF0unHNBZeKAExLYzAuyIAUtIbSr3gVayguvH3UPBT4to0dE6Kfy
- 4wcA==
-X-Gm-Message-State: AOAM531UiQXC98pNZuJvwvG9T/uihtE9FR005wHGsUYsdcJ9onewa5aE
- JvwSOG4LsBeZGr57tshUFss=
-X-Google-Smtp-Source: ABdhPJxjqDVgqTFmIHkJXehL20yGslGE4u+0x03+g4O9N4M8WM3QfKusenD1lbiI3tyXzFjnFuTgcg==
-X-Received: by 2002:a05:6a00:88f:b0:510:7a49:b72f with SMTP id
- q15-20020a056a00088f00b005107a49b72fmr30639671pfj.21.1654629915579; 
- Tue, 07 Jun 2022 12:25:15 -0700 (PDT)
-Received: from localhost ([2620:10d:c090:400::4:fa4d])
- by smtp.gmail.com with ESMTPSA id
- l5-20020a170902d34500b0015ef27092aasm12865936plk.190.2022.06.07.12.25.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jun 2022 12:25:14 -0700 (PDT)
-Date: Tue, 7 Jun 2022 09:25:13 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] Revert "workqueue: remove unused cancel_work()"
-Message-ID: <Yp+mGaY+Ga/wX2h2@slm.duckdns.org>
-References: <20220519135642.83209-1-andrey.grodzovsky@amd.com>
- <CAJhGHyBQ60Lh3WZCa+2cE4T36t3vjNxYTBCxS7J0xhZr8Eb2wg@mail.gmail.com>
- <e1e2e63d-a1a9-12ad-97a7-a3771210edda@amd.com>
- <CAJhGHyC7VLM1PnXMu2zmdX=xtSNKo6VGO5p0AkUnaaMsuZytpA@mail.gmail.com>
- <045157bb-31a0-2d76-18b7-4272fab218ef@gmail.com>
- <YodIquufXzK581gw@slm.duckdns.org>
- <8df16635-658b-b381-9a40-3544828910fc@amd.com>
- <Yp+HXowR9nTig331@slm.duckdns.org>
- <CADnq5_OquY8A_nMsCcwMxvDL3r0WzYAxFdrGNzYsKEP7q-Xg7g@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCAE10E6DD;
+	Tue,  7 Jun 2022 19:31:12 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC65310E6BB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1654630271;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hJfWdUASXC0PbJoSgPp59Hl16UeQGOfmXNjBEBs/uVY=;
+ b=DS7JmkYj4qpQJ1/Ks4wTvGE+/15VJlkU6tWvRDxcrojCRLYVc8bPgIf7binFLCzABIKVA/
+ 2Tz4fU3OgnHPHZR+f4ffYBuKRZ6RnEhpIaHkwTbd62Ei0TsKFbuq8DVBA6lFEkZ42UeKnc
+ yHJZsgaAaxtw/kd8QaxYvCPCTPCVGVc=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-495-GqPIXfiwNwq1FC-nBD1GPQ-1; Tue, 07 Jun 2022 15:31:06 -0400
+X-MC-Unique: GqPIXfiwNwq1FC-nBD1GPQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB41629DD99C;
+ Tue,  7 Jun 2022 19:30:03 +0000 (UTC)
+Received: from emerald.redhat.com (unknown [10.22.9.252])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C8E7E2142F4D;
+ Tue,  7 Jun 2022 19:29:40 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [RESEND RFC 00/18] drm/display/dp_mst: Drop Radeon MST support,
+ make MST atomic-only
+Date: Tue,  7 Jun 2022 15:29:15 -0400
+Message-Id: <20220607192933.1333228-1-lyude@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADnq5_OquY8A_nMsCcwMxvDL3r0WzYAxFdrGNzYsKEP7q-Xg7g@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +62,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian Koenig <Christian.Koenig@amd.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 07, 2022 at 01:39:01PM -0400, Alex Deucher wrote:
-> On Tue, Jun 7, 2022 at 1:14 PM Tejun Heo <tj@kernel.org> wrote:
-> >
-> > On Sat, May 21, 2022 at 12:04:00AM -0400, Andrey Grodzovsky wrote:
-> > > From 78df30cc97f10c885f5159a293e6afe2348aa60c Mon Sep 17 00:00:00 2001
-> > > From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> > > Date: Thu, 19 May 2022 09:47:28 -0400
-> > > Subject: Revert "workqueue: remove unused cancel_work()"
-> > >
-> > > This reverts commit 6417250d3f894e66a68ba1cd93676143f2376a6f.
-> > >
-> > > amdpgu need this function in order to prematurly stop pending
-> > > reset works when another reset work already in progress.
-> > >
-> > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> >
-> > Applied to wq/for-5.19-fixes.
-> 
-> Could we take it through the drm tree so we can include it with
-> Andrey's patches that depend on it?
+Ugh, thanks ./scripts/get_maintainers.pl for confusing and breaking
+git-send email <<. Sorry for the resend everyone.
 
-Oh sure, please go ahead. Imma revert from my tree.
+For quite a while we've been carrying around a lot of legacy modesetting
+code in the MST helpers that has been rather annoying to keep around,
+and very often gets in the way of trying to implement additional
+functionality in MST such as fallback link rate retraining, dynamic BPC
+management and DSC support, etc. because of the fact that we can't rely
+on atomic for everything.
 
- Acked-by: Tejun Heo <tj@kernel.org>
+Luckily, we only actually have one user of the legacy MST code in the
+kernel - radeon. Originally I was thinking of trying to maintain this
+code and keep it around in some form, but I'm pretty unconvinced anyone
+is actually using this. My reasoning for that is because I've seen
+nearly no issues regarding MST on radeon for quite a while now - despite
+the fact my local testing seems to indicate it's quite broken. This
+isn't too surprising either, as MST support in radeon.ko is gated behind
+a module parameter that isn't enabled by default. This isn't to say I
+wouldn't be open to alternative suggestions, but I'd rather not be the
+one to have to spend time on that if at all possible! Plus, I already
+floated the idea of dropping this code by AMD folks a few times and
+didn't get much resistance.
 
-Thanks.
+As well, this series has some basic refactoring that I did along the way
+and some bugs I had to fix in order to get my atomic-only MST code
+working. Most of this is pretty straight forward and simply renaming
+things to more closely match the DisplayPort specification, as I think
+this will also make maintaining this code a lot easier in the long run
+(I've gotten myself confused way too many times because of this).
+
+So far I've tested this on all three MST drivers: amdgpu, i915 and
+nouveau, along with making sure that removing the radeon MST code
+doesn't break anything else. The one thing I very much could use help
+with regarding testing though is making sure that this works with
+amdgpu's DSC support on MST.
+
+So, with this we should be using the atomic state as much as possible
+with MST modesetting, hooray!
+
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Sean Paul <sean@poorly.run>
+
+Lyude Paul (18):
+  drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
+  drm/amdgpu/dm/mst: Rename get_payload_table()
+  drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
+  drm/display/dp_mst: Call them time slots, not VCPI slots
+  drm/display/dp_mst: Fix confusing docs for
+    drm_dp_atomic_release_time_slots()
+  drm/display/dp_mst: Add some missing kdocs for atomic MST structs
+  drm/display/dp_mst: Add helper for finding payloads in atomic MST
+    state
+  drm/display/dp_mst: Add nonblocking helpers for DP MST
+  drm/display/dp_mst: Don't open code modeset checks for releasing time
+    slots
+  drm/display/dp_mst: Fix modeset tracking in
+    drm_dp_atomic_release_vcpi_slots()
+  drm/nouveau/kms: Cache DP encoders in nouveau_connector
+  drm/nouveau/kms: Pull mst state in for all modesets
+  drm/display/dp_mst: Add helpers for serializing SST <-> MST
+    transitions
+  drm/display/dp_mst: Drop all ports from topology on CSNs before
+    queueing link address work
+  drm/display/dp_mst: Skip releasing payloads if last connected port
+    isn't connected
+  drm/display/dp_mst: Maintain time slot allocations when deleting
+    payloads
+  drm/radeon: Drop legacy MST support
+  drm/display/dp_mst: Move all payload info into the atomic state
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   72 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  111 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  126 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   10 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    4 +-
+ .../amd/display/include/link_service_types.h  |   18 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 1160 ++++++++---------
+ drivers/gpu/drm/i915/display/intel_display.c  |   11 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |    9 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   91 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |   24 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  202 ++-
+ drivers/gpu/drm/nouveau/dispnv50/disp.h       |    2 +
+ drivers/gpu/drm/nouveau/nouveau_connector.c   |   18 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.h   |    3 +
+ drivers/gpu/drm/radeon/Makefile               |    2 +-
+ drivers/gpu/drm/radeon/atombios_crtc.c        |   11 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c    |   59 -
+ drivers/gpu/drm/radeon/radeon_atombios.c      |    2 -
+ drivers/gpu/drm/radeon/radeon_connectors.c    |   61 +-
+ drivers/gpu/drm/radeon/radeon_device.c        |    1 -
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        |  778 -----------
+ drivers/gpu/drm/radeon/radeon_drv.c           |    4 -
+ drivers/gpu/drm/radeon/radeon_encoders.c      |   14 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c       |   10 +-
+ drivers/gpu/drm/radeon/radeon_mode.h          |   40 -
+ include/drm/display/drm_dp_mst_helper.h       |  230 ++--
+ 27 files changed, 991 insertions(+), 2082 deletions(-)
+ delete mode 100644 drivers/gpu/drm/radeon/radeon_dp_mst.c
 
 -- 
-tejun
+2.35.3
+
