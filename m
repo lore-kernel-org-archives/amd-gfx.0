@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7B0C43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 10:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1512C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 10:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C5311BBB7;
-	Tue,  7 Jun 2022 10:01:17 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2046.outbound.protection.outlook.com [40.107.102.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC2E711BBB7
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 10:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6E911A28F;
+	Tue,  7 Jun 2022 10:01:59 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2F411A28F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 10:01:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O831WZpoKHbZ8E+69LUDK/NwNiAvIC0NPgW2WFEhM8dG0pmo61mPMEjcLKWgv6ym0EbjV3KXe7R0DvjZHyGd/o3AtwIIYeBGU26ze3ED3jGKFJDjzom4PX8jJifGU1eDOCGZ0Bbt0H3JtTryEICLua7I9d/Ly0+eULwb0DyYjDpgrhesgvXraJyHyobXn7/hoRmdAiDTwE+pMnPt5spmwPg+ohLUh0CRjmIYrc8jIQolR16sKidQ1Kstw8sUdtQfXkE6WUPapiaP+rEomDLfeaO+tqb/wIrbSAdNNC6+IQUZCqBSIxjs5jEdFpkgxb9QK3ZU+/x3bZvo9nJk76U3qQ==
+ b=PO7UIcuWTIntmrfVQAW7HIGTS8FCrPvNkX8SROLWQ0GHiBJXGfB5kkSr13OAnmgksBUo3IuQMpWqOfBAKkZuv0RL7uUlnyJb+XhYFeTEQkm7Rf9LNxdTHxAkAAbm0eQ01cX9HltvutoGLvxIwY7SFLEoViJZ/Ywtc3vzcj3cbt2IFCgtLM2lHdqsMo9VcgvWwMmbA+sEkgLKVYL8/A6QYBwuKkeW8Z7sBx9xz5Y0/ioOCG4g2IkZHaVpxNO/knUBU0IsnFHVrngBwN5rntt/5TUqjH0t7rl8NVRtud6T9U84X7PDj35gUqDALWXqoB4pYYNNBwz7eK2p97hdyihbWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y4cdaRtxAM2qQb4xJFsq86ERCoG5pxucBgG0OFgmAlM=;
- b=GcYYRfqfOtV7Sli3rV/kNyD3GkHT1Z2B5iR2mI20RRrRKbIspFZMuNaiuKgR3f/aLmYOIlxFpwGUcwZP9ZAt7MkaXBPr2NAsSlVcqYzgeVx/ZeQ6BcRf8A7jcTasZUekwU4x5JDgLJ0U8R4kLmUEIlWk4BVUOo+gvaC11TR7a/y5z1FVpmP5HBUyeRm76ObrbsfAlcqmVusPH2kQkbz3esa5zYMBkBW0h1WtckD9IjIBpoPg0IoitN3Q/XccabsEo2AQaYrDg6E3RtCkaqSMA5DDLOv63pulhBaeuKoE+dYyDEgz3kK0oBXsvmcwuzVvGzYP96MIRT59p1LgI92L9Q==
+ bh=TuUS0CmmRRrbGrP9KUdVkFprOU13M1yxbt+vSPbiTE0=;
+ b=eD5BiMVNPhSPWw/URShEopBprpO8yymTy5mrs6YM/4JgAhpt2fW++B3v+YmMs7IiFrVjGSXYL/6T9Jy4xM0HygZmIbty+Xkq6GZWT9SSpGTnPo4nHDflOAjz55TD9Gbq2TRUQzd7jFwxDwADqttNBQlQZWY+Bhxb8NB75yBzilrMtAevJMlB4NhckCrOBVktwtKmpyPYRzg2WagZIum18JAh6Zv8KUsRLhHQZcNon/Hjebyh9mv9IxkPHvOLpwUG3CXH0IA1qf2ZOnLeisbQUlHVqm8u8h7Jo7/M2yO/RcC4ZJ+T0pDapyicV92I+tgeAbdgl9Ilmg25McwS8X9P8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y4cdaRtxAM2qQb4xJFsq86ERCoG5pxucBgG0OFgmAlM=;
- b=COueHtEdSeOPuWVP6yZjbf98a7a5YKVZnddMpwVqcuCRIiJKGi029QdERNbgI7hvLnKmIgi54Fs4O+iafsrgisI4+723MnBb3X1qaPJGsIOnnQ+kJH7Qg709mN7MrCRZCup8Nk0R2yvZz/fQl0sGqwJuoP599uttRQaQwFAYslM=
-Received: from DS7PR06CA0002.namprd06.prod.outlook.com (2603:10b6:8:2a::16) by
- BY5PR12MB3779.namprd12.prod.outlook.com (2603:10b6:a03:1a7::23) with
+ bh=TuUS0CmmRRrbGrP9KUdVkFprOU13M1yxbt+vSPbiTE0=;
+ b=s/yffA+atgkr5cMYgYmhjx4Q72X1dKSWI9un9gMgzrFV09kO58Ra5FuP1m4sOmVLE5BV7gNOzEZWd53AOW0kmkchn3W+yYNEJdlleTmj2PcvH22ySHngtINjanzTAS469oIXeSrdGiD2OzDEh2T80DJRx0dP3tusDY7d/0N3qdE=
+Received: from DS7PR03CA0094.namprd03.prod.outlook.com (2603:10b6:5:3b7::9) by
+ MN2PR12MB3198.namprd12.prod.outlook.com (2603:10b6:208:101::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15; Tue, 7 Jun
- 2022 10:01:13 +0000
-Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::ae) by DS7PR06CA0002.outlook.office365.com
- (2603:10b6:8:2a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
- Transport; Tue, 7 Jun 2022 10:01:13 +0000
+ 2022 10:01:54 +0000
+Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b7:cafe::70) by DS7PR03CA0094.outlook.office365.com
+ (2603:10b6:5:3b7::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.17 via Frontend
+ Transport; Tue, 7 Jun 2022 10:01:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
+ DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 10:01:13 +0000
+ 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 10:01:53 +0000
 Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 7 Jun
- 2022 05:00:48 -0500
+ 2022 05:00:50 -0500
 From: Lang Yu <Lang.Yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdkfd: simplify PD and PT BOs validation
-Date: Tue, 7 Jun 2022 17:59:46 +0800
-Message-ID: <20220607095947.120493-2-Lang.Yu@amd.com>
+Subject: [PATCH 3/3] drm/amdkfd: use existing VM helper for PD and PT
+ validation in SVM
+Date: Tue, 7 Jun 2022 17:59:47 +0800
+Message-ID: <20220607095947.120493-3-Lang.Yu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220607095947.120493-1-Lang.Yu@amd.com>
 References: <20220607095947.120493-1-Lang.Yu@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8d6a3790-3159-48e8-bc55-08da486ca7a6
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3779:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3779224B7A80A84051B46F7AFBA59@BY5PR12MB3779.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: cfc756c4-3ec2-4943-b0db-08da486cbfd7
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3198:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB31982632E3FB750DE72AB698FBA59@MN2PR12MB3198.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Yg/I3aewGuVTYE9dOe1e0H4RgVSzAIJKkwQlSevuZG4MlwpAPd0LN85//mi7s6ThXP3qVnb2W2sxH6GOb2OE2YHGt4PP1Y4XRKIrh9cEAXrQoJj6IEnoGd/Md73Uo60hNk2hfw2WUNFhF1tsIjFQMzf+KeSEMFGzxln4tr4zKRDhtvLMsX7pV3fBALgyejo9xctjs+waB42l1fodo0BLwiZxz0Il+mxBq2dgVp95509S7B1OsUl9W3czMKFgYCfhZhoh+UhJ2hadnXhUvxSQGC45DoGp4XWke6LQ7kOku6510L7Kk8aHPbUUiG6UD/airq31s9pxlVkrG5Mdmmi63mHnOR/bH5Sx3rYg43dnywEqGWwVBYr/CS8nKNWYbhp9XrQMSb0Qrf0kC8n6HUywHtQiwOIBRHUVNTCYs8r6oDFKQN+zlw8RV1aVuTBOYn9+0CfhVEUXggKWhSeK2JBZrLx/3q6NK+7vSwXrNU8+wh3i0h4QE4ztM8un2Mj0qDJ+C7DNTdl2t2TNXpDn0rBni0tUOgnLRxo6roZ3S8WhIU8Cf2fWNpy+F9HsOqIkO0rog2UmSzGUKvwPhaYFef7CpMD/QKomNe/63YPEBVaPjFKBF/wPWLzvMyEo+wWUoVHOxhCOOJi2//9udlW1Qv38EvwDpw09AoJjy1RUu7o+y5QDLtZtDVwMWuFfGBV4Pif/SPWp326pKlhsrmb7wbka1w==
+X-Microsoft-Antispam-Message-Info: IGKseoCCirKG1REFVTZOt4Fs59wUQuXJqZi3SiD6LBMq2/VHVUqAGzWtsUUNVwvy9QGIYnoaLvC1I1cuQfaPIwg2s4WHFDUBBx4aZ0+UPsI24WxcgDRRGcEXpVDhBYBVTLYwU1mXL3vy8ylryCo5nxkDEppNFyicvfaif9bl5TdhZaTUcbqEksIOTVb/wrodlH8tc3YrFWRH1bKsZOuHLlO19AdqE1oOb/zwKlRaaFSii3iYrSD/ItL8e+qRgkfqzyFqXQ2lD42K1mvluXhuk58mc375LBunRTzv3G0rgo/R95Dw0c3C5HCCCR/naZjP2FM1eLEaNkB/wdhCLLwaXaloV8E6dJ5bgC1OQaOoXbLZHlkG+1u8/8E0F4A4ocQKXPuba3dqI+0eeNlRngMtM/p2nGlgkZ7jN3+gRH9J9Sa2/5WkbrFuQjkxvs4tQUqj4WBLBPUN+VcukDTJxL6aI/CUbRssKQuLfsXM6iKh74kLfAQY56Yxqbwi3y4qjYg9hd/S1Z1OCB3wcSr7nUOJFSZH1J+9K5/K4AdT8fG4XVesJEzv5CL9zN3F38APjUcIsZePGn+57Jz3uwc0lYVWFeHDAuDXE1NwJdFIv4l0dTWyu3dgR3PXmPQzI3nvl5exrtsdWGVF7aFZ3UO2+AVD7b0FIdnewXMZj1y6NXkwX4RSmvHgd5dT27jgEujE1NKsQ8tk+06wyIng0wvL162+lg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(2616005)(426003)(336012)(2906002)(1076003)(4326008)(86362001)(47076005)(7696005)(82310400005)(316002)(186003)(26005)(6916009)(54906003)(70586007)(36860700001)(36756003)(8676002)(83380400001)(40460700003)(81166007)(356005)(508600001)(5660300002)(8936002)(16526019)(70206006)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(508600001)(36860700001)(81166007)(7696005)(26005)(82310400005)(6666004)(2906002)(8936002)(83380400001)(40460700003)(2616005)(86362001)(16526019)(356005)(336012)(1076003)(426003)(186003)(47076005)(5660300002)(70206006)(70586007)(6916009)(8676002)(4326008)(316002)(54906003)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 10:01:13.1642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6a3790-3159-48e8-bc55-08da486ca7a6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 10:01:53.7660 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfc756c4-3ec2-4943-b0db-08da486cbfd7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3779
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3198
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,127 +108,44 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1, Move root BO kmapping to amdgpu_vm_make_compute.
-2, Don't validate and kmap root BO intentional, it would be
-validated and mapped by amdgpu_vm_validate_pt_bos if necessary.
-3, Rename and expose vm_validate_pt_pd_bos, so that it
-could be used by SVM.
+This will remove some redundant codes.
 
 Signed-off-by: Lang Yu <Lang.Yu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 26 +++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  5 ++++
- 3 files changed, 12 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index f8b9f27adcf5..463c1a3fa587 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -288,6 +288,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
- int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 					      struct kfd_vm_fault_info *info);
-+int amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(struct amdgpu_vm *vm);
- int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
- 				      struct dma_buf *dmabuf,
- 				      uint64_t va, void *drm_priv,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 81bcffb510f4..9f6531597d1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -370,14 +370,14 @@ static int amdgpu_amdkfd_validate_vm_bo(void *_unused, struct amdgpu_bo *bo)
- 	return amdgpu_amdkfd_bo_validate(bo, bo->allowed_domains, false);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index d6fc00d51c8c..03e07d1d1d1a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -625,15 +625,6 @@ svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev)
+ 	return kfd_process_device_from_gpuidx(p, gpu_idx);
  }
  
--/* vm_validate_pt_pd_bos - Validate page table and directory BOs
-+/* amdgpu_amdkfd_gpuvm_validate_pt_pd_bos - Validate page table and directory BOs
-  *
-  * Page directories are not updated here because huge page handling
-  * during page table updates can invalidate page directory entries
-  * again. Page directories are only updated after updating page
-  * tables.
-  */
--static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
-+int amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(struct amdgpu_vm *vm)
- {
- 	struct amdgpu_bo *pd = vm->root.bo;
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(pd->tbo.bdev);
-@@ -389,22 +389,8 @@ static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
- 		return ret;
- 	}
- 
--	ret = amdgpu_amdkfd_validate_vm_bo(NULL, pd);
--	if (ret) {
--		pr_err("failed to validate PD\n");
--		return ret;
--	}
+-static int svm_range_bo_validate(void *param, struct amdgpu_bo *bo)
+-{
+-	struct ttm_operation_ctx ctx = { false, false };
 -
- 	vm->pd_phys_addr = amdgpu_gmc_pd_addr(vm->root.bo);
- 
--	if (vm->use_cpu_for_update) {
--		ret = amdgpu_bo_kmap(pd, NULL);
--		if (ret) {
--			pr_err("failed to kmap PD, ret=%d\n", ret);
--			return ret;
--		}
--	}
+-	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
 -
- 	return 0;
- }
+-	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+-}
+-
+ static int
+ svm_range_check_attr(struct kfd_process *p,
+ 		     uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
+@@ -1428,9 +1419,7 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
+ 			goto unreserve_out;
+ 		}
  
-@@ -1175,7 +1161,7 @@ static int process_validate_vms(struct amdkfd_process_info *process_info)
- 
- 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
- 			    vm_list_node) {
--		ret = vm_validate_pt_pd_bos(peer_vm);
-+		ret = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(peer_vm);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1261,7 +1247,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- 	ret = amdgpu_bo_reserve(vm->root.bo, true);
- 	if (ret)
- 		goto reserve_pd_fail;
--	ret = vm_validate_pt_pd_bos(vm);
-+	ret = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(vm);
- 	if (ret) {
- 		pr_err("validate_pt_pd_bos() failed\n");
- 		goto validate_pd_fail;
-@@ -1809,7 +1795,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 	    bo->tbo.resource->mem_type == TTM_PL_SYSTEM)
- 		is_invalid_userptr = true;
- 
--	ret = vm_validate_pt_pd_bos(avm);
-+	ret = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(avm);
- 	if (unlikely(ret))
- 		goto out_unreserve;
- 
-@@ -1889,7 +1875,7 @@ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 		goto unreserve_out;
- 	}
- 
--	ret = vm_validate_pt_pd_bos(avm);
-+	ret = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(avm);
- 	if (unlikely(ret))
- 		goto unreserve_out;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 1ea204218903..697ce6825c18 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2217,6 +2217,11 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 			goto unreserve_bo;
- 
- 		vm->update_funcs = &amdgpu_vm_cpu_funcs;
-+		r = amdgpu_bo_kmap(vm->root.bo, NULL);
-+		if (r) {
-+			dev_err(adev->dev, "failed to kmap PD, r = %d\n", r);
-+			return r;
-+		}
- 	} else {
- 		vm->update_funcs = &amdgpu_vm_sdma_funcs;
- 	}
+-		r = amdgpu_vm_validate_pt_bos(pdd->dev->adev,
+-					      drm_priv_to_vm(pdd->drm_priv),
+-					      svm_range_bo_validate, NULL);
++		r = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(drm_priv_to_vm(pdd->drm_priv));
+ 		if (r) {
+ 			pr_debug("failed %d validate pt bos\n", r);
+ 			goto unreserve_out;
 -- 
 2.25.1
 
