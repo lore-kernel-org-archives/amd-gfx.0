@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80512CCA47C
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275F1C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C9510E17B;
-	Tue,  7 Jun 2022 19:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2AE10E42D;
+	Tue,  7 Jun 2022 19:34:13 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65AD510E17B
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:33:42 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACCC10E644
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:34:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1654630420;
+ s=mimecast20190719; t=1654630450;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x0L+WDYL2ErSdyIk/wXgdKER6Al4H5aQXP9OvHKSvcc=;
- b=Yxc6oGCb8Z4U2BE8xRd0TzQKHuSiyo78Q27UVSNlemdCanvli2twUSu/U6Dd8o8a1ej2cu
- gKjCCpEAOEzQl0nk4sy1+Ybj0gvIMwR3kdc2v5doBnVNN11hwNk51+Ekh6LdSeXxewmUuv
- bc52K88lr/Eom+5Qln92vt7yvkfJ+Jw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=8PKbb/kNEHwMbrLFgS7c+rz5+fFiqO5VtrkEPhcXyas=;
+ b=U117yWjbfqDn7+A2GNKQiWONuVA21/O9HmOrVCY8EDWt9cFTMcoLLs1YZ29TwofQ0RNGKg
+ 9hruHiTBSaW59Q7hVM2xuRAcuOyZc+tNO+sjNOMSKx8gWPyOzbR+Tc1XoMbpQyCTEOxBq2
+ cZPcW7vc0LoJ4qbII6O9t3KjGaxA7W8=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-335-QkFO80RyM62Il9JS0DAv-w-1; Tue, 07 Jun 2022 15:33:37 -0400
-X-MC-Unique: QkFO80RyM62Il9JS0DAv-w-1
+ us-mta-210-030H7GMpPe2RsCwIeRuufg-1; Tue, 07 Jun 2022 15:34:05 -0400
+X-MC-Unique: 030H7GMpPe2RsCwIeRuufg-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 143933C11056;
- Tue,  7 Jun 2022 19:30:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 23B20106657E;
+ Tue,  7 Jun 2022 19:32:39 +0000 (UTC)
 Received: from emerald.redhat.com (unknown [10.22.9.252])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B61852143A29;
- Tue,  7 Jun 2022 19:29:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 415FE26AF43C;
+ Tue,  7 Jun 2022 19:32:10 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [RESEND RFC 01/18] drm/amdgpu/dc/mst: Rename
- dp_mst_stream_allocation(_table)
-Date: Tue,  7 Jun 2022 15:29:16 -0400
-Message-Id: <20220607192933.1333228-2-lyude@redhat.com>
+Subject: [RESEND RFC 05/18] drm/display/dp_mst: Fix confusing docs for
+ drm_dp_atomic_release_time_slots()
+Date: Tue,  7 Jun 2022 15:29:20 -0400
+Message-Id: <20220607192933.1333228-6-lyude@redhat.com>
 In-Reply-To: <20220607192933.1333228-1-lyude@redhat.com>
 References: <20220607192933.1333228-1-lyude@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,178 +61,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, David Airlie <airlied@linux.ie>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Jimmy Kizito <Jimmy.Kizito@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Alex Hung <alex.hung@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Michael Strauss <michael.strauss@amd.com>,
- "Shen, George" <George.Shen@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, jinzh <jinzh@github.amd.com>,
- "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Eric Yang <Eric.Yang2@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Roman Li <Roman.Li@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Claudio Suarez <cssk@net-c.es>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@intel.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just to make this more clear to outside contributors that these are
-DC-specific structs, as this also threw me into a loop a number of times
-before I figured out the purpose of this.
+For some reason we mention returning 0 if "slots have been added back to
+drm_dp_mst_topology_state->avail_slots". This is totally misleading,
+avail_slots is simply for figuring out the total number of slots available
+in total on the topology and has no relation to the current payload
+allocations.
+
+So, let's get rid of that comment.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Sean Paul <sean@poorly.run>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  9 ++++-----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c         | 10 +++++-----
- drivers/gpu/drm/amd/display/dc/dm_helpers.h           |  4 ++--
- .../gpu/drm/amd/display/include/link_service_types.h  | 11 ++++++++---
- 4 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 7c799ddc1d27..1bd70d306c22 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -153,9 +153,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	return result;
- }
- 
--static void get_payload_table(
--		struct amdgpu_dm_connector *aconnector,
--		struct dp_mst_stream_allocation_table *proposed_table)
-+static void get_payload_table(struct amdgpu_dm_connector *aconnector,
-+			      struct dc_dp_mst_stream_allocation_table *proposed_table)
- {
- 	int i;
- 	struct drm_dp_mst_topology_mgr *mst_mgr =
-@@ -177,7 +176,7 @@ static void get_payload_table(
- 			mst_mgr->payloads[i].payload_state ==
- 					DP_PAYLOAD_REMOTE) {
- 
--			struct dp_mst_stream_allocation *sa =
-+			struct dc_dp_mst_stream_allocation *sa =
- 					&proposed_table->stream_allocations[
- 						proposed_table->stream_count];
- 
-@@ -201,7 +200,7 @@ void dm_helpers_dp_update_branch_info(
- bool dm_helpers_dp_mst_write_payload_allocation_table(
- 		struct dc_context *ctx,
- 		const struct dc_stream_state *stream,
--		struct dp_mst_stream_allocation_table *proposed_table,
-+		struct dc_dp_mst_stream_allocation_table *proposed_table,
- 		bool enable)
- {
- 	struct amdgpu_dm_connector *aconnector;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index a789ea8af27f..db0f5158a0c2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3424,7 +3424,7 @@ static void update_mst_stream_alloc_table(
- 	struct dc_link *link,
- 	struct stream_encoder *stream_enc,
- 	struct hpo_dp_stream_encoder *hpo_dp_stream_enc, // TODO: Rename stream_enc to dio_stream_enc?
--	const struct dp_mst_stream_allocation_table *proposed_table)
-+	const struct dc_dp_mst_stream_allocation_table *proposed_table)
- {
- 	struct link_mst_stream_allocation work_table[MAX_CONTROLLER_NUM] = { 0 };
- 	struct link_mst_stream_allocation *dc_alloc;
-@@ -3586,7 +3586,7 @@ enum dc_status dc_link_allocate_mst_payload(struct pipe_ctx *pipe_ctx)
- {
- 	struct dc_stream_state *stream = pipe_ctx->stream;
- 	struct dc_link *link = stream->link;
--	struct dp_mst_stream_allocation_table proposed_table = {0};
-+	struct dc_dp_mst_stream_allocation_table proposed_table = {0};
- 	struct fixed31_32 avg_time_slots_per_mtp;
- 	struct fixed31_32 pbn;
- 	struct fixed31_32 pbn_per_slot;
-@@ -3691,7 +3691,7 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
- 	struct fixed31_32 avg_time_slots_per_mtp;
- 	struct fixed31_32 pbn;
- 	struct fixed31_32 pbn_per_slot;
--	struct dp_mst_stream_allocation_table proposed_table = {0};
-+	struct dc_dp_mst_stream_allocation_table proposed_table = {0};
- 	uint8_t i;
- 	enum act_return_status ret;
- 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
-@@ -3779,7 +3779,7 @@ enum dc_status dc_link_increase_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t
- 	struct fixed31_32 pbn;
- 	struct fixed31_32 pbn_per_slot;
- 	struct link_encoder *link_encoder = link->link_enc;
--	struct dp_mst_stream_allocation_table proposed_table = {0};
-+	struct dc_dp_mst_stream_allocation_table proposed_table = {0};
- 	uint8_t i;
- 	enum act_return_status ret;
- 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
-@@ -3855,7 +3855,7 @@ static enum dc_status deallocate_mst_payload(struct pipe_ctx *pipe_ctx)
- {
- 	struct dc_stream_state *stream = pipe_ctx->stream;
- 	struct dc_link *link = stream->link;
--	struct dp_mst_stream_allocation_table proposed_table = {0};
-+	struct dc_dp_mst_stream_allocation_table proposed_table = {0};
- 	struct fixed31_32 avg_time_slots_per_mtp = dc_fixpt_from_int(0);
- 	int i;
- 	bool mst_mode = (link->type == dc_connection_mst_branch);
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index fb6a2d7b6470..8173f4b80424 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -33,7 +33,7 @@
- #include "dc_types.h"
- #include "dc.h"
- 
--struct dp_mst_stream_allocation_table;
-+struct dc_dp_mst_stream_allocation_table;
- struct aux_payload;
- enum aux_return_code_type;
- 
-@@ -77,7 +77,7 @@ void dm_helpers_dp_update_branch_info(
- bool dm_helpers_dp_mst_write_payload_allocation_table(
- 		struct dc_context *ctx,
- 		const struct dc_stream_state *stream,
--		struct dp_mst_stream_allocation_table *proposed_table,
-+		struct dc_dp_mst_stream_allocation_table *proposed_table,
- 		bool enable);
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
-index 447a56286dd0..91bffc5bf52c 100644
---- a/drivers/gpu/drm/amd/display/include/link_service_types.h
-+++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
-@@ -245,8 +245,13 @@ union dpcd_training_lane_set {
- };
- 
- 
-+/* AMD's copy of various payload data for MST. We have two copies of the payload table (one in DRM,
-+ * one in DC) since DRM's MST helpers can't be accessed here. This stream allocation table should
-+ * _ONLY_ be filled out from DM and then passed to DC, do NOT use these for _any_ kind of atomic
-+ * state calculations in DM, or you will break something.
-+ */
- /* DP MST stream allocation (payload bandwidth number) */
--struct dp_mst_stream_allocation {
-+struct dc_dp_mst_stream_allocation {
- 	uint8_t vcp_id;
- 	/* number of slots required for the DP stream in
- 	 * transport packet */
-@@ -254,11 +259,11 @@ struct dp_mst_stream_allocation {
- };
- 
- /* DP MST stream allocation table */
--struct dp_mst_stream_allocation_table {
-+struct dc_dp_mst_stream_allocation_table {
- 	/* number of DP video streams */
- 	int stream_count;
- 	/* array of stream allocations */
--	struct dp_mst_stream_allocation stream_allocations[MAX_CONTROLLER_NUM];
-+	struct dc_dp_mst_stream_allocation stream_allocations[MAX_CONTROLLER_NUM];
- };
- 
- #endif /*__DAL_LINK_SERVICE_TYPES_H__*/
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 702ff5d9ecc7..ec52f91b1f0e 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -4467,8 +4467,7 @@ EXPORT_SYMBOL(drm_dp_atomic_find_time_slots);
+  * drm_dp_mst_atomic_check()
+  *
+  * Returns:
+- * 0 if all slots for this port were added back to
+- * &drm_dp_mst_topology_state.avail_slots or negative error code
++ * 0 on success, negative error code otherwise
+  */
+ int drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
+ 				     struct drm_dp_mst_topology_mgr *mgr,
 -- 
 2.35.3
 
