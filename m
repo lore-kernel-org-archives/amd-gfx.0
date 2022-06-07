@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4F03C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86811C43334
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 783A710E8B4;
-	Tue,  7 Jun 2022 19:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B964410EBC7;
+	Tue,  7 Jun 2022 19:36:11 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5F310E8B4
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:34:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A234410EBD0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:36:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1654630488;
+ s=mimecast20190719; t=1654630569;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zg8yBeGSpujFygwxJkzWzOm3xQkMe4291lxPHo3F32k=;
- b=KWXeIluN2ejaCVbZeLJpiKl0W9iu2cjt8ZJYlamvqYQFzbhagLPFPgqeKu4naENMVm1qjh
- VEMtkBbbqX8CMRicYFlACS0/XNJBJOtr9JaxmwNkQdwwUEPJF82pAifnnmPBvjoOzZzdnL
- 8IID+6P7VCEGt8H7tkhRyODmPKvo17s=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=l9fvVlfpRHc1wluICGFZYEmBqGMknwCaw3/CMIykLk4=;
+ b=WHoWZjY/Bgi/rBKyrV7EndVbuiihfT/1PMVp8K1NjNBNaWH47jl1W9HAaXyRXuSoUBvO0L
+ /jI/0NgclEPoRT6xCgYBJJlOVGl49nlcSELp5KYxuB5IdH7+aVyg+X8vikbeDcKh/0VOPg
+ 6a//7NOZIqMgJpe6pPfMayMH+eJxwpQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-78-cQ4PIU33NzyuBBFMuEMiMQ-1; Tue, 07 Jun 2022 15:34:47 -0400
-X-MC-Unique: cQ4PIU33NzyuBBFMuEMiMQ-1
+ us-mta-450-Qaw9Wa9MMXueauo6eKg78A-1; Tue, 07 Jun 2022 15:36:06 -0400
+X-MC-Unique: Qaw9Wa9MMXueauo6eKg78A-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C1D63C41678;
- Tue,  7 Jun 2022 19:33:21 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFB1D833976;
+ Tue,  7 Jun 2022 19:35:25 +0000 (UTC)
 Received: from emerald.redhat.com (unknown [10.22.9.252])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E5AD321FB7E2;
- Tue,  7 Jun 2022 19:32:52 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C17992C05D2C;
+ Tue,  7 Jun 2022 19:35:02 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [RESEND RFC 07/18] drm/display/dp_mst: Add helper for finding
- payloads in atomic MST state
-Date: Tue,  7 Jun 2022 15:29:22 -0400
-Message-Id: <20220607192933.1333228-8-lyude@redhat.com>
+Subject: [RESEND RFC 11/18] drm/nouveau/kms: Cache DP encoders in
+ nouveau_connector
+Date: Tue,  7 Jun 2022 15:29:26 -0400
+Message-Id: <20220607192933.1333228-12-lyude@redhat.com>
 In-Reply-To: <20220607192933.1333228-1-lyude@redhat.com>
 References: <20220607192933.1333228-1-lyude@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -61,221 +60,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We already open-code this quite often, and will be iterating through
-payloads even more once we've moved all of the payload tracking into the
-atomic state. So, let's add a helper for doing this.
+Post-NV50, the only kind of encoder you'll find for DP connectors on Nvidia
+GPUs are SORs (serial output resources). Because SORs have fixed
+associations with their connectors, we can correctly assume that any DP
+connector on a nvidia GPU will have exactly one SOR encoder routed to it
+for DisplayPort.
+
+Since we're going to need to be able to retrieve this fixed SOR DP encoder
+much more often as a result of hooking up MST helpers for tracking
+SST<->MST transitions in atomic states, let's simply cache this encoder in
+nouveau_connector for any DP connectors on the system to avoid looking it
+up each time. This isn't safe for NV50 since PIORs then come into play,
+however there's no code pre-NV50 that would need to look this up anyhow -
+so it's not really an issue.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Wayne Lin <Wayne.Lin@amd.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Sean Paul <sean@poorly.run>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 109 ++++++++----------
- 1 file changed, 45 insertions(+), 64 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 4 +++-
+ drivers/gpu/drm/nouveau/nouveau_connector.h | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index ec52f91b1f0e..0bc2c7a90c37 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -1737,6 +1737,19 @@ drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port) {}
- #define save_port_topology_ref(port, type)
- #endif
- 
-+static struct drm_dp_mst_atomic_payload *
-+drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
-+				 struct drm_dp_mst_port *port)
-+{
-+	struct drm_dp_mst_atomic_payload *payload;
-+
-+	list_for_each_entry(payload, &state->payloads, next)
-+		if (payload->port == port)
-+			return payload;
-+
-+	return NULL;
-+}
-+
- static void drm_dp_destroy_mst_branch_device(struct kref *kref)
- {
- 	struct drm_dp_mst_branch *mstb =
-@@ -4381,39 +4394,31 @@ int drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
- 				  int pbn_div)
- {
- 	struct drm_dp_mst_topology_state *topology_state;
--	struct drm_dp_mst_atomic_payload *pos, *payload = NULL;
--	int prev_slots, prev_bw, req_slots;
-+	struct drm_dp_mst_atomic_payload *payload = NULL;
-+	int prev_slots = 0, prev_bw = 0, req_slots;
- 
- 	topology_state = drm_atomic_get_mst_topology_state(state, mgr);
- 	if (IS_ERR(topology_state))
- 		return PTR_ERR(topology_state);
- 
- 	/* Find the current allocation for this port, if any */
--	list_for_each_entry(pos, &topology_state->payloads, next) {
--		if (pos->port == port) {
--			payload = pos;
--			prev_slots = payload->time_slots;
--			prev_bw = payload->pbn;
--
--			/*
--			 * This should never happen, unless the driver tries
--			 * releasing and allocating the same timeslot allocation,
--			 * which is an error
--			 */
--			if (WARN_ON(!prev_slots)) {
--				drm_err(mgr->dev,
--					"cannot allocate and release time slots on [MST PORT:%p] in the same state\n",
--					port);
--				return -EINVAL;
--			}
-+	payload = drm_atomic_get_mst_payload_state(topology_state, port);
-+	if (payload) {
-+		prev_slots = payload->time_slots;
-+		prev_bw = payload->pbn;
- 
--			break;
-+		/*
-+		 * This should never happen, unless the driver tries
-+		 * releasing and allocating the same timeslot allocation,
-+		 * which is an error
-+		 */
-+		if (WARN_ON(!prev_slots)) {
-+			drm_err(mgr->dev,
-+				"cannot allocate and release time slots on [MST PORT:%p] in the same state\n",
-+				port);
-+			return -EINVAL;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index 22b83a6577eb..ffbd8a9cf2af 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -1368,7 +1368,7 @@ nouveau_connector_create(struct drm_device *dev,
+ 			kfree(nv_connector);
+ 			return ERR_PTR(ret);
  		}
- 	}
--	if (!payload) {
--		prev_slots = 0;
--		prev_bw = 0;
--	}
+-		fallthrough;
++		break;
+ 	default:
+ 		funcs = &nouveau_connector_funcs;
+ 		break;
+@@ -1422,6 +1422,8 @@ nouveau_connector_create(struct drm_device *dev,
  
- 	if (pbn_div <= 0)
- 		pbn_div = mgr->pbn_div;
-@@ -4474,30 +4479,24 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
- 				     struct drm_dp_mst_port *port)
- {
- 	struct drm_dp_mst_topology_state *topology_state;
--	struct drm_dp_mst_atomic_payload *pos;
--	bool found = false;
-+	struct drm_dp_mst_atomic_payload *payload;
+ 	switch (type) {
+ 	case DRM_MODE_CONNECTOR_DisplayPort:
++		nv_connector->dp_encoder = find_encoder(&nv_connector->base, DCB_OUTPUT_DP);
++		fallthrough;
+ 	case DRM_MODE_CONNECTOR_eDP:
+ 		drm_dp_cec_register_connector(&nv_connector->aux, connector);
+ 		break;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
+index b0773af5a98f..f468c181d9a3 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.h
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
+@@ -127,6 +127,9 @@ struct nouveau_connector {
  
- 	topology_state = drm_atomic_get_mst_topology_state(state, mgr);
- 	if (IS_ERR(topology_state))
- 		return PTR_ERR(topology_state);
+ 	struct drm_dp_aux aux;
  
--	list_for_each_entry(pos, &topology_state->payloads, next) {
--		if (pos->port == port) {
--			found = true;
--			break;
--		}
--	}
--	if (WARN_ON(!found)) {
-+	payload = drm_atomic_get_mst_payload_state(topology_state, port);
-+	if (WARN_ON(!payload)) {
- 		drm_err(mgr->dev, "No payload for [MST PORT:%p] found in mst state %p\n",
- 			port, &topology_state->base);
- 		return -EINVAL;
- 	}
++	/* The fixed DP encoder for this connector, if there is one */
++	struct nouveau_encoder *dp_encoder;
++
+ 	int dithering_mode;
+ 	int scaling_mode;
  
--	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, pos->time_slots);
--	if (pos->time_slots) {
-+	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->time_slots);
-+	if (payload->time_slots) {
- 		drm_dp_mst_put_port_malloc(port);
--		pos->time_slots = 0;
--		pos->pbn = 0;
-+		payload->time_slots = 0;
-+		payload->pbn = 0;
- 	}
- 
- 	return 0;
-@@ -5194,18 +5193,8 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 		return 0;
- 
- 	if (drm_dp_mst_is_end_device(port->pdt, port->mcs)) {
--		bool found = false;
--
--		list_for_each_entry(payload, &state->payloads, next) {
--			if (payload->port != port)
--				continue;
--			if (!payload->pbn)
--				return 0;
--
--			found = true;
--			break;
--		}
--		if (!found)
-+		payload = drm_atomic_get_mst_payload_state(state, port);
-+		if (!payload)
- 			return 0;
- 
- 		/*
-@@ -5360,34 +5349,26 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
- 				 bool enable)
- {
- 	struct drm_dp_mst_topology_state *mst_state;
--	struct drm_dp_mst_atomic_payload *pos;
--	bool found = false;
-+	struct drm_dp_mst_atomic_payload *payload;
- 	int time_slots = 0;
- 
- 	mst_state = drm_atomic_get_mst_topology_state(state, port->mgr);
--
- 	if (IS_ERR(mst_state))
- 		return PTR_ERR(mst_state);
- 
--	list_for_each_entry(pos, &mst_state->payloads, next) {
--		if (pos->port == port) {
--			found = true;
--			break;
--		}
--	}
--
--	if (!found) {
-+	payload = drm_atomic_get_mst_payload_state(mst_state, port);
-+	if (!payload) {
- 		drm_dbg_atomic(state->dev,
- 			       "[MST PORT:%p] Couldn't find payload in mst state %p\n",
- 			       port, mst_state);
- 		return -EINVAL;
- 	}
- 
--	if (pos->dsc_enabled == enable) {
-+	if (payload->dsc_enabled == enable) {
- 		drm_dbg_atomic(state->dev,
- 			       "[MST PORT:%p] DSC flag is already set to %d, returning %d time slots\n",
--			       port, enable, pos->time_slots);
--		time_slots = pos->time_slots;
-+			       port, enable, payload->time_slots);
-+		time_slots = payload->time_slots;
- 	}
- 
- 	if (enable) {
-@@ -5399,7 +5380,7 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
- 			return -EINVAL;
- 	}
- 
--	pos->dsc_enabled = enable;
-+	payload->dsc_enabled = enable;
- 
- 	return time_slots;
- }
 -- 
 2.35.3
 
