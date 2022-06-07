@@ -4,121 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC91EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 03:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3230C43334
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 08:23:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F49111AEC1;
-	Tue,  7 Jun 2022 03:20:11 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 743C311AEC1
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 03:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 506F512B0FB;
+	Tue,  7 Jun 2022 08:23:26 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E08F212B0FA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 08:23:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lqLUzGGTApvMvVX0eI8yGwTvY2Q6DmrIwOysZCQJp+PtM1+4gwZ2rhr3Q3f2mILjWDgcwAlbt7GEoeFYxJow0v6jGJiGu4gJd6gAFIDHqdFBc+hKa3zKDOgp9hp1OTkH2KOfXEA7pVnSrfEI926Gis6xEsv0Pf0tzQskfkY5oiuLKDS+scS0U4N52/pxvr9wehmnM+ONF9I0t2IreQ9/CF4PDnJcB6bzcF94kWKpp84oTraEQvHpsqbPhXwvm/wFrhA0gGz429i3VNYyuPl+KtyfeUepAa8W83KeyHLBP10m4s7FlVkvJTN+u3JJdN74L1jxPHC0ADmAusR1mn5uyA==
+ b=kER4q4aG2uo/0pAu9IGeh0kf9DWv5dUyEZhiJUz4CwvpwVO4CpB0zkh4MRxjtH6/uNQPopbvArcsqyTa6VLg8tgRd1WLoWEuF985slG3MjJqikMsYqEw/l1a3jH5/tjeW+2/8K2+yzUVQB6ftoFaisMy6Va/FJPiOp8Th3Gb6E27ffiqvd+hiF4cg33LaeTLXzx0KolB+nsG3/0uOPRQZQSJ0y7FG015L5/MWuYAT9QudvHfjdZRSPCmWxIb4DlhjUf91AhGRD0t64+eT4saXCeGJA0xq3e1YPPcUZJGEZcGlSHeHusIKh5ijakyn2SWH2fPOtoq5e3zFtoLl2OR6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sCnoXR6nyRdcBsA7TmH2inLV20zbRAuVmn133+k9iAE=;
- b=eGF8tNFD1EbT8re88pCYpsGq12ttPqCtiu29GmhFc7Ukb0+wYSxDWOWIQEl/HFkXc8CAi4BuCmolkIcdabtBD5FnAcdwiXq/OO92wzZZg9ZvGDsDL7JiqF9zMJLH9VAb6zEU5RatJPu4A3jIAiYNcXJp3s2/EefccBfmjrpaueLk5mAQryHMzEFsTTJcZmizXY39hipiQ2TyiGPKV3s8vgsbswk5Ex+1iR78ERIHll3Ae/lYkTaSmcnIgj9xCGJeSeU9/eE2mW1EfCkPZ1sFiRnTUwlDzD9RWBiXx3RbCvcFuBfazIN2ZLypI9JtzZr/CD+9xUPE5BtshR54XvyGTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CTaa1jtf4IXy3F6YGQg0fbajheMuZ/qeY+0ZHaR5gBU=;
+ b=Jr+3KEK0CDRh/pkzvNtkKESWpugABaudTQkT3LT13YO6h1nWjccB5dcFKK/++BqW1g9P0VYMMZd3cNaQDiRIywl5OwSaAmq8lDee7bMnDHx/O1010l0r6VSO5XWK7NJNbxTSwF0jEQ9x2wLI41g3N5HDJjGXXYHVIyGlBHJW3rUKrzwc471oiN4L7hNOMC7ctgcZR9454Kh71NkyXA9dj1zzb59NtDV+evbTehkRqiU1XScW5zWJAPmL50s0u53lheWXqHGbqfxFpcX4jjDwN+bQFS9HUF4RQhYHX7f5iQeISYJKLEg4FBZfjKkVOGFKsJFXkY82rJoxLueYBCDDng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sCnoXR6nyRdcBsA7TmH2inLV20zbRAuVmn133+k9iAE=;
- b=gnCVImOavC0scYbqKGJb8zcifnC/1rdLR7mJq6NqWx04DuYexCUXBK0e+NgzYF/DtfVWuehwywh+jBBrgND/+oZJERjBManKZg7+NcT42TWLYueD/ru6N8RwcribZ9CO/hXO/i6HepR+MdtPsl7khFvJQYdlRzlEf3zeEV3k4Cc=
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
- by BL1PR12MB5095.namprd12.prod.outlook.com (2603:10b6:208:31b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Tue, 7 Jun
- 2022 03:20:07 +0000
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::7d16:a6b1:7a6a:aae8]) by DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::7d16:a6b1:7a6a:aae8%7]) with mapi id 15.20.5314.019; Tue, 7 Jun 2022
- 03:20:07 +0000
-From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Add fw version for 10.3.6
-Thread-Topic: [PATCH] drm/amdkfd: Add fw version for 10.3.6
-Thread-Index: Adh6GnCehdqG02mRTeC6U2QKMn0rNA==
-Date: Tue, 7 Jun 2022 03:20:07 +0000
-Message-ID: <DM4PR12MB5152E4FE7DB27155C242620BE3A59@DM4PR12MB5152.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-06-07T02:50:26Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=726e751c-4fc2-4f28-bc7f-27c599743d03;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-06-07T03:20:00Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: b0ca54e8-44f0-4329-b036-eaa518ab2dc2
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d4fe6f25-5029-4c58-34af-08da48349f7e
-x-ms-traffictypediagnostic: BL1PR12MB5095:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB50954EAB016CF7566DC1F6C5E3A59@BL1PR12MB5095.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /dt0dgxPOihugUwann897UaF/9Qs4V6oBezYCDWcvz7fqNXZEgqlg4fvDVAAqvPvvXxsFX6BDkCcWPgpEOb2LvYLgYyjl5vpBYttxv8FrlBqhbkOUP0V+bT24ixxFx+0GNbhnqpZJ5HQoGGfRBW7giFZgXmWdJIFslV1MlwOLNVGpFYlSKRABwoWyg1c0wdgQYZI6C5JsB8Yn3WwLB5mXpbsf1ZFCEnZVd/6Ob0BZBv0mgVLrVNMyGELoorRDRJGYhG2im0wKKcUZOqV568lEOY9pFG59GKOQS3amZ7okRTU8HGd55yJ34NMxFzwAgJeLiDrO01SCtKiNLouCTUhpYo2vCnzMljHIN49liVMq1VlRNLwSgdwHhqneZXyrk4YeZxvTp+d8KiDwg0MHFs8VueeZPUttkNCHHZkO2dh8RQMMAqq4ekQfxN5Zs3+DJSi7I9rqfOnRc3IGQCQiTEPuonaWNmC/++GRkQW6daDV/b5HkqY/OP/eM9+GjRZ5t5xx29hgLHnI0YMMgkRA2Q2c5uyxaRVc5i7K+E99UnkL8Mc/OwjBi6J4D1QEAC6rj9UP9+QzaMg4uSs0q14QiB9TgQdLoDfWWfaGODfZzdRPlfZ/8n2ehqOjfDDB0zuegZlQRzwy5zwrBYXgFM6UjfdD8cM/wlKEG49iFWAkfaok8svxFVgqiI9ZjJT+92EnlLf2EdTkLfnmXowtwA0YprBSA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(316002)(7696005)(71200400001)(76116006)(6916009)(55016003)(54906003)(186003)(9686003)(122000001)(38070700005)(86362001)(33656002)(4326008)(64756008)(66556008)(66446008)(8676002)(66476007)(66946007)(26005)(38100700002)(8936002)(52536014)(508600001)(2906002)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EmmmWr9NflMGPIY5nXCs3MIZvREMCDRCwzK/oaYDBP+p9zNKQmyEzmC4twvH?=
- =?us-ascii?Q?HewswoSWBlwI4F+I0NuCT4Wk5LxoThea7F0DAPXkMhfdl8MfNmYG3THBCh0k?=
- =?us-ascii?Q?YQK+f+wnGzaoGxI8Ol5X+Tw7KYjjs/shYlsgoL9MAW26yNMJqfbXUEXsBBmU?=
- =?us-ascii?Q?WqylSxl+oOK3LSGCXQ/aPTvDe0/jBGkGXb/6cQhMo+G8vls86yU+KCRq3/3h?=
- =?us-ascii?Q?ig514jouqQqo/QjFo/sJrpevSXS+zPcbCXPVfXExlSPbOKr2ydupq1gQQngF?=
- =?us-ascii?Q?dX9cj2QjEQnQcxL3fvpy3ecR3pKSkluWQd3FUopJ/vQSOQfUaT9QYISGpD2U?=
- =?us-ascii?Q?nM/v/kBkQ4fxtHm+4V20h6Wct3LGvb2eR1FuFWv9Dv5dWV4HEqmkKamQWHh2?=
- =?us-ascii?Q?boB2eqK8lCH9wTMemwamVGmQIDEYsFGaHl0rz8S6PXR8JEOO6O9xQxcd6iO5?=
- =?us-ascii?Q?3EYizcCO/dkwnlYnXbC4trTENxsd/imJBgclHEgr+4cs4xnayJEMKuzdAI/u?=
- =?us-ascii?Q?ljTNlZednsvVVI7sstejxc5+AbJct9iWy2IsO+fKOCtKxaza90BSKms/Dxjc?=
- =?us-ascii?Q?ZAQL5dMH5juIf3HxEIpDa3P4+TAr0Sn0nEkoc9E3ElD9FtobpCQg/55cEYSR?=
- =?us-ascii?Q?nAtqDONWAZMojP06y0y2JRtNwdhl+L4agMPEQwqjR2b2KSeukiPLzt1vB89A?=
- =?us-ascii?Q?VT4RuRXV5vTDNBooZR7zwQAyJ1GqM23xpUNfBp/XjmPLg4Fm2mC8vtKJv1db?=
- =?us-ascii?Q?qfeV6/oDC7jLfrvuhxZAI802OvEWZ5cYYSGPwqgTurHldwJAtTWgLE5veYG3?=
- =?us-ascii?Q?Ictjjnn8YtWtn2sT9S1d68JClyayK2BIP+v4BdRhhWYOab/PvpOv+++eFNqC?=
- =?us-ascii?Q?a/a/qQ90msfuE10ulczlrUNmFZALQZRa7qT08QDdowxk8mqh4uZunowvhrRy?=
- =?us-ascii?Q?8SU/meb9+QRd399/AqzNQyMws5dqpPB4FYkCxvf3d8Ah41USV30MfzQZ+hth?=
- =?us-ascii?Q?n+POD2kQxvYDZMuL7kzEO30u1F7fE34uWh8/HCVjo2D9zJIh2kTGab/ZdjLz?=
- =?us-ascii?Q?lagzFBl+AS85WJ+D5Gg4wM+z7f/d36IgYWr2EjGaneUf41IpGLrvoB8DRqZG?=
- =?us-ascii?Q?MK4y/vulf0JN8++2CIsqEdIgjIN4/hN0cNzbrX+RaK+R0EQaCVItt85xoRD7?=
- =?us-ascii?Q?ktjRdUeMTz6FF/V3yRA2UR1M11RcYk/mNHgk1EzEnSt9aFXgvccjMgMwH5XJ?=
- =?us-ascii?Q?timdA9jOgliFzOx7uosofinoeHHI39tVnlVmb9pj8V+JAcpn/rQByagukAku?=
- =?us-ascii?Q?6EIqeOUOeLJ1Sh1iemd+SJJH1mxMaCxDijn6SqXkUrAJB/Qr0FTn9yEgpjcu?=
- =?us-ascii?Q?0OHjKUfBW8m9GCgMnQ+aHLHwM9jbR0i3WPFEmDyDI4+FxWF86SDDTw6+EsQz?=
- =?us-ascii?Q?IEjZNNC4w17AgTp6yIbZKBWGMJ/Y09xMkyyIkzO1B6hwLz7qmoQsPlQ4zPsv?=
- =?us-ascii?Q?D72rKQziUbhqIXYOBScKgyE9qIrj4b4IVtzFiBGUX/6XaOJRcrWrg1VTBsJs?=
- =?us-ascii?Q?SvPPBmLzZGWtRSkYR9fQVds6QwWFlyK4346MA98jbwduRAPPi8Pa/v07qpeQ?=
- =?us-ascii?Q?3I3cJCQ2lSySISGNgUeFhgwJA4u436cgDGFcerenshv+RsibmmZGNNnlmfYs?=
- =?us-ascii?Q?6NWjg2/YluEKs0UknV5NbNpiCJ+Hjyz08wiUYBPAK5CWOw73lXl6VHJUgb6c?=
- =?us-ascii?Q?lGzcq6j0Iw=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB5152E4FE7DB27155C242620BE3A59DM4PR12MB5152namp_"
+ bh=CTaa1jtf4IXy3F6YGQg0fbajheMuZ/qeY+0ZHaR5gBU=;
+ b=Tgj4Xb1fbxeBOtqdB/vriUPMNYiZFsC3vcdwZS43P1ewrWwHyDQGtfpsRfbJ3dH0aPZq6wyEDtsuagbWrU44P1/GNlzhbmH5JweXotAfMZxwx6/N31rRVjzO7IkNtBw6VTR3ty/pnVbj/a6bied7m6vpRiYAPce6YVfQcIdhZ5o=
+Received: from DM3PR08CA0012.namprd08.prod.outlook.com (2603:10b6:0:52::22) by
+ SN1PR12MB2398.namprd12.prod.outlook.com (2603:10b6:802:26::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5314.13; Tue, 7 Jun 2022 08:23:21 +0000
+Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:52:cafe::e1) by DM3PR08CA0012.outlook.office365.com
+ (2603:10b6:0:52::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
+ Transport; Tue, 7 Jun 2022 08:23:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 08:23:21 +0000
+Received: from RErrabolDevMach.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 7 Jun
+ 2022 03:23:20 -0500
+From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/3] drm/amdgpu: Add peer-to-peer support among PCIe connected
+ AMD GPUs
+Date: Tue, 7 Jun 2022 03:23:07 -0500
+Message-ID: <20220607082307.1982598-1-Ramesh.Errabolu@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d1f8c2d7-ebc3-4f05-b0a7-08da485efbfa
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2398:EE_
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2398AB6C81CE6D5665718ABDE3A59@SN1PR12MB2398.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IVXczfvgehlI6S/FN7A83zRd6Gny1yk2KVULDW8yzP3npWwTnYH0+I9FV+UxKE73skzDYnwM0ghs+s75YeNcFpFVV/MwuFq+DqdxCSDALdwep95Bo5u/+QxDnCebhI4oHZxhSBmAfd2F9sMorr/Kta0l8hdWzV98jqUqkY1oOTKSr3tctssFUgbEbLf9wUGg9wYqfC/3+/udCnEI4P7zTliTQK3jKwHTA2rlgxTcSrcLo9L1XXwEeR0ujWCY+RtcDHbKbc5Mbdpk7I9nCWp406Z8jb47VmgDQkrhJ5KlZz79gHvMC74BvcmHR5yksCCBtncouQ2YTNcKVKFIFYbxx3zGtBxajIofKyg02yw1zp6vamaJ10QFmAjV0C72OlzKywU1z7XO8taj3lwp8Xc8tCYweDQhX4DqGHXvw5GDy1LU3bA7tCnduwWflpueoDcq0TeQj6Qxg1HvSfL/zUaMIH+1AkOxrNM+ElQDcQuE/o3PV4i70R9rNd8nY3s86ikoTTasTL0MLjIpo3jclZ5w0NroorHcJMShiLRBDm0zRGLaSmbBiiWB2uAb9eKFmYQJCoWN9tScXtYy2Ft0uLGyQMHFf51jiKxrzKq4UY1KNcjKZtGetcUWTWg6TTFC+crjHG6zA2/9eZPtLn1ASEmuPgm424DR/TBtmITNHW8C2ojBXyrKvjZv5w1KVwWCBw113RfNV0wkXYXVe4rdgWkLkw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(30864003)(81166007)(4326008)(8936002)(8676002)(5660300002)(36756003)(47076005)(82310400005)(356005)(70206006)(70586007)(316002)(6666004)(86362001)(426003)(36860700001)(83380400001)(508600001)(336012)(6916009)(26005)(7696005)(40460700003)(1076003)(186003)(16526019)(2906002)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4fe6f25-5029-4c58-34af-08da48349f7e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2022 03:20:07.7537 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XuQLE1WI71ch5alqPWxhepq8cAd7ML7VQD5+tzn+X+VG1zUt3ItAceLxMR9klgAwZQVc2e13WkrH3sA+u8SkBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5095
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 08:23:21.6888 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1f8c2d7-ebc3-4f05-b0a7-08da485efbfa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2398
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,198 +99,518 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Chang, David" <David.Chang@amd.com>
+Cc: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB5152E4FE7DB27155C242620BE3A59DM4PR12MB5152namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Add support for peer-to-peer communication among AMD GPUs over PCIe
+bus. Support REQUIRES enablement of config HSA_AMD_P2P.
 
-[AMD Official Use Only - General]
+Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 300 ++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  31 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  10 +
+ 5 files changed, 283 insertions(+), 62 deletions(-)
 
-It will happed error on loading firmware.   we need add firmware version in=
-formation.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 70a2a0ffc007..d3b2245972b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -223,6 +223,9 @@ static const int __maybe_unused sched_policy = KFD_SCHED_POLICY_HWS;
+ static const bool __maybe_unused debug_evictions; /* = false */
+ static const bool __maybe_unused no_system_mem_limit;
+ #endif
++#ifdef CONFIG_HSA_AMD_P2P
++extern bool pcie_p2p;
++#endif
+ 
+ extern int amdgpu_tmz;
+ extern int amdgpu_reset_method;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index f8b9f27adcf5..5c00ea1df21c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -48,6 +48,7 @@ enum kfd_mem_attachment_type {
+ 	KFD_MEM_ATT_SHARED,	/* Share kgd_mem->bo or another attachment's */
+ 	KFD_MEM_ATT_USERPTR,	/* SG bo to DMA map pages from a userptr bo */
+ 	KFD_MEM_ATT_DMABUF,	/* DMAbuf to DMA map TTM BOs */
++	KFD_MEM_ATT_SG		/* Tag to DMA map SG BOs */
+ };
+ 
+ struct kfd_mem_attachment {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 054e4a76ae2e..ce012a148ed7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -241,6 +241,42 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
+ 	kfree(bo->kfd_bo);
+ }
+ 
++/**
++ * @create_dmamap_sg_bo: Creates a amdgpu_bo object to reflect information
++ * about USERPTR or DOOREBELL or MMIO BO.
++ * @adev: Device for which dmamap BO is being created
++ * @mem: BO of peer device that is being DMA mapped. Provides parameters
++ *	 in building the dmamap BO
++ * @bo_out: Output parameter updated with handle of dmamap BO
++ */
++static int
++create_dmamap_sg_bo(struct amdgpu_device *adev,
++		 struct kgd_mem *mem, struct amdgpu_bo **bo_out)
++{
++	struct drm_gem_object *gem_obj;
++	int ret, align;
++
++	ret = amdgpu_bo_reserve(mem->bo, false);
++	if (ret)
++		return ret;
++
++	align = 1;
++	ret = amdgpu_gem_object_create(adev, mem->bo->tbo.base.size, align,
++			AMDGPU_GEM_DOMAIN_CPU, AMDGPU_GEM_CREATE_PREEMPTIBLE,
++			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj);
++
++	amdgpu_bo_unreserve(mem->bo);
++
++	if (ret) {
++		pr_err("Error in creating DMA mappable SG BO on domain: %d\n", ret);
++		return -EINVAL;
++	}
++
++	*bo_out = gem_to_amdgpu_bo(gem_obj);
++	(*bo_out)->parent = amdgpu_bo_ref(mem->bo);
++	return ret;
++}
++
+ /* amdgpu_amdkfd_remove_eviction_fence - Removes eviction fence from BO's
+  *  reservation object.
+  *
+@@ -481,6 +517,38 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
+ 	return pte_flags;
+ }
+ 
++/**
++ * create_sg_table() - Create an sg_table for a contiguous DMA addr range
++ * @addr: The starting address to point to
++ * @size: Size of memory area in bytes being pointed to
++ *
++ * Allocates an instance of sg_table and initializes it to point to memory
++ * area specified by input parameters. The address used to build is assumed
++ * to be DMA mapped, if needed.
++ *
++ * DOORBELL or MMIO BOs use only one scatterlist node in their sg_table
++ * because they are physically contiguous.
++ *
++ * Return: Initialized instance of SG Table or NULL
++ */
++static struct sg_table *create_sg_table(uint64_t addr, uint32_t size)
++{
++	struct sg_table *sg = kmalloc(sizeof(*sg), GFP_KERNEL);
++
++	if (!sg)
++		return NULL;
++	if (sg_alloc_table(sg, 1, GFP_KERNEL)) {
++		kfree(sg);
++		return NULL;
++	}
++	sg_dma_address(sg->sgl) = addr;
++	sg->sgl->length = size;
++#ifdef CONFIG_NEED_SG_DMA_LENGTH
++	sg->sgl->dma_length = size;
++#endif
++	return sg;
++}
++
+ static int
+ kfd_mem_dmamap_userptr(struct kgd_mem *mem,
+ 		       struct kfd_mem_attachment *attachment)
+@@ -545,6 +613,87 @@ kfd_mem_dmamap_dmabuf(struct kfd_mem_attachment *attachment)
+ 	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+ }
+ 
++/**
++ * kfd_mem_dmamap_sg_bo() - Create DMA mapped sg_table to access DOORBELL or MMIO BO
++ * @mem: SG BO of the DOORBELL or MMIO resource on the owning device
++ * @attachment: Virtual address attachment of the BO on accessing device
++ *
++ * An access request from the device that owns DOORBELL does not require DMA mapping.
++ * This is because the request doesn't go through PCIe root complex i.e. it instead
++ * loops back. The need to DMA map arises only when accessing peer device's DOORBELL
++ *
++ * In contrast, all access requests for MMIO need to be DMA mapped without regard to
++ * device ownership. This is because access requests for MMIO go through PCIe root
++ * complex.
++ *
++ * This is accomplished in two steps:
++ *   - Obtain DMA mapped address of DOORBELL or MMIO memory that could be used
++ *         in updating requesting device's page table
++ *   - Signal TTM to mark memory pointed to by requesting device's BO as GPU
++ *         accessible. This allows an update of requesting device's page table
++ *         with entries associated with DOOREBELL or MMIO memory
++ *
++ * This method is invoked in the following contexts:
++ *   - Mapping of DOORBELL or MMIO BO of same or peer device
++ *   - Validating an evicted DOOREBELL or MMIO BO on device seeking access
++ *
++ * Return: ZERO if successful, NON-ZERO otherwise
++ */
++static int
++kfd_mem_dmamap_sg_bo(struct kgd_mem *mem,
++		     struct kfd_mem_attachment *attachment)
++{
++	struct ttm_operation_ctx ctx = {.interruptible = true};
++	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
++	struct amdgpu_device *adev = attachment->adev;
++	struct ttm_tt *ttm = bo->tbo.ttm;
++	enum dma_data_direction dir;
++	dma_addr_t dma_addr;
++	bool mmio;
++	int ret;
++
++	/* Expect SG Table of dmapmap BO to be NULL */
++	mmio = (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP);
++	if (unlikely(ttm->sg)) {
++		pr_err("SG Table of %d BO for peer device is UNEXPECTEDLY NON-NULL", mmio);
++		return -EINVAL;
++	}
++
++	dir = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
++			DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
++	dma_addr = mem->bo->tbo.sg->sgl->dma_address;
++	pr_debug("%d BO size: %d\n", mmio, mem->bo->tbo.sg->sgl->length);
++	pr_debug("%d BO address before DMA mapping: %llx\n", mmio, dma_addr);
++	dma_addr = dma_map_resource(adev->dev, dma_addr,
++			mem->bo->tbo.sg->sgl->length, dir, DMA_ATTR_SKIP_CPU_SYNC);
++	ret = dma_mapping_error(adev->dev, dma_addr);
++	if (unlikely(ret))
++		return ret;
++	pr_debug("%d BO address after DMA mapping: %llx\n", mmio, dma_addr);
++
++	ttm->sg = create_sg_table(dma_addr, mem->bo->tbo.sg->sgl->length);
++	if (unlikely(!ttm->sg)) {
++		ret = -ENOMEM;
++		goto unmap_sg;
++	}
++
++	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
++	ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++	if (unlikely(ret))
++		goto free_sg;
++
++	return ret;
++
++free_sg:
++	sg_free_table(ttm->sg);
++	kfree(ttm->sg);
++	ttm->sg = NULL;
++unmap_sg:
++	dma_unmap_resource(adev->dev, dma_addr, mem->bo->tbo.sg->sgl->length,
++			   dir, DMA_ATTR_SKIP_CPU_SYNC);
++	return ret;
++}
++
+ static int
+ kfd_mem_dmamap_attachment(struct kgd_mem *mem,
+ 			  struct kfd_mem_attachment *attachment)
+@@ -556,6 +705,8 @@ kfd_mem_dmamap_attachment(struct kgd_mem *mem,
+ 		return kfd_mem_dmamap_userptr(mem, attachment);
+ 	case KFD_MEM_ATT_DMABUF:
+ 		return kfd_mem_dmamap_dmabuf(attachment);
++	case KFD_MEM_ATT_SG:
++		return kfd_mem_dmamap_sg_bo(mem, attachment);
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 	}
+@@ -596,6 +747,50 @@ kfd_mem_dmaunmap_dmabuf(struct kfd_mem_attachment *attachment)
+ 	ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+ }
+ 
++/**
++ * kfd_mem_dmaunmap_sg_bo() - Free DMA mapped sg_table of DOORBELL or MMIO BO
++ * @mem: SG BO of the DOORBELL or MMIO resource on the owning device
++ * @attachment: Virtual address attachment of the BO on accessing device
++ *
++ * The method performs following steps:
++ *   - Signal TTM to mark memory pointed to by BO as GPU inaccessible
++ *   - Free SG Table that is used to encapsulate DMA mapped memory of
++ *          peer device's DOORBELL or MMIO memory
++ *
++ * This method is invoked in the following contexts:
++ *     UNMapping of DOORBELL or MMIO BO on a device having access to its memory
++ *     Eviction of DOOREBELL or MMIO BO on device having access to its memory
++ *
++ * Return: void
++ */
++static void
++kfd_mem_dmaunmap_sg_bo(struct kgd_mem *mem,
++		       struct kfd_mem_attachment *attachment)
++{
++	struct ttm_operation_ctx ctx = {.interruptible = true};
++	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
++	struct amdgpu_device *adev = attachment->adev;
++	struct ttm_tt *ttm = bo->tbo.ttm;
++	enum dma_data_direction dir;
++
++	if (unlikely(!ttm->sg)) {
++		pr_err("SG Table of BO is UNEXPECTEDLY NULL");
++		return;
++	}
++
++	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
++	ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++
++	dir = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
++				DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
++	dma_unmap_resource(adev->dev, ttm->sg->sgl->dma_address,
++			ttm->sg->sgl->length, dir, DMA_ATTR_SKIP_CPU_SYNC);
++	sg_free_table(ttm->sg);
++	kfree(ttm->sg);
++	ttm->sg = NULL;
++	bo->tbo.sg = NULL;
++}
++
+ static void
+ kfd_mem_dmaunmap_attachment(struct kgd_mem *mem,
+ 			    struct kfd_mem_attachment *attachment)
+@@ -609,38 +804,14 @@ kfd_mem_dmaunmap_attachment(struct kgd_mem *mem,
+ 	case KFD_MEM_ATT_DMABUF:
+ 		kfd_mem_dmaunmap_dmabuf(attachment);
+ 		break;
++	case KFD_MEM_ATT_SG:
++		kfd_mem_dmaunmap_sg_bo(mem, attachment);
++		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 	}
+ }
+ 
+-static int
+-kfd_mem_attach_userptr(struct amdgpu_device *adev, struct kgd_mem *mem,
+-		       struct amdgpu_bo **bo)
+-{
+-	unsigned long bo_size = mem->bo->tbo.base.size;
+-	struct drm_gem_object *gobj;
+-	int ret;
+-
+-	ret = amdgpu_bo_reserve(mem->bo, false);
+-	if (ret)
+-		return ret;
+-
+-	ret = amdgpu_gem_object_create(adev, bo_size, 1,
+-				       AMDGPU_GEM_DOMAIN_CPU,
+-				       AMDGPU_GEM_CREATE_PREEMPTIBLE,
+-				       ttm_bo_type_sg, mem->bo->tbo.base.resv,
+-				       &gobj);
+-	amdgpu_bo_unreserve(mem->bo);
+-	if (ret)
+-		return ret;
+-
+-	*bo = gem_to_amdgpu_bo(gobj);
+-	(*bo)->parent = amdgpu_bo_ref(mem->bo);
+-
+-	return 0;
+-}
+-
+ static int
+ kfd_mem_attach_dmabuf(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		      struct amdgpu_bo **bo)
+@@ -691,6 +862,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 	uint64_t va = mem->va;
+ 	struct kfd_mem_attachment *attachment[2] = {NULL, NULL};
+ 	struct amdgpu_bo *bo[2] = {NULL, NULL};
++	bool same_hive = false;
+ 	int i, ret;
+ 
+ 	if (!va) {
+@@ -698,6 +870,24 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		return -EINVAL;
+ 	}
+ 
++	/* Determine access to VRAM, MMIO and DOORBELL BOs of peer devices
++	 *
++	 * The access path of MMIO and DOORBELL BOs of is always over PCIe.
++	 * In contrast the access path of VRAM BOs depens upon the type of
++	 * link that connects the peer device. Access over PCIe is allowed
++	 * if peer device has large BAR. In contrast, access over xGMI is
++	 * allowed for both small and large BAR configurations of peer device
++	 */
++	if ((adev != bo_adev) &&
++	    ((mem->domain == AMDGPU_GEM_DOMAIN_VRAM) ||
++	     (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL) ||
++	     (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
++		if (mem->domain == AMDGPU_GEM_DOMAIN_VRAM)
++			same_hive = amdgpu_xgmi_same_hive(adev, bo_adev);
++		if (!same_hive && !amdgpu_device_is_peer_accessible(bo_adev, adev))
++			return -EINVAL;
++	}
++
+ 	for (i = 0; i <= is_aql; i++) {
+ 		attachment[i] = kzalloc(sizeof(*attachment[i]), GFP_KERNEL);
+ 		if (unlikely(!attachment[i])) {
+@@ -708,9 +898,9 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		pr_debug("\t add VA 0x%llx - 0x%llx to vm %p\n", va,
+ 			 va + bo_size, vm);
+ 
+-		if (adev == bo_adev ||
+-		   (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && adev->ram_is_direct_mapped) ||
+-		   (mem->domain == AMDGPU_GEM_DOMAIN_VRAM && amdgpu_xgmi_same_hive(adev, bo_adev))) {
++		if ((adev == bo_adev && !(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) ||
++		    (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && adev->ram_is_direct_mapped) ||
++		    same_hive) {
+ 			/* Mappings on the local GPU, or VRAM mappings in the
+ 			 * local hive, or userptr mapping IOMMU direct map mode
+ 			 * share the original BO
+@@ -726,26 +916,30 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		} else if (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm)) {
+ 			/* Create an SG BO to DMA-map userptrs on other GPUs */
+ 			attachment[i]->type = KFD_MEM_ATT_USERPTR;
+-			ret = kfd_mem_attach_userptr(adev, mem, &bo[i]);
++			ret = create_dmamap_sg_bo(adev, mem, &bo[i]);
+ 			if (ret)
+ 				goto unwind;
+-		} else if (mem->domain == AMDGPU_GEM_DOMAIN_GTT &&
+-			   mem->bo->tbo.type != ttm_bo_type_sg) {
+-			/* GTT BOs use DMA-mapping ability of dynamic-attach
+-			 * DMA bufs. TODO: The same should work for VRAM on
+-			 * large-BAR GPUs.
+-			 */
++		/* Handle DOORBELL BOs of peer devices and MMIO BOs of local and peer devices */
++		} else if (mem->bo->tbo.type == ttm_bo_type_sg) {
++			WARN_ONCE(!(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL ||
++				    mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP),
++				  "Handing invalid SG BO in ATTACH request");
++			attachment[i]->type = KFD_MEM_ATT_SG;
++			ret = create_dmamap_sg_bo(adev, mem, &bo[i]);
++			if (ret)
++				goto unwind;
++		/* Enable acces to GTT and VRAM BOs of peer devices */
++		} else if (mem->domain == AMDGPU_GEM_DOMAIN_GTT ||
++			   mem->domain == AMDGPU_GEM_DOMAIN_VRAM) {
+ 			attachment[i]->type = KFD_MEM_ATT_DMABUF;
+ 			ret = kfd_mem_attach_dmabuf(adev, mem, &bo[i]);
+ 			if (ret)
+ 				goto unwind;
++			pr_debug("Employ DMABUF mechanim to enable peer GPU access\n");
+ 		} else {
+-			/* FIXME: Need to DMA-map other BO types:
+-			 * large-BAR VRAM, doorbells, MMIO remap
+-			 */
+-			attachment[i]->type = KFD_MEM_ATT_SHARED;
+-			bo[i] = mem->bo;
+-			drm_gem_object_get(&bo[i]->tbo.base);
++			WARN_ONCE(true, "Handling invalid ATTACH request");
++			ret = -EINVAL;
++			goto unwind;
+ 		}
+ 
+ 		/* Add BO to VM internal data structures */
+@@ -1146,24 +1340,6 @@ static int map_bo_to_gpuvm(struct kgd_mem *mem,
+ 	return ret;
+ }
+ 
+-static struct sg_table *create_doorbell_sg(uint64_t addr, uint32_t size)
+-{
+-	struct sg_table *sg = kmalloc(sizeof(*sg), GFP_KERNEL);
+-
+-	if (!sg)
+-		return NULL;
+-	if (sg_alloc_table(sg, 1, GFP_KERNEL)) {
+-		kfree(sg);
+-		return NULL;
+-	}
+-	sg->sgl->dma_address = addr;
+-	sg->sgl->length = size;
+-#ifdef CONFIG_NEED_SG_DMA_LENGTH
+-	sg->sgl->dma_length = size;
+-#endif
+-	return sg;
+-}
+-
+ static int process_validate_vms(struct amdkfd_process_info *process_info)
+ {
+ 	struct amdgpu_vm *peer_vm;
+@@ -1532,7 +1708,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 			bo_type = ttm_bo_type_sg;
+ 			if (size > UINT_MAX)
+ 				return -EINVAL;
+-			sg = create_doorbell_sg(*offset, size);
++			sg = create_sg_table(*offset, size);
+ 			if (!sg)
+ 				return -ENOMEM;
+ 		} else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index be0baacc5942..803c7a8345da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/pci.h>
+ #include <linux/devcoredump.h>
+ #include <generated/utsrelease.h>
++#include <linux/pci-p2pdma.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_probe_helper.h>
+@@ -5498,6 +5499,36 @@ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev)
+ 	}
+ }
+ 
++/**
++ * amdgpu_device_is_peer_accessible - Check peer access through PCIe BAR
++ *
++ * @adev: amdgpu_device pointer
++ * @peer_adev: amdgpu_device pointer for peer device trying to access @adev
++ *
++ * Return true if @peer_adev can access (DMA) @adev through the PCIe
++ * BAR, i.e. @adev is "large BAR" and the BAR matches the DMA mask of
++ * @peer_adev.
++ */
++bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
++				      struct amdgpu_device *peer_adev)
++{
++#ifdef CONFIG_HSA_AMD_P2P
++	uint64_t address_mask = peer_adev->dev->dma_mask ?
++		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
++	resource_size_t aper_limit =
++		adev->gmc.aper_base + adev->gmc.aper_size - 1;
++	bool p2p_access = !(pci_p2pdma_distance_many(adev->pdev,
++					&peer_adev->dev, 1, true) < 0);
++
++	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
++		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
++		!(adev->gmc.aper_base & address_mask ||
++		  aper_limit & address_mask));
++#else
++	return false;
++#endif
++}
++
+ int amdgpu_device_baco_enter(struct drm_device *dev)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index bed4ed88951f..1cc9260e75de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -802,6 +802,16 @@ MODULE_PARM_DESC(no_queue_eviction_on_vm_fault, "No queue eviction on VM fault (
+ module_param_named(no_queue_eviction_on_vm_fault, amdgpu_no_queue_eviction_on_vm_fault, int, 0444);
+ #endif
+ 
++/**
++ * DOC: pcie_p2p (bool)
++ * Enable PCIe P2P (requires large-BAR). Default value: true (on)
++ */
++#ifdef CONFIG_HSA_AMD_P2P
++bool pcie_p2p = true;
++module_param(pcie_p2p, bool, 0444);
++MODULE_PARM_DESC(pcie_p2p, "Enable PCIe P2P (requires large-BAR). (N = off, Y = on(default))");
++#endif
++
+ /**
+  * DOC: dcfeaturemask (uint)
+  * Override display features enabled. See enum DC_FEATURE_MASK in drivers/gpu/drm/amd/include/amd_shared.h.
+-- 
+2.35.1
 
-[  309.650118] [drm] kiq ring mec 2 pipe 1 q 0
-[  309.652595] [drm] VCN decode and encode initialized successfully(under D=
-PG Mode).
-[  309.653402] kfd kfd: amdgpu: skipped device 1002:164e, PCI rejects atomi=
-cs 18<92
-
-
-Signed-off-by: Jesse Zhang Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.com>
-
-    Reviewed-by: Alex Deucher alexander.deucher@amd.com<mailto:alexander.de=
-ucher@amd.com>
-
-    Reviewed-by: Mario Limonciello mario.limonciello@amd.com<mailto:mario.l=
-imonciello@amd.com>
-
-    Reviewed-by: Felix Kuehling Felix.Kuehling@amd.com<mailto:Felix.Kuehlin=
-g@amd.com>
-    Change-Id: I9c8d70071efdfce85c860ebf19690d52fb8d2383
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-index f8635e768513..bf4200457772 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -182,7 +182,9 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
-
-                if (gc_version < IP_VERSION(11, 0, 0)) {
-                        /* Navi2x+, Navi1x+ */
--                       if (gc_version >=3D IP_VERSION(10, 3, 0))
-+                       if (gc_version =3D=3D IP_VERSION(10, 3, 6))
-+                               kfd->device_info.no_atomic_fw_version =3D 1=
-4;
-+                       else if (gc_version >=3D IP_VERSION(10, 3, 0))
-                                kfd->device_info.no_atomic_fw_version =3D 9=
-2;
-                        else if (gc_version >=3D IP_VERSION(10, 1, 1))
-                                kfd->device_info.no_atomic_fw_version =3D 1=
-45;
-
-
-
---_000_DM4PR12MB5152E4FE7DB27155C242620BE3A59DM4PR12MB5152namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p class=3D"msipheaderdf3d92d6" align=3D"Left" style=3D"margin:0"><span sty=
-le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
-nly - General]</span></p>
-<br>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">It will happed error on loading firmware. &nbsp;&nbs=
-p;we need add firmware version information.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">[&nbsp; 309.650118] [drm] kiq ring mec 2 pipe 1 q 0<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">[&nbsp; 309.652595] [drm] VCN decode and encode init=
-ialized successfully(under DPG Mode).<o:p></o:p></p>
-<p class=3D"MsoNormal">[&nbsp; 309.653402] kfd kfd: amdgpu: skipped device =
-1002:164e, PCI rejects atomics 18&lt;92<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Signed-off-by: Jesse Zhang <a href=3D"mailto:Jesse.Z=
-hang@amd.com">
-Jesse.Zhang@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Alex Deucher <a href=
-=3D"mailto:alexander.deucher@amd.com">
-alexander.deucher@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Mario Limonciello <a=
- href=3D"mailto:mario.limonciello@amd.com">
-mario.limonciello@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Felix Kuehling <a hr=
-ef=3D"mailto:Felix.Kuehling@amd.com">
-Felix.Kuehling@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Change-Id: I9c8d70071efdfce85c860=
-ebf19690d52fb8d2383<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c=
- b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<o:p></o:p></p>
-<p class=3D"MsoNormal">index f8635e768513..bf4200457772 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">@@ -182,7 +182,9 @@ static void kfd_device_info_init=
-(struct kfd_dev *kfd,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gc_version &lt; IP_VERSION(11, 0=
-, 0)) {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /* Navi2x+, Navi1x+ */<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (gc_version &gt;=3D IP_VERSION(10, 3, 0))<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (gc_version =3D=3D IP_VERSION(10, 3, 6))<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_info.=
-no_atomic_fw_version =3D 14;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; else if (gc_version &gt;=3D IP_VERSION(10, 3, 0))<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_=
-info.no_atomic_fw_version =3D 92;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; else if (gc_version &gt;=3D IP_VERSION(10, 1, 1))<o:p></o:p></p=
->
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_=
-info.no_atomic_fw_version =3D 145;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_DM4PR12MB5152E4FE7DB27155C242620BE3A59DM4PR12MB5152namp_--
