@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6887FC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A63E7C43334
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 19:38:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7542610EFDC;
-	Tue,  7 Jun 2022 19:38:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE31510F049;
+	Tue,  7 Jun 2022 19:38:18 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A254110EFF2
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:38:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A781E10EFF2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 19:38:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1654630693;
+ s=mimecast20190719; t=1654630695;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hKE/h82CPv0u0XoKS7MJOdRnsMSzYWemhQRHX7aHBZI=;
- b=VoacsTPvOaaBFpVIAShQ6MiJhmnXatrgVWW1+bB79K+hj609iCnQql7LR7pDVXY/Zf2i64
- q8th13s+9UQPU9Brm58CUqLjkG5b6de6yGqPbTLv+41P9uvgukSMWF/oF/JOs4GropjVWx
- nsPwB4w9dKsdDVbwM45XhC45ZTKAYzQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=q9eWmoOn0yL2VJR9/laRBaD5nmIdVd5BpZuXu5q4cqg=;
+ b=N7iUqfDZlph6V51NSgxZPkuxRz/52NLTSdqLFLYNat21dN8rH63LexSJ0Ga4hpGMXLArml
+ Fu4B1PopQHGBpSRXtl8SSaJV41Is977irkMwdZEFr6Y5OR/TuuBnV2dLtdKStRbkAYB2Ki
+ SRyCg11SWITodiwGtDHZebbDXHJwRlA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-584-LUSfwX0XNF24XFxgHDPxmg-1; Tue, 07 Jun 2022 15:38:07 -0400
-X-MC-Unique: LUSfwX0XNF24XFxgHDPxmg-1
+ us-mta-590-3ShpK352MveEqI_lMl0uVg-1; Tue, 07 Jun 2022 15:38:14 -0400
+X-MC-Unique: 3ShpK352MveEqI_lMl0uVg-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3ED93382ECD1;
- Tue,  7 Jun 2022 19:34:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8130C81B549;
+ Tue,  7 Jun 2022 19:36:48 +0000 (UTC)
 Received: from emerald.redhat.com (unknown [10.22.9.252])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 318E72BFD953;
- Tue,  7 Jun 2022 19:34:03 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CA4192C0D161;
+ Tue,  7 Jun 2022 19:36:19 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [RESEND RFC 09/18] drm/display/dp_mst: Don't open code modeset checks
- for releasing time slots
-Date: Tue,  7 Jun 2022 15:29:24 -0400
-Message-Id: <20220607192933.1333228-10-lyude@redhat.com>
+Subject: [RESEND RFC 14/18] drm/display/dp_mst: Drop all ports from topology
+ on CSNs before queueing link address work
+Date: Tue,  7 Jun 2022 15:29:29 -0400
+Message-Id: <20220607192933.1333228-15-lyude@redhat.com>
 In-Reply-To: <20220607192933.1333228-1-lyude@redhat.com>
 References: <20220607192933.1333228-1-lyude@redhat.com>
 MIME-Version: 1.0
@@ -61,42 +61,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Randy Dunlap <rdunlap@infradead.org>, Karol Herbst <kherbst@redhat.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Hersen Wu <hersenwu@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula <jani.nikula@intel.com>,
- "open list:INTEL DRM DRIVERS" <intel-gfx@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, Sean Paul <seanpaul@chromium.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- He Ying <heying24@huawei.com>, Matt Roper <matthew.d.roper@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Roman Li <Roman.Li@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Fernando Ramos <greenfoo@u92.eu>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I'm not sure why, but at the time I originally wrote the find/release time
-slot helpers I thought we should avoid keeping modeset tracking out of the
-MST helpers. In retrospect though there's no actual good reason to do
-this, and the logic has ended up being identical across all the drivers
-using the helpers. Also, it needs to be fixed anyway so we don't break
-things when going atomic-only with MST.
+We want to start cutting down on all of the places that we use port
+validation, so that ports may be removed from the topology as quickly as
+possible to minimize the number of errors we run into as a result of being
+out of sync with the current topology status. This isn't a very typical
+scenario and I don't think I've ever even run into it - but since the next
+commit is going to make some changes to payload updates depending on their
+hotplug status I think it's a probably good idea to take precautions.
 
-So, let's just move this code into drm_dp_atomic_release_time_slots() and
-stop open coding it.
+Let's do this with CSNs by moving some code around so that we only queue
+link address probing work at the end of handling all CSNs - allowing us to
+make sure we drop as many topology references as we can beforehand.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Cc: Wayne Lin <Wayne.Lin@amd.com>
@@ -107,171 +92,66 @@ Cc: Imre Deak <imre.deak@intel.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: Sean Paul <sean@poorly.run>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 29 +++----------------
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 21 ++++++++++++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 24 +--------------
- drivers/gpu/drm/nouveau/dispnv50/disp.c       | 21 --------------
- 4 files changed, 23 insertions(+), 72 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index e40ff51e7be0..b447c453b58d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -353,34 +353,13 @@ dm_dp_mst_detect(struct drm_connector *connector,
- }
- 
- static int dm_dp_mst_atomic_check(struct drm_connector *connector,
--				struct drm_atomic_state *state)
-+				  struct drm_atomic_state *state)
- {
--	struct drm_connector_state *new_conn_state =
--			drm_atomic_get_new_connector_state(state, connector);
--	struct drm_connector_state *old_conn_state =
--			drm_atomic_get_old_connector_state(state, connector);
- 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
--	struct drm_crtc_state *new_crtc_state;
--	struct drm_dp_mst_topology_mgr *mst_mgr;
--	struct drm_dp_mst_port *mst_port;
-+	struct drm_dp_mst_topology_mgr *mst_mgr = &aconnector->mst_port->mst_mgr;
-+	struct drm_dp_mst_port *mst_port = aconnector->port;
- 
--	mst_port = aconnector->port;
--	mst_mgr = &aconnector->mst_port->mst_mgr;
--
--	if (!old_conn_state->crtc)
--		return 0;
--
--	if (new_conn_state->crtc) {
--		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
--		if (!new_crtc_state ||
--		    !drm_atomic_crtc_needs_modeset(new_crtc_state) ||
--		    new_crtc_state->enable)
--			return 0;
--		}
--
--	return drm_dp_atomic_release_time_slots(state,
--						mst_mgr,
--						mst_port);
-+	return drm_dp_atomic_release_time_slots(state, mst_mgr, mst_port);
- }
- 
- static const struct drm_connector_helper_funcs dm_dp_mst_connector_helper_funcs = {
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index a0ed29f83556..e73b34c0cc9e 100644
+index a775f9437868..dd314586bac3 100644
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4484,14 +4484,29 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
+@@ -2508,7 +2508,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+ 	return ret;
+ }
+ 
+-static void
++static int
+ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 			    struct drm_dp_connection_status_notify *conn_stat)
  {
- 	struct drm_dp_mst_topology_state *topology_state;
- 	struct drm_dp_mst_atomic_payload *payload;
--	struct drm_connector_state *conn_state;
-+	struct drm_connector_state *old_conn_state, *new_conn_state;
-+
-+	old_conn_state = drm_atomic_get_old_connector_state(state, port->connector);
-+	if (!old_conn_state->crtc)
+@@ -2521,7 +2521,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 
+ 	port = drm_dp_get_port(mstb, conn_stat->port_number);
+ 	if (!port)
+-		return;
 +		return 0;
-+
-+	/* If the CRTC isn't disabled by this state, don't release it's payload */
-+	new_conn_state = drm_atomic_get_new_connector_state(state, port->connector);
-+	if (new_conn_state->crtc) {
-+		struct drm_crtc_state *crtc_state =
-+			drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
-+
-+		if (!crtc_state ||
-+		    !drm_atomic_crtc_needs_modeset(crtc_state) ||
-+		    crtc_state->enable)
-+			return 0;
-+	}
  
- 	topology_state = drm_atomic_get_mst_topology_state(state, mgr);
- 	if (IS_ERR(topology_state))
- 		return PTR_ERR(topology_state);
+ 	if (port->connector) {
+ 		if (!port->input && conn_stat->input_port) {
+@@ -2574,8 +2574,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
  
--	conn_state = drm_atomic_get_old_connector_state(state, port->connector);
--	topology_state->pending_crtc_mask |= drm_crtc_mask(conn_state->crtc);
-+	topology_state->pending_crtc_mask |= drm_crtc_mask(old_conn_state->crtc);
- 
- 	payload = drm_atomic_get_mst_payload_state(topology_state, port);
- 	if (WARN_ON(!payload)) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 0c922667398a..4b0af3c26176 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -308,13 +308,10 @@ intel_dp_mst_atomic_check(struct drm_connector *connector,
- 			  struct drm_atomic_state *_state)
- {
- 	struct intel_atomic_state *state = to_intel_atomic_state(_state);
--	struct drm_connector_state *new_conn_state =
--		drm_atomic_get_new_connector_state(&state->base, connector);
- 	struct drm_connector_state *old_conn_state =
- 		drm_atomic_get_old_connector_state(&state->base, connector);
- 	struct intel_connector *intel_connector =
- 		to_intel_connector(connector);
--	struct drm_crtc *new_crtc = new_conn_state->crtc;
- 	struct drm_dp_mst_topology_mgr *mgr;
- 	int ret;
- 
-@@ -326,27 +323,8 @@ intel_dp_mst_atomic_check(struct drm_connector *connector,
- 	if (ret)
- 		return ret;
- 
--	if (!old_conn_state->crtc)
--		return 0;
--
--	/* We only want to free VCPI if this state disables the CRTC on this
--	 * connector
--	 */
--	if (new_crtc) {
--		struct intel_crtc *crtc = to_intel_crtc(new_crtc);
--		struct intel_crtc_state *crtc_state =
--			intel_atomic_get_new_crtc_state(state, crtc);
--
--		if (!crtc_state ||
--		    !drm_atomic_crtc_needs_modeset(&crtc_state->uapi) ||
--		    crtc_state->uapi.enable)
--			return 0;
--	}
--
- 	mgr = &enc_to_mst(to_intel_encoder(old_conn_state->best_encoder))->primary->dp.mst_mgr;
--	ret = drm_dp_atomic_release_time_slots(&state->base, mgr, intel_connector->port);
--
--	return ret;
-+	return drm_dp_atomic_release_time_slots(&state->base, mgr, intel_connector->port);
+ out:
+ 	drm_dp_mst_topology_put_port(port);
+-	if (dowork)
+-		queue_work(system_long_wq, &mstb->mgr->work);
++	return dowork;
  }
  
- static void clear_act_sent(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 768312607fdb..461e5e3345f8 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1260,27 +1260,6 @@ nv50_mstc_atomic_check(struct drm_connector *connector,
- {
- 	struct nv50_mstc *mstc = nv50_mstc(connector);
- 	struct drm_dp_mst_topology_mgr *mgr = &mstc->mstm->mgr;
--	struct drm_connector_state *new_conn_state =
--		drm_atomic_get_new_connector_state(state, connector);
--	struct drm_connector_state *old_conn_state =
--		drm_atomic_get_old_connector_state(state, connector);
--	struct drm_crtc_state *crtc_state;
--	struct drm_crtc *new_crtc = new_conn_state->crtc;
--
--	if (!old_conn_state->crtc)
--		return 0;
--
--	/* We only want to free VCPI if this state disables the CRTC on this
--	 * connector
--	 */
--	if (new_crtc) {
--		crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
--
--		if (!crtc_state ||
--		    !drm_atomic_crtc_needs_modeset(crtc_state) ||
--		    crtc_state->enable)
--			return 0;
--	}
+ static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_topology_mgr *mgr,
+@@ -4071,7 +4070,7 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
+ 	struct drm_dp_mst_branch *mstb = NULL;
+ 	struct drm_dp_sideband_msg_req_body *msg = &up_req->msg;
+ 	struct drm_dp_sideband_msg_hdr *hdr = &up_req->hdr;
+-	bool hotplug = false;
++	bool hotplug = false, dowork = false;
  
- 	return drm_dp_atomic_release_time_slots(state, mgr, mstc->port);
+ 	if (hdr->broadcast) {
+ 		const u8 *guid = NULL;
+@@ -4094,11 +4093,14 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
+ 
+ 	/* TODO: Add missing handler for DP_RESOURCE_STATUS_NOTIFY events */
+ 	if (msg->req_type == DP_CONNECTION_STATUS_NOTIFY) {
+-		drm_dp_mst_handle_conn_stat(mstb, &msg->u.conn_stat);
++		dowork = drm_dp_mst_handle_conn_stat(mstb, &msg->u.conn_stat);
+ 		hotplug = true;
+ 	}
+ 
+ 	drm_dp_mst_topology_put_mstb(mstb);
++
++	if (dowork)
++		queue_work(system_long_wq, &mgr->work);
+ 	return hotplug;
  }
+ 
 -- 
 2.35.3
 
