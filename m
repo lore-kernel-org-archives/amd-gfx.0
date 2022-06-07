@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9227CC43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 09:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64CAC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 10:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2753B12AFDC;
-	Tue,  7 Jun 2022 09:41:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECEF11B6D9;
+	Tue,  7 Jun 2022 10:01:16 +0000 (UTC)
 Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2068.outbound.protection.outlook.com [40.107.102.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4102712AFDC
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 09:41:33 +0000 (UTC)
+ (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBBF711BBB7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 10:01:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oR3twoO+g8NAeS0si8a7OEvb+EbrieCfQhYX2NXkqvdvsPMO8rb9K/NRrL9zrDqj7lVtvgEGSeFJ78bBwvzEilPFv1PlGhqgHZA4EalaG/0ER56jhXSzflZq0tWZ2MgYqMw8A3359+e8JxA1YoAGSjXcTMdhjB0QDJwaULew7bnMOITJnVFZQ5ftkF+hvCxWYWppObaMp5mwu0EJfHzjfdGdjmrjvdJBUUheTp02MF9NCYlSRDPHdCnXPZIf5fyn/O44VbPcHhwV2lWiqiCsGtwm7RRcmJ1HRrMUAWvfDIqQC60f6rlOkMqTo3M1zlFXnf+Bej2PDCoZpUqHyO6r7Q==
+ b=ksyiedCv0PHl4R+dlv2DAVce0XlVPWBiZWo9IFMLeNAbVYwpFlR8AH7Ab5NT49kL+Br+kds2y5nnQk3sqE4VPSdKffDK5U1akQsEJW4y8+GWBh16mu954fgWYYStdgyomoR4oYXAAFKK24VzrLpsNRlquWnN7qqob3zOcIEkF4PVQ4trgtwINGtgXguiSlyvZ7BMdQYdxkl3um+vO7Y5/YKKzHm1Jnq9N9tvEnuQxhTsfsxjT7aIDhUu+8oyckXw1Cp7Y5uJEDNvdRwLCao5PuPZz9hU1w0MBG5a+EJHIPRL94wj/kl8Uye22IqU9gagBPqNr+/A7szQ+7n9/tppeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9aLpsb3k5Fi5rHlbFyOreFNCaxC4U8eyiOcnMj/7m7M=;
- b=UF5fg2cZiRuLaYXyQHHF2PCGUb9Mb+vTh9dilNLDWXeinuiD4EiD8lwKrQkmvSt1RQLxWmCWiE84c62OpKBOsJgNrvE5x9pQohy1cLHP9alI4rTghbbA0I2caNpPCIPHa9VzQ88gCr3iHe9NWyLVWQyn2yTNImIrpiPTyQDXdIGxI1DhDFTR9ZMBFNx5q5QIRrX8Rj6ztFDYBoJhflcTvVPw0pVKRRKdBQkmMRhZUAR7EdLxGAsxCE5WORHHUru1TeV1ecfygiRZCDaSx4r8um1csD27THKUBttjjoGcbCoit3m9qkjw42ivBkFd2OhhX5URmfA9PEcAzFtvOw3iMQ==
+ bh=GHTg8+ADfT9EoPTuV7GlOUqJVk7KFj/vtZkB9c2oABE=;
+ b=SZdsj/Irnt0kDFI2CT2Sm56Wy7YFX3uuBIKMvElhqY4i5DU+VEaOYhOwdkIwJbyZPG8sdoflqOcAcSW7OULv7bZuCEQgOBZE7EBBoSp1pu1zhcIDtS/gyOdYi6IQ1c4xQD0Hl3vxGbna5FvNQOMNK6Fx0RqZa9ZXP5OVArK8yVno8gDCazMLvTCzp2QD91lpHUjZvJiOUapfqR56tzk8pIeW3O9bxz4dlmQ3VNH+gSExCE7h7K/nGi4VFszmUg6+AvynVEDZBjFDBqgTh97P9e0vQ/6GOMYF1R7mUvxuEkQUmLtDBcpR+PB0plzU7tJbn/rH9F6VVRnlbCjRG+MIQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9aLpsb3k5Fi5rHlbFyOreFNCaxC4U8eyiOcnMj/7m7M=;
- b=NpQ1MAUf6anCcJ5kyZ28v5JqxDDoio39D94nAIF7MsPhFgpt48VX4r68fNjjzjZTThf+bHzgviMoEPMIE0PH6Ze1ttkn3aq7WE9hCNxyjtx6LNCNkYF1qsCFadX7dsmETmJ52beT0IxFunxiGrP1nTsdXuOADa7wR+kPWF3LjeU=
-Received: from MW3PR05CA0023.namprd05.prod.outlook.com (2603:10b6:303:2b::28)
- by PH7PR12MB6396.namprd12.prod.outlook.com (2603:10b6:510:1fc::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.19; Tue, 7 Jun
- 2022 09:41:31 +0000
-Received: from CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2b:cafe::f9) by MW3PR05CA0023.outlook.office365.com
- (2603:10b6:303:2b::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.4 via Frontend
- Transport; Tue, 7 Jun 2022 09:41:30 +0000
+ bh=GHTg8+ADfT9EoPTuV7GlOUqJVk7KFj/vtZkB9c2oABE=;
+ b=zhe3/aVNAAd9UNgKl93qgUVpnJzm1UWPZLnruqmNRlQjFFGOV5jRd6YN6cMer0PAZ1ASTwph5TaYvcdyzD9hPJ1aOK0BFBBqKHZ1771DOynHl1soW5L088o/jbH/pr8uQ3VkblhwKrTRrCmmcIQcW7ZlPrXYjhVvgZx/GF3cRUo=
+Received: from DS7PR06CA0019.namprd06.prod.outlook.com (2603:10b6:8:2a::18) by
+ DM6PR12MB3819.namprd12.prod.outlook.com (2603:10b6:5:1c6::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5314.13; Tue, 7 Jun 2022 10:01:12 +0000
+Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::fd) by DS7PR06CA0019.outlook.office365.com
+ (2603:10b6:8:2a::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
+ Transport; Tue, 7 Jun 2022 10:01:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT060.mail.protection.outlook.com (10.13.175.132) with Microsoft SMTP
+ DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 09:41:30 +0000
-Received: from ETHANOL.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 10:01:12 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 7 Jun
- 2022 04:40:51 -0500
-From: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/display: Remove unnecessary typecasts and fix
- build issues
-Date: Tue, 7 Jun 2022 15:10:03 +0530
-Message-ID: <20220607094004.946093-1-chandan.vurdigerenataraj@amd.com>
+ 2022 05:00:14 -0500
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdkfd: don't validate pinned BOs
+Date: Tue, 7 Jun 2022 17:59:45 +0800
+Message-ID: <20220607095947.120493-1-Lang.Yu@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b776cd8-8701-4c4a-de94-08da4869e6c1
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6396:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB63969E40BC838A9A6D3B48F696A59@PH7PR12MB6396.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: c75d0b72-4709-4a50-5e0b-08da486ca766
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3819:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3819A087777D34ADC5205225FBA59@DM6PR12MB3819.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KWIkKyR5bjM12AI1Q6mG0vQgDIEYp1vobORuA9FtNxJC+VwlpLfTNy8S1GmnAKr7hJ1TnK4lYAqW6II4wswYTaN1uKMGJLWrb+6gozvOPumMyoNvuYCnp4/1YBHnpsAO7f6FQx/qwN6HEnizm2m/i7FTEq3MSMblktqNAsrP9QKujAEvHXY1kqM2QOH9AGrh9QxpBLBp5XvcdfpfVU2XBxXMppw3eRCEiNV3KviweRQDRNPtTUVoQGtNrNUhHDlk562wHWL647Ne+oDeRYxg4etEnbral1oRyJ7ho0vqfQQYUOtb+nqdKC6xDj6Uiw4Zs6x2/KEyp1UaiqBHXUAwUdv5l0jltjWDKAnhntjAHrisqsZsy+zYPkSCS8BF7Yfb1dX5ttn/C9SBNggNqufiEp6yx3ZtRfeaiBje7e7ujP4SRz9h2CzA6LkPUqOcScqZXZLuAotHPcogoRCN1Q+9cTzwwfV8mb5JPHKoGbTy4D+skgH01mNQsjq4Sse7xIlbIycmLvH8mVuRoKLDgvFCyaPvPrOVSZBWOKdWpBhkP+OjLvpeJk7Pdy9g5W+cVrE8XzyHgA1kYQ8z3qWfRlLantf2FvVWaF2qXIjZIdgJWaPI9HxslC+O31OPZhAeKDsRSJWbE9pXAme1KAHbiUXOMtlhNWh2kmYrkzuU2r/y/wzyQ01vmo+cKXgfeii2i7wPdpwnSGGfIloOBdkaB631oA==
+X-Microsoft-Antispam-Message-Info: CjIpakyGBBmblOUx4z2G6LpxQ+m/c4f6WfankDkaCb4tlMlr/J2pbLjsvpsuYu/EQqEFO6pmHwvbfSD8ZTRzZgCjhOitUXQRXy1LwpQtZ2Zh+WnocdYe35EKDDKN790pkjMbeddl+VuID0GRStkdjG+L3twsiLt6Kq+4PxlLu10rtsGatHF0rr4VvPAwCAiZQvmf0E91h/ukI+4vOQPcpERQOKXAJckozIkOgNsM6ixSFIsdCXZjtd91pVKYQCmZwLUh8cVrmrFSmsxY7far7L938TWt2EyyMzZYPwjVj7mC46IC+AuAuf9POgQJOEb4XWcYLJtpul/T2Dlso7oxZpnJARlfnNF0ubIDrySwJt9h1cP4Tw1iYVuHQ+JiqaiGkN4juuW60elOKP/WPzuGmsea7i9ijMIFkvUdnbC6eccVkxywtr/C6aTLssMg79TcaWsyF+3aWV8oXpVOry9MzSYXjqbVYY/E0GTodStpeCqoJgXcgOQjHQZ2k7XQVYpieerSH6gVWMI0YvSddBX+lzMBvDjgkg+rFQLrZOPmsW0it3bPBEtAe9/GHlVEHLuGanAGqQbHcTTwV/6no55g0+fVXQlBM6u4lfN7gLdr3B46cOfBIlxysPvjIN+fa543ZuSnlObyXQ47vfmQnWoIKEeqEg1LPYIE76OJ6ERywftvjX4rXOgzFnb889fFlM5L/THqa5KtgbU6uDh/gaK9tw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(316002)(82310400005)(26005)(186003)(83380400001)(86362001)(8936002)(6636002)(54906003)(110136005)(16526019)(2616005)(47076005)(336012)(426003)(508600001)(2906002)(36756003)(81166007)(1076003)(36860700001)(356005)(7696005)(8676002)(4326008)(40460700003)(5660300002)(70586007)(70206006)(6666004)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(66574015)(7696005)(54906003)(2616005)(70586007)(70206006)(8936002)(16526019)(186003)(508600001)(5660300002)(4326008)(8676002)(1076003)(47076005)(336012)(15650500001)(81166007)(356005)(426003)(26005)(82310400005)(40460700003)(6666004)(2906002)(4744005)(6916009)(36756003)(316002)(36860700001)(83380400001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 09:41:30.4702 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b776cd8-8701-4c4a-de94-08da4869e6c1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 10:01:12.7424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c75d0b72-4709-4a50-5e0b-08da486ca766
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6396
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,118 +98,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Huang
+ Rui <ray.huang@amd.com>, Lang Yu <Lang.Yu@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Getting below errors:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1414:5: error: implicit conversion from enumeration type 'enum scan_direction_class' to different enumeration type 'enum dm_rotation_angle' [-Werror,-Wenum-conversion]
-                                mode_lib->vba.SourceScan[k],
-                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1744:22: error: implicit conversion from enumeration type 'enum scan_direction_class' to different enumeration type 'enum dm_rotation_angle' [-Werror,-Wenum-conversion]
-                        && (!(!IsVertical(mode_lib->vba.SourceScan[k])) || mode_lib->vba.DCCEnable[k] == true)) {
-                               ~~~~~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-2 errors generated.
+If a BO is pinned to VRAM and you try to validate it into GTT,
+you will get an error.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:5484:18: error: implicit conversion from enumeration type 'RequestType' to different enumeration type 'enum RequestType' [-Werror,-Wenum-conversion]
-                        RequestLuma = REQ_256Bytes;
-                                    ~ ^~~~~~~~~~~~
-18 errors of similar kind
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-[How]
-1. Add typecast at relevant places
-2. Move the enum RequestType definition ahead of declarations
-
-Signed-off-by: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index b77a1ae792d1..5828e60f291d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -1411,7 +1411,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 				v->BytePerPixelC[k],
- 				v->BytePerPixelDETY[k],
- 				v->BytePerPixelDETC[k],
--				mode_lib->vba.SourceScan[k],
-+				(enum dm_rotation_angle) mode_lib->vba.SourceScan[k],
- 				/* Output */
- 				&v->DCCYMaxUncompressedBlock[k],
- 				&v->DCCCMaxUncompressedBlock[k],
-@@ -1741,7 +1741,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	mode_lib->vba.SourceFormatPixelAndScanSupport = true;
- 	for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
- 		if (mode_lib->vba.SurfaceTiling[k] == dm_sw_linear
--			&& (!(!IsVertical(mode_lib->vba.SourceScan[k])) || mode_lib->vba.DCCEnable[k] == true)) {
-+			&& (!(!IsVertical((enum dm_rotation_angle) mode_lib->vba.SourceScan[k]))
-+				|| mode_lib->vba.DCCEnable[k] == true)) {
- 			mode_lib->vba.SourceFormatPixelAndScanSupport = false;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 6509a84eeb64..07f3a85f8edf 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -5314,9 +5314,15 @@ void dml32_CalculateDCCConfiguration(
- 		unsigned int        *IndependentBlockLuma,
- 		unsigned int        *IndependentBlockChroma)
- {
-+	typedef enum {
-+		REQ_256Bytes,
-+		REQ_128BytesNonContiguous,
-+		REQ_128BytesContiguous,
-+		REQ_NA
-+	} RequestType;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index abf2fc421323..81bcffb510f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -346,6 +346,9 @@ static int amdgpu_amdkfd_bo_validate(struct amdgpu_bo *bo, uint32_t domain,
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	int ret;
  
--	enum RequestType   RequestLuma;
--	enum RequestType   RequestChroma;
-+	RequestType   RequestLuma;
-+	RequestType   RequestChroma;
- 
- 	unsigned int   segment_order_horz_contiguous_luma;
- 	unsigned int   segment_order_horz_contiguous_chroma;
-@@ -5350,13 +5356,6 @@ void dml32_CalculateDCCConfiguration(
- 	double   detile_buf_vp_horz_limit;
- 	double   detile_buf_vp_vert_limit;
- 
--	typedef enum {
--		REQ_256Bytes,
--		REQ_128BytesNonContiguous,
--		REQ_128BytesContiguous,
--		REQ_NA
--	} RequestType;
--
- 	yuv420 = ((SourcePixelFormat == dm_420_8 || SourcePixelFormat == dm_420_10 ||
- 			SourcePixelFormat == dm_420_12) ? 1 : 0);
- 	horz_div_l = 1;
-@@ -5527,11 +5526,11 @@ void dml32_CalculateDCCConfiguration(
- 			RequestChroma = REQ_128BytesContiguous;
- 	}
- 
--	if (RequestLuma == (enum RequestType) REQ_256Bytes) {
-+	if (RequestLuma == REQ_256Bytes) {
- 		*MaxUncompressedBlockLuma = 256;
- 		*MaxCompressedBlockLuma = 256;
- 		*IndependentBlockLuma = 0;
--	} else if (RequestLuma == (enum RequestType) REQ_128BytesContiguous) {
-+	} else if (RequestLuma == REQ_128BytesContiguous) {
- 		*MaxUncompressedBlockLuma = 256;
- 		*MaxCompressedBlockLuma = 128;
- 		*IndependentBlockLuma = 128;
-@@ -5541,11 +5540,11 @@ void dml32_CalculateDCCConfiguration(
- 		*IndependentBlockLuma = 64;
- 	}
- 
--	if (RequestChroma == (enum RequestType) REQ_256Bytes) {
-+	if (RequestChroma == REQ_256Bytes) {
- 		*MaxUncompressedBlockChroma = 256;
- 		*MaxCompressedBlockChroma = 256;
- 		*IndependentBlockChroma = 0;
--	} else if (RequestChroma == (enum RequestType) REQ_128BytesContiguous) {
-+	} else if (RequestChroma == REQ_128BytesContiguous) {
- 		*MaxUncompressedBlockChroma = 256;
- 		*MaxCompressedBlockChroma = 128;
- 		*IndependentBlockChroma = 128;
++	if (bo->tbo.pin_count)
++		return 0;
++
+ 	if (WARN(amdgpu_ttm_tt_get_usermm(bo->tbo.ttm),
+ 		 "Called with userptr BO"))
+ 		return -EINVAL;
 -- 
 2.25.1
 
