@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4852FC43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 17:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74FDC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 17:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D086510EE81;
-	Tue,  7 Jun 2022 17:55:50 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9F3110F394;
- Tue,  7 Jun 2022 17:55:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429C310F361;
+	Tue,  7 Jun 2022 17:57:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5D110F1B9;
+ Tue,  7 Jun 2022 17:57:45 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4B984B80B66;
- Tue,  7 Jun 2022 17:55:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1471C34119;
- Tue,  7 Jun 2022 17:55:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A2F49617A8;
+ Tue,  7 Jun 2022 17:57:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB35C385A5;
+ Tue,  7 Jun 2022 17:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1654624547;
- bh=NXa1J+I2sAkxDWNmDYdzt2EPtQnTfLbT30iET12VL7w=;
+ s=k20201202; t=1654624664;
+ bh=14TsCn54a3xzE/a5cVI/njMjihJEWCBEFwfM8vZP8RI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RBWLVvRs8aL1NYIgUlBsNw22dHkznxEEvNus5xohNSOhBVggaVQuVOVjKPPCntxBp
- DwThHQmXJbOT5hcLNUJoDM5SCWPV2lL9M/g1oszb/08cTHwZQoGZojtFHQ9UTm2Spx
- kmsK6cHsjDcxv8xGeu80Scn1U8vAl4EzQlWacAhjNjKkIMynknPuoIhEAU4X13FM7a
- ffYJXTip9scG6mJZB322aure0XtNWjDG8/vhBruuLKpT2jfQmmgsM6I5bdeepLT4Vc
- rzUJwgbZh/6+3yi0dxvUDOfnf+7yLdt8pyJwt33+v1l7E0JL5TFevEOmEueVPA94+N
- K4yhFOq9N0wuA==
+ b=qF2H5lbWAc/w9pBhA1GYOkIrHZS77y9rnzzBIsmt+5vvduX3RRk0t0FEnpKgd24Zs
+ rVwx7Tp89agDu2r5omD2YmQ68dIN4YifFfiiLONp1HaCMrLLTOt5a2ejaBTFI4+8HX
+ iyX22WsrO5FegrxD1fRM0P5ys/MnsPsyqQs7mYV4MMEUfykohBGUGjg6zWN5pFTuBm
+ R1OjZwu5VNt2YWiimE4xuIB/bwYO3LlU1FAmsTLQr2M41PvxbNxv3TVu6571TEM5Gn
+ sdubRh++L/7JzcLbjoz+Ti9wrAihdAE6dYyHMLQ/0Sx4OqmqX1BMwLA1nCtkNiqKVv
+ xLUvvou3+kg/g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 59/60] drm/amd/pm: use bitmap_{from,
- to}_arr32 where appropriate
-Date: Tue,  7 Jun 2022 13:52:56 -0400
-Message-Id: <20220607175259.478835-59-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 38/51] drm/radeon: fix a possible null pointer
+ dereference
+Date: Tue,  7 Jun 2022 13:55:37 -0400
+Message-Id: <20220607175552.479948-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220607175259.478835-1-sashal@kernel.org>
-References: <20220607175259.478835-1-sashal@kernel.org>
+In-Reply-To: <20220607175552.479948-1-sashal@kernel.org>
+References: <20220607175552.479948-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,74 +54,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Hildenbrand <david@redhat.com>, airlied@linux.ie, lijo.lazar@amd.com,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
- Xiaomeng.Hou@amd.com, mario.limonciello@amd.com, darren.powell@amd.com,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, Sasha Levin <sashal@kernel.org>,
- evan.quan@amd.com, Yury Norov <yury.norov@gmail.com>,
- Janosch Frank <frankja@linux.ibm.com>, guchun.chen@amd.com,
- amd-gfx@lists.freedesktop.org,
- Christian Borntraeger <borntraeger@linux.ibm.com>, kenneth.feng@amd.com,
- tim.huang@amd.com, tao.zhou1@amd.com, Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, kevin1.wang@amd.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Jack.Gui@amd.com,
- Xinhui.Pan@amd.com, Sven Schnelle <svens@linux.ibm.com>, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Gong Yuanjun <ruc_gongyuanjun@163.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yury Norov <yury.norov@gmail.com>
+From: Gong Yuanjun <ruc_gongyuanjun@163.com>
 
-[ Upstream commit 525d6515604eb1373ce5e6372a6b6640953b2d6a ]
+[ Upstream commit a2b28708b645c5632dc93669ab06e97874c8244f ]
 
-The smu_v1X_0_set_allowed_mask() uses bitmap_copy() to convert
-bitmap to 32-bit array. This may be wrong due to endiannes issues.
-Fix it by switching to bitmap_{from,to}_arr32.
+In radeon_fp_native_mode(), the return value of drm_mode_duplicate()
+is assigned to mode, which will lead to a NULL pointer dereference
+on failure of drm_mode_duplicate(). Add a check to avoid npd.
 
-CC: Alexander Gordeev <agordeev@linux.ibm.com>
-CC: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-CC: Christian Borntraeger <borntraeger@linux.ibm.com>
-CC: Claudio Imbrenda <imbrenda@linux.ibm.com>
-CC: David Hildenbrand <david@redhat.com>
-CC: Heiko Carstens <hca@linux.ibm.com>
-CC: Janosch Frank <frankja@linux.ibm.com>
-CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-CC: Sven Schnelle <svens@linux.ibm.com>
-CC: Vasily Gorbik <gor@linux.ibm.com>
-Signed-off-by: Yury Norov <yury.norov@gmail.com>
+The failure status of drm_cvt_mode() on the other path is checked too.
+
+Signed-off-by: Gong Yuanjun <ruc_gongyuanjun@163.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_connectors.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 4e9e2cf39859..5fcbec9dd45d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -777,7 +777,7 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
- 		goto failed;
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 1546abcadacf..d157bb9072e8 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -473,6 +473,8 @@ static struct drm_display_mode *radeon_fp_native_mode(struct drm_encoder *encode
+ 	    native_mode->vdisplay != 0 &&
+ 	    native_mode->clock != 0) {
+ 		mode = drm_mode_duplicate(dev, native_mode);
++		if (!mode)
++			return NULL;
+ 		mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
+ 		drm_mode_set_name(mode);
+ 
+@@ -487,6 +489,8 @@ static struct drm_display_mode *radeon_fp_native_mode(struct drm_encoder *encode
+ 		 * simpler.
+ 		 */
+ 		mode = drm_cvt_mode(dev, native_mode->hdisplay, native_mode->vdisplay, 60, true, false, false);
++		if (!mode)
++			return NULL;
+ 		mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
+ 		DRM_DEBUG_KMS("Adding cvt approximation of native panel mode %s\n", mode->name);
  	}
- 
--	bitmap_copy((unsigned long *)feature_mask, feature->allowed, 64);
-+	bitmap_to_arr32(feature_mask, feature->allowed, 64);
- 
- 	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetAllowedFeaturesMaskHigh,
- 					  feature_mask[1], NULL);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index b54790d3483e..4a5e91b59f0c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -726,7 +726,7 @@ int smu_v13_0_set_allowed_mask(struct smu_context *smu)
- 	if (bitmap_empty(feature->allowed, SMU_FEATURE_MAX) || feature->feature_num < 64)
- 		goto failed;
- 
--	bitmap_copy((unsigned long *)feature_mask, feature->allowed, 64);
-+	bitmap_to_arr32(feature_mask, feature->allowed, 64);
- 
- 	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetAllowedFeaturesMaskHigh,
- 					      feature_mask[1], NULL);
 -- 
 2.35.1
 
