@@ -4,52 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F84C43334
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1933C433EF
 	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 16:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B114010E273;
-	Tue,  7 Jun 2022 16:04:48 +0000 (UTC)
-X-Greylist: delayed 579 seconds by postgrey-1.36 at gabe;
- Tue, 07 Jun 2022 15:43:46 UTC
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3920110E05A;
- Tue,  7 Jun 2022 15:43:46 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-138-163.dynamic.spd-mgts.ru
- [109.252.138.163])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id D1DF06601A26;
- Tue,  7 Jun 2022 16:33:57 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1654616040;
- bh=1OHF6wl6ehs/wRC7M/8ORoOFTl8MMQfJ9asXXd+gmRE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aEIUXUrg6wlcmhJWW9Dpq0CD51JiB4Gk+im588kYV1D7mO9ub6yKFVwNOXpZVJ2wM
- opGS/8b5tqT6A+Qs0IOWZkFwx79fas7g7J+6UFuPd62KDBH4Udp9hStEJ+Rda/cqwS
- /URMw8PUaP1oUBVHs2Yv4T39A3FIsYQBzAsp8bo0QFJ3mZ0J+ykNSYh0VcCXFnvq3G
- IOXQEb+tEfv6oiz2y9m8bvih3N0zkAqVp0jlIZFmtAilcr0aTfPA8jEpZx7IeH9ey7
- VUWWcHduvM3mB3xQmqfjKAk9sBAsGQj/TYmOnhe4+/BKszV79pAEu3Vi5r8hO/X1HA
- L4he4Zd+PxFGA==
-Message-ID: <382d50a2-8e47-5e0f-726b-f077be5b8bc6@collabora.com>
-Date: Tue, 7 Jun 2022 18:33:55 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v6 17/22] drm/shmem-helper: Add generic memory shrinker
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-18-dmitry.osipenko@collabora.com>
- <CAKMK7uHQ+iMkXtrsCWiJL9X1AM9Xkq-wNmj=hhfnenf0r9717g@mail.gmail.com>
- <2aedbd68-cb4b-157c-1ddb-dbdb9348d2fe@gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <2aedbd68-cb4b-157c-1ddb-dbdb9348d2fe@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5616A10E290;
+	Tue,  7 Jun 2022 16:04:49 +0000 (UTC)
+X-Greylist: delayed 484 seconds by postgrey-1.36 at gabe;
+ Tue, 07 Jun 2022 15:27:47 UTC
+Received: from smtp.ruc.edu.cn (m177126.mail.qiye.163.com [123.58.177.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4EAE10E8AE;
+ Tue,  7 Jun 2022 15:27:47 +0000 (UTC)
+Received: from localhost.localdomain (unknown [202.112.113.212])
+ by smtp.ruc.edu.cn (Hmail) with ESMTPSA id 79D2D80053;
+ Tue,  7 Jun 2022 23:19:39 +0800 (CST)
+From: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
+To: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/radeon: Initialize fences array entries in
+ radeon_sa_bo_next_hole
+Date: Tue,  7 Jun 2022 23:19:33 +0800
+Message-Id: <20220607151933.32850-1-xiaohuizhang@ruc.edu.cn>
+X-Mailer: git-send-email 2.17.1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZCBgUCR5ZQVlLVUtZV1
+ kWDxoPAgseWUFZKDYvK1lXWShZQUhPN1dZLVlBSVdZDwkaFQgSH1lBWRoZGB5WSkpPGU4fSR5IGk
+ MaVRMBExYaEhckFA4PWVdZFhoPEhUdFFlBWU9LSFVKSktITUpVS1kG
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MhA6Nio4Qj01ORcoSjAzDTQa
+ PRgaCg9VSlVKTU5PTUpOSkNLSk5JVTMWGhIXVQMSGhQTDhIBExoVHDsJDhhVHh8OVRgVRVlXWRIL
+ WUFZSUtJVUpKSVVKSkhVSUpJWVdZCAFZQUlOTEs3Bg++
+X-HM-Tid: 0a813ec0021e2c20kusn79d2d80053
 X-Mailman-Approved-At: Tue, 07 Jun 2022 16:04:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,73 +47,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>, linux-media@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/6/22 13:57, Christian König wrote:
-> Am 05.06.22 um 18:47 schrieb Daniel Vetter:
->> On Fri, 27 May 2022 at 01:55, Dmitry Osipenko
->> <dmitry.osipenko@collabora.com> wrote:
->>> Introduce a common DRM SHMEM shrinker framework that allows to reduce
->>> code duplication among DRM drivers by replacing theirs custom shrinker
->>> implementations with the generic shrinker.
->>>
->>> In order to start using DRM SHMEM shrinker drivers should:
->>>
->>> 1. Implement new evict() shmem object callback.
->>> 2. Register shrinker using drm_gem_shmem_shrinker_register(drm_device).
->>> 3. Use drm_gem_shmem_set_purgeable(shmem) and alike API functions to
->>>     activate shrinking of shmem GEMs.
->>>
->>> This patch is based on a ideas borrowed from Rob's Clark MSM shrinker,
->>> Thomas' Zimmermann variant of SHMEM shrinker and Intel's i915 shrinker.
->>>
->>> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->> So I guess I get a price for being blind since forever, because this
->> thing existed since at least 2013. I just stumbled over
->> llist_lru.[hc], a purpose built list helper for shrinkers. I think we
->> should try to adopt that so that our gpu shrinkers look more like
->> shrinkers for everything else.
-> 
-> What the heck are you talking about?
-> 
-> I can't find any llist_lru.[hc] in the linux kernel sources.
+Similar to the handling of amdgpu_sa_bo_next_hole in commit 6a15f3ff19a8
+("drm/amdgpu: Initialize fences array entries in amdgpu_sa_bo_next_hole"),
+we thought a patch might be needed here as well.
 
-I think Daniel meant this:
+The entries were only initialized once in radeon_sa_bo_new. If a fence
+wasn't signalled yet in the first radeon_sa_bo_next_hole call, but then
+got signalled before a later radeon_sa_bo_next_hole call, it could
+destroy the fence but leave its pointer in the array, resulting in
+use-after-free in radeon_sa_bo_new.
 
-https://elixir.bootlin.com/linux/v5.19-rc1/source/include/linux/list_lru.h
+Signed-off-by: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
+---
+ drivers/gpu/drm/radeon/radeon_sa.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-https://elixir.bootlin.com/linux/v5.19-rc1/source/mm/list_lru.c
-
-
+diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
+index 310c322c7112..0981948bd9ed 100644
+--- a/drivers/gpu/drm/radeon/radeon_sa.c
++++ b/drivers/gpu/drm/radeon/radeon_sa.c
+@@ -267,6 +267,8 @@ static bool radeon_sa_bo_next_hole(struct radeon_sa_manager *sa_manager,
+ 	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+ 		struct radeon_sa_bo *sa_bo;
+ 
++		fences[i] = NULL;
++
+ 		if (list_empty(&sa_manager->flist[i])) {
+ 			continue;
+ 		}
+@@ -332,10 +334,8 @@ int radeon_sa_bo_new(struct radeon_device *rdev,
+ 
+ 	spin_lock(&sa_manager->wq.lock);
+ 	do {
+-		for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+-			fences[i] = NULL;
++		for (i = 0; i < RADEON_NUM_RINGS; ++i)
+ 			tries[i] = 0;
+-		}
+ 
+ 		do {
+ 			radeon_sa_bo_try_free(sa_manager);
 -- 
-Best regards,
-Dmitry
+2.17.1
+
