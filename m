@@ -4,90 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18C55C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 20:30:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F88AC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 20:44:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D9211370E;
-	Wed,  8 Jun 2022 20:30:27 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D12C411370E;
- Wed,  8 Jun 2022 20:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C765410F5B2;
+	Wed,  8 Jun 2022 20:44:08 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072FC10F5B2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 20:44:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F32DEbCUPxgoZ9/f/6mkWzp2LEW6+ukbmvj+uRZmqzwR/T1JJKGCPHhp0IJDFfV8JiH71Tprc7gqjCZJqcAI1A8bkx5YB/umyTQb4EEuQXi12XLiLzzntUdlqOw6Q+xL6J54lpAi1TidrnU5PgxFHji0y6Knk3oKljpct+BzP79UQrQox65qw3MxLiQ1ApOFf3kfCkvWEGq5SKPftGbM7zIR54q7cn8ugjRyn3397zm9LUA1KI0O/QergXQAVhByZyjbqhboHeLTtglB1mZm6SHAK+bt4Ty/855uoewxZNX9M8n2aG+kj6IhaaL/5/ZOq4s9iH5rv0IbC5/Q3pX82w==
+ b=ncr6/TyAGs6yzkjz82xxAxKhCD2GlBwyD1Jf/TlbDIIsBwrk0hUm6xmIJQX1b9+g+OeCZLNjAdJ9xx5HqgKkZoyOgLXEQekzlQfASgNUciBJvww+YxdKeENsfQ9WqeibQXTAOP32jA9YHkVvr6ncophuUDBfnFIuEbrGnmTQyhwGcF84O9u9TMo/lZ8wZpQ17032EMtlX533Aw7FIfBp+t39nrpThEPkbrzfCfhUci1Mc7sk+BQlFzIN2l/xcfs2/4ABapEXYe1r1UK69RK0rkiEyQkSbG+2hI7ALxV1diaCi3sm+dCbmtvN/xgmp4ebHIw/YldJG+jq4BL/pkwrUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/D1LgjqTUY3/JEehlQob0JLyfS9HI4j/6xrHOSytP9E=;
- b=N0M2bmzWXkDZskTpAOSlKhSZ7R2eeB4zIryW6q0+HcPpZ4ZT5dopNnykLBSSd8kNFKV8VeZyp9bPP4GhSGEYAPPvzg8Th3K+AdZAYxOirv+Vbudi2kcInQjLe5MAILcjd5994lSiyy+OT9R0Nzb5mBGszVuMXXbo2Yqcv0LIEkTg9GEuJparpI396i+eFG01csnt0LbxGNEgXhn++9hoHvv3Rs5TEKKGdZ1WqLBpFxSZp4NJhcnHGSLtWomt0NPilZgVM+XIEjFHNqU7onOORA5zTVfvf9TsdJgoPkhroMSwPpZNXTHyGWUNGHr/eBSwvVfoRAvxEZbRVVqTqaV11A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=W4KRf5F7u3TJzBlpa9im6TC32d6Lq06JlG/6kqL8EG0=;
+ b=gUalDbabqeDxTNkxVqYN1+6hjUnLyg375YuJKefmNDCvenEZWYKUbuqbUDB21WSXU6Jl04XyMbhraIBF58R/QXaxWsuPFwLA2HTGRN7ik2t4qX05gjPalinxH5tFGl810WbPklujBtbiNt38lEPvzv0OvVUdaLYBX2eE3S/2+hQZuNnX2XdiuWSoGmhLdtDxnEXqxZ8A2BXD017AXahSnQ+ld8VqSMAP++vHk2dsOFTucZ6u7asZ88fF1f+STOQMHxt225v67i2qgKndP9fKPakMQgEE6DqeMObobLUDtIgF6vfgAQb/smT3cQlHFj6RaxLeRZU4QKVy7F3RdYcBxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/D1LgjqTUY3/JEehlQob0JLyfS9HI4j/6xrHOSytP9E=;
- b=Or5OUhsEHSIl0pvRFdvARJ4dPBBoH2A3X2nesCxhtfWO156+d17l8JMC4X7OPL7vXBKWj1pSOfH9cQpNbIYIZQA0OteBqQ637Gs15AbfdDrwROiFEyNxiFjU+3mhiD+kUYVZS2IJEqNU4v6p4URAnK5ds4tS4rciMCsc5mA/cZ0=
-Received: from BN8PR16CA0002.namprd16.prod.outlook.com (2603:10b6:408:4c::15)
- by SA1PR12MB5659.namprd12.prod.outlook.com (2603:10b6:806:236::7)
+ bh=W4KRf5F7u3TJzBlpa9im6TC32d6Lq06JlG/6kqL8EG0=;
+ b=alZnyA0+2y08J8qalrtKUf3AWMgRbSc4V87AmwfW8mw54IEsO+rJfsPuk+st5MV2sx+theaowcq4luG6xGwRsRKkWVfu2+RqKF2lD7bX/6vm+S9IBdhQYKMVJYLKQr9bSqMdnaU6GpSWVx8083f7pzkhWw2uDJLDhvhLvMNIvv0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.19; Wed, 8 Jun
- 2022 20:30:24 +0000
-Received: from BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:4c:cafe::6) by BN8PR16CA0002.outlook.office365.com
- (2603:10b6:408:4c::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.17 via Frontend
- Transport; Wed, 8 Jun 2022 20:30:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT009.mail.protection.outlook.com (10.13.176.65) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Wed, 8 Jun 2022 20:30:23 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 8 Jun
- 2022 15:30:22 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.19
-Date: Wed, 8 Jun 2022 16:30:08 -0400
-Message-ID: <20220608203008.6187-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.16; Wed, 8 Jun
+ 2022 20:44:05 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5332.012; Wed, 8 Jun 2022
+ 20:44:05 +0000
+Message-ID: <4eb71fb8-fff6-4686-03ba-877fb920770e@amd.com>
+Date: Wed, 8 Jun 2022 16:44:03 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drm/amdgpu: Unpin MMIO and DOORBELL BOs only after map
+ count goes to zero
+Content-Language: en-US
+To: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220608115110.1798650-1-Ramesh.Errabolu@amd.com>
+ <954e9aa2-835b-397a-299c-c98bb60b764f@amd.com>
+ <SN1PR12MB2575DAB025B69322D14B60D1E3A49@SN1PR12MB2575.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <SN1PR12MB2575DAB025B69322D14B60D1E3A49@SN1PR12MB2575.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MN2PR07CA0016.namprd07.prod.outlook.com
+ (2603:10b6:208:1a0::26) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e16a2ccf-e7ed-4da8-32c0-08da498db6f8
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5659:EE_
-X-Microsoft-Antispam-PRVS: <SA1PR12MB565951BC39DE45FFE5EC6888F7A49@SA1PR12MB5659.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: a2696ae8-06b8-4571-ff6f-08da498fa08b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3775:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3775B2534F814713EEBAF0E092A49@MN2PR12MB3775.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tzR3i6Ym9GMCjGrxGAlTeV2BSVRfQoYAl2hS9mHLHP5UW+dk/uqw105d4Tsm8uMYreMirwITG8fPoy5d9WDylMwND3Ia5+tG7NuULkBkDiemF3JsA2pFQ2HRkwDrWjFatN4u0iM58yVTUWyk8ljPWBZ5FS7648wLtIA1CJPQuUuw3qNizl0B5JoQPF5LHWkgVElo3IhlXqY52jVLFxtVQ/kg0OawXr8DsEa2P7mjIOQHmVpk4pVeaNAoutdDrcUkavFYc4wldLXY9rru7YkUJ2X2ddrXj/9G53hzCyC0XnlcYmF1SO0M38QSP9Hdjs/bYxdczHal1b7WQuC8a8nDzJXCYetUKAws6gVR3LY0MqcSyw31w35m2QaBQRrCqnqTNjCZ97gXYZrJyzD54kXcVawyXIg67hOeARzhJ7yBMaUFN9M6X6PciiNuuTo52MKA23LGVhb/680AKGP/FQA5kCvWzKRMJjFXXcuchCphPAaT6N2myv7ZhcPQlIFeeLsCUf5u4G4Gf2GvD4fJ02iupMB6TtLSFLq9e0r84APWNEN6Fb3lQMqvMDHiceqc09H9sOpX/KL88cs8KidhjZi9WhJOiVkXoYB8guZ/EtpKfskmgseOUu4CaolzAjNHb+246vfCK4F7JDqO5ehjGvLHemvgTxyPUnXXdWct1LvhJCfh2/PsDVkVSUrTlYN0PtT9/tOOiGlESQDHStThMzR7sQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(36756003)(1076003)(2616005)(316002)(336012)(47076005)(6666004)(26005)(966005)(40460700003)(86362001)(83380400001)(110136005)(186003)(7696005)(81166007)(4326008)(70206006)(16526019)(66574015)(8936002)(426003)(508600001)(5660300002)(356005)(70586007)(2906002)(82310400005)(8676002)(36860700001)(36900700001);
+X-Microsoft-Antispam-Message-Info: qO3XyDmoUxxS4D07yHY/F9dLNb95F4xNxIJ90lkMviRvzaJvxyN02SxnbcPOBw9on6PYcfSQRZW6AGQbDS3sEVY5U6TcrbjpHII5DfXsjH+pyu/T3/amnindKZudqDnlLTWuiGlg6qFd+b9yobBkN4hoZIijpo5B5eAOojC3FFrr8xQIJ/UpYzAVuZqHRxgGFUiIGKMlPZwvGHNiLatn8wtRqpFi06ZZrVrRs2/stVCTV73zQ7B4fonmkpZLmgJEWngopav/BMRW9g1mYjaLFgzjRpt34sqzZ8Y41C0pDjxUkIAYSAieGuaSW0o3bMyj8/0lqKcCMGXtJ+laTq/+Ap8ShJzME1nEs2wqiJbHBJPvs7OuytOYpdBF+1Ilq8CtlAsF6dkb7iQYgwlv6hc5LaQFU9FD6bvrxJ3u5uyDpHn9dxsHM7vBtBtI90rIRqw2S/snhY/WkNrk0s8Qgn0exRk43uWDcnRxkYDNRt3dvmaz3likmJBGOauAIzkzDa3FzOHaib0KZ/nTC92GMot8VFebE93v1mQBym3R+W6gUfJGY8lFK/FROkQLNCO2+Apn3h3xgUpUqibjq7htYcVMofgHtNiqbaxwMs/ymNEXO9inTqZp3XkoCA11OQWo6B3T0GHX4ZXOulQFdWmx+AId8uncsdqHVPyPkIYSRlgeFok1XUg2xzY+zg7RuEik1LSe6ChQUVSyMtqDm/Rf9bw70M2NzLInK8SYtLfEiVLNFnGSBlcqXb+SjbaGp+PDTEgi
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6506007)(6512007)(186003)(83380400001)(44832011)(36916002)(508600001)(8936002)(31696002)(5660300002)(31686004)(86362001)(6486002)(26005)(53546011)(38100700002)(36756003)(2906002)(2616005)(316002)(110136005)(66476007)(8676002)(66556008)(66946007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2pERDdENTlUU1pUcW9FUkxnWm9iVys1NVVhUy9RS2UzYmI2V0dlTzhoaEtR?=
+ =?utf-8?B?VTRnWW5IdzVFUTM4UkxNbE11YWgwVWs5a2F4YUNFRE12OGUrd1VFUFltN29R?=
+ =?utf-8?B?Q1UxdXo4aEtHZ3p0SFY0bGRRUVNsS1RITWxBQlYzZWp1V2hrWjBZb2ZIWnlw?=
+ =?utf-8?B?akVmbG5UZ09ldmRkZ1BKOVNSUTFaVmszZFdiRnJDWmU1SDAyalA0NU4zaVRS?=
+ =?utf-8?B?T3VzRWtHV2tBNVVzVzVidXJVcmE1VlAxa2xub2pBN1l1ZnJrdmFFaE9FUDhi?=
+ =?utf-8?B?RmZZWm9NM0l5bDV1dWx2NUswTkVuM2pGZGVhNnBtNmd5VndicTV0dVNwNjRD?=
+ =?utf-8?B?WjVnalNzcFBmYlBid2VSbTduZytDSWhLYVFnbnlWZ0NwcnBuQzE1ZXd4MHJN?=
+ =?utf-8?B?NWh3S0dnOVJjUzFQRE9KRDduL2JlUGtaQm8xRnB2Umc3REdUS1YzM0Zud3dE?=
+ =?utf-8?B?YWI4d0lXaS9OV3FpRUFaQ0g3aEZsOVRwUnU2YXhQNm13M3dqZ2RFUjRlMVox?=
+ =?utf-8?B?WWZFR1N0cWZFL295ekIyQUQ2anZjeHNHUjR0dXBYcHlWQzF5MmU5M0RlOWVk?=
+ =?utf-8?B?VklTczE3TjhVbVhiZGNaajI4SGdpS25CcnF0V0NhVVFPNXUrdE90eWtsQ2Fj?=
+ =?utf-8?B?OFM2RTBwQjNTM3VDQzVDUnoxc1gwd0k5TDhZQ1lYYUF4RTdlcjBhODUyK1Bo?=
+ =?utf-8?B?UXY5dG9RN3FvT3NjaG9HeUZ6M1pGM2FyZjBZS24xd1FBR1lOcUpmdTdCMTBT?=
+ =?utf-8?B?ODcwRmJpL3hKa3l1UXJvenN1TGw1OVBLbkdKSUpldTE2ckFNcmJDQ1FDbm5U?=
+ =?utf-8?B?dWpoWTBub2VITkc5cFJRcVRNd3dGQVF3Rk5SSHNhb2JZbUkwSDNRWW5mcmdv?=
+ =?utf-8?B?a3NsU050NGg1ODRhKzlXU2FrTVF1MlRxZXBsRDUrRjAvYkxoTkZES2VtVmtR?=
+ =?utf-8?B?SHRHNUVVWDNyQzFuYnRhMWFrMjMrRjRxZmJjcFFLNllReWdlcHlKeTZJQ1dQ?=
+ =?utf-8?B?WXVxNEw3YTBmREhJODc0N0JoVC9MMzE1VlEzUkJwZk5xNzNJdlV3RHBUazhT?=
+ =?utf-8?B?d0pETmVkZm80OVVjSU5xSCtNMlNvbWZ5T3E3QkhKUjBjM3NQcVRjSlZyYnp3?=
+ =?utf-8?B?MGw3TE1KM1B5ZUo1NVRnWUlzcHBXVEo5UExDYi81WmxkRUJlaHMrczVLT2tS?=
+ =?utf-8?B?cVBSTnhTU3RPMU9iVHZ3M2JkNWVpaDNLZS9WYWhlcXBTM041WCt2dUdjWUhO?=
+ =?utf-8?B?YnBXZFZqamx0M3JFN0JrakprK0xjMmNJREtBK21teklCbXBXVzlTaGo3QVhQ?=
+ =?utf-8?B?Q1ZSdXV2RG9VMnlLMWlzdXpVWDcxdlhBVmNobWx2SjhxcnJPTHRFM2g2ZXhh?=
+ =?utf-8?B?OHhlUTJWNTdlY2RmbkxlaWhyOFE0d2FOd1cwVlJGOGxKOVVnQVFTQ2dNWkpO?=
+ =?utf-8?B?K0pTZE1zZ0syU0xFcWlhVUo0a215VkJCenhOQ09LTngzY0RHT2dnQjFiY2gw?=
+ =?utf-8?B?TDZnZzBaT0ppdzJYMTZlbVdPVnNtUHlWTjhicVd5OGdJVjc4bE5IWjVjdjBW?=
+ =?utf-8?B?R3BuVEQzOE5ZVFppRk1WWmgvVVRXNjZuVTFMajR1OUQ0ZUlKWEgreG9ZVllR?=
+ =?utf-8?B?U2dxbGNGUzFlRnNiNGc5WUhPZkFwNlB4SjVOenc3b3dKeEFUbVJ2Zlk4M21W?=
+ =?utf-8?B?UmsxV3NobzJOSmZrQmJER1ZVMkVmL3lWejdlNVorNzNJUkVkYjBEcGRSdVdt?=
+ =?utf-8?B?eE5KWjRGZmFUeGtzSHp1TVd0R0dKZ3RIUnNOZ0NPMjAwZHFaQnZGWE1GK3Jt?=
+ =?utf-8?B?MGdXSTZKYUVGZFVROTJweS90WmUwTXdNcFBZMG8vWHZSazV5ZlR5VnNGWlNB?=
+ =?utf-8?B?cUNMc1UweTBGYS9ieldPU0JscTJjeVlKSWZZOFlNQ1JZTnhrN1BobG45Sm9i?=
+ =?utf-8?B?anVZZXhzeE9kZWl6bVJZZDBmcXFxQlBEcXJ5S09lVWZqb1FYbjg0cDJhaFFO?=
+ =?utf-8?B?d2NhajdGaUxJK284RCsyUVpYNzdHK3Bibm1wK2I4ZXBVNGNGdm5FNTNXcWMz?=
+ =?utf-8?B?dDNzMVcxZ2RuRUhxd3ZnK0Q4eVh6cHpTZ00vZ3hiWVlpWlYycFlNQ0NwOFNp?=
+ =?utf-8?B?U2RmMGs3bWZ5MFBwd3czVW9zTTJ1azkvMTJMenV5eFVFVE5CSUJmRVpuRHV1?=
+ =?utf-8?B?WWZiU09taFZ3bWhRTThWdVNWcm50SG9wb1lVRVZLZmFFNTEwWm5TRTBlWEky?=
+ =?utf-8?B?OWJUTjBqTkc0Y1JhdGtBWWtreE5rYmJHYXhCSTNnbHBqNFA1RWU3SktUL1JH?=
+ =?utf-8?B?VlhiUEFrWlpEazA0UjdzeHZVdUYvU2M5TTJjbit4c081ZnRqZXNsQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 20:30:23.4500 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e16a2ccf-e7ed-4da8-32c0-08da498db6f8
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2696ae8-06b8-4571-ff6f-08da498fa08b
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 20:44:05.1995 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5659
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v380rXblvCpRR/YL6LjWxdNO4eYkYLNJROLUzXwcg2AAkmfdBwHuGbKaVvA50TBGFFlkZaKfENm84t20a22/ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3775
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,169 +132,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On 2022-06-08 16:03, Errabolu, Ramesh wrote:
+> [AMD Official Use Only - General]
+>
+> My response is inline.
+>
+> Regards,
+> Ramesh
+>
+> -----Original Message-----
+> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+> Sent: Thursday, June 9, 2022 1:10 AM
+> To: amd-gfx@lists.freedesktop.org; Errabolu, Ramesh <Ramesh.Errabolu@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: Unpin MMIO and DOORBELL BOs only after map count goes to zero
+>
+>
+> On 2022-06-08 07:51, Ramesh Errabolu wrote:
+>> In existing code MMIO and DOORBELL BOs are unpinned without ensuring
+>> the condition that their map count has reached zero. Unpinning without
+>> checking this constraint could lead to an error while BO is being
+>> freed. The patch fixes this issue.
+>>
+>> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 15 +++++++--------
+>>    1 file changed, 7 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index a1de900ba677..e5dc94b745b1 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -1832,13 +1832,6 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+>>    
+>>    	mutex_lock(&mem->lock);
+>>    
+>> -	/* Unpin MMIO/DOORBELL BO's that were pinned during allocation */
+>> -	if (mem->alloc_flags &
+>> -	    (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
+>> -	     KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
+>> -		amdgpu_amdkfd_gpuvm_unpin_bo(mem->bo);
+>> -	}
+>> -
+>>    	mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
+>>    	is_imported = mem->is_imported;
+>>    	mutex_unlock(&mem->lock);
+>> @@ -1855,7 +1848,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+>>    	/* Make sure restore workers don't access the BO any more */
+>>    	bo_list_entry = &mem->validate_list;
+>>    	mutex_lock(&process_info->lock);
+>> -	list_del(&bo_list_entry->head);
+>> +	list_del_init(&bo_list_entry->head);
+> Is this an unrelated fix? What is this needed for? I vaguely remember discussing this before, but can't remember the reason.
+>
+> Ramesh: This fix is unrelated to P2P work. I brought this issue to attention while working on IOMMU support on DKMS branch. Basically a user could call free() before the map count goes to zero. The patch is trying fix that.
 
-Fixes for 5.19.
+I get that, but I couldn't remember why I suggested list_del_init here. 
+It has nothing to do with unpinning of BOs.
 
-The following changes since commit bf23729c7a5f44f0e863666b9364a64741fd3241:
+Now I recall that it had something to do with restarting the ioctl after 
+it was interrupted by a signal. reserve_bo_and_cond_vms can fail with 
+-ERESTARTSYS. In that case the ioctl is reentered. We need to make sure 
+it doesn't crash the second time around. list_del will remove 
+bo_list_entry from the list but leave the pointers dangling. The second 
+time around it will probably cause corruption or an oops. Using 
+list_del_init avoids that by initializing the prev and next pointers to 
+NULL.
 
-  Merge tag 'amd-drm-next-5.19-2022-05-26-2' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-06-01 10:56:11 +1000)
+See one more little fix below.
 
-are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.19-2022-06-08
+>
+> Regards,
+>     Felix
+>
+>
+>>    	mutex_unlock(&process_info->lock);
+>>    
+>>    	/* No more MMU notifiers */
+>> @@ -1880,6 +1873,12 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+>>    
+>>    	ret = unreserve_bo_and_vms(&ctx, false, false);
 
-for you to fetch changes up to 431d071286524bd4f9ba2e46b1be87b479220174:
+This unreserve_bo_and_vms call cannot fail because the wait parameter is 
+false. If it did fail, the error handling would be broken. I'd add a 
+WARN_ONCE to make that assumption explicit, and change the return at the 
+end of this function to return 0. Basically, if we got this far, we are 
+not turning back, and we should return success.
 
-  drm/amdgpu/mes: only invalid/prime icache when finish loading both pipe MES FWs. (2022-06-08 15:39:16 -0400)
+You could update the commit headline to be more general. Something like: 
+Fix error handling in amdgpu_amdkfd_gpuvm_free_memory_of_gpu.
 
-----------------------------------------------------------------
-amd-drm-fixes-5.19-2022-06-08:
+Regards,
+   Felix
 
-amdgpu:
-- DCN 3.1 golden settings fix
-- eDP fixes
-- DMCUB fixes
-- GFX11 fixes and cleanups
-- VCN fix for yellow carp
-- GMC11 fixes
-- RAS fixes
-- GPUVM TLB flush fixes
-- SMU13 fixes
-- VCN3 AV1 regression fix
-- VCN2 JPEG fix
-- Other misc fixes
 
-amdkfd:
-- MMU notifier fix
-- Support for more GC 10.3.x families
-- Pinned BO handling fix
-- Partial migration bug fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: update VCN codec support for Yellow Carp
-
-Alvin (1):
-      drm/amd/display: Don't clear ref_dtbclk value
-
-Aric Cyr (1):
-      drm/amd/display: 3.2.187
-
-Aurabindo Pillai (1):
-      drm/amd/display: remove stale config guards
-
-Candice Li (1):
-      drm/amdgpu: Resolve RAS GFX error count issue after cold boot on Arcturus
-
-Christian König (2):
-      drm/amdgpu: fix limiting AV1 to the first instance on VCN3
-      drm/amdgpu: always flush the TLB on gfx8
-
-Evan Quan (2):
-      drm/amd/pm: suppress compile warnings about possible unaligned accesses
-      drm/amdgpu: suppress the compile warning about 64 bit type
-
-Guchun Chen (1):
-      Revert "drm/amdgpu: Ensure the DMA engine is deactivated during set ups"
-
-Hung, Cruise (1):
-      drm/amd/display: Fix DMUB outbox trace in S4 (#4465)
-
-Ilya (1):
-      drm/amd/display: Fix possible infinite loop in DP LT fallback
-
-Jesse Zhang (1):
-      drm/amdkfd:Fix fw version for 10.3.6
-
-Jiapeng Chong (1):
-      drm/amdgpu: make program_imu_rlc_ram static
-
-Joseph Greathouse (1):
-      drm/amdgpu: Add MODE register to wave debug info in gfx11
-
-Lang Yu (1):
-      drm/amdkfd: add pinned BOs to kfd_bo_list
-
-Leung, Martin (1):
-      drm/amd/display: revert Blank eDP on disable/enable drv
-
-Mario Limonciello (1):
-      drm/amdkfd: Add GC 10.3.6 and 10.3.7 KFD definitions
-
-Mohammad Zafar Ziya (1):
-      drm/amdgpu/jpeg2: Add jpeg vmid update under IB submit
-
-Nicholas Kazlauskas (2):
-      drm/amd/display: Pass the new context into disable OTG WA
-      Revert "drm/amd/display: Pass the new context into disable OTG WA"
-
-Philip Yang (3):
-      drm/amdkfd: Use mmget_not_zero in MMU notifier
-      drm/amdgpu: Update PDEs flush TLB if PTB/PDB moved
-      drm/amdkfd: Fix partial migration bugs
-
-Roman Li (1):
-      drm/amdgpu: fix aper_base for APU
-
-Sherry Wang (1):
-      drm/amd/display: Read Golden Settings Table from VBIOS
-
-Stanley.Yang (1):
-      drm/amdgpu: fix ras supported check
-
-Sunil Khatri (1):
-      drm/amdgpu: enable tmz by default for GC 10.3.7
-
-Yifan Zhang (1):
-      drm/amdgpu/mes: only invalid/prime icache when finish loading both pipe MES FWs.
-
-hengzhou (1):
-      drm/amd/display: Wait DMCUB to idle state before reset.
-
-sunliming (2):
-      drm/amdgpu: fix a missing break in gfx_v11_0_handle_priv_fault
-      drm/amdgpu: make gfx_v11_0_rlc_stop static
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  13 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  32 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  13 ++-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |   6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |   6 ++
- drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |   2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |   6 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h             |   1 +
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  36 ++++---
- drivers/gpu/drm/amd/amdgpu/nv.c                    |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             | 109 +++++++++------------
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  17 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            |  18 +++-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   5 +-
- .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |  11 ++-
- .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.h   |   2 +
- .../amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c |   7 +-
- .../amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c |   3 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   | 106 +++++++++-----------
- drivers/gpu/drm/amd/display/dc/dc.h                |   5 +-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c  |  68 ++++++-------
- .../amd/display/dc/dcn31/dcn31_dio_link_encoder.c  |   4 +-
- drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c   |   2 -
- drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h    |   1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |  18 ++--
- .../gpu/drm/amd/display/dc/link/link_hwss_hpo_dp.c |  19 +++-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c  |  11 ++-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h  |   3 +-
- .../drm/amd/display/include/ddc_service_types.h    |   2 +
- .../gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h |   9 +-
- .../gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h   |   9 +-
- .../gpu/drm/amd/pm/swsmu/inc/smu_v13_0_7_pptable.h |   5 +-
- .../gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h   |  10 +-
- 37 files changed, 330 insertions(+), 251 deletions(-)
+>>    
+>> +	/* Unpin MMIO/DOORBELL BO's that were pinned during allocation */
+>> +	if (mem->alloc_flags &
+>> +	    (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
+>> +	     KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))
+>> +		amdgpu_amdkfd_gpuvm_unpin_bo(mem->bo);
+>> +
+>>    	/* Free the sync object */
+>>    	amdgpu_sync_free(&mem->sync);
+>>    
