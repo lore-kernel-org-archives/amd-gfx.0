@@ -4,83 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0967EC43334
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 15:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D818C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 16:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD3761120C3;
-	Wed,  8 Jun 2022 15:56:53 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F13010EFA7
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 15:56:51 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id k16so28960325wrg.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jun 2022 08:56:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=hvjv3fnVF8/pJboCz6mWgtVEtXjO0iOOfBgaF/yNVMo=;
- b=ahT9YKwEeR+XSeONSXQTycUR9Rwmkdy7lCR5zYJRh4X5bG9rUUhmTMOSm37a1x2dQg
- sMSmyJrsx3DNYa++Z88Bhsarj8eGiDNj6lZ14rsnqIbYC6BOHbBt5Y+tBBLl0+ML7RHn
- Ih5H8wQKW1wJh2UK/djICTHx/r/bY8cS7pAc8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=hvjv3fnVF8/pJboCz6mWgtVEtXjO0iOOfBgaF/yNVMo=;
- b=Te4GQvsrPaOZUREN7A8OBEIRBnIVqaQN2G8OoPldQjHRShdbKlG5krsiNH89nceXDt
- NFKAukk/u2c380Cxq9T+k+e8OltRtyQq/NB6P8HpZmtRafUGVqPoD8udDXr77EUAzB3c
- USYk+3nKkcjvLdXKCaj77CRpYiNaR4PnZGh4m1KQ5KEfE/0KD6MTjXF5yWOKWbWaaRM/
- trCrB0PUpdvcDVPP6tuD7v8iGyOZCN83ph6tJnTxr/XjPUbVG9dK4xj03gmf3tPHT+nM
- IyqMFdkxpwVHLJwIyc80TLIGYIbI69tUPilzElcRAYUhUKFwjSdAgcTqjAHwIwF2dsB8
- BgHg==
-X-Gm-Message-State: AOAM530ikbM/FEOfcqT1vxqoYLbDBsBIzUKn0YzpPDMAS8akGor9AIJ4
- /nWq7UxylsCniifT3EqGGG6OdA==
-X-Google-Smtp-Source: ABdhPJwAMheQ1yFKSE/vSoH57NTuCuUEEt5+IEndiXLbnF/iIe54uouTXcKfsDHA5SD7lcSxX7tXDQ==
-X-Received: by 2002:a5d:594f:0:b0:213:d715:cec7 with SMTP id
- e15-20020a5d594f000000b00213d715cec7mr28858360wri.44.1654703809923; 
- Wed, 08 Jun 2022 08:56:49 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- m19-20020a05600c4f5300b003942a244f2esm30998208wmq.7.2022.06.08.08.56.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 08:56:47 -0700 (PDT)
-Date: Wed, 8 Jun 2022 17:56:44 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: jim.cromie@gmail.com
-Subject: Re: [RFC PATCH v2 00/27] DRM.debug on DYNAMIC_DEBUG, add trace events
-Message-ID: <YqDGvJtNjDFIViQu@phenom.ffwll.local>
-Mail-Followup-To: jim.cromie@gmail.com, Jason Baron <jbaron@akamai.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- Sean Paul <seanpaul@chromium.org>, robdclark@gmail.com,
- Steven Rostedt <rostedt@goodmis.org>,
- mathieu.desnoyers@efficios.com, quic_saipraka@quicinc.com,
- Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- quic_psodagud@quicinc.com, Marc Zyngier <maz@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-arm-msm@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-References: <20220516225640.3102269-1-jim.cromie@gmail.com>
- <Yo5FFMbNG1Viirj1@phenom.ffwll.local>
- <CAJfuBxzQPeYvpzd_=WkQasKJceHrUYK8umG6gWbTmoAUfApJ8w@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2464112769;
+	Wed,  8 Jun 2022 16:49:23 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E671112769
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 16:49:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UxRhjQpAaaMQeoi9xhvEULNZRQUwceHx6La9fxU8nr/Vw7ZhzT7NUbG1sqFFZ3xCnIFh0Etea6fubEdjFh+n2bNxecC7Hw+Z4i//UX7kSvwCibi9CxNY1GCPBGGYqYdAyu3Y3999ZeKIALH/HgFVjN/mktdIU66qfpue7QQRJrunjxVt1AzpJFeSmRhe1D5LCIOMJi+fWHwGnnElr1FcJjmQ80YcCN0mTkM5GHL+yQtlnXGmaMchJjBxh8W6jwfWwasAmku6ZDQsoZXN7Nqq/zFGKTDT/hs0UCXe/hXswzo74GOj5E+9vyoQ9SxPkCxJ0mrc/fUvcCUssKP4NaMSuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qweIg7pUzVEX3Yw9vdHzl36CCp4KLEnOsLOwgJdF1v8=;
+ b=Ri6shQ9b7To1q9m6BKt2sgPauisO9QcWQjVDMZeiTCu/so5LeP0z7jAkA7/frcrD2ccNXUDwH/dKGmb3+BMbmhrivnE6h1N672WF6KBjXizDPvu06N+7I4N+QORjk9wq4AEAjOAfh2ILhV+kDA9pw90510vT3CSlbCt3Fr49v9YZfdsQnPi5zG1ZHcBC8t65RIkAN0WQdTXa5hqERY9W/wUIqNavzifO8YLZlX9HOvoZRrL37EjlS5FEle3FgD/I5sLSaWhBGVK0tcAGSc1T6yzRegZTwInI727DplzjgXnza/nz98f6mndG0UsWVA1R9MZC51iarOOiETMvQ8qidw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qweIg7pUzVEX3Yw9vdHzl36CCp4KLEnOsLOwgJdF1v8=;
+ b=FHCp6AfvstABe7Zm0itnSlfz9YlnZQjx8GCO1ku8pxlm9Ut+sPm+oIL2xC5RNU0aRMeoUPW9AW2g5ZJyCkGwbYTVyVuVYGp1f2DQlwiDGktinTQgvQbjU0pbYO7d6vQpp91gEP7HNyFiKF2qIOiZ5sfQqh/pHLOBJQ74FeQ8Zco=
+Received: from BN0PR07CA0015.namprd07.prod.outlook.com (2603:10b6:408:141::30)
+ by BYAPR12MB2904.namprd12.prod.outlook.com (2603:10b6:a03:137::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15; Wed, 8 Jun
+ 2022 16:49:20 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:141:cafe::4b) by BN0PR07CA0015.outlook.office365.com
+ (2603:10b6:408:141::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15 via Frontend
+ Transport; Wed, 8 Jun 2022 16:49:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Wed, 8 Jun 2022 16:49:20 +0000
+Received: from leodev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 8 Jun
+ 2022 11:49:19 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Use pre-allocated temp struct for bounding
+ box update
+Date: Wed, 8 Jun 2022 12:48:56 -0400
+Message-ID: <20220608164856.1870594-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJfuBxzQPeYvpzd_=WkQasKJceHrUYK8umG6gWbTmoAUfApJ8w@mail.gmail.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4601fa2a-2a4c-4f04-e09b-08da496ed569
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2904:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB29042996B2473A89F641B0E182A49@BYAPR12MB2904.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sls78o5sIPZVNA6pD7YyuLlddquxRZJyU010KnfnLcpnbnWj9rNNS2p1wZQPK6aQlabOzcyGKYeiQOQvfjIt/gmpE9GUJHXg8KIuWZ5tA6Q+0n/sHFYsWziI0mJqX2U5zuZ6FeC2SPPqRSGLYeLjlKh1ZmVZ8H7DEA61y2ytqW/tOIukdLW/38sdaxdRUZRn6QZVEBttuOzGhzNdui9ftyJ1+nrXoviRgMKnEGCNJTO1coWkhrRR1fdHGkJTdlqtoo/E3S3QC+48SNnJyQvQT8hr0gnvqmfq4LQ+SELySQ4Jiaea/nmc8iZtty2ET7n5CpVetEgoreQLxdp1596HLam9MMTPjUc5U8t2wR1Z8W7RNW1cqEHqc+msawkf6ofGfiUV3ikv6fg7h/CHrvx3h/85/tBwax2qXpZC2C6ZZTqy8bXRiYUagT14o3o9ZELKZk+ZLdpfG2xNx07pPghWmalEXMRwMR/IdJD2VVHdDaxB+w8aTh/OXQjaQnn3VtA0xe5KZSgmcdlerzGFmZFZHpfREP5m0nwyL2DDUUtHYu+h3ek1x08JLidzB9OaBnaaWycyDXBfwBxAyK4FJKNu0nl7RmeKrxo9AMWBE/sW6A0KlDzSyCkp1gC8RypyQmLZNYSV54QpfRTqVkJjlanTLOa+e1lAtlOBko0SXuXNEDpVtRY58HlGPYrdkuAu1Go0a175pa8yMu629tGt4o8nYg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(8936002)(54906003)(36860700001)(316002)(6666004)(82310400005)(30864003)(4326008)(8676002)(15650500001)(2876002)(2906002)(70206006)(70586007)(86362001)(6916009)(36756003)(7696005)(81166007)(83380400001)(40460700003)(26005)(5660300002)(2616005)(336012)(1076003)(186003)(426003)(16526019)(356005)(508600001)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 16:49:20.1437 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4601fa2a-2a4c-4f04-e09b-08da496ed569
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2904
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,324 +99,296 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, Catalin Marinas <catalin.marinas@arm.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Marc Zyngier <maz@kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Jason Baron <jbaron@akamai.com>,
- Sean Paul <seanpaul@chromium.org>, Steven Rostedt <rostedt@goodmis.org>,
- intel-gvt-dev@lists.freedesktop.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Pekka Paalanen <ppaalanen@gmail.com>, Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>, robdclark@gmail.com,
- quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo.Siqueira@amd.com,
+ aurabindo.pillai@amd.com, harry.wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 06, 2022 at 08:59:36AM -0600, jim.cromie@gmail.com wrote:
-> On Wed, May 25, 2022 at 9:02 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> 
-> > On Mon, May 16, 2022 at 04:56:13PM -0600, Jim Cromie wrote:
-> > > DRM.debug API is 23 macros, issuing 10 exclusive categories of debug
-> > > messages.  By rough count, they are used 5140 times in the kernel.
-> > > These all call drm_dbg or drm_devdbg, which call drm_debug_enabled(),
-> > > which checks bits in global __drm_debug.  Some of these are page-flips
-> > > and vblanks, and get called often.
-> > >
-> > > DYNAMIC_DEBUG (with CONFIG_JUMP_LABEL) is built to avoid this kind of
-> > > work, with NOOPd jump/callsites.
-> > >
-> > > This patchset is RFC because:
-> > > - it touches 2.5 subsystems: dyndbg, drm, tracefs (new events)
-> > > - dyndbg class support is built for drm, needs it for validation
-> > > - new api, used by drm
-> > > - big memory impact, with 5100 new pr-debug callsites.
-> > > - drm class bikeshedding opportunities
-> > > - others, names etc.
-> >
-> > Thanks a lot for keeping on pushing this!
-> 
-> 
-> > >
-> > > DYNAMIC_DEBUG:
-> > >
-> 
-> 
-> 
-> > > RFC:
-> > >
-> > > dynamic_debug_register_classes() cannot act early enough to be in
-> > > effect at module-load.  So this will not work as you'd reasonably
-> > > expect:
-> > >
-> > >   modprobe test_dynamic_debug dyndbg='+pfm; class FOO +pfmlt'
-> > >
-> > > The 1st query:+pfm will be enabled during load, but in the 2nd query,
-> > > "class FOO" will be unknown at load time.  Early class enablement
-> > > would be nice.  DYNAMIC_DEBUG_CLASSES is a static initializer, which
-> > > is certainly early enough, but Im missing a trick, suggestions?
-> >
-> > So maybe I'm just totally overloading this work here so feel free to
-> > ignore or postpone, but: Could we do the dynamic_debug_register_classes()
-> > automatically at module load as a new special section? And then throw in a
-> > bit of kbuild so that in a given subsystem every driver gets the same
-> > class names by default and everything would just work, without having to
-> > sprinkle calls to dynamic_debug_register_classes() all over the place?
-> >
-> 
-> This is now done; Ive added __dyndbg_classes section.
-> load_module() now grabs it from the .ko
-> and ddebug_add_module() attaches it to the module's ddebug_table record.
-> for builtins, dynamic_debug_init feeds the builtin class-maps to
-> ddebug_add_module
-> 
-> bash-5.1# modprobe test_dynamic_debug dyndbg="class FOO +p"
-> [   88.374722] dyndbg: class[0]: nm:test_dynamic_debug base:20 len:7 ty:1
-> [   88.375158] dyndbg:  0: EMERG
-> [   88.375345] dyndbg:  1: DANGER
-> [   88.375540] dyndbg:  2: ERROR
-> [   88.375726] dyndbg:  3: WARNING
-> [   88.375930] dyndbg:  4: NOTICE
-> [   88.376130] dyndbg:  5: INFO
-> [   88.376310] dyndbg:  6: DEBUG
-> [   88.376499] dyndbg: class[1]: nm:test_dynamic_debug base:12 len:3 ty:1
-> [   88.376903] dyndbg:  0: ONE
-> [   88.377079] dyndbg:  1: TWO
-> [   88.377253] dyndbg:  2: THREE
-> [   88.377441] dyndbg: class[2]: nm:test_dynamic_debug base:8 len:3 ty:0
-> [   88.377837] dyndbg:  0: bing
-> [   88.378022] dyndbg:  1: bong
-> [   88.378203] dyndbg:  2: boom
-> [   88.378387] dyndbg: class[3]: nm:test_dynamic_debug base:4 len:3 ty:0
-> [   88.378800] dyndbg:  0: Foo
-> [   88.378986] dyndbg:  1: Bar
-> [   88.379167] dyndbg:  2: Buzz
-> [   88.379348] dyndbg: class[4]: nm:test_dynamic_debug base:0 len:3 ty:0
-> [   88.379757] dyndbg:  0: FOO
-> [   88.379938] dyndbg:  1: BAR
-> [   88.380136] dyndbg:  2: BUZZ
-> [   88.380410] dyndbg: module:test_dynamic_debug attached 5 classes
-> [   88.380881] dyndbg:  24 debug prints in module test_dynamic_debug
-> [   88.381315] dyndbg: module: test_dynamic_debug dyndbg="class FOO +p"
-> [   88.381714] dyndbg: query 0: "class FOO +p" mod:test_dynamic_debug
-> [   88.382109] dyndbg: split into words: "class" "FOO" "+p"
-> [   88.382445] dyndbg: op='+'
-> [   88.382616] dyndbg: flags=0x1
-> [   88.382802] dyndbg: *flagsp=0x1 *maskp=0xffffffff
-> [   88.383101] dyndbg: parsed: func="" file="" module="test_dynamic_debug"
-> format="" lineno=0-0 class=FOO
-> [   88.383740] dyndbg: applied: func="" file="" module="test_dynamic_debug"
-> format="" lineno=0-0 class=FOO
-> [   88.384324] dyndbg: processed 1 queries, with 2 matches, 0 errs
-> bash-5.1#
-> 
-> so its working at module-load time.
+From: Leo Li <sunpeng.li@amd.com>
 
-Awesome!
+[Why]
 
-> > For the entire class approach, did you spot another subsystem that could
-> > benefit from this and maybe make a more solid case that this is something
-> > good?
-> >
-> 
-> I had been working on the premise that ~4k drm*dbg callsites was a good
-> case.
+There is a theoretical problem in prior patches for reducing the stack
+size of *update_bw_bounding_box() functions.
 
-Oh I'm happy with just drm, but occasionally we've done stuff in drm that
-the wider kernel community found a bit silly. So bit more acks/validation
-from outside the dri-devel echo chamber would be great, whatever form it
-is.
+By modifying the soc.clock_limits[n] struct directly, this can cause
+unintended behavior as the for loop attempts to swap rows in
+clock_limits[n]. A temporary struct is still required to make sure we
+stay functinoally equivalent.
 
-> verbosity-levels - with x<y logic instead of x==y is what's currently
-> missing.
-> 
-> the next revision adds something, which "kinda works".
-> But I think I'll rip it out, and do this simpler approach instead:
-> 
-> implement a verbose/levels  param & callback, which takes
-> 
->    echo 3 > /sys/module/foo/parameters/debug_verbosity
-> 
-> and effectively does
-> 
->   echo <<EOQRY  > /proc/dynamic_debug/control
-> module foo class V1 +p
-> module foo class V2 +p
-> module foo class V3 +p
-> module foo class V4 -p
-> module foo class V5 -p
-> module foo class V6 -p
-> module foo class V7 -p
-> module foo class V8 -p
-> EOQRY
-> 
-> since only real +/-p changes incur kernel-patching costs,
-> the remaining overheads are minimal.
-> 
-> 
-> > RFC for DRM:
-> >
-> > - decoration flags "fmlt" do not work on drm_*dbg().
-> >   (drm_*dbg() dont use pr_debug, they *become* one flavor of them)
-> >   this could (should?) be added, and maybe tailored for drm.
-> >   some of the device prefixes are very long, a "d" flag could optionalize
-> them.
-> 
-> I'm lost what the fmlt decoration flags are?
-> 
-> 
-> The flags are::
-> 
->   p    enables the pr_debug() callsite.
->   f    Include the function name in the printed message
->   l    Include line number in the printed message
->   m    Include module name in the printed message
->   t    Include thread ID in messages not generated from interrupt context
->   _    No flags are set. (Or'd with others on input)
-> 
-> 
-> the fmlt flags add a "decoration" prefix to enabled/printed log messages
+[How]
 
-Oh I was just confused and thought fmlt was some special format thing, and
-not just the list of letters that wond work due to the implementation.
+Add a temporary clock_limits table to the SOC struct, and use it when
+swapping rows.
 
-If you havent, maybe just spell the above list out (like you do here) in
-the docs?
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+---
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 33 +++++-----
+ .../amd/display/dc/dml/dcn301/dcn301_fpu.c    | 36 ++++++-----
+ .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 64 +++++++++++--------
+ .../amd/display/dc/dml/display_mode_structs.h |  5 ++
+ 4 files changed, 82 insertions(+), 56 deletions(-)
 
-> > - api use needs review wrt drm life-cycle.
-> > >   enum drm_debug_category and DYNAMIC_DEBUG_CLASSES could be together?
-> >
-> > Hm if they're tied to module lifetime we should be good? Not sure what
-> > could go wrong here.
-> >
-> >
-> with the new __section, "life-cycle" doesnt really pertain.
-> the new issue is how the class-maps are shared across the subsystem;
-> the current class-maps list for each module will probably break;
-> a list item cannot be on N different lists of different modules.
-> Altering the list-items to ref the class-map (not contain it) should solve
-> the problem.
-> 
-> 
-> 
-> 
-> > > - class-names could stand review, perhaps extension
-> > >   "drm:core:" etc have appeared (maybe just from me)
-> > >   or a "plan" to look at it later
-> >
-> > Yeah it's been a bit sprawling. I'm kinda hoping that by firmly
-> > establishing dyndbg as the drm debug approach we can cut down for the need
-> > for ad-hoc flags a bit.
-> >
-> > yeah thats why I kept the DRM_UT_* names.
-> OTOH - the symbolic names patch exposes the choices,
-> which locks the names as API ??
-
-Yeah that part is fine. It's more because the flags was the only thing we
-ever had, any debug need was solved with them. With dyndbg we should have
-a lot more and a lot more precise options for handling this.
-
-So I'm not worried about the flags and their names per-se, more that we
-had some pressure to add more flags for specific files and libraries.
-Dyndbg should give us a much more powerful tool for these problems.
-
-> > > - i915 & amdgpu have pr_debugs (DC_LOG_*, gvt_dbg_*) that have
-> > > class-ish prefixes that are separate from, but similar to DRM_UT_*,
-> > > and could stand review and possible unification with reformed or
-> > > extended drm categories.
-> >
-> > Yeah drm is not entirely consistent with how exactly driver debug printing
-> > should be done. Another reason why I'm hoping that the kitchen sync with
-> > everything approach you're doing here could help unify things.
-> >
-> 
-> 
-> the decoration flags can help here; they loosely/precisely describe
-> the elements of most/all the current debug format-prefix variations.
-> So case by case, the ad-hoc variations should map onto these flags,
-> 
-> The flags allow selectively dropping the prefix info from some of the log
-> entries,
-> after you've seen the module name and function a dozen times,
-> it's helpful to reduce screen clutter.
-> 
-> It might make sense to add a new flag for device,
-> so that dev_dbg() flavors can shorten-or-skip the longer device strings,
-> maybe some drm specific flavors.
-> 
-> 
-> 
-> >
-> > > - the change to enum drm_debug_category from bitmask values to 0..31
-> > >   means that we foreclose this possiblility:
-> > >
-> > >    drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "wierd double-cat experiment");
-> >
-> > Yeah no, that doesn't make much sense to me :-)
-> >
-> > no chuckles for the schrodinger's cat joke ?
-> (maybe "yeah no" is the artful superpositional reply, I just caught :)
-> 
-> 
-> > > - nouveau has very few drm.debug calls,
-> > >   has NV_DEBUG, VMM_DEBUG, nvkm_printk_, I havent looked deeply.
-> >
-> >
-> nouveau has like levels, man ..
-> test_dynamic_debug implements its priority-style names as a POC
-> 
-> patch 18 converts nvkm_debug/trace to use dev_dbg instead of dev_info
-> it probably could adapt to use drm_devdbg
-> 
-> 
-> 
-> 
-> > Yeah see above. There's a pile more drivers (more on the armsoc side of
-> > things) which are quite big on the raw debug call approach.
-> >
-> >
-> LOW, MID, HI has been proposed at least once wrt dyndbg.
-> that probably fits well with current disjoint classes.
-> level/verbose classes should be practical too, as described above.
-> 
-> NB: The symbolic names should also work
-> 
->    echo +MID > /sys/module/foobar/parameters/debug_verbosity
-> 
-> though theres some ambiguity with
-> 
->    echo -V3 > /sys/module/foobar/parameters/debug_verbosity
-> 
-> that should turn off V4,5,6,
-> but what about V1,2 ?
-> it could leave them alone (whatever their previous settings are)
-> 
-> anyway, lkp-robot and igt-trybot should be grinding on the latest patchset
-> soon,
-> I'll send it after I fix whatever breaks.
-
-Awesome, like I said I'm a bit drowned in everything, but I'm really happy
-you're pushing this!
--Daniel
-
-> 
-> 
-> 
-> > Cheers, Daniel
-> >
-> 
-> thanks,
-> Jim
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index c2fec0d85da4..e247b2270b1d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2015,9 +2015,8 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 
+ 	ASSERT(clk_table->num_entries);
+ 	/* Copy dcn2_1_soc.clock_limits to clock_limits to avoid copying over null states later */
+-	for (i = 0; i < dcn2_1_soc.num_states + 1; i++) {
+-		dcn2_1_soc.clock_limits[i] = dcn2_1_soc.clock_limits[i];
+-	}
++	memcpy(&dcn2_1_soc._clock_tmp, &dcn2_1_soc.clock_limits,
++	       sizeof(dcn2_1_soc.clock_limits));
+ 
+ 	for (i = 0; i < clk_table->num_entries; i++) {
+ 		/* loop backwards*/
+@@ -2032,22 +2031,26 @@ void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 		if (i == 1)
+ 			k++;
+ 
+-		dcn2_1_soc.clock_limits[k].state = k;
+-		dcn2_1_soc.clock_limits[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+-		dcn2_1_soc.clock_limits[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+-		dcn2_1_soc.clock_limits[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
+-		dcn2_1_soc.clock_limits[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
++		dcn2_1_soc._clock_tmp[k].state = k;
++		dcn2_1_soc._clock_tmp[k].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
++		dcn2_1_soc._clock_tmp[k].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
++		dcn2_1_soc._clock_tmp[k].socclk_mhz = clk_table->entries[i].socclk_mhz;
++		dcn2_1_soc._clock_tmp[k].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
+ 
+-		dcn2_1_soc.clock_limits[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+-		dcn2_1_soc.clock_limits[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+-		dcn2_1_soc.clock_limits[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+-		dcn2_1_soc.clock_limits[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+-		dcn2_1_soc.clock_limits[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+-		dcn2_1_soc.clock_limits[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+-		dcn2_1_soc.clock_limits[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
++		dcn2_1_soc._clock_tmp[k].dispclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
++		dcn2_1_soc._clock_tmp[k].dppclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
++		dcn2_1_soc._clock_tmp[k].dram_bw_per_chan_gbps = dcn2_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
++		dcn2_1_soc._clock_tmp[k].dscclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
++		dcn2_1_soc._clock_tmp[k].dtbclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
++		dcn2_1_soc._clock_tmp[k].phyclk_d18_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
++		dcn2_1_soc._clock_tmp[k].phyclk_mhz = dcn2_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
+ 
+ 		k++;
+ 	}
++
++	memcpy(&dcn2_1_soc.clock_limits, &dcn2_1_soc._clock_tmp,
++	       sizeof(dcn2_1_soc.clock_limits));
++
+ 	if (clk_table->num_entries) {
+ 		dcn2_1_soc.num_states = clk_table->num_entries + 1;
+ 		/* fill in min DF PState */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+index 62cf283d9f41..e4863f0bf0f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+@@ -254,6 +254,9 @@ void dcn301_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 
+ 	dc_assert_fp_enabled();
+ 
++	memcpy(&dcn3_01_soc._clock_tmp, &dcn3_01_soc.clock_limits,
++	       sizeof(dcn3_01_soc.clock_limits));
++
+ 	/* Default clock levels are used for diags, which may lead to overclocking. */
+ 	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
+ 		dcn3_01_ip.max_num_otg = pool->base.res_cap->num_timing_generator;
+@@ -270,29 +273,32 @@ void dcn301_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 				}
+ 			}
+ 
+-			dcn3_01_soc.clock_limits[i].state = i;
+-			dcn3_01_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+-			dcn3_01_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+-			dcn3_01_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
+-			dcn3_01_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
+-
+-			dcn3_01_soc.clock_limits[i].dispclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+-			dcn3_01_soc.clock_limits[i].dppclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+-			dcn3_01_soc.clock_limits[i].dram_bw_per_chan_gbps = dcn3_01_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+-			dcn3_01_soc.clock_limits[i].dscclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+-			dcn3_01_soc.clock_limits[i].dtbclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+-			dcn3_01_soc.clock_limits[i].phyclk_d18_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+-			dcn3_01_soc.clock_limits[i].phyclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
++			dcn3_01_soc._clock_tmp[i].state = i;
++			dcn3_01_soc._clock_tmp[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
++			dcn3_01_soc._clock_tmp[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
++			dcn3_01_soc._clock_tmp[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
++			dcn3_01_soc._clock_tmp[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
++
++			dcn3_01_soc._clock_tmp[i].dispclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
++			dcn3_01_soc._clock_tmp[i].dppclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
++			dcn3_01_soc._clock_tmp[i].dram_bw_per_chan_gbps = dcn3_01_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
++			dcn3_01_soc._clock_tmp[i].dscclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
++			dcn3_01_soc._clock_tmp[i].dtbclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
++			dcn3_01_soc._clock_tmp[i].phyclk_d18_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
++			dcn3_01_soc._clock_tmp[i].phyclk_mhz = dcn3_01_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
+ 		}
+ 
+ 		if (clk_table->num_entries) {
+ 			dcn3_01_soc.num_states = clk_table->num_entries;
+ 			/* duplicate last level */
+-			dcn3_01_soc.clock_limits[dcn3_01_soc.num_states] = dcn3_01_soc.clock_limits[dcn3_01_soc.num_states - 1];
+-			dcn3_01_soc.clock_limits[dcn3_01_soc.num_states].state = dcn3_01_soc.num_states;
++			dcn3_01_soc._clock_tmp[dcn3_01_soc.num_states] = dcn3_01_soc.clock_limits[dcn3_01_soc.num_states - 1];
++			dcn3_01_soc._clock_tmp[dcn3_01_soc.num_states].state = dcn3_01_soc.num_states;
+ 		}
+ 	}
+ 
++	memcpy(&dcn3_01_soc.clock_limits, &dcn3_01_soc._clock_tmp,
++	       sizeof(dcn3_01_soc.clock_limits));
++
+ 	dcn3_01_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+index 6da702923226..7be3476989ce 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+@@ -580,6 +580,9 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 
+ 	dc_assert_fp_enabled();
+ 
++	memcpy(&dcn3_1_soc._clock_tmp, &dcn3_1_soc.clock_limits,
++	       sizeof(dcn3_1_soc.clock_limits));
++
+ 	// Default clock levels are used for diags, which may lead to overclocking.
+ 	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
+ 		int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
+@@ -607,32 +610,35 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 				}
+ 			}
+ 
+-			dcn3_1_soc.clock_limits[i].state = i;
++			dcn3_1_soc._clock_tmp[i].state = i;
+ 
+ 			/* Clocks dependent on voltage level. */
+-			dcn3_1_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+-			dcn3_1_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+-			dcn3_1_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
+-			dcn3_1_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
++			dcn3_1_soc._clock_tmp[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
++			dcn3_1_soc._clock_tmp[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
++			dcn3_1_soc._clock_tmp[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
++			dcn3_1_soc._clock_tmp[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
+ 
+ 			/* Clocks independent of voltage level. */
+-			dcn3_1_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
++			dcn3_1_soc._clock_tmp[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
+ 				dcn3_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+ 
+-			dcn3_1_soc.clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
++			dcn3_1_soc._clock_tmp[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
+ 				dcn3_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+ 
+-			dcn3_1_soc.clock_limits[i].dram_bw_per_chan_gbps = dcn3_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+-			dcn3_1_soc.clock_limits[i].dscclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+-			dcn3_1_soc.clock_limits[i].dtbclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+-			dcn3_1_soc.clock_limits[i].phyclk_d18_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+-			dcn3_1_soc.clock_limits[i].phyclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
++			dcn3_1_soc._clock_tmp[i].dram_bw_per_chan_gbps = dcn3_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
++			dcn3_1_soc._clock_tmp[i].dscclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
++			dcn3_1_soc._clock_tmp[i].dtbclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
++			dcn3_1_soc._clock_tmp[i].phyclk_d18_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
++			dcn3_1_soc._clock_tmp[i].phyclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
+ 		}
+ 		if (clk_table->num_entries) {
+ 			dcn3_1_soc.num_states = clk_table->num_entries;
+ 		}
+ 	}
+ 
++	memcpy(&dcn3_1_soc.clock_limits, &dcn3_1_soc._clock_tmp,
++	       sizeof(dcn3_1_soc.clock_limits));
++
+ 	dcn3_1_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 
+@@ -705,6 +711,9 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 
+ 	dc_assert_fp_enabled();
+ 
++	memcpy(&dcn3_16_soc._clock_tmp, &dcn3_16_soc.clock_limits,
++	       sizeof(dcn3_16_soc.clock_limits));
++
+ 	// Default clock levels are used for diags, which may lead to overclocking.
+ 	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
+ 
+@@ -736,37 +745,40 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 				closest_clk_lvl = dcn3_16_soc.num_states - 1;
+ 			}
+ 
+-			dcn3_16_soc.clock_limits[i].state = i;
++			dcn3_16_soc._clock_tmp[i].state = i;
+ 
+ 			/* Clocks dependent on voltage level. */
+-			dcn3_16_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
++			dcn3_16_soc._clock_tmp[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+ 			if (clk_table->num_entries == 1 &&
+-				dcn3_16_soc.clock_limits[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
++			    dcn3_16_soc._clock_tmp[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
+ 				/*SMU fix not released yet*/
+-				dcn3_16_soc.clock_limits[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
++				dcn3_16_soc._clock_tmp[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
+ 			}
+-			dcn3_16_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+-			dcn3_16_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
+-			dcn3_16_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
++			dcn3_16_soc._clock_tmp[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
++			dcn3_16_soc._clock_tmp[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
++			dcn3_16_soc._clock_tmp[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
+ 
+ 			/* Clocks independent of voltage level. */
+-			dcn3_16_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
++			dcn3_16_soc._clock_tmp[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
+ 				dcn3_16_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
+ 
+-			dcn3_16_soc.clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
++			dcn3_16_soc._clock_tmp[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
+ 				dcn3_16_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
+ 
+-			dcn3_16_soc.clock_limits[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
+-			dcn3_16_soc.clock_limits[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
+-			dcn3_16_soc.clock_limits[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
+-			dcn3_16_soc.clock_limits[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
+-			dcn3_16_soc.clock_limits[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
++			dcn3_16_soc._clock_tmp[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
++			dcn3_16_soc._clock_tmp[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
++			dcn3_16_soc._clock_tmp[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
++			dcn3_16_soc._clock_tmp[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
++			dcn3_16_soc._clock_tmp[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
+ 		}
+ 		if (clk_table->num_entries) {
+ 			dcn3_16_soc.num_states = clk_table->num_entries;
+ 		}
+ 	}
+ 
++	memcpy(&dcn3_16_soc.clock_limits, &dcn3_16_soc._clock_tmp,
++	       sizeof(dcn3_16_soc.clock_limits));
++
+ 	if (max_dispclk_mhz) {
+ 		dcn3_16_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
+ 		dc->dml.soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+index 74afa10e70f8..2bdf60846762 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+@@ -161,6 +161,11 @@ struct _vcs_dpi_voltage_scaling_st {
+ 
+ struct _vcs_dpi_soc_bounding_box_st {
+ 	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
++	/*
++	 * This is a temporary stash for updating @clock_limits with the PMFW
++	 * clock table. Do not use outside of *update_bw_boudning_box functions.
++	 */
++	struct _vcs_dpi_voltage_scaling_st _clock_tmp[DC__VOLTAGE_STATES];
+ 	unsigned int num_states;
+ 	double sr_exit_time_us;
+ 	double sr_enter_plus_exit_time_us;
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.36.1
+
