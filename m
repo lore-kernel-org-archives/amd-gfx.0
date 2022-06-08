@@ -4,91 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A98C43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 22:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CD6C43334
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 01:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 323FF10FE3E;
-	Tue,  7 Jun 2022 22:50:28 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9905A10FE3D
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jun 2022 22:50:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i/mOFA5BdDxxaWGkbCQEp4tQQUl4FoOatlcA5uwfC3PdQGgNpNyL6Cke7wHQi1FAAnCYjXWTLF0ZTxbsOi+7SxUr38SBRoCi716tnQOdUDyoMQdXZbAR8ifADjsahnhzunpoNxwU44SZEIjydCpttXg4+pLt5dccrX+JtKeNXK2E1AcCInbgdl//rxD3U2zrH1tB6vHXRcHx0BVfP7xn+Cs5N7sceA/GYTB7vErihEWzQQafzuIntNJZ1PHASAHC8LFOQ4px9+0ysNOCJBVotKvyrbtF6ph9LVxRczKgoL7pAZSM1vzsei2VwU7kdKJvIytXEunWq62PstV/gkPkBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uGPJ00JpkqNc3ICvQ5iN5eKKjWDd9cvGNusdnBQv5qs=;
- b=CYduBbTjtLc9TnbaxYow6GRLpBc38AQsvCi7JcTaW812hG6er6XQFi68MGHDXElIt8wIpxOxXzw3pw8NyHGc2+9RP4I8VBj7Q8OMZoB71LX/XjQDabZwg5tiIZO/ktuviem6ru06KSnfKs2Vm1iJmsoUKyitv4SVglW/GinyotV3pF+0X9/GYpezVmST/4hRst5S/ly98ilGTsS96DtQDKDucZD7zgDhg2xaqZcR6OP1RR0AKnWo0mZ5VCpVs2peqIYWxuWv31MTzRx9VaxiC9ndqQwEJ6CHpzlGHGMut++Vm3vGoHKsMfcCisKvOKoSVJbx2/rYP/UTelIFvWCucQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uGPJ00JpkqNc3ICvQ5iN5eKKjWDd9cvGNusdnBQv5qs=;
- b=PueSEiIuqDQs1qumC7gZ/wRA0PGTLMP1CSoeZcoJwmuEHdlrtpbiXofwrKNzHhu65HEykd7FIS+VlRQ+aFZPyjzgIYBub3Lk2ARNFm1RWHPPFTYAE3hfRNGOYxK3Yh6T0+LBw+RJRpMZWm8Nd5bCuRLBlP1mlrCnqoGezJ/nrBM=
-Received: from MWHPR03CA0019.namprd03.prod.outlook.com (2603:10b6:300:117::29)
- by LV2PR12MB5894.namprd12.prod.outlook.com (2603:10b6:408:174::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.19; Tue, 7 Jun
- 2022 22:50:22 +0000
-Received: from CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:117:cafe::35) by MWHPR03CA0019.outlook.office365.com
- (2603:10b6:300:117::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12 via Frontend
- Transport; Tue, 7 Jun 2022 22:50:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT027.mail.protection.outlook.com (10.13.174.224) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5314.12 via Frontend Transport; Tue, 7 Jun 2022 22:50:21 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 7 Jun
- 2022 17:50:19 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/4] drm/amdkfd: Enable GFX11 usermode queue oversubscription
-Date: Tue, 7 Jun 2022 18:50:06 -0400
-Message-ID: <20220607225007.1372343-3-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220607225007.1372343-1-Graham.Sider@amd.com>
-References: <20220607225007.1372343-1-Graham.Sider@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597D810E3E0;
+	Wed,  8 Jun 2022 01:08:44 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2799E10E3E0
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 01:08:42 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id l81so10755180oif.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jun 2022 18:08:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+J857YNMMMQ5w3bvE9jqHH7YibIuROCxLYRf6MrAtu8=;
+ b=MDWHVEE5OzY2DQyQ6red2gjy4n7vHwB0kVupUVsK5YtAByOH1rcy1BcZF0I5gThZv+
+ nkqWYntc7WmFACew50y/zloW9F3wE1JZ5HoLQ3mouSSvObEV1duXayqZEkqHN5kCfA4K
+ RRQoNDbLG1un4AJqo84pbrHcHsKgQ1sDguHC+mU+NVdL+4+ptDJ7GTdV2cbmwevLdAmn
+ NpJ/s14zJAdCCO+//dnaS1InAShvzQxwf/HUGOxvJQNiS7YNhs+dp+WPglZAhSkmS1z6
+ q8tCeZkOAlqB4fXjuio19j9Rjh9X/0ZIO1xaAmHFdMotm8glE9VJWJjiILw9TTXuupaJ
+ CQrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+J857YNMMMQ5w3bvE9jqHH7YibIuROCxLYRf6MrAtu8=;
+ b=2PifRL/Y3bcZSxR/tQF7HaGXcTZ3LwlVyVKhU2WwwklfF3qlPso8x1pC34Tz91pSqh
+ KZtb02Bb8Epg+tWdUSa6p9teZq9GAW8U9sW6PEwrXyXrW6TReYctU1HnM9iUzp2nn4LV
+ IBMXhgbUoycnmKPEWmhSdm693neXltmrxSM/ExlNgubmxshP0R29J4kqmP1XwUyQKNPf
+ S/ArDHQqkGItasFTY5ZsajsOoZZCDS3rZn9RigQH1yb+dlPmJHU4uCaQCs3Ux2c7ANRH
+ NPA6xsquA0BIqKVCkl4U8YDFbLrmMUOb06rtzUeFW0a18fKiPtzUiwjVf1SnT8boMzpM
+ 7jfg==
+X-Gm-Message-State: AOAM531jDW434oeuKSyJdzgRn9MvYzU2RTXRvnpb4QxU75lObrdsnTd2
+ VtMMwMuY5neGttYYtJckpWO63g==
+X-Google-Smtp-Source: ABdhPJzaStOKqusIYDyA9WQTKYmuvCovHNIne/xhtvCG3axak5i3/Hvca/m43z48uh+Eo6XCrAYMMg==
+X-Received: by 2002:a05:6808:1151:b0:32e:362f:d4b4 with SMTP id
+ u17-20020a056808115100b0032e362fd4b4mr1052688oiu.244.1654650521895; 
+ Tue, 07 Jun 2022 18:08:41 -0700 (PDT)
+Received: from fedora.. ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
+ by smtp.gmail.com with ESMTPSA id
+ c16-20020a544e90000000b0032b1b84f4e3sm10343057oiy.22.2022.06.07.18.08.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jun 2022 18:08:41 -0700 (PDT)
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Nicholas Choi <Nicholas.Choi@amd.com>,
+ Harrison Chiu <harrison.chiu@amd.com>,
+ Mark Yacoub <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Isabella Basso <isabbasso@riseup.net>, magalilemes00@gmail.com,
+ tales.aparecida@gmail.com, mwen@igalia.com, andrealmeid@riseup.net,
+ David Gow <davidgow@google.com>, Daniel Latypov <dlatypov@google.com>,
+ brendanhiggins@google.com
+Subject: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
+Date: Tue,  7 Jun 2022 22:07:07 -0300
+Message-Id: <20220608010709.272962-1-maira.canal@usp.br>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cfe45aa0-7b13-4d18-87f1-08da48d81a18
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5894:EE_
-X-Microsoft-Antispam-PRVS: <LV2PR12MB589461610A56D62A20276A848AA59@LV2PR12MB5894.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /bH3RSCVp+V2MSk6kpoHP6NdSACcuv5Z4Vh9Gn8O6b8YDIcCmt4GmPw3siJ+T45Vdba4DpfcK0RVTbupCTLVF72o1luSxZ5PkCtvZdE/8+OOyzAGY4FOsQBYirzJl53Y1+s41zmGBJBuY807dtkLv32dh3tAtmwKcO1/dbXI2qdmx5cy6yG/1EHfwddpjWPQe1uHWX69KlgtKNziBupIfnxFLnbVE4oMGTiaud792WlNnM35JNccqbw8K1T70HWT6gBeCZFdf0hMdJpv510Q1QUTHIiswjNPbf5D3r5lVtNyDEo5pf7Z0CD6mZbQu/F9cQGmsyDOfrAurUOdgNJnaKIEvpTQPlGzO8Ac5OsiXGthIm2BXdFZ7Y8FAVAwvvdxPUni0qp0SqSpEky1E2rWvuXG12N8ThfPxeDy6qXr5RmVrzEAfxAVcVMTbmTrOltFPTHF9NqIiUa1T4jr1VmNw9r+8e2MifnxASwNiTMxV0iFRL9p036GeCQersyLe4mjCeNhzE8VzWTmsT3mhFYa+nldNh4+6K0n+eiHE/uEEtBkIs0OJSsE8VkjkcOIdaoWEhsgAjuQ0pyzZo1xoVnwZt52tzCehVzGoWJ0gdC3M7DjbBkI+W4J7YWt8aCu4XWuAE2Oy5MkcN07Mp/7MheMnYUSk9jt19X9+YdZv7LSBhJb4Qt2xaQbb/f3KGX+5yNHNBE2HNY5xt5eLQhY9DPgrA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(30864003)(70586007)(36756003)(36860700001)(2906002)(7696005)(26005)(82310400005)(6666004)(508600001)(426003)(5660300002)(54906003)(6916009)(336012)(47076005)(2616005)(1076003)(186003)(16526019)(8676002)(4326008)(70206006)(40460700003)(81166007)(316002)(83380400001)(356005)(8936002)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 22:50:21.2422 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfe45aa0-7b13-4d18-87f1-08da48d81a18
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5894
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,302 +79,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip.Yang@amd.com, Felix.Kuehling@amd.com,
- Graham Sider <Graham.Sider@amd.com>, Mukul.Joshi@amd.com
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>,
+ kunit-dev@googlegroups.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Starting with GFX11, MES requires wptr BOs to be GTT allocated/mapped to
-GART for usermode queues in order to support oversubscription. In the
-case that work is submitted to an unmapped queue, MES must have a GART
-wptr address to determine whether the queue should be mapped.
+This RFC is a preview of the work being developed by Isabella Basso [1],
+Maíra Canal [2], and Tales Lelo [3], as part of their Google Summer of Code
+projects [4], and Magali Lemes [5], as part of her capstone project.
 
-This change is accompanied with changes in MES and is applicable for
-MES_VERSION >= 2.
+Our main goal is to bring unit testing to the AMDPGU driver; in particular,
+we'll focus on the Display Mode Library (DML) for DCN2.0 and some of the DCE
+functions. The modern AMD Linux kernel graphics driver is the single largest
+driver in the mainline Linux codebase [6]. As AMD releases new GPU models,
+the size of AMDGPU drivers is only becoming even larger.
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 39 ++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 45 ++++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  9 +++-
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  3 ++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 19 +++++---
- 7 files changed, 110 insertions(+), 8 deletions(-)
+Assuring the drivers' quality and reliability becomes a complex task without
+systematic testing, especially for graphic drivers - which usually involve
+tons of complex calculations. Also, keeping bugs away becomes an increasingly
+hard task with the introduction of new code. Moreover, developers might want
+to refactor old code without fear of the introduction of new issues.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 429b16ba10bf..dba26d1e3be9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -301,6 +301,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct amdgpu_device *adev,
- 		struct kgd_mem *mem, void **kptr, uint64_t *size);
- void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct amdgpu_device *adev,
- 		struct kgd_mem *mem);
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
- 
- int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index efab923056f4..2d452655eb04 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2030,6 +2030,45 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
- 	return ret;
- }
- 
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
-+{
-+	int ret;
-+
-+	ret = amdgpu_bo_reserve(bo, true);
-+	if (ret) {
-+		pr_err("Failed to reserve bo. ret %d\n", ret);
-+		goto err_reserve_bo_failed;
-+	}
-+
-+	ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-+	if (ret) {
-+		pr_err("Failed to pin bo. ret %d\n", ret);
-+		goto err_pin_bo_failed;
-+	}
-+
-+	ret = amdgpu_ttm_alloc_gart(&bo->tbo);
-+	if (ret) {
-+		pr_err("Failed to bind bo to GART. ret %d\n", ret);
-+		goto err_map_bo_gart_failed;
-+	}
-+
-+	amdgpu_amdkfd_remove_eviction_fence(
-+		bo, bo->kfd_bo->process_info->eviction_fence);
-+	list_del_init(&bo->kfd_bo->validate_list.head);
-+
-+	amdgpu_bo_unreserve(bo);
-+
-+	return 0;
-+
-+err_map_bo_gart_failed:
-+	amdgpu_bo_unpin(bo);
-+err_pin_bo_failed:
-+	amdgpu_bo_unreserve(bo);
-+err_reserve_bo_failed:
-+
-+	return ret;
-+}
-+
- int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct amdgpu_device *adev,
- 		struct kgd_mem *mem, void **kptr, uint64_t *size)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index e9766e165c38..b2c7b8f48d25 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -290,6 +290,11 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	struct queue_properties q_properties;
- 	uint32_t doorbell_offset_in_process = 0;
- 
-+	struct amdgpu_bo_va_mapping *wptr_mapping;
-+	struct interval_tree_node *wptr_node;
-+	struct amdgpu_vm *wptr_vm;
-+	struct amdgpu_bo *wptr_bo = NULL;
-+
- 	memset(&q_properties, 0, sizeof(struct queue_properties));
- 
- 	pr_debug("Creating queue ioctl\n");
-@@ -316,12 +321,44 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		goto err_bind_process;
- 	}
- 
-+	/* Starting with GFX11, MES requires wptr BOs to be GTT allocated/mapped to
-+	 * GART for usermode queues in order to support oversubscription. In the
-+	 * case that work is submitted to an unmapped queue, MES must have a GART
-+	 * wptr address to determine whether the queue should be mapped.
-+	 */
-+	if (dev->shared_resources.enable_mes && (dev->adev->mes.sched_version & 0xff) >= 2) {
-+		wptr_vm = drm_priv_to_vm(pdd->drm_priv);
-+		err = amdgpu_bo_reserve(wptr_vm->root.bo, false);
-+		if (err)
-+			goto err_wptr_bo_reserve;
-+
-+		wptr_node = interval_tree_iter_first(&wptr_vm->va,
-+				args->write_pointer_address >> PAGE_SHIFT,
-+				args->write_pointer_address >> PAGE_SHIFT);
-+		if (!wptr_node) {
-+			pr_err("Failed to lookup wptr bo\n");
-+			err = -EINVAL;
-+			goto err_wptr_bo_lookup;
-+		}
-+
-+		wptr_mapping = container_of((struct rb_node *)wptr_node, struct amdgpu_bo_va_mapping, rb);
-+		wptr_bo = wptr_mapping->bo_va->base.bo;
-+
-+		amdgpu_bo_unreserve(wptr_vm->root.bo);
-+
-+		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
-+		if (err) {
-+			pr_err("Failed to map wptr bo to GART\n");
-+			goto err_wptr_bo_gart_map;
-+		}
-+	}
-+
- 	pr_debug("Creating queue for PASID 0x%x on gpu 0x%x\n",
- 			p->pasid,
- 			dev->id);
- 
--	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id, NULL, NULL, NULL,
--			&doorbell_offset_in_process);
-+	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id, wptr_bo,
-+			NULL, NULL, NULL, &doorbell_offset_in_process);
- 	if (err != 0)
- 		goto err_create_queue;
- 
-@@ -353,7 +390,11 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	kfd_dbg_ev_raise(KFD_EC_MASK(EC_QUEUE_NEW), p, dev, queue_id, false, NULL, 0);
- 	return 0;
- 
-+err_wptr_bo_lookup:
-+	amdgpu_bo_unreserve(wptr_vm->root.bo);
- err_create_queue:
-+err_wptr_bo_gart_map:
-+err_wptr_bo_reserve:
- err_bind_process:
- err_pdd:
- 	mutex_unlock(&p->mutex);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index b39d89c52887..d8de2fbdfc7d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -208,6 +208,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
- 	struct mes_add_queue_input queue_input;
- 	int r, queue_type;
-+	uint64_t wptr_addr_off;
- 
- 	if (dqm->is_hws_hang)
- 		return -EIO;
-@@ -227,7 +228,13 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 					AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
- 	queue_input.doorbell_offset = q->properties.doorbell_off;
- 	queue_input.mqd_addr = q->gart_mqd_addr;
--	queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
-+
-+	if (q->wptr_bo) {
-+		wptr_addr_off = (uint64_t)q->properties.write_ptr - (uint64_t)q->wptr_bo->kfd_bo->va;
-+		queue_input.wptr_addr = ((uint64_t)q->wptr_bo->tbo.resource->start << PAGE_SHIFT) + wptr_addr_off;
-+	} else
-+		queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
-+
- 	queue_input.paging = false;
- 	queue_input.tba_addr = qpd->tba_addr;
- 	queue_input.tma_addr = qpd->tma_addr;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index f1654b4da856..35e74bdd81da 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -377,6 +377,8 @@ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
- 	m->sdmax_rlcx_rb_base_hi = upper_32_bits(q->queue_address >> 8);
- 	m->sdmax_rlcx_rb_rptr_addr_lo = lower_32_bits((uint64_t)q->read_ptr);
- 	m->sdmax_rlcx_rb_rptr_addr_hi = upper_32_bits((uint64_t)q->read_ptr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_lo = lower_32_bits((uint64_t)q->write_ptr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_hi = upper_32_bits((uint64_t)q->write_ptr);
- 	m->sdmax_rlcx_doorbell_offset =
- 		q->doorbell_off << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__SHIFT;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index a5d3963537d7..dcddee0d6f06 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -639,6 +639,8 @@ struct queue {
- 	void *gang_ctx_bo;
- 	uint64_t gang_ctx_gpu_addr;
- 	void *gang_ctx_cpu_ptr;
-+
-+	struct amdgpu_bo *wptr_bo;
- };
- 
- enum KFD_MQD_TYPE {
-@@ -1404,6 +1406,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct file *f,
- 			    struct queue_properties *properties,
- 			    unsigned int *qid,
-+			    struct amdgpu_bo *wptr_bo,
- 			    const struct kfd_criu_queue_priv_data *q_data,
- 			    const void *restore_mqd,
- 			    const void *restore_ctl_stack,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index f99e09dc43ea..ede1462a55c8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -190,7 +190,8 @@ void pqm_uninit(struct process_queue_manager *pqm)
- static int init_user_queue(struct process_queue_manager *pqm,
- 				struct kfd_dev *dev, struct queue **q,
- 				struct queue_properties *q_properties,
--				struct file *f, unsigned int qid)
-+				struct file *f, struct amdgpu_bo *wptr_bo,
-+				unsigned int qid)
- {
- 	int retval;
- 
-@@ -221,6 +222,9 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 			goto cleanup;
- 		}
- 		memset((*q)->gang_ctx_cpu_ptr, 0, AMDGPU_MES_GANG_CTX_SIZE);
-+
-+		if (wptr_bo)
-+			(*q)->wptr_bo = amdgpu_bo_ref(wptr_bo);
- 	}
- 
- 	pr_debug("PQM After init queue");
-@@ -237,6 +241,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct file *f,
- 			    struct queue_properties *properties,
- 			    unsigned int *qid,
-+			    struct amdgpu_bo *wptr_bo,
- 			    const struct kfd_criu_queue_priv_data *q_data,
- 			    const void *restore_mqd,
- 			    const void *restore_ctl_stack,
-@@ -299,7 +304,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 		 * allocate_sdma_queue() in create_queue() has the
- 		 * corresponding check logic.
- 		 */
--		retval = init_user_queue(pqm, dev, &q, properties, f, *qid);
-+		retval = init_user_queue(pqm, dev, &q, properties, f, wptr_bo, *qid);
- 		if (retval != 0)
- 			goto err_create_queue;
- 		pqn->q = q;
-@@ -320,7 +325,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			goto err_create_queue;
- 		}
- 
--		retval = init_user_queue(pqm, dev, &q, properties, f, *qid);
-+		retval = init_user_queue(pqm, dev, &q, properties, f, wptr_bo, *qid);
- 		if (retval != 0)
- 			goto err_create_queue;
- 		pqn->q = q;
-@@ -457,9 +462,13 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 			pdd->qpd.num_gws = 0;
- 		}
- 
--		if (dev->shared_resources.enable_mes)
-+		if (dev->shared_resources.enable_mes) {
- 			amdgpu_amdkfd_free_gtt_mem(dev->adev,
- 						   pqn->q->gang_ctx_bo);
-+			if (pqn->q->wptr_bo)
-+				amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
-+
-+		}
- 		uninit_queue(pqn->q);
- 	}
- 
-@@ -900,7 +909,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 
- 	print_queue_properties(&qp);
- 
--	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, q_data, mqd, ctl_stack,
-+	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, NULL, q_data, mqd, ctl_stack,
- 				NULL);
- 	if (ret) {
- 		pr_err("Failed to create new queue err:%d\n", ret);
+In that sense, it is possible to argue for the benefits of implementing unit
+testing at the AMDGPU drivers. This implementation will help developers to
+recognize bugs before they are merged into the mainline and also makes it
+possible for future code refactors of the AMDGPU driver.
+
+When analyzing the AMDGPU driver, a particular part of the driver highlights
+itself as a good candidate for the implementation of unit tests: the Display
+Mode Library (DML), as it is focused on mathematical operations.
+
+For the implementation of the tests, we decided to go with the Kernel Unit
+Testing Framework (KUnit). KUnit makes it possible to run test suites on
+kernel boot or load the tests as a module. It reports all test case results
+through a TAP (Test Anything Protocol) in the kernel log.
+
+Moreover, KUnit unifies the test structure and provides tools to simplify the
+testing for developers and CI systems.
+
+That said, we developed a little snippet on what we intend to develop in our
+summer. We planned the basic structure on how the tests will be introduced
+into the codebase and, on the concern of the CI systems, developed a structure
+where the unit tests can be introduced as modules and run on IGT (the IGT patch
+will be introduced soon).
+
+The way the modules are implemented might seem a little unusual for KUnit
+developers. We need to call the KUnit init function inside the AMDGPU stack,
+otherwise, the test won't compile as a module. So, the solution to this
+problem was based on the unit tests for the Thunderbolt driver, which uses
+KUnit and also tests a physical driver.
+
+As kunit_test_suites() defines itself as an init_module(), it conflicts with
+the existing one at amdgpu_drv. So, if we use kunit_test_suites(), we won't
+be able to compile the tests as modules and, therefore, won't be able to use
+IGT to run the tests. This problem with kunit_test_suites() was already
+discussed in the KUnit mailing list, as can be seen in [7].
+
+The first patch configures the basic structure of the KUnit Tests, setting the
+proper Makefile, Kconfig, and init function. It also contains a simple test
+involving DML logging, which is the pretext for building the testing structure.
+
+The second patch adds KUnit tests to bw_fixed functions. This patch represents
+what we intend to do on the rest of the DML modules: systematic testing of the
+public functions of the DML, especially mathematically complicated functions.
+Also, it shows how simple it is to add new tests to the DML with the structure
+we built.
+
+Any feedback or ideas for the project are welcome!
+
+[1] https://crosscat.me
+[2] https://mairacanal.github.io
+[3] https://tales-aparecida.github.io/
+[4] https://summerofcode.withgoogle.com/programs/2022/organizations/xorg-foundation
+[5] https://magalilemes.github.io/
+[6] https://www.phoronix.com/scan.php?page=news_item&px=AMDGPU-Closing-4-Million
+[7] https://groups.google.com/g/kunit-dev/c/hbJbh8L37FU/m/EmszZE9qBAAJ
+
+- Isabella Basso, Magali Lemes, Maíra Canal, and Tales Lelo
+
+Magali Lemes (1):
+  drm/amd/display: Introduce KUnit tests to the bw_fixed library
+
+Maíra Canal (2):
+  drm/amd/display: Introduce KUnit to DML
+  drm/amd/display: Move bw_fixed macros to header file
+
+ drivers/gpu/drm/amd/display/Kconfig           |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   5 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+ .../drm/amd/display/amdgpu_dm/tests/Kconfig   |  41 +++
+ .../drm/amd/display/amdgpu_dm/tests/Makefile  |  18 +
+ .../amdgpu_dm/tests/calcs/bw_fixed_test.c     | 322 ++++++++++++++++++
+ .../amdgpu_dm/tests/display_mode_lib_test.c   |  83 +++++
+ .../amd/display/amdgpu_dm/tests/dml_test.c    |  26 ++
+ .../amd/display/amdgpu_dm/tests/dml_test.h    |  21 ++
+ .../drm/amd/display/dc/dml/calcs/bw_fixed.c   |  14 +-
+ drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h |  14 +
+ 12 files changed, 538 insertions(+), 13 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_fixed_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.h
+
 -- 
-2.25.1
+2.36.1
 
