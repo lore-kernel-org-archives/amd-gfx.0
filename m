@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DD8C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 09:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C56C43334
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 09:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60CF410E149;
-	Wed,  8 Jun 2022 09:05:54 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2067.outbound.protection.outlook.com [40.107.102.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C0910E22C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 09:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32E5110E19C;
+	Wed,  8 Jun 2022 09:05:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34AB910E10A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 09:05:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LZ4ZsrOwUaMyoQ07NDC/ZiLRJA4RqQ+BlujvHyK4anB6SOn955NWCqZT/3zvcsNrj0XWvXw3LkUOrl1TMH/BqJBs/mu1FbePLWJPq1n8vzLwaxoEpWi2ier6UbgEesYK7oyUTpv/95IeosKGsFwTyELI4LyQ4JhbfDncFWLITBsku07aV12XMbse15yF8CWLnw7rhaCITl7rJlXfJHu/6W3ZrysiF9mxtKoJAcYwNDlx1RztktKy7pcoSekhuhilza7ILbIp8tZ6QSHw7u1a/5gs+DjvzCfG0czr5+pHxFwBqUuzdiqrfwNWjDoBpoq9z/VmWvyBbpd09gKQ1aMCow==
+ b=lxXxD4pt8wlkkSajRYvESAW7XM5BkwycU+uAcwvJhOO3xHqBGCXtopARnaHPsYQJ3cNIAx0m5AMK8ymrJGbVUmdtJmYJqC5dLA6iHxk6H5GU9hMDGs2yFQdMlD/gSwzqzkWurXB+i3U+KCaoA1t/vB/aZqZHmVEMMayjWDOmpco3MOme1UF2Zyg8zOhlg+zEcoTfevljhplw3c8ivILr/jqa7DXSytOswJxu9wO0qJDgNZCZgg0U3fhnc/24t25lhzfBofPiCU88pxCBFGWnyGUKPttS4PXDTQXfWiIp4t2t/CAwdMgmwYp522kQI9cwqaHE3aGKz2Xw+BQhgjW9lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Se/s1H8L8e9tFCVv7nLQN9RIUe3S6O5IaJiHf61AO8=;
- b=BloEBGHuI8z2V9ALbUfrBdwbtftU+SR+EBr5X+GNYIqKdHhoKdZScszucRZLRB/FwBrJGjsvpBqI4NH0D5M/qzulLYPEu23NYR3ociv/L1RafQsZMdNXQWZZvOU5jK5O2YENehv7y2+AWiLieLz5mYf73TjbpN2VWyptlyGtjwr5SKLa9E9AZ2dSjgUZ/MMCNOjGe19NAM1o7/313yU7bvSyZ9UkJBqt7hMxnUQaDe8rtDM6VF/rK+mYlAZSySxmKQBKgvMMnAQBmOpcllRBW2tr4bwbKybPztTCKzDo0PQbrgCJg+E48Q03PilkNcOwEjBdd9uyi/tCwPdyYTrXNA==
+ bh=IHEp/w4w/IXeGgoau/KiNlURAdWajAUMnic5P5cDm6I=;
+ b=fpiUslh+SEIIHhi1YRyksHHmVbFCPm0t0qeocboGEHV/kmyqK4IKL/Bht9HTUlWQbSd76jIWckLIeCMpbtY4kOSjtfIFYYuRITZ2GvAe9Tqw5VLC7wsuOVSJwtmKcXSbW/gOEhk/G7jChLqTFHIvxBW0UqK2JK5Ng7ILUofOPaNMB++RfpdjVgeLWKky/4mz08IzMNwQI66X2FVCxL1wpwxSqIUuvCLsOd+8TP7lJ/3oiyJazh35xC6d6ijmGt8nfCz3jG0Uq3WgEPzJNEnNYvEJRMHzWJWvxtnnWgASiprepicq+OETVkC1LyNmWyKnk8/gwkS+V+8sFU2GPLRHxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6Se/s1H8L8e9tFCVv7nLQN9RIUe3S6O5IaJiHf61AO8=;
- b=y7fwdR90Y+6Dhpy6RA/OLj+XbL/4Ld+C7r0m60wGCB2p0063/caw5EZny8EoG7dtcNWaKHW8jJg9WVJw62RWqz0OoDcduqKMSVt/LQvtxGOWUwWZ5qFp3YJLitngi/+ikRHgkcg0XDKoOjmipA+IjKC1wjcUs7kpG2rxQ5ZXE0o=
-Received: from BN9PR03CA0851.namprd03.prod.outlook.com (2603:10b6:408:13d::16)
- by BL0PR12MB5540.namprd12.prod.outlook.com (2603:10b6:208:1cb::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Wed, 8 Jun
- 2022 09:05:50 +0000
-Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13d:cafe::10) by BN9PR03CA0851.outlook.office365.com
- (2603:10b6:408:13d::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.16 via Frontend
- Transport; Wed, 8 Jun 2022 09:05:50 +0000
+ bh=IHEp/w4w/IXeGgoau/KiNlURAdWajAUMnic5P5cDm6I=;
+ b=FD+dC3Ai5buSf3WsxiZIcDjjJwmHBe3yjsHjI7JoaZgrcXTc3NZ7XR4JDtJz701P/iKstcVhhH8WGZY75t+t/KaFsAzroCxB2EJu87yJZHYT4nrIxgClCmgvFLhehr7agUGKN7TxmM3dMX1yVpvdG0yBcYSvM/oG6XFESRHeS+I=
+Received: from DM6PR07CA0090.namprd07.prod.outlook.com (2603:10b6:5:337::23)
+ by BL1PR12MB5361.namprd12.prod.outlook.com (2603:10b6:208:31f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Wed, 8 Jun
+ 2022 09:05:56 +0000
+Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:337:cafe::f1) by DM6PR07CA0090.outlook.office365.com
+ (2603:10b6:5:337::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.17 via Frontend
+ Transport; Wed, 8 Jun 2022 09:05:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Wed, 8 Jun 2022 09:05:50 +0000
+ 15.20.5332.12 via Frontend Transport; Wed, 8 Jun 2022 09:05:55 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 8 Jun
- 2022 04:05:49 -0500
+ 2022 04:05:53 -0500
 Received: from kenneth-u2004-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Wed, 8 Jun 2022 04:05:48 -0500
+ Frontend Transport; Wed, 8 Jun 2022 04:05:52 -0500
 From: Kenneth Feng <kenneth.feng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/5] drm/amd/pm: enable BACO on smu_v13_0_7
-Date: Wed, 8 Jun 2022 17:05:33 +0800
-Message-ID: <20220608090536.1969621-2-kenneth.feng@amd.com>
+Subject: [PATCH 3/5] drm/amd/pm: update the driver if header for smu_v13_0_7
+Date: Wed, 8 Jun 2022 17:05:34 +0800
+Message-ID: <20220608090536.1969621-3-kenneth.feng@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220608090536.1969621-1-kenneth.feng@amd.com>
 References: <20220608090536.1969621-1-kenneth.feng@amd.com>
@@ -68,27 +68,27 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3d52bc7d-a714-46c4-dce3-08da492e1574
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5540:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB55400C37EB1989FB8010ECFA8EA49@BL0PR12MB5540.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 670acbc1-bb69-4915-a8b6-08da492e18b7
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5361:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB536137CCAFB2CADEDB892B1E8EA49@BL1PR12MB5361.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /yjyFl6oA70nv+iJ5J+MreKb92CLZf/1Adh4jiZJRBKUZ8nDEXvnkgZ2Tska+8ei9OfMYbf4D53hve35I+wU8/HFspyAi5QBhWgrfmi1EANoI2YMoQDbp4MlaJ2nqPb5xmr2WEj/EItglMme8GX/KjbwiGPxMiTchMzgC+I64wm/OO/rArSPFzHW+zpZnFh1vNH+VdJMTw4ARcxfhyVLiTJcGoS/33H/TnH4QeEKrBtAAvKjWIT6zG8foFhofYhe3z4Sy5+4R5Vs51lhQtsroQLNDtOl5/FIV7jzvkZNcXMI4TqyLgbRRSBr1pUdBolP9M+2NFZWrvwz3CUSl+WlfMtwwvqRbgXc9T1mwuIxiZ7SyvTEe3UZwy9SiSOnDmCuX/3hnez6Q7bvi5242MT+7zgRH4p/0y+wI9rFKXhHLjExx3e16CuNKcvdsT0vedg/Ix2NDiSSRz9gTbinR9fRJyERiHq6PQcrXmTBvBSZOl92crIXVJ0HQzvTXZB1Y1zxKiisBMD0qYuNkhWfX6n1ezlpJYQN0IVN4eXLyvLodfsnCU/Ff71VjYXOJdrIzd061hoQSFKd2w7QroJEsazZXXJgiTxXQbKBhfC0LQ8sjQFUT7lEe1RBP+XXKTzOE9STRzcZz21RfSPgWi3Es/O5uFxikxLXI6eLEgSb459kw4D9fetvEzu+SYzI80Ex3s9jMfiPxta+PZe3OLkfRPV1MlZR3bRRERsQE9fBY1N+L/LYQlDj++6yRwQlbsD8jc7R1czdNgZiFDWhPTGZQoM6xw==
+X-Microsoft-Antispam-Message-Info: Yng/zDUgahuMtBKr9+fEd/wsq7h0HUc+sq+C5UQOOYOCCx6WZB+IM9BI0wb5P2/smFebrMiHbeq4BMwceHMPzYckB+O6kFtFGpDVuPJ8TrqolpiQKa9lls7uUIX68icS/hW+R2SMgJkUdwlCuD9XNkAFWY5N5bqNa1sxv79a4rywcScpFZC6CcRFGUzS+cOVPUr2W3NHN5agZLnb6DSNadfvC0clUGFMfY1IFChxNxCjklVKz58Hm5zvhhZaMHk5UMKYZzN4CscIqAX0pRexBfi8oeYgIozY9ddYLNbapZy8MDT/Lu1DF2ZnCKV/usuhkgatezY5pvmkVu6TV/GELioY57MRHEr6g17P+6zDGNlGwBcFQQu56w45N0mByixhilUWKxZaMyUwcfUbJeVjj2ePnSHUN98ipTi9EXrEfdRDAkyRhF2XY0Nb7dXtJTg1ZLWi/iji9N64cNmYgmf9zgQT8kNc2Cq3Ilu49nb3ShuJMatPatmcWP7jAHiHfX81iGrWGktL8rwO+3ANujUiF4TBmAFK9lBOcHjswLfjw5BJBu4Wr0zKUj3za00HTk91c5oVmvCJZUKGHvPsvFyw+uBduQryMSX1dIr1L/xnn701pmbS44YHzs9vI31Y9X57XKkCMXSdzFD25FURZDgVVQnREkrcdF/wNhiFE54Yi+QG4bPN92sLhEzPfHh/9EGbXG37vQVq+loynZ/sd0AMmA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(336012)(47076005)(186003)(4326008)(81166007)(36756003)(508600001)(2906002)(70586007)(6666004)(70206006)(8676002)(82310400005)(44832011)(5660300002)(356005)(26005)(426003)(8936002)(36860700001)(6916009)(2616005)(1076003)(316002)(83380400001)(7696005)(40460700003)(86362001)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(47076005)(36756003)(82310400005)(508600001)(15650500001)(81166007)(7696005)(6666004)(2906002)(83380400001)(19627235002)(40460700003)(316002)(8676002)(426003)(26005)(336012)(36860700001)(356005)(8936002)(6916009)(44832011)(5660300002)(70586007)(4326008)(70206006)(2616005)(86362001)(186003)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 09:05:50.3025 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d52bc7d-a714-46c4-dce3-08da492e1574
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 09:05:55.7265 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 670acbc1-bb69-4915-a8b6-08da492e18b7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5540
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,58 +104,190 @@ Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-enable BACO on smu_v13_0_7
+update the driver if header for smu_v13_0_7
 
 Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 1 +
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 7 +++++++
- 2 files changed, 8 insertions(+)
+ .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     | 62 +++++++++++++------
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 +-
+ 2 files changed, 45 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index fb04d82f66e6..f57710790b8c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1456,6 +1456,7 @@ static int smu_disable_dpms(struct smu_context *smu)
- 		case IP_VERSION(11, 0, 0):
- 		case IP_VERSION(11, 0, 5):
- 		case IP_VERSION(11, 0, 9):
-+		case IP_VERSION(13, 0, 7):
- 			return 0;
- 		default:
- 			break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 7da42cae5d6e..dc614befcdf5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -97,6 +97,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(UseDefaultPPTable,		PPSMC_MSG_UseDefaultPPTable,           0),
- 	MSG_MAP(RunDcBtc,			PPSMC_MSG_RunDcBtc,                    0),
- 	MSG_MAP(EnterBaco,			PPSMC_MSG_EnterBaco,                   0),
-+	MSG_MAP(ExitBaco,           PPSMC_MSG_ExitBaco,        			   0),
- 	MSG_MAP(SetSoftMinByFreq,		PPSMC_MSG_SetSoftMinByFreq,            1),
- 	MSG_MAP(SetSoftMaxByFreq,		PPSMC_MSG_SetSoftMaxByFreq,            1),
- 	MSG_MAP(SetHardMinByFreq,		PPSMC_MSG_SetHardMinByFreq,            1),
-@@ -281,6 +282,7 @@ smu_v13_0_7_get_allowed_feature_mask(struct smu_context *smu,
- 	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_BACO_MPCLK_DS_BIT);
- 	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_PCC_DFLL_BIT);
- 	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_SOC_CG_BIT);
-+	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_BACO_BIT);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
+index d99b4b47d49d..132da684e379 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
+@@ -25,10 +25,10 @@
  
- 	if (adev->pm.pp_feature & PP_DCEFCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_DCN_BIT);
-@@ -1584,6 +1586,11 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.set_tool_table_location = smu_v13_0_set_tool_table_location,
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
- 	.set_pp_feature_mask = smu_cmn_set_pp_feature_mask,
-+	.baco_is_support = smu_v13_0_baco_is_support,
-+	.baco_get_state = smu_v13_0_baco_get_state,
-+	.baco_set_state = smu_v13_0_baco_set_state,
-+	.baco_enter = smu_v13_0_baco_enter,
-+	.baco_exit = smu_v13_0_baco_exit,
- };
+ // *** IMPORTANT ***
+ // PMFW TEAM: Always increment the interface version on any change to this file
+-#define SMU13_DRIVER_IF_VERSION  0x28
++#define SMU13_DRIVER_IF_VERSION  0x2A
  
- void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
+ //Increment this version if SkuTable_t or BoardTable_t change
+-#define PPTABLE_VERSION 0x1D
++#define PPTABLE_VERSION 0x1E
+ 
+ #define NUM_GFXCLK_DPM_LEVELS    16
+ #define NUM_SOCCLK_DPM_LEVELS    8
+@@ -112,6 +112,22 @@
+ #define FEATURE_SPARE_63_BIT                  63
+ #define NUM_FEATURES                          64
+ 
++#define ALLOWED_FEATURE_CTRL_DEFAULT 0xFFFFFFFFFFFFFFFFULL
++#define ALLOWED_FEATURE_CTRL_SCPM        (1 << FEATURE_DPM_GFXCLK_BIT) | \
++                                         (1 << FEATURE_DPM_GFX_POWER_OPTIMIZER_BIT) | \
++                                         (1 << FEATURE_DPM_UCLK_BIT) | \
++                                         (1 << FEATURE_DPM_FCLK_BIT) | \
++                                         (1 << FEATURE_DPM_SOCCLK_BIT) | \
++                                         (1 << FEATURE_DPM_MP0CLK_BIT) | \
++                                         (1 << FEATURE_DPM_LINK_BIT) | \
++                                         (1 << FEATURE_DPM_DCN_BIT) | \
++                                         (1 << FEATURE_DS_GFXCLK_BIT) | \
++                                         (1 << FEATURE_DS_SOCCLK_BIT) | \
++                                         (1 << FEATURE_DS_FCLK_BIT) | \
++                                         (1 << FEATURE_DS_LCLK_BIT) | \
++                                         (1 << FEATURE_DS_DCFCLK_BIT) | \
++                                         (1 << FEATURE_DS_UCLK_BIT)
++
+ //For use with feature control messages
+ typedef enum {
+   FEATURE_PWR_ALL,
+@@ -662,7 +678,7 @@ typedef struct {
+ #define PP_NUM_OD_VF_CURVE_POINTS PP_NUM_RTAVFS_PWL_ZONES + 1
+ 
+ 
+-#define PP_OD_FEATURE_VF_CURVE_BIT  0
++#define PP_OD_FEATURE_GFX_VF_CURVE_BIT  0
+ #define PP_OD_FEATURE_VMAX_BIT      1
+ #define PP_OD_FEATURE_PPT_BIT       2
+ #define PP_OD_FEATURE_FAN_CURVE_BIT 3
+@@ -671,6 +687,8 @@ typedef struct {
+ #define PP_OD_FEATURE_TDC_BIT      6
+ #define PP_OD_FEATURE_GFXCLK_BIT      7
+ #define PP_OD_FEATURE_UCLK_BIT      8
++#define PP_OD_FEATURE_ZERO_FAN_BIT      9
++#define PP_OD_FEATURE_TEMPERATURE_BIT 10
+ 
+ typedef enum {
+   PP_OD_POWER_FEATURE_ALWAYS_ENABLED,
+@@ -689,8 +707,8 @@ typedef struct {
+   uint8_t                RuntimePwrSavingFeaturesCtrl;
+ 
+   //Frequency changes
+-  uint16_t               GfxclkFmin;           // MHz
+-  uint16_t               GfxclkFmax;           // MHz
++  int16_t               GfxclkFmin;           // MHz
++  int16_t               GfxclkFmax;           // MHz
+   uint16_t               UclkFmin;             // MHz
+   uint16_t               UclkFmax;             // MHz
+ 
+@@ -701,17 +719,17 @@ typedef struct {
+   //Fan control
+   uint8_t                FanLinearPwmPoints[NUM_OD_FAN_MAX_POINTS];
+   uint8_t                FanLinearTempPoints[NUM_OD_FAN_MAX_POINTS];
+-  uint16_t               FanMaximumRpm;
+   uint16_t               FanMinimumPwm;
+-  uint16_t               FanAcousticLimitRpm;
++  uint16_t               AcousticTargetRpmThreshold;
++  uint16_t               AcousticLimitRpmThreshold;
+   uint16_t               FanTargetTemperature; // Degree Celcius
+   uint8_t                FanZeroRpmEnable;
+   uint8_t                FanZeroRpmStopTemp;
+   uint8_t                FanMode;
+-  uint8_t                Padding[1];
+-
++  uint8_t                MaxOpTemp;
++  uint8_t                Padding[4];
+ 
+-  uint32_t               Spare[13];
++  uint32_t               Spare[12];
+   uint32_t               MmHubPadding[8]; // SMU internal use. Adding here instead of external as a workaround
+ } OverDriveTable_t;
+ 
+@@ -740,17 +758,17 @@ typedef struct {
+ 
+   uint8_t                FanLinearPwmPoints;
+   uint8_t                FanLinearTempPoints;
+-  uint16_t               FanMaximumRpm;
+   uint16_t               FanMinimumPwm;
+-  uint16_t               FanAcousticLimitRpm;
++  uint16_t               AcousticTargetRpmThreshold;
++  uint16_t               AcousticLimitRpmThreshold;
+   uint16_t               FanTargetTemperature; // Degree Celcius
+   uint8_t                FanZeroRpmEnable;
+   uint8_t                FanZeroRpmStopTemp;
+   uint8_t                FanMode;
+-  uint8_t                Padding[1];
++  uint8_t                MaxOpTemp;
++  uint8_t                Padding[4];
+ 
+-
+-  uint32_t               Spare[13];
++  uint32_t               Spare[12];
+ 
+ } OverDriveLimits_t;
+ 
+@@ -1018,7 +1036,8 @@ typedef struct {
+   uint16_t SocketPowerLimitAcTau[PPT_THROTTLER_COUNT]; // Time constant of LPF in ms
+   uint16_t SocketPowerLimitDcTau[PPT_THROTTLER_COUNT]; // Time constant of LPF in ms
+ 
+-  uint32_t       SpareVmin[12];
++  QuadraticInt_t Vmin_droop;
++  uint32_t       SpareVmin[9];
+ 
+ 
+   //SECTION: DPM Configuration 1
+@@ -1307,7 +1326,6 @@ typedef struct {
+   uint32_t    PostVoltageSetBacoDelay; // in microseconds. Amount of time FW will wait after power good is established or PSI0 command is issued
+   uint32_t    BacoEntryDelay; // in milliseconds. Amount of time FW will wait to trigger BACO entry after receiving entry notification from OS
+ 
+-
+   // SECTION: Board Reserved
+   uint32_t     BoardSpare[64];
+ 
+@@ -1382,8 +1400,14 @@ typedef struct {
+   uint16_t AverageDclk0Frequency  ;
+   uint16_t AverageVclk1Frequency  ;
+   uint16_t AverageDclk1Frequency  ;
++  uint16_t PCIeBusy               ;
++  uint16_t dGPU_W_MAX             ;
++  uint16_t padding                ;
++
++  uint32_t MetricsCounter         ;
+ 
+   uint16_t AvgVoltage[SVI_PLANE_COUNT];
++  uint16_t AvgCurrent[SVI_PLANE_COUNT];
+ 
+   uint16_t AverageGfxActivity    ;
+   uint16_t AverageUclkActivity   ;
+@@ -1415,11 +1439,13 @@ typedef struct {
+ 
+   uint16_t AverageUclkActivity_MAX;
+ 
++  uint32_t PublicSerialNumberLower;
++  uint32_t PublicSerialNumberUpper;
+ } SmuMetrics_t;
+ 
+ typedef struct {
+   SmuMetrics_t SmuMetrics;
+-  uint32_t Spare[32];
++  uint32_t Spare[30];
+ 
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+index a11d36db1b8a..e3454a876cac 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -31,7 +31,7 @@
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x04
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_5 0x04
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0 0x29
+-#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x28
++#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x2A
+ 
+ #define SMU13_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
+ 
 -- 
 2.25.1
 
