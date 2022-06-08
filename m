@@ -4,73 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E65C43334
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 01:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B464FCCA482
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 02:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F6D10ED51;
-	Wed,  8 Jun 2022 01:09:41 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2474310ECCC
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 01:09:40 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id v143so3422965oie.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jun 2022 18:09:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5p+YY8gybAKuQcsMVh2MWy7OP9yApdl+Art1AWfbko4=;
- b=l0vH6uF2Kay4roGyviEB6yUha0FWjErNM5oSVGGa9GYxycj69SewTV4S+exXuVIrld
- tcD0oVt97q4NnrQ5WUbOxoLgD4uHd7K17nmo5pC4oWCihLwe+aKT9zNj1UfumIkGSOlf
- rf4sVKhsJk/0rM7laRh6sJCKrmmSak6qTexnX1kIp+46qQTQcoZJcituYmW4kFuZzgmP
- /B+yOZkotlB2O62UuGVKIqpoUDKLgf8cY2afKSv0a5RoOmHK3DhECgn2ywgfS7dIZQE0
- +jkUg+eQ3NZKl2t5LuPU0qgMZnpdm7x8eMxgUAVEuh9MZzLoDuiT90QO8FRB46Ex65fd
- D9kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5p+YY8gybAKuQcsMVh2MWy7OP9yApdl+Art1AWfbko4=;
- b=j7TucuAocWD5EC55xnjwLH0RFJxjpqfBnkpQQt49qK+0POWOWQYSQSJDAFUFGb+2xn
- W83AYdYp/oZjOuiJ+4EzModoTHS2T1i9AYx8+UjhOoYJxYTE2WOs5qRUcrECiK7SHxg0
- fXDGR/k7PFJLK0osMhTn+o5d39jz8ENbzZW8a/UacLdtJhKwRbHnX2rKU2Al1/+Gy9u5
- m7ZMxNhAplcdd/jbUgRbdxzbC60onNcruVKm+/msSm2BiFX9TBH+uWTGve+vs6UzK0BH
- LGrJEO9HSmgwMsps07MBtlIsnsTVI/vMHbRk25ILfNMzGFe2vYXbVL3hqUic8P84RS88
- BK5A==
-X-Gm-Message-State: AOAM533HJnfka8/LdJnJM/FCySQhmpYJuerJTljyY6lWx2v8arE/0jo3
- kFukGfFeqIQfrGWz9tCyna4g+A==
-X-Google-Smtp-Source: ABdhPJzAtEy3VpvtGd8JE19u4+8me6FEpwHjaGKdRGUz1fqMacKFsUnOWNFd1Awi6hzS+5tNdeA1Ow==
-X-Received: by 2002:a05:6808:bc7:b0:32b:1c5a:d8b1 with SMTP id
- o7-20020a0568080bc700b0032b1c5ad8b1mr1000182oik.185.1654650578632; 
- Tue, 07 Jun 2022 18:09:38 -0700 (PDT)
-Received: from fedora.. ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
- by smtp.gmail.com with ESMTPSA id
- c16-20020a544e90000000b0032b1b84f4e3sm10343057oiy.22.2022.06.07.18.09.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jun 2022 18:09:38 -0700 (PDT)
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Jun Lei <jun.lei@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>,
- Harrison Chiu <harrison.chiu@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Isabella Basso <isabbasso@riseup.net>, magalilemes00@gmail.com,
- tales.aparecida@gmail.com, mwen@igalia.com, andrealmeid@riseup.net,
- David Gow <davidgow@google.com>, Daniel Latypov <dlatypov@google.com>,
- brendanhiggins@google.com
-Subject: [RFC 3/3] drm/amd/display: Introduce KUnit tests to the bw_fixed
- library
-Date: Tue,  7 Jun 2022 22:07:11 -0300
-Message-Id: <20220608010709.272962-4-maira.canal@usp.br>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220608010709.272962-1-maira.canal@usp.br>
-References: <20220608010709.272962-1-maira.canal@usp.br>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D9CF1129BF;
+	Wed,  8 Jun 2022 02:22:10 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D827A1129CA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jun 2022 02:22:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YKbgml4bSvkaUajrjSXhhQ/Lh0H1Eg9cY0soGQFZrSxBiRsUt/h8HGvDWa7hI2Og2Hjsh+0VqsIxbcxgvFkFcLQJ+u/Z6L4+5/889inSDFY0A7BCsUi2QT1ST8qS3/4bATe2mtK6cEUdbM6zqYHb3KyYizmZ4ur5Qdb9OZ4TOYh2LOuFiT900LzBZMizmfZXSQJE94vBxS5+rEiG9YA8/9/KThIljfhid7QfHI0GBqaNQIroba3Mx6nE6cRwpuHDNojs+VfDbAFd4U1vjbLM69cjXAg1ESGCdna9riblquyyfCq4Zy5dX4AlFzfri5EgM7Ng4ghXsopMii44YUO8iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gXwXRbOAMrs66kp8W+XR0pKjsZw2feP+0t4ANoi7G6g=;
+ b=HwWEgRhAQUlxUaFLnpnJMdoQGSb1BV/2Qz68BpL4ycb4rqzrYhwGLTYhntVJpyIepz8SwwXc9GCqd3hLpglKpGDZ8fuh+ZaRBQsDEPX5lzbECkd4Xe2+ntmDDyUtXUQ6hsgXike2rNGtLuRRj91p7VZoPIqDCX8Tt5jblS3aAXOKJKDEhzW1+v77fGNhYMfkgWp4MGQ7KFYcyWSQsPUK5ZS2HZaH2IO8JIjoEI3bv2z4q0riRfb+kh+uyXZnBVsbHv1HCitV3g6TQwokxFF4paBr8to3nAd2ErtLK+Gh22mrPu2gUPfHWIXuoFh21Mb0Sj+GWFupH5sieQWSz26oqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gXwXRbOAMrs66kp8W+XR0pKjsZw2feP+0t4ANoi7G6g=;
+ b=icNaD5jBkPFoIg5y3djqTzHsU/Iz2UlFUU6AC4ug3jrJnBuPJ3cEuyupn+U2lw3dYl9V6rzCM/tDYHVCxabwiPGrykmJranVJyhoGA6XhIvCClaOOTYbif11nTgRz67+AQWLdSYmADXXKhKVMy/we6ZGwC9dwWMIMaElJWFM0Fc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ CY5PR12MB6105.namprd12.prod.outlook.com (2603:10b6:930:2a::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5332.12; Wed, 8 Jun 2022 02:22:06 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::cdb7:3025:c623:7e5]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::cdb7:3025:c623:7e5%4]) with mapi id 15.20.5332.012; Wed, 8 Jun 2022
+ 02:22:06 +0000
+Date: Wed, 8 Jun 2022 10:21:57 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH 3/3] drm/amdkfd: use existing VM helper for PD and PT
+ validation in SVM
+Message-ID: <YqAHxfxEX1bitk96@lang-desktop>
+References: <20220607095947.120493-1-Lang.Yu@amd.com>
+ <20220607095947.120493-3-Lang.Yu@amd.com>
+ <bed3638b-5b84-e7a4-669e-0c930b66ad60@amd.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <bed3638b-5b84-e7a4-669e-0c930b66ad60@amd.com>
+X-ClientProxiedBy: SI2PR04CA0005.apcprd04.prod.outlook.com
+ (2603:1096:4:197::16) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9639dcca-6a5b-4977-2a71-08da48f5aecd
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6105:EE_
+X-Microsoft-Antispam-PRVS: <CY5PR12MB61053C80E7276713F05909BDFBA49@CY5PR12MB6105.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Hb5KluwwwZylH27Jo1NVYb8pUdR+CaKvx06nVswIGL62w89cIdc1hp6CVZKhwOQ6a7BLfuFA6pFucn751b26QxrDWLV3EkHiSfRThXnx0NW77b0g42BOYqbfMDi3Dryqasm8Q/AbyYtOmkFL6lEw4oV3CqBILp6hKtfc963KBavxkzsNc04jE98wmsLClfTEtVzHWHMoVmR4+jo74TVryUWv83b7I8lIMQ/3g5g3I2bwkgoOJU5n9qN13BOiIK2lHWyOuUPDwQf6wGTONE1Hc6h9GDsIViN6Df7cMpcK0OlowGTh0HhLoc6siL+JgmlhWwW2fAHFVeZkByenBR8YwK75pXOlcGq1s8VtQKmflZR/fBJHkS+imw0PFikLKAXatzaH4CM9v+8vsS7AVPNLX6BXUR1aRKeuCE+MBTvUr6gCfkjKKw3EcfpnmH2ZojGiSwa3YSnJsi2DKlDjMVFfBKA46wjlhJA7bq7WPeT+5SYJOTIlq2ty+zxwJw0/vlfa5GOLOIuAxsc7c2CDS80CYgI19GTjK8I4UAYpc2CDivbK2Fk0z49TLLydUjTo78lFlFqobzm+pGHRt4685KdQbdwrfhm/ybFg97DR7378dRFKeSR55H/eVk4pkUJDqXYTx/NvKP2npvhGvKQUJXxWNg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(7916004)(366004)(186003)(83380400001)(316002)(66476007)(66556008)(54906003)(4326008)(6636002)(33716001)(8676002)(66946007)(86362001)(6486002)(8936002)(6862004)(508600001)(6666004)(2906002)(38100700002)(9686003)(6512007)(26005)(5660300002)(6506007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?adKmrIPPARJReKsHEpqmdcPVNS8UUGhE5n/ORAkkUja/7M9AuzkQAzJaXk?=
+ =?iso-8859-1?Q?a9EYGd1g6jq+LfJj0y0NsMEmZejaJOYv7iL8DKCua9iW6S9S0h4Up77IMC?=
+ =?iso-8859-1?Q?523thVZEVSaxQeg8Le9kjydiPvyFc1eg7vxOKqBDoCJf5hndzV8kiZcEZI?=
+ =?iso-8859-1?Q?6/k1TxfH+vktGQT/4LgPZ2JcJap2EWmquChn4xVehQQjpjNrjWt89H9GQ4?=
+ =?iso-8859-1?Q?cBFeb0f2NIiv6yMrmUw67OqRCFqAF+mfA8Ee6VVKj0xx4WVwz4VvMCvzwf?=
+ =?iso-8859-1?Q?z8yzMYQM8tizBSkHAYNQNE7bGoz8NHbJeZIrSmdW+2GlLbSGyiBYhxYZjT?=
+ =?iso-8859-1?Q?+HZdUKxqtyUEcUSh0QREJQWiGIZXnV8FeVWD1Np5C6M2yvaJm+NhaBLH+W?=
+ =?iso-8859-1?Q?Gh8fs78ku4cZuoggfV0Q3dRC6e3ae8+LyzqkZ28Cq/dx75i9UNdXqBzarn?=
+ =?iso-8859-1?Q?BP46Fgz5ahjM7ddVG/EdFMN9DPmzPG70rJWez4yXQpve81Lhw5oFvwV9AR?=
+ =?iso-8859-1?Q?k0T6GSxtXWlfgtk+FwWVct0QknDhGkYF5xVuVvZzWYzk+SoYI3tpL/iX+7?=
+ =?iso-8859-1?Q?v8kvth0LtPJn05LPl18svo3o3xEj/4WZslf5iCM2957xQIyqFS1+wJYzru?=
+ =?iso-8859-1?Q?sH7k1miK+WM591/G/2T6dCzX38LsuEEPheQ17rD73ttFrd8a+CtY1HXen6?=
+ =?iso-8859-1?Q?oh9NNW07gcwy8Rb3WyMUyRkDrrtgkYYLtRhBbj0Adeer2XJTWsBGWTPV7l?=
+ =?iso-8859-1?Q?mnoE0q5zRsexJ++44W+04FyNz9F8WbUA2WUK9vC4D+U+HrvFYR2OTss05Z?=
+ =?iso-8859-1?Q?i7Y5IVMjTgpcM6qqlLkpnjx7zP9PHdjw0ZpLrBCh4LGHvjYxqu48ZcBWBK?=
+ =?iso-8859-1?Q?2r7GCGIrAf3zNgXLGHsQ2b8RAfKk+gPiRCoIxXtg4wYX14nDdOpUGiUgNd?=
+ =?iso-8859-1?Q?Prx5OL+d6yP51PQ/X7HgWhCHLSXiJbZmQXVXXRHtzhgf1bXy8D9g/qIK/s?=
+ =?iso-8859-1?Q?00nPbLXJSJPf5CVbjtOhweTkVYz7eMPlJpJCAhwtP4wchPSC4GFS+8e+kW?=
+ =?iso-8859-1?Q?JMHg7LDWB3vuOlTRw0jTW3mprHFclIDWe33a4jxZuPX7qMrsqrdOMZF9Fa?=
+ =?iso-8859-1?Q?oxdD77rIPZPWQi2HEyfIa/AwVCcg+JcfFZ2BFjI5FBTeaafymBNbWTXFas?=
+ =?iso-8859-1?Q?rLQAQlDmKjyMCDvHr6hXN349H+y4BoINPEZsc/+mFgqHELEz95NHjunTio?=
+ =?iso-8859-1?Q?ykPYnTgSZivmwOf6KN4eoMB+hvpCGIoEyR3LHkHFK6ias+LBYmZjx8z/zF?=
+ =?iso-8859-1?Q?u/qHTLw2cZI7Mn+ILLNkp8HyL91Q7WwwHCKRyY51f7obpdRFqCW1JhMKSl?=
+ =?iso-8859-1?Q?v9LQZvT2n9M0AopphzwRPN1sg2TVc39zm17Qg54PzlVkyZxYL8toPH5hSQ?=
+ =?iso-8859-1?Q?ZEBTD6nLNhy1NqGOKt6If5sT9EYUubcBtPH5uSxH+8R+lXu9fQY2qNrUB4?=
+ =?iso-8859-1?Q?HhFVVR+yzsr5g8LUSxUbnKKB0rOL89xfIqSrg/ADi1hXv/2n6QcMU0sixy?=
+ =?iso-8859-1?Q?wVd20HKnihUtSAgYrtVqRPB5rGAvNkcON4x6FCv+1xZHy2uF+9dS150xuD?=
+ =?iso-8859-1?Q?gEpxEw2/j6QiuKdtJsDeWrk/oUapJ9Ye0fMAxl7RLlZY8hL/R5d3qN9MdA?=
+ =?iso-8859-1?Q?EYmtDKBpnwCdMa3cQzlIk5+RBMUQEtdybsvhUmw0gbXU25lPXaf0ywe7SQ?=
+ =?iso-8859-1?Q?BM16bejO4mwRQAOEALswJgCkHSgRBhLtbOnithGGdVeVOB0YOqr+dNB/xv?=
+ =?iso-8859-1?Q?Zzo3NSSk2Q=3D=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9639dcca-6a5b-4977-2a71-08da48f5aecd
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2022 02:22:06.6352 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rig0qvQdqA4PfjS2QCaYJPFeL7bm3653YVshvHhm90iCQpJaU+nryxHuyjuNZfu8V37eYfgbdRbsk0yfa7YPrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,441 +120,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>,
- kunit-dev@googlegroups.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Magali Lemes <magalilemes00@gmail.com>
+On 06/07/ , Felix Kuehling wrote:
+> Am 2022-06-07 um 05:59 schrieb Lang Yu:
+> > This will remove some redundant codes.
+> > 
+> > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> 
+> The redundancy is quite small, and amdgpu_amdkfd_gpuvm_validate_pt_pd_bos
+> and amdgpu_amdkfd_bo_validate are quite a bit more complex and handle more
+> different cases. Someone changing those functions in the future may not
+> realize the effect that may have on the SVM code.
+> 
+> I'd prefer to keep the svm_range_bo_validate function in kfd_svm.c to make
+> the code easier to understand and maintain. If anything, I'd move it closer
+> to where its used, because it's only used in one place.
 
-The bw_fixed library performs a lot of the mathematical operations
-involving fixed-point arithmetic and the conversion of integers to
-fixed-point representation.
+Thanks for your comments. I got it. By the way,
+is it necessary to update vm->pd_phys_addr here?
+I noticed that vm->pd_phys_addr is updated in
+vm_validate_pt_pd_bos()? Thanks!
 
-As fixed-point representation is the base foundation of the DML calcs
-operations, this unit tests intend to assure the proper functioning of
-the basic mathematical operations of fixed-point arithmetic, such as
-multiplication, conversion from fractional to fixed-point number, and more.
+Regards,
+Lang
 
-Co-developed-by: Tales Aparecida <tales.aparecida@gmail.com>
-Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
-Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
-Co-developed-by: Maíra Canal <maira.canal@usp.br>
-Signed-off-by: Maíra Canal <maira.canal@usp.br>
----
- .../drm/amd/display/amdgpu_dm/tests/Kconfig   |  12 +
- .../drm/amd/display/amdgpu_dm/tests/Makefile  |   4 +
- .../amdgpu_dm/tests/calcs/bw_fixed_test.c     | 322 ++++++++++++++++++
- .../amd/display/amdgpu_dm/tests/dml_test.c    |   3 +
- .../amd/display/amdgpu_dm/tests/dml_test.h    |   8 +
- 5 files changed, 349 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_fixed_test.c
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig
-index bd1d971d4452..540b2f79f971 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig
-@@ -2,6 +2,18 @@
- menu "DML Unit Tests"
- 	depends on DRM_AMD_DC && KUNIT=m
- 
-+config BW_FIXED_KUNIT_TEST
-+	bool "Enable unit tests for dml/calcs/bw_fixed" if !DML_KUNIT_TEST
-+	default y if DML_KUNIT_TEST
-+	help
-+		Enables unit tests for the dml/calcs/bw_fixed. Only useful for kernel
-+		devs running KUnit.
-+
-+		For more information on KUnit and unit tests in general please refer to
-+		the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+		If unsure, say N.
-+
- config DISPLAY_MODE_LIB_KUNIT_TEST
- 	bool "Enable unit tests for dml/display_mode_lib" if !DML_KUNIT_TEST
- 	default y if DML_KUNIT_TEST
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-index 53b38e340564..23109e51cf32 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-@@ -5,6 +5,10 @@
- 
- DML_TESTS = dml_test.o
- 
-+ifdef CONFIG_BW_FIXED_KUNIT_TEST
-+DML_TESTS += calcs/bw_fixed_test.o
-+endif
-+
- ifdef CONFIG_DISPLAY_MODE_LIB_KUNIT_TEST
- DML_TESTS += display_mode_lib_test.o
- endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_fixed_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_fixed_test.c
-new file mode 100644
-index 000000000000..344c1517745e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_fixed_test.c
-@@ -0,0 +1,322 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * KUnit tests for dml/calcs/bw_fixed.h
-+ *
-+ * Copyright (C) 2022, Magali Lemes <magalilemes00@gmail.com>
-+ * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
-+ * Copyright (C) 2022, Tales Aparecida <tales.aparecida@gmail.com>
-+ */
-+
-+#include <kunit/test.h>
-+#include "../../../dc/inc/bw_fixed.h"
-+#include "../dml_test.h"
-+
-+/**
-+ * DOC: Unit tests for AMDGPU DML calcs/bw_fixed.h
-+ *
-+ * bw_fixed.h performs a lot of the mathematical operations involving
-+ * fixed-point arithmetic and the conversion of integers to fixed-point
-+ * representation.
-+ *
-+ * As fixed-point representation is the base foundation of the DML calcs
-+ * operations, these tests intend to assure the proper functioning of the
-+ * basic mathematical operations of fixed-point arithmetic, such as
-+ * multiplication, conversion from fractional to fixed-point number, and more.
-+ *
-+ */
-+
-+static void abs_i64_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 0ULL, abs_i64(0LL));
-+
-+	/* Argument type limits */
-+	KUNIT_EXPECT_EQ(test, (uint64_t)MAX_I64, abs_i64(MAX_I64));
-+	KUNIT_EXPECT_EQ(test, (uint64_t)MAX_I64 + 1, abs_i64(MIN_I64));
-+}
-+
-+static void bw_int_to_fixed_nonconst_test(struct kunit *test)
-+{
-+	struct bw_fixed res;
-+
-+	/* Add BW_FIXED_BITS_PER_FRACTIONAL_PART trailing 0s to binary number */
-+	res = bw_int_to_fixed_nonconst(1000);          /* 0x3E8 */
-+	KUNIT_EXPECT_EQ(test, 16777216000, res.value); /* 0x3E8000000 */
-+
-+	res = bw_int_to_fixed_nonconst(-1000);          /* -0x3E8 */
-+	KUNIT_EXPECT_EQ(test, -16777216000, res.value); /* -0x3E8000000 */
-+
-+	res = bw_int_to_fixed_nonconst(0LL);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	/**
-+	 * Test corner cases, as the function's argument has to be an int64_t
-+	 * between BW_FIXED_MIN_I32 and BW_FIXED_MAX_I32.
-+	 */
-+	res = bw_int_to_fixed_nonconst(BW_FIXED_MAX_I32 - 1);  /* 0x7FFFFFFFFE */
-+	KUNIT_EXPECT_EQ(test, 9223372036821221376, res.value); /* 0x7FFFFFFFFE000000 */
-+
-+	res = bw_int_to_fixed_nonconst(BW_FIXED_MIN_I32 + 1);   /* -0x7FFFFFFFFF */
-+	KUNIT_EXPECT_EQ(test, -9223372036837998592, res.value); /* -0x7FFFFFFFFF000000 */
-+}
-+
-+static void bw_frc_to_fixed_test(struct kunit *test)
-+{
-+	struct bw_fixed res;
-+
-+	/* Extreme scenarios */
-+
-+	/* A fraction of N/N should result in "1.0" */
-+	res = bw_frc_to_fixed(MAX_I64, MAX_I64);
-+	KUNIT_EXPECT_EQ(test, 1LL << BW_FIXED_BITS_PER_FRACTIONAL_PART, res.value);
-+
-+	res = bw_frc_to_fixed(1, MAX_I64);
-+	KUNIT_EXPECT_EQ(test, 0LL, res.value);
-+
-+	res = bw_frc_to_fixed(0, MAX_I64);
-+	KUNIT_EXPECT_EQ(test, 0LL, res.value);
-+
-+	/* Turn a repeating decimal to the fixed-point representation */
-+
-+	/* A repeating decimal that doesn't round up the LSB */
-+	res = bw_frc_to_fixed(4, 3);
-+	KUNIT_EXPECT_EQ(test, 22369621LL, res.value);     /* 0x1555555 */
-+
-+	res = bw_frc_to_fixed(-4, 3);
-+	KUNIT_EXPECT_EQ(test, -22369621LL, res.value);    /* -0x1555555 */
-+
-+	res = bw_frc_to_fixed(99999997, 100000000);
-+	KUNIT_EXPECT_EQ(test, 16777215LL, res.value);     /* 0x0FFFFFF */
-+
-+	/* A repeating decimal that rounds up the MSB */
-+	res = bw_frc_to_fixed(5, 3);
-+	KUNIT_EXPECT_EQ(test, 27962027LL, res.value);     /* 0x1AAAAAB */
-+
-+	res = bw_frc_to_fixed(-5, 3);
-+	KUNIT_EXPECT_EQ(test, -27962027LL, res.value);    /* -0x1AAAAAB */
-+
-+	res = bw_frc_to_fixed(99999998, 100000000);
-+	KUNIT_EXPECT_EQ(test, 1LL << BW_FIXED_BITS_PER_FRACTIONAL_PART, res.value);
-+
-+	/* Turn a terminating decimal to the fixed-point representation */
-+	res = bw_frc_to_fixed(62609, 100);
-+	KUNIT_EXPECT_EQ(test, 10504047165LL, res.value);  /* 0X272170A3D */
-+
-+	res = bw_frc_to_fixed(-62609, 100);
-+	KUNIT_EXPECT_EQ(test, -10504047165LL, res.value); /* -0X272170A3D */
-+}
-+
-+static void bw_floor2_test(struct kunit *test)
-+{
-+	struct bw_fixed arg;
-+	struct bw_fixed significance;
-+	struct bw_fixed res;
-+
-+	/* Round 10 down to the nearest multiple of 3 */
-+	arg.value = 10;
-+	significance.value = 3;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 9, res.value);
-+
-+	/* Round 10 down to the nearest multiple of 5 */
-+	arg.value = 10;
-+	significance.value = 5;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 10, res.value);
-+
-+	/* Round 100 down to the nearest multiple of 7 */
-+	arg.value = 100;
-+	significance.value = 7;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 98, res.value);
-+
-+	/* Round an integer down to its nearest multiple should return itself */
-+	arg.value = MAX_I64;
-+	significance.value = MAX_I64;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MAX_I64, res.value);
-+
-+	arg.value = MIN_I64;
-+	significance.value = MIN_I64;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MIN_I64, res.value);
-+
-+	/* Value is a multiple of significance, result should be value */
-+	arg.value = MAX_I64;
-+	significance.value = MIN_I64 + 1;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MAX_I64, res.value);
-+
-+	/* Round 0 down to the nearest multiple of any number should return 0 */
-+	arg.value = 0;
-+	significance.value = MAX_I64;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	arg.value = 0;
-+	significance.value = MIN_I64;
-+	res = bw_floor2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+}
-+
-+static void bw_ceil2_test(struct kunit *test)
-+{
-+	struct bw_fixed arg;
-+	struct bw_fixed significance;
-+	struct bw_fixed res;
-+
-+	/* Round 10 up to the nearest multiple of 3 */
-+	arg.value = 10;
-+	significance.value = 3;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 12, res.value);
-+
-+	/* Round 10 up to the nearest multiple of 5 */
-+	arg.value = 10;
-+	significance.value = 5;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 10, res.value);
-+
-+	/* Round 100 up to the nearest multiple of 7 */
-+	arg.value = 100;
-+	significance.value = 7;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 105, res.value);
-+
-+	/* Round an integer up to its nearest multiple should return itself */
-+	arg.value = MAX_I64;
-+	significance.value = MAX_I64;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MAX_I64, res.value);
-+
-+	arg.value = MIN_I64 + 1;
-+	significance.value = MIN_I64 + 1;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MIN_I64 + 1, res.value);
-+
-+	/* Value is a multiple of significance, result should be value */
-+	arg.value = MAX_I64;
-+	significance.value = MIN_I64 + 1;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, MAX_I64, res.value);
-+
-+	/* Round 0 up to the nearest multiple of any number should return 0 */
-+	arg.value = 0;
-+	significance.value = MAX_I64;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	arg.value = 0;
-+	significance.value = MIN_I64;
-+	res = bw_ceil2(arg, significance);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+}
-+
-+static void bw_mul_test(struct kunit *test)
-+{
-+	struct bw_fixed arg1;
-+	struct bw_fixed arg2;
-+	struct bw_fixed res;
-+	struct bw_fixed ans;
-+
-+	/* Extreme scenario */
-+	arg1.value = MAX_I64;
-+	arg2.value = MIN_I64;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, BW_FIXED_MAX_I32 + 1, res.value);
-+
-+	/* Testing multiplication property: x * 1 = x */
-+	arg1.value = 1;
-+	arg2.value = MAX_I64;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, BW_FIXED_MAX_I32 + 1, res.value);
-+
-+	arg1.value = 1;
-+	arg2.value = MIN_I64;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, BW_FIXED_MIN_I32, res.value);
-+
-+	/* Testing multiplication property: x * 0 = 0 */
-+	arg1.value = 0;
-+	arg2.value = 0;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	arg1.value = 0;
-+	arg2.value = MAX_I64;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	arg1.value = 0;
-+	arg2.value = MIN_I64;
-+	res = bw_mul(arg1, arg2);
-+	KUNIT_EXPECT_EQ(test, 0, res.value);
-+
-+	/* Testing multiplication between integers */
-+	res = bw_mul(bw_int_to_fixed(8), bw_int_to_fixed(10));
-+	KUNIT_EXPECT_EQ(test, 1342177280LL, res.value); /* 0x50000000 */
-+
-+	res = bw_mul(bw_int_to_fixed(10), bw_int_to_fixed(5));
-+	KUNIT_EXPECT_EQ(test, 838860800LL, res.value); /* 0x32000000 */
-+
-+	res = bw_mul(bw_int_to_fixed(-10), bw_int_to_fixed(7));
-+	KUNIT_EXPECT_EQ(test, -1174405120LL, res.value); /* -0x46000000 */
-+
-+	/* Testing multiplication between fractions and integers */
-+	res = bw_mul(bw_frc_to_fixed(4, 3), bw_int_to_fixed(3));
-+	ans = bw_int_to_fixed(4);
-+
-+	/**
-+	 * As bw_frc_to_fixed(4, 3) didn't round up the fixed-point representation,
-+	 * the ans must be subtrated by 1.
-+	 */
-+	KUNIT_EXPECT_EQ(test, ans.value - 1, res.value);
-+
-+	res = bw_mul(bw_frc_to_fixed(5, 3), bw_int_to_fixed(3));
-+	ans = bw_int_to_fixed(5);
-+
-+	/**
-+	 * As bw_frc_to_fixed(5, 3) rounds up the fixed-point representation,
-+	 * the ans must be added by 1.
-+	 */
-+	KUNIT_EXPECT_EQ(test, ans.value + 1, res.value);
-+}
-+
-+static struct kunit_case bw_fixed_test_cases[] = {
-+	KUNIT_CASE(abs_i64_test),
-+	KUNIT_CASE(bw_int_to_fixed_nonconst_test),
-+	KUNIT_CASE(bw_frc_to_fixed_test),
-+	KUNIT_CASE(bw_floor2_test),
-+	KUNIT_CASE(bw_ceil2_test),
-+	KUNIT_CASE(bw_mul_test),
-+	{  }
-+};
-+
-+static struct kunit_suite bw_fixed_test_suite = {
-+	.name = "dml-calcs-bw-fixed",
-+	.test_cases = bw_fixed_test_cases,
-+};
-+
-+static struct kunit_suite *bw_fixed_test_suites[] = { &bw_fixed_test_suite, NULL };
-+
-+int bw_fixed_test_init(void)
-+{
-+	pr_info("===> Running calcs/bw_fixed KUnit Tests");
-+	pr_info("**********************************************************");
-+	pr_info("**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **");
-+	pr_info("**                                                      **");
-+	pr_info("** calcs/bw_fixed KUnit Tests are being run. This means **");
-+	pr_info("** that this is a TEST kernel and should not be used    **");
-+	pr_info("** for production.                                      **");
-+	pr_info("**                                                      **");
-+	pr_info("** If you see this message and you are not debugging    **");
-+	pr_info("** the kernel, report this immediately to your vendor!  **");
-+	pr_info("**                                                      **");
-+	pr_info("**********************************************************");
-+
-+	return __kunit_test_suites_init(bw_fixed_test_suites);
-+}
-+
-+void bw_fixed_test_exit(void)
-+{
-+	return __kunit_test_suites_exit(bw_fixed_test_suites);
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.c
-index 9a5d47597c10..98ae4e8cd952 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.c
-@@ -13,11 +13,14 @@
-  */
- int amdgpu_dml_test_init(void)
- {
-+	bw_fixed_test_init();
- 	display_mode_lib_test_init();
-+
- 	return 0;
- }
- 
- void amdgpu_dml_test_exit(void)
- {
- 	display_mode_lib_test_exit();
-+	bw_fixed_test_exit();
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.h b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.h
-index 2786db9d0e87..d8fe38abd9bc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.h
-@@ -2,6 +2,14 @@
- #ifndef DML_TEST_H_
- #define DML_TEST_H_
- 
-+#if defined (CONFIG_BW_FIXED_KUNIT_TEST)
-+int bw_fixed_test_init(void);
-+void bw_fixed_test_exit(void);
-+#else
-+static inline int bw_fixed_test_init(void) { return 0; }
-+static inline void bw_fixed_test_exit(void) { }
-+#endif
-+
- #if defined (CONFIG_DISPLAY_MODE_LIB_KUNIT_TEST)
- int display_mode_lib_test_init(void);
- void display_mode_lib_test_exit(void);
--- 
-2.36.1
-
+> Regards,
+> � Felix
+> 
+> 
+> > ---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +------------
+> >   1 file changed, 1 insertion(+), 12 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> > index d6fc00d51c8c..03e07d1d1d1a 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> > @@ -625,15 +625,6 @@ svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev)
+> >   	return kfd_process_device_from_gpuidx(p, gpu_idx);
+> >   }
+> > -static int svm_range_bo_validate(void *param, struct amdgpu_bo *bo)
+> > -{
+> > -	struct ttm_operation_ctx ctx = { false, false };
+> > -
+> > -	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
+> > -
+> > -	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+> > -}
+> > -
+> >   static int
+> >   svm_range_check_attr(struct kfd_process *p,
+> >   		     uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
+> > @@ -1428,9 +1419,7 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
+> >   			goto unreserve_out;
+> >   		}
+> > -		r = amdgpu_vm_validate_pt_bos(pdd->dev->adev,
+> > -					      drm_priv_to_vm(pdd->drm_priv),
+> > -					      svm_range_bo_validate, NULL);
+> > +		r = amdgpu_amdkfd_gpuvm_validate_pt_pd_bos(drm_priv_to_vm(pdd->drm_priv));
+> >   		if (r) {
+> >   			pr_debug("failed %d validate pt bos\n", r);
+> >   			goto unreserve_out;
