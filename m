@@ -4,124 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D231C43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 14:28:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEFCC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 14:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4236811ADC0;
-	Thu,  9 Jun 2022 14:28:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B6C113AC5;
- Thu,  9 Jun 2022 14:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 902C412A93B;
+	Thu,  9 Jun 2022 14:29:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C2112A776;
+ Thu,  9 Jun 2022 14:29:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UTTpjqHU5No/qBap66aam0amFIa2IQ59wXeOkL0EvaIfML3dr/lM0EmuK2v7WUsj67TDGLGIJfM5n5W6CEjFBWKgsrtZjrTYsjLrrCVHJ5GxxDq6FzFV4IkmDwl2ofhHIPy3w6wRulZ8VOj3y/aTpohuFYD09pY+HBYybA+kckfQZOO56ly+YJ2YddHWbJdGKGZZAUqrDL2VntwzSOOjginGeBDX6cMqQZvyCj8EOuaOYWW3FewzBH1hCgDOr3vG6m5tOXHT6Z0QxubQPAPqKwYZ5sQa3NoEkckULGuK/nFNLbVoQ2nvrlb5eXfH2oG6z32E+HSv9RsmIyvyybNaxA==
+ b=Lzv2rx70dIdUtR01WmJM2dDmScFYiFT5wfwVFh8f6c9WFxaRIcJVR2KMjZMbhKpaJDrftqN6C8SDujid1XM73rYjpppmbk68iMfiOXGBsOqwzCUPGCMJf1eIdJEu6xAsNuf2VntjWvG0l+R8R5BJmiXv4IMztjLelYPvd25BmGA9h6IqfcMchCnlSLjg7XmZf7+pDl4ctLvTjrxZPifdmNSiiRgIohaSRHvqCKuRsxgWCfR0e1LKIcRSyB1onVQb+9oAiRgvqaKv8Qd+5s49ABCQb32qnzKBQEWjdWyg5TP3NrljLKUlru03Jfu/R86k+2DkfOynNqubd4j0lpZhzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oEV6QbqdW0MYjqsjLUiOke+QOzX4KmLkdLAUQowCleo=;
- b=WNRZtHtes+8ryUYzk6AzlWl3uRvVFMB0jRnomS4YyQpHmctTslxYk3fbHiGX5zyH/x9oY3c7KObGzEHLx6kM2bd9CN/nMMklOnne3raq6Oz6U/2ahfGmx5Hj7kkQ6QuLfzPB3d/cQi+ZrY6WuJaJQt72f6XxrxqeUsXZLhEiH8sICqrhmWkJwQaVg/UEqbQjlSWPWbr5EEbfFqD4j6FpLLrFmHyQZumbv2Ja7aTMFGhDFIks9onlivi0lhb/9b5lhSkduJqVJtmEXyMMBuvn9EhK+tRFKV1RZ0b1krL1bf+5NQqZOwle0TsK5vOOx2gq8cXWPTl88oITuzxR7Kk5mw==
+ bh=f/clUFfaHbe/6UVswTMCVE6ssoSsiiD5bk04vZJHDTs=;
+ b=B+chv6ZIuGtu1C/fLKmuBPIW8StwVg71ggSdDqGcQrrBvvUYNrbciLuMgreFC8eo2o941PzRl+OO8sUVaT6Lvs/gBXrUt8sJcoWKD5hUPKqNgoUDGrC0pW3MSqBpKnhxEoAFhF9Zri/XNGJYvLleXhC8B1++BVc4JQQ5YjaGLTayVkNuU74OiBhc1p3eyFxKiyr+wG4WAr+Qx+mYbw+2BlfzZyKHhDgU7AvzhdfHbDLJ73uLODg0tmUfFM05dTw4RaPNVbBiHKBQwgUFCqHorW6J3jGY5c4JG1mpWS1ujQdglKVtGI7Sav7r5sq1fCE2bAAPfMAJz6viVDrQBfeCzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oEV6QbqdW0MYjqsjLUiOke+QOzX4KmLkdLAUQowCleo=;
- b=ds1VoNP2Ba8zzEKVg3ie/vbI3/ZcnvL8xki+kSlIP1ZglwM8lN+hKOq2nrDF1mhqsZvYxr+G6Nri73MFfhgl3b54DYvT7BvAywzNdxHAhg/64JiYF2Jlosg8UyjdCo/N7qB85qzWeblfdA+OQDUYB8Sl58/pO/zBcK+I9dw1wpA=
+ bh=f/clUFfaHbe/6UVswTMCVE6ssoSsiiD5bk04vZJHDTs=;
+ b=KnxJcDwBktv9vRsfrhh+WdG3Pz0WzDUxoUu0HF35dERQQ9pGY765Iam2r2z5S9s98ZTqkZ8f7OvPhcOHWiA1Mia+BgtMjaCc+HejjloG9J3woGwzGWQYNqopg0KKmfqydHzPDsesI+bGPRJ44MLI3E26sFcUKqljhR3bn3Kd1E4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM5PR12MB4662.namprd12.prod.outlook.com (2603:10b6:4:a6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Thu, 9 Jun
- 2022 14:28:40 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::1cf6:2a9d:41d6:e8c3%4]) with mapi id 15.20.5332.012; Thu, 9 Jun 2022
- 14:28:40 +0000
-Message-ID: <a09dbe2c-c2bb-4eeb-f68a-fedbabcda796@amd.com>
-Date: Thu, 9 Jun 2022 10:28:37 -0400
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CY4PR1201MB0071.namprd12.prod.outlook.com (2603:10b6:910:1f::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15; Thu, 9 Jun
+ 2022 14:29:53 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e0fd:45cf:c701:2731]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e0fd:45cf:c701:2731%6]) with mapi id 15.20.5332.013; Thu, 9 Jun 2022
+ 14:29:53 +0000
+Message-ID: <d4a19481-7a9f-19bf-c270-d89baa0970fc@amd.com>
+Date: Thu, 9 Jun 2022 16:29:46 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH 1/8] drm: execution context for GEM buffers v2
+Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch
-References: <20220504074739.2231-1-christian.koenig@amd.com>
- <20220504074739.2231-2-christian.koenig@amd.com>
- <9ef430d2-1748-10eb-7708-ae8ad9d47804@amd.com>
- <a9b9129e-6881-bb6a-261a-8a30d25fc377@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <a9b9129e-6881-bb6a-261a-8a30d25fc377@amd.com>
+To: Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20220531100007.174649-1-christian.koenig@amd.com>
+ <20220531100007.174649-4-christian.koenig@amd.com>
+ <YqG67sox6L64E6wV@dhcp22.suse.cz>
+ <77b99722-fc13-e5c5-c9be-7d4f3830859c@amd.com>
+ <YqHuH5brYFQUfW8l@dhcp22.suse.cz>
+ <26d3e1c7-d73c-cc95-54ef-58b2c9055f0c@gmail.com>
+ <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0025.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::29) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: AM5PR0301CA0001.eurprd03.prod.outlook.com
+ (2603:10a6:206:14::14) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 506cd7a6-032b-406d-03e1-08da4a2458f7
-X-MS-TrafficTypeDiagnostic: DM5PR12MB4662:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB4662F4C708DE4B79FBBC7C9B92A79@DM5PR12MB4662.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 71cbccbc-8ae7-401c-070e-08da4a2484b8
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0071:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0071CFA353E81AF17041CA9483A79@CY4PR1201MB0071.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qts+GRZGheaA+oBowq17NWW7rsB1Rfal9okIsn+jdnObrwKiKYJ2OnE9VubfamdVcu10cfsqpYm76Xe68d3jT98kD7P9epGLeUiso33aMPds8Kukb5ACZM24N8HP9O7wGUZoX7S9jAaXGhJXQD+cOiF7hP5Fa13bFpA9HOSWRTWMUgBYp/+lLWd4Vdn+XEkhIfDcFIabPOuKRS3TC2KmteX63/K5ZWQ28YBOFOnm/dB5zl9lKoHySgBP8SQesi1u6Ep7opxcLQ1gikfyoVvFARs4DqqcL/zT7gTa4F6uE1DZqt4QKZM+jN0j61xSycIdsBCpd4ks3R61cuQz8/3MyRECjWY0Xtlpjluytuj+Mxz6GQCDLIYn+QMB96PKKR3ycpGRqjaldRX0Crkll60ycWJFOwHVvWYZGiP8fpvgXbBYIBHLOg2mMtiSZzC2fzaKPP02Cl8bXNuYZp7wBoVf9JOyolEC59QwbDwGPZiZMv0g1QytcIP/nbgEkwxUSxUezX7D2pFDkzWWTmGJ1x5cTgIZfeO0rY9bu82DdZo4EVjSp1ZR6ElID1Tw+p0xn/Z9dB3PUPuvRnHUvK/kxxyeM0U7IZBdPcDr9VMq84byU3ggZDinKV3UmS3kASmXhHjwD0NlcC/oU+5GXLhBls432igKAJ5jvsc2a99DBLJYozTMkrzFtRyVPAHEPpK3yiZSnecUhpX36b8+3fLeHDhLA7te5ZvHY2aADDzZHhlrhpPIZoTndxon1qdPTcJXYjq7
+X-Microsoft-Antispam-Message-Info: yvdW+L0/GbJE/cH0LzSzAgg8gravNlYhC7ukfEI+klAYhtZzMQmgopRzU0U4JpNVk2m+MDYHRjHxAXG3g7d3/pky4dkYuaPJeDeWTT4ArEMEP1fjYsTBr2LIKWvyS6FuwlyNmc4rcPDEw35CPGMQTEQ5j5fMBClCVFmJMLoFkCpp6fcwK0/2FS5F2cWbWmNwUXdKv5j8VfKuFA78gbrBrrPHd3JoE+xeWbI2Fb8Xp+wO9qn9Ka38QLL1Ciqsbl/8D0NdM50Quxvzzl6I5PrTW82XqD+Klg1IhSQyxaI6ib21b/iSy4EdPehxyRc87VIAn4GXuGed5kx/IKAHPCK7OLZvHLiIS0RHtqaBiTu+K5P0r+Z+1R3YlUyqWCZjnNZyq8hSETfck14j1ppU5NXCwWrMnQsr+Vepwi6K0L2OeOXDSbg801RhSr8UCmLtyBehY1p2i9qbumx9V2mu2E2q3Krco+2IJNtTI/GDVhYrXOLbBAJhimRf/F2P9Mik66cs9AWplJwYdMimoNW8XRZPjJGhS59vEhC+lh+uGBqoDw68/ibLTdtSe6BkrNk8IF1oykcsr+KhSl7E13+FSPGjp1apI/Cg6iWlrYpIxVwV/F9ZICiWcbxk8mnKu8VrM05RM+AcLXzvM/4bUdTTsWMnIDQQElXo/fVjkSMyNwFMxYoUB0ubADJEqcTMh+Sbg7TmwLtr79ipshdjKDLFan6OhBOL+sL1TksqVkBPG2vYi0fCxNshEhvo3WszLPF0hJ7W
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(44832011)(31696002)(26005)(6512007)(66574015)(66946007)(6486002)(5660300002)(6506007)(186003)(83380400001)(508600001)(2906002)(8936002)(36756003)(2616005)(38100700002)(86362001)(6666004)(110136005)(66556008)(8676002)(316002)(31686004)(66476007)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6512007)(186003)(6486002)(36756003)(31696002)(38100700002)(2906002)(110136005)(316002)(31686004)(4326008)(66946007)(66476007)(2616005)(66556008)(8676002)(86362001)(5660300002)(83380400001)(508600001)(7416002)(8936002)(66574015)(6506007)(6666004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmZjVUw2QXFqY0dYNGJFa3VCSUs0OXFEZlIwVWtpcXgybllteVRaTE5lTFFD?=
- =?utf-8?B?YUFwQUVqTUQ5a2dwUm9tcDFnSU95emdHc04xUHZXUmx0Mlgwc09iMHV3WFJC?=
- =?utf-8?B?eU5HTm5oZHBBZVpSOCs0WnN6S2NqajU5Zml0aWVqQkp1aTMzRllaM3pYNU16?=
- =?utf-8?B?Vm5VczJuYkZoNENkVTBCVWE2ekgvTkZHZm9jTTlFYkxDSDRXTGI3WngrMTJN?=
- =?utf-8?B?aDVLZEt2U3NHYXFXK3Y2VExDTy9yeFFMUmVxZ1BCTWd4aXdTKzZ1bDV0aFZ0?=
- =?utf-8?B?bHk0Y2V2cis2ZDBpek1IMGc2Qi9NQ25DUGQ4SUdaRHVQZVkwTlltaGZTdmxp?=
- =?utf-8?B?M2FhRGo1ejJ6RnlXV1VHYWV6T0RuQ2RMOVZhRmg0b1k0TXdoUWRJazdxVjY5?=
- =?utf-8?B?OVROMUV6cVJ4VFFMRDRGY25uWkkxNTVOaGdpa0pFdUI4T3MyeXE4WVdLL0Vj?=
- =?utf-8?B?ZHRYRnFtNlhtRTVraUZiUXBNWThKN0lMamloRWFISndUNFdsdzJCdEdlaXlP?=
- =?utf-8?B?bWhPS1QxeTFYSi8yM1RsYVlicDFWUEFDTmlNK1kvd2VXQ01Gb3lTbnlrcmFZ?=
- =?utf-8?B?ZTR3ZXVaWi9sRFU1MUEzUXRwUjQwZlRnRDNNeVNxYlZKUURBblpUQkVqS1Mv?=
- =?utf-8?B?ajNxZGMyRWxsVlVGMWpBZWRqMjFvSnZzTm1mMTlpYlhPRnZ6RXo0d1FETmg1?=
- =?utf-8?B?QUZNQWtweGt5dXRRZUNJaTNyYW05UFJ0bTJrNzJxRDNtc0Z4MGtCMGlyd0xv?=
- =?utf-8?B?VmxPZ3k3d3pRdVYzUVQvQnlxd3Zzbndhb251Vmp5aTFaVWlCM3RINnNZYldx?=
- =?utf-8?B?ZzIrTTBFbGpKQTlJYlBqcGV5RTFxM3dLL3R2U3ZDN3BZNkl5QzdpNXVpWW5x?=
- =?utf-8?B?bW92aDNsMmVqNzB6S1JLU2JDZmZ4eXVTTzFycDBydTBMTkxvT2V2R2JLQ2xp?=
- =?utf-8?B?RWp0UlpUbHdCQk1xRmhiTXd3TkV6bkwzMEQySW9ZamNpN3M1NlVrZTlCRTcw?=
- =?utf-8?B?OEg5RHFrVE9DdWVUNUtZTmgxc282WCt4OEU1RzVZYVZGOHBmcnEwUXlvTjQz?=
- =?utf-8?B?aU0yRVEwaHBuQXFaMFU2NG5JeUFrZVFlVVY5WkVHam5wUWtBbWVDWnp1V250?=
- =?utf-8?B?USsxeXZDWVBxeWdDc1J3eENKUTdSNHpQVTdnYWFPd3l2SHRnd2NlY0RwMjcr?=
- =?utf-8?B?ajkwVnBHc1RMZks4cW43eE11dXdseXY2SjhMOWRZaU5HUGRhSjVwck9DRnpS?=
- =?utf-8?B?dzdlRmluSGFRZklhdTVMZmVsYnAybnl5T2YvQXRjbWwwcEIrNFViNFlnMUZk?=
- =?utf-8?B?VDlLSWtEVkRpZTZ0L3hGN2dvKzVVTHRwaXZWdCtFNENaZWJXSmdXS3JQS2Uy?=
- =?utf-8?B?MWg4S1NsMVcxSmUxM0ljYkIyaDZJRS80UndkQlFOQlBuakg3bDZWUzN4SE9M?=
- =?utf-8?B?RnpFM3NydVEwYng0OFc5Zys1THQvb3VWdTIyakVUSzYxNUw3QUcwZTlJOW4w?=
- =?utf-8?B?alNMV202ZTM5ZzZpSWREWDlmQWxqbUt5VkUzc3U5eE4raHBVNElWUzg2MzRk?=
- =?utf-8?B?SFFhYWlmK1REdE1ma3ovUk5lYy9zaEZ1K0dOamNJRUlDc0JQUGNzRFp6anhj?=
- =?utf-8?B?NzIvSytlK1JFOGE2bUhDRjFhbHduZlVCcnlzMktvOXpuOUJteVNDd3Vxamoy?=
- =?utf-8?B?Y29ZYml0TEVwUThRcFhvYk1ObnNkYTZFUXNKejhMbkJHWEV1YnE5NDNLUXZL?=
- =?utf-8?B?VkRFZjUrVktwYmVFalJBbTJleGlWNHR3anpEbVFJU09GV1NETkNaOXNYaEZK?=
- =?utf-8?B?TG9zRlF0ZG54V3RLbmdiSDlvVUJJQmJEWlNSNHk4T0ZGZHNXU0VSRkR5d2FD?=
- =?utf-8?B?dXRrUDVjcGdBZEJuWUJxYWZMc01YVFNSWHh2U0lQU25adDFNdFJqdlNXTVN6?=
- =?utf-8?B?R01QT3pSeitZRXRhMC9XVUUydkNNMnh3TnRVNVVKZXFzVGwvdjVzaEx1eERT?=
- =?utf-8?B?QUtWcVNRaUF1ZVowMDFBS0luTzhvR29WYWkxbW1ZT2p6MCtkSHQwZHVXcXAv?=
- =?utf-8?B?V1FqVUlGZm83VmZhNGdRK1JHcWtqN2w1SU1ETjFDWTRIbDNqMU16MG1DZEZM?=
- =?utf-8?B?WmdxWEdWaWRUN0RQWkJhR2luMDZERkFkY01Za1FFOVExdUdUZ1g5M0h0UTJY?=
- =?utf-8?B?WC8yTnFWaUx0eVhpSTVKb2VhR3JaNHl6N1hJNXBocE9lSFpLZ2VJN3NZYmVr?=
- =?utf-8?B?MXBxeHdGd24vbk1VdmxvVFd6QzVkTFErRUF3cEl5VE5IekZUaWhWcG84b2hh?=
- =?utf-8?B?VENOdEl2R29uQlVQSUs5a1dKbmdhbWRLWWJQRS9oOHIvU0d6NlpBdz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NllGZ29EMmo0VGVUSElSWnUrN2tvTFNkL1dQVUlIa2ZLQjNYWkM0SGdOZWIz?=
+ =?utf-8?B?bE05ZnE2RHFRZWNadjUxQjJDRXFuc25Xd3ZFdXRkQVRsOEJ5MEVqZjdYZCtq?=
+ =?utf-8?B?TzhHZk4wc3JjZXJaYmZaWUJlclRocElHeDN6Smw1T1k3N3pEaml3aWlrd2pR?=
+ =?utf-8?B?dGVkOGdVaWkrbGo5YXg2Z2JXZDRMNTBueUcyb1o5TVNsc1Fod0VoZjQyVnhI?=
+ =?utf-8?B?WUF0Z2dIWUdYRGVMZkxkaVhpeVpwb2dmMDFTa00zKzEycGVqd0JNbTBQdDNQ?=
+ =?utf-8?B?eVhCL0hQVWloZWtLaitCMUoyVlJzQWxIL3lCRjZPUzNKWXVDOTNZMDhoR1po?=
+ =?utf-8?B?ckRqWUlpaEdXZHNjNEhTQVZMbElTVkltM3ZsVjZiK0hVVGZCdjB2RzlyOUI2?=
+ =?utf-8?B?THVycG5aMlFiZ0FrQVBrcVNRVTRrempyUzFhcjZBbU9ER3VOVlY5S3J0NGRJ?=
+ =?utf-8?B?NUFlVCs4TWdXMFBGdUM5RFlGTklQeWZpNzVwS0VxRVpVT0xKZUQvcVdncWh0?=
+ =?utf-8?B?WUl1d0dwRS90TVBCbmJwbUVXU2FYb1JNbjdWWTFWWkRRcDZFbDBlSFoxemd4?=
+ =?utf-8?B?MEp4MzNxKzcrbUhudGIvUkUxakRHYmtEUFVvZHlzMWRucFM2OFd1blVlZ09h?=
+ =?utf-8?B?UVdJWS9IRkgvbzdneGk5b2ZzV0RrUnJQaTdyVEpvZVArcGVLUHBIMEk5WURW?=
+ =?utf-8?B?dkVHN2V6YWFDcXNDclg0dzZiRXMwNDlmM0puWHNrQ0QrVkovMmM2V3V5WWJC?=
+ =?utf-8?B?NDExOGtVSzR0SHI1ZFBvK3ozZ0FoOUMzMjlZV3JxSDYxcDdtc0tJU01qN0tY?=
+ =?utf-8?B?RHNqdlhqV0dLYmJvZWFHc0lsY3E5YkhrdDdBbHg3aEVna3BUb01Sd3U2eUYz?=
+ =?utf-8?B?TjAwY0NuN2NlZFo0cE0xWWxZcVNGRjFkQUd0NGVUdkcrbE1vK3hkTFVUVkFu?=
+ =?utf-8?B?UWYxYzFzRkxINTY0RU8reExEemJlc3ZUSUFSbG5Vd21VZlQxbVVxdnRETVo5?=
+ =?utf-8?B?MjBIVFJMSDlSeThJSDlsSWQ0blg2d3k1YUtFdDdXMVU5OWJEYW9rTjJBTGRS?=
+ =?utf-8?B?N3FESUkyZmErbEdjcVZabGlYcGZoRTNxWDA5TkVxci9YMGJid1dROTh1eEh2?=
+ =?utf-8?B?Umh3ZWNIZTRmV1ZRSy9xK0lKWGZvcU4zZGNYNlVWUnNRdVEzNnhicjV5dkV4?=
+ =?utf-8?B?ODd5amYwVjkveEVvM3EvdE81ald0a3Y1MmozTXhmdTRqVzkzOVdWRjFualhx?=
+ =?utf-8?B?TS9rcW9RQW42dmVvbkt6OVRWanA2LzM3enkwZkpGWm1XQzJjQS9IQ0hKWVZp?=
+ =?utf-8?B?ZGRNdmwrQkZuWVlYT2xNK0o1ek1qYnNjeTJ6czN6N2NLa2ltMjBvVDhWNzBC?=
+ =?utf-8?B?c3JhM3N6Njh3cmQ0L3B4R2R3djZidGJhSVdRTXJrNUl6bTFSeHo4TTlqdXpU?=
+ =?utf-8?B?VERFdHFtQXZuMG5hckZxenFQT0RWZmJQMnNDckVrYzlXMmVDdFE4TloyeXVS?=
+ =?utf-8?B?S3JsMzBIZDJjNTBhdFdHM1B3Tkg3Q0E5T0I5WFFkVUhvdlBaWTZyamRDVDBo?=
+ =?utf-8?B?ZEgzQ2JnRnRlMU5YMTl1YUFHUm1CSTUzRkJzN25ldFB2YUdEaC9JRGoxNS9n?=
+ =?utf-8?B?WUZhQ25LaXhIb0UzMUFVZUtFUjFDVUJLWWFxSHhVcXk4T3IzeUhXMXpIRVRS?=
+ =?utf-8?B?MEx6RzlLR0todWYwcFo4TFdSeFJoK2JoeEp5eVpQTzlENXJidDVqZFBLcXB6?=
+ =?utf-8?B?b0dpWGNBM1ZDNDhPQjBKNnVsVmJFU1U1NFg0OU5lQTNKbWl3TnR3aU9BL3py?=
+ =?utf-8?B?bXJlT3ZzWUJuWTFOMGMxWnBobVZFMW84Qnc4OEp1bmJsY2xRY1VmeDFxUVNj?=
+ =?utf-8?B?RkUzdHdCMzRUUk1tRDh6RHpuNXZLSGxza25GemlzNHBYS2d0ZmN4c0pSKzFE?=
+ =?utf-8?B?WEdlakZPaEo1WW5DUmVtV2kvRzVrVXZydnZiUXJRMEpLNVRVWWJkd0dSUS9L?=
+ =?utf-8?B?WnZOMFNXN0k5WXBwUVg1SGZIY0hDZ3NvMC9zTGlKRVhNenU1Um1xREh0S3px?=
+ =?utf-8?B?Nm52ZVNoSmtCS3lnL3lkMEc0YVdQbUd1Rkp3ZDVpODU3c0wxaVI0RDBxMUR5?=
+ =?utf-8?B?VGRmcyszZFFldVFLUGhJSURLeGR6cXUvWFlnelBFdHg5cmFrK2cvVUVIWW1N?=
+ =?utf-8?B?UUFVR0NjQVVMdkF4d2lmOFp5UXQxQVJLT2REVHBibjd0cVlIaHVSaW9nMDBF?=
+ =?utf-8?B?cEF1cFhvcWJOdUlBRzQrenI0SW82UC8veGhHdENIeTF0MVlBN2hRbTBPanpi?=
+ =?utf-8?B?dmhtSEh3emxGR0dTSmg4K3FucmlLZ3crQzFnODZjWW4xbTUvQlJPbEIzWGsw?=
+ =?utf-8?Q?fAgUi3NbE3KdNZOeap2TDTu9HY2gEwOLi5OaSCk6CNSZS?=
+X-MS-Exchange-AntiSpam-MessageData-1: Pew/xJHfUKFYQA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 506cd7a6-032b-406d-03e1-08da4a2458f7
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71cbccbc-8ae7-401c-070e-08da4a2484b8
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2022 14:28:39.9770 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2022 14:29:53.4464 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rc+p8ox3TVGOnFq+jJmZNo8j+OGgqOTpaZvPM7dlhLeOjWsGFAM6qctH4OkERKXnqQp7VQ3vueBL+D/Go1uElA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB4662
+X-MS-Exchange-CrossTenant-UserPrincipalName: W0etqPElpk+SAOqxlRlAm6A5kwP0K//0IF+wqbiNsBYR0hJ1oYooOfx82uvcgdaw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0071
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,167 +136,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
+ linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
+ akpm@linux-foundation.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 09.06.22 um 16:21 schrieb Michal Hocko:
+> On Thu 09-06-22 16:10:33, Christian König wrote:
+>> Am 09.06.22 um 14:57 schrieb Michal Hocko:
+>>> On Thu 09-06-22 14:16:56, Christian König wrote:
+>>>> Am 09.06.22 um 11:18 schrieb Michal Hocko:
+>>>>> On Tue 31-05-22 11:59:57, Christian König wrote:
+>>>>>> This gives the OOM killer an additional hint which processes are
+>>>>>> referencing shmem files with potentially no other accounting for them.
+>>>>>>
+>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>>> ---
+>>>>>>     mm/shmem.c | 6 ++++++
+>>>>>>     1 file changed, 6 insertions(+)
+>>>>>>
+>>>>>> diff --git a/mm/shmem.c b/mm/shmem.c
+>>>>>> index 4b2fea33158e..a4ad92a16968 100644
+>>>>>> --- a/mm/shmem.c
+>>>>>> +++ b/mm/shmem.c
+>>>>>> @@ -2179,6 +2179,11 @@ unsigned long shmem_get_unmapped_area(struct file *file,
+>>>>>>     	return inflated_addr;
+>>>>>>     }
+>>>>>> +static long shmem_oom_badness(struct file *file)
+>>>>>> +{
+>>>>>> +	return i_size_read(file_inode(file)) >> PAGE_SHIFT;
+>>>>>> +}
+>>>>> This doesn't really represent the in memory size of the file, does it?
+>>>> Well the file could be partially or fully swapped out as anonymous memory or
+>>>> the address space only sparse populated, but even then just using the file
+>>>> size as OOM badness sounded like the most straightforward approach to me.
+>>> It covers hole as well, right?
+>> Yes, exactly.
+> So let's say I have a huge sparse shmem file. I will get killed because
+> the oom_badness of such a file would be large as well...
 
-Am 2022-06-09 um 03:18 schrieb Christian König:
-> Am 09.06.22 um 02:05 schrieb Felix Kuehling:
->> [SNIP]
->>> + *
->>> + *        ret = drm_exec_lock(&exec, boB, 1);
->>
->> Where is drm_exec_lock? It's not in this patch.
->
-> I've renamed this function to drm_exec_prepare_obj() but forgot to 
-> update the documentation. Going to fix this, thanks.
->
->>
->>
->>> + * drm_exec_continue_on_contention(&exec);
->>> + *        if (ret)
->>> + *            goto error;
->>> + *    }
->>> + *
->>> + *    drm_exec_for_each_locked_object(&exec, index, obj) {
->>> + *        dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
->>> + *        ...
->>> + *    }
->>> + *    drm_exec_fini(&exec);
->>> + *
->>> + * See struct dma_exec for more details.
->>> + */
->>> +
->>> +/* Dummy value used to initially enter the retry loop */
->>> +#define DRM_EXEC_DUMMY (void*)~0
->>> +
->>> +/* Initialize the drm_exec_objects container */
->>> +static void drm_exec_objects_init(struct drm_exec_objects *container)
->>> +{
->>> +    container->objects = kmalloc(PAGE_SIZE, GFP_KERNEL);
->>
->> Should this be kvmalloc? You're using kvrealloc and kvfree elsewhere.
->
-> The initial number of objects tracked should be small enough so that 
-> we can use kmalloc() directly.
+Yes, correct. But I of hand don't see how we could improve that accounting.
 
-Ok. It just seems weird to allocate with kmalloc and then kvrealloc the 
-same pointer. But if that's safe it doesn't matter.
+>>>> What could happen is that the file is also mmaped and we double account.
+>>>>
+>>>>> Also the memcg oom handling could be considerably skewed if the file was
+>>>>> shared between more memcgs.
+>>>> Yes, and that's one of the reasons why I didn't touched the memcg by this
+>>>> and only affected the classic OOM killer.
+>>> oom_badness is for all oom handlers, including memcg. Maybe I have
+>>> misread an earlier patch but I do not see anything specific to global
+>>> oom handling.
+>> As far as I can see the oom_badness() function is only used in
+>> oom_kill.c and in procfs to return the oom score. Did I missed
+>> something?
+> oom_kill.c implements most of the oom killer functionality. Memcg oom
+> killing is a part of that. Have a look at select_bad_process.
 
-BTW, if the caller already knows the number of BOs it wants to add, 
-would is make sense to add that as a parameter to drm_exec_objects_init 
-to save you all the reallocs?
+Ah! So mem_cgroup_scan_tasks() calls oom_evaluate_task for each task in 
+the control group.
 
+Thanks for pointing that out, that was absolutely not obvious to me.
 
->
->> [SNIP]
->>>
->>> +/**
->>> + * drm_exec_prepare_obj - prepare a GEM object for use
->>> + * @exec: the drm_exec object with the state
->>> + * @obj: the GEM object to prepare
->>> + * @num_fences: how many fences to reserve
->>> + *
->>> + * Prepare a GEM object for use by locking it and reserving fence 
->>> slots. All
->>> + * succesfully locked objects are put into the locked container. 
->>> Duplicates
->>> + * detected as well and automatically moved into the duplicates 
->>> container.
->>> + *
->>> + * Returns: -EDEADLK if a contention is detected, -ENOMEM when memory
->>> + * allocation failed and zero for success.
->>> + */
->>> +int drm_exec_prepare_obj(struct drm_exec *exec, struct 
->>> drm_gem_object *obj,
->>> +             unsigned int num_fences)
->>> +{
->>> +    int ret;
->>> +
->>> +    ret = drm_exec_lock_contended(exec);
->>
->> If this succeeds, it won't reserve any fence slots for object. Is 
->> that a problem?
->
-> No, the contended object should be re-presented later on and then we 
-> allocate the fence slots.
+Is that a show stopper? How should we address this?
 
-Ok. Along with all other objects, because drm_exec_cleanup will have 
-cleaned up the lists.
+Christian.
 
-
->>>
->>> +    if (unlikely(ret == -EALREADY)) {
->>> +        struct drm_exec_objects *container = &exec->duplicates;
->>> +
->>> +        /*
->>> +         * If this is the first locked GEM object it was most likely
->>> +         * just contended. So don't add it to the duplicates, just
->>> +         * reserve the fence slots.
->>
->> I don't understand this. Seems a bit arbitrary. Is it even legal to 
->> try to add the same object twice? I thought duplicates was for 
->> different objects that share the same reservation, not actually the 
->> same object on the same list twice.
->
-> Yes, it's legal to try the same object twice. That can easily happen 
-> when userspace specifies the same handle twice for a submission.
->
-> The other possibility is that we had a contention, backed off and then 
-> locked the contention first and then re-tried everything else once more.
->
->> Maybe you meant to compare with 
->> exec->locked.objects[exec->locked.num_objects-1], assuming that 
->> drm_exec_lock_contended just succeeded locking a previously contended 
->> object, and the caller retried locking that same object again?
->
-> Yes, that's pretty much the idea. But then exec->locked.num_objects is 
-> just 1 so that's equal to checking exec->locked.num_objects[0].
-
-Ok. I missed that after drm_exec_continue_on_contention the 
-drm_exec_cleanup will clean up the lists and we start over locking all 
-the objects. Why can't drm_exec_cleanup just lock the contended object 
-itself? I think that would make it more obvious that the contended 
-object is always the first one that gets locked and added to the list.
-
-Thanks,
-   Felix
-
-
->
-> On the other hand we would also catch cases where we lock the same 
-> object multiple times directly behind each other. Need to think about 
-> that a bit.
->
->>> +         */
->>> +        if (exec->locked.num_objects && exec->locked.objects[0] == 
->>> obj)
->>> +            container = NULL;
->>> +
->>> +        ret = drm_exec_obj_locked(container, obj, num_fences);
->>> +        if (ret)
->>> +            return ret;
->>> +
->>> +    } else if (unlikely(ret)) {
->>> +        return ret;
->>> +
->>> +    } else {
->>> +        ret = drm_exec_obj_locked(&exec->locked, obj, num_fences);
->>> +        if (ret)
->>> +            goto error_unlock;
->>> +    }
->>> +
->>> +    drm_gem_object_get(obj);
->>
->> The container already gets a reference to obj. What is this extra 
->> reference for? And where does it get dropped?
->
-> Need to double check this, might be that it's just a leftover.
->
-> Thanks,
-> Christian.
->
->>
->> Regards,
->>   Felix
->
