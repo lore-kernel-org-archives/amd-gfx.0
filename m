@@ -4,118 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C349DC43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 14:43:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B98BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 14:43:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32F1812AAFD;
-	Thu,  9 Jun 2022 14:43:01 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2050.outbound.protection.outlook.com [40.107.100.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 108AD12AAF3
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 14:42:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 930B3112FD2;
+	Thu,  9 Jun 2022 14:43:45 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADB5C1123D6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 14:43:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fh8F1OFGyQpCI8A0KbufHTNfZzOFPwDxMpPhurmkOMuu24uobcS58120r/VyDKFOSFBGrCK4ORPbEyLmi8L4DmbuWtLlMyZhNP01znMDxtonN1uqnG76eE4hwXish/wknqrCa0oG5/AYmOc5q2PWn5b5WCp7YlRRKH7fxbMYt1CMQSopaSpNW4ZOKsX4O8no/pMw/fesw6cZ9f19+KcToTZOrxQ8SB7VxOrZc4uMY6rtDPTbmGY9Q5hLFAK+7mwhZfUyzCFFhflKPWZDI5lz8zTFtbF1ACl1Hkrw7ZR68IIsul4CLTtrIJal83XjNtGuQJL7LbV9FVkAmvJzin9mag==
+ b=ayyGY6/RkZlMWXFqlCzira245ro9VeBYO/n38gnJwPBZ/2pzjr4HzU0YCOicpz+3U2m42rwKnQnZhxUH/egCib8O/mhHRNEW0N8ClCz6g9FpAojBE5XXtb/t1cUuilKBA/SIr6I86YfhANBJHEgXHwUqjDWc03LSbwKON02wGePDdNfN1+/PYY39JPd2olAbq0ECK+bDAgnLMhIuS7eaCRhER5PsQu1rB66/m8Lb/5XVz5Fy9sxLgyXwTfBnDlxnuDnYGYtJjN3JfFWTBNwgSSr6AlIt1G2MbPA9/GiuTFRVvZ9S/CPaprufJYK7F/ng9UigrTy+180Ni3oxRJPtLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NgoupK9yaDF2T7Ub4yamNCBb3HSrgqeWwzm37QEjW4E=;
- b=hlSgWQHkbl1Iu8YSc2DLJHgr3SFdFloGwBcEHL5eM3zorHefLh6TU9albtGb94yVlNlsjoJY0C8PS4YN3nRiIO8gfsVwwC4Zcvh0spOWwqYdGGTonE5lE6JjagvCucaEuqXNXgO02sOW6e4brTUFje6ygEMVt8iEWsi4WDpyo5rCaFatncJ7LNjgiX++lDCYkZJIU3otu6W2uYgBBZ4bCsofgq2VPmvW9mvCZxhUolpYAhPVKgaN2FPJCwNzen5jxpD6MElCe3GCZpv0rB3vNyzITDt2f88tdyF0s7KrZp334c6ksKLvhNgViqmknrHzrMdv2xElIFIWXXPKnec30g==
+ bh=G2VBd8NJYOZ3HAWEo9fP8+20IgfDj1kqY7QBrA1Z4hk=;
+ b=bIG5Ww5/OefTBo0vRGBK8Q6Xx15wiiawQunYoCJxBepRrplsbJxu04CaV+9ejv8oHcJ82K9jl5w0rFdv5rUpX2IYK6WZvn3Sme3CBm5S1+j4NMLew9MMYR8RKbr66OD91QiTQaAX1wi2R6VS3/CebQ1VxJKlU7aBtOkNoVtzOx5DURgbjQs7b7mrqDI/JfT0xrPs1VgJzeBpBObgHwEctqtaTxBEr0Z9D+053GI5cvPoF7m6ETXZ7/v+dw1gxoBtnAlZvSJP3o44tqGUZAZia4vucn0GhktfXSJjf3+EHePbLFlBXyxR5vpr6SD6nKmlD3TOktnFcZ5cFldBjy2RgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NgoupK9yaDF2T7Ub4yamNCBb3HSrgqeWwzm37QEjW4E=;
- b=1OGPZT8HdPV8f91JJUHWDrmF7sWWFEFs9f6aoYX/QZ20do9fYWirGclwzVoPTHoL3Fo2JvvWZEg8QKqDz0p8EPxjcwYKizpKr38UeVKH2lZ5zzARa3bNmQEEtsAqBC14JdDsYk5WR9UaxR82js9nBmdICX9km837KRTy7omhpnY=
+ bh=G2VBd8NJYOZ3HAWEo9fP8+20IgfDj1kqY7QBrA1Z4hk=;
+ b=q/m0eJmBTLsxIKKoUuBwkfwym7PB+l8mkDbFq6qaKWcdR1GKJhdAE9sQ6ejdrvHy+ona/bT6lRYB7eax1kqG8ec4CnfqWq7z4xkGyM0zG50HtD0vCeNR6OWsjW+Kl+HI5vQZmMtXTokdzWTueOCmx0DzglbW6ITqtXeptv/cry8=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Thu, 9 Jun
- 2022 14:42:56 +0000
+ by BYAPR12MB3144.namprd12.prod.outlook.com (2603:10b6:a03:d6::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Thu, 9 Jun
+ 2022 14:43:41 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::589b:a1f6:9c87:a8ba]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::589b:a1f6:9c87:a8ba%6]) with mapi id 15.20.5332.014; Thu, 9 Jun 2022
- 14:42:56 +0000
+ 14:43:41 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: fix driver reload SMC firmware fail issue for
- smu13
-Thread-Topic: [PATCH] drm/amd/pm: fix driver reload SMC firmware fail issue
- for smu13
-Thread-Index: AQHYe/TINNUaqhBk2EylXTdg8t0uY61HJm+J
-Date: Thu, 9 Jun 2022 14:42:55 +0000
-Message-ID: <BL1PR12MB5144182D6A555FC666D98BE3F7A79@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220609113255.2124596-1-KevinYang.Wang@amd.com>
-In-Reply-To: <20220609113255.2124596-1-KevinYang.Wang@amd.com>
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu/discovery: enable vcn/jpeg v4_0_2
+Thread-Topic: [PATCH] drm/amdgpu/discovery: enable vcn/jpeg v4_0_2
+Thread-Index: AQHYe+7AsDLeDHbES0i6uJRiRNSNUK1HJqus
+Date: Thu, 9 Jun 2022 14:43:41 +0000
+Message-ID: <BL1PR12MB5144AFC679D0BA40A8600487F7A79@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220609104909.2163905-1-yifan1.zhang@amd.com>
+In-Reply-To: <20220609104909.2163905-1-yifan1.zhang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-06-09T14:42:55.507Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-06-09T14:43:40.839Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 497f18f5-4556-4a2e-01d8-08da4a265746
-x-ms-traffictypediagnostic: DS0PR12MB6413:EE_
-x-microsoft-antispam-prvs: <DS0PR12MB6413236CC87458EB768FE893F7A79@DS0PR12MB6413.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 2d5de2c5-d7e0-4760-7b2f-08da4a267271
+x-ms-traffictypediagnostic: BYAPR12MB3144:EE_
+x-microsoft-antispam-prvs: <BYAPR12MB3144B32D183959F3B693F6EDF7A79@BYAPR12MB3144.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ACzXVWEC+ycMSpJW/PYV3IrxF2YsmTrxxEpRjdRUoAsvJox7mEgHN1aqsys/0wUZ1q9KNwYcpo/hvMwBn4ox3HDuH4AE8GxUPzHJfjK+oIMzegWXGeTCu0+b1PRfF+TOROyz3RBgfJQmVtIlF5lQt+TDHKbD57/egcUb5vswNOeA8PeuqvcHY+eDNdr/IYz7G2gBS2erdPzVYQL0TgyPhzpB9sDCikasFXIX8cXJ9yYwPBmHJZO2DDjzNXKAdvCuflCMqf+rj1LtcBw4F+GcAcG7BHLfVuqlpwqolQ4Uybg1Qq52DE2XOpFO0TuaaivwZob2nlllzlmaWHuntKD6SpGIxltHce12zZgOclZKDHKUjGnLKDL7zHGvufz9CH+RXSJVfbiHL046bwUrkT28BqbswWIPXO8hdKoR4mlZTQGdxl+Qeoy9hjifQEFBJi0X4G9GlXeUJxE7ZIGky/fRCIMWZOA+skXHJanbe7V8cVq9nkhnCpgf8ep3iSO8u13jCCLhQ+TwX+hMCveu3ps/MdqBsUA8/La1A6E/FjONwqdtcDhNXCqxQFECbVczmVvdsrIAbKgElcG12cfoIfOb4bE1ck8F+0d6TY9QHZBnyNg8CPBj5yhh9WQ1pU2Yn5d7rWWBq0fUmRZISR38p1IOERaOn9GFqnMYeK15QCuIcGuBBmcFsQRhgzq7ZUtopsibkCqQdH4NE4KZW1iTBo5R7Q==
+x-microsoft-antispam-message-info: ky60eeSj9Am19ucpEQ7Z/FkDCFQRFYUzSzeDflhKH+TpIVsJBoh3Eu1YKXUmaUthisZ2M+d2nC4wBVdXRFKobND0HX/uze0kL/eE0yQ14s5yr+72nQtsXFKfugbqfwRQYFetnlLIOax6vK6rQt99bnD2gSFckhwBZSim3wN0spDB6BnyTFcT+Dink8bGi3iAVT/XNPoasMzG9t3n7Vpss494Rbc8zHHDlSHz8ewjvFjDsyHU7ibiiOaEZ+ZDcu+aPwvlyTt+Zu48RJv23QQ0I/fGvtWnt/2nBP+lG7Lp3xBLbyFvxPJh9Wg14ZqIQ/T7yG+Q5jLIYZ9k4FuwkfGFY4LS+rttXxsuMHM8quRfHs4qj/Dgim8lEcJq3sjaujHPlU8K+BkXTO37CZ9C3aRWxg/Mf/RUNdJJ+wSfEpPes5BpGCgBHVOIlkah4QcNC/X8s+Sv1K+xo8ADnQ7LoP4thmUja1DT5N8vm6pFdrckg535jUyvlyb2lzezZnpv2hUgQ/x+K2eLRBpujz1hMeD1pWPgkgYAmP3i1s9RgN9mpwAFIUKKnTt9z9ZeZZcUCmpz9tfdtvm77/Q1Ki9Gzxm10zT2Qz7nE3atGQADdJ7fEXvmwB9YMKrEBpGnZkSi50b/31VL8Nl2kgQx7ZqHKAX8w50Krf89NfPXODsv18Q76l8F5rNnbtHkGMDFEmBKr0/CocmYhL4kDvUxkT/uRbf5VMIqlPf/UivOHoqh9k8vFZeLtEivD4C1nqNTuMai/u89
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(122000001)(52536014)(19627405001)(26005)(38070700005)(64756008)(76116006)(66476007)(8936002)(110136005)(54906003)(508600001)(71200400001)(9686003)(38100700002)(5660300002)(53546011)(66556008)(66946007)(316002)(33656002)(6506007)(86362001)(2906002)(4326008)(8676002)(186003)(7696005)(83380400001)(55016003)(66446008)(19627235002);
+ SFS:(13230001)(4636009)(366004)(83380400001)(38070700005)(186003)(53546011)(110136005)(71200400001)(2906002)(508600001)(52536014)(55016003)(9686003)(8936002)(54906003)(26005)(38100700002)(86362001)(19627405001)(33656002)(316002)(7696005)(6506007)(122000001)(66556008)(4326008)(8676002)(5660300002)(66476007)(76116006)(66446008)(66946007)(64756008);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HtnhLPC53S26hYyocBWby44m8ba/fPFsLMO/Is49tPpTczmq41U5Z3qlXuAD?=
- =?us-ascii?Q?wAb4L69ecPqARBW2c2lQnxoH+XdiPOzok1gVfpCR8goI5UMSh9hujxmSvPDj?=
- =?us-ascii?Q?eRd/0ahmpe7ZDFPtXcStOk6e68wWg9qNq64Dwnjc0B0SQTvjQM+jhvwODW08?=
- =?us-ascii?Q?CYYUT07VLSsgmdh+aq2Tm7JNv9wB/7v34nT+2gMRuaAaiU0kng7Di7lnYGKE?=
- =?us-ascii?Q?esoe4n6ZMDGID3MVLpHmvoqT13rdEvCILH2s3h1hQ26Q85g0Ru0aIkYZPYrn?=
- =?us-ascii?Q?ofTpchse9IUNkJCGzVbmgsHfN1LWPExtyZGIYSgqTEDTcrlUTukp0LiK4WXu?=
- =?us-ascii?Q?o0N7/hkrM8orUWH7Lz2UeBbS5eQD4+c5ZHYu90E5y7/bxMxhneh8NJq9bldU?=
- =?us-ascii?Q?miWf1VufptOkfI0CWlKG64Dghnqq+rUANoVykgAY2ysbBZ8dHP81x74DSA3q?=
- =?us-ascii?Q?Aw78g7nvVjlNEi6nwditvLPTBFPp/JwLrOzujSLuN7ddqG2uXOFl7P3BnEtb?=
- =?us-ascii?Q?fVFJe8JhNGrk9QvAzUjAa0NuroQFdlfcnFgIbANKT2xeUrmKBcFgErPkRhJU?=
- =?us-ascii?Q?LuuBVcc1xi2xgZaAHCJREoljoC395YMZYc16Ruf4AFlbmdQfUF9dUo11s1tZ?=
- =?us-ascii?Q?cvsBa9r84th0CzrA/+n8MXxbiS8LiBZ7JoWDUvcIVz+HG3UHH/2el0/8Ikhh?=
- =?us-ascii?Q?+g9mwTADQfMC4FMcafLkQ2Ox4X6GgbETqp/61xCcv3/fKPbKxvTGPCFzGJJm?=
- =?us-ascii?Q?U0BAuEAc23xwd04nlRLJVfjx7t2xdxPzfcqhqZ9Ej+9Tg5Lm/Vu2IIautGJ0?=
- =?us-ascii?Q?hrPbU0HJ/YTEE8Q78x10dd56/u+1bdyrJSnrzu2if8J50FB2BNminnagX1mf?=
- =?us-ascii?Q?joAO3oKDxzMnbhTMbTmKKEiAZ0HPJKh3ak8wvMyBr0NZuQjI7iPiCQN3Lax6?=
- =?us-ascii?Q?k2r3hSrQCtAf0N1wjcsrTKlyLDxpY7eHwgqi0137tdGlMOIq9AoDz2mt9Sil?=
- =?us-ascii?Q?ZjhJIRgnM47W7TAJKfv0oI768sBho+0rg9OCGyyijCZTlPUcBx5csX9rUlkd?=
- =?us-ascii?Q?ZmDmLmV5rq5ukcIBFeAe/KdlCzDTVk3xlXAdDOB4zIQeN8HWfz0aYvmCY8rB?=
- =?us-ascii?Q?6rzAuo/1IxVziyvDezU2Mj8FQjgZBvDSZP0txVaim0iYuzsz44qk49iJ0VRU?=
- =?us-ascii?Q?wknSYSQsrh+voBTkZ82T44f/vH5qXPBFGNk9ZKxTweiLbkewVU9QA73XoEYO?=
- =?us-ascii?Q?bh79iR4hdHjXvCm6Fn/9p2z4Ad4ZG/7GbnasvhyG3hj4ry14313f9FTo6mcK?=
- =?us-ascii?Q?B4DlW0fRSgOq/Kr4i6/OG+7uUlAARzTftovti7gouIsjC/L+4aLOHP7jSuJv?=
- =?us-ascii?Q?nwsLmMZSqDNcCJrQi3B6FLHMgUJRpjcFtpuNGdvaqt0ghYndhVjnR3qX3MTM?=
- =?us-ascii?Q?PuASZy1i2e2C+V4PEcYdWH1UodAVBOBJFQm/ht8hiTcZqwjgbCgRX+KuoIcm?=
- =?us-ascii?Q?ACiV+yku8jBl3+hmyMZEEEouHt1gtaHojobUfBYAWK27AzTGl2h8asrMjeUd?=
- =?us-ascii?Q?L584dl9uWGzZEB9E/lzqsuhNKC3lWlHZldnrrbKZoV08isyByqhA5MVxdcdG?=
- =?us-ascii?Q?B0PXLgDV/kG+SJAtAo1UzQkPxR3vUNVEl2WuINwPuXWOm5EcJX33ODTVeoET?=
- =?us-ascii?Q?iLZy1/E3S8dqIQjsLpfvqZ8Z3s5RX4+ePDCHtlvT4jP8DKlJUvSEy7Tw46dM?=
- =?us-ascii?Q?iE1xSprqbw=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cT5kmQ1hvZd2SBkD1WONNaZrgVGMQZMkZ1wZ7IwmxOYj047yAFtssuS3Mnof?=
+ =?us-ascii?Q?SOTDtPnOnHKsaR/saNaI2rcsTNryzuwBSHGT1PxDxHu7lQ4NiiaPuwXXBnlf?=
+ =?us-ascii?Q?FOoTRVC5/fI7GSlXoPaUIqX5qA51v3DLPEmC7QpnA1xYiLuv7u9CZnVT73G0?=
+ =?us-ascii?Q?yuUHd1PdhdI43WnUyPCTg8krSm2cFn8W9oTHnP/U39ipqa4DVjtz8QuScij2?=
+ =?us-ascii?Q?qSFsXZDb65XHvvV8Bv06t0jlyPEgpCOUqeBUD3TPiazgarXUj47FrmHes7fV?=
+ =?us-ascii?Q?1nEcOaeYxs0nzGUgK/hj0N/2s6X7ui5Pr7Enw3w5UCeLPc0Sy1Q/e5iR+eG9?=
+ =?us-ascii?Q?2C5r8yFqmbAcmdec85UR6vNyuPlEoSpaPYsSN3HTaY1I22mU5ItYzkh9mg4b?=
+ =?us-ascii?Q?eBBE3ut8XmiH11ZEY95Pp7Qg5DQ2i9ZZjqLK+pMwRmUKx6qNtUPPDctmBSwz?=
+ =?us-ascii?Q?ls7maCHpmkSd31RqyOxE0ZXpSN6GjdQnjvmKYcOq7Yaxl0Uj+hhNr1xa+IDl?=
+ =?us-ascii?Q?f8F8HPuptnu4CSnD9p6yczrxcbG9Sg17Uzc1jsz7+TWKrulj3BE7b5T1bknV?=
+ =?us-ascii?Q?09ATxFELP3yqpt9N3+/SuqaEUYCsNM6wQXTvlaTOVStz8Wy7a/ggp59IEbFU?=
+ =?us-ascii?Q?FbCYUAklutlcUvOvQFs8fUUJOhZ9edF3ZfB/MO6IhMpxd/suEr3h8rs7qK5a?=
+ =?us-ascii?Q?fds05L95yYTczesaZjT3xYudcSKdUo+xtpf9EQ9eUTL+NZiDUJmX3/pSB1Ax?=
+ =?us-ascii?Q?fRf2eOd7ecy/ZcDrhDlYI71OXc8p+usGiPH5oZoD43585M4fGfuGz5TzM8wn?=
+ =?us-ascii?Q?SoI21VNYiM0C3uWgw42xgzixtCHj8ZgOdNApWYn7Pbttb3wLGhVQOR35qYvu?=
+ =?us-ascii?Q?5CmuzBRfwSefFNd4sx1/gKWNa7UbMcs2wZmd8h4elZlfKBul6yXZWA2bvZS8?=
+ =?us-ascii?Q?DJZyCNRRlV7jN7TnOudbCgALjE1SCqK7d8tdmfRXe6I5/m5XkvZ8wR684ZTR?=
+ =?us-ascii?Q?plUavOp4ISHENka+NcgR73ltrgKsMNg/kvQJ+fEJibMqTXAD8AQJEqMLbtXp?=
+ =?us-ascii?Q?3Y4QtkPhnU7QWhhHLUKIyTG+5R5W+oH07TW9pWK/ivog0k2JQNVywN3jfV9s?=
+ =?us-ascii?Q?43NSdPwviwePEODFTFGN4XEBGEnYnTtlKLsjdTip57/OEjzJ0zZD3le1XTrn?=
+ =?us-ascii?Q?Ye0faDkCC7+h9kj69nlXCIYl7+3wrXVe2+m+si/2KQfNIodEnygbhNkUqH0j?=
+ =?us-ascii?Q?CJEHUvRAuPM94VepRu0MGF4rzkCd/gXGS1yGZx3u2bWPBZFOECs6alQlrUIb?=
+ =?us-ascii?Q?XDaJMRE4WAcup5LJajok4+F5jPYCbKyZJO8CSJ+3Qsnuj8HtZK8EC/yMHzEk?=
+ =?us-ascii?Q?bTe91koGWa17F/fOA2rD+jE1dupJXs99Ip/vjgL51FJMYmM7TGAYmRryj/wo?=
+ =?us-ascii?Q?aHHqr2S7tjocHT5O57OSJZdPHmXzpWImvtiqFvGXUs5nsrm2a+A5aj3OdQt2?=
+ =?us-ascii?Q?4XBZDZFDt8oViQWxhv+qi0IgLQ1Y9bFzalwSiMCsrddvp/92VJW/RGGZfPfz?=
+ =?us-ascii?Q?FrC+YmhIU2UPRNMrMKeZonjgQqKF70vm/SgqiFL8rYuux9DcIiNiJg2p4eQj?=
+ =?us-ascii?Q?0TDzNZ5XS9UzNNArKpb1kuca5UQRNZJpG+nAEHenMbxFkuOWxbGJowrMBvpm?=
+ =?us-ascii?Q?Hn7BNm9KxDyi3/5cPygu03m85UMW5g7Y6GEWN0cWecb0ZGBvYx++52ywC0Xb?=
+ =?us-ascii?Q?j5xl14U6Ww=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144182D6A555FC666D98BE3F7A79BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB5144AFC679D0BA40A8600487F7A79BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 497f18f5-4556-4a2e-01d8-08da4a265746
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2022 14:42:55.9452 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d5de2c5-d7e0-4760-7b2f-08da4a267271
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2022 14:43:41.3411 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: w0N+plZ1kleiqbe7ejVl6BR3Pexfi8CCE66BBbPH6ULpC0O0H3vC6KBatu3bI+6uyt6XZQd3MItY+J+1XKx8DA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
+X-MS-Exchange-CrossTenant-userprincipalname: vj205m3uTVZze5UJaMug6P7oGzPxrAWJP9Al5telP5Lry/DpvrnjPw3ZtCKsrBDsI5qi2Nr2z0K2sIgpWhq/Iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3144
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,143 +125,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Huang, Tim" <Tim.Huang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144182D6A555FC666D98BE3F7A79BL1PR12MB5144namp_
+--_000_BL1PR12MB5144AFC679D0BA40A8600487F7A79BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
+[Public]
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Yang Wan=
-g <KevinYang.Wang@amd.com>
-Sent: Thursday, June 9, 2022 7:32 AM
+From: Zhang, Yifan <Yifan1.Zhang@amd.com>
+Sent: Thursday, June 9, 2022 6:49 AM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang=
-@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amd/pm: fix driver reload SMC firmware fail issue for =
-smu13
+Cc: Huang, Ray <Ray.Huang@amd.com>; Deucher, Alexander <Alexander.Deucher@a=
+md.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com=
+>
+Subject: [PATCH] drm/amdgpu/discovery: enable vcn/jpeg v4_0_2
 
-issue calltrace:
-[  402.773695] [drm] failed to load ucode SMC(0x2C)
-[  402.773754] [drm] psp gfx command LOAD_IP_FW(0x6) failed and response st=
-atus is (0x0)
-[  402.773762] [drm:psp_load_smu_fw [amdgpu]] *ERROR* PSP load smu failed!
-[  402.966758] [drm:psp_v13_0_ring_destroy [amdgpu]] *ERROR* Fail to stop p=
-sp ring
-[  402.966949] [drm:psp_hw_init [amdgpu]] *ERROR* PSP firmware loading fail=
-ed                                                                         =
-                                                                           =
-               [  402.967116] [drm:amdgpu_device_fw_loading [amdgpu]] *ERRO=
-R* hw_init of IP block <psp> failed -22
-[  402.967252] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
-[  402.967255] amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+Enable vcn/jpeg 4_0_2.
 
-if not reset mp1 state during kernel driver unload, it will cause psp
-load pmfw fail at the second time.
-
-add PPSMC_MSG_PrepareMp1ForUnload support for smu_v13_0_0/smu_v13_0_7
-
-Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 8 ++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 ++
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 2 ++
- 3 files changed, 12 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index f57710790b8c..14ebc35d9cf0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -66,6 +66,8 @@ static int smu_set_fan_control_mode(void *handle, u32 val=
-ue);
- static int smu_set_power_limit(void *handle, uint32_t limit);
- static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
- static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
-+static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);
-+
-
- static int smu_sys_get_pp_feature_mask(void *handle,
-                                        char *buf)
-@@ -1414,6 +1416,12 @@ static int smu_disable_dpms(struct smu_context *smu)
-         switch (adev->ip_versions[MP1_HWIP][0]) {
-         case IP_VERSION(13, 0, 0):
-         case IP_VERSION(13, 0, 7):
-+               ret =3D smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-+               if (ret) {
-+                       dev_err(adev->dev, "Fail set mp1 state to UNLOAD !\=
-n");
-+                       return ret;
-+               }
-+
-                 return 0;
-         default:
-                 break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 26fb72a588e7..fda89e309b07 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -118,6 +118,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_0_message_=
-map[SMU_MSG_MAX_COUNT] =3D
-         MSG_MAP(GetPptLimit,                    PPSMC_MSG_GetPptLimit,    =
-             0),
-         MSG_MAP(NotifyPowerSource,              PPSMC_MSG_NotifyPowerSourc=
-e,           0),
-         MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,     =
-             0),
-+       MSG_MAP(PrepareMp1ForUnload,            PPSMC_MSG_PrepareMp1ForUnlo=
-ad,         0),
- };
-
- static struct cmn2asic_mapping smu_v13_0_0_clk_map[SMU_CLK_COUNT] =3D {
-@@ -1662,6 +1663,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_fun=
-cs =3D {
-         .baco_exit =3D smu_v13_0_baco_exit,
-         .mode1_reset_is_support =3D smu_v13_0_0_is_mode1_reset_supported,
-         .mode1_reset =3D smu_v13_0_mode1_reset,
-+       .set_mp1_state =3D smu_cmn_set_mp1_state,
- };
-
- void smu_v13_0_0_set_ppt_funcs(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index a92ab3266091..185058637f7d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -116,6 +116,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_=
-map[SMU_MSG_MAX_COUNT] =3D
-         MSG_MAP(DramLogSetDramSize,             PPSMC_MSG_DramLogSetDramSi=
-ze,          0),
-         MSG_MAP(AllowGfxOff,                    PPSMC_MSG_AllowGfxOff,    =
-             0),
-         MSG_MAP(DisallowGfxOff,                 PPSMC_MSG_DisallowGfxOff, =
-             0),
-+       MSG_MAP(PrepareMp1ForUnload,            PPSMC_MSG_PrepareMp1ForUnlo=
-ad,         0),
- };
-
- static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] =3D {
-@@ -1647,6 +1648,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_fun=
-cs =3D {
-         .baco_set_state =3D smu_v13_0_7_baco_set_state,
-         .baco_enter =3D smu_v13_0_7_baco_enter,
-         .baco_exit =3D smu_v13_0_baco_exit,
-+       .set_mp1_state =3D smu_cmn_set_mp1_state,
- };
-
- void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index 91f21b725a43..7dd098351a59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1888,6 +1888,7 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct a=
+mdgpu_device *adev)
+                         amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_bloc=
+k);
+                         break;
+                 case IP_VERSION(4, 0, 0):
++               case IP_VERSION(4, 0, 2):
+                 case IP_VERSION(4, 0, 4):
+                         amdgpu_device_ip_block_add(adev, &vcn_v4_0_ip_bloc=
+k);
+                         amdgpu_device_ip_block_add(adev, &jpeg_v4_0_ip_blo=
+ck);
 --
-2.25.1
+2.35.1
 
 
---_000_BL1PR12MB5144182D6A555FC666D98BE3F7A79BL1PR12MB5144namp_
+--_000_BL1PR12MB5144AFC679D0BA40A8600487F7A79BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -275,9 +185,9 @@ Content-Transfer-Encoding: quoted-printable
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
 </p>
 <br>
 <div>
@@ -288,191 +198,53 @@ Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Yang Wang &lt;KevinYang.Wang@=
-amd.com&gt;<br>
-<b>Sent:</b> Thursday, June 9, 2022 7:32 AM<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Yifan &lt;Yifa=
+n1.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Thursday, June 9, 2022 6:49 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Wang, Yang(Kevin) &l=
-t;KevinYang.Wang@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<=
-br>
-<b>Subject:</b> [PATCH] drm/amd/pm: fix driver reload SMC firmware fail iss=
-ue for smu13</font>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; Deucher, Alexander &lt;Ale=
+xander.Deucher@amd.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&gt;; Zhang, Yi=
+fan &lt;Yifan1.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/discovery: enable vcn/jpeg v4_0_2</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">issue calltrace:<br>
-[&nbsp; 402.773695] [drm] failed to load ucode SMC(0x2C)<br>
-[&nbsp; 402.773754] [drm] psp gfx command LOAD_IP_FW(0x6) failed and respon=
-se status is (0x0)<br>
-[&nbsp; 402.773762] [drm:psp_load_smu_fw [amdgpu]] *ERROR* PSP load smu fai=
-led!<br>
-[&nbsp; 402.966758] [drm:psp_v13_0_ring_destroy [amdgpu]] *ERROR* Fail to s=
-top psp ring<br>
-[&nbsp; 402.966949] [drm:psp_hw_init [amdgpu]] *ERROR* PSP firmware loading=
- failed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; [&nbsp; 402.967116] [drm:amdgpu_device_fw_loading
- [amdgpu]] *ERROR* hw_init of IP block &lt;psp&gt; failed -22<br>
-[&nbsp; 402.967252] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init fail=
-ed<br>
-[&nbsp; 402.967255] amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU ini=
-t<br>
+<div class=3D"PlainText">Enable vcn/jpeg 4_0_2.<br>
 <br>
-if not reset mp1 state during kernel driver unload, it will cause psp<br>
-load pmfw fail at the second time.<br>
-<br>
-add PPSMC_MSG_PrepareMp1ForUnload support for smu_v13_0_0/smu_v13_0_7<br>
-<br>
-Signed-off-by: Yang Wang &lt;KevinYang.Wang@amd.com&gt;<br>
+Signed-off-by: Yifan Zhang &lt;yifan1.zhang@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 8 ++++++++<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 ++<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 2 ++<br>
-&nbsp;3 files changed, 12 insertions(+)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +<br>
+&nbsp;1 file changed, 1 insertion(+)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c<br>
-index f57710790b8c..14ebc35d9cf0 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-@@ -66,6 +66,8 @@ static int smu_set_fan_control_mode(void *handle, u32 val=
-ue);<br>
-&nbsp;static int smu_set_power_limit(void *handle, uint32_t limit);<br>
-&nbsp;static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);<br>
-&nbsp;static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);<b=
-r>
-+static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);<b=
-r>
-+<br>
-&nbsp;<br>
-&nbsp;static int smu_sys_get_pp_feature_mask(void *handle,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c<br>
+index 91f21b725a43..7dd098351a59 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
+@@ -1888,6 +1888,7 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct a=
+mdgpu_device *adev)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_block_add(adev, &amp;vcn_v3_0_ip_block);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; char *buf)<br>
-@@ -1414,6 +1416,12 @@ static int smu_disable_dpms(struct smu_context *smu)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versio=
-ns[MP1_HWIP][0]) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 0):=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 7):=
-<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; case IP_VERSION(4, 0, 0):<br>
 +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt=
-;dev, &quot;Fail set mp1 state to UNLOAD !\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+<br>
+bsp;&nbsp; case IP_VERSION(4, 0, 2):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+sp;&nbsp;&nbsp;&nbsp; case IP_VERSION(4, 0, 4):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-index 26fb72a588e7..fda89e309b07 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-@@ -118,6 +118,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_0_message_=
-map[SMU_MSG_MAX_COUNT] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_block_add(adev, &amp;vcn_v4_0_ip_block);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetPptLimit,&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(NotifyPowerSource,=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PPSMC_MSG_NotifyPowerSource,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(Mode1Reset,&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Mode1Reset,&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; 0),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(PrepareMp1ForUnload,&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Prepare=
-Mp1ForUnload,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static struct cmn2asic_mapping smu_v13_0_0_clk_map[SMU_CLK_COUNT] =3D=
- {<br>
-@@ -1662,6 +1663,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_fun=
-cs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .baco_exit =3D smu_v13_0_b=
-aco_exit,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .mode1_reset_is_support =
-=3D smu_v13_0_0_is_mode1_reset_supported,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .mode1_reset =3D smu_v13_0=
-_mode1_reset,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mp1_state =3D smu_cmn_set_mp1_st=
-ate,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;void smu_v13_0_0_set_ppt_funcs(struct smu_context *smu)<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-index a92ab3266091..185058637f7d 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-@@ -116,6 +116,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_=
-map[SMU_MSG_MAX_COUNT] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P=
-PSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(AllowGfxOff,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_AllowGfxOff,&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DisallowGfxOff,&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; PPSMC_MSG_DisallowGfxOff,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(PrepareMp1ForUnload,&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Prepare=
-Mp1ForUnload,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] =3D=
- {<br>
-@@ -1647,6 +1648,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_fun=
-cs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .baco_set_state =3D smu_v1=
-3_0_7_baco_set_state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .baco_enter =3D smu_v13_0_=
-7_baco_enter,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .baco_exit =3D smu_v13_0_b=
-aco_exit,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mp1_state =3D smu_cmn_set_mp1_st=
-ate,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_block_add(adev, &amp;jpeg_v4_0_ip_block);<br>
 -- <br>
-2.25.1<br>
+2.35.1<br>
 <br>
 </div>
 </span></font></div>
@@ -480,4 +252,4 @@ ate,<br>
 </body>
 </html>
 
---_000_BL1PR12MB5144182D6A555FC666D98BE3F7A79BL1PR12MB5144namp_--
+--_000_BL1PR12MB5144AFC679D0BA40A8600487F7A79BL1PR12MB5144namp_--
