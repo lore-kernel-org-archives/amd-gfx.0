@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A161AC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 15:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC5EC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 15:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC23112221;
-	Fri, 10 Jun 2022 15:43:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB0C8112220;
+	Fri, 10 Jun 2022 15:43:08 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14A3112220
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 15:43:05 +0000 (UTC)
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F268C112220
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 15:43:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fwG9uDFaFwRuDYYPu/p6izEi8D3toPr2briCCthpZmmG5hUG4z5+A0iDGRXXx2lQTM2avb0JDcTaC37HGqsdVdZ7FMZ4vp4DIx3YVYXm4/S/bBlIt2fbCrmD2Gz6xrZaJWLWk3wqsLUsLp7yHmXGdw8yRJ1J4yjVklDz4mSYfSPWygTsohV6iY75fC5ky7SN08c/ODpQm1wFtKg6OxhT49Y1IbXYpSlKjiFhL9xuvc3rx/98VwSu92dAXgStjT/K0FkVc/+QT7P1NP6Unvt7kRqnzjmQWg1Jab1jmpLsmUXpviauLs8Nl0iQZBXZ0YU4aMGj+mbySEm5kFNNegpLug==
+ b=G3/Snnn9b6jItENmZuxR95LZrLTOUl3/J8eOnozUO38oEeEsvwBH/akBwrzdRnjv1fGuJ0G7faBW8Ip6/F9aoHVJjv7KdfTyaVj4+dfOy4KuQ8+9fbl5wJ8QMYjhJxM7n+69z4K3NPKqFOGEzuAEVXcdzi5L/SKr0j/Wgr/ke5z1RqaxdgrotcQ8vPhbi/0P438WTUHMQ+rOJDM4zWKtCwVslf4hJeipNuYrONPDWCVCqmWyrBwxEonul4jVKGdxEN293jHeo8pJhK06JStd17AmbZiRVKdX7DycAvvuKGxskr2wJ6MCcK2r+nn8mBcWeFJwKCtqLClFMX+dOEKmWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FHbYagYexPqr8+1thynRZW5xy9lfzsYQuKMtJhn3NOw=;
- b=jebiNZU2R0nyeDkxgyJAvcKL8ZJVJwpAf3rrb93n4hI80rLPlkCSxjWphXBFsTnDbJNIFaltapQmUdcjSzdFLnlj8lv3vXHUR8C2NmuzoqUgiO5ZAonJOIlU2CtqFLj8cimBFIEqRZn0VsrvF+GRIN6l0W6dVPn9Ei3fRGuAxPM5n/KtaOXVkXPkg59cqQMMvorWDzgjZgsz2Z0HvzTHjsCyBS0LucPJ1ZEMsnNS5KppVUos5DLaTd+d5tC//HfvlfsrgZGfLJmVVRffhLq3thNlhP1FaHQBcZGOwaHQuadthwZFEYgpHDagWHCucZcAxgB87uL7ERea0bKYz+26sg==
+ bh=jx1b+S53k2TekSa/mb3Hivz5I0j33t4JTxJHj3P5pvc=;
+ b=LyVuAT4Cq074aBaVfDOSm3i9wv7u9tLFBSVO8OHsD3+5u+wt+vnUL9lPV3VkWXVJjEljyKYEbFTmAcEDEDCHuFztMNwQIJCmsQJwj9x8MX9dl2ES9sDXYodGUAblGlhpeZGDVnyS7+afkGkzEY9m0B8uOBE/wU07ssLm8M3JVFZ0u57vkD+1EJkoM4JTYUpXbe5yBd3Kl5OcwOD6/Pdyxuh6+blaGBhq5uFmpX2q6rYHzZ/eUvewnKP2QjJ1bGmWyBQoH/nt+THF5DA5MW8AIh52siDgtGypAhxE58OVP9Ydr+RwRTFw2Nv8Tkwng9YVU01sePKs4QHCQrdPSARzVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FHbYagYexPqr8+1thynRZW5xy9lfzsYQuKMtJhn3NOw=;
- b=ue1zCCj4qmtpoCJ5gDVLBl1nt0i+QF+h3/TDy3oA986gzf0L/QzpomLiMCTaplHF31wavsZphrPc7vXYLlO9LGImZbYAQsdoyKkpc+0DlVUNq8b9BoJMrCvRVi5vYdfzitgFkYMSST+qn7zd0690X9vRF2iMqTrzFUayZr02ENI=
-Received: from DS7PR05CA0037.namprd05.prod.outlook.com (2603:10b6:8:2f::24) by
- MWHPR1201MB0191.namprd12.prod.outlook.com (2603:10b6:301:56::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13; Fri, 10 Jun
- 2022 15:43:04 +0000
+ bh=jx1b+S53k2TekSa/mb3Hivz5I0j33t4JTxJHj3P5pvc=;
+ b=OhWsyXdeghQtdyCWu9y84hpm8KP10jVF0apIDMB+9+SOYrIdMC5DhAU3Ip6PJ7uSFM2SpR92GCV7gQvlXIx8jK+StvO/+VpNe31fxx0evXCmc5kTuIn6u+2gaQlixPdsGZDdzTlMHmyR9JFLWOIUxLA3qkcYxdhE8s1mb584Y0s=
+Received: from DS7PR05CA0052.namprd05.prod.outlook.com (2603:10b6:8:2f::30) by
+ CH2PR12MB3830.namprd12.prod.outlook.com (2603:10b6:610:2f::30) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5332.14; Fri, 10 Jun 2022 15:43:04 +0000
 Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2f:cafe::a8) by DS7PR05CA0037.outlook.office365.com
- (2603:10b6:8:2f::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.6 via Frontend
+ (2603:10b6:8:2f:cafe::c6) by DS7PR05CA0052.outlook.office365.com
+ (2603:10b6:8:2f::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.5 via Frontend
  Transport; Fri, 10 Jun 2022 15:43:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 15:43:03 +0000
+ 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 15:43:04 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 10 Jun
- 2022 10:43:02 -0500
+ 2022 10:43:03 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/display: make FP handling in Makefiles consistent
-Date: Fri, 10 Jun 2022 11:42:46 -0400
-Message-ID: <20220610154247.338073-1-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdkfd: fix warning when CONFIG_HSA_AMD_P2P is not set
+Date: Fri, 10 Jun 2022 11:42:47 -0400
+Message-ID: <20220610154247.338073-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220610154247.338073-1-alexander.deucher@amd.com>
+References: <20220610154247.338073-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 614be1d9-6bcd-4115-d1ef-08da4af7e83f
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0191:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB019168D95F03D14DB1D65AD8F7A69@MWHPR1201MB0191.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 36e19b99-6566-49ea-a59f-08da4af7e895
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3830:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB38309C1D762421EDB1431208F7A69@CH2PR12MB3830.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UmdmxUwNhsuGtwOIx5eHIT81J7VNnHeFRt4OEagmYI2gzOqlW0WKBhb5rlF5tptMgr2OJ0KU7zASbjTxyLbh7F2GYxQBhrxlze33uA9FDLOuLbebpq/Qobo7Fppbv3wSOWxDrJ9NYoVuEpQBaRlA1mM2pA7VEYKQ6+dlcoSoKF4noKI+E8ue/N0Gk3d7lduR1pYwLyYjXzIt/pszl+hrmIkYhXxVnaQEzfKmKi5jZr2yELhUBSUbMH0FGx6XlzWF1Zp4e7IUlMe9RakbMjDDMCEQCWTG5OodylCPa1yOc6GexU4gSk+QSM+panGwxWgCHbUv5x5i6173nxB09oSoxwQbCZqgWWZZ2GCuPabYCq9ybe8W1n7/eGYFK3oHmREBeFmchTWmMUy/w05Ka7FzLwyDXKW9pWPL7amUaL8i04vohRb1xJDUi9bdnK80pDj3RXOYw+LxowXv/0Q9huJBjadb9j0ve6+4K1YzX2YIURSWq6RfTv7t0XfRtIv4KUgKLte+c0fZT7sTV54UXBqK2KdrDmnVwThX83IiMdlnsLzpyhj64BuHVKB8PSdd0dWeCRi3jkj10hz2fpF0Vr3Wlic967ueC3lP4m//kXS75CnA+x3W34gekdjOuLfd8NWyv0avRamVAmoVeD92hQ4krtq6nO5HGzNzbE5rMFOIjo93Lfqj1bOWKo4J2A2sQff//0nc4e55z+SyzJlyGGIDtg==
+X-Microsoft-Antispam-Message-Info: XpoMsQwpI1/jEw0Qm1iGu2p1eXk6PfHwaKpWEwLBmUVlbQGIr6UeVikDWhIkxF0ixmtbght9DlPpk6NQ3IpSF4gESc7hP75OPnJCf1lDBxnxoRFcPn1X6dVQi2oPp9UqP00sW2dYO82EvUFAIEe9kj1aP6Tce7n8gGMlxYBpO6bmRN5DgeuuJ308Ba8rYzckCBzzKgysFTx6NI7EDiJbs+6Ixt+BHPmG3MQi7VE2NRNBU7nq25zFtmrtomUBRVQmBvYdnKfGOsB4UvWxJGmlRbcDZKHToiUgfQH+K9InJEiZ4k1sVh5Yx/OSnklrkhEWpYWrdN/fQWlg8Ktekzoa8pK1iqtIWF+R9cCqFW0zar5Ap+Kv8e0H6ZoaBPHpA9ryD0VjMD8wEgK2cvzINqPVNr1mq8yo8HEafQyszne6Qe2qrRHDJnwK17JVpvzpIkY1bvZUYd+DfsytVAUHTrc1XVVT2zrHiT4fsPlORds1IP4dEiBCoJXJbsS75lC2yncqHnY/f/BmWDQbh/lZGm3FW68BJKhyPcr7AcByRCY7/A7BP2iJq/KOQb/jqpw/KZyjOphCzp6MUaix7wFaIokarRwChBAt/qbdBeH+wTBZwqrNcOdzA2bCTJjEwVFUCDuK9my+f4TWDBJb4vVEKxKHrwMpuN9cW6P4BL5Z3IEsXuz35S2kT9liAQZp/+1A3jmTAaiKK68aqTbpimoX2Ijrbw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(316002)(83380400001)(81166007)(70206006)(2906002)(8676002)(5660300002)(70586007)(4326008)(86362001)(36756003)(6666004)(26005)(356005)(7696005)(16526019)(336012)(47076005)(426003)(508600001)(2616005)(82310400005)(1076003)(6916009)(40460700003)(186003)(8936002)(36860700001)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(47076005)(40460700003)(16526019)(356005)(36860700001)(2906002)(5660300002)(1076003)(336012)(426003)(508600001)(186003)(83380400001)(82310400005)(36756003)(70206006)(8936002)(26005)(316002)(86362001)(8676002)(4326008)(54906003)(6916009)(7696005)(2616005)(70586007)(6666004)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 15:43:03.9283 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 614be1d9-6bcd-4115-d1ef-08da4af7e83f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 15:43:04.4907 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36e19b99-6566-49ea-a59f-08da4af7e895
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0191
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,170 +100,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the same pattern as the DML Makefile and while we are here
-add a missing x86 guard around the msse flags for DCN3.2.x.
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1542:11:
+warning: variable 'i' set but not used [-Wunused-but-set-variable]
 
+Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 3 +--
- drivers/gpu/drm/amd/display/dc/dcn201/Makefile  | 1 -
- drivers/gpu/drm/amd/display/dc/dcn30/Makefile   | 6 ++----
- drivers/gpu/drm/amd/display/dc/dcn302/Makefile  | 8 +++++++-
- drivers/gpu/drm/amd/display/dc/dcn32/Makefile   | 5 +++--
- drivers/gpu/drm/amd/display/dc/dcn321/Makefile  | 5 +++--
- 6 files changed, 16 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c   | 4 ++++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 7 +++++--
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-index c935c10b5f4f..7b505e1e9308 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-@@ -180,7 +180,7 @@ CLK_MGR_DCN32 = dcn32_clk_mgr.o dcn32_clk_mgr_smu_msg.o
- AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DCN32))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index aebc384531ac..88a0e3ac0f33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -773,6 +773,10 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+  */
+ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr)
+ {
++	dev_info(adev->dev, "amdgpu_gmc_vram_mc2pa: 0x%0llx, 0x%0llx, 0x%0llx\n",
++		 mc_addr,
++		 adev->gmc.vram_start,
++		 adev->vm_manager.vram_base_offset);
+ 	return mc_addr - adev->gmc.vram_start + adev->vm_manager.vram_base_offset;
+ }
  
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -msse
- endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 3e240b22ec91..411447357196 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1539,7 +1539,10 @@ static int kfd_dev_create_p2p_links(void)
+ {
+ 	struct kfd_topology_device *dev;
+ 	struct kfd_topology_device *new_dev;
+-	uint32_t i, k;
++#if defined(CONFIG_HSA_AMD_P2P)
++	uint32_t i;
++#endif
++	uint32_t k;
+ 	int ret = 0;
  
- ifdef CONFIG_PPC64
-@@ -191,7 +191,6 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
--CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float
- endif
+ 	k = 0;
+@@ -1553,7 +1556,6 @@ static int kfd_dev_create_p2p_links(void)
+ 		return 0;
  
- ifdef CONFIG_X86
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-index f68038ceb1b1..96cbd4ccd344 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-@@ -18,7 +18,6 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
--CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
- endif
+ 	k--;
+-	i = 0;
  
- ifdef CONFIG_X86
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-index dfd77b3cc84d..c20331eb62e0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-@@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
+ 	/* create in-direct links */
+ 	ret = kfd_create_indirect_link_prop(new_dev, k);
+@@ -1562,6 +1564,7 @@ static int kfd_dev_create_p2p_links(void)
  
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -45,8 +45,6 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
- endif
- 
- ifdef CONFIG_X86
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-index f9561d7f97a1..e4b69ad0dde5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-@@ -8,7 +8,7 @@
- DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -16,6 +16,12 @@ CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -maltivec
- endif
- 
- ifdef CONFIG_X86
-+ifdef CONFIG_CC_IS_GCC
-+ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-+IS_OLD_GCC = 1
-+endif
-+endif
-+
- ifdef IS_OLD_GCC
- # Stack alignment mismatch, proceed with caution.
- # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-index 3d09db3070f4..34f2e37b6704 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-@@ -16,7 +16,7 @@ DCN32 = dcn32_resource.o dcn32_hubbub.o dcn32_hwseq.o dcn32_init.o \
- 		dcn32_mpc.o
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -mhard-float -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -27,9 +27,9 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
--CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mhard-float
- endif
- 
-+ifdef CONFIG_X86
- ifdef IS_OLD_GCC
- # Stack alignment mismatch, proceed with caution.
- # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-@@ -38,6 +38,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mpreferred-stack-boundary=4
- else
- CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -msse2
- endif
-+endif
- 
- AMD_DAL_DCN32 = $(addprefix $(AMDDALPATH)/dc/dcn32/,$(DCN32))
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-index 5896ca303e39..e554fd6c16f2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-@@ -13,7 +13,7 @@
- DCN321 = dcn321_resource.o dcn321_dio_link_encoder.o
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -mhard-float -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -24,9 +24,9 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
--CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mhard-float
- endif
- 
-+ifdef CONFIG_X86
- ifdef IS_OLD_GCC
- # Stack alignment mismatch, proceed with caution.
- # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-@@ -35,6 +35,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mpreferred-stack-boundary=4
- else
- CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -msse2
- endif
-+endif
- 
- AMD_DAL_DCN321 = $(addprefix $(AMDDALPATH)/dc/dcn321/,$(DCN321))
- 
+ 	/* create p2p links */
+ #if defined(CONFIG_HSA_AMD_P2P)
++	i = 0;
+ 	list_for_each_entry(dev, &topology_device_list, list) {
+ 		if (dev == new_dev)
+ 			break;
 -- 
 2.35.3
 
