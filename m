@@ -4,35 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0209CCA47C
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 14:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA284C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 14:41:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F6D112386;
-	Fri, 10 Jun 2022 14:01:28 +0000 (UTC)
-X-Greylist: delayed 415 seconds by postgrey-1.36 at gabe;
- Fri, 10 Jun 2022 14:01:27 UTC
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB7A112389;
- Fri, 10 Jun 2022 14:01:26 +0000 (UTC)
-Received: from kaveri ([85.2.99.24])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202206101554279829; Fri, 10 Jun 2022 15:54:27 +0200
-Received: from daenzer by kaveri with local (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1nzf5m-002oKZ-Ca;
- Fri, 10 Jun 2022 15:54:26 +0200
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix GTT size reporting in amdgpu_ioctl
-Date: Fri, 10 Jun 2022 15:54:26 +0200
-Message-Id: <20220610135426.670120-1-michel@daenzer.net>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5211A113375;
+	Fri, 10 Jun 2022 14:41:11 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 349F910E918;
+ Fri, 10 Jun 2022 11:44:46 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id B60B7220D8;
+ Fri, 10 Jun 2022 11:44:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1654861484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=c2yNehDhwyQqo17iHRnrFd5b2B4xhq7rJYv9z6HMzWs=;
+ b=h+J12/+6dA8PdIqRIwQ/dq8CBxwmkTtmJN+f1WSXzGepjWfdRUp6+83ihl6g6uUh9msQ3L
+ qwEBdbkyLPmTrWlEDIIcEPJJpJ7gw2yT7LTS2tkfBcUYqvZX9r9bfGgNgjmvM1nTYHbhA6
+ iZFt0rZqsig307bTfbxENF96s0p7l0Q=
+Received: from suse.cz (unknown [10.100.201.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 48F442C141;
+ Fri, 10 Jun 2022 11:44:44 +0000 (UTC)
+Date: Fri, 10 Jun 2022 13:44:43 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
+Message-ID: <YqMuq/ZrV8loC3jE@dhcp22.suse.cz>
+References: <20220531100007.174649-1-christian.koenig@amd.com>
+ <20220531100007.174649-4-christian.koenig@amd.com>
+ <YqG67sox6L64E6wV@dhcp22.suse.cz>
+ <77b99722-fc13-e5c5-c9be-7d4f3830859c@amd.com>
+ <YqHuH5brYFQUfW8l@dhcp22.suse.cz>
+ <26d3e1c7-d73c-cc95-54ef-58b2c9055f0c@gmail.com>
+ <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
+ <d4a19481-7a9f-19bf-c270-d89baa0970fc@amd.com>
+ <YqIMmK18mb/+s5de@dhcp22.suse.cz>
+ <3f7d3d96-0858-fb6d-07a3-4c18964f888e@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F18.62A34D15.0003,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+In-Reply-To: <3f7d3d96-0858-fb6d-07a3-4c18964f888e@gmail.com>
+X-Mailman-Approved-At: Fri, 10 Jun 2022 14:41:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,44 +61,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
+ linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
+ akpm@linux-foundation.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel DÃ¤nzer <mdaenzer@redhat.com>
+On Fri 10-06-22 12:58:53, Christian König wrote:
+> Am 09.06.22 um 17:07 schrieb Michal Hocko:
+> > On Thu 09-06-22 16:29:46, Christian König wrote:
+> > [...]
+> > > Is that a show stopper? How should we address this?
+> > This is a hard problem to deal with and I am not sure this simple
+> > solution is really a good fit. Not only because of the memcg side of
+> > things. I have my doubts that sparse files handling is ok as well.
+> 
+> Well I didn't claimed that this would be easy, we juts need to start
+> somewhere.
+> 
+> Regarding the sparse file handling, how about using file->f_mapping->nrpages
+> as badness for shmem files?
+> 
+> That should give us the real number of pages allocated through this shmem
+> file and gracefully handles sparse files.
 
-The commit below changed the TTM manager size unit from pages to
-bytes, but failed to adjust the corresponding calculations in
-amdgpu_ioctl.
+Yes, this would be a better approximation.
 
-Fixes: dfa714b88eb0 ("drm/amdgpu: remove GTT accounting v2")
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1930
-Bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/6642
-Signed-off-by: Michel DÃ¤nzer <mdaenzer@redhat.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 --
- 1 file changed, 2 deletions(-)
+> > I do realize this is a long term problem and there is a demand for some
+> > solution at least. I am not sure how to deal with shared resources
+> > myself. The best approximation I can come up with is to limit the scope
+> > of the damage into a memcg context. One idea I was playing with (but
+> > never convinced myself it is really a worth) is to allow a new mode of
+> > the oom victim selection for the global oom event.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 801f6fa692e9..6de63ea6687e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -642,7 +642,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			    atomic64_read(&adev->visible_pin_size),
- 			    vram_gtt.vram_size);
- 		vram_gtt.gtt_size = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT)->size;
--		vram_gtt.gtt_size *= PAGE_SIZE;
- 		vram_gtt.gtt_size -= atomic64_read(&adev->gart_pin_size);
- 		return copy_to_user(out, &vram_gtt,
- 				    min((size_t)size, sizeof(vram_gtt))) ? -EFAULT : 0;
-@@ -675,7 +674,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			mem.cpu_accessible_vram.usable_heap_size * 3 / 4;
+And just for the clarity. I have mentioned global oom event here but the
+concept could be extended to per-memcg oom killer as well.
+
+> > It would be an opt in
+> > and the victim would be selected from the biggest leaf memcg (or kill
+> > the whole memcg if it has group_oom configured.
+> > 
+> > That would address at least some of the accounting issue because charges
+> > are better tracked than per process memory consumption. It is a crude
+> > and ugly hack and it doesn't solve the underlying problem as shared
+> > resources are not guaranteed to be freed when processes die but maybe it
+> > would be just slightly better than the existing scheme which is clearly
+> > lacking behind existing userspace.
+> 
+> Well, what is so bad at the approach of giving each process holding a
+> reference to some shared memory it's equal amount of badness even when the
+> processes belong to different memory control groups?
+
+I am not claiming this is wrong per se. It is just an approximation and
+it can surely be wrong in some cases (e.g. in those workloads where the
+share memory is mostly owned by one process while the shared content is
+consumed by many).
+
+The primary question is whether it actually helps much or what kind of
+scenarios it can help with and whether we can actually do better for
+those. Also do not forget that shared file memory is not the only thing
+to care about. What about the kernel memory used on behalf of processes?
+
+Just consider the above mentioned memcg driven model. It doesn't really
+require to chase specific files and do some arbitrary math to share the
+responsibility. It has a clear accounting and responsibility model.
+
+It shares the same underlying problem that the oom killing is not
+resource aware and therefore there is no guarantee that memory really
+gets freed.  But it allows sane configurations where shared resources do
+not cross memcg boundaries at least. With that in mind and oom_cgroup
+semantic you can get at least some semi-sane guarantees. Is it
+pefect? No, by any means. But I would expect it to be more predictable.
+
+Maybe we can come up with a saner model, but just going with per file
+stats sounds like a hard to predict and debug approach to me. OOM
+killing is a very disruptive operation and having random tasks killed
+just because they have mapped few pages from a shared resource sounds
+like a terrible thing to debug and explain to users.
  
- 		mem.gtt.total_heap_size = gtt_man->size;
--		mem.gtt.total_heap_size *= PAGE_SIZE;
- 		mem.gtt.usable_heap_size = mem.gtt.total_heap_size -
- 			atomic64_read(&adev->gart_pin_size);
- 		mem.gtt.heap_usage = ttm_resource_manager_usage(gtt_man);
--- 
-2.36.1
+> If you really think that this would be a hard problem for upstreaming we
+> could as well keep the behavior for memcg as it is for now. We would just
+> need to adjust the paramters to oom_badness() a bit.
 
+Say we ignore the memcg side of things for now. How does it help long
+term? Special casing the global oom is not all that hard but any future
+change would very likely be disruptive with some semantic implications
+AFAICS.
+-- 
+Michal Hocko
+SUSE Labs
