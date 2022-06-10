@@ -4,89 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E879C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 15:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EBF7C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 16:00:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAEB710E19D;
-	Fri, 10 Jun 2022 15:46:21 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBED10E2EB
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 15:46:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lj0BbkX1y85ZMHPA8gmRGbI9lukWcY8lPk3n4bUuuMQjN6LdZQ39GzNuC2pYJS/LcrJQMSXELbnuaFHdLzBpA/T2sIOmwsvZAkszm+XIsoHgq/SNVGRV2yzf4k67YZMyR7f9CPpdOixuOgyTqQyTIq2VWZ9bpjZ4UNRvprH7WWNtQ6+0FCawG2kk27Sy0nR60ryJhdyVlmxqIj1M9rhTwp1zq8hX+sgy1RurCTysStl6NP73cMfOUCttMBP4BvnbX2H+9jemNTprPrJtm+spr4uwZs2lbflfAkZmiH4aeQt6u2yGzTVPekM6aDhLrrCT43BDYs1SlaG0vDgt0qXPZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K7Vo3NrmwArk+Llzd4fcQuumMPSSNutEBYmW9ZHaKEY=;
- b=m98/AEnaKFA3mjNXG1lWNyK5Aut5o3ZvzB6/9PYW12efOoBTkGpvObzdiydure0CucIQECMecGZcExLX6iUQ4o1MSCPnlGtE/kbc9sH1VMY+Qovpup8D2e6bE1pJfqn330atJOyYEpzlB2Z6POxz4tcPKfM0qJ1EODUNyP1SD8T6Rc9ejxgLITuycNazKtpPkZp+ZcjFQ4Wvj6rwwZN0SZ464xNOdH7GxnUZ+yLnVPlscR2soCTlIrmu8qLx/eIcxTKPyE1ANgxb/6lOhlCgTXvB3rCoJpZ2KvGCtPmhziGdIVvqezfG8fDmPznMkUXgTUjZbLefS9fpcwqwecbQJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7Vo3NrmwArk+Llzd4fcQuumMPSSNutEBYmW9ZHaKEY=;
- b=FLb3RROwuj5kY4DgLKHTeKHC8o159QyGgeWNgsjQXUfnYeMMDXP0NWmE3qeQpJp8r9GB9hV83izdys/U9xY4t+RWFa8gW0ZO6XjDOZHOacCUAH/ddpribtAwFA8j0Z326I7jleXpu/LK6/fXA7KW8UMmKZmDOrr1bzq84UAJi8I=
-Received: from DM5PR1101CA0001.namprd11.prod.outlook.com (2603:10b6:4:4c::11)
- by DM6PR12MB3036.namprd12.prod.outlook.com (2603:10b6:5:119::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13; Fri, 10 Jun
- 2022 15:46:18 +0000
-Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:4c:cafe::47) by DM5PR1101CA0001.outlook.office365.com
- (2603:10b6:4:4c::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.18 via Frontend
- Transport; Fri, 10 Jun 2022 15:46:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 15:46:18 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 10 Jun
- 2022 10:46:16 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdkfd: fix warning when CONFIG_HSA_AMD_P2P is not set
-Date: Fri, 10 Jun 2022 11:46:04 -0400
-Message-ID: <20220610154604.338282-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1111123F4;
+	Fri, 10 Jun 2022 16:00:48 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCF6210EA8E;
+ Fri, 10 Jun 2022 16:00:46 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id h187so22980591oif.4;
+ Fri, 10 Jun 2022 09:00:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=xTaP75rEEOCgzDrru39XYNtodN5gIuoAFqXs5KWje9A=;
+ b=mWD4TFocKJWvg6wRvCjHbilNC4Xe5Dooig19VsKxKhJdtQBfeIstWHMhdhdf9Tb8M+
+ Uia6L23Cz8Rd+xrBhkn/aIb8nuY5Yg454G3XjM/I0/fGb5kntNFUapcEFMi9UG4re1SV
+ 6MGViP/X0nmJsu2wgMkZqEFhJlQQaCyscFXJGW4zJ/49a3C3JMoY0ZjeniYU5jcanxin
+ 6S035wiL7S/RIT/VB6nNecTg0wneijpxZN7ye6I84sf5EH9N1nYF8yXQ1bSbsyIHyKmA
+ MeiXNu+Biiac5BYXcv9TXT7XTnvcOQN5g8Q5gzAyu+SgYA4SpjXYglwvqzMNyZoxqzIQ
+ U/UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=xTaP75rEEOCgzDrru39XYNtodN5gIuoAFqXs5KWje9A=;
+ b=hhmbmxEH9V9UcG98i1orjPdaLq7VuuNc+ieJSh1Dr10DnbRBeiw5IC6ALMEBKwh6cQ
+ r7mmkdBxk+3laeD3xAfqJcVMdnjsrwnFAuzf9MFnUHrqIgAUOqFDgNcwDTY8/WwQ7jgp
+ 8WoJrDiZK90NRzXopEDbUPxhizpt0UO4w3KgRKU0o0fywSAOoHqC7pCTLy0l1KvHZ4zT
+ zAldgbrA3EiVZY916+U5htw33Y3Q9WWWWeskS1nPojoJRTShV8LCSgVt54k5kutfQjuE
+ 4nkN7mHHReCXR+tD6qXaliJCFdX2OrD/I0HJuD3WgmAL9UyzfIlGCmtJZsCt7gBnGovk
+ 4+9g==
+X-Gm-Message-State: AOAM531QJ4YWjOvpDdVmDZRe8295TQ7ZQLanYUyaGndDuVLJ5/SVa0Zo
+ xGeQtrhhoXpANtqLgXx4wpg0iMfid+YsGZjX2e4=
+X-Google-Smtp-Source: ABdhPJzp2bufZPOpt3z0DYKTW5sZiyFfVIRrHXwCCNUgHR2nUcUN0Mo41zswRwLyvmRtpFsPDwe80PJjIPqZ3MlLv/4=
+X-Received: by 2002:a54:4f01:0:b0:32e:726c:bced with SMTP id
+ e1-20020a544f01000000b0032e726cbcedmr250347oiy.253.1654876845780; Fri, 10 Jun
+ 2022 09:00:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 192d3a4f-adfd-45df-ade1-08da4af85c15
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3036:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB30366B3BA2FCDC1F852EFCD5F7A69@DM6PR12MB3036.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3CNOtLgo0pseMth77BChjTwRQj2U2QoF639woHgRdt27n58VTbSPLrAd2YvuufN7xLwDoDfuwkJrrosAW4zewQMDMSVIJn99DiNhbYmrI8W7ZA5b6ECS/PCPzkhDl+hGnXGoln/TOq19CK/4BW0AFPp5XY+kSwTaRI/lAIp+kExszQgoGj9t9hBIDlHqmhWoiPKGRuwpzXX8HYT8x0G/iyBjln3wkUq45W5Qn5cwmePJ4vjAyWhU3tVeUgK0xlY9X6JG/gjkskRwG5a/dgfxCCDoh125wi0jA7dQo8chnhkypCt8eYJYMV4+GVPbu78or36DrqSNTQqor4GLdEDiu7Ym6xjQtOSzKSfxLZwKSjqgebnuoPdfj47TlWvH5RDsP0luJeQpmtofBRxnuVRwUXo/RP9EDPa0iToXJatIe/EkL8PzereKjjiCnHSicf6vG3hLWAX2UhV5Bt4aCx7TNwcPfXUnhON+bnnjw2QAhBkAClblfq9YLImbxiKwwAmAE+TIkjtfst63Ohs/a9+U8uiMkDEH38/yaodLc86mBYnCxIepjHUtC1FT59wx0KDiOnIpiODJxITXZnkozET0UFTZKc2m+7TxL+zoeaAdFdgYG7/dmKqK3KP5k13x7KQKzEjeuyhgtpG9rbAc/ZhPv20f8I2Eaz139aDI/QeELL5rcheHH+3LWX8RFNQQo8oNWv1cDDwo7V1C4ITZddtpMw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(336012)(47076005)(426003)(2616005)(2906002)(8676002)(7696005)(16526019)(186003)(1076003)(4326008)(26005)(508600001)(36756003)(6916009)(54906003)(6666004)(36860700001)(8936002)(82310400005)(316002)(5660300002)(40460700003)(81166007)(83380400001)(356005)(86362001)(70206006)(70586007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 15:46:18.2522 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 192d3a4f-adfd-45df-ade1-08da4af85c15
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3036
+References: <20220610135426.670120-1-michel@daenzer.net>
+In-Reply-To: <20220610135426.670120-1-michel@daenzer.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 10 Jun 2022 12:00:34 -0400
+Message-ID: <CADnq5_P-OLS_nAA738V4tuqXFKGMm-=sZVE_FoWSEAVnkk7sFw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix GTT size reporting in amdgpu_ioctl
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,51 +63,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1542:11:
-warning: variable 'i' set but not used [-Wunused-but-set-variable]
+Applied.  Thanks!
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 3e240b22ec91..411447357196 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1539,7 +1539,10 @@ static int kfd_dev_create_p2p_links(void)
- {
- 	struct kfd_topology_device *dev;
- 	struct kfd_topology_device *new_dev;
--	uint32_t i, k;
-+#if defined(CONFIG_HSA_AMD_P2P)
-+	uint32_t i;
-+#endif
-+	uint32_t k;
- 	int ret = 0;
- 
- 	k = 0;
-@@ -1553,7 +1556,6 @@ static int kfd_dev_create_p2p_links(void)
- 		return 0;
- 
- 	k--;
--	i = 0;
- 
- 	/* create in-direct links */
- 	ret = kfd_create_indirect_link_prop(new_dev, k);
-@@ -1562,6 +1564,7 @@ static int kfd_dev_create_p2p_links(void)
- 
- 	/* create p2p links */
- #if defined(CONFIG_HSA_AMD_P2P)
-+	i = 0;
- 	list_for_each_entry(dev, &topology_device_list, list) {
- 		if (dev == new_dev)
- 			break;
--- 
-2.35.3
-
+On Fri, Jun 10, 2022 at 10:01 AM Michel D=C3=A4nzer <michel@daenzer.net> wr=
+ote:
+>
+> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+>
+> The commit below changed the TTM manager size unit from pages to
+> bytes, but failed to adjust the corresponding calculations in
+> amdgpu_ioctl.
+>
+> Fixes: dfa714b88eb0 ("drm/amdgpu: remove GTT accounting v2")
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1930
+> Bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/6642
+> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 801f6fa692e9..6de63ea6687e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -642,7 +642,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>                             atomic64_read(&adev->visible_pin_size),
+>                             vram_gtt.vram_size);
+>                 vram_gtt.gtt_size =3D ttm_manager_type(&adev->mman.bdev, =
+TTM_PL_TT)->size;
+> -               vram_gtt.gtt_size *=3D PAGE_SIZE;
+>                 vram_gtt.gtt_size -=3D atomic64_read(&adev->gart_pin_size=
+);
+>                 return copy_to_user(out, &vram_gtt,
+>                                     min((size_t)size, sizeof(vram_gtt))) =
+? -EFAULT : 0;
+> @@ -675,7 +674,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *d=
+ata, struct drm_file *filp)
+>                         mem.cpu_accessible_vram.usable_heap_size * 3 / 4;
+>
+>                 mem.gtt.total_heap_size =3D gtt_man->size;
+> -               mem.gtt.total_heap_size *=3D PAGE_SIZE;
+>                 mem.gtt.usable_heap_size =3D mem.gtt.total_heap_size -
+>                         atomic64_read(&adev->gart_pin_size);
+>                 mem.gtt.heap_usage =3D ttm_resource_manager_usage(gtt_man=
+);
+> --
+> 2.36.1
+>
