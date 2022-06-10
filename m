@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333A0C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 18:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20100CCA47B
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 20:30:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6E9112154;
-	Fri, 10 Jun 2022 18:44:24 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E282112154
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 18:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A58113BCE;
+	Fri, 10 Jun 2022 20:30:01 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 001C4113BCC;
+ Fri, 10 Jun 2022 20:29:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GOVuznyk+QI3yPwjrQSQ/3/3wlFwUSFrrqypaKuVrYpgtQtPVqSyrWMrl9B0S3qYFeBtsRjbsHh4b3lNTbdkPKN7EBuNDSzc0Nnpr4QVwZqKGZPT1fpQSf6EGWgpR4msMid1SAouXOeCMsm2SdYvmv3Z2jPF3Y/jV/a74t/qjqBKwaw+IwQp+kWv5Bck+ifCs8YQli0mYmBDjVDBqh2LejJeht6eXI2Wt6oq6OLdFf/r99lmZa3t12lKxYlWq+3gwnMH994SM0A454iggs7bkj9m+Rv5XMRhYbz8iuq/82z4PHDcVTtiCiriVyvdApQzEuiCa+pgzk2pt8zI/rwh2A==
+ b=C7WZTAKUvSW7yK5SpDvYCrtPuA2O+HCBlukyH3Ft5qLBjSlVxpQ8Wg9kXs9C9m0qE2ZHYPW9i3yfUEHp7AXnvxhGG+1jVPtLVKsu7eto22JGqC8QUdx6xuWLA40J/TFvbMmjBnv6mD72a+aByJRuhKZB6sES1pDNjwIJtNF+bhQKgrzXId4Il2ftNHk60toVjquz/fR9xBvO6dwkA1XqXVlpT1aNYgNO2MK9rr52IXWy7+ev2natfkds+Ihq06lGYp61Xnz57jcvrxbHxuJME926XcoYmS7UQuYRuCfQOGQIVGJCuwxo5S4V2i+tKwxN8Tq/W/i638UgoaA1UJAfvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T/meOLqpBFk1qmBw/nyBzXotXdtUYMg9RcZYHamcvXk=;
- b=a7QAazMSEsf9z8+X22LNxtcFhph8kM7fQEjJkHJCJcQ/ZOdTwxiFXwJApOzhRD+tgKesPqYxY22Rry3+29gS75xIsQbePslQ9aPnep3KES1BC5VWM+pDsEXnV1kRBbR9GshLBfkzxc442/GudPiY9v3KllNoXz4JhD3ThobfzDc6/a7us2pzeTq9lhgrZeH57oytak76+cismH6yw4gvrOqB9CbSVBOf8eGuzxffkcwqqmXdFczz/MxHcoX6t03v33Q5wa1taRzNsFxmlLqICAfuFE7kmBr93prSgqALsESbqtyz2t5+RGP7MlNpeeJZ30r2mgXmYiDBpBCzxtlpsA==
+ bh=KEAgV0nc3aNZuY1SBV6F5CsKkO2C3VaFw9Gvo3ZOCzE=;
+ b=WFPEjl+d5vqmR1+iFvQpBg/DYTbUYhSI/g9QFbfipDfxc7B8cJU/FHHPOYW95Fc9+Ukh8ibq30o2VtTKGqkxIzubGTvvDAw4090DiPKZdB+RzWrzgoRQsTzx9xAKjdShgJitcWh2a395SJOqdhJ0nWN/L8slBSQvnvKAs0W4iWjTkTcDRPyl0IbxVp03PECl/bnBEO0l376t1oKGRbn9ESA26utMxHUj9EBFS/gr5V+lORDGTNO0QClylxcoukwReusVduuGvjzowgOxR4PHQTWoR3UPwSYqQD69mjvDcmlAiDh2M28+2hfeZ9UZHALx58dVLIUrzytiIbqknVs2YA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T/meOLqpBFk1qmBw/nyBzXotXdtUYMg9RcZYHamcvXk=;
- b=O7vM44u3xUxs86GjbCt8zXQakFTbtEQbm9Nm/E1fesISosLu1/Hox5OlxObKk9RcpLqQ3XiMJXQzaZpr0e9Ug9lfGFNheJaA+/myS5+c788iB9r2zgx0xRKFkGmEsn9DBZjX+QQJkP4TTz0D+3JSH9P5QnB7+BAlmlA7QaplSeM=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MWHPR12MB1549.namprd12.prod.outlook.com (2603:10b6:301:10::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Fri, 10 Jun
- 2022 18:44:19 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::589b:a1f6:9c87:a8ba]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::589b:a1f6:9c87:a8ba%6]) with mapi id 15.20.5332.014; Fri, 10 Jun 2022
- 18:44:19 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/display: dml: move some variables to heap
-Thread-Topic: [PATCH] drm/amd/display: dml: move some variables to heap
-Thread-Index: AQHYfO8yE/Eppr3HXkCVhsHqweCYiK1I+j3Y
-Date: Fri, 10 Jun 2022 18:44:19 +0000
-Message-ID: <BL1PR12MB51440F3E4EA2D40E9338BBA4F7A69@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220610172603.529561-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20220610172603.529561-1-aurabindo.pillai@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-06-10T18:44:19.017Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=KEAgV0nc3aNZuY1SBV6F5CsKkO2C3VaFw9Gvo3ZOCzE=;
+ b=AbYKvz0w/1k8HxIqbBAnCNhfhNFzG7pC/4LYRwEicvBOvYMlQ7LmXqROxz5e7DXdocu08amz94a3W8LNKbPWFk02mTfIt+kh7kNRmfc7CrHk+D74O3baXqroP437qkY83fsaxRFb/U29LOBnpONMgHmGxM8kzNatrPOOp3ylDfI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c8fcb4bd-d9e9-46f5-0121-08da4b113a93
-x-ms-traffictypediagnostic: MWHPR12MB1549:EE_
-x-microsoft-antispam-prvs: <MWHPR12MB1549ABFE565078B88EE811E8F7A69@MWHPR12MB1549.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BYaY86LZE928ltdJHz9ddzhQgK7hR33+zlaL9dOIPSLFG9jlYgUPsFZsZoCY4fejO2wcZuGnTtN7DEJto0EfF9YSStSrtrJ0eFRnct/kExzSnqwSOvmHGCd0pGisqarRpFFNvNkNaRfbPShkjHzuYRSZPsOCeXkL5p15zP6Prs0wMHXg8Sf+LVVJEYh6zQf0Rkkb9nRwich0S8cuZuOmO8tUCQqIh/KpzYGsNYejtKkLEvauq9ogo/xhFAtgcG1dW+ulbfVptJNzAwSji8a97SrcH36/mrGGLoYiyVyuoRp7dNXaBn6CVgX//alrmGjXuNG9mItukeAObIdO511CJcyVdUqQT9G2wTZm0O/theC64LtXJQZ9Atr7w4w+ZUriGQtKXFRciYSebiWb/24YvCY+25fccUYcWEzCSHbKMoeGKS5m0Bd0ZavYivEG/DI1gztLGeITc5L5EGMclaxR5T15YXkSkYKVeWKRJM7MONt3uhZ16J3PkFbvUK153g27RqqYa+r1dhjeRH1SYBKKhnJNgtfomj/qmptKL6l4A/GkcxxXeAN0ZEIcwYBbVwtYizRCjxKxwd5vhcmrLn8M71Y8m9jLV+uewj5gLf4pWBlQH7gQJ0QcQgF3/LlKkTfL/cImVjbm78KGh2NIv48r36YxwSB5RuGcTyF5mG7YZb6zIB27jpyPbRFeNBKjH2sLQWIq3Cgi9D8xuOozm+P9WQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230015)(4636009)(366004)(2906002)(55016003)(38070700005)(86362001)(26005)(19627405001)(38100700002)(122000001)(53546011)(9686003)(33656002)(316002)(83380400001)(19627235002)(7696005)(71200400001)(6506007)(8936002)(54906003)(64756008)(66446008)(110136005)(4326008)(76116006)(66476007)(8676002)(508600001)(66946007)(5660300002)(66556008)(52536014)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?30fhXkOF50kkZ5a5ueMFRJJaxVolPWZQpxmXCPES5iWwo9JatBhE3SANIM+R?=
- =?us-ascii?Q?XY7liKiJLavLclDKw9jYNHn3Wh3DVLoU2Qn16bk0pGQF3a9QP8yBJ1loPwpi?=
- =?us-ascii?Q?Gmiedt2U4CpR9B+cmAS04pY49sLVookRenOP3sYwmxGwpboTFHfLtG6eSM1z?=
- =?us-ascii?Q?2phFFzhyrx/JzH/dMTd6/obUDmx5yTOdQAXlZkanN9YgwAZltMUqscQlHomc?=
- =?us-ascii?Q?9tH3Duj/ku3rvs56kDB+seMW2g84ceTIlDtMljLXHR/MHQ563llK8gkuD1fK?=
- =?us-ascii?Q?iHjHSDR3iP3IVvJmhYqTVHcmsGE96VhTCOiesW1BG9bMi/41AwdK+gkx1EYC?=
- =?us-ascii?Q?ttZTpm1pLx7S2ddVrfdgAbAOkpZw9BdpHDRp33hVP4rRKchFVivELA++O3JW?=
- =?us-ascii?Q?Q+5j+clHWK153MuyNqV8yy4TsNU8Va4/o9+gO0bAZcwIkGLNCAGAyXpiVZMb?=
- =?us-ascii?Q?j/pBc27d51nyaMNsyTqNmpkdiJ3CQzBXiKMivhx7JXPyPtMQxIXVoFZmMQP2?=
- =?us-ascii?Q?HnjuxtPRXhEpnv9BxSiv+K726VoN7ZI05SOSSYwU0BdpUzzAJMADSV+j6fHX?=
- =?us-ascii?Q?CvpTiwAzgKF7ij6opqtmQ7zZnuD3AqSe8i7HupdesZpI5fbMIozE0QHkc/mM?=
- =?us-ascii?Q?QNdBn8uqB7GP5mS6hWGrplKt45DBPmLJOaEyCR2UszrYfZ0Vmdi5Wq1PYAXv?=
- =?us-ascii?Q?wQqxIDAEcFK6/EF/P+VuWnbXcrJMmDvncWMSCJ4IdjhJhAlpWAiCzIgxL3Xy?=
- =?us-ascii?Q?HxALIOsMWAygWZkGp+aA+rfHfZKEfwSJTwZ6EzoQbRAJKF13F+/dl9DYN+Lj?=
- =?us-ascii?Q?y4j5Ld+wxaYgIFp7fYefcSvygxh1ShN0pTqoS1applHNMXmT7ZApI4rK8rbo?=
- =?us-ascii?Q?7a5L4uVPMIEINwNuuw3lrdjLl9t4lnJ+ONcU/VySwqPwV9plhjnCdyAw7d/A?=
- =?us-ascii?Q?F/tNrFXwrDUOHc0s4gqQ1gCQvoHUN3OQNQY0R4Tj3cvLYRPYBDrQFs4pyPd1?=
- =?us-ascii?Q?uqw5wGapnfbF3c03xdjA0t92cHBqhNTqjdpBUB1WHoD7shFcyw9ZWCwuLaub?=
- =?us-ascii?Q?WXL4wLidVt0h1r+/x9Fnct/wjOc5c/f0gbPiuCKUjv3lSU0pr940AOVTPQlF?=
- =?us-ascii?Q?im/PXzY+ztr1I/xy77YFjP8aEBkOnVaVLPawiapnUE5FHOKBQsiGUCEZTclu?=
- =?us-ascii?Q?RrRtNlE0INSPepk2zuLRlUpGAL83hGLQpQqlMLquP9T3sRLaDuUehoAqPLXb?=
- =?us-ascii?Q?qAPsx3l0EwZOBr7hrW0j3LfrGB0DPsUULmd/8i567rGPqRiM6xendeJUIkeA?=
- =?us-ascii?Q?TBMzunY86/Jy5pYd79Lz4qW8VcswbXYqU4+6ZRjAace8E0eGjlZDzSMY701u?=
- =?us-ascii?Q?LYmbPlv1ViYIx+gRPkPV9K3hxRKAaBKwo/ypPkZBrSCvfKpMx90p8E2k6W2I?=
- =?us-ascii?Q?x/wm88UT56VF1bcLo+zOJngdsj07AmHHKPPdRqZiTLLQwqxoQ16oXCMJ+U3u?=
- =?us-ascii?Q?ihPaeZfS7hSVy59j+HJ3TVxEIZAJiu5YEccGthvJpJRv1RWeqN5GtUwVH9lv?=
- =?us-ascii?Q?ie7ZIsTixUI8D8vl5dUjcSybQaDKMQP6Imc+M92HXyM8UL9KG1R09l8zBmNs?=
- =?us-ascii?Q?L1U5d68MoOW+13TMs2mTJmRZ+CM5WVzq6xWJ0oFeyOte/KIZd+ksPiuFbnQD?=
- =?us-ascii?Q?lajkMDn2gV7F+LuF1/qPcf1Zv5dcsj6Wp8GfbTBwB2Is1OPYhtoHZB2NANBi?=
- =?us-ascii?Q?SECKwjXtpw=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51440F3E4EA2D40E9338BBA4F7A69BL1PR12MB5144namp_"
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BN6PR1201MB0162.namprd12.prod.outlook.com (2603:10b6:405:51::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13; Fri, 10 Jun
+ 2022 20:29:54 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::540e:d76a:bdf0:ed0d%6]) with mapi id 15.20.5332.015; Fri, 10 Jun 2022
+ 20:29:54 +0000
+Content-Type: multipart/mixed; boundary="------------21y9tNHNBJ2JvVU8ZFYTXjMY"
+Message-ID: <85f086ec-7007-412c-db95-e20eb1837a25@amd.com>
+Date: Fri, 10 Jun 2022 16:29:13 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>,
+ "sebastian@sebastianwick.net" <sebastian@sebastianwick.net>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: DRM/KMS PWL API Thoughts and Questions
+X-ClientProxiedBy: YT3PR01CA0109.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::10) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7b792ccb-8a91-4448-6d34-08da4b1ffa01
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0162:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB016266E325C66B27B35BF0908CA69@BN6PR1201MB0162.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5tQw9sKSVueRmdFkTZBSX+DwcmwVmpsxmXTKREykz1jtACZL3IS4WWHqzhtjJfK/MYpqFbcXfdYlzlRXd4vc5cvoRumiImI4lVw4kWuiCNFmtCNpCguChFvM/1yl/qiY1RwY44HhkSsBpstrV6dYOTCt0K5R1q129vS1maKhcH5MJ+J/PaWjhtyL6GWEAQdGNtbCSGIkYLSs2KVv7illLmAIbIlRXdtztqHL/guQIXRDi+zlTWKVlb0bRqhUgglTOQS7DIRqO1GhDH//3y3cs/n1CW1SzcRaiJuqEiloeYZqBP8bCpFY1cV7P60eMeHgFyCRgXxdsJGY86OyrLofO5lX8lPRqOFQhpcRTZzZS8Je19RdTIIHx3ezSteWeLMf5OEhuuoMX/d/eaQ7Hs8Aun4ZE131UhdLKJ6YG8cH6a2+dDTQSyUxu7PTdcUMnJYiNUh0al+3V1+N5joYsJ/SeMoHTItxnLY1ySOfwIX/itKNUeVBKxI0yj3ZNmHR48QG2Iqk2Y39D57H2zD3dwsxS1wwctnulfzcav8qDsw/nZ7u9Q3akFUUHZ1hPkZHSUAyfzyddwOUkRhBDV48MF7HlVnrNbr0hOjdWvG23AP7bLu+EfP6xmyy1bN5CqKAPsjCWT2Wx08Tnc/Vaw1wYsuBJTH9XDtricf6oYAHfTE9gkwLw2gxyc0l+0PRvTiOgKMtJr2PRtIc3czUlk+0Li6JFg8j74eEJdBX0iSyQk4+wNk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(83380400001)(8676002)(38100700002)(110136005)(4326008)(66556008)(66476007)(31686004)(54906003)(316002)(86362001)(36756003)(31696002)(66946007)(508600001)(2906002)(6666004)(186003)(26005)(6512007)(966005)(33964004)(8936002)(5660300002)(235185007)(6506007)(2616005)(6486002)(44832011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXorQVY4MlhhNW5PYmE3aXVoTlhKYVRHN3hjVE11NGpTUlJyaTJBZzZWamNa?=
+ =?utf-8?B?SWNlRHBNdEFNSG5YaFVZUUNTVmhLMjZvTlRjRjFiR3ZTQS9ZeENaMDlkdGJu?=
+ =?utf-8?B?dXhOeDhYYU83a0RIM2EzMW15TU55Smc1eXJnWGVhMGxBS2g0Ui9TdE1OVW9S?=
+ =?utf-8?B?bGVueG1nOG5uWkRnNWI5T2RISTZ5c2J4VUFTZDVtQnpkNCtGb1FqV0NsUllw?=
+ =?utf-8?B?R2hTS3J6Wmc0aGpQYlpCdzQ2OVU2UW9NV1Jya2VDVS9FbVBGL3RxTUR3bjJq?=
+ =?utf-8?B?OG51Zk9MYVM1MW1kS0piRTd6UnhZeUZSZUJzdG40VHVwT1VBQUlGRU43dXNC?=
+ =?utf-8?B?clFZMXVuRTYxMnoyR1ArdzdVaVZmbjlHd09ucjliZWRIR0paTnhwYm5qZHZw?=
+ =?utf-8?B?OTBnS28xK0JSdGF5S1VIM1lIeXVIN3p5czd3RnNqVWhDRG05aUZTVmdJSCtK?=
+ =?utf-8?B?Qlp3N1pKc1ltTjNQNTBONzB4ZzR1anZGS2FDc1BVc1lVNlVyeDBialhxVHFz?=
+ =?utf-8?B?WE0rRnBlRE5oaFkvMm5SKzR4a3pXUWxrYVFSa0JDMzFZYUZod21hYVk0WVF6?=
+ =?utf-8?B?aC9CbEhIRE5wVE5la2lpM2U4ZTZsVFcveHdDLzdSUmJpZGo2OXN5ZEMrTlUz?=
+ =?utf-8?B?T3Z0THFrSkMvRTJOa1h3SFl5VE9OWkFTcTVqRG9QWEErTTZQSVlNOVgwV0U2?=
+ =?utf-8?B?RHRCb0E4dituekNEdlNjMFZnOHpaM0cycWRyL1NERU9uYVVWcTI4aUNzK2hu?=
+ =?utf-8?B?aHF0aGQvZGw1YWNwZ1lnNFJJaVgzQWpua0lCSTJlRDFkV2oyTXVraldEdmZu?=
+ =?utf-8?B?U0JDcGNjWFdTWnRrNHEwQXFVWjlrV2JVWUtpUTRqTTJpaTZQT2pzaklQSWRM?=
+ =?utf-8?B?d0QxdVB5UXZ1dGpYa3BFSHUveWJjTmhIQ1JNV2VsRERNcTVqSXNORUZXbHhm?=
+ =?utf-8?B?Zmt1dkNNaUc4bW1FRlJ5ei9LYW9xQ3ZsQWJJd1BMU2llcXZCUVhTbHI1TEhP?=
+ =?utf-8?B?Zk5mWkpQLzdlaXBoSlZKWGk2TnBDU3JYT1FvTUpzbVE5Qnc3Ulc4SHdBRzVp?=
+ =?utf-8?B?OThaNFVyZWRNME1udXJhWFlJU0grTWFCZlN6NVVoaUEwMnVCNDRtdWtuZjFj?=
+ =?utf-8?B?YTNoY2ZBMzJXOG04WXgveWFJMUlxMFVQdkNZeVRjYitwdXZjZDQzVnRsWUZX?=
+ =?utf-8?B?TXFsczJHQXNEMTRKcUwvUHp0TUlZdS9seFNBS0g4Z3RZMVo4TFRYRzRBV2h1?=
+ =?utf-8?B?d2IycGkxK0FmME56Y2ZsSkZMRnBlc0ZCS3lRVFVoRHYrSmRJWERwb3Y1c2hP?=
+ =?utf-8?B?eHBLSUhPemlQRFBwa2NSR2R4OTE0bDNYNm10UFV3QVlYa2MzWnJvb1pKOGZw?=
+ =?utf-8?B?SUpQY1NtMXZiclBQSDdwcHJUVGZQMy9jMTA1R2JjVWxmVm02eW52UGJnOTJG?=
+ =?utf-8?B?THA1cHRYbEZHYi95MGpvbzVXanpRMXJ6cHVLczE0V1p4c0JLY0FONFJSUHBh?=
+ =?utf-8?B?TXQ2SXBGcjdJb0NjbDRYUkY1ZHVlNWFkeW44KzJwVm9iUVIxU1ZWWGg0dmZm?=
+ =?utf-8?B?aXoyWWxMdXJMdTJqalBwTGR4UmFZQUxUQmdFMERnSTBOcU9Va2tpRjZrdi9P?=
+ =?utf-8?B?L2RBQlpEWGx5YzZuc1BBck5ONVlrN0pacFdsT1NKeVlEbGJXb0RIZVNNK0E1?=
+ =?utf-8?B?cWhBb3FsdlBNZmdXNXA3aVREckU2TUVQOFFheEY3ZXkwaEZ5RjE5VG9hQ3Ft?=
+ =?utf-8?B?R1lvdWZkVzFlS0NUYXA3NHE5SDZiTk40RUhzQVJMblo3VGVrTEFia2ZFWThB?=
+ =?utf-8?B?cUk1OFFzSzJYSDFHZHJiTHVXdFV0cWJ6WmlrT1haMGFOMVEvdVlZRWd3WmIw?=
+ =?utf-8?B?dnVsYlBTNHFVOEpXNDlLUXdLTk8rT2laOEViNlgzMUtJOUQ5U3kxSFFFRzE4?=
+ =?utf-8?B?SWFKT3p3cDFHM0Y0blBTOE9weks3UkxYTzhOODBqYVMrOUFmVXJZdVpLNkM0?=
+ =?utf-8?B?UE9sdVdJc2puWW9ISzRIcndlV2pMN0dBNDBlMm1xaklJd0tkN0xFbDBHTGlE?=
+ =?utf-8?B?RUNUVXhjd0F1VllOajB5UE9qVThuQjlwby9DZGhRY21WU1NTNDVNcDRDVk10?=
+ =?utf-8?B?czFIZlI3Ylp3RGN1ams5cTl5SEYrK2I5K2J4S2xPaVpaOEhDN0gvQitLTTRQ?=
+ =?utf-8?B?S0gwZ2s0YlhKdUs1eHZ6cUVLbDdtUjFsWTZxek5PYmZwcWtHWmlnaFJia2J3?=
+ =?utf-8?B?QW9aOWhGNG8rbjZIUUJBL2ZmaG1yQzhYTFl3a2lMdUR4TnpvOWJSdkRNQTRh?=
+ =?utf-8?B?b2NJZjEyVUkzQitrSnd3OGVGcktaK091aVRQb0QzNkozdE5yMDh2QT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b792ccb-8a91-4448-6d34-08da4b1ffa01
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8fcb4bd-d9e9-46f5-0121-08da4b113a93
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2022 18:44:19.4961 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rZXmb3f8DvG0kxMjIxY/rY8ohhoM9jAAQZe5ge+PPRkTW92W9cDsr7sVXrYdPtmsJc59zKTb23eeqq/xiCrqlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1549
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 20:29:54.0262 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2rW9sHEWbGETYLmA74AvaNYZP//Zz0opPiLCRggc843DTSfcVw6KxCDIZC2kLHo1V9nRv4oKFPdITJeFiqbuFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0162
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,413 +126,229 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "Sharma,
+ Shashank" <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Bhanuprakash Modem <bhanuprakash.modem@intel.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51440F3E4EA2D40E9338BBA4F7A69BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------21y9tNHNBJ2JvVU8ZFYTXjMY
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-[Public]
+(I'm sending this as an email as lowest common denominator but feel an issue on the color-and-hdr repo would be a better interface for productive discussion. Please pop over to https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/10 if you agree. Hopefully we can drive the discussion there but if there is a strong preference for email that works as well. :) )
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Aurabind=
-o Pillai <aurabindo.pillai@amd.com>
-Sent: Friday, June 10, 2022 1:26 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>
-Cc: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Wentland, Harry <Harry.We=
-ntland@amd.com>
-Subject: [PATCH] drm/amd/display: dml: move some variables to heap
+I've wanted to start a thread to discuss the use of PWL APIs that were introduced by Uma a year ago and for which Bhanuprakash provided IGT tests. I have come to like the API but as we're getting closer to a real-world use of it I have a few questions and comments. As with a lot of complex APIs the devil is in the details. Some of those details are currently underspecified, or underdocumented and it's important that we all interpret the API the same way.
 
-[Why&How]
-To reduce stack usage, move some variables into heap in the DML function
-dml32_ModeSupportAndSystemConfigurationFull()
+**The API**
 
-Fixes: d03037269bf2d ("drm/amd/display: DML changes for DCN32/321")
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- .../display/dc/dml/dcn32/display_mode_vba_32.c  | 17 +++++++----------
- .../drm/amd/display/dc/dml/display_mode_vba.h   |  3 +++
- 2 files changed, 10 insertions(+), 10 deletions(-)
+The original patches posted by Uma:
+https://patchwork.freedesktop.org/series/90822/
+https://patchwork.freedesktop.org/series/90826/
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c=
- b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index 5828e60f291d..b9f5bfa67791 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -1675,9 +1675,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l
-         bool FullFrameMALLPStateMethod;
-         bool SubViewportMALLPStateMethod;
-         bool PhantomPipeMALLPStateMethod;
--       double MaxTotalVActiveRDBandwidth;
--       double DSTYAfterScaler[DC__NUM_DPP__MAX];
--       double DSTXAfterScaler[DC__NUM_DPP__MAX];
-         unsigned int MaximumMPCCombine;
+The IGT tests for PWL API:
+https://patchwork.freedesktop.org/series/96895/
 
- #ifdef __DML_VBA_DEBUG__
-@@ -3095,10 +3092,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(st=
-ruct display_mode_lib *mode_l
-         }
+I've rebased the kernel patches on a slightly more recent kernel, along with an AMD implementation:
+https://gitlab.freedesktop.org/hwentland/linux/-/tree/color-and-hdr
 
-         //Vertical Active BW support check
--       MaxTotalVActiveRDBandwidth =3D 0;
-+       v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MaxTotalV=
-ActiveRDBandwidth =3D 0;
-
-         for (k =3D 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
--               MaxTotalVActiveRDBandwidth =3D MaxTotalVActiveRDBandwidth +=
- mode_lib->vba.ReadBandwidthLuma[k]
-+               v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.M=
-axTotalVActiveRDBandwidth +=3D mode_lib->vba.ReadBandwidthLuma[k]
-                                 + mode_lib->vba.ReadBandwidthChroma[k];
-         }
-
-@@ -3115,7 +3112,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l
-                                         * mode_lib->vba.DRAMChannelWidth
-                                         * (i < 2 ? mode_lib->vba.MaxAverag=
-ePercentOfIdealDRAMBWDisplayCanUseInNormalSystemOperationSTROBE : mode_lib-=
->vba.MaxAveragePercentOfIdealDRAMBWDisplayCanUseInNormalSystemOperation) / =
-100);
-
--                       if (MaxTotalVActiveRDBandwidth
-+                       if (v->dummy_vars.dml32_ModeSupportAndSystemConfigu=
-rationFull.MaxTotalVActiveRDBandwidth
-                                         <=3D mode_lib->vba.MaxTotalVertica=
-lActiveAvailableBandwidth[i][j]) {
-                                 mode_lib->vba.TotalVerticalActiveBandwidth=
-Support[i][j] =3D true;
-                         } else {
-@@ -3281,8 +3278,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l
-                                                         mode_lib->vba.Swat=
-hHeightCThisState[k], mode_lib->vba.TWait,
-
-                                                         /* Output */
--                                                       &DSTXAfterScaler[k]=
-,
--                                                       &DSTYAfterScaler[k]=
-,
-+                                                       &v->dummy_vars.dml3=
-2_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
-+                                                       &v->dummy_vars.dml3=
-2_ModeSupportAndSystemConfigurationFull.DSTYAfterScaler[k],
-                                                         &mode_lib->vba.Lin=
-eTimesForPrefetch[k],
-                                                         &mode_lib->vba.Pre=
-fetchBW[k],
-                                                         &mode_lib->vba.Lin=
-esForMetaPTE[k],
-@@ -3579,8 +3576,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l
-                                                 mode_lib->vba.NoOfDPPThisS=
-tate,
-                                                 mode_lib->vba.BytePerPixel=
-InDETY,
-                                                 mode_lib->vba.BytePerPixel=
-InDETC,
--                                               DSTXAfterScaler,
--                                               DSTYAfterScaler,
-+                                               v->dummy_vars.dml32_ModeSup=
-portAndSystemConfigurationFull.DSTXAfterScaler,
-+                                               v->dummy_vars.dml32_ModeSup=
-portAndSystemConfigurationFull.DSTYAfterScaler,
-                                                 mode_lib->vba.WritebackEna=
-ble,
-                                                 mode_lib->vba.WritebackPix=
-elFormat,
-                                                 mode_lib->vba.WritebackDes=
-tinationWidth,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/driver=
-s/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-index 43e327080552..9ad49ad38814 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-@@ -204,6 +204,9 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
-         SOCParametersList mSOCParameters;
-         unsigned int MaximumSwathWidthSupportLuma;
-         unsigned int MaximumSwathWidthSupportChroma;
-+       double DSTYAfterScaler[DC__NUM_DPP__MAX];
-+       double DSTXAfterScaler[DC__NUM_DPP__MAX];
-+       double MaxTotalVActiveRDBandwidth;
- };
-
- struct dummy_vars {
---
-2.36.1
+I've also rebased them on an IGT tree, but that's not too up-to-date:
+https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/color-and-hdr
 
 
---_000_BL1PR12MB51440F3E4EA2D40E9338BBA4F7A69BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+**Why do I like the API?**
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Aurabindo Pillai &lt;aurabind=
-o.pillai@amd.com&gt;<br>
-<b>Sent:</b> Friday, June 10, 2022 1:26 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Wentland, Ha=
-rry &lt;Harry.Wentland@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: dml: move some variables to heap</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why&amp;How]<br>
-To reduce stack usage, move some variables into heap in the DML function<br=
->
-dml32_ModeSupportAndSystemConfigurationFull()<br>
-<br>
-Fixes: d03037269bf2d (&quot;drm/amd/display: DML changes for DCN32/321&quot=
-;)<br>
-Signed-off-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
----<br>
-&nbsp;.../display/dc/dml/dcn32/display_mode_vba_32.c&nbsp; | 17 +++++++----=
-------<br>
-&nbsp;.../drm/amd/display/dc/dml/display_mode_vba.h&nbsp;&nbsp; |&nbsp; 3 +=
-++<br>
-&nbsp;2 files changed, 10 insertions(+), 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c=
- b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c<br>
-index 5828e60f291d..b9f5bfa67791 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c<br>
-@@ -1675,9 +1675,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool FullFrameMALLPStateMe=
-thod;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool SubViewportMALLPState=
-Method;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool PhantomPipeMALLPState=
-Method;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double MaxTotalVActiveRDBandwidth;<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double DSTYAfterScaler[DC__NUM_DPP__M=
-AX];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double DSTXAfterScaler[DC__NUM_DPP__M=
-AX];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int MaximumMPCCom=
-bine;<br>
-&nbsp;<br>
-&nbsp;#ifdef __DML_VBA_DEBUG__<br>
-@@ -3095,10 +3092,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(st=
-ruct display_mode_lib *mode_l<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Vertical Active BW suppo=
-rt check<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MaxTotalVActiveRDBandwidth =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v-&gt;dummy_vars.dml32_ModeSupportAnd=
-SystemConfigurationFull.MaxTotalVActiveRDBandwidth =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (k =3D 0; k &lt; mode_=
-lib-&gt;vba.NumberOfActiveSurfaces; ++k) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; MaxTotalVActiveRDBandwidth =3D MaxTotalVActiveRDBandwidth + mode=
-_lib-&gt;vba.ReadBandwidthLuma[k]<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; v-&gt;dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.Max=
-TotalVActiveRDBandwidth +=3D mode_lib-&gt;vba.ReadBandwidthLuma[k]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + mode_lib-&gt;vba.ReadBandwidth=
-Chroma[k];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-@@ -3115,7 +3112,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; * mode_lib-&gt;vba.DRAMChannelWidth<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; * (i &lt; 2 ? mode_lib-&gt;vba.MaxAveragePercentOfIdealDRAM=
-BWDisplayCanUseInNormalSystemOperationSTROBE : mode_lib-&gt;vba.MaxAverageP=
-ercentOfIdealDRAMBWDisplayCanUseInNormalSystemOperation) / 100);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (MaxTotalVAct=
-iveRDBandwidth<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (v-&gt;dummy_=
-vars.dml32_ModeSupportAndSystemConfigurationFull.MaxTotalVActiveRDBandwidth=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; &lt;=3D mode_lib-&gt;vba.MaxTotalVerticalActiveAvailableBan=
-dwidth[i][j]) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&gt;vba.TotalVerticalAc=
-tiveBandwidthSupport[i][j] =3D true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } els=
-e {<br>
-@@ -3281,8 +3278,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&gt;vba.SwathHeightCThisState=
-[k], mode_lib-&gt;vba.TWait,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Output */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; &amp;DSTXAfterScaler[k],<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; &amp;DSTYAfterScaler[k],<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; &amp;v-&gt;dummy_vars.dml32_ModeSupportAndSystemC=
-onfigurationFull.DSTXAfterScaler[k],<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; &amp;v-&gt;dummy_vars.dml32_ModeSupportAndSystemC=
-onfigurationFull.DSTYAfterScaler[k],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mode_lib-&gt;vba.LineTimesForPref=
-etch[k],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mode_lib-&gt;vba.PrefetchBW[k],<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mode_lib-&gt;vba.LinesForMetaPTE[=
-k],<br>
-@@ -3579,8 +3576,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(stru=
-ct display_mode_lib *mode_l<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.NoOfDPPThisState,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.BytePerPixelInDETY,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.BytePerPixelInDETC,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DSTXAfterScaler,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DSTYAfterScaler,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v-&gt;dummy_vars.dml32=
-_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v-&gt;dummy_vars.dml32=
-_ModeSupportAndSystemConfigurationFull.DSTYAfterScaler,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.WritebackEnable,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.WritebackPixelFormat,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_lib-&g=
-t;vba.WritebackDestinationWidth,<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/driver=
-s/gpu/drm/amd/display/dc/dml/display_mode_vba.h<br>
-index 43e327080552..9ad49ad38814 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h<br>
-@@ -204,6 +204,9 @@ struct dml32_ModeSupportAndSystemConfigurationFull {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOCParametersList mSOCPara=
-meters;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int MaximumSwathW=
-idthSupportLuma;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int MaximumSwathW=
-idthSupportChroma;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double DSTYAfterScaler[DC__NUM_DPP__M=
-AX];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double DSTXAfterScaler[DC__NUM_DPP__M=
-AX];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double MaxTotalVActiveRDBandwidth;<br=
->
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;struct dummy_vars {<br>
--- <br>
-2.36.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+In order to allow HW composition of HDR planes in linear space we need the ability to program at least a per-CRTC regamma (inv_EOTF) to go from linear to wire format post-blending. Since userspace might want to apply corrections on top of a simple transfer function (such as PQ, BT.709, etc.) it would like a way to set a custom LUT.
 
---_000_BL1PR12MB51440F3E4EA2D40E9338BBA4F7A69BL1PR12MB5144namp_--
+The existing CRTC gamma LUT defines equally spaced entries. As Pekka shows in [1] equally-spaced LUTs have unacceptable error for regamma/inv_EOTF. Hence we need finer granularity of our entries near zero while coarse granularity works fine toward the brighter values.
+
+[1] https://gitlab.freedesktop.org/pq/color-and-hdr/-/merge_requests/9
+
+HW (at least AMD and Intel HW) implements this ability as segmented piece-wise linear LUTs. These define segments of equally spaced entries. These segments are constrained by the HW implementation. I like how the PWL API allows different drivers to specify the constraints imposed by different HW while allowing userspace a generic way of parsing the PWL. This also avoids complex calculations in the kernel driver, which might be required for other APIs one could envision. If anyone likes I can elaborate on some ideas for an alternate API, though all of them will require non-trivial transformations by the kernel driver in order to program them to HW.
+
+
+**Nitpicks**
+
+The API defines everything inside the segments, including flags and values that apply to the entire PWL, such as DRM_MODE_LUT_GAMMA, DRM_MODE_LUT_REFLECT_NEGATIVE, input_bpc, and output_bpc. If these don't stay constant for segments it might complicate the interpretation of segments. I suggest we consider these as effectively applying to the entire PWL. We could encode them in an overall drm_color_lut struct that includes an array of drm_color_lut_range but that's probably not necessary, hence why I called this out as a nitpick. I would just like us to be aware of this ambiguity and document that these values applies to the entire PWL.
+
+
+**How to read the PWL**
+
+Let me first give a summary for how this LUT is used in userspace. If you're familiar with this please review and comment if I got things wrong. As I mentioned, a lot of this is underspecified at the moment so you're reading my interpretation.
+
+You can see this behavior in plane_degamma_test [2] in the kms_color.c IGT test suite. I suggest the plane_degamma_test here here instead of the test_pipe_gamma test as the latter still has Intelisms (assumptions around Intel driver/HW behavior) and will not work for other drivers.
+
+Iterate over all enums in PLANE_DEGAMMA_MODE and find a suitable one. How do we find the suitable one? More on that below.
+
+Once we have the right PLANE_DEGAMMA_MODE we read the blob for the blob ID associated with the PLANE_DEGAMMA_MODE enum. We interpret the blob as an array of drm_color_lut_range. See get_segment_data [3].
+
+We can think of our LUT/PWL as f(x) = y. For a traditional equally spaced LUT with 1024 entries x would be 0, 1, 2, ..., 1023. For a PWL LUT we need to parse the segment data provided in drm_color_lut_range.
+
+Let's look at the 2nd-last entry of the nonlinear_pwl definition for the AMD driver [4] (I've correct it here and dropped the DRM_MODE_LUT_REUSE_LAST but it's still incorrect in the link) and simplify it to 4 entries for sake of readability:
+
+{
+        .flags = (DRM_MODE_LUT_GAMMA | DRM_MODE_LUT_REFLECT_NEGATIVE | DRM_MODE_LUT_INTERPOLATE | DRM_MODE_LUT_NON_DECREASING),
+        .count = 4,
+        .input_bpc = 13, .output_bpc = 18,
+        .start = 1 << 12, .end = 1 << 13,
+        .min = 0, .max = 1UL << 35
+    },
+
+We see we have 16 entries in the region from (1 << 12) to (1 << 13). We see input_bpc is 13, so our 1.0 float value is 1 << 13.
+
+(Is it sensible to use input_bpc as our 1.0 floating point reference? Why?)
+
+Since this segment is not reusing the last entry (doesn't have DRM_MODE_LUT_REUSE_LAST) we divide the region between 1 << 12 and 1 << 13 into 4 equally spaced sections.
+
+step_size = (segment->end - segment->start) / count
+
+In our case our segment spans from 4096 to 8192 and yields a step_size of 1024.
+
+Note that we need to calculate this in floating point, otherwise we're not guaranteed equal spacing.
+
+This gives us these X entries for this particular segment:
+4096, 5120, 6144, 7168
+
+And normalized to 1 << 13 (input_bpc) for our 1.0 float value we get
+0.5, 0.625, 0.75, 0.875
+
+If the segment had the REUSE_LAST flag the values would look like
+4096, 5461, 6826, 8192
+
+and normalized to
+0.5, 0.666626, 0.833252, 1
+
+Though in the case of REUSE_LAST a more sensible definition might be with a count of 5 entries in this segment, instead of 16. But ultimatly that's up to the driver.
+
+I attached a simple C program that parses a PWL and helps illustrate my interpretation. You'll just need to copy-paste or include your PWL definition (instead of color_gamma.h), and point the PWL define to your PWL variable. To build it you'll need to copy the drm-uapi folder from my IGT repo into the same directory as pwl-parser.c and then just build it with "gcc -Idrm-uapi pwl-parser.c".
+
+The above entries come from running pwl-parser with the nonlinear_pwl from [5].
+
+To illustrate these I added versions of your lut1d_error scripts that run on the SDR and HDR PWLs for AMD HW [6].
+
+We should probably document the above in detail in the DRM/KMS API docs.
+
+[2] https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/blob/color-and-hdr/tests/kms_color.c#L978
+[3] https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/blob/color-and-hdr/tests/kms_color_helper.c#L393
+[4] https://gitlab.freedesktop.org/hwentland/linux/-/blob/color-and-hdr/drivers/gpu/drm/amd/display/modules/color/color_gamma.h#L109
+[5] https://gitlab.freedesktop.org/hwentland/linux/-/blob/color-and-hdr/drivers/gpu/drm/amd/display/modules/color/color_gamma.h#L38
+[6] https://gitlab.freedesktop.org/hwentland/color-and-hdr/-/tree/precision/octave
+
+**How to provide PWL entries?**
+
+To provide the PWL values for each entry we'll have to sample our (custom) curve at the respective points specified by our PWL entries and providing those samples in a blob that is passed to PLANE_DEGAMMA_LUT. It's not much different from how we provide values for an equally spaced (legacy) LUT. As for sampling our curve, I remember seeing that Weston uses an LCMS function to sample the curve at required points. Last I checked it samples the curve at evenly spaced intervals but the LCMS function seemed to provide arbitrary sampling.
+
+
+**How to pick a suitable PWL definition?**
+
+Picking the right PWL definition out of the respective \_MODE enum isn't trivial. Without further information a userspace implementer has to understand the distribution of entries in all segments and perform a bunch of math to estimate the error for given curves.
+
+A simpler approach might be if we defined common naming for our PWL enums. We can define the commonly expected cases. The two important parameters are within-range vs overrange entries, and linear vs non-linear outputs.
+
+Within-range PWLs would cover [0.0, 1.0] entries and overrange [0.0, 128.0] to cover PQ and probably anything else. One could think of the within-range PWL as intended for SDR content and the over-range PWL for HDR content.
+
+Linear PWLs would be intended for linear luminance outputs (or near-linear), and can be represented by equally spaced LUTs, such as a single-segment definitions. Non-linear PWLs would be intended for linear to non-linear transforms; Linear PWLs for non-linear to linear transforms or OOTFs.
+
+This gives us four enums, plus one for bypass:
+DRM_MODE_LUT_BYPASS
+DRM_MODE_LUT_LINEAR_SDR
+DRM_MODE_LUT_NONLINEAR_SDR
+DRM_MODE_LUT_LINEAR_HDR
+DRM_MODE_LUT_NONLINEAR_HDR
+
+Drivers can provide appropriate PWLs based on the HW caps. Userspace can pick an appropriate one if it's available or fall back to either a sub-optimal PWL or to using a GPU transform instead.
+
+Thoughts?
+
+Thanks,
+Harry
+--------------21y9tNHNBJ2JvVU8ZFYTXjMY
+Content-Type: text/x-csrc; charset=UTF-8; name="pwl-parser.c"
+Content-Disposition: attachment; filename="pwl-parser.c"
+Content-Transfer-Encoding: base64
+
+LyoKICogQ29weXJpZ2h0IDIwMjIgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgogKgogKiBQ
+ZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNv
+biBvYnRhaW5pbmcgYQogKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9j
+dW1lbnRhdGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLAogKiB0byBkZWFsIGluIHRoZSBTb2Z0
+d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uCiAq
+IHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmli
+dXRlLCBzdWJsaWNlbnNlLAogKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBh
+bmQgdG8gcGVybWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUKICogU29mdHdhcmUgaXMgZnVybmlzaGVk
+IHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKICoKICogVGhl
+IGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwg
+YmUgaW5jbHVkZWQgaW4KICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0
+aGUgU29mdHdhcmUuCiAqCiAqIFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRI
+T1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SCiAqIElNUExJRUQsIElOQ0xVRElO
+RyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAog
+KiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAg
+SU4gTk8gRVZFTlQgU0hBTEwKICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMp
+IEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SCiAqIE9USEVSIExJQUJJTElUWSwg
+V0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAogKiBB
+UklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9S
+IFRIRSBVU0UgT1IKICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgogKgogKiBBdXRo
+b3JzOiBBTUQKICoKICovCgojZGVmaW5lIEJJVCh4KSAoMSA8PCB4KQojaW5jbHVkZSAiZHJtX21v
+ZGUuaCIKI2luY2x1ZGUgImNvbG9yX2dhbW1hLmgiCiNpbmNsdWRlIDxzdGRpby5oPgoKI2RlZmlu
+ZSBQV0wgbm9ubGluZWFyX2hkcl9wd2wKCiNkZWZpbmUgTUFYX0VOVFJJRVNfUEVSX1NFR01FTlQg
+NTEyCiNkZWZpbmUgTUFYX0VOVFJJRVMgNDA5NgoKaW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKmFy
+Z3ZbXSkKewoJX191NjQgZW50cmllc1tNQVhfRU5UUklFU107Cgl1bnNpZ25lZCBwd2xfc2l6ZSA9
+IDA7Cgl1bnNpZ25lZCBzZWdtZW50X3NpemUgPSAwOwoJdW5zaWduZWQgc2VnbWVudF9jb3VudCA9
+IDA7Cgl1bnNpZ25lZCBpID0gMDsKCXVuc2lnbmVkIGogPSAwOwoJdW5zaWduZWQgb3ZlcmFsbF9j
+b3VudCA9IDA7CglfX3U2NCBub3JtID0gMDsKCglwd2xfc2l6ZSA9IHNpemVvZihQV0wpOwoJc2Vn
+bWVudF9zaXplID0gc2l6ZW9mKFBXTFswXSk7CglzZWdtZW50X2NvdW50ID0gcHdsX3NpemUgLyBz
+ZWdtZW50X3NpemU7CgoJcHJpbnRmKCJwd2xfc2l6ZSA9ICVkLCBzZWdtZW50X3NpemUgPSAlZCwg
+c2VnbWVudF9jb3VudCA9ICVkXG4iLAoJICAgICAgIHB3bF9zaXplLCBzZWdtZW50X3NpemUsIHNl
+Z21lbnRfY291bnQpOwoKCWZvciAoaSA9IDA7IGkgPCBzZWdtZW50X2NvdW50OyBpKyspIHsKCQlj
+b25zdCBzdHJ1Y3QgZHJtX2NvbG9yX2x1dF9yYW5nZSAqc2VnbWVudCA9ICZQV0xbaV07CgkJX191
+NjQgc2VnbWVudF9lbnRyaWVzW01BWF9FTlRSSUVTX1BFUl9TRUdNRU5UXTsKCQl1bnNpZ25lZCBj
+b3VudCA9IDA7CgkJX191NjQgc3RlcF9zaXplID0gMDsKCgkJcHJpbnRmKCJTZWdtZW50ICVkXG4i
+LCBpKTsKCQlwcmludGYoIlx0LmZsYWdzID0gMHgleFxuIiwgc2VnbWVudC0+ZmxhZ3MpOwoJCXBy
+aW50ZigiXHQuY291bnQgPSAlZFxuIiwgc2VnbWVudC0+Y291bnQpOwoJCXByaW50ZigiXHQuaW5w
+dXRfYnBjID0gJWQsIC5vdXRwdXRfYnBjID0gJWRcbiIsIHNlZ21lbnQtPmlucHV0X2JwYywgc2Vn
+bWVudC0+b3V0cHV0X2JwYyk7CgkJcHJpbnRmKCJcdC5zdGFydCA9IDB4JWx4LCAuZW5kID0gJWx4
+XG4iLCBzZWdtZW50LT5zdGFydCwgc2VnbWVudC0+ZW5kKTsKCQlwcmludGYoIlx0Lm1pbiA9IDB4
+JWx4LCAubWF4ID0gJWx4XG4iLCBzZWdtZW50LT5taW4sIHNlZ21lbnQtPm1heCk7CgoJCW5vcm0g
+PSBzZWdtZW50LT5pbnB1dF9icGM7CgoJCWlmIChzZWdtZW50LT5jb3VudCA9PSAxKSB7CgkJCXBy
+aW50ZigiXHQtIHN0ZXBzID0gJWRcbiIsIHNlZ21lbnQtPnN0YXJ0KTsKCQkJcHJpbnRmKCJcdC0g
+bm9ybWFsaXplZCBzdGVwcyA9ICVnXG4iLCBzZWdtZW50LT5zdGFydCAvICgoMSA8PCBzZWdtZW50
+LT5pbnB1dF9icGMpICsgMC4wKSk7CgkJCWVudHJpZXNbb3ZlcmFsbF9jb3VudCsrXSA9IHNlZ21l
+bnQtPnN0YXJ0OwoJCQljb250aW51ZTsKCQl9CgoJCWlmIChzZWdtZW50LT5mbGFncyAmIERSTV9N
+T0RFX0xVVF9SRVVTRV9MQVNUKSB7CgkJCS8qCgkJCSAqIEVudHJpZXMgYXJlIGV2ZW5seSBzcGFj
+ZWQgaW4gW3N0YXJ0LCBlbmRdCgkJCSAqIGluY2x1ZGluZyAiZW5kIiBhcyBhbiBlbnRyeS4KCQkJ
+ICogCgkJCSAqIFRoaXMgaXMgdGhlIHNhbWUgYXMgY291bnQgLTEgZW50cmllcyB3aGVuCgkJCSAq
+IFJFVVNFX0xBU1QgaXNuJ3QgdXNlZCwgd2l0aCAiZW5kIiBhZGRlZAoJCQkgKiBhcyB0aGUgYWRk
+aXRpb25hbCBlbnRyeQoJCQkgKi8KCQkJY291bnQgPSBzZWdtZW50LT5jb3VudCAtIDE7CgkJfSBl
+bHNlIHsKCQkJLyoKCQkJICogZW50cmllcyBhcmUgZXZlbmx5IHNwYWNlZCBpbiBbc3RhcnQsIGVu
+ZF0KCQkJICogZXhjbHVkaW5nICJlbmQiIGFzIGFuIGVudHJ5CgkJCSAqIAoJCQkgKiB0aGlzIHdp
+bGwgbG9vayB0aGUgc2FtZSBhcyBhIFJFVVNFX0xBU1QKCQkJICogZGlzdHJpYnV0aW9uIG9mIGNv
+dW50ICsgMSB3aXRoIHRoZSBsYXN0CgkJCSAqIGVudHJ5IG9taXR0ZWQKCQkJICovCgkJCWNvdW50
+ID0gc2VnbWVudC0+Y291bnQ7CgkJfQoKCQlzdGVwX3NpemUgPSAoc2VnbWVudC0+ZW5kIC0gc2Vn
+bWVudC0+c3RhcnQpIC8gKGNvdW50KTsKCgkJcHJpbnRmKCJcdC0gc3RlcF9zaXplIGNvdW50IDB4
+JXgsIHN0ZXBfc2l6ZSAweCV4XG4iLCBjb3VudCwgc3RlcF9zaXplKTsKCgkJZm9yIChqID0gMDsg
+aiA8IGNvdW50OyBqKyspIHsKCQkJc2VnbWVudF9lbnRyaWVzW2pdID0gc2VnbWVudC0+c3RhcnQg
+KyAoaiAqIHN0ZXBfc2l6ZSk7CgkJCWVudHJpZXNbb3ZlcmFsbF9jb3VudCsrXSA9IHNlZ21lbnRf
+ZW50cmllc1tqXTsKCQl9CgoJCWlmIChzZWdtZW50LT5mbGFncyAmIERSTV9NT0RFX0xVVF9SRVVT
+RV9MQVNUKSB7CgkJCXNlZ21lbnRfZW50cmllc1tqXSA9IHNlZ21lbnQtPmVuZDsKCQkJZW50cmll
+c1tvdmVyYWxsX2NvdW50KytdID0gc2VnbWVudF9lbnRyaWVzW2pdOwoJCX0KCgkJLyogcHJpbnQg
+YWxsIGVudHJpZXMgKi8KCgkJY291bnQgPSAoc2VnbWVudC0+ZmxhZ3MgJiBEUk1fTU9ERV9MVVRf
+UkVVU0VfTEFTVCkgPyBjb3VudCArIDEgOiBjb3VudDsKCgkJcHJpbnRmKCJcdC0gc3RlcHMgPSAi
+KTsKCQlmb3IgKGogPSAwOyBqIDwgY291bnQ7IGorKykgewoJCQlwcmludGYoIiVsZCIsIHNlZ21l
+bnRfZW50cmllc1tqXSk7CgkJCWlmIChqIDwgY291bnQtMSkKCQkJCXByaW50ZigiLCAiKTsKCQl9
+CgkJcHJpbnRmKCJcbiIpOwoKCQlwcmludGYoIlx0LSBub3JtYWxpemVkIHN0ZXBzID0gIik7CgkJ
+Zm9yIChqID0gMDsgaiA8IGNvdW50OyBqKyspIHsKCQkJcHJpbnRmKCIlZyIsIHNlZ21lbnRfZW50
+cmllc1tqXSAvICgoMSA8PCBzZWdtZW50LT5pbnB1dF9icGMpICsgMC4wKSk7CgkJCWlmIChqIDwg
+Y291bnQtMSkKCQkJCXByaW50ZigiLCAiKTsKCQl9CgkJcHJpbnRmKCJcbiIpOwoKCX0KCglwcmlu
+dGYoInN0ZXBzID0gIik7Cglmb3IgKGkgPSAwOyBpIDwgb3ZlcmFsbF9jb3VudDsgaSsrKSB7CgkJ
+cHJpbnRmKCIlbGQiLCBlbnRyaWVzW2ldKTsKCQlpZiAoaSA8IG92ZXJhbGxfY291bnQtMSkKCQkJ
+cHJpbnRmKCIsICIpOwoJfQoJcHJpbnRmKCJcbiIpOwoKCXByaW50Zigibm9ybWFsaXplZCBzdGVw
+cyA9ICIpOwoJZm9yIChpID0gMDsgaSA8IG92ZXJhbGxfY291bnQ7IGkrKykgewoJCXByaW50Zigi
+JWciLCBlbnRyaWVzW2ldIC8gKCgxIDw8IG5vcm0pICsgMC4wKSk7CgkJaWYgKGkgPCBvdmVyYWxs
+X2NvdW50LTEpCgkJCXByaW50ZigiLCAiKTsKCX0KCXByaW50ZigiXG4iKTsKCXByaW50ZigiJWQg
+ZW50cmllc1xuIiwgb3ZlcmFsbF9jb3VudCk7CgoKCXJldHVybiAwOwp9Cg==
+
+--------------21y9tNHNBJ2JvVU8ZFYTXjMY--
