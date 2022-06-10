@@ -4,54 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84027C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 16:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6494C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jun 2022 17:13:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED7B610E98B;
-	Fri, 10 Jun 2022 16:08:36 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E270C10FE72
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 16:08:35 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- y16-20020a9d5190000000b0060c1292a5b9so6991064otg.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 09:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z6fZXQVJVU0by0Bv1RFgjQxOyjoAA59Tw/JsTbSWsdA=;
- b=QMPdWE5ilPDnDLKhbF8mHbnfPnFVEmUtrMeaTQx6OMlP2CGqwzAitD+N83ftJDz4si
- zkmj1Fgl05seTSxgKQ41nMjSVP6psYMHHAhICX3gG3brfUcNX2zy72M/2hJXHUM08GXQ
- Fu1/rJQNsA4vFgizMQmdPf/8Vcba4EBM3aJYiBTMaHmUNBk34uwzOMbv2shH0PdMhuws
- QL6LMPpFW2BFnGosLQOc86PHAzull5ZCsfha0iRmrxusK3JvcdMplDl1BKqx5Zr38XNG
- 3Nac/+PQCi7uLMOe1EZCtRIUacHeKwBgnYFErWuK6zJR0MuV8TcCAU77YPjcWwUK764P
- oxXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=z6fZXQVJVU0by0Bv1RFgjQxOyjoAA59Tw/JsTbSWsdA=;
- b=7fkpLefSYyFS2qT7udOhmUlIdtnznPrGiAGxdK8qzq73n0mqxrotwcHXJg/A0Pdui7
- IIcxo9M8RfKhenTrIrB9Xv79onKkktYyjIMmFTwHmg3E9iZDZOa98wiaqpB/HavqAlfm
- aTEdm/8xcQ3UuNuMLMiENSdBV1k/lcOKPWJdPiF9FD9GqTO7HkpXBziISvfsmKq0kCYr
- QFAYFNzyExnMmdTVchVS47hAmCnigEWHR1cPI3TVvNlRvnexVHN90MbcZtilIFKDDuoE
- HGbGzSlk7WDyJu1pGssBvG4Iv/bD8cO4zvYuRgjw7oC08nBQ9n6IMLG4bbELWPgPH90H
- Wn8A==
-X-Gm-Message-State: AOAM530clI70fKla4cJiZRe9ia3lY30kbl9Gx2DwW6N49UoZqmpIrApo
- vcxSwuIWFm8ak/eujcSYVLBwm1T4yBg6ahNEpa8e4CaNUqw=
-X-Google-Smtp-Source: ABdhPJxDvhmzVGmdyTmP59npRIfzWEBBZT0dHJgJqbVSrBDW2TEpsyJ52et45MAaIDgOQtRJUQwuOpOskeJ4N8gDYNE=
-X-Received: by 2002:a9d:5f9c:0:b0:60b:f3e3:4658 with SMTP id
- g28-20020a9d5f9c000000b0060bf3e34658mr13531514oti.200.1654877315183; Fri, 10
- Jun 2022 09:08:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE5410E10F;
+	Fri, 10 Jun 2022 17:13:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BA9D10E1AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jun 2022 17:13:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=clMgvw3NpVYjSYaYkyBuAMqOvU6cYRC4dbpNteRHPGpPWgU0Fih5nUC2j7oLdiQglDheZO1gWvcVawUiOmJUGppjBr8O1H1vvRTlCghiuneQT0kqiMO6YLV77zd7ZXiowVmdmpU+uVHd/0ciJpHnpCpo8HP2W5XfxEb6LmizHf7IxfUhQlb1vp7oUTRkAZNcEklkU+ezQR4zoJ9PMwH0k1rxrMV8131QUHtiG3w42U/yDnegbrjLt1iQv1ipkcDL9Hx9us3y/2QItq0cvYl7fdcLT42SpDKJaL0fTJf3wAvsMzwnh2fsll72qbS2/DtTw+SQ8ml2av//B7jDwpjA1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JJKNySNLgMnn+A3SGDFSBBDiiaviYoGud4I1D8OMLzk=;
+ b=hKaEdu6bgS0VPTReH3TgO3E9ad2ULbFqOH3HATN1HSFvhmTXfTGziMpXdlCTGIwPEXHjKFELCzag2YzuaOwSrnG9FHaMP0CUaxIZt2LF9eb/uciA+EX8xsHAgqpYbH1ZVtiZVmrhQrJDcjP9yt7JmcitQSIATgPds7S0YUmLfbInU5QZOAwgcJKHFs80vqk38/QLysIjYaVx7rswPI3pPET9CeDvyxYUGhB+kLH04t2jxq6e8xb4dTJHXBWm1c3nokMmEzsNvw8yWzXgQhiWCsl751WeZiZZ+1Q1v5xEuPS/sDJGg2lP12yK5duoDXxwHfQFYoQQko3gA882fdfH/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JJKNySNLgMnn+A3SGDFSBBDiiaviYoGud4I1D8OMLzk=;
+ b=k928yTz8ss2qosH1EGfRYFjyepuDY78mZ6atpMPPZPbPe5sws/MzFDOVxnJpkL99RNTxCTbQBW8KEzxJrVZIIefqdrI0M+EbdszCaGjxJ2yKJzOZ9MOd8wZFJYCuk6bz0RtYOVoN2ikTPcgig1KFOsir+cUALY8kx6wZPs2K9ZE=
+Received: from MW4P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::26)
+ by CH0PR12MB5299.namprd12.prod.outlook.com (2603:10b6:610:d6::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Fri, 10 Jun
+ 2022 17:13:31 +0000
+Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:114:cafe::82) by MW4P222CA0021.outlook.office365.com
+ (2603:10b6:303:114::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.15 via Frontend
+ Transport; Fri, 10 Jun 2022 17:13:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 17:13:30 +0000
+Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 10 Jun
+ 2022 12:13:29 -0500
+From: Graham Sider <Graham.Sider@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 1/3] drm/amdgpu: Fetch MES scheduler/KIQ versions
+Date: Fri, 10 Jun 2022 13:13:14 -0400
+Message-ID: <20220610171316.2668611-1-Graham.Sider@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220610062539.3666611-1-evan.quan@amd.com>
- <20220610062539.3666611-2-evan.quan@amd.com>
-In-Reply-To: <20220610062539.3666611-2-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jun 2022 12:08:24 -0400
-Message-ID: <CADnq5_PB-kiVta5GsSXLL6=uWfz858X7JpNE9u=2a9Hjn-ibuw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: enable MACO support for SMU 13.0.0
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3093bb7d-31dc-4b57-5731-08da4b048ae4
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5299:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5299A56E4C7B238C0CA296A28AA69@CH0PR12MB5299.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PMhZrEUe9YZS5VhgKJAQPJLa2/YnWKyuKJH3K+FFzMCPSBtf8RuirirkcZDn/88MdkvwxtWdCZWJvVqUC48BKfYLj0Uz0gR+sh5AfaYOWgMyyjslOi6wUqoJGwuKWNSLmMmIwnhGPIlgslQ8+xVmI3Peh3FNUtv2gbqv1KYToOaR7B5EmBRYsFzsRiMISjb1C2Dn+PZpqQmBL0IFUM8FMUR0PMV6cMyWSu4Oh0AXVfEZ2xvyVXJTePftMSOwIuMoWVP3qicZ0MJSkBKk6u9TnIzpGKJwjRtsgFh7/EuV6TRsAsJmu2l9F/RmsTahWnDoV4tlJtl5dgaZH0Dsp5dWh+Yiv01sCIRNyDsYceNjLptGx08qWOlNR15O175pTqfKTPtp4RsqNwRB1rLFXi5TM29ATWigpKD6OnDEDSsPTGQfiPcRnG2/Po632HeFKehAWgHwccri6OxQiUDDQt2SAFbOqQtlwK4u/5oWvheOhs1oPLkyGFHMGEkGAtOWp8VafS2ayO3Fjl2WcdqF2IgkCGCBO2pcf/ffXbrWXabt6HKjO5j+7UZs2yntgAp0Km9hCIV08yKYVhq3qXyCRTvhtM2bgnIRm7CbchjqnDIRqe6vOrVpRPFGZMhn8lcfTCkSExYnN6LEqpQlcLzVir4d8IDVRBx7aLc13vORDctmhY5OoMi8pkabw2NirV+3CYUj1A7Nn6d0t+AU6WxsphCQPw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(7696005)(83380400001)(2616005)(16526019)(186003)(1076003)(6666004)(316002)(356005)(70206006)(40460700003)(26005)(47076005)(508600001)(81166007)(82310400005)(2906002)(36756003)(70586007)(5660300002)(8936002)(36860700001)(4326008)(6916009)(8676002)(86362001)(54906003)(336012)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 17:13:30.6644 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3093bb7d-31dc-4b57-5731-08da4b048ae4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5299
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,135 +98,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Mukul.Joshi@amd.com, Felix.Kuehling@amd.com,
+ Graham Sider <Graham.Sider@amd.com>, Philip.Yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 10, 2022 at 2:26 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Enable BAMACO reset support for SMU 13.0.0.
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: I67696671c216790a0b6d5b84f7d4b430d734ac3c
-> --
-> v1->v2:
->   - maximum code sharing around smu13.0.0 and smu13.0.7
-> ---
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  3 +-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  3 ++
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 52 +------------------
->  3 files changed, 7 insertions(+), 51 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index fba0b87d01fb..f18f9605e586 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -2271,7 +2271,8 @@ int smu_v13_0_baco_set_state(struct smu_context *smu,
->         if (state == SMU_BACO_STATE_ENTER) {
->                 ret = smu_cmn_send_smc_msg_with_param(smu,
->                                                       SMU_MSG_EnterBaco,
-> -                                                     0,
-> +                                                     smu_baco->maco_support ?
-> +                                                     BACO_SEQ_BAMACO : BACO_SEQ_BACO,
->                                                       NULL);
->         } else {
->                 ret = smu_cmn_send_smc_msg(smu,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 495713e4ebd4..6fb2b072a730 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -325,6 +325,9 @@ static int smu_v13_0_0_check_powerplay_table(struct smu_context *smu)
->             powerplay_table->platform_caps & SMU_13_0_0_PP_PLATFORM_CAP_MACO)
->                 smu_baco->platform_support = true;
+Store MES scheduler and MES KIQ version numbers in amdgpu_mes for GFX11.
 
-Not really related to this patch, but is
-SMU_13_0_0_PP_PLATFORM_CAP_MACO really used to determine with the
-platform supports BACO in general?  Is this right?  I don't see how we
-would ever end up using plain BACO.
+Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 +++
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 12 ++++++++++++
+ 2 files changed, 15 insertions(+)
 
-This patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 92ddee5e33db..aa06c8396ee0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -64,6 +64,9 @@ struct amdgpu_mes {
+ 
+ 	spinlock_t                      queue_id_lock;
+ 
++	uint32_t			sched_version;
++	uint32_t			kiq_version;
++
+ 	uint32_t                        total_max_queue;
+ 	uint32_t                        doorbell_id_offset;
+ 	uint32_t                        max_doorbell_slices;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index e4eb87689f7f..2a9ef308e71c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -890,6 +890,18 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
+ 		mes_v11_0_queue_init_register(ring);
+ 	}
+ 
++	/* get MES scheduler/KIQ versions */
++	mutex_lock(&adev->srbm_mutex);
++	soc21_grbm_select(adev, 3, pipe, 0, 0);
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE)
++		adev->mes.sched_version = RREG32_SOC15(GC, 0, regCP_MES_GP3_LO);
++	else if (pipe == AMDGPU_MES_KIQ_PIPE && adev->enable_mes_kiq)
++		adev->mes.kiq_version = RREG32_SOC15(GC, 0, regCP_MES_GP3_LO);
++
++	soc21_grbm_select(adev, 0, 0, 0, 0);
++	mutex_unlock(&adev->srbm_mutex);
++
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
 
-
->
-> +       if (powerplay_table->platform_caps & SMU_13_0_0_PP_PLATFORM_CAP_MACO)
-> +               smu_baco->maco_support = true;
-> +
->         table_context->thermal_controller_type =
->                 powerplay_table->thermal_controller_type;
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 693bb6bda350..96ae5ff8e19e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -1551,54 +1551,6 @@ static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu, long *inp
->         return ret;
->  }
->
-> -static int smu_v13_0_7_baco_set_state(struct smu_context *smu,
-> -                            enum smu_baco_state state)
-> -{
-> -       struct smu_baco_context *smu_baco = &smu->smu_baco;
-> -       struct amdgpu_device *adev = smu->adev;
-> -       bool is_maco_support = smu_baco->maco_support;
-> -       int ret;
-> -
-> -       if (smu_v13_0_baco_get_state(smu) == state)
-> -               return 0;
-> -
-> -       if (state == SMU_BACO_STATE_ENTER) {
-> -               ret = smu_cmn_send_smc_msg_with_param(smu,
-> -                                                     SMU_MSG_EnterBaco,
-> -                                                     (is_maco_support ? 2 : 0),
-> -                                                     NULL);
-> -       } else {
-> -               ret = smu_cmn_send_smc_msg(smu,
-> -                                          SMU_MSG_ExitBaco,
-> -                                          NULL);
-> -               if (ret)
-> -                       return ret;
-> -
-> -               /* clear vbios scratch 6 and 7 for coming asic reinit */
-> -               WREG32(adev->bios_scratch_reg_offset + 6, 0);
-> -               WREG32(adev->bios_scratch_reg_offset + 7, 0);
-> -       }
-> -
-> -       if (!ret)
-> -               smu_baco->state = state;
-> -
-> -       return ret;
-> -}
-> -
-> -static int smu_v13_0_7_baco_enter(struct smu_context *smu)
-> -{
-> -       int ret = 0;
-> -
-> -       ret = smu_v13_0_7_baco_set_state(smu,
-> -                                      SMU_BACO_STATE_ENTER);
-> -       if (ret)
-> -               return ret;
-> -
-> -       msleep(10);
-> -
-> -       return ret;
-> -}
-> -
->  static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
->         .get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
->         .set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
-> @@ -1653,8 +1605,8 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
->         .set_pp_feature_mask = smu_cmn_set_pp_feature_mask,
->         .baco_is_support = smu_v13_0_baco_is_support,
->         .baco_get_state = smu_v13_0_baco_get_state,
-> -       .baco_set_state = smu_v13_0_7_baco_set_state,
-> -       .baco_enter = smu_v13_0_7_baco_enter,
-> +       .baco_set_state = smu_v13_0_baco_set_state,
-> +       .baco_enter = smu_v13_0_baco_enter,
->         .baco_exit = smu_v13_0_baco_exit,
->         .set_mp1_state = smu_cmn_set_mp1_state,
->  };
-> --
-> 2.29.0
->
