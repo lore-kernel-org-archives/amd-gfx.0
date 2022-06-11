@@ -4,75 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F0CC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jun 2022 08:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4AECCA47A
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jun 2022 11:41:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 136FE112E1E;
-	Sat, 11 Jun 2022 08:06:23 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAEB112A1F;
- Sat, 11 Jun 2022 08:06:22 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id u8so1176938wrm.13;
- Sat, 11 Jun 2022 01:06:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=PcMyrMkeBq8FtDR9Ah+GKvDRw37wZQSxisNv3VbSxF8=;
- b=VDanKS2aPNxEPD5gHHW3YO7eybeGWHt49VN3wMDZarFEdbZywtZanpzYHolibuSgHo
- txN2heXPtUPZyZBdgRvwXaYcOVqigfgho+MuucKKg8YRX5hRDSDbV2sUsSVGMozHxCez
- cAMPw9hLl6JfXxid1Fm2oOJ1bU7R0pq99NyyOAju9w7veIBu10IusWNm1Ib1mywc3MBN
- JC7wuCDUDwt6aGszDEkUObBsev4hlStTmbJX7Pr9yBfezUDTR7a/S2C3fzxRQW3b/DKV
- vQH6tk3Uxk7jxkep6/tBDg/gRPFIF/MOOWhXzLSF7CZwI2b9+eoXzorlWss0DAbJLMeV
- Z/tg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6550611A0A5;
+	Sat, 11 Jun 2022 11:41:04 +0000 (UTC)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F7E11A0A5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jun 2022 11:41:02 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id h1so1301280plf.11
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jun 2022 04:41:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XifpliP7qkNCIB8pC7G+wpzXuAJiP8EhvQ0E8ZTWFKY=;
+ b=UkF8D4rIF0NAazU7NIlveLmFiP6vz05NI9hZyD3/1yg2wjHrxFtMTnns5DlxqbLIqp
+ CVXPyiEj23jajHzwaBJQ7gLJhr9y5LLOcJVhLZNgxFe8qnsLmFvolK+s4fsuwpD55aUB
+ KSapvtKLoEVt93eAhlh5V5rf2mhv6ltd1bzYaJhgwfePhF5aCTImn9PBmtvIPeNaMbUK
+ hlMloD/zIraG+HiznssrfIzIBIlQ51JKFeZJ5rD0Uy1vkH612vDlMcFLH+FzSzQmFOHc
+ frdLOGKVZrgiSbovqRGVGsvSVcH6EqNAE8cIZq5bojY3Oa0btGjDYbcQoZ/gcHY3Vjzh
+ RZlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=PcMyrMkeBq8FtDR9Ah+GKvDRw37wZQSxisNv3VbSxF8=;
- b=gEAOIeasd7IkEwm3TQrQe+MgB9q/FNSM4ibHkRPo5A+IK5RlYVhG9MdD0oVnr9ZaZE
- YI1hB1fC2xZjU2u3ftIAt63KecJyR72w7qCoMboYA6UQmh9mkAw2oWYHAZpJh4pFdCml
- hjzmO9Q2qV4vrn37N5p/tbrPSJMN7Kon7zdsB/6PLHX0eG/TFzqqMZcAn0shW27Dw33u
- pL77zELyfUALzQeSDka4ftiLNRuHazvG3JBZe8pDuMkBrJzOUS97+3TyDmveRzedMJou
- Bb5n9h9wYBRJhrn6/Y6uhyRjB4bX7yp9ErqTWkb8oq51I+qlQ1pXcLXeWOf4zNlijGoM
- l4jg==
-X-Gm-Message-State: AOAM5310EsYWz89xY8sIOso5vwjd3/cPQgL+DyOANY2Do3e6WngGynEQ
- jeEKnSqyOEVma6wl4vC7hyk=
-X-Google-Smtp-Source: ABdhPJxOGwCLeulpLrfjSocHTBSjkFkIa8LIlAZvPBEKMl+ZSwhdQvggONhSb/e759HwNYTLN0sK/Q==
-X-Received: by 2002:adf:f706:0:b0:20e:6788:c2b6 with SMTP id
- r6-20020adff706000000b0020e6788c2b6mr47847880wrp.633.1654934780444; 
- Sat, 11 Jun 2022 01:06:20 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:285a:43cd:3b2c:3f3c?
- ([2a02:908:1256:79a0:285a:43cd:3b2c:3f3c])
- by smtp.gmail.com with ESMTPSA id
- m6-20020adfe0c6000000b0021024f82e01sm1783833wri.16.2022.06.11.01.06.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 11 Jun 2022 01:06:19 -0700 (PDT)
-Message-ID: <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
-Date: Sat, 11 Jun 2022 10:06:18 +0200
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XifpliP7qkNCIB8pC7G+wpzXuAJiP8EhvQ0E8ZTWFKY=;
+ b=hO2XkYzMm4YfCOvnb39z/a5y//QFUGgzAyHvsEbu3traWZ+tdG0u2K35LycSkxmI8f
+ +MzOwxiN034Cwd5s/eySuKAJxbY5rJaCTewE5PZshjeZsFPUEteo7B0orTl/EmBG2ypJ
+ B+WS6DoLeV2632S1pf3GU4J2sA65RUtlNtTPJGL+WXfBU79EXWb6j5CQpGI6dyXcf7Wy
+ Pnnmj1phKEdggJboZvQkiv9XXdUUeF4ylnwuzs0UMnJrMKD+EnVFjcVCPpvRfWSvDVJ0
+ AOwR69DboVnWvWMNbNksSlEEiwoD4ioxonzOABqWTcV2MI4GEVyvbPjg+PiSXW9K6+2d
+ 3tAA==
+X-Gm-Message-State: AOAM531569sgy/brzwoMqRSixYwubBY/fHOmwKn5iJwxAojCdTcZ6Sm6
+ Fk5eAyEilaOBqFJ3oXg5QC2YswcBFNFWNy3T36A8CQ==
+X-Google-Smtp-Source: ABdhPJy0TkF2P9On45crKDAJSc6rYSBDzUJY/SMng0ZXAP4fjJQ4EuQnMecjqHK2NE0JI465Y9ZeWymnKvxn/uqi540=
+X-Received: by 2002:a17:903:24f:b0:168:d2ba:711c with SMTP id
+ j15-20020a170903024f00b00168d2ba711cmr123550plh.7.1654947662202; Sat, 11 Jun
+ 2022 04:41:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
-Content-Language: en-US
-To: Michal Hocko <mhocko@suse.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>
-References: <YqG67sox6L64E6wV@dhcp22.suse.cz>
- <77b99722-fc13-e5c5-c9be-7d4f3830859c@amd.com>
- <YqHuH5brYFQUfW8l@dhcp22.suse.cz>
- <26d3e1c7-d73c-cc95-54ef-58b2c9055f0c@gmail.com>
- <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
- <d4a19481-7a9f-19bf-c270-d89baa0970fc@amd.com>
- <YqIMmK18mb/+s5de@dhcp22.suse.cz>
- <3f7d3d96-0858-fb6d-07a3-4c18964f888e@gmail.com>
- <YqMuq/ZrV8loC3jE@dhcp22.suse.cz>
- <2e7e050e-04eb-0c0a-0675-d7f1c3ae7aed@amd.com>
- <YqNSSFQELx/LeEHR@dhcp22.suse.cz>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <YqNSSFQELx/LeEHR@dhcp22.suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220610135426.670120-1-michel@daenzer.net>
+ <2260b6a6-153c-6c12-212c-2b3f5199e6dc@gmail.com>
+In-Reply-To: <2260b6a6-153c-6c12-212c-2b3f5199e6dc@gmail.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Sat, 11 Jun 2022 13:40:51 +0200
+Message-ID: <CAHbf0-EA430-DLb_9M+jX_UwdMbrGDdFu_XcKicgsXz0zeROhA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix GTT size reporting in amdgpu_ioctl
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: multipart/alternative; boundary="00000000000087271905e12a870b"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,114 +63,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
- linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
- akpm@linux-foundation.org, linux-media@vger.kernel.org
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Xinhui Pan <Xinhui.Pan@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.06.22 um 16:16 schrieb Michal Hocko:
-> [...]
->>> The primary question is whether it actually helps much or what kind of
->>> scenarios it can help with and whether we can actually do better for
->>> those.
->> Well, it does help massively with a standard Linux desktop and GPU workloads
->> (e.g. games).
->>
->> See what currently happens is that when games allocate for example textures
->> the memory for that is not accounted against that game. Instead it's usually
->> the display server (X or Wayland) which most of the shared resources
->> accounts to because it needs to compose a desktop from it and usually also
->> mmaps it for fallback CPU operations.
-> Let me try to understand some more. So the game (or the entity to be
-> responsible for the resource) doesn't really allocate the memory but it
-> relies on somebody else (from memcg perspective living in a different
-> resource domain - i.e. a different memcg) to do that on its behalf.
-> Correct? If that is the case then that is certainly not fitting into the
-> memcg model then.
+--00000000000087271905e12a870b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-More or less: yes, that is one possible use case.  But we could leave 
-that one out since it is not the primary use case.
+Thanks for finding this
 
-What happens more is that 99% of the resources are only allocated per 
-process, but around 1% are shared with somebody else.
+I'll have access to my machine on Monday and will close those issues off
+once I've tested things
 
-But see two comments below of a better description of the problem I'm 
-facing.
+Cheers
 
-> I am not really sure there is any reasonable model where you cannot
-> really tell who is responsible for the resource.
+Mike
 
-Well it would be fine with me to leave out those 1% of resources shared 
-with different memcgs.
+On Sat, 11 Jun 2022, 09:19 Christian K=C3=B6nig, <
+ckoenig.leichtzumerken@gmail.com> wrote:
 
-What breaks my neck are those 99% which are allocated by a game and 
-could potentially be shared but are most of the time not.
+> Am 10.06.22 um 15:54 schrieb Michel D=C3=A4nzer:
+> > From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> >
+> > The commit below changed the TTM manager size unit from pages to
+> > bytes, but failed to adjust the corresponding calculations in
+> > amdgpu_ioctl.
+> >
+> > Fixes: dfa714b88eb0 ("drm/amdgpu: remove GTT accounting v2")
+> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1930
+> > Bug: https://gitlab.freedesktop.org/mesa/mesa/-/issues/6642
+> > Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+>
+> Ah, WTF! You won't believe how long I have been searching for this one.
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 --
+> >   1 file changed, 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > index 801f6fa692e9..6de63ea6687e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -642,7 +642,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> *data, struct drm_file *filp)
+> >                           atomic64_read(&adev->visible_pin_size),
+> >                           vram_gtt.vram_size);
+> >               vram_gtt.gtt_size =3D ttm_manager_type(&adev->mman.bdev,
+> TTM_PL_TT)->size;
+> > -             vram_gtt.gtt_size *=3D PAGE_SIZE;
+> >               vram_gtt.gtt_size -=3D atomic64_read(&adev->gart_pin_size=
+);
+> >               return copy_to_user(out, &vram_gtt,
+> >                                   min((size_t)size, sizeof(vram_gtt))) =
+?
+> -EFAULT : 0;
+> > @@ -675,7 +674,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> *data, struct drm_file *filp)
+> >                       mem.cpu_accessible_vram.usable_heap_size * 3 / 4;
+> >
+> >               mem.gtt.total_heap_size =3D gtt_man->size;
+> > -             mem.gtt.total_heap_size *=3D PAGE_SIZE;
+> >               mem.gtt.usable_heap_size =3D mem.gtt.total_heap_size -
+> >                       atomic64_read(&adev->gart_pin_size);
+> >               mem.gtt.heap_usage =3D ttm_resource_manager_usage(gtt_man=
+);
+>
+>
 
->> So what happens when a games over allocates texture resources is that your
->> whole desktop restarts because the compositor is killed. This obviously also
->> kills the game, but it would be much nice if we would be more selective
->> here.
->>
->> For hardware rendering DMA-buf and GPU drivers are used, but for the
->> software fallback shmem files is what is used under the hood as far as I
->> know. And the underlying problem is the same for both.
-> For shmem files the end user of the buffer can preallocate and so own
-> the buffer and be accounted for it.
+--00000000000087271905e12a870b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The problem is just that it can easily happen that one process is 
-allocating the resource and a different one freeing it.
+<div dir=3D"auto">Thanks for finding this<div dir=3D"auto"><br></div><div d=
+ir=3D"auto">I&#39;ll have access to my machine on Monday and will close tho=
+se issues off once I&#39;ve tested things</div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto">Cheers</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>Mike</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"g=
+mail_attr">On Sat, 11 Jun 2022, 09:19 Christian K=C3=B6nig, &lt;<a href=3D"=
+mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Am 10.06.22 um 15:54 =
+schrieb Michel D=C3=A4nzer:<br>
+&gt; From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:mdaenzer@redhat.com" ta=
+rget=3D"_blank" rel=3D"noreferrer">mdaenzer@redhat.com</a>&gt;<br>
+&gt;<br>
+&gt; The commit below changed the TTM manager size unit from pages to<br>
+&gt; bytes, but failed to adjust the corresponding calculations in<br>
+&gt; amdgpu_ioctl.<br>
+&gt;<br>
+&gt; Fixes: dfa714b88eb0 (&quot;drm/amdgpu: remove GTT accounting v2&quot;)=
+<br>
+&gt; Bug: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/1930" =
+rel=3D"noreferrer noreferrer" target=3D"_blank">https://gitlab.freedesktop.=
+org/drm/amd/-/issues/1930</a><br>
+&gt; Bug: <a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/issues/6642=
+" rel=3D"noreferrer noreferrer" target=3D"_blank">https://gitlab.freedeskto=
+p.org/mesa/mesa/-/issues/6642</a><br>
+&gt; Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:mdaenzer@redha=
+t.com" target=3D"_blank" rel=3D"noreferrer">mdaenzer@redhat.com</a>&gt;<br>
+<br>
+Ah, WTF! You won&#39;t believe how long I have been searching for this one.=
+<br>
+<br>
+Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com" target=3D"_blank" rel=3D"noreferrer">christian.koenig@amd.com</a>&gt=
+;<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 --<br>
+&gt;=C2=A0 =C2=A01 file changed, 2 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index 801f6fa692e9..6de63ea6687e 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -642,7 +642,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
+ *data, struct drm_file *filp)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic64_read(&amp;adev-&gt;visible_pin_size),<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0vram_gtt.vram_size);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vram_gtt.gtt_siz=
+e =3D ttm_manager_type(&amp;adev-&gt;mman.bdev, TTM_PL_TT)-&gt;size;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vram_gtt.gtt_size *=
+=3D PAGE_SIZE;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vram_gtt.gtt_siz=
+e -=3D atomic64_read(&amp;adev-&gt;gart_pin_size);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return copy_to_u=
+ser(out, &amp;vram_gtt,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0min((size_t)size, si=
+zeof(vram_gtt))) ? -EFAULT : 0;<br>
+&gt; @@ -675,7 +674,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
+ *data, struct drm_file *filp)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0mem.cpu_accessible_vram.usable_heap_size * 3 / 4;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem.gtt.total_he=
+ap_size =3D gtt_man-&gt;size;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem.gtt.total_heap_si=
+ze *=3D PAGE_SIZE;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem.gtt.usable_h=
+eap_size =3D mem.gtt.total_heap_size -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0atomic64_read(&amp;adev-&gt;gart_pin_size);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem.gtt.heap_usa=
+ge =3D ttm_resource_manager_usage(gtt_man);<br>
+<br>
+</blockquote></div>
 
-So just imaging the following example: Process opens X window, get 
-reference to the handle of the buffer backing this window for drawing, 
-tells X to close the window again and then a bit later closes the buffer 
-handle.
-
-In this example the X server would be charged allocating the buffer and 
-the client (which is most likely in a different memcg group) is charged 
-freeing it.
-
-I could of course add something to struct page to track which memcg (or 
-process) it was charged against, but extending struct page is most 
-likely a no-go.
-
-Alternative I could try to track the "owner" of a buffer (e.g. a shmem 
-file), but then it can happen that one processes creates the object and 
-another one is writing to it and actually allocating the memory.
-
->>> Also do not forget that shared file memory is not the only thing
->>> to care about. What about the kernel memory used on behalf of processes?
->> Yeah, I'm aware of that as well. But at least inside the GPU drivers we try
->> to keep that in a reasonable ratio.
->>
->>> Just consider the above mentioned memcg driven model. It doesn't really
->>> require to chase specific files and do some arbitrary math to share the
->>> responsibility. It has a clear accounting and responsibility model.
->> Ok, how does that work then?
-> The memory is accounted to whoever faults that memory in or to the
-> allocating context if that is a kernel memory (in most situations).
-
-That's what I had in mind as well. Problem with this approach is that 
-file descriptors are currently not informed that they are shared between 
-processes.
-
-So to make this work we would need something like attach/detach to 
-process in struct file_operations.
-
-And as I noted, this happens rather often. For example a game which 
-renders 120 frames per second needs to transfer 120 buffers per second 
-between client and X.
-
-So this is not something which could take a lot of time and the file 
-descriptor tracking structures in the Linux kernel are not made for this 
-either.
-
-I think for now I will try something like this specific for DRM drivers. 
-That doesn't solve the shmem file problem, but it at least gives me 
-something at hand for the accelerated Linux desktop case.
-
-Regards,
-Christian.
+--00000000000087271905e12a870b--
