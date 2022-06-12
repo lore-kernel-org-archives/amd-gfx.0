@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 472E5CCA480
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC0CBCCA47E
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A712910EB37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF9110E663;
 	Mon, 13 Jun 2022 08:00:38 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A30010F0FE;
- Mon, 13 Jun 2022 07:45:05 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2E50D21A93;
- Mon, 13 Jun 2022 07:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1655106304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5WMle8KoXV0j63rwJ5QZ4pysRjmykK+gll6/m96aiCQ=;
- b=FuLo+VOBBkI+oWNStM4seHkoiyK0Hr+aHMOvDiwt9GGELjWedVV4eVmmgJbe872jPvORqJ
- Vc5aqY4498GBGJEsynJOBtP7uacBYTxS6Qceg9YAfnVQkKLxppmCRYRI6VnRd0Ehidw6e7
- VkwY4jb2uXaKjgqii9bZJVgtGLmxSos=
-Received: from suse.cz (unknown [10.100.201.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id B0E0C2C141;
- Mon, 13 Jun 2022 07:45:03 +0000 (UTC)
-Date: Mon, 13 Jun 2022 09:45:01 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
-Message-ID: <Yqbq/Q5jz2ou87Jx@dhcp22.suse.cz>
-References: <YqHuH5brYFQUfW8l@dhcp22.suse.cz>
- <26d3e1c7-d73c-cc95-54ef-58b2c9055f0c@gmail.com>
- <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
- <d4a19481-7a9f-19bf-c270-d89baa0970fc@amd.com>
- <YqIMmK18mb/+s5de@dhcp22.suse.cz>
- <3f7d3d96-0858-fb6d-07a3-4c18964f888e@gmail.com>
- <YqMuq/ZrV8loC3jE@dhcp22.suse.cz>
- <2e7e050e-04eb-0c0a-0675-d7f1c3ae7aed@amd.com>
- <YqNSSFQELx/LeEHR@dhcp22.suse.cz>
- <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
+Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
+ [209.85.216.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0AE710F63B
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jun 2022 06:40:58 +0000 (UTC)
+Received: by mail-pj1-f66.google.com with SMTP id
+ o33-20020a17090a0a2400b001ea806e48c6so3116273pjo.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZGrF/sve7KFTJf3GJ9QVEDMMBvkar/b8XuDD6PWfLjk=;
+ b=k9YbY6DNSsjvTV5tG3MXhR727t/+sYBPmKjHpPFsVN+dZtxy2xHxJowGzIV14p6sxd
+ 6yspz504AGqcQ51cxaaA6cAR2kT6Mtj3FfbntyCKfFqjPcGTMwn1XLo70gs0tUTEG/CQ
+ RroYT1yRa4kx3lD9IawS5oGMgp3ajq/BCgLSSuD0QCp1MAGtyDwlc/jwtkHGDft6gg8T
+ ux1t6ZtKvRHuGh2LoYw41Had+hLtfOtVjl5DPkoJD02jJoNYZ/8FGY0hMYS076s1YOzp
+ AvKqZ5UxGjesJww3gI73RviD7EI0Q4iimJVbm0GdR0oRMbUAVY1l0bXkkS707o30lCPJ
+ s6Tw==
+X-Gm-Message-State: AOAM533zrmdLiy36lseWl+Rube2BK3e85tRaaT4VK7OCu5dhh37cWoQ7
+ T8thzCZxnidITecBUOAQig==
+X-Google-Smtp-Source: ABdhPJwFLlxOzFRm3zYN+pfdVaQQ14/wpp5IKt/Iov6tYmXs3jpaO5Ajn67yFNmbIkCe3meGlR22Rg==
+X-Received: by 2002:a17:902:d2c1:b0:165:d4cd:e118 with SMTP id
+ n1-20020a170902d2c100b00165d4cde118mr54076180plc.4.1655016058351; 
+ Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.53.107])
+ by smtp.gmail.com with ESMTPSA id
+ p10-20020a056a000a0a00b0051c157f83e3sm2691628pfh.96.2022.06.11.23.40.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
+From: sunliming <sunliming@kylinos.cn>
+To: Ramesh.Errabolu@amd.com, alexander.deucher@amd.com, Felix.Kuehling@amd.com
+Subject: [PATCH] drm/amdkfd: Add missing #if defined(CONFIG_HSA_AMD_P2P)
+Date: Sun, 12 Jun 2022 14:40:50 +0800
+Message-Id: <20220612064050.1175083-1-sunliming@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
 X-Mailman-Approved-At: Mon, 13 Jun 2022 08:00:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,66 +58,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
- linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
- akpm@linux-foundation.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org
+Cc: kelulanainsley@gmail.com, sunliming@kylinos.cn,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat 11-06-22 10:06:18, Christian König wrote:
-> Am 10.06.22 um 16:16 schrieb Michal Hocko:
-[...]
-> > > So what happens when a games over allocates texture resources is that your
-> > > whole desktop restarts because the compositor is killed. This obviously also
-> > > kills the game, but it would be much nice if we would be more selective
-> > > here.
-> > > 
-> > > For hardware rendering DMA-buf and GPU drivers are used, but for the
-> > > software fallback shmem files is what is used under the hood as far as I
-> > > know. And the underlying problem is the same for both.
-> > For shmem files the end user of the buffer can preallocate and so own
-> > the buffer and be accounted for it.
-> 
-> The problem is just that it can easily happen that one process is allocating
-> the resource and a different one freeing it.
-> 
-> So just imaging the following example: Process opens X window, get reference
-> to the handle of the buffer backing this window for drawing, tells X to
-> close the window again and then a bit later closes the buffer handle.
-> 
-> In this example the X server would be charged allocating the buffer and the
-> client (which is most likely in a different memcg group) is charged freeing
-> it.
+The variable 'i' in function kfd_dev_create_p2p_links is only used in
+codes that gaurded by '#if defined(CONFIG_HSA_AMD_P2P)' check. So adding
+CONFIG_HSA_AMD_P2P #ifdef check around variable 'i' too.
 
-Thanks for the clarification.
+Fixes the following w1 warning:
 
-> I could of course add something to struct page to track which memcg (or
-> process) it was charged against, but extending struct page is most likely a
-> no-go.
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1542:11: warning: variable 'i' set but not used [-Wunused-but-set-variable]
 
-Struct page already maintains is memcg. The one which has charged it and
-it will stay constatnt throughout of the allocation lifetime (cgroup v1
-has a concept of the charge migration but this hasn't been adopted in
-v2).
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-We have a concept of active_memcg which allows to charge against a
-different memcg than the allocating context. From your example above I
-do not think this is really usable for the described usecase as the X is
-not aware where the request comes from?
-
-> Alternative I could try to track the "owner" of a buffer (e.g. a shmem
-> file), but then it can happen that one processes creates the object and
-> another one is writing to it and actually allocating the memory.
-
-If you can enforce that the owner is really responsible for the
-allocation then all should be fine. That would require MAP_POPULATE like
-semantic and I suspect this is not really feasible with the existing
-userspace. It would be certainly hard to enforce for bad players.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 304322ac39e6..4bfce71f7fa9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1539,7 +1539,10 @@ static int kfd_dev_create_p2p_links(void)
+ {
+ 	struct kfd_topology_device *dev;
+ 	struct kfd_topology_device *new_dev;
+-	uint32_t i, k;
++	uint32_t k;
++#if defined(CONFIG_HSA_AMD_P2P)
++	uint32_t i = 0;
++#endif
+ 	int ret = 0;
+ 
+ 	k = 0;
+@@ -1553,7 +1556,6 @@ static int kfd_dev_create_p2p_links(void)
+ 		return 0;
+ 
+ 	k--;
+-	i = 0;
+ 
+ 	/* create in-direct links */
+ 	ret = kfd_create_indirect_link_prop(new_dev, k);
 -- 
-Michal Hocko
-SUSE Labs
+2.25.1
+
