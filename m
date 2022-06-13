@@ -4,89 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B897C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 472E5CCA480
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77D7610E671;
-	Mon, 13 Jun 2022 08:00:18 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF6FD10E99F
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 08:00:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wv72VZWuXtTTGRkNxnfORX0FCqvVxaZeIo+SoMFCCu09wqRbi8uFry+mLSqSlEbpzyBA7pT0vnvAl0GrfYugm1On3X+grr3ivcG1Pd1uaj+icilmfxshNtd2NmucaLrj5eHJMEtXMQpnaCh/yA/ajFgvgO4yLsgJRwSzt6Iq77tZgTBjtZj1VWvtIGaKaUtAyNGpS6Tk8a3UZlHh3L4J693pLSrE5nGbG/kWhfgFHI+AQIjZWVZuRyk2i/RkFfKpxI47113+7d64ByYp5SwuqWPYlrNj8tb3fAfPuM0KZo4QBrYo5LAAfNJBN5cKTNbfece+HKRfP9ejorfC/xBdTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sRigQzCoRqtN3prfTI8Prcth/iv2aXWiBJMf2NThxCU=;
- b=CiRFyz5VpxUsIJ1vk9qIEco4AnjSHsN2m1CibG3n40anYLMG9j4/q5XYt/+eqyKyaAOk/XR4SdbsOnznqseNLLjsDhPu2HwYd4hSN+NrwBGWgG5btNIbIsQIIFwMHMeHuWosm8duEEROWkIOD+8XxE3X3cISOPFimfcust8GUdz9l78x0eh9rmaKlq2ExZZ1fM8+btSeRtqMfOfKmChzb0OyE2VHk/eKfnLaSZc5EjjkZU4AsLHRvI5r90wlSGyzkY14NWnUUwE1bJeCbNBPj7RdqQ+2O/egBkWAvNuchV2CWIFXY9fTjhupBDJ8TTES29fVXvQHciWJjTtl6ggRvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sRigQzCoRqtN3prfTI8Prcth/iv2aXWiBJMf2NThxCU=;
- b=xz2kQCWQQYr4ZKCckvzZDLpV51RoUvSRc9RyNRMI3zxhGA/0dbzTnNCWbdVyL7RqyNOCxPGeMimwQRXd1SoFWKh+riQD5hQIdgB5sEaHouYhEzBmqzmJqqRIVDazUyciGe/HCLR09r+vQKsFl8TqhNc8fjbxzyYWTOq//QE640s=
-Received: from MWHPR14CA0035.namprd14.prod.outlook.com (2603:10b6:300:12b::21)
- by BN6PR12MB1905.namprd12.prod.outlook.com (2603:10b6:404:fe::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Mon, 13 Jun
- 2022 08:00:14 +0000
-Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:12b:cafe::53) by MWHPR14CA0035.outlook.office365.com
- (2603:10b6:300:12b::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13 via Frontend
- Transport; Mon, 13 Jun 2022 08:00:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Mon, 13 Jun 2022 08:00:14 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 13 Jun
- 2022 03:00:11 -0500
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdkfd: simplify vm_validate_pt_pd_bos
-Date: Mon, 13 Jun 2022 15:59:56 +0800
-Message-ID: <20220613075956.720375-1-Lang.Yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A712910EB37;
+	Mon, 13 Jun 2022 08:00:38 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A30010F0FE;
+ Mon, 13 Jun 2022 07:45:05 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2E50D21A93;
+ Mon, 13 Jun 2022 07:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1655106304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5WMle8KoXV0j63rwJ5QZ4pysRjmykK+gll6/m96aiCQ=;
+ b=FuLo+VOBBkI+oWNStM4seHkoiyK0Hr+aHMOvDiwt9GGELjWedVV4eVmmgJbe872jPvORqJ
+ Vc5aqY4498GBGJEsynJOBtP7uacBYTxS6Qceg9YAfnVQkKLxppmCRYRI6VnRd0Ehidw6e7
+ VkwY4jb2uXaKjgqii9bZJVgtGLmxSos=
+Received: from suse.cz (unknown [10.100.201.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id B0E0C2C141;
+ Mon, 13 Jun 2022 07:45:03 +0000 (UTC)
+Date: Mon, 13 Jun 2022 09:45:01 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
+Message-ID: <Yqbq/Q5jz2ou87Jx@dhcp22.suse.cz>
+References: <YqHuH5brYFQUfW8l@dhcp22.suse.cz>
+ <26d3e1c7-d73c-cc95-54ef-58b2c9055f0c@gmail.com>
+ <YqIB0bavUeU8Abwl@dhcp22.suse.cz>
+ <d4a19481-7a9f-19bf-c270-d89baa0970fc@amd.com>
+ <YqIMmK18mb/+s5de@dhcp22.suse.cz>
+ <3f7d3d96-0858-fb6d-07a3-4c18964f888e@gmail.com>
+ <YqMuq/ZrV8loC3jE@dhcp22.suse.cz>
+ <2e7e050e-04eb-0c0a-0675-d7f1c3ae7aed@amd.com>
+ <YqNSSFQELx/LeEHR@dhcp22.suse.cz>
+ <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0e217861-d0a2-4148-d1ea-08da4d12bf8d
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1905:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1905A05CD34BB2126CC6C91CFBAB9@BN6PR12MB1905.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4wI2tFUeCC+dZpRol+pA8wXPjbR58QFH9qOfeb2gRvgL5F54h4clfiyW5UkzNqM5/97aPWvU+lMOTvU3ZgaPEeam6ghOGGlQm/5kLC27fa1Oxq09xzyBDK0r8dbFLHlS0FEfwhEgHVDh39KfNXrK/Z3Ed/KQKfrywyycGjXUMeea4p7YjSJGUtimuDFmdXXSdMI6Of5/6P05x5U+qkPS8fMwkDtB2WCpSty/93Yz6PwgJm78fir8Zujpsr8E0GngeZVo6sTuG0P/a0amTnSriicYiz6fJPZ3u0rZ9RDJM6cWnvMIOSjUq2h/ykjT44NKV3eJdp57Caj9zLLIdcuy9JjPnUCthUuc4Uw5/K40pV53pZyFjgMgx/pTdPemQddvcM4cxRL0wfmd1LjcGV8sKVOF5bHbrCtyd7d1iGdIW3IUMSlzSTJlDpl1P6ojRCa2e3IG5MjTop9kVZbletU0jjdWNjh65T2vxQRTrQ+OZdTBdAFmmaFj439n36FxkEyx6ZzNlrEaBCt6VThaQKWelIZB/MVymQjaheY+lqmEx5IlSpER1vzXDWoZyrHkHQR/U32b5plSEBvh/HlFQZHd+3BPPkeGoVxxxEx7WQghuYSU4UXCcJf0Y+rrH1++DxajLpmfuVxS/9shnWX1qUSCvNvESPMdlyEJVhm0B8tzyRmsQUcKIHB0oA19r34oeIEkH17v8v3tB5z/gQmtAZM9Mg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(70586007)(508600001)(70206006)(316002)(6916009)(26005)(54906003)(82310400005)(86362001)(36756003)(5660300002)(4326008)(2616005)(8676002)(2906002)(8936002)(81166007)(186003)(1076003)(47076005)(16526019)(426003)(40460700003)(336012)(6666004)(36860700001)(356005)(7696005)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2022 08:00:14.2964 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e217861-d0a2-4148-d1ea-08da4d12bf8d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1905
+In-Reply-To: <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
+X-Mailman-Approved-At: Mon, 13 Jun 2022 08:00:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,72 +61,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Huang Rui <ray.huang@amd.com>,
- Lang Yu <Lang.Yu@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
+ linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
+ akpm@linux-foundation.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We don't need to validate and map root PD specially here,
-it would be validated and mapped by amdgpu_vm_validate_pt_bos
-if it is evicted.
+On Sat 11-06-22 10:06:18, Christian König wrote:
+> Am 10.06.22 um 16:16 schrieb Michal Hocko:
+[...]
+> > > So what happens when a games over allocates texture resources is that your
+> > > whole desktop restarts because the compositor is killed. This obviously also
+> > > kills the game, but it would be much nice if we would be more selective
+> > > here.
+> > > 
+> > > For hardware rendering DMA-buf and GPU drivers are used, but for the
+> > > software fallback shmem files is what is used under the hood as far as I
+> > > know. And the underlying problem is the same for both.
+> > For shmem files the end user of the buffer can preallocate and so own
+> > the buffer and be accounted for it.
+> 
+> The problem is just that it can easily happen that one process is allocating
+> the resource and a different one freeing it.
+> 
+> So just imaging the following example: Process opens X window, get reference
+> to the handle of the buffer backing this window for drawing, tells X to
+> close the window again and then a bit later closes the buffer handle.
+> 
+> In this example the X server would be charged allocating the buffer and the
+> client (which is most likely in a different memcg group) is charged freeing
+> it.
 
-The special case is when turning a GFX VM to a compute VM,
-if vm_update_mode changed, we need to map the root PD again.
-So just move root PD mapping to amdgpu_vm_make_compute.
+Thanks for the clarification.
 
-v2:
- - Don't rename vm_validate_pt_pd_bos and make it public.
+> I could of course add something to struct page to track which memcg (or
+> process) it was charged against, but extending struct page is most likely a
+> no-go.
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 14 --------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           |  5 +++++
- 2 files changed, 5 insertions(+), 14 deletions(-)
+Struct page already maintains is memcg. The one which has charged it and
+it will stay constatnt throughout of the allocation lifetime (cgroup v1
+has a concept of the charge migration but this hasn't been adopted in
+v2).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 6a3bd8b9a08f..3805eef9ab69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -425,22 +425,8 @@ static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
- 		return ret;
- 	}
- 
--	ret = amdgpu_amdkfd_validate_vm_bo(NULL, pd);
--	if (ret) {
--		pr_err("failed to validate PD\n");
--		return ret;
--	}
--
- 	vm->pd_phys_addr = amdgpu_gmc_pd_addr(vm->root.bo);
- 
--	if (vm->use_cpu_for_update) {
--		ret = amdgpu_bo_kmap(pd, NULL);
--		if (ret) {
--			pr_err("failed to kmap PD, ret=%d\n", ret);
--			return ret;
--		}
--	}
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 703552f9a6d7..08fda57f5aa2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2225,6 +2225,11 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	} else {
- 		vm->update_funcs = &amdgpu_vm_sdma_funcs;
- 	}
-+
-+	r = vm->update_funcs->map_table(to_amdgpu_bo_vm(vm->root.bo));
-+	if (r)
-+		goto unreserve_bo;
-+
- 	dma_fence_put(vm->last_update);
- 	vm->last_update = NULL;
- 	vm->is_compute_context = true;
+We have a concept of active_memcg which allows to charge against a
+different memcg than the allocating context. From your example above I
+do not think this is really usable for the described usecase as the X is
+not aware where the request comes from?
+
+> Alternative I could try to track the "owner" of a buffer (e.g. a shmem
+> file), but then it can happen that one processes creates the object and
+> another one is writing to it and actually allocating the memory.
+
+If you can enforce that the owner is really responsible for the
+allocation then all should be fine. That would require MAP_POPULATE like
+semantic and I suspect this is not really feasible with the existing
+userspace. It would be certainly hard to enforce for bad players.
 -- 
-2.25.1
-
+Michal Hocko
+SUSE Labs
