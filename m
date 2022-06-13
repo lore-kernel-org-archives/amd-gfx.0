@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC0CBCCA47E
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53B0C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 08:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF9110E663;
-	Mon, 13 Jun 2022 08:00:38 +0000 (UTC)
-Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
- [209.85.216.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AE710F63B
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jun 2022 06:40:58 +0000 (UTC)
-Received: by mail-pj1-f66.google.com with SMTP id
- o33-20020a17090a0a2400b001ea806e48c6so3116273pjo.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D13E210E687;
+	Mon, 13 Jun 2022 08:00:39 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2C810E1FC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 02:05:40 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-fe4ac3b87fso6733241fac.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jun 2022 19:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=e46J6YpvZlo2yGMzk6PY6sq3v309vZF6FtZnu8zauLo=;
+ b=iJBQxF2Wl8xxK/rALoNpaCDWo3V4BFLqvJPHSBKd+7wAbQVgGZOGN6oaw8AoVgfAO2
+ kacOO+OTX7lzg2LAvn+n1wMfeLtg5vtSuRqsFvoUqtsD/E+8Zfj+PWUSnp1gQRFX55+V
+ ugDYSdtx/pX5N0b3Rzk2R1X0n1Q7bLh/QNEhIbXz8h11K6c2UvpOub/rddfitIN6XLGF
+ fn7YG6cUzDDw+wgoIJJQLCWkyBC6H8cJqbdj4G1DjgcouBGe+iBpQMQ+Hun8+wevETDi
+ suvR2BriwLgGym/UvWSy+NCXBqma/WYQxesdN/8RF7M1YfiX4TSaitFsHIQcPGwz4PBy
+ ZzJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZGrF/sve7KFTJf3GJ9QVEDMMBvkar/b8XuDD6PWfLjk=;
- b=k9YbY6DNSsjvTV5tG3MXhR727t/+sYBPmKjHpPFsVN+dZtxy2xHxJowGzIV14p6sxd
- 6yspz504AGqcQ51cxaaA6cAR2kT6Mtj3FfbntyCKfFqjPcGTMwn1XLo70gs0tUTEG/CQ
- RroYT1yRa4kx3lD9IawS5oGMgp3ajq/BCgLSSuD0QCp1MAGtyDwlc/jwtkHGDft6gg8T
- ux1t6ZtKvRHuGh2LoYw41Had+hLtfOtVjl5DPkoJD02jJoNYZ/8FGY0hMYS076s1YOzp
- AvKqZ5UxGjesJww3gI73RviD7EI0Q4iimJVbm0GdR0oRMbUAVY1l0bXkkS707o30lCPJ
- s6Tw==
-X-Gm-Message-State: AOAM533zrmdLiy36lseWl+Rube2BK3e85tRaaT4VK7OCu5dhh37cWoQ7
- T8thzCZxnidITecBUOAQig==
-X-Google-Smtp-Source: ABdhPJwFLlxOzFRm3zYN+pfdVaQQ14/wpp5IKt/Iov6tYmXs3jpaO5Ajn67yFNmbIkCe3meGlR22Rg==
-X-Received: by 2002:a17:902:d2c1:b0:165:d4cd:e118 with SMTP id
- n1-20020a170902d2c100b00165d4cde118mr54076180plc.4.1655016058351; 
- Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
-Received: from localhost.localdomain ([156.146.53.107])
- by smtp.gmail.com with ESMTPSA id
- p10-20020a056a000a0a00b0051c157f83e3sm2691628pfh.96.2022.06.11.23.40.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jun 2022 23:40:58 -0700 (PDT)
-From: sunliming <sunliming@kylinos.cn>
-To: Ramesh.Errabolu@amd.com, alexander.deucher@amd.com, Felix.Kuehling@amd.com
-Subject: [PATCH] drm/amdkfd: Add missing #if defined(CONFIG_HSA_AMD_P2P)
-Date: Sun, 12 Jun 2022 14:40:50 +0800
-Message-Id: <20220612064050.1175083-1-sunliming@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e46J6YpvZlo2yGMzk6PY6sq3v309vZF6FtZnu8zauLo=;
+ b=UO8DNZV7TG5BfsatBFCILeinalwJu16rsNSjmS+XBBCRUgUh8ZRL2b2VKvnU6hCfF+
+ epc7kn+Ew44kOloJLEUJKbonv97xn6zzyI9aFCsLAwqx8yvuOdDVvoLQUfrhuBOQdrtF
+ qXpLX3rziAiyidsUBKk6uHCk+TfaoavQl6UvJR6A3EaNZzOmsQ5njvPDOkl0MDWEmR39
+ dA+lZy5T7rdpi8QG4BsSgoUCmwlXJ5MGok3ku49EBXGubH4wZTjmJGbCf3qLKy0neUpb
+ h7Wr97ko8LSdUByTSbAAxRS/yZn0aeylLwoKUIuHtcFWRVpI2W0ktfKi232+EaYMSSc2
+ Nuhg==
+X-Gm-Message-State: AOAM530RiSHjK3XF8uh4PfeEM/8QTTAqknL8CxaRFnrEKK7dbD9qUStU
+ 2j53ZAjgFEHwEb5hVjm9QivykgmnoYDek6QzQe+YVNOwIEg=
+X-Google-Smtp-Source: ABdhPJwz5UGAyOrgXcceDNDm0wdsu410WRWWGrrkAgaIqwJLEpLVqHsAtKdij4lra+lyQ0P01s8Oj7xw9CpeCe+QygU=
+X-Received: by 2002:a05:6870:d582:b0:fe:4131:6dbb with SMTP id
+ u2-20020a056870d58200b000fe41316dbbmr6421526oao.76.1655085939878; Sun, 12 Jun
+ 2022 19:05:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <62a3ad70.TorcQosfTdYPgOzL%lkp@intel.com>
+In-Reply-To: <62a3ad70.TorcQosfTdYPgOzL%lkp@intel.com>
+From: Souptick Joarder <jrdr.linux@gmail.com>
+Date: Mon, 13 Jun 2022 07:35:27 +0530
+Message-ID: <CAFqt6zaL=QBkS5PJNKV9D81uGmwGwjjsa0w90ohGjJkB2qEu4g@mail.gmail.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 6d0c806803170f120f8cb97b321de7bd89d3a791
+To: kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 13 Jun 2022 08:00:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,50 +64,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kelulanainsley@gmail.com, sunliming@kylinos.cn,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- kernel test robot <lkp@intel.com>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-staging@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The variable 'i' in function kfd_dev_create_p2p_links is only used in
-codes that gaurded by '#if defined(CONFIG_HSA_AMD_P2P)' check. So adding
-CONFIG_HSA_AMD_P2P #ifdef check around variable 'i' too.
+On Sat, Jun 11, 2022 at 2:16 AM kernel test robot <lkp@intel.com> wrote:
+>
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 6d0c806803170f120f8cb97b321de7bd89d3a791  Add linux-next specific files for 20220610
+>
+> Error/Warning reports:
+>
+> https://lore.kernel.org/llvm/202205220805.wrw5woEk-lkp@intel.com
+>
+> Error/Warning: (recently discovered and may have been fixed)
+>
+> arch/riscv/include/asm/pgtable-64.h:215:2: error: invalid input constraint '0' in asm
+> arch/riscv/include/asm/pgtable.h:257:2: error: invalid input constraint '0' in asm
+> drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:130:17: warning: 'DP_SINK_BRANCH_DEV_NAME_7580' defined but not used [-Wunused-const-variable=]
 
-Fixes the following w1 warning:
+This is a False warning.
+0 ddc_service_types.h <global>                    130 static const u8
+DP_SINK_BRANCH_DEV_NAME_7580[] = "7580\x80u";
+1 dc_link.c           detect_link_and_local_sink 1106
+memcmp(&link->dpcd_caps.branch_dev_name, DP_SINK_BRANCH_DEV_NAME_7580,
 
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1542:11: warning: variable 'i' set but not used [-Wunused-but-set-variable]
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: sunliming <sunliming@kylinos.cn>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> drivers/misc/cardreader/rts5261.c:406:13: warning: variable 'setting_reg2' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+I think, code wise this looks correct and can be excluded.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 304322ac39e6..4bfce71f7fa9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1539,7 +1539,10 @@ static int kfd_dev_create_p2p_links(void)
- {
- 	struct kfd_topology_device *dev;
- 	struct kfd_topology_device *new_dev;
--	uint32_t i, k;
-+	uint32_t k;
-+#if defined(CONFIG_HSA_AMD_P2P)
-+	uint32_t i = 0;
-+#endif
- 	int ret = 0;
- 
- 	k = 0;
-@@ -1553,7 +1556,6 @@ static int kfd_dev_create_p2p_links(void)
- 		return 0;
- 
- 	k--;
--	i = 0;
- 
- 	/* create in-direct links */
- 	ret = kfd_create_indirect_link_prop(new_dev, k);
--- 
-2.25.1
-
+> drivers/staging/rtl8723bs/hal/hal_btcoex.c:1182:30: warning: variable 'pHalData' set but not used [-Wunused-but-set-variable]
+>
+> Error/Warning ids grouped by kconfigs:
+>
+> gcc_recent_errors
+> |-- alpha-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- arc-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- arm-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- arm-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- arm64-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- i386-allyesconfig
+> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-include-ddc_service_types.h:warning:DP_SINK_BRANCH_DEV_NAME_7580-defined-but-not-used
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- ia64-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- m68k-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- m68k-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- mips-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- mips-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- nios2-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- parisc-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- powerpc-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- powerpc-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- riscv-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- riscv-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- sh-allmodconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- sparc-allyesconfig
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> |-- x86_64-allyesconfig
+> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-include-ddc_service_types.h:warning:DP_SINK_BRANCH_DEV_NAME_7580-defined-but-not-used
+> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+> `-- xtensa-allyesconfig
+>     `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>
+> clang_recent_errors
+> |-- i386-randconfig-a013
+> |   `-- drivers-misc-cardreader-rts5261.c:warning:variable-setting_reg2-is-used-uninitialized-whenever-if-condition-is-false
+> `-- riscv-randconfig-r013-20220610
+>     |-- arch-riscv-include-asm-pgtable-.h:error:invalid-input-constraint-in-asm
+>     `-- arch-riscv-include-asm-pgtable.h:error:invalid-input-constraint-in-asm
+>
+> elapsed time: 873m
+>
+> configs tested: 61
+> configs skipped: 3
+>
+> gcc tested configs:
+> arm                                 defconfig
+> arm                              allmodconfig
+> arm                              allyesconfig
+> arm64                               defconfig
+> arm64                            allyesconfig
+> um                             i386_defconfig
+> um                           x86_64_defconfig
+> ia64                                defconfig
+> ia64                             allmodconfig
+> ia64                             allyesconfig
+> m68k                                defconfig
+> m68k                             allyesconfig
+> m68k                             allmodconfig
+> nios2                               defconfig
+> arc                              allyesconfig
+> alpha                               defconfig
+> csky                                defconfig
+> nios2                            allyesconfig
+> alpha                            allyesconfig
+> h8300                            allyesconfig
+> arc                                 defconfig
+> sh                               allmodconfig
+> xtensa                           allyesconfig
+> parisc                              defconfig
+> s390                             allmodconfig
+> parisc                           allyesconfig
+> s390                             allyesconfig
+> parisc64                            defconfig
+> s390                                defconfig
+> i386                   debian-10.3-kselftests
+> i386                              debian-10.3
+> i386                                defconfig
+> i386                             allyesconfig
+> sparc                               defconfig
+> sparc                            allyesconfig
+> mips                             allyesconfig
+> mips                             allmodconfig
+> powerpc                           allnoconfig
+> powerpc                          allmodconfig
+> powerpc                          allyesconfig
+> i386                          randconfig-a014
+> i386                          randconfig-a012
+> i386                          randconfig-a016
+> riscv                             allnoconfig
+> riscv                            allyesconfig
+> riscv                            allmodconfig
+> riscv                    nommu_k210_defconfig
+> riscv                          rv32_defconfig
+> riscv                    nommu_virt_defconfig
+> riscv                               defconfig
+> x86_64                              defconfig
+> x86_64                           allyesconfig
+> x86_64                                  kexec
+> x86_64                               rhel-8.3
+> x86_64                         rhel-8.3-kunit
+> x86_64                           rhel-8.3-syz
+> x86_64                          rhel-8.3-func
+> x86_64                    rhel-8.3-kselftests
+>
+> clang tested configs:
+> i386                          randconfig-a013
+> i386                          randconfig-a011
+> i386                          randconfig-a015
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://01.org/lkp
+>
