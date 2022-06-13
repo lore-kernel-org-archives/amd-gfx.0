@@ -4,53 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61C1EC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 13:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F29EC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 14:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF6810E7E6;
-	Mon, 13 Jun 2022 13:52:13 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA64A10E7E6
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 13:52:11 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id w16so7807288oie.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 06:52:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCD410E109;
+	Mon, 13 Jun 2022 14:34:31 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FD210E20E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 14:34:29 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1013ecaf7e0so2935855fac.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 07:34:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Fp1cDnXgOIWqir0CMfVfAFuQ1aAfw7Z4rzEujTjvR1o=;
- b=MEXGMjkrjWvrpMPTXfttCaD2NFO1dNPHsG9NE+VvBxPBddzAi2IXtZ2vSNbHqU2oa5
- GnpOLK6bD7W0/nhzDQEEVBri72zvH3lNIHaVtkCYbZI9hnpgCT1hOglKDUPnx49O9sLV
- Fp6nkUc19AzxxaUKueLdOmyVCPYFaQpFH/tVStsb+mxBDZmpdmluYL6SJcKRyW5e8+yi
- 3FRMBizhTHtBTB56yuU2vuiU/QRrkc6KkGI0kUNYui6kQRnoKlrJW74ahanbFKYvQ24S
- iGkAaPi2Q/U4obeuT7eIx8ETVu031PoatxGJ0qHaU2Fge3horQgRhyuwsaHB2qRPSyvG
- ntgQ==
+ :cc:content-transfer-encoding;
+ bh=OeYAVOKz0A8N/zBMzPqr0q1MaHpMwctcFDu4AKt4dkE=;
+ b=UMkspmTof2Vrvmeldc+ce54Bq6mgN7CJ1rL5Kc/+iLK6gSJMK2vqqCo7dTOudR0u9B
+ gDeHWondq4ayHCYdY+owJMl6qUmGsTpElBiUuCGWO1B1fY0lMdafqFvYHevKiXqpDc73
+ +zfFEd7SB1kCvJ+IJ1A5NjVKQd2nCUHVfXJ9cBYL05YzSxIb54HLniQ6bfBuaUbWVfb2
+ nfyVabzF7zpX6XiPPN8tmwDbuJZ52XFV4Py7W5OQlV1o0bQw1Z5GpMrXhvU37Yn1fZNT
+ hHERLJa17lWyzEzk27n65Wjt8B9RktCLPo2iPNBBmIrdvUIQIQiElbfovFinp3UM2L2q
+ kTuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Fp1cDnXgOIWqir0CMfVfAFuQ1aAfw7Z4rzEujTjvR1o=;
- b=CsZVh9NhaXnPeiuyB4FA/1PGOGB21XIMGu3SuE87x0w1IYxyyPHn7b+E3FlQCjNv1L
- G2SvO9G1kcoBvc1ZtNpSLnKMMNftyH2L8FFITlcdRulbNnj4Kg6lBydKxArxrpIawMfC
- W9qos15vPWLSHPxHtm0fYcsmV90c+/Eul+HU8AgvwO81Vi9v3e2+iN+14VTb0oji3G2M
- TaZa9uKrOkOq4UnPNUffK9EZAlN1vE42giC/JFRXbDK+MoycGusIp9klpAXMXTHvMP+w
- BJKREsNyYKEsuhPoB1ocGokLsjHdUsOylS2Tf7WxPL8x7HXp/pc+9GBU5ID6TTWdZrfS
- +hXw==
-X-Gm-Message-State: AOAM532ZWyHBrkFB8ju/URF4EWG+f1QZW5Ah9+4kIkpb2ICjPGAO6Lyf
- C2h6GYoOZ61TBM938h5NDumP4e4oHM1VQsY6Ee4=
-X-Google-Smtp-Source: ABdhPJxbL/MRzApceF7ivG2hJwUeqEAgdakUX++s8eXXnh79QjFv+61OT/g2nTMUYnTVL2TXKn1gtuJSGliFu/XZp9s=
-X-Received: by 2002:a05:6808:114f:b0:32b:1be0:2316 with SMTP id
- u15-20020a056808114f00b0032b1be02316mr6436113oiu.200.1655128331037; Mon, 13
- Jun 2022 06:52:11 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OeYAVOKz0A8N/zBMzPqr0q1MaHpMwctcFDu4AKt4dkE=;
+ b=B62aIJIYXKZP+PY4q0Xv27MVIPKZSLGy/UuqHhPU5/xttNzvGZXW1fmxplJIptfRWM
+ 4rinPBZ63Pq7yeylLuPahNkf25vDML029Yca8lvX9XPFdA7qk5YtHloVFvXoDXwP0l+/
+ oXcKtKxjqtaKZl2PrVSf0QBMQvDq2am3fOJrl82ctpKekzuhcTqW9GODbgpZWbeeeErO
+ DvpoVRW7s5XsHzqv7exVxCd25kgNtTe3MZnpGFaeTStFZx98yZqMl42XgGNPKSKOHLHm
+ 2q++8Fd2MSSBzDShf0iCaDGnktv5DSEBXWLeGubI314b9mJZVDBl+Witg44lBcbSZZwX
+ pszw==
+X-Gm-Message-State: AJIora/6O/P6gXHDff0CbvnfYze+LnKLqkZvQY9eO2A1UwUOumUpwaoJ
+ 1N1rRI0jZH4ctUhUjzUfWVborglv5zphWg/MvdBO+Ias
+X-Google-Smtp-Source: ABdhPJwArKl5y56r/kDGTPNVFBK6JVNcZ8QLlbzB4OmgKXtD0Pc2ne4Q0j47R5OBLmBCWadcbfom+i1ISTWUIGy3gQY=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr32361oap.253.1655130869200; Mon, 13 Jun
+ 2022 07:34:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220610154247.338073-1-alexander.deucher@amd.com>
-In-Reply-To: <20220610154247.338073-1-alexander.deucher@amd.com>
+References: <20220610205245.174802-1-hamza.mahfooz@amd.com>
+ <20220610205245.174802-21-hamza.mahfooz@amd.com>
+ <3c4a7856-dc93-8933-0904-0b6f2d270bc1@mailbox.org>
+ <MW4PR12MB5668A72B83B72BD7EDB29BFB96AB9@MW4PR12MB5668.namprd12.prod.outlook.com>
+ <DM6PR12MB425067D163386CE813BBF02FF4AB9@DM6PR12MB4250.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB425067D163386CE813BBF02FF4AB9@DM6PR12MB4250.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jun 2022 09:52:00 -0400
-Message-ID: <CADnq5_NRFXCNFJ-rXnPgs=e-NbhtfL85zdOxkwLOAmnX0n10Jw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: make FP handling in Makefiles
- consistent
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Mon, 13 Jun 2022 10:34:18 -0400
+Message-ID: <CADnq5_O0yYM6vG+R9wf7-v4uNmKqvBXWy_-kKewiBQfN6SmY+A@mail.gmail.com>
+Subject: Re: [PATCH 20/23] drm/amd/display: Disables dynamic memory clock
+ switching in games
+To: "Vanzylldejong, Harry" <Harry.Vanzylldejong@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,174 +69,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Liu,
+ HaoPing \(Alan\)" <HaoPing.Liu@amd.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Zhuo,
+ Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu,
+ Solomon" <Solomon.Chiu@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Mahfooz,
+ Hamza" <Hamza.Mahfooz@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+It should be noted that FAMS is an additional feature to enable mclk
+switching in more marginal cases than would normally be possible.
 
-On Fri, Jun 10, 2022 at 11:43 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+Alex
+
+On Mon, Jun 13, 2022 at 9:32 AM Vanzylldejong, Harry
+<Harry.Vanzylldejong@amd.com> wrote:
 >
-> Use the same pattern as the DML Makefile and while we are here
-> add a missing x86 guard around the msse flags for DCN3.2.x.
+> [AMD Official Use Only - General]
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 3 +--
->  drivers/gpu/drm/amd/display/dc/dcn201/Makefile  | 1 -
->  drivers/gpu/drm/amd/display/dc/dcn30/Makefile   | 6 ++----
->  drivers/gpu/drm/amd/display/dc/dcn302/Makefile  | 8 +++++++-
->  drivers/gpu/drm/amd/display/dc/dcn32/Makefile   | 5 +++--
->  drivers/gpu/drm/amd/display/dc/dcn321/Makefile  | 5 +++--
->  6 files changed, 16 insertions(+), 12 deletions(-)
+> Hi Chandan,
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index c935c10b5f4f..7b505e1e9308 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -180,7 +180,7 @@ CLK_MGR_DCN32 = dcn32_clk_mgr.o dcn32_clk_mgr_smu_msg.o
->  AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DCN32))
+> When using Firmware Assisted Memory clock Switching (FAMS), when the memo=
+ry clock is switched the frame rate is dropped for at least 1 frame,
+> sometimes 2-3 frames to make the V-Blank long enough to handle the period=
+ where the GDDR6 memory is unavailable when the memory clock switches.
+> This drop may be noticeable by gamers, especially if the memory clock wan=
+ts to change it's clock rate several times a second,
+> which is what we observed just on the desktop.
+> To guarantee best game performance, we disable FAMS during game play.
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -msse
->  endif
->
->  ifdef CONFIG_PPC64
-> @@ -191,7 +191,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float
->  endif
->
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> index f68038ceb1b1..96cbd4ccd344 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> @@ -18,7 +18,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
->  endif
->
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> index dfd77b3cc84d..c20331eb62e0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> @@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
+> Harry
 >
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
->  endif
+> -----Original Message-----
+> From: VURDIGERENATARAJ, CHANDAN <CHANDAN.VURDIGERENATARAJ@amd.com>
+> Sent: June 13, 2022 8:42 AM
+> To: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>; Mahfooz, Hamza <Hamz=
+a.Mahfooz@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Liu, HaoPing (Alan) <H=
+aoPing.Liu@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Lakha, Bhawan=
+preet <Bhawanpreet.Lakha@amd.com>; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@=
+amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li=
+@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.=
+com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Vanzylldejong, Harry <H=
+arry.Vanzylldejong@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wentland, Harr=
+y <Harry.Wentland@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>;=
+ Kotarac, Pavle <Pavle.Kotarac@amd.com>
+> Subject: RE: [PATCH 20/23] drm/amd/display: Disables dynamic memory clock=
+ switching in games
 >
->  ifdef CONFIG_PPC64
-> @@ -45,8 +45,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
->  endif
+> Hi,
 >
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> index f9561d7f97a1..e4b69ad0dde5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> @@ -8,7 +8,7 @@
->  DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
+> Can you please elaborate on why dynamic memory clock switching can affect=
+ Game performance?
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
->  endif
+> BR,
+> Chandan V N
 >
->  ifdef CONFIG_PPC64
-> @@ -16,6 +16,12 @@ CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -maltivec
->  endif
 >
->  ifdef CONFIG_X86
-> +ifdef CONFIG_CC_IS_GCC
-> +ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> +IS_OLD_GCC = 1
-> +endif
-> +endif
-> +
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> index 3d09db3070f4..34f2e37b6704 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> @@ -16,7 +16,7 @@ DCN32 = dcn32_resource.o dcn32_hubbub.o dcn32_hwseq.o dcn32_init.o \
->                 dcn32_mpc.o
->
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -mhard-float -msse
->  endif
->
->  ifdef CONFIG_PPC64
-> @@ -27,9 +27,9 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mhard-float
->  endif
->
-> +ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> @@ -38,6 +38,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mpreferred-stack-boundary=4
->  else
->  CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -msse2
->  endif
-> +endif
->
->  AMD_DAL_DCN32 = $(addprefix $(AMDDALPATH)/dc/dcn32/,$(DCN32))
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> index 5896ca303e39..e554fd6c16f2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> @@ -13,7 +13,7 @@
->  DCN321 = dcn321_resource.o dcn321_dio_link_encoder.o
->
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -mhard-float -msse
->  endif
->
->  ifdef CONFIG_PPC64
-> @@ -24,9 +24,9 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mhard-float
->  endif
->
-> +ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> @@ -35,6 +35,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mpreferred-stack-boundary=4
->  else
->  CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -msse2
->  endif
-> +endif
->
->  AMD_DAL_DCN321 = $(addprefix $(AMDDALPATH)/dc/dcn321/,$(DCN321))
->
+> >On 2022-06-10 22:52, Hamza Mahfooz wrote:
+> >> From: Harry VanZyllDeJong <harry.vanzylldejong@amd.com>
+> >>
+> >> [WHY]
+> >> Game performace may be affected if dynamic memory clock switching is
+> >> enabled while playing games.
+> >>
+> >> [HOW]
+> >> Propagate the vrr active state to dirty bit so that on mode set it
+> >> disables dynamic memory clock switching.
+> >
+> >So dynamic memory clock switching will be disabled whenever VRR is enabl=
+ed?
+> >
+> >Note that there is ongoing discussion about how Wayland compositors coul=
+d usefully keep VRR enabled all the time, as opposed to only while >there's=
+ a fullscreen application like a game. So "VRR is enabled" likely won't be =
+equivalent to "game is running" in the long term.
+> >
+> >
 > --
-> 2.35.3
->
+> Earthling Michel D=C3=A4nzer            |                  https://nam11.=
+safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredhat.com%2F&amp;dat=
+a=3D05%7C01%7Cchandan.vurdigerenataraj%40amd.com%7C005764271a144b5832c408da=
+4d293dee%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637907136793233201%7C=
+Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiL=
+CJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DNSiOtjfwkelxkZMRFLzFs1mFPvosOFZnq=
+rcNvRb9J6E%3D&amp;reserved=3D0
+> Libre software enthusiast          |         Mesa and Xwayland developer
