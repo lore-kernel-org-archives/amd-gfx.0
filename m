@@ -4,126 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A106C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 17:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1DC5C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 20:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9230010F4FF;
-	Mon, 13 Jun 2022 17:55:48 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 870A310F4F9
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 17:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F11EF10F78A;
+	Mon, 13 Jun 2022 20:01:55 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC6310F78A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jun 2022 20:01:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GGOFtia4m97Gsu651DxLiqMvZiGebajCvVC6suHOsP58UYXZEmwRm6bUFNZ6k7wLSbkP6dKfb4kZBw5WNfHVB/Yr53dyMcOqsGTr7vJmepXDsP8NaU0YRP+qjOb9fTj/5nOgWEHHEIeFcBKSptwcupcfU3m3lpDMd2VMo2I6JJH1Jl9pImgAGO7y5FlDdlbR/Vs8Ydsy/0D7GZjkIx9eVguk40cnnDFLjFlxhqJuuTKi01U/Nwe8jLAFHWDACy733ze4edtzkBL6VHF6ZBAP7L0irGXGQOrpPsCKcCKEbwiVLHIqctpy6AASSnL9uFw0tdrA1RdXC4Sq2ZfRyCaISA==
+ b=TAmUNTAgaXSK0Jyr7fZxFvvrjDwoyPdliEeoa6r2I+hTPDndwhV/bnm9wZlzvz9kZnPMhVGLALjLb0w93/mt6/l1fse3P6TtVf6g7c0jSHnhTsQe77hqVbOitULH3qPh67XxfRDt57ZYG5+waSE3HV/5MAI+/cHZUEnJ8QVYzVm4zXmRYXFKaB5GgxhXpOq6iw1Wki8O43n68y6qaOgkUCjmDm8VvFEVcnmrIzaqHLXqhhy8hmHjmAo2oC1x7ZjPPSpTCteQj0/kmXuN0z1+9/PfFYyB70FoKFIPoe8+29TmKo+zP/8yIn29sL92M+0midOQrvTKD9bSBkITEsSgkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=feipjhBGf86RxpCQol1ZmNgQa+XBSPdAAPLysKMBMQI=;
- b=ISdNwn2vy6N3M25Nk/dyLqBMFWFdW/4+AgDMs4JO5RHOr3YED6xOmkKFIiHfNe7S5shWUTj7uU4IRXGlHNubX2rmSdk+BEtkNhTLhAChmMh9wyerKhx4ukRMVFNjYhSUNju4ibEtDMGowkrrtCFlFuAxnDE8cwi4527PerkPyTauE1yxO9p1GHpQLG3Q46agjN2v/Q+dmgv6NmTOP4wJWui4BacS3sbwh4ykyvlMUlSaLoVAS1FuV4s1ddcNWU9EfdHtBAOQ9pOR2+W2qD4qJC19Ogpx27ZQ1S5lFr5TUx4JO7vdg39gNN5R5S4mcq8/bQ+a0MpqXjjxcvWGnwE8fA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=lracQKSHn5o/FCkcLdeZfdvuunvkBnVmJBsXtXPidF0=;
+ b=fSRulCqiRbRv2+b1Cs6q7ueC+mYCC0bJOa/+BqBQtC8EDrFbwhIqPXqZxfRDKxFefMrUpdVUapnZHVaPF/G4UFXssOL741p8XQZqlIdyLvYxh7G5pxks5bbaCd2BCw132d+m4pK4wpgx7M++7BGUSsV20I7DO+x/vQhfzdMkUlPd/iklhLEaSMFGoZRSMofgYsmFWxUFsetqnnEjrth2f2I51uHM/XsYcIjRf/wQDIhW7QY/P2/aAkN+aqzj8nCUqECl4sp6OR/SaARS+82EpntxkYXYRn+nxX7ia7XIwOVBkRQmd5yPK3NQsnzSpRAMPbGTpb0NKiMXT82208QLyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=feipjhBGf86RxpCQol1ZmNgQa+XBSPdAAPLysKMBMQI=;
- b=jjEXSt+LO/YWpZP4DE1us8oakQirmZg44Ztw67oqo0pmxVFszC1omzx4lMQmCTs/RL4fJ/5m5fYEHxgry2QlTr1tCN2RN/FFq9ldEF/XwjFpa/fFSKnbtU437DLrE+AnbcSyj6JJb6zZ6V+rDa9TQ3C6Ub2sHEdOFmaCQGaa/TM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by LV2PR12MB5968.namprd12.prod.outlook.com (2603:10b6:408:14f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.20; Mon, 13 Jun
- 2022 17:55:44 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d%6]) with mapi id 15.20.5332.021; Mon, 13 Jun 2022
- 17:55:44 +0000
-Message-ID: <467bf0af-5967-63bd-97ad-4b3fd105fb9b@amd.com>
-Date: Mon, 13 Jun 2022 13:55:00 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH 20/23] drm/amd/display: Disables dynamic memory clock
- switching in games
-Content-Language: en-US
-To: "Vanzylldejong, Harry" <Harry.Vanzylldejong@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20220610205245.174802-1-hamza.mahfooz@amd.com>
- <20220610205245.174802-21-hamza.mahfooz@amd.com>
- <3c4a7856-dc93-8933-0904-0b6f2d270bc1@mailbox.org>
- <MW4PR12MB5668A72B83B72BD7EDB29BFB96AB9@MW4PR12MB5668.namprd12.prod.outlook.com>
- <DM6PR12MB425067D163386CE813BBF02FF4AB9@DM6PR12MB4250.namprd12.prod.outlook.com>
- <CADnq5_O0yYM6vG+R9wf7-v4uNmKqvBXWy_-kKewiBQfN6SmY+A@mail.gmail.com>
- <DM6PR12MB425031A66132DF5CEF04B0B1F4AB9@DM6PR12MB4250.namprd12.prod.outlook.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <DM6PR12MB425031A66132DF5CEF04B0B1F4AB9@DM6PR12MB4250.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0006.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::11) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ bh=lracQKSHn5o/FCkcLdeZfdvuunvkBnVmJBsXtXPidF0=;
+ b=Ftk1yCNC31T/Pngpg5l0q+Y57oVHKxBph0CEr+IKVyZsT9BseH1thZhTBe30+zYaTlHrhKTBRqVjQR4txd61egMw7TfQM6jMSKL1ku3J/owzswgX2qqxjt8jhmZpZRNr8jaBXDK+3WGHe6fZLrB7scVdxI1K8OW8sT+GZ2V5GKk=
+Received: from DM6PR07CA0074.namprd07.prod.outlook.com (2603:10b6:5:337::7) by
+ MN2PR12MB3583.namprd12.prod.outlook.com (2603:10b6:208:c5::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5332.16; Mon, 13 Jun 2022 20:01:51 +0000
+Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:337:cafe::b) by DM6PR07CA0074.outlook.office365.com
+ (2603:10b6:5:337::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13 via Frontend
+ Transport; Mon, 13 Jun 2022 20:01:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Mon, 13 Jun 2022 20:01:51 +0000
+Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 13 Jun
+ 2022 15:01:50 -0500
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 0/3] Expand amdgpu documentation
+Date: Mon, 13 Jun 2022 16:01:09 -0400
+Message-ID: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 106212bc-e717-4c9a-4c53-08da4d65efa3
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5968:EE_
-X-Microsoft-Antispam-PRVS: <LV2PR12MB5968DD53956D200F31153F2B8CAB9@LV2PR12MB5968.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: ebbe2991-5ed3-443c-71d3-08da4d778ec1
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3583:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3583B4AA30772529CD78E22998AB9@MN2PR12MB3583.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eyjwRjYGpPzMjMkENKNmhztUivLPd5aMKUFUYohvb1Ms/wtjYb+ogf0duIfGhYHw1+Ut6vHlbQfTWu05Jj0bMchQSWW9FQ2ZAo+OLnuNMuTbI+m/z3mlSt5DEQ7tb6epaisgI/4/Wp2U7Ywi+AvYfdAQXw74D8O3Fg1ZPxqFZEz65JlDGvEW/GneTIRgTTeeRaW1GgMl3VB8PKK4VaN4BbYr54jdq5++58r5fnCBgvjdB9/FWEGWKo6wom8l8YyiNOA/BnfllUdqxtOUjuyYwTyESriLyrhY6iRXKredMU+xshTw/Rv/HM2xGxypAvoz+CDlzcGJfsBG2pPUqDD/XDz/AqRyl9k55sD8elreXSi+UBsEFV/X7aH6j5vCQfKKOvMxRaKB26Asp6III9j8N0g7/omZUY+tCA4XOtzLu3TTk1igytqHZH2I/WRTeq6WqZ7NR1s2KHj7p+AHApzYpF3mxa8eGJ0/I8kuCSSnzrp5xKk+wsaUlfYHf6auVVWKmiC6jRzwwGVwEcwH4izLo/hK1MIxOpxjUfTw7uU4Pa6+vzXhcEvO1DVZwIuGYLh/jPGhY3cAfXAG83e5wHWpuBwM/jA6yb/n9Nm+ump1ZvUki7fdHFCk7ijq4GGRvofSRM+XQ7PNbyfodCwuCKjqjl3TCMx2itn2liu8P8TxmdmKX4jCzE1tyULm7RBe42LkhaOU8aVetgOqHnBs8t/K9YWLjqQMflcNiPhBcLIfw+RMHVozCfMx8byNuwxZv8mXxR7UN97E/4YaCvewOHfWI+ATkMpKiBdoCky5AROhHh4n6cNf/t0wdwFIo31xIXlhFpiWCYHlveZ6bOtMhT7BjUt17PBZIEJ+UxAMWkVqrRMlyiXOyySxu+xCY/lIWkQa
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(5660300002)(66556008)(66946007)(66476007)(2906002)(508600001)(6486002)(8936002)(44832011)(66574015)(6506007)(86362001)(966005)(53546011)(6512007)(8676002)(4326008)(38100700002)(6666004)(31696002)(54906003)(26005)(316002)(36756003)(83380400001)(31686004)(110136005)(186003)(2616005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 7jTk4Vd0fAmkQ87pQ8AGxJ7sB8W0do60didDxpn/T2fDa9jptUnZyVxaKzTep0y3tyGpTfkGQOulpAvqTrNvoamrtrjcN1nPtyk5XOf4P5jNeoU5Q2z4+D7gC6cNwGEPWgUHjlgcsvHraYWiaVxo7E3xkeEEFmz9MR/6PCglVfiKiGXhjBzmDMlrbhxXL2zPva1lxh+UG8SHzOApVJ+1wo40CplH+WQMy1J/fXpfaJ3QWxy85YtX3dpiJb1uRGWwZ8shYqmaHg6NgXbepPNJz6tikNSSc8vHDPZCtt79LLUEVVvWjxOFJUEbBQUV/lyZ3OU3uEK/NsA6fyYX7Z1HBT3oxIbd0RVZXQLT/6GDi27Mg0HvuQzYIEaMAcZf9SGvTJzKUIG3Sh1F4rlEQKxsDLVFYsWz9WpJfvaCxl0m/fCUSJjQ/B3xo5wMdgFTj0FiHysSjUwvaiCVt/R1sICXCSFj8K1dSMzhfZhElGPKSwsvRFtr/zSBKPSk8TapH1+LEZrnTlXhX6OCPEPz9WXMEWif+7IQrDMdjVaU6JMvxojrDsxtl7rfwmvXUrG2/gqqc4tfKabB2LsMQQENHOu0t3mtW2ZWreQyX9GBnPp9c4s6/oXuMI9O5omxemgyYG5G5FHes4Gc2cHxACDccY9gqqib7Pga/D+S6mBZWdedjYdqFfehRCuDXrFt1k0BTmv2qxxAtpOJXWJZZiVGzzU1+Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(40470700004)(36840700001)(46966006)(8676002)(4326008)(86362001)(82310400005)(36756003)(36860700001)(5660300002)(81166007)(356005)(8936002)(70206006)(6916009)(40460700003)(316002)(2906002)(26005)(186003)(508600001)(70586007)(54906003)(47076005)(336012)(6666004)(7696005)(1076003)(16526019)(426003)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWN1bW9KK09YUXgrWHllV1hxV3huRkFjdS9TRnZ4bVdRSlZ1dDFNWTZTOWc2?=
- =?utf-8?B?VG1pRXd3aituMXZSblVORG4zbEhYSlEvYWw3dWw1c0lneTB3VnZBbUVWc2Vz?=
- =?utf-8?B?YnlaZlZyWExTcEFabURTOGxLSFZmbFJLSE9maXRLSm9UQ0E0UjJGMDJONkhS?=
- =?utf-8?B?ZTFDSXRld0o2alc4U2NNMzdUUkkrUXI2ZHNaVEUzTnF4S1hsR1dUWFNBVjV6?=
- =?utf-8?B?NDhqeVVVWjRxalpWUWRscWNRTWxoMHc2VEt6Qk15c1BZN3QrZjBNSDZhcTc4?=
- =?utf-8?B?blJ6NDNNQ2RLZkswbUpkUjhneHVjaTMvUE1tbHVXMm9oQUY2Tm5haE12YjRz?=
- =?utf-8?B?ZDd3N3FkajRhb3VLY21UWlVEYjFRSzVkMGU2dU9STGFyMTRuUE5EOHFITCtS?=
- =?utf-8?B?NmFhell4eW5xbXEzQTV4QzFQZWdzd1BSdUpVcTdxMm01dVFNSnJ0blZ2N0VH?=
- =?utf-8?B?TGFTTlhMcGlTbitZKzNxSmgra2N0OCtWQXdLbERDUXAzcW56SUx1c1Y5U3Aw?=
- =?utf-8?B?NW1yTmpvSXB0eXdHUEt1VFA5RlVSU1NCZ1RoUks0OWZISU1LNy9mVElDUmpB?=
- =?utf-8?B?YmJvT3J6SlRrTUV2cVFaRkgzbGt1VFFWd05ObnNSMm1LMFczeDZoQzhlYzhx?=
- =?utf-8?B?emlLRmh0Wi9DeGh1aWZ3TlZqVjB1VXg1b2Zld0JRN0NLbEV4VlFIZE1ST05T?=
- =?utf-8?B?QVZ6RFQ2cUIydm5jb05YWWI3MlFDT0hweEhqUVRkUTFzK1ZmS28vTU4rU1NB?=
- =?utf-8?B?VVJJZ0dPQVVWQnRxUU9ZUlBvUFJScTgyNTV0VmRNRmt6blNPSzAvaUVuMlBL?=
- =?utf-8?B?VVlkQUVPZUNNYVk1TTJNMHpNL1NjaGZoekxSeGJGZjdVU0ppc1doVXNXYUp1?=
- =?utf-8?B?RlZqTG9GK3FGWG1ISU5GNjhnQlkxdXVUQmhPMHJhZmE1elhORzM2SkJ2RFhG?=
- =?utf-8?B?T3VWUUtRQ0JSTFdjNFlUczZoT2k4MXBVRm9pSDBLNFI2dWNhWGZ6YjNRZFZK?=
- =?utf-8?B?ZHcybG91WCtORkJnNWZaK0JBUWhxd3NVTkdQM1l5OUZ1OTNteWV1V2NMaTkz?=
- =?utf-8?B?a2dLbktHM0thRm1PeHJoUlpaNi8yanlYUjlTdEJiMURKM1hLbkVxMnFQTlFq?=
- =?utf-8?B?Qjl6dHJDKzlpd0N4RjdOY0t3ZDV0RHcxQ0FtQmJYeDZBUDRsSlAvcXJZS3lj?=
- =?utf-8?B?MnUvRmh4bm9kR0lwWGkrZ2FVSFA3YUY1eTNINnVqazlWcEpNT2tqLzRHMWNW?=
- =?utf-8?B?aU53K21TRVJYT0JtcXV6dy82Vkp2VnFmUitpdmhMTnl6dUZpK1JySzVqTTlM?=
- =?utf-8?B?RXM0TWp6Nzg0Uko4Vmh5SVRHUXFOSFE3SWx4NjU3U1JzVXNrWk54bzQ1NlNO?=
- =?utf-8?B?M05FZFR6aW01R09hMngyQ0RqMlM2MDZ5bmptWHp4NnhhWEZYMmloTGoxcldo?=
- =?utf-8?B?NEc1MXJLSndaRXFXUjFEcjdOUzdlTStJMkloMFQ3Q0FIQVlwYjNaZE5YM2k1?=
- =?utf-8?B?VUZSR0t3dC9zUlluQnYrcnd6TXd4bXdsVjBzZVVWZk5FWGZXRU5IK0FBaHZz?=
- =?utf-8?B?L0JIMWYrZ0t1QmpvaVQ4TExoN2N3RjQzT3RBTElRTzluakJ5NVVzSG5UQURY?=
- =?utf-8?B?VzVUYXE3OXVza05raDRSaUlySVhKcmVCMWtETGFGeTJvUXRnK1FFbTFLYlJZ?=
- =?utf-8?B?MEFLS2lpZDhQcUR0eUlMNCtRcXBhQm82UjMvWXRzVjk3bEg4RHRZSDlsN29M?=
- =?utf-8?B?R1F5YXhkc0F1Z1JvUnMxRm5NdFVyWEt6bk15YTc5dDhmU0pORTdFdmpPcUta?=
- =?utf-8?B?WGdaU2J1blEyRDRaWi9qNVBzaW5udHVrM2NubWZxU0NrZkhzc1NabkNJNDRo?=
- =?utf-8?B?dGg0UEhWdm1hSndZeXdtMGZHSXpRTnFhSnNabkRmQU5ZMDIzS1hsbTZySmRJ?=
- =?utf-8?B?VVVLTEdSYWQzTmpRWGNNWGEwQWpGd0NSQndaL0V3RTFnZGQxQTdiVHBZR1dr?=
- =?utf-8?B?Y1VLYW9vaG9BNTZQanVtNyt3UWdLWGQ4K2hWK3hXTHFmY25xQ01wbU1DaTNK?=
- =?utf-8?B?ZWt2K3ZHYnMyTTIyTDRsdjgrWnh6MHhGMU5UaHhzR3g5dlAzZjdLOFpGekx0?=
- =?utf-8?B?SDkrWVh6cS9MNk5vUGxucU5EVGg1SW9QOFkxSHhqTzFDSHlyTHRLNlBaaXNJ?=
- =?utf-8?B?SG1DVkUwVnI5VkkvZXdqNVJjOHhFaFhsR0ZBOC9EYXB4VThLQ3hrZjY1WHph?=
- =?utf-8?B?M1d0Q1BnaUVoZU42Q3ZEbU1kWGxSVTlRUlVBMWxTUExybFVLbk12aUNLdk5V?=
- =?utf-8?B?KzdITjRvNzRqY0F3QVJKRzkwcnRsQlFmcHN2aG1BWlgxWHhDY0dXdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 106212bc-e717-4c9a-4c53-08da4d65efa3
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2022 17:55:43.6350 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2022 20:01:51.6742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebbe2991-5ed3-443c-71d3-08da4d778ec1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PTLZXK4cG2Bybhma5GUXLhROLGa5DADjblSm4FhkwtRTjLnrL3sQRNCte071EXWajWhef6pAiKZvC02NhRRduw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5968
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3583
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,116 +98,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Liu,
- HaoPing \(Alan\)" <HaoPing.Liu@amd.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Clark, Felipe" <Felipe.Clark@amd.com>,
- "Zhuo, Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu,
- Solomon" <Solomon.Chiu@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Mahfooz,
- Hamza" <Hamza.Mahfooz@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: mwen@igalia.com, maira.canal@usp.br, isabbasso@riseup.net,
+ andrealmeid@riseup.net, tales.aparecida@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This seems to be a case of a Windows-centric commit description that doesn't
-completely make sense for Linux.
+This patchset introduces some new AMDGPU documentation. You will find:
 
-The code-change doesn't currently affect any behavior on Linux. It just lays
-the groundwork in DC to allow an implementation to do a memory-clock switching
-decision based around VRR support.
+1. A CSV table that maps which component version is part of some ASIC
+   families. This can be useful to narrow down bugs;
+2. Some explanation about AMD Display Pipeline;
+3. An explanation of Multiple Plane Overlay, which can be useful for
+   userspace applications.
 
-In short, this won't be a problem for us at this point.
+Since we have some diagrams, I recommend applying these patches and
+building the documentation to have a better experience.
 
-Might be better to change the subject line and commit description to reflect that:
+Thanks
+Siqueira
 
-"drm/amd/display: Add vrr_active_variable to dc_stream_update
+Rodrigo Siqueira (3):
+  Documentation/gpu: Add info table for ASICs
+  Documentation/gpu: Add an explanation about the DCN pipeline
+  Documentation/gpu: Add Multiplane Overlay doc
 
-[Why]
-The display driver on some OSes need to track it in order to perform memory clock
-switching decisions."
+ .../gpu/amdgpu/apu-asic-info-table.csv        |    8 +
+ .../gpu/amdgpu/dgpu-asic-info-table.csv       |   24 +
+ .../gpu/amdgpu/display/dcn-overview.rst       |   58 +
+ Documentation/gpu/amdgpu/display/index.rst    |    1 +
+ .../gpu/amdgpu/display/mpo-cursor.svg         |  435 +++++++
+ .../gpu/amdgpu/display/mpo-overview.rst       |  242 ++++
+ .../multi-display-hdcp-mpo-less-pipe-ex.svg   |  220 ++++
+ .../amdgpu/display/multi-display-hdcp-mpo.svg |  171 +++
+ .../amdgpu/display/pipeline_4k_no_split.svg   |  958 +++++++++++++++
+ .../gpu/amdgpu/display/pipeline_4k_split.svg  | 1062 +++++++++++++++++
+ .../single-display-mpo-multi-video.svg        |  339 ++++++
+ .../gpu/amdgpu/display/single-display-mpo.svg |  266 +++++
+ Documentation/gpu/amdgpu/driver-misc.rst      |   17 +
+ 13 files changed, 3801 insertions(+)
+ create mode 100644 Documentation/gpu/amdgpu/apu-asic-info-table.csv
+ create mode 100644 Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+ create mode 100644 Documentation/gpu/amdgpu/display/mpo-cursor.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/mpo-overview.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/multi-display-hdcp-mpo-less-pipe-ex.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/multi-display-hdcp-mpo.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_no_split.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_split.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/single-display-mpo-multi-video.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/single-display-mpo.svg
 
-... or something like the above.
-
-Harry
-
-
-On 2022-06-13 10:52, Vanzylldejong, Harry wrote:
-> [AMD Official Use Only - General]
-> 
-> +@Clark, Felipe
-> 
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: June 13, 2022 10:34 AM
-> To: Vanzylldejong, Harry <Harry.Vanzylldejong@amd.com>
-> Cc: VURDIGERENATARAJ, CHANDAN <CHANDAN.VURDIGERENATARAJ@amd.com>; Michel Dänzer <michel.daenzer@mailbox.org>; Mahfooz, Hamza <Hamza.Mahfooz@amd.com>; amd-gfx@lists.freedesktop.org; Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
-> Subject: Re: [PATCH 20/23] drm/amd/display: Disables dynamic memory clock switching in games
-> 
-> It should be noted that FAMS is an additional feature to enable mclk switching in more marginal cases than would normally be possible.
-> 
-> Alex
-> 
-> On Mon, Jun 13, 2022 at 9:32 AM Vanzylldejong, Harry <Harry.Vanzylldejong@amd.com> wrote:
->>
->> [AMD Official Use Only - General]
->>
->> Hi Chandan,
->>
->> When using Firmware Assisted Memory clock Switching (FAMS), when the
->> memory clock is switched the frame rate is dropped for at least 1 frame, sometimes 2-3 frames to make the V-Blank long enough to handle the period where the GDDR6 memory is unavailable when the memory clock switches.
->> This drop may be noticeable by gamers, especially if the memory clock
->> wants to change it's clock rate several times a second, which is what we observed just on the desktop.
->> To guarantee best game performance, we disable FAMS during game play.
->>
->> Harry
->>
->>
->> -----Original Message-----
->> From: VURDIGERENATARAJ, CHANDAN <CHANDAN.VURDIGERENATARAJ@amd.com>
->> Sent: June 13, 2022 8:42 AM
->> To: Michel Dänzer <michel.daenzer@mailbox.org>; Mahfooz, Hamza
->> <Hamza.Mahfooz@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Liu, HaoPing (Alan)
->> <HaoPing.Liu@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Lakha,
->> Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Zhuo, Qingqing (Lillian)
->> <Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
->> Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>;
->> Zuo, Jerry <Jerry.Zuo@amd.com>; Pillai, Aurabindo
->> <Aurabindo.Pillai@amd.com>; Vanzylldejong, Harry
->> <Harry.Vanzylldejong@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>;
->> Wentland, Harry <Harry.Wentland@amd.com>; Gutierrez, Agustin
->> <Agustin.Gutierrez@amd.com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
->> Subject: RE: [PATCH 20/23] drm/amd/display: Disables dynamic memory
->> clock switching in games
->>
->> Hi,
->>
->> Can you please elaborate on why dynamic memory clock switching can affect Game performance?
->>
->> BR,
->> Chandan V N
->>
->>
->>> On 2022-06-10 22:52, Hamza Mahfooz wrote:
->>>> From: Harry VanZyllDeJong <harry.vanzylldejong@amd.com>
->>>>
->>>> [WHY]
->>>> Game performace may be affected if dynamic memory clock switching
->>>> is enabled while playing games.
->>>>
->>>> [HOW]
->>>> Propagate the vrr active state to dirty bit so that on mode set it
->>>> disables dynamic memory clock switching.
->>>
->>> So dynamic memory clock switching will be disabled whenever VRR is enabled?
->>>
->>> Note that there is ongoing discussion about how Wayland compositors could usefully keep VRR enabled all the time, as opposed to only while >there's a fullscreen application like a game. So "VRR is enabled" likely won't be equivalent to "game is running" in the long term.
->>>
->>>
->> --
->> Earthling Michel Dänzer            |                  https://redhat.com/>>> Libre software enthusiast          |         Mesa and Xwayland developer
+-- 
+2.25.1
 
