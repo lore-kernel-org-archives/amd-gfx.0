@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDEFC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 13:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3DFC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 13:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2AB5112006;
-	Tue, 14 Jun 2022 13:30:44 +0000 (UTC)
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [IPv6:2607:f8b0:4864:20::c30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4D1F10FFFE
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 13:30:43 +0000 (UTC)
-Received: by mail-oo1-xc30.google.com with SMTP id
- f2-20020a4a8f42000000b0035e74942d42so1744189ool.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 06:30:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 941FE112252;
+	Tue, 14 Jun 2022 13:43:26 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC9A112252
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 13:43:25 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id v143so11594857oie.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 06:43:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LDwOg6CdUW4yZQixWxnqJhsFvY9Q5z8gbQ+qzkTzac4=;
- b=YpD0VGb7sYYzB2pZXEDvIqpgiQxCMYXc6Q7bxSnw9ISwJvyKo1WlsGf2pnVrNdK6xY
- i54Us4Ii5/Iyvv74syWnHP5o1Mxztn9RLNeYAlCxOqzv+myMAQamdT5nP/7gEINf+dXl
- vxMsbBwF6yttQjiFWnvdNMonxyAOVJ7+bXY0NIInSbUz+KS3Syex/7FnGTS6krp1Mmeh
- K0FJUKptyyHnyHvmQsh2RSMLrhrLn3oej4nBTm0zkzC/QSkS+Oo/WjRq3vdDakvls2L+
- W9z5RWjIJYqJ5CVU0x0Ar4TY3GKr3Web/m8FSFAAAWeJ99N19AreuRAtMuQX1D6aclON
- FTxw==
+ :cc:content-transfer-encoding;
+ bh=+xkCkGEnOyi9zHIB58yS9ZPcJP6TE904Hlihi3sFeN0=;
+ b=KhaMD9+BjrKkXp0c0yyFnedqVJf8dkpNOHuasIjMMcRaKzNpF1VNCq1NKP6en8lnEd
+ +MDf22IZTxwgrZlN3Fd/BlwvrqgSQeaoSovwYfBqLVgpMQk7XdsO49WSFCaEfpp78ZFU
+ TFrw0gIup4j1yuhc5iTQlc6ynZmUmHGae4YPG2iTa1KoxrY1IGXq2qGhVlceDfCj9OK6
+ p7EL5rossE1vaNPkJxtHNCKLbUxRzQj/DUgSuozQXtzKlwcZMuZYJgNen48CkBbHXmH4
+ V+GB76GoEovs3yYk5UgrOOyRs1gInF+neCHuhiiFaYH4rMUl77YPPchSub6wEZI+MZH/
+ E6ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LDwOg6CdUW4yZQixWxnqJhsFvY9Q5z8gbQ+qzkTzac4=;
- b=a8SBVVA+FQWO42VpO2TJUIZOu05nFu34Yjhs/HkUbKicLU5wckQyMvE58RUcwLlFHS
- nu5+ollCNcTjOZzGVPTbghx/BXp23Jh2Z/gGWyQroCneyTLXVY1VNdVRybZ85LnSbQ4O
- q+dOZ0oK1YSZbcdDbQ1VGVVIJcvzdbOKzRDqiY3Y+q3dTZWm8Eb4TrtgsgzlFY/B1lfM
- 82uqKaXdid9onu2syul5kzblmpdk7FuCTQ6tTAZYodWcV3JicRl+2x5zT/VoVEDcI9gW
- yiWyEC6WJNBg7LYEpxj0X1S2blKM8gjhF8QVFzUgTX4HwnSTZN7YFxHgiFHoHwqtbjuv
- z/Fg==
-X-Gm-Message-State: AOAM530edC/iGlgSgcdaalub2n5EVZEA68r/5ZvlB0qEm/yp0tAHIMpy
- eOR45s9Mm7p6+kc3uvRSTp2Ntoaut8sJUR3+4KUmMwrS
-X-Google-Smtp-Source: ABdhPJwHiWXeR8P3X/MiPfNfsvcEVCEWbyxaHrmVxh60IXN5jQiCCeqeV9oOr+lXM0QLIXHaBV+ADV06K/zP0lWCpeQ=
-X-Received: by 2002:a4a:d382:0:b0:41c:1484:100c with SMTP id
- i2-20020a4ad382000000b0041c1484100cmr1433757oos.68.1655213442762; Tue, 14 Jun
- 2022 06:30:42 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=+xkCkGEnOyi9zHIB58yS9ZPcJP6TE904Hlihi3sFeN0=;
+ b=DToE94waigf0ekmfcABa82WxwhoOkTK/yFRsrLT9oR/QQbEywq0n51nsomLP2oQ6kG
+ Rbk8rEEgIw+ceiCCC+nmgtxmSKMP5JYCBKnc2srh9g63nTqiV81PEbcF3GY2Vq4TDt29
+ 8XulghnLVLNG4U1HWLlauSog5t4k6ihCWuvjDNFWXU5tsOkqcjwDpUm/8wLJPG+DjP13
+ JUUDdO4OtU/kYOTTlx8oJ1Fu9jxu2rfjPxF4bLoU5X2u9kM7w54heI8g+69SUaOAAVUg
+ A6tUuEZJrD7OwATcY2/MwFRzqgx600riKfPlwvAP21QN8DBMvyFbTQkOEtvKsQRoVch5
+ ydAA==
+X-Gm-Message-State: AOAM531p/6UBabk+k/zEyHGsoX2EtQtdoidstN3Edh/o8vF5vC6HAOq4
+ IniCwggdPGHsWA8Lel/yCTrUe0kb1fHD6l5ISJpAQFWd
+X-Google-Smtp-Source: ABdhPJywFUE/hNthOcQ3dHe9FGMP8IiWCyqDFMxcXKC+K8Xb9H8WFFNttxjcXP6pkPhhNGXoLd0eih70SiFXbBdD87o=
+X-Received: by 2002:a54:4f01:0:b0:32e:726c:bced with SMTP id
+ e1-20020a544f01000000b0032e726cbcedmr2208652oiy.253.1655214204979; Tue, 14
+ Jun 2022 06:43:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220610154247.338073-1-alexander.deucher@amd.com>
- <CADnq5_NRFXCNFJ-rXnPgs=e-NbhtfL85zdOxkwLOAmnX0n10Jw@mail.gmail.com>
-In-Reply-To: <CADnq5_NRFXCNFJ-rXnPgs=e-NbhtfL85zdOxkwLOAmnX0n10Jw@mail.gmail.com>
+References: <20220520150912.762831-1-alexander.deucher@amd.com>
+ <CADnq5_OZ5e1hfA_6O1q=evs0RbVsH1xf8xybcarTMztZhdvEsg@mail.gmail.com>
+ <f27f1a49-7ecd-ef6c-7886-eed078c4e752@amd.com>
+In-Reply-To: <f27f1a49-7ecd-ef6c-7886-eed078c4e752@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Jun 2022 09:30:31 -0400
-Message-ID: <CADnq5_NwbEsm_h0G1iFDsQ8mXQcemGjctasfVNzE7x+0Yf60LQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: make FP handling in Makefiles
- consistent
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Tue, 14 Jun 2022 09:43:14 -0400
+Message-ID: <CADnq5_NkvUwT7-ohb7ZBq-ErptkAokUPnWcvnT7+gxKt77LmqA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Adjust logic around GTT size (v3)
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,180 +65,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Anyone?  This fixes the build on non-x86.
+I don't see how this is worse than the current behavior.  We have some
+bug reports where we have games that use a lot of memory and with the
+lower limit the system ends up dying due to swapping and the behavior
+is actually better with the patch.
 
 Alex
 
-On Mon, Jun 13, 2022 at 9:52 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Thu, Jun 2, 2022 at 2:03 PM Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
 >
-> Ping?
+> I totally agree on the reasoning, but I have the strong feeling that
+> this will blow up in our face once more.
 >
-> On Fri, Jun 10, 2022 at 11:43 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+> I've tried to raise this limit twice already and had to revert it both
+> times. And the reasons why I had to revert it haven't changed since them.
+>
+> Christian.
+>
+> Am 02.06.22 um 18:40 schrieb Alex Deucher:
+> > @Christian Koenig
+> > Any objections to this?  I realize that fixing the OOM killer is
+> > ultimately the right approach, but I don't really see how this makes
+> > things worse.  The current scheme is biased towards dGPUs as they have
+> > lots of on board memory so on dGPUs we can end up setting gtt size to
+> > 3/4 of system memory already in a lot of cases since there is often as
+> > much vram as system memory.  Due to the limits in ttm, we can't use
+> > more than half at the moment anway, so this shouldn't make things
+> > worse on dGPUs and would help a lot of APUs.  Once could make the
+> > argument that with more vram there is less need for gtt so less chance
+> > for OOM, but I think it is more of a scale issue.  E.g., on dGPUs
+> > you'll generally be running higher resolutions and texture quality,
+> > etc. so the overall memory footprint is just scaled up.
 > >
-> > Use the same pattern as the DML Makefile and while we are here
-> > add a missing x86 guard around the msse flags for DCN3.2.x.
+> > Alex
 > >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 3 +--
-> >  drivers/gpu/drm/amd/display/dc/dcn201/Makefile  | 1 -
-> >  drivers/gpu/drm/amd/display/dc/dcn30/Makefile   | 6 ++----
-> >  drivers/gpu/drm/amd/display/dc/dcn302/Makefile  | 8 +++++++-
-> >  drivers/gpu/drm/amd/display/dc/dcn32/Makefile   | 5 +++--
-> >  drivers/gpu/drm/amd/display/dc/dcn321/Makefile  | 5 +++--
-> >  6 files changed, 16 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> > index c935c10b5f4f..7b505e1e9308 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> > @@ -180,7 +180,7 @@ CLK_MGR_DCN32 = dcn32_clk_mgr.o dcn32_clk_mgr_smu_msg.o
-> >  AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DCN32))
-> >
-> >  ifdef CONFIG_X86
-> > -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -msse
-> >  endif
-> >
-> >  ifdef CONFIG_PPC64
-> > @@ -191,7 +191,6 @@ ifdef CONFIG_CC_IS_GCC
-> >  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >  IS_OLD_GCC = 1
-> >  endif
-> > -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float
-> >  endif
-> >
-> >  ifdef CONFIG_X86
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> > index f68038ceb1b1..96cbd4ccd344 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> > @@ -18,7 +18,6 @@ ifdef CONFIG_CC_IS_GCC
-> >  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >  IS_OLD_GCC = 1
-> >  endif
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
-> >  endif
-> >
-> >  ifdef CONFIG_X86
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> > index dfd77b3cc84d..c20331eb62e0 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> > @@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
-> >
-> >
-> >  ifdef CONFIG_X86
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
-> >  endif
-> >
-> >  ifdef CONFIG_PPC64
-> > @@ -45,8 +45,6 @@ ifdef CONFIG_CC_IS_GCC
-> >  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >  IS_OLD_GCC = 1
-> >  endif
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
-> >  endif
-> >
-> >  ifdef CONFIG_X86
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> > index f9561d7f97a1..e4b69ad0dde5 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> > @@ -8,7 +8,7 @@
-> >  DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
-> >
-> >  ifdef CONFIG_X86
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
-> >  endif
-> >
-> >  ifdef CONFIG_PPC64
-> > @@ -16,6 +16,12 @@ CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -maltivec
-> >  endif
-> >
-> >  ifdef CONFIG_X86
-> > +ifdef CONFIG_CC_IS_GCC
-> > +ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> > +IS_OLD_GCC = 1
-> > +endif
-> > +endif
-> > +
-> >  ifdef IS_OLD_GCC
-> >  # Stack alignment mismatch, proceed with caution.
-> >  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> > index 3d09db3070f4..34f2e37b6704 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> > @@ -16,7 +16,7 @@ DCN32 = dcn32_resource.o dcn32_hubbub.o dcn32_hwseq.o dcn32_init.o \
-> >                 dcn32_mpc.o
-> >
-> >  ifdef CONFIG_X86
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -mhard-float -msse
-> >  endif
-> >
-> >  ifdef CONFIG_PPC64
-> > @@ -27,9 +27,9 @@ ifdef CONFIG_CC_IS_GCC
-> >  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >  IS_OLD_GCC = 1
-> >  endif
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mhard-float
-> >  endif
-> >
-> > +ifdef CONFIG_X86
-> >  ifdef IS_OLD_GCC
-> >  # Stack alignment mismatch, proceed with caution.
-> >  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> > @@ -38,6 +38,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mpreferred-stack-boundary=4
-> >  else
-> >  CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -msse2
-> >  endif
-> > +endif
-> >
-> >  AMD_DAL_DCN32 = $(addprefix $(AMDDALPATH)/dc/dcn32/,$(DCN32))
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> > index 5896ca303e39..e554fd6c16f2 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> > @@ -13,7 +13,7 @@
-> >  DCN321 = dcn321_resource.o dcn321_dio_link_encoder.o
-> >
-> >  ifdef CONFIG_X86
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -msse
-> > +CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -mhard-float -msse
-> >  endif
-> >
-> >  ifdef CONFIG_PPC64
-> > @@ -24,9 +24,9 @@ ifdef CONFIG_CC_IS_GCC
-> >  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >  IS_OLD_GCC = 1
-> >  endif
-> > -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mhard-float
-> >  endif
-> >
-> > +ifdef CONFIG_X86
-> >  ifdef IS_OLD_GCC
-> >  # Stack alignment mismatch, proceed with caution.
-> >  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> > @@ -35,6 +35,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mpreferred-stack-boundary=4
-> >  else
-> >  CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -msse2
-> >  endif
-> > +endif
-> >
-> >  AMD_DAL_DCN321 = $(addprefix $(AMDDALPATH)/dc/dcn321/,$(DCN321))
-> >
-> > --
-> > 2.35.3
-> >
+> > On Fri, May 20, 2022 at 11:09 AM Alex Deucher <alexander.deucher@amd.co=
+m> wrote:
+> >> Certain GL unit tests for large textures can cause problems
+> >> with the OOM killer since there is no way to link this memory
+> >> to a process.  This was originally mitigated (but not necessarily
+> >> eliminated) by limiting the GTT size.  The problem is this limit
+> >> is often too low for many modern games so just make the limit 1/2
+> >> of system memory. The OOM accounting needs to be addressed, but
+> >> we shouldn't prevent common 3D applications from being usable
+> >> just to potentially mitigate that corner case.
+> >>
+> >> Set default GTT size to max(3G, 1/2 of system ram) by default.
+> >>
+> >> v2: drop previous logic and default to 3/4 of ram
+> >> v3: default to half of ram to align with ttm
+> >>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
+> >>   1 file changed, 14 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ttm.c
+> >> index d2b5cccb45c3..7195ed77c85a 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >> @@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev=
+)
+> >>          DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+> >>                   (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)=
+));
+> >>
+> >> -       /* Compute GTT size, either bsaed on 3/4th the size of RAM siz=
+e
+> >> +       /* Compute GTT size, either bsaed on 1/2 the size of RAM size
+> >>           * or whatever the user passed on module init */
+> >>          if (amdgpu_gtt_size =3D=3D -1) {
+> >>                  struct sysinfo si;
+> >>
+> >>                  si_meminfo(&si);
+> >> -               gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20=
+),
+> >> -                              adev->gmc.mc_vram_size),
+> >> -                              ((uint64_t)si.totalram * si.mem_unit * =
+3/4));
+> >> -       }
+> >> -       else
+> >> +               /* Certain GL unit tests for large textures can cause =
+problems
+> >> +                * with the OOM killer since there is no way to link t=
+his memory
+> >> +                * to a process.  This was originally mitigated (but n=
+ot necessarily
+> >> +                * eliminated) by limiting the GTT size.  The problem =
+is this limit
+> >> +                * is often too low for many modern games so just make=
+ the limit 1/2
+> >> +                * of system memory which aligns with TTM. The OOM acc=
+ounting needs
+> >> +                * to be addressed, but we shouldn't prevent common 3D=
+ applications
+> >> +                * from being usable just to potentially mitigate that=
+ corner case.
+> >> +                */
+> >> +               gtt_size =3D max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
+> >> +                              (u64)si.totalram * si.mem_unit / 2);
+> >> +       } else {
+> >>                  gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
+> >> +       }
+> >>
+> >>          /* Initialize GTT memory pool */
+> >>          r =3D amdgpu_gtt_mgr_init(adev, gtt_size);
+> >> --
+> >> 2.35.3
+> >>
+>
