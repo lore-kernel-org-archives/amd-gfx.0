@@ -4,119 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87F5C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 14:45:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF7BC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 16:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4548C112366;
-	Tue, 14 Jun 2022 14:45:57 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D29B112388
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 14:45:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SkMHG0GbYDCVPixiXhxixzMk1BWNNjvoBPO/LcZ+0W4gB2WEb/3UknvpKQ33xmNLwxe3wFde7Fpq+rwRhPNfnOTEHT/7OeZN1CQcQFR3dpS0pqd0v2+lhJexAsBXHAUjYNw4JGs4DJrtM+tZP0IvvWgP/92umyzBjoS10Wda1ncP37tMI0MXV4nZ6M6qiis+l8GCHS6KykbCothCbWHpUxwknVaalWhpLmn7S61kvFruwVWvSRYlo1hlg5pT3UAlzq6xjI+uxbct6DAmF8Y8IJD410otpIWjzh+0BLgDOZAlMcHjeWvalxH8GVavfymYTpi0URi8nw1Ylm4+dNBUeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5HV9zLMUCVJMbVZ5+kKJBR63VQP/0+DZv0xNBqcW2+Y=;
- b=O7u6JE/aXyNq/8/PB9VvdsQSheSpefWIUyAEkY249locZb51OjbUgEOmsXaLbCNaJpDNwc6UrGbY/gh5rGKByblGHakyqLxMpuQpcNw8JCCW3WVBPvcFDI0YmO1LMxDPXHF3zzo8ic3SLkOGu1ayNdIP+fp6YRxeo2NV8royFXixdnf+xM8RGdmC5Fp06HfoiU0SC9+G+a+xP8IeijeggshJJYTKQl+MgYmjcfNu5B/XTaMPamnk5Bz/3U3OZyImzzycIjLhJSg+zcA+85pAoYDb5n9kgfKtGC4VyT4ZKaosC2Q7yb5i2PQw8ntFPX+/8AWNJTEbGiQJoYH0KgGpXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5HV9zLMUCVJMbVZ5+kKJBR63VQP/0+DZv0xNBqcW2+Y=;
- b=X/6r1An18hIB4MmSR+ejOjQRBcnQ9PnmVUXpPk4YQTMEPzS4NOdxnwN+FwSsXah/JyGIaafX4Bl06E3/tAmbVyTHLst5YSiFptiuWvLPjJLAhdmWeEs8UJzUyotqIGUb6SW+DM4xGeRc26kN9DF/96TJstmiB7R1ml+nJ1FL+0s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM5PR12MB1481.namprd12.prod.outlook.com (2603:10b6:4:e::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5332.12; Tue, 14 Jun 2022 14:45:54 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d%6]) with mapi id 15.20.5332.022; Tue, 14 Jun 2022
- 14:45:54 +0000
-Message-ID: <e7b3288e-296f-898e-76e1-f36c2cd0baa3@amd.com>
-Date: Tue, 14 Jun 2022 10:45:13 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH 3/3] drm/amdgpu/display: make FP handling in Makefiles
- consistent
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220614140524.2677317-1-alexander.deucher@amd.com>
- <20220614140524.2677317-3-alexander.deucher@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220614140524.2677317-3-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0090.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::30) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43CC112887;
+	Tue, 14 Jun 2022 16:35:46 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ADC410F847
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 09:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655200471; x=1686736471;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=dS+2jaJBpQpxZZ8F96PPS6rHxQgLpZk+UB9Ba9ktUtA=;
+ b=AMjoVUMviC3Z9dx9D1TBaAyQ5rRPJoAhbcosuBrR1TNPyI9p09llBw8o
+ jr8QHiYJO7g4zWlUtwZANPZUccX+VXuJ8eYC6NmOO4aX1X2U8B1nIGvzs
+ 6hhC22AICh55xz4w7oAj21IUSND+WdgPjoCBGqH0tG2uGeQVccmtt6nx7
+ Csy7Lotc9x84m2FOxPsdn+6KC7kzt8FM7uMw+s29jzrrIEzasywKi3wNS
+ hx0Q7hxKwGHitWXIfqINU+WFQEK6kLofd7Zt+i+O6Af72kuOpUO/GuYdE
+ ldTQBEwEYq2Qw/svTZVWWYoplVn/7up6XiyXRBH4YikrhilUSUkQmWvRL Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10377"; a="342534223"
+X-IronPort-AV: E=Sophos;i="5.91,299,1647327600"; d="scan'208";a="342534223"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2022 02:54:30 -0700
+X-IronPort-AV: E=Sophos;i="5.91,299,1647327600"; d="scan'208";a="830323142"
+Received: from rongch2-mobl.ccr.corp.intel.com (HELO [10.255.28.34])
+ ([10.255.28.34])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2022 02:54:28 -0700
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 6d0c806803170f120f8cb97b321de7bd89d3a791
+To: Souptick Joarder <jrdr.linux@gmail.com>, kernel test robot <lkp@intel.com>
+References: <62a3ad70.TorcQosfTdYPgOzL%lkp@intel.com>
+ <CAFqt6zaL=QBkS5PJNKV9D81uGmwGwjjsa0w90ohGjJkB2qEu4g@mail.gmail.com>
+From: "Chen, Rong A" <rong.a.chen@intel.com>
+Message-ID: <0880e58d-b48e-fc6e-d270-b2225f49c913@intel.com>
+Date: Tue, 14 Jun 2022 17:54:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 64489ed2-873c-4510-caad-08da4e149586
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1481:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB148192B21DAFE3B6F266DDFB8CAA9@DM5PR12MB1481.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GndXSQR6kPfeAMNoBrBOD5nDKGvZPclMw0FAMUnqgse6p+tYECiCeBKgOKRk15cly0kf3fnnL3AGQceZZeCUFjRqnxKES08Zl1lAZ+0Umx+Wk+2yEZIVivoGphp8ybNW/4uJp/+83xocc4Q3U6UR06PVV+jkyVHtToueWET3AkyqU3blnbx8sv09zKPU7dLKQQBbQhiiUl5SXUX7Fo5XD6vbSK5xO554w3GKLMPY78kSKBJPzAPKuH7l87I5y57WZqj0HDUBv2R/lKBEQJ6hFnUrzmrqYyQwxfBLkaIi8TF1VKn/5nMBYJyLIi+pJEZdYyzcZ9q1aCIn5HTYvSiBMbPB/69zsuFssvCMRstpslqchwhECN3MCVCYfWwrRkPGiDJngCV6dciCY/0Jl1OCSeIksj9oTB8opqZBmGfQPFMVzK1Vcc+ySkvvacbZMKiZy4LQr8aK6zs3iyC6dKHeHfiy/GTrFfIFb7nFg5DQ1xlMn1R5Z87+P+N+IQLQ4IoZDshPduw7mliQQQUVcI5kQ9XZl2TBK2OYI1o0z0x8cEcXxFcnBcOS8L83aPkrAk8uL9hnXzDxzdw4P7QbAF66WKQnqhexIAuXC8iD/zH53N1Mgo1LrRn3O34Z0chPoT+VpcaBFo2MoPX2gHwhovqYYmLDWJLlfXnHdMCDOGQsC09j54T2jxbJJrPkh6YfDypaqO3/hNStaeeOQVUYJ+hcDm7O3I7qEOtt0I+P6qAhf7mHESoD2ju1PSjZnjGG3Dh4
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(508600001)(44832011)(6666004)(6486002)(5660300002)(8936002)(2906002)(316002)(66946007)(66556008)(66476007)(8676002)(31686004)(31696002)(86362001)(36756003)(38100700002)(186003)(2616005)(53546011)(26005)(6512007)(6506007)(83380400001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnpQcEhKVnNOT25sOE9VcHVZU3JIbXMwcTVMNU8yQ2RnRWNOQ3BURUhTZFRo?=
- =?utf-8?B?NThSRHF0NFByTXI1MU02S0pac1dCc2VRTUNaZDdDQkI4RityZFVkWk5xOW5j?=
- =?utf-8?B?RjRDOGdBS0RUZXBjbnp1RHNobzAwZ01CRzNDdXphVEV2MFYzR1B5citlYXpF?=
- =?utf-8?B?em0yR1hXdlNNUzd1RzJ4dzQ3blRLT3luUFJxc3Y2Mjh3cFd5K1NmVDE5Y3Yx?=
- =?utf-8?B?bThRVFdKYVZaWDVYbSsyWEVJcDRnWTUrY0ZsWkpNMjRaMitUeGN5S2FNZUJL?=
- =?utf-8?B?Q0VlMThhQ1lXZWRKWDBvY2ZFK0dBMWlqbzNyeEtnb1VYQ1FaNHpsVGtEajN6?=
- =?utf-8?B?bHY2ZEZJOE5Dc3kzeTlySFhyS2lsV0IvNVJCRFh5eEFBbWw4S003cGZ2Q3Ns?=
- =?utf-8?B?czZ3RjhpWE5QM3pZNHVWU0htYW8ybkNhTkw3YTlVK3ZjK1hrSjNVOWVMeVZ3?=
- =?utf-8?B?Uyt6ZCsvcjA1MU05YnZiQ1dXNzZuS3N2WHdUU21BS2lOMGthY3RLdHNzV2FM?=
- =?utf-8?B?dCtGZEl2bDAzOHFuZFBBYkR3Q1hSUndhSEJBQThoYnl3WGpFeEtKMnJmSEZl?=
- =?utf-8?B?Ui9WbXQxdmI2SmpZYVZKOXRBa1BHcnZmWmxsSFFsZFpKekdmSmVXazVOeXo0?=
- =?utf-8?B?aFpkMzYzYmptb1JQeWV1bi9jcm9xekxDTXNTeXhQdUwyNmsxMXU4YUQyY2U5?=
- =?utf-8?B?MkxFOCtzU0kzUytscUN3RlpORzlyQmRtNGtENElIU1hGTWxYb3Nna3pIQUZC?=
- =?utf-8?B?TlBOWmozM1krRmpWUjZMU2RIajZlSlpBcEkyUXdZQWhDOGdaS1p2a0ExQ0RY?=
- =?utf-8?B?Z1Y5a0pLdG5ULzc2R3UzeENySXhyb3lmdTF2SHRBTWg0bTd5c1pJWk1HcWJK?=
- =?utf-8?B?MzdnRHQ0dmEwblpLVVFPeG1zT3NiaEhSdTRHSVlrRkhOQTBlMGtyKzJSKytt?=
- =?utf-8?B?VElwQys0NGEvUEVOT1V1SHhNVG52SGtYaU92VjRBUmgyQWVLMkk4SXdMYkVW?=
- =?utf-8?B?T2RtSjJSbUZvekcxdlBjNEU5K3lrWXFpb3dmRWtGOVhvRVVTQ0pTcVg3WmhI?=
- =?utf-8?B?RlRLNUxtdmwyOVpLNHlCVXRHbDNWU2FKS1lHR3J3c2lkSEluUkczZXRNNEt3?=
- =?utf-8?B?TEplcnp4SktZd0VhNmNkcjdXZTJFUjQrK2ZJSG9LdzJGaXF3RE1nWjFZMkI4?=
- =?utf-8?B?UnFteHM3Z1hkenc0c1ZNVlpSejN0WWI1QUkzRW9Md0VoRHRMNG9zY1VGYWlu?=
- =?utf-8?B?eFUxZ3pJTnQ4L3k3RTV2MlNkd3dObHhVWlZ3QjFISUlVYnhMRHREMklqNHdY?=
- =?utf-8?B?K3FYZjFYWkRQaHl1YjdSQlV5a2tTZFlYRFhXMjRNSFZULzFUSzZKdm0xYS9Z?=
- =?utf-8?B?Y1g2MkYyZWdSUXVuZVViZDBHU0JIYzIzWnhtMnM5cmJvZ1psbVk0OWhtaU41?=
- =?utf-8?B?clR5ako4WldKNlFFZ2gybVB2ZWoyYkJvK2dLekFHcjF3R28xbkw3L3lTRGRU?=
- =?utf-8?B?Z0VVaVdoSnpmN2JqamRETGFvRjExSDRLNkZ1TEcyeXBXcjJ0dlA5T0hDWnpu?=
- =?utf-8?B?ekQ5WEFqcGFTUUladG9EQThiaHhsZWlKWHczV3ZJeklXOC9LMzZDVlNoLzNU?=
- =?utf-8?B?OFBaS29KVmdVRWI3NDhyNi94d2hoSnJlSExKbXR1RGVSa052SE1JRmVLWjNC?=
- =?utf-8?B?Z3JwRFZMbmVubGNYdWs2VjMyemd1K082aDFKZys1L1h3c3F1eEFCMks2TzZ4?=
- =?utf-8?B?d2VrYi9EVzZoMGxMeHo3dEdrb1VrZXltaUpnN294V1N4QnM2Ym96NDY3UlZy?=
- =?utf-8?B?T242aW1qd3RFdUdoS3JjcHl3WHYyb0p4S0tLTFhZRytsdVcxNjhjeFdhbjQr?=
- =?utf-8?B?UzNOYU85bHlRUEV2bit3aE1nNjlCWWtuY3FvMEllZmQ5K0ZJQ2FVbGxBSUti?=
- =?utf-8?B?Skl3bHpDTTUrbDYxQkx1bHQvUno3WmU4ZzB0NTgzbVFlUVZNdFRyMVdIVTNj?=
- =?utf-8?B?ZXVIeEdYZHZxcmlwaDRoa1M3YkpjRXNqekcvMStaREcvQ2pHMXdYcG9UeExQ?=
- =?utf-8?B?Zzh0NitBMHMxTXZsdkwzai9sdk9wUHpTdEMxb0NHZW11N2FmZzNyT04zTDQ0?=
- =?utf-8?B?OG1FMkovZ1dsNU9IRzVmaHNnRXQrc2xPUS9mYTl4VTZSaExvREN1L3BGOEJN?=
- =?utf-8?B?Q1NGZXBiVmJuaXNSTlhpQW1wUzZhSGc1cldlMncxY0FoaTNaQXZZTFN6VmRX?=
- =?utf-8?B?MTFoc3pKTDNTa2s3c2NvclJxY3NSWlRlM29rU2FPRk5Ua0Y0OWVoYzJPYU1j?=
- =?utf-8?B?SHRJTGE3YzdLQjE3dm9GOGR3cm9BcVpPejEwdUkxdUZ3RXcvdm9RQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64489ed2-873c-4510-caad-08da4e149586
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2022 14:45:54.3016 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZuuRehA88gg8XCrvvFt7Xes1+enlLbDXKD5HEUx9nIxgR9HQ/1a/SCQSKotnPoP1xlY/LYv0jiigWM9m5jShwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1481
+In-Reply-To: <CAFqt6zaL=QBkS5PJNKV9D81uGmwGwjjsa0w90ohGjJkB2qEu4g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 14 Jun 2022 16:35:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,173 +61,177 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-staging@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Harry
 
-On 2022-06-14 10:05, Alex Deucher wrote:
-> Use the same pattern as the DML Makefile and while we are here
-> add a missing x86 guard around the msse flags for DCN3.2.x.
+On 6/13/2022 10:05 AM, Souptick Joarder wrote:
+> On Sat, Jun 11, 2022 at 2:16 AM kernel test robot <lkp@intel.com> wrote:
+>>
+>> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+>> branch HEAD: 6d0c806803170f120f8cb97b321de7bd89d3a791  Add linux-next specific files for 20220610
+>>
+>> Error/Warning reports:
+>>
+>> https://lore.kernel.org/llvm/202205220805.wrw5woEk-lkp@intel.com
+>>
+>> Error/Warning: (recently discovered and may have been fixed)
+>>
+>> arch/riscv/include/asm/pgtable-64.h:215:2: error: invalid input constraint '0' in asm
+>> arch/riscv/include/asm/pgtable.h:257:2: error: invalid input constraint '0' in asm
+>> drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:130:17: warning: 'DP_SINK_BRANCH_DEV_NAME_7580' defined but not used [-Wunused-const-variable=]
 > 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 3 +--
->  drivers/gpu/drm/amd/display/dc/dcn201/Makefile  | 1 -
->  drivers/gpu/drm/amd/display/dc/dcn30/Makefile   | 6 ++----
->  drivers/gpu/drm/amd/display/dc/dcn302/Makefile  | 8 +++++++-
->  drivers/gpu/drm/amd/display/dc/dcn32/Makefile   | 5 +++--
->  drivers/gpu/drm/amd/display/dc/dcn321/Makefile  | 5 +++--
->  6 files changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index c935c10b5f4f..7b505e1e9308 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -180,7 +180,7 @@ CLK_MGR_DCN32 = dcn32_clk_mgr.o dcn32_clk_mgr_smu_msg.o
->  AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DCN32))
->  
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> @@ -191,7 +191,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float
->  endif
->  
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> index f68038ceb1b1..96cbd4ccd344 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> @@ -18,7 +18,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
->  endif
->  
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> index dfd77b3cc84d..c20331eb62e0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> @@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
->  
->  
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> @@ -45,8 +45,6 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
->  endif
->  
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> index f9561d7f97a1..e4b69ad0dde5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> @@ -8,7 +8,7 @@
->  DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
->  
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> @@ -16,6 +16,12 @@ CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -maltivec
->  endif
->  
->  ifdef CONFIG_X86
-> +ifdef CONFIG_CC_IS_GCC
-> +ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> +IS_OLD_GCC = 1
-> +endif
-> +endif
-> +
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> index 3d09db3070f4..34f2e37b6704 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/Makefile
-> @@ -16,7 +16,7 @@ DCN32 = dcn32_resource.o dcn32_hubbub.o dcn32_hwseq.o dcn32_init.o \
->  		dcn32_mpc.o
->  
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o := -mhard-float -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> @@ -27,9 +27,9 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mhard-float
->  endif
->  
-> +ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> @@ -38,6 +38,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -mpreferred-stack-boundary=4
->  else
->  CFLAGS_$(AMDDALPATH)/dc/dcn32/dcn32_resource.o += -msse2
->  endif
-> +endif
->  
->  AMD_DAL_DCN32 = $(addprefix $(AMDDALPATH)/dc/dcn32/,$(DCN32))
->  
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> index 5896ca303e39..e554fd6c16f2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn321/Makefile
-> @@ -13,7 +13,7 @@
->  DCN321 = dcn321_resource.o dcn321_dio_link_encoder.o
->  
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o := -mhard-float -msse
->  endif
->  
->  ifdef CONFIG_PPC64
-> @@ -24,9 +24,9 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> -CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mhard-float
->  endif
->  
-> +ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> @@ -35,6 +35,7 @@ CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -mpreferred-stack-boundary=4
->  else
->  CFLAGS_$(AMDDALPATH)/dc/dcn321/dcn321_resource.o += -msse2
->  endif
-> +endif
->  
->  AMD_DAL_DCN321 = $(addprefix $(AMDDALPATH)/dc/dcn321/,$(DCN321))
->  
+> This is a False warning.
+> 0 ddc_service_types.h <global>                    130 static const u8
+> DP_SINK_BRANCH_DEV_NAME_7580[] = "7580\x80u";
+> 1 dc_link.c           detect_link_and_local_sink 1106
+> memcmp(&link->dpcd_caps.branch_dev_name, DP_SINK_BRANCH_DEV_NAME_7580,
 
+Hi Souptick,
+
+Thanks for the reply, we'll add the warning to ignore list.
+
+Best Regards,
+Rong Chen
+
+> 
+> 
+>> drivers/misc/cardreader/rts5261.c:406:13: warning: variable 'setting_reg2' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+> I think, code wise this looks correct and can be excluded.
+> 
+>> drivers/staging/rtl8723bs/hal/hal_btcoex.c:1182:30: warning: variable 'pHalData' set but not used [-Wunused-but-set-variable]
+>>
+>> Error/Warning ids grouped by kconfigs:
+>>
+>> gcc_recent_errors
+>> |-- alpha-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- arc-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- arm-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- arm-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- arm64-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- i386-allyesconfig
+>> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-include-ddc_service_types.h:warning:DP_SINK_BRANCH_DEV_NAME_7580-defined-but-not-used
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- ia64-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- m68k-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- m68k-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- mips-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- mips-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- nios2-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- parisc-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- powerpc-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- powerpc-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- riscv-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- riscv-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- sh-allmodconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- sparc-allyesconfig
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> |-- x86_64-allyesconfig
+>> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-include-ddc_service_types.h:warning:DP_SINK_BRANCH_DEV_NAME_7580-defined-but-not-used
+>> |   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>> `-- xtensa-allyesconfig
+>>      `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+>>
+>> clang_recent_errors
+>> |-- i386-randconfig-a013
+>> |   `-- drivers-misc-cardreader-rts5261.c:warning:variable-setting_reg2-is-used-uninitialized-whenever-if-condition-is-false
+>> `-- riscv-randconfig-r013-20220610
+>>      |-- arch-riscv-include-asm-pgtable-.h:error:invalid-input-constraint-in-asm
+>>      `-- arch-riscv-include-asm-pgtable.h:error:invalid-input-constraint-in-asm
+>>
+>> elapsed time: 873m
+>>
+>> configs tested: 61
+>> configs skipped: 3
+>>
+>> gcc tested configs:
+>> arm                                 defconfig
+>> arm                              allmodconfig
+>> arm                              allyesconfig
+>> arm64                               defconfig
+>> arm64                            allyesconfig
+>> um                             i386_defconfig
+>> um                           x86_64_defconfig
+>> ia64                                defconfig
+>> ia64                             allmodconfig
+>> ia64                             allyesconfig
+>> m68k                                defconfig
+>> m68k                             allyesconfig
+>> m68k                             allmodconfig
+>> nios2                               defconfig
+>> arc                              allyesconfig
+>> alpha                               defconfig
+>> csky                                defconfig
+>> nios2                            allyesconfig
+>> alpha                            allyesconfig
+>> h8300                            allyesconfig
+>> arc                                 defconfig
+>> sh                               allmodconfig
+>> xtensa                           allyesconfig
+>> parisc                              defconfig
+>> s390                             allmodconfig
+>> parisc                           allyesconfig
+>> s390                             allyesconfig
+>> parisc64                            defconfig
+>> s390                                defconfig
+>> i386                   debian-10.3-kselftests
+>> i386                              debian-10.3
+>> i386                                defconfig
+>> i386                             allyesconfig
+>> sparc                               defconfig
+>> sparc                            allyesconfig
+>> mips                             allyesconfig
+>> mips                             allmodconfig
+>> powerpc                           allnoconfig
+>> powerpc                          allmodconfig
+>> powerpc                          allyesconfig
+>> i386                          randconfig-a014
+>> i386                          randconfig-a012
+>> i386                          randconfig-a016
+>> riscv                             allnoconfig
+>> riscv                            allyesconfig
+>> riscv                            allmodconfig
+>> riscv                    nommu_k210_defconfig
+>> riscv                          rv32_defconfig
+>> riscv                    nommu_virt_defconfig
+>> riscv                               defconfig
+>> x86_64                              defconfig
+>> x86_64                           allyesconfig
+>> x86_64                                  kexec
+>> x86_64                               rhel-8.3
+>> x86_64                         rhel-8.3-kunit
+>> x86_64                           rhel-8.3-syz
+>> x86_64                          rhel-8.3-func
+>> x86_64                    rhel-8.3-kselftests
+>>
+>> clang tested configs:
+>> i386                          randconfig-a013
+>> i386                          randconfig-a011
+>> i386                          randconfig-a015
+>>
+>> --
+>> 0-DAY CI Kernel Test Service
+>> https://01.org/lkp
+>>
+> 
