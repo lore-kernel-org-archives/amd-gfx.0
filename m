@@ -4,43 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56DA7C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 17:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F63EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 18:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E553E1127EC;
-	Tue, 14 Jun 2022 17:54:04 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8351127D1;
- Tue, 14 Jun 2022 17:53:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=Hsz3tB2pF9zm4YWcB7TwV89cMXBPp1AL0XArYJ78aRU=; b=gIIn6VZH752F+AYXhhL393cOYh
- dCndDcyUyAnhJPYJw5prnJ707ouGtGZ21nOTITrRsZkAJohIrpaKlrDdWXFxlkRjDsTGSK4sFhKpT
- b0Nteho2MV31/Fs/NaGavt7FIpjOYprRjEHec/uNGjXf/VbsCGVL//uu2oDaWbYswv4ntr/aF8WeD
- a3CB0cq0nsUnar7b5pGE4WJXIY/kCPnfp1Or64I7mm4z/XdF/12L8zr6ou8AxnH/C11Dht2Mk/No+
- swNL1JF7SfVz1lQtcpRM+C9330LwBPiVkXoTcCMYG4JTAOX7SLWxLWRUw/VMPaND/lGpXg5DIslEa
- zqvkh33Q==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o1Aix-000NI0-G9; Tue, 14 Jun 2022 17:53:08 +0000
-Message-ID: <54173da3-8513-be7e-4351-227995688632@infradead.org>
-Date: Tue, 14 Jun 2022 10:53:01 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA03D112A4E;
+	Tue, 14 Jun 2022 18:16:00 +0000 (UTC)
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F715112A4F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 18:15:58 +0000 (UTC)
+Date: Tue, 14 Jun 2022 18:15:46 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1655230555; x=1655489755;
+ bh=xYiKi5p+TLev+LpsdYCXOyvNkBXwLXU4fCKf4lY0+EA=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+ Feedback-ID:Message-ID;
+ b=rIAy44xpwoeDiY2lqUvVdFxly/csUqbEVt30LMfQ37yEvQLX+8cdl9HceThxbA7CY
+ fSkIs1thOqZ2PN8londF9a3MIDatNQYjA5+W6nesmkPimn6WnhX6xvc0um4hdOCdvZ
+ 3/+JxMYIWA6EicABhUDgAdMH9T+ZNRXNvjitGaycr1sEL0L4E9FnReckVygUS+0HI9
+ zvjnOktMcCz2sEvqQh3Yf0AQsilnyVjYQ96TV4IYiiRLtHuopNXfMvjox02oRyOSok
+ 8+xywW8dJsvFC78N5tu0iA+r2ivMU8gNyuLhIMxla/hYUJRNeQp4WsgCYzIBQ7B1u3
+ Lj5BBCN0I+CCg==
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH 1/3] Documentation/gpu: Add info table for ASICs
+Message-ID: <pp_VMylAJoi-vp3VAJIjkeIfC89ncoHCCBFR_7ook2cjR9uC7bgBWcsjaFGNPFPgRMJHkwli2RNeXP0L32NQ8-Qvwf1IbTSyG8U5KNhTdJ8=@emersion.fr>
+In-Reply-To: <20220613200112.3377638-2-Rodrigo.Siqueira@amd.com>
+References: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
+ <20220613200112.3377638-2-Rodrigo.Siqueira@amd.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amd/display: add stub for crtc_debugfs_init()
-Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org
-References: <20220614155726.26211-1-rdunlap@infradead.org>
- <3289da9b-7b5c-e824-e55e-1648c527d7d9@amd.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <3289da9b-7b5c-e824-e55e-1648c527d7d9@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 14 Jun 2022 17:54:04 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,97 +47,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, patches@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Mark Yacoub <markyacoub@chromium.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Alex Hung <alex.hung@amd.com>, maira.canal@usp.br,
+ amd-gfx@lists.freedesktop.org, mwen@igalia.com, Leo Li <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ tales.aparecida@gmail.com, Sean Paul <seanpaul@chromium.org>,
+ isabbasso@riseup.net, andrealmeid@riseup.net,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Pierre-Loup <pgriffais@valvesoftware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Monday, June 13th, 2022 at 22:01, Rodrigo Siqueira <Rodrigo.Siqueira@amd=
+.com> wrote:
 
+> Amdgpu driver is used in an extensive range of devices, and each ASIC
+> has some specific configuration. As a result of this variety, sometimes
+> it is hard to identify the correct block that might cause the issue.
+> This commit expands the amdgpu kernel-doc to alleviate this issue by
+> introducing one ASIC table that describes dGPU and another one that
+> shares the APU info.
 
-On 6/14/22 10:45, Harry Wentland wrote:
-> On 2022-06-14 11:57, Randy Dunlap wrote:
->> Fix build error when CONFIG_DEBUG_FS is not enabled by adding a
->> stub function for crtc_debugfs_init().
->>
->> Eliminates this build error:
->>
->> ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function ‘amdgpu_dm_crtc_late_register’:
->> ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6599:2: error: implicit declaration of function ‘crtc_debugfs_init’; did you mean ‘amdgpu_debugfs_init’? [-Werror=implicit-function-declaration]
->>   crtc_debugfs_init(crtc);
->>   ^~~~~~~~~~~~~~~~~
->>   amdgpu_debugfs_init
->>
->> Fixes: 86bc22191892 ("drm/amd/display: Support crc on specific region")
-> 
-> That whole patch and the whole secure display feature depend on debugfs.
-> It should never try building without CONFIG_DEBUG_FS.
+Nice!
 
-Hi Harry,
-Well, it's clearly possible to have this build error, so something needs
-to be fixed somewhere.
+Are there plans to keep this list up-to-date?
 
-> See drivers/gpu/drm/amd/display/Kconfig:
-> 
->> config DRM_AMD_SECURE_DISPLAY
->>         bool "Enable secure display support"
->>         default n
->>         depends on DEBUG_FS
->>         depends on DRM_AMD_DC_DCN
->>         help
->>             Choose this option if you want to
->>             support secure display
->>
->>             This option enables the calculation
->>             of crc of specific region via debugfs.
->>             Cooperate with specific DMCU FW.
-> 
-> amdgpu_dm_crtc_late_register is guarded by CONIG_DRM_AMD_SECURE_DISPLAY.
-> 
-> Harry
-> 
->> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->> Cc: Wayne Lin <Wayne.Lin@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         |    2 --
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h |    6 ++++++
->>  2 files changed, 6 insertions(+), 2 deletions(-)
->>
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -57,9 +57,7 @@
->>  #include "amdgpu_dm_irq.h"
->>  #include "dm_helpers.h"
->>  #include "amdgpu_dm_mst_types.h"
->> -#if defined(CONFIG_DEBUG_FS)
->>  #include "amdgpu_dm_debugfs.h"
->> -#endif
->>  #include "amdgpu_dm_psr.h"
->>  
->>  #include "ivsrcid/ivsrcid_vislands30.h"
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
->> @@ -31,6 +31,12 @@
->>  
->>  void connector_debugfs_init(struct amdgpu_dm_connector *connector);
->>  void dtn_debugfs_init(struct amdgpu_device *adev);
->> +
->> +#ifdef CONFIG_DEBUG_FS
->>  void crtc_debugfs_init(struct drm_crtc *crtc);
->> +#else
->> +static inline void crtc_debugfs_init(struct drm_crtc *crtc)
->> +{}
->> +#endif
->>  
->>  #endif
-> 
+FWIW, my go-to reference tables are [1], updated by Alex.
 
-thanks.
--- 
-~Randy
+Would it make sense to add a "GFX Core" column?
+
+[1]: https://www.x.org/wiki/RadeonFeature/
