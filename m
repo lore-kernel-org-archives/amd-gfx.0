@@ -4,48 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3971C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 19:50:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 724ECC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 20:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF36112B01;
-	Wed, 15 Jun 2022 19:50:04 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2645E112AF0
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 19:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655322603; x=1686858603;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=jBZXiGn2WqVLxecW6QE1v9L/SpOLkZw3RsnqZsFZLFU=;
- b=I3Pzp1XQNFg4Nzow2c/bD8WIfnowE5GdkqT+Sc3a2k5NInMeywUvlnTT
- vqHObR/uugyG2ZIVGUBbXNSRRE5S/66Zc5pGpxygSXx6UZnhJQLaDHImc
- plBj+oOOvs1MUmbNuOhK5jQvQaaDHec+YRFCUM5qXBOBys8vdyYA4fwAE
- KaiZNWYvVTkl7uoAJVPmPhSMCNRsURKp6dtIdBJsQkzcOONvFFrd7rQfm
- bQB5kKo+n1e85KMWUmwl+F3Ty1Ftn/OZSD2fqe5qXMx/S/klarc5xCl2U
- tTKz1j64ayXo3E69SR4jVenLxQgAlVrRQKTF7ThOt3nDxcLT6Av4C2v2I w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10379"; a="280122070"
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="280122070"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 12:49:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="713095483"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 15 Jun 2022 12:49:50 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o1Z1R-000N8u-To;
- Wed, 15 Jun 2022 19:49:49 +0000
-Date: Thu, 16 Jun 2022 03:49:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD SUCCESS
- 6012273897fefb12566580efedee10bb06e5e6ed
-Message-ID: <62aa37ae.yalJnDwm6FNPklVK%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1F510E717;
+	Wed, 15 Jun 2022 20:13:42 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9177F10E6A2;
+ Wed, 15 Jun 2022 20:13:40 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id l81so16877049oif.9;
+ Wed, 15 Jun 2022 13:13:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uxPZFTdIhpij7oVBbW1ZEllzyYT+SkfY+TvDUl6wCB8=;
+ b=N9LfEeWSzKKgAoAemGKrsZ8J8bPjIWvFNY/O5H3wlMXrl1dGp2XnyPobhPn4w665zj
+ 09bYyg5l8BjwPptVTOLw/R2lfeCe+SAqlc75zhdENzpDxUQzzMbqXVcracTaAqwE0RWt
+ aXP1OT/1heYgYO4eSYNSXa14s7b65XUyEctNzf4WVUmel6woeMzAXfJwDyQrqOwQTris
+ YaxB37okEGc1XOhz5rSdkzQoeQUQqd8f1EU1YhEMGpqXUNzXIjs82ICAPnrE1g49acEG
+ lLxcNWNaxtWJhnbIu4U0kMZVwE91jDjt8MuqSXWihAL0YBRrdhpPsdGqpme4ZIjhZeVh
+ 5PlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uxPZFTdIhpij7oVBbW1ZEllzyYT+SkfY+TvDUl6wCB8=;
+ b=uT/3cuvXfawFeSLgHo52MzVJ3ZXSAZ1sHT9lEDlSiIbtAS52Ve2Nqsio4JI75rwtO7
+ MpBg5yu3oUdVJdlFArcobvH4EEEdgaRMoK+QHtxBE7f0mlRtsF4WJ0ztZePlmTrqSRvc
+ nTbcPDRVMCNGXnX2ptLLCcVUTyX40OuHuPlfExe/fucJniswY3+KNVA8lhmyUwIEM46N
+ TrcSwDZb1F6OPhzc06bUl4uUMjIjcUYblDSFXNmCd2yZBXcVPDv4DwNpZxIIQs6PC9N4
+ qEmHQhI1C7hkdSgxaZ/ZVzw7Xh0dkc0yaUSLM0Gl289/ApUU2b88IsArFgraAmGUyVpc
+ cGQw==
+X-Gm-Message-State: AJIora/kObXmgDCHQ3e/ke84yghNlZMDJZJw6IF4YImXd6hyTXuyl2sW
+ lVbbqOKK1VhA7BDDrF3n81K3zMA6dYANdKlk2Dg=
+X-Google-Smtp-Source: AGRyM1t26BkEmjzZPz/t/y/zBluh0mTeIrONU9pLZIV7rmJ+Rplv0Xy9wJgFEVHQ9UoF4/SVUZsYBt3IHGWYqkGmx8k=
+X-Received: by 2002:a05:6808:23c6:b0:331:3ab2:6fb9 with SMTP id
+ bq6-20020a05680823c600b003313ab26fb9mr693454oib.200.1655324019928; Wed, 15
+ Jun 2022 13:13:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20220615160116.528c324b@canb.auug.org.au>
+ <d1a48a84-6d07-e8f7-5fd8-d24a7a1cf187@infradead.org>
+ <CADnq5_N6gfaPfZJAX4+poWFFruxNdFKZqzXZXosj1A55e-O1mA@mail.gmail.com>
+ <fb53cab1-f693-5309-e06a-0fe0fc932c2c@infradead.org>
+In-Reply-To: <fb53cab1-f693-5309-e06a-0fe0fc932c2c@infradead.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 15 Jun 2022 16:13:28 -0400
+Message-ID: <CADnq5_Nz9cw3L6_Ab=7WQZ4_y8OTSiwZmoQup+9OjaaZPCqUqQ@mail.gmail.com>
+Subject: Re: linux-next: Tree for Jun 15
+ (drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c)
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: multipart/mixed; boundary="00000000000032528605e18228d8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,163 +65,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- linux-staging@lists.linux.dev, amd-gfx@lists.freedesktop.org
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 6012273897fefb12566580efedee10bb06e5e6ed  Add linux-next specific files for 20220615
+--00000000000032528605e18228d8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Warning reports:
+On Wed, Jun 15, 2022 at 3:44 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+>
+>
+> On 6/15/22 12:28, Alex Deucher wrote:
+> > On Wed, Jun 15, 2022 at 3:01 PM Randy Dunlap <rdunlap@infradead.org> wr=
+ote:
+> >>
+> >>
+> >>
+> >> On 6/14/22 23:01, Stephen Rothwell wrote:
+> >>> Hi all,
+> >>>
+> >>> Changes since 20220614:
+> >>>
+> >>
+> >> on i386:
+> >> # CONFIG_DEBUG_FS is not set
+> >>
+> >>
+> >> ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In fun=
+ction =E2=80=98amdgpu_dm_crtc_late_register=E2=80=99:
+> >> ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6599:2:=
+ error: implicit declaration of function =E2=80=98crtc_debugfs_init=E2=80=
+=99; did you mean =E2=80=98amdgpu_debugfs_init=E2=80=99? [-Werror=3Dimplici=
+t-function-declaration]
+> >>   crtc_debugfs_init(crtc);
+> >>   ^~~~~~~~~~~~~~~~~
+> >>   amdgpu_debugfs_init
+> >>
+> >>
+> >> Full randconfig file is attached.
+> >
+> > I tried building with your config and I can't repro this.  As Harry
+> > noted, that function and the whole secure display feature depend on
+> > debugfs.  It should never be built without CONFIG_DEBUG_FS.  See
+> > drivers/gpu/drm/amd/display/Kconfig:
+>
+> Did you try building with today's linux-next tree?
+> (whatever is in it)
+>
+> I have seen this build error multiple times so it shouldn't
+> be so difficult to repro it.
+>
+>
+> >> config DRM_AMD_SECURE_DISPLAY
+> >>         bool "Enable secure display support"
+> >>         default n
+> >>         depends on DEBUG_FS
+> >>         depends on DRM_AMD_DC_DCN
+> >>         help
+> >>             Choose this option if you want to
+> >>             support secure display
+> >>
+> >>             This option enables the calculation
+> >>             of crc of specific region via debugfs.
+> >>             Cooperate with specific DMCU FW.
+> >
+> > amdgpu_dm_crtc_late_register is guarded by
+> > CONIG_DRM_AMD_SECURE_DISPLAY.  It's not clear to me how we could hit
+> > this.
 
-https://lore.kernel.org/llvm/202206151803.AN0dJvGe-lkp@intel.com
-https://lore.kernel.org/llvm/202206152336.qCDzjUHG-lkp@intel.com
-https://lore.kernel.org/llvm/202206160206.7v6ivUDZ-lkp@intel.com
+I was able to repro it.  In linux-next the
+CONFIG_DRM_AMD_SECURE_DISPLAY ifdefs in
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c seem to be missing.
+I guess they were lost when the amdgpu branch was merged into
+linux-next.  The attached patch restores the
+CONFIG_DRM_AMD_SECURE_DISPLAY protections.
 
-Unverified Warning (likely false positive, please contact us if interested):
+Thanks,
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9139:27: warning: variable 'abo' set but not used [-Wunused-but-set-variable]
+Alex
 
-Warning ids grouped by kconfigs:
+>
+>
+> --
+> ~Randy
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- ia64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- m68k-allmodconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- m68k-allyesconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- nios2-allyesconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- parisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- powerpc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- riscv-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|-- sh-allmodconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-`-- xtensa-allyesconfig
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-    `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+--00000000000032528605e18228d8
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amdgpu-fix-merge-of-amdgpu-next-branch.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-fix-merge-of-amdgpu-next-branch.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l4g1669d0>
+X-Attachment-Id: f_l4g1669d0
 
-clang_recent_errors
-`-- x86_64-randconfig-a005-20220613
-    |-- vmlinux.o:warning:objtool:__ct_user_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-    |-- vmlinux.o:warning:objtool:ct_idle_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-    |-- vmlinux.o:warning:objtool:ct_idle_exit:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-    |-- vmlinux.o:warning:objtool:ct_irq_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-    |-- vmlinux.o:warning:objtool:ct_irq_exit:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-    `-- vmlinux.o:warning:objtool:ct_nmi_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
-
-elapsed time: 809m
-
-configs tested: 55
-configs skipped: 3
-
-The following configs have been built successfully.
-More configs may be tested in the coming days.
-
-gcc tested configs:
-arm                              allmodconfig
-arm                              allyesconfig
-arm                                 defconfig
-arm64                               defconfig
-arm64                            allyesconfig
-ia64                                defconfig
-ia64                             allmodconfig
-ia64                             allyesconfig
-m68k                             allyesconfig
-m68k                             allmodconfig
-m68k                                defconfig
-alpha                               defconfig
-csky                                defconfig
-nios2                            allyesconfig
-alpha                            allyesconfig
-arc                                 defconfig
-h8300                            allyesconfig
-sh                               allmodconfig
-xtensa                           allyesconfig
-nios2                               defconfig
-arc                              allyesconfig
-parisc                              defconfig
-s390                             allmodconfig
-parisc                           allyesconfig
-s390                                defconfig
-s390                             allyesconfig
-parisc64                            defconfig
-i386                   debian-10.3-kselftests
-i386                              debian-10.3
-i386                                defconfig
-i386                             allyesconfig
-sparc                            allyesconfig
-sparc                               defconfig
-mips                             allyesconfig
-mips                             allmodconfig
-powerpc                          allmodconfig
-powerpc                           allnoconfig
-powerpc                          allyesconfig
-riscv                             allnoconfig
-riscv                            allyesconfig
-riscv                    nommu_k210_defconfig
-riscv                          rv32_defconfig
-riscv                    nommu_virt_defconfig
-riscv                               defconfig
-riscv                            allmodconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-x86_64                                  kexec
-x86_64                               rhel-8.3
-x86_64                           allyesconfig
-x86_64                           rhel-8.3-syz
-x86_64                          rhel-8.3-func
-x86_64                         rhel-8.3-kunit
-x86_64                    rhel-8.3-kselftests
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+RnJvbSBmNjdhYjBiYThkYTg3M2EyMzhkY2QzMzZhY2Y5MmMwMWU0YWZmMDMxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFdlZCwgMTUgSnVuIDIwMjIgMTY6MTI6MDAgLTA0MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vYW1kZ3B1OiBmaXggbWVyZ2Ugb2YgYW1kZ3B1IC1uZXh0IGJyYW5jaAoKQWRkIENPTkZJ
+R19EUk1fQU1EX1NFQ1VSRV9ESVNQTEFZIHByb3RlY3Rpb25zIHRoYXQgd2VyZQphY2NpZGVudGx5
+IGRyb3BwZWQuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYyB8IDQgKysrKwogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4
+IGM5MDA0ZjdlNzAwZC4uYzAzODZmMjM3ZmRjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTY1OTQsMTIgKzY1OTQsMTQgQEAg
+ZG1fY3J0Y19kdXBsaWNhdGVfc3RhdGUoc3RydWN0IGRybV9jcnRjICpjcnRjKQogCXJldHVybiAm
+c3RhdGUtPmJhc2U7CiB9CiAKKyNpZmRlZiBDT05GSUdfRFJNX0FNRF9TRUNVUkVfRElTUExBWQog
+c3RhdGljIGludCBhbWRncHVfZG1fY3J0Y19sYXRlX3JlZ2lzdGVyKHN0cnVjdCBkcm1fY3J0YyAq
+Y3J0YykKIHsKIAljcnRjX2RlYnVnZnNfaW5pdChjcnRjKTsKIAogCXJldHVybiAwOwogfQorI2Vu
+ZGlmCiAKIHN0YXRpYyBpbmxpbmUgaW50IGRtX3NldF92dXBkYXRlX2lycShzdHJ1Y3QgZHJtX2Ny
+dGMgKmNydGMsIGJvb2wgZW5hYmxlKQogewpAQCAtNjY5Myw3ICs2Njk1LDkgQEAgc3RhdGljIGNv
+bnN0IHN0cnVjdCBkcm1fY3J0Y19mdW5jcyBhbWRncHVfZG1fY3J0Y19mdW5jcyA9IHsKIAkuZW5h
+YmxlX3ZibGFuayA9IGRtX2VuYWJsZV92YmxhbmssCiAJLmRpc2FibGVfdmJsYW5rID0gZG1fZGlz
+YWJsZV92YmxhbmssCiAJLmdldF92YmxhbmtfdGltZXN0YW1wID0gZHJtX2NydGNfdmJsYW5rX2hl
+bHBlcl9nZXRfdmJsYW5rX3RpbWVzdGFtcCwKKyNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX1NF
+Q1VSRV9ESVNQTEFZKQogCS5sYXRlX3JlZ2lzdGVyID0gYW1kZ3B1X2RtX2NydGNfbGF0ZV9yZWdp
+c3RlciwKKyNlbmRpZgogfTsKIAogc3RhdGljIGVudW0gZHJtX2Nvbm5lY3Rvcl9zdGF0dXMKLS0g
+CjIuMzUuMwoK
+--00000000000032528605e18228d8--
