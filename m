@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47569C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 01:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A11C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 02:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55EB8112B8A;
-	Wed, 15 Jun 2022 01:23:43 +0000 (UTC)
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D04112B8A
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 01:23:42 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id 123so10036460pgb.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 18:23:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aEPMcdqc6ApyMTtWRy5/WozsI9H5e5M18nMlkb0pmLU=;
- b=TxqK1MVI6PVuVAWK96beuqPEoE1/kYWyL3I5/Nh+V78Rff06Agxt8qBg6W/KYBR38V
- w3+3Q0n208FpYj2drTQkNaXlbPKOKB+FX3dwTfRJTJwcbWKTHjuvMmTeST7XiYpnrCwr
- rWEH51kO8lAtCSabJP30/etBIN+mmhQiU64J4q4Xt2aRkATY/yVyI0B2XOFuC3y6vvxJ
- dXz49MmUJ1DBS+lqqfQE0XFZHoWwsTOG5XxkybabVkpz6yRJUG5O2YMsyw8Mlgi88Xgt
- Fzx9tPck0nXv2PqINdl3QizkWkdfEU15QBSuaxTmMLy88cbtFhQ2qDbI0FTPFdL0MJte
- Fb/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aEPMcdqc6ApyMTtWRy5/WozsI9H5e5M18nMlkb0pmLU=;
- b=iAfkHnTyHRsJNtAhE2a/ZdeoriMOe+jJ8a9anw+q62jbWn+5unVz7+X5KjckUgIdgW
- xJgVsJD6Doi+M5Mnk1fMBmcItmU7+FuMV3q3PPi/abNK5Gm90KPFQnb7oHfmARzKr3ss
- 4phYgzl/HTLozBPQZCsVx8I6E2z1xdaTcaPcvevDJB7sspw/HLP7AcpDh5/QP0Kmaw+3
- hB39STVrgxGt87q0M+G91izTrCLMqGrZPPXuqaC8YzvZv5KX7HQZDzqUt+FpyumcHPlq
- Y4bOGZjmdRhb6nl3FMhoDqal9xiVqMX1PpyfDOFCI2mCRPkTM9r/7eEV6IBeNC5g8FDS
- kzYw==
-X-Gm-Message-State: AOAM532orIB68zkdLpmf9s2NeDngB3TH1sIsKQmZJ/duVtFAAL62sjY8
- 4dsQYQwjOAKTYF5RClrPLq/gFeIBsIzhhZ2Thc4=
-X-Google-Smtp-Source: ABdhPJzMKIMxY15g3zIJ6mMCy//NeT1s9IpYNR/lRS+w2hFLbdfiby2xUqsDaPtS6ugp1d+JYQ92Ly13qXdR625zi/Y=
-X-Received: by 2002:a63:7c4e:0:b0:380:8ae9:c975 with SMTP id
- l14-20020a637c4e000000b003808ae9c975mr6916971pgn.25.1655256222210; Tue, 14
- Jun 2022 18:23:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE44D113800;
+	Wed, 15 Jun 2022 02:56:40 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFAF113800
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 02:56:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GilMAJus+lgQEn27+8uWSll6VG8Ir0fOM+toAuKcPBs1rt3XJajVgUb2L56IN6RWHGNUT4XZ97X/xoGBTqF0QtPkImELMUNBNDdiyddOlUmInqIWVA5irb3QI+EcbpxzXGLZQFsh7OIaMDc71gcRl2iSn6NKytsv9GZdfF8CvYXX6i0c4MKSyOHi64rEtZ3O0JpzFFr4OHBURzdFFt68iw9A14fWA37k6MFwpMfAyHP1efMD3QxkbyuE53JJezc9gIIb+arQoKSQflxuwQa4lssVFf6qAd433Fp5gWPI6J0c3oWDK8MXdPNmCSP/vJKLu/IYFsdg42+odk6QSa9K9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XYfhPz6BOyDA17x1+82VpUTb/GpekrOfoU0ySlDNxpg=;
+ b=amave7W+w/56DMwOMAADPb90dcXF1Av1v89yiYoHKiJauX3biu0e57PwybqRp1R6H8HdyNN7HgurNVvjGaBvEeS3CVG/LAZWBtooxwcV8ioHwaxD+kl6tP4Rm9hjz2g1n3sjfRHLvhOp/YXF8hFjRvFVl3bbe223UTsy0OEuW+hvKC54RMR3seJAiUeO00yDjnNjl0a2lgSCRuRakhRLiW0w6b21WYZI+70jIHZNBRLl5sfXh6TplxZQ2Wfpc602vmsU5fno6iUa/0nuNcvnTmOZPWY7W5nOGbD3WWrzeqZYCz3jGDK+WvK7wVqyczlaZ2lLenYxyxIEwk84V9zk3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XYfhPz6BOyDA17x1+82VpUTb/GpekrOfoU0ySlDNxpg=;
+ b=YZ668Th0UPCL6SZ5DMfrAnfZWOeiESw04wKS+xME2DUfqhe7ijF4zZEVjTCKlDEdsUi3Ve+e8Hdb040Z1JToyzhRGCu8ZREzxxV5frTJCfB6ypxIZHMln/92LnGKRUUk84pk0H8ya2SsF+LyD2IuXtT7K1utWb2ir8Gpawu4ehc=
+Received: from DM5PR04CA0039.namprd04.prod.outlook.com (2603:10b6:3:12b::25)
+ by CH2PR12MB3687.namprd12.prod.outlook.com (2603:10b6:610:2b::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.16; Wed, 15 Jun
+ 2022 02:56:35 +0000
+Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:12b:cafe::48) by DM5PR04CA0039.outlook.office365.com
+ (2603:10b6:3:12b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12 via Frontend
+ Transport; Wed, 15 Jun 2022 02:56:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Wed, 15 Jun 2022 02:56:34 +0000
+Received: from ruijing-ubuntu-pc.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 14 Jun 2022 21:56:32 -0500
+From: Ruijing Dong <ruijing.dong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/vcn: adjust unified queue code format
+Date: Tue, 14 Jun 2022 22:56:10 -0400
+Message-ID: <20220615025610.49839-1-ruijing.dong@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220609142725.28973-1-aurabindo.pillai@amd.com>
- <CAP+8YyE1reTB-G=Wkkx2v=eTJUuUCbpAgmEc2Y5ePJLVXYkZKA@mail.gmail.com>
- <CAAxE2A4KVUsjx+zoJG4s9-eZH6+k-xyt21brJtYqHdKAHkfXCg@mail.gmail.com>
- <CAP+8YyGrSbmGUqV5XDBmyufieM7bwd6aWmcMeeZr+Z6hFBgZog@mail.gmail.com>
-In-Reply-To: <CAP+8YyGrSbmGUqV5XDBmyufieM7bwd6aWmcMeeZr+Z6hFBgZog@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 14 Jun 2022 21:23:06 -0400
-Message-ID: <CAAxE2A7a1bDCGhq132BV4sreMu2kd=wo58+xRvpmGhv5HFksZw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: ignore modifiers when checking for
- format support
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: multipart/alternative; boundary="000000000000231f7b05e1725fe2"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1415dc6c-cbfa-46ac-b359-08da4e7aa8a7
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3687:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB36872F44CC5914BCA4F94FEC95AD9@CH2PR12MB3687.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4KczUXTrx/zcQsCJAFlSkn0bjsPqonrBcIzyrMd1vtgfOwQKqyAKTiU2tauCUX6j+NYsBFqM+bHfAufDxnU0ZY39rqh8N3UFUXkrdxIvmS33w4Ghus9ZoRLqdwvzaNg/NAjCZEMvOUC6PvdpT41MpG5Z3B1qnltSBZNnrIIK67eaF5TGmD+8B3VnPC8LiGiS5CavzJpkkCgNPGr6FbVg2wieWq55h2ydCjQH63H4LLYH9OS5wWqXzvD2AR2ae80n9CPXdb4FAtl1fvsbuVQPj1tcHwBFgBRNvOEkjeB8q/rmBM5L8tD3DBWwVPoe2mEVN9cutInZvTXqnUj2COwM0F58DIUPOUkxx/mnxXux2DvC4hcbJ8Wip/Z8RQuT2NPjL9aMbw5TeF0/FaBgcJYrq4VU4evzGEdJ8PCFfKgoV2rYmQs6XrWYFcuowaxHnIAYWHuMj3LAXJ+W4pso9A5V69svSbNX4Uz7GQlS/89qUIs0z8ojmx+vO1D/xWvxApJOQ9Ul51I1S5bvSyYdq5MakCOc69jRY0V2U1hT56rpjKLx3XIEy9qd7pUCtgYiUMEBfoEjnaC3CZBBLXVFtAUVxnseaLJU8Ps62zXIiHKo18BNgKK4nE+wLe0Po/uHiiyZwytThDqANjTDxSm9BMPxAHhmLjpk17vfLKtJS8z2oztpby0fLFWrrfstOpURmYtE0SLYYWcYyOxPIVI8/AJwIw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(5660300002)(81166007)(54906003)(316002)(2906002)(82310400005)(83380400001)(86362001)(40460700003)(7696005)(26005)(6916009)(8936002)(356005)(6666004)(44832011)(2616005)(70586007)(508600001)(4326008)(8676002)(186003)(1076003)(16526019)(70206006)(336012)(426003)(36756003)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 02:56:34.7792 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1415dc6c-cbfa-46ac-b359-08da4e7aa8a7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3687
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,410 +98,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, "Siqueira,
- Rodrigo" <rodrigo.siqueira@amd.com>, roman.li@amd.com,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Qiao,
- Ken" <ken.qiao@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: alexander.deucher@amd.com, ruijing.dong@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000231f7b05e1725fe2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Fixed some errors and warnings found by checkpatch.pl.
 
-We can reject invalid modifiers elsewhere, but it can't be here because
-it's also the non-modifier path.
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  8 ++++----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-We expose 256KB_R_X or 64KB_R_X modifiers depending on chip-specific
-settings, but not both. Only the optimal option is exposed. This is OK for
-modifiers, but not OK with AMD-specific BO metadata where the UMD
-determines the swizzle mode.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index e62ff7db4736..fea436023351 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -730,8 +730,8 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	return r;
+ }
+ 
+-static uint32_t * amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+-					  uint32_t ib_pack_in_dw, bool enc)
++static uint32_t *amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
++						uint32_t ib_pack_in_dw, bool enc)
+ {
+ 	uint32_t *ib_checksum;
+ 
+@@ -749,7 +749,7 @@ static uint32_t * amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+ }
+ 
+ static void amdgpu_vcn_unified_ring_ib_checksum(uint32_t **ib_checksum,
+-				        uint32_t ib_pack_in_dw)
++						uint32_t ib_pack_in_dw)
+ {
+ 	uint32_t i;
+ 	uint32_t checksum = 0;
+@@ -790,7 +790,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	/* single queue headers */
+ 	if (sq) {
+ 		ib_pack_in_dw = sizeof(struct amdgpu_vcn_decode_buffer) / sizeof(uint32_t)
+-			                     + 4 + 2; /* engine info + decoding ib in dw */
++						+ 4 + 2; /* engine info + decoding ib in dw */
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, ib_pack_in_dw, false);
+ 	}
+ 
+@@ -896,7 +896,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 					 struct amdgpu_ib *ib_msg,
+ 					 struct dma_fence **fence)
+ {
+-	unsigned ib_size_dw = 16;
++	unsigned int ib_size_dw = 16;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+@@ -962,7 +962,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+ 					  struct amdgpu_ib *ib_msg,
+ 					  struct dma_fence **fence)
+ {
+-	unsigned ib_size_dw = 16;
++	unsigned int ib_size_dw = 16;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index d6f134ef9633..84ac2401895a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -120,7 +120,7 @@ static int vcn_v4_0_sw_init(void *handle)
+ 		sprintf(ring->name, "vcn_unified_%d", i);
+ 
+ 		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[i].irq, 0,
+-				  AMDGPU_RING_PRIO_0, &adev->vcn.inst[i].sched_score);
++						AMDGPU_RING_PRIO_0, &adev->vcn.inst[i].sched_score);
+ 		if (r)
+ 			return r;
+ 
+@@ -907,7 +907,7 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+ 	WREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR, 0);
+ 	WREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR, 0);
+ 
+-	tmp= RREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR);
++	tmp = RREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR);
+ 	WREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR, tmp);
+ 	ring->wptr = RREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR);
+ 
+@@ -1048,8 +1048,8 @@ static int vcn_v4_0_start(struct amdgpu_device *adev)
+ 
+ 				dev_err(adev->dev, "VCN[%d] is not responding, trying to reset the VCPU!!!\n", i);
+ 				WREG32_P(SOC15_REG_OFFSET(VCN, i, regUVD_VCPU_CNTL),
+-						UVD_VCPU_CNTL__BLK_RST_MASK,
+-						~UVD_VCPU_CNTL__BLK_RST_MASK);
++							UVD_VCPU_CNTL__BLK_RST_MASK,
++							~UVD_VCPU_CNTL__BLK_RST_MASK);
+ 				mdelay(10);
+ 				WREG32_P(SOC15_REG_OFFSET(VCN, i, regUVD_VCPU_CNTL), 0,
+ 						~UVD_VCPU_CNTL__BLK_RST_MASK);
+-- 
+2.25.1
 
-Marek
-
-On Tue, Jun 14, 2022 at 8:38 PM Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-wrote:
-
-> On Mon, Jun 13, 2022 at 1:47 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> =
-wrote:
-> >
-> > Bas, the code was literally rejecting swizzle modes that were not in th=
-e
-> modifier list, which was incorrect. That's because the modifier list is a
-> subset of all supported swizzle modes.
->
-> That was WAI. The kernel is now in charge of rejecting stuff that is
-> not capable of being displayed.
->
-> Allowing all in format_mod_supported has several implications on
-> exposed & accepted modifiers as well, that should be avoided even if
-> we should do a behavior change for non-modifiers: We now expose (i.e.
-> list) modifiers for formats which they don't support and we removed
-> the check that the modifier is in the list for commits with modifiers
-> too. Hence this logic would need a serious rework instead of the patch
-> that was sent.
->
-> What combinations were failing, and can't we just add modifiers for them?
->
->
->
->
-> >
-> > Marek
-> >
-> > On Sun, Jun 12, 2022 at 7:54 PM Bas Nieuwenhuizen <
-> bas@basnieuwenhuizen.nl> wrote:
-> >>
-> >> On Thu, Jun 9, 2022 at 4:27 PM Aurabindo Pillai
-> >> <aurabindo.pillai@amd.com> wrote:
-> >> >
-> >> > [Why&How]
-> >> > There are cases where swizzle modes are set but modifiers arent. For
-> >> > such a userspace, we need not check modifiers while checking
-> >> > compatibilty in the drm hook for checking plane format.
-> >> >
-> >> > Ignore checking modifiers but check the DCN generation for the
-> >> > supported swizzle mode.
-> >> >
-> >> > Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> >> > ---
-> >> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 51
-> +++++++++++++++++--
-> >> >  1 file changed, 46 insertions(+), 5 deletions(-)
-> >> >
-> >> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> > index 2023baf41b7e..1322df491736 100644
-> >> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> > @@ -4938,6 +4938,7 @@ static bool
-> dm_plane_format_mod_supported(struct drm_plane *plane,
-> >> >  {
-> >> >         struct amdgpu_device *adev =3D drm_to_adev(plane->dev);
-> >> >         const struct drm_format_info *info =3D drm_format_info(forma=
-t);
-> >> > +       struct hw_asic_id asic_id =3D adev->dm.dc->ctx->asic_id;
-> >> >         int i;
-> >> >
-> >> >         enum dm_micro_swizzle microtile =3D
-> modifier_gfx9_swizzle_mode(modifier) & 3;
-> >> > @@ -4955,13 +4956,53 @@ static bool
-> dm_plane_format_mod_supported(struct drm_plane *plane,
-> >> >                 return true;
-> >> >         }
-> >> >
-> >> > -       /* Check that the modifier is on the list of the plane's
-> supported modifiers. */
-> >> > -       for (i =3D 0; i < plane->modifier_count; i++) {
-> >> > -               if (modifier =3D=3D plane->modifiers[i])
-> >> > +       /* check if swizzle mode is supported by this version of DCN
-> */
-> >> > +       switch (asic_id.chip_family) {
-> >> > +               case FAMILY_SI:
-> >> > +               case FAMILY_CI:
-> >> > +               case FAMILY_KV:
-> >> > +               case FAMILY_CZ:
-> >> > +               case FAMILY_VI:
-> >> > +                       /* AI and earlier asics does not have
-> modifier support */
-> >> > +                       return false;
-> >> > +                       break;
-> >> > +               case FAMILY_AI:
-> >> > +               case FAMILY_RV:
-> >> > +               case FAMILY_NV:
-> >> > +               case FAMILY_VGH:
-> >> > +               case FAMILY_YELLOW_CARP:
-> >> > +               case AMDGPU_FAMILY_GC_10_3_6:
-> >> > +               case AMDGPU_FAMILY_GC_10_3_7:
-> >> > +                       switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> >> > +                                       return true;
-> >> > +                                       break;
-> >> > +                               default:
-> >> > +                                       return false;
-> >> > +                                       break;
-> >> > +                       }
-> >> > +                       break;
-> >> > +               case AMDGPU_FAMILY_GC_11_0_0:
-> >> > +                       switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> >> > +                               case AMD_FMT_MOD_TILE_GFX11_256K_R_X=
-:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> >> > +                               case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> >> > +                                       return true;
-> >> > +                                       break;
-> >> > +                               default:
-> >> > +                                       return false;
-> >> > +                                       break;
-> >> > +                       }
-> >> > +                       break;
-> >> > +               default:
-> >> > +                       ASSERT(0); /* Unknown asic */
-> >> >                         break;
-> >> >         }
-> >>
-> >> This seems broken to me. AFAICT we always return in the switch so the
-> >> code after this that checks for valid DCC usage isn't executed.
-> >> Checking the list of modifiers is also essential to make sure other
-> >> stuff in the modifier is set properly.
-> >>
-> >> If you have userspace that is not using modifiers that is giving you
-> >> issues, a better place to look might be
-> >> convert_tiling_flags_to_modifier in amdgpu_display.c
-> >>
-> >> > -       if (i =3D=3D plane->modifier_count)
-> >> > -               return false;
-> >> >
-> >> >         /*
-> >> >          * For D swizzle the canonical modifier depends on the bpp,
-> so check
-> >> > --
-> >> > 2.36.1
-> >> >
->
-
---000000000000231f7b05e1725fe2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">We can reject invalid modifiers elsewhere, but it can&#39;=
-t be here because it&#39;s also the non-modifier path.<br><br><div>We expos=
-e 256KB_R_X or 64KB_R_X modifiers depending on chip-specific settings, but =
-not both. Only the optimal option is exposed. This is OK for modifiers, but=
- not OK with AMD-specific BO metadata where the UMD determines the swizzle =
-mode.<br></div><div><br></div><div>Marek<br></div></div><br><div class=3D"g=
-mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jun 14, 2022 at 8=
-:38 PM Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl" tar=
-get=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt; wrote:<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">On Mon, Jun 13, 2022 at 1:47 PM Marek=
- Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank">=
-maraeo@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Bas, the code was literally rejecting swizzle modes that were not in t=
-he modifier list, which was incorrect. That&#39;s because the modifier list=
- is a subset of all supported swizzle modes.<br>
-<br>
-That was WAI. The kernel is now in charge of rejecting stuff that is<br>
-not capable of being displayed.<br>
-<br>
-Allowing all in format_mod_supported has several implications on<br>
-exposed &amp; accepted modifiers as well, that should be avoided even if<br=
->
-we should do a behavior change for non-modifiers: We now expose (i.e.<br>
-list) modifiers for formats which they don&#39;t support and we removed<br>
-the check that the modifier is in the list for commits with modifiers<br>
-too. Hence this logic would need a serious rework instead of the patch<br>
-that was sent.<br>
-<br>
-What combinations were failing, and can&#39;t we just add modifiers for the=
-m?<br>
-<br>
-<br>
-<br>
-<br>
-&gt;<br>
-&gt; Marek<br>
-&gt;<br>
-&gt; On Sun, Jun 12, 2022 at 7:54 PM Bas Nieuwenhuizen &lt;<a href=3D"mailt=
-o:bas@basnieuwenhuizen.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt=
-; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; On Thu, Jun 9, 2022 at 4:27 PM Aurabindo Pillai<br>
-&gt;&gt; &lt;<a href=3D"mailto:aurabindo.pillai@amd.com" target=3D"_blank">=
-aurabindo.pillai@amd.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; [Why&amp;How]<br>
-&gt;&gt; &gt; There are cases where swizzle modes are set but modifiers are=
-nt. For<br>
-&gt;&gt; &gt; such a userspace, we need not check modifiers while checking<=
-br>
-&gt;&gt; &gt; compatibilty in the drm hook for checking plane format.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Ignore checking modifiers but check the DCN generation for th=
-e<br>
-&gt;&gt; &gt; supported swizzle mode.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Signed-off-by: Aurabindo Pillai &lt;<a href=3D"mailto:aurabin=
-do.pillai@amd.com" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
-&gt;&gt; &gt; ---<br>
-&gt;&gt; &gt;=C2=A0 .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 51 ++++=
-+++++++++++++--<br>
-&gt;&gt; &gt;=C2=A0 1 file changed, 46 insertions(+), 5 deletions(-)<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.=
-c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt;&gt; &gt; index 2023baf41b7e..1322df491736 100644<br>
-&gt;&gt; &gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt;&gt; &gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt;&gt; &gt; @@ -4938,6 +4938,7 @@ static bool dm_plane_format_mod_support=
-ed(struct drm_plane *plane,<br>
-&gt;&gt; &gt;=C2=A0 {<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =
-=3D drm_to_adev(plane-&gt;dev);<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const struct drm_format_info=
- *info =3D drm_format_info(format);<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct hw_asic_id asic_id =3D ade=
-v-&gt;dm.dc-&gt;ctx-&gt;asic_id;<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum dm_micro_swizzle microt=
-ile =3D modifier_gfx9_swizzle_mode(modifier) &amp; 3;<br>
-&gt;&gt; &gt; @@ -4955,13 +4956,53 @@ static bool dm_plane_format_mod_suppo=
-rted(struct drm_plane *plane,<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-return true;<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Check that the modifier is on =
-the list of the plane&#39;s supported modifiers. */<br>
-&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; plane-&gt;mo=
-difier_count; i++) {<br>
-&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (m=
-odifier =3D=3D plane-&gt;modifiers[i])<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* check if swizzle mode is suppo=
-rted by this version of DCN */<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (asic_id.chip_family) {<br=
->
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_SI:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_CI:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_KV:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_CZ:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_VI:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0/* AI and earlier asics does not have modifier supp=
-ort */<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_AI:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_RV:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_NV:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_VGH:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-FAMILY_YELLOW_CARP:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-AMDGPU_FAMILY_GC_10_3_6:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-AMDGPU_FAMILY_GC_10_3_7:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0switch (AMD_FMT_MOD_GET(TILE, modifier)) {<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_R_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_D_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_S_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_D:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0return true;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0return false;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case =
-AMDGPU_FAMILY_GC_11_0_0:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0switch (AMD_FMT_MOD_GET(TILE, modifier)) {<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX11_256K_R_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_R_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_D_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_S_X:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMD_FMT_MOD_TILE_G=
-FX9_64K_D:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0return true;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0return false;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0defau=
-lt:<br>
-&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0ASSERT(0); /* Unknown asic */<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;&gt;<br>
-&gt;&gt; This seems broken to me. AFAICT we always return in the switch so =
-the<br>
-&gt;&gt; code after this that checks for valid DCC usage isn&#39;t executed=
-.<br>
-&gt;&gt; Checking the list of modifiers is also essential to make sure othe=
-r<br>
-&gt;&gt; stuff in the modifier is set properly.<br>
-&gt;&gt;<br>
-&gt;&gt; If you have userspace that is not using modifiers that is giving y=
-ou<br>
-&gt;&gt; issues, a better place to look might be<br>
-&gt;&gt; convert_tiling_flags_to_modifier in amdgpu_display.c<br>
-&gt;&gt;<br>
-&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D plane-&gt;modifier_c=
-ount)<br>
-&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0retur=
-n false;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * For D swizzle the canonic=
-al modifier depends on the bpp, so check<br>
-&gt;&gt; &gt; --<br>
-&gt;&gt; &gt; 2.36.1<br>
-&gt;&gt; &gt;<br>
-</blockquote></div>
-
---000000000000231f7b05e1725fe2--
