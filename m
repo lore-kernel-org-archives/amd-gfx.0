@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1CCC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 13:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C4AEC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 13:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D59C610EA58;
-	Wed, 15 Jun 2022 13:26:58 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D08F112343
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 11:12:10 +0000 (UTC)
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 116F466016C5;
- Wed, 15 Jun 2022 12:12:08 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655291528;
- bh=ZpGPzHccUo8yAQt+G/6nBHYsUNSa9SSX5j/x8dPbgtg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gvAWv1FXrT52s5maj995fxnkvti/rrTAd5SoGZUKdzXeebrmK2RmEgi2ceU3X92Mq
- /WSTWEssXck0veUWZsOEm8yV5C7Ye6YYBIudj1qpvff3KQIlEmLKuHNULXvp3ntzTq
- dDHd5FndynjdX4RLGHXnwr/6copXSgjamespYvGj2FwUZ4WdT4z8axe1pS/EKUf5Ef
- FSPKGu0Cewksp898w/kX7zAam07RPh5a9BI8MeSephO6lNKelU6sjNVUpstz+6DwNd
- Gu1Srq2fN2jz8pU6+zMy1FayLKnFvIcWL0fxiWiL9AzzusC/eQwFeTbO/wjWiQWq1T
- 5+lgGx6k7KiNQ==
-Date: Wed, 15 Jun 2022 14:12:04 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH 2/3] Documentation/gpu: Add an explanation about the DCN
- pipeline
-Message-ID: <20220615141204.62ba64e1.pekka.paalanen@collabora.com>
-In-Reply-To: <20220613200112.3377638-3-Rodrigo.Siqueira@amd.com>
-References: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
- <20220613200112.3377638-3-Rodrigo.Siqueira@amd.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2B210EB16;
+	Wed, 15 Jun 2022 13:26:59 +0000 (UTC)
+X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Jun 2022 12:33:42 UTC
+Received: from qq.com (smtpbg465.qq.com [59.36.132.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013F210E4CD;
+ Wed, 15 Jun 2022 12:33:42 +0000 (UTC)
+X-QQ-mid: bizesmtp66t1655295961tobfeji8
+Received: from localhost.localdomain ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 15 Jun 2022 20:25:54 +0800 (CST)
+X-QQ-SSF: 01400000002000D0M000000A0000000
+X-QQ-FEAT: W6nSwEQQYT+hxqlHfPaxc8+z7KqaIPzWVaNsD/EviunI59BwYzcY9hB079ysz
+ X3ZZdEBmYN7YwoDsFnWOph7OQrlfbXeTb/zVa0j+I0svnN/dKdwmV78U03dingiuHN6S/Ei
+ eRIkg7vfQNpKN9lV8aT/41L63LJdip52S13yqmqGV7HtBuE5tqaN2Mpb4GkDrs8h5+gcb6C
+ e5xTzBDCXXFecnYaN1pepTxqCQIdHFMi7jgAub8lkrio3pMgAKuENzfhuHlviz8iyQ3ne8+
+ R7TplT45LQseDwrxkn1NGMXbL1Z74yA4rhoOssePRCicZYcgV82xlvPJmMdrlG4b9b/idG5
+ raCxwNNcoPNzPkHDtVqkFYx3SZYVw==
+X-QQ-GoodBg: 1
+From: hongao <hongao@uniontech.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, inhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH] drm/radeon: Replace drm_detect_hdmi_monitor() with
+ drm_display_info.is_hdmi
+Date: Wed, 15 Jun 2022 20:24:58 +0800
+Message-Id: <20220615122458.20145-1-hongao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign3
+X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Wed, 15 Jun 2022 13:26:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,165 +51,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, Simon Ser <contact@emersion.fr>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Alex Hung <alex.hung@amd.com>, maira.canal@usp.br,
- amd-gfx@lists.freedesktop.org, mwen@igalia.com, Leo Li <sunpeng.li@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- tales.aparecida@gmail.com, Sean Paul <seanpaul@chromium.org>,
- isabbasso@riseup.net, andrealmeid@riseup.net,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Pierre-Loup <pgriffais@valvesoftware.com>
+Cc: hongao <hongao@uniontech.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 13 Jun 2022 16:01:11 -0400
-Rodrigo Siqueira <Rodrigo.Siqueira@amd.com> wrote:
+Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi for more
+efficiency
 
-> In the DCN code, we constantly talk about hardware pipeline, pipeline,
-> or even just pipes, which is a concept that is not obvious to everyone.
-> For this reason, this commit expands the DCN overview explanation by
-> adding a new section that describes what a pipeline is from the DCN
-> perspective.
->=20
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-> Cc: Hersen Wu <hersenxs.wu@amd.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Cc: Mark Yacoub <markyacoub@chromium.org>
-> Cc: Pierre-Loup <pgriffais@valvesoftware.com>
-> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  .../gpu/amdgpu/display/dcn-overview.rst       |   58 +
->  .../amdgpu/display/pipeline_4k_no_split.svg   |  958 +++++++++++++++
->  .../gpu/amdgpu/display/pipeline_4k_split.svg  | 1062 +++++++++++++++++
->  3 files changed, 2078 insertions(+)
->  create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_no_split=
-.svg
->  create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_split.svg
->=20
-> diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst b/Document=
-ation/gpu/amdgpu/display/dcn-overview.rst
-> index f98624d7828e..430e363fccae 100644
-> --- a/Documentation/gpu/amdgpu/display/dcn-overview.rst
-> +++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
-> @@ -124,6 +124,64 @@ depth format), bit-depth reduction/dithering would k=
-ick in. In OPP, we would
->  also apply a regamma function to introduce the gamma removed earlier bac=
-k.
->  Eventually, we output data in integer format at DIO.
-> =20
+Tested on "Oland [Radeon HD 8570 / R7 240/340 OEM]" & "Caicos [R5 230]"
 
-Hi,
+Signed-off-by: hongao <hongao@uniontech.com>
+---
+ drivers/gpu/drm/radeon/atombios_encoders.c |  6 +++---
+ drivers/gpu/drm/radeon/radeon_connectors.c | 12 ++++++------
+ drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
+ drivers/gpu/drm/radeon/radeon_encoders.c   |  4 ++--
+ 4 files changed, 12 insertions(+), 12 deletions(-)
 
-always nice to see more docs!
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 70bd84b7ef2b..393d471ba396 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -714,7 +714,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 			if (radeon_connector->use_digital &&
+ 			    (radeon_connector->audio == RADEON_AUDIO_ENABLE))
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else if (radeon_connector->use_digital)
+@@ -733,7 +733,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 		if (radeon_audio != 0) {
+ 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else
+@@ -757,7 +757,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 		} else if (radeon_audio != 0) {
+ 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 58db79921cd3..2fbec7bdd56b 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -130,7 +130,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 	case DRM_MODE_CONNECTOR_DVII:
+ 	case DRM_MODE_CONNECTOR_HDMIB:
+ 		if (radeon_connector->use_digital) {
+-			if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (connector->display_info.is_hdmi) {
+ 				if (connector->display_info.bpc)
+ 					bpc = connector->display_info.bpc;
+ 			}
+@@ -138,7 +138,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		break;
+ 	case DRM_MODE_CONNECTOR_DVID:
+ 	case DRM_MODE_CONNECTOR_HDMIA:
+-		if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		if (connector->display_info.is_hdmi) {
+ 			if (connector->display_info.bpc)
+ 				bpc = connector->display_info.bpc;
+ 		}
+@@ -147,7 +147,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		dig_connector = radeon_connector->con_priv;
+ 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
+ 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP) ||
+-		    drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		    connector->display_info.is_hdmi) {
+ 			if (connector->display_info.bpc)
+ 				bpc = connector->display_info.bpc;
+ 		}
+@@ -171,7 +171,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		break;
+ 	}
+ 
+-	if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++	if (connector->display_info.is_hdmi) {
+ 		/* hdmi deep color only implemented on DCE4+ */
+ 		if ((bpc > 8) && !ASIC_IS_DCE4(rdev)) {
+ 			DRM_DEBUG("%s: HDMI deep color %d bpc unsupported. Using 8 bpc.\n",
+@@ -1500,7 +1500,7 @@ static enum drm_mode_status radeon_dvi_mode_valid(struct drm_connector *connecto
+ 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D) ||
+ 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_HDMI_TYPE_B))
+ 			return MODE_OK;
+-		else if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		else if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 			/* HDMI 1.3+ supports max clock of 340 Mhz */
+ 			if (mode->clock > 340000)
+ 				return MODE_CLOCK_HIGH;
+@@ -1808,7 +1808,7 @@ static enum drm_mode_status radeon_dp_mode_valid(struct drm_connector *connector
+ 		    (radeon_dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
+ 			return radeon_dp_mode_valid_helper(connector, mode);
+ 		} else {
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				/* HDMI 1.3+ supports max clock of 340 Mhz */
+ 				if (mode->clock > 340000)
+ 					return MODE_CLOCK_HIGH;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 57ff2b723c87..c7a1e3af55cf 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1728,7 +1728,7 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
+ 			    (!(mode->flags & DRM_MODE_FLAG_INTERLACE)) &&
+ 			    ((radeon_encoder->underscan_type == UNDERSCAN_ON) ||
+ 			     ((radeon_encoder->underscan_type == UNDERSCAN_AUTO) &&
+-			      drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			      connector->display_info.is_hdmi &&
+ 			      is_hdtv_mode(mode)))) {
+ 				if (radeon_encoder->underscan_hborder != 0)
+ 					radeon_crtc->h_border = radeon_encoder->underscan_hborder;
+diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
+index 46549d5179ee..b999464f213a 100644
+--- a/drivers/gpu/drm/radeon/radeon_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_encoders.c
+@@ -383,7 +383,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
+ 	case DRM_MODE_CONNECTOR_HDMIB:
+ 		if (radeon_connector->use_digital) {
+ 			/* HDMI 1.3 supports up to 340 Mhz over single link */
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				if (pixel_clock > 340000)
+ 					return true;
+ 				else
+@@ -408,7 +408,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
+ 			return false;
+ 		else {
+ 			/* HDMI 1.3 supports up to 340 Mhz over single link */
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				if (pixel_clock > 340000)
+ 					return true;
+ 				else
+-- 
+2.20.1
 
-> +AMD Hardware Pipeline
-> +---------------------
-> +
-> +When discussing graphics on Linux, the **pipeline** term is often overlo=
-aded
-> +with multiple meanings, and DCN adds another context to this word. In th=
-e DCN
-> +driver, we use the term **hardware pipeline** or  **pipeline** or just *=
-*pipe**
-> +to indicate how many DCN blocks we are instantiating to address some spe=
-cific
-
-This seems to say that a "pipeline" is a number, a count (how many).
-
-> +configuration. DCN composes those pipelines together when the data reach=
- the
-
-This seems to imply that each "DCN block" is "a pipeline".
-
-Is either true? Is a pipeline not a sequence of selected DCN blocks
-instead?
-
-> +end of the OPTC block before sending it to the display. We have this pip=
-eline
-> +concept for trying to save energy and optimize bandwidth utilization whi=
-le
-> +providing the maximum performance per watt. It is easier to discuss it i=
-f we
-> +dive into this topic by taking the example of a 4k display in the below
-> +example:
-> +
-> +.. kernel-figure:: pipeline_4k_no_split.svg
-
-A bit too hard for me to look at SVGs from email patches, sorry.
-
-You wouldn't happen to have a git branch available in Gitlab or Github
-or even cgit somewhere I could visit with my browser?
 
 
-Thanks,
-pq
 
-> +
-> +Additionally, let's take a look at parts of the DTN log (see
-> +'Documentation/gpu/amdgpu/display/dc-debug.rst' for more information) si=
-nce
-> +this log can help us to see part of this pipeline behavior in real-time::
-> +
-> + HUBP:  format  addr_hi  width  height ...
-> + [ 0]:      8h      81h   3840    2160
-> + [ 1]:      0h       0h      0       0
-> + [ 2]:      0h       0h      0       0
-> + [ 3]:      0h       0h      0       0
-> + [ 4]:      0h       0h      0       0
-> + ...
-> + MPCC:  OPP  DPP ...
-> + [ 0]:   0h   0h ...
-> +
-> +The first thing to notice from the diagram and DTN log it is the fact th=
-at we
-> +have different clock domains for each part of the DCN blocks. In this ex=
-ample,
-> +we have just a single **pipeline** where the data flows from DCHUB to DI=
-O, as
-> +we intuitively expect. Nonetheless, DCN is flexible, as mentioned before=
-, and
-> +we can split this single pipe differently, as described in the below dia=
-gram:
-> +
-> +.. kernel-figure:: pipeline_4k_split.svg
-> +
-> +Now, if we inspect the DTN log again we can see some interesting changes=
-::
-> +
-> + HUBP:  format  addr_hi  width  height ...
-> + [ 0]:      8h      81h   1920    2160 ...
-> + ...
-> + [ 4]:      0h       0h      0       0 ...
-> + [ 5]:      8h      81h   1920    2160 ...
-> + ...
-> + MPCC:  OPP  DPP ...
-> + [ 0]:   0h   0h ...
-> + [ 5]:   0h   5h ...
-> +
-> +From the above example, we now split the display pipeline into two verti=
-cal
-> +parts of 1920x2160 (i.e., 3440x2160), and as a result, we could reduce t=
-he
-> +clock frequency in the DPP part. This is not only useful for saving powe=
-r but
-> +also to better handle the required throughput. The idea to keep in mind =
-here is
-> +that the pipe configuration can vary a lot according to the display
-> +configuration, and it is the DML's responsibility to set up all required
-> +configuration parameters for multiple scenarios supported by our hardwar=
-e.
-> +
->  Global Sync
->  -----------
-> =20
