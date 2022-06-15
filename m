@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F983C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC108CCA473
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 16:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECD3F10E035;
-	Wed, 15 Jun 2022 15:05:26 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFB410E035
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 15:05:25 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- c3-20020a9d6843000000b0060c2c63c337so9040857oto.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 08:05:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=XrsUat+o9/LJuOTX2aEo1c6UCKiQykIvhRb0gI34RDo=;
- b=lq//UHgItHTiby3bJtgdK8d+4WxPCraeTpovO73wwG18S0SWKqgaf5as3Z40hgAc7p
- OfJvf1rf++IpjBKJ6CSBDk0x++Wp++fwX/WgMrQL3mfxGxiEArH1po8nbf68T+n3kkDg
- g8uM7EvtiK/Pho/NXMNUHkp5cH8noXrsDaRaefhYoTXKEj0EbGCOqJXveNjIKEcnY5vt
- QECeu52Mjnia3clU+aBgrWbyXI3jFZZOnFdUp8si3aeFMos98OMEHPojeV1jdSNZjmhT
- eHcrMdC0fCGrT+1BM7uU1hJk/pPpmye9PTHCrJShXEsYiD2XnqJDmsYmZhh0rePZp+AQ
- 0jcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=XrsUat+o9/LJuOTX2aEo1c6UCKiQykIvhRb0gI34RDo=;
- b=huw/LTXpVea7aARWixX0d99oO/vT9IUvpOFjmaKZjJhVXlI6lhRKOI3lLV9Fmv6Y7D
- DZCEDQGn7dgK2Q/jkzQL56aEfVwaFc4xMTkKOEq1wURvPM8K1wh3rvE5h7htOemJIUvX
- M1kC18cw/NzGibl931FtYsqf2KB9UygtwYpLHufOgwQSDg4GtFX9NesDio2Lkebxr+gN
- Izj7bcs+RbdiQXrYbingQkwnAJNoIRtUNKPlXRKZ5cV2fLacnxzbB6ZEYhlxR6uHuHY4
- DqXQP22XFtXALOgolbCaYRmzprY82N8y7eG7re2AY+uCbQbSmlSXLF6zWwnDwTYws+b6
- XDvg==
-X-Gm-Message-State: AJIora/Q1dQB1AD2iMEu5G1U55oS3x+WqBPY9BVre6XNzGbkbIhhfq90
- 39yDMJDwKIb/srIk4soWvoXkEg==
-X-Google-Smtp-Source: AGRyM1sKk0ZQraqiQaBpBMqcrxQIwxmHAc5xtgCpvjOe9O5wXFYZY7caP6JDQm51urqSb6qWA+JhJw==
-X-Received: by 2002:a05:6830:2647:b0:60c:6678:d7cc with SMTP id
- f7-20020a056830264700b0060c6678d7ccmr109130otu.237.1655305524933; 
- Wed, 15 Jun 2022 08:05:24 -0700 (PDT)
-Received: from ?IPV6:2804:14d:8084:84c6:fe26:c42d:aab9:fa8a?
- ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
- by smtp.gmail.com with ESMTPSA id
- a18-20020a544e12000000b0032f51af1999sm3447022oiy.42.2022.06.15.08.05.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 08:05:24 -0700 (PDT)
-Message-ID: <4296546a-67db-0e54-c75c-cc2b5b203197@usp.br>
-Date: Wed, 15 Jun 2022 12:05:17 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61EED1125A0;
+	Wed, 15 Jun 2022 16:11:52 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D1A1125A6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 16:11:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K1AOoqXAO3gSoRsrgtNJRRZdCj0FV27RwLBeVkgVq6H4UHrw4GC18qQRJ/QHKOtK+sqC/4Xf9O8+7w4SH/r3+otSuS7xUySzWuR8ci+NHdGiObYrd2QsTTGBJlWOxSDpXQKpR2gYKuB1EhXotO2V8ptEF2w5yrOBVvl0FT/ue/PKGZHGAgvTiU1voZeEMF0GwR5bAf5o69/D0NbCiiENMwO8fia8rON4fG34cXraiXcgmI898klzStHxUph1RqIDin5zTWU/0jTniYngDqyWlg703IsRZwiStOplkDTTQy3ewnyVTyTR3ZpDIS5IcxrzpthI7t4rf5nikMq2AEwIeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HBrkLbJRR2/kBoyUsV8XHsLesClTGAeOCEIXl6Hnhfc=;
+ b=mPmgO2muzI7XgdFpeapQwyRPoZ2hoBYlmp5tfaEyySmpw4MO+Ix8U75dFsf0d3p7AvCXwLaVvv+A1xroess2nlbQ0hthw3lc54ibEQMi2sWltD7SlQx/ZRt5jDjHNS3rRLcfZb36OjviyPD39Tbpffjb9CPxzlb0EFaXblJz9IFfYi+c6LsKlIdVhOc618f5oz3Fxcju9mv36oU+yss3R9USDrFWJ9pJOtWq2Q3oEEJXRovMFcQ23xYPEUm8kPghqUM70EKmBx8EUeQkiQ+w/qd38F3EFF0HFAhK86TE0y+YrKcAczujBoR3jHLKF9fqTKEplBI8Fli6V9nQfZ2rUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HBrkLbJRR2/kBoyUsV8XHsLesClTGAeOCEIXl6Hnhfc=;
+ b=uvamha4nxnxumVZ1fUIUa2gp7XH6gCXwhy/KjyQMF/hlm3+7UkOO5U8GVP0hQSpAHggVqkb+mRWEk80CtRU+PwgVunCaqrN8zyKT2ZLmISA3gkkgLobKJIBU/ceQZzUnjr4YiLh3crfpdEiRxP2+me6f/z+aIeyGJ/F4b9buVGc=
+Received: from DM5PR07CA0053.namprd07.prod.outlook.com (2603:10b6:4:ad::18) by
+ SJ1PR12MB6075.namprd12.prod.outlook.com (2603:10b6:a03:45e::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5332.20; Wed, 15 Jun 2022 16:11:48 +0000
+Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ad:cafe::94) by DM5PR07CA0053.outlook.office365.com
+ (2603:10b6:4:ad::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.14 via Frontend
+ Transport; Wed, 15 Jun 2022 16:11:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Wed, 15 Jun 2022 16:11:47 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 15 Jun
+ 2022 11:11:46 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/radeon: fix incorrrect SPDX-License-Identifiers
+Date: Wed, 15 Jun 2022 12:11:33 -0400
+Message-ID: <20220615161133.3761804-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [RFC 1/3] drm/amd/display: Introduce KUnit to DML
-Content-Language: en-US
-To: Daniel Latypov <dlatypov@google.com>
-References: <20220608010709.272962-1-maira.canal@usp.br>
- <20220608010709.272962-2-maira.canal@usp.br>
- <CAGS_qxpiBOJ5OnQREo33LCtgROSuvTNWgwgkKN4P7TF1+4kcSQ@mail.gmail.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
-In-Reply-To: <CAGS_qxpiBOJ5OnQREo33LCtgROSuvTNWgwgkKN4P7TF1+4kcSQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 65933e02-a8c9-47d6-0316-08da4ee9bfec
+X-MS-TrafficTypeDiagnostic: SJ1PR12MB6075:EE_
+X-Microsoft-Antispam-PRVS: <SJ1PR12MB607514C19513D9816203B3D1F7AD9@SJ1PR12MB6075.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YTMCy2MLnOXCweewWis2s+OpEyFUbTySJNOUC1wN0dT8uXw95WhjeAZuCmbzeFZKRR+0Lyz8YqO9weJLbdgthtOis/id6SUh+YZv83vKACLBEYt1Ny59qxCGiuUhbxDPxvKEsdNmeyBYJuRvIwohfC6xzUM97CAMr+5bjiaQVWJvdT7i0dDZQ6lEtWku6491P/CE9kZKhEiMXY0DEIkNsYQ3FyabfmQ8ur8KoLD3An4VXbYvKFFkdPmSNh2LiJDGn2dyzamFr5sGNFfrlepN//X3fZBBP62CumHKyp6YN0UeY4+c3QCN8+Oxs88laYbBg9p/fYH9n4fiAEsDV2AHkku1vvr4POn9z+8eGvT2gAZiGkfh5zM30XYMbD+Xfqwy0l8B4XX8VW4kE96kUAVyUMAK80+Gsuf40XJzPytgijfBvb3ZwX5DXAPAjxa0gyeZPsDmFyB5sYExLoEe/jqk5SsvVcs4IcEnA8j1EpOw2nTzhwsPe28GX6R/pJWb0SyNRarHhfg4P9ZaViGTsPDU7+GBATm/sLi8evKZt8UeaOjcXWWOR7mtBJwEmnihpIr4iKqCRll/Jot1EZ+Q5aGFxUeA/O39HD6s+9u6pL7wsSGKSewt3dW/YdNJnjjbhJyjDVcEZPc3IkEzBoIPyip7bB+Ql+KQkbzJzlvDsTVtZOANMJFLcFAYdBy9pZCwLEk88R0/aZhuaSArddt8NgxmVKxVaEWV2yq8Alb044edDHE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(508600001)(70586007)(82310400005)(966005)(86362001)(316002)(70206006)(5660300002)(356005)(6916009)(26005)(2616005)(2906002)(4326008)(8676002)(36756003)(426003)(1076003)(47076005)(40460700003)(81166007)(83380400001)(6666004)(36860700001)(336012)(7696005)(16526019)(8936002)(186003)(49343001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 16:11:47.8264 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65933e02-a8c9-47d6-0316-08da4ee9bfec
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6075
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,99 +98,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harrison Chiu <harrison.chiu@amd.com>, brendanhiggins@google.com,
- dri-devel@lists.freedesktop.org, Isabella Basso <isabbasso@riseup.net>,
- andrealmeid@riseup.net, Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
- David Gow <davidgow@google.com>, kunit-dev@googlegroups.com,
- Mark Yacoub <markyacoub@chromium.org>, linux-kernel@vger.kernel.org,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel
+radeon is MIT.  This were incorrectly changed in
+commit b24413180f56 ("License cleanup: add SPDX GPL-2.0 license identifier to files with no license")
+and
+commit d198b34f3855 (".gitignore: add SPDX License Identifier")
+and:
+commit ec8f24b7faaf ("treewide: Add SPDX license identifier - Makefile/Kconfig")
 
-Thank you for your feedback! We are working on the comments you pointed out.
+Fixes: d198b34f3855 (".gitignore: add SPDX License Identifier")
+Fixes: ec8f24b7faaf ("treewide: Add SPDX license identifier - Makefile/Kconfig")
+Fixes: b24413180f56 ("License cleanup: add SPDX GPL-2.0 license identifier to files with no license")
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2053
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/radeon/.gitignore | 2 +-
+ drivers/gpu/drm/radeon/Kconfig    | 2 +-
+ drivers/gpu/drm/radeon/Makefile   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-On 6/7/22 23:36, Daniel Latypov wrote:
-> On Tue, Jun 7, 2022 at 6:09 PM Maíra Canal <maira.canal@usp.br> wrote:
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c
->> new file mode 100644
->> index 000000000000..3ea0e7fb13e3
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c
->> @@ -0,0 +1,83 @@
->> +// SPDX-License-Identifier: MIT
->> +/*
->> + * KUnit tests for dml/display_mode_lib.h
->> + *
->> + * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
->> + */
->> +
->> +#include <kunit/test.h>
->> +#include "../../dc/dml/display_mode_lib.h"
->> +#include "../../dc/dml/display_mode_enums.h"
->> +#include "dml_test.h"
->> +
->> +/**
->> + * DOC: Unit tests for AMDGPU DML display_mode_lib.h
->> + *
->> + * The display_mode_lib.h holds the functions responsible for the instantiation
->> + * and logging of the Display Mode Library (DML).
->> + *
->> + * These KUnit tests were implemented with the intention of assuring the proper
->> + * logging of the DML.
->> + *
->> + */
->> +
->> +static void dml_get_status_message_test(struct kunit *test)
->> +{
-> 
-> I think this is a case where an exhaustive test might not be warranted.
-> The function under test is entirely just a switch statement with
-> return statements, so the chances of things going wrong is minimal.
-> But that's just my personal preference.
-
-Maybe we left out some explanation on this unit test. This RFC was more of an introduction to our project. We wanted to show you the test structure we plan to develop the unit tests during this summer. Initially, we were thinking of using the typical kunit_test_suites structure, but we end up checking out that it wasn't possible, due to the need to insert the tests inside the AMDGPU stack.
-
-We also agree with you that this test is trivial and it will probably be removed from the final version. We plan to have more functional tests that explore the inner workings of the DML and especially the corner cases as you said.
-
-We apologize if we didn't make it clear in the Cover Letter that this RFC is more of an introduction to the project we pretend to develop in the summer.
-
-If you have suggestions on how we can improve the use of KUnit, it is welcome.
-
->>
->> +int display_mode_lib_test_init(void)
->> +{
->> +       pr_info("===> Running display_mode_lib KUnit Tests");
->> +       pr_info("**********************************************************");
->> +       pr_info("**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **");
->> +       pr_info("**                                                      **");
->> +       pr_info("** display_mode_lib KUnit Tests are being run. This     **");
->> +       pr_info("** means that this is a TEST kernel and should not be   **");
->> +       pr_info("** used for production.                                 **");
->> +       pr_info("**                                                      **");
->> +       pr_info("** If you see this message and you are not debugging    **");
->> +       pr_info("** the kernel, report this immediately to your vendor!  **");
->> +       pr_info("**                                                      **");
->> +       pr_info("**********************************************************");
-> 
-> David Gow proposed tainting the kernel if we ever try to run a KUnit
-> test suite here:
-> https://lore.kernel.org/linux-kselftest/20220513083212.3537869-2-davidgow@google.com/
-> 
-> If that goes in, then this logging might not be as necessary.
-> I'm not sure what the status of that change is, but we're at least
-> waiting on a v4, I think.
-
-This is going to be great! We will keep an eye on this proposal.
-
-- Maíra Canal
-
+diff --git a/drivers/gpu/drm/radeon/.gitignore b/drivers/gpu/drm/radeon/.gitignore
+index 9c1a94153983..d8777383a64a 100644
+--- a/drivers/gpu/drm/radeon/.gitignore
++++ b/drivers/gpu/drm/radeon/.gitignore
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ mkregtable
+ *_reg_safe.h
+ 
+diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+index 6f60f4840cc5..52819e7f1fca 100644
+--- a/drivers/gpu/drm/radeon/Kconfig
++++ b/drivers/gpu/drm/radeon/Kconfig
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ config DRM_RADEON_USERPTR
+ 	bool "Always enable userptr support"
+ 	depends on DRM_RADEON
+diff --git a/drivers/gpu/drm/radeon/Makefile b/drivers/gpu/drm/radeon/Makefile
+index ea5380e24c3c..e3ab3aca1396 100644
+--- a/drivers/gpu/drm/radeon/Makefile
++++ b/drivers/gpu/drm/radeon/Makefile
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0
++# SPDX-License-Identifier: MIT
+ #
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+-- 
+2.35.3
 
