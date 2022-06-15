@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47CECC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 07:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EA5C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 07:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A9910E135;
-	Wed, 15 Jun 2022 07:47:27 +0000 (UTC)
-Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
- [185.70.41.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8905510E135
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 07:47:25 +0000 (UTC)
-Date: Wed, 15 Jun 2022 07:47:10 +0000
-Authentication-Results: mail-41103.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="gl1fvjat"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1655279238; x=1655538438;
- bh=gGEKGgUiPAL9qtGuhamHQaUwb0U/O6lB39uD9tQoBr0=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
- Feedback-ID:Message-ID;
- b=gl1fvjatnV2phaR6D+LKN613wHUcfUTSX24PG0wmbrUe+XXVLol8i5zQhUoFMbnkj
- /4TxjuVxurpvYO374mmSsard1gjtczfnYHmeKHa7fR+RXtivpsZ51tdaM4n/5jTqW2
- Hes2vClFuQX3YGd3+5LWZCnwG8h7BrZVDGHiG3RYziDI8+bCJHph6K0snbRLzqNafm
- JY+cU/BxYMqZrkPd9NTJMWnJvkO3PwhFZ3syuGRTD34/3BvakUawac3n2JO42SgK44
- mwdgTG6cKe+d3PbTBBp16Xn/Ls5MYp5Z5EfZhYN4GIsAZYavz8Y1DxOl2APQbsj0Hi
- lqxoAstz0kG2w==
-To: Alex Deucher <alexdeucher@gmail.com>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH 1/3] Documentation/gpu: Add info table for ASICs
-Message-ID: <wXTO8YYCjZe9USXO-9_zGZeVtSuFwgspCcHzjSZk9xdRK3Q1JisYUroSqU4GUwhL4At_N8UZifT5EAQJMBu5ADnetH8zlrOJNrG0NKqv-4E=@emersion.fr>
-In-Reply-To: <CADnq5_Pp+xSJO1mR24PQmm5bHhjY1Q-wC8GG97pr6axvrkmZeQ@mail.gmail.com>
-References: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
- <20220613200112.3377638-2-Rodrigo.Siqueira@amd.com>
- <pp_VMylAJoi-vp3VAJIjkeIfC89ncoHCCBFR_7ook2cjR9uC7bgBWcsjaFGNPFPgRMJHkwli2RNeXP0L32NQ8-Qvwf1IbTSyG8U5KNhTdJ8=@emersion.fr>
- <CADnq5_Pp+xSJO1mR24PQmm5bHhjY1Q-wC8GG97pr6axvrkmZeQ@mail.gmail.com>
-Feedback-ID: 1358184:user:proton
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3841410E8C8;
+	Wed, 15 Jun 2022 07:51:09 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6610B10E8EE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 07:51:07 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id 25so14842470edw.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 00:51:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=dbBBAgQysQPlT6VJW6XgW6dVAnmsUwZU/CE8uZNC2fU=;
+ b=llMTE4b+UHVQLnVBdHqZhepqYlXIQXRWttwPWUphFHa52iMfsTDJpv+DEMLWP0BEID
+ qV6e3EmvHoE2bqqqnc02WXKsK08aWUPKg9QlP0C6DV1rxVYGv5+N/02tYuZCUIKs57mC
+ U1s5EGNhsJjjognc0XT/4sqkeAxSApW70yxO7ZtkkZOeCXT4DYLOEwjIG8h5zRa7hUkk
+ YTKjvZwXAkQXbJA8c8qTiHrlgr2UWrKQfv4/xrMcTi5Z6AkM1+NslhEeWdDwKPmQ0Lz9
+ YNSFz/VjZz3lsl9y3DppoThQnv1BgS7g9U4u85FA/7gFj7EcvjBFWweZXN1Duqh31crJ
+ JrzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=dbBBAgQysQPlT6VJW6XgW6dVAnmsUwZU/CE8uZNC2fU=;
+ b=7pzKrYDivR8ghDrh2aJNoqn+tS1sygDdBJL8Rzpe5VLxKaBNxideuFfFBuUecoT5CD
+ tZG9AHU8AnDgj6hAPlZrEu+B6qyikGAyHP01oIMzyD8P7Powm++5XfVrXR9jcjdJg4aa
+ wlQOAfhJzOnRg0OgJM19myKOaTtbDpXp/+85ufc/pm+VqhbQ/E6XR1j3kYIkyY00IbTY
+ LrJ5G3oytrouyVWocbXVv/X7VwwYurw34+HVZux500R2pmY8P0vg+7klZSyCWsOVO2pm
+ LFc8mLShViavySeWmG4yCYB4MbyrrO5o2xoDPWUis82Tmi06tUY4pSn1/+fpUWtbxvQm
+ S51Q==
+X-Gm-Message-State: AOAM532Lj34CjuVgU2VWSgn3U/v6AWfEcvVw858yu+uZz8s/8nYvOvtg
+ FhHiNscRXt2usxLGeOf0PeCM0i7PQ5Y=
+X-Google-Smtp-Source: ABdhPJzztBqNfNyz0JavGRYDvxOEw+256XjNRBqFPhl24+G2C8bpOcipo7yzmzpz8e4dpOIjZPZ7OQ==
+X-Received: by 2002:a05:6402:177b:b0:433:426d:83ea with SMTP id
+ da27-20020a056402177b00b00433426d83eamr11126402edb.18.1655279465877; 
+ Wed, 15 Jun 2022 00:51:05 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea4d2.dip0.t-ipconnect.de.
+ [91.14.164.210]) by smtp.gmail.com with ESMTPSA id
+ u26-20020aa7db9a000000b004314bb65e7fsm8740411edt.41.2022.06.15.00.51.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 00:51:05 -0700 (PDT)
+Message-ID: <a5a994db-38eb-3822-7af3-b366f8c7bea6@gmail.com>
+Date: Wed, 15 Jun 2022 09:51:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drm/amdgpu/vcn: adjust unified queue code format
+Content-Language: en-US
+To: Ruijing Dong <ruijing.dong@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220615025610.49839-1-ruijing.dong@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220615025610.49839-1-ruijing.dong@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,51 +72,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Alex Hung <alex.hung@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
- Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>,
- Leo Li <sunpeng.li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?utf-8?Q?Ma=C3=ADra_Canal?= <maira.canal@usp.br>,
- Sean Paul <seanpaul@chromium.org>, Isabella Basso <isabbasso@riseup.net>,
- andrealmeid@riseup.net, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Pierre-Loup <pgriffais@valvesoftware.com>
+Cc: alexander.deucher@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, June 14th, 2022 at 20:30, Alex Deucher <alexdeucher@gmail.com> =
-wrote:
-
-> On Tue, Jun 14, 2022 at 2:16 PM Simon Ser contact@emersion.fr wrote:
+Am 15.06.22 um 04:56 schrieb Ruijing Dong:
+> Fixed some errors and warnings found by checkpatch.pl.
 >
-> > On Monday, June 13th, 2022 at 22:01, Rodrigo Siqueira Rodrigo.Siqueira@=
-amd.com wrote:
-> >
-> > > Amdgpu driver is used in an extensive range of devices, and each ASIC
-> > > has some specific configuration. As a result of this variety, sometim=
-es
-> > > it is hard to identify the correct block that might cause the issue.
-> > > This commit expands the amdgpu kernel-doc to alleviate this issue by
-> > > introducing one ASIC table that describes dGPU and another one that
-> > > shares the APU info.
-> >
-> > Nice!
-> >
-> > Are there plans to keep this list up-to-date?
-> >
-> > FWIW, my go-to reference tables are 1, updated by Alex.
-> >
-> > Would it make sense to add a "GFX Core" column?
->
-> That's what the GC column is for.
+> Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
 
-Oh! Does this stand for "GFX Core", or for "Graphics and Compute"? The
-glossary documents GC as the latter. If there is a name conflict, maybe
-we can keep using the long name in the table, or document what "GC"
-means in a sentence.
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 12 ++++++------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  8 ++++----
+>   2 files changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index e62ff7db4736..fea436023351 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -730,8 +730,8 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>   	return r;
+>   }
+>   
+> -static uint32_t * amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+> -					  uint32_t ib_pack_in_dw, bool enc)
+> +static uint32_t *amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+> +						uint32_t ib_pack_in_dw, bool enc)
+>   {
+>   	uint32_t *ib_checksum;
+>   
+> @@ -749,7 +749,7 @@ static uint32_t * amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+>   }
+>   
+>   static void amdgpu_vcn_unified_ring_ib_checksum(uint32_t **ib_checksum,
+> -				        uint32_t ib_pack_in_dw)
+> +						uint32_t ib_pack_in_dw)
+>   {
+>   	uint32_t i;
+>   	uint32_t checksum = 0;
+> @@ -790,7 +790,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+>   	/* single queue headers */
+>   	if (sq) {
+>   		ib_pack_in_dw = sizeof(struct amdgpu_vcn_decode_buffer) / sizeof(uint32_t)
+> -			                     + 4 + 2; /* engine info + decoding ib in dw */
+> +						+ 4 + 2; /* engine info + decoding ib in dw */
+>   		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, ib_pack_in_dw, false);
+>   	}
+>   
+> @@ -896,7 +896,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+>   					 struct amdgpu_ib *ib_msg,
+>   					 struct dma_fence **fence)
+>   {
+> -	unsigned ib_size_dw = 16;
+> +	unsigned int ib_size_dw = 16;
+>   	struct amdgpu_job *job;
+>   	struct amdgpu_ib *ib;
+>   	struct dma_fence *f = NULL;
+> @@ -962,7 +962,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+>   					  struct amdgpu_ib *ib_msg,
+>   					  struct dma_fence **fence)
+>   {
+> -	unsigned ib_size_dw = 16;
+> +	unsigned int ib_size_dw = 16;
+>   	struct amdgpu_job *job;
+>   	struct amdgpu_ib *ib;
+>   	struct dma_fence *f = NULL;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index d6f134ef9633..84ac2401895a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -120,7 +120,7 @@ static int vcn_v4_0_sw_init(void *handle)
+>   		sprintf(ring->name, "vcn_unified_%d", i);
+>   
+>   		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[i].irq, 0,
+> -				  AMDGPU_RING_PRIO_0, &adev->vcn.inst[i].sched_score);
+> +						AMDGPU_RING_PRIO_0, &adev->vcn.inst[i].sched_score);
+>   		if (r)
+>   			return r;
+>   
+> @@ -907,7 +907,7 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+>   	WREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR, 0);
+>   	WREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR, 0);
+>   
+> -	tmp= RREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR);
+> +	tmp = RREG32_SOC15(VCN, inst_idx, regUVD_RB_RPTR);
+>   	WREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR, tmp);
+>   	ring->wptr = RREG32_SOC15(VCN, inst_idx, regUVD_RB_WPTR);
+>   
+> @@ -1048,8 +1048,8 @@ static int vcn_v4_0_start(struct amdgpu_device *adev)
+>   
+>   				dev_err(adev->dev, "VCN[%d] is not responding, trying to reset the VCPU!!!\n", i);
+>   				WREG32_P(SOC15_REG_OFFSET(VCN, i, regUVD_VCPU_CNTL),
+> -						UVD_VCPU_CNTL__BLK_RST_MASK,
+> -						~UVD_VCPU_CNTL__BLK_RST_MASK);
+> +							UVD_VCPU_CNTL__BLK_RST_MASK,
+> +							~UVD_VCPU_CNTL__BLK_RST_MASK);
+>   				mdelay(10);
+>   				WREG32_P(SOC15_REG_OFFSET(VCN, i, regUVD_VCPU_CNTL), 0,
+>   						~UVD_VCPU_CNTL__BLK_RST_MASK);
+
