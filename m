@@ -4,41 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C4AEC43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 13:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1061CCA473
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 13:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2B210EB16;
-	Wed, 15 Jun 2022 13:26:59 +0000 (UTC)
-X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
- Wed, 15 Jun 2022 12:33:42 UTC
-Received: from qq.com (smtpbg465.qq.com [59.36.132.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013F210E4CD;
- Wed, 15 Jun 2022 12:33:42 +0000 (UTC)
-X-QQ-mid: bizesmtp66t1655295961tobfeji8
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 15 Jun 2022 20:25:54 +0800 (CST)
-X-QQ-SSF: 01400000002000D0M000000A0000000
-X-QQ-FEAT: W6nSwEQQYT+hxqlHfPaxc8+z7KqaIPzWVaNsD/EviunI59BwYzcY9hB079ysz
- X3ZZdEBmYN7YwoDsFnWOph7OQrlfbXeTb/zVa0j+I0svnN/dKdwmV78U03dingiuHN6S/Ei
- eRIkg7vfQNpKN9lV8aT/41L63LJdip52S13yqmqGV7HtBuE5tqaN2Mpb4GkDrs8h5+gcb6C
- e5xTzBDCXXFecnYaN1pepTxqCQIdHFMi7jgAub8lkrio3pMgAKuENzfhuHlviz8iyQ3ne8+
- R7TplT45LQseDwrxkn1NGMXbL1Z74yA4rhoOssePRCicZYcgV82xlvPJmMdrlG4b9b/idG5
- raCxwNNcoPNzPkHDtVqkFYx3SZYVw==
-X-QQ-GoodBg: 1
-From: hongao <hongao@uniontech.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, inhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: Replace drm_detect_hdmi_monitor() with
- drm_display_info.is_hdmi
-Date: Wed, 15 Jun 2022 20:24:58 +0800
-Message-Id: <20220615122458.20145-1-hongao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB91B10E9E6;
+	Wed, 15 Jun 2022 13:27:01 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2130610E8BD;
+ Wed, 15 Jun 2022 13:15:26 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id BF13A21BB9;
+ Wed, 15 Jun 2022 13:15:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1655298924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=17VEqNPV/TBk73G7tKfWD0AkIggznFYMqcz7zsD4S9c=;
+ b=c5CplPzuxQh5gnp4bD34uWkKLEOaOc1Tpwslt5ARBi5fVdHjWZ4prxmWoQqcdCpqAG1Yor
+ xmQuGVnUEOpCEt1XYqn7LUtFrFvMKUMl0YDT2F/jRq/vq+FW+bBxji/zHIwKJ8jaI2QMZs
+ rqLOKCpvqZTZhxAjHRYVGQZVY5XNs10=
+Received: from suse.cz (unknown [10.100.201.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 66BBD2C141;
+ Wed, 15 Jun 2022 13:15:24 +0000 (UTC)
+Date: Wed, 15 Jun 2022 15:15:23 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 03/13] mm: shmem: provide oom badness for shmem files
+Message-ID: <Yqnba1E2FSRVUATY@dhcp22.suse.cz>
+References: <YqMuq/ZrV8loC3jE@dhcp22.suse.cz>
+ <2e7e050e-04eb-0c0a-0675-d7f1c3ae7aed@amd.com>
+ <YqNSSFQELx/LeEHR@dhcp22.suse.cz>
+ <288528c3-411e-fb25-2f08-92d4bb9f1f13@gmail.com>
+ <Yqbq/Q5jz2ou87Jx@dhcp22.suse.cz>
+ <b8b9aba5-575e-8a34-e627-79bef4ed7f97@amd.com>
+ <YqcpZY3Xx7Mk2ROH@dhcp22.suse.cz>
+ <34daa8ab-a9f4-8f7b-0ea7-821bc36b9497@gmail.com>
+ <YqdFkfLVFUD5K6EK@dhcp22.suse.cz>
+ <9e170201-35df-cfcc-8d07-2f9693278829@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign3
-X-QQ-Bgrelay: 1
+In-Reply-To: <9e170201-35df-cfcc-8d07-2f9693278829@amd.com>
 X-Mailman-Approved-At: Wed, 15 Jun 2022 13:26:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,151 +61,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hongao <hongao@uniontech.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: andrey.grodzovsky@amd.com, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ hughd@google.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, daniel@ffwll.ch,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-tegra@vger.kernel.org, alexander.deucher@amd.com,
+ akpm@linux-foundation.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi for more
-efficiency
+On Wed 15-06-22 14:35:22, Christian König wrote:
+[...]
+> Even the classic mm_struct based accounting includes MM_SHMEMPAGES into the
+> badness. So accounting shared resources as badness to make a decision is
+> nothing new here.
 
-Tested on "Oland [Radeon HD 8570 / R7 240/340 OEM]" & "Caicos [R5 230]"
+Yeah, it is nothing really new but it also doesn't mean it is an example
+worth following as this doesn't really work currently. Also please note
+that MM_SHMEMPAGES is counting at least something process specific as
+those pages are mapped in to the process (and with enough of wishful
+thinking unmapping can drop the last reference and free something up
+actually) . With generic per-file memory this is even more detached from
+process.
 
-Signed-off-by: hongao <hongao@uniontech.com>
----
- drivers/gpu/drm/radeon/atombios_encoders.c |  6 +++---
- drivers/gpu/drm/radeon/radeon_connectors.c | 12 ++++++------
- drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
- drivers/gpu/drm/radeon/radeon_encoders.c   |  4 ++--
- 4 files changed, 12 insertions(+), 12 deletions(-)
+> The difference is that this time the badness doesn't come from the memory
+> management subsystem, but rather from the I/O subsystem.
+> 
+> > This is also the reason why I am not really fan of the per file
+> > badness because it adds a notion of resource that is not process bound
+> > in general so it will add all sorts of weird runtime corner cases which
+> > are impossible to anticipate [*]. Maybe that will work in some scenarios
+> > but definitely not something to be done by default without users opting
+> > into that and being aware of consequences.
+> 
+> Would a kernel command line option to control the behavior be helpful here?
 
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 70bd84b7ef2b..393d471ba396 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -714,7 +714,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 			if (radeon_connector->use_digital &&
- 			    (radeon_connector->audio == RADEON_AUDIO_ENABLE))
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else if (radeon_connector->use_digital)
-@@ -733,7 +733,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 		if (radeon_audio != 0) {
- 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else
-@@ -757,7 +757,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 		} else if (radeon_audio != 0) {
- 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index 58db79921cd3..2fbec7bdd56b 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -130,7 +130,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 	case DRM_MODE_CONNECTOR_DVII:
- 	case DRM_MODE_CONNECTOR_HDMIB:
- 		if (radeon_connector->use_digital) {
--			if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (connector->display_info.is_hdmi) {
- 				if (connector->display_info.bpc)
- 					bpc = connector->display_info.bpc;
- 			}
-@@ -138,7 +138,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		break;
- 	case DRM_MODE_CONNECTOR_DVID:
- 	case DRM_MODE_CONNECTOR_HDMIA:
--		if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		if (connector->display_info.is_hdmi) {
- 			if (connector->display_info.bpc)
- 				bpc = connector->display_info.bpc;
- 		}
-@@ -147,7 +147,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		dig_connector = radeon_connector->con_priv;
- 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
- 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP) ||
--		    drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		    connector->display_info.is_hdmi) {
- 			if (connector->display_info.bpc)
- 				bpc = connector->display_info.bpc;
- 		}
-@@ -171,7 +171,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		break;
- 	}
- 
--	if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+	if (connector->display_info.is_hdmi) {
- 		/* hdmi deep color only implemented on DCE4+ */
- 		if ((bpc > 8) && !ASIC_IS_DCE4(rdev)) {
- 			DRM_DEBUG("%s: HDMI deep color %d bpc unsupported. Using 8 bpc.\n",
-@@ -1500,7 +1500,7 @@ static enum drm_mode_status radeon_dvi_mode_valid(struct drm_connector *connecto
- 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D) ||
- 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_HDMI_TYPE_B))
- 			return MODE_OK;
--		else if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		else if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 			/* HDMI 1.3+ supports max clock of 340 Mhz */
- 			if (mode->clock > 340000)
- 				return MODE_CLOCK_HIGH;
-@@ -1808,7 +1808,7 @@ static enum drm_mode_status radeon_dp_mode_valid(struct drm_connector *connector
- 		    (radeon_dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
- 			return radeon_dp_mode_valid_helper(connector, mode);
- 		} else {
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				/* HDMI 1.3+ supports max clock of 340 Mhz */
- 				if (mode->clock > 340000)
- 					return MODE_CLOCK_HIGH;
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 57ff2b723c87..c7a1e3af55cf 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1728,7 +1728,7 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 			    (!(mode->flags & DRM_MODE_FLAG_INTERLACE)) &&
- 			    ((radeon_encoder->underscan_type == UNDERSCAN_ON) ||
- 			     ((radeon_encoder->underscan_type == UNDERSCAN_AUTO) &&
--			      drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			      connector->display_info.is_hdmi &&
- 			      is_hdtv_mode(mode)))) {
- 				if (radeon_encoder->underscan_hborder != 0)
- 					radeon_crtc->h_border = radeon_encoder->underscan_hborder;
-diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
-index 46549d5179ee..b999464f213a 100644
---- a/drivers/gpu/drm/radeon/radeon_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -383,7 +383,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
- 	case DRM_MODE_CONNECTOR_HDMIB:
- 		if (radeon_connector->use_digital) {
- 			/* HDMI 1.3 supports up to 340 Mhz over single link */
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				if (pixel_clock > 340000)
- 					return true;
- 				else
-@@ -408,7 +408,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
- 			return false;
- 		else {
- 			/* HDMI 1.3 supports up to 340 Mhz over single link */
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				if (pixel_clock > 340000)
- 					return true;
- 				else
+I am not sure what would be the proper way to control that that would be
+future extensible. Kernel command line is certainly and option but if we
+want to extend that to module like or eBPF interface then it wouldn't
+stand a future test very quickly.
+
 -- 
-2.20.1
-
-
-
-
+Michal Hocko
+SUSE Labs
