@@ -4,39 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5361EC43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 14:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F983C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:05:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EEF10E7D1;
-	Wed, 15 Jun 2022 14:34:59 +0000 (UTC)
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [IPv6:2a01:e0c:1:1599::15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7804E10E80A
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 14:34:58 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp6-g21.free.fr (Postfix) with ESMTP id 3090A780333;
- Wed, 15 Jun 2022 16:34:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1655303695;
- bh=KpgCnZWrT58TBcG/6G1ezc4T082sQ+4odvHBC8hj1TE=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=kif/YKjOXwvww4YXbPCIOOv2qf1WBaDiXsKl8AzdCAZ/o8pJclCYfDm6BPx9M+8fC
- m2s2mW3PvlDP/K3HNdMHEfO2sNTAef3OY2VgbYQBhtRW/6W7rIpp9AL1fhgPH4wb12
- 5+qSA2626kIHWl1z+AUD35o9HsPDdIKrb2G9MBTF9uk+IDcVh5ftMaWZuD/KCn4GvP
- dGTtJAeNR//U0FR/dUDtRlA+3jsN0Bsw4P1+G7mjrQFKJYvikvb0RQkOfsqPQvyfLs
- 3ldY6ClS/g9xYjRdcOHtXrwbOgS/eyUbgp5NQa14DFQUQbNXs5CvtNQ6tHUDfmi7Z+
- hBng1e8UYRscA==
-Date: Wed, 15 Jun 2022 16:34:53 +0200 (CEST)
-From: Yann Dirson <ydirson@free.fr>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Message-ID: <697640373.608902230.1655303693136.JavaMail.root@zimbra39-e7>
-In-Reply-To: <20220613200112.3377638-2-Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH 1/3] Documentation/gpu: Add info table for ASICs
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECD3F10E035;
+	Wed, 15 Jun 2022 15:05:26 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFB410E035
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 15:05:25 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ c3-20020a9d6843000000b0060c2c63c337so9040857oto.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 08:05:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=XrsUat+o9/LJuOTX2aEo1c6UCKiQykIvhRb0gI34RDo=;
+ b=lq//UHgItHTiby3bJtgdK8d+4WxPCraeTpovO73wwG18S0SWKqgaf5as3Z40hgAc7p
+ OfJvf1rf++IpjBKJ6CSBDk0x++Wp++fwX/WgMrQL3mfxGxiEArH1po8nbf68T+n3kkDg
+ g8uM7EvtiK/Pho/NXMNUHkp5cH8noXrsDaRaefhYoTXKEj0EbGCOqJXveNjIKEcnY5vt
+ QECeu52Mjnia3clU+aBgrWbyXI3jFZZOnFdUp8si3aeFMos98OMEHPojeV1jdSNZjmhT
+ eHcrMdC0fCGrT+1BM7uU1hJk/pPpmye9PTHCrJShXEsYiD2XnqJDmsYmZhh0rePZp+AQ
+ 0jcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=XrsUat+o9/LJuOTX2aEo1c6UCKiQykIvhRb0gI34RDo=;
+ b=huw/LTXpVea7aARWixX0d99oO/vT9IUvpOFjmaKZjJhVXlI6lhRKOI3lLV9Fmv6Y7D
+ DZCEDQGn7dgK2Q/jkzQL56aEfVwaFc4xMTkKOEq1wURvPM8K1wh3rvE5h7htOemJIUvX
+ M1kC18cw/NzGibl931FtYsqf2KB9UygtwYpLHufOgwQSDg4GtFX9NesDio2Lkebxr+gN
+ Izj7bcs+RbdiQXrYbingQkwnAJNoIRtUNKPlXRKZ5cV2fLacnxzbB6ZEYhlxR6uHuHY4
+ DqXQP22XFtXALOgolbCaYRmzprY82N8y7eG7re2AY+uCbQbSmlSXLF6zWwnDwTYws+b6
+ XDvg==
+X-Gm-Message-State: AJIora/Q1dQB1AD2iMEu5G1U55oS3x+WqBPY9BVre6XNzGbkbIhhfq90
+ 39yDMJDwKIb/srIk4soWvoXkEg==
+X-Google-Smtp-Source: AGRyM1sKk0ZQraqiQaBpBMqcrxQIwxmHAc5xtgCpvjOe9O5wXFYZY7caP6JDQm51urqSb6qWA+JhJw==
+X-Received: by 2002:a05:6830:2647:b0:60c:6678:d7cc with SMTP id
+ f7-20020a056830264700b0060c6678d7ccmr109130otu.237.1655305524933; 
+ Wed, 15 Jun 2022 08:05:24 -0700 (PDT)
+Received: from ?IPV6:2804:14d:8084:84c6:fe26:c42d:aab9:fa8a?
+ ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
+ by smtp.gmail.com with ESMTPSA id
+ a18-20020a544e12000000b0032f51af1999sm3447022oiy.42.2022.06.15.08.05.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 08:05:24 -0700 (PDT)
+Message-ID: <4296546a-67db-0e54-c75c-cc2b5b203197@usp.br>
+Date: Wed, 15 Jun 2022 12:05:17 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [RFC 1/3] drm/amd/display: Introduce KUnit to DML
+Content-Language: en-US
+To: Daniel Latypov <dlatypov@google.com>
+References: <20220608010709.272962-1-maira.canal@usp.br>
+ <20220608010709.272962-2-maira.canal@usp.br>
+ <CAGS_qxpiBOJ5OnQREo33LCtgROSuvTNWgwgkKN4P7TF1+4kcSQ@mail.gmail.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
+In-Reply-To: <CAGS_qxpiBOJ5OnQREo33LCtgROSuvTNWgwgkKN4P7TF1+4kcSQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,34 +76,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- tales aparecida <tales.aparecida@gmail.com>, amd-gfx@lists.freedesktop.org,
- maira canal <maira.canal@usp.br>, mwen@igalia.com, Leo Li <sunpeng.li@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
- Sean Paul <seanpaul@chromium.org>, isabbasso@riseup.net,
- andrealmeid@riseup.net, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Pierre-Loup <pgriffais@valvesoftware.com>
+Cc: Harrison Chiu <harrison.chiu@amd.com>, brendanhiggins@google.com,
+ dri-devel@lists.freedesktop.org, Isabella Basso <isabbasso@riseup.net>,
+ andrealmeid@riseup.net, Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
+ David Gow <davidgow@google.com>, kunit-dev@googlegroups.com,
+ Mark Yacoub <markyacoub@chromium.org>, linux-kernel@vger.kernel.org,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Nice!
+Hi Daniel
 
-> diff --git a/Documentation/gpu/amdgpu/apu-asic-info-table.csv
-> b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
-...
-> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx,
-> RAVEN/PICASSO, DCN 1.0, 9.1.0, VCN 1.0, 4.1.0
-...
-> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx,
-> RAVEN2, DCN 1.0, 9.2.2, VCN 1.0.1, 4.1.1
+Thank you for your feedback! We are working on the comments you pointed out.
 
-Those similar-but-not-quite lines tend to confuse me :)
+On 6/7/22 23:36, Daniel Latypov wrote:
+> On Tue, Jun 7, 2022 at 6:09 PM Maíra Canal <maira.canal@usp.br> wrote:
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c
+>> new file mode 100644
+>> index 000000000000..3ea0e7fb13e3
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_mode_lib_test.c
+>> @@ -0,0 +1,83 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * KUnit tests for dml/display_mode_lib.h
+>> + *
+>> + * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
+>> + */
+>> +
+>> +#include <kunit/test.h>
+>> +#include "../../dc/dml/display_mode_lib.h"
+>> +#include "../../dc/dml/display_mode_enums.h"
+>> +#include "dml_test.h"
+>> +
+>> +/**
+>> + * DOC: Unit tests for AMDGPU DML display_mode_lib.h
+>> + *
+>> + * The display_mode_lib.h holds the functions responsible for the instantiation
+>> + * and logging of the Display Mode Library (DML).
+>> + *
+>> + * These KUnit tests were implemented with the intention of assuring the proper
+>> + * logging of the DML.
+>> + *
+>> + */
+>> +
+>> +static void dml_get_status_message_test(struct kunit *test)
+>> +{
+> 
+> I think this is a case where an exhaustive test might not be warranted.
+> The function under test is entirely just a switch statement with
+> return statements, so the chances of things going wrong is minimal.
+> But that's just my personal preference.
 
-Best regards,
--- 
-Yann
+Maybe we left out some explanation on this unit test. This RFC was more of an introduction to our project. We wanted to show you the test structure we plan to develop the unit tests during this summer. Initially, we were thinking of using the typical kunit_test_suites structure, but we end up checking out that it wasn't possible, due to the need to insert the tests inside the AMDGPU stack.
+
+We also agree with you that this test is trivial and it will probably be removed from the final version. We plan to have more functional tests that explore the inner workings of the DML and especially the corner cases as you said.
+
+We apologize if we didn't make it clear in the Cover Letter that this RFC is more of an introduction to the project we pretend to develop in the summer.
+
+If you have suggestions on how we can improve the use of KUnit, it is welcome.
+
+>>
+>> +int display_mode_lib_test_init(void)
+>> +{
+>> +       pr_info("===> Running display_mode_lib KUnit Tests");
+>> +       pr_info("**********************************************************");
+>> +       pr_info("**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **");
+>> +       pr_info("**                                                      **");
+>> +       pr_info("** display_mode_lib KUnit Tests are being run. This     **");
+>> +       pr_info("** means that this is a TEST kernel and should not be   **");
+>> +       pr_info("** used for production.                                 **");
+>> +       pr_info("**                                                      **");
+>> +       pr_info("** If you see this message and you are not debugging    **");
+>> +       pr_info("** the kernel, report this immediately to your vendor!  **");
+>> +       pr_info("**                                                      **");
+>> +       pr_info("**********************************************************");
+> 
+> David Gow proposed tainting the kernel if we ever try to run a KUnit
+> test suite here:
+> https://lore.kernel.org/linux-kselftest/20220513083212.3537869-2-davidgow@google.com/
+> 
+> If that goes in, then this logging might not be as necessary.
+> I'm not sure what the status of that change is, but we're at least
+> waiting on a v4, I think.
+
+This is going to be great! We will keep an eye on this proposal.
+
+- Maíra Canal
+
+
