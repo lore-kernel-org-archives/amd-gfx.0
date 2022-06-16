@@ -4,48 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5243C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 19:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01ED0C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 20:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED6210E3D7;
-	Thu, 16 Jun 2022 19:53:18 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296B010E686
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 19:53:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655409197; x=1686945197;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=jlT4m+WFkmmazCzTLedwDoWN/1Muhtuim1CMzuJuNFg=;
- b=FlfJXN/nHQs9pWKHJv3vfYkGHvTAnN1s+ykQCcqUr0BnDy7vBBd9mekW
- 6IKleGilJUPzdE8pvfANeSMS4Wc1IW3iivucPeek+NDQCebBIaai6eJ67
- l2CVAUiVuh13mdWUwDgHfSBuIPrR7xpUfSuGRshaNTGual3x7KLNidKOD
- hkcAKAWiVgWKn0PR7yZFfalc+M6v/4NTmAL1JYg3VVpypftB2TY/eps2G
- oNzI7rS6p8W5lb/ldxY1+zS/AMceLehnhOWceGxG+R+IwMFAeejZ6TVjl
- +IfpHwsmLJdK0QEpFSN2ucVNoc7mj9oiSO9LemcZNAdpsT7I10Vv9aPTZ Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="279396178"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="279396178"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 12:53:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="613284579"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 16 Jun 2022 12:53:13 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o1vYG-000OiX-OA;
- Thu, 16 Jun 2022 19:53:12 +0000
-Date: Fri, 17 Jun 2022 03:52:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- c6d7e3b385f19869ab96e9404c92ff1abc34f2c8
-Message-ID: <62ab89f2.Pko7sI08RAKdF8R6%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5966D10E2A2;
+	Thu, 16 Jun 2022 20:36:02 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34E610E2A2;
+ Thu, 16 Jun 2022 20:36:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I87Ae44rUCMXLt7dkKMMGvPEuu3BYYkfHFAwpdy0OD3Les10FpaunLBg8vbbTQPD+QgvOMblz2afSgQStVuN+Ec46/Rilg0M4Z1ZpsQ/ofFDy4LPCjsiuq6zZDi3m9uVYlvmVOdOPCUztJ2cO1Yu9vx8chQWD3c3BtugqZs77nQirKvsBnDSgjPWIYfVkp7Fp7qytb6aC9updRhZD1wyFCGzb5uSq7eWXAYZOy7YUeWELhvGP4WOcfzRmt/hOGlp/qNQvgELKCjaUVqBL5dsXa2V7wR1ObKJreUGZas9E471mk1tfqahi+T9GmkLqrGiG9pduzN8ADp0eO+Acw4DzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZP4C2gPmcwv6B/dlffYSNzEuHqP1WPI4yQpH/5cLySg=;
+ b=UtRbzK582zWUHrykux5URgrIeFW5OaF5VZ/NXoF97xTD1AgeTEeXtcktrULQCn5O06cqAkJcFUonrz1/M3jlhhQy/9/BbLjH2kMQl9QUTDgglIkWeLJnpYGsOB0kTxHD3JZuTDsdaNeN8e3N549Yv5PuF1U2xZ7P02qePGbDHbiRDyHPLFqNmSprNwCPIcNdiMIMw/DeAjuBgPYhXeQZs7uUpqVikLgLAJdd2pmx3pRqOc58v8wNwi1OX0XrEHxS8oTzSECyjeWYqxCybsdk2UXrkkwLFZro6AK/ZdwNjbSHb9M1GLO6vNdMPEnnj5rsoRDkWFuiD12sswr3+E4Y3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZP4C2gPmcwv6B/dlffYSNzEuHqP1WPI4yQpH/5cLySg=;
+ b=PdEkjGFcQUTQU25dQSBilLF+3cKgPyUMlqdb/CoOdLIbcJZ2sC4Jralx8TjsYyFE5F9VHF3KVz81zPIWxiaTqtH5S2rU4rRIdCT5RB1oQ/7+lLaooT8XpYKhmyay7ZToQm9kVXV1pyIQsE2qiPQg6JnmlgZmRGZHnip06lZgpNM=
+Received: from MW4PR04CA0167.namprd04.prod.outlook.com (2603:10b6:303:85::22)
+ by CH2PR12MB4005.namprd12.prod.outlook.com (2603:10b6:610:22::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Thu, 16 Jun
+ 2022 20:35:54 +0000
+Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:85:cafe::3d) by MW4PR04CA0167.outlook.office365.com
+ (2603:10b6:303:85::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.13 via Frontend
+ Transport; Thu, 16 Jun 2022 20:35:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5332.12 via Frontend Transport; Thu, 16 Jun 2022 20:35:53 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 16 Jun
+ 2022 15:35:51 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/display: drop set but unused variable
+Date: Thu, 16 Jun 2022 16:35:38 -0400
+Message-ID: <20220616203538.649041-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d76e4f1a-35b0-4a26-7bd3-08da4fd7cf49
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4005:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4005D516FE0293D28206EB09F7AC9@CH2PR12MB4005.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wCIjKmEVLsBbMAVUn7WKACAGDRAt1BJLJlUY5KZZTUX87gth7mvs2jiwaru4y/bN0tUxsSKNWsczKnFpvwUy8f8Idg8FCTRw3xGjSDD/WDEfGrbcDpNv96P+g42xCUyBI71PbzO+Yelv3PeGvfbkLjRG26KKJMvtb9hf3gCuKUpnB6cms9ICXraY6XsNCuHnC16L3bqGm4b9/frTMa53khOpv8KDLSKqkqW05fZbwVw37OaiJtsTDafBj6zplwP9lWao6dHo/bJZm9gxGtnVTGV44S1YKfwnDvzoy6X+REzoAqw4nWjBnkBA452PssYjBaIA/vtaAPkkSNeWsXfyTNGa/UG6ivu3jxHH/qFisdkWaF9nufDDdr2369UoModkr987Ehb7umE1TJEA0DYHb9QaysX3K1kWdqD9eKA7XTP4DdMJKb3jtMFyt/8r5j61svWxP1CAqgtzolSD0tbdO64YcdjKp8oBYm5h97RAEYPcCMFEH7i/iMFSaBSrTlADiFDQBROK64BMEMekk+YdBzUEeAgeiDzGtrvhdkf8TdrRbxJrFjdIBA03ptG3piplMHrwLbwp6fl0Wvm6JyQq2T3k/f4zf959az1WTCyr1OmPzcVu2/GWOIekwgYZDF5tFl/10d23fL7sKa3pyC6a7f++S6L6/iAu9A3iAgvWlIaEYQu0xAGaNi/GqX1+J/zTwoAbGku2kZOV6jF0MhIWlw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(40470700004)(46966006)(36840700001)(36860700001)(8936002)(426003)(81166007)(356005)(16526019)(7696005)(5660300002)(508600001)(40460700003)(83380400001)(1076003)(186003)(86362001)(26005)(336012)(47076005)(2906002)(4326008)(8676002)(70586007)(70206006)(110136005)(316002)(36756003)(82310400005)(450100002)(6666004)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2022 20:35:53.8734 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d76e4f1a-35b0-4a26-7bd3-08da4fd7cf49
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4005
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,294 +98,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-perf-users@vger.kernel.org, linux-staging@lists.linux.dev,
- kvm@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-um@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
- linux-pci@vger.kernel.org, bpf@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: c6d7e3b385f19869ab96e9404c92ff1abc34f2c8  Add linux-next specific files for 20220616
-
-Error/Warning reports:
-
-https://lore.kernel.org/lkml/202206071511.FI7WLdZo-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-include/linux/highmem-internal.h:203:31: error: passing argument 1 of 'kunmap_flush_on_unmap' discards 'const' qualifier from pointer target type [-Werror=discarded-qualifiers]
-include/linux/highmem-internal.h:203:31: warning: passing argument 1 of 'kunmap_flush_on_unmap' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
-kernel/bpf/helpers.c:1490:29: sparse: sparse: symbol 'bpf_dynptr_from_mem_proto' was not declared. Should it be static?
-kernel/bpf/helpers.c:1516:29: sparse: sparse: symbol 'bpf_dynptr_read_proto' was not declared. Should it be static?
-kernel/bpf/helpers.c:1542:29: sparse: sparse: symbol 'bpf_dynptr_write_proto' was not declared. Should it be static?
-kernel/bpf/helpers.c:1569:29: sparse: sparse: symbol 'bpf_dynptr_data_proto' was not declared. Should it be static?
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function get_symbol_offset: .text+0x532): relocation R_RISCV_PCREL_HI20 out of range: -524434 is not in [-524288, 524287]; references kallsyms_markers
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function get_symbol_offset: .text+0x540): relocation R_RISCV_PCREL_HI20 out of range: -524434 is not in [-524288, 524287]; references kallsyms_names
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function update_iter: .text+0x95c): relocation R_RISCV_PCREL_HI20 out of range: -524434 is not in [-524288, 524287]; references kallsyms_num_syms
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function update_iter: .text+0xab2): relocation R_RISCV_PCREL_HI20 out of range: -524435 is not in [-524288, 524287]; references kallsyms_names
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function update_iter: .text+0xaca): relocation R_RISCV_PCREL_HI20 out of range: -524435 is not in [-524288, 524287]; references kallsyms_token_index
-ld.lld: error: kernel/built-in.a(kallsyms.o):(function update_iter: .text+0xad4): relocation R_RISCV_PCREL_HI20 out of range: -524435 is not in [-524288, 524287]; references kallsyms_offsets
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
+Fixes:
 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9143:27: warning: variable 'abo' set but not used [-Wunused-but-set-variable]
-drivers/usb/gadget/udc/aspeed_udc.c:1009:28: sparse: sparse: restricted __le16 degrades to integer
 
-Error/Warning ids grouped by kconfigs:
+Fixes: 047de3f17a83 ("drm/amdgpu: switch DM to atomic fence helpers v2")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-gcc_recent_errors
-|-- alpha-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- alpha-randconfig-m031-20220616
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|-- alpha-randconfig-r011-20220616
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|-- arc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- arm-randconfig-s031-20220616
-|   `-- drivers-usb-gadget-udc-aspeed_udc.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- arm-randconfig-s032-20220616
-|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-usertype-ret-got-int
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_data_proto-was-not-declared.-Should-it-be-static
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_from_mem_proto-was-not-declared.-Should-it-be-static
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_read_proto-was-not-declared.-Should-it-be-static
-|   `-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_write_proto-was-not-declared.-Should-it-be-static
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- i386-randconfig-a005
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- i386-randconfig-m021
-|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
-|-- i386-randconfig-s001
-|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
-|   |-- drivers-vfio-pci-vfio_pci_config.c:sparse:sparse:restricted-pci_power_t-degrades-to-integer
-|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
-|-- i386-randconfig-s002
-|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
-|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-usertype-ret-got-int
-|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- ia64-allyesconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- m68k-allmodconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- m68k-allyesconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- nios2-allmodconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- nios2-allyesconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- parisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- include-linux-highmem-internal.h:error:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|   `-- include-linux-highmem-internal.h:warning:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|-- parisc-defconfig
-|   `-- include-linux-highmem-internal.h:warning:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|-- parisc-randconfig-r012-20220616
-|   |-- include-linux-highmem-internal.h:error:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|   `-- include-linux-highmem-internal.h:warning:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|-- parisc64-defconfig
-|   `-- include-linux-highmem-internal.h:warning:passing-argument-of-kunmap_flush_on_unmap-discards-const-qualifier-from-pointer-target-type
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- powerpc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- riscv-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|-- sh-allmodconfig
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- um-i386_defconfig
-|   `-- arch-um-kernel-skas-uaccess.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-addr-got-unsigned-int-noderef-usertype-__user-uaddr
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|-- x86_64-randconfig-m001
-|   |-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
-|   `-- lib-maple_tree.c-mas_wr_spanning_store()-warn:inconsistent-indenting
-|-- x86_64-randconfig-s021
-|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
-|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-usertype-ret-got-int
-|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
-|-- x86_64-randconfig-s022
-|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_data_proto-was-not-declared.-Should-it-be-static
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_from_mem_proto-was-not-declared.-Should-it-be-static
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_read_proto-was-not-declared.-Should-it-be-static
-|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_write_proto-was-not-declared.-Should-it-be-static
-|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
-`-- xtensa-allyesconfig
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-    `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-
-clang_recent_errors
-|-- riscv-buildonly-randconfig-r002-20220616
-|   `-- arch-riscv-kernel-cpufeature.c:warning:variable-cpu_apply_feature-set-but-not-used
-|-- riscv-buildonly-randconfig-r003-20220616
-|   |-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-get_symbol_offset:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_markers
-|   |-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-get_symbol_offset:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_names
-|   |-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_names
-|   |-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
-|   |-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   `-- ld.lld:error:kernel-built-in.a(kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_token_index
-`-- riscv-randconfig-r042-20220616
-    `-- arch-riscv-kernel-cpufeature.c:warning:variable-cpu_apply_feature-set-but-not-used
-
-elapsed time: 720m
-
-configs tested: 107
-configs skipped: 3
-
-gcc tested configs:
-arm                              allmodconfig
-arm                              allyesconfig
-arm                                 defconfig
-arm64                            allyesconfig
-arm64                               defconfig
-um                             i386_defconfig
-i386                          randconfig-c001
-alpha                            allyesconfig
-arc                              allyesconfig
-nios2                            allyesconfig
-mips                         bigsur_defconfig
-m68k                        mvme147_defconfig
-sh                         ap325rxa_defconfig
-sh                      rts7751r2d1_defconfig
-microblaze                      mmu_defconfig
-sh                           se7780_defconfig
-powerpc                 mpc834x_mds_defconfig
-xtensa                  audio_kc705_defconfig
-arc                              alldefconfig
-nios2                         3c120_defconfig
-arc                    vdk_hs38_smp_defconfig
-arm                        clps711x_defconfig
-nios2                         10m50_defconfig
-mips                       capcella_defconfig
-arm                           sunxi_defconfig
-xtensa                         virt_defconfig
-ia64                             allmodconfig
-ia64                                defconfig
-ia64                             allyesconfig
-m68k                                defconfig
-m68k                             allmodconfig
-m68k                             allyesconfig
-alpha                               defconfig
-csky                                defconfig
-nios2                               defconfig
-arc                                 defconfig
-sh                               allmodconfig
-xtensa                           allyesconfig
-parisc                              defconfig
-s390                             allmodconfig
-parisc                           allyesconfig
-s390                                defconfig
-s390                             allyesconfig
-parisc64                            defconfig
-i386                   debian-10.3-kselftests
-i386                              debian-10.3
-i386                                defconfig
-i386                             allyesconfig
-sparc                            allyesconfig
-sparc                               defconfig
-mips                             allmodconfig
-mips                             allyesconfig
-powerpc                           allnoconfig
-powerpc                          allmodconfig
-powerpc                          allyesconfig
-x86_64                        randconfig-a002
-x86_64                        randconfig-a004
-i386                          randconfig-a001
-i386                          randconfig-a003
-i386                          randconfig-a005
-x86_64                        randconfig-a013
-x86_64                        randconfig-a011
-x86_64                        randconfig-a015
-i386                          randconfig-a014
-i386                          randconfig-a012
-i386                          randconfig-a016
-arc                  randconfig-r043-20220616
-riscv                             allnoconfig
-riscv                            allyesconfig
-riscv                            allmodconfig
-riscv                    nommu_k210_defconfig
-riscv                          rv32_defconfig
-riscv                    nommu_virt_defconfig
-riscv                               defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-x86_64                                  kexec
-x86_64                               rhel-8.3
-x86_64                           allyesconfig
-x86_64                          rhel-8.3-func
-x86_64                         rhel-8.3-kunit
-x86_64                    rhel-8.3-kselftests
-x86_64                           rhel-8.3-syz
-
-clang tested configs:
-mips                        bcm63xx_defconfig
-powerpc                     tqm8540_defconfig
-mips                          ath79_defconfig
-mips                       lemote2f_defconfig
-mips                     loongson1c_defconfig
-powerpc                       ebony_defconfig
-powerpc                  mpc885_ads_defconfig
-x86_64                        randconfig-k001
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-x86_64                        randconfig-a005
-i386                          randconfig-a002
-i386                          randconfig-a004
-i386                          randconfig-a006
-x86_64                        randconfig-a014
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-i386                          randconfig-a013
-i386                          randconfig-a015
-i386                          randconfig-a011
-hexagon              randconfig-r041-20220616
-hexagon              randconfig-r045-20220616
-s390                 randconfig-r044-20220616
-riscv                randconfig-r042-20220616
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 33cd7a3d4ecb..33d575bcf964 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9140,7 +9140,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
+ 	int planes_count = 0, vpos, hpos;
+ 	unsigned long flags;
+-	struct amdgpu_bo *abo;
+ 	uint32_t target_vblank, last_flip_vblank;
+ 	bool vrr_active = amdgpu_dm_vrr_active(acrtc_state);
+ 	bool pflip_present = false;
+@@ -9212,7 +9211,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			continue;
+ 		}
+ 
+-		abo = gem_to_amdgpu_bo(fb->obj[0]);
+ 		fill_dc_plane_info_and_addr(
+ 			dm->adev, new_plane_state,
+ 			afb->tiling_flags,
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.3
+
