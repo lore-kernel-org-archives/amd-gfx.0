@@ -4,61 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6704C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 02:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1465C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 02:57:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAAA6113B22;
-	Thu, 16 Jun 2022 02:35:00 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54BFC10F304;
- Thu, 16 Jun 2022 02:34:59 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id p129so367566oig.3;
- Wed, 15 Jun 2022 19:34:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Z+baxgZVjyFXn6w264zRymr+l4Ymj2TLezhZxUKrmHM=;
- b=F/yCITmzFs0hg4SkLRaXumjGJXAS4ZBbtKjQIOZom/YSp1ADvlCB4w9hT2GdHxJ5r+
- YHWq6vPSOMnGFh6GhmiTjTgzc40+WiotLlOdUy/Q6lrWpf2Aqxl6fBXZgbwZ9sDlSNfd
- cogu2b0diJfKNZkTJbqLiaFUdgV/TrCVZu/T3HcJ2OKNtgx3cEjCjElHczQ1tjAqmU//
- ATn8mM6y2W8bJUtzsoeL0OsVrekw7jDakarEzJhl/+IRddFyNTxTKkkOVhisws+d6Ss0
- jPXVygEt5I0NgeGWinbuQhCN0XbIBYasmDGJ8fJHfTOVHB59+8ELJu81SmCg3ZxgNOSW
- UR8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Z+baxgZVjyFXn6w264zRymr+l4Ymj2TLezhZxUKrmHM=;
- b=Sdw2U5b46huQRJgJxc6CGO6p+Qd57xWFlvPSEOjAy2BspGvIGBxP88aY3TWI7QwiK4
- orkxOsQeU3iqY6OvHEnQRNSHNg3OIdGCWV6Ws6Bzq5LiDcbzmcRpPMdgHQnxVG9W9FOU
- WJVlo2wEN4FDzfb18Zit/xmlpxyYzSdb0hBscmxzBzAHHBHCpUEvoZBdYI+WYKHNNfLX
- q7iOBCHe1q2pC0PhpDn6duHUjRXEmv9+9xRG0ZBXvZesebS+OkxgP0oGhXT5t5/wBYct
- gyhxngcB1SVHacnKAgxMNeXaERwMgOBkOAcXpwAx0eFUh+b8cXMKuqhhiru24D+v+hfc
- lFnw==
-X-Gm-Message-State: AJIora9co1bYInnUoRDmChFQpA3u3prHw4EJTaLDEMkQRiHhl0icZzXM
- yfGUPGZaa6OEUeU6YGdiyo963Y8m37owA3aNWBs=
-X-Google-Smtp-Source: AGRyM1tr2sCkLpCfF2HxNSytPyXlzPTkZQJm0Ghb609cKKhF1uG0xIrf+QbQYOJ7vekovMm2LGhy8d8JD2u4k/Od5q4=
-X-Received: by 2002:a05:6808:23c6:b0:331:3ab2:6fb9 with SMTP id
- bq6-20020a05680823c600b003313ab26fb9mr1401221oib.200.1655346898632; Wed, 15
- Jun 2022 19:34:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220615160116.528c324b@canb.auug.org.au>
- <d1a48a84-6d07-e8f7-5fd8-d24a7a1cf187@infradead.org>
- <CADnq5_N6gfaPfZJAX4+poWFFruxNdFKZqzXZXosj1A55e-O1mA@mail.gmail.com>
- <YqpACmvbwiEcUfta@dev-arch.thelio-3990X>
- <CADnq5_OnrxUiM+aTWRLjixp=vY6adV3w4p2cfTkdS32uq_UsiQ@mail.gmail.com>
- <YqpGknQvigfwZU6b@dev-arch.thelio-3990X>
- <20220616092628.7cd86f4c@canb.auug.org.au>
-In-Reply-To: <20220616092628.7cd86f4c@canb.auug.org.au>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jun 2022 22:34:47 -0400
-Message-ID: <CADnq5_OBCaYgrQDpX7x9VH9SQ2XcH8LhY4VTSiB7qX8J9nt+ZQ@mail.gmail.com>
-Subject: Re: linux-next: Tree for Jun 15
- (drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c)
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48ACF10F659;
+	Thu, 16 Jun 2022 02:57:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA0410E850
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 02:57:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YQpzot+6p7YcXTe9xQDWpZjM6nn6BRfwGS0S2BgoNBdHRC3KlEVg8UPtKPIvTXdaJzT1QNvXzwQqEwetfUOSmUVYLfzNGtlVyEYG99zz+QL7hiZuuM/RnUbkmVMS4NZTw/bDc2FxKkUUICysaOCzfAyWfv2d34hLZVwEjsUo17si63IMBlNa/2ig+U0IKzepulYNpuS22l2+mZA0zmSD1yFwxaFf/haxKICdXFsvk+sPegLYG3iBOROf4dqYCh1AhADzPZNFrkqHD4mqyb+ZhMkelA90yE92AOA8PghZY1HTVj4tacWltkwGI/JDfPZ7DTSPbnbZxcNQ+HsuHIEqGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Te91/KrlFKiQS+RBwyBK9f+rZ0nFG85S5KHzGV7dFQw=;
+ b=FSFUAtVyfgFBWMm6VJ+5COP6+1NE1UK2RFNTQe2V8P8Bbb0sn9O7Nt1pgI2lgzMgWp+4kCqP383Iq613ViWz2rurtqfYgOuQiLnsSjOLz8ANGJp8sTiYfRs54r6MkOOM3aURAc7Yy7l3DNxF94bawewztxaOEIwynOZLpHxXAAFGgPAWpWVGwZSJ1oCcrsNQqrsSJ1vBifwJPIC8AVsxUyuyFmIv9IRa/BpnMoI+vmoCx65XTYSAqAH+eoq25QfUQGoR348HEcZowFh5zZ/dy0+cIKlpapQDA5JdyCeRGkxlEYhSCiuw8dluvxThg+BlKVNLQkHEzPUNIkmnJyr8Vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Te91/KrlFKiQS+RBwyBK9f+rZ0nFG85S5KHzGV7dFQw=;
+ b=s071lEY4I/dt9uByzSE+al/z3q9J5Y5nzYjjFWIauDRbu8khWzKXRg3eJL4/Z0gTLQ/bsOp4P/TJGPYy4wHiaFWVKnP6rPjn6KoY7h/EV/KL/YmNKM8mDDWBYdRdVbEPkzUPvASAdIOy7wnY7I15ftln/LMYntvb0y33XQgv+f0=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by BN6PR12MB1331.namprd12.prod.outlook.com (2603:10b6:404:17::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.20; Thu, 16 Jun
+ 2022 02:57:52 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::3d3a:523d:94fd:fa16]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::3d3a:523d:94fd:fa16%6]) with mapi id 15.20.5332.023; Thu, 16 Jun 2022
+ 02:57:51 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: "Yang, Philip" <Philip.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdkfd: Add queue to MES if it becomes active
+Thread-Topic: [PATCH 1/2] drm/amdkfd: Add queue to MES if it becomes active
+Thread-Index: AQHYgQLuMzS/dJPNWk2ILPlPSRvG1q1RVsZg
+Date: Thu, 16 Jun 2022 02:57:51 +0000
+Message-ID: <DM6PR12MB3067448BDA70EB6963D079AD8AAC9@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20220615215651.14502-1-Philip.Yang@amd.com>
+In-Reply-To: <20220615215651.14502-1-Philip.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-06-16T02:54:46Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5940acbc-1826-447c-b46c-9216e242c0b0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-06-16T02:57:49Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 5103f676-8b9e-4f5a-92c1-a5cc1facce27
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4c4d475a-9f3e-40a7-008c-08da4f4400ef
+x-ms-traffictypediagnostic: BN6PR12MB1331:EE_
+x-microsoft-antispam-prvs: <BN6PR12MB1331F8343495017775BCC59A8AAC9@BN6PR12MB1331.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: fJKkpToMPPBLHJtM6nRyrdDL6ikh7O/QkWGalOyijjh5rPClc0PNRQqU4FZt1G95HvjGn0x4Dj5xdzf6+b2U+SylY6yM0Rbg+sxMTW0jOWG2WZjUEdUg7+FObo+YbR+l9LFPGZUZaRol6DZd6I9HtWPcdsy2fGu1fumOLgWtTOLX49mJkn3K5vVtHa1j7MidVYbFgZAtszupSSKYfBvDbpw0Fipm3CiWPoIJavsOzwix79EGT4JKRcK6L9m0rstKwiPJpQ44LhIUBkH2f7zaI3ABjXKLBQjdWs3y1RS1F4+f1MUxQN02VQ1fJXVboejTFz6CSFzF630tiLUy/ed519O4H9ZSBMYaSUqxiDe/SIXAJgG/ifhnMDFRfxC8D9CTac5spmiOPFtZSNeyfA4a1E72Bv3UZXeTrW+CCuwUJ+rVe+B5Zj8L06Sjv/7GVEfY97OrYCMpknnZLzQ8+o3ZceFr0sb1WEDyGmJ9aNLT5trazorGvWKbKpSbQzNz/O1Q8gTUuifHOlLS+wi3ey4WhYQTXoalrsjNsc8MaWKn1AQZtvHzII1+n2joOiFFanIztkDL1Ygq6bzGiTolGezZAvSPNVw+V/TfkyrkHFT+l1KyccKTAwEYvlrlF4CSLFzDz0INK7DAojsxaXFism7YFwDjFQx1PCci1OqPTzwA4JOA9paxmZZXmo+urxZBL0XUZuBYZxQs/Ho+y4/WV3IUsg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(186003)(9686003)(6506007)(26005)(83380400001)(53546011)(7696005)(55016003)(2906002)(38100700002)(122000001)(38070700005)(110136005)(508600001)(52536014)(5660300002)(8936002)(71200400001)(76116006)(8676002)(66946007)(66556008)(64756008)(66446008)(66476007)(316002)(33656002)(86362001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0HhCKg1S/2XJX1qGUxke7F3EP9ozIN9SGeUt9DALVP6B68JT+RndV83oIPds?=
+ =?us-ascii?Q?2T5ZSyxFT5XFdzgNoFqqOTX9hlIUj20IWL4dGbL+wJfPwjtsK+T/wAdfBYg/?=
+ =?us-ascii?Q?qF0d1zhWTABxR9rB+Wt1pnc5lWiAxX6f7r0AkpWiOP36UG4yX3pTIbhdsDHd?=
+ =?us-ascii?Q?QuWJYtt7WbH4wCnEoRqmJDw+BpPol/d5HsWxdxXjyieAZqzlonerkV6jFYNK?=
+ =?us-ascii?Q?+ko1K8M6CcHiyqxRi/hYw9lUkiKT7aaYf6ushxspnBsCVP0rGbhHa8vq+r38?=
+ =?us-ascii?Q?lVAyD2Q6JkI9wZG2X7m4qDH4IDDHMC2gru1WLvbUwmvQZPZd64wvPTb0BzOy?=
+ =?us-ascii?Q?xUlUjxNKYwSsQrtftNq6vGEyot1TnCxZ0PMXFyi8IpLXBq0nsTbiPL45/6iI?=
+ =?us-ascii?Q?Q1CAzl1PzvHHvDqbu9o7r2ALHrpgMuoN5xdVJeocNmvurhptQOSd9+ehliMO?=
+ =?us-ascii?Q?NZb7XLcZ9VbnjGwwWNzYzldgWLZwXpLREp0dAn0BMBmoS1qa3FRidhW17Y5Q?=
+ =?us-ascii?Q?6qv8CveOd5fGEMs6+vJfrrH4HLPCKUR5GsbCIvi4mRTMtU10M9Sx/vCFj5Gx?=
+ =?us-ascii?Q?HFdMGr3/BZhqwy7LJMaMle6y2/q2/1YX49o0cY2p1odMFe9SSQX2OewewcAG?=
+ =?us-ascii?Q?0GHMvmlFDz/yUvvneje9jB1+q5CzuMnrX+/PC3LXnzl9QrZifGNrWulaa6Yd?=
+ =?us-ascii?Q?J8j3QOzFchsOrCNksfUDIHJ0NCYeB8ZBrJi41WXhlx0izugAgSIH2z3MeqCO?=
+ =?us-ascii?Q?zxPfePlkbsKoxip8tiTCw1KoeSDDVc7mgbED+1sLMXLqNqsjDpWwGzvT0J2o?=
+ =?us-ascii?Q?LzNHGNT0fnAdgqfrQ3Sgn6dYJ2XVHO6SiyVgs0Uoixf5RfqQ7a0Dp9Fh7Qup?=
+ =?us-ascii?Q?ttvLofF7APOLg1NHHpRNQ6xpIb2qB6fXxd8zoKqUxp6ucuSel0UXS4MDs6A0?=
+ =?us-ascii?Q?nFa2FIbBjdrkrHN0pELLeuBx0I2mX6KBUzSErnbnYYv2GCX+MZt9qNXUJ0yP?=
+ =?us-ascii?Q?tdHJYRV4P4P5tbni2dVaQiY9MnDm+wIusoT3vlXInxVuzEjeTwy6oZb/sfkx?=
+ =?us-ascii?Q?C/rmfFmFJvaGkgt6tNfqjwnXGwG1AoII3mDpmfATeezaMxYdRuJzpcUtIxRV?=
+ =?us-ascii?Q?YyRSwQPJDvPiWsIXqatxDSu3MzFY+jpXcaS6KihH+gg1+PifenR1HR/6rpp4?=
+ =?us-ascii?Q?nXqzOGJdaCNZI2u+Y/A/E4binhj2k+NFLyTJXL+F+uLhOLQ0Bjsl4SP6eNtX?=
+ =?us-ascii?Q?rrw25uZGeLPWmfMZWe4jPcMn2Ik1+PIeSWDFUYRZVXJKUcf9DGwr619e4PPm?=
+ =?us-ascii?Q?Hy8mBn/TuxMHda5G5rDHUSg6SX56hjpBQzc3hEUE3sDWVOqFsHr2hyOUqhcM?=
+ =?us-ascii?Q?mAZWF2eabx3c74N5GczLOXa3dR5jdaUqctywnEhytKU7F4Bpr0jalepJGOxp?=
+ =?us-ascii?Q?K/CDfwrjsyRA7EDMW1uFwh14EnSDs9QUOwNv4EW7+y96qQjX46G8hAn/gG7t?=
+ =?us-ascii?Q?HlC1QJzGxf+oOlMfi7NLDpS7BLf+w9UWUuC9nKfdqBsLsvVC0iQX+pAMbPtt?=
+ =?us-ascii?Q?jsX83M7i/qC3UmMO37sViFPGD8BY7k8f1AmbKruxigw0QeDSgSuxMAGAxK/l?=
+ =?us-ascii?Q?V3/uRa0i2Gwx9xfhpb2pZ+AU+LFXKbodHNO0pqrJklgFwVLT1L49+QGiQsm4?=
+ =?us-ascii?Q?Cwhd3r74aTiwToXaaWAkRrD6Qn5BU/jczuiblhLhWsh6p8W9?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c4d475a-9f3e-40a7-008c-08da4f4400ef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2022 02:57:51.8067 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Yliii3IRc1pPdX/JyIALtU+1weKTo3EapMnZGiEtT58Q3PyQK29b/gmU53Xi33NLQJveY3Cj1dZO5MDsgPIqpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1331
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,210 +132,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Jani Nikula <jani.nikula@intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pushed to drm-misc-next.
+[Public]
 
-Alex
+Reviewed-by: Graham Sider <Graham.Sider@amd.com>
 
-On Wed, Jun 15, 2022 at 7:26 PM Stephen Rothwell <sfr@canb.auug.org.au> wro=
-te:
->
-> Hi all,
->
-> On Wed, 15 Jun 2022 13:52:34 -0700 Nathan Chancellor <nathan@kernel.org> =
-wrote:
-> >
-> > On Wed, Jun 15, 2022 at 04:45:16PM -0400, Alex Deucher wrote:
-> > > On Wed, Jun 15, 2022 at 4:24 PM Nathan Chancellor <nathan@kernel.org>=
- wrote:
-> > > >
-> > > > On Wed, Jun 15, 2022 at 03:28:52PM -0400, Alex Deucher wrote:
-> > > > > On Wed, Jun 15, 2022 at 3:01 PM Randy Dunlap <rdunlap@infradead.o=
-rg> wrote:
-> > > > > >
-> > > > > >
-> > > > > >
-> > > > > > On 6/14/22 23:01, Stephen Rothwell wrote:
-> > > > > > > Hi all,
-> > > > > > >
-> > > > > > > Changes since 20220614:
-> > > > > > >
-> > > > > >
-> > > > > > on i386:
-> > > > > > # CONFIG_DEBUG_FS is not set
-> > > > > >
-> > > > > >
-> > > > > > ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:=
- In function =E2=80=98amdgpu_dm_crtc_late_register=E2=80=99:
-> > > > > > ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:=
-6599:2: error: implicit declaration of function =E2=80=98crtc_debugfs_init=
-=E2=80=99; did you mean =E2=80=98amdgpu_debugfs_init=E2=80=99? [-Werror=3Di=
-mplicit-function-declaration]
-> > > > > >   crtc_debugfs_init(crtc);
-> > > > > >   ^~~~~~~~~~~~~~~~~
-> > > > > >   amdgpu_debugfs_init
-> > > > > >
-> > > > > >
-> > > > > > Full randconfig file is attached.
-> > > > >
-> > > > > I tried building with your config and I can't repro this.  As Har=
-ry
-> > > > > noted, that function and the whole secure display feature depend =
-on
-> > > > > debugfs.  It should never be built without CONFIG_DEBUG_FS.  See
-> > > > > drivers/gpu/drm/amd/display/Kconfig:
-> > > > >
-> > > > > > config DRM_AMD_SECURE_DISPLAY
-> > > > > >         bool "Enable secure display support"
-> > > > > >         default n
-> > > > > >         depends on DEBUG_FS
-> > > > > >         depends on DRM_AMD_DC_DCN
-> > > > > >         help
-> > > > > >             Choose this option if you want to
-> > > > > >             support secure display
-> > > > > >
-> > > > > >             This option enables the calculation
-> > > > > >             of crc of specific region via debugfs.
-> > > > > >             Cooperate with specific DMCU FW.
-> > > > >
-> > > > > amdgpu_dm_crtc_late_register is guarded by
-> > > > > CONIG_DRM_AMD_SECURE_DISPLAY.  It's not clear to me how we could =
-hit
-> > > > > this.
-> > > >
-> > > > I think the problem is that you are not looking at the right tree.
-> > > >
-> > > > The kernel test robot reported [1] [2] this error is caused by comm=
-it
-> > > > 4cd79f614b50 ("drm/amd/display: Move connector debugfs to drm"), wh=
-ich
-> > > > is in the drm-misc tree on the drm-misc-next branch. That change re=
-moves
-> > > > the #ifdef around amdgpu_dm_crtc_late_register(), meaning that
-> > > > crtc_debugfs_init() can be called without CONFIG_DRM_AMD_SECURE_DIS=
-PLAY
-> > > > and CONFIG_DEBUG_FS.
-> > > >
-> > > >   $ git show -s --format=3D'%h ("%s")'
-> > > >   abf0ba5a34ea ("drm/bridge: it6505: Add missing CRYPTO_HASH depend=
-ency")
-> > > >
-> > > >   $ make -skj"$(nproc)" ARCH=3Dx86_64 mrproper defconfig
-> > > >
-> > > >   $ scripts/config -d BLK_DEV_IO_TRACE -d DEBUG_FS -e DRM_AMDGPU
-> > > >
-> > > >   $ make -skj"$(nproc)" ARCH=3Dx86_64 olddefconfig drivers/gpu/drm/=
-amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.o
-> > > >   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In f=
-unction =E2=80=98amdgpu_dm_crtc_late_register=E2=80=99:
-> > > >   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6622:=
-9: error: implicit declaration of function =E2=80=98crtc_debugfs_init=E2=80=
-=99; did you mean =E2=80=98amdgpu_debugfs_init=E2=80=99? [-Werror=3Dimplici=
-t-function-declaration]
-> > > >    6622 |         crtc_debugfs_init(crtc);
-> > > >         |         ^~~~~~~~~~~~~~~~~
-> > > >         |         amdgpu_debugfs_init
-> > > >   cc1: all warnings being treated as errors
-> > > >
-> > > > Contrast that with the current top of your tree:
-> > > >
-> > > >   $ git show -s --format=3D'%h ("%s")'
-> > > >   c435f61d0eb3 ("drm/amd/display: Drop unnecessary guard from DC re=
-source")
-> > > >
-> > > >   $ make -skj"$(nproc)" ARCH=3Dx86_64 mrproper defconfig
-> > > >
-> > > >   $ scripts/config -d BLK_DEV_IO_TRACE -d DEBUG_FS -e DRM_AMDGPU
-> > > >
-> > > >   $ make -skj"$(nproc)" ARCH=3Dx86_64 olddefconfig drivers/gpu/drm/=
-amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.o
-> > > >
-> > > >   $ echo $?
-> > > >   0
-> > > >
-> > > > Randy's patch [3] seems like it should resolve the issue just fine =
-but
-> > > > it needs to be applied to drm-misc-next, not the amdgpu tree.
-> > >
-> > > Thanks for tracking this down.  I think something like the attached
-> > > patch is cleaner since the whole thing is only valid for debugfs.
-> >
-> > Makes sense! I tested the below patch with and without DEBUG_FS and saw
-> > no errors.
-> >
-> > > From b0bcacd86344998e0ca757f89c6c4cd3b6298999 Mon Sep 17 00:00:00 200=
-1
-> > > From: Alex Deucher <alexander.deucher@amd.com>
-> > > Date: Wed, 15 Jun 2022 16:40:39 -0400
-> > > Subject: [PATCH] drm/amdgpu/display: fix build when CONFIG_DEBUG_FS i=
-s not set
-> > >
-> > > amdgpu_dm_crtc_late_register is only used when CONFIG_DEBUG_FS
-> > > so make it dependent on that.
-> > >
-> > > Fixes: 4cd79f614b50 ("drm/amd/display: Move connector debugfs to drm"=
-)
-> > > Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> > > Reported-by: Nathan Chancellor <nathan@kernel.org>
-> >
-> > Tested-by: Nathan Chancellor <nathan@kernel.org> # build
-> >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index c9004f7e700d..33cd7a3d4ecb 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -6594,12 +6594,14 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc=
-)
-> > >     return &state->base;
-> > >  }
-> > >
-> > > +#ifdef CONFIG_DEBUG_FS
-> > >  static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
-> > >  {
-> > >     crtc_debugfs_init(crtc);
-> > >
-> > >     return 0;
-> > >  }
-> > > +#endif
-> > >
-> > >  static inline int dm_set_vupdate_irq(struct drm_crtc *crtc, bool ena=
-ble)
-> > >  {
-> > > @@ -6693,7 +6695,9 @@ static const struct drm_crtc_funcs amdgpu_dm_cr=
-tc_funcs =3D {
-> > >     .enable_vblank =3D dm_enable_vblank,
-> > >     .disable_vblank =3D dm_disable_vblank,
-> > >     .get_vblank_timestamp =3D drm_crtc_vblank_helper_get_vblank_times=
-tamp,
-> > > +#if defined(CONFIG_DEBUG_FS)
-> > >     .late_register =3D amdgpu_dm_crtc_late_register,
-> > > +#endif
-> > >  };
-> > >
-> > >  static enum drm_connector_status
->
-> OK, I will apply that patch to the merge of the drm-misc tree from
-> today (until someone actaully applies it to some tree).
+
+> -----Original Message-----
+> From: Yang, Philip <Philip.Yang@amd.com>
+> Sent: Wednesday, June 15, 2022 5:57 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Sider, Graham <Graham.Sider@amd.com>; Yang, Philip
+> <Philip.Yang@amd.com>
+> Subject: [PATCH 1/2] drm/amdkfd: Add queue to MES if it becomes active
+>=20
+> We remove the user queue from MES scheduler to update queue
+> properties.
+> If the queue becomes active after updating, add the user queue to MES
+> scheduler, to be able to handle command packet submission.
+>=20
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index e1797657b04c..67ae5b6385a2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -866,8 +866,10 @@ static int update_queue(struct
+> device_queue_manager *dqm, struct queue *q,
+>  	 * dqm->active_queue_count to determine whether a new runlist
+> must be
+>  	 * uploaded.
+>  	 */
+> -	if (q->properties.is_active && !prev_active) {
+> -		increment_queue_count(dqm, &pdd->qpd, q);
+> +	if (q->properties.is_active) {
+> +		add_queue =3D true;
+> +		if (!prev_active)
+> +			increment_queue_count(dqm, &pdd->qpd, q);
+>  	} else if (!q->properties.is_active && prev_active) {
+>  		decrement_queue_count(dqm, &pdd->qpd, q);
+>  	} else if (q->gws && !q->properties.is_gws) {
 > --
-> Cheers,
-> Stephen Rothwell
+> 2.35.1
