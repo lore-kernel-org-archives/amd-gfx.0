@@ -4,120 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54921C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 14:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 952A6C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 15:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA64112E9E;
-	Thu, 16 Jun 2022 14:49:42 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3B37112E9E
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 14:49:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=du7mS87nyGGTYThJ+LPI+lgQPknE+Nl4ioJMlLKvz+mmNxl4dfg1JfRA/XS6wuDQsuuoIyWDFvcEJrf4Sagl/EiXdvl66dANUkmxPFwGngvQBpHWnQcBapA8k4Fywvsr/VCrMzlsJnCFJUa3o3ESAI+YV+TaZQEGfWElAcVcM7LEJPq/aL0QkelXNl7UqGfGN37lNUrixm7K0/EIkOxx90B1wwDFdOgcl66kcp5ap4mdixcvbju7w2+DvAlX06lpj3/sdCTGCIOdWNnF4q3Oph+4Enp/bFv4yDsuRnkcOd03ZhjFpbOgqCnxozPGRrHRad+fJuer7p5U2EPMaHPItA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7in+Yb+x5nGU9+vYDA98KAyGWjtg5QUZkS6jnONYFPo=;
- b=cY7c6z0P4iobR7Pcmd3vf/3aJtj5EHDSpOpXqRiop/8OzYfbPPT+jkgImL6j2tb1kv942S0y6FpfFbF/PQucXUAaoqeL1dGm6IezFGNNHj8RaXITpx1nOZQDgGgsoxMnd4GvclQ0HnfDRQTwCLY0h94xW24ggZHrPeMtvEUIJVuJVC6z2CJitadAKAbQSLPngm73Q8gQqFWRDVy0WLmkJme77neHoqXjTL3uwhw+AI0wkyt7xofem46b+D2jCJXltkIPDXEbd0q5U1OnKWnShPedQnnTS1fBT0np2nW6I5eI/mUQvQHnp2nqiQ6HYAKyCZP+YpKLPfi75tZgdtNziQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7in+Yb+x5nGU9+vYDA98KAyGWjtg5QUZkS6jnONYFPo=;
- b=r40X6IG/aVuVMdUSEjJySzpQG3Ut3nwRfTv/skGqFF/222eRl1ifGohgEjrf2sPtMiWkGiaqcrfUsb7AHT4Fmt/1eojxaqU4Nf/tqsi8u1CsBmH9zWYU8ZO0Fqe7YeG1jGMpPfcmxY9bF7RsxYkjbWC8n6HvbYZiJe7nrk2yUU8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
- by DS7PR12MB5935.namprd12.prod.outlook.com (2603:10b6:8:7e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Thu, 16 Jun
- 2022 14:49:39 +0000
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::39fa:4943:168f:7629]) by BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::39fa:4943:168f:7629%6]) with mapi id 15.20.5353.014; Thu, 16 Jun 2022
- 14:49:38 +0000
-Message-ID: <a70defa4-6268-406e-ff69-fb5f8aa6989c@amd.com>
-Date: Thu, 16 Jun 2022 10:49:36 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 1/2] drm/amdkfd: Add queue to MES if it becomes active
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org, "Yang, Philip" <Philip.Yang@amd.com>
-References: <20220615215651.14502-1-Philip.Yang@amd.com>
-From: Eric Huang <jinhuieric.huang@amd.com>
-In-Reply-To: <20220615215651.14502-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0192.namprd03.prod.outlook.com
- (2603:10b6:610:e4::17) To BL1PR12MB5336.namprd12.prod.outlook.com
- (2603:10b6:208:314::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FE510E4B6;
+	Thu, 16 Jun 2022 15:04:19 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64070112C40
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 14:39:23 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id n185so887614wmn.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 07:39:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=FEM1Uf5duJRx7g0l0kd4cIvvZ1+75a2y+0Eok25cSmM=;
+ b=O+MTudmHgt+i7rtSY2PXtqsNNlchKEJZaScaV8u7BZR01lV2AQ9m/ghcMlLr8A5J2v
+ 5w0eF0QqkXCbpLEo+f6Gpg2SmHkfwSmPnA8FOxvPptdflh1h31UuSr3FE10sNbXQGM+0
+ NXGiHkrhy8L0q29QulKvfEYSSRWSV0RFSBQMVb9+JrfzWlLUGmpW+ZPo7Mahg2cKsh5/
+ 5PDJCPTFis/5GP9x5JLD5yuYaI6EISEY55YJwyNwHonQoZLXMVeDPrXlS6aq6SDbdxPZ
+ YFf/ufuwMQSEWK980FaRoZntBeu4zN2eirl71xNyHNPqO3Sm5f70stoRnYFOXH0+0jGG
+ EIrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FEM1Uf5duJRx7g0l0kd4cIvvZ1+75a2y+0Eok25cSmM=;
+ b=bF5EYw9nOuD5JUCN3Txhm5Hed8JA2mxY2a6ss9Vlh0s3vjp+7jqR1pXlmqChDbt8sj
+ /0glpUDXhldkLBBoTQUTLHfdjsn77fH5nh8Q9Qrgymcb3DWWp5YPDj26AVBtCYgRJuZV
+ Xyj50Vi9LQpnTETyYpP6RgdVkOkNSbTnHWVi3fsvIf70D1eirKeuom48vsJ8GS28ygzH
+ kD561H9LpuMvyCjuO+oTWoo6CBOfKwfzKnidE6I+yuL3OF2H4dmT4PiMOdcctpqk3Dzy
+ mhFgcASP1gD7s0HCZDtMREscoZswkHPERSyMDB/lRp1fDaS4NVznUBucnwWTnasxAz4L
+ PTQA==
+X-Gm-Message-State: AJIora+DNGMWpPLzH/qK39e6t7odD5XWRx4b88AomZ269LqKwjDcRUSt
+ wQO6YIIQ6gYGIXHjcDKWpc2wrHHj8E6EGK6YsxNhjg==
+X-Google-Smtp-Source: AGRyM1sQqeAEHeE4SPnRemtsjCPjUsThJLHHPx63FK6t+loyl6xOOqwQXqPAqnrX/PYD2sT7CQMZqCp+l9LF2xGMIuQ=
+X-Received: by 2002:a1c:6a16:0:b0:39c:655a:ac2c with SMTP id
+ f22-20020a1c6a16000000b0039c655aac2cmr5492500wmc.66.1655390361741; Thu, 16
+ Jun 2022 07:39:21 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ee689d87-08f6-457a-c7a0-08da4fa77020
-X-MS-TrafficTypeDiagnostic: DS7PR12MB5935:EE_
-X-Microsoft-Antispam-PRVS: <DS7PR12MB59354283A145D9B27DE31FC782AC9@DS7PR12MB5935.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UTar7w3MzRNQfu13P6LGzBiRYymEs+t81by57lpdvi723q6+7pxrof7Ja6KxrUlXGEnsk8bvwip05wvTIshrbZO5ajKnkI6Ta9zmBwHd8s6+S6a6SD9Z1kzW0urm+Z/qpnuq8FQkAP8hlQlPR5Eda797Sz+EFgvqF6zbQfLlVPA4e7Y5LzhOogv0GtfldxIqFnu1dR7NkNkEe0q2WAvtnrw/lNaH+MPtceFDbby5URakNZaMoECVFSz28wO2frmZjDUI3loH97GjUXhB1l0QQ4EuevMjUE16K2aki+zgGh3hxJp/rfoBKgfWatNBW2HAHRIxcHXI3iE2b3SFa7n2rJxZsJoF/ToupXxOL0KPdEL3O5ZkfrBkU8n4/SM9hQBikjqgzVQKdKdTP9ZtROT8pYU7VYtVH0I6rg5xH+q9+0U537I5DbHdKRXchLwoLTDk8msVSGrSY5ZI9CJwZWeZJaBiHRrD6Bl8CsSpGhyd8OOB6mbC1ML73hz6+W9xkdEQ8Xf1lZhhhgYJhSQmI1JcQm1QUCMJ2R7MdSnawlRNeSlyViOJMnlmubdsf6PmF6LrqV7qPwx9AbDiGhTJxlCyCc44lsUMzu2a51l8+SyMgwEWLowFRVuCoWBPMbCSlPjeIBE7gjcPKTJp1hb6VS83AUh448DNO0k+u1tfgiUcWFijw0tiuW/0jKRbPingR+LjoekvfEnlmA99Xc6Tf3VXqOeTfZL5fBrm9mMg6iUu56I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(6862004)(508600001)(6512007)(8936002)(5660300002)(53546011)(6486002)(83380400001)(66476007)(6506007)(8676002)(2906002)(31696002)(2616005)(186003)(66946007)(38100700002)(6636002)(36756003)(316002)(37006003)(66556008)(31686004)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTR1b3Z5NnN0UjdSMmVRVnpKK05GOXg3R3pOVXFiS0FCa01wYjlLNnhERGg3?=
- =?utf-8?B?R3VGZkFVUW9ESXd1UC9WRUhvczVOWEVuTFg3SUMrTW95YldTRFVqSDRqYmxa?=
- =?utf-8?B?a290TCs2d1gySjBMc1ZIamJXYllMUzg0bVA5UHBjdXhTNGFlOERla3kxeE94?=
- =?utf-8?B?SWRnclhGazhNZ20xN1h1aHVuZVAzVnhwUmZiUFZCTFE4cmRKdnkxN0RhZ2pX?=
- =?utf-8?B?dE96cFF5eWlBWmU1N1dwWGpiSDcyRVNuR21ZSU1mNDVqOWZIMFFsZU56d3JW?=
- =?utf-8?B?d0dRa2FMNDBJVzV4aHovd2F3YVNkV1FFSnZYL25WYng4TEdiRHhPWVB0blBn?=
- =?utf-8?B?NllqZ0grUnF6Sk9pVjFzZGtlRHNSQ0F6WjJRZGN1ZTVkYXovOEI0UThzS2FH?=
- =?utf-8?B?Z1pZbVBkNmVsTmFtUnNhVlh6VjNOL2xoU0lDV1R4YU5JYXN1c0pmdVF6NzU5?=
- =?utf-8?B?RjhQMkNmNHV1aEQ5U0VRZ2IzMDgzR1ZuSE1DL0NZSGtJZEp1ZjRLdzYyTlB4?=
- =?utf-8?B?dU84VHRYL21iSHJQcVpGMGtwR2ZnSFhHcUQ5ZEpSRVVzVWttNnAwMS9WQWtq?=
- =?utf-8?B?M05iVWdNS2JZbGJwYXFEZXhxTlgvdGl6U0EvRzFkc1RXZ0Q1UWQ1YmQrd2No?=
- =?utf-8?B?aHJTaUJ0a2JPMGlTaytPSFhFQnhJeWFlWFJYRnlodjBTcWY2ZTgzcWNyQXZj?=
- =?utf-8?B?T0h0NnBpV0tNYm5vVzRhN3l1ZFFnODlOVExPNU03ZE9UM1N2Z0JqU2JZVnkw?=
- =?utf-8?B?U1ZBVVJGaWpmakVnYS8xamh6Tlo5TjZVMEJlc0c4cy9NWTdtMnRnWDRSRm9I?=
- =?utf-8?B?Y3J4cnUwODNPeVp4b3MzL3czK0FIaitUZWQ5UnNsNittR0NNUU12V1dhZ0NZ?=
- =?utf-8?B?bUJSOTNrU3JUYTB4U1kwTGFoZmFHb1dyVDVFUUJxWEd3NkVNV0RKdTBvTzNR?=
- =?utf-8?B?TGYxYThHZmg4bFpReFhTcnp1ZExoQ3h2NUNYQWJZa3A0Y2IyMEhoNFUvK1dK?=
- =?utf-8?B?ZWlvMXhDbHh3OVZuQ0h1S2Y1UGdIYzY2bElvSTRmL0JHTi9ZTWN2ZWhFVkdU?=
- =?utf-8?B?ZUE3cFhMQkZqa0taeVp4dDZLOERIUWRRTlZidnEyTGh2YzMwT0ZaSStNQ0o0?=
- =?utf-8?B?S2ZlWmtqRFA2NHBnQ1hJUlUyNGZmek8rVUhLV3grN2FMMGU1NlgxRFBmV24z?=
- =?utf-8?B?YzJ1NU5vUFVRUHVRVmNwSkY2QkJBQ2ZuQzJKbFBKdk9MbzZpbFU3N0hnS2hS?=
- =?utf-8?B?cWpnWkpjdXdRSDVtdG9kT2RTa1ZlZzFpRS8xUzRTai9uWjlrYUU2MVRhSHFa?=
- =?utf-8?B?cEtUTm02R3htSXVhSnNHdUJEWDVERkRTV1ByRnNITHBiVVY1NHRsV09TbVlR?=
- =?utf-8?B?YzNpckovOGxRUTBGRXp4UmVtbURyQXJvazFXc0FwR1EyRXpFNXRXSGpCWlFW?=
- =?utf-8?B?QXk2R1JIaXlqN3o0a2FRRkVpbWxGVzREVDA0RmZNZG13TUxIbktGZ3JoaEtR?=
- =?utf-8?B?RC9YZGtQbXVpL2N2Ry9kYk9xVzI0VnI1bkV6N1VrOENqRHl5ZGZ6Y0dYQjYv?=
- =?utf-8?B?SDNVN2dlNW9xK0UxUGJYajZydXZEMVdraEdqaTlSLzNMY0RVWlVZUm5sQVRn?=
- =?utf-8?B?bGpKeVR0M2I3SUJReFdmRUsyeE5vWTU2NkRLSDluS1FoTDMxL2w1R1oyd3lT?=
- =?utf-8?B?cC9LTlNzVGF3Qk1mMk5qclJCODlEUmpVVlBOcHhJOUNoRnVGa2htcnhsZWl5?=
- =?utf-8?B?enZZMlNvN3hLU01URjIxbTBaWnk4WXllZ3IycWlRRzQ0eWR2UXF2b1hGN1Qz?=
- =?utf-8?B?cythSW5LcmhLV3BCdytVblR0YU1aV0VmbE1OT0hmdVdsSDFmeXkyeFZ4K0Ur?=
- =?utf-8?B?STdTNWJ1dDdUd29pV1RWMHFOb1MzZmdBQTNyMGdzajBiQmcyM2ZNWFJWbHFV?=
- =?utf-8?B?NWdtUDVucGpjTVB4YTV6bHBmQW1ucEl3K2Jlak9wMTljMzg2UEZKY0lwOXNp?=
- =?utf-8?B?ZWZMSkIzQjVDb25vUi9ZbkpWNHZKVnNKZkxmRnJjNWQ1WVFnTVcxZTkyc1Vm?=
- =?utf-8?B?SE13YUd4aG1iOWRYQmVRQUh0b2hyR2hqN1FyMW9ONGpjdFZDUzlrdkVmMXlv?=
- =?utf-8?B?TEtVOUZiNzJIVE5rRmwxRGpJRHNpRFkyUWdvTU1Ha2xKY2ZRL2FNeVh4SjZQ?=
- =?utf-8?B?K2VrRGRrYi9iNjY3RUhPSGZoV08yV2tPN3BWSHFhR3FKWThWVTYrYS81T0Fx?=
- =?utf-8?B?b1hISGx4YWxmQzl0cnVHUW5rdFRWTXQxdlJJdStrQjYzek8yemIxTDlpdTFp?=
- =?utf-8?B?aXN2cm1RTDZyY2lxWlEwbWFqN0l5Z3dtQnRURDFaUUdkajE2Y2NRSEpoZTEw?=
- =?utf-8?Q?KzQCjBjCBxveJddOoZqWKzugQsnxpCPEHUd5EipWZwV0B?=
-X-MS-Exchange-AntiSpam-MessageData-1: QqYNAHZKUuYuBw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee689d87-08f6-457a-c7a0-08da4fa77020
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2022 14:49:38.8330 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wE+eb5aoQx1KuzoW5rh5TRgs2teEprBWNFRECgpis1AcAy18ZgSPFUTlNFGF3z1ggGYpAYPD6Uh0bYCRNw/8yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5935
+References: <20220608010709.272962-1-maira.canal@usp.br>
+In-Reply-To: <20220608010709.272962-1-maira.canal@usp.br>
+From: David Gow <davidgow@google.com>
+Date: Thu, 16 Jun 2022 22:39:10 +0800
+Message-ID: <CABVgOSmesj5MGfQrtdWCgXzm1VXRoG0fAMCbkBCAvtqediqAjQ@mail.gmail.com>
+Subject: Re: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 16 Jun 2022 15:04:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,39 +64,218 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Harrison Chiu <harrison.chiu@amd.com>, Daniel Latypov <dlatypov@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, dri-devel@lists.freedesktop.org,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
+ Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
+ KUnit Development <kunit-dev@googlegroups.com>,
+ Mark Yacoub <markyacoub@chromium.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Does it break the case of q->gws with q->properties.is_active == true?
-
-Regards,
-Eric
-
-On 2022-06-15 17:56, Philip Yang wrote:
-> We remove the user queue from MES scheduler to update queue properties.
-> If the queue becomes active after updating, add the user queue to MES
-> scheduler, to be able to handle command packet submission.
+On Wed, Jun 8, 2022 at 9:08 AM Ma=C3=ADra Canal <maira.canal@usp.br> wrote:
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
+> This RFC is a preview of the work being developed by Isabella Basso [1],
+> Ma=C3=ADra Canal [2], and Tales Lelo [3], as part of their Google Summer =
+of Code
+> projects [4], and Magali Lemes [5], as part of her capstone project.
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index e1797657b04c..67ae5b6385a2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -866,8 +866,10 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   	 * dqm->active_queue_count to determine whether a new runlist must be
->   	 * uploaded.
->   	 */
-> -	if (q->properties.is_active && !prev_active) {
-> -		increment_queue_count(dqm, &pdd->qpd, q);
-> +	if (q->properties.is_active) {
-> +		add_queue = true;
-> +		if (!prev_active)
-> +			increment_queue_count(dqm, &pdd->qpd, q);
->   	} else if (!q->properties.is_active && prev_active) {
->   		decrement_queue_count(dqm, &pdd->qpd, q);
->   	} else if (q->gws && !q->properties.is_gws) {
+> Our main goal is to bring unit testing to the AMDPGU driver; in particula=
+r,
+> we'll focus on the Display Mode Library (DML) for DCN2.0 and some of the =
+DCE
+> functions. The modern AMD Linux kernel graphics driver is the single larg=
+est
+> driver in the mainline Linux codebase [6]. As AMD releases new GPU models=
+,
+> the size of AMDGPU drivers is only becoming even larger.
+>
+> Assuring the drivers' quality and reliability becomes a complex task with=
+out
+> systematic testing, especially for graphic drivers - which usually involv=
+e
+> tons of complex calculations. Also, keeping bugs away becomes an increasi=
+ngly
+> hard task with the introduction of new code. Moreover, developers might w=
+ant
+> to refactor old code without fear of the introduction of new issues.
+>
+> In that sense, it is possible to argue for the benefits of implementing u=
+nit
+> testing at the AMDGPU drivers. This implementation will help developers t=
+o
+> recognize bugs before they are merged into the mainline and also makes it
+> possible for future code refactors of the AMDGPU driver.
+>
+> When analyzing the AMDGPU driver, a particular part of the driver highlig=
+hts
+> itself as a good candidate for the implementation of unit tests: the Disp=
+lay
+> Mode Library (DML), as it is focused on mathematical operations.
+>
+> For the implementation of the tests, we decided to go with the Kernel Uni=
+t
+> Testing Framework (KUnit). KUnit makes it possible to run test suites on
+> kernel boot or load the tests as a module. It reports all test case resul=
+ts
+> through a TAP (Test Anything Protocol) in the kernel log.
+>
+> Moreover, KUnit unifies the test structure and provides tools to simplify=
+ the
+> testing for developers and CI systems.
+>
+> That said, we developed a little snippet on what we intend to develop in =
+our
+> summer. We planned the basic structure on how the tests will be introduce=
+d
+> into the codebase and, on the concern of the CI systems, developed a stru=
+cture
+> where the unit tests can be introduced as modules and run on IGT (the IGT=
+ patch
+> will be introduced soon).
 
+It's awesome to see this! It's definitely one of the more ambitious
+KUnit test projects out there, and the DML code does seem particularly
+well suited to unit-testings.
+
+> The way the modules are implemented might seem a little unusual for KUnit
+> developers. We need to call the KUnit init function inside the AMDGPU sta=
+ck,
+> otherwise, the test won't compile as a module. So, the solution to this
+> problem was based on the unit tests for the Thunderbolt driver, which use=
+s
+> KUnit and also tests a physical driver.
+>
+> As kunit_test_suites() defines itself as an init_module(), it conflicts w=
+ith
+> the existing one at amdgpu_drv. So, if we use kunit_test_suites(), we won=
+'t
+> be able to compile the tests as modules and, therefore, won't be able to =
+use
+> IGT to run the tests. This problem with kunit_test_suites() was already
+> discussed in the KUnit mailing list, as can be seen in [7].
+
+I'm not sure I fully understand why these tests need to be part of the
+amdgpu module, though admittedly I've not played with IGT much. Would
+it be possible to compile these tests as separate modules, which could
+depend on amdgpu (or maybe include the DML stuff directly), and
+therefore not have this conflict? I definitely was able to get these
+tests working under kunit_tool (albeit as built-ins) by using
+kunit_test_suites(). If each suite were built as a separate module (or
+indeed, even if all the tests were in one module, with one list of
+suites), then it should be possible to avoid the init_module()
+conflict. That'd also make it possible to run these tests without
+actually needing the driver to initialise, which seems like it might
+require actual hardware(?)
+
+There are two other reasons the 'thunderbolt'-style technique is one
+we want to avoid:
+1. It makes it much more difficult to run tests using kunit_tool and
+KUnit-based CI tools: these tests would not run automatically, and if
+they were built-in as-is, they'd need to be
+2. We're planning to improve module support to replace the
+init_module()-based implementation of kunit_test_suites() with one
+which won't have these conflicts, so the need for this should be
+short-lived.
+
+If you're curious, an early version of the improved module support can
+be found here, though it's out-of-date enough it won't apply or work
+as-is:
+https://lore.kernel.org/all/101d12fc9250b7a445ff50a9e7a25cd74d0e16eb.camel@=
+codeconstruct.com.au/
+
+Now, that's unlikely to be ready very soon, but I'd be hesitant to
+implement too extensive a system for avoiding kunit_test_suites()
+given at some point it should work and we'll need to migrate back to
+it.
+
+At the very least, having the dependency on KUNIT=3Dm is a very bad
+idea: it should be possible to have tests built as modules, even if
+KUnit itself isn't, and ideally (even if this sort-of implementation
+is required), it _should_ be possible to have these tests be built-in
+if all their dependencies (KUnit, amdgpu) are, which would make it
+possible to run the tests without a userland.
+
+That being said, I've got basically no knowledge of amdgpu (or even
+drm in general), so there could be something I'm missing.
+
+>
+> The first patch configures the basic structure of the KUnit Tests, settin=
+g the
+> proper Makefile, Kconfig, and init function. It also contains a simple te=
+st
+> involving DML logging, which is the pretext for building the testing stru=
+cture.
+>
+> The second patch adds KUnit tests to bw_fixed functions. This patch repre=
+sents
+> what we intend to do on the rest of the DML modules: systematic testing o=
+f the
+> public functions of the DML, especially mathematically complicated functi=
+ons.
+> Also, it shows how simple it is to add new tests to the DML with the stru=
+cture
+> we built.
+>
+> Any feedback or ideas for the project are welcome!
+>
+Looks great to me so far: I'll try to get a more detailed review in soon.
+
+Cheers,
+-- David
+
+> [1] https://crosscat.me
+> [2] https://mairacanal.github.io
+> [3] https://tales-aparecida.github.io/
+> [4] https://summerofcode.withgoogle.com/programs/2022/organizations/xorg-=
+foundation
+> [5] https://magalilemes.github.io/
+> [6] https://www.phoronix.com/scan.php?page=3Dnews_item&px=3DAMDGPU-Closin=
+g-4-Million
+> [7] https://groups.google.com/g/kunit-dev/c/hbJbh8L37FU/m/EmszZE9qBAAJ
+>
+> - Isabella Basso, Magali Lemes, Ma=C3=ADra Canal, and Tales Lelo
+>
+> Magali Lemes (1):
+>   drm/amd/display: Introduce KUnit tests to the bw_fixed library
+>
+> Ma=C3=ADra Canal (2):
+>   drm/amd/display: Introduce KUnit to DML
+>   drm/amd/display: Move bw_fixed macros to header file
+>
+>  drivers/gpu/drm/amd/display/Kconfig           |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   5 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+>  .../drm/amd/display/amdgpu_dm/tests/Kconfig   |  41 +++
+>  .../drm/amd/display/amdgpu_dm/tests/Makefile  |  18 +
+>  .../amdgpu_dm/tests/calcs/bw_fixed_test.c     | 322 ++++++++++++++++++
+>  .../amdgpu_dm/tests/display_mode_lib_test.c   |  83 +++++
+>  .../amd/display/amdgpu_dm/tests/dml_test.c    |  26 ++
+>  .../amd/display/amdgpu_dm/tests/dml_test.h    |  21 ++
+>  .../drm/amd/display/dc/dml/calcs/bw_fixed.c   |  14 +-
+>  drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h |  14 +
+>  12 files changed, 538 insertions(+), 13 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Kconfig
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/calcs/bw_=
+fixed_test.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/display_m=
+ode_lib_test.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.=
+c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/dml_test.=
+h
+>
+> --
+> 2.36.1
+>
