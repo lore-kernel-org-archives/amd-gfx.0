@@ -4,91 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF8EC43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:56:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC1B9CCA479
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 20:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25DF10FB66;
-	Fri, 17 Jun 2022 19:56:24 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5198110F702
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:56:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=itjAZ0RhDCtCncNS87P/9G32RHyut5OuDIBgcHauP4IgkRBsGisy5mqUKgrOw44hnvzB9p6xarG497GR0MMViYx3/OATXl5hy7PsbqPgH8RTa93qwwIH7Q5raeNJVEqa/cr6EOqyZ4RGIwOQW1+CHQfDPdjRLFUGDw6zK70u9EZ/TuLOofgM/21nGbHM3/8qWK2rTKts5/jhfe0ADJTPT7uiDgDffeYk+eamFUPm+5sCjx86oodpccOynJLmYw/2sTeiqW/wOJmxh2jMz/XgZgij1UKJEe8QVTjX32LjOgcBCPmPLprmfabtHUcEOhj1Q7gGgbyYrKUVktQxczNG/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AeyMuJ2ehFw//Nh1/vW227UaCaN/xy0gia81Eg5Iw34=;
- b=hOtXSKRgDt5dKrZwC2oKuzg7/IYn58vK9xgwnXgTGOjy+IKYQoW9KUudb8XIxBJM0KSuUTsO9l4YMyY49dfD7Svr1a4zchM7XNKno1fNeUJQaOmokhVbP1oOHs5SLViYmLhzPGsJMVW8+7TWkwhfh5MXTo+NOLa2lYhkkgttX2EvmtzdaIolMcdFOcfCMNXZHkde9mYPTCxIpapVo7ei3bgKClXJLHHtS0fgFUHBAiNrTSE6HNYtS9y6NF7/mi16Eg9OUk65cGvm7n7nRzLafTSEjNdIrQxsPRf4F30qbcZhHNO/DUxt/vi6UTAhFqvTmQCcrN6j4cBUDDhkZo+erg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AeyMuJ2ehFw//Nh1/vW227UaCaN/xy0gia81Eg5Iw34=;
- b=fMTkcfVPolkY8XMEfopPM5220ecuQkVU7VxJafjjl6/UHy/9vQ7/Wv+bZZzxrXnAKnm1dv0dArKoP65TuKnAwxv8ifEUgCEn9CDLLOIrjb4cwkbBKsbgip0BAAYbqjOm556toY4xi5saeWc1k+uYkLbRy8yn1TBZIDE+2c1vHEw=
-Received: from MWHPR18CA0049.namprd18.prod.outlook.com (2603:10b6:300:39::11)
- by BY5PR12MB4966.namprd12.prod.outlook.com (2603:10b6:a03:1da::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16; Fri, 17 Jun
- 2022 19:56:21 +0000
-Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:39:cafe::a5) by MWHPR18CA0049.outlook.office365.com
- (2603:10b6:300:39::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.17 via Frontend
- Transport; Fri, 17 Jun 2022 19:56:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:56:21 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:56:20 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/2] drm/amdkfd: Free queue after unmap queue success
-Date: Fri, 17 Jun 2022 15:55:28 -0400
-Message-ID: <20220617195528.20894-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220617195528.20894-1-Philip.Yang@amd.com>
-References: <20220617195528.20894-1-Philip.Yang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268E010E1A5;
+	Fri, 17 Jun 2022 20:24:26 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0203610E110
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 20:24:23 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id u9so6623783oiv.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 13:24:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=fcyBDhbFJN4+s7r8qDu1ovBGv1GC9A7K0M1THsn/P8Q=;
+ b=n4PmpOC+N/jHZEmfGQL9xYmBgHryKzlPUmYtHPaFkWsniNbtEufmwCG+/YGorhDa4s
+ 2Cc015oegJdtWODoip3aQXyhtbUsNUPRBvi89uy8W8q3wFspZk3Mj9Aok6L+Y46Hwqjw
+ sugQD7Uh/gEXmm/4t5kH1nfciDSixqV3LvrFUZAP+sJ7K8DwMjCPzn7Cp3LOA29x1jEw
+ qbsA5n7Jy8DzMlP1SW/huK5opn+IisR0Lru83ui+5VpptMTlr/aRdHC4inwIP89s/Etj
+ wg3i1bpdLZ5LoMUYJTgg/T8eaBLArpTmeQxKe1BdiQpS3PyZ6NeC1YiayTYHjtj9H4eN
+ 6Iaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=fcyBDhbFJN4+s7r8qDu1ovBGv1GC9A7K0M1THsn/P8Q=;
+ b=uLhrjMqnBc5Jrj3xlyiLqOy9dZ4LmaVLRtXtHezDTtLmaFBesSjFrPDlFMSDWdUywN
+ 0QJ/EHrDkYrEFnO0xkQ3QuicNmYrrcD9S/sZC6//vqjkt0lS5RAGp/UFzqxdgAwwSCUL
+ 9k9w+eMiBl75VsmtzrzH/7Hr8WNyQP5WAXbE5l/UHvZajK2AiqkX8O3Pb+q5u+h3AWB2
+ gW9dz4aaH9CrkRIaMNAU0eSAOlfVo9gE2qBw/RUpOfFx+yhrZ9WmbLxqk0PrTMnDgkRO
+ bNdJT9A2CCnlCKf/fBlgEaH9sW5IJqzWvCFFN34kzcXqIakvnXEOQOuLTmNmCXIeRWm0
+ ugqw==
+X-Gm-Message-State: AOAM530kiq/erU6q9ZDERQZKBSR9V1k6yVRXvscPCHeiKeamWA4nKfk2
+ I0ktrcISPlnjNUTzon1blG2s0A==
+X-Google-Smtp-Source: ABdhPJwMClEFYUjCawbxuTxVD3teFqaqToNmT4i3fcIhUXBBB6+yn28S/VG+gt2wWwWCUeHsJasskA==
+X-Received: by 2002:a05:6808:1202:b0:322:dc37:2c3b with SMTP id
+ a2-20020a056808120200b00322dc372c3bmr11470790oil.298.1655497462750; 
+ Fri, 17 Jun 2022 13:24:22 -0700 (PDT)
+Received: from ?IPV6:2804:14d:8084:84c6:fe26:c42d:aab9:fa8a?
+ ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
+ by smtp.gmail.com with ESMTPSA id
+ m1-20020a4a3901000000b0041bcf7c8414sm3102325ooa.48.2022.06.17.13.24.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jun 2022 13:24:22 -0700 (PDT)
+Message-ID: <44745ed7-18ad-ad7c-fef5-2f0f71d289d1@usp.br>
+Date: Fri, 17 Jun 2022 17:24:14 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
+Content-Language: en-US
+To: David Gow <davidgow@google.com>
+References: <20220608010709.272962-1-maira.canal@usp.br>
+ <CABVgOSmesj5MGfQrtdWCgXzm1VXRoG0fAMCbkBCAvtqediqAjQ@mail.gmail.com>
+ <8b040fb2-7edd-6fd1-864e-ee04115c5b1d@usp.br>
+ <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
+In-Reply-To: <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7de0c09a-66fc-46ef-7545-08da509b73b6
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4966:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB49661377C8FCD9CCE74AF64BE6AF9@BY5PR12MB4966.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZyrKst5ObDOnXoo0UehshQhShWKbwfeN3H67eBNEAXdaUTSIn32NLP7Jt0FIWfznzdObAGLVZm84Ums7nXx7SaBJwcFS4uzYYlp/KQyumvkGqiLvYuat1TfUpZsJAgiZazvdV5AtUmhSyVqkyCXCL54TWL71ZMikTtvxHMSrcKOZ4oTAQ4lCvutYntRw29czjs5I+PoOnwOAW4qKJdpKW+Q5t3ISGplTTbvCrXTL5B32/8akmWLkK/Sswf+DiN/Tj5PRqDVMA6gj86kPHxWDVHWtVRocBnE0FoFRThvW+7U9C8m+PxbyvTrcdDqfPttc4tmMjdtBAYDRXkHHn/5FuFHl/9X2kI+WWmXG4WyejcrgHcfCGyEI6qeofozmHFOKWy9SlpZt/6YoekWmWgKjxYQqBVmsRUjVgxlkUAm1vzC3d0o4ZuAvGX+PnUKrRJKpTNusrRllcSoQsGpd3dcNCEwvtkCxpFK+uoEd8a/+szigVGDW4kNVAHotmNuLehULGBJMPggTgWYw5ViwHyv0Wb7Tbdx9AhpT6q20f81RWV2meXHNfuXcrY67YlYDV38Pn9Cg5Y6ORVAEgeH3Jvpw9kZ9e3eYUQ7ZYGqbZrnvn3Zr6v6u1rpBePZS90Xa0OI3CNgDGR2Jmq2gVhUb0H3xtmEMGM9LMVGbAKEy1odjGox6Kx3VydXffD4nyA/gb0SMacEIw9QtbPDW8DW6wsMDDw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(16526019)(40460700003)(5660300002)(498600001)(8936002)(70586007)(336012)(2906002)(81166007)(356005)(2616005)(1076003)(186003)(6916009)(26005)(316002)(54906003)(8676002)(70206006)(4326008)(82310400005)(83380400001)(36860700001)(47076005)(426003)(86362001)(36756003)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:56:21.5962 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7de0c09a-66fc-46ef-7545-08da509b73b6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4966
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,124 +76,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Graham.Sider@amd.com
+Cc: Harrison Chiu <harrison.chiu@amd.com>, Daniel Latypov <dlatypov@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, dri-devel@lists.freedesktop.org,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
+ Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
+ KUnit Development <kunit-dev@googlegroups.com>,
+ Mark Yacoub <markyacoub@chromium.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After queue unmap or remove from MES successfully, free queue sysfs
-entries, doorbell and remove from queue list. Otherwise, application may
-destroy queue again, cause below kernel warning or crash backtrace.
+On 6/17/22 04:55, David Gow wrote:
+> On Fri, Jun 17, 2022 at 6:41 AM Maíra Canal <maira.canal@usp.br> wrote:
+>>
+>> Hi David,
+>>
+>> Thank you for your feedback!
+>>
+>> On 6/16/22 11:39, David Gow wrote:
+>>> On Wed, Jun 8, 2022 at 9:08 AM Maíra Canal <maira.canal@usp.br> wrote:
+>>
+>>>>
+>>>> As kunit_test_suites() defines itself as an init_module(), it conflicts with
+>>>> the existing one at amdgpu_drv. So, if we use kunit_test_suites(), we won't
+>>>> be able to compile the tests as modules and, therefore, won't be able to use
+>>>> IGT to run the tests. This problem with kunit_test_suites() was already
+>>>> discussed in the KUnit mailing list, as can be seen in [7].
+>>>
+>>> I'm not sure I fully understand why these tests need to be part of the
+>>> amdgpu module, though admittedly I've not played with IGT much. Would
+>>> it be possible to compile these tests as separate modules, which could
+>>> depend on amdgpu (or maybe include the DML stuff directly), and
+>>> therefore not have this conflict? I definitely was able to get these
+>>> tests working under kunit_tool (albeit as built-ins) by using
+>>> kunit_test_suites(). If each suite were built as a separate module (or
+>>> indeed, even if all the tests were in one module, with one list of
+>>> suites), then it should be possible to avoid the init_module()
+>>> conflict. That'd also make it possible to run these tests without
+>>> actually needing the driver to initialise, which seems like it might
+>>> require actual hardware(?)
+>>
+>> Initially, we tried the kunit_test_suites() approach. And it did work pretty well for the kunit_tool (although we didn't test any hardware-specific unit test). But when compiling the test as a module, we would get a linking error, pointing out multiple definitions of 'init_module'/'cleanup_module' at kunit_test_suites().
+>>
+>> At this point, we thought about a couple of options to resolve this problem:
+>> - Add EXPORT_SYMBOL to the functions we would test. But, this doesn't scale pretty well, because it would pollute AMDGPU code as the tests expand.
+>> - Take the Thunderbolt path and add the tests to the driver stack.
+>>
+>> We end up taking the Thunderbolt path as it would be more maintainable.
+>>
+>> Compiling the tests as a module is essential to make the tests run at IGT, as IGT essentially loads the module, runs it, and parses the output (a very very simplified explanation of what IGT does). IGT is a very known tool for DRI developers, so we believe that IGT support is crucial for this project.
+>>
+>> If you have any other options on how to make the module compilation viable without using the 'thunderbolt'-style, we would be glad to hear your suggestions.
+> 
+> As you point out, there are really two separate problems with
+> splitting the tests out totally:
+> - It's ugly and pollutes the symbol namespace to have EXPORT_SYMBOL()
+> everywhere.
+> - It's impossible to have multiple init_module() "calls" in the same module.
+> 
+> The first of these is, I think, the harder to solve generally. (There
+> are some ways to mitigate the namespace pollution part of it by either
+> hiding the EXPORT_SYMBOL() directives behind #ifdef CONFIG_KUNIT or
+> similar, or by using symbol namespaces:
+> https://www.kernel.org/doc/html/latest/core-api/symbol-namespaces.html
+> -- or both -- but they don't solve the issue entirely.)
+> 
+> That being said, it's as much a matter of taste as anything, so if
+> keeping things in the amdgpu module works well, don't let me stop you.
+> Either way should work, and have their own advantages and
+> disadvantages.
+> 
+> The latter is just a quirk of the current KUnit implementation of
+> kunit_test_suites(). This multiple-definition issue will go away in
+> the not-too-distant future.
+> 
+> So my suggestion here would be to make sure any changes you make to
+> work around the issue with multiple init_module definitions are easy
+> to remove. I suspect you could probably significantly simplify the
+> whole dml_test.{c,h} bit to just directly export the kunit_suites and
+> maybe throw them all in one array to pass to
+> __kunit_test_suites_init(). Then, when the improved modules work
+> lands, they could be deleted entirely and replaced with one or more
+> calls to kunit_test_suite().
+> 
+>>>
+>>> There are two other reasons the 'thunderbolt'-style technique is one
+>>> we want to avoid:
+>>> 1. It makes it much more difficult to run tests using kunit_tool and
+>>> KUnit-based CI tools: these tests would not run automatically, and if
+>>> they were built-in as-is, they'd need to be
+>>> 2. We're planning to improve module support to replace the
+>>> init_module()-based implementation of kunit_test_suites() with one
+>>> which won't have these conflicts, so the need for this should be
+>>> short-lived.
+>>>
+>>> If you're curious, an early version of the improved module support can
+>>> be found here, though it's out-of-date enough it won't apply or work
+>>> as-is:
+>>> https://lore.kernel.org/all/101d12fc9250b7a445ff50a9e7a25cd74d0e16eb.camel@codeconstruct.com.au/
+>>>
+>>> Now, that's unlikely to be ready very soon, but I'd be hesitant to
+>>> implement too extensive a system for avoiding kunit_test_suites()
+>>> given at some point it should work and we'll need to migrate back to
+>>> it.
+>>
+>> We hope to see in the near future the improved module support from KUnit as it would make the addition of tests much more simple and clean.
+>>
+>> Could you explain more about what is missing to make this improved module support come upstream?
+>>
+> 
+> Mostly just time and some other priorities. We've taken another look
+> at it over the last couple of days, and will try to accelerate getting
+> it in within the next couple of kernel releases. (Hopefully sooner
+> rather than later.)
+Is there anything we can do to make this move faster? As it is our great
+interest to make this work in KUnit, maybe I, Isabella, Tales, or Magali
+can start work on this feature. We don´t have much knowledge of the
+inner workings of KUnit, but if you point out a path, we can try to work
+on this task.
 
-For outstanding queues, either application forget to destroy or failed
-to destroy, kfd_process_notifier_release will remove queue sysfs
-entries, kfd_process_wq_release will free queue doorbell.
+Maybe, could we work in the same way as Jeremy?
+> 
+> Cheers,
+> -- David
 
-v2: decrement_queue_count for MES queue
-
- refcount_t: underflow; use-after-free.
- WARNING: CPU: 7 PID: 3053 at lib/refcount.c:28
-  Call Trace:
-   kobject_put+0xd6/0x1a0
-   kfd_procfs_del_queue+0x27/0x30 [amdgpu]
-   pqm_destroy_queue+0xeb/0x240 [amdgpu]
-   kfd_ioctl_destroy_queue+0x32/0x70 [amdgpu]
-   kfd_ioctl+0x27d/0x500 [amdgpu]
-   do_syscall_64+0x35/0x80
-
- WARNING: CPU: 2 PID: 3053 at drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:400
-  Call Trace:
-   deallocate_doorbell.isra.0+0x39/0x40 [amdgpu]
-   destroy_queue_cpsch+0xb3/0x270 [amdgpu]
-   pqm_destroy_queue+0x108/0x240 [amdgpu]
-   kfd_ioctl_destroy_queue+0x32/0x70 [amdgpu]
-   kfd_ioctl+0x27d/0x500 [amdgpu]
-
- general protection fault, probably for non-canonical address
-0xdead000000000108:
- Call Trace:
-  pqm_destroy_queue+0xf0/0x200 [amdgpu]
-  kfd_ioctl_destroy_queue+0x2f/0x60 [amdgpu]
-  kfd_ioctl+0x19b/0x600 [amdgpu]
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 28 +++++++++++--------
- .../amd/amdkfd/kfd_process_queue_manager.c    |  2 +-
- 2 files changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 21aeb05b17db..213246a5b4e4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1872,6 +1872,22 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 
- 	}
- 
-+	if (q->properties.is_active) {
-+		if (!dqm->dev->shared_resources.enable_mes) {
-+			retval = execute_queues_cpsch(dqm,
-+						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
-+			if (retval == -ETIME)
-+				qpd->reset_wavefronts = true;
-+		} else {
-+			retval = remove_queue_mes(dqm, q, qpd);
-+		}
-+
-+		if (retval)
-+			goto failed_unmap_queue;
-+
-+		decrement_queue_count(dqm, qpd, q);
-+	}
-+
- 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 			q->properties.type)];
- 
-@@ -1885,17 +1901,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 
- 	list_del(&q->list);
- 	qpd->queue_count--;
--	if (q->properties.is_active) {
--		if (!dqm->dev->shared_resources.enable_mes) {
--			decrement_queue_count(dqm, qpd, q);
--			retval = execute_queues_cpsch(dqm,
--						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
--			if (retval == -ETIME)
--				qpd->reset_wavefronts = true;
--		} else {
--			retval = remove_queue_mes(dqm, q, qpd);
--		}
--	}
- 
- 	/*
- 	 * Unconditionally decrement this counter, regardless of the queue's
-@@ -1912,6 +1917,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 
- 	return retval;
- 
-+failed_unmap_queue:
- failed_try_destroy_debugged_queue:
- 
- 	dqm_unlock(dqm);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index dc00484ff484..99f2a6412201 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -419,7 +419,6 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 	}
- 
- 	if (pqn->q) {
--		kfd_procfs_del_queue(pqn->q);
- 		dqm = pqn->q->device->dqm;
- 		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
- 		if (retval) {
-@@ -439,6 +438,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 		if (dev->shared_resources.enable_mes)
- 			amdgpu_amdkfd_free_gtt_mem(dev->adev,
- 						   pqn->q->gang_ctx_bo);
-+		kfd_procfs_del_queue(pqn->q);
- 		uninit_queue(pqn->q);
- 	}
- 
--- 
-2.35.1
-
+- Maíra Canal
