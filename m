@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06898C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 477B5C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:35:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4E5B10F28F;
-	Fri, 17 Jun 2022 19:35:40 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2041.outbound.protection.outlook.com [40.107.96.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9909510F28F
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:35:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5B10F2B8;
+	Fri, 17 Jun 2022 19:35:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D02510F2A4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:35:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XqkvHJtuz3pAV04OceGTS9Y26evLTUjDOixSRaHRP8Zj7lIerFBLxoogAvIT0jCkrCqKkUWRhMGsvYAXto3faq6CTvDzFro2pep8SfB7/df8p0BqoDOi1jOtDfJgWsK80ayb7hvlkbvFKEpOTMjXHZ7a73LTdmkrPml2HUItspihW2Ej+cNf/Pe1J5HQLKkeNsx5a0QSQHvoq0OYT58riypBqljjzBb++Z59USWZcWptuXG7gUZUH5cKTqUmpJeMkKrjGyR73SqJeR8jry2BIzeQhx4rDwcUrYYtGhqBJ5fgKw6T8LUI3cPi3pVp/889SML5/B6lUCPE75azRo7hLg==
+ b=eqxhcNzU03ehvANqCeYKDymX3w9XiH5lhX2FI1LKJyiM/g/mBLMAKq4Aji9USG27QmXQAcfcgJ34hryl5feCKWn+60XMpo7mFldsA759TwJ7MG7+9UwG/RRyz6Ls/9MFKNIPz5HiB3rI55HTlb4rAi4/bqe2ofRV5etirJ4ME0wL8v3Qt25RH+olvjU7/kS06Xkz72n42thU5pTADxNvAV12as1G05+2FlZ6UnxquqP735w6yu1BDW3Imp+e7oK0CzQ17zRv0NIiXI/Ir1L8Lk+fWjBAiEdMY5dagzet4ll3AfkkPE12t6U3zO8N4RtGPeT3qktTy7waKT5pflnUiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zgrZFPxpQjOuYMJhfyhSDR8hGORSCzzJeG0mybJz224=;
- b=WkhkwBUPIZ3H5BriC9672Rgx2dGJFnDEIiEN8YExJfn1sDA6OID6yvlGqXmPbRCY2Pd16pbCVrFwFVR0DSfJC9fo7iJbLXqQwMK5hsXKxmrMaunsmxddfImL4F7mNz2Nq3LoJ8JeJI6q+A6KgYAH/TMYHgna4PlZrP5CEUlkdCHPCuHxtg0tO3f1MSPJBEsUjV4Z08PP6z3EyMC4LIrV6mqUePGrR04sojY179hd425fAYLP/tHbhS7sXN8BUXP9xiEiSxfuJkU0nXrYreYvcyGo3IU2dOvqRWMfv2JRb6esxuttUNuYXSb0/GAZ7MxQEjSGsTD+r5l0Qx7U7959VQ==
+ bh=GxGyUDMW0Zj4hDE41l/mf0OYePEswv426j4TaGPDEK8=;
+ b=XxmdKm/NrJyO8yv1YLIzDlG9cMty7JmETcW65dbMwmxANs/lSt7ENYpFEYdfV7BfU90qaTZDbVWkDHT+51djzUoMhf6MdkSSbIKNPVtoZiML6Jac0UyGviYehM273vA1rRJXrM2ljqXzdedse0+ndbQMjwADGSusAcbvnhd+P6sAlMH8GWswoIe042Us44y4dlCSow1IoymwCvirImVVZSz4oioNMcxS2yY+gy2Xo/lO4wTz4JZKzoqbOAXoPtNJZpE86wax8maUyc9BkY6z2BWUNqpVZXqnzvSjIHm2ipvZm0ycMHyCGR+giMEOo1RjWP8JC7F552RJJrAcaM2O5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zgrZFPxpQjOuYMJhfyhSDR8hGORSCzzJeG0mybJz224=;
- b=ZgKqrk3F84KKG0bRgqnm3WMGBHCDMVKWY/WM62cY/9w6iexnQ0yhNpgBbcglUsIuhz1Vu7X8l5aFcnS1FuaYQwfkjoeE4SWHgffGOIESFvzrt0zK7Wz+DJpp150JRrDApth1sxpC9aBHoEDj+lxd8xyyHJ2d/ujhRbHALtbHLek=
-Received: from BN6PR14CA0034.namprd14.prod.outlook.com (2603:10b6:404:13f::20)
- by BN9PR12MB5052.namprd12.prod.outlook.com (2603:10b6:408:135::19)
+ bh=GxGyUDMW0Zj4hDE41l/mf0OYePEswv426j4TaGPDEK8=;
+ b=1th1vo7V4uXRaglwJ7pkFPaohKvXf1tQ5MDfR4i0/H3m3yKO3yogeybIsJIsBn+czO0tTj3NnyycIpFlD0dJGlSQ2cj9LqZ36hBFvD4Af0fL1liMmuQSjTO6+9sHQzEVtdyoDrJyxz3rbmCYfguHUtF68fDVxlYvscMrbmf470E=
+Received: from BN6PR14CA0036.namprd14.prod.outlook.com (2603:10b6:404:13f::22)
+ by BL0PR12MB2578.namprd12.prod.outlook.com (2603:10b6:207:49::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Fri, 17 Jun
- 2022 19:35:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.14; Fri, 17 Jun
+ 2022 19:35:39 +0000
 Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:13f:cafe::92) by BN6PR14CA0034.outlook.office365.com
- (2603:10b6:404:13f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
- Transport; Fri, 17 Jun 2022 19:35:36 +0000
+ (2603:10b6:404:13f:cafe::c0) by BN6PR14CA0036.outlook.office365.com
+ (2603:10b6:404:13f::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16 via Frontend
+ Transport; Fri, 17 Jun 2022 19:35:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:35:36 +0000
+ 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:35:39 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:35:35 -0500
+ 2022 14:35:38 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/31] DC Patches June 17, 2022
-Date: Fri, 17 Jun 2022 15:34:41 -0400
-Message-ID: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 03/31] drm/amd/display: Revert "drm/amd/display: turn DPMS off
+ on connector unplug"
+Date: Fri, 17 Jun 2022 15:34:44 -0400
+Message-ID: <20220617193512.3471076-4-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
+References: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d364999a-88b2-4590-dfdf-08da50988d8a
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5052:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB505255CE5D94F17C38D45B1E98AF9@BN9PR12MB5052.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: e141f096-6980-48a5-fcd2-08da50988f56
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2578:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2578A786545259017C8DE8C198AF9@BL0PR12MB2578.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: c4LBFmQQeERteZoCe7cei5qhQUWJMmEgTvQvpXj07fix14RpspoZs3njm0jrg2geb2wlGM2miM3rPJKQW21oo6e3fH8MCVWlJq7M8rORKHRLCHH6V2vj2U9YWTk/ln19DZnGKT1TmOiVi846cfYVM/joYILjNACqHQHBUjVs6hIh5pWmvFc+f2OkFCVJ/4c8hUD6HCGEIIiVf2YCG5ADdzZ51xdtsMW9Br9b1k+bL2BlejmPrdMhClRHfU1rAwMtuJV+LYQwWAGLWmUkjAKWrjDc+YJqLBi5Em08Vpfn0ZaH7r1xfuLYfnAboYfkai+nfUF/pozgVbMhNsuKvCCloWH+acIf3l3+t5cMxz/wOpisdJf/l+PhuxQ6CrFt8Ouy/04Y0832jL+wN7K+z/vtvvAHLuOqZcvfJVaq8tVyPNiqT73XuhnA+b+aefv8wK/RyKrIhhbobeMtNBeSqWSulJj51isMZb2Sr+deqsueQOmxRmFXw6573MOIUrg3xh7zRv0QeheLhwguuV7f/fcStb2l145vzTv1xSBNppu9Ou1knmsmw88JaJpnV9zVYSoEiNS/4WeF8kdzvPM/fcAnc3+I2kQBsorvKt02oq4rb13I3dx1XUX+79IPzPCKMGTgbFBHmyu4Sa3MzRq8ggwkSv8oB4KJ0wXi5/7jfxEoFQ04xz+/HnUqTJAJeI5GFCM4ImlFBmgLUlA0U/3/mvCOxw==
+X-Microsoft-Antispam-Message-Info: ZPK3PWP7zdERkpXb0SIw2R6WDYT5nws1SEhCkCwWZThT55Av32DzNYWW3ITHqKIkntkoNY/NdvJ8bfhav7FjE/IJ9DN44oeOQJ4Flnc2UtM4+aDxpgMmcjzT5zY3DO+pFvQAYQPcgw2kbQBfDEyZoOawltdwZm7IstmMlFf6FBBEps8hqtXOVT14QDa2wM7zHiHhzt1rPRpTeFuNJnMJSb11EZ9Xyo5wksphA3VJ9LJRL+sEVn5orEcnDKd0jekbYclALD1W4rJMYuzyUjsu0CtD41Hpm/IyfyMK27C2qkjrdupVvMMHGyDY67w/SKtRh6XGrUr1stY8AFz78cXaOL2Efxtxbhvyzac+CKtmve4DheqRO2QZU1Xmou45kg4tSCfnkOPR8YSEWHjnyIu41FiYxU+JuihqWvuDV2dNXBzqOphbHpBv05/j6akmt/gqkND3Mz/qIWH/Lce+RL5nv3UyUv5zIhch/b1KAwbRNcIDL2L/ONik+reLLmGet/0m7MGrUeaV+QuMU0q7dRyi0p2IUwZ15HGbE0fQ1SjPe3mysjxVcOnfqiqjUnybrIGvXftJyPkGIt6VkR1abPdLtp4nTkLkz0+3Z2DF+R/jZSIZJnyyfCXFxd1HQMAt3Axrn6yhr2vfG0tOITLaxcaEwvUGuXnEaTdFRDznxNSziyNgs4eWs8+FV7oevZDUJMp3jPGEfGptagqrqwWhw14vzw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(2616005)(2906002)(26005)(7696005)(6666004)(186003)(40460700003)(83380400001)(426003)(336012)(47076005)(8936002)(1076003)(5660300002)(86362001)(16526019)(36860700001)(498600001)(6916009)(356005)(70206006)(36756003)(54906003)(316002)(81166007)(82310400005)(70586007)(8676002)(4326008)(36900700001);
+ SFS:(13230016)(4636009)(40470700004)(36840700001)(46966006)(336012)(54906003)(36756003)(1076003)(426003)(8676002)(83380400001)(186003)(36860700001)(81166007)(70206006)(4326008)(316002)(47076005)(86362001)(16526019)(6916009)(70586007)(5660300002)(40460700003)(498600001)(6666004)(356005)(2906002)(2616005)(26005)(8936002)(7696005)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:35:36.5661 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d364999a-88b2-4590-dfdf-08da50988d8a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:35:39.5815 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e141f096-6980-48a5-fcd2-08da50988f56
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5052
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2578
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,119 +104,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
  solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hamza.mahfooz@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ hamza.mahfooz@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we
-have:
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-- Remove unnecessary code;
-- Small fixes (compilation warnings, typos, etc);
-- Improvements in the DPMS code;
-- Fix eDP issues;
-- Improvements in the MST code.
+This reverts commit 3c4d55c9b9becedd8d31a7c96783a364533713ab.
 
-Thanks
-Siqueira
+Revert the commit because:
+- It's incomplete of the function dm_set_dpms_off() for mst case.  For
+  stream sinks whithin the same mst topology, they share the same dc_link.
+  dm_set_dpms_off() tries to update one mst stream only which is
+  incomplete.
+- Setting dpms off should be triggered by usermode. Besdies, it seems
+  usermode does release relevant resource for mst & non-mst case when
+  unplug connecotr now.
 
-Alvin Lee (2):
-  drm/amd/display: Update DPPCLK programming sequence
-  drm/amd/display: Update SW state correctly for FCLK
+Reviewed-by: Aurabindo Jayamohanan Pillai <Aurabindo.Pillai@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Acked-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 -------------------
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 13 --------
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  1 -
+ 3 files changed, 45 deletions(-)
 
-Aric Cyr (2):
-  drm/amd/display: Change initializer to single brace
-  drm/amd/display: 3.2.191
-
-Chaitanya Dhere (1):
-  drm/amd/display: Implement a pme workaround function
-
-Cruise Hung (1):
-  drm/amd/display: Remove compiler warning
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: Fix in dp link-training when updating payload
-    allocation table
-
-George Shen (5):
-  drm/amd/display: Fix in overriding DP drive settings
-  drm/amd/display: Fix typo in override_lane_settings
-  drm/amd/display: Handle downstream LTTPR with fixed VS sequence
-  drm/amd/display: Remove unused vendor specific w/a
-  drm/amd/display: Fix divide-by-zero in DPPCLK and DISPCLK calculation
-
-Ian Chen (1):
-  drm/amd/display: Drop unnecessary detect link code
-
-JinZe.Xu (1):
-  drm/amd/display: Change HDMI judgement condition.
-
-Nicholas Choi (1):
-  drm/amd/display: refactor function transmitter_to_phy_id
-
-Qingqing Zhuo (1):
-  drm/amd/display: Fix DC warning at driver load
-
-Rodrigo Siqueira (4):
-  drm/amd/display: Check minimum disp_clk and dpp_clk debug option
-  drm/amd/display: Get VCO frequency from registers
-  drm/amd/display: Update hook dcn32_funcs
-  drm/amd/display: Drop duplicate define
-
-Saaem Rizvi (1):
-  drm/amd/display: Add SMU logging code
-
-Sung Joon Kim (2):
-  drm/amd/display: Fix eDP not light up on resume
-  drm/amd/display: Turn off internal backlight when plugging external
-    monitor
-
-Wayne Lin (4):
-  drm/amd/display: Revert "drm/amd/display: Add flag to detect dpms
-    force off during HPD"
-  drm/amd/display: Revert "drm/amd/display: turn DPMS off on connector
-    unplug"
-  drm/amd/display: Release remote dc_sink under mst scenario
-  drm/amd/display: Take emulated dc_sink into account for HDCP
-
-Wenjing Liu (3):
-  drm/amd/display: Enrich the log in MST payload update
-  drm/amd/display: rename lane_settings to hw_lane_settings
-  drm/amd/display: extract update stream allocation to link_hwss
-
-hersen wu (1):
-  drm/amd/display: add mst port output bw check
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  57 +----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   5 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   8 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |   1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  18 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  70 +++++-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   4 +
- .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   |  12 +
- .../display/dc/clk_mgr/dcn301/dcn301_smu.c    |  12 +
- .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.c  |   8 +
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |   2 +-
- .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |   8 +
- .../display/dc/clk_mgr/dcn316/dcn316_smu.c    |   8 +
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 151 +++++++++++-
- .../dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c  |  10 +-
- .../dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h  |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  13 -
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  43 ++--
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 222 ++++++------------
- .../drm/amd/display/dc/core/dc_link_dpia.c    |  38 +--
- drivers/gpu/drm/amd/display/dc/dc.h           |   6 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 -
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |   1 -
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   3 +
- .../gpu/drm/amd/display/dc/inc/link_hwss.h    |   6 +-
- .../gpu/drm/amd/display/include/fixed31_32.h  |   2 +-
- .../amd/display/include/link_service_types.h  |   1 -
- 27 files changed, 421 insertions(+), 290 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index beba783dd6ef..0c90667f682a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2582,33 +2582,6 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
+ 	return;
+ }
+ 
+-static void dm_set_dpms_off(struct dc_link *link)
+-{
+-	struct dc_stream_state *stream_state;
+-	struct amdgpu_dm_connector *aconnector = link->priv;
+-	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+-	struct dc_stream_update stream_update;
+-	bool dpms_off = true;
+-
+-	memset(&stream_update, 0, sizeof(stream_update));
+-	stream_update.dpms_off = &dpms_off;
+-
+-	mutex_lock(&adev->dm.dc_lock);
+-	stream_state = dc_stream_find_from_link(link);
+-
+-	if (stream_state == NULL) {
+-		DRM_DEBUG_DRIVER("Error finding stream state associated with link!\n");
+-		mutex_unlock(&adev->dm.dc_lock);
+-		return;
+-	}
+-
+-	stream_update.stream = stream_state;
+-	dc_commit_updates_for_stream(stream_state->ctx->dc, NULL, 0,
+-				     stream_state, &stream_update,
+-				     stream_state->ctx->dc->current_state);
+-	mutex_unlock(&adev->dm.dc_lock);
+-}
+-
+ static int dm_resume(void *handle)
+ {
+ 	struct amdgpu_device *adev = handle;
+@@ -3095,10 +3068,6 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 			drm_kms_helper_connector_hotplug_event(connector);
+ 
+ 	} else if (dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD)) {
+-		if (new_connection_type == dc_connection_none &&
+-		    aconnector->dc_link->type == dc_connection_none)
+-			dm_set_dpms_off(aconnector->dc_link);
+-
+ 		amdgpu_dm_update_connector_after_detect(aconnector);
+ 
+ 		drm_modeset_lock_all(dev);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 48a14a5bda56..146fd4b864b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3325,19 +3325,6 @@ struct dc_stream_state *dc_get_stream_at_index(struct dc *dc, uint8_t i)
+ 	return NULL;
+ }
+ 
+-struct dc_stream_state *dc_stream_find_from_link(const struct dc_link *link)
+-{
+-	uint8_t i;
+-	struct dc_context *ctx = link->ctx;
+-
+-	for (i = 0; i < ctx->dc->current_state->stream_count; i++) {
+-		if (ctx->dc->current_state->streams[i]->link == link)
+-			return ctx->dc->current_state->streams[i];
+-	}
+-
+-	return NULL;
+-}
+-
+ enum dc_irq_source dc_interrupt_to_irq_source(
+ 		struct dc *dc,
+ 		uint32_t src_id,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 5a894c19b0ea..6f79327e0035 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -351,7 +351,6 @@ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream);
+ 
+ uint8_t dc_get_current_stream_count(struct dc *dc);
+ struct dc_stream_state *dc_get_stream_at_index(struct dc *dc, uint8_t i);
+-struct dc_stream_state *dc_stream_find_from_link(const struct dc_link *link);
+ 
+ /*
+  * Return the current frame counter.
 -- 
 2.25.1
 
