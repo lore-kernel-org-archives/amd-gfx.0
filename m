@@ -4,57 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FDAC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 13:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D210EC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 13:55:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2983010E6F3;
-	Sat, 18 Jun 2022 13:54:57 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B310910E14E
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Jun 2022 09:09:02 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id a10so3334652wmj.5
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Jun 2022 02:09:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lDTihOMzPaagETNOhThvFgRPlTP8Vv1hFaJWEKG1DSI=;
- b=YPh26lA6kD3Fnjx3p+nBYz95KZ5+TQ0LHG6GP0AwcIuhQncZHwV88YPuYMK4IMIfZu
- /UVlwyCM6VqOBJp2NKuK+srnuJynVbetLyoebWkBRE+OGKqcYjI9auT3walLM1Fo1Gfj
- PyaOrj+wAUDu9jN2ANm/RTK73yBw043+6IsCFy2XUWbfrhp5lqv1ARySXz8z1gyIBqGH
- DPpbTNfMKgLYJ79Ct/yIf3mspTnr8HHH7uRCUlyTZu2/XjUQCMPmNTVvLQFqj/NPYE/z
- uXa4YTIpO1Nau9d+/HjGOgJbWG80RKcWvOzHp+N7WJw3sjaJtNIclV9jW0/K1/h4hsgi
- dEwQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D02510E630;
+	Sat, 18 Jun 2022 13:55:03 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF42B10E1E1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 21:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1655500797;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Azo6PZsDvSmIPxJaSSgXZfKMrP2WPlFn0BkwBvhAsds=;
+ b=azWMtldTUeZzfbxYTNWaTP2f9M7ODXFIfOZ5Rmu+RyyF5pEKFh70bAMgt+nGyDI81Y24UU
+ XyGRA8PxLOqSe2BEuaHV1KtaLf6+0FtgopLpGusidw9FONInUXzsd+R/wloieVlDg2OfIl
+ e9Y1XvBjkOUkVPbtZLi2I1qGRsWVurs=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-412-0HehVeNbMGCR0RrOvjbfHw-1; Fri, 17 Jun 2022 17:19:54 -0400
+X-MC-Unique: 0HehVeNbMGCR0RrOvjbfHw-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ k32-20020a05600c1ca000b0039c4cf75023so3217144wms.9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 14:19:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lDTihOMzPaagETNOhThvFgRPlTP8Vv1hFaJWEKG1DSI=;
- b=kRdnNNxBNyJ8tBqJ10JdGAtYvZqG+G6B3C+6ZpmZyV8qUTWmcHtnZd2Kf/0mRo6Txd
- 683BgcCn5FPiZYuZXsEfFLPqg7/bb3P9NVA7vPalp3wM8PN2DSO7gNSHsYyiCdVgftdh
- 1gJOUP+A2g2Q/fDROyqEKPnQxFzUrRHvFNmKV9ZQ1Via5QZI8wY3nXgtcWnvQV4RSAVy
- Uer1g09z7WB0zBhnSzZqlXfrK2n68WlBwsEc3AldBgHks1xkyu8IQtvzLZsuahqwYS7x
- PmRdLrpZZNN6xM8LpHkgJEc1mTjBw2bihz9yqKTL1VKCueLXezTrPamYEoDffbwJQBXO
- Kf8g==
-X-Gm-Message-State: AOAM531Oiz6wZT46YakLSpAiXz393p8O0mxMEr9kBbK5qggZLY/S+huD
- 8I/AUcDQ+cXiSPdO6QBKPgN3RBXwPTiAQflrXiW7lw==
-X-Google-Smtp-Source: ABdhPJxL5jhB9XjTyu9u+mlmAKz/3M9qIhmcShpkIliHupr1o77eZ5wIM2xzCLiPquWA7CVZlsscwpzw48pDnga0Uuc=
-X-Received: by 2002:a05:600c:4e88:b0:39c:7c53:d7ff with SMTP id
- f8-20020a05600c4e8800b0039c7c53d7ffmr25841225wmq.176.1655543341045; Sat, 18
- Jun 2022 02:09:01 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=Azo6PZsDvSmIPxJaSSgXZfKMrP2WPlFn0BkwBvhAsds=;
+ b=Z039m+9yoqqiot8A6eh6l99mKLEcU2q0dQSeygtEGAozkpoY79zsQ0ZF4oQI6X9wev
+ oOl5AJnMHLWTizIiquFzEmEBQrw4fo3igViIcHJ+cLmO95fBOIi0YkyQqrv8PeM5Y1r3
+ o3EcWWwcMJ1AscI+05DUh9Sq+XQg8cT+hbcWJ8+K3cEdFPpQTXfxaUmywqCH5ePznAPL
+ GW85et3ABTJpu9r4/zQVCtR410+pS/nmwF6mRNS1uA8n9CA7/7FJ35PXnOaKhHeoPI3P
+ XS8rmRgfxV9fN5c9LzDZQau8PBOcjjk5djY3avvDmDhTbCZLcyJxcua/dRXO36womAdT
+ nc8Q==
+X-Gm-Message-State: AJIora9U4KTz13xQMaNo3VgUO1nH8rsscLXCKYonqI+qv55nHVUmWRR+
+ iMI9CIgF+yGUEvbhYL3IAZC+qvK7woBevHMlOXgGQLuPpImxpfHHmYvkXBnSCuwr3Sd2a7LoxqI
+ nDXBdV2CBZaJHO8e9iNa458a79w==
+X-Received: by 2002:a5d:4243:0:b0:21b:8483:31d with SMTP id
+ s3-20020a5d4243000000b0021b8483031dmr1020433wrr.691.1655500793060; 
+ Fri, 17 Jun 2022 14:19:53 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tsO9DUgGh2B8U6C/zd/TYRHmb5SxI+ZHfjuMxpV+L2s0jFMk13PwyBl7BsRgZNjYdG3XxDzg==
+X-Received: by 2002:a5d:4243:0:b0:21b:8483:31d with SMTP id
+ s3-20020a5d4243000000b0021b8483031dmr1020405wrr.691.1655500792727; 
+ Fri, 17 Jun 2022 14:19:52 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c70a:7e00:bb5b:b526:5b76:5824?
+ (p200300cbc70a7e00bb5bb5265b765824.dip0.t-ipconnect.de.
+ [2003:cb:c70a:7e00:bb5b:b526:5b76:5824])
+ by smtp.gmail.com with ESMTPSA id
+ x24-20020a7bc218000000b003942a244ee7sm6509031wmi.44.2022.06.17.14.19.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jun 2022 14:19:52 -0700 (PDT)
+Message-ID: <6aef4b7f-0ced-08cd-1f0c-50c22996aa41@redhat.com>
+Date: Fri, 17 Jun 2022 23:19:50 +0200
 MIME-Version: 1.0
-References: <20220608010709.272962-1-maira.canal@usp.br>
- <CABVgOSmesj5MGfQrtdWCgXzm1VXRoG0fAMCbkBCAvtqediqAjQ@mail.gmail.com>
- <8b040fb2-7edd-6fd1-864e-ee04115c5b1d@usp.br>
- <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
- <44745ed7-18ad-ad7c-fef5-2f0f71d289d1@usp.br>
-In-Reply-To: <44745ed7-18ad-ad7c-fef5-2f0f71d289d1@usp.br>
-From: David Gow <davidgow@google.com>
-Date: Sat, 18 Jun 2022 17:08:49 +0800
-Message-ID: <CABVgOSk8grWzD2AR3KLOK_CioDu=vy_gOgpofTvp+8PvZSaoRg@mail.gmail.com>
-Subject: Re: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000c716be05e1b538af"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
+To: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>, jgg@nvidia.com
+References: <20220531200041.24904-1-alex.sierra@amd.com>
+ <20220531200041.24904-2-alex.sierra@amd.com>
+ <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+ <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
+ <7605beee-0a76-4ee9-e950-17419630f2cf@redhat.com>
+ <ddcebcc1-fb0a-e565-f14d-77c9d48f2928@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <ddcebcc1-fb0a-e565-f14d-77c9d48f2928@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sat, 18 Jun 2022 13:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,260 +95,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harrison Chiu <harrison.chiu@amd.com>, Daniel Latypov <dlatypov@google.com>,
- Brendan Higgins <brendanhiggins@google.com>, dri-devel@lists.freedesktop.org,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
- KUnit Development <kunit-dev@googlegroups.com>,
- Mark Yacoub <markyacoub@chromium.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000c716be05e1b538af
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 17.06.22 21:27, Sierra Guiza, Alejandro (Alex) wrote:
+> 
+> On 6/17/2022 12:33 PM, David Hildenbrand wrote:
+>> On 17.06.22 19:20, Sierra Guiza, Alejandro (Alex) wrote:
+>>> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
+>>>> On 31.05.22 22:00, Alex Sierra wrote:
+>>>>> Device memory that is cache coherent from device and CPU point of view.
+>>>>> This is used on platforms that have an advanced system bus (like CAPI
+>>>>> or CXL). Any page of a process can be migrated to such memory. However,
+>>>>> no one should be allowed to pin such memory so that it can always be
+>>>>> evicted.
+>>>>>
+>>>>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>>>>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+>>>>> [hch: rebased ontop of the refcount changes,
+>>>>>         removed is_dev_private_or_coherent_page]
+>>>>> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>>>>> ---
+>>>>>    include/linux/memremap.h | 19 +++++++++++++++++++
+>>>>>    mm/memcontrol.c          |  7 ++++---
+>>>>>    mm/memory-failure.c      |  8 ++++++--
+>>>>>    mm/memremap.c            | 10 ++++++++++
+>>>>>    mm/migrate_device.c      | 16 +++++++---------
+>>>>>    mm/rmap.c                |  5 +++--
+>>>>>    6 files changed, 49 insertions(+), 16 deletions(-)
+>>>>>
+>>>>> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+>>>>> index 8af304f6b504..9f752ebed613 100644
+>>>>> --- a/include/linux/memremap.h
+>>>>> +++ b/include/linux/memremap.h
+>>>>> @@ -41,6 +41,13 @@ struct vmem_altmap {
+>>>>>     * A more complete discussion of unaddressable memory may be found in
+>>>>>     * include/linux/hmm.h and Documentation/vm/hmm.rst.
+>>>>>     *
+>>>>> + * MEMORY_DEVICE_COHERENT:
+>>>>> + * Device memory that is cache coherent from device and CPU point of view. This
+>>>>> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
+>>>>> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
+>>>>> + * type. Any page of a process can be migrated to such memory. However no one
+>>>> Any page might not be right, I'm pretty sure. ... just thinking about special pages
+>>>> like vdso, shared zeropage, ... pinned pages ...
+>> Well, you cannot migrate long term pages, that's what I meant :)
+>>
+>>>>> + * should be allowed to pin such memory so that it can always be evicted.
+>>>>> + *
+>>>>>     * MEMORY_DEVICE_FS_DAX:
+>>>>>     * Host memory that has similar access semantics as System RAM i.e. DMA
+>>>>>     * coherent and supports page pinning. In support of coordinating page
+>>>>> @@ -61,6 +68,7 @@ struct vmem_altmap {
+>>>>>    enum memory_type {
+>>>>>    	/* 0 is reserved to catch uninitialized type fields */
+>>>>>    	MEMORY_DEVICE_PRIVATE = 1,
+>>>>> +	MEMORY_DEVICE_COHERENT,
+>>>>>    	MEMORY_DEVICE_FS_DAX,
+>>>>>    	MEMORY_DEVICE_GENERIC,
+>>>>>    	MEMORY_DEVICE_PCI_P2PDMA,
+>>>>> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
+>>>> In general, this LGTM, and it should be correct with PageAnonExclusive I think.
+>>>>
+>>>>
+>>>> However, where exactly is pinning forbidden?
+>>> Long-term pinning is forbidden since it would interfere with the device
+>>> memory manager owning the
+>>> device-coherent pages (e.g. evictions in TTM). However, normal pinning
+>>> is allowed on this device type.
+>> I don't see updates to folio_is_pinnable() in this patch.
+> Device coherent type pages should return true here, as they are pinnable 
+> pages.
 
-On Sat, Jun 18, 2022 at 4:24 AM Ma=C3=ADra Canal <maira.canal@usp.br> wrote=
-:
->
-> On 6/17/22 04:55, David Gow wrote:
-> > On Fri, Jun 17, 2022 at 6:41 AM Ma=C3=ADra Canal <maira.canal@usp.br> w=
-rote:
-> >>
-> >> Hi David,
-> >>
-> >> Thank you for your feedback!
-> >>
-> >> On 6/16/22 11:39, David Gow wrote:
-> >>> On Wed, Jun 8, 2022 at 9:08 AM Ma=C3=ADra Canal <maira.canal@usp.br> =
-wrote:
-> >>
-> >>>>
-> >>>> As kunit_test_suites() defines itself as an init_module(), it confli=
-cts with
-> >>>> the existing one at amdgpu_drv. So, if we use kunit_test_suites(), w=
-e won't
-> >>>> be able to compile the tests as modules and, therefore, won't be abl=
-e to use
-> >>>> IGT to run the tests. This problem with kunit_test_suites() was alre=
-ady
-> >>>> discussed in the KUnit mailing list, as can be seen in [7].
-> >>>
-> >>> I'm not sure I fully understand why these tests need to be part of th=
-e
-> >>> amdgpu module, though admittedly I've not played with IGT much. Would
-> >>> it be possible to compile these tests as separate modules, which coul=
-d
-> >>> depend on amdgpu (or maybe include the DML stuff directly), and
-> >>> therefore not have this conflict? I definitely was able to get these
-> >>> tests working under kunit_tool (albeit as built-ins) by using
-> >>> kunit_test_suites(). If each suite were built as a separate module (o=
-r
-> >>> indeed, even if all the tests were in one module, with one list of
-> >>> suites), then it should be possible to avoid the init_module()
-> >>> conflict. That'd also make it possible to run these tests without
-> >>> actually needing the driver to initialise, which seems like it might
-> >>> require actual hardware(?)
-> >>
-> >> Initially, we tried the kunit_test_suites() approach. And it did work =
-pretty well for the kunit_tool (although we didn't test any hardware-specif=
-ic unit test). But when compiling the test as a module, we would get a link=
-ing error, pointing out multiple definitions of 'init_module'/'cleanup_modu=
-le' at kunit_test_suites().
-> >>
-> >> At this point, we thought about a couple of options to resolve this pr=
-oblem:
-> >> - Add EXPORT_SYMBOL to the functions we would test. But, this doesn't =
-scale pretty well, because it would pollute AMDGPU code as the tests expand=
-.
-> >> - Take the Thunderbolt path and add the tests to the driver stack.
-> >>
-> >> We end up taking the Thunderbolt path as it would be more maintainable=
-.
-> >>
-> >> Compiling the tests as a module is essential to make the tests run at =
-IGT, as IGT essentially loads the module, runs it, and parses the output (a=
- very very simplified explanation of what IGT does). IGT is a very known to=
-ol for DRI developers, so we believe that IGT support is crucial for this p=
-roject.
-> >>
-> >> If you have any other options on how to make the module compilation vi=
-able without using the 'thunderbolt'-style, we would be glad to hear your s=
-uggestions.
-> >
-> > As you point out, there are really two separate problems with
-> > splitting the tests out totally:
-> > - It's ugly and pollutes the symbol namespace to have EXPORT_SYMBOL()
-> > everywhere.
-> > - It's impossible to have multiple init_module() "calls" in the same mo=
-dule.
-> >
-> > The first of these is, I think, the harder to solve generally. (There
-> > are some ways to mitigate the namespace pollution part of it by either
-> > hiding the EXPORT_SYMBOL() directives behind #ifdef CONFIG_KUNIT or
-> > similar, or by using symbol namespaces:
-> > https://www.kernel.org/doc/html/latest/core-api/symbol-namespaces.html
-> > -- or both -- but they don't solve the issue entirely.)
-> >
-> > That being said, it's as much a matter of taste as anything, so if
-> > keeping things in the amdgpu module works well, don't let me stop you.
-> > Either way should work, and have their own advantages and
-> > disadvantages.
-> >
-> > The latter is just a quirk of the current KUnit implementation of
-> > kunit_test_suites(). This multiple-definition issue will go away in
-> > the not-too-distant future.
-> >
-> > So my suggestion here would be to make sure any changes you make to
-> > work around the issue with multiple init_module definitions are easy
-> > to remove. I suspect you could probably significantly simplify the
-> > whole dml_test.{c,h} bit to just directly export the kunit_suites and
-> > maybe throw them all in one array to pass to
-> > __kunit_test_suites_init(). Then, when the improved modules work
-> > lands, they could be deleted entirely and replaced with one or more
-> > calls to kunit_test_suite().
-> >
-> >>>
-> >>> There are two other reasons the 'thunderbolt'-style technique is one
-> >>> we want to avoid:
-> >>> 1. It makes it much more difficult to run tests using kunit_tool and
-> >>> KUnit-based CI tools: these tests would not run automatically, and if
-> >>> they were built-in as-is, they'd need to be
-> >>> 2. We're planning to improve module support to replace the
-> >>> init_module()-based implementation of kunit_test_suites() with one
-> >>> which won't have these conflicts, so the need for this should be
-> >>> short-lived.
-> >>>
-> >>> If you're curious, an early version of the improved module support ca=
-n
-> >>> be found here, though it's out-of-date enough it won't apply or work
-> >>> as-is:
-> >>> https://lore.kernel.org/all/101d12fc9250b7a445ff50a9e7a25cd74d0e16eb.=
-camel@codeconstruct.com.au/
-> >>>
-> >>> Now, that's unlikely to be ready very soon, but I'd be hesitant to
-> >>> implement too extensive a system for avoiding kunit_test_suites()
-> >>> given at some point it should work and we'll need to migrate back to
-> >>> it.
-> >>
-> >> We hope to see in the near future the improved module support from KUn=
-it as it would make the addition of tests much more simple and clean.
-> >>
-> >> Could you explain more about what is missing to make this improved mod=
-ule support come upstream?
-> >>
-> >
-> > Mostly just time and some other priorities. We've taken another look
-> > at it over the last couple of days, and will try to accelerate getting
-> > it in within the next couple of kernel releases. (Hopefully sooner
-> > rather than later.)
-> Is there anything we can do to make this move faster? As it is our great
-> interest to make this work in KUnit, maybe I, Isabella, Tales, or Magali
-> can start work on this feature. We don=C2=B4t have much knowledge of the
-> inner workings of KUnit, but if you point out a path, we can try to work
-> on this task.
->
-> Maybe, could we work in the same way as Jeremy?
+That function is only called for long-term pinnings in try_grab_folio().
 
-Daniel and I have quickly tidied up and finished the various
-in-progress bits of this and sent it out here:
-https://lore.kernel.org/linux-kselftest/20220618090310.1174932-1-davidgow@g=
-oogle.com/T/
+>>
+>> So wouldn't try_grab_folio() simply pin these pages? What am I missing?
+> 
+> As far as I understand this return NULL for long term pin pages. 
+> Otherwise they get refcount incremented.
 
-You should be able to apply that series and then just use
-kunit_test_suites(), which will no-longer conflict with module_init
-functions.
+I don't follow.
 
-The most useful thing you could do is to test and/or review it --
-there's almost certainly something I'll have missed.
+You're saying
 
-Cheers,
--- David
+a) folio_is_pinnable() returns true for device coherent pages
 
---000000000000c716be05e1b538af
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+and that
 
-MIIPnwYJKoZIhvcNAQcCoIIPkDCCD4wCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ggz5MIIEtjCCA56gAwIBAgIQeAMYYHb81ngUVR0WyMTzqzANBgkqhkiG9w0BAQsFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMzETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMDA3MjgwMDAwMDBaFw0yOTAzMTgwMDAwMDBaMFQxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSowKAYDVQQDEyFHbG9iYWxTaWduIEF0bGFz
-IFIzIFNNSU1FIENBIDIwMjAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCvLe9xPU9W
-dpiHLAvX7kFnaFZPuJLey7LYaMO8P/xSngB9IN73mVc7YiLov12Fekdtn5kL8PjmDBEvTYmWsuQS
-6VBo3vdlqqXZ0M9eMkjcKqijrmDRleudEoPDzTumwQ18VB/3I+vbN039HIaRQ5x+NHGiPHVfk6Rx
-c6KAbYceyeqqfuJEcq23vhTdium/Bf5hHqYUhuJwnBQ+dAUcFndUKMJrth6lHeoifkbw2bv81zxJ
-I9cvIy516+oUekqiSFGfzAqByv41OrgLV4fLGCDH3yRh1tj7EtV3l2TngqtrDLUs5R+sWIItPa/4
-AJXB1Q3nGNl2tNjVpcSn0uJ7aFPbAgMBAAGjggGKMIIBhjAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0l
-BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHzM
-CmjXouseLHIb0c1dlW+N+/JjMB8GA1UdIwQYMBaAFI/wS3+oLkUkrk1Q+mOai97i3Ru8MHsGCCsG
-AQUFBwEBBG8wbTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AyLmdsb2JhbHNpZ24uY29tL3Jvb3Ry
-MzA7BggrBgEFBQcwAoYvaHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvcm9vdC1y
-My5jcnQwNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9yb290LXIz
-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
-G7p3AiuB2sgfq6cOpbO5MEwGA1UdIARFMEMwQQYJKwYBBAGgMgEoMDQwMgYIKwYBBQUHAgEWJmh0
-dHBzOi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAwGA1UdEwEB/wQCMAAwgZoGCCsG
-AQUFBwEBBIGNMIGKMD4GCCsGAQUFBzABhjJodHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9jYS9n
-c2F0bGFzcjNzbWltZWNhMjAyMDBIBggrBgEFBQcwAoY8aHR0cDovL3NlY3VyZS5nbG9iYWxzaWdu
-LmNvbS9jYWNlcnQvZ3NhdGxhc3Izc21pbWVjYTIwMjAuY3J0MB8GA1UdIwQYMBaAFHzMCmjXouse
-LHIb0c1dlW+N+/JjMEYGA1UdHwQ/MD0wO6A5oDeGNWh0dHA6Ly9jcmwuZ2xvYmFsc2lnbi5jb20v
-Y2EvZ3NhdGxhc3Izc21pbWVjYTIwMjAuY3JsMA0GCSqGSIb3DQEBCwUAA4IBAQBsL34EJkCtu9Nu
-2+R6l1Qzno5Gl+N2Cm6/YLujukDGYa1JW27txXiilR9dGP7yl60HYyG2Exd5i6fiLDlaNEw0SqzE
-dw9ZSIak3Qvm2UybR8zcnB0deCUiwahqh7ZncEPlhnPpB08ETEUtwBEqCEnndNEkIN67yz4kniCZ
-jZstNF/BUnI3864fATiXSbnNqBwlJS3YkoaCTpbI9qNTrf5VIvnbryT69xJ6f25yfmxrXNJJe5OG
-ncB34Cwnb7xQyk+uRLZ465yUBkbjk9pC/yamL0O7SOGYUclrQl2c5zzGuVBD84YcQGDOK6gSPj6w
-QuBfOooZPOyZZZ8AMih7J980MYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
-R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
-MDIwAhABQeVybOOpR4bOOXZYL5T3MA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCCB
-1EzPKyO4sDw0SWhbVASwpUD2LLn+joxofAY1tK+B+TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
-MBwGCSqGSIb3DQEJBTEPFw0yMjA2MTgwOTA5MDFaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
-BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
-CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAqN3YpcCN6/Ufm24QRwPY
-lFccv//gmmmzh/PSSGScuA9xHHjUExMKF4eZsDCf2Kzmz+2tycnEL+dHRRRF+Y3p21WpmSAP/XSf
-oAZA5zE6nLeyZP5Guv6o52f4tx+AGiMJ3cw5+ujJgMqz7+MfKMn9noE909FILgMmH8DneMYxcvAQ
-+mUDcUWejKZSC+vDqSrXWcdC19+cB0dhCe1ICdNJFecXVvinxJlnPt3kibAUOJZLRIZiiZg6ZV6z
-BoCXLf0rc3NvxXZbGoa3+xXqcR/cV8b4jPg63NIkAxgBXKKZnrVBgsKmLvrjHput3Ox9+C/FyK1t
-oTW4d0X0KbFGhqAHSw==
---000000000000c716be05e1b538af--
+b) device coherent pages don't get long-term pinned
+
+
+Yet, the code says
+
+struct folio *try_grab_folio(struct page *page, int refs, unsigned int flags)
+{
+	if (flags & FOLL_GET)
+		return try_get_folio(page, refs);
+	else if (flags & FOLL_PIN) {
+		struct folio *folio;
+
+		/*
+		 * Can't do FOLL_LONGTERM + FOLL_PIN gup fast path if not in a
+		 * right zone, so fail and let the caller fall back to the slow
+		 * path.
+		 */
+		if (unlikely((flags & FOLL_LONGTERM) &&
+			     !is_pinnable_page(page)))
+			return NULL;
+		...
+		return folio;
+	}
+}
+
+
+What prevents these pages from getting long-term pinned as stated in this patch?
+
+I am probably missing something important.
+
+-- 
+Thanks,
+
+David / dhildenb
+
