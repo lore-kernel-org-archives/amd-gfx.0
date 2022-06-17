@@ -4,67 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC1B9CCA479
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 20:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE74C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 22:37:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268E010E1A5;
-	Fri, 17 Jun 2022 20:24:26 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0203610E110
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 20:24:23 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id u9so6623783oiv.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 13:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=fcyBDhbFJN4+s7r8qDu1ovBGv1GC9A7K0M1THsn/P8Q=;
- b=n4PmpOC+N/jHZEmfGQL9xYmBgHryKzlPUmYtHPaFkWsniNbtEufmwCG+/YGorhDa4s
- 2Cc015oegJdtWODoip3aQXyhtbUsNUPRBvi89uy8W8q3wFspZk3Mj9Aok6L+Y46Hwqjw
- sugQD7Uh/gEXmm/4t5kH1nfciDSixqV3LvrFUZAP+sJ7K8DwMjCPzn7Cp3LOA29x1jEw
- qbsA5n7Jy8DzMlP1SW/huK5opn+IisR0Lru83ui+5VpptMTlr/aRdHC4inwIP89s/Etj
- wg3i1bpdLZ5LoMUYJTgg/T8eaBLArpTmeQxKe1BdiQpS3PyZ6NeC1YiayTYHjtj9H4eN
- 6Iaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=fcyBDhbFJN4+s7r8qDu1ovBGv1GC9A7K0M1THsn/P8Q=;
- b=uLhrjMqnBc5Jrj3xlyiLqOy9dZ4LmaVLRtXtHezDTtLmaFBesSjFrPDlFMSDWdUywN
- 0QJ/EHrDkYrEFnO0xkQ3QuicNmYrrcD9S/sZC6//vqjkt0lS5RAGp/UFzqxdgAwwSCUL
- 9k9w+eMiBl75VsmtzrzH/7Hr8WNyQP5WAXbE5l/UHvZajK2AiqkX8O3Pb+q5u+h3AWB2
- gW9dz4aaH9CrkRIaMNAU0eSAOlfVo9gE2qBw/RUpOfFx+yhrZ9WmbLxqk0PrTMnDgkRO
- bNdJT9A2CCnlCKf/fBlgEaH9sW5IJqzWvCFFN34kzcXqIakvnXEOQOuLTmNmCXIeRWm0
- ugqw==
-X-Gm-Message-State: AOAM530kiq/erU6q9ZDERQZKBSR9V1k6yVRXvscPCHeiKeamWA4nKfk2
- I0ktrcISPlnjNUTzon1blG2s0A==
-X-Google-Smtp-Source: ABdhPJwMClEFYUjCawbxuTxVD3teFqaqToNmT4i3fcIhUXBBB6+yn28S/VG+gt2wWwWCUeHsJasskA==
-X-Received: by 2002:a05:6808:1202:b0:322:dc37:2c3b with SMTP id
- a2-20020a056808120200b00322dc372c3bmr11470790oil.298.1655497462750; 
- Fri, 17 Jun 2022 13:24:22 -0700 (PDT)
-Received: from ?IPV6:2804:14d:8084:84c6:fe26:c42d:aab9:fa8a?
- ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
- by smtp.gmail.com with ESMTPSA id
- m1-20020a4a3901000000b0041bcf7c8414sm3102325ooa.48.2022.06.17.13.24.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jun 2022 13:24:22 -0700 (PDT)
-Message-ID: <44745ed7-18ad-ad7c-fef5-2f0f71d289d1@usp.br>
-Date: Fri, 17 Jun 2022 17:24:14 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 585A510E9C3;
+	Fri, 17 Jun 2022 22:37:03 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCFC10E9C7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 22:37:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655505422; x=1687041422;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sgAq+QV1yB2cPbWs/SVWUkCKuO/vuFJeDk4k2Gd0wn0=;
+ b=ZUH7an3/+T4kDW/kht+rQwFSE2D1N4PJqhsE//4/+2+p/6MYzQCzJhrG
+ c6sQlwydLya4v1Y1fDARwGj72lwVpnH2MBKeUhYGLNpa4tkRXoLU7fhRu
+ I34brHPHrPd0xPLGC/iodAZ9CS/T9B5NNt0onmYz8dA+Ubc1qNZtfvgSv
+ m53BtrZlGGptAigM6JdV7nJt0XcX7dH26hKgD4FaOOs/80WcNcV1uVzsU
+ xEv+sSxYWK2fON3IKQ7vsTi6QZD3mEbzESD2dFQVsfrKPu9uttpRjfpX6
+ FsgsEgwEMXa3w9huWTl+1zrjlJ+oymxtXhFVcgdPMqllkCZfishVduk0y w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="341283986"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="341283986"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2022 15:37:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="579074633"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 17 Jun 2022 15:36:58 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o2KaH-000Pov-CR;
+ Fri, 17 Jun 2022 22:36:57 +0000
+Date: Sat, 18 Jun 2022 06:36:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 07dc787be2316e243a16a33d0a9b734cd9365bd3
+Message-ID: <62ad01d0.+Kbzg4vMb3zc9QYp%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
-Content-Language: en-US
-To: David Gow <davidgow@google.com>
-References: <20220608010709.272962-1-maira.canal@usp.br>
- <CABVgOSmesj5MGfQrtdWCgXzm1VXRoG0fAMCbkBCAvtqediqAjQ@mail.gmail.com>
- <8b040fb2-7edd-6fd1-864e-ee04115c5b1d@usp.br>
- <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
-In-Reply-To: <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,136 +57,262 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harrison Chiu <harrison.chiu@amd.com>, Daniel Latypov <dlatypov@google.com>,
- Brendan Higgins <brendanhiggins@google.com>, dri-devel@lists.freedesktop.org,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Jun Lei <jun.lei@amd.com>, magalilemes00@gmail.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- mwen@igalia.com, Sean Paul <seanpaul@chromium.org>,
- KUnit Development <kunit-dev@googlegroups.com>,
- Mark Yacoub <markyacoub@chromium.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- tales.aparecida@gmail.com, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-perf-users@vger.kernel.org, kvm@vger.kernel.org,
+ linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-um@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>, linux-pci@vger.kernel.org,
+ bpf@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/17/22 04:55, David Gow wrote:
-> On Fri, Jun 17, 2022 at 6:41 AM Maíra Canal <maira.canal@usp.br> wrote:
->>
->> Hi David,
->>
->> Thank you for your feedback!
->>
->> On 6/16/22 11:39, David Gow wrote:
->>> On Wed, Jun 8, 2022 at 9:08 AM Maíra Canal <maira.canal@usp.br> wrote:
->>
->>>>
->>>> As kunit_test_suites() defines itself as an init_module(), it conflicts with
->>>> the existing one at amdgpu_drv. So, if we use kunit_test_suites(), we won't
->>>> be able to compile the tests as modules and, therefore, won't be able to use
->>>> IGT to run the tests. This problem with kunit_test_suites() was already
->>>> discussed in the KUnit mailing list, as can be seen in [7].
->>>
->>> I'm not sure I fully understand why these tests need to be part of the
->>> amdgpu module, though admittedly I've not played with IGT much. Would
->>> it be possible to compile these tests as separate modules, which could
->>> depend on amdgpu (or maybe include the DML stuff directly), and
->>> therefore not have this conflict? I definitely was able to get these
->>> tests working under kunit_tool (albeit as built-ins) by using
->>> kunit_test_suites(). If each suite were built as a separate module (or
->>> indeed, even if all the tests were in one module, with one list of
->>> suites), then it should be possible to avoid the init_module()
->>> conflict. That'd also make it possible to run these tests without
->>> actually needing the driver to initialise, which seems like it might
->>> require actual hardware(?)
->>
->> Initially, we tried the kunit_test_suites() approach. And it did work pretty well for the kunit_tool (although we didn't test any hardware-specific unit test). But when compiling the test as a module, we would get a linking error, pointing out multiple definitions of 'init_module'/'cleanup_module' at kunit_test_suites().
->>
->> At this point, we thought about a couple of options to resolve this problem:
->> - Add EXPORT_SYMBOL to the functions we would test. But, this doesn't scale pretty well, because it would pollute AMDGPU code as the tests expand.
->> - Take the Thunderbolt path and add the tests to the driver stack.
->>
->> We end up taking the Thunderbolt path as it would be more maintainable.
->>
->> Compiling the tests as a module is essential to make the tests run at IGT, as IGT essentially loads the module, runs it, and parses the output (a very very simplified explanation of what IGT does). IGT is a very known tool for DRI developers, so we believe that IGT support is crucial for this project.
->>
->> If you have any other options on how to make the module compilation viable without using the 'thunderbolt'-style, we would be glad to hear your suggestions.
-> 
-> As you point out, there are really two separate problems with
-> splitting the tests out totally:
-> - It's ugly and pollutes the symbol namespace to have EXPORT_SYMBOL()
-> everywhere.
-> - It's impossible to have multiple init_module() "calls" in the same module.
-> 
-> The first of these is, I think, the harder to solve generally. (There
-> are some ways to mitigate the namespace pollution part of it by either
-> hiding the EXPORT_SYMBOL() directives behind #ifdef CONFIG_KUNIT or
-> similar, or by using symbol namespaces:
-> https://www.kernel.org/doc/html/latest/core-api/symbol-namespaces.html
-> -- or both -- but they don't solve the issue entirely.)
-> 
-> That being said, it's as much a matter of taste as anything, so if
-> keeping things in the amdgpu module works well, don't let me stop you.
-> Either way should work, and have their own advantages and
-> disadvantages.
-> 
-> The latter is just a quirk of the current KUnit implementation of
-> kunit_test_suites(). This multiple-definition issue will go away in
-> the not-too-distant future.
-> 
-> So my suggestion here would be to make sure any changes you make to
-> work around the issue with multiple init_module definitions are easy
-> to remove. I suspect you could probably significantly simplify the
-> whole dml_test.{c,h} bit to just directly export the kunit_suites and
-> maybe throw them all in one array to pass to
-> __kunit_test_suites_init(). Then, when the improved modules work
-> lands, they could be deleted entirely and replaced with one or more
-> calls to kunit_test_suite().
-> 
->>>
->>> There are two other reasons the 'thunderbolt'-style technique is one
->>> we want to avoid:
->>> 1. It makes it much more difficult to run tests using kunit_tool and
->>> KUnit-based CI tools: these tests would not run automatically, and if
->>> they were built-in as-is, they'd need to be
->>> 2. We're planning to improve module support to replace the
->>> init_module()-based implementation of kunit_test_suites() with one
->>> which won't have these conflicts, so the need for this should be
->>> short-lived.
->>>
->>> If you're curious, an early version of the improved module support can
->>> be found here, though it's out-of-date enough it won't apply or work
->>> as-is:
->>> https://lore.kernel.org/all/101d12fc9250b7a445ff50a9e7a25cd74d0e16eb.camel@codeconstruct.com.au/
->>>
->>> Now, that's unlikely to be ready very soon, but I'd be hesitant to
->>> implement too extensive a system for avoiding kunit_test_suites()
->>> given at some point it should work and we'll need to migrate back to
->>> it.
->>
->> We hope to see in the near future the improved module support from KUnit as it would make the addition of tests much more simple and clean.
->>
->> Could you explain more about what is missing to make this improved module support come upstream?
->>
-> 
-> Mostly just time and some other priorities. We've taken another look
-> at it over the last couple of days, and will try to accelerate getting
-> it in within the next couple of kernel releases. (Hopefully sooner
-> rather than later.)
-Is there anything we can do to make this move faster? As it is our great
-interest to make this work in KUnit, maybe I, Isabella, Tales, or Magali
-can start work on this feature. We don´t have much knowledge of the
-inner workings of KUnit, but if you point out a path, we can try to work
-on this task.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 07dc787be2316e243a16a33d0a9b734cd9365bd3  Add linux-next specific files for 20220617
 
-Maybe, could we work in the same way as Jeremy?
-> 
-> Cheers,
-> -- David
+Error/Warning reports:
 
-- Maíra Canal
+https://lore.kernel.org/lkml/202206071511.FI7WLdZo-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+arch/xtensa/kernel/entry.S:461: undefined reference to `context_tracking_user_exit'
+arch/xtensa/kernel/entry.S:548: undefined reference to `context_tracking_user_enter'
+kernel/bpf/helpers.c:1490:29: sparse: sparse: symbol 'bpf_dynptr_from_mem_proto' was not declared. Should it be static?
+kernel/bpf/helpers.c:1516:29: sparse: sparse: symbol 'bpf_dynptr_read_proto' was not declared. Should it be static?
+kernel/bpf/helpers.c:1542:29: sparse: sparse: symbol 'bpf_dynptr_write_proto' was not declared. Should it be static?
+kernel/bpf/helpers.c:1569:29: sparse: sparse: symbol 'bpf_dynptr_data_proto' was not declared. Should it be static?
+xtensa-linux-ld: arch/xtensa/kernel/entry.o:(.text+0x24): undefined reference to `context_tracking_user_enter'
+xtensa-linux-ld: arch/xtensa/kernel/entry.o:(.text+0x8): undefined reference to `context_tracking_user_exit'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9143:27: warning: variable 'abo' set but not used [-Wunused-but-set-variable]
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- alpha-randconfig-r035-20220617
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arm-randconfig-r005-20220617
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- i386-randconfig-a005
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- i386-randconfig-m021
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+|-- i386-randconfig-s001
+|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
+|   |-- drivers-vfio-pci-vfio_pci_config.c:sparse:sparse:restricted-pci_power_t-degrades-to-integer
+|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
+|-- i386-randconfig-s002
+|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
+|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-usertype-ret-got-int
+|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- ia64-allyesconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- m68k-allmodconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- m68k-allyesconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- m68k-randconfig-s031-20220617
+|   |-- drivers-pci-pci.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-pci_power_t-assigned-usertype-state-got-int
+|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_data_proto-was-not-declared.-Should-it-be-static
+|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_from_mem_proto-was-not-declared.-Should-it-be-static
+|   |-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_read_proto-was-not-declared.-Should-it-be-static
+|   `-- kernel-bpf-helpers.c:sparse:sparse:symbol-bpf_dynptr_write_proto-was-not-declared.-Should-it-be-static
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- nios2-allyesconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- powerpc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|-- sh-allmodconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- um-i386_defconfig
+|   `-- arch-um-kernel-skas-uaccess.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-addr-got-unsigned-int-noderef-usertype-__user-uaddr
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- x86_64-randconfig-m001
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+|-- xtensa-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+`-- xtensa-randconfig-r033-20220617
+    |-- arch-xtensa-kernel-entry.S:undefined-reference-to-context_tracking_user_enter
+    |-- arch-xtensa-kernel-entry.S:undefined-reference-to-context_tracking_user_exit
+    |-- xtensa-linux-ld:arch-xtensa-kernel-entry.o:(.text):undefined-reference-to-context_tracking_user_enter
+    `-- xtensa-linux-ld:arch-xtensa-kernel-entry.o:(.text):undefined-reference-to-context_tracking_user_exit
+
+clang_recent_errors
+`-- hexagon-randconfig-r045-20220617
+    `-- drivers-ufs-host-tc-dwc-g210-pltfrm.c:warning:unused-variable-tc_dwc_g210_pltfm_match
+
+elapsed time: 902m
+
+configs tested: 113
+configs skipped: 4
+
+gcc tested configs:
+arm                              allmodconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+arm                                 defconfig
+arm64                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+arm                           corgi_defconfig
+m68k                         apollo_defconfig
+m68k                           virt_defconfig
+m68k                        stmark2_defconfig
+mips                        vocore2_defconfig
+mips                         rt305x_defconfig
+powerpc                    adder875_defconfig
+m68k                         amcore_defconfig
+openrisc                 simple_smp_defconfig
+arm                            zeus_defconfig
+arm                             ezx_defconfig
+m68k                            q40_defconfig
+powerpc                mpc7448_hpc2_defconfig
+xtensa                    xip_kc705_defconfig
+parisc                generic-32bit_defconfig
+sh                           sh2007_defconfig
+m68k                       m5249evb_defconfig
+powerpc                   motionpro_defconfig
+sparc                            allyesconfig
+arm                          badge4_defconfig
+sh                             espt_defconfig
+arm                           h3600_defconfig
+ia64                                defconfig
+ia64                             allmodconfig
+ia64                             allyesconfig
+m68k                                defconfig
+m68k                             allyesconfig
+m68k                             allmodconfig
+alpha                               defconfig
+csky                                defconfig
+nios2                            allyesconfig
+alpha                            allyesconfig
+arc                                 defconfig
+sh                               allmodconfig
+xtensa                           allyesconfig
+parisc                              defconfig
+s390                             allmodconfig
+parisc64                            defconfig
+parisc                           allyesconfig
+s390                                defconfig
+s390                             allyesconfig
+i386                   debian-10.3-kselftests
+i386                              debian-10.3
+i386                                defconfig
+i386                             allyesconfig
+sparc                               defconfig
+nios2                               defconfig
+arc                              allyesconfig
+mips                             allyesconfig
+mips                             allmodconfig
+powerpc                           allnoconfig
+powerpc                          allmodconfig
+powerpc                          allyesconfig
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+x86_64                        randconfig-a015
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+arc                  randconfig-r043-20220617
+s390                 randconfig-r044-20220617
+riscv                randconfig-r042-20220617
+riscv                             allnoconfig
+riscv                            allyesconfig
+riscv                            allmodconfig
+riscv                    nommu_k210_defconfig
+riscv                          rv32_defconfig
+riscv                    nommu_virt_defconfig
+riscv                               defconfig
+x86_64                              defconfig
+x86_64                                  kexec
+x86_64                               rhel-8.3
+x86_64                           allyesconfig
+x86_64                         rhel-8.3-kunit
+x86_64                    rhel-8.3-kselftests
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+
+clang tested configs:
+arm                           sama7_defconfig
+mips                      malta_kvm_defconfig
+arm                          collie_defconfig
+riscv                             allnoconfig
+arm                       cns3420vb_defconfig
+powerpc                      acadia_defconfig
+mips                          ath79_defconfig
+arm                      pxa255-idp_defconfig
+arm                         s5pv210_defconfig
+hexagon                             defconfig
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+x86_64                        randconfig-a012
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a015
+hexagon              randconfig-r041-20220617
+hexagon              randconfig-r045-20220617
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
