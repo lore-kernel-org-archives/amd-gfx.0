@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57002C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:36:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C515CCA47C
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F3C10F3F7;
-	Fri, 17 Jun 2022 19:36:15 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A913A10F454
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6425510F4A6;
+	Fri, 17 Jun 2022 19:36:16 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E10310F466
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:36:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=knPeLD9xarneAe9P8mOg+3Q+76fCx1fIk6/mPaYXLzmevhxyuaZ9wV3auHJD4k71g82+H7SLjx65nPNi/ZZy1bmtwuh46Mu7C13qnqks/+dnCdYgLvaWqVRclMl0n+LVokJHzVhemp5+FV32/eTrZkrdWbCszVbfsyMqY5SktFvziSDOv0khGZSZLF8jCmFoMn1RHsIwnOM+CrRpDJMOHDoh8xY9U3kTG4PC4uyAhlWdN4sck8mi3GHOwSgl/2XNXAAVevSpY+zBARJWkzQ6JUk2DgIB8fw0hp7iaz/2snNYEs9VwYw3kl+AZ1RvrCSsbffbZGjX38lnhuSczojc1Q==
+ b=dlOx9Dbl9e9UoZt4efmM2ExWKQQY/vssNF6RXx0UrCLKzb1y34E1ghkysMcu7BFlI9STIvQZJVKwSgiEAQTN+mVSMijZUcuyX20HtJ9E9CE7XDNiZwk/8rccmziaGIlW2w1R/h2GMsbkN4Etdzj6SpLd05WH1chrchWygy1cMYA4HKtbAzS+4mO2ksHAscT6AD2U5m1yzgqNxGRBDJI6pYVS5A6hAJJ6VlVUlx9xZB+dKX2dbKPDwRpj31C520zwzy9GI+N4Als2d4CsIGRicfLmS5lUtW5hpgJ1m8Htg4omJIjcUs5uzxJSMYGHk6GXY6HWWvgJEvE/5S8GwIUS5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=khEO36kbuQOV8S9+6027VAyI7uisqDyDIdY6ddy0+5s=;
- b=lehuMdF42OxeYa8Lh3G8li8UFgSu+K8vfFYGiKfQ7MsEoVTJn7pnIwiAlCdwyNs9bVHPoi//EuOGTI6x+K+waUsmSsYJRbjSbsSUVdUIy79ioXwHYMoxcTCeauRlKlatvFVr0LjCWCW8h7ckuFCbbI3WZU46vXyeyGht1/HGc/WOw/Mos2tLy3j47CPdjxw4cnCocee3mdSHKKTNq113mXANV+3CIZCwk/OprNf1Elz/jYn0orONkz0IUo3PSo05lxlYQDr6vwCn2q+jKnZ54+anLq9V0+Ktc5WF88SfD0BGF1lp+Kzg1GaFCFt0J3gKDTC6k+2sZVzdV7TNplPOdQ==
+ bh=vZ3tLXVxYrysTzWlPpxmmIX298+3ZZ9kb4jEXrf0wqk=;
+ b=fiiayRN1+6Ec16sZbFGkY4+/TOu3IgvuSoBIIaHOaY+LpW2yKvVNdnp54Z9SB4BDWnKNrBiDr64B1xwN1E9aoG4WCr0lMxUctplJVWMc+UaaPH45XldXBHFqDmozUZ7QpQMDJl1c9mAlhwYI96mMq5MlL4+qdc55QTEPAIBd9VSeROVgCo23PMjWOE7+OQiGFC3TKNYKNue+eiyTKJZrPpRUpohSuaFtU2S067Y0ba2mUJG0AddnHIr9YMobAGLCVAxTnM1BZ/+aVXKEie54js44DgvOXdEUQ+0lM9lQxJY48u0C+YFQr7bvEptwFJNJ6Lki076iL70hHj3VbJ0OQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=khEO36kbuQOV8S9+6027VAyI7uisqDyDIdY6ddy0+5s=;
- b=qCyr1LU+U+H2RWGPLtyhQVpRp2um7LrnsqBZcnHfl13OVOhN12Qhxp09Y+55M/8OiafNgKQJO4MDZom5e6hCWtbZib4wLNiXs5j3qVqKeZooouVa00Sh858PyfW1Ada266KIqZrk7//LKOYyNqg4uhp93knjIty5eUKVowXXNVU=
-Received: from BN9PR03CA0765.namprd03.prod.outlook.com (2603:10b6:408:13a::20)
- by SJ0PR12MB5407.namprd12.prod.outlook.com (2603:10b6:a03:3ac::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=vZ3tLXVxYrysTzWlPpxmmIX298+3ZZ9kb4jEXrf0wqk=;
+ b=ZXUfXpwsfXAORc/CE0ujLwAR/W4yx/CB6W7Gd66AvEYIOnwn51RwkatNi1WUJDvg4GuGP+KZof801SieKAMYOkgG55PpleMxxpqapdmUoYUp6TG7rHedkQUXWkf3oj8ZJgoUqWVnNA6gSKRWvFNuoXARd838JHk50QWN4wwPWJQ=
+Received: from BN9PR03CA0754.namprd03.prod.outlook.com (2603:10b6:408:13a::9)
+ by DM6PR12MB4041.namprd12.prod.outlook.com (2603:10b6:5:210::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
- 2022 19:36:08 +0000
+ 2022 19:36:06 +0000
 Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::22) by BN9PR03CA0765.outlook.office365.com
- (2603:10b6:408:13a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16 via Frontend
- Transport; Fri, 17 Jun 2022 19:36:08 +0000
+ (2603:10b6:408:13a:cafe::fc) by BN9PR03CA0754.outlook.office365.com
+ (2603:10b6:408:13a::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
+ Transport; Fri, 17 Jun 2022 19:36:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:08 +0000
+ 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:05 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:36:02 -0500
+ 2022 14:35:55 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/31] drm/amd/display: Update SW state correctly for FCLK
-Date: Fri, 17 Jun 2022 15:35:07 -0400
-Message-ID: <20220617193512.3471076-27-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 20/31] drm/amd/display: Remove unused vendor specific w/a
+Date: Fri, 17 Jun 2022 15:35:01 -0400
+Message-ID: <20220617193512.3471076-21-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
 References: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea5d8dd4-e46b-4342-7c25-08da5098a04a
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5407:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR12MB5407708FFD26708631A69BD398AF9@SJ0PR12MB5407.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 0f39b3c3-6c6b-462b-9011-08da50989f14
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4041:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB404104749A2F3C5727802B3798AF9@DM6PR12MB4041.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JqCx4DHoFiGtVpYyQZDN+TUOLtweS3/2ujLHrx4sx87x4Msc6HQTRraEvSwb6wwBzF3PNdC6stpRfLJWbMNLAyCHo1zxwGhxXoJgTIy16kgW3QY1RRXS5Bu2c5rCPe2eHqa486N45YSyfmW0Qj2AnBq59wgHZT49ENetaNX8MhTjkRWZpH2iRWjCh3TG/H/vexSgbKPJcNruLeKiVk+2LszGk/VF1ZA4eQNJqarhmkTt9ttgUEw+zRj/Dt80a8KH3+42LYHGNS+TWwH9fgYW4BxheXEDHt1NB/hCjMHK0MxpHdQ05BKagkXnCjSEwv0roCOM07+GiEi+MM8V//I13+pgDgmBf7N0lyRcJEh+KTy9jZAek1WBqDAzgbZFtqn+JPRb3eG+OxtFW4MvQ77p1xUpgel1a62TgIQfEq/qMJhVBITOYs24PPlG242c74WysTYOeetauohZzBXJl6F+6dA1t8KWXHQIVxhHjBB9whguG/M2BCzNcgYvRhRyN5S6+T/EwBrbPHFYss25wv2aHzj/U/MAFJayBWAZadsy6JAB/NOG7tg/wjptbFoUu8nU3M4u765SlDeLW0+Q5Cg8T7l1OBQ3p+Ufr/+Mk4S0y8qCQpkvDskHl7et/OnP+4RhdvstwmdiEXtYk2NDj2vU1AHuiZjTnAUVpDeS4B5GYPnHaIuQoL8qqhj2WzA5z5Ywn3xBai91+ieFPGuIc9jR9g==
+X-Microsoft-Antispam-Message-Info: Jik1lGKqNGlto+7JS6tTMX0Wx6f39wM4mcwBR+7RN4aT525tJfWobISsqx7tx10mKNDDLbwvrCef5kfmyfcAj/Aer4dkwSWbYADgUjIkC0n5vLD1SEdKVe+nI+MQeoKlAasDSdxlYMNuzFOmwS6jJCel7nQDvGP7QjwlpFKhm6Hr68mEVO/yHR8+tvyAcvJl0eFg4PX9vEmdGLDUEafJaPlBredeBDbR/uOK5+222PCl42jc8XKHT7BwjNyj9p7WQ0bwQCWYkmQIyUnsYbsy7xdqJoxNeMLMGDtPmD6XIzZXMkVEDmZZY6rqJkZMiNR95MfNzRVFY+HFFB90ufifnHpMT7199cF+u3R7uL6frHZlnTvZtt3+8ZG0+Go15KSE+PIuePRH52jlU5+ElFythqCRZCyWQm7JybLkCv3OySt5WLmFcQxX5omFttxtd9PbYUOLS0xCykkXQIZHPvyklsX6m7No9MGfwX1fJN1cA/6SUZ8UItqrwquac1eLJo1y6WVpQcdGQtO4x7lVOqdVuqBiLedogmNB7gYKWONXKiGaaWqMOl8qommFgKuQwX9hQCi8E1XI5Ml1ddCzVJiXwt02DNf2MkQDtt87EiwAmmlhQAlNlX5+vARbEJPoPH2OsaiwDyps3Z3yNsQMmEi3wPvbkEw2AeyQFFRMouN655Z1zZRkYqkpl/s9iCLCwmx9H6pgprJAJOoStV9OXJ+bNg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(70586007)(36756003)(8676002)(40460700003)(70206006)(4326008)(16526019)(81166007)(336012)(356005)(316002)(54906003)(36860700001)(86362001)(82310400005)(8936002)(7696005)(5660300002)(6916009)(26005)(2616005)(426003)(1076003)(83380400001)(2906002)(47076005)(498600001)(15650500001)(186003)(36900700001);
+ SFS:(13230016)(4636009)(40470700004)(36840700001)(46966006)(70206006)(5660300002)(8936002)(83380400001)(8676002)(4326008)(70586007)(36860700001)(40460700003)(6666004)(7696005)(2906002)(498600001)(336012)(16526019)(36756003)(316002)(47076005)(186003)(426003)(1076003)(26005)(2616005)(54906003)(6916009)(86362001)(82310400005)(81166007)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:08.0052 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea5d8dd4-e46b-4342-7c25-08da5098a04a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:05.9741 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f39b3c3-6c6b-462b-9011-08da50989f14
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5407
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4041
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,45 +100,241 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Alvin Lee <Alvin.Lee2@amd.com>, solomon.chiu@amd.com, jerry.zuo@amd.com,
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ George Shen <george.shen@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Wenjing Liu <Wenjing.Liu@amd.com>, solomon.chiu@amd.com, jerry.zuo@amd.com,
  Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: George Shen <George.Shen@amd.com>
 
-FCLK not supported for DCN321, but still need to update the software
-state accordingly to prevent unneeded full updates in driver
+[Why & How]
+Old vendor specific w/a are no longer needed
+and unused. Clean up codebase by removing them.
 
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Alan Liu <HaoPing.Liu@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c    | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 133 +-----------------
+ drivers/gpu/drm/amd/display/dc/dc.h           |   1 -
+ 2 files changed, 4 insertions(+), 130 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 8ece88ddfb5b..90ba9576a6fb 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -431,12 +431,12 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 						clk_mgr_base->bw_params->clk_table.entries[clk_mgr_base->bw_params->clk_table.num_entries - 1].memclk_mhz);
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index c993b428ca7e..76233db6876c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -329,51 +329,6 @@ static uint8_t get_dpcd_link_rate(const struct dc_link_settings *link_settings)
+ 	return link_rate;
+ }
  
--		if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 &&
--				should_update_pstate_support(safe_to_lower, fclk_p_state_change_support, clk_mgr_base->clks.fclk_p_state_change_support)) {
-+		if (should_update_pstate_support(safe_to_lower, fclk_p_state_change_support, clk_mgr_base->clks.fclk_p_state_change_support) &&
-+				clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21) {
- 			clk_mgr_base->clks.fclk_p_state_change_support = fclk_p_state_change_support;
+-static void vendor_specific_lttpr_wa_one_start(struct dc_link *link)
+-{
+-	const uint8_t vendor_lttpr_write_data[4] = {0x1, 0x50, 0x63, 0xff};
+-	const uint8_t offset = dp_convert_to_count(
+-			link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
+-	uint32_t vendor_lttpr_write_address = 0xF004F;
+-
+-	if (offset != 0xFF)
+-		vendor_lttpr_write_address +=
+-				((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (offset - 1));
+-
+-	/* W/A for certain LTTPR to reset their lane settings, part one of two */
+-	core_link_write_dpcd(
+-			link,
+-			vendor_lttpr_write_address,
+-			&vendor_lttpr_write_data[0],
+-			sizeof(vendor_lttpr_write_data));
+-}
+-
+-static void vendor_specific_lttpr_wa_one_two(
+-	struct dc_link *link,
+-	const uint8_t rate)
+-{
+-	if (link->apply_vendor_specific_lttpr_link_rate_wa) {
+-		uint8_t toggle_rate = 0x0;
+-
+-		if (rate == 0x6)
+-			toggle_rate = 0xA;
+-		else
+-			toggle_rate = 0x6;
+-
+-		if (link->vendor_specific_lttpr_link_rate_wa == rate) {
+-			/* W/A for certain LTTPR to reset internal state for link training */
+-			core_link_write_dpcd(
+-					link,
+-					DP_LINK_BW_SET,
+-					&toggle_rate,
+-					1);
+-		}
+-
+-		/* Store the last attempted link rate for this link */
+-		link->vendor_specific_lttpr_link_rate_wa = rate;
+-	}
+-}
+-
+ static void dp_fixed_vs_pe_read_lane_adjust(
+ 	struct dc_link *link,
+ 	union dpcd_training_lane dpcd_lane_adjust[LANE_COUNT_DP_MAX])
+@@ -423,51 +378,6 @@ static void dp_fixed_vs_pe_read_lane_adjust(
+ 	}
+ }
  
- 			/* To disable FCLK P-state switching, send FCLK_PSTATE_NOTSUPPORTED message to PMFW */
--			if (!clk_mgr_base->clks.fclk_p_state_change_support) {
-+			if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && !clk_mgr_base->clks.fclk_p_state_change_support) {
- 				/* Handle code for sending a message to PMFW that FCLK P-state change is not supported */
- 				dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_NOTSUPPORTED);
- 			}
+-static void vendor_specific_lttpr_wa_four(
+-	struct dc_link *link,
+-	bool apply_wa)
+-{
+-	const uint8_t vendor_lttpr_write_data_one[4] = {0x1, 0x55, 0x63, 0x8};
+-	const uint8_t vendor_lttpr_write_data_two[4] = {0x1, 0x55, 0x63, 0x0};
+-	const uint8_t offset = dp_convert_to_count(
+-			link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
+-	uint32_t vendor_lttpr_write_address = 0xF004F;
+-	uint8_t sink_status = 0;
+-	uint8_t i;
+-
+-	if (offset != 0xFF)
+-		vendor_lttpr_write_address +=
+-				((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (offset - 1));
+-
+-	/* W/A to pass through DPCD write of TPS=0 to DPRX */
+-	if (apply_wa) {
+-		core_link_write_dpcd(
+-				link,
+-				vendor_lttpr_write_address,
+-				&vendor_lttpr_write_data_one[0],
+-				sizeof(vendor_lttpr_write_data_one));
+-	}
+-
+-	/* clear training pattern set */
+-	dpcd_set_training_pattern(link, DP_TRAINING_PATTERN_VIDEOIDLE);
+-
+-	if (apply_wa) {
+-		core_link_write_dpcd(
+-				link,
+-				vendor_lttpr_write_address,
+-				&vendor_lttpr_write_data_two[0],
+-				sizeof(vendor_lttpr_write_data_two));
+-	}
+-
+-	/* poll for intra-hop disable */
+-	for (i = 0; i < 10; i++) {
+-		if ((core_link_read_dpcd(link, DP_SINK_STATUS, &sink_status, 1) == DC_OK) &&
+-				(sink_status & DP_INTRA_HOP_AUX_REPLY_INDICATION) == 0)
+-			break;
+-		udelay(1000);
+-	}
+-}
+-
+ static void dp_fixed_vs_pe_set_retimer_lane_settings(
+ 	struct dc_link *link,
+ 	const union dpcd_training_lane dpcd_lane_adjust[LANE_COUNT_DP_MAX],
+@@ -561,14 +471,6 @@ enum dc_status dpcd_set_link_settings(
+ 				&lt_settings->link_settings.link_rate_set, 1);
+ 	} else {
+ 		rate = get_dpcd_link_rate(&lt_settings->link_settings);
+-		if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-					(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+-					link->lttpr_mode == LTTPR_MODE_TRANSPARENT)
+-			vendor_specific_lttpr_wa_one_start(link);
+-
+-		if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-					(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN))
+-			vendor_specific_lttpr_wa_one_two(link, rate);
+ 
+ 		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+ 	}
+@@ -1303,12 +1205,6 @@ static enum link_training_result perform_channel_equalization_sequence(
+ 					dp_translate_training_aux_read_interval(
+ 						link->dpcd_caps.lttpr_caps.aux_rd_interval[offset - 1]);
+ 
+-		if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-				(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+-				link->lttpr_mode == LTTPR_MODE_TRANSPARENT) {
+-			wait_time_microsec = 16000;
+-		}
+-
+ 		dp_wait_for_training_aux_rd_interval(
+ 				link,
+ 				wait_time_microsec);
+@@ -1415,11 +1311,6 @@ static enum link_training_result perform_clock_recovery_sequence(
+ 		/* 3. wait receiver to lock-on*/
+ 		wait_time_microsec = lt_settings->cr_pattern_time;
+ 
+-		if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-				(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN)) {
+-			wait_time_microsec = 16000;
+-		}
+-
+ 		dp_wait_for_training_aux_rd_interval(
+ 				link,
+ 				wait_time_microsec);
+@@ -2752,14 +2643,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 			&lt_settings);
+ 
+ 	/* reset previous training states */
+-	if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-			(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+-			link->lttpr_mode == LTTPR_MODE_TRANSPARENT) {
+-		link->apply_vendor_specific_lttpr_link_rate_wa = true;
+-		vendor_specific_lttpr_wa_four(link, true);
+-	} else {
+-		dpcd_exit_training_mode(link);
+-	}
++	dpcd_exit_training_mode(link);
+ 
+ 	/* configure link prior to entering training mode */
+ 	dpcd_configure_lttpr_mode(link, &lt_settings);
+@@ -2780,14 +2664,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 		ASSERT(0);
+ 
+ 	/* exit training mode */
+-	if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-			(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+-			link->lttpr_mode == LTTPR_MODE_TRANSPARENT) {
+-		link->apply_vendor_specific_lttpr_link_rate_wa = false;
+-		vendor_specific_lttpr_wa_four(link, (status != LINK_TRAINING_SUCCESS));
+-	} else {
+-		dpcd_exit_training_mode(link);
+-	}
++	dpcd_exit_training_mode(link);
+ 
+ 	/* switch to video idle */
+ 	if ((status == LINK_TRAINING_SUCCESS) || !skip_video_pattern)
+@@ -4227,8 +4104,7 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
+ 			&dpcd_lane_adjustment[0].raw,
+ 			sizeof(dpcd_lane_adjustment));
+ 
+-	if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-			(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
++	if ((link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+ 			link->lttpr_mode == LTTPR_MODE_TRANSPARENT)
+ 		dp_fixed_vs_pe_read_lane_adjust(
+ 				link,
+@@ -6198,8 +6074,7 @@ bool dc_link_dp_set_test_pattern(
+ 	if (is_dp_phy_pattern(test_pattern)) {
+ 		/* Set DPCD Lane Settings before running test pattern */
+ 		if (p_link_settings != NULL) {
+-			if (link->dc->debug.apply_vendor_specific_lttpr_wa &&
+-					(link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
++			if ((link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) &&
+ 					link->lttpr_mode == LTTPR_MODE_TRANSPARENT) {
+ 				dp_fixed_vs_pe_set_retimer_lane_settings(
+ 						link,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 236a204d41ad..81e308d59a97 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -744,7 +744,6 @@ struct dc_debug_options {
+ 	bool force_usr_allow;
+ 	/* uses value at boot and disables switch */
+ 	bool disable_dtb_ref_clk_switch;
+-	bool apply_vendor_specific_lttpr_wa;
+ 	bool extended_blank_optimization;
+ 	union aux_wake_wa_options aux_wake_wa;
+ 	uint8_t psr_power_use_phy_fsm;
 -- 
 2.25.1
 
