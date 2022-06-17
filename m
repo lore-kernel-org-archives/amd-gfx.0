@@ -4,124 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4387C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 15:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29507C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 17:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E69810E06D;
-	Fri, 17 Jun 2022 15:11:54 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2074.outbound.protection.outlook.com [40.107.101.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A17510E06D
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 15:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9725710E0A3;
+	Fri, 17 Jun 2022 17:20:55 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2040.outbound.protection.outlook.com [40.107.100.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9733110E0A3;
+ Fri, 17 Jun 2022 17:20:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mo1/K07uA3vGm1cc4+gSLe2Usy0S4+lZhHCAMz3JdglsurEmrKfEfIMHPrHJnyZ/FdMq7CI/Yzhy74xJ+WrMTTCYwkpDkJWRB32+ByKQRaTz2gGcFSL1vzNbR6sPm/xRfXUqrJ76suVwGP31B6Vpczsz5Q7lDZ9Fqz7GFvsBDxZTQcSW+fElqzIcrJV1wZ52XsES29DXQM9FwoErvrI/j54HCk65IQAbAH5zbltBUHEm4dbjqNkhI0jOZUTwgwqjivOyHCWfv7Ry8CN5cN8Zx61YOPDSjUwIoGGbrt6LLVHWvKG7oMEyEmWHaS5ttui+pTDyjpxV332cb3pwdWO8+w==
+ b=gpXcGwA7jTIzXfsJADLRJRRYlox2vNOR546eFkzMDtTDrLYMQQ5uIu5TnGWowDOiQSlkga5snrQpK03Ftbn43yzgWS5opstZqBHDwwVtte6f2gLmapNPumnEjmPbzr/UBRkG/U05BI8ypvg8iovRngpZALw1zC4JaWjCrz2+jIeQFjwl82eTyw57lxKV9e0qgRmPFYWC5W0i2KT1gejxOq73k36cpWZK+8A0vM3/FyGbPg2MJems8DkANoNlPn/xkJbqxHzxfDLArHa2iBDxirKdO+yDEBYTL7hupvTSxNq0AnPKfmVHXcgxphlz2nre7+yqY4IKeQ8MstHoWtoELQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jK5T9IW7nw2a4628gVPgzpzbapQSp3xEG1qCdPtVZ8E=;
- b=g4hUOkVQ98vvfrLJW6qw5wSGH1fdxh9bu/Uzon92Shs6cLxKhQlCJzC2huPneSkwavfDSKqN+F1uNuZFuEiz6X4HrRjGfKS3File8ts/8ESFt4OIZvcSElu+kQPxCoxAtgsddJzdZbxz4NT+3N5gznmS3c9nqPKL5nC3SFRhDKIV/5WrPC0ps9WPvGJRODlHkKyqYYAHq2mlD2i/qnVGyMGtj5r2cU2HQQwnMnbint/xNDD+UZXq65ji5SEoHzsDTwHyK/Pesm7K5EsNtVsZMVsctEGszCYY+ju4cyH2oBZ2DUN6EjSb0PXqfCnwQFVSOv6IOdbkh3WzFH2znJ5U2g==
+ bh=KUWofxBVyvcwxsHoZ1gibU8HNEVVjDZdbYdKqlOsIxg=;
+ b=OMc/DjXLkEksB/D0GUIMLKIJw3mQLVcHztEPgvjb2NZbxku0BcUk5I4cXRNMHoR8iZAa87slCxXIa7VX5y+lWMDHhU9UHeGcvXibIeF5UoSYMB/KE4LBOqB0EAGl3JlQXcks25cUSYF8tN+gPddV9XGytI71PHFsLpNVqOT5sYZVsgyEdrUiDT1Xbxs89fmi9tjXwZd0LXgdHabuYF01Uw42syL4ACGw90ZpuVxp9G6c3jSg9JOkWixcA/qXYSkbAFUHYv+TuIFL2W7MiV4AXBtir8WMy6EEqMshxpcjeL5AsO/6gruI8kPyUqh/Mdfx65qdHiNFOOscUpUiBfAxRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jK5T9IW7nw2a4628gVPgzpzbapQSp3xEG1qCdPtVZ8E=;
- b=4YLZiRsSBchlvZ6+lrzljJVGrlJ9cyPMALVu1BM1qXDkIRi4T6ryI5SZ3JyhTxhEzQiknUwmm2WAJoieFZaYQq8Lz0By5CBLQ66qba97fe5JvEj9GABK9Ihr7Vk/XyopowN6s9LlchZ0993zEmsMFkKmm1kijWvQNTuJhYmdAuU=
+ bh=KUWofxBVyvcwxsHoZ1gibU8HNEVVjDZdbYdKqlOsIxg=;
+ b=JC8nngOvPbRABbEiW5Nuk1IWLBPs3LBwRt7MJ3F7ZsZXL/qOqEe68mN186msdH0DYn18zEdc6Nfu+5ullI//oxZRtu6Cl8IYYmRwTAdXeONs5FC2ahoxWgXEXNzrdM0a2sUaHr75tJGitAVQxd1mlz6rLqmlS4r9HClXU5PdfXQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BN6PR12MB1747.namprd12.prod.outlook.com (2603:10b6:404:106::20) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
+ by MWHPR12MB1789.namprd12.prod.outlook.com (2603:10b6:300:112::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
- 2022 15:11:50 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::540e:d76a:bdf0:ed0d%7]) with mapi id 15.20.5353.018; Fri, 17 Jun 2022
- 15:11:50 +0000
-Message-ID: <a8b05069-450d-f6c3-a3b5-e769478f12b2@amd.com>
-Date: Fri, 17 Jun 2022 11:11:09 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 2/3] Documentation/gpu: Add an explanation about the DCN
- pipeline
+ 2022 17:20:51 +0000
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::b9a8:66b3:9ed6:2db]) by SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::b9a8:66b3:9ed6:2db%5]) with mapi id 15.20.5353.015; Fri, 17 Jun 2022
+ 17:20:51 +0000
+Message-ID: <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
+Date: Fri, 17 Jun 2022 12:20:46 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
 Content-Language: en-US
-To: Pekka Paalanen <pekka.paalanen@collabora.com>,
- Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-References: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
- <20220613200112.3377638-3-Rodrigo.Siqueira@amd.com>
- <20220615141204.62ba64e1.pekka.paalanen@collabora.com>
- <d48aa87e-b5fa-0437-d637-d7306b115311@amd.com>
- <20220617103517.68b9503b.pekka.paalanen@collabora.com>
-From: Harry Wentland <hwentlan@amd.com>
-In-Reply-To: <20220617103517.68b9503b.pekka.paalanen@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+To: David Hildenbrand <david@redhat.com>, jgg@nvidia.com
+References: <20220531200041.24904-1-alex.sierra@amd.com>
+ <20220531200041.24904-2-alex.sierra@amd.com>
+ <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+In-Reply-To: <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR18CA0006.namprd18.prod.outlook.com
- (2603:10b6:610:4f::16) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-ClientProxiedBy: BLAPR03CA0100.namprd03.prod.outlook.com
+ (2603:10b6:208:32a::15) To SN6PR12MB2717.namprd12.prod.outlook.com
+ (2603:10b6:805:68::29)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18ee7e45-72d9-4c19-36c8-08da5073b416
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1747:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB17474D9EDA3D6BA4AE99E6038CAF9@BN6PR12MB1747.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: e5827a06-6820-452c-8f9d-08da5085ba36
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1789:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1789B3783B6886EFDBB111B4FDAF9@MWHPR12MB1789.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o+4NE0HvZkgcFVLmbUlnQ+NR3mlH9X4VSa9GRdzspRujwa+V1dIcf873UDuBgOB16tKogD8nCxcdcylq69dXQ7KJiWIcWnWyS/bjrw9dNRDw/O1rdWLTCNVfF8ZI8TVzEsn0bK9PKjyutVwIY61lh6H/WxmD9kWxixBXWGm7/DOPln+12vQ0Qai45kI344xxfi6lbZnzbOwY0eurftDHIOEYpxNS3NkLbibbwJ13w0nfd8gFABKnQJw1x6YMF0sUXz3lFTtyUOW1Bj2bSllG52Ek88heaQ+7pq7mIOIBxe81/78pNttfZ0CbbLdjqeA8Zw/KG+AHfy00A2ttXxulIvJ29q0gQfvPj8oFBRGIzZOiAMi0io2x52xfm55CGt7YGnPfIgsDFjKhluRbGVC8lDDq6hTyYhD4YeqhqvlIh27TsgTHoLEbfJVP6kEKl2n4yVTzcdIFQ78548FWcsndtZHFBSrSTLd3Dyz/q9J7Ls6sa2VUpb4mNAsKqlQCGZ4K5snkERfikRgxAY15zbhY6WN2EOa5J2WP0kypdA0D7MJE349i/ddyRB4l77Ro52zLj1j7HV4CZBbXOE2Fo6cfMCkia8Bltp5s20GJNoDuVzboEv3DXcSYIAEVyfj6Pkqvl+Uu049KtnvI3M6uL0jICeFsCbPCBpS1HwlSWNPIdCieGirLHc4f4k5VOVMJk7KlaWfaIpnj6mmwdJlJyCYHnjWLLtGq2ar1Pv6lJWBaJ0OQRnYaGkzLe1UIliSTA2qVXRGQu6YqL7tvTmhfdeHTY06QOcbFl9gu7X/bSKDDL49441cu7MRW3RRZxM+aPdnQ0d64kgvIPD7MTv5va6HqIg==
+X-Microsoft-Antispam-Message-Info: dzxXc8F6+5txEy15wuxNH4GQWFZBWMWfi3U+zjMHUTGKt8slL0Z2klbApOXfuvbVtBX2KOgE2jkvEcPpXIGwTNeCSKmErD65Wl4lpssvTK9JscrQvz35VMAb04t2pIFcstbJGzYrgqEZmfklg8feGn1KsXjWv1z9MUDBAxc8r37Q/WQz0eSKi/CAaUa0zZrAC2YYTH4rzmzCSC+SFCe87EjAd2jcCtQd20kfPsHXv1YmWkNNCY1RF1MNAgS5IGFgn2oeOq040qgdDGRgH1hojKbSZxlyJI695q6DXEuHdVCIgHM6c9l70FR6uxTPHMd6C0nXNoq6GEwXayMY7MLEkRAIExwrH6x6CKAbQ6pMtCXB85/yis/BN4xGB73Uz0/RfILs8VxBo2OTSV2VKAodFTwZUJjkzUdDj6kM2qojhmihfQuFr/cOfClfGxeR6XdrTw3wcYreJd8phDRf6YL1NHGLR1cgOmfFoyCkTUKokZR5VvJjoll3JsI8ZzVeMLRvP5wiy/AwVwy1sRUjdtAgU61ix5QQ6amH9KEzUSIUbqUFJVnTQsV41jHZCvit/1hlcYHgK1wSLwqM31NcAYfZAM2gDYIOkMHVTfA2EwubOb0WzmrOsNlpu1rGiD7YoS4aFx66g9nP4yzlqFSRY85y2m681L8IsnOPy6orN7ybCZszlO8OJ/0Q6b6Wgl6vBsp1M95CfppVnjM/ewGfH4JMwh6PMDYkPP6cmDIvLnE70J84aKMxVRTevpe5gh7wTAzh
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(38100700002)(36756003)(31686004)(498600001)(66556008)(5660300002)(83380400001)(6506007)(53546011)(66574015)(2616005)(6512007)(186003)(26005)(7416002)(31696002)(66946007)(54906003)(6486002)(2906002)(8676002)(6636002)(110136005)(45080400002)(6666004)(966005)(8936002)(4326008)(316002)(66476007)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(186003)(498600001)(6666004)(6486002)(66476007)(316002)(5660300002)(26005)(6506007)(2616005)(83380400001)(7416002)(66556008)(8676002)(36756003)(31686004)(2906002)(53546011)(6512007)(66946007)(8936002)(4326008)(86362001)(38100700002)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S04vMlFYVk41SnJBVXh5WXVFUlgrLzkxVjQyWFdZaDg4bW5Hd2U0RU1BQzJK?=
- =?utf-8?B?UFFVTVZmQzFGRDgvR0U5aStYZ2s3b1liN2NSdTBuMUY5UTNHV2MrTGVoRGI2?=
- =?utf-8?B?Tng5dlJmc3R2VmtRemdDNUdSMlNScE5wMUJkbXRNODFwODdkd0VQS3Y2NGcr?=
- =?utf-8?B?MDZPKzFOc2RjdWczcnRLcTJKczVoNjhzYnlLcVpXMmU2T3pGS1pPanQ3dDdz?=
- =?utf-8?B?NG9RNklrcFAvQzduQ0RVMlA4S3cvSWFmMWFrVFZWNmFPS1ZIMEtCa09xdEw5?=
- =?utf-8?B?T3pnU2VGOXRoZ2o3ZktIa3VsRDdGa0gxMWJWYlBHSWhBTFVFSDA5dE5ncVFB?=
- =?utf-8?B?ZkptSFhzdlAyRllxR1lHUGk1SWlJd0R4cEpCU0tsSDhDSGZBS1FPVG9aQklR?=
- =?utf-8?B?OFQ3QjVaRWpQMHRvQThoU3ZmUGpWVHpQby8xYmJ2cG1UWWNqdnJoTWxtdDNv?=
- =?utf-8?B?MFBOVW95RjRDK21CUHkrK2ZidzE5ejBiZ1lycHFwVlUxdi9QL3F5WER6MkRU?=
- =?utf-8?B?bXRaUUx6Nys2UWdmY3lDRHdJZ2JhY1BKTjBCTkJ0VnArMnQvdUU4aUhvVnFo?=
- =?utf-8?B?ajlqWlp1R3phb1ZxT0tqZTlnY1ZDYjBCdGpPQzIrU0ZCTko4WlpZT2J6dnN3?=
- =?utf-8?B?MklrakNPYm5EMnpCcTVNTmZrREpzSVBnVWtEMWZ6U2pGaHRiN0R4VHB4VmZt?=
- =?utf-8?B?WGEvWGoyQjFnTmR1RnFJSytKeUpxWHVWRW1PRWJ5ZTU4Um01R2hZd2doMXF0?=
- =?utf-8?B?eWloTTY3KzNCeFBuM0ErMlJmcVgwYW9aNk1kV2FZRUZwNXdTNk1lMXFtSG51?=
- =?utf-8?B?eVZRZHl4S3o3MkFpY2ZkaTUyckhoRTZlcDZPeVExaCtsdXdqK1VZb3NNcU1z?=
- =?utf-8?B?U3VUcXZ6cDRHa21rUnFUUkJzWG96aDFzcDhwamhZV0dHUUhtTHlQMkp2L1ps?=
- =?utf-8?B?b054dEJCUXJUZjArTmNpcWNGNUk0TUJicG1DcHhjVzQvUGhUNjlQTFpheThJ?=
- =?utf-8?B?ZFlXeDI4TTdYQ3hyN0F0bWdYcnR5N2dQem9pVmpUMFJUUkRCakNrQXkxZVJh?=
- =?utf-8?B?bjVCRGVMRGs3UXI2eFhwcUNPYmYwczRrbElvZUNmMzI5MGcwY3RHZnBVRGJh?=
- =?utf-8?B?VWNrUEVkQVBGM0xCTU9GOXh5TUZYVnpCMERId0pSMVpqbjRRaUZMdXhqUjZX?=
- =?utf-8?B?N0ZESk1CNDlzdm9RZXNoWVhnV0p2WVdJdkM4cjVRcFV0RTlRWkdGYjZ3YW5v?=
- =?utf-8?B?amFkUTNLamFuSWlFY0FMNlFsdjBReThaWURqb2FsN042MTVaTkhxOEl0eVJB?=
- =?utf-8?B?VlE1TjcvM2hzMTVPVFZJcU50OFBsUmp6Skk1T1ljczl1UTczaWJZbGlwaklp?=
- =?utf-8?B?cW0xKzNURFQ2Tk82ZUVxUUZiQjFHV2wvaHJTQXBPWnBVRUV5KytBKzN5WkJL?=
- =?utf-8?B?RjNkeGIvcmR1d0NGZzB4bDZ0Z01jSlhJc0xsQ2E3ZHlyblFpN3hIRFI1SkV0?=
- =?utf-8?B?ZFQxNkl1K0VpR0hQcHdFN3hKZjRjakpDSWtlaGorUmJBajAzeDNVSERlck1S?=
- =?utf-8?B?eW1mTmRsSzRGaUtIL01uOGZteU8vMUpWNjhqUkxycFhZK1JvVE5UcUJaSmV3?=
- =?utf-8?B?cjFLcXljeGQ3ait0R1ZVZmMxTzJwSTIxZHNIekl2bStiL3JkYjNuNUZhdVg1?=
- =?utf-8?B?eDN6TndLWHlwWmhVZDFPcVd0VXRheEpJcDczVFZWNTlqMmprajNDVGx2NXRE?=
- =?utf-8?B?R1ZYTFlvTGx2ZHhMdGpZL1ZlRXhRcVlqUUtzdkh6VXJGbGtPKzJkdUJQNWl3?=
- =?utf-8?B?Z2hTdHgrUEJZQmpyTFRWTE1XRThCQThIQlRPNFcwa2V4d1Y1WDlMUi9pVVU0?=
- =?utf-8?B?YkpMNTZSeVZaRVA1OGtoajd4RWRVZWxjMmFhbHBNTytqTXJMcjI0eU5RNUV5?=
- =?utf-8?B?ZkxIT0hnNXVDem1EMXVHZEFpRjcySDFVdTAyWXMyZXl6S2Rvd3Z3aDZNeDlo?=
- =?utf-8?B?OUxrT2J3bU1KSi84U3V3NHZLaFo5RGdXVDhLb0RIMG1TYjc0OXR6bFh3elFU?=
- =?utf-8?B?NWVCbG9vMmRlY25TeW5uNFMzb3MwY1gvTEVqNXZFUnR0dDZkRjRaenVHcWJV?=
- =?utf-8?B?WHppMUphbTdtSGVWT1l3Q01FTkUwaXdlR0crRVRUMHo5Ymw0UWdDMTMvSmRU?=
- =?utf-8?B?a2JWSVhPcHgyODFQdXdUcktVSU1oNzliKzQ3NitXMFRJaE1TNllkZHJlZ1Za?=
- =?utf-8?B?TDZsMHMzL1d1K1MySEI2YnFwcnJDSVhFZkhkUkQ0NkpiT3A2K2hMRTlKK0lp?=
- =?utf-8?B?MVlRMEJ3dUorT3JjSWNQTzNBTVlmejUzQnR3OXZ6M05RVlNDVGRadz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M291eWpIOFpzdWNwQnBTSGhvQmJtZVUwVVJEVFgvYWVaSE1oMjgwYkhtcVNN?=
+ =?utf-8?B?UEpnSEZmc3p3eGZuZkUzZFppYVJocm1OTjVaelVxR25ORThFNzh2ZDMrQW5D?=
+ =?utf-8?B?SXQ1Tml0L3hGRW5UVlV2bEQ2aTNSYURLMk9wNmxBWGZnRm9YNVR4RVh5WFlM?=
+ =?utf-8?B?YVBYdDdSQ0RJbUdvMHFkQnRtMVNkMC9Vem4rSUxUWHJhU3VBeEVWZHBiYjBJ?=
+ =?utf-8?B?Vml0ejZnU3NTNzc3eENDbFdnTU1tcHg3TWl6Yi9KZzE4bXBtbVRSSmhpNktO?=
+ =?utf-8?B?RDVOWHhvMDlrcjI3WkZWaTFtdHdSR3JrbUhlWS9NdEdFR0dXVVA4T1ZDNzlC?=
+ =?utf-8?B?TXBBTkszWFlRUEZFR0Fqd09GbGtReXRUUkxZUERHUmkrOHlUcmVGdXR1cjEv?=
+ =?utf-8?B?dmpJd2lmR2tTZGVmbVNvNktFMHhYU2dxTVF2NklNVXZqVHBDck40RU9pWHVM?=
+ =?utf-8?B?U2d2RUQvWVJjdTdjdmlsbC9icHIyQXhjblNULytRb21va2c2OENGTFNnT2Vi?=
+ =?utf-8?B?M0VQWnRyVEdQRmNiRlhjTDM3MzQ2aXZmT2FxeTMyeXNsYUdjQ0VBY3lIWlB1?=
+ =?utf-8?B?WFJKckhvSE84Q3BpTXFZZWlRMjU4UFBUS0lGSXdMQTBwV1RLSjVlUlRCekVQ?=
+ =?utf-8?B?MjJIdWFsQ0dZT2FWWFhmWkhpNHh1Z3lDdGRtektqWFdSc1FiTXBkM1dWeVFu?=
+ =?utf-8?B?ektmeVlYVmNlSm9HWGIxeksycVZjVG9wWHlFZnVjNGtmSEJRQkQwRlZYTlpV?=
+ =?utf-8?B?T1pqS1JjVHVWY2ExRWJuTEJrM1FJUnBWTDEyelR5YzdVWW9hcW5LbldEem5x?=
+ =?utf-8?B?VDVtMDJ1ZlowU2xiRnE1NCtuNE1mNnZzSWUxNFFsdThMK1h0NSszTllROEdF?=
+ =?utf-8?B?RHNyK3hqK1ZLU2lCeVZRTGVmOXppK1dnYUlOblE0OEc3bW15MkJLL2lmRnRB?=
+ =?utf-8?B?N3dzWjhjRmxKYmI3YVd6VkRYamxiOFM4NDE4RzBIak52Y0Y0aDIwSHh4V0t6?=
+ =?utf-8?B?QisvSklqNXJqZWpzcnlaODNHUzlvYS9wOUU5OFJPaFVIRUVBa2YxS3Y0cVpt?=
+ =?utf-8?B?RFJaRGhrZWtGSS9pcERaWmVpS051dHh4TXhyQWpwbGJHVEVjYlVIamw2QUpw?=
+ =?utf-8?B?YytYWjdUM2ZQSmhJRXFBb3dNck9XQ3B6ZklwZ1ZjMFBLQ1VrSjFMdENZY2FM?=
+ =?utf-8?B?TzhEc29PNWhJL2hzTGxzN2VhOUpmZGxQbzdJQms3M092ZUY1Uk9VekJSbTV6?=
+ =?utf-8?B?dk5jT0VsdHk0aHlqUklLZEI4TmN3Qm1sdk5OV3ZNbUkyVCt0S0ZheEEvTWNW?=
+ =?utf-8?B?RElmU1hlSW1QdUlRamNYR0d3allLZm9FcVZ2WTA4NDl5NDdxMmJHU29hbWhx?=
+ =?utf-8?B?R3hQRVplNHBld3lOZllNS0owSUpqdzltcGlJZVhZK3ovY1k2ci9vN1pGdzVi?=
+ =?utf-8?B?dlJBdVNpVG9pK0tyWmNDOHhGajAySE4za21iQXFYTDF3Y0F2S1U3cUowUlEw?=
+ =?utf-8?B?dFJKYkMwQllKVU0yak9vQ3NSeHpPYmFJVENxOEtMRHRQcnJxYnBKbjMrK0RG?=
+ =?utf-8?B?bEFFNW02NzdEYVE4bFozSzNkVmhrREVLcWNqbDVhN0tJZTQwcEUxN3lHOXpL?=
+ =?utf-8?B?U3QzMWtuSDlucktuZnkvWTIvRjRpaVZhRDJ3cml4QUhWWWF3WTJpN0UwUGhR?=
+ =?utf-8?B?Y0t5Mm54dkVNakJrTGtSNjZ1L3lLNHEyVzRqeVBzUElIY3ZHTStWZ1ZKeSsz?=
+ =?utf-8?B?aUtOaHY1SjBYM1dxbC95b2ZkK3hwU2NaYXdrRzYyYTNnbnNYajlqS2tLSVkx?=
+ =?utf-8?B?eDA2bkhFMW5MNmF5MWpZc3dSdEJEdUNsUFRTbWRLK3RzVmIvTVdIcEFYRHdz?=
+ =?utf-8?B?eFMybERDTGVYenpVWkVqUytHclM3NW5EaUh4UG5MZnRIL3UwV2ZTbW8vSW5B?=
+ =?utf-8?B?NkY4a1ZOcW5EdGdlL2ZBS2xmcEgydnc0djFqd1ZtbklMQ2ZvNnRkeUkrWkly?=
+ =?utf-8?B?VUFyZ3dzdmVBSHhHMWFnUGNSR1NtMmx4R2RJN1VGSkx3NDFFQTRuTElTOUto?=
+ =?utf-8?B?dUNWOTRZdWlQN3dZZmQ1ZU1TLzRlM3U1Q2I3b0Q0cmdwRVcrU2g2eXFRWVli?=
+ =?utf-8?B?S0hDQ05waFJLWE5jaGRicWZkQ0RxbVI1Mm9OOE5GdjI5L2FCNGNNZmdyTHlG?=
+ =?utf-8?B?cFpzWmNMN2FYa20xOHhJOEp6OFVuSGRnUE9QMHBvSk5YeHVmZEZMcFFaaVpM?=
+ =?utf-8?B?L0M3V253MHhLUHd3b0RyZkF0eC9RbFVlVWxyc0VwUHYzWGVSRVlnMldWM2Vu?=
+ =?utf-8?B?Y3EwbC9wSENTY1QyVHRxUFVVOE1wT0ErK0hJeDNCWk8zckp2UGtGZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18ee7e45-72d9-4c19-36c8-08da5073b416
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5827a06-6820-452c-8f9d-08da5085ba36
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 15:11:50.1505 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 17:20:51.3856 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 406VDmXw2z6zxCXHCfsErTwhj29vyT0uSTMAlciUwu80bRnp9c9cm7SFpDiX5J8UNW1UPZj9pBuHTEo/ZRdMkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1747
+X-MS-Exchange-CrossTenant-UserPrincipalName: bSta839moXOZISNH/bPEJtkwaX59KHY6Qo4TeoJj/H4k1G8fHUOAREtiE30K9r47qiFloXzANxU53zvN6c9zyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,177 +129,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, Simon Ser <contact@emersion.fr>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
- Alex Hung <alex.hung@amd.com>, maira.canal@usp.br,
- amd-gfx@lists.freedesktop.org, mwen@igalia.com, Leo Li <sunpeng.li@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- tales.aparecida@gmail.com, Sean Paul <seanpaul@chromium.org>,
- isabbasso@riseup.net, andrealmeid@riseup.net,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Pierre-Loup <pgriffais@valvesoftware.com>
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 6/17/22 03:35, Pekka Paalanen wrote:
-> On Thu, 16 Jun 2022 17:59:21 -0400
-> Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com> wrote:
-> 
->> On 2022-06-15 07:12, Pekka Paalanen wrote:
->>> On Mon, 13 Jun 2022 16:01:11 -0400
->>> Rodrigo Siqueira <Rodrigo.Siqueira@amd.com> wrote:
->>>   
->>>> In the DCN code, we constantly talk about hardware pipeline, pipeline,
->>>> or even just pipes, which is a concept that is not obvious to everyone.
->>>> For this reason, this commit expands the DCN overview explanation by
->>>> adding a new section that describes what a pipeline is from the DCN
->>>> perspective.
->>>>
->>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
->>>> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
->>>> Cc: Hersen Wu <hersenxs.wu@amd.com>
->>>> Cc: Alex Hung <alex.hung@amd.com>
->>>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>>> Cc: Leo Li <sunpeng.li@amd.com>
->>>> Cc: Simon Ser <contact@emersion.fr>
->>>> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
->>>> Cc: Sean Paul <seanpaul@chromium.org>
->>>> Cc: Mark Yacoub <markyacoub@chromium.org>
->>>> Cc: Pierre-Loup <pgriffais@valvesoftware.com>
->>>> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
->>>> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->>>> ---
->>>>   .../gpu/amdgpu/display/dcn-overview.rst       |   58 +
->>>>   .../amdgpu/display/pipeline_4k_no_split.svg   |  958 +++++++++++++++
->>>>   .../gpu/amdgpu/display/pipeline_4k_split.svg  | 1062 +++++++++++++++++
->>>>   3 files changed, 2078 insertions(+)
->>>>   create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_no_split.svg
->>>>   create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_split.svg
->>>>
->>>> diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst b/Documentation/gpu/amdgpu/display/dcn-overview.rst
->>>> index f98624d7828e..430e363fccae 100644
->>>> --- a/Documentation/gpu/amdgpu/display/dcn-overview.rst
->>>> +++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
->>>> @@ -124,6 +124,64 @@ depth format), bit-depth reduction/dithering would kick in. In OPP, we would
->>>>   also apply a regamma function to introduce the gamma removed earlier back.
->>>>   Eventually, we output data in integer format at DIO.
->>>>     
->>>
->>> Hi,
->>>
->>> always nice to see more docs!  
+On 6/17/2022 4:40 AM, David Hildenbrand wrote:
+> On 31.05.22 22:00, Alex Sierra wrote:
+>> Device memory that is cache coherent from device and CPU point of view.
+>> This is used on platforms that have an advanced system bus (like CAPI
+>> or CXL). Any page of a process can be migrated to such memory. However,
+>> no one should be allowed to pin such memory so that it can always be
+>> evicted.
 >>
->> Hi Pekka,
+>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+>> [hch: rebased ontop of the refcount changes,
+>>        removed is_dev_private_or_coherent_page]
+>> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>> ---
+>>   include/linux/memremap.h | 19 +++++++++++++++++++
+>>   mm/memcontrol.c          |  7 ++++---
+>>   mm/memory-failure.c      |  8 ++++++--
+>>   mm/memremap.c            | 10 ++++++++++
+>>   mm/migrate_device.c      | 16 +++++++---------
+>>   mm/rmap.c                |  5 +++--
+>>   6 files changed, 49 insertions(+), 16 deletions(-)
 >>
->> First of all, thanks for your review.
->>
->>>   
->>>> +AMD Hardware Pipeline
->>>> +---------------------
->>>> +
->>>> +When discussing graphics on Linux, the **pipeline** term is often overloaded
->>>> +with multiple meanings, and DCN adds another context to this word. In the DCN
->>>> +driver, we use the term **hardware pipeline** or  **pipeline** or just **pipe**
->>>> +to indicate how many DCN blocks we are instantiating to address some specific  
->>>
->>> This seems to say that a "pipeline" is a number, a count (how many).
->>>   
->>>> +configuration. DCN composes those pipelines together when the data reach the  
->>>
->>> This seems to imply that each "DCN block" is "a pipeline".
->>>
->>> Is either true? Is a pipeline not a sequence of selected DCN blocks
->>> instead?  
->>
+>> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+>> index 8af304f6b504..9f752ebed613 100644
+>> --- a/include/linux/memremap.h
+>> +++ b/include/linux/memremap.h
+>> @@ -41,6 +41,13 @@ struct vmem_altmap {
+>>    * A more complete discussion of unaddressable memory may be found in
+>>    * include/linux/hmm.h and Documentation/vm/hmm.rst.
+>>    *
+>> + * MEMORY_DEVICE_COHERENT:
+>> + * Device memory that is cache coherent from device and CPU point of view. This
+>> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
+>> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
+>> + * type. Any page of a process can be migrated to such memory. However no one
+> Any page might not be right, I'm pretty sure. ... just thinking about special pages
+> like vdso, shared zeropage, ... pinned pages ...
 
+Hi David,
 
-I think the confusion stems from unfortunate phrasing.
+Yes, I think you're right. This type does not cover all special pages.  
+I need to correct that on the cover letter.
+Pinned pages are allowed as long as they're not long term pinned.
 
-Siqueira, you seem to be saying that a **pipeline** is indicating
-how many DCN blocks we're instantiating. This is incorrect and
-confusing. We have a number of pipelines for each SoC, e.g. 4 for
-many APUs and 6 for many dGPUs.
+Regards,
+Alex Sierra
 
-A pipeline is a sequence of HW blocks:
-HUBP > DPP > MPC > OPP > etc.
+>
+>> + * should be allowed to pin such memory so that it can always be evicted.
+>> + *
+>>    * MEMORY_DEVICE_FS_DAX:
+>>    * Host memory that has similar access semantics as System RAM i.e. DMA
+>>    * coherent and supports page pinning. In support of coordinating page
+>> @@ -61,6 +68,7 @@ struct vmem_altmap {
+>>   enum memory_type {
+>>   	/* 0 is reserved to catch uninitialized type fields */
+>>   	MEMORY_DEVICE_PRIVATE = 1,
+>> +	MEMORY_DEVICE_COHERENT,
+>>   	MEMORY_DEVICE_FS_DAX,
+>>   	MEMORY_DEVICE_GENERIC,
+>>   	MEMORY_DEVICE_PCI_P2PDMA,
+>> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
+> In general, this LGTM, and it should be correct with PageAnonExclusive I think.
+>
+>
+> However, where exactly is pinning forbidden?
 
-DC treats those as individual resources, so we build a pipeline
-conceptually by taking resources for all individual HW blocks
-to compose one pipeline but in actuality (in HW) these blocks are
-not arbitrarily configurable. What we can do is combine pipes at
-the MPC as such
+Long-term pinning is forbidden since it would interfere with the device 
+memory manager owning the
+device-coherent pages (e.g. evictions in TTM). However, normal pinning 
+is allowed on this device type.
 
-HUBP > DPP > MPC > OPP > output
-HUBP > DPP > MPC ^
+Regards,
+Alex Sierra
 
-In addition the DSC block can be assigned to pipelines as needed.
-
-So, in short we have a number of pipelines per SoC. If we have 4 pipes
-we have 4 HUBPs, 4 DPPs, 4 MPCc, etc. There are few exceptions to that,
-like the DSC block.
-
-On the output side we have a number of different encoders that are attached
-to our output connectors. Each pipe is routed to the appropriate encoder
-for the display output.
-
-Harry
-
->> In the DCN we can have different pipeline configurations. For example, 
->> see the below picture:
->>
->>  
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.kernel.org%2Fdoc%2Fhtml%2Flatest%2Fgpu%2Famdgpu%2Fdisplay%2Fdcn-overview.html&amp;data=05%7C01%7Charry.wentland%40amd.com%7C5c60cfb7c2e5483e1b0d08da5033f013%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637910481695853125%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=TX6JmSkn2ybJSqtOz7DRl4q745qzsCLYSkQ0RvAXsrk%3D&amp;reserved=0
->>
->> Let's say that our pipeline policy does not allow pipe split, in that 
->> case we will have just one instance of each component. However, if we 
->> decided to split our pipe, we will have more instance of the other 
->> components (e.g., 2 DPP). I added some examples about it a little bit 
->> below in this patch.
->>
->> Try to apply my series in your local kernel [1]. That way you will be 
->> able to open the svg files at Documentation/gpu/amdgpu/display/.
-> 
-> Sorry, that's too much to ask for patch review on a project I don't
-> work on.
-> 
->> Maybe I can rephrase it, do you have some suggestions?
-> 
-> I'm not sure what your definition of a pipeline is. If you have split
-> blocks, does that mean you have one pipeline or multiple pipelines?
-> Does block splitting allow to create multiple pipelines in the sense
-> that they do not all contain the exact same blocks?
-> 
-> The only thing I could suggest is to not say that a pipeline is a
-> count. That would be done by replacing "to indicate how many DCN
-> blocks" by "to indicate which DCN blocks".
-> 
-> 
-> Thanks,
-> pq
-> 
->> 1. https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatchwork.freedesktop.org%2Fseries%2F105071%2F&amp;data=05%7C01%7Charry.wentland%40amd.com%7C5c60cfb7c2e5483e1b0d08da5033f013%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637910481695853125%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=MYx6R8tIvFu6f46Rj7GWH4MIfa7bjYjdYitFnc6wNZs%3D&amp;reserved=0
->>
->> Thanks
->> Siqueira
->>
->>>> +end of the OPTC block before sending it to the display. We have this pipeline
->>>> +concept for trying to save energy and optimize bandwidth utilization while
->>>> +providing the maximum performance per watt. It is easier to discuss it if we
->>>> +dive into this topic by taking the example of a 4k display in the below
->>>> +example:
->>>> +
->>>> +.. kernel-figure:: pipeline_4k_no_split.svg  
->>>
->>> A bit too hard for me to look at SVGs from email patches, sorry.
->>>
->>> You wouldn't happen to have a git branch available in Gitlab or Github
->>> or even cgit somewhere I could visit with my browser?
->>>
->>>
->>> Thanks,
->>> pq
+>
