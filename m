@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A9CCCA479
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E68C433EF
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:36:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ABD410F4AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C41110F466;
 	Fri, 17 Jun 2022 19:36:16 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2048.outbound.protection.outlook.com [40.107.95.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0934C10F466
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D66710F4A6
  for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:36:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=To6IEwijC0R++ohqShaZrb/xtnJD2AlRbU2QK26ftCLb/GQE8dKdhUlRawNdIBrejmHpWX3aPEn+ky3stDj3P/1j3pHUufEPndRlQ3m0LF0yG2CpCQkm5bzdBAQyqmn96r6dDG1srZ1SyrF6rRrqqTIwfUtS4qjeSQ0/R5XPbweNyOMIQJPqVItB2nRC3Pux1uV8tBlvlOZyDfvH3iLNFcu+cfefjglzD1dh+vsnFNpikcyYkXImDEQr2kgh5Cx+mok8Cx0zBNZ2uXGH848t9zM4p+I0v9DRUhX2FuGdtgO8rBSo4PQCt7JceWtsaxBRO6vJrqBxLxrCDMuukT4Vfg==
+ b=MvCS8ZvRyIXAgYK7i2+9LhwILPTnWh5AJt4yVCKJ7xf4s2fGCr/+fdTX/1aMFvgj/2drSUGvv/p4Gd4+xw1RYkNNutxg4o0Ag7wIz6PwxSu1Uz6wGlzX03xAS1tdbbY1Q9/s6EjB5bZcc9nalWFNc3bOKDl6DGce4Md04upUmSCDgtOwC28hBNofMTfMg4OyuzgpPTrWHpPqc1+8qxaLDQXDuQ4xWgE+J0YgF1cGnSYdMeHpsta3/ifoQ8cXcKvhaVVRKtJcA1y3jvi/0rqWerYvylYO087rDZqCHFbP1RD4O05cDuWbN8oiZWZd020u3UbzxnyP7lZ18nTScDkLFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eY8KawkPaPutUfzF4UjALo2sBNm9hGB11qUczB40pKY=;
- b=IxavviEWC+x2JZ7hJsNrTyhut6Q6fQyS+lW/5nNCgrFVl7cWPjaSbVn+da4d3HO5pQop8aH1jIOElR+s3rkkozTBU+2PC6Tc7W5yqwmjfWTYxtGT/yfqzTVOItMtKDzvpIXekod7IKznIpHpXmGKpdpgccuTcPKyVc77Fpj8HUNNAUI8Y4pph0d3bdjq9c+wuZ97xd7RrO5z5E6KjbSw7/J//Fc7LavUVXUV7DnNvnahpgIkeKQgX+GNiR9Q4VpbGcFmKFvbGDfgjPtDgLdz2DwCPKBRz97Qexm8z8ZKPCQkftkc9JGJCfts+5UCsfw25uZ2ehy5Lms3S8mubbMHuQ==
+ bh=qDBtuW4ufXQdmbAKK/lWIfWmi21VwYIiFuwuQWMkslY=;
+ b=Gy8jUPtEby7pFgNF9+sBEO4qE030CNMYamntiu7ePKKYV7LnYRA42HUbF8VFsV/VZmorNtMGn/ObCLbiWnQrqlrJ3RbLw+5u+AKP2qDnhKAAIWCUN9svTUrNzSmaRE9zh4gDbBH3Qeo4pOZ5OJxz50rnUr5RLhEEr0y2FhMjVOZeIT2X6xuHcfxHKaWpo3YFvdNboMxjBbi5Nj4kC1jIUKxc5SRKYQwT8w0+Bv5eFaVUxOxavMYp+EKSBOQ+ZJCJsNb99xymN4dD8ddD8pejk3XmEY4ANVZWEO/ArL1ezm9Zp4IL8Fx34qQNm3Zp3Wk/7QFZqKc8QCpCVSyz8bobyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eY8KawkPaPutUfzF4UjALo2sBNm9hGB11qUczB40pKY=;
- b=V9qMkq/xZyv6KKL5JaCwAi2Vo9MINLGwqTETslX3eyurpVlZBwXPfe2QNDv5Hx5OnQ8rtOt1Tyx060qun6MY7HyoFUpMs5cnpYup3HyvYW/dV8CbpJ2urjWSrClZ5Zjk+Hu81fU7/FQ+zz/KNRCqukzzmjS0SeEnHqLK6h8Qc2g=
-Received: from BN9PR03CA0762.namprd03.prod.outlook.com (2603:10b6:408:13a::17)
- by SN6PR12MB2814.namprd12.prod.outlook.com (2603:10b6:805:72::33)
+ bh=qDBtuW4ufXQdmbAKK/lWIfWmi21VwYIiFuwuQWMkslY=;
+ b=gaubkjqI+DJZ/lpWZtCXA3zk3y+3L2ptEa8JHTUcqOuBYgQjZAjJ0GrG1yoU28Pfxr+Ip33t0GS63mDMqU6AwP/YtOk0feduQ8IIIORG45BLkuSPIcBnOdwQuURJnmaYZswZ6e4Il0WLNGtZHtrqt4oRHiYxXKVXIivo+LcsAWY=
+Received: from BN9PR03CA0776.namprd03.prod.outlook.com (2603:10b6:408:13a::31)
+ by BL1PR12MB5923.namprd12.prod.outlook.com (2603:10b6:208:39a::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16; Fri, 17 Jun
- 2022 19:36:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
+ 2022 19:36:08 +0000
 Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::d1) by BN9PR03CA0762.outlook.office365.com
- (2603:10b6:408:13a::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
- Transport; Fri, 17 Jun 2022 19:36:07 +0000
+ (2603:10b6:408:13a:cafe::5c) by BN9PR03CA0776.outlook.office365.com
+ (2603:10b6:408:13a::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15 via Frontend
+ Transport; Fri, 17 Jun 2022 19:36:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:07 +0000
+ 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:08 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:36:01 -0500
+ 2022 14:36:02 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 25/31] drm/amd/display: Fix divide-by-zero in DPPCLK and
- DISPCLK calculation
-Date: Fri, 17 Jun 2022 15:35:06 -0400
-Message-ID: <20220617193512.3471076-26-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 27/31] drm/amd/display: Get VCO frequency from registers
+Date: Fri, 17 Jun 2022 15:35:08 -0400
+Message-ID: <20220617193512.3471076-28-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
 References: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
@@ -69,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3f1bb32e-e5ea-414e-1fd8-08da50989feb
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2814:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR12MB2814EF042FDE22DCBAAEBE1B98AF9@SN6PR12MB2814.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 3b47eb77-fe90-46b8-2c4f-08da5098a05b
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5923:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB59230C14EBF322F544B357D598AF9@BL1PR12MB5923.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: s/QrS+yxBrtLgiHT0R3CYVL6R03CmI0UibyqwPpFsGYsRoI1wKteXtvZ+ZoVjkZSo2qf8/HhyjmyM5pvF/+NxptbwiNVNhKJ+R++MmFkQ/yTsayc8NaJVa+AVizoZRboyLvMaDMDR81qjavxKtDnDPmvSREWeRldAY4fpybmY2Y2Rcf/hQGAe2opA5YNJiJuvphzScTdvpnlOnxQdwDAhViDL/FBSHHzzqKIYuECeJtoQ9Zmw6sZALX4nev+nk37E7j/gZ5Gnir044S1g9zn7oh7I1PhTdBVMiR7f/HzR7FAQ2zx67QT3JGJlLWeBJ9FRanGmNuzmICggE2PkOawmbq6D+Dbs7qqRQs1oYj3fY87sJmV0Mn/ALtoGQ4nFxJl4fP7Rg4PLJZy0i94hmFI2u9TZdNuzrp0ug8c/iq5Wr761YOY9hvkE0l/9wGQ4AuShkIdokrOwqnrWctvA00Ad3lyeWbZeVvgcMoAcC57RHrRiq4sUvpPmq7RQhV9qqz3QZuUZwBKXXxcnyt8bXDyYqoKT0ga/xsUMFKmbUgBdhRfGye0h+laEGEbgSggbliDOe22RVqyOM1liXWXx4LjlGMT2T+MMSxwYC7IpqaBqO7soCdMi8hzpaZJKbNoBuBEQ/1Vgfqx7WUR6ZhafVT1cWzFl/nkcesGN0B1u45QD7oHDcVSaqJPQ0Gl1Ulj191FPgLjv0l4nO6pY3bn5wtmZQ==
+X-Microsoft-Antispam-Message-Info: GLGrTh8BFELkM/wdr8SMOdbbD7cteFbYGtw0pcrKqRD3NbsHEgEP2sFlZ6Fuc3/D228y8crJicF+RjN2LEdJsPYQyEqLLXxiG74ZWp0v7+Y569WMiieECXQArE6eqsgBr7NbB2ghTaKXUbhUlRWmWqRGNllI6bbnyX8xjQ4GsUxiKyl3mczDUm9j9Py3VU+Y1qqQ1cruEkiXzrf6CZmunbtVMYzBdU1gOZpLNF8NHq0hOTtVYSuGoo42CcoNNKWL5O0Yw33NSB0y8Gi9Lwk+8HrwqKYhMBgZyYERd14W3UYGVaYTmce9aZ7eeZs6S5u+T/wLYumvvsrdumKhmmqnzZr927scNAV4tfJafj3La0j9ynSLRelE4KaWTPnRRIFgCfsQ5kN48bUkm7AmKIkc2X3uNaypmlYmWFT4qrjUVFuIA61jiK0JlbWjO61tUT7AEmkxUKoZX41++g+KZvjJExlOCDvQypSDpP9vz+zhnnqdS4S4paKCZPAZu2UMy2ZiUyHJmrB/YFOLQxg03yiQ/gG0gtLvdAREOP0K0uqAZMKLADsYh+JYcmVZWlVUnds1zcQ71yWl42uEKJrg2sO16n+miLSCXIdbbQHUB0+dF/raVg9MYFRjqRN9EY/tWIpgrXzrvCyD72NG7Z5FPcCV1t9L/cAg7ygLXt28jag77XrCIBbg4lYdKCycypZBWTP9ktXpiE6NG4j2GImQTPlyOA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(36840700001)(40470700004)(82310400005)(36860700001)(36756003)(40460700003)(86362001)(316002)(498600001)(5660300002)(2906002)(356005)(70206006)(54906003)(8676002)(4326008)(81166007)(6916009)(70586007)(336012)(7696005)(426003)(186003)(16526019)(47076005)(83380400001)(8936002)(2616005)(26005)(1076003)(36900700001);
+ SFS:(13230016)(4636009)(40470700004)(46966006)(36840700001)(316002)(498600001)(8936002)(16526019)(2616005)(336012)(5660300002)(6916009)(1076003)(54906003)(186003)(26005)(47076005)(426003)(36860700001)(83380400001)(356005)(70586007)(36756003)(2906002)(7696005)(8676002)(70206006)(40460700003)(4326008)(86362001)(82310400005)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:07.3802 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f1bb32e-e5ea-414e-1fd8-08da50989feb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:08.1302 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b47eb77-fe90-46b8-2c4f-08da5098a05b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2814
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5923
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,62 +101,154 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, George Shen <george.shen@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ hamza.mahfooz@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+Add support to get VCO frequency from registers.
 
-[Why]
-Certain use cases will pass in zero in the new_clocks parameter for all
-clocks. This results in a divide-by-zero error when attempting to round
-up the new clock.
-
-When new_clocks are zero, no rounding is required, so we can skip it.
-
-[How]
-Guard the division calculation with a check to make sure clocks are not
-zero.
-
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 94 ++++++++++++++++++-
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  3 +
+ 2 files changed, 96 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index bab85f3c9c67..8ece88ddfb5b 100644
+index 90ba9576a6fb..e3abadeca0a6 100644
 --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
 +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -335,14 +335,16 @@ static void dcn32_update_dppclk_dispclk_freq(struct clk_mgr_internal *clk_mgr, s
- 	int dpp_divider = 0;
- 	int disp_divider = 0;
- 
--	dpp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
--			* clk_mgr->base.dentist_vco_freq_khz / new_clocks->dppclk_khz;
--	disp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
--			* clk_mgr->base.dentist_vco_freq_khz / new_clocks->dispclk_khz;
--
--	// Divide back the previous result to round up to the actual clock value that will be set from divider
--	new_clocks->dppclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / dpp_divider;
--	new_clocks->dispclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / disp_divider;
-+	if (new_clocks->dppclk_khz) {
-+		dpp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
-+				* clk_mgr->base.dentist_vco_freq_khz / new_clocks->dppclk_khz;
-+		new_clocks->dppclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / dpp_divider;
-+	}
-+	if (new_clocks->dispclk_khz > 0) {
-+		disp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
-+				* clk_mgr->base.dentist_vco_freq_khz / new_clocks->dispclk_khz;
-+		new_clocks->dispclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / disp_divider;
-+	}
+@@ -531,6 +531,96 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 				clk_mgr_base->clks.dispclk_khz / 1000 / 7);
  }
  
- static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
++static uint32_t dcn32_get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
++{
++		struct fixed31_32 pll_req;
++		uint32_t pll_req_reg = 0;
++
++		/* get FbMult value */
++		if (ASICREV_IS_GC_11_0_2(clk_mgr->base.ctx->asic_id.hw_internal_rev))
++			pll_req_reg = REG_READ(CLK0_CLK_PLL_REQ);
++		else
++			pll_req_reg = REG_READ(CLK1_CLK_PLL_REQ);
++
++		/* set up a fixed-point number
++		 * this works because the int part is on the right edge of the register
++		 * and the frac part is on the left edge
++		 */
++			pll_req = dc_fixpt_from_int(pll_req_reg & clk_mgr->clk_mgr_mask->FbMult_int);
++		pll_req.value |= pll_req_reg & clk_mgr->clk_mgr_mask->FbMult_frac;
++
++		/* multiply by REFCLK period */
++		pll_req = dc_fixpt_mul_int(pll_req, clk_mgr->dfs_ref_freq_khz);
++
++		return dc_fixpt_floor(pll_req);
++}
++
++static void dcn32_dump_clk_registers(struct clk_state_registers_and_bypass *regs_and_bypass,
++		struct clk_mgr *clk_mgr_base, struct clk_log_info *log_info)
++{
++	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++	uint32_t dprefclk_did = 0;
++	uint32_t dcfclk_did = 0;
++	uint32_t dtbclk_did = 0;
++	uint32_t dispclk_did = 0;
++	uint32_t dppclk_did = 0;
++	uint32_t target_div = 0;
++
++	if (ASICREV_IS_GC_11_0_2(clk_mgr->base.ctx->asic_id.hw_internal_rev)) {
++		/* DFS Slice 0 is used for DISPCLK */
++		dispclk_did = REG_READ(CLK0_CLK0_DFS_CNTL);
++		/* DFS Slice 1 is used for DPPCLK */
++		dppclk_did = REG_READ(CLK0_CLK1_DFS_CNTL);
++		/* DFS Slice 2 is used for DPREFCLK */
++		dprefclk_did = REG_READ(CLK0_CLK2_DFS_CNTL);
++		/* DFS Slice 3 is used for DCFCLK */
++		dcfclk_did = REG_READ(CLK0_CLK3_DFS_CNTL);
++		/* DFS Slice 4 is used for DTBCLK */
++		dtbclk_did = REG_READ(CLK0_CLK4_DFS_CNTL);
++	} else {
++		/* DFS Slice 0 is used for DISPCLK */
++		dispclk_did = REG_READ(CLK1_CLK0_DFS_CNTL);
++		/* DFS Slice 1 is used for DPPCLK */
++		dppclk_did = REG_READ(CLK1_CLK1_DFS_CNTL);
++		/* DFS Slice 2 is used for DPREFCLK */
++		dprefclk_did = REG_READ(CLK1_CLK2_DFS_CNTL);
++		/* DFS Slice 3 is used for DCFCLK */
++		dcfclk_did = REG_READ(CLK1_CLK3_DFS_CNTL);
++		/* DFS Slice 4 is used for DTBCLK */
++		dtbclk_did = REG_READ(CLK1_CLK4_DFS_CNTL);
++	}
++
++	/* Convert DISPCLK DFS Slice DID to divider*/
++	target_div = dentist_get_divider_from_did(dispclk_did);
++	//Get dispclk in khz
++	regs_and_bypass->dispclk = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
++			* clk_mgr->base.dentist_vco_freq_khz) / target_div;
++
++	/* Convert DISPCLK DFS Slice DID to divider*/
++	target_div = dentist_get_divider_from_did(dppclk_did);
++	//Get dppclk in khz
++	regs_and_bypass->dppclk = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
++			* clk_mgr->base.dentist_vco_freq_khz) / target_div;
++
++	/* Convert DPREFCLK DFS Slice DID to divider*/
++	target_div = dentist_get_divider_from_did(dprefclk_did);
++	//Get dprefclk in khz
++	regs_and_bypass->dprefclk = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
++			* clk_mgr->base.dentist_vco_freq_khz) / target_div;
++
++	/* Convert DCFCLK DFS Slice DID to divider*/
++	target_div = dentist_get_divider_from_did(dcfclk_did);
++	//Get dcfclk in khz
++	regs_and_bypass->dcfclk = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
++			* clk_mgr->base.dentist_vco_freq_khz) / target_div;
++
++	/* Convert DTBCLK DFS Slice DID to divider*/
++	target_div = dentist_get_divider_from_did(dtbclk_did);
++	//Get dtbclk in khz
++	regs_and_bypass->dtbclk = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
++			* clk_mgr->base.dentist_vco_freq_khz) / target_div;
++}
++
+ static void dcn32_clock_read_ss_info(struct clk_mgr_internal *clk_mgr)
+ {
+ 	struct dc_bios *bp = clk_mgr->base.ctx->dc_bios;
+@@ -680,6 +770,7 @@ static bool dcn32_is_smu_present(struct clk_mgr *clk_mgr_base)
+ static struct clk_mgr_funcs dcn32_funcs = {
+ 		.get_dp_ref_clk_frequency = dcn31_get_dtb_ref_freq_khz,
+ 		.update_clocks = dcn32_update_clocks,
++		.dump_clk_registers = dcn32_dump_clk_registers,
+ 		.init_clocks = dcn32_init_clocks,
+ 		.notify_wm_ranges = dcn32_notify_wm_ranges,
+ 		.set_hard_min_memclk = dcn32_set_hard_min_memclk,
+@@ -730,7 +821,8 @@ void dcn32_clk_mgr_construct(
+ 	}
+ 
+ 	/* integer part is now VCO frequency in kHz */
+-	clk_mgr->base.dentist_vco_freq_khz = 4300000;//dcn32_get_vco_frequency_from_reg(clk_mgr);
++	clk_mgr->base.dentist_vco_freq_khz = dcn32_get_vco_frequency_from_reg(clk_mgr);
++
+ 	/* in case we don't get a value from the register, use default */
+ 	if (clk_mgr->base.dentist_vco_freq_khz == 0)
+ 		clk_mgr->base.dentist_vco_freq_khz = 4300000; /* Updated as per HW docs */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+index 4dd461e6c14b..9ae9439c8f7b 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+@@ -245,6 +245,9 @@ struct clk_mgr_funcs {
+ 
+ 	void (*init_clocks)(struct clk_mgr *clk_mgr);
+ 
++	void (*dump_clk_registers)(struct clk_state_registers_and_bypass *regs_and_bypass,
++			struct clk_mgr *clk_mgr_base, struct clk_log_info *log_info);
++
+ 	void (*enable_pme_wa) (struct clk_mgr *clk_mgr);
+ 	void (*get_clock)(struct clk_mgr *clk_mgr,
+ 			struct dc_state *context,
 -- 
 2.25.1
 
