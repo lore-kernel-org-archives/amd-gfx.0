@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0324C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F4AC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:36:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D55B10F47D;
-	Fri, 17 Jun 2022 19:36:16 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAB810F48A
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:36:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E3D10F4E0;
+	Fri, 17 Jun 2022 19:36:23 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BDC10F466
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:36:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YT4EEpSetdSzh+oGdDyV4cs6dTFVJZWsLmlO77wJDTKz5k/aW8Ueo4QNWNWy0BVHOnTDg35M2qSrPbMKP9koddNWdrZgD4yAHJcUCJKmNF2Hqe8kAsGiXlF9Z3V4jHRShWA+H9RJMCGhp7jHOmY/ZQp23F1O6wX9uUGYjKTNzkK7BIrtWihsLgURwD7GdFHwWjXlWV6TA17YnQCgJ6O0fLtxLb2i3d1HqeWgv1yBjTv4PLrVE1BMIsFhS7LzAACeS7rIkOL0SkzwIlhD8LzLphv9Mc9kB82+1OkGHYc797fK6eU2iCQSQ8SlTRt2uNldXZ8c7a82zSFbs2vwa47tEQ==
+ b=JZPuT1zH5umnQqOoZvFOIC35mWQtZ35bKCMMi065GBjx0H19xA7mTH3g/6z8yqAnx74NiiKPKq/s7wMYr8j2TuRWcQjLP7LH3I/oCQtdTxyH0g2Cdldm9WTj/ucygkWZ6UddOrhdPQo2H0JD+TygOvOzYPmcWaWHbmak1aQKxANHT5t6KqohMlRh8+dcyOGJ+Rytih1w4T7ng6fkUcQw7A4aITuQ2pKUtVHoQLAsn4anOjCo1NJJ/EXpizmEwEVylVfpof084Q7cMgDqlpFeb1KTPGStpUNyjKeyAZmVNP6ozBauHfcKXs7s9x+q5H++mkvmn0GYyqQkP+fbyEjaew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3JGa6JPYTDAFRoN0JSjx1i6+ztv6/jDYMdx3eKJ9+8Q=;
- b=mOewZW1LFmD7aHX3Et8Ax7xk3RuTJ7pvQ5ZHuaFHXSRzm0luoMQdcKQgBge7jT61IX2rvesVfh9njjycAc+Pp2quFoGVxFz750hgWqWoc9dDhX+JLUEZ4419I4xW0ZJosVtQPRUUvnsuWEBW3UFL8MYXSITmZitCiPHBwNfASQiTTVj/yg5R6VciKNBEb3Xa7kJaPGrXqdFf5QKrcQSJBTN57IRN2cjeW1/GZpH4T+h3EBkGxJmtWHRUdP/HiDeBXlTwOpfJ6Q0YYKHpOj6Lg6zpAeGJ78jX/B3kHNZ9rLe6f2AWYjCyEThWJSj8Ok/CGtLgS4hslDSGrDPvHTHsOw==
+ bh=buPvFDq0KdgQwTzwSnN2NgR0RrIg1lpsEjAJE4Z/CVQ=;
+ b=Fnojio2Kkevr34jm5L6eXhcnPK9DhUfhVzutOKf9gNyr5TqcPxF+CI7dbr6xnwYpUyGIZ3qRtseZcBwYVscIjDwn7JsEiInS3e2cC9la+W5duNKQTFJ6M4BUDMuNZQgHn0KdvydQ7qppDkv0kuwu3hSocG654CaQQxgSHP+wImNcvXWMFMx1Vzb4AxARt6fLGcNPSE+B7j5TE7cXCCARwqMq/v2FK7yfLj8zvoTTkQYYqHhhJLbpViC38ldE4YmC2bPjzJ19OFgA+LV8NkoALtXsWCOlEXPKlkGXTp7wahEYIvwoIItWuvikz0ZrBNqccgmfPOaBPbtuYwxRShjgmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3JGa6JPYTDAFRoN0JSjx1i6+ztv6/jDYMdx3eKJ9+8Q=;
- b=ft2gnBW2AgScNAVw6QPKGFrzS4/RZJx92jkuW0FPEzAI8m3ing0DGxie0lfVgjuFT/hKJHq2sthncma8HhgddMsx8+L5yMzLQWkdxepdPLfvxpgGL89YWMQWuFE3cEfuhQ8A31ac/UP2t0huvYaWIEnnN4WscUOlWnxy0P0DVIU=
-Received: from BN9PR03CA0771.namprd03.prod.outlook.com (2603:10b6:408:13a::26)
- by DM4PR12MB6373.namprd12.prod.outlook.com (2603:10b6:8:a4::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5353.14; Fri, 17 Jun 2022 19:36:09 +0000
+ bh=buPvFDq0KdgQwTzwSnN2NgR0RrIg1lpsEjAJE4Z/CVQ=;
+ b=vQ5RHsnXxv/AFEnYjnrX6XgJPgnxlyrxj6IcbfablL9VJTmhROK892TD+B0uqNckT/3IHZ+SQRxzoQEYKAq5fYe8agXlK9+G7WqD6ecwgmRdSxcPsbSNjoeYqVzp4lvdpRnQeEDCN68lOUC5FoaElXcMOjtO6H0xtVxgRQ+9V98=
+Received: from BN9PR03CA0770.namprd03.prod.outlook.com (2603:10b6:408:13a::25)
+ by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Fri, 17 Jun
+ 2022 19:36:10 +0000
 Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::fa) by BN9PR03CA0771.outlook.office365.com
- (2603:10b6:408:13a::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16 via Frontend
- Transport; Fri, 17 Jun 2022 19:36:08 +0000
+ (2603:10b6:408:13a:cafe::2d) by BN9PR03CA0770.outlook.office365.com
+ (2603:10b6:408:13a::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
+ Transport; Fri, 17 Jun 2022 19:36:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:08 +0000
+ 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:36:09 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:36:03 -0500
+ 2022 14:36:05 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/31] drm/amd/display: Implement a pme workaround function
-Date: Fri, 17 Jun 2022 15:35:09 -0400
-Message-ID: <20220617193512.3471076-29-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 30/31] drm/amd/display: Drop duplicate define
+Date: Fri, 17 Jun 2022 15:35:11 -0400
+Message-ID: <20220617193512.3471076-31-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
 References: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e7f4a1c-63d2-4b93-7431-08da5098a0c6
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6373:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB6373787228CD33CFE92CB4CE98AF9@DM4PR12MB6373.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f43e7d3a-1624-4fcb-a99a-08da5098a11e
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5628:EE_
+X-Microsoft-Antispam-PRVS: <MW4PR12MB56282C7D91A0C7F0EB4D380898AF9@MW4PR12MB5628.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: u1jd6JbZhDvlBWIkt2h9ambxny+Fs9+ZqSQ5BCPHG+Gje52JTK1jnJkbuLyM53MHXdpwRBXBpAIFU+ZHNKGWASSFDInTodlJeq3x5zM3+jwZTp6Wf5/YLyQQHASKEQwBkTMpLZ+Lx8AaO3+Dzku9HMyn755CwzDhoEMcwTJS73Ht6vDEr3eoF3WguCSJ5T+PvhZQ1ADgwWqRwb5uHLW2lH0vxLZh8w4Z6uQ67qZgdZlW4NlZGItMCXy8Eit5WScr01iFIs0NvxGMsWh/5uyXR5svBvoZvNTCJ/97mlLHEGkIx6+dl/cwBoBcH75hMfKEhk1GRblBZEITAF6QV5dCDFU43+l95hHInXUz+4CtKrC8DFHxf41KB9D5uKRzZPtanqglSI58wmT3Al9ZwSyty+TsKrrLoIkBLQt7p9dXrZNTFUo3MzYW4gaOZLejmxEpnIzhUGaylGGu530FHTJe9fcoAD9zEL7/vHxqW+A79dcfjgsZCRxygVjo2mQJsSXpdOWLrgTd/daA/Mz7if2+OLq7ErRg7gm80mbUgDYyhfllmIqnM/BNXt0GtvhO3hnQaus+JP+kr/GAgji6YVqkolthU60dhHgE+xRpSNmXCKTGKWsDc9YR1Ra/BmWeMO/r07xgvUzfDHCjKZDOy31Ve00EH2L3at5dMG3vxRbxz1GAGgHdlAXy3RaUKT0JoisUsXy1tWXKHev7fDmoNUSMEAC1WshS2Juq88DDgtue/w7u/DKkWtdPYix0KFPiDPHu
+X-Microsoft-Antispam-Message-Info: R0flgojp1YDiRYlyMfeCU/X21xL171TStCykePRRfMvjOt0qcW4pmT5byLcTHF0UAKe5LJvNfkbcQBR2u4f0oavN6knGQ2esUDBbZxW+qNnqYxaLh/93uNC+oVgSVBu1PPBnCVSGQYBmNDUHNuCUkDeLqb+0YzUyVvV+W05m++6upjVbY4z1gcxX80h1vo8RRJqQNwHJaplh20RjjRdn0iT2r4J5wUbpfGGOurOYTXkmnOsFxE+aHBXCRC1HA6WsjIHASnFj7oaVr9Odstw9LtWy64wk1Bt2Rlp2tYbksA+TX9xjWUPxNliVR+32zRzx+2ORBcRt0lslC+eaY524/paF/I2c1Cb9m4E12v1uSwlCKaMeKwTDF7XGwCrG37tOg7MxyNMKjsCX/eLVahxnCWZMy6xYEJYdAbnv2ewyAkO1xFzGfUL7DQdiU6Y8zsxPMZ/Ql4MsuOicDIX+SABxGzoGKZzpurojb/cu2+SufdaD2m/b0G+idc2R4vTsbwOS0UIh3ULp5t5jO7DyiZDK5WrDfVn9waI8x4DyEZZL2JzKMBF7SReFQcBz5AgJKYnMAU+XqjEma/Ei2DSIdyhEry8fJJpw4sqYwgxGqOs0qwrQMmH6th0yCDIZ7VSmUwyBWM/E+fz98i6+5ag10aMqkfTq2at7v0HXVGyNyliu3HR0u6ZsKIxBPS0CPUoYrzx7f2S1eAobNn5NuRmfSyWULw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(36840700001)(40470700004)(46966006)(70206006)(26005)(356005)(81166007)(4326008)(70586007)(498600001)(5660300002)(36756003)(86362001)(2616005)(8676002)(8936002)(7696005)(40460700003)(36860700001)(316002)(54906003)(2906002)(1076003)(47076005)(426003)(16526019)(6916009)(336012)(186003)(43170500006)(83380400001)(82310400005)(36900700001);
+ SFS:(13230016)(4636009)(40470700004)(36840700001)(46966006)(70206006)(4326008)(4744005)(40460700003)(2906002)(82310400005)(26005)(426003)(498600001)(7696005)(54906003)(6916009)(19627235002)(356005)(6666004)(70586007)(36756003)(316002)(81166007)(186003)(36860700001)(16526019)(8676002)(8936002)(1076003)(83380400001)(86362001)(5660300002)(336012)(47076005)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:08.8176 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e7f4a1c-63d2-4b93-7431-08da5098a0c6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:36:09.3957 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f43e7d3a-1624-4fcb-a99a-08da5098a11e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6373
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,80 +102,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Chaitanya Dhere <chaitanya.dhere@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ solomon.chiu@amd.com, jerry.zuo@amd.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, hamza.mahfooz@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Dhere <chaitanya.dhere@amd.com>
+We already have DALSMC_MSG_TransferTableDram2Smu in the file dalsmc.h;
+for this reason, we don't need this definition in the smu msg file.
 
-[Why]
-For DCN32 we do not have a pme workaround function defined that sends a
-BacoAudio message. Default code had uses the DCN30 function for pme
-workaround. PMFW headers are inconsistent with their message ID
-definitions which cause ID's to clash leading to inconsistent system
-behaviour. There is a clash with FCLK message due to inconsitent PMFW
-headers.
-
-[How]
-Implement a new BacoAudio function to workaround the problem of
-inconsistent PMFW headers in order to avoid BacoAudio message clasing
-with FCLK Enable message.
-
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 2 +-
- .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c  | 8 ++++++++
- .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h  | 1 +
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c    | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index e3abadeca0a6..b31adf5238d0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -757,7 +757,7 @@ static void dcn32_enable_pme_wa(struct clk_mgr *clk_mgr_base)
- 	if (!clk_mgr->smu_present)
- 		return;
- 
--	dcn30_smu_set_pme_workaround(clk_mgr);
-+	dcn32_smu_set_pme_workaround(clk_mgr);
- }
- 
- static bool dcn32_is_smu_present(struct clk_mgr *clk_mgr_base)
 diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c
-index d7c99e9179be..67ed8bf4510b 100644
+index 67ed8bf4510b..3137b987f0a0 100644
 --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c
 +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c
-@@ -115,6 +115,14 @@ void dcn32_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr)
- 			DALSMC_MSG_TransferTableDram2Smu, TABLE_WATERMARKS, NULL);
- }
+@@ -34,8 +34,6 @@
+ #define mmDAL_ARG_REG  0x16273
+ #define mmDAL_RESP_REG 0x16274
  
-+void dcn32_smu_set_pme_workaround(struct clk_mgr_internal *clk_mgr)
-+{
-+	smu_print("SMU Set PME workaround\n");
-+
-+	dcn32_smu_send_msg_with_param(clk_mgr,
-+		DALSMC_MSG_BacoAudioD3PME, 0, NULL);
-+}
-+
- /* Returns the actual frequency that was set in MHz, 0 on failure */
- unsigned int dcn32_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-index 352435edbd79..a68038a41972 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-@@ -39,6 +39,7 @@
- void
- dcn32_smu_send_fclk_pstate_message(struct clk_mgr_internal *clk_mgr, bool enable);
- void dcn32_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
-+void dcn32_smu_set_pme_workaround(struct clk_mgr_internal *clk_mgr);
- void dcn32_smu_send_cab_for_uclk_message(struct clk_mgr_internal *clk_mgr, unsigned int num_ways);
- void dcn32_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
- unsigned int dcn32_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz);
+-#define DALSMC_MSG_TransferTableDram2Smu          0x8
+-
+ #define REG(reg_name) \
+ 	mm ## reg_name
+ 
 -- 
 2.25.1
 
