@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBC3C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A2EAC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF5B10F371;
-	Fri, 17 Jun 2022 19:35:51 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2043.outbound.protection.outlook.com [40.107.102.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFD610F2B6
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:35:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6108B10F329;
+	Fri, 17 Jun 2022 19:35:52 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2043.outbound.protection.outlook.com [40.107.212.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFF010F319
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:35:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cv6liVF5XR6pov3vlClKX17lUoZ8VZu19OCqOrTaz3gS2UBV7Dml1LibyVYr/ae8bOYFIo2xBdQm46ka3PoxG5iplI37KqHEINErm1Smr7+HOiyLb4CLdTD7wmwQtpVExaV5m+HF05B9pa8wxG30cRXchvgcZI0Yt9NiedDSVeJK5FqFo4BG88nMCggVE8d0gaubR9RqzXuAw2g76AXMLdtCXuk4m3otrcrJ8r3bYkZu4uiGblOL03vEoSuySFBRbcCy62Q6bPVdn7Y72JKRNLbttNOg+xwPw2FsSY4sFd+bPwN1DxNyIbvS40s/14PB+cun3q+yZePL+rlrCWTQOg==
+ b=nQKZWlpQNqe5WtM+nd/ZBuYVEZKBdHhQbB0BsyX4wKQ/skohUkxAu00qq+4ZuxKMhzLywpOpRrtCctDtPjQy3RN8VWfeGcV/lMQ3PtP604EIrJxH81VoPeDpRJ4AUUePH9NuKD2zLcb7kBBvnwDhLaOYJdSLV6ZD5G2faegePIxcOkzGXAk1kjXuT1Gu1Vl2cPfKzQP/GvjEBQ9TTUH85qFxKA/h5qZL9fxvgBpGytQmXeR65PvY7rFEsIYPIiHThWnGSAmb0/b8vfPdHskLsl/VQPXr9ZB46oth9s+lvpjKBqQJ3PIrqc5I8syniZSEZ3UECv+X2kKtJTUw67VezA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QVgmTo4p8+vTGXcecDMVYqU+DR1eNHOtuq8MKcLbup0=;
- b=Pvqpjg6P/2KPXU8Aq1/CXMGtagGNrJlK2oI8y0nd2nUs1jZyMJqes7GKgvKmkFp/Uvp7RwY71nsCHSo4FBoS9lqVWjzHKXlVK8d5fT8Q1OU8Tjh3T6fJrQGqCK39t0GJ6DZ+kfOtbN2y6eStPIj/Qf///Esd99AM8MiRBGUovBBncpe6Dmhf+G17lLiT03oLLkZoEPOfdkDk3GzT8DqXC7qh8RLfT54S6oKtkE4o1NxsZ9+RFLIW6FK5MB3BLUNmb8wkO4Yvvsd0yfJo8TqtLSZK9sFuruWZGpYWUDK4saKqkH6TAEDi0vnrVD1/8o4EjFDffDY9cXpSX7WHsW1lhg==
+ bh=ytjGqY/ZmDC4vNY9oEwlIMYbNRD6ubb4fEsraFE86h0=;
+ b=hEFSZvfglrEeFj1SX6gKzRt8c20Zjx916JewaVY8+vDPfNdSbhRiEvOA8do37GujSrz9LVkvHm6i+Z2Ta4WuXSNVn2ukhTowkQmykNbNKScBWepyKfXeokEL3wLuQYl+fbHNIqp+LJrMfsJo9bbXXeVQ45yUZlEQD/Kbl+6bFkACoEet7OupXLH6n7GGa6Lo7ixY0ngi92sWpB65KLgAPNY68piRA/J0T8gAYvtOAd1LylD395115G6c3m86dI3A4vu2MmzQlQxHWu3G/r3r00uUFekVUKZVChsY+UDbFIBN6Ue9i4V2NRuprsj56a19s2uOxR9jY9LNBSz/q0CXtA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QVgmTo4p8+vTGXcecDMVYqU+DR1eNHOtuq8MKcLbup0=;
- b=bg/BLZjGBV3qiOUPWogPjGOJU+6Y5Gi1ngrUHrt7J8TO4ZbBhbbQ2MW5J1rhI0VyqRZTk61801gsFvFE8Y9VHAiqAKPZhunOHPuaymiu2Cqh5ns31vIdCcjmdMhN28OhjfHy74XpqQ0uJAy3s/7laOtr9VlMTB9KD3bc6F9u0R4=
-Received: from BN9PR03CA0124.namprd03.prod.outlook.com (2603:10b6:408:fe::9)
- by BL3PR12MB6617.namprd12.prod.outlook.com (2603:10b6:208:38c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.22; Fri, 17 Jun
- 2022 19:35:45 +0000
+ bh=ytjGqY/ZmDC4vNY9oEwlIMYbNRD6ubb4fEsraFE86h0=;
+ b=l3EeEBGCzmkAlnTOi5FT0UBRA60bdt7xvDhSjYDi0pQx8MRhEG+wmOJuJtFoRFP7h1jzQ0Ol0aUB7hI5raFIqr6wx31acbIQEWhDQBSDG22b5yy8y1n6k7USHJxSkDo02f8hjXGjTNea7TQuUWpofj1rKyWRaZxzCS04i+B2mrA=
+Received: from BN9PR03CA0148.namprd03.prod.outlook.com (2603:10b6:408:fe::33)
+ by MWHPR12MB1502.namprd12.prod.outlook.com (2603:10b6:301:10::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
+ 2022 19:35:47 +0000
 Received: from BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::e2) by BN9PR03CA0124.outlook.office365.com
- (2603:10b6:408:fe::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.17 via Frontend
- Transport; Fri, 17 Jun 2022 19:35:45 +0000
+ (2603:10b6:408:fe:cafe::77) by BN9PR03CA0148.outlook.office365.com
+ (2603:10b6:408:fe::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
+ Transport; Fri, 17 Jun 2022 19:35:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT040.mail.protection.outlook.com (10.13.177.166) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:35:45 +0000
+ 15.20.5353.14 via Frontend Transport; Fri, 17 Jun 2022 19:35:46 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 17 Jun
- 2022 14:35:42 -0500
+ 2022 14:35:43 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/31] drm/amd/display: add mst port output bw check
-Date: Fri, 17 Jun 2022 15:34:48 -0400
-Message-ID: <20220617193512.3471076-8-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 08/31] drm/amd/display: Fix eDP not light up on resume
+Date: Fri, 17 Jun 2022 15:34:49 -0400
+Message-ID: <20220617193512.3471076-9-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
 References: <20220617193512.3471076-1-Rodrigo.Siqueira@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f612bf0-82f0-4c8a-594b-08da509892c0
-X-MS-TrafficTypeDiagnostic: BL3PR12MB6617:EE_
-X-Microsoft-Antispam-PRVS: <BL3PR12MB6617D599B688E9F6E2C87EA098AF9@BL3PR12MB6617.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 36d0f040-f0a0-41e4-144f-08da50989360
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1502:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15029CA2AEF22359337AB0D298AF9@MWHPR12MB1502.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SPNi7TAaingB8+pn/tybRH0YZS65pBU2OPKUHh5Vp+M3TtOeaJfyzb046vv+AAuLnC/hrf/odFB0Z6e3WdMOEncH0JuVPn1BeUn0nlRkIXjtDLeQq1HYT6J/J4IfIFaepTzlHDa0sULN6kPGL/LUIzX2iw1THMudhU0N8wtXgd4KX8H5nNbPlEfnJ0UFcJgysLpdBTjdl2HTkgRiTXN0pHZAD5tddNlox0oPB7LK2VCGeHmd8bmqRLsJux6G798QsSGuNMCenff2rCBaqCT1hS3Y8aEVCsg0NKqOquhfLDGWSyY/gNmuG3j+KFd21ZYtmQWLXeiYv/gXkBG8RfX77w3s29FZszG8qDS+Os+pcWAKSHoUguIKnKOw6x9Zq+Gj3LxS7wvQEC7EKNC8Yw/30Ita8TuFzijZ9CQyAHPaN+dL7aw/3+4S9Y4fP0lBf2NC3u/M9c3wxc9/4B3mbUGaR9rTHJBFGapPMy5cVAnBdZIWmiZK/Z6P5dpTugaXj225LbxJAjLNvtwvb4Sa8AM1HhTdfCd+mrceO4NUkTh1QEq7PpkVUpQMKROtxKbBqBA55K7C64dbTWltEHGLv3bzdJHCAMCQ6Rq/gPTuiG9yXyCB/FhS9vnZrSS9Cl2dE5tQjIcHHilydw+bihKyIWazNw9RaatyqsHfFmlv1vF4zjKL2DmBXL9l34wzSfj8FpGn6a5BnAoLRk26vtPherqIRg==
+X-Microsoft-Antispam-Message-Info: 5QOlTtJ0+55uUAaB5OS/CfX9gZsNtTALx3dvRDhAA5/rSqCwqCZI+SGkNxnZlBohE6EwHfqvTSge6AAdXvXQ6KliQSiCqHdBTGhUOTHirviXCpAvcRzsAeTwIR22iJ0bAh6PcNvLkQHV+wCGbcckzYiaasKC1YlrZ8kjBWEzrt3QwT1GeEdz4NT3ij9Plh9/hb5hrw476FAyGbutvyxCAggb/qFsUsEGyJ/aOc1+cTmfi/cYomGs1yEetHmG+yqFtTLaTklKS2YSadv+mH92/vyLRvgMYQGpzHOVK58Qq2KoMdJ7CBi+ChVyA/p7HIptOQvJAr3leUd+YngeSrWZxQkF9/1/Lekpka8r0tAWrBPdiITSLE7jfJfaKi0yXkyN19SizH2EMjU4P9kiIbl48CMA2exX6EGIc2ehrSPJJKXZVdnOtd4IPHjpgwR3N+sm0D9ioV2u4siCGC/eeccF5ui+PqlmvqgmQfonzyjNqRp/F9k1hEu45rNDJjyuosGUA45RJzAmq3xjoV5CkVwsF7uosQQ+CvdLsVCjy1pbshid1s6vDEskEyiF5sEVvykQEplmo4NdktfEzuZkJ+9VpxDYAiahMJW78bDbxcxAki/YUZmBFeoD8GbzMQUSCqPAAxcwbcaJZ8UKe65XMkGfVj35U7TFxYML1pcNgdENvokvS5aS4wJwFbMvFEMx4yCQsI4wObTryVmjsVrP3TjEMQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(46966006)(40470700004)(36840700001)(6916009)(8936002)(70206006)(356005)(426003)(86362001)(1076003)(8676002)(7696005)(316002)(336012)(498600001)(5660300002)(4326008)(70586007)(26005)(81166007)(82310400005)(36860700001)(186003)(2616005)(36756003)(16526019)(2906002)(54906003)(83380400001)(40460700003)(47076005)(36900700001);
+ SFS:(13230016)(4636009)(46966006)(36840700001)(40470700004)(26005)(86362001)(40460700003)(36756003)(7696005)(8676002)(70586007)(70206006)(4326008)(2906002)(5660300002)(8936002)(498600001)(186003)(336012)(426003)(356005)(47076005)(2616005)(16526019)(81166007)(6916009)(1076003)(83380400001)(54906003)(82310400005)(36860700001)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:35:45.2895 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f612bf0-82f0-4c8a-594b-08da509892c0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:35:46.3363 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36d0f040-f0a0-41e4-144f-08da50989360
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6617
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1502
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,136 +102,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
- hersen wu <hersenxs.wu@amd.com>, hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ hamza.mahfooz@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Sung Joon Kim <sungkim@amd.com>, Agustin Gutierrez <Agustin.Gutierrez@amd.com>,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: hersen wu <hersenxs.wu@amd.com>
+From: Sung Joon Kim <sungkim@amd.com>
 
-[Why]
-when connect one 4k@144hz dp to dsc mst hub, 4k@144hz mode is in valid
-mode list. but some mst hub port output bandwidth does not support
-4k@144hz.
+[why]
+Only on VG, if external display is disconnected during S3 suspend, the
+internal panel doesn't light up on resume because we set the power state
+using an unsupported DPCD register SET_POWER.  To check the register is
+supported, we need to check SET_POWER_CAPABLE first which is
+eDP-specific DPCD register field.
 
-[How]
-add mst port output bandwidth checks, include full_pbn, branch max
-throughput mps.
+[how]
+Check the SET_POWER_CAPABLE register field and decide the control of the
+eDP power state based on the read register value.
 
-Reviewed-by: Jerry Zuo <Jerry.Zuo@amd.com>
+Reviewed-by: Agustin Gutierrez <Agustin.Gutierrez@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: hersen wu <hersenxs.wu@amd.com>
+Signed-off-by: Sung Joon Kim <sungkim@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 +++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 36 +++++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  4 +++
- 4 files changed, 48 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c    | 6 +++++-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 7 +++++++
+ drivers/gpu/drm/amd/display/dc/dc.h              | 1 +
+ 3 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c2fc32dac712..ea91149ec3e6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7259,7 +7259,11 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index fac27b45230f..82b74ee5f0c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1104,9 +1104,13 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 				dc_ctx->dce_version == DCN_VERSION_3_01 &&
+ 				link->dpcd_caps.sink_dev_id == DP_BRANCH_DEVICE_ID_0022B9 &&
+ 				memcmp(&link->dpcd_caps.branch_dev_name, DP_SINK_BRANCH_DEV_NAME_7580,
+-					sizeof(link->dpcd_caps.branch_dev_name)) == 0)
++					sizeof(link->dpcd_caps.branch_dev_name)) == 0) {
+ 				dc->config.edp_no_power_sequencing = true;
+ 
++				if (!link->dpcd_caps.set_power_state_capable_edp)
++					link->wa_flags.dp_keep_receiver_powered = true;
++			}
++
+ 			sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
+ 			sink_caps.signal = SIGNAL_TYPE_EDP;
  			break;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index f9c10d044da6..fd95bd51988b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -5832,6 +5832,7 @@ void detect_edp_sink_caps(struct dc_link *link)
+ 	uint32_t link_rate_in_khz;
+ 	enum dc_link_rate link_rate = LINK_RATE_UNKNOWN;
+ 	uint8_t backlight_adj_cap;
++	uint8_t general_edp_cap;
  
--		dc_result = dc_validate_stream(adev->dm.dc, stream);
-+		if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
-+			dc_result = dm_dp_mst_is_port_support_mode(aconnector, stream);
-+
-+		if (dc_result == DC_OK)
-+			dc_result = dc_validate_stream(adev->dm.dc, stream);
+ 	retrieve_link_cap(link);
+ 	link->dpcd_caps.edp_supported_link_rates_count = 0;
+@@ -5870,6 +5871,12 @@ void detect_edp_sink_caps(struct dc_link *link)
+ 	link->dpcd_caps.dynamic_backlight_capable_edp =
+ 				(backlight_adj_cap & DP_EDP_DYNAMIC_BACKLIGHT_CAP) ? true:false;
  
- 		if (dc_result != DC_OK) {
- 			DRM_DEBUG_KMS("Mode %dx%d (clk %d) failed DC validation with error %d (%s)\n",
-@@ -7559,7 +7563,7 @@ static void dm_encoder_helper_disable(struct drm_encoder *encoder)
++	core_link_read_dpcd(link, DP_EDP_GENERAL_CAP_1,
++						&general_edp_cap, sizeof(general_edp_cap));
++
++	link->dpcd_caps.set_power_state_capable_edp =
++				(general_edp_cap & DP_EDP_SET_POWER_CAP) ? true:false;
++
+ 	dc_link_set_default_brightness_aux(link);
  
- }
- 
--static int convert_dc_color_depth_into_bpc (enum dc_color_depth display_color_depth)
-+int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
- {
- 	switch (display_color_depth) {
- 		case COLOR_DEPTH_666:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index cbd2e8f2ae50..8241a3795762 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -583,7 +583,6 @@ struct amdgpu_dm_connector {
- 	struct drm_dp_mst_port *port;
- 	struct amdgpu_dm_connector *mst_port;
- 	struct drm_dp_aux *dsc_aux;
--
- 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
- 	struct amdgpu_i2c_adapter *i2c;
- 
-@@ -747,4 +746,6 @@ int dm_atomic_get_state(struct drm_atomic_state *state,
- struct amdgpu_dm_connector *
- amdgpu_dm_find_first_crtc_matching_connector(struct drm_atomic_state *state,
- 					     struct drm_crtc *crtc);
-+
-+int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth);
- #endif /* __AMDGPU_DM_H__ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index d005bb6a2956..ee5d6fa34a6b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1353,4 +1353,40 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
- 
- 	return (ret == 0);
- }
-+
- #endif
-+
-+enum dc_status dm_dp_mst_is_port_support_mode(
-+	struct amdgpu_dm_connector *aconnector,
-+	struct dc_stream_state *stream)
-+{
-+	int bpp, pbn, branch_max_throughput_mps = 0;
-+
-+	/* check if mode could be supported within fUll_pbn */
-+	bpp = convert_dc_color_depth_into_bpc(stream->timing.display_color_depth) * 3;
-+	pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp, false);
-+	if (pbn > aconnector->port->full_pbn)
-+		return DC_FAIL_BANDWIDTH_VALIDATE;
-+
-+	/* check is mst dsc output bandwidth branch_overall_throughput_0_mps */
-+	switch (stream->timing.pixel_encoding) {
-+	case PIXEL_ENCODING_RGB:
-+	case PIXEL_ENCODING_YCBCR444:
-+		branch_max_throughput_mps =
-+			aconnector->dc_sink->dsc_caps.dsc_dec_caps.branch_overall_throughput_0_mps;
-+		break;
-+	case PIXEL_ENCODING_YCBCR422:
-+	case PIXEL_ENCODING_YCBCR420:
-+		branch_max_throughput_mps =
-+			aconnector->dc_sink->dsc_caps.dsc_dec_caps.branch_overall_throughput_1_mps;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (branch_max_throughput_mps != 0 &&
-+		((stream->timing.pix_clk_100hz / 10) >  branch_max_throughput_mps * 1000))
-+		return DC_FAIL_BANDWIDTH_VALIDATE;
-+
-+	return DC_OK;
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-index 2e13027d9b88..b92a7c5671aa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-@@ -63,4 +63,8 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
- 		      struct dm_atomic_state **dm_state_ptr,
- 		      struct dsc_mst_fairness_vars *vars);
- 
-+enum dc_status dm_dp_mst_is_port_support_mode(
-+	struct amdgpu_dm_connector *aconnector,
-+	struct dc_stream_state *stream);
-+
- #endif
+ 	core_link_read_dpcd(link, DP_EDP_DPCD_REV,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index ba57e03d3d9e..51f5d75bf9e3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1245,6 +1245,7 @@ struct dpcd_caps {
+ 	bool panel_mode_edp;
+ 	bool dpcd_display_control_capable;
+ 	bool ext_receiver_cap_field_present;
++	bool set_power_state_capable_edp;
+ 	bool dynamic_backlight_capable_edp;
+ 	union dpcd_fec_capability fec_cap;
+ 	struct dpcd_dsc_capabilities dsc_caps;
 -- 
 2.25.1
 
