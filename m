@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C331CCA473
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 13:54:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E40CCA480
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 13:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 666F910E78E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F58410E706;
 	Sat, 18 Jun 2022 13:54:56 +0000 (UTC)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45C2810F304;
- Sat, 18 Jun 2022 01:56:53 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id r5so5438310pgr.3;
- Fri, 17 Jun 2022 18:56:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RtAGuPWlDclOLtuut3wNPxB76BoLDhIudEt0Y8tqNwk=;
- b=L37xTtW94OTIvyImZWUWZSzaVN/Q+8SfdWOHEUuPC8e+e+hEbsgWmWvBUBIhMGhiYN
- CA2w7oCmfZ8hjGkruCkfuE0iNf2LtSINoeXRn/74G+V0TJTcOzZx2bBy+fFul3s97JG+
- Co7XMPQeD3CR+CAqvhl/QZHJ60ByD5IFcuPAZvFew44CmClDCgYilo2kC7/gVcUcQpCM
- i0yYyfFHf9EVIY3CzNSqqg120wcWU234NTqGaxub2HGAXfBph/DDc3M6dFhiGXC57Ge5
- ye0QTrTJHMhZpOWd+ppjXKWaA/paaJgOClVUSCYCncZz32OzbZzV1ZCu/BGYj66twmYT
- Bdgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RtAGuPWlDclOLtuut3wNPxB76BoLDhIudEt0Y8tqNwk=;
- b=6b7U0gjxrscrGvO71VvtKwD6QcPSNOfAWiyezXTuXqhcnq7Seqmpw/Q/K1lgBdIxRI
- UpEpXekbSZg5zrwV416LZUoCNRKXf3XNMGDbWJOOrMgwwp6FqvLlHrFHfwzmprpX9cmj
- dlrvDa9l6ght4Whfq7+fn7t1iMlMkfJSPlASLFryPr0Ksq/7+zc6kLOVC0Lxv9VPMqz4
- +MZ0o61Ehup9JBmKJUT856inlrqtYNpDSiseZTD9b35vYiyS0N5REZ7LTe5A3AD/6E43
- /eimhlTWcjtY9vF7gjTdh384JNnkCsBdJBLLTyF3CY52lBBC7T0kPuVzOSawqx6ggV5n
- nY6w==
-X-Gm-Message-State: AJIora+Iw4sLP84OoXGmnyi9wnyF9QtRtXzC/sZHDCeWI0do2b2zoyHo
- ItRylU6wLunjKtaeC+byf0E=
-X-Google-Smtp-Source: AGRyM1vEBh1R1S9d8pNr3JY9mG86I2UOBCZzS+O5P3XJMHMYGjs/EywCv3TlJEd7jifeNpsrJzXvBw==
-X-Received: by 2002:a63:5706:0:b0:3fc:a31b:9083 with SMTP id
- l6-20020a635706000000b003fca31b9083mr11427116pgb.333.1655517412758; 
- Fri, 17 Jun 2022 18:56:52 -0700 (PDT)
-Received: from localhost.localdomain ([122.167.211.160])
- by smtp.gmail.com with ESMTPSA id
- p15-20020a170903248f00b00163c6ac211fsm1921227plw.111.2022.06.17.18.56.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 18:56:52 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, nicholas.kazlauskas@amd.com,
- Roman.Li@amd.com, shenshih@amd.com, Wayne.Lin@amd.com, contact@emersion.fr
-Subject: [PATCH] drm/amd/display: Remove unused variable 'abo'
-Date: Sat, 18 Jun 2022 07:26:42 +0530
-Message-Id: <20220618015642.5958-1-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA4B11A9BE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 07:35:23 +0000 (UTC)
+Received: from eldfell (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested) (Authenticated sender: pq)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id AFCA56601797;
+ Fri, 17 Jun 2022 08:35:20 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1655451321;
+ bh=H9zb0Fos07H+NZxC44HFd4dgmpvpAX8KofZH4Who7zU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=a/z2/+CfDOFse55hnT9iquruiHEhnKkljWR6xk8rnVCVj6j3rnF/dhCS47IETC8do
+ 8GZ+C3HzxCvus9j2MBP5AoI7vbM8UQqcSgtigo7URDJZfNKDitg+xO1NgaaKMvxRzU
+ DzaoCGGEhN6Th8ubj2HMrJKatq9Ia2oZZRIkWi8evqfT67NWapAOOhmqSAEfI40tqq
+ jcksojVdQAWjqcDipy47osKAzvI0g1ci1OFuV/8DLeXc2Gn8ze1ouB9izIIjNmf7gS
+ 56p035qcJIiwu9ij7ilblyImqh3m2fBw9UfJIp1bDndeB6tMuq1vfZZFAlQPMiIyaa
+ f7//07dkSVd3Q==
+Date: Fri, 17 Jun 2022 10:35:17 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH 2/3] Documentation/gpu: Add an explanation about the DCN
+ pipeline
+Message-ID: <20220617103517.68b9503b.pekka.paalanen@collabora.com>
+In-Reply-To: <d48aa87e-b5fa-0437-d637-d7306b115311@amd.com>
+References: <20220613200112.3377638-1-Rodrigo.Siqueira@amd.com>
+ <20220613200112.3377638-3-Rodrigo.Siqueira@amd.com>
+ <20220615141204.62ba64e1.pekka.paalanen@collabora.com>
+ <d48aa87e-b5fa-0437-d637-d7306b115311@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 18 Jun 2022 13:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,46 +56,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Souptick Joarder \(HPE\)" <jrdr.linux@gmail.com>,
- Kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Mark Yacoub <markyacoub@chromium.org>, Simon Ser <contact@emersion.fr>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ Alex Hung <alex.hung@amd.com>, maira.canal@usp.br,
+ amd-gfx@lists.freedesktop.org, mwen@igalia.com, Leo Li <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ tales.aparecida@gmail.com, Sean Paul <seanpaul@chromium.org>,
+ isabbasso@riseup.net, andrealmeid@riseup.net,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Pierre-Loup <pgriffais@valvesoftware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Souptick Joarder (HPE)" <jrdr.linux@gmail.com>
+On Thu, 16 Jun 2022 17:59:21 -0400
+Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com> wrote:
 
-Kernel test robot throws below warning ->
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9143:27:
-warning: variable 'abo' set but not used [-Wunused-but-set-variable]
+> On 2022-06-15 07:12, Pekka Paalanen wrote:
+> > On Mon, 13 Jun 2022 16:01:11 -0400
+> > Rodrigo Siqueira <Rodrigo.Siqueira@amd.com> wrote:
+> >  =20
+> >> In the DCN code, we constantly talk about hardware pipeline, pipeline,
+> >> or even just pipes, which is a concept that is not obvious to everyone.
+> >> For this reason, this commit expands the DCN overview explanation by
+> >> adding a new section that describes what a pipeline is from the DCN
+> >> perspective.
+> >>
+> >> Cc: Harry Wentland <harry.wentland@amd.com>
+> >> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+> >> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> >> Cc: Hersen Wu <hersenxs.wu@amd.com>
+> >> Cc: Alex Hung <alex.hung@amd.com>
+> >> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> >> Cc: Leo Li <sunpeng.li@amd.com>
+> >> Cc: Simon Ser <contact@emersion.fr>
+> >> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >> Cc: Sean Paul <seanpaul@chromium.org>
+> >> Cc: Mark Yacoub <markyacoub@chromium.org>
+> >> Cc: Pierre-Loup <pgriffais@valvesoftware.com>
+> >> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
+> >> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> >> ---
+> >>   .../gpu/amdgpu/display/dcn-overview.rst       |   58 +
+> >>   .../amdgpu/display/pipeline_4k_no_split.svg   |  958 +++++++++++++++
+> >>   .../gpu/amdgpu/display/pipeline_4k_split.svg  | 1062 +++++++++++++++=
+++
+> >>   3 files changed, 2078 insertions(+)
+> >>   create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_no_s=
+plit.svg
+> >>   create mode 100644 Documentation/gpu/amdgpu/display/pipeline_4k_spli=
+t.svg
+> >>
+> >> diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst b/Docum=
+entation/gpu/amdgpu/display/dcn-overview.rst
+> >> index f98624d7828e..430e363fccae 100644
+> >> --- a/Documentation/gpu/amdgpu/display/dcn-overview.rst
+> >> +++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
+> >> @@ -124,6 +124,64 @@ depth format), bit-depth reduction/dithering woul=
+d kick in. In OPP, we would
+> >>   also apply a regamma function to introduce the gamma removed earlier=
+ back.
+> >>   Eventually, we output data in integer format at DIO.
+> >>    =20
+> >=20
+> > Hi,
+> >=20
+> > always nice to see more docs! =20
+>=20
+> Hi Pekka,
+>=20
+> First of all, thanks for your review.
+>=20
+> >  =20
+> >> +AMD Hardware Pipeline
+> >> +---------------------
+> >> +
+> >> +When discussing graphics on Linux, the **pipeline** term is often ove=
+rloaded
+> >> +with multiple meanings, and DCN adds another context to this word. In=
+ the DCN
+> >> +driver, we use the term **hardware pipeline** or  **pipeline** or jus=
+t **pipe**
+> >> +to indicate how many DCN blocks we are instantiating to address some =
+specific =20
+> >=20
+> > This seems to say that a "pipeline" is a number, a count (how many).
+> >  =20
+> >> +configuration. DCN composes those pipelines together when the data re=
+ach the =20
+> >=20
+> > This seems to imply that each "DCN block" is "a pipeline".
+> >=20
+> > Is either true? Is a pipeline not a sequence of selected DCN blocks
+> > instead? =20
+>=20
+> In the DCN we can have different pipeline configurations. For example,=20
+> see the below picture:
+>=20
+> =20
+> https://www.kernel.org/doc/html/latest/gpu/amdgpu/display/dcn-overview.ht=
+ml
+>=20
+> Let's say that our pipeline policy does not allow pipe split, in that=20
+> case we will have just one instance of each component. However, if we=20
+> decided to split our pipe, we will have more instance of the other=20
+> components (e.g., 2 DPP). I added some examples about it a little bit=20
+> below in this patch.
+>=20
+> Try to apply my series in your local kernel [1]. That way you will be=20
+> able to open the svg files at Documentation/gpu/amdgpu/display/.
 
-Remove the unused variable.
+Sorry, that's too much to ask for patch review on a project I don't
+work on.
 
-Reported-by: Kernel test robot <lkp@intel.com>
-Signed-off-by: Souptick Joarder (HPE) <jrdr.linux@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 --
- 1 file changed, 2 deletions(-)
+> Maybe I can rephrase it, do you have some suggestions?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c9004f7e700d..0103b34aabdd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9136,7 +9136,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
- 	int planes_count = 0, vpos, hpos;
- 	unsigned long flags;
--	struct amdgpu_bo *abo;
- 	uint32_t target_vblank, last_flip_vblank;
- 	bool vrr_active = amdgpu_dm_vrr_active(acrtc_state);
- 	bool pflip_present = false;
-@@ -9208,7 +9207,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			continue;
- 		}
- 
--		abo = gem_to_amdgpu_bo(fb->obj[0]);
- 		fill_dc_plane_info_and_addr(
- 			dm->adev, new_plane_state,
- 			afb->tiling_flags,
--- 
-2.25.1
+I'm not sure what your definition of a pipeline is. If you have split
+blocks, does that mean you have one pipeline or multiple pipelines?
+Does block splitting allow to create multiple pipelines in the sense
+that they do not all contain the exact same blocks?
 
+The only thing I could suggest is to not say that a pipeline is a
+count. That would be done by replacing "to indicate how many DCN
+blocks" by "to indicate which DCN blocks".
+
+
+Thanks,
+pq
+
+> 1. https://patchwork.freedesktop.org/series/105071/
+>=20
+> Thanks
+> Siqueira
+>=20
+> >> +end of the OPTC block before sending it to the display. We have this =
+pipeline
+> >> +concept for trying to save energy and optimize bandwidth utilization =
+while
+> >> +providing the maximum performance per watt. It is easier to discuss i=
+t if we
+> >> +dive into this topic by taking the example of a 4k display in the bel=
+ow
+> >> +example:
+> >> +
+> >> +.. kernel-figure:: pipeline_4k_no_split.svg =20
+> >=20
+> > A bit too hard for me to look at SVGs from email patches, sorry.
+> >=20
+> > You wouldn't happen to have a git branch available in Gitlab or Github
+> > or even cgit somewhere I could visit with my browser?
+> >=20
+> >=20
+> > Thanks,
+> > pq
