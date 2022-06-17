@@ -4,56 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 233C6C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 09:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D821C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 13:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F59810E051;
-	Sat, 18 Jun 2022 09:33:12 +0000 (UTC)
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F7310E028;
- Sat, 18 Jun 2022 09:33:10 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-3176b6ed923so61223077b3.11; 
- Sat, 18 Jun 2022 02:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Z0T2DhVRfdza3u7Hv/gMF8uaCaWYLQxsRMrZYAVQe+E=;
- b=hhOwVI2grUzcFZ0ZVRIzkXvpwrmX74i616R9TXr/QGGLafVdd6PqZPYq8cCpnbAguu
- eobuXZNnjB/K9lF43LKAw5hwh39dVDNxoRIQslaCf2rNMQrrZZpirfugII2o4q9yOtZl
- qmhJeIOfC58MR4YJg10Ph1hBVP9XOCirm4VEGWG+Bf4A/p7flbedOymFWXD8O7Gordti
- c+XD/cLUBMrsaadj8++He3td3LVG+hgJ0zQ/LSEo8aYftTQPolWNol3hNhe7db6lAMpA
- JDd8nfrVBcZ8VElsTPoFEclc4ta4nwZq4jL8bnfaUa4nuktELN+GCS6+9UA8RuMQ63dy
- Sa3A==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F82010E177;
+	Sat, 18 Jun 2022 13:54:45 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6959111A6C5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 07:45:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1655451899;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=coda/CWfS7jjnpuHvtDQX0ASaEE3SWk0zKx/CPt1NF8=;
+ b=HLU+a6r1MRguaOicGfzuEDvPweZiccIFg/GjZ+oEJmzu+q/wKo4D7jXU8GMum46GudquWQ
+ 3d9/ej3ApjCS5E6DLmKoKyGLHKmxPxZPiU1C9JudRMG5BU1RARcgAxBn8EEq4TgWW/hRI0
+ 7lB9ClROUb0ZEbXysX3QpKWBDwldfyA=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-81-doV00jtLN86pI0PJcsTngg-1; Fri, 17 Jun 2022 03:44:50 -0400
+X-MC-Unique: doV00jtLN86pI0PJcsTngg-1
+Received: by mail-wm1-f69.google.com with SMTP id
+ p22-20020a05600c359600b0039c7b23a1c7so2366601wmq.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 00:44:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Z0T2DhVRfdza3u7Hv/gMF8uaCaWYLQxsRMrZYAVQe+E=;
- b=YOq9xEgdquTulOdWPhPdfQ2/EAwiydAthGbUa+F62gR6Cjh8oRsldYlkZBLeOMBW/q
- J1LE4LCA3YGRtHacvhamQ1/sZ8xaK8XtcKsg4rbfuWw7jGkVXFSj2MDLUqQVZbDf9Czs
- eV5n/oTzOEYlVksdpfxXVDxFcdjNbPxIf7w9ngxxETHycV6BTvpEIEFAQcgkXB2XXvY9
- CvjLLprgRShm68X+4Ky8fvRHZsdMg1XZ1oW+RySNAYmUrfQ7EY2AIya5Kb94E9j6yM05
- qOSNFljShgrEDf5+Z4ORn8Z/mt2lgzurdY4sJlOLXIF7kRg8Sd7MzCCwIZcwDih53ZiM
- HBJA==
-X-Gm-Message-State: AJIora+E3Od+f1zTQUedb+rNjzmjdnFAtfGrTOXtHBjq1rNL/+8XFJb/
- n96eiik4s+PqgenoSNgryW+ckqQK3vues7d16ok=
-X-Google-Smtp-Source: AGRyM1vn2cH6zGfArfaosFc+y9vfluuDeE8YyIEY6QF6n7KxHF4JLzJuPADGF0ikBubxdlhb5eiyviROp85UPabBXiQ=
-X-Received: by 2002:a81:7c42:0:b0:317:7789:85aa with SMTP id
- x63-20020a817c42000000b00317778985aamr12095755ywc.93.1655544789470; Sat, 18
- Jun 2022 02:33:09 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=coda/CWfS7jjnpuHvtDQX0ASaEE3SWk0zKx/CPt1NF8=;
+ b=IF+MAl1llymbXc++wnG16ikKH3r6oLFmJTfQ3uT4IWjyzk3NXZrxG073GqifxNMT3j
+ QiUimX/hYQ7QGLPrZrm7nGV3m9B2GESG03/oLMvD4NDJvmkMWdzkExdXIfnKLVayznGB
+ rwLo9GIoacAYnDtlwdG0j86/NPe8F7IYte9scOU4/0FoUec1fgGV5mP+5kSfHMtxcLem
+ nJFGzntDpBX/9eoInPUYRR+WKnO+Ojg013ng1CN4FafCG+iijlg6B8jTZYMI5EfB2APj
+ vWJxrQt2vaKGhiVVRY0cY/dExhMaKrrV725K48RCkYoOrP/tNPKaHCaeweXWuTih9FTW
+ B79A==
+X-Gm-Message-State: AJIora8IHiVtY91CGKTG9q9ucFIjocoJ/KOvA/IktYyDOkPUSqqs75J/
+ TqnJGVh3w6cpKN/T5d3HDmmFlsxiVe5tOvgcFFDhE/t4zXnVKLWvo+RAf38cdN5f+SC5PGi7keB
+ saLYm7uuIkIwkukhmlT96lF69kA==
+X-Received: by 2002:a5d:5272:0:b0:210:33b8:ac4a with SMTP id
+ l18-20020a5d5272000000b0021033b8ac4amr7953182wrc.483.1655451889291; 
+ Fri, 17 Jun 2022 00:44:49 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1sotrEWyKnX0mzmXO2tbcDqW4so5zlYrKlmkTzzX5Yo7fZTIXTe3SZOKyKoq4h2kvU8N2TdcQ==
+X-Received: by 2002:a5d:5272:0:b0:210:33b8:ac4a with SMTP id
+ l18-20020a5d5272000000b0021033b8ac4amr7953151wrc.483.1655451889025; 
+ Fri, 17 Jun 2022 00:44:49 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c70a:7e00:bb5b:b526:5b76:5824?
+ (p200300cbc70a7e00bb5bb5265b765824.dip0.t-ipconnect.de.
+ [2003:cb:c70a:7e00:bb5b:b526:5b76:5824])
+ by smtp.gmail.com with ESMTPSA id
+ o11-20020a5d474b000000b002185631adf0sm3851245wrs.23.2022.06.17.00.44.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jun 2022 00:44:48 -0700 (PDT)
+Message-ID: <bd8b3eeb-4951-e3e9-8ee5-94f573ec815f@redhat.com>
+Date: Fri, 17 Jun 2022 09:44:47 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v5 00/13] Add MEMORY_DEVICE_COHERENT for coherent device
+ memory mapping
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Alex Sierra <alex.sierra@amd.com>
 References: <20220531200041.24904-1-alex.sierra@amd.com>
- <20220531200041.24904-2-alex.sierra@amd.com>
- <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
- <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
-In-Reply-To: <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Date: Sat, 18 Jun 2022 12:32:42 +0300
-Message-ID: <CAFCwf11z5Q+2FPS1yPi6EwQuRqoJg_dLB-rYgtVwP-zQEdqjQQ@mail.gmail.com>
-Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
-To: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+ <20220616191927.b4500e2f73500b9241009788@linux-foundation.org>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <20220616191927.b4500e2f73500b9241009788@linux-foundation.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sat, 18 Jun 2022 13:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,110 +93,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- David Hildenbrand <david@redhat.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, apopple@nvidia.com,
- Matthew Wilcox <willy@infradead.org>, linux-xfs@vger.kernel.org,
- linux-mm <linux-mm@kvack.org>,
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 17, 2022 at 8:20 PM Sierra Guiza, Alejandro (Alex)
-<alex.sierra@amd.com> wrote:
->
->
-> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
-> > On 31.05.22 22:00, Alex Sierra wrote:
-> >> Device memory that is cache coherent from device and CPU point of view.
-> >> This is used on platforms that have an advanced system bus (like CAPI
-> >> or CXL). Any page of a process can be migrated to such memory. However,
-> >> no one should be allowed to pin such memory so that it can always be
-> >> evicted.
-> >>
-> >> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> >> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> >> Reviewed-by: Alistair Popple <apopple@nvidia.com>
-> >> [hch: rebased ontop of the refcount changes,
-> >>        removed is_dev_private_or_coherent_page]
-> >> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> >> ---
-> >>   include/linux/memremap.h | 19 +++++++++++++++++++
-> >>   mm/memcontrol.c          |  7 ++++---
-> >>   mm/memory-failure.c      |  8 ++++++--
-> >>   mm/memremap.c            | 10 ++++++++++
-> >>   mm/migrate_device.c      | 16 +++++++---------
-> >>   mm/rmap.c                |  5 +++--
-> >>   6 files changed, 49 insertions(+), 16 deletions(-)
-> >>
-> >> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-> >> index 8af304f6b504..9f752ebed613 100644
-> >> --- a/include/linux/memremap.h
-> >> +++ b/include/linux/memremap.h
-> >> @@ -41,6 +41,13 @@ struct vmem_altmap {
-> >>    * A more complete discussion of unaddressable memory may be found in
-> >>    * include/linux/hmm.h and Documentation/vm/hmm.rst.
-> >>    *
-> >> + * MEMORY_DEVICE_COHERENT:
-> >> + * Device memory that is cache coherent from device and CPU point of view. This
-> >> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
-> >> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
-> >> + * type. Any page of a process can be migrated to such memory. However no one
-> > Any page might not be right, I'm pretty sure. ... just thinking about special pages
-> > like vdso, shared zeropage, ... pinned pages ...
->
-> Hi David,
->
-> Yes, I think you're right. This type does not cover all special pages.
-> I need to correct that on the cover letter.
-> Pinned pages are allowed as long as they're not long term pinned.
->
-> Regards,
-> Alex Sierra
+On 17.06.22 04:19, Andrew Morton wrote:
+> On Tue, 31 May 2022 15:00:28 -0500 Alex Sierra <alex.sierra@amd.com> wrote:
+> 
+>> This is our MEMORY_DEVICE_COHERENT patch series rebased and updated
+>> for current 5.18.0
+> 
+> I plan to move this series into the non-rebasing mm-stable branch in a
+> few days.  Unless sternly told not to do so!
+> 
 
-What if I want to hotplug this device's coherent memory, but I do
-*not* want the OS
-to migrate any page to it ?
-I want to fully-control what resides on this memory, as I can consider
-this memory
-"expensive". i.e. I don't have a lot of it, I want to use it for
-specific purposes and
-I don't want the OS to start using it when there is some memory pressure in
-the system.
+I want to double-check some things regarding PageAnonExclusive
+interaction. I'm busy, but I'll try prioritizing it.
 
-Oded
+-- 
+Thanks,
 
->
-> >
-> >> + * should be allowed to pin such memory so that it can always be evicted.
-> >> + *
-> >>    * MEMORY_DEVICE_FS_DAX:
-> >>    * Host memory that has similar access semantics as System RAM i.e. DMA
-> >>    * coherent and supports page pinning. In support of coordinating page
-> >> @@ -61,6 +68,7 @@ struct vmem_altmap {
-> >>   enum memory_type {
-> >>      /* 0 is reserved to catch uninitialized type fields */
-> >>      MEMORY_DEVICE_PRIVATE = 1,
-> >> +    MEMORY_DEVICE_COHERENT,
-> >>      MEMORY_DEVICE_FS_DAX,
-> >>      MEMORY_DEVICE_GENERIC,
-> >>      MEMORY_DEVICE_PCI_P2PDMA,
-> >> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
-> > In general, this LGTM, and it should be correct with PageAnonExclusive I think.
-> >
-> >
-> > However, where exactly is pinning forbidden?
->
-> Long-term pinning is forbidden since it would interfere with the device
-> memory manager owning the
-> device-coherent pages (e.g. evictions in TTM). However, normal pinning
-> is allowed on this device type.
->
-> Regards,
-> Alex Sierra
->
-> >
+David / dhildenb
+
