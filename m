@@ -4,120 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29507C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 17:20:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F7BFC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:13:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9725710E0A3;
-	Fri, 17 Jun 2022 17:20:55 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2040.outbound.protection.outlook.com [40.107.100.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9733110E0A3;
- Fri, 17 Jun 2022 17:20:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0299010F648;
+	Fri, 17 Jun 2022 19:13:09 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3144610F648
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 19:13:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gpXcGwA7jTIzXfsJADLRJRRYlox2vNOR546eFkzMDtTDrLYMQQ5uIu5TnGWowDOiQSlkga5snrQpK03Ftbn43yzgWS5opstZqBHDwwVtte6f2gLmapNPumnEjmPbzr/UBRkG/U05BI8ypvg8iovRngpZALw1zC4JaWjCrz2+jIeQFjwl82eTyw57lxKV9e0qgRmPFYWC5W0i2KT1gejxOq73k36cpWZK+8A0vM3/FyGbPg2MJems8DkANoNlPn/xkJbqxHzxfDLArHa2iBDxirKdO+yDEBYTL7hupvTSxNq0AnPKfmVHXcgxphlz2nre7+yqY4IKeQ8MstHoWtoELQ==
+ b=Q/WiIjwxVydyk1UMyBTq8J0ydWHesi98UVl3D+IoWMPSAilK5oX1drH2XOhtcu5ul0GrFOAhai2Ad377GBhlktqGYuQ/EJrN6V3p0yXfusfRxabEA6V22kPi6N3zGl2iAYU89CcpLzXz13wzCeZeLQHVBpV3M0MeOgMq2UGSRjxKCH4RYDWcCj8oZJxeVRRZG7DzWetUjsU86WfNDx9oeST6Cc/fYlASU7RPjqq+D1EgeqXTtgheIgvVIHRblwz05SE1TQoe4icRrCzeYNIHqTndzX3zEoLGggnlhAEexd00Fae7i4Nld3GQzFna05zXJs1nc6zZkhOuA8U6x7T/ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KUWofxBVyvcwxsHoZ1gibU8HNEVVjDZdbYdKqlOsIxg=;
- b=OMc/DjXLkEksB/D0GUIMLKIJw3mQLVcHztEPgvjb2NZbxku0BcUk5I4cXRNMHoR8iZAa87slCxXIa7VX5y+lWMDHhU9UHeGcvXibIeF5UoSYMB/KE4LBOqB0EAGl3JlQXcks25cUSYF8tN+gPddV9XGytI71PHFsLpNVqOT5sYZVsgyEdrUiDT1Xbxs89fmi9tjXwZd0LXgdHabuYF01Uw42syL4ACGw90ZpuVxp9G6c3jSg9JOkWixcA/qXYSkbAFUHYv+TuIFL2W7MiV4AXBtir8WMy6EEqMshxpcjeL5AsO/6gruI8kPyUqh/Mdfx65qdHiNFOOscUpUiBfAxRA==
+ bh=OkUJ3+XQ2g02hb+MGaVRnzUmPqUN1keZxV8DogJHgpE=;
+ b=GD4uVwucrjOwD6l5AZawGJCif3cR08SMOXc2B5juPw7/D8VHCnw8CrAX9Bt4cSIWV8no3Bj78umCuVHshhIuICWvUrgoz/oRxXx58rQPyl9t5qeZqoMTZXMMNydjUsAdocdGgdXnPaIgW8XWfViFfVMEZqMThqFW31EAJZicBEhLlUM5JAdNU02prHJwjUtj4JB8Zds8hQ7idc+2FNxYl/R+QYdU1Ogx7zZ5JoskVwn/bZJUvXTl+/A05GCJrLGAlNVW3FC1nO4zLvi2/f0kcyRQNipMpz6G388pzRssnrshcKHyvLFqTSEh4FAgHiHJYR0sIbUcGcHGHHRbW/7WHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KUWofxBVyvcwxsHoZ1gibU8HNEVVjDZdbYdKqlOsIxg=;
- b=JC8nngOvPbRABbEiW5Nuk1IWLBPs3LBwRt7MJ3F7ZsZXL/qOqEe68mN186msdH0DYn18zEdc6Nfu+5ullI//oxZRtu6Cl8IYYmRwTAdXeONs5FC2ahoxWgXEXNzrdM0a2sUaHr75tJGitAVQxd1mlz6rLqmlS4r9HClXU5PdfXQ=
+ bh=OkUJ3+XQ2g02hb+MGaVRnzUmPqUN1keZxV8DogJHgpE=;
+ b=4cPN/1BOxMlUUe3n9rhIzHv9Z6RAAy//FHTZgLKrVbt+hc5f21DJPaMD8M8zVegtFombC1mU9gEc01Kju3TtoqLOw8iKUUPdYfFEWfNw7SZbr/k/4BXsGLyOd9GL207pM3JpDncPy/C52FkoUcc1zx5Q2ieAnyIP5PDpmdj9TBU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
- by MWHPR12MB1789.namprd12.prod.outlook.com (2603:10b6:300:112::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
- 2022 17:20:51 +0000
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::b9a8:66b3:9ed6:2db]) by SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::b9a8:66b3:9ed6:2db%5]) with mapi id 15.20.5353.015; Fri, 17 Jun 2022
- 17:20:51 +0000
-Message-ID: <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
-Date: Fri, 17 Jun 2022 12:20:46 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by MWHPR1201MB2526.namprd12.prod.outlook.com (2603:10b6:300:ec::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.17; Fri, 17 Jun
+ 2022 19:13:03 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e1cf:e31a:2a89:f226]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::e1cf:e31a:2a89:f226%6]) with mapi id 15.20.5353.017; Fri, 17 Jun 2022
+ 19:13:02 +0000
+Message-ID: <283395a3-d24f-f8aa-bbad-0c4be08aa415@amd.com>
+Date: Fri, 17 Jun 2022 15:13:01 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
+Subject: Re: [PATCH 1/2] drm/amdkfd: Add queue to MES if it becomes active
 Content-Language: en-US
-To: David Hildenbrand <david@redhat.com>, jgg@nvidia.com
-References: <20220531200041.24904-1-alex.sierra@amd.com>
- <20220531200041.24904-2-alex.sierra@amd.com>
- <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
-From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
-In-Reply-To: <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Yang, Philip" <Philip.Yang@amd.com>
+References: <20220615215651.14502-1-Philip.Yang@amd.com>
+ <a70defa4-6268-406e-ff69-fb5f8aa6989c@amd.com>
+From: philip yang <yangp@amd.com>
+In-Reply-To: <a70defa4-6268-406e-ff69-fb5f8aa6989c@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0100.namprd03.prod.outlook.com
- (2603:10b6:208:32a::15) To SN6PR12MB2717.namprd12.prod.outlook.com
- (2603:10b6:805:68::29)
+X-ClientProxiedBy: MN2PR07CA0019.namprd07.prod.outlook.com
+ (2603:10b6:208:1a0::29) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e5827a06-6820-452c-8f9d-08da5085ba36
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1789:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1789B3783B6886EFDBB111B4FDAF9@MWHPR12MB1789.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 4f597919-d018-4fc5-5661-08da50956689
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2526:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2526C5C89A4DD34A7008F7FFE6AF9@MWHPR1201MB2526.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dzxXc8F6+5txEy15wuxNH4GQWFZBWMWfi3U+zjMHUTGKt8slL0Z2klbApOXfuvbVtBX2KOgE2jkvEcPpXIGwTNeCSKmErD65Wl4lpssvTK9JscrQvz35VMAb04t2pIFcstbJGzYrgqEZmfklg8feGn1KsXjWv1z9MUDBAxc8r37Q/WQz0eSKi/CAaUa0zZrAC2YYTH4rzmzCSC+SFCe87EjAd2jcCtQd20kfPsHXv1YmWkNNCY1RF1MNAgS5IGFgn2oeOq040qgdDGRgH1hojKbSZxlyJI695q6DXEuHdVCIgHM6c9l70FR6uxTPHMd6C0nXNoq6GEwXayMY7MLEkRAIExwrH6x6CKAbQ6pMtCXB85/yis/BN4xGB73Uz0/RfILs8VxBo2OTSV2VKAodFTwZUJjkzUdDj6kM2qojhmihfQuFr/cOfClfGxeR6XdrTw3wcYreJd8phDRf6YL1NHGLR1cgOmfFoyCkTUKokZR5VvJjoll3JsI8ZzVeMLRvP5wiy/AwVwy1sRUjdtAgU61ix5QQ6amH9KEzUSIUbqUFJVnTQsV41jHZCvit/1hlcYHgK1wSLwqM31NcAYfZAM2gDYIOkMHVTfA2EwubOb0WzmrOsNlpu1rGiD7YoS4aFx66g9nP4yzlqFSRY85y2m681L8IsnOPy6orN7ybCZszlO8OJ/0Q6b6Wgl6vBsp1M95CfppVnjM/ewGfH4JMwh6PMDYkPP6cmDIvLnE70J84aKMxVRTevpe5gh7wTAzh
+X-Microsoft-Antispam-Message-Info: rzUAsbS0KDVcdNl+bJZHcHYgth4nleJUFacQq1DhZpMkqG0OetkUDUKPuqw4oFc/lxVQRensIGvU1yGOuDIerIKOwtUdcmm/0liNvCev/KVvstdjU/P1Mdn35AsvImZaopNqhpy4BH2ExMGpQzBM0LZTenWflQEKMGXh09vB/6p1LGLEyVYqNcPy4CCI3rhz8esn3UJTSBPDhF12fnUc1nQ4e9avdVrXzY8VBQYUr79sv/qhYIwA0WgdwRAGDfxkLXQC8s0XGuI9C8SvQDZmpjRsiIAkK2hvAHBsHF7JYcgrWfhFSfbgM7FNzF7D0+eQfh4kFW7RsQnFLBODbcqoMcwOC0eMKVBIlAkqakuTkXlPGHH/FSfDXVouP5kUp+P6jGUOrVqulKBDyDsaTHLjUvDck8XmuFbAqzfFcmced8nR6zrUAeQXZm2juNohHLKDCCSxsxpkCLxy6CyvO5XePzxHwq/GKruLRA1Avfn3RTdJBsK6ETfdFfNqB2MEWCy+PndHc506j6pvCnU3WO3OsAjbkcCgq28XtWkCUf3qvt3zDfin1LVExbQBOEhPoqgUHCzQmHEXzHDI+XRHvutrMzp9Xv1q8z0CcMuJiuRKZOwjGJ/rJTFerNLkDEO9Rds3b7KDsngpX2OK9VxB8RTizyPbIWuUAyBEEklhDdubIrqzCYGtrAb9bD3mi2b2dW370boU+niwS+VKLFvz659q0CZjK0CVfbyZRAwnguII5s4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(186003)(498600001)(6666004)(6486002)(66476007)(316002)(5660300002)(26005)(6506007)(2616005)(83380400001)(7416002)(66556008)(8676002)(36756003)(31686004)(2906002)(53546011)(6512007)(66946007)(8936002)(4326008)(86362001)(38100700002)(31696002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(6486002)(8936002)(498600001)(5660300002)(6512007)(53546011)(6506007)(31696002)(2906002)(26005)(186003)(2616005)(66556008)(66476007)(316002)(83380400001)(36756003)(8676002)(6636002)(110136005)(38100700002)(66946007)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M291eWpIOFpzdWNwQnBTSGhvQmJtZVUwVVJEVFgvYWVaSE1oMjgwYkhtcVNN?=
- =?utf-8?B?UEpnSEZmc3p3eGZuZkUzZFppYVJocm1OTjVaelVxR25ORThFNzh2ZDMrQW5D?=
- =?utf-8?B?SXQ1Tml0L3hGRW5UVlV2bEQ2aTNSYURLMk9wNmxBWGZnRm9YNVR4RVh5WFlM?=
- =?utf-8?B?YVBYdDdSQ0RJbUdvMHFkQnRtMVNkMC9Vem4rSUxUWHJhU3VBeEVWZHBiYjBJ?=
- =?utf-8?B?Vml0ejZnU3NTNzc3eENDbFdnTU1tcHg3TWl6Yi9KZzE4bXBtbVRSSmhpNktO?=
- =?utf-8?B?RDVOWHhvMDlrcjI3WkZWaTFtdHdSR3JrbUhlWS9NdEdFR0dXVVA4T1ZDNzlC?=
- =?utf-8?B?TXBBTkszWFlRUEZFR0Fqd09GbGtReXRUUkxZUERHUmkrOHlUcmVGdXR1cjEv?=
- =?utf-8?B?dmpJd2lmR2tTZGVmbVNvNktFMHhYU2dxTVF2NklNVXZqVHBDck40RU9pWHVM?=
- =?utf-8?B?U2d2RUQvWVJjdTdjdmlsbC9icHIyQXhjblNULytRb21va2c2OENGTFNnT2Vi?=
- =?utf-8?B?M0VQWnRyVEdQRmNiRlhjTDM3MzQ2aXZmT2FxeTMyeXNsYUdjQ0VBY3lIWlB1?=
- =?utf-8?B?WFJKckhvSE84Q3BpTXFZZWlRMjU4UFBUS0lGSXdMQTBwV1RLSjVlUlRCekVQ?=
- =?utf-8?B?MjJIdWFsQ0dZT2FWWFhmWkhpNHh1Z3lDdGRtektqWFdSc1FiTXBkM1dWeVFu?=
- =?utf-8?B?ektmeVlYVmNlSm9HWGIxeksycVZjVG9wWHlFZnVjNGtmSEJRQkQwRlZYTlpV?=
- =?utf-8?B?T1pqS1JjVHVWY2ExRWJuTEJrM1FJUnBWTDEyelR5YzdVWW9hcW5LbldEem5x?=
- =?utf-8?B?VDVtMDJ1ZlowU2xiRnE1NCtuNE1mNnZzSWUxNFFsdThMK1h0NSszTllROEdF?=
- =?utf-8?B?RHNyK3hqK1ZLU2lCeVZRTGVmOXppK1dnYUlOblE0OEc3bW15MkJLL2lmRnRB?=
- =?utf-8?B?N3dzWjhjRmxKYmI3YVd6VkRYamxiOFM4NDE4RzBIak52Y0Y0aDIwSHh4V0t6?=
- =?utf-8?B?QisvSklqNXJqZWpzcnlaODNHUzlvYS9wOUU5OFJPaFVIRUVBa2YxS3Y0cVpt?=
- =?utf-8?B?RFJaRGhrZWtGSS9pcERaWmVpS051dHh4TXhyQWpwbGJHVEVjYlVIamw2QUpw?=
- =?utf-8?B?YytYWjdUM2ZQSmhJRXFBb3dNck9XQ3B6ZklwZ1ZjMFBLQ1VrSjFMdENZY2FM?=
- =?utf-8?B?TzhEc29PNWhJL2hzTGxzN2VhOUpmZGxQbzdJQms3M092ZUY1Uk9VekJSbTV6?=
- =?utf-8?B?dk5jT0VsdHk0aHlqUklLZEI4TmN3Qm1sdk5OV3ZNbUkyVCt0S0ZheEEvTWNW?=
- =?utf-8?B?RElmU1hlSW1QdUlRamNYR0d3allLZm9FcVZ2WTA4NDl5NDdxMmJHU29hbWhx?=
- =?utf-8?B?R3hQRVplNHBld3lOZllNS0owSUpqdzltcGlJZVhZK3ovY1k2ci9vN1pGdzVi?=
- =?utf-8?B?dlJBdVNpVG9pK0tyWmNDOHhGajAySE4za21iQXFYTDF3Y0F2S1U3cUowUlEw?=
- =?utf-8?B?dFJKYkMwQllKVU0yak9vQ3NSeHpPYmFJVENxOEtMRHRQcnJxYnBKbjMrK0RG?=
- =?utf-8?B?bEFFNW02NzdEYVE4bFozSzNkVmhrREVLcWNqbDVhN0tJZTQwcEUxN3lHOXpL?=
- =?utf-8?B?U3QzMWtuSDlucktuZnkvWTIvRjRpaVZhRDJ3cml4QUhWWWF3WTJpN0UwUGhR?=
- =?utf-8?B?Y0t5Mm54dkVNakJrTGtSNjZ1L3lLNHEyVzRqeVBzUElIY3ZHTStWZ1ZKeSsz?=
- =?utf-8?B?aUtOaHY1SjBYM1dxbC95b2ZkK3hwU2NaYXdrRzYyYTNnbnNYajlqS2tLSVkx?=
- =?utf-8?B?eDA2bkhFMW5MNmF5MWpZc3dSdEJEdUNsUFRTbWRLK3RzVmIvTVdIcEFYRHdz?=
- =?utf-8?B?eFMybERDTGVYenpVWkVqUytHclM3NW5EaUh4UG5MZnRIL3UwV2ZTbW8vSW5B?=
- =?utf-8?B?NkY4a1ZOcW5EdGdlL2ZBS2xmcEgydnc0djFqd1ZtbklMQ2ZvNnRkeUkrWkly?=
- =?utf-8?B?VUFyZ3dzdmVBSHhHMWFnUGNSR1NtMmx4R2RJN1VGSkx3NDFFQTRuTElTOUto?=
- =?utf-8?B?dUNWOTRZdWlQN3dZZmQ1ZU1TLzRlM3U1Q2I3b0Q0cmdwRVcrU2g2eXFRWVli?=
- =?utf-8?B?S0hDQ05waFJLWE5jaGRicWZkQ0RxbVI1Mm9OOE5GdjI5L2FCNGNNZmdyTHlG?=
- =?utf-8?B?cFpzWmNMN2FYa20xOHhJOEp6OFVuSGRnUE9QMHBvSk5YeHVmZEZMcFFaaVpM?=
- =?utf-8?B?L0M3V253MHhLUHd3b0RyZkF0eC9RbFVlVWxyc0VwUHYzWGVSRVlnMldWM2Vu?=
- =?utf-8?B?Y3EwbC9wSENTY1QyVHRxUFVVOE1wT0ErK0hJeDNCWk8zckp2UGtGZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2hxUm5lc1B2R1JjUS8xQkJ5SlJtQ1dYWkVjSUNjOEZ3WmRzNjNRa0FhbWcy?=
+ =?utf-8?B?eTFvVHRqSEQ4a3pNeDZyU3cwcWxFRGc2UkF2TE82NnB5aWJNa29qVW1Calhs?=
+ =?utf-8?B?TWdYZFlBZFd4bXd5YXlweFcvN1JtUzR0STZDem5xNkFFbkozUVUzSEt2NlJV?=
+ =?utf-8?B?b1J4M05nUU5GQlMxbmd1WTRhUmsyNERWQzkxcjZIM0Yvc0tCY3dBMWVyQnha?=
+ =?utf-8?B?L2haZmZsN01yN1JEcEh4ZDM4dlJsMjZFTFZCUGRhcDVpUHd0Z01oS2VxS2tv?=
+ =?utf-8?B?a1lySUJyekVzWVZFbnV2R2ZSUDVDdTI3eTRFeUM1bEljRzZFTmdjcFBqaDhw?=
+ =?utf-8?B?MXluVzg3RTZzWTJweHd3N1lHaGN1QTE4S2VjY3k2OWNKRW1BNDdmZTF5Mmdu?=
+ =?utf-8?B?NzdxSm5VSVRjdnlwRWtDczBiY1RtZEhLOTFEalEyYW4xczJQeXgwZmdodHh5?=
+ =?utf-8?B?QkNIbVZNQjNNNGZ2TXFVdEFUeTJ6eW16K3c2VitHS2hlWjFZNFNXZGJxQ1gz?=
+ =?utf-8?B?WU01Tzl6a3FuRUJHcHhpakVvdzNKcWo5dklGRUJnZlZtc0UvNFNOTkNlTkJL?=
+ =?utf-8?B?T01STGtrNTNPL1hWc2pIZys4Mk9tcFd4NFJIendQZjdabWpFNjB6c2psMnFJ?=
+ =?utf-8?B?S1RqUDR1Q05JZXhabUdpSHZzdFFyNDZhY25jcFpIZDh4UjhkQTVnMFJsY1Fz?=
+ =?utf-8?B?dWtNek81UjBLdm5mL1IzVElhNCtISTJOT1VIWjZwQ0JhVVAzTmNWSElLV0Ux?=
+ =?utf-8?B?VmVEMlduR045R2dtYmtUaGRFdDRZT1lPOXNxbnJXTmFLcVhwZC8rVFNFRHdS?=
+ =?utf-8?B?cVJhblcrUWFKYmdKcWdJbHlYeC9WVmFHZi9CTHpqUG1uY0RPVHVQTDhUUVdL?=
+ =?utf-8?B?M1Vya1phR1NlNUhyKzJ4K25XalJuU1ZJdFF3YWhWMVdMTzJmUHFzbWZsSWhE?=
+ =?utf-8?B?bWdCRFp0UmdzcGdKYTdVdDFMaXIyTk1xaUV0UWRRcUhjNUdRVEdFK2xBQnc0?=
+ =?utf-8?B?SHo5V3lXK3BwOWZoeCtnYmljek1uVmJNUGtSSjdJZ1RCb1ZicXFuTUluWXQ2?=
+ =?utf-8?B?MTJtK1VEU054N2lIQ25qUS9hT3YwcTd1T2R4RlljYnA0d0JDWXlQYWlscVZl?=
+ =?utf-8?B?OUVzRjAyN1lxZG1YUGZqQ05CaHE5dmQ4OUFPRTdmSE9XbXd3MlFoSCswZTZO?=
+ =?utf-8?B?dnNibVdvcFg3NzAzUEtmejJXMEdDNmd3RnhhaHVDdkpVM09oaVM2R1IzMFNm?=
+ =?utf-8?B?OHpaWC9Rd0FYWU1VVjI1R2RWOW5DY2NWOHN6SzRsSFE1VlIwbHl0V1ZCNUdR?=
+ =?utf-8?B?MTNCaFJ2by9jWWxiSlIxMWwzSGFCcEtNbUxzWmYzTzNyM01UMER1QnpSR2dS?=
+ =?utf-8?B?d0doSDVjMEc0YTN6d014b091Y0RqeEtpU0RqZ3AvN2hmc25VMHE3dWZZSFpZ?=
+ =?utf-8?B?Z2t0Q0ovUU5wZFhmRGI2K2ZpYUhYOCt0K0x0S3U4ZGtvMWRpSUdGZll4eTFE?=
+ =?utf-8?B?Y0RvUGhpOXhqMENxQmk5NnZtaW9NdHFTTzBqdTRCYWJhVjhyaExtV1R5bnc1?=
+ =?utf-8?B?cVRhYVpyVFoyTmtpZHl2OUlSdTZMT1Y4VEJrYngyREVmaXgxVDdvaEd6QXQ3?=
+ =?utf-8?B?djErNzloRHlsQjVZVy9QVHp0TVFVZndmb2F2NFVrNGhCMlRtZjVOZ3dZbm1m?=
+ =?utf-8?B?RUlVYkdRMnlyV093Vk1YcGdrTFRzT2RCaDA5b1JPTm8rdUxkc0tVMEkxMTFC?=
+ =?utf-8?B?OVZVSW5VK2NBa096bm5Ed2tGVUhOc1htVFd2NWxIcWJ4czBROWVtUmIrTkNR?=
+ =?utf-8?B?VER2OE1iTUIxZlBzTWVCS0Vvd29MUjVIOG9xUXk0Qll6cDBJcnZLMGtDdGpB?=
+ =?utf-8?B?OU15Z1M2MFNyeURSUnJkVmRpZ1ZFSTF2Q0dvQVV0dDZGY2xDNEdBSXlNQnBv?=
+ =?utf-8?B?bWVtYUpZMzJwT2w4RnhVYkxXM3J1QjVTQUlxeEhibERpYU9UUDlHYmw1NXJj?=
+ =?utf-8?B?aC95SDF5THJhUkpyc2x2dVBiNzFuSFhBVk5GYlNmb2MxVS9NVjRGTkF5ZTE2?=
+ =?utf-8?B?MGRkTXJDOE9qVC9jcUh1VUk0MEFCVG93ZXNyQ3d6NnF3cm1MazZsS3hGa0lr?=
+ =?utf-8?B?d01Wb09rWnVHQ3VGMVBLV25PQ21sTmhrNG1zRXFqaGVmZlRTMDlieVM5a281?=
+ =?utf-8?B?NjFiVWQrOXZvdjVLSzhXSHlQVXNtWHZtUlA5Z0ZmOXV1bm1YY1ZoVWF3MEZ5?=
+ =?utf-8?B?MWhKVUdGb2QyZnZRUzUzZXpEL284ck1sMzRzNU92azBUdTZMTkVHaHpoVi9q?=
+ =?utf-8?B?Mnh0bVdWVkl6RGZsWGlHVnRkQmc2REJCNkRadC9lbmQ3UHVzOWczdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5827a06-6820-452c-8f9d-08da5085ba36
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f597919-d018-4fc5-5661-08da50956689
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 17:20:51.3856 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2022 19:13:02.8691 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bSta839moXOZISNH/bPEJtkwaX59KHY6Qo4TeoJj/H4k1G8fHUOAREtiE30K9r47qiFloXzANxU53zvN6c9zyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1789
+X-MS-Exchange-CrossTenant-UserPrincipalName: Skmaf3Ek1BQ5LtqNqjIeU2K+6whJlIjhvPvmyKnp21VSD1BqWUNz5+TUwvuVwPk3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2526
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,88 +129,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
- apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
- linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 6/17/2022 4:40 AM, David Hildenbrand wrote:
-> On 31.05.22 22:00, Alex Sierra wrote:
->> Device memory that is cache coherent from device and CPU point of view.
->> This is used on platforms that have an advanced system bus (like CAPI
->> or CXL). Any page of a process can be migrated to such memory. However,
->> no one should be allowed to pin such memory so that it can always be
->> evicted.
->>
->> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> Reviewed-by: Alistair Popple <apopple@nvidia.com>
->> [hch: rebased ontop of the refcount changes,
->>        removed is_dev_private_or_coherent_page]
->> Signed-off-by: Christoph Hellwig <hch@lst.de>
->> ---
->>   include/linux/memremap.h | 19 +++++++++++++++++++
->>   mm/memcontrol.c          |  7 ++++---
->>   mm/memory-failure.c      |  8 ++++++--
->>   mm/memremap.c            | 10 ++++++++++
->>   mm/migrate_device.c      | 16 +++++++---------
->>   mm/rmap.c                |  5 +++--
->>   6 files changed, 49 insertions(+), 16 deletions(-)
->>
->> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
->> index 8af304f6b504..9f752ebed613 100644
->> --- a/include/linux/memremap.h
->> +++ b/include/linux/memremap.h
->> @@ -41,6 +41,13 @@ struct vmem_altmap {
->>    * A more complete discussion of unaddressable memory may be found in
->>    * include/linux/hmm.h and Documentation/vm/hmm.rst.
->>    *
->> + * MEMORY_DEVICE_COHERENT:
->> + * Device memory that is cache coherent from device and CPU point of view. This
->> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
->> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
->> + * type. Any page of a process can be migrated to such memory. However no one
-> Any page might not be right, I'm pretty sure. ... just thinking about special pages
-> like vdso, shared zeropage, ... pinned pages ...
-
-Hi David,
-
-Yes, I think you're right. This type does not cover all special pages.  
-I need to correct that on the cover letter.
-Pinned pages are allowed as long as they're not long term pinned.
-
-Regards,
-Alex Sierra
-
->
->> + * should be allowed to pin such memory so that it can always be evicted.
->> + *
->>    * MEMORY_DEVICE_FS_DAX:
->>    * Host memory that has similar access semantics as System RAM i.e. DMA
->>    * coherent and supports page pinning. In support of coordinating page
->> @@ -61,6 +68,7 @@ struct vmem_altmap {
->>   enum memory_type {
->>   	/* 0 is reserved to catch uninitialized type fields */
->>   	MEMORY_DEVICE_PRIVATE = 1,
->> +	MEMORY_DEVICE_COHERENT,
->>   	MEMORY_DEVICE_FS_DAX,
->>   	MEMORY_DEVICE_GENERIC,
->>   	MEMORY_DEVICE_PCI_P2PDMA,
->> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
-> In general, this LGTM, and it should be correct with PageAnonExclusive I think.
->
->
-> However, where exactly is pinning forbidden?
-
-Long-term pinning is forbidden since it would interfere with the device 
-memory manager owning the
-device-coherent pages (e.g. evictions in TTM). However, normal pinning 
-is allowed on this device type.
-
-Regards,
-Alex Sierra
-
->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-06-16 10:49, Eric Huang wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:a70defa4-6268-406e-ff69-fb5f8aa6989c@amd.com">Does it
+      break the case of q-&gt;gws with q-&gt;properties.is_active ==
+      true?
+      <br>
+      <br>
+    </blockquote>
+    <p>Thanks for catching this, it breaks pqm_set_gws, I will revert
+      this and send v2 for review.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:a70defa4-6268-406e-ff69-fb5f8aa6989c@amd.com">Regards,
+      <br>
+      Eric
+      <br>
+      <br>
+      On 2022-06-15 17:56, Philip Yang wrote:
+      <br>
+      <blockquote type="cite">We remove the user queue from MES
+        scheduler to update queue properties.
+        <br>
+        If the queue becomes active after updating, add the user queue
+        to MES
+        <br>
+        scheduler, to be able to handle command packet submission.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6
+        ++++--
+        <br>
+        &nbsp; 1 file changed, 4 insertions(+), 2 deletions(-)
+        <br>
+        <br>
+        diff --git
+        a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+        <br>
+        index e1797657b04c..67ae5b6385a2 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+        <br>
+        @@ -866,8 +866,10 @@ static int update_queue(struct
+        device_queue_manager *dqm, struct queue *q,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * dqm-&gt;active_queue_count to determine whether a new
+        runlist must be
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * uploaded.
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+        <br>
+        -&nbsp;&nbsp;&nbsp; if (q-&gt;properties.is_active &amp;&amp; !prev_active) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment_queue_count(dqm, &amp;pdd-&gt;qpd, q);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (q-&gt;properties.is_active) {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add_queue = true;
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!prev_active)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment_queue_count(dqm, &amp;pdd-&gt;qpd, q);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (!q-&gt;properties.is_active &amp;&amp;
+        prev_active) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decrement_queue_count(dqm, &amp;pdd-&gt;qpd, q);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (q-&gt;gws &amp;&amp; !q-&gt;properties.is_gws)
+        {
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
+</html>
