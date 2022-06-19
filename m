@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715FDC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jun 2022 22:20:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB72EC43334
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jun 2022 16:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE80D10F9FF;
-	Sat, 18 Jun 2022 22:20:13 +0000 (UTC)
-X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
- Sat, 18 Jun 2022 22:20:12 UTC
-Received: from condef-09.nifty.com (condef-09.nifty.com [202.248.20.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C84310F9FB;
- Sat, 18 Jun 2022 22:20:12 +0000 (UTC)
-Received: from conssluserg-03.nifty.com ([10.126.8.82])by condef-09.nifty.com
- with ESMTP id 25IM9pU9006240; Sun, 19 Jun 2022 07:09:51 +0900
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50]) (authenticated)
- by conssluserg-03.nifty.com with ESMTP id 25IM9I0m004434;
- Sun, 19 Jun 2022 07:09:19 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-03.nifty.com 25IM9I0m004434
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1655590159;
- bh=j6JPk1mHaQ5+DA5zjhwPjod5o+QCcmgN5pr8bzz2rcw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=DL+BWe7Bvglr971acdzRYfp36fqAmkSPSfTgd01ZpEjVchfYQDZDp8srCGzw0xlWX
- ItK4yuKfKDK3q7clORHUwhDNzWAd3wqcXc+5tDPND8BSJoq5BscQCFwM3l2r6SGR46
- rUG0WFSobzebOchG0XYvNfYBkcNA24h8G02/kHsRdeFVAQA4fZqMQeMs/51iLgZ0sr
- e9fASdc05DZq5sYj7R+BpbwylQqVXAtoWyJuMqDl+RVqt/68gPyTOSXG9Pm5cRZ+br
- xLUdO7Vxegng554nAm+iEu3dNpneSkFyZvILUAGhiVg4OJZfq+GBk6c42ReRZliSh3
- kWMVakN5MiFaQ==
-X-Nifty-SrcIP: [209.85.128.50]
-Received: by mail-wm1-f50.google.com with SMTP id
- x6-20020a1c7c06000000b003972dfca96cso3960033wmc.4; 
- Sat, 18 Jun 2022 15:09:18 -0700 (PDT)
-X-Gm-Message-State: AJIora9RmnhyTaMfPV/97n6E7TuHAE7eO829z5j2GgYTuh6W4a3MXkO/
- PWuMRIFzydjgim1Mu4LNnCTi/Y0CyNb8Tq1KnF8=
-X-Google-Smtp-Source: AGRyM1t9nq3U1MhJi8dOFnyZ0ZIk9zYkOQyel6bFep2DghyeRHgzA9mK8BRTGbmxBw5PEt2Hm3wVtuV5tIgnlQkqTM4=
-X-Received: by 2002:a05:600c:35c2:b0:39b:fa1f:4f38 with SMTP id
- r2-20020a05600c35c200b0039bfa1f4f38mr16861022wmq.22.1655590157328; Sat, 18
- Jun 2022 15:09:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E50CD10E930;
+	Sun, 19 Jun 2022 16:22:21 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B57310E930;
+ Sun, 19 Jun 2022 16:22:20 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id s17so2690360iob.7;
+ Sun, 19 Jun 2022 09:22:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CMHs0PS1TFBPLNKbKLIzdp6HeUcQ1Ge+Te9ys5p3It8=;
+ b=SgikfJAKmKo1X6VV7pStkhyBBsZtzkZzzEWgWW+Rkm+o+JdmgIW7QzmfvNM1NJLBBR
+ jUAlioO70GBNpe23pPnTOOQiJ2SMf3VuniioAgJD5vxEosSBheAy2rCjt1mGnTLyZ4ko
+ PGjVUtiPWv8bnTpwP160cEfjcYsGxze58VY17yn34h8dBbofPAQPXGfecFjgfxTPRBVz
+ fosef/Qz6zD/py1qZrR8Y5zK+HK0mHWC2Z3NNEG46Y45AD9ix1ghV23cTt7sl/2dyvbo
+ PVTwmIm8G/j4Z8wMYZRb1/XYLujlAORSuh1bh4eXO0tjlVtTA3205FTkaCAV0uxcfpx4
+ XFLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CMHs0PS1TFBPLNKbKLIzdp6HeUcQ1Ge+Te9ys5p3It8=;
+ b=30Ssp325Rw3gTWUVuW8hayYGUrhHZejFEES1W1xo0LZ2kqHnf2af42ivvj13V0azWi
+ 4PGwRNijqWVncCFKdSpOY/xv3f2h5vG9S+nR3EnV9t5EkWMMd9hQCuv2YvBe+3C+BIMq
+ Esv8berklB6vTB6B6ZSNsrb2tgT5e7mxmuKTbNNAH6XssIewiaBN/8tuBwZRJ6eHb5+D
+ P58lyetQHXYaCq+5lbHyl+ZVjoMywR1mMD96TSsS5q4AdLE5UA820aQodEVnTyl9S5Sz
+ KHqoxQQAlzzgtCvK+Gj9XTQpgoZkpihq3J2429sxH/RaBjN398FVVb8vWXMgRpscb5Ny
+ PqVw==
+X-Gm-Message-State: AJIora8yxE8Tq8UDm0m+sNmkd7VkOCtVCf74wX+uBeFjYgnbpgEyPah3
+ 5kYI/2dXop5RvrX/hV4uhkVrxjCRnkK0CEzieis=
+X-Google-Smtp-Source: AGRyM1tTZVYVRLk06XMNcTKwfKDWGhutVawExdvT9JxBnyjNeoBJmXowQmrekxoWCJWlce5+4uvh4ZtFqKMLAOxDFX4=
+X-Received: by 2002:a02:aa92:0:b0:331:c856:fe69 with SMTP id
+ u18-20020a02aa92000000b00331c856fe69mr10212075jai.187.1655655739845; Sun, 19
+ Jun 2022 09:22:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220413161450.1854370-1-michel@daenzer.net>
  <f425b789-5081-fa70-555f-7553d7cc5bd5@gmail.com>
@@ -51,15 +51,14 @@ References: <20220413161450.1854370-1-michel@daenzer.net>
  <CAK7LNATdTaY6+FD4TuFgmb00=Qbx=7mmCi9onHv0zi=pdZysBQ@mail.gmail.com>
  <8beac4f5-f7e8-31ab-bbf3-36a917979bfc@mailbox.org>
  <c861e442-e09b-fe20-609c-05bdcb867663@mailbox.org>
-In-Reply-To: <c861e442-e09b-fe20-609c-05bdcb867663@mailbox.org>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Sun, 19 Jun 2022 07:08:39 +0900
-X-Gmail-Original-Message-ID: <CAK7LNAQgFXjiT5Js2KDNxp+ep2O7cUVYra31-qZBKTQ_SffLOQ@mail.gmail.com>
-Message-ID: <CAK7LNAQgFXjiT5Js2KDNxp+ep2O7cUVYra31-qZBKTQ_SffLOQ@mail.gmail.com>
+ <CAK7LNAQgFXjiT5Js2KDNxp+ep2O7cUVYra31-qZBKTQ_SffLOQ@mail.gmail.com>
+In-Reply-To: <CAK7LNAQgFXjiT5Js2KDNxp+ep2O7cUVYra31-qZBKTQ_SffLOQ@mail.gmail.com>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
+Date: Sun, 19 Jun 2022 18:22:09 +0200
+Message-ID: <CAD=4a=W+fcuP_oVWJ1x1fPt5izEi1cT-sq7MiDCu+ps3MoJq9Q@mail.gmail.com>
 Subject: Re: [PATCH] drm/radeon: Add build directory to include path
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Masahiro Yamada <masahiroy@kernel.org>
+Content-Type: multipart/alternative; boundary="0000000000003e727f05e1cf647c"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,61 +70,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>,
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 15, 2022 at 5:35 PM Michel D=C3=A4nzer
-<michel.daenzer@mailbox.org> wrote:
->
-> On 2022-04-14 18:57, Michel D=C3=A4nzer wrote:
-> > On 2022-04-14 17:04, Masahiro Yamada wrote:
-> >> On Thu, Apr 14, 2022 at 10:50 PM Michel D=C3=A4nzer
-> >> <michel.daenzer@mailbox.org> wrote:
-> >>> On 2022-04-14 15:34, Alex Deucher wrote:
-> >>>> On Thu, Apr 14, 2022 at 4:44 AM Christian K=C3=B6nig
-> >>>> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>>>> Am 14.04.22 um 09:37 schrieb Michel D=C3=A4nzer:
-> >>>>>>
-> >>>>>>   make -C build-amd64 M=3Ddrivers/gpu/drm
-> >>
-> >>
-> >> Maybe
-> >>
-> >>         make  O=3Dbuild-arm64   drivers/gpu/drm/
-> >>
-> >> is the way you were searching for.
-> >>
-> >> It builds only drivers/gpu/drm/
-> >> in the separate directory.
+--0000000000003e727f05e1cf647c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Den s=C3=B6n 19 juni 2022 kl 00:20 skrev Masahiro Yamada <masahiroy@kernel.=
+org>:
+
+> On Wed, Jun 15, 2022 at 5:35 PM Michel D=C3=A4nzer
+> <michel.daenzer@mailbox.org> wrote:
 > >
-> > Indeed, that works.
+> > On 2022-04-14 18:57, Michel D=C3=A4nzer wrote:
+> > > On 2022-04-14 17:04, Masahiro Yamada wrote:
+> > >> On Thu, Apr 14, 2022 at 10:50 PM Michel D=C3=A4nzer
+> > >> <michel.daenzer@mailbox.org> wrote:
+> > >>> On 2022-04-14 15:34, Alex Deucher wrote:
+> > >>>> On Thu, Apr 14, 2022 at 4:44 AM Christian K=C3=B6nig
+> > >>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+> > >>>>> Am 14.04.22 um 09:37 schrieb Michel D=C3=A4nzer:
+> > >>>>>>
+> > >>>>>>   make -C build-amd64 M=3Ddrivers/gpu/drm
+> > >>
+> > >>
+> > >> Maybe
+> > >>
+> > >>         make  O=3Dbuild-arm64   drivers/gpu/drm/
+> > >>
+> > >> is the way you were searching for.
+> > >>
+> > >> It builds only drivers/gpu/drm/
+> > >> in the separate directory.
+> > >
+> > > Indeed, that works.
+> >
+> > I've come to realize that this doesn't produce the actual *.ko modules
+> though. Is there a trick for building the modules, but only under
+> drivers/gpu/drm/ ?
+> >
+> >
+> > --
+> > Earthling Michel D=C3=A4nzer            |                  https://redh=
+at.com
+> > Libre software enthusiast          |         Mesa and Xwayland develope=
+r
 >
-> I've come to realize that this doesn't produce the actual *.ko modules th=
-ough. Is there a trick for building the modules, but only under drivers/gpu=
-/drm/ ?
 >
+> No.
+> There is no way to build *.ko
+> only under a specific directory.
 >
-> --
-> Earthling Michel D=C3=A4nzer            |                  https://redhat=
-.com
-> Libre software enthusiast          |         Mesa and Xwayland developer
 
+Doesn't "make modules M=3Ddrivers/gpu/drm/" do that?
 
-No.
-There is no way to build *.ko
-only under a specific directory.
+--0000000000003e727f05e1cf647c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">Den s=C3=B6n 19 juni 2022 kl 00:20 skrev Masahiro Yamada &=
+lt;<a href=3D"mailto:masahiroy@kernel.org">masahiroy@kernel.org</a>&gt;:<br=
+><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">On Wed, Jun 15, 2022 at 5:35 PM Michel D=C3=A4nzer<br>
+&lt;<a href=3D"mailto:michel.daenzer@mailbox.org" target=3D"_blank">michel.=
+daenzer@mailbox.org</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On 2022-04-14 18:57, Michel D=C3=A4nzer wrote:<br>
+&gt; &gt; On 2022-04-14 17:04, Masahiro Yamada wrote:<br>
+&gt; &gt;&gt; On Thu, Apr 14, 2022 at 10:50 PM Michel D=C3=A4nzer<br>
+&gt; &gt;&gt; &lt;<a href=3D"mailto:michel.daenzer@mailbox.org" target=3D"_=
+blank">michel.daenzer@mailbox.org</a>&gt; wrote:<br>
+&gt; &gt;&gt;&gt; On 2022-04-14 15:34, Alex Deucher wrote:<br>
+&gt; &gt;&gt;&gt;&gt; On Thu, Apr 14, 2022 at 4:44 AM Christian K=C3=B6nig<=
+br>
+&gt; &gt;&gt;&gt;&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.co=
+m" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br>
+&gt; &gt;&gt;&gt;&gt;&gt; Am 14.04.22 um 09:37 schrieb Michel D=C3=A4nzer:<=
+br>
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0make -C build-amd64 M=3Ddrivers/g=
+pu/drm<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Maybe<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0make=C2=A0 O=3Dbuild-arm64=
+=C2=A0 =C2=A0drivers/gpu/drm/<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; is the way you were searching for.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; It builds only drivers/gpu/drm/<br>
+&gt; &gt;&gt; in the separate directory.<br>
+&gt; &gt;<br>
+&gt; &gt; Indeed, that works.<br>
+&gt;<br>
+&gt; I&#39;ve come to realize that this doesn&#39;t produce the actual *.ko=
+ modules though. Is there a trick for building the modules, but only under =
+drivers/gpu/drm/ ?<br>
+&gt;<br>
+&gt;<br>
+&gt; --<br>
+&gt; Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"=
+https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat.com=
+</a><br>
+&gt; Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and Xwayland developer<br>
+<br>
+<br>
+No.<br>
+There is no way to build *.ko<br>
+only under a specific directory.<br></blockquote><div><br></div><div style=
+=3D"font-family:arial,helvetica,sans-serif" class=3D"gmail_default">Doesn&#=
+39;t &quot;make modules M=3Ddrivers/gpu/drm/&quot; do that?</div></div></di=
+v>
 
-
-
-
---=20
-Best Regards
-Masahiro Yamada
+--0000000000003e727f05e1cf647c--
