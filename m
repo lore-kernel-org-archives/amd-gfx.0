@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF6B3C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8512C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:50:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3436410E592;
-	Mon, 20 Jun 2022 17:20:32 +0000 (UTC)
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E5B10E592
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 17:20:30 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-31780ad7535so80909927b3.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 10:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zI/plDrhqjLDX3BYaJxrzEoQ40Phmro2M/OiEvAEhps=;
- b=PzwJ397vkAJCEkP+ZCf1MulA7pUsszVt+VrNi78NVm5LoACTiniLKE/e8ngxvJUUDn
- WuqQDJ3x5aoHW/ZEuuM+VgCnDhlPjo+ESWWJltrhrcqfwoEEkkFb+BGuYth7NrYo7dPZ
- 95dpRjlUj6XqBVroptMCy+aS6TNlwaOkf8S8/tPK8SjgBr+2EVkONHUqDaJ/Z8piz8gO
- XbikkLTRXtywSIUydWDw2wzErL7dnKu5vQjAFyb9IirqUyhOiYOknyv/sPI7iNtu0MLk
- L9TR3wOJPA3tb3jVQfY5/K7U4qpI3Orti3eJPoz8CDQND8CoBxTzOGq9rRBa449PHTh0
- UeIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zI/plDrhqjLDX3BYaJxrzEoQ40Phmro2M/OiEvAEhps=;
- b=z9f38W1GHM4YRHB7fVpAhm21YIuhiWcs4IOoRl79PAysBYuY8vDHiLcp/D9tXF1n56
- SwfoKEgYuy4FEg5CtB+PjgTmpslv6NgcYphSz/sTxiVKQDIinNzBh4ptv0+yPEqBKl6N
- gT9mpqcld00lldz8kEuJKIt5ZlFuEiiiAq/ioSjFE1TmBYFBhLk2k8bqdFaOls8lk+8t
- 5xFD7a3TinIk8RScmKcjjp+oso5f+aN3+UZySnhAjLLfwWeyQ2N/qzYm6od6R1JwAAVD
- InFEnL3J96DVzuvJ3Tvg/iDnya8bPbmglT63WoV8jcm16VirnlSxetxLJyQjGncY4Ax4
- Gv1w==
-X-Gm-Message-State: AJIora8Zl+eMqjFm5umxcuxa/3gk6D8sXNp7WeZrejSN+NwX725KFcc4
- s9ZdVaN6r0gFYv6uPJH8BLd+1JuSSLE1tQv5kvQ=
-X-Google-Smtp-Source: AGRyM1u1Ra2Q3Utuw+jNR8m1Bq23BMutz22TZy265+fHxY1KvQHPvHDjMhHgm3/wGPZzB0U13GK2YoYJ3dH+d4XV24k=
-X-Received: by 2002:a0d:df8d:0:b0:317:c206:2e7c with SMTP id
- i135-20020a0ddf8d000000b00317c2062e7cmr8530176ywe.97.1655745629529; Mon, 20
- Jun 2022 10:20:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E05710ED81;
+	Mon, 20 Jun 2022 17:50:49 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23E2110E13C;
+ Mon, 20 Jun 2022 14:09:02 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-136-92.dynamic.spd-mgts.ru
+ [109.252.136.92])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id ED33766016AA;
+ Mon, 20 Jun 2022 15:08:57 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1655734140;
+ bh=BXU+ifI6vgvX2l7WRjph+CNUKyZnpbVEdIZ7RrhtSq4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hbKEas/qwTrQOtYjHwF1kAp5bF+lx0c/HWQwXzlCDzigXVc6ThGjLuF3ZUDyYkTwz
+ MouYrGpQnILP4PpIymmbBhVM9e1PASUWBFi+LgRwQKHtJaeCJSG55KGkiaLdAooRwx
+ r2TI5GDTa0dTQ+8tpeAHv2LUf+jVTzvilnkf5MIXXOtgLhZavAyBeA5Coc+G+31H0n
+ LqN5s7FdaPeYgtK9DeQIbTvs9nVBH3Vd5hMCs7Z3/RWoHnCkbvzEtAtefHevXEAM22
+ OU+8g1IHrfEqrNowXyflyg+A+jrXLHwPj7JmxC/fo9Iq5iwKq0KsVJdcRE82IB0+gX
+ J8VaycDtZEnTQ==
+Message-ID: <3bb3dc53-69fc-8cdb-ae37-583b9b2660a3@collabora.com>
+Date: Mon, 20 Jun 2022 17:08:54 +0300
 MIME-Version: 1.0
-References: <20220620084156.2295093-1-yifan1.zhang@amd.com>
-In-Reply-To: <20220620084156.2295093-1-yifan1.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Jun 2022 13:20:18 -0400
-Message-ID: <CADnq5_O4HXF+UYEncUcs0x+p3t4iYMiZqk=w-NSYrduKdLu6zQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: correct sdma queue number of sdma 6.0.1
-To: Yifan Zhang <yifan1.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v6 17/22] drm/shmem-helper: Add generic memory shrinker
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-18-dmitry.osipenko@collabora.com>
+ <CAF6AEGt61t2truYDCxm17hqUPV-UdEdHjLs+6vmj5RPoPuVBYg@mail.gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAF6AEGt61t2truYDCxm17hqUPV-UdEdHjLs+6vmj5RPoPuVBYg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 20 Jun 2022 17:50:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,45 +58,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
+ Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
+ Tomasz Figa <tfiga@chromium.org>, Qiang Yu <yuq825@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 20, 2022 at 4:48 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
->
-> sdma 6.0.1 has 8 queues instead of 2.
->
-> Fixes: 2f68559102cb (drm/amdkfd: add GC 11.0.1 KFD support)
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+On 6/19/22 20:53, Rob Clark wrote:
+...
+>> +static unsigned long
+>> +drm_gem_shmem_shrinker_count_objects(struct shrinker *shrinker,
+>> +                                    struct shrink_control *sc)
+>> +{
+>> +       struct drm_gem_shmem_shrinker *gem_shrinker = to_drm_shrinker(shrinker);
+>> +       struct drm_gem_shmem_object *shmem;
+>> +       unsigned long count = 0;
+>> +
+>> +       if (!mutex_trylock(&gem_shrinker->lock))
+>> +               return 0;
+>> +
+>> +       list_for_each_entry(shmem, &gem_shrinker->lru_evictable, madv_list) {
+>> +               count += shmem->base.size;
+>> +
+>> +               if (count >= SHRINK_EMPTY)
+>> +                       break;
+>> +       }
+>> +
+>> +       mutex_unlock(&gem_shrinker->lock);
+> 
+> As I mentioned on other thread, count_objects, being approximate but
+> lockless and fast is the important thing.  Otherwise when you start
+> hitting the shrinker on many threads, you end up serializing them all,
+> even if you have no pages to return to the system at that point.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Daniel's point for dropping the lockless variant was that we're already
+in trouble if we're hitting shrinker too often and extra optimizations
+won't bring much benefits to us.
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index bf4200457772..c8fee0dbfdcb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -75,7 +75,6 @@ static void kfd_device_info_set_sdma_info(struct kfd_dev *kfd)
->         case IP_VERSION(5, 2, 3):/* YELLOW_CARP */
->         case IP_VERSION(5, 2, 6):/* GC 10.3.6 */
->         case IP_VERSION(5, 2, 7):/* GC 10.3.7 */
-> -       case IP_VERSION(6, 0, 1):
->                 kfd->device_info.num_sdma_queues_per_engine = 2;
->                 break;
->         case IP_VERSION(4, 2, 0):/* VEGA20 */
-> @@ -90,6 +89,7 @@ static void kfd_device_info_set_sdma_info(struct kfd_dev *kfd)
->         case IP_VERSION(5, 2, 4):/* DIMGREY_CAVEFISH */
->         case IP_VERSION(5, 2, 5):/* BEIGE_GOBY */
->         case IP_VERSION(6, 0, 0):
-> +       case IP_VERSION(6, 0, 1):
->         case IP_VERSION(6, 0, 2):
->                 kfd->device_info.num_sdma_queues_per_engine = 8;
->                 break;
-> --
-> 2.35.1
->
+Alright, I'll add back the lockless variant (or will use yours
+drm_gem_lru) in the next revision. The code difference is very small
+after all.
+
+...
+>> +               /* prevent racing with the dma-buf importing/exporting */
+>> +               if (!mutex_trylock(&gem_shrinker->dev->object_name_lock)) {
+>> +                       *lock_contention |= true;
+>> +                       goto resv_unlock;
+>> +               }
+> 
+> I'm not sure this is a good idea to serialize on object_name_lock.
+> Purgeable buffers should never be shared (imported or exported).  So
+> at best you are avoiding evicting and immediately swapping back in, in
+> a rare case, at the cost of serializing multiple threads trying to
+> reclaim pages in parallel.
+
+The object_name_lock shouldn't cause contention in practice. But objects
+are also pinned on attachment, hence maybe this lock is indeed
+unnecessary.. I'll re-check it.
+
+-- 
+Best regards,
+Dmitry
