@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74592CCA479
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0DF5CCA47C
 	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 13:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFC5B10E63C;
-	Mon, 20 Jun 2022 13:25:22 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8B411293D;
- Mon, 20 Jun 2022 09:39:19 +0000 (UTC)
-Received: from fraeml745-chm.china.huawei.com (unknown [172.18.147.200])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4LRPjX5d6Pz689Q8;
- Mon, 20 Jun 2022 17:38:56 +0800 (CST)
-Received: from lhreml724-chm.china.huawei.com (10.201.108.75) by
- fraeml745-chm.china.huawei.com (10.206.15.226) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Mon, 20 Jun 2022 11:39:16 +0200
-Received: from [10.195.35.72] (10.195.35.72) by lhreml724-chm.china.huawei.com
- (10.201.108.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 20 Jun
- 2022 10:39:15 +0100
-Message-ID: <4089714d-f040-2c5d-b047-8cccf0df89f0@huawei.com>
-Date: Mon, 20 Jun 2022 10:39:14 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138DB10E6A5;
+	Mon, 20 Jun 2022 13:25:23 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F6A113088
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 09:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1655718235;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Eb24tbtfVgrs8K5keyt5OKP5NTF5xSiS6WRwZ2GcOhw=;
+ b=D5fsoWevWSLf3aEfVomFdyz/eOy71tm21DRGFPrEt4+KyG4ZEGoNFz9ANoOHvi/H0TRLCU
+ tPRhYBHriY1KLOm7XIcgGpGTtWcQKTVOOlBQtEAfafZgtzXqV+/XINiKdlWENn4p5TMhec
+ I3ErV6k7porOE0Oado6l2yEI3qgeHbE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-36-dOrAHEknP0Cx06BD40nXCA-1; Mon, 20 Jun 2022 05:43:52 -0400
+X-MC-Unique: dOrAHEknP0Cx06BD40nXCA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45F33185A79C;
+ Mon, 20 Jun 2022 09:43:52 +0000 (UTC)
+Received: from x1.nl (unknown [10.39.195.183])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B805D4619F5;
+ Mon, 20 Jun 2022 09:43:47 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>
+Subject: [PATCH 2/2] drm/radeon: Drop CONFIG_BACKLIGHT_CLASS_DEVICE ifdefs
+Date: Mon, 20 Jun 2022 11:43:36 +0200
+Message-Id: <20220620094336.9633-2-hdegoede@redhat.com>
+In-Reply-To: <20220620094336.9633-1-hdegoede@redhat.com>
+References: <20220620094336.9633-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: radeon driver warning
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- <alexander.deucher@amd.com>, <Xinhui.Pan@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-References: <2850bbb9-a191-d723-f878-96482e7583cb@huawei.com>
- <afd3cf7b-7afd-1d86-0c24-b4b7101e4bd5@amd.com>
- <60a97869-fe1d-08cb-3241-91377d62b739@huawei.com>
- <7adf78ae-8f2d-e6bf-2054-fe61dfd4b21e@amd.com>
- <b481ffa8-451d-0a9c-e708-44047e0a8bc9@huawei.com>
- <7986913b-66a7-85b6-c563-392049e057fd@amd.com>
- <a7384d7d-fb33-6753-550e-d5b773d1aefe@huawei.com>
- <ef1d00d4-c3de-398a-9eac-7cb7a19cc360@gmail.com>
-From: John Garry <john.garry@huawei.com>
-In-Reply-To: <ef1d00d4-c3de-398a-9eac-7cb7a19cc360@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.195.35.72]
-X-ClientProxiedBy: lhreml744-chm.china.huawei.com (10.201.108.194) To
- lhreml724-chm.china.huawei.com (10.201.108.75)
-X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Mon, 20 Jun 2022 13:25:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,28 +66,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 20/06/2022 10:01, Christian König wrote:
->>> So the question is why does your random config not set 
->>> CONFIG_COMPILE_TEST?
->>
->> My randconfig does not have CONFIG_COMPILE_TEST set - see attached. 
->> AFAIK randconfig does not always set CONFIG_COMPILE_TEST.
-> 
-> Mhm, we could probably change the ifdef. But a random configuration 
-> which doesn't sets CONFIG_COMPILE_TEST sounds like a bug to me as well.
+The DRM_RADEON Kconfig code contains:
 
-Hmmm ... not sure. I just think that the whole point is that it is 
-purely random - if we want better coverage for building then 
-allmodconfig is there.
+	select BACKLIGHT_CLASS_DEVICE
 
-> 
-> Going to provide a patch for changing the ifdef, but not sure when I 
-> will have time for th
+So the condition these ifdefs test for is always true, drop them.
 
-ok, thanks. In the meantime I'll add a local patch to remove the warning.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ drivers/gpu/drm/radeon/atombios_encoders.c      | 14 --------------
+ drivers/gpu/drm/radeon/radeon_acpi.c            |  2 --
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 15 ---------------
+ drivers/gpu/drm/radeon/radeon_mode.h            |  4 ----
+ 4 files changed, 35 deletions(-)
 
-Thanks,
-John
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index f82577dc25e8..160a309e1048 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -143,8 +143,6 @@ atombios_set_backlight_level(struct radeon_encoder *radeon_encoder, u8 level)
+ 	}
+ }
+ 
+-#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+-
+ static u8 radeon_atom_bl_level(struct backlight_device *bd)
+ {
+ 	u8 level;
+@@ -293,18 +291,6 @@ static void radeon_atom_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 	}
+ }
+ 
+-#else /* !CONFIG_BACKLIGHT_CLASS_DEVICE */
+-
+-void radeon_atom_backlight_init(struct radeon_encoder *encoder)
+-{
+-}
+-
+-static void radeon_atom_backlight_exit(struct radeon_encoder *encoder)
+-{
+-}
+-
+-#endif
+-
+ static bool radeon_atom_mode_fixup(struct drm_encoder *encoder,
+ 				   const struct drm_display_mode *mode,
+ 				   struct drm_display_mode *adjusted_mode)
+diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
+index 1baef7b493de..b603c0b77075 100644
+--- a/drivers/gpu/drm/radeon/radeon_acpi.c
++++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+@@ -391,7 +391,6 @@ static int radeon_atif_handler(struct radeon_device *rdev,
+ 
+ 			radeon_set_backlight_level(rdev, enc, req.backlight_level);
+ 
+-#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+ 			if (rdev->is_atom_bios) {
+ 				struct radeon_encoder_atom_dig *dig = enc->enc_priv;
+ 				backlight_force_update(dig->bl_dev,
+@@ -401,7 +400,6 @@ static int radeon_atif_handler(struct radeon_device *rdev,
+ 				backlight_force_update(dig->bl_dev,
+ 						       BACKLIGHT_UPDATE_HOTKEY);
+ 			}
+-#endif
+ 		}
+ 	}
+ 	if (req.pending & ATIF_DGPU_DISPLAY_EVENT) {
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+index d2180f5c80fa..1d207c76f53e 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+@@ -320,8 +320,6 @@ radeon_legacy_set_backlight_level(struct radeon_encoder *radeon_encoder, u8 leve
+ 	radeon_legacy_lvds_update(&radeon_encoder->base, dpms_mode);
+ }
+ 
+-#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+-
+ static uint8_t radeon_legacy_lvds_level(struct backlight_device *bd)
+ {
+ 	struct radeon_backlight_privdata *pdata = bl_get_data(bd);
+@@ -495,19 +493,6 @@ static void radeon_legacy_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 	}
+ }
+ 
+-#else /* !CONFIG_BACKLIGHT_CLASS_DEVICE */
+-
+-void radeon_legacy_backlight_init(struct radeon_encoder *encoder)
+-{
+-}
+-
+-static void radeon_legacy_backlight_exit(struct radeon_encoder *encoder)
+-{
+-}
+-
+-#endif
+-
+-
+ static void radeon_lvds_enc_destroy(struct drm_encoder *encoder)
+ {
+ 	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 3485e7f142e9..b34cffc162e2 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -281,15 +281,11 @@ struct radeon_mode_info {
+ 
+ #define RADEON_MAX_BL_LEVEL 0xFF
+ 
+-#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+-
+ struct radeon_backlight_privdata {
+ 	struct radeon_encoder *encoder;
+ 	uint8_t negative;
+ };
+ 
+-#endif
+-
+ #define MAX_H_CODE_TIMING_LEN 32
+ #define MAX_V_CODE_TIMING_LEN 32
+ 
+-- 
+2.36.0
+
