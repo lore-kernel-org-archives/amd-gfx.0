@@ -4,89 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CAADCCA479
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 08:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB91DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 09:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24EE610E434;
-	Mon, 20 Jun 2022 08:48:08 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 489A610E3FA
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 08:48:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N3ZEj3o8ZV7r9JrU2lMwkKBpxd76q+TQMpIThL9HCSIeTl5luDdioFx3QAagMHpKxTN762D12JO9c3+EE4K7hGcTpwWa29gOVUn5H6E/e35dXAA89K24Chn8UJFGgLeYeOJyuG1/4+Wd4JfqBIqrkjukmdQ/VqSIukeplr1/qRsxD7RLDcG+PJYL/W6f1dTy7o/usMAfQN8GRp70IukAQNnq0iRC/mopHgJL7Ang2Oy6SZoAwhs/Zb3op2sX3RAejwkqk06IOe/anwwstiRtPjfmFYW/lP6vxMILvbRMaOh6X9n+Wl1HujmnBvi0PFcika3p7ZZp7gR2uzl56197GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uE4Mt1EMzgJiqTqALCoYc2ECPRo782aaI95YkbAoh+M=;
- b=GqAKasLfdnz82f9LOmP/TV4CeFQXhysaE2fr25x0Gakpx+LdyJMDc/br7wClOyGqOlLIaOpjzgpmOKbVsf3ZRJAkmZ9tyxpd0RefHpuQrmxO4GlOFQWd7VaokwW4kanbdg/iyoH2G6JfUZXd9RZtJxXv4OogIQkmaApaBXc6huPxNFHheTcPXLCRcZoxz4PlOF2CfTUY/7aN6f0q5T0X6DtqwluFZYqMzzbZ9Nr3DPU9sNc1nKYimcZ2rt3GStt0GuymM60DFjUicNlXliazykwgBhTbSUy6LSspNe//i13SvGFW8lkkoW9JR9dMIMzBwDk38QCQrA5w8BHr3bqfHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uE4Mt1EMzgJiqTqALCoYc2ECPRo782aaI95YkbAoh+M=;
- b=etVZFaBpPKWAYmNgl4pfLxfDTETZ0OTphNr+6857GetgD6DuZQZOdNwUbP81TjLqNG2Cavqv2mBYbrmt39V9SS3RrfkmGhR7hr5cpaQRfIUlbY8p+GCX58NhNkhSi5l6RIkvKNKl3aYq6xTv6PYADTLTEypRwQCc0r9hEU//d40=
-Received: from BN0PR04CA0046.namprd04.prod.outlook.com (2603:10b6:408:e8::21)
- by CH2PR12MB3992.namprd12.prod.outlook.com (2603:10b6:610:29::29)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Mon, 20 Jun
- 2022 08:48:00 +0000
-Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::5d) by BN0PR04CA0046.outlook.office365.com
- (2603:10b6:408:e8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.17 via Frontend
- Transport; Mon, 20 Jun 2022 08:48:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Mon, 20 Jun 2022 08:48:00 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 20 Jun
- 2022 03:47:58 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: correct sdma queue number of sdma 6.0.1
-Date: Mon, 20 Jun 2022 16:41:56 +0800
-Message-ID: <20220620084156.2295093-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E73510EFB4;
+	Mon, 20 Jun 2022 09:01:45 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 909C210EFE2;
+ Mon, 20 Jun 2022 09:01:44 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id u12so19726079eja.8;
+ Mon, 20 Jun 2022 02:01:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=l4g7hgXGp9fk9Vsp0jocY6AG6WmJOc+3JNJ2BanuciM=;
+ b=TWD9JAgTO9vfwROFUV3B4LYddaWoV/Z5c3wFsFnSAhqmusfzkzmcViB8t7DmOYdfhq
+ 9/uReKZSqmL+YrLMloThOdgVoCXHleSAd3RF7Y/4uWJbK9URFtXJMF2BZzjRmZKLjYkR
+ 3DmU79hcyBE/DtkqjrFb6t8hE8jfa9DniIDkVJ90iR7dAIpyBPFnqOjsDwyjYRVas3Zr
+ CrzbTuwLKWE7P77//sr9OV6g0zKGJPaPWPoyts7Yxe60TIKpy9eql8vFxGZoqB4aMfVa
+ YNB/Cvkg3u2zeVH/7aa82z2WLHC3mCJFY6VnRcWYa4SKyMnedqJo63LLReruRy3RjPRZ
+ uRSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=l4g7hgXGp9fk9Vsp0jocY6AG6WmJOc+3JNJ2BanuciM=;
+ b=60UOwZKw8qVAoET1kmkjqZBFlFz20ihaWh2fwQF6Vi9L6mtzZIcnFF8IVZiLYChH8c
+ 7bdhjUReF/1vjtzB7hyUWxLu5/ZVrGO1u4wFkXVOaGtcoYwZNyqGrIxcTfOKBaG/ZvFP
+ gkSRHkvIhknJ7423lOpqPp87B/IcB9pcjwQiPEVbnwxzJ74tMi3XCLXG2iadtYLI+5Pq
+ W41Lm/pWuMIwZvZpnewe8g0Dnx1c3f/b/x3eaejG5SOJPYi9feJBPTF+VMDjIO6fNQMF
+ T4U/INJZ4U7o/uZAaMaMYPjHFfAckPw0Kc0HkulnrKZJ1qtDtrYQTa6dXcs+cSeu7V15
+ 9bZA==
+X-Gm-Message-State: AJIora+JLCGRK9GpP1a4vTGUuxOFeQPOv2VkiISCWYMZ158adB1ohDNw
+ w29NsjW6I5luuuWuonok8ts=
+X-Google-Smtp-Source: AGRyM1shucDB2dwuk7Pk6iMYOyKMB1vSt7YLmRsI8/v/gETlfPx8uGLjzcyMK4ntehvhSlOn4OVtXQ==
+X-Received: by 2002:a17:906:7007:b0:6ff:8028:42e with SMTP id
+ n7-20020a170906700700b006ff8028042emr19051012ejj.278.1655715703001; 
+ Mon, 20 Jun 2022 02:01:43 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:e5a1:82b6:1eac:d3ba?
+ ([2a02:908:1256:79a0:e5a1:82b6:1eac:d3ba])
+ by smtp.gmail.com with ESMTPSA id
+ y11-20020a17090614cb00b00712057b037fsm5500958ejc.167.2022.06.20.02.01.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Jun 2022 02:01:41 -0700 (PDT)
+Message-ID: <ef1d00d4-c3de-398a-9eac-7cb7a19cc360@gmail.com>
+Date: Mon, 20 Jun 2022 11:01:40 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: radeon driver warning
+Content-Language: en-US
+To: John Garry <john.garry@huawei.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <2850bbb9-a191-d723-f878-96482e7583cb@huawei.com>
+ <afd3cf7b-7afd-1d86-0c24-b4b7101e4bd5@amd.com>
+ <60a97869-fe1d-08cb-3241-91377d62b739@huawei.com>
+ <7adf78ae-8f2d-e6bf-2054-fe61dfd4b21e@amd.com>
+ <b481ffa8-451d-0a9c-e708-44047e0a8bc9@huawei.com>
+ <7986913b-66a7-85b6-c563-392049e057fd@amd.com>
+ <a7384d7d-fb33-6753-550e-d5b773d1aefe@huawei.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <a7384d7d-fb33-6753-550e-d5b773d1aefe@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c4ea4e66-cfef-4437-d836-08da529994ca
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3992:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB399204AEF784DE4CBFB60362C1B09@CH2PR12MB3992.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RuT3Hn3rrBykJebAvdCOQughSSliTgdAYX+LZQnGUvFM60EJqXSHwGI0cDsJKmeS0ebsQhQve7HcIeCO7OnQ/69L3vl+o+8Yc6gUKdDsTeirpUEy4n122gcB7//MEKoR1bqgGA+R5Z//aGNot0g1wYFaA2CCXbSDtSBSU7c6A40F9dpa9TlZTvJRqa6a52Dkj8D+chCR49rlq91G7K+LlVUOTtNwnR0dAP6BJbGZA8jay5ICX9nNxm6t7yg18AhaBFdTkPY6cSY4YR8MoSU4pNhsD9AMq+eLb52MO1HNO4I90CAl3YiKtHFTu3qL9CqshFR5w+zIXZ99WbrsQDjHyAlQUgqiJK6YPWC7Ny3NCUhyfH2qM9YXoCqjcR6tN+XQnkMQPtHXARy938vf+oKDDZtnJmxTQ2bNrvu5dlM9v522HG9tjOojXIwzFvd3BvG55yhXR+rJPiumwzbpyIl/TkWw4BdVCNr2Q2TLPf+S0Ws36bpGWb5l8tbceNcLuM/FlC9z5dtsKIM0FQ6yaCBej1XlvnxNW5qPzA/PYxx6RFz7rURii6nn0dXK0/ttTmfIuKA3JlKpgagkLLhveAGn7W85BV6aZhnEVsmptSzg1W3CcsgkO6tn00UbwT+Lc7DaW59BVmCTxwJpNiv88r9clZQulFD4CgrQnAXCNZQjps3nDFkDNX3e5x0ih4QDZjhQnra4UmDRhz06jIclq6hRu2DtzpiIA3nOtpv2uORwLkqoeZM7IC1tj9sTbZCuLrzl
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(396003)(40470700004)(36840700001)(46966006)(5660300002)(70586007)(40460700003)(81166007)(54906003)(4326008)(316002)(82740400003)(36860700001)(356005)(82310400005)(70206006)(26005)(7696005)(36756003)(478600001)(6916009)(8676002)(41300700001)(8936002)(83380400001)(16526019)(426003)(86362001)(336012)(186003)(47076005)(2906002)(40480700001)(1076003)(2616005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2022 08:48:00.5517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4ea4e66-cfef-4437-d836-08da529994ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3992
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +82,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Ray.Huang@amd.com,
- Yifan Zhang <yifan1.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sdma 6.0.1 has 8 queues instead of 2.
+Am 17.06.22 um 16:22 schrieb John Garry:
+> Hi Christian,
+>
+>> Am 17.06.22 um 14:01 schrieb John Garry:
+>>> On 17/06/2022 12:57, Christian König wrote:
+>>>>>
+>>>>> And/Or compile out the warning when "warnings = errors"?
+>>>>
+>>>> That should be doable I think.
+>>>
+>>> ok, if something can be done then I would appreciate it. I do much 
+>>> randconfig builds as part of my upstream process and anything 
+>>> breaking is a bit of a pain.
+>>
+>> I've just double checked the code and we have already wrapped the 
+>> warning into "#ifndef CONFIG_COMPILE_TEST".
+>
+> Yes
+>
+>>
+>> So the question is why does your random config not set 
+>> CONFIG_COMPILE_TEST?
+>
+> My randconfig does not have CONFIG_COMPILE_TEST set - see attached. 
+> AFAIK randconfig does not always set CONFIG_COMPILE_TEST.
 
-Fixes: 2f68559102cb (drm/amdkfd: add GC 11.0.1 KFD support)
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Mhm, we could probably change the ifdef. But a random configuration 
+which doesn't sets CONFIG_COMPILE_TEST sounds like a bug to me as well.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index bf4200457772..c8fee0dbfdcb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -75,7 +75,6 @@ static void kfd_device_info_set_sdma_info(struct kfd_dev *kfd)
- 	case IP_VERSION(5, 2, 3):/* YELLOW_CARP */
- 	case IP_VERSION(5, 2, 6):/* GC 10.3.6 */
- 	case IP_VERSION(5, 2, 7):/* GC 10.3.7 */
--	case IP_VERSION(6, 0, 1):
- 		kfd->device_info.num_sdma_queues_per_engine = 2;
- 		break;
- 	case IP_VERSION(4, 2, 0):/* VEGA20 */
-@@ -90,6 +89,7 @@ static void kfd_device_info_set_sdma_info(struct kfd_dev *kfd)
- 	case IP_VERSION(5, 2, 4):/* DIMGREY_CAVEFISH */
- 	case IP_VERSION(5, 2, 5):/* BEIGE_GOBY */
- 	case IP_VERSION(6, 0, 0):
-+	case IP_VERSION(6, 0, 1):
- 	case IP_VERSION(6, 0, 2):
- 		kfd->device_info.num_sdma_queues_per_engine = 8;
- 		break;
--- 
-2.35.1
+Going to provide a patch for changing the ifdef, but not sure when I 
+will have time for that.
+
+Regards,
+Christian.
+
+>
+> Thanks,
+> John
 
