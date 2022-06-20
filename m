@@ -4,89 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29584C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 11:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BABCCA479
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 12:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8DA110F121;
-	Mon, 20 Jun 2022 11:45:42 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2042.outbound.protection.outlook.com [40.107.92.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0044B10F117
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 11:45:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P7BEPKP8y+rZvdhFEndqUesFcA/aYuj2wBnd6J2VKmZ59FQeUWDT30g9Iz5eEVxev6wMQxZFqNrNjr556WZ9z7VRzSheAfKzkaCoWvtvD90axHNQYj0+5myKakbBtxLBgs8f2F1rvVnsU7zto4AQebqsjOsoMuZrtvwviuQ0lpEefPCmVO4veuPVEYZTskXbdKjI9S05fPX1MnnxmHz8HWlT7GslcRPATAhWrECJdZxvwBt77xX+NVzv8IL9W/tFvxBPXJ+osw/K3kB/1lj1XQyXAY/0ZTamY8CRGmY0xvqTlRNWFLk3SzeI3QFkXUtCDJaTMBmLkAyyR6aSg5gOSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zWv1ozUsH2Pu69NYpFbnDlmDLzad45Bag1PIMUvID0w=;
- b=Bzsot/dlvqeQOoxSd6xVWNs+tlCi/difKgmIpohyW+W2998YKj2M9Q4FaYDT06MIV9B+O8LnkJra50e+shGJE1wePy2HvuxZszWdzQxRh0AVSRsHdaA1n3WOkstP5jzp/SO8/wwbbItT+vWeizoCjDhYmPhLUSV9H4whkEpqKq5HBXm9IBvYClCskTk6ln35fpCHX5RuyhCSB4F7cEtOGRG3ZMVdxa4JPFOLlEAUDW3hSkl+eu2Nw2ns5j9Ie0GRKSUggx+cTGtus9se3X8TGAW1cX5ZvSowmi4zp+cYnme3YbuGNHOKIMxyXywFEY4karZvHWxXRhI8VMWaPplxHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zWv1ozUsH2Pu69NYpFbnDlmDLzad45Bag1PIMUvID0w=;
- b=TCju/ounhpQcUqFsJzh/Dofy3Dz/A8Tp+FtrZGtvacDGKGxdxZ7xRNLUfWxfwDqG5l6Gej8SFzx7WU+hCcRdgddDfp6xtG0fEHVM1O3bfa5cOvndXBxbMcTfeOTMmL3atLAYI4Kc2u1q36YDPBl0jCMKPbe2Tn7k5cWEqYMn0Uo=
-Received: from MWHPR12CA0038.namprd12.prod.outlook.com (2603:10b6:301:2::24)
- by DS7PR12MB6261.namprd12.prod.outlook.com (2603:10b6:8:97::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Mon, 20 Jun
- 2022 11:45:38 +0000
-Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:2:cafe::d2) by MWHPR12CA0038.outlook.office365.com
- (2603:10b6:301:2::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
- Transport; Mon, 20 Jun 2022 11:45:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Mon, 20 Jun 2022 11:45:37 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 20 Jun
- 2022 06:45:35 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add LSDMA block for LSDMA v6.0.1
-Date: Mon, 20 Jun 2022 19:39:34 +0800
-Message-ID: <20220620113934.2967402-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 945C510E165;
+	Mon, 20 Jun 2022 12:24:28 +0000 (UTC)
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F98D10E11B;
+ Mon, 20 Jun 2022 12:24:27 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id r3so18668587ybr.6;
+ Mon, 20 Jun 2022 05:24:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/5JxyhKk/uMc2fQhNdOt2zyaowNO+vOl5nRe37m7DAA=;
+ b=PE6NpoyZLTwUcLsqzDbtJnrnxAIyaVdtaXAicCknBnBwh8ZdqPc+LdCbBV9G0aYWTp
+ OH08dpop/cUwHHDAwRoOZn8NuJbm7em0mCvXsUn5KrkE2uLBzx4qEpmZlCmJ1JT+Dfo2
+ L2g+1N68ykc71e7QB9eNTR6L/SfFYKD49pmyUm+IL+kgwtlzsAFOFxYmtVjO901MBCa0
+ FXrtKRIwLIRyoFGhr+u6OUEnyG6aXt9C5BbkXb3gIq/00R90GPJyncy94IdAi1QYzzKR
+ vgiDWLdFFfvrAAZFOdl0BFPX5q6CTFy21BUmyoGXj99JPg6vLckZ2H/SPEJs5BrMF/te
+ qm2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/5JxyhKk/uMc2fQhNdOt2zyaowNO+vOl5nRe37m7DAA=;
+ b=zHK+DpUsQEJ4DhD78rsZDwga3XpaxkXUWoJ8LBTG/1j6rsDIzKsmclV5y9QTBjY6IC
+ xL2/tiE//4fXVqOHGlLhDcMhYO86BQeXZOyelmsP9vh78ZObMAyCtGjCB2vvz/YQ+XwJ
+ vb8WViq/64EYgB3L7Nd8p9qQnJk0BVho98MaE+nxKhwaPyAa2a1egu/wqMctsR73mEhP
+ WXBRHGQTwRnzwfdpnqxS1TSShY++7zXaEvKmUBfXo+FzzUxUYCg/0gWlPTMjpP9Rjd4z
+ b78ssDAfJEEuxUP0p5f9bjqm93mczfupbv4g0NCli7jjEhTZWWU7k2IZo+KzHYQAuKpB
+ N74w==
+X-Gm-Message-State: AJIora/VyF6oLlk179Xq2U3kh+D4ovuw6SnbhzUYXi7llNrDpLnGAZ4k
+ ZlZ+DWXx1XXie9Kt7h3VwncSViLO2Lrnkm13/G0=
+X-Google-Smtp-Source: AGRyM1vMxS63SWLYtulgVh/kvFZnhALPPWNXYa9hXtgHK5dVSCko6xQfAiztdTyivXeoAx7i5Qb7kZtG3NdmkeicRKE=
+X-Received: by 2002:a25:c08f:0:b0:668:fcfc:1b2a with SMTP id
+ c137-20020a25c08f000000b00668fcfc1b2amr6724569ybf.242.1655727866015; Mon, 20
+ Jun 2022 05:24:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80c83153-354d-4334-7752-08da52b264d4
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6261:EE_
-X-Microsoft-Antispam-PRVS: <DS7PR12MB6261FE9D631334EF681DF3DCC1B09@DS7PR12MB6261.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GZGb3VIGSs6YPsbTC1Fy0fkUq9rr8bnKTH0Oml2GyQuZek5rdmcMpkvy6wjwJjE6DGFIL/lwYi0Xy1nY/yyANB/MK7wOv68SZneHwq6cu/ntlZTDd4qLZWhqkMyV6/Ak02T7wzfO6O7Bl9EEUKr3+Nt3GNMZBxB+5HZ2sRbSPCFe3nti5LuUYCsVYWiIZxSbWcd0JvSDDZikXXMViLnhOjd2BSlBROOGgnKvyge6FmIbCbll9dmW82mxH3INkq+ZJlQ2OViNUC8b8g3SN3WNqTPY8EU+tgQ7N1zSHlf6nRgMdj/Lqbl4FSPTSLrXXJAG7ahL6n3s+i8X2vqmwMr7KUm+WN8h6U1a8+2JBgMhVzMCxlg+8RCpiCzqBTknZyCvxzMrWAUMKyXyn4jAa3JCDHZVxPdp5g8yzl0D+3LGJFc05lKqvn00qdV/VwLg+WzRgpyEJrqJDjOPJMt81ck0SrqNRC4plgYJK9lVFEVJRME2glcFhWS+g4XwxIlKrYoWAkUFevqlZYzI+ie1JQESiHryCGyJdaj2+Fq6Ic2if6whDqn/HvLHicpHLaqs5SchXpSxIiDC7mFkiqbQoGIwRIJucE26RThBd6Tbz+lkxtKTy+h6bS9LkvISwqIfRqSlg/RZUdWIWHQ9RKOt2J/gJUb1E2qgLJ/T9xO5A/9hDqCrGJ2QvY+1eUS5ZbYfVXsb//0pJQqJoaTi9v5Q4UxXO1Xg/oHc7mTauhp5Uo1glSkexdinw92bHaz8WRBNWQCy
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(396003)(39860400002)(136003)(40470700004)(36840700001)(46966006)(426003)(5660300002)(4744005)(336012)(478600001)(81166007)(82740400003)(8936002)(36860700001)(1076003)(83380400001)(41300700001)(2616005)(40480700001)(82310400005)(40460700003)(16526019)(86362001)(356005)(54906003)(7696005)(47076005)(186003)(8676002)(2906002)(6916009)(70586007)(70206006)(4326008)(26005)(316002)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2022 11:45:37.3773 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80c83153-354d-4334-7752-08da52b264d4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6261
+References: <20220531200041.24904-1-alex.sierra@amd.com>
+ <20220531200041.24904-2-alex.sierra@amd.com>
+ <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+ <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
+ <CAFCwf11z5Q+2FPS1yPi6EwQuRqoJg_dLB-rYgtVwP-zQEdqjQQ@mail.gmail.com>
+ <87bkuo898d.fsf@nvdebian.thelocal>
+ <CAFCwf11Lru4rHJ93gkCTMqfsWZ8Hcug4z=_t7B=G07bo7zsaFw@mail.gmail.com>
+ <877d5b90sp.fsf@nvdebian.thelocal>
+In-Reply-To: <877d5b90sp.fsf@nvdebian.thelocal>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Mon, 20 Jun 2022 15:23:59 +0300
+Message-ID: <CAFCwf11CCmx9xtNqGeALqmVn-1_eBOiqAXDSWczieNdL1QdazA@mail.gmail.com>
+Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
+To: Alistair Popple <apopple@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,30 +68,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Ray.Huang@amd.com,
- Yifan Zhang <yifan1.zhang@amd.com>
+Cc: "Sierra Guiza, Alejandro \(Alex\)" <alex.sierra@amd.com>,
+ rcampbell@nvidia.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ David Hildenbrand <david@redhat.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, Matthew Wilcox <willy@infradead.org>,
+ linux-xfs@vger.kernel.org, linux-mm <linux-mm@kvack.org>,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds LSDMA ip block for LSDMA v6.0.1.
+On Mon, Jun 20, 2022 at 11:50 AM Alistair Popple <apopple@nvidia.com> wrote:
+>
+>
+> Oded Gabbay <oded.gabbay@gmail.com> writes:
+>
+> > On Mon, Jun 20, 2022 at 3:33 AM Alistair Popple <apopple@nvidia.com> wrote:
+> >>
+> >>
+> >> Oded Gabbay <oded.gabbay@gmail.com> writes:
+> >>
+> >> > On Fri, Jun 17, 2022 at 8:20 PM Sierra Guiza, Alejandro (Alex)
+> >> > <alex.sierra@amd.com> wrote:
+> >> >>
+> >> >>
+> >> >> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
+> >> >> > On 31.05.22 22:00, Alex Sierra wrote:
+> >> >> >> Device memory that is cache coherent from device and CPU point of view.
+> >> >> >> This is used on platforms that have an advanced system bus (like CAPI
+> >> >> >> or CXL). Any page of a process can be migrated to such memory. However,
+> >> >> >> no one should be allowed to pin such memory so that it can always be
+> >> >> >> evicted.
+> >> >> >>
+> >> >> >> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> >> >> >> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> >> >> >> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+> >> >> >> [hch: rebased ontop of the refcount changes,
+> >> >> >>        removed is_dev_private_or_coherent_page]
+> >> >> >> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> >> >> >> ---
+> >> >> >>   include/linux/memremap.h | 19 +++++++++++++++++++
+> >> >> >>   mm/memcontrol.c          |  7 ++++---
+> >> >> >>   mm/memory-failure.c      |  8 ++++++--
+> >> >> >>   mm/memremap.c            | 10 ++++++++++
+> >> >> >>   mm/migrate_device.c      | 16 +++++++---------
+> >> >> >>   mm/rmap.c                |  5 +++--
+> >> >> >>   6 files changed, 49 insertions(+), 16 deletions(-)
+> >> >> >>
+> >> >> >> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+> >> >> >> index 8af304f6b504..9f752ebed613 100644
+> >> >> >> --- a/include/linux/memremap.h
+> >> >> >> +++ b/include/linux/memremap.h
+> >> >> >> @@ -41,6 +41,13 @@ struct vmem_altmap {
+> >> >> >>    * A more complete discussion of unaddressable memory may be found in
+> >> >> >>    * include/linux/hmm.h and Documentation/vm/hmm.rst.
+> >> >> >>    *
+> >> >> >> + * MEMORY_DEVICE_COHERENT:
+> >> >> >> + * Device memory that is cache coherent from device and CPU point of view. This
+> >> >> >> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
+> >> >> >> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
+> >> >> >> + * type. Any page of a process can be migrated to such memory. However no one
+> >> >> > Any page might not be right, I'm pretty sure. ... just thinking about special pages
+> >> >> > like vdso, shared zeropage, ... pinned pages ...
+> >> >>
+> >> >> Hi David,
+> >> >>
+> >> >> Yes, I think you're right. This type does not cover all special pages.
+> >> >> I need to correct that on the cover letter.
+> >> >> Pinned pages are allowed as long as they're not long term pinned.
+> >> >>
+> >> >> Regards,
+> >> >> Alex Sierra
+> >> >
+> >> > What if I want to hotplug this device's coherent memory, but I do
+> >> > *not* want the OS
+> >> > to migrate any page to it ?
+> >> > I want to fully-control what resides on this memory, as I can consider
+> >> > this memory
+> >> > "expensive". i.e. I don't have a lot of it, I want to use it for
+> >> > specific purposes and
+> >> > I don't want the OS to start using it when there is some memory pressure in
+> >> > the system.
+> >>
+> >> This is exactly what MEMORY_DEVICE_COHERENT is for. Device coherent
+> >> pages are only allocated by a device driver and exposed to user-space by
+> >> a driver migrating pages to them with migrate_vma. The OS can't just
+> >> start using them due to memory pressure for example.
+> >>
+> >>  - Alistair
+> > Thanks for the explanation.
+> >
+> > I guess the commit message confused me a bit, especially these two sentences:
+> >
+> > "Any page of a process can be migrated to such memory. However no one should be
+> > allowed to pin such memory so that it can always be evicted."
+> >
+> > I read them as if the OS is free to choose which pages are migrated to
+> > this memory,
+> > and anything is eligible for migration to that memory (and that's why
+> > we also don't
+> > allow it to pin memory there).
+> >
+> > If we are not allowed to pin anything there, can the device driver
+> > decide to disable
+> > any option for oversubscription of this memory area ?
+>
+> I'm not sure I follow your thinking on how oversubscription would work
+> here, however all allocations are controlled by the driver. So if a
+> device's coherent memory is full a driver would be unable to migrate
+> pages to that device until pages are freed by the OS due to being
+> unmapped or the driver evicts pages by migrating them back to normal CPU
+> memory.
+>
+> Pinning of pages is allowed, and could prevent such migrations. However
+> this patch series prevents device coherent pages from being pinned
+> longterm (ie. with FOLL_LONGTERM), so it should always be able to evict
+> pages eventually.
+>
+> > Let's assume the user uses this memory area for doing p2p with other
+> > CXL devices.
+> > In that case, I wouldn't want the driver/OS to migrate pages in and
+> > out of that memory...
+>
+> The OS will not migrate pages in or out (although it may free them if no
+> longer required), but a driver might choose to. So at the moment it's
+> really up to the driver to implement what you want in this regards.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+I see.
+In other words, we don't want to allow long-term pinning but
+the driver can decide it doesn't want to evict pages out
+of that memory, until they are freed.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 11bbd76c581c..37234c2998d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2333,6 +2333,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 
- 	switch (adev->ip_versions[LSDMA_HWIP][0]) {
- 	case IP_VERSION(6, 0, 0):
-+	case IP_VERSION(6, 0, 1):
- 	case IP_VERSION(6, 0, 2):
- 		adev->lsdma.funcs = &lsdma_v6_0_funcs;
- 		break;
--- 
-2.35.1
-
+Thanks,
+Oded
+>
+> > So either I should let the user pin those pages, or prevent him from
+> > doing (accidently or not)
+> > oversubscription in this memory area.
+>
+> As noted above pages can be pinned, but not long-term.
+>
+>  - Alistair
+>
+> > wdyt ?
+> >
+> >>
+> >> > Oded
+> >> >
+> >> >>
+> >> >> >
+> >> >> >> + * should be allowed to pin such memory so that it can always be evicted.
+> >> >> >> + *
+> >> >> >>    * MEMORY_DEVICE_FS_DAX:
+> >> >> >>    * Host memory that has similar access semantics as System RAM i.e. DMA
+> >> >> >>    * coherent and supports page pinning. In support of coordinating page
+> >> >> >> @@ -61,6 +68,7 @@ struct vmem_altmap {
+> >> >> >>   enum memory_type {
+> >> >> >>      /* 0 is reserved to catch uninitialized type fields */
+> >> >> >>      MEMORY_DEVICE_PRIVATE = 1,
+> >> >> >> +    MEMORY_DEVICE_COHERENT,
+> >> >> >>      MEMORY_DEVICE_FS_DAX,
+> >> >> >>      MEMORY_DEVICE_GENERIC,
+> >> >> >>      MEMORY_DEVICE_PCI_P2PDMA,
+> >> >> >> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
+> >> >> > In general, this LGTM, and it should be correct with PageAnonExclusive I think.
+> >> >> >
+> >> >> >
+> >> >> > However, where exactly is pinning forbidden?
+> >> >>
+> >> >> Long-term pinning is forbidden since it would interfere with the device
+> >> >> memory manager owning the
+> >> >> device-coherent pages (e.g. evictions in TTM). However, normal pinning
+> >> >> is allowed on this device type.
+> >> >>
+> >> >> Regards,
+> >> >> Alex Sierra
+> >> >>
+> >> >> >
