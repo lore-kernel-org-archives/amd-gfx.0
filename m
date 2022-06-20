@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B7AC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 00:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C698C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 06:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91C1610EFB0;
-	Mon, 20 Jun 2022 00:37:07 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C37B10EFB0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 00:37:06 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id eo8so13017454edb.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jun 2022 17:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IDeXIB88wF1IP6KA4F9e1pN5luOw7R8CAh9NSpdjcO0=;
- b=c26HIfsCjOrTLLmWMfCDFpdQ9fnO0bE8CCSUtMe+a422CZIk8HjQwquVoE3VLXAvMs
- jmnF1E+BKOgdaD0NFpU/xr72TY6uLZhFRF2Zg2WiyTokF57PlWEBkh9sXwfgCN8C4Dmu
- inB30nscWqHDUD3Js0/7UWpGsV4jdnvffIuM6gjChTEvvxN7FLHQD43VZvqOec0fxcxO
- i3+jw+dPH/4l4adV1JGZdqvr31du/2Z1zfteqhoz97GdHQapBGD74tEMx3wXfObWohGc
- giQntv0FAR0z1smq1gFqwAP9xPzC7lS+4AfXEmMsvkAruEMU02KNdL7acIHqpcc2kWix
- NZ/Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658901131BD;
+	Mon, 20 Jun 2022 06:02:11 +0000 (UTC)
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1E61131B8;
+ Mon, 20 Jun 2022 06:02:10 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-31780ad7535so63329487b3.8; 
+ Sun, 19 Jun 2022 23:02:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xe3VeJwBL8Ebq+C8acPsdxpGtpDiQ/HFobU5cBrv3WU=;
+ b=JGXEQN+I0XIHQ+X5Mcx0dO6wWlI7vTAu58RHk2tfY9oeE1RryAubJGzZLv3yuLijUw
+ gydtnS0hDUSBpq9r3SsmFRmxKwivL+qEqqG4AeasEJPgKwGUW5ncwS8hDuaBe1by6iLC
+ 4shKZoFhI0TDayMYjRURjmXduC89qZioy71wZUHaVlgavAIG9rFEBATExIyE2a7s/Lc/
+ gNmY5EcMGCyLhl0+wKhutdbW2QJ5Poc9OGfm3v+PoOows2woHUi1qoC2FO9C8S35db6d
+ p9G1eS85wqQTc2cRC0ho7twEyZvjDUtmTk7i+PE8vZwGGFv/J/4SsrlLus365LDRYX6v
+ rN2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IDeXIB88wF1IP6KA4F9e1pN5luOw7R8CAh9NSpdjcO0=;
- b=ekqWDPgwqDZhwYdzodalG7Tq62oZa+2eQNq93dRL7fexxfoF29mSoNchfgzEux8GQ0
- MSnYQj/ksV2TttcuPEc9OWMpg/KeLMXg2RYMaGEKIo3H5Hm5a7qGRZWK4g3/uE4l5f9c
- JGq8mNsoNZASEDv6DJoShrlXlkhXtGjK1H9v4KJaAI32IRrr07v5V638F9LPuVzkqzr9
- 05OjL6NSB5eAjQHrJGAldN4GSZBuut1yN0boq3jB2BAk2eIXYC7atVlReU5jRlydScRv
- vF7u1UFLpvavzhoqd7SpixaIWnXiFbDL1MzThRCBL1WXK9kMVrycCI6WA6ytk56Ks3Ou
- wEJA==
-X-Gm-Message-State: AJIora9YZu3+QIadaIdegm9uRmRuIfPs2tiW31raso20jeTJ0B19Eadj
- KD48T+b1bd+yAAIHpPySsMOubduIctsX3nzN
-X-Google-Smtp-Source: AGRyM1tW6DYMABUlxi5Ujcd8BU2xm+9M8T9JgcLVbzufVc77Kt4twPVEKbNll+M0Lu0Ts4bbTUgGzg==
-X-Received: by 2002:a50:9f6a:0:b0:435:5804:e07 with SMTP id
- b97-20020a509f6a000000b0043558040e07mr21558942edf.178.1655685424970; 
- Sun, 19 Jun 2022 17:37:04 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a77f:2000:7285:c2ff:fe67:a82f])
- by smtp.gmail.com with ESMTPSA id
- d18-20020aa7d5d2000000b0043572ffafe0sm3602237eds.92.2022.06.19.17.37.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jun 2022 17:37:04 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] Revert "drm/amd/display: ignore modifiers when checking for
- format support"
-Date: Mon, 20 Jun 2022 02:37:20 +0200
-Message-Id: <20220620003720.2049653-1-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.36.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xe3VeJwBL8Ebq+C8acPsdxpGtpDiQ/HFobU5cBrv3WU=;
+ b=FyqSiPCL3XmQs48qco4oaDnw8DRgpF8gQQfxnbwJPQ9ukoJLGvAqDMCIvsl0B7aDf5
+ VGFgjIDTB3Sdu9lpFwGFswff1F1y5xMInpcoSIRKy0fXgBTbcMJoD9JAdsQY+8XrmdV+
+ PP8vqyhc3foHHNB9QieeUrVlqopEmrmOB/hHwN1E1IOp15jyVtKuHM4EAP665P6fG105
+ gr0+GLU/r0xsbcQHX8ajd+3v4B0PVDvzgAkOl9A955037XW+SdLs+SJfgK/cOYha55m3
+ SfUz5F2WTRuhoWg+k1quNzq47o7e78XbDFiHwjp+HoJ7UY/LXlmofzgp3JyjDNcw29zI
+ wBuw==
+X-Gm-Message-State: AJIora8CabvXBQV9e7K+nv2SoGlfzNx/W1HDDsA/nsaWdmJCYrG7xegc
+ 8atm1Ad9Brj1ySTQi//Q/qfq8bF0eszJ+eqKNe8=
+X-Google-Smtp-Source: AGRyM1tzeukUE0eoUNLmKpkTD0UfGuNi9OAgJD/BPDmnsr6lE4pkLipEhHJgaDKCB2nZwNfM9ZoCJ1FPCdi+Kl69/hM=
+X-Received: by 2002:a0d:f8c6:0:b0:2fe:ca9c:f937 with SMTP id
+ i189-20020a0df8c6000000b002feca9cf937mr25655114ywf.62.1655704929245; Sun, 19
+ Jun 2022 23:02:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220531200041.24904-1-alex.sierra@amd.com>
+ <20220531200041.24904-2-alex.sierra@amd.com>
+ <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+ <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
+ <CAFCwf11z5Q+2FPS1yPi6EwQuRqoJg_dLB-rYgtVwP-zQEdqjQQ@mail.gmail.com>
+ <87bkuo898d.fsf@nvdebian.thelocal>
+In-Reply-To: <87bkuo898d.fsf@nvdebian.thelocal>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Mon, 20 Jun 2022 09:01:42 +0300
+Message-ID: <CAFCwf11Lru4rHJ93gkCTMqfsWZ8Hcug4z=_t7B=G07bo7zsaFw@mail.gmail.com>
+Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
+To: Alistair Popple <apopple@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,117 +67,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, marek.olsak@amd.com, aurabindo.pillai@amd.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: "Sierra Guiza, Alejandro \(Alex\)" <alex.sierra@amd.com>,
+ rcampbell@nvidia.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ David Hildenbrand <david@redhat.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, Matthew Wilcox <willy@infradead.org>,
+ linux-xfs@vger.kernel.org, linux-mm <linux-mm@kvack.org>,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 5089c4a8ebea3c3ad9eedf038dad7098ebc06131.
+On Mon, Jun 20, 2022 at 3:33 AM Alistair Popple <apopple@nvidia.com> wrote:
+>
+>
+> Oded Gabbay <oded.gabbay@gmail.com> writes:
+>
+> > On Fri, Jun 17, 2022 at 8:20 PM Sierra Guiza, Alejandro (Alex)
+> > <alex.sierra@amd.com> wrote:
+> >>
+> >>
+> >> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
+> >> > On 31.05.22 22:00, Alex Sierra wrote:
+> >> >> Device memory that is cache coherent from device and CPU point of view.
+> >> >> This is used on platforms that have an advanced system bus (like CAPI
+> >> >> or CXL). Any page of a process can be migrated to such memory. However,
+> >> >> no one should be allowed to pin such memory so that it can always be
+> >> >> evicted.
+> >> >>
+> >> >> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> >> >> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> >> >> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+> >> >> [hch: rebased ontop of the refcount changes,
+> >> >>        removed is_dev_private_or_coherent_page]
+> >> >> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> >> >> ---
+> >> >>   include/linux/memremap.h | 19 +++++++++++++++++++
+> >> >>   mm/memcontrol.c          |  7 ++++---
+> >> >>   mm/memory-failure.c      |  8 ++++++--
+> >> >>   mm/memremap.c            | 10 ++++++++++
+> >> >>   mm/migrate_device.c      | 16 +++++++---------
+> >> >>   mm/rmap.c                |  5 +++--
+> >> >>   6 files changed, 49 insertions(+), 16 deletions(-)
+> >> >>
+> >> >> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+> >> >> index 8af304f6b504..9f752ebed613 100644
+> >> >> --- a/include/linux/memremap.h
+> >> >> +++ b/include/linux/memremap.h
+> >> >> @@ -41,6 +41,13 @@ struct vmem_altmap {
+> >> >>    * A more complete discussion of unaddressable memory may be found in
+> >> >>    * include/linux/hmm.h and Documentation/vm/hmm.rst.
+> >> >>    *
+> >> >> + * MEMORY_DEVICE_COHERENT:
+> >> >> + * Device memory that is cache coherent from device and CPU point of view. This
+> >> >> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
+> >> >> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
+> >> >> + * type. Any page of a process can be migrated to such memory. However no one
+> >> > Any page might not be right, I'm pretty sure. ... just thinking about special pages
+> >> > like vdso, shared zeropage, ... pinned pages ...
+> >>
+> >> Hi David,
+> >>
+> >> Yes, I think you're right. This type does not cover all special pages.
+> >> I need to correct that on the cover letter.
+> >> Pinned pages are allowed as long as they're not long term pinned.
+> >>
+> >> Regards,
+> >> Alex Sierra
+> >
+> > What if I want to hotplug this device's coherent memory, but I do
+> > *not* want the OS
+> > to migrate any page to it ?
+> > I want to fully-control what resides on this memory, as I can consider
+> > this memory
+> > "expensive". i.e. I don't have a lot of it, I want to use it for
+> > specific purposes and
+> > I don't want the OS to start using it when there is some memory pressure in
+> > the system.
+>
+> This is exactly what MEMORY_DEVICE_COHERENT is for. Device coherent
+> pages are only allocated by a device driver and exposed to user-space by
+> a driver migrating pages to them with migrate_vma. The OS can't just
+> start using them due to memory pressure for example.
+>
+>  - Alistair
+Thanks for the explanation.
 
-This breaks validation and enumeration of display capable modifiers.
+I guess the commit message confused me a bit, especially these two sentences:
 
-The early return true means the rest of the validation code never gets
-executed, and we need that to enumerate the right modifiers to userspace
-for the format.
+"Any page of a process can be migrated to such memory. However no one should be
+allowed to pin such memory so that it can always be evicted."
 
-The modifiers that are in the initial list generated for a plane are the
-superset for all formats and we need the proper checks in this function
-to filter some of them out for formats with which they're invalid to be
-used.
+I read them as if the OS is free to choose which pages are migrated to
+this memory,
+and anything is eligible for migration to that memory (and that's why
+we also don't
+allow it to pin memory there).
 
-Furthermore, the safety contract here is that we validate the incoming
-modifiers to ensure the kernel can handle them and the display hardware
-can handle them. This includes e.g. rejecting multi-plane images with DCC.
+If we are not allowed to pin anything there, can the device driver
+decide to disable
+any option for oversubscription of this memory area ?
 
-Note that the legacy swizzle mechanism allows encoding more swizzles, and
-at fb creation time we convert them to modifiers and reject those with
-no corresponding modifiers. If we are seeing rejections I'm happy to
-help define modifiers that correspond to those, or if absolutely needed
-implement a fallback path to allow for less strict validation of the
-legacy path.
+Let's assume the user uses this memory area for doing p2p with other
+CXL devices.
+In that case, I wouldn't want the driver/OS to migrate pages in and
+out of that memory...
 
-However, I'd like to revert this patch, since any of these is going to
-be a significant rework of the patch, and I'd rather not the regression
-gets into a release or forgotten in the meantime.
+So either I should let the user pin those pages, or prevent him from
+doing (accidently or not)
+oversubscription in this memory area.
 
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++----------------
- 1 file changed, 7 insertions(+), 46 deletions(-)
+wdyt ?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 60fb99b74713..698741fd39f4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4936,7 +4936,8 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- {
- 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
- 	const struct drm_format_info *info = drm_format_info(format);
--	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
-+	int i;
-+
- 	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
- 
- 	if (!info)
-@@ -4952,53 +4953,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- 		return true;
- 	}
- 
--	/* check if swizzle mode is supported by this version of DCN */
--	switch (asic_id.chip_family) {
--		case FAMILY_SI:
--		case FAMILY_CI:
--		case FAMILY_KV:
--		case FAMILY_CZ:
--		case FAMILY_VI:
--			/* asics before AI does not have modifier support */
--			return false;
--			break;
--		case FAMILY_AI:
--		case FAMILY_RV:
--		case FAMILY_NV:
--		case FAMILY_VGH:
--		case FAMILY_YELLOW_CARP:
--		case AMDGPU_FAMILY_GC_10_3_6:
--		case AMDGPU_FAMILY_GC_10_3_7:
--			switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--				case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_D:
--					return true;
--					break;
--				default:
--					return false;
--					break;
--			}
--			break;
--		case AMDGPU_FAMILY_GC_11_0_0:
--			switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--				case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--				case AMD_FMT_MOD_TILE_GFX9_64K_D:
--					return true;
--					break;
--				default:
--					return false;
--					break;
--			}
--			break;
--		default:
--			ASSERT(0); /* Unknown asic */
-+	/* Check that the modifier is on the list of the plane's supported modifiers. */
-+	for (i = 0; i < plane->modifier_count; i++) {
-+		if (modifier == plane->modifiers[i])
- 			break;
- 	}
-+	if (i == plane->modifier_count)
-+		return false;
- 
- 	/*
- 	 * For D swizzle the canonical modifier depends on the bpp, so check
--- 
-2.36.1
-
+>
+> > Oded
+> >
+> >>
+> >> >
+> >> >> + * should be allowed to pin such memory so that it can always be evicted.
+> >> >> + *
+> >> >>    * MEMORY_DEVICE_FS_DAX:
+> >> >>    * Host memory that has similar access semantics as System RAM i.e. DMA
+> >> >>    * coherent and supports page pinning. In support of coordinating page
+> >> >> @@ -61,6 +68,7 @@ struct vmem_altmap {
+> >> >>   enum memory_type {
+> >> >>      /* 0 is reserved to catch uninitialized type fields */
+> >> >>      MEMORY_DEVICE_PRIVATE = 1,
+> >> >> +    MEMORY_DEVICE_COHERENT,
+> >> >>      MEMORY_DEVICE_FS_DAX,
+> >> >>      MEMORY_DEVICE_GENERIC,
+> >> >>      MEMORY_DEVICE_PCI_P2PDMA,
+> >> >> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
+> >> > In general, this LGTM, and it should be correct with PageAnonExclusive I think.
+> >> >
+> >> >
+> >> > However, where exactly is pinning forbidden?
+> >>
+> >> Long-term pinning is forbidden since it would interfere with the device
+> >> memory manager owning the
+> >> device-coherent pages (e.g. evictions in TTM). However, normal pinning
+> >> is allowed on this device type.
+> >>
+> >> Regards,
+> >> Alex Sierra
+> >>
+> >> >
