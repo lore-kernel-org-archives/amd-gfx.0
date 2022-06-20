@@ -4,48 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8512C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:50:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28BE0C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E05710ED81;
-	Mon, 20 Jun 2022 17:50:49 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E2110E13C;
- Mon, 20 Jun 2022 14:09:02 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-136-92.dynamic.spd-mgts.ru
- [109.252.136.92])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3DEB10ED56;
+	Mon, 20 Jun 2022 17:50:52 +0000 (UTC)
+Received: from er-systems.de (er-systems.de [148.251.68.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE24510E032
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 14:31:29 +0000 (UTC)
+Received: from localhost.localdomain (localhost [127.0.0.1])
+ by er-systems.de (Postfix) with ESMTP id 88BC5D60070;
+ Mon, 20 Jun 2022 16:31:26 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id ED33766016AA;
- Mon, 20 Jun 2022 15:08:57 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655734140;
- bh=BXU+ifI6vgvX2l7WRjph+CNUKyZnpbVEdIZ7RrhtSq4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hbKEas/qwTrQOtYjHwF1kAp5bF+lx0c/HWQwXzlCDzigXVc6ThGjLuF3ZUDyYkTwz
- MouYrGpQnILP4PpIymmbBhVM9e1PASUWBFi+LgRwQKHtJaeCJSG55KGkiaLdAooRwx
- r2TI5GDTa0dTQ+8tpeAHv2LUf+jVTzvilnkf5MIXXOtgLhZavAyBeA5Coc+G+31H0n
- LqN5s7FdaPeYgtK9DeQIbTvs9nVBH3Vd5hMCs7Z3/RWoHnCkbvzEtAtefHevXEAM22
- OU+8g1IHrfEqrNowXyflyg+A+jrXLHwPj7JmxC/fo9Iq5iwKq0KsVJdcRE82IB0+gX
- J8VaycDtZEnTQ==
-Message-ID: <3bb3dc53-69fc-8cdb-ae37-583b9b2660a3@collabora.com>
-Date: Mon, 20 Jun 2022 17:08:54 +0300
+ by er-systems.de (Postfix) with ESMTPS id 62462D6006D;
+ Mon, 20 Jun 2022 16:31:26 +0200 (CEST)
+Date: Mon, 20 Jun 2022 16:31:26 +0200 (CEST)
+From: Thomas Voegtle <tv@lio96.de>
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: Performance drop using deinterlace_vaapi on 5.19-rcX
+In-Reply-To: <6cd161d2-5caa-65c8-6b86-5992cc15d1af@amd.com>
+Message-ID: <957926e6-2462-4c42-b57f-9cfbd9fe7024@lio96.de>
+References: <0249066a-2e95-c21d-d16a-fba08c633c0b@lio96.de>
+ <f1a52ddc-5aad-cc76-282e-93206ae43477@amd.com>
+ <70395b22-1857-2a25-1472-17ce3df22607@lio96.de>
+ <6cd161d2-5caa-65c8-6b86-5992cc15d1af@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v6 17/22] drm/shmem-helper: Add generic memory shrinker
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-18-dmitry.osipenko@collabora.com>
- <CAF6AEGt61t2truYDCxm17hqUPV-UdEdHjLs+6vmj5RPoPuVBYg@mail.gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAF6AEGt61t2truYDCxm17hqUPV-UdEdHjLs+6vmj5RPoPuVBYg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="-74181308-1760291136-1655735486=:7141"
+X-Virus-Status: No
+X-Virus-Checker-Version: clamassassin 1.2.4 with clamdscan / ClamAV
+ 0.103.6/26578/Mon Jun 20 10:06:11 2022 signatures .
 X-Mailman-Approved-At: Mon, 20 Jun 2022 17:50:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,88 +48,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, Qiang Yu <yuq825@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/19/22 20:53, Rob Clark wrote:
-...
->> +static unsigned long
->> +drm_gem_shmem_shrinker_count_objects(struct shrinker *shrinker,
->> +                                    struct shrink_control *sc)
->> +{
->> +       struct drm_gem_shmem_shrinker *gem_shrinker = to_drm_shrinker(shrinker);
->> +       struct drm_gem_shmem_object *shmem;
->> +       unsigned long count = 0;
->> +
->> +       if (!mutex_trylock(&gem_shrinker->lock))
->> +               return 0;
->> +
->> +       list_for_each_entry(shmem, &gem_shrinker->lru_evictable, madv_list) {
->> +               count += shmem->base.size;
->> +
->> +               if (count >= SHRINK_EMPTY)
->> +                       break;
->> +       }
->> +
->> +       mutex_unlock(&gem_shrinker->lock);
-> 
-> As I mentioned on other thread, count_objects, being approximate but
-> lockless and fast is the important thing.  Otherwise when you start
-> hitting the shrinker on many threads, you end up serializing them all,
-> even if you have no pages to return to the system at that point.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Daniel's point for dropping the lockless variant was that we're already
-in trouble if we're hitting shrinker too often and extra optimizations
-won't bring much benefits to us.
+---74181308-1760291136-1655735486=:7141
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-Alright, I'll add back the lockless variant (or will use yours
-drm_gem_lru) in the next revision. The code difference is very small
-after all.
+On Mon, 20 Jun 2022, Christian König wrote:
 
-...
->> +               /* prevent racing with the dma-buf importing/exporting */
->> +               if (!mutex_trylock(&gem_shrinker->dev->object_name_lock)) {
->> +                       *lock_contention |= true;
->> +                       goto resv_unlock;
->> +               }
-> 
-> I'm not sure this is a good idea to serialize on object_name_lock.
-> Purgeable buffers should never be shared (imported or exported).  So
-> at best you are avoiding evicting and immediately swapping back in, in
-> a rare case, at the cost of serializing multiple threads trying to
-> reclaim pages in parallel.
+> Am 20.06.22 um 13:40 schrieb Thomas Voegtle:
+>>  On Mon, 20 Jun 2022, Christian König wrote:
+>>
+>>>  Hi Thomas,
+>>>
+>>>  [moving vger to bcc]
+>>>
+>>>  mhm, sounds like something isn't running in parallel any more.
+>>>
+>>>  We usually don't test the multimedia engines for this but we do test
+>>>  gfx+compute, so I'm really wondering what goes wrong here.
+>>>
+>>>  Could you run some tests for me? Additional to that I'm going to raise
+>>>  that issue with our multimedia guys later today.
+>>
+>>  Yes, I can run some tests for you. Which tests?
+>
+> Try this as root:
+>
+> echo 1 > /sys/kernel/debug/tracing/events/dma_fence/dma_fence_init/enable
+> echo 1 > /sys/kernel/debug/tracing/events/dma_fence/dma_fence_signaled/enable
+> cat /sys/kernel/debug/tracing/trace_pipe > trace.log
+>
+> Then start the encoding in another shell, after it completed cancel the cat 
+> with cntr+c and save the log file.
+>
+> Do this one with the old kernel and once with the new one.
 
-The object_name_lock shouldn't cause contention in practice. But objects
-are also pinned on attachment, hence maybe this lock is indeed
-unnecessary.. I'll re-check it.
 
--- 
-Best regards,
-Dmitry
+    https://32h.de/tv/5.18.0-i5-trace.log.bz2
+    https://32h.de/tv/5.19.0-rc3-i5-trace.log.bz2
+
+
+I hope I have done this correctly.
+All necessary tracing things switched on?
+
+I want to add that this is a headless machine. No monitor connected.
+
+
+---74181308-1760291136-1655735486=:7141--
+
