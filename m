@@ -4,73 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB91DC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 09:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D12C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 11:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E73510EFB4;
-	Mon, 20 Jun 2022 09:01:45 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 909C210EFE2;
- Mon, 20 Jun 2022 09:01:44 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id u12so19726079eja.8;
- Mon, 20 Jun 2022 02:01:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=l4g7hgXGp9fk9Vsp0jocY6AG6WmJOc+3JNJ2BanuciM=;
- b=TWD9JAgTO9vfwROFUV3B4LYddaWoV/Z5c3wFsFnSAhqmusfzkzmcViB8t7DmOYdfhq
- 9/uReKZSqmL+YrLMloThOdgVoCXHleSAd3RF7Y/4uWJbK9URFtXJMF2BZzjRmZKLjYkR
- 3DmU79hcyBE/DtkqjrFb6t8hE8jfa9DniIDkVJ90iR7dAIpyBPFnqOjsDwyjYRVas3Zr
- CrzbTuwLKWE7P77//sr9OV6g0zKGJPaPWPoyts7Yxe60TIKpy9eql8vFxGZoqB4aMfVa
- YNB/Cvkg3u2zeVH/7aa82z2WLHC3mCJFY6VnRcWYa4SKyMnedqJo63LLReruRy3RjPRZ
- uRSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=l4g7hgXGp9fk9Vsp0jocY6AG6WmJOc+3JNJ2BanuciM=;
- b=60UOwZKw8qVAoET1kmkjqZBFlFz20ihaWh2fwQF6Vi9L6mtzZIcnFF8IVZiLYChH8c
- 7bdhjUReF/1vjtzB7hyUWxLu5/ZVrGO1u4wFkXVOaGtcoYwZNyqGrIxcTfOKBaG/ZvFP
- gkSRHkvIhknJ7423lOpqPp87B/IcB9pcjwQiPEVbnwxzJ74tMi3XCLXG2iadtYLI+5Pq
- W41Lm/pWuMIwZvZpnewe8g0Dnx1c3f/b/x3eaejG5SOJPYi9feJBPTF+VMDjIO6fNQMF
- T4U/INJZ4U7o/uZAaMaMYPjHFfAckPw0Kc0HkulnrKZJ1qtDtrYQTa6dXcs+cSeu7V15
- 9bZA==
-X-Gm-Message-State: AJIora+JLCGRK9GpP1a4vTGUuxOFeQPOv2VkiISCWYMZ158adB1ohDNw
- w29NsjW6I5luuuWuonok8ts=
-X-Google-Smtp-Source: AGRyM1shucDB2dwuk7Pk6iMYOyKMB1vSt7YLmRsI8/v/gETlfPx8uGLjzcyMK4ntehvhSlOn4OVtXQ==
-X-Received: by 2002:a17:906:7007:b0:6ff:8028:42e with SMTP id
- n7-20020a170906700700b006ff8028042emr19051012ejj.278.1655715703001; 
- Mon, 20 Jun 2022 02:01:43 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:e5a1:82b6:1eac:d3ba?
- ([2a02:908:1256:79a0:e5a1:82b6:1eac:d3ba])
- by smtp.gmail.com with ESMTPSA id
- y11-20020a17090614cb00b00712057b037fsm5500958ejc.167.2022.06.20.02.01.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jun 2022 02:01:41 -0700 (PDT)
-Message-ID: <ef1d00d4-c3de-398a-9eac-7cb7a19cc360@gmail.com>
-Date: Mon, 20 Jun 2022 11:01:40 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 984FF10E115;
+	Mon, 20 Jun 2022 11:32:16 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449DF10E129
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 11:32:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UERSAt8F3MTa+tAXqaZl3y+aj5obK6Hwk66/toPEKxd0swgvvDTwH/wIEPxwqCj7pVS3ncACmmZ2Xuf+uZ24103ASjHrriJxe/TX9R4zBkHjHvnYBBoZDkNAOayVuHOtT5b9YSmv0QJ5HLKXw2SodI1V9cDVrWmyBMW9d26ebiEr6YX2Ol8IXsCRzTlAJj0BkdJrEafrWs2+pdlAu8uKvIDP7ZI7M95kzd0SjPA5c7q7R1+o7q6oqJjCKYI2duVqnnn9Bl6OXYt5muVcp+z82+f3btiJTRZyNaUYiywkZkLCRJJebcoswSTea8il4CZyR0qwo6rmLNrZ4q1bWxGyJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GYzYUmCxb7wF05EzBZQ5RJ04iyUgWzBZj/1F5rbxhek=;
+ b=EhwNrigPhs66m3/1jvToBEtkTMWPdH11lMSy6nx3jgf3J2pIDWv+FsKPYBMpMHl8iU27NMDLzLohWc7T/+8uWaCBAXfPRiqj+TaCE2B7a6a089B9o0Qvlho/f4GU2zV1OKxWXwFZD5TJ8Rf9J+1rKfRqe6GudMRNSzA7BC41zHMTcMtokh0QJiZUVReHaSvEVrVrwghN9gdiPJAhhxuP4UFdzGeu8Ori6SDwQETHhziciJl30ExREWoqUkLgeIAGtgIn3nVvgdNwHtVEeOCeGqo6Ns28l3oCk3vXvRpSey6WvumRJwLnjdX1EF0UVDQ2/1UZ3Yqu7aQLFBVxpXyCQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GYzYUmCxb7wF05EzBZQ5RJ04iyUgWzBZj/1F5rbxhek=;
+ b=3tB3pB98gwCsDrL5xejPj7mtwL2Kqpr+SgDK3L/fnuQAoWGh/eeMCRpBHliHf0WefcV2FjFT0qiw/NG8j4h2eWEDch4aVO7zI9zVPDxc5Zy/i4o2e550K/KF6CnfE8NSx6M3jcsrFm2DcgTVdPzlKR/z16CchNQnP+nIv8kJLIc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BN6PR12MB1922.namprd12.prod.outlook.com (2603:10b6:404:106::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Mon, 20 Jun
+ 2022 11:32:13 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e0fd:45cf:c701:2731]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e0fd:45cf:c701:2731%6]) with mapi id 15.20.5353.021; Mon, 20 Jun 2022
+ 11:32:13 +0000
+Message-ID: <f1a52ddc-5aad-cc76-282e-93206ae43477@amd.com>
+Date: Mon, 20 Jun 2022 13:32:07 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: radeon driver warning
+Subject: Re: Performance drop using deinterlace_vaapi on 5.19-rcX
 Content-Language: en-US
-To: John Garry <john.garry@huawei.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <2850bbb9-a191-d723-f878-96482e7583cb@huawei.com>
- <afd3cf7b-7afd-1d86-0c24-b4b7101e4bd5@amd.com>
- <60a97869-fe1d-08cb-3241-91377d62b739@huawei.com>
- <7adf78ae-8f2d-e6bf-2054-fe61dfd4b21e@amd.com>
- <b481ffa8-451d-0a9c-e708-44047e0a8bc9@huawei.com>
- <7986913b-66a7-85b6-c563-392049e057fd@amd.com>
- <a7384d7d-fb33-6753-550e-d5b773d1aefe@huawei.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <a7384d7d-fb33-6753-550e-d5b773d1aefe@huawei.com>
+To: Thomas Voegtle <tv@lio96.de>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org
+References: <0249066a-2e95-c21d-d16a-fba08c633c0b@lio96.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <0249066a-2e95-c21d-d16a-fba08c633c0b@lio96.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR06CA0748.eurprd06.prod.outlook.com
+ (2603:10a6:20b:487::15) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 10b3391c-ad19-4ca4-def7-08da52b084e4
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1922:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1922F571496DE2F8742DEDC483B09@BN6PR12MB1922.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qRfi0bT3WwMNEYczfR0I8fQH79EHaII/cR0JHzYifyfZJq6p68/7K+K7L4HW17jY5Be4spD65Q6U5gsXwHLkQvrkuHoFCX9A7UTRLCNQ92HG7W7UwF4LvMR2lQO0oVgdJPUB/lVXkSx1Ftd64VVGUSv8u1qpsj2vkgKD8ADpPC4QVDIxTRhVZTarC7NjBCprotOcokWvOmdSyqUl4b3G2E9LH4QADnCq0pAtO/h1j2IGy/bjIBT02dqeTxm+S/8ZJznM8Ebut9q5/QBxhiv+YUVlQaMXteSg8LkpgRe/xmh08iA5X7nWkw/riJwvYXEMZnwHYEnf+pu+dueuXp9mmf9lMsGfuaIA/vDLiIigDxnlqrD2iiZ3hFUviGi3dPRVCyqy3MMVIuSlkHC7xmesb1Rxw8p3k9jRB/22E8Sqq3i+7beVWfZ+9uJlIndeozZHy7eMB4Iwdo+TKOCK+jQcHigg19OtqhUky4gGZBgAN39MVWhmA/zaaPSAEjPrSla/EgrNFVicRsMbVQFJklMKHhAFJACgBuSAuUdmoL0J0Lp91bbdS3q4wqdJt2MVmMt7JJflSPpmLxtprd9SroIGTlDVGpopRV0OiGW35Fbm0vQJH4yRSkwzwyYS9wm+WQp1HFADF329GHumuYMDLdV5wyS1KSsn6TUtfJVxrf9g9mT24HtsjUI6sqcdWnyqdHmyn+002GLZYkElVHjBCKmW7w1+XGzKbFQc8rZAGYaHIuw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(186003)(66476007)(86362001)(66946007)(2616005)(83380400001)(66556008)(38100700002)(31696002)(2906002)(5660300002)(6512007)(498600001)(6506007)(8676002)(36756003)(8936002)(31686004)(6486002)(316002)(110136005)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGp1YXVtMjRaV1FnTTEwcVprZTVJUU15L3hkdFo4RFpldTNaRTdyMnZmaERj?=
+ =?utf-8?B?cS9GbnQxVi9abTlzekhRRVZiZTI4ZC9lVm5LdCtxTVQvalVOSWUwQ1ZtcDds?=
+ =?utf-8?B?d3h6WlgwQzRPTGphSVRLTmhHRjZKd1JKOEY0MjRDOUt0bVp5RkdoN2JuV1NZ?=
+ =?utf-8?B?WGlWVnNZSFNyZGZtTVB5bXlPV2NEalJQM0F0bFBacXh2S3o1TWhjcmovd1RT?=
+ =?utf-8?B?dnpJVnhGbmFZbXpENjBpaXFQeGx2TXh5UDFrMWlxMjZLUHl4Si9vUGI5OGln?=
+ =?utf-8?B?NXp1cThTekN6NVljOWZvaHF6bi90NVMwTWZ3Y0pRWnBLNTBBZEtaNTZiV1h3?=
+ =?utf-8?B?THpmdElvaldSOFlSYmIySTFzT1diSmtsaHVLRklYR3hRbWw3bVBSTFlIa2hR?=
+ =?utf-8?B?U0d3TkZBVWIxeE15bThjWGltUXdTclYrUmdpbVdseEJHc3Nqb3dMcEJXbDNJ?=
+ =?utf-8?B?MTFHMkpmWlFkSmNZcEc2MmVWWTd3RjJwaXdVOHNLTndrdTZmV3JqOXFzNnRt?=
+ =?utf-8?B?dnRvTVRSVTBiWTNZSEdQYTZsMk45ejZsd0FicVh2Tm9FRU8vRnB4c2cxd2Qr?=
+ =?utf-8?B?QmRDQk1QUEk3N1B0MXpSQjdKektQMWFJTU9TWk1od003czlsN0Jhd0d6S1dV?=
+ =?utf-8?B?clFSTHk4NUJxazBaM3lWUGdZeVp6aW83TmZ6MXBYMkpiUVJLRkphZllyUGZx?=
+ =?utf-8?B?OVJkdlAzbmRVNTBZS1UwbEE2enBCTytwUE01SnBKVi8xMU93T0dIRnhKb3dI?=
+ =?utf-8?B?dHZJcmljaG92eWNpdlhhTWE0NzNpWi83TkgrY2xkVEd3Zm85Ym82ckFBVllQ?=
+ =?utf-8?B?NmRJZFNaNHFHZmxjcEp6dkMzNFZ3Njg5Y2lBTVc2aXlhUFdTa0p1elY2cTBn?=
+ =?utf-8?B?V2Z0cmx1VVJ2VmRZTUtKK2FaS2xVZlRsdmhOZXBEdzZkK0xiMlV2RUVkaUJC?=
+ =?utf-8?B?S2J3b21KcFZrRGo3SCtUSTVSMHhLTDlFUWpocjRJeUtiMk55UkNyMDJKSU5F?=
+ =?utf-8?B?VG9SYksrS2hlU2pJMTN0T2VTcERJb0dIM09jblJ4dzJHYk5jNjZ5L3hJWFVo?=
+ =?utf-8?B?SGsyOHlWaVNVVElQM0pLbXE2Mk92aHZYckt4ZG8yOVpZUjRDYUdVTFEwRGp0?=
+ =?utf-8?B?WTVXa1Vhc25Va1RYR2FXaWdGa3Zsb3ZrRlNVeG90bXBhY2hoTmUvN0FQdHZ0?=
+ =?utf-8?B?N0VlejQzeENYS2hVUXBVc25ZeHp2YkF6bVNMZ09TRlhrL0N0SUNIYTgrVnNr?=
+ =?utf-8?B?alBtanlOQjQrSnFyRTBZUWNRQi80K0ZQZkg1SWxEZ2FENE50RXYzWFFZM3Bt?=
+ =?utf-8?B?WXY1K1NaMHFhZlIxMmtaV3lsdXdZbmtyRXJ5eitVclEydEU1MnFZWG1zZVJH?=
+ =?utf-8?B?SHJxV2drY3Zld01CT3dqb0hONldmSXF1R1BtUGlKbzF6V0grUjE5dmsxUDYr?=
+ =?utf-8?B?OGptby9vYkU1YVZhMGdlNER5YXFaNEtNZVlDOUk1ZEhZWWp5QVBwalBROWhB?=
+ =?utf-8?B?NWc5Rlk5cjRlMW1ZaWVkVk5xZ0lLcjRsd0lRS2g0cWJPeE5ic3V4YzlPTS9R?=
+ =?utf-8?B?OTdHVVRHd2RLTzBoTTZ2SkRjUm9BMVhYc2k2c3V0ekVML2NjR0UxZUZNeFhh?=
+ =?utf-8?B?WTVIRURFdmFBc2tRZWpObnM2T0FzYk9QMytrZzd5c1RrTU10YjlkelQ0aC9v?=
+ =?utf-8?B?OXhrdmhhMHdTcDFZQ3RTaHpBOW5ZRU85b2xNM1hYYlhmM2FNa25idkRGT3ZT?=
+ =?utf-8?B?djQvRE4xb2liZERUdTlUU2MyaElJNHU3cTBqY0wrU3oyUmFmRmVkVE8xRlJ6?=
+ =?utf-8?B?ajJWT2hkSUN2cGNTM0sxTVloVXhSQUM1TThMdGQwMnFuQjN1TDFRelpwV2NP?=
+ =?utf-8?B?RXZKWk5EQzg4bDQ5b3B6dnZXbnFpUUZoVUdmdFpTdlNIQ21ZbnJZQWFkcWxO?=
+ =?utf-8?B?Z1hXakxjWlphV0srUkoyWWxrTnZWVitSL3A3bkQ1bGVTYlUxSnBTMnZsNUlO?=
+ =?utf-8?B?L2hQK0ZRSVJLMXViNkJkMC9tNEFZaTRid1NJWnY4ZlFRbkdIVDd5SjdKR09u?=
+ =?utf-8?B?TlZMSkhxeTJjNHFZOHhJa3J3M3g1M20vMUErWi9kVHo3TDZtdHgxZ2xGUzFL?=
+ =?utf-8?B?NVYxNldjUHA2bk8rWnZiei9Ic3M5MmMyK24wbEl5TkZvb3ZRRHBUelFtOU12?=
+ =?utf-8?B?d1d0T1hBOW8zVlRwQWlwTDhzN0FOaEplc2VtR0lHVnRLVzNORFZjbyt1SU1h?=
+ =?utf-8?B?NFJ0c0JiampNb25Wd003NkhyQ2Rja2hkTVREZC9LY0pmdU9YOHdmazZwWkVy?=
+ =?utf-8?B?VzAzMFE2eEw2WUhUMWlSaEx2SUc5clRTYm1meWY5Y0lFRWp6UDdhU2o4QWo1?=
+ =?utf-8?Q?3aTfu/6g4F1Zxdf9WbHhON6qbQVuKQ3v3zTmIrXidL/16?=
+X-MS-Exchange-AntiSpam-MessageData-1: Galge6P68ibRbg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10b3391c-ad19-4ca4-def7-08da52b084e4
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2022 11:32:13.2253 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +fzEKzPuSOUrJ//zI/qzHpJz3lqs1HEghzmtrjvwt2MI0i6MVC68ogscvvzYxXB/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,42 +134,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.06.22 um 16:22 schrieb John Garry:
-> Hi Christian,
->
->> Am 17.06.22 um 14:01 schrieb John Garry:
->>> On 17/06/2022 12:57, Christian König wrote:
->>>>>
->>>>> And/Or compile out the warning when "warnings = errors"?
->>>>
->>>> That should be doable I think.
->>>
->>> ok, if something can be done then I would appreciate it. I do much 
->>> randconfig builds as part of my upstream process and anything 
->>> breaking is a bit of a pain.
->>
->> I've just double checked the code and we have already wrapped the 
->> warning into "#ifndef CONFIG_COMPILE_TEST".
->
-> Yes
->
->>
->> So the question is why does your random config not set 
->> CONFIG_COMPILE_TEST?
->
-> My randconfig does not have CONFIG_COMPILE_TEST set - see attached. 
-> AFAIK randconfig does not always set CONFIG_COMPILE_TEST.
+Hi Thomas,
 
-Mhm, we could probably change the ifdef. But a random configuration 
-which doesn't sets CONFIG_COMPILE_TEST sounds like a bug to me as well.
+[moving vger to bcc]
 
-Going to provide a patch for changing the ifdef, but not sure when I 
-will have time for that.
+mhm, sounds like something isn't running in parallel any more.
 
-Regards,
+We usually don't test the multimedia engines for this but we do test 
+gfx+compute, so I'm really wondering what goes wrong here.
+
+Could you run some tests for me? Additional to that I'm going to raise 
+that issue with our multimedia guys later today.
+
+Thanks for the info,
 Christian.
 
+Am 18.06.22 um 18:13 schrieb Thomas Voegtle:
 >
-> Thanks,
-> John
+> Hello,
+>
+> I noticed a performance drop encoding a mpeg file to a h264 video using
+> the vaapi option deinterlace_vaapi on a Haswell i5-4570 with Linux
+> 5.19-rc1.
+>
+> A 10 minute long video takes normally 41s to convert, now with 5.19-rc1
+> it takes about 2m 36s.
+>
+> My ffmpeg line is:
+> ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128
+> -hwaccel_output_format vaapi -i test.vdr -vf 'deinterlace_vaapi' -c:v
+> h264_vaapi
+>
+> Removing the option deinterlace_vaapi shows no difference in 
+> performance between 5.18 and 5.19-rcX.
+>
+>
+> I bisected this down to:
+>
+> commit 047a1b877ed48098bed71fcfb1d4891e1b54441d
+> Author: Christian König <christian.koenig@amd.com>
+> Date:   Tue Nov 23 09:33:07 2021 +0100
+>
+>     dma-buf & drm/amdgpu: remove dma_resv workaround
+>
+>
+> and wasn't able to revert this one on top of 5.19-rcX.
+>
+> I tried the predecessor commit:
+>
+> commit 73511edf8b196e6f1ccda0fdf294ff57aa2dc9db (HEAD)
+> Author: Christian König <christian.koenig@amd.com>
+> Date:   Tue Nov 9 11:08:18 2021 +0100
+>
+>     dma-buf: specify usage while adding fences to dma_resv obj v7
+>
+> which is fine.
+>
+> Using ffmpeg 5.0.1 with libva 2.10.0 and intel vaapi driver 2.4.1
+>
+>
+>  Best regards,
+>
+>     Thomas
 
