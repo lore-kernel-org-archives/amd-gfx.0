@@ -4,92 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC81C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 22:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8724AC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 22:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3658010F736;
-	Mon, 20 Jun 2022 22:03:47 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44AF210F726;
- Mon, 20 Jun 2022 22:03:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dEwIzRcj02Yu/piScyk71hp/DLOBTQJhj4YE8HMpVSMXo5ZLxNYvsag7OQAQS9zHwA8EIEHjdZGzt528sdBvFZUVQFFvEtwOP98pX8noMNPNbiAn4dCmMV3mzqiYpv5D174yZ9dyg9mXBKAGHHiwgvSopVN3Hbufs4ayFKeMktmKGHfga7DItR7215iRJCCrJ+hrrYc5TUPBhkKi/YGHaJe1/N+zkSpjO1wQqDtb5iONUN5YywYRGdNrr60JBQQexZ5ik764PGZAcEAflYve2yfO1W6OkVTJfa4HmSboSOFzBvd8cgbptiTRfrv1xmEEuzgeuPhz8oN5n7hDHyscQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tzdt4BEPk+gnsSjeFHPzJP6h+2XTibMnN3lym82vie8=;
- b=gNdqJ7ofqTwrXwLQdK4IBvbUwwwOxnfyWuAsAklCQiRLKyhh3NzgV46698tnAIpsmjpONm2p3Whz9qH2KFzDBlxzZ1O5qX9lyw23XBtgcgbflQNfVZqtKB8cHPCQKyuFuw9bDlu8Nttv1t5Ap52LndyyXzB9csThlGbI0jXlZp3hu/d25ycTQsX9uOKsU4tkMCy9SOh1pP37BK+HcuElew3L3I4pAlrBqLzduEhwFhQPcl85wYR0jWLoKwzamjIZcaICLT3pEUPG6s6TXDZUfHS6a9d0uID7PngJiwcdtQJvtRRW4Ft283CVjLAZF2xsrNePUwYtjkf+LpKh9tk0Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tzdt4BEPk+gnsSjeFHPzJP6h+2XTibMnN3lym82vie8=;
- b=PFOnFfQgABE60jtZ+Y7K95+4f3OXSIDJztzQo9unMBANZf9GqN2O21QDKmI5TdulsRJ962Snm/ho7pNR+qtaHcHsYbSzKG/ncfWw7XkZ9gtacue7/oI39e0aZasFbxKoGKsRdct0ceEiBBhIyvwvxuxSczh0+bzaQTrzKTX+16o=
-Received: from MWH0EPF00056D12.namprd21.prod.outlook.com
- (2603:10b6:30f:fff2:0:1:0:15) by CH2PR12MB3991.namprd12.prod.outlook.com
- (2603:10b6:610:2f::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Mon, 20 Jun
- 2022 22:03:43 +0000
-Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::206) by MWH0EPF00056D12.outlook.office365.com
- (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.3 via Frontend
- Transport; Mon, 20 Jun 2022 22:03:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Mon, 20 Jun 2022 22:03:42 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 20 Jun 2022 17:03:41 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/5] drm/amdgpu: Follow up change to previous drm scheduler
- change.
-Date: Mon, 20 Jun 2022 18:03:02 -0400
-Message-ID: <20220620220302.86389-6-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
-References: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167DE10F84E;
+	Mon, 20 Jun 2022 22:23:27 +0000 (UTC)
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65A7710F850
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 22:23:25 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-317803b61e5so88299107b3.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 15:23:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mjBNWOOoKKzUZy9cusfMrMPROTy9mqwxralkbulZM3M=;
+ b=ZxVX42LSBY4Bdr8DPkS588hAuDBJjM5IZkNuMoetd8NB3bWinLU3/4apAr7SMnGs1d
+ NHCFrv46UixYnZ3rZi54y8SON4cGqeDY8BYrJ5yyZNyaTyje1OV9aikMSi0Eihp+CecY
+ a+XUkF0eiQpCHoUgeOdNJOgx8H0FcmrD0Pmc6XmoYumYsDSg67kEbEgr5Y8qW2qFeQGU
+ N2YUXqz4Rdkz9FOlymVwbgEclAeeuNgqOHF5U03EjuGjMGpIJZgPuLg8o4/wCnxFBaB2
+ 4jpDokCKKBH8kAau/e2O0NeYX0e1y0sSp3rl0IWtvrHgu1/x6FYhKAcibfPrIIFMo/zt
+ MohQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mjBNWOOoKKzUZy9cusfMrMPROTy9mqwxralkbulZM3M=;
+ b=bSzzKjdX7+pA8VJA66limI/sg8jMyAZrrqetwFXkU9YddiM9DOt1T26jCnbRvDy03o
+ PIZieWBib1+HHiL3LNyOuHPfNDz9NBLu9Pq1lPTaw8VLCSnybnBgSVtxY2E5w2jmVp+9
+ NwrzPyUWHR48YKvFN7y2llcQZKRZWrOIxd9mmieNKcNGhRO4l4Ezg5sw4WlWbTA9GUy0
+ AVgbZ7oQdLptojXmgMCx02xSt0hyQNU4fegTe7u5ROdep84waVqiC6/M2n+jICGU4vn3
+ 0UJiHWeRr8p3CMj5MSVPnDTdC3dJSsGQ0ghtYGso+Oiiu+epNybmJXEq8H6Z47ewKDXo
+ v2Og==
+X-Gm-Message-State: AJIora9RHs7rrPOYQeqPGLtffCFaN9xAgTcvqkbWcawEN3tclHqNgSGt
+ DbPDBj9gF+ymysHjQ6xyJVxaY2883jY+jTIK2QkXuiJ7
+X-Google-Smtp-Source: AGRyM1uJVeJRlWvlyDzKBynwCctWNHC4ykMs3CKzy8MjkqZ87fl5Va+hzJV/8uo9y+bEcltdUAL1KomOj2kbY+lMmY0=
+X-Received: by 2002:a0d:ed83:0:b0:317:50bb:5463 with SMTP id
+ w125-20020a0ded83000000b0031750bb5463mr30139310ywe.149.1655763804564; Mon, 20
+ Jun 2022 15:23:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 07d3f879-6229-46ad-c612-08da5308bd72
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3991:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB39915E0A89831A946C0E9275EAB09@CH2PR12MB3991.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KFeF6tnmgRZAb8GIjUnMfdkUZykC2/m9evN5zG3SNjVj0zComcz8wth/4PXGdP+1doCv778vzWZtsqNA7b23jiBk676ojFxX7YsiE/nMZ2ZpKNPQVlRKxEuYmHVZDbvsrDe8wtq8F/y35TldzuohtYvrq+G2ZKS383kEzMkPUPyRVCMjyWajNfLpIiUNGKDU0Pq9AS9aHD2AqG53xdmbNkwE9L5mnfuHt7aF6T3mQKtvnv2kC7WzAdAfsvI0WBo4YXMfQbRC9oKui5QvgcoxdKduHVOH/MFJ4grH3v/EgUhMyoNENox1KX9CMo1Gndhn+pf4+QgInZ1xeYrje2UYXZHlJWpdyxgUMzJ7NoWP0+7ImnSZtTL+39Mh2jWsouR9flVtm834b8s2kflM5m2xODhHwAwN8idVQ0IKzBY6k5RNYVwSQZBgwyhLCXvhLbJXu3yDsvS6oFbgMF1UpBoIeq+1eVOK3DSvnqOV82lNPcsY6FZZGYNZqF8iNNcwxkaFyXvAfeQe3OT13uEOBHS5vYyDWw5vO2mILudGSMkEh37zfDYlTH7icB4kCfQkK2uz9bQxsLTuk3WU1ZX3tks+f/JWBsO6UBDVTbC7gzdu2f9emCEgAhzhScp/KyZFkE+2SaULBhPQkmPiBYchQtuAAsmgED+MuI3yegmZN0SJqbl2blmaxdDkqF8fg/G7JbR5WIvWCjgJhI7LbGBRvjnVdzpcWmQRN3nVBCfQRTagOeobP/Ie8TYJVhshPSH5HfTm
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(376002)(396003)(346002)(40470700004)(46966006)(36840700001)(450100002)(7696005)(8676002)(44832011)(4326008)(54906003)(86362001)(110136005)(82740400003)(70586007)(426003)(356005)(70206006)(2906002)(26005)(47076005)(8936002)(5660300002)(186003)(316002)(81166007)(478600001)(6666004)(36860700001)(16526019)(83380400001)(336012)(41300700001)(2616005)(1076003)(36756003)(40460700003)(40480700001)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2022 22:03:42.7731 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07d3f879-6229-46ad-c612-08da5308bd72
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3991
+References: <20220616012127.793375-1-joshua@froggi.es>
+In-Reply-To: <20220616012127.793375-1-joshua@froggi.es>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Jun 2022 18:23:13 -0400
+Message-ID: <CADnq5_NdAmAJ93A8ADVYzvYN=-hdWACxJyeBAfgmxc6_-RUq-Q@mail.gmail.com>
+Subject: Re: [PATCH] amd/display/dc: Fix COLOR_ENCODING and COLOR_RANGE doing
+ nothing for DCN20+
+To: Joshua Ashton <joshua@froggi.es>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,134 +63,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, jingwen.chen2@amd.com,
- Christian.Koenig@amd.com, monk.liu@amd.com, yiqing.yao@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Align refcount behaviour for amdgpu_job embedded HW fence with
-classic pointer style HW fences by increasing refcount each
-time emit is called so amdgpu code doesn't need to make workarounds
-using amdgpu_job.job_run_counter to keep the HW fence refcount balanced.
+Applied.  Thanks!
 
-Also since in the previous patch we resumed setting s_fence->parent to NULL
-in drm_sched_stop switch to directly checking if job->hw_fence is
-signaled to short circuit reset if already signed.
+Alex
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Tested-by: Yiqing Yao <yiqing.yao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23 ++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  |  7 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  4 ----
- 4 files changed, 25 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 513c57f839d8..447bd92c4856 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -684,6 +684,8 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev,
- 		goto err_ib_sched;
- 	}
- 
-+	/* Drop the initial kref_init count (see drm_sched_main as example) */
-+	dma_fence_put(f);
- 	ret = dma_fence_wait(f, false);
- 
- err_ib_sched:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c99541685804..f9718119834f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5009,16 +5009,28 @@ static void amdgpu_device_recheck_guilty_jobs(
- 
- 		/* clear job's guilty and depend the folowing step to decide the real one */
- 		drm_sched_reset_karma(s_job);
--		/* for the real bad job, it will be resubmitted twice, adding a dma_fence_get
--		 * to make sure fence is balanced */
--		dma_fence_get(s_job->s_fence->parent);
- 		drm_sched_resubmit_jobs_ext(&ring->sched, 1);
- 
-+		if (!s_job->s_fence->parent) {
-+			DRM_WARN("Failed to get a HW fence for job!");
-+			continue;
-+		}
-+
- 		ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched.timeout);
- 		if (ret == 0) { /* timeout */
- 			DRM_ERROR("Found the real bad job! ring:%s, job_id:%llx\n",
- 						ring->sched.name, s_job->id);
- 
-+
-+			/* Clear this failed job from fence array */
-+			amdgpu_fence_driver_clear_job_fences(ring);
-+
-+			/* Since the job won't signal and we go for
-+			 * another resubmit drop this parent pointer
-+			 */
-+			dma_fence_put(s_job->s_fence->parent);
-+			s_job->s_fence->parent = NULL;
-+
- 			/* set guilty */
- 			drm_sched_increase_karma(s_job);
- retry:
-@@ -5047,7 +5059,6 @@ static void amdgpu_device_recheck_guilty_jobs(
- 
- 		/* got the hw fence, signal finished fence */
- 		atomic_dec(ring->sched.score);
--		dma_fence_put(s_job->s_fence->parent);
- 		dma_fence_get(&s_job->s_fence->finished);
- 		dma_fence_signal(&s_job->s_fence->finished);
- 		dma_fence_put(&s_job->s_fence->finished);
-@@ -5220,8 +5231,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	 *
- 	 * job->base holds a reference to parent fence
- 	 */
--	if (job && job->base.s_fence->parent &&
--	    dma_fence_is_signaled(job->base.s_fence->parent)) {
-+	if (job && (job->hw_fence.ops != NULL) &&
-+	    dma_fence_is_signaled(&job->hw_fence)) {
- 		job_signaled = true;
- 		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
- 		goto skip_hw_reset;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index d6d54ba4c185..9bd4e18212fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -164,11 +164,16 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
- 	if (job && job->job_run_counter) {
- 		/* reinit seq for resubmitted jobs */
- 		fence->seqno = seq;
-+		/* TO be inline with external fence creation and other drivers */
-+		dma_fence_get(fence);
- 	} else {
--		if (job)
-+		if (job) {
- 			dma_fence_init(fence, &amdgpu_job_fence_ops,
- 				       &ring->fence_drv.lock,
- 				       adev->fence_context + ring->idx, seq);
-+			/* Against remove in amdgpu_job_{free, free_cb} */
-+			dma_fence_get(fence);
-+		}
- 		else
- 			dma_fence_init(fence, &amdgpu_fence_ops,
- 				       &ring->fence_drv.lock,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 58568fdde2d0..638e1d600258 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -267,10 +267,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 			DRM_ERROR("Error scheduling IBs (%d)\n", r);
- 	}
- 
--	if (!job->job_run_counter)
--		dma_fence_get(fence);
--	else if (finished->error < 0)
--		dma_fence_put(&job->hw_fence);
- 	job->job_run_counter++;
- 	amdgpu_job_free_resources(job);
- 
--- 
-2.25.1
-
+On Wed, Jun 15, 2022 at 9:21 PM Joshua Ashton <joshua@froggi.es> wrote:
+>
+> For DCN20 and above, the code that actually hooks up the provided
+> input_color_space got lost at some point.
+>
+> Fixes COLOR_ENCODING and COLOR_RANGE doing nothing on DCN20+.
+> Tested using Steam Remote Play Together + gamescope.
+>
+> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c   | 3 +++
+>  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c | 3 +++
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c   | 3 +++
+>  3 files changed, 9 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+> index 970b65efeac1..eaa7032f0f1a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+> @@ -212,6 +212,9 @@ static void dpp2_cnv_setup (
+>                 break;
+>         }
+>
+> +       /* Set default color space based on format if none is given. */
+> +       color_space = input_color_space ? input_color_space : color_space;
+> +
+>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1, alpha_2bit_lut->lut1);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+> index 8b6505b7dca8..f50ab961bc17 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+> @@ -153,6 +153,9 @@ static void dpp201_cnv_setup(
+>                 break;
+>         }
+>
+> +       /* Set default color space based on format if none is given. */
+> +       color_space = input_color_space ? input_color_space : color_space;
+> +
+>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1, alpha_2bit_lut->lut1);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+> index 9cca59bf2ae0..3c77949b8110 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+> @@ -294,6 +294,9 @@ void dpp3_cnv_setup (
+>                 break;
+>         }
+>
+> +       /* Set default color space based on format if none is given. */
+> +       color_space = input_color_space ? input_color_space : color_space;
+> +
+>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1, alpha_2bit_lut->lut1);
+> --
+> 2.36.1
+>
