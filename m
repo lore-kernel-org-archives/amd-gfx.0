@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18C50C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 19:04:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0BDDC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 21:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85C6010E08B;
-	Mon, 20 Jun 2022 19:04:13 +0000 (UTC)
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF41310E105
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 19:04:12 +0000 (UTC)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-317710edb9dso109820917b3.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 12:04:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 629B010F575;
+	Mon, 20 Jun 2022 21:51:16 +0000 (UTC)
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E254810F575;
+ Mon, 20 Jun 2022 21:51:15 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id i7so3615916ybe.11;
+ Mon, 20 Jun 2022 14:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FxQIzsezBBU5WOU/5RHOOXmsN9UcVkxzkQDKLDgtUQE=;
- b=lNM+bxHANEqQHP7i7XjWuh4rrhglSaGwked3id9GqITMtfMIyg9S2CDezHgEmqilUH
- hrOEpZbTv1DecwK0IMcsQGL+2+EnhJE+cZ8ZRCHk3gp7Wa0F+DUv0bj4+twaAtt1w2vy
- Kz8SWL84moGLMleMXYWf5gi91iA1nA/xiS7SoAczRVo/khNvTgBGH1aH6wbBNWb0+VeI
- cYClB1GG2PIXK5XNmhOFjm3WjrEj465YBYfXpvxLgQPOZn/TTg+HV6AcIMQHKzUFYD+l
- EyWpoK4vafraDymnreOEQTQ6iUP11IXFE56TCdaWOxeX3SgTjCFPi9SQ3pyZ1bdCBfL6
- I+gQ==
+ :cc; bh=sUvSwY7fzkVvwkrJKau7P6Rtg0GEC3gaUzaRsvmBnVI=;
+ b=ILUNrsu30NJIhDF1k7PJ3fvzXNJjzVHn7WoYFV3QIt5tEZAkik7gdDlgA7jTvZw5PU
+ g2KS7DjGnvWIIgS0/e8lSDN1qMGxnCRxa+IsALItHSOTETC+JQZBfL4qpBxn5zDs2kJf
+ gD6TtteXLLJK0ErUX4hLvrdVsvv9El7ksayYn2ZBMgccOek2n9KjZep7fxg+7PIar15S
+ xAqe/kJQz+D0JedUWW6j3XYvWV8oTZdPuBDNM4pqFxMtUvDVT7Rd5JQyF6Ubl0xH8m9I
+ fN94COv/02T2Z1jvNYfuiAW5oeFmGylJwuCyj8npvRTj8mrf2Lmr5OOzTHE99/WY9Op1
+ g0ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FxQIzsezBBU5WOU/5RHOOXmsN9UcVkxzkQDKLDgtUQE=;
- b=xnUhSFkLRCzhuXY1RZzAu5iB8XIwX+l+XLhgIsru7PiTeobq4T/qVhWIDsL87bcVBP
- h/KFmfAnTftrZNt/W4zv7YBoZRa8PB9g/nK+H/OCHmikiD3Xck8E42xSr68YYEcJyUIy
- l8RnD5x44+Xabsgvcj67r6YaDiCRr75BcbZa77X2RtTcZkf58FVvNk9YQ7QFzU5/ORMc
- t9zzBnsa8/34+FMJCCR9NOv3Lmc/3Vv7vBOjIihJQEzDvIbOYu2x99Ct778rRM8oPXUq
- 78UiTut66SQDRrWrtYpZV8KkMMF5yaBVC5+wbiVvIZSW3LtViXS0IylFGNREqS7S2ywc
- VMGw==
-X-Gm-Message-State: AJIora8FxelRlL5q6mYL2qI63bSzVbbvhPomBSgCh9lYlCqyBga0unnx
- 9QWoq1zAdG7outb3uBHIjEgFnbotjF5g/nW4lqg=
-X-Google-Smtp-Source: AGRyM1u+k9WXAErwxUA3igcrqIWAnnhUJ15GVb71U76WwMJ16Y2NkbaHnUR3FB9q8ixPJuDmxQ9mxzgYFpJMAGj2RXY=
-X-Received: by 2002:a0d:df8d:0:b0:317:c206:2e7c with SMTP id
- i135-20020a0ddf8d000000b00317c2062e7cmr9020902ywe.97.1655751851889; Mon, 20
- Jun 2022 12:04:11 -0700 (PDT)
+ bh=sUvSwY7fzkVvwkrJKau7P6Rtg0GEC3gaUzaRsvmBnVI=;
+ b=0gOzkDFn0hBuhR2Gwm6Obrph430GhfnWPpDyWjszlBosJzQcJTINtp2m1LsBhZaftd
+ FDKC28L98tt/1jBrt126AKPlW7Dwe4mw4ve7ECX1DDxCGUZX1/P6UXvG0POcBWH3fFSL
+ LC7oMiNzE0sChWcVAROj5QL4C8yAWv0gBqmcaZQHWPst+DNbOROLGbwQi+BNb0+TqV18
+ FbOb3BQMHIapPsTrNC+h4ttzyCFpZKRRDHxFyehiF0T/Nd71eYJoBF41UcN8FBapgET7
+ BD4txvAWI0B9quclkZ7JexprghMk7JpmogAOyb961uBDtU2hRypg0qc2oiFrCo2aJ+2w
+ MLug==
+X-Gm-Message-State: AJIora9xmSC5+OyEjY2PJIh73zg3T4laEcPO3S/7efWvodSg7HoUWqpC
+ Mv8HMJvZjnIYwF/J8GRpndZNsiASRRHIJbSBzm4=
+X-Google-Smtp-Source: AGRyM1vtgCibZy9fCgbgd93DLlxRXDq3WtG+VZ0EA4KPY+3ccO8ACUOHJh39qzL6F238zM0/jPwcQzXovUj5xj9/JyY=
+X-Received: by 2002:a25:7497:0:b0:668:fc45:30c5 with SMTP id
+ p145-20020a257497000000b00668fc4530c5mr9858802ybc.373.1655761875075; Mon, 20
+ Jun 2022 14:51:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220615223005.11667-1-mario.limonciello@amd.com>
- <MN0PR12MB6101466F795F1D1CFB9C1321E2AC9@MN0PR12MB6101.namprd12.prod.outlook.com>
-In-Reply-To: <MN0PR12MB6101466F795F1D1CFB9C1321E2AC9@MN0PR12MB6101.namprd12.prod.outlook.com>
+References: <20220618232737.2036722-1-linux@roeck-us.net>
+In-Reply-To: <20220618232737.2036722-1-linux@roeck-us.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Jun 2022 15:04:00 -0400
-Message-ID: <CADnq5_Or8SWfvFWyv5ne81iMP952FVPsy5tLP7aKdCtDa8EDeg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Revert "drm/amd/display: keep eDP Vdd on when
- eDP stream is already enabled"
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Date: Mon, 20 Jun 2022 17:51:04 -0400
+Message-ID: <CADnq5_N1p53Orbjxfxd7Cwos0p8OVz1TbRm0rFaUnxQJwah61g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add missing hard-float compile flags for
+ PPC64 builds
+To: Guenter Roeck <linux@roeck-us.net>, Melissa Wen <mwen@igalia.com>, 
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Dhillon,
+ Jasdeep" <Jasdeep.Dhillon@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,93 +64,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Charlene" <Charlene.Liu@amd.com>, "Liu, Zhan" <Zhan.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wheeler,
- Daniel" <Daniel.Wheeler@amd.com>, Aaron Ma <aaron.ma@canonical.com>, "Dhillon,
- Jasdeep" <Jasdeep.Dhillon@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On Sat, Jun 18, 2022 at 7:27 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> ppc:allmodconfig builds fail with the following error.
+>
+> powerpc64-linux-ld:
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+>                 uses hard float,
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_resource.o
+>                 uses soft float
+> powerpc64-linux-ld:
+>         failed to merge target specific data of file
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_resource.o
+> powerpc64-linux-ld:
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+>                 uses hard float,
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dcn315/dcn315_resource.o
+>                 uses soft float
+> powerpc64-linux-ld:
+>         failed to merge target specific data of
+>         file drivers/gpu/drm/amd/amdgpu/../display/dc/dcn315/dcn315_resource.o
+> powerpc64-linux-ld:
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+>                 uses hard float,
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dcn316/dcn316_resource.o
+>                 uses soft float
+> powerpc64-linux-ld:
+>         failed to merge target specific data of file
+>         drivers/gpu/drm/amd/amdgpu/../display/dc/dcn316/dcn316_resource.o
+>
+> The problem was introduced with commit 41b7a347bf14 ("powerpc: Book3S
+> 64-bit outline-only KASAN support") which adds support for KASAN. This
+> commit in turn enables DRM_AMD_DC_DCN because KCOV_INSTRUMENT_ALL and
+> KCOV_ENABLE_COMPARISONS are no longer enabled. As result, new files are
+> compiled which lack the selection of hard-float.
+>
+> Fixes: 41b7a347bf14 ("powerpc: Book3S 64-bit outline-only KASAN support")
+> Cc: Michael Ellerman <mpe@ellerman.id.au>
+> Cc: Daniel Axtens <dja@axtens.net>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn31/Makefile  | 4 ++++
+>  drivers/gpu/drm/amd/display/dc/dcn315/Makefile | 4 ++++
+>  drivers/gpu/drm/amd/display/dc/dcn316/Makefile | 4 ++++
+>  3 files changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> index ec041e3cda30..74be02114ae4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> @@ -15,6 +15,10 @@ DCN31 = dcn31_resource.o dcn31_hubbub.o dcn31_hwseq.o dcn31_init.o dcn31_hubp.o
+>         dcn31_apg.o dcn31_hpo_dp_stream_encoder.o dcn31_hpo_dp_link_encoder.o \
+>         dcn31_afmt.o dcn31_vpg.o
+>
+> +ifdef CONFIG_PPC64
+> +CFLAGS_$(AMDDALPATH)/dc/dcn31/dcn31_resource.o := -mhard-float -maltivec
+> +endif
 
-On Thu, Jun 16, 2022 at 11:48 AM Limonciello, Mario
-<Mario.Limonciello@amd.com> wrote:
+This stuff was all moved as part of the FP rework in:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=26f4712aedbdf4b9f5e3888a50a2a4b130ee4a9b
+@Siqueira, Rodrigo
+, @Melissa Wen, @Dhillon, Jasdeep  can you take a look to understand
+why this is necessary?  If we add back the PPC flags, I think we need
+to add back the x86 ones as well.
+
+Alex
+
+> +
+>  AMD_DAL_DCN31 = $(addprefix $(AMDDALPATH)/dc/dcn31/,$(DCN31))
 >
-> [Public]
+>  AMD_DISPLAY_FILES += $(AMD_DAL_DCN31)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> index 59381d24800b..1395c1ced8c5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> @@ -25,6 +25,10 @@
 >
-> + people associated with original patch being reverted for comments
+>  DCN315 = dcn315_resource.o
 >
-> > -----Original Message-----
-> > From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> > Sent: Wednesday, June 15, 2022 17:30
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Aaron Ma
-> > <aaron.ma@canonical.com>
-> > Subject: [PATCH] drm/amd: Revert "drm/amd/display: keep eDP Vdd on
-> > when eDP stream is already enabled"
-> >
-> > A variety of Lenovo machines with Rembrandt APUs and OLED panels have
-> > stopped showing the display at login.  This behavior clears up after
-> > leaving it idle and moving the mouse or touching keyboard.
-> >
-> > It was bisected to be caused by commit 559e2655220d ("drm/amd/display:
-> > keep eDP Vdd on when eDP stream is already enabled").  Revert this commit
-> > to fix the issue.
-> >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2047
-> > Reported-by: Aaron Ma <aaron.ma@canonical.com>
-> > Fixes: 559e2655220d ("drm/amd/display: keep eDP Vdd on when eDP stream
-> > is already enabled")
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > ---
-> >  .../display/dc/dce110/dce110_hw_sequencer.c   | 24 ++-----------------
-> >  1 file changed, 2 insertions(+), 22 deletions(-)
-> >
-> > diff --git
-> > a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> > b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> > index 7eff7811769d..5f2afa5b4814 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> > @@ -1766,29 +1766,9 @@ void dce110_enable_accelerated_mode(struct dc
-> > *dc, struct dc_state *context)
-> >                               break;
-> >                       }
-> >               }
-> > -
-> > -             /*
-> > -              * TO-DO: So far the code logic below only addresses single
-> > eDP case.
-> > -              * For dual eDP case, there are a few things that need to be
-> > -              * implemented first:
-> > -              *
-> > -              * 1. Change the fastboot logic above, so eDP link[0 or 1]'s
-> > -              * stream[0 or 1] will all be checked.
-> > -              *
-> > -              * 2. Change keep_edp_vdd_on to an array, and maintain
-> > keep_edp_vdd_on
-> > -              * for each eDP.
-> > -              *
-> > -              * Once above 2 things are completed, we can then change
-> > the logic below
-> > -              * correspondingly, so dual eDP case will be fully covered.
-> > -              */
-> > -
-> > -             // We are trying to enable eDP, don't power down VDD if
-> > eDP stream is existing
-> > -             if ((edp_stream_num == 1 && edp_streams[0] != NULL) ||
-> > can_apply_edp_fast_boot) {
-> > +             // We are trying to enable eDP, don't power down VDD
-> > +             if (can_apply_edp_fast_boot)
-> >                       keep_edp_vdd_on = true;
-> > -                     DC_LOG_EVENT_LINK_TRAINING("Keep eDP Vdd
-> > on\n");
-> > -             } else {
-> > -                     DC_LOG_EVENT_LINK_TRAINING("No eDP stream
-> > enabled, turn eDP Vdd off\n");
-> > -             }
-> >       }
-> >
-> >       // Check seamless boot support
-> > --
-> > 2.34.1
+> +ifdef CONFIG_PPC64
+> +CFLAGS_$(AMDDALPATH)/dc/dcn315/dcn315_resource.o := -mhard-float -maltivec
+> +endif
+> +
+>  AMD_DAL_DCN315 = $(addprefix $(AMDDALPATH)/dc/dcn315/,$(DCN315))
+>
+>  AMD_DISPLAY_FILES += $(AMD_DAL_DCN315)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> index 819d44a9439b..c3d2dd78f1e2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> @@ -25,6 +25,10 @@
+>
+>  DCN316 = dcn316_resource.o
+>
+> +ifdef CONFIG_PPC64
+> +CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o := -mhard-float -maltivec
+> +endif
+> +
+>  AMD_DAL_DCN316 = $(addprefix $(AMDDALPATH)/dc/dcn316/,$(DCN316))
+>
+>  AMD_DISPLAY_FILES += $(AMD_DAL_DCN316)
+> --
+> 2.35.1
+>
