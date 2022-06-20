@@ -4,43 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75BD1C43334
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jun 2022 22:34:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B7AC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 00:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A93E112C5D;
-	Sun, 19 Jun 2022 22:33:57 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6462010E3CD;
- Sun, 19 Jun 2022 22:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=SxhspAKE7SzQn5FJuFHB9m9JcLfDn2Aj35mp7jzgkM0=; b=DU/dQCJtGW7lm5B02H3kt4PsAS
- cMeCaDGoEMyjfdPToEhpjb8RB1O7ZnhvOSE6rdx9La4hjwLAjnagbDTbyU0HA8RyDbmlWGBxHZqYo
- jDI8xshR+7VOqCNNdOvUzppxu/aM46pmzKfMFrHQbF1Aov0uz1ACRHp11pTQhYme+RK8trKaz7V3m
- KQ41BvNvOrzMKPFmaq9yfkhJ3HsxnillhToe6p6eloO4A6EwbPt0cMn+sFD1XUKjI9+wqbGbtx3/I
- zqAq1lG2o5e34V6EW3eH8TuHB3Q3Dj8MBbwF+U/JcMlL0g+Ur4/sSb44neBHe1IE0R2/l9Pj+EksQ
- Efq7ZEag==;
-Received: from [195.77.82.244] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1o33UH-005lHy-G6; Mon, 20 Jun 2022 00:33:47 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com
-Subject: [RFC PATCH 5/5] drm/amd/display: mapping new DRM 3D LUT properties to
- AMD hw blocks
-Date: Sun, 19 Jun 2022 21:31:04 -0100
-Message-Id: <20220619223104.667413-6-mwen@igalia.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220619223104.667413-1-mwen@igalia.com>
-References: <20220619223104.667413-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C1610EFB0;
+	Mon, 20 Jun 2022 00:37:07 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C37B10EFB0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 00:37:06 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id eo8so13017454edb.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jun 2022 17:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IDeXIB88wF1IP6KA4F9e1pN5luOw7R8CAh9NSpdjcO0=;
+ b=c26HIfsCjOrTLLmWMfCDFpdQ9fnO0bE8CCSUtMe+a422CZIk8HjQwquVoE3VLXAvMs
+ jmnF1E+BKOgdaD0NFpU/xr72TY6uLZhFRF2Zg2WiyTokF57PlWEBkh9sXwfgCN8C4Dmu
+ inB30nscWqHDUD3Js0/7UWpGsV4jdnvffIuM6gjChTEvvxN7FLHQD43VZvqOec0fxcxO
+ i3+jw+dPH/4l4adV1JGZdqvr31du/2Z1zfteqhoz97GdHQapBGD74tEMx3wXfObWohGc
+ giQntv0FAR0z1smq1gFqwAP9xPzC7lS+4AfXEmMsvkAruEMU02KNdL7acIHqpcc2kWix
+ NZ/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IDeXIB88wF1IP6KA4F9e1pN5luOw7R8CAh9NSpdjcO0=;
+ b=ekqWDPgwqDZhwYdzodalG7Tq62oZa+2eQNq93dRL7fexxfoF29mSoNchfgzEux8GQ0
+ MSnYQj/ksV2TttcuPEc9OWMpg/KeLMXg2RYMaGEKIo3H5Hm5a7qGRZWK4g3/uE4l5f9c
+ JGq8mNsoNZASEDv6DJoShrlXlkhXtGjK1H9v4KJaAI32IRrr07v5V638F9LPuVzkqzr9
+ 05OjL6NSB5eAjQHrJGAldN4GSZBuut1yN0boq3jB2BAk2eIXYC7atVlReU5jRlydScRv
+ vF7u1UFLpvavzhoqd7SpixaIWnXiFbDL1MzThRCBL1WXK9kMVrycCI6WA6ytk56Ks3Ou
+ wEJA==
+X-Gm-Message-State: AJIora9YZu3+QIadaIdegm9uRmRuIfPs2tiW31raso20jeTJ0B19Eadj
+ KD48T+b1bd+yAAIHpPySsMOubduIctsX3nzN
+X-Google-Smtp-Source: AGRyM1tW6DYMABUlxi5Ujcd8BU2xm+9M8T9JgcLVbzufVc77Kt4twPVEKbNll+M0Lu0Ts4bbTUgGzg==
+X-Received: by 2002:a50:9f6a:0:b0:435:5804:e07 with SMTP id
+ b97-20020a509f6a000000b0043558040e07mr21558942edf.178.1655685424970; 
+ Sun, 19 Jun 2022 17:37:04 -0700 (PDT)
+Received: from bas-workstation.. ([2a02:aa12:a77f:2000:7285:c2ff:fe67:a82f])
+ by smtp.gmail.com with ESMTPSA id
+ d18-20020aa7d5d2000000b0043572ffafe0sm3602237eds.92.2022.06.19.17.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Jun 2022 17:37:04 -0700 (PDT)
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amd/display: ignore modifiers when checking for
+ format support"
+Date: Mon, 20 Jun 2022 02:37:20 +0200
+Message-Id: <20220620003720.2049653-1-bas@basnieuwenhuizen.nl>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -54,288 +68,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.hung@amd.com, amd-gfx@lists.freedesktop.org, nikola.cornij@amd.com,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- bhawanpreet.lakha@amd.com, nicholas.kazlauskas@amd.com, sungjoon.kim@amd.com
+Cc: alexander.deucher@amd.com, marek.olsak@amd.com, aurabindo.pillai@amd.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After adding 3D LUT (and shaper LUT) to DRM CRTC color management
-properties, map shaper lut and 3d lut properties to MPC blocks if DC hw
-is capable to handle 3dlut after-blending. In this case, the property
-only applies to DCN 3 family, as DCN 2 only has 3D support pre-blending
-and should be exposed by a DRM per-plane property in the future.
+This reverts commit 5089c4a8ebea3c3ad9eedf038dad7098ebc06131.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+This breaks validation and enumeration of display capable modifiers.
+
+The early return true means the rest of the validation code never gets
+executed, and we need that to enumerate the right modifiers to userspace
+for the format.
+
+The modifiers that are in the initial list generated for a plane are the
+superset for all formats and we need the proper checks in this function
+to filter some of them out for formats with which they're invalid to be
+used.
+
+Furthermore, the safety contract here is that we validate the incoming
+modifiers to ensure the kernel can handle them and the display hardware
+can handle them. This includes e.g. rejecting multi-plane images with DCC.
+
+Note that the legacy swizzle mechanism allows encoding more swizzles, and
+at fb creation time we convert them to modifiers and reject those with
+no corresponding modifiers. If we are seeing rejections I'm happy to
+help define modifiers that correspond to those, or if absolutely needed
+implement a fallback path to allow for less strict validation of the
+legacy path.
+
+However, I'd like to revert this patch, since any of these is going to
+be a significant rework of the patch, and I'd rather not the regression
+gets into a release or forgotten in the meantime.
+
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 153 +++++++++++++++---
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   4 +-
- 4 files changed, 137 insertions(+), 25 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++----------------
+ 1 file changed, 7 insertions(+), 46 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 06da4f2ed7ad..02ed3991a803 100644
+index 60fb99b74713..698741fd39f4 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11221,7 +11221,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			dm_old_crtc_state->dsc_force_changed == false)
- 			continue;
- 
--		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
-+		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state, adev);
- 		if (ret) {
- 			DRM_DEBUG_DRIVER("amdgpu_dm_verify_lut_sizes() failed\n");
- 			goto fail;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 8fd1be7f2583..205503f12d87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -721,9 +721,10 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
- #define MAX_COLOR_LUT_ENTRIES 4096
- /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
- #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-+#define COLOR_3DLUT_ENTRIES 17
- 
- void amdgpu_dm_init_color_mod(void);
--int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
-+int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state, struct amdgpu_device *adev);
- int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
- int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct dc_plane_state *dc_plane_state);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 1f4a7c908587..d22396976c7a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -210,6 +210,45 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
- 	}
- }
- 
-+static void __to_dc_lut3d_color(struct dc_rgb *rgb,
-+				const struct drm_color_lut lut,
-+				int bit_precision)
-+{
-+	rgb->red = drm_color_lut_extract(lut.red, 12);
-+	rgb->green = drm_color_lut_extract(lut.green, 12);
-+	rgb->blue  = drm_color_lut_extract(lut.blue, 12);
-+
-+}
-+
-+static void __drm_lut3d_to_dc_lut3d(const struct drm_color_lut *lut,
-+				    struct dc_3dlut *lut3d)
-+{
-+        int lut3d_size = COLOR_3DLUT_ENTRIES*COLOR_3DLUT_ENTRIES*COLOR_3DLUT_ENTRIES;
-+	int lutn_size = (lut3d_size - 1)/4 + 1;
+@@ -4936,7 +4936,8 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
+ 	const struct drm_format_info *info = drm_format_info(format);
+-	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
 +	int i;
 +
-+	ASSERT(lut3d && lut3d_size == MAX_COLOR_LUT_ENTRIES);
-+
-+	/* So far, only supports 17x17x17 3D LUT with 12-bit*/
-+	lut3d->lut_3d.use_tetrahedral_9 = false;
-+	lut3d->lut_3d.use_12bits = true;
-+
-+	for (i = 0; i < lutn_size - 1 ; i++) {
-+		/* We should consider the 3dlut RGB values are distributed
-+		 * along four arrays lut0-3 where the first sizes 1229 and the
-+		 * other 1228. The max bit precision supported for 3dlut
-+		 * channel is 12-bit, but can be 10-bit. Still need to verify
-+		 * where it is setup */
-+		__to_dc_lut3d_color(&lut3d->lut_3d.tetrahedral_17.lut0[i], lut[i], 12);
-+		__to_dc_lut3d_color(&lut3d->lut_3d.tetrahedral_17.lut1[i], lut[i+lutn_size], 12);
-+		__to_dc_lut3d_color(&lut3d->lut_3d.tetrahedral_17.lut2[i], lut[i+lutn_size*2], 12);
-+		__to_dc_lut3d_color(&lut3d->lut_3d.tetrahedral_17.lut3[i], lut[i+lutn_size*3], 12);
-+	}
-+
-+	/* lut0 goes to lutn_size == 1229 */
-+	__to_dc_lut3d_color(&lut3d->lut_3d.tetrahedral_17.lut0[i], lut[i], 12);
-+};
-+
- /**
-  * __set_legacy_tf - Calculates the legacy transfer function
-  * @func: transfer function
-@@ -335,7 +374,20 @@ static int __set_input_tf(struct dc_transfer_func *func,
- }
+ 	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
  
- /**
-- * amdgpu_dm_verify_lut_sizes - verifies if DRM luts match the hw supported sizes
-+ * amdgpu_dm_3dlut_size - get expected size according to hw color caps
-+ * @lut_size: default size
-+ * @adev: amdgpu device
-+ *
-+ * Return:
-+ * lut_size if 3dlut is supported, zero otherwise
-+ */
-+static int amdgpu_dm_3dlut_size(int lut_size, struct amdgpu_device *adev)
-+{
-+	return adev->dm.dc->caps.color.mpc.num_3dluts ? lut_size : 0;
-+}
-+
-+/**
-+ * amdgpu_dm_verify_lut_sizes
-  * @crtc_state: the DRM CRTC state
-  * @adev: amdgpu device
-  *
-@@ -346,10 +398,11 @@ static int __set_input_tf(struct dc_transfer_func *func,
-  * 0 on success.
-  * -EINVAL if any lut sizes are invalid.
-  */
--int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
-+int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state,
-+			       struct amdgpu_device *adev)
- {
- 	const struct drm_color_lut *lut = NULL;
--	uint32_t size = 0;
-+	uint32_t size = 0, exp_size;
- 
- 	lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
- 	if (lut && size != MAX_COLOR_LUT_ENTRIES) {
-@@ -359,6 +412,24 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
- 		return -EINVAL;
+ 	if (!info)
+@@ -4952,53 +4953,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+ 		return true;
  	}
  
-+	lut = __extract_blob_lut(crtc_state->shaper_lut, &size);
-+	exp_size = amdgpu_dm_3dlut_size(MAX_COLOR_LUT_ENTRIES, adev);
-+	if (lut && size != exp_size) {
-+		DRM_DEBUG_DRIVER(
-+			"Invalid Shaper LUT size. Should be %u but got %u.\n",
-+			exp_size, size);
-+		return -EINVAL;
-+	}
-+
-+	lut = __extract_blob_lut(crtc_state->lut3d, &size);
-+	exp_size = amdgpu_dm_3dlut_size(COLOR_3DLUT_ENTRIES, adev);
-+	if (lut && size != exp_size) {
-+		DRM_DEBUG_DRIVER(
-+			"Invalid Gamma 3D LUT size. Should be %u but got %u.\n",
-+			exp_size, size);
-+		return -EINVAL;
-+	}
-+
- 	lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
- 	if (lut && size != MAX_COLOR_LUT_ENTRIES &&
- 	    size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
-@@ -401,17 +472,19 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
- 	bool has_rom = adev->asic_type <= CHIP_RAVEN;
- 	struct drm_color_ctm *ctm = NULL;
--	const struct drm_color_lut *degamma_lut, *regamma_lut;
--	uint32_t degamma_size, regamma_size;
--	bool has_regamma, has_degamma;
-+	const struct drm_color_lut *degamma_lut, *shaper_lut, *lut3d, *regamma_lut;
-+	uint32_t degamma_size, regamma_size, shaper_size, lut3d_size;
-+	bool has_regamma, has_degamma, has_lut3d, has_shaper_lut;
- 	bool is_legacy;
- 	int r;
- 
--	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
-+	r = amdgpu_dm_verify_lut_sizes(&crtc->base, adev);
- 	if (r)
- 		return r;
- 
- 	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
-+	shaper_lut =  __extract_blob_lut(crtc->base.shaper_lut, &shaper_size);
-+	lut3d = __extract_blob_lut(crtc->base.lut3d, &lut3d_size);
- 	regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
- 
- 	has_degamma =
-@@ -420,6 +493,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 	has_regamma =
- 		regamma_lut && !__is_lut_linear(regamma_lut, regamma_size);
- 
-+	has_shaper_lut =
-+		shaper_lut && !__is_lut_linear(shaper_lut, shaper_size);
-+
-+	has_lut3d = shaper_lut && lut3d &&
-+			    !__is_lut_linear(lut3d, lut3d_size);
-+
- 	is_legacy = regamma_size == MAX_COLOR_LEGACY_LUT_ENTRIES;
- 
- 	/* Reset all adjustments. */
-@@ -447,23 +526,55 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 				    regamma_size, has_rom);
- 		if (r)
- 			return r;
--	} else if (has_regamma) {
--		/**
--		 * If atomic regamma, CRTC RGM goes into RGM LUT. */
--		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
--
--		r = __set_output_tf(stream->out_transfer_func, regamma_lut,
--				    regamma_size, has_rom);
--		if (r)
--			return r;
- 	} else {
--		/**
--		 * No CRTC RGM means we can just put the block into bypass
--		 * since we don't have any plane level adjustments using it.
-+		/* If no 3D LUT, use regamma original settings that means
-+		 * linear input space.
- 		 */
--		stream->out_transfer_func->type = TF_TYPE_BYPASS;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
-+
-+		if (has_lut3d && has_shaper_lut) {
-+			/* 3D LUT always implies a shaper 1D LUT to
-+			 * de-linearize and shape the content.
-+			 * Q: I see func_shaper and lut3d_func is originally
-+			 * const, is it expected? If so, where is the point to
-+			 * update them?
-+			 */
-+			stream->func_shaper->type = TF_TYPE_DISTRIBUTED_POINTS;
-+			stream->func_shaper->tf = TRANSFER_FUNCTION_LINEAR;
-+			r = __set_output_tf(stream->func_shaper, shaper_lut,
-+					    shaper_size, has_rom);
-+			if (r)
-+				return r;
-+
-+			/* Function to convert DRM 3D LUT to DC 3D LUT*/
-+			 __drm_lut3d_to_dc_lut3d(lut3d, stream->lut3d_func);
-+
-+			/* Set different input space to gamma lut, since gamma
-+			 * 1D LUT will be applied in a non-linear space after
-+			 * 3D LUT. But which predefined function to select for
-+			 * gamma after 3D LUT?
-+			 */
-+			stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-+		}
-+
-+		if (has_regamma) {
-+			/**
-+			 * CRTC RGM goes into RGM LUT.
-+			 */
-+			stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
-+
-+			r = __set_output_tf(stream->out_transfer_func, regamma_lut,
-+					    regamma_size, has_rom);
-+			if (r)
-+				return r;
-+		} else {
-+			/**
-+			 * No CRTC RGM means we can just put the block into
-+			 * bypass since we don't have any plane level
-+			 * adjustments using it.
-+		 	 */
-+			stream->out_transfer_func->type = TF_TYPE_BYPASS;
-+		}
+-	/* check if swizzle mode is supported by this version of DCN */
+-	switch (asic_id.chip_family) {
+-		case FAMILY_SI:
+-		case FAMILY_CI:
+-		case FAMILY_KV:
+-		case FAMILY_CZ:
+-		case FAMILY_VI:
+-			/* asics before AI does not have modifier support */
+-			return false;
+-			break;
+-		case FAMILY_AI:
+-		case FAMILY_RV:
+-		case FAMILY_NV:
+-		case FAMILY_VGH:
+-		case FAMILY_YELLOW_CARP:
+-		case AMDGPU_FAMILY_GC_10_3_6:
+-		case AMDGPU_FAMILY_GC_10_3_7:
+-			switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+-				case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_D:
+-					return true;
+-					break;
+-				default:
+-					return false;
+-					break;
+-			}
+-			break;
+-		case AMDGPU_FAMILY_GC_11_0_0:
+-			switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+-				case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+-				case AMD_FMT_MOD_TILE_GFX9_64K_D:
+-					return true;
+-					break;
+-				default:
+-					return false;
+-					break;
+-			}
+-			break;
+-		default:
+-			ASSERT(0); /* Unknown asic */
++	/* Check that the modifier is on the list of the plane's supported modifiers. */
++	for (i = 0; i < plane->modifier_count; i++) {
++		if (modifier == plane->modifiers[i])
+ 			break;
  	}
++	if (i == plane->modifier_count)
++		return false;
  
- 	/**
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index f8f66790d09b..a7cc6ace5904 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -246,8 +246,8 @@ struct dc_stream_state {
- 	/* writeback */
- 	unsigned int num_wb_info;
- 	struct dc_writeback_info writeback_info[MAX_DWB_PIPES];
--	const struct dc_transfer_func *func_shaper;
--	const struct dc_3dlut *lut3d_func;
-+	struct dc_transfer_func *func_shaper;
-+	struct dc_3dlut *lut3d_func;
- 	/* Computed state bits */
- 	bool mode_changed : 1;
- 
+ 	/*
+ 	 * For D swizzle the canonical modifier depends on the bpp, so check
 -- 
-2.35.1
+2.36.1
 
