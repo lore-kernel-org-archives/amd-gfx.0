@@ -4,36 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D320AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 13:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85ED3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 14:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC9B112443;
-	Tue, 21 Jun 2022 13:17:09 +0000 (UTC)
-Received: from smtpbg.qq.com (smtpbg136.qq.com [106.55.201.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E59710F037;
- Tue, 21 Jun 2022 13:12:18 +0000 (UTC)
-X-QQ-mid: bizesmtp73t1655817049tyyeozl4
-Received: from ubuntu.localdomain ( [106.117.99.68])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 21 Jun 2022 21:10:43 +0800 (CST)
-X-QQ-SSF: 0100000000700050B000B00A0000000
-X-QQ-FEAT: EHEARuS8QZiTHpJYUDEzFwrWd9czPiu7c3XFvsY7+sI3PyOSjbTnrJJit0iwL
- iTugaNOWJGRNor8dmChnlRslGSL6oFaCySOeb2ozrzRNAff+yP8+C29VTPH8vgVfsmZEEwI
- hrtz/EVarHA3uMuNfcJBYLnTDQLkr0eT0rh2veDifPe5aagLAtT9ETvh7aLzxgme+iDkX4N
- QjhjAN9O56j6V0De+JAStAfMQvlLpMfgcIjBJyzRnUAVqWhldroo+XMXpo8tO+yXQlmMNPn
- X4HPhMw2N+sJDBadDEtipjswL/bT9BbaHrcuZZ4/HJv+tRgelT2sVnNUyUDjYty5Nm7QwcL
- gv82qiwnyE4tSN21YOU+CRjtXUAWA==
-X-QQ-GoodBg: 0
-From: Jiang Jian <jiangjian@cdjrlc.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: vm - drop unexpected word "the" in the comments
-Date: Tue, 21 Jun 2022 21:10:41 +0800
-Message-Id: <20220621131041.129513-1-jiangjian@cdjrlc.com>
-X-Mailer: git-send-email 2.17.1
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam7
-X-Mailman-Approved-At: Tue, 21 Jun 2022 13:17:08 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6E910E077;
+	Tue, 21 Jun 2022 14:30:11 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E0B10E077;
+ Tue, 21 Jun 2022 14:30:10 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id fd6so16876966edb.5;
+ Tue, 21 Jun 2022 07:30:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pmyUppEAbHEw40UHdzEMcMYioES0t5g3cXHjzlejo6I=;
+ b=hzoq/W5TmKdJsmBhVvm014iKS/gQsMH0dIMooz1q2kjGRwwR+q7LaTJx4L8/jAFCae
+ AmfKaKVVpm2TacyaKEKZG54rd/XT5Q1hNL+MKDxBwJFrOHy8DWSyu8Yl9ua29AgKkoVK
+ 65pfV/EKbrxV6eCP9VaiWYslQB4jhI8VBewDHFUf0aFicQee0hPR3zgg96zak3Wm3Wp8
+ yMJbSY7L/zH61A27mwlfzc/Fa/WneHMN9k3FrR8KqloRELKaKhY44rmvWFvKef38TzC4
+ xz1gcNiahV/jruiuIaNHUkedmJWI835SUj8I4sZ2S+WUJ+FVHvK4GrNzLojev7pTRT4S
+ cdTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pmyUppEAbHEw40UHdzEMcMYioES0t5g3cXHjzlejo6I=;
+ b=5Y80Wp90VDJ9uUwYzeEPGxBCLXiErKoansvq7HSMGLusMeUnkNHZ1Vj7fxPfv0M+RO
+ lXsDU04bPatGpX5YozCFPOYDZAjoo3YhHQRjPJC0OlUQOEEtf+hFnimmW80hp/koRo87
+ cV32jV2ScGxjkJsRnR7gdQr+EzVBLm8FS3iWXHpZE02zW+ddqYw5k6HDSj7yJHp5YQfW
+ rlFayN505WbX6CSZV04iGifl4tYkMEe8EoFnHuA+vVJI3oB/DD1eku7tfDRczT0A7Ire
+ 3thds4viWOdGER2j5tr1mlExMGKieW1jtBjk1amDmrxu8/l/P5UX4R21VaG3eEsqxEF9
+ hMrQ==
+X-Gm-Message-State: AJIora/CkRMhVkuRlNkcKfeL+oZgm/cGxvxfS5PZem0tLC+Bfsh/Nh15
+ vkHiUHn2cGGXIeTEcCaa3BMM6Bv4S+OJqaPsYig=
+X-Google-Smtp-Source: AGRyM1skIT1zie/U8t4CrgIh821FCoNNzShxUjjckoKmUGsshKj/ON1AA+2CiyhmuGbjMtV/MY5jjSrsIiY1RDf76aU=
+X-Received: by 2002:a05:6402:2933:b0:435:80dd:f75c with SMTP id
+ ee51-20020a056402293300b0043580ddf75cmr12579482edb.302.1655821808373; Tue, 21
+ Jun 2022 07:30:08 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220621131041.129513-1-jiangjian@cdjrlc.com>
+In-Reply-To: <20220621131041.129513-1-jiangjian@cdjrlc.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Jun 2022 10:29:55 -0400
+Message-ID: <CADnq5_NPrY-=jbKOxWCggD2UukxCXVQhVthbybvviWdkyZXbww@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: vm - drop unexpected word "the" in the
+ comments
+To: Jiang Jian <jiangjian@cdjrlc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,41 +62,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip.Yang@amd.com, qiang.yu@amd.com, Felix.Kuehling@amd.com,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, JinhuiEric.Huang@amd.com,
- Jiang Jian <jiangjian@cdjrlc.com>, nirmoy.das@amd.com,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: "Yang, Philip" <Philip.Yang@amd.com>, Dave Airlie <airlied@linux.ie>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Qiang Yu <qiang.yu@amd.com>,
+ Nirmoy Das <nirmoy.das@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Eric Huang <JinhuiEric.Huang@amd.com>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-there is an unexpected word "the" in the comments that need to be dropped
+Applied.  Thanks!
 
-file: drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-line: 57
-  * the kernel tells the the ring what VMID to use for that command
-changed to
-  * the kernel tells the ring what VMID to use for that command
-
-Signed-off-by: Jiang Jian <jiangjian@cdjrlc.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index dc76d2b3ce52..8530befb2051 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -54,7 +54,7 @@
-  * (uncached system pages).
-  * Each VM has an ID associated with it and there is a page table
-  * associated with each VMID.  When executing a command buffer,
-- * the kernel tells the the ring what VMID to use for that command
-+ * the kernel tells the ring what VMID to use for that command
-  * buffer.  VMIDs are allocated dynamically as commands are submitted.
-  * The userspace drivers maintain their own address space and the kernel
-  * sets up their pages tables accordingly when they submit their
--- 
-2.17.1
-
+On Tue, Jun 21, 2022 at 9:17 AM Jiang Jian <jiangjian@cdjrlc.com> wrote:
+>
+> there is an unexpected word "the" in the comments that need to be dropped
+>
+> file: drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> line: 57
+>   * the kernel tells the the ring what VMID to use for that command
+> changed to
+>   * the kernel tells the ring what VMID to use for that command
+>
+> Signed-off-by: Jiang Jian <jiangjian@cdjrlc.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index dc76d2b3ce52..8530befb2051 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -54,7 +54,7 @@
+>   * (uncached system pages).
+>   * Each VM has an ID associated with it and there is a page table
+>   * associated with each VMID.  When executing a command buffer,
+> - * the kernel tells the the ring what VMID to use for that command
+> + * the kernel tells the ring what VMID to use for that command
+>   * buffer.  VMIDs are allocated dynamically as commands are submitted.
+>   * The userspace drivers maintain their own address space and the kernel
+>   * sets up their pages tables accordingly when they submit their
+> --
+> 2.17.1
+>
