@@ -4,89 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57302C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 02:26:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E379C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 07:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9023112241;
-	Tue, 21 Jun 2022 02:26:42 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2053.outbound.protection.outlook.com [40.107.95.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB4E11233D
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jun 2022 02:26:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nnuz1rE3xI9jUgqJyRE0Eoq45eTkwZTWdm5O/pMot+OB2nz18bUW222c2tCHuefKVyEXU1jaY8I2Vsya/TFMnWH465R8VBClnMj681JI04sx95KDWX3GQmKUF2QogboSz9hqzt7qCE+04hyJBIF9Q8uismA33o6kxgSOR9dNXh7Pl5OL+g9w8XVvzx78v2N/aBZm41T+npWoE1PjlIHZLD4K/MMClGQV4KNpW/xAkG98RkDbbJLwawwGC3+wKQm6dmPHX7Nw6t+mDDPZ9WuR0VC/3rbcXVaZksFVmCfaJkDw21I7L5Dnq27z9MZzsgb2SO6f8uIco0RQBmypyrU6oA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bBi6kMreAjiWoJgSpoXTFNqWhoXBnOTD9dQQXtcG4Y8=;
- b=C5ZZ+utCgAWfmzM+W8Mu5+ZQDrZeFh2BGbHsRwXLArNrmMmaXBNr54cccEAD5VA2hCc1XV69FyHzTgf4eEe8HH2qVGmvRvFdQD79M7KhHyIboYGaeWCaQWlp6HQ6u0ET72B8IKc7RNTdpYhIiOdROv7NIDR8D3s109CgaJZKexWbzfRNaEdWXsJ1SffiexnXMv4FLLHQhvX+EUnSpy/pOKdBlwBTS2Ded0IOGTxMgwfoq+vts57lF6uubzUOjQCgGKnSC94ukNZpJhcIpVDwG7doipSi0jYux7+iTnlUvQ7hYfoyljqmboKyGe0zNk0cs/xhh3+6NGbwyjZiKRyyVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bBi6kMreAjiWoJgSpoXTFNqWhoXBnOTD9dQQXtcG4Y8=;
- b=3YV3ItOWD8sgGrgNOwutNcFnCzuVJz7GEFlHYxjCwnQjtRGzJ1d+F2ZBE0Idp+wScZpCIsJrdiU9b8itcdOvAmFXGLro0PDqQ0o1HPk/oxq3hMIuiNqBMS77/gTARIYTSPhhx64Xh5da6UUNq4tJj0npUg4O6ejq5qxfpDp1LF4=
-Received: from MWHPR01CA0030.prod.exchangelabs.com (2603:10b6:300:101::16) by
- CY4PR12MB1863.namprd12.prod.outlook.com (2603:10b6:903:120::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16; Tue, 21 Jun
- 2022 02:26:39 +0000
-Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:101:cafe::ec) by MWHPR01CA0030.outlook.office365.com
- (2603:10b6:300:101::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14 via Frontend
- Transport; Tue, 21 Jun 2022 02:26:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Tue, 21 Jun 2022 02:26:38 +0000
-Received: from ruiliji2-lsy-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 20 Jun
- 2022 21:26:33 -0500
-From: "Ji, Ruili" <ruili.ji@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: To flush tlb for MMHUB of GFX9 series
-Date: Tue, 21 Jun 2022 10:25:50 +0800
-Message-ID: <20220621022550.492588-1-ruili.ji@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05BE10E824;
+	Tue, 21 Jun 2022 07:19:24 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C31B10E077;
+ Tue, 21 Jun 2022 07:19:23 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id cf14so8320743edb.8;
+ Tue, 21 Jun 2022 00:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=vUa/+0360889XNMZ8LlW5kuG26dnpqfJwGYvdJBavqs=;
+ b=cMuB5ojyHH8kx1cLSXnl4ewOn1xk1mZKayMkfKw7+xHFrVNL+5J0wJogaK8nOpiRDe
+ 7WyiUFuQJT9nNWDUzf9bjsEzTm5YGtwO7zZ4NWYg0SG61Tz3cSlT7PZwwKs6QdJvzmUn
+ IE0gD20JLrhW5/OPIZ/J56nPum34536kwQN07kHHzrf9H5zdRhbY3tGlxyd2s9L6zajA
+ QK4IhCG28tnVpuxECkwf+x9HnuKoaSSBt1FkCA7wA024uFUdAqac+/cPekL0NEhUNhAa
+ MERRESMUolbDbi53yWr9HpDoAYoXCNiB4JFiUC8Kqjz7081wuUT2NSCkw/uFEGO+z47+
+ e8kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=vUa/+0360889XNMZ8LlW5kuG26dnpqfJwGYvdJBavqs=;
+ b=z0DQodwi9v6n9699i9FXKYOfai+InjDkiRHkR4y+EiQyLrIm2daB4kPvdUMgfYwbvg
+ LJrAcMVGujeQ8r2Lza6o6XYAcswApKK5GcebTO/87xhOHvkS2FElipgGJxPOSVd/Q+kx
+ tkWpb2y6iEP0E+wyxHCNY3tZ1lDJ8m1pCfJPLW5pPQ9lG97UCJpI4huZQ84Mja0bcB1E
+ oUJVJVAWc/e/Hz5oQ22NXIhUYIVHuJZgrIYY46YU1O6DS8p27hO9n0BU83Maj77fsrCr
+ yyx3dEBZiTtspES5SYNuW1VThzg8ZGJOVC1e3VA96lAvvbWcZ2IY04eQKFT/wC/i+tvX
+ bYVQ==
+X-Gm-Message-State: AJIora80fVEwE+NsFsMo64pq63k3u6XTfxYAxO4lELsxKHFyUmm9uN6H
+ q+MtQz8B8Ecj92xtrWGa5w8oGglbSxM=
+X-Google-Smtp-Source: AGRyM1vqhAL1nzlQW4ayUY9i9bTRHPjx4r/Zw6P7qwKJgKSqansnIr9Cdr3Xafewhel/DCcTPnbS3w==
+X-Received: by 2002:a05:6402:358b:b0:435:828a:a403 with SMTP id
+ y11-20020a056402358b00b00435828aa403mr9352379edc.117.1655795961606; 
+ Tue, 21 Jun 2022 00:19:21 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ ku22-20020a170907789600b006f3ef214dd2sm6985163ejc.56.2022.06.21.00.19.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jun 2022 00:19:21 -0700 (PDT)
+Message-ID: <2c70d0c4-a326-6497-54b2-51bc2b93b9d6@gmail.com>
+Date: Tue, 21 Jun 2022 09:19:19 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5cc082b9-0504-4d53-6a04-08da532d787c
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1863:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1863400225B2922874C96E2F9BB39@CY4PR12MB1863.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VJJdXa6az5QUDp2+bgn1Jbw9deA6lo3UZLjFreisWKEnX4r5x64RlnRAFhZqW65938rFAXKKEW4FxbBtHYTWnovNIkuCcoK8ntSpWGLITm3t5R0LSZIPZ5aIF6bwc72Wsc+XBBTO0FFfqNdK2vsW3iYlrDEJUGU0XQNU22KqV1KDs0aKa46nJ05Jv5CMWvN4F+q/g92y3MYc4SYLUskwBhebeOAqyPhBCa9pL9dNwyg7Gw3L1kV6azDKxOsVe0AUuUsesX0mysQRDQ5ZCHzOweaZsqBdHVm0vkXLfle9XeLJrM9dDj9/RKsH59PbsecICsJw0zya9YWdLdSFtGjZtSA3g5Ryq/EVxi0qZ+wgOmQM5asdmaHP8JGiSqXUWlitVp+JAKtp48hgUDm0TQVOYgXkS/bTyjWcTM8PSWIz/AxIO26+0qqmUXMjxay47557GU5mFS0bh0utF3aeWWFHMc32esfY/115/7klNF1c+h92ebx5AZpRvu09BArEI/CwONPNwOloXVWDY8PQlVZBk0khVpxZYvAoKYie10tV+ZqU9VcXYbNZU70zczM2nMwVdh/gWVi7yhcW/e4vcOlzbfyIBW6MI3dUCULL9eHYyIFIALfjfHkk1DEk1nb8q7gBqjHzG+tL1kr81zz72IbjFEYS7qZW9cRdt4dZPTqRPEttHaBZEqA7Q1lk3lsGUbMuJZX1Uhk2JuVVbIEQQts3kyzsHWUYCy5io0qw+FqchDB+ALZt03CZAu+MDmlvPr9r
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(39860400002)(136003)(376002)(40470700004)(46966006)(36840700001)(2906002)(40480700001)(8676002)(82310400005)(47076005)(4326008)(40460700003)(5660300002)(8936002)(83380400001)(36860700001)(478600001)(86362001)(16526019)(36756003)(81166007)(356005)(82740400003)(70206006)(70586007)(6916009)(54906003)(316002)(1076003)(186003)(2616005)(7696005)(26005)(6666004)(426003)(336012)(41300700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2022 02:26:38.4524 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc082b9-0504-4d53-6a04-08da532d787c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1863
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/5] drm/amdgpu: Fix possible refcount leak for release of
+ external_hw_fence
+Content-Language: en-US
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
+ <20220620220302.86389-2-andrey.grodzovsky@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220620220302.86389-2-andrey.grodzovsky@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,46 +75,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, felix.kuehling@amd.com, Ruili Ji <ruiliji2@amd.com>,
- Aaron Liu <aaron.liu@amd.com>
+Cc: jingwen.chen2@amd.com, Christian.Koenig@amd.com, monk.liu@amd.com,
+ yiqing.yao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ruili Ji <ruiliji2@amd.com>
+Am 21.06.22 um 00:02 schrieb Andrey Grodzovsky:
+> Problem:
+> In amdgpu_job_submit_direct - The refcount should drop by 2
+> but it drops only by 1.
+>
+> amdgpu_ib_sched->emit -> refcount 1 from first fence init
+> dma_fence_get -> refcount 2
+> dme_fence_put -> refcount 1
+>
+> Fix:
+> Add put for external_hw_fence in amdgpu_job_free/free_cb
 
-amdgpu: [mmhub0] no-retry page fault (src_id:0 ring:40 vmid:8 pasid:32769, for process test_basic pid 3305 thread test_basic pid 3305)
-amdgpu: in page starting at address 0x00007ff990003000 from IH client 0x12 (VMC)
-amdgpu: VM_L2_PROTECTION_FAULT_STATUS:0x00840051
-amdgpu: Faulty UTCL2 client ID: MP1 (0x0)
-amdgpu: MORE_FAULTS: 0x1
-amdgpu: WALKER_ERROR: 0x0
-amdgpu: PERMISSION_FAULTS: 0x5
-amdgpu: MAPPING_ERROR: 0x0
-amdgpu: RW: 0x1
+Well what is the external_hw_fence good for in this construct?
 
-When memory is allocated by kfd, no one triggers the tlb flush for MMHUB0.
-There is page fault from MMHUB0.
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 10aa073600d4..58568fdde2d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -152,8 +152,10 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+>       /* only put the hw fence if has embedded fence */
+>   	if (job->hw_fence.ops != NULL)
+>   		dma_fence_put(&job->hw_fence);
+> -	else
+> +	else {
 
-Signed-off-by: Ruili Ji <ruiliji2@amd.com>
-Change-Id: I97786f02849dd047703d6e8feff53916b307715c
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+When one side of the if uses {} the other side should use {} as well, 
+e.g. use } else { here.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 1d0c9762ebfb..12fc822c0a92 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -739,7 +739,8 @@ int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- {
- 	bool all_hub = false;
- 
--	if (adev->family == AMDGPU_FAMILY_AI)
-+	if (adev->family == AMDGPU_FAMILY_AI
-+		|| adev->family == AMDGPU_FAMILY_RV)
- 		all_hub = true;
- 
- 	return amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub);
--- 
-2.25.1
+Christian.
+
+> +		dma_fence_put(job->external_hw_fence);
+>   		kfree(job);
+> +	}
+>   }
+>   
+>   void amdgpu_job_free(struct amdgpu_job *job)
+> @@ -165,8 +167,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
+>   	/* only put the hw fence if has embedded fence */
+>   	if (job->hw_fence.ops != NULL)
+>   		dma_fence_put(&job->hw_fence);
+> -	else
+> +	else {
+> +		dma_fence_put(job->external_hw_fence);
+>   		kfree(job);
+> +	}
+>   }
+>   
+>   int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
 
