@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E379C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 07:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3F21C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 07:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A05BE10E824;
-	Tue, 21 Jun 2022 07:19:24 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C31B10E077;
- Tue, 21 Jun 2022 07:19:23 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id cf14so8320743edb.8;
- Tue, 21 Jun 2022 00:19:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5B50112783;
+	Tue, 21 Jun 2022 07:21:26 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C04601126C9;
+ Tue, 21 Jun 2022 07:21:24 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id h23so25487718ejj.12;
+ Tue, 21 Jun 2022 00:21:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=vUa/+0360889XNMZ8LlW5kuG26dnpqfJwGYvdJBavqs=;
- b=cMuB5ojyHH8kx1cLSXnl4ewOn1xk1mZKayMkfKw7+xHFrVNL+5J0wJogaK8nOpiRDe
- 7WyiUFuQJT9nNWDUzf9bjsEzTm5YGtwO7zZ4NWYg0SG61Tz3cSlT7PZwwKs6QdJvzmUn
- IE0gD20JLrhW5/OPIZ/J56nPum34536kwQN07kHHzrf9H5zdRhbY3tGlxyd2s9L6zajA
- QK4IhCG28tnVpuxECkwf+x9HnuKoaSSBt1FkCA7wA024uFUdAqac+/cPekL0NEhUNhAa
- MERRESMUolbDbi53yWr9HpDoAYoXCNiB4JFiUC8Kqjz7081wuUT2NSCkw/uFEGO+z47+
- e8kw==
+ bh=EIp8WFtlC6D8eHvoW3+kRmQcmtWDBEDOQ4OlVigNAJM=;
+ b=g4tmaC6dFWmXTR8r2wdVCKE5qbi7hpODoYlsjJ6PN5YdqYfhN+DT5tmfy+5uldJo4N
+ UMy9NnxU5gf1FIEL4b5QM2tzBDhISfoQaozdq1HfDpCfRyLnJUdD/gNlq242BqYCvsvC
+ Z1LT04Q8wTNgybQEI0qLwf9K3T2spqAnjNjCdMYru7u5vDR80RS0AJBjAIpKuD7ROmqL
+ /rK1bVZE6V1dKhFr1o3Cu4jfJR/y8r72dGr3f8GscBF6u7fOJZsy9OJgUy8uA7mm8a0E
+ deTLxlLgRmu84VC43MNiGRfUK8Xs+fYPpyi2iD8EFjTF+UIJyVywYiDMb211Uxh6EOLC
+ zjog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=vUa/+0360889XNMZ8LlW5kuG26dnpqfJwGYvdJBavqs=;
- b=z0DQodwi9v6n9699i9FXKYOfai+InjDkiRHkR4y+EiQyLrIm2daB4kPvdUMgfYwbvg
- LJrAcMVGujeQ8r2Lza6o6XYAcswApKK5GcebTO/87xhOHvkS2FElipgGJxPOSVd/Q+kx
- tkWpb2y6iEP0E+wyxHCNY3tZ1lDJ8m1pCfJPLW5pPQ9lG97UCJpI4huZQ84Mja0bcB1E
- oUJVJVAWc/e/Hz5oQ22NXIhUYIVHuJZgrIYY46YU1O6DS8p27hO9n0BU83Maj77fsrCr
- yyx3dEBZiTtspES5SYNuW1VThzg8ZGJOVC1e3VA96lAvvbWcZ2IY04eQKFT/wC/i+tvX
- bYVQ==
-X-Gm-Message-State: AJIora80fVEwE+NsFsMo64pq63k3u6XTfxYAxO4lELsxKHFyUmm9uN6H
- q+MtQz8B8Ecj92xtrWGa5w8oGglbSxM=
-X-Google-Smtp-Source: AGRyM1vqhAL1nzlQW4ayUY9i9bTRHPjx4r/Zw6P7qwKJgKSqansnIr9Cdr3Xafewhel/DCcTPnbS3w==
-X-Received: by 2002:a05:6402:358b:b0:435:828a:a403 with SMTP id
- y11-20020a056402358b00b00435828aa403mr9352379edc.117.1655795961606; 
- Tue, 21 Jun 2022 00:19:21 -0700 (PDT)
+ bh=EIp8WFtlC6D8eHvoW3+kRmQcmtWDBEDOQ4OlVigNAJM=;
+ b=VAYeqsIef/3p+j4VkMOEP1S3GjtnuzqtlJn/YHPm+ZHabpKByMEAzQuc275Ny8cP24
+ jmH7VoSATWTfoMA/CAIbzBEBdcCgBeDT58ZHBpWZVSqxF8uVPamTDov7AaR5Yz2uYPWc
+ 7XCsTG6/+Bdd5+7JFa6lKKc64b4eIv/Wkn3WII7ELI9JVaaDzM9X+ePuid1PTTYabP+l
+ gEEkdtDCE37hXBJ5eM5pCcpGqtm92Db91agQQ7rjL8kk7pyxI4sp+zNS6F4dV3u1cQkr
+ Ha0HinqzpOyMcpqyNVdEoe384Z/4MrJEaRb0BgjN96VN9DKZMdE/43d0bvMGeCFWRaEb
+ gsuQ==
+X-Gm-Message-State: AJIora+v2dGEcqDMGkIkyR1lI53lzBS/Dbyay5JU7DJ+Yq8eWHQWyTRA
+ xaNIE2HU3cEGqUVhDsyS5RZ6ebIjfhI=
+X-Google-Smtp-Source: AGRyM1sZzFGcgfzMYzzrJ1W9ZNF2wHMFHNvIKi2VZlr8HVlwNUAG19JEL1n/0/LUbVicxyvAHbvTqw==
+X-Received: by 2002:a17:906:b048:b0:6fe:be4a:3ecf with SMTP id
+ bj8-20020a170906b04800b006febe4a3ecfmr24672195ejb.104.1655796083111; 
+ Tue, 21 Jun 2022 00:21:23 -0700 (PDT)
 Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
  [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
- ku22-20020a170907789600b006f3ef214dd2sm6985163ejc.56.2022.06.21.00.19.20
+ b17-20020a1709063cb100b00722bc0aa9e3sm3007448ejh.162.2022.06.21.00.21.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jun 2022 00:19:21 -0700 (PDT)
-Message-ID: <2c70d0c4-a326-6497-54b2-51bc2b93b9d6@gmail.com>
-Date: Tue, 21 Jun 2022 09:19:19 +0200
+ Tue, 21 Jun 2022 00:21:22 -0700 (PDT)
+Message-ID: <f4058d23-6290-a6df-0288-40fe6a86076e@gmail.com>
+Date: Tue, 21 Jun 2022 09:21:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH 1/5] drm/amdgpu: Fix possible refcount leak for release of
- external_hw_fence
+Subject: Re: [PATCH 2/5] drm/amdgpu: Add put fence in
+ amdgpu_fence_driver_clear_job_fences
 Content-Language: en-US
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 References: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
- <20220620220302.86389-2-andrey.grodzovsky@amd.com>
+ <20220620220302.86389-3-andrey.grodzovsky@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220620220302.86389-2-andrey.grodzovsky@amd.com>
+In-Reply-To: <20220620220302.86389-3-andrey.grodzovsky@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,57 +81,31 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 21.06.22 um 00:02 schrieb Andrey Grodzovsky:
-> Problem:
-> In amdgpu_job_submit_direct - The refcount should drop by 2
-> but it drops only by 1.
->
-> amdgpu_ib_sched->emit -> refcount 1 from first fence init
-> dma_fence_get -> refcount 2
-> dme_fence_put -> refcount 1
->
-> Fix:
-> Add put for external_hw_fence in amdgpu_job_free/free_cb
-
-Well what is the external_hw_fence good for in this construct?
-
+> This function should drop the fence refcount when it extracts the
+> fence from the fence array, just as it's done in amdgpu_fence_process.
 >
 > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 10aa073600d4..58568fdde2d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -152,8 +152,10 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
->       /* only put the hw fence if has embedded fence */
->   	if (job->hw_fence.ops != NULL)
->   		dma_fence_put(&job->hw_fence);
-> -	else
-> +	else {
-
-When one side of the if uses {} the other side should use {} as well, 
-e.g. use } else { here.
-
-Christian.
-
-> +		dma_fence_put(job->external_hw_fence);
->   		kfree(job);
-> +	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 957437a5558c..a9ae3beaa1d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -595,8 +595,10 @@ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
+>   	for (i = 0; i <= ring->fence_drv.num_fences_mask; i++) {
+>   		ptr = &ring->fence_drv.fences[i];
+>   		old = rcu_dereference_protected(*ptr, 1);
+> -		if (old && old->ops == &amdgpu_job_fence_ops)
+> +		if (old && old->ops == &amdgpu_job_fence_ops) {
+>   			RCU_INIT_POINTER(*ptr, NULL);
+> +			dma_fence_put(old);
+> +		}
+>   	}
 >   }
 >   
->   void amdgpu_job_free(struct amdgpu_job *job)
-> @@ -165,8 +167,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
->   	/* only put the hw fence if has embedded fence */
->   	if (job->hw_fence.ops != NULL)
->   		dma_fence_put(&job->hw_fence);
-> -	else
-> +	else {
-> +		dma_fence_put(job->external_hw_fence);
->   		kfree(job);
-> +	}
->   }
->   
->   int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
 
