@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85ED3C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 14:30:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71FD9CCA473
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 14:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6E910E077;
-	Tue, 21 Jun 2022 14:30:11 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13E0B10E077;
- Tue, 21 Jun 2022 14:30:10 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id fd6so16876966edb.5;
- Tue, 21 Jun 2022 07:30:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF16F10E17D;
+	Tue, 21 Jun 2022 14:33:58 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFD9D10E17D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jun 2022 14:33:56 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id h23so27900005ejj.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jun 2022 07:33:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pmyUppEAbHEw40UHdzEMcMYioES0t5g3cXHjzlejo6I=;
- b=hzoq/W5TmKdJsmBhVvm014iKS/gQsMH0dIMooz1q2kjGRwwR+q7LaTJx4L8/jAFCae
- AmfKaKVVpm2TacyaKEKZG54rd/XT5Q1hNL+MKDxBwJFrOHy8DWSyu8Yl9ua29AgKkoVK
- 65pfV/EKbrxV6eCP9VaiWYslQB4jhI8VBewDHFUf0aFicQee0hPR3zgg96zak3Wm3Wp8
- yMJbSY7L/zH61A27mwlfzc/Fa/WneHMN9k3FrR8KqloRELKaKhY44rmvWFvKef38TzC4
- xz1gcNiahV/jruiuIaNHUkedmJWI835SUj8I4sZ2S+WUJ+FVHvK4GrNzLojev7pTRT4S
- cdTA==
+ :cc; bh=E68f8rn5pJTpRe7eV4AGODe222l613ZKTDGqq7+53Do=;
+ b=GcYxSQQ55VRYJQHomSC3qew/Q/oMjS8nTVD3K5beXzPlxwnlNGCUMVlwmb36ja8mVN
+ DEaTnPsY2LWP3iZi1JTBue44I2ctH/bKpFO0FvhavDOHVll1olak43ULICwF76MxEUSE
+ i1Y3+LWetsnszU1zlOVUBNW9Jai1e6weL68yoCVYLHr8nbNjr1yKF4c3Ad8S2T7lcszY
+ hOy/bRZlJRugRBTUWc+0/xEpeu5ZtbYELVqf/QZH77qLiN2ukk87y/h8LH9H2K30HQ1C
+ PEMwKv8zW8CwWnGLinxmsvHvqJBDCh3c6BPcJT+yxrJNK5q5hb+g7PHPFxka3ULiRjWl
+ SrYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=pmyUppEAbHEw40UHdzEMcMYioES0t5g3cXHjzlejo6I=;
- b=5Y80Wp90VDJ9uUwYzeEPGxBCLXiErKoansvq7HSMGLusMeUnkNHZ1Vj7fxPfv0M+RO
- lXsDU04bPatGpX5YozCFPOYDZAjoo3YhHQRjPJC0OlUQOEEtf+hFnimmW80hp/koRo87
- cV32jV2ScGxjkJsRnR7gdQr+EzVBLm8FS3iWXHpZE02zW+ddqYw5k6HDSj7yJHp5YQfW
- rlFayN505WbX6CSZV04iGifl4tYkMEe8EoFnHuA+vVJI3oB/DD1eku7tfDRczT0A7Ire
- 3thds4viWOdGER2j5tr1mlExMGKieW1jtBjk1amDmrxu8/l/P5UX4R21VaG3eEsqxEF9
- hMrQ==
-X-Gm-Message-State: AJIora/CkRMhVkuRlNkcKfeL+oZgm/cGxvxfS5PZem0tLC+Bfsh/Nh15
- vkHiUHn2cGGXIeTEcCaa3BMM6Bv4S+OJqaPsYig=
-X-Google-Smtp-Source: AGRyM1skIT1zie/U8t4CrgIh821FCoNNzShxUjjckoKmUGsshKj/ON1AA+2CiyhmuGbjMtV/MY5jjSrsIiY1RDf76aU=
-X-Received: by 2002:a05:6402:2933:b0:435:80dd:f75c with SMTP id
- ee51-20020a056402293300b0043580ddf75cmr12579482edb.302.1655821808373; Tue, 21
- Jun 2022 07:30:08 -0700 (PDT)
+ bh=E68f8rn5pJTpRe7eV4AGODe222l613ZKTDGqq7+53Do=;
+ b=VDSTq1AhvaZvqsGOWwL2P3vgpuv6cK2nV5EZ2mmc2gZRCbpj0Ffv2GnQLrj8DB0PZm
+ Iy3JQZw/DXDFwI5wftO691nbtsRU/6zuMqv0EqvU3URd2CKlmVU+DdtLMcUvTDIqp7+7
+ N0G5eB6UC6USeHNiVryGWGMfuenY3lpz+Lo/2OKZQJdNKAHkh6crNRoUtAzqkZ8HvbDv
+ eEclcAVWRc3s7RPvyvT+tDJjzCdJskBEFYVtMHYpG0linbgcJaH/znbJE+/gJ42yvMka
+ JtOeeEw5JiNa8OKDL5iyNpBVAKKVsXepJjojoD+BAhGbkNVUuAIwnFMM/CkpRsqssgXC
+ FHvw==
+X-Gm-Message-State: AJIora+g4EUoTkaZYTNzNuLAj8sB88UnajWObvT9GRhgfd7Xd/oaZBh0
+ 2NYdf+RAsSYBrgZV8B1p8Ce1I5FjyZMr/ha4ir4=
+X-Google-Smtp-Source: AGRyM1uyc+8QD3gq9tM9+INzG9IHkH9tTGnKgaFgwPk+dSpfcqN5aamxdZc5xdAAJanW1N0AJkKpuY2UX2/ataQ0BHY=
+X-Received: by 2002:a17:906:c041:b0:718:c984:d9ee with SMTP id
+ bm1-20020a170906c04100b00718c984d9eemr27641852ejb.722.1655822035390; Tue, 21
+ Jun 2022 07:33:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220621131041.129513-1-jiangjian@cdjrlc.com>
-In-Reply-To: <20220621131041.129513-1-jiangjian@cdjrlc.com>
+References: <20220621022550.492588-1-ruili.ji@amd.com>
+In-Reply-To: <20220621022550.492588-1-ruili.ji@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Jun 2022 10:29:55 -0400
-Message-ID: <CADnq5_NPrY-=jbKOxWCggD2UukxCXVQhVthbybvviWdkyZXbww@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: vm - drop unexpected word "the" in the
- comments
-To: Jiang Jian <jiangjian@cdjrlc.com>
+Date: Tue, 21 Jun 2022 10:33:42 -0400
+Message-ID: <CADnq5_MqPmkR5z2xPTU7bTBfvLKm_XbZWHQQ6PPYx2wi4ZB3QA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: To flush tlb for MMHUB of GFX9 series
+To: "Ji, Ruili" <ruili.ji@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,48 +61,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yang, Philip" <Philip.Yang@amd.com>, Dave Airlie <airlied@linux.ie>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Qiang Yu <qiang.yu@amd.com>,
- Nirmoy Das <nirmoy.das@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Eric Huang <JinhuiEric.Huang@amd.com>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, "Kuehling,
+ Felix" <felix.kuehling@amd.com>, Ruili Ji <ruiliji2@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, Jun 21, 2022 at 9:17 AM Jiang Jian <jiangjian@cdjrlc.com> wrote:
+On Mon, Jun 20, 2022 at 10:26 PM Ji, Ruili <ruili.ji@amd.com> wrote:
 >
-> there is an unexpected word "the" in the comments that need to be dropped
+> From: Ruili Ji <ruiliji2@amd.com>
 >
-> file: drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> line: 57
->   * the kernel tells the the ring what VMID to use for that command
-> changed to
->   * the kernel tells the ring what VMID to use for that command
+> amdgpu: [mmhub0] no-retry page fault (src_id:0 ring:40 vmid:8 pasid:32769, for process test_basic pid 3305 thread test_basic pid 3305)
+> amdgpu: in page starting at address 0x00007ff990003000 from IH client 0x12 (VMC)
+> amdgpu: VM_L2_PROTECTION_FAULT_STATUS:0x00840051
+> amdgpu: Faulty UTCL2 client ID: MP1 (0x0)
+> amdgpu: MORE_FAULTS: 0x1
+> amdgpu: WALKER_ERROR: 0x0
+> amdgpu: PERMISSION_FAULTS: 0x5
+> amdgpu: MAPPING_ERROR: 0x0
+> amdgpu: RW: 0x1
 >
-> Signed-off-by: Jiang Jian <jiangjian@cdjrlc.com>
+> When memory is allocated by kfd, no one triggers the tlb flush for MMHUB0.
+> There is page fault from MMHUB0.
+>
+> Signed-off-by: Ruili Ji <ruiliji2@amd.com>
+> Change-Id: I97786f02849dd047703d6e8feff53916b307715c
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index dc76d2b3ce52..8530befb2051 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -54,7 +54,7 @@
->   * (uncached system pages).
->   * Each VM has an ID associated with it and there is a page table
->   * associated with each VMID.  When executing a command buffer,
-> - * the kernel tells the the ring what VMID to use for that command
-> + * the kernel tells the ring what VMID to use for that command
->   * buffer.  VMIDs are allocated dynamically as commands are submitted.
->   * The userspace drivers maintain their own address space and the kernel
->   * sets up their pages tables accordingly when they submit their
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 1d0c9762ebfb..12fc822c0a92 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -739,7 +739,8 @@ int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>  {
+>         bool all_hub = false;
+>
+> -       if (adev->family == AMDGPU_FAMILY_AI)
+> +       if (adev->family == AMDGPU_FAMILY_AI
+> +               || adev->family == AMDGPU_FAMILY_RV)
+>                 all_hub = true;
+>
+>         return amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub);
 > --
-> 2.17.1
+> 2.25.1
 >
