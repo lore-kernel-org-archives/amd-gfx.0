@@ -4,91 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3372C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 14:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19616C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 15:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CEC10E6D6;
-	Tue, 21 Jun 2022 14:42:55 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B396F10E6D6
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jun 2022 14:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A844710F5B5;
+	Tue, 21 Jun 2022 15:18:18 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2040.outbound.protection.outlook.com [40.107.100.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF82E10F5B5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jun 2022 15:18:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Okd+LlOdxC1xYeouQoPt2apB05O+HuI++jCEln2lp8+wBwX41LlCHtBVLBDyacbi24rHauL9tX2Vz+f0vYrRuqTHuftO1r8xw4uloyXrP4OHuSUcQS4lMd/9E8laZjjttbLRkwzc1RtquwSnyp2Y5sVa/fcbaO6UHqkt+pUCWLboVL/SmIzA623hFMRt0Wmn/zoDlJdqlTrbRG11ezu/0kYdFS/bSj+xfuM7v6wIsWqMuEgdk0lJt8HNBh5MJu4KxfCnHhg96L8uQ56HLjBJw2GScB06a//ELHRpw4P24Fn95G9D+i9Ki6lSELy4UQKq6sxZvbdJ0YLg9amj4+mx/w==
+ b=D9cQ1/4O7JA3yC6rSFnI+PE/YnlK7dPDrvrQSpzO7bewdjJ7pAZVswV/xiIfbES81dpuoeqOteXr/yVSibcWs85YQ4uOjG4kAQKytjsyG0+X0qMDqRkdJeV0ItMIi+hcXLGMErLwGcoah9HlySia7+lLz6Mjo3EkB1NevWHC0FJ4GNz7vt7Ff3fr3vDNzPXCpL/reAi3FcC7/KU+Sxbk5UoQcNojf6kTZzON2lbWkfpAKpQkeIEf075cYf3LBAf9PvDMyQT0csnHnSYbKmKoEEEsg4jLxUwtuQ8V0kCjd3ZJSY3z/kC1zENuy+jX1Ptnax7BrC/DJT18ird93D4Zbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G3mX9XCVT7l5QWS+mD/BBXFAIODlutdW5L3dYT+dI70=;
- b=hP83na4AQLNXaRu0HQvRbgMruwusj2XDaZz02PjL1C3pSOK+m8k8B77CfTPkxjcUTZ1hZxu9bz24KM0CyxPqX+JjObWRvi+h+agHkARS5kyPbvtRmhObxu/aoe23mFGQE5HAUbvzqgIzwL7fMVEVs4SkrD9gaAiiXQEn4ypxEP5xzF6nGvO4Y4bOgUWIeCQyabKPE/gJIaNsL2oEtxEOi0m0EFN/rLE2JCAdkCdH4ElCYksCbpGcXMhngm6MLo5VnD8s17PTrjBR4evROMvN2oSffmLxtPpM7WJccLlwSF0VgGuyJQJoQVDKeineHuXoQIwNxIqgP4q0nQmVodHPQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=mbAzHXu76MCDtLEvkglkb9Pk0tIVDWn0Y1utFh1zitc=;
+ b=VVzsg63AItAsQXDRUGRXf9ZfK10cmzTf/udJWZndE5ahq5kW5UtXX8bD9OSQWkTg5MNTqKMxpiuNvtkfDhG7H8ML/bfvJHRIyIesD8cB8+Q4BwH0aaIjefV2bLUjG8KceDkZ+vleWxwuRzTHptWkENQW+tiTJ5JOoyPH9dG/eBu6naYcabP41+jv+ZPGCNyxnBQY9+6fjmEJE4zuKD+nBKfzWBVNb1IpfFz7gjJJHkqMHBsIgcVDWIxqACBvqYVk0IINNFq9TKnxIsFrxB0FuyNxEOA696SaFRdRC6PMBjeN14X+3Ke1plrDMeE1V5FvGIaZabTMPEWsnf++jk3t9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G3mX9XCVT7l5QWS+mD/BBXFAIODlutdW5L3dYT+dI70=;
- b=X5AWcEJ83N5h7vQqaEXzWO4VhVSrUybwrkn087ZQjjPFITlvAqkrvfmwGAPmM+EVTD3gpvtDf4PDBAVWqlrfub2FMb3TPz0ETHAHWQN/2TlYoGsOoQn7n5KXeMLWA0HsrF8N2jVzacMf7mI35kEddh67kVSQtPLyN2kWIC1fYlU=
-Received: from MWHPR2001CA0005.namprd20.prod.outlook.com
- (2603:10b6:301:15::15) by BL3PR12MB6522.namprd12.prod.outlook.com
- (2603:10b6:208:3be::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=mbAzHXu76MCDtLEvkglkb9Pk0tIVDWn0Y1utFh1zitc=;
+ b=3vP5zZ/P69ZFkMZS1Gc3FL10YK6Q5w958EqfzeH4nn9OX7t4BX4HpnUnkh8sh27C3aLUNpWvgwOwfuSf3nf7AbaoEs0HcThW8CaZGfDoyyPLODEBJOWVUDJfgLNC5PrjgbwHXNaG4S10YgZGCTB4l6Qo1QeNG8BX7xG1k5AJ9Nk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BY5PR12MB3860.namprd12.prod.outlook.com (2603:10b6:a03:1ac::25) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Tue, 21 Jun
- 2022 14:42:49 +0000
-Received: from CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:15:cafe::eb) by MWHPR2001CA0005.outlook.office365.com
- (2603:10b6:301:15::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.22 via Frontend
- Transport; Tue, 21 Jun 2022 14:42:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT037.mail.protection.outlook.com (10.13.174.91) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5353.14 via Frontend Transport; Tue, 21 Jun 2022 14:42:48 +0000
-Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 21 Jun
- 2022 09:42:47 -0500
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] Revert "drm/amdgpu: remove ctx->lock"
-Date: Tue, 21 Jun 2022 10:42:27 -0400
-Message-ID: <20220621144227.664800-1-luben.tuikov@amd.com>
-X-Mailer: git-send-email 2.36.1.74.g277cf0bc36
-In-Reply-To: <62d06aef-ff23-93a3-dc36-c4840b1f6d80@amd.com>
-References: <62d06aef-ff23-93a3-dc36-c4840b1f6d80@amd.com>
+ 2022 15:18:11 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::540e:d76a:bdf0:ed0d]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::540e:d76a:bdf0:ed0d%7]) with mapi id 15.20.5353.022; Tue, 21 Jun 2022
+ 15:18:10 +0000
+Message-ID: <72b212ef-1100-6d04-8afc-d1f196e24158@amd.com>
+Date: Tue, 21 Jun 2022 11:18:06 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] amd/display/dc: Fix COLOR_ENCODING and COLOR_RANGE doing
+ nothing for DCN20+
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ "VURDIGERENATARAJ, CHANDAN" <CHANDAN.VURDIGERENATARAJ@amd.com>
+References: <20220616012127.793375-1-joshua@froggi.es>
+ <CADnq5_NdAmAJ93A8ADVYzvYN=-hdWACxJyeBAfgmxc6_-RUq-Q@mail.gmail.com>
+ <MW4PR12MB5668626C2F2357142755239896B39@MW4PR12MB5668.namprd12.prod.outlook.com>
+ <CADnq5_NGcwG0QP4tL5Wtr_9+acUjHZUarK6-ubuiqnapuPzLoA@mail.gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CADnq5_NGcwG0QP4tL5Wtr_9+acUjHZUarK6-ubuiqnapuPzLoA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0111.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::11) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c670afde-0e2b-4287-5541-08da53944fea
-X-MS-TrafficTypeDiagnostic: BL3PR12MB6522:EE_
-X-Microsoft-Antispam-PRVS: <BL3PR12MB652225B62E9703917722014599B39@BL3PR12MB6522.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 667d8316-1b3b-4df8-880b-08da53994090
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3860:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3860C61A3A3AEA84421EBDD58CB39@BY5PR12MB3860.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K/UYr6bYFLru3J7bWLPfOgZHZzGJBiV5VdnUKAX/BxDeHLhGBqxftsJEYd/YVGS3K6YogD3rjuVuPUxyW8Q6CkQNzX9oXGHDOF6C3WmUNOBBx7mG1gSKAd1yRrUQg6CvoOm9jj/gcoDDUJyREZXB96yFHcF5WF4+PLk2bvCBVmIorjMvg+imk4lT1uc7YMoRDDY27MWEDKXiC1lL7G3Xkci75ZPKkF6bo0icE786do8vdeR1KPFuWnJmDdk+KnH3EH9AbMtzyXwO8QeNX61KzIYEUxiunAzjipvqWW+Y8wqB74/6yGzYPfF55tWdOtahwfQmHmWmRUnoPIT6bJVhWek37+USqEwvNezWG6Lc1bIZCgFs2emv2jYr18Oqx50I8vY09vV7t9fJvIS4pF0CtS4aN1i4pL8+6PX+inszjwGPbQL7PIYTW37bn4yijN7n77v8je23CnKSrO40zO31jwDdq71G3DptvNUWHX6O5kCml6GTDFS6b9wb7ecOaJnDlD+KfzQKCe5OxfqLot7XcIYAY/n4M7JPjZTOf0fn1nJvOv/fAiRLPKlYiu2UH94uGFSlCxPAJF8ifZ7gq/eGwF0hviehHz5HYFBfKtUoegQAQEKGpI3Pm96VAygt8UqPdjBwanO7h1mcb5N8qwmuxVf114MewPlmls6Tk9yNW7CQcMw3P7qP1XGlf/1sLeoZffyqU+Je6yfe+a9ZcjWZG0/W2hRgh+P98i0KCKnuaBfBgeTBxnO66YRnyRXDJ+j3
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(396003)(136003)(376002)(346002)(36840700001)(40470700004)(46966006)(66574015)(47076005)(426003)(336012)(40460700003)(1076003)(16526019)(186003)(2616005)(86362001)(4326008)(8676002)(70586007)(70206006)(36756003)(316002)(6916009)(54906003)(5660300002)(44832011)(6666004)(478600001)(36860700001)(966005)(8936002)(7696005)(26005)(83380400001)(41300700001)(2906002)(82310400005)(356005)(81166007)(40480700001)(82740400003)(36900700001);
+X-Microsoft-Antispam-Message-Info: SJzRHtczDBUxXykP+4cuNuV2TqxIt+MCVduNebVDUGEHPn0FW3M/+Uhe5NMo+8pbSAg2X+wLNn43RcRUBYgCJRJW6geBAQT7nQhavGhbyaA9aL6wuV5hmlaArQsP96xkZwe6viRtP6UvZI4ZUBvCafxQ0kKoPabedpfYcoM2VsE92/AbfoggwLjt7kRpVIujIYcVUdeRUiNqVLzmOL+jd4N7ZbjPyFgLHJID6AMgwRjD3VjxEhGYlWPvqSgS8PnP5cta7J4eff4GDg0G+DZkeVgKh+1HY5lgep2iE+GL7IecmQZjMOKvLKUNpyXoMztqtdJXvbjavglmkYL0c55wfR66CQYlwn+hbnsbH9fTGjNRi1JI04nwHPMNMMOLzjfHAkLU6CjNrZU7WEkYl0R8Zu7Z4a5Qv7W4Pl88GX4XGYLxN9cw2zlKT6vV2Ig4yEN7ZGQMf+w6nInDAuvKg9FM2XbqECv35yI6VyxNdwZ7hWop+y4DhZZRgeQiwKZ9lnYMdd6bDpjODV0CrGzHRs/6aO0bxacpbn2P57JeU8T3HkCIGuTAG0/sNooAUc1IKbcXkMHTLUR0Q61uNrX4DrTEV+33Y0awSQ1ra3x4hAzYCQ8F9AGrXnGicFvccEZ9utzG6/WPeamXE27ZHjNeLDfhTZ4PD4XrkfeY0IKZny/ceQ5o5ggDPpdvZlhVPmuu6RBdGf0MN6LAbEVMk6hv1klrYx+P6x2uYuFDr86t1CWDO0qfy36JzP8CCjGjNke9cyqM51ZYpCNN26Y5XB78iMkaM51wGxG4feKS3sMRxN2zvvHOPaQj0tyDG3O/miYwWug27uMGJp/jnERLEVPYJpw0bw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(39860400002)(376002)(346002)(366004)(6506007)(6512007)(26005)(5660300002)(53546011)(8936002)(44832011)(478600001)(966005)(6666004)(6486002)(41300700001)(2906002)(83380400001)(2616005)(38100700002)(31696002)(86362001)(186003)(36756003)(110136005)(54906003)(31686004)(316002)(6636002)(4326008)(66476007)(66556008)(8676002)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlNsN0VvRGU1RUJmYjl5Qk80QUwralllV2pYVW43eVRkcUVwa3A1ckZ0ajB3?=
+ =?utf-8?B?VmloQ1hobkxWa2dFcHdaMkFURkcwMjlrSlhsR05KU0ErWDBYWWZKb2lNU2E4?=
+ =?utf-8?B?ejdOWHJNZmhUTlNaZWJJQ2J2NlRBTEUzQWhONlIzRFlTZE1RQ2RENEIwNERr?=
+ =?utf-8?B?N01ydDk5aUx3OExBbWYyMHBvNXNJNXdOOGZFdGZoNVplSnV6MC9Qa2JkMWJF?=
+ =?utf-8?B?Zldmd2RGYkx2TktNUEZaVHVBTGRvazdnUnBiRDNERlRhc1hVa0ZYOERCM2lj?=
+ =?utf-8?B?dzdYbklCbjJuS2gwRjQ2Q3djMzJkaEVWWm5ISVdrdVFXc1RoNlhhTTZyaGIy?=
+ =?utf-8?B?ZXVwR2VjV2R4ZTNJSk9JcEN2VWFzUE1WZFlmRUZHVm1QZHczazg1VDRheUVl?=
+ =?utf-8?B?MXY3S1VlY295NngxMGNIVUtJMlc1QVY3VHhBTC83OFNGU3BHU29HSEFvc1JT?=
+ =?utf-8?B?WHdGSGJwNkZscTRKS0tCbVFsYVpwdmpDQnA3dldITjRuYWZqSDJtMTV4d1Fs?=
+ =?utf-8?B?Nk11OU1Ea1BWb2xUd2MrRGVqeHNFaStYSjFrTnpianU3UGNMcEs5dFQ0NFpF?=
+ =?utf-8?B?QXNzYzk5cW5YeVVnRTJLaWt1Y2dYUVVRbU82RGYrR0tiRkhKRW95TytCOG40?=
+ =?utf-8?B?czBZdFhtMDdDakNOZW5UdFFXOWlWMlRRcXI2NVlIVmsyMjF0dWNVK1k3RnNa?=
+ =?utf-8?B?L05ZNU1NaGljZ3BtZS9YWk5GUjdVbnNrUm9HSVJkN1ZTelc4UnpIcWEwa24v?=
+ =?utf-8?B?bmxMdWl3QTlQeEJVdnpVMTEyeHI2MUxBeXVSRm9DandXZjZXRFFtOEZyQ0tT?=
+ =?utf-8?B?M2ZEUlJEb1FTUlRVTDJJcHZHL1VNR2lkb3NBN3FTdjJNVm53cXduWlZ3ODla?=
+ =?utf-8?B?ZTRLbjg0Z0pHY1pFWnZJSHBHZGZGbnJHaDRBZUhzVzBPc3pvSXhtNjVQcHVF?=
+ =?utf-8?B?bG9BVnFIVys4cHlMSmg2NURlYlRSWDFCMGlmZDNGRE4yTWxXRGV1eitXOHZD?=
+ =?utf-8?B?Mk9kaGNzM0pKSWhGL29RdlNsTHl0S0dYMyt6ZytrUWZYM2NIdnlaMFhYdFFJ?=
+ =?utf-8?B?aTVOVXU2ZjVZeElSeXkyWFV3ZHBYbWdQd21BeW1RNEtWUU9neEhiMmZVeDlx?=
+ =?utf-8?B?UzRma3JVbVE5Uk5xdWdCeWwrN0tjbEdDVGFHaW5hWVlDRTBnOUtrZ010K3U5?=
+ =?utf-8?B?R3gyb3dOdE1hUkxjbEhJY1V6SlRaVURPOVBpdmlRN2ZrZVhMT2hVblhOUlNj?=
+ =?utf-8?B?L1ZLK2NrVnQyUTJOV2tkbCtwQjJlQy9LY2xEVGtLbnpUUkJVano4ZVc5V1ps?=
+ =?utf-8?B?Qm5ieHRSSktGeWhaVXhLblV0UHZOSllIOUhRK0tJM3FteHZtK0xPQkltTXJi?=
+ =?utf-8?B?dGVzNXRVbExUZG1zWHUwVXY3V0piTGw1S01lYkpkZjd6WE9CTzN3Z09oTjha?=
+ =?utf-8?B?bXVsWFVESjNiMC9hWUcyT0JCYndUVk5iY0dBYVVqZCtoc1RNM09YZ1AxMm8v?=
+ =?utf-8?B?TDEzOVhqVGY1MWlHa1E5Y2tOeTY0VGtMN2pCM0UzNkdsbDJDV0MrY0ppbWY3?=
+ =?utf-8?B?RjBSS25HaTJUT3pIVTBKeWlkbzFKVVUvNTBiUkNidVhyWXpzSjc1dWxxVkJz?=
+ =?utf-8?B?YVV5eWdML1A2Z0pPeVJiVEFBUTdzTVlMMnlEVUIwUGZkVFpXYTJGMThJWVBr?=
+ =?utf-8?B?S255SUpFSnhqanRFLzVab0cydkxFeTQvaFRmcERUYVNONG9LN0FMWEpkU081?=
+ =?utf-8?B?bHMyL1lZNVJKWFZRY1ZZZG91TWdtZWJJbXJyMUZqeEpCZVFQaGFoWkVUOFda?=
+ =?utf-8?B?WXBPN1pwNit6Mkdlc1IwK1E5TlNINUt4b0ltVllhM1N3bHFNTmFtSURtbmlR?=
+ =?utf-8?B?TDVBcTFMTkVBV1ZRUmlOczNnczl1RzU3QVZReU1YN21pWXNFZkNENnh4Slpa?=
+ =?utf-8?B?NTRSQ2RJRnNIUENnWktmYURyR0JIenlSa0ZNekQyQ2VOMDJwQ0JXMFB4WE15?=
+ =?utf-8?B?Skd4TGJ6MFZoRWlzSHZPcWlHYTQ3Q1J3Z1NYWWJ0MkpPMjZRdlhZZDBBN2kr?=
+ =?utf-8?B?T0syNFo0NEN2WFJLRzk2N2RVa0IydkFFWXlWRjhtWkZtaEE2WnVFOVlsOTVZ?=
+ =?utf-8?B?bTRvTzB2am9OZmdvRWNNS2pPUURYRlNFV2VMK3VWbmF1bytPTlBGd0daSjRm?=
+ =?utf-8?B?SHRQNWdJMGg2UHFOaHB1UFM1ZEdxeVJWb3dISkdaRVMzYmR3UU9xeU1MZ2FE?=
+ =?utf-8?B?QjVlTWVxMlorOUgyYTRuT0FramlQTHVXQmswOW54dlYwbXE1VnBnTUJTcnpu?=
+ =?utf-8?B?K01tcWp4bXdsNzJTOGRFcDFBRXp4VkY0THRFWS9sWUZFOXdPKzJRUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2022 14:42:48.5337 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c670afde-0e2b-4287-5541-08da53944fea
+X-MS-Exchange-CrossTenant-Network-Message-Id: 667d8316-1b3b-4df8-880b-08da53994090
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2022 15:18:10.7942 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6522
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W177x/IvHfA+ZQDS4mEc4fR/6B/X17M2i/C4UA1r5Zzrmu0fy1B/HRdqujE3YVlPoP1h8T+ufVgfENAJnXzpJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3860
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,124 +132,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Vitaly Prosyak <Vitaly.Prosyak@amd.com>
+Cc: Joshua Ashton <joshua@froggi.es>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit e68efb27647f2106d6b545667f35b2ea39746b57.
 
-We see that the bo validate list gets corrupted, in
-amdgpu_cs_list_validate(), the lobj->tv.bo is NULL. Then getting usermm on
-the next line, references a NULL bo and we get a koops.
 
-Bisecting leads to the commit being reverted as the cause of the list
-corruption. See the link below for details of the corruption failure.
+On 2022-06-21 09:15, Alex Deucher wrote:
+> On Mon, Jun 20, 2022 at 8:46 PM VURDIGERENATARAJ, CHANDAN
+> <CHANDAN.VURDIGERENATARAJ@amd.com> wrote:
+>>
+>> Hi Alex,
+>>
+>> I think this was pushed earlier by Harry.
+>> Not sure why it did not get merged.
+>> https://www.spinics.net/lists/stable/msg543116.html has the history.
+> 
+> I guess it never landed?  I don't see it in the git history.
+> 
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Cc: Vitaly Prosyak <Vitaly.Prosyak@amd.com>
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2048#note_1427539
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 16 +++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
- 3 files changed, 8 insertions(+), 11 deletions(-)
+My bad, and thanks for the patch, Joshua.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 36ac1f1d11e6b4..e619031753b927 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -128,6 +128,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 		goto free_chunk;
- 	}
- 
-+	mutex_lock(&p->ctx->lock);
-+
- 	/* skip guilty context job */
- 	if (atomic_read(&p->ctx->guilty) == 1) {
- 		ret = -ECANCELED;
-@@ -585,16 +587,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		}
- 	}
- 
--	/* Move fence waiting after getting reservation lock of
--	 * PD root. Then there is no need on a ctx mutex lock.
--	 */
--	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entity);
--	if (unlikely(r != 0)) {
--		if (r != -ERESTARTSYS)
--			DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
--		goto error_validate;
--	}
--
- 	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
- 					  &p->bytes_moved_vis_threshold);
- 	p->bytes_moved = 0;
-@@ -722,6 +714,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
- 	dma_fence_put(parser->fence);
- 
- 	if (parser->ctx) {
-+		mutex_unlock(&parser->ctx->lock);
- 		amdgpu_ctx_put(parser->ctx);
- 	}
- 	if (parser->bo_list)
-@@ -965,7 +958,7 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device *adev,
- 	if (parser->job->uf_addr && ring->funcs->no_user_fence)
- 		return -EINVAL;
- 
--	return 0;
-+	return amdgpu_ctx_wait_prev_fence(parser->ctx, parser->entity);
- }
- 
- static int amdgpu_cs_process_fence_dep(struct amdgpu_cs_parser *p,
-@@ -1384,6 +1377,7 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		goto out;
- 
- 	r = amdgpu_cs_submit(&parser, cs);
-+
- out:
- 	amdgpu_cs_parser_fini(&parser, r, reserved_buffers);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 53f9268366f29e..2ef5296216d64d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -286,6 +286,7 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
- 	kref_init(&ctx->refcount);
- 	ctx->mgr = mgr;
- 	spin_lock_init(&ctx->ring_lock);
-+	mutex_init(&ctx->lock);
- 
- 	ctx->reset_counter = atomic_read(&mgr->adev->gpu_reset_counter);
- 	ctx->reset_counter_query = ctx->reset_counter;
-@@ -400,6 +401,7 @@ static void amdgpu_ctx_fini(struct kref *ref)
- 		drm_dev_exit(idx);
- 	}
- 
-+	mutex_destroy(&ctx->lock);
- 	kfree(ctx);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index 0fa0e56daf67e9..cc7c8afff4144c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -53,6 +53,7 @@ struct amdgpu_ctx {
- 	bool				preamble_presented;
- 	int32_t				init_priority;
- 	int32_t				override_priority;
-+	struct mutex			lock;
- 	atomic_t			guilty;
- 	unsigned long			ras_counter_ce;
- 	unsigned long			ras_counter_ue;
+Harry
 
-base-commit: f4b3c543a2a759ce657de4b6b7e88eaddee85ec2
--- 
-2.36.1.74.g277cf0bc36
+> Alex
+> 
+>>
+>> BR,
+>> Chandan V N
+>>
+>>> Applied.  Thanks!
+>>>
+>>> Alex
+>>>
+>>> On Wed, Jun 15, 2022 at 9:21 PM Joshua Ashton <joshua@froggi.es> wrote:
+>>>>
+>>>> For DCN20 and above, the code that actually hooks up the provided
+>>>> input_color_space got lost at some point.
+>>>>
+>>>> Fixes COLOR_ENCODING and COLOR_RANGE doing nothing on DCN20+.
+>>>> Tested using Steam Remote Play Together + gamescope.
+>>>>
+>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c   | 3 +++
+>>>>  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c | 3 +++
+>>>>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c   | 3 +++
+>>>>  3 files changed, 9 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+>>>> b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+>>>> index 970b65efeac1..eaa7032f0f1a 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+>>>> @@ -212,6 +212,9 @@ static void dpp2_cnv_setup (
+>>>>                 break;
+>>>>         }
+>>>>
+>>>> +       /* Set default color space based on format if none is given. */
+>>>> +       color_space = input_color_space ? input_color_space :
+>>>> + color_space;
+>>>> +
+>>>>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1,
+>>>> alpha_2bit_lut->lut1); diff --git
+>>>> a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+>>>> b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+>>>> index 8b6505b7dca8..f50ab961bc17 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+>>>> @@ -153,6 +153,9 @@ static void dpp201_cnv_setup(
+>>>>                 break;
+>>>>         }
+>>>>
+>>>> +       /* Set default color space based on format if none is given. */
+>>>> +       color_space = input_color_space ? input_color_space :
+>>>> + color_space;
+>>>> +
+>>>>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1,
+>>>> alpha_2bit_lut->lut1); diff --git
+>>>> a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>>>> b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>>>> index 9cca59bf2ae0..3c77949b8110 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>>>> @@ -294,6 +294,9 @@ void dpp3_cnv_setup (
+>>>>                 break;
+>>>>         }
+>>>>
+>>>> +       /* Set default color space based on format if none is given. */
+>>>> +       color_space = input_color_space ? input_color_space :
+>>>> + color_space;
+>>>> +
+>>>>         if (is_2bit == 1 && alpha_2bit_lut != NULL) {
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT0, alpha_2bit_lut->lut0);
+>>>>                 REG_UPDATE(ALPHA_2BIT_LUT, ALPHA_2BIT_LUT1,
+>>>> alpha_2bit_lut->lut1);
+>>>> --
+>>>> 2.36.1
+>>>>
 
