@@ -4,48 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B95C1C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 20:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50CA3C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 21:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A8810E57D;
-	Wed, 22 Jun 2022 20:29:09 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED22D10E57D
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 20:29:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655929747; x=1687465747;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=wtXFMufxCWVD5DmXOj9UG9b0T/0VDxVMk2w7kwJpn/I=;
- b=G/UdcAZ2j9O9QHKY/hspVYVMf4i7Rn59RT3qo+snAL26eV35WijBQB7K
- gV5CrGUl9ljC82xqHrytvh/CY6FFnFeib7oIb1QQ1qVYVVzd86btsC35f
- oy62pTezj4zAP+F1SuspcjsJlQIdpCJBDw1vBO7h3vMmZ54zugSQhtr8V
- That4wB+butnrj8laPBa8e2t4XQKmYNP7g02N2vqJBs+aU2aEEiyg03l7
- DS7fS8CdTUvFuNJUc0souZ+rGLo32Aa0fkKDxdREMcxIif4B27ZUW0+LR
- 86K2fDY3xdVo/3DCl4ZbXa87DyR2vklts4s347xuxBD8DBIMORFkRPrcH A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="260356535"
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="260356535"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 13:29:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="585880553"
-Received: from lkp-server02.sh.intel.com (HELO a67cc04a5eeb) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 22 Jun 2022 13:29:00 -0700
-Received: from kbuild by a67cc04a5eeb with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o46yC-0001ex-2X;
- Wed, 22 Jun 2022 20:29:00 +0000
-Date: Thu, 23 Jun 2022 04:28:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- ac0ba5454ca85162c08dc429fef1999e077ca976
-Message-ID: <62b37b61.eTQ6lg/K9qBRuTOQ%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADEC01120AB;
+	Wed, 22 Jun 2022 21:41:26 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BD1112077;
+ Wed, 22 Jun 2022 21:41:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MEN5er3dHas3A511fbHsD6yMmRr3lYZ+U0PyCrYp6DYa4/qbXBaimokCG/+Z/wdLM/Ahgoja9Iq7eKkXxbLF7AUngf09qEvGx/izvvU4gA5MxidQytX0Tvz4rbaXIOqxPQXfra7z2HIdWgA5ewhn/OqWERxqdUe9pfscYJy8WFxQK7WN8ek5uoPC9k5ykvZ1V6I3whp0bkiFODQvWE901pQg22P1kX5WKi/C82+kspUWzvMqlciCNZVOP6BUMsdq1ett9KurPXtwuxlTq2MX9Y9m+3v84JYQ2XXM34Hp3YlRN76dWm/LacRMaRhJAyd9vstddt6GNFjKSOV/ZRKaZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ksy1lBld5qeTlrGafCV0VgkHUQB4kqHrs111JXJbZQM=;
+ b=aRVK1O2xkjihORcLORvxeS4OwXTac4+XrtCTf8fOnmLZYI8WrkFVJGPWSyA38N2LOiJ4Yqwe2BoTDfJWzj1Hz1Na+EFRWvMLBz5D7txOK7JtHY5MNDk2Eg71Fb8eEYXiVUhbEqnCdbVhAsafvv7bYFgMATJFY1iPUnyeU2nWVKc7TB5wj005s4eVclaGzyyc+ha0W1ZOEIJt6ChOHycgPI19h/sI4tOc9n3aMCjf4iRiQUDASvttk2619INbbL0lWU3ZJvip+2CBRoMZRQeWa4k0li05jT9TAzeiq0xOEEOpWYGU2kF4dfOcIPK8pGoUudw+L0lCJQ7dDoRFAp8D/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ksy1lBld5qeTlrGafCV0VgkHUQB4kqHrs111JXJbZQM=;
+ b=sGKDlYl4S0rS5kSttFlh4ccajAZ8c2wcdzyenMqVlIug5R7ZJKhK6mORCSUaS5PVZCiKDZL/CeCnP2U/uIEYy+pkuFKMWgErPDnQx5AlRZSLJCE0Wbutq5ORwUGv78NJQNtMT80onf8FO4pLzOrAbT/Brt8TNIN6YHZaobnnub4=
+Received: from MW4PR02CA0004.namprd02.prod.outlook.com (2603:10b6:303:16d::19)
+ by DM5PR12MB2501.namprd12.prod.outlook.com (2603:10b6:4:b4::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Wed, 22 Jun
+ 2022 21:41:22 +0000
+Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::e5) by MW4PR02CA0004.outlook.office365.com
+ (2603:10b6:303:16d::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.22 via Frontend
+ Transport; Wed, 22 Jun 2022 21:41:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5373.15 via Frontend Transport; Wed, 22 Jun 2022 21:41:21 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
+ 2022 16:41:20 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-5.19
+Date: Wed, 22 Jun 2022 17:41:06 -0400
+Message-ID: <20220622214106.5984-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 51f3e4f3-e564-4378-78b5-08da5497f2e9
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2501:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2501659115C200287C0F4180F7B29@DM5PR12MB2501.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: b6vNgrQxXvessaCf6PgbEUrfyM+IAhwwDl5IRmBe2Fqz4tVT0Fftlt4uTjbzSoAiBa16Hy2o4DOUf5sMvAgWimlK9ro55+cWDwXU/1nlMrTS4I5jUl3VSrcNekIKA3vxIRLqYGJqigCgyWxSleqaMCW6IMTvisfS7h4PUuI3SSqwrql8luC9iXKlBl6PjtbH+8J7i8DUbyPOu6LsdVMfbO3SOVu7k6smfscLhKH3dVT32ij+V/2alMeIL5ZQ2FCbyp81FVrVcRrXbQaxqMmrQMcWArbC1eSpf7nIOcYXnrtUAv+fpW8GLiuC8MXri/PAHz2XMFph0gZ8qn9TPnFRsZmDsFtpbiBCvLBqauP/Nb3wUze6+zQw/BkUReqZuxyBTqmOzVaqQrRkEsd3x4TmqzzSUEBpy3qBepY+oYF1T46w2hhWFqlLESe7oXcmCevrhXLWNf0yKph1hHFrw9djdJOUWE/t+yRcuBbKk+bu7iiBlbgY/k33y6dW7S/SLaFcEF4vqt7h6ApKIgsyczfC+uDSevclkhH/ypUkKSYH/jEmKuuwrtvx9LVOc4Sm18ryhE6yi86B0qFimRESpgMPrEQxVMLSYYodNxIfNPF8EEoqH3bTGZLsmz/RucFHZBNAGpVwO+Asc9FxW3SBz78b1qTTbOf172CkSub5l26woYsED2BfdFP/X+azRjHatE9zRtFK2SLy1dMLopF5keIHt+8oYhWAdGvci6guA1d3WTPDfMQJ51Bq9oB2onFsiWH2
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(346002)(136003)(376002)(396003)(46966006)(40470700004)(36840700001)(2616005)(6666004)(7696005)(36860700001)(26005)(5660300002)(82310400005)(8936002)(2906002)(36756003)(86362001)(40460700003)(40480700001)(81166007)(426003)(186003)(110136005)(70586007)(316002)(478600001)(82740400003)(41300700001)(4326008)(336012)(1076003)(83380400001)(16526019)(70206006)(966005)(8676002)(47076005)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 21:41:21.6653 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51f3e4f3-e564-4378-78b5-08da5497f2e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2501
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,368 +99,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-perf-users@vger.kernel.org, kvm@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
- linux-staging@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
- linux-mediatek@lists.infradead.org, linuxppc-dev@lists.ozlabs.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: ac0ba5454ca85162c08dc429fef1999e077ca976  Add linux-next specific files for 20220622
+Hi Dave, Daniel,
 
-Error/Warning reports:
+Fixes for 5.19.
 
-https://lore.kernel.org/linux-mm/202206212029.Yr5m7Cd3-lkp@intel.com
-https://lore.kernel.org/linux-mm/202206212033.3lgl72Fw-lkp@intel.com
-https://lore.kernel.org/lkml/202206071511.FI7WLdZo-lkp@intel.com
-https://lore.kernel.org/llvm/202206221813.Dn1s6uuh-lkp@intel.com
+The following changes since commit a111daf0c53ae91e71fd2bfe7497862d14132e3e:
 
-Error/Warning: (recently discovered and may have been fixed)
+  Linux 5.19-rc3 (2022-06-19 15:06:47 -0500)
 
-ERROR: modpost: "acpi_dev_for_each_child" [drivers/mfd/mfd-core.ko] undefined!
-arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for function 'pci_read' [-Wmissing-prototypes]
-drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for function 'pci_write' [-Wmissing-prototypes]
-net/ipv6/raw.c:335:25: warning: variable 'saddr' set but not used [-Wunused-but-set-variable]
-net/ipv6/raw.c:335:32: warning: variable 'saddr' set but not used [-Wunused-but-set-variable]
-net/ipv6/raw.c:335:33: warning: variable 'daddr' set but not used [-Wunused-but-set-variable]
-net/ipv6/raw.c:335:40: warning: variable 'daddr' set but not used [-Wunused-but-set-variable]
+are available in the Git repository at:
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.19-2022-06-22
 
-ERROR: modpost: "phylink_mii_c22_pcs_decode_state" [drivers/net/pcs/pcs_xpcs.ko] undefined!
-ERROR: modpost: "phylink_mii_c22_pcs_encode_advertisement" [drivers/net/pcs/pcs_xpcs.ko] undefined!
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9143:27: warning: variable 'abo' set but not used [-Wunused-but-set-variable]
-drivers/net/pcs/pcs-xpcs.c:(.text.xpcs_config_aneg_c37_1000basex+0xa8): undefined reference to `phylink_mii_c22_pcs_encode_advertisement'
-drivers/net/pcs/pcs-xpcs.c:(.text.xpcs_get_state+0x1e8): undefined reference to `phylink_mii_c22_pcs_decode_state'
-drivers/net/pcs/pcs-xpcs.c:1031: undefined reference to `phylink_mii_c22_pcs_decode_state'
-drivers/net/pcs/pcs-xpcs.c:832: undefined reference to `phylink_mii_c22_pcs_encode_advertisement'
-drivers/ufs/host/ufs-mediatek.c:1391:5: sparse: sparse: symbol 'ufs_mtk_runtime_suspend' was not declared. Should it be static?
-drivers/ufs/host/ufs-mediatek.c:1405:5: sparse: sparse: symbol 'ufs_mtk_runtime_resume' was not declared. Should it be static?
+for you to fetch changes up to e84131a88a8cdcd6fe9f234ed98e3f8ca049142b:
 
-Error/Warning ids grouped by kconfigs:
+  amd/display/dc: Fix COLOR_ENCODING and COLOR_RANGE doing nothing for DCN20+ (2022-06-22 17:17:16 -0400)
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arm-defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arm-shmobile_defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- arm64-randconfig-s031-20220622
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-misc-lkdtm-cfi.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|   |-- drivers-ufs-host-ufs-mediatek.c:sparse:sparse:symbol-ufs_mtk_runtime_resume-was-not-declared.-Should-it-be-static
-|   |-- drivers-ufs-host-ufs-mediatek.c:sparse:sparse:symbol-ufs_mtk_runtime_suspend-was-not-declared.-Should-it-be-static
-|   |-- drivers-vfio-pci-vfio_pci_config.c:sparse:sparse:restricted-pci_power_t-degrades-to-integer
-|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-usertype-ret-got-int
-|   |-- fs-xfs-xfs_file.c:sparse:sparse:incorrect-type-in-return-expression-(different-base-types)-expected-int-got-restricted-vm_fault_t
-|   `-- kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-lockdep_map-const-lock-got-struct-lockdep_map-noderef-__rcu
-|-- csky-randconfig-r034-20220622
-|   |-- drivers-net-pcs-pcs-xpcs.c:undefined-reference-to-phylink_mii_c22_pcs_decode_state
-|   `-- drivers-net-pcs-pcs-xpcs.c:undefined-reference-to-phylink_mii_c22_pcs_encode_advertisement
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|   `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
-|-- i386-debian-10.3
-|   |-- ERROR:acpi_dev_for_each_child-drivers-mfd-mfd-core.ko-undefined
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-debian-10.3-kselftests
-|   |-- ERROR:acpi_dev_for_each_child-drivers-mfd-mfd-core.ko-undefined
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a001
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|   `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
-|-- i386-randconfig-a003
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a003-20220620
-|   `-- ERROR:__umoddi3-drivers-ntb-test-ntb_perf.ko-undefined
-|-- i386-randconfig-a005
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a012
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a014
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a016
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-m021
-|   |-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- m68k-allmodconfig
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- m68k-allyesconfig
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- m68k-randconfig-r026-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- microblaze-buildonly-randconfig-r001-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- microblaze-randconfig-r013-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- mips-bmips_be_defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- mips-randconfig-r015-20220622
-|   |-- drivers-net-pcs-pcs-xpcs.c:(.text.xpcs_config_aneg_c37_1000basex):undefined-reference-to-phylink_mii_c22_pcs_encode_advertisement
-|   `-- drivers-net-pcs-pcs-xpcs.c:(.text.xpcs_get_state):undefined-reference-to-phylink_mii_c22_pcs_decode_state
-|-- mips-randconfig-r025-20220622
-|   |-- ERROR:phylink_mii_c22_pcs_decode_state-drivers-net-pcs-pcs_xpcs.ko-undefined
-|   `-- ERROR:phylink_mii_c22_pcs_encode_advertisement-drivers-net-pcs-pcs_xpcs.ko-undefined
-|-- openrisc-randconfig-r001-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- openrisc-randconfig-r021-20220622
-|   |-- pcs-xpcs.c:(.text):undefined-reference-to-phylink_mii_c22_pcs_decode_state
-|   `-- pcs-xpcs.c:(.text):undefined-reference-to-phylink_mii_c22_pcs_encode_advertisement
-|-- powerpc-allmodconfig
-|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- powerpc-randconfig-r005-20220622
-|   `-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|-- powerpc-randconfig-r036-20220622
-|   `-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|-- riscv-rv32_defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- sh-allmodconfig
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- sparc-buildonly-randconfig-r006-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-abo-set-but-not-used
-|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-defconfig
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a002
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a004
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a006
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a011
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a013
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-m001
-|   |-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-rhel-8.3
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-rhel-8.3-func
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-rhel-8.3-kselftests
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-rhel-8.3-kunit
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-`-- x86_64-rhel-8.3-syz
-    |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-    `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
+----------------------------------------------------------------
+amd-drm-fixes-5.19-2022-06-22:
 
-clang_recent_errors
-|-- arm64-allyesconfig
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-function-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-function-pci_write
-|-- hexagon-randconfig-r045-20220622
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a002
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a004
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a011
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- i386-randconfig-a013
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a001
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a003
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a012
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-|-- x86_64-randconfig-a014
-|   |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-|   `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
-`-- x86_64-randconfig-a016
-    |-- net-ipv6-raw.c:warning:variable-daddr-set-but-not-used
-    `-- net-ipv6-raw.c:warning:variable-saddr-set-but-not-used
+amdgpu:
+- Adjust GTT size logic
+- eDP fix for RMB
+- DCN 3.15 fix
+- DP training fix
+- Color encoding fix for DCN2+
 
-elapsed time: 721m
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu: Adjust logic around GTT size (v3)
 
-configs tested: 83
-configs skipped: 3
+George Shen (1):
+      drm/amd/display: Fix typo in override_lane_settings
 
-gcc tested configs:
-arm                                 defconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-powerpc                     mpc83xx_defconfig
-sh                           se7780_defconfig
-sh                          urquell_defconfig
-powerpc                 mpc8540_ads_defconfig
-m68k                       m5249evb_defconfig
-ia64                         bigsur_defconfig
-openrisc                 simple_smp_defconfig
-powerpc                    klondike_defconfig
-mips                       bmips_be_defconfig
-arm                        shmobile_defconfig
-arc                          axs103_defconfig
-powerpc                      mgcoge_defconfig
-arm                         lubbock_defconfig
-sh                        dreamcast_defconfig
-xtensa                  nommu_kc705_defconfig
-mips                           ci20_defconfig
-m68k                             allyesconfig
-arm                      integrator_defconfig
-arm                         vf610m4_defconfig
-powerpc                      pasemi_defconfig
-ia64                             allmodconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-sh                               allmodconfig
-powerpc                           allnoconfig
-alpha                            allyesconfig
-arc                              allyesconfig
-m68k                             allmodconfig
-i386                              debian-10.3
-i386                                defconfig
-i386                   debian-10.3-kselftests
-i386                             allyesconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-i386                          randconfig-a005
-x86_64                        randconfig-a015
-x86_64                        randconfig-a013
-x86_64                        randconfig-a011
-i386                          randconfig-a014
-i386                          randconfig-a012
-i386                          randconfig-a016
-x86_64                        randconfig-a004
-x86_64                        randconfig-a002
-x86_64                        randconfig-a006
-arc                  randconfig-r043-20220622
-riscv                             allnoconfig
-riscv                    nommu_k210_defconfig
-riscv                    nommu_virt_defconfig
-riscv                          rv32_defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-x86_64                               rhel-8.3
-x86_64                           allyesconfig
-x86_64                          rhel-8.3-func
-x86_64                         rhel-8.3-kunit
-x86_64                    rhel-8.3-kselftests
-x86_64                           rhel-8.3-syz
+Joshua Ashton (1):
+      amd/display/dc: Fix COLOR_ENCODING and COLOR_RANGE doing nothing for DCN20+
 
-clang tested configs:
-arm                         orion5x_defconfig
-arm                       cns3420vb_defconfig
-s390                             alldefconfig
-arm                      pxa255-idp_defconfig
-powerpc                     ksi8560_defconfig
-powerpc                        icon_defconfig
-i386                          randconfig-a002
-i386                          randconfig-a006
-i386                          randconfig-a004
-x86_64                        randconfig-a012
-x86_64                        randconfig-a014
-x86_64                        randconfig-a016
-i386                          randconfig-a013
-i386                          randconfig-a011
-i386                          randconfig-a015
-x86_64                        randconfig-a005
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-hexagon              randconfig-r041-20220622
-hexagon              randconfig-r045-20220622
-riscv                randconfig-r042-20220622
-s390                 randconfig-r044-20220622
+Mario Limonciello (1):
+      drm/amd: Revert "drm/amd/display: keep eDP Vdd on when eDP stream is already enabled"
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Qingqing Zhuo (1):
+      drm/amd/display: Fix DC warning at driver load
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 20 ++++++++++++------
+ .../amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  2 +-
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    | 24 ++--------------------
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c   |  3 +++
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c |  3 +++
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c   |  3 +++
+ 7 files changed, 27 insertions(+), 30 deletions(-)
