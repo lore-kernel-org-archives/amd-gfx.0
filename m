@@ -4,93 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D94EC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 11:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E45A9C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 12:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA51710E5CB;
-	Wed, 22 Jun 2022 11:10:09 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC5C10E5CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 11:10:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S8XQMOCy5ywMTQSMhDdvedBT+np42QiQmnCtm+wH1e5XWx4zATrz2iPAjsS/f9UgwCcpdCM0nriKVm8HAiv2a+k8HzOUjPlPOXhVpwKofYRb44aq/ogPfArAsYLMOwxhi75Bg/adfUQHNcNGMxuXOGvY33cC0C946bgsLztHD4GRtKCi6H8KxrWE2OCpXZAnenvd2sYjtfqTpP4w8F3htWRQdHzSmwfY1W/EbGCS/k6omAmMIeGAEbKl8fWV2FRqjA3d3cHNeKJXnQXK5N1NETBZamLtU0GR5XqUbuA8TV9MoxdZhK1714XbIH+m95iSVliACLGaeRXzoo49WbNhPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ku9s5ndqkxANgq8H+7gohcedYPB+qV3KkwvJne2vn1A=;
- b=JG+QQQ0Lo7ftmjtivbs6NdFTkYI7ZT1bRb2PA61IPlThaOkjwrEJtkpinrcmaaFANWsv2EqtK/xb9wfxxQPIW9eHonFRH/is8fFV2+oSI/gTisbmxA6J22Xjc/mAIjNVYXnLPZYRZ7SPnXSquEL1HF6/ziqdzaAx9iopu8/IeYPCMvIDKaO7lOi2/y2Kim38f59H8aYn6T5XGH6eAVhbfVVu/vu80H/ZCZjyhGNpxYEr7gEkbFdEBSfxSq7S6G8SXkSHhSmBdF2Xicd+2Kz6mx9Mupyl8t6OSKz/l6HBgxpatOlc0//mOs5Sn5N7XePustE1SpS02KcwKOdrYu7cBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ku9s5ndqkxANgq8H+7gohcedYPB+qV3KkwvJne2vn1A=;
- b=W4Gkpi6c4Qq01bnbgbnZ2c1dEpENUMMSRFsiwJcHajTjFe1llyWJYO/CQgSFSxUfsEhxpkJvO0pBMwz0uTrUOC9lBJ1/KpdhHaZWTT+KL3RfC57RIajKl0qvHkMUB1FjvZIYOTa8QuEQQj9CUVkDtsnW/m+KMppnYB/ECZF6Bk0=
-Received: from DM5PR05CA0010.namprd05.prod.outlook.com (2603:10b6:3:d4::20) by
- CY4PR1201MB0120.namprd12.prod.outlook.com (2603:10b6:910:1c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Wed, 22 Jun
- 2022 11:10:06 +0000
-Received: from DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:d4:cafe::59) by DM5PR05CA0010.outlook.office365.com
- (2603:10b6:3:d4::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
- Transport; Wed, 22 Jun 2022 11:10:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT009.mail.protection.outlook.com (10.13.173.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Wed, 22 Jun 2022 11:10:01 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
- 2022 06:10:00 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
- 2022 06:10:00 -0500
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 22 Jun 2022 06:09:59 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
- <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>
-Subject: [PATCH Review 1/1] drm/amdgpu: add missed ras block id
-Date: Wed, 22 Jun 2022 19:09:56 +0800
-Message-ID: <20220622110956.15496-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A6A11336C;
+	Wed, 22 Jun 2022 12:34:51 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC15211336C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 12:34:50 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id o9so14457907edt.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 05:34:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=Xf1s0zbPflf4vKlG1l9V0/snXMHom6bOBMQzMk8tHhw=;
+ b=MCNZ9h/+vUMwgYGOuQKmG+jHUyHIUEAbhG7UGa0S6HNQ8hQAG1MF5Bd1TcWOlHgXnK
+ V65mzbbgHrUyCYJCxDGw+9yWMHvMBeYWUABfowrbT3yStm4Ehjdzqr1aE3AoYrvr7Cep
+ Vg1xg5ii+bAOM5a5jvn7HNrQTyOWy6GVQod1QU5vugxgx9cNrj4c4iLNu+yv8rGLBlrn
+ Px3/ce1XNwCUf0FhPoW+0lEFNg9lB/re2Q4W9nPzx8jHqN+kdiXi0x1Qewocmxe9QVXi
+ QogZ7X0qfayTmG4Sg+gSDDHij3JMLu42pcldD73JwnQHKBl6xXZiI4J1TOrSMqey3YCS
+ YDmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Xf1s0zbPflf4vKlG1l9V0/snXMHom6bOBMQzMk8tHhw=;
+ b=iREUvVicikjbRkbPYUUWVnEROXZNwNBs2O60YSf82mquK7prPHfTyaSaTpSN0bK4+u
+ kj+PoCXReYvi8BuqmFZmU+qs6nOBpJFnbyvbfvV9NkUA35+Z5ugUa22ghVeT5WNLmtjA
+ /zJbQ6B4q89BfkwTsDdmLOTohlea5c/SeBtUZKnIWf7cu8dYtkDkdfMaPXL+14icJzlc
+ kDJJaW1koTBJPmlAnnOsi7MY5pS7d3Bac3aGInuf0Fp/SD7av5SOZYhth+t6HoQFVuJ0
+ rLsZV7kJ6nNQlQiE7YcGsXDGEiCU/cnUth+fzb4gFUsfnXCPSUIzmNVNOiF5GfhT16io
+ rnjQ==
+X-Gm-Message-State: AJIora/WMXcaOjfiRRyXRwH/OIXlF526T6R8YD4nTyBihzkflLUjz/WU
+ Wfq/iIjNGCdZTCX4EmwAo4mN9AmqN5o=
+X-Google-Smtp-Source: AGRyM1uqOWf9lOl+/Jtr0Hn66NigGInF7H0H1U9V79Rgk0Ywz/dNRJFaakOU555r3qUKTmZ8tn9nsA==
+X-Received: by 2002:a05:6402:11cd:b0:435:64b5:9a52 with SMTP id
+ j13-20020a05640211cd00b0043564b59a52mr3867467edw.157.1655901289303; 
+ Wed, 22 Jun 2022 05:34:49 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:8f77:c83:6a3d:ee86?
+ ([2a02:908:1256:79a0:8f77:c83:6a3d:ee86])
+ by smtp.gmail.com with ESMTPSA id
+ fd18-20020a056402389200b0043570d96d25sm9978445edb.95.2022.06.22.05.34.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Jun 2022 05:34:48 -0700 (PDT)
+Message-ID: <94ba161b-6f37-d8d8-3af8-8f54ae4d300d@gmail.com>
+Date: Wed, 22 Jun 2022 14:34:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8fbfa01c-fd12-4ca6-c73b-08da543fc06a
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0120:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB012042D94A322ABE172AF5149AB29@CY4PR1201MB0120.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DcEIYgQ7QM2sWj5ex2as1VRPy/bQ3azgrq21Mt1r9pShTWldS0+O1lrQMx+rdajEhbPMXb/4FeZlLp9msg3pGUCsYoG88CnAqcPrNasc4j9cNwclEzlYM4NwnwTGRqAVahoBZHpJ+krzdsqWVd5h796Wj+3Jx0iWrInhLzmjhK+9ZNe7jIAHFG1Y2fm/GSvY+lEt/WmNGFnrFgWpMULImm4topU6UynJq3dVSkOXGSOrTcF6LtsL2lFNtijeXfECCRLQggNOiJBwgEL492yYN8FV4+wd1P4Jwa+8mWR8TWItLPmfITuZb4azN/8aHwNbg6u9BYNSJjG1gBQEn30Buhp6k8nAF1oFi4indDMj7vD6TDtt1w9B/R+TPzrKG8a9kbofqHh0piFx9lU2T2hgtzeMGV4wJNbl4D9+kpa/cpAyn02anHJCZK7QMmukPJtABf61OzPfWxmz/0+ziA4p2lVxdv1Su7QDY68dcE9wiVqxLDPnJEz0BwBXmx5cJcOnKpxbaH2kZYaWfVHjwYx9xlOQ8F35equ/mKZkLX1UBfkroHL3/d2co1JxpOnZWJpL6rs0G1KTEMkmNUE2pw1XzJ2mBWJugvhFkuXzLU+CSteusjrRBNEYz/nPHthaId1i/9vnyAbixgmNX/RJw+xU4vLjS/TA7IctSauumQAguLd0y1717ITx0S5YtsOPzY7jYQHtgN3LV89rx1rEUwhRlPnKKuzrEnTVFft6BAdkXf+ov7vhfuxIxAVYlxFx7ARSDUkqKMUVJp4rFz/McboAAZ+Ul/SCC9tCAvdHypbOhJE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(396003)(376002)(346002)(36840700001)(40470700004)(46966006)(2616005)(41300700001)(7696005)(47076005)(2906002)(336012)(83380400001)(26005)(40460700003)(426003)(478600001)(1076003)(5660300002)(40480700001)(82310400005)(6666004)(186003)(356005)(70206006)(4326008)(6636002)(8676002)(110136005)(316002)(8936002)(36860700001)(82740400003)(70586007)(81166007)(86362001)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 11:10:01.3148 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fbfa01c-fd12-4ca6-c73b-08da543fc06a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0120
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix amdgpu.vramlimit handling
+Content-Language: en-US
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220622100703.303697-1-pierre-eric.pelloux-prayer@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220622100703.303697-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,46 +74,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The VCN and JPEG ras are supported, so add VCN and JPEG ras block id.
+Am 22.06.22 um 12:07 schrieb Pierre-Eric Pelloux-Prayer:
+> Without this change amdgpu_ttm_training_data_block_init tries
+> to allocate at the end of the real amount of RAM, which
+> then fails like this if amdgpu.vramlimit=XXXX is used:
+>
+>     [drm:amdgpu_ttm_init [amdgpu]] *ERROR* alloc c2p_bo failed(-12)!
+>     [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* sw_init of IP block <gmc_v10_0> failed -12
+>     amdgpu: amdgpu_device_ip_init failed
+>     amdgpu: Fatal error during GPU init
+>
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 4 ++++
- drivers/gpu/drm/amd/amdgpu/ta_ras_if.h  | 2 ++
- 2 files changed, 6 insertions(+)
+That looks like a real bug fix to me, so I think we should add "CC: 
+stable..." tag.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index bf5a95104ec1..172ead9e7649 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -581,6 +581,10 @@ amdgpu_ras_block_to_ta(enum amdgpu_ras_block block) {
- 		return TA_RAS_BLOCK__FUSE;
- 	case AMDGPU_RAS_BLOCK__MCA:
- 		return TA_RAS_BLOCK__MCA;
-+	case AMDGPU_RAS_BLOCK__VCN:
-+		return TA_RAS_BLOCK__VCN;
-+	case AMDGPU_RAS_BLOCK__JPEG:
-+		return TA_RAS_BLOCK__JPEG;
- 	default:
- 		WARN_ONCE(1, "RAS ERROR: unexpected block id %d\n", block);
- 		return TA_RAS_BLOCK__UMC;
-diff --git a/drivers/gpu/drm/amd/amdgpu/ta_ras_if.h b/drivers/gpu/drm/amd/amdgpu/ta_ras_if.h
-index 509d8a1945eb..30d0482ac466 100644
---- a/drivers/gpu/drm/amd/amdgpu/ta_ras_if.h
-+++ b/drivers/gpu/drm/amd/amdgpu/ta_ras_if.h
-@@ -84,6 +84,8 @@ enum ta_ras_block {
- 	TA_RAS_BLOCK__MP1,
- 	TA_RAS_BLOCK__FUSE,
- 	TA_RAS_BLOCK__MCA,
-+	TA_RAS_BLOCK__VCN,
-+	TA_RAS_BLOCK__JPEG,
- 	TA_NUM_BLOCK_MAX
- };
- 
--- 
-2.17.1
+Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index be0efaae79a9..952e99e6d07e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1621,9 +1621,9 @@ static void amdgpu_ttm_training_data_block_init(struct amdgpu_device *adev)
+>   	memset(ctx, 0, sizeof(*ctx));
+>   
+>   	ctx->c2p_train_data_offset =
+> -		ALIGN((adev->gmc.mc_vram_size - adev->mman.discovery_tmr_size - SZ_1M), SZ_1M);
+> +		ALIGN((adev->gmc.real_vram_size - adev->mman.discovery_tmr_size - SZ_1M), SZ_1M);
+>   	ctx->p2c_train_data_offset =
+> -		(adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+> +		(adev->gmc.real_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+>   	ctx->train_data_size =
+>   		GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+>   
+>
+> base-commit: a81bcfc756bcaa9e8bb46262f910504fa5290aab
 
