@@ -4,127 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB41C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 22:56:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF1FC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 23:06:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A32E111346A;
-	Wed, 22 Jun 2022 22:56:03 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 158D6113471;
- Wed, 22 Jun 2022 22:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD1210EC9A;
+	Wed, 22 Jun 2022 23:06:20 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F024610E98F;
+ Wed, 22 Jun 2022 23:06:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dcF8Zjo7dNmVPeYwVU7EFxaNhPJwydwl9aSWX5tLPzbl5uEY+hrSDx4vjoxh+I1OLphZCnrhJuQryv0Z23J4RaWWK6ZnxacxK96VdBb0tQdiGt0/iD80c3l/Y9EiEPAcqzTEngLyUGeZx3DyhI6K55+sNuWUeUBDcJtlpt30gpK45OXgg4bdNWon/sPoztAMHKxwBnJQB7pk1JRxzLzVZsHwvlYSo36Gr/0wAgnAR45lKNmLqzu72qViiANIihQruG5Jqou7mtCmphwe3JSIvqSDr9ThfUSLNLFnjOKhyWwSAgTD4Igjq+Y5CrQT5p7sASfaUlJpZWFvqiM+xWtZyA==
+ b=XF4iIxa0cv/pOo9EPEclopHihq7DO7eepny9io47gWSEJY2CBdZTGwJ5XsgdFOLQiBtFhAxHKC23UO+Zuh4MdiRpR5KPO9e57GuyryW0QI+kinDRp95GI3cWMzbBsl9FzCTQ93RPfKKN9UctGqpy6lvULELlEidAeVMCGrYXwuFp5AqJLV9og0RL3Cf75tNydDY1GXiGiXwbRfuaFyB3wsTTw/Wj5UxpQvFaU88uIJNrBpE2xtjQmXxNN2bnsgPLHOBByQNO/sXoUWCKgV6ENj/3CJUrylNkJlzJB56d1L7jiSlsCIshddDYcno/CkqNhhSxgfb0ayyiJDP0W1UxVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rK/RqTN6ketK+Z9m4Xj3pVSYGZ6HN6zch7ONEIQ2iDk=;
- b=Z2gNHtV/oMJINqXWro9HpyoQVxj0OIZ46sZleM4X7U5d+KjA0bBnSQ/IEG5KHif0yaGG5BCFc1He59EhLR/YqNjASFwOB8sWxgo33wWxoXNLAQOCEXmdFSmJSrVdIlgxFFVeA9OYXUdUsCHKpWvNoyGbTYBZuB+6quJ8lyMAd0Exeq0BwUeedlRF6nHTvO7V9yHd3IFEDvmMy1rrgpao3voJ//uMbm5sJ6Pp1yJg/buMDjTF7J/SmOnrZpOlQoCk3xWOphPZG+suGwev17cep0jsotr5vYpRFY/wL9++9JgH/DThai3uOrK6ga/HNdkTnnTS+eQK6YdmodttKhtUYQ==
+ bh=GAai6S6dseGWGlLSzYIQJ/7Vi/LOmOi5K6YTdG4Digs=;
+ b=aUyU3A2foW9dU1FCslj5/l/JHkoWa69TWzaDHdn29sx8mzU6MbJuZjYk8eqo7/QtMlm2RtP7um1JAtd7eLQaSxlOwseYYB2yaPUZU1ymxS0dLVMceq4g9hKMcI0FEBFwmzZzHV7L6c+Wb6oClqDITarm5Y50i2MmH1uNpceI4IVM2MSZtel+Vu/Eqo5cpdBDQLfyNThXOrdTMj9UBsYUR8iU7GNYOCjoHEd/9rEfNC4RFk2osadmeeevHUDBk0FqDOZu30JGBilFAo1hH9K6sRmfzKxZHzF6SzW9y3SyZHyyCrjr3nipPovow4Dz4bRCns6gOsjIYmQis6hSIArqaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rK/RqTN6ketK+Z9m4Xj3pVSYGZ6HN6zch7ONEIQ2iDk=;
- b=HI+EP77NDDdLdowxKLeZbbwectuJ0KqsLUALRsnE/eLr+ZcjeIcnd964mCta4Hz1AoeU9si/azvSG1efKtx17qHB/sR7trpwltmPjkuObA0VYqF6GtNz/TLt1sQGcHhYRdyldr8877BaK3mdk5Q4Be53EbfI075dxJALCI3Kq/I=
+ bh=GAai6S6dseGWGlLSzYIQJ/7Vi/LOmOi5K6YTdG4Digs=;
+ b=Mvvv4UiT8stZRJpDIadFjAyEcHAL31YKGmAlXaLj4p7SR4y6WpPXCvD980a93mWVp05LxCcZQ9MwbHTKq5Nltfbf/n2U8i662wK3Mg8lCZH5FZ2eQT07ofs0MuGDRgbuFQdYJvLbUazgFSTGeKHvVO3v/QTVWK5nwJFENsSIC0k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by BN8PR12MB3219.namprd12.prod.outlook.com (2603:10b6:408:9b::24)
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
+ by MN2PR12MB3328.namprd12.prod.outlook.com (2603:10b6:208:c2::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.18; Wed, 22 Jun
- 2022 22:55:59 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::85a:3075:1744:8317]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::85a:3075:1744:8317%7]) with mapi id 15.20.5353.020; Wed, 22 Jun 2022
- 22:55:59 +0000
-Message-ID: <4b49a331-06f7-e875-ed97-c6af7377e629@amd.com>
-Date: Wed, 22 Jun 2022 18:55:56 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Wed, 22 Jun
+ 2022 23:06:15 +0000
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::b9a8:66b3:9ed6:2db]) by SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::b9a8:66b3:9ed6:2db%5]) with mapi id 15.20.5353.022; Wed, 22 Jun 2022
+ 23:06:15 +0000
+Message-ID: <db23875c-750e-d81d-5184-3d53814eebd4@amd.com>
+Date: Wed, 22 Jun 2022 18:06:10 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [RFC 0/3] drm/amd/display: Introduce KUnit to Display Mode Library
+Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
 Content-Language: en-US
-To: David Gow <davidgow@google.com>, =?UTF-8?Q?Ma=c3=adra_Canal?=
- <maira.canal@usp.br>, Daniel Latypov <dlatypov@google.com>,
- tales.aparecida@gmail.com, andrealmeid@riseup.net, mwen@igalia.com,
- magalilemes00@gmail.com, Isabella Basso <isabbasso@riseup.net>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20220608010709.272962-1-maira.canal@usp.br>
- <CABVgOSmesj5MGfQrtdWCgXzm1VXRoG0fAMCbkBCAvtqediqAjQ@mail.gmail.com>
- <8b040fb2-7edd-6fd1-864e-ee04115c5b1d@usp.br>
- <CABVgOSmyUC11fwpsH8Y6a_8hCKphyyZj2uYT+dhuRfHT2uonmA@mail.gmail.com>
- <44745ed7-18ad-ad7c-fef5-2f0f71d289d1@usp.br>
- <CABVgOSk8grWzD2AR3KLOK_CioDu=vy_gOgpofTvp+8PvZSaoRg@mail.gmail.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <CABVgOSk8grWzD2AR3KLOK_CioDu=vy_gOgpofTvp+8PvZSaoRg@mail.gmail.com>
+To: Alistair Popple <apopple@nvidia.com>, David Hildenbrand <david@redhat.com>
+References: <20220531200041.24904-1-alex.sierra@amd.com>
+ <20220531200041.24904-2-alex.sierra@amd.com>
+ <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
+ <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
+ <7605beee-0a76-4ee9-e950-17419630f2cf@redhat.com>
+ <ddcebcc1-fb0a-e565-f14d-77c9d48f2928@amd.com>
+ <6aef4b7f-0ced-08cd-1f0c-50c22996aa41@redhat.com>
+ <65987ab8-426d-e533-0295-069312b4f751@amd.com>
+ <34e94bdb-675a-5d5c-6137-8aa1ee658d49@redhat.com>
+ <87letq6wb5.fsf@nvdebian.thelocal>
+ <643c44e7-48be-375b-c7ab-6a30b5ee2937@redhat.com>
+ <f5b9f777-85a2-9c38-17f3-0c9be1eeb867@amd.com>
+ <01cf9f24-d7fc-61e9-1c28-85dc5aabe645@redhat.com>
+ <87h74d7dde.fsf@nvdebian.thelocal>
+From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+In-Reply-To: <87h74d7dde.fsf@nvdebian.thelocal>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0100.namprd04.prod.outlook.com
- (2603:10b6:610:75::15) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR20CA0012.namprd20.prod.outlook.com
+ (2603:10b6:208:e8::25) To SN6PR12MB2717.namprd12.prod.outlook.com
+ (2603:10b6:805:68::29)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ac3ef837-91db-4099-5108-08da54a25f4b
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3219:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB32195956764422826860022D98B29@BN8PR12MB3219.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 06e59371-5028-4a85-4ddb-08da54a3ce88
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3328:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB33288831E84A6E581ACA4199FDB29@MN2PR12MB3328.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cPzpy9yBo2plBBoyYA/SIh5+T3eRrMc2oUyVwyp0UjXtygOCVv0i5Z53jCDOf73QyqIVIswptPbMuoDlEp8tBLpuzDbRyiM6jLdZym1fcancj+sebL+omrXXybujTW8Bf+wTAcX1hQgF3qZlt7i2+S1LFyiozTdgecyZxB437/2GB06g068T7FDm+Fe4qUtf0rRUo4uVfvpUVI0ugWXUcT5M1/nfyPsj+W33O0fgBvIhCWaDuAiTqsHqkwCt3Rymj/o1fYC3hXxBIymk/IcjUNTPjqjACr3K4/Go4i4zpQ9gRT9q5oAUEwomCrmKCg6MH5lmETXCYZiQ5piUR9vuLtzy8sFjEzBfb10z7gi4YHSELV4u6iFKp+N1+qOq0kAnj469pPelJanABWJDxipv1WnsFrc62Ofi600t8D3f+b8kwuO5D/8CqGQjPHXLqZlIKr34dkh7ZcvVYBE1fnYSQ2RPveovJ7OUJlNAr2d7x4g8OmyxsA69lH0vfsUyH1MswmFi43SXtSoArN7zr/svtqCIY4LPsZ9zuZEH/x7PigXosA8g3odaffpCqtB/7Obb0jbYoGs3ph0aENrb9ZFTM43gJd3HLi//1cwSWCkxZv/XBUn3rmzetGq4XBVBd6RRXv7zYdOkWLYQYMjeRZ1Rzu0xGYR01fshs3kBz/eFipkw2OUFAOAZGQ3pJeEvi2duwNnc9NgSRh8R4hP0V+p6SJ/MOfAjkNamPump/nIPw8tNggXKZmsr8jWYQl/GPDKW/encccvn/SRafxlcRaofD1m7wpein1VFXid/dz3BhETsdfVSiY5bNsrwOXq0bQjvX3M2xC2JhWzpUcZvfK88G1638Spe1BnS14BsPWsQjps=
+X-Microsoft-Antispam-Message-Info: VCHxOi4DwE5ZAqddbSJAsZuC9bId5aFL5jnrWYnMNV7Bk4R58VgpjSlOjBFELfM2iUzGGJsq6rUfv/eZ1UDaW7tG95RCf/5gzqq/M8Bwvhw7Dg2+SRoZWaGHU8Z/JKSN69l1mOj3hNr1L3jpS9ArNpFe4IFnoT96v9xF5NqAxgC003b2KbZL0ck+E/U/S7LIZEhMcLqHKbw0l1sSxd/xAw0Z3AFYRk8OUtsi29Y+sn64H8pEp7o+9qwXnw87ZB2P2o1d2lHDSOkLBZcljVSvBrVioZosTZTCXh1bAFF3YPXB2fkG/n0tej3Y/6sKVBG0/A16eDUWESKp4fSKkOZQhJl2DupypHtIDpLXpqAdSz5mLMltSWde1YqdxJv7b7g9yYGQx8r08f93yIEPQu6eI0k3A6TsAQdO6NcRC6XXPW+xvBbfBoUUrHz8CbWVOUXZ0bmfXjUmqt2EK8JY2koPUhIdb0l7qTYVazhdlg5QZ+/5R+8Jo/h23VUWGSk0ygE8KDg2vDcP20OhvgiMX8FPh1W/sjGmjiH1k2Gz5YiouiNdV3oFYi8EBrTlkCSM/x5qoqNMqm4T3pEk+Rg6OGn+xvwSyr5CCPyD1J/Qy/PL1Eb0PquCbhjIzwvt56jlTEF5xlf4VCwhrB3j1rwL6YmAKNk6ZgQiN4tIxfKdKFBNc/swUm+LGAyGGGDQGCVWDFaThVzGUMZgBk9urIiraH1xU5NWD46YZMu+Qqwm3qzY+eCbdVjOFyh2z1pPVDGAHdg3C0uYZhGhG7KkhH7ISWZcDzgqMLWKvUkBEbYWiYiCtqI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(396003)(366004)(376002)(136003)(346002)(7416002)(66946007)(8936002)(66476007)(4326008)(2906002)(8676002)(6486002)(41300700001)(5660300002)(2616005)(6666004)(66556008)(36756003)(6636002)(110136005)(31686004)(6506007)(478600001)(316002)(26005)(53546011)(86362001)(6512007)(83380400001)(31696002)(38100700002)(186003)(66574015)(966005)(54906003)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(366004)(136003)(376002)(346002)(39860400002)(2906002)(41300700001)(6666004)(66946007)(31686004)(6512007)(5660300002)(6486002)(7416002)(26005)(6506007)(8936002)(186003)(66556008)(478600001)(4326008)(110136005)(66476007)(2616005)(8676002)(316002)(83380400001)(31696002)(86362001)(38100700002)(53546011)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjIrSGQzQ1ZFOHpFVWoyTEhlUXJVNnllV1kzRGFiR2EzOFd6YVM5R2xrL213?=
- =?utf-8?B?VFkrQlE5T2s3OHYvTVpYdDNxOVdFc1ZUQVphOGVIM3UrWHVLMXBPdjhGaHVV?=
- =?utf-8?B?TU96dnBseTU5a05DeTNVZTNjblRjNU5hZnNPMFkxTmR0NEVUZnc4YjZpYVhi?=
- =?utf-8?B?Y21QUklMS0Jna01lNGluZWJ4SkVOTkNsakI2RjB2a3Q4cUVYNXM3RCtoTDdR?=
- =?utf-8?B?VlJXZzRnL1h5TTQ4UXcyZUYvMFBsUWFxdFdjSm10dGZPMldGamRZeHVJeG5w?=
- =?utf-8?B?ZSt4T0ZISm95eDRaRXJ0RWRrRXlyanlrSUFuVGZwVVRJbUwwS1RqNyt6L1Ur?=
- =?utf-8?B?N0lGZ1JRUFlHdWRXOEI5bFpWVzFITnlBcjNtN0lPb2JMRndqQXQwZ1AvR05E?=
- =?utf-8?B?S3g5em1TQmYrbkdaQ2tveHVZU1NUbUhJbVdsRnFQcThEODdrK3NwRldrVXZM?=
- =?utf-8?B?U2QxQ2I5aFdGQ3F0bzdqR2RGU0tZU3J6d2xxVWNWc3p0Sncvb3VZaW9ETUZx?=
- =?utf-8?B?akoyRFNrckkxbjNaelpLSDd0dW5uM1c2bXBLNWVLQitwVlJVTnM1Y1NlbzJk?=
- =?utf-8?B?NTVKaTc4UnBWaGJiaHliRU1vRVVtc2NXZ3o1a2JUcVVQTTI4Wlc0Ny8ya200?=
- =?utf-8?B?WDhlaHdGQnlWdWhDZm0vdWlGR1IrOVNqN2U4MWRMeEcwaGlhNHlqZ2hMNGI5?=
- =?utf-8?B?SXpFazREWStHK3NyMmZXTzFvWVdwbGwxdW1qUzZaR1JOOE4xeVpMYWg5bVNH?=
- =?utf-8?B?S3BxVzkzV3IwdHUvMXdjRTJaaHJPTXVyZHplc1pYZ2MvcElpR3ZSZUpVQ2Jh?=
- =?utf-8?B?N3NwTFY0UElwd3dkcHRGTUg0a29obTJ1MndKbDNvcGVoTERoallJaTQ4ZWhQ?=
- =?utf-8?B?Z2VpU3ZNZFE1ZzNhbnhCTGcvRkJVMTBrcjMvYldOR0JiaHNGNzk3WWphQ1BT?=
- =?utf-8?B?VjJqMlRra1B1V25DblJzS2hMZG9UTlB0T0Y2a0NvTmVqeWY4UStMRFZDTi9t?=
- =?utf-8?B?OXpxRkZvUGhTQlpNR0w0aU91ZDJMNnZLRk1XUW9wdlMrbW8wQnF4aTFJU1lU?=
- =?utf-8?B?NStSbHdWckxMdko2N2VWRWxnb29iMlp1b1ZLUWZZVHZ5VUtGWjcwOGh3bjFX?=
- =?utf-8?B?SDdMbEIwa3d3d2Y1Q3NrZTJQc2lpdVpRVmV2YVNwN3htak9NSTVlZG5CbFZQ?=
- =?utf-8?B?LzB1OWRFWCtkMFQrZVBMOVZoc3VZT1R1TXhWb2ZvU3Y1RHgyUXVWUWprdWFr?=
- =?utf-8?B?YUF1eDVqdTlQMGF1cmN5RlJWUkpjWm5TdktjbFdmQldHcW1leDhHWldCTk5D?=
- =?utf-8?B?UTZTVnJMdUorUFFrWGNIS3dSempwc0t2QVZEUzRXM1ptdE9lc2VRMkRLK2VY?=
- =?utf-8?B?Um1YTmtKMkI5Z3c0b1hzaXJFdDFTakVWckhNUlJDQm9xT0ZkRVZwVVBxMDhZ?=
- =?utf-8?B?UW00TStna1V5Q1FxZDQ2OHVsNVdqNUFRRzVTcGtJU2JSSTFWOUhnaEdVbTFX?=
- =?utf-8?B?WFRHWjNLZEdlSDFoZnp0VTUwd3pvOGhMc0wydEVITFdHL3h0enM0a1VLK0tQ?=
- =?utf-8?B?clNnM3FML0JHRlpCMnV0QXRkR0NXRXpUVWpxNFJRZ1F6K0Nxa0JXeDVVRzF0?=
- =?utf-8?B?QWR6R3pIT2lseWNUTUwxbEYvUWt4R1RpaHVxbFV6bVhNZ3lJMkdYU3VXempl?=
- =?utf-8?B?Mjh4NUFBS1VzekxRM3Jzc0RFK01IcTNQampJNjE3MWhQQ015SFlVRi94V05N?=
- =?utf-8?B?WEUvVE5PWEJjUGFKaWFLdDN0SGVMOURzMysrUTV4aVdlWEkyaXlLWGZ0R1E2?=
- =?utf-8?B?a1B6aVBYeWhxdUYvQzBVSVlUWkxlN05VZEI1MWpzc0s3U0owNWttcWFXRUsv?=
- =?utf-8?B?ZHMyTW01eXl2VUtEeFZjbjZJVTEyT2U5T1ZqaGhoMERITEhVbll2QmJjaHcx?=
- =?utf-8?B?VWx3U09RajBmdW1sV0d5UVAvQ3ZmUjJwVGhxQXBEOTM2MmZCdVpHNEJGUDdt?=
- =?utf-8?B?dFBXUHM3R1hhcXI4aCtuaTNROU5yRENPU005UC85QkkyWlJpQm90cnF6cERD?=
- =?utf-8?B?ZnFhNTFDUWw3dVdnMDFlbFMwNlpBYld1UXhpUVpjanVIaEdLeS9KK0tSQy9W?=
- =?utf-8?B?anI5NVNFeGRzWGZ0ZEVYeHV2SElEeGtFR2N4azR5Q1ZmV2VYY2dCUkVZZGNL?=
- =?utf-8?B?dWNwUXU0bXBkOGRMbE5FZE83T1UvdGc4UndOeFhvaFp3eXRleGRRelYrOGk0?=
- =?utf-8?B?OTlVRjhSOVdNZjdXTDhHM0Qyd29kZVdNZzVuY1RHdXpYRkUwbmxZeWFrMEtZ?=
- =?utf-8?B?bUV2UjlZd3ExdnNGNU9zR3QvcU85eHIrQVBwTm1TbDRkL3NZMFYvQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1RNcXJBazVGdGIvQ0lBb0IrWmhxcjdQaVA4cFU1cHpobGdSajRDa1J3T1M1?=
+ =?utf-8?B?TmVqeGtNZGM5eXBXNjBuVStVTUtsOHlQZ0hwNE9ZTXhSTzd1dkFMRDhvMity?=
+ =?utf-8?B?RnBheldUNzZFQjl4bXBIVTBDSFFJVjJEdzVkTm1VcStzdGV5Nkw4RFdka3Ft?=
+ =?utf-8?B?Sm9vZmtGMFdWYVBJSHZUY2daR0VzSVpUOVI0MkVVaDhLeFBhaS9VWk8xRWdP?=
+ =?utf-8?B?b0hCQkR1TCtOMUE4M2NlZUo0TTk0R1FpQUlUaDFFbll2aUhhL2x6UW5hU1V3?=
+ =?utf-8?B?Mk1QNHE0cCt5aEQvSG9LcmJlZ0tyb0RKMHQ4bWwvcnJyY1B3ZGtDSS82bjc5?=
+ =?utf-8?B?Z0d2QUhBQ3E2L0hzeTIzL0VsaDE5NEI3NkF5aTNRd2dRenVHU1hTSEM5OFI4?=
+ =?utf-8?B?Q01XR2VHem5zbEtGMitaOHJPc0gvMzI2UmRaczk2Z3NqVnMra2pWd3RUNm5w?=
+ =?utf-8?B?VGx6QmREOG1SSzYrOTM3OHpWb0lid3U2OEhuTWZ6MG5nTFc3N1FGdmt0MURZ?=
+ =?utf-8?B?bU40ZEZmWEE0RExaOUtzdVBHVURMazFKdzI3TGxSZTFjVnRJQjVJb0FHaHhn?=
+ =?utf-8?B?SDJNZUNDUFRzbko5WWszZ1dqL1JPRHpwTXlHUHVTc1UvdnFzRFZ0Z0FISVhQ?=
+ =?utf-8?B?OFpIeWEzakhDL0FxOWJIZEhiRlQxcEdtTFZVTTBWUngyUUxjK29YV2FYN1po?=
+ =?utf-8?B?RTNybEdhZjNhMmdBa2JGa2twYzMySkNFYW9MdGxqMjkxWm94UjhkUTBkaDZW?=
+ =?utf-8?B?ZXd2QXRyeHVqN3RYRTVwV0RUL1JROE1naGU5QmlpbXFqRzExZ3lhd2t1TmF0?=
+ =?utf-8?B?YXhvcGV1UWgyVDRsQUV3MEJRZlFROVRyK1phTTlVQ0FjUHg1VFlnaUphbjZn?=
+ =?utf-8?B?WnY2RjFHL0wxelJUZkw4Z3llRFpkQThIMFo3RC94RGtrMzE5OVJZdmtHaHU0?=
+ =?utf-8?B?MEdVb1NCKzJ4OUNMK2liaDJ1ckR4M3Q2a1lwZE91VXUreEZXYjVrcHJBZHA5?=
+ =?utf-8?B?aVhrMXhLVWFOR2g4ZVM4cmllRlQ5bjRYY05FaXNvKzUxblFTTGZpT0xhTXV6?=
+ =?utf-8?B?QlFkVy9Nc09mQ1FlOVJLSXhtSnVHRE9wekVCOFA4SmlZdm44MVJMblVJOW9K?=
+ =?utf-8?B?cmxvUFV0YmNxaEgwQ2dwSzVqNWZZbnFNNXFiRUFvN0NVUmxKYit4cWNjUFl2?=
+ =?utf-8?B?bmIxdHRNMi9qL1Bwazc2QWZRWHdiejhMMGxnN2E2K3lWRFNHejhadHcwQ1A2?=
+ =?utf-8?B?ek8rWjA1VUVpVGJORkxSb2JMd2RKOHdLY0xhV0tMM1daKytCaDhLQy9MUnlI?=
+ =?utf-8?B?dmFMY1FOZWF6VkVtTEl4THhUeWJuRFRpTmtjYm5PZUpPU2ZGelpCQzBKQnpN?=
+ =?utf-8?B?VW1zNUZXRy9ZejRSWHdoK0tIZDcvZ0o4eVNYcXl1c2k3TWd3enZOb2w4NjJG?=
+ =?utf-8?B?TjVrN0pCUkhuRW1vN0VWTVJlcFA4YVZsQkZCM1JDWUIwUk5VWmhsTVR3bVNU?=
+ =?utf-8?B?OHczSWRKNkpvZEtMMWE2Q3FHOUlHQVBJMzhvYVBFWHVJN212V3NkcEQvbEVo?=
+ =?utf-8?B?K2diSXpQSndwYVM0cWg5NGRnK2prWHFMT1lPQVNBMDRQNGVwaXpHOW8rcG9I?=
+ =?utf-8?B?OU0va1F5MVFmZlJUWjVwRkJpYWlKQkthMzVFaEpad0FxRHhmNWlnN0xMNmhF?=
+ =?utf-8?B?L3lERkJ2VGd0cGpueTVlZ1lNa3VJNzcxaUNEUk5FMWt6Lzc4d05SbVFyRVd1?=
+ =?utf-8?B?em9DUnk3SksvaHFkU3hLQzMyVWNnVUR3Y01OVzliRm54dStqVnFHT3hVSjRR?=
+ =?utf-8?B?YXBXN3BadHhBcHEyQnVVczFST3Z3ZDRvUlhnTjc0cFpVVEhLa3IwOWFTd1Zy?=
+ =?utf-8?B?Z2p6VTB2K2g0Q3ZrR2hDQXFkOG5uaTdDYUlyQ0RRdGVsT0MzSHE1V0Q5VThQ?=
+ =?utf-8?B?UzdpMURjZmN0VlhYTW81VDZlV2R0WjRJQk5DbXNja1k2OW9wUmw1VjBkL3Fp?=
+ =?utf-8?B?YTV3ZzcxbTBIb1QzYStLTGEwZjk2bnYvWjVkY1hDdzVMc3pkNVNObTcxQkZv?=
+ =?utf-8?B?am90bHlrSXk3anIyMU5VOWo2M3JsMXJlL0VvQStJemNXcGhmSVJVRFhndits?=
+ =?utf-8?B?VjF2b2MrWWd0UVFodU81Vlo0aFRxS2E2Y1o0TW9JVzRMVTI0VmRNekxrTndt?=
+ =?utf-8?B?dlJSdnBPRlRILzM0UlMweE1CZUhpUDNBMS80R0wxeVhZZnYxNDJjbVdqOHpV?=
+ =?utf-8?B?NW1zOVZhRkUxNko3b2FaTFZJZ2tCYysraitZMkJYdWV2QnUyZkdQY3Qwb1Za?=
+ =?utf-8?B?UFBVQ1ozU3lsczRTVzQ5ZjRkMkQydHdzeGFvaDNCdzZpMUhzU1VhQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac3ef837-91db-4099-5108-08da54a25f4b
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06e59371-5028-4a85-4ddb-08da54a3ce88
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 22:55:58.8271 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 23:06:14.9819 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tDQiv87uxuu6XjetxUiFG5lx0UZF33gv7Dm/C7P2S0J3/PoIg195gSrYr5WuadjPPefUvrfVkMFeiOkPHNo0fA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3219
+X-MS-Exchange-CrossTenant-UserPrincipalName: CXyPYlrriKJZMig1L+GaVCKBpQ6VDLAJfzmfweLMBxu64T7yaJlT7TGNcttmIpZWymZnx9G9kmI4t+JYcc/8LA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,185 +140,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harrison Chiu <harrison.chiu@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Jun Lei <jun.lei@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- KUnit Development <kunit-dev@googlegroups.com>
+Cc: rcampbell@nvidia.com, willy@infradead.org,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-First of all, thanks a lot for exploring the introduction of kunit 
-inside amdgpu.
-
-See my inline comments
-
-On 2022-06-18 05:08, David Gow wrote:
-> On Sat, Jun 18, 2022 at 4:24 AM Maíra Canal <maira.canal@usp.br> wrote:
->>
->> On 6/17/22 04:55, David Gow wrote:
->>> On Fri, Jun 17, 2022 at 6:41 AM Maíra Canal <maira.canal@usp.br> wrote:
->>>>
->>>> Hi David,
->>>>
->>>> Thank you for your feedback!
->>>>
->>>> On 6/16/22 11:39, David Gow wrote:
->>>>> On Wed, Jun 8, 2022 at 9:08 AM Maíra Canal <maira.canal@usp.br> wrote:
->>>>
+On 6/21/2022 7:16 PM, Alistair Popple wrote:
+> David Hildenbrand <david@redhat.com> writes:
+>
+>> On 21.06.22 18:08, Sierra Guiza, Alejandro (Alex) wrote:
+>>> On 6/21/2022 7:25 AM, David Hildenbrand wrote:
+>>>> On 21.06.22 13:55, Alistair Popple wrote:
+>>>>> David Hildenbrand<david@redhat.com>  writes:
+>>>>>
+>>>>>> On 21.06.22 13:25, Felix Kuehling wrote:
+>>>>>>> Am 6/17/22 um 23:19 schrieb David Hildenbrand:
+>>>>>>>> On 17.06.22 21:27, Sierra Guiza, Alejandro (Alex) wrote:
+>>>>>>>>> On 6/17/2022 12:33 PM, David Hildenbrand wrote:
+>>>>>>>>>> On 17.06.22 19:20, Sierra Guiza, Alejandro (Alex) wrote:
+>>>>>>>>>>> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
+>>>>>>>>>>>> On 31.05.22 22:00, Alex Sierra wrote:
+>>>>>>>>>>>>> Device memory that is cache coherent from device and CPU point of view.
+>>>>>>>>>>>>> This is used on platforms that have an advanced system bus (like CAPI
+>>>>>>>>>>>>> or CXL). Any page of a process can be migrated to such memory. However,
+>>>>>>>>>>>>> no one should be allowed to pin such memory so that it can always be
+>>>>>>>>>>>>> evicted.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Signed-off-by: Alex Sierra<alex.sierra@amd.com>
+>>>>>>>>>>>>> Acked-by: Felix Kuehling<Felix.Kuehling@amd.com>
+>>>>>>>>>>>>> Reviewed-by: Alistair Popple<apopple@nvidia.com>
+>>>>>>>>>>>>> [hch: rebased ontop of the refcount changes,
+>>>>>>>>>>>>>            removed is_dev_private_or_coherent_page]
+>>>>>>>>>>>>> Signed-off-by: Christoph Hellwig<hch@lst.de>
+>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>       include/linux/memremap.h | 19 +++++++++++++++++++
+>>>>>>>>>>>>>       mm/memcontrol.c          |  7 ++++---
+>>>>>>>>>>>>>       mm/memory-failure.c      |  8 ++++++--
+>>>>>>>>>>>>>       mm/memremap.c            | 10 ++++++++++
+>>>>>>>>>>>>>       mm/migrate_device.c      | 16 +++++++---------
+>>>>>>>>>>>>>       mm/rmap.c                |  5 +++--
+>>>>>>>>>>>>>       6 files changed, 49 insertions(+), 16 deletions(-)
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+>>>>>>>>>>>>> index 8af304f6b504..9f752ebed613 100644
+>>>>>>>>>>>>> --- a/include/linux/memremap.h
+>>>>>>>>>>>>> +++ b/include/linux/memremap.h
+>>>>>>>>>>>>> @@ -41,6 +41,13 @@ struct vmem_altmap {
+>>>>>>>>>>>>>        * A more complete discussion of unaddressable memory may be found in
+>>>>>>>>>>>>>        * include/linux/hmm.h and Documentation/vm/hmm.rst.
+>>>>>>>>>>>>>        *
+>>>>>>>>>>>>> + * MEMORY_DEVICE_COHERENT:
+>>>>>>>>>>>>> + * Device memory that is cache coherent from device and CPU point of view. This
+>>>>>>>>>>>>> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
+>>>>>>>>>>>>> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
+>>>>>>>>>>>>> + * type. Any page of a process can be migrated to such memory. However no one
+>>>>>>>>>>>> Any page might not be right, I'm pretty sure. ... just thinking about special pages
+>>>>>>>>>>>> like vdso, shared zeropage, ... pinned pages ...
+>>>>>>>>>> Well, you cannot migrate long term pages, that's what I meant :)
+>>>>>>>>>>
+>>>>>>>>>>>>> + * should be allowed to pin such memory so that it can always be evicted.
+>>>>>>>>>>>>> + *
+>>>>>>>>>>>>>        * MEMORY_DEVICE_FS_DAX:
+>>>>>>>>>>>>>        * Host memory that has similar access semantics as System RAM i.e. DMA
+>>>>>>>>>>>>>        * coherent and supports page pinning. In support of coordinating page
+>>>>>>>>>>>>> @@ -61,6 +68,7 @@ struct vmem_altmap {
+>>>>>>>>>>>>>       enum memory_type {
+>>>>>>>>>>>>>       	/* 0 is reserved to catch uninitialized type fields */
+>>>>>>>>>>>>>       	MEMORY_DEVICE_PRIVATE = 1,
+>>>>>>>>>>>>> +	MEMORY_DEVICE_COHERENT,
+>>>>>>>>>>>>>       	MEMORY_DEVICE_FS_DAX,
+>>>>>>>>>>>>>       	MEMORY_DEVICE_GENERIC,
+>>>>>>>>>>>>>       	MEMORY_DEVICE_PCI_P2PDMA,
+>>>>>>>>>>>>> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
+>>>>>>>>>>>> In general, this LGTM, and it should be correct with PageAnonExclusive I think.
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>> However, where exactly is pinning forbidden?
+>>>>>>>>>>> Long-term pinning is forbidden since it would interfere with the device
+>>>>>>>>>>> memory manager owning the
+>>>>>>>>>>> device-coherent pages (e.g. evictions in TTM). However, normal pinning
+>>>>>>>>>>> is allowed on this device type.
+>>>>>>>>>> I don't see updates to folio_is_pinnable() in this patch.
+>>>>>>>>> Device coherent type pages should return true here, as they are pinnable
+>>>>>>>>> pages.
+>>>>>>>> That function is only called for long-term pinnings in try_grab_folio().
+>>>>>>>>
+>>>>>>>>>> So wouldn't try_grab_folio() simply pin these pages? What am I missing?
+>>>>>>>>> As far as I understand this return NULL for long term pin pages.
+>>>>>>>>> Otherwise they get refcount incremented.
+>>>>>>>> I don't follow.
+>>>>>>>>
+>>>>>>>> You're saying
+>>>>>>>>
+>>>>>>>> a) folio_is_pinnable() returns true for device coherent pages
+>>>>>>>>
+>>>>>>>> and that
+>>>>>>>>
+>>>>>>>> b) device coherent pages don't get long-term pinned
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Yet, the code says
+>>>>>>>>
+>>>>>>>> struct folio *try_grab_folio(struct page *page, int refs, unsigned int flags)
+>>>>>>>> {
+>>>>>>>> 	if (flags & FOLL_GET)
+>>>>>>>> 		return try_get_folio(page, refs);
+>>>>>>>> 	else if (flags & FOLL_PIN) {
+>>>>>>>> 		struct folio *folio;
+>>>>>>>>
+>>>>>>>> 		/*
+>>>>>>>> 		 * Can't do FOLL_LONGTERM + FOLL_PIN gup fast path if not in a
+>>>>>>>> 		 * right zone, so fail and let the caller fall back to the slow
+>>>>>>>> 		 * path.
+>>>>>>>> 		 */
+>>>>>>>> 		if (unlikely((flags & FOLL_LONGTERM) &&
+>>>>>>>> 			     !is_pinnable_page(page)))
+>>>>>>>> 			return NULL;
+>>>>>>>> 		...
+>>>>>>>> 		return folio;
+>>>>>>>> 	}
+>>>>>>>> }
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> What prevents these pages from getting long-term pinned as stated in this patch?
+>>>>>>> Long-term pinning is handled by __gup_longterm_locked, which migrates
+>>>>>>> pages returned by __get_user_pages_locked that cannot be long-term
+>>>>>>> pinned. try_grab_folio is OK to grab the pages. Anything that can't be
+>>>>>>> long-term pinned will be migrated afterwards, and
+>>>>>>> __get_user_pages_locked will be retried. The migration of
+>>>>>>> DEVICE_COHERENT pages was implemented by Alistair in patch 5/13
+>>>>>>> ("mm/gup: migrate device coherent pages when pinning instead of failing").
+>>>>>> Thanks.
 >>>>>>
->>>>>> As kunit_test_suites() defines itself as an init_module(), it conflicts with
->>>>>> the existing one at amdgpu_drv. So, if we use kunit_test_suites(), we won't
->>>>>> be able to compile the tests as modules and, therefore, won't be able to use
->>>>>> IGT to run the tests. This problem with kunit_test_suites() was already
->>>>>> discussed in the KUnit mailing list, as can be seen in [7].
+>>>>>> __gup_longterm_locked()->check_and_migrate_movable_pages()
+>>>>>>
+>>>>>> Which checks folio_is_pinnable() and doesn't do anything if set.
+>>>>>>
+>>>>>> Sorry to be dense here, but I don't see how what's stated in this patch
+>>>>>> works without adjusting folio_is_pinnable().
+>>>>> Ugh, I think you might be right about try_grab_folio().
 >>>>>
->>>>> I'm not sure I fully understand why these tests need to be part of the
->>>>> amdgpu module, though admittedly I've not played with IGT much. Would
->>>>> it be possible to compile these tests as separate modules, which could
->>>>> depend on amdgpu (or maybe include the DML stuff directly), and
->>>>> therefore not have this conflict? I definitely was able to get these
->>>>> tests working under kunit_tool (albeit as built-ins) by using
->>>>> kunit_test_suites(). If each suite were built as a separate module (or
->>>>> indeed, even if all the tests were in one module, with one list of
->>>>> suites), then it should be possible to avoid the init_module()
->>>>> conflict. That'd also make it possible to run these tests without
->>>>> actually needing the driver to initialise, which seems like it might
->>>>> require actual hardware(?)
-
-In the Display code for amdgpu, we heavily rely on IGT for automated 
-tests. We have some internal CI where we run a large set of IGT tests 
-per patch, and I'm sure many other DRM developers also use IGT. In this 
-sense, if we can have an interface inside IGT that can easily run those 
-kunit tests, we can enable kunit tests in our CI pipeline almost for free :)
-
-We already have a prototype for this sort of integration at:
-
-https://patchwork.freedesktop.org/series/105294/
-
->>>> Initially, we tried the kunit_test_suites() approach. And it did work pretty well for the kunit_tool (although we didn't test any hardware-specific unit test). But when compiling the test as a module, we would get a linking error, pointing out multiple definitions of 'init_module'/'cleanup_module' at kunit_test_suites().
->>>>
->>>> At this point, we thought about a couple of options to resolve this problem:
->>>> - Add EXPORT_SYMBOL to the functions we would test. But, this doesn't scale pretty well, because it would pollute AMDGPU code as the tests expand.
->>>> - Take the Thunderbolt path and add the tests to the driver stack.
->>>>
->>>> We end up taking the Thunderbolt path as it would be more maintainable.
->>>>
->>>> Compiling the tests as a module is essential to make the tests run at IGT, as IGT essentially loads the module, runs it, and parses the output (a very very simplified explanation of what IGT does). IGT is a very known tool for DRI developers, so we believe that IGT support is crucial for this project.
->>>>
->>>> If you have any other options on how to make the module compilation viable without using the 'thunderbolt'-style, we would be glad to hear your suggestions.
->>>
->>> As you point out, there are really two separate problems with
->>> splitting the tests out totally:
->>> - It's ugly and pollutes the symbol namespace to have EXPORT_SYMBOL()
->>> everywhere.
->>> - It's impossible to have multiple init_module() "calls" in the same module.
->>>
->>> The first of these is, I think, the harder to solve generally. (There
->>> are some ways to mitigate the namespace pollution part of it by either
->>> hiding the EXPORT_SYMBOL() directives behind #ifdef CONFIG_KUNIT or
->>> similar, or by using symbol namespaces:
->>> https://www.kernel.org/doc/html/latest/core-api/symbol-namespaces.html
->>> -- or both -- but they don't solve the issue entirely.)
->>>
->>> That being said, it's as much a matter of taste as anything, so if
->>> keeping things in the amdgpu module works well, don't let me stop you.
->>> Either way should work, and have their own advantages and
->>> disadvantages.
-
-I want to avoid making changes inside the dc code [1] (or keep it 
-minimal) for enabling kunit. Aligned with the IGT comment, I'm more 
-inclined to a solution where we treat the kunit tests for DML as a 
-module. However, I'm not sure yet if it is possible to have something 
-like that...
-
-Does it make things easier if we have a single module that handles the 
-dml-kunit interface, and we can control which test to invoke via kernel 
-parameter?
-
-1. 
-https://gitlab.freedesktop.org/agd5f/linux/-/tree/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc
-
->>> The latter is just a quirk of the current KUnit implementation of
->>> kunit_test_suites(). This multiple-definition issue will go away in
->>> the not-too-distant future.
->>>
->>> So my suggestion here would be to make sure any changes you make to
->>> work around the issue with multiple init_module definitions are easy
->>> to remove. I suspect you could probably significantly simplify the
->>> whole dml_test.{c,h} bit to just directly export the kunit_suites and
->>> maybe throw them all in one array to pass to
->>> __kunit_test_suites_init(). Then, when the improved modules work
->>> lands, they could be deleted entirely and replaced with one or more
->>> calls to kunit_test_suite().
->>>
+>>>>> We didn't update folio_is_pinnable() to include device coherent pages
+>>>>> because device coherent pages are pinnable. It is really just
+>>>>> FOLL_LONGTERM that we want to prevent here.
 >>>>>
->>>>> There are two other reasons the 'thunderbolt'-style technique is one
->>>>> we want to avoid:
->>>>> 1. It makes it much more difficult to run tests using kunit_tool and
->>>>> KUnit-based CI tools: these tests would not run automatically, and if
->>>>> they were built-in as-is, they'd need to be
->>>>> 2. We're planning to improve module support to replace the
->>>>> init_module()-based implementation of kunit_test_suites() with one
->>>>> which won't have these conflicts, so the need for this should be
->>>>> short-lived.
->>>>>
->>>>> If you're curious, an early version of the improved module support can
->>>>> be found here, though it's out-of-date enough it won't apply or work
->>>>> as-is:
->>>>> https://lore.kernel.org/all/101d12fc9250b7a445ff50a9e7a25cd74d0e16eb.camel@codeconstruct.com.au/
->>>>>
->>>>> Now, that's unlikely to be ready very soon, but I'd be hesitant to
->>>>> implement too extensive a system for avoiding kunit_test_suites()
->>>>> given at some point it should work and we'll need to migrate back to
->>>>> it.
+>>>>> For normal PUP that is done by my change in
+>>>>> check_and_migrate_movable_pages() which migrates pages being pinned with
+>>>>> FOLL_LONGTERM. But I think I incorrectly assumed we would take the
+>>>>> pte_devmap() path in gup_pte_range(), which we don't for coherent pages.
+>>>>> So I think the check in try_grab_folio() needs to be:
+>>>> I think I said it already (and I might be wrong without reading the
+>>>> code), but folio_is_pinnable() is *only* called for long-term pinnings.
 >>>>
->>>> We hope to see in the near future the improved module support from KUnit as it would make the addition of tests much more simple and clean.
+>>>> It should actually be called folio_is_longterm_pinnable().
 >>>>
->>>> Could you explain more about what is missing to make this improved module support come upstream?
->>>>
+>>>> That's where that check should go, no?
+>>> David, I think you're right. We didn't catch this since the LONGTERM gup
+>>> test we added to hmm-test only calls to pin_user_pages. Apparently
+>>> try_grab_folio is called only from fast callers (ex.
+>>> pin_user_pages_fast/get_user_pages_fast). I have added a conditional
+>>> similar to what Alistair has proposed to return null on LONGTERM &&
+>>> (coherent_pages || folio_is_pinnable) at try_grab_folio. Also a new gup
+>>> test was added with LONGTERM set that calls pin_user_pages_fast.
+>>> Returning null under this condition it does causes the migration from
+>>> dev to system memory.
 >>>
->>> Mostly just time and some other priorities. We've taken another look
->>> at it over the last couple of days, and will try to accelerate getting
->>> it in within the next couple of kernel releases. (Hopefully sooner
->>> rather than later.)
->> Is there anything we can do to make this move faster? As it is our great
->> interest to make this work in KUnit, maybe I, Isabella, Tales, or Magali
->> can start work on this feature. We don´t have much knowledge of the
->> inner workings of KUnit, but if you point out a path, we can try to work
->> on this task.
->>
->> Maybe, could we work in the same way as Jeremy?
-> 
-> Daniel and I have quickly tidied up and finished the various
-> in-progress bits of this and sent it out here:
-> https://lore.kernel.org/linux-kselftest/20220618090310.1174932-1-davidgow@google.com/T/
-> 
-> You should be able to apply that series and then just use
-> kunit_test_suites(), which will no-longer conflict with module_init
-> functions.
-> 
-> The most useful thing you could do is to test and/or review it --
-> there's almost certainly something I'll have missed.
+>> Why can't coherent memory simply put its checks into
+>> folio_is_pinnable()? I don't get it why we have to do things differently
+>> here.
+> I'd made the reasonable assumption that
+> folio_is_pinnable()/is_pinnable_page() were used to check if the
+> folio/page is pinnable or not regardless of FOLL_LONGTERM. Looking at
+> the code more closely though I see both are actually only used on paths
+> checking for FOLL_LONGTERM pinning.
+>
+> So I agree - we should rename these
+> folio_is_longterm_pinnable()/is_longterm_pinnable_page() and add the
+> check for coherent pages there. Thanks for pointing that out.
+>
+>   - Alistair
 
-Nice!
+Will do in the next patch series.
 
-Maira/Magali/Isabela/Tales,
+Regards,
+Alex Sierra
 
-Maybe for the next version, we can use the above patches even if they 
-are not in amd-staging-drm-next yet.
-
-Thanks
-Siqueira
-
-> Cheers,
-> -- David
-
+>>> Actually, Im having different problems with a call to PageAnonExclusive
+>>> from try_to_migrate_one during page fault from a HMM test that first
+>>> migrate pages to device private and forks to mark as COW these pages.
+>>> Apparently is catching the first BUG VM_BUG_ON_PGFLAGS(!PageAnon(page),
+>>> page)
+>> With or without this series? A backtrace would be great.
