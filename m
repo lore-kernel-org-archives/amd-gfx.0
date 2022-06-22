@@ -4,90 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9231EC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 15:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284BDC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 17:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F724113564;
-	Wed, 22 Jun 2022 15:38:07 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2055.outbound.protection.outlook.com [40.107.95.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08B14113565
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 15:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A7E61135C0;
+	Wed, 22 Jun 2022 17:19:24 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8302810EF78;
+ Wed, 22 Jun 2022 17:19:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kJAKtzXknu4mpNtlWvZYRFOnHSyc/F/KPrHmZen+rDvU3TDNyYIGn8TJ2fwZbQVWu2XepPjiSBTyKEqSVP3xntoHC8Kw24sveN1305l06sXhMdik/iFUhG9RO0iyBlgaMv5jahH86SVDDlop/qJaHdyjSA44bo/G0JAsT9o42Fyabci+fT6ae1AZEn+ZjlpgL5b/I6zNX4/WIv08QcnemhIcoPsuhGbhsZ9zZJHVeM3PY1y+1G4zmDMDR+RLQh6M5RrzotBlVX1Wkkbu6ca6iMRk4/CxbprQZh20KNDzXb7rQ6QQmITxLZB45H8I9YBV7FwvL+8pXNCmG5ka/g5C9w==
+ b=XXpTpPbAqEIM6jKR/qn84jBS6Gf1d0RXcrO/eF5Es0ybPvkLo1h+h5pSkdX52ACiHyEUniaUR/C1jQi8o+dVROhsiJAOe5jl61pAIwkCtpdZj2HTwtidsAoDTFarLzjq1cZTr9rWqUQ8ZBeLAo8lpAjDDvyIUHC3ot4SMsrA7AHpdSj/xOb9/mEboWKt1O/fWP/rXYK18XOCQc4bKW9VnvDw6GUdeMmzzUXqZuO1BTb4Yxt5Mbc1JR7n0kgC7KeU4y/4l47xy3JW8pgus/igK+2EE90rnp6aTozpLpsmyq7IJfHaHGU0I4yVv4+L8W17z6D+MuOlJcG1xnFKYd4ZKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G5DMc189+PkVmiN+3uwDCfSrZcHUPnqdTAwFeXlo4dk=;
- b=MiudXSSLA7XRFpN2DGngcMSVkAaCbQ9vyPqVXHEDWHDwdmn6wtgd4K8oRz16NRgllTkBAAlYKjkwZcBWiK/XvgaCTUmvayHOERJoSbY1JUTCGnvjnZqt4HiaxUIkrsjfXqqwWZJtt+5Fw8dLUv7qT63HYAwhzomBFGrBhfsnY9lwNKJf9YO49j0MNMr4BerhuiEAfzYkMMBvrCmJQPYYMevr4v2l3KuRmQM1zXODckQfS3q6zqy7ukGUQ8TT08EgUdS8gjmFmwnSCMWm8ObZjH7sjiScJfxUrFWAMAp6PPRZv2RQNnG1u21s/xeWRYHJOg1Iq2yhlQms9j/T5VG9bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=dza1KCAELTH2bLYdViCviShaOXVSjJn86bfjZ8ToQGo=;
+ b=JmTRbZWCCTMuntPTgJ3RurJvKvbT/pi/rArbEfpRck/nR4afunKvvsM5ZpaqqbA/UNmM4QoJQsBr2utIoSNeFS70+5TLZsFkCrViApCKXGBV4/P3h6szJuYiR2qXCCjkH94qC1NWGiUGzKCxcuhgmgjs/RoCLCEAuiqJduEofKRcjt9orjKlzErMuoEjBTOaT9mF0ol9qZMVIwCwhJrMimcdi7QtVnmXlA+nuwvS031LYoix9qcYYp7NFnWN1FA+yKw3qui3Qsm4kh00xvTTkT8jTO9XtbpFd7J+xMNaBBgWGRmaoO12nO89S1j/c0q1xOP0dOkQDRsjeJSdykeg4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G5DMc189+PkVmiN+3uwDCfSrZcHUPnqdTAwFeXlo4dk=;
- b=Yl7lH/dZqUUT+IXw+5m175sq6kJXoToVzreRIlRxx22XH7H/nU1BFDgJWqq2F2gc1sK99CND2rNn5XQXP1M6bzVA6ARlWIcWb9npvu4YTpsJghZMpYW/67MdVokNsz2exWE1B1UeSyDWkqlZWVEM8dSX7gANiZcAZRkcIlCrL5Y=
-Received: from DM5PR20CA0019.namprd20.prod.outlook.com (2603:10b6:3:93::29) by
- CY4PR12MB1687.namprd12.prod.outlook.com (2603:10b6:910:3::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5353.18; Wed, 22 Jun 2022 15:37:20 +0000
-Received: from DM6NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:93:cafe::36) by DM5PR20CA0019.outlook.office365.com
- (2603:10b6:3:93::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.22 via Frontend
- Transport; Wed, 22 Jun 2022 15:37:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT015.mail.protection.outlook.com (10.13.172.133) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Wed, 22 Jun 2022 15:37:20 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 22 Jun
- 2022 10:37:19 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 2/3] drm/amdkfd: Enable GFX11 usermode queue
- oversubscription
-Date: Wed, 22 Jun 2022 11:36:55 -0400
-Message-ID: <20220622153656.174491-2-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=dza1KCAELTH2bLYdViCviShaOXVSjJn86bfjZ8ToQGo=;
+ b=opE3LiuKqnXlOa0mpvFYnXXtjzaBBgOGCfI9/nRhDCsRUNfTDnAxLLJtO/Je89s34xN1SIeGzyF+DkIGJezsSh6we7ICJmvpv+uVegZo/xr/jBulutv+pHZDwCkq15532hyaNN4mge9aoVER2Z1CFATpp/THSDT3x7vEPJPvroA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM5PR1201MB0185.namprd12.prod.outlook.com (2603:10b6:4:55::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Wed, 22 Jun
+ 2022 17:19:20 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9da9:705a:18ae:5e91]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9da9:705a:18ae:5e91%9]) with mapi id 15.20.5353.022; Wed, 22 Jun 2022
+ 17:19:20 +0000
+Message-ID: <76e95c1d-83a0-2cd4-518b-7b769e963d13@amd.com>
+Date: Wed, 22 Jun 2022 13:19:17 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 5/5] drm/amdgpu: Follow up change to previous drm
+ scheduler change.
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
+ <20220620220302.86389-6-andrey.grodzovsky@amd.com>
+ <87fa2e6e-b519-11ef-65f4-7ab5ca091973@gmail.com>
+ <2f22b90f-74ca-f70d-68ed-4dbf49360e2b@amd.com>
+ <b011246b-fe55-0385-a64b-585c0baa2863@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <b011246b-fe55-0385-a64b-585c0baa2863@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT2PR01CA0002.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::7) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51ed756c-ec55-40da-64a3-08da54651894
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1687:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB168730E05D88731B630EB9418AB29@CY4PR12MB1687.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 392d1b3d-ab4c-4ffe-e4ed-08da547357c0
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0185:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB01857044013447D65292C96BEAB29@DM5PR1201MB0185.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Vq7LdCOPuNc3P3OuZeKxbGP8cUYZy2VzWgmV4ZEgLOz/MPb+JvDj4lwlQeG4WyS//Y4/MO6OQh+FAZg6a06KXeoV3EB8aveMSQrOWcaTgD9aMPEgzUc9AlSaUpqVv1e+/29KDPH5kkf5pGfR2qeHvhYhMT8b40+n/rkS0gGUMaLC8kRVORTzsJ6PAgXVIkIvLOWn0LMUHWov2s0IuJGDTFnuC/JSBbxrnRotk7JBUey4LfcEhrfjLB/M1STdbjSQ1iopVx0aW/z2i/YRCBeKvSWKpGH8FC3V77h0US2svPyDcqhlA8HnyhABlVEi433CjlI2L1orFw2iDCnY9ATw5hdZn36HwaQrJT23TyocdmwhhkLqHyfOf4ECiqGMN3q2K8f847caLfBzmHup63SUxl551d2DlON6fw9Qo+7YhAC9ffTUktrJmJSTVgxKDUErBGxl+7ZjxlILoyB9Orztn7wc+T4WPhY6ZcnnkLAh4BXYS0G/1SMlpwMZNOGBBx1jVYRa0l1h9TEBduG45+NxbofWGz1gkJxqvKtEKYDNDRrjaKpNoGOxsY2GRP0johx35FpCR09b23fnJjLILQGph2ttxkWYewlJeC7d8hx4cX9mnZvA6pch6mjEZkmBvc+LMBx3xAXQvTZ3QQ72zmI/znQrcEAMxq4rbaBNu1lIYolvx0J3DcT6J1qbsVCxSU9Ve/YEdwIavU0fVfcP19jX6ZRU1XTlhBkukoydRBYnrtFDMBTgTnaZb8YTVorGbSNr81EufLzs/yOtl+P7tNrqKz74f7Db756eXiaHmNsrXE0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(39860400002)(346002)(136003)(40470700004)(36840700001)(46966006)(41300700001)(82310400005)(186003)(1076003)(81166007)(16526019)(83380400001)(40480700001)(426003)(2616005)(36860700001)(336012)(356005)(47076005)(82740400003)(70586007)(40460700003)(4326008)(26005)(5660300002)(2906002)(8676002)(8936002)(7696005)(54906003)(6916009)(316002)(70206006)(30864003)(86362001)(478600001)(6666004)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: bBG0E8jSB4M8meh+9puftuz2f2cFJvgUXXAqyhd9kcKKE+6meOCE3+lJgmFJjYgZQKXHtgbz2DwUXd7LLlLIqdA3Vx5IwuKNliPv1IkdEf8NBwtuOHKZvJVOI5+0JvrgeI2x22MrvdQi6mCbFO15KDCBU+lFP4E6y6eMM4UscnWFHrmTKczXiP6TiE24nL9M9xNvYcxbS6FEyNYic80frjcefg3n5G6+HmuwidHmo0lp0F45BQyOtWlFE8iKqH+dJ28elJxlivkxOyXTuff6jvT/TLyahbWPMKutGVAZQ90a6nG7khx8a4/537AOC+suKNMyDOmiCLYbYEgGdkGVtLnDKcJA4wb6wl2dmYaOj78RDhQpyOMdIeyG36+dIX5fmM2KejAMPkrb6esoNekbIpW8/4hJY+9Y1ULM1IcXqYSjNGG0qzx1B28rQ+QPaEQ+7BQWzVv1PyQ5OWo4tmiNWQ+8dO2B+QSuT/pURIMr6vMD627wDRp8DVzZSqARvWHCRLac7LYW5aKkoKrIAWQzqvQZCDOQF7T5c9/MFkDVg3UpA40+PNsBx2NIIAHhshtwuv+QHbuyVDfNWC46JLo/UDpcAl+EOAei2DtN8x2kDgq11uhEn+ia29s3R4dz1N7Nyr9pY6xBoOnzjZAKpo0KsyMn6nxlV46QgD1O29VaLOictEJq6y4leroC8PD0gMcDOYxDjBBGvsbVi/xWDoFKtIuw3Wdl8ytEN8GmpZKKYRKOpuDsOi1q5Z+IbZMdvwZntXY7PD0XFBf0PrhM3hR6ADgfGRz/uFUgeOW46Hdafsk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(376002)(136003)(396003)(346002)(39860400002)(31696002)(38100700002)(5660300002)(36756003)(2906002)(86362001)(44832011)(478600001)(6486002)(316002)(8936002)(66556008)(66476007)(53546011)(6666004)(8676002)(66574015)(4326008)(110136005)(6506007)(83380400001)(2616005)(186003)(31686004)(6512007)(66946007)(41300700001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEtudGxvSkNkdHZPR0pVZXBTWnIvWHgxRTNZdnpSYk9yc3FkVUZMOFd2WmpK?=
+ =?utf-8?B?V2FWZGR0UkU2b0VtU2xkTVZCSGNSZHdTcUx2d1hTZFAvRHRQN1BmczFUQ2ph?=
+ =?utf-8?B?Y3NXM1ZURG8xV1VsQTVmeTlCTlZVWjhpMEUyLzhLUGtQZ3VrcG82dms4cGo2?=
+ =?utf-8?B?Q1A2eG4wVndWUkNoZXJoeGc3UTI1bUd6eGxnVmxhNStPNVM4VGlKSUhlZnpY?=
+ =?utf-8?B?VUdqeElPaWcyM0RLRDlHQ2NHRXlJYzFrbFIxRHg3VmM4ckZFbWc4Mm5lVThy?=
+ =?utf-8?B?YzFYN1FsY2hQbEdRMzdJVnJGQWpGekZSYmtBS0huN2I0MDBEYWNBNm1iOUV3?=
+ =?utf-8?B?cW5DZjdWdnRlRDYxS3ZkUDdlUjBiaXc3dVVEVmd5Y0dWakMwSlg5YTRQaVU0?=
+ =?utf-8?B?Vy9sQW4xbVJuMVo1dzJ5VmdCemtiV0tlNThzaXZOU2ZxQ0dmWkZRR1I0QnF2?=
+ =?utf-8?B?cTBqeE80eTg4T295ZHhud284NnBDNklrR0IvRmFWZWsydFJHcGxaZitCMWVa?=
+ =?utf-8?B?SXFkS2dXZlBZb1FBMHZ0YzhnUURRVXdYU2VCT0FWeHFCWjJ4Y3RCSHBUSDdH?=
+ =?utf-8?B?NHFjZWdhRUZsbXZaYnp3YjJSeHMxOGtERTFpaUhuTTlhSGdjbVhEeloyWndT?=
+ =?utf-8?B?VDBUWWlwT1NNQXVIai9vblZxVHpvQUJIR3JCbVkzY0luMkpIVCt6V0VSQ3J3?=
+ =?utf-8?B?TWxOTHdNOHJpWjJBK2pldTRjY3dBeVVMVldqT0o1VHNYVFFGSTVrcUtOTGhh?=
+ =?utf-8?B?WGFJSjNXS3RnY1lYaUxnc0FBVythakt4dit2NzVrd3owZ3Qwb1FsQ00xUi93?=
+ =?utf-8?B?YTBTV2hlVG4wRkpoWnF5c0pHdWUyWG5DTDByVWxMMzYrTEtlT04wVncyMys5?=
+ =?utf-8?B?Z0FGTjRKUjZFZ1ZYaFBNSUdJVlU2WkZrQWIxUi9remZHVmxicEFIcUtIbGhP?=
+ =?utf-8?B?WU9Tem1xRmhSOXZvK04yQ2txTUZMTUZ2ZGVOODZvZ291bituUWNDMVFmVE5S?=
+ =?utf-8?B?OTJ6UHVTVGdBUEpGTTlReGxoaDRqSzhjVUlFNldEYlAyalhpWDdrRzRzSkxa?=
+ =?utf-8?B?bWtHengzc3NONU9WTUhZNFJPczZ4V25xQ3NnSzJ2dFprMDhnemFsK1hBSFps?=
+ =?utf-8?B?blpLbXk1WEJ2bEVDNVBXSWdZSjJSc2NDTUVaRWF5K3FmNUxOSzBCS3RvOXpo?=
+ =?utf-8?B?U2RhU1o1L1h5cUczRW9VaEw0SU0xN3ZXMVdUNUYyVnlvNFFvSWVQR29hZ2xO?=
+ =?utf-8?B?a0JqVG8xYkQrd0NVbWo2QjAxTmpsc0JiUmJuTUFlME9kbnk1d3ZiQWhtYjFP?=
+ =?utf-8?B?cDFMY2JVUjd3OWRwRzRJanVnd0dRVVBtWjA0c2gxNDFhU0RBL2tYeEwzeEdW?=
+ =?utf-8?B?RHdWTGJmNTRVMzRSU0QyZXFoSVlrSndBZzJWQjZ2M2d4UWIweHBPNnAzb0lS?=
+ =?utf-8?B?Z2xkWUhSY2lRMFdidHBUVUFXeDAzM3YrY1RvbHJCR2h4TThIUE1zWDR6UEpX?=
+ =?utf-8?B?d3ZZOFErL092bkRSYVVnQm43SkdLNFVoQ0FEVmxvYW9lS1E2ZkUzZDRmUWZS?=
+ =?utf-8?B?blFwaVVBMDRnRTd2ZWViY1VUYmtyb0tRZjFid29XdDlTeG9FaTA0bEZjNXB6?=
+ =?utf-8?B?SnVic01TcE5MbnVla3BXVE41NFZyWFI5N25PMHgyRDlTMlVpL3c2YVZrNmFY?=
+ =?utf-8?B?ckhmbmFlWjhYY1BBMnp3UVg3UzJIRldaREUzVFpkN2VKVW9LZlJ0SXIvS2pR?=
+ =?utf-8?B?OElvTTRpVDVEM0dvZXlxYzRheWpIa2hMVGNkbjBqWlJqN3kyWHVVd1UxL0Y0?=
+ =?utf-8?B?Q1h3aFJmK0VZYUxvRHlaR2F3dFpjNEJsR2h4ZCtsVXYxczUvZStiNHZLMXZt?=
+ =?utf-8?B?bEhDUitGejJFRVVVNmF1Qk1xcUp4V3VjaiszSDdoanV3L2VqWHBtelZXYmhr?=
+ =?utf-8?B?WWpvbjU2Q0JXV21RcGM4SHdRbnVIUGg1VWdOOGM1S0dYWVdQOS9KTHBnTDlm?=
+ =?utf-8?B?OWN4T0ZzTytpY1JnWEdOalNuNHpBUW1EcjFtMVZWNmlsanpleVBEZ0J4Mm5O?=
+ =?utf-8?B?ZjZDT2ZBOTdjcmV6OW84QkNwM3NKb2hOWW1HU2g4ZG5QUGZSVTY4ejRCd3JL?=
+ =?utf-8?B?d01ZNFpTd2hlaEsrMGZZajFsYlArV0RGL0sxRE5JNlRxTWZzcVpEd2Vmd0hH?=
+ =?utf-8?B?WHN0TXQ4VnpWTXVDbCtTTE9laW5pek5BQk93M2hRRTJGZk5ENTUzVjlDQ3RN?=
+ =?utf-8?B?anRtTHRxWVpaQi8waW5nN3dPeFovQW9PUG5WUFhraTdjWDFUblpSK0NKVSsy?=
+ =?utf-8?B?YWtibWd5aE5WSmtDMFRNcDRtZEVreW9ReHhaUVhWc0NCTmdud2FZb1pFYVhx?=
+ =?utf-8?Q?zJrT+la0qfCLDuQJ8Ju8224dZyN4CO3W6JjQrXGY5zvN/?=
+X-MS-Exchange-AntiSpam-MessageData-1: iIi4TEAgoAmeAQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 15:37:20.6217 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ed756c-ec55-40da-64a3-08da54651894
+X-MS-Exchange-CrossTenant-Network-Message-Id: 392d1b3d-ab4c-4ffe-e4ed-08da547357c0
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 17:19:19.8140 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1687
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VXmJ5pym2pAxDM/zp52WmM+qneeXR6b0etDcl/k/Qa0i+/e81VLTx9HmERzInKnIzuc7QjvZLbdJGZ4F3hP4Yw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,345 +136,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex
- Deucher <alexander.deucher@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Christian.Koenig@amd.com, Graham Sider <Graham.Sider@amd.com>
+Cc: jingwen.chen2@amd.com, monk.liu@amd.com, yiqing.yao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Starting with GFX11, MES requires wptr BOs to be GTT allocated/mapped to
-GART for usermode queues in order to support oversubscription. In the
-case that work is submitted to an unmapped queue, MES must have a GART
-wptr address to determine whether the queue should be mapped.
 
-This change is accompanied with changes in MES and is applicable for
-MES_API_VERSION >= 2.
+On 2022-06-22 03:17, Christian König wrote:
+> Am 21.06.22 um 22:00 schrieb Andrey Grodzovsky:
+>>
+>> On 2022-06-21 03:28, Christian König wrote:
+>>> Am 21.06.22 um 00:03 schrieb Andrey Grodzovsky:
+>>>> Align refcount behaviour for amdgpu_job embedded HW fence with
+>>>> classic pointer style HW fences by increasing refcount each
+>>>> time emit is called so amdgpu code doesn't need to make workarounds
+>>>> using amdgpu_job.job_run_counter to keep the HW fence refcount 
+>>>> balanced.
+>>>
+>>> Could we now also remove job_run_counter?
+>>>
+>>> Christian.
+>>
+>>
+>> I am afraid not, job counter is needed since at all times the 
+>> refcount on the
+>> embedded fence cannot drop to zero because this will free the job 
+>> itself before
+>> the end of it's life cycle. We have to be able to differentiate in 
+>> amdgpu_fence_emit
+>> between first ever call where we init the embedded fence's refcount 
+>> from scratch using kref_init
+>> to repeating calls when refcount already > 0 and we just fake 
+>> increase the refcount to align
+>> behavior with pointer style fences in other drivers.
+>
+> Well what we should probably rather do is move the init out of emit 
+> instead.
+>
+> The only down side I can see is that the sequence number isn't know on 
+> initial init and so needs to be zero or something like that.
+>
+> Regards,
+> Christian.
 
-v3:
-- Use amdgpu_vm_bo_lookup_mapping for wptr_bo mapping lookup
-- Move wptr_bo refcount increment to amdgpu_amdkfd_map_gtt_bo_to_gart
-- Remove list_del_init from amdgpu_amdkfd_map_gtt_bo_to_gart
-- Cleanup/fix create_queue wptr_bo error handling
-v4:
-- Add MES version shift/mask defines to amdgpu_mes.h
-- Change version check from MES_VERSION to MES_API_VERSION
-- Add check in kfd_ioctl_create_queue before wptr bo pin/GART map to
-ensure bo is a single page.
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 48 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |  7 +++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 45 ++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  9 +++-
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  3 ++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 20 +++++---
- 8 files changed, 127 insertions(+), 9 deletions(-)
+Not sure how this help, the problem is not there but in amdgpu_job_run, 
+for embedded fence and resubmit job in pending list amdgpu_job_run
+will be called twice or even 3 times with recheck guilty job sequence. I 
+am supposed to do dma_fence_init to embeded HW fence only on first call 
+while on second and
+third only update sequence_num and increase refcount. How can i 
+differentiate between first and non first calls without job_run_counter ?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 648c031942e9..b25b41f50213 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -286,6 +286,8 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
- 					     void **kptr, uint64_t *size);
- void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
- 
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
-+
- int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
- int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index afd6e6923189..615ac2895d62 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2148,6 +2148,54 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
- 	return ret;
- }
- 
-+/**
-+ * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
-+ * @adev: Device to which allocated BO belongs
-+ * @bo: Buffer object to be mapped
-+ *
-+ * Before return, bo reference count is incremented. To release the reference and unpin/
-+ * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
-+ */
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
-+{
-+	int ret;
-+
-+	ret = amdgpu_bo_reserve(bo, true);
-+	if (ret) {
-+		pr_err("Failed to reserve bo. ret %d\n", ret);
-+		goto err_reserve_bo_failed;
-+	}
-+
-+	ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-+	if (ret) {
-+		pr_err("Failed to pin bo. ret %d\n", ret);
-+		goto err_pin_bo_failed;
-+	}
-+
-+	ret = amdgpu_ttm_alloc_gart(&bo->tbo);
-+	if (ret) {
-+		pr_err("Failed to bind bo to GART. ret %d\n", ret);
-+		goto err_map_bo_gart_failed;
-+	}
-+
-+	amdgpu_amdkfd_remove_eviction_fence(
-+		bo, bo->kfd_bo->process_info->eviction_fence);
-+
-+	amdgpu_bo_unreserve(bo);
-+
-+	bo = amdgpu_bo_ref(bo);
-+
-+	return 0;
-+
-+err_map_bo_gart_failed:
-+	amdgpu_bo_unpin(bo);
-+err_pin_bo_failed:
-+	amdgpu_bo_unreserve(bo);
-+err_reserve_bo_failed:
-+
-+	return ret;
-+}
-+
- /** amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel() - Map a GTT BO for kernel CPU access
-  *
-  * @mem: Buffer object to be mapped for CPU access
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index be4b51a5b5c7..137a2cc2e807 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -32,6 +32,13 @@
- #define AMDGPU_MES_MAX_GFX_PIPES            2
- #define AMDGPU_MES_MAX_SDMA_PIPES           2
- 
-+#define AMDGPU_MES_API_VERSION_SHIFT	12
-+#define AMDGPU_MES_FEAT_VERSION_SHIFT	24
-+
-+#define AMDGPU_MES_VERSION_MASK		0x00000fff
-+#define AMDGPU_MES_API_VERSION_MASK	0x00fff000
-+#define AMDGPU_MES_FEAT_VERSION_MASK	0xff000000
-+
- enum amdgpu_mes_priority_level {
- 	AMDGPU_MES_PRIORITY_LEVEL_LOW       = 0,
- 	AMDGPU_MES_PRIORITY_LEVEL_NORMAL    = 1,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 625e837f0119..a0246b4bae6b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -299,6 +299,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	struct kfd_process_device *pdd;
- 	struct queue_properties q_properties;
- 	uint32_t doorbell_offset_in_process = 0;
-+	struct amdgpu_bo *wptr_bo = NULL;
- 
- 	memset(&q_properties, 0, sizeof(struct queue_properties));
- 
-@@ -326,12 +327,49 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		goto err_bind_process;
- 	}
- 
-+	/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
-+	 * on unmapped queues for usermode queue oversubscription (no aggregated doorbell)
-+	 */
-+	if (dev->shared_resources.enable_mes &&
-+			((dev->adev->mes.sched_version & AMDGPU_MES_API_VERSION_MASK)
-+			>> AMDGPU_MES_API_VERSION_SHIFT) >= 2) {
-+		struct amdgpu_bo_va_mapping *wptr_mapping;
-+		struct amdgpu_vm *wptr_vm;
-+
-+		wptr_vm = drm_priv_to_vm(pdd->drm_priv);
-+		err = amdgpu_bo_reserve(wptr_vm->root.bo, false);
-+		if (err)
-+			goto err_wptr_map_gart;
-+
-+		wptr_mapping = amdgpu_vm_bo_lookup_mapping(
-+				wptr_vm, args->write_pointer_address >> PAGE_SHIFT);
-+		amdgpu_bo_unreserve(wptr_vm->root.bo);
-+		if (!wptr_mapping) {
-+			pr_err("Failed to lookup wptr bo\n");
-+			err = -EINVAL;
-+			goto err_wptr_map_gart;
-+		}
-+
-+		wptr_bo = wptr_mapping->bo_va->base.bo;
-+		if (wptr_bo->tbo.base.size > PAGE_SIZE) {
-+			pr_err("Requested GART mapping for wptr bo larger than one page\n");
-+			err = -EINVAL;
-+			goto err_wptr_map_gart;
-+		}
-+
-+		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
-+		if (err) {
-+			pr_err("Failed to map wptr bo to GART\n");
-+			goto err_wptr_map_gart;
-+		}
-+	}
-+
- 	pr_debug("Creating queue for PASID 0x%x on gpu 0x%x\n",
- 			p->pasid,
- 			dev->id);
- 
--	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id, NULL, NULL, NULL,
--			&doorbell_offset_in_process);
-+	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id, wptr_bo,
-+			NULL, NULL, NULL, &doorbell_offset_in_process);
- 	if (err != 0)
- 		goto err_create_queue;
- 
-@@ -363,6 +401,9 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	return 0;
- 
- err_create_queue:
-+	if (wptr_bo)
-+		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
-+err_wptr_map_gart:
- err_bind_process:
- err_pdd:
- 	mutex_unlock(&p->mutex);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 213246a5b4e4..299927a4959b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -177,6 +177,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
- 	struct mes_add_queue_input queue_input;
- 	int r, queue_type;
-+	uint64_t wptr_addr_off;
- 
- 	if (dqm->is_hws_hang)
- 		return -EIO;
-@@ -196,7 +197,13 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 					AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
- 	queue_input.doorbell_offset = q->properties.doorbell_off;
- 	queue_input.mqd_addr = q->gart_mqd_addr;
--	queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
-+
-+	if (q->wptr_bo) {
-+		wptr_addr_off = (uint64_t)q->properties.write_ptr - (uint64_t)q->wptr_bo->kfd_bo->va;
-+		queue_input.wptr_addr = ((uint64_t)q->wptr_bo->tbo.resource->start << PAGE_SHIFT) + wptr_addr_off;
-+	} else
-+		queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
-+
- 	queue_input.paging = false;
- 	queue_input.tba_addr = qpd->tba_addr;
- 	queue_input.tma_addr = qpd->tma_addr;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index 4e0387f591be..b8e14c2cc295 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -377,6 +377,8 @@ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
- 	m->sdmax_rlcx_rb_base_hi = upper_32_bits(q->queue_address >> 8);
- 	m->sdmax_rlcx_rb_rptr_addr_lo = lower_32_bits((uint64_t)q->read_ptr);
- 	m->sdmax_rlcx_rb_rptr_addr_hi = upper_32_bits((uint64_t)q->read_ptr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_lo = lower_32_bits((uint64_t)q->write_ptr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_hi = upper_32_bits((uint64_t)q->write_ptr);
- 	m->sdmax_rlcx_doorbell_offset =
- 		q->doorbell_off << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__SHIFT;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 91e5fa56f0a2..59ba50ce54d3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -570,6 +570,8 @@ struct queue {
- 	void *gang_ctx_bo;
- 	uint64_t gang_ctx_gpu_addr;
- 	void *gang_ctx_cpu_ptr;
-+
-+	struct amdgpu_bo *wptr_bo;
- };
- 
- enum KFD_MQD_TYPE {
-@@ -1205,6 +1207,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct file *f,
- 			    struct queue_properties *properties,
- 			    unsigned int *qid,
-+			    struct amdgpu_bo *wptr_bo,
- 			    const struct kfd_criu_queue_priv_data *q_data,
- 			    const void *restore_mqd,
- 			    const void *restore_ctl_stack,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 99f2a6412201..8db58348de98 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -180,7 +180,8 @@ void pqm_uninit(struct process_queue_manager *pqm)
- static int init_user_queue(struct process_queue_manager *pqm,
- 				struct kfd_dev *dev, struct queue **q,
- 				struct queue_properties *q_properties,
--				struct file *f, unsigned int qid)
-+				struct file *f, struct amdgpu_bo *wptr_bo,
-+				unsigned int qid)
- {
- 	int retval;
- 
-@@ -210,6 +211,7 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 			goto cleanup;
- 		}
- 		memset((*q)->gang_ctx_cpu_ptr, 0, AMDGPU_MES_GANG_CTX_SIZE);
-+		(*q)->wptr_bo = wptr_bo;
- 	}
- 
- 	pr_debug("PQM After init queue");
-@@ -226,6 +228,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct file *f,
- 			    struct queue_properties *properties,
- 			    unsigned int *qid,
-+			    struct amdgpu_bo *wptr_bo,
- 			    const struct kfd_criu_queue_priv_data *q_data,
- 			    const void *restore_mqd,
- 			    const void *restore_ctl_stack,
-@@ -288,7 +291,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 		 * allocate_sdma_queue() in create_queue() has the
- 		 * corresponding check logic.
- 		 */
--		retval = init_user_queue(pqm, dev, &q, properties, f, *qid);
-+		retval = init_user_queue(pqm, dev, &q, properties, f, wptr_bo, *qid);
- 		if (retval != 0)
- 			goto err_create_queue;
- 		pqn->q = q;
-@@ -309,7 +312,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			goto err_create_queue;
- 		}
- 
--		retval = init_user_queue(pqm, dev, &q, properties, f, *qid);
-+		retval = init_user_queue(pqm, dev, &q, properties, f, wptr_bo, *qid);
- 		if (retval != 0)
- 			goto err_create_queue;
- 		pqn->q = q;
-@@ -435,10 +438,15 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 			pdd->qpd.num_gws = 0;
- 		}
- 
--		if (dev->shared_resources.enable_mes)
-+		if (dev->shared_resources.enable_mes) {
- 			amdgpu_amdkfd_free_gtt_mem(dev->adev,
- 						   pqn->q->gang_ctx_bo);
--		kfd_procfs_del_queue(pqn->q);
-+			if (pqn->q->wptr_bo)
-+				amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
-+
-+			kfd_procfs_del_queue(pqn->q);
-+
-+		}
- 		uninit_queue(pqn->q);
- 	}
- 
-@@ -844,7 +852,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 
- 	print_queue_properties(&qp);
- 
--	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, q_data, mqd, ctl_stack,
-+	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, NULL, q_data, mqd, ctl_stack,
- 				NULL);
- 	if (ret) {
- 		pr_err("Failed to create new queue err:%d\n", ret);
--- 
-2.25.1
+Andrey
 
+
+>
+>>
+>> I guess we could assume that embedded fence is all zeroes before 
+>> first dma_fence_init  if assuming the job itself
+>> was allocated using kzalloc and so u can look at dma_fence_ops == 
+>> NULL or maybe seqno == 0
+>> as a hint if that the fist call or not but it's a risky assumption in 
+>> my opinion.
+>>
+>> Andrey
+>>
+>>
+>>>
+>>>>
+>>>> Also since in the previous patch we resumed setting s_fence->parent 
+>>>> to NULL
+>>>> in drm_sched_stop switch to directly checking if job->hw_fence is
+>>>> signaled to short circuit reset if already signed.
+>>>>
+>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>> Tested-by: Yiqing Yao <yiqing.yao@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 ++
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23 
+>>>> ++++++++++++++++------
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  |  7 ++++++-
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  4 ----
+>>>>   4 files changed, 25 insertions(+), 11 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>> index 513c57f839d8..447bd92c4856 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>> @@ -684,6 +684,8 @@ int amdgpu_amdkfd_submit_ib(struct 
+>>>> amdgpu_device *adev,
+>>>>           goto err_ib_sched;
+>>>>       }
+>>>>   +    /* Drop the initial kref_init count (see drm_sched_main as 
+>>>> example) */
+>>>> +    dma_fence_put(f);
+>>>>       ret = dma_fence_wait(f, false);
+>>>>     err_ib_sched:
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> index c99541685804..f9718119834f 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> @@ -5009,16 +5009,28 @@ static void amdgpu_device_recheck_guilty_jobs(
+>>>>             /* clear job's guilty and depend the folowing step to 
+>>>> decide the real one */
+>>>>           drm_sched_reset_karma(s_job);
+>>>> -        /* for the real bad job, it will be resubmitted twice, 
+>>>> adding a dma_fence_get
+>>>> -         * to make sure fence is balanced */
+>>>> -        dma_fence_get(s_job->s_fence->parent);
+>>>>           drm_sched_resubmit_jobs_ext(&ring->sched, 1);
+>>>>   +        if (!s_job->s_fence->parent) {
+>>>> +            DRM_WARN("Failed to get a HW fence for job!");
+>>>> +            continue;
+>>>> +        }
+>>>> +
+>>>>           ret = dma_fence_wait_timeout(s_job->s_fence->parent, 
+>>>> false, ring->sched.timeout);
+>>>>           if (ret == 0) { /* timeout */
+>>>>               DRM_ERROR("Found the real bad job! ring:%s, 
+>>>> job_id:%llx\n",
+>>>>                           ring->sched.name, s_job->id);
+>>>>   +
+>>>> +            /* Clear this failed job from fence array */
+>>>> +            amdgpu_fence_driver_clear_job_fences(ring);
+>>>> +
+>>>> +            /* Since the job won't signal and we go for
+>>>> +             * another resubmit drop this parent pointer
+>>>> +             */
+>>>> +            dma_fence_put(s_job->s_fence->parent);
+>>>> +            s_job->s_fence->parent = NULL;
+>>>> +
+>>>>               /* set guilty */
+>>>>               drm_sched_increase_karma(s_job);
+>>>>   retry:
+>>>> @@ -5047,7 +5059,6 @@ static void amdgpu_device_recheck_guilty_jobs(
+>>>>             /* got the hw fence, signal finished fence */
+>>>>           atomic_dec(ring->sched.score);
+>>>> -        dma_fence_put(s_job->s_fence->parent);
+>>>> dma_fence_get(&s_job->s_fence->finished);
+>>>> dma_fence_signal(&s_job->s_fence->finished);
+>>>> dma_fence_put(&s_job->s_fence->finished);
+>>>> @@ -5220,8 +5231,8 @@ int amdgpu_device_gpu_recover(struct 
+>>>> amdgpu_device *adev,
+>>>>        *
+>>>>        * job->base holds a reference to parent fence
+>>>>        */
+>>>> -    if (job && job->base.s_fence->parent &&
+>>>> - dma_fence_is_signaled(job->base.s_fence->parent)) {
+>>>> +    if (job && (job->hw_fence.ops != NULL) &&
+>>>> +        dma_fence_is_signaled(&job->hw_fence)) {
+>>>>           job_signaled = true;
+>>>>           dev_info(adev->dev, "Guilty job already signaled, 
+>>>> skipping HW reset");
+>>>>           goto skip_hw_reset;
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>> index d6d54ba4c185..9bd4e18212fc 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>> @@ -164,11 +164,16 @@ int amdgpu_fence_emit(struct amdgpu_ring 
+>>>> *ring, struct dma_fence **f, struct amd
+>>>>       if (job && job->job_run_counter) {
+>>>>           /* reinit seq for resubmitted jobs */
+>>>>           fence->seqno = seq;
+>>>> +        /* TO be inline with external fence creation and other 
+>>>> drivers */
+>>>> +        dma_fence_get(fence);
+>>>>       } else {
+>>>> -        if (job)
+>>>> +        if (job) {
+>>>>               dma_fence_init(fence, &amdgpu_job_fence_ops,
+>>>>                          &ring->fence_drv.lock,
+>>>>                          adev->fence_context + ring->idx, seq);
+>>>> +            /* Against remove in amdgpu_job_{free, free_cb} */
+>>>> +            dma_fence_get(fence);
+>>>> +        }
+>>>>           else
+>>>>               dma_fence_init(fence, &amdgpu_fence_ops,
+>>>>                          &ring->fence_drv.lock,
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> index 58568fdde2d0..638e1d600258 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> @@ -267,10 +267,6 @@ static struct dma_fence *amdgpu_job_run(struct 
+>>>> drm_sched_job *sched_job)
+>>>>               DRM_ERROR("Error scheduling IBs (%d)\n", r);
+>>>>       }
+>>>>   -    if (!job->job_run_counter)
+>>>> -        dma_fence_get(fence);
+>>>> -    else if (finished->error < 0)
+>>>> -        dma_fence_put(&job->hw_fence);
+>>>>       job->job_run_counter++;
+>>>>       amdgpu_job_free_resources(job);
+>>>
+>
