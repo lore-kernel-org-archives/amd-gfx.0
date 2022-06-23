@@ -4,65 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2AE7C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:07:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C130C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:07:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E9910EA74;
-	Thu, 23 Jun 2022 14:07:16 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBC911A111;
- Thu, 23 Jun 2022 08:12:21 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- l126-20020a1c2584000000b0039c1a10507fso979878wml.1; 
- Thu, 23 Jun 2022 01:12:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rOv49GBzhOqyqE7eLHSt+Ik1Az34mqfqR6ns844eLbg=;
- b=AarHKbfnWn9yENZcAOcAjTKDQx3odHlfbz9G+O50Z9l1Xa1JlLDzpuxQ7NwRttr6k3
- w17rFjhVSm3hcsCYwR6AW/W0M9BasonEx6kjhrTsLIOiTBfZCTXnrz4ghbsNz/mDGLtu
- X5lnUfFRYbpNJds7DU6PzgcCJrUU+FnUGDl099SSAXFoQJjqrqBV/U7HUE/yRH5Wg/wn
- DGGAzOdR8+hjt+2o7z6zc8xO/st5IT7Elbc2Dvou0wF17wzuO9cozT49sm7/PAJwn7pD
- 8Y+xRjMaGjPDzhajPq+bya+mtXp1XmpXrShidZOl7KtHrG/ptbO2sBePVbIhpnuHSKfy
- r4sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rOv49GBzhOqyqE7eLHSt+Ik1Az34mqfqR6ns844eLbg=;
- b=WrBBVZFf+GoGQ69cEYjUp8D32WX68ACE4o2FI+CjvcYZmcys8zFkjNjsc/vvh+ewXW
- BBjETpx79O1mT+fIl7zp8MeVrViAQt1DBLu6rX9YUZBauaQ+0v7c11SymbqXBFBHyCGU
- BnbylOmVWGmwI40JJ3IA2iqVmxAkOEeZe1+Bi18DZr35KN0DkWHQcJ59D5ee2A+OzVLe
- BGCsXQtHeRH9QGjhgENUsl6MARh6Apl12QvJjmjsSHZT8vTpY0ke/2twuWraj7c2pm/8
- 3BQUmq3hRVvj9pMKsZZmk41mevHMavK76tf7ZMdIgEB0mz7woUM8el84pHiMTWoIVpeP
- +5hA==
-X-Gm-Message-State: AJIora/WPOwn/A84+5r99vKIRSPT81XhwEkzjNIi2O1XFRCB6mUJNQQr
- nNrilmZJcMwIWS2XWybto4A=
-X-Google-Smtp-Source: AGRyM1uOoiFLDolTe62S7PLYbIbjstwYERsSlBMWvOkw05h1A1/QD5ahYbsxQSu5AHST8hcNEmPFWQ==
-X-Received: by 2002:a05:600c:4fc4:b0:3a0:334e:241d with SMTP id
- o4-20020a05600c4fc400b003a0334e241dmr593760wmq.62.1655971940214; 
- Thu, 23 Jun 2022 01:12:20 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- u15-20020a05600c210f00b0039db500714fsm2291638wml.6.2022.06.23.01.12.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jun 2022 01:12:19 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH][next] drm/amdkfd: Fix spelling mistake "mechanim" ->
- "mechanism"
-Date: Thu, 23 Jun 2022 09:12:19 +0100
-Message-Id: <20220623081219.19291-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10DB810EBD1;
+	Thu, 23 Jun 2022 14:07:17 +0000 (UTC)
+X-Greylist: delayed 443 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Jun 2022 10:22:30 UTC
+Received: from smtpbg.qq.com (smtpbg138.qq.com [106.55.201.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2E210EF81
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 10:22:29 +0000 (UTC)
+X-QQ-mid: bizesmtp80t1655979295tq1gavlg
+Received: from ubuntu.localdomain ( [106.117.99.68])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 23 Jun 2022 18:14:50 +0800 (CST)
+X-QQ-SSF: 01000000008000B0C000B00A0000000
+X-QQ-FEAT: qpGeUh0uYB9S1TzaUBc1+BFLhEgoP88Y8lak3PyjSnXOH66GM4RrMOqIgHykO
+ ErGJfCB20o+zSjTY6lHkeKoiYQlLIL66dJ3AeJivoSvBmbp/e0rkw5VGOxBpo8vvj/9bHGR
+ qvyJGXa0RKmx6iFqjkZu/hQ/ICSBWpTPCbBhUW37n6/lPKzYKAZp3V1XQ7uxx4Nom/wLn9Q
+ AXC3ZzzqoRWdpPvil9xcdqtenONfOn/JVgK/Z7dqT/tsI7ObL1kQrBdDOCYwNzcEv9PUmMu
+ QIfsjn0Pv+TS9efMQaiFBCjZvhnvUQisgGSDWxmQr2+C0ca5EqWAo8vhORlIh6xgYYqEQWP
+ FhzDiVza4CtcfJ5k5TBrIxVtT4uqA==
+X-QQ-GoodBg: 0
+From: Jiang Jian <jiangjian@cdjrlc.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu: drop unexpected word 'for' in comments
+Date: Thu, 23 Jun 2022 18:14:48 +0800
+Message-Id: <20220623101448.30188-1-jiangjian@cdjrlc.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam10
 X-Mailman-Approved-At: Thu, 23 Jun 2022 14:07:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,30 +47,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Philip.Yang@amd.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jiang Jian <jiangjian@cdjrlc.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in a pr_debug message. Fix it.
+there is an unexpected word 'for' in the comments that need to be dropped
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+file - drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+line - 245
+
+ * position and also advance the position for for Vega10
+
+changed to:
+
+ * position and also advance the position for Vega10
+
+Signed-off-by: Jiang Jian <jiangjian@cdjrlc.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 8805bd1eed37..f5f1368c0c54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -914,7 +914,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 			ret = kfd_mem_attach_dmabuf(adev, mem, &bo[i]);
- 			if (ret)
- 				goto unwind;
--			pr_debug("Employ DMABUF mechanim to enable peer GPU access\n");
-+			pr_debug("Employ DMABUF mechanism to enable peer GPU access\n");
- 		} else {
- 			WARN_ONCE(true, "Handling invalid ATTACH request");
- 			ret = -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+index 3df146579ad9..1d5af50331e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+@@ -242,7 +242,7 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+  * @entry: IV entry
+  *
+  * Decodes the interrupt vector at the current rptr
+- * position and also advance the position for for Vega10
++ * position and also advance the position for Vega10
+  * and later GPUs.
+  */
+ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
 -- 
-2.35.3
+2.17.1
 
