@@ -4,95 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 412D8C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:07:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D518BCCA47C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9451210ECD8;
-	Thu, 23 Jun 2022 14:07:19 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C342311A0A7
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 07:57:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1655971034;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WRxmubYj/zvQx9FAer+eiq5WWKcFW5jnO5Ita3wHCwA=;
- b=Qvzi01Otyw70cSNnLIweoaShQTqoidgQeUY87AsdRLcZEWXVb5ZJvN/+aV9QmCbwJU36EE
- pv7NX5Pm6GKSFrC5mgvEFHMT00h7yp6o3HUSLqk0GkKTLJaOGg/oUEksA22IdRqmMbK0N3
- uptaHF9SwSW9vj/HhQxT/ywGsiQ463g=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-510-0uJdCzWuNZGvoFZZbwW0Hg-1; Thu, 23 Jun 2022 03:57:13 -0400
-X-MC-Unique: 0uJdCzWuNZGvoFZZbwW0Hg-1
-Received: by mail-wm1-f70.google.com with SMTP id
- i184-20020a1c3bc1000000b003a026f48333so1773275wma.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 00:57:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:organization:subject
- :in-reply-to:content-transfer-encoding;
- bh=WRxmubYj/zvQx9FAer+eiq5WWKcFW5jnO5Ita3wHCwA=;
- b=Zyq1KjLWAW/oOzYqtEA4biMkVM+T2XvpoQ1578zRWJW1S4FzF5TxhpWA7PYxuKInRA
- UljP9UbFWRko7GGnNCgqMg6ejGl0tKNj2+OSXiGRAGXYzbFAfpbm5PCsHcTBlwzp3MjC
- o+gvAv8ME0TrY0+/5xK50ynHtIwFmyBZOrR6/YpLa5YvEZAdyzlNdO0EzsUplw+3zuId
- GxZ+9gW3eymDwRlVa40rvxAqnHm3ytksm5mMgdNA9YuBnvtjbbQ/HDOjDAUtezKdu2lo
- E8lgr+rnKmWlZ3/L5f1aokZ5jVrofvWZq/u72VbdN7adSxQjouTSGf4k9DspnrhP17gt
- pCyw==
-X-Gm-Message-State: AJIora+t9Rb3GdKV/NL6yuN/w5SHC3e4IkqrvEAmlGV04iB1zfEMDiqc
- lSd8IZ908ENf91IikdKRe+wqccmUEfyUJN6Rqkkm39lUk5BapDetBbbAe3U/UA8MWFtvPjha6nv
- kbR8XnhFXXIUJq9x9v1D4RF8kZQ==
-X-Received: by 2002:a05:6000:15c1:b0:21b:ad5e:2798 with SMTP id
- y1-20020a05600015c100b0021bad5e2798mr60446wry.237.1655971032251; 
- Thu, 23 Jun 2022 00:57:12 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1tAWugolGpzgHOkBwbVZGJMITotRNGXISo3pRIWSqUMevICnP2uuhQ9eDf0QwZwMuJTe/4erg==
-X-Received: by 2002:a05:6000:15c1:b0:21b:ad5e:2798 with SMTP id
- y1-20020a05600015c100b0021bad5e2798mr60416wry.237.1655971031851; 
- Thu, 23 Jun 2022 00:57:11 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c704:b100:7694:f34e:d0dd:95e7?
- (p200300cbc704b1007694f34ed0dd95e7.dip0.t-ipconnect.de.
- [2003:cb:c704:b100:7694:f34e:d0dd:95e7])
- by smtp.gmail.com with ESMTPSA id
- r10-20020a05600c284a00b0039c41686421sm2066722wmb.17.2022.06.23.00.57.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jun 2022 00:57:11 -0700 (PDT)
-Message-ID: <9af76814-ee3a-0af4-7300-d432050b13a3@redhat.com>
-Date: Thu, 23 Jun 2022 09:57:10 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D4110E593;
+	Thu, 23 Jun 2022 14:20:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9746510E392;
+ Thu, 23 Jun 2022 14:20:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ghRY/q+AczrBlosibDnz1VOMwjF/ZJuI0Ch9V4Oys0Bvqk0s1V8FcEn4ltaF8U//sffk8WGURtzZTDpDF2Hw6nNoDF8Yl43dZm6fhiikACXHPYlEDcaUntkJCNvVAr1PHMoRKNAOpWnsMmFXVrlQY1l9G9d+/NKUo/dEIjJ6PpIo2JUYk0r2j024Qhc9epMZS2GXRbV+o9eObIpNQULVX49fq6lOcSMPkTkoZX4T858oM/ua/Y0OEuoYCm9f1E2wzeU1ruXqm7DrvBaQBwJlE2fLIMFzMFXQrZ5dift9tyC6OWiKHGDDD/O+yYnTH7611Y12r5StdaIUf7P0ETuxcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zV4yJZGNkV6ZyV8ZpAOSYRegazPB9XZlwL0SP+5rrOo=;
+ b=fv9DMKlrejuEcagm+qmd5gvBLJPGIKSoGVGhQRhXIex8gtG+sVU6tLPl8KnXWOFiB2b13/lUbN/P2ggDwmDJPp0lZA9ADGQ0QOX/7soMiro4BpcCRj8sO+tA6XZxy5zk/XdRnz2fL1PXpNlVNEsTNQ8e3FRYr2c9RjIWKc1Tna56jXDc91vpMZr3D+QE/zzGRzJqTG/8sCmri3YdFAj+NcjKNTerqjEtZJFtgPzUKP7zn1Kzu3sJ21hHSwjNOTaj0BHoswj/cYO0VvqXYcyZ/ObOzR+a5/L8JZNpOrPv+e5No522blgCw7AKl7kTna0eHq5SYzLJ40/0flGi7aLixw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zV4yJZGNkV6ZyV8ZpAOSYRegazPB9XZlwL0SP+5rrOo=;
+ b=KAT12wg2N9WhENp9q4+wiVRZF35dqH4dH8uBpO5/Yq94+Apm8L86p6+8qWcnSBHQq6U2MT2sV6xWRM3F4TJKGcF/YxbKhObR1u3/RPMUFlF9u6TD2h/taPUa11qtyex2qavL8KpjUYeLWY3jj53B4AQkpfArmhcWMvoHrrCbX5A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Thu, 23 Jun
+ 2022 14:20:05 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::f55b:be13:11c6:d9dc]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::f55b:be13:11c6:d9dc%3]) with mapi id 15.20.5373.016; Thu, 23 Jun 2022
+ 14:20:05 +0000
+Message-ID: <d3218391-de1f-d64d-bda7-0042473e9833@amd.com>
+Date: Thu, 23 Jun 2022 10:20:01 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-To: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>,
- Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org
-References: <20220531200041.24904-1-alex.sierra@amd.com>
- <20220531200041.24904-2-alex.sierra@amd.com>
- <3ac89358-2ce0-7d0d-8b9c-8b0e5cc48945@redhat.com>
- <02ed2cb7-3ad3-8ffc-6032-04ae1853e234@amd.com>
- <7605beee-0a76-4ee9-e950-17419630f2cf@redhat.com>
- <ddcebcc1-fb0a-e565-f14d-77c9d48f2928@amd.com>
- <6aef4b7f-0ced-08cd-1f0c-50c22996aa41@redhat.com>
- <65987ab8-426d-e533-0295-069312b4f751@amd.com>
- <34e94bdb-675a-5d5c-6137-8aa1ee658d49@redhat.com>
- <87letq6wb5.fsf@nvdebian.thelocal>
- <643c44e7-48be-375b-c7ab-6a30b5ee2937@redhat.com>
- <f5b9f777-85a2-9c38-17f3-0c9be1eeb867@amd.com>
- <01cf9f24-d7fc-61e9-1c28-85dc5aabe645@redhat.com>
- <01cad0cf-9937-8699-6df3-7d5dfa681922@amd.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-Subject: Re: [PATCH v5 01/13] mm: add zone device coherent type memory support
-In-Reply-To: <01cad0cf-9937-8699-6df3-7d5dfa681922@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.10.0
+Subject: Re: [PATCH][next] drm/amdgpu/display: Fix spelling mistake
+ "supporing" -> "supporting"
 Content-Language: en-US
+To: Colin Ian King <colin.i.king@gmail.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220623080946.19116-1-colin.i.king@gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220623080946.19116-1-colin.i.king@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 23 Jun 2022 14:07:15 +0000
+X-ClientProxiedBy: YT1PR01CA0087.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::26) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 328cb5e6-953a-4e6a-9ca9-08da552377bf
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5645:EE_
+X-Microsoft-Antispam-PRVS: <PH0PR12MB564521A5A0A4C5C88386B1F38CB59@PH0PR12MB5645.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: quWnZPfbOEacc0Q871fnR4+Tca+wg6D5bLKla6ztTfHAONuw/aDcsZfMnee7LM6W6zzE9ubV7DL2HWytj4/WVpImjOQqthzYrxw61aV8F8Vheb+MSFDMNgiwZNtzEvcV369Cwi+hsqPJOYo0J5fWEvm1FGvCe8MppWMRM5Ts/nlKmr909/P+x+k3zT1H/ukoJn+xK87F24B40XZUXpfQKfz0D9abKuagPcON2RuLd0NfckGTv7zRT4hTt7zoEl3flEgBm3WEm/kdKKp0XLFeEyaeTDWLHPtqA7qQjI3Cayq0q4C2Z90kOtvkyrg3A1mlKAHlxfhMii9nOO+4xE4Jq2SgyaNFeTPslV6AFspT7r+Y2X5YiwyVXXE0lRCBbMhaLqAVRypZOi2iHUcJpyuHDJWTHzbkoIhYF71hrojXwhltJ5fgrxPrgzfMGwfBN9B4tLilIeMnbAR0sQFo2NStgM7VokJELb+GqBHW19+JGqPE9opXKqA85X4gpgnui1xkX8rZtj6odVnJcIrP5pt3nMG5il9rY4xRKO2TWaoyrtihOj4a0WxrzT+csNnCbW6JJv2LIELnUkeQo16imHfQYmOh0JhscTrPGPZO6X4jgvMiEFlSz4dDcl2OgfCDyao6UockxXm80a9iuZoaS2LFPWWpRI5qSL2NzLpfY0TB6tnhyEetNrXXkiDH0fmUvjimKWNx65VCK1v4Bmq5QxKSsinjC5EJF2ovsLachaadzhQ11rx4ncr2NI+Suedtf3JTvf30sb5FL6vEOwEOr9c8UqmnInhJKSbHuYSaHoa4Enflv4Lo8noo0G1rGlYRMaw+
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(6512007)(41300700001)(53546011)(86362001)(26005)(36756003)(316002)(83380400001)(31696002)(4326008)(2906002)(921005)(31686004)(6506007)(2616005)(110136005)(66946007)(6666004)(8676002)(66556008)(66476007)(44832011)(6486002)(8936002)(38100700002)(5660300002)(186003)(478600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVk0WGNyQjNWcjNGc292ZU1nbHUvcllCdll4U3A2Rm9WMVpVdEUzc3ZEMUpl?=
+ =?utf-8?B?QjNuWWU0MnBtU2tybzRQS3JLSlVGZTdITmlHZUxNNStXUGZqaVFMZi9iRW1p?=
+ =?utf-8?B?YlBjTTNlYkM3Z2JRbDdQUVNIR1BPWkJ3YWc3VGh2MldhY3EwRmJuWFV1enZn?=
+ =?utf-8?B?ZGNuR1JhMUhERXViVVN0L3RKcGRJVGhCMnVpbWlxRGRZQ1dXdGZkK0xuY1RD?=
+ =?utf-8?B?TGNKV3ZQdGk4L1J4M2VJS2ZvY2lBcWp0TU9ZRVV6T2NyenZtSXRlaXUzekJs?=
+ =?utf-8?B?NXIwSCttYVJ6RCsxRHh2VDJoMjR4dzVLYXhyNi9LczR4Z3ptNkliNnJqZEVu?=
+ =?utf-8?B?Q2FxWlpOSWNnSzFkOGYyKzRqRlNRNnhCZEJDcVJsYU5zVFQ0OFdvMENqUzN2?=
+ =?utf-8?B?UWdrOFYzK3dkbm1ZZG55VEh5eDVQTXNrd1d5UHd4anpZdEdqcngzNTEyYVoy?=
+ =?utf-8?B?UVZ0MERtcXM5MzJGeUVRc2RyM1Z1c0xGaUZOZHBwaGgzZFJGeEFCSDNwM1My?=
+ =?utf-8?B?T2tCV2pDbGpNV05Va3BBRTFPeDVZMTNOTk5sNjd0TWtGRHlYRFk0TFM5M2FV?=
+ =?utf-8?B?NHpyY0UrU1o0NlZCeFB6U1YzM2d2SHpmY3ZsTXV0VjZJK281aHFJK0Z6OG9u?=
+ =?utf-8?B?cFVPeGpwNTFlaUFhbWVscHlGUGlmSDBlQ0hpZllWQm1uWHZMMFc2UG5WVWtn?=
+ =?utf-8?B?OGMrWWxzRnU1UVhnZVFTWmZEQ3c5Z0IxSFVuYXhObFBxVTZOS0VQWjRVQW1s?=
+ =?utf-8?B?b1MxcXRWMTZFT1g5VVNRQjlUekJ4NXdxMnc1M3NxZ200TkRvV2hzaTdWYmxt?=
+ =?utf-8?B?ajNndmdKZVNLZ3kzRm9qdmEvcHBUeERUZEhIcXJlVXNBSnlMNFY1T2lGdXhz?=
+ =?utf-8?B?dy96NGowSXlteW1Bb29rbE1jR1RGWjZYYXlkR0QweTR6bGFJNEJuTnRESGh1?=
+ =?utf-8?B?V3JQZzJFM1VqdFVMRFpCRnpYQzZqOTJqTlNHT3dicktjWW9KSmJUK25jVU40?=
+ =?utf-8?B?b05NVjFkNU03ZTJIdTdZZDkyQkpScHJXeERUMUc4VVkxemZkL2hoNW5ON1Vp?=
+ =?utf-8?B?dkdPdnJLeWZPNmlVU0hFYlJZVDZucFJIeHZyWHpoZWFvdEx4d0tPYUtJUEp4?=
+ =?utf-8?B?QjM3bVlQQUVReVVaWC9keExTV3hudENZRk9GVnE4YityMXdiTXNRRjNXcGRt?=
+ =?utf-8?B?L3B5emxLWVRuUjdwcjJzQlp5RlhIUzYrbVNCQkQ5ZEs5cExzcE0ybUNjekNB?=
+ =?utf-8?B?NjdWd1B0aE9aMjJmTTR5aFZmZDVmTmZDK0llc2MyWmtjMitwaU9iS2M2SFN1?=
+ =?utf-8?B?M3NmR1ArSWNPdUtERDhrc0R3dDQ1UFVlZlpEOHFnZ3Y0V0RuTmpJdHRmZmdt?=
+ =?utf-8?B?OFdBMXRCNUcvS0ppWmZ5VUNhUDhjTXBla1MySTBSa2ZyTk1wK1N0VW5kLy9G?=
+ =?utf-8?B?SHpEcjBVYUVXMFlyZ3NLbXRHYzN3eTZZWmhuVFhaMWVidzIvb3g3U1dFaUEy?=
+ =?utf-8?B?elpkT2E1ZGJDNkl3NDlLUFh0NnF5SVdnZmFVS0xkejY1OUhhT0xNSHdQMG94?=
+ =?utf-8?B?aU1ub2FPYmc2RUtFbFo5QUg3QUlNS3QycEdFdXJYcElxYkx3TmhuaVRNMU9W?=
+ =?utf-8?B?UEJsakNNbHFseUttWEhXRldSb2FLb0E4aHNqaVV2dFN5WEhxMmN5OUFSTWww?=
+ =?utf-8?B?VXBNNWtCbDNzNzgrSDFWcitXVUw4Tm9uNkVpWENaamxrSWIvb29jSWw0Yk93?=
+ =?utf-8?B?dy9pbDNtdDRKaFlLNlZiOC9EQ0p0M0xveHBscDAzelczdXBKaHhkWEp2dFRL?=
+ =?utf-8?B?anNjZXEyS2VaaXBYTVE5ODlyNEhpek0vMjhpT3lPRys1a2xDZXJjZTdqMURo?=
+ =?utf-8?B?cFZBb05IY2tqbHBVRERCL1p3MUs5UldMSC9oWDNEaUVmeitZS0ZhdXoxN3JO?=
+ =?utf-8?B?VjQzWGRvTUlUNzVlUTY2alhDeU9TM29OU0hxNnVZMXNZMDdjTmtDVzdYNDUw?=
+ =?utf-8?B?VWdWM3UxeWJqbjRiVUtreHYxZHZuUmx5QnhseGJUcUo2N3JLbWdaeHZZWFJG?=
+ =?utf-8?B?aFpJL0k0TU9hdnJHV256VHlTNEVTempQVldZZ2hiQ0kvLzRvSTRUcDZxenhW?=
+ =?utf-8?B?QURvUERjaUpyUXQ1VHlXUVlsNEtxbWFqNDhKVDNGaG1PMU45cUdnNzBmOUx4?=
+ =?utf-8?B?L2szazljMVhIM01CbHdYdzljT1k2MFNHa2E3Zk13UWRIUXJ6SnBuYmwwUzkr?=
+ =?utf-8?B?U1FsR2hYbnJOaXpMVVRERE5DalRYV0djRnJWZ0RiNExSckF6Z25QVUQ1WllR?=
+ =?utf-8?B?c01lT0w0dkxIMnc2MVdGSEVUSGFsWGJGaWNXT2ZFS1licW85SGtmdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 328cb5e6-953a-4e6a-9ca9-08da552377bf
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2022 14:20:04.9484 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HJVfJppz7XWYSi/pRqp7cveXRTmd9kJpOXEqSDFamA3MeT+DkpfPOFw9Oam+AY/d2PKtGVvqi3myxEFo0TdcgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,349 +134,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org,
- Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, linux-ext4@vger.kernel.org,
- hch@lst.de
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23.06.22 01:16, Sierra Guiza, Alejandro (Alex) wrote:
+
+
+On 2022-06-23 04:09, Colin Ian King wrote:
+> There is a spelling mistake in a dml_print message. Fix it.
 > 
-> On 6/21/2022 11:16 AM, David Hildenbrand wrote:
->> On 21.06.22 18:08, Sierra Guiza, Alejandro (Alex) wrote:
->>> On 6/21/2022 7:25 AM, David Hildenbrand wrote:
->>>> On 21.06.22 13:55, Alistair Popple wrote:
->>>>> David Hildenbrand<david@redhat.com>  writes:
->>>>>
->>>>>> On 21.06.22 13:25, Felix Kuehling wrote:
->>>>>>> Am 6/17/22 um 23:19 schrieb David Hildenbrand:
->>>>>>>> On 17.06.22 21:27, Sierra Guiza, Alejandro (Alex) wrote:
->>>>>>>>> On 6/17/2022 12:33 PM, David Hildenbrand wrote:
->>>>>>>>>> On 17.06.22 19:20, Sierra Guiza, Alejandro (Alex) wrote:
->>>>>>>>>>> On 6/17/2022 4:40 AM, David Hildenbrand wrote:
->>>>>>>>>>>> On 31.05.22 22:00, Alex Sierra wrote:
->>>>>>>>>>>>> Device memory that is cache coherent from device and CPU point of view.
->>>>>>>>>>>>> This is used on platforms that have an advanced system bus (like CAPI
->>>>>>>>>>>>> or CXL). Any page of a process can be migrated to such memory. However,
->>>>>>>>>>>>> no one should be allowed to pin such memory so that it can always be
->>>>>>>>>>>>> evicted.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Signed-off-by: Alex Sierra<alex.sierra@amd.com>
->>>>>>>>>>>>> Acked-by: Felix Kuehling<Felix.Kuehling@amd.com>
->>>>>>>>>>>>> Reviewed-by: Alistair Popple<apopple@nvidia.com>
->>>>>>>>>>>>> [hch: rebased ontop of the refcount changes,
->>>>>>>>>>>>>            removed is_dev_private_or_coherent_page]
->>>>>>>>>>>>> Signed-off-by: Christoph Hellwig<hch@lst.de>
->>>>>>>>>>>>> ---
->>>>>>>>>>>>>       include/linux/memremap.h | 19 +++++++++++++++++++
->>>>>>>>>>>>>       mm/memcontrol.c          |  7 ++++---
->>>>>>>>>>>>>       mm/memory-failure.c      |  8 ++++++--
->>>>>>>>>>>>>       mm/memremap.c            | 10 ++++++++++
->>>>>>>>>>>>>       mm/migrate_device.c      | 16 +++++++---------
->>>>>>>>>>>>>       mm/rmap.c                |  5 +++--
->>>>>>>>>>>>>       6 files changed, 49 insertions(+), 16 deletions(-)
->>>>>>>>>>>>>
->>>>>>>>>>>>> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
->>>>>>>>>>>>> index 8af304f6b504..9f752ebed613 100644
->>>>>>>>>>>>> --- a/include/linux/memremap.h
->>>>>>>>>>>>> +++ b/include/linux/memremap.h
->>>>>>>>>>>>> @@ -41,6 +41,13 @@ struct vmem_altmap {
->>>>>>>>>>>>>        * A more complete discussion of unaddressable memory may be found in
->>>>>>>>>>>>>        * include/linux/hmm.h and Documentation/vm/hmm.rst.
->>>>>>>>>>>>>        *
->>>>>>>>>>>>> + * MEMORY_DEVICE_COHERENT:
->>>>>>>>>>>>> + * Device memory that is cache coherent from device and CPU point of view. This
->>>>>>>>>>>>> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
->>>>>>>>>>>>> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
->>>>>>>>>>>>> + * type. Any page of a process can be migrated to such memory. However no one
->>>>>>>>>>>> Any page might not be right, I'm pretty sure. ... just thinking about special pages
->>>>>>>>>>>> like vdso, shared zeropage, ... pinned pages ...
->>>>>>>>>> Well, you cannot migrate long term pages, that's what I meant :)
->>>>>>>>>>
->>>>>>>>>>>>> + * should be allowed to pin such memory so that it can always be evicted.
->>>>>>>>>>>>> + *
->>>>>>>>>>>>>        * MEMORY_DEVICE_FS_DAX:
->>>>>>>>>>>>>        * Host memory that has similar access semantics as System RAM i.e. DMA
->>>>>>>>>>>>>        * coherent and supports page pinning. In support of coordinating page
->>>>>>>>>>>>> @@ -61,6 +68,7 @@ struct vmem_altmap {
->>>>>>>>>>>>>       enum memory_type {
->>>>>>>>>>>>>       	/* 0 is reserved to catch uninitialized type fields */
->>>>>>>>>>>>>       	MEMORY_DEVICE_PRIVATE = 1,
->>>>>>>>>>>>> +	MEMORY_DEVICE_COHERENT,
->>>>>>>>>>>>>       	MEMORY_DEVICE_FS_DAX,
->>>>>>>>>>>>>       	MEMORY_DEVICE_GENERIC,
->>>>>>>>>>>>>       	MEMORY_DEVICE_PCI_P2PDMA,
->>>>>>>>>>>>> @@ -143,6 +151,17 @@ static inline bool folio_is_device_private(const struct folio *folio)
->>>>>>>>>>>> In general, this LGTM, and it should be correct with PageAnonExclusive I think.
->>>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>> However, where exactly is pinning forbidden?
->>>>>>>>>>> Long-term pinning is forbidden since it would interfere with the device
->>>>>>>>>>> memory manager owning the
->>>>>>>>>>> device-coherent pages (e.g. evictions in TTM). However, normal pinning
->>>>>>>>>>> is allowed on this device type.
->>>>>>>>>> I don't see updates to folio_is_pinnable() in this patch.
->>>>>>>>> Device coherent type pages should return true here, as they are pinnable
->>>>>>>>> pages.
->>>>>>>> That function is only called for long-term pinnings in try_grab_folio().
->>>>>>>>
->>>>>>>>>> So wouldn't try_grab_folio() simply pin these pages? What am I missing?
->>>>>>>>> As far as I understand this return NULL for long term pin pages.
->>>>>>>>> Otherwise they get refcount incremented.
->>>>>>>> I don't follow.
->>>>>>>>
->>>>>>>> You're saying
->>>>>>>>
->>>>>>>> a) folio_is_pinnable() returns true for device coherent pages
->>>>>>>>
->>>>>>>> and that
->>>>>>>>
->>>>>>>> b) device coherent pages don't get long-term pinned
->>>>>>>>
->>>>>>>>
->>>>>>>> Yet, the code says
->>>>>>>>
->>>>>>>> struct folio *try_grab_folio(struct page *page, int refs, unsigned int flags)
->>>>>>>> {
->>>>>>>> 	if (flags & FOLL_GET)
->>>>>>>> 		return try_get_folio(page, refs);
->>>>>>>> 	else if (flags & FOLL_PIN) {
->>>>>>>> 		struct folio *folio;
->>>>>>>>
->>>>>>>> 		/*
->>>>>>>> 		 * Can't do FOLL_LONGTERM + FOLL_PIN gup fast path if not in a
->>>>>>>> 		 * right zone, so fail and let the caller fall back to the slow
->>>>>>>> 		 * path.
->>>>>>>> 		 */
->>>>>>>> 		if (unlikely((flags & FOLL_LONGTERM) &&
->>>>>>>> 			     !is_pinnable_page(page)))
->>>>>>>> 			return NULL;
->>>>>>>> 		...
->>>>>>>> 		return folio;
->>>>>>>> 	}
->>>>>>>> }
->>>>>>>>
->>>>>>>>
->>>>>>>> What prevents these pages from getting long-term pinned as stated in this patch?
->>>>>>> Long-term pinning is handled by __gup_longterm_locked, which migrates
->>>>>>> pages returned by __get_user_pages_locked that cannot be long-term
->>>>>>> pinned. try_grab_folio is OK to grab the pages. Anything that can't be
->>>>>>> long-term pinned will be migrated afterwards, and
->>>>>>> __get_user_pages_locked will be retried. The migration of
->>>>>>> DEVICE_COHERENT pages was implemented by Alistair in patch 5/13
->>>>>>> ("mm/gup: migrate device coherent pages when pinning instead of failing").
->>>>>> Thanks.
->>>>>>
->>>>>> __gup_longterm_locked()->check_and_migrate_movable_pages()
->>>>>>
->>>>>> Which checks folio_is_pinnable() and doesn't do anything if set.
->>>>>>
->>>>>> Sorry to be dense here, but I don't see how what's stated in this patch
->>>>>> works without adjusting folio_is_pinnable().
->>>>> Ugh, I think you might be right about try_grab_folio().
->>>>>
->>>>> We didn't update folio_is_pinnable() to include device coherent pages
->>>>> because device coherent pages are pinnable. It is really just
->>>>> FOLL_LONGTERM that we want to prevent here.
->>>>>
->>>>> For normal PUP that is done by my change in
->>>>> check_and_migrate_movable_pages() which migrates pages being pinned with
->>>>> FOLL_LONGTERM. But I think I incorrectly assumed we would take the
->>>>> pte_devmap() path in gup_pte_range(), which we don't for coherent pages.
->>>>> So I think the check in try_grab_folio() needs to be:
->>>> I think I said it already (and I might be wrong without reading the
->>>> code), but folio_is_pinnable() is *only* called for long-term pinnings.
->>>>
->>>> It should actually be called folio_is_longterm_pinnable().
->>>>
->>>> That's where that check should go, no?
->>> David, I think you're right. We didn't catch this since the LONGTERM gup
->>> test we added to hmm-test only calls to pin_user_pages. Apparently
->>> try_grab_folio is called only from fast callers (ex.
->>> pin_user_pages_fast/get_user_pages_fast). I have added a conditional
->>> similar to what Alistair has proposed to return null on LONGTERM &&
->>> (coherent_pages || folio_is_pinnable) at try_grab_folio. Also a new gup
->>> test was added with LONGTERM set that calls pin_user_pages_fast.
->>> Returning null under this condition it does causes the migration from
->>> dev to system memory.
->>>
->> Why can't coherent memory simply put its checks into
->> folio_is_pinnable()? I don't get it why we have to do things differently
->> here.
->>
->>> Actually, Im having different problems with a call to PageAnonExclusive
->>> from try_to_migrate_one during page fault from a HMM test that first
->>> migrate pages to device private and forks to mark as COW these pages.
->>> Apparently is catching the first BUG VM_BUG_ON_PGFLAGS(!PageAnon(page),
->>> page)
->> With or without this series? A backtrace would be great.
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Here's the back trace. This happens in a hmm-test added in this patch 
-> series. However, I have tried to isolate this BUG by just adding the COW 
-> test with private device memory only. This is only present as follows. 
-> Allocate anonymous mem->Migrate to private device memory->fork->try to 
-> access to parent's anonymous memory (which will suppose to trigger a 
-> page fault and migration to system mem). Just for the record, if the 
-> child is terminated before the parent's memory is accessed, this problem 
-> is not present.
-
-
-The only usage of PageAnonExclusive() in try_to_migrate_one() is:
-
-anon_exclusive = folio_test_anon(folio) &&
-		 PageAnonExclusive(subpage);
-
-Which can only possibly fail if subpage is not actually part of the folio.
-
-
-I see some controversial code in the the if (folio_is_zone_device(folio)) case later:
-
-			 * The assignment to subpage above was computed from a
-			 * swap PTE which results in an invalid pointer.
-			 * Since only PAGE_SIZE pages can currently be
-			 * migrated, just set it to page. This will need to be
-			 * changed when hugepage migrations to device private
-			 * memory are supported.
-			 */
-			subpage = &folio->page;
-
-There we have our invalid pointer hint.
-
-I don't see how it could have worked if the child quit, though? Maybe
-just pure luck?
-
-
-Does the following fix your issue:
-
-
-
-From 09750c714739ef3ca317b4aec82bf20283c8fd2d Mon Sep 17 00:00:00 2001
-From: David Hildenbrand <david@redhat.com>
-Date: Thu, 23 Jun 2022 09:38:45 +0200
-Subject: [PATCH] mm/rmap: fix dereferencing invalid subpage pointer in
- try_to_migrate_one()
-
-The subpage we calculate is an invalid pointer for device private pages,
-because device private pages are mapped via non-present device private
-entries, not ordinary present PTEs.
-
-Let's just not compute broken pointers and fixup later. Move the proper
-assignment of the correct subpage to the beginning of the function and
-assert that we really only have a single page in our folio.
-
-This currently results in a BUG when tying to compute anon_exclusive,
-because:
-
-[  528.727237] BUG: unable to handle page fault for address: ffffea1fffffffc0
-[  528.739585] #PF: supervisor read access in kernel mode
-[  528.745324] #PF: error_code(0x0000) - not-present page
-[  528.751062] PGD 44eaf2067 P4D 44eaf2067 PUD 0
-[  528.756026] Oops: 0000 [#1] PREEMPT SMP NOPTI
-[  528.760890] CPU: 120 PID: 18275 Comm: hmm-tests Not tainted 5.19.0-rc3-kfd-alex #257
-[  528.769542] Hardware name: AMD Corporation BardPeak/BardPeak, BIOS RTY1002BDS 09/17/2021
-[  528.778579] RIP: 0010:try_to_migrate_one+0x21a/0x1000
-[  528.784225] Code: f6 48 89 c8 48 2b 05 45 d1 6a 01 48 c1 f8 06 48 29
-c3 48 8b 45 a8 48 c1 e3 06 48 01 cb f6 41 18 01 48 89 85 50 ff ff ff 74
-0b <4c> 8b 33 49 c1 ee 11 41 83 e6 01 48 8b bd 48 ff ff ff e8 3f 99 02
-[  528.805194] RSP: 0000:ffffc90003cdfaa0 EFLAGS: 00010202
-[  528.811027] RAX: 00007ffff7ff4000 RBX: ffffea1fffffffc0 RCX: ffffeaffffffffc0
-[  528.818995] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffc90003cdfaf8
-[  528.826962] RBP: ffffc90003cdfb70 R08: 0000000000000000 R09: 0000000000000000
-[  528.834930] R10: ffffc90003cdf910 R11: 0000000000000002 R12: ffff888194450540
-[  528.842899] R13: ffff888160d057c0 R14: 0000000000000000 R15: 03ffffffffffffff
-[  528.850865] FS:  00007ffff7fdb740(0000) GS:ffff8883b0600000(0000) knlGS:0000000000000000
-[  528.859891] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  528.866308] CR2: ffffea1fffffffc0 CR3: 00000001562b4003 CR4: 0000000000770ee0
-[  528.874275] PKRU: 55555554
-[  528.877286] Call Trace:
-[  528.880016]  <TASK>
-[  528.882356]  ? lock_is_held_type+0xdf/0x130
-[  528.887033]  rmap_walk_anon+0x167/0x410
-[  528.891316]  try_to_migrate+0x90/0xd0
-[  528.895405]  ? try_to_unmap_one+0xe10/0xe10
-[  528.900074]  ? anon_vma_ctor+0x50/0x50
-[  528.904260]  ? put_anon_vma+0x10/0x10
-[  528.908347]  ? invalid_mkclean_vma+0x20/0x20
-[  528.913114]  migrate_vma_setup+0x5f4/0x750
-[  528.917691]  dmirror_devmem_fault+0x8c/0x250 [test_hmm]
-[  528.923532]  do_swap_page+0xac0/0xe50
-[  528.927623]  ? __lock_acquire+0x4b2/0x1ac0
-[  528.932199]  __handle_mm_fault+0x949/0x1440
-[  528.936876]  handle_mm_fault+0x13f/0x3e0
-[  528.941256]  do_user_addr_fault+0x215/0x740
-[  528.945928]  exc_page_fault+0x75/0x280
-[  528.950115]  asm_exc_page_fault+0x27/0x30
-[  528.954593] RIP: 0033:0x40366b
-...
-
-Fixes: 6c287605fd56 ("mm: remember exclusively mapped anonymous pages with PG_anon_exclusive")
-Reported-by: Sierra Guiza, Alejandro (Alex) <alex.sierra@amd.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Signed-off-by: David Hildenbrand <david@redhat.com>
----
- mm/rmap.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
-
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 5bcb334cd6f2..746c05acad27 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1899,8 +1899,23 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
- 
--		subpage = folio_page(folio,
--				pte_pfn(*pvmw.pte) - folio_pfn(folio));
-+		if (folio_is_zone_device(folio)) {
-+			/*
-+			 * Our PTE is a non-present device exclusive entry and
-+			 * calculating the subpage as for the common case would
-+			 * result in an invalid pointer.
-+			 *
-+			 * Since only PAGE_SIZE pages can currently be
-+			 * migrated, just set it to page. This will need to be
-+			 * changed when hugepage migrations to device private
-+			 * memory are supported.
-+			 */
-+			VM_BUG_ON_FOLIO(folio_nr_pages(folio) > 1, folio);
-+			subpage = &folio->page;
-+		} else {
-+			subpage = folio_page(folio,
-+					pte_pfn(*pvmw.pte) - folio_pfn(folio));
-+		}
- 		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
-@@ -1993,15 +2008,7 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 			/*
- 			 * No need to invalidate here it will synchronize on
- 			 * against the special swap migration pte.
--			 *
--			 * The assignment to subpage above was computed from a
--			 * swap PTE which results in an invalid pointer.
--			 * Since only PAGE_SIZE pages can currently be
--			 * migrated, just set it to page. This will need to be
--			 * changed when hugepage migrations to device private
--			 * memory are supported.
- 			 */
--			subpage = &folio->page;
- 		} else if (PageHWPoison(subpage)) {
- 			pteval = swp_entry_to_pte(make_hwpoison_entry(subpage));
- 			if (folio_test_hugetlb(folio)) {
--- 
-2.35.3
-
-
-
-
-
-
--- 
-Thanks,
-
-David / dhildenb
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> index 7f144adb1e36..7d536c2f4477 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> @@ -1098,7 +1098,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>  				if (mode_lib->vba.ImmediateFlipRequirement[k] != dm_immediate_flip_not_required && v->ImmediateFlipSupportedForPipe[k] == false) {
+>  					v->ImmediateFlipSupported = false;
+>  #ifdef __DML_VBA_DEBUG__
+> -					dml_print("DML::%s: Pipe %0d not supporing iflip\n", __func__, k);
+> +					dml_print("DML::%s: Pipe %0d not supporting iflip\n", __func__, k);
+>  #endif
+>  				}
+>  			}
 
