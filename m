@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 031F1C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 16:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D10C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 16:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB3510E3C0;
-	Thu, 23 Jun 2022 16:48:37 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBEF10E3B6
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 16:48:36 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id ej4so25433443edb.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 09:48:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B48A10E224;
+	Thu, 23 Jun 2022 16:49:58 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC510E141;
+ Thu, 23 Jun 2022 16:49:56 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id u12so42287701eja.8;
+ Thu, 23 Jun 2022 09:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zVKAZpQSR7IAMwOsY8NsCMfGiRCzTQjocy8dsYopt7o=;
- b=J0oHDmlaPgH2ooRtII7HfnmSfGalysmemVR7uAXQKxfCssZ50a46aXeDAAz90t3QwW
- Z5Vsf10LRmkIByf4I3JYtLXgrLbT0lVlCUttm+KEZXpeTLf0sFgA3PSx7yHe3veJZQ2D
- IYcBhjlU1q8dN+r4DnJs8JZ2HLKkfr3xRzZjK3EkHXzofZ7WgpPdOd+nRJmVrfJ59xfQ
- LvcL9FIs/leofl4LXepAsEhavJIB/SV2Xt6Ypmaewt5Zey1MG0FDUiOlOBz+nD1ZoF/t
- ViEqxQpfAg4fgoOZYvjSFOyeUeTqBcE2FJmEnvJt55QPoLirCUUKaL2l35TyJbKTV/yj
- lFJA==
+ :cc; bh=cjEjIMVpFKkpJVehI/aJ5UY5mrtzDxsDBQICm682E9Y=;
+ b=BqKIz1efy1+h8YOmoVs8tp1ydIkrBFWeeNuPWfOumpbddM0BsHwFLyHX6FkCw2a71v
+ rHIT9opyg3Zb8EbCd0qiYM57HStieQtTkfpD3iPLD4+gvcoP68HDq7HhGbVRv/DQ5fuW
+ ux/GWxAySlCqACAhc7oAHiJDJnycqPtHTqe4ATf5HEh5dl5g67vGiuNA5IjiPjWaLH5/
+ TRCnOjhhtkhvS/CDSCt7tKP9dIAAiiL6N1ZYHG2wefr426L8aGfzsVGnkTpXdvpNBXwz
+ egOdpcKWLoxQGH/qQrAa3jUXsgtzxCJ9C3LWZuV80FTrD1oRV7QkYTLfjD48hEFOgkCv
+ UIjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zVKAZpQSR7IAMwOsY8NsCMfGiRCzTQjocy8dsYopt7o=;
- b=Ga+wEU2z4h9UOesoePeTmNnHAZwIZ9mCZXRN/rRUmPZRn6OiY8OlRf9maVs8Okc/cD
- jKyKgLiKdwcWnDb688e7o5Q2nj5ZhdA8Nf9uJLJR6aForHl+CxVDrgBzqPtT0KEDjj8t
- k1ilfvXaN38x+YgF6s54ALqnjAkp3+J7ER6vu5DyTbbeZ4UesBywWMrPubXrkE94Bh+W
- 0aqUc7epOOQ17/eVWLtjePphluyRiGgTnMi/UTUv7F0lUUayc0D2CXcVDeJrHeNgI3+L
- d9WYxVfSOjUXVIHun+TT7uPqKzE3k9ozVaT0YoWPy34U5vjet+VBlOGgeFJSy7eydmnr
- o4tw==
-X-Gm-Message-State: AJIora/JXMbR6ewrh8msqf8L4zCxGL+VridqWzP3rbRleg0XWbhDt2x0
- fkdLPcnOpd1j6JMKuOKwQ1fgdqiBy3aJcus25ktqrYXt
-X-Google-Smtp-Source: AGRyM1uYlX7DB36LP3GfUUUox0+IvI+VvnzRDpgOfKBoVyuWyUVd6pQ/EwiJjlfBRWq5gCD3GzQJUCbEBln6k4nU3JU=
-X-Received: by 2002:a50:fe0c:0:b0:435:510a:9f1f with SMTP id
- f12-20020a50fe0c000000b00435510a9f1fmr11875554edt.297.1656002914992; Thu, 23
- Jun 2022 09:48:34 -0700 (PDT)
+ bh=cjEjIMVpFKkpJVehI/aJ5UY5mrtzDxsDBQICm682E9Y=;
+ b=4+wl9uyIX01blZ0ftjl9VUvyDCmxdHB0AtbPSZ86goNZDQL3B3VdQhRH8oAvLOEUhD
+ JzDFK83NWmk3Zw5fbHV6Qi3iXLJyutUcJgk13q7EzZOWBF9kqNDY22v35KVHFo+CDfF3
+ QI9g/nyVMD0icH/chfmL3F4rl82r/9Rpyns6UQu/WSMw9lKLar1Rv0fHaM9BzwpNO5CV
+ THq6RAbh2RIKjUPfFapTfFMB0nZOyv/NpvlG+E1KK7owJ/XeW3I06jR7IyIP/fUE7NJb
+ /Y6stG6FFyXg1duNguz65Te5RN9d1jBUV62dVUH7/4JEQKKX+s6Q+qplLW22FbRPgNa5
+ z3FQ==
+X-Gm-Message-State: AJIora9eaAXF6pstJ4kIom85X4pxZtIZi5qkrSEanVdIGkhsYsVa5ozp
+ k4gLrP/BPPH/C6Bu9qaUZZNxfcg1WaI1/x8jgwIOjS+h
+X-Google-Smtp-Source: AGRyM1uaSUJVbc37IMzq/a1fXRHbBuAS/aDG6Y2UKBXKWbSS+Ay8oik1w9PjnZTmiC3pyesEFZc+Qox1JbgXoS6aWL4=
+X-Received: by 2002:a17:906:74c2:b0:722:e1e2:edea with SMTP id
+ z2-20020a17090674c200b00722e1e2edeamr9175341ejl.658.1656002995049; Thu, 23
+ Jun 2022 09:49:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220623073320.2632780-1-chandan.vurdigerenataraj@amd.com>
-In-Reply-To: <20220623073320.2632780-1-chandan.vurdigerenataraj@amd.com>
+References: <20220623081219.19291-1-colin.i.king@gmail.com>
+In-Reply-To: <20220623081219.19291-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 Jun 2022 12:48:23 -0400
-Message-ID: <CADnq5_P7DPv+HXrUUdC_KxG8LmAdRyKH-5vZZcL2GdRYZUzVfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display : Log DP link training failure reason
-To: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
+Date: Thu, 23 Jun 2022 12:49:42 -0400
+Message-ID: <CADnq5_M1MueAv1SJ99Z6Ly2+27bDLWZKpJZrCmCpXgOGd4q-3Q@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amdkfd: Fix spelling mistake "mechanim" ->
+ "mechanism"
+To: Colin Ian King <colin.i.king@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,42 +62,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 23, 2022 at 3:33 AM Chandan Vurdigere Nataraj
-<chandan.vurdigerenataraj@amd.com> wrote:
->
-> [Why]
-> Existing logs doesn't print DP LT failure reason
->
-> [How]
-> Update the existing log with DP LT failure reason
->
-> Signed-off-by: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
+Applied.  Thanks!
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Thu, Jun 23, 2022 at 4:12 AM Colin Ian King <colin.i.king@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 4027f439a5a4..c8355acd3672 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -2786,9 +2786,9 @@ bool perform_link_training_with_retries(
->                                 break;
->                 }
+> There is a spelling mistake in a pr_debug message. Fix it.
 >
-> -               DC_LOG_WARNING("%s: Link(%d) training attempt %u of %d failed @ rate(%d) x lane(%d)\n",
-> +               DC_LOG_WARNING("%s: Link(%d) training attempt %u of %d failed @ rate(%d) x lane(%d) : fail reason:(%d)\n",
->                         __func__, link->link_index, (unsigned int)j + 1, attempts, cur_link_settings.link_rate,
-> -                       cur_link_settings.lane_count);
-> +                       cur_link_settings.lane_count, status);
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
->                 dp_disable_link_phy(link, &pipe_ctx->link_res, signal);
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 8805bd1eed37..f5f1368c0c54 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -914,7 +914,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+>                         ret = kfd_mem_attach_dmabuf(adev, mem, &bo[i]);
+>                         if (ret)
+>                                 goto unwind;
+> -                       pr_debug("Employ DMABUF mechanim to enable peer GPU access\n");
+> +                       pr_debug("Employ DMABUF mechanism to enable peer GPU access\n");
+>                 } else {
+>                         WARN_ONCE(true, "Handling invalid ATTACH request");
+>                         ret = -EINVAL;
 > --
-> 2.25.1
+> 2.35.3
 >
