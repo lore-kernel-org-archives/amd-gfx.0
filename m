@@ -4,37 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C130C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED3ECCA47C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 14:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10DB810EBD1;
-	Thu, 23 Jun 2022 14:07:17 +0000 (UTC)
-X-Greylist: delayed 443 seconds by postgrey-1.36 at gabe;
- Thu, 23 Jun 2022 10:22:30 UTC
-Received: from smtpbg.qq.com (smtpbg138.qq.com [106.55.201.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2E210EF81
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 10:22:29 +0000 (UTC)
-X-QQ-mid: bizesmtp80t1655979295tq1gavlg
-Received: from ubuntu.localdomain ( [106.117.99.68])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 23 Jun 2022 18:14:50 +0800 (CST)
-X-QQ-SSF: 01000000008000B0C000B00A0000000
-X-QQ-FEAT: qpGeUh0uYB9S1TzaUBc1+BFLhEgoP88Y8lak3PyjSnXOH66GM4RrMOqIgHykO
- ErGJfCB20o+zSjTY6lHkeKoiYQlLIL66dJ3AeJivoSvBmbp/e0rkw5VGOxBpo8vvj/9bHGR
- qvyJGXa0RKmx6iFqjkZu/hQ/ICSBWpTPCbBhUW37n6/lPKzYKAZp3V1XQ7uxx4Nom/wLn9Q
- AXC3ZzzqoRWdpPvil9xcdqtenONfOn/JVgK/Z7dqT/tsI7ObL1kQrBdDOCYwNzcEv9PUmMu
- QIfsjn0Pv+TS9efMQaiFBCjZvhnvUQisgGSDWxmQr2+C0ca5EqWAo8vhORlIh6xgYYqEQWP
- FhzDiVza4CtcfJ5k5TBrIxVtT4uqA==
-X-QQ-GoodBg: 0
-From: Jiang Jian <jiangjian@cdjrlc.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: drop unexpected word 'for' in comments
-Date: Thu, 23 Jun 2022 18:14:48 +0800
-Message-Id: <20220623101448.30188-1-jiangjian@cdjrlc.com>
-X-Mailer: git-send-email 2.17.1
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 520C110EBE1;
+	Thu, 23 Jun 2022 14:07:19 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D86AE113E96;
+ Thu, 23 Jun 2022 08:09:49 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id z9so10536616wmf.3;
+ Thu, 23 Jun 2022 01:09:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WUf4hh7XmxGqI1TyChD6Q9Q40vdp6ztxwpVVqyoKOb0=;
+ b=M/Ksx3wAMaMxEES700OFBcZXpRa4wc0oINeNKEcajTDoEYnhRbdBv4KdmPmYqil1rp
+ s67yY7qs7Z9uMQX9abv80e6zOAxDf0D4FQ9gS8Ga6gTnE2vJi86reVunCnB/mp9/pQNX
+ 0plD3hZ2Om0IwBM8oJlmj9IJZ0h+C6PSU8pSut0A69n3kNt5ZW2TV9wEfEzQLC1agRLE
+ +d/BDuJsc7ByQwocxAPKAwfkXzenkyPNr1edj63us5r9waaF8KjiU8C4Fb4STONfOx86
+ mtkXTc5YDmD6uI+sZyTbh64Tn0D6Ey2JmdkqzHdBVvVuJQIlPIkk3XGshW5rM3RJKjgC
+ LKFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WUf4hh7XmxGqI1TyChD6Q9Q40vdp6ztxwpVVqyoKOb0=;
+ b=Ns6F9JmDYPLLihlQ+/1g0pEqrcuJTj0h0DCk4P0CgjUIc6Ixynzm5mq8B1saeKcTnC
+ dnWuBhoPlCuKlLQ2AnBALbKXFLc+Xav1n6pZiMrv5ImBEb11Ugs5Van4rkN/AV9Lvw5M
+ DF4K/QhPFoB+0FQP4jPx3wLn6WKOsEj8r7WKrF67VRiHwhXrkllJQImyDuZSEP2ROaGi
+ I1uXwTaC+nUv7IMSAnELjL3CcMtQjUbdv1HzwP+gC5X5yHXYVtn+7kNOOsP/RyYvwAtJ
+ ZbG91J+NODT+qT8ASvpf2CpglI2drKAqGdAlQZoqmTTWRbSN/up+SFvUGunTC9aM7EpR
+ zetw==
+X-Gm-Message-State: AJIora+5mgHn+rVDVd8y4kU2j/BVrTHWP/XLBGfpsS7NDXYA6/TYtfGs
+ W3vGJDZm0bx6oA/ewJvQWAM=
+X-Google-Smtp-Source: AGRyM1tQCbkUDkb6HTKJP5xcbeP5k2VYytY3SaNTGGVmqI0KWdLDTOTW45BA4TJBrtuUMuOyZy642Q==
+X-Received: by 2002:a05:600c:6020:b0:39c:5cec:da86 with SMTP id
+ az32-20020a05600c602000b0039c5cecda86mr2610353wmb.75.1655971788177; 
+ Thu, 23 Jun 2022 01:09:48 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ k17-20020a5d6e91000000b0021a39f5ba3bsm21009445wrz.7.2022.06.23.01.09.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jun 2022 01:09:47 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH][next] drm/amdgpu/display: Fix spelling mistake "supporing" ->
+ "supporting"
+Date: Thu, 23 Jun 2022 09:09:46 +0100
+Message-Id: <20220623080946.19116-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Jun 2022 14:07:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,42 +75,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip.Yang@amd.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jiang Jian <jiangjian@cdjrlc.com>, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-there is an unexpected word 'for' in the comments that need to be dropped
+There is a spelling mistake in a dml_print message. Fix it.
 
-file - drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-line - 245
-
- * position and also advance the position for for Vega10
-
-changed to:
-
- * position and also advance the position for Vega10
-
-Signed-off-by: Jiang Jian <jiangjian@cdjrlc.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-index 3df146579ad9..1d5af50331e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-@@ -242,7 +242,7 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
-  * @entry: IV entry
-  *
-  * Decodes the interrupt vector at the current rptr
-- * position and also advance the position for for Vega10
-+ * position and also advance the position for Vega10
-  * and later GPUs.
-  */
- void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index 7f144adb1e36..7d536c2f4477 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -1098,7 +1098,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 				if (mode_lib->vba.ImmediateFlipRequirement[k] != dm_immediate_flip_not_required && v->ImmediateFlipSupportedForPipe[k] == false) {
+ 					v->ImmediateFlipSupported = false;
+ #ifdef __DML_VBA_DEBUG__
+-					dml_print("DML::%s: Pipe %0d not supporing iflip\n", __func__, k);
++					dml_print("DML::%s: Pipe %0d not supporting iflip\n", __func__, k);
+ #endif
+ 				}
+ 			}
 -- 
-2.17.1
+2.35.3
 
