@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7DDC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 11:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CBBC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 16:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABE6610EFF6;
-	Fri, 24 Jun 2022 11:57:34 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E550610EFF1
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 11:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C887610E124;
+	Fri, 24 Jun 2022 16:03:11 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA7F710E124
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 16:03:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FNkqw2PLj9AKBUPjZrvVSowyKbMdzU8ElUJpNhd7cT4P4rZ7JWE4U1mrRZ0aKDuXaI7VwXRdw/xOHUIyZkn3Sqgj02fIPqbtEQpREnYTVaP6IPAOpMGsiXZewBWlIqSHmrIxiKWzEDdGgOhYTKyXgTSGCUIl8Dr7QpoGYYAmJsSI+zWzZHgknie0bY18l+9ZKF66L/PC2i8B2UHAjJ6yvBHvaMji3hWf33AoTPnEFr9cYVYsxYbWogkMVwObjvDbchzqrlOMhD/auh85yGrjwkE3q5anvNXX4rXvEjZErhhHMS4WWBNGaDKiGJ0+8LgdflAUeOgRiYYbG0cVDqYsWw==
+ b=TYt+N9JZE0HzpfT/7perxq/cY0geeAU76JsJlZ+S9ZYCrZ7iFIwzrRkXZ4zR9KR8h5OWZiN2qElV+Cf9v44JOQsWl8BLStNFxhqzDE++sqf1ZTGHAeud9sDEnCxObKlAdb8J36WZX4o93igtwNinZ3ydyrmm97SspF3iA/zN5vWV5748MdgQlhQVpelTuNsNIBTTJwDmC/Q/WOnTox1u7JJ5h3ouysUu3W36j7tsHuB1hkYjGg564VD44dWzz+h58Yahw4ViFN49ePG+yGqtCC8s9IcAim1umfPQzWowNXKOoZ7rEvLSEgxgiu6tdpgGH/Nf+8fA8vQFXYt7ga40gQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yg/okHZ50KMDH7frrWmgNUsUgqKXC4+D6dyxTuFOUVk=;
- b=TzUvItZMLqP/SgDcYKCWlDONOkm9aKFKGiDSY2q64bsOcAI5+tqIFnSzyz53nK9TdIqztnKEM/i02euH3fpfOyQyvvtpCPjh2mgcPEjp51uZbD/ItdY4LIIN+1K4KgyK7kw88MQFuMXwCVur9eZVs9KqD7DJHjk7uRc7MC8+miLOZWeW7aaWgB1KwWRBenidhiHPdzxuObxWMQ7Vddl9rf3reaQL58VRDJFHS/hm9UJOMKxlf8US91UA1l+IhEXbRU7+kpm45dAaXEXdeTZM86pxwgS5D8VYwjLLsZ+AxLG5aAHzSwFkOnAJhpfLfHxB5e5BsprLjlxCAyhmik0kKQ==
+ bh=Gq2fPa06TceYEPjX5vrIE6VhJymY24Brox6evupoCNw=;
+ b=Rm3VqSHVl1erNjHvctFCRVLewXs8v/GmzT0FG4Pp9tfAUue5iLQbwOPLqoV4icD/AKFFcCnSnT+e/tEkO28lhpAw2qC2hAMglU56aqLjsY+zyH0TLgNgJ4ju9mmjUt10g65CN+mrpsevjtkwvnweMS1fW7nExsNoZf1Bw6P7rGkPwo4dXGlyuU5u97aO/wr8J84Hl5tLPCHSFx6VXICJGUpMkN0RASjT3EsQ25W/kumwFyGRAeDOGziMiAzCc/FpUtW+GBRgLXFA5s/0UKTpKQ0PBRDHrPFfUTnr3VIr9ODxCh6MobqICvp5mBOtRto+UoVMb1NU7El6ekkEccDCQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yg/okHZ50KMDH7frrWmgNUsUgqKXC4+D6dyxTuFOUVk=;
- b=t+EDDq+BJAzyUgo7eh8HdBD/IjkhXbg4wZBInqvhwztX0i/HcxrQqKnxHpIHHeeHkb6BR1XxPRNN1IYgwO8PTTtN7eobEDB/14MB95vlYfzTpiMEsimQwL2aVDcp31RjeWW/6M4b/REpu+yTsYCwsg8Wy6PoritRGfW4r/IflDs=
-Received: from DM6PR02CA0166.namprd02.prod.outlook.com (2603:10b6:5:332::33)
- by MW2PR12MB4683.namprd12.prod.outlook.com (2603:10b6:302:5::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.20; Fri, 24 Jun
- 2022 11:57:31 +0000
-Received: from DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:332:cafe::8b) by DM6PR02CA0166.outlook.office365.com
- (2603:10b6:5:332::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
- Transport; Fri, 24 Jun 2022 11:57:31 +0000
+ bh=Gq2fPa06TceYEPjX5vrIE6VhJymY24Brox6evupoCNw=;
+ b=ZkX3smj4DZ0KjuaiHqV4v/7J/NCAVDmuKHe1M0o0Re4/uwnyrngdHPTG+Q0PBe3IGjTzb7jc8rM0XI28XMi+lwjQvaiPMdaf3/cMOz4V7tM5cqaTGkTqfqjVVnZc+gps1UUiPYH0dnnMIFUrIiQqoDsUw1cAtVAb/tfukczGan8=
+Received: from BN9PR03CA0878.namprd03.prod.outlook.com (2603:10b6:408:13c::13)
+ by SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Fri, 24 Jun
+ 2022 16:03:08 +0000
+Received: from BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13c:cafe::21) by BN9PR03CA0878.outlook.office365.com
+ (2603:10b6:408:13c::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17 via Frontend
+ Transport; Fri, 24 Jun 2022 16:03:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT013.mail.protection.outlook.com (10.13.173.142) with Microsoft SMTP
+ BN8NAM11FT052.mail.protection.outlook.com (10.13.177.210) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Fri, 24 Jun 2022 11:57:30 +0000
-Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 24 Jun
- 2022 06:57:28 -0500
-From: Jack Xiao <Jack.Xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <Hawking.Zhang@amd.com>, <Graham.Sider@amd.com>
-Subject: [PATCH] drm/amdgpu: add mc wptr addr support for mes
-Date: Fri, 24 Jun 2022 19:57:12 +0800
-Message-ID: <20220624115712.2757646-1-Jack.Xiao@amd.com>
-X-Mailer: git-send-email 2.35.1
+ 15.20.5373.15 via Frontend Transport; Fri, 24 Jun 2022 16:03:08 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Fri, 24 Jun 2022 11:03:07 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdkfd: add new flags for svm
+Date: Fri, 24 Jun 2022 12:02:41 -0400
+Message-ID: <20220624160243.83693-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: efc972e9-60f2-4dac-cf1b-08da55d8b794
-X-MS-TrafficTypeDiagnostic: MW2PR12MB4683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72a566b6-ad5a-4bd7-1fb8-08da55fb080e
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4Fb8RxbSjxcUKMsPYauHJvUNyK2z1q2Ec0RfXqNOtJ00XxDLw89vudXi0OvEbO5Uv1xMA3tlVTidpKVf4qL6yJNjjUxGrGpYrUEXbcHf8BvNdey9hsuEfNJgsffNge6zvpLfWu7OqMyKH/+nhTlVkmgifp2XMsonfnXhdiqx60r2fu8MwTyBw/Jd6PuNa3Bodujc4HfNM8Zqc/c7tUgkkzfMNhxGyDxu8Gyt6QhDb60oxm/EIZi8ayASs3Im8jcqbq9chVvMGr/eOjF2AvVm0hBgJ7CicZuFxouN6nJX/Xf+lp48KF+ZXmaTEsWvvHK36DLn8TezbjnFqaYobwRODpw1g5I+fYA/OcO8M/IySbRRx7eEIHs1Fnpyc5hIvXIY+UCe+qAx28oSKcLuoVQ7Bjjh6sYyeV41GNZ5cF8nIkkD0SFODRI0RKibXEZ90GTSPkX5BC5COI3ceEdymfqP/ikOwu7F5UatObQhG6kmMia4LIMsCf4DrziJT3LHmqtaY6z//IjATerIvuIhZycLVes9M2BFYfXeF4eCaL0z2cmv53jkPhJ6UYo9DZxl7sCPOakfMOpX86OnnA4gtlcbi27ysav5QCBzAxJVfNpDPqTwW91c5kS2iDQzKRXjBuX0RNDsnIM7Z0z1MVnaVXt99PLQUVWttmUcILKfTvwl5k7OxycDMCNZpHUnE904yq1mPL9AeXmftumDCl2fmarBVOyVRBEsI3jqWi9z6VXZBRqaBImkNvdSsCpdYO7TQ9maqD9hMbCqGlPgsMYm/rm47X8kEVKqhNNGa6gShZ39VBkQ4O+BGlHt+0YOAhTA8Xh2IbN4ezWYnsJGoYhIcg/mI9OLw/q6qKQLgGokEmnbmBQ=
+X-Microsoft-Antispam-Message-Info: wJkbFPQuswtMA857X7K7UuGc96nrlrOHQSO8yGmWQuW9lpCYRRI5Lev/YFU0BtbrPwV9B10W6smobn1rH/MnOpDBxrWDHZpapKjd2jvAjNHy1yjP7ImEx6A7DcAR8hmVKghUkVwzHeafenCbUQTwSgv488Zvx8VV30v0U43pjsupd8einxo7iHNbYGh/jIdx9PmafiHUnKphn+gPJ40BfjhLr/7XJd3TS6RAMDN1XYoqtAEXbkdDDMsBliw7J3ojUzRixSvACZT1Rh+tTQf6KMF9lxoL86QHuPUguzvzo+PGgvCQt0+3yKCC+y2Da0rdlBmRoW06cLmy7NmcimF6OjrHCidYF8AIpY5yQhFRq5qAIN+JH/mwED2Oiu/QgZ5V2ju3Zbsl6jcJzZ9d5X5iB3Mpzgk4ovu84RDktVlLKer8sJBNW84mTl/DTWWkP1iObJKwNfDK3HYWXttxNnVkReKPZF5uB6n5jbdV+RM8RSaDgf9tstK4FaZqOSdIMwUXrr9csGYWwWg4NEsuC6dj01EjEUpd/Mv8fHsVhoGjusYAacF961VEm3p3z4MmKeh3J1KLnBK2Qr2QxYAvoUE3d7I/WAytFfy97Mmfjg0DmVF5lYCOOok5wLKEVOQgbnqYfA6vDfCgctISBHUHFKxl2FjarAXAPaO9lInxyF1CT9Kwyeq0oGoB4eLSytdN00j8Nol7gee4LfdLIjg7lN5UuLlm9oAdByagKrMDLc2o+GdAiwi3ak0GWX7tJ67C4DQ6g1K+spdCF4aTm3zt07MU/pyFS4XhdynZ4hCSUEUufmwj1QeYrXiTzg8ZGIMHFIAhyD8F+CPPBiK91ZgXXsZE5g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(376002)(346002)(396003)(136003)(36840700001)(46966006)(40470700004)(70206006)(356005)(478600001)(8936002)(86362001)(5660300002)(36860700001)(110136005)(83380400001)(40460700003)(8676002)(82740400003)(40480700001)(81166007)(426003)(70586007)(4326008)(6636002)(6666004)(1076003)(316002)(2906002)(41300700001)(82310400005)(186003)(47076005)(16526019)(7696005)(2616005)(26005)(36756003)(336012)(2101003)(36900700001);
+ SFS:(13230016)(4636009)(396003)(136003)(39860400002)(346002)(376002)(40470700004)(46966006)(36840700001)(40460700003)(36756003)(186003)(16526019)(81166007)(82310400005)(7696005)(70206006)(478600001)(26005)(1076003)(4326008)(8936002)(8676002)(5660300002)(2616005)(2906002)(40480700001)(70586007)(6666004)(426003)(6916009)(86362001)(54906003)(356005)(316002)(47076005)(336012)(36860700001)(82740400003)(4744005)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2022 11:57:30.6532 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efc972e9-60f2-4dac-cf1b-08da55d8b794
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2022 16:03:08.5860 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72a566b6-ad5a-4bd7-1fb8-08da55fb080e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB4683
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,135 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, Philip.Yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MES requires mc wptr address for usermode queues.
-Export bo gart address for mc wptr address.
+It is to add new options for always keeping gpu mapping
+and custom of coarse grain allocation intead of fine
+grain as default.
 
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c               | 10 ++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h               |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes_ctx.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c                |  8 +++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c |  6 +++---
- 5 files changed, 21 insertions(+), 6 deletions(-)
+ include/uapi/linux/kfd_ioctl.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 521e35d93d67..0c9cb493a85c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -675,6 +675,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
- 	queue_input.doorbell_offset = qprops->doorbell_off;
- 	queue_input.mqd_addr = queue->mqd_gpu_addr;
- 	queue_input.wptr_addr = qprops->wptr_gpu_addr;
-+	queue_input.wptr_mc_addr = qprops->wptr_mc_addr;
- 	queue_input.queue_type = qprops->queue_type;
- 	queue_input.paging = qprops->paging;
- 	queue_input.is_kfd_process = 0;
-@@ -802,6 +803,8 @@ amdgpu_mes_ring_to_queue_props(struct amdgpu_device *adev,
- 	props->hqd_base_gpu_addr = ring->gpu_addr;
- 	props->rptr_gpu_addr = ring->rptr_gpu_addr;
- 	props->wptr_gpu_addr = ring->wptr_gpu_addr;
-+	props->wptr_mc_addr =
-+		ring->mes_ctx->meta_data_mc_addr + ring->wptr_offs;
- 	props->queue_size = ring->ring_size;
- 	props->eop_gpu_addr = ring->eop_gpu_addr;
- 	props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
-@@ -962,7 +965,8 @@ int amdgpu_mes_ctx_alloc_meta_data(struct amdgpu_device *adev,
- 	r = amdgpu_bo_create_kernel(adev,
- 			    sizeof(struct amdgpu_mes_ctx_meta_data),
- 			    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
--			    &ctx_data->meta_data_obj, NULL,
-+			    &ctx_data->meta_data_obj,
-+			    &ctx_data->meta_data_mc_addr,
- 			    &ctx_data->meta_data_ptr);
- 	if (!ctx_data->meta_data_obj)
- 		return -ENOMEM;
-@@ -976,7 +980,9 @@ int amdgpu_mes_ctx_alloc_meta_data(struct amdgpu_device *adev,
- void amdgpu_mes_ctx_free_meta_data(struct amdgpu_mes_ctx_data *ctx_data)
- {
- 	if (ctx_data->meta_data_obj)
--		amdgpu_bo_free_kernel(&ctx_data->meta_data_obj, NULL, NULL);
-+		amdgpu_bo_free_kernel(&ctx_data->meta_data_obj,
-+				      &ctx_data->meta_data_mc_addr,
-+				      &ctx_data->meta_data_ptr);
- }
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index fd49dde4d5f4..9dbf215675a0 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -1076,6 +1076,10 @@ struct kfd_ioctl_cross_memory_copy_args {
+ #define KFD_IOCTL_SVM_FLAG_GPU_EXEC    0x00000010
+ /* GPUs mostly read, may allow similar optimizations as RO, but writes fault */
+ #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
++/* Keep GPU memory mapping always valid as if XNACK is disable */
++#define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
++/* Allow set custom flags instead of defaults */
++#define KFD_IOCTL_SVM_FLAG_CUSTOM      0x80000000
  
- int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 5fdc4fbde3bc..3334316c2995 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -175,6 +175,7 @@ struct amdgpu_mes_queue_properties {
- 	uint64_t                hqd_base_gpu_addr;
- 	uint64_t                rptr_gpu_addr;
- 	uint64_t                wptr_gpu_addr;
-+	uint64_t                wptr_mc_addr;
- 	uint32_t                queue_size;
- 	uint64_t                eop_gpu_addr;
- 	uint32_t                hqd_pipe_priority;
-@@ -207,6 +208,7 @@ struct mes_add_queue_input {
- 	uint32_t	doorbell_offset;
- 	uint64_t	mqd_addr;
- 	uint64_t	wptr_addr;
-+	uint64_t	wptr_mc_addr;
- 	uint32_t	queue_type;
- 	uint32_t	paging;
- 	uint32_t        gws_base;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes_ctx.h
-index c000f656aae5..912a5be2ece6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes_ctx.h
-@@ -107,6 +107,7 @@ struct amdgpu_mes_ctx_meta_data {
- struct amdgpu_mes_ctx_data {
- 	struct amdgpu_bo	*meta_data_obj;
- 	uint64_t                meta_data_gpu_addr;
-+	uint64_t                meta_data_mc_addr;
- 	struct amdgpu_bo_va	*meta_data_va;
- 	void                    *meta_data_ptr;
- 	uint32_t                gang_ids[AMDGPU_HW_IP_DMA+1];
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 7dfc6ea21397..89b99dc827a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -156,7 +156,13 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
- 		input->gang_global_priority_level;
- 	mes_add_queue_pkt.doorbell_offset = input->doorbell_offset;
- 	mes_add_queue_pkt.mqd_addr = input->mqd_addr;
--	mes_add_queue_pkt.wptr_addr = input->wptr_addr;
-+
-+	if (((adev->mes.sched_version & AMDGPU_MES_API_VERSION_MASK) >>
-+			AMDGPU_MES_API_VERSION_SHIFT) >= 2)
-+		mes_add_queue_pkt.wptr_addr = input->wptr_mc_addr;
-+	else
-+		mes_add_queue_pkt.wptr_addr = input->wptr_addr;
-+
- 	mes_add_queue_pkt.queue_type =
- 		convert_to_mes_queue_type(input->queue_type);
- 	mes_add_queue_pkt.paging = input->paging;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 74a1f8a6f53f..21e451acfa59 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -197,12 +197,12 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 					AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
- 	queue_input.doorbell_offset = q->properties.doorbell_off;
- 	queue_input.mqd_addr = q->gart_mqd_addr;
-+	queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
- 
- 	if (q->wptr_bo) {
- 		wptr_addr_off = (uint64_t)q->properties.write_ptr - (uint64_t)q->wptr_bo->kfd_bo->va;
--		queue_input.wptr_addr = ((uint64_t)q->wptr_bo->tbo.resource->start << PAGE_SHIFT) + wptr_addr_off;
--	} else
--		queue_input.wptr_addr = (uint64_t)q->properties.write_ptr;
-+		queue_input.wptr_mc_addr = ((uint64_t)q->wptr_bo->tbo.resource->start << PAGE_SHIFT) + wptr_addr_off;
-+	}
- 
- 	queue_input.is_kfd_process = 1;
- 
+ /**
+  * kfd_ioctl_svm_op - SVM ioctl operations
 -- 
-2.35.1
+2.25.1
 
