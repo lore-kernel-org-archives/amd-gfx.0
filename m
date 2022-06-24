@@ -4,96 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF41CCA473
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 20:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE2EC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 21:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F1710F10D;
-	Fri, 24 Jun 2022 20:23:55 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B848010F10D
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 20:23:53 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id ej4so4975285edb.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 13:23:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB01310F538;
+	Fri, 24 Jun 2022 21:40:47 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8196810F532
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 21:40:46 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ u12-20020a05600c210c00b003a02b16d2b8so2215892wml.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 14:40:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=rM6StsZ/3rmWNZ6eG3nFC9QNenxnUOTVwI/HAfEm2EQ=;
- b=VYViBveaMX2iHovNjImE8ft1aL8oby/bDvJodcDA4y4Eo+tutY1hGinHsM3aKTvLEE
- UKfzf6+eCMmxZ49Ku37S9pc+tHn/uh5pXrCXh3E8Ggw/FSYRFeIyB8RDclfGgyvtHmNh
- MqpcvSiLK6jgmcJHZD8u3uLJ1nBF6f8mOUmtg=
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=pAi+LBlnWgN+7WSmLJo2WV06guKY5eDIqB1brGNF8fY=;
+ b=ERzNl0Xn85NBB/9KQY4CMjlPL1u45Vsa3j+pSm5A94ItaEsbginyT4+X7ykx6R5hgN
+ P9Zd4Qbo/S/EtrFfjl6QPc84qsHlIs7dbTdSaPVNOeJ1/d9k2o9vW+qpjwdRQwzOAG4+
+ g7bRBEJkv2nQrsjAyHWYj1cpg68ItH4p7FPVo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=rM6StsZ/3rmWNZ6eG3nFC9QNenxnUOTVwI/HAfEm2EQ=;
- b=L8xe2kIMaLcPZsHHfPasXq1MlIvFbXB/k00em/cLfEV0IT/Nd64PdsHLeWog5Rtx01
- xCzRQKm7f7w+2KdW8oP0Aq51V1NI9Ly5G3JLCB7W5rkxbO7EHl5Q7rss1yw1C+ls+Axx
- A/LL7mCflCHIKpKOq0YgfkxDLd8dM2ekMKKc/nrKW4h7L40z6aTQOXOqZfxBfpsthdEf
- W0J4M2Br3rDpC8QdchFjdxxUGb+RmyVTIBmWwqykHG43uEwG91iUhNSwXZI7pe+XNjRP
- aZDlMHi4TTcjur3BpCkguARxH1lTYap+sSAzQjj7pfQ5eKuuZUJKLVG9LB7fpDHiIWhw
- fQ9Q==
-X-Gm-Message-State: AJIora9V7lEbH/PMNUVFslBR/iIA4ephucCN0dDn2Rc4QHlKDx7SMw3u
- jjb/Cc1arpCDF5TTQM09e2SlMg==
-X-Google-Smtp-Source: AGRyM1uJnErMjUto5d2AkMD9qcjjZpgW235kvjYxoK3tSLlU8a0umCcexISHAvYdIuLK226BGQhyeA==
-X-Received: by 2002:a05:6402:4248:b0:435:9150:ccfb with SMTP id
- g8-20020a056402424800b004359150ccfbmr1101365edb.374.1656102232134; 
- Fri, 24 Jun 2022 13:23:52 -0700 (PDT)
+ bh=pAi+LBlnWgN+7WSmLJo2WV06guKY5eDIqB1brGNF8fY=;
+ b=Zghf7fn4IeVLDyL2NXGQblO+kxz8GSlKg6zjBOUePRC10YKuH9SFOSx3qIaRlhHVyC
+ lSW2gz+Jv3xdR4PrKGPU9+oM76PNCTGWD3+CbA9PYohdo8+Hu9YGkzsZf2sW9ZPk6nyK
+ H5dnTeBbusi2sDEj/RG+jAp9SfUYcjWiK4JehY7P34j/HThKXiHegLzNZyZH3cZAk9hR
+ 7KQaySC3iHaaned3naqMgnQPycV8LNsKybtQ/RBMHUGCaOIpkSJminbnCoEntA4sDZvw
+ cOeQ81zL9b6w5ZQ8kFpjJlAHsYfet4fJsXkcnoIEuR1WXXiv2uCr0zH+bTcT0hK12vQ7
+ Ggxw==
+X-Gm-Message-State: AJIora9QNhtzEXzVzDWQ8hYvprZbDQnRiae2vwVG93GyFTcrFfDQRedO
+ FF7bcMY9WsxijrY9PAf89Xbl/g==
+X-Google-Smtp-Source: AGRyM1ubkjcCX6iz+H1S3cOzTW1yORhyHnJKczSbWOvZCJ4x5yQ6LEdFkR6qEWr4iiMocv7tDNgsqQ==
+X-Received: by 2002:a05:600c:1553:b0:39c:8873:e241 with SMTP id
+ f19-20020a05600c155300b0039c8873e241mr6158612wmg.9.1656106844965; 
+ Fri, 24 Jun 2022 14:40:44 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- z23-20020a170906435700b007094f98788csm1630637ejm.113.2022.06.24.13.23.50
+ k22-20020a05600c0b5600b003a02cbf862esm4105351wmr.13.2022.06.24.14.40.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 13:23:51 -0700 (PDT)
-Date: Fri, 24 Jun 2022 22:23:49 +0200
+ Fri, 24 Jun 2022 14:40:44 -0700 (PDT)
+Date: Fri, 24 Jun 2022 23:40:42 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [PATCH v6 17/22] drm/shmem-helper: Add generic memory shrinker
-Message-ID: <YrYdVRMjK4YS33hO@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- Dmitry Osipenko <digetx@gmail.com>, linux-tegra@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- kernel@collabora.com
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-18-dmitry.osipenko@collabora.com>
- <CAF6AEGt61t2truYDCxm17hqUPV-UdEdHjLs+6vmj5RPoPuVBYg@mail.gmail.com>
- <3bb3dc53-69fc-8cdb-ae37-583b9b2660a3@collabora.com>
- <CAF6AEGus7R_i7RMWGmbawVi62xCk5mhLTWGq2QEkcWY+XaJBAQ@mail.gmail.com>
+To: Melissa Wen <mwen@igalia.com>
+Subject: Re: [RFC PATCH 4/5] drm/drm_color_mgmt: add 3D LUT to color mgmt
+ properties
+Message-ID: <YrYvWuYNImfopN5n@phenom.ffwll.local>
+References: <20220619223104.667413-1-mwen@igalia.com>
+ <20220619223104.667413-5-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAF6AEGus7R_i7RMWGmbawVi62xCk5mhLTWGq2QEkcWY+XaJBAQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220619223104.667413-5-mwen@igalia.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,127 +71,285 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, Qiang Yu <yuq825@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ nicholas.kazlauskas@amd.com, bhawanpreet.lakha@amd.com, sunpeng.li@amd.com,
+ alex.hung@amd.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, seanpaul@chromium.org, nikola.cornij@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 20, 2022 at 08:18:04AM -0700, Rob Clark wrote:
-> On Mon, Jun 20, 2022 at 7:09 AM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
-> >
-> > On 6/19/22 20:53, Rob Clark wrote:
-> > ...
-> > >> +static unsigned long
-> > >> +drm_gem_shmem_shrinker_count_objects(struct shrinker *shrinker,
-> > >> +                                    struct shrink_control *sc)
-> > >> +{
-> > >> +       struct drm_gem_shmem_shrinker *gem_shrinker = to_drm_shrinker(shrinker);
-> > >> +       struct drm_gem_shmem_object *shmem;
-> > >> +       unsigned long count = 0;
-> > >> +
-> > >> +       if (!mutex_trylock(&gem_shrinker->lock))
-> > >> +               return 0;
-> > >> +
-> > >> +       list_for_each_entry(shmem, &gem_shrinker->lru_evictable, madv_list) {
-> > >> +               count += shmem->base.size;
-> > >> +
-> > >> +               if (count >= SHRINK_EMPTY)
-> > >> +                       break;
-> > >> +       }
-> > >> +
-> > >> +       mutex_unlock(&gem_shrinker->lock);
-> > >
-> > > As I mentioned on other thread, count_objects, being approximate but
-> > > lockless and fast is the important thing.  Otherwise when you start
-> > > hitting the shrinker on many threads, you end up serializing them all,
-> > > even if you have no pages to return to the system at that point.
-> >
-> > Daniel's point for dropping the lockless variant was that we're already
-> > in trouble if we're hitting shrinker too often and extra optimizations
-> > won't bring much benefits to us.
+On Sun, Jun 19, 2022 at 09:31:03PM -0100, Melissa Wen wrote:
+> Add 3D LUT for gammar correction using a 3D lookup table.  The position
+> in the color correction pipeline where 3D LUT is applied depends on hw
+> design, being after CTM or gamma. If just after CTM, a shaper lut must
+> be set to shape the content for a non-linear space. That details should
+> be handled by the driver according to its color capabilities.
 > 
-> At least with zram swap (which I highly recommend using even if you
-> are not using a physical swap file/partition), swapin/out is actually
-> quite fast.  And if you are leaning on zram swap to fit 8GB of chrome
-> browser on a 4GB device, the shrinker gets hit quite a lot.  Lower
-> spec (4GB RAM) chromebooks can be under constant memory pressure and
-> can quite easily get into a situation where you are hitting the
-> shrinker on many threads simultaneously.  So it is pretty important
-> for all shrinkers in the system (not just drm driver) to be as
-> concurrent as possible.  As long as you avoid serializing reclaim on
-> all the threads, performance can still be quite good, but if you don't
-> performance will fall off a cliff.
-> 
-> jfwiw, we are seeing pretty good results (iirc 40-70% increase in open
-> tab counts) with the combination of eviction + multigen LRU[1] +
-> sizing zram swap to be 2x physical RAM
-> 
-> [1] https://lwn.net/Articles/856931/
-> 
-> > Alright, I'll add back the lockless variant (or will use yours
-> > drm_gem_lru) in the next revision. The code difference is very small
-> > after all.
-> >
-> > ...
-> > >> +               /* prevent racing with the dma-buf importing/exporting */
-> > >> +               if (!mutex_trylock(&gem_shrinker->dev->object_name_lock)) {
-> > >> +                       *lock_contention |= true;
-> > >> +                       goto resv_unlock;
-> > >> +               }
-> > >
-> > > I'm not sure this is a good idea to serialize on object_name_lock.
-> > > Purgeable buffers should never be shared (imported or exported).  So
-> > > at best you are avoiding evicting and immediately swapping back in, in
-> > > a rare case, at the cost of serializing multiple threads trying to
-> > > reclaim pages in parallel.
-> >
-> > The object_name_lock shouldn't cause contention in practice. But objects
-> > are also pinned on attachment, hence maybe this lock is indeed
-> > unnecessary.. I'll re-check it.
-> 
-> I'm not worried about contention with export/import/etc, but
-> contention between multiple threads hitting the shrinker in parallel.
-> I guess since you are using trylock, it won't *block* the other
-> threads hitting shrinker, but they'll just end up looping in
-> do_shrink_slab() because they are hitting contention.
-> 
-> I'd have to do some experiments to see how it works out in practice,
-> but my gut feel is that it isn't a good idea
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 
-Yeah trylock on anything else than the object lock is No Good in the
-shrinker. And it really shouldn't be needed, since import/export should
-pin stuff as needed. Which should be protected by the dma_resv object
-lock. If not, we need to fix that.
-
-Picking a random drm-internal lock like this is definitely no good design.
+I think our color correction pipeline is at a complexity where a DOT graph
+that shows how it all works together is justified. So including color
+conversion from planes (like yuv->rgb), plane blending and then the color
+pipeline here. Maybe in the plane composition section, with the color
+conversion pipeline docs linking to that?
 -Daniel
+
+> ---
+>  drivers/gpu/drm/drm_atomic_state_helper.c |  3 ++
+>  drivers/gpu/drm/drm_atomic_uapi.c         | 14 +++++-
+>  drivers/gpu/drm/drm_color_mgmt.c          | 58 +++++++++++++++++++++++
+>  drivers/gpu/drm/drm_fb_helper.c           |  2 +
+>  drivers/gpu/drm/drm_mode_config.c         | 14 ++++++
+>  include/drm/drm_color_mgmt.h              |  4 ++
+>  include/drm/drm_crtc.h                    | 12 ++++-
+>  include/drm/drm_mode_config.h             | 13 +++++
+>  8 files changed, 117 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index cf0545bb6e00..64800bc41365 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -141,6 +141,8 @@ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+>  		drm_property_blob_get(state->ctm);
+>  	if (state->shaper_lut)
+>  		drm_property_blob_get(state->shaper_lut);
+> +	if (state->lut3d)
+> +		drm_property_blob_get(state->lut3d);
+>  	if (state->gamma_lut)
+>  		drm_property_blob_get(state->gamma_lut);
+>  
+> @@ -216,6 +218,7 @@ void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state)
+>  	drm_property_blob_put(state->degamma_lut);
+>  	drm_property_blob_put(state->ctm);
+>  	drm_property_blob_put(state->shaper_lut);
+> +	drm_property_blob_put(state->lut3d);
+>  	drm_property_blob_put(state->gamma_lut);
+>  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_crtc_destroy_state);
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 6468f2a080bc..1896c0422f73 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -472,6 +472,14 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+>  					&replaced);
+>  		state->color_mgmt_changed |= replaced;
+>  		return ret;
+> +	} else if (property == config->lut3d_property) {
+> +		ret = drm_atomic_replace_property_blob_from_id(dev,
+> +					&state->lut3d,
+> +					val,
+> +					-1, sizeof(struct drm_color_lut),
+> +					&replaced);
+> +		state->color_mgmt_changed |= replaced;
+> +		return ret;
+>  	} else if (property == config->gamma_lut_property) {
+>  		ret = drm_atomic_replace_property_blob_from_id(dev,
+>  					&state->gamma_lut,
+> @@ -523,10 +531,12 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+>  		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
+>  	else if (property == config->ctm_property)
+>  		*val = (state->ctm) ? state->ctm->base.id : 0;
+> -	else if (property == config->gamma_lut_property)
+> -		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
+>  	else if (property == config->shaper_lut_property)
+>  		*val = (state->shaper_lut) ? state->shaper_lut->base.id : 0;
+> +	else if (property == config->lut3d_property)
+> +		*val = (state->lut3d) ? state->lut3d->base.id : 0;
+> +	else if (property == config->gamma_lut_property)
+> +		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
+>  	else if (property == config->prop_out_fence_ptr)
+>  		*val = 0;
+>  	else if (property == crtc->scaling_filter_property)
+> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> index 4f57dc60fe03..696fe1e37801 100644
+> --- a/drivers/gpu/drm/drm_color_mgmt.c
+> +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> @@ -87,6 +87,25 @@
+>   *	publish the largest size, and sub-sample smaller sized LUTs
+>   *	appropriately.
+>   *
+> + * “LUT3D”:
+> + *	Blob property to set the 3D LUT mapping pixel data after the color
+> + *	transformation matrix and before gamma 1D lut correction. The
+> + *	data is interpreted as an array of &struct drm_color_lut elements.
+> + *	Hardware might choose not to use the full precision of the LUT
+> + *	elements.
+> + *
+> + *	Setting this to NULL (blob property value set to 0) means a the output
+> + *	color is identical to the input color. This is generally the driver
+> + *	boot-up state too. Drivers can access this blob through
+> + *	&drm_crtc_state.gamma_lut.
+> + *
+> + * “LUT3D_SIZE”:
+> + *	Unsigned range property to give the size of the 3D lookup table to be
+> + *	set on the LUT3D property (the size depends on the underlying
+> + *	hardware). If drivers support multiple LUT sizes then they should
+> + *	publish the largest size, and sub-sample smaller sized LUTs
+> + *	appropriately.
+> + *
+>   * “GAMMA_LUT”:
+>   *	Blob property to set the gamma lookup table (LUT) mapping pixel data
+>   *	after the transformation matrix to data sent to the connector. The
+> @@ -204,6 +223,45 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+>  }
+>  EXPORT_SYMBOL(drm_crtc_enable_color_mgmt);
+>  
+> +/**
+> + * drm_crtc_enable_lut3d - enable 3D LUT properties
+> + * @crtc: DRM CRTC
+> + * @shaper_lut_size: the size of shaper lut
+> + * @lut3d_size: the size of 3D lut
+> + *
+> + * This function lets the driver enable the 3D LUT color correction property
+> + * on a CRTC. This includes 3D LUT and also a shaper LUT, if set. The shaper
+> + * LUT property is only attached if its size is not 0 and 3D LUT is set, being
+> + * therefore optional.
+> + */
+> +void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
+> +			   uint shaper_lut_size,
+> +			   uint lut3d_size)
+> +{
+> +	struct drm_device *dev = crtc->dev;
+> +	struct drm_mode_config *config = &dev->mode_config;
+> +
+> +	if (!lut3d_size)
+> +		return;
+> +
+> +	drm_object_attach_property(&crtc->base,
+> +				   config->lut3d_property, 0);
+> +	drm_object_attach_property(&crtc->base,
+> +				   config->lut3d_size_property,
+> +				   lut3d_size);
+> +	if (!shaper_lut_size)
+> +		return;
+> +
+> +	drm_object_attach_property(&crtc->base,
+> +				   config->shaper_lut_property, 0);
+> +	drm_object_attach_property(&crtc->base,
+> +				   config->shaper_lut_size_property,
+> +				   lut3d_size);
+> +
+> +}
+> +EXPORT_SYMBOL(drm_crtc_enable_lut3d);
+> +
+> +
+>  /**
+>   * drm_mode_crtc_set_gamma_size - set the gamma table size
+>   * @crtc: CRTC to set the gamma table size for
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index bdd33817d968..358c528c7c80 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -1069,6 +1069,8 @@ static int setcmap_atomic(struct fb_cmap *cmap, struct fb_info *info)
+>  		replaced |= drm_property_replace_blob(&crtc_state->ctm, NULL);
+>  		replaced |= drm_property_replace_blob(&crtc_state->shaper_lut,
+>  						      NULL);
+> +		replaced |= drm_property_replace_blob(&crtc_state->lut3d,
+> +						      NULL);
+>  		replaced |= drm_property_replace_blob(&crtc_state->gamma_lut,
+>  						      gamma_lut);
+>  
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+> index 4ba2a95b88e8..5458a7dfbe63 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -364,6 +364,20 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+>  		return -ENOMEM;
+>  	dev->mode_config.shaper_lut_size_property = prop;
+>  
+> +	prop = drm_property_create(dev,
+> +			DRM_MODE_PROP_BLOB,
+> +			"LUT3D", 0);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.lut3d_property = prop;
+> +
+> +	prop = drm_property_create_range(dev,
+> +			DRM_MODE_PROP_IMMUTABLE,
+> +			"LUT3D_SIZE", 0, UINT_MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.lut3d_size_property = prop;
+> +
+>  	prop = drm_property_create(dev,
+>  			DRM_MODE_PROP_BLOB,
+>  			"GAMMA_LUT", 0);
+> diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+> index 81c298488b0c..a4f054e0108f 100644
+> --- a/include/drm/drm_color_mgmt.h
+> +++ b/include/drm/drm_color_mgmt.h
+> @@ -59,6 +59,10 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+>  				bool has_ctm,
+>  				uint gamma_lut_size);
+>  
+> +void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
+> +			   uint shaper_lut_size,
+> +			   uint lut3d_size);
+> +
+>  int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
+>  				 int gamma_size);
+>  
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index a318d5feb44b..c22ffcc4d7aa 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -165,7 +165,7 @@ struct drm_crtc_state {
+>  	bool zpos_changed : 1;
+>  	/**
+>  	 * @color_mgmt_changed: Color management properties have changed
+> -	 * (@shaper_lut, @gamma_lut, @degamma_lut or @ctm). Used by
+> +	 * (@shaper_lut, @lut3d, @gamma_lut, @degamma_lut or @ctm). Used by
+>  	 * the atomic helpers and drivers to steer the atomic commit control
+>  	 * flow.
+>  	 */
+> @@ -298,6 +298,16 @@ struct drm_crtc_state {
+>  	 */
+>  	struct drm_property_blob *shaper_lut;
+>  
+> +	/**
+> +	 * @lut3d:
+> +	 *
+> +	 * 3D Lookup table for converting pixel data. Position where it takes
+> +	 * place depends on hw design, after @ctm or @gamma_lut. See
+> +	 * drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array of
+> +	 * &struct drm_color_lut.
+> +	 */
+> +	struct drm_property_blob *lut3d;
+> +
+>  	/**
+>  	 * @target_vblank:
+>  	 *
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index 2df7e171add9..87280694e70d 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -812,6 +812,19 @@ struct drm_mode_config {
+>  	 */
+>  	struct drm_property *shaper_lut_size_property;
+>  
+> +	/**
+> +	 * @lut3d_property: Optional CRTC property to set the 3D LUT used to
+> +	 * convert colors; before or after gamma conversion depends on hw
+> +	 * design. A shaper LUT can be used to delinearize content before apply
+> +	 * 3D LUT correction.
+> +	 */
+> +	struct drm_property *lut3d_property;
+> +	/**
+> +	 * @lut3d_size_property: Optional CRTC property for the size of the
+> +	 * 3D LUT as supported by the driver (read-only).
+> +	 */
+> +	struct drm_property *lut3d_size_property;
+> +
+>  	/**
+>  	 * @gamma_lut_property: Optional CRTC property to set the LUT used to
+>  	 * convert the colors, after the CTM matrix, to the gamma space of the
+> -- 
+> 2.35.1
+> 
+
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
