@@ -4,124 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C199FCCA473
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 06:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79BA7C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 07:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F5D1120ED;
-	Fri, 24 Jun 2022 06:00:19 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC6DD1120F1;
- Fri, 24 Jun 2022 06:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE62610ECDC;
+	Fri, 24 Jun 2022 07:01:59 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E010310ECDC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 07:01:58 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25O4UqOm019089;
+ Fri, 24 Jun 2022 07:01:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=PvkRhpU1Q/nO6KcR0P+InybCG5SBq5mfROHLfrVv0/k=;
+ b=VufE4LnKG6wNqV9Op41mYZ3PnEGEZItJYKpWccCGPpwxspLBE3hdA7ap4pnxZ9I2CxR0
+ 1moO3+CY1+F+ZYSgndYPdQAO+HE6HbPQj5ktl/y+6BnJfC14G9aHW88Bf3xlNXymGlXY
+ LVC2U19pozqfsdSM4VLwwlGDsPiDUyRrN/FNQugteVrkJKsgZeEc1yui5g84q+RBoSxZ
+ IHacXkWLAQg0CNtpKQIG8FsYhFHh2gGIJUzcxH7uxpJ9EiyfdqbP93IZrJmuNCsunzCg
+ 8U2xnKMG3YZsNB4xdkDHTCgTAiJ8oxxAD2WIsdNaUP57aNZt+CnjtjPlwuIjv9/2PpRa rw== 
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3gs5a0n26j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 24 Jun 2022 07:01:54 +0000
+Received: from pps.filterd
+ (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 25O6un94032402; Fri, 24 Jun 2022 07:01:53 GMT
+Received: from nam02-bn1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07lp2042.outbound.protection.outlook.com [104.47.51.42])
+ by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
+ 3gtg5x68sw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 24 Jun 2022 07:01:53 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bI7gq2cmDaBPHH+29DACBXhsWBeZqlrFW0NutLLovUFV2L0xsHgLduwxHh3Pau5Cn0boLCgh+Z/4/tESFU4IO4dmrIuKTxF18sHS4kJl7fEWhwaZdaen10rIt/aE1z4xuG4PNO4bAYKhgQ2TsOfK/Nby6xyTBpPni0Sw6mXZ2XCzVaqliiBi+oU0i99dqSosDAU/NOfe5H7h6jdOCsbGeP4zyOb+AyaMwDEFkcnuDYkRxn9dmfrSlGMnFcbqH/MJAeSLBhSMT2yy9KmK8rhWE0Yzos9mjvQPL3wHEufisW1P7UyEF6SL6s4hRzc5y+DdNpQmnj08Jf5v43/S0v0rvQ==
+ b=WRdOzUwCoYUxCrfJKEIPMwLG2Fx4//q9u0gNpzDIpavYjA9AME4DsWvKFiMHcvKbuAAf8HLkqkSVTrvJCRnSAQG4J6ZQORKfgNNoBGSaz5OgKLuAdJjZUVs5fEwJmAXeWw5bnn4E8OtrYLZDrRkgcbjFTRe9ptDoa0b6ZQ82iNaD6+i6ZFrlHvCn2JXJCxL+5n0UBeSYyex7jsGM3H4jpbgx1GtQeh4PAvAet1RX2PmFkR3Muq9NXEoICexPMOZ05Cc4VOxpX1QmtuuTBH3R35ZXinD7q9e1QdrjqutnnP5k6dbHmnb7KeO4rYNoNANMyOWbAGUsPqFZSHD3DZ99Xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KZv45GtECUsigLxwSfpXgWVCoJHOGHE/p9CYHJBnCL0=;
- b=dRjT9yE8R9eM33w/N70TABp2DuCF19Dm2de6xtrPHWVP3+7DkNWBG31LM6jV1ees/rDX2Tw78Mj6UjRGej/M1CPm8pzTFOjKQLrnnbiTnaIGr6Aq6LevEUFvZ7GJRUYMcKEWhPvENV4m64I/rLHGpWNZbBc9xYJJnv862znUv3FI0IkOMXh1sVUHEzOD+aBk0N49S1Tpl2OWUkcq1S4/I8nKIp9wNGzQ0yFDiUbmpeGm8h7qtqigGJQ+FizsvFtCpkyJOonn8EHJUBPdDmFmtzBbTKIoBZdYnhbtJYpRqJn3sYLl4ruGl2iX4dCQSIm0pOFqpXbFRO4sAMrHdmb/uw==
+ bh=PvkRhpU1Q/nO6KcR0P+InybCG5SBq5mfROHLfrVv0/k=;
+ b=XOZVfKAJEw2GKL69/o+Zzo08spl7Ly6NtLw6w1DHC/4s19mmunBA1izgztxNRvTadhtXsvw5CROEtu9kBktspzQCK2N5Lu3usYrjV/mVMr+zI5NFVwPqHGy/3RP/0+eDEd+zS6bAKQiqVrb4Rg2HHZNImCHYKDcIeI1EsvP+e3p5cYEmXjoRKfIrSGj0GiWA3/cIGlRKY1Dd8PXOjx4cL8LJgr/rrfZeT6gvGprEM0TVTkUq5iSKkEKa9ctTG6qW3Qh83nGfM5WvPbPUrYz4ADykYAqxnEAVqwjb8+UlRjTtiVqQ2KL2Y6QKpdWV4QQ9qRSf1cGs/KV1PhMbDuZ0Xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KZv45GtECUsigLxwSfpXgWVCoJHOGHE/p9CYHJBnCL0=;
- b=fQGU/Fg76hdbKRBW5UNMyqZqkAr70YsHPIkyGgXA6YQ813ZuzNjkBnLyKr24rolP6EhsvxgpKrbTOny9M34q9ixfUD4uMBr1HYWvFPPk9YNlUKGCWYYeZRF5F7ucxlumlns1wbz0hFKuiL0NbJjzMmtM0KtEjJ/5j4uCYu74fmc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MWHPR12MB1471.namprd12.prod.outlook.com (2603:10b6:301:e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Fri, 24 Jun
- 2022 06:00:16 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e0fd:45cf:c701:2731]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e0fd:45cf:c701:2731%6]) with mapi id 15.20.5373.015; Fri, 24 Jun 2022
- 06:00:16 +0000
-Message-ID: <71c0edc4-7bc9-4658-72cb-3d6e1f53b17c@amd.com>
-Date: Fri, 24 Jun 2022 08:00:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 1/5] drm/amdgpu: Fix possible refcount leak for release of
- external_hw_fence
-Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220620220302.86389-1-andrey.grodzovsky@amd.com>
- <20220620220302.86389-2-andrey.grodzovsky@amd.com>
- <2c70d0c4-a326-6497-54b2-51bc2b93b9d6@gmail.com>
- <91aba934-32f0-b1b9-b882-979ca02a1920@amd.com>
- <6d1acd76-dee8-29fd-dde3-bf51161792de@gmail.com>
- <445f2db4-5496-4003-c5fa-3605aef2c33d@amd.com>
- <16353a69-64e1-2f1c-8859-8000ac6266ce@gmail.com>
- <32e06ffd-a551-a05b-7993-1b6901455a21@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <32e06ffd-a551-a05b-7993-1b6901455a21@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::6) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=PvkRhpU1Q/nO6KcR0P+InybCG5SBq5mfROHLfrVv0/k=;
+ b=PMCgSDdkDSB227jwHkwcBO5PsuhmeKbqqtqzyMd+KL6eTh9/DUodEOxUD8VHkA8aenrR/hkdj5icFuG6OKJuBQHLvORlHJnZ+wH+RIV7aDRcLNa9F8qwuHXetkSxXgmlFBbaSinNOwsy3cb7SsMRqyE52SFA4W7N9g3wYFD+2xk=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by BYAPR10MB3094.namprd10.prod.outlook.com
+ (2603:10b6:a03:14e::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.19; Fri, 24 Jun
+ 2022 07:01:51 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b%6]) with mapi id 15.20.5373.015; Fri, 24 Jun 2022
+ 07:01:51 +0000
+Date: Fri, 24 Jun 2022 10:01:41 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Ramesh.Errabolu@amd.com
+Subject: [bug report] drm/amdkfd: Extend KFD device topology to surface
+ peer-to-peer links
+Message-ID: <YrVhVae4bFr33sTt@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: ZR0P278CA0006.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::16) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8990505c-fe07-471c-84e0-08da55a6cf47
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1471:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f3ae0b8-963e-4bc6-b070-08da55af69e4
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3094:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ijSpfTaa4xFAVrK+dab6qv8usGsfre6rpFFR78g3B7EaRRSfM+c59qin8TBKGp9qOqYEu5VCIeBqTJGM1TUwtFImbi7xG38fNzjNl2RipqmyMXPa0m812zNBS6/4Z09Ixwa1yOZGq4pwPcrmplGDhX6ayJFsxoOft1CZ6rgq05/TdOwXv24sfEzB0Z+dIKqBXwGy3tmuGnFxCLdh69+TP9S6D4RknX7B74LF8zvS0mgaEgpfnc7FOsyVEUHUJKggZ9pe3v1fuJ4m7gIudCxENGLiShKzqmLqSBcD/sU+OA/kJyYpaDNVzTMSDETLCxDSn1E2HlAEKptEf7VDLipmkv1Xh4xMRvWGNe67emi9+M5tXKYKlR8CsXV8i4w9TT3LjN5XV0vqa57CPscyJWn3GnfpXs98Z2F8ITnb89dYEN8Kg8DYPpY+jvkMQDGtzZGJ9fSRGgTbAPi574TvWTzaNfUppOZqRC4t0i/fx2aJriNmNwToqAwLctr9SeTs1WgQCBw0M3kzp3Vdhld4cHqMp4NKnSRRKBgejTDPCjtNpGI2f/2xF3zaxH0/wDt4ZEBaSa8K7d2+/ZIRjEd/HWos7xoEvqrcmqdgpanVEGy1kqOl4bHQp086KnNWAXg0aEXYpSBvZbuH5ruW+jWx9J/C/0lWtXfLkh4mGwb+12z0dCnGyj4B7ai7+ridp7WPegJ4HC4f+ZIHh1cM+5h2/euMeocDs/hVnpSJz8V4wVDxPWXOSo9H7zWmNjJ/rnVAAS9/NxEzpCjy96l/aX0YJZZ7Q9vGD5f1qrhrByjMDkSZAgEtwpCp8ZM+C91sXxgN+lm3tHkJ6p3SgIYRV9/QFh5EHw==
+X-Microsoft-Antispam-Message-Info: okPabxWqM7Vfp7pcI+XtumB0y96rC5R42EwsBYk4gf4oZOwVxsN987d0090JVrCGdta0S2gNRFNjXO/jwGGhXTQApN2bDQxL+OMfzgSihSr8FFXdZLaGzPwNWlCDunAvzXj5NggwYkDMrtsV2Frkz3//hjV17nWZh8Q89RrPHdkuNxqM70CYcJc2o5iGBbz86H2tUb6A3n1NSkrp9UT7lMTdluiKsm8WhlQjU1lrntKpU0r/wl7+7tY4nZ/gZLl+CbwRwS9N5IsNevVk30Vuh77CjhNv5vD1MUoIFK/tWhjsLQhq4fSYokQkJ1aNjo1NVaKBFV5yRD95usPYJX2bkVxYccts2vKSbEQl7+dvpyY4cJqkVTzAdUG1Hj6O99bWcBvbXHUD83YXeUpr8jjq8WetIZsw+ku2s6ZQgukbxMn5sWsHAmWjt0gqFxS/pEKQ+4slQWCi0/bgser7SJx9MOu7k9Cjgywt2j9hVQNh/qJwiCFZbjnF8Jm2BVfaQj6CffREILTeS/s0dXPMDDn+PCwTqb2E14YCihHbdCTkvbQqkJMcAO82j7tlDCJEH4vlSooj9jjbke/ogIDJBUkTnjKT3pO8KucXpXJfVe6WfwM88CfpDqK8AvgJSUoLmmX6n9lZOR1sYIN2xJsVpWA+6JIERdIvZdPWU+oIHGVLqTGEiyfyMoqdt3Moi3H6MbnF0KOcPaopMBhObSwpqxOmqpVYzWJ08Y4D2QGT9+D56dsBBZQed2xgBfpUQSz025CRqKqzVGRQmSqr1Nv4USKi9lJRsDESPV6j1JpE2gUdmXc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(396003)(376002)(366004)(136003)(186003)(86362001)(66574015)(2906002)(36756003)(4326008)(83380400001)(316002)(31696002)(110136005)(66476007)(31686004)(66556008)(5660300002)(41300700001)(26005)(66946007)(6486002)(6506007)(8676002)(6666004)(2616005)(8936002)(478600001)(6512007)(38100700002)(53546011)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(7916004)(366004)(39860400002)(376002)(346002)(396003)(136003)(66946007)(6666004)(33716001)(83380400001)(6486002)(478600001)(186003)(6916009)(66476007)(86362001)(316002)(66556008)(8676002)(4326008)(8936002)(38350700002)(6512007)(41300700001)(52116002)(26005)(2906002)(44832011)(6506007)(38100700002)(5660300002)(9686003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3Z3c01aalltcTVBdnZybzdtQ2tvVmdNWkZISm53ZEJsSG45VC9HSXdZTTJG?=
- =?utf-8?B?WEttT25tNldWTEtub2w2RktBSGFhclYyWlZlVS9ERkJOWFZmZkQ3aVN5MTVp?=
- =?utf-8?B?YThUdzB6NnFJMlhPRE9VK3J1Y0xTTkhWQVRwYmw3TXRMejFTNzdlYTArUTBw?=
- =?utf-8?B?a2hhOFlucStZeERzM2xtdmx5djBRTGJQSlZ4eFkzOVhKUStaaGJUcllxNDAy?=
- =?utf-8?B?Y05hTkJ3bWVqWFVJQ0dqdUM1dEczZCtFY0x0Y1FkcVFKVTR0cTBaeWt0QjRl?=
- =?utf-8?B?bW5zYW5qWXc3dldubHh5eU5WUHBiWDEyc05MYVkvR0R1QW81amRlR20rL1Jj?=
- =?utf-8?B?WGdNZDN4Y1JnbUtVSWg5NllPY2UvemwvYUlvSi9zL1Fod1BWSDFDbUtZOUcr?=
- =?utf-8?B?aU9DRFdXdzJwTVVteUxnN0M3SVNwdS9aTjB5VzNNQWpTS2l6cTBaa2s1T1ZQ?=
- =?utf-8?B?RG8vL1U5TFp4UGlVUnFYdnVkZzdobG4zZzNXbk1Wc2xzaHhzQmRzVkN4SVN2?=
- =?utf-8?B?cEQyUW14N3F3amN0bkZGVnB1SkxIWlF0a1l1cm9qSFdNN01XakZ0bjRzMmpk?=
- =?utf-8?B?b1FxcnJkSkRKd1Q1WFhGaExRWDZ2YVkxNC9OanozVGpoTEVKNjgxL0trdy9M?=
- =?utf-8?B?Q09DLzNJSzEyVGpHbzdWdlZOL0I3WHhCek1YcUNjRFFVS1oyUGFDTGNOdVVm?=
- =?utf-8?B?V2JhaFRaeHcySkVGM3lOakVSM29QeXNuWlVIRldtYndySDc4dlBtemlwYUFa?=
- =?utf-8?B?c1dGSDhYN2ZTcUQ2U0ZpTmFuSXQ2VUs4VXBONEo0WVZ4T0g1eWZ1S2hpengx?=
- =?utf-8?B?MnRPck5yQ0M3WDJzMThFdjNLOVpqYTk0TitiTUNuVHRwTDAwMTRCeFFUMkF4?=
- =?utf-8?B?WWl0OXFUUlN4aWhaME9DSXlRM0ZEUzgwNUh2NVBFL2c3WmNReUg3cHNiQmc5?=
- =?utf-8?B?U2VXdldjQlNXZlpSTkZ6QWJZK1NFT2daZmNNZWl0N3JmQmZtb0w4N0FISFJZ?=
- =?utf-8?B?ZUF4SHlDTXlmRk12a0Q4OTd5MHJhQ2I3TGd1dU15M0c4ZVA3R2lpYWM2Q2Yx?=
- =?utf-8?B?TG1QdDdheXlpN3V0dzI2TG9rMnVlbDZYVHJOaXc4bVRFTTVkTDU5RW1NcFI0?=
- =?utf-8?B?Rm9DT3lPQXpLempXVUdhcnRuSkhHMkREZVNvb2s0TERVaHMwRU9jWk1OV2Fx?=
- =?utf-8?B?YVJ4NUZKaWJDV3BTZHd6MDVsdG9oS2lmK1NPK1hRdGYwYVI1ZkFMeC9YOHEx?=
- =?utf-8?B?SnhqZllkcFBlQzBnUUE4VTJYQ2FlUjNRbWtzMWZoNGRGWkNDekFuOGdBMElq?=
- =?utf-8?B?TGxkWTNaNDJiUHZnTmtmeTBPaVA1V0tQRVc5UXYzbHhXcEZoMFI1VElsR1Y5?=
- =?utf-8?B?dmdMeDFkbncwdkoxSjBzZG9KdWV0Mi9EUEhpbGJQZS9sazRKRllqMVRBMkhH?=
- =?utf-8?B?ZVFUaG40OWkrTHQ5TW9BOWNGTCt2dlBJSzZuSkxrYjJaVEN1N05HRlRadFZz?=
- =?utf-8?B?ZTR3ZnpKMmhLbEdqbENxRWpmTkwya3EwYjRLbExoTWFGWTcrakR4R1lZU2JI?=
- =?utf-8?B?WkhyNTJDeElQRmZnVnRpNUd4SkNNZjhyVTQvZy9EaWNibzlzU1pyVE5mRWNX?=
- =?utf-8?B?cHB3Rm5PcTVmam8vKzBxTzR3LzlLcVYwQ1NySFJoY2FQbHhrdS8zTytwQ1py?=
- =?utf-8?B?Q1AyVUx3MFJEOTRxeE1kL0lvUloxUzM5RFJPVHNZQXoyWDVwSVlvWlJrY0Ix?=
- =?utf-8?B?Q0NNcjh6dXl1S2FsM1VCS00vZ3Z6NTVpUS9OejRRZFFpWUxTUkJEZlhRbDlN?=
- =?utf-8?B?ODdpakFnRnRzUkFhT2hWS2U1K3pyUFhWUUVrNEZSSlROSS83QkY2VGZiYmdl?=
- =?utf-8?B?WXpkT1REc1F5dnNWQXo3cFJjb3ljaGpaeUxlZmVnbndJUXBjTU05WDhOTnZr?=
- =?utf-8?B?QkptYjVDSlYrTTNZWkZDTlJsVkxmOHVqMHZGR1h1eFRwNVUyZW9jNXBwYy9n?=
- =?utf-8?B?S0h2RGNGUVgvaXlVSFYwNWtycFQxZXpmS3NFQldKSEVEcjRldU81SUZVQ1Bz?=
- =?utf-8?B?dUJ0MnNCRlI4UFdZMzJzREdGM0pNaURjMktVd2hXUFg3MlJDVlhjSy9RSGts?=
- =?utf-8?Q?+QHmC4y3OEcifv2boOAoHUCQ7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8990505c-fe07-471c-84e0-08da55a6cf47
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZfV6oUYIx6J5GVMfvVbFrNmxLtjvTYBJ+2lNTMuwJGh4mfVSK4x9pqclyyS9?=
+ =?us-ascii?Q?frnBuW+LBH4+4/IQ+KsUi/okFvo1s8rhrj+daVWrHXKLxaIevwvvPGe6JViY?=
+ =?us-ascii?Q?Fij9gePGEs5wSjqLFMkDLXEVt1vpBu88MztqLTpTpHJsa+MRBZCZL9g+3YkL?=
+ =?us-ascii?Q?lrGMVGEWpWtfmd2WxDIoqp2s587ZX2KkVzRJQW+SggUbkokR7tIQIDcXesTK?=
+ =?us-ascii?Q?bXumf/kAksKn13Ky7OJXECFTOZ2FBWGV6FLhEOXgJqPrl1My0bFie7xwSZYH?=
+ =?us-ascii?Q?fIyUQavaFGAS/lOZIpGwZeURBg5RzMtwlUN9LlcseGq6E1f8LU2qjbLyJpTi?=
+ =?us-ascii?Q?OegPibZkxvsXHGj7u7pO28QlhKpwIgs4EwT/QKwIxpzMIM2beWjJ9tvST+kc?=
+ =?us-ascii?Q?eiO/z5dkWQX4aniA71e7C9xwA2eWwtS9Dr9zLYf7H4xlVxU+Hbw33+YKtKo5?=
+ =?us-ascii?Q?gqXrtTN5v8CC3Q42BM3ZTW5Jte2IyBEEAK/IN5E34liueZYb9Faw1gvtt10Z?=
+ =?us-ascii?Q?J83y3SCon/6Bivr9QKHEdpsOOM0HMdLeiB5NR/DAW/ECDAgV6OqI8IHOlP1+?=
+ =?us-ascii?Q?jf32W8/QkM2TaXmW/mDsRY3um5QNCOi2+myMwAjHDOEXEDHovZKR8Yttb1SM?=
+ =?us-ascii?Q?Dkt/mzE04T3PC10DtjqPijDmk/3ZNxoyZXf6HVQAhOohLmmjjXJoPMhvwCPv?=
+ =?us-ascii?Q?wazJo3pBlbfVaobP5MGU2HgcRhBHclsmUKVl+iFtK33tGi7rrEBGJZVjWPKL?=
+ =?us-ascii?Q?6wX82gvEFv/czCRSkmUyPE3UE/Tysi5j7NOPS1dphwudLqaTLTLL8jkY9sFF?=
+ =?us-ascii?Q?eHsrhb14hauhppMMq0JXqlmAwemS2BZr5Nn14MwIV+gXEzXphZkuhVUKajb2?=
+ =?us-ascii?Q?mPlTb9O9kbBABWV+EZzX87mZghHCtCHeSxwH4wYBLtDXAIB5VIR4FL/UA1EE?=
+ =?us-ascii?Q?osefws/ddWGXiKtbT5DemLE0zSoy8zeqRPh8emYrFau6pvyR33MnlzqjmhAS?=
+ =?us-ascii?Q?VG3U0sy8J9BhWum8k7uC/daRZWxrhpf/19WEWAQZecLRf5Cc1QhL4UIQf2MX?=
+ =?us-ascii?Q?cREv2YDVTDP194i9O4lnzvnEhgRN9upvUVywmqNAJKr9AVcKZEJLHA+UC3h+?=
+ =?us-ascii?Q?3X3nnW1CZdiKjbUuBpJkopGFiikPeVpNumJNAxoPq41M6R8UM8N/+a3wNrV5?=
+ =?us-ascii?Q?kW4+02ThihTl0Xt6P6HSGdbgyi4VVw76Toi37CZdcYU7lKUeGsjf95odZRNH?=
+ =?us-ascii?Q?dcYipQmtp5IWiHmczYPvIwHYcueRlJGQIsCQp8J9giEl/4Pq2JT0gF+myzon?=
+ =?us-ascii?Q?GrhJZX+lVAjseFJILmusCtXTthWRvFEytgdMy513fCPNSlvuACOJlOVFa5as?=
+ =?us-ascii?Q?wA21opZu1Hgbm7kR9tKCWjyKSKMzOGCtLH5fSke18OauWsgXKRNY9SY9mgig?=
+ =?us-ascii?Q?jbClDK1muikLwIanICz4CXwr14g8pnEdd0wOCJD2xv+e+QtdfqX120BXQePI?=
+ =?us-ascii?Q?/EYKKWc8f4xSe52QmdKUB5mKVLOL4lUZGloahaxnr9N2O9RJ7i3TfO57DoK/?=
+ =?us-ascii?Q?VgXBIf3+OBr0Ntd1EJQE21K7jd0xIZeDGzAyB/wGbGPsdHNI9AiQSQIjN/Kq?=
+ =?us-ascii?Q?uQ=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f3ae0b8-963e-4bc6-b070-08da55af69e4
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2022 06:00:15.8880 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2022 07:01:51.2297 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HUJnqHJ3D0NGiFeaAK2k2CQpT9Rt0NK5a9hHmQLWtSbtVXBtFDoduNv+H+qeiaVf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1471
+X-MS-Exchange-CrossTenant-UserPrincipalName: CVLSviN3fIsNA3lVXaW4/vPh54HRH7+n0ewHxLZpMzaWSEUZ+SQc8ZQmV7BI2upXKyqsYeZ6evnMke3txNntQS/xv+VsYCvuObOIjW8TBpk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3094
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.883
+ definitions=2022-06-24_04:2022-06-23,
+ 2022-06-24 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0
+ mlxlogscore=999 bulkscore=0 phishscore=0 suspectscore=0 spamscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2204290000 definitions=main-2206240025
+X-Proofpoint-ORIG-GUID: yTGg39v6sL-cw2hoR6HBB8lpoBXPtj-r
+X-Proofpoint-GUID: yTGg39v6sL-cw2hoR6HBB8lpoBXPtj-r
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,144 +147,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingwen.chen2@amd.com, monk.liu@amd.com, yiqing.yao@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.06.22 um 23:18 schrieb Andrey Grodzovsky:
->
-> On 2022-06-22 11:04, Christian König wrote:
->> Am 22.06.22 um 17:01 schrieb Andrey Grodzovsky:
->>>
->>> On 2022-06-22 05:00, Christian König wrote:
->>>> Am 21.06.22 um 21:34 schrieb Andrey Grodzovsky:
->>>>> On 2022-06-21 03:19, Christian König wrote:
->>>>>
->>>>>> Am 21.06.22 um 00:02 schrieb Andrey Grodzovsky:
->>>>>>> Problem:
->>>>>>> In amdgpu_job_submit_direct - The refcount should drop by 2
->>>>>>> but it drops only by 1.
->>>>>>>
->>>>>>> amdgpu_ib_sched->emit -> refcount 1 from first fence init
->>>>>>> dma_fence_get -> refcount 2
->>>>>>> dme_fence_put -> refcount 1
->>>>>>>
->>>>>>> Fix:
->>>>>>> Add put for external_hw_fence in amdgpu_job_free/free_cb
->>>>>>
->>>>>> Well what is the external_hw_fence good for in this construct?
->>>>>
->>>>>
->>>>> As far as I understand for direct submissions you don't want to 
->>>>> pass a job
->>>>> pointer to ib_schedule and so u can't use the embedded fence for 
->>>>> this case.
->>>>
->>>> Can you please look a bit deeper into this, we now have a couple of 
->>>> fields in the job structure which have no obvious use.
->>>>
->>>> I think we could pass a job structure to ib_schedule even for 
->>>> direct submit now.
->>>
->>>
->>> Are you sure  ? I see a lot of activities in amdgpu_ib_schedule 
->>> depend on presence of  vm and fence_ctx which are set if the job 
->>> pointer argument != NULL, might this have a negative impact on 
->>> direct submit ?
->>
->> Not 100% sure, but we did tons of workarounds because we didn't had a 
->> job pointer for direct submit.
->>
->> But this was before we embedded the IBs at the end of the job.
->>
->> It's quite likely that this should be possible now, it's just that 
->> somebody needs to double check.
->>
->> Christian.
->
->
-> Looking more i see stuff like amdgpu_vm_flush and 
-> amdgpu_ring_emit_cntxcntl, emit_frame_cntl that are conditioned on job 
-> argument, doesn't look to me like this is relevant to direct submit ?
+Hello Ramesh Errabolu,
 
-I think that those could and maybe even should be cleaned up.
+The patch 0f28cca87e9a: "drm/amdkfd: Extend KFD device topology to
+surface peer-to-peer links" from May 26, 2022, leads to the following
+Smatch static checker warning:
 
->
-> I also noticed that direct submit passes back the created fence to 
-> it's caller while freeing the job immediately, Using embedded job here 
-> will increase the time the job object will hang around the memory
-> without any use as long as it's fence is referenced. Job object is 
-> much larger then a single fence.
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1428 kfd_create_indirect_link_prop() warn: iterator used outside loop: 'cpu_link'
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1462 kfd_create_indirect_link_prop() error: we previously assumed 'cpu_dev' could be null (see line 1420)
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1516 kfd_add_peer_prop() warn: iterator used outside loop: 'iolink3'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4997 add_modifier() warn: use safer allocation function (eg: kmalloc_array)
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/bios_parser2.c:1601 bios_parser_is_device_id_supported() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/bios_parser2.c:407 get_bios_object_from_path_v3() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/bios_parser2.c:613 bios_parser_get_hpd_info() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/bios_parser2.c:820 bios_parser_get_device_tag() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3151 commit_planes_for_stream() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:395 dc_stream_set_cursor_position() warn: variable dereferenced before check 'stream' (see line 392)
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:140 smu_set_gfx_power_up_by_imu() error: we previously assumed 'smu->ppt_funcs' could be null (see line 140)
 
-Ah! Yes, you are right! That was the fundamental problem we ran into: 
-When we submit the IB tests during GPU reset we can't allocate any memory!
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c
+    1393 static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int gpu_node)
+    1394 {
+    1395         struct kfd_iolink_properties *props = NULL, *props2 = NULL;
+    1396         struct kfd_iolink_properties *gpu_link, *cpu_link;
+    1397         struct kfd_topology_device *cpu_dev;
+    1398         int ret = 0;
+    1399         int i, num_cpu;
+    1400 
+    1401         num_cpu = 0;
+    1402         list_for_each_entry(cpu_dev, &topology_device_list, list) {
+    1403                 if (cpu_dev->gpu)
+    1404                         break;
+    1405                 num_cpu++;
+    1406         }
+    1407 
+    1408         gpu_link = list_first_entry(&kdev->io_link_props,
+    1409                                         struct kfd_iolink_properties, list);
+    1410         if (!gpu_link)
+    1411                 return -ENOMEM;
+    1412 
+    1413         for (i = 0; i < num_cpu; i++) {
+    1414                 /* CPU <--> GPU */
+    1415                 if (gpu_link->node_to == i)
+    1416                         continue;
+    1417 
+    1418                 /* find CPU <-->  CPU links */
+    1419                 cpu_dev = kfd_topology_device_by_proximity_domain(i);
+    1420                 if (cpu_dev) {
+    1421                         list_for_each_entry(cpu_link,
+    1422                                         &cpu_dev->io_link_props, list) {
+    1423                                 if (cpu_link->node_to == gpu_link->node_to)
+    1424                                         break;
+    1425                         }
 
-Ok, that needs further investigation. Please go ahead with your plan to 
-fix this first and then clean it up later on.
+If we exit the loop without hitting the break statement then "cpu_link"
+is not a valid pointer.
 
-Regards,
-Christian.
+    1426                 }
+    1427 
+--> 1428                 if (cpu_link->node_to != gpu_link->node_to)
 
->
-> Andrey
->
->
->>
->>>
->>> Andrey
->>>
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Andrey
->>>>>
->>>>>
->>>>>>
->>>>>>>
->>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>>>>> ---
->>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 8 ++++++--
->>>>>>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>> index 10aa073600d4..58568fdde2d0 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>> @@ -152,8 +152,10 @@ static void amdgpu_job_free_cb(struct 
->>>>>>> drm_sched_job *s_job)
->>>>>>>       /* only put the hw fence if has embedded fence */
->>>>>>>       if (job->hw_fence.ops != NULL)
->>>>>>>           dma_fence_put(&job->hw_fence);
->>>>>>> -    else
->>>>>>> +    else {
->>>>>>
->>>>>> When one side of the if uses {} the other side should use {} as 
->>>>>> well, e.g. use } else { here.
->>>>>>
->>>>>> Christian.
->>>>>>
->>>>>>> + dma_fence_put(job->external_hw_fence);
->>>>>>>           kfree(job);
->>>>>>> +    }
->>>>>>>   }
->>>>>>>     void amdgpu_job_free(struct amdgpu_job *job)
->>>>>>> @@ -165,8 +167,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
->>>>>>>       /* only put the hw fence if has embedded fence */
->>>>>>>       if (job->hw_fence.ops != NULL)
->>>>>>>           dma_fence_put(&job->hw_fence);
->>>>>>> -    else
->>>>>>> +    else {
->>>>>>> +        dma_fence_put(job->external_hw_fence);
->>>>>>>           kfree(job);
->>>>>>> +    }
->>>>>>>   }
->>>>>>>     int amdgpu_job_submit(struct amdgpu_job *job, struct 
->>>>>>> drm_sched_entity *entity,
->>>>>>
->>>>
->>
+It's weird that this doesn't trigger an uninitialized variable warning.
 
+    1429                         return -ENOMEM;
+    1430 
+    1431                 /* CPU <--> CPU <--> GPU, GPU node*/
+    1432                 props = kfd_alloc_struct(props);
+    1433                 if (!props)
+    1434                         return -ENOMEM;
+    1435 
+    1436                 memcpy(props, gpu_link, sizeof(struct kfd_iolink_properties));
+    1437                 props->weight = gpu_link->weight + cpu_link->weight;
+    1438                 props->min_latency = gpu_link->min_latency + cpu_link->min_latency;
+    1439                 props->max_latency = gpu_link->max_latency + cpu_link->max_latency;
+    1440                 props->min_bandwidth = min(gpu_link->min_bandwidth, cpu_link->min_bandwidth);
+    1441                 props->max_bandwidth = min(gpu_link->max_bandwidth, cpu_link->max_bandwidth);
+    1442 
+    1443                 props->node_from = gpu_node;
+    1444                 props->node_to = i;
+    1445                 kdev->node_props.p2p_links_count++;
+    1446                 list_add_tail(&props->list, &kdev->p2p_link_props);
+    1447                 ret = kfd_build_p2p_node_entry(kdev, props);
+    1448                 if (ret < 0)
+    1449                         return ret;
+    1450 
+    1451                 /* for small Bar, no CPU --> GPU in-direct links */
+    1452                 if (kfd_dev_is_large_bar(kdev->gpu)) {
+    1453                         /* CPU <--> CPU <--> GPU, CPU node*/
+    1454                         props2 = kfd_alloc_struct(props2);
+    1455                         if (!props2)
+    1456                                 return -ENOMEM;
+    1457 
+    1458                         memcpy(props2, props, sizeof(struct kfd_iolink_properties));
+    1459                         props2->node_from = i;
+    1460                         props2->node_to = gpu_node;
+    1461                         props2->kobj = NULL;
+    1462                         cpu_dev->node_props.p2p_links_count++;
+
+If you fix the exit condition above then probably this warning will go
+away too?
+
+    1463                         list_add_tail(&props2->list, &cpu_dev->p2p_link_props);
+    1464                         ret = kfd_build_p2p_node_entry(cpu_dev, props2);
+    1465                         if (ret < 0)
+    1466                                 return ret;
+    1467                 }
+    1468         }
+    1469         return ret;
+    1470 }
+
+regards,
+dan carpenter
