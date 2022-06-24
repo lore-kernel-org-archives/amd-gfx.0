@@ -4,43 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2465C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 20:08:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63334C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 20:20:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A3410E8F5;
-	Fri, 24 Jun 2022 20:08:08 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0E710E378;
- Fri, 24 Jun 2022 09:59:12 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 29BB821A74;
- Fri, 24 Jun 2022 09:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1656064751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YRx5MsPC3bOKBussEAACbRbCrT13pUlZg+D3y9hzeFQ=;
- b=k1jLteFpvAGft+ORFG/tzqlURXKLRNicj7+oUgUIuX8osjH4+RjNVm62/jfqHf/FKhN7zD
- JkM1/iDo+UtWtCT89LSvKZPXJRE/SPVqpxUdXuUhXgeFakRbgDUpIRPPRwwC/o9HRxOK/+
- gqzcjpY9QSRIzgUY++eA0/TlwRk7dss=
-Received: from suse.cz (unknown [10.100.201.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id D56122C1E2;
- Fri, 24 Jun 2022 09:59:10 +0000 (UTC)
-Date: Fri, 24 Jun 2022 11:59:10 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [RFC] Per file OOM-badness / RSS once more
-Message-ID: <YrWK7pwZP3K2vbye@dhcp22.suse.cz>
-References: <20220624080444.7619-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF7FC10EFB3;
+	Fri, 24 Jun 2022 20:20:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F9710EFB3;
+ Fri, 24 Jun 2022 20:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656102027; x=1687638027;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=5yir5qsDWmJvpcLu8qopoQ2H2wrhCorETTzmzNRdNeU=;
+ b=DfBSv5hImO05Cr0wbpMO6B2WHyt3SgHDsjYSl8D2J0crrNgFcCrw8NKr
+ Ztfe//KKx8DB15UnvzjoXgXN31q8dJP1y2ZnWotprzZ7qkZYAwk2nAbKA
+ 92BSbGZKyjoLQ/s9pEm9v5rWxvFo2EEgXzMDJJf9i2EAag1ne+FbztCQ4
+ 1Z4Fw1sFfoZWog/mKLY3uwiJQuSnoE97d50+6H7D6db8yeN/4iTS3oIQA
+ UXOtEo48VTfZC8Fh7BX0LRILO1NubvO0lE4z/P/et3fkEENtU2u8WD3kK
+ A2b7Gf2fPgChPi4yIZI+NqlmagiRSglUilQ8m6vfkSsWKYBoTFTDC7gUO w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10388"; a="278629607"
+X-IronPort-AV: E=Sophos;i="5.92,220,1650956400"; d="scan'208";a="278629607"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2022 13:20:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,220,1650956400"; d="scan'208";a="589124453"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 24 Jun 2022 13:20:23 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o4pmw-0004ff-Tx;
+ Fri, 24 Jun 2022 20:20:22 +0000
+Date: Sat, 25 Jun 2022 04:20:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 2f9cb3d3bd73fc2225d66aa8fcffb632ed3eb235
+Message-ID: <62b61c74.3Kp+9QDweGyj9KVR%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220624080444.7619-1-christian.koenig@amd.com>
-X-Mailman-Approved-At: Fri, 24 Jun 2022 20:08:07 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,72 +57,219 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: netdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>, ntb@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-media@vger.kernel.org
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri 24-06-22 10:04:30, Christian König wrote:
-> Hello everyone,
-> 
-> To summarize the issue I'm trying to address here: Processes can allocate
-> resources through a file descriptor without being held responsible for it.
-> 
-> I'm not explaining all the details again. See here for a more deeply
-> description of the problem: https://lwn.net/ml/linux-kernel/20220531100007.174649-1-christian.koenig@amd.com/
-> 
-> With this iteration I'm trying to address a bunch of the comments Michal Hocko
-> (thanks a lot for that) gave as well as giving some new ideas.
-> 
-> Changes made so far:
-> 1. Renamed the callback into file_rss(). This is at least a start to better
->    describe what this is all about. I've been going back and forth over the
->    naming here, if you have any better idea please speak up.
-> 
-> 2. Cleanups, e.g. now providing a helper function in the fs layer to sum up
->    all the pages allocated by the files in a file descriptor table.
-> 
-> 3. Using the actual number of allocated pages for the shmem implementation
->    instead of just the size. I also tried to ignore shmem files which are part
->    of tmpfs, cause that has a separate accounting/limitation approach.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 2f9cb3d3bd73fc2225d66aa8fcffb632ed3eb235  Add linux-next specific files for 20220624
 
-OK, this is better than the original approach there are still holes
-there though I am afraid. I am not sure your i_count hack is correct
-but that would be mostly an implementation detail.  The scheme will
-over-account memory mapped files (including memfd).  How much that
-matters will really differ.
+Error/Warning reports:
 
-For the global OOM situations it is very likely that there will be
-barely any disk based page cache as it would be reclaimed by the time
-the oom killer is invoked. So this should be OK. Swap backed page cache
-(shmem and its users) is more tricky. It is swap bound and processes
-which map it will get "charged" in the form of swap entries while those
-which rely on read/write will just escape from the sight of the oom
-killer no matter how much memory they own via their shmem backed fd.
-This sounds rather serious to me and I hope I haven't missed anything
-subtle here that would keep those pages somehow visible. Anyway
-something to very carefully document.
+https://lore.kernel.org/llvm/202206221813.Dn1s6uuh-lkp@intel.com
 
-For the memcg OOM this gets even more tricky. Files can be shared among
-tasks accross memcgs. Something that is not really straightforward from
-the userspace POV because this is not strictly deterministic as
-first-one-first-charged logic is applied so a lot might depend on timing.
-This could also easily mean that a large part of the in memory state of
-the file is outside of the reclaim and therefore OOM scope of the memcg
-which is hitting the hard limit. This could result in tasks being killed
-just because they (co)operate on a large file outside of their memcg
-domain. To be honest I am not sure how big of a problem this would be in
-practice and the existing behavior has its own cons so to me it sounds
-like changing one set of deficiency with other.
+Error/Warning: (recently discovered and may have been fixed)
 
-As we have discussed previously, there is unlikely a great solution but
-you a) need to document most prominent downsides so that people can at
-least see this is understood and documented behavior and b) think of the
-runaway situation wrt non mapped shmems memtioned above and see whether
-there is something we can do about that.
+arch/powerpc/kernel/interrupt.c:542:55: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:1025:33: warning: variable 'pre_connection_type' set but not used [-Wunused-but-set-variable]
+drivers/ntb/test/ntb_perf.c:1145: undefined reference to `__umoddi3'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for function 'pci_read' [-Wmissing-prototypes]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for function 'pci_write' [-Wmissing-prototypes]
+include/linux/fs.h:1656: warning: expecting prototype for i_gid_into_mnt(). Prototype was for i_gid_into_vfsgid() instead
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/net/pcs/pcs-xpcs.c:1031: undefined reference to `phylink_mii_c22_pcs_decode_state'
+drivers/net/pcs/pcs-xpcs.c:832: undefined reference to `phylink_mii_c22_pcs_encode_advertisement'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arc-randconfig-m031-20220624
+|   |-- drivers-gpu-drm-vc4-vc4_perfmon.c-vc4_perfmon_get()-warn:variable-dereferenced-before-check-perfmon-(see-line-)
+|   `-- drivers-gpu-drm-vc4-vc4_perfmon.c-vc4_perfmon_get_values_ioctl()-warn:variable-dereferenced-before-check-perfmon-(see-line-)
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- arm64-buildonly-randconfig-r004-20220624
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- i386-allnoconfig
+|   `-- include-linux-fs.h:warning:expecting-prototype-for-i_gid_into_mnt().-Prototype-was-for-i_gid_into_vfsgid()-instead
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|   `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
+|-- i386-randconfig-a001
+|   `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
+|-- i386-randconfig-a005
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- i386-randconfig-m021
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- m68k-allmodconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- m68k-allyesconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- microblaze-randconfig-r006-20220624
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-ntb-test-ntb_perf.c:undefined-reference-to-__umoddi3
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- nios2-randconfig-r016-20220624
+|   |-- drivers-net-pcs-pcs-xpcs.c:undefined-reference-to-phylink_mii_c22_pcs_decode_state
+|   `-- drivers-net-pcs-pcs-xpcs.c:undefined-reference-to-phylink_mii_c22_pcs_encode_advertisement
+|-- powerpc-allmodconfig
+|   |-- ERROR:__umoddi3-drivers-ntb-test-ntb_perf.ko-undefined
+|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- powerpc-allnoconfig
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-asp8347_defconfig
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-mpc834x_mds_defconfig
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-randconfig-r002-20220624
+|   `-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-randconfig-r032-20220624
+|   `-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|-- sh-allmodconfig
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- sparc-randconfig-r011-20220624
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   `-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+|-- x86_64-randconfig-a002
+|   |-- pcs-xpcs.c:(.text):undefined-reference-to-phylink_mii_c22_pcs_decode_state
+|   `-- pcs-xpcs.c:(.text):undefined-reference-to-phylink_mii_c22_pcs_encode_advertisement
+`-- xtensa-allyesconfig
+    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+    |-- drivers-staging-rtl8723bs-hal-hal_btcoex.c:warning:variable-pHalData-set-but-not-used
+    `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
+
+clang_recent_errors
+|-- hexagon-randconfig-r001-20220624
+|   `-- drivers-ufs-host-tc-dwc-g210-pltfrm.c:warning:unused-variable-tc_dwc_g210_pltfm_match
+`-- x86_64-allyesconfig
+    |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-function-pci_read
+    `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-function-pci_write
+
+elapsed time: 728m
+
+configs tested: 84
+configs skipped: 3
+
+gcc tested configs:
+arm                                 defconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+powerpc                     asp8347_defconfig
+mips                           ip32_defconfig
+s390                          debug_defconfig
+sparc                            allyesconfig
+openrisc                  or1klitex_defconfig
+sh                                  defconfig
+m68k                          multi_defconfig
+sh                      rts7751r2d1_defconfig
+xtensa                       common_defconfig
+microblaze                          defconfig
+arm                          iop32x_defconfig
+arm                        realview_defconfig
+arm                        keystone_defconfig
+m68k                         apollo_defconfig
+parisc64                            defconfig
+arm                       aspeed_g5_defconfig
+powerpc                 mpc834x_mds_defconfig
+riscv                             allnoconfig
+riscv                    nommu_k210_defconfig
+i386                   debian-10.3-kselftests
+riscv                          rv32_defconfig
+riscv                    nommu_virt_defconfig
+i386                              debian-10.3
+ia64                             allmodconfig
+mips                             allyesconfig
+powerpc                          allmodconfig
+sh                               allmodconfig
+powerpc                           allnoconfig
+m68k                             allyesconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+m68k                             allmodconfig
+i386                                defconfig
+i386                             allyesconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+arc                  randconfig-r043-20220624
+um                           x86_64_defconfig
+um                             i386_defconfig
+x86_64                          rhel-8.3-func
+x86_64                         rhel-8.3-kunit
+x86_64                    rhel-8.3-kselftests
+x86_64                           rhel-8.3-syz
+x86_64                              defconfig
+x86_64                               rhel-8.3
+x86_64                           allyesconfig
+
+clang tested configs:
+arm                                 defconfig
+powerpc                     ksi8560_defconfig
+powerpc                       ebony_defconfig
+powerpc                     kilauea_defconfig
+powerpc                     kmeter1_defconfig
+x86_64                           allyesconfig
+arm                           omap1_defconfig
+arm                         s3c2410_defconfig
+powerpc                      walnut_defconfig
+mips                   sb1250_swarm_defconfig
+powerpc                      pmac32_defconfig
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a014
+x86_64                        randconfig-a012
+x86_64                        randconfig-a016
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a015
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+hexagon              randconfig-r045-20220624
+riscv                randconfig-r042-20220624
+hexagon              randconfig-r041-20220624
+s390                 randconfig-r044-20220624
+
 -- 
-Michal Hocko
-SUSE Labs
+0-DAY CI Kernel Test Service
+https://01.org/lkp
