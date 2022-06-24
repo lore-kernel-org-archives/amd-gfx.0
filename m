@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A38F3C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1725CCA483
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83265112C45;
-	Fri, 24 Jun 2022 08:05:01 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFEC2112C01;
- Fri, 24 Jun 2022 08:04:57 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id z19so2279007edb.11;
- Fri, 24 Jun 2022 01:04:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18CBD112C52;
+	Fri, 24 Jun 2022 08:05:02 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF0D112C32;
+ Fri, 24 Jun 2022 08:05:00 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id z11so2295706edp.9;
+ Fri, 24 Jun 2022 01:05:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ID2laRfYSApmjGzin/c5O7ZzYP1tMI9ua34YWk456Wk=;
- b=U7uY3MsA0DHippF6S8UKVRKmsJnNzZVtyS/oxSk8mnuxYbuH6lVcfrpX+0QqNbAzsr
- OHPqC1A2CJXe90yHB7/dZKLeRQkrpAbVd3R0tfpASOsFiFVpqjxyZSja4Ln6UQfGkV1F
- vEhUaLJqQTsf0mDlK6LHd6b+sDgfx27xoxB1E1JLj9lewb9qKNqcQpOqIQ9VN902Eeco
- K9AuesVMeK0hPkCglbUSWjfKsjVujF7T8cb3mCE5ZaCnxoDqUl7F2zCL64/5pa0gH7B9
- 1NKNHVz889djG0KWGG8iwf1I/ljLUIKtvBLVbUBVPCkEvOT+MIVlMWKc5SSwZwD6KAKU
- AbXA==
+ bh=m/E6hWEFQyi25CxFeEuPVoEVkNjsUA/fW4bkRRrhTG8=;
+ b=e8Okw9V9KyZY0LQ9UKvtkO1+tj9txF7SZgjxfu0nIPVJ7UHFSFPajh1LcrrR+mc/Ax
+ 7Xcml0b3DTzx3T2bMsv8lp7T6q7E8SECtadIf2BbI5ZWp1CKCCjXMJ+X+N3gB+Fbk+hI
+ b31Ng6R/qrQ8N6LOuGNRH4RuKGuBjnKOVPxxK7EXBtqVHECTyUdENgmbiNMStYeqtDEf
+ i8j/Pv/qCpjDot+5YbNEf4ExwNPa/ehQnPHUm9ruLn2IZbJZpd2tKFDQwHw3MDtpAITE
+ BVAJdg6xrEucAqwIZovpm02Nb/tWQUOGD/LUv75bzOhZfpRKGHx3/vDdg1//bFowy+2C
+ xUAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ID2laRfYSApmjGzin/c5O7ZzYP1tMI9ua34YWk456Wk=;
- b=WcPYqiKraWHqQM60SEvo+WiHHAfv+0i8yUB69s+O/9t68FzKVO2BsD1o50LrbCy48I
- VZpMzFyBnXm+REzoqb6Q+J8CAYewa2DArI/XAjFLbnDQrncHnBxrurBDB6J0ODHe2Qst
- /qzJY+RIRDyaVYbPb1rA2FdByNyy4B2isfUg5JLsG02SqJNpmppnK07q70iNpNkKK811
- iudtyxPHV6w0/Jua45AiGpb+zfsVc2w3pEzFFCDk5X2VISao0JDtbT4VNW1PTZ99qeVO
- ck8tdDTQBEgCb8r2+6bBaFElMTBmoW8xDPmagYgXFWVJh5K0bRuvrT/4KvgFh45o3w8g
- twyw==
-X-Gm-Message-State: AJIora+naXhwWJi9NmOtUFeuItrbnez2He26bHEPlfnxopA67Htscwdn
- ctd2iZ4SSWxbgJwGdPgWx1M=
-X-Google-Smtp-Source: AGRyM1vXothqzNCeq2wfXu0Iy7pDBGR1100k8JOpLZpuKKiLhk+9M6Fn95/BBmkDNLC1mjmi1D/X+w==
-X-Received: by 2002:a05:6402:11d1:b0:435:d76d:f985 with SMTP id
- j17-20020a05640211d100b00435d76df985mr7954996edw.8.1656057896438; 
- Fri, 24 Jun 2022 01:04:56 -0700 (PDT)
+ bh=m/E6hWEFQyi25CxFeEuPVoEVkNjsUA/fW4bkRRrhTG8=;
+ b=V2OIiPILrOMzPHb1ieV7zDC9fWhXuRJrnNeW2ZIaCoPVToDxonmtZoJHj3hx2jZHuv
+ es2bK6aVbp38Y522t4bnb10ewvuusyMRke8rpbu4wNi9TyC2XApKDROCHBCDIcY1wM33
+ 8Q5I2jt4ANBITAEDZJXiRxQStDNjr3ykqj5YPP5WpzJyKjWEav0SeoRdK6wGgndPkdnX
+ 4SAgadwABWrlvS2rSJwyAHK0Kc5WwPBqenaTwDXjk1cU6O3omXgFLfELhNIppJmyZv89
+ vpnkmgNFNxfteVEF17/8Tb9rajBZRP4BNjVi0PvVOIAOQO9Wfa48l3KmHvDZxDLEBNvo
+ xoww==
+X-Gm-Message-State: AJIora+oeewPn84xIVLvGlUGvb2cQ0K1CSzp36A0KGfAH5UkJt722FN/
+ wEbXWNuOcTgKar056FTFdy4=
+X-Google-Smtp-Source: AGRyM1sPm1PtPb+HeXcaBFnsmjeMMONuCGOa4UKNnvwqlpKNsvibmM7CXbEqPCXHhwwP42+MiDXxcw==
+X-Received: by 2002:a05:6402:5c9:b0:420:aac6:257b with SMTP id
+ n9-20020a05640205c900b00420aac6257bmr15655024edx.128.1656057900060; 
+ Fri, 24 Jun 2022 01:05:00 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.55
+ c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 01:04:56 -0700 (PDT)
+ Fri, 24 Jun 2022 01:04:59 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -55,9 +55,9 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 07/14] drm/gma500: use drm_file_rss
-Date: Fri, 24 Jun 2022 10:04:37 +0200
-Message-Id: <20220624080444.7619-8-christian.koenig@amd.com>
+Subject: [PATCH 10/14] drm/i915: use drm_file_rss
+Date: Fri, 24 Jun 2022 10:04:40 +0200
+Message-Id: <20220624080444.7619-11-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220624080444.7619-1-christian.koenig@amd.com>
 References: <20220624080444.7619-1-christian.koenig@amd.com>
@@ -84,21 +84,21 @@ This allows the OOM killer to make a better decision which process to reap.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/gma500/psb_drv.c | 1 +
+ drivers/gpu/drm/i915/i915_driver.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index 1d8744f3e702..92c005aa6e9e 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -513,6 +513,7 @@ static const struct file_operations psb_gem_fops = {
- 	.mmap = drm_gem_mmap,
- 	.poll = drm_poll,
- 	.read = drm_read,
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 90b0ce5051af..fc269055a07c 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1741,6 +1741,7 @@ static const struct file_operations i915_driver_fops = {
+ #ifdef CONFIG_PROC_FS
+ 	.show_fdinfo = i915_drm_client_fdinfo,
+ #endif
 +	.file_rss = drm_file_rss,
  };
  
- static const struct drm_driver driver = {
+ static int
 -- 
 2.25.1
 
