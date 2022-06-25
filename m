@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C79C6C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E09C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9CD113D1D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA808113D9A;
 	Mon, 27 Jun 2022 12:51:38 +0000 (UTC)
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Sat, 25 Jun 2022 13:04:56 UTC
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with SMTP id 20F1C11306D;
- Sat, 25 Jun 2022 13:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fudan.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id:MIME-Version:Content-Transfer-Encoding; bh=6cdzgUCaDT
- 0VxXMEsUwLLOq5OqTUlLwgUTvTXMzofWg=; b=sXXPIyPIYZjm1QWgYrNcqc6bm3
- xbvHaOE2ZHQd6itjIXevBu32RvhD3iCTQk9kTxMxQkbuwng+i/tHKJxNmV61naoe
- 7+QTR2z5mkv0G/FIJ7aDq0P4YY/c5FNP9xoelKOahGWaQDIh4vKai0rsM+IB0wKm
- Ibs7/4DnuwAfUv8WU=
-Received: from localhost.localdomain (unknown [117.136.12.236])
- by app1 (Coremail) with SMTP id XAUFCgAHXVFvBrdi2qvoAA--.14003S4;
- Sat, 25 Jun 2022 20:58:38 +0800 (CST)
-From: Xin Xiong <xiongx18@fudan.edu.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Matthew Dawson <matthew@mjdsystems.ca>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/radeon: fix potential memory leaks in two ib test
- functions
-Date: Sat, 25 Jun 2022 20:56:48 +0800
-Message-Id: <20220625125647.1782-1-xiongx18@fudan.edu.cn>
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD1410E958;
+ Sat, 25 Jun 2022 01:42:07 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ k12-20020a17090a404c00b001eaabc1fe5dso7263001pjg.1; 
+ Fri, 24 Jun 2022 18:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pdeIHQVuGIq74deo1wq4KcCpm8Z3V/4ahZjeL3ne7+8=;
+ b=JZollLIDhwsOxrqh/kIbwN3pl1uMWkUobCywBL/OTzI6aS8SvxU/5iZfD2+zfDb9rm
+ 5brWxDDqYtLrjhk6jDrCYpcUSeEM881A+oqpKPnMuGi60s/6ykKxfxnqrhKtaqjLK/5s
+ senljBsT/4eFU7LUWu1FqjMwQzXXSskr6lBFzE1loeWeFnw0SF4xomh8E5sXdCTilDVe
+ If5PIWHBarJ8UMtd6SxXcPdCPuD7BmHSNxL+1ks5oTkPcY6tD8svM4ozwFVktK2yxEA0
+ iYFuh1vXVqz8VMkzRn4whTc4lLtfbazv9qphnX0vPueWyWRN9bJP23LdwK2nFTSvx9JJ
+ dYJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pdeIHQVuGIq74deo1wq4KcCpm8Z3V/4ahZjeL3ne7+8=;
+ b=TyudJWpJjhx7Cvz5qG4/lhU1GjoKFz7axno444a8Dun9sw6uT/Km2RPfR7SlBktD7L
+ qQg3joU+gg7XMewKvTJUsWdn61KKjaPHHTeKPkIJa9bZrIqMEHaxgOYeWCZemZgF1CSG
+ o11My0slU+uDyP1g6/RTqAUN0e5y7oj4/midcgx3af9xiMxodUUEPalu2nD5LGSNoKzY
+ LwLiJsqs+KcLp4zQAPQ5rEMPBPezEnEhz9A6Yd35kyxKEglH7RFIsPpyyPa9ZJ0NErgL
+ WULiT54+/fjA3s41J/WXa6htgCmW88KvfVTeDxThUwtDPcIKMLFA0kYUJVXypLwN4H+q
+ f0aw==
+X-Gm-Message-State: AJIora/0f7+rWGz2pwmnMf2QTqmHVQoqD1yI760Bax01TRNiLXgKOrhA
+ cR/rtu9zcghr20mpwmbBL9U=
+X-Google-Smtp-Source: AGRyM1uZAHtn24InCTHwiAwpG/NEyIdpbEc0pkFGkCXvPsXO8VyUNPMZeaXitH3RhCxNFWM+5p6pfw==
+X-Received: by 2002:a17:902:d504:b0:16a:4846:3f46 with SMTP id
+ b4-20020a170902d50400b0016a48463f46mr1900105plg.159.1656121327298; 
+ Fri, 24 Jun 2022 18:42:07 -0700 (PDT)
+Received: from localhost.localdomain ([122.167.211.160])
+ by smtp.gmail.com with ESMTPSA id
+ x20-20020a056a00189400b005251b9102dbsm2467173pfh.144.2022.06.24.18.42.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jun 2022 18:42:06 -0700 (PDT)
+From: Souptick Joarder <jrdr.linux@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, wenjing.liu@amd.com, Jun.Lei@amd.com,
+ Jimmy.Kizito@amd.com, Jerry.Zuo@amd.com,
+ meenakshikumar.somasundaram@amd.com, hanghong.ma@amd.com
+Subject: [PATCH] drm/amd/display: Removed unused variable ret
+Date: Sat, 25 Jun 2022 07:11:57 +0530
+Message-Id: <20220625014157.5004-1-jrdr.linux@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: XAUFCgAHXVFvBrdi2qvoAA--.14003S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxJw43GFW3tF4ktFWxJF1rtFb_yoW5CryxpF
- Za9r9Fyr92yw42gw47ta9rXFyYkw1fGayxWr4qk3y5uw15AF1qgF13Zryvqry8JrykZryI
- vF1kWw1xZ3W0kF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
- F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
- 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
- 648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j
- 6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
- BIdaVFxhVjvjDU0xZFpf9x0JUQZ23UUUUU=
-X-CM-SenderInfo: arytiiqsuqiimz6i3vldqovvfxof0/1tbiAQ8IEFKp5B6mNgACsF
 X-Mailman-Approved-At: Mon, 27 Jun 2022 12:51:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,100 +72,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn,
- Xin Xiong <xiongx18@fudan.edu.cn>
+Cc: "Souptick Joarder \(HPE\)" <jrdr.linux@gmail.com>,
+ kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The issue takes place in several error handling paths in both
-cik_sdma_ib_test() and r600_dma_ib_test(). Take cik_sdma_ib_test()
-for an example. When radeon_fence_wait_timeout() returns a value equal
-or less than zero, the function simply returns an error code,
-forgetting to free the object "ib", which is requested by calling
-radeon_ib_get() earlier. This may result in memory leaks.
+From: "Souptick Joarder (HPE)" <jrdr.linux@gmail.com>
 
-Fix it by freeing "ib" in specific error handling paths.
+Kernel test robot throws below warning ->
 
-Fixes: 04db4caf5c83 ("drm/radeon: Avoid double gpu reset by adding a timeout on IB ring tests.")
-Signed-off-by: Xin Xiong <xiongx18@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:
+In function 'dc_link_reduce_mst_payload':
+   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:3782:32:
+warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+    3782 |         enum act_return_status ret;
+
+Removed the unused ret variable.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Souptick Joarder (HPE) <jrdr.linux@gmail.com>
 ---
-V1 -> V2: Fix another function of similar pattern
----
- drivers/gpu/drm/radeon/cik_sdma.c | 9 +++++----
- drivers/gpu/drm/radeon/r600_dma.c | 9 +++++----
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/cik_sdma.c b/drivers/gpu/drm/radeon/cik_sdma.c
-index 919b14845c3c..d0e7323cdd42 100644
---- a/drivers/gpu/drm/radeon/cik_sdma.c
-+++ b/drivers/gpu/drm/radeon/cik_sdma.c
-@@ -732,18 +732,18 @@ int cik_sdma_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 55a8f58ee239..445357623d8b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -3706,7 +3706,6 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
+ 	struct fixed31_32 pbn_per_slot;
+ 	struct dp_mst_stream_allocation_table proposed_table = {0};
+ 	uint8_t i;
+-	enum act_return_status ret;
+ 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
+ 	DC_LOGGER_INIT(link->ctx->logger);
  
- 	r = radeon_ib_schedule(rdev, &ib, NULL, false);
- 	if (r) {
--		radeon_ib_free(rdev, &ib);
- 		DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
--		return r;
-+		goto out;
- 	}
- 	r = radeon_fence_wait_timeout(ib.fence, false, usecs_to_jiffies(
- 		RADEON_USEC_IB_TEST_TIMEOUT));
- 	if (r < 0) {
- 		DRM_ERROR("radeon: fence wait failed (%d).\n", r);
--		return r;
-+		goto out;
- 	} else if (r == 0) {
- 		DRM_ERROR("radeon: fence wait timed out.\n");
--		return -ETIMEDOUT;
-+		r = -ETIMEDOUT;
-+		goto out;
- 	}
- 	r = 0;
- 	for (i = 0; i < rdev->usec_timeout; i++) {
-@@ -758,6 +758,7 @@ int cik_sdma_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
- 		DRM_ERROR("radeon: ib test failed (0x%08X)\n", tmp);
- 		r = -EINVAL;
- 	}
-+out:
- 	radeon_ib_free(rdev, &ib);
- 	return r;
- }
-diff --git a/drivers/gpu/drm/radeon/r600_dma.c b/drivers/gpu/drm/radeon/r600_dma.c
-index 89ca2738c5d4..75ed03886fc2 100644
---- a/drivers/gpu/drm/radeon/r600_dma.c
-+++ b/drivers/gpu/drm/radeon/r600_dma.c
-@@ -363,18 +363,18 @@ int r600_dma_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
+@@ -3777,7 +3776,7 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
+ 			&link->mst_stream_alloc_table);
  
- 	r = radeon_ib_schedule(rdev, &ib, NULL, false);
- 	if (r) {
--		radeon_ib_free(rdev, &ib);
- 		DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
--		return r;
-+		goto out;
- 	}
- 	r = radeon_fence_wait_timeout(ib.fence, false, usecs_to_jiffies(
- 		RADEON_USEC_IB_TEST_TIMEOUT));
- 	if (r < 0) {
- 		DRM_ERROR("radeon: fence wait failed (%d).\n", r);
--		return r;
-+		goto out;
- 	} else if (r == 0) {
- 		DRM_ERROR("radeon: fence wait timed out.\n");
--		return -ETIMEDOUT;
-+		r = -ETIMEDOUT;
-+		goto out;
- 	}
- 	r = 0;
- 	for (i = 0; i < rdev->usec_timeout; i++) {
-@@ -389,6 +389,7 @@ int r600_dma_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
- 		DRM_ERROR("radeon: ib test failed (0x%08X)\n", tmp);
- 		r = -EINVAL;
- 	}
-+out:
- 	radeon_ib_free(rdev, &ib);
- 	return r;
- }
+ 	/* poll for immediate branch device ACT handled */
+-	ret = dm_helpers_dp_mst_poll_for_allocation_change_trigger(
++	dm_helpers_dp_mst_poll_for_allocation_change_trigger(
+ 			stream->ctx,
+ 			stream);
+ 
 -- 
 2.25.1
 
