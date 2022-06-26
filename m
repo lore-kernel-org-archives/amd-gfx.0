@@ -4,51 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3BE5C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 290F3C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22E21112F6D;
-	Mon, 27 Jun 2022 12:18:28 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF89D1125D4;
- Mon, 27 Jun 2022 12:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656332306; x=1687868306;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=wIym4g3JKPLQszdNyFyxZB8GVvwge3rVq3pvgiSSbI8=;
- b=lRu4JHRg1QOTi+1sHIAtTFM9TTHVwiBOIvdsDn1zQPICsEw6klwSmM35
- /xVKxJMRx42N4JziRnAMh8hs8K+WqTYwx2bMmWK8FcPS+L4RxNrpdQG9Z
- +7a1AebkPBnmjSRssi0AA7QHGAj4bplukSZ/Qmgj6P98Ds4O1lAmWWlfU
- gVXYkcmtIB9ouHtyaRopbQMlIDqc4E3Z60ew8u+4/DK3secks+m3bwCCA
- HBM506YSMTX0X5oCg/GTB+ebyqVORBP6zbRU1E59cie9Owlhb82uQOrrK
- vLfm/Td1BOCsaZ05DTJjce1lZLjwhzVp/SQTrsKOiLPqL7Yjta07Py96j g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10390"; a="264479332"
-X-IronPort-AV: E=Sophos;i="5.92,226,1650956400"; d="scan'208";a="264479332"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2022 05:18:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,226,1650956400"; d="scan'208";a="622531636"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
- by orsmga001.jf.intel.com with SMTP; 27 Jun 2022 05:18:02 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 27 Jun 2022 15:18:02 +0300
-Date: Mon, 27 Jun 2022 15:18:02 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Melissa Wen <mwen@igalia.com>
-Subject: Re: [RFC PATCH 4/5] drm/drm_color_mgmt: add 3D LUT to color mgmt
- properties
-Message-ID: <Yrmf+mWk13qkcsfs@intel.com>
-References: <20220619223104.667413-1-mwen@igalia.com>
- <20220619223104.667413-5-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888A2113D5A;
+	Mon, 27 Jun 2022 12:51:36 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4485710E41E
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 14:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1656253267;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ahf2yCApAVRKZIV4QgwQyLJ3X4VNm/eYrF4Rb3afHBs=;
+ b=HRbLhbf9ZF6YfHAqpHZo/wvNLzxpgAD/X/1Mx7UAEfX9/QKDO4OKIFD3umRsbu7KkTyGnI
+ ElVaEh+y7TzyF7G17vUlN/kEuSzxA6OlPlilj3Ar/2hyDc26yfYfihbXfX6BTuq6a6jWgF
+ z/a317FEs6J4Mre4L1nwqJafYZQyON8=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-524-TVqFQe6wMeS4xJgI0N1muA-1; Sun, 26 Jun 2022 10:21:05 -0400
+X-MC-Unique: TVqFQe6wMeS4xJgI0N1muA-1
+Received: by mail-qk1-f197.google.com with SMTP id
+ o10-20020a05620a2a0a00b006a77a64cd23so7862987qkp.21
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 07:21:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ahf2yCApAVRKZIV4QgwQyLJ3X4VNm/eYrF4Rb3afHBs=;
+ b=fG8wI5A8H141F/UeWIaxFeZg6NLO9mP1WLzGUcAvmevQT30syoc6J+LfGTj83wK0Tp
+ Kw/p7tA7wOhdryVwlA3VU6w/IS9l1U2kIIPjgsi/5kB7ZGqzPYvuk8dFz+YrAbne+kEp
+ lSdxekcVmH/OCHuLP8pg0OSEKPijpolzr3Be9sbSaxXQ6phzlqyWTqD1Qtk3gGJAdhMi
+ nYSaxTv32IP774SUE69DPouGDQ6LQMWLNDV1XLUgvcb33JHe7wIC+6hIvlMpMuZ2GeW6
+ 4ruGBzfTINqB8QzpkvpXmGbLdi5AjLS1wZzpi/8sb/bhZKEUrOWvN7qZDNe52ZbFG0hf
+ YRLQ==
+X-Gm-Message-State: AJIora+rhhG4BHwbtTBPcAAs5pxouS1OvrdNTGTA9nfniUxXFZgwoPby
+ P/cRZFB9nQoR937b1Qgrvi9H6mNL7HFPd3+YvdETgXLQkuGZuaPyniE7wcEEz91g49kvcyHl+Ag
+ svLd33O/YF7uvhxnAlHGuhxttvg==
+X-Received: by 2002:a05:620a:471f:b0:6a6:f574:8b78 with SMTP id
+ bs31-20020a05620a471f00b006a6f5748b78mr5486450qkb.469.1656253264887; 
+ Sun, 26 Jun 2022 07:21:04 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1taraKCxi2XWY8/KIXCz5Sr4ylSIyPsZkkuTt119Zkfdt3zbyYiMOzX4TAVcI2CZmI4Sd2wRg==
+X-Received: by 2002:a05:620a:471f:b0:6a6:f574:8b78 with SMTP id
+ bs31-20020a05620a471f00b006a6f5748b78mr5486420qkb.469.1656253264652; 
+ Sun, 26 Jun 2022 07:21:04 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+ by smtp.gmail.com with ESMTPSA id
+ m22-20020a05620a291600b006aef641865esm6399256qkp.128.2022.06.26.07.21.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 26 Jun 2022 07:21:04 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, wenjing.liu@amd.com, Jun.Lei@amd.com,
+ George.Shen@amd.com, Jimmy.Kizito@amd.com, Jerry.Zuo@amd.com,
+ michael.strauss@amd.com, aurabindo.pillai@amd.com
+Subject: [PATCH] drm/amd/display: Remove unused globals FORCE_RATE and
+ FORCE_LANE_COUNT
+Date: Sun, 26 Jun 2022 10:20:53 -0400
+Message-Id: <20220626142053.3373970-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220619223104.667413-5-mwen@igalia.com>
-X-Patchwork-Hint: comment
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mailman-Approved-At: Mon, 27 Jun 2022 12:51:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,42 +87,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, nikola.cornij@amd.com,
- bhawanpreet.lakha@amd.com, sunpeng.li@amd.com, alex.hung@amd.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- seanpaul@chromium.org, nicholas.kazlauskas@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com, sungjoon.kim@amd.com
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 19, 2022 at 09:31:03PM -0100, Melissa Wen wrote:
-> Add 3D LUT for gammar correction using a 3D lookup table.  The position
-> in the color correction pipeline where 3D LUT is applied depends on hw
-> design, being after CTM or gamma. If just after CTM, a shaper lut must
-> be set to shape the content for a non-linear space. That details should
-> be handled by the driver according to its color capabilities.
+sparse reports
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:3885:6: warning: symbol 'FORCE_RATE' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:3886:10: warning: symbol 'FORCE_LANE_COUNT' was not declared. Should it be static?
 
-I also cooked up a WIP 3D LUT support some time ago for Intel hw:
-https://github.com/vsyrjala/linux/commits/3dlut
-But that dried up due to having no userspace for it.
+Neither of thse variables is used in dc_link_dp.c.  Reviewing the commit listed in
+the fixes tag shows neither was used in the original patch.  So remove them.
 
-I also cooked up some basic igts for it:
-https://patchwork.freedesktop.org/series/90165/
+Fixes: 265280b99822 ("drm/amd/display: add CLKMGR changes for DCN32/321")
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-<snip>
-> + * “LUT3D”:
-> + *	Blob property to set the 3D LUT mapping pixel data after the color
-> + *	transformation matrix and before gamma 1D lut correction.
-
-On Intel hw the 3DLUT is after the gamma LUT in the pipeline, which is
-where I placed it in my branch.
-
-There is now some discussion happening about exposing some
-kind of color pipeline description/configuration properties:
-https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index be1dcb0a2a06..f3421f2bd52e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3882,9 +3882,6 @@ static bool decide_mst_link_settings(const struct dc_link *link, struct dc_link_
+ 	return true;
+ }
+ 
+-bool FORCE_RATE = false;
+-uint32_t FORCE_LANE_COUNT = 0;
+-
+ void decide_link_settings(struct dc_stream_state *stream,
+ 	struct dc_link_settings *link_setting)
+ {
 -- 
-Ville Syrjälä
-Intel
+2.27.0
+
