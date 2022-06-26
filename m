@@ -4,62 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE2EC43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 21:40:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D031C433EF
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jun 2022 10:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB01310F538;
-	Fri, 24 Jun 2022 21:40:47 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8196810F532
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 21:40:46 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- u12-20020a05600c210c00b003a02b16d2b8so2215892wml.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 14:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=pAi+LBlnWgN+7WSmLJo2WV06guKY5eDIqB1brGNF8fY=;
- b=ERzNl0Xn85NBB/9KQY4CMjlPL1u45Vsa3j+pSm5A94ItaEsbginyT4+X7ykx6R5hgN
- P9Zd4Qbo/S/EtrFfjl6QPc84qsHlIs7dbTdSaPVNOeJ1/d9k2o9vW+qpjwdRQwzOAG4+
- g7bRBEJkv2nQrsjAyHWYj1cpg68ItH4p7FPVo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=pAi+LBlnWgN+7WSmLJo2WV06guKY5eDIqB1brGNF8fY=;
- b=Zghf7fn4IeVLDyL2NXGQblO+kxz8GSlKg6zjBOUePRC10YKuH9SFOSx3qIaRlhHVyC
- lSW2gz+Jv3xdR4PrKGPU9+oM76PNCTGWD3+CbA9PYohdo8+Hu9YGkzsZf2sW9ZPk6nyK
- H5dnTeBbusi2sDEj/RG+jAp9SfUYcjWiK4JehY7P34j/HThKXiHegLzNZyZH3cZAk9hR
- 7KQaySC3iHaaned3naqMgnQPycV8LNsKybtQ/RBMHUGCaOIpkSJminbnCoEntA4sDZvw
- cOeQ81zL9b6w5ZQ8kFpjJlAHsYfet4fJsXkcnoIEuR1WXXiv2uCr0zH+bTcT0hK12vQ7
- Ggxw==
-X-Gm-Message-State: AJIora9QNhtzEXzVzDWQ8hYvprZbDQnRiae2vwVG93GyFTcrFfDQRedO
- FF7bcMY9WsxijrY9PAf89Xbl/g==
-X-Google-Smtp-Source: AGRyM1ubkjcCX6iz+H1S3cOzTW1yORhyHnJKczSbWOvZCJ4x5yQ6LEdFkR6qEWr4iiMocv7tDNgsqQ==
-X-Received: by 2002:a05:600c:1553:b0:39c:8873:e241 with SMTP id
- f19-20020a05600c155300b0039c8873e241mr6158612wmg.9.1656106844965; 
- Fri, 24 Jun 2022 14:40:44 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- k22-20020a05600c0b5600b003a02cbf862esm4105351wmr.13.2022.06.24.14.40.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 14:40:44 -0700 (PDT)
-Date: Fri, 24 Jun 2022 23:40:42 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Melissa Wen <mwen@igalia.com>
-Subject: Re: [RFC PATCH 4/5] drm/drm_color_mgmt: add 3D LUT to color mgmt
- properties
-Message-ID: <YrYvWuYNImfopN5n@phenom.ffwll.local>
-References: <20220619223104.667413-1-mwen@igalia.com>
- <20220619223104.667413-5-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06D2611A73D;
+	Sun, 26 Jun 2022 10:16:08 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4ADF11A73D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 10:16:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nq/gy5qaXZTwliBtWkfd2W4DB32SlNNTdHvCetbXAO36TQ0RbIVdPTTJXuNrqmxLDRjfvLqdEdmdWTaz1d6kiX8lF61ZXU/nWUZt2P3/MpL/psTrp1tGNnrVC3BZoQO9y97SQOrJgafI2rw8I8DjSnh2i75NaNBWQwC7tZa42s0KS0Apb/8VAQntEQAOczXwW6f2Ie/5rYjj0DGS+bwNHK9dJKX+ABI99hp5D/wVbVNy96ipYLsQo4gn2LLTSPMGA/pXnTTiECyqSIdOjZQjRNcQSW7g3Wfq3Qr0ftatTZ28OxjhdWoKVmup1vtat+MyP8rKgpkd1cnLR68p/v8S3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=srcR4gX/Gnkwg9BXyBLvsjC8hwOqVIvfsZcN4IjoUHU=;
+ b=UU+qdygdW+9Qu/arM+Wu0cQhIqJ0oAlxeXsAfeLR0okOwUZy4fW4Oj+qJEN9opL+KRtqnht5tzxk5fsMW25sjupNXSwAZEGDKDcsoO8cUinR5KwHZ6nfDmg7HmfAQ5aFhnHw8AaGjdwyYL6Ov4IoR6xW6SYR5cdq80/opVoEimlNnm0nb7RA3OxitYI37oYVTpr/S6d5NRK7jDynqL2T+7w4UvPf2QLIe5bnFl9RY3H/weV2f9dqAvb409itUPeOWKDgVM6Cnj+Nvri3X5EBYVBcRk51XZEEEgOQjERuNodg5kbYecCkS4+Ihq1XSUYlsEFE2T+mPowO8IUBd7f6XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=srcR4gX/Gnkwg9BXyBLvsjC8hwOqVIvfsZcN4IjoUHU=;
+ b=Rb2BnHarD974g5FHvv9n80RFIAUv4QoSm8rVskqudN0ouiAT/n7xw11nzzHihuGhJjsRFE/gbOywE1GSAxnxVasF5R/+7SX+EekruYgN9pSEbDKiABEpjyb2LIYRoYNIAlWcoMt46lxdH+5fjR2hFW0FphNQjEldTZigR9QaMzQ=
+Received: from MW4P221CA0005.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::10)
+ by DM6PR12MB3883.namprd12.prod.outlook.com (2603:10b6:5:1c9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Sun, 26 Jun
+ 2022 10:16:03 +0000
+Received: from CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8b:cafe::69) by MW4P221CA0005.outlook.office365.com
+ (2603:10b6:303:8b::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
+ Transport; Sun, 26 Jun 2022 10:16:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT029.mail.protection.outlook.com (10.13.174.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5373.15 via Frontend Transport; Sun, 26 Jun 2022 10:16:02 +0000
+Received: from ETHANOL.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Sun, 26 Jun
+ 2022 05:16:00 -0500
+From: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Re-org and cleanup the redundant code
+Date: Sun, 26 Jun 2022 15:45:37 +0530
+Message-ID: <20220626101537.3317253-1-chandan.vurdigerenataraj@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220619223104.667413-5-mwen@igalia.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 676d4563-ab99-4deb-95d5-08da575cdfcf
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3883:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SpJ+ifa4w76RK3fBw6PtJ8tzq8Ig/D3AjPxukZcw2BVg1DnHb3ODJm+aChgq7qbLL/DpSvYEis+skJGCuO3rQZrUmSO30cfxii4GPivFjHI9o94XShLaIllPtYUHnaW6JFMotUq7N4rL0GilVzKSMDRTFQyF/vw1OWecsNfKmCQk8DjrtvQvPaxPqwnTgs6GZq+zauHWJ+OH5ezsksCuRdnqb7tNKZuQvBAJLezcTaz+DyLYbbJpTQPt+cYNpALwF710pPQSIdnjz0noKKv5dQnAQeGA7340vGgaq8S7fAVSfvO3Pp8xYxT208MimymrMIToWNAR4INGnWuUyeFZUjQLb6ogN2QmIFKStzhkEFggDOqu4pUHQjH9U8Rr8TCsMSqWNHdb11wOf1nVQzgKSPI42WyZ+badYH8X39HzzivEmOdLoRbFQwlCBKe0yEMtgKdiK7WA2/mNuPA7xrL0AT1t4kJmG5XdEu6ydQfTtfdC9nAfABjGQH1VPZ0U/fj1oGntZZPrQAaq/Nfqs3YxAlOU/xy8p6S+AGIfMLnvHw9zEFbhgqt+jYhx3K5Snyoeq/5Vj8+yVawpskGBPgBPuA3FkDBkx9Qv2P5eNT1lbybqM9Vz9YZkjO/X4FwFkdHwPNBfMTRngJkMaV7PSw0bNuf0OyNQkfIlhiKKY011FdfhQvZ/7eMWqrNPjdHzaXYSx/lx2jX4AoRcwYv29JVBzRQ7pJGg1fuCTg5ARdb/4Iw/WFAPNu7gBxkGJm0M2w89BLEE/7tKElOMUCXsBRsQEQwbPPEeO0T58nAKvn8MNixVefGXpB0WuQAsdsgXTuNGDFtj46f1hWROFjrKAsJi+w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(136003)(376002)(39860400002)(40470700004)(46966006)(36840700001)(2906002)(478600001)(19627235002)(6636002)(26005)(316002)(110136005)(54906003)(5660300002)(8936002)(36756003)(86362001)(2616005)(41300700001)(70586007)(70206006)(8676002)(4326008)(81166007)(83380400001)(40480700001)(82740400003)(336012)(1076003)(186003)(16526019)(6666004)(47076005)(426003)(7696005)(356005)(36860700001)(40460700003)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2022 10:16:02.8002 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 676d4563-ab99-4deb-95d5-08da575cdfcf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3883
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,286 +98,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- nicholas.kazlauskas@amd.com, bhawanpreet.lakha@amd.com, sunpeng.li@amd.com,
- alex.hung@amd.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, seanpaul@chromium.org, nikola.cornij@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com, sungjoon.kim@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 19, 2022 at 09:31:03PM -0100, Melissa Wen wrote:
-> Add 3D LUT for gammar correction using a 3D lookup table.  The position
-> in the color correction pipeline where 3D LUT is applied depends on hw
-> design, being after CTM or gamma. If just after CTM, a shaper lut must
-> be set to shape the content for a non-linear space. That details should
-> be handled by the driver according to its color capabilities.
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+[Why]
+Redundant if-else cases for repeater and non-repeater checks
 
-I think our color correction pipeline is at a complexity where a DOT graph
-that shows how it all works together is justified. So including color
-conversion from planes (like yuv->rgb), plane blending and then the color
-pipeline here. Maybe in the plane composition section, with the color
-conversion pipeline docs linking to that?
--Daniel
+[How]
+Without changing the core logic, rearranged the code by removing
+redundant checks
 
-> ---
->  drivers/gpu/drm/drm_atomic_state_helper.c |  3 ++
->  drivers/gpu/drm/drm_atomic_uapi.c         | 14 +++++-
->  drivers/gpu/drm/drm_color_mgmt.c          | 58 +++++++++++++++++++++++
->  drivers/gpu/drm/drm_fb_helper.c           |  2 +
->  drivers/gpu/drm/drm_mode_config.c         | 14 ++++++
->  include/drm/drm_color_mgmt.h              |  4 ++
->  include/drm/drm_crtc.h                    | 12 ++++-
->  include/drm/drm_mode_config.h             | 13 +++++
->  8 files changed, 117 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index cf0545bb6e00..64800bc41365 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -141,6 +141,8 @@ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
->  		drm_property_blob_get(state->ctm);
->  	if (state->shaper_lut)
->  		drm_property_blob_get(state->shaper_lut);
-> +	if (state->lut3d)
-> +		drm_property_blob_get(state->lut3d);
->  	if (state->gamma_lut)
->  		drm_property_blob_get(state->gamma_lut);
->  
-> @@ -216,6 +218,7 @@ void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state)
->  	drm_property_blob_put(state->degamma_lut);
->  	drm_property_blob_put(state->ctm);
->  	drm_property_blob_put(state->shaper_lut);
-> +	drm_property_blob_put(state->lut3d);
->  	drm_property_blob_put(state->gamma_lut);
->  }
->  EXPORT_SYMBOL(__drm_atomic_helper_crtc_destroy_state);
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 6468f2a080bc..1896c0422f73 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -472,6 +472,14 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
->  					&replaced);
->  		state->color_mgmt_changed |= replaced;
->  		return ret;
-> +	} else if (property == config->lut3d_property) {
-> +		ret = drm_atomic_replace_property_blob_from_id(dev,
-> +					&state->lut3d,
-> +					val,
-> +					-1, sizeof(struct drm_color_lut),
-> +					&replaced);
-> +		state->color_mgmt_changed |= replaced;
-> +		return ret;
->  	} else if (property == config->gamma_lut_property) {
->  		ret = drm_atomic_replace_property_blob_from_id(dev,
->  					&state->gamma_lut,
-> @@ -523,10 +531,12 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
->  		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
->  	else if (property == config->ctm_property)
->  		*val = (state->ctm) ? state->ctm->base.id : 0;
-> -	else if (property == config->gamma_lut_property)
-> -		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
->  	else if (property == config->shaper_lut_property)
->  		*val = (state->shaper_lut) ? state->shaper_lut->base.id : 0;
-> +	else if (property == config->lut3d_property)
-> +		*val = (state->lut3d) ? state->lut3d->base.id : 0;
-> +	else if (property == config->gamma_lut_property)
-> +		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
->  	else if (property == config->prop_out_fence_ptr)
->  		*val = 0;
->  	else if (property == crtc->scaling_filter_property)
-> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-> index 4f57dc60fe03..696fe1e37801 100644
-> --- a/drivers/gpu/drm/drm_color_mgmt.c
-> +++ b/drivers/gpu/drm/drm_color_mgmt.c
-> @@ -87,6 +87,25 @@
->   *	publish the largest size, and sub-sample smaller sized LUTs
->   *	appropriately.
->   *
-> + * “LUT3D”:
-> + *	Blob property to set the 3D LUT mapping pixel data after the color
-> + *	transformation matrix and before gamma 1D lut correction. The
-> + *	data is interpreted as an array of &struct drm_color_lut elements.
-> + *	Hardware might choose not to use the full precision of the LUT
-> + *	elements.
-> + *
-> + *	Setting this to NULL (blob property value set to 0) means a the output
-> + *	color is identical to the input color. This is generally the driver
-> + *	boot-up state too. Drivers can access this blob through
-> + *	&drm_crtc_state.gamma_lut.
-> + *
-> + * “LUT3D_SIZE”:
-> + *	Unsigned range property to give the size of the 3D lookup table to be
-> + *	set on the LUT3D property (the size depends on the underlying
-> + *	hardware). If drivers support multiple LUT sizes then they should
-> + *	publish the largest size, and sub-sample smaller sized LUTs
-> + *	appropriately.
-> + *
->   * “GAMMA_LUT”:
->   *	Blob property to set the gamma lookup table (LUT) mapping pixel data
->   *	after the transformation matrix to data sent to the connector. The
-> @@ -204,6 +223,45 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
->  }
->  EXPORT_SYMBOL(drm_crtc_enable_color_mgmt);
->  
-> +/**
-> + * drm_crtc_enable_lut3d - enable 3D LUT properties
-> + * @crtc: DRM CRTC
-> + * @shaper_lut_size: the size of shaper lut
-> + * @lut3d_size: the size of 3D lut
-> + *
-> + * This function lets the driver enable the 3D LUT color correction property
-> + * on a CRTC. This includes 3D LUT and also a shaper LUT, if set. The shaper
-> + * LUT property is only attached if its size is not 0 and 3D LUT is set, being
-> + * therefore optional.
-> + */
-> +void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
-> +			   uint shaper_lut_size,
-> +			   uint lut3d_size)
-> +{
-> +	struct drm_device *dev = crtc->dev;
-> +	struct drm_mode_config *config = &dev->mode_config;
-> +
-> +	if (!lut3d_size)
-> +		return;
-> +
-> +	drm_object_attach_property(&crtc->base,
-> +				   config->lut3d_property, 0);
-> +	drm_object_attach_property(&crtc->base,
-> +				   config->lut3d_size_property,
-> +				   lut3d_size);
-> +	if (!shaper_lut_size)
-> +		return;
-> +
-> +	drm_object_attach_property(&crtc->base,
-> +				   config->shaper_lut_property, 0);
-> +	drm_object_attach_property(&crtc->base,
-> +				   config->shaper_lut_size_property,
-> +				   lut3d_size);
-> +
-> +}
-> +EXPORT_SYMBOL(drm_crtc_enable_lut3d);
-> +
-> +
->  /**
->   * drm_mode_crtc_set_gamma_size - set the gamma table size
->   * @crtc: CRTC to set the gamma table size for
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index bdd33817d968..358c528c7c80 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -1069,6 +1069,8 @@ static int setcmap_atomic(struct fb_cmap *cmap, struct fb_info *info)
->  		replaced |= drm_property_replace_blob(&crtc_state->ctm, NULL);
->  		replaced |= drm_property_replace_blob(&crtc_state->shaper_lut,
->  						      NULL);
-> +		replaced |= drm_property_replace_blob(&crtc_state->lut3d,
-> +						      NULL);
->  		replaced |= drm_property_replace_blob(&crtc_state->gamma_lut,
->  						      gamma_lut);
->  
-> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> index 4ba2a95b88e8..5458a7dfbe63 100644
-> --- a/drivers/gpu/drm/drm_mode_config.c
-> +++ b/drivers/gpu/drm/drm_mode_config.c
-> @@ -364,6 +364,20 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
->  		return -ENOMEM;
->  	dev->mode_config.shaper_lut_size_property = prop;
->  
-> +	prop = drm_property_create(dev,
-> +			DRM_MODE_PROP_BLOB,
-> +			"LUT3D", 0);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.lut3d_property = prop;
-> +
-> +	prop = drm_property_create_range(dev,
-> +			DRM_MODE_PROP_IMMUTABLE,
-> +			"LUT3D_SIZE", 0, UINT_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.lut3d_size_property = prop;
-> +
->  	prop = drm_property_create(dev,
->  			DRM_MODE_PROP_BLOB,
->  			"GAMMA_LUT", 0);
-> diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-> index 81c298488b0c..a4f054e0108f 100644
-> --- a/include/drm/drm_color_mgmt.h
-> +++ b/include/drm/drm_color_mgmt.h
-> @@ -59,6 +59,10 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
->  				bool has_ctm,
->  				uint gamma_lut_size);
->  
-> +void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
-> +			   uint shaper_lut_size,
-> +			   uint lut3d_size);
-> +
->  int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
->  				 int gamma_size);
->  
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index a318d5feb44b..c22ffcc4d7aa 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -165,7 +165,7 @@ struct drm_crtc_state {
->  	bool zpos_changed : 1;
->  	/**
->  	 * @color_mgmt_changed: Color management properties have changed
-> -	 * (@shaper_lut, @gamma_lut, @degamma_lut or @ctm). Used by
-> +	 * (@shaper_lut, @lut3d, @gamma_lut, @degamma_lut or @ctm). Used by
->  	 * the atomic helpers and drivers to steer the atomic commit control
->  	 * flow.
->  	 */
-> @@ -298,6 +298,16 @@ struct drm_crtc_state {
->  	 */
->  	struct drm_property_blob *shaper_lut;
->  
-> +	/**
-> +	 * @lut3d:
-> +	 *
-> +	 * 3D Lookup table for converting pixel data. Position where it takes
-> +	 * place depends on hw design, after @ctm or @gamma_lut. See
-> +	 * drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array of
-> +	 * &struct drm_color_lut.
-> +	 */
-> +	struct drm_property_blob *lut3d;
-> +
->  	/**
->  	 * @target_vblank:
->  	 *
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index 2df7e171add9..87280694e70d 100644
-> --- a/include/drm/drm_mode_config.h
-> +++ b/include/drm/drm_mode_config.h
-> @@ -812,6 +812,19 @@ struct drm_mode_config {
->  	 */
->  	struct drm_property *shaper_lut_size_property;
->  
-> +	/**
-> +	 * @lut3d_property: Optional CRTC property to set the 3D LUT used to
-> +	 * convert colors; before or after gamma conversion depends on hw
-> +	 * design. A shaper LUT can be used to delinearize content before apply
-> +	 * 3D LUT correction.
-> +	 */
-> +	struct drm_property *lut3d_property;
-> +	/**
-> +	 * @lut3d_size_property: Optional CRTC property for the size of the
-> +	 * 3D LUT as supported by the driver (read-only).
-> +	 */
-> +	struct drm_property *lut3d_size_property;
-> +
->  	/**
->  	 * @gamma_lut_property: Optional CRTC property to set the LUT used to
->  	 * convert the colors, after the CTM matrix, to the gamma space of the
-> -- 
-> 2.35.1
-> 
+Signed-off-by: Chandan Vurdigere Nataraj <chandan.vurdigerenataraj@amd.com>
 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 4027f439a5a4..e3254ac05191 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -907,25 +907,17 @@ enum dc_status dp_get_lane_status_and_lane_adjust(
+ 	ln_align->raw = dpcd_buf[2];
+ 
+ 	if (is_repeater(link, offset)) {
++
+ 		DC_LOG_HW_LINK_TRAINING("%s:\n LTTPR Repeater ID: %d\n"
+ 				" 0x%X Lane01Status = %x\n 0x%X Lane23Status = %x\n ",
+ 			__func__,
+ 			offset,
+ 			lane01_status_address, dpcd_buf[0],
+ 			lane01_status_address + 1, dpcd_buf[1]);
+-	} else {
+-		DC_LOG_HW_LINK_TRAINING("%s:\n 0x%X Lane01Status = %x\n 0x%X Lane23Status = %x\n ",
+-			__func__,
+-			lane01_status_address, dpcd_buf[0],
+-			lane01_status_address + 1, dpcd_buf[1]);
+-	}
+-	lane01_adjust_address = DP_ADJUST_REQUEST_LANE0_1;
+ 
+-	if (is_repeater(link, offset))
+ 		lane01_adjust_address = DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1 +
+ 				((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (offset - 1));
+ 
+-	if (is_repeater(link, offset)) {
+ 		DC_LOG_HW_LINK_TRAINING("%s:\n LTTPR Repeater ID: %d\n"
+ 				" 0x%X Lane01AdjustRequest = %x\n 0x%X Lane23AdjustRequest = %x\n",
+ 					__func__,
+@@ -935,6 +927,14 @@ enum dc_status dp_get_lane_status_and_lane_adjust(
+ 					lane01_adjust_address + 1,
+ 					dpcd_buf[lane_adjust_offset + 1]);
+ 	} else {
++
++		DC_LOG_HW_LINK_TRAINING("%s:\n 0x%X Lane01Status = %x\n 0x%X Lane23Status = %x\n ",
++			__func__,
++			lane01_status_address, dpcd_buf[0],
++			lane01_status_address + 1, dpcd_buf[1]);
++
++		lane01_adjust_address = DP_ADJUST_REQUEST_LANE0_1;
++
+ 		DC_LOG_HW_LINK_TRAINING("%s:\n 0x%X Lane01AdjustRequest = %x\n 0x%X Lane23AdjustRequest = %x\n",
+ 			__func__,
+ 			lane01_adjust_address,
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.1
+
