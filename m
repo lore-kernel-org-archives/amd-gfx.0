@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E09C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93129C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 12:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA808113D9A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E10113DA3;
 	Mon, 27 Jun 2022 12:51:38 +0000 (UTC)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD1410E958;
- Sat, 25 Jun 2022 01:42:07 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- k12-20020a17090a404c00b001eaabc1fe5dso7263001pjg.1; 
- Fri, 24 Jun 2022 18:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pdeIHQVuGIq74deo1wq4KcCpm8Z3V/4ahZjeL3ne7+8=;
- b=JZollLIDhwsOxrqh/kIbwN3pl1uMWkUobCywBL/OTzI6aS8SvxU/5iZfD2+zfDb9rm
- 5brWxDDqYtLrjhk6jDrCYpcUSeEM881A+oqpKPnMuGi60s/6ykKxfxnqrhKtaqjLK/5s
- senljBsT/4eFU7LUWu1FqjMwQzXXSskr6lBFzE1loeWeFnw0SF4xomh8E5sXdCTilDVe
- If5PIWHBarJ8UMtd6SxXcPdCPuD7BmHSNxL+1ks5oTkPcY6tD8svM4ozwFVktK2yxEA0
- iYFuh1vXVqz8VMkzRn4whTc4lLtfbazv9qphnX0vPueWyWRN9bJP23LdwK2nFTSvx9JJ
- dYJg==
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DF810E160
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 18:54:45 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id d2so3005392ejy.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 11:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=lFVUiMK8367I4tCKgM57m0mtqed/o+uPQT3BEO7ky08=;
+ b=R492Zjh+q38rM4qIEoyPnAa3NRueOnjdDl4MNW+ScG+ZEs6CgqgoPU4KtgGmupFrUM
+ ggaEkvz2f1LnqTxIdj28hN7PhBVAecATC4m4vO6U5foweG7xx6fIC/6EpDMeHGAlqmm4
+ FikOwuJ0ZonoK2aTejYiS9gWXr4OFNZmvScf4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pdeIHQVuGIq74deo1wq4KcCpm8Z3V/4ahZjeL3ne7+8=;
- b=TyudJWpJjhx7Cvz5qG4/lhU1GjoKFz7axno444a8Dun9sw6uT/Km2RPfR7SlBktD7L
- qQg3joU+gg7XMewKvTJUsWdn61KKjaPHHTeKPkIJa9bZrIqMEHaxgOYeWCZemZgF1CSG
- o11My0slU+uDyP1g6/RTqAUN0e5y7oj4/midcgx3af9xiMxodUUEPalu2nD5LGSNoKzY
- LwLiJsqs+KcLp4zQAPQ5rEMPBPezEnEhz9A6Yd35kyxKEglH7RFIsPpyyPa9ZJ0NErgL
- WULiT54+/fjA3s41J/WXa6htgCmW88KvfVTeDxThUwtDPcIKMLFA0kYUJVXypLwN4H+q
- f0aw==
-X-Gm-Message-State: AJIora/0f7+rWGz2pwmnMf2QTqmHVQoqD1yI760Bax01TRNiLXgKOrhA
- cR/rtu9zcghr20mpwmbBL9U=
-X-Google-Smtp-Source: AGRyM1uZAHtn24InCTHwiAwpG/NEyIdpbEc0pkFGkCXvPsXO8VyUNPMZeaXitH3RhCxNFWM+5p6pfw==
-X-Received: by 2002:a17:902:d504:b0:16a:4846:3f46 with SMTP id
- b4-20020a170902d50400b0016a48463f46mr1900105plg.159.1656121327298; 
- Fri, 24 Jun 2022 18:42:07 -0700 (PDT)
-Received: from localhost.localdomain ([122.167.211.160])
- by smtp.gmail.com with ESMTPSA id
- x20-20020a056a00189400b005251b9102dbsm2467173pfh.144.2022.06.24.18.42.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 18:42:06 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, wenjing.liu@amd.com, Jun.Lei@amd.com,
- Jimmy.Kizito@amd.com, Jerry.Zuo@amd.com,
- meenakshikumar.somasundaram@amd.com, hanghong.ma@amd.com
-Subject: [PATCH] drm/amd/display: Removed unused variable ret
-Date: Sat, 25 Jun 2022 07:11:57 +0530
-Message-Id: <20220625014157.5004-1-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=lFVUiMK8367I4tCKgM57m0mtqed/o+uPQT3BEO7ky08=;
+ b=cUrGFQTzUaTWWqXAXM8BgedgEDsD4RM8T/PDi7PojmT00HQ7wKwUZAGfq40lA30ukJ
+ 5W5r4crAugyl7ekt3zrIwRW7TEBHsviyGYpTkNOZcMudB6037AA0g2KcCO0fiQA27d9b
+ Sd+4aW+uJJl5i3/OYm/p/ZCHkjQ2zA+nfaZQPVmljR2H2sP1Q+i3hFWZnifHFtCC8nAk
+ 7lUaUtTS63yzuMMaNDTszenDuzZHIFr6L0n6ErKOQz0GdxYbm5j0dh/USOogM1SDa5rm
+ g/b9UmW/aL/3qo2dAQjwGanC+Htu2X+uSV2mzMNWOPD0kV230IK9jZd9molBefjNnzy2
+ jAqg==
+X-Gm-Message-State: AJIora9nDhpbRmDi30kX2EWhKQVGBkgS594QaPoOAtq5JzcXOFk8tJnx
+ 7z+nxU3WixYMOY9baP3HiBnI/rY/X9w/3AaZ
+X-Google-Smtp-Source: AGRyM1sNHJshI7FSgQqv0cW/MaZk9XrLBafKvnxbYimDXXD/jqSkWOmbNNzq7pPT8O1DWiOkNZtPOQ==
+X-Received: by 2002:a17:907:1c19:b0:711:e5f9:2ec7 with SMTP id
+ nc25-20020a1709071c1900b00711e5f92ec7mr9206942ejc.518.1656269683747; 
+ Sun, 26 Jun 2022 11:54:43 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com.
+ [209.85.128.41]) by smtp.gmail.com with ESMTPSA id
+ s19-20020a1709062ed300b00722dcee9ea0sm4023320eji.125.2022.06.26.11.54.42
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 26 Jun 2022 11:54:42 -0700 (PDT)
+Received: by mail-wm1-f41.google.com with SMTP id f190so3861018wma.5
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Jun 2022 11:54:42 -0700 (PDT)
+X-Received: by 2002:a05:600c:4ec9:b0:39c:69c7:715d with SMTP id
+ g9-20020a05600c4ec900b0039c69c7715dmr15902172wmq.154.1656269682131; Sun, 26
+ Jun 2022 11:54:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 26 Jun 2022 11:54:26 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
+Message-ID: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
+Subject: Annoying AMDGPU boot-time warning due to simplefb / amdgpu resource
+ clash
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zackr@vmware.com>, 
+ Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 27 Jun 2022 12:51:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,51 +74,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Souptick Joarder \(HPE\)" <jrdr.linux@gmail.com>,
- kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Souptick Joarder (HPE)" <jrdr.linux@gmail.com>
+So this has been going on for a while, and it's quite annoying.
 
-Kernel test robot throws below warning ->
+At bootup, my main desktop (Threadripper 3970X with radeon graphics)
+now complains about
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:
-In function 'dc_link_reduce_mst_payload':
-   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:3782:32:
-warning: variable 'ret' set but not used [-Wunused-but-set-variable]
-    3782 |         enum act_return_status ret;
+  resource sanity check: requesting [mem 0xd0000000-0xdfffffff], which
+spans more than BOOTFB [mem 0xd0000000-0xd02fffff]
 
-Removed the unused ret variable.
+and then gives me a nasty callchain that is basically the amdgpu probe
+sequence ending in amdgpu_bo_init() doing the
+arch_io_reserve_memtype_wc() which is then what complains.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Souptick Joarder (HPE) <jrdr.linux@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+That "BOOTFB" resource is from sysfb_simplefb.c, and I think what
+started triggering this is commit c96898342c38 ("drivers/firmware:
+Don't mark as busy the simple-framebuffer IO resource").
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 55a8f58ee239..445357623d8b 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3706,7 +3706,6 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
- 	struct fixed31_32 pbn_per_slot;
- 	struct dp_mst_stream_allocation_table proposed_table = {0};
- 	uint8_t i;
--	enum act_return_status ret;
- 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
- 	DC_LOGGER_INIT(link->ctx->logger);
- 
-@@ -3777,7 +3776,7 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
- 			&link->mst_stream_alloc_table);
- 
- 	/* poll for immediate branch device ACT handled */
--	ret = dm_helpers_dp_mst_poll_for_allocation_change_trigger(
-+	dm_helpers_dp_mst_poll_for_allocation_change_trigger(
- 			stream->ctx,
- 			stream);
- 
--- 
-2.25.1
+Because it turns out that that removed the IORESOURCE_BUSY, which in
+turn is what makes the resource conflict code complain about it now,
+because
 
+                /*
+                 * if a resource is "BUSY", it's not a hardware resource
+                 * but a driver mapping of such a resource; we don't want
+                 * to warn for those; some drivers legitimately map only
+                 * partial hardware resources. (example: vesafb)
+                 */
+
+so the issue is that now the resource code - correctly - says "hey,
+you have *two* conflicting driver mappings".
+
+And that commit claims it did it because "which can lead to drivers
+requesting the same memory resource to fail", but - once again - the
+link in the commit that might actually tell more is just one of those
+useless patch submission links again.
+
+So who knows why that commit was actually done, but it's causing annoyance.
+
+If simplefb is actually still using that frame buffer, it's a problem.
+If it isn't, then maybe that resource should have been released?
+
+I really think that commit c96898342c38 is buggy. It talks about "let
+drivers to request it as busy instead", but then it registers a
+resource that isn't actually a proper real resource. It's just a
+random incomplete chunk of the actual real thing, so it will still
+interfere with resource allocation, and in fact now interferes even
+with that "set memtype" because of this valid warning.
+
+             Linus
