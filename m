@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB39AC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 21:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B72C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 21:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9DD910E329;
-	Mon, 27 Jun 2022 21:39:16 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47F7A10E081;
- Mon, 27 Jun 2022 21:39:15 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id lw20so21865381ejb.4;
- Mon, 27 Jun 2022 14:39:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD9610E9FA;
+	Mon, 27 Jun 2022 21:40:56 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7955310E9FA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 21:40:55 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id fd6so14926842edb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 14:40:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bbdSb2cTZ0htDASIs4pX7vkvL5oD25vksluOzr2XcSs=;
- b=GxRdWAzs+A4aw28qbnHYzF6sgFjJtNW/9+gd2VO19JgtV0Q7IQF7D22365cu5DoXD1
- gz56oEIsl+W22kzUC7dO8n4vFZzKyauew1ddf4+Po8WULnJNQEEx8qKedCEAvOmdB4p1
- jIUWOWdI8ma2GAnhvY+Fm7zd5+ejqXh6iU4AAm2VGvcvPVPEM6B3WcbJGRBf0i4r2UxC
- Iyfh0ZmhdjUZQqoBojFg3Pfb2ZQhQw0DKS8HBpvRSPaTxiy+XQsVXS92tKncxB0qn/q0
- jnrTk853Duoe+8dUamO33oScwdroGkW00qjNxgFMhxOwaOTH6wXbRgiia3S8e1TBiqlA
- zD0A==
+ :cc; bh=nPaD1wyxXxnwTqG4vfRfjz7EAhQ12JPi8iLHYI9BbwQ=;
+ b=bzv27uX32g443Z/dSwsKuLzM9AuY36Zp8zAwEmjNAe3rfguJZ0a+sQ7Ssqn49jHjcG
+ JFLv5qcUpm6zg9wrUs0METHmgF5/5Ip59V/8WT1C4UZiwwRfNgDP09KgG6UND1Ehkr09
+ NgZOtRk+NLUTBauBTpFRF1rLND1oufDVXdYxBiMkgYIbS/ZyrCpM5DnyXGjKU+K1NW7R
+ Yy1BPXRsiNcw8Eu1BtDa2Hn8h0KpZ5nFbkN6FLzgg0YKV7hn7pkxj1RjYazfmrXvVYai
+ 5zzKf9+FniU4rZNFF6S9vMcT/PLDjrVoIGTlJ63q8qXm0fNygAQtbKLZKNbUiuFp/XZx
+ 78QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=bbdSb2cTZ0htDASIs4pX7vkvL5oD25vksluOzr2XcSs=;
- b=i4nEereXgJbOY7aUlbHVBNLH5xCFy0PwoMAplCHVnul7fiUbMQAMvA2g6Rbe3wyNjk
- guASOoKxbXtL2k6UBjCz+GV64BWf973U4V4v9U1y7pEy/EMA5cOtPMPzn+zNbmovnJzt
- kr2r26hu0aeoTVyf+uLK/0tqJ+7RbwLnWY7WKS0XLuqepZQJSfY7sPYNIZsJgOYOesMC
- qGuwRdbi8lYD+GcytQNpwlFTng6D/ftd4q00Lfopzcd7iQJqkTYNJ3rBgIvRHVmy5g17
- wzLyWlnbbFAny1BnAFxwN7AysQKDjT69ig6JDrebQA4LhTb9RxWFFveKTECYAs7itSn0
- B6kA==
-X-Gm-Message-State: AJIora/LL+765f28NZLDz4TKICoj9QT6Ln+xFyJzjHg723dS5UgO1+QJ
- 9hPMO7fTnhf8eTBVO9JFvTIViKC4Y2yUvdwQF3M=
-X-Google-Smtp-Source: AGRyM1vR3YQYUmiaHSFQiFk4p7DhkSC+ahsp6sDc8p2/glRlJGZlfXGcuDzQXqHJdsSub/M0Ib2jJiBhUqFcH+JFpAc=
-X-Received: by 2002:a17:907:94cf:b0:726:c81a:f30e with SMTP id
- dn15-20020a17090794cf00b00726c81af30emr2387143ejc.451.1656365953879; Mon, 27
- Jun 2022 14:39:13 -0700 (PDT)
+ bh=nPaD1wyxXxnwTqG4vfRfjz7EAhQ12JPi8iLHYI9BbwQ=;
+ b=SrkvsKfxApwGRZgyqaOzQFYio4/4EcUO4l7SggdZkI5AEZFZtzmsWkMgpKQ+N+Dz8c
+ ebRuuI0GoDGEf3b+eUwpyUffxJfIyTyCp8A0VdeHCo2TiCbBEzWC6I2aICK8P6R6t61/
+ vVumZmUGofChqA4GiBmncokFEhmDd9bAhHqbzo/XC5vMIf/O8dWjl/zlE4gR45huj3WD
+ srZF4muN/s0pXtsGhERcUHB13ruoU3pVyHQVEOibhlhADcYTbr+W6dJKffyIJ979+biI
+ rMlcGfZHqYbjkJPUnUuh1efBg00iUraUdmK2WH0UyYeGnoKk1YTx4qVBfHzdKtXURfIN
+ wyag==
+X-Gm-Message-State: AJIora9Ae2xd3CjYJwkiUYpy5krYy8aC3QYa2aZXxqEbZdbyC1EDJzJr
+ BEY8Fdx2KS6HG9E3Lwlf0eeQy6XFIH5CKIqZkpEy8iZR
+X-Google-Smtp-Source: AGRyM1s4ZWemcmOp+5058nseonjrCs3viaK736zxrN5lcafIWEMO5E+rT6ftuVbk0lHKQxVrwmSjPNfxfyQp1GmCjbQ=
+X-Received: by 2002:a05:6402:50ce:b0:435:9249:dfe9 with SMTP id
+ h14-20020a05640250ce00b004359249dfe9mr19067269edb.310.1656366054031; Mon, 27
+ Jun 2022 14:40:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220625014157.5004-1-jrdr.linux@gmail.com>
-In-Reply-To: <20220625014157.5004-1-jrdr.linux@gmail.com>
+References: <20220623164113.1503249-1-alexander.deucher@amd.com>
+ <20220623164113.1503249-2-alexander.deucher@amd.com>
+In-Reply-To: <20220623164113.1503249-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jun 2022 17:39:02 -0400
-Message-ID: <CADnq5_McHFHKiXWMpMEo0QtKW_HMe5dkp9-Q-3LFs1AjDQ0Kzg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Removed unused variable ret
-To: Souptick Joarder <jrdr.linux@gmail.com>
+Date: Mon, 27 Jun 2022 17:40:42 -0400
+Message-ID: <CADnq5_ML3Hu-fhFigqUHGnArKHY1-n2z=_dzYKkg5kHeXNSu5g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix documentation warning
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,67 +62,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Dave Airlie <airlied@linux.ie>, Jerry Zuo <Jerry.Zuo@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- "Wentland, Harry" <harry.wentland@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jimmy Kizito <Jimmy.Kizito@amd.com>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Ping?
 
-Alex
-
-On Fri, Jun 24, 2022 at 9:42 PM Souptick Joarder <jrdr.linux@gmail.com> wrote:
+On Thu, Jun 23, 2022 at 12:41 PM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> From: "Souptick Joarder (HPE)" <jrdr.linux@gmail.com>
+> Fixes this issue:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:5094: warning: expecting prototype for amdgpu_device_gpu_recover_imp(). Prototype was for amdgpu_device_gpu_recover() instead
 >
-> Kernel test robot throws below warning ->
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:
-> In function 'dc_link_reduce_mst_payload':
->    drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:3782:32:
-> warning: variable 'ret' set but not used [-Wunused-but-set-variable]
->     3782 |         enum act_return_status ret;
->
-> Removed the unused ret variable.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Souptick Joarder (HPE) <jrdr.linux@gmail.com>
+> Fixes: cf727044144d ("drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to amdgpu_device_gpu_recover")
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index 55a8f58ee239..445357623d8b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -3706,7 +3706,6 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
->         struct fixed31_32 pbn_per_slot;
->         struct dp_mst_stream_allocation_table proposed_table = {0};
->         uint8_t i;
-> -       enum act_return_status ret;
->         const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
->         DC_LOGGER_INIT(link->ctx->logger);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index f2a4c268ac72..6c0fbc662b3a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5079,7 +5079,7 @@ static inline void amdggpu_device_stop_pedning_resets(struct amdgpu_device *adev
 >
-> @@ -3777,7 +3776,7 @@ enum dc_status dc_link_reduce_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw
->                         &link->mst_stream_alloc_table);
 >
->         /* poll for immediate branch device ACT handled */
-> -       ret = dm_helpers_dp_mst_poll_for_allocation_change_trigger(
-> +       dm_helpers_dp_mst_poll_for_allocation_change_trigger(
->                         stream->ctx,
->                         stream);
->
+>  /**
+> - * amdgpu_device_gpu_recover_imp - reset the asic and recover scheduler
+> + * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+>   *
+>   * @adev: amdgpu_device pointer
+>   * @job: which job trigger hang
 > --
-> 2.25.1
+> 2.35.3
 >
