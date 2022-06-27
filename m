@@ -4,66 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCE0C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 17:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B207C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 17:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 878BD113A78;
-	Mon, 27 Jun 2022 17:31:11 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 780F8113468
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 17:25:58 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id g26so20596144ejb.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 10:25:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ag0pKSvzxJdNyXr6GgWk5BPm8wB8ID3zroUAibVbXH0=;
- b=PjF/DozjueZrY0TA9VeUOcWG72GukUr38//UraOZZCH0mVO95JU/hGa1RlCP/tX3/1
- lj79r9hg7pH3iApgg63PABDoVi0TVFl8mzr5VPCQKFtoLJo3DV34MkhQnTX/yORACuge
- 3q3zX2dI6V2IoF8/9vyU/oJbabxH4Hrjmo2m8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ag0pKSvzxJdNyXr6GgWk5BPm8wB8ID3zroUAibVbXH0=;
- b=x32j5DygM01DHk47FWhtKu5BXfIhDj9fIAWVNz0rIuRxuhWpXSOU6WKp+jkDT8m5Jt
- QEGAbEYpGIK6u4kDSAjqW/2kA0ZJSvWw2L27h/Q53kabbCkwFZXraIRIRWc/w/J8i7qY
- 4xMComdRS1f8oGclYNEkhb5svxOY/HFOR73RC2kqJArGNeaj2eKu2hjng8MHtgwNfv72
- 13d3I/M7xPBUu1s+yX56+BvIEdTvyI7FvFde/M7OUnALOUur5w7oXDSmk0r+eC6BRmVa
- w0vuWYpYB286jl/jkaTQnDDGL9ZVBikE9QzJ9SHYrplEuNH+oZUsefRAJOg7yeS/Nokh
- Pcrg==
-X-Gm-Message-State: AJIora8hQdwL7lLF44iwxk5/oGbrWklpfaGS2FmZyXkGI8+0C725+tLX
- B6mD+JPT+OlBNJfLh0u3ZIp0o8v2TYDRa8kj
-X-Google-Smtp-Source: AGRyM1smSZiHvRhqzpwSdi+kGAaUtJufSTYxw9m3GrUryRC+3AJ6El7y7sz8FI+Tk8ENjodU8I6l4g==
-X-Received: by 2002:a17:907:1c94:b0:726:307c:8be7 with SMTP id
- nb20-20020a1709071c9400b00726307c8be7mr13950105ejc.443.1656350756582; 
- Mon, 27 Jun 2022 10:25:56 -0700 (PDT)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
- [209.85.128.46]) by smtp.gmail.com with ESMTPSA id
- m20-20020a170906721400b006feb479fcb4sm5253794ejk.44.2022.06.27.10.25.55
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jun 2022 10:25:55 -0700 (PDT)
-Received: by mail-wm1-f46.google.com with SMTP id
- be14-20020a05600c1e8e00b003a04a458c54so2079948wmb.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 10:25:55 -0700 (PDT)
-X-Received: by 2002:a05:600c:681:b0:3a0:2da6:d173 with SMTP id
- a1-20020a05600c068100b003a02da6d173mr21158126wmn.68.1656350755360; Mon, 27
- Jun 2022 10:25:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E859A113CD0;
+	Mon, 27 Jun 2022 17:33:14 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE0F4113CD9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 17:33:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iCv8HxV9xFsDlekhNfJmhqXlDHqSzqcpv6Dljm4xyXWLSXhaoFu1shhyAjFoGhFU/PTuBturfqDcERP6au2v/vEZ/LfV03nHTdekXohSDINgfgcQr/3iettBkxnAkyoffs4v5O5esxg2ec9bYefPikkh6q1zL5fpGuca9qRONmgkx3MeDcsbvMIlFP7YuQIVVrIuJtDsI91UFmgSaaFhGWcFDT9h6KLE1lgUVrm/M09C1/sLiCNkPM3dGLJOEAG7hC3O0Up55oeugQWQ9Q6WuASU6QteMIT5etGffzfe0T/MMODJjBKFi9qlafCVqcaW8FFJd+0+aESYaypL2uh64w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H8ZudcUWaIC2GVW0+hF/YgnL943PhJDaUrlkfAV/9WA=;
+ b=G9VVQZEweAvkqTR2m9Drr58ATqet+90Qd02VMVapYo1443B4p7BykGMDUiimazyzn1Mdles7pFsk5Q+U88ZMMKSFhHFJOq4srSPxmR15BCDnk6FozYBdNa/0rr7Vm1JWb1gKIYBW68AYYDX0s4byck2p+JWkaLTE8oEUG32MiQ6VujZKW4NZt8FOTU6PtRm1r1VuQs8eJjQAuSzeA9zq4nQkfyHo/HXyR3bylQhZpfPHrPcYkTSIvJsW57xLS6YlOhhiqHO0+uFVPIDSHpy0Y4/uutEcWWyhHIoFJ0mJB88q0gR35O6/rngoTgenz0QyxaklMuDfmqwxu3JzZjKang==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H8ZudcUWaIC2GVW0+hF/YgnL943PhJDaUrlkfAV/9WA=;
+ b=Js7rTZ0OSQad1DJYpLZkHBVOAo3GUYZC/O9SezWla2uB2YgIQExGcsHQ3xl1fhL6tklyxrIsIGfvsn3qeq7Z1qNfitWpfQtTJqP1WzHtTDkagso7BYGYs+fF7C+5Dz8NeS4FXXk/wCa5EFcpHXynj5alZnB+cuZT5xoltVKgCu4=
+Received: from BN9PR03CA0321.namprd03.prod.outlook.com (2603:10b6:408:112::26)
+ by DM5PR12MB1929.namprd12.prod.outlook.com (2603:10b6:3:106::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.16; Mon, 27 Jun
+ 2022 17:33:12 +0000
+Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::9c) by BN9PR03CA0321.outlook.office365.com
+ (2603:10b6:408:112::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
+ Transport; Mon, 27 Jun 2022 17:33:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5373.15 via Frontend Transport; Mon, 27 Jun 2022 17:33:11 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 27 Jun
+ 2022 12:33:10 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/1] Revert "drm/amdkfd: Free queue after unmap queue success"
+Date: Mon, 27 Jun 2022 13:32:26 -0400
+Message-ID: <20220627173226.8485-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
- <3920df43-37f5-618d-70ba-de34a886e8ab@redhat.com>
-In-Reply-To: <3920df43-37f5-618d-70ba-de34a886e8ab@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 27 Jun 2022 10:25:39 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjxzafG-=J8oT30s7upn4RhBs6TX-uVFZ5rME+L5_DoJA@mail.gmail.com>
-Message-ID: <CAHk-=wjxzafG-=J8oT30s7upn4RhBs6TX-uVFZ5rME+L5_DoJA@mail.gmail.com>
-Subject: Re: Annoying AMDGPU boot-time warning due to simplefb / amdgpu
- resource clash
-To: Javier Martinez Canillas <javierm@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 27 Jun 2022 17:31:08 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 23900459-22ad-4673-50df-08da58631bb8
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1929:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 46ojOhaSxle6F6rpDfSKz03jvfegWIIm/OT8gZEhWGby05ac2EQugentx9kHA3BQI7DCbT/GuUC2C0oRJ6svEiyGRN8mIfFx88MdtW7yb232qDaFeLjkjV/k69ibkdXyJnkgdi1YrFxCDS3AYoMIkir1eZGtTUKe00/oQOQxivBiIV+sFk2tRVSCBYZNXcBMaylNi/3XqUqUYKB/qgb70hA3b+j7dA2BJyvg9me+Uxtjhf/foBSYVzugjv1BPLQykmFfEIa3T0vAbjXRXSqMqk1jbfBjqPJsAXqFMKWIFjsR9DcMZx66l9xEQRf/JHDHBjouTh6dOp3RwFE7Od7rjdKn1XnFr7DSCkSDxbZcKkI4N20pYnwCAx835hCHDhiampi4PfOyGje5ubDHWCQ/dr8Zb7AlBFYA2H/hUptGyqiP+CfP/Kgey7SyvrLsc+r283bGaOPVo3d47+dD5A0QpbB0PdsxMaIrvljXrRE8O4J+jfIox6ZiThqPmI/wZrDtbiDfgJkSPx3zB6GOj6pZiJFU07lUoxMmfSZhuHpdHm6Nk9ghd3/WHPes7vg+yzpdmMptxeqivfN5K+JP+uWEu0f8pYROpI4/IJPJJO6VVtNAEuHMVrYpjlaBe0o6eDbfx8GJ6Qk7toaB9VHYWyeP5QVlmd7MCBnMbF0SpMZJHLq+3VRwetcDJd+0p6R4LnnsqQFHRADxgEW+luHuLHHR0Dz1VVWP4hA1SOlvMSwjtB4E45Ds3Vmeh4N+1W4Lc0a6YR26UM7vglMJsGRadQlHTVFPhmO/WI9d+UzzxZF6MDfctJL1aNFt8W0P1APV25LNfc889o+OtM5ULa0gEdGxFw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(376002)(39860400002)(346002)(136003)(40470700004)(36840700001)(46966006)(1076003)(47076005)(16526019)(70586007)(336012)(41300700001)(4326008)(70206006)(2906002)(8676002)(82310400005)(26005)(186003)(426003)(40460700003)(7696005)(86362001)(8936002)(478600001)(5660300002)(2616005)(316002)(6666004)(81166007)(40480700001)(83380400001)(82740400003)(356005)(36860700001)(6916009)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2022 17:33:11.5636 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23900459-22ad-4673-50df-08da58631bb8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1929
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,79 +97,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Cc: Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 27, 2022 at 1:02 AM Javier Martinez Canillas
-<javierm@redhat.com> wrote:
->
-> The flag was dropped because it was causing drivers that requested their
-> memory resource with pci_request_region() to fail with -EBUSY (e.g: the
-> vmwgfx driver):
->
-> https://www.spinics.net/lists/dri-devel/msg329672.html
+This reverts commit 150c1266d78fbaa0fc5f89461daafae416db1c3e.
 
-See, *that* link would have been useful in the commit.
+This causes KFDTest regression on gfx9, will submit new patch after
+fixing.
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 28 ++++++++-----------
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  2 +-
+ 2 files changed, 12 insertions(+), 18 deletions(-)
 
-Rather than the useless link it has.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 21e451acfa59..93a0b6995430 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1881,22 +1881,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 
+ 	}
+ 
+-	if (q->properties.is_active) {
+-		if (!dqm->dev->shared_resources.enable_mes) {
+-			retval = execute_queues_cpsch(dqm,
+-						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+-			if (retval == -ETIME)
+-				qpd->reset_wavefronts = true;
+-		} else {
+-			retval = remove_queue_mes(dqm, q, qpd);
+-		}
+-
+-		if (retval)
+-			goto failed_unmap_queue;
+-
+-		decrement_queue_count(dqm, qpd, q);
+-	}
+-
+ 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 			q->properties.type)];
+ 
+@@ -1910,6 +1894,17 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 
+ 	list_del(&q->list);
+ 	qpd->queue_count--;
++	if (q->properties.is_active) {
++		if (!dqm->dev->shared_resources.enable_mes) {
++			decrement_queue_count(dqm, qpd, q);
++			retval = execute_queues_cpsch(dqm,
++						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
++			if (retval == -ETIME)
++				qpd->reset_wavefronts = true;
++		} else {
++			retval = remove_queue_mes(dqm, q, qpd);
++		}
++	}
+ 
+ 	/*
+ 	 * Unconditionally decrement this counter, regardless of the queue's
+@@ -1926,7 +1921,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 
+ 	return retval;
+ 
+-failed_unmap_queue:
+ failed_try_destroy_debugged_queue:
+ 
+ 	dqm_unlock(dqm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index a46e2a37b4a6..c9c205df4a14 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -422,6 +422,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 	}
+ 
+ 	if (pqn->q) {
++		kfd_procfs_del_queue(pqn->q);
+ 		dqm = pqn->q->device->dqm;
+ 		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
+ 		if (retval) {
+@@ -445,7 +446,6 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 				amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
+ 
+ 		}
+-		kfd_procfs_del_queue(pqn->q);
+ 		uninit_queue(pqn->q);
+ 	}
+ 
+-- 
+2.35.1
 
-Anyway, removing the busy bit just made things worse.
-
-> > If simplefb is actually still using that frame buffer, it's a problem.
-> > If it isn't, then maybe that resource should have been released?
->
-> It's supposed to be released once amdgpu asks for conflicting framebuffers
-> to be removed calling drm_aperture_remove_conflicting_pci_framebuffers().
-
-That most definitely doesn't happen. This is on a running system:
-
-  [torvalds@ryzen linux]$ cat /proc/iomem | grep BOOTFB
-        00000000-00000000 : BOOTFB
-
-so I suspect that the BUSY bit was never the problem - even for
-vmwgfx). The problem was that simplefb doesn't remove its resource.
-
-Guys, the *reason* for resource management is to catch people that
-trample over each other's resources.
-
-You literally basically disabled the code that checked for it by
-removing the BUSY flag, and just continued to have conflicting
-resources.
-
-That isn't a "fix", that is literally "we are ignoring and breaking
-the whole reason that the resource tree exists, but we'll still use it
-for no good reason".
-
-Yeah, yeah, most modern drivers ignore the IO resource tree, because
-they end up working on another resource level entirely: they work on
-not the IO resources, but on the "driver level" instead, and just
-attach to PCI devices.
-
-So these days, few enough drivers even care about the IO resource
-tree, and it's mostly used for (a) legacy devices (think ISA) and (b)
-the actual bus resource handling (so the PCI code itself uses it to
-sort out resource use and avoid conflicts, but PCI drivers themselves
-generally then don't care, because the bus has "taken care of it".
-
-So that's why the amdgpu driver itself doesn't care about resource
-allocations, and we only get a warning for that memory type case, not
-for any deeper resource case.
-
-And apparently the vmwgfx driver still uses that legacy "let's claim
-all PCI resources in the resource tree" instead of just claiming the
-device itself. Which is why it hit this whole BOOTFB resource thing
-even harder.
-
-But the real bug is that BOOTFB seems to claim this resource even
-after it is done with it and other drivers want to take over.
-
-Not the BUSY bit.
-
-                     Linus
