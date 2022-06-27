@@ -4,74 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A91DC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 19:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2773C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 19:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 519AC11B0C5;
-	Mon, 27 Jun 2022 19:22:59 +0000 (UTC)
-Received: from sonic311-24.consmr.mail.gq1.yahoo.com
- (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8140611B0B1
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 19:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
- t=1656357753; bh=Sx+9s8DM3KEQiH6ZmBdBPKF4vpznb1KIa2ar/k1bSak=;
- h=Date:From:Subject:To:References:From:Subject:Reply-To;
- b=pRrUBWtorcCwiVC5tDpzz1IQBV6szTPMTAD1OlTELXBzAvkmG6sGBMDzAJJ3pBM3LYNOHG7K9HaYzx2TetfWYyEzW/deu8slbOlvrHmgdxcwZrSS3YFca1+mRMtokVg3C1mrdOnBpkhePciiKe45waJbD3bfLVnV2WLk1pXx8FF2Hd8TeAuLolKNfAUn250sP9l3PnkaUlH1Bwz8MPVffmerKJSg53mSXK0EbSFbr0jzLbGeL6rk7+0SnebCsOXToJ5Q7d2SgbX862FNQYHJyW5mTHpS6+DykUw70o4xw6P4kY03Hc7A5jWRTPp5Fz9J2o+TKKQL/KI8L1Jg/NFg4w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1656357753; bh=3BdKC2StOqgeRzbqbTeASGTdaoUzrnGhUae62YYvlNd=;
- h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=UdCKKIpbgI+r2YrSrtXW7GyxyjO4emUwItpv2M1VeDHaVnBpvMLCS748oyEmp0B79iXqY3pfztIqroMF+OvwvxsjqZAX0VKkuJQZIUbl9YtQext7Ib6WFdpJx7TaR1XHYdg/gEyXb805tVHBGkuQTa7YoVHT6Bfz1zMOyyb/dpRZsDmhzGSr0ZSQN1jDE6q3nZzytSoiVGPN8werP19BaX6O+7pEgXOSYqpcucIsKH9GOvrn99ImE3/ZyzhZ48VvxXqL6LDh96CRss/2qmt5PafMrkDOy37YgEhb0J5Mum/+DS6k8hDKgRGGQ3lNeNTWNmMg/lebooq/fuj1LU6XqA==
-X-YMail-OSG: CEODN8IVM1lQsJlisA0rrWtTU.9K99Mu9stILRP1GZb_eKj47fzJgvlxVqb7l5M
- 4PUS7kdUqAf7_Kj2oo.I3jbw2j.qy0cZ4lHqSi0KNRBq0zKbsO5m3wGHakpOBedllKSAUJ_YdIED
- pmXfKUNDFlTB_zrpWoxCnY5e53669oC74pRVz0zvAE3vJ3jx1ZFKHkumL9aJigB47PlKrkGLL86F
- wYChyQdf3.9uxNPcEvQ7AajDgVjE5EpFYvWQKilulUmiYpYLutdDILCNbNfteWV2oSJ5yzbgSAsd
- ou9dDalR6dcKimif5gZOYqmWCUm1AVdHPx4GIV8ZmA8L8fP7B5ZO_wdhTtepfFRMUXhWw7H4jIJO
- mska84KrBgo0tVcvPSB6D1BK5enLlJFJ2wTMHHS9E1EQCcUVIgBdiRnPH0UdGw_6Rpr5B4ERbmIF
- Qw9lOlpB02ICNIFRHxzrRv6N6x6f_31.OKE8dNXIh_wyYtEprynA00MEDYP4OTXJ1QZz9Wz1DQRL
- iqqLGRfs.VMeHzPS7dduuPQSAPMNGvDv6oJaI0d8kpWgafW2UiavDMpFWwE409qNxy1VyBIY2EP6
- pbgt9Wc0aOl34rgWED0OF77Bl1yViYE6yeAxFuBOKdBiZ6rJ1QKLJ5mCHnz5ZiDW5XWuFJAGlTfM
- YFJgzOv2Et96dAbAGY2rbeBu_ntvym9TSyBATFRBlQ96hm73reciIKNekccXKWVQWlco1Wmp4I26
- ns_y_nth268xPmhtmw3N6d46q4szmpdMOgX5E0AuX80jsgBi6Vvy0bkr9DBdnRLHSJsa_7NK9Am6
- WtlUrjkmawk.h_WAcClCofLZzF65pt..z8o6JJlCqqHhMkdgJ07Ej5QXKvh6jzEsmvvEIzb1lkcE
- _aKUhbm9MYOX9EASzfs40vXEHh28koI.XoM_ysw3qshzYsOHPHeF6_nvrqY8_WPbLS5aIeyoJzAq
- lahmXzEXvKeRKThx4cxPVESwBK.cP5bfwkaStSo698Oer3UTNfHYYSGx7EXkOt6rOnEHILs1VXXv
- r00nj1MldRHGw4aFW5hNrOLITFmNYwTkMvvTdn_MXQoSLnCB65h6vv6frONetYsZkKKp_7HhTOIi
- nzGASLTIBywyeaq8E39bb0bBI3VKQsV8eZyl3fx_8C5Tw1osi491hMw2gFwx5jg_CaD8UY.cHm3y
- hGiRyIA442sEL92DoT9gAmbL9pIksJT02qxUZN3APGqAhBFCiwyNeKW0.TyQHs6vatqOz43Zha90
- HuKTsznQNbopCYXAr3S1eiK4yqU4HQdt46iS_VANInCTg_5Ljqxa2U9SxiDtGN6.dSz.YjV9xXL2
- lku8Bm8R3_Lp8p.sLWZDIjgNy_UgAB.QTxgTBTbO02_bjdafdswxei6Cec5dfFpSVmwIZyaYnsnk
- 9Ab.3bywivLGvW4Qi5HrLoNH4UrfbVVkbpFNF2CBKahJiyD2rWpxHE.35AY0rj7U5613BE0J_LOo
- OLknADwUawqfjnIYNcAS38wXAOuHDbS1KN_OwJp1jkyBz3yCTJrNBuOKSrMPFRmWBziOGayEawdy
- QGI7mimiljSAiLyu2N.UQ31m_kYkyKOdCulSl0uNEU51Gi6ZdwS3K67A8cVg9okwmVA99w.1yk57
- 4QqUhhpGDEl3cO5L2UPfT.661Jmdu0lqwP4KkaEnWDVEkjczXyCxlzeLWl3jvUdP8PD013_5ySQj
- hHViq0ZYzW1j_v2xj5V.ynU8ivSD2FS04FgEKJ39CBu7vSRfGQfQqzXUHKeUVwWssIiP3DMSsDGm
- SfDM.a0kyRgKQ8Ehq0DoeYfLT7G2pE.bOZt1Yccn0230OzSS0R9tWNOdbTiN.oXOg.55iemQBKpA
- u8Y1ADECGcuXPlo5dGvuksaQzP_NG0AThhsCzCrwMiKVQT0V8brgXe2DTOr17KQWHFZ1UZTE0saC
- 66hZ9.VvaPV7sD6nhj07qIBkWThylxO5ROev4Ak.TIUZ56SnYWpl51VlB6PACRS5oRJs3bFegytx
- dZdhIl7sSYbeiyAhoE1M0oprDoMBlVGKe0eHjL4D73Z6EZb6J.eWKCKFLji_yAnRhiR3f_nY0NDk
- rgRAEnApxmB3MfC_886AEcZMJXAJnV8lLyueWHW3gUaD_RBuwuagBX.6VcwGL8HerRm5HeKLi4a0
- YAMOi.LpMP8B.u21GrlkkW8X.0bxWbJoygPmclbUl0UHWQOaa0wtv8rakJg5nXKvDWHII6Cgw0OL
- 1QjGjKRICY7C9c.g9rZvY74SN908my1tz79XSZWmmnb8FMALtd4kRiU7R
-X-Sonic-MF: <alex_y_xu@yahoo.ca>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.gq1.yahoo.com with HTTP; Mon, 27 Jun 2022 19:22:33 +0000
-Received: by hermes--production-bf1-7f5f59bd5b-fj9wt (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 8bef5f7698e462d1564fd760e8e275ef; 
- Mon, 27 Jun 2022 19:22:27 +0000 (UTC)
-Date: Mon, 27 Jun 2022 15:22:24 -0400
-From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
-Subject: rcu_sched detected expedited stalls in amdgpu after suspend
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?b?S/ZuaWc=?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org, rcu@vger.kernel.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id F310111B1D7;
+	Mon, 27 Jun 2022 19:40:53 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C9011B288
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 19:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656358852; x=1687894852;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=8CuvkP0vcHWHYz4O+MpXmhInxvjdtTkynfXQVhQtVvU=;
+ b=k6zUTvFJKgtc5OFbeAry6vgypr945i7FrCKf1UUKCPV9JGFqQPwLkvHH
+ C+msc8m9cYee/uMGPrzg9zepGRLy1P2lcMyMkhIjSQXXwsT8CR2NGMAem
+ nhhRaHaVuGI6OC+/Ti/y0mrladebnRkqlDB0Z6XZopszXphmFT6HwD1uZ
+ 77wHXqdDcoPEmJNbRgeZgH1OFNPdD4Pn/Xeby//aXSDAMzj8wD+vgbPzA
+ B8mMOXEL8UwnjbnPn0VhbEVkEI1jK0jzpFbrpkFKiwKQmxcw1gCCsD0Am
+ dlnhlOCwxFp4klmFVjfr6K95EnsyX0zm8gAfjLbG3Fffsm+r2Mu9xw8Qi Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="264588687"
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="264588687"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jun 2022 12:40:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="766877478"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 27 Jun 2022 12:40:46 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o5ubG-0008wF-9g;
+ Mon, 27 Jun 2022 19:40:46 +0000
+Date: Tue, 28 Jun 2022 03:40:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ aab35c3d5112df6e329a1a5a5a1881e5c4ca3821
+Message-ID: <62ba07b9.qFa7tsWUZhZoW2FF%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Message-Id: <1656357116.rhe0mufk6a.none@localhost>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-References: <1656357116.rhe0mufk6a.none.ref@localhost>
-X-Mailer: WebService/1.1.20280
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-X-Mailman-Approved-At: Mon, 27 Jun 2022 19:22:58 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,90 +57,204 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ linux-pci@vger.kernel.org, ntb@lists.linux.dev, linux-usb@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-acpi@vger.kernel.org, mjpeg-users@lists.sourceforge.net,
+ linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: aab35c3d5112df6e329a1a5a5a1881e5c4ca3821  Add linux-next specific files for 20220627
 
-Since Linux 5.19-ish, I consistently get these types of errors when=20
-resuming from S3:
+Error/Warning: (recently discovered and may have been fixed)
 
-[15652.909157] rcu: INFO: rcu_sched detected expedited stalls on CPUs/tasks=
-: { 11-... } 7 jiffies s: 9981 root: 0x800/.
-[15652.909162] rcu: blocking rcu_node structures (internal RCU debug):
-[15652.909163] Task dump for CPU 11:
-[15652.909164] task:kworker/u24:65  state:R  running task     stack:    0 p=
-id:210218 ppid:     2 flags:0x00004008
-[15652.909167] Workqueue: events_unbound async_run_entry_fn
-[15652.909172] Call Trace:
-[15652.909173]  <TASK>
-[15652.909174]  ? atom_get_src_int+0x38e/0x680
-[15652.909179]  ? atom_op_test+0x67/0x190
-[15652.909181]  ? amdgpu_atom_execute_table_locked+0x19a/0x300
-[15652.909184]  ? atom_op_calltable+0xb1/0x110
-[15652.909186]  ? amdgpu_atom_execute_table_locked+0x19a/0x300
-[15652.909189]  ? atom_op_calltable+0xb1/0x110
-[15652.909191]  ? amdgpu_atom_execute_table_locked+0x19a/0x300
-[15652.909193]  ? __switch_to+0x137/0x440
-[15652.909195]  ? amdgpu_atom_asic_init+0xe0/0x100
-[15652.909198]  ? pci_bus_read_config_dword+0x36/0x50
-[15652.909201]  ? amdgpu_device_resume+0x10b/0x3e0
-[15652.909203]  ? amdgpu_pmops_resume+0x32/0x60
-[15652.909204]  ? pci_pm_suspend+0x2b0/0x2b0
-[15652.909206]  ? dpm_run_callback+0x35/0x1f0
-[15652.909209]  ? device_resume+0x1ca/0x220
-[15652.909211]  ? async_resume+0x19/0xe0
-[15652.909213]  ? async_run_entry_fn+0x33/0x120
-[15652.909215]  ? process_one_work+0x1d6/0x350
-[15652.909218]  ? worker_thread+0x24d/0x480
-[15652.909220]  ? kthread+0x137/0x150
-[15652.909221]  ? worker_clr_flags+0x40/0x40
-[15652.909224]  ? kthread_blkcg+0x30/0x30
-[15652.909226]  ? ret_from_fork+0x22/0x30
-[15652.909227]  </TASK>
-[15653.015808] rcu: INFO: rcu_sched detected expedited stalls on CPUs/tasks=
-: { 11-... } 7 jiffies s: 9985 root: 0x800/.
-[15653.015812] rcu: blocking rcu_node structures (internal RCU debug):
-[15653.015813] Task dump for CPU 11:
-[15653.015813] task:kworker/u24:65  state:R  running task     stack:    0 p=
-id:210218 ppid:     2 flags:0x00004008
-[15653.015816] Workqueue: events_unbound async_run_entry_fn
-[15653.015820] Call Trace:
-[15653.015820]  <TASK>
-[15653.015821]  ? amdgpu_cgs_read_register+0x10/0x10
-[15653.015825]  ? smu7_copy_bytes_to_smc+0xd4/0x200
-[15653.015828]  ? polaris10_program_memory_timing_parameters+0x195/0x1b0
-[15653.015831]  ? sysvec_apic_timer_interrupt+0xa/0x80
-[15653.015834]  ? asm_sysvec_apic_timer_interrupt+0x1b/0x20
-[15653.015836]  ? amdgpu_cgs_destroy_device+0x10/0x10
-[15653.015839]  ? sysvec_apic_timer_interrupt+0xa/0x80
-[15653.015841]  ? asm_sysvec_apic_timer_interrupt+0x1b/0x20
-[15653.015843]  ? amdgpu_cgs_destroy_device+0x10/0x10
-[15653.015846]  ? amdgpu_device_rreg+0x8f/0xd0
-[15653.015847]  ? phm_wait_for_register_unequal+0x99/0xd0
-[15653.015850]  ? smu7_send_msg_to_smc+0x95/0x130
-[15653.015853]  ? smum_send_msg_to_smc+0x5d/0xa0
-[15653.015854]  ? amdgpu_cgs_read_ind_register+0xa0/0xa0
-[15653.015857]  ? smu7_enable_dpm_tasks+0x241f/0x28c0
-[15653.015859]  ? hwmgr_resume+0x31/0x70
-[15653.015861]  ? amdgpu_device_resume+0x1fa/0x3e0
-[15653.015863]  ? amdgpu_pmops_resume+0x32/0x60
-[15653.015864]  ? pci_pm_suspend+0x2b0/0x2b0
-[15653.015866]  ? dpm_run_callback+0x35/0x1f0
-[15653.015868]  ? device_resume+0x1ca/0x220
-[15653.015870]  ? async_resume+0x19/0xe0
-[15653.015872]  ? async_run_entry_fn+0x33/0x120
-[15653.015874]  ? process_one_work+0x1d6/0x350
-[15653.015877]  ? worker_thread+0x24d/0x480
-[15653.015878]  ? kthread+0x137/0x150
-[15653.015880]  ? worker_clr_flags+0x40/0x40
-[15653.015882]  ? kthread_blkcg+0x30/0x30
-[15653.015884]  ? ret_from_fork+0x22/0x30
-[15653.015886]  </TASK>
+arch/powerpc/kernel/interrupt.c:542:55: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:1025:33: warning: variable 'pre_connection_type' set but not used [-Wunused-but-set-variable]
+drivers/ntb/test/ntb_perf.c:1145: undefined reference to `__umoddi3'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
+vmlinux.o: warning: objtool: __ct_user_enter+0x8c: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_idle_enter+0x19: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_idle_exit+0x3e: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_irq_enter+0x6a: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_irq_exit+0x6a: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_kernel_enter.constprop.0+0x2a: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_kernel_enter_state+0x2d: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_kernel_exit.constprop.0+0x53: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_kernel_exit_state+0x2d: call to ftrace_likely_update() leaves .noinstr.text section
+vmlinux.o: warning: objtool: ct_nmi_enter+0x4b: call to ftrace_likely_update() leaves .noinstr.text section
 
-I have not noticed any resulting problems. I am reporting this in the=20
-hope that it is easy to fix the issue and remove the error messages=20
-which may obscure some future problem.
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Thanks,
-Alex.
+drivers/acpi/scan.c:615:35: warning: Uninitialized variable: acpi_device_bus_id->bus_id [uninitvar]
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c:1701:19: warning: Value stored to 'qmp' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+drivers/soc/mediatek/mtk-mutex.c:799:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36016.c:430:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36050.c:829:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36060.c:869:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/thunderbolt/tmu.c:758:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+sound/soc/sof/intel/mtl.c:547:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   |-- drivers-soc-mediatek-mtk-mutex.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36016.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36050.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36060.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-thunderbolt-tmu.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   `-- sound-soc-sof-intel-mtl.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   `-- ntb_perf.c:(.text):undefined-reference-to-__umoddi3
+|-- i386-randconfig-a013-20220627
+|   `-- ERROR:__umoddi3-drivers-ntb-test-ntb_perf.ko-undefined
+|-- i386-randconfig-m021-20220627
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+|-- i386-randconfig-p001-20220627
+|   `-- drivers-acpi-scan.c:warning:Uninitialized-variable:acpi_device_bus_id-bus_id-uninitvar
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- powerpc-allmodconfig
+|   |-- ERROR:__umoddi3-drivers-ntb-test-ntb_perf.ko-undefined
+|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- powerpc-allnoconfig
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-buildonly-randconfig-r003-20220627
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- powerpc-buildonly-randconfig-r005-20220627
+|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- powerpc-randconfig-r023-20220627
+|   `-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|-- riscv-randconfig-r012-20220627
+|   |-- ERROR:__umoddi3-drivers-ntb-test-ntb_perf.ko-undefined
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- s390-buildonly-randconfig-r001-20220627
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- sparc-randconfig-r032-20220627
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- x86_64-randconfig-a011-20220627
+|   |-- vmlinux.o:warning:objtool:__ct_user_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_idle_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_idle_exit:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_irq_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_irq_exit:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_kernel_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_kernel_enter_state:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_kernel_exit:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   |-- vmlinux.o:warning:objtool:ct_kernel_exit_state:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|   `-- vmlinux.o:warning:objtool:ct_nmi_enter:call-to-ftrace_likely_update()-leaves-.noinstr.text-section
+|-- x86_64-randconfig-m001-20220627
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+`-- xtensa-randconfig-r024-20220627
+    `-- drivers-ntb-test-ntb_perf.c:undefined-reference-to-__umoddi3
+
+clang_recent_errors
+`-- riscv-randconfig-c006-20220617
+    `-- drivers-phy-qualcomm-phy-qcom-qmp-combo.c:warning:Value-stored-to-qmp-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
+
+elapsed time: 726m
+
+configs tested: 52
+configs skipped: 2
+
+gcc tested configs:
+arm                                 defconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+ia64                             allmodconfig
+alpha                            allyesconfig
+m68k                             allmodconfig
+arc                              allyesconfig
+m68k                             allyesconfig
+powerpc                           allnoconfig
+sh                               allmodconfig
+powerpc                          allmodconfig
+mips                             allyesconfig
+i386                                defconfig
+i386                             allyesconfig
+x86_64               randconfig-a012-20220627
+x86_64               randconfig-a011-20220627
+x86_64               randconfig-a013-20220627
+x86_64               randconfig-a014-20220627
+x86_64               randconfig-a015-20220627
+x86_64               randconfig-a016-20220627
+i386                 randconfig-a012-20220627
+i386                 randconfig-a011-20220627
+i386                 randconfig-a013-20220627
+i386                 randconfig-a014-20220627
+i386                 randconfig-a015-20220627
+i386                 randconfig-a016-20220627
+arc                  randconfig-r043-20220627
+s390                 randconfig-r044-20220627
+riscv                randconfig-r042-20220627
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+x86_64                              defconfig
+x86_64                               rhel-8.3
+x86_64                           allyesconfig
+
+clang tested configs:
+i386                 randconfig-a001-20220627
+i386                 randconfig-a002-20220627
+i386                 randconfig-a003-20220627
+i386                 randconfig-a006-20220627
+i386                 randconfig-a005-20220627
+i386                 randconfig-a004-20220627
+x86_64               randconfig-a002-20220627
+x86_64               randconfig-a003-20220627
+x86_64               randconfig-a001-20220627
+x86_64               randconfig-a006-20220627
+x86_64               randconfig-a005-20220627
+x86_64               randconfig-a004-20220627
+hexagon              randconfig-r041-20220627
+hexagon              randconfig-r045-20220627
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
