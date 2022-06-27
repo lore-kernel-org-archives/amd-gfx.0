@@ -4,82 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B87BC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 08:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFDDAC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 08:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B8810FC90;
-	Mon, 27 Jun 2022 08:02:20 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C530F10FC7F
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 08:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1656316937;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F42E11A238;
+	Mon, 27 Jun 2022 08:56:35 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6AD11A22F;
+ Mon, 27 Jun 2022 08:56:33 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0596C1FAD0;
+ Mon, 27 Jun 2022 08:56:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1656320192; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+BhcPB/fW8lkxE3byWUWF+Hldg5p1S7kgw+9StleA50=;
- b=OJDS7NjcP73vXSfVd1YuvB4/AZd8nLDlPV93uX5rHKDIYVfvEBDluVB4zhbMvv8+4aYH9x
- KY7RRCb2P3g67Na/ozXQCe1Ojya2FKOww2YOMTMzuu3VjQxFRK7S+rjzJq/9bn0u9RAc8+
- rKZdblIytiAANzLRwdM5AXDJKUxaOiA=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-308-aJGsd4brMeywYxEYkqgIgg-1; Mon, 27 Jun 2022 04:02:16 -0400
-X-MC-Unique: aJGsd4brMeywYxEYkqgIgg-1
-Received: by mail-wm1-f69.google.com with SMTP id
- k16-20020a7bc310000000b0038e6cf00439so5264467wmj.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 01:02:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=+BhcPB/fW8lkxE3byWUWF+Hldg5p1S7kgw+9StleA50=;
- b=ldZH0fVJCICBDyHTxwUHyBUpX0VMWcMxAbjuckFf49Zm1v4PktBbyAyHRbf0ppzrko
- rFzgk5x3z6tl2lo9SRvoZdUymkY7FxIMPqmPkCTtJukktPB4K79NnUyN2K0XrQfgsaB6
- nietISIwvCqkSWOEbvYJfz18YOPOlze3xfzanznEzn5U0Q51MiG/1DroflFXYXp01LZX
- u7jpeuqwfjHDjUT+paXvYOr+plsiz8IlX4F+p2sB5AXdFhJTvSoKnJNGAwWrltrcIp8a
- 3m6rhcHytDLEGYrPHus68SZk/HlKYiFcZhB+Y+RN6XFxKvqyTwgMrm4hgLtfGdZYE6yc
- EK8A==
-X-Gm-Message-State: AJIora9IBrLBaLCQ9kI0BHuuOvFXh7pN7l1U7l7EvQRA63WZx6GaTyES
- 5O/cRS9I3DKILT39PDD0AmeQreR6p6jPYHo0uxAmoFXH3N4GVB0L4IM2hrpQm6TF32GceL9Blv6
- fp1iI6N+8h2E91/R/9aeGMPfOAA==
-X-Received: by 2002:a5d:4601:0:b0:21b:9035:d295 with SMTP id
- t1-20020a5d4601000000b0021b9035d295mr10995360wrq.63.1656316934841; 
- Mon, 27 Jun 2022 01:02:14 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uHyeQB3afsqr1Szx/j8rTPBkRM7cm7Ke1/JvUC6RPiOEuvpeYA002QEItGaB94DqzGnWdtog==
-X-Received: by 2002:a5d:4601:0:b0:21b:9035:d295 with SMTP id
- t1-20020a5d4601000000b0021b9035d295mr10995332wrq.63.1656316934573; 
- Mon, 27 Jun 2022 01:02:14 -0700 (PDT)
-Received: from [192.168.1.129] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- y3-20020a05600c17c300b003a0231af43csm11589261wmo.48.2022.06.27.01.02.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jun 2022 01:02:14 -0700 (PDT)
-Message-ID: <3920df43-37f5-618d-70ba-de34a886e8ab@redhat.com>
-Date: Mon, 27 Jun 2022 10:02:13 +0200
+ bh=sNDGGJZYbSknX3zdPg+0NF59YkwA06a7lS+a32dT9m4=;
+ b=mEArAMq28hc8sdZkXzGXohcABlOtjiGIW0At+3nSW0GR6a0CNMamQCVavi8JTusQNE2EWn
+ xTSt8fhwhDVj3S4Wu0Pv9gPOMQFB42nyZoKbADgKR7grNgn4qYA2Ft2ZOV0q0uUtjCsUVu
+ cPqqbO6ajrJNVemKn9//6kZZox1FwPc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1656320192;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=sNDGGJZYbSknX3zdPg+0NF59YkwA06a7lS+a32dT9m4=;
+ b=NTD+Gd1BoI7tHmsf2iPsHlBFLSyTs9dLsq2QODzuaDwdmqQJaqf2tYqGOZgVppA2bWiLEM
+ dyhOYzR4zOSWTlAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD0B513AB2;
+ Mon, 27 Jun 2022 08:56:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id eRUjMb9wuWIXGwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 27 Jun 2022 08:56:31 +0000
+Message-ID: <077b67c3-20f2-5137-2cad-7b3a832a4779@suse.de>
+Date: Mon, 27 Jun 2022 10:56:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Subject: Re: Annoying AMDGPU boot-time warning due to simplefb / amdgpu
  resource clash
+Content-Language: en-US
 To: Linus Torvalds <torvalds@linux-foundation.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zackr@vmware.com>,
- Hans de Goede <hdegoede@redhat.com>
+ Javier Martinez Canillas <javierm@redhat.com>, Zack Rusin
+ <zackr@vmware.com>, Hans de Goede <hdegoede@redhat.com>
 References: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
-From: Javier Martinez Canillas <javierm@redhat.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 In-Reply-To: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------dJfV7Gf58wwEOpXOJd40uubG"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,80 +78,144 @@ Cc: dri-devel <dri-devel@lists.freedesktop.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Linus,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------dJfV7Gf58wwEOpXOJd40uubG
+Content-Type: multipart/mixed; boundary="------------czKrnUe3Xo7Q0TkeH8mMCzxZ";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, Zack Rusin
+ <zackr@vmware.com>, Hans de Goede <hdegoede@redhat.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Message-ID: <077b67c3-20f2-5137-2cad-7b3a832a4779@suse.de>
+Subject: Re: Annoying AMDGPU boot-time warning due to simplefb / amdgpu
+ resource clash
+References: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
+In-Reply-To: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
 
-On 6/26/22 20:54, Linus Torvalds wrote:
-> So this has been going on for a while, and it's quite annoying.
-> 
-> At bootup, my main desktop (Threadripper 3970X with radeon graphics)
-> now complains about
-> 
->   resource sanity check: requesting [mem 0xd0000000-0xdfffffff], which
-> spans more than BOOTFB [mem 0xd0000000-0xd02fffff]
-> 
-> and then gives me a nasty callchain that is basically the amdgpu probe
-> sequence ending in amdgpu_bo_init() doing the
-> arch_io_reserve_memtype_wc() which is then what complains.
-> 
-> That "BOOTFB" resource is from sysfb_simplefb.c, and I think what
-> started triggering this is commit c96898342c38 ("drivers/firmware:
-> Don't mark as busy the simple-framebuffer IO resource").
-> 
-> Because it turns out that that removed the IORESOURCE_BUSY, which in
-> turn is what makes the resource conflict code complain about it now,
-> because
-> 
->                 /*
->                  * if a resource is "BUSY", it's not a hardware resource
->                  * but a driver mapping of such a resource; we don't want
->                  * to warn for those; some drivers legitimately map only
->                  * partial hardware resources. (example: vesafb)
->                  */
-> 
-> so the issue is that now the resource code - correctly - says "hey,
-> you have *two* conflicting driver mappings".
-> 
-> And that commit claims it did it because "which can lead to drivers
-> requesting the same memory resource to fail", but - once again - the
-> link in the commit that might actually tell more is just one of those
-> useless patch submission links again.
-> 
-> So who knows why that commit was actually done, but it's causing annoyance.
->
+--------------czKrnUe3Xo7Q0TkeH8mMCzxZ
+Content-Type: multipart/mixed; boundary="------------EMdexheBKJ03n2W7PpEmX3SP"
 
-The flag was dropped because it was causing drivers that requested their
-memory resource with pci_request_region() to fail with -EBUSY (e.g: the
-vmwgfx driver):
+--------------EMdexheBKJ03n2W7PpEmX3SP
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-https://www.spinics.net/lists/dri-devel/msg329672.html
- 
-> If simplefb is actually still using that frame buffer, it's a problem.
-> If it isn't, then maybe that resource should have been released?
->
+SGkNCg0KQW0gMjYuMDYuMjIgdW0gMjA6NTQgc2NocmllYiBMaW51cyBUb3J2YWxkczoNCj4g
+U28gdGhpcyBoYXMgYmVlbiBnb2luZyBvbiBmb3IgYSB3aGlsZSwgYW5kIGl0J3MgcXVpdGUg
+YW5ub3lpbmcuDQo+IA0KPiBBdCBib290dXAsIG15IG1haW4gZGVza3RvcCAoVGhyZWFkcmlw
+cGVyIDM5NzBYIHdpdGggcmFkZW9uIGdyYXBoaWNzKQ0KPiBub3cgY29tcGxhaW5zIGFib3V0
+DQo+IA0KPiAgICByZXNvdXJjZSBzYW5pdHkgY2hlY2s6IHJlcXVlc3RpbmcgW21lbSAweGQw
+MDAwMDAwLTB4ZGZmZmZmZmZdLCB3aGljaA0KPiBzcGFucyBtb3JlIHRoYW4gQk9PVEZCIFtt
+ZW0gMHhkMDAwMDAwMC0weGQwMmZmZmZmXQ0KPiANCj4gYW5kIHRoZW4gZ2l2ZXMgbWUgYSBu
+YXN0eSBjYWxsY2hhaW4gdGhhdCBpcyBiYXNpY2FsbHkgdGhlIGFtZGdwdSBwcm9iZQ0KPiBz
+ZXF1ZW5jZSBlbmRpbmcgaW4gYW1kZ3B1X2JvX2luaXQoKSBkb2luZyB0aGUNCj4gYXJjaF9p
+b19yZXNlcnZlX21lbXR5cGVfd2MoKSB3aGljaCBpcyB0aGVuIHdoYXQgY29tcGxhaW5zLg0K
+PiANCj4gVGhhdCAiQk9PVEZCIiByZXNvdXJjZSBpcyBmcm9tIHN5c2ZiX3NpbXBsZWZiLmMs
+IGFuZCBJIHRoaW5rIHdoYXQNCj4gc3RhcnRlZCB0cmlnZ2VyaW5nIHRoaXMgaXMgY29tbWl0
+IGM5Njg5ODM0MmMzOCAoImRyaXZlcnMvZmlybXdhcmU6DQo+IERvbid0IG1hcmsgYXMgYnVz
+eSB0aGUgc2ltcGxlLWZyYW1lYnVmZmVyIElPIHJlc291cmNlIikuDQo+IA0KPiBCZWNhdXNl
+IGl0IHR1cm5zIG91dCB0aGF0IHRoYXQgcmVtb3ZlZCB0aGUgSU9SRVNPVVJDRV9CVVNZLCB3
+aGljaCBpbg0KPiB0dXJuIGlzIHdoYXQgbWFrZXMgdGhlIHJlc291cmNlIGNvbmZsaWN0IGNv
+ZGUgY29tcGxhaW4gYWJvdXQgaXQgbm93LA0KPiBiZWNhdXNlDQo+IA0KPiAgICAgICAgICAg
+ICAgICAgIC8qDQo+ICAgICAgICAgICAgICAgICAgICogaWYgYSByZXNvdXJjZSBpcyAiQlVT
+WSIsIGl0J3Mgbm90IGEgaGFyZHdhcmUgcmVzb3VyY2UNCj4gICAgICAgICAgICAgICAgICAg
+KiBidXQgYSBkcml2ZXIgbWFwcGluZyBvZiBzdWNoIGEgcmVzb3VyY2U7IHdlIGRvbid0IHdh
+bnQNCj4gICAgICAgICAgICAgICAgICAgKiB0byB3YXJuIGZvciB0aG9zZTsgc29tZSBkcml2
+ZXJzIGxlZ2l0aW1hdGVseSBtYXAgb25seQ0KPiAgICAgICAgICAgICAgICAgICAqIHBhcnRp
+YWwgaGFyZHdhcmUgcmVzb3VyY2VzLiAoZXhhbXBsZTogdmVzYWZiKQ0KPiAgICAgICAgICAg
+ICAgICAgICAqLw0KPiANCj4gc28gdGhlIGlzc3VlIGlzIHRoYXQgbm93IHRoZSByZXNvdXJj
+ZSBjb2RlIC0gY29ycmVjdGx5IC0gc2F5cyAiaGV5LA0KPiB5b3UgaGF2ZSAqdHdvKiBjb25m
+bGljdGluZyBkcml2ZXIgbWFwcGluZ3MiLg0KPiANCj4gQW5kIHRoYXQgY29tbWl0IGNsYWlt
+cyBpdCBkaWQgaXQgYmVjYXVzZSAid2hpY2ggY2FuIGxlYWQgdG8gZHJpdmVycw0KPiByZXF1
+ZXN0aW5nIHRoZSBzYW1lIG1lbW9yeSByZXNvdXJjZSB0byBmYWlsIiwgYnV0IC0gb25jZSBh
+Z2FpbiAtIHRoZQ0KPiBsaW5rIGluIHRoZSBjb21taXQgdGhhdCBtaWdodCBhY3R1YWxseSB0
+ZWxsIG1vcmUgaXMganVzdCBvbmUgb2YgdGhvc2UNCj4gdXNlbGVzcyBwYXRjaCBzdWJtaXNz
+aW9uIGxpbmtzIGFnYWluLg0KPiANCj4gU28gd2hvIGtub3dzIHdoeSB0aGF0IGNvbW1pdCB3
+YXMgYWN0dWFsbHkgZG9uZSwgYnV0IGl0J3MgY2F1c2luZyBhbm5veWFuY2UuDQo+IA0KPiBJ
+ZiBzaW1wbGVmYiBpcyBhY3R1YWxseSBzdGlsbCB1c2luZyB0aGF0IGZyYW1lIGJ1ZmZlciwg
+aXQncyBhIHByb2JsZW0uDQo+IElmIGl0IGlzbid0LCB0aGVuIG1heWJlIHRoYXQgcmVzb3Vy
+Y2Ugc2hvdWxkIGhhdmUgYmVlbiByZWxlYXNlZD8NCg0KQXMgSmF2aWVyIHNhaWQsIHRoYXQg
+cmVzb3VyY2UgaXMgdGhlIGZyYW1lYnVmZmVyIHRoYXQncyBzZXQgdXAgYnkgdGhlIA0KZmly
+bXdhcmUuIEl0IHNob3VsZCBiZSBnb25lIGFmdGVyIHRoZSBjYWxsIHRvIA0KZHJtX2FwZXJ0
+dXJlX3JlbW92ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzKCkuIFsxXSBUaGUgY2Fs
+bCB0byANCmFtZGdwdV9ib19pbml0KCkgcnVucyBhZnRlcndhcmRzLCBzbyB0aGF0IHJlbW92
+YWwgYXBwYXJlbnRseSBmYWlsZWQuDQoNCklzIHRoZSBCT09URkIgZW50cnkgc3RpbGwgbGlz
+dGVkIGluIC9wcm9jL2lvbWVtIGFmdGVyIHRoZSBzeXN0ZW0gDQpmaW5pc2hlZCBib290aW5n
+Pw0KDQpBdHRhY2hlZCBpcyBhICh0b3RhbGx5IHVudGVzdGVkKSBwYXRjaCB0byBtYW51YWxs
+eSBwb2ludCBhbWRncHUgdG8gdGhlIA0KcmlnaHQgbG9jYXRpb24uIERvZXMgaXQgZml4IHRo
+ZSBwcm9ibGVtPw0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQpbMV0gDQpodHRwczovL2Vs
+aXhpci5ib290bGluLmNvbS9saW51eC92NS4xOC43L3NvdXJjZS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMjTDIwNzcNCg0KPiANCj4gSSByZWFsbHkgdGhpbmsg
+dGhhdCBjb21taXQgYzk2ODk4MzQyYzM4IGlzIGJ1Z2d5LiBJdCB0YWxrcyBhYm91dCAibGV0
+DQo+IGRyaXZlcnMgdG8gcmVxdWVzdCBpdCBhcyBidXN5IGluc3RlYWQiLCBidXQgdGhlbiBp
+dCByZWdpc3RlcnMgYQ0KPiByZXNvdXJjZSB0aGF0IGlzbid0IGFjdHVhbGx5IGEgcHJvcGVy
+IHJlYWwgcmVzb3VyY2UuIEl0J3MganVzdCBhDQo+IHJhbmRvbSBpbmNvbXBsZXRlIGNodW5r
+IG9mIHRoZSBhY3R1YWwgcmVhbCB0aGluZywgc28gaXQgd2lsbCBzdGlsbA0KPiBpbnRlcmZl
+cmUgd2l0aCByZXNvdXJjZSBhbGxvY2F0aW9uLCBhbmQgaW4gZmFjdCBub3cgaW50ZXJmZXJl
+cyBldmVuDQo+IHdpdGggdGhhdCAic2V0IG1lbXR5cGUiIGJlY2F1c2Ugb2YgdGhpcyB2YWxp
+ZCB3YXJuaW5nLg0KPiANCj4gICAgICAgICAgICAgICBMaW51cw0KDQotLSANClRob21hcyBa
+aW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNv
+bHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywg
+R2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6
+IEl2byBUb3Rldg0K
+--------------EMdexheBKJ03n2W7PpEmX3SP
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-drm-amdgpu-Remove-firmware-framebuffer-without-PCI-h.patch"
+Content-Disposition: attachment;
+ filename*0="0001-drm-amdgpu-Remove-firmware-framebuffer-without-PCI-h.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
 
-It's supposed to be released once amdgpu asks for conflicting framebuffers
-to be removed calling drm_aperture_remove_conflicting_pci_framebuffers().
+RnJvbSBjMzdmMGZhOGU3NjNjNDcxZGRhY2NjMDhkYTllYzliYjFhNzE1NDUxIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5A
+c3VzZS5kZT4KRGF0ZTogTW9uLCAyNyBKdW4gMjAyMiAxMDo1MTo0NCArMDIwMApTdWJqZWN0
+OiBbUEFUQ0hdIGRybS9hbWRncHU6IFJlbW92ZSBmaXJtd2FyZSBmcmFtZWJ1ZmZlciB3aXRo
+b3V0IFBDSSBoZWxwZXIKClRoZSBEUk0gYXBlcnR1cmUgaGVscGVyIGZvciBQQ0kgZGV2aWNl
+cyBmYWlscyB0byByZW1vdmUgdGhlIGZpcm13YXJlCmZyYW1lYnVmZmVyJ3MgZGV2aWNlLiBN
+YW51YWxseSB0ZWxsIGl0IHdoZXJlIHRvIGxvb2suCgpSZXBvcnRlZC1ieTogTGludXMgVG9y
+dmFsZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3JnPgpTaWduZWQtb2ZmLWJ5OiBU
+aG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQs
+IDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCA0NmVmNTdiMDdjMTUuLmUwMDMxOGZmNjZmZiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtMjA3Myw3
+ICsyMDczLDggQEAgc3RhdGljIGludCBhbWRncHVfcGNpX3Byb2JlKHN0cnVjdCBwY2lfZGV2
+ICpwZGV2LAogCWlzX2Z3X2ZiID0gYW1kZ3B1X2lzX2Z3X2ZyYW1lYnVmZmVyKGJhc2UsIHNp
+emUpOwogCiAJLyogR2V0IHJpZCBvZiB0aGluZ3MgbGlrZSBvZmZiICovCi0JcmV0ID0gZHJt
+X2FwZXJ0dXJlX3JlbW92ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzKHBkZXYsICZh
+bWRncHVfa21zX2RyaXZlcik7CisJcmV0ID0gZHJtX2FwZXJ0dXJlX3JlbW92ZV9jb25mbGlj
+dGluZ19mcmFtZWJ1ZmZlcnMoYmFzZSwgc2l6ZSwgaXNfZndfZmIsCisJCQkJCQkJICAgJmFt
+ZGdwdV9rbXNfZHJpdmVyKTsKIAlpZiAocmV0KQogCQlyZXR1cm4gcmV0OwogCi0tIAoyLjM2
+LjEKCg==
 
-I'm not familiar with the amdgpu driver, but maybe that call has to be done
-earlier before the arch_io_reserve_memtype_wc() ?
- 
-> I really think that commit c96898342c38 is buggy. It talks about "let
-> drivers to request it as busy instead", but then it registers a
-> resource that isn't actually a proper real resource. It's just a
-> random incomplete chunk of the actual real thing, so it will still
-> interfere with resource allocation, and in fact now interferes even
-> with that "set memtype" because of this valid warning.
-> 
+--------------EMdexheBKJ03n2W7PpEmX3SP--
 
-That registered resource is what the firmware provides for drivers to use
-the system framebuffer for scan-out. It's not the real thing, that's true
-since a native driver would kick it out (leading to a resource release)
-and register the real aperture.
+--------------czKrnUe3Xo7Q0TkeH8mMCzxZ--
 
--- 
-Best regards,
+--------------dJfV7Gf58wwEOpXOJd40uubG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Javier Martinez Canillas
-Linux Engineering
-Red Hat
+-----BEGIN PGP SIGNATURE-----
 
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmK5cL8FAwAAAAAACgkQlh/E3EQov+BI
++A//QwcGBIY/TvAivjrnSDNd/9ltQqJ5CA/d5FWZcmB+qcTULWph+u2Cbg3Y84NDzVNCbNOPM73M
+yAVJur5rtRVw9Ou8vgaBJD45hOZYBpBQX5X/Yu1d8u+UEDUOMW+F1LYvK2692A/ZN2yS3n8Hz7UL
+ca1J/F+DGaEhbOK0pyQom6l2MfZhStgCP1GsYJWc29IOrqSoW+E4Ddxc69oOJ2fi/BnKIJHUt6bf
+hbwStFJ7zNtBllfpAvZ5ZEKFa1m2tpBCZs25httWEq4lBPGzUGvXnspfIuWotlBcoxGpriKViXmc
+ub7cDwIyt/xb+YTb5IikrH5fbXzakyzuRnl99KhOI1cPlCRAINPrKhFyjipqcT30lOhqGPL05wdj
+w4a18FzaAZDXwPFxeMAAWqEwDmx4qCWVRFsa/tz/sZixLDEtkirDHAieSvlBZyBbo6jD/Hi1//nd
+kSRyy6fQCGIFoA6ng8zragMp4E/vIfriBX50/zpCER9dgXodpelso3E1kN3v84RC4g2gmyg3YXO5
+XYlAL7S7NY1xjYD8/zAIIGn2peVOM7yQwcaz7Vl4e9qJ9LaF0TIyHNvFNqIJ/aAooLjCQ5tlnStM
+80LIxva/AV/LUQLzaE1pZu8RM8kTLWVII7hBskguWtFYXGvxad1nvtmPqWGdt5mMgWuQJuZi4nCR
+LYo=
+=awxI
+-----END PGP SIGNATURE-----
+
+--------------dJfV7Gf58wwEOpXOJd40uubG--
