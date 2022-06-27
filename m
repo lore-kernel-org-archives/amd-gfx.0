@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B72C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 21:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D68C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jun 2022 21:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD9610E9FA;
-	Mon, 27 Jun 2022 21:40:56 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7955310E9FA
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 21:40:55 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id fd6so14926842edb.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jun 2022 14:40:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060AB10EFE9;
+	Mon, 27 Jun 2022 21:42:34 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A86E10EFE9;
+ Mon, 27 Jun 2022 21:42:33 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id lw20so21878838ejb.4;
+ Mon, 27 Jun 2022 14:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nPaD1wyxXxnwTqG4vfRfjz7EAhQ12JPi8iLHYI9BbwQ=;
- b=bzv27uX32g443Z/dSwsKuLzM9AuY36Zp8zAwEmjNAe3rfguJZ0a+sQ7Ssqn49jHjcG
- JFLv5qcUpm6zg9wrUs0METHmgF5/5Ip59V/8WT1C4UZiwwRfNgDP09KgG6UND1Ehkr09
- NgZOtRk+NLUTBauBTpFRF1rLND1oufDVXdYxBiMkgYIbS/ZyrCpM5DnyXGjKU+K1NW7R
- Yy1BPXRsiNcw8Eu1BtDa2Hn8h0KpZ5nFbkN6FLzgg0YKV7hn7pkxj1RjYazfmrXvVYai
- 5zzKf9+FniU4rZNFF6S9vMcT/PLDjrVoIGTlJ63q8qXm0fNygAQtbKLZKNbUiuFp/XZx
- 78QA==
+ :cc; bh=/m5gEvG4Nkhnu6c3440vB73PXnwZ2jewkhSAliGBXTg=;
+ b=CynNGWCzO8u27qkFDIzY+jXsy8vbILCE7VFIfDkmWApFEP/TyAInFPWtLoi8W4oAJv
+ yRP1bnPJv+PoEUvfh/hvO8Nnx2y2AjIz/CszaBG+aQkExDPFi7OJbr/+buyNM3cuJzpL
+ QiNruHf7RNp23wTV4F7qqgkqzrV/zED8wFZamXl60ftr7DKklUJED02KuOkfGa/+QuqK
+ eSR2sUlA7gfJPtbcReFLZRg/BzoXQ6QzGoIAuB2LbOV0xv7nN2/pZ78o8K66JVTTLvLl
+ uMcvFqANm4pcYdgcWj6bxJWqXtfIjhIrq59dKA1kQLW4msu2vFcBV7x9IOXQ5mD2jvYT
+ iK6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=nPaD1wyxXxnwTqG4vfRfjz7EAhQ12JPi8iLHYI9BbwQ=;
- b=SrkvsKfxApwGRZgyqaOzQFYio4/4EcUO4l7SggdZkI5AEZFZtzmsWkMgpKQ+N+Dz8c
- ebRuuI0GoDGEf3b+eUwpyUffxJfIyTyCp8A0VdeHCo2TiCbBEzWC6I2aICK8P6R6t61/
- vVumZmUGofChqA4GiBmncokFEhmDd9bAhHqbzo/XC5vMIf/O8dWjl/zlE4gR45huj3WD
- srZF4muN/s0pXtsGhERcUHB13ruoU3pVyHQVEOibhlhADcYTbr+W6dJKffyIJ979+biI
- rMlcGfZHqYbjkJPUnUuh1efBg00iUraUdmK2WH0UyYeGnoKk1YTx4qVBfHzdKtXURfIN
- wyag==
-X-Gm-Message-State: AJIora9Ae2xd3CjYJwkiUYpy5krYy8aC3QYa2aZXxqEbZdbyC1EDJzJr
- BEY8Fdx2KS6HG9E3Lwlf0eeQy6XFIH5CKIqZkpEy8iZR
-X-Google-Smtp-Source: AGRyM1s4ZWemcmOp+5058nseonjrCs3viaK736zxrN5lcafIWEMO5E+rT6ftuVbk0lHKQxVrwmSjPNfxfyQp1GmCjbQ=
-X-Received: by 2002:a05:6402:50ce:b0:435:9249:dfe9 with SMTP id
- h14-20020a05640250ce00b004359249dfe9mr19067269edb.310.1656366054031; Mon, 27
- Jun 2022 14:40:54 -0700 (PDT)
+ bh=/m5gEvG4Nkhnu6c3440vB73PXnwZ2jewkhSAliGBXTg=;
+ b=yiNszYttUltlaC4cQ9t3XGjoJUa4+y4FkDyGHTsOrXwFDLXUe5mFgrpG5DllBQqYfr
+ KSUeinUNdx4tCzVDMcYFok+Yno6m+n5QBwcZ/6R+b1X1Lor44rnErMTTKUKet5nFWVZn
+ gAT+37Itsae0yRHwxkWwJkFE1K3u0NUG9J/q8ssFsIQSxWw93nBXiizi7QR2Womoq4Fo
+ ABFXbr2sW87sEpaE3RwLsO2xEWPklCmdmqnOXiaduAwcvN/3Co2R2E5GpSyh4RLF+uy0
+ 7GUHGpuwmw0hQ+lvCkIh9ex7ES7OW4Y7n3pJAkQajbu7K7q6aiZ91q/lFthzgwhpweC4
+ YMbg==
+X-Gm-Message-State: AJIora8hKJklCmeKquWD0js12P6DqWKZhpxpm/hGx0P1FRsYVKFLb959
+ zen6H9eKWBFBqsoy5MxEZyCiY5ZmZWq0c81faic=
+X-Google-Smtp-Source: AGRyM1taWusL4FY3+GMWFIszRF5v07rsqFPHyB0aYp0PK+HTRRFV65ppUhrxHJAFgTBDtn2UdlK/lwl57yxqpNliC0Q=
+X-Received: by 2002:a17:907:a40f:b0:726:a8f5:1031 with SMTP id
+ sg15-20020a170907a40f00b00726a8f51031mr5833402ejc.185.1656366151850; Mon, 27
+ Jun 2022 14:42:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220623164113.1503249-1-alexander.deucher@amd.com>
- <20220623164113.1503249-2-alexander.deucher@amd.com>
-In-Reply-To: <20220623164113.1503249-2-alexander.deucher@amd.com>
+References: <20220626142053.3373970-1-trix@redhat.com>
+ <f55999ae-4ff3-2616-fda1-a97e5aa11524@amd.com>
+In-Reply-To: <f55999ae-4ff3-2616-fda1-a97e5aa11524@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jun 2022 17:40:42 -0400
-Message-ID: <CADnq5_ML3Hu-fhFigqUHGnArKHY1-n2z=_dzYKkg5kHeXNSu5g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix documentation warning
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Mon, 27 Jun 2022 17:42:20 -0400
+Message-ID: <CADnq5_Odt0jxU8voLjcmu8y1bQ57gzEd9ZBtAxrLLn9tHY65cg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove unused globals FORCE_RATE and
+ FORCE_LANE_COUNT
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,38 +63,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, Tom Rix <trix@redhat.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Wenjing Liu <wenjing.liu@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Jerry Zuo <Jerry.Zuo@amd.com>, Michael Strauss <michael.strauss@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ George Shen <George.Shen@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ Jimmy Kizito <Jimmy.Kizito@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Applied.  Thanks!
 
-On Thu, Jun 23, 2022 at 12:41 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Fixes this issue:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:5094: warning: expecting prototype for amdgpu_device_gpu_recover_imp(). Prototype was for amdgpu_device_gpu_recover() instead
->
-> Fixes: cf727044144d ("drm/amdgpu: Rename amdgpu_device_gpu_recover_imp back to amdgpu_device_gpu_recover")
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index f2a4c268ac72..6c0fbc662b3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5079,7 +5079,7 @@ static inline void amdggpu_device_stop_pedning_resets(struct amdgpu_device *adev
+Alex
+
+On Mon, Jun 27, 2022 at 9:20 AM Aurabindo Pillai
+<aurabindo.pillai@amd.com> wrote:
 >
 >
->  /**
-> - * amdgpu_device_gpu_recover_imp - reset the asic and recover scheduler
-> + * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->   *
->   * @adev: amdgpu_device pointer
->   * @job: which job trigger hang
-> --
-> 2.35.3
 >
+> On 2022-06-26 10:20, Tom Rix wrote:
+> > sparse reports
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:3885:6: warning: symbol 'FORCE_RATE' was not declared. Should it be static?
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:3886:10: warning: symbol 'FORCE_LANE_COUNT' was not declared. Should it be static?
+> >
+> > Neither of thse variables is used in dc_link_dp.c.  Reviewing the commit listed in
+> > the fixes tag shows neither was used in the original patch.  So remove them.
+> >
+> > Fixes: 265280b99822 ("drm/amd/display: add CLKMGR changes for DCN32/321")
+> > Signed-off-by: Tom Rix <trix@redhat.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 3 ---
+> >   1 file changed, 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> > index be1dcb0a2a06..f3421f2bd52e 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> > @@ -3882,9 +3882,6 @@ static bool decide_mst_link_settings(const struct dc_link *link, struct dc_link_
+> >       return true;
+> >   }
+> >
+> > -bool FORCE_RATE = false;
+> > -uint32_t FORCE_LANE_COUNT = 0;
+> > -
+> >   void decide_link_settings(struct dc_stream_state *stream,
+> >       struct dc_link_settings *link_setting)
+> >   {
+>
+>
+> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
