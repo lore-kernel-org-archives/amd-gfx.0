@@ -4,52 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D0DC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 12:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B69FC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 12:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772A6113142;
-	Tue, 28 Jun 2022 12:32:36 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82633113142
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 12:32:35 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id k9so2656427pfg.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 05:32:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BhKU9O1JoorkhS0zgnJqqxAOatepAUea4jCUxMOC7Ng=;
- b=SovoBBly2Q++0VsTpMYcyqMWgJfL5XkVskQSUxfUTm+RhCDSQxIqDbeJk36V+gWKyG
- vu3lkS88fE+DblIEKS5Z70Ifh4m+Wa0GPpHPsXsaQlzB1xJmsfKv9wFMplkMjuzq10oz
- KHU3chd90RuHVFJlHeDsvLvlSROL/uUZ3jRfyu7s8uKUJBlNB+S809/lMkrjjoZ9sfLC
- Vv+2sn9ii5AJK8INDZaEkedFu2vLw6PYljIFa1xKCDTpKrtDoofss7SHEB+gaWEc0rmS
- 6tRo9pzdv1s9kYG7h1TV76S5GDd2FrO7oOE0nrZsaPYpzOerE0GVpgEEZVQMf8uNttKS
- DX+Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FB610E8B7;
+	Tue, 28 Jun 2022 12:41:59 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88DC510E8B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 12:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1656420117;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IuD3Xs6rKkTrZfuL6GjG+VXLjBdgV/pwWBRud+rnjNc=;
+ b=bdmXnntX8eiPxbUvVGVdg3/MpXcDdQkCwawpoUVFepeG8a935GGPLIkjF3M5LQBR8OTfUh
+ t68H4kJQ8mHo+yEOCEA+qPpHuP+mMjFo/+SoLFyNkGuH/ECWlqp/nZnMVbY0Xp3oS6w2qn
+ Z//RVnfcsHzvIxG9rxiamd/UHR5tfpQ=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-584-CVULiC3JO4yVPRrLwXTI7g-1; Tue, 28 Jun 2022 08:41:56 -0400
+X-MC-Unique: CVULiC3JO4yVPRrLwXTI7g-1
+Received: by mail-wm1-f69.google.com with SMTP id
+ e24-20020a05600c219800b003a0471b1904so3861576wme.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 05:41:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BhKU9O1JoorkhS0zgnJqqxAOatepAUea4jCUxMOC7Ng=;
- b=FzBkwIjxMIPCmlCjiY46ja7SuXynGJ+R8IgfQ+MHpGm0ywJDrEyQRnUdeQ0d43VXEj
- IB708XOxNY/TfnR3bJbok7EvcYcKGInWxnaWJ2+SOOlUyXcScHXHm/G9nkp20RyBKEpy
- oH1bX425D5XtQAhFfkuzwYp7o6Y/nZVyY7/IANwPB5K4rsV6GR68TcpOR4EQDFLF27nz
- vAEsEtxzSLYzT/JtCgmhXfhDTFsuB6amqUFWejQkmthNZNBToVTDZqW6+ALJmIYvSsSi
- a27jgmg8Wm004t0Wj3ex24S66y6UxMJL/9Ynh4aSUoeh5coRReYsatJMjPdsN3UYSLHp
- k5jQ==
-X-Gm-Message-State: AJIora+iZQDiELST2w9TfyH/Vn/Q7OkY4lLnACS3nCn2Q0lriVevU8LQ
- dzDHMjnE1ME7VV/NrdnEyLDPY9wgRQ9D4AWpGRELu6WD
-X-Google-Smtp-Source: AGRyM1uzlFPlo7ERreDicaUurvpRV137fiWQLfinceyExhXZqfp7QWT3ijQEQczfOYOndCIDy1CcY80cC8ASCjWJRxU=
-X-Received: by 2002:a63:9516:0:b0:40c:c3b9:f984 with SMTP id
- p22-20020a639516000000b0040cc3b9f984mr17805840pgd.116.1656419555045; Tue, 28
- Jun 2022 05:32:35 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=IuD3Xs6rKkTrZfuL6GjG+VXLjBdgV/pwWBRud+rnjNc=;
+ b=2iMqbFdNX9LvBPH0kQdaeFQmh09f11eusg54Cg1nrnJD35AB1Qt98b+CrdOHtjJGs/
+ zGIBBB27ewAbBDQS/En+DaC/3xOB5XLsEIJ7TPvM8UHEXpOS1fRXy2wsXLjLXm6nYDrG
+ ubQr5I2IPE119m7HIkb6BJM9XhUFYp/Rx/amwTcp4QPofpmYxlD6ovJzKURbEV+RXou/
+ 6MPOZCdfzA6msU9ZtxJpI+OsW4JkbALWokoWUz9ZW5qHXEc41ZsNS88rxRgu16dwQm6p
+ qVSPJjFSq5hQqcAYW9IrFCQWD+mPpFnegwGteWvij8qU7DeCIUEmDMluunw3pg2NnC+C
+ Uw/Q==
+X-Gm-Message-State: AJIora+6FsAOQ63lW+w33Uj7+DAeMIpZO+xKX2NI69q3F2tjfdwy+18a
+ 0fDFAc0o6yU1DI52qba4gT9aqUEeFsxo6S6U1yvrWkM+FBmWpk8lTokryX3o+G0/AZPm4RHmlb/
+ Qbq1j7jbgDPxCzkOD7su0nNKeUw==
+X-Received: by 2002:adf:dbc1:0:b0:219:e994:6ba7 with SMTP id
+ e1-20020adfdbc1000000b00219e9946ba7mr17337874wrj.229.1656420115321; 
+ Tue, 28 Jun 2022 05:41:55 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tghK4nMsa8srfSVoGmmm2ilUn0MJSlRYh7VaV3mT8hXZHZauaQaEdSCMC2O7Lev7VXQSCsjw==
+X-Received: by 2002:adf:dbc1:0:b0:219:e994:6ba7 with SMTP id
+ e1-20020adfdbc1000000b00219e9946ba7mr17337853wrj.229.1656420115062; 
+ Tue, 28 Jun 2022 05:41:55 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:c:37e0:f4b2:2105:b039:7367?
+ ([2a01:e0a:c:37e0:f4b2:2105:b039:7367])
+ by smtp.gmail.com with ESMTPSA id
+ f8-20020a1c6a08000000b003a044fe7fe7sm11253762wmc.9.2022.06.28.05.41.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jun 2022 05:41:54 -0700 (PDT)
+Message-ID: <98aab56e-b0a7-1a39-d715-9ad10d7705a0@redhat.com>
+Date: Tue, 28 Jun 2022 14:41:53 +0200
 MIME-Version: 1.0
-References: <20220627143240.1644836-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20220627143240.1644836-1-aurabindo.pillai@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 28 Jun 2022 08:31:58 -0400
-Message-ID: <CAAxE2A6kwdBh8ZYuV7R9s5mnx8ORbOcRHtUaSfM9=9jzGk6eHg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: expose additional modifier for DCN32/321
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000002d762505e2813bb8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: Annoying AMDGPU boot-time warning due to simplefb / amdgpu
+ resource clash
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+References: <CAHk-=wh42rU5mKU6=PCK5tdkYjh7r31dGNmYdHwqpFnRFvVudA@mail.gmail.com>
+ <3920df43-37f5-618d-70ba-de34a886e8ab@redhat.com>
+ <CAHk-=wjxzafG-=J8oT30s7upn4RhBs6TX-uVFZ5rME+L5_DoJA@mail.gmail.com>
+ <561af3c0-c7cf-3580-ce35-320cb13a037c@suse.de>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <561af3c0-c7cf-3580-ce35-320cb13a037c@suse.de>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jfalempe@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,334 +93,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000002d762505e2813bb8
-Content-Type: text/plain; charset="UTF-8"
+On 28/06/2022 10:43, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 27.06.22 um 19:25 schrieb Linus Torvalds:
+>> On Mon, Jun 27, 2022 at 1:02 AM Javier Martinez Canillas
+>> <javierm@redhat.com> wrote:
+>>>
+>>> The flag was dropped because it was causing drivers that requested their
+>>> memory resource with pci_request_region() to fail with -EBUSY (e.g: the
+>>> vmwgfx driver):
+>>>
+>>> https://www.spinics.net/lists/dri-devel/msg329672.html
+>>
+>> See, *that* link would have been useful in the commit.
+>>
+>> Rather than the useless link it has.
+>>
+>> Anyway, removing the busy bit just made things worse.
+>>
+>>>> If simplefb is actually still using that frame buffer, it's a problem.
+>>>> If it isn't, then maybe that resource should have been released?
+>>>
+>>> It's supposed to be released once amdgpu asks for conflicting 
+>>> framebuffers
+>>> to be removed calling 
+>>> drm_aperture_remove_conflicting_pci_framebuffers().
+>>
+>> That most definitely doesn't happen. This is on a running system:
+>>
+>>    [torvalds@ryzen linux]$ cat /proc/iomem | grep BOOTFB
+>>          00000000-00000000 : BOOTFB
+>>
+>> so I suspect that the BUSY bit was never the problem - even for
+>> vmwgfx). The problem was that simplefb doesn't remove its resource.
+>>
+>> Guys, the *reason* for resource management is to catch people that
+>> trample over each other's resources.
+>>
+>> You literally basically disabled the code that checked for it by
+>> removing the BUSY flag, and just continued to have conflicting
+>> resources.
+>>
+>> That isn't a "fix", that is literally "we are ignoring and breaking
+>> the whole reason that the resource tree exists, but we'll still use it
+>> for no good reason".
+> 
+> The EFI/VESA framebuffer is represented by a platform device. The BUSY 
+> flag we removed is in the 'sysfb' code that creates this device. The 
+> BOOTFB resource you see in your /proc/iomem is the framebuffer memory. 
+> The code is in sysfb_create_simplefb() [1]
+> 
+> Later during boot a device driver, 'simplefb' or 'simpledrm', binds to 
+> the device and reserves the framebuffer memory for rendering into it. 
+> For example in simpledrm. [2] At that point a BUSY flag is set for that 
+> reservation.
+> 
+>>
+>> Yeah, yeah, most modern drivers ignore the IO resource tree, because
+>> they end up working on another resource level entirely: they work on
+>> not the IO resources, but on the "driver level" instead, and just
+>> attach to PCI devices.
+>>
+>> So these days, few enough drivers even care about the IO resource
+>> tree, and it's mostly used for (a) legacy devices (think ISA) and (b)
+>> the actual bus resource handling (so the PCI code itself uses it to
+>> sort out resource use and avoid conflicts, but PCI drivers themselves
+>> generally then don't care, because the bus has "taken care of it".
+>>
+>> So that's why the amdgpu driver itself doesn't care about resource
+>> allocations, and we only get a warning for that memory type case, not
+>> for any deeper resource case.
+>>
+>> And apparently the vmwgfx driver still uses that legacy "let's claim
+>> all PCI resources in the resource tree" instead of just claiming the
+>> device itself. Which is why it hit this whole BOOTFB resource thing
+>> even harder.
+>>
+>> But the real bug is that BOOTFB seems to claim this resource even
+>> after it is done with it and other drivers want to take over.
+> 
+> Once amdgpu wants to take over, it has to remove the the platform device 
+> that represents the EFI framebuffer. It does so by calling the 
+> drm_aperture_ function, which in turn calls 
+> platform_device_unregister(). Afterwards, the platform device, driver 
+> and BOOTFB range are supposed to be entirely gone.
+> 
+> Unfortunately, this currently only works if a driver is bound to the 
+> platform device. Without simpledrm or simplefb, amdgpu won't find the 
+> platform device to remove.
+> 
+> I guess, what happens on your system is that sysfb create a device for 
+> the EFI framebuffer and then amdgpu comes and doesn't find it for 
+> removal. And later you see these warnings because BOOTFB is still around.
+> 
+> Javier already provided patches for this scenario, which are in the DRM 
+> tree. From drm-next, please cherry-pick
+> 
+>    0949ee75da6c ("firmware: sysfb: Make sysfb_create_simplefb() return a 
+> pdev pointer")
+> 
+>    bc824922b264 ("firmware: sysfb: Add sysfb_disable() helper function")
+> 
+>    873eb3b11860 ("fbdev: Disable sysfb device registration when removing 
+> conflicting FBs")
+> 
+> for testing. With these patches, amdgpu will find the sysfb device and 
+> unregister it.
+> 
+> The patches are queued up for the next merge window. If they resolve the 
+> issue, we'll already send with the next round of fixes.
 
-This needs to be a loop inserting all 64K_R_X and all 256K_R_X modifiers.
+I was able to reproduce the warning with kernel v5.19-rc4, a radeon GPU 
+and the following config:
 
-If num_pipes > 16, insert 256K_R_X first, else insert 64K_R_X first. Insert
-the other one after that. For example:
+CONFIG_SYSFB=y
+CONFIG_SYSFB_SIMPLEFB=y
+# CONFIG_DRM_SIMPLEDRM is not set
+# CONFIG_FB_SIMPLE is not set
 
-      for (unsigned i = 0; i < 2; i++) {
+After applying the 3 patches you mentioned, the issue is resolved. (at 
+least on my setup).
 
-         unsigned swizzle_r_x;
+Best regards,
 
+-- 
 
-         /* Insert the best one first. */
+Jocelyn
 
-         if (num_pipes > 16)
+> 
+> Best regards
+> Thomas
+> 
+> [1] 
+> https://elixir.bootlin.com/linux/latest/source/drivers/firmware/sysfb_simplefb.c#L115 
+> 
+> [2] 
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/tiny/simpledrm.c#L544 
+> 
+> 
+>>
+>> Not the BUSY bit.
+>>
+>>                       Linus
+> 
 
-            swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX11_256K_R_X :
-AMD_FMT_MOD_TILE_GFX9_64K_R_X;
-
-         else
-
-            swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX9_64K_R_X :
-AMD_FMT_MOD_TILE_GFX11_256K_R_X;
-
-
-         uint64_t modifier_r_x = ...
-
-         add_modifier(,,,
-
-         add_modifier(,,,
-         add_modifier(,,,
-         add_modifier(,,,
-         add_modifier(,,,
-      }
-
-
-Marek
-
-On Mon, Jun 27, 2022 at 10:32 AM Aurabindo Pillai <aurabindo.pillai@amd.com>
-wrote:
-
-> [Why&How]
-> Some userspace expect a backwards compatible modifier on DCN32/321. For
-> hardware with num_pipes more than 16, we expose the most efficient
-> modifier first. As a fall back method, we need to expose slightly
-> inefficient
-> modifier AMD_FMT_MOD_TILE_GFX9_64K_R_X after the best option.
->
-> Also set the number of packers to fixed value as required per hardware
-> documentation. This value is cached during hardware initialization and
-> can be read through the base driver.
->
-> Fixes: 0a2c19562ffe ('Revert "drm/amd/display: ignore modifiers when
-> checking for format support"')
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 3 +--
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++++-
->  2 files changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 1a512d78673a..0f5bfe5df627 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -743,8 +743,7 @@ static int convert_tiling_flags_to_modifier(struct
-> amdgpu_framebuffer *afb)
->                         switch (version) {
->                         case AMD_FMT_MOD_TILE_VER_GFX11:
->                                 pipe_xor_bits = min(block_size_bits - 8,
-> pipes);
-> -                               packers = min(block_size_bits - 8 -
-> pipe_xor_bits,
-> -
->  ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs));
-> +                               packers =
-> ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
->                                 break;
->                         case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:
->                                 pipe_xor_bits = min(block_size_bits - 8,
-> pipes);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c9145864ed2b..bea9cee37f65 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5203,6 +5203,7 @@ add_gfx11_modifiers(struct amdgpu_device *adev,
->         int pkrs = 0;
->         u32 gb_addr_config;
->         unsigned swizzle_r_x;
-> +       uint64_t modifier_r_x_best;
->         uint64_t modifier_r_x;
->         uint64_t modifier_dcc_best;
->         uint64_t modifier_dcc_4k;
-> @@ -5223,10 +5224,12 @@ add_gfx11_modifiers(struct amdgpu_device *adev,
->
->         modifier_r_x = AMD_FMT_MOD |
->                 AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
-> -               AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
->                 AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
->                 AMD_FMT_MOD_SET(PACKERS, pkrs);
->
-> +       modifier_r_x_best = modifier_r_x | AMD_FMT_MOD_SET(TILE,
-> AMD_FMT_MOD_TILE_GFX11_256K_R_X);
-> +       modifier_r_x = modifier_r_x | AMD_FMT_MOD_SET(TILE,
-> AMD_FMT_MOD_TILE_GFX9_64K_R_X);
-> +
->         /* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11
-> (it's implied to be 1). */
->         modifier_dcc_best = modifier_r_x |
->                 AMD_FMT_MOD_SET(DCC, 1) |
-> @@ -5247,6 +5250,9 @@ add_gfx11_modifiers(struct amdgpu_device *adev,
->         add_modifier(mods, size, capacity, modifier_dcc_best |
-> AMD_FMT_MOD_SET(DCC_RETILE, 1));
->         add_modifier(mods, size, capacity, modifier_dcc_4k |
-> AMD_FMT_MOD_SET(DCC_RETILE, 1));
->
-> +       if (num_pipes > 16)
-> +               add_modifier(mods, size, capacity, modifier_r_x_best);
-> +
->         add_modifier(mods, size, capacity, modifier_r_x);
->
->         add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> --
-> 2.36.1
->
->
-
---0000000000002d762505e2813bb8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>This needs to be a loop inserting all 64K_R_X and all=
- 256K_R_X modifiers.</div><div><br></div><div>If num_pipes &gt; 16, insert =
-256K_R_X first, else insert 64K_R_X first. Insert the other one after that.=
- For example:</div><div><br></div><div>
-
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">      </span><span style=3D"color:rgb(0,0,255)">for</span><span style=
-=3D"color:rgb(192,192,192)"> </span>(<span style=3D"color:rgb(128,128,0)">u=
-nsigned</span><span style=3D"color:rgb(192,192,192)"> </span><span style=3D=
-"color:rgb(0,0,0)">i</span><span style=3D"color:rgb(192,192,192)"> </span><=
-span style=3D"color:rgb(0,0,0)">=3D</span><span style=3D"color:rgb(192,192,=
-192)"> </span><span style=3D"color:rgb(0,0,128)">0</span>;<span style=3D"co=
-lor:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,0)">i</span><spa=
-n style=3D"color:rgb(192,192,192)"> </span>&lt;<span style=3D"color:rgb(192=
-,192,192)"> </span><span style=3D"color:rgb(0,0,128)">2</span>;<span style=
-=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,0)">i</spa=
-n><span style=3D"color:rgb(0,0,0)">++</span>)<span style=3D"color:rgb(192,1=
-92,192)"> </span>{</pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">         </span><span style=3D"color:rgb(128,128,0)">unsigned</span><=
-span style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,=
-0)">swizzle_r_x</span>;</pre>
-<pre style=3D"margin:0px;text-indent:0px"><br></pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">         </span><span style=3D"color:rgb(0,196,0)">/*</span><span sty=
-le=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,196,0)">In=
-sert</span><span style=3D"color:rgb(192,192,192)"> </span><span style=3D"co=
-lor:rgb(0,196,0)">the</span><span style=3D"color:rgb(192,192,192)"> </span>=
-<span style=3D"color:rgb(0,196,0)">best</span><span style=3D"color:rgb(192,=
-192,192)"> </span><span style=3D"color:rgb(0,196,0)">one</span><span style=
-=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,196,0)">firs=
-t.</span><span style=3D"color:rgb(192,192,192)"> </span><span style=3D"colo=
-r:rgb(0,196,0)">*/</span></pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">         </span><span style=3D"color:rgb(0,0,255)">if</span><span sty=
-le=3D"color:rgb(192,192,192)"> </span>(<span style=3D"color:rgb(0,0,0)">num=
-_pipes</span><span style=3D"color:rgb(192,192,192)"> </span>&gt;<span style=
-=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,128)">16</=
-span>)</pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">            </span><span style=3D"color:rgb(0,0,0)">swizzle_r_x</span=
-><span style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,=
-0,0)">=3D</span><span style=3D"color:rgb(192,192,192)"> </span><span style=
-=3D"color:rgb(0,0,0)">!</span><span style=3D"color:rgb(0,0,0)">i</span><spa=
-n style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,0)"=
->?</span><span style=3D"color:rgb(192,192,192)"> </span><span style=3D"colo=
-r:rgb(0,0,0)">AMD_FMT_MOD_TILE_GFX11_256K_R_X</span><span style=3D"color:rg=
-b(192,192,192)"> </span>:<span style=3D"color:rgb(192,192,192)"> </span><sp=
-an style=3D"color:rgb(0,0,0)">AMD_FMT_MOD_TILE_GFX9_64K_R_X</span>;</pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">         </span><span style=3D"color:rgb(0,0,255)">else</span></pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">            </span><span style=3D"color:rgb(0,0,0)">swizzle_r_x</span=
-><span style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,=
-0,0)">=3D</span><span style=3D"color:rgb(192,192,192)"> </span><span style=
-=3D"color:rgb(0,0,0)">!</span><span style=3D"color:rgb(0,0,0)">i</span><spa=
-n style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,0)"=
->?</span><span style=3D"color:rgb(192,192,192)"> </span>AMD_FMT_MOD_TILE_GF=
-X9_64K_R_X<span style=3D"color:rgb(192,192,192)"> </span>:<span style=3D"co=
-lor:rgb(192,192,192)"> </span>AMD_FMT_MOD_TILE_GFX11_256K_R_X;</pre>
-<pre style=3D"margin:0px;text-indent:0px"><br></pre>
-<pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192,192,=
-192)">         </span><span style=3D"color:rgb(0,0,0)">uint64_t</span><span=
- style=3D"color:rgb(192,192,192)"> </span><span style=3D"color:rgb(0,0,0)">=
-modifier_r_x</span><span style=3D"color:rgb(192,192,192)"> </span><span sty=
-le=3D"color:rgb(0,0,0)">=3D</span><span style=3D"color:rgb(192,192,192)"> .=
-..<br>         <br></span></pre><pre style=3D"margin:0px;text-indent:0px"><=
-span style=3D"color:rgb(192,192,192)">         add_modifier(,,,<br></span><=
-/pre><pre style=3D"margin:0px;text-indent:0px"><span style=3D"color:rgb(192=
-,192,192)"><span style=3D"color:rgb(192,192,192)">         add_modifier(,,,=
-<br></span><span style=3D"color:rgb(192,192,192)"><span style=3D"color:rgb(=
-192,192,192)">         add_modifier(,,,<br><span style=3D"color:rgb(192,192=
-,192)"><span style=3D"color:rgb(192,192,192)"><span style=3D"color:rgb(192,=
-192,192)">         add_modifier(,,,<br></span></span></span><span style=3D"=
-color:rgb(192,192,192)"><span style=3D"color:rgb(192,192,192)"><span style=
-=3D"color:rgb(192,192,192)">         add_modifier(,,,<br></span></span></sp=
-an>      }<br></span><span style=3D"color:rgb(192,192,192)"><br><br></span>=
-</span></span></pre></div><div></div><div>Marek<br></div></div><br><div cla=
-ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jun 27, 20=
-22 at 10:32 AM Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.=
-com" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">[Why&amp;How]<br>
-Some userspace expect a backwards compatible modifier on DCN32/321. For<br>
-hardware with num_pipes more than 16, we expose the most efficient<br>
-modifier first. As a fall back method, we need to expose slightly inefficie=
-nt<br>
-modifier AMD_FMT_MOD_TILE_GFX9_64K_R_X after the best option.<br>
-<br>
-Also set the number of packers to fixed value as required per hardware<br>
-documentation. This value is cached during hardware initialization and<br>
-can be read through the base driver.<br>
-<br>
-Fixes: 0a2c19562ffe (&#39;Revert &quot;drm/amd/display: ignore modifiers wh=
-en checking for format support&quot;&#39;)<br>
-Signed-off-by: Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.=
-com" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0| 3 +--<br>
-=C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++++-<br>
-=C2=A02 files changed, 8 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c<br>
-index 1a512d78673a..0f5bfe5df627 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-@@ -743,8 +743,7 @@ static int convert_tiling_flags_to_modifier(struct amdg=
-pu_framebuffer *afb)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 switch (version) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 case AMD_FMT_MOD_TILE_VER_GFX11:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pipe_xor_bits =3D min(block_size_bit=
-s - 8, pipes);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0packers =3D min(block_size_bits - 8 -=
- pipe_xor_bits,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0ilog2(adev-&gt;gfx.config.gb_addr_config_fields.num_pkr=
-s));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0packers =3D ilog2(adev-&gt;gfx.config=
-.gb_addr_config_fields.num_pkrs);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pipe_xor_bits =3D min(block_size_bit=
-s - 8, pipes);<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index c9145864ed2b..bea9cee37f65 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -5203,6 +5203,7 @@ add_gfx11_modifiers(struct amdgpu_device *adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int pkrs =3D 0;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 gb_addr_config;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned swizzle_r_x;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t modifier_r_x_best;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t modifier_r_x;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t modifier_dcc_best;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t modifier_dcc_4k;<br>
-@@ -5223,10 +5224,12 @@ add_gfx11_modifiers(struct amdgpu_device *adev,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 modifier_r_x =3D AMD_FMT_MOD |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(TIL=
-E_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_FMT_MOD_SET(TIL=
-E, swizzle_r_x) |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(PIP=
-E_XOR_BITS, pipe_xor_bits) |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(PAC=
-KERS, pkrs);<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0modifier_r_x_best =3D modifier_r_x | AMD_FMT_MO=
-D_SET(TILE, AMD_FMT_MOD_TILE_GFX11_256K_R_X);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0modifier_r_x =3D modifier_r_x | AMD_FMT_MOD_SET=
-(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* DCC_CONSTANT_ENCODE is not set because it ca=
-n&#39;t vary with gfx11 (it&#39;s implied to be 1). */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 modifier_dcc_best =3D modifier_r_x |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_FMT_MOD_SET(DCC=
-, 1) |<br>
-@@ -5247,6 +5250,9 @@ add_gfx11_modifiers(struct amdgpu_device *adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, modifier_dcc=
-_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, modifier_dcc=
-_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (num_pipes &gt; 16)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, =
-size, capacity, modifier_r_x_best);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, modifier_r_x=
-);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
-|<br>
--- <br>
-2.36.1<br>
-<br>
-</blockquote></div>
-
---0000000000002d762505e2813bb8--
