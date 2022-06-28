@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF41CCA479
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3253C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E4710F9D4;
-	Tue, 28 Jun 2022 14:51:31 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416D210F9FB
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2B5B10FA99;
+	Tue, 28 Jun 2022 14:51:32 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E7B110F9D4
  for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 14:51:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MNJCQ2nn2t/H2bzmNlAYi0Xy75PjvdRFYVpRJAaHBfEX92NgY59G0nZNq5u/FSU8rycy+uRCTiQ8xBntrd04V9+xiDSDcqRBokRH9J4WBiAZfMq7/qap6xzM7eHT9aVOlRwfEA3ZgbIps3x4rqI9Yzy/zkpHBaj3PmFXrCGtmd9SlRl/Lc1xsGkt+EnI6JWa2ADyL5urQcSqFVrA0bLa0PXxuc3V0zoRYLuTaZmjAwx4MbJqlp4hggfpUV68WWZlINMzZJz/Tap7EjjMflJyIUqQvLlUlfAZJzZbDb6MIQublPXf7hNVbu/oy1IHWvD4mLU5HN7AjM6OiiygwPIjpQ==
+ b=XVdIwSTw/k5T296/T9G+pgiNpqXVVg0al1AXCfDDUelgFyF2qUSAfrfR6yCqlOPTe/8yVS3M1A9vkEr7tB6ojn/rkM3yncdaRf4JM1zowuSECn5gYeH2kN/B88dv3cs5hmHGKRjJpyxcGtW+Z5goLKNVo//M8D89Lsg7LaM+Tmr0F/5zOCXBxs8B/9ZfN1iPT7+dwccWTWYjFgGlsRxrh7po3GmOFwyfM/GfHLIBHIbpF14XdGQ4jPgD3gdyGPWBmlNlN4teFPxmhaKg4F5IKJEBO1gGlAntd4LwTqq77z9I4RGEkP7lnsnXQvnoNeQTCQgiObnN7rezjVfRWQPhRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3NFKsChvSeVEzrJd3PvhuqMpgx4paW1RY6d7uBmX8Wk=;
- b=jhYlI8iE/ZZYkp6+hnkHTdq/ymHhFziTlbT1XheN0fUjHch3PaZzzl7dkBDQK9w/jodEO8G32JgqjFpX4aV4UuAJ9kZOJlqT7O80fvk2NNcXDEuA/RhPBT5+1vw/tTOIymdxOYuc4VBXK6CWT+CcKOgMDoIFWPpX9oGIvgn4qLK1+h/zzDxbqXsVTTbbPdzRbkynICI+IQuDUeLv+ZPzPOqf91qZEV4lta+p2qsNwK9iCKMwRx9qMqaJpf16EE8ejiuI/AlYqadNpvzhVyDiIJN6YzBJ8gO0Yib8fgoUfrS8acDnttpYbZbUZoQ9SASDbQFAUPfH2x01mc7P73F6vg==
+ bh=URCGr5eL0eWKccGUF8/E4RYgnZso61Al35JvwZ8Sh6o=;
+ b=KIWFftXs1tQZSbmJ5oZh4ZnlbO9BAGXExizqXy2z33NTR1lAzb1w4LKCOAlNDCf3w2D7SuQ8gyAvMHJo+9HPNGGv0o8WZm2TyEFFlKl/jozWXbh+px8Rzc9NuLRFi2BJBMTEb6atUzFiisNHcPMXbY1A0gq9dwm9KjRE1ohN6mQDbaOgQ4xzON8b4RSYM27jQtyAcFIUoS+IhZa1XgNdoRmh2KnoeGGgJKDoIJuu5KawHZ+WKqG5Vgl+3bE76rEn9E/9tN5tVRyZGNIo/TdVT9fdF9MBHxkbO/FnAoHpSy4ATlVOaSbHwv+30xT3X967jRuwWNJiToCLPbGWRoWN1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3NFKsChvSeVEzrJd3PvhuqMpgx4paW1RY6d7uBmX8Wk=;
- b=ErZJ27HEK5as+JPae1hh9M2TNEYGM36ajWbBg4R0qWcA+Vj8tnzPSDHney6cRZr2k7vIc09MKM2CrZ0UopH6qUejl2KTCJOT6SlwYl0M1VG+NhzX2WqLUw986KHC6mvCywrjaUTrQBccwONZh6Rb3vK50B7zNfBGvLzjHuNhRr0=
-Received: from MWHPR17CA0095.namprd17.prod.outlook.com (2603:10b6:300:c2::33)
- by BYAPR12MB3237.namprd12.prod.outlook.com (2603:10b6:a03:13a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.16; Tue, 28 Jun
- 2022 14:51:27 +0000
+ bh=URCGr5eL0eWKccGUF8/E4RYgnZso61Al35JvwZ8Sh6o=;
+ b=IrMO4+eK0GZR/WD+AxL84hscRIi5FZkCgCUdqv1GC3bzS5fCj1hAYYYNB344MlPIu8o/ytulVouE0H1UPUenrl8E5joe5PN7C0F3oxtEUAUV7C8HvkSpr0fdsolhfXi5XYan5lNXMHFsu0ZYy3BO5OeX/9mSFKf5GjtPFucMz38=
+Received: from MWHPR17CA0090.namprd17.prod.outlook.com (2603:10b6:300:c2::28)
+ by MW3PR12MB4460.namprd12.prod.outlook.com (2603:10b6:303:2f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Tue, 28 Jun
+ 2022 14:51:28 +0000
 Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:c2::4) by MWHPR17CA0095.outlook.office365.com
- (2603:10b6:300:c2::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:300:c2:cafe::ec) by MWHPR17CA0090.outlook.office365.com
+ (2603:10b6:300:c2::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.21 via Frontend
- Transport; Tue, 28 Jun 2022 14:51:27 +0000
+ Transport; Tue, 28 Jun 2022 14:51:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Tue, 28 Jun 2022 14:51:27 +0000
+ 15.20.5373.15 via Frontend Transport; Tue, 28 Jun 2022 14:51:28 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 28 Jun
- 2022 09:51:21 -0500
+ 2022 09:51:23 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v5 5/11] drm/amdkfd: Add user queue eviction restore SMI event
-Date: Tue, 28 Jun 2022 10:50:14 -0400
-Message-ID: <20220628145020.26925-6-Philip.Yang@amd.com>
+Subject: [PATCH v5 7/11] drm/amdkfd: Asynchronously free smi_client
+Date: Tue, 28 Jun 2022 10:50:16 -0400
+Message-ID: <20220628145020.26925-8-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220628145020.26925-1-Philip.Yang@amd.com>
 References: <20220628145020.26925-1-Philip.Yang@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fb5ae5ed-77ed-4161-b186-08da5915ae21
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3237:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa561ed3-e508-46cf-470a-08da5915ae9b
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4460:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tnE2toJmFDsT6BiI1kA7lXETUGpNbCpuIz4RvRCZW/uiLXfCzJ/2I9NnQ6lMy7F9XJGWqW2OmT/2D8uzphMRojixrZcAT5hlh5DNhB9ee2QgM+OSWy1Rbe8bc0bGjKWsJ7d4Q/JDNk41UhX5gnG9gNMgMHIt+VWKWoNOrU6x2UR0YhdJRhGXeljK9pW9F+4x3jsgSn41JbyqNNbGXGR6BYwE++yKnpvKHc37xEI0Ff91Lo8RSMLMimH4lyePOFufyvSo86ScBt85EvwMSXsPuJQl2uNGSexB/bcQyRa4oFPHgJ67eseQ9y8aRTUMn9OGvRKYoXsn/ABOnptASb+Ggjyz13eGCujyCf356vUaBBnl1dwFN/sR/jcSt8guAVNvcst3GgvKxUaN31cXHV6NTakT/yvmXva3Q4BrU+uBM6P7QBwkEjD4AzCqxpjjCisZ8/MzU/NZBYJVE6voqVN5tPD7NbF+21cACZs52H4yD3nn27nuiPWKI7soJanrOhpuONnoA3pdUyF5w9wyjAwKEpR1VQItF4iM3UgaNUF9Fyst7JPxnchxKFhq+I7Jh8S9lDi1I95gccPihvq6DYvtWCdzfN/i2Jgn7boFoIAKoH0VKAkalVD6MveKMSpurMcYKU7uaFv6KrSSOuxfguBat6y5cbRVeXTFEZUsc8aANrl9pOaDNTlzOYag1edGlgpU3I9wk2gv0IxLKwmb9pO84zy1n4aFO7+VLWfF1DABrCH3mwxqweUu3Y4Iw87zFG/OsIbLTcYK+8dxFaYTDihluUmdrsnQS/dUgF0h3WWk1aQgDyWz+ojy33hw1e3KhVRPkKQcHQMFF+5uS5Prgdra4Q==
+X-Microsoft-Antispam-Message-Info: kxxdbtwbXe+fy2v1byyaIEgtyn3uP4Ie4qCBZ0LCZ16JVsGNC1pTLACHQtEwTGSDowQy92MXG5qAZZO0l34SuKvlrRN4ju3bw9LZaHit17S2v4Wv2DKPDIT5z07Py8eTRi3rDwfFtG3onynotzXTr8AgoIJbZMeXq5Isbg0Qd5OEmkecNHUcVCc0aVV0aqne4npz1/06ERN8Ro+Xd2Fo3ZY1SR2kIPyhWSHnCRUjcDHwqkcj0LnJH7nF5vt1Ua0aflsW+FSElkR0TKYDivOeiIkNXsqfcTx59PrRUZ7l+/dZlopzB1n5kxNTM0//cKar3jU7D7cIP0nsrVDkI1slR+myiowrBKLGfDGUBxoMezlBQkRx8jT2VR1lKkc2Z+rNzX533Tzpk4pSfVMcFc8eY7if9z0s6h6R7rJVqGPrW1I3Qkd1A31vOBD4vKzxDLVqlhPzQeBd8Jl0ts+3vnDd7rfA8nwrWoeNRn2M6MXBIlWb7iH1OOkNWcG4wlJ4Nn8pL1vKeepM4VrVbRZKdxtOrIAlBp8KD5gA+A2gOLGKlEUoTLH8L49HLOywghOCuwdDHgbP/fagu08Mh43zyblvpcpoy1dWft+EuFa+CqRrYEBtdTysjN0omm0//vo28mJe2nUX2plJMP+NRh6iQ87qIZV+dvCNV/toHDQJxWSmhdpX9dKHHrgmV6AsnIeym5Y+TGKMydFITymU6JnPjcE9Fn7755lkAnDQ+Hu/4pnolE4VKH8dgeO7IjyIV6NVxEatFuzX1dyOazER3uwU72kZiWMg56NyX1exXjQNvpBrtEmdj6eI2ZqSwsdKBJ16GEPN0swv9Ls+GjBGoGAy61CrBA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(396003)(346002)(39860400002)(136003)(46966006)(36840700001)(40470700004)(54906003)(316002)(82310400005)(7696005)(40480700001)(478600001)(81166007)(6916009)(41300700001)(82740400003)(186003)(8676002)(356005)(70206006)(86362001)(16526019)(5660300002)(36756003)(83380400001)(2906002)(426003)(36860700001)(8936002)(70586007)(4326008)(1076003)(40460700003)(2616005)(26005)(6666004)(30864003)(47076005)(336012)(36900700001);
+ SFS:(13230016)(4636009)(136003)(346002)(396003)(39860400002)(376002)(36840700001)(40470700004)(46966006)(6916009)(82740400003)(41300700001)(36756003)(5660300002)(316002)(47076005)(2906002)(70206006)(2616005)(186003)(82310400005)(40460700003)(6666004)(336012)(83380400001)(54906003)(16526019)(7696005)(478600001)(426003)(356005)(1076003)(86362001)(4326008)(8676002)(81166007)(36860700001)(40480700001)(70586007)(26005)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2022 14:51:27.5100 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb5ae5ed-77ed-4161-b186-08da5915ae21
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2022 14:51:28.2912 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa561ed3-e508-46cf-470a-08da5915ae9b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3237
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4460
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,294 +103,54 @@ Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Output user queue eviction and restore event. User queue eviction may be
-triggered by svm or userptr MMU notifier, TTM eviction, device suspend
-and CRIU checkpoint and restore.
-
-User queue restore may be rescheduled if eviction happens again while
-restore.
+The synchronize_rcu may take several ms, which noticeably slows down
+applications close SMI event handle. Use call_rcu to free client->fifo
+and client asynchronously and eliminate the synchronize_rcu call in the
+user thread.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 12 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  4 +--
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  4 +--
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 15 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   | 35 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h   |  4 +++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 ++--
- 9 files changed, 69 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index b25b41f50213..73bf8b5f2aa9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -336,7 +336,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
- }
- #endif
- /* KGD2KFD callbacks */
--int kgd2kfd_quiesce_mm(struct mm_struct *mm);
-+int kgd2kfd_quiesce_mm(struct mm_struct *mm, uint32_t trigger);
- int kgd2kfd_resume_mm(struct mm_struct *mm);
- int kgd2kfd_schedule_evict_and_restore_process(struct mm_struct *mm,
- 						struct dma_fence *fence);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 5ba9070d8722..6a7e045ddcc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -32,6 +32,7 @@
- #include "amdgpu_dma_buf.h"
- #include <uapi/linux/kfd_ioctl.h>
- #include "amdgpu_xgmi.h"
-+#include "kfd_smi_events.h"
- 
- /* Userptr restore delay, just long enough to allow consecutive VM
-  * changes to accumulate
-@@ -2381,7 +2382,7 @@ int amdgpu_amdkfd_evict_userptr(struct kgd_mem *mem,
- 	evicted_bos = atomic_inc_return(&process_info->evicted_bos);
- 	if (evicted_bos == 1) {
- 		/* First eviction, stop the queues */
--		r = kgd2kfd_quiesce_mm(mm);
-+		r = kgd2kfd_quiesce_mm(mm, KFD_QUEUE_EVICTION_TRIGGER_USERPTR);
- 		if (r)
- 			pr_err("Failed to quiesce KFD\n");
- 		schedule_delayed_work(&process_info->restore_userptr_work,
-@@ -2655,13 +2656,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 
- unlock_out:
- 	mutex_unlock(&process_info->lock);
--	mmput(mm);
--	put_task_struct(usertask);
- 
- 	/* If validation failed, reschedule another attempt */
--	if (evicted_bos)
-+	if (evicted_bos) {
- 		schedule_delayed_work(&process_info->restore_userptr_work,
- 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
-+
-+		kfd_smi_event_queue_restore_rescheduled(mm);
-+	}
-+	mmput(mm);
-+	put_task_struct(usertask);
- }
- 
- /** amdgpu_amdkfd_gpuvm_restore_process_bos - Restore all BOs for the given
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index a0246b4bae6b..6abfe10229a2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2428,7 +2428,7 @@ static int criu_restore(struct file *filep,
- 	 * Set the process to evicted state to avoid running any new queues before all the memory
- 	 * mappings are ready.
- 	 */
--	ret = kfd_process_evict_queues(p);
-+	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
- 	if (ret)
- 		goto exit_unlock;
- 
-@@ -2547,7 +2547,7 @@ static int criu_process_info(struct file *filep,
- 		goto err_unlock;
- 	}
- 
--	ret = kfd_process_evict_queues(p);
-+	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
- 	if (ret)
- 		goto err_unlock;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index c8fee0dbfdcb..6ec0e9f0927d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -837,7 +837,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- 	spin_unlock_irqrestore(&kfd->interrupt_lock, flags);
- }
- 
--int kgd2kfd_quiesce_mm(struct mm_struct *mm)
-+int kgd2kfd_quiesce_mm(struct mm_struct *mm, uint32_t trigger)
- {
- 	struct kfd_process *p;
- 	int r;
-@@ -851,7 +851,7 @@ int kgd2kfd_quiesce_mm(struct mm_struct *mm)
- 		return -ESRCH;
- 
- 	WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
--	r = kfd_process_evict_queues(p);
-+	r = kfd_process_evict_queues(p, trigger);
- 
- 	kfd_unref_process(p);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 59ba50ce54d3..b9e7e9c52853 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -946,7 +946,7 @@ static inline struct kfd_process_device *kfd_process_device_from_gpuidx(
- }
- 
- void kfd_unref_process(struct kfd_process *p);
--int kfd_process_evict_queues(struct kfd_process *p);
-+int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger);
- int kfd_process_restore_queues(struct kfd_process *p);
- void kfd_suspend_all_processes(void);
- int kfd_resume_all_processes(void);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index a13e60d48b73..fc38a4d81420 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -43,6 +43,7 @@ struct mm_struct;
- #include "kfd_device_queue_manager.h"
- #include "kfd_iommu.h"
- #include "kfd_svm.h"
-+#include "kfd_smi_events.h"
- 
- /*
-  * List of struct kfd_process (field kfd_process).
-@@ -1736,7 +1737,7 @@ struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm)
-  * Eviction is reference-counted per process-device. This means multiple
-  * evictions from different sources can be nested safely.
-  */
--int kfd_process_evict_queues(struct kfd_process *p)
-+int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger)
- {
- 	int r = 0;
- 	int i;
-@@ -1745,6 +1746,9 @@ int kfd_process_evict_queues(struct kfd_process *p)
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
- 
-+		kfd_smi_event_queue_eviction(pdd->dev, p->lead_thread->pid,
-+					     trigger);
-+
- 		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
- 							    &pdd->qpd);
- 		/* evict return -EIO if HWS is hang or asic is resetting, in this case
-@@ -1769,6 +1773,9 @@ int kfd_process_evict_queues(struct kfd_process *p)
- 
- 		if (n_evicted == 0)
- 			break;
-+
-+		kfd_smi_event_queue_restore(pdd->dev, p->lead_thread->pid);
-+
- 		if (pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
- 							      &pdd->qpd))
- 			pr_err("Failed to restore queues\n");
-@@ -1788,6 +1795,8 @@ int kfd_process_restore_queues(struct kfd_process *p)
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
- 
-+		kfd_smi_event_queue_restore(pdd->dev, p->lead_thread->pid);
-+
- 		r = pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
- 							      &pdd->qpd);
- 		if (r) {
-@@ -1849,7 +1858,7 @@ static void evict_process_worker(struct work_struct *work)
- 	flush_delayed_work(&p->restore_work);
- 
- 	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
--	ret = kfd_process_evict_queues(p);
-+	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_TTM);
- 	if (!ret) {
- 		dma_fence_signal(p->ef);
- 		dma_fence_put(p->ef);
-@@ -1916,7 +1925,7 @@ void kfd_suspend_all_processes(void)
- 		cancel_delayed_work_sync(&p->eviction_work);
- 		cancel_delayed_work_sync(&p->restore_work);
- 
--		if (kfd_process_evict_queues(p))
-+		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
- 			pr_err("Failed to suspend process 0x%x\n", p->pasid);
- 		dma_fence_signal(p->ef);
- 		dma_fence_put(p->ef);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index ec4d278c2a47..3917c38204d0 100644
+index e5896b7a16dd..0472b56de245 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -283,6 +283,41 @@ void kfd_smi_event_migration_end(struct kfd_dev *dev, pid_t pid,
- 			  from, to, trigger);
+@@ -38,6 +38,7 @@ struct kfd_smi_client {
+ 	uint64_t events;
+ 	struct kfd_dev *dev;
+ 	spinlock_t lock;
++	struct rcu_head rcu;
+ 	pid_t pid;
+ 	bool suser;
+ };
+@@ -137,6 +138,14 @@ static ssize_t kfd_smi_ev_write(struct file *filep, const char __user *user,
+ 	return sizeof(events);
  }
  
-+void kfd_smi_event_queue_eviction(struct kfd_dev *dev, pid_t pid,
-+				  uint32_t trigger)
++static void kfd_smi_ev_client_free(struct rcu_head *p)
 +{
-+	kfd_smi_event_add(pid, dev, KFD_SMI_EVENT_QUEUE_EVICTION,
-+			  "%lld -%d %x %d\n", ktime_get_boottime_ns(), pid,
-+			  dev->id, trigger);
++	struct kfd_smi_client *ev = container_of(p, struct kfd_smi_client, rcu);
++
++	kfifo_free(&ev->fifo);
++	kfree(ev);
 +}
 +
-+void kfd_smi_event_queue_restore(struct kfd_dev *dev, pid_t pid)
-+{
-+	kfd_smi_event_add(pid, dev, KFD_SMI_EVENT_QUEUE_RESTORE,
-+			  "%lld -%d %x\n", ktime_get_boottime_ns(), pid,
-+			  dev->id);
-+}
-+
-+void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
-+{
-+	struct kfd_process *p;
-+	int i;
-+
-+	p = kfd_lookup_process_by_mm(mm);
-+	if (!p)
-+		return;
-+
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct kfd_process_device *pdd = p->pdds[i];
-+
-+		kfd_smi_event_add(p->lead_thread->pid, pdd->dev,
-+				  KFD_SMI_EVENT_QUEUE_RESTORE,
-+				  "%lld -%d %x %c\n", ktime_get_boottime_ns(),
-+				  p->lead_thread->pid, pdd->dev->id, 'R');
-+	}
-+	kfd_unref_process(p);
-+}
-+
- int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
  {
- 	struct kfd_smi_client *client;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-index ec5d74a2fef4..b23292637239 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-@@ -42,4 +42,8 @@ void kfd_smi_event_migration_start(struct kfd_dev *dev, pid_t pid,
- void kfd_smi_event_migration_end(struct kfd_dev *dev, pid_t pid,
- 			     unsigned long start, unsigned long end,
- 			     uint32_t from, uint32_t to, uint32_t trigger);
-+void kfd_smi_event_queue_eviction(struct kfd_dev *dev, pid_t pid,
-+				  uint32_t trigger);
-+void kfd_smi_event_queue_restore(struct kfd_dev *dev, pid_t pid);
-+void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 5cead2a0e819..ddc1e4651919 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1730,14 +1730,16 @@ static void svm_range_restore_work(struct work_struct *work)
- 	mutex_unlock(&svms->lock);
- 	mmap_write_unlock(mm);
- 	mutex_unlock(&process_info->lock);
--	mmput(mm);
+ 	struct kfd_smi_client *client = filep->private_data;
+@@ -146,10 +155,7 @@ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+ 	list_del_rcu(&client->list);
+ 	spin_unlock(&dev->smi_lock);
  
- 	/* If validation failed, reschedule another attempt */
- 	if (evicted_ranges) {
- 		pr_debug("reschedule to restore svm range\n");
- 		schedule_delayed_work(&svms->restore_work,
- 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
-+
-+		kfd_smi_event_queue_restore_rescheduled(mm);
- 	}
-+	mmput(mm);
+-	synchronize_rcu();
+-	kfifo_free(&client->fifo);
+-	kfree(client);
+-
++	call_rcu(&client->rcu, kfd_smi_ev_client_free);
+ 	return 0;
  }
- 
- /**
-@@ -1793,7 +1795,7 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
- 			 prange->svms, prange->start, prange->last);
- 
- 		/* First eviction, stop the queues */
--		r = kgd2kfd_quiesce_mm(mm);
-+		r = kgd2kfd_quiesce_mm(mm, KFD_QUEUE_EVICTION_TRIGGER_SVM);
- 		if (r)
- 			pr_debug("failed to quiesce KFD\n");
  
 -- 
 2.35.1
