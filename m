@@ -4,116 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99375C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2F8BC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 15:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2430710FD66;
-	Tue, 28 Jun 2022 14:53:27 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32FB310FD42
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 14:53:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oUBuUDw0ajFQaGf9ZvWfEGgtq5OlqRvs5V4gSefV8iL8onydLrsVU2R9RwFuWpLAX2nf1DovZws63ockwV866Q+Yh4vIC9KNVDbBU46+OECaxa/8e7BJRnfadT6FElibSDOw0dowZrMX3QaMiacVtHfZQxcbmHOTOeWmmrSMpTOnIGrP8KS6082liRWO+o259BCC+NkpRVv7O1v+dk/9d1EoahjUNfEB+/r8N1YoB2fMZSQ9ngzmg8/DLx1bsXw/MR79tI/fwsUvbjV1crhSB7rKWOYHni6i0/W2NIRYq8MeLi0ACTxebjpab3Vx0nWgzzC2upvn0h8+Mzhpx1zxKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fJMtG8gJHOYOTMYvMGj4b3YwbPYiA+sOYo2tCgutf4U=;
- b=UOFIuQpxOQ5/xDt5L0un94aQki+YFkyR//QvXkH7eTpJ2DNXvTtoH2IbLXq6w7bUU/99RHU3zcsjnqymjj1dH5yDWcTKOIwcQ5+VA7sfs6FzYjOvxB9HiB8T2s0YlxquwRWAIVneFO2hkXAR7CbccfTCtOtHrUk/mrb1rHtMMnQv95gQ4UYQ/5PGP5llgDJjYNVY5rtBuvBisg/MfJhAnCkvDnOjfLd6U9IaOxzpTX5ATnGBr8q3edvOIYqELSK5BGO3VfWSKWKmYxugmRL4ZLz3kPwEI+O9gEAN2n/6JoMQOKcBXVcegccxywqnBD77CXMKeL+iB4sgYyG+xc8l1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fJMtG8gJHOYOTMYvMGj4b3YwbPYiA+sOYo2tCgutf4U=;
- b=tMoB0GPKoC/qKrmz2FAbO5zJrGxpohCeOOFySA16FtNELTlHt29tGTsHT7HSp7zUUBN6sr0i6nEn6Hgepb/PKCs0jAn9zn6URquqQwIt8/aIqwXhO6Cbx0bQ+lPyX8kMz5eSisO56FnH4gDEpSDi9TqypfkFxaOqUNLxnZMb7Xk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by DM5PR12MB1482.namprd12.prod.outlook.com (2603:10b6:4:a::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5373.15; Tue, 28 Jun 2022 14:53:22 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::85a:3075:1744:8317]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::85a:3075:1744:8317%7]) with mapi id 15.20.5353.020; Tue, 28 Jun 2022
- 14:53:22 +0000
-Message-ID: <63d76489-0980-b176-6efe-57deae1f9f3e@amd.com>
-Date: Tue, 28 Jun 2022 10:53:20 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amdgpu/display: reduce stack size in
- dml32_ModeSupportAndSystemConfigurationFull()
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>
-References: <20220622144756.1890683-1-alexander.deucher@amd.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20220622144756.1890683-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR06CA0024.namprd06.prod.outlook.com
- (2603:10b6:208:23d::29) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8EA1126E9;
+	Tue, 28 Jun 2022 15:06:02 +0000 (UTC)
+Received: from sonic306-20.consmr.mail.gq1.yahoo.com
+ (sonic306-20.consmr.mail.gq1.yahoo.com [98.137.68.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5556A1125BA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 15:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
+ t=1656428570; bh=mJdxWi+vRg5mX2ammRonQra2G8KMb7ygMvIk+e3y9ss=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To;
+ b=oL0go7DAuaFwQBzxvAj93d5o/SRTjNurU3QevVXsSEJxvo7Naj/0J+rNSfMdOvVLsbXQIJTgLgUCMJlU0HpKFx6gGK9IgnHONv6IJij+vdQjV6ecfmmbLwOdIjumy+0fQbsK0oG9uoW+5C7HxIjlr3BK4byXi+oNWczQp9HFN883jCjR0EzSS1D23qiEoH3byuhhARCoFcBPywWTnQBv0gzW2LVDgM0OIVqLSNFpWDvjoqS2lFSIurwF/S+22aH7CpNFfNS1vHakRqRd2/HI9C46cobOKtf9FPhbbw1Zm5jyeYnxIE2nSmowLa/xjdkZfrTXQXfg2yLIXIjWtynpSA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1656428570; bh=jCd3itgRrfW+cbzZVwm+EqZW7GYNioHLqwThqMhCf88=;
+ h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
+ b=Kyb1zFacnb78pUvFy50wTca1sb81DaB6HtI8PgG8iONE6NYQmjP7wHrP2HzY373G+jENj7C3h5RZPwJkPsYcWWd6Db/PDZMWGY8RBEROJazlTHT4SWWIBTlA0aYNrASoT0OP8xOJ6S8DMftdpzq99pT1kMAs65hL9rSRlKiuThVN84a1Kj8A2FybZZSrlgcLDY3bmHae3cAq6w9Vtn8wzSbyt97KbwuS+xfwj2zh8nK8Xm3Dzie84jYbgbk7hI9sK0eFajuwy4SxSIbPm3bGypsRflNTQY4pOoL5XXb/b6S0CS6Zxm5IeQKON/mBxBnenpvE0tMmSjFFxY6E31Dq6g==
+X-YMail-OSG: 8l3EnbgVM1l8CCCIXzJxNxhAKM2TpC2vXdUg0UqinPjPg6O0qI8zEPIiarA5C.6
+ sqK__HFKUxJT7zG1JF6uGyon9oNZeN.0NMaSIEV7ygGfCt_44w.Rf7IZ7LX75WljTynAu8y4FB0U
+ 6YyvqeNwvdkcw7Zi1A2VaGy8Pr6wmnSRGOPVqbeB.4WAe6qENHe5ovv5fDgSbJskfbR48ooPEbZa
+ GT9kqL8KPN9iddqNFX0KYDckpu_St4Dg_bJMomamg3v0y_pRC1lLcOZepb1EY40LBeyEVcUmkaYc
+ htrO0M3Y1XVJSq_zXJJPJ7gB678jrfTtCxlt4ljAxg5AN6MZTq3TjmxeIZH_mvLhUlB._a4Gl7jg
+ 0rjIkvsvIObtyCOs8rfZGOVNBktELh7d8LKPC06OGfW5lwoRfTsmlTrLWmyXbsxkm6LjXXph1zMv
+ 4cTXHoOgT1elisfOUAn89_C_X4CU5ffzj5IB30.619RChRzIGS.c91OYydQpBLs2sdejBOczNqk9
+ 9RRYOGf2Ph4uDIh.MHgigFya1.bpZmSQRnL1JK6UBye7sP72dHwohaVg3.7N9iEZZ47WDTki63Qb
+ yjkf5uix3Y2CCu.Yge1ZD6zJ9UiGQm4T1NGZA3bNjErwXJeC_zFyb4NbG0bY8ifpVmC7yHOwg7DG
+ BguLJMBTCIa4pyczbP_.8UYiHtVVrBl3GDljrXeyZqc1abWNA9Ygi5O3wilDFT98KrWP_U_gaLgo
+ ZSIhVdLd3AVuuvKDi4rMHnUFXMWL87dxe6E46eXTDqkQgOm0SVvAp9bOM0qPMxSLF39sboKrWT1T
+ DAyPGxGByBXHjFaK6Jo7Po7sTRCKEuNyTiEK9Z9Qj3sme9oVUFKu7Fd87TOqHVMwOyvfnBsZYvUU
+ up5uKXk82aAGeMXt5ajhXOz9C9ek9B.o2Hpw2UI8PIWZ4dHS8j5xuvfuUefecUQXHRQE6Inywd.q
+ n56c5F.6OipJO56OGat.CE0_OriiFEIMMRIYA_6V1WB7W1LC3sd8Fwf.EOHrzGUFxawP7UdAwrB6
+ 7ssTU68z7BjT7ZGWkQkIunN3CrTJj1NWO5fZKUcE602y5.d4Lj1b4gle4_o89wjnjPAAgY0Ka71z
+ WApZ1JtlmXfbbIiWdUiCh9iX.TmRttEFov8jR5tUjFh8W4nnmLPa807eo9IuSTNEyq.TxBm4UyGX
+ F_fT2GpgbfnRQp2L7QbI74g2oJcklkXbHSdO.NrycSWXa_C4PJJ009EB5wsajzo6VbnM0Eqxj3ie
+ w3y0sBZAv6Arrr9F3XMr5FgW0qz7fQD8swtray_N86ZnmH1voqWp6wdQKFDBE0Ip7ptzjm4XABDE
+ WBDpX90oIdlog6Rp0iSOlLgCdy690WT4waROdjllIOthw.KDy8sqpvdWe3C_OV_OdchxsN4MvlL2
+ q9LGvPwBIx2MOY7.ugLKHb40kD60M8O_ZAxskSqmNl_VlrOm8PkYJtkRzOwcMi.jtWWKdmxUzr0C
+ c8OOrCFk7BccDWXSsnGkFq_fsvW8V4vmkcVm8cksdgIcSY.79e.dby7lCnGaph.hsW2OgNUG0zNL
+ eTmcXgMIr9PQAALPd7h6tEenUYcXm54oST.zqMo.epoa.TRMnz0X3JbEQF.iNpZ.nuAHEH76cNz8
+ pMXH4P2wmkKpTEyfnK7.E.4XimdBJKhoaXmn65v475DcZN6YclHEyNxDpIV98aWJKZlAWGKpiiUt
+ GSH9_xjTBg3yUgKAIfFBjo_nh_0wAsz.3zqzsB3VltPtlRVf4HoaUU3IRSH1mW5hI2S80YRd364B
+ pzCnFbwJ1ipO4b_.gWo3ZUTFG8ZquVjbwg_EZhD3ntSUnZPz8EhdkBATSwv7u_Z.JvijpFFrkb_K
+ P1mjNUZJlWW24M6xUwH1ujYMjMT1Us7WIVnoHpNc4UkvrkgBPiiqhjOEslIxwO4qIF011kCmq7cE
+ n6GcMz4pk89_K_E4agOMiHeDqOMIqczXBLJ1ToDRSTzO.PsyIP_.KM.9QoS2yMpPGUrffuffuDPT
+ SEA4drcmjW5CdPtDYMj397rnzeZYDZYf4I7jjIZc1hzpfE9bH4oBn1E1iimW2iSC0RGu9zfKAgj9
+ ckpl3gG0d9ywRx6HOg4zext5PJy00TW4GFhYpZ_HtSST9y5jZr4noxyXs4ri6TLx4xW3cjPSXVMc
+ 45WAcQFycvAXDa0lDCmLxS2Hru6cT2w8nQE9jjZJ0g8DnhJfKCo..ORmue8lKBk7t6_iLwfOP.02
+ tSC8x7PbjGtYZGorfeXQT4YvWYonzHcgAT3BMHwcc9CCzpVoiuj6k
+X-Sonic-MF: <alex_y_xu@yahoo.ca>
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic306.consmr.mail.gq1.yahoo.com with HTTP; Tue, 28 Jun 2022 15:02:50 +0000
+Received: by hermes--production-ne1-7459d5c5c9-f2z7w (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID f5e4bf9d72858dcfc86edb9d0d0ee251; 
+ Tue, 28 Jun 2022 15:02:44 +0000 (UTC)
+Date: Tue, 28 Jun 2022 11:02:40 -0400
+From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: CONFIG_ANDROID (was: rcu_sched detected expedited stalls in amdgpu
+ after suspend)
+To: paulmck@kernel.org, rcu@vger.kernel.org, urezki@gmail.com,
+ uladzislau.rezki@sony.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arve =?iso-8859-1?b?SGr4bm5lduVn?= <arve@android.com>, Todd Kjos
+ <tkjos@android.com>, Martijn Coenen <maco@android.com>, Joel Fernandes
+ <joel@joelfernandes.org>, Christian Brauner <christian@brauner.io>,
+ Hridya Valsaraju <hridya@google.com>, Suren Baghdasaryan <surenb@google.com>, 
+ linux-kernel@vger.kernel.org, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ wireguard@lists.zx2c4.com, Theodore Ts'o <tytso@mit.edu>
+References: <1656357116.rhe0mufk6a.none.ref@localhost>
+ <1656357116.rhe0mufk6a.none@localhost>
+ <20220627204139.GL1790663@paulmck-ThinkPad-P17-Gen-1>
+ <1656379893.q9yb069erk.none@localhost>
+ <20220628041252.GV1790663@paulmck-ThinkPad-P17-Gen-1>
+In-Reply-To: <20220628041252.GV1790663@paulmck-ThinkPad-P17-Gen-1>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 30e96d99-f97c-471b-f194-08da5915f220
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1482:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FBBqc9ODhjMBr7sfKodbqgmaFP7+vZBtPzVlrRBsnR7tx1ahnvZgdEEtDA9SrwOIloipVuSzflR3+yFceRxI/nGbgNKmXVhrEFmX7fWU2DLUGM6b3Z2d+9Odu0xsC0YyWEetRUyNOKe8B+k4jmCXryE9S0pnj+iIgJJ+K6so7DeymOm+LzdPtqboA5o7nFSvSadByS3nODQr8IJ/fIGMxHuKj/B8CDoCPwnbLCx4kmwkQ55JVwTlhOKLmI5FaHaUO4yc2v8viT3/qf3Wy9SresSPCuKI3u7KnjwZrbHgXGemiiIY6a3cymaBxOf8X9Yi7AOW0ZxJLt2IWT+85Ve8rDQmOUAdIT1yettHjvdU130K9jhP9kaykMm2voWXV5u3ZbxU+qUv3yYYfv1inqtNA2iad5tzH5Ag+FUR5QVWgtjxytgEIKmrXkz6BfWUR3bdDFI/JuLgZ2LqsGJskTNMuk3geL6BRrLwKYgwK9bLfukdlvhz1jtQGFn3yhUwGWJT5MeCTvNd0eho7g4UFATjzgly70ZrzRQ1FngFjx2HFTLO5q/e24ygnFTib0koNNH3QdjBvhtaQKgcMvoum97wfar1gvkGMIs/08EPM1XC7+3yD1MqGP3h0kvdP48YqovJyfLTwnTLjWtHqIOTxXKJtrxB/QfYpqZ4eGgISWD/nfaVoGkMtxuW/h7bOhfYN0NvHQ8EvPVB5vAW3QFD1yWXQwu/vansjnzmmqJ/2V9WkjChJZAXOO0fsaNQQzYKrN4+zVSgEzh4zM9AfcH5nLX+1H/7hx77orrjHGup2VmqAPKeqCUcrnMJlgKbqg03mj8rE3ZGiLWxrfGunebgWEpawm0fVwixuVXa3WJ4ltbuY6o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(136003)(376002)(366004)(39860400002)(31696002)(38100700002)(86362001)(8936002)(26005)(66476007)(5660300002)(53546011)(30864003)(6512007)(110136005)(2906002)(36756003)(2616005)(6506007)(316002)(83380400001)(6486002)(31686004)(4326008)(66556008)(186003)(8676002)(478600001)(19627235002)(41300700001)(66946007)(213903007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEJ0cDlPUk9KMFRLczZSbWNIbVNiaUpkdy9uYkV6TkV5dWFpZzg1UktsQjh6?=
- =?utf-8?B?aGRyN2N2SUR3OC9sRVQwYTBWSlpXVkVPM2tGRTFQenJDMXk2OWg3N1k1NHN2?=
- =?utf-8?B?Syt2YTBGY0cwWnFkb0JFa3ZhakxmR1VBZ1Z4UjFlR3hydmo5Wm5TaGEwM01Z?=
- =?utf-8?B?SHk0aU44Q1NwQ1dhOTdjTUVZRjg4dVZFdW5jVE5aTitwQmRGODdSV0ZQOE9Z?=
- =?utf-8?B?WVlZVmhXNWZ5N1VPVmVUdzVVa2o4UVRFN2hkK2NHcTBjWm4rM0hvYjd5SFVR?=
- =?utf-8?B?UFN0TTJNN2RvZU5jSHF2TEQ1aC83T3VpaWptNE1yOFRlcWR6ck5mUVFQaFlo?=
- =?utf-8?B?R1dhbDhBKzlHdkhjc2doZFZ5bmw3Tmh2elFGWWMwTG8yVjZQQnpDOWMxUmRN?=
- =?utf-8?B?YkZvVk5DZEpUcmNZbkRSc3V2ajAwVlQ2bnhURFJiN01rRVpESEVTMVpPVnV4?=
- =?utf-8?B?R2ZvUVhkL0xJRFMrNTFzejdXK2ZORGxycUZKWTk1NVRSbXprT25KeEtKcXcv?=
- =?utf-8?B?SHlicUo5V3Fyb2xGQVFPbmdZM1FGRjgydHhORURWWEZkY2g3Wm5xWjVPcCtq?=
- =?utf-8?B?OHE5aXpjQ2NrQVk4bDB1cUxXZ0VUdXV5YWt2NVFIeTRvcjl1N0pFUlMyZkZY?=
- =?utf-8?B?akRMRU1abTNNdFRrRVg3WEZnTkNMdUNZT0VXZ1kweTFvLytRa2s3ODNxNEhK?=
- =?utf-8?B?YkFFZUxFZWhvU0RPQXRPQzBTdzVWSWtqek9zd2p1M21uekdIc2swWHp6RXdH?=
- =?utf-8?B?TmRUYlE0aEYrcDQyelBnN2VzZWtxQTZoOUVOWkVIRStOcXJ0VDhXSmsxcTRq?=
- =?utf-8?B?a2htREIyeXpVNjM1NGU1TVQzQmFCM0prOS9iTUI3bGRNclVDdHV4Vm1qYzF1?=
- =?utf-8?B?Tm1mNWNsakMrVkd3RnltYm44ODVQUTI2N0tzVFBiUm4vZFN0aHZMSkJjTTVI?=
- =?utf-8?B?QmlWcTlINElKK1ErbVBTY2htTjZoRG9OV1BWMUFqbHVyendUVmtvbVBhWlp6?=
- =?utf-8?B?SlpDTGRhWGZKd2hueTd3NVFKMUtoR0cxU2NGNHZKajlITnZXN0p2U3ZFQzF6?=
- =?utf-8?B?ZDFuNjNMM1pXMC9hVy9Wa05US0dRNDZjTTBCd3JIV2JjNEpPSVN4TkRjV0Z3?=
- =?utf-8?B?VkRwdmYyNmRIVW0vNklRNEx4RjJ4Sk8wbjZRTC9DTFNvbWlkL0QwV0ZHSVJ1?=
- =?utf-8?B?blgzNzc0S3pkMndseWN4R1NjemhjN2w0cjY1Q3JtdDNCcDBjVDlmWDhmSG43?=
- =?utf-8?B?VlI3NVZZVStNelZjV2lRRTVjTk1hK2c4ZW9VN05iQ3dGeENFVmEzczNrQVJN?=
- =?utf-8?B?STlGbnN5VWtMd21MOVlQbGJ3dTQvVVFOc2JwbW9hZVI3TVgwUVF4d21COEdz?=
- =?utf-8?B?czdVbWUvM3dPY09TVWRoeDBvVlQ1eTNpRXNjZTRUajkyVXM2ME1ueXJmZ3Fl?=
- =?utf-8?B?UHYrZ0Z0MnNzZEFjZVhjdDFLdzl6UWpvKzlGaHZKZEx6SVhVSkthN3JMOHZL?=
- =?utf-8?B?NEQ5cjNVWElrcGxzOWMzZ2J6RWg3YUhIZUJiVThLYkpuU1NVbUdrWEpobHZu?=
- =?utf-8?B?dG0zNnNJbDhZVUx5cXFwOTNrb3FhKy9BUkdMbkRxZzIyVXVmWllDdWdURGsw?=
- =?utf-8?B?S0ZQcWdjek1uTXViaENJaHpPc3lickIyUS9TR0dKSFVmdWdWTWpTZHZhV0Zx?=
- =?utf-8?B?NXErRzlpRThJVVI5cXFXMWp0Q0tlTC90VFNaSDRvOGRlTlZ5M053YTIvN0s2?=
- =?utf-8?B?TkFnemluY0lGMk9QVVNPdlJsaG1uaUI0OXdJK3Mrb2E4cERLUW82RXA3d3E4?=
- =?utf-8?B?bnBLUVJ4bExISjNnZHdiK3NybndFU0g3bFdhZFEzdCtXZGVmdGZ5SXNJZVRV?=
- =?utf-8?B?YUdkTXRiSTBrUm1QUWVPMjYxcGV1T2VWelV2bUtzUmJWOUE5UEJNYVpWbVNa?=
- =?utf-8?B?TEkyVW9QSmY2Y2JFMGx3RkJTR0dwZXJzZ05iRXpyQjhmUnRyMWRSbFJ0OHF6?=
- =?utf-8?B?YVRPUngrZUh0N3JLMlNFS2xWRjQ0TVJ5b00ydEcrTlVtaWRzVGlSVjViOGN0?=
- =?utf-8?B?dW93a3ZUSUIyYjNYOUFCSi9nQ1FaWTMzR2srRnRlYmxkaXFUZVVWVmhGQzhw?=
- =?utf-8?Q?nT+yXsS7OylJfrpv+6TrCMQUk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30e96d99-f97c-471b-f194-08da5915f220
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2022 14:53:22.0433 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cAvOQH64WBjqsAQlMpn2OHOD31iyINKjJoryovLIwhObMSxTFsl/+nd02SSVSRXpb6pcV21SMB0dVhtU0+DlaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1482
+Message-Id: <1656421946.ic03168yc3.none@localhost>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.20280
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-Mailman-Approved-At: Tue, 28 Jun 2022 15:06:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,251 +94,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Excerpts from Paul E. McKenney's message of June 28, 2022 12:12 am:
+> On Mon, Jun 27, 2022 at 09:50:53PM -0400, Alex Xu (Hello71) wrote:
+>> Ah, I see. I have selected the default value for=20
+>> CONFIG_RCU_EXP_CPU_STALL_TIMEOUT, but that is 20 if ANDROID. I am not=20
+>> using Android; I'm not sure there exist Android devices with AMD GPUs.=20
+>> However, I have set CONFIG_ANDROID=3Dy in order to use=20
+>> ANDROID_BINDER_IPC=3Dm for emulation.
+>>=20
+>> In general, I think CONFIG_ANDROID is not a reliable method for=20
+>> detecting if the kernel is for an Android device; for example, Fedora=20
+>> sets CONFIG_ANDROID, but (AFAIK) its kernel is not intended for use with=
+=20
+>> Android userspace.
+>>=20
+>> On the other hand, it's not clear to me why the value 20 should be for=20
+>> Android only anyways. If, as you say in=20
+>> https://lore.kernel.org/lkml/20220216195508.GM4285@paulmck-ThinkPad-P17-=
+Gen-1/,
+>> it is related to the size of the system, perhaps some other heuristic=20
+>> would be more appropriate.
+>=20
+> It is related to the fact that quite a few Android guys want these
+> 20-millisecond short-timeout expedited RCU CPU stall warnings, but no one
+> else does.  Not yet anyway.
+>=20
+> And let's face it, the intent and purpose of CONFIG_ANDROID=3Dy is extrem=
+ely
+> straightforward and unmistakeable.  So perhaps people not running Android
+> devices but wanting a little bit of the Android functionality should do
+> something other than setting CONFIG_ANDROID=3Dy in their .config files.  =
+Me,
+> I am surprised that it took this long for something like this to bite you=
+.
+>=20
+> But just out of curiosity, what would you suggest instead?
 
+Both Debian and Fedora set CONFIG_ANDROID, specifically for binder. If=20
+major distro vendors are consistently making this "mistake", then=20
+perhaps the problem is elsewhere.
 
-On 2022-06-22 10:47, Alex Deucher wrote:
-> Move more stack variable in to dummy vars structure on the heap.
-> 
-> Fixes stack frame size errors:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'dml32_ModeSupportAndSystemConfigurationFull':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:3833:1: error: the frame size of 2720 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
->   3833 | } // ModeSupportAndSystemConfigurationFull
->        | ^
-> 
-> Fixes: dda4fb85e433 ("drm/amd/display: DML changes for DCN32/321")
-> Cc: Stephen Rothwell <sfr@canb.auug.org.au>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   .../dc/dml/dcn32/display_mode_vba_32.c        | 77 ++++++++-----------
->   .../drm/amd/display/dc/dml/display_mode_vba.h |  3 +-
->   2 files changed, 36 insertions(+), 44 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> index 510b7a81ee12..7f144adb1e36 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> @@ -1660,8 +1660,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
->   
->   void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
->   {
-> -	bool dummy_boolean[2];
-> -	unsigned int dummy_integer[1];
-> +	unsigned int dummy_integer[4];
->   	bool MPCCombineMethodAsNeededForPStateChangeAndVoltage;
->   	bool MPCCombineMethodAsPossible;
->   	enum odm_combine_mode dummy_odm_mode[DC__NUM_DPP__MAX];
-> @@ -1973,10 +1972,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[5], /* Long            DETBufferSizeInKByte[]  */
->   			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[6], /* Long            DETBufferSizeY[]  */
->   			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[7], /* Long            DETBufferSizeC[]  */
-> -			&dummy_boolean[0], /* bool           *UnboundedRequestEnabled  */
-> -			&dummy_integer[0], /* Long           *CompressedBufferSizeInkByte  */
-> +			&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[0][0], /* bool           *UnboundedRequestEnabled  */
-> +			&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[0][0], /* Long           *CompressedBufferSizeInkByte  */
->   			mode_lib->vba.SingleDPPViewportSizeSupportPerSurface,/* bool ViewportSizeSupportPerSurface[] */
-> -			&dummy_boolean[1]); /* bool           *ViewportSizeSupport */
-> +			&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[1][0]); /* bool           *ViewportSizeSupport */
->   
->   	MPCCombineMethodAsNeededForPStateChangeAndVoltage = false;
->   	MPCCombineMethodAsPossible = false;
-> @@ -2506,7 +2505,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   	//
->   	for (i = 0; i < (int) v->soc.num_states; ++i) {
->   		for (j = 0; j <= 1; ++j) {
-> -			bool dummy_boolean_array[1][DC__NUM_DPP__MAX];
->   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
->   				mode_lib->vba.RequiredDPPCLKThisState[k] = mode_lib->vba.RequiredDPPCLK[i][j][k];
->   				mode_lib->vba.NoOfDPPThisState[k] = mode_lib->vba.NoOfDPP[i][j][k];
-> @@ -2570,7 +2568,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   					mode_lib->vba.DETBufferSizeCThisState,
->   					&mode_lib->vba.UnboundedRequestEnabledThisState,
->   					&mode_lib->vba.CompressedBufferSizeInkByteThisState,
-> -					dummy_boolean_array[0],
-> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[0],
->   					&mode_lib->vba.ViewportSizeSupport[i][j]);
->   
->   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
-> @@ -2708,9 +2706,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   			}
->   
->   			{
-> -				bool dummy_boolean_array[2][DC__NUM_DPP__MAX];
-> -				unsigned int dummy_integer_array[22][DC__NUM_DPP__MAX];
-> -
->   				dml32_CalculateVMRowAndSwath(
->   						mode_lib->vba.NumberOfActiveSurfaces,
->   						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SurfParameters,
-> @@ -2733,32 +2728,32 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   						/* Output */
->   						mode_lib->vba.PTEBufferSizeNotExceededPerState,
->   						mode_lib->vba.DCCMetaBufferSizeNotExceededPerState,
-> -						dummy_integer_array[0],
-> -						dummy_integer_array[1],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[0],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[1],
->   						mode_lib->vba.dpte_row_height,
->   						mode_lib->vba.dpte_row_height_chroma,
-> -						dummy_integer_array[2],
-> -						dummy_integer_array[3],
-> -						dummy_integer_array[4],
-> -						dummy_integer_array[5],
-> -						dummy_integer_array[6],
-> -						dummy_integer_array[7],
-> -						dummy_integer_array[8],
-> -						dummy_integer_array[9],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[2],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[3],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[4],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[5],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[6],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[7],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[8],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[9],
->   						mode_lib->vba.meta_row_height,
->   						mode_lib->vba.meta_row_height_chroma,
-> -						dummy_integer_array[10],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[10],
->   						mode_lib->vba.dpte_group_bytes,
-> -						dummy_integer_array[11],
-> -						dummy_integer_array[12],
-> -						dummy_integer_array[13],
-> -						dummy_integer_array[14],
-> -						dummy_integer_array[15],
-> -						dummy_integer_array[16],
-> -						dummy_integer_array[17],
-> -						dummy_integer_array[18],
-> -						dummy_integer_array[19],
-> -						dummy_integer_array[20],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[11],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[12],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[13],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[14],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[15],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[16],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[17],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[18],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[19],
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[20],
->   						mode_lib->vba.PrefetchLinesYThisState,
->   						mode_lib->vba.PrefetchLinesCThisState,
->   						mode_lib->vba.PrefillY,
-> @@ -2772,9 +2767,9 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   						mode_lib->vba.MetaRowBytesThisState,
->   						mode_lib->vba.use_one_row_for_frame_this_state,
->   						mode_lib->vba.use_one_row_for_frame_flip_this_state,
-> -						dummy_boolean_array[0], // Boolean UsesMALLForStaticScreen[]
-> -						dummy_boolean_array[1], // Boolean PTE_BUFFER_MODE[]
-> -						dummy_integer_array[21]); // Long BIGK_FRAGMENT_SIZE[]
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[0], // Boolean UsesMALLForStaticScreen[]
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[1], // Boolean PTE_BUFFER_MODE[]
-> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer_array[21]); // Long BIGK_FRAGMENT_SIZE[]
->   			}
->   
->   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
-> @@ -3197,7 +3192,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   
->   				for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
->   					DmlPipe myPipe;
-> -					unsigned int dummy_integer;
->   
->   					mode_lib->vba.TWait = dml32_CalculateTWait(
->   							mode_lib->vba.PrefetchModePerState[i][j],
-> @@ -3294,7 +3288,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[0],         // double *Tdmdl_vm
->   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[1],         // double *Tdmdl
->   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[2],         // double *TSetup
-> -							&dummy_integer,         							    // unsigned int   *VUpdateOffsetPix
-> +							&dummy_integer[0],         							    // unsigned int   *VUpdateOffsetPix
->   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[3],         // unsigned int   *VUpdateWidthPix
->   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[4]);        // unsigned int   *VReadyOffsetPix
->   				}
-> @@ -3323,7 +3317,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   				}
->   
->   				{
-> -					double dummy_single[2];
->   					dml32_CalculatePrefetchBandwithSupport(
->   							mode_lib->vba.NumberOfActiveSurfaces,
->   							mode_lib->vba.ReturnBWPerState[i][j],
-> @@ -3346,8 +3339,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   							mode_lib->vba.UrgentBurstFactorCursorPre,
->   
->   							/* output */
-> -							&dummy_single[0],   // Single  *PrefetchBandwidth
-> -							&dummy_single[1],   // Single  *FractionOfUrgentBandwidth
-> +							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[0],   // Single  *PrefetchBandwidth
-> +							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[1],   // Single  *FractionOfUrgentBandwidth
->   							&mode_lib->vba.PrefetchSupported[i][j]);
->   				}
->   
-> @@ -3457,7 +3450,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   					}
->   
->   					{
-> -						double dummy_single[2];
->   						dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
->   								mode_lib->vba.ReturnBWPerState[i][j],
->   								mode_lib->vba.ImmediateFlipRequirement,
-> @@ -3480,8 +3472,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   								mode_lib->vba.UrgentBurstFactorCursorPre,
->   
->   								/* output */
-> -								&dummy_single[0], //  Single  *TotalBandwidth
-> -								&dummy_single[1], //  Single  *FractionOfUrgentBandwidth
-> +								&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[0], //  Single  *TotalBandwidth
-> +								&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[1], //  Single  *FractionOfUrgentBandwidth
->   								&mode_lib->vba.ImmediateFlipSupportedForState[i][j]); // Boolean *ImmediateFlipBandwidthSupport
->   					}
->   
-> @@ -3534,7 +3526,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->   			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.mSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
->   
->   			{
-> -				unsigned int dummy_integer[4];
->   				dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
->   						mode_lib->vba.USRRetrainingRequiredFinal,
->   						mode_lib->vba.UsesMALLForPStateChange,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> index 9ad49ad38814..10ff536ef2a4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> @@ -196,7 +196,7 @@ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCal
->   };
->   
->   struct dml32_ModeSupportAndSystemConfigurationFull {
-> -	unsigned int dummy_integer_array[8][DC__NUM_DPP__MAX];
-> +	unsigned int dummy_integer_array[22][DC__NUM_DPP__MAX];
->   	double dummy_double_array[2][DC__NUM_DPP__MAX];
->   	DmlPipe SurfParameters[DC__NUM_DPP__MAX];
->   	double dummy_single[5];
-> @@ -207,6 +207,7 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
->   	double DSTYAfterScaler[DC__NUM_DPP__MAX];
->   	double DSTXAfterScaler[DC__NUM_DPP__MAX];
->   	double MaxTotalVActiveRDBandwidth;
-> +	bool dummy_boolean_array[2][DC__NUM_DPP__MAX];
->   };
->   
->   struct dummy_vars {
+In my own opinion, assuming that binderfs means Android vendor is not a=20
+good assumption. The ANDROID help says:
 
+> Enable support for various drivers needed on the Android platform
 
-Hi Alex/Stephan,
+It doesn't say "Enable only if building an Android device", or "Enable=20
+only if you are Google". Isn't the traditional Linux philosophy a=20
+collection of pieces to be assembled, without gratuitous hidden=20
+dependencies? For example, [0] removes the unnecessary Android=20
+dependency, it doesn't block the whole thing with "depends on ANDROID".
 
-I applied this patch, ran a basic set of validation and ran a couple of 
-IGT tests, and everything looks fine; with that, feel free to add my 
-reviewed-by and merge it:
+It seems to me that the proper way to set some configuration for Android=20
+kernels is or should be to ask the Android kernel config maintainers,=20
+not to set it based on an upstream kernel option. There is, after all,=20
+no CONFIG_FEDORA or CONFIG_UBUNTU or CONFIG_HANNAH_MONTANA.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+WireGuard and random also use CONFIG_ANDROID in a similar "proxy" way as=20
+rcu, there to see if suspends are "frequent". This seems dubious for the=20
+same reasons.
 
-However, I still do not understand why I cannot see this issue on my 
-side. I'm using Clang 14.0.5, enabling DCN in the config file, but I'm 
-never able to see it.
+I wonder if it might be time to retire CONFIG_ANDROID: the only=20
+remaining driver covered is binder, which originates from Android but=20
+is no longer used exclusively on Android systems. Like ufs-qcom, binder=20
+is no longer used exclusively on Android devices; it is also used for=20
+Android device emulators, which might be used on Android-like mobile=20
+devices, or might not.
 
-Thanks.
-Siqueira
+My understanding is that both Android and upstream kernel developers=20
+intend to add no more Android-specific drivers, so binder should be the=20
+only one covered for the foreseeable future.
 
+> For that matter, why the private reply?
+
+Mail client issues, not intentional. Lists re-added, plus Android,=20
+WireGuard, and random.
+
+Thanks,
+Alex.
+
+[0] https://lore.kernel.org/all/20220321151853.24138-1-krzk@kernel.org/
