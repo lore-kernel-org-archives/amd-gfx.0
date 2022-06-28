@@ -4,71 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF972C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 13:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F66EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 13:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B49D11BC5F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D296711BCDE;
 	Tue, 28 Jun 2022 13:03:29 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4878310F551;
- Tue, 28 Jun 2022 12:51:04 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
- [109.252.118.164])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0CAD76601856;
- Tue, 28 Jun 2022 13:50:59 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656420662;
- bh=PFIWuLGIBDtoRI7sScn1Qx1sFNzrxav9CwBcyPc2Png=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=V6A4i4mgC7SygYLCmvg40e3M81RG/nLZ/L09nEF81ZEMMV40VCGpzFid5ug7Tsy+M
- JJULMGU+7KkybWYvkIsvU/ssgYQavWAgTD+qaLt1ZFZMED89SRhVkbTpf0pkVLfkoR
- JfMkEqOi6Jltg+VJCW0E6PxrF4y+o0UyiHoHJPm5iOgz2VnonBrpPs33i7rlIkHOWe
- GbmYQjKXkSUuNfZXIi9JfAnVBSFfMhkr7oZUdkjoY+h8H0UjB5/VbfcY+JTYya+yEV
- nUgQkyz86IxSI8sX2smo3E9EcgTcZljuRobh25uNSzXJ+0iLsUPXTV8KID1cNF+P49
- tf0YoXH3FRlUA==
-Message-ID: <f77c1c2d-d9f9-db00-906a-ec10b535621d@collabora.com>
-Date: Tue, 28 Jun 2022 15:50:57 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C6012B5CD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 10:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1656412906;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8pRM3r8AeF6GLv7Aybx1vUx/f9NMkwqu6LnYZ6evvqI=;
+ b=FEMCP5UHCqHS8JYmq5HoEAt39H2O2l/LOpmdOwaP9xRZ5yhd40Q9Mi5FM1DMoWnQamlhKd
+ 1/U2CErYXB4IKtY0yd6kPeljNITwtDHvw/3L+ar8N0ux+lAUnon95Zkdk8oalXsd2SVQyq
+ 3rkg/U6QJsn5epK3C7lzMcbUnjfm+pM=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-616-PuFkImFuMaaC-tSTWbgDEw-1; Tue, 28 Jun 2022 06:41:44 -0400
+X-MC-Unique: PuFkImFuMaaC-tSTWbgDEw-1
+Received: by mail-wr1-f71.google.com with SMTP id
+ j14-20020adfa54e000000b0021b8c8204easo1704205wrb.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 03:41:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=8pRM3r8AeF6GLv7Aybx1vUx/f9NMkwqu6LnYZ6evvqI=;
+ b=UwvEVTr0UFeGyTL+pKSmhWT4Zn5aAR8azEGEZea9SKyBBceXN5z/bE5BdvFlhAyRXh
+ 8HlpULB95YSW7f6UTRitpMGUfTcR4WvTIfFPwg8B965Do8oUaQjJZGrv23XteDfYLKu5
+ gEgNlTQfGsS8ctqeT6BUV4rWAav87sDaAmhQecsKCR3VTUz9nem+s8Qe9Hp4ojIpfCNU
+ If6fHCc47CroHviBpNIl+fZ6sAQJECPu3tYKcIVbJ4g5cVHHPE9wB+arspqit5Jm+LA/
+ OwyJ1gL2mPellvH1U4Hq0fvNuCoKnDO2f78jywLWRF5Sfhyhc1iDWZ2rX8Db0A5pT4ub
+ EW4Q==
+X-Gm-Message-State: AJIora/5UsS5YP4jLCGk+4jZ5QaSgri0+go+kJrv2OCX0k2qFTOYXszE
+ iufq9wS1mmyq48EO2k+zF0PCqls7cNUIVQjTgN4r2EJ7dfTkGmsGUaBxlWpFjfDFucMqyn1FCtM
+ TgAEyERSl4EJmEynRWsuiGKLCMQ==
+X-Received: by 2002:a05:6000:3c6:b0:21b:9d00:db29 with SMTP id
+ b6-20020a05600003c600b0021b9d00db29mr17371379wrg.338.1656412903686; 
+ Tue, 28 Jun 2022 03:41:43 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1vrjQcjOOWZyri2deV7Hh8adDyK403V4lqaRVOfb8p/+5njBKdZBau0GhQDi3asydV8iTuiRw==
+X-Received: by 2002:a05:6000:3c6:b0:21b:9d00:db29 with SMTP id
+ b6-20020a05600003c600b0021b9d00db29mr17371350wrg.338.1656412903411; 
+ Tue, 28 Jun 2022 03:41:43 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c709:a00:46df:e778:456a:8d6b?
+ (p200300cbc7090a0046dfe778456a8d6b.dip0.t-ipconnect.de.
+ [2003:cb:c709:a00:46df:e778:456a:8d6b])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020adfcd8d000000b00219b391c2d2sm15851990wrj.36.2022.06.28.03.41.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jun 2022 03:41:42 -0700 (PDT)
+Message-ID: <336094c6-0c94-2b43-5472-c44638e8446a@redhat.com>
+Date: Tue, 28 Jun 2022 12:41:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v6 00/22] Add generic memory shrinker to VirtIO-GPU and
- Panfrost DRM drivers
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v6 06/14] mm: add device coherent checker to
+ is_pinnable_page
+To: Alex Sierra <alex.sierra@amd.com>, jgg@nvidia.com
+References: <20220628001454.3503-1-alex.sierra@amd.com>
+ <20220628001454.3503-7-alex.sierra@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <20220628001454.3503-7-alex.sierra@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 28 Jun 2022 13:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,87 +92,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/28/22 15:31, Robin Murphy wrote:
-> ----->8-----
-> [   68.295951] ======================================================
-> [   68.295956] WARNING: possible circular locking dependency detected
-> [   68.295963] 5.19.0-rc3+ #400 Not tainted
-> [   68.295972] ------------------------------------------------------
-> [   68.295977] cc1/295 is trying to acquire lock:
-> [   68.295986] ffff000008d7f1a0
-> (reservation_ww_class_mutex){+.+.}-{3:3}, at: drm_gem_shmem_free+0x7c/0x198
-> [   68.296036]
-> [   68.296036] but task is already holding lock:
-> [   68.296041] ffff80000c14b820 (fs_reclaim){+.+.}-{0:0}, at:
-> __alloc_pages_slowpath.constprop.0+0x4d8/0x1470
-> [   68.296080]
-> [   68.296080] which lock already depends on the new lock.
-> [   68.296080]
-> [   68.296085]
-> [   68.296085] the existing dependency chain (in reverse order) is:
-> [   68.296090]
-> [   68.296090] -> #1 (fs_reclaim){+.+.}-{0:0}:
-> [   68.296111]        fs_reclaim_acquire+0xb8/0x150
-> [   68.296130]        dma_resv_lockdep+0x298/0x3fc
-> [   68.296148]        do_one_initcall+0xe4/0x5f8
-> [   68.296163]        kernel_init_freeable+0x414/0x49c
-> [   68.296180]        kernel_init+0x2c/0x148
-> [   68.296195]        ret_from_fork+0x10/0x20
-> [   68.296207]
-> [   68.296207] -> #0 (reservation_ww_class_mutex){+.+.}-{3:3}:
-> [   68.296229]        __lock_acquire+0x1724/0x2398
-> [   68.296246]        lock_acquire+0x218/0x5b0
-> [   68.296260]        __ww_mutex_lock.constprop.0+0x158/0x2378
-> [   68.296277]        ww_mutex_lock+0x7c/0x4d8
-> [   68.296291]        drm_gem_shmem_free+0x7c/0x198
-> [   68.296304]        panfrost_gem_free_object+0x118/0x138
-> [   68.296318]        drm_gem_object_free+0x40/0x68
-> [   68.296334]        drm_gem_shmem_shrinker_run_objects_scan+0x42c/0x5b8
-> [   68.296352]        drm_gem_shmem_shrinker_scan_objects+0xa4/0x170
-> [   68.296368]        do_shrink_slab+0x220/0x808
-> [   68.296381]        shrink_slab+0x11c/0x408
-> [   68.296392]        shrink_node+0x6ac/0xb90
-> [   68.296403]        do_try_to_free_pages+0x1dc/0x8d0
-> [   68.296416]        try_to_free_pages+0x1ec/0x5b0
-> [   68.296429]        __alloc_pages_slowpath.constprop.0+0x528/0x1470
-> [   68.296444]        __alloc_pages+0x4e0/0x5b8
-> [   68.296455]        __folio_alloc+0x24/0x60
-> [   68.296467]        vma_alloc_folio+0xb8/0x2f8
-> [   68.296483]        alloc_zeroed_user_highpage_movable+0x58/0x68
-> [   68.296498]        __handle_mm_fault+0x918/0x12a8
-> [   68.296513]        handle_mm_fault+0x130/0x300
-> [   68.296527]        do_page_fault+0x1d0/0x568
-> [   68.296539]        do_translation_fault+0xa0/0xb8
-> [   68.296551]        do_mem_abort+0x68/0xf8
-> [   68.296562]        el0_da+0x74/0x100
-> [   68.296572]        el0t_64_sync_handler+0x68/0xc0
-> [   68.296585]        el0t_64_sync+0x18c/0x190
-> [   68.296596]
-> [   68.296596] other info that might help us debug this:
-> [   68.296596]
-> [   68.296601]  Possible unsafe locking scenario:
-> [   68.296601]
-> [   68.296604]        CPU0                    CPU1
-> [   68.296608]        ----                    ----
-> [   68.296612]   lock(fs_reclaim);
-> [   68.296622] lock(reservation_ww_class_mutex);
-> [   68.296633]                                lock(fs_reclaim);
-> [   68.296644]   lock(reservation_ww_class_mutex);
-> [   68.296654]
-> [   68.296654]  *** DEADLOCK ***
+On 28.06.22 02:14, Alex Sierra wrote:
+> is_device_coherent checker was added to is_pinnable_page and renamed
+> to is_longterm_pinnable_page. The reason is that device coherent
+> pages are not supported for longterm pinning.
+> 
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> ---
+>  include/linux/memremap.h | 25 +++++++++++++++++++++++++
+>  include/linux/mm.h       | 24 ------------------------
+>  mm/gup.c                 |  5 ++---
+>  mm/gup_test.c            |  4 ++--
+>  mm/hugetlb.c             |  2 +-
+>  5 files changed, 30 insertions(+), 30 deletions(-)
 
-This splat could be ignored for now. I'm aware about it, although
-haven't looked closely at how to fix it since it's a kind of a lockdep
-misreporting.
+
+Rename of the function should be a separate cleanup patch before any
+other changes, and the remaining change should be squashed into patch
+#1, to logically make sense, because it still states "no one should be
+allowed to pin such memory so that it can always be evicted."
+
+Or am I missing something?
 
 -- 
-Best regards,
-Dmitry
+Thanks,
+
+David / dhildenb
+
