@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD8EC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 02:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B097CCA47B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 02:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A51310EF6C;
-	Tue, 28 Jun 2022 02:20:57 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA0E710EF68;
- Tue, 28 Jun 2022 02:20:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C20E210F0BB;
+	Tue, 28 Jun 2022 02:22:40 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8FFC10F0AD;
+ Tue, 28 Jun 2022 02:22:38 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 570AD6182F;
- Tue, 28 Jun 2022 02:20:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D212AC34115;
- Tue, 28 Jun 2022 02:20:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3423FB81C0E;
+ Tue, 28 Jun 2022 02:22:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0AAC34115;
+ Tue, 28 Jun 2022 02:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656382854;
- bh=8EEm0dlpGRNW+1bRE51uF+/2iljO7Ff562zYe9PwjaY=;
+ s=k20201202; t=1656382956;
+ bh=n/Xg72I2PqpNn+JH5KABFsDCJC+bAbLU0o98dCwubN0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VKT+A9Dt6h5tXSArWh2YFiC+yYs735tniWDfnUYsZfoGewHNefDW3WFHwTgZtuslF
- Aizfa1eAjaYdQIXoteNUy0u0JPkTzJI2MGi6axL5ePvEkJ6fG811ke8NwfEO7uuiw/
- goTrCR6mlaxGCNTjnCq0xGHqBEG20xxJUk9lp4RO+2KgIVBxHc2Minm1IccWc3ivG2
- izJWDqx0sdtIVmbW3sfFNT1fmp1zgRDk4lqRlj2fNQDN7qrbW6dU7/vYe4FLxcJ00E
- CSbg+ifuTshQqcmTt33IJwFT7z7GyQ+i5qGSNyupYKgVIF7P4btsIGW0q0E7OdLl12
- TwkQhqyC19/dA==
+ b=eSWIYEGO8dwbf353OvuDKUI3LCdg4FtOvZ1Sf9YXLsweaeOo9DffswjwXPCAlT32s
+ Ahf0kzJctVgxu9w9FdunDXPaWgaQQYBHMC8tGaxzVx2JJpswrgz6rTJ4RjcffkUeCo
+ 3i9RxQ5BPMjytgDxaYpFIw93inQoFGjvCV6DjcXM5c/5lM+THv162wQCyj0P2jAdjM
+ SR5ZoZcF3+SQMCknfHwjhVdZnq+dWW0Ep4qh/DLQfGexD6BwXJ9W8JYtXMNxEvbXOg
+ RPmBkfTPAeNllcZKnTJG5RY3KOd3zWESIFXzAuBt4GRtcp2Pr1v55PmRistQmiySrm
+ LQtsCSGgvvQ8w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 50/53] drm/amdgpu: Adjust logic around GTT size
+Subject: [PATCH AUTOSEL 5.15 38/41] drm/amdgpu: Adjust logic around GTT size
  (v3)
-Date: Mon, 27 Jun 2022 22:18:36 -0400
-Message-Id: <20220628021839.594423-50-sashal@kernel.org>
+Date: Mon, 27 Jun 2022 22:20:57 -0400
+Message-Id: <20220628022100.595243-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220628021839.594423-1-sashal@kernel.org>
-References: <20220628021839.594423-1-sashal@kernel.org>
+In-Reply-To: <20220628022100.595243-1-sashal@kernel.org>
+References: <20220628022100.595243-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
@@ -93,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 4b9ee6e27f74..ef3ada98bdb6 100644
+index 51c76d6322c9..d6c30eaf4fcd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1798,18 +1798,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+@@ -1747,18 +1747,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
  	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
  		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
  
