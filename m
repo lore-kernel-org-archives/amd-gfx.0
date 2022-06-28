@@ -4,78 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91864C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 20:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C1DAC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 20:25:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C329E11A32A;
-	Tue, 28 Jun 2022 20:18:28 +0000 (UTC)
-X-Greylist: delayed 325 seconds by postgrey-1.36 at gabe;
- Tue, 28 Jun 2022 20:18:27 UTC
-Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
- [213.80.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80B8E11A115
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 20:18:27 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id AC47E3F6D0;
- Tue, 28 Jun 2022 22:12:59 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Authentication-Results: ste-pvt-msa1.bahnhof.se (amavisd-new);
- dkim=pass (1024-bit key) header.d=shipmail.org
-Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id mmpRsQHvcbQV; Tue, 28 Jun 2022 22:12:58 +0200 (CEST)
-Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id CDA333F5E5;
- Tue, 28 Jun 2022 22:12:55 +0200 (CEST)
-Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
- [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id 5504F360156;
- Tue, 28 Jun 2022 22:12:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1656447175; bh=8qVW4B3M3sdbclxh8UQh5P9peDN3xxFvdDdC5TV32/0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dVFF/BzMCsmmWG2zHPWW6M0VCmuZz4GO4qbbISmpcnG1hjGYEkIoPCt6RUdqXtSN5
- Zw7NouOgpWzqOWItxknC6wyoxQz+N4x4jBvrz2P0oIotiPufQ3K9y8CBhGSA/p5GgE
- mX1Zal2b0Dlj2qezn+xXIo0JguejcKH2kGq5qm/s=
-Message-ID: <d3fcb4ee-83ec-09b8-d1ef-0191512fda91@shipmail.org>
-Date: Tue, 28 Jun 2022 22:12:46 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6C6610F105;
+	Tue, 28 Jun 2022 20:25:32 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33D9310F105
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 20:25:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qu0rpb+agI3B2O5GUcym7t5kp/UCB3MPiaRFlDPj7T2IBJHoD6tnhDVr6gGPNfb1DH7Gu7aQ0Wx+2dwsm6V4NuM3F43Vwv1VqWv68eS+XJVQXbZv9FnavOqidm0s9otzA7bDOZoXtbFqh4fD/FtXAkHSjiVju1CUwfosud49/OyAvOXe6Xhyo5E0fWG6p8SMv8i6wYRZzsjsriSbF5TFeV0a4NK0kYOx+A5c2SRLQ+O4p7xKGF2+1n6+1hexluxN2hf67i4TFybC7wYIZAz1fwji1Yuh4Eg6Co3Fn/m+uiB30WBGZTbxnWAwo5RPZuK/EHQrVkwITwRR+p4VV2bLRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=alrUeI29j5T4zu6JHraJsJ3tGgOXK+96noAXXQfYLrU=;
+ b=EMBgdRQcTKx/k96PTT/htTDM1pDNj7gnxsL02gkIk1MOXoPsBj5p0Jk8zGzQXuKT96MRhrqEf4SoJBGQAs3IXKwABkjhMu11a+kPOTgepZGvpvjpr56DsWeesdmOd/PaQewh1goSHioFujyAKaLxFr8SJ34TdQcRddf6JKO9u7e7NKOnwWXc5e6dPBI7QwmJIu/U4/EhJjv3+tYbZpsA7j7qVpw8OGxX+/VR7MWHY7gSJsGV+ToVZJn4Z9GaWLmvwiZxhJrgiqV6pjPAAlyz4NlFZ+HulyHHLzVoqQOKNsYTterNudTRK4NAU40dXhHfzVQ/pT1R5OssQThxxBy/NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=alrUeI29j5T4zu6JHraJsJ3tGgOXK+96noAXXQfYLrU=;
+ b=SdI3lGhiT200cjbuWkrlz7oDegUEvMHlu15JmqiDiduT0hK+lzb+Y5UyyooL3skRdb/oz7guiAFtmGYyI5/klYOYO57uC6TlNme+52H1ymiCtiVdF7pregNZmIuwHlLBct1zgC6827PeqwsV2WC3DWzeguF8jpbLLKPyKJnL8Zk=
+Received: from DM6PR08CA0038.namprd08.prod.outlook.com (2603:10b6:5:1e0::12)
+ by MN2PR12MB4552.namprd12.prod.outlook.com (2603:10b6:208:24f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Tue, 28 Jun
+ 2022 20:25:30 +0000
+Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1e0:cafe::3) by DM6PR08CA0038.outlook.office365.com
+ (2603:10b6:5:1e0::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
+ Transport; Tue, 28 Jun 2022 20:25:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5373.15 via Frontend Transport; Tue, 28 Jun 2022 20:25:29 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 28 Jun
+ 2022 15:25:29 -0500
+Received: from aaurabin-elitedesk-arch.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Tue, 28 Jun 2022 15:25:28 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <marek.olsak@amd.com>
+Subject: [PATCH v2] drm/amd/display: expose additional modifier for DCN32/321
+Date: Tue, 28 Jun 2022 16:25:28 -0400
+Message-ID: <20220628202528.2218174-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v6 01/22] drm/gem: Properly annotate WW context on
- drm_gem_lock_reservations() error
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-2-dmitry.osipenko@collabora.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-In-Reply-To: <20220526235040.678984-2-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 38e85cb1-6b8d-4544-a821-08da59445844
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4552:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ds6mcr6Z8Ug2CL+VR4KjftDxKOT+Qmy+R6a26YyvDph1ogeD0wKbDcS/bfqkuaoeHehHxKgQe4bgaEMKYtzC4bklHbJRWYu+xQRy6alCSlPdTnl6xAKVpfpOEWfHKrhAGirSVTU+iXsiXK93e7y1FVWOslpsBPCT0+9nQtxoYgG7OeNFciV9URdEhVeH9a8UMqJesv67otsXxowFYcy7VvbxhMp2zTkM3LksQwMaayBYxXmoiaeSw4s0daXin3TaAe49TI9gatHmRW/PjI+uo+EGgDDN0DxP9/EFwkzFOQ0s3qObk7JdnPFMcwGdwShvYUuVbNze0olGdybmrh2UtYA6PunpOLR5X1XIQ71TuxuRSDKtYy5AoUKYeFzovYds7stMEOmd2pNgBsFxfptEkEsuAqOpQoC7nvh17pPEbntMDRJ40gTf+RdOWq/UKvsLLK7hnCED4Y79DQs3tUt8YbW0XgCIzLSOL/hSofCmIN14AJ+DAVVkBq/BL1xiziMw8zLhPQQmEyh98m4n5zlvsmA0O4Hc3a3pvoij4yWcMEOSTynY4gxkntXVyyHpD46QXrmTLIN/sZAW/0R36z93cokx11OHLrfdEoe9om+mY6JeC1NYNs49amfc55RY93Rzm6RZchz6qprJKFsNSPQaIycc7OmOHHYJwJhsZo4Nr/SMVRk7Pd//Zh5VARXZRHCNjOpfb2fEGION8uef9vpaJvDphcCYMGI/PLXJFFHTfTAzRllj0KaO0HJUYjdVciGpCWtExtwLzW1cpL//KCA46KGr16orR0hunfZLQ+D59jm6SXZHQDNn+H8cNXSEQAuUJK2oi+45lDZdyBF0z+8A9g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(39860400002)(396003)(376002)(136003)(46966006)(40470700004)(36840700001)(86362001)(4326008)(26005)(70586007)(36860700001)(83380400001)(1076003)(70206006)(8676002)(47076005)(356005)(7696005)(81166007)(478600001)(44832011)(8936002)(36756003)(41300700001)(2906002)(82740400003)(2616005)(6636002)(110136005)(5660300002)(336012)(316002)(40460700003)(40480700001)(426003)(54906003)(82310400005)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2022 20:25:29.8326 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38e85cb1-6b8d-4544-a821-08da59445844
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4552
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,65 +97,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: alexdeucher@gmail.com, aurabindo.pillai@amd.com, harry.wentland@amd.com,
+ bas@basnieuwenhuizen.nl
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+[Why&How]
+Some userspace expect a backwards compatible modifier on DCN32/321. For
+hardware with num_pipes more than 16, we expose the most efficient
+modifier first. As a fall back method, we need to expose slightly inefficient
+modifier AMD_FMT_MOD_TILE_GFX9_64K_R_X after the best option.
 
-On 5/27/22 01:50, Dmitry Osipenko wrote:
-> Use ww_acquire_fini() in the error code paths. Otherwise lockdep
-> thinks that lock is held when lock's memory is freed after the
-> drm_gem_lock_reservations() error. The WW needs to be annotated
-> as "freed"
+Also set the number of packers to fixed value as required per hardware
+documentation. This value is cached during hardware initialization and
+can be read through the base driver.
 
-s /WW/ww_acquire_context/ ?
-s /"freed"/"released"/ ?
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  3 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 66 ++++++++++---------
+ 2 files changed, 36 insertions(+), 33 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 1a512d78673a..0f5bfe5df627 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -743,8 +743,7 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
+ 			switch (version) {
+ 			case AMD_FMT_MOD_TILE_VER_GFX11:
+ 				pipe_xor_bits = min(block_size_bits - 8, pipes);
+-				packers = min(block_size_bits - 8 - pipe_xor_bits,
+-						ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs));
++				packers = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+ 				break;
+ 			case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS:
+ 				pipe_xor_bits = min(block_size_bits - 8, pipes);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 98bb65377e98..adccaf2f539d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5208,6 +5208,7 @@ add_gfx11_modifiers(struct amdgpu_device *adev,
+ 	int num_pkrs = 0;
+ 	int pkrs = 0;
+ 	u32 gb_addr_config;
++	u8 i = 0;
+ 	unsigned swizzle_r_x;
+ 	uint64_t modifier_r_x;
+ 	uint64_t modifier_dcc_best;
+@@ -5223,37 +5224,40 @@ add_gfx11_modifiers(struct amdgpu_device *adev,
+ 	num_pipes = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PIPES);
+ 	pipe_xor_bits = ilog2(num_pipes);
+ 
+-	/* R_X swizzle modes are the best for rendering and DCC requires them. */
+-	swizzle_r_x = num_pipes > 16 ? AMD_FMT_MOD_TILE_GFX11_256K_R_X :
+-                                              AMD_FMT_MOD_TILE_GFX9_64K_R_X;
+-
+-	modifier_r_x = AMD_FMT_MOD |
+-		AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+-		AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
+-		AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+-		AMD_FMT_MOD_SET(PACKERS, pkrs);
+-
+-	/* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11 (it's implied to be 1). */
+-	modifier_dcc_best = modifier_r_x |
+-		AMD_FMT_MOD_SET(DCC, 1) |
+-		AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |
+-		AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+-		AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B);
+-
+-	/* DCC settings for 4K and greater resolutions. (required by display hw) */
+-	modifier_dcc_4k = modifier_r_x |
+-			AMD_FMT_MOD_SET(DCC, 1) |
+-			AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+-			AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+-			AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B);
+-
+-	add_modifier(mods, size, capacity, modifier_dcc_best);
+-	add_modifier(mods, size, capacity, modifier_dcc_4k);
+-
+-	add_modifier(mods, size, capacity, modifier_dcc_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+-	add_modifier(mods, size, capacity, modifier_dcc_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+-
+-	add_modifier(mods, size, capacity, modifier_r_x);
++	for (i = 0; i < 2; i++) {
++		/* Insert the best one first. */
++		/* R_X swizzle modes are the best for rendering and DCC requires them. */
++		if (num_pipes > 16)
++			swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX11_256K_R_X : AMD_FMT_MOD_TILE_GFX9_64K_R_X;
++		else
++			swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX9_64K_R_X : AMD_FMT_MOD_TILE_GFX11_256K_R_X;
++
++		modifier_r_x = AMD_FMT_MOD |
++			       AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
++			       AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
++			       AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
++			       AMD_FMT_MOD_SET(PACKERS, pkrs);
++
++		/* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11 (it's implied to be 1). */
++		modifier_dcc_best = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
++				    AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |
++				    AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
++				    AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B);
++
++		/* DCC settings for 4K and greater resolutions. (required by display hw) */
++		modifier_dcc_4k = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
++				  AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
++				  AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
++				  AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B);
++
++		add_modifier(mods, size, capacity, modifier_dcc_best);
++		add_modifier(mods, size, capacity, modifier_dcc_4k);
++
++		add_modifier(mods, size, capacity, modifier_dcc_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));
++		add_modifier(mods, size, capacity, modifier_dcc_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));
++
++		add_modifier(mods, size, capacity, modifier_r_x);
++	}
+ 
+ 	add_modifier(mods, size, capacity, AMD_FMT_MOD |
+              AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+-- 
+2.36.1
 
-> , which fixes the noisy "WARNING: held lock freed!" splat
-> of VirtIO-GPU driver with CONFIG_DEBUG_MUTEXES=y and enabled lockdep.
->
-> Cc: stable@vger.kernel.org
-
-Can you dig up the commit in error and add a Fixes: Tag?
-
-Using that and "dim fixes" will also make the Cc: stable tag a bit more 
-verbose.
-
-With that fixed,
-
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
->   drivers/gpu/drm/drm_gem.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index eb0c2d041f13..86d670c71286 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1226,7 +1226,7 @@ drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
->   		ret = dma_resv_lock_slow_interruptible(obj->resv,
->   								 acquire_ctx);
->   		if (ret) {
-> -			ww_acquire_done(acquire_ctx);
-> +			ww_acquire_fini(acquire_ctx);
->   			return ret;
->   		}
->   	}
-> @@ -1251,7 +1251,7 @@ drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
->   				goto retry;
->   			}
->   
-> -			ww_acquire_done(acquire_ctx);
-> +			ww_acquire_fini(acquire_ctx);
->   			return ret;
->   		}
->   	}
