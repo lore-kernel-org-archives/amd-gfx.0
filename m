@@ -4,73 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56984C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 15:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D96A3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 15:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B459111271D;
-	Tue, 28 Jun 2022 15:06:02 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF86A112014;
- Tue, 28 Jun 2022 13:11:14 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
- [109.252.118.164])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8752710F055;
+	Tue, 28 Jun 2022 15:14:18 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60C8E112A9D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 15:13:44 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 714326601856;
- Tue, 28 Jun 2022 14:11:10 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656421873;
- bh=KNSZUjyY4CuF71/A7Usafn7IJCqpjpqnNb+s/bjmhpM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JVdCL4pOrZRjPYlW1sSxr0ov8MYwr/h/jFUMEmO4yZZL0Thh0VqUNftTIaNvUwEmY
- myolbgF/rRAWBiGj8as5x4lXrPgfvowspQRix7IvWX3ujENW9n/A9RgofDbIFplpJ1
- XKBUEiGyhohLkxg095z15R9kLoSIzKX7UR4GwSE03H/Wl5+upu3XGKE9fggwC3rLAJ
- YwztUDyhr9vdUcLY8PyCIUcj0FTuvMwiQySOEZvk1YLzw5WODsuuCzO2945ZS6eOcK
- kbjoe/4U6aWPVrza0Q6OS9hOE9m0uzU59dItxkwobNx4NGuRgKEN7SpAkBhFBnLjES
- o9MoSYPi5XeiA==
-Message-ID: <8c5d3cb0-70fa-81a7-33a2-50f45bf8f40e@collabora.com>
-Date: Tue, 28 Jun 2022 16:11:07 +0300
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 23F5460F0D;
+ Tue, 28 Jun 2022 15:13:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE345C3411D;
+ Tue, 28 Jun 2022 15:13:40 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="Mvf/U4H2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1656429219;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BSloj0brG5bY7mdOHUoBdYMTWYdqdgpOBJQxXJWQhIs=;
+ b=Mvf/U4H250uHD//VCHHEFWF4dRnaFg8uUreDF0NEjyU7kploiNMNxYd1qnBixnjkj4vdtJ
+ +fftl9mN1dhrW3k3z8d8Fe1canDszKfF/p3MA812sAVw1NTQ+YSeEOH87Ll8MBgIBzTp4E
+ mJ/kFO2wa0G2AHHHxGQle358Cf5+Z7M=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id fdb5660b
+ (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
+ Tue, 28 Jun 2022 15:13:38 +0000 (UTC)
+Date: Tue, 28 Jun 2022 17:13:24 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: Re: CONFIG_ANDROID (was: rcu_sched detected expedited stalls in
+ amdgpu after suspend)
+Message-ID: <YrsalGetwIfl8Wkw@zx2c4.com>
+References: <1656357116.rhe0mufk6a.none.ref@localhost>
+ <1656357116.rhe0mufk6a.none@localhost>
+ <20220627204139.GL1790663@paulmck-ThinkPad-P17-Gen-1>
+ <1656379893.q9yb069erk.none@localhost>
+ <20220628041252.GV1790663@paulmck-ThinkPad-P17-Gen-1>
+ <1656421946.ic03168yc3.none@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v6 00/22] Add generic memory shrinker to VirtIO-GPU and
- Panfrost DRM drivers
-Content-Language: en-US
-To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 28 Jun 2022 15:06:01 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1656421946.ic03168yc3.none@localhost>
+X-Mailman-Approved-At: Tue, 28 Jun 2022 15:14:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,47 +62,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: wireguard@lists.zx2c4.com, alexander.deucher@amd.com,
+ Todd Kjos <tkjos@android.com>, paulmck@kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, rcu@vger.kernel.org,
+ Hridya Valsaraju <hridya@google.com>,
+ Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, urezki@gmail.com,
+ Christian Brauner <christian@brauner.io>,
+ Joel Fernandes <joel@joelfernandes.org>, Theodore Ts'o <tytso@mit.edu>,
+ Martijn Coenen <maco@android.com>, Suren Baghdasaryan <surenb@google.com>,
+ uladzislau.rezki@sony.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Robin,
+Hi Alex,
 
-On 6/28/22 15:31, Robin Murphy wrote:
->> Hello,
->>
->> This patchset introduces memory shrinker for the VirtIO-GPU DRM driver
->> and adds memory purging and eviction support to VirtIO-GPU driver.
->>
->> The new dma-buf locking convention is introduced here as well.
->>
->> During OOM, the shrinker will release BOs that are marked as "not needed"
->> by userspace using the new madvise IOCTL, it will also evict idling BOs
->> to SWAP. The userspace in this case is the Mesa VirGL driver, it will
->> mark
->> the cached BOs as "not needed", allowing kernel driver to release memory
->> of the cached shmem BOs on lowmem situations, preventing OOM kills.
->>
->> The Panfrost driver is switched to use generic memory shrinker.
-> 
-> I think we still have some outstanding issues here - Alyssa reported
-> some weirdness yesterday, so I just tried provoking a low-memory
-> condition locally with this series applied and a few debug options
-> enabled, and the results as below were... interesting.
+On Tue, Jun 28, 2022 at 11:02:40AM -0400, Alex Xu (Hello71) wrote:
+> WireGuard and random also use CONFIG_ANDROID in a similar "proxy" way as 
+> rcu, there to see if suspends are "frequent". This seems dubious for the 
+> same reasons.
 
-The warning and crash that you got actually are the minor issues.
+I'd be happy to take a patch in WireGuard and random.c to get rid of the
+CONFIG_ANDROID usage, if you can conduct an analysis and conclude this
+won't break anything inadvertently.
 
-Alyssa caught an interesting PREEMPT_DEBUG issue in the shrinker that I
-haven't seen before.
-
-She is also experiencing another problem in the Panfrost driver with a
-bad shmem pages (I think). It is unrelated to this patchset and
-apparently require an extra setup for the reproduction.
-
--- 
-Best regards,
-Dmitry
+Jason
