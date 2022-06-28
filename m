@@ -4,82 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F66EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 13:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8846C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 13:03:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D296711BCDE;
-	Tue, 28 Jun 2022 13:03:29 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C6012B5CD
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 10:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1656412906;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8pRM3r8AeF6GLv7Aybx1vUx/f9NMkwqu6LnYZ6evvqI=;
- b=FEMCP5UHCqHS8JYmq5HoEAt39H2O2l/LOpmdOwaP9xRZ5yhd40Q9Mi5FM1DMoWnQamlhKd
- 1/U2CErYXB4IKtY0yd6kPeljNITwtDHvw/3L+ar8N0ux+lAUnon95Zkdk8oalXsd2SVQyq
- 3rkg/U6QJsn5epK3C7lzMcbUnjfm+pM=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-616-PuFkImFuMaaC-tSTWbgDEw-1; Tue, 28 Jun 2022 06:41:44 -0400
-X-MC-Unique: PuFkImFuMaaC-tSTWbgDEw-1
-Received: by mail-wr1-f71.google.com with SMTP id
- j14-20020adfa54e000000b0021b8c8204easo1704205wrb.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 03:41:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=8pRM3r8AeF6GLv7Aybx1vUx/f9NMkwqu6LnYZ6evvqI=;
- b=UwvEVTr0UFeGyTL+pKSmhWT4Zn5aAR8azEGEZea9SKyBBceXN5z/bE5BdvFlhAyRXh
- 8HlpULB95YSW7f6UTRitpMGUfTcR4WvTIfFPwg8B965Do8oUaQjJZGrv23XteDfYLKu5
- gEgNlTQfGsS8ctqeT6BUV4rWAav87sDaAmhQecsKCR3VTUz9nem+s8Qe9Hp4ojIpfCNU
- If6fHCc47CroHviBpNIl+fZ6sAQJECPu3tYKcIVbJ4g5cVHHPE9wB+arspqit5Jm+LA/
- OwyJ1gL2mPellvH1U4Hq0fvNuCoKnDO2f78jywLWRF5Sfhyhc1iDWZ2rX8Db0A5pT4ub
- EW4Q==
-X-Gm-Message-State: AJIora/5UsS5YP4jLCGk+4jZ5QaSgri0+go+kJrv2OCX0k2qFTOYXszE
- iufq9wS1mmyq48EO2k+zF0PCqls7cNUIVQjTgN4r2EJ7dfTkGmsGUaBxlWpFjfDFucMqyn1FCtM
- TgAEyERSl4EJmEynRWsuiGKLCMQ==
-X-Received: by 2002:a05:6000:3c6:b0:21b:9d00:db29 with SMTP id
- b6-20020a05600003c600b0021b9d00db29mr17371379wrg.338.1656412903686; 
- Tue, 28 Jun 2022 03:41:43 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1vrjQcjOOWZyri2deV7Hh8adDyK403V4lqaRVOfb8p/+5njBKdZBau0GhQDi3asydV8iTuiRw==
-X-Received: by 2002:a05:6000:3c6:b0:21b:9d00:db29 with SMTP id
- b6-20020a05600003c600b0021b9d00db29mr17371350wrg.338.1656412903411; 
- Tue, 28 Jun 2022 03:41:43 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c709:a00:46df:e778:456a:8d6b?
- (p200300cbc7090a0046dfe778456a8d6b.dip0.t-ipconnect.de.
- [2003:cb:c709:a00:46df:e778:456a:8d6b])
- by smtp.gmail.com with ESMTPSA id
- q13-20020adfcd8d000000b00219b391c2d2sm15851990wrj.36.2022.06.28.03.41.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jun 2022 03:41:42 -0700 (PDT)
-Message-ID: <336094c6-0c94-2b43-5472-c44638e8446a@redhat.com>
-Date: Tue, 28 Jun 2022 12:41:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4156011BCF0;
+	Tue, 28 Jun 2022 13:03:30 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73D4B1131BB;
+ Tue, 28 Jun 2022 12:51:18 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7ABBC6601856;
+ Tue, 28 Jun 2022 13:51:14 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1656420677;
+ bh=QW35y0ngxo74XEIz+a+5lGVgqnaeMkyQSyje1iFHTww=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VIJvhDUJcm5yDx9PlWKbGQ74WtOgaDIRlnuWjRl3RSZ92ypNqOuh2I3bpjSz7OH4H
+ JGvnNJC8zmFqC7hT5uFxiAW5Dx635g6KUOblvf4uNCAiNufzsiyVGYH0HJTP6nChNV
+ uH74sFdDAuum+u5SJdOOqnitGC6cxSx+PBAfF6ZBFwIz6UCVPzpKzW6K802UU551PJ
+ 9gd/kmz/LZafsmptA87YaQCQzcdNPvE77r/6v9FAzKaet4EK+0nCX6vqvEl0rlf6Gm
+ x1dq3kWwXK4S3yHxdJSm0xbxWEB4B/hMoLiQTHj6uc6GXhuywUCwPy1p9MPet+qr/A
+ GRvQWmyiyl8nA==
+Message-ID: <17318333-d9b1-9184-4147-7e3123a6fccb@collabora.com>
+Date: Tue, 28 Jun 2022 15:51:11 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v6 06/14] mm: add device coherent checker to
- is_pinnable_page
-To: Alex Sierra <alex.sierra@amd.com>, jgg@nvidia.com
-References: <20220628001454.3503-1-alex.sierra@amd.com>
- <20220628001454.3503-7-alex.sierra@amd.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <20220628001454.3503-7-alex.sierra@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v6 00/22] Add generic memory shrinker to VirtIO-GPU and
+ Panfrost DRM drivers
 Content-Language: en-US
+To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Jun 2022 13:03:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,37 +81,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
- apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
- linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 28.06.22 02:14, Alex Sierra wrote:
-> is_device_coherent checker was added to is_pinnable_page and renamed
-> to is_longterm_pinnable_page. The reason is that device coherent
-> pages are not supported for longterm pinning.
-> 
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> ---
->  include/linux/memremap.h | 25 +++++++++++++++++++++++++
->  include/linux/mm.h       | 24 ------------------------
->  mm/gup.c                 |  5 ++---
->  mm/gup_test.c            |  4 ++--
->  mm/hugetlb.c             |  2 +-
->  5 files changed, 30 insertions(+), 30 deletions(-)
+On 6/28/22 15:31, Robin Murphy wrote:
+> [  100.511411]
+> ==================================================================
+> [  100.511419] BUG: KASAN: use-after-free in irq_work_single+0xa4/0x110
+> [  100.511445] Write of size 4 at addr ffff0000107f5830 by task
+> glmark2-es2-drm/280
+> [  100.511458]
+> [  100.511464] CPU: 1 PID: 280 Comm: glmark2-es2-drm Not tainted
+> 5.19.0-rc3+ #400
+> [  100.511479] Hardware name: ARM LTD ARM Juno Development Platform/ARM
+> Juno Development Platform, BIOS EDK II Sep  3 2019
+> [  100.511489] Call trace:
+> [  100.511494]  dump_backtrace+0x1e4/0x1f0
+> [  100.511512]  show_stack+0x20/0x70
+> [  100.511523]  dump_stack_lvl+0x8c/0xb8
+> [  100.511543]  print_report+0x16c/0x668
+> [  100.511559]  kasan_report+0x80/0x208
+> [  100.511574]  kasan_check_range+0x100/0x1b8
+> [  100.511590]  __kasan_check_write+0x34/0x60
+> [  100.511607]  irq_work_single+0xa4/0x110
+> [  100.511619]  irq_work_run_list+0x6c/0x88
+> [  100.511632]  irq_work_run+0x28/0x48
+> [  100.511644]  ipi_handler+0x254/0x468
+> [  100.511664]  handle_percpu_devid_irq+0x11c/0x518
+> [  100.511681]  generic_handle_domain_irq+0x50/0x70
+> [  100.511699]  gic_handle_irq+0xd4/0x118
+> [  100.511711]  call_on_irq_stack+0x2c/0x58
+> [  100.511725]  do_interrupt_handler+0xc0/0xc8
+> [  100.511741]  el1_interrupt+0x40/0x68
+> [  100.511754]  el1h_64_irq_handler+0x18/0x28
+> [  100.511767]  el1h_64_irq+0x64/0x68
+> [  100.511778]  irq_work_queue+0xc0/0xd8
+> [  100.511790]  drm_sched_entity_fini+0x2c4/0x3b0
+> [  100.511805]  drm_sched_entity_destroy+0x2c/0x40
+> [  100.511818]  panfrost_job_close+0x44/0x1c0
+> [  100.511833]  panfrost_postclose+0x38/0x60
+> [  100.511845]  drm_file_free.part.0+0x33c/0x4b8
+> [  100.511862]  drm_close_helper.isra.0+0xc0/0xd8
+> [  100.511877]  drm_release+0xe4/0x1e0
+> [  100.511891]  __fput+0xf8/0x390
+> [  100.511904]  ____fput+0x18/0x28
+> [  100.511917]  task_work_run+0xc4/0x1e0
+> [  100.511929]  do_exit+0x554/0x1168
+> [  100.511945]  do_group_exit+0x60/0x108
+> [  100.511960]  __arm64_sys_exit_group+0x34/0x38
+> [  100.511977]  invoke_syscall+0x64/0x180
+> [  100.511993]  el0_svc_common.constprop.0+0x13c/0x170
+> [  100.512012]  do_el0_svc+0x48/0xe8
+> [  100.512028]  el0_svc+0x5c/0xe0
+> [  100.512038]  el0t_64_sync_handler+0xb8/0xc0
+> [  100.512051]  el0t_64_sync+0x18c/0x190
+> [  100.512064]
 
+This one shall be fixed by [1] that is not in the RC kernel yet, please
+use linux-next.
 
-Rename of the function should be a separate cleanup patch before any
-other changes, and the remaining change should be squashed into patch
-#1, to logically make sense, because it still states "no one should be
-allowed to pin such memory so that it can always be evicted."
-
-Or am I missing something?
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20220628&id=7d64c40a7d96190d9d06e240305389e025295916
 
 -- 
-Thanks,
-
-David / dhildenb
-
+Best regards,
+Dmitry
