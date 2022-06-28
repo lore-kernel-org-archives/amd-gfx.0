@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAF51C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 02:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFEFC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 02:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A8B10E4A9;
-	Tue, 28 Jun 2022 02:24:11 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74B6510E4A9;
- Tue, 28 Jun 2022 02:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C8D10F1F0;
+	Tue, 28 Jun 2022 02:25:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E195310F1F0;
+ Tue, 28 Jun 2022 02:25:15 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 24026B81C00;
- Tue, 28 Jun 2022 02:24:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06D8C34115;
- Tue, 28 Jun 2022 02:24:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 571BE6170D;
+ Tue, 28 Jun 2022 02:25:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCFDC34115;
+ Tue, 28 Jun 2022 02:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656383047;
- bh=2lXpoLGX/5sce5S8q9mI9YyZ6a1pDpUqEFvKw/MPCzc=;
+ s=k20201202; t=1656383114;
+ bh=fuSloeFz2lT+mUR13yFai2fyTADedPdYS+ySKdSNBlk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sWkCfXrg2LbmFz0yfWtaZQI0AfhsK8TLE736pX8RsWf2viPHTyOlIGdGQ304oZy3d
- wN6nT52SSb8qwexxM3VciDrHUCbtGsv9fjaKHbz8qvAVFZXnAeno5HCCZ8y0fxc8Ot
- 3nHNWEsLuW/K4gfD2y0vKVPdp8aRoFzVpHE4QarUiK8O9xijx781VHlkmq0a/8ixub
- +53csID0QwNVMp2WAk2fw1n8gEgcl6mLLaJCRH927USGPR5P/pf4qGcvA8KtsOLnG0
- 1sMHXViA+IOhrWRPU+AjROSjHbGyYPzitbwSibxtZlLmiiudkYlcFhx4MqMp4xYRQA
- 5LorsVEWXnVmg==
+ b=mg6zpcl/YtuagmmzSBn/AtrIsJZev9fkL4seNgYnKKRQAD6kHD7wdyZGP+zpGNcU9
+ 25xm4jpoGfPamfdLNHizy7puxufVy0YRIht5/8nKyK7YPSh6rVV1WWjQyvvwo1/oon
+ lNBnrpCx/LlUoK4qPtf2Qb9+i2SM/iXBkJHbj1Vi0cal1F3ki+8rv8omWDyRY+kebI
+ VGjkwdbjZdek17TtnLWkVVOEHdDpaUkDpAHTe+6Fmi2qK+NREfWwDFFFvGt+YGdEIX
+ VJ8/A3ST6wmLhM+SK0mN8Y3TnJVy9opO6ddji3YReoPdm2lSsFvn3dU1H0i9sGGLo2
+ pvCgKpm0ksrNw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 31/34] drm/amdgpu: Adjust logic around GTT size
+Subject: [PATCH AUTOSEL 5.4 25/27] drm/amdgpu: Adjust logic around GTT size
  (v3)
-Date: Mon, 27 Jun 2022 22:22:38 -0400
-Message-Id: <20220628022241.595835-31-sashal@kernel.org>
+Date: Mon, 27 Jun 2022 22:24:11 -0400
+Message-Id: <20220628022413.596341-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220628022241.595835-1-sashal@kernel.org>
-References: <20220628022241.595835-1-sashal@kernel.org>
+In-Reply-To: <20220628022413.596341-1-sashal@kernel.org>
+References: <20220628022413.596341-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
@@ -55,10 +55,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip.Yang@amd.com, jonathan.kim@amd.com,
- kevin1.wang@amd.com, airlied@linux.ie,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, jonathan.kim@amd.com, kevin1.wang@amd.com,
+ airlied@linux.ie, =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
  dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, Felix.Kuehling@amd.com,
  christian.koenig@amd.com, zackr@vmware.com
@@ -93,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0b162928a248..b6d5987efc6a 100644
+index 870dd78d5a21..e70b33f3f363 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1960,18 +1960,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+@@ -1749,18 +1749,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
  	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
  		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
  
@@ -128,7 +127,7 @@ index 0b162928a248..b6d5987efc6a 100644
 +	}
  
  	/* Initialize GTT memory pool */
- 	r = amdgpu_gtt_mgr_init(adev, gtt_size);
+ 	r = ttm_bo_init_mm(&adev->mman.bdev, TTM_PL_TT, gtt_size >> PAGE_SHIFT);
 -- 
 2.35.1
 
