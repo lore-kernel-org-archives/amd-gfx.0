@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEAAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 09:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75BE9C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 09:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7575812B1CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88CA612B1D1;
 	Tue, 28 Jun 2022 09:46:36 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F58F12B1C5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61EAD12B1CA;
  Tue, 28 Jun 2022 09:46:33 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BEE2C61852;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CA81E6182C;
  Tue, 28 Jun 2022 09:46:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782A7C36AF5;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77708C341EE;
  Tue, 28 Jun 2022 09:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1656409590;
- bh=90hzTT2z6vZB7uuIRDY/vSrWqqeHuIcSGnrbKG+2HqU=;
+ bh=KmE1n0kBTzhMcDi/Es4qlC1RvvMz696gfPuCpCdCwXA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cpbBqRun56n6IlUjUGC9CtEYkUqAgOlHHvmxQfRs5UQ5uA2dtJkvtY71S98+kmGTC
- ufcNv4lcfobB5bH5c3ijgalrtTT54xS5DWlMPtiATjLh0IA9NJ0PDPXKDTgQK9uTle
- KzC56YCGv6TCvmY/vlvIJeO6FQsj/2RDfXPUmZXF3g1m6vwLa7E6uLyxZfIwI2Cu4k
- MWW/0/PeA7GvW/JSkWFOt1r2yA+4qqh+TdmL+gp4fE30CyLzVKEB9wAjXu0pnTwad7
- BX/LfnNnCqcrotb0ZsQ5LNJL06JBO6uXZZl68ZE+olOdGbeihhVqAwBNkKmYCgbsgl
- tvpCPdmF0+klQ==
+ b=gwuiQNtLKte3nUdoCxdKSDOuRdlj/40+1HS65mhF7M/yFot3TsdTn7O24tvybSWgC
+ W8ISK3Ms8GdYha5G8nCAt23Yoswo5flJ6O7ezyLVvU+w/yIfP5bYo2xCXCIvS9hmrb
+ S759Ga4sNfLrqyuwTyZZm/4mersiFwGydZr9UQPPhYtZJWpUAOv+X4uX19/5REBqjI
+ 1Qb/C2iiZ9mWBoXMilbVTGb1KIP4iaxbGqJ+AVrR7tl2cbPtQ5DYRptfDeEkfBxfo8
+ gBjJPj0o96jsYKUX719G8Rq+8DKqK3LZH9jxhS1gPPZy9ZzwV9cbT401X7Z3UFIz4+
+ tzfM/QEtoo3xg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1o67nf-005HFA-Q3;
+ (envelope-from <mchehab@kernel.org>) id 1o67nf-005HFG-Rk;
  Tue, 28 Jun 2022 10:46:27 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Subject: [PATCH 09/22] drm: amdgpu: amdgpu_dm: fix kernel-doc markups
-Date: Tue, 28 Jun 2022 10:46:13 +0100
-Message-Id: <3a54b73b6cbd251d3d5a899b9cfe8b794be78146.1656409369.git.mchehab@kernel.org>
+Subject: [PATCH 11/22] drm: amd: amd_shared.h: Add missing doc for
+ PP_GFX_DCS_MASK
+Date: Tue, 28 Jun 2022 10:46:15 +0100
+Message-Id: <3aee446a0e396fe3f338f270746939f6e803a4de.1656409369.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1656409369.git.mchehab@kernel.org>
 References: <cover.1656409369.git.mchehab@kernel.org>
@@ -54,60 +55,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wayne Lin <Wayne.Lin@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Evan Quan <evan.quan@amd.com>, David Zhang <dingchen.zhang@amd.com>,
  Jonathan Corbet <corbet@lwn.net>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Jude Shih <shenshih@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Shirish S <shirish.s@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Zhan Liu <zhan.liu@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, David Airlie <airlied@linux.ie>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are 4 undocumented fields at struct amdgpu_display_manager.
+This symbol is missing documentation:
 
-Add documentation for them, fixing those warnings:
+	drivers/gpu/drm/amd/include/amd_shared.h:224: warning: Enum value 'PP_GFX_DCS_MASK' not described in enum 'PP_FEATURE_MASK'
 
-	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:544: warning: Function parameter or member 'dmub_outbox_params' not described in 'amdgpu_display_manager'
-	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:544: warning: Function parameter or member 'num_of_edps' not described in 'amdgpu_display_manager'
-	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:544: warning: Function parameter or member 'disable_hpd_irq' not described in 'amdgpu_display_manager'
-	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:544: warning: Function parameter or member 'dmub_aux_transfer_done' not described in 'amdgpu_display_manager'
-	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:544: warning: Function parameter or member 'delayed_hpd_wq' not described in 'amdgpu_display_manager'
+Document it.
 
+Fixes: 680602d6c2d6 ("drm/amd/pm: enable DCS")
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/22] at: https://lore.kernel.org/all/cover.1656409369.git.mchehab@kernel.org/
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/include/amd_shared.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 547fc1547977..73755b304299 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -242,6 +242,13 @@ struct hpd_rx_irq_offload_work {
-  * @force_timing_sync: set via debugfs. When set, indicates that all connected
-  *		       displays will be forced to synchronize.
-  * @dmcub_trace_event_en: enable dmcub trace events
-+ * @dmub_outbox_params: DMUB Outbox parameters
-+ * @num_of_edps: number of backlight eDPs
-+ * @disable_hpd_irq: disables all HPD and HPD RX interrupt handling in the
-+ *		     driver when true
-+ * @dmub_aux_transfer_done: struct completion used to indicate when DMUB
-+ * 			    transfers are done
-+ * @delayed_hpd_wq: work queue used to delay DMUB HPD work
-  */
- struct amdgpu_display_manager {
- 
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index bcdf7453a403..2e02a6fc1717 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -193,6 +193,7 @@ enum amd_powergating_state {
+  * @PP_ACG_MASK: Adaptive clock generator.
+  * @PP_STUTTER_MODE: Stutter mode.
+  * @PP_AVFS_MASK: Adaptive voltage and frequency scaling.
++ * @PP_GFX_DCS_MASK: GFX Async DCS.
+  *
+  * To override these settings on boot, append amdgpu.ppfeaturemask=<mask> to
+  * the kernel's command line parameters. This is usually done through a system's
 -- 
 2.36.1
 
