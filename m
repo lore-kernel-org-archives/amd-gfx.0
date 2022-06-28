@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2F8BC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 15:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56984C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 15:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8EA1126E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B459111271D;
 	Tue, 28 Jun 2022 15:06:02 +0000 (UTC)
-Received: from sonic306-20.consmr.mail.gq1.yahoo.com
- (sonic306-20.consmr.mail.gq1.yahoo.com [98.137.68.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5556A1125BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 15:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
- t=1656428570; bh=mJdxWi+vRg5mX2ammRonQra2G8KMb7ygMvIk+e3y9ss=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To;
- b=oL0go7DAuaFwQBzxvAj93d5o/SRTjNurU3QevVXsSEJxvo7Naj/0J+rNSfMdOvVLsbXQIJTgLgUCMJlU0HpKFx6gGK9IgnHONv6IJij+vdQjV6ecfmmbLwOdIjumy+0fQbsK0oG9uoW+5C7HxIjlr3BK4byXi+oNWczQp9HFN883jCjR0EzSS1D23qiEoH3byuhhARCoFcBPywWTnQBv0gzW2LVDgM0OIVqLSNFpWDvjoqS2lFSIurwF/S+22aH7CpNFfNS1vHakRqRd2/HI9C46cobOKtf9FPhbbw1Zm5jyeYnxIE2nSmowLa/xjdkZfrTXQXfg2yLIXIjWtynpSA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1656428570; bh=jCd3itgRrfW+cbzZVwm+EqZW7GYNioHLqwThqMhCf88=;
- h=X-Sonic-MF:Date:From:Subject:To:From:Subject;
- b=Kyb1zFacnb78pUvFy50wTca1sb81DaB6HtI8PgG8iONE6NYQmjP7wHrP2HzY373G+jENj7C3h5RZPwJkPsYcWWd6Db/PDZMWGY8RBEROJazlTHT4SWWIBTlA0aYNrASoT0OP8xOJ6S8DMftdpzq99pT1kMAs65hL9rSRlKiuThVN84a1Kj8A2FybZZSrlgcLDY3bmHae3cAq6w9Vtn8wzSbyt97KbwuS+xfwj2zh8nK8Xm3Dzie84jYbgbk7hI9sK0eFajuwy4SxSIbPm3bGypsRflNTQY4pOoL5XXb/b6S0CS6Zxm5IeQKON/mBxBnenpvE0tMmSjFFxY6E31Dq6g==
-X-YMail-OSG: 8l3EnbgVM1l8CCCIXzJxNxhAKM2TpC2vXdUg0UqinPjPg6O0qI8zEPIiarA5C.6
- sqK__HFKUxJT7zG1JF6uGyon9oNZeN.0NMaSIEV7ygGfCt_44w.Rf7IZ7LX75WljTynAu8y4FB0U
- 6YyvqeNwvdkcw7Zi1A2VaGy8Pr6wmnSRGOPVqbeB.4WAe6qENHe5ovv5fDgSbJskfbR48ooPEbZa
- GT9kqL8KPN9iddqNFX0KYDckpu_St4Dg_bJMomamg3v0y_pRC1lLcOZepb1EY40LBeyEVcUmkaYc
- htrO0M3Y1XVJSq_zXJJPJ7gB678jrfTtCxlt4ljAxg5AN6MZTq3TjmxeIZH_mvLhUlB._a4Gl7jg
- 0rjIkvsvIObtyCOs8rfZGOVNBktELh7d8LKPC06OGfW5lwoRfTsmlTrLWmyXbsxkm6LjXXph1zMv
- 4cTXHoOgT1elisfOUAn89_C_X4CU5ffzj5IB30.619RChRzIGS.c91OYydQpBLs2sdejBOczNqk9
- 9RRYOGf2Ph4uDIh.MHgigFya1.bpZmSQRnL1JK6UBye7sP72dHwohaVg3.7N9iEZZ47WDTki63Qb
- yjkf5uix3Y2CCu.Yge1ZD6zJ9UiGQm4T1NGZA3bNjErwXJeC_zFyb4NbG0bY8ifpVmC7yHOwg7DG
- BguLJMBTCIa4pyczbP_.8UYiHtVVrBl3GDljrXeyZqc1abWNA9Ygi5O3wilDFT98KrWP_U_gaLgo
- ZSIhVdLd3AVuuvKDi4rMHnUFXMWL87dxe6E46eXTDqkQgOm0SVvAp9bOM0qPMxSLF39sboKrWT1T
- DAyPGxGByBXHjFaK6Jo7Po7sTRCKEuNyTiEK9Z9Qj3sme9oVUFKu7Fd87TOqHVMwOyvfnBsZYvUU
- up5uKXk82aAGeMXt5ajhXOz9C9ek9B.o2Hpw2UI8PIWZ4dHS8j5xuvfuUefecUQXHRQE6Inywd.q
- n56c5F.6OipJO56OGat.CE0_OriiFEIMMRIYA_6V1WB7W1LC3sd8Fwf.EOHrzGUFxawP7UdAwrB6
- 7ssTU68z7BjT7ZGWkQkIunN3CrTJj1NWO5fZKUcE602y5.d4Lj1b4gle4_o89wjnjPAAgY0Ka71z
- WApZ1JtlmXfbbIiWdUiCh9iX.TmRttEFov8jR5tUjFh8W4nnmLPa807eo9IuSTNEyq.TxBm4UyGX
- F_fT2GpgbfnRQp2L7QbI74g2oJcklkXbHSdO.NrycSWXa_C4PJJ009EB5wsajzo6VbnM0Eqxj3ie
- w3y0sBZAv6Arrr9F3XMr5FgW0qz7fQD8swtray_N86ZnmH1voqWp6wdQKFDBE0Ip7ptzjm4XABDE
- WBDpX90oIdlog6Rp0iSOlLgCdy690WT4waROdjllIOthw.KDy8sqpvdWe3C_OV_OdchxsN4MvlL2
- q9LGvPwBIx2MOY7.ugLKHb40kD60M8O_ZAxskSqmNl_VlrOm8PkYJtkRzOwcMi.jtWWKdmxUzr0C
- c8OOrCFk7BccDWXSsnGkFq_fsvW8V4vmkcVm8cksdgIcSY.79e.dby7lCnGaph.hsW2OgNUG0zNL
- eTmcXgMIr9PQAALPd7h6tEenUYcXm54oST.zqMo.epoa.TRMnz0X3JbEQF.iNpZ.nuAHEH76cNz8
- pMXH4P2wmkKpTEyfnK7.E.4XimdBJKhoaXmn65v475DcZN6YclHEyNxDpIV98aWJKZlAWGKpiiUt
- GSH9_xjTBg3yUgKAIfFBjo_nh_0wAsz.3zqzsB3VltPtlRVf4HoaUU3IRSH1mW5hI2S80YRd364B
- pzCnFbwJ1ipO4b_.gWo3ZUTFG8ZquVjbwg_EZhD3ntSUnZPz8EhdkBATSwv7u_Z.JvijpFFrkb_K
- P1mjNUZJlWW24M6xUwH1ujYMjMT1Us7WIVnoHpNc4UkvrkgBPiiqhjOEslIxwO4qIF011kCmq7cE
- n6GcMz4pk89_K_E4agOMiHeDqOMIqczXBLJ1ToDRSTzO.PsyIP_.KM.9QoS2yMpPGUrffuffuDPT
- SEA4drcmjW5CdPtDYMj397rnzeZYDZYf4I7jjIZc1hzpfE9bH4oBn1E1iimW2iSC0RGu9zfKAgj9
- ckpl3gG0d9ywRx6HOg4zext5PJy00TW4GFhYpZ_HtSST9y5jZr4noxyXs4ri6TLx4xW3cjPSXVMc
- 45WAcQFycvAXDa0lDCmLxS2Hru6cT2w8nQE9jjZJ0g8DnhJfKCo..ORmue8lKBk7t6_iLwfOP.02
- tSC8x7PbjGtYZGorfeXQT4YvWYonzHcgAT3BMHwcc9CCzpVoiuj6k
-X-Sonic-MF: <alex_y_xu@yahoo.ca>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.gq1.yahoo.com with HTTP; Tue, 28 Jun 2022 15:02:50 +0000
-Received: by hermes--production-ne1-7459d5c5c9-f2z7w (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID f5e4bf9d72858dcfc86edb9d0d0ee251; 
- Tue, 28 Jun 2022 15:02:44 +0000 (UTC)
-Date: Tue, 28 Jun 2022 11:02:40 -0400
-From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
-Subject: CONFIG_ANDROID (was: rcu_sched detected expedited stalls in amdgpu
- after suspend)
-To: paulmck@kernel.org, rcu@vger.kernel.org, urezki@gmail.com,
- uladzislau.rezki@sony.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?iso-8859-1?b?SGr4bm5lduVn?= <arve@android.com>, Todd Kjos
- <tkjos@android.com>, Martijn Coenen <maco@android.com>, Joel Fernandes
- <joel@joelfernandes.org>, Christian Brauner <christian@brauner.io>,
- Hridya Valsaraju <hridya@google.com>, Suren Baghdasaryan <surenb@google.com>, 
- linux-kernel@vger.kernel.org, "Jason A. Donenfeld" <Jason@zx2c4.com>,
- wireguard@lists.zx2c4.com, Theodore Ts'o <tytso@mit.edu>
-References: <1656357116.rhe0mufk6a.none.ref@localhost>
- <1656357116.rhe0mufk6a.none@localhost>
- <20220627204139.GL1790663@paulmck-ThinkPad-P17-Gen-1>
- <1656379893.q9yb069erk.none@localhost>
- <20220628041252.GV1790663@paulmck-ThinkPad-P17-Gen-1>
-In-Reply-To: <20220628041252.GV1790663@paulmck-ThinkPad-P17-Gen-1>
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF86A112014;
+ Tue, 28 Jun 2022 13:11:14 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 714326601856;
+ Tue, 28 Jun 2022 14:11:10 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1656421873;
+ bh=KNSZUjyY4CuF71/A7Usafn7IJCqpjpqnNb+s/bjmhpM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JVdCL4pOrZRjPYlW1sSxr0ov8MYwr/h/jFUMEmO4yZZL0Thh0VqUNftTIaNvUwEmY
+ myolbgF/rRAWBiGj8as5x4lXrPgfvowspQRix7IvWX3ujENW9n/A9RgofDbIFplpJ1
+ XKBUEiGyhohLkxg095z15R9kLoSIzKX7UR4GwSE03H/Wl5+upu3XGKE9fggwC3rLAJ
+ YwztUDyhr9vdUcLY8PyCIUcj0FTuvMwiQySOEZvk1YLzw5WODsuuCzO2945ZS6eOcK
+ kbjoe/4U6aWPVrza0Q6OS9hOE9m0uzU59dItxkwobNx4NGuRgKEN7SpAkBhFBnLjES
+ o9MoSYPi5XeiA==
+Message-ID: <8c5d3cb0-70fa-81a7-33a2-50f45bf8f40e@collabora.com>
+Date: Tue, 28 Jun 2022 16:11:07 +0300
 MIME-Version: 1.0
-Message-Id: <1656421946.ic03168yc3.none@localhost>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: WebService/1.1.20280
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v6 00/22] Add generic memory shrinker to VirtIO-GPU and
+ Panfrost DRM drivers
+Content-Language: en-US
+To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 28 Jun 2022 15:06:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,88 +82,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Excerpts from Paul E. McKenney's message of June 28, 2022 12:12 am:
-> On Mon, Jun 27, 2022 at 09:50:53PM -0400, Alex Xu (Hello71) wrote:
->> Ah, I see. I have selected the default value for=20
->> CONFIG_RCU_EXP_CPU_STALL_TIMEOUT, but that is 20 if ANDROID. I am not=20
->> using Android; I'm not sure there exist Android devices with AMD GPUs.=20
->> However, I have set CONFIG_ANDROID=3Dy in order to use=20
->> ANDROID_BINDER_IPC=3Dm for emulation.
->>=20
->> In general, I think CONFIG_ANDROID is not a reliable method for=20
->> detecting if the kernel is for an Android device; for example, Fedora=20
->> sets CONFIG_ANDROID, but (AFAIK) its kernel is not intended for use with=
-=20
->> Android userspace.
->>=20
->> On the other hand, it's not clear to me why the value 20 should be for=20
->> Android only anyways. If, as you say in=20
->> https://lore.kernel.org/lkml/20220216195508.GM4285@paulmck-ThinkPad-P17-=
-Gen-1/,
->> it is related to the size of the system, perhaps some other heuristic=20
->> would be more appropriate.
->=20
-> It is related to the fact that quite a few Android guys want these
-> 20-millisecond short-timeout expedited RCU CPU stall warnings, but no one
-> else does.  Not yet anyway.
->=20
-> And let's face it, the intent and purpose of CONFIG_ANDROID=3Dy is extrem=
-ely
-> straightforward and unmistakeable.  So perhaps people not running Android
-> devices but wanting a little bit of the Android functionality should do
-> something other than setting CONFIG_ANDROID=3Dy in their .config files.  =
-Me,
-> I am surprised that it took this long for something like this to bite you=
-.
->=20
-> But just out of curiosity, what would you suggest instead?
+Hello Robin,
 
-Both Debian and Fedora set CONFIG_ANDROID, specifically for binder. If=20
-major distro vendors are consistently making this "mistake", then=20
-perhaps the problem is elsewhere.
+On 6/28/22 15:31, Robin Murphy wrote:
+>> Hello,
+>>
+>> This patchset introduces memory shrinker for the VirtIO-GPU DRM driver
+>> and adds memory purging and eviction support to VirtIO-GPU driver.
+>>
+>> The new dma-buf locking convention is introduced here as well.
+>>
+>> During OOM, the shrinker will release BOs that are marked as "not needed"
+>> by userspace using the new madvise IOCTL, it will also evict idling BOs
+>> to SWAP. The userspace in this case is the Mesa VirGL driver, it will
+>> mark
+>> the cached BOs as "not needed", allowing kernel driver to release memory
+>> of the cached shmem BOs on lowmem situations, preventing OOM kills.
+>>
+>> The Panfrost driver is switched to use generic memory shrinker.
+> 
+> I think we still have some outstanding issues here - Alyssa reported
+> some weirdness yesterday, so I just tried provoking a low-memory
+> condition locally with this series applied and a few debug options
+> enabled, and the results as below were... interesting.
 
-In my own opinion, assuming that binderfs means Android vendor is not a=20
-good assumption. The ANDROID help says:
+The warning and crash that you got actually are the minor issues.
 
-> Enable support for various drivers needed on the Android platform
+Alyssa caught an interesting PREEMPT_DEBUG issue in the shrinker that I
+haven't seen before.
 
-It doesn't say "Enable only if building an Android device", or "Enable=20
-only if you are Google". Isn't the traditional Linux philosophy a=20
-collection of pieces to be assembled, without gratuitous hidden=20
-dependencies? For example, [0] removes the unnecessary Android=20
-dependency, it doesn't block the whole thing with "depends on ANDROID".
+She is also experiencing another problem in the Panfrost driver with a
+bad shmem pages (I think). It is unrelated to this patchset and
+apparently require an extra setup for the reproduction.
 
-It seems to me that the proper way to set some configuration for Android=20
-kernels is or should be to ask the Android kernel config maintainers,=20
-not to set it based on an upstream kernel option. There is, after all,=20
-no CONFIG_FEDORA or CONFIG_UBUNTU or CONFIG_HANNAH_MONTANA.
-
-WireGuard and random also use CONFIG_ANDROID in a similar "proxy" way as=20
-rcu, there to see if suspends are "frequent". This seems dubious for the=20
-same reasons.
-
-I wonder if it might be time to retire CONFIG_ANDROID: the only=20
-remaining driver covered is binder, which originates from Android but=20
-is no longer used exclusively on Android systems. Like ufs-qcom, binder=20
-is no longer used exclusively on Android devices; it is also used for=20
-Android device emulators, which might be used on Android-like mobile=20
-devices, or might not.
-
-My understanding is that both Android and upstream kernel developers=20
-intend to add no more Android-specific drivers, so binder should be the=20
-only one covered for the foreseeable future.
-
-> For that matter, why the private reply?
-
-Mail client issues, not intentional. Lists re-added, plus Android,=20
-WireGuard, and random.
-
-Thanks,
-Alex.
-
-[0] https://lore.kernel.org/all/20220321151853.24138-1-krzk@kernel.org/
+-- 
+Best regards,
+Dmitry
