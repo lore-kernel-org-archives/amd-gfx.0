@@ -4,45 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A37C0C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 23:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E3BC43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 01:04:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D22810EF03;
-	Wed, 29 Jun 2022 23:31:46 +0000 (UTC)
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Wed, 29 Jun 2022 23:31:44 UTC
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFF710EF03
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 23:31:44 +0000 (UTC)
-Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4LYHc6373YzDrTZ;
- Wed, 29 Jun 2022 23:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1656545078; bh=elkf5RmFBorewHxBpyhHPWm8ng8ClJgtspzLN6zcMxk=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=NzDdKGhpy7bLep8cB6NgurxFBMmiWVKBePqtrFWXLnDo2KmcNzIN1g6bj0NSvAPzS
- lWKrioW0KJ7R11yFosqb0q7lJWy5RkWQby6uAcLt3h4deJC3fkiu7/2TBkDOxp8ERA
- MNpljOvbBjS8DJiobUcSibbo38g0iJ1wS+Dot43A=
-X-Riseup-User-ID: 027D84224C03B59B55A80BD92B20FEB4E250A12BE61509C15A71B800C3DE096B
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4LYHc50w4Hz5vQt;
- Wed, 29 Jun 2022 23:24:36 +0000 (UTC)
-Message-ID: <cff8f7f0-bcda-b804-0737-411c71ec9b77@riseup.net>
-Date: Wed, 29 Jun 2022 20:24:33 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBD010E054;
+	Thu, 30 Jun 2022 01:04:24 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75DED10E3B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 22:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1656540912;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JfIp4/8d6FKNViDaImkd8XOnHcFGT6GmiXjgK1Qhx+g=;
+ b=P8sYflo74DRNJ42D2jMyIZcNApMzP93uObhdP8uHgsK0YTt1LrFY5C1YKopAagKoVlu4/0
+ 4zVKg+W6x5xoxfcT3a0OXvmF+2o01zISR1aXEgQ++HZ8cpp0r9Q/FXx0p0L+7XBLGj4sDm
+ CArzgoek8nSauIZ5ZX0G6SKy7c+SE84=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-379-WSkVBt4iMCKRadaA8-VdQA-1; Wed, 29 Jun 2022 18:15:09 -0400
+X-MC-Unique: WSkVBt4iMCKRadaA8-VdQA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ n15-20020a05600c4f8f00b0039c3e76d646so408368wmq.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 15:15:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=JfIp4/8d6FKNViDaImkd8XOnHcFGT6GmiXjgK1Qhx+g=;
+ b=42BR/h/mS7qs+0tPh02zOBH0aYb3tUeBqj8LYbb0agm4B2SBUuY3AZB90DW3yY/Lr3
+ tR4Mrn8v9vUGecEx6rnHsXWRaPeyc3TsH3QfGzsy2jLw2Mq0ujz8BxRtmUZB9Y20e/vw
+ Vkq6+QlqQmwEC9ZM1Qrg+rKT++m3ouj4n6AMmYFjzNjvWpW4zx5urJzLQCduroxqRi0U
+ 7Oj3BwK0hDrnslnE9Pv6M3dtkVfAojZeTasQiZUn9CCe65ifAnzO5gg1sCR4wmMpSway
+ hqyXmVPpjW5PRNF/5tdpHhAIlmKz17BssNtI0D+4GVY1ExyOeKammC61Lqh6wUVocRh9
+ wkjw==
+X-Gm-Message-State: AJIora+vCdtnNrJrlWk9Kf6fDyPVlpNcMfF7QUwXyIb18wsl4xf/ePZL
+ RgC3s63DYwanGrl/o3qeGP3//bbOS2V5ZYWG9QghLAA2snBzN3TJCVxouMyAjPwdK84Nky+RXWp
+ x9388pBklB6rvYQFSPQOuWoT5KA==
+X-Received: by 2002:a5d:5481:0:b0:21a:3573:def0 with SMTP id
+ h1-20020a5d5481000000b0021a3573def0mr5049187wrv.28.1656540908359; 
+ Wed, 29 Jun 2022 15:15:08 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1t5fcdInM+cviZFvBrEBaCvHGKr28RaqkJjmjlhZihtB4ptS3bDvlPUJ4iGFvCByQR4VNIvKw==
+X-Received: by 2002:a5d:5481:0:b0:21a:3573:def0 with SMTP id
+ h1-20020a5d5481000000b0021a3573def0mr5049172wrv.28.1656540908120; 
+ Wed, 29 Jun 2022 15:15:08 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c708:e600:d4fa:af4b:d7b6:20df?
+ (p200300cbc708e600d4faaf4bd7b620df.dip0.t-ipconnect.de.
+ [2003:cb:c708:e600:d4fa:af4b:d7b6:20df])
+ by smtp.gmail.com with ESMTPSA id
+ e20-20020a5d5954000000b0020fcaba73bcsm17891932wri.104.2022.06.29.15.15.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jun 2022 15:15:07 -0700 (PDT)
+Message-ID: <49315889-96de-8e41-f8ee-dd5b33c5e1db@redhat.com>
+Date: Thu, 30 Jun 2022 00:15:06 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amdkfd: Fix warnings from static analyzer Smatch
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v7 01/14] mm: rename is_pinnable_pages to
+ is_pinnable_longterm_pages
+To: Felix Kuehling <felix.kuehling@amd.com>, Alex Sierra
+ <alex.sierra@amd.com>, jgg@nvidia.com
+References: <20220629035426.20013-1-alex.sierra@amd.com>
+ <20220629035426.20013-2-alex.sierra@amd.com>
+ <f00f9c93-c115-d222-dc8c-11493ccd2567@redhat.com>
+ <575b48a6-e372-acda-9a7c-449f307a588c@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <575b48a6-e372-acda-9a7c-449f307a588c@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org, 
- dan.carpenter@oracle.com
-References: <20220629170419.364255-1-Ramesh.Errabolu@amd.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-In-Reply-To: <20220629170419.364255-1-Ramesh.Errabolu@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 30 Jun 2022 01:04:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,92 +95,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: rcampbell@nvidia.com, willy@infradead.org, apopple@nvidia.com,
+ dri-devel@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Ramesh,
-
-On 6/29/22 14:04, Ramesh Errabolu wrote:
-> The patch fixes couple of warnings, as reported by Smatch
-> a static analyzer.
+On 30.06.22 00:08, Felix Kuehling wrote:
+> On 2022-06-29 03:33, David Hildenbrand wrote:
+>> On 29.06.22 05:54, Alex Sierra wrote:
+>>> is_pinnable_page() and folio_is_pinnable() were renamed to
+>>> is_longterm_pinnable_page() and folio_is_longterm_pinnable()
+>>> respectively. These functions are used in the FOLL_LONGTERM flag
+>>> context.
+>> Subject talks about "*_pages"
+>>
+>>
+>> Can you elaborate why the move from mm.h to memremap.h is justified?
 > 
-> Fixes: 40d6aa758b13 ("drm/amdkfd: Extend KFD device topology to surface peer-to-peer links")>
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1428 kfd_create_indirect_link_prop() warn: iterator used outside loop: 'cpu_link'
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1462 kfd_create_indirect_link_prop() error: we previously assumed 'cpu_dev' could be null (see line 1420)
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1516 kfd_add_peer_prop() warn: iterator used outside loop: 'iolink3'
->
+> Patch 2 adds is_device_coherent_page in memremap.h and updates 
+> is_longterm_pinnable_page to call is_device_coherent_page. memremap.h 
+> cannot include mm.h because it is itself included by mm.h. So the choice 
+> was to move is_longterm_pinnable_page to memremap.h, or move 
+> is_device_coherent_page and all its dependencies to mm.h. The latter 
+> would have been a bigger change.
 
-Usually, the Fixes tag would go here, after the commit message.
+I really don't think something mm generic that compiles without
+ZONE_DEVICE belongs into memremap.h. Please find a cleaner way to get
+this done.
 
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
+-- 
+Thanks,
 
-As this is a v2 PATCH, it would be nice to have a small changelog here,
-describing what has changed between the v1 and v2 versions of the patch.
-Also, you can mark the patch as v2 with git send-email by adding the
-flag -v2. More on the canonical patch format can be seen in [1].
+David / dhildenb
 
-[1]
-https://docs.kernel.org/process/submitting-patches.html#the-canonical-patch-format
-
-Best Regards,
-- Maíra Canal
-
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 34 +++++++++++------------
->  1 file changed, 17 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 25990bec600d..ca4825e555b7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1417,15 +1417,15 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->  
->  		/* find CPU <-->  CPU links */
->  		cpu_dev = kfd_topology_device_by_proximity_domain(i);
-> -		if (cpu_dev) {
-> -			list_for_each_entry(cpu_link,
-> -					&cpu_dev->io_link_props, list) {
-> -				if (cpu_link->node_to == gpu_link->node_to)
-> -					break;
-> -			}
-> -		}
-> +		if (!cpu_dev)
-> +			continue;
-> +
-> +		list_for_each_entry(cpu_link, &cpu_dev->io_link_props, list)
-> +			if (cpu_link->node_to == gpu_link->node_to)
-> +				break;
->  
-> -		if (cpu_link->node_to != gpu_link->node_to)
-> +		/* Ensures we didn't exit from list search with no hits */
-> +		if (list_entry_is_head(cpu_link, &cpu_dev->io_link_props, list))
->  			return -ENOMEM;
->  
->  		/* CPU <--> CPU <--> GPU, GPU node*/
-> @@ -1510,16 +1510,16 @@ static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
->  		cpu_dev = kfd_topology_device_by_proximity_domain(iolink1->node_to);
->  		if (cpu_dev) {
->  			list_for_each_entry(iolink3, &cpu_dev->io_link_props, list)
-> -				if (iolink3->node_to == iolink2->node_to)
-> +				if (iolink3->node_to == iolink2->node_to) {
-> +					props->weight += iolink3->weight;
-> +					props->min_latency += iolink3->min_latency;
-> +					props->max_latency += iolink3->max_latency;
-> +					props->min_bandwidth = min(props->min_bandwidth,
-> +									iolink3->min_bandwidth);
-> +					props->max_bandwidth = min(props->max_bandwidth,
-> +									iolink3->max_bandwidth);
->  					break;
-> -
-> -			props->weight += iolink3->weight;
-> -			props->min_latency += iolink3->min_latency;
-> -			props->max_latency += iolink3->max_latency;
-> -			props->min_bandwidth = min(props->min_bandwidth,
-> -							iolink3->min_bandwidth);
-> -			props->max_bandwidth = min(props->max_bandwidth,
-> -							iolink3->max_bandwidth);
-> +				}
->  		} else {
->  			WARN(1, "CPU node not found");
->  		}
