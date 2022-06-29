@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8184FC43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 08:44:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCA8C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 12:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B4810FF2D;
-	Wed, 29 Jun 2022 08:43:56 +0000 (UTC)
-Received: from pio-pvt-msa2.bahnhof.se (pio-pvt-msa2.bahnhof.se [79.136.2.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7384610FFA2;
- Wed, 29 Jun 2022 08:43:53 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTP id 2A07C3F496;
- Wed, 29 Jun 2022 10:43:51 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Authentication-Results: pio-pvt-msa2.bahnhof.se (amavisd-new);
- dkim=pass (1024-bit key) header.d=shipmail.org
-Received: from pio-pvt-msa2.bahnhof.se ([127.0.0.1])
- by localhost (pio-pvt-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 4hntFlTqeXsy; Wed, 29 Jun 2022 10:43:49 +0200 (CEST)
-Received: by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id BD3173F380;
- Wed, 29 Jun 2022 10:43:46 +0200 (CEST)
-Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
- [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id 009DD3600FE;
- Wed, 29 Jun 2022 10:43:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1656492226; bh=x90oW/9huaBEVhlYQnplarSqAv+GdIC9FB+WPge8YXg=;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 973EE10E57E;
+	Wed, 29 Jun 2022 12:57:39 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE51F10E81E;
+ Wed, 29 Jun 2022 08:22:09 +0000 (UTC)
+Received: from [192.168.2.145] (unknown [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 96AF966018F1;
+ Wed, 29 Jun 2022 09:22:05 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1656490928;
+ bh=XVQSgsxJcmy7E9dO6ydXkj4ChuEFXc7MVQ+QygUQC8s=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=To+37xln8JJvgy8na/moijj7u3YDsnUNuVyQoNBDexiiEMSNqGDIeVvz1kBQFzukt
- YcG6WWmRdCE6ePPgCuKLz9/xnAc5XIr2/e3dHA4nZ+veHTgrFehSwVxq0B1yIKdGKa
- 7lAinpshdXw/bjo7xkx8+5chsPjxtjKahuceuJ/M=
-Message-ID: <b4086751-9bff-ea5e-93fc-ce2c513b129b@shipmail.org>
-Date: Wed, 29 Jun 2022 10:43:45 +0200
+ b=XDA5Kxe1tQjVWoYM/BGtNXeKxwfzbPWBe/P8pqnkFIaP99Cob4KetSZp2mOV5ryP3
+ u7HvrxECrEmyBllUyLM9aJt9NxlBWJIjI1vH3F6cyKv3t6zcOoQ5eEnHwrBxui1qxj
+ dhHHwgtCyjFiz0GVKfGTNTYY/r/P8cU6ccDNK3YajGTlvfcYzw3D0HBZvWZG99gBdw
+ g3iqha1unBFwIZIh55U+Qs/ChxM3VgIRVZFM+pX3989oy8OqosWoTMbE+652VhJgHQ
+ FAJaw4N5wVvjKnuA74fSOiQp7M9aReCv8cXtUS2LQKv6/MwDyHx8fBx07oNXwQjIzB
+ fo3DQeZjKtWZw==
+Message-ID: <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
+Date: Wed, 29 Jun 2022 11:22:02 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
+ Thunderbird/91.10.0
 Subject: Re: [PATCH v6 02/22] drm/gem: Move mapping of imported dma-bufs to
  drm_gem_mmap_obj()
 Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
  <20220526235040.678984-3-dmitry.osipenko@collabora.com>
  <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
- <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-In-Reply-To: <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 29 Jun 2022 12:57:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,65 +88,54 @@ Cc: David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 6/29/22 10:22, Dmitry Osipenko wrote:
-> On 6/29/22 09:40, Thomas Hellström (Intel) wrote:
->> On 5/27/22 01:50, Dmitry Osipenko wrote:
->>> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
->>> handle imported dma-bufs properly, which results in mapping of something
->>> else than the imported dma-buf. For example, on NVIDIA Tegra we get a
->>> hard
->>> lockup when userspace writes to the memory mapping of a dma-buf that was
->>> imported into Tegra's DRM GEM.
->>>
->>> To fix this bug, move mapping of imported dma-bufs to drm_gem_mmap_obj().
->>> Now mmaping of imported dma-bufs works properly for all DRM drivers.
->> Same comment about Fixes: as in patch 1,
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->>> ---
->>>    drivers/gpu/drm/drm_gem.c              | 3 +++
->>>    drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
->>>    drivers/gpu/drm/tegra/gem.c            | 4 ++++
->>>    3 files changed, 7 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->>> index 86d670c71286..7c0b025508e4 100644
->>> --- a/drivers/gpu/drm/drm_gem.c
->>> +++ b/drivers/gpu/drm/drm_gem.c
->>> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj,
->>> unsigned long obj_size,
->>>        if (obj_size < vma->vm_end - vma->vm_start)
->>>            return -EINVAL;
->>>    +    if (obj->import_attach)
->>> +        return dma_buf_mmap(obj->dma_buf, vma, 0);
->> If we start enabling mmaping of imported dma-bufs on a majority of
->> drivers in this way, how do we ensure that user-space is not blindly
->> using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC
->> which is needed before and after cpu access of mmap'ed dma-bufs?
+On 6/29/22 09:40, Thomas Hellström (Intel) wrote:
+> 
+> On 5/27/22 01:50, Dmitry Osipenko wrote:
+>> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
+>> handle imported dma-bufs properly, which results in mapping of something
+>> else than the imported dma-buf. For example, on NVIDIA Tegra we get a
+>> hard
+>> lockup when userspace writes to the memory mapping of a dma-buf that was
+>> imported into Tegra's DRM GEM.
 >>
->> I was under the impression (admittedly without looking) that the few
->> drivers that actually called into dma_buf_mmap() had some private
->> user-mode driver code in place that ensured this happened.
-> Since it's a userspace who does the mapping, then it should be a
-> responsibility of userspace to do all the necessary syncing.
+>> To fix this bug, move mapping of imported dma-bufs to drm_gem_mmap_obj().
+>> Now mmaping of imported dma-bufs works properly for all DRM drivers.
+> Same comment about Fixes: as in patch 1,
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> ---
+>>   drivers/gpu/drm/drm_gem.c              | 3 +++
+>>   drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
+>>   drivers/gpu/drm/tegra/gem.c            | 4 ++++
+>>   3 files changed, 7 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>> index 86d670c71286..7c0b025508e4 100644
+>> --- a/drivers/gpu/drm/drm_gem.c
+>> +++ b/drivers/gpu/drm/drm_gem.c
+>> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj,
+>> unsigned long obj_size,
+>>       if (obj_size < vma->vm_end - vma->vm_start)
+>>           return -EINVAL;
+>>   +    if (obj->import_attach)
+>> +        return dma_buf_mmap(obj->dma_buf, vma, 0);
+> 
+> If we start enabling mmaping of imported dma-bufs on a majority of
+> drivers in this way, how do we ensure that user-space is not blindly
+> using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC
+> which is needed before and after cpu access of mmap'ed dma-bufs?
+> 
+> I was under the impression (admittedly without looking) that the few
+> drivers that actually called into dma_buf_mmap() had some private
+> user-mode driver code in place that ensured this happened.
 
-Sure, but nothing prohibits user-space to ignore the syncing thinking 
-"It works anyway", testing those drivers where the syncing is a NOP. And 
-when a driver that finally needs syncing is tested it's too late to fix 
-all broken user-space.
+Since it's a userspace who does the mapping, then it should be a
+responsibility of userspace to do all the necessary syncing. I'm not
+sure whether anyone in userspace really needs to map imported dma-bufs
+in practice. Nevertheless, this use-case is broken and should be fixed
+by either allowing to do the mapping or prohibiting it.
 
->   I'm not
-> sure whether anyone in userspace really needs to map imported dma-bufs
-> in practice. Nevertheless, this use-case is broken and should be fixed
-> by either allowing to do the mapping or prohibiting it.
->
-Then I'd vote for prohibiting it, at least for now. And for the future 
-moving forward we could perhaps revisit the dma-buf need for syncing, 
-requiring those drivers that actually need it to implement emulated 
-coherent memory which can be done not too inefficiently (vmwgfx being 
-one example).
-
-/Thomas
-
-
+-- 
+Best regards,
+Dmitry
