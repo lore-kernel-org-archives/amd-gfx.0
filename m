@@ -4,76 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48BD4C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 06:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 980EBC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 07:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D764910FA92;
-	Wed, 29 Jun 2022 06:43:53 +0000 (UTC)
-Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
- [213.80.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16922113F6E;
- Wed, 29 Jun 2022 06:43:52 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 8D3F940CDE;
- Wed, 29 Jun 2022 08:43:50 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Authentication-Results: ste-pvt-msa1.bahnhof.se (amavisd-new);
- dkim=pass (1024-bit key) header.d=shipmail.org
-Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 9zVOpFpqurBe; Wed, 29 Jun 2022 08:43:49 +0200 (CEST)
-Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id E77D240CD6;
- Wed, 29 Jun 2022 08:43:48 +0200 (CEST)
-Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
- [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id 828A9360677;
- Wed, 29 Jun 2022 08:43:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1656485028; bh=lhOYNGqGisf/E17sgFrN5FIY96Ihx7G/tMj3K5gKxzw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DVzFW+KJOPDbhjAKm9CdyTI6VMdeTr0f9r1dPaIWy8TRfcE8pBAwRUNbgXu1Aq9X1
- erEdsBm3Wj/SnXDmI7gS7vo2eW2qpK2lNzlxt8GkPEpfs1zIWUKHVE5z74qTdZHYis
- 3s7ooaxnN+paDWie6SRxEe77bEmvdZI0xGv/hSFU=
-Message-ID: <6f2b0b7a-0031-dfe2-8ce2-191b940064b0@shipmail.org>
-Date: Wed, 29 Jun 2022 08:43:48 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0901910F7C0;
+	Wed, 29 Jun 2022 07:38:41 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF1C110E1C5;
+ Wed, 29 Jun 2022 03:24:05 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ g20-20020a17090a579400b001ed52939d72so9240241pji.4; 
+ Tue, 28 Jun 2022 20:24:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Fj7BbdljqsoGparCST0EyCcPUKNtLNBlk+LCRCpdJLw=;
+ b=oFx79pTDKe/0K4DzWTg5WbhaY9GMAgsDaFSkH6r1vPW1HFdOJXqGQ5UZxgywHDM3Ir
+ 0equTGt8PyPlERIlnTf5/BcxXxzGITpucSE2VIl8CV1o9ehzFCMhzuOGmi45/AK6qG76
+ /8w9TpCEjcwZrf18xju/rDZxtqGU8P6zQ25P+y1i5vCqEbFPPa98WvDxnH8cFtX3sIwJ
+ junUVkx5AYbgAFw0eC61vARiqpw1IzYsntMTivQEIBdgIUJa+1mBXf7au2lMkxwOomRF
+ Tq177jWJbMD53EgF/Vw9Bn+IKNlGCEHOCstQTlq+u9cuVkwNV5MjGVV2oNYBWWI67o+0
+ Kprw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Fj7BbdljqsoGparCST0EyCcPUKNtLNBlk+LCRCpdJLw=;
+ b=KVXKmHXbmP9esEIrDNN5Dv7KNRBCzBWhI3cM8ZX9uisMuRPC/DyEqwK2afDYqfZAKx
+ fmLliHa+1HSxZGMK4z2BiJbRHe38VQRCNstTR8u7Q/jyKOTImzZJonfKAu2h5enPpzOp
+ 6uqkSHNU/4Vz9AoMIqBEtVG2zNdP++LuqgPlUzwRa8Wl0K9gHDp+IoZRPomwtTSgdkY+
+ zq4czzgS8+NWcMqVYICqaMSpXd9lBG6rlsxPI4gPmqOgqkF41FtKoPJP7zHK+4xUpPJq
+ 3fqlfTPjeaVaBOAzpbqlmPiQVT6oYRpAmexhdw8T3Q3RvI2t0Ja3OZZmYuBFqnrQpxfS
+ yviw==
+X-Gm-Message-State: AJIora/ORRPm6Gi2toAhGVIKmXEkhm/wjyJVhoa93SVRZKR9mfr9XaLX
+ gF83W3e06QEmAIwqH2hIg1U=
+X-Google-Smtp-Source: AGRyM1vsi7CgNn+hm6JA8nRBvn1UfsHiN+DuVQjG+D41n++oNdHScStsgrICm72S8/mDUKvSMDDq4A==
+X-Received: by 2002:a17:902:a701:b0:16a:65b:f9f1 with SMTP id
+ w1-20020a170902a70100b0016a065bf9f1mr8387462plq.73.1656473045455; 
+ Tue, 28 Jun 2022 20:24:05 -0700 (PDT)
+Received: from debian.me (subs02-180-214-232-13.three.co.id. [180.214.232.13])
+ by smtp.gmail.com with ESMTPSA id
+ p9-20020a1709026b8900b0016372486febsm10011584plk.297.2022.06.28.20.24.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jun 2022 20:24:04 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id E4C29103832; Wed, 29 Jun 2022 10:23:59 +0700 (WIB)
+Date: Wed, 29 Jun 2022 10:23:58 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH 00/22] Fix kernel-doc warnings at linux-next
+Message-ID: <YrvFzoH61feRFoxV@debian.me>
+References: <cover.1656409369.git.mchehab@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v6 08/22] drm/virtio: Unlock reservations on
- dma_resv_reserve_fences() error
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-9-dmitry.osipenko@collabora.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-In-Reply-To: <20220526235040.678984-9-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1656409369.git.mchehab@kernel.org>
+X-Mailman-Approved-At: Wed, 29 Jun 2022 07:38:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,44 +72,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, linux-cachefs@redhat.com,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, Dave Hansen <dave.hansen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, Alexander Potapenko <glider@google.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ kasan-dev@googlegroups.com, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, Chanwoo Choi <cw00.choi@samsung.com>,
+ Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-media@vger.kernel.org,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Marco Elver <elver@google.com>,
+ linux-pm@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Borislav Petkov <bp@alien8.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Johannes Berg <johannes@sipsolutions.net>, Dmitry Vyukov <dvyukov@google.com>,
+ linux-sgx@vger.kernel.org, Felipe Balbi <balbi@kernel.org>,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jun 28, 2022 at 10:46:04AM +0100, Mauro Carvalho Chehab wrote:
+> As we're currently discussing about making kernel-doc issues fatal when
+> CONFIG_WERROR is enable, let's fix all 60 kernel-doc warnings 
+> inside linux-next:
+> 
 
-On 5/27/22 01:50, Dmitry Osipenko wrote:
-> Unlock reservations on dma_resv_reserve_fences() error to fix recursive
-> locking of the reservations when this error happens.
-Fixes:
-> Cc: stable@vger.kernel.org
+To be fair, besides triggering error on kernel-doc warnings, Sphinx
+warnings should also be errors on CONFIG_WERROR.
 
-With that fixed,
-
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
->   drivers/gpu/drm/virtio/virtgpu_gem.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> index 580a78809836..7db48d17ee3a 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> @@ -228,8 +228,10 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
->   
->   	for (i = 0; i < objs->nents; ++i) {
->   		ret = dma_resv_reserve_fences(objs->objs[i]->resv, 1);
-> -		if (ret)
-> +		if (ret) {
-> +			virtio_gpu_array_unlock_resv(objs);
->   			return ret;
-> +		}
->   	}
->   	return ret;
->   }
+-- 
+An old man doll... just what I always wanted! - Clara
