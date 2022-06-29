@@ -4,118 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 882E2C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 13:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29302C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 14:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AB510E2F0;
-	Wed, 29 Jun 2022 13:58:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0895810E2F0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 13:58:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TCSJxqgsjwzQMyzdnI1dXCmmWIOBm1lurjSZ04VEBHbhjYOnVsobyM+I3OlGuKRsA+TpSGK/PjR0UbfJNcD7Ouf7EJZOf1VcKkpRxH5sa7rY9Wsu0GbL2dxF48j8VW47o+lXRVp4lXc4e4kMyimRdAdlGgBKFOWh0pwagRkzsi7SQXeMoHV9E0wFhPtc425ROly3b5BdpqqaGfSuiJZ1enjWYNHtZDZ0Mnq9+8G37U/A6+UrksusiEcFk0Pw7bTCG6c728s3XNcm5bbyXAXyfIBJUPqlJMEkTCMgkxtlv+1dSyBImL2XVG0zOVYBLLJvvoDvYEOaqpVNYA7Th9+TUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kwYuwTeXrKVk8PC5SVHwcxdPDv8r+thhE8Wcn9J9KP8=;
- b=cYTm3HlRt3f8dOleRMY5x+M4S1RqgkBwZGZqTunX2HHQG5euYUZtcJPFLFmNYZ7fdpqRwzH9sYnbW9ohZkontCK2ZMrWZpdbyBA38McItbyvbFKMt38WCuqI6rImmg4fFjySjsuN1CzYrmF3OL0xAAb/agfU61OtAoJhhDAxIWwAGM72VbMYrGtByG6AsLjo4ayGytwqjOGOrNZZoxp6gGuL0D7+gauDeIE+piPQCOrQS5ktzXELhivjzaVqITVly/GR1nH8PTa7maCM8It0t6wBPHUqKlZUgK4TGGmYDPrw16Ms518zDzkGs3RbdJeuxQ7l29Nw7lQmnLv7tCNOPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kwYuwTeXrKVk8PC5SVHwcxdPDv8r+thhE8Wcn9J9KP8=;
- b=STR/c3Vp2wpApmt5IZYAVFRPTa9FZczyVZA+wt4Td+hwieESaXY4NPW97OaWgJwYa9oNictGviwwsZnJp8ZXeEtIWIdk10bf9fUjBHIMIc3yMDAWAcuRzdazhCU+wa4LGb1nLjwIktL8N2LKkT5932mnsJ4bTMpFxVkg4lBvrGQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN6PR12MB1395.namprd12.prod.outlook.com (2603:10b6:404:1f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Wed, 29 Jun
- 2022 13:58:24 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::8d23:cb0f:d4d2:f7fa]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::8d23:cb0f:d4d2:f7fa%6]) with mapi id 15.20.5395.014; Wed, 29 Jun 2022
- 13:58:24 +0000
-Message-ID: <3e62a389-68b8-bd38-54a9-8fdb6b630c34@amd.com>
-Date: Wed, 29 Jun 2022 09:58:22 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amdkfd: Fix warnings from static analyzer Smatch
-Content-Language: en-US
-To: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>
-References: <20220628232538.1316250-1-Ramesh.Errabolu@amd.com>
- <846ecd13-edaf-c0eb-44a9-5232dca997c7@amd.com>
- <SN1PR12MB2575F5E425FB5B43CB1BF119E3BB9@SN1PR12MB2575.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <SN1PR12MB2575F5E425FB5B43CB1BF119E3BB9@SN1PR12MB2575.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0097.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::6) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A3F10E371;
+	Wed, 29 Jun 2022 14:09:53 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FAB110ECC2;
+ Wed, 29 Jun 2022 13:30:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656509441; x=1688045441;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=jG00zai/N7F5DdwFDb28+o4sLG0VcDGg5Q5uR0sGKiw=;
+ b=hNwxqodPVVaoFbit7oysAY+v+8Y89aXy6qHhlkHQGJtPbKkm18ewv7Sr
+ OekNoi8SXkhI2Vq60JsJj8MugR9oZMNh/r/PvMUUIZPn9VE/ONN+L+ZZu
+ QeJW/Li1T6Z0+PzniEVNAvCKLLgdXlNdWX+VVwB7cJjj6cLPlLqzjnggh
+ 6aXkOtG3DRWYQFqLC5HsCtKYJ6dwRDFtRTDxBplN9ipWqhJw52gVFW7ej
+ f7AaPI6MVRlTDRYklBprw0F77/+ACxO3IOIywZs4p8nCfLUhGb5FPjJXW
+ 4EE+s/ZCqxsQaB4HRYvsvsSKZs36g17up/tBsN1AoroSbJCnUp4WI/YrA A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="270793824"
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="270793824"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 06:30:40 -0700
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="647395129"
+Received: from clauter-mobl.amr.corp.intel.com (HELO localhost)
+ ([10.252.48.175])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 06:30:31 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [RESEND RFC 08/18] drm/display/dp_mst: Add nonblocking helpers
+ for DP MST
+In-Reply-To: <20220607192933.1333228-9-lyude@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220607192933.1333228-1-lyude@redhat.com>
+ <20220607192933.1333228-9-lyude@redhat.com>
+Date: Wed, 29 Jun 2022 16:30:28 +0300
+Message-ID: <87r137ppfv.fsf@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 88e6f1cd-7218-4741-125a-08da59d76eee
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1395:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JxdAku52NFcorQxEe5etz0uIZn7YiIcEyUw/XC5wNn9cnFX9a1OH8rKCHdifUbnIFV4zPPefM6fcW/bD+3CjRsAB63jbyoFy1VPY3ojzB4hzViVVC+qiMWa5vQ7yZ2d6w4b0uZ1VFuSlI3U7qfpohvtrPZAvU31QSeiVbGdoQ3bhkC3IYUPGDqnxyhphUGHDkdRmV6RchjxUXI+Z7uY40qpnzk6JOD9I2r91Gze3Qei6L0bJb3mtx/X9LNjsP6A7BUWuD+ROiXEpTSc5QSqTrEwrCeSLRancRjGOBJQXHTTlM01O6TGBDX6ai8QdjhPn7goNeAeX3lrV48+KkOdwAjSlOOf86hPFjDmIzHso1SShNOi7M9JbHLzfof+bT6khNRGvVV+CVytCuk2bsS4fDiY45YrJwDvWlBmUQ7m7A2zcfke+qrqnQXsZ/0YaZtteLW2Ox7765So4EEuGGnmavSmpj9nPC9gvWo0vC04tOrcquZJsbyv0ErsDUFPjZNZLrM0BqVzxl9BNSHs8CKl7Ozy47ZnvQqbkhgBQJyZ2CIVIOsnT1mVe0BrqMA5Ld5WRdofYV/99SVGWZ3NbQKvp6qbqSs74NL6PLjZaR7STjtrgSFWucRcShHgiUBg91sEd4ODwzbEWp3yhJlL9xDPw0NLRxQri/DFQrsdYmGlz6ywTVfn2p8HablPanBeiw9DR/Unx6zsd3J/R2qd2Qo3xOoQmYCxZ5vGUey2QkAeFCGxJLJMpDmqe3WBSTRZL3LWcHMihNVsv79T9h4oREBSKjqE2gr34ZWEsdnh3A/JXDe7QU2aqj61nMzhF3s0Ajv4c3bmjWAVY/Fu+fbJPWwSB0A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(376002)(366004)(39860400002)(136003)(6506007)(53546011)(5660300002)(186003)(6512007)(26005)(110136005)(6486002)(2616005)(316002)(41300700001)(66556008)(66946007)(31686004)(8676002)(44832011)(2906002)(8936002)(66476007)(83380400001)(36756003)(478600001)(38100700002)(31696002)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1FDN0FSNmNOYWxBbENEQ1lub2pPU21SNFVYd3NBa3p0UmU3OXpFR3hPU1Zl?=
- =?utf-8?B?aXpJVC9SdnRwRktjam5Cc1dMcmNXMkR1azJINmJoVEZkY3FFZURseGQ3dit2?=
- =?utf-8?B?Z1NNL05RVVZRclc4NG4rNlprNStvYkdCL3FDWCs4bGFPdlAyL29rb2tQeG9K?=
- =?utf-8?B?V2RSNmlzY1d6ZkdqZDJmd0pGREp4cXFZVy9mTEQrRXpjS1ZsV0JXYWs4bEU2?=
- =?utf-8?B?cHNlNGZBVGVBTGxSazUzT1czajhyUDBBbE5JYndGK3U4NDFvc29Na1NCRnN5?=
- =?utf-8?B?RjloRSt0WUl4R1gya3JaMmd5akpPMktaWXpIS0VHbVFyUStRSDdQMDVyR2NF?=
- =?utf-8?B?RkNldzlFOWJDY1I4ckFwbXlDV0dvMkhMUDhBZjNCV2JaSlllMVBjSWFjV3Vi?=
- =?utf-8?B?ak8yMnorMVl0WkF5WndSK0RUaU5FQXlKRUo5ZTFwdEpnT2twNmpoc21mdDJZ?=
- =?utf-8?B?OElIdGIvTW53L3ZCSG8zLzBvT0orOHRvdXdvT2dsYmUwK1V2YVBmMWZibjNC?=
- =?utf-8?B?NEkvckRVT2tTcE9zRmp2YWQ0OGFXQkxJdllaa0J4TFMyYUZFa0NvWFV1b0Jz?=
- =?utf-8?B?SXZCMWR5emN6K0lYNVlvd2tQaUZoL1p0U3ZOSWNSMEs1U0UycWVmZTN3azV3?=
- =?utf-8?B?Qm9VU2QwdUdpYi9WTUl4eXVqR2xGOXhyRWJoNTYxZ0FpUzV2VkhOZmE2VE40?=
- =?utf-8?B?Y0NhTHhmbVIxWDIyUC9GT2F1azRiNHdFbzBZZTAvdXRTY1FscERDakljK3lO?=
- =?utf-8?B?SFEwZGJ5MExONGZGZkdXNnhGTXFXUE9NbVFnSDJLUkFlblQxWjRzK3F3RWF5?=
- =?utf-8?B?YjlONHJPc3ZWWThla3JZT1EvS3VvK1lEVjh1emJCZVN2c2lXbGlPajh1V2NK?=
- =?utf-8?B?bjRwRENnUjVxdndtSkRTWlIyenArNU81WDM4b1FsU0cyZ0pmMDMxV3dOdi9a?=
- =?utf-8?B?V0x6THppbFJ3eG1MdlRCQ2FFZWZDTWgvdFlYdUxYYS9MbmZLRER0UjFNZXN6?=
- =?utf-8?B?eDdmSVAvYkIzd25wRGE1bVZtS2FTVGhyL1RXOVQ2WldXNEZFd1ZCeFR1V1Zj?=
- =?utf-8?B?V0NyQnN0VVFvYWFZQ2wyUmpjR29FV2hqMUJPQkJTd2dNUFVMRDdMMTlMRktU?=
- =?utf-8?B?YmFvVVp5WWJwSW55dUFGSGZLQ3d0UEtnMGIwcCtVM05hMFRVc0dTVzlBT1d2?=
- =?utf-8?B?NHd5NDlIeGJET3JUZ0lLY1JRYitZZUl1R1JVS093RExJSHJDT2Frc0c3MnhP?=
- =?utf-8?B?aXUxQ20vK0c2S2xiSUY3TXphTTRzRmVsYmJCb2lOeExkWlNvK1hkSElLOTBa?=
- =?utf-8?B?dUNxNW1UMkEvU1dTNnRLZ2FHWEtwd3pVTy9qdENBQTRSZzBWb0xRSEF5MjBH?=
- =?utf-8?B?MEhTV0wrbTR5d0hUR0tRV3FOUVNUdDQrN2xvVXZTOGhxaWZmN2FKb0gzdDAr?=
- =?utf-8?B?N2dYRVpiT3U1b0ptRVNqdjlrVDdNMlJkUm1IaFBmWG16UExiVHRpOEc0VG5D?=
- =?utf-8?B?eGx0RElBV1N3N2ZuUFhzeS9MRk9CMzVPeFZaZ2Q1ZExLcVlKcklXM0kxaXRo?=
- =?utf-8?B?UDBVV2dEU0t4d3NmbVBTSlVuV0pNMGlKV0ZJMnY4QjJLeUxWa1lObEszTFV3?=
- =?utf-8?B?eUVnWWNob3dBbVUrU0FYc0paOVh6MHJVUHNVWnJ6SDd2U3ZXQ0FPMkl1WTBX?=
- =?utf-8?B?V1F6WktMYklnamJsb3FGanZZQlNBSzJUVjVtWVE0QVRveEUxcFgxdFJ6NElN?=
- =?utf-8?B?QU1TUWUxOGNxL0xKL3NmbmxjWjhsWFZyYzk1WUJRdzJVUHlHOE5jQ0ZDQitL?=
- =?utf-8?B?TjhMRmRrVHFoTUNtc1dZR2hkb2pvTkw2MDc5MlB6anJZektyVEVRbG81S1FN?=
- =?utf-8?B?SkoxYkVKVmh1dDVRaHlGUzZFT2t0K2RoNUpsN0U5alBXZ21NNTdyclFzbit3?=
- =?utf-8?B?RHNZZDVPLzRGZjFNWjBFdGZTYTdTdVMxTFdMajhIVHMrbUh0eXB0d1JEc0tG?=
- =?utf-8?B?bDlOTWdIK3l3TVVhTDdMdC9TTUIwZnhvZnNtdXluSG5TSXRRKzJNSzhtZm9w?=
- =?utf-8?B?VVJIZ21PMnNMcmF4ZHJza0FJVWd5K1RwRnRIMFdZd0dqclVhVnp3WmxVS3Ay?=
- =?utf-8?Q?mzLdkiGv6zK3LbFmmjlLA4Bvb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88e6f1cd-7218-4741-125a-08da59d76eee
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 13:58:24.1688 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 293bWQ9gdeyUHlvev/81ZRr4/DL92E+1cwFqYuAGT45mBsW5f/0CWTbutFc9IhrRRTMrLMCl7Gz8yqxEfz+2Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1395
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 29 Jun 2022 14:09:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,121 +60,423 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Simon Ser <contact@emersion.fr>, Karol Herbst <kherbst@redhat.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ =?utf-8?Q?Jos=C3=A9?= Roberto de Souza <jose.souza@intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>, "open
+ list:INTEL DRM DRIVERS" <intel-gfx@lists.freedesktop.org>,
+ Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jude Shih <shenshih@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Roman Li <Roman.Li@amd.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Manasi Navare <manasi.d.navare@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Fernando Ramos <greenfoo@u92.eu>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-06-28 um 20:03 schrieb Errabolu, Ramesh:
-> [AMD Official Use Only - General]
+On Tue, 07 Jun 2022, Lyude Paul <lyude@redhat.com> wrote:
+> As Daniel Vetter pointed out, if we only use the atomic modesetting locks
+> with MST it's technically possible for a driver with non-blocking modesets
+> to race when it comes to MST displays - as we make the mistake of not doi=
+ng
+> our own CRTC commit tracking in the topology_state object.
 >
-> My responses are inline
+> This could potentially cause problems if something like this happens:
 >
-> -----Original Message-----
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
-> Sent: Tuesday, June 28, 2022 6:41 PM
-> To: Errabolu, Ramesh <Ramesh.Errabolu@amd.com>; amd-gfx@lists.freedesktop.org; dan.carpenter@oracle.com
-> Subject: Re: [PATCH] drm/amdkfd: Fix warnings from static analyzer Smatch
+> * User starts non-blocking commit to disable CRTC-1 on MST topology 1
+> * User starts non-blocking commit to enable CRTC-2 on MST topology 1
 >
+> There's no guarantee here that the commit for disabling CRTC-2 will only
+> occur after CRTC-1 has finished, since neither commit shares a CRTC - only
+> the private modesetting object for MST. Keep in mind this likely isn't a
+> problem for blocking modesets, only non-blocking.
 >
-> Am 2022-06-28 um 19:25 schrieb Ramesh Errabolu:
->> The patch fixes couple of warnings, as reported by Smatch a static
->> analyzer
->>
->> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
->> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
->> ---
->>    drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 36 ++++++++++++-----------
->>    1 file changed, 19 insertions(+), 17 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> index 25990bec600d..9d7b9ad70bc8 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> @@ -1417,15 +1417,17 @@ static int
->> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->>    
->>    		/* find CPU <-->  CPU links */
->>    		cpu_dev = kfd_topology_device_by_proximity_domain(i);
->> -		if (cpu_dev) {
->> -			list_for_each_entry(cpu_link,
->> -					&cpu_dev->io_link_props, list) {
->> -				if (cpu_link->node_to == gpu_link->node_to)
->> -					break;
->> -			}
->> -		}
->> +		if (!cpu_dev)
->> +			continue;
->> +
->> +		cpu_link = NULL;
-> This initialization is unnecessary. list_for_each_entry will always initialize it.
+> So, begin fixing this by keeping track of which CRTCs on a topology have
+> changed by keeping track of which CRTCs we release or allocate timeslots
+> on. As well, add some helpers for:
 >
+> * Setting up the drm_crtc_commit structs in the ->commit_setup hook
+> * Waiting for any CRTC dependencies from the previous topology state
 >
->> +		list_for_each_entry(cpu_link, &cpu_dev->io_link_props, list)
->> +			if (cpu_link->node_to == gpu_link->node_to)
->> +				break;
->>    
->> -		if (cpu_link->node_to != gpu_link->node_to)
->> +		/* Ensures we didn't exit from list search with no hits */
->> +		if (list_entry_is_head(cpu_link, &cpu_dev->io_link_props, list) ||
->> +			(cpu_link->node_to != gpu_link->node_to))
-> The second condition is redundant. If the list entry is not the head,
-> the node_to must have already matched in the loop.
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Sean Paul <sean@poorly.run>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 93 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_display.c  | 11 +++
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       | 12 +++
+>  include/drm/display/drm_dp_mst_helper.h       | 15 +++
+>  5 files changed, 139 insertions(+), 1 deletion(-)
 >
-> Ramesh: Syntactically, it is possible to walk down the list without having the hit. The check list_entry_is_head() is for that scenario.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f84a4ad736d8..d9c7393ef151 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -211,6 +211,7 @@ static int amdgpu_dm_encoder_init(struct drm_device *=
+dev,
+>  static int amdgpu_dm_connector_get_modes(struct drm_connector *connector=
+);
+>=20=20
+>  static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state);
+> +static int amdgpu_dm_atomic_setup_commit(struct drm_atomic_state *state);
+>=20=20
+>  static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>  				  struct drm_atomic_state *state);
+> @@ -2808,7 +2809,8 @@ static const struct drm_mode_config_funcs amdgpu_dm=
+_mode_funcs =3D {
+>  };
+>=20=20
+>  static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperf=
+uncs =3D {
+> -	.atomic_commit_tail =3D amdgpu_dm_atomic_commit_tail
+> +	.atomic_commit_tail =3D amdgpu_dm_atomic_commit_tail,
+> +	.atomic_commit_setup =3D amdgpu_dm_atomic_setup_commit,
+>  };
+>=20=20
+>  static void update_connector_ext_caps(struct amdgpu_dm_connector *aconne=
+ctor)
+> @@ -9558,6 +9560,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
+_atomic_state *state)
+>  		DRM_ERROR("Waiting for fences timed out!");
+>=20=20
+>  	drm_atomic_helper_update_legacy_modeset_state(dev, state);
+> +	drm_dp_mst_atomic_wait_for_dependencies(state);
+>=20=20
+>  	dm_state =3D dm_atomic_get_new_state(state);
+>  	if (dm_state && dm_state->context) {
+> @@ -9958,6 +9961,10 @@ static void amdgpu_dm_atomic_commit_tail(struct dr=
+m_atomic_state *state)
+>  		dc_release_state(dc_state_temp);
+>  }
+>=20=20
+> +static int amdgpu_dm_atomic_setup_commit(struct drm_atomic_state *state)
+> +{
+> +	return drm_dp_mst_atomic_setup_commit(state);
+> +}
 
-If you traverse the whole list without a hit, list_entry_is_head will be 
-true. That is also the only case where cpu_link->node_to != 
-gpu_link->node_to is possible. Therefore that condition is redundant. 
-Just checking list_entry_is_head is sufficient.
+I guess all the driver specific wrappers for setup commit could be
+dropped in favor of directly using drm_dp_mst_atomic_setup_commit?
 
-That said, as I pointed out below, you're still using cpu_link outside 
-the loop. Therefore it's likely the static checker is still going to 
-complain.
+BR,
+Jani.
 
-Regards,
-   Felix
+>=20=20
+>  static int dm_force_atomic_commit(struct drm_connector *connector)
+>  {
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> index 0bc2c7a90c37..a0ed29f83556 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -4395,12 +4395,16 @@ int drm_dp_atomic_find_time_slots(struct drm_atom=
+ic_state *state,
+>  {
+>  	struct drm_dp_mst_topology_state *topology_state;
+>  	struct drm_dp_mst_atomic_payload *payload =3D NULL;
+> +	struct drm_connector_state *conn_state;
+>  	int prev_slots =3D 0, prev_bw =3D 0, req_slots;
+>=20=20
+>  	topology_state =3D drm_atomic_get_mst_topology_state(state, mgr);
+>  	if (IS_ERR(topology_state))
+>  		return PTR_ERR(topology_state);
+>=20=20
+> +	conn_state =3D drm_atomic_get_new_connector_state(state, port->connecto=
+r);
+> +	topology_state->pending_crtc_mask |=3D drm_crtc_mask(conn_state->crtc);
+> +
+>  	/* Find the current allocation for this port, if any */
+>  	payload =3D drm_atomic_get_mst_payload_state(topology_state, port);
+>  	if (payload) {
+> @@ -4480,11 +4484,15 @@ int drm_dp_atomic_release_time_slots(struct drm_a=
+tomic_state *state,
+>  {
+>  	struct drm_dp_mst_topology_state *topology_state;
+>  	struct drm_dp_mst_atomic_payload *payload;
+> +	struct drm_connector_state *conn_state;
+>=20=20
+>  	topology_state =3D drm_atomic_get_mst_topology_state(state, mgr);
+>  	if (IS_ERR(topology_state))
+>  		return PTR_ERR(topology_state);
+>=20=20
+> +	conn_state =3D drm_atomic_get_old_connector_state(state, port->connecto=
+r);
+> +	topology_state->pending_crtc_mask |=3D drm_crtc_mask(conn_state->crtc);
+> +
+>  	payload =3D drm_atomic_get_mst_payload_state(topology_state, port);
+>  	if (WARN_ON(!payload)) {
+>  		drm_err(mgr->dev, "No payload for [MST PORT:%p] found in mst state %p\=
+n",
+> @@ -4503,6 +4511,83 @@ int drm_dp_atomic_release_time_slots(struct drm_at=
+omic_state *state,
+>  }
+>  EXPORT_SYMBOL(drm_dp_atomic_release_time_slots);
+>=20=20
+> +/**
+> + * drm_dp_mst_atomic_setup_commit() - setup_commit hook for MST helpers
+> + * @state: global atomic state
+> + *
+> + * This function saves all of the &drm_crtc_commit structs in an atomic =
+state that touch any CRTCs
+> + * currently assigned to an MST topology. Drivers must call this hook fr=
+om their
+> + * &drm_mode_config_helper_funcs.atomic_commit_setup hook.
+> + *
+> + * Returns:
+> + * 0 if all CRTC commits were retrieved successfully, negative error cod=
+e otherwise
+> + */
+> +int drm_dp_mst_atomic_setup_commit(struct drm_atomic_state *state)
+> +{
+> +	struct drm_dp_mst_topology_mgr *mgr;
+> +	struct drm_dp_mst_topology_state *mst_state;
+> +	struct drm_crtc *crtc;
+> +	struct drm_crtc_state *crtc_state;
+> +	int i, j, commit_idx, num_commit_deps;
+> +
+> +	for_each_new_mst_mgr_in_state(state, mgr, mst_state, i) {
+> +		if (!mst_state->pending_crtc_mask)
+> +			continue;
+> +
+> +		num_commit_deps =3D hweight32(mst_state->pending_crtc_mask);
+> +		mst_state->commit_deps =3D kmalloc_array(num_commit_deps,
+> +						       sizeof(*mst_state->commit_deps), GFP_KERNEL);
+> +		if (!mst_state->commit_deps)
+> +			return -ENOMEM;
+> +		mst_state->num_commit_deps =3D num_commit_deps;
+> +
+> +		commit_idx =3D 0;
+> +		for_each_new_crtc_in_state(state, crtc, crtc_state, j) {
+> +			if (mst_state->pending_crtc_mask & drm_crtc_mask(crtc)) {
+> +				mst_state->commit_deps[commit_idx++] =3D
+> +					drm_crtc_commit_get(crtc_state->commit);
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_atomic_setup_commit);
+> +
+> +/**
+> + * drm_dp_mst_atomic_wait_for_dependencies() - Wait for all pending comm=
+its on MST topologies
+> + * @state: global atomic state
+> + *
+> + * Goes through any MST topologies in this atomic state, and waits for a=
+ny pending commits which
+> + * touched CRTCs that were/are on an MST topology to be programmed to ha=
+rdware and flipped to before
+> + * returning. This is to prevent multiple non-blocking commits affecting=
+ an MST topology from racing
+> + * with eachother by forcing them to be executed sequentially in situati=
+ons where the only resources
+> + * the modeset objects in these commits share are an MST topology.
+> + *
+> + * This function also prepares the new MST state for commit by performin=
+g some state preparation
+> + * which can't be done until this point, such as reading back the final =
+VC start slots (which are
+> + * determined at commit-time) from the previous state.
+> + *
+> + * All MST drivers must call this function after calling drm_atomic_help=
+er_wait_for_dependencies(),
+> + * or whatever their equivalent of that is.
+> + */
+> +void drm_dp_mst_atomic_wait_for_dependencies(struct drm_atomic_state *st=
+ate)
+> +{
+> +	struct drm_dp_mst_topology_state *old_mst_state;
+> +	struct drm_dp_mst_topology_mgr *mgr;
+> +	int i, j, ret;
+> +
+> +	for_each_old_mst_mgr_in_state(state, mgr, old_mst_state, i) {
+> +		for (j =3D 0; j < old_mst_state->num_commit_deps; j++) {
+> +			ret =3D drm_crtc_commit_wait(old_mst_state->commit_deps[j]);
+> +			if (ret < 0)
+> +				drm_err(state->dev, "Failed to wait for %s: %d\n",
+> +					old_mst_state->commit_deps[j]->crtc->name, ret);
+> +		}
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_atomic_wait_for_dependencies);
+> +
+>  /**
+>   * drm_dp_mst_update_slots() - updates the slot info depending on the DP=
+ ecoding format
+>   * @mst_state: mst_state to update
+> @@ -5079,6 +5164,9 @@ drm_dp_mst_duplicate_state(struct drm_private_obj *=
+obj)
+>  	__drm_atomic_helper_private_obj_duplicate_state(obj, &state->base);
+>=20=20
+>  	INIT_LIST_HEAD(&state->payloads);
+> +	state->commit_deps =3D NULL;
+> +	state->num_commit_deps =3D 0;
+> +	state->pending_crtc_mask =3D 0;
+>=20=20
+>  	list_for_each_entry(pos, &old_state->payloads, next) {
+>  		/* Prune leftover freed timeslot allocations */
+> @@ -5111,6 +5199,7 @@ static void drm_dp_mst_destroy_state(struct drm_pri=
+vate_obj *obj,
+>  	struct drm_dp_mst_topology_state *mst_state =3D
+>  		to_dp_mst_topology_state(state);
+>  	struct drm_dp_mst_atomic_payload *pos, *tmp;
+> +	int i;
+>=20=20
+>  	list_for_each_entry_safe(pos, tmp, &mst_state->payloads, next) {
+>  		/* We only keep references to ports with non-zero VCPIs */
+> @@ -5119,6 +5208,10 @@ static void drm_dp_mst_destroy_state(struct drm_pr=
+ivate_obj *obj,
+>  		kfree(pos);
+>  	}
+>=20=20
+> +	for (i =3D 0; i < mst_state->num_commit_deps; i++)
+> +		drm_crtc_commit_put(mst_state->commit_deps[i]);
+> +
+> +	kfree(mst_state->commit_deps);
+>  	kfree(mst_state);
+>  }
+>=20=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 186b37925d23..5475f66c0ed8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -8446,6 +8446,7 @@ static void intel_atomic_commit_tail(struct intel_a=
+tomic_state *state)
+>  	intel_atomic_commit_fence_wait(state);
+>=20=20
+>  	drm_atomic_helper_wait_for_dependencies(&state->base);
+> +	drm_dp_mst_atomic_wait_for_dependencies(&state->base);
+>=20=20
+>  	if (state->modeset)
+>  		wakeref =3D intel_display_power_get(dev_priv, POWER_DOMAIN_MODESET);
+> @@ -9514,6 +9515,15 @@ static int intel_initial_commit(struct drm_device =
+*dev)
+>  	return ret;
+>  }
+>=20=20
+> +static int intel_atomic_commit_setup(struct drm_atomic_state *state)
+> +{
+> +	return drm_dp_mst_atomic_setup_commit(state);
+> +}
+> +
+> +static const struct drm_mode_config_helper_funcs intel_mode_config_funcs=
+ =3D {
+> +	.atomic_commit_setup =3D intel_atomic_commit_setup,
+> +};
+> +
+>  static void intel_mode_config_init(struct drm_i915_private *i915)
+>  {
+>  	struct drm_mode_config *mode_config =3D &i915->drm.mode_config;
+> @@ -9528,6 +9538,7 @@ static void intel_mode_config_init(struct drm_i915_=
+private *i915)
+>  	mode_config->prefer_shadow =3D 1;
+>=20=20
+>  	mode_config->funcs =3D &intel_mode_funcs;
+> +	mode_config->helper_private =3D &intel_mode_config_funcs;
+>=20=20
+>  	mode_config->async_page_flip =3D HAS_ASYNC_FLIPS(i915);
+>=20=20
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
+uveau/dispnv50/disp.c
+> index 631dba5a2418..768312607fdb 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -2134,6 +2134,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_stat=
+e *state)
+>  	nv50_crc_atomic_stop_reporting(state);
+>  	drm_atomic_helper_wait_for_fences(dev, state, false);
+>  	drm_atomic_helper_wait_for_dependencies(state);
+> +	drm_dp_mst_atomic_wait_for_dependencies(state);
+>  	drm_atomic_helper_update_legacy_modeset_state(dev, state);
+>  	drm_atomic_helper_calc_timestamping_constants(state);
+>=20=20
+> @@ -2614,6 +2615,16 @@ nv50_disp_func =3D {
+>  	.atomic_state_free =3D nv50_disp_atomic_state_free,
+>  };
+>=20=20
+> +static int nv50_disp_atomic_setup_commit(struct drm_atomic_state *state)
+> +{
+> +	return drm_dp_mst_atomic_setup_commit(state);
+> +}
+> +
+> +static const struct drm_mode_config_helper_funcs
+> +nv50_disp_helper_func =3D {
+> +	.atomic_commit_setup =3D nv50_disp_atomic_setup_commit,
+> +};
+> +
+>  /***********************************************************************=
+*******
+>   * Init
+>   ***********************************************************************=
+******/
+> @@ -2713,6 +2724,7 @@ nv50_display_create(struct drm_device *dev)
+>  	nouveau_display(dev)->fini =3D nv50_display_fini;
+>  	disp->disp =3D &nouveau_display(dev)->disp;
+>  	dev->mode_config.funcs =3D &nv50_disp_func;
+> +	dev->mode_config.helper_private =3D &nv50_disp_helper_func;
+>  	dev->mode_config.quirk_addfb_prefer_xbgr_30bpp =3D true;
+>  	dev->mode_config.normalize_zpos =3D true;
+>=20=20
+> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/displa=
+y/drm_dp_mst_helper.h
+> index eb0ea578b227..dd74afcee888 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -576,6 +576,19 @@ struct drm_dp_mst_topology_state {
+>  	/** @mgr: The topology manager */
+>  	struct drm_dp_mst_topology_mgr *mgr;
+>=20=20
+> +	/**
+> +	 * @pending_crtc_mask: A bitmask of all CRTCs this topology state touch=
+es, drivers may
+> +	 * modify this to add additional dependencies if needed.
+> +	 */
+> +	u32 pending_crtc_mask;
+> +	/**
+> +	 * @commit_deps: A list of all CRTC commits affecting this topology, th=
+is field isn't
+> +	 * populated until drm_dp_mst_atomic_wait_for_dependencies() is called.
+> +	 */
+> +	struct drm_crtc_commit **commit_deps;
+> +	/** @num_commit_deps: The number of CRTC commits in @commit_deps */
+> +	size_t num_commit_deps;
+> +
+>  	/** @total_avail_slots: The total number of slots this topology can han=
+dle (63 or 64) */
+>  	u8 total_avail_slots;
+>  	/** @start_slot: The first usable time slot in this topology (1 or 0) */
+> @@ -885,6 +898,8 @@ int __must_check
+>  drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
+>  				 struct drm_dp_mst_topology_mgr *mgr,
+>  				 struct drm_dp_mst_port *port);
+> +void drm_dp_mst_atomic_wait_for_dependencies(struct drm_atomic_state *st=
+ate);
+> +int __must_check drm_dp_mst_atomic_setup_commit(struct drm_atomic_state =
+*state);
+>  int drm_dp_send_power_updown_phy(struct drm_dp_mst_topology_mgr *mgr,
+>  				 struct drm_dp_mst_port *port, bool power_up);
+>  int drm_dp_send_query_stream_enc_status(struct drm_dp_mst_topology_mgr *=
+mgr,
 
-
->
-> But I'm no sure this solution is going to satisfy the static checker. It
-> objects to using the iterator (cpu_link) outside the loop. I think a
-> proper solution, that doesn't make any assumptions about how
-> list_for_each_entry is implemented, would be to declare a separate
-> variable as the iterator, and assign cpu_link in the loop only if there
-> is a match.
->
-> Ramesh: Will wait for a response from Dan.
->
-> Regards,
->     Felix
->
->
->>    			return -ENOMEM;
->>    
->>    		/* CPU <--> CPU <--> GPU, GPU node*/
->> @@ -1510,16 +1512,16 @@ static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
->>    		cpu_dev = kfd_topology_device_by_proximity_domain(iolink1->node_to);
->>    		if (cpu_dev) {
->>    			list_for_each_entry(iolink3, &cpu_dev->io_link_props, list)
->> -				if (iolink3->node_to == iolink2->node_to)
->> +				if (iolink3->node_to == iolink2->node_to) {
->> +					props->weight += iolink3->weight;
->> +					props->min_latency += iolink3->min_latency;
->> +					props->max_latency += iolink3->max_latency;
->> +					props->min_bandwidth = min(props->min_bandwidth,
->> +									iolink3->min_bandwidth);
->> +					props->max_bandwidth = min(props->max_bandwidth,
->> +									iolink3->max_bandwidth);
->>    					break;
->> -
->> -			props->weight += iolink3->weight;
->> -			props->min_latency += iolink3->min_latency;
->> -			props->max_latency += iolink3->max_latency;
->> -			props->min_bandwidth = min(props->min_bandwidth,
->> -							iolink3->min_bandwidth);
->> -			props->max_bandwidth = min(props->max_bandwidth,
->> -							iolink3->max_bandwidth);
->> +				}
->>    		} else {
->>    			WARN(1, "CPU node not found");
->>    		}
+--=20
+Jani Nikula, Intel Open Source Graphics Center
