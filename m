@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C283CC43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 03:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7025C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 03:21:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3829A10F79B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2D510F7FB;
 	Wed, 29 Jun 2022 03:21:39 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED70E10F778
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 03:21:37 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B721A10F778
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 03:21:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y9yluRWTDi40m3xt6Gn6bPzPc+SrDFLob+0s/mRNy+dQq1u8AGmVr6szQHkAq3NFbcStgBA2/QDUFepbgt4AxRLZTQ7Yw7SCAzcKF16+/ve+BrFR5i8IYmHkjdDqFopvlZKAnh8VTdYQlhTIwWNLq/KEkEr9HIhnuMPOpPdroz5qylPn+UCc4u/2XWHDkhJhxCuQRv6iSwE1BXsYrRTY4Ei6GI+0UfvFh562QyPMNwhLSTg+tfyy0UJ73q6qGhKLIrLJAtKA9k/jdawQVSgfXonobE7PDDIx7qjgRpFu1cDYEIsWuJnlXubirzSXe5/dltbJEVyb4zjEWCe110DdWg==
+ b=h6FCbhg2ip5jKq851MKiQazFT1cop9iFDsiXkU8sSSRD36/AFp2r9JLHuuJiDA3mGsCVo7Ht5JJkW9egLWWTKgOxFRzd9cZdOWi6xYAZUuTmfp8Dric+LQJ+OOeFaf2GVEaYShtvbZ8Cnd2ckvCNVSP279cCX9lkMDups0ZhrcRugLJSPG7Ws9ltKoYAV0tUhHUmxnUc+kERhI9GIVL72NLdVWopPrfZAS+OpJWXQrMfy+SzZnC204VYAnnQYDyC9l6DtLNfoQGrrKwBhamVaeUGvSH0cIw8D9PKoOIUaQB02oXYJVxaaEvtL6R8APL0nH6DJsjZgSvuqx9LsbE5ww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+vNRycE2n+oR01X4r0fpBCeDVJlNBDG5BrNnqQDdhQQ=;
- b=bTB8tQUl2l89au0bDSsRnbGnGKnT1noIlIcC6HGGA5q7vsXeygAr+alKMd1IRMRdH6xUQ2e9uQQlcxiI2QiV7qgMzVLCL5nev/zZ2zk8w2PhTt7pDpfaypsmHUEKwBrmIvFSFun+ec8eIQ8DmXQc72oSp9pEs6JgWfa1Y6y6wnqO73glM5B52HYmxxDPL22+4Rgx89FbFIFDDD4xedu9ab9Jj5DB6wf406YynKZgOMXGtcdep1O588qxr2uO0bNcU5XgLk9kwARDVOO/lYdkIB6/vIVaEP2xxm8EeF6lcZM7/MFDllb7FCXI+fm3iaQh/sYXUVJPgXWCHBsrgkPTcQ==
+ bh=Mkf1JNAeFqHQrOSQ3gi8HBQXI7E6CcV30dWKdjw2OhA=;
+ b=JDVSIqACdETyYM4KZnJtrr3OkRjLU1VcT2ZpKs2Vy3SGe3leIw9qgs9Fsol736wGrX9y/7l/LZqyRq0YRlAhZI8Fo9vbr9XdUzJQd9pokj5CxmeBpxLPsZGdMImrAXFPreigsa6JurjxikZu2IEGEgarAv+hswBzddN9yBq0i6EskT1xA/7UDxB5aQnzfw5H/Gopbx8c5zvBhDg07AwElwo5CBLiYqTUu35d3hRYiIvEBKioRdC9BN1dNr+HNOm/001STL8hLB4pQutEguO5AYUX1/rpmVAhkwZtwbxLAXxcH8ycYdV6gj8ZNE5ZLUOjEu3w2ssk8bxX7PiAiu3wuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+vNRycE2n+oR01X4r0fpBCeDVJlNBDG5BrNnqQDdhQQ=;
- b=3wsOyvxH63mlCCCVQgRjMwIiZw5ByMlfozLlslkaq+Aerr/VS8waNijzZAKiKanDubno8MwQFw9wTHci0o2k4ebtd8FWAMFrk+vT79p77G03qrqDmwpl/40GLbsU0K86A/ugnnK9GhObyPBc9gjncPiVBGAiBvCp5m8WLF2ClSs=
-Received: from DM6PR05CA0045.namprd05.prod.outlook.com (2603:10b6:5:335::14)
- by DM5PR1201MB2474.namprd12.prod.outlook.com (2603:10b6:3:e3::8) with
+ bh=Mkf1JNAeFqHQrOSQ3gi8HBQXI7E6CcV30dWKdjw2OhA=;
+ b=ZMZmqVi7ZF+y+3U/2I6LQO4aj0x3TCNKq0/WIDRtwJujXJWjLlIpMI3NXt3ibK2G97BYG1hS2juJn/Ams+r0V3MBmR2DTlE1Sc6MdoGsVgtTzmlmCoBP7hdmrwGPVwPs7nNKA3afYn64my2icxNmt4QNqHUrd6qvg7faHqvNc5A=
+Received: from DM6PR05CA0054.namprd05.prod.outlook.com (2603:10b6:5:335::23)
+ by CY4PR12MB1639.namprd12.prod.outlook.com (2603:10b6:910:f::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Wed, 29 Jun
- 2022 03:21:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Wed, 29 Jun
+ 2022 03:21:36 +0000
 Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:335:cafe::d) by DM6PR05CA0045.outlook.office365.com
- (2603:10b6:5:335::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.12 via Frontend
- Transport; Wed, 29 Jun 2022 03:21:32 +0000
+ (2603:10b6:5:335:cafe::f0) by DM6PR05CA0054.outlook.office365.com
+ (2603:10b6:5:335::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
+ Transport; Wed, 29 Jun 2022 03:21:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,18 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Wed, 29 Jun 2022 03:21:32 +0000
+ 15.20.5373.15 via Frontend Transport; Wed, 29 Jun 2022 03:21:36 +0000
 Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 28 Jun
- 2022 22:21:08 -0500
+ 2022 22:21:31 -0500
 From: Jack Xiao <Jack.Xiao@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/7] drm/amdgpu/mes11: update mes interface for acessing
- registers
-Date: Wed, 29 Jun 2022 11:20:28 +0800
-Message-ID: <20220629032034.2994328-1-Jack.Xiao@amd.com>
+Subject: [PATCH 3/7] drm/amdgpu/mes11: add mes11 misc op
+Date: Wed, 29 Jun 2022 11:20:30 +0800
+Message-ID: <20220629032034.2994328-3-Jack.Xiao@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220629032034.2994328-1-Jack.Xiao@amd.com>
+References: <20220629032034.2994328-1-Jack.Xiao@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 998893da-a292-4792-14e7-08da597e7714
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2474:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8578e06c-75ff-4fe3-1208-08da597e79a6
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1639:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GRdoLnBYnM5LuelgbKTVrw7+iPO8zC+Lp1eCdkrmbcP7SB7RptLuk5t8QfJl+mdwz61PunYxznmMMSrAt2U3l7lz4ws3YwQUraDZyqvj8eB+usKvsM4JF6KvFfN2M+3QMoL3l6Iav7r4ldeF1h62CgsMecULN9/5syXt2Z+jqSifaxdfelADOGm8trISqPBRiUeFhfl0Ivcn5sm6uOrbmFKLfIGPaIeI1oudZ4gvmHiUwFqdGxDMFQ85uSzfY5HfJafZK3vgU5TOsAMtgGESfdMK8ugZlrZHB2WElrkUZwiQAmr8OnOMDHQv9QnQqpqv4o39AzT9awOos0uqXGxBhxWnPoMs6a8G7VXAkUpdU9mXSOh5BUWiGrXRoO6eFzmE6LbZUHYATe3cj+3ixmcognJg68N5s0xMkenyWisyeFdgwIt8MCxW1QEUiWYORiecYecBbvfPwnw6/hE2BBPlDT2MeY/KkjF7Hgv7/mqfyYMIvvN2LmERDYmc1GSDcA+YcpBIxzg8Sg+V9UAyC0l2BvY7mMQjyZxLQkg0fB7kg46hVKeycjxgahy1VpkgSME5mxKBVzl3uLdwFsDpyREQRhlJRxZvZQqpODPfAyCMS7eeNnOHHGwYjHnzqyfckzRKy+09SrV9aaOAtX6uV0+BHfFUcX7jTgi7l4pEsiBmxW+sAVNoY0jdu0YRiB5A983wx8DqwmBrLm+AES9sZgeod3yUHexlvsYWYR6fkUPSZs/cvZ1a3YTfzN0DjKaSgEdH8Y/50yS/WgQLe4kNaSc15LiGCkC1ECSIURkjUW014v6ah5RTz/gxaBrKB6LSIaR4LQjrWYgsBPNEmfF6b2SZSA==
+X-Microsoft-Antispam-Message-Info: 2sbwl0H/6YdWxrySIyMj6+LcJPh5PBr6weyEXzjo7AezGTJvSDxfMV556zKClF4Ypx1dPT+FvpfqZA3EtcB//ZZJARC1dNsQ1sbZWaEP+OUE7NjjPqJPGvpeSR2pyGbTFjiwy2rm/19czPIBv/hC9cl90S6e30qDsBQx6FGygSsb9SwGBSjpli2jX0b6Nho61MbHNoXoCWT8qy6XJvACiJjlMdgBzKIpnWouOQ8sHK0vLLFDrwFVIOQh3esfLldbh3Xa8oMyxofD1mFze6ylBUCyH+RNRYWUPet8PAFqFfOKClgmG6vgh9yUwf2YicuuGOWhxdmm4SdD00M4RqZ8OAg3BXZgGSxKPXzN9MJJaIlxOXt2pklI4FIBx4M5D6euf7YJZ+f0I9LvCbmGpsE2Rga4i63cyJk51gtY8K2BPTq+q1YDrXE7Ih8i2OkOPSf/bxJai5u6lEh2JHkB3m0Ig0HG1YyhdUi99YoEie0WMDROvHCFFagJ1SYFSwNGoaEU4xpDtQcqQTvzso/tzUA5x8VVRBfCAzZNIononcMbI0aNDVxdEo3HvLkc+krmSMrKYUx1M2kHLHCxgdTBxSFVZUWBReXn4t5FAydjx2Y29hOK/MlnEtwTqMpw9mBJyuEIy1jRz5C5iDrDtOyw85PTJHo24Wb2qj+ME/wdq/CF2r1ViJOM3FrYSqCiVFgMnUm6dDgiupcXih1tXpIFrCjsW60mquPdkA5gusdh1st4ZdxL+iW3aMKiqU576t0pBovP8s1W0KtGBXRMzQj24mdJ0oxHjphbHqSZ5tSo5myuiPVqdomBfPbLOCJXX8lYStzlV1sVz+cNYXOIgul/M0bZ3Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(136003)(396003)(346002)(376002)(46966006)(40470700004)(36840700001)(478600001)(8936002)(8676002)(70586007)(26005)(41300700001)(15650500001)(70206006)(5660300002)(7696005)(1076003)(82310400005)(356005)(4326008)(2616005)(82740400003)(316002)(6666004)(86362001)(36756003)(6916009)(40460700003)(83380400001)(36860700001)(426003)(186003)(336012)(40480700001)(81166007)(16526019)(47076005)(2906002)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(136003)(396003)(346002)(376002)(40470700004)(36840700001)(46966006)(81166007)(4326008)(83380400001)(40460700003)(478600001)(426003)(7696005)(47076005)(26005)(16526019)(70586007)(40480700001)(2616005)(8676002)(82740400003)(356005)(36860700001)(336012)(186003)(70206006)(316002)(2906002)(5660300002)(1076003)(6916009)(36756003)(86362001)(82310400005)(8936002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 03:21:32.3340 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 998893da-a292-4792-14e7-08da597e7714
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 03:21:36.6462 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8578e06c-75ff-4fe3-1208-08da597e79a6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2474
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1639
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,81 +103,84 @@ Cc: Jack Xiao <Jack.Xiao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update MES firmware api for accessing registers.
+Add misc op commands in mes11.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 ---
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 37 +++++++++++++------
- 1 file changed, 26 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 53 ++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index 9a70af44614b..94776e6c3ad9 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -508,27 +508,40 @@ union MESAPI__SET_DEBUG_VMID {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index d5200cbceb8a..e2aa1ebb3a00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -262,6 +262,58 @@ static int mes_v11_0_query_sched_status(struct amdgpu_mes *mes)
+ 			&mes_status_pkt, sizeof(mes_status_pkt));
+ }
+ 
++static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
++			     struct mes_misc_op_input *input)
++{
++	union MESAPI__MISC misc_pkt;
++
++	memset(&misc_pkt, 0, sizeof(misc_pkt));
++
++	misc_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	misc_pkt.header.opcode = MES_SCH_API_MISC;
++	misc_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	switch (input->op) {
++	case MES_MISC_OP_READ_REG:
++		misc_pkt.opcode = MESAPI_MISC__READ_REG;
++		misc_pkt.read_reg.reg_offset = input->read_reg.reg_offset;
++		misc_pkt.read_reg.buffer_addr = input->read_reg.buffer_addr;
++		break;
++	case MES_MISC_OP_WRITE_REG:
++		misc_pkt.opcode = MESAPI_MISC__WRITE_REG;
++		misc_pkt.write_reg.reg_offset = input->write_reg.reg_offset;
++		misc_pkt.write_reg.reg_value = input->write_reg.reg_value;
++		break;
++	case MES_MISC_OP_WRM_REG_WAIT:
++		misc_pkt.opcode = MESAPI_MISC__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.op = WRM_OPERATION__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.reference = input->wrm_reg.ref;
++		misc_pkt.wait_reg_mem.mask = input->wrm_reg.mask;
++		misc_pkt.wait_reg_mem.reg_offset1 = input->wrm_reg.reg0;
++		misc_pkt.wait_reg_mem.reg_offset2 = 0;
++		break;
++	case MES_MISC_OP_WRM_REG_WR_WAIT:
++		misc_pkt.opcode = MESAPI_MISC__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.op = WRM_OPERATION__WR_WAIT_WR_REG;
++		misc_pkt.wait_reg_mem.reference = input->wrm_reg.ref;
++		misc_pkt.wait_reg_mem.mask = input->wrm_reg.mask;
++		misc_pkt.wait_reg_mem.reg_offset1 = input->wrm_reg.reg0;
++		misc_pkt.wait_reg_mem.reg_offset2 = input->wrm_reg.reg1;
++		break;
++	default:
++		DRM_ERROR("unsupported misc op (%d) \n", input->op);
++		return -EINVAL;
++	}
++
++	misc_pkt.api_status.api_completion_fence_addr =
++		mes->ring.fence_drv.gpu_addr;
++	misc_pkt.api_status.api_completion_fence_value =
++		++mes->ring.fence_drv.sync_seq;
++
++	return mes_v11_0_submit_pkt_and_poll_completion(mes,
++			&misc_pkt, sizeof(misc_pkt));
++}
++
+ static int mes_v11_0_set_debug_vmid(struct amdgpu_mes *mes,
+                                   struct mes_debug_vmid_input *input)
+ {
+@@ -355,6 +407,7 @@ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ 	.suspend_gang = mes_v11_0_suspend_gang,
+ 	.resume_gang = mes_v11_0_resume_gang,
+ 	.set_debug_vmid = mes_v11_0_set_debug_vmid,
++	.misc_op = mes_v11_0_misc_op,
  };
  
- enum MESAPI_MISC_OPCODE {
--	MESAPI_MISC__MODIFY_REG,
-+	MESAPI_MISC__WRITE_REG,
- 	MESAPI_MISC__INV_GART,
- 	MESAPI_MISC__QUERY_STATUS,
-+	MESAPI_MISC__READ_REG,
-+	MESAPI_MISC__WAIT_REG_MEM,
- 	MESAPI_MISC__MAX,
- };
- 
--enum MODIFY_REG_SUBCODE {
--	MODIFY_REG__OVERWRITE,
--	MODIFY_REG__RMW_OR,
--	MODIFY_REG__RMW_AND,
--	MODIFY_REG__MAX,
--};
--
- enum { MISC_DATA_MAX_SIZE_IN_DWORDS = 20 };
- 
--struct MODIFY_REG {
--	enum MODIFY_REG_SUBCODE   subcode;
-+struct WRITE_REG {
- 	uint32_t                  reg_offset;
- 	uint32_t                  reg_value;
- };
- 
-+struct READ_REG {
-+	uint32_t                  reg_offset;
-+	uint64_t                  buffer_addr;
-+};
-+
-+enum WRM_OPERATION {
-+	WRM_OPERATION__WAIT_REG_MEM,
-+	WRM_OPERATION__WR_WAIT_WR_REG,
-+	WRM_OPERATION__MAX,
-+};
-+
-+struct WAIT_REG_MEM {
-+	enum WRM_OPERATION         op;
-+	uint32_t                   reference;
-+	uint32_t                   mask;
-+	uint32_t                   reg_offset1;
-+	uint32_t                   reg_offset2;
-+};
-+
- struct INV_GART {
- 	uint64_t                  inv_range_va_start;
- 	uint64_t                  inv_range_size;
-@@ -545,9 +558,11 @@ union MESAPI__MISC {
- 		struct MES_API_STATUS	api_status;
- 
- 		union {
--			struct		MODIFY_REG modify_reg;
-+			struct		WRITE_REG write_reg;
- 			struct		INV_GART inv_gart;
- 			struct		QUERY_STATUS query_status;
-+			struct		READ_REG read_reg;
-+			struct          WAIT_REG_MEM wait_reg_mem;
- 			uint32_t	data[MISC_DATA_MAX_SIZE_IN_DWORDS];
- 		};
- 	};
+ static int mes_v11_0_init_microcode(struct amdgpu_device *adev,
 -- 
 2.35.1
 
