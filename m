@@ -4,117 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D06ACCA47E
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 03:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7373AC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 06:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3A512A7D9;
-	Wed, 29 Jun 2022 03:56:44 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2049.outbound.protection.outlook.com [40.107.96.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0345612A7DC;
- Wed, 29 Jun 2022 03:56:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cjvE0FZith52EmgKtGs06Lr7l0W9cqEFrkvfog8a75hswfQZQ+Ef/sE/yyp8ra0tAJxjwn9d2aSgwIkTTBiCs6eIX24WYJ5/8f6ZcDfZXRmbn//jg4gE/GfKgZaJ7Y2VeIsKe6dCCYQ7Cxkb8LRy8sxrVwaeTXHmvxjigHffvz7h2slL6Gu8JZ2rcCH/DIgcNSEDcsRO2ed4LuoLJE/5j2lO6uT+rHUud7Ed1cfqmT7TiSbL7ZgpE+fk5hFxbuq+aCkPaNYb35ZG06mnJ60muBIoxdycNr7lmCkCTsUtegrHI5NiauxwpntVKNvIeAJ65EGliegkYYWMfWm314Qmyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k9Sc6LYpVPfoVFE5y7D4sSctWQmL3zBIK2SZB3p/gHQ=;
- b=McOqE2TWC/w4+hff0t4LimPCcZp+V0P20BrVxCRuOUGRriXZduZr0mQeopyBh6Gpvk4UM5KY1EFKqCtGSvO/SCxWnT48OORcivEEw85MksWQ3Ob0ZO5Qq08kdEKF7MpE+Sy33Na2AScWscw+iGw2H25RPYaYOiDK2ZzUd5NxrbOk/fZIGc/eRO6R0PkqNghq2Esu4s7F9RvwJRrPOSzA2rnu1SRuOkwAKv1VqCjk4CHnyQIS6hNT1hoYJ4yM/xMOX9UZAy2siQt2hyOLGdFCJxrtxYMGjNRg0gal6EWlo6rfeRobitBIWAYtH/jKJOqZmRN+fTvFEmB2eA1phA5HGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k9Sc6LYpVPfoVFE5y7D4sSctWQmL3zBIK2SZB3p/gHQ=;
- b=4GhwoRSF7OHDRieExBkZXQ5uGflV3C8jCZQfQuE+w3ph6hdb6250xsT8E//uAXpgi/HRb1MT73BUI4kLsXUDR6qFZdPnEQUSzTpby2Ey4UMmMv5Cr9ni9oFBvvYLeht4TwMvNLho8ORy557XvbcfpjhQOX7dIfOYpQ0LoCoCIK0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
- by DM6PR12MB3274.namprd12.prod.outlook.com (2603:10b6:5:182::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Wed, 29 Jun
- 2022 03:56:39 +0000
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::4534:eee9:f4ea:e9fb]) by SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::4534:eee9:f4ea:e9fb%6]) with mapi id 15.20.5373.018; Wed, 29 Jun 2022
- 03:56:38 +0000
-Message-ID: <3c9345ca-7dd8-3833-e341-4f97f124b772@amd.com>
-Date: Tue, 28 Jun 2022 22:56:33 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v6 02/14] mm: handling Non-LRU pages returned by
- vm_normal_pages
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2F8010E198;
+	Wed, 29 Jun 2022 06:40:25 +0000 (UTC)
+Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
+ [213.80.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F5BF10E198;
+ Wed, 29 Jun 2022 06:40:24 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 854E940C62;
+ Wed, 29 Jun 2022 08:40:22 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Authentication-Results: ste-pvt-msa1.bahnhof.se (amavisd-new);
+ dkim=pass (1024-bit key) header.d=shipmail.org
+Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id pU0wAbFoBRnS; Wed, 29 Jun 2022 08:40:21 +0200 (CEST)
+Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 936C240C41;
+ Wed, 29 Jun 2022 08:40:18 +0200 (CEST)
+Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
+ [155.4.205.35])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id E158636016C;
+ Wed, 29 Jun 2022 08:40:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1656484818; bh=c5X9p3SygrAeI8kAv4cnUEr14Zu67PfkDBqu5n1JZJE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Dk1heA72TzwfqFM5AthBnHTC6DdPNKvqtIGAYZbJH355/RVnt8ijwSIqu7vAttHPz
+ WX0p2SfS1SVHlAS1p1yD4GOPcww+7e+8Exx0MOiTrCnsrz24ZGcufvDpM/Zewvu/Cr
+ GmWw0z/B/OoxA6n6QgI6GEuF4woAkKSKa2Gz0HFU=
+Message-ID: <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
+Date: Wed, 29 Jun 2022 08:40:17 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v6 02/22] drm/gem: Move mapping of imported dma-bufs to
+ drm_gem_mmap_obj()
 Content-Language: en-US
-To: David Hildenbrand <david@redhat.com>, jgg@nvidia.com
-References: <20220628001454.3503-1-alex.sierra@amd.com>
- <20220628001454.3503-3-alex.sierra@amd.com>
- <79a7969c-311f-d36b-4d44-dfe2f02c9b99@redhat.com>
-From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
-In-Reply-To: <79a7969c-311f-d36b-4d44-dfe2f02c9b99@redhat.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-3-dmitry.osipenko@collabora.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+In-Reply-To: <20220526235040.678984-3-dmitry.osipenko@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR13CA0002.namprd13.prod.outlook.com
- (2603:10b6:610:b1::7) To SN6PR12MB2717.namprd12.prod.outlook.com
- (2603:10b6:805:68::29)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ebb10a27-23f7-480a-c9e5-08da59835e6b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3274:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: P59XlSUBffc3QrjqssvI87XKmNYYFrr1OzQ0J43zkDtEZilmfWSqKTFWtPcDEywlTTYc1DfS/TEQDYKwycPIT3XZ6xsXkVLj4F1AnjjA8k3TyVV2Bwv+gQFx9BfFNbTlSTcD6BK030XlMt6NGdxsy86Id3zxoa62wiNRl9hgnZm6zBfG/BYaywoezGhRH20cCzZI1tqFLrymA/t+piKuW8GZ0Qs23N+DLzDx3hkS/TZd6Q6czG8xAd1QO1C1IzzYuZ/l1C0v094bOH/kodAS5LlKlfCw24Tpyr2UE0+Q8wUFbO30slE1vpdQAib+8gW3+9gkQVNAju6a1yfKAQTwSaODqRznSmLFF8u8eFIiRg08I3SWmFdyYcPfwB6ebOekFy0rQlb8chzd8GttgTEOalEsc7oDETolv8TH7zxxC4nixj1BFMCD1Lt0P4wfdhNLIdP7t2mHjMoBCFgCRYwYVSjXy2VQsBmwDPIThrHGz8jsJO3G/KlPK3rqX84XxeCL7rFGT56SOI/2V0A5nbFb89N3WkCvGgm+3QJKhotOuJeHzw/KdHayjn3D+6kWUgSGI8jh8Ws5XNAh7FeFPwo8Pry/Lw2Kc1jh8RDTF52gt9jtLWErN8YP5/lKu4UCoQtFtZ4UlM/L7ZoiLdUQgTdyDfpf/IYMrbiesst3CkscKChQ4+KYp9Ay7f7MTc+6EV46X90lolQVXp5jo+k4aHEkZIWwIXZp+I0DD3qjwwyzs7EmaCsK092O9KUKp4CweuV12nREGDLZXCccFqtuZMr5dtkdGOT9GUVNbwgyXiSZAYbiIbhoYKDM/SZx9v9+wYTg
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(136003)(39860400002)(396003)(366004)(6486002)(8676002)(66556008)(4326008)(31696002)(66946007)(86362001)(66476007)(7416002)(41300700001)(53546011)(478600001)(6512007)(6666004)(26005)(6506007)(186003)(4744005)(8936002)(2906002)(36756003)(38100700002)(2616005)(316002)(5660300002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3ArR2psMVU4SDBCQSsxY1VaSURJYTJURTFsVzVISFNaYnNNSEg4V1VGcS8w?=
- =?utf-8?B?dDNVY2lZY2dvWDlDRmZUTWJGbFFFUVdacDVIMXNmN25KL0tEc3NlUmtlSW01?=
- =?utf-8?B?RCtzb1pPRGJnMFBBK0M2SWN2cmhaVjE2NG5oeDUxUFVGQ2c0bkw2T1lGTGN2?=
- =?utf-8?B?V1pRMVB2eTV4SlkwSGZoUDJ2ak1abFlacUhSMkR2SXRVUUxrTE5wM3RrRkND?=
- =?utf-8?B?cTNVcnJoa01oWm5ORlZ6dUJzSWU3VkJ3aXEwWllRblE5aThJWDZkcDZYdUt5?=
- =?utf-8?B?N1M3NHJUNldIT0IyY2tQZFgxa0dqbmNScjZXVllScTFQMmpldTNIWS9MeCs4?=
- =?utf-8?B?OUgzNkZvYkVOTVVJeWY5ZzdBTFIxN0FyMEU4cWJSZ0tXa2JmbFJSSTJsZFNX?=
- =?utf-8?B?MzVINzB4cDRZVnBvL1ZkV2lZUm9GZGRoWW1rNGZLeG9SeTJyTlJ5UlN3S1h2?=
- =?utf-8?B?Q1I1aGc1Q1ZzS1I2L3MvRTUxb0xYOEdEcTE4VjNRWTZnYnU4U3gydFlCTXk1?=
- =?utf-8?B?MGlWY0R6R013dHMzTkJ4RmNSd3J2ejl0c2x2RXRDMFZQU1J2aFdlL2ZDQlZj?=
- =?utf-8?B?c1lQZ1dlam1jdGlhYVZkOHpCQmFBKzY2aUhqeW5sK0tSa2Q3VUk5Z29BdFN5?=
- =?utf-8?B?OWFjTWRFQkdybzdZMUtqaUVBSFJINXNLalN4TGhwbG9pS1IwWG9acHQxWVVx?=
- =?utf-8?B?c1FpaUJ4aU9DNFJjUzYvMXJIM1ZQUHNVMGdrRFNBenFNYitLOFZqQ2Fjdmlt?=
- =?utf-8?B?bG55TW80aTlHcDdTbkhpdnd6cGxnOEVHL1g4aWF3bWRHRi90TEdEZG5vbGd0?=
- =?utf-8?B?WWYrM2NqbHlJMGY4MmxNUUxIeld5TzRyT3NuMWEvR3lwYkdNMFBnMDFSQ3pB?=
- =?utf-8?B?ZE1zU3ByWGF6bEFPUFExc3hMcFVlTmpBMTBWRG13WThvVS8wSDBpNUtvSXRz?=
- =?utf-8?B?ODljUDgrbGFzdjYvR0pYaEsxTitsUDgvNytlcXg1NTVxUnBkRzJBTW82NjB1?=
- =?utf-8?B?ZjJ5ME5VMTZvRVplSGcvZTFXMG1Dcy9IQmdBWDkweEk3TmI1dFl3bDkrZlh3?=
- =?utf-8?B?all2dTljYmM3d0MzNDNFV0tZb2s5WUVwMFg5STMzQXg4bzZ6Z1BlUHJZSWt2?=
- =?utf-8?B?T25FaStoUG04T29pN2J1NG1UWU5RUTFuQUcyN2UrMDdJZXlLbEJ6L0VaTVR0?=
- =?utf-8?B?ZEhBLzY0QW96MkhxK2JEZ2p4cjFkb2FLLzR1OCs4MWc4dndUdnQ1Z3Via2ZB?=
- =?utf-8?B?RFNtWXRpSG55Q2xEalJNRGpJTGxVVytCY1JpSXltWWFTSXNXTnN2bDV2bUw1?=
- =?utf-8?B?c3UrL041TkFONEpJNVIwSmRYL21qNlVyQXZrSUdYUVM1NkJ2VEozQnZXZGlu?=
- =?utf-8?B?V2J5dGovL3VBc3pydi9xQ25OMi9pWXlXMnE0N1hweTN3dHRncUY5R3VuSitZ?=
- =?utf-8?B?VkdacFpoNStNdzB3Q3B6QS9WYzlBMjZpMWZlc1lHN1dZOXBldGQzVXE0V3JE?=
- =?utf-8?B?eXdJcVZ1SzEzWXAwRE5walc2ZFN0SFhBcFppdG02S2RGeWRGdVRPUFdtZEJj?=
- =?utf-8?B?M0lDblFzR0VhRUpDRXBvZUhueEFwQ3VsVlIwODlOY1FBM0l0NU12SVBiakZL?=
- =?utf-8?B?Mkl2ZERZU3NWYndrV1RyQzY2Tm9LUlo3SjdQNnJuR3l2eHJXMnl3bEZKK3NC?=
- =?utf-8?B?bUo2UWQrMGtMby9JcjdyVDUxaFdmRmcyb2VjaVBLN0U0RThsa0ZrTnJ6Q1lN?=
- =?utf-8?B?bDI1L29wTG1ET1B2T2V2ZkkrTExzWVN3Ui9ZeXZ4b2l3b3QyK1dPNmF4Nktz?=
- =?utf-8?B?SjBKV0F3Q2pHZksvQ3RTQlowdk5qWjNsa29OOHlXRk5BQjE2T080UGJ5U0xk?=
- =?utf-8?B?QlJnRUk5ZFhWL3pWTmEvcDA4cDlYUytSdE1oSkh6UlB3VXE0cUhSUTlKU3Y2?=
- =?utf-8?B?YkxYdG9ZUUJUSDJQKysvamxiRXVpNldOcTFxenpnQjdsUm1aQ3hzV3RnSmpC?=
- =?utf-8?B?NDBpZ1kzVTQ4NGVUbGdIajhoRnpPakJXZHpiOVVTSitod3d0cHY0TndRdEVs?=
- =?utf-8?B?ZXVqZGg2VGFYWGhSSC91ZzJsck9qdEd0ZFo2U3hlWmtYcnprTmpZanB3YWg5?=
- =?utf-8?Q?IBHgHE9u7wcEPnfSXyaYJgzec?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebb10a27-23f7-480a-c9e5-08da59835e6b
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 03:56:38.8400 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T8s2QwEeEbhVzcNh2BqkK7Z1FvQzr8jS541m7H90TQqC+XLpGZ+Lnt3Ad788+Ibl8bqQTxstgPK5NLlRWwaisA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3274
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,35 +85,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
- apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
- linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 6/28/2022 5:42 AM, David Hildenbrand wrote:
-> On 28.06.22 02:14, Alex Sierra wrote:
->> With DEVICE_COHERENT, we'll soon have vm_normal_pages() return
->> device-managed anonymous pages that are not LRU pages. Although they
->> behave like normal pages for purposes of mapping in CPU page, and for
->> COW. They do not support LRU lists, NUMA migration or THP.
->>
->> We also introduced a FOLL_LRU flag that adds the same behaviour to
->> follow_page and related APIs, to allow callers to specify that they
->> expect to put pages on an LRU list.
->>
->> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> Reviewed-by: Alistair Popple <apopple@nvidia.com>
->> ---
-> I think my review feedback regarding FOLL_LRU has been ignored.
-
-Sorry David, this has been addressed in v7.
-
-Regards,
-Alex Sierra
-
+On 5/27/22 01:50, Dmitry Osipenko wrote:
+> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
+> handle imported dma-bufs properly, which results in mapping of something
+> else than the imported dma-buf. For example, on NVIDIA Tegra we get a hard
+> lockup when userspace writes to the memory mapping of a dma-buf that was
+> imported into Tegra's DRM GEM.
 >
+> To fix this bug, move mapping of imported dma-bufs to drm_gem_mmap_obj().
+> Now mmaping of imported dma-bufs works properly for all DRM drivers.
+Same comment about Fixes: as in patch 1,
 >
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>   drivers/gpu/drm/drm_gem.c              | 3 +++
+>   drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
+>   drivers/gpu/drm/tegra/gem.c            | 4 ++++
+>   3 files changed, 7 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 86d670c71286..7c0b025508e4 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
+>   	if (obj_size < vma->vm_end - vma->vm_start)
+>   		return -EINVAL;
+>   
+> +	if (obj->import_attach)
+> +		return dma_buf_mmap(obj->dma_buf, vma, 0);
+
+If we start enabling mmaping of imported dma-bufs on a majority of 
+drivers in this way, how do we ensure that user-space is not blindly 
+using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC 
+which is needed before and after cpu access of mmap'ed dma-bufs?
+
+I was under the impression (admittedly without looking) that the few 
+drivers that actually called into dma_buf_mmap() had some private 
+user-mode driver code in place that ensured this happened.
+
+/Thomas
+
+
+> +
+>   	/* Take a ref for this mapping of the object, so that the fault
+>   	 * handler can dereference the mmap offset's pointer to the object.
+>   	 * This reference is cleaned up by the corresponding vm_close
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 8ad0e02991ca..6190f5018986 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -609,17 +609,8 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+>    */
+>   int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct *vma)
+>   {
+> -	struct drm_gem_object *obj = &shmem->base;
+>   	int ret;
+>   
+> -	if (obj->import_attach) {
+> -		/* Drop the reference drm_gem_mmap_obj() acquired.*/
+> -		drm_gem_object_put(obj);
+> -		vma->vm_private_data = NULL;
+> -
+> -		return dma_buf_mmap(obj->dma_buf, vma, 0);
+> -	}
+> -
+>   	ret = drm_gem_shmem_get_pages(shmem);
+>   	if (ret) {
+>   		drm_gem_vm_close(vma);
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index 7c7dd84e6db8..f92aa20d63bb 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -564,6 +564,10 @@ int __tegra_gem_mmap(struct drm_gem_object *gem, struct vm_area_struct *vma)
+>   {
+>   	struct tegra_bo *bo = to_tegra_bo(gem);
+>   
+> +	/* imported dmu-buf is mapped by drm_gem_mmap_obj()  */
+> +	if (gem->import_attach)
+> +		return 0;
+> +
+>   	if (!bo->pages) {
+>   		unsigned long vm_pgoff = vma->vm_pgoff;
+>   		int err;
