@@ -4,48 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28DF0C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 19:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35A1EC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 20:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA7810E6FF;
-	Wed, 29 Jun 2022 19:59:08 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10CCB10E6FF
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 19:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656532747; x=1688068747;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=qEM/SOD5szaqHarXP20oEjHBcoOWvf209vmnKr3JvEw=;
- b=IQ/eFqYPiJOmVud3nUvEcjbgbLKsSU0g6e2TuK26gZc7Lxb0WgndIELM
- ooVtywOzjWy4oZ695nDgeLWw1fTcj99jLPwYgnLVFRnIUKjaPL7xtb08e
- CLNUupQ2xkA9aupO54GhJC19RQ4UkpaAbwFAhancTOyNpjXqxsX1rE3fy
- 7GhTHn4XoljgY+9O0N51+8wvEkozv72zjYsnGCkP2rrwFjEIvx4YExFbS
- 5VkgbrWohUgO1xJUhoQnmx3wGUP8m1AbnFCXrm/w7vKJc1g6poak6tglc
- th/oeKhlcvYnxfJr/ydlv+H9hB36P25FY7d4ILAsbcqTOU6ceG1eKNpfz w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10393"; a="282179504"
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="282179504"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 12:59:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="837270047"
-Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 29 Jun 2022 12:59:03 -0700
-Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o6dq2-000BZw-Jj;
- Wed, 29 Jun 2022 19:59:02 +0000
-Date: Thu, 30 Jun 2022 03:58:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- c4ef528bd006febc7de444d9775b28706d924f78
-Message-ID: <62bcaeee.ScDDAGRuo2cD48ca%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5DB610E1EC;
+	Wed, 29 Jun 2022 20:31:53 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A67510E8A3;
+ Wed, 29 Jun 2022 20:31:01 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 74941B81F16;
+ Wed, 29 Jun 2022 20:30:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10AC1C34114;
+ Wed, 29 Jun 2022 20:30:53 +0000 (UTC)
+Date: Wed, 29 Jun 2022 16:30:52 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH v2 26/27] dyndbg: 4 new trace-events: pr_debug, dev_dbg,
+ drm_{,dev}debug
+Message-ID: <20220629163052.6656c0cb@gandalf.local.home>
+In-Reply-To: <20220516225640.3102269-27-jim.cromie@gmail.com>
+References: <20220516225640.3102269-1-jim.cromie@gmail.com>
+ <20220516225640.3102269-27-jim.cromie@gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 29 Jun 2022 20:31:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,187 +44,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- mjpeg-users@lists.sourceforge.net, linux-mediatek@lists.infradead.org,
- linux-pci@vger.kernel.org, ntfs3@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Cc: linux-arm-msm@vger.kernel.org, robdclark@gmail.com,
+ quic_saipraka@quicinc.com, catalin.marinas@arm.com, arnd@arndb.de,
+ will@kernel.org, gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, maz@kernel.org,
+ jbaron@akamai.com, mingo@redhat.com, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, quic_psodagud@quicinc.com,
+ daniel.vetter@ffwll.ch, mathieu.desnoyers@efficios.com,
+ intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: c4ef528bd006febc7de444d9775b28706d924f78  Add linux-next specific files for 20220629
 
-Error/Warning reports:
+Sorry for the late review. I finally got some time to look at this.
 
-https://lore.kernel.org/linux-mm/202206292052.LsFui3zO-lkp@intel.com
+On Mon, 16 May 2022 16:56:39 -0600
+Jim Cromie <jim.cromie@gmail.com> wrote:
 
-Error/Warning: (recently discovered and may have been fixed)
 
-arch/powerpc/kernel/interrupt.c:542:55: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
-arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:1025:33: warning: variable 'pre_connection_type' set but not used [-Wunused-but-set-variable]
-drivers/pci/endpoint/functions/pci-epf-vntb.c:1247: undefined reference to `ntb_register_device'
-drivers/pci/endpoint/functions/pci-epf-vntb.c:174: undefined reference to `ntb_link_event'
-drivers/pci/endpoint/functions/pci-epf-vntb.c:262: undefined reference to `ntb_db_event'
-drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
-drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
+> diff --git a/include/trace/events/drm.h b/include/trace/events/drm.h
+> new file mode 100644
+> index 000000000000..6de80dd68620
+> --- /dev/null
+> +++ b/include/trace/events/drm.h
+> @@ -0,0 +1,68 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#undef TRACE_SYSTEM
+> +#define TRACE_SYSTEM drm
+> +
+> +#if !defined(_TRACE_DRM_H) || defined(TRACE_HEADER_MULTI_READ)
+> +#define _TRACE_DRM_H
+> +
+> +#include <linux/tracepoint.h>
+> +
+> +/* drm_debug() was called, pass its args */
+> +TRACE_EVENT(drm_debug,
+> +	    TP_PROTO(int drm_debug_category, struct va_format *vaf),
+> +
+> +	    TP_ARGS(drm_debug_category, vaf),
+> +
+> +	    TP_STRUCT__entry(
+> +		    __field(int, drm_debug_category)
+> +		    __dynamic_array(char, msg, 256)
+> +		    ),
+> +
+> +	    TP_fast_assign(
+> +		    int len;
+> +
+> +		    __entry->drm_debug_category = drm_debug_category;
+> +		    vsnprintf(__get_str(msg), 256, vaf->fmt, *vaf->va);
+> +
+> +		    len = strlen(__get_str(msg));
+> +		    if (len > 0 && (__get_str(msg)[len - 1] == '\n'))
+> +			    len -= 1;
+> +		    __get_str(msg)[len] = 0;
+> +		    ),
+> +
+> +	    TP_printk("%s", __get_str(msg))
+> +);
+> +
+> +/* drm_devdbg() was called, pass its args, preserving order */
+> +TRACE_EVENT(drm_devdbg,
+> +	    TP_PROTO(const struct device *dev, int drm_debug_category, struct va_format *vaf),
+> +
+> +	    TP_ARGS(dev, drm_debug_category, vaf),
+> +
+> +	    TP_STRUCT__entry(
+> +		    __field(const struct device*, dev)
+> +		    __field(int, drm_debug_category)
+> +		    __dynamic_array(char, msg, 256)
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+You do not want to hardcode the 256 here. That will cause 256 bytes to be
+reserved on the buffer, and you will not get that back. Might as well make
+it a static array, as you also add 4 bytes to for the offset and size.
 
-drivers/net/ethernet/microchip/lan743x_main.c:1238:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-drivers/soc/mediatek/mtk-mutex.c:799:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-drivers/staging/media/zoran/zr36016.c:430:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-drivers/staging/media/zoran/zr36050.c:829:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-drivers/staging/media/zoran/zr36060.c:869:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-drivers/thunderbolt/tmu.c:758:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-sound/soc/sof/intel/mtl.c:547:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+I think you want (haven't tested it)
 
-Error/Warning ids grouped by kconfigs:
+		__dynamic_array(char, msg, get_msg_size(vaf))
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- alpha-randconfig-r013-20220629
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-net-ethernet-microchip-lan743x_main.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|   |-- drivers-soc-mediatek-mtk-mutex.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   |-- drivers-staging-media-zoran-zr36016.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   |-- drivers-staging-media-zoran-zr36050.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   |-- drivers-staging-media-zoran-zr36060.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   |-- drivers-thunderbolt-tmu.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|   `-- sound-soc-sof-intel-mtl.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
-|-- arc-randconfig-r043-20220629
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- arm64-randconfig-r012-20220629
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_db_event
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_link_event
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_register_device
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- i386-randconfig-m021
-|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
-|-- i386-randconfig-s002-20220627
-|   |-- fs-ntfs3-attrib.c:sparse:sparse:cast-to-restricted-__le64
-|   |-- fs-ntfs3-attrib.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le64-usertype-alloc_size-got-unsigned-long-long-usertype
-|   |-- fs-ntfs3-attrib.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le64-usertype-data_size-got-unsigned-long-long-usertype
-|   `-- fs-ntfs3-attrib.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- microblaze-randconfig-r032-20220629
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|-- microblaze-randconfig-r033-20220629
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- parisc-randconfig-r034-20220629
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- powerpc-allnoconfig
-|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
-|-- sparc-randconfig-r011-20220629
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
-|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
-|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
-`-- x86_64-randconfig-m001
-    `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+Where you have:
 
-elapsed time: 723m
+static unsigned int get_msg_size(struct va_format *vaf)
+{
+	va_list aq;
+	unsigned int ret;
 
-configs tested: 52
-configs skipped: 2
+	va_copy(aq, vaf->va);
+	ret = vsnprintf(NULL, 0, vaf->fmt, aq);
+	va_end(aq);
 
-gcc tested configs:
-arm                                 defconfig
-arm64                            allyesconfig
-arm                              allyesconfig
-ia64                             allmodconfig
-powerpc                           allnoconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-sh                               allmodconfig
-alpha                            allyesconfig
-m68k                             allmodconfig
-arc                              allyesconfig
-m68k                             allyesconfig
-i386                                defconfig
-i386                             allyesconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-i386                          randconfig-a005
-x86_64                        randconfig-a013
-x86_64                        randconfig-a011
-x86_64                        randconfig-a015
-i386                          randconfig-a014
-i386                          randconfig-a012
-i386                          randconfig-a016
-x86_64                        randconfig-a004
-x86_64                        randconfig-a002
-x86_64                        randconfig-a006
-arc                  randconfig-r043-20220629
-s390                 randconfig-r044-20220629
-riscv                randconfig-r042-20220629
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-syz
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-x86_64                               rhel-8.3
-x86_64                           allyesconfig
+	return min(ret + 1, 256);
+}
 
-clang tested configs:
-i386                          randconfig-a002
-i386                          randconfig-a006
-i386                          randconfig-a004
-x86_64                        randconfig-a014
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-i386                          randconfig-a013
-i386                          randconfig-a015
-i386                          randconfig-a011
-x86_64                        randconfig-a005
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-hexagon              randconfig-r045-20220629
-hexagon              randconfig-r041-20220629
+What is in the last parameter of __dynamic_array() is used to calculate the
+size needed to store the dynamic array.
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Hmm, looking at other users of __dynamic_array(), this appears to be a
+constant problem. I need to document this better.
+
+-- Steve
+
+
+> +		    ),
+> +
+> +	    TP_fast_assign(
+> +		    int len;
+> +
+> +		    __entry->drm_debug_category = drm_debug_category;
+> +		    __entry->dev = dev;
+> +		    vsnprintf(__get_str(msg), 256, vaf->fmt, *vaf->va);
+> +
+> +		    len = strlen(__get_str(msg));
+> +		    if (len > 0 && (__get_str(msg)[len - 1] == '\n'))
+> +			    len -= 1;
+> +		    __get_str(msg)[len] = 0;
+> +		    ),
+> +
+> +	    TP_printk("cat:%d, %s %s", __entry->drm_debug_category,
+> +		      dev_name(__entry->dev), __get_str(msg))
+> +);
+> +
+> +#endif /* _TRACE_DRM_H */
+> +
