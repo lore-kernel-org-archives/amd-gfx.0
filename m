@@ -4,89 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EF7C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 19:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28DF0C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 19:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCC1010E102;
-	Wed, 29 Jun 2022 19:22:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1602510E102;
- Wed, 29 Jun 2022 19:22:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G3moDJkcj9+ao/vVSMiVwbOiVQfMWpyO+BJ86ByQkJZWP9P+kFgsYQ254M1XmVPOUUPxDa6cS7OrxKGPKRlPU9MtF7OoHdq+Aqnd7JdDLROHCetUW8g4euL+PqyOdWaA0VQ0lv+PpoDNyQzK93IB5bGOZlcGB4xq1mZZAwskJ7PdoUl0ydSPdE1sXhF8yQcrqmzUAf+4AEngGykKjN7VJc8hkKiXfmVn4EqvdeGeObbB+fswrguephGCQTsQZH5XWGD4aYGeV1LkYbozNMFV2fJIm9hDpXlYtNiGebCXExXNw+FlB+2MQHTNW26SzLuT0ZcAxCA/sX9w8EZx4uwRiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gvl43XZg011fKE00Y6P09tFR2U5ghtJI7oPBKe7Om8s=;
- b=RrIG6fp9ciWKXnE5zO1nvJUepw/dkANDIPoEX92uqXavawbNy3u/1IZqTeFXAQ58QJG/UQ8jsOttlQ8ZR4EtXOsSzJw/B6QcWTDn75OBSXEOmTvq32IkqNo3Nx60lP5ajrs/4Egnfqvwd9z2NDNHCIZ3+yNgMq0gA2EPOj4uLEbfdUOM/qZ7JrrkEnBs/cJyvRERDkQJN0l3O75HyWW+qdokVG/I9wqknX9Hyh10BWK8NaZIqXfN8V53W8EPg0YJ9TeD8LpP7AMceyspk7XD+5K8/aTxD3UHc76jLTmCYS8ArdDARYjcgRQOHzHE1JDty5uXzE/IetGw3n70fhuSJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gvl43XZg011fKE00Y6P09tFR2U5ghtJI7oPBKe7Om8s=;
- b=omFenE6nRbnNR70lvXXSkzOwMJlpQsQWGQItgcwOrUF5Fmec810e16HlU6H3fQlqlD7SiogJ+IBwZAJVufric/YmqAecTOZcd79qRVIzGC1BKO44BN7NfkMZ6Sq5sDgWAXa8y/S2TmttCAGea2RAZC9dknQ0cMiYpoOOlZp+fVc=
-Received: from MWHPR12CA0072.namprd12.prod.outlook.com (2603:10b6:300:103::34)
- by MN2PR12MB4813.namprd12.prod.outlook.com (2603:10b6:208:1bb::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Wed, 29 Jun
- 2022 19:22:39 +0000
-Received: from CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:103:cafe::4) by MWHPR12CA0072.outlook.office365.com
- (2603:10b6:300:103::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
- Transport; Wed, 29 Jun 2022 19:22:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT056.mail.protection.outlook.com (10.13.175.107) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5373.15 via Frontend Transport; Wed, 29 Jun 2022 19:22:38 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 29 Jun
- 2022 14:22:37 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-5.19
-Date: Wed, 29 Jun 2022 15:22:20 -0400
-Message-ID: <20220629192220.5870-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA7810E6FF;
+	Wed, 29 Jun 2022 19:59:08 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CCB10E6FF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 19:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656532747; x=1688068747;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qEM/SOD5szaqHarXP20oEjHBcoOWvf209vmnKr3JvEw=;
+ b=IQ/eFqYPiJOmVud3nUvEcjbgbLKsSU0g6e2TuK26gZc7Lxb0WgndIELM
+ ooVtywOzjWy4oZ695nDgeLWw1fTcj99jLPwYgnLVFRnIUKjaPL7xtb08e
+ CLNUupQ2xkA9aupO54GhJC19RQ4UkpaAbwFAhancTOyNpjXqxsX1rE3fy
+ 7GhTHn4XoljgY+9O0N51+8wvEkozv72zjYsnGCkP2rrwFjEIvx4YExFbS
+ 5VkgbrWohUgO1xJUhoQnmx3wGUP8m1AbnFCXrm/w7vKJc1g6poak6tglc
+ th/oeKhlcvYnxfJr/ydlv+H9hB36P25FY7d4ILAsbcqTOU6ceG1eKNpfz w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10393"; a="282179504"
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="282179504"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 12:59:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="837270047"
+Received: from lkp-server01.sh.intel.com (HELO 68b931ab7ac1) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 29 Jun 2022 12:59:03 -0700
+Received: from kbuild by 68b931ab7ac1 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o6dq2-000BZw-Jj;
+ Wed, 29 Jun 2022 19:59:02 +0000
+Date: Thu, 30 Jun 2022 03:58:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ c4ef528bd006febc7de444d9775b28706d924f78
+Message-ID: <62bcaeee.ScDDAGRuo2cD48ca%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f99e1715-0b7d-4676-f5bc-08da5a04bade
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4813:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nTKH6q7FBHxPtcJqSECa5ox9hZPnj0JDcXTv6X9GKr0EAPV2LGcP53kP0RYdvfif+dwWQv1XG0hNj/YwAw6xsxigQ1f6eD0Ks1KLQN6bA4rjrgwxCypAhFitf7jFlTfP1grcmOeArknawnwvqocmdPagmB1gu6jlx3zawE2PvXEbJ1ub6s+i8u7KoJopwesfXQ5br0su1VpQI2j3+niN410u3QxEHRD3t1evVIjdoOsQTNu8eoeeteV1rEHgjIjPjDZEJnTcDXzCmBjSF68c57qjpgpuj4wGyTij4PtdcfHiSNXvCB74HRKY4oYYQHMuAabGt83P5uFNQizuVdwqHO3b/okODTfhxqO8PQlip7P32XGf6OAGC5M3rOlvm/NkOlsrMEqEugSgWazgfRaZL5kBu9Vu5jcR4+QvRikePckwEX+8JpCgdPnJ5O19jCnmVVFE1agrMLv9hPt9kPy9sUV+IF27rVZ0kRgl4gSkSn3Q5gYvlAOiRciLyvBr6M0ycueAIY4p8eGuzrTUmd9MLaNOHJbGUPLYttCjbE6DqqI/JqM47B/Hj1MlPNuJs1StxfPc7BXS4BtTqhwlebP6jy+59MXqvT1ku8noW1myfRdvMkayPDP92pJ13uwoTKZ59fgW7nYIbyFoMfUc13zqLvlhutvxJEB8+nuHy97xRYKUCe4LmVRD2CEKCq3Za/M/ZO9XHtYRy8nnl3j+6oSzyUdNZTn+GtzmPhXx2xQYYkRlhMRLVbuV4KgLDx6JeZB49TxacOaHbPYc4gEPgbSP+ZRNTE5Mg24jX6uIsOuCPL4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(396003)(346002)(39860400002)(40470700004)(36840700001)(46966006)(8936002)(5660300002)(40480700001)(70206006)(478600001)(1076003)(83380400001)(966005)(8676002)(26005)(86362001)(186003)(4326008)(40460700003)(2616005)(16526019)(7696005)(82310400005)(2906002)(336012)(82740400003)(426003)(36860700001)(41300700001)(316002)(47076005)(6666004)(81166007)(36756003)(70586007)(110136005)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 19:22:38.6014 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f99e1715-0b7d-4676-f5bc-08da5a04bade
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4813
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,49 +57,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ mjpeg-users@lists.sourceforge.net, linux-mediatek@lists.infradead.org,
+ linux-pci@vger.kernel.org, ntfs3@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: c4ef528bd006febc7de444d9775b28706d924f78  Add linux-next specific files for 20220629
 
-Fixes for 5.19.
+Error/Warning reports:
 
-The following changes since commit 76f0544428aced9e2f0d50ac7429e0f3064658cd:
+https://lore.kernel.org/linux-mm/202206292052.LsFui3zO-lkp@intel.com
 
-  Merge tag 'drm-msm-fixes-2022-06-28' of https://gitlab.freedesktop.org/drm/msm into drm-fixes (2022-06-29 14:16:46 +1000)
+Error/Warning: (recently discovered and may have been fixed)
 
-are available in the Git repository at:
+arch/powerpc/kernel/interrupt.c:542:55: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:1025:33: warning: variable 'pre_connection_type' set but not used [-Wunused-but-set-variable]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:1247: undefined reference to `ntb_register_device'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:174: undefined reference to `ntb_link_event'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:262: undefined reference to `ntb_db_event'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.19-2022-06-29
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-for you to fetch changes up to a775e4e4941bf2f326aa36c58f67bd6c96cac717:
+drivers/net/ethernet/microchip/lan743x_main.c:1238:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/soc/mediatek/mtk-mutex.c:799:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36016.c:430:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36050.c:829:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/staging/media/zoran/zr36060.c:869:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+drivers/thunderbolt/tmu.c:758:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
+sound/soc/sof/intel/mtl.c:547:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
 
-  Revert "drm/amdgpu/display: set vblank_disable_immediate for DC" (2022-06-29 14:50:52 -0400)
+Error/Warning ids grouped by kconfigs:
 
-----------------------------------------------------------------
-amd-drm-fixes-5.19-2022-06-29:
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- alpha-randconfig-r013-20220629
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-net-ethernet-microchip-lan743x_main.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   |-- drivers-soc-mediatek-mtk-mutex.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36016.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36050.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-staging-media-zoran-zr36060.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   |-- drivers-thunderbolt-tmu.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|   `-- sound-soc-sof-intel-mtl.c:internal-compiler-error:in-arc_ifcvt-at-config-arc-arc.c
+|-- arc-randconfig-r043-20220629
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- arm64-randconfig-r012-20220629
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_db_event
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_link_event
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_register_device
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- i386-randconfig-m021
+|   `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
+|-- i386-randconfig-s002-20220627
+|   |-- fs-ntfs3-attrib.c:sparse:sparse:cast-to-restricted-__le64
+|   |-- fs-ntfs3-attrib.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le64-usertype-alloc_size-got-unsigned-long-long-usertype
+|   |-- fs-ntfs3-attrib.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le64-usertype-data_size-got-unsigned-long-long-usertype
+|   `-- fs-ntfs3-attrib.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- microblaze-randconfig-r032-20220629
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- microblaze-randconfig-r033-20220629
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- parisc-randconfig-r034-20220629
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|-- powerpc-allmodconfig
+|   |-- arch-powerpc-kernel-interrupt.c:warning:suggest-braces-around-empty-body-in-an-if-statement
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- powerpc-allnoconfig
+|   `-- arch-powerpc-kernel-interrupt.c:error:suggest-braces-around-empty-body-in-an-if-statement
+|-- sparc-randconfig-r011-20220629
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link.c:warning:variable-pre_connection_type-set-but-not-used
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+`-- x86_64-randconfig-m001
+    `-- arch-x86-events-core.c-init_hw_perf_events()-warn:missing-error-code-err
 
-amdgpu:
-- GPU recovery fix
-- Fix integer type usage in fourcc header for AMD modifiers
-- KFD TLB flush fix for gfx9 APUs
-- Display fix
+elapsed time: 723m
 
-----------------------------------------------------------------
-Alex Deucher (2):
-      drm/amdgpu: fix adev variable used in amdgpu_device_gpu_recover()
-      Revert "drm/amdgpu/display: set vblank_disable_immediate for DC"
+configs tested: 52
+configs skipped: 2
 
-Carlos Llamas (1):
-      drm/fourcc: fix integer type usage in uapi header
+gcc tested configs:
+arm                                 defconfig
+arm64                            allyesconfig
+arm                              allyesconfig
+ia64                             allmodconfig
+powerpc                           allnoconfig
+mips                             allyesconfig
+powerpc                          allmodconfig
+sh                               allmodconfig
+alpha                            allyesconfig
+m68k                             allmodconfig
+arc                              allyesconfig
+m68k                             allyesconfig
+i386                                defconfig
+i386                             allyesconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+arc                  randconfig-r043-20220629
+s390                 randconfig-r044-20220629
+riscv                randconfig-r042-20220629
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+x86_64                              defconfig
+x86_64                               rhel-8.3
+x86_64                           allyesconfig
 
-Ruili Ji (1):
-      drm/amdgpu: To flush tlb for MMHUB of RAVEN series
+clang tested configs:
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+x86_64                        randconfig-a012
+i386                          randconfig-a013
+i386                          randconfig-a015
+i386                          randconfig-a011
+x86_64                        randconfig-a005
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+hexagon              randconfig-r045-20220629
+hexagon              randconfig-r041-20220629
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c        | 3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
- include/uapi/drm/drm_fourcc.h                     | 4 ++--
- 5 files changed, 6 insertions(+), 7 deletions(-)
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
