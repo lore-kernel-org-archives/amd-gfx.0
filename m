@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0DF5C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 14:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6397C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 14:10:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B2510E5FA;
-	Wed, 29 Jun 2022 14:09:54 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E7C10E1F4;
- Wed, 29 Jun 2022 13:22:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6665010F151;
+	Wed, 29 Jun 2022 14:10:00 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A66112885;
+ Wed, 29 Jun 2022 13:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656508939; x=1688044939;
+ t=1656509608; x=1688045608;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=Ka0Ii+O+Ss9C7HOlOsdx18EcmVCdM4z6UbEW3x+fZTQ=;
- b=mptVg3gGOOxLguV1LAEHJC2mOEMO5JbGNPbVvwjn0ag6UaLAIo07WkZ0
- eTAAKanwRrM2l26QPwuPOCmjGlvMYgRQu46E9YDM2xpIlamAuK1vUYon9
- wfJoCLVcuEgLJOdEtxPw6zGKWx5vPcpX6kZ6xfIMr2LmUd2co2wrcFB05
- dQegkPuT7LVATu6+RaeRyVk0A/BKkcFbS7rH/zR4xw5REjXEOfsCFQc2v
- mqkn7sbtNY5tT5A76xRhC67K9IEUF2OM3grBZySTSUQdDo9mZjL8bD9PE
- hHuVXjQH9CAb89hlIguF0Z4BUSJdjlcx/ia+y12SPue+7xViy/ioulign w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="265066699"
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="265066699"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 06:22:17 -0700
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="917599257"
+ bh=xN97QMRyWKE3GLq5caI2Z/69zV73n52esPprkpGOnwY=;
+ b=QVp2VoANmTZoxKmc3H/kvgA5EHCeD/UcnpQcBblNfH35AeQljyCKtAYi
+ F/x+w6ZiXxnUGTwXgxdVcIav2PebQrnffphMI1WtIkZpuxhiXiEEjfrj5
+ bphgxk8WUkKMIEx195cZPF4zkQsDSiDYZACzSr5ptkwvoLe0KGKt48a1m
+ W19HeuOC1M9ACwC6kvLeqXNq9sjdhXoqh4Ad7T0GTKiHoruwyiPgaMZ1U
+ NqOxIHx/JRDhbmwr7N8AxC26QRj8N/jdZudTpbMJpja7uDBgbubtvLr0w
+ n1JVqgphul4kyUQgxgK1Ya65U+AowbVDSXUt5C4hdOWff1Q6j/KXmVCGZ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="279575377"
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="279575377"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 06:33:27 -0700
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="647395862"
 Received: from clauter-mobl.amr.corp.intel.com (HELO localhost)
  ([10.252.48.175])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 06:22:09 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 06:33:21 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [RESEND RFC 07/18] drm/display/dp_mst: Add helper for finding
- payloads in atomic MST state
-In-Reply-To: <20220607192933.1333228-8-lyude@redhat.com>
+Subject: Re: [RESEND RFC 00/18] drm/display/dp_mst: Drop Radeon MST support,
+ make MST atomic-only
+In-Reply-To: <20220607192933.1333228-1-lyude@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20220607192933.1333228-1-lyude@redhat.com>
- <20220607192933.1333228-8-lyude@redhat.com>
-Date: Wed, 29 Jun 2022 16:22:07 +0300
-Message-ID: <87v8sjppts.fsf@intel.com>
+Date: Wed, 29 Jun 2022 16:33:18 +0300
+Message-ID: <87o7ybppb5.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -60,22 +59,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
  Sean Paul <sean@poorly.run>,
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Tue, 07 Jun 2022, Lyude Paul <lyude@redhat.com> wrote:
-> We already open-code this quite often, and will be iterating through
-> payloads even more once we've moved all of the payload tracking into the
-> atomic state. So, let's add a helper for doing this.
+> Ugh, thanks ./scripts/get_maintainers.pl for confusing and breaking
+> git-send email <<. Sorry for the resend everyone.
 >
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> For quite a while we've been carrying around a lot of legacy modesetting
+> code in the MST helpers that has been rather annoying to keep around,
+> and very often gets in the way of trying to implement additional
+> functionality in MST such as fallback link rate retraining, dynamic BPC
+> management and DSC support, etc. because of the fact that we can't rely
+> on atomic for everything.
+>
+> Luckily, we only actually have one user of the legacy MST code in the
+> kernel - radeon. Originally I was thinking of trying to maintain this
+> code and keep it around in some form, but I'm pretty unconvinced anyone
+> is actually using this. My reasoning for that is because I've seen
+> nearly no issues regarding MST on radeon for quite a while now - despite
+> the fact my local testing seems to indicate it's quite broken. This
+> isn't too surprising either, as MST support in radeon.ko is gated behind
+> a module parameter that isn't enabled by default. This isn't to say I
+> wouldn't be open to alternative suggestions, but I'd rather not be the
+> one to have to spend time on that if at all possible! Plus, I already
+> floated the idea of dropping this code by AMD folks a few times and
+> didn't get much resistance.
+>
+> As well, this series has some basic refactoring that I did along the way
+> and some bugs I had to fix in order to get my atomic-only MST code
+> working. Most of this is pretty straight forward and simply renaming
+> things to more closely match the DisplayPort specification, as I think
+> this will also make maintaining this code a lot easier in the long run
+> (I've gotten myself confused way too many times because of this).
+>
+> So far I've tested this on all three MST drivers: amdgpu, i915 and
+> nouveau, along with making sure that removing the radeon MST code
+> doesn't break anything else. The one thing I very much could use help
+> with regarding testing though is making sure that this works with
+> amdgpu's DSC support on MST.
+>
+> So, with this we should be using the atomic state as much as possible
+> with MST modesetting, hooray!
+
+I admit and regret I haven't had the time to go through this in detail
+and thought. I've glanced over it on a few occasions, and I don't have
+anything against it really.
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+Before merging, please ensure you've sent the entire series Cc'd
+intel-gfx, and got a green light from CI.
+
+>
 > Cc: Wayne Lin <Wayne.Lin@amd.com>
 > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
@@ -83,224 +123,64 @@ On Tue, 07 Jun 2022, Lyude Paul <lyude@redhat.com> wrote:
 > Cc: Imre Deak <imre.deak@intel.com>
 > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 > Cc: Sean Paul <sean@poorly.run>
-> ---
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 109 ++++++++----------
->  1 file changed, 45 insertions(+), 64 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
-drm/display/drm_dp_mst_topology.c
-> index ec52f91b1f0e..0bc2c7a90c37 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -1737,6 +1737,19 @@ drm_dp_mst_dump_port_topology_history(struct drm_d=
-p_mst_port *port) {}
->  #define save_port_topology_ref(port, type)
->  #endif
->=20=20
-> +static struct drm_dp_mst_atomic_payload *
-> +drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
-> +				 struct drm_dp_mst_port *port)
-> +{
-> +	struct drm_dp_mst_atomic_payload *payload;
-> +
-> +	list_for_each_entry(payload, &state->payloads, next)
-> +		if (payload->port =3D=3D port)
-> +			return payload;
-> +
-> +	return NULL;
-> +}
-> +
->  static void drm_dp_destroy_mst_branch_device(struct kref *kref)
->  {
->  	struct drm_dp_mst_branch *mstb =3D
-> @@ -4381,39 +4394,31 @@ int drm_dp_atomic_find_time_slots(struct drm_atom=
-ic_state *state,
->  				  int pbn_div)
->  {
->  	struct drm_dp_mst_topology_state *topology_state;
-> -	struct drm_dp_mst_atomic_payload *pos, *payload =3D NULL;
-> -	int prev_slots, prev_bw, req_slots;
-> +	struct drm_dp_mst_atomic_payload *payload =3D NULL;
-> +	int prev_slots =3D 0, prev_bw =3D 0, req_slots;
->=20=20
->  	topology_state =3D drm_atomic_get_mst_topology_state(state, mgr);
->  	if (IS_ERR(topology_state))
->  		return PTR_ERR(topology_state);
->=20=20
->  	/* Find the current allocation for this port, if any */
-> -	list_for_each_entry(pos, &topology_state->payloads, next) {
-> -		if (pos->port =3D=3D port) {
-> -			payload =3D pos;
-> -			prev_slots =3D payload->time_slots;
-> -			prev_bw =3D payload->pbn;
-> -
-> -			/*
-> -			 * This should never happen, unless the driver tries
-> -			 * releasing and allocating the same timeslot allocation,
-> -			 * which is an error
-> -			 */
-> -			if (WARN_ON(!prev_slots)) {
-> -				drm_err(mgr->dev,
-> -					"cannot allocate and release time slots on [MST PORT:%p] in the sam=
-e state\n",
-> -					port);
-> -				return -EINVAL;
-> -			}
-> +	payload =3D drm_atomic_get_mst_payload_state(topology_state, port);
-> +	if (payload) {
-> +		prev_slots =3D payload->time_slots;
-> +		prev_bw =3D payload->pbn;
->=20=20
-> -			break;
-> +		/*
-> +		 * This should never happen, unless the driver tries
-> +		 * releasing and allocating the same timeslot allocation,
-> +		 * which is an error
-> +		 */
-> +		if (WARN_ON(!prev_slots)) {
-> +			drm_err(mgr->dev,
-> +				"cannot allocate and release time slots on [MST PORT:%p] in the same=
- state\n",
-> +				port);
-
-I guess I'd combine the WARN_ON() and drm_err() to a single
-drm_WARN(). Having both is a silly. But can be a follow-up, not part of
-this patch really.
-
-
-> +			return -EINVAL;
->  		}
->  	}
-> -	if (!payload) {
-> -		prev_slots =3D 0;
-> -		prev_bw =3D 0;
-> -	}
->=20=20
->  	if (pbn_div <=3D 0)
->  		pbn_div =3D mgr->pbn_div;
-> @@ -4474,30 +4479,24 @@ int drm_dp_atomic_release_time_slots(struct drm_a=
-tomic_state *state,
->  				     struct drm_dp_mst_port *port)
->  {
->  	struct drm_dp_mst_topology_state *topology_state;
-> -	struct drm_dp_mst_atomic_payload *pos;
-> -	bool found =3D false;
-> +	struct drm_dp_mst_atomic_payload *payload;
->=20=20
->  	topology_state =3D drm_atomic_get_mst_topology_state(state, mgr);
->  	if (IS_ERR(topology_state))
->  		return PTR_ERR(topology_state);
->=20=20
-> -	list_for_each_entry(pos, &topology_state->payloads, next) {
-> -		if (pos->port =3D=3D port) {
-> -			found =3D true;
-> -			break;
-> -		}
-> -	}
-> -	if (WARN_ON(!found)) {
-> +	payload =3D drm_atomic_get_mst_payload_state(topology_state, port);
-> +	if (WARN_ON(!payload)) {
->  		drm_err(mgr->dev, "No payload for [MST PORT:%p] found in mst state %p\=
-n",
->  			port, &topology_state->base);
-
-Ditto.
-
-BR,
-Jani.
-
->  		return -EINVAL;
->  	}
->=20=20
-> -	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, pos->time_=
-slots);
-> -	if (pos->time_slots) {
-> +	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->t=
-ime_slots);
-> +	if (payload->time_slots) {
->  		drm_dp_mst_put_port_malloc(port);
-> -		pos->time_slots =3D 0;
-> -		pos->pbn =3D 0;
-> +		payload->time_slots =3D 0;
-> +		payload->pbn =3D 0;
->  	}
->=20=20
->  	return 0;
-> @@ -5194,18 +5193,8 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_d=
-p_mst_port *port,
->  		return 0;
->=20=20
->  	if (drm_dp_mst_is_end_device(port->pdt, port->mcs)) {
-> -		bool found =3D false;
-> -
-> -		list_for_each_entry(payload, &state->payloads, next) {
-> -			if (payload->port !=3D port)
-> -				continue;
-> -			if (!payload->pbn)
-> -				return 0;
-> -
-> -			found =3D true;
-> -			break;
-> -		}
-> -		if (!found)
-> +		payload =3D drm_atomic_get_mst_payload_state(state, port);
-> +		if (!payload)
->  			return 0;
->=20=20
->  		/*
-> @@ -5360,34 +5349,26 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomi=
-c_state *state,
->  				 bool enable)
->  {
->  	struct drm_dp_mst_topology_state *mst_state;
-> -	struct drm_dp_mst_atomic_payload *pos;
-> -	bool found =3D false;
-> +	struct drm_dp_mst_atomic_payload *payload;
->  	int time_slots =3D 0;
->=20=20
->  	mst_state =3D drm_atomic_get_mst_topology_state(state, port->mgr);
-> -
->  	if (IS_ERR(mst_state))
->  		return PTR_ERR(mst_state);
->=20=20
-> -	list_for_each_entry(pos, &mst_state->payloads, next) {
-> -		if (pos->port =3D=3D port) {
-> -			found =3D true;
-> -			break;
-> -		}
-> -	}
-> -
-> -	if (!found) {
-> +	payload =3D drm_atomic_get_mst_payload_state(mst_state, port);
-> +	if (!payload) {
->  		drm_dbg_atomic(state->dev,
->  			       "[MST PORT:%p] Couldn't find payload in mst state %p\n",
->  			       port, mst_state);
->  		return -EINVAL;
->  	}
->=20=20
-> -	if (pos->dsc_enabled =3D=3D enable) {
-> +	if (payload->dsc_enabled =3D=3D enable) {
->  		drm_dbg_atomic(state->dev,
->  			       "[MST PORT:%p] DSC flag is already set to %d, returning %d tim=
-e slots\n",
-> -			       port, enable, pos->time_slots);
-> -		time_slots =3D pos->time_slots;
-> +			       port, enable, payload->time_slots);
-> +		time_slots =3D payload->time_slots;
->  	}
->=20=20
->  	if (enable) {
-> @@ -5399,7 +5380,7 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_=
-state *state,
->  			return -EINVAL;
->  	}
->=20=20
-> -	pos->dsc_enabled =3D enable;
-> +	payload->dsc_enabled =3D enable;
->=20=20
->  	return time_slots;
->  }
+> Lyude Paul (18):
+>   drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
+>   drm/amdgpu/dm/mst: Rename get_payload_table()
+>   drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
+>   drm/display/dp_mst: Call them time slots, not VCPI slots
+>   drm/display/dp_mst: Fix confusing docs for
+>     drm_dp_atomic_release_time_slots()
+>   drm/display/dp_mst: Add some missing kdocs for atomic MST structs
+>   drm/display/dp_mst: Add helper for finding payloads in atomic MST
+>     state
+>   drm/display/dp_mst: Add nonblocking helpers for DP MST
+>   drm/display/dp_mst: Don't open code modeset checks for releasing time
+>     slots
+>   drm/display/dp_mst: Fix modeset tracking in
+>     drm_dp_atomic_release_vcpi_slots()
+>   drm/nouveau/kms: Cache DP encoders in nouveau_connector
+>   drm/nouveau/kms: Pull mst state in for all modesets
+>   drm/display/dp_mst: Add helpers for serializing SST <-> MST
+>     transitions
+>   drm/display/dp_mst: Drop all ports from topology on CSNs before
+>     queueing link address work
+>   drm/display/dp_mst: Skip releasing payloads if last connected port
+>     isn't connected
+>   drm/display/dp_mst: Maintain time slot allocations when deleting
+>     payloads
+>   drm/radeon: Drop legacy MST support
+>   drm/display/dp_mst: Move all payload info into the atomic state
+>
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   72 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  111 +-
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  126 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c |   10 +-
+>  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    4 +-
+>  .../amd/display/include/link_service_types.h  |   18 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 1160 ++++++++---------
+>  drivers/gpu/drm/i915/display/intel_display.c  |   11 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       |    9 +
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   91 +-
+>  drivers/gpu/drm/i915/display/intel_hdcp.c     |   24 +-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  202 ++-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.h       |    2 +
+>  drivers/gpu/drm/nouveau/nouveau_connector.c   |   18 +-
+>  drivers/gpu/drm/nouveau/nouveau_connector.h   |    3 +
+>  drivers/gpu/drm/radeon/Makefile               |    2 +-
+>  drivers/gpu/drm/radeon/atombios_crtc.c        |   11 +-
+>  drivers/gpu/drm/radeon/atombios_encoders.c    |   59 -
+>  drivers/gpu/drm/radeon/radeon_atombios.c      |    2 -
+>  drivers/gpu/drm/radeon/radeon_connectors.c    |   61 +-
+>  drivers/gpu/drm/radeon/radeon_device.c        |    1 -
+>  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  778 -----------
+>  drivers/gpu/drm/radeon/radeon_drv.c           |    4 -
+>  drivers/gpu/drm/radeon/radeon_encoders.c      |   14 +-
+>  drivers/gpu/drm/radeon/radeon_irq_kms.c       |   10 +-
+>  drivers/gpu/drm/radeon/radeon_mode.h          |   40 -
+>  include/drm/display/drm_dp_mst_helper.h       |  230 ++--
+>  27 files changed, 991 insertions(+), 2082 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/radeon/radeon_dp_mst.c
 
 --=20
 Jani Nikula, Intel Open Source Graphics Center
