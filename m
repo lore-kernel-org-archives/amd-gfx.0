@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81542C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC605CCA473
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:14:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09DFE12A699;
-	Thu, 30 Jun 2022 19:14:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 127C012A845;
+	Thu, 30 Jun 2022 19:14:29 +0000 (UTC)
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2089.outbound.protection.outlook.com [40.107.212.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C9110EC70
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 19:14:26 +0000 (UTC)
+ (mail-bn1nam07on2045.outbound.protection.outlook.com [40.107.212.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F71010F8C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 19:14:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q0UQmKhTqLGpAuvfBxdTrT+1ooIJiISRH0tU1VrglEXKhtlF9NPzJu14rbkWVLgNPQwi8xseX44Zin+Z/5B1hGBOle71lEMkhIC3Ki8BT81X7pfTjJadasOJwyxxUkZycvyS03LsEFkb49yUhoa6zxfe/g5KGZ3VZdNYn1fpv93f+bZXVtt161hwSaTKWEKPjAJPIXKWPuptHuL6cEqk25zjLd/sAteI0XgVccTJ47/WzcFHl5YVMHaX7ax4HGDBqT5+FmkqLqJim1hZdEnM/y4b58tWMx9LM6cm9+fDxJiFmcWBogsV8qZLdLOCy4wk/Ac83AIbvgKPbjgTLlXAeQ==
+ b=D/6DGfMRHSq83MXIf+Gz01pAo/JfSu+8RTlXm+pscfYkBZc/nDblL4tBqQLbyvSsKat1ke9/4lMrNwcU4B/Uk3lR1bFb2qWwKgC3+dAt6JMm3j9uxI269L2wtLd8Y/Iolt3O0T521mgONWAabQ+usllGd+clO/prR/ehfskGDCPKcSM8i/zwc8OXUvfs+GFNhcdDXvNqvYSnxuTmQFkOy4b2mdsV3/VFGl86dsN6knh4wmKStXmBkhecLGHCj9DIxSUbP1hS6xoKJh6hfRm4S5UhdCymaE8MwiZbAcqExg8rgEa9JBLjBtNZUscNlzRTpX0hbw0qbA36t8LU3BZftQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=akd0KWcR9oqXeB8EjTrmEIv+uS3+HDdpr8qJdhVEpTE=;
- b=YQyeLvVuOalc1emUUmV6mpEQkhhs9oNCFHs2VBsxKqIrx+csEcJ1RujE2XsrEIOfK2WgntqVwrhEgcb9kguUQjYIunEhP13ojXH4yMojV7OsZtq09MgcS6MDu3aiP+M4kgyOvNMf5fKeMBGmZHY0uk6a1iGWh5OIXWU/RR+uzpG/gm3B3IEZAcwHW1WhG0vMidyC5w3ceLqcD6A4AB77Y/7VOzo2qJotCo5sbzB40m7CofmGiS8Xuw0UK5uL1hBN9Up2Gle93jUsTfrnTpkmAfKaY8WvRie7b0z+I0tlxh90273zc8MrFukv1xHt1invhm1gQPcGKndYmRxM7vUBqA==
+ bh=BDv1VFHthe+j62gIFdh9y60/JvkxpSW54M0wnlmS2XE=;
+ b=Un5sGJUao6z0SucvBbJ04VDvDV/gPDKAQB/28Yzcrag1wlT9hg/goeQpboa5jC81wWkD99gl4ByBHJIissJFoIkmROgxiRBDvqVhnUvoInKNFMPKtYnIxIIo4ursAFqHc6nPlSjj5JAqP8LmkjAHYhp+6YFJWhXzw57M3c9wS3r5GomSqMftffIaSpynA4ESqmLgvHpJgWs5A46atqQqZmtToD4IaYihwbvca+TPEYo1VLsYxKLsD/wmB4simxnkVYRIk8V0WA0TmiE4siOFEiDojb2M5ay5JDxQySMZQJvWU1fpxF5RPjXamseWAsGmNgggYmFrWI25Xp7MzrvioA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=akd0KWcR9oqXeB8EjTrmEIv+uS3+HDdpr8qJdhVEpTE=;
- b=NV1SPf5jQeuRnynSBx6SIhavhKhVCQGsYnjRL0dCwl4xnfQRl0H7Vbi9NgeiCjaRquh2r+SC4aSPOvfvY3ribCUlzg0JMc6tG1QBIYptemA+Tc2bT5Zo5Q7UlXaqWZwX+TJxGrQsUH4wC3tGwSdI40RGRJd1XtWLLV1zIeLRXEc=
-Received: from BN9PR03CA0441.namprd03.prod.outlook.com (2603:10b6:408:113::26)
- by CH2PR12MB4837.namprd12.prod.outlook.com (2603:10b6:610:f::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=BDv1VFHthe+j62gIFdh9y60/JvkxpSW54M0wnlmS2XE=;
+ b=gP9V4DmGDrFuuhr5hSgNlR2Ybm/649x54kAhElUH8rSo24h/dRRRcTLvBjKGVEPLo6aotJEVQvY+A+qAAKea9mXd23exLZO8mxe2TNN6Vdo3VdTyVEmBtFTwZXzTILkgrNblVNfoFSLI3mbLN4NIuKqDW8gz3ZRai9LFHVfm6Q8=
+Received: from BN0PR04CA0164.namprd04.prod.outlook.com (2603:10b6:408:eb::19)
+ by BN8PR12MB3122.namprd12.prod.outlook.com (2603:10b6:408:44::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Thu, 30 Jun
- 2022 19:14:23 +0000
-Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::15) by BN9PR03CA0441.outlook.office365.com
- (2603:10b6:408:113::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
- Transport; Thu, 30 Jun 2022 19:14:23 +0000
+ 2022 19:14:12 +0000
+Received: from BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:eb:cafe::6e) by BN0PR04CA0164.outlook.office365.com
+ (2603:10b6:408:eb::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
+ Transport; Thu, 30 Jun 2022 19:14:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT043.mail.protection.outlook.com (10.13.177.218) with Microsoft SMTP
+ BN8NAM11FT048.mail.protection.outlook.com (10.13.177.117) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5395.17 via Frontend Transport; Thu, 30 Jun 2022 19:14:23 +0000
+ 15.20.5395.14 via Frontend Transport; Thu, 30 Jun 2022 19:14:12 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 30 Jun
- 2022 14:14:21 -0500
+ 2022 14:14:09 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 33/40] drm/amd/display: Move all linux includes into OS types
-Date: Thu, 30 Jun 2022 15:13:15 -0400
-Message-ID: <20220630191322.909650-34-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 22/40] drm/amd/display: Guard against ddc_pin being NULL for
+ AUX
+Date: Thu, 30 Jun 2022 15:13:04 -0400
+Message-ID: <20220630191322.909650-23-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220630191322.909650-1-Rodrigo.Siqueira@amd.com>
 References: <20220630191322.909650-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e571cb22-84a2-4aab-349e-08da5accbde2
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4837:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36563b0c-6d13-49b0-6d62-08da5accb7b1
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3122:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dOzkBcnJrNjvRVC9htk9RaYJzan240v/cAuMn1B7vuOV46Ohd59P6IkBO8CTREL337qLtmHNi+S9v7MZY8zDzoEehm+zM9aqt413qB8GGlrvDVwdbQN8zDE9EYWM63g5bW8reBHs3TFqHHdZ7/G/j6jq/mmUnrxDoqaeYVbvqR1WwJ3oGsf9AzkOio2MNT4UFF3/77pw2WpCdX+5AArxDt71eOyzmcakTk2FDrVcRFBqz//MQ2P+f64Rf8bWi86Yt8E8l8ve/x1JGa5bLFVUUA4mDUOHqiFNe0m+o7dmSdkLyToJKaWqVjrvdN5V0+tlR5T/8vgvWM/uhMWKuKQy37ugock9EDm+HMdlL6smv2mm8mO0CzNDAUR+xsC7dz10d/WMnFL6IoRi/EgYOSV90C5aPXiaJ+ujMQeJdrc3YQZQVHEYFD5gxkvEVCQNij/iWav4oaeFCaYo5OIsuRZ6z6zveCqrsR6naScK046UbCK2JwI2RCNdBcTWYiGkIFWknRQ2CEHV1ZijDV374lfIDzDt0xLtpNodTwFV6rQMGr3jx+F+FfpMIStX4i8yGvW3tbFFYKSGODns3EL2nQhCjuGkKh/S3kg/AoQ9A6MVLHxDA6KDxY4Ef60/rygScR2exmB4zOpglOBAps86SwdPdYsJLGaM+jGDEy7cjzNRROnOX4TUMYdfXmeTao3CMonsVZ1j2p3OJZV/Qlp/YwwcVDKnAD+PfFFqDgXjBoGL6sSDKETp0VCs7BQ9GnSM+CK9XD059nwa+AgHAag21d1kS1umJEdu+GdPp4KwzHwXl+RxQdqzY5UdNVFiZBUp5Css3c+56AwVZSoEud6ydLeg4oHo5PbOJ4BDJ1RfS4jWx50=
+X-Microsoft-Antispam-Message-Info: kW8CJcOuCibFobxObKWxk9OmGjPZ0Wc532p+k9FcRCsbB2BlLEPQ4HPM8f1URs3hvP3O3ez+eg+blRpubp42PZz9s/TLoGAtPbi9hrCAhQ3/X9Z//NPv9JnhehADO/KNi6WNqTnCxU7IGPAby8pupxhKDV+pmFqgo9TY6XvzHBkPS+zUaoy+zGj3aHEcJwWHYEz8iVges9phdbDLv9FM2QTMmyjbDBxcSBuCjjvgIb44s2H6SygA9mxYx+WN9HvJyXGaMnenkoVbNKXv+iMfb00HWXpzDe9hFJEWWj/InasD/v+bVOIH61kuLJPHKV26heu0vNqiErUqG1x2swmm1lEDYgAJ6Lvll56NLoH4K3rFyVSosQofeD9FvSj9Lmzw72pCJkW6NxeNLfG0UX3sTl2CLaTfzWIAjVY7rsfO9G2372Ims3U36wec+tMFjQ0ZVbnm+tpqf1M4d8qyk1NP9PB6Fk3TZ8P4r9M7h4J7Nw/TEwX6TqNEdrzX4/DSLg3NEEEvXT8vcYgujhUHGY0YT7dNuRkXPZFA3MTq5CAYa++eFuQQD+V2xlJCyte55AsG/7wkIxUBlr3WGO/j3BVXdBr/VY4clDt34s8eYsITkNetpoW2N6MaUMHa8mFKyAn7/Z5nT8dP822b3KKPQ/pfgPLFmVY6zxyR6iklr9pmu3Y9yX4i4uSDvXE862zO2zpL1dqtYfHL1/pp4kGdIBy+j86ZS7cberQ6bzj/c8NtXfDvy9mV/95kAwZzP1Hqfgyb1CjVqVNn0Cynt+IOF0/zDC8QlaWOJ+bEqBLnWHMcYyI7bDnYigDpy91/YdmTWK6T0vyXnLdT+45HNGQ68AnvFkt9juFbrBxx6yGiJKTKbkM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(39860400002)(396003)(136003)(36840700001)(46966006)(40470700004)(8936002)(30864003)(81166007)(5660300002)(478600001)(82740400003)(6916009)(54906003)(86362001)(316002)(40460700003)(356005)(70586007)(70206006)(4326008)(8676002)(426003)(36860700001)(336012)(47076005)(83380400001)(1076003)(2616005)(16526019)(26005)(186003)(2906002)(82310400005)(41300700001)(6666004)(7696005)(40480700001)(36756003)(36900700001);
+ SFS:(13230016)(4636009)(396003)(136003)(346002)(376002)(39860400002)(46966006)(36840700001)(40470700004)(86362001)(36860700001)(7696005)(26005)(2906002)(41300700001)(6666004)(82310400005)(5660300002)(8936002)(40460700003)(478600001)(47076005)(4326008)(186003)(426003)(1076003)(16526019)(356005)(36756003)(6916009)(2616005)(336012)(70586007)(70206006)(54906003)(83380400001)(81166007)(8676002)(316002)(82740400003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 19:14:23.1268 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e571cb22-84a2-4aab-349e-08da5accbde2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 19:14:12.7408 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36563b0c-6d13-49b0-6d62-08da5accb7b1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4837
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,733 +100,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
- Harry Wentland <harry.wentland@amd.com>, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ Michael Strauss <Michael.Strauss@amd.com>, hamza.mahfooz@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Move all linux includes into OS types.
+[Why]
+In the case where we don't support DMUB aux but we have DPIA links
+in the configuration we might try to message AUX using the legacy
+path - where DDC pin is NULL. This causes a NULL pointer dereference.
 
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+[How]
+Guard against NULL DDC pin, return a failure for aux engine acquire.
+
+Reviewed-by: Michael Strauss <Michael.Strauss@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/basics/vector.c               | 2 --
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c           | 2 --
- drivers/gpu/drm/amd/display/dc/core/dc.c                     | 3 ---
- drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c        | 2 --
- drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c            | 2 --
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c            | 2 --
- drivers/gpu/drm/amd/display/dc/core/dc_sink.c                | 2 --
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c              | 3 ---
- drivers/gpu/drm/amd/display/dc/core/dc_surface.c             | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_audio.c               | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c                 | 3 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c        | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c                | 3 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c              | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c                 | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c        | 3 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_opp.c                 | 2 --
- drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c      | 2 --
- drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c      | 2 --
- drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c    | 3 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c  | 2 --
- drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_regamma_v.c | 2 --
- drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c      | 2 --
- drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c   | 2 --
- drivers/gpu/drm/amd/display/dc/dce112/dce112_compressor.c    | 3 ---
- drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c      | 2 --
- drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c      | 2 --
- drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c        | 2 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c          | 2 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_ipp.c             | 2 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c    | 3 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c             | 2 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c        | 2 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c  | 2 --
- drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c              | 2 --
- drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c           | 2 --
- drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c                 | 3 ---
- drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c             | 2 --
- drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c                 | 2 --
- .../gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c   | 2 --
- .../gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c   | 2 --
- drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c | 2 --
- drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c | 2 --
- drivers/gpu/drm/amd/display/dc/irq/irq_service.c             | 2 --
- drivers/gpu/drm/amd/display/dc/os_types.h                    | 5 ++++-
- .../gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c    | 2 --
- .../gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c  | 2 --
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c      | 3 ---
- drivers/gpu/drm/amd/display/modules/freesync/freesync.c      | 2 --
- 49 files changed, 4 insertions(+), 107 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/vector.c b/drivers/gpu/drm/amd/display/dc/basics/vector.c
-index 706c803c4d3b..84aeccf36b4b 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/vector.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/vector.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "include/vector.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 25791ed0559d..c332650b7048 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "ObjectID.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8ed208e5def2..89a2f6749239 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -22,9 +22,6 @@
-  * Authors: AMD
-  */
- 
--#include <linux/slab.h>
--#include <linux/mm.h>
--
- #include "dm_services.h"
- 
- #include "dc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 9039fb134db5..2a8007928210 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dm_services.h"
- #include "core_types.h"
- #include "timing_generator.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-index 2b09310965bc..b13a516ba0f2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dm_helpers.h"
- #include "gpio_service_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index f7b47bf3ee59..85cbea4dbf72 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "resource.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-index 4b5e4d8e7735..455fa5dd1420 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dm_helpers.h"
- #include "core_types.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 167bb3310877..6752ca44e6e0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "basics/dc_common.h"
- #include "dc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-index 5bc6ff2fa73e..a80e45300783 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/mm.h>
--
- /* DC interface (public) */
- #include "dm_services.h"
- #include "dc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-index c06888add4a0..eb5a7fe88971 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "reg_helper.h"
- #include "dce_audio.h"
- #include "dce/dce_11_0_d.h"
 diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index 49d3145ae8fb..919c2c2ba84b 100644
+index 9e39cd7b203e..49d3145ae8fb 100644
 --- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
 +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -23,9 +23,6 @@
-  *
-  */
+@@ -572,6 +572,11 @@ int dce_aux_transfer_raw(struct ddc_service *ddc,
  
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "core_types.h"
- #include "dce_aux.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 4b57657b5322..5cc7cc0b2f2d 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -23,8 +23,6 @@
-  *
-  */
+ 	memset(&aux_req, 0, sizeof(aux_req));
  
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-index 7183ac5780a4..fbb19e253f50 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "core_types.h"
- #include "link_encoder.h"
- #include "dce_dmcu.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-index 6846afd83701..f1aeb6d1967c 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dce_i2c.h"
- #include "dce_i2c_sw.h"
- #include "include/gpio_service_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-index 80569a2734eb..34bff9aef66c 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dce_ipp.h"
- #include "reg_helper.h"
- #include "dm_services.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-index 0bc41414481e..09260c23c3bd 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "reg_helper.h"
- 
- #include "core_types.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-index 895b015b02e8..63ae4bc2a2e5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "basics/conversion.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-index f7e1027d4b3a..f810825322ba 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dc_bios_types.h"
- #include "dce_stream_encoder.h"
- #include "reg_helper.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-index 635ef0e7c782..9ad8ad4550d9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "link_encoder.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-index 44564a4742b5..d241ee13b293 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "dce/dce_11_0_d.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 8662703f306c..76e1e0966064 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dm_services.h"
- #include "dc.h"
- #include "dc_bios_types.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_regamma_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_regamma_v.c
-index 34c5e3c7c6d2..9b65b77e8823 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_regamma_v.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_regamma_v.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dm_services.h"
- 
- /* include DCE11 register header files */
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-index ef56eab4e5da..41804059550f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "link_encoder.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
-index 45bca0db5e5e..28d3b2663cd3 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dce110_transform_v.h"
- #include "dm_services.h"
- #include "dc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_compressor.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_compressor.c
-index 51cb45d8b9ab..faae12cf7968 100644
---- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_compressor.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_compressor.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "dce/dce_11_2_d.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-index 560da6cbcaa3..62da6bc3094d 100644
---- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "link_encoder.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-index c65e4d125c8e..c4353a03b48a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-@@ -24,8 +24,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-index 725d92e40cd3..0c3695e79652 100644
---- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dce/dce_8_0_d.h"
- #include "dce/dce_8_0_sh_mask.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-index 80595d7f060c..0f746bb4e500 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dm_services.h"
- #include "dcn10_hubp.h"
- #include "dcn10_hubbub.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_ipp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_ipp.c
-index f05371c1fc36..24b68337d76e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_ipp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_ipp.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dcn10_ipp.h"
- #include "reg_helper.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-index ca39361f71c8..fbccb7263ad2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "reg_helper.h"
- 
- #include "core_types.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-index 2c409356f512..41cec7acf51f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dcn10_opp.h"
- #include "reg_helper.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index bca049b2f867..e75be799012e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dc.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-index 64640c6b1c45..c99c6fababa9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--
- #include "dm_services.h"
- #include "dc_bios_types.h"
- #include "dcn10_stream_encoder.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c
-index dac427b68fd7..8183cdf517b8 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c
-@@ -27,8 +27,6 @@
-  * Pre-requisites: headers required by header of this unit
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/gpio_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-index 778c206f754d..3ede6e02c3a7 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-@@ -27,8 +27,6 @@
-  * Pre-requisites: headers required by header of this unit
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "include/gpio_interface.h"
- #include "include/gpio_service_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
-index 7a8cec2d7a90..6fd38cdd68c0 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/gpio_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
-index 9756640411b9..5c419225c3d6 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-index 692f29de7797..1489fdfaf0e7 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/gpio_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c b/drivers/gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c
-index 6b5fedd9ace0..44649db5f3e3 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/logger_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-index 2fe4703395f3..0a5e1a2a3c61 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce120/irq_service_dce120.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/logger_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-index 17e426b80a00..85f63b4a8b90 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dce80/irq_service_dce80.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/logger_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-index cf072e2347d3..532e506d027b 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/logger_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-index cb38d4c527d4..7bad39bba86b 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- 
- #include "include/irq_service_interface.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 5df1d80c8341..cd4af87ca58c 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -27,17 +27,20 @@
- #ifndef _OS_TYPES_H_
- #define _OS_TYPES_H_
- 
-+#include <linux/slab.h>
- #include <linux/kgdb.h>
- #include <linux/kref.h>
- #include <linux/types.h>
--#include <linux/slab.h>
- #include <linux/delay.h>
-+#include <linux/mm.h>
- 
- #include <asm/byteorder.h>
- 
- #include <drm/drm_print.h>
- #include <drm/drm_dp_helper.h>
- 
-+#include <drm/drm_print.h>
++	if (ddc_pin == NULL) {
++		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
++		return -1;
++	}
 +
- #include "cgs_common.h"
- 
- #if defined(__BIG_ENDIAN) && !defined(BIGENDIAN_CPU)
-diff --git a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c
-index df8bc44bc4be..1d226e0519a5 100644
---- a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dm_services_types.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
-index 1e39aae6b1cf..ad088d70e189 100644
---- a/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "virtual_stream_encoder.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 64a38f08f497..859ffd8725c5 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -23,9 +23,6 @@
-  *
-  */
- 
--#include <linux/mm.h>
--#include <linux/slab.h>
--
- #include "dc.h"
- #include "opp.h"
- #include "color_gamma.h"
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 0686223034de..da09ba7589f7 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -23,8 +23,6 @@
-  *
-  */
- 
--#include <linux/slab.h>
--
- #include "dm_services.h"
- #include "dc.h"
- #include "mod_freesync.h"
+ 	aux_engine = ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en];
+ 	if (!acquire(aux_engine, ddc_pin)) {
+ 		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
 -- 
 2.25.1
 
