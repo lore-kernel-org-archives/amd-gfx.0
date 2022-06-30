@@ -4,52 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05066C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 18:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E012C43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 18:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9A911BFE2;
-	Thu, 30 Jun 2022 18:28:53 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7483211AF5D
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 18:28:52 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id ay16so40647772ejb.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 11:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KqwriWH0oMHhzruT5vsHZAyNl4aDldbtEfHkuSXvH/E=;
- b=Ewy/GrpJoTBkfWJ8TzF1yXJAcj7zxoXcCzh3XONL3Vh3vcQihgQUgmLNfIRMMUzgqV
- hDzsISg9JdS6qAX3iwa0k7GKMZ2b1ZZnynVvRKXDM1yIPpfPLQOqem5K20z65uZ5sInx
- AJICRv57PF2UGojQv9R3MdP/2kAi9XWXAtITV2wYjgkDj8hLCrucndqamkQWTsc4R26W
- 4PCzRoRw/Oj6d9KiKqCAB0pce2vQWzZyr0ui9ZEymfGZVkI7E2GTTWx/xZ7uDu0Jnx3P
- WUSGHcYkDZVEuB3R2Oc81dX6asuhCa0mSxCCM7/hY+LWbkYk7AFRzqLEYEuvPUuUBSin
- PxaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KqwriWH0oMHhzruT5vsHZAyNl4aDldbtEfHkuSXvH/E=;
- b=MwewFdm0iR63gxq/ISm/FkrSq6DGQ0hcDil15uMSN0Ld/OQcm7j1VCq1JIo4/tFZeP
- GwO6ch0HtskMNS1smIHWJYu3hVSb1PokZnjOjs7dp8IkgoP81DALTDS238tPyCdwE+n8
- zFrsSgPsnzi+XY9gD6EprwFWGchzprTMXvpRIH46KQhToMqIuaLS2L4FlYt8pHK6RJ5B
- 2jGLYvSPrRjY4STUk0BQ9GySSJWRz/z3thHApQFRRfiWsi6mDT0bihWTdXL/my1Xqz1i
- fFPeTblfG4PMNVR1ZI7h56lM+F9yNxNiA044kG8QnU/ZgT6S5HRmi7WNjTMMA+91VjyY
- K18Q==
-X-Gm-Message-State: AJIora87+fx/85wmQWjM8AsiTj7juhp45Qi+OYTmImQrCTOtUk/oREpb
- cJCHsDRd+SX6+KGWYGnTtrjtNevRtk6l73oycMJwoKL8
-X-Google-Smtp-Source: AGRyM1vISZcHXwUkm1qM5eKlPQ28aI720e7YVkGeyXxDkfU+4p+9Dq6ui9MsiuhV51pIrpkvX6wz3fJi/oxji4JLyPw=
-X-Received: by 2002:a17:906:5d0b:b0:726:a043:fcb4 with SMTP id
- g11-20020a1709065d0b00b00726a043fcb4mr10459503ejt.508.1656613730971; Thu, 30
- Jun 2022 11:28:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99B312A718;
+	Thu, 30 Jun 2022 18:29:53 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A48412A761;
+ Thu, 30 Jun 2022 18:29:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NLY8ilyQCpu73t7urQlG+miREk6SQr8rTUd7RnIcuWN9P+iYDqkYE4dr2md89eG2bi9pdNmS/eeBQSvhIFE2P9EFvNqv3eRmFxyZwOp/FPYlxGyZvRpunIhL67+MO7XNrxrT9t5pjlivda7Dlj3yjJS+9PGL4aUVFuhmshLFBoVkwYNxqcfzBHwCzxnkiRJ4v/QB/vZ3sjki+hl95IgVHqzC2GOWHtRFISf/7vtUUzmm30MX7PrfW3JKL7lE0lMc+HYBWHxnCYbHWQU4LYZvCVcN4VapAOlj31SdHJeBbLDLm3nb2TCO6i+qqVCtaQojaJQGcWpCEniXBWTrzNbX6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5CKJm3taaNU29G9UqYZKXdiRPyMbSbrefel5N9RpMJo=;
+ b=e/zpyUjbZ0BzrXAXMFMsIbV/TYzpz+t78c+skjzgCjh5fQQrqB7UIAhkXtmjrq8Mn5pSPKPcxKy9xYtaYDBJBDPh5WdGLIbqKblQpfXujCQg/mwfMjN8FK3Ru5r7X/Wmzttz2AqSzMIgktIBZFfXnMtgfc+Nhxek6zurowR7lNcynXT+6g6MpUPj6CCrCC3iJKfzklbEIAGS+F2DlpkaMjJIhSIDfkMNYDv9dfluBiQtEUYdamm2NsYexjZZmbX+Pt4n3hTvz/1dlQYKsTP3GAv1fc32ZynsuOq5vAkfi2jaf+DXgF6zzfwDz7EJhmqN1gww+qOY2jQ0hKZZM2ReUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5CKJm3taaNU29G9UqYZKXdiRPyMbSbrefel5N9RpMJo=;
+ b=ZgHExm8NlSUV8NHwYfALMTT9PFHrPdmrPUW5bpBvt02QHD1WutNUKNVI2U8VXnY9JULwT2acgvmy0aM3q3Tw04vnVDRrolYUXWINOLWZ+AjL6me1yagrRr9UNZQL54dsYiB+aZVUQIza4E07d7WWtTrTgeDslwTa9TKp7/sUUzI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by DM6PR12MB3580.namprd12.prod.outlook.com (2603:10b6:5:11e::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
+ 2022 18:29:47 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95%6]) with mapi id 15.20.5373.018; Thu, 30 Jun 2022
+ 18:29:47 +0000
+Message-ID: <cc1dd78a-487b-bf10-5297-66941b9847fd@amd.com>
+Date: Fri, 1 Jul 2022 00:02:19 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 5/5] ASoC: amd: enable machine driver build for Jadeite
+ platform
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20220630031755.1055413-1-Vijendar.Mukunda@amd.com>
+ <20220630031755.1055413-6-Vijendar.Mukunda@amd.com>
+ <Yr2E9SQCtk1u6V+i@sirena.org.uk>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <Yr2E9SQCtk1u6V+i@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0029.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:97::18) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-References: <20220628212635.2263706-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20220628212635.2263706-1-aurabindo.pillai@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Jun 2022 14:28:38 -0400
-Message-ID: <CADnq5_ND=YHJ_gTx5VLOx7zJzRbaZmCQHA2uo5HZHBrjzvyDMw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Add debug mask for subviewport mclk switch
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 11b1dd4e-6e30-40e1-a870-08da5ac682ce
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3580:EE_
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RV8zfvNpnnzoOjvK8nbJiJTZg49f2iTAgikShFl0P5KXSnG8qdTPpTEEl35v7b6RT6zfnWV/2Ag1+qTj6tryIPqnRKJ+zbghrAh+4zus7yV6Hwrkv4rWlI7W2dJzGb9fpyPytbfdLK8G658l9c/ab7sYqMFyhSHHWKp1FL22e4IqHQZC3/t0jq1aAQ98esPkjijvsf5rCGXwwk7MZzU8QAmIKDoesesBdMtH0fE3LPCi8EPlc0JmkLJCUziiMer5pY5nyRkHx1Q2kWUuMJNj13N8RDbILQHdurOwqUn/1rD2CA8jfb+fEfpT5pDpPvcpQTQA349p4UVUH8Ys1TnWUE4m/4tY8Tz/yg3Kn++O6xJdPsEDcyuK4ko0Mc6OOIz4aYH71NqwHwkYS6OUl4NqFfPuRtevN0X83auwDlGCRO/5emyL8uzAXYXpNRF+E13O5CCEJVTdZWNr5UfJg+R3kDmygBavUAIJygqIlwTn5PSFlYJajADR46pcjyxKbdt31G/AZi+IOuTNRm9L6TcG8HN0F1Nta5t1xVtv+It390RaCtgboVhnsgzkeq9IeFuNx7HFZvMlJpS4hvXEsWl4UC36EUNNZN/fwR6ocANWJ/zIuAZ8CGvVslwLx2qLmvIN+y6usDYy6wQe23SUUpxBGosg967+5rHTsWWbbB0EPaZ8jiKBlOgVzb1iImHkqlctqqJjzMdzUKdKB4g/cbeZuDf4UTEPLwoaYNCR5SzqoF4LIBG3ZjOXSPzpdR8PyKGADQyoE7kmDTc6iO4Ecl3tLtAhMz2s84EWIkOODelLAcnuAgWdKAtas7PzWbuW75DREPfbXfN8d8IGYOw4fCO7ZzDnAOCfyVhsORFlIDTSfkI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(376002)(346002)(39860400002)(366004)(6916009)(4744005)(54906003)(86362001)(5660300002)(41300700001)(2616005)(31696002)(38100700002)(8936002)(6486002)(6666004)(478600001)(186003)(316002)(66556008)(31686004)(36756003)(8676002)(66946007)(53546011)(7416002)(6512007)(26005)(2906002)(4326008)(66476007)(6506007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGFpN25iZzRFUXlQOEhYMTA0Z0ZKRWhmUnRQZGQ3RHZlL2hUSWR1QkFZckhQ?=
+ =?utf-8?B?VzJORFkxdWEyOVhDdGNJU2pFUHFhQzJld21FM1psWms2T3A1REhWZkZCWlp1?=
+ =?utf-8?B?T3hkTkxaU3VoYTNkTjlidkRaUzJpZExSNUxIVmh6aUF0WXd6VEYwRTNCZ0N4?=
+ =?utf-8?B?ZHZ2d2xEUzVkOVUzK3dHamx3Ry85RWpSR0RzQ1pQbXdMRm1jN2tDem9nbHJa?=
+ =?utf-8?B?R0VzYVVNZDZhRWgzblpQMnBreTRFTnhUY3UwYmNMdHI3UXRVRW40aDFzR1Rk?=
+ =?utf-8?B?Tnljakszc0lvSFN5NFhIMlJ5aU91ZE9SdnBpTXR2d0p1aUR1YWduZFBsZTNx?=
+ =?utf-8?B?L0JVUExvdVkrSU0vemRERWs2QzRwTUFCcmtjcTgxV1hSRW9yNEl6NmIxMHRl?=
+ =?utf-8?B?MFkxU0FqSmlmWUc4U29zeWJyaHVCS1JVM2t2N2FFdGVNUm1UQUk1cWdWb3Mw?=
+ =?utf-8?B?SzVFODBRNWxoOHI2bWw4cUlBVmJYdVg1M1RnbUNKcVQ3QS9vVkZGeldRYjhX?=
+ =?utf-8?B?N2RDcFZQUmZCWWlxVTRWUU4xQmJ0ZjE4KzN2MUhXVGpScmVQWFJCbWRkMnRt?=
+ =?utf-8?B?d2t5TmNvUWxDMWNKZkM4OGNQOHBEc2tXQ21QbmtScHMyWUZkd04yaTZDdjB3?=
+ =?utf-8?B?ZXJ6QytqaFNNSUVnYzFMTzRCOVVCUWdpV2tRSVVGdFlqZC91TFAyOU1yUG83?=
+ =?utf-8?B?M1BFWGovOEMwazVHSS9QeXZyTXVsYm5YWklFLzdtK0NnRXRXRmV6UDRmV0J4?=
+ =?utf-8?B?N1dYR2ZEc2R5YnFGSUltYk1ESE9KcVBZQ3N3STJMaTAvcFVCSmZJMUxEWGwz?=
+ =?utf-8?B?ZEdsTWptbjAvUFdjU3pCWHR4YW1abDFLZTdVQzNTbUZLeDdMUDg4amZtVDJE?=
+ =?utf-8?B?dGpyR0VPVGRqWGF5L3RtT0hKcm1mcngxaTl0WDNsTmUzbXRuZ2pDeUNHNUU2?=
+ =?utf-8?B?K0ViRkRWRE96U2xkSXpHYUVLVWlRZTFHRk1uR3gwZlVvQnlCK09wQU1UejhF?=
+ =?utf-8?B?T0JIcG5HZmkyd2FzZWt5WjdlWFJYTC9TcXUyaEJKakxjTXN3RjZ0eDk2SlBC?=
+ =?utf-8?B?OVNpTENuY05Qc1Avem5UYlJpRXFZK09KNXV0U0JGdHkxN2R2cUtURlQwRTNF?=
+ =?utf-8?B?ME9EQ1d2a1U3YWZYNElvSmRxNWxxemNtU1YxT050aThSVThIcTNhK1FUN3dw?=
+ =?utf-8?B?VE83ZnYxUUFFYnc3Ni9iUHo3N0tFU0QzcXdPWnNQUUpwNkRVTlVHeUpvQldU?=
+ =?utf-8?B?KzViancxaXlaTU5yZW5FZGVRZzFOVVQ0KzRmM1FCelhCUFJYdTFoRGptWEpH?=
+ =?utf-8?B?Z1ZudmtwMDI4dFdEN3MwYkxqTmdPN1QycFc4eG9LYmhqZWVsQU84TVRBV0Q5?=
+ =?utf-8?B?UjlJVWp2TFA1citHcVlSZEtaKzhML2ZUVWJjTDM5MzUvS1lqb2cwR05hbVlY?=
+ =?utf-8?B?NTlrTitEV2RDQm9FdUR1cnJUUVg0MmVITUFPZkRiZUNiT0VrSGt0eGJMcy9h?=
+ =?utf-8?B?YjZzczNtTFViOXNTVm5aWnIrQnpzTlllWllBcXFmemxsYTJPZE9rSzQyZGNn?=
+ =?utf-8?B?VkhXd2E1dmZSbHNuaFM3VTZhbytvbU1lWmhxVVIyeWRBOHpjc2d1RE9DdW84?=
+ =?utf-8?B?WXJOdUp4c3lCdDBOdURuWTBGZHl0SDBXbER1WEhGNWhSMVBkaFZpakYySmhk?=
+ =?utf-8?B?R25IckR1UmljN1llclpZNkR6TmQxRi84Ty9nMGNMOWRSS2lJaWNRdW9yQ1JZ?=
+ =?utf-8?B?MUNxamZLMSt4aCtYQWJGc3JoY1dweGtCSnFIRzQxUVMvOFFFQ0pLWDBVSlEr?=
+ =?utf-8?B?SXVqWThmN0l1QytBQXkwYlNCYTdUSHR0TkpWa3V1VmV1YkpOZkQwd2RlaVVv?=
+ =?utf-8?B?QlRmbzYzQmJuS1NCenErYWs2ZThkWldETUhYN1BockVhL3drUUdZN1lxZ3JB?=
+ =?utf-8?B?MnRaZFJ2TzlBZDBZV29ncGIvaFpZV2NtNnJoYk1tVlBSVkxnaHpXUHdINTl1?=
+ =?utf-8?B?cnBkZXRJRUZxNmFDejFLRUQ4ellLVjIrOExBUmtWdjMyL1N0c3c0TXdIM3Zr?=
+ =?utf-8?B?TDdwSERXUnpaRnpxc1hMODJNdUFnVlJCMnJCL0RYeUorQzJXelBHMFh1QTZX?=
+ =?utf-8?Q?Bd8z2MZWnXMUfFCprgqIRTRmu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11b1dd4e-6e30-40e1-a870-08da5ac682ce
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 18:29:47.5169 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: p8GXhRXXavvIM0o4+/c9b/QpnGWn+VsO4QReDb40eGF0wRrK+kp4pp6Ws/JZq1naLQVZiyHHkw6IJ5wrMXZsrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,58 +127,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ dri-devel@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ zhuning@everest-semi.com, Julian Braha <julianbraha@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 28, 2022 at 5:26 PM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
->
-> [Why&How]
-> Expose a new debugfs enum to force a subviewport memory clock switch
-> to facilitate easy testing.
->
+On 6/30/22 4:41 PM, Mark Brown wrote:
+> On Thu, Jun 30, 2022 at 08:47:55AM +0530, Vijendar Mukunda wrote:
+> 
+>> +	depends on SND_SOC_AMD_ACP && I2C && ACPI
+> 
+> The code treated ACPI as optional so you could relax the ACPI dependency
+> ot be "ACPI || COMPILE_TEST" (I think the same applies to I2C).
 
-Is the debugfs support already plumbed in and this just enables you to
-use it?  If it's in debugfs, do we really need a module parameter to
-enable it or can it just be enabled by default and used via debugfs
-when needed?
-
-Alex
-
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
->  drivers/gpu/drm/amd/include/amd_shared.h          | 1 +
->  2 files changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c9145864ed2b..7a034ca95be2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1559,6 +1559,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->         if (amdgpu_dc_debug_mask & DC_DISABLE_CLOCK_GATING)
->                 adev->dm.dc->debug.disable_clock_gate = true;
->
-> +       if (amdgpu_dc_debug_mask & DC_FORCE_SUBVP_MCLK_SWITCH)
-> +               adev->dm.dc->debug.force_subvp_mclk_switch = true;
-> +
->         r = dm_dmub_hw_init(adev);
->         if (r) {
->                 DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index bcdf7453a403..b1c55dd7b498 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -247,6 +247,7 @@ enum DC_DEBUG_MASK {
->         DC_DISABLE_DSC = 0x4,
->         DC_DISABLE_CLOCK_GATING = 0x8,
->         DC_DISABLE_PSR = 0x10,
-> +       DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
->  };
->
->  enum amd_dpm_forced_level;
-> --
-> 2.36.1
->
+Will fix it and push the newer version.
