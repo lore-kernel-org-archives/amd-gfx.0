@@ -4,116 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A29F7C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 14:36:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 260E0C43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 14:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3693611B992;
-	Thu, 30 Jun 2022 14:36:16 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9552D11B989
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 14:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8AB810F366;
+	Thu, 30 Jun 2022 14:39:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6955610F366
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 14:39:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G8dQ0SIg5FVdPMuNpHpJuexEIgy6CK2mHfjZog+agXT0FsWqfDquDnDeyWSW20jH5a8LI0QjM2us81x45XUEBh7WE23h8KY7TU5MTBjwJkFRsVxK4zfz+1B8BPTVUEVZ2FSXqGkU04kh3PlqIGXLycwv72tMi/r+3Z0E9zoiM0tAuNp2ht7c9ERzv8ZiM34HEq0OwlEqaPDsj4faSf1ZUCvEERwifNGmnhkTwMHvEaNYByaUI3LhhmlJkwSOIboUpVpFuz97Gpjr487mozh23GVsFjVqGHp/jzvtQ1pP7OfnVV02VpgKqSNBhCwhndJfHi0fddYy5IAxwnXs/SAY8g==
+ b=Q71BKNUUgw1jFOne1HTBkrAv++lrxmKcPCRm2ukDEaxSSsCeQqjA1r5JDXXeFZBjwEeYfl7z0LMYZgwQxp0tgRGLbIOZJksDuMxKfib4wujNG4ebkupyW6Cy/qIbdqCGzNCG2H35bbiRhMgy7Nupvj50Pm3NMG1DCFQkZJ3mJ2F6ScfF7m/EmgrIj4vA2igsyLOGS5KlJBhaZ/ThnmraqX+IuHr4D+w5yZInBNnYSV68N0IIm7gVPQJKiP0r1iKFZxVPeTvosKIFXg9K7+sbxx3bTErMSuRfFqcb4mZ9M8lJfLbYE+NWbeAr7BA7MKjIyqdWbuX5anI+txNaJaV6SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GviSplbiXMdgsB+Q0PSlqGO723Z87acTgjJL2hpulYI=;
- b=eX677GJ76WoetX+aYBn6XHuQF+wamCr0MqpGzxnklGMtJiUNZhrbVZLF9EbRJb9pOdfAlEJdD18Yejuxlw4xRF1GeP/PMmgjNtHsbdgSwdNlFCk7o5M/GwrhMKuF0o7VMr9Ujj8zE1U12G574eCj4EH3/6v9ao7oNaicLGk7v3tOPBaKkg3UnHYF1yGIEsE8CqLoBFFSHf4XmMkeypyky4tfynyn+4FCCpSsFb9Uvh4GqzfMtG9ewyUvhnwPa5m70d29nbocXwbOSBqzKZX6VbzwwjMdUpwaAqh4/SxzFqbaZQYyON6dCWocitIud4OHNd7YcoZWxFhQo3wUkeQnCw==
+ bh=/l1tRVtJUwTges/xk1Gw/1pbEsm6L/3HGs6ha8cYPTM=;
+ b=Y5c0XFqjsn0QY0NPf9QLc+IVb27gQwMTcLlJEL8cusPaYem5rVXIC3nYLaVMmRCvgqmPKDmmarulZKS0G4WPDN3g38XzmwksySnc/US1cmvDKXbgTrIMl9zBUIgpIOCgZSpWOgeeMiYQEFUnvVb3RsXboVgbQwRpkDZYknp+avZtX9uvh8ACXr+CwTDjP5gAkv/s9GqZkrh4F0HlOquAC429HtG807VxxdKHvq5MR9SaasReKLp3R0Y5jSG2PLPlMXyZzl44lmHhYyZyE+Z93UAQ4c47ya/HRWpe6l3r+9s836M8vBFq+mxj5QJBzY/1hzqK2B9Z79YMq7QGUacsAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GviSplbiXMdgsB+Q0PSlqGO723Z87acTgjJL2hpulYI=;
- b=jmEUdbO8Gy+4U8dWDu9AhpG3SpsxjzZXFtLFbWD6rCry56fOjB35vMTE8hKDREr8S9f+ca40khWtRtrINm2T37cjJdG/Ur+awkQWlfpCAwv1dESaiy1P7mWkX2FValuTUAGPPjlo2Po5y3ZUFBhrvWMvzAKrSXc3UhXkTQd6a7g=
+ bh=/l1tRVtJUwTges/xk1Gw/1pbEsm6L/3HGs6ha8cYPTM=;
+ b=pII2/MD71NPJzYJZBcNb4qsL9OWvUmQlQrRNT+OSCKfZl4XXBmSbJRU7e6HwR0m0L0epzmc11lYF+DJc4OmHdJwm/P9oY2v+2UrpynQOw0c4/bcu/C0QgFq6/xiu6urZ1znBNxS/4AtRrV0hkbo+muA2bYvM4RgrLwzh9XPlmds=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) with
+ by DM4PR12MB6589.namprd12.prod.outlook.com (2603:10b6:8:b4::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 14:36:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Thu, 30 Jun
+ 2022 14:39:10 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::8d23:cb0f:d4d2:f7fa]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::8d23:cb0f:d4d2:f7fa%6]) with mapi id 15.20.5395.014; Thu, 30 Jun 2022
- 14:36:10 +0000
-Message-ID: <26efbe54-e5f9-cf94-ab6b-e4fe5a261eef@amd.com>
-Date: Thu, 30 Jun 2022 10:36:08 -0400
+ 14:39:10 +0000
+Message-ID: <d8526c4c-69d2-88ec-41ab-61c1b46a9bdf@amd.com>
+Date: Thu, 30 Jun 2022 10:39:02 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH v5 5/11] drm/amdkfd: Add user queue eviction restore SMI
- event
+Subject: Re: [PATCH v5 6/11] drm/amdkfd: Add unmap from GPU SMI event
 Content-Language: en-US
 To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220628145020.26925-1-Philip.Yang@amd.com>
- <20220628145020.26925-6-Philip.Yang@amd.com>
+ <20220628145020.26925-7-Philip.Yang@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220628145020.26925-6-Philip.Yang@amd.com>
+In-Reply-To: <20220628145020.26925-7-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0143.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::22) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT2PR01CA0017.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::22) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2a8fe746-6409-4eef-f448-08da5aa5dfef
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5937:EE_
+X-MS-Office365-Filtering-Correlation-Id: 664204b9-e779-4bb9-bde6-08da5aa64b0d
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6589:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0YOJlXk0h22TmBsOiGJEtBAwxbg0MKPezchF7fjl0iJIir79h6nMGjkbMGokqiklp67vec/FEZOrnf6D7VzPoJ2tER5kTvhCOi7x0eNr2iabg2l+X7ixokSlUcG1wBGdfPCciSnCX1NaGiddgXOJnImNoxvmA+Gbmv80WL3EGpmC/J08XGTxURuHucikcGV5QutHV2NSzsUwNZstxU5xDW/awbM1JTDifb2GzbtlXTI6UmGvgVvKwGTnmtn3TPX2nE+sb5fmsoI8RiNzoOgMB14uAUUHZQlHudRT4uZyBU0J34DmNfnxrhSvJxabBMT1WWOMt1fI4QtrpYXKtSsNlzjYxGEYpAPWjepT41zj7C8sONBbNlbuMqZ2C6E2z1SD1f02a+WT2LNpWrwsGUnWMCikAfuzrUXWGFdOVSSE+nMYknTfELvN4h5WxGDY+id4/4k5TiWx3o0EEThzfcJoyMswltinFk8cVri7BFlpRLNzL8TEApv5dYaIlzz3xzYeeHjG7UmDQxeJRwVgP5TdBQk7qlwubzhQVzhVnIkUu1vedZXoLMV1NJkbo9AQHD7P0CjcMLc2RaRdJf039JbSuuaGI91GfQZzPD4OFAdsHDFxN5NV5q8/TviXWnsfJFgs53iZ1AlGGTh2j7MUhH3PZ7d6Gb1a0hdNpcM95StHxuGQYgVvrYFRXu8wqnukdy2FhkZmKl43hoHEQSriRJW6Ed00NCkp7pN/Mye0WBAPKxQKyM0NKcq39emHAXFpTGq6gKkQQ0TxD/wpLZL0jppzYM7xpYVoZjpwDfEe9p9W3JprcX7ayGMqDjnevQUtTQCDtdrHTO3I1YLhctdBmuv89XXIeSHFwg0s2UeYH/uy1Ss=
+X-Microsoft-Antispam-Message-Info: sXNOYGe+i5XrTTUqPacfQ6UH6+9kH0W4LrgTEwRfh1OvKePgeSj3gqsaRwCsGXu9jfFDj8Qg2zaxBYWTr6uQhgySUHzGXjQIMHnA32YXZXs2JWtwZdWAjCL1I+QrDn2AZzn0LhjTSocRjBQPtGQLIYPYo46NdxjcwlU8qtKcwai9cGBeFK6rgWrg/YGxukjMAO9EsSStnfILqteVu3+GvgdUiUGyo11wwVJ9WJhTqhckLOyL8ZqEn5hiMg88b76SBRmz9plKEEE9QEwCziix+wlTs8UsDErxhPhuWIEvSxFAx4Xx86TLLofUYO9F+vLhuxdvdHz+UISqmS0MQiPxv9nNzAdmmglvBQT5TAuuSnkQMmzKTrM9mqTVihnW9b8Km2G9ZBdFaswUrejq8jimp0P4Xmk3KBswoktf5yP0tL6ydPo9eeQudr7b9bQiEAUm1mlJQK4s9xu3Iu/XymitHGMHgaRYzjL0O2nmyvujq4MmDfCCuoLs04U5Hp7oaInHb8C2y3IESBLON6u8iAA8G/vXaV+9GzTQlD9fxXYGATiraiQh+DV/42FJcvQtDXc0YA1goQ5PUKKoEy856zNncyWTmU1acIb75d4mflzn/RcQQzRKrS7kZstCoKj9G/Vcr+X0vV7WbbZ3tKGBXebDcLs5JmmcpwOIUnJIOfPSTjTUOWoAECOXIepOavXjZPR7QXVIqpSwUv5FvYZ0S9GrBq7PW/eMyIbW3Zf6QLDEkHMNBMderQuE0Amp6yL/uZtoFp6QAznUmkcqRA4S4TuXKzMhgj9Rq/cbhQcUl7Vat49k6F7mDBwTXepHVo88CaVqg1Xia7/7BtM0jFI8fCqluxHhE0o0/gjrELVH94Qktac=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(6486002)(44832011)(66556008)(66946007)(31696002)(8676002)(26005)(66476007)(86362001)(478600001)(6506007)(6512007)(41300700001)(83380400001)(8936002)(36756003)(2906002)(38100700002)(2616005)(316002)(31686004)(5660300002)(186003)(30864003)(43740500002)(45980500001);
+ SFS:(13230016)(4636009)(376002)(346002)(396003)(39860400002)(366004)(136003)(26005)(31686004)(186003)(83380400001)(44832011)(6486002)(38100700002)(36756003)(8936002)(478600001)(2616005)(316002)(66946007)(6666004)(66556008)(2906002)(41300700001)(6506007)(8676002)(66476007)(6512007)(86362001)(5660300002)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUZ1WHpCQ0FySjRHUmtvOXVmWjBFbysrcUdrSDVFU1NsNEU1MGhyOGp3VmtJ?=
- =?utf-8?B?OEVDSGJJWWFySVBJZXVhYUVHNiswaGRSTmhHT1FwQmtKYWxUaU55Q0VGbzBq?=
- =?utf-8?B?UVB4YmtZa3QzVjdoaXRuc0s5RUo2WG1ERm43dTQyWDBIR01zY1psS0JzTUsx?=
- =?utf-8?B?K3M2NHpGRCswK1VwTVFPMnNkdHRMSGgxYktlYUVnSExMbWx0MmROMDdlSFdy?=
- =?utf-8?B?eFRINWRtSDF2RUFpWm1sYkxxZnp5ejdLcWZ3NjNQdVEvMHVZZVhMaVVGQkNl?=
- =?utf-8?B?ekZCR1ZrM21sNjFvdEVVcGx2VWFKZDBmb2FpSm5tK1FJTmlwMk1UU0FXT2s4?=
- =?utf-8?B?R0RFYkpGTTNaVDhPd3hmV25KRjF5eFNDYXpBZGJRaEdPSFVHVUV6bHNWbVFx?=
- =?utf-8?B?UjhTYkE0SS9hZGMzK1N0ZXhEd3J6Y0o0Uk9WOWg1ZEkybTMzZjF3VWFrUXN0?=
- =?utf-8?B?SDRFRlBtYUhnUUUySWZZd2g3bThJZTRNNXJBV1F1ekdidXVLeEw3MUZ0SEdh?=
- =?utf-8?B?RkRXOTM4UjBlWDU4dUNWRTZsanprL2NoV1l4a3RCQ0dWeWswYzBJWVIyY25V?=
- =?utf-8?B?V1lNMkMyTFRlRWFvajJ5VGtmWmxaOEt0U2tXMU1CMzJzSFdwdXA3UHlqNnVU?=
- =?utf-8?B?aDFadTE5a0R2RTV0VHBNVEY2ZjVpN29XNzZvTTdSYUhGeWdPc3hPR2gwZ1M5?=
- =?utf-8?B?WnlzU21uWEF3VjNqYWV3WVdlQitFQ0xtRjA4UDJXaHUzR1V5NnAvbmRnZ1pp?=
- =?utf-8?B?WW1LRmlKK0dGNTl4cmhXajBlUmQ2c0d5bTJWdjlLSU1LZGlLMHQ3bURTZytS?=
- =?utf-8?B?bjF3cEg4RmkrSFpGTWdlMkhPNXVrdEJPdWNvSFV4UUtkZG51azYzM0dyZUVr?=
- =?utf-8?B?ZTZPbEcveXFxUk9kN01YZ3BaT0doeUJEOTVuTFJmU1dtNXUydkI5SFBYZ2tU?=
- =?utf-8?B?emNxQVV5TVc1Z0U0cldGL1dlUmtTb0F3L016a2lvSHhqN1Y1MWFXSzB2d3p2?=
- =?utf-8?B?aUFIY3cxTmxndkpXMlFSSFkrYkowY05rR3RWWWxnZ2dvMnE1cGRkdW5nUnhn?=
- =?utf-8?B?OHpUNlBUbHhMMlpxNUVrY3NsRXVNTFNyS2VTVEs0Rm9BVzFNNGM0VWl1dExx?=
- =?utf-8?B?SjNoMEJZOWJxb2t6d1RPMHRkVjdxM01YSWQ1WStWdGwyRWNVYnFqWWplSC8w?=
- =?utf-8?B?ZTZNcHArTmtoSXFPd0lLYkY3NHpNeUR6aDR5QzV0Q1grd2FEZCtVbkZlUEd4?=
- =?utf-8?B?bHRCZkd0eThGNXBhNWVkcWZERXZRM0htK29IS0VmVm5QMEx0aFdSUk9hVkdi?=
- =?utf-8?B?aStIdVR6UnFqWjZpVmx2dnQzNk81UFIrRjk4MURsNDh0R3dnUU9VeGtLai9r?=
- =?utf-8?B?VUtuTnR2ZTA0QW9sVVF4aGlzV2lsNVJIcVZPOHpQOTg4cGs3bmJqRGpsaEpB?=
- =?utf-8?B?UzQ1S2p3ZzBMT1FZSjRDT0F3bCtHVWErN0RFVzZBUE5uOWlRL2lUU1BjYUF2?=
- =?utf-8?B?MmpHSDZQZVA1RWNPTW95VzcraXBLQ3BaN0FsU2YyVmcvb0ljd284RHZhMU96?=
- =?utf-8?B?YWRTYzRnTEJBREJqYll4OGVQbmEvWkg2Z3Z0a3gzNFhMcGcyYlVLY0lBU2Mw?=
- =?utf-8?B?bXQ5RngwbXJ3WjYxRE8wVUR3TzIzUVpMWDRlOGlKQ3ppQlFUQXNWWnVxMEFE?=
- =?utf-8?B?Z3VFMWdTRGJ1K3hyQkRxWTRIbkt6R1lpWXUweUJuQXgwWDNLNXNIeHJadjUx?=
- =?utf-8?B?a08vSzN4OS9KNTBxS3FGZG1pb0NTWVNicjJBLzk2STk5cy9Pd1E1ZXVoMWtI?=
- =?utf-8?B?bllPU2IwbkxqVnUzbW1lYTlhSVVnZjgwS1BPS1JuRW5NdGZSKzgvb0owNFBt?=
- =?utf-8?B?cC93eXBsZ2swTE5NNTRldFhoNkdBd3NBdkZ5VWpnRW81YkVzdGIrcUp1MStD?=
- =?utf-8?B?STdCVjlGcjlOeWw3S3dHcnFjMnl6SFFFVzgyTEk5cUtJRFRXb0VhbHpTczZu?=
- =?utf-8?B?UjYzZ1JtQ3dZcjNiL2xvQzIwei9mZUMvVHlCWThobjBuUFFaL3lNQk5EOWxY?=
- =?utf-8?B?MmhBaHlxb2dKMzl0TWpBLzZmNmNudXpRV3dIUlVwZDRnVkJnRERNdU9DemhY?=
- =?utf-8?Q?EhHayJvodeupjTNa+PIfBLysd?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sm9rMnNmanN0RU4yWm00UUtTcGtFdG9iTllRMzVEdVpCeFpBSTZUYlYrWWxr?=
+ =?utf-8?B?WkdjRjJjQnRHSzFTVjRaZkZ2cDEwcnJJOCt0elNFUG5EV2tzZW1rYlJ5M0pt?=
+ =?utf-8?B?NVJtT0tDcVExU2dualA2UzRtMnFkVElaTm9NWlNUU0dvcDJkUWtkbXVlZnh3?=
+ =?utf-8?B?MlNrd3ArYk9kNzRpQTNXZFduWTlFbm5LeWUzQlgyanRZak5tdmZ3TG83OEVG?=
+ =?utf-8?B?QjhXSmZjTjZmMUg2NUdNcm1DMkNtTU9oZVBaZ1RNYTRvdGV4ZkJnS2g0bVFS?=
+ =?utf-8?B?REZ6ZTZORTZ5VTZRMFh1NzFiK1ZZaGdLOXFTYUNJRzBWYUh3N2VKUTNRQXdw?=
+ =?utf-8?B?RnJNa3J2cXVldi9DUjk2dlNUOEptR0MvSjROMGVxT2gyaGdSNkQ3M3hZUDlS?=
+ =?utf-8?B?T0RlWkdDU1VTcXJIUUY5eFBzcXEwRklvV2t2bkl5a0ZiSmMvd3dJOUorQUdP?=
+ =?utf-8?B?cWtFamhJWHVSOXdQTEtHUDl4bW9ZUnpSOE9EczZuKzNLTHZISTBjNU1BY2VI?=
+ =?utf-8?B?ZXg2bUhpY0FVWlNicER4VUlOL1BFV2o3QU5GMXZ3YjhIbndJb3I5R1BtZ0dG?=
+ =?utf-8?B?S0IvcU5US0d4SXZ1VlRkNVhKWWdaMURxNWRzdnNQZGEwSzNRa2tkNFByU1Jo?=
+ =?utf-8?B?QVNnMXRhZXZMRVlMNUJTQlZxZWRWdWJCeDJBeXF4dXEyYXdaZjA1UHpUMjdT?=
+ =?utf-8?B?cTA0RWpkTm1CV0o4YU51THdkRURDUFhGblg4cTdCRVdxVEdubk9aMHAveXJO?=
+ =?utf-8?B?SExxcFRqVmt5M010SFhsVHdqVStsK24wR2p6QklNRFpHSUIyUFU0VmlaRG51?=
+ =?utf-8?B?ZnpKY2N2enJqM2tHbEFyRGNHT3BKeDUrTTVFMCthb3pWd1AyVjFuNU43OWM0?=
+ =?utf-8?B?SVVGQmhMdi9TMlBVZlh6ajZEaG1PUWQ0MlpscjJQZENLaDVZNkw3dUpVclN2?=
+ =?utf-8?B?L1B2WnROM1pFdjZicXE0S1VhbEhaT1lvMm5jUmdENkY2UVFZd3JaQXdrZTVv?=
+ =?utf-8?B?OGkreHVlWkFVeFRxZHZjRHdmdSsyOVdUNUsvT0Q0OWNNdlEraHgrL1I2VHhx?=
+ =?utf-8?B?dnFmN1ppbSt5N2tYMUtZRUJHQWR0MHVpa2luWkowbkgxMktlbDZjM2hVU3JJ?=
+ =?utf-8?B?dFB1am9FWlZaMnVtN2JTUDRPTXZrcmFOSVVvTE1BREtPQXNjTVExL1QzWE1y?=
+ =?utf-8?B?bkEyL0Q2aEJGWGFEKzEwRkN5VjBCT1dUTEV3dGtBOHc3d240RFptamtXWXZI?=
+ =?utf-8?B?cjVRU3JuTFRNRDA2YVpOUC9FakFhQnl6VGdqL09ieWlNckpYVmhGQ1lEa1g3?=
+ =?utf-8?B?RU9idEdLNGtNWjZjeEZ4bWQxKzdaelZ6MzNyaDMzaHkzc3Vlc1lGUm1xSEhC?=
+ =?utf-8?B?bHFDUEd0bi9CalFlRUdReFlqMGlHWnlIUWNDZENCZjNMU3FHMnpyTGxjczdm?=
+ =?utf-8?B?N1AyOGtrRXRGVGNnMmZOa0J2dnZTNCtiTTJRZFR4anF1NWw0S25vSmFleGF0?=
+ =?utf-8?B?TEhOa1RRWXRaQno0eWIxSm1SRXM0ZEl6dzRLWXhDN2FMc0ZwUzZaeWkvTVRm?=
+ =?utf-8?B?ZFUzejVSTjhjejRyYlpMWUVXaFFwRW0reEVzZUQzOEF4VkVUOWl2YWxjZ1ZD?=
+ =?utf-8?B?Rk95dnFXWFdqVXJxRysxS1hyQk9DWC91ZEhiWU5qUzFpUDRjVG5iemVkRHUz?=
+ =?utf-8?B?NFVVbFYzKzRIS0lxOWViQ2Z5V1ptSkxyZmNncXh6K1V5WE1tQmltb3pQMGps?=
+ =?utf-8?B?Q2t0Yml2eUw0ejBQUCs4QnR2SFhJUWZSR25LS25wN3Q0aExvcUFOcXdtdE1C?=
+ =?utf-8?B?TXVGcVJBYXlxQnFFMjVtRHJFc0Z0ZlFzZ1ROZFN1bjJXZkEvdDFQMFdwMkJr?=
+ =?utf-8?B?azVZZDVWWmRSMVp5T0VWVllFTzdvbjhzbmFCNEZUMlc3VGpWOVZVODZBYWQ0?=
+ =?utf-8?B?VGM3KzNoVWFpZUFaYUJsWGhxQTEwQnNpRlBLVC8zc0FHbTlPYXo4b1FRVUhB?=
+ =?utf-8?B?QjBnbFNhcXVncmNId0pXeU9vVGVocUFqUmxGODZHTEtwZUV5T2VyTVErL21h?=
+ =?utf-8?B?eVFQTlBZbC9DZFZMNWFnbFpsdStrK0Y0bE8yN2NseTY3K2pJOHp6Y0FIQm91?=
+ =?utf-8?Q?egs7MjShiL3ZIGHklYWkGr7p8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a8fe746-6409-4eef-f448-08da5aa5dfef
+X-MS-Exchange-CrossTenant-Network-Message-Id: 664204b9-e779-4bb9-bde6-08da5aa64b0d
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 14:36:10.0900 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 14:39:10.0997 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: se3IBuuyoAVfwPMW3w2Adqfoo8/1B/BOo+8vGR3xVqtFG0SzMYPQ7NVwp0aZ5Tia5WJPHSmOehjd0uOIq+THAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5937
+X-MS-Exchange-CrossTenant-UserPrincipalName: jGJKqxsxydD2WcHGqXIbUQ5g1WA+NZwP8wNFL5dDgLIAHC96G3tM/XCShxg/npMjoQTVOsOw2I+/cSk9B8/EBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6589
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,12 +128,8 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 2022-06-28 um 10:50 schrieb Philip Yang:
-> Output user queue eviction and restore event. User queue eviction may be
-> triggered by svm or userptr MMU notifier, TTM eviction, device suspend
-> and CRIU checkpoint and restore.
->
-> User queue restore may be rescheduled if eviction happens again while
-> restore.
+> SVM range unmapped from GPUs when range is unmapped from CPU, or with
+> xnack on from MMU notifier when range is evicted or migrated.
 >
 > Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
@@ -142,283 +137,136 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 12 ++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  4 +--
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  4 +--
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 15 ++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   | 35 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h   |  4 +++
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 ++--
->   9 files changed, 69 insertions(+), 15 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c |  9 ++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  3 +++
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c        | 25 +++++++++++++++------
+>   3 files changed, 30 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index b25b41f50213..73bf8b5f2aa9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -336,7 +336,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
->   }
->   #endif
->   /* KGD2KFD callbacks */
-> -int kgd2kfd_quiesce_mm(struct mm_struct *mm);
-> +int kgd2kfd_quiesce_mm(struct mm_struct *mm, uint32_t trigger);
->   int kgd2kfd_resume_mm(struct mm_struct *mm);
->   int kgd2kfd_schedule_evict_and_restore_process(struct mm_struct *mm,
->   						struct dma_fence *fence);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 5ba9070d8722..6a7e045ddcc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -32,6 +32,7 @@
->   #include "amdgpu_dma_buf.h"
->   #include <uapi/linux/kfd_ioctl.h>
->   #include "amdgpu_xgmi.h"
-> +#include "kfd_smi_events.h"
->   
->   /* Userptr restore delay, just long enough to allow consecutive VM
->    * changes to accumulate
-> @@ -2381,7 +2382,7 @@ int amdgpu_amdkfd_evict_userptr(struct kgd_mem *mem,
->   	evicted_bos = atomic_inc_return(&process_info->evicted_bos);
->   	if (evicted_bos == 1) {
->   		/* First eviction, stop the queues */
-> -		r = kgd2kfd_quiesce_mm(mm);
-> +		r = kgd2kfd_quiesce_mm(mm, KFD_QUEUE_EVICTION_TRIGGER_USERPTR);
->   		if (r)
->   			pr_err("Failed to quiesce KFD\n");
->   		schedule_delayed_work(&process_info->restore_userptr_work,
-> @@ -2655,13 +2656,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
->   
->   unlock_out:
->   	mutex_unlock(&process_info->lock);
-> -	mmput(mm);
-> -	put_task_struct(usertask);
->   
->   	/* If validation failed, reschedule another attempt */
-> -	if (evicted_bos)
-> +	if (evicted_bos) {
->   		schedule_delayed_work(&process_info->restore_userptr_work,
->   			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
-> +
-> +		kfd_smi_event_queue_restore_rescheduled(mm);
-> +	}
-> +	mmput(mm);
-> +	put_task_struct(usertask);
->   }
->   
->   /** amdgpu_amdkfd_gpuvm_restore_process_bos - Restore all BOs for the given
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index a0246b4bae6b..6abfe10229a2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2428,7 +2428,7 @@ static int criu_restore(struct file *filep,
->   	 * Set the process to evicted state to avoid running any new queues before all the memory
->   	 * mappings are ready.
->   	 */
-> -	ret = kfd_process_evict_queues(p);
-> +	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
->   	if (ret)
->   		goto exit_unlock;
->   
-> @@ -2547,7 +2547,7 @@ static int criu_process_info(struct file *filep,
->   		goto err_unlock;
->   	}
->   
-> -	ret = kfd_process_evict_queues(p);
-> +	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
->   	if (ret)
->   		goto err_unlock;
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index c8fee0dbfdcb..6ec0e9f0927d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -837,7 +837,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
->   	spin_unlock_irqrestore(&kfd->interrupt_lock, flags);
->   }
->   
-> -int kgd2kfd_quiesce_mm(struct mm_struct *mm)
-> +int kgd2kfd_quiesce_mm(struct mm_struct *mm, uint32_t trigger)
->   {
->   	struct kfd_process *p;
->   	int r;
-> @@ -851,7 +851,7 @@ int kgd2kfd_quiesce_mm(struct mm_struct *mm)
->   		return -ESRCH;
->   
->   	WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
-> -	r = kfd_process_evict_queues(p);
-> +	r = kfd_process_evict_queues(p, trigger);
->   
->   	kfd_unref_process(p);
->   	return r;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 59ba50ce54d3..b9e7e9c52853 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -946,7 +946,7 @@ static inline struct kfd_process_device *kfd_process_device_from_gpuidx(
->   }
->   
->   void kfd_unref_process(struct kfd_process *p);
-> -int kfd_process_evict_queues(struct kfd_process *p);
-> +int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger);
->   int kfd_process_restore_queues(struct kfd_process *p);
->   void kfd_suspend_all_processes(void);
->   int kfd_resume_all_processes(void);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index a13e60d48b73..fc38a4d81420 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -43,6 +43,7 @@ struct mm_struct;
->   #include "kfd_device_queue_manager.h"
->   #include "kfd_iommu.h"
->   #include "kfd_svm.h"
-> +#include "kfd_smi_events.h"
->   
->   /*
->    * List of struct kfd_process (field kfd_process).
-> @@ -1736,7 +1737,7 @@ struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm)
->    * Eviction is reference-counted per process-device. This means multiple
->    * evictions from different sources can be nested safely.
->    */
-> -int kfd_process_evict_queues(struct kfd_process *p)
-> +int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger)
->   {
->   	int r = 0;
->   	int i;
-> @@ -1745,6 +1746,9 @@ int kfd_process_evict_queues(struct kfd_process *p)
->   	for (i = 0; i < p->n_pdds; i++) {
->   		struct kfd_process_device *pdd = p->pdds[i];
->   
-> +		kfd_smi_event_queue_eviction(pdd->dev, p->lead_thread->pid,
-> +					     trigger);
-> +
->   		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
->   							    &pdd->qpd);
->   		/* evict return -EIO if HWS is hang or asic is resetting, in this case
-> @@ -1769,6 +1773,9 @@ int kfd_process_evict_queues(struct kfd_process *p)
->   
->   		if (n_evicted == 0)
->   			break;
-> +
-> +		kfd_smi_event_queue_restore(pdd->dev, p->lead_thread->pid);
-> +
->   		if (pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
->   							      &pdd->qpd))
->   			pr_err("Failed to restore queues\n");
-> @@ -1788,6 +1795,8 @@ int kfd_process_restore_queues(struct kfd_process *p)
->   	for (i = 0; i < p->n_pdds; i++) {
->   		struct kfd_process_device *pdd = p->pdds[i];
->   
-> +		kfd_smi_event_queue_restore(pdd->dev, p->lead_thread->pid);
-> +
->   		r = pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
->   							      &pdd->qpd);
->   		if (r) {
-> @@ -1849,7 +1858,7 @@ static void evict_process_worker(struct work_struct *work)
->   	flush_delayed_work(&p->restore_work);
->   
->   	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
-> -	ret = kfd_process_evict_queues(p);
-> +	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_TTM);
->   	if (!ret) {
->   		dma_fence_signal(p->ef);
->   		dma_fence_put(p->ef);
-> @@ -1916,7 +1925,7 @@ void kfd_suspend_all_processes(void)
->   		cancel_delayed_work_sync(&p->eviction_work);
->   		cancel_delayed_work_sync(&p->restore_work);
->   
-> -		if (kfd_process_evict_queues(p))
-> +		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
->   			pr_err("Failed to suspend process 0x%x\n", p->pasid);
->   		dma_fence_signal(p->ef);
->   		dma_fence_put(p->ef);
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> index ec4d278c2a47..3917c38204d0 100644
+> index 3917c38204d0..e5896b7a16dd 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -283,6 +283,41 @@ void kfd_smi_event_migration_end(struct kfd_dev *dev, pid_t pid,
->   			  from, to, trigger);
+> @@ -318,6 +318,15 @@ void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
+>   	kfd_unref_process(p);
 >   }
 >   
-> +void kfd_smi_event_queue_eviction(struct kfd_dev *dev, pid_t pid,
+> +void kfd_smi_event_unmap_from_gpu(struct kfd_dev *dev, pid_t pid,
+> +				  unsigned long address, unsigned long last,
 > +				  uint32_t trigger)
 > +{
-> +	kfd_smi_event_add(pid, dev, KFD_SMI_EVENT_QUEUE_EVICTION,
-> +			  "%lld -%d %x %d\n", ktime_get_boottime_ns(), pid,
-> +			  dev->id, trigger);
-> +}
-> +
-> +void kfd_smi_event_queue_restore(struct kfd_dev *dev, pid_t pid)
-> +{
-> +	kfd_smi_event_add(pid, dev, KFD_SMI_EVENT_QUEUE_RESTORE,
-> +			  "%lld -%d %x\n", ktime_get_boottime_ns(), pid,
-> +			  dev->id);
-> +}
-> +
-> +void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
-> +{
-> +	struct kfd_process *p;
-> +	int i;
-> +
-> +	p = kfd_lookup_process_by_mm(mm);
-> +	if (!p)
-> +		return;
-> +
-> +	for (i = 0; i < p->n_pdds; i++) {
-> +		struct kfd_process_device *pdd = p->pdds[i];
-> +
-> +		kfd_smi_event_add(p->lead_thread->pid, pdd->dev,
-> +				  KFD_SMI_EVENT_QUEUE_RESTORE,
-> +				  "%lld -%d %x %c\n", ktime_get_boottime_ns(),
-> +				  p->lead_thread->pid, pdd->dev->id, 'R');
-> +	}
-> +	kfd_unref_process(p);
+> +	kfd_smi_event_add(pid, dev, KFD_SMI_EVENT_UNMAP_FROM_GPU,
+> +			  "%lld -%d @%lx(%lx) %x %d\n", ktime_get_boottime_ns(),
+> +			  pid, address, last - address + 1, dev->id, trigger);
 > +}
 > +
 >   int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
 >   {
 >   	struct kfd_smi_client *client;
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> index ec5d74a2fef4..b23292637239 100644
+> index b23292637239..76fe4e0ec2d2 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> @@ -42,4 +42,8 @@ void kfd_smi_event_migration_start(struct kfd_dev *dev, pid_t pid,
->   void kfd_smi_event_migration_end(struct kfd_dev *dev, pid_t pid,
->   			     unsigned long start, unsigned long end,
->   			     uint32_t from, uint32_t to, uint32_t trigger);
-> +void kfd_smi_event_queue_eviction(struct kfd_dev *dev, pid_t pid,
+> @@ -46,4 +46,7 @@ void kfd_smi_event_queue_eviction(struct kfd_dev *dev, pid_t pid,
+>   				  uint32_t trigger);
+>   void kfd_smi_event_queue_restore(struct kfd_dev *dev, pid_t pid);
+>   void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm);
+> +void kfd_smi_event_unmap_from_gpu(struct kfd_dev *dev, pid_t pid,
+> +				  unsigned long address, unsigned long last,
 > +				  uint32_t trigger);
-> +void kfd_smi_event_queue_restore(struct kfd_dev *dev, pid_t pid);
-> +void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm);
 >   #endif
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 5cead2a0e819..ddc1e4651919 100644
+> index ddc1e4651919..bf888ae84c92 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1730,14 +1730,16 @@ static void svm_range_restore_work(struct work_struct *work)
->   	mutex_unlock(&svms->lock);
->   	mmap_write_unlock(mm);
->   	mutex_unlock(&process_info->lock);
-> -	mmput(mm);
+> @@ -1200,7 +1200,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
 >   
->   	/* If validation failed, reschedule another attempt */
->   	if (evicted_ranges) {
->   		pr_debug("reschedule to restore svm range\n");
->   		schedule_delayed_work(&svms->restore_work,
->   			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
+>   static int
+>   svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
+> -			  unsigned long last)
+> +			  unsigned long last, uint32_t trigger)
+>   {
+>   	DECLARE_BITMAP(bitmap, MAX_GPU_INSTANCE);
+>   	struct kfd_process_device *pdd;
+> @@ -1232,6 +1232,9 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
+>   			return -EINVAL;
+>   		}
+>   
+> +		kfd_smi_event_unmap_from_gpu(pdd->dev, p->lead_thread->pid,
+> +					     start, last, trigger);
 > +
-> +		kfd_smi_event_queue_restore_rescheduled(mm);
+>   		r = svm_range_unmap_from_gpu(pdd->dev->adev,
+>   					     drm_priv_to_vm(pdd->drm_priv),
+>   					     start, last, &fence);
+> @@ -1759,7 +1762,8 @@ static void svm_range_restore_work(struct work_struct *work)
+>    */
+>   static int
+>   svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+> -		unsigned long start, unsigned long last)
+> +		unsigned long start, unsigned long last,
+> +		enum mmu_notifier_event event)
+>   {
+>   	struct svm_range_list *svms = prange->svms;
+>   	struct svm_range *pchild;
+> @@ -1804,6 +1808,12 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>   			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
+>   	} else {
+>   		unsigned long s, l;
+> +		uint32_t trigger;
+> +
+> +		if (event == MMU_NOTIFY_MIGRATE)
+> +			trigger = KFD_SVM_UNMAP_TRIGGER_MMU_NOTIFY_MIGRATE;
+> +		else
+> +			trigger = KFD_SVM_UNMAP_TRIGGER_MMU_NOTIFY;
+>   
+>   		pr_debug("invalidate unmap svms 0x%p [0x%lx 0x%lx] from GPUs\n",
+>   			 prange->svms, start, last);
+> @@ -1812,13 +1822,13 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+>   			s = max(start, pchild->start);
+>   			l = min(last, pchild->last);
+>   			if (l >= s)
+> -				svm_range_unmap_from_gpus(pchild, s, l);
+> +				svm_range_unmap_from_gpus(pchild, s, l, trigger);
+>   			mutex_unlock(&pchild->lock);
+>   		}
+>   		s = max(start, prange->start);
+>   		l = min(last, prange->last);
+>   		if (l >= s)
+> -			svm_range_unmap_from_gpus(prange, s, l);
+> +			svm_range_unmap_from_gpus(prange, s, l, trigger);
 >   	}
-> +	mmput(mm);
->   }
 >   
->   /**
-> @@ -1793,7 +1795,7 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
->   			 prange->svms, prange->start, prange->last);
+>   	return r;
+> @@ -2232,6 +2242,7 @@ static void
+>   svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+>   			 unsigned long start, unsigned long last)
+>   {
+> +	uint32_t trigger = KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU;
+>   	struct svm_range_list *svms;
+>   	struct svm_range *pchild;
+>   	struct kfd_process *p;
+> @@ -2259,14 +2270,14 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+>   		s = max(start, pchild->start);
+>   		l = min(last, pchild->last);
+>   		if (l >= s)
+> -			svm_range_unmap_from_gpus(pchild, s, l);
+> +			svm_range_unmap_from_gpus(pchild, s, l, trigger);
+>   		svm_range_unmap_split(mm, prange, pchild, start, last);
+>   		mutex_unlock(&pchild->lock);
+>   	}
+>   	s = max(start, prange->start);
+>   	l = min(last, prange->last);
+>   	if (l >= s)
+> -		svm_range_unmap_from_gpus(prange, s, l);
+> +		svm_range_unmap_from_gpus(prange, s, l, trigger);
+>   	svm_range_unmap_split(mm, prange, prange, start, last);
 >   
->   		/* First eviction, stop the queues */
-> -		r = kgd2kfd_quiesce_mm(mm);
-> +		r = kgd2kfd_quiesce_mm(mm, KFD_QUEUE_EVICTION_TRIGGER_SVM);
->   		if (r)
->   			pr_debug("failed to quiesce KFD\n");
+>   	if (unmap_parent)
+> @@ -2333,7 +2344,7 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+>   		svm_range_unmap_from_cpu(mni->mm, prange, start, last);
+>   		break;
+>   	default:
+> -		svm_range_evict(prange, mni->mm, start, last);
+> +		svm_range_evict(prange, mni->mm, start, last, range->event);
+>   		break;
+>   	}
 >   
