@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFC7C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:14:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E79DC43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF0C11A21C;
-	Thu, 30 Jun 2022 19:14:04 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D2810EC70
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 19:13:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE70D10FA4C;
+	Thu, 30 Jun 2022 19:14:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7E4711A21C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 19:14:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oJndupGMFjGw/9xhrUMVsOFlCCvmFsVWCQ32JTM/vJKEZdaiY0zeRvQUB+Q7LiJ0MT/6cyzIYzz3Y+dDZ51WUpbxjC9toY1orc2S5GFtcUQz6IkvoEOhoDOe8wk1omALETX0CAl6lqSIcsqhOWac23AgbACHiYdimYGXAHu4s0agvNA/LVCXwOR+7+s0TX77EC9m3QRBxO9eFZmYm9iGzXOS56UoDDzoGGRE9w0SULkPzTnjEk0+ATzECEfr4YqhgxKgXUolBBIhEV5IbpOYl6X6rOpjUoknwKmIBHN7aNf9FqHJy/UUFLO4OZbxU80ML+Au/M3qVGotsDoFS8fFpA==
+ b=UBoAr+Y1q9PSZcCRRJ53HAL5e+R9Q/+Fn4UgSk+2lqBHCF+yXGCnzJwkHugC3TjriF/Lxkoul0DmJgNi/zQmydgCscNaua99B8JM3G8J+y0wvXe+pJkGZdsjeiEpRDmmBdoySNkaJaeV19K2rExgRP+qwXmqL4fA5EQ3wD0Oe1NHWeOw1Y8+zKRaOeLGP0vZOtlDTEku+JEF0tFKJJ3btIz0vOaolQrd0OEk80fNutnL0YASixojXuoZcDCbX5svKx+UrnOpjFBIMP+529a8TxR+4gVjJmJWtgnwZ4tTzz433NuUMlpUV87Jt3xo/xfOkDQWjgq8cCgbOq7IlD/BsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sX9aMZhzT6TUWBM2h5hBZ5W3r4vYvEe8YA1cTw9w4Go=;
- b=fvc7IED8lyEOubIcZhVEc/TOvTDLXlk1MQZhqKxLJj94roam9sr+8WMeZ7/2+611KdMxzmwV1xTWsqpkYnKH8M3UixT8GOq49U92QqwnBIKJ6OWdQmWO1r/4mnXTOZfdsWiBcyjg+drzWBcYhlev0TfXSUvnpCcjDTEmgfjl2XJ/qOmQUO6Usk8Sb7lU4iTDYViHIHNRcDCBaIF/facnJCltVc+qUcLAztZKv34Q/fXwopOOMAzjRROYsZUmjXO6VCS972OwyFcmn3E1MOqCM2mO9BQw/Mr/caw3Q/hIUYK6ntbePqdRDh7jFihRFpwxhUz/lZwl+vYR5LmeCggzwA==
+ bh=lspxXFQZO3PGsAgfXJ6tbATap3a/BfeYrwXQ6xe+fcM=;
+ b=NqolMUJYOIMZP5wwtIYupb6hxy2YBUW9CATMBEuiQDwFtmLkcSk8h40xD4Pa5R5l6O8PvgZmlhizYE20ZEkjgR8DiFNR7NZKzA1aFs3EAiNpW5dTkOvE6q8J9Ta27xPCHlWFR1Jy/+oC6qjj42+XbqHxTkiPZy7ZaHv600oveAtTjtyMz4sqkp1VssCenvJowVuTJ9NPO+Aqy95PjI6rSmGmCVuaA2/3mUwsb9Dif1xWc0t79Rp8pz4KAnjVm7jzEOWe6EeoYuNIF4+N6efJV6xUyldidg4Rnt1V99OfTSX7Ui5CkhgQc/CdNSVWBfstvhxBqWVhmEstyKYj1KTyOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sX9aMZhzT6TUWBM2h5hBZ5W3r4vYvEe8YA1cTw9w4Go=;
- b=sySoIcRjwN7Ecg69D7eflhh7bFVzHdBRBuhNGwMQx5ooNWm1Dw7rk/5vSrpS2zgUxPaZFuFodjrmXJgPwv4fTEdFK0zap/vrIDcBHBdR8D4CVdNhHJfCAVgsKKQRlJ3JXNv2bkQDs2FI1OULBc6WmnFK36BGKLX3bAYuUVE4DqY=
-Received: from BN0PR04CA0060.namprd04.prod.outlook.com (2603:10b6:408:e8::35)
- by BL0PR12MB2465.namprd12.prod.outlook.com (2603:10b6:207:45::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 19:13:56 +0000
-Received: from BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::a3) by BN0PR04CA0060.outlook.office365.com
- (2603:10b6:408:e8::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
- Transport; Thu, 30 Jun 2022 19:13:56 +0000
+ bh=lspxXFQZO3PGsAgfXJ6tbATap3a/BfeYrwXQ6xe+fcM=;
+ b=z9mmTCMh+7D3jNAi1SjsxfSDJWsQJM6BnrmdvxIclB9CUrsXxgNWP+hMuT2fd5R9eRrKWqbvdYleJhMCmnuphE8eRxhFQ32DY6SMowMb11YHLzfCrohjmFA07RAi0uRNzWsUUuxm0dy6U6MGUtK2aprZ6WUsfDygbYpVA65Dry4=
+Received: from BN9PR03CA0512.namprd03.prod.outlook.com (2603:10b6:408:131::7)
+ by BN6PR12MB1539.namprd12.prod.outlook.com (2603:10b6:405:6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Thu, 30 Jun
+ 2022 19:14:00 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:131:cafe::e4) by BN9PR03CA0512.outlook.office365.com
+ (2603:10b6:408:131::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
+ Transport; Thu, 30 Jun 2022 19:14:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT045.mail.protection.outlook.com (10.13.177.47) with Microsoft SMTP
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5395.14 via Frontend Transport; Thu, 30 Jun 2022 19:13:56 +0000
+ 15.20.5395.14 via Frontend Transport; Thu, 30 Jun 2022 19:14:00 +0000
 Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 30 Jun
- 2022 14:13:55 -0500
+ 2022 14:13:58 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/40] drm/amd/display: Change DET policy for MPO cases
-Date: Thu, 30 Jun 2022 15:12:49 -0400
-Message-ID: <20220630191322.909650-8-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 10/40] drm/amd/display: Make OPTC3 function accessible to
+ other DCN
+Date: Thu, 30 Jun 2022 15:12:52 -0400
+Message-ID: <20220630191322.909650-11-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220630191322.909650-1-Rodrigo.Siqueira@amd.com>
 References: <20220630191322.909650-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 817d4996-9d7c-4532-bf8b-08da5accae13
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18430c94-317a-44be-ddd3-08da5accb042
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1539:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: acYcR53AbWWVS1PqUxwnF405Cw+wY4jhMUvs5a+vKqE60JfxKgG5OLZOh8equ2BTeReGfbWZkq2Kg9CN2bKa/DSKAG0Tr9sVGnXNHToY2SV9RkZBS2NP2Znh3TCRxzTaaCzSbeIFVMnqW9T5B6t1oS9VWypUhZxRe32sP7mkrfP6h8t7d4C45vhVE/WJPho0b6gFw4ssA5l3O89ts/PFvrH94xa3RK3RJZuG+C36NQHop2ogJerL4xjFjDnzBQhONTbPmIFNCUHrzwBnX0pa04m3uDHYOWFKOc3ct2bYo20XILXk8/ggnSm4GgnposvXied8dEwA/hOQe0tB59o6B2s1gbjljQn12IXovrpu+ZsWLzC9xkHcppXA2Rw7UM08cbtQ0L4Mx2jxpXXOW9L/YRyi2kBck6M/Nu1rSOID+CIXvmYSCAuyQbG+8lCBEGonrO1V/KaSQWo7kYkGrKtLbt2q4znaouZBVXLuASr9Tiuu05eedAtvSjn3Y/ZrSbjXLSEhYPa9kDpXyZheU474H2URzayn++hoSlMzFW8kIQaXGzbD8q6dq2WracZjFBoZjGlBV97ME5UYSde3EmuQQuad0kOH0/UgEMfHFIWvje/RrxuHs61QE0HBuhWduLeSwyqGP7QGOz0hkOro6OG1evN2GCs8l20LtC6+vSZlbM9TLKvQJBK9R35Zzhp9cOuWEmhJNvdxUskzwkiaW89u76dQuFTOC2dX/skc2ziBZgUZbCRxwr7UJ1juF8Wq4bzgfBETShfiyK5j540uSykGwOzHflgnRo2ugoJjCYnbXu5yHMZ3PXJX6d9ZZhDAt8MpCrfaXVW11euT0aDVj9mbLGVu443kwK4fcuNH0OBPCTk=
+X-Microsoft-Antispam-Message-Info: S/hLcF36I31KeaFWWnypLpfSiZAu+EjuExWul7NPq/HeRyr9QPlJ13NtT2gOoLkOdV9PwlG3UEP9xmaScDf9Ftk8tCelWxveSUqMMFwyhWzKiStIzwMQA2/Zv30Ek+/rPdY5gopL6ciP/PaNiPsT7UzwGsuKA3XfvisPuelsYUoM6LPvIkqy5kEFealwCyUAwV7YZb2F6lpPFzhIKnRG68kLOdKmmeefvRQVupo7+qURoKbBnykGZ6cZ1x7VLEkPlLiV40MZi4eBuQTPT0pUPMk1xMY8DPVG6oLBkysUpKxbIjO9kZhRop4E8k1gZ/+bGUX0lmLNwgJcuLDshiL4LoyrhSIfqFCyspyqUxqXOR28KnSy/jHfhwB5FtQo3N4jH1QjeipXsxs3BTJ2UfBc2grmOOb5SWIUMAl3jDuzOtbsyoid+PWZWQTMOiRLDV3AfiesHTzN7K/HqQa7l2VoLWK4XW0qlO6cNCiuKvCYos3nfSXYxZvajDR75WYpakekxiReuL2JaWWOZlb5GhIRJ36PCgpMtRLDLiiMm0U4BoHWjrzD1syxFl8ZRoM7C2lJRIoV+o9ja4Pbs+Sxhl4C200lLg1ytEWOtEYIzwIZTXS29me40cNG1wVFgONGtfS6cm/x5qxMdkvlXNRrK+i+VCEtYXX/A+bL8W7eH7zxqMLXXQz+PE1u0nxnBJMZRDaIC7pXABq0QdGAwwWw+mUUY96XOt1KfqHUt62Jq4w5WOocV3715LGCRCvnYs2YtyF8zQCIAmky0/ZD3OtjtVup6pYnRKuRhdN5rVIjCx8cGtgLFJKb77+lbrdEl8JdAJZ4GbPKVuWPH3zreRdJEFDrguUYvkOH3eQ0RTeCSipl+8c=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(376002)(396003)(39860400002)(46966006)(40470700004)(36840700001)(70206006)(4326008)(70586007)(8676002)(1076003)(36860700001)(26005)(86362001)(478600001)(40480700001)(40460700003)(7696005)(82740400003)(6666004)(41300700001)(83380400001)(8936002)(36756003)(2906002)(356005)(82310400005)(47076005)(426003)(54906003)(2616005)(336012)(316002)(16526019)(81166007)(5660300002)(186003)(6916009)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966006)(40470700004)(36840700001)(426003)(36860700001)(82310400005)(40480700001)(83380400001)(70206006)(86362001)(82740400003)(40460700003)(36756003)(81166007)(356005)(6666004)(41300700001)(478600001)(1076003)(2616005)(26005)(336012)(16526019)(7696005)(47076005)(186003)(5660300002)(8936002)(2906002)(54906003)(6916009)(8676002)(4326008)(316002)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 19:13:56.6079 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 817d4996-9d7c-4532-bf8b-08da5accae13
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 19:14:00.2721 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18430c94-317a-44be-ddd3-08da5accb042
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2465
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1539
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,106 +110,74 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alvin Lee <Alvin.Lee2@amd.com>
 
-For MPO we want to allocate less than maximum DET for MPO pipes because
-we need enogh buffer to move DET back to toher pipes when removing an
-MPO plane. Also update regular DET allocation to use DET override (DCN32
-has an internal policy which driver does not want to use)
+[Why]
+Newer DCN should use optc3
+
+[How]
+Declare optc3 vmin/vmax function in header.
 
 Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 34 ++++++++++++-------
- .../drm/amd/display/dc/dml/display_mode_vba.c |  2 +-
- 2 files changed, 22 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h               | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c | 5 +++++
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 2 +-
+ 4 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 468c18acfcdc..63227c55a2f0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -3045,31 +3045,35 @@ int dcn32_populate_dml_pipes_from_context(
- 		pipe_cnt++;
- 	}
- 
-+	/* For DET allocation, we don't want to use DML policy (not optimal for utilizing all
-+	 * the DET available for each pipe). Use the DET override input to maintain our driver
-+	 * policy.
-+	 */
- 	switch (pipe_cnt) {
- 	case 1:
--		context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_2_MAX_DET_SIZE;
-+		pipes[0].pipe.src.det_size_override = DCN3_2_MAX_DET_SIZE;
- 		if (pipe->plane_state && !dc->debug.disable_z9_mpc) {
- 			if (!is_dual_plane(pipe->plane_state->format)) {
--				context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_2_DEFAULT_DET_SIZE;
-+				pipes[0].pipe.src.det_size_override = DCN3_2_DEFAULT_DET_SIZE;
- 				pipes[0].pipe.src.unbounded_req_mode = true;
- 				if (pipe->plane_state->src_rect.width >= 5120 &&
- 					pipe->plane_state->src_rect.height >= 2880)
--					context->bw_ctx.dml.ip.det_buffer_size_kbytes = 320; // 5K or higher
-+					pipes[0].pipe.src.det_size_override = 320; // 5K or higher
- 			}
- 		}
- 		break;
- 	case 2:
--		context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_2_MAX_DET_SIZE / 2; // 576 KB (9 segments)
--		break;
- 	case 3:
--		context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_2_MAX_DET_SIZE / 3; // 384 KB (6 segments)
--		break;
- 	case 4:
--	default:
--		context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_2_DEFAULT_DET_SIZE; // 256 KB (4 segments)
-+		// For 2 and 3 pipes, use (MAX_DET_SIZE / pipe_cnt), for 4 pipes use default size for each pipe
-+		for (i = 0; i < pipe_cnt; i++) {
-+			pipes[i].pipe.src.det_size_override = (pipe_cnt < 4) ? (DCN3_2_MAX_DET_SIZE / pipe_cnt) : DCN3_2_DEFAULT_DET_SIZE;
-+		}
- 		break;
- 	}
- 
-+	dcn32_update_det_override_for_mpo(dc, context, pipes);
-+
- 	return pipe_cnt;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 7fa46e35bac6..629cd76b97c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -440,6 +440,7 @@ struct dc_clocks {
+ 	bool prev_p_state_change_support;
+ 	bool fclk_prev_p_state_change_support;
+ 	int num_ways;
++	bool fw_based_mclk_switching;
+ 	int prev_num_ways;
+ 	enum dtm_pstate dtm_level;
+ 	int max_supported_dppclk_khz;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+index 9a440ae8f865..80136b5d7e48 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+@@ -293,6 +293,11 @@ static void optc3_set_timing_double_buffer(struct timing_generator *optc, bool e
+ 		   OTG_DRR_TIMING_DBUF_UPDATE_MODE, mode);
  }
  
-@@ -3365,8 +3369,8 @@ void dcn32_calculate_dlg_params(struct dc *dc, struct dc_state *context, display
- 			context->res_ctx.pipe_ctx[i].det_buffer_size_kb = 0;
- 			context->res_ctx.pipe_ctx[i].unbounded_req = false;
- 		} else {
--			context->res_ctx.pipe_ctx[i].det_buffer_size_kb =
--					context->bw_ctx.dml.ip.det_buffer_size_kbytes;
-+			context->res_ctx.pipe_ctx[i].det_buffer_size_kb = get_det_buffer_size_kbytes(&context->bw_ctx.dml, pipes, pipe_cnt,
-+							pipe_idx);
- 			context->res_ctx.pipe_ctx[i].unbounded_req = pipes[pipe_idx].pipe.src.unbounded_req_mode;
- 		}
- 		if (context->bw_ctx.bw.dcn.clk.dppclk_khz < pipes[pipe_idx].clks_cfg.dppclk_mhz * 1000)
-@@ -3383,8 +3387,12 @@ void dcn32_calculate_dlg_params(struct dc *dc, struct dc_state *context, display
- 	context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz = context->bw_ctx.dml.soc.clock_limits[vlevel].dispclk_mhz
- 			* 1000;
- 
--	context->bw_ctx.bw.dcn.compbuf_size_kb = context->bw_ctx.dml.ip.config_return_buffer_size_in_kbytes
--			- context->bw_ctx.dml.ip.det_buffer_size_kbytes * pipe_idx;
-+	context->bw_ctx.bw.dcn.compbuf_size_kb = context->bw_ctx.dml.ip.config_return_buffer_size_in_kbytes;
++void optc3_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
++{
++	optc1_set_vtotal_min_max(optc, vtotal_min, vtotal_max);
++}
 +
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		if (context->res_ctx.pipe_ctx[i].stream)
-+			context->bw_ctx.bw.dcn.compbuf_size_kb -= context->res_ctx.pipe_ctx[i].det_buffer_size_kb;
-+	}
- 
- 	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index 74e17f5da8dc..5185c2ccdfd5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -561,8 +561,8 @@ static void fetch_pipe_params(struct display_mode_lib *mode_lib)
- 		mode_lib->vba.GPUVMMinPageSizeKBytes[mode_lib->vba.NumberOfActivePlanes] = src->gpuvm_min_page_size_kbytes;
- 		mode_lib->vba.RefreshRate[mode_lib->vba.NumberOfActivePlanes] = dst->refresh_rate; //todo remove this
- 		mode_lib->vba.OutputLinkDPRate[mode_lib->vba.NumberOfActivePlanes] = dout->dp_rate;
--
- 		mode_lib->vba.ODMUse[mode_lib->vba.NumberOfActivePlanes] = dst->odm_combine_policy;
-+		mode_lib->vba.DETSizeOverride[mode_lib->vba.NumberOfActivePlanes] = src->det_size_override;
- 		//TODO: Need to assign correct values to dp_multistream vars
- 		mode_lib->vba.OutputMultistreamEn[mode_lib->vba.NumberOfActiveSurfaces] = dout->dp_multistream_en;
- 		mode_lib->vba.OutputMultistreamId[mode_lib->vba.NumberOfActiveSurfaces] = dout->dp_multistream_id;
+ void optc3_tg_init(struct timing_generator *optc)
+ {
+ 	optc3_set_timing_double_buffer(optc, true);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+index 30361ebe7d22..c279a25ea293 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+@@ -58,7 +58,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
+ 	.pipe_control_lock = dcn20_pipe_control_lock,
+ 	.interdependent_update_lock = dcn10_lock_all_pipes,
+ 	.cursor_lock = dcn10_cursor_lock,
+-	.prepare_bandwidth = dcn20_prepare_bandwidth,
++	.prepare_bandwidth = dcn30_prepare_bandwidth,
+ 	.optimize_bandwidth = dcn20_optimize_bandwidth,
+ 	.update_bandwidth = dcn20_update_bandwidth,
+ 	.set_drr = dcn10_set_drr,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+index 88275ea4193c..00ff21458a53 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+@@ -223,7 +223,7 @@ static struct timing_generator_funcs dcn32_tg_funcs = {
+ 		.set_vrr_m_const = optc3_set_vrr_m_const,
+ 		.set_drr = optc1_set_drr,
+ 		.get_last_used_drr_vtotal = optc2_get_last_used_drr_vtotal,
+-		.set_vtotal_min_max = optc1_set_vtotal_min_max,
++		.set_vtotal_min_max = optc3_set_vtotal_min_max,
+ 		.set_static_screen_control = optc1_set_static_screen_control,
+ 		.program_stereo = optc1_program_stereo,
+ 		.is_stereo_left_eye = optc1_is_stereo_left_eye,
 -- 
 2.25.1
 
