@@ -4,52 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64ED1C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 18:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DE4C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A625010F96C;
-	Thu, 30 Jun 2022 18:58:57 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFB4D10F96C
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 18:58:56 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id sb34so40683656ejc.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 11:58:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Z3Hrq62boapfcqzItKRvzLDjO97uhuiwN5bbQAl3bsA=;
- b=h5DWDgIt+38fSqof0GO/3hMx7cN22mDBBHVVQzSJXY2ECPfZ13Q862dobnC1bq5huv
- tSJ/BWV6C6zwcvtwVzPyjW/lpvnswz0R/yoyPngpkBYdb/IBgVC2RSUjs3z9cfriW3M9
- FBKXtxVKwmR9o2npMogp7gFsOeDYy6togZ3n4B6QvmuhiHDyLANQsAzco9P+ikiZX1xr
- xbMMNfRBgaiGOz+1ILNbpPrwsqLir4Nn8MFGcQGersEJP3zsR0PIvZiEV7AfOBMR6rGd
- iSEr1b/q12uGu8o/Y2jHZdiHPsRtutGHARyfEGyhAdzTW1EFh2vUdnXOHpr0r8x8RGkQ
- c6/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Z3Hrq62boapfcqzItKRvzLDjO97uhuiwN5bbQAl3bsA=;
- b=eWLo7KzvFMZiJgapdGyHEI2UM0UZptuhIn8cbvpBURV0+hup8TQHTCeyyD0zX1uqUn
- 7RAvtBJNeWnU+b8M8mkpsl0rRsPr4I7pTuoaq2VIpiIuI+Rtsq5+tH+MbQ7ZYa0+gPT5
- yTieim6W13BSaaD00WAnAOENOqkatj0WY+zBr3SjkWNK2RsksKHepCpPrTFw2L3ViHTx
- NbN6Tt0gFj/7VQNNpRpnzUETKeALJ/D9UeIWluFb6lrnHZm+hImCBmkqiFmZsvm4e0mT
- aYFo0ilHy/MLxd/u2fYD3or4kovBdZIljZN6noTbSn2OXskzbLmr7/EZkcc7wo/4ewx4
- 5IyA==
-X-Gm-Message-State: AJIora8OEYDsQMV85bPfxx62lsf6xr5l+iWikhoPS8o/t7Axmar70FBa
- RsB+b7mcOLhi3KHOid9wT0SVCDGprvrQxYA79Nw=
-X-Google-Smtp-Source: AGRyM1s6d0MvIF6JyBhGL3PNS+Vx2ZL6Q1t5u/yxGlAY5aCSL4CFB/uD9BaU6ZSUPJUdBYBpS/XcG68q3JkF6KNlCfM=
-X-Received: by 2002:a17:907:a40f:b0:726:a8f5:1031 with SMTP id
- sg15-20020a170907a40f00b00726a8f51031mr10441766ejc.185.1656615535155; Thu, 30
- Jun 2022 11:58:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE10F12A867;
+	Thu, 30 Jun 2022 19:03:45 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2057.outbound.protection.outlook.com [40.107.92.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7171212A86F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jun 2022 19:03:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bMub7WPpl1SkuqSUcE1AA395r9pkK+dk7M30LRhk3av2x48HV5un9HKpw27KhkkuWirN3pILb0F5QM4ePKqYBTjwcpCcqz/j0mbCRNCfNAx1DmtyxKNv5xfqU2EIFoBUSPB0GWpyEEYHAjiE7dUujwljmj0kT/nTLOssA6XdvH0sWqgWkgrtC+2ge8qdzK8/4JOiPbd9NET5HzyYYPdOWxUy187XAEf2JOKwYeJKJPIeACbw9KqaIW12Rq+oCPt2m5ffe83JTOj9RACpsBFLzXUrcqErtioKOEVDWGatTszC8LCDHQXEzfXJ3BIgW/W2t+Ee3j/PpmOJO0YmEetfTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o7pT0gC3aNSkmW7t/BNLjsOmqahwwfO3oiBda/LufMc=;
+ b=DOcJMKScnowUgLUwTJiWf5ZmMtYSl1Z8BsZFrkbdyDLC6C1Os4/7vi38Ly3LhHS8OycWgjFZzJXvYFhUb6FRBc79bWkitpYnNJ2vSRrKsND0MfpOzWpmt/CuASI1Qk9bv7vUncFmiC6ndvWNxUXt4ltDvKNKh+jQIPWBeSJOmlGX24vG5QdRWWpLtY76Oi1urFHHqalWTxv2GDjZf2K6B4Q3WD5aJACNobWE8fP3b+yamolf9WF1LywkskiKDmpMvvHFkcE5oeVGmb0pmqyzMP77OyxHj9lG3BY3qiybgfo1nCSb5UefdmDeG/wDUxqcEFeCbdTDUSc9H+dlSvnEqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o7pT0gC3aNSkmW7t/BNLjsOmqahwwfO3oiBda/LufMc=;
+ b=W4to/NglM/4mE3DUEp7hDMQI+ntoDeNQpbCsOSltGvETBDrcUl9VkgEoCFSvLQd3VUQrQSgRgIPHmA0im288SFihD7xsgeGRDAYB/HrHtdp3KSr3Jr0sF4VQ6FGGTdkwAQZ1nW2yQKUwuv/OrJrrh1Tt3+g5KYkM5H/zEU+8Bi0=
+Received: from DS7PR03CA0230.namprd03.prod.outlook.com (2603:10b6:5:3ba::25)
+ by DM5PR12MB2390.namprd12.prod.outlook.com (2603:10b6:4:b5::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
+ 2022 19:03:42 +0000
+Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3ba:cafe::ba) by DS7PR03CA0230.outlook.office365.com
+ (2603:10b6:5:3ba::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
+ Transport; Thu, 30 Jun 2022 19:03:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5395.14 via Frontend Transport; Thu, 30 Jun 2022 19:03:42 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Thu, 30 Jun 2022 14:03:41 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 0/5] Unified memory for CWSR save restore area
+Date: Thu, 30 Jun 2022 15:03:04 -0400
+Message-ID: <20220630190309.119238-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220630184621.874253-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20220630184621.874253-1-Rodrigo.Siqueira@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Jun 2022 14:58:42 -0400
-Message-ID: <CADnq5_M0Ec4dOD0JE+wYq4oCLJkJVZuCkr8D4c3CdcDSik-E2Q@mail.gmail.com>
-Subject: Re: [PATCH 0/4] Fix compilation issues when using i386
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c4e4ad8e-f314-495b-dfe4-08da5acb4029
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2390:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8C+iNEwuL8bP9e/pHxTXQbNRTd8B9ZHshJ3Lw6a4nr+2J8f9dAydiG/4o0wmyG+9hlEKDw7nmStHn7ChprI2hkM6hEJ2NazLV0lhtYVsSncBzc+8j12RTJ/5SvdKl/FCfVTaM2vL2ltQ60msnwquRk2ACeuCr5rUmprglECZ06szcSm2OKJQPtsrvr6orszWkos0IVj8mKGn58auo932rWCItlvGclsA0jG+9qBa5VHYepBcIXWFnlWJ9JILAqVPZ8Ssn+n4KpSsoDWo/BS6eH6ZD70gdQkwXlB5I+P0MXCeXzYrC75YxPvACmZPjtRo/BsclWWcWg+Hm2uP5Liw8NvVFlTTK8GU3a9EQUEwk733W30ToNf3LSkX2R2VVh5eVrsHirJ4qM0GkpZcr/H8BjNYmX3lQtyzKrHTNSavJfSVuQOh3KtzUlndHic6SZcy/1J6JtXTAwZMxEb1LGVAlwxMFc5sbEil/5Md1XagGYVe49ZQOqk28Po+IzzSO9L9Pl5TePjo+Yll8ClldJ3UsErhor8LRoG1szTpWlxS8hs7nJpf5dSgQ34W+/jsDPfzPElb0rvvefCEnqzxENXDxUZvL7RXv88waLrKvnf0cPClv2xh19wOlPc6a2MNBI7t3Y/oed6yquEoUbIPGSPynbbGiHE75oKoPC0rwIvRyEa3b8GkYkdq2/WRwzOWHGdyfN+gY65yg+2nnxu7lLOX4/DuaNRS96QB35z9gZddp6/mvzKU2JkYfDI4EdTZMgRZ/dsLlugmcM0A4dcd2M6eTlgmLVrPC7cPxWnz97ZnKBeX3F4P0XtUZVCzPNyj7DhxjQNTLJssOj30R5Ot7NV1cwgVINFwdM3kavWPPXrPWJFjAkqfJUXYrn0aR8ut5T1N
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(136003)(396003)(39860400002)(376002)(46966006)(40470700004)(36840700001)(54906003)(186003)(966005)(6916009)(1076003)(4326008)(16526019)(7696005)(36860700001)(316002)(81166007)(40480700001)(82740400003)(36756003)(356005)(4744005)(8936002)(5660300002)(47076005)(336012)(83380400001)(426003)(6666004)(86362001)(70586007)(70206006)(2906002)(41300700001)(40460700003)(8676002)(26005)(478600001)(82310400005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 19:03:42.6599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4e4ad8e-f314-495b-dfe4-08da5acb4029
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2390
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,64 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, Philip.Yang@amd.com,
+ felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 30, 2022 at 2:46 PM Rodrigo Siqueira
-<Rodrigo.Siqueira@amd.com> wrote:
->
-> Fix compilation issues when using i386
->
-> We recently got feedback from Randy about issues in the x86-32
-> compilation.I was able to reproduce a very similar issue by using:
->
-> - gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-> - make -j16 ARCH=i386
-> - amd-staging-drm-next
->
-> I'm able to see these issues:
->
-> ERROR: modpost: "__nedf2" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> ERROR: modpost: "__muldf3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> ERROR: modpost: "__floatunsidf" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> ERROR: modpost: "__umoddi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
->
-> This patchset addresses each compilation issue in its own patch since I
-> want to have an easy way to bisect display code in case of regressions.
-> Please, let me know if you see any issue with these changes and if it
-> fixes the 32-bit compilation. If you still see compilation issues,
-> please, report:
->
-> - GCC version
-> - Config file
-> - Branch
->
-> Thanks
-> Siqueira
->
-> Rodrigo Siqueira (4):
->   drm/amd/display: Fix __umoddi3 undefined for 32 bit compilation
->   drm/amd/display: Fix __floatunsidf undefined for 32 bit compilation
->   drm/amd/display: Fix __muldf3 undefined for 32 bit compilation
->   drm/amd/display: Fix __nedf2 undefined for 32 bit compilation
+amdkfd changes:
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Eric Huang (3):
+  drm/amdkfd: add new flag for svm
+  drm/amdkfd: change svm range evict
+  drm/amdkfd: optimize svm range evict
 
-I think this patch is also relevant, if someone can review it as well:
-https://patchwork.freedesktop.org/patch/491429/
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +++++++++++--
+ include/uapi/linux/kfd_ioctl.h       |  2 ++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-Alex
+libhsakmt(thunk) changes:
+which are based on https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface
 
->
->  .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 15 +++++++++------
->  .../gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  4 +++-
->  drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  2 +-
->  3 files changed, 13 insertions(+), 8 deletions(-)
->
-> --
-> 2.25.1
->
+Eric Huang (2):
+  libhsakmt: add new flags for svm
+  libhsakmt: allocate unified memory for ctx save restore area
+
+ include/hsakmttypes.h     |   1 +
+ include/linux/kfd_ioctl.h |   2 +
+ src/queues.c              | 109 +++++++++++++++++++++++++++++++++-----
+ 3 files changed, 98 insertions(+), 14 deletions(-)
+
+-- 
+2.25.1
+
