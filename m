@@ -4,76 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200EBCCA47B
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jul 2022 11:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE95FC43334
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jul 2022 11:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B96911B70E;
-	Sat,  2 Jul 2022 11:44:49 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26BC710F3EF;
- Fri,  1 Jul 2022 10:44:00 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
- [109.252.118.164])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EF4536601596;
- Fri,  1 Jul 2022 11:43:55 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656672238;
- bh=i4sbwr4hhjkUIAG7olH1BdTwsBlNFqkIOpYSjFNHV/w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ULKCbZZHPga04p61cEES7RO/PSbb0r9MTw2jLhk1vi7BxkUF2s/2oUlr45wDJ32Zl
- hIi0EggvcohKCTYDuxjdSAD59R7x9Ho2wjo4+6Ny8R8XDP/2VnA+4rXHqSae59y5RQ
- u5g9F4c0oWXgkQsy4x9ghsH1A+H0ASGLlB/xYvVhJTwQ62LFKi02GoHFAf3sMxSS6Y
- geLgbeGzXOFcaOwO/w4rVpiXrZFLjie0W6FtGRjOo0ip0CObSJ6s7RbR690zd9JtQj
- nYXKDpzfPVg8bswZlSutaJYkriJpXv9aMGuffojK4WnalY6TM+1VIHOnL0NBjdCTlr
- +nAwSqj+vBJNw==
-Message-ID: <0d88cf7c-61e5-d7a8-a6ba-83388114a1fa@collabora.com>
-Date: Fri, 1 Jul 2022 13:43:53 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34E09113D17;
+	Sat,  2 Jul 2022 11:44:51 +0000 (UTC)
+X-Greylist: delayed 396 seconds by postgrey-1.36 at gabe;
+ Sat, 02 Jul 2022 01:10:14 UTC
+Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C259812BBDF;
+ Sat,  2 Jul 2022 01:10:14 +0000 (UTC)
+Date: Fri, 1 Jul 2022 18:03:10 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1656723813;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UefsvJWBOCsJEHG/jcpgIGR+KBtUCRUqjXcROu7qjh4=;
+ b=oGHlDm4tgr6UzDbC5z/sb7q2WEts5mi8mJ8aiIMXBOzW75BRr4BaIuszRL9hOCzoFfVxku
+ tmO6BM7R9GzDDzZbe/MQeyeOEOAx+3VHqH/w/8ecEZ7fImffcNYGlal4Cw/gQ26E9Sym1J
+ usYWeNXz8OdB9Vt23HLuxwKOwXbZ7ng=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ kernel test robot <lkp@intel.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 6cc11d2a1759275b856e464265823d94aabd5eaf
+Message-ID: <Yr+ZTnLb9lJk6fJO@castle>
+References: <62be3696.+PAAAVlbtWK6G2hk%lkp@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v6 14/22] dma-buf: Introduce new locking convention
-Content-Language: en-US
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-15-dmitry.osipenko@collabora.com>
- <0a02a31d-a256-4ca4-0e35-e2ea1868a8ae@amd.com>
- <e6e17c52-43c2-064b-500e-325bb3ba3b2c@collabora.com>
- <02e7946b-34ca-b48e-1ba6-e7b63740a2d9@amd.com>
- <7372dd1b-06f7-5336-4738-15f9b4d4d4b3@collabora.com>
- <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62be3696.+PAAAVlbtWK6G2hk%lkp@intel.com>
+X-Migadu-Flow: FLOW_OUT
+X-Migadu-Auth-User: linux.dev
 X-Mailman-Approved-At: Sat, 02 Jul 2022 11:44:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,106 +51,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: nvdimm@lists.linux.dev, legousb-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, linux-sctp@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-pm@vger.kernel.org,
+ usbb2k-api-dev@nongnu.org, linux-omap@vger.kernel.org,
+ megaraidlinux.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-wpan@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-parport@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-cxl@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
+ target-devel@vger.kernel.org, dev@openvswitch.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, coreteam@netfilter.org, linux-media@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, cgroups@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-mtd@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org,
+ sound-open-firmware@alsa-project.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ isdn4linux@listserv.isdn4linux.de, linux-input@vger.kernel.org,
+ linux-ext4@vger.kernel.org, mjpeg-users@lists.sourceforge.net,
+ openipmi-developer@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-mmc@vger.kernel.org, iommu@lists.linux-foundation.org,
+ keyrings@vger.kernel.org, netdev@vger.kernel.org, kvm@vger.kernel.org,
+ damon@lists.linux.dev, linux-mm@kvack.org,
+ accessrunner-general@lists.sourceforge.net,
+ linux1394-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-x25@vger.kernel.org, dccp@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-nfc@lists.01.org,
+ osmocom-net-gprs@lists.osmocom.org, apparmor@lists.ubuntu.com,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-scsi@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-unionfs@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ ntb@lists.linux.dev, tipc-discussion@lists.sourceforge.net,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/29/22 00:26, Thomas Hellström (Intel) wrote:
+esOn Fri, Jul 01, 2022 at 07:49:42AM +0800, kbuild test robot wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 6cc11d2a1759275b856e464265823d94aabd5eaf  Add linux-next specific files for 20220630
 > 
-> On 5/30/22 15:57, Dmitry Osipenko wrote:
->> On 5/30/22 16:41, Christian König wrote:
->>> Hi Dmitry,
->>>
->>> Am 30.05.22 um 15:26 schrieb Dmitry Osipenko:
->>>> Hello Christian,
->>>>
->>>> On 5/30/22 09:50, Christian König wrote:
->>>>> Hi Dmitry,
->>>>>
->>>>> First of all please separate out this patch from the rest of the
->>>>> series,
->>>>> since this is a complex separate structural change.
->>>> I assume all the patches will go via the DRM tree in the end since the
->>>> rest of the DRM patches in this series depend on this dma-buf change.
->>>> But I see that separation may ease reviewing of the dma-buf changes, so
->>>> let's try it.
->>> That sounds like you are underestimating a bit how much trouble this
->>> will be.
->>>
->>>>> I have tried this before and failed because catching all the locks in
->>>>> the right code paths are very tricky. So expect some fallout from this
->>>>> and make sure the kernel test robot and CI systems are clean.
->>>> Sure, I'll fix up all the reported things in the next iteration.
->>>>
->>>> BTW, have you ever posted yours version of the patch? Will be great if
->>>> we could compare the changed code paths.
->>> No, I never even finished creating it after realizing how much work it
->>> would be.
->>>
->>>>>> This patch introduces new locking convention for dma-buf users. From
->>>>>> now
->>>>>> on all dma-buf importers are responsible for holding dma-buf
->>>>>> reservation
->>>>>> lock around operations performed over dma-bufs.
->>>>>>
->>>>>> This patch implements the new dma-buf locking convention by:
->>>>>>
->>>>>>      1. Making dma-buf API functions to take the reservation lock.
->>>>>>
->>>>>>      2. Adding new locked variants of the dma-buf API functions for
->>>>>> drivers
->>>>>>         that need to manage imported dma-bufs under the held lock.
->>>>> Instead of adding new locked variants please mark all variants which
->>>>> expect to be called without a lock with an _unlocked postfix.
->>>>>
->>>>> This should make it easier to remove those in a follow up patch set
->>>>> and
->>>>> then fully move the locking into the importer.
->>>> Do we really want to move all the locks to the importers? Seems the
->>>> majority of drivers should be happy with the dma-buf helpers handling
->>>> the locking for them.
->>> Yes, I clearly think so.
->>>
->>>>>>      3. Converting all drivers to the new locking scheme.
->>>>> I have strong doubts that you got all of them. At least radeon and
->>>>> nouveau should grab the reservation lock in their ->attach callbacks
->>>>> somehow.
->>>> Radeon and Nouveau use gem_prime_import_sg_table() and they take resv
->>>> lock already, seems they should be okay (?)
->>> You are looking at the wrong side. You need to fix the export code path,
->>> not the import ones.
->>>
->>> See for example attach on radeon works like this
->>> drm_gem_map_attach->drm_gem_pin->radeon_gem_prime_pin->radeon_bo_reserve->ttm_bo_reserve->dma_resv_lock.
->>>
->> Yeah, I was looking at the both sides, but missed this one.
+> Error/Warning reports:
 > 
-> Also i915 will run into trouble with attach. In particular since i915
-> starts a full ww transaction in its attach callback to be able to lock
-> other objects if migration is needed. I think i915 CI would catch this
-> in a selftest.
+> https://lore.kernel.org/linux-mm/202206301859.UodBCrva-lkp@intel.com
+> 
+> Error/Warning: (recently discovered and may have been fixed)
+> 
+> arch/powerpc/kernel/interrupt.c:542:55: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+> arch/powerpc/kernel/interrupt.c:542:55: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+> drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
+> drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
+> mm/shrinker_debug.c:143:9: warning: function 'shrinker_debugfs_rename' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+> mm/shrinker_debug.c:217:9: warning: function 'shrinker_debugfs_rename' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+> mm/vmscan.c:637:9: warning: function 'prealloc_shrinker' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+> mm/vmscan.c:642:9: warning: function 'prealloc_shrinker' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+> mm/vmscan.c:697:9: warning: function 'register_shrinker' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+> mm/vmscan.c:702:9: warning: function 'register_shrinker' might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
 
-Seems it indeed it should deadlock. But i915 selftests apparently
-should've caught it and they didn't, I'll re-check what happened.
+Shrinker-related warnings should be fixed by the following patch.
 
-> Perhaps it's worthwile to take a step back and figure out, if the
-> importer is required to lock, which callbacks might need a ww acquire
-> context?
+Thanks!
 
-I'll take this into account, thanks.
+--
 
-> (And off-topic, Since we do a lot of fancy stuff under dma-resv locks
-> including waiting for fences and other locks, IMO taking these locks
-> uninterruptible should ring a warning bell)
+From c399aff65c7745a209397a531c5b28fd404d83c2 Mon Sep 17 00:00:00 2001
+From: Roman Gushchin <roman.gushchin@linux.dev>
+Date: Fri, 1 Jul 2022 17:38:31 -0700
+Subject: [PATCH] mm:shrinkers: fix build warnings
 
-I had the same thought and had a version that used the interruptible
-locking variant, but then decided to fall back to the uninterruptible,
-don't remember why. I'll revisit this.
+Add __printf(a, b) attributes to shrinker functions taking shrinker
+name as an argument to avoid compiler warnings like:
 
+mm/shrinker_debug.c:143:9: warning: function 'shrinker_debugfs_rename'
+  might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+mm/shrinker_debug.c:217:9: warning: function 'shrinker_debugfs_rename'
+  might be a candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+mm/vmscan.c:637:9: warning: function 'prealloc_shrinker' might be a
+  candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+mm/vmscan.c:642:9: warning: function 'prealloc_shrinker' might be a
+  candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+mm/vmscan.c:697:9: warning: function 'register_shrinker' might be a
+  candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+mm/vmscan.c:702:9: warning: function 'register_shrinker' might be a
+  candidate for 'gnu_printf' format attribute [-Wsuggest-attribute=format]
+
+Signed-off-by: Roman Gushchin <roman.gushchin@linux.dev>
+---
+ include/linux/shrinker.h | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+index 64416f3e0a1f..08e6054e061f 100644
+--- a/include/linux/shrinker.h
++++ b/include/linux/shrinker.h
+@@ -93,9 +93,11 @@ struct shrinker {
+  */
+ #define SHRINKER_NONSLAB	(1 << 3)
+ 
+-extern int prealloc_shrinker(struct shrinker *shrinker, const char *fmt, ...);
++extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
++					    const char *fmt, ...);
+ extern void register_shrinker_prepared(struct shrinker *shrinker);
+-extern int register_shrinker(struct shrinker *shrinker, const char *fmt, ...);
++extern int __printf(2, 3) register_shrinker(struct shrinker *shrinker,
++					    const char *fmt, ...);
+ extern void unregister_shrinker(struct shrinker *shrinker);
+ extern void free_prealloced_shrinker(struct shrinker *shrinker);
+ extern void synchronize_shrinkers(void);
+@@ -103,8 +105,8 @@ extern void synchronize_shrinkers(void);
+ #ifdef CONFIG_SHRINKER_DEBUG
+ extern int shrinker_debugfs_add(struct shrinker *shrinker);
+ extern void shrinker_debugfs_remove(struct shrinker *shrinker);
+-extern int shrinker_debugfs_rename(struct shrinker *shrinker,
+-				   const char *fmt, ...);
++extern int __printf(2, 3) shrinker_debugfs_rename(struct shrinker *shrinker,
++						  const char *fmt, ...);
+ #else /* CONFIG_SHRINKER_DEBUG */
+ static inline int shrinker_debugfs_add(struct shrinker *shrinker)
+ {
+@@ -113,8 +115,8 @@ static inline int shrinker_debugfs_add(struct shrinker *shrinker)
+ static inline void shrinker_debugfs_remove(struct shrinker *shrinker)
+ {
+ }
+-static inline int shrinker_debugfs_rename(struct shrinker *shrinker,
+-					  const char *fmt, ...)
++static inline __printf(2, 3)
++int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
+ {
+ 	return 0;
+ }
 -- 
-Best regards,
-Dmitry
+2.36.1
+
