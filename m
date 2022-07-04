@@ -4,116 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6271CCA479
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F580C43334
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:20:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7025610F0A7;
-	Mon,  4 Jul 2022 16:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D451510F190;
+	Mon,  4 Jul 2022 16:15:49 +0000 (UTC)
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2059.outbound.protection.outlook.com [40.107.95.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3B210E00A
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jul 2022 07:15:30 +0000 (UTC)
+ (mail-dm3nam02on2049.outbound.protection.outlook.com [40.107.95.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32B2B10E063;
+ Mon,  4 Jul 2022 12:33:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XaLFLlVQ7WJJft3azvxzA+QtPjjgbZ3kKx865Ut9oNn3K7KP9pCsmGOITwCFsHWzwEs46vINx/jpbCzbqbjJhuaIqJqLBJTxVVTS0POhFn0GIaqGBtu3dfkb8dbPniqSaJQi6HwZ9pDrbuGSYVmmd6q+TeZQZYBJrYG1qWYZdRrrs56bTEnWKr9ogrxCkbccfOHs/mDvsNGWBRtCXJPx44sPjmvOOYoEbuzd7hgkEtjd1Uplvt2eU4vvv2A5AT1zquw9GxlIEJUED9BDv/jU93Zz465xFlSMfvPY3IkUc/WK4KXk5kLIKiZnSr9ebjWZ0G0PLgIPyM9502A79/QUIA==
+ b=oFraxbJhleDVBejT3KW/IEdYzm6Tor2Mu9dbpd1oi3lgHnrsWZYrbYVrTT59Ein22/EqW/2u8APv4oDg5UqqJkmObjR+34PyzXZwfIR+/SIjBctQacttQSVxngKt3NPyEqjyhgp7HNwNU/DR4qGpowtmPZqo7Bv5fEVnOtSDVzzklXhZt9KHRafrHlmfX3cRVZ8QI0C7z6G7kTzbO/g5rlV9U+dtjR95l+nJ+KNzOR+6RTPUNKgb4wMR3NtsUMK0KQK2lFU4GMBnKlt24UqalTumj+ONq8GD1buEyjgx6xeEwKsEUCLC5KtG3I7dZaQxyB8JGVP92CMVgyUu3H/BDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bFi36mFBKCVuwOYkhfsdyFFrVpvKy74Rh56tC5TRFvs=;
- b=cG7nY9dnz+lM2dWOuhz2WdQSz8VfVo+yE7ZTBVromkK9PA30UeQs14nQgM8BW5WTsgv29u4HkSZkvTZfqMG/aWSUlhe+D0GKaI2mmEgZpkMmrfiogTBR5YgmMOH6zQ8K0lI5nrsRFxO4UjkmOdx79F4GAYa0XGk0ykX+qzF0vE7g8ktsCEv2KwYr7uEvjDyraESgJWuiadVpii5SddARb/63iKfiifMMiFPZqKtcOyDQNo9HDCPDdhQLMMT9HzcOtA9DO2qBm3hWtwho9SEoo6LmhaauevdSfydS6g2B++RKWkwamKPB5WHPkDBipoeqZuuye3JWaofzCBYGpAmr4w==
+ bh=jbgHmTXn3+v9HYnad/3V1STrJHMw0NYfwlfzJZmXFrY=;
+ b=hz1D0s3084dXOZl3GF6yqlkEd++akO9m4foqbnh+UwjCjl9rIU4STbqD2xBXHUe4W22SVzO7BJwdjijOMICb0AY5it4s4fHnf3sdsQjesyhui02kUYl7oChUMNM5J9EF0oXyKmNB3fLwuKZmiZkzH230U8jaOLfDQHSrEkP3FMZBuZs+VweaJywK/gcbZv0dDIl/hPuFHnAO/89xi249tomhHWOlTNw4Z3TAGPb/PSkS59YAmZe7Q1WQzj7w9Ro8Ug2B74eGhoQ4HpAJ9cHSHd+4e6alrvhuRSEpq9k07Mqv5Biv3XUMrhDdOVnGEatCRcYJ9ezqbbPK/CwBpkUSvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bFi36mFBKCVuwOYkhfsdyFFrVpvKy74Rh56tC5TRFvs=;
- b=Y//nuPdO7pkbszHNCZwVaWo1zLSsqfcRlXbSYr7x8u6Er3X8nrMnECJ5sa4uSG0gwQYsdIM0Fsywz/X9OuQyiEcAZ2tDdG7FAeuhKGsE97qaTmvGod0iGK4cndbRenSoqs81v4Qo85wCJo3loUnG9nRBC+PSG4S6VjAoXulMcTg=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Mon, 4 Jul
- 2022 07:15:25 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::5ca4:efdd:b7b0:53c6]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::5ca4:efdd:b7b0:53c6%5]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
- 07:15:25 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu/display: disable prefer_shadow for generic
- fb helpers
-Thread-Topic: [PATCH 2/2] drm/amdgpu/display: disable prefer_shadow for
- generic fb helpers
-Thread-Index: AQHYi8LPmkexXXDKGE+MM31w3MarTq1t08OA
-Date: Mon, 4 Jul 2022 07:15:25 +0000
-Message-ID: <DM6PR12MB261947533596E98BF9043BF6E4BE9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20220629141530.2501360-1-alexander.deucher@amd.com>
- <20220629141530.2501360-2-alexander.deucher@amd.com>
-In-Reply-To: <20220629141530.2501360-2-alexander.deucher@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-04T07:15:21Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=73bb3007-87ea-40cc-a275-46ac246991fa;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
+ bh=jbgHmTXn3+v9HYnad/3V1STrJHMw0NYfwlfzJZmXFrY=;
+ b=zQR+G2iCvEhg78uVhMePel3JXalIkLupTtTyvt2Elr1FirATQP948T5/VeLpFzI37vqHmcRTc5UFeuyn2qBxlYmJhqOcNiELWSP2JZCUZyM/RTHNn/3XNETvyCaycBJDuchpxh8koCRO8SzKqAmcPpcjLKurCq5cACLiJ36iXGs=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e4daf08d-e8c1-4ea5-210d-08da5d8cf789
-x-ms-traffictypediagnostic: MN2PR12MB4406:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: oI5EqHUtgGELYjW/t5VHB/bs6r62xXPVxfmL94ayJpyb41yDT61pMH/bST+PFNbPQfpMMPLFiU1CQGpwSUaHJIJtNewUD6w0agOM/ZhyU4hwtlCeLOtVeZHmwkFxlQrzXd+OYhp65pinOD9JjksRg01Ogeol3MCpE8nisjZj4xgWphBwTNFMhRsRHQgJcXif/uBv4VW/jxnid/fB1f2W3r/L0Hkrnyfo4j1p12Liz01A2XeNMVO1mwcDYnTXf2yQtl2EoSur/3Jg5z3S8OJu97kZUIGz87ybY8u9iGFtynoB8RSjI3+Hi2KxVrUTauj6lC2bqwo392OpoUy2G8XrogWJUbzvV9QtX40eF9DVLHeVyn411xd4lQpeJrqC5g49e80Xsy5NEW5a2xeihlBMFhqfpRUvJJMkTNu3ZPrmCfrGTP0/46Dath+14aI/YbSWs4rmoOPLk2OpzUmC/mJEHRu9P8t8YBPojwPFs/t7DwaBCgvvtr1BqM96RysM8RG3KmRRxT5RjnSz58n32l823AIlUs/Ho1l63sjDCcjjukE00LYUMkbrkKuCghvoKLLVeTUeLHG9XwnyRkoB6exq+SQtIlGLH4Otxac3CISLG7ynktn/L2br8Omrq7VZRQ/YoprUIGPlAbNdZG27kaqkb5cJ4UuqYzfucW4FIzonzJd16vP5SvUC5KNtaur/K7OlTgqab3oYnbONLPNYijK6cuUfOMaca3ImU3wFyD5f/YXrOrKB6MK2EYUPJEUqxpWYHk5lSbpg2a6keOOhfH29et12CLtcjuq+yFNCAl1tNpmgbNqpHVEz6YBm9qxAdgDMri53HL6lE3YlrCvtgQT4SmNAE5OTqubX5YtQeAl590OjkWNFdI1ZJmZJplfrsz8e
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(376002)(396003)(346002)(136003)(186003)(55016003)(38070700005)(38100700002)(122000001)(45080400002)(8676002)(64756008)(66446008)(66556008)(66946007)(4326008)(66476007)(76116006)(316002)(83380400001)(71200400001)(110136005)(53546011)(9686003)(6506007)(7696005)(33656002)(5660300002)(8936002)(86362001)(966005)(52536014)(478600001)(26005)(2906002)(41300700001)(41533002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DHmV9WFZOH5pTBIewcJDCrRnvyVtpqHY+rVNjP/AjOj0ytAQB9Kb+8bbl9Om?=
- =?us-ascii?Q?XUHSscBT12wNbJ/QsImIvoIxQ8okrNkhWw++MC3Llggz2dJ0XEQYBJTZa0Wd?=
- =?us-ascii?Q?lr+hpPZK+w+QWAnDwvlM4L1pF4WccmI2v8CnyQ2i+8gjU9IEwf015yxzmIFE?=
- =?us-ascii?Q?0CUQQ2i/MhP1i8SHn42lYeY/PcFSatm4gpgPwy2bJf/UK+5BdCtc+Ti577oz?=
- =?us-ascii?Q?HlRl/mgF9zI9up/lU3AIO21UcWRgf98AsDGmdNC0ZvYQr5HEJt1lOdXZ4y/C?=
- =?us-ascii?Q?kDxM30m37NDdu5Mh7vuJz8IWxh5ZBttZRgFc/flnlAmhdVAl6XGEqK/53pvA?=
- =?us-ascii?Q?vQk0aO6OGnAvKkT6PNmjANvZYb4nz5YybGDO6xAYElvM5VAA1DNfE7yOzkon?=
- =?us-ascii?Q?PxTyoJ3lhW82Q268eoTxeaAX8jVnmS9V5sNrBPh6QJduq4IDVr3PTPUPiooa?=
- =?us-ascii?Q?HfUFVbn3+rEFMccIJbOfMdxxzt22YgHGFe9ffxIpM42YmJH5nE0UOu59PZ8S?=
- =?us-ascii?Q?VZlwcVBpt6I1N/sbWTAGl4/slwtKIevAIwDkfk6tu/cfqcF6eBsdheTZk9dr?=
- =?us-ascii?Q?R+NdrejyVALdt3IkEobjtVZrYuMROFt+2hwr96moSckHy87EWtVspXRTJFJL?=
- =?us-ascii?Q?qT6MhMgOMoutgGGPoAl5uYeCm8XVhKHTcLmG+8nHFxeJQaa14A/gyudGLY0T?=
- =?us-ascii?Q?aXK27oMhNMNhLOK8gR5HOy/vO2fFFbdYuA+nPP2LV3H2yA5ku27bevjkdjoE?=
- =?us-ascii?Q?nZ7KVXQjQJND7FPYdzJe5cS9VHyEIOKuIkjfgzOYe8z6FlqUgx805cNewt4Q?=
- =?us-ascii?Q?eHmrB3RBmvtOQ1USoM56BcyKzyBBOY/s6fVZq0piMw1bdy6LCqiJvXMgUfej?=
- =?us-ascii?Q?rzwTYdrEhiv04Qyf7XMbpe0gt+KJrGf5lzfthynkeT0uhwtodZfOD7qa0rVR?=
- =?us-ascii?Q?zKT7nhiSaKHn3gmnTv6PSY/g5VyxvZn+yP/Cbcn2bRbDYvBGhNuvpwQjwAsf?=
- =?us-ascii?Q?Dc10EtWxPh8ci8MSSMZAbqrElCEvhQPczv+p6ak5sewnD/eorcCjBnaDnLuI?=
- =?us-ascii?Q?EDCIZayOe/r64AGm5e5F+41Ghn8TP702lVIAW3hMRwAbp+Rwk5YGlNvqMSaZ?=
- =?us-ascii?Q?ygKjFIjh2rlzoo+4B4JOlO3Q1YaOJp3fROj3pJfmc7MnTbbb6PSksz60OXHq?=
- =?us-ascii?Q?dg9IHMhshTNgLG2JATWjg8mzDOs0RsbCBKyBKtaLaWQy+fvS8BaHh8TYDVUf?=
- =?us-ascii?Q?3VGVFEX8rzVCGH2bqcC+ccRCGw/A+sC8kTo3Vdpc/J45er/tzQHHDB2V4SF4?=
- =?us-ascii?Q?E2m4aqZTAHXjsILxchouQCLjWMlR8IL3FzTyE35O7xn+LvB9hmuCsKhueI+f?=
- =?us-ascii?Q?gYNEXlCXR4VWEWa8nxDtOjMUZ32yw69pKXgcHB0bsrcFL3H7L1i8fK7VcMuR?=
- =?us-ascii?Q?atN29718lz4d0QQRkV/5c6mQRWi1S9hlELaBRNsaKFZEJDrPxustPO+AWxUP?=
- =?us-ascii?Q?j4AfNH8avgl63Dz1eHWra4aFel7dyXhrxBu/TyxC0py894rju4iDjdyMPsjG?=
- =?us-ascii?Q?TSbW2cuatSFNBYTqMDU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MW3PR12MB4570.namprd12.prod.outlook.com (2603:10b6:303:5f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Mon, 4 Jul
+ 2022 12:33:29 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
+ 12:33:29 +0000
+Message-ID: <0335814b-dc11-4a54-9f24-bb4e9dbef35c@amd.com>
+Date: Mon, 4 Jul 2022 14:33:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [Linaro-mm-sig] Re: [PATCH v6 02/22] drm/gem: Move mapping of
+ imported dma-bufs to drm_gem_mmap_obj()
+Content-Language: en-US
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-3-dmitry.osipenko@collabora.com>
+ <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
+ <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
+ <b4086751-9bff-ea5e-93fc-ce2c513b129b@shipmail.org>
+ <467a1cee-ba8c-98f3-0398-2a7a5a90b5c3@collabora.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <467a1cee-ba8c-98f3-0398-2a7a5a90b5c3@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0094.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::14) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 02f79fa1-b173-4a91-0a85-08da5db96648
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4570:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LqM9tTqsq1qNBqPrPBfeqULoxXfM7jDY/dFSkJliTiMLOdISylOSsJMz0OGMbWpJK45+sQRXb00W7H23YnobVm+W8COMnUyXE9A2334GWNbcCS8fadxdOhtwxBVyis4oZOn2TnCjCs1QWhWmr4hgNj4VKVBUyCgHmgwylTkyYV1ruFHYHNBXtl1LtOLQFjzwmOq7hWWU96Vf42og6zaXhcU39XvRYB32z/mYE7X2535rcYQnmlEUid63ZH/ivQQBQOtChJr/Sz3/10wLuYbTQwj43+bFEpnHw25bcFOeLGYYSTh+JxrjCkDp03MOw4BXkT3XRxiRHwfP6/0R5f6mT9pPQynB7Zp6Eh1vy1lYnvmhkh8nvHl2r1J2Rl9xP8JtnbcgpmybQRiQZOw+mklZh4u1YUCI/s7PcQzY4RDRdzHzTgLU9FOWJD68N5O/XTQ6Y5BajB8D6iN6Wdo5axSOdiI19nRv+fCwh1d6jAt06jsRhQKQkSQXfUEkuTBNObyLUPRwl1jbYa3Y3X5bc4ZI20TjVWzSrFHiP50nBgrlPkHi0r3C0GZk6ColTaCdr8A9RczsGYl93NRazQtNt2E6krwIXem/0AxaLEgquHal7jkU8C/nmeAR7mlvdUJlMRMm2bGETb9gqDx9GiXEeMw9VFk/zklUQeSwelTA1a/7+5bLivaiFB4KmSyhtI90Tqu5PXfcoAbfnB2gg9+r04l1U9YJ/YqDUbrCP7Jb00z7rmESLf/OPJBk/gq0u3yeWGU+DlzFugU4XBk9dSZojY/1gOf/OpavThcBp0n5X+0U7fWoxM1XakpZh2XYiISdUO2RwtBdXge8d6Of71uHODXOq+iGCCTlBB/wIsiR281noDQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(39860400002)(136003)(366004)(396003)(6512007)(6486002)(478600001)(66946007)(66476007)(66556008)(316002)(54906003)(110136005)(8676002)(7406005)(5660300002)(36756003)(31686004)(7416002)(8936002)(6506007)(53546011)(2906002)(2616005)(4326008)(86362001)(31696002)(66574015)(186003)(83380400001)(38100700002)(41300700001)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1Ftb2x2QXlWQ1pWZFlSWklBandRWEhHVDVXbXljTjVNc2FZZmVnM01qUVJ4?=
+ =?utf-8?B?bXpTNUN0dWRNZE9yOGN2d0NSb0RqaUhVTEovaTJNT1VVVEZWWnB0TlhWdnZo?=
+ =?utf-8?B?THJhL2VGZkJVMTF0LzJvZG5kTEMxdjd5cWtwWi9wdlpuakhWYVRycmxHb0o1?=
+ =?utf-8?B?d3p3bU5ITDQxb0FJV2tGTkVhTlhVU0U4dFdScmR0UmZheURMdkRSOSs1cFJm?=
+ =?utf-8?B?VFFwVm1VcFZFU1AzS1RXc0FWUjVlODUyS1hBa1VWWCtYVStIcm5VTDdHWE9n?=
+ =?utf-8?B?eDN4UmhWc1Z2YTAvaWthL3g4dDJmRlRFVlNSMVV3Y0ZTYk5rRjg1VFE5WGNF?=
+ =?utf-8?B?bks3TjNBZzZrK0tPQWsxSWs5OEhrZUVibEhNbklIR0RWV3JvU2JpQmhFcURJ?=
+ =?utf-8?B?bFZhMS8wRDYzWmJ4MWt5Y2xGVTJ1OGJMYU5GcGhGQVhDTnE2dTIvZDc4dmFP?=
+ =?utf-8?B?K3BrL21xNFY3dlhza3ZhWDhiWGRjYkdRQmU2YU53UHFGVStueWtTYlVwZnVC?=
+ =?utf-8?B?MlFkb1pjTXlYcHhITVg1U0czUlpTdWNtaW5PdG9jb05rTXJOS1pSS1BNRFlW?=
+ =?utf-8?B?c3Mxd0dobDlrbzB6N1VYSklzQy9KaWN4N1NlbHljUUk3TnB4TTAwU2tjdG9Y?=
+ =?utf-8?B?d1Uxdk5EaHNlOWdDaW9uQXVhZW0xWU0yUGlPSUJXanBrVVVLVW9yeFN6VDFp?=
+ =?utf-8?B?am0wKzhmSk5KS2FHTWRCeklqWlB2V2c4aEYvWHQyUXFWTGhCc2hiMHRicmxB?=
+ =?utf-8?B?L0E5ejFNb3ZEV0srcWZyT1ZiditlL2ZQYmJHMWtOTGplN3ZtcExuc0xyNGZM?=
+ =?utf-8?B?R3AxUjMrV1hVSkcrYlBBVFdzQkJwRk41ZzZmV3pmQjg1YkhtUnl6Z2RhMzBr?=
+ =?utf-8?B?Y0RESUhFdXluUlZ5eUU0SUdHMmViWUVtMzQxOUMrTUtQV2tZRThaanRnVS94?=
+ =?utf-8?B?Tis1SlkvdFN6WE9ST2ROeVFFR25raWlyNUtwbGt1SWl6Qk1FVHFES0hiUVpD?=
+ =?utf-8?B?TlU4ak9kTWd0V1I2SEhDL1c5S0VSWkorZHREMVoxV1VrY2dlRFdzQm5lNmhz?=
+ =?utf-8?B?UnkzT1hENXRWbXBNRDdURWgwd00yaVZBRy9oNGhoQU45ZVhaQnFnMzJNVXg1?=
+ =?utf-8?B?ZEo1R2oxLzhhYjlDN3VRSWtkNms5djNINmIzMThPZXRCSWpkSlg2c2FqY3dr?=
+ =?utf-8?B?d3Jra2tONUZ4aVlEZytJMU9zaUhHcWg1cXllS3owM1hrbEF3QUQ3TVFkVVVr?=
+ =?utf-8?B?WThObVRwcHBZOFdNUDBySm9tTG1hZE9UZnk4OXhOYjhQVjhwSmZvaDE1MEU3?=
+ =?utf-8?B?SGhMeWJuNTV5Wkl4ZW51RDVhQUlqeWtpZ0lvOW8yK0dVVjdNbW01MVNTRy84?=
+ =?utf-8?B?NFQzK2cxK3JQYlFBOThicXFQczhndHQwZDlFNnBOT0FLQXJaT2FuZTVIUzRW?=
+ =?utf-8?B?WnhJa3Rrbm0wdlJIWkF5SmZzRjhYQ1BTdjlzV3gyNUllZG9aQmU5RFU2aGty?=
+ =?utf-8?B?T1VUczdUdkwvWUpKTjh0ZU1RVytJMW5oQWpYVkNpaWVEc09jeEt5d25ZMDYv?=
+ =?utf-8?B?YkdGblp1dXJxN0N3NjJGUDA1RnZNTmNGWXpCZUV4SXQ1TWdaaWozeGppTG9z?=
+ =?utf-8?B?ZzVhVGZFWnE0MEN5aEd3UytkWE5kUERMREVlazhRb2pOd1crN2swTkJPR0Fp?=
+ =?utf-8?B?UlZSVWVWNXZCWFc2aTJlVFlXbWpxYk5BMkhsWjREV2Vrd0RiSjJycUg1Zk9D?=
+ =?utf-8?B?SFgxUHB3dUplOG4vWlZ0UkRYRkhDWWVuazg3TFphREswSCtvQjVlOHg4QWxB?=
+ =?utf-8?B?TmNjRzh1S1JLMHo0MTRuUTVCTG5BTFB3S29TQVkrbVhoeU5MQ25heXorY0Ry?=
+ =?utf-8?B?em9HQklwaGJaQTU2cWE0dFJJNzdPWi9VRVF4b2doWjRLdUwxVzhIbTc2L24y?=
+ =?utf-8?B?OTJSa2Yrd2x3TXpPcHNsS3lLelN6OVgvcE5ISUZPcUxITlQ4Tmw0TWNVZDVI?=
+ =?utf-8?B?RmRKWTc4d1JSbFN1K3ZGL3dCRzJvVTNybVFEa09ON25pSUNKVFZ1YlhnL09s?=
+ =?utf-8?B?T28rL3FQSlZxUVFzOXdGZWp0UmhvTmRvWUlGdXJKT1E5Q2FSckxhcDFYYXBZ?=
+ =?utf-8?B?K3QvWHhUU0JjUm9MeWU2MnEzZ2ZZdUY3YzRWbE5pQzQ5N3ZyWGtoVWdnTkJ3?=
+ =?utf-8?Q?5mVXfs7A2BtRTpaDL9AHgWfHfHL3fAqBbEUXDLGOg4eJ?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02f79fa1-b173-4a91-0a85-08da5db96648
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4daf08d-e8c1-4ea5-210d-08da5d8cf789
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jul 2022 07:15:25.5954 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ujSQGxx1JJPGOKffc3YHUH+9mxkbB1AfzF9LiBmyDn9msHI2F26b5klm2kIJJIJ8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 12:33:29.5801 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kBFwRfZ7S+Sw+Y8ldEK4wFdvCCjNTtRSBt0dRwaOuHWKymgM6p6Una73A6CCTvGb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,143 +131,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Emil Velikov <"emil.l.veli kov"@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 30.06.22 um 01:06 schrieb Dmitry Osipenko:
+> On 6/29/22 11:43, Thomas Hellström (Intel) wrote:
+>> On 6/29/22 10:22, Dmitry Osipenko wrote:
+>>> On 6/29/22 09:40, Thomas Hellström (Intel) wrote:
+>>>> On 5/27/22 01:50, Dmitry Osipenko wrote:
+>>>>> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
+>>>>> handle imported dma-bufs properly, which results in mapping of
+>>>>> something
+>>>>> else than the imported dma-buf. For example, on NVIDIA Tegra we get a
+>>>>> hard
+>>>>> lockup when userspace writes to the memory mapping of a dma-buf that
+>>>>> was
+>>>>> imported into Tegra's DRM GEM.
+>>>>>
+>>>>> To fix this bug, move mapping of imported dma-bufs to
+>>>>> drm_gem_mmap_obj().
+>>>>> Now mmaping of imported dma-bufs works properly for all DRM drivers.
+>>>> Same comment about Fixes: as in patch 1,
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/drm_gem.c              | 3 +++
+>>>>>     drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
+>>>>>     drivers/gpu/drm/tegra/gem.c            | 4 ++++
+>>>>>     3 files changed, 7 insertions(+), 9 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>>>>> index 86d670c71286..7c0b025508e4 100644
+>>>>> --- a/drivers/gpu/drm/drm_gem.c
+>>>>> +++ b/drivers/gpu/drm/drm_gem.c
+>>>>> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj,
+>>>>> unsigned long obj_size,
+>>>>>         if (obj_size < vma->vm_end - vma->vm_start)
+>>>>>             return -EINVAL;
+>>>>>     +    if (obj->import_attach)
+>>>>> +        return dma_buf_mmap(obj->dma_buf, vma, 0);
+>>>> If we start enabling mmaping of imported dma-bufs on a majority of
+>>>> drivers in this way, how do we ensure that user-space is not blindly
+>>>> using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC
+>>>> which is needed before and after cpu access of mmap'ed dma-bufs?
+>>>>
+>>>> I was under the impression (admittedly without looking) that the few
+>>>> drivers that actually called into dma_buf_mmap() had some private
+>>>> user-mode driver code in place that ensured this happened.
+>>> Since it's a userspace who does the mapping, then it should be a
+>>> responsibility of userspace to do all the necessary syncing.
+>> Sure, but nothing prohibits user-space to ignore the syncing thinking
+>> "It works anyway", testing those drivers where the syncing is a NOP. And
+>> when a driver that finally needs syncing is tested it's too late to fix
+>> all broken user-space.
+>>
+>>>    I'm not
+>>> sure whether anyone in userspace really needs to map imported dma-bufs
+>>> in practice. Nevertheless, this use-case is broken and should be fixed
+>>> by either allowing to do the mapping or prohibiting it.
+>>>
+>> Then I'd vote for prohibiting it, at least for now. And for the future
+>> moving forward we could perhaps revisit the dma-buf need for syncing,
+>> requiring those drivers that actually need it to implement emulated
+>> coherent memory which can be done not too inefficiently (vmwgfx being
+>> one example).
+> Alright, I'll change it to prohibit the mapping. This indeed should be a
+> better option.
 
-Thanks for the fixes! Series is acked-by: Evan Quan <evan.quan@amd.com>
+Oh, yes please. But I would expect that some people start screaming.
 
-Evan
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Wednesday, June 29, 2022 10:16 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 2/2] drm/amdgpu/display: disable prefer_shadow for
-> generic fb helpers
->=20
-> Seems to break hibernation.  Disable for now until we can root cause it.
->=20
-> Fixes: 087451f372bf ("drm/amdgpu: use generic fb helpers instead of setti=
-ng
-> up AMD own's.")
-> Bug:
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbugz
-> illa.kernel.org%2Fshow_bug.cgi%3Fid%3D216119&amp;data=3D05%7C01%7Cev
-> an.quan%40amd.com%7C1f2762736c244dadb6ea08da59d9f0e6%7C3dd8961f
-> e4884e608e11a82d994e183d%7C0%7C0%7C637921089829876781%7CUnknow
-> n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1ha
-> WwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DWJLd3ZXE1URnAW
-> n3CyX%2BaBdzVB4T66oun7lA7X9KPbw%3D&amp;reserved=3D0
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             | 3 ++-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->  6 files changed, 12 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index 576849e95296..108e8e8a1a36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -496,7 +496,8 @@ static int amdgpu_vkms_sw_init(void *handle)
->  	adev_to_drm(adev)->mode_config.max_height =3D YRES_MAX;
->=20
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->=20
->  	adev_to_drm(adev)->mode_config.fb_base =3D adev-
-> >gmc.aper_base;
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index 288fce7dc0ed..9c964cd3b5d4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -2796,7 +2796,8 @@ static int dce_v10_0_sw_init(void *handle)
->  	adev_to_drm(adev)->mode_config.max_height =3D 16384;
->=20
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->=20
->  	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported =3D
-> true;
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> index cbe5250b31cb..e0ad9f27dc3f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -2914,7 +2914,8 @@ static int dce_v11_0_sw_init(void *handle)
->  	adev_to_drm(adev)->mode_config.max_height =3D 16384;
->=20
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->=20
->  	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported =3D
-> true;
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index 982855e6cf52..3caf6f386042 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -2673,7 +2673,8 @@ static int dce_v6_0_sw_init(void *handle)
->  	adev_to_drm(adev)->mode_config.max_width =3D 16384;
->  	adev_to_drm(adev)->mode_config.max_height =3D 16384;
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->  	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported =3D
-> true;
->  	adev_to_drm(adev)->mode_config.fb_base =3D adev-
-> >gmc.aper_base;
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index 84440741c60b..7c75df5bffed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -2693,7 +2693,8 @@ static int dce_v8_0_sw_init(void *handle)
->  	adev_to_drm(adev)->mode_config.max_height =3D 16384;
->=20
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->=20
->  	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported =3D
-> true;
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 9195d6a8a51f..fb1e983e0549 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3818,7 +3818,8 @@ static int amdgpu_dm_mode_config_init(struct
-> amdgpu_device *adev)
->  	adev_to_drm(adev)->mode_config.max_height =3D 16384;
->=20
->  	adev_to_drm(adev)->mode_config.preferred_depth =3D 24;
-> -	adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
-> +	/* disable prefer shadow for now due to hibernation issues */
-> +	adev_to_drm(adev)->mode_config.prefer_shadow =3D 0;
->  	/* indicates support for immediate flip */
->  	adev_to_drm(adev)->mode_config.async_page_flip =3D true;
->=20
-> --
-> 2.35.3
+Over time I've got tons of TTM patches because people illegally tried to 
+mmap() imported DMA-bufs in their driver.
+
+Anyway this is probably the right thing to do and we can work on fixing 
+the fallout later on.
+
+Regards,
+Christian.
+
+
