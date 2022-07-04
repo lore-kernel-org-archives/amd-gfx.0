@@ -4,94 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DDAC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEDAC43334
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE2210F68C;
-	Mon,  4 Jul 2022 16:16:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90FB010E14A;
- Mon,  4 Jul 2022 13:54:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S9KtvDWfCT+4hbFR93Oy+Pe/TJaXTnrLgdmbSaYtPttbSfq3RlP3gcufH3kokhcVm9KxK2//mbI4ZZocssPzp8nlO4ynLv7mNbKrI83BwxK2PXj7PPVE9UC33pZFP0Plo+P3o7h33aw/6vtLPVr9fwqF+l1subZ2Aw1OsZwMEi0BoGxEc5LnYdLMAyjTQQ/dJz8rtm8yViC0BEzFbBOPqPJbIhrMz/qrz93Wml5Use9DFQfAQ8hGJzbuUSrxEyG7j0PJ0A/U07vlIxfhcQS8qg6xKLdA2Mjp0EkUuTo0ZaQ5RtADSoDw6sos3nk6WGd9MHWQ2ESCVDhlMOAwVOOZig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sERD27XvKX9bYYyCBlogs1VSU4LAqG2RviDZvPXQSrc=;
- b=fp64NT/0AJ03qY8lpA6T6Dn6GTwfgnVZlCS+yHmH9ruVExadq6q1x2ORHTPpkRb2hSgMxilJr5S1GZ4JXVJpX9/kWq6g/rz7f2RuJSeAxZgXJArPe3dRMV/5BgUZGTpbqjJ/Qsl7NzY6QV7LB7zxruEgL4Kt2gbh7Dw3UbfZOQxy+H0vjYH8u4GuHQk+UtL/iZ8uriX3l4lciSX+3fpe2ggTtNkz4otVvExoWlRvhtb/vSfKPMQoMiq9U4B6SHg8J2O7Oj+Ti8le9xpRWzuDvPDhf63kwyUdCT5xHi/om4SXdFQfa7zXm4Z3ybMs49GTKQlDK9CW7YU17vRhNRUDXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sERD27XvKX9bYYyCBlogs1VSU4LAqG2RviDZvPXQSrc=;
- b=BqYamEAqN13Z7O7pvib68LXKq9YXTUsyFW8tm1ugPlZ4CkpjLVg/sDALKPBNMbRnKICKPgOnqAXJO+DVadNN2mxLtZpoCZC6W5WJfZrGHyaYGE+rhLaAvzAAdLABLi/mKMSvlqv23GSAJ3a31By7TmBijwGga2JgUfw2A5HIhlA=
-Received: from BN9PR03CA0032.namprd03.prod.outlook.com (2603:10b6:408:fb::7)
- by CH0PR12MB5300.namprd12.prod.outlook.com (2603:10b6:610:d7::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Mon, 4 Jul
- 2022 13:54:53 +0000
-Received: from BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fb:cafe::ea) by BN9PR03CA0032.outlook.office365.com
- (2603:10b6:408:fb::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14 via Frontend
- Transport; Mon, 4 Jul 2022 13:54:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT046.mail.protection.outlook.com (10.13.177.127) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5395.14 via Frontend Transport; Mon, 4 Jul 2022 13:54:52 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 4 Jul
- 2022 08:54:52 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 4 Jul
- 2022 06:54:52 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Mon, 4 Jul 2022 08:54:43 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH RESEND V2 2/3] drm/amdgpu: add dmi check for jadeite platform
-Date: Mon, 4 Jul 2022 19:24:19 +0530
-Message-ID: <20220704135421.1215140-2-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220704135421.1215140-1-Vijendar.Mukunda@amd.com>
-References: <20220704135421.1215140-1-Vijendar.Mukunda@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9DF10EA18;
+	Mon,  4 Jul 2022 16:16:28 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B22510E121;
+ Mon,  4 Jul 2022 13:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=0phgl7EvZ+68EkWmayGxcWn81UiJWGlHWdR6sc85jRE=; b=TgoWnxxuN1DhmlGUAQzX18SvQ4
+ B66zPYwD1TxstxI+ZU5vHo9BJlQfiRw4fnAGb7IXPNiD35su9p6J9/ai8xSCuXG9QORMFHh1IRUzI
+ Ld03p51UY0eAuFVdGswCohXAqpO8TwFXoPS4utONpYb6q07D10t5qUlqFLZ3ntYd1YSeJA0qle+dL
+ uOMVjmxQNZbGHfV1OU1JhPp/Gfr/87UMjge+zhfk3MR2Ru0C3Re5pfjP1PckHy5KESIbgQmW6UIgm
+ arJCM5qPOClJERlXoVdolYNgqdCncYwUEaE4Bi31xFR85AGiVr8lZxhY/r7i1SNTqULTxzTyEl1Ee
+ WJr87gLw==;
+Received: from 200-100-103-169.dial-up.telesp.net.br ([200.100.103.169]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1o8MPK-00H2Y2-C2; Mon, 04 Jul 2022 15:46:34 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ 'Pan Xinhui' <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdpgu/debugfs: Simplify some exit paths
+Date: Mon,  4 Jul 2022 10:45:32 -0300
+Message-Id: <20220704134532.103876-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f40505b9-6be3-4c92-396b-08da5dc4c534
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5300:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aswtqsb9tKayTYDnXN2akMCTqDcrLOWqZsOpEq93I2Xq+6+sTUUUJ95k5+Vp5dEQMKsBSEDK3Ug9ukxs20bAVQXMlgKtoHADtsx3QSEB5fr6koxbZ9E0BGiODHfQH7l8JbKY76LtABpkjqrFMRoM6e20aIcMr2JiXB5/BKNUvTuSaJ+7Mvh7IuZkRK4CDRtTOZmNyhflhtcFrLC+fivJdgd9LiJF/nZ+Kk7T5gbThe7QW0bsSlYXJqQESO8bEMT4sWNYAH8FUFJfy0m+Z0pq74TP2QPlKH1UAZ9FtuS3BYVSZvHfjKVvGcWSD9DWPGmcJdNZXkw2daz118LK6ETA6Invc3iXP7dL8QoKDCkvPnM0uXfdKTwbJWw/Ja3u+a59FwNPcfrekHV/zcNBj64+9W9Ke18YzJ8oeMB1abLSUVikXPTNmortMXxC1ZmBRcYJQP/a/UEuHf4AjEb9hmvXadOBHzLwJtYMGJvR+V6R6Boyz9lnO5OgQ4BGV99l8H/jlS1gCevvvwObFsmq3Gj8vkkRFt7JJBplkuXAuqTt+HoMgLxoesYjPl6/x9ReODkNhOCne4Dx0fO9Tb+LalDbSbmbNbxH8X4UsGTws/ZXbPN2JQgD14vk5NZS/DhRf8Symk2umqnjl+DiQJqwlNNUGDkD0zAsWC/Abn4K0YP11djg4Aydhtz9Q7LlMyeJJ/SDPrSCygv1pXnYnsLTgmRBv4ZHwKP46SDPkU7RXfoJ7B/js6WTSx1caTqbZKcwHqOBcICoXIH8R27dqVgQT+Wu9IFgVQBfASFoeegdLyF+o/bkU5moYce+2TVbO/6C2YgbSsBQlUleSA4K9tWXTZAMKBocwsIEf35kSxwFpr2KBmK4S1HqK6OzyVvt03S6feFe
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(136003)(396003)(376002)(346002)(36840700001)(46966006)(40470700004)(36756003)(356005)(40460700003)(478600001)(36860700001)(40480700001)(26005)(34020700004)(2906002)(6666004)(336012)(1076003)(47076005)(426003)(186003)(86362001)(70586007)(316002)(8676002)(70206006)(4326008)(2616005)(110136005)(41300700001)(81166007)(54906003)(83380400001)(82310400005)(82740400003)(5660300002)(8936002)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 13:54:52.9072 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f40505b9-6be3-4c92-396b-08da5dc4c534
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5300
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,97 +55,268 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunil-kumar.Dommati@amd.com, David Airlie <airlied@linux.ie>,
- Basavaraj.Hiregoudar@amd.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, zhuning@everest-semi.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ kernel-dev@igalia.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DMI check is required to distinguish Jadeite platform from
-Stoney base variant.
-Add DMI check logic for Jadeite platform.
+To avoid code repetition, unify the function exit path when possible. No
+functional changes.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-Changes since v1:
-    - Modified commit label as drm/amdgpu
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 36 +++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 107 ++++++++------------
+ 1 file changed, 42 insertions(+), 65 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index ba1605ff521f..af7b42056a89 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -29,6 +29,8 @@
- #include <linux/platform_device.h>
- #include <sound/designware_i2s.h>
- #include <sound/pcm.h>
-+#include <linux/acpi.h>
-+#include <linux/dmi.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index f3ac7912c29c..f3b3c688e4e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -383,12 +383,8 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
  
- #include "amdgpu.h"
- #include "atom.h"
-@@ -36,6 +38,7 @@
+ 		value = RREG32_PCIE(*pos);
+ 		r = put_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
  
- #include "acp_gfx_if.h"
+ 		result += 4;
+ 		buf += 4;
+@@ -396,11 +392,12 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
+ 		size -= 4;
+ 	}
  
-+#define ST_JADEITE 1
- #define ACP_TILE_ON_MASK			0x03
- #define ACP_TILE_OFF_MASK			0x02
- #define ACP_TILE_ON_RETAIN_REG_MASK		0x1f
-@@ -85,6 +88,8 @@
- #define ACP_DEVS				4
- #define ACP_SRC_ID				162
- 
-+static unsigned long acp_machine_id;
-+
- enum {
- 	ACP_TILE_P1 = 0,
- 	ACP_TILE_P2,
-@@ -184,6 +189,37 @@ static int acp_genpd_remove_device(struct device *dev, void *data)
- 	return 0;
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
  }
  
-+static int acp_quirk_cb(const struct dmi_system_id *id)
-+{
-+	acp_machine_id = ST_JADEITE;
-+	return 1;
-+}
-+
-+static const struct dmi_system_id acp_quirk_table[] = {
-+	{
-+		.callback = acp_quirk_cb,
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "AMD"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Jadeite"),
-+		}
-+	},
-+	{
-+		.callback = acp_quirk_cb,
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "IP3 Technology CO.,Ltd."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ASN1D"),
-+		},
-+	},
-+	{
-+		.callback = acp_quirk_cb,
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Standard"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ASN10"),
-+		},
-+	},
-+	{}
-+};
-+
  /**
-  * acp_hw_init - start and test ACP block
-  *
+@@ -441,12 +438,8 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+ 		uint32_t value;
+ 
+ 		r = get_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		WREG32_PCIE(*pos, value);
+ 
+@@ -456,11 +449,12 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
+ }
+ 
+ /**
+@@ -502,12 +496,8 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+ 
+ 		value = RREG32_DIDT(*pos >> 2);
+ 		r = put_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		result += 4;
+ 		buf += 4;
+@@ -515,11 +505,12 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
+ }
+ 
+ /**
+@@ -560,12 +551,8 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+ 		uint32_t value;
+ 
+ 		r = get_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		WREG32_DIDT(*pos >> 2, value);
+ 
+@@ -575,11 +562,12 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
+ }
+ 
+ /**
+@@ -621,12 +609,8 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
+ 
+ 		value = RREG32_SMC(*pos);
+ 		r = put_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		result += 4;
+ 		buf += 4;
+@@ -634,11 +618,12 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
+ }
+ 
+ /**
+@@ -679,12 +664,8 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
+ 		uint32_t value;
+ 
+ 		r = get_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		WREG32_SMC(*pos, value);
+ 
+@@ -694,11 +675,12 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+ 	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
+ }
+ 
+ /**
+@@ -1090,11 +1072,8 @@ static ssize_t amdgpu_debugfs_gfxoff_write(struct file *f, const char __user *bu
+ 		uint32_t value;
+ 
+ 		r = get_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		amdgpu_gfx_off_ctrl(adev, value ? true : false);
+ 
+@@ -1104,10 +1083,12 @@ static ssize_t amdgpu_debugfs_gfxoff_write(struct file *f, const char __user *bu
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 
+-	return result;
++	return r;
+ }
+ 
+ 
+@@ -1139,18 +1120,12 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+ 		uint32_t value;
+ 
+ 		r = amdgpu_get_gfx_off_status(adev, &value);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		r = put_user(value, (uint32_t *)buf);
+-		if (r) {
+-			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 
+ 		result += 4;
+ 		buf += 4;
+@@ -1158,10 +1133,12 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+ 		size -= 4;
+ 	}
+ 
++	r = result;
++out:
+ 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 
+-	return result;
++	return r;
+ }
+ 
+ static const struct file_operations amdgpu_debugfs_regs2_fops = {
 -- 
-2.25.1
+2.36.1
 
