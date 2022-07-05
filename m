@@ -4,116 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4171BC43334
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 16:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9E42C43334
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 17:44:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D4CC91E1A;
-	Tue,  5 Jul 2022 16:56:46 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2047.outbound.protection.outlook.com [40.107.95.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38DD591E1A
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Jul 2022 16:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D3610E1D1;
+	Tue,  5 Jul 2022 17:44:45 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2075.outbound.protection.outlook.com [40.107.100.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A007790C4A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Jul 2022 17:44:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XssI52Hc/pvf2XoPJA17i5/5s1lakvNH6ujLTFj78SbdXUOFXTYY2XDC03RQiRPKtk55h79EUw1G8u2pE3Zbjqaxwci3KTXXJczjXL+cieOL24tuwgYn3zC8v2OYORTX4V+xT63oF8O7/NDZLC1N4sS5k7Arj9ALkYHGyAH1rlMctX11wFvslxqHivfERFMLNcbYk4hU7FYOZAsf2x7URU2SO5vf1Pr7ovRRnUQZMeHxbUqv6tUNkdDu1C5JtCf/P1+wdAT/pSZrN3/1S0akWCNL3VI883TTnd48xF2TkxvUgAql1UdDbNrOhpM9JsqoRlOX+UJY+mRK07rvkL23Zg==
+ b=mYUXoHO4t6dngB5RSFhAOyyojwMWVT1AtcFH35fDq0IrRbqV8qmLy0CUIqpuT7RU9u8qeyO0EkOaFH1BL953uCEy58I2Cj6C9bra6tR/5vm2TYa4M6IAQVUmblyy3LRQzMz0Hwj4vlrtELVjHDiC9GvkHAvj00/qXtGqLrcwFAIsGtgbwvASJvyX/WVgspzEyWy9ZpHohGetHrgFt+s0/JXZZA3p5Sn78/90vKQOuso0JDV07rifoqtsotaL3/cgji0QBa9uaZpi9pswr/TMRIpDLtMCQZWwghXKSfytInMg2wPqI05GBGgWTs8FoFyCGxSNMIkBahe0ni3J/CG3/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=feFzPcJa3MmicGMgXwsWjXNuhieRLhf/kYcRfgeriMs=;
- b=JbTewJTt4G3wCpqw8CrIldPuLNzRxccbix4E1b69Fdg2rkPyndQHeM6jcmA1xWmT4seS5N8WoR++FrYOzSZjizXo6zqACATqiZ+QP27bm3vHouVVs/HkFPGp1LhbCwUA7/XidYNJ8uqd+H2bikOcEqJrzStNC9v+lAEVNiF9esWOi3sN+qZr20o0/7pm6hyjR/F4V8/80xdgxcmCOqK2ZgMp/x3MKKlI1B/dDb45DEH3ohI3kB9IQo7f9K1pois9jJiBgyp0BRFuKpHRaXiPHQRNswslZB7WmiWO8hPuTE3YIVYErGm46wvcWDtGgCandsMDaECUXtWOvX53kaCImA==
+ bh=06+RJ9R6zZggAVQewILh0QxOEQBVnOFJdS/aTp9SXCg=;
+ b=Ds/kEqxjmTCvDzBW8ZFoar1WB6Nfd/sN3jeWYkiCsFPL13VYF2IypV1SS3BpRvWY4KgvJ2Be+sPmcMe00Lky9yg0YBU/X0VS+1oQSIbPXFFRuJRKFil/bkH73H1oSG5a5dLRYUpN8T31py0qHo5ivIz1zD45+n7Ev7MG44OTGRffnGbFkivwsMUa9t6xC33uKah5lNd+4Xj0ZhrJhBololT83W7JO91r0REwkjDU4HGiFOfwsxVUldepeL5CmEG246OHf4PGcVOVESm1Bc1id7bqs4B62dZcdoIC2TWdHu0vTjk9DOuTIvT7YmzpuVc4fEvfgGgGgY7dY/os09hATA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=feFzPcJa3MmicGMgXwsWjXNuhieRLhf/kYcRfgeriMs=;
- b=5reZahNBsshb/xj3UgGkL2p+ME2TGaYALe11EdctZxFEPCmPcAVv/GOibOZZfa74e6fTncRYc5s9qvxBxh0a/pYnMjRYgXac1cw6M4zHth0tgGC/kUCuNg/LE5wB5BGxRHL59zzAzMBRljoImD0EJARYimsJL1IlnxGjVhvbtuk=
+ bh=06+RJ9R6zZggAVQewILh0QxOEQBVnOFJdS/aTp9SXCg=;
+ b=M3gj52nUhpO3EzIqb8w4H2JxMYX6iUemPhzRu5WGJgozlrJY4LN9leIJneMmn07jK7hs0pA9F23Ri2eIbJe+4FnQXG96lakK3W22c1Vrxr/4tWByqpSvb4XAGP8ki9tQ0RVez82idTDT+/mJTtghyc5aXjdmqkZE626T/RCLORc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM6PR12MB2892.namprd12.prod.outlook.com (2603:10b6:5:182::22) with
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by DS7PR12MB5959.namprd12.prod.outlook.com (2603:10b6:8:7e::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Tue, 5 Jul
- 2022 16:56:43 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::f484:f216:c67b:e595]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::f484:f216:c67b:e595%5]) with mapi id 15.20.5395.022; Tue, 5 Jul 2022
- 16:56:43 +0000
-Message-ID: <d41bcda2-bcc3-cc51-f3da-0b316415ec72@amd.com>
-Date: Tue, 5 Jul 2022 12:56:41 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.20; Tue, 5 Jul
+ 2022 17:44:40 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::2d9d:f26a:77a4:c19]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::2d9d:f26a:77a4:c19%5]) with mapi id 15.20.5395.021; Tue, 5 Jul 2022
+ 17:44:39 +0000
+Message-ID: <e5eb8962-df0e-093a-9b30-6ba7b6da245d@amd.com>
+Date: Tue, 5 Jul 2022 13:44:38 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH 3/3] drm/amdgpu: add debugfs for kfd system and ttm mem
- used
+Subject: Re: [PATCH 2/3] drm/amdkfd: track unified memory reservation with
+ xnack off
 Content-Language: en-US
-To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+To: philip yang <yangp@amd.com>, Alex Sierra <alex.sierra@amd.com>,
+ amd-gfx@lists.freedesktop.org
 References: <20220628002347.3982-1-alex.sierra@amd.com>
- <20220628002347.3982-3-alex.sierra@amd.com>
-From: philip yang <yangp@amd.com>
-In-Reply-To: <20220628002347.3982-3-alex.sierra@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0090.namprd03.prod.outlook.com
- (2603:10b6:610:cc::35) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+ <20220628002347.3982-2-alex.sierra@amd.com>
+ <cdcf6a70-c553-49fd-320e-7b3b178337f5@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <cdcf6a70-c553-49fd-320e-7b3b178337f5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0358.namprd03.prod.outlook.com
+ (2603:10b6:610:11a::20) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 026e739a-a078-45fd-5b4c-08da5ea7565f
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2892:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e94d221-b95b-4158-3910-08da5eae0909
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5959:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8hgEA+x/eOViH4Dgyo7IbmC7QyleJbLw9ZrLI1rkV4RQO9EBkikuFDjxFEXe1rSz+IYIKDnfkfCUqAIWDbDQ2l4TDEKPOaLSDLDGxzdVlJn5KDO2/8n/ywNQOVCWcay/3d2h5uhPNH7f4b65St9JVZ47vcoU5yRaTiq/NGeF3abFIGsBGgEr0Kt7CwMX5zVnoPuZYpPLSkeRhHKYISd0/BBEkaRgdEIeqDxI3aqT8S7faI2sDOzHF3WgO/dRdDBRdUkn6TaRp9fck7u5AqyeTmRA5z6oaZF+Wy41+nn9giu+8JegIDC3wShELEzriz90wZBs2DTh5NhoaeaMNMQj4a62K+ybO7V6EdKKZ5Uyo3htGAgslR148/3P98nig5e3tBxaF/daW1LGqRpFu0O/uW1/F6vI0VqD/SDay6Qz30Sq3iW68JAsCYvYRCDIlQFlgJVgbcGz2AtYLv3dH63es2KanUTmj7Jzm8Bqg7eWGZo+FzMqd2gJI8Ezh2kf2SEp41n0afU8v26Opjv7ssYKbqJKJ65ztOofu7ercJRwPwOebfstPTqlfobtlRz9kBDSqNjkXJtS9s6EAS0gMgGoiXroIsGqC8AsrqsILeizYdGk65WC0a5Iab1yk6JGnxclsR77s2DyI975k9joTPLXWexM8xVhI/Kkez10QQlM8SA0fGAO0yECxhKCTgt3oN1vYV/MIP/Cg4LErpKjh9D086axP3/I3yc9O3h35uWR73LiihKTOe4RF+1H6SZ+FHHuYfTioE+m+sZANp9VsML7ESfEXeGKxoP0A8jV/86DQVJlPqGLDk8gpYouFRhJiJ7GrHKAtA4B5E0RoocUNdD8UhVW1/YMqanOgbHcjV/yzwM=
+X-Microsoft-Antispam-Message-Info: ZgHfZKMpwnXVmQ4k0BTPk4LAYjtGfwaeZtr5KBNbagT0jP+CxDD1joPc+zeXE9wFTV5OSvWAj1et4BCp0uRxdc1J/7uOApFq1K/jUCmF+oKt07j4QaFynr4WkWUaZ1T0bhvFyi03clwwy+fWPiE1HIqCcmhcv0KJIamM3Ayp8p3Q/aV8/DmIzwoZaVN0S1ev6vWBeWbPfE3HsYU1IJp3jaMdkFjta/AZ/UgB4X1V3Lx5lW6ThUht1JakOwuB6Yd82cPUCScFwNm6lATM6hZhPpaGL8uUPDdYVk9/ceCOjCml/MzctoBMTDCS/UPnLzQvTuxqNFaHbXpvnpNjeDgyZC2TjKso7I9Tr9VXS5HPEMEG8qMXhnfQPPOpuaCnXqiU7FxYOseyV5ZRpmZEla87TCXdmKdE6ALg3NPjK+cPUPYXzSImLsPqDNDODyqCN1t7eBMiDUo9Aep9e8yf2s66hg503tFFv4c/6WPYy+iJeCLvHD7UItMd4q7SF2/MZly+H/rlboB1NAAA1qUshmP4+gHLlo5Lh9NsFkBVPw03F0sqSL9K/8lqr1px5A6z3nYvG3to95LGS5uOh1JaLgKjHLbmI5vHCmLeBW9Gt74q3NfCcbaSZl4H0z7IrwQVcPiEPLjzSJr1Xih+zqQ/jWicIjjE1G52I5tR8q916mYNJciRnAu6UWNxa3cBSIdS6ptKR7QYgdT4UhVAvoaRo604a9AtMYKuKr45/I3i8BR+0P1c1gR9oKHggOLfR0VcSgDcQsUKz4lnZlrV1RrPA6Y4JcLvdseI69XUVoUNWzDd6v3cuOnAa/RVpkkp8YVXgyLVzypHzHV68pCtwvoGUuNVE7i8U3sRPOqHP8LQjZq4WBQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(346002)(366004)(396003)(136003)(478600001)(6486002)(41300700001)(26005)(6512007)(316002)(8936002)(5660300002)(31696002)(53546011)(31686004)(186003)(4326008)(8676002)(66556008)(66476007)(2616005)(66946007)(36756003)(38100700002)(6506007)(2906002)(83380400001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(39860400002)(366004)(376002)(396003)(38100700002)(66556008)(8676002)(66476007)(66946007)(316002)(86362001)(31696002)(110136005)(2616005)(31686004)(6486002)(41300700001)(2906002)(478600001)(36916002)(8936002)(6506007)(44832011)(30864003)(186003)(53546011)(26005)(83380400001)(5660300002)(6512007)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEIrSkNsN0VJQ095RGwzSlczRnBpNG9WVVJsZkhtek1wMk80UU0vUDZhOTNl?=
- =?utf-8?B?T3I2K1p3aHpJUkZtaTFRU1hhYjJuMml2bVE0czRJbDZoWHhtV3hHWWlmUlMx?=
- =?utf-8?B?YmVuNWVMVjRxS3V3ZHV4Lyt6TEgxMnZWRUNkemxROGNNa3dVZVNGMytmRDg1?=
- =?utf-8?B?L1IxOXdnakdvUldqVXlKUTltOXpkTnVlVDNQalNpN1VkVEJEQ3ljd0R0OWNN?=
- =?utf-8?B?enJUK3NpRkhWamJXVXlUaTdGRVZqcFdaLzVzSDRPOTBvUElhY3pPS2FDdUQ2?=
- =?utf-8?B?ODU5U3ZQSFR4RS80L3lhS0tJTXBZWGwvMy8xTzNJTm9KMUdCSUFLNHJ0aU5G?=
- =?utf-8?B?OUVjeFlNR3UvdVk0OVN1cHU1SDcyUS9mU2xxZkNPcVhtNjI5ZWRvWWczSWdY?=
- =?utf-8?B?MWNSUDVMdGZ2YitUZUdjZHlnWDRoYWt6TWwraHVzWkIzMEJhUWhhWHdWbGt1?=
- =?utf-8?B?TzhYbmpySXNnSjJXajJQVVBrWlk4ZTEyZSs5d0d1QUZDZ2ZwUjRJRzM3YnIx?=
- =?utf-8?B?aW1vMENUQmVVS2tBcm4vSjRvVFoxWUFlK2w2bmR6b241RTV3YTZpQkNKT0lP?=
- =?utf-8?B?NFhwS0JhMWN0UWwzY0hZazhyeDF3ZVNSTmVDMS9YUFJGSk9LMG9NZkNUdGx5?=
- =?utf-8?B?cXRlbjR6N2hEQzNsRCtiQnBWazd6Tzh4WUFVcmZxKzVJY1ppSzZ2aHRYUnAw?=
- =?utf-8?B?bDZjZFNXdWNodDNLSGpxVElhMWhGZHk1Q3gyajMrRmxBdlExdXlhZFRyU09R?=
- =?utf-8?B?a25NeVh3NnY2b0I5amlMMkEyN3JEbzBORjRqWi9aUVM0eWJ2eWROSEFJc1Ew?=
- =?utf-8?B?YVdMK3hIdTB3RnJuWkNXTFliMDNiVTRldEoya1h4NUVzVk1Odjl4TmtnakFy?=
- =?utf-8?B?a2dOQ2p0SmZQeVQwdHJTdFJQcG1kTVNYY01LNWJVQlVVanZqQkRkWkxPNGV3?=
- =?utf-8?B?SDlISGtSS2xlaTFwaG8vOFYzZ2xDZzlyVEM0Z2Zybm9QRFFSNG5hL0RTY2JN?=
- =?utf-8?B?c0p5RXhjQkhBQW9QL3NYdURJczJRaVlPLzltSml2ZzFoZEhYWVJ1eGRkOS8x?=
- =?utf-8?B?UXNMZ1dNZmtmN09vdEhuSytsTi9kUm9ScXFLMkR4UDduZkw4Z0lkdVIrZVp0?=
- =?utf-8?B?QzBCNjV4UGRHM3E3SVVoMGZnS1dRZXRDT0pYdWJ6ZHdIaGFSQ0ozazJPUWIv?=
- =?utf-8?B?ME1yWmV0eHYvdVZ5Qm56OW9ZcEgvc212SXBrSm9PeThVdW16OENmMzJqNGx3?=
- =?utf-8?B?L2twcDBEQmo5THJJQ3BTOGc0dGpGMjY4Y3hxN2lGa1hFVzN3cEhpZVJ1S21o?=
- =?utf-8?B?NzVnRm1tYUxBcklLdGdaaXI1aEU3VzdZTGlBbjlmd2l0MnNRY05aalNGN0Qz?=
- =?utf-8?B?ZmllbEtvNllFbXlMNU8yZzJFczZxQ0lvVmdnS1NENzJhZ1FKNk1rbUxtdnF5?=
- =?utf-8?B?SldrNFI0WldQTXY4OVNEVjR1S1B4TU5LK2s5RDdVTDl0ZVk4c2NoVER2SnZF?=
- =?utf-8?B?V20zRklxWkYxVW9FQU03Um5xeDZnRXVqa09kN0JrYmlRT242SzdBV0o5WWd6?=
- =?utf-8?B?bnRHbkFIQ2Zsa1RITTZUQXl6dVhkeDYwWWQyUklaZk10d2hsc2J4c0hSdE40?=
- =?utf-8?B?UHRnSGlLMmpuVTV2M002SVBFVGJZeGhTNkFzWDJMZWpWRCtpRWl1UGtGNG5Z?=
- =?utf-8?B?RG9HbUExMlJnWnNXYzlVaDBzZDhRTmdMR1hZemZJMCsxVFdLL1NHYUlVS2Yz?=
- =?utf-8?B?N2JmOUVodGlkak4zbmxHanF5em52SU9UU3BadWFMTlhKN01QaHdIVVhRcnRq?=
- =?utf-8?B?bytHcXo1dTFsS1ppdk5GMTRDdkhQRGZ4QmZQUVgvOFMxSU1lM0xPUTZoWWZy?=
- =?utf-8?B?UUkxUFJKV1lCc2k2ZGdGV1BFM213K3hZOHVWZDYvQ1hkSjNqUmpmSS9FWVNS?=
- =?utf-8?B?SkJBZ2xPODRtcjVETjAzRU4zTFRwVEowdVJhM0dRWGptZHJUUmNGYkI4V1BT?=
- =?utf-8?B?VTVHUjViWUxNY1VWOWdHV0plN08vNGJEdGptYnFGNDZRYVlRV3B1Y0U1Wmow?=
- =?utf-8?B?NkJiYW5Sc1l1SzJpTCswUnhYK0tKd0pjYVEwcXQ1SUNZUnN6RVM1R1lSZnJu?=
- =?utf-8?Q?MLq25EwJ/B5JLGIoEa3YeucUy?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXRiWDRhUUtSalA2WWM2czNTNTJhbXdEQUkzdXFRcmc3Z0ZZb1A1aC8rR0M5?=
+ =?utf-8?B?NFBRa3JlVUR5VUxwRzVSNVh4M21jazdIelZ5VTNHWndzVHdMZzlpSHN1dVZF?=
+ =?utf-8?B?R3dxb0tUU0ExYUdGMERaRkJMeEd5OUVJRlM1MnBndGRBT09KbWxwY0NVMjNN?=
+ =?utf-8?B?TkMrQlFqUHRuMTl6QnpNWlJGYXVHZ1QzWWZzTHRUQlRMQ0JvU2NCR3M4WkVF?=
+ =?utf-8?B?SWNURnlPZm1hWUhhY3ZNMGZWZWJqa1B1TWVBQ3JqcWF2a2xpSGh2WlJ1MHk1?=
+ =?utf-8?B?VGxnd0JlUFY1blFETW42aGxQNERySS9scU84ckR1dk96aHdGT1hKMFVUSmJq?=
+ =?utf-8?B?dzNpY0RkSjlJTnhoZCtLN1dnS3NnVnBJRnFXYURMNUtvR2swL003Yi94bFlm?=
+ =?utf-8?B?Q1lyaDBja252Rkowa2lLK0xRaVZCeGJSWXZqRzlkbElxdGl0RmJKK01OTXN5?=
+ =?utf-8?B?T29hcXVhKzBTVmZmeE5CM0RFbktxaEUrUHpXOWdDRU5OaStzWU01dkxQV2Zy?=
+ =?utf-8?B?OEJrM21MUDVER2Fodm9rRGZqeVJoMWk4UjhLYkloYjI5TEtIZ1NzUENhSnBU?=
+ =?utf-8?B?VWFsaXhSYTZFTUJRTjdPRmxRS3pWWGlUazJpMUpmaUMvYlU3QjVDTkEreDc0?=
+ =?utf-8?B?eW1aWVZXMGI2SWpMcE8zRUp1WXNTZ1FCQkFXSVFwOU5BRGtjVUM2MEdab3VV?=
+ =?utf-8?B?VytOSUN4UzBJcDNXa1FMVXFaa3JDSG03THhrTkFTN2VvVk9rTkZNZEFhWkVF?=
+ =?utf-8?B?NG5UZ01kejhhYVNxb0lKa3NjVm14UFFoLzdCZUxrY2JNUjJsTkRLSlhHaENw?=
+ =?utf-8?B?OWUyZG9yczB2TnpUTXBFQ3g1UkNndmJsVEk1TzFOU0pNUWtWVS92SFk3bUVj?=
+ =?utf-8?B?RE1udklIN1BRZk8xSEpPTlVtUlBwRkNKVWJqQmpkdXFmOEpWUitYL21ISERi?=
+ =?utf-8?B?V1ZtblJickRiajI4QktWN3FtcThkcHdFaGJaZGpyb093anU0OHd0VThJOUhR?=
+ =?utf-8?B?c2hFbkJtVk9hSnhFZ0dIZW9XanFFekdlaVMwWEpPazE4N1M5aE5mNW94eFRq?=
+ =?utf-8?B?dWw4bllmZEVNbmV0bmEwNDc4MkNsVnBqNmhIT1lSWk9YRkR5QlIrVFkwcU5W?=
+ =?utf-8?B?NEIralM1SkYzQ2RQNTFHQzBoMTdBT0hocWloTDhQellVYXRuOFFBYU1KdlZI?=
+ =?utf-8?B?cytaZGFjZTBFRWU3T2s4b1dIcFRYTkpQTGw0RWEwU21iRGpZcWczbW90dUxw?=
+ =?utf-8?B?em8vR2svbC80YWxCeitXeWNDL0d4eXhwZlBWcHpUWU90cGVqbjduZDlHRHhx?=
+ =?utf-8?B?ZWg3ZStGOEZPaWpENmI2Y2FKUUdva0lTRG1rZXRjMk9TS0hjOU4wbEdWU3JS?=
+ =?utf-8?B?K3JTQStOWFZZZFFUUUVJY2dHTFRuK2svL1JPbGlnZUNNU1B1TjJBR1FHN1Qy?=
+ =?utf-8?B?bE5WV0J5QnJvZGJSU09sZHZrTVZERXRkZ0Q2NExPeGdKZnhxeDlLMWtwaWl0?=
+ =?utf-8?B?Uml1U1FqMFBZaWtGK1o2L09LNUxGT2c5dndkT1FhbGhMYW9qSEVteG5SM1dU?=
+ =?utf-8?B?SmNnU2RGamxIdXNXNHp5NjdzT1hmMElDeVJ6L2NJeWU4SHRQZ1FVcUt5UDRo?=
+ =?utf-8?B?eXpKWHVoWlJ6cVAreXFlb3RRQkVEYTdaeHRaRmRQQ3dsSzNVSk9PZzl3V29i?=
+ =?utf-8?B?bFRmWTBldkxKRnRLcCsvK2ZUQ0ZlYW5UVGhWbmtNR0tyQTN5SmF5aEZVeDE4?=
+ =?utf-8?B?UDZxNjZpNnkrd1h2UGh3Z3VPMlZCNE03ei9IaXdCWEJmZUo0b1l2aVZsaXNU?=
+ =?utf-8?B?VDZpa21VdGxwUnUvaDUrTXRYQndNWm9Kc0RoUFd6YlZJaWFxZ1ZIZmNSZGor?=
+ =?utf-8?B?THhRMnV3dVQvMWdqb0xMZWRzQ2psT1hzcG9EMzVIWk05cXR3Z3RuMWZDYmtJ?=
+ =?utf-8?B?QnFSMmVDaGRUYUVKNzJQdi8yUW8ybnRHMGdrYzNaNlFkKzQrNnN2MTZWR3RV?=
+ =?utf-8?B?dW5PbTVXY05SV0ZJUFZoa0lpVG01dGpVQzByMGRQRlhXR0VpdjJVanA0Nzd5?=
+ =?utf-8?B?dVplTWQ0dVpnaHlXanpjR3ZDVXF1OHE2TEU0TjQ5QUhDc3g0eFZoV1NUK0to?=
+ =?utf-8?Q?CK6UxSEZ9zKlcifYIaA9CTAIm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 026e739a-a078-45fd-5b4c-08da5ea7565f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e94d221-b95b-4158-3910-08da5eae0909
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 16:56:42.9561 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 17:44:39.7372 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nE6UGqG1yW3mjTFbtMEXpoWfEpNAPq6vGxwLKHUW6eiC08MXypTCFdZNX7XeuDMM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2892
+X-MS-Exchange-CrossTenant-UserPrincipalName: YEb3OV5Hz2bHcO3TrpBDsM61T8E1rxcSBgmCNP8Am0eKUadAw2KuA5ApCaIMjrr3i291rxBt2+/GEl7grQqS9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,90 +128,351 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2022-06-27 20:23, Alex Sierra wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20220628002347.3982-3-alex.sierra@amd.com">
-      <pre class="moz-quote-pre" wrap="">This keeps track of kfd system mem used and kfd ttm mem used.</pre>
-    </blockquote>
-    <p>We could also dump vram used by checking topology_device_list per
-      dev-&gt;vram_used, but it can add later if needed.</p>
-    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
-    </p>
-    <blockquote type="cite" cite="mid:20220628002347.3982-3-alex.sierra@amd.com">
-      <pre class="moz-quote-pre" wrap="">
 
-Signed-off-by: Alex Sierra <a class="moz-txt-link-rfc2396E" href="mailto:alex.sierra@amd.com">&lt;alex.sierra@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  3 +++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 19 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c      |  2 ++
- 3 files changed, 24 insertions(+)
+On 2022-07-05 12:09, philip yang wrote:
+>
+>
+> On 2022-06-27 20:23, Alex Sierra wrote:
+>> [WHY]
+>> Unified memory with xnack off should be tracked, as userptr mappings
+>> and legacy allocations do. To avoid oversuscribe system memory when
+>> xnack off.
+> I think this also apply to XNACK ON (remove p->xnack_enabled check), 
+> to avoid oversubscribe system memory OOM killer, if we don't account 
+> swap space as it will degrade performance.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index e6244182a3a4..53cdf7f00b3f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -172,6 +172,9 @@ int amdgpu_queue_mask_bit_to_set_resource_bit(struct amdgpu_device *adev,
- struct amdgpu_amdkfd_fence *amdgpu_amdkfd_fence_create(u64 context,
- 				struct mm_struct *mm,
- 				struct svm_range_bo *svm_bo);
-+#if defined(CONFIG_DEBUG_FS)
-+int kfd_debugfs_kfd_mem_limits(struct seq_file *m, void *data);
-+#endif
- #if IS_ENABLED(CONFIG_HSA_AMD)
- bool amdkfd_fence_check_mm(struct dma_fence *f, struct mm_struct *mm);
- struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 9719577ecc6d..c48557b683c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2935,3 +2935,22 @@ bool amdgpu_amdkfd_bo_mapped_to_dev(struct amdgpu_device *adev, struct kgd_mem *
- 	}
- 	return false;
- }
-+
-+#if defined(CONFIG_DEBUG_FS)
-+
-+int kfd_debugfs_kfd_mem_limits(struct seq_file *m, void *data)
-+{
-+
-+	spin_lock(&amp;kfd_mem_limit.mem_limit_lock);
-+	seq_printf(m, &quot;System mem used %lldM out of %lluM\n&quot;,
-+		  (kfd_mem_limit.system_mem_used &gt;&gt; 20),
-+		  (kfd_mem_limit.max_system_mem_limit &gt;&gt; 20));
-+	seq_printf(m, &quot;TTM mem used %lldM out of %lluM\n&quot;,
-+		  (kfd_mem_limit.ttm_mem_used &gt;&gt; 20),
-+		  (kfd_mem_limit.max_ttm_mem_limit &gt;&gt; 20));
-+	spin_unlock(&amp;kfd_mem_limit.mem_limit_lock);
-+
-+	return 0;
-+}
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-index 581c3a30fee1..ad5a40a685ac 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-@@ -101,6 +101,8 @@ void kfd_debugfs_init(void)
- 			    kfd_debugfs_rls_by_device, &amp;kfd_debugfs_fops);
- 	debugfs_create_file(&quot;hang_hws&quot;, S_IFREG | 0200, debugfs_root,
- 			    kfd_debugfs_hang_hws_read, &amp;kfd_debugfs_hang_hws_fops);
-+	debugfs_create_file(&quot;mem_limit&quot;, S_IFREG | 0200, debugfs_root,
-+			    kfd_debugfs_kfd_mem_limits, &amp;kfd_debugfs_fops);
- }
- 
- void kfd_debugfs_fini(void)
-</pre>
-    </blockquote>
-  </body>
-</html>
+That's not the GPU driver's job. If applications allocate too much 
+memory, that's the application's fault. With XNACK ON, the driver 
+doesn't need to make memory resident before the GPU starts executing, 
+and the GPU can continue executing when unused memory is swapped out. 
+Allowing memory overcommitment is one of the desirable features enabled 
+by XNACK ON. Therefore we don't need to artificially limit the amount of 
+memory that can be GPU mapped in this mode.
+
+Regards,
+   Felix
+
+
+>> [How]
+>> Exposing functions reserve_mem_limit and unreserve_mem_limit to SVM
+>> API and call them on every prange creation and free.
+>>
+>> Signed-off-by: Alex Sierra<alex.sierra@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  4 ++
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 25 ++++----
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 58 +++++++++++++------
+>>   3 files changed, 58 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> index b25b41f50213..e6244182a3a4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> @@ -305,6 +305,10 @@ bool amdgpu_amdkfd_bo_mapped_to_dev(struct amdgpu_device *adev, struct kgd_mem *
+>>   void amdgpu_amdkfd_block_mmu_notifications(void *p);
+>>   int amdgpu_amdkfd_criu_resume(void *p);
+>>   bool amdgpu_amdkfd_ras_query_utcl2_poison_status(struct amdgpu_device *adev);
+>> +int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>> +		uint64_t size, u32 alloc_flag);
+>> +void amdgpu_amdkfd_unreserve_mem_limit(struct amdgpu_device *adev,
+>> +		uint64_t size, u32 alloc_flag);
+>>   
+>>   #if IS_ENABLED(CONFIG_HSA_AMD)
+>>   void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 9142f6cc3f4d..9719577ecc6d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -128,7 +128,7 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+>>    *
+>>    * Return: returns -ENOMEM in case of error, ZERO otherwise
+>>    */
+>> -static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>> +int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>>   		uint64_t size, u32 alloc_flag)
+>>   {
+>>   	uint64_t reserved_for_pt =
+>> @@ -168,7 +168,7 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>>   	     kfd_mem_limit.max_system_mem_limit && !no_system_mem_limit) ||
+>>   	    (kfd_mem_limit.ttm_mem_used + ttm_mem_needed >
+>>   	     kfd_mem_limit.max_ttm_mem_limit) ||
+>> -	    (adev->kfd.vram_used + vram_needed >
+>> +	    (adev && adev->kfd.vram_used + vram_needed >
+>>   	     adev->gmc.real_vram_size -
+>>   	     atomic64_read(&adev->vram_pin_size) -
+>>   	     reserved_for_pt)) {
+>> @@ -179,7 +179,10 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>>   	/* Update memory accounting by decreasing available system
+>>   	 * memory, TTM memory and GPU memory as computed above
+>>   	 */
+>> -	adev->kfd.vram_used += vram_needed;
+>> +	WARN_ONCE(vram_needed && !adev,
+>> +		  "adev reference can't be null when vram is used");
+>> +	if (adev)
+>> +		adev->kfd.vram_used += vram_needed;
+>>   	kfd_mem_limit.system_mem_used += system_mem_needed;
+>>   	kfd_mem_limit.ttm_mem_used += ttm_mem_needed;
+>>   
+>> @@ -188,7 +191,7 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>>   	return ret;
+>>   }
+>>   
+>> -static void unreserve_mem_limit(struct amdgpu_device *adev,
+>> +void amdgpu_amdkfd_unreserve_mem_limit(struct amdgpu_device *adev,
+>>   		uint64_t size, u32 alloc_flag)
+>>   {
+>>   	spin_lock(&kfd_mem_limit.mem_limit_lock);
+>> @@ -197,7 +200,10 @@ static void unreserve_mem_limit(struct amdgpu_device *adev,
+>>   		kfd_mem_limit.system_mem_used -= size;
+>>   		kfd_mem_limit.ttm_mem_used -= size;
+>>   	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+>> -		adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
+>> +		WARN_ONCE(!adev,
+>> +			  "adev reference can't be null when alloc mem flags vram is set");
+>> +		if (adev)
+>> +			adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
+>>   	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+>>   		kfd_mem_limit.system_mem_used -= size;
+>>   	} else if (!(alloc_flag &
+>> @@ -206,11 +212,8 @@ static void unreserve_mem_limit(struct amdgpu_device *adev,
+>>   		pr_err("%s: Invalid BO type %#x\n", __func__, alloc_flag);
+>>   		goto release;
+>>   	}
+>> -
+>> -	WARN_ONCE(adev->kfd.vram_used < 0,
+>> +	WARN_ONCE(adev && adev->kfd.vram_used < 0,
+>>   		  "KFD VRAM memory accounting unbalanced");
+>> -	WARN_ONCE(kfd_mem_limit.ttm_mem_used < 0,
+>> -		  "KFD TTM memory accounting unbalanced");
+>>   	WARN_ONCE(kfd_mem_limit.system_mem_used < 0,
+>>   		  "KFD system memory accounting unbalanced");
+>>   
+>> @@ -224,7 +227,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
+>>   	u32 alloc_flags = bo->kfd_bo->alloc_flags;
+>>   	u64 size = amdgpu_bo_size(bo);
+>>   
+>> -	unreserve_mem_limit(adev, size, alloc_flags);
+>> +	amdgpu_amdkfd_unreserve_mem_limit(adev, size, alloc_flags);
+>>   
+>>   	kfree(bo->kfd_bo);
+>>   }
+>> @@ -1806,7 +1809,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>>   	/* Don't unreserve system mem limit twice */
+>>   	goto err_reserve_limit;
+>>   err_bo_create:
+>> -	unreserve_mem_limit(adev, size, flags);
+>> +	amdgpu_amdkfd_unreserve_mem_limit(adev, size, flags);
+>>   err_reserve_limit:
+>>   	mutex_destroy(&(*mem)->lock);
+>>   	if (gobj)
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index d6fc00d51c8c..e706cbfa924f 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -259,13 +259,22 @@ void svm_range_free_dma_mappings(struct svm_range *prange)
+>>   	}
+>>   }
+>>   
+>> -static void svm_range_free(struct svm_range *prange)
+>> +static void svm_range_free(struct svm_range *prange, bool skip_unreserve)
+>>   {
+>> +	uint64_t size = (prange->last - prange->start + 1) << PAGE_SHIFT;
+>> +	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
+>> +
+>>   	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms, prange,
+>>   		 prange->start, prange->last);
+>>   
+>>   	svm_range_vram_node_free(prange);
+>>   	svm_range_free_dma_mappings(prange);
+>> +
+>> +	if (!skip_unreserve && !p->xnack_enabled) {
+>> +		pr_debug("unreserve mem limit: %lld\n", size);
+>> +		amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
+>> +					KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+>> +	}
+>>   	mutex_destroy(&prange->lock);
+>>   	mutex_destroy(&prange->migrate_mutex);
+>>   	kfree(prange);
+>> @@ -284,7 +293,7 @@ svm_range_set_default_attributes(int32_t *location, int32_t *prefetch_loc,
+>>   
+>>   static struct
+>>   svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+>> -			 uint64_t last)
+>> +			 uint64_t last, bool is_new_alloc)
+>>   {
+>>   	uint64_t size = last - start + 1;
+>>   	struct svm_range *prange;
+>> @@ -293,6 +302,15 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+>>   	prange = kzalloc(sizeof(*prange), GFP_KERNEL);
+>>   	if (!prange)
+>>   		return NULL;
+>> +
+>> +	p = container_of(svms, struct kfd_process, svms);
+>> +	if (!p->xnack_enabled && is_new_alloc &&
+>> +	    amdgpu_amdkfd_reserve_mem_limit(NULL, size << PAGE_SHIFT,
+>> +					    KFD_IOC_ALLOC_MEM_FLAGS_USERPTR)) {
+>> +		pr_info("SVM mapping failed, exceeds resident system memory limit\n");
+>> +		kfree(prange);
+>> +		return NULL;
+>> +	}
+>>   	prange->npages = size;
+>>   	prange->svms = svms;
+>>   	prange->start = start;
+>> @@ -307,7 +325,6 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+>>   	mutex_init(&prange->migrate_mutex);
+>>   	mutex_init(&prange->lock);
+>>   
+>> -	p = container_of(svms, struct kfd_process, svms);
+>>   	if (p->xnack_enabled)
+>>   		bitmap_copy(prange->bitmap_access, svms->bitmap_supported,
+>>   			    MAX_GPU_INSTANCE);
+>> @@ -1000,9 +1017,9 @@ svm_range_split(struct svm_range *prange, uint64_t start, uint64_t last,
+>>   
+>>   	svms = prange->svms;
+>>   	if (old_start == start)
+>> -		*new = svm_range_new(svms, last + 1, old_last);
+>> +		*new = svm_range_new(svms, last + 1, old_last, false);
+>>   	else
+>> -		*new = svm_range_new(svms, old_start, start - 1);
+>> +		*new = svm_range_new(svms, old_start, start - 1, false);
+>>   	if (!*new)
+>>   		return -ENOMEM;
+>>   
+>> @@ -1010,7 +1027,7 @@ svm_range_split(struct svm_range *prange, uint64_t start, uint64_t last,
+>>   	if (r) {
+>>   		pr_debug("failed %d split [0x%llx 0x%llx] to [0x%llx 0x%llx]\n",
+>>   			 r, old_start, old_last, start, last);
+>> -		svm_range_free(*new);
+>> +		svm_range_free(*new, true);
+>>   		*new = NULL;
+>>   	}
+>>   
+>> @@ -1825,7 +1842,7 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+>>   {
+>>   	struct svm_range *new;
+>>   
+>> -	new = svm_range_new(old->svms, old->start, old->last);
+>> +	new = svm_range_new(old->svms, old->start, old->last, false);
+>>   	if (!new)
+>>   		return NULL;
+>>   
+>> @@ -1889,6 +1906,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>>   	struct interval_tree_node *node;
+>>   	struct svm_range *prange;
+>>   	struct svm_range *tmp;
+>> +	struct list_head new_list;
+>>   	int r = 0;
+>>   
+>>   	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
+>> @@ -1896,6 +1914,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>>   	INIT_LIST_HEAD(update_list);
+>>   	INIT_LIST_HEAD(insert_list);
+>>   	INIT_LIST_HEAD(remove_list);
+>> +	INIT_LIST_HEAD(&new_list);
+>>   
+>>   	node = interval_tree_iter_first(&svms->objects, start, last);
+>>   	while (node) {
+>> @@ -1951,13 +1970,13 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>>   
+>>   		/* insert a new node if needed */
+>>   		if (node->start > start) {
+>> -			prange = svm_range_new(svms, start, node->start - 1);
+>> +			prange = svm_range_new(svms, start, node->start - 1, true);
+>>   			if (!prange) {
+>>   				r = -ENOMEM;
+>>   				goto out;
+>>   			}
+>>   
+>> -			list_add(&prange->list, insert_list);
+>> +			list_add(&prange->list, &new_list);
+>>   			list_add(&prange->update_list, update_list);
+>>   		}
+>>   
+>> @@ -1967,19 +1986,22 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>>   
+>>   	/* add a final range at the end if needed */
+>>   	if (start <= last) {
+>> -		prange = svm_range_new(svms, start, last);
+>> +		prange = svm_range_new(svms, start, last, true);
+>>   		if (!prange) {
+>>   			r = -ENOMEM;
+>>   			goto out;
+>>   		}
+>> -		list_add(&prange->list, insert_list);
+>> +		list_add(&prange->list, &new_list);
+>>   		list_add(&prange->update_list, update_list);
+>>   	}
+>>   
+>>   out:
+>>   	if (r)
+>> -		list_for_each_entry_safe(prange, tmp, insert_list, list)
+>> -			svm_range_free(prange);
+>> +		list_for_each_entry_safe(prange, tmp, &new_list, list)
+>> +			svm_range_free(prange, false);
+>> +	else
+>> +		list_for_each_entry_safe(prange, tmp, &new_list, list)
+>> +			list_add(&prange->list, insert_list);
+>
+> We should remove range from both new_list and insert_list to rollback 
+> pranges.
+>
+>   	if (r) {
+> 		list_for_each_entry_safe(prange, tmp, insert_list, list)
+> 			svm_range_free(prange, true);
+> 		list_for_each_entry_safe(prange, tmp, &new_list, list)
+> 			svm_range_free(prange, false);
+> 	} else if (!list_empty(&new_list) {
+> 		list_splice(&new_list, insert_list);
+>          }
+> Regards,
+> Philip
+>>   
+>>   	return r;
+>>   }
+>> @@ -2026,7 +2048,7 @@ svm_range_handle_list_op(struct svm_range_list *svms, struct svm_range *prange,
+>>   			 svms, prange, prange->start, prange->last);
+>>   		svm_range_unlink(prange);
+>>   		svm_range_remove_notifier(prange);
+>> -		svm_range_free(prange);
+>> +		svm_range_free(prange, false);
+>>   		break;
+>>   	case SVM_OP_UPDATE_RANGE_NOTIFIER:
+>>   		pr_debug("update notifier 0x%p prange 0x%p [0x%lx 0x%lx]\n",
+>> @@ -2588,14 +2610,14 @@ svm_range *svm_range_create_unregistered_range(struct amdgpu_device *adev,
+>>   		last = addr;
+>>   	}
+>>   
+>> -	prange = svm_range_new(&p->svms, start, last);
+>> +	prange = svm_range_new(&p->svms, start, last, true);
+>>   	if (!prange) {
+>>   		pr_debug("Failed to create prange in address [0x%llx]\n", addr);
+>>   		return NULL;
+>>   	}
+>>   	if (kfd_process_gpuid_from_adev(p, adev, &gpuid, &gpuidx)) {
+>>   		pr_debug("failed to get gpuid from kgd\n");
+>> -		svm_range_free(prange);
+>> +		svm_range_free(prange, false);
+>>   		return NULL;
+>>   	}
+>>   
+>> @@ -2884,7 +2906,7 @@ void svm_range_list_fini(struct kfd_process *p)
+>>   	list_for_each_entry_safe(prange, next, &p->svms.list, list) {
+>>   		svm_range_unlink(prange);
+>>   		svm_range_remove_notifier(prange);
+>> -		svm_range_free(prange);
+>> +		svm_range_free(prange, false);
+>>   	}
+>>   
+>>   	mutex_destroy(&p->svms.lock);
+>> @@ -3299,7 +3321,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>>   			 prange->last);
+>>   		svm_range_unlink(prange);
+>>   		svm_range_remove_notifier(prange);
+>> -		svm_range_free(prange);
+>> +		svm_range_free(prange, true);
+>>   	}
+>>   
+>>   	mmap_write_downgrade(mm);
