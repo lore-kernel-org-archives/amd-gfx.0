@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43106CCA47F
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 13:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA1DC43334
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 13:14:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1C6210E5F6;
-	Tue,  5 Jul 2022 13:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8765B1128F7;
+	Tue,  5 Jul 2022 13:14:42 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03DD210E202;
- Tue,  5 Jul 2022 06:55:04 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-232.nat.spd-mgts.ru
- [109.252.119.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17B9310E021;
+ Tue,  5 Jul 2022 10:52:35 +0000 (UTC)
+Received: from [192.168.2.145] (unknown [109.252.119.232])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id AEB39660199B;
- Mon,  4 Jul 2022 23:38:39 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 04042660180F;
+ Tue,  5 Jul 2022 11:52:30 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656974322;
- bh=VRx6udoXxSq0dZb7twvztDgIdzhjYZHCPJJRsM4dVqQ=;
+ s=mail; t=1657018353;
+ bh=C0XVywH+oyNLG15zS9kJCfV/f1r6tRA5EPvm3RYnUOM=;
  h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=KwvHGSsu2bJpgBrKrgPDv83tWaOdVmGMPR8xlDdCPLhk9xw7Ud+ZimwXxR2cr6Bmp
- u3TauupmhYOD/BkPc+8ksFovTJTbAcBpLSx299Nu/F9NLYkyvIwA7hazvWNS1Ox8iE
- oWyqhlB87oYwccFQeaom4XZ5SLTzFf4krAuEcymZX+yHDFAVa73And9pvwQQQaqVG0
- uVbLJZX3cSps+jjvkOrgPRu1fS1he6n4GOm4SrJjDL0Yuyb5LZkxCAnhCGLYb/AJAq
- YXka1J9BEeBH6cDYDCae5AG19iXh8wYiVOrUyqTONSTh6YULDs1xUwy4JXtD8NNKBR
- zdbCJFJEnjwYQ==
-Message-ID: <fd026c44-b067-3537-3020-4ae8f24137ad@collabora.com>
-Date: Tue, 5 Jul 2022 01:38:36 +0300
+ b=BFsJtEh/gBUsqY7oLRLDvEEt2L0qJInllcm8ERMdMkKs/ivYjVrMj7HM0VLqfdii4
+ iZJrTAHKS+FQJADUDLdChPRH7Y6aiXltet0/Ptkf7VzEZKH0NTIj3TrpzjnTsS5eIM
+ +daU4k8lz/lV6BZmBuVv7AHzc7nHJfY2f1YwSD3ROdt84HfzsTGjByasgAXNcMz4d1
+ qg/O+0qPRX6gCd4cBJwu1DYAoDwhHm0Pyvxxug8XaHFbhF++KaNwZMKNBglpUncQwu
+ n6itsrDfKq1GL6c0rmng3zw4Cd6j6JFnFqIEoFQiM5a30K8uZbuwLUOjlQtKkbkZuL
+ 78aARH30ofTdQ==
+Message-ID: <37f028a0-f54a-a1a9-e23a-3c1af6979a62@collabora.com>
+Date: Tue, 5 Jul 2022 13:52:28 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -48,9 +47,10 @@ References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
  <7372dd1b-06f7-5336-4738-15f9b4d4d4b3@collabora.com>
  <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
  <0d88cf7c-61e5-d7a8-a6ba-83388114a1fa@collabora.com>
-In-Reply-To: <0d88cf7c-61e5-d7a8-a6ba-83388114a1fa@collabora.com>
+ <fd026c44-b067-3537-3020-4ae8f24137ad@collabora.com>
+In-Reply-To: <fd026c44-b067-3537-3020-4ae8f24137ad@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 05 Jul 2022 13:14:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,88 +93,25 @@ Cc: David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/1/22 13:43, Dmitry Osipenko wrote:
-> On 6/29/22 00:26, Thomas Hellström (Intel) wrote:
->> On 5/30/22 15:57, Dmitry Osipenko wrote:
->>> On 5/30/22 16:41, Christian König wrote:
->>>> Hi Dmitry,
->>>>
->>>> Am 30.05.22 um 15:26 schrieb Dmitry Osipenko:
->>>>> Hello Christian,
->>>>>
->>>>> On 5/30/22 09:50, Christian König wrote:
->>>>>> Hi Dmitry,
->>>>>>
->>>>>> First of all please separate out this patch from the rest of the
->>>>>> series,
->>>>>> since this is a complex separate structural change.
->>>>> I assume all the patches will go via the DRM tree in the end since the
->>>>> rest of the DRM patches in this series depend on this dma-buf change.
->>>>> But I see that separation may ease reviewing of the dma-buf changes, so
->>>>> let's try it.
->>>> That sounds like you are underestimating a bit how much trouble this
->>>> will be.
->>>>
->>>>>> I have tried this before and failed because catching all the locks in
->>>>>> the right code paths are very tricky. So expect some fallout from this
->>>>>> and make sure the kernel test robot and CI systems are clean.
->>>>> Sure, I'll fix up all the reported things in the next iteration.
->>>>>
->>>>> BTW, have you ever posted yours version of the patch? Will be great if
->>>>> we could compare the changed code paths.
->>>> No, I never even finished creating it after realizing how much work it
->>>> would be.
->>>>
->>>>>>> This patch introduces new locking convention for dma-buf users. From
->>>>>>> now
->>>>>>> on all dma-buf importers are responsible for holding dma-buf
->>>>>>> reservation
->>>>>>> lock around operations performed over dma-bufs.
->>>>>>>
->>>>>>> This patch implements the new dma-buf locking convention by:
->>>>>>>
->>>>>>>      1. Making dma-buf API functions to take the reservation lock.
->>>>>>>
->>>>>>>      2. Adding new locked variants of the dma-buf API functions for
->>>>>>> drivers
->>>>>>>         that need to manage imported dma-bufs under the held lock.
->>>>>> Instead of adding new locked variants please mark all variants which
->>>>>> expect to be called without a lock with an _unlocked postfix.
->>>>>>
->>>>>> This should make it easier to remove those in a follow up patch set
->>>>>> and
->>>>>> then fully move the locking into the importer.
->>>>> Do we really want to move all the locks to the importers? Seems the
->>>>> majority of drivers should be happy with the dma-buf helpers handling
->>>>> the locking for them.
->>>> Yes, I clearly think so.
->>>>
->>>>>>>      3. Converting all drivers to the new locking scheme.
->>>>>> I have strong doubts that you got all of them. At least radeon and
->>>>>> nouveau should grab the reservation lock in their ->attach callbacks
->>>>>> somehow.
->>>>> Radeon and Nouveau use gem_prime_import_sg_table() and they take resv
->>>>> lock already, seems they should be okay (?)
->>>> You are looking at the wrong side. You need to fix the export code path,
->>>> not the import ones.
->>>>
->>>> See for example attach on radeon works like this
->>>> drm_gem_map_attach->drm_gem_pin->radeon_gem_prime_pin->radeon_bo_reserve->ttm_bo_reserve->dma_resv_lock.
->>>>
->>> Yeah, I was looking at the both sides, but missed this one.
->> Also i915 will run into trouble with attach. In particular since i915
->> starts a full ww transaction in its attach callback to be able to lock
->> other objects if migration is needed. I think i915 CI would catch this
->> in a selftest.
-> Seems it indeed it should deadlock. But i915 selftests apparently
-> should've caught it and they didn't, I'll re-check what happened.
+On 7/5/22 01:38, Dmitry Osipenko wrote:
+...
+>>> Also i915 will run into trouble with attach. In particular since i915
+>>> starts a full ww transaction in its attach callback to be able to lock
+>>> other objects if migration is needed. I think i915 CI would catch this
+>>> in a selftest.
+>> Seems it indeed it should deadlock. But i915 selftests apparently
+>> should've caught it and they didn't, I'll re-check what happened.
+>>
+> 
+> The i915 selftests use a separate mock_dmabuf_ops. That's why it works
+> for the selftests, i.e. there is no deadlock.
+> 
+> Thomas, would i915 CI run a different set of tests or will it be the
+> default i915 selftests ran by IGT?
 > 
 
-The i915 selftests use a separate mock_dmabuf_ops. That's why it works
-for the selftests, i.e. there is no deadlock.
-
-Thomas, would i915 CI run a different set of tests or will it be the
-default i915 selftests ran by IGT?
+Nevermind, I had a local kernel change that was forgotten about.. it
+prevented the i915 live tests from running.
 
 -- 
 Best regards,
