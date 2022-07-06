@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E54C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jul 2022 15:48:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 412AECCA482
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jul 2022 15:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B30211B073;
-	Wed,  6 Jul 2022 15:48:50 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1A511B01A;
- Wed,  6 Jul 2022 15:48:48 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id x10so12467678edd.13;
- Wed, 06 Jul 2022 08:48:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9546B11B482;
+	Wed,  6 Jul 2022 15:53:50 +0000 (UTC)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48A2711B482;
+ Wed,  6 Jul 2022 15:53:50 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id k30so11712335edk.8;
+ Wed, 06 Jul 2022 08:53:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=00PsEcFRen9hQVc5J36/2xhprKBUXZ2hnp6jcmTfM4w=;
- b=pNXn7TgzsCEm/pHTxWSPmtbN7IRdsA9BW/X0mOqzxpyXhEA83+pdsT0vK29YfnciIQ
- sZ7V6TIXe/zoYx9KLNvKLtd5mGEK3p3q+Z3kMnAhD8AzjDq9gN0PQm728q5MCwLsu7ML
- J/AI2PFIVxVzc9uuCMchCNxUPl3BVwMspju1Bv4nqXFyOx43M3rMxFvoA5GxyPvUWtJz
- 7w5N5xmC+jmUslNTsEhsXfFXgzK3GZ6fHqpqQRyx5McVPFA0gkOopSPmfHRJ4vg8UiPT
- n9Vu97o6JYGYb40mNuiO+byqZjVJ/M97EqRyK90BwycxBN+CoIyvrotwsI0kxRDLb05O
- uTQg==
+ :cc; bh=gwbqnUpjiSN4hgfIC7ffIeFKyZvoDEGRDTZHu+A2QaQ=;
+ b=ILrEVzPO9R1qY/womGdC0iB2h8cQstee4G6RPCy8IsBo5G+Oq1Ac4D3JEMDqXno5YZ
+ rFglDoNwKgK5Ahs8bN0iXQY4O5xB27jjUnHkySSsL57Ii34QAArVmX3OQekHTkkSSiRB
+ lDv7xx5uodVD6HJ2t6PVpYOHPl2h1WdPvty70Z6HrwMflqOXkgWnbVt8eI4WTxeM5L1+
+ h6j7f0LJ8E2EwJPhDutzUUJMM+MwW9MLyJ4qwQhfTDR9UGXJn3it3H1kXzCocDtQlz8V
+ EcrMmHqGrEZcZS5qLyv4QAPv8RvMVvgUYNGpB5zviOt1DErrU4n2KBj2EfHGsTOfRjfv
+ 8CTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=00PsEcFRen9hQVc5J36/2xhprKBUXZ2hnp6jcmTfM4w=;
- b=l8aAdV2EzugX3+GBa+BGsesGlrR7qPu0uzJUCsUktM8asQdSwm0zWFCeTsIBeevdHi
- rvZL9/+8FbuG0vFtIlJpHERiop4J+r3+JSZiw5iM6iKBXZYYjLLmq7f5g76H6M6O13uQ
- OJuc9eQTmJsIm2RskvnPY4ybn/Nd8fXxB8PQOLYr7yJM3tYWHI7JrRayTsqaQ1A2Rsqi
- h6uPxDkxZfS0Pj0HgqQ32X3lbZ1gjkqr0enlKb9Bl3p6OqrX6A/aWMOFy2MKcXPrC20+
- Vi/+dIKRt+PExpLK3FRFWzGlQUEJkgmEyH2/QlRjbzZiLj+AsS8Li7gsW6HFtm/hXc4w
- rM9Q==
-X-Gm-Message-State: AJIora+O5idAMIVpYswqc/VfQnEtzncpSs9ioD+0c4GLu6b96/tJWbJY
- ELfUrwNrHN/erGUJlhqsVZyp4esFvPdAYg2i7b8Yp73b
-X-Google-Smtp-Source: AGRyM1tB0NAdoSnEuojTwit1peoREjx9nSZ+7zzDEGX3zBIahqBsrEIZ7Ikq39RHS0L39MfpGQKW8Vs4aGbTClM6clQ=
-X-Received: by 2002:a05:6402:28c3:b0:43a:6d78:1b64 with SMTP id
- ef3-20020a05640228c300b0043a6d781b64mr19326670edb.93.1657122527099; Wed, 06
- Jul 2022 08:48:47 -0700 (PDT)
+ bh=gwbqnUpjiSN4hgfIC7ffIeFKyZvoDEGRDTZHu+A2QaQ=;
+ b=id4CR8C2WSfccbxLUE2J91T3wrNhT9sDi4Vg01LlMTLToT1DCLsja9tsQRrystZ7uT
+ IUdH76WXv6T8oSZiakETf1dt7wVHNopvwwQUw18XFTAEvpjSFBPdvXwO/J4eyrs5+n8V
+ 8tv3IIC6UFLkXSXL2I8LY8oOHyHPTsh9jwGPxvuaUToiCaxwNKHOd+WkouMKyyUonqb+
+ xtECmqM85ujokPtADXEf+STSccJtAzq18COSgx4pHGwzXMbLJPixOxIFj3SXBZqwmV4J
+ XUi39MDXL4eTa4PhwGE1NqKQaprjGPPfNCl0J6o45haZlz+A/UoGZMX6KJCxOKOxJ0C0
+ GT+w==
+X-Gm-Message-State: AJIora+5ocqOedVqnuDK/8w7fzuuxxo/mXJhQWqk4oq0TExS0CuerYhb
+ O6I0n0cgyGxs1DT3lif1icpT/+sd77FaZymW3As=
+X-Google-Smtp-Source: AGRyM1uwT5QDUQoR6JIWgndHtR6Gp682jCxMwaMSkfBVcUtVDpJAybSMPRNGuI9Y7y3A8712mLoRkOZB/2rknVTIUzo=
+X-Received: by 2002:a05:6402:380a:b0:437:d11f:b8b0 with SMTP id
+ es10-20020a056402380a00b00437d11fb8b0mr55333549edb.425.1657122828767; Wed, 06
+ Jul 2022 08:53:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220706045712.19930-1-hbut_tan@163.com>
-In-Reply-To: <20220706045712.19930-1-hbut_tan@163.com>
+References: <20220706091329.62192-1-guozhengkui@vivo.com>
+ <5dc99a6e-569c-a736-9f64-ac632433da81@amd.com>
+In-Reply-To: <5dc99a6e-569c-a736-9f64-ac632433da81@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Jul 2022 11:48:35 -0400
-Message-ID: <CADnq5_MjpC988eDN8ODb_Lg5n1uLexWyQKEu=B+Cc0bRgvhAxQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: Remove duplicated argument to ||
-To: Zhongjun Tan <hbut_tan@163.com>
+Date: Wed, 6 Jul 2022 11:53:36 -0400
+Message-ID: <CADnq5_NLkSzg9PA+JHoCi+0+vtkVrSctGs=RPTBeYrW7YbyTgQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove repeated includes
+To: Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,44 +62,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, Zhongjun Tan <tanzhongjun@coolpad.com>,
- Dave Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Guo Zhengkui <guozhengkui@vivo.com>, Leo Li <sunpeng.li@amd.com>,
+ zhengkui_guo@outlook.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:AMD DISPLAY CORE" <amd-gfx@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jimmy Kizito <Jimmy.Kizito@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Jul 6, 2022 at 3:41 AM Zhongjun Tan <hbut_tan@163.com> wrote:
+On Wed, Jul 6, 2022 at 9:49 AM Harry Wentland <harry.wentland@amd.com> wrote:
 >
-> From: Zhongjun Tan <tanzhongjun@coolpad.com>
+> On 2022-07-06 05:13, Guo Zhengkui wrote:
+> > Remove a repeated "#include <drm/drm_print.h>"
+> >
+> > Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
 >
-> Remove duplicated argument to ||
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
-> Signed-off-by: Zhongjun Tan <tanzhongjun@coolpad.com>
-> ---
->  .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Harry
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-> index 07f3a85f8edf..5a701d9df0f7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-> @@ -275,7 +275,7 @@ void dml32_CalculateBytePerPixelAndBlockSizes(
->                 *BytePerPixelDETC = 0;
->                 *BytePerPixelY = 4;
->                 *BytePerPixelC = 0;
-> -       } else if (SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_16) {
-> +       } else if (SourcePixelFormat == dm_444_16) {
->                 *BytePerPixelDETY = 2;
->                 *BytePerPixelDETC = 0;
->                 *BytePerPixelY = 2;
-> --
-> 2.29.0
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/os_types.h | 2 --
+> >  1 file changed, 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
+> > index 795dd486b6d6..6b88ae14f1f9 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/os_types.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/os_types.h
+> > @@ -39,8 +39,6 @@
+> >  #include <drm/display/drm_dp_helper.h>
+> >  #include <drm/drm_print.h>
+> >
+> > -#include <drm/drm_print.h>
+> > -
+> >  #include "cgs_common.h"
+> >
+> >  #if defined(__BIG_ENDIAN) && !defined(BIGENDIAN_CPU)
 >
