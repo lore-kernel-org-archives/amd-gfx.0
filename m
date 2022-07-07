@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83DCC43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 19:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC90CC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 19:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BAC912BB1C;
-	Thu,  7 Jul 2022 19:04:34 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9CB289CB5;
- Thu,  7 Jul 2022 19:04:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ilv2JHrp5i2Nt+j5eoc97nQfb6H3kjY6IVu4TJ6QI61e2AOfj4ngdykLySzDRUQBKZYh3ghrgTiPY6yCRLW029x5u6a+LVVLXw0rg6uIuX7sRcCSFtxSISmjjEocQ00nv0LQDUy6zn+pOkfkn05p5DEHmMV0tRVLrL2DhdrzAEgic8VKwvPOKFVdnn4LyoeoCPe8NobFQ5PtZs/FuBqLPgfXeF/hsYEtQQIoaSRzHgOxJosXoFKaJlgsRVzC1qqvB3vXAOW7GGt2/0mvjpflQmqD2HMQnsdrybsdtg7aFI4bBPhr8nzTUYxD/hboMih7u+LHk48nCZxhEO9nZP2DzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ghINYxYAaP35msqhqy+uXLJjlA8u9eNbkgf4YFEOveA=;
- b=oSsTapTutKx+ODYOZhK7endBHIi5r/qhW9IJ0p7U6fRMu7PVlouMky8ZdqNoe1OMRmJTLoleVaImw61ipmJE3+vPPbxPns5pgs0Wt4cKTtfHz1QVyt6cFeTMZ22fU4/t1bSLhABUs26jD7J1pPKJSrBvwVtnUIX4UiWgIfwCmHlGrLt7pn0vD2DbX2Y13xVZNUFfx96g/DJ4P6Y3qLYmF7qYOnraUjT2bBCSav5N1ZsCYJWbS7UT/gaAgfjiEFITcEynPr7Ps/QI+GCCbJFlBB1eNkxBzaufeEPCKW0Iu9gG2+3211qXKqN0YYTgTQ7vcPnh5nBmJmwCVlooUXx1EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ghINYxYAaP35msqhqy+uXLJjlA8u9eNbkgf4YFEOveA=;
- b=EH8OeYdzBLBORq76eKvyZgmcvsiLIkF9nn6985yrYCmWG2wO8FVIXRzZMy8ujRJre2x9AwwUC7HFrMvdKhQplshiN28nU0lQZ9Wrd4JbvDE4VdVER2xBzfVgFJGNgDktGpjrw7ub/vMTGi+1TtjIx92efGlOn9K1Kf1J3YD5A4Y=
-Received: from BN0PR04CA0099.namprd04.prod.outlook.com (2603:10b6:408:ec::14)
- by DS7PR12MB6263.namprd12.prod.outlook.com (2603:10b6:8:95::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.21; Thu, 7 Jul
- 2022 19:04:25 +0000
-Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ec:cafe::29) by BN0PR04CA0099.outlook.office365.com
- (2603:10b6:408:ec::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
- Transport; Thu, 7 Jul 2022 19:04:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 19:04:24 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
- 2022 14:04:23 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <jgg@nvidia.com>
-Subject: [PATCH v8 15/15] tools: add selftests to hmm for COW in device memory
-Date: Thu, 7 Jul 2022 14:03:49 -0500
-Message-ID: <20220707190349.9778-16-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220707190349.9778-1-alex.sierra@amd.com>
-References: <20220707190349.9778-1-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D1E112315;
+	Thu,  7 Jul 2022 19:50:04 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1101112085;
+ Thu,  7 Jul 2022 19:50:02 +0000 (UTC)
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4Lf6Sp2Dr6zDr4k;
+ Thu,  7 Jul 2022 19:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1657223402; bh=ied7/wQBWyRAGNRM3YJQ9nmwASEEztOFVReHeNDPqs4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fOz0/Uf6U90A9zYKjLrYyhaK5DOKfrFIvBM0bBMLHLM9VoHoTj9ZNQ0iwIL5u+zEg
+ AXXyOp3vVyjQtpP6Niv30wOp8BgS0agFINCJYPfOw15jlGX0oCHKxGiK25p318rtNi
+ ZVCcN8sHivF7gRafsWqVjJfzsx2zMERBdPOxal4w=
+X-Riseup-User-ID: 8654BB5CEEAED37E29E93B549D0D383934D30FA2C2F8B642BBBDF6AF5CF020CD
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4Lf6Sk2jRDz5vXK;
+ Thu,  7 Jul 2022 19:49:58 +0000 (UTC)
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amd/display: Drop dm_sw_gfx7_2d_thin_l_vp and
+ dm_sw_gfx7_2d_thin_gl
+Date: Thu,  7 Jul 2022 16:49:49 -0300
+Message-Id: <20220707194949.103978-1-mairacanal@riseup.net>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2c21ccae-76b9-40f2-b892-08da604b8216
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6263:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lQPaEf7T6+HjGUNaQiYpaMmyW+BvNUZaLDQbqw7bM+uQQcMm/ttqHa6hCJaMaY3krwYP6hAwwoBQOskArPF/XriSWgQWEO7o1rRd7TwZrzG+5dlNQRb3bnv6CX8KeuL4mLS3vUVdzQ+b4mhZy7VHVFJ8TbYF/DnoPOWRaW42uWSO5jV1ZLAm+qIizZPzBD6BY7GbI+BZyMoaATVMdMc8iNXYsnTMTOJUOm1gLHEtdM84VucoX54oDwiulH8AnFreHPZjcZK6cnynR77gN/rotOdeVbJ2FbtQ8XyWrlo/aNM8b6VMCsMRrVaA0wOyfXae5aBnEkgXVrrQ7d9jDt2nw8/AdgRHM1uXlh0kgpYtg8HYZdiVWxTrJnTKveeFLE3gCUEf6xNXGJ2thATrPXMGaE6bRA7kX1ajzLa0aK4dq+vLeCK6zqTTLJv1xKc2PIpEgMLo+woHT6WtrmExQcbxcB0FC6fdvijc1XMT/Hw3GfJXcrz0+lE+gOgSYgzh1SAKoGiTVr1r3qjlt0P/8qJIH6vVAOGQZ74Xz0o/7r0qD+e2/LlLWzD8TtKADrTxF0a3D/00BQNF+RahEGLaJH+jgwG2yc243hBvSRHvjxLAyPNu8vWtu+2eNMifp5Ey5r9PaypXLCVXkWEHxG/8qgLEbts5+v1tRU7q7m4pUkCdv5/Lc1s+vC5PtC1uDC8DcU9a/YV3zygHtCvZhgh35obHMbiJYZ/MljNxKvgj0F2smY3mmacAt+j2fi3zkC4nGLiURbUEqcwkfgGvhu9ztjBpLYDtOIH/jkMzAIYPvbhLinnr6R4zggt5bsc8PA7YnmLdvMV57fhTRW8vOL6JdJyms521M4HWm/489gavaAfDm8kuRtIOT1ZoePmU+biSKQl6
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(346002)(396003)(376002)(40470700004)(36840700001)(46966006)(82740400003)(47076005)(356005)(26005)(7696005)(82310400005)(8676002)(36860700001)(41300700001)(6666004)(81166007)(70586007)(70206006)(2906002)(4326008)(426003)(40460700003)(34020700004)(44832011)(336012)(8936002)(83380400001)(1076003)(54906003)(2616005)(316002)(40480700001)(6916009)(16526019)(86362001)(478600001)(5660300002)(7416002)(36756003)(186003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 19:04:24.7062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c21ccae-76b9-40f2-b892-08da604b8216
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6263
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,116 +53,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
- Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The objective is to test device migration mechanism in pages marked
-as COW, for private and coherent device type. In case of writing to
-COW private page(s), a page fault will migrate pages back to system
-memory first. Then, these pages will be duplicated. In case of COW
-device coherent type, pages are duplicated directly from device
-memory.
+As the enum dm_sw_gfx7_2d_thin_gl and dm_sw_gfx7_2d_thin_l_vp are not
+used on the codebase, this commit drops those entries from enum
+dm_swizzle_mode.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Maíra Canal <mairacanal@riseup.net>
 ---
- tools/testing/selftests/vm/hmm-tests.c | 80 ++++++++++++++++++++++++++
- 1 file changed, 80 insertions(+)
+ .../dc/dml/dcn20/display_mode_vba_20.c        | 26 +++++-------------
+ .../dc/dml/dcn20/display_mode_vba_20v2.c      | 26 +++++-------------
+ .../dc/dml/dcn21/display_mode_vba_21.c        | 27 +++++--------------
+ .../amd/display/dc/dml/display_mode_enums.h   |  2 --
+ .../display/dc/dml/dml_wrapper_translation.c  |  9 -------
+ 5 files changed, 19 insertions(+), 71 deletions(-)
 
-diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
-index bb38b9777610..716b62c05e3d 100644
---- a/tools/testing/selftests/vm/hmm-tests.c
-+++ b/tools/testing/selftests/vm/hmm-tests.c
-@@ -1874,4 +1874,84 @@ TEST_F(hmm, hmm_gup_test)
- 	close(gup_fd);
- 	hmm_buffer_free(buffer);
- }
-+
-+/*
-+ * Test copy-on-write in device pages.
-+ * In case of writing to COW private page(s), a page fault will migrate pages
-+ * back to system memory first. Then, these pages will be duplicated. In case
-+ * of COW device coherent type, pages are duplicated directly from device
-+ * memory.
-+ */
-+TEST_F(hmm, hmm_cow_in_device)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	unsigned char *m;
-+	pid_t pid;
-+	int status;
-+
-+	npages = 4;
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+
-+	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	pid = fork();
-+	if (pid == -1)
-+		ASSERT_EQ(pid, 0);
-+	if (!pid) {
-+		/* Child process waitd for SIGTERM from the parent. */
-+		while (1) {
-+		}
-+		perror("Should not reach this\n");
-+		exit(0);
-+	}
-+	/* Parent process writes to COW pages(s) and gets a
-+	 * new copy in system. In case of device private pages,
-+	 * this write causes a migration to system mem first.
-+	 */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Terminate child and wait */
-+	EXPECT_EQ(0, kill(pid, SIGTERM));
-+	EXPECT_EQ(pid, waitpid(pid, &status, 0));
-+	EXPECT_NE(0, WIFSIGNALED(status));
-+	EXPECT_EQ(SIGTERM, WTERMSIG(status));
-+
-+	/* Take snapshot to CPU pagetables */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_SNAPSHOT, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	m = buffer->mirror;
-+	for (i = 0; i < npages; i++)
-+		ASSERT_EQ(HMM_DMIRROR_PROT_WRITE, m[i]);
-+
-+	hmm_buffer_free(buffer);
-+}
- TEST_HARNESS_MAIN
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+index d3b5b6fedf04..4e4cb0927057 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+@@ -938,7 +938,7 @@ static unsigned int CalculateVMAndRowBytes(
+ 		*MetaRowByte = 0;
+ 	}
+ 
+-	if (SurfaceTiling == dm_sw_linear || SurfaceTiling == dm_sw_gfx7_2d_thin_gl || SurfaceTiling == dm_sw_gfx7_2d_thin_l_vp) {
++	if (SurfaceTiling == dm_sw_linear) {
+ 		MacroTileSizeBytes = 256;
+ 		MacroTileHeight = BlockHeight256Bytes;
+ 	} else if (SurfaceTiling == dm_sw_4kb_s || SurfaceTiling == dm_sw_4kb_s_x
+@@ -3347,26 +3347,12 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 										== dm_420_8
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+ 										== dm_420_10))
+-				|| (((mode_lib->vba.SurfaceTiling[k] == dm_sw_gfx7_2d_thin_gl
+-						|| mode_lib->vba.SurfaceTiling[k]
+-								== dm_sw_gfx7_2d_thin_l_vp)
+-						&& !((mode_lib->vba.SourcePixelFormat[k]
+-								== dm_444_64
++				|| (mode_lib->vba.DCCEnable[k] == true
++						&& (mode_lib->vba.SurfaceTiling[k] == dm_sw_linear
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+-										== dm_444_32)
+-								&& mode_lib->vba.SourceScan[k]
+-										== dm_horz
+-								&& mode_lib->vba.SupportGFX7CompatibleTilingIn32bppAnd64bpp
+-										== true
+-								&& mode_lib->vba.DCCEnable[k]
+-										== false))
+-						|| (mode_lib->vba.DCCEnable[k] == true
+-								&& (mode_lib->vba.SurfaceTiling[k]
+-										== dm_sw_linear
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_8
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_10)))) {
++										== dm_420_8
++								|| mode_lib->vba.SourcePixelFormat[k]
++										== dm_420_10))) {
+ 			mode_lib->vba.SourceFormatPixelAndScanSupport = false;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+index 63bbdf8b8678..eaa0cdb599ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+@@ -998,7 +998,7 @@ static unsigned int CalculateVMAndRowBytes(
+ 		*MetaRowByte = 0;
+ 	}
+ 
+-	if (SurfaceTiling == dm_sw_linear || SurfaceTiling == dm_sw_gfx7_2d_thin_gl || SurfaceTiling == dm_sw_gfx7_2d_thin_l_vp) {
++	if (SurfaceTiling == dm_sw_linear) {
+ 		MacroTileSizeBytes = 256;
+ 		MacroTileHeight = BlockHeight256Bytes;
+ 	} else if (SurfaceTiling == dm_sw_4kb_s || SurfaceTiling == dm_sw_4kb_s_x
+@@ -3454,26 +3454,12 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+ 										== dm_420_8
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+ 										== dm_420_10))
+-				|| (((mode_lib->vba.SurfaceTiling[k] == dm_sw_gfx7_2d_thin_gl
+-						|| mode_lib->vba.SurfaceTiling[k]
+-								== dm_sw_gfx7_2d_thin_l_vp)
+-						&& !((mode_lib->vba.SourcePixelFormat[k]
+-								== dm_444_64
++				|| (mode_lib->vba.DCCEnable[k] == true
++						&& (mode_lib->vba.SurfaceTiling[k] == dm_sw_linear
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+-										== dm_444_32)
+-								&& mode_lib->vba.SourceScan[k]
+-										== dm_horz
+-								&& mode_lib->vba.SupportGFX7CompatibleTilingIn32bppAnd64bpp
+-										== true
+-								&& mode_lib->vba.DCCEnable[k]
+-										== false))
+-						|| (mode_lib->vba.DCCEnable[k] == true
+-								&& (mode_lib->vba.SurfaceTiling[k]
+-										== dm_sw_linear
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_8
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_10)))) {
++										== dm_420_8
++								|| mode_lib->vba.SourcePixelFormat[k]
++										== dm_420_10))) {
+ 			mode_lib->vba.SourceFormatPixelAndScanSupport = false;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+index 8a7485e21d53..198d81861ac5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+@@ -1342,7 +1342,7 @@ static unsigned int CalculateVMAndRowBytes(
+ 		*MetaRowByte = 0;
+ 	}
+ 
+-	if (SurfaceTiling == dm_sw_linear || SurfaceTiling == dm_sw_gfx7_2d_thin_gl || SurfaceTiling == dm_sw_gfx7_2d_thin_l_vp) {
++	if (SurfaceTiling == dm_sw_linear) {
+ 		MacroTileSizeBytes = 256;
+ 		MacroTileHeight = BlockHeight256Bytes;
+ 	} else if (SurfaceTiling == dm_sw_4kb_s || SurfaceTiling == dm_sw_4kb_s_x
+@@ -3579,26 +3579,13 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 										== dm_420_8
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+ 										== dm_420_10))
+-				|| (((mode_lib->vba.SurfaceTiling[k] == dm_sw_gfx7_2d_thin_gl
+-						|| mode_lib->vba.SurfaceTiling[k]
+-								== dm_sw_gfx7_2d_thin_l_vp)
+-						&& !((mode_lib->vba.SourcePixelFormat[k]
+-								== dm_444_64
++				|| (mode_lib->vba.DCCEnable[k] == true
++						&& (mode_lib->vba.SurfaceTiling[k]
++								== dm_sw_linear
+ 								|| mode_lib->vba.SourcePixelFormat[k]
+-										== dm_444_32)
+-								&& mode_lib->vba.SourceScan[k]
+-										== dm_horz
+-								&& mode_lib->vba.SupportGFX7CompatibleTilingIn32bppAnd64bpp
+-										== true
+-								&& mode_lib->vba.DCCEnable[k]
+-										== false))
+-						|| (mode_lib->vba.DCCEnable[k] == true
+-								&& (mode_lib->vba.SurfaceTiling[k]
+-										== dm_sw_linear
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_8
+-										|| mode_lib->vba.SourcePixelFormat[k]
+-												== dm_420_10)))) {
++										== dm_420_8
++								|| mode_lib->vba.SourcePixelFormat[k]
++										== dm_420_10))) {
+ 			mode_lib->vba.SourceFormatPixelAndScanSupport = false;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
+index f394b3f3922a..0e06727d40b3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
+@@ -89,8 +89,6 @@ enum dm_swizzle_mode {
+ 	dm_sw_var_s_x = 29,
+ 	dm_sw_var_d_x = 30,
+ 	dm_sw_var_r_x = 31,
+-	dm_sw_gfx7_2d_thin_l_vp,
+-	dm_sw_gfx7_2d_thin_gl,
+ };
+ enum lb_depth {
+ 	dm_lb_10 = 0, dm_lb_8 = 1, dm_lb_6 = 2, dm_lb_12 = 3, dm_lb_16 = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper_translation.c b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper_translation.c
+index 4ec5310a2962..9edcb6fc83c1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper_translation.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper_translation.c
+@@ -35,15 +35,6 @@ static void gfx10array_mode_to_dml_params(
+ 	case DC_ARRAY_LINEAR_GENERAL:
+ 		*sw_mode = dm_sw_linear;
+ 		break;
+-	case DC_ARRAY_2D_TILED_THIN1:
+-// DC_LEGACY_TILING_ADDR_GEN_ZERO - undefined as per current code hence removed
+-#if 0
+-		if (compat_level == DC_LEGACY_TILING_ADDR_GEN_ZERO)
+-			*sw_mode = dm_sw_gfx7_2d_thin_l_vp;
+-		else
+-			*sw_mode = dm_sw_gfx7_2d_thin_gl;
+-#endif
+-		break;
+ 	default:
+ 		ASSERT(0); /* Not supported */
+ 		break;
 -- 
-2.32.0
+2.36.1
 
