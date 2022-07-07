@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F63C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 18:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DB2C43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 18:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9387310FCB0;
-	Thu,  7 Jul 2022 18:19:39 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2C9010FCB0
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 18:19:37 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id o25so33870516ejm.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jul 2022 11:19:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D25A11B7DE;
+	Thu,  7 Jul 2022 18:22:35 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0011E11B6CE;
+ Thu,  7 Jul 2022 18:22:33 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id j22so7604322ejs.2;
+ Thu, 07 Jul 2022 11:22:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wixbTUKGw6v/KYVrJD+0MJ30pPTbNQGpAShEP65D3hg=;
- b=PVPcvLv1jIUpAdYe6oWvatJBVJOeU/yylqB5WtMu1ZP3bVUm5EplsFPnweKXsxQnIY
- e6Iyx8mE+p6NadnH0IJUFuwiwrkB5e36rsAZEWR8uAL0FjCGYb4S8XVLjszaiaZldE2d
- blMaQXFuk3DWp2ZMbd8PBL0D+NZheb7vbq8zPpaP8TUoT8F8szSjPEu6PrjrqSNSbz0z
- p5zd0XcR4c9Cy+CtqZzYmEe8FFAZ+LZLR/qsD1LfnbKmOyGnJD1SVxBO6z95kLVFV/Jz
- GjcpoR85DbIr5WEM4lbpyLA0ErF2rGjPSoq3HZenNee8e6B9IjhCh83f++zz7tQq+rVf
- 4zTw==
+ :cc; bh=j6ncolguiQ+DPHRmzlhAw1z57F0HnokCJKSQgzd3UQs=;
+ b=ohjqe3h1JnbCwaBEIZ2d69QR8cz52UUygEFiOvnMYGlCpXpnR1Qmj4YvAuvK0EJiWY
+ 4FGWd1fhgqJ8Hh/fZ0Up/Iu7IjXoofz/xMywSFCvKE8NSlPntfPXJZXlicN6Xw2E9/6l
+ uFb+mi5Dacf9U9diBw77SQKNmaPSR3msiqmJY1fQA6skgYg/D7VFo/r7b52ybuRrtb1I
+ fEii4Ih35R9wz1QXi0i6uzhivzSvYEXvDYNQmTAK/sOTg+IckYEmgXnTc9rTEml/aFgo
+ y6NemwFJTWIUgYrRhYMmXfajWOACfbStbqrgZEYPmoeAnLoWh1oCHM4dWsKrmRJJnhxm
+ 9FLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=wixbTUKGw6v/KYVrJD+0MJ30pPTbNQGpAShEP65D3hg=;
- b=UM4RikQw+dd0jt3LY18uGrjXyPsCXTOEbHxpzaAyMt3NVwxwHfYFwar2p3D4PtINid
- Z6GkeUtEom36jghVK3FqtexSbhgKf4NjgyPk2iM8n2+NT0EZv43rAx6XZ/UA4AkKZZdl
- cPd9dj+B5Emc1aWkGWEo7KT5RMzNVeIA2oL3Ssuc3UBhXSg3a8SmFIZBsbhNeQbCbJNj
- j4Noro/FBxXz7q+oIO538wQ+IEXTkXvuLDwu76+ZRg53xAjaSM/GrUxKnYN383bMTBWa
- aW6YqWYKHL9gyf4GDiKLIUiJr+onoIpGc6rnL2qAbuOP+7mARZs0sEyvIYsNqgsnI+ZM
- ZdwA==
-X-Gm-Message-State: AJIora//HeTgbVTvIvKDNP/hbH2Gw+Kk9ToPp9vUNrRO2CVijNXbeiUV
- o5bjsdaLSjqQ+Q3Q5lWXsX/d8N634qtRcwesMAc=
-X-Google-Smtp-Source: AGRyM1tz+cZU0wvekVWZnSjpNOKd6IRe391vbE3w6pk/lHxOoSQsqzJ5UYHw+IGIjq0dxCY18yL0h5hZp7gEWKpoXRw=
-X-Received: by 2002:a17:907:75e1:b0:72a:ebee:5f61 with SMTP id
- jz1-20020a17090775e100b0072aebee5f61mr13952037ejc.171.1657217976438; Thu, 07
- Jul 2022 11:19:36 -0700 (PDT)
+ bh=j6ncolguiQ+DPHRmzlhAw1z57F0HnokCJKSQgzd3UQs=;
+ b=CLTBI8GtZOjsr8v0A5iZFqUa3jyyBpOoMVi4L4K3qPEwODlgXbvr9J0HYLOIyTle0E
+ Mb5KHUtn4P5kn/Hj4wwI/FpWVmE21+vLoMisVTH8Z7Wk6LfwkA4aNpIWoZ7voxrtUOcB
+ tn02V06daY+iU2y13ICuFPnkAST3x5zBotsDZw4JJhpZkt0d/KzZHIWBCFRObA+IyROg
+ fxX32A5cxhEVprvmT7d/EkRhs4hBBRfS8/X4B3o0NsXMywx0UWSzuiZEOyD3vW/qEpIN
+ IAKZA/GE+0nAJmJsgqVPgfUakzTwjPQ0MKF4wBbWWqXMJE7CZMdCrfhrXJQ7gXBw8ONe
+ jBRA==
+X-Gm-Message-State: AJIora8d8SAmSYjbI/zeQiHaxBl+2wzwCkVBEIws74QWoW+zmNRXtq4I
+ 0Z7SlB06fAijqzrUWHHYymZzPSh6LF6vF8bi/Yc=
+X-Google-Smtp-Source: AGRyM1vFFoUfixEhOUfl68/WDDiWcPlIS3gYGV84R38m2q33oIwZHt0dcJvwcUsnsfbSVJdNmTunjpQ6rR123O2EcU0=
+X-Received: by 2002:a17:907:a40f:b0:726:a8f5:1031 with SMTP id
+ sg15-20020a170907a40f00b00726a8f51031mr46947213ejc.185.1657218152576; Thu, 07
+ Jul 2022 11:22:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220707125446.379104-1-sunliming@kylinos.cn>
-In-Reply-To: <20220707125446.379104-1-sunliming@kylinos.cn>
+References: <20220706063951.54122-1-hbut_tan@163.com>
+In-Reply-To: <20220706063951.54122-1-hbut_tan@163.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Jul 2022 14:19:24 -0400
-Message-ID: <CADnq5_NM3h1go3QhTzQq-sbYCYhoVLxwBbS0X0RmoEDQyzBGsw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove redundant header file references.
-To: sunliming <sunliming@kylinos.cn>
+Date: Thu, 7 Jul 2022 14:22:20 -0400
+Message-ID: <CADnq5_NpXcua54cSeSGaG2X_afcvoGswKgSb=Gysr5gpoT0AHw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix unsigned expression compared with
+ zero
+To: Zhongjun Tan <hbut_tan@163.com>, "Wentland, Harry" <Harry.Wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,43 +62,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <yujie.liu@intel.com>, Dave Airlie <airlied@linux.ie>,
- kelulanainsley@gmail.com, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, Zhongjun Tan <tanzhongjun@coolpad.com>,
+ Dave Airlie <airlied@linux.ie>, cai.huoqing@linux.dev,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the patch, but someone else beat you to it.
+On Wed, Jul 6, 2022 at 3:41 AM Zhongjun Tan <hbut_tan@163.com> wrote:
+>
+> From: Zhongjun Tan <tanzhongjun@coolpad.com>
+>
+> Fix unsigned expression compared with zero
+>
+> Signed-off-by: Zhongjun Tan <tanzhongjun@coolpad.com>
+> ---
+>  .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> index 548cdef8a8ad..21e4af38b8c1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> @@ -244,8 +244,8 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+>         bool req128_c = false;
+>         bool surf_linear = (pipe_src_param->sw_mode == dm_sw_linear);
+>         bool surf_vert = (pipe_src_param->source_scan == dm_vert);
+> -       unsigned int log2_swath_height_l = 0;
+> -       unsigned int log2_swath_height_c = 0;
+> +       int log2_swath_height_l = 0;
+> +       int log2_swath_height_c = 0;
+
+@Wentland, Harry Can you comment on the required range needed for
+these integers?  Maybe it would be better to just drop the comparisons
+with 0.
 
 Alex
 
-On Thu, Jul 7, 2022 at 9:05 AM sunliming <sunliming@kylinos.cn> wrote:
+>         unsigned int detile_buf_size_in_bytes = mode_lib->ip.det_buffer_size_kbytes * 1024;
 >
-> Fixes the following includecheck warning:
->
-> drivers/gpu/drm/amd/display/dc/os_types.h: drm/drm_print.h is included more than once.
->
-> Reported-by: kernel test robot <yujie.liu@intel.com>
-> Signed-off-by: sunliming <sunliming@kylinos.cn>
-> ---
->  drivers/gpu/drm/amd/display/dc/os_types.h | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-> index 795dd486b6d6..6b88ae14f1f9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/os_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-> @@ -39,8 +39,6 @@
->  #include <drm/display/drm_dp_helper.h>
->  #include <drm/drm_print.h>
->
-> -#include <drm/drm_print.h>
-> -
->  #include "cgs_common.h"
->
->  #if defined(__BIG_ENDIAN) && !defined(BIGENDIAN_CPU)
+>         full_swath_bytes_packed_l = rq_param->misc.rq_l.full_swath_bytes;
 > --
-> 2.25.1
+> 2.29.0
 >
