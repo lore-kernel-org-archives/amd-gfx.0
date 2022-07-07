@@ -4,62 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C22DC43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 15:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CBBAC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 15:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC1F10E872;
-	Thu,  7 Jul 2022 15:30:22 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC19A14AFF3;
- Thu,  7 Jul 2022 14:03:00 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id 70so4473914pfx.1;
- Thu, 07 Jul 2022 07:03:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=afbiyF16Fd4Ewaaf3EKKCpvpR7aHAsNAQp7K3TuQXs4=;
- b=EzpeppBfdoHkOWruUNAYNHzOi8S5lBuVkWR/uarc/O7MDVJ2qM1NUNdy3hxzZeKinw
- 1f6tPe15AftcBiSP1Sugt5jiQpAKlLcyz+gPyHgHTvK6IkiuSg6SYHkmzqBCpGaHkm3K
- GirawtqITR+EFkG0pF8QxPm0bxzk97EH7JYJxQXFRi4d1kRfsZVOuxKRapjByLByJ3DF
- qAVqAZfaAfJT+F8T/W2rPtPmXy6/uaYwejGaDWQ5Frl3XCXwsQlqWF67lU3BIXdseGBS
- CTJ5pH+oR76s++4uNTCxHCZwHNyWF4xdxY3ay2k5fQlKGRbstnEbIjnAVDZkl7wMQgN9
- oSpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=afbiyF16Fd4Ewaaf3EKKCpvpR7aHAsNAQp7K3TuQXs4=;
- b=aOjevBbvd+gO9siuRMcMbx2sVR+iAfhHn15/bxAansV14y1YBlqrP+KA//ljg4Z2Bu
- yo80n7lchsGRxKdFiQb38Gk96y3+S2urk7fw68juze3+wohhZbDicw+gy5H/UXQLPkt0
- i0oKJZQ7uKhFGGfJLJ68x619bJSXDiL8+zDPhkui0f6copQ+H8yw0PRLVjPAXH6SGYyi
- 4Q9k5xXehFWGvQXpuzk2uzF13J7KPntA3c/faHctgoPctETeuahTk38G6TT0qBsSnape
- O3GSZ5EswwCcHicu1ISjokmQqh+pNHE1Bb3PNrFWvtzaxaYMf2sDwTaDJkVkwVKVkVr/
- syfg==
-X-Gm-Message-State: AJIora+y4b8LEEfaW4ML2hGofYcScr5yQjib5ta4FLqf2EGFlkBFe1z6
- lRDfj+x+0uyOeYJ0UAqlcd4=
-X-Google-Smtp-Source: AGRyM1uGEg1zRLKU3mt/8yK/HfEqKFBdv1eoQpzxhqHLW6DjIp1gLh6JEsU/RWRdBfoHFypH/TfaNQ==
-X-Received: by 2002:a17:90b:4c8f:b0:1ec:cdd0:41b7 with SMTP id
- my15-20020a17090b4c8f00b001eccdd041b7mr5420238pjb.119.1657202580508; 
- Thu, 07 Jul 2022 07:03:00 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- k127-20020a632485000000b004148cbdd4e5sm1215293pgk.57.2022.07.07.07.02.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jul 2022 07:02:59 -0700 (PDT)
-Date: Thu, 7 Jul 2022 07:02:58 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 088b9c375534d905a4d337c78db3b3bfbb52c4a0
-Message-ID: <20220707140258.GA3492673@roeck-us.net>
-References: <62c683a2.g1VSVt6BrQC6ZzOz%lkp@intel.com>
- <YsaUgfPbOg7WuBuB@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E03910F7A6;
+	Thu,  7 Jul 2022 15:47:30 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2083.outbound.protection.outlook.com [40.107.212.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E65010F7A6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 15:47:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V7ukTfc+rTTfT+KUeegg0LZOF/NaiR7IspiJDjrfr6UJHDdiARLgYE4fZrniF8BBRoDCqVBy5Eqe93HLuGElhT9QMvJKyAiI7L7MftnUVKEJdPbgRqJu4MvzwBK1mrEep0B7Mune00zj4l01xLwrzoFcdEqmck4bqlVUoZ4P/Gb8rIKAAeo3CHsBg5cgNIGFGBeuwfq5+HZZbCXvB4c81M9FOg3pYRzDheFfQvrMFYi2S6X3khjhIZuIplvJZcN9EJJwGc0FSSuUvFCr0YrmZvrmjPOKUqJV8wjDZwW5IjC57sMrYJOmHecYuSmbKFs3a34ZCDuaGisE/AdzIW4xjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kGdA5sNFFDRUr8WOPSQHmEgRgkNf33OOex+z41KfMnc=;
+ b=Wo90AeDgC/jiL2p+GnvM+eoHrfjzsn+F8mz4L8Galz+TmzrViHkDWeR0VfdXQuOFCsopY7gHgd1WZR4NEF6DhMODObrA+VFIPVywfUXwO3Vl/MG5nRaRFWiKin4qMv3R4JOV0NyTNctPkV+Bd7h5pg9taRSbZ1INJfCAX6aLOJGBs+20MUbj7tBRmXc8tMoTAts9PJteSKC/dVzKLfcbQro0vvvW5VkAu4c8hRZXXxc+OWOf6n4E1xjPNV3tJB8uHEQtuLFCmdfPllTEQ1n2ilyJNY7TZVAFsRWtPVewdd90uG4k311Kee6H/1+NlgCAcuhSJ7GbnqGhuW49CdV6DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kGdA5sNFFDRUr8WOPSQHmEgRgkNf33OOex+z41KfMnc=;
+ b=r1H6R/L55Rr/nBUL7H+Zplzxvq+8xeJRUmE7ssmFdjeYAdm/OmiObTMIwF5/2NfXtTbKfcNBdfNzb3g8aNswWnp+NZOkUjCvyAk8Y/L6aI+HhFswNWT/bQdfkTlYhSB8AWH40dKlXv1Fe/ZyHWaN5H/1arsXnO0QxEKR6w91e5E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MWHPR1201MB2542.namprd12.prod.outlook.com (2603:10b6:300:e8::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Thu, 7 Jul
+ 2022 15:47:25 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8d23:cb0f:d4d2:f7fa]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8d23:cb0f:d4d2:f7fa%6]) with mapi id 15.20.5395.022; Thu, 7 Jul 2022
+ 15:47:24 +0000
+Message-ID: <4b60ece6-afa5-62ca-afa6-bb800cdba982@amd.com>
+Date: Thu, 7 Jul 2022 11:47:22 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drm/amdgpu: Fix a NULL pointer of fence
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220707095053.6755-1-xinhui.pan@amd.com>
+ <92f468dc-2fad-5135-4aeb-c8ce2a680c69@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <92f468dc-2fad-5135-4aeb-c8ce2a680c69@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0093.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YsaUgfPbOg7WuBuB@kroah.com>
-X-Mailman-Approved-At: Thu, 07 Jul 2022 15:30:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7bbe93cd-6cf5-4613-1c6d-08da602ffca4
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2542:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aNmyYjm6U0dWXJeWw0wqzQY4u+NCwER+nB81PdnPyWxuBE4/ma3fW5ZVY6ALHQW5aSBafkJDDxXPKs92/ppJH+4ks4j6waVZXVGYm95TPz/S5hJW94tBSr0yAWtSKUrfJREnzsvCQzOQwaxUJYDS8/JwQxsavtPAuN3BCR7G1whaHTdQnWLBz/vRSRo8OU9A6zjBcgRZ5QfSoqI5fq5ZWUfWfzr3HOPM9YAHtfWYECHwMvPVFQajWUqKQRPTSqRlxBfHFnbqwjqL5+nAFTYUSvo6UZ1G9NAxCjsVMNQZmJJgmfeMe/KBRZ55H9YjOGmbzPt5Mxg0G0qBi2ksdVd+mCSNrqS369QUoa+y7MM5ZQL5y0WtFlgernMJLeY7KiQTtTb+51i0tJkSlDJrn2ezUucTuxe59XL3vL4varYefQIHwETSu+Ed2pQhn2emk6Ed1Cqjx3Po7rfNrbvfcrijnPfkTnbuEGt9X/xZD4UTQbfYwuNBKvaGONVVauUCn+wdSiX4Gln9aJiulaLtP5sIzZT8djuGdqO2Bh7F1IKPLbXG+JjCBOrp3i0SxpP5qJoJsWETBTChWUB4Sokil/Su8QJFozh6zuokx3nH5DwVKpy8NZ6Fv2FElBvs2D7f1ao10nNeW8Gv/E7am6vdyfCGkbDLINgdZpsHrsbJzPmRQJO2D8S0oHq7BYznzhAzQ5g3it1EIl8qSQe3nd+lK7k2ImInf2g5ErsWRLC9u3pqXUlO4rAh+Z/5loWWd90Bkt3RqJNfoT8Dj51y5oPj6B3qaXn04fvEK4fx44cSluNggUXsymoCjb8+OCcDfVKw3HkZrSicPLAzdkw6PFX1V62bct96xhLFY1TLUbTU7zLAd00=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(83380400001)(6486002)(478600001)(316002)(2616005)(31686004)(86362001)(41300700001)(36756003)(6512007)(6506007)(26005)(31696002)(186003)(66574015)(110136005)(8936002)(2906002)(66476007)(5660300002)(44832011)(66556008)(66946007)(4326008)(8676002)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmpUTUN4WlE4TUhvVTRDQnlVeTJKR3NYNkZxK3R6dVVZOWxMTUpIOWw0OURH?=
+ =?utf-8?B?YStIeDdoNnUwaDg4VzVRNXhFUmY4Z1ZpYW9YelQxRUpFNEVUYThZdzJJVHBB?=
+ =?utf-8?B?TTEwVitXUGNpVmtxdEVpR0Qray9WenJCemlnYmN2MHp5aVFvMWgzR2dQWGE5?=
+ =?utf-8?B?b01yOVNDd1lqNU1wSXFGY2Q2YlBkeHZrazJJY011elZBc2dLQklwbkxKYk9o?=
+ =?utf-8?B?azFrdzNTMU9hb1JpV3BOaVNQYmVsQmFZNkIrUnpZZkRFN1gzSXNCcTNUaCtn?=
+ =?utf-8?B?TzlEV2JCV3lwcVkySmpiWkRTTGpWSnRWQUNZZEQ3eS9admpnSm1QZWdsc2NS?=
+ =?utf-8?B?Q3ZkSzVPNjM1MGhzL0pGUjBuUUc5NVN0YTdRSXE5d1UwUTdNT3IxWXk1NjRw?=
+ =?utf-8?B?ZXp2TktzMmF4dnQ3L3FXTVcvcVphMUIrMnFSL1FFRjVsSFRZUmxKWm1KTGM3?=
+ =?utf-8?B?bGRvMDk3U3hPWDdFWnJ2b0ZPdnlZQk41bEFuOWNwbVEvVGdndGtyUTNmQzE5?=
+ =?utf-8?B?aGVZWFRkclcwRTc0bHovL0llSFV2TGFqVERKMGtFRGhVUGZOMWtzLzhiOWN4?=
+ =?utf-8?B?V2t2eS8vV3VDRFMzVFdUcVJ3Z0dFZ2xOVVJteFpJbUhib2xrdGd3dzNPTy9i?=
+ =?utf-8?B?dWdRMC9qZGUrZ1BLWFpZUk5wWGVYRkswaEJ0dXF4TXV6MHBEc0lVVnJWUlFN?=
+ =?utf-8?B?aU9OVkdzaHBOV2p3ZktBQXNQcnVHeTB5Qzgva0tOOFU0RlJTbXF3a3YyU01D?=
+ =?utf-8?B?QkowNFJXdG9TKzVzZ2YzREpwTjNnYkNoakRrdFhta0hiT3FPYzlzdjZoWSt2?=
+ =?utf-8?B?UUtNNGVPcmY4K3ArZjRiUXZnd1VIUkRycVNRR0E0VURXWVAzK0ZndmJ1ckRE?=
+ =?utf-8?B?bGlVbTFPdkZGK0ZNVU5JLzUzOEZGZUhJSnV5NW0zYTRDczJVZFpmVzVQZmdD?=
+ =?utf-8?B?eng1cmFiOGtKd2c5ckhCSVRLbFV0NXR6djFqcFpBZ1V0Z2FiTkdyRFNaUnJD?=
+ =?utf-8?B?OTdNK01BRmdnVXZNeW9NV0lNYm5LaDI3RFlXd1FoaUJ3ZTlDMEhxdDRYaXJX?=
+ =?utf-8?B?UndOZmx0QWlGdGoydWYweEZMY0xCOExlN1VsVHBzRE9pemFYcGFZQjltTUxL?=
+ =?utf-8?B?NUtUS2l2TG5iY1U0bzdBMWtGZTBpYzE5bTU2MWp1cXduM3lXUDlNUzAwR3I0?=
+ =?utf-8?B?b1FsaEVaU0dRNTZaeW5JR3V1UkpsSnZxSlVnNGl0N2xDZEE4Q2c1TGJsZ3JD?=
+ =?utf-8?B?ZFl2TjA4UElZaUdQa1BLOVpRMUJscVdWTUNHWmQrR3Nwak5JT2thdzRWME4w?=
+ =?utf-8?B?Wk5WQXFSVE13ZVpoVkgzYzhUV1FTS2xOU1hCZ3N5aDZsbGk3ZFpWVHlwZ0J5?=
+ =?utf-8?B?TkRPZ05OcEtIcyt4aEJ5MkRCR3hMWSt1SEYvd2xoalM0MEo1QWU5eVM5a3lV?=
+ =?utf-8?B?SEVVN2ZOaTFEZjYyQTZnRURDNTI5TzdYb3BVQ0NUcjJyczY2aGhUTkJxTHY2?=
+ =?utf-8?B?aTRDVzZaclZ1enhYQS9NVHBPcDNackdENDBtY3FjS1oyaWdJaE83SW1aRFow?=
+ =?utf-8?B?RkxvSmZ2aGNCVW12djdrK1Vieit0M3FWTnZCUk5tbnZwUGxzVnpQQkVPczdv?=
+ =?utf-8?B?OUhLK0pUVmpMM0RLM3dWOFZOMWUxb1prZVBiQjFSRHRMTUpkbHcxZytQNjQ0?=
+ =?utf-8?B?YmN4M2RxL3d0cnA1dURNaTMrWFdFLzVqbnBtUFFVZVU1cWtHWTJpbDJuM2lW?=
+ =?utf-8?B?dUlXTURVYWdydWtQczJhN3RxZXorWFcrWWY5b1I0QnNuQU1QcE0wcmdmOEY1?=
+ =?utf-8?B?OTgzWGtYaHRjczBaYmlMK3loTk1WMnkrRDEySWYrSDJaTzhqM1hFNXlSMEdt?=
+ =?utf-8?B?NExWeUcvbzJPdFRKSW9WRXNVb3FNVmxKZFNFS3pEN2o0dXZDWXJOQmNIelJi?=
+ =?utf-8?B?a2xpT21GQ2hZaFUvdStDSGhHZTllU1ZDd0ZxbnhoS1l0SFlENGtLSFVkSStQ?=
+ =?utf-8?B?cnlFM2Y2RU1rSHVPTWN2VlJRTERsb1MyUGRrbm5mTUV1QTh1MSthaTFVYUlS?=
+ =?utf-8?B?LzFjVnVRczdsbnZhak5RS0VxYk1HSVYxTytHZWZuT09LQkNHT0R2bGcrNC9W?=
+ =?utf-8?Q?D/C+oCGBzDMYwjiIGTIaeLCo0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bbe93cd-6cf5-4613-1c6d-08da602ffca4
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 15:47:24.5470 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b5+Aa1Hw6iCj1MpozEHk5bcfLZ82EkIOy+ij/17xZY8CKXna7WJSnbAsNG1iWSau5JlXS7KwFanyA/BW1aZjzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,84 +125,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, legousb-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- ceph-devel@vger.kernel.org, linux-pm@vger.kernel.org,
- usbb2k-api-dev@nongnu.org, linux-omap@vger.kernel.org,
- megaraidlinux.pdl@broadcom.com, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-perf-users@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-wpan@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-parport@lists.infradead.org, linux-doc@vger.kernel.org,
- samba-technical@lists.samba.org, linux-cxl@vger.kernel.org,
- virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
- target-devel@vger.kernel.org, dev@openvswitch.org, linux-cifs@vger.kernel.org,
- kernel test robot <lkp@intel.com>, linux-clk@vger.kernel.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- coreteam@netfilter.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, greybus-dev@lists.linaro.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-fpga@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
- linux-phy@lists.infradead.org, sound-open-firmware@alsa-project.org,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, isdn4linux@listserv.isdn4linux.de,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- ath11k@lists.infradead.org, mjpeg-users@lists.sourceforge.net,
- openipmi-developer@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux-foundation.org,
- keyrings@vger.kernel.org, netdev@vger.kernel.org, kvm@vger.kernel.org,
- damon@lists.linux.dev, linux-mm@kvack.org,
- accessrunner-general@lists.sourceforge.net,
- linux1394-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-x25@vger.kernel.org, dccp@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, linux-nfc@lists.01.org,
- osmocom-net-gprs@lists.osmocom.org, apparmor@lists.ubuntu.com,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-scsi@vger.kernel.org, patches@opensource.cirrus.com,
- linux-unionfs@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- ntb@lists.linux.dev, tipc-discussion@lists.sourceforge.net,
- linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 07, 2022 at 10:08:33AM +0200, Greg KH wrote:
+Am 2022-07-07 um 05:54 schrieb Christian König:
+> Am 07.07.22 um 11:50 schrieb xinhui pan:
+>> Fence is accessed by dma_resv_add_fence() now.
+>> Use amdgpu_amdkfd_remove_eviction_fence instead.
+>>
+>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 0036c9e405af..1e25c400ce4f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -1558,10 +1558,10 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct 
+>> amdgpu_device *adev,
+>>         if (!process_info)
+>>           return;
+>> -
+>>       /* Release eviction fence from PD */
+>>       amdgpu_bo_reserve(pd, false);
+>> -    amdgpu_bo_fence(pd, NULL, false);
+>> +    amdgpu_amdkfd_remove_eviction_fence(pd,
+>> +                    process_info->eviction_fence);
+>
+> Good catch as well, but Felix needs to take a look at this.
 
-[ ... ]
-> > 
-> > Unverified Error/Warning (likely false positive, please contact us if interested):
-> > 
-> > arch/x86/events/core.c:2114 init_hw_perf_events() warn: missing error code 'err'
-> > drivers/android/binder.c:1481:19-23: ERROR: from is NULL but dereferenced.
-> > drivers/android/binder.c:2920:29-33: ERROR: target_thread is NULL but dereferenced.
-> > drivers/android/binder.c:353:25-35: ERROR: node -> proc is NULL but dereferenced.
-> > drivers/android/binder.c:4888:16-20: ERROR: t is NULL but dereferenced.
-> > drivers/base/regmap/regmap.c:1996:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/char/random.c:869:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/firmware/arm_scmi/clock.c:394:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/firmware/arm_scmi/powercap.c:376:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/vega10_powertune.c:1214:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/gpu/drm/amd/display/dc/os_types.h: drm/drm_print.h is included more than once.
-> > drivers/gpu/drm/bridge/ite-it66121.c:1398:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> > drivers/greybus/operation.c:617:1: internal compiler error: in arc_ifcvt, at config/arc/arc.c:9637
-> 
-> <snip>
-> 
-> When the compiler crashes, why are you blaming all of these different
-> mailing lists?  Perhaps you need to fix your compiler :)
-> 
+This is weird. We used amdgpu_bo_fence(pd, NULL, false) here, which 
+would have removed an exclusive fence. But as far as I can tell we added 
+the fence as a shared fence in init_kfd_vm and 
+amdgpu_amdkfd_gpuvm_restore_process_bos. So this probably never worked 
+as intended.
 
-To be fair, it says above "likely false positive, please contact us
-if interested". Also, the 32-bit build errors _are_ real, and the NULL
-dereferences in the binder driver are at the very least suspicious.
+You could try if this is really needed. Just remove the eviction fence 
+removal. Then enable eviction debugging with
 
-Guenter
+     echo Y > /sys/module/amdgpu/parameters/debug_evictions
+
+Run some simple tests and check the kernel log to see if process 
+termination is causing any unexpected evictions.
+
+Regards,
+   Felix
+
+
+>
+> Regards,
+> Christian.
+>
+>>       amdgpu_bo_unreserve(pd);
+>>         /* Update process info */
+>
