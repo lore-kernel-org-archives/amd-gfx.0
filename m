@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DB2C43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 18:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B29FC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 18:23:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D25A11B7DE;
-	Thu,  7 Jul 2022 18:22:35 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0011E11B6CE;
- Thu,  7 Jul 2022 18:22:33 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id j22so7604322ejs.2;
- Thu, 07 Jul 2022 11:22:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFF0911BCDE;
+	Thu,  7 Jul 2022 18:23:48 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA9311B9DD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 18:23:46 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id n66so15239743oia.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jul 2022 11:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=j6ncolguiQ+DPHRmzlhAw1z57F0HnokCJKSQgzd3UQs=;
- b=ohjqe3h1JnbCwaBEIZ2d69QR8cz52UUygEFiOvnMYGlCpXpnR1Qmj4YvAuvK0EJiWY
- 4FGWd1fhgqJ8Hh/fZ0Up/Iu7IjXoofz/xMywSFCvKE8NSlPntfPXJZXlicN6Xw2E9/6l
- uFb+mi5Dacf9U9diBw77SQKNmaPSR3msiqmJY1fQA6skgYg/D7VFo/r7b52ybuRrtb1I
- fEii4Ih35R9wz1QXi0i6uzhivzSvYEXvDYNQmTAK/sOTg+IckYEmgXnTc9rTEml/aFgo
- y6NemwFJTWIUgYrRhYMmXfajWOACfbStbqrgZEYPmoeAnLoWh1oCHM4dWsKrmRJJnhxm
- 9FLQ==
+ :cc; bh=K2l5F4dc2kprDJbBx9G1DgCj73eILsVLGFPF+bJSRlk=;
+ b=KPXE87qpdgZa1oyS2BwctG6TV4lDc4ZN63Ncv3e4DwV0U4k9+Phd9JF7SCZtU0VS+y
+ FegY3cE+GL1erkJfQC+ytVF5y1mEOh38dMD6x/ofJ7ii0psKzdplk+yvS+MGrpiFMmbL
+ YvCPa9HuZ/NZIv2TgANDXiUQqBKHGR54MFuEq4MHShNzN2JwKOZclyUnxN9ngEpQ2YgA
+ y6TjRhYRnFNfFiAgrb+9uAEk6ZpVN/kGvPIc2l4ubJuLGzY7cYGGf3tARhgDnqwbMB3P
+ Xx0Y5ZZLPpHh2BmZmth/IVLmwkv6yJ7V79ZU1BXdgfj0xHXvxFtyj23odZZl15Mhs8X3
+ Ckhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=j6ncolguiQ+DPHRmzlhAw1z57F0HnokCJKSQgzd3UQs=;
- b=CLTBI8GtZOjsr8v0A5iZFqUa3jyyBpOoMVi4L4K3qPEwODlgXbvr9J0HYLOIyTle0E
- Mb5KHUtn4P5kn/Hj4wwI/FpWVmE21+vLoMisVTH8Z7Wk6LfwkA4aNpIWoZ7voxrtUOcB
- tn02V06daY+iU2y13ICuFPnkAST3x5zBotsDZw4JJhpZkt0d/KzZHIWBCFRObA+IyROg
- fxX32A5cxhEVprvmT7d/EkRhs4hBBRfS8/X4B3o0NsXMywx0UWSzuiZEOyD3vW/qEpIN
- IAKZA/GE+0nAJmJsgqVPgfUakzTwjPQ0MKF4wBbWWqXMJE7CZMdCrfhrXJQ7gXBw8ONe
- jBRA==
-X-Gm-Message-State: AJIora8d8SAmSYjbI/zeQiHaxBl+2wzwCkVBEIws74QWoW+zmNRXtq4I
- 0Z7SlB06fAijqzrUWHHYymZzPSh6LF6vF8bi/Yc=
-X-Google-Smtp-Source: AGRyM1vFFoUfixEhOUfl68/WDDiWcPlIS3gYGV84R38m2q33oIwZHt0dcJvwcUsnsfbSVJdNmTunjpQ6rR123O2EcU0=
-X-Received: by 2002:a17:907:a40f:b0:726:a8f5:1031 with SMTP id
- sg15-20020a170907a40f00b00726a8f51031mr46947213ejc.185.1657218152576; Thu, 07
- Jul 2022 11:22:32 -0700 (PDT)
+ bh=K2l5F4dc2kprDJbBx9G1DgCj73eILsVLGFPF+bJSRlk=;
+ b=BofBECWn7VowIxpVXSaaGCyicYOEpenHeminRRtHE7QpiT/4jFt5fx0qts79UuG3ls
+ J/fDGKN3ae/9q7Nnogy1S42urKJ8CeCOCQQQDoDm57+QCH3eCCHIbSQGeuc5x1EzKPZ4
+ sTHUJfAqlX/tGue+0dmrBhMz6vf7IFQ5X3utG5SSOI10jS8lJGDcAMuoj0ibVuwOl1Qf
+ cHzVkDdRxIgYSo1AZDKuzNzaE6tYgB/fXv+tAyxLguFIurnCLnT/8mGWQPnpo6KbeSor
+ +zmb0ShQwSSJCiQFIhrzOWpB5Yx7YPwbZpNL5n64/R3FqFgrZA7WWE2taYIVTEDTl4Tu
+ yulQ==
+X-Gm-Message-State: AJIora9/bpxAH+5nyPyZg/JV5HRnFaGgQdbC3rraJcvGOSHhWjxpe1Xu
+ 0KHpBI0oe4aHpnvqP9yiCW61IKp6qvoD5PPI20G1UA==
+X-Google-Smtp-Source: AGRyM1vDqJ6jYAfS3d7ZZa5Hmyulu3LIOBi20NdsVnLsrkp/J91a7WPRN/NHwmcW3W8PRis0yOYl0Xi55Hc4YcpX0iw=
+X-Received: by 2002:a05:6808:1691:b0:325:61f7:7e6a with SMTP id
+ bb17-20020a056808169100b0032561f77e6amr3384227oib.256.1657218226102; Thu, 07
+ Jul 2022 11:23:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220706063951.54122-1-hbut_tan@163.com>
-In-Reply-To: <20220706063951.54122-1-hbut_tan@163.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Jul 2022 14:22:20 -0400
-Message-ID: <CADnq5_NpXcua54cSeSGaG2X_afcvoGswKgSb=Gysr5gpoT0AHw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix unsigned expression compared with
- zero
-To: Zhongjun Tan <hbut_tan@163.com>, "Wentland, Harry" <Harry.Wentland@amd.com>
+References: <20220707095053.6755-1-xinhui.pan@amd.com>
+In-Reply-To: <20220707095053.6755-1-xinhui.pan@amd.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Thu, 7 Jul 2022 19:23:34 +0100
+Message-ID: <CAHbf0-HhAEk3P+pV=T==EV9f_yXbwMu-qBJ3V9XFi80mmuwVLA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix a NULL pointer of fence
+To: xinhui pan <xinhui.pan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,51 +62,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, Zhongjun Tan <tanzhongjun@coolpad.com>,
- Dave Airlie <airlied@linux.ie>, cai.huoqing@linux.dev,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 6, 2022 at 3:41 AM Zhongjun Tan <hbut_tan@163.com> wrote:
+Hi
+
+This appears to fix https://gitlab.freedesktop.org/drm/amd/-/issues/2074
+
+Feel free to add my tested by
+
+Thanks
+
+Mike
+
+On Thu, 7 Jul 2022 at 10:51, xinhui pan <xinhui.pan@amd.com> wrote:
 >
-> From: Zhongjun Tan <tanzhongjun@coolpad.com>
+> Fence is accessed by dma_resv_add_fence() now.
+> Use amdgpu_amdkfd_remove_eviction_fence instead.
 >
-> Fix unsigned expression compared with zero
->
-> Signed-off-by: Zhongjun Tan <tanzhongjun@coolpad.com>
+> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 > ---
->  .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
 >  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-> index 548cdef8a8ad..21e4af38b8c1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-> @@ -244,8 +244,8 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
->         bool req128_c = false;
->         bool surf_linear = (pipe_src_param->sw_mode == dm_sw_linear);
->         bool surf_vert = (pipe_src_param->source_scan == dm_vert);
-> -       unsigned int log2_swath_height_l = 0;
-> -       unsigned int log2_swath_height_c = 0;
-> +       int log2_swath_height_l = 0;
-> +       int log2_swath_height_c = 0;
-
-@Wentland, Harry Can you comment on the required range needed for
-these integers?  Maybe it would be better to just drop the comparisons
-with 0.
-
-Alex
-
->         unsigned int detile_buf_size_in_bytes = mode_lib->ip.det_buffer_size_kbytes * 1024;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 0036c9e405af..1e25c400ce4f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1558,10 +1558,10 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
 >
->         full_swath_bytes_packed_l = rq_param->misc.rq_l.full_swath_bytes;
+>         if (!process_info)
+>                 return;
+> -
+>         /* Release eviction fence from PD */
+>         amdgpu_bo_reserve(pd, false);
+> -       amdgpu_bo_fence(pd, NULL, false);
+> +       amdgpu_amdkfd_remove_eviction_fence(pd,
+> +                                       process_info->eviction_fence);
+>         amdgpu_bo_unreserve(pd);
+>
+>         /* Update process info */
 > --
-> 2.29.0
+> 2.34.1
 >
