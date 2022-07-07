@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C26DCC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 19:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B94CCA47F
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 19:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 119BD89A0F;
-	Thu,  7 Jul 2022 19:04:26 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9783B11346A;
- Thu,  7 Jul 2022 19:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A4D89E86;
+	Thu,  7 Jul 2022 19:04:27 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242D589725;
+ Thu,  7 Jul 2022 19:04:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U6KjflSP5KuwW5gRr/eMs1Z9f2cIUdKEeJYmveEk3RNPzEwPD06nfE+8OMsaDZoe1H9EtDwb9Lvip1dn7IsIaDsjYjR3Ff4L0jtLYZguCx4QsCGaKZyCXyMTNbHLH3hSgyVKnP8fngnrR8YtpeKKcj/ZxCWzzlWn9EmUVaAq2QLnnnBSSmNgmuLGsLQKUJN8EpTR/KA5QQ7y1FLJ/5B873IohJ1nn8C2MwimPCMVKXeMjcrbqNrh7UpU4xTHl2l2eI10Pvj7StnR8YBpHoVlChpd/qi0mK6n9/jM0wpdM2WWERbCNlfrHEi33ce2pZxi3dhO+LY4/c4Eyv682FRZew==
+ b=dCtN8b2HOwE/3pbM8RK7OusU5gQRAHO0txFDRfzkt+G3RBuXWG4fGGpBpEQJi77mlfRQeGF9+oBzUwGMrINwLKvNmyPRR9c1th6Te0DQY2koZLkKuxpfun4Bokj7TPdouzLU/YM11M4fNkwoot8Wzr6/A+1QY5kLeBzhkFEpGnXLtcD6mM3PFxt/OeHlnlgVzSGbANlcCgaimbsYUS76UaMF52hZxYnvJNoC2AI+IWvygI1VJJ1VBrClTlGiswIdLhy/NL5+sLT/I7OOMwMIsnslJN+fxlR0kDzlfisDAMMFrZ98ZE2h/i6SWeLv8RMyp+uWXxu2tmRxnWwozfGGZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Gq5krbSDZgVmQmlPCe18YVS7UIhP8NZXgBaLYb/5yI=;
- b=dCCzp3pwfhVYGxPEcZWIyPJS1wbFMV/ZJByTSAQR5pJ7+3N8pezo+lqHlyJzIcx9biopJ5vUhsYyfr+ZyvJC5TF+fs6k6empdAGfx1u0SuPeQn3+FQFPJi29dy+LC2dxyjrFc26q5jTBvn/Ii02Pm+/7FmqshPF/f19xTH69t/O/7dmwiuhFnAsZwjXevHkpDS8FvOz7aaDb5GTIJ79FwkLbizTJqK3X1BDiqnCUTSKlncPrVxn3pTrWlDUCdyiJF+1+5zHHZa0gqom2XyaN/bzV9hSgDT2B93mqtif0Ed3USS+zXRphBssGn9+aw6gvBfHfIf4JBUlJtJc9eJTzxg==
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=DpLIVsyb48jwK74KwgLhFWj/iB/KrOxVVpJdH3z5nB3uR/1yi2ta6E26Et1OMolRux5wHr8VADjgpDwcHx5Nz19uiX6ESF3K7pYNvV7QqbPDzsI4MmiEhZRMwdt7JON6Zkx6bCiRg8xpn5E52izaTSWD7PWu8+wXnPsUGBjeDyD3AlNMCb8EB7i5EPWFvoC6XVZErutAHtY/3BagKzYY2NmsJoT4HeOthMag0nxvP0ils1ZrjlHcGVERQewvdErVbdHhi+jjGp4TGtTts9l97th0KR11ZAZ9blHRmzpXytapmwtTmDKteEPIS5xzjlF6VUcyPNEJ7tIGpTm0+gLKyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Gq5krbSDZgVmQmlPCe18YVS7UIhP8NZXgBaLYb/5yI=;
- b=a2sryF3qh9b8EaRTQy1UnJMp7FY6S1PNJ8GMSVWw30zD7IX5EuoNlKvS1F1Pr2TX5J/BllhJMmd2XajSldiG7RQlfHURpFtpsUQjAA7c+EQgPswwvl2o+kR36XvItjwb8hORmVjNJrOHFQ/3mi4tSIdpcaI4iBOchGdbkJ3bNho=
-Received: from BN9PR03CA0256.namprd03.prod.outlook.com (2603:10b6:408:ff::21)
- by MWHPR12MB1694.namprd12.prod.outlook.com (2603:10b6:301:11::18)
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=5higf+nhlQSWdkrtPGClZfBTs41NADgZBMbEDtDiQqdA+0QlUsuxyX9646a7twLGBxwaUPaVuj8kgHJcFYRCBIYGfv0vxXZP4g8SMjCVPq6GqsLkeNtCswaTcBZ2D/ZjdkgjTwVDjcoUulREfdLw/993mPK45VkaGc5QEmyuiZg=
+Received: from BN9P220CA0021.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::26)
+ by BL1PR12MB5875.namprd12.prod.outlook.com (2603:10b6:208:397::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Thu, 7 Jul
- 2022 19:04:18 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ff:cafe::46) by BN9PR03CA0256.outlook.office365.com
- (2603:10b6:408:ff::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.15 via Frontend
- Transport; Thu, 7 Jul 2022 19:04:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Thu, 7 Jul
+ 2022 19:04:22 +0000
+Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::71) by BN9P220CA0021.outlook.office365.com
+ (2603:10b6:408:13e::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
+ Transport; Thu, 7 Jul 2022 19:04:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 19:04:17 +0000
+ 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 19:04:21 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
- 2022 14:04:16 -0500
+ 2022 14:04:20 -0500
 From: Alex Sierra <alex.sierra@amd.com>
 To: <jgg@nvidia.com>
-Subject: [PATCH v8 10/15] lib: test_hmm add module param for zone device type
-Date: Thu, 7 Jul 2022 14:03:44 -0500
-Message-ID: <20220707190349.9778-11-alex.sierra@amd.com>
+Subject: [PATCH v8 13/15] tools: update test_hmm script to support SP config
+Date: Thu, 7 Jul 2022 14:03:47 -0500
+Message-ID: <20220707190349.9778-14-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220707190349.9778-1-alex.sierra@amd.com>
 References: <20220707190349.9778-1-alex.sierra@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4a65340c-4aa1-4fb9-a64d-08da604b7e1b
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1694:EE_
+X-MS-Office365-Filtering-Correlation-Id: d17d97fd-654b-4a3d-3de1-08da604b8073
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5875:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DlQIlpq5FiCoP3bgF6AcLsKQxpGYn6/R66/XoMSZjsG6QKjjp3B2QOGiF1uB24lPlfi/4gH1+NC7t0d6+D/7Xby1AzSXA3oT9Pp/O6Qzzp2E0vikmbTSlCL9wbkE6+Sna1k3iFIvgyb7NHm4OH0S17GhpmcwhWp2n2U7ifTOwAJKcd7mNFpzxw8XyZ/o5VqijX9fogAu1iOepii8Y7Hs8QjlmL9s2RU0kf40lzPhSVCl8SZLXL5+8+gBWETYkjO43uBQen5A5f/ALI4WiPJ71HCHmzLATJypu+v6uWZ1v7AZuohiTTbR4dTk8GnSQo8w9kA2F6vybGg+5ZbeDSHiLGGwCtIRxHz85ZQH8n0yLxCyzUesFWRjwN2OKm5yQkyiwyrz8hTF5qPaizs7zs1ilTp4IKL1rRzOjLptWcG6JxEzXqYjnLSXmiHv5/WOe8tlfBFoPjUHbrITKMRgpjjnLFFAnvwJ6Eg6Y79Yic/PzB5UNdB5XAeDZcZPlP51RZFp2uVrp8RKVTIOnM6x4mEt5TUIuNPpjSU+bu7C2HomuziHwip7rDDkZmYKFbb27FZZ67w5rCu52YgDWcCDKAy8cNh1+75eAUWO4/LGHUOGCjcFzqnmAvEi62+enj4fWnX+GUu1cAbKcnyp8MGHuF4CLMKhvWK1x+JZlCJgXAsJXLZILfJPlEVEWpJfNchVZ2z6/yHajdoGjIAHG66vD6MeYDW45aJVdJNQNyUsv+UbKzXgErPqAGdSRDu7gfutP74DMTrislhjhvhnlHOe/ZTJ3RBaBVoAIIyCjUX8vEA40K56DRHMuNOxuh9ckbCRA9JNcRGMUQD7tKcCCzJbb1wrD3z1c2OPpqTbxiAvFGEnVovcSNZy3vKeEd4IFw7ULF8Y
+X-Microsoft-Antispam-Message-Info: Nvfk7fJCiH4+WBXgfHzVQVOcfnMwzWzp8N5a6MRfXqjHlUw6aIgDIpJaIHrGl/oJMnpFuzeTnOEl5gjotlzZYHeVwjJDu6yP3AiLWax3PnupqXCZdF2ftugrELHjkK8eg8BUxjGsKsOVKJ1OM8jf++XUJ/CxWBw6QuqXC3CMMZ96pEpPFTJNjdwpQPlA8Qxyef23NO+mNf8VcdR0Ndimc2U2HYoL15487KHchqnAzZWuIGnwIJWQf44oPmuGwR6LGuOhyeXa/US9uGojZdHBpj+NpaxwnEBbtmVorynWvCB6HC+UKbj+KVktDA0KtqWage5AMJoQMt/IpVeAaKF1G/LRhBTGQJ6hOEN0IbrZA053195O3u8W6gUqXA0xe2WVNVEWwjQ4TgSgFVe1YXr7JoT5j1MDRBB/VqIrbrkAIZMgljMdXZ+0FJKwk982LxoiHOz7UdWq18u3xsae83GAZfRN8qPHLmCsuJUPBIBCGw6AWmUBhQW5sPmHJLZNHAcH/YltZHHFpj+H9uRSExo8gEd7mJJ9cmDuitH5wfO1xcOwUn6o8p06651Ty/G1hNwQ+Eb/owCh+NYqnP/37o7z/xV7FLhuZl4cy4glNkCHtX4Q0AVFD4QGGBdVrg5gTE/r0vwkOq6Vi7j7yMCdqPACk1tsIqgiHssHi8HOykaPQwAxRAV5pmgMpeQUXPAJSbv+WQm2DzU2PwYOOBXy3l4Pfpb7fHe9CO6gI/Qyj3AZevZK58Hi0tkqwV1Pu8spr6hSBJpiI3baD7NVdeiOPJ3JSm4ny2ld2WTLRHZ9v64EjaBbRxZXwq47aMaZqfNYg28gmMfRSwvwDd1P9Sa9O/gG5CIxZbksgv+43rb3ERNayqbofjwmvf/JpglUcRcsbZrI
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(346002)(39860400002)(396003)(36840700001)(46966006)(40470700004)(40460700003)(81166007)(44832011)(478600001)(7696005)(86362001)(7416002)(41300700001)(6666004)(36860700001)(8936002)(5660300002)(82740400003)(26005)(356005)(34020700004)(2906002)(426003)(54906003)(1076003)(47076005)(316002)(83380400001)(186003)(2616005)(16526019)(40480700001)(70206006)(336012)(36756003)(70586007)(4326008)(6916009)(8676002)(82310400005)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(396003)(376002)(136003)(346002)(40470700004)(46966006)(36840700001)(70586007)(82740400003)(34020700004)(70206006)(41300700001)(8676002)(6666004)(7696005)(82310400005)(81166007)(4326008)(36860700001)(6916009)(356005)(36756003)(86362001)(5660300002)(1076003)(186003)(47076005)(2616005)(336012)(40460700003)(44832011)(8936002)(426003)(7416002)(2906002)(40480700001)(478600001)(83380400001)(54906003)(16526019)(26005)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 19:04:17.9964 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a65340c-4aa1-4fb9-a64d-08da604b7e1b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 19:04:21.9571 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d17d97fd-654b-4a3d-3de1-08da604b8073
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1694
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,179 +107,79 @@ Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to configure device coherent in test_hmm, two module parameters
-should be passed, which correspond to the SP start address of each
-device (2) spm_addr_dev0 & spm_addr_dev1. If no parameters are passed,
-private device type is configured.
+Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
+addresses. These two parameters configure the start SP
+addresses for each device in test_hmm driver.
+Consequently, this configures zone device type as coherent.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Poppple <apopple@nvidia.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- lib/test_hmm.c      | 73 ++++++++++++++++++++++++++++++++-------------
- lib/test_hmm_uapi.h |  1 +
- 2 files changed, 53 insertions(+), 21 deletions(-)
+ tools/testing/selftests/vm/test_hmm.sh | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index 915ef6b5b0d4..afb30af9f3ff 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -37,6 +37,16 @@
- #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
- #define DEVMEM_CHUNKS_RESERVE		16
+diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
+index 0647b525a625..539c9371e592 100755
+--- a/tools/testing/selftests/vm/test_hmm.sh
++++ b/tools/testing/selftests/vm/test_hmm.sh
+@@ -40,11 +40,26 @@ check_test_requirements()
  
-+static unsigned long spm_addr_dev0;
-+module_param(spm_addr_dev0, long, 0644);
-+MODULE_PARM_DESC(spm_addr_dev0,
-+		"Specify start address for SPM (special purpose memory) used for device 0. By setting this Coherent device type will be used. Make sure spm_addr_dev1 is set too. Minimum SPM size should be DEVMEM_CHUNK_SIZE.");
-+
-+static unsigned long spm_addr_dev1;
-+module_param(spm_addr_dev1, long, 0644);
-+MODULE_PARM_DESC(spm_addr_dev1,
-+		"Specify start address for SPM (special purpose memory) used for device 1. By setting this Coherent device type will be used. Make sure spm_addr_dev0 is set too. Minimum SPM size should be DEVMEM_CHUNK_SIZE.");
-+
- static const struct dev_pagemap_ops dmirror_devmem_ops;
- static const struct mmu_interval_notifier_ops dmirror_min_ops;
- static dev_t dmirror_dev;
-@@ -455,28 +465,44 @@ static int dmirror_write(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
- 	return ret;
- }
- 
--static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
-+static int dmirror_allocate_chunk(struct dmirror_device *mdevice,
- 				   struct page **ppage)
+ load_driver()
  {
- 	struct dmirror_chunk *devmem;
--	struct resource *res;
-+	struct resource *res = NULL;
- 	unsigned long pfn;
- 	unsigned long pfn_first;
- 	unsigned long pfn_last;
- 	void *ptr;
-+	int ret = -ENOMEM;
- 
- 	devmem = kzalloc(sizeof(*devmem), GFP_KERNEL);
- 	if (!devmem)
--		return false;
-+		return ret;
- 
--	res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
--				      "hmm_dmirror");
--	if (IS_ERR(res))
-+	switch (mdevice->zone_device_type) {
-+	case HMM_DMIRROR_MEMORY_DEVICE_PRIVATE:
-+		res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
-+					      "hmm_dmirror");
-+		if (IS_ERR_OR_NULL(res))
-+			goto err_devmem;
-+		devmem->pagemap.range.start = res->start;
-+		devmem->pagemap.range.end = res->end;
-+		devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
-+		break;
-+	case HMM_DMIRROR_MEMORY_DEVICE_COHERENT:
-+		devmem->pagemap.range.start = (MINOR(mdevice->cdevice.dev) - 2) ?
-+							spm_addr_dev0 :
-+							spm_addr_dev1;
-+		devmem->pagemap.range.end = devmem->pagemap.range.start +
-+					    DEVMEM_CHUNK_SIZE - 1;
-+		devmem->pagemap.type = MEMORY_DEVICE_COHERENT;
-+		break;
-+	default:
-+		ret = -EINVAL;
- 		goto err_devmem;
-+	}
- 
--	devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
--	devmem->pagemap.range.start = res->start;
--	devmem->pagemap.range.end = res->end;
- 	devmem->pagemap.nr_range = 1;
- 	devmem->pagemap.ops = &dmirror_devmem_ops;
- 	devmem->pagemap.owner = mdevice;
-@@ -497,10 +523,14 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
- 		mdevice->devmem_capacity = new_capacity;
- 		mdevice->devmem_chunks = new_chunks;
- 	}
--
- 	ptr = memremap_pages(&devmem->pagemap, numa_node_id());
--	if (IS_ERR(ptr))
-+	if (IS_ERR_OR_NULL(ptr)) {
-+		if (ptr)
-+			ret = PTR_ERR(ptr);
+-	modprobe $DRIVER > /dev/null 2>&1
++	if [ $# -eq 0 ]; then
++		modprobe $DRIVER > /dev/null 2>&1
++	else
++		if [ $# -eq 2 ]; then
++			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
++				> /dev/null 2>&1
 +		else
-+			ret = -EFAULT;
- 		goto err_release;
-+	}
- 
- 	devmem->mdevice = mdevice;
- 	pfn_first = devmem->pagemap.range.start >> PAGE_SHIFT;
-@@ -529,15 +559,17 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
- 	}
- 	spin_unlock(&mdevice->lock);
- 
--	return true;
-+	return 0;
- 
- err_release:
- 	mutex_unlock(&mdevice->devmem_lock);
--	release_mem_region(devmem->pagemap.range.start, range_len(&devmem->pagemap.range));
-+	if (res && devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
-+		release_mem_region(devmem->pagemap.range.start,
-+				   range_len(&devmem->pagemap.range));
- err_devmem:
- 	kfree(devmem);
- 
--	return false;
-+	return ret;
++			echo "Missing module parameters. Make sure pass"\
++			"spm_addr_dev0 and spm_addr_dev1"
++			usage
++		fi
++	fi
+ 	if [ $? == 0 ]; then
+ 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
+ 		mknod /dev/hmm_dmirror0 c $major 0
+ 		mknod /dev/hmm_dmirror1 c $major 1
++		if [ $# -eq 2 ]; then
++			mknod /dev/hmm_dmirror2 c $major 2
++			mknod /dev/hmm_dmirror3 c $major 3
++		fi
+ 	fi
  }
  
- static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
-@@ -562,7 +594,7 @@ static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
- 		spin_unlock(&mdevice->lock);
- 	} else {
- 		spin_unlock(&mdevice->lock);
--		if (!dmirror_allocate_chunk(mdevice, &dpage))
-+		if (dmirror_allocate_chunk(mdevice, &dpage))
- 			goto error;
- 	}
+@@ -58,7 +73,7 @@ run_smoke()
+ {
+ 	echo "Running smoke test. Note, this test provides basic coverage."
  
-@@ -1232,10 +1264,8 @@ static int dmirror_device_init(struct dmirror_device *mdevice, int id)
- 	if (ret)
- 		return ret;
- 
--	/* Build a list of free ZONE_DEVICE private struct pages */
--	dmirror_allocate_chunk(mdevice, NULL);
--
--	return 0;
-+	/* Build a list of free ZONE_DEVICE struct pages */
-+	return dmirror_allocate_chunk(mdevice, NULL);
+-	load_driver
++	load_driver $1 $2
+ 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
+ 	unload_driver
+ }
+@@ -75,6 +90,9 @@ usage()
+ 	echo "# Smoke testing"
+ 	echo "./${TEST_NAME}.sh smoke"
+ 	echo
++	echo "# Smoke testing with SPM enabled"
++	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
++	echo
+ 	exit 0
  }
  
- static void dmirror_device_remove(struct dmirror_device *mdevice)
-@@ -1248,8 +1278,9 @@ static void dmirror_device_remove(struct dmirror_device *mdevice)
- 				mdevice->devmem_chunks[i];
- 
- 			memunmap_pages(&devmem->pagemap);
--			release_mem_region(devmem->pagemap.range.start,
--					   range_len(&devmem->pagemap.range));
-+			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
-+				release_mem_region(devmem->pagemap.range.start,
-+						   range_len(&devmem->pagemap.range));
- 			kfree(devmem);
- 		}
- 		kfree(mdevice->devmem_chunks);
-diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
-index 0511af7464ee..f700da7807c1 100644
---- a/lib/test_hmm_uapi.h
-+++ b/lib/test_hmm_uapi.h
-@@ -66,6 +66,7 @@ enum {
- enum {
- 	/* 0 is reserved to catch uninitialized type fields */
- 	HMM_DMIRROR_MEMORY_DEVICE_PRIVATE = 1,
-+	HMM_DMIRROR_MEMORY_DEVICE_COHERENT,
- };
- 
- #endif /* _LIB_TEST_HMM_UAPI_H */
+@@ -84,7 +102,7 @@ function run_test()
+ 		usage
+ 	else
+ 		if [ "$1" = "smoke" ]; then
+-			run_smoke
++			run_smoke $2 $3
+ 		else
+ 			usage
+ 		fi
 -- 
 2.32.0
 
