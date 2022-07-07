@@ -4,88 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16AA5C43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 08:23:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6F6FC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 09:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E00312BA4C;
-	Thu,  7 Jul 2022 08:23:52 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4152412BA4C
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 08:23:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wruf2lhf/wGvK1uaaBllWVp74kWUcOYE7OqU10QoaO+WBZaJGJ+pSepXJMX1FsW+APmGS2ucMPRGyn/+WDXxPZ+3arTNnvW8hxqrczrLScG7u/OfZHZYrwsWw2MMo/n/6nP0nasB7VEeglYbO9bL0OMd5A+uX10nij0JTZGD7iePca79NpDPxq2y7a5+QMgMHP8x0B7juwH3oMCDcVEptiIgDXo/hlu81y0KJgiCYGHd2lbpjDXMBuwGCfDzPXe+QqhiMTZDlueNCW65/69XQBnmUtYl+5RJebF1g86tJc6KLuE89I/PVOPvNwEUH31UUIDNMiJbG0FuSS/4koEdHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H2Sg23WgskfTU0wR/90B5BdWoFjnZ7fiELNnoV+tSCI=;
- b=fkdI6JTxr+mV2XJuAKwBuobiVofvOoWQvt3V6klw6jDASlREN8tTMmuDkbMmPgda+bVOf322lIq94MnMUNxhn/sk4Z+X8rIv+ZQooBW0mn6pCbPU7ctOKMQkzcZKTJ15MEqg/KxPIx8o/wz2XNQihyd4o7RZ17px//0wwfcabAkauP6Yqin0Fd4b/UF6ZdrWO9EOBMqenbiNRHrS2uXDoqEH0NpoODi0Mz9DRsqW6USpIYM7U2K0CaE7cE0W/ZCiXYhGa9Uh+ryIUyA9tnGvD7n2OM1Bg4QgP180KKKsmsgHfzBv1sVHuHKlXqxnqthAXh91Z8wgwhlJGMHpADfJOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H2Sg23WgskfTU0wR/90B5BdWoFjnZ7fiELNnoV+tSCI=;
- b=UiG3soPats3fzWOeeJDu84TYcMuL09Ea1XhtBmDFYfjl7rkE2it3ORvdRjPguGit21Eh9LeoGw4KEUERabbKP1H5Lf5oQqEdQrnfT2EKHahv1RE+qvile9/QpRM+Olv4SNpjKHYGVTwIhax1yO2W1cxgHsTobI5D80TPFmkoBm0=
-Received: from MWHPR07CA0005.namprd07.prod.outlook.com (2603:10b6:300:116::15)
- by CH0PR12MB5188.namprd12.prod.outlook.com (2603:10b6:610:bb::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Thu, 7 Jul
- 2022 08:23:48 +0000
-Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:116:cafe::64) by MWHPR07CA0005.outlook.office365.com
- (2603:10b6:300:116::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
- Transport; Thu, 7 Jul 2022 08:23:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 08:23:47 +0000
-Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
- 2022 03:23:42 -0500
-From: Stylon Wang <stylon.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Fix new dmub notification enabling in DM
-Date: Thu, 7 Jul 2022 16:23:29 +0800
-Message-ID: <20220707082329.936987-1-stylon.wang@amd.com>
-X-Mailer: git-send-email 2.37.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4819112A569;
+	Thu,  7 Jul 2022 09:50:18 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 002F712A6A2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 09:50:16 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id r14so19734659wrg.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jul 2022 02:50:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=P2SKMI302/xHU+sZf7yfPGi85w1L9E+sbikWLMcCASY=;
+ b=iKcrThgZPrCMfY3liwsTn9tTHJOJMPbZnIwGmA3GvUgR8l2PoGL/LSht+/7BIVJYDa
+ wxL0vW+BLoLoBY388hqSvWr3dNupEJOo22xPMQFxS3ynWmgu0QcpV+GnJFM4Xz45Fv3e
+ am6n/wL2pERR/NmcjmMh3PAaiHqAl0mXu4ArfTF6X/y3/sZi1fZFyvxa6OnsS7b1/+Nh
+ yqn5pg5Ygs5uinTLwVc04QzmE2RbNNhOGydGNP5JjTc20/IvTqS/bzpEcXaVCrzYmM5f
+ MKgrg+xttR+95FgA3K1BMXsXnsXw/IoQaQWHI4fpgiuuK+V+Z0gF8m6YX7XcrOyxwF9U
+ fAAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=P2SKMI302/xHU+sZf7yfPGi85w1L9E+sbikWLMcCASY=;
+ b=put8qhDq/52VgWMddnlDmZzvE2Ewg7at1zgCRLgLwAKhnq89wOQZPJzXlWHr3kAhNT
+ P6tsytN/2gUEwtU7okjxWiZtCBfSAR0TKdgud5iulqb1G4Rr2L0cHxNaInZpqquIUPs8
+ 1+V+hht/Mjc8OUdjmB1kXukpFCmOI5ns882REwCdGVeFoIwjbW+YLiQl3IZSNy4ziEUf
+ F2umpofT/3GHJE8sbdCM90YyJsDpXmPFhsLKXoCnOYbN4Mq4rQSBQ8kMHX+sbb7IgZvq
+ qRSAwg6oS5q/G2T4gtJocroNaIjt0o+e4zhaAJJslPUe+o+dRkYnJ1TcXmUEyoeWqAIi
+ GLng==
+X-Gm-Message-State: AJIora8YAYmLO43B5UFRXJh00GEPG7bluOdPUEDVFQ9aBhKj7kuIUegq
+ wbwnfIMdl9UYn/kDK81ybZ2toW38SVI=
+X-Google-Smtp-Source: AGRyM1v0vSiir1+QVkY+Cvbv5RyOW1a7BHzilqqMt3s2R0jLQJDpjIRxc4N09ITBeycZPS5GmfX/7g==
+X-Received: by 2002:adf:f9c9:0:b0:21d:2cec:63e9 with SMTP id
+ w9-20020adff9c9000000b0021d2cec63e9mr39458447wrr.301.1657187415363; 
+ Thu, 07 Jul 2022 02:50:15 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ m14-20020a5d624e000000b0021d864d4461sm1329807wrv.83.2022.07.07.02.50.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Jul 2022 02:50:14 -0700 (PDT)
+Message-ID: <8876a42f-aef0-8322-b95d-704ac6476333@gmail.com>
+Date: Thu, 7 Jul 2022 11:50:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2add4f3a-2b03-4290-892b-08da5ff203a2
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5188:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zKiX03/SVaSbSOrdgeaf+0gsuUanimUdCu1jA424rfwNt9LXSRa8my0fHd15msd9ZxUO3nENUzWcBWNOeX3pF1gxcdFPr+25M0z3xpIk0YP7gi82Gv7Gg5LEHFlM9BWjU/2xuSJeGsDNM/O2hXoRvxVHXTLof97PU6OFvhkornoeVkf1jwJ5U7y1xrqdMzcBuSpXO97hCShQ2jsuWuhdQ9FBa8xxs+nhQzhSdzs2lfsooH5kcLDumkTQP6/8sxT6JgNvv7qvYk85Of56PFSYmhFSt5pLL0gTkCsnv/BEktT5OiEkmZVz2rdkDt5Uq2qzMRsW2p3SKcNu09oyn2YfwyqLRIVlYaekPC6mhZXhcihrIigosFHwR1jFfAwsiqNhuKwjU0vc10xkL1insoQCxBdeSDdyhU70VwjXSdoj90i0lVB2HeBnGp/gpZqJphs8iHVvf9zY2VyC0fDa52J+9HBeoZl2bbY7TGpLzbBTRNjOlgdDwY79Xtr5GGH/i60voq48wKjVr2f+8nnuzguZ6n16YjmSN45e8TuLa90TKWSMP/orJ29dDFdw3dtbJYUuNbnqW8VyPtDSGHOSUXO3FPN6kxAKZO1Z9j/w4MHskQqcHkDd/8pyeFEJgddg94e86j2pv+g5AIqlplVKhkDdLHft+RPQ3B/fM8sjn+AXnO1SFkTk99EkNw7eF6JtGXnVRkYgIOgEtC27ZchSHLrmdp2oPldf0mW0eFl643QIHNwkRP/5Jm86zviTQ+XIBolmGdVlFdRpbeNxJBC+FWRdjMIRTF6tv2G+fa0cKGahRQ/wpfzU0efiYbFhbbK5Ea7AVziAewCyGrED7v1CAO7w+iAf0U5jNdeQ9Q7WkPZ+k1+oIGnyTUR3T4lkd7FuU20s
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(39860400002)(346002)(136003)(46966006)(36840700001)(40470700004)(8936002)(478600001)(186003)(426003)(40460700003)(336012)(83380400001)(44832011)(16526019)(5660300002)(86362001)(36756003)(34020700004)(316002)(1076003)(54906003)(40480700001)(2616005)(6916009)(26005)(47076005)(82740400003)(356005)(15650500001)(41300700001)(70206006)(6666004)(81166007)(70586007)(36860700001)(2906002)(4326008)(82310400005)(8676002)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 08:23:47.2179 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2add4f3a-2b03-4290-892b-08da5ff203a2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5188
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [Bug][5.19-rc0] Between commits fdaf9a5840ac and babf0bb978e3 GPU
+ stopped entering in graphic mode.
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, tzimmermann@suse.de
+References: <CABXGCsP920dX-gFOHjk0Xo-yTaQfoFwP7YT2VsG1=b9X6kYhHg@mail.gmail.com>
+ <CABXGCsOywmEoKC1Gt4JMSAH5C=E9Rvjj+X+X8FY7QeBV-13YWQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsOywmEoKC1Gt4JMSAH5C=E9Rvjj+X+X8FY7QeBV-13YWQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,100 +76,185 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Changes from "Fix for dmub outbox notification enable" need to land
-in DM or DMUB outbox notification would be disabled.
+Am 07.07.22 um 02:20 schrieb Mikhail Gavrilov:
+> On Tue, Jun 28, 2022 at 2:21 PM Mikhail Gavrilov
+> <mikhail.v.gavrilov@gmail.com> wrote:
+> Christian can you look why
+> drm_aperture_remove_conflicting_pci_framebuffers cause this kernel bug
+> on my machine?
 
-[How]
-Enable outbox notification only after interrupt are enabled and IRQ
-handlers registered. Any pending notification will be sent by DMUB
-once outbox notification is enabled.
+That looks like a problem outside of the amdgpu driver.
 
-Fixes: ed7208706448 (“drm/amd/display: Fix for dmub outbox notification enable”)
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Solomon Chiu <solomon.chiu@amd.com>
-Signed-off-by: Stylon Wang <stylon.wang@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 27 +++++++++++++------
- 1 file changed, 19 insertions(+), 8 deletions(-)
+What happens is that during load amdgpu requests whatever driver 
+(vesafb,vgafb or efifb) is currently handling the framebuffer to unload. 
+This unload in turn now crashes for some reason.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eb5efb4aa2ba..de1c139ae279 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1617,7 +1617,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 	adev->dm.crc_rd_wrk = amdgpu_dm_crtc_secure_display_create_work();
- #endif
--	if (dc_enable_dmub_notifications(adev->dm.dc)) {
-+	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
- 		init_completion(&adev->dm.dmub_aux_transfer_done);
- 		adev->dm.dmub_notify = kzalloc(sizeof(struct dmub_notification), GFP_KERNEL);
- 		if (!adev->dm.dmub_notify) {
-@@ -1653,6 +1653,13 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 		goto error;
- 	}
- 
-+	/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
-+	 * It is expected that DMUB will resend any pending notifications at this point, for
-+	 * example HPD from DPIA.
-+	 */
-+	if (dc_is_dmub_outbox_supported(adev->dm.dc))
-+		dc_enable_dmub_outbox(adev->dm.dc);
-+
- 	/* create fake encoders for MST */
- 	dm_dp_create_fake_mst_encoders(adev);
- 
-@@ -2625,9 +2632,6 @@ static int dm_resume(void *handle)
- 		 */
- 		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
- 
--		if (dc_enable_dmub_notifications(adev->dm.dc))
--			amdgpu_dm_outbox_init(adev);
--
- 		r = dm_dmub_hw_init(adev);
- 		if (r)
- 			DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
-@@ -2645,6 +2649,11 @@ static int dm_resume(void *handle)
- 			}
- 		}
- 
-+		if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
-+			amdgpu_dm_outbox_init(adev);
-+			dc_enable_dmub_outbox(adev->dm.dc);
-+		}
-+
- 		WARN_ON(!dc_commit_state(dm->dc, dc_state));
- 
- 		dm_gpureset_commit_state(dm->cached_dc_state, dm);
-@@ -2666,13 +2675,15 @@ static int dm_resume(void *handle)
- 	/* TODO: Remove dc_state->dccg, use dc->dccg directly. */
- 	dc_resource_state_construct(dm->dc, dm_state->context);
- 
--	/* Re-enable outbox interrupts for DPIA. */
--	if (dc_enable_dmub_notifications(adev->dm.dc))
--		amdgpu_dm_outbox_init(adev);
--
- 	/* Before powering on DC we need to re-initialize DMUB. */
- 	dm_dmub_hw_resume(adev);
- 
-+	/* Re-enable outbox interrupts for DPIA. */
-+	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
-+		amdgpu_dm_outbox_init(adev);
-+		dc_enable_dmub_outbox(adev->dm.dc);
-+	}
-+
- 	/* power on hardware */
- 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
- 
--- 
-2.37.0
+My best suggestion is to try to bisect this.
+
+Regards,
+Christian.
+
+>
+> [    6.822385] amdgpu: Ignoring ACPI CRAT on non-APU system
+> [    6.822462] amdgpu: Virtual CRAT table created for CPU
+> [    6.822654] amdgpu: Topology: Add CPU node
+> [    6.827643] Console: switching to colour dummy device 80x25
+> [    6.845504] BUG: kernel NULL pointer dereference, address: 0000000000000038
+> [    6.845509] #PF: supervisor read access in kernel mode
+> [    6.845512] #PF: error_code(0x0000) - not-present page
+> [    6.845515] PGD 0 P4D 0
+> [    6.845518] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [    6.845522] CPU: 27 PID: 612 Comm: systemd-udevd Tainted: G
+> W        --------  ---
+> 5.19.0-0.rc5.20220705gitc1084b6c5620.40.fc37.x86_64 #1
+> [    6.845528] Hardware name: System manufacturer System Product
+> Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
+> [    6.845533] RIP: 0010:kernfs_find_and_get_ns+0x11/0x70
+> [    6.845539] Code: 78 e8 c3 fa 31 00 48 85 c0 75 e1 eb 93 66 66 2e
+> 0f 1f 84 00 00 00 00 00 90 0f 1f 44 00 00 41 55 49 89 d5 41 54 49 89
+> f4 55 53 <48> 8b 47 38 48 89 fb 48 85 c0 48 0f 44 c7 48 8b a8 80 00 00
+> 00 48
+> [    6.845546] RSP: 0018:ffffa98c022f3aa0 EFLAGS: 00010246
+> [    6.845550] RAX: 0000000000000000 RBX: ffffffffaf52c3c0 RCX: ffff9e150147b640
+> [    6.845553] RDX: 0000000000000000 RSI: ffffffffaf52c508 RDI: 0000000000000000
+> [    6.845557] RBP: 0000000000000000 R08: 0000000000000000 R09: 00000000249249d4
+> [    6.845560] R10: 0000000000000001 R11: 0000000000000000 R12: ffffffffaf52c508
+> [    6.845563] R13: 0000000000000000 R14: ffff9e157aa93900 R15: 0000000000000000
+> [    6.845567] FS:  00007fabaafbf680(0000) GS:ffff9e23e6a00000(0000)
+> knlGS:0000000000000000
+> [    6.845571] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    6.845574] CR2: 0000000000000038 CR3: 000000017cb56000 CR4: 0000000000350ee0
+> [    6.845578] Call Trace:
+> [    6.845579]  <TASK>
+> [    6.845582]  sysfs_unmerge_group+0x18/0x60
+> [    6.845585]  dpm_sysfs_remove+0x20/0x60
+> [    6.845590]  device_del+0xa4/0x3f0
+> [    6.845594]  platform_device_del.part.0+0x13/0x70
+> [    6.845599]  platform_device_unregister+0x1c/0x30
+> [    6.845602]  sysfb_disable+0x2d/0x60
+> [    6.845605]  remove_conflicting_framebuffers+0x1b/0xc0
+> [    6.845610]  remove_conflicting_pci_framebuffers+0xce/0x120
+> [    6.845614]  drm_aperture_remove_conflicting_pci_framebuffers+0x57/0x80
+> [    6.845620]  amdgpu_pci_probe+0xcb/0x360 [amdgpu]
+> [    6.845760]  local_pci_probe+0x41/0x80
+> [    6.845764]  pci_device_probe+0xaa/0x210
+> [    6.845768]  really_probe+0x1bf/0x390
+> [    6.845771]  __driver_probe_device+0xfc/0x170
+> [    6.845775]  driver_probe_device+0x1f/0x90
+> [    6.845778]  __driver_attach+0xbf/0x1b0
+> [    6.845782]  ? __device_attach_driver+0xe0/0xe0
+> [    6.845785]  bus_for_each_dev+0x65/0x90
+> [    6.845789]  bus_add_driver+0x15c/0x200
+> [    6.845792]  driver_register+0x89/0xe0
+> [    6.845796]  ? 0xffffffffc0c8d000
+> [    6.845801]  do_one_initcall+0x69/0x350
+> [    6.845806]  ? rcu_read_lock_sched_held+0x3c/0x70
+> [    6.845810]  ? trace_kmalloc+0x3c/0x100
+> [    6.845814]  ? kmem_cache_alloc_trace+0x1e8/0x350
+> [    6.845818]  do_init_module+0x4a/0x200
+> [    6.845822]  __do_sys_init_module+0x13a/0x190
+> [    6.845827]  do_syscall_64+0x5b/0x80
+> [    6.845832]  ? asm_exc_page_fault+0x27/0x30
+> [    6.845835]  ? lockdep_hardirqs_on+0x7d/0x100
+> [    6.845839]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
+> [    6.845842] RIP: 0033:0x7fababb7463e
+> [    6.845845] Code: 48 8b 0d e5 57 0c 00 f7 d8 64 89 01 48 83 c8 ff
+> c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00
+> 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d b2 57 0c 00 f7 d8 64 89
+> 01 48
+> [    6.845852] RSP: 002b:00007ffc6a6c9658 EFLAGS: 00000246 ORIG_RAX:
+> 00000000000000af
+> [    6.845857] RAX: ffffffffffffffda RBX: 00005620deef53f0 RCX: 00007fababb7463e
+> [    6.845860] RDX: 00005620deeb2df0 RSI: 00000000010bfac6 RDI: 00007faba943e010
+> [    6.845864] RBP: 00005620deeb2df0 R08: 00005620deef4880 R09: 0000000000000000
+> [    6.845867] R10: 0000000000000005 R11: 0000000000000246 R12: 0000000000020000
+> [    6.845870] R13: 00005620deeb5330 R14: 0000000000000000 R15: 00005620deef0410
+> [    6.845875]  </TASK>
+> [    6.845877] Modules linked in: amdgpu(+) drm_ttm_helper ttm
+> iommu_v2 crct10dif_pclmul gpu_sched crc32_pclmul crc32c_intel
+> drm_buddy drm_display_helper ucsi_ccg nvme igb typec_ucsi
+> ghash_clmulni_intel ccp cec typec sp5100_tco nvme_core dca wmi
+> ip6_tables ip_tables ipmi_devintf ipmi_msghandler fuse
+> [    6.845898] CR2: 0000000000000038
+> [    6.845900] ---[ end trace 0000000000000000 ]---
+>
+>
+> $ /usr/src/kernels/5.19.0-0.rc5.20220705gitc1084b6c5620.40.fc37.x86_64/scripts/faddr2line
+> /lib/debug/lib/modules/5.19.0-0.rc5.20220705gitc1084b6c5620.40.fc37.x86_64/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu.ko.debug
+> amdgpu_pci_probe+0xcb
+> amdgpu_pci_probe+0xcb/0x360:
+> amdgpu_pci_probe at
+> /usr/src/debug/kernel-5.19-rc5-49-gc1084b6c5620/linux-5.19.0-0.rc5.20220705gitc1084b6c5620.40.fc37.x86_64/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2061
+>
+>
+> $ cat -s -n /usr/src/debug/kernel-5.19-rc5-49-gc1084b6c5620/linux-5.19.0-0.rc5.20220705gitc1084b6c5620.40.fc37.x86_64/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> | head -2071 | tail -20
+>    2052 "Use radeon.cik_support=0 amdgpu.cik_support=1 to override.\n"
+>    2053 );
+>    2054 return -ENODEV;
+>    2055 }
+>    2056 }
+>    2057 #endif
+>    2058
+>    2059 /* Get rid of things like offb */
+>    2060 ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev,
+> &amdgpu_kms_driver);
+>    2061 if (ret)
+>    2062 return ret;
+>    2063
+>    2064 adev = devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver,
+> typeof(*adev), ddev);
+>    2065 if (IS_ERR(adev))
+>    2066 return PTR_ERR(adev);
+>    2067
+>    2068 adev->dev  = &pdev->dev;
+>    2069 adev->pdev = pdev;
+>    2070 ddev = adev_to_drm(adev);
+>
+> $ git blame -L 2052,2070 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> Blaming lines: 100% (19/19), done.
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2052)
+>                   dev_info(&pdev->dev,
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2053)
+>                            "Use radeon.cik_support=0
+> amdgpu.cik_support=1 to override.\n"
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2054)
+>                           );
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2055)
+>                   return -ENODEV;
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2056)
+>           }
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2057)        }
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2058) #endif
+> 984d7a929ad68 (Hans de Goede     2019-10-10 18:28:17 +0200 2059)
+> d38ceaf99ed01 (Alex Deucher      2015-04-20 16:55:21 -0400 2060)
+>   /* Get rid of things like offb */
+> 97c9bfe3f6605 (Thomas Zimmermann 2021-06-29 15:58:33 +0200 2061)
+>   ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev,
+> &amdgpu_kms_driver);
+> d38ceaf99ed01 (Alex Deucher      2015-04-20 16:55:21 -0400 2062)        if (ret)
+> d38ceaf99ed01 (Alex Deucher      2015-04-20 16:55:21 -0400 2063)
+>           return ret;
+> d38ceaf99ed01 (Alex Deucher      2015-04-20 16:55:21 -0400 2064)
+> 5088d6572e8ff (Luben Tuikov      2020-11-04 11:04:25 +0100 2065)
+>   adev = devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver,
+> typeof(*adev), ddev);
+> df2ce4596c044 (Luben Tuikov      2020-09-18 15:25:04 +0200 2066)
+>   if (IS_ERR(adev))
+> df2ce4596c044 (Luben Tuikov      2020-09-18 15:25:04 +0200 2067)
+>           return PTR_ERR(adev);
+> 8aba21b75136c (Luben Tuikov      2020-08-14 20:41:55 -0400 2068)
+> 8aba21b75136c (Luben Tuikov      2020-08-14 20:41:55 -0400 2069)
+>   adev->dev  = &pdev->dev;
+> 8aba21b75136c (Luben Tuikov      2020-08-14 20:41:55 -0400 2070)
+>   adev->pdev = pdev;
+>
+> Thomas, you recently changed this line. Can you tell why we are
+> catching kernel Oops here?
+>
+> Full kernel log (5.19-rc5): https://pastebin.com/5Ag804bd
+>
 
