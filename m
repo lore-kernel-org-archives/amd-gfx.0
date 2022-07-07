@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74FFFC43334
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 10:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A14BC43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 10:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF8261133B2;
-	Thu,  7 Jul 2022 10:25:11 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E9C10FE19;
- Thu,  7 Jul 2022 10:25:02 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id a5so10955584wrx.12;
- Thu, 07 Jul 2022 03:25:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 028A914A979;
+	Thu,  7 Jul 2022 10:25:06 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51FFB10E957;
+ Thu,  7 Jul 2022 10:24:59 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id z12so16037115wrq.7;
+ Thu, 07 Jul 2022 03:24:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=kK6ndtBfNyXHqhkSLKg1LtqtVJJfhWr9bEm4kExNfWU=;
- b=kGohQwUbMyh+lZQt7Rj+0+5GqB/QcyLZdJzSC/UubDHHujW1BM8HR2JLZuuCq+BCHO
- aiA/2iUEpDPTD667woVWd6YQgzLnyRWfgyeQaj/K0v+Jrp6Rk0uKdyYUzIXelnaaM7hA
- YuRdNBkiAAgTgd748FRfZiWFlXztBJAGjL67MWg3L/o+Sy5O9UudDUBHl9dsbVirCOQL
- NPt4ZYKOVynnO2atgyGmE6l5388Y+mcK5bi6qinnnLEt1oocr1WwkLMKB9c+mb+8gMCR
- XtwlI8MhsELTtxmtRm88GgMbUTnikRLxX4KxMCbMFzQ5XnAswFDxYFfV+R8lvA3Roi01
- U1fA==
+ bh=5Lh/Jalcxno4YTqEY5QxK+FR+aXvcc+zRLMTDiIBBlM=;
+ b=KORhumn0UQ70H6jNfjSy0rKQSTvdtz3u59yvQr/2Ru8o37oBaOfN6yvWnGSZaPehwr
+ /3omM6EJ5yQVRT5Sigv+XlMF6HEaGM0Wp+4ZgicPfnkLQ7dEVf6640UdZ1tBflsZ0wfx
+ uy/6VGOTVfIZm0k/OtZuQ0iEeW3C1/XX7GtlRM2urJjLn65GuR/PkMII2bzdtC2GOsjy
+ NtRfmV0LIlUcHPBJNEnb2EJmTst7TN6yvIsPupMUa12h3/OE6CEaz84Y3xo+AgQqD4oC
+ WWW1lhC33MU6IeU3tFU6WzQhm0+WH8UTp+O6gMvclDhnnRUNoM+zs6wCiRRduU4Yp7jG
+ beFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=kK6ndtBfNyXHqhkSLKg1LtqtVJJfhWr9bEm4kExNfWU=;
- b=zfE8AYtByrDVy++7rWNj7CqvrkCuS7rq57SnDEVvcbqxqONkwW/RT7bCEpjwZGgkcO
- PmbmBiiqHH5b4Cb/dQ2W28xurY82tluS5Uhds5xb46XhHXqBoCRDpDl0OvLd30nbz+r4
- yyGnZ2EnmB5fB+C8RjR9OYuqsSK7EuAPfWMsFb+PFtMmONI3vaMwhtprieBoJYXq8KXJ
- VCJ3m0AOcDBQ7Iq9uAcfIt3XLt2/JNnCb6OGYaX/XLF8TTJoK5J0lWS4DmDOjyM/0gfq
- T4z63vCeIo2GpB1grzxXqJv0YB+0Y+sCalUM6kKhlYyy48uEcS3i3wDT9ORO42nIN2ha
- 94ZA==
-X-Gm-Message-State: AJIora9rUna49/f18M3N6ABB5wurud3PtVzK/6ufyTJBNNXKGmAkEjr8
- TEsWBsSLBPUZUQP5c5WMDPCGth1ZXMQ=
-X-Google-Smtp-Source: AGRyM1vy2LWZSmeJmS9kr/k4KTJ2MmhGCcH6oHrG0WxnwsiwkZqlkLGHPBrunwy9XZPe5ReRwXkahQ==
-X-Received: by 2002:a5d:6d8a:0:b0:21b:a2a3:55f8 with SMTP id
- l10-20020a5d6d8a000000b0021ba2a355f8mr40393270wrs.283.1657189501665; 
- Thu, 07 Jul 2022 03:25:01 -0700 (PDT)
+ bh=5Lh/Jalcxno4YTqEY5QxK+FR+aXvcc+zRLMTDiIBBlM=;
+ b=uzVJsdTeIQPrsMSgYGHt0Q7B5AeqtkYZ5KoLvk+FSK4xpVlhR+aXO9end94OksYq2A
+ d9/VL6qg4cppKoeCT/bXYV7X/ResmoIYUv1fviXmnTl31XtsAL6RYpmGFzeYTNsIsy2r
+ yNugHt5vzrlft305feSrvQTt12eLnkVN19t+AFdbijFR/8mBQxyUU023Gjp0ddU9tpbH
+ ZyOB0OX7N6YZb9LZEi1RPWYIHzH+y+ALt7+s2RvY71kYuJdV0nzZ2cSq2Y8OC6kKTkLr
+ uhthEAY3ONITAk9KAv1ktWXCqC/DQDjn5mhRTHtZ2wwcQjC4jyHGl63or4UpIELfDsbF
+ Xk8A==
+X-Gm-Message-State: AJIora8Mc85cbLJLub3YGI8mQQIzzo992atntmITRccaJ5bSEMchTqWp
+ jdim0KyjcAGdtUuumu3kf5/FQ8ABPW8=
+X-Google-Smtp-Source: AGRyM1vkN8biF1nZHcWXb0URQ3jb0KpO8z+RUCCFPQnGISNSj30fNFYM3Ye3qoChK94WHPnwi/F4vA==
+X-Received: by 2002:adf:c64c:0:b0:21a:7a3:54a4 with SMTP id
+ u12-20020adfc64c000000b0021a07a354a4mr42442929wrg.163.1657189497752; 
+ Thu, 07 Jul 2022 03:24:57 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- e10-20020a05600c4e4a00b00397402ae674sm20091950wmq.11.2022.07.07.03.25.00
+ e10-20020a05600c4e4a00b00397402ae674sm20091950wmq.11.2022.07.07.03.24.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jul 2022 03:25:01 -0700 (PDT)
+ Thu, 07 Jul 2022 03:24:57 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/6] drm/ttm: stop allocating a dummy resource for pipelined
- gutting
-Date: Thu,  7 Jul 2022 12:24:53 +0200
-Message-Id: <20220707102453.3633-7-christian.koenig@amd.com>
+Subject: [PATCH 2/6] drm/amdgpu: audit bo->resource usage
+Date: Thu,  7 Jul 2022 12:24:49 +0200
+Message-Id: <20220707102453.3633-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707102453.3633-1-christian.koenig@amd.com>
 References: <20220707102453.3633-1-christian.koenig@amd.com>
@@ -77,74 +76,41 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That should not be necessary any more when drivers should at least be
-able to handle a move without a resource.
+Make sure we can at least move and release BOs without backing store.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 1530982338e9..1e76149c62ff 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -603,16 +603,10 @@ EXPORT_SYMBOL(ttm_bo_move_sync_cleanup);
-  */
- int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- {
--	static const struct ttm_place sys_mem = { .mem_type = TTM_PL_SYSTEM };
- 	struct ttm_buffer_object *ghost;
--	struct ttm_resource *sys_res;
- 	struct ttm_tt *ttm;
- 	int ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d9cfe259f2a9..677d1dfab37f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1305,7 +1305,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+ 	if (bo->base.resv == &bo->base._resv)
+ 		amdgpu_amdkfd_remove_fence_on_pt_pd_bos(abo);
  
--	ret = ttm_resource_alloc(bo, &sys_mem, &sys_res);
--	if (ret)
--		return ret;
--
- 	/* If already idle, no need for ghost object dance. */
- 	ret = ttm_bo_wait(bo, false, true);
- 	if (ret != -EBUSY) {
-@@ -620,14 +614,13 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 			/* See comment below about clearing. */
- 			ret = ttm_tt_create(bo, true);
- 			if (ret)
--				goto error_free_sys_mem;
-+				return ret;
- 		} else {
- 			ttm_tt_unpopulate(bo->bdev, bo->ttm);
- 			if (bo->type == ttm_bo_type_device)
- 				ttm_tt_mark_for_clear(bo->ttm);
- 		}
- 		ttm_resource_free(bo, &bo->resource);
--		ttm_bo_assign_mem(bo, sys_res);
- 		return 0;
+-	if (bo->resource->mem_type != TTM_PL_VRAM ||
++	if (!bo->resource || bo->resource->mem_type != TTM_PL_VRAM ||
+ 	    !(abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE) ||
+ 	    adev->in_suspend || adev->shutdown)
+ 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index be6f76a30ac6..3bddf266e8b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -471,7 +471,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 
+ 	adev = amdgpu_ttm_adev(bo->bdev);
+ 
+-	if (old_mem->mem_type == TTM_PL_SYSTEM && bo->ttm == NULL) {
++	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
++			 bo->ttm == NULL)) {
+ 		ttm_bo_move_null(bo, new_mem);
+ 		goto out;
  	}
- 
-@@ -644,7 +637,7 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 	ret = ttm_tt_create(bo, true);
- 	swap(bo->ttm, ttm);
- 	if (ret)
--		goto error_free_sys_mem;
-+		return ret;
- 
- 	ret = ttm_buffer_object_transfer(bo, &ghost);
- 	if (ret)
-@@ -658,13 +651,9 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 	dma_resv_unlock(&ghost->base._resv);
- 	ttm_bo_put(ghost);
- 	bo->ttm = ttm;
--	ttm_bo_assign_mem(bo, sys_res);
- 	return 0;
- 
- error_destroy_tt:
- 	ttm_tt_destroy(bo->bdev, ttm);
--
--error_free_sys_mem:
--	ttm_resource_free(bo, &sys_res);
- 	return ret;
- }
 -- 
 2.25.1
 
