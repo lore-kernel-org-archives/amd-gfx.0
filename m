@@ -4,112 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFA7CCA47F
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 14:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF06CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 14:57:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A032B18AA7A;
-	Thu,  7 Jul 2022 14:39:23 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF82E18AA7D
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 14:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5913618AB0E;
+	Thu,  7 Jul 2022 14:57:35 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2063.outbound.protection.outlook.com [40.107.95.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92D2818AC43
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 14:57:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PLDAAKsdzucppcLRsNalEvlWwTLqxXV5T/Vf4IYN0FL0l9xzZ/PAlDyHDYOj5yXy6ZqcNzyOQF+PbAO9W2m1hntHoCc0rBsSZ40jt63SnNae+79KGpj2WJIDfCLAZ3o8YbdPOoinZIOYUlR/LpJ4Ey+stwM7mVbKvCEhK9YMNQUiVax3e1cQli33mFStSCV2xWH1TSq7IVv7a4GXrt7+nUfM+O1v+QvZwOhYSt8MrGAlUeA2RNVtK+6S38m9PmHncu8KT4bgFMWzxu/pzIAvmetzI5eJDA0ZGaEyw9sl5Mi6f111ic4w8tTRd6rwdNY95N7EuXpRntkGgV3RzvJLCg==
+ b=iZLXHB5Camunab5XsDcg72nPg5bmtmuQugDQa0ufAg64RnNZbh5GPvGYAogU6MCW3GiwkhVFlAFhMFKJgA+QGYsvK4VC/pEwzXWsbSUNrV/Ft+3VBP7XLjHTcyiewtHH9WRbGEpYp01Fs2GxfmJk8Vw2+NDpqR8gI81QZWDrst82PmXZYzViFdDlnobqwzHgcWS/bryZLqqLndWMMZFBGVKqpGcoXGZXwstujYeYGtRJArex4AKvvosYWDRmPydSXLV6c7ybQiMlFkLJtIJzOjeL+I64MIAjYQ2rhUOhilNGaQOdTOweYx4UU8bITYnl9rSY+KDlIxShw+alIcVCaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=08p+CCrZwP8e4K3LVbB3NBsKDsz0BRMnNs+QxgxeuKY=;
- b=ihQE9V3iI9zjslAUldOKlxnBwDjMOrgD22tTRTcCyPn/DzzKHFPDHc2K4deeeu/zMmQc9cG5p9VnQq7MP09Kcy0g7HMEpTUKD5kmALBiCNSpVV4Z5UsEC8xjFq8my9C4qRPg6VBV55+UQpZh8STDDany+9XYkQDHnpNZhv52U/abJqSde2ANTYvAHN7QIj3UEV6MZ7emdm17ARwgFm4ccxsfg7dI98AHNXnhtbb8QQm58ARawK9nlIrPQ3O3V/se4xHimrdnpLTYR+WJ9SYBtYLaYuHW4UOETLIL9ZVfSbH1fmCbXr/d8g/0JV1xvbI2arplIuKTif7CnjOya8XkdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=s1DkdPyuMJGvr8zCmZR/TvpJZ3yCTjYcVzOd64SteS0=;
+ b=iz9MtnRCU2z2F4gzQ8DLSAKhlsnZinL1THWc6PYeuY/fJzZiBn5Heyv0vSjD4lHVSxRK0xf7miYph28INfZ8s1Z5B0+kwV2VdeHktU7+zsQzBtHgmaq/gEw4mAC2a6gAIHuY3fO3tt2aOz7Hryh1vhDknh5DkU1ChAFDW4+gY8TcAIRvWbL4Cqls8r4UlMV+fg62Lb29qFiIfz7w3eBzF+8Kj9kWWdDbZlna3cRVhMF/UwM/A0nwZQJY+70bzUfnfKJAaUJFBu7jLaj2ekGh3iZBPSDYjw3T+Ca1DTrXg4LicRXZ2AKZgV3jD6Q6T7bB4mRdsDBICnjGrU/yc4/r+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=08p+CCrZwP8e4K3LVbB3NBsKDsz0BRMnNs+QxgxeuKY=;
- b=qDbn6KThmc0xnzebWCVLyUyGABXVzutLBwZfqDFIcvJPdvjSqf9+z34FC2SZOdk8gyuJYXPqerPNdPsUhzAoxziCrWRbbXJb0sQeA2X9lwxjY8oHT80nYjEex7ssEagule/CqyGNwIJEOwicjUbLDzdKZL6Gt5om1r9do7ZvqjY=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MN0PR12MB6221.namprd12.prod.outlook.com (2603:10b6:208:3c3::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.15; Thu, 7 Jul
- 2022 14:39:17 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::589b:a1f6:9c87:a8ba]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::589b:a1f6:9c87:a8ba%7]) with mapi id 15.20.5395.021; Thu, 7 Jul 2022
- 14:39:17 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: ac/dc change for smu_v13_0
-Thread-Topic: [PATCH] drm/amd/pm: ac/dc change for smu_v13_0
-Thread-Index: AQHYkg21aL9xi7uSek+p9B27d0LASK1y+nhe
-Date: Thu, 7 Jul 2022 14:39:17 +0000
-Message-ID: <BL1PR12MB514425128FB9A4D3402864A5F7839@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220707142727.3250944-1-kenneth.feng@amd.com>
-In-Reply-To: <20220707142727.3250944-1-kenneth.feng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-07-07T14:39:17.418Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: eb8dd20c-0496-43b7-a9c4-08da602678d6
-x-ms-traffictypediagnostic: MN0PR12MB6221:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0qsm3g7WCq3F5iNqbqFkfvpQBx1zxunp6wDAq2mRk+s+GoHx/Ouuv4cQS21c5FKysyZLZRyIQzEQpoDfE+cwJWhTVhn9yKC6TJMVliFlpr3/WfIph+qhGf2/gKVgN9doNHjIl5l9ejOS894RskgXpXfas3C7B0VpQFGxGh12Q/jMe2UsDcT1ItiivMNCX14HXZ01pQYOYuPD7ZJRfBLBbHPyAWyJaqBv923Q4jf6nq95RAwVF9WilAcoUxnP64rbwEgdDqe49ouTLSiTinKcImNwW2KwZur9WN1kjcdamblClZ/u2JdpTmRcPW1S1GEhC95KKe0MDB1mK0GI+cXyYHXfNQhlayCURJtIX8GgZxogHyqakQSBK8MGqc4Z5AWeMlXjriyTdHl+Gapd3Xd1iy2ThX+K4Yy62mYIIt0OaQnWpPcvmbJNqYfX+Pp1hTThbUffLsq85AE75ZYSqmMJLF2InJzlZRrLTiKbI2gIB0Xnf2ytRSBR1LkVm56aFSBas2LT1y3bQJ6fBxPpSOCip+B2enXI36LFU9oJ8lR64lU/ze3SFnjarxd/6whcvVpjTGQk0bjmEwTi725++f6sXPt6spHF7iU9fQiTIpVls3VB9HtC0fMSBe4PJMR9+a8P1VUDYRkwygDE1g8H2j8L/1uwxY0nzT5UI1f+flFxaVrs6Zn3dNvVECtqXAkc+eE9vmWlhvXJ32gcSiDRkWCeEGgX0JyUCL7WslVWKLuQQbZa3aU4o5Z8hnBTH3JRyFP3LgtzlR5eSDdwn1GYr/h0LJZ/0qR/BdurqqtHGGCnjQwPbi1sWpRcGFslJFZfcpYY
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(19627405001)(38070700005)(186003)(64756008)(6506007)(110136005)(41300700001)(7696005)(71200400001)(83380400001)(55016003)(26005)(122000001)(53546011)(316002)(66446008)(38100700002)(8676002)(2906002)(9686003)(52536014)(8936002)(5660300002)(86362001)(76116006)(478600001)(66556008)(66946007)(66476007)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sgb3SXOw1XJaT2wNTAYPXgeLLhslxNDKh6yr9BTfLLdr8n9IGzGg6SdAlIxB?=
- =?us-ascii?Q?tGjItsW0pJYd2uwKwx9oOLd2F6yP7n8eKzW4B7T/0skJckybAgAwXkS2WHfh?=
- =?us-ascii?Q?myNfLX/FI+oMzRswqzRxnItpDmUIsK94LPqWbX6XkhZz9GRjSJHOIRi7oqlj?=
- =?us-ascii?Q?3ejs+4gh/71a1yWuNhy5gxMJn0C14u3qKKRf0MDem7Ubxnb0rEKGY8T5K0I3?=
- =?us-ascii?Q?5KL125ZfJMoV2L6rl6Ci0bGQvP8cEJh4Flp/WfNhvemdMPR7N/S2LTN1sT0f?=
- =?us-ascii?Q?xoqwP7WYfyInV39VbUqJyKqMx6XafR16ZHjXxd+C1ZnU/L5MV2iLtc7zdiID?=
- =?us-ascii?Q?1fDFUoDzP6S3mKWUA/lef/5f9t4svarDWhjTfaZMWdkx1tA9Qnbs/+5dMGCg?=
- =?us-ascii?Q?UqocqxoqJ2ZrhvBk/SjO3Ucj4PjtZqfpc/6KTrFYKs1RIu07UnbmU3qmkPHv?=
- =?us-ascii?Q?EoVB9ndmW1tLyk1bMB21lzzbvS3JKoZK3lTJOtdQ0+fB++Uz60zct3MU8VKd?=
- =?us-ascii?Q?7cHxL1XGjUlONkdgHZ0OcjzVA3AHpLWVXA9L5ZL93k3NWCZArF7BmCE8p0d2?=
- =?us-ascii?Q?VFUdB9inL65yzxgQ9Rj4IDjiNFNofXEgkERUV8EMVTlD6j3tItBs0drVHyIU?=
- =?us-ascii?Q?XJBcxvunf5VZ9Bjcf86JYVmvvv7pcsnsi93yCtaDo9hwx24I67+Zisj7a6oY?=
- =?us-ascii?Q?vZoylh7I0iRDC514WdecYa9972hEV09iVaf/CCaMR94td8duG3JAoRgz4w6c?=
- =?us-ascii?Q?o1Fn1UvbjzTx4LoUS4AwNs7yit35jPfeRB1vro/OkVfgWSi92qyb8ylbfGif?=
- =?us-ascii?Q?xZNIR3EI+0R3ZYs9dwkHw9Wrr3ELU/nTRTwKNn6TOpgeZSmS2AF/cJUlZQ+c?=
- =?us-ascii?Q?uwZejGQrVbtcKweXInCb9oo6g/FkzM73dWNdg4vPQRTtd+AFDp0MxqnIyU7L?=
- =?us-ascii?Q?nkXfqNn7vrVjetHB6UhCihNQhI6cwS4oyHDriwTBo3w0o9AXKhPoJe2OflbH?=
- =?us-ascii?Q?edvb4REEBVfbsisG/yF7kmOj724e3vHTwOq5geXF2+0GeG/73aArlNSfbQJV?=
- =?us-ascii?Q?UwC6YNj+zzWqzFICB6qRA76uaQwHV8HUjJ1PbHTxws3k0Mw5o3t9VlyYFtyv?=
- =?us-ascii?Q?BxrkucUEk3euMP2WTp0l47/vDT2GKM9OLsW714tlnXfFkrHhlZJXFKDVmyWX?=
- =?us-ascii?Q?QIFIyAkVh5Jecwu2js33RIJqx4QHH3XcN6bAC+dqK6d/oFSsQz/AeVMLcAYV?=
- =?us-ascii?Q?Ib+v4+rY0kZypdRiUIqqh+vqrXiDzJ91cAnDRQ/99scN1C2SOoEAEfWurvwL?=
- =?us-ascii?Q?ieaP8AC8ySoq0dY1XYu923pmjeKBARQHnW4+5W1GF8vDh59u4wQntXfJ9OYH?=
- =?us-ascii?Q?ebAE9/k2yznWpgriMXklJHj7mgGb89LtLcaw+D49eW5h70L7uiSUoUT5QNov?=
- =?us-ascii?Q?kvr0bLCDuAHFwUrhnU39UcNwTZke83NGT52zEVMstF4/dOxYRBL9wGhgxmOK?=
- =?us-ascii?Q?FsYdAh9iM6lw5uA+BRyIzeKiQ3ko42M0eUA4uo91Y9Iq5gUzg2csnETurl5k?=
- =?us-ascii?Q?jLGPGo1/LOfrhHhyTlg=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514425128FB9A4D3402864A5F7839BL1PR12MB5144namp_"
+ bh=s1DkdPyuMJGvr8zCmZR/TvpJZ3yCTjYcVzOd64SteS0=;
+ b=SMyWjP08YWb5o+IOz+/b6B+WEQWSK0e8TfjTnk6PzcrpaqqHWTtskFlN0Rph103Ez83YgrgMaZCcIAsvQQCVl1mf671sK2HXoIx1lYMOT6OccbT7aa9RnVmxe7zv7S3svd5gWaHBGLg9dJq62hLuLuGsAfgaDXAjQcGBMF1523s=
+Received: from DM6PR06CA0026.namprd06.prod.outlook.com (2603:10b6:5:120::39)
+ by MW2PR12MB2377.namprd12.prod.outlook.com (2603:10b6:907:11::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Thu, 7 Jul
+ 2022 14:57:28 +0000
+Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:120:cafe::2c) by DM6PR06CA0026.outlook.office365.com
+ (2603:10b6:5:120::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
+ Transport; Thu, 7 Jul 2022 14:57:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 14:57:27 +0000
+Received: from leodev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
+ 2022 09:57:26 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/display: Add visualconfirm module parameter
+Date: Thu, 7 Jul 2022 10:56:55 -0400
+Message-ID: <20220707145656.565627-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7f767c23-1576-48e2-b751-08da60290264
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2377:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: F02l5saoKPOmCVnUrUqWyJZAZIuXIcPPKftu44Ph6HnpH86O+D/tyFQ/6PKvp5VjRlfNMYMhj5q9WF5HqYcP46FN+sr2iGLgMxNaBFDvAxDv+uhrfaMhWWzvU8UAz0jki3DhqBuO3Sy6iIs9w4I9TaIBa5oJvKb2zeTXENYV6Qw4IJp18byMTDEmWDPonWPn86xuGH3fr4/Z80PUAkaIXe28ocxTMFIQJMvBHI7Y8nGP3wX5HsLbJnZF+Dr5FzIJ8cYXd2IXB/WST4sJIzDs7IPznnOjMJ9idn4ogYpXlZ67a7Bov6m5OMGEaj09KLvYLOuoOUW0V4wyGCsBvRzQoNPRh9qarqJqU8fsuO60IVyMEbdAwL1C/xTBiykuyPjSshW1K+tTxr3Wmh0tjYh9bWooC16gUQ8nAfa7ig2GXx65xLz+H5GFuHhiZ7tIq3dMTO3geKeB6cYex36AiilqvDPKkvPBHwdrGn5DK5hZK2kMC9SX7n+bN8nyYATPt6KTzJk5sS44WVOgCYYdfCHyLQqLCVVQKQ4M0VVKm1+u/1C63jltqx+BHPqs/Pgf+SIVW+fhkBw5WWeAhCAe57gGA61sNwM5GsCp15WBVKTMmQXoCUR4uw42rRdQ4zH0/oDvKZVZ9PCxHQJwBVkVGVSJghoGOXUJtl0AiVXVWngwGSl9DaOz0OUgdpiyaW02s4d+pzaGpTEU/AUIbGRdCJVOh3FikVzTcH+Rmf4pxw4yOizgty2whHoLj+Ni+RlYyrhBFoKoLq6CCyAJcFu+40TTrt94fA184QmlmI5r7/DrgWGc0L17Dpiucz+1/zkWwgdPEj144Aw/yKGX6knDg40b/XCg9h0J8rUScBzGdvjPlfLJNYgWS7pPbL4FsP5fiM6d
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(39860400002)(396003)(136003)(376002)(46966006)(36840700001)(40470700004)(82740400003)(81166007)(40480700001)(5660300002)(336012)(426003)(82310400005)(186003)(16526019)(4326008)(47076005)(8676002)(316002)(70206006)(54906003)(34020700004)(36860700001)(356005)(83380400001)(36756003)(70586007)(6916009)(40460700003)(2876002)(2616005)(8936002)(478600001)(26005)(2906002)(7696005)(86362001)(6666004)(41300700001)(1076003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb8dd20c-0496-43b7-a9c4-08da602678d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2022 14:39:17.8548 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7kuEYN6TvSO2DNqEI/dJ49+lS7QGDaIsoocgCvNrANmfCsIx9CsU68dso5QXz0Wy6PxAFJNjwSJsTtihCi/8Qw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6221
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 14:57:27.5489 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f767c23-1576-48e2-b751-08da60290264
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2377
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,343 +97,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Leo Li <sunpeng.li@amd.com>, harry.wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514425128FB9A4D3402864A5F7839BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Leo Li <sunpeng.li@amd.com>
 
-[Public]
+[Why]
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kenneth =
-Feng <kenneth.feng@amd.com>
-Sent: Thursday, July 7, 2022 10:27 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: ac/dc change for smu_v13_0
+Being able to configure visual confirm at boot or in cmdline is helpful
+when debugging.
 
-fixed the issue: gpu runs in dc mode but it is expected to be in ac mode.
-this causes the lower performance on smu_v13_0
+[How]
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Add a module parameter to configure DC visual confirm, which works the
+same way as the equivalent debugfs entry.
+
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
 ---
- .../pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h  |  9 ++++--
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  1 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 28 ++++++++++++++++++-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  2 ++
- 4 files changed, 37 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h               | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 4 ++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 3 files changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h b=
-/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
-index 3f2d0a9e4745..6aaefca9b595 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
-@@ -128,7 +128,12 @@
- #define PPSMC_MSG_EnableAudioStutterWA           0x44
- #define PPSMC_MSG_PowerUpUmsch                   0x45
- #define PPSMC_MSG_PowerDownUmsch                 0x46
--#define PPSMC_Message_Count                      0x4C
--
-+#define PPSMC_MSG_SetDcsArch                     0x47
-+#define PPSMC_MSG_TriggerVFFLR                   0x48
-+#define PPSMC_MSG_SetNumBadMemoryPagesRetired    0x49
-+#define PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel 0x4A
-+#define PPSMC_MSG_SetPriorityDeltaGain           0x4B
-+#define PPSMC_MSG_AllowIHHostInterrupt           0x4C
-+#define PPSMC_Message_Count                      0x4D
-
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h
-index a1cb8e73e171..19084a4fcb2b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -74,6 +74,7 @@
-        __SMU_DUMMY_MAP(OverDriveSetPercentage),       \
-        __SMU_DUMMY_MAP(SetMinDeepSleepDcefclk),       \
-        __SMU_DUMMY_MAP(ReenableAcDcInterrupt),        \
-+       __SMU_DUMMY_MAP(AllowIHHostInterrupt),        \
-        __SMU_DUMMY_MAP(NotifyPowerSource),            \
-        __SMU_DUMMY_MAP(SetUclkFastSwitch),            \
-        __SMU_DUMMY_MAP(SetUclkDownHyst),              \
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 0e59ab2192bf..0328bc12ca21 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1084,9 +1084,35 @@ int smu_v13_0_set_power_limit(struct smu_context *sm=
-u,
-         return 0;
- }
-
-+static int smu_v13_0_allow_ih_interrupt(struct smu_context *smu)
-+{
-+       return smu_cmn_send_smc_msg(smu,
-+                                   SMU_MSG_AllowIHHostInterrupt,
-+                                   NULL);
-+}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 845d6054992a..4629bef6c44e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -197,6 +197,7 @@ extern uint amdgpu_smu_memory_pool_size;
+ extern int amdgpu_smu_pptable_id;
+ extern uint amdgpu_dc_feature_mask;
+ extern uint amdgpu_dc_debug_mask;
++extern uint amdgpu_dc_visual_confirm;
+ extern uint amdgpu_dm_abm_level;
+ extern int amdgpu_backlight;
+ extern struct amdgpu_mgpu_info mgpu_info;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 1cc9260e75de..e1e8cf70e719 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -167,6 +167,7 @@ int amdgpu_smu_pptable_id = -1;
+  */
+ uint amdgpu_dc_feature_mask = 2;
+ uint amdgpu_dc_debug_mask;
++uint amdgpu_dc_visual_confirm;
+ int amdgpu_async_gfx_ring = 1;
+ int amdgpu_mcbp;
+ int amdgpu_discovery = -1;
+@@ -827,6 +828,9 @@ module_param_named(dcfeaturemask, amdgpu_dc_feature_mask, uint, 0444);
+ MODULE_PARM_DESC(dcdebugmask, "all debug options disabled (default))");
+ module_param_named(dcdebugmask, amdgpu_dc_debug_mask, uint, 0444);
+ 
++MODULE_PARM_DESC(visualconfirm, "Visual confirm (0 = off (default), 1 = MPO, 5 = PSR)");
++module_param_named(visualconfirm, amdgpu_dc_visual_confirm, uint, 0444);
 +
-+static int smu_v13_0_process_pending_interrupt(struct smu_context *smu)
-+{
-+       int ret =3D 0;
+ /**
+  * DOC: abmlevel (uint)
+  * Override the default ABM (Adaptive Backlight Management) level used for DC
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index eb5efb4aa2ba..d7208c0b76b1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1562,6 +1562,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (amdgpu_dc_debug_mask & DC_FORCE_SUBVP_MCLK_SWITCH)
+ 		adev->dm.dc->debug.force_subvp_mclk_switch = true;
+ 
++	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
 +
-+       if (smu->dc_controlled_by_gpio &&
-+           smu_cmn_feature_is_enabled(smu, SMU_FEATURE_ACDC_BIT))
-+               ret =3D smu_v13_0_allow_ih_interrupt(smu);
-+
-+       return ret;
-+}
-+
- int smu_v13_0_enable_thermal_alert(struct smu_context *smu)
- {
--       return amdgpu_irq_get(smu->adev, &smu->irq_source, 0);
-+       int ret =3D 0;
-+
-+       if (smu->smu_table.thermal_controller_type) {
-+               ret =3D amdgpu_irq_get(smu->adev, &smu->irq_source, 0);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return smu_v13_0_process_pending_interrupt(smu);
- }
+ 	r = dm_dmub_hw_init(adev);
+ 	if (r) {
+ 		DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
+-- 
+2.37.0
 
- int smu_v13_0_disable_thermal_alert(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 193222fdd1c4..6259a85bc818 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -111,6 +111,8 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_=
-map[SMU_MSG_MAX_COUNT] =3D
-         MSG_MAP(PowerDownJpeg,                  PPSMC_MSG_PowerDownJpeg,  =
-             0),
-         MSG_MAP(GetDcModeMaxDpmFreq,            PPSMC_MSG_GetDcModeMaxDpmF=
-req,         1),
-         MSG_MAP(OverridePcieParameters,         PPSMC_MSG_OverridePciePara=
-meters,      0),
-+       MSG_MAP(ReenableAcDcInterrupt,          PPSMC_MSG_ReenableAcDcInter=
-rupt,       0),
-+       MSG_MAP(AllowIHHostInterrupt,           PPSMC_MSG_AllowIHHostInterr=
-upt,       0),
-         MSG_MAP(DramLogSetDramAddrHigh,         PPSMC_MSG_DramLogSetDramAd=
-drHigh,      0),
-         MSG_MAP(DramLogSetDramAddrLow,          PPSMC_MSG_DramLogSetDramAd=
-drLow,       0),
-         MSG_MAP(DramLogSetDramSize,             PPSMC_MSG_DramLogSetDramSi=
-ze,          0),
---
-2.25.1
-
-
---_000_BL1PR12MB514425128FB9A4D3402864A5F7839BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Kenneth Feng &lt;kenneth.feng=
-@amd.com&gt;<br>
-<b>Sent:</b> Thursday, July 7, 2022 10:27 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: ac/dc change for smu_v13_0</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">fixed the issue: gpu runs in dc mode but it is exp=
-ected to be in ac mode.<br>
-this causes the lower performance on smu_v13_0<br>
-<br>
-Signed-off-by: Kenneth Feng &lt;kenneth.feng@amd.com&gt;<br>
----<br>
-&nbsp;.../pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h&nbsp; |&nbsp; 9 ++++--<b=
-r>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h&nbsp; |&nbsp; 1 +<br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c&nbsp;&nbsp;&nbsp; | 28 +++=
-+++++++++++++++-<br>
-&nbsp;.../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c&nbsp; |&nbsp; 2 ++<br>
-&nbsp;4 files changed, 37 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h b=
-/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h<br>
-index 3f2d0a9e4745..6aaefca9b595 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h<br>
-@@ -128,7 +128,12 @@<br>
-&nbsp;#define PPSMC_MSG_EnableAudioStutterWA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x44<br>
-&nbsp;#define PPSMC_MSG_PowerUpUmsch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x45<=
-br>
-&nbsp;#define PPSMC_MSG_PowerDownUmsch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x46<br>
--#define PPSMC_Message_Count&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; 0x4C<br>
--<br>
-+#define PPSMC_MSG_SetDcsArch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-0x47<br>
-+#define PPSMC_MSG_TriggerVFFLR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x48<br>
-+#define PPSMC_MSG_SetNumBadMemoryPagesRetired&nbsp;&nbsp;&nbsp; 0x49<br>
-+#define PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel 0x4A<br>
-+#define PPSMC_MSG_SetPriorityDeltaGain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0x4B<br>
-+#define PPSMC_MSG_AllowIHHostInterrupt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0x4C<br>
-+#define PPSMC_Message_Count&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; 0x4D<br>
-&nbsp;<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h<br>
-index a1cb8e73e171..19084a4fcb2b 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h<br>
-@@ -74,6 +74,7 @@<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(OverDriveSetPerc=
-entage),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(SetMinDeepSleepD=
-cefclk),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(ReenableAcDcInte=
-rrupt),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(AllowIHHostInterrupt)=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(NotifyPowerSourc=
-e),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(SetUclkFastSwitc=
-h),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(SetUclkDownHyst)=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; \<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-index 0e59ab2192bf..0328bc12ca21 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-@@ -1084,9 +1084,35 @@ int smu_v13_0_set_power_limit(struct smu_context *sm=
-u,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-+static int smu_v13_0_allow_ih_interrupt(struct smu_context *smu)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_cmn_send_smc_msg(smu,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_AllowIHHost=
-Interrupt,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL);<br>
-+}<br>
-+<br>
-+static int smu_v13_0_process_pending_interrupt(struct smu_context *smu)<br=
->
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;dc_controlled_by_gpio &am=
-p;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_cmn_featu=
-re_is_enabled(smu, SMU_FEATURE_ACDC_BIT))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_v13_0_allow_ih_interrupt(smu);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+}<br>
-+<br>
-&nbsp;int smu_v13_0_enable_thermal_alert(struct smu_context *smu)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_irq_get(smu-&gt;adev, &=
-amp;smu-&gt;irq_source, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;smu_table.thermal_control=
-ler_type) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D amdgpu_irq_get(smu-&gt;adev, &amp;smu-&gt;irq_source, 0)=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_v13_0_process_pending_inte=
-rrupt(smu);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;int smu_v13_0_disable_thermal_alert(struct smu_context *smu)<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-index 193222fdd1c4..6259a85bc818 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c<br>
-@@ -111,6 +111,8 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_=
-map[SMU_MSG_MAX_COUNT] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(PowerDownJpeg,&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_PowerDownJpeg,&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDcModeMaxDpmFre=
-q,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_=
-MSG_GetDcModeMaxDpmFreq,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1)=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(OverridePcieParame=
-ters,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_OverridePci=
-eParameters,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(ReenableAcDcInterrupt,&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_ReenableAcDcInter=
-rupt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(AllowIHHostInterrupt,&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_AllowIHHostI=
-nterrupt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-High,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLogSetD=
-ramAddrHigh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramAddr=
-Low,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_DramLo=
-gSetDramAddrLow,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DramLogSetDramSize=
-,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P=
-PSMC_MSG_DramLogSetDramSize,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; 0),<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB514425128FB9A4D3402864A5F7839BL1PR12MB5144namp_--
