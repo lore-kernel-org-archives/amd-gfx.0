@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF06CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 14:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F754C43334
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 14:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5913618AB0E;
-	Thu,  7 Jul 2022 14:57:35 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2063.outbound.protection.outlook.com [40.107.95.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D2818AC43
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 14:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D662E14A57E;
+	Thu,  7 Jul 2022 14:57:40 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 460B118AB54
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 14:57:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iZLXHB5Camunab5XsDcg72nPg5bmtmuQugDQa0ufAg64RnNZbh5GPvGYAogU6MCW3GiwkhVFlAFhMFKJgA+QGYsvK4VC/pEwzXWsbSUNrV/Ft+3VBP7XLjHTcyiewtHH9WRbGEpYp01Fs2GxfmJk8Vw2+NDpqR8gI81QZWDrst82PmXZYzViFdDlnobqwzHgcWS/bryZLqqLndWMMZFBGVKqpGcoXGZXwstujYeYGtRJArex4AKvvosYWDRmPydSXLV6c7ybQiMlFkLJtIJzOjeL+I64MIAjYQ2rhUOhilNGaQOdTOweYx4UU8bITYnl9rSY+KDlIxShw+alIcVCaw==
+ b=PBBwfNPcXd4LV0SINmbN8elXz/050nwB4MQAu/ieS9IFU9kxqHGMdYPSV/tCXkUFBEF8gDaUj0SJ4Fpc+Qx/b1yEZ64ImyBP/UlPo4YHXbhOnjoDweKaVvM6cyAs1JxoCgvqWKTrJ5hpUo4WhMugahpTbxnFCGr2/4QGkCyrh+fbO20Jl3Ry37U6bkGCe2Z9heLMztVZ37Hu7CMcyJdj7J3fCWKteeQreU/VcpomJzbOAcYCewqoS9URNQ2xjpaLRFFrpaiy/P35ZP+0m0BbRS9c1dNCHMmYW1/3gMc+maYRRQ2OYFNI283t/inUhH9baBUh6jGwciVzTqvkBUHNEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s1DkdPyuMJGvr8zCmZR/TvpJZ3yCTjYcVzOd64SteS0=;
- b=iz9MtnRCU2z2F4gzQ8DLSAKhlsnZinL1THWc6PYeuY/fJzZiBn5Heyv0vSjD4lHVSxRK0xf7miYph28INfZ8s1Z5B0+kwV2VdeHktU7+zsQzBtHgmaq/gEw4mAC2a6gAIHuY3fO3tt2aOz7Hryh1vhDknh5DkU1ChAFDW4+gY8TcAIRvWbL4Cqls8r4UlMV+fg62Lb29qFiIfz7w3eBzF+8Kj9kWWdDbZlna3cRVhMF/UwM/A0nwZQJY+70bzUfnfKJAaUJFBu7jLaj2ekGh3iZBPSDYjw3T+Ca1DTrXg4LicRXZ2AKZgV3jD6Q6T7bB4mRdsDBICnjGrU/yc4/r+A==
+ bh=9UyLPcJ4gkAwe7x/fKWt6UeuWW6AuMvHoK4U8jFphDs=;
+ b=MTRnnDXW2LYn0cS2SjaCoHDs9NrXcBcHr7W8+jf7KQ0dJB15UuJV1sFasuq4o+KtTl/djjWThYAj51kYGU9qZKOLfBk6HD+NiqxUczGyUq+AdL5LNUheTWuoO/c7aZi8IR/3+StGZH7QDFU/TYQp7voN9I+DPu6uQE1k3jGh259ud5OTstAjukqOrCar79vwrxejhIePndl181O6fNBZcMRiz7mUJIVYcMn8OyMyxqKotEWU/+vRu0HZoPOjDd3r3mEQflPO14aFMSn9Nxyt+p7iFvwOPObJc/3NGucQXGcgd2MrOHQukna2mdMjcIP4GEqesSfFeiIm3VW9xntkrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s1DkdPyuMJGvr8zCmZR/TvpJZ3yCTjYcVzOd64SteS0=;
- b=SMyWjP08YWb5o+IOz+/b6B+WEQWSK0e8TfjTnk6PzcrpaqqHWTtskFlN0Rph103Ez83YgrgMaZCcIAsvQQCVl1mf671sK2HXoIx1lYMOT6OccbT7aa9RnVmxe7zv7S3svd5gWaHBGLg9dJq62hLuLuGsAfgaDXAjQcGBMF1523s=
-Received: from DM6PR06CA0026.namprd06.prod.outlook.com (2603:10b6:5:120::39)
- by MW2PR12MB2377.namprd12.prod.outlook.com (2603:10b6:907:11::20) with
+ bh=9UyLPcJ4gkAwe7x/fKWt6UeuWW6AuMvHoK4U8jFphDs=;
+ b=19wFNWBNuI8OFk0kPT0BFHe1Fo25dn3vVNiYZNbd60dPnj2PUepjEB7gozIhKR7GJ09YjBNlcnmJ0FmN6fpJHITiqBKbNcrLPLo8JSrk7CFM62KkCA9Twq8vXsBfDO3GT0CeUZUtBeIhher1D7/QTjFVDHF+lpK/0EaFQvi7/3U=
+Received: from DM6PR02CA0044.namprd02.prod.outlook.com (2603:10b6:5:177::21)
+ by MN2PR12MB3440.namprd12.prod.outlook.com (2603:10b6:208:d0::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Thu, 7 Jul
- 2022 14:57:28 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::2c) by DM6PR06CA0026.outlook.office365.com
- (2603:10b6:5:120::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
- Transport; Thu, 7 Jul 2022 14:57:27 +0000
+ 2022 14:57:33 +0000
+Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:177:cafe::58) by DM6PR02CA0044.outlook.office365.com
+ (2603:10b6:5:177::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17 via Frontend
+ Transport; Thu, 7 Jul 2022 14:57:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Thu, 7 Jul 2022 14:57:27 +0000
+ 15.20.5395.17 via Frontend Transport; Thu, 7 Jul 2022 14:57:32 +0000
 Received: from leodev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 7 Jul
- 2022 09:57:26 -0500
+ 2022 09:57:31 -0500
 From: <sunpeng.li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/display: Add visualconfirm module parameter
-Date: Thu, 7 Jul 2022 10:56:55 -0400
-Message-ID: <20220707145656.565627-1-sunpeng.li@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: Add dcdebugmask option for disabling MPO
+Date: Thu, 7 Jul 2022 10:56:56 -0400
+Message-ID: <20220707145656.565627-2-sunpeng.li@amd.com>
 X-Mailer: git-send-email 2.37.0
+In-Reply-To: <20220707145656.565627-1-sunpeng.li@amd.com>
+References: <20220707145656.565627-1-sunpeng.li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7f767c23-1576-48e2-b751-08da60290264
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2377:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8df8180-ec26-4584-e00e-08da602905a2
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3440:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F02l5saoKPOmCVnUrUqWyJZAZIuXIcPPKftu44Ph6HnpH86O+D/tyFQ/6PKvp5VjRlfNMYMhj5q9WF5HqYcP46FN+sr2iGLgMxNaBFDvAxDv+uhrfaMhWWzvU8UAz0jki3DhqBuO3Sy6iIs9w4I9TaIBa5oJvKb2zeTXENYV6Qw4IJp18byMTDEmWDPonWPn86xuGH3fr4/Z80PUAkaIXe28ocxTMFIQJMvBHI7Y8nGP3wX5HsLbJnZF+Dr5FzIJ8cYXd2IXB/WST4sJIzDs7IPznnOjMJ9idn4ogYpXlZ67a7Bov6m5OMGEaj09KLvYLOuoOUW0V4wyGCsBvRzQoNPRh9qarqJqU8fsuO60IVyMEbdAwL1C/xTBiykuyPjSshW1K+tTxr3Wmh0tjYh9bWooC16gUQ8nAfa7ig2GXx65xLz+H5GFuHhiZ7tIq3dMTO3geKeB6cYex36AiilqvDPKkvPBHwdrGn5DK5hZK2kMC9SX7n+bN8nyYATPt6KTzJk5sS44WVOgCYYdfCHyLQqLCVVQKQ4M0VVKm1+u/1C63jltqx+BHPqs/Pgf+SIVW+fhkBw5WWeAhCAe57gGA61sNwM5GsCp15WBVKTMmQXoCUR4uw42rRdQ4zH0/oDvKZVZ9PCxHQJwBVkVGVSJghoGOXUJtl0AiVXVWngwGSl9DaOz0OUgdpiyaW02s4d+pzaGpTEU/AUIbGRdCJVOh3FikVzTcH+Rmf4pxw4yOizgty2whHoLj+Ni+RlYyrhBFoKoLq6CCyAJcFu+40TTrt94fA184QmlmI5r7/DrgWGc0L17Dpiucz+1/zkWwgdPEj144Aw/yKGX6knDg40b/XCg9h0J8rUScBzGdvjPlfLJNYgWS7pPbL4FsP5fiM6d
+X-Microsoft-Antispam-Message-Info: kh4Lh3H7+RkNog2gteiuWcNiurZPSneuQXYOY8SEimkVGCTbo9ZQf3HHZ9p57/5fMzF9QW717YWxvBuR+UcHPCoj1j9QJ0sjnLLeUvZsQElQk9x3cMcXu/2umIbed12UflBCe2zF4bOz1GKKCVs83Qoy7TosNfpHvGpUD7VqC0nEhZSo1xG3rHYQHfHAstPwxhR6rfxyVSZMDdbfvD30L8dnAEMlv/njFr35NsOz6NMCRkSinQk0YrUtYnO1GG0t61/6K1/eIQv6a5SHXO1T2+a5MqsOwPR89/NDtwJA74KCLRLax4vw0mX0QqEnXdICce3DqRzisbDGFt5jPknNvI2QKOxU+24L+yWRc4MwupKQVuaSD+veAx11fgmqKdgu7V9k/uIKfsSQWoZmG/NhgAfh80d82+Imh+vEQkM4OfjoOU/6hBT4La9mTPSt9v/P2h4jo1Aa2HF3pGWgRZhNRV56Yx5epV3ZH20dc5oMB5SNN0GH2gwkvi5uEKvC+qbU6afktxZf17r/lfTKSoaY9d7FsxOBo0R8dpTKYhBwPDvHjWHiXegNmw25r//9ZmgkF71lSJWvrgILq7kHqo9KDAVOyy/6ySw2ONRJMXZvj23QlLg8zF8xc/BXN9b6pGDawtJItNdMQdXCFa3uTuagyZ134PYzzs0Ne0O/WcPfS3JRAn5qst7RD1pW+mGD2OFnFDL/6uMDaDAFmPb35dtOMUM6nfHjYC+KTDF9SxqCnirZa87tARLz10PTc+xdQbUr630R9MRXc//+jE72Vyx/GQtUmNSVLOJNA84iVydG8k2ionDUsZHBUm1O4KG7mHVtsfMWBpvXV/MhSmW4XKpipfNo5JsC3iWbVihWCIZlNcek8oxDMcBQqW6Wt8JoFjCp
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(396003)(136003)(376002)(46966006)(36840700001)(40470700004)(82740400003)(81166007)(40480700001)(5660300002)(336012)(426003)(82310400005)(186003)(16526019)(4326008)(47076005)(8676002)(316002)(70206006)(54906003)(34020700004)(36860700001)(356005)(83380400001)(36756003)(70586007)(6916009)(40460700003)(2876002)(2616005)(8936002)(478600001)(26005)(2906002)(7696005)(86362001)(6666004)(41300700001)(1076003)(36900700001);
+ SFS:(13230016)(4636009)(396003)(39860400002)(376002)(346002)(136003)(46966006)(36840700001)(40470700004)(83380400001)(8936002)(356005)(34020700004)(36860700001)(70586007)(70206006)(478600001)(8676002)(82740400003)(4326008)(36756003)(86362001)(41300700001)(81166007)(54906003)(6916009)(6666004)(47076005)(82310400005)(336012)(2876002)(426003)(2906002)(7696005)(40460700003)(1076003)(2616005)(5660300002)(40480700001)(186003)(16526019)(316002)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 14:57:27.5489 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f767c23-1576-48e2-b751-08da60290264
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 14:57:32.8801 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8df8180-ec26-4584-e00e-08da602905a2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2377
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,70 +106,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Leo Li <sunpeng.li@amd.com>
 
-[Why]
+[Why & How]
 
-Being able to configure visual confirm at boot or in cmdline is helpful
-when debugging.
-
-[How]
-
-Add a module parameter to configure DC visual confirm, which works the
-same way as the equivalent debugfs entry.
+It's useful to disable MPO when debugging or testing. Therefore, add a
+dcdebugmask option to disable MPO.
 
 Signed-off-by: Leo Li <sunpeng.li@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h               | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 4 ++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 3 files changed, 7 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ drivers/gpu/drm/amd/include/amd_shared.h          | 1 +
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 845d6054992a..4629bef6c44e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -197,6 +197,7 @@ extern uint amdgpu_smu_memory_pool_size;
- extern int amdgpu_smu_pptable_id;
- extern uint amdgpu_dc_feature_mask;
- extern uint amdgpu_dc_debug_mask;
-+extern uint amdgpu_dc_visual_confirm;
- extern uint amdgpu_dm_abm_level;
- extern int amdgpu_backlight;
- extern struct amdgpu_mgpu_info mgpu_info;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1cc9260e75de..e1e8cf70e719 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -167,6 +167,7 @@ int amdgpu_smu_pptable_id = -1;
-  */
- uint amdgpu_dc_feature_mask = 2;
- uint amdgpu_dc_debug_mask;
-+uint amdgpu_dc_visual_confirm;
- int amdgpu_async_gfx_ring = 1;
- int amdgpu_mcbp;
- int amdgpu_discovery = -1;
-@@ -827,6 +828,9 @@ module_param_named(dcfeaturemask, amdgpu_dc_feature_mask, uint, 0444);
- MODULE_PARM_DESC(dcdebugmask, "all debug options disabled (default))");
- module_param_named(dcdebugmask, amdgpu_dc_debug_mask, uint, 0444);
- 
-+MODULE_PARM_DESC(visualconfirm, "Visual confirm (0 = off (default), 1 = MPO, 5 = PSR)");
-+module_param_named(visualconfirm, amdgpu_dc_visual_confirm, uint, 0444);
-+
- /**
-  * DOC: abmlevel (uint)
-  * Override the default ABM (Adaptive Backlight Management) level used for DC
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eb5efb4aa2ba..d7208c0b76b1 100644
+index d7208c0b76b1..4cf11bcc01a4 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1562,6 +1562,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	if (amdgpu_dc_debug_mask & DC_FORCE_SUBVP_MCLK_SWITCH)
- 		adev->dm.dc->debug.force_subvp_mclk_switch = true;
+@@ -4194,6 +4194,10 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 	for (i = 0; i < dm->dc->caps.max_planes; ++i) {
+ 		struct dc_plane_cap *plane = &dm->dc->caps.planes[i];
  
-+	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
++		/* Do not create overlay if MPO disabled */
++		if (amdgpu_dc_debug_mask & DC_DISABLE_MPO)
++			break;
 +
- 	r = dm_dmub_hw_init(adev);
- 	if (r) {
- 		DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
+ 		if (plane->type != DC_PLANE_TYPE_DCN_UNIVERSAL)
+ 			continue;
+ 
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index 1db21d13726d..f175e65b853a 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -249,6 +249,7 @@ enum DC_DEBUG_MASK {
+ 	DC_DISABLE_CLOCK_GATING = 0x8,
+ 	DC_DISABLE_PSR = 0x10,
+ 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
++	DC_DISABLE_MPO = 0x40,
+ };
+ 
+ enum amd_dpm_forced_level;
 -- 
 2.37.0
 
