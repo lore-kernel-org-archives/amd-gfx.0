@@ -4,62 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B9AC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jul 2022 14:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1977C43334
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jul 2022 15:02:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6A10E37D;
-	Fri,  8 Jul 2022 14:58:16 +0000 (UTC)
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2713610E418
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jul 2022 14:58:16 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id f11so4005875plr.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jul 2022 07:58:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/jZvlm6zs6HPOVs3xik/bcUMtCf5XQujaX5qP+t7RvU=;
- b=iy7zUvc6bgD3pt1XlJfsfMxqHvn+RPEVOKWKsLHO9RwmAfWm0lvyuUkeyuWkNQiBxi
- uns3zsuLAwhVFJ+RXn4TD59U8ief49/zAVAIQ7+32b/CASzzMO1JD43Hb/kgeQjYnWVC
- CzmLKhlbN0FMCt7e11oqiA9uSk3La5j02PHPKYeWikhxXy4CMp1WWH/+hsro2EmliVmZ
- NgUn+xaMTSKxBsTEqWTbN3nRi1954QDw9ChWhG0n3A1ZucqfpY9hjHFN/vWao9xOnVk4
- aJU0jO8u6pq0RGUcR0l1Unzpf21rIYPXMrIB0O4oKPxWTVlSgXVA45pl8/MEGYX9NqXY
- b32Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/jZvlm6zs6HPOVs3xik/bcUMtCf5XQujaX5qP+t7RvU=;
- b=cLTHx0p29YxSZOyGAaqIIGaWr4xwr605i5hcO27wvJh630ekqUSW46hJb2K0BKfdhz
- AFajydODGFPFg5XpQaXiNQA2zG1s7AHHQoZ5H17Ue8cCbG4IN45VMALR1Gfh6swIJxI9
- ix21zQMDtNotR79IL9iQi8KOtht+dAemygSkaVr3HBsbajZ8oUA7+rJol0T465lsnptg
- u/HlcaYYrF8DFjmwQBgcwzFSyitZBKj3T2Hvy0L5Zbm6r1LXe45wXrU+i0F+0pbHzqys
- IBrg/3SVcRe582+b6pRvb5o9z772GA7MOlTMk/O3TBNsu8CkZ/5IwM4DR0pfeFm1FstP
- 4ZZQ==
-X-Gm-Message-State: AJIora+ELH9ikzN6Fl8uXqbIZbWpsQNToOpxdYk6HcTSa0bousg+i4rS
- ULBtS859ITU4MmR2GjwD3DpO8WNmkgxFIqEgTRQ=
-X-Google-Smtp-Source: AGRyM1ssScmMGy+nK09P9rU6l7IlLbyJ/c4QybQal/I08ie1ADRU8JE71ju85N3GzREwXeWqtbXRIpC0LxTMjeibnvg=
-X-Received: by 2002:a17:902:d4c3:b0:16a:7696:971a with SMTP id
- o3-20020a170902d4c300b0016a7696971amr4101832plg.142.1657292295713; Fri, 08
- Jul 2022 07:58:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1725110E076;
+	Fri,  8 Jul 2022 15:02:56 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3580D10E119;
+ Fri,  8 Jul 2022 15:02:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mzFEMYsGEBHWXpAWXcyeILJx017ApJ2+RMXv+5bVsrDk5hGQ0cNGdwAND9MhO7g4oZgLBM7CO1bX00w1Fqz7Sb8GC4oiffQZ0X00QEa5CE7Pn0Rfhmt0NXN1eR2VS5mkxpojxf0+gN1QmPb/N04ICoWqeH9cCNCnY/mBpSzJQMYRYmKkYg00Tj+87wOmXw6Cita17659wbLaWUOPcg2kwNTqPbZvtQkndQd6Viy3WRm1k8IohtLu/99x/MeJrLvrHaIopt//BmRVcBZaXPECC3dz34LxYu2Z5Q2UMNEB9NgPnVGlJ3SnJwYDKf2dBpyWLlEKcTya52yj5sBqRlAw7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yn/yCuoyV9CqI75YpIG3SYayE+X6VHRul8qPK0VMzo4=;
+ b=Hv/FGBeCj8R0jBuXSmLWQM8JkFPQj9JD6KAe4pGe14v749LdRq0wrp1jQ6qgxOxNbtKc58nTzEb6N9suK76u1Usug5aq/vCtpfgDinuuv7MZQAi7zDimrlbshK0NMLWZdeN3CW4Ic+Q4c+52Y9hmMHhRrrH1VG9vHnWR7nwUs36aS7b93N2zj22HdrNHLUw1UAxcgEb4+5CzKhtIX0QsYAQTUkDqmjsp3a9MFNd9tL9hwkn6K502u1BtNvqd5XJM9jq5xlYVbI9AaMJM0H+1wQ21wvbHAldmA17M+on4EZKO9+DcUaBCVR7u3TBmagQ4C6O1CbU2HWi/kOSsafAqcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yn/yCuoyV9CqI75YpIG3SYayE+X6VHRul8qPK0VMzo4=;
+ b=k42uShwxwmYgN9+CFVNV3vULrk8giH9C/vsFoiHmLO9tegiIZ6jUsEcQuzIBJsVeASJjAzMGeyZ54BGjT6/GgTdulsy0slFj+9KHsZ06DBf6nVuoTpvZM5IaVoTcBWW52z7bFxRDPycWGcMq2qKXdXWKzAU1x69GL6cVkRxylGA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CH0PR12MB5219.namprd12.prod.outlook.com (2603:10b6:610:d2::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Fri, 8 Jul
+ 2022 15:02:51 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::6999:13c9:d124:418a]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::6999:13c9:d124:418a%7]) with mapi id 15.20.5417.016; Fri, 8 Jul 2022
+ 15:02:51 +0000
+Message-ID: <33277b4f-5147-2857-5d23-fe68674ab3b0@amd.com>
+Date: Fri, 8 Jul 2022 11:02:17 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amd/display: Remove condition with no effect
+Content-Language: en-US
+To: Zhongjun Tan <hbut_tan@163.com>, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, chandan.vurdigerenataraj@amd.com, tanzhongjun@coolpad.com,
+ aurabindo.pillai@amd.com
+References: <20220708031048.43472-1-hbut_tan@163.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220708031048.43472-1-hbut_tan@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0305.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::10) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20220506112312.347519-1-christian.koenig@amd.com>
- <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
- <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
- <d4f8f7fc-e3dc-fcf8-0543-62039c7460d3@gmail.com>
- <CAAxE2A60-rNUGB3PNL7kq6pJBWf7V-6cAE0Hx6zH31ad7z_1gA@mail.gmail.com>
- <CAAxE2A6BaiGfXXGnmCH9Zk36oWuOwk_84QBYbZ97QhyZQfwBKQ@mail.gmail.com>
- <CAAxE2A6wiL5fnegVo+tMsHBNb+HC3Nw=cmR4MdNVqLpEQYH1ug@mail.gmail.com>
- <11d9492c-f727-f149-d473-9cda4bab2760@gmail.com>
- <CAAxE2A5jc0FhpnM2tBskS2puKY-jidC_xdMTZhQ5p9U31O_0KA@mail.gmail.com>
- <62165c7c-892a-5b35-79dd-b90414ccb5cd@damsy.net>
- <12f757f0-29f5-858e-4723-0babb4b6f335@gmail.com>
-In-Reply-To: <12f757f0-29f5-858e-4723-0babb4b6f335@gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 8 Jul 2022 10:58:02 -0400
-Message-ID: <CAAxE2A6CV+t9k4VG_zc5uf8qYK07Db0kqChYH0C9MB-TK7MU8g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000093401b05e34c6e7e"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d9c23038-e9ea-4288-5c16-08da60f2ed58
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5219:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uRMhJQqRCGQqOH0+Gbes4THrRQ7PhxttHdQUnWIO/2wE37dNAp/dv+tiJQepixkD8cQY6PzWeOu8xxG+oHZeRntV/WLu4nLFihfWY9i3nnXVDttEB6C6XzLj3PpOmtY9PI6xlPff/gyyQbqNgonQxll18Q909YuFRhk0Fu8MFVVFJoDMSW0e4kBZoj7N8xJsAjyY0LysN91P+mdnQ/sT05xIZGADXvXYFLkI8jawB/qmP3EAkDyCdrEEcIpPTDAfDcQhXtgxZbw9n6FZPxwpUlpfY0Su9iDwzYb/HBiCTMGg2ygACdp/pZ2bg/2EhYA7p77zbWNV8ij8M6eUHGsvo06G1FC/a3hwI+jl7vyDWBZmFkTMLhSnVwePE6RU/wnUKOzxFN89FvcNC8XwRrv/wltBk+hPbaHaP6nu9Zbb8MlQKizIJUgm8i6xk8f+CClNWtAVITTkTPdQmrVezfmOIQzVaQDkJKayj/JlsVYmTRH9wRzr6HEkY3fuGXTHF7sAfdOCu4FstGcFRvpXQDg3ngIDyAdPYuaTVMbETYzAHvnqDc+pwVelYRVKhHz1fc04FZGulAHUjdFI0xrANYPKoZBaPydq9exX1WCyGD4rS4nJPH0ww/jqhNsLJgz4reHuyiIqYObGF6+C+0RJ2yeURsaqJBFQjNvgCb4HDhP4FPlfMR4FkHzBCD3kmaPr/Wy7agtfiehW8CHZMxBeb8rmbIYTwqh7YJzDkmvODqMFM3zb5xINf9hWMJE532uEZUW8yQ0XeLhEZNtSTD9zpFFW6fAsB8wamIW2u+RbGlinVjDBV64akjfhtdbjE6dbIh6lb3Xk9vn04jVJsmuwgsXCwalkjUoa1MK/Bgu4slAeSuY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(376002)(136003)(396003)(39860400002)(346002)(26005)(6666004)(41300700001)(6512007)(36756003)(6506007)(38100700002)(31686004)(6486002)(2616005)(31696002)(53546011)(4326008)(86362001)(316002)(6636002)(478600001)(44832011)(83380400001)(8936002)(186003)(5660300002)(66946007)(2906002)(8676002)(921005)(66556008)(66476007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3dZVE1NNTlnd2FNb2dpdVZCZGQvNFlxOU0ySEtudjBMeVZLUWIrUG40L09q?=
+ =?utf-8?B?YUx6MUpGeUV6b1BSdFJUYjUrTjdJdTdjQi9uYityM2xUTjZ5L1Q0Z05tT25L?=
+ =?utf-8?B?SldiQ2NPV3lVS1ZuVnZ1b3hQNUJpRDNBYmNvTktOWWZySE14Q283OTFBOE10?=
+ =?utf-8?B?WjVKS091NHJMbWpaT3NIUDNCVlJBQ2lnZTFialluZGhvdXU4NDN4M1VCRzJ3?=
+ =?utf-8?B?akhoMmNuWGdicWZ2ZnlVT0U3allqVmdFVFdwMzU1aDJUOGJGek1jN0hoOTdP?=
+ =?utf-8?B?Q0VFOVU2MXltL0Q5enpEMnU4TXpoT1RJY2l2aEZ3akxmQ1Y5T2JTWGFzMWRv?=
+ =?utf-8?B?NEFLS25ZYnpZcE9IUWozRmV2ZnNsb3diVWdTWTY0V3cxZmNWOGVmTVlwcFJD?=
+ =?utf-8?B?cldjZGllVWt4dUpkQ25BNHdYZUZpd29MK0dPeUpJTGdmSGlxYXgwR2JOZmJQ?=
+ =?utf-8?B?WnJTS0hZUXFjVldkVGovczQrSnFSemE0T0J4cWExcFZNVnR2U1RWd1E1U0Zs?=
+ =?utf-8?B?RU9HUFhWSGlxcnhlUlVxSzBTVXhraTU5SjJ0VUVBMXpOT1lkdVdFY3RVd29F?=
+ =?utf-8?B?MEtlaXFSYVFZUnhXU2pTN2pXVjljeFphYkRQN0tlSzFiS3llNk5KcENoRjhL?=
+ =?utf-8?B?TVlpbzFNTENZWkVtUlRXalBlTHNKRjJiTEdEMEw0U2gva0ZJOFRFR3FnTHp0?=
+ =?utf-8?B?WE0wMzFpT21RcWllQThWUU1rR0pydEdCRWVXWi9tMWEwcXRxbHFqZHdsYnlP?=
+ =?utf-8?B?dExZOVFSSTF5RkUxejhDc01WK0l1Ym1qTHJ5Rk5YWXJkTVVUM0ZTZDRMNnY3?=
+ =?utf-8?B?TmhWMVE1RU9ZalZjdXNrMDQwRjJjQUN5bW55ZXA5SUxIQWhITVZQWXN2VUYy?=
+ =?utf-8?B?YVFicTcxVDlPS1ZZbnhUVlR0eFB0V05ESVlvcXBnMk5VL29wRTBEQXIweVNj?=
+ =?utf-8?B?RFFUakxlaXptWktBZTV5N2huSzZjRGZyYnRRQXQ2bmdxSnpuQmhNeG5OdHpE?=
+ =?utf-8?B?dEtHZllDVVhNVzBqbm1KRkpsVVc2YUdvckZja0lvSjRpTVhCYTBySWo5SlFB?=
+ =?utf-8?B?VTM1VURTS3BuSnNLajVEYjJoUXh5N1lKTWlvRE8xaElXbWt0b2NQR1MyWHRh?=
+ =?utf-8?B?Y3RBeHFaeW1WY0JZYzhRd0R0NUUzY2I5Q3UvaS83SGk2WXY1LzQ4ZXlveVVu?=
+ =?utf-8?B?SDRjZXZCMHBtaWg4bWJSZzR6Q0FHais3ZE51bWJEZm1NY05EZDFwdCtZY2Fm?=
+ =?utf-8?B?Y09NTTNDdlNNbVJLLzBIemZZMUw5YkxpL1BqWDEyb2VLM2VKeEtDclF3QUEx?=
+ =?utf-8?B?WlFkRXRUWFh1emUyUU45RmlaT3dxMS8yWWpMbXNVUzVVRFdUUC9CdVpsaWw1?=
+ =?utf-8?B?R2lyVkJENTNmcGdna3hIS29vaytzNDFxdUROOU1JRFVpSmhZQ2VHYmJIMVVn?=
+ =?utf-8?B?ZUpxdGI1UFloaDh4elNteGxhVytVSXJNdGxUL2w1RGE0eklQVTMwYVI0VTBH?=
+ =?utf-8?B?MnNMS29JekcvUG9PZk82T3dnQVVnLzR2ZlV4bDJSb2ltR1JCbUJQTjBBNXE5?=
+ =?utf-8?B?OVg4MFRSeXVjTlFscjBXY2hzVWZYVHlyK2JCdTd5SVovbnh1QnhzU1d1dS9R?=
+ =?utf-8?B?blB1R3ZGaWpvTkN0TG8yMWMvY2lZaDZxa25jRWhrYmQ2SWx1Qi9aZTVpdHNT?=
+ =?utf-8?B?STcvd283QVdvSmxmaDlxOTA0aEVpU1VmbjRhNkRKaE1YcERFeVIrMWl0cjhk?=
+ =?utf-8?B?eEtwZERENlVXQ1ZGdU5EZUlGejgyaHkwM2QySWp1K0JNMXFjTW1RS2lBM1Vq?=
+ =?utf-8?B?azNISk9GelljUDVKNi9ScTJjaVZrL3VyTGFjRUZnZ0tsbmVRaWNzMzJjM3Fm?=
+ =?utf-8?B?MldUS1NvUkRMU1Z4TGVNZlNmS3YrUjBBc0VwdkFJK1AxSm9haTZtWjB4MGIw?=
+ =?utf-8?B?elY3NU41SzVHSmpPcDc2Sk42Q3NrN0c2NGozcGNNYkVIc01JNi9zUkQwQ3JE?=
+ =?utf-8?B?WjZjb3dQZTR4QmhJZFp4YUVpd3BmVlQvbG1udlg4d2tvREdDc3krQWVJQ2ww?=
+ =?utf-8?B?VVd2MFU4WUwwN0Z0YjdFaWE2YkRGNEVNNTkvUTNGanhoVmc2MDRMeEJlZDVS?=
+ =?utf-8?Q?H3MD5tOXRhYpZt2sdw2xOAr9C?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9c23038-e9ea-4288-5c16-08da60f2ed58
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 15:02:51.4383 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2UjIu/GOs2fst+Jl0LYkGnoYb1Iohe/DOQzP1HripZWUJjABTufmD3/k5HFzB7IcG1QaXMKVb/hQzdkEbz/BVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,427 +127,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000093401b05e34c6e7e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 2022-07-07 23:10, Zhongjun Tan wrote:
+> From: Zhongjun Tan <tanzhongjun@coolpad.com>
+> 
+> Remove condition with no effect
 
-Christian, should we set this flag for GDS too? Will it help with GDS OOM
-failures?
+Please explain why you think this has no effect.
 
-Marek
+Harry
 
-On Fri., May 13, 2022, 07:26 Christian K=C3=B6nig, <
-ckoenig.leichtzumerken@gmail.com> wrote:
+> 
+> Signed-off-by: Zhongjun Tan <tanzhongjun@coolpad.com>
+> ---
+>  .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c   | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> index 07f3a85f8edf..ec3ea94d3802 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> @@ -4670,10 +4670,6 @@ void dml32_CalculateMinAndMaxPrefetchMode(
+>  	} else if (AllowForPStateChangeOrStutterInVBlankFinal == dm_prefetch_support_uclk_fclk_and_stutter) {
+>  		*MinPrefetchMode = 0;
+>  		*MaxPrefetchMode = 0;
+> -	} else if (AllowForPStateChangeOrStutterInVBlankFinal ==
+> -			dm_prefetch_support_uclk_fclk_and_stutter_if_possible) {
+> -		*MinPrefetchMode = 0;
+> -		*MaxPrefetchMode = 3;
+>  	} else {
+>  		*MinPrefetchMode = 0;
+>  		*MaxPrefetchMode = 3;
 
-> Exactly that's what we can't do.
->
-> See the kernel must always be able to move things to GTT or discard. So
-> when you want to guarantee that something is in VRAM you must at the
-> same time say you can discard it if it can't.
->
-> Christian.
->
-> Am 13.05.22 um 10:43 schrieb Pierre-Eric Pelloux-Prayer:
-> > Hi Marek, Christian,
-> >
-> > If the main feature for Mesa of AMDGPU_GEM_CREATE_DISCARDABLE is
-> > getting the best placement, maybe we should have 2 separate flags:
-> >   * AMDGPU_GEM_CREATE_DISCARDABLE: indicates to the kernel that it can
-> > discards the content on eviction instead of preserving it
-> >   * AMDGPU_GEM_CREATE_FORCE_BEST_PLACEMENT (or
-> > AMDGPU_GEM_CREATE_NO_GTT_FALLBACK ? or AMDGPU_CREATE_GEM_AVOID_GTT?):
-> > tells the kernel that this bo really needs to be in VRAM
-> >
-> >
-> > Pierre-Eric
-> >
-> > On 13/05/2022 00:17, Marek Ol=C5=A1=C3=A1k wrote:
-> >> Would it be better to set the VM_ALWAYS_VALID flag to have a greater
-> >> guarantee that the best placement will be chosen?
-> >>
-> >> See, the main feature is getting the best placement, not being
-> >> discardable. The best placement is a hw design requirement due to
-> >> using memory for uses that are expected to have performance similar
-> >> to onchip SRAMs. We need to make sure the best placement is
-> >> guaranteed if it's VRAM.
-> >>
-> >> Marek
-> >>
-> >> On Thu., May 12, 2022, 03:26 Christian K=C3=B6nig,
-> >> <ckoenig.leichtzumerken@gmail.com
-> >> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
-> >>
-> >>     Am 12.05.22 um 00:06 schrieb Marek Ol=C5=A1=C3=A1k:
-> >>>     3rd question: Is it worth using this on APUs?
-> >>
-> >>     It makes memory management somewhat easier when we are really OOM.
-> >>
-> >>     E.g. it should also work for GTT allocations and when the core
-> >> kernel says "Hey please free something up or I will start the
-> >> OOM-killer" it's something we can easily throw away.
-> >>
-> >>     Not sure how many of those buffers we have, but marking
-> >> everything which is temporary with that flag is probably a good idea.
-> >>
-> >>>
-> >>>     Thanks,
-> >>>     Marek
-> >>>
-> >>>     On Wed, May 11, 2022 at 5:58 PM Marek Ol=C5=A1=C3=A1k <maraeo@gma=
-il.com
-> >>> <mailto:maraeo@gmail.com>> wrote:
-> >>>
-> >>>         Will the kernel keep all discardable buffers in VRAM if VRAM
-> >>> is not overcommitted by discardable buffers, or will other buffers
-> >>> also affect the placement of discardable buffers?
-> >>>
-> >>
-> >>     Regarding the eviction pressure the buffers will be handled like
-> >> any other buffer, but instead of preserving the content it is just
-> >> discarded on eviction.
-> >>
-> >>>
-> >>>         Do evictions deallocate the buffer, or do they keep an
-> >>> allocation in GTT and only the copy is skipped?
-> >>>
-> >>
-> >>     It really deallocates the backing store of the buffer, just keeps
-> >> a dummy page array around where all entries are NULL.
-> >>
-> >>     There is a patch set on the mailing list to make this a little
-> >> bit more efficient, but even using the dummy page array should only
-> >> have a few bytes overhead.
-> >>
-> >>     Regards,
-> >>     Christian.
-> >>
-> >>>
-> >>>         Thanks,
-> >>>         Marek
-> >>>
-> >>>         On Wed, May 11, 2022 at 3:08 AM Marek Ol=C5=A1=C3=A1k
-> >>> <maraeo@gmail.com <mailto:maraeo@gmail.com>> wrote:
-> >>>
-> >>>             OK that sounds good.
-> >>>
-> >>>             Marek
-> >>>
-> >>>             On Wed, May 11, 2022 at 2:04 AM Christian K=C3=B6nig
-> >>> <ckoenig.leichtzumerken@gmail.com
-> >>> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
-> >>>
-> >>>                 Hi Marek,
-> >>>
-> >>>                 Am 10.05.22 um 22:43 schrieb Marek Ol=C5=A1=C3=A1k:
-> >>>>                 A better flag name would be:
-> >>>>                 AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
-> >>>
-> >>>                 A bit long for my taste and I think the best
-> >>> placement is just a side effect.
-> >>>
-> >>>>
-> >>>>                 Marek
-> >>>>
-> >>>>                 On Tue, May 10, 2022 at 4:13 PM Marek Ol=C5=A1=C3=A1=
-k
-> >>>> <maraeo@gmail.com <mailto:maraeo@gmail.com>> wrote:
-> >>>>
-> >>>>                     Does this really guarantee VRAM placement? The
-> >>>> code doesn't say anything about that.
-> >>>>
-> >>>
-> >>>                 Yes, see the code here:
-> >>>
-> >>>>
-> >>>>                         diff --git
-> >>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>                         index 8b7ee1142d9a..1944ef37a61e 100644
-> >>>>                         ---
-> >>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>                         +++
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>                         @@ -567,6 +567,7 @@ int
-> >>>> amdgpu_bo_create(struct amdgpu_device *adev,
-> >>>>                                         bp->domain;
-> >>>>                                 bo->allowed_domains =3D
-> >>>> bo->preferred_domains;
-> >>>>                                 if (bp->type !=3D ttm_bo_type_kernel=
- &&
-> >>>>                         +           !(bp->flags &
-> >>>> AMDGPU_GEM_CREATE_DISCARDABLE) &&
-> >>>>                                     bo->allowed_domains =3D=3D
-> >>>> AMDGPU_GEM_DOMAIN_VRAM)
-> >>>> bo->allowed_domains |=3D AMDGPU_GEM_DOMAIN_GTT;
-> >>>>
-> >>>
-> >>>                 The only case where this could be circumvented is
-> >>> when you try to allocate more than physically available on an APU.
-> >>>
-> >>>                 E.g. you only have something like 32 MiB VRAM and
-> >>> request 64 MiB, then the GEM code will catch the error and fallback
-> >>> to GTT (IIRC).
-> >>>
-> >>>                 Regards,
-> >>>                 Christian.
-> >>>
-> >>
->
->
-
---00000000000093401b05e34c6e7e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Christian, should we set this flag for GDS too? Will it h=
-elp with GDS OOM failures?<div dir=3D"auto"><br></div><div dir=3D"auto">Mar=
-ek</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
-l_attr">On Fri., May 13, 2022, 07:26 Christian K=C3=B6nig, &lt;<a href=3D"m=
-ailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
- 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Exactly that&#39;s wha=
-t we can&#39;t do.<br>
-<br>
-See the kernel must always be able to move things to GTT or discard. So <br=
->
-when you want to guarantee that something is in VRAM you must at the <br>
-same time say you can discard it if it can&#39;t.<br>
-<br>
-Christian.<br>
-<br>
-Am 13.05.22 um 10:43 schrieb Pierre-Eric Pelloux-Prayer:<br>
-&gt; Hi Marek, Christian,<br>
-&gt;<br>
-&gt; If the main feature for Mesa of AMDGPU_GEM_CREATE_DISCARDABLE is <br>
-&gt; getting the best placement, maybe we should have 2 separate flags:<br>
-&gt; =C2=A0 * AMDGPU_GEM_CREATE_DISCARDABLE: indicates to the kernel that i=
-t can <br>
-&gt; discards the content on eviction instead of preserving it<br>
-&gt; =C2=A0 * AMDGPU_GEM_CREATE_FORCE_BEST_PLACEMENT (or <br>
-&gt; AMDGPU_GEM_CREATE_NO_GTT_FALLBACK ? or AMDGPU_CREATE_GEM_AVOID_GTT?): =
-<br>
-&gt; tells the kernel that this bo really needs to be in VRAM<br>
-&gt;<br>
-&gt;<br>
-&gt; Pierre-Eric<br>
-&gt;<br>
-&gt; On 13/05/2022 00:17, Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt;&gt; Would it be better to set the VM_ALWAYS_VALID flag to have a great=
-er <br>
-&gt;&gt; guarantee that the best placement will be chosen?<br>
-&gt;&gt;<br>
-&gt;&gt; See, the main feature is getting the best placement, not being <br=
->
-&gt;&gt; discardable. The best placement is a hw design requirement due to =
-<br>
-&gt;&gt; using memory for uses that are expected to have performance simila=
-r <br>
-&gt;&gt; to onchip SRAMs. We need to make sure the best placement is <br>
-&gt;&gt; guaranteed if it&#39;s VRAM.<br>
-&gt;&gt;<br>
-&gt;&gt; Marek<br>
-&gt;&gt;<br>
-&gt;&gt; On Thu., May 12, 2022, 03:26 Christian K=C3=B6nig, <br>
-&gt;&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"=
-_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a> <br>
-&gt;&gt; &lt;mailto:<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" tar=
-get=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a>&gt;&=
-gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 Am 12.05.22 um 00:06 schrieb Marek Ol=C5=A1=C3=
-=A1k:<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 3rd question: Is it worth using this on APU=
-s?<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 It makes memory management somewhat easier when=
- we are really OOM.<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 E.g. it should also work for GTT allocations an=
-d when the core <br>
-&gt;&gt; kernel says &quot;Hey please free something up or I will start the=
- <br>
-&gt;&gt; OOM-killer&quot; it&#39;s something we can easily throw away.<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 Not sure how many of those buffers we have, but=
- marking <br>
-&gt;&gt; everything which is temporary with that flag is probably a good id=
-ea.<br>
-&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 Thanks,<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 Marek<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 On Wed, May 11, 2022 at 5:58 PM Marek Ol=C5=
-=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=3D=
-"noreferrer">maraeo@gmail.com</a> <br>
-&gt;&gt;&gt; &lt;mailto:<a href=3D"mailto:maraeo@gmail.com" target=3D"_blan=
-k" rel=3D"noreferrer">maraeo@gmail.com</a>&gt;&gt; wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Will the kernel kee=
-p all discardable buffers in VRAM if VRAM <br>
-&gt;&gt;&gt; is not overcommitted by discardable buffers, or will other buf=
-fers <br>
-&gt;&gt;&gt; also affect the placement of discardable buffers?<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 Regarding the eviction pressure the buffers wil=
-l be handled like <br>
-&gt;&gt; any other buffer, but instead of preserving the content it is just=
- <br>
-&gt;&gt; discarded on eviction.<br>
-&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Do evictions deallo=
-cate the buffer, or do they keep an <br>
-&gt;&gt;&gt; allocation in GTT and only the copy is skipped?<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 It really deallocates the backing store of the =
-buffer, just keeps <br>
-&gt;&gt; a dummy page array around where all entries are NULL.<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 There is a patch set on the mailing list to mak=
-e this a little <br>
-&gt;&gt; bit more efficient, but even using the dummy page array should onl=
-y <br>
-&gt;&gt; have a few bytes overhead.<br>
-&gt;&gt;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 Regards,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 Christian.<br>
-&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Thanks,<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Marek<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 On Wed, May 11, 202=
-2 at 3:08 AM Marek Ol=C5=A1=C3=A1k <br>
-&gt;&gt;&gt; &lt;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=
-=3D"noreferrer">maraeo@gmail.com</a> &lt;mailto:<a href=3D"mailto:maraeo@gm=
-ail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com</a>&gt;&gt; =
-wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 OK that sounds good.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 Marek<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 On Wed, May 11, 2022 at 2:04 AM Christian K=C3=B6nig <br>
-&gt;&gt;&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=
-=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a> <br>
-&gt;&gt;&gt; &lt;mailto:<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com"=
- target=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a>&=
-gt;&gt; wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Hi Marek,<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Am 10.05.22 um 22:43 schrieb Marek Ol=C5=A1=
-=C3=A1k:<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 A better flag name would be:<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCA=
-RD<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 A bit long for my taste and I think the best=
- <br>
-&gt;&gt;&gt; placement is just a side effect.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Marek<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 On Tue, May 10, 2022 at 4:13 PM Marek Ol=
-=C5=A1=C3=A1k <br>
-&gt;&gt;&gt;&gt; &lt;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank" =
-rel=3D"noreferrer">maraeo@gmail.com</a> &lt;mailto:<a href=3D"mailto:maraeo=
-@gmail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com</a>&gt;&g=
-t; wrote:<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Does this really =
-guarantee VRAM placement? The <br>
-&gt;&gt;&gt;&gt; code doesn&#39;t say anything about that.<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Yes, see the code here:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 diff --git <br>
-&gt;&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c <br>
-&gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 index 8b7ee1142d9a..1944ef37a61e 100644<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 --- <br>
-&gt;&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 +++ <br>
-&gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 @@ -567,6 +567,7 @@ int <br>
-&gt;&gt;&gt;&gt; amdgpu_bo_create(struct amdgpu_device *adev,<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bp-&gt;domai=
-n;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bo-&gt;allowed_domains =3D <br>
-&gt;&gt;&gt;&gt; bo-&gt;preferred_domains;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (bp-&gt;type !=3D ttm_bo_type_kernel =
-&amp;&amp;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!(bp-&gt;flags &amp; <br>
-&gt;&gt;&gt;&gt; AMDGPU_GEM_CREATE_DISCARDABLE) &amp;&amp;<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bo-&gt;allowed_domains =3D=
-=3D <br>
-&gt;&gt;&gt;&gt; AMDGPU_GEM_DOMAIN_VRAM)<br>
-&gt;&gt;&gt;&gt; bo-&gt;allowed_domains |=3D AMDGPU_GEM_DOMAIN_GTT;<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The only case where this could be circumvent=
-ed is <br>
-&gt;&gt;&gt; when you try to allocate more than physically available on an =
-APU.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 E.g. you only have something like 32 MiB VRA=
-M and <br>
-&gt;&gt;&gt; request 64 MiB, then the GEM code will catch the error and fal=
-lback <br>
-&gt;&gt;&gt; to GTT (IIRC).<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Regards,<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Christian.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;<br>
-<br>
-</blockquote></div>
-
---00000000000093401b05e34c6e7e--
