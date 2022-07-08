@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C17DC43334
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jul 2022 16:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BB6CCA47B
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jul 2022 16:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C4C10E25E;
-	Fri,  8 Jul 2022 16:36:45 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90C8B10E228
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jul 2022 16:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28DC610E23B;
+	Fri,  8 Jul 2022 16:36:52 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2044.outbound.protection.outlook.com [40.107.212.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1538810E23B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jul 2022 16:36:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vw86qgEZLeIvS59SOQgGQZcp6gT5Zop1CkHK1W1eqLMbnic7pqQH8wFQcCR8TBZi/9ZmdKaaonU10329eceWNmVQcVIau9l0T45iomLQnGlsnfr9AXHjKt4JS2jPnubN+QFxnFZUWET3vkjqQxVs0rX/ojv0M6+1RuoVu/1pauakdc9tVJ0cYgig8SzF9OtD8Z5H+AKQ4dpNws81YvCjjTPNWYz/CqA9tQc3sY4aMhgKYpyNqzPorNiYvnHmfh4lmjmnj8Q72udWltI2rwPovbeLEorWRVgu738OHVQiezhfOXDG+7oQ5qDcBp0M7AxOwTnl64c6ek69wXX0uxBU6w==
+ b=Vss92lofh8CswTUc/DeCzSheMhTmSaV8/zT3xSvga86eijJsz7NGZ/wiuwhn1k1Vy+HXYnDxuJDIrrJYYnXEa4VAF6SXT8H3P6tXQt9f0BYok+t/oUJUDAd/zaMpi/2RteYrBi+K7ZtPqcbFl38OvfpBTuym9HQQFpkryd+nfSIoeOSOfSugHIZhTvYh6zUvvkKBdv5Xs8Gaj9U/pl6QoKYmKA8PkkttxouLGRbhC1kdw3Z4ApuL+7MpNV0Z9rUE3qfFOuM0SLzz+P5c27ngjZe2thCtWDc+idFRR1c6SPfSFdVSfm8kTiYVIhrKKm3UPrZCbJA0n42rgE6OgyygxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mN5l++sjgd5CCjvcr51ex5xppQ+RAH6YAAiam4Xmy8Y=;
- b=C79JxPiO5O4vKagLpsVaX4GwPcjY7q9nKodyKjP2p43TuKkCv44Jpi+QpihMgScABRIsmx/7quBTN/CTGYzpeYk8pum5u2cMK5i0AT5RcUqM/AfL3oSEdrd4hbtqN6x1JugCG480Zcieu31Znhz6Fd6XXYlWHyL28EOTpt8hVzTLH5sa79/AdECp4C9+wh9oQFwuJs5PYVqmm8O04DKgAo9em4o1BzCDPUxGDn2kRyNCYwo06CNfcCF51fNRKZpYbxEGEWbKEA4FeIuHeMf0qdGDvnap0DbZEMyPiKUuDBR+znREByWLwSwU/IPt18sGfwtOrfWNaWvyXAKrTTyEkw==
+ bh=hmEXO+DGOq2ToS6K3Z3QRjnXnpRuRWctOPBluXhYdIY=;
+ b=XE6z0FH2iykVJg3Zj1mHhsslkdN87rK4IpPR9wu0IN+fkmtcnQcEiVmkD85/Tm8Kv40ltc7xnwc0LTYEhNHN2j7Uq6UohZAWzY7aVPfvS0c1DioWc50bukwrp3DnI3YIShWmt80BFQjw2MZneAA4oky4nKCMS1ol+Ua9Ubxmb/7UGqAsKxZnu/qkoCSE7OQElycY4hrbWMLxTvyDSZA48xoD81a59tH8psHepBU5/GnK3JHmehUEG1gpew2ZNqcSODUYEBIg42J3dp4S2ZMA/BtRf5Bgc32vPszORsBtjWKPvqnTg35En3LpsqvtsEVfGGySujBxrgz7BOa3ZguuKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mN5l++sjgd5CCjvcr51ex5xppQ+RAH6YAAiam4Xmy8Y=;
- b=L7ckDffz1Ds++LBfrRumFjbcT1jSVNiPCoEyPZK+7yZovkb25oTkwFG4h7WrKlsGhXRxOxqSCCE/n6+nHOYblv1xo+t7IFEexYyndQfb6+ZAk+DqiAk7IycsEyYqraYSCk/F5NqBgeE/A4E11Tm+s7hIx3YgofEgamlVDvjfiTw=
-Received: from BN9PR03CA0915.namprd03.prod.outlook.com (2603:10b6:408:107::20)
- by MN0PR12MB6078.namprd12.prod.outlook.com (2603:10b6:208:3ca::6)
+ bh=hmEXO+DGOq2ToS6K3Z3QRjnXnpRuRWctOPBluXhYdIY=;
+ b=g4Ha8yTyRsQAja5LyOZvk2T01UjvvuzJ7oO7XeZp40S9QGsxRQEW0xsJEij68U5NJD2v/8+/ughOg2IY8pmxZYw6sMsiAyKvMr40KdirPvFUluO4cNhGGZAbywT4C4J2Se8Q0s3j5mB9VkEztcrTInq1hTNsy1EcJjKzCzQVBCA=
+Received: from BN0PR04CA0087.namprd04.prod.outlook.com (2603:10b6:408:ea::32)
+ by MW3PR12MB4427.namprd12.prod.outlook.com (2603:10b6:303:52::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Fri, 8 Jul
- 2022 16:36:41 +0000
-Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:107:cafe::4d) by BN9PR03CA0915.outlook.office365.com
- (2603:10b6:408:107::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20 via Frontend
- Transport; Fri, 8 Jul 2022 16:36:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Fri, 8 Jul
+ 2022 16:36:46 +0000
+Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::a6) by BN0PR04CA0087.outlook.office365.com
+ (2603:10b6:408:ea::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.15 via Frontend
+ Transport; Fri, 8 Jul 2022 16:36:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Fri, 8 Jul 2022 16:36:41 +0000
+ 15.20.5417.15 via Frontend Transport; Fri, 8 Jul 2022 16:36:45 +0000
 Received: from ryzen32.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 8 Jul
- 2022 11:36:36 -0500
+ 2022 11:36:41 -0500
 From: Solomon Chiu <solomon.chiu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/21] drm/amd/display: Fix black screen when disabling
- Freesync in OSD
-Date: Sat, 9 Jul 2022 00:35:16 +0800
-Message-ID: <20220708163529.3534276-9-solomon.chiu@amd.com>
+Subject: [PATCH 09/21] drm/amd/display: make enable link independent from
+ verified link caps
+Date: Sat, 9 Jul 2022 00:35:17 +0800
+Message-ID: <20220708163529.3534276-10-solomon.chiu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220708163529.3534276-1-solomon.chiu@amd.com>
 References: <20220708163529.3534276-1-solomon.chiu@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1ba9b7af-b6e2-4043-5c51-08da61000959
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6078:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5af875cc-c868-43db-222a-08da61000c4a
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4427:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F67F4K47TrN3i1H9d7SqnPQK1npsTSnq9nZ4pEdkrjST9LdqxtAjWdocdPvD4sTMVMYBcPVaA0/f8zsiEUvRfffp2EywELrYQo1NILyYSRkHkvbwDCZxBGC9xPbQrEDcbOqoXfmSrGqHjjZBE4/+r+R37s85Zrzxwh2YhlAQrBHzYkXLuNeTJBDCO0EII0//DCThpRsF5qooP8xdEinMWfORdocRU4dTqLo6507lBy3oSsfAcg6TGHrJ1iCfRVQbebZRNKw2shc+3tjSw5hvjGedEYOVTC8zCEwebCLqjrbs13+nXl7yvRrfEmF/2PA9iKmQiGIKdzfp+V6JTWSL0QMV9latP0WjLxhJRIRxHwkDqyoPD7YM5G0pKfLIUyHJVCE0e2b5NEGiKdybNExIEufhnHSh/I77hTK+rsXDIo17SnFrxUHeSR+ivaUHf2ftScY7HvNI2IPkY0J6YRmeaOI1+mbMk2XfvDVMLEYqODXwjhbk36UxmdHW2Rcg/1L1Iy+hpzkcwnJOyOb2FVjVER/33kf4pLh9KUdFchLzOZzE34+P/FJtdUC45eaYF94B913V84/rby8eSWIa7iql2N8hYHtz2bZQ0iAeLY/a+cAdZ7iQGPZKg3WJVV3ee2etG7PEcwP/anYPlTra4YaKnWrxIKru3pWQCxhQUG3wFMVBTEXhnu8cMSPJKJqY1XtM7/IflTI73n/GK4b2HvtQ8GpC4dRWrvtaB4JYW98JCEo5+4C7ACwyGHAEKWCB+VZfN2cPLsNVcf7I2Cz78ndLY6igWy8QdcHeds/W6XSB3LPxayI55WRWl39Fz5csq+MXtZQeEb/e7aS9vF/Any04sbhD6ajWkzruZlkLuN5VxhNXO2lfooyM3ffTXApzySFQ
+X-Microsoft-Antispam-Message-Info: l1yLWjnA2QCxG5jp4HyiDYqWpJfJCUqkdqqED790hz79IGSxMyUElO5LV4vny49ko7c9DUGqHl2sLFZHzCGRMkuJHXwjAHyrotqhb5Po3G/yjcirEb9QwBZ09w7xgY9ZwiP45ULD57MGZtZOs2buEXB+XPpnbAIIZb3UwobSKM+KYonCDYA9ZHQuyLnZQIp2VkptIeApSTKE72k/3fGH9BsWCQbiXi55zbfDgSxGKpioFImPNlK97RsJzhZ8/FuB4rM3FBJ7fIPx42zCo7Evf0qnhAlvx4/k/KpFAMqHi+DUmNQDfQnJoP3rvy/8rmA2eK8GGrTZ4zvTmzy2K6r3sdga3f0ULZC4KdaC46zVOG5Iz6ZLL8ULbmJWML0q90usbh+yi/rRwMHdDLsRcHtU96BoOQx5AlUVge+yI/FqIU520hVOQrNCx1DAfoNomgKu5MG9hh1bU2sOS2eseebu+kkNYN9GRA7bw0L/2UMr8zm4bhDJSzkWEEOjVPdRdrZCpMSRk+2SjXjf9rW2fPUFCLI3/z0wSkDifWu+22EVDNH/3IRtRXvcmwBGu/0VqdotKg56McupwWyLf1RRsUKxVhIGBa27JRUzN8KjlxNFkQ1B1kEsP8qUnFx0MUA+Zj6FB8V0kBQ1r1Mp/BXX1jRXfir39JTx1GRDbKrN0q9EvxiqMsj2xjLr/CnhSB6YylYvAwd8kLDlm6XlhpteBpT9dpYdToehcBKgnsoFE/f9CruYa1+xgeKN+wTHLCl188qFuPyfYSgkatj0Zr7+/cp6gn2mFcbIoGGXOUpgSZOkYIKVkL4sCISPE6ucQmAWBnGfHAo9XpQQLxeDKlaumhL98HysOJEBSZhciRGauV991cVA53KKzUtG1Mxhb8aZs11Y
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(396003)(39860400002)(346002)(376002)(40470700004)(36840700001)(46966006)(426003)(47076005)(186003)(16526019)(70586007)(70206006)(8676002)(36756003)(4326008)(26005)(1076003)(40480700001)(7696005)(54906003)(6916009)(2616005)(34020700004)(336012)(40460700003)(5660300002)(82310400005)(6666004)(86362001)(36860700001)(356005)(478600001)(316002)(44832011)(41300700001)(8936002)(82740400003)(81166007)(2906002)(36900700001);
+ SFS:(13230016)(4636009)(136003)(39860400002)(376002)(346002)(396003)(40470700004)(46966006)(36840700001)(70586007)(5660300002)(86362001)(70206006)(4326008)(16526019)(44832011)(7696005)(8676002)(82740400003)(41300700001)(478600001)(1076003)(8936002)(81166007)(6666004)(316002)(6916009)(54906003)(356005)(2616005)(336012)(426003)(83380400001)(40480700001)(47076005)(36756003)(26005)(36860700001)(82310400005)(30864003)(2906002)(186003)(15650500001)(34020700004)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 16:36:41.0467 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ba9b7af-b6e2-4043-5c51-08da61000959
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 16:36:45.9800 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5af875cc-c868-43db-222a-08da61000c4a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6078
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4427
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,52 +100,332 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Ilya Bakoulin <Ilya.Bakoulin@amd.com>,
- Chris Park <Chris.Park@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, George Shen <George.Shen@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
  solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why]
-Black screen encountered when disabling Freesync through OSD on some
-displays.
+[why]
+Ideally link capability should be independent from the link
+configuration that we decide to use in enable link. Otherwise if link
+capability is changed after validation has completed, we could end up
+enabling a link configuration with invalid configuration. This would
+lead to over link bandwidth subscription or in the extreme case
+causes us to enable HPO link to a DIO stream.
 
-[How]
-Set the should_disable flag when new top pipe has no plane state to
-ensure that pipes get cleaned up.
+[how]
+Add a new struct in pipe ctx called link config. This structure will
+contain link configuration to enable a link. It will be populated
+during map pool resources after we validate link bandwidth. Remove
+the reference of verified link cap during enable link process and
+use link config in pipe ctx instead.
 
-Reviewed-by: Chris Park <Chris.Park@amd.com>
+Reviewed-by: George Shen <George.Shen@amd.com>
 Acked-by: Solomon Chiu <solomon.chiu@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  2 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 27 +++++------
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 45 +++++++------------
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 10 ++---
+ .../gpu/drm/amd/display/dc/inc/core_status.h  |  1 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   | 10 +++++
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  2 +-
+ 7 files changed, 44 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index a448696ee8f2..6b37c653f45e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1085,6 +1085,16 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
- 				dc->current_state->stream_count != context->stream_count)
- 			should_disable = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+index 283957dbdf93..69f1c2b89a57 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+@@ -424,6 +424,8 @@ char *dc_status_to_str(enum dc_status status)
+ 		return "No link encoder resource";
+ 	case DC_FAIL_DP_PAYLOAD_ALLOCATION:
+ 		return "Fail dp payload allocation";
++	case DC_FAIL_DP_LINK_BANDWIDTH:
++		return "Insufficient DP link bandwidth";
+ 	case DC_ERROR_UNEXPECTED:
+ 		return "Unexpected error";
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index dbdeda60e9e2..65269cd8cb78 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1969,7 +1969,8 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 	enum dc_status status;
+ 	bool skip_video_pattern;
+ 	struct dc_link *link = stream->link;
+-	struct dc_link_settings link_settings = {0};
++	const struct dc_link_settings *link_settings =
++			&pipe_ctx->link_config.dp_link_settings;
+ 	bool fec_enable;
+ 	int i;
+ 	bool apply_seamless_boot_optimization = false;
+@@ -1986,9 +1987,6 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 		}
+ 	}
  
-+		if (old_stream && !dc->current_state->res_ctx.pipe_ctx[i].top_pipe) {
-+			struct pipe_ctx *old_pipe, *new_pipe;
-+
-+			old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+			new_pipe = &context->res_ctx.pipe_ctx[i];
-+
-+			if (old_pipe->plane_state && !new_pipe->plane_state)
-+				should_disable = true;
+-	/* get link settings for video mode timing */
+-	decide_link_settings(stream, &link_settings);
+-
+ 	/* Train with fallback when enabling DPIA link. Conventional links are
+ 	 * trained with fallback during sink detection.
+ 	 */
+@@ -1999,7 +1997,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 	 * Temporary w/a to get DP2.0 link rates to work with SST.
+ 	 * TODO DP2.0 - Workaround: Remove w/a if and when the issue is resolved.
+ 	 */
+-	if (dp_get_link_encoding_format(&link_settings) == DP_128b_132b_ENCODING &&
++	if (dp_get_link_encoding_format(link_settings) == DP_128b_132b_ENCODING &&
+ 			pipe_ctx->stream->signal == SIGNAL_TYPE_DISPLAY_PORT &&
+ 			link->dc->debug.set_mst_en_for_sst) {
+ 		dp_enable_mst_on_sink(link, true);
+@@ -2012,11 +2010,11 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 		link->dc->hwss.edp_wait_for_hpd_ready(link, true);
+ 	}
+ 
+-	if (dp_get_link_encoding_format(&link_settings) == DP_128b_132b_ENCODING) {
++	if (dp_get_link_encoding_format(link_settings) == DP_128b_132b_ENCODING) {
+ 		/* TODO - DP2.0 HW: calculate 32 symbol clock for HPO encoder */
+ 	} else {
+ 		pipe_ctx->stream_res.pix_clk_params.requested_sym_clk =
+-				link_settings.link_rate * LINK_RATE_REF_FREQ_IN_KHZ;
++				link_settings->link_rate * LINK_RATE_REF_FREQ_IN_KHZ;
+ 		if (state->clk_mgr && !apply_seamless_boot_optimization)
+ 			state->clk_mgr->funcs->update_clocks(state->clk_mgr,
+ 					state, false);
+@@ -2032,16 +2030,15 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 
+ 	skip_video_pattern = true;
+ 
+-	if (link_settings.link_rate == LINK_RATE_LOW)
++	if (link_settings->link_rate == LINK_RATE_LOW)
+ 		skip_video_pattern = false;
+ 
+-	if (perform_link_training_with_retries(&link_settings,
++	if (perform_link_training_with_retries(link_settings,
+ 					       skip_video_pattern,
+ 					       LINK_TRAINING_ATTEMPTS,
+ 					       pipe_ctx,
+ 					       pipe_ctx->stream->signal,
+ 					       do_fallback)) {
+-		link->cur_link_settings = link_settings;
+ 		status = DC_OK;
+ 	} else {
+ 		status = DC_FAIL_DP_LINK_TRAINING;
+@@ -2052,7 +2049,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 	else
+ 		fec_enable = true;
+ 
+-	if (dp_get_link_encoding_format(&link_settings) == DP_8b_10b_ENCODING)
++	if (dp_get_link_encoding_format(link_settings) == DP_8b_10b_ENCODING)
+ 		dp_set_fec_enable(link, fec_enable);
+ 
+ 	// during mode set we do DP_SET_POWER off then on, aux writes are lost
+@@ -4124,11 +4121,10 @@ static void fpga_dp_hpo_enable_link_and_stream(struct dc_state *state, struct pi
+ 	struct fixed31_32 avg_time_slots_per_mtp;
+ 	uint8_t req_slot_count = 0;
+ 	uint8_t vc_id = 1; /// VC ID always 1 for SST
+-	struct dc_link_settings link_settings = {0};
++	struct dc_link_settings link_settings = pipe_ctx->link_config.dp_link_settings;
+ 	const struct link_hwss *link_hwss = get_link_hwss(stream->link, &pipe_ctx->link_res);
+ 	DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+ 
+-	decide_link_settings(stream, &link_settings);
+ 	stream->link->cur_link_settings = link_settings;
+ 
+ 	if (link_hwss->ext.enable_dp_link_output)
+@@ -4602,10 +4598,7 @@ void dc_link_set_preferred_link_settings(struct dc *dc,
+ 	if (link_stream->dpms_off)
+ 		return;
+ 
+-	decide_link_settings(link_stream, &store_settings);
+-
+-	if ((store_settings.lane_count != LANE_COUNT_UNKNOWN) &&
+-		(store_settings.link_rate != LINK_RATE_UNKNOWN))
++	if (decide_link_settings(link_stream, &store_settings))
+ 		dp_retrain_link_dp_test(link, &store_settings, false);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index a126921c664a..d380b8bc6f39 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3880,15 +3880,13 @@ static bool decide_mst_link_settings(const struct dc_link *link, struct dc_link_
+ 	return true;
+ }
+ 
+-void decide_link_settings(struct dc_stream_state *stream,
++bool decide_link_settings(struct dc_stream_state *stream,
+ 	struct dc_link_settings *link_setting)
+ {
+-	struct dc_link *link;
+-	uint32_t req_bw;
+-
+-	req_bw = dc_bandwidth_in_kbps_from_timing(&stream->timing);
++	struct dc_link *link = stream->link;
++	uint32_t req_bw = dc_bandwidth_in_kbps_from_timing(&stream->timing);
+ 
+-	link = stream->link;
++	memset(link_setting, 0, sizeof(*link_setting));
+ 
+ 	/* if preferred is specified through AMDDP, use it, if it's enough
+ 	 * to drive the mode
+@@ -3897,16 +3895,15 @@ void decide_link_settings(struct dc_stream_state *stream,
+ 			LANE_COUNT_UNKNOWN &&
+ 			link->preferred_link_setting.link_rate !=
+ 					LINK_RATE_UNKNOWN) {
+-		*link_setting =  link->preferred_link_setting;
+-		return;
++		*link_setting = link->preferred_link_setting;
++		return true;
+ 	}
+ 
+ 	/* MST doesn't perform link training for now
+ 	 * TODO: add MST specific link training routine
+ 	 */
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+-		if (decide_mst_link_settings(link, link_setting))
+-			return;
++		decide_mst_link_settings(link, link_setting);
+ 	} else if (link->connector_signal == SIGNAL_TYPE_EDP) {
+ 		/* enable edp link optimization for DSC eDP case */
+ 		if (stream->timing.flags.DSC) {
+@@ -3924,17 +3921,16 @@ void decide_link_settings(struct dc_stream_state *stream,
+ 				decide_edp_link_settings(link, &tmp_link_setting, orig_req_bw);
+ 				max_link_rate = tmp_link_setting.link_rate;
+ 			}
+-			if (decide_edp_link_settings_with_dsc(link, link_setting, req_bw, max_link_rate))
+-				return;
+-		} else if (decide_edp_link_settings(link, link_setting, req_bw))
+-			return;
+-	} else if (decide_dp_link_settings(link, link_setting, req_bw))
+-		return;
+-
+-	BREAK_TO_DEBUGGER();
+-	ASSERT(link->verified_link_cap.lane_count != LANE_COUNT_UNKNOWN);
++			decide_edp_link_settings_with_dsc(link, link_setting, req_bw, max_link_rate);
++		} else {
++			decide_edp_link_settings(link, link_setting, req_bw);
 +		}
++	} else {
++		decide_dp_link_settings(link, link_setting, req_bw);
++	}
+ 
+-	*link_setting = link->verified_link_cap;
++	return link_setting->lane_count != LANE_COUNT_UNKNOWN &&
++			link_setting->link_rate != LINK_RATE_UNKNOWN;
+ }
+ 
+ /*************************Short Pulse IRQ***************************/
+@@ -4509,7 +4505,6 @@ void dc_link_dp_handle_link_loss(struct dc_link *link)
+ {
+ 	int i;
+ 	struct pipe_ctx *pipe_ctx;
+-	struct dc_link_settings prev_link_settings = link->preferred_link_setting;
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+@@ -4520,10 +4515,6 @@ void dc_link_dp_handle_link_loss(struct dc_link *link)
+ 	if (pipe_ctx == NULL || pipe_ctx->stream == NULL)
+ 		return;
+ 
+-	/* toggle stream state with the preference for current link settings */
+-	dc_link_set_preferred_training_settings((struct dc *)link->dc,
+-					&link->cur_link_settings, NULL, link, true);
+-
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
+@@ -4539,10 +4530,6 @@ void dc_link_dp_handle_link_loss(struct dc_link *link)
+ 			core_link_enable_stream(link->dc->current_state, pipe_ctx);
+ 		}
+ 	}
+-
+-	/* restore previous link settings preference */
+-	dc_link_set_preferred_training_settings((struct dc *)link->dc,
+-					&prev_link_settings, NULL, link, true);
+ }
+ 
+ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 9eb7e7027622..9db50ed5460b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2374,12 +2374,10 @@ enum dc_status resource_map_pool_resources(
+ 	/* Allocate DP HPO Stream Encoder based on signal, hw capabilities
+ 	 * and link settings
+ 	 */
+-	if (dc_is_dp_signal(stream->signal) &&
+-			dc->caps.dp_hpo) {
+-		struct dc_link_settings link_settings = {0};
+-
+-		decide_link_settings(stream, &link_settings);
+-		if (dp_get_link_encoding_format(&link_settings) == DP_128b_132b_ENCODING) {
++	if (dc_is_dp_signal(stream->signal)) {
++		if (!decide_link_settings(stream, &pipe_ctx->link_config.dp_link_settings))
++			return DC_FAIL_DP_LINK_BANDWIDTH;
++		if (dp_get_link_encoding_format(&pipe_ctx->link_config.dp_link_settings) == DP_128b_132b_ENCODING) {
+ 			pipe_ctx->stream_res.hpo_dp_stream_enc =
+ 					find_first_free_match_hpo_dp_stream_enc_for_link(
+ 							&context->res_ctx, pool, stream);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_status.h b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
+index 8eb8d4afa876..fa5edd03d004 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_status.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
+@@ -55,6 +55,7 @@ enum dc_status {
+ 
+ 	DC_NO_LINK_ENC_RESOURCE = 26,
+ 	DC_FAIL_DP_PAYLOAD_ALLOCATION = 27,
++	DC_FAIL_DP_LINK_BANDWIDTH = 28,
+ 	DC_ERROR_UNEXPECTED = -1
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index 078c0c3ca2c5..2e158b1f5980 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -342,6 +342,9 @@ struct link_resource {
+ 	struct hpo_dp_link_encoder *hpo_dp_link_enc;
+ };
+ 
++struct link_config {
++	struct dc_link_settings dp_link_settings;
++};
+ union pipe_update_flags {
+ 	struct {
+ 		uint32_t enable : 1;
+@@ -375,6 +378,13 @@ struct pipe_ctx {
+ 
+ 	struct pll_settings pll_settings;
+ 
++	/* link config records software decision for what link config should be
++	 * enabled given current link capability and stream during hw resource
++	 * mapping. This is to decouple the dependency on link capability during
++	 * dc commit or update.
++	 */
++	struct link_config link_config;
 +
- 		if (should_disable && old_stream) {
- 			dc_rem_all_planes_for_stream(dc, old_stream, dangling_context);
- 			disable_all_writeback_pipes_for_stream(dc, old_stream, dangling_context);
+ 	uint8_t pipe_idx;
+ 	uint8_t pipe_idx_syncd;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+index aaa17d4dd46b..b44c7b43f7db 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+@@ -70,7 +70,7 @@ bool decide_edp_link_settings(struct dc_link *link,
+ 		struct dc_link_settings *link_setting,
+ 		uint32_t req_bw);
+ 
+-void decide_link_settings(
++bool decide_link_settings(
+ 	struct dc_stream_state *stream,
+ 	struct dc_link_settings *link_setting);
+ 
 -- 
 2.25.1
 
