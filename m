@@ -4,122 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07E8BC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 09:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D033C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 10:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 285D511AEE8;
-	Mon, 11 Jul 2022 09:07:57 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2067.outbound.protection.outlook.com [40.107.95.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE44112A99
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 09:07:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KK1ulgJ7RzwgmPthZdglZz/c05pkJuxpR9qEnAOhIGQToXOEQR2KeXIwoas6R6U2dGOpEdo3BnJDxGT6Nq1YrngFjwcJj1gNNaBYH2j0hLKjitBNn22uGvy90t/9zKeAT9/anu0nz/FLKn52dYO0quZIPWLA57fQcEk2GyHGnavs0VoD3sXKxhw1k66xkbOiOhKrPd4swN3M00PJ0t2zAGGo3+5BFC46h9uT+Eu50Enjrredp3s3oGYQ0JLYSRMH2/bVxVV4hQTfp2Mj21IltvPqNtZKqdSRFl9QB7mLMY1Pyq2h7HpzhTFFiiKB8mwJzJZ8iAVU0YkFCnpz5U+PvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hhT7DBDYZAjmtbisgzp+WQV42rP4u84xer6sW1j8T1o=;
- b=l0+ldmG25v7wEhi30YOOF9slgMeVADYuXK8ocIqb5mSRx1GiLVK6MfV1/o3KUjnv4cX9upLdUF8S1OECiSSNTNvoUOuYTbmlaljqM3iydpiX6kbhB/5WDG1w78EkSpaZrAXjHTWOP/ORtNjyW3zGRMINkO6dJ8kQIlcaisAgrdzkleVxTyfB0rOXR5E5XkJpRt860+ZbzVXleKDLrCd5e7mFsWAxsdhi8RZxA6Unl9kceu0A07CTkW7P5cRWT/U7qLKtAiOZ2I4HcVgj/XRmAqINeg2sXy1U2ovJZLBvQPCbEwfCkk0RjbthLIb6FsoI8jMtSzJDbK6SjHf6uljf5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hhT7DBDYZAjmtbisgzp+WQV42rP4u84xer6sW1j8T1o=;
- b=DbWInvbW9ws8N/AlK3rXdPvY1LJe+/V9rmQmUw1o6PZCGHq/TlEhohZBEUOgkOrTKhWxJ4pfZ4X6+VJw6D85acqMyoQ9GQhjBxTSK7KARbbCBWdOcLvMdeqQLyrg9y5SnSShdyxDx/33Sy2Tahz3pVVtPHKQiZLPBbaBIC05dY0=
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
- by DS7PR12MB6094.namprd12.prod.outlook.com (2603:10b6:8:9d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Mon, 11 Jul
- 2022 09:07:47 +0000
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::b594:e040:ee7c:92e4]) by BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::b594:e040:ee7c:92e4%4]) with mapi id 15.20.5417.026; Mon, 11 Jul 2022
- 09:07:47 +0000
-From: "Liu, Aaron" <Aaron.Liu@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: correct the MEC atomic support firmware
- checking for GC 10.3.7
-Thread-Topic: [PATCH] drm/amdkfd: correct the MEC atomic support firmware
- checking for GC 10.3.7
-Thread-Index: AQHYlQPwO2xFdwYag0i/Qk5G76Rjn6144UGQ
-Date: Mon, 11 Jul 2022 09:07:47 +0000
-Message-ID: <BL1PR12MB52376AFF60199F3FAF58637FF0879@BL1PR12MB5237.namprd12.prod.outlook.com>
-References: <20220711085504.2143925-1-Prike.Liang@amd.com>
-In-Reply-To: <20220711085504.2143925-1-Prike.Liang@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-11T09:07:45Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9cbd0979-04dd-4fa7-9d0c-e04ba159d8e3;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-07-11T09:07:45Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 7cd99172-4206-4c6d-8f2d-59784643554d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 79f49df3-f510-459c-f6f2-08da631cd2aa
-x-ms-traffictypediagnostic: DS7PR12MB6094:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CUNfGHuWtXyhvMO8Q+l25e7MOMBDWtVplmkVGDCTpijGG+NGCe9B21OZ+m7+zz8Avo49f6wweC6NXxg17DxIOwJQ+SkWD6Q/DMYZbI0YiVO2mDhE0lLK1J5SjjXmnritstM/49M0Qwt4BkDlwxbs1+pR5KrAEabZCFF/7i0qJcyzaclkEUtzRJLJRHZ0dDT9EwMG0mKRdnEKae4ZPKjAuVJTt/pHbgDgQm+dhRtXts5+/pm6RDvEE5grgbaJKw1tNQ9+ohZ2Nyo+3A6hrNPrrc40lBajGo+gq126tuLG+cVzgq2ZMyFN67oQcSn1+0QjEddOe4P4sLSfBM8I3lnHAkCyxs3LCbv1eEpJy581agsHT8OLAVfGAK2DJxv3io5f7NEZqAH+egUTmC8AquYRET0sjxLbgkIWWxswBz4dyrm+I/Wjpn3pBMxEoYTxb7ovc444pwgBzvRt9WSclQ2zyx4VOykZY2FaicoqcwEODtoda+WWtbJPc4MLMSbKcV5yB+8hxMlwNHf6XTD19+c3xzjmu4KbOmTa1H6MqntMQijzDncWX+jDYbILtAfJ0Bq4QxBWDsmKgM0AWXFOhpQOpNsfeLt9bJLmkTy9luiubpjC55dEhRVODmbxHVA9FtOZK1rSr4gPJsfmdEt4wIlPLMw6oWWhI0uZcP9pqD3j1OJz+yQfhr8x1vpQYGAsIGeLLZOG1M+Eii0WKbayAI9oFLUwrw5DUhu9yrIjpsdTvS6g5mAvlipd3kC3XTXopRl+IZDnokJD6a7lSUHGeQRjcujP7ZGXWKVG4bylo/OG0QIOZg3BZvWxkqivxq8JAMFk
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(136003)(376002)(396003)(346002)(2906002)(478600001)(33656002)(38070700005)(83380400001)(122000001)(55016003)(66946007)(186003)(76116006)(52536014)(8676002)(86362001)(316002)(66476007)(54906003)(8936002)(66446008)(4326008)(66556008)(64756008)(5660300002)(110136005)(26005)(71200400001)(38100700002)(6506007)(41300700001)(7696005)(53546011)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?S71a61qK8B8GoIA1Rse+ZicV0szeVg1XEh0zMfHPI0TQjsh8uxfq46+q/oyv?=
- =?us-ascii?Q?hPtdUZXYKj9ro3LLYPU385v+J1Mq5n11Wzffxj3U0LMRPar18510lc3WTUp4?=
- =?us-ascii?Q?940BOJRKJ4n4hgrbF1uRtIJ7KWD1ewN9Z8glZtFZkVDM0ROK/IxEohN71S5v?=
- =?us-ascii?Q?+mAg5vRN3n0G2yChgT4a8ZYuq4mxeuRH9gNIp4/JJ0xNl/2hbbSypFfl+1CQ?=
- =?us-ascii?Q?14Xm5ryx5HoxpCjgxAfanSyBsI2r0lO98qmfcrP4DaSHNGYLUO8SfAf1x2/X?=
- =?us-ascii?Q?xZeK0QmNea9gZwTUlWuf8bU30mQvMpmp0vgioN/+Yku3pV7DzgGB3Da6Zu6z?=
- =?us-ascii?Q?1rbjImurLc589zZFiefuHso+b+rhVaKgiFiYXYSbcf0XBZXnm11I2WJ6DV9e?=
- =?us-ascii?Q?b00f/U0Dr0FT10N1ld99BX7BDOFbYzPqFyH8NoOzvGMss/jVIRJgWhipdNWe?=
- =?us-ascii?Q?IO6V8SlweXwuHR+xJeCUehNko1jXT0Y/eLW+DJhYnzVpazrUxOb7rFCLQdqf?=
- =?us-ascii?Q?6m5nsYZ+iKl7UPUx562P4oXxFj12GTWLVXFxGy/Wq0MsByGdJ39JweYwMG4a?=
- =?us-ascii?Q?aWZQjfI5GeHpHWBM6kheg/nbsjG5QdAr8h7d4pA/GJ11z+WwnGYBQJKH2Dnu?=
- =?us-ascii?Q?CP176U1Cqe3jvnPPFj5S8x9+G2r34YLeGotPLtKJGNQvf9wA866pqSwphuuT?=
- =?us-ascii?Q?4eVnIS5YZLF4zzTkJWIMUTa7NloIWjr5gon0ZR/sbzt8vvEKKApmQ3nhyoOJ?=
- =?us-ascii?Q?Yl3QkSE6YTk4gx6/SNyuBIvkHam+5ucOAQV6cfAKcW+vbO0PQmop0Reb2vuf?=
- =?us-ascii?Q?J0XCJ5IeeI6tBRs8gh6CT2alAUNHtF8i/oDIBIsqWY2LMisF+BedfmXqwEWV?=
- =?us-ascii?Q?4hMl267r0v5wW4ISyY3+RgIhRk4kYpJotrcq9xfuVpxHRh+ZrMm2MpX42pJM?=
- =?us-ascii?Q?K21wC7Hct3q2PKrS8M20C3L4KxZq5ZcS3VbMQOvLZOc/YEA2HQSVUCI44ETb?=
- =?us-ascii?Q?cwWVi34JhZWd3z3XW655tQM5t1whGxJ0lcv1y+iye2rgkeyTLvHge4WapQGQ?=
- =?us-ascii?Q?kf7IPCqsOWNMmFeGWQE9sRuZBRckFhRCYyiLNoSIMQZCXuj3/07R7ChbA9Tg?=
- =?us-ascii?Q?KKXGBJkOqbx+dbjLfkEyJLOVi/F2OaNRa5lYG60Lan51UOE1GyFfeD3QQnvt?=
- =?us-ascii?Q?mvgh00QFMw3CAqOcPbYGKE7NDoSJgJR/71HKAz7F1X7Xa7yzgbooW++mgSjz?=
- =?us-ascii?Q?JBkPu1aKVnaOGjmzakVqfX5EcJZVD9QZn5PIKCjTmPaPQu4unmvKPbwSQrrY?=
- =?us-ascii?Q?rQSCKzUey/wFg5T7mOb17j0ZxM3eC8CKZjurvF0Ao2RQf3JgeIFOKo/4YRmE?=
- =?us-ascii?Q?oxt30a+YTkPvAEKrqjOjEthebpW58QyBQ2nOH8ix/3pn4vY13DNxUJbDtoki?=
- =?us-ascii?Q?VEEVy8syvRZokEr6tSaT836eJvhnCNPhCebiDbiqW6IhjclTgk+KafuK5j27?=
- =?us-ascii?Q?DyXfnPcfQDnByDZ41uXgQfIzEjbk8KtLq/sCtCLp4F3NGRcQYral9Doax5eb?=
- =?us-ascii?Q?3ZJNCgvSM4/62I02Ves=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0E38D66E;
+	Mon, 11 Jul 2022 10:15:22 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFC38D672
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 10:15:21 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id a9so8005477ejf.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 03:15:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to;
+ bh=hd1kelNNhLzGzlc1OmvNM3dfhFiWx+KQ+w65Lu1k51I=;
+ b=bgk4ZrpAd+t/o3CqFTS5ZqS4htp6cdJfBuuxHBHbCJeCGtHGlQQXdUPazLYYTZj6pU
+ DoqjxyIf2D0IUcYbN1+ZyFrolYfjZg7z8f23CPgq2PbTYVX4/rqipsYaOSDOg45S0Kzb
+ qXz/WfXGFjxrxy7SKVhiJvV1DngTG4icEj8GzqtfKSrVfXUaQ+dM3FGv98tkrgb3p/8L
+ CCDJySoVzmovcqqlWgAlF2fxcJkS7IgHOV5mKZ3KFUtSiV47+LFQFlmC/Zr4zrtX/fi2
+ zJ4RfUfEvgwPi33mmO3XQqGENwlFUktdn7zD5v/v7zGydl8oMtLXJRO9yZzj1wEw8aCz
+ mLHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to;
+ bh=hd1kelNNhLzGzlc1OmvNM3dfhFiWx+KQ+w65Lu1k51I=;
+ b=tyXdO8wNG+MR1vuCY4uv+bEw1MZBHlBsPpfJyyqtLXYTP0b/RiEw8oOTMjf6JlwCXn
+ DvVTNiLcAvrvcB8ga99iJNN3rEWg+mv4oGIoQLHoA3dmBRHTNqp/9n7lYe/QcefZJkJ2
+ 3Cwu9g/0K6AIWNdMtGYOV0DeJpbi9AjdndWJy5mrED36K6YLrN3UhmriJkaxG5W5n8FH
+ B4zTvby8fx4foeq5xBv3NYi7h2YyA/rvvCpwQGT+/AwJMAeuQjYUM/wDjle/MypekHRT
+ 1FmlEbMlp6hkkZ3U8+QqBiKCTOpd2KsE+mjfD8lW69w+XsMFTJjZvsQ2ow3wIRQXV4Ns
+ 76Mg==
+X-Gm-Message-State: AJIora/l39yMLbcBsGRpr0E1aKN7pkJhoGt8eFNJuK+vSqoBoAtK51OG
+ pWH7C3ApMq/FNazrapic9AnVKJEjF+M=
+X-Google-Smtp-Source: AGRyM1vTTyNFegwhBDKhXZiOmk71z6Ao/LwMDJh9xFZ/1H4gLzEvpQQKloe79a5LA/MzRxBzzE3ZLg==
+X-Received: by 2002:a17:907:2be9:b0:72b:50b8:82d6 with SMTP id
+ gv41-20020a1709072be900b0072b50b882d6mr5644081ejc.677.1657534519456; 
+ Mon, 11 Jul 2022 03:15:19 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ la7-20020a170907780700b0072b592ee073sm759089ejc.147.2022.07.11.03.15.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Jul 2022 03:15:18 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------7nuj9oasAcyLOQCuaxUGxBdR"
+Message-ID: <e8174e58-c2d0-f3ac-18f0-9c7577eef079@gmail.com>
+Date: Mon, 11 Jul 2022 12:15:17 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79f49df3-f510-459c-f6f2-08da631cd2aa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2022 09:07:47.0844 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0rSsiYI+NLsP/2uOPkcNb4XplasDwNQUH3wqfsCyHVzuSGWMDZ3I86v0vcAR5epj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6094
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/3] drm/amdgpu: add AMDGPU_GEM_CREATE_DISCARDABLE
+Content-Language: en-US
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20220506112312.347519-1-christian.koenig@amd.com>
+ <CAAxE2A4Bny50ywdTXi0MBV_Pb-onx0yVhPOsb2Lk9XtbJ1R4rQ@mail.gmail.com>
+ <CAAxE2A7wOfoWWh5VUFmnhyhNeCQ086trJR2BgT+nAmsYZJTbVg@mail.gmail.com>
+ <d4f8f7fc-e3dc-fcf8-0543-62039c7460d3@gmail.com>
+ <CAAxE2A60-rNUGB3PNL7kq6pJBWf7V-6cAE0Hx6zH31ad7z_1gA@mail.gmail.com>
+ <CAAxE2A6BaiGfXXGnmCH9Zk36oWuOwk_84QBYbZ97QhyZQfwBKQ@mail.gmail.com>
+ <CAAxE2A6wiL5fnegVo+tMsHBNb+HC3Nw=cmR4MdNVqLpEQYH1ug@mail.gmail.com>
+ <11d9492c-f727-f149-d473-9cda4bab2760@gmail.com>
+ <CAAxE2A5jc0FhpnM2tBskS2puKY-jidC_xdMTZhQ5p9U31O_0KA@mail.gmail.com>
+ <62165c7c-892a-5b35-79dd-b90414ccb5cd@damsy.net>
+ <12f757f0-29f5-858e-4723-0babb4b6f335@gmail.com>
+ <CAAxE2A6CV+t9k4VG_zc5uf8qYK07Db0kqChYH0C9MB-TK7MU8g@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAAxE2A6CV+t9k4VG_zc5uf8qYK07Db0kqChYH0C9MB-TK7MU8g@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,48 +82,473 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liang,
- Prike" <Prike.Liang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+This is a multi-part message in MIME format.
+--------------7nuj9oasAcyLOQCuaxUGxBdR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Aaron Liu <aaron.liu@amd.com>
+That would be redundant. GDS handling has always worked in the way that 
+the storage is thrown away after an IB.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Prike
-> Liang
-> Sent: Monday, July 11, 2022 4:55 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>; Huang, Ray <Ray.Huang@amd.com>
-> Subject: [PATCH] drm/amdkfd: correct the MEC atomic support firmware
-> checking for GC 10.3.7
->=20
-> On the GC 10.3.7 platform the initial MEC release version #3 can support
-> atomic operation,so need correct and set its MEC atomic support version t=
-o
-> #3.
->=20
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 6ec0e9f0927d..f5853835f03a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -184,6 +184,8 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
->  			/* Navi2x+, Navi1x+ */
->  			if (gc_version =3D=3D IP_VERSION(10, 3, 6))
->  				kfd->device_info.no_atomic_fw_version =3D 14;
-> +			else if (gc_version =3D=3D IP_VERSION(10, 3, 7))
-> +				kfd->device_info.no_atomic_fw_version =3D 3;
->  			else if (gc_version >=3D IP_VERSION(10, 3, 0))
->  				kfd->device_info.no_atomic_fw_version =3D 92;
->  			else if (gc_version >=3D IP_VERSION(10, 1, 1))
-> --
-> 2.25.1
+My LRU patch set should have helped with GDS out of memory errors, but 
+I'm not sure how far along we are with rebasing amd-staging-drm-next.
+
+Christian.
+
+Am 08.07.22 um 16:58 schrieb Marek Olšák:
+> Christian, should we set this flag for GDS too? Will it help with GDS 
+> OOM failures?
+>
+> Marek
+>
+> On Fri., May 13, 2022, 07:26 Christian König, 
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>
+>     Exactly that's what we can't do.
+>
+>     See the kernel must always be able to move things to GTT or
+>     discard. So
+>     when you want to guarantee that something is in VRAM you must at the
+>     same time say you can discard it if it can't.
+>
+>     Christian.
+>
+>     Am 13.05.22 um 10:43 schrieb Pierre-Eric Pelloux-Prayer:
+>     > Hi Marek, Christian,
+>     >
+>     > If the main feature for Mesa of AMDGPU_GEM_CREATE_DISCARDABLE is
+>     > getting the best placement, maybe we should have 2 separate flags:
+>     >   * AMDGPU_GEM_CREATE_DISCARDABLE: indicates to the kernel that
+>     it can
+>     > discards the content on eviction instead of preserving it
+>     >   * AMDGPU_GEM_CREATE_FORCE_BEST_PLACEMENT (or
+>     > AMDGPU_GEM_CREATE_NO_GTT_FALLBACK ? or
+>     AMDGPU_CREATE_GEM_AVOID_GTT?):
+>     > tells the kernel that this bo really needs to be in VRAM
+>     >
+>     >
+>     > Pierre-Eric
+>     >
+>     > On 13/05/2022 00:17, Marek Olšák wrote:
+>     >> Would it be better to set the VM_ALWAYS_VALID flag to have a
+>     greater
+>     >> guarantee that the best placement will be chosen?
+>     >>
+>     >> See, the main feature is getting the best placement, not being
+>     >> discardable. The best placement is a hw design requirement due to
+>     >> using memory for uses that are expected to have performance
+>     similar
+>     >> to onchip SRAMs. We need to make sure the best placement is
+>     >> guaranteed if it's VRAM.
+>     >>
+>     >> Marek
+>     >>
+>     >> On Thu., May 12, 2022, 03:26 Christian König,
+>     >> <ckoenig.leichtzumerken@gmail.com
+>     >> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
+>     >>
+>     >>     Am 12.05.22 um 00:06 schrieb Marek Olšák:
+>     >>>     3rd question: Is it worth using this on APUs?
+>     >>
+>     >>     It makes memory management somewhat easier when we are
+>     really OOM.
+>     >>
+>     >>     E.g. it should also work for GTT allocations and when the core
+>     >> kernel says "Hey please free something up or I will start the
+>     >> OOM-killer" it's something we can easily throw away.
+>     >>
+>     >>     Not sure how many of those buffers we have, but marking
+>     >> everything which is temporary with that flag is probably a good
+>     idea.
+>     >>
+>     >>>
+>     >>>     Thanks,
+>     >>>     Marek
+>     >>>
+>     >>>     On Wed, May 11, 2022 at 5:58 PM Marek Olšák <maraeo@gmail.com
+>     >>> <mailto:maraeo@gmail.com>> wrote:
+>     >>>
+>     >>>         Will the kernel keep all discardable buffers in VRAM
+>     if VRAM
+>     >>> is not overcommitted by discardable buffers, or will other
+>     buffers
+>     >>> also affect the placement of discardable buffers?
+>     >>>
+>     >>
+>     >>     Regarding the eviction pressure the buffers will be handled
+>     like
+>     >> any other buffer, but instead of preserving the content it is just
+>     >> discarded on eviction.
+>     >>
+>     >>>
+>     >>>         Do evictions deallocate the buffer, or do they keep an
+>     >>> allocation in GTT and only the copy is skipped?
+>     >>>
+>     >>
+>     >>     It really deallocates the backing store of the buffer, just
+>     keeps
+>     >> a dummy page array around where all entries are NULL.
+>     >>
+>     >>     There is a patch set on the mailing list to make this a little
+>     >> bit more efficient, but even using the dummy page array should
+>     only
+>     >> have a few bytes overhead.
+>     >>
+>     >>     Regards,
+>     >>     Christian.
+>     >>
+>     >>>
+>     >>>         Thanks,
+>     >>>         Marek
+>     >>>
+>     >>>         On Wed, May 11, 2022 at 3:08 AM Marek Olšák
+>     >>> <maraeo@gmail.com <mailto:maraeo@gmail.com>> wrote:
+>     >>>
+>     >>>             OK that sounds good.
+>     >>>
+>     >>>             Marek
+>     >>>
+>     >>>             On Wed, May 11, 2022 at 2:04 AM Christian König
+>     >>> <ckoenig.leichtzumerken@gmail.com
+>     >>> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
+>     >>>
+>     >>>                 Hi Marek,
+>     >>>
+>     >>>                 Am 10.05.22 um 22:43 schrieb Marek Olšák:
+>     >>>>                 A better flag name would be:
+>     >>>> AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD
+>     >>>
+>     >>>                 A bit long for my taste and I think the best
+>     >>> placement is just a side effect.
+>     >>>
+>     >>>>
+>     >>>>                 Marek
+>     >>>>
+>     >>>>                 On Tue, May 10, 2022 at 4:13 PM Marek Olšák
+>     >>>> <maraeo@gmail.com <mailto:maraeo@gmail.com>> wrote:
+>     >>>>
+>     >>>>                     Does this really guarantee VRAM
+>     placement? The
+>     >>>> code doesn't say anything about that.
+>     >>>>
+>     >>>
+>     >>>                 Yes, see the code here:
+>     >>>
+>     >>>>
+>     >>>>                         diff --git
+>     >>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>     >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>     >>>>                         index 8b7ee1142d9a..1944ef37a61e 100644
+>     >>>>                         ---
+>     >>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>     >>>>                         +++
+>     >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>     >>>>                         @@ -567,6 +567,7 @@ int
+>     >>>> amdgpu_bo_create(struct amdgpu_device *adev,
+>     >>>> bp->domain;
+>     >>>> bo->allowed_domains =
+>     >>>> bo->preferred_domains;
+>     >>>>                                 if (bp->type !=
+>     ttm_bo_type_kernel &&
+>     >>>>                         +  !(bp->flags &
+>     >>>> AMDGPU_GEM_CREATE_DISCARDABLE) &&
+>     >>>> bo->allowed_domains ==
+>     >>>> AMDGPU_GEM_DOMAIN_VRAM)
+>     >>>> bo->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
+>     >>>>
+>     >>>
+>     >>>                 The only case where this could be circumvented is
+>     >>> when you try to allocate more than physically available on an APU.
+>     >>>
+>     >>>                 E.g. you only have something like 32 MiB VRAM and
+>     >>> request 64 MiB, then the GEM code will catch the error and
+>     fallback
+>     >>> to GTT (IIRC).
+>     >>>
+>     >>>                 Regards,
+>     >>>                 Christian.
+>     >>>
+>     >>
+>
+
+--------------7nuj9oasAcyLOQCuaxUGxBdR
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    That would be redundant. GDS handling has always worked in the way
+    that the storage is thrown away after an IB.<br>
+    <br>
+    My LRU patch set should have helped with GDS out of memory errors,
+    but I'm not sure how far along we are with rebasing
+    amd-staging-drm-next.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 08.07.22 um 16:58 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A6CV+t9k4VG_zc5uf8qYK07Db0kqChYH0C9MB-TK7MU8g@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="auto">Christian, should we set this flag for GDS too?
+        Will it help with GDS OOM failures?
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">Marek</div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Fri., May 13, 2022, 07:26
+          Christian König, &lt;<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0 0 0
+          .8ex;border-left:1px #ccc solid;padding-left:1ex">Exactly
+          that's what we can't do.<br>
+          <br>
+          See the kernel must always be able to move things to GTT or
+          discard. So <br>
+          when you want to guarantee that something is in VRAM you must
+          at the <br>
+          same time say you can discard it if it can't.<br>
+          <br>
+          Christian.<br>
+          <br>
+          Am 13.05.22 um 10:43 schrieb Pierre-Eric Pelloux-Prayer:<br>
+          &gt; Hi Marek, Christian,<br>
+          &gt;<br>
+          &gt; If the main feature for Mesa of
+          AMDGPU_GEM_CREATE_DISCARDABLE is <br>
+          &gt; getting the best placement, maybe we should have 2
+          separate flags:<br>
+          &gt;   * AMDGPU_GEM_CREATE_DISCARDABLE: indicates to the
+          kernel that it can <br>
+          &gt; discards the content on eviction instead of preserving it<br>
+          &gt;   * AMDGPU_GEM_CREATE_FORCE_BEST_PLACEMENT (or <br>
+          &gt; AMDGPU_GEM_CREATE_NO_GTT_FALLBACK ? or
+          AMDGPU_CREATE_GEM_AVOID_GTT?): <br>
+          &gt; tells the kernel that this bo really needs to be in VRAM<br>
+          &gt;<br>
+          &gt;<br>
+          &gt; Pierre-Eric<br>
+          &gt;<br>
+          &gt; On 13/05/2022 00:17, Marek Olšák wrote:<br>
+          &gt;&gt; Would it be better to set the VM_ALWAYS_VALID flag to
+          have a greater <br>
+          &gt;&gt; guarantee that the best placement will be chosen?<br>
+          &gt;&gt;<br>
+          &gt;&gt; See, the main feature is getting the best placement,
+          not being <br>
+          &gt;&gt; discardable. The best placement is a hw design
+          requirement due to <br>
+          &gt;&gt; using memory for uses that are expected to have
+          performance similar <br>
+          &gt;&gt; to onchip SRAMs. We need to make sure the best
+          placement is <br>
+          &gt;&gt; guaranteed if it's VRAM.<br>
+          &gt;&gt;<br>
+          &gt;&gt; Marek<br>
+          &gt;&gt;<br>
+          &gt;&gt; On Thu., May 12, 2022, 03:26 Christian König, <br>
+          &gt;&gt; &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>
+          <br>
+          &gt;&gt; &lt;mailto:<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;&gt;
+          wrote:<br>
+          &gt;&gt;<br>
+          &gt;&gt;     Am 12.05.22 um 00:06 schrieb Marek Olšák:<br>
+          &gt;&gt;&gt;     3rd question: Is it worth using this on APUs?<br>
+          &gt;&gt;<br>
+          &gt;&gt;     It makes memory management somewhat easier when
+          we are really OOM.<br>
+          &gt;&gt;<br>
+          &gt;&gt;     E.g. it should also work for GTT allocations and
+          when the core <br>
+          &gt;&gt; kernel says "Hey please free something up or I will
+          start the <br>
+          &gt;&gt; OOM-killer" it's something we can easily throw away.<br>
+          &gt;&gt;<br>
+          &gt;&gt;     Not sure how many of those buffers we have, but
+          marking <br>
+          &gt;&gt; everything which is temporary with that flag is
+          probably a good idea.<br>
+          &gt;&gt;<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;     Thanks,<br>
+          &gt;&gt;&gt;     Marek<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;     On Wed, May 11, 2022 at 5:58 PM Marek Olšák
+          &lt;<a href="mailto:maraeo@gmail.com" target="_blank"
+            rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a> <br>
+          &gt;&gt;&gt; &lt;mailto:<a href="mailto:maraeo@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;&gt;
+          wrote:<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;         Will the kernel keep all discardable
+          buffers in VRAM if VRAM <br>
+          &gt;&gt;&gt; is not overcommitted by discardable buffers, or
+          will other buffers <br>
+          &gt;&gt;&gt; also affect the placement of discardable buffers?<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;<br>
+          &gt;&gt;     Regarding the eviction pressure the buffers will
+          be handled like <br>
+          &gt;&gt; any other buffer, but instead of preserving the
+          content it is just <br>
+          &gt;&gt; discarded on eviction.<br>
+          &gt;&gt;<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;         Do evictions deallocate the buffer, or do
+          they keep an <br>
+          &gt;&gt;&gt; allocation in GTT and only the copy is skipped?<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;<br>
+          &gt;&gt;     It really deallocates the backing store of the
+          buffer, just keeps <br>
+          &gt;&gt; a dummy page array around where all entries are NULL.<br>
+          &gt;&gt;<br>
+          &gt;&gt;     There is a patch set on the mailing list to make
+          this a little <br>
+          &gt;&gt; bit more efficient, but even using the dummy page
+          array should only <br>
+          &gt;&gt; have a few bytes overhead.<br>
+          &gt;&gt;<br>
+          &gt;&gt;     Regards,<br>
+          &gt;&gt;     Christian.<br>
+          &gt;&gt;<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;         Thanks,<br>
+          &gt;&gt;&gt;         Marek<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;         On Wed, May 11, 2022 at 3:08 AM Marek
+          Olšák <br>
+          &gt;&gt;&gt; &lt;<a href="mailto:maraeo@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a>
+          &lt;mailto:<a href="mailto:maraeo@gmail.com" target="_blank"
+            rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;&gt;
+          wrote:<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;             OK that sounds good.<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;             Marek<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;             On Wed, May 11, 2022 at 2:04 AM
+          Christian König <br>
+          &gt;&gt;&gt; &lt;<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>
+          <br>
+          &gt;&gt;&gt; &lt;mailto:<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;&gt;
+          wrote:<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 Hi Marek,<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 Am 10.05.22 um 22:43 schrieb
+          Marek Olšák:<br>
+          &gt;&gt;&gt;&gt;                 A better flag name would be:<br>
+          &gt;&gt;&gt;&gt;                
+          AMDGPU_GEM_CREATE_BEST_PLACEMENT_OR_DISCARD<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 A bit long for my taste and I
+          think the best <br>
+          &gt;&gt;&gt; placement is just a side effect.<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;                 Marek<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;                 On Tue, May 10, 2022 at 4:13
+          PM Marek Olšák <br>
+          &gt;&gt;&gt;&gt; &lt;<a href="mailto:maraeo@gmail.com"
+            target="_blank" rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a>
+          &lt;mailto:<a href="mailto:maraeo@gmail.com" target="_blank"
+            rel="noreferrer" moz-do-not-send="true"
+            class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;&gt;
+          wrote:<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;                     Does this really
+          guarantee VRAM placement? The <br>
+          &gt;&gt;&gt;&gt; code doesn't say anything about that.<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 Yes, see the code here:<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;&gt;                         diff --git <br>
+          &gt;&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+          <br>
+          &gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+          &gt;&gt;&gt;&gt;                         index
+          8b7ee1142d9a..1944ef37a61e 100644<br>
+          &gt;&gt;&gt;&gt;                         --- <br>
+          &gt;&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+          &gt;&gt;&gt;&gt;                         +++ <br>
+          &gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+          &gt;&gt;&gt;&gt;                         @@ -567,6 +567,7 @@
+          int <br>
+          &gt;&gt;&gt;&gt; amdgpu_bo_create(struct amdgpu_device *adev,<br>
+          &gt;&gt;&gt;&gt;                                        
+          bp-&gt;domain;<br>
+          &gt;&gt;&gt;&gt;                                
+          bo-&gt;allowed_domains = <br>
+          &gt;&gt;&gt;&gt; bo-&gt;preferred_domains;<br>
+          &gt;&gt;&gt;&gt;                                 if
+          (bp-&gt;type != ttm_bo_type_kernel &amp;&amp;<br>
+          &gt;&gt;&gt;&gt;                         +         
+           !(bp-&gt;flags &amp; <br>
+          &gt;&gt;&gt;&gt; AMDGPU_GEM_CREATE_DISCARDABLE) &amp;&amp;<br>
+          &gt;&gt;&gt;&gt;                                    
+          bo-&gt;allowed_domains == <br>
+          &gt;&gt;&gt;&gt; AMDGPU_GEM_DOMAIN_VRAM)<br>
+          &gt;&gt;&gt;&gt; bo-&gt;allowed_domains |=
+          AMDGPU_GEM_DOMAIN_GTT;<br>
+          &gt;&gt;&gt;&gt;<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 The only case where this could be
+          circumvented is <br>
+          &gt;&gt;&gt; when you try to allocate more than physically
+          available on an APU.<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 E.g. you only have something like
+          32 MiB VRAM and <br>
+          &gt;&gt;&gt; request 64 MiB, then the GEM code will catch the
+          error and fallback <br>
+          &gt;&gt;&gt; to GTT (IIRC).<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt;                 Regards,<br>
+          &gt;&gt;&gt;                 Christian.<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;<br>
+          <br>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------7nuj9oasAcyLOQCuaxUGxBdR--
