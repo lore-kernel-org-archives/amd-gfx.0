@@ -4,63 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D247DC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 10:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4C3C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 13:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 545638D7A2;
-	Mon, 11 Jul 2022 10:32:25 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 769FA8D7A5
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 10:32:23 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id v12so5651190edc.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 03:32:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=T6ES99kTpm89eLiogkoHcC6Qpj3q77N36tsrVxTsiTs=;
- b=mOcV2Zhh0TiBF5eQrtj9NWPfZfHm5kFzgto0UlZ3qE8gVbFfb0YpmpJi5W8ujUTDKn
- 1pjas3hAt56YXFKEZsjzIdkfD6HQ0U7wJGG1he/HU/EIVWNa2NMFsox4vqurkDZVVMtr
- AF3S/MtBkEfAbKGO28e8KdGKWK6BE7vRfnV/F0Ion7bAWc1iBEXVlYaL4B88UjwJ1ve7
- RlA39TUfxEqHEvUKQMs0+FZACgPUpAz8YXft8oPgFOoxWLFf2o6Yj4D1w2jO30wTGV7D
- cvbFQU8fI0ctiNzJQbSzm/yNofOydA4yt4+GipDFmhHjqrqg1moWMY1kBUi+sRKtZbH2
- H8zQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D134E8E8EE;
+	Mon, 11 Jul 2022 13:55:23 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1234A12A619
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 13:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1657547582;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TiDFw+H9wQAOoFgenmknWW5ulkS2E0Ovm/60i012Tps=;
+ b=bty9a/+z0po9y951Q9OaFfA4QOPqe//PWk8MD1gR4J0tKzF3NylJ2ikslSpTq9YG4OvP7i
+ xooGpKzVJfRxbNJ5eZrWgD2cqsH9lt06u43E8EC7+ZAaRx9+vN2625MUD/SQzsAHzOiWUI
+ wCo6BpOdZR4E9TR57FWW76ri8KkSSUc=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-114-yENE9ep7Niqi0N-yuMjjRA-1; Mon, 11 Jul 2022 09:53:01 -0400
+X-MC-Unique: yENE9ep7Niqi0N-yuMjjRA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ r186-20020a1c44c3000000b003a2daf644f9so4961028wma.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 06:53:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=T6ES99kTpm89eLiogkoHcC6Qpj3q77N36tsrVxTsiTs=;
- b=lwe9fTmmlbpBFZGLXOIXVeXojTpgX1XWCoNzdc+ldiOJJc6wkQQJQ7Av4fToAvt3Y7
- ZPi8qeZnD7sezTPqrCBoh+9gIl4gkFk5EUJnSwK+hAH6DbcO/SRWJNZd+ncLy9HYX6aM
- e4eUHZvjf1anNklJQPqp2ANLy/i/yOps1fOqLmniFfgPKcKBsGh1mIm9J0QgcxeY5UKH
- zapBK39wdUPKT/Gk5MtFKoU2rm3rAmYG0m7m5Gd/4dhUtqH6gUZfMljyZ+NFiBqnJS67
- iHxzhSaOYfaCU+yDWDS+NSbviY1rPkXVZo5VPihwR+DnNoIjchEiXxW+TW5IHlYZmNW0
- R/xg==
-X-Gm-Message-State: AJIora+8FjmSVQvXl0QsXG/RFn24jYyxZ/WnTHvyUxeQU4kRlethqexZ
- 3aHyd9X0jAwiAQr59FC+Yurj3YJjAR0=
-X-Google-Smtp-Source: AGRyM1se7Y18tGkaSiegBZtPMAX/Jui797PhjLiMy3W3tNjBcaVsN5tutSWjjeXtm0wPeR2Gy6O7PQ==
-X-Received: by 2002:a05:6402:5193:b0:435:9a5f:50a8 with SMTP id
- q19-20020a056402519300b004359a5f50a8mr23813778edd.212.1657535541999; 
- Mon, 11 Jul 2022 03:32:21 -0700 (PDT)
-Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
- [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
- q21-20020aa7da95000000b00435651c4a01sm4086800eds.56.2022.07.11.03.32.21
+ h=x-gm-message-state:message-id:date:mime-version:user-agent
+ :content-language:to:cc:references:from:organization:subject
+ :in-reply-to:content-transfer-encoding;
+ bh=TiDFw+H9wQAOoFgenmknWW5ulkS2E0Ovm/60i012Tps=;
+ b=Rx6f/fNaIKm4jfYQAER5v6rmPC1Qyz8XFnsz5ye/nBi+XAnNLq3xY81ac3WHArtmq7
+ VoEVwBeqReupiURSWq7EH3SxX6P6bRntlECcqWObv6CvVIcXwcEYXZuGIXl5gB4j8KSg
+ SFO82+uwumEqlMj0TSPxknw9pGPfMRnlN5RkhzyP1Of95mbTUZu3tl9QMtgUyKHZqVwY
+ SVEhogwaz2iA76zO4ZBJEsFSsuxbrPvDGcA2qw1A3w8uwJhAy8cG3M+kUSMBlHYmb2LQ
+ CzDLmOM9COQcup4ClGWf60umAhHE60bMGMZrEMXcVdTGnUMVu2dgZPtEBXq6PX/0pDP+
+ Z1Ig==
+X-Gm-Message-State: AJIora9FFOIRTSMlFCyLvKcfHqcm4O8MRlGfcb1H7kJCuCKE2fhIAND+
+ IW0tTyrC5Dm5zhXLQpk8pIsISxO/qld4vz1T5q2VFFptDYJFu/19NmQR/EaTU8Nt9KhB7eTF1ar
+ Y5ISw4pCOH+ABNJrQN3fool55sA==
+X-Received: by 2002:adf:f151:0:b0:21d:76a7:76d3 with SMTP id
+ y17-20020adff151000000b0021d76a776d3mr16557678wro.702.1657547579795; 
+ Mon, 11 Jul 2022 06:52:59 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tVRhLI1q2NxvdCqXB46XQEdcekPaWp69NFcGLqv0djixdSMTe1BzXGsV30YFN4gPC0osccbA==
+X-Received: by 2002:adf:f151:0:b0:21d:76a7:76d3 with SMTP id
+ y17-20020adff151000000b0021d76a776d3mr16557660wro.702.1657547579573; 
+ Mon, 11 Jul 2022 06:52:59 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c702:1400:c3:4ae0:6d5c:1ab2?
+ (p200300cbc702140000c34ae06d5c1ab2.dip0.t-ipconnect.de.
+ [2003:cb:c702:1400:c3:4ae0:6d5c:1ab2])
+ by smtp.gmail.com with ESMTPSA id
+ z15-20020a056000110f00b0021d6c7a9f50sm6200486wrw.41.2022.07.11.06.52.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jul 2022 03:32:21 -0700 (PDT)
-Message-ID: <5fe781cf-8731-1e1c-3c2c-b8957770276c@gmail.com>
-Date: Mon, 11 Jul 2022 12:32:20 +0200
+ Mon, 11 Jul 2022 06:52:58 -0700 (PDT)
+Message-ID: <7a772ca0-0c82-2251-dd54-8ad466774e99@redhat.com>
+Date: Mon, 11 Jul 2022 15:52:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amd/pm: Prevent divide by zero
+ Thunderbird/91.11.0
+To: Alex Sierra <alex.sierra@amd.com>, jgg@nvidia.com
+References: <20220707190349.9778-1-alex.sierra@amd.com>
+ <20220707190349.9778-7-alex.sierra@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+Subject: Re: [PATCH v8 06/15] mm: remove the vma check in migrate_vma_setup()
+In-Reply-To: <20220707190349.9778-7-alex.sierra@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: "Mr. B34r" <mr.b34r@kolabnow.com>, amd-gfx@lists.freedesktop.org
-References: <20220709023125.75039-1-mr.b34r@kolabnow.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220709023125.75039-1-mr.b34r@kolabnow.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 11 Jul 2022 13:55:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +91,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.07.22 um 04:31 schrieb Mr. B34r:
-> From: Vannoonnoo <mr.b34r@kolabnow.com>
->
-> divide error: 0000 [#1] SMP PTI
-> CPU: 3 PID: 78925 Comm: tee Not tainted 5.15.50-1-lts #1 5c320a339f0e397222fdfc9449eff04c0b12ea83
-> Hardware name: MSI MS-7A59/Z270 SLI PLUS (MS-7A59), BIOS 1.90 01/30/2018
-> RIP: 0010:smu_v11_0_set_fan_speed_rpm+0x11/0x110 [amdgpu]
->
-> Speed is user-configurable through a file. I accidentally set it to zero, and the driver crashed.
+On 07.07.22 21:03, Alex Sierra wrote:
+> From: Alistair Popple <apopple@nvidia.com>
+> 
+> migrate_vma_setup() checks that a valid vma is passed so that the page
+> tables can be walked to find the pfns associated with a given address
+> range. However in some cases the pfns are already known, such as when
+> migrating device coherent pages during pin_user_pages() meaning a valid
+> vma isn't required.
 
-Good catch, just some minor style problems. Your Signed-of-by line is 
-missing for example.
+As raised in my other reply, without a VMA ... it feels odd to use a
+"migrate_vma" API. For an internal (mm/migrate_device.c) use case it is
+ok I guess, but it certainly adds a bit of confusion. For example,
+because migrate_vma_setup() will undo ref+lock not obtained by it.
 
-There is a checkpath.pl script in the Linux kernel source which can 
-point out such trivial mistakes.
+I guess the interesting point is that
 
-Please run it on your patch and resend, apart from that looks good to me.
+a) Besides migrate_vma_pages() and migrate_vma_setup(), the ->vma is unused.
 
-Christian.
+b) migrate_vma_setup() does collect+unmap+cleanup if unmap failed.
 
->
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 5f8809f6990d..69cebdb58c04 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1236,6 +1236,10 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
->   	 * - For some Sienna Cichlid SKU, the fan speed cannot be set
->   	 *   lower than 500 RPM.
->   	 */
-> +
-> +	if (speed == 0)
-> +		return -EINVAL;
-> +
->   	tach_period = 60 * crystal_clock_freq * 10000 / (8 * speed);
->   	WREG32_SOC15(THM, 0, mmCG_TACH_CTRL,
->   		     REG_SET_FIELD(RREG32_SOC15(THM, 0, mmCG_TACH_CTRL),
+c) With our source page in our hands, we cannot be processing a hole in
+a VMA.
+
+
+
+Not sure if it's better. but I would
+
+a) Enforce in migrate_vma_setup() that there is a VMA. Code outside of
+mm/migrate_device.c shouldn't be doing some hacks like this.
+
+b) Don't call migrate_vma_setup() from migrate_device_page(), but
+directly migrate_vma_unmap() and add a comment.
+
+
+That will leave a single change to this patch (migrate_vma_pages()). But
+is that even required? Because ....
+
+> @@ -685,7 +685,7 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+>  			continue;
+>  		}
+>  
+> -		if (!page) {
+> +		if (!page && migrate->vma) {
+
+How could we ever have !page in case of migrate_device_page()?
+
+Instead, I think a VM_BUG_ON(migrate->vma); should hold and you can just
+simplify.
+
+>  			if (!(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+>  				continue;
+>  			if (!notified) {
+-- 
+Thanks,
+
+David / dhildenb
 
