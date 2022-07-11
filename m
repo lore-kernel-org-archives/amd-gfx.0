@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7902DC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 15:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40552C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 15:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D80D512BE7A;
-	Mon, 11 Jul 2022 15:29:20 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB5512BB79
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 15:29:19 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id k30so6708616edk.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 08:29:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F43D8F0DB;
+	Mon, 11 Jul 2022 15:30:13 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 671AA8F0C9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 15:30:12 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id fd6so6709705edb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 08:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fjhF9JZ7AvcggY+gdUWjrZe2eoQP+ZJyarfQG/Lxv94=;
- b=cEAsIV9Ot2GnyLgnEqdqkFBl2KxkVZZNTc7qmmW/qduUg3mL/TgJOL4f0JIwgS+aiC
- coH3AamEb+YTl863p6aUA0b7UaDthg5LVPhqT9nIhqSKOYs5TskPD8bK5LoZILLV7YZv
- MsRgsJtMSQVs0I064zq5C0tEU14TDZIJ+vr5vMfa9Lo8nBjb6DitJA0mbxwDGqhpcMzk
- S7XH8S/LA+ag6qa96fmBJz35I/GdVX/W4uZBsUZbwloKXfw0vQPw23y/PHTpF5+apxXp
- k4STRWuaY1TeSj/OAyeDoByLAH6gs02nJvXHQ/df1U4lhYqY8XNSrt6QmjjVJKGw/Ryo
- xfBQ==
+ :cc; bh=RwHCEwZ+KyKIc2eCvfeQFmEKY7KG5pWcRFN+HiB23Mo=;
+ b=X+Ci2lvOzejtzzZNGXQvaLVunvdVwBH8HjrorWNSTRE9HCxEz5MX/5lh/qYtAJkixc
+ UDkaE7bG+wqhWGZcCEoEFLsvJ+e0jhNCsXNslnkDn1lP2FTDqoJrP4EKxNqgukhLQ3eF
+ Y6qyXsdcE0eyFOCy0p+ZpYXCfFGlLS2OpIeAaLRGrhvn77Dady6LtYCwB8k6gdhAm+AZ
+ r7MLPkr7qxKWZnOnkB2///VmU6YE5YBpUlKECT7ojgcbFzPcx3l9UEJBI8hc6Fo6kNrg
+ DPMEPqOfHDmc2nEX3Ne3b6QGP6tI/LPCIwKamDQFlX0sp59NlqwTqnZLclSFLxiNmBVP
+ c1QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=fjhF9JZ7AvcggY+gdUWjrZe2eoQP+ZJyarfQG/Lxv94=;
- b=7k1triKh9+EGi40nkiuoXM61dcfQsQ3RpXIpB+DQ5qgZ8Kw8O+73+Mcvwi4F+mkV9e
- r2RaZgVNl3Z+iTGHs/Vg8OdSCSTYXwDFkiH03QRBWKVFRDyVmwGCKTLxOn8hDDYkI4Pr
- A14AERHyVy5pIEK5dzxue0KFLHeg6JqULvoQoKZ+yVaqGbqcanflg1crd/D8fi0HZoBs
- vahGivHALcpWY3vMw0J4P+E9N9E6NAh1054Tmj363bWbZZOMNgPw7N0u3ywQ/eH2sznE
- fRcwBnq62fqbpmGSxe7UfuAZNRSPYoU8syqX8FeqgChmP8ZSb3J8usUBHNty4qNiwCNu
- z5Eg==
-X-Gm-Message-State: AJIora8qh1ipjQuhlWiU3Hf54syNtyJ4rnXCOUXUxqMTFiS2Yw8atCDB
- Iviza1sX7/8hVZCQ/klW5v2AFLFGG0wsJ2b4Xp43xOam
-X-Google-Smtp-Source: AGRyM1sv3PIyxycSYe6bkH24xFFlTNJhKraI+6xvJ9Vmkrc1CdUIvockZ87k1m2ipUy9uQrIUE4UL3ZOAMkrhZLhSqQ=
-X-Received: by 2002:a05:6402:274c:b0:43a:9204:95fb with SMTP id
- z12-20020a056402274c00b0043a920495fbmr25857369edd.259.1657553358446; Mon, 11
- Jul 2022 08:29:18 -0700 (PDT)
+ bh=RwHCEwZ+KyKIc2eCvfeQFmEKY7KG5pWcRFN+HiB23Mo=;
+ b=zx3QmT6dC0ScJqDcW6XeGCVBSDg2qZYRGW+FYcXGYOPmiJvyBI3letGR6E6axIaKBI
+ xNYl54lJG7sihuXNynDlwselOrmMIdBH7ecr9PHMvp7RTuHCzuu0gMUOy+Zdgs7JeqHC
+ NYxagWINI0vhkmugt7SyJZeEZ2+jh7RZ2qSW8sBw2Id3/3Y650YMZgpTRgny4LVaIfdr
+ T2xDlCEGd84JuYhl0QdIgtvzv8QugeRwcBDCTtu/vYitvqH4dWDHGzC6ioGWowDohbOo
+ yeldNtVCqDCbGyXvry8qOLY6lne34KdElzVPafmbh46qaQwHe3EP8xoQZOkzJeZLCPzp
+ tKgQ==
+X-Gm-Message-State: AJIora8o/oRDta/pmWChMEFvTOUXrbLFVpMmYgzSFcqpVZznWgs4k1jd
+ d/EVtVL+nTIruUjSV5Lp9X6CA/CfbkI8gYTiWgkX5/sm
+X-Google-Smtp-Source: AGRyM1vPPEpO7EU1RaelAzpt2HqdBrb800P96i3g5YlfszEYN1zBwjbUdis1KUzn1wn046U8nNqhcEfFJWShBZW8ftA=
+X-Received: by 2002:a05:6402:13:b0:439:ffe8:bec9 with SMTP id
+ d19-20020a056402001300b00439ffe8bec9mr25985231edu.297.1657553410955; Mon, 11
+ Jul 2022 08:30:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220711135742.11739-1-guchun.chen@amd.com>
-In-Reply-To: <20220711135742.11739-1-guchun.chen@amd.com>
+References: <20220711135808.11949-1-guchun.chen@amd.com>
+In-Reply-To: <20220711135808.11949-1-guchun.chen@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 11 Jul 2022 11:29:06 -0400
-Message-ID: <CADnq5_MvQUbixcowtu2KaD+giO4tFue48vCx=37SG4Q27XsOqg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: skip SMU FW reloading in runpm BACO case
+Date: Mon, 11 Jul 2022 11:29:59 -0400
+Message-ID: <CADnq5_O87os48QwD9714fBMcJxhF5AqTHeyeSvRsptppZ-ki8w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: use cached SMU feature mask in runpm
 To: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,39 +70,120 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, Jul 11, 2022 at 9:58 AM Guchun Chen <guchun.chen@amd.com> wrote:
 >
-> SMU is always alive, so it's fine to skip SMU FW reloading
-> when runpm resumed from BACO, this can avoid some race issues
-> when resuming SMU FW.
+> SMU will perform dpm disablement when entering BACO,
+> and enable them later on, so talking to SMU to get
+> enabled features in runpm cycle as BACO support check
+> is not reliable. Hence, use a cached value to fix it.
 >
-> Suggested-by: Evan Quan <evan.quan@amd.com>
 > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 4 ++++
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 9 +++++++++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       | 1 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 5 +++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 3 +++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 8 +++++++-
+>  6 files changed, 29 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index e9411c28d88b..9f17235bab83 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -2348,6 +2348,12 @@ static int psp_load_smu_fw(struct psp_context *psp)
->                         &adev->firmware.ucode[AMDGPU_UCODE_ID_SMC];
->         struct amdgpu_ras *ras = psp->ras_context.ras;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 1cc9260e75de..dc2e78bb7224 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2478,6 +2478,10 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>         }
 >
-> +       /* Skip SMU FW reloading in case of using BACO for runpm,
-> +        * as SMU is always alive.
+>         adev->in_runpm = true;
+> +
+> +       /* cache SMU feature mask */
+> +       amdgpu_dpm_set_cached_feature_mask(adev);
+> +
+>         if (amdgpu_device_supports_px(drm_dev))
+>                 drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index 956b6ce81c84..211f73a987d6 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -1702,3 +1702,12 @@ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+>
+>         return ret;
+>  }
+> +
+> +void amdgpu_dpm_set_cached_feature_mask(struct amdgpu_device *adev)
+> +{
+> +       struct smu_context *smu = adev->powerplay.pp_handle;
+> +
+> +       mutex_lock(&adev->pm.mutex);
+> +       smu_set_cached_enabled_mask(smu);
+> +       mutex_unlock(&adev->pm.mutex);
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index 524fb09437e5..e9c002a561c2 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -543,4 +543,5 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+>                                                   unsigned int *num_states);
+>  int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+>                                    struct dpm_clocks *clock_table);
+> +void amdgpu_dpm_set_cached_feature_mask(struct amdgpu_device *adev);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index fd79b213fab4..e8ead58a00b4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -3130,3 +3130,8 @@ int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_t size)
+>
+>         return ret;
+>  }
+> +
+> +void smu_set_cached_enabled_mask(struct smu_context *smu)
+> +{
+> +       smu_feature_get_enabled_mask(smu, &smu->cache_enabled_mask);
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index b81c657c7386..678123b5e2bf 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -568,6 +568,8 @@ struct smu_context
+>         u32 param_reg;
+>         u32 msg_reg;
+>         u32 resp_reg;
+> +
+> +       uint64_t cache_enabled_mask;
+>  };
+>
+>  struct i2c_adapter;
+> @@ -1465,5 +1467,6 @@ int smu_stb_collect_info(struct smu_context *smu, void *buff, uint32_t size);
+>  void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev);
+>  int smu_send_hbm_bad_pages_num(struct smu_context *smu, uint32_t size);
+>  int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_t size);
+> +void smu_set_cached_enabled_mask(struct smu_context *smu);
+>  #endif
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index 15e4298c7cc8..b3087085622a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -499,7 +499,13 @@ int smu_cmn_feature_is_enabled(struct smu_context *smu,
+>         uint64_t enabled_features;
+>         int feature_id;
+>
+> -       if (__smu_get_enabled_features(smu, &enabled_features)) {
+> +       /* SMU will perform dpm disablement when entering BACO, and enable
+> +        * them later on, so talking to SMU to get enabled features in runpm
+> +        * stage is not reliable. Use a cache value for this instead to fix it.
 > +        */
-> +       if (adev->in_runpm && amdgpu_asic_supports_baco(adev))
-> +               return 0;
+> +       if (adev->in_runpm) {
+> +               enabled_features = smu->cache_enabled_mask;
 
-What is an asic supports both BACO and BOCO?  I think we need to
-differentiate here.
+Do we need to handle this differently for BOCO?
 
 Alex
 
-> +
->         if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
+> +       } else if (__smu_get_enabled_features(smu, &enabled_features)) {
+>                 dev_err(adev->dev, "Failed to retrieve enabled ppfeatures!\n");
 >                 return 0;
->
+>         }
 > --
 > 2.17.1
 >
