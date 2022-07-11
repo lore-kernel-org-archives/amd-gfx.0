@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7E4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 18:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 746D2C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 18:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 508B690870;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B150A90872;
 	Mon, 11 Jul 2022 18:42:28 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE68F9086E
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 18:42:26 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D35A90870
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 18:42:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YuRqmJKNifjDMHfTGq/4gwjC44EN3aeBILsYrI4SEfXyCrrnWORPHsy2a4x9wg2s5xZtGUFA1CWLNRpvNvPe84BMr/0pX7v6nrRyLa4o3N2sghra6HVCiOPGOn1zNPg7RwB2/LR8Wkj2VbzwMobwRBs9D05L/zFqQOgDHVPEKvVZcY1+Zp4BTBqPzhzghB/vEmeoAa/NznokBXfPrBuBCZVFZmBmFds/34ez42A0jxqSDl4/aZs+/hTPur/3o2/jFno/Ue6R41f/3MgXTVCkz+jL8zmkEM1AcFm3Q+99806/5EKDc8RkbpgmPtKyvs1giYhh3xgcFfh8TGUm6qT3Ug==
+ b=SGw7y4wzlmOkf+cmWnbm2iK8+6cd2nI2oi6nonK+YqzpwOIdxddGMY2oi38+bRhmEp6NuNw89gh948RRqnbWfZTA6qDhH2bA/ryVz+UdE1vVX933uYbkGQQai4M0yKHMCLpAUyZZFnd2NIaB/56f8gYpRwNG8Nl7HVvhwdFz9EA1SdN4nHVZ9BzByQfNqGoYoshmQ3WsufziyP+oZZptSlxu/WXRMIOd4H/qyByFT3c3fQliMwGupFW5CJG2tKhcyM1x9183RNU5+Eg5Ar2qsoGAhsHIKpx+CToTHv2D1pn97FJb1g8+/0bj+fsTk6QzwvOHygVPImEiwUcO050qvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2QUaE3Ou+a2+CykMqRBqtAS63REFL+U3fbk8j7ZnSXI=;
- b=muB5cl1Llu7HBAIfBpaBj3Rnsfx8viobY/Wo+zcAc7QZigLWAq0ATkHIFIXywO6Fg5SaWksFwV5Yocp1VQWHnuBQKBnoDybdS41MLQZd8i3s4tu3CbbMcZPxiWXSyjpoe4eSYgWiLpQU2IW3I/1p6cSzuNPJ14hhjDrcp4yioMRTlxitjhvAHOm2JJvFEXBUXtvJ7fb6F2iVQBRM9syXQu1BCYtJStypmqSnTeD9bSNzfP7jL5xr04E7H0AfRdujiEJGVeWXzPOBuI0bmMHh70qEj1CQViM9zGBOdoALGZDqjmSxZ2jA5nYLMiXpeVODA5QxeKtIDr8m6DYsY6n1MA==
+ bh=knce3a/4FkbmHFdfm9ACqvMwT0UxI6fWECY0C2jFGIA=;
+ b=EQ6BOznuuGIeNcoJqLsfkx1469BPE7k/sEm0cT+d+OaPJwdAIwsKjoHAjIvbYKQOuqKWMPCIey2j0s0D8Np1NBsl0135yywv9tWN8iSqWZLc8nV3WCpwMM1ZA8at8x5pyRsO4nY2NmTdn+vjlwsPb/axfcFI1berPiZEhgO5KEMb2iep7FEMKJi/0jdeqU79u0HWt4FA6UYMUjgSRdh8IcbtsrdaxygDkh3SUQK4kJIfL3/Ep1fe9MCHZsK7sgFGS39vlXS2lSYS47fgF7W/mwwyE2PKm3EUySmYom4DrOcoMF4VUSo2W8iApOOC3l/bDltoakKiXjvaLhnQYMaLNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2QUaE3Ou+a2+CykMqRBqtAS63REFL+U3fbk8j7ZnSXI=;
- b=z5N9pCTUHd4dgTM5JGJijM81hvdGa9GelYC6TQq8EfgPXmFBQ3BRkv2+tqRLU82QZ7b4+IeC1WXQLVKN4LZZTM+RDcz0XivWbyebaK4Jsc7xoGU13EVPbQ+ocmMwBlFdN6IZKY8QQIViP7TZ9uNYuQFGZ3iBuLiNEA9+1o5VWXU=
-Received: from DM6PR04CA0007.namprd04.prod.outlook.com (2603:10b6:5:334::12)
- by PH7PR12MB5735.namprd12.prod.outlook.com (2603:10b6:510:1e2::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Mon, 11 Jul
- 2022 18:42:23 +0000
-Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:334:cafe::e5) by DM6PR04CA0007.outlook.office365.com
- (2603:10b6:5:334::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.25 via Frontend
- Transport; Mon, 11 Jul 2022 18:42:23 +0000
+ bh=knce3a/4FkbmHFdfm9ACqvMwT0UxI6fWECY0C2jFGIA=;
+ b=chH1KNUcOsduZh3rwenlQLUUqkhm9jhtND0rwgH+qNFI04r3nf8eV3hQR+aJ/Kc167x2bpRwTnT+ojXtf2nc5MPk1pTtU2SH8RnygYPDuWcVKybvh1NEex/14MerRlW/BCleCm307samryFCAyf5jHLjYV8hnntkaUnyGYtAUbI=
+Received: from DS7PR05CA0085.namprd05.prod.outlook.com (2603:10b6:8:56::15) by
+ DM6PR12MB2908.namprd12.prod.outlook.com (2603:10b6:5:185::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5417.20; Mon, 11 Jul 2022 18:42:24 +0000
+Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:56:cafe::c7) by DS7PR05CA0085.outlook.office365.com
+ (2603:10b6:8:56::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.6 via Frontend
+ Transport; Mon, 11 Jul 2022 18:42:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
+ DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Mon, 11 Jul 2022 18:42:23 +0000
+ 15.20.5417.15 via Frontend Transport; Mon, 11 Jul 2022 18:42:24 +0000
 Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 11 Jul 2022 13:42:22 -0500
+ 15.1.2375.28; Mon, 11 Jul 2022 13:42:23 -0500
 From: Eric Huang <jinhuieric.huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] libhsakmt: add new flag for svm
-Date: Mon, 11 Jul 2022 14:41:52 -0400
-Message-ID: <20220711184153.135021-2-jinhuieric.huang@amd.com>
+Subject: [PATCH 3/3] libhsakmt: allocate unified memory for ctx save restore
+ area
+Date: Mon, 11 Jul 2022 14:41:53 -0400
+Message-ID: <20220711184153.135021-3-jinhuieric.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220711184153.135021-1-jinhuieric.huang@amd.com>
 References: <20220711184153.135021-1-jinhuieric.huang@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea74a172-8d26-4369-4b46-08da636d184d
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5735:EE_
+X-MS-Office365-Filtering-Correlation-Id: eab493ab-c681-4142-7cf3-08da636d18dc
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2908:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eGHD3lI1HU5YPIqzwP+YPOKTsOUNnZ956EdR0IInSPf5k7Q08QJoPmf92Lq1CPZqvv1XPwMkB5jo6psO70w0NK0dzV58wprTa6BYLaef07kwShx22sBkcau9zX5ZKl+5lMCpqcKmBrgWLyIGQLoNgqzitUpLNOCeIzSRFmd9JTl/Td1KJCo0Yvei8qdIJd17tiPj4RShSzFOUcjbcqznFeCHk8omv9fLYTXhPyN4QWiDhbBDOIL8/D0zeikkutAw18UvuMa+4aT0BRisgMlLU/vSQXvEHxkzjGSOIOT5yVfGVm58QuxoQd9X71ZI1OH2v5Ogjv6QDCt27JQARo15c+Nk5PIabjcBgUMnm7ND75TKw9gz+q55yuacHf2kaw8uamaG9rTBwzoUdfRfcQvW8zVvWvmc4OgtIH4iHSlsKclIeeK4KPFgkmlaKoncuqayLXnLwV0XT0TEUhcKq+lTfEd3RWg5QYBDIKjQ/RUJPBZCKzjwHnUWpRzB+auOoXTzECdkQrfTxqx25x93JwrO39ylrEcsj4/26wUP/Pc4wM9IKis9bqpKrGqNg6V9kIUmzggq1qPIGWw4hdxe47Q9ywHF7S31Yc6GhBPKy0Nz4XktZInJKODZFrglDYgy1NyOkDEbYGAawNYBxxfWgEpvyH73b55I33FtDqnwZZAPaTmgJ17X9Tc//kkIZHsLY6AQ5Ftx8W72BvJ1XMAWAKAyCA2JMqGfaNn/n4Xmurn6KIyto+UfcbhTUZIlqeFotokt09NyykUhbfH1OF/kFC/ZhLBilvlapikBcIxH+td238OYrPpQwjzCenJoN6zyLUQziyFVIMXg3LGryDeH1pZPzz7z/iyMj37vpaEAmjx3JOw=
+X-Microsoft-Antispam-Message-Info: Rr2XRzxHVIoZFY4ll43lTBBsqJiRZPBaLIOx9iuPaX+OqBCtVkt0oE9LtEOzopJ9t2bnHNAva5qznjFkLGNyMJZJPoIFOMCklC5/0m6/zsLF3vvBc1reSPkgzmQOg8Ge+t3dWkksZYQIxfFkj2duH9e36Fwv5E46rxC2/NL5nsOOW96KEsn6LhfbBZZ3XuQ0MAideugwf3VphRU6BjwDfNLgCouddqv1wMAAGfz5ThTIVbfGHyrZ8XX+5eeyhcZlz1nPlxgGNoliXjvroTYZX/5OCJ3/dYkRuKu3FjIF2pgV7ZWFYWBgnkfHNDyy1b196Pd2q1nfBfZwLuTLrNxsjZHUbbv15jEq2LIndQFzebZOfPIjhRlvr+4dvUE0vh2W5Bfi+CVfaW3bP7ObXZUzth4m57HKjwEdZhmEV+LDV+SpWD6EBHTOC7OpVkLVLZILxDHQtID0d86jvaN7r4eOmzAS2w1xUcFcLvck8+axEwtKxKEB3WWTJXGJ+4O9ia8Q39pb4vw8LeNCta5w8LbZCoqWCfD++jWYXZ8fb6LPLwQSKFHtvbi7+q7JutV89ou0LHLzLd58gKyIgcFIpX0GlcjV1afh+9InGCEpI3X6iaxtKHykles/OWCEOPnPYE+1vhc+3gk4thLs+QXs3OPwZzdVIgF8g6shjfDxgks+rudqPNZzU8alLXClfnshsPN5uijNZw6UhBRttZdeSjfrsFFqtwQh4Ng8Qz/FhdV4d5zic0VV5xpTK96pG7mWR32AyGDU/iUPxTpAMkKfNvZgIR7mhZxdUR+TyPnbHzf3WJaLCnM0vkaqiomPIrT9SR0X4Zr8q4Jkx21hChanEVjihXvN0yM3JSPWliM1+ryqIhM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(396003)(136003)(376002)(46966006)(36840700001)(40470700004)(8676002)(4326008)(86362001)(5660300002)(70206006)(356005)(70586007)(478600001)(26005)(8936002)(1076003)(41300700001)(6666004)(2616005)(6916009)(54906003)(7696005)(316002)(81166007)(82740400003)(336012)(40460700003)(2906002)(426003)(40480700001)(83380400001)(36756003)(186003)(36860700001)(16526019)(47076005)(82310400005)(36900700001);
+ SFS:(13230016)(4636009)(346002)(396003)(39860400002)(376002)(136003)(46966006)(40470700004)(36840700001)(1076003)(70206006)(83380400001)(26005)(40460700003)(41300700001)(70586007)(2616005)(336012)(47076005)(5660300002)(16526019)(40480700001)(36756003)(54906003)(6916009)(316002)(186003)(426003)(82310400005)(36860700001)(478600001)(81166007)(2906002)(8676002)(4326008)(86362001)(7696005)(8936002)(356005)(82740400003)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2022 18:42:23.5556 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea74a172-8d26-4369-4b46-08da636d184d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2022 18:42:24.5097 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eab493ab-c681-4142-7cf3-08da636d18dc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5735
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2908
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,42 +104,186 @@ Cc: Eric Huang <jinhuieric.huang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It is to add new option for always keeping gpu mapping
-and bump KFD version for the feature of unified save
-restore memory.
+To improve performance on queue preemption, allocate ctx s/r
+ area in VRAM instead of system memory, and migrate it back
+ to system memory when VRAM is full.
 
 Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Change-Id: Iebee35e6de4d52fa29f82dd19f6bbf5640249492
+Change-Id: If775782027188dbe84b6868260e429373675434c
 ---
- include/linux/kfd_ioctl.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/hsakmttypes.h |   1 +
+ src/queues.c          | 109 ++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 95 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/kfd_ioctl.h b/include/linux/kfd_ioctl.h
-index ba8de4b..4898451 100644
---- a/include/linux/kfd_ioctl.h
-+++ b/include/linux/kfd_ioctl.h
-@@ -35,9 +35,11 @@
-  * - 1.7 - Checkpoint Restore (CRIU) API
-  * - 1.8 - CRIU - Support for SDMA transfers with GTT BOs
-  * - 1.9 - Add available_memory ioctl
-+ * - 1.10 - Add SMI profiler event log
-+ * - 1.11 - Add unified memory for ctx save/restore area
-  */
- #define KFD_IOCTL_MAJOR_VERSION 1
--#define KFD_IOCTL_MINOR_VERSION 9
-+#define KFD_IOCTL_MINOR_VERSION 11
+diff --git a/include/hsakmttypes.h b/include/hsakmttypes.h
+index 690e001..65f23de 100644
+--- a/include/hsakmttypes.h
++++ b/include/hsakmttypes.h
+@@ -1331,6 +1331,7 @@ typedef enum _HSA_SVM_FLAGS {
+ 	HSA_SVM_FLAG_GPU_RO      = 0x00000008, // GPUs only read, allows replication
+ 	HSA_SVM_FLAG_GPU_EXEC    = 0x00000010, // Allow execution on GPU
+ 	HSA_SVM_FLAG_GPU_READ_MOSTLY = 0x00000020, // GPUs mostly read, may allow similar optimizations as RO, but writes fault
++	HSA_SVM_FLAG_GPU_ALWAYS_MAPPED = 0x00000040, // Keep GPU memory mapping always valid as if XNACK is disable
+ } HSA_SVM_FLAGS;
  
- /*
-  * Debug revision change log
-@@ -1080,6 +1082,8 @@ struct kfd_ioctl_cross_memory_copy_args {
- #define KFD_IOCTL_SVM_FLAG_GPU_EXEC    0x00000010
- /* GPUs mostly read, may allow similar optimizations as RO, but writes fault */
- #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
-+/* Keep GPU memory mapping always valid as if XNACK is disable */
-+#define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
+ typedef enum _HSA_SVM_ATTR_TYPE {
+diff --git a/src/queues.c b/src/queues.c
+index d38ea0c..5702c95 100644
+--- a/src/queues.c
++++ b/src/queues.c
+@@ -68,6 +68,7 @@ struct queue {
+ 	uint32_t eop_buffer_size;
+ 	uint32_t gfxv;
+ 	bool use_ats;
++	bool unified_ctx_save_restore;
+ 	/* This queue structure is allocated from GPU with page aligned size
+ 	 * but only small bytes are used. We use the extra space in the end for
+ 	 * cu_mask bits array.
+@@ -384,13 +385,49 @@ static void free_exec_aligned_memory(void *addr, uint32_t size, uint32_t align,
+ 		munmap(addr, size);
+ }
  
- /**
-  * kfd_ioctl_svm_op - SVM ioctl operations
++static HSAKMT_STATUS register_svm_range(void *mem, uint32_t size,
++				uint32_t gpuNode, uint32_t prefetchNode,
++				uint32_t preferredNode, bool alwaysMapped)
++{
++	HSA_SVM_ATTRIBUTE *attrs;
++	HSAuint64 s_attr;
++	HSAuint32 nattr;
++	HSAuint32 flags;
++
++	flags = HSA_SVM_FLAG_HOST_ACCESS;
++
++	if (alwaysMapped) {
++		CHECK_KFD_MINOR_VERSION(11);
++		flags |= HSA_SVM_FLAG_GPU_ALWAYS_MAPPED;
++	}
++
++	nattr = 5;
++	s_attr = sizeof(*attrs) * nattr;
++	attrs = (HSA_SVM_ATTRIBUTE *)alloca(s_attr);
++
++	attrs[0].type = HSA_SVM_ATTR_PREFETCH_LOC;
++	attrs[0].value = prefetchNode;
++	attrs[1].type = HSA_SVM_ATTR_PREFERRED_LOC;
++	attrs[1].value = preferredNode;
++	attrs[2].type = HSA_SVM_ATTR_CLR_FLAGS;
++	attrs[2].value = ~flags;
++	attrs[3].type = HSA_SVM_ATTR_SET_FLAGS;
++	attrs[3].value = flags;
++	attrs[4].type = HSA_SVM_ATTR_ACCESS;
++	attrs[4].value = gpuNode;
++
++	return hsaKmtSVMSetAttr(mem, size, nattr, attrs);
++}
++
+ static void free_queue(struct queue *q)
+ {
+ 	if (q->eop_buffer)
+ 		free_exec_aligned_memory(q->eop_buffer,
+ 					 q->eop_buffer_size,
+ 					 PAGE_SIZE, q->use_ats);
+-	if (q->ctx_save_restore)
++	if (q->unified_ctx_save_restore)
++		free(q->ctx_save_restore);
++	else if (q->ctx_save_restore)
+ 		free_exec_aligned_memory(q->ctx_save_restore,
+ 					 q->ctx_save_restore_size,
+ 					 PAGE_SIZE, q->use_ats);
+@@ -398,6 +435,20 @@ static void free_queue(struct queue *q)
+ 	free_exec_aligned_memory((void *)q, sizeof(*q), PAGE_SIZE, q->use_ats);
+ }
+ 
++static inline void fill_cwsr_header(struct queue *q, void *addr,
++		HsaEvent *Event, volatile HSAint64 *ErrPayload)
++{
++	HsaUserContextSaveAreaHeader *header =
++			(HsaUserContextSaveAreaHeader *)addr;
++
++	header->ErrorEventId = 0;
++	if (Event)
++		header->ErrorEventId = Event->EventId;
++	header->ErrorReason = ErrPayload;
++	header->DebugOffset = q->ctx_save_restore_size;
++	header->DebugSize = q->debug_memory_size;
++}
++
+ static int handle_concrete_asic(struct queue *q,
+ 				struct kfd_ioctl_create_queue_args *args,
+ 				uint32_t NodeId,
+@@ -425,7 +476,8 @@ static int handle_concrete_asic(struct queue *q,
+ 
+ 	if (ret) {
+ 		uint32_t total_mem_alloc_size = 0;
+-		HsaUserContextSaveAreaHeader *header;
++		HsaNodeProperties node;
++		bool svm_api;
+ 
+ 		args->ctx_save_restore_size = q->ctx_save_restore_size;
+ 		args->ctl_stack_size = q->ctl_stack_size;
+@@ -435,22 +487,49 @@ static int handle_concrete_asic(struct queue *q,
+ 		 */
+ 		total_mem_alloc_size = q->ctx_save_restore_size +
+ 				       q->debug_memory_size;
+-		q->ctx_save_restore =
+-			allocate_exec_aligned_memory(total_mem_alloc_size,
+-					 q->use_ats, NodeId, false, false, false);
+ 
+-		if (!q->ctx_save_restore)
+-			return HSAKMT_STATUS_NO_MEMORY;
++		if (hsaKmtGetNodeProperties(NodeId, &node))
++			svm_api = false;
++		else
++			svm_api = node.Capability.ui32.SVMAPISupported;
+ 
+-		args->ctx_save_restore_address = (uintptr_t)q->ctx_save_restore;
++		/* Allocate unified memory for context save restore
++		 * area on dGPU.
++		 */
++		if (!q->use_ats && svm_api) {
++			uint32_t size = PAGE_ALIGN_UP(total_mem_alloc_size);
++			void *addr;
++			HSAKMT_STATUS r = HSAKMT_STATUS_ERROR;
++
++			if (posix_memalign(&addr, GPU_HUGE_PAGE_SIZE, size))
++				pr_err("[%s] posix_memalign failed:\n", __func__);
++			else {
++				fill_cwsr_header(q, addr, Event, ErrPayload);
++
++				r = register_svm_range(addr, size,
++						NodeId, NodeId, 0, true);
++
++				if (r == HSAKMT_STATUS_SUCCESS) {
++					q->ctx_save_restore = addr;
++					q->unified_ctx_save_restore = true;
++				} else
++					free(addr);
++			}
++		}
++
++		if (!q->unified_ctx_save_restore) {
++			q->ctx_save_restore = allocate_exec_aligned_memory(
++							total_mem_alloc_size,
++							q->use_ats, NodeId,
++							false, false, false);
+ 
+-		header = (HsaUserContextSaveAreaHeader *)q->ctx_save_restore;
+-		header->ErrorEventId = 0;
+-		if (Event)
+-			header->ErrorEventId = Event->EventId;
+-		header->ErrorReason = ErrPayload;
+-		header->DebugOffset = q->ctx_save_restore_size;
+-		header->DebugSize = q->debug_memory_size;
++			if (!q->ctx_save_restore)
++				return HSAKMT_STATUS_NO_MEMORY;
++
++			fill_cwsr_header(q, q->ctx_save_restore, Event, ErrPayload);
++		}
++
++		args->ctx_save_restore_address = (uintptr_t)q->ctx_save_restore;
+ 	}
+ 
+ 	return HSAKMT_STATUS_SUCCESS;
 -- 
 2.25.1
 
