@@ -4,83 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66BC7C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 13:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D52CC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 13:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C73F28E8F4;
-	Mon, 11 Jul 2022 13:55:24 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD60A14A9C3
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 13:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657546551;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/a5xYvzFvSo0mMGHcGn3XDGCspkQtQvU8SRGH+lIT7E=;
- b=CEwlfzBb/INJZXMTlmm3xXUJveiDDXXjzOZhIRCWNLZ6Pz4mSD3/SHQm/wC9T15iOUG5fI
- hwbodoaFKM9JNgGVrorpt+plAW/FDuhqblBS8LlQWhucUl3xcv7lXqLtgFkDKVSbP15rlz
- IyJvute/hpVEXJmxPt9ZHr0uHXdYtNs=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-86-B9hM4BosMTqdAEhs6to0zA-1; Mon, 11 Jul 2022 09:35:44 -0400
-X-MC-Unique: B9hM4BosMTqdAEhs6to0zA-1
-Received: by mail-wm1-f72.google.com with SMTP id
- z11-20020a05600c0a0b00b003a043991610so2640197wmp.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 06:35:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:organization:subject
- :in-reply-to:content-transfer-encoding;
- bh=/a5xYvzFvSo0mMGHcGn3XDGCspkQtQvU8SRGH+lIT7E=;
- b=HgbGvsVJWU4wP5vBSQXrDGLmWJad7Qra4XKPfnuyhSaFoi1eQM9ZkuZoy090gTXgS+
- XHk6NLHaewnCitTqYw6Qgccx/kwdDN4JA96WJMY6ghD13bHRSO2aECAlb/cy34j0JGkX
- yexw7ID2bEygEOpAmgauOcvBzJ1UwQQFRxTNWLK7A4bTsSf/dh7hONn4hZZ93XI7y5yN
- tdWrMrC9mdrxcHx26MW9DB2KyESdnIX64bQ+QQ/iPKeXwITpFAb4ZO3eSsb1leqefJGy
- KAn2dy1Xfdm3iOInC/0TSJrd9Z1G+R6oyf595DbV63p+xtkBQWFPsoFCuUZRTPI7QcKA
- jlHw==
-X-Gm-Message-State: AJIora9G7JozuFYstBxycXYSi2cEalzYCSNXooI0AaztVwxzNyV6Ne1+
- S5knloq8KCvqjBj+GuinbtzAKPF25IeHK9Q+nkqBqlwNHZiFECpdEmogtqC0lZlZz2HUiBouWAl
- lRcKfEO76WT0zEdK8lfOHtlTkzA==
-X-Received: by 2002:a5d:64e8:0:b0:21d:2fc9:20dd with SMTP id
- g8-20020a5d64e8000000b0021d2fc920ddmr16233253wri.101.1657546543638; 
- Mon, 11 Jul 2022 06:35:43 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1swwNqqy08ywAh4vjGNUUySj6rzTVDwFqgW9rlmCmMyqw6xznPhl3IGIvkFU36hZ2LDn+8inw==
-X-Received: by 2002:a5d:64e8:0:b0:21d:2fc9:20dd with SMTP id
- g8-20020a5d64e8000000b0021d2fc920ddmr16233220wri.101.1657546543286; 
- Mon, 11 Jul 2022 06:35:43 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c702:1400:c3:4ae0:6d5c:1ab2?
- (p200300cbc702140000c34ae06d5c1ab2.dip0.t-ipconnect.de.
- [2003:cb:c702:1400:c3:4ae0:6d5c:1ab2])
- by smtp.gmail.com with ESMTPSA id
- o8-20020a05600c510800b003a2e2e965absm5753132wms.20.2022.07.11.06.35.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jul 2022 06:35:42 -0700 (PDT)
-Message-ID: <2c4dd559-4fa9-f874-934f-d6b674543d0f@redhat.com>
-Date: Mon, 11 Jul 2022 15:35:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFCA110F1C3;
+	Mon, 11 Jul 2022 13:58:04 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB34F10F1C3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jul 2022 13:58:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cupelKCcxhxZ+QxwPWxA2xRSS/tN4JDFZQ3zTLPDjin/BceS717O0nW60YPrjTe9zrAOTpGZZbm/0L5BkjpiNIhrHFTqBOm4ZGkh/BkPmjritkoona5zEIj7AsRF1rIr1cID15VxKP5njJtGo1mmWEYxRpPmhOt8gBPy7qTLNHsi2moSzNu9cDWsQHLMd2Am/YOMeW685tG2mlgfb2s3LyffK14tZzDAaCEGQJBv5bbR9fwrx7TybYOiqxyPR1JVqS4K2Kna4ahT3IhVUE61OLT3D7yMgWMYgYH4iQ3mo+Dp9a44QqOBNE+ceK5TD/nM2qwUJpe8q+X/rvu23uO1Cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cO8HCOufMhohMmcMT1O+JH2uckH/pTNXuZypPdiHHJc=;
+ b=NRvlwIsgjyJRteFjnJt1+tzU5svUFoioPaLeNnpDBdZ0gA7NdqLaT3Iyke9HYIMrkxSZnYSZ1BxK57E8Xj1m+uRL/LrfgmEisWbBymkz68x/c7NkRrliE2OCItbXm0STk5f1JCUqbOoOVHJtXl5TJC2GFRStYOcXRgbpnnYiQyAh9N1scdihVMPd7w03qH4mhEzZTXE/tpN2cfpmQVjfJx7jaLLWgzS/cqZK5arSHNssSZ6joSPoXKhggGm0858htnoT1h5WHltqb8s2GhPw2IiLQXRjx2uJ2/Gq7ve/Gu9blLssz5MEz4hbfO4zWb0qStuIXskoh92OjmIAoWSmhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cO8HCOufMhohMmcMT1O+JH2uckH/pTNXuZypPdiHHJc=;
+ b=pe0siXNda/xQdejYjfVqo6uoZs3Gooh25Q66L192aTNULLFTJ5WUWX/TtQtrJEjTqDm/OTHzXvjyBQ5u5BIfqw4u784qk7WteigRMtyARpDy+41ouNBy4+eQh8JWp7kmWBRw9lQihG9rZ6Uvlz/ww8kjR0IH4sq9o9/oC8CJNeE=
+Received: from BN9P221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::6)
+ by DM5PR12MB1131.namprd12.prod.outlook.com (2603:10b6:3:73::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Mon, 11 Jul
+ 2022 13:57:59 +0000
+Received: from BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10a:cafe::a3) by BN9P221CA0013.outlook.office365.com
+ (2603:10b6:408:10a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.21 via Frontend
+ Transport; Mon, 11 Jul 2022 13:57:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT058.mail.protection.outlook.com (10.13.177.58) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5417.15 via Frontend Transport; Mon, 11 Jul 2022 13:57:59 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Mon, 11 Jul 2022 08:57:57 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <lijo.lazar@amd.com>, <evan.quan@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: skip SMU FW reloading in runpm BACO case
+Date: Mon, 11 Jul 2022 21:57:42 +0800
+Message-ID: <20220711135742.11739-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-To: Alex Sierra <alex.sierra@amd.com>, jgg@nvidia.com
-References: <20220707190349.9778-1-alex.sierra@amd.com>
- <20220707190349.9778-8-alex.sierra@amd.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-Subject: Re: [PATCH v8 07/15] mm/gup: migrate device coherent pages when
- pinning instead of failing
-In-Reply-To: <20220707190349.9778-8-alex.sierra@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 11 Jul 2022 13:55:23 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 33ee29e5-297f-4c6d-7cf8-08da63455d56
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1131:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DWXrvq4hJloJqaE1Y2tR8SR9dANOWm9gdkSTk83MR1hgVYKqpw+jFOstyW6QKKqGmSCAYVTMgziJIQlPkwjrQm41JPtCSldRVTu4++9lBuRZRFE6N56bRO2r/7yUJxMXzihA7VnznBVB6vGa+nW9FTWcQwrIrSPxxy80IEs5o8KxRRov+m2FIq8/ajI0baxaakhjbVH5oCigh8Am9T/se9QXJsPpSzUQbmbX7CY5+eOkhMxilgkwEfI4rx4rtaMtzQ/I9JW/rpJo2gOJ2BjK5xZZ1uBIgk/65uUfgCjFbOGIpBHV8XC2Y9kycUi33lG28dwzgorjWisIHe+T4fZkhcJALJentHDURqqAhhUe0wiD+b/ViPk5G33BSPdtkN9eyk1lfwtSCMmaM56jAXOjd+KZaa5CH2hB/N4OZ58nx5WGFybELQmZd5bwnvtrWpDUe5fPED6Y3QZKW8aQRaW2zL7k2fcaez3suepg9W+9yGQAHy/XkgJupon6PBcECWwhkuzU+rXYpErCVAU1ENlSZd97VbQ9538Z+eqT9lpFyeMyi04/bY6p0aLZjt3OgVjQjFU3w0j6VMgCwUzcMgdc6Qg/m5ikUm08hhRHrnI/CFtZsoYCR+daM/xT9E0rMASzlbZ38BXPDjx59qXRcmvhCZyHkR4KvwMMOXQ00GjjtCdV9XceLAKxiWkaTBFK3E0b84wwc76t/7/gImZOLUTFFthqFqfko0DqTf2A4NP6k5Z5OpPP3h450bp+K0vE2t1Le3Uf/sUk8Q6MP8GcNSAad87W/oDpPzLDQIkxV2IjrVu7jgNcu2U7iTJnbyuS4eg6ouW7YWdfUB0r9qZMHhTxCaA/cti8dQ8vggLGbPpbn4E1dogeHb4gUg+YK0DyvIha+aVNn24AoYp8kIjxl5FK8w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(396003)(346002)(39860400002)(136003)(40470700004)(36840700001)(46966006)(86362001)(4326008)(6666004)(70206006)(82740400003)(26005)(8676002)(110136005)(6636002)(34020700004)(426003)(47076005)(70586007)(41300700001)(7696005)(36860700001)(478600001)(81166007)(8936002)(5660300002)(316002)(2906002)(186003)(44832011)(36756003)(40460700003)(82310400005)(1076003)(356005)(16526019)(2616005)(40480700001)(336012)(4744005)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2022 13:57:59.5407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33ee29e5-297f-4c6d-7cf8-08da63455d56
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,363 +98,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
- apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
- linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07.07.22 21:03, Alex Sierra wrote:
-> From: Alistair Popple <apopple@nvidia.com>
-> 
-> Currently any attempts to pin a device coherent page will fail. This is
-> because device coherent pages need to be managed by a device driver, and
-> pinning them would prevent a driver from migrating them off the device.
-> 
-> However this is no reason to fail pinning of these pages. These are
-> coherent and accessible from the CPU so can be migrated just like
-> pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
-> them first try migrating them out of ZONE_DEVICE.
-> 
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> [hch: rebased to the split device memory checks,
->       moved migrate_device_page to migrate_device.c]
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  mm/gup.c            | 47 +++++++++++++++++++++++++++++++++++-----
->  mm/internal.h       |  1 +
->  mm/migrate_device.c | 53 +++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 96 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index b65fe8bf5af4..9b6b9923d22d 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -1891,9 +1891,43 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
->  			continue;
->  		prev_folio = folio;
->  
-> -		if (folio_is_longterm_pinnable(folio))
-> +		/*
-> +		 * Device private pages will get faulted in during gup so it
-> +		 * shouldn't be possible to see one here.
-> +		 */
-> +		if (WARN_ON_ONCE(folio_is_device_private(folio))) {
-> +			ret = -EFAULT;
-> +			goto unpin_pages;
-> +		}
+SMU is always alive, so it's fine to skip SMU FW reloading
+when runpm resumed from BACO, this can avoid some race issues
+when resuming SMU FW.
 
-I'd just drop that. Device private pages are never part of a present PTE. So if we
-could actually get a grab of one via GUP we would be in bigger trouble ... 
-already before this patch.
+Suggested-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> +
-> +		/*
-> +		 * Device coherent pages are managed by a driver and should not
-> +		 * be pinned indefinitely as it prevents the driver moving the
-> +		 * page. So when trying to pin with FOLL_LONGTERM instead try
-> +		 * to migrate the page out of device memory.
-> +		 */
-> +		if (folio_is_device_coherent(folio)) {
-> +			WARN_ON_ONCE(PageCompound(&folio->page));
-
-Maybe that belongs into migrate_device_page()?
-
-> +
-> +			/*
-> +			 * Migration will fail if the page is pinned, so convert
-
-[...]
-
->  /*
->   * mm/gup.c
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index cf9668376c5a..5decd26dd551 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -794,3 +794,56 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
->  	}
->  }
->  EXPORT_SYMBOL(migrate_vma_finalize);
-> +
-> +/*
-> + * Migrate a device coherent page back to normal memory.  The caller should have
-> + * a reference on page which will be copied to the new page if migration is
-> + * successful or dropped on failure.
-> + */
-> +struct page *migrate_device_page(struct page *page, unsigned int gup_flags)
-
-Function name should most probably indicate that we're dealing with coherent pages here?
-
-> +{
-> +	unsigned long src_pfn, dst_pfn = 0;
-> +	struct migrate_vma args;
-> +	struct page *dpage;
-> +
-> +	lock_page(page);
-> +	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
-> +	args.src = &src_pfn;
-> +	args.dst = &dst_pfn;
-> +	args.cpages = 1;
-> +	args.npages = 1;
-> +	args.vma = NULL;
-> +	migrate_vma_setup(&args);
-> +	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
-> +		return NULL;
-
-Wow, these refcount and page locking/unlocking rules with this migrate_* api are
-confusing now. And the usage here of sometimes returning and sometimes falling
-trough don't make it particularly easier to understand here.
-
-I'm not 100% happy about reusing migrate_vma_setup() usage if there *is no VMA*.
-That's just absolutely confusing, because usually migrate_vma_setup() itself 
-would do the collection step and ref+lock pages. :/
-
-In general, I can see why/how we're reusing the migrate_vma_* API here, but there 
-is absolutely no VMA ... not sure what to improve besides providing a second API
-that does a simple single-page migration. But that can be changed later ...
-
-
-> +
-> +	dpage = alloc_pages(GFP_USER | __GFP_NOWARN, 0);
-> +
-
-alloc_page()
-
-> +	/*
-> +	 * get/pin the new page now so we don't have to retry gup after
-> +	 * migrating. We already have a reference so this should never fail.
-> +	 */
-> +	if (dpage && WARN_ON_ONCE(!try_grab_page(dpage, gup_flags))) {
-> +		__free_pages(dpage, 0);
-
-__free_page()
-
-> +		dpage = NULL;
-> +	}
-
-Hm, this means that we are not pinning via the PTE at hand, but via something
-we expect migration to put into the PTE. I'm not really happy about this.
-
-Ideally, we'd make the pinning decision only on the actual GUP path, not in here.
-Just like in the migrate_pages() case, where we end up dropping all refs/pins
-and looking up again via GUP from the PTE.
-
-For example, I wonder if something nasty could happen if the PTE got mapped
-R/O in the meantime and you're pinning R/W here ... 
-
-TBH, all this special casing on gup_flags here is nasty. Please, let's just do
-it like migrate_pages() and do another GUP walk. Absolutely no need to optimize.
-
-[...]
-
-
-
-I'd go with something like the following on top (which does not touch on the
-general semantic issue with migrate_vma_* ). Note that I most probably messed
-up some refcount/lock handling and that it's broken.
-Just to give you an idea what I think could be cleaner.
-
-
-
-diff --git a/mm/gup.c b/mm/gup.c
-index 9b6b9923d22d..17041b3e605e 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1881,7 +1881,7 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 	unsigned long isolation_error_count = 0, i;
- 	struct folio *prev_folio = NULL;
- 	LIST_HEAD(movable_page_list);
--	bool drain_allow = true;
-+	bool drain_allow = true, any_device_coherent = false;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index e9411c28d88b..9f17235bab83 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2348,6 +2348,12 @@ static int psp_load_smu_fw(struct psp_context *psp)
+ 			&adev->firmware.ucode[AMDGPU_UCODE_ID_SMC];
+ 	struct amdgpu_ras *ras = psp->ras_context.ras;
  
- 	for (i = 0; i < nr_pages; i++) {
-@@ -1891,15 +1891,6 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 			continue;
- 		prev_folio = folio;
- 
--		/*
--		 * Device private pages will get faulted in during gup so it
--		 * shouldn't be possible to see one here.
--		 */
--		if (WARN_ON_ONCE(folio_is_device_private(folio))) {
--			ret = -EFAULT;
--			goto unpin_pages;
--		}
--
- 		/*
- 		 * Device coherent pages are managed by a driver and should not
- 		 * be pinned indefinitely as it prevents the driver moving the
-@@ -1907,7 +1898,12 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 		 * to migrate the page out of device memory.
- 		 */
- 		if (folio_is_device_coherent(folio)) {
--			WARN_ON_ONCE(PageCompound(&folio->page));
-+			/*
-+			 * We always want a new GUP lookup with device coherent
-+			 * pages.
-+			 */
-+			any_device_coherent = true;
-+			pages[i] = 0;
- 
- 			/*
- 			 * Migration will fail if the page is pinned, so convert
-@@ -1918,11 +1914,12 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 				unpin_user_page(&folio->page);
- 			}
- 
--			pages[i] = migrate_device_page(&folio->page, gup_flags);
--			if (!pages[i]) {
--				ret = -EBUSY;
-+			ret = migrate_device_coherent_page(&folio->page);
-+			if (ret)
- 				goto unpin_pages;
--			}
-+			/* The reference to our folio is stale now. */
-+			prev_folio = NULL;
-+			folio = NULL;
- 			continue;
- 		}
- 
-@@ -1953,7 +1950,8 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 				    folio_nr_pages(folio));
- 	}
- 
--	if (!list_empty(&movable_page_list) || isolation_error_count)
-+	if (!list_empty(&movable_page_list) || isolation_error_count ||
-+	    any_device_coherent)
- 		goto unpin_pages;
- 
- 	/*
-@@ -1963,14 +1961,19 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 	return nr_pages;
- 
- unpin_pages:
--	for (i = 0; i < nr_pages; i++) {
--		if (!pages[i])
--			continue;
-+	/* We have to be careful if we stumbled over device coherent pages. */
-+	if (unlikely(any_device_coherent || !(gup_flags & FOLL_PIN))) {
-+		for (i = 0; i < nr_pages; i++) {
-+			if (!pages[i])
-+				continue;
- 
--		if (gup_flags & FOLL_PIN)
--			unpin_user_page(pages[i]);
--		else
--			put_page(pages[i]);
-+			if (gup_flags & FOLL_PIN)
-+				unpin_user_page(pages[i]);
-+			else
-+				put_page(pages[i]);
-+		}
-+	} else {
-+		unpin_user_pages(pages, nr_pages);
- 	}
- 
- 	if (!list_empty(&movable_page_list)) {
-diff --git a/mm/internal.h b/mm/internal.h
-index eeab4ee7a4a3..899dab512c5a 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -853,7 +853,7 @@ int numa_migrate_prep(struct page *page, struct vm_area_struct *vma,
- 		      unsigned long addr, int page_nid, int *flags);
- 
- void free_zone_device_page(struct page *page);
--struct page *migrate_device_page(struct page *page, unsigned int gup_flags);
-+int migrate_device_coherent_page(struct page *page);
- 
- /*
-  * mm/gup.c
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 5decd26dd551..dfb78ea3d326 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -797,53 +797,40 @@ EXPORT_SYMBOL(migrate_vma_finalize);
- 
- /*
-  * Migrate a device coherent page back to normal memory.  The caller should have
-- * a reference on page which will be copied to the new page if migration is
-- * successful or dropped on failure.
-+ * a reference on page, which will be dropped on return.
-  */
--struct page *migrate_device_page(struct page *page, unsigned int gup_flags)
-+int migrate_device_coherent_page(struct page *page)
- {
- 	unsigned long src_pfn, dst_pfn = 0;
--	struct migrate_vma args;
-+	struct migrate_vma args = {
-+		.src = &src_pfn,
-+		.dst = &dst_pfn,
-+		.cpages = 1,
-+		.npages = 1,
-+		.vma = NULL,
-+	};
- 	struct page *dpage;
- 
-+	VM_WARN_ON_ONCE(PageCompound(page));
-+
- 	lock_page(page);
- 	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
--	args.src = &src_pfn;
--	args.dst = &dst_pfn;
--	args.cpages = 1;
--	args.npages = 1;
--	args.vma = NULL;
--	migrate_vma_setup(&args);
--	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
--		return NULL;
--
--	dpage = alloc_pages(GFP_USER | __GFP_NOWARN, 0);
--
--	/*
--	 * get/pin the new page now so we don't have to retry gup after
--	 * migrating. We already have a reference so this should never fail.
--	 */
--	if (dpage && WARN_ON_ONCE(!try_grab_page(dpage, gup_flags))) {
--		__free_pages(dpage, 0);
--		dpage = NULL;
--	}
- 
--	if (dpage) {
--		lock_page(dpage);
--		dst_pfn = migrate_pfn(page_to_pfn(dpage));
-+	migrate_vma_setup(&args);
-+	if (src_pfn & MIGRATE_PFN_MIGRATE) {
-+		dpage = alloc_page(GFP_USER | __GFP_NOWARN);
-+		if (dpage) {
-+			dst_pfn = migrate_pfn(page_to_pfn(dpage));
-+			lock_page(dpage);
-+		}
- 	}
- 
- 	migrate_vma_pages(&args);
- 	if (src_pfn & MIGRATE_PFN_MIGRATE)
- 		copy_highpage(dpage, page);
- 	migrate_vma_finalize(&args);
--	if (dpage && !(src_pfn & MIGRATE_PFN_MIGRATE)) {
--		if (gup_flags & FOLL_PIN)
--			unpin_user_page(dpage);
--		else
--			put_page(dpage);
--		dpage = NULL;
--	}
- 
--	return dpage;
-+	if (src_pfn & MIGRATE_PFN_MIGRATE)
++	/* Skip SMU FW reloading in case of using BACO for runpm,
++	 * as SMU is always alive.
++	 */
++	if (adev->in_runpm && amdgpu_asic_supports_baco(adev))
 +		return 0;
-+	return -EBUSY;
- }
++
+ 	if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
 -- 
-2.35.3
-
-
-
--- 
-Thanks,
-
-David / dhildenb
+2.17.1
 
