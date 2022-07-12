@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68263C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC57CCA481
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B417D113C44;
-	Tue, 12 Jul 2022 19:48:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B8111BA17;
+	Tue, 12 Jul 2022 19:48:30 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD08396467
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:40:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC6B8FA45
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657654815;
+ s=mimecast20190719; t=1657654769;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oKub4e9WH4gYWqX31Lar//6SfysPA28IOZazF9QTCB4=;
- b=ZbQ/ck9BJCJogpNxqalJ7FQ+2DO1HAs/4qv5GrUFzhMAbtIMjnw6SWVi3G4pBsU5XMb08n
- a38P21xiP5GaPF4Lk+fTYOBTwAxq2kRhloI53uVBu0Lzu9y3rfpW/9b0Epm2oeVptePLVJ
- iK2zJHZY8JpvAFjnCkyRGp0D0njM/2M=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=b8ds0eYvIHUF+n7wI0ZmrEtSIvk/0a0gFALuw8Umig8=;
+ b=fiEpExiJuxJBZwGsGheJLk9FlrQbgdImUzWzsLMXr2uYqa0xr4A/r3xtkFNh0QBx8CtgVN
+ tD4ykCVJBJ3kKrl+qP5lnjaEJFn3qj1W363VbLnwyV7ECYr7pQ396PqKUJFFeh/WlW5XFw
+ zUXvWdHElG5+v0VrzhfXq4G7igrhps8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-222-mnqTcZZ5OUyCodj9sJA13A-1; Tue, 12 Jul 2022 15:40:02 -0400
-X-MC-Unique: mnqTcZZ5OUyCodj9sJA13A-1
+ us-mta-214-JXasPOhWPeuYmwi7SYCQpQ-1; Tue, 12 Jul 2022 15:39:25 -0400
+X-MC-Unique: JXasPOhWPeuYmwi7SYCQpQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74367101A54E;
- Tue, 12 Jul 2022 19:40:01 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B16253C01E16;
+ Tue, 12 Jul 2022 19:39:24 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.30])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B7DBB40E80E0;
- Tue, 12 Jul 2022 19:39:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EF28340E80E0;
+ Tue, 12 Jul 2022 19:39:20 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v2 10/29] ACPI: video: Remove code to unregister acpi_video
- backlight when a native backlight registers
-Date: Tue, 12 Jul 2022 21:38:51 +0200
-Message-Id: <20220712193910.439171-11-hdegoede@redhat.com>
+Subject: [PATCH v2 01/29] ACPI: video: Add acpi_video_backlight_use_native()
+ helper
+Date: Tue, 12 Jul 2022 21:38:42 +0200
+Message-Id: <20220712193910.439171-2-hdegoede@redhat.com>
 In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
 References: <20220712193910.439171-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -84,106 +84,130 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the code to unregister acpi_video backlight devices when
-a native backlight device gets registered later.
+ATM on x86 laptops where we want userspace to use the acpi_video backlight
+device we often register both the GPU's native backlight device and
+acpi_video's firmware acpi_video# backlight device. This relies on
+userspace preferring firmware type backlight devices over native ones, but
+registering 2 backlight devices for a single display really is undesirable.
 
-Now that the acpi_video backlight device registration is a separate step
-which runs later, after the drm/kms driver is done setting up its own
-native backlight device, it is no longer necessary to monitor for a
-native (BACKLIGHT_RAW) device showing up later and to then unregister
-the acpi_video backlight device(s).
+On x86 laptops where the native GPU backlight device should be used,
+the registering of other backlight devices is avoided by their drivers
+using acpi_video_get_backlight_type() and only registering their backlight
+if the return value matches their type.
+
+acpi_video_get_backlight_type() uses
+backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
+driver is available and will never return native if this returns
+false. This means that the GPU's native backlight registering code
+cannot just call acpi_video_get_backlight_type() to determine if it
+should register its backlight, since acpi_video_get_backlight_type() will
+never return native until the native backlight has already registered.
+
+To fix this add a new internal native function parameter to
+acpi_video_get_backlight_type(), which when set to true will make
+acpi_video_get_backlight_type() behave as if a native backlight has
+already been registered.
+
+And add a new acpi_video_backlight_use_native() helper, which sets this
+to true, for use in native GPU backlight code.
+
+Changes in v2:
+- Replace adding a native parameter to acpi_video_get_backlight_type() with
+  adding a new acpi_video_backlight_use_native() helper.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/acpi_video.c   |  2 --
- drivers/acpi/video_detect.c | 36 ------------------------------------
- 2 files changed, 38 deletions(-)
+ drivers/acpi/video_detect.c | 24 ++++++++++++++++++++----
+ include/acpi/video.h        |  5 +++++
+ 2 files changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index c4c3a9e7ce69..4fc2a8100865 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -90,7 +90,6 @@ static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
- static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
- static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
- 			    acpi_video_bus_register_backlight_work);
--void acpi_video_detect_exit(void);
- 
- /*
-  * Indices in the _BCL method response: the first two items are special,
-@@ -2343,7 +2342,6 @@ static int __init acpi_video_init(void)
- 
- static void __exit acpi_video_exit(void)
- {
--	acpi_video_detect_exit();
- 	acpi_video_unregister();
- }
- 
 diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index c18047da9f37..f6bdc0c77e9a 100644
+index becc198e4c22..4346c990022d 100644
 --- a/drivers/acpi/video_detect.c
 +++ b/drivers/acpi/video_detect.c
-@@ -38,10 +38,6 @@
+@@ -17,8 +17,9 @@
+  * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
+  * sony_acpi,... can take care about backlight brightness.
+  *
+- * Backlight drivers can use acpi_video_get_backlight_type() to determine
+- * which driver should handle the backlight.
++ * Backlight drivers can use acpi_video_get_backlight_type() to determine which
++ * driver should handle the backlight. RAW/GPU-driver backlight drivers must
++ * use the acpi_video_backlight_use_native() helper for this.
+  *
+  * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
+  * this file will not be compiled and acpi_video_get_backlight_type() will
+@@ -548,9 +549,10 @@ static int acpi_video_backlight_notify(struct notifier_block *nb,
+  * Arguably the native on win8 check should be done first, but that would
+  * be a behavior change, which may causes issues.
+  */
+-enum acpi_backlight_type acpi_video_get_backlight_type(void)
++static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ {
+ 	static DEFINE_MUTEX(init_mutex);
++	static bool native_available;
+ 	static bool init_done;
+ 	static long video_caps;
  
- void acpi_video_unregister_backlight(void);
- 
--static bool backlight_notifier_registered;
--static struct notifier_block backlight_nb;
--static struct work_struct backlight_notify_work;
--
- static enum acpi_backlight_type acpi_backlight_cmdline = acpi_backlight_undef;
- static enum acpi_backlight_type acpi_backlight_dmi = acpi_backlight_undef;
- 
-@@ -515,26 +511,6 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 	{ },
- };
- 
--/* This uses a workqueue to avoid various locking ordering issues */
--static void acpi_video_backlight_notify_work(struct work_struct *work)
--{
--	if (acpi_video_get_backlight_type() != acpi_backlight_video)
--		acpi_video_unregister_backlight();
--}
--
--static int acpi_video_backlight_notify(struct notifier_block *nb,
--				       unsigned long val, void *bd)
--{
--	struct backlight_device *backlight = bd;
--
--	/* A raw bl registering may change video -> native */
--	if (backlight->props.type == BACKLIGHT_RAW &&
--	    val == BACKLIGHT_REGISTERED)
--		schedule_work(&backlight_notify_work);
--
--	return NOTIFY_OK;
--}
--
- /*
-  * Determine which type of backlight interface to use on this system,
-  * First check cmdline, then dmi quirks, then do autodetect.
-@@ -564,12 +540,6 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- 		acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
- 				    ACPI_UINT32_MAX, find_video, NULL,
- 				    &video_caps, NULL);
--		INIT_WORK(&backlight_notify_work,
--			  acpi_video_backlight_notify_work);
--		backlight_nb.notifier_call = acpi_video_backlight_notify;
--		backlight_nb.priority = 0;
--		if (backlight_register_notifier(&backlight_nb) == 0)
--			backlight_notifier_registered = true;
+@@ -570,6 +572,8 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+ 			backlight_notifier_registered = true;
  		init_done = true;
  	}
- 	if (native)
-@@ -616,9 +586,3 @@ void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
- 		acpi_video_unregister_backlight();
++	if (native)
++		native_available = true;
+ 	mutex_unlock(&init_mutex);
+ 
+ 	if (acpi_backlight_cmdline != acpi_backlight_undef)
+@@ -581,13 +585,25 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+ 	if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
+ 		return acpi_backlight_vendor;
+ 
+-	if (acpi_osi_is_win8() && backlight_device_get_by_type(BACKLIGHT_RAW))
++	if (acpi_osi_is_win8() &&
++	    (native_available || backlight_device_get_by_type(BACKLIGHT_RAW)))
+ 		return acpi_backlight_native;
+ 
+ 	return acpi_backlight_video;
  }
- EXPORT_SYMBOL(acpi_video_set_dmi_backlight_type);
--
--void __exit acpi_video_detect_exit(void)
--{
--	if (backlight_notifier_registered)
--		backlight_unregister_notifier(&backlight_nb);
--}
++
++enum acpi_backlight_type acpi_video_get_backlight_type(void)
++{
++	return __acpi_video_get_backlight_type(false);
++}
+ EXPORT_SYMBOL(acpi_video_get_backlight_type);
+ 
++bool acpi_video_backlight_use_native(void)
++{
++	return __acpi_video_get_backlight_type(true) == acpi_backlight_native;
++}
++EXPORT_SYMBOL(acpi_video_backlight_use_native);
++
+ /*
+  * Set the preferred backlight interface type based on DMI info.
+  * This function allows DMI blacklists to be implemented by external
+diff --git a/include/acpi/video.h b/include/acpi/video.h
+index db8548ff03ce..4705e339c252 100644
+--- a/include/acpi/video.h
++++ b/include/acpi/video.h
+@@ -56,6 +56,7 @@ extern void acpi_video_unregister(void);
+ extern int acpi_video_get_edid(struct acpi_device *device, int type,
+ 			       int device_id, void **edid);
+ extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
++extern bool acpi_video_backlight_use_native(void);
+ extern void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type);
+ /*
+  * Note: The value returned by acpi_video_handles_brightness_key_presses()
+@@ -77,6 +78,10 @@ static inline enum acpi_backlight_type acpi_video_get_backlight_type(void)
+ {
+ 	return acpi_backlight_vendor;
+ }
++static inline bool acpi_video_backlight_use_native(void)
++{
++	return true;
++}
+ static inline void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
+ {
+ }
 -- 
 2.36.0
 
