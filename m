@@ -4,88 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C03C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB21DC43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:54:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5568394D6D;
-	Tue, 12 Jul 2022 14:52:44 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9263794D56
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:52:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MECxiBGdJFOJagEmOYjNwy8JbV5xs4NKXU9T3PP5I0ySWHJCod6Q8FCnm9LNq1umVSz2n/EDuBo/moN+3n6tVLVKNvckdqpLbifgCzxgt1YUqfg+eeglj8SaQssksRIpUpT570UTl8od/rz23bD9/IqOytDQHX7dVMKNLFOmuCTMRMph8zbhM42y7guEFiIK1bYJ5jrYeHOiF90Dh/63SSVJ3J+Cue+uoMaGwXxMx0/voBB5J2RN0HReynrc1vBg0UM1l2qS8eAJG42WVGv1+4keqfxVT+EvXhF+4X8CWdNVrwwyCwUgvjJn0qblFOImiMKwpCtXlsrHP7eAe4LcPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sc/KHxPWtO1QP0yDCIFFDBzWhV/W4KbE1mXUkpEOIa8=;
- b=Bk5SwWO5Gr9g2S6Xqd3yO2NDmUr+JFZ9QEIFkju0xgt/Hr5WHWH7SVHtTLQf+4fq4Jcqx0o+F4s9eqQbMvI7XZ2hlXz1mW6hQHrwvFKperJ65kjsmcYlSXtlyTNqfXpWPrC41Pj3kEkufvYugEgRdp/qbkaTxyeMLGUmH6K9I9tA/e8d06htWsV0VopEmpoR0NgiBD5ShZ9hDUObt3Vf/SW3iWopplEbpARvfVWqS7YMl/9NbomXiTjeSAIBBPXWaAAN0rBzrtPXsyjUDG2DfV4W/hwDm7t+rKpLc40U5gfvqQVVfCOhzgrYSSd8B3ZlOlN/Fpt8vX42ck/wYeA2Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sc/KHxPWtO1QP0yDCIFFDBzWhV/W4KbE1mXUkpEOIa8=;
- b=02P3C+Y+O/lpJlElZEPRhtvNe/vuKSbMpo4/WyyGFaKHslXU+VZPEyF2/mGn8mNy1bDApCM5QeJKN6A6KqUOrdDZI7ErFy0X6S8hAq6/pnC/GrWjZkkPDsp41yL9nylsMN/xjEYplp40XIy382TVzN0NcVmNXUgjZ8Fd7ray+nw=
-Received: from MW4PR04CA0270.namprd04.prod.outlook.com (2603:10b6:303:88::35)
- by SJ1PR12MB6148.namprd12.prod.outlook.com (2603:10b6:a03:459::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Tue, 12 Jul
- 2022 14:52:40 +0000
-Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:88:cafe::98) by MW4PR04CA0270.outlook.office365.com
- (2603:10b6:303:88::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26 via Frontend
- Transport; Tue, 12 Jul 2022 14:52:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5417.15 via Frontend Transport; Tue, 12 Jul 2022 14:52:39 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 12 Jul
- 2022 09:52:38 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: restore original stable pstate on ctx fini
-Date: Tue, 12 Jul 2022 10:52:25 -0400
-Message-ID: <20220712145225.2996286-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFBB614B5C0;
+	Tue, 12 Jul 2022 14:54:07 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C2812A81C;
+ Tue, 12 Jul 2022 14:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=/NPqGy/kbDC5IEbL/FUb1XA0XVTu08NYRtepTQJduZo=; b=KlttEkRQkHKHhvn9Iy8v0dhlJk
+ 8ET+QbItDRN1A+9JQPf85e0bZcydkqirMFbA/jthkCYizHPgbTW1nIFooCfR6EpP+fepHzn3oEqbj
+ /2f+itGTZ5J+I90uSpd/Ue+h8xHZv3bAbaCKaj2aw3ZRwZYULEm+tZhR3S04qMu7koZEO+dqpkx8B
+ ZJk1HJA3BoqJ6qkdOkxprcW4zD/4yDlJzhwIvpV5E2ORkCjcR5X+t+LXuDYTjsVg/5y4Bk//ElMLD
+ 8TiyQDsgtHxt5PJTT7PJ4IaI0lopauUC40w7QkJnKvd65HVN4cDwy5J1O+PPBUT9ZbzF7YBp4t2Uo
+ jHFDX7qA==;
+Received: from [165.90.126.25] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1oBHGn-00Dfai-3m; Tue, 12 Jul 2022 16:53:49 +0200
+Date: Tue, 12 Jul 2022 13:53:22 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [RFC PATCH 4/5] drm/drm_color_mgmt: add 3D LUT to color mgmt
+ properties
+Message-ID: <20220712145322.cecigsjbpuqh3tem@mail.igalia.com>
+References: <20220619223104.667413-1-mwen@igalia.com>
+ <20220619223104.667413-5-mwen@igalia.com>
+ <Yrmf+mWk13qkcsfs@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 58c355fc-712d-4e76-0813-08da64162afc
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6148:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wa+G6LxEFjtNddu3wBUxiEgDMibd0bpwM+AdeBrMbr/65rGSSTtcL7lx9+dFBrZ0Z7n+t4oXpz0cJ1zCXqMiQF/jNmQettgZ6F5wsaDk5STozrLkUMUW9TCcZAEjbMtzGL3KL6ixO2xfTqMKRe8iNIM/jqXmGXa1hp8Xx6L1p6NEK+hWL+sFBB8KXjes4uJlR3obW3fM9oi4XylUQ8mXklwhIHIcj3U0n6VYvPlbz9gveKwIWfF+AVHJE8YEL73Ns8xjxliKQZ0sAuVI/frlTZIA5Jm+G1XNKgbIbo7p8aUFHOcpjFUGbQjgBVIAd86n6OjthQxYDAKJwGUhddnIfDsS37uKXOq7PjX8xlEyz/gyWqaqO1CyoFIragsYI2CVuNnUG9mCHUxmmfW0g/f1y/fjJICAHr6MZ8XlniUBJFqpf+Blc7IyrEguzxlvlCxFhh1d8ekOvHG6n+2bqk4mzfvDnhTCY8tsKaURV0UJ2oSPb5nTvYzMzc1yBE/UdkjVMeidN8NFuaIgfrHveeo/CNPrXv3uHUK2YL+N3LTaiaDoG9TGgPNipbq+xcBT40ehWi1Ce4EQzjmJb4CBSVz8Jk3LpB0LVLFQlAHY1sR9t7hMih74oVPQshu7sPtAw9PTZngL2M9byDmo03mekOoOsrKi+ldBiQhY//PXXwXPeVF1oYFuEFke7od8VDwWRvZ06RaV3Lj/sGGcrxXk7f6Gt4DunXpIMtsXSq2qXTyGo4EofiNMd7Lu+WlrE+1t9js26pDbHAXNKB0rXi9eBqqF9nWwPGmK/yOxKwG7T0zNdkyYyaJXt74ubR3MptSSHoSZ3EVxTRk9o8UjI6sKViGdKAjY1UERxu3u2s5AL3eLvao=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(346002)(396003)(39860400002)(376002)(46966006)(36840700001)(40470700004)(86362001)(36756003)(81166007)(40480700001)(36860700001)(47076005)(83380400001)(2616005)(186003)(426003)(356005)(82740400003)(336012)(1076003)(16526019)(26005)(54906003)(70206006)(478600001)(4326008)(70586007)(41300700001)(316002)(6666004)(6916009)(8936002)(7696005)(8676002)(5660300002)(82310400005)(40460700003)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 14:52:39.7689 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58c355fc-712d-4e76-0813-08da64162afc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6148
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aa3jy3xvjorzzw3a"
+Content-Disposition: inline
+In-Reply-To: <Yrmf+mWk13qkcsfs@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,107 +54,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
+Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, nikola.cornij@amd.com,
+ bhawanpreet.lakha@amd.com, sunpeng.li@amd.com, alex.hung@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ seanpaul@chromium.org, nicholas.kazlauskas@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Save the original stable pstate on ctx init and restore
-it on ctx fini so that we restore a manually selected
-stable pstate on ctx exit.
 
-v2: fix init order (Alex)
-v3: don't add new variable to ctx struct (Evan)
+--aa3jy3xvjorzzw3a
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: c65b364c52ba ("drm/amdgpu/ctx: only reset stable pstate if the user changed it (v2)")
-Reviewed-by: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 58 ++++++++++++++-----------
- 1 file changed, 32 insertions(+), 26 deletions(-)
+On 06/27, Ville Syrj=C3=A4l=C3=A4 wrote:
+> On Sun, Jun 19, 2022 at 09:31:03PM -0100, Melissa Wen wrote:
+> > Add 3D LUT for gammar correction using a 3D lookup table.  The position
+> > in the color correction pipeline where 3D LUT is applied depends on hw
+> > design, being after CTM or gamma. If just after CTM, a shaper lut must
+> > be set to shape the content for a non-linear space. That details should
+> > be handled by the driver according to its color capabilities.
+>=20
+> I also cooked up a WIP 3D LUT support some time ago for Intel hw:
+> https://github.com/vsyrjala/linux/commits/3dlut
+> But that dried up due to having no userspace for it.
+>=20
+> I also cooked up some basic igts for it:
+> https://patchwork.freedesktop.org/series/90165/
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 53f9268366f2..168337d8d4cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -272,31 +272,6 @@ static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
- 	return res;
- }
- 
--static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
--			   struct drm_file *filp, struct amdgpu_ctx *ctx)
--{
--	int r;
--
--	r = amdgpu_ctx_priority_permit(filp, priority);
--	if (r)
--		return r;
--
--	memset(ctx, 0, sizeof(*ctx));
--
--	kref_init(&ctx->refcount);
--	ctx->mgr = mgr;
--	spin_lock_init(&ctx->ring_lock);
--
--	ctx->reset_counter = atomic_read(&mgr->adev->gpu_reset_counter);
--	ctx->reset_counter_query = ctx->reset_counter;
--	ctx->vram_lost_counter = atomic_read(&mgr->adev->vram_lost_counter);
--	ctx->init_priority = priority;
--	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
--	ctx->stable_pstate = AMDGPU_CTX_STABLE_PSTATE_NONE;
--
--	return 0;
--}
--
- static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 *stable_pstate)
- {
-@@ -325,6 +300,37 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- 	return 0;
- }
- 
-+static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
-+			   struct drm_file *filp, struct amdgpu_ctx *ctx)
-+{
-+	u32 current_stable_pstate;
-+	int r;
-+
-+	r = amdgpu_ctx_priority_permit(filp, priority);
-+	if (r)
-+		return r;
-+
-+	memset(ctx, 0, sizeof(*ctx));
-+
-+	kref_init(&ctx->refcount);
-+	ctx->mgr = mgr;
-+	spin_lock_init(&ctx->ring_lock);
-+
-+	ctx->reset_counter = atomic_read(&mgr->adev->gpu_reset_counter);
-+	ctx->reset_counter_query = ctx->reset_counter;
-+	ctx->vram_lost_counter = atomic_read(&mgr->adev->vram_lost_counter);
-+	ctx->init_priority = priority;
-+	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
-+
-+	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
-+	if (r)
-+		return r;
-+
-+	ctx->stable_pstate = current_stable_pstate;
-+
-+	return 0;
-+}
-+
- static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 stable_pstate)
- {
-@@ -396,7 +402,7 @@ static void amdgpu_ctx_fini(struct kref *ref)
- 	}
- 
- 	if (drm_dev_enter(&adev->ddev, &idx)) {
--		amdgpu_ctx_set_stable_pstate(ctx, AMDGPU_CTX_STABLE_PSTATE_NONE);
-+		amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
- 		drm_dev_exit(idx);
- 	}
- 
--- 
-2.35.3
+Yes, I found your work on it, so I based part of my proposal on your
+previous proposal and also the cubic-LUT by Laurent for rcar-du [1].
+They helped me to find a path to expose 3D LUT caps, thanks.
 
+>=20
+> <snip>
+> > + * =E2=80=9CLUT3D=E2=80=9D:
+> > + *	Blob property to set the 3D LUT mapping pixel data after the color
+> > + *	transformation matrix and before gamma 1D lut correction.
+>=20
+> On Intel hw the 3DLUT is after the gamma LUT in the pipeline, which is
+> where I placed it in my branch.
+>=20
+> There is now some discussion happening about exposing some
+> kind of color pipeline description/configuration properties:
+> https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
+
+So, initially I thought we would just map the properties according to hw
+pipeline, but in fact it isn't a good path to follow and would make a
+big mess, so Sebastian's proposal for a pipeline description makes a lot
+of sense to me. I'll join the discussion.
+
+Anyway, thanks for all inputs,
+
+Melissa
+
+[1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+ren=
+esas@ideasonboard.com/
+>=20
+> --=20
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
+
+--aa3jy3xvjorzzw3a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLNitsACgkQwqF3j0dL
+ehw3zw/9EC40737UmbquiGb+tP+eHu1jV+wfVOcLwtAkx9bxNINu74MW9x86nZw6
+VMqIa1FHyVTAZ0/a/nmcMNBIHGzeE13zVnYdnE91kMv0QGPNHWK+cuZGA0+xUIFB
+3yY8PXKJqZS/R2ApsDqT2qQclYpPpHoB4ziBYKY/w3y+yisNVhU1TtPNzBFkpSwG
+I6Zqz6TkMWqjjth2oW63SzhFmOiiHi5d+5n+HikHXYpfGxRVbQOipW1ZPOEigs68
+UiuMtKQairaACZUVF5mWeUD6lDxmdpOl7qLh0HjDFsTNU5sIV8g2U6ZvBubrw/QM
+DtBTkb49LlyPTFCz8NZsw+qbc+OHHGD/o3gthM/NmR0BN7dWjbbTQBFC0UOdoYlc
+u9SaNuWDGqZOEEyFlmlwOoefbYAk7rFlBGLXp/ER+IIEcnx6JOKap/GclgGmJrY1
+acP+MYE/moTBMEgpg8xifGOOodi+NGRTuRXhiGLEU1ncwyJfgFQ2vERbEwm8SoSp
+pyA8zjjJ40vtXV+Xg0AAyzOVH/2ciMxdxUy+3F5HtEi2V1dmZG07aj51uGFCHexX
++lFEyPGLud0h6YPevJXEXmcZeA8fBaLd1u1xDs7Uyusd5nGcMZoTyTAWQ8jRT6YH
+kuApDh6xfRlt7BaRDw3iA0zMaNx8/hz8XPUoCCb30ub0P8rIODo=
+=oSGs
+-----END PGP SIGNATURE-----
+
+--aa3jy3xvjorzzw3a--
