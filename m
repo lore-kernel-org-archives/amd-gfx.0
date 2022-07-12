@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C5EC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA96C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19D5B112651;
-	Tue, 12 Jul 2022 19:48:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0049118A98A;
+	Tue, 12 Jul 2022 19:48:32 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F029643C
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:40:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 400F7964A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657654800;
+ s=mimecast20190719; t=1657654856;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G71xR+CdSjI/ehlXv3ixGBSAU1doFgjRWSHT8LQrW8s=;
- b=JW1FmZB/31KjsIExrra41H8aYNggavBIdIoLP7bCooAwBLUS72p738/zrxJnqEENII0bfS
- ljvb4Se/akASj71apR5k32afTouWn8Crlpi5U6yicxYjDgwf18GYjfLl8xsyNkzc+FUoJ6
- z7evrodS1lGjb3EVhSsmMfRh8CDljNw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=5+QR0/UkuXQbEkpLhT/cxqgmc7+5vv5fCbfK9rLIbHM=;
+ b=FPeeAHla9aZnFXovXxKFkOmcl7q5aUuW7lg5xn5cxdXKtQssXMg+b+0v4oz8FyASHKTVsm
+ Ik2dBekh06ScfsmhQUUJGgxTtA7kF8Tnwb/BpvOtrXON/0dFZ7z/lpQRnQEFPzFaxe4ENm
+ KmtjSnzlCOrk5YJ5TRTRouOIviqqRfU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-o5YO3pJHP9OB4tUBaWJkpg-1; Tue, 12 Jul 2022 15:39:58 -0400
-X-MC-Unique: o5YO3pJHP9OB4tUBaWJkpg-1
+ us-mta-346-fcQrDpqqMoaa19OBUWyBxw-1; Tue, 12 Jul 2022 15:40:53 -0400
+X-MC-Unique: fcQrDpqqMoaa19OBUWyBxw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82C1F380406E;
- Tue, 12 Jul 2022 19:39:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCFB78032F2;
+ Tue, 12 Jul 2022 19:40:51 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.30])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DCB1B40E80E0;
- Tue, 12 Jul 2022 19:39:53 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 28B8C40E80E0;
+ Tue, 12 Jul 2022 19:40:47 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v2 09/29] ACPI: video: Make backlight class device
- registration a separate step
-Date: Tue, 12 Jul 2022 21:38:50 +0200
-Message-Id: <20220712193910.439171-10-hdegoede@redhat.com>
+Subject: [PATCH v2 22/29] platform/x86: asus-wmi: Move acpi_backlight=vendor
+ quirks to ACPI video_detect.c
+Date: Tue, 12 Jul 2022 21:39:03 +0200
+Message-Id: <20220712193910.439171-23-hdegoede@redhat.com>
 In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
 References: <20220712193910.439171-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -84,160 +84,180 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On x86/ACPI boards the acpi_video driver will usually initializing before
-the kms driver (except i915). This causes /sys/class/backlight/acpi_video0
-to show up and then the kms driver registers its own native backlight
-device after which the drivers/acpi/video_detect.c code unregisters
-the acpi_video0 device (when acpi_video_get_backlight_type()==native).
+Remove the asus-wmi quirk_entry.wmi_backlight_power quirk-flag, which
+called acpi_video_set_dmi_backlight_type(acpi_backlight_vendor) and replace
+it with acpi/video_detect.c video_detect_dmi_table[] entries using the
+video_detect_force_vendor callback.
 
-This means that userspace briefly sees 2 devices and the disappearing of
-acpi_video0 after a brief time confuses the systemd backlight level
-save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+acpi_video_set_dmi_backlight_type() is troublesome because it may end up
+getting called after other backlight drivers have already called
+acpi_video_get_backlight_type() resulting in the other drivers
+already being registered even though they should not.
 
-To fix this make backlight class device registration a separate step
-done by a new acpi_video_register_backlight() function. The intend is for
-this to be called by the drm/kms driver *after* it is done setting up its
-own native backlight device. So that acpi_video_get_backlight_type() knows
-if a native backlight will be available or not at acpi_video backlight
-registration time, avoiding the add + remove dance.
-
-Note the new acpi_video_register_backlight() function is also called from
-a delayed work to ensure that the acpi_video backlight devices does get
-registered if necessary even if there is no drm/kms driver or when it is
-disabled.
+Note no entries are dropped from the dmi_system_id table in asus-nb-wmi.c.
+This is because the entries using the removed wmi_backlight_power flag
+also use other model specific quirks from the asus-wmi quirk_entry struct.
+So the quirk_asus_x55u struct and the entries pointing to it cannot be
+dropped.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/acpi_video.c | 45 ++++++++++++++++++++++++++++++++++++---
- include/acpi/video.h      |  2 ++
- 2 files changed, 44 insertions(+), 3 deletions(-)
+ drivers/acpi/video_detect.c        | 40 ++++++++++++++++++++++++++++++
+ drivers/platform/x86/asus-nb-wmi.c |  7 ------
+ drivers/platform/x86/asus-wmi.c    |  3 ---
+ drivers/platform/x86/asus-wmi.h    |  1 -
+ drivers/platform/x86/eeepc-wmi.c   | 25 +------------------
+ 5 files changed, 41 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index 6944794797a5..c4c3a9e7ce69 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -31,6 +31,12 @@
- #define ACPI_VIDEO_BUS_NAME		"Video Bus"
- #define ACPI_VIDEO_DEVICE_NAME		"Video Device"
- 
-+/*
-+ * Display probing is known to take up to 5 seconds, so delay the fallback
-+ * backlight registration by 5 seconds + 3 seconds for some extra margin.
-+ */
-+#define ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY	(8 * HZ)
-+
- #define MAX_NAME_LEN	20
- 
- MODULE_AUTHOR("Bruno Ducrot");
-@@ -81,6 +87,9 @@ static LIST_HEAD(video_bus_head);
- static int acpi_video_bus_add(struct acpi_device *device);
- static int acpi_video_bus_remove(struct acpi_device *device);
- static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
-+static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
-+static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
-+			    acpi_video_bus_register_backlight_work);
- void acpi_video_detect_exit(void);
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index cd51cb0d7821..5d5215969f1d 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -172,6 +172,46 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "UL30A"),
+ 		},
+ 	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Asus X55U */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "X55U"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Asus X101CH */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "X101CH"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Asus X401U */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "X401U"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Asus X501U */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "X501U"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Asus 1015CX */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "1015CX"),
++		},
++	},
+ 	{
+ 	.callback = video_detect_force_vendor,
+ 	/* GIGABYTE GB-BXBT-2807 */
+diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+index 57a07db659cb..074b4764ee8a 100644
+--- a/drivers/platform/x86/asus-nb-wmi.c
++++ b/drivers/platform/x86/asus-nb-wmi.c
+@@ -79,12 +79,10 @@ static struct quirk_entry quirk_asus_q500a = {
  
  /*
-@@ -1865,8 +1874,6 @@ static int acpi_video_bus_register_backlight(struct acpi_video_bus *video)
- 	if (video->backlight_registered)
- 		return 0;
+  * For those machines that need software to control bt/wifi status
+- * and can't adjust brightness through ACPI interface
+  * and have duplicate events(ACPI and WMI) for display toggle
+  */
+ static struct quirk_entry quirk_asus_x55u = {
+ 	.wapf = 4,
+-	.wmi_backlight_power = true,
+ 	.wmi_backlight_set_devstate = true,
+ 	.no_display_toggle = true,
+ };
+@@ -147,11 +145,6 @@ static const struct dmi_system_id asus_quirks[] = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK Computer Inc."),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "U32U"),
+ 		},
+-		/*
+-		 * Note this machine has a Brazos APU, and most Brazos Asus
+-		 * machines need quirk_asus_x55u / wmi_backlight_power but
+-		 * here acpi-video seems to work fine for backlight control.
+-		 */
+ 		.driver_data = &quirk_asus_wapf4,
+ 	},
+ 	{
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index 9dab0998cd20..ac3f5606e267 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -3609,9 +3609,6 @@ static int asus_wmi_add(struct platform_device *pdev)
+ 	if (asus->driver->quirks->wmi_force_als_set)
+ 		asus_wmi_set_als();
  
--	acpi_video_run_bcl_for_osi(video);
+-	if (asus->driver->quirks->wmi_backlight_power)
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
 -
- 	if (acpi_video_get_backlight_type() != acpi_backlight_video)
- 		return 0;
+ 	if (asus->driver->quirks->wmi_backlight_native)
+ 		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
  
-@@ -2092,7 +2099,11 @@ static int acpi_video_bus_add(struct acpi_device *device)
- 	list_add_tail(&video->entry, &video_bus_head);
- 	mutex_unlock(&video_list_lock);
+diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+index b302415bf1d9..30770e411301 100644
+--- a/drivers/platform/x86/asus-wmi.h
++++ b/drivers/platform/x86/asus-wmi.h
+@@ -29,7 +29,6 @@ struct quirk_entry {
+ 	bool hotplug_wireless;
+ 	bool scalar_panel_brightness;
+ 	bool store_backlight_power;
+-	bool wmi_backlight_power;
+ 	bool wmi_backlight_native;
+ 	bool wmi_backlight_set_devstate;
+ 	bool wmi_force_als_set;
+diff --git a/drivers/platform/x86/eeepc-wmi.c b/drivers/platform/x86/eeepc-wmi.c
+index ce86d84ee796..32d9f0ba6be3 100644
+--- a/drivers/platform/x86/eeepc-wmi.c
++++ b/drivers/platform/x86/eeepc-wmi.c
+@@ -96,11 +96,6 @@ static struct quirk_entry quirk_asus_et2012_type3 = {
+ 	.store_backlight_power = true,
+ };
  
--	acpi_video_bus_register_backlight(video);
-+	/*
-+	 * The userspace visible backlight_device gets registered separately
-+	 * from acpi_video_register_backlight().
-+	 */
-+	acpi_video_run_bcl_for_osi(video);
- 	acpi_video_bus_add_notify_handler(video);
+-static struct quirk_entry quirk_asus_x101ch = {
+-	/* We need this when ACPI function doesn't do this well */
+-	.wmi_backlight_power = true,
+-};
+-
+ static struct quirk_entry *quirks;
  
- 	return 0;
-@@ -2131,6 +2142,11 @@ static int acpi_video_bus_remove(struct acpi_device *device)
- 	return 0;
- }
+ static void et2012_quirks(void)
+@@ -151,25 +146,7 @@ static const struct dmi_system_id asus_quirks[] = {
+ 		},
+ 		.driver_data = &quirk_asus_unknown,
+ 	},
+-	{
+-		.callback = dmi_matched,
+-		.ident = "ASUSTeK Computer INC. X101CH",
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "X101CH"),
+-		},
+-		.driver_data = &quirk_asus_x101ch,
+-	},
+-	{
+-		.callback = dmi_matched,
+-		.ident = "ASUSTeK Computer INC. 1015CX",
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "1015CX"),
+-		},
+-		.driver_data = &quirk_asus_x101ch,
+-	},
+-	{},
++	{}
+ };
  
-+static void acpi_video_bus_register_backlight_work(struct work_struct *ignored)
-+{
-+	acpi_video_register_backlight();
-+}
-+
- static int __init is_i740(struct pci_dev *dev)
- {
- 	if (dev->device == 0x00D1)
-@@ -2241,6 +2257,17 @@ int acpi_video_register(void)
- 	 */
- 	register_count = 1;
- 
-+	/*
-+	 * acpi_video_bus_add() skips registering the userspace visible
-+	 * backlight_device. The intend is for this to be registered by the
-+	 * drm/kms driver calling acpi_video_register_backlight() *after* it is
-+	 * done setting up its own native backlight device. The delayed work
-+	 * ensures that acpi_video_register_backlight() always gets called
-+	 * eventually, in case there is no drm/kms driver or it is disabled.
-+	 */
-+	schedule_delayed_work(&video_bus_register_backlight_work,
-+			      ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY);
-+
- leave:
- 	mutex_unlock(&register_count_mutex);
- 	return ret;
-@@ -2251,6 +2278,7 @@ void acpi_video_unregister(void)
- {
- 	mutex_lock(&register_count_mutex);
- 	if (register_count) {
-+		cancel_delayed_work_sync(&video_bus_register_backlight_work);
- 		acpi_bus_unregister_driver(&acpi_video_bus);
- 		register_count = 0;
- 		has_backlight = false;
-@@ -2259,6 +2287,17 @@ void acpi_video_unregister(void)
- }
- EXPORT_SYMBOL(acpi_video_unregister);
- 
-+void acpi_video_register_backlight(void)
-+{
-+	struct acpi_video_bus *video;
-+
-+	mutex_lock(&video_list_lock);
-+	list_for_each_entry(video, &video_bus_head, entry)
-+		acpi_video_bus_register_backlight(video);
-+	mutex_unlock(&video_list_lock);
-+}
-+EXPORT_SYMBOL(acpi_video_register_backlight);
-+
- void acpi_video_unregister_backlight(void)
- {
- 	struct acpi_video_bus *video;
-diff --git a/include/acpi/video.h b/include/acpi/video.h
-index 4705e339c252..0625806d3bbd 100644
---- a/include/acpi/video.h
-+++ b/include/acpi/video.h
-@@ -53,6 +53,7 @@ enum acpi_backlight_type {
- #if IS_ENABLED(CONFIG_ACPI_VIDEO)
- extern int acpi_video_register(void);
- extern void acpi_video_unregister(void);
-+extern void acpi_video_register_backlight(void);
- extern int acpi_video_get_edid(struct acpi_device *device, int type,
- 			       int device_id, void **edid);
- extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
-@@ -69,6 +70,7 @@ extern int acpi_video_get_levels(struct acpi_device *device,
- #else
- static inline int acpi_video_register(void) { return -ENODEV; }
- static inline void acpi_video_unregister(void) { return; }
-+static inline void acpi_video_register_backlight(void) { return; }
- static inline int acpi_video_get_edid(struct acpi_device *device, int type,
- 				      int device_id, void **edid)
- {
+ static void eeepc_wmi_key_filter(struct asus_wmi_driver *asus_wmi, int *code,
 -- 
 2.36.0
 
