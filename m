@@ -4,64 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2610C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:17:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2837C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 850B394EF9;
-	Tue, 12 Jul 2022 15:17:18 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2B1494F06
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 15:17:17 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id v12so10496283edc.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 08:17:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE02194F2B;
+	Tue, 12 Jul 2022 15:19:43 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5D194F24;
+ Tue, 12 Jul 2022 15:19:42 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id v12so10506224edc.10;
+ Tue, 12 Jul 2022 08:19:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=Ft2lQaCk2NQ8KfYJ8LAqUmwuolQN9Ck6exVznLEz4Kc=;
- b=SLTYO4mJPuYe9+TYfq1uyP3FSct80wsfVbrLF75Wnc5V3G8Tepwf/xOtLCY2WLfVYr
- 9Gu7qNKx6LcZiCGYKoltDpJv7rqUPRiTsPUpv5oF9ndke70dF/euWkNMR/b8qNnMm+eq
- S8ygBrpVc/tlgqNtvm/2YphwXnpiwUgheMEZH689gky89a4w0daVf42fsan4LBwECblt
- 03Zi1iJhfaWwA7bCMClhplYBhDtz57iHX2b83P4LTjaHkafWpk8Bi01doULgMoV39x5E
- gNdAHPerAHOFh/9tkZsueTw0AF/U04uws1eJhtcImSp8TsBAE+yneuqe/80PLKdFomFt
- 1Xsg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=C9VaI0vSPKUD5SvoWT4Rlvx+rE2rxs+iV6uR37UPyfs=;
+ b=G3vieiWvH01IfSAf2DTS/mYiBZuPsMSXH7MlkDlEiQJuNUD33eBA3lU8zpnVu/iyH/
+ RHiix9oiqYDTVSpyT22raDMYkUU/DRkiGnsb8fEpAEIplFYXwhm2OHP/CS+BMZUcuCSw
+ Ge0P879iGSJblKX5fMWux/At6UBxetyip/f76gVA4umBJoEg5o3MaGSmisAgthdbAAj/
+ oSJDsiGpH55MSkIx+jtI32KQ2oZvVhVBhSrNwN2FcnXMNmMffRE2Am2tFHvhgKIndMkZ
+ VWJTQbd/rYP+6fhhnSAXPU5FyK6exyBPg965IrU8YdFOGTtGgN1yRBvl8HN0EWmQRJ8e
+ 5ciQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Ft2lQaCk2NQ8KfYJ8LAqUmwuolQN9Ck6exVznLEz4Kc=;
- b=LRWjt/7s2DUmmygtg7+awPBX0eAXYWHN6cZG4oNBidA1CfUIXyb8w4IEaV0hxckh81
- jkfuKVJ/lg65QixJAzPvqiepHcrWMX0v99INTC40tv4gp8Cstb8RTSNqRcRNZo8IN7No
- 9a2meEhEh3KdYnk+EVBRVBZo40FGaj0DesAU/266aupkshdpVUA9oREQr5DlorKsIhdD
- MLpuj0pxv8VJotx5dKQPaGgeBCRI0Eif5/LHJBKWtVbuCw7so5bYhwVOWV7gtC63dZ2F
- Ngj02LhawBlScmSZIJBysYS9xHF1GOLPPpOBv0SZbT6XQnWO6pSDBYkt+HxH6fjeWdOP
- +N0w==
-X-Gm-Message-State: AJIora/h6hqbpAAdZehUEopOcFTXQSxAO8XTHMxx7yBl6++yo17jaAFr
- yHAn7KuYXUL3wBVNkfNPsaPLKAbxMEQ=
-X-Google-Smtp-Source: AGRyM1uDbbP2n3eEVKIqQVJTQo2Rfa1etMvB2N6gCE8z1m9b8VG8QVdArmJ7kXCx1f9NdhfmEzQf9g==
-X-Received: by 2002:a05:6402:5114:b0:43a:d072:83b9 with SMTP id
- m20-20020a056402511400b0043ad07283b9mr17839275edd.260.1657639036465; 
- Tue, 12 Jul 2022 08:17:16 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:cf35:dc88:25dd:1187?
- ([2a02:908:1256:79a0:cf35:dc88:25dd:1187])
- by smtp.gmail.com with ESMTPSA id
- a17-20020a50ff11000000b0043af8007e7fsm39654edu.3.2022.07.12.08.17.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Jul 2022 08:17:15 -0700 (PDT)
-Message-ID: <6c6cb19c-2169-3372-556c-b6b4bab1dc43@gmail.com>
-Date: Tue, 12 Jul 2022 17:17:13 +0200
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=C9VaI0vSPKUD5SvoWT4Rlvx+rE2rxs+iV6uR37UPyfs=;
+ b=PJ9tPk54YFNDq8IElG1re+PtPtEZgJT2Hjp+omI5/SoR2wVerBr3LnBHsLZdWH211n
+ sVkmeCGpZ/yDKZ2urdgJtCo3NkOXW6PO4hnVSctrm6m2hmOG2vZmf6XBMuER9/65ZR3e
+ iqFiUQ5bAlG1u2jzlV3b66Uk5dy3Kuv/PVIw7LEVH7I4sGodx2NKudW3qAWSX9UgEjKn
+ sP2ZriJRDlNOMa9IoeC8UGNr7pC2+o1ey5Q5h0NH43Qvc/1mDaM1xI2d8dzVvePIFJao
+ /F/g2FAQMocYzPyKPKw1ItADyX7uikxjFopc83pErUGftChTi2jYHSuZydznXkZTUt/x
+ do3A==
+X-Gm-Message-State: AJIora+BIcYbtmtMuIDX24XtN2zjPpcRX138UM7NuBqGxi2i6hiJsjay
+ AUdlxB+N9pyz5SuTIyfHkE6n3COhAVkBp1ep5bk=
+X-Google-Smtp-Source: AGRyM1uCLAdGLDWrBHKTlPgbK7mM1MRwJiXD6iCchvPA7KNWfKzYUHhfzOXF0CTlFfMxm2hRzW2LnzwAOQ6+2f03tv0=
+X-Received: by 2002:a05:6402:28c3:b0:43a:6d78:1b64 with SMTP id
+ ef3-20020a05640228c300b0043a6d781b64mr31964242edb.93.1657639180802; Tue, 12
+ Jul 2022 08:19:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 1/4] drm/amdgpu/gpuvm: remove unused variable
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220712151348.3047904-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220712151348.3047904-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220711173928.3858-1-mario.kleiner.de@gmail.com>
+In-Reply-To: <20220711173928.3858-1-mario.kleiner.de@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Jul 2022 11:19:29 -0400
+Message-ID: <CADnq5_Mm+Bjra+nqmmeMpX5zJ9fQUgQOJuBaqZYpjsCGtbXQUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Only use depth 36 bpp linebuffers on DCN
+ display engines.
+To: Mario Kleiner <mario.kleiner.de@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,36 +62,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ "for 3.8" <stable@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.07.22 um 17:13 schrieb Alex Deucher:
-> Not used so drop it.
+Applied.  Thanks!
+
+Alex
+
+On Mon, Jul 11, 2022 at 1:39 PM Mario Kleiner
+<mario.kleiner.de@gmail.com> wrote:
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Patches #1-#3 are Reviewed-by: Christian König <christian.koenig@amd.com>
-
-No idea what to do about patch #4, somebody more familiar with this 
-needs to take a look.
-
-Regards,
-Christian.
-
+> Various DCE versions had trouble with 36 bpp lb depth, requiring fixes,
+> last time in commit 353ca0fa5630 ("drm/amd/display: Fix 10bit 4K display
+> on CIK GPUs") for DCE-8. So far >= DCE-11.2 was considered ok, but now I
+> found out that on DCE-11.2 it causes dithering when there shouldn't be
+> any, so identity pixel passthrough with identity gamma LUTs doesn't work
+> when it should. This breaks various important neuroscience applications,
+> as reported to me by scientific users of Polaris cards under Ubuntu 22.04
+> with Linux 5.15, and confirmed by testing it myself on DCE-11.2.
+>
+> Lets only use depth 36 for DCN engines, where my testing showed that it
+> is both necessary for high color precision output, e.g., RGBA16 fb's,
+> and not harmful, as far as more than one year in real-world use showed.
+>
+> DCE engines seem to work fine for high precision output at 30 bpp, so
+> this ("famous last words") depth 30 should hopefully fix all known problems
+> without introducing new ones.
+>
+> Successfully retested on DCE-11.2 Polaris and DCN-1.0 Raven Ridge on
+> top of Linux 5.19.0-rc2 + drm-next.
+>
+> Fixes: 353ca0fa5630 ("drm/amd/display: Fix 10bit 4K display on CIK GPUs")
+> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Cc: stable@vger.kernel.org # 5.14.0
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 -
->   1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 4effee12a4ac..d1657de5f875 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1576,7 +1576,6 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
->   				    struct amdgpu_vm *vm)
->   {
->   	struct amdkfd_process_info *process_info = vm->process_info;
-> -	struct amdgpu_bo *pd = vm->root.bo;
->   
->   	if (!process_info)
->   		return;
-
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index 6774dd8bb53e..3fe3fbac1e63 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -1117,12 +1117,13 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+>          * on certain displays, such as the Sharp 4k. 36bpp is needed
+>          * to support SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616 and
+>          * SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616 with actual > 10 bpc
+> -        * precision on at least DCN display engines. However, at least
+> -        * Carrizo with DCE_VERSION_11_0 does not like 36 bpp lb depth,
+> -        * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
+> -        * did not show such problems, so this seems to be the exception.
+> +        * precision on DCN display engines, but apparently not for DCE, as
+> +        * far as testing on DCE-11.2 and DCE-8 showed. Various DCE parts have
+> +        * problems: Carrizo with DCE_VERSION_11_0 does not like 36 bpp lb depth,
+> +        * neither do DCE-8 at 4k resolution, or DCE-11.2 (broken identify pixel
+> +        * passthrough). Therefore only use 36 bpp on DCN where it is actually needed.
+>          */
+> -       if (plane_state->ctx->dce_version > DCE_VERSION_11_0)
+> +       if (plane_state->ctx->dce_version > DCE_VERSION_MAX)
+>                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
+>         else
+>                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
+> --
+> 2.34.1
+>
