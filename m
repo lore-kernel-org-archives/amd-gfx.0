@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55AE8C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2610C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90EAE90D09;
-	Tue, 12 Jul 2022 15:14:52 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5685B18AC61;
- Tue, 12 Jul 2022 15:14:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=am0gmqQyNygY5BLpbzG6Derj/neEKA1GPQ3HA4CdOe4=; b=F0gAS0gF8LRDGc5jHcJthIccAQ
- KTsM1eXkDVN8HLymInpPGXr/aNquJvsa5Fr/akHmYDlVA0lrhBZVVYMKceE43FO4Kv31bjb7Bfi7q
- RCBBVSSnFPvTM7NMUOP4JRKjqrNksxe5nFPDstZ4s2/eKfQujdwzB40JpsBrv/qlscpIVBUZbAhrr
- FAVrkiIGJKCa2KfdEc1L9FSnR9xWBnSwpVZ0TesTlsR2KLVtD9b63kxLyt4gs3WaU6kAuN+3A6VsS
- 4DvLhXEkt3NMdz81qEqgbJxvBs5IlO9S5UNXT49BYLOEHNM0pvTriPsN6bT1qELJjxM3x605g1av0
- 8V68h0JA==;
-Received: from [177.139.47.106] (helo=[192.168.15.109])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1oBHb2-00DhU5-Pm; Tue, 12 Jul 2022 17:14:45 +0200
-Message-ID: <21df71a6-44d4-48a6-17d2-d463174a10c7@igalia.com>
-Date: Tue, 12 Jul 2022 12:14:27 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850B394EF9;
+	Tue, 12 Jul 2022 15:17:18 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2B1494F06
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 15:17:17 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id v12so10496283edc.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 08:17:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=Ft2lQaCk2NQ8KfYJ8LAqUmwuolQN9Ck6exVznLEz4Kc=;
+ b=SLTYO4mJPuYe9+TYfq1uyP3FSct80wsfVbrLF75Wnc5V3G8Tepwf/xOtLCY2WLfVYr
+ 9Gu7qNKx6LcZiCGYKoltDpJv7rqUPRiTsPUpv5oF9ndke70dF/euWkNMR/b8qNnMm+eq
+ S8ygBrpVc/tlgqNtvm/2YphwXnpiwUgheMEZH689gky89a4w0daVf42fsan4LBwECblt
+ 03Zi1iJhfaWwA7bCMClhplYBhDtz57iHX2b83P4LTjaHkafWpk8Bi01doULgMoV39x5E
+ gNdAHPerAHOFh/9tkZsueTw0AF/U04uws1eJhtcImSp8TsBAE+yneuqe/80PLKdFomFt
+ 1Xsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Ft2lQaCk2NQ8KfYJ8LAqUmwuolQN9Ck6exVznLEz4Kc=;
+ b=LRWjt/7s2DUmmygtg7+awPBX0eAXYWHN6cZG4oNBidA1CfUIXyb8w4IEaV0hxckh81
+ jkfuKVJ/lg65QixJAzPvqiepHcrWMX0v99INTC40tv4gp8Cstb8RTSNqRcRNZo8IN7No
+ 9a2meEhEh3KdYnk+EVBRVBZo40FGaj0DesAU/266aupkshdpVUA9oREQr5DlorKsIhdD
+ MLpuj0pxv8VJotx5dKQPaGgeBCRI0Eif5/LHJBKWtVbuCw7so5bYhwVOWV7gtC63dZ2F
+ Ngj02LhawBlScmSZIJBysYS9xHF1GOLPPpOBv0SZbT6XQnWO6pSDBYkt+HxH6fjeWdOP
+ +N0w==
+X-Gm-Message-State: AJIora/h6hqbpAAdZehUEopOcFTXQSxAO8XTHMxx7yBl6++yo17jaAFr
+ yHAn7KuYXUL3wBVNkfNPsaPLKAbxMEQ=
+X-Google-Smtp-Source: AGRyM1uDbbP2n3eEVKIqQVJTQo2Rfa1etMvB2N6gCE8z1m9b8VG8QVdArmJ7kXCx1f9NdhfmEzQf9g==
+X-Received: by 2002:a05:6402:5114:b0:43a:d072:83b9 with SMTP id
+ m20-20020a056402511400b0043ad07283b9mr17839275edd.260.1657639036465; 
+ Tue, 12 Jul 2022 08:17:16 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:cf35:dc88:25dd:1187?
+ ([2a02:908:1256:79a0:cf35:dc88:25dd:1187])
+ by smtp.gmail.com with ESMTPSA id
+ a17-20020a50ff11000000b0043af8007e7fsm39654edu.3.2022.07.12.08.17.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Jul 2022 08:17:15 -0700 (PDT)
+Message-ID: <6c6cb19c-2169-3372-556c-b6b4bab1dc43@gmail.com>
+Date: Tue, 12 Jul 2022 17:17:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH -next] drm/amdgpu: double free error and freeing
- uninitialized null pointer
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/4] drm/amdgpu/gpuvm: remove unused variable
 Content-Language: en-US
-To: Sebin Sebastian <mailmesebin00@gmail.com>
-References: <20220710132911.399325-1-mailmesebin00@gmail.com>
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20220710132911.399325-1-mailmesebin00@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220712151348.3047904-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220712151348.3047904-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,72 +73,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Nirmoy Das <nirmoy.das@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Sebin,
+Am 12.07.22 um 17:13 schrieb Alex Deucher:
+> Not used so drop it.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Às 10:29 de 10/07/22, Sebin Sebastian escreveu:
-> Fix two coverity warning's double free and and an uninitialized pointer
-> read. Both tmp and new are pointing at same address and both are freed
-> which leads to double free. Freeing tmp in the condition after new is
-> assigned with new address fixes the double free issue. new is not
-> initialized to null which also leads to a free on an uninitialized
-> pointer.
-> Coverity issue: 1518665 (uninitialized pointer read)
-> 		1518679 (double free)
+Patches #1-#3 are Reviewed-by: Christian König <christian.koenig@amd.com>
 
-What are those numbers?
+No idea what to do about patch #4, somebody more familiar with this 
+needs to take a look.
 
-> 
-> Signed-off-by: Sebin Sebastian <mailmesebin00@gmail.com>
+Regards,
+Christian.
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index f3b3c688e4e7..d82fe0e1b06b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1660,7 +1660,7 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
->  	char reg_offset[11];
-> -	uint32_t *new, *tmp = NULL;
-> +	uint32_t *new = NULL, *tmp = NULL;
->  	int ret, i = 0, len = 0;
->  
->  	do {
-> @@ -1692,17 +1692,19 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
->  		goto error_free;
->  	}
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 4effee12a4ac..d1657de5f875 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1576,7 +1576,6 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
+>   				    struct amdgpu_vm *vm)
+>   {
+>   	struct amdkfd_process_info *process_info = vm->process_info;
+> -	struct amdgpu_bo *pd = vm->root.bo;
+>   
+>   	if (!process_info)
+>   		return;
 
-If the `if (!new) {` above this line is true, will be tmp freed?
-
->  	ret = down_write_killable(&adev->reset_domain->sem);
-> -	if (ret)
-> +	if (ret) {
-> +		kfree(tmp);
->  		goto error_free;
-> +	}
->  
->  	swap(adev->reset_dump_reg_list, tmp);
->  	swap(adev->reset_dump_reg_value, new);
->  	adev->num_regs = i;
->  	up_write(&adev->reset_domain->sem);
-> +	kfree(tmp);
->  	ret = size;
->  
->  error_free:
-> -	kfree(tmp);
->  	kfree(new);
->  	return ret;
->  }
