@@ -4,63 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25B95C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 12:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47EE9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 13:25:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B0593C15;
-	Tue, 12 Jul 2022 12:20:38 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237F793C1B
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 12:20:37 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id eq6so9877267edb.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 05:20:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=1Q9Bfry6JLChmL8AgB3Ham5O21Kab4lOyoyfxN/Ls5U=;
- b=SEOFLVXC0Hlz30zEVQObpR72fuYI6dcmtguB/YJHdcsyVkYY9uugN/TuNBbVauP65M
- H+pwnd0VrMW7JI//HwjoYeucdMvFoi+km5Pzt0ZZOJExCgJ6PEaddNurjTbkqe3O0kI6
- Ix/23vWjQAitSsPw8nJu2uOGvwYGG1MVIsZRtuCj8QCUrM/VRcAArKkSHHEGsKGkYTsW
- Z1aG7hfF0loIC0Vahu8Bd73YmEVocZdicRFMQC2VirwL6W/2Y3jVZHDAEJBMaP7hrqxQ
- Fap1upftt4YMPZOh8MycYfEu2bjdRJ1kttnUWIRUKRsw94yFkfcOlxGEPZEIJfKcfUNc
- 0NOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=1Q9Bfry6JLChmL8AgB3Ham5O21Kab4lOyoyfxN/Ls5U=;
- b=nqWqJo1BZO0Kq7WN5JO/OGL6Ywhe+IFdjdJUG3au1rKBmOJQzWg6YouXxffmsixRVW
- sBMQfT1uvNWkxULWG4EeOnvnDEUlgKeRUoK52QQhOZ/iRWv01RY+k6gSAjluQqB+wNGZ
- nNa9YnvPbRHy6EMqsPHIk1xZTk9zOcmU8xYBIz6Hj00FVcBQbdKe3R+zBhZ8p7kRToT2
- qvsuqGVS3ZBVvmFX25XgGiVUikgcLzMrIVus5De1cY0fLCd+04Jjy9HjqHDxPpJsExaB
- 4g/qEwshiDKk3yLLhcN3dF5x9TJs467rqJJ9dL2m6+0CSWeX/upe1zU0rZLN0GBQeKaD
- tYhw==
-X-Gm-Message-State: AJIora+Ees5fC+Q9FVyPeJdFNIW1zJt+fkrIEDW/KhIwSkIE4yecYOnm
- 6R924ypBfaPkPG5l7xeGudg=
-X-Google-Smtp-Source: AGRyM1uZb/qcZe783slXUqF+wvPPO7ONiviotWWy+OmSgv3GS2//7W2QuL0zbcjFQclzFZMlMfYDGQ==
-X-Received: by 2002:a05:6402:26d5:b0:43a:bf2a:c27b with SMTP id
- x21-20020a05640226d500b0043abf2ac27bmr24263082edd.61.1657628435533; 
- Tue, 12 Jul 2022 05:20:35 -0700 (PDT)
-Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
- [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
- x18-20020a170906711200b00722e5b234basm3775162ejj.179.2022.07.12.05.20.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Jul 2022 05:20:35 -0700 (PDT)
-Message-ID: <396bb4d6-4162-5b4b-7814-2061e15e0de8@gmail.com>
-Date: Tue, 12 Jul 2022 14:20:33 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA53913D3;
+	Tue, 12 Jul 2022 13:25:11 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2041.outbound.protection.outlook.com [40.107.101.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B001794678
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 13:25:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TZO2lE3Iwiv2X3c5AK33Vpw4k9ngbfozhEmXZr4yGoATf8rWQURLnU0NEXHkqZBZBP/rtaqQeb2DrMHZvL5Q+sT6IjBdrqV99WhuPfl1iP2VRIEDOBWcF1C5dSsN96lEqisMnGR7/nUH3AIXzJsO4/UQxD/wW4N3buJCQnen1Mxdwwsy7VyL1RKht7lSz+5Ib6c3RoO5Ban05/g28nmx35oVST1hWdQvUiXxDldO4/FwssSnHyTt7ua1+JE2ryhdkjLRqwUiJ+Y/R1lXdBjqwkfNNwm6oq3XK9ziYadlEVnWWzDx6+edxxICkaJhcGYefkS2OABnRrzMm3XaDww3ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P9akqSCAFKciFHN/9QmfMgLc5T+DOOS20NmKkShzaho=;
+ b=ec42xmwLRkbjSy7e+ZvTfVe6Iy96BVhrm23yzpCFbTWBpCCnHwIOl8+aOlW9Dsxf11dLoa/eRjCSTOHFsteIwl2f4ajdbfqVppfT0JAw2lVCIAN4ct1i2SDSBUGDApTdkq7fBfRsNzmczO78xmvEgeH4qB+M0sMxjgFp4LTdWTGf56FRJrvurcKDSVjg8mPnxtJlvDz0J45zagUG0grkWxKLQrE1Gqir796vDCspUB0MSCCDaeFmxR8sNGffqeIcdo0PWEuNvTRErpKKnpecdeEtvfrPnNHe0Gx3Rl8jEV7HCLCRSVgEwS8Hy10JWXQO12ETScf8BcNo4V4QREr8Qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P9akqSCAFKciFHN/9QmfMgLc5T+DOOS20NmKkShzaho=;
+ b=pqortql5Uv2qse2OmjzvQH8Fk520ZYi/fbF51QcraVpQCdFzpSwxBm19/+0olczw+0ZoedjMKfG7ZFkvwKyxfx1mWjTzgruRbcKvn7VxXPPOBciNXMiXwF9gZF3C3WylMTnqAFp2ykv29r5QPH8fw5TYqii15rZ9ZxOJcsPZZYs=
+Received: from BN9PR03CA0771.namprd03.prod.outlook.com (2603:10b6:408:13a::26)
+ by IA1PR12MB6484.namprd12.prod.outlook.com (2603:10b6:208:3a7::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Tue, 12 Jul
+ 2022 13:25:08 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13a:cafe::43) by BN9PR03CA0771.outlook.office365.com
+ (2603:10b6:408:13a::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.22 via Frontend
+ Transport; Tue, 12 Jul 2022 13:25:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5417.16 via Frontend Transport; Tue, 12 Jul 2022 13:25:08 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 12 Jul
+ 2022 08:25:07 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix file permissions on some files
+Date: Tue, 12 Jul 2022 09:24:55 -0400
+Message-ID: <20220712132455.2197338-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amdgpu: Fix acronym typo in glossary
-Content-Language: en-US
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220712121233.187868-1-kent.russell@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220712121233.187868-1-kent.russell@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: be071057-8fb3-4ceb-8bf2-08da6409f0e2
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6484:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jJJdMVXKA9TGaYtjCl0bYav/nnQlw9m05uIz8wlF67866Us3En78H6Jyi8vWzPQ+B/0OEvUDG3aKeWqUJbcpzchP42DpGkRZ9QsNVHWTRlQJAdbzy0Ibep8tJZjEuQXCKhT5nVERVm940O9Zgapqk0Nnj5I0zt2/O6fzaBe05R7CJaHI46/3/GvyisK3LWe3s9bHpLDpKBlHo3LMFIUcLdVqqFMhJUCEwOb51wdHF65vJdfQoMoCHAu5kjjBsC3/GykATk0gRf7PEQi2oWK5pf+BvJG768KhGvKuk1cRd8uXRqZI146vWFAkbaJ9itrpeibBVmyuqgP76Ua+Nlf+uBn+EKZeQXgsJDqDJ5oXOawTrsHO+TSZ+XK0eHb1nEjnToYZWXzuD5qGo48OdqC5y2oRJbVZx76+GZleV3Y4o5DDHxlDh3O8IwSs1MRxg00gkui3o6BTQhWgNq6XeJ0Fk9v6KJ9XevEWAicSRYO4eGIKqsrFaMrD/rm2CWMJa4/Slc3Sf4aTyxdMksGFM5HAopAdls3bQPYP7Q3kpz9+kJp6O0hfofSK92s/URLSaQbvnkuQTulGd+up4JO353j18kzRYa2uxPjwk5gdrr8klil1XrrRMz5wwQX15MwdwiLmIMuV2XfTrb1ONMcLEX76T/80IByYjdD9l7yC6vcfTNy2rvm4hSEyQqZgBicmsBuKvO3V/GymDVUIa4IyfNBlG7WogivCYaUTrpuLuNIicaKmk5kAMiPwAGHUxrkV3zC+cUaXSijXUxPug4wHM6EfCLnBIxbQ7JEBdAQFqouECw0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(39860400002)(376002)(136003)(346002)(46966006)(36840700001)(40470700004)(2906002)(336012)(7696005)(16526019)(40460700003)(966005)(82740400003)(426003)(40480700001)(82310400005)(356005)(47076005)(36756003)(83380400001)(186003)(36860700001)(478600001)(1076003)(70206006)(86362001)(5660300002)(316002)(8936002)(8676002)(4326008)(6916009)(26005)(70586007)(6666004)(81166007)(2616005)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 13:25:08.4583 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be071057-8fb3-4ceb-8bf2-08da6409f0e2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,31 +97,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.07.22 um 14:12 schrieb Kent Russell:
-> The initialism of RunList Controller is RLC, not RCL
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
+Drop execute.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2085
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h   | 0
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h  | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h    | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h   | 0
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h  | 0
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h | 0
+ 6 files changed, 0 insertions(+), 0 deletions(-)
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h
 
-> ---
->   Documentation/gpu/amdgpu/amdgpu-glossary.rst | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> index db924d37f93e..326896e9800d 100644
-> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> @@ -75,7 +75,7 @@ we have a dedicated glossary for Display Core at
->       PSP
->           Platform Security Processor
->   
-> -    RCL
-> +    RLC
->         RunList Controller
->   
->       SDMA
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h
+old mode 100755
+new mode 100644
+-- 
+2.35.3
 
