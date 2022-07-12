@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00888C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B72BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 582E894BFB;
-	Tue, 12 Jul 2022 14:32:16 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F32F994BE0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:32:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lD1q6EwteeHv7sM+DfuHXZuVq0AijNaYat9Fy69MXfNUdoB+Qn1nWPy+6NOI1mhzY6QuOFfzaccc9SkJBm/UxxEy1u7B/dI47s8h/BI98JT0Y6Uj6F9/D13IDttspnqRWsIQ4SLKORm5TyWGrJuMtVQjgY6MLJajsAjSfayk1HED6sO+AKUYu0Jlpes82dqmxtF30SUnSlcefY+T4I25iwBssHENvDpTKH+r40ZOsjXktEN6+uNinx/eoxCD14ECTQfd2mihxnM90FaEqJH2U2QQ15b43DJnP/MNbQV+yu33wiYDU3+1WeeiwJ9NACo6Ock9bJaLMt9tuVLK8KS/MQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IAM0aT6tZcVzYF0WjrdOBUnfk/l6uQMQG5evvXKI8hE=;
- b=NmK+4KA2y09UdcHWUCp7XYcfD8DiqT+3R8KFXT8J9F7jg9zln7YsIFsqRs/GrEEO0ys9UA+X2IppyJpWzJx8/06b2jS/6r6gTVVY9f59qZgC0OTucUTbyr076WIJnMEjVO/VrHpBrkQRjNoJiFu6O6aSqk1bkHtNBzkoQ2Dq7y8YSsNa7txL3GomoNTWQ75Nqxb0HVEFeLXtRxfezi/Rlu8uO2f06tuFceBJPnx2iE6vONmps3tVShnQioWGhsNpaK7fdqZD/nNhVMlvJyCvf+TzazYN59zCXNma1Al6dkA9lqdJuZpxsZ4bVE5HF53B/2MpYJsCBmxd0Wad/SSa/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAM0aT6tZcVzYF0WjrdOBUnfk/l6uQMQG5evvXKI8hE=;
- b=RocZv3OMP9hOZ3GUXQnHk3DYe4n+CpTtymTX05ZqHWUBsU0QkFvcVv5QOhgDv45wVcTtCQNkpvTCEKgpGubaM+8a3zs3MDoxsfM0rhiKl4r+R3qNdwuSVccvBSySAzW3Kq/xZ+H1QbfjYcKVf7e/NOJpdmJ1vjXl8PhOGa1VS5g=
-Received: from DS7PR03CA0104.namprd03.prod.outlook.com (2603:10b6:5:3b7::19)
- by CY4PR12MB1718.namprd12.prod.outlook.com (2603:10b6:903:120::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.21; Tue, 12 Jul
- 2022 14:32:12 +0000
-Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b7:cafe::be) by DS7PR03CA0104.outlook.office365.com
- (2603:10b6:5:3b7::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
- Transport; Tue, 12 Jul 2022 14:32:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5395.17 via Frontend Transport; Tue, 12 Jul 2022 14:32:12 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 12 Jul
- 2022 09:32:11 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/display: make to_dal_irq_source_dcn314 static
-Date: Tue, 12 Jul 2022 10:31:59 -0400
-Message-ID: <20220712143159.2700970-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220712143159.2700970-1-alexander.deucher@amd.com>
-References: <20220712143159.2700970-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8243694CAC;
+	Tue, 12 Jul 2022 14:41:23 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1894CBE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=70K7Qb3I8kOHQRMfWIAOwsJADOddUdXa3JxnJBIwj7U=; b=RuVywhsfGYL64hjAjDolk1+45b
+ lYZgJ+4yyC0ZpfxzJIClKXwwhZ8ptUf0PE4G3P7+fyOessLsGFsA7zJNu0ADsm3DVmUMkvg/EbTJX
+ 0AVbgTspr8N/MYZ50QgfOK1sGU0mozLQum86D/BZTQy9witRbdxhP9QSrvSF2UY0vTImFe2uY9N45
+ Xuf6cMKrfsKTuuDt/vX/ohMJvzvvMKbtM/kzj1HGN4xKqbVh0PXsvDgdlqIu7mp8rowIU8N9oPbNa
+ GqMkO+nu170r1KcqztoDIve1HVSeKdHj/YGrEQEN0iH7jp9WCmKxFseDo4i4Y1+hCB6iTpI+cVWHk
+ RzaausJQ==;
+Received: from [177.139.47.106] (helo=[192.168.15.109])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oBH4c-00Dea6-Ig; Tue, 12 Jul 2022 16:41:14 +0200
+Message-ID: <541e256f-0ca0-d2fa-18ef-b31cdb48e5b2@igalia.com>
+Date: Tue, 12 Jul 2022 11:40:59 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/2] drm/amd/display: fix comment format
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>
+References: <20220712143159.2700970-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20220712143159.2700970-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: aeb828f0-95db-4173-e570-08da64134f37
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1718:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4sDrlo/yr9pQKRvMu0PitwX2lnvitUR9Ayrha8wSCCoVYuHeEfWevAdIzTJXpjLjA7uN3e9R47pUjyvjuYXC9/sK222iaenT4YcBVLkX5DdNR0VlsTtP733AqnRQQsmWF6p/aze2GVwRw64WUihjlYV/1JWSF/GdwkSBuc+UoFV53Ktpn7MjWIRyyES9UjylmR9nq5LZJkFYcKV5h7nTcKh1tIgsqKftGfik8SneDVUKRJMwk+scv562pRhAtVCpxia7BhHmQXM833shSywhRUJ4HPRrTHj2uPtF/U2XcYIBDN5Mb3oLR4e6+YtcyhDI7Uy+0qoIByUE2Ua3p0qj+mdN1VPR8huXd2QR+xwdO/BWRgwQiuhYTpG3sUwH21YBJBEinV4GLCVdhW5cLRgMCFuiTU2Pe/1+8o3jO8pJ7yQd+11MJJVUpDgsHKJnEmatOZu3RmWJQP9vTy4yhYtLK9jGHlbqQUcC5kukpcgWQGVIXx/hytEAhAff/cXUygRG9dXkzmSDJbm3E5DFn/wAimWzwg9p9zzcK1GGeCvXgOy04t8wTA3j9X4jghIoDsnNtk0BXTNQ5xxVkp6fR73brT7KxuuCUB2czPBtWkVB5ZqwaxIWV0wipTQBx6o4Z3b7PaOzKy7QsOmgqPGnU6I++AacnPNrKI1SQ7yzhss93Y+T4FnuirOubBN6Jxe20HS+0jFDoAOCElES0eTccbcfn1EeyI32qSsEUUpCKe0Uamx/sYl2QrSJ/L/U5HhzOOKjIzA/+875GKS4+mDfq4DOUWGPr8Y50oEIRb/IkV/BYfEWt1kEwcqdDmI9CnZxgSsXiSbLxxNe3SBXeipQZsdun53kNlXq+njXGhEydBj71/w=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(376002)(396003)(346002)(136003)(40470700004)(46966006)(36840700001)(2906002)(1076003)(26005)(86362001)(41300700001)(6666004)(478600001)(82310400005)(7696005)(40460700003)(4744005)(2616005)(5660300002)(8936002)(83380400001)(426003)(81166007)(8676002)(336012)(16526019)(70586007)(70206006)(4326008)(82740400003)(316002)(36860700001)(356005)(40480700001)(186003)(54906003)(36756003)(6916009)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 14:32:12.1628 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aeb828f0-95db-4173-e570-08da64134f37
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1718
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,31 +53,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
+Cc: kernel test robot <lkp@intel.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's not used outside of irq_service_dcn314.c.
+Hi Alex,
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Às 11:31 de 12/07/22, Alex Deucher escreveu:
+> This is not a compliant kerneldoc comment, so make it just
+> a regular comment.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> index c4a5f8198209..436c3545a983 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> @@ -42,7 +42,7 @@
+>  #define FN(reg_name, field_name) \
+>  	optc1->tg_shift->field_name, optc1->tg_mask->field_name
+>  
+> -/**
+> +/*
+>   * Enable CRTC
+>   * Enable CRTC - call ASIC Control Object to enable Timing generator.
+>   */
 
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-index bea6f157cbb7..c923b2af8510 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-@@ -38,7 +38,7 @@
- 
- #define DCN_BASE__INST0_SEG2                       0x000034C0
- 
--enum dc_irq_source to_dal_irq_source_dcn314(
-+static enum dc_irq_source to_dal_irq_source_dcn314(
- 		struct irq_service *irq_service,
- 		uint32_t src_id,
- 		uint32_t ext_id)
--- 
-2.35.3
+This comment is placed in a random part of the file, the proper fix it
+would be to place it above the function that it's describing:
 
+static bool optc314_enable_crtc(struct timing_generator *optc)
+
+There it could even be a correct kerneldoc comment, fixed the function
+name and adding the argument description.
