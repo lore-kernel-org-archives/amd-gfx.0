@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E97FDCCA482
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F63C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 595BA94B10;
-	Tue, 12 Jul 2022 14:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99262BB4A;
+	Tue, 12 Jul 2022 14:29:02 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C7294AF9
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:21:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97AC592749
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:29:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=k2oIXUfjJQ7MnASxyn6ML/1gHakRG0HfyUiSodCKAyQ=; b=bW4XHhR0C7u9b0N8SG/S4Eg0T1
- UW+62YIDumm4SmgAOuyLNue+VAm2SGwS30MKNGFm930SxG49ZtXOQnEDz7IhYk7Ugrso2cEFdTv6Y
- HWrY6YkmS7ew2sRVNn/9MYcAuY/+jj6g2KddOL307tPNtv97cuDl5/BDnTIGNjtbnwtNoLGeGK1UL
- 8gMmVyndM708XoY0vi3DZ1wbPK6S+aigUxuo1ydn96Zc9JznGkddDhK8Lhy7DbopM4BbsosJNU64H
- dONrSKAx6SrdvAxCxbMNEbc2sDKiww0EhxB2NM1ITHq5mgK/NTLyPjseYCeIyNLGwYP0QqIdhNHba
- q2FOWXvg==;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:Cc:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=1r5cKoCBLeY0U9MbeMCCSehvKkBFp3u8ycBh8EdISHg=; b=GIo2HdTw7m+kJmUDy9En0Ewqtu
+ 50tkaj0fz5L0Bug3hqwkd6tI07vLN5l3CnyJRLXg8vx+8bwAEHuw/Qk8zKXvhDZr7BnrEVGbRE+iA
+ 1UZwvf4tu9od273xSo/b1NdLti4UK4bgtJcZTPd8K52UKu2cjFqr5GQmKsOTvCqg9gZjiXCEXW+Mm
+ jvMVW582IxkhJqr8KMfu1n143W8VC3n7trdIiLkoaa7sNekU8MU55ubgswjswO0c+9H8iP9fRq+62
+ o4F8vEZjveskgjNZD09oGT2/AONuiUDpNSVD1N7eyrEs3mWX8tB7bzURKWC0wirQZGDOpxxc0v2wn
+ 8FQvGmhg==;
 Received: from [177.139.47.106] (helo=[192.168.15.109])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1oBGla-00Dd43-Od; Tue, 12 Jul 2022 16:21:34 +0200
-Message-ID: <07125dd2-9730-5e93-f53c-ea9d18b640f8@igalia.com>
-Date: Tue, 12 Jul 2022 11:21:19 -0300
+ id 1oBGsk-00DdfU-UY; Tue, 12 Jul 2022 16:28:59 +0200
+Message-ID: <9aa983a2-ba63-77c8-e530-8f6ed6d32463@igalia.com>
+Date: Tue, 12 Jul 2022 11:28:44 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amd/display: remove duplicate dcn314 includes
+Subject: Re: [PATCH] drm/amd/pm: Prevent divide by zero
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220712135543.2639877-1-alexander.deucher@amd.com>
+To: Yefim Barashkin <mr.b34r@kolabnow.com>
+References: <20220712020106.46730-1-mr.b34r@kolabnow.com>
 From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20220712135543.2639877-1-alexander.deucher@amd.com>
+In-Reply-To: <20220712020106.46730-1-mr.b34r@kolabnow.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -53,18 +53,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <yujie.liu@intel.com>
+Cc: "Quan, Evan" <Evan.Quan@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Às 10:55 de 12/07/22, Alex Deucher escreveu:
-> Several headers were included twice.  Fix that.
+Às 23:01 de 11/07/22, Yefim Barashkin escreveu:
+> divide error: 0000 [#1] SMP PTI
+> CPU: 3 PID: 78925 Comm: tee Not tainted 5.15.50-1-lts #1
+> Hardware name: MSI MS-7A59/Z270 SLI PLUS (MS-7A59), BIOS 1.90 01/30/2018
+> RIP: 0010:smu_v11_0_set_fan_speed_rpm+0x11/0x110 [amdgpu]
 > 
-> Reported-by: kernel test robot <yujie.liu@intel.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Speed is user-configurable through a file.
+> I accidentally set it to zero, and the driver crashed.
+> 
+> Signed-off-by: Yefim Barashkin <mr.b34r@kolabnow.com>
 > ---
+
 
 Reviewed-by: André Almeida <andrealmeid@igalia.com>
 
 
-In the future, for new files, it's a good practice to keep includes sorted.
+
+Minor nit, I would write this commit message like this:
+
+Speed is user-configurable through a file. I accidentally set it to
+zero, and the driver crashed:
+
+divide error: 0000 [#1] SMP PTI
+CPU: 3 PID: 78925 Comm: tee Not tainted 5.15.50-1-lts #1
+Hardware name: MSI MS-7A59/Z270 SLI PLUS (MS-7A59), BIOS 1.90 01/30/2018
+RIP: 0010:smu_v11_0_set_fan_speed_rpm+0x11/0x110 [amdgpu]
+
+Fix that by checking user input value.
