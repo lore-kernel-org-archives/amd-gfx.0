@@ -4,43 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00FAFC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 16:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAF6C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 16:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60CF6953E9;
-	Tue, 12 Jul 2022 16:17:02 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7450953D2;
- Tue, 12 Jul 2022 16:17:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ob1V+g0AkE7iDmCT+SRKBmZihqbOIbJWqdLl9FCddig=; b=b6v2OdrfuFdXZS0me7cVV92/17
- kzFUCKRIBTrDebmF//W7gkQsgtdfb2Wvmi+d7WCN7n4WtOQkKl1vrXC8/rR0ZiOEzkqVVdCvm5HOx
- 0i8Opd2PmNKw5P64mIGAZ3eCFb9P83Y+aqwn27LqVT3+pCx3YQh6NZYpiZ1AaP5cXHajjYm79F6uN
- C/SPskd2V7FM3ZZ1rhRaGHPYcmWtcyPk/hXZNF35/3ccgkn9tA/77D2NuzjJGcffVKBBoxGpDA9aD
- Ep/KB6EgsdhLjjm7viaUy9P3vh85XBuVPMKsDSyxdJrtSOzfN/qLK3rcbzPi9Sox1+DaJkwh/GPZB
- 2rXKH3ig==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oBIZ1-00Dlvq-7P; Tue, 12 Jul 2022 18:16:43 +0200
-Date: Tue, 12 Jul 2022 15:16:29 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH 0/5] DRM CRTC 3D LUT interface for AMD DCN
-Message-ID: <20220712161629.6i645yonynqa34pj@mail.igalia.com>
-References: <20220619223104.667413-1-mwen@igalia.com>
- <288325e9-46e4-5807-6d54-a0276cca0779@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD9E10FA2C;
+	Tue, 12 Jul 2022 16:23:46 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBAF510E4C8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 16:23:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NXFBbaIg+kufR7yAFGUaqIhSwbtcKYzhZMlQu0yvlfR6+v480Io6/tdRfsHaI4HwFQzoccybIu8NMcLbNv0/PRkUqXfD5qmWWL1Hd+Z9VTPGoJOiH55b2mWOeVNhMW+iBRsk/gX+GgY+MQwJvJVFdKPUWY5yKr5/PVoZosOfukHNga1u8FXt0/hbxtE3TFTES275z1WTfmW4fB6kivkaLPiy/BHi2C7XO7hblRr4MG08ciyq47/BeeUvJpE0tTX2fnTTLvcZgV+oid1BPg4meidQOIfDbsGAmcpf/ZbDXdX/R4dFcG2ft2NJvridUfxeNPwAvx9ln+SHMYAKOXNltQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V0JjZwWMgYCOohDvD0tHq+db18ajZAubxTw17DLFE5I=;
+ b=UbMGuaac8zCn4CrGip3mdlSlZOCR87DTnz7oRqaUhH27yj7WHfj7sLuBF/P3mrVZBzN6+kYAw4QKPDPRFB6SeiphdghR0f4m/dWT+ZULfWbUZVaqhiYaSt59YKR6ppzyTqs0bjYlMUzibGDB9+ZBa1O4j+qc0glmEH6kWbcGFWfqS9WeGu340yq03LY3xoRcC70CidHV2zZ3dzCnIQB5uItZblOe76T5Jm4Txc87EdaNKqvpBsA0pWn70/Q1iIBqdN9rP9IvGnzW1BDBHSLHqx5eKkexqYQlKXpLM/Mv3BdlM41JP9wykdxi1UTnv8txJIEoienu7Olw3gC7ojaB4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V0JjZwWMgYCOohDvD0tHq+db18ajZAubxTw17DLFE5I=;
+ b=AU5fgBWo9+gh51dsvT7Hi0uQ5LdyMVj4dTGqjy2al19XXMwZLxuV+1D60wWIFcN/2XHTQMSMaRcoFcgKx9TJ7ODPyOKGkGsjOSQbv0ZbJUO12tuLrsjj/wcvIBDWxTgaHN0eyx5PXUviW/AjZoBCUSLUmU205T1rlRm9LBCquD4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
+ by MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Tue, 12 Jul
+ 2022 16:23:43 +0000
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::d122:1dae:8445:2e43]) by MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::d122:1dae:8445:2e43%7]) with mapi id 15.20.5417.016; Tue, 12 Jul 2022
+ 16:23:43 +0000
+Message-ID: <54063997-bae5-7bea-92c1-577a0c6ecf29@amd.com>
+Date: Tue, 12 Jul 2022 12:23:42 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drm/amd/display: Add a proper DMI match for Precision
+ devices
+Content-Language: en-US
+To: "Limonciello, Mario" <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220712155936.1700339-1-Rodrigo.Siqueira@amd.com>
+ <94af9dab-951d-d426-b8cb-7f313189448f@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <94af9dab-951d-d426-b8cb-7f313189448f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR15CA0009.namprd15.prod.outlook.com
+ (2603:10b6:208:1b4::22) To MN2PR12MB2941.namprd12.prod.outlook.com
+ (2603:10b6:208:a9::12)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cd4z3tfawg6yyrxm"
-Content-Disposition: inline
-In-Reply-To: <288325e9-46e4-5807-6d54-a0276cca0779@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 17ff087b-ba89-447e-0196-08da6422e330
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6125:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XHvnBdmNp5Jt+4N8Cj1lYzaqCOyMKaHY2f4O/scx0n91U8L4jKclkJVXuBuxBDcPpAY4o/oN/PEo3bGtA6apQtG3vfWMRDQSF6LkenyYCuTuaEbyXcgKnA6C4THrbjQKgYcc25LN+azP+JmBT2/Wg2ef0Kw0A9xbwFikZhBY30GuhDdfqeuc1FFzXCe1oBdTQn40yDj0KqqTydBqClgYZbozqU0dgSLSY5Vwac7pE7bHHx6j9QgJRHl5scGLsn5rcdU2J0YK7tOEsufZpV7KGaXqFh0SAw6T7j1nHk/CnUCzghBUFGMKE+WA2/9gYhAKrFZHERW1TEK4awBI1dNOCb0mrzk91/vN/2FtAGnUdLP/CNxsW+GlprXv3DZLGfQw6X6nDTAJct4+qIm0EIxX6wb0rInxASG3FN0j99vfTZz6OcZqOAuQqzKGLr3xaSGWWSYbGKdblFMSXOi9llPHvuZBfmlHVvM+u6jeDwg29go7uCM+I0Hs6q+/YhZb8xdg3t9QLpqAM87zbOduxb2SGovhLD2ACe7/OTuEhfUSfaxvB1AateWXDhTDNNGIzEWS/Ex7G29jnAE574skof2L+jGV7C15nsf9+Vfpys3uEQgvRIgH4FCMR5L16K8/JFIC9hGtCxCXBNWA6QjE5WM9jF2hjXzDB7gbRDJJFZ9J3H+m+GlQjyP1TPTAC29DTXc0TlrIzeBajAah02Oldr5tFt6bwnwWiK0DiATjeUTJKJFtllVkzGiHb+QzRDNGYq7Etmdx6QwKvLOllaDAoOEWKPSXvvllx8Tcaz8v2P/6/aiMoJgQk6r/BPjSOc3ne/PaAO00bZjNjTTzRL6BWXi4PjfIgxQyQFNr1d8ckrS/auQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(83380400001)(4326008)(86362001)(66946007)(8676002)(5660300002)(186003)(2616005)(66556008)(66476007)(478600001)(36756003)(31696002)(6486002)(31686004)(8936002)(54906003)(6506007)(53546011)(41300700001)(2906002)(316002)(26005)(6512007)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHdtMTMwbGEzTzRla3MyTi9XVUU2emo1Y2VZMW9vbFl4UHJUY2VMMmxldkdK?=
+ =?utf-8?B?WnlENFBSK3ZSMmVpbWtoZEJrOVo4cVl4bjM5T3lvdlBWVmtaY0Z6L0owd3Fy?=
+ =?utf-8?B?QmV4RlZaVnV6cm9iNmVoajF1U1RPdFk2WGlxM05KSWpsdjhNVWNFZzlXaGVZ?=
+ =?utf-8?B?RXFHZ1VRL0VMNmxTQ2J4aEZlSmtuOEE3YlVhZkxxTFNTcW9jbGpJQXRibHZv?=
+ =?utf-8?B?YmNuRW1ZUUlvSHhvS3pvNElWdWV5TDJ0WHRxM1dTOVJTOS96dDZ0M3BIQjR5?=
+ =?utf-8?B?czNtWS9NUTZ1WWNzYUd2bXI1bnNSOHVGcUFRZ2xFaWlZNEJBLzBQYm0vV3Jv?=
+ =?utf-8?B?WXJXM2RpRnRaZm5NNzZsWFYvTXo2ZWJOTlpXTmZheXVTaHh6V3ZwWDNDZ2dk?=
+ =?utf-8?B?YVBFREJjdFR3azVkbzk2Q0lRbXhRVjRiSWtQYlorYjNuYU5yaEN1bE4rTWRW?=
+ =?utf-8?B?MFphUUNya1RZTk1DN3lkSmJLZEJWcHliUmFFV1N0V2lFRkhYUS9rQzg5LzlW?=
+ =?utf-8?B?ZlorKzJOd3FpZUdQMVpib2JjSFptSjl4OW1VK1NaZFJLWHlkOWpGcUd5OGgx?=
+ =?utf-8?B?T3prbkpqOVFmR3ZwUTNDU1VlSFpJaHRtenVhQUlxSURYSDlaN2M2YjZibEN6?=
+ =?utf-8?B?SmFDKzR3ZjArRnd5YlVZajlDMmZvK2dLZW00WkVacjV4V2cyaG1qa0ZtL1lo?=
+ =?utf-8?B?YTgxK2tkd1k0MmhTN1pmdWlFbmIyQ0l1RDRManQwS05yWThLdkZ2Q0s2T3hv?=
+ =?utf-8?B?RGRhOE5CeVBTb3VQM0tyOEZKRitRcWdSeWFjUVVFQXBRNmlUOU8rVmpFa2di?=
+ =?utf-8?B?RVBrK0drUU52L0dKZGlobDBoNG8wM1R5SlY2R0RPR2xSdkZESWw3clJzZXAx?=
+ =?utf-8?B?NGRoMHZMOFViVkt3QnZOYlJkeWFtOWozZDh5WXkzUnZ3SklGcFFlazdUR21H?=
+ =?utf-8?B?Q0NGOVdSUS9QY25IWCtUNW5vMERnRktVZWJRQXN1MGd1cUtjOXF6Z3lBdTBv?=
+ =?utf-8?B?Q0JvWXlZK29PUWpoWTFSTjFxRjBWZStGRE1pcmlmQ3FiaWdNM29WNGg5cmNZ?=
+ =?utf-8?B?YksxYVVBSmR6VE95UmdFWXhLK1hXZFhacEtCV081VlJYdVRMeGIybzBHaEhF?=
+ =?utf-8?B?am0vOU9LdXJJVWhhRytVWFA2SThEZlVGMmpCam5FRTlBOXFQN2pSK2pZVFlW?=
+ =?utf-8?B?MlppejlUdnJ5dmZxcGVPMnVqcWhNcVU0ZVZ3cUx2TmgxdWw1NFFOdnJaUFIw?=
+ =?utf-8?B?Y1YyWUxIa2sxV0MrbllURHVzUmlGVnNzaXNGbXNWZ1o5SWJ5aFE3aytuWnQ4?=
+ =?utf-8?B?LzdKNlUxODV5SWd4TTg3MkhZM2hrUEoxNGNxNWxqZmVtVytRVFFpRGhsb0dz?=
+ =?utf-8?B?ZGxtVWVYSVJYcEQ1UW10S1BJajlHV1ZHYVhySHdjMDBvSkpDa0sxUWtwMkhT?=
+ =?utf-8?B?RDF3Q2lFN1FNaUlxdjE0Vm15TkpFWktJTCtrQzZZbHlHQk1kdnlkZ2FDWjE4?=
+ =?utf-8?B?QVZKb2lUYXpuUmk2SXl1R0RpNEFBeTZMejBXWEhqbytGZGQ2eHlER0ZENTM3?=
+ =?utf-8?B?WHpQZmx3OU9RdWVvVVlGTzRrUXAzQUxWdXo3ZWw1bG0rb1JLbm9Wbm1aWlZC?=
+ =?utf-8?B?UU1KU0FKdXh0NkFxcXhNZlcvQVdUdzRmVmxZbTRUeEhHVEg4bEhpWGFadEFa?=
+ =?utf-8?B?TENVVkRYcmJ1UkZBMDhxSFJpZEFjUnl6bkY2YjhEL0xvNC8rNDZDbkYxalpQ?=
+ =?utf-8?B?YVJTTENFMDU3QzY5cnpRZy8rSDBVRHBNVnNyUTBOZGhvN2xHcVBkbWY1ZWVp?=
+ =?utf-8?B?dW5tVmdnYlBZeC9KdjZyeCs5VDBiUmhTWTNWYmhoWXhVbXhzMzl6bkI5MU9l?=
+ =?utf-8?B?Z0wxOVBTNTZMcXUxS3VuY3JVaWpwRWg3U0xTVEUyNTVtVithN0crazZXbGxj?=
+ =?utf-8?B?S2xhWDllbkp2ZVNWd0tKRzJJRnJxVS90VWVZY1RVa1k4d3BCSVNqRHRsQUo4?=
+ =?utf-8?B?Y2tXSllqQTZHQVRpSEVhcld5dG44aG9POHkzYTJCcUF6YkoyOC9SRDhQZmhi?=
+ =?utf-8?B?M0pHWGNlVnBud25qOE5DazZSaHZsTzhtZ2VRc2hFdlN6OVNTNTNIUzkvNkxK?=
+ =?utf-8?Q?2xTbZmrKA1jmZLw9R8uMdC6TH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17ff087b-ba89-447e-0196-08da6422e330
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 16:23:43.0680 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IBErtqJuUie2GuJr+SGgjQrpcGomYFQ6gU9Vm68cE3raQfIOikdRkc7INClRLGzCKOeDDQvEmPLzqlFvW8IfpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,273 +126,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, nikola.cornij@amd.com,
- sunpeng.li@amd.com, alex.hung@amd.com, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, seanpaul@chromium.org,
- nicholas.kazlauskas@amd.com, bhawanpreet.lakha@amd.com,
- christian.koenig@amd.com, sungjoon.kim@amd.com
+Cc: Qian Fu <Qian.Fu@dell.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Jerry Zuo <Jerry.Zuo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---cd4z3tfawg6yyrxm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On 06/28, Harry Wentland wrote:
->=20
->=20
-> On 2022-06-19 18:30, Melissa Wen wrote:
-> > Hi,
-> >=20
-> > I've been working on a proposal to add 3D LUT interface to DRM CRTC
-> > color mgmt, that means new **after-blending** properties for color
-> > correction. As I'm targeting AMD display drivers, I need to map these
-> > new properties to AMD DC interface and I have some doubts about the 3D
-> > LUT programming on DCN blocks.
-> >=20
-> > First of all, this patchset is a working in progress and further
-> > discussions about the DRM interface should be done. I've examined
-> > previous proposal to add 3D LUT[1][2] and I understand that the main
-> > difference between them is regarding the property position in the DRM
-> > color management pipeline (between CTM and Gamma 1D or after Gamma 1D).
-> > On the other hand, AMD DC always considers a shaper (1D) LUT before a 3D
-> > LUT, used to delinearize and shape the content.  These LUTs are then
-> > positioned between DRM CTM and Gamma (1D).
-> >=20
-> > By comparing the AMD design with the other proposals, I see that it's
-> > possible to cover all of them by adding and combining shaper (1D) LUT
-> > and 3D LUT as new color mgmt properties. Moreover, it'll not limit the
-> > exposure of AMD color correction caps to the userspace. Therefore, my
-> > proposal is to add these two new properties in the DRM color mgmt
-> > pipeline as follows:
-> >=20
-> >  +------------+
-> >  |            |
-> >  |  Degamma   |
-> >  +-----+------+
-> >        |
-> >  +-----v------+
-> >  |            |
-> >  |    CTM     |
-> >  +-----+------+
-> >        |
-> > ++-----v------++
-> > ||            ||
-> > || Shaper LUT ||
-> > ++-----+------++
-> >        |
-> > ++-----v------++
-> > ||            ||
-> > ||  3D LUT    ||
-> > ++-----+------++
-> >        |
-> >  +-----v------+
-> >  |            |
-> >  | Gamma (1D) |
-> >  +------------+
-> >=20
->=20
-> As Ville already mentioned on patch 4, the increasing complexity of the
-> color pipeline and the arguments about the placement of the 3D LUT means
-> that we will probably need a definition of a particular HW's color
-> pipeline. Something like this proposal from Sebastian:
-> https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
->=20
-> > However, many doubts arose when I was mapping these two new properties
-> > to DC interface. This is why I decided to share an not-yet-completed
-> > implementation to get some feedback and explanation.
-> >=20
-> > This RFC patchset is divided in three scopes of change. The first two
-> > patches document the AMD DM color correction mapping. Some comments were
-> > rewritten as kernel doc entries. I also summarize all information
-> > provided in previous discussions[3] and also redid those diagrams to
-> > svg. All doc should be reviewed and some struct members lack
-> > explanation. I can add them to documentation if you can provide a
-> > description. Some examples that lack description so far:
-> > * in amdgpu_display_manager: dmub_outbox_params, dmub_aux_transfer_done=
-, delayed_hpd_wq;
-> > * in dpp_color_caps: dgam_ram, dgam_rom_for_yuv;
-> > * in mpc_color_caps: ogam_ram.
-> >=20
-> > The next two patches expand DRM color mgmt interface to add shaper LUT
-> > and 3D LUT. Finally, the last patch focuses on mapping DRM properties to
-> > DC interface and these are my doubts so far:
-> >=20
-> > - To configure a shaper LUT, I related it to the current configuration
-> >   of gamma 1D. For dc_transfer_func, I should set tf according to the
-> >   input space, that means, LINEAR for shaper LUT after blending, right?
-> >   When 3D LUT is set, the input space for gamma 1D will no longer be
-> >   linear, so how to define the tf?  should I set tf as sRGB, BT709 or
-> >   what?
-> >=20
->=20
-> We don't know the input space. It's nowhere defined in the KMS API. It
-> entirely depends on how a compositor renders the framebuffer (or transfor=
-ms
-> it using some future KMS plane API).
->=20
-> DC interfaces are designed for a system where the driver is aware of the =
-input
-> color space and linearity/non-linearity. This means that you'll often need
-> to dig through the API down to the HW programming bits to understand what
-> it actually does. A leaky abstraction, essentially.
->=20
-> Because KMS drivers don't know the linearity/non-linearity at any point
-> int the pipeline we need an API where the KMS client provides the
-> appropriate shaper LUT. In the case of any current KMS client that
-> will always be non-colormanaged and is assumed to be sRGB.
->=20
-> If your framebuffer is non-linear (sRGB) and you're not linearizing it
-> using the CRTC Degamma you'll already have non-linear values and won't
-> need to program the shaper LUT (i.e. use it in bypass or linear).
->=20
-> If your framebuffer is linear and you're not de-linearizing it with the
-> CRTC Degamma LUT you'll have linear values and need to program the
-> inverse EOTF for sRGB in your shaper (or degamma) LUT.
->=20
-> > - I see the 3dlut values being mapped to struct tetrahedral_17 as four
-> >   arrays lut0-4. From that I am considering tetrahedral interpolation.
-> >   Is there any other interpolation option? Also, as the total size of t=
-he
-> >   four arrays is the same of the 3D LUT size, I'm mapping DRM color lut
-> >   values in ascending order, starting by filling lut0 to lut4. Is it ri=
-ght
-> >   or is there another way to distribute these values across lut0-4 arra=
-ys?
-> >=20
->=20
-> We seem to do this on other platforms (illustrating for red only)
->=20
-> for (lut_i =3D 0, i =3D 0; i < lut_size-4; lut_i++, i +=3D 4) {
-> 	lut0[lut_i].red =3D rgb[i].red;
-> 	lut1[lut_i].red =3D rgb[i + 1].red;
-> 	lut2[lut_i].red =3D rgb[i + 2].red;
-> 	lut3[lut_i].red =3D rgb[i + 3].red;
-> }
-> lut0[lut_i].red =3D rgb[i].red;
->=20
-> And yes, it uses tetrahedral interpolation.
->=20
-> > - I also see tetrahedral 9x9x9, that means DC supports 9x9x9 3D LUT too?
-> >   If so, does it depend on hw caps or it is defined by the user? Also, I
-> >   see 10 and 12 bits color channel precision, does it depend on hw caps=
- or
-> >   it is also defined by the userspace? Any ideas on how to expose it?
-> >=20
->=20
-> This is user-configurable, HW supports both 9^3 and 17^3 and both 10 and
-> 12-bit variants.
->=20
-> > - Why func_shaper and lut3d_func are defined as constant on
-> >   dc_stream_state, while the other color properties are not? How should
-> >   I change them from the proposed DRM properties? should I set 3D LUT i=
-n a
-> >   different struct of the DC interface or a different DC pipeline stage?
-> >=20
->=20
-> It's a pointer to constant struct. If you want to change it you should
-> allocate a new func_shaper or lut3d_func struct.
->=20
-> See https://www.internalpointers.com/post/constant-pointers-vs-pointer-co=
-nstants-c-and-c
->=20
-> > - In mpc3_program_3dlut(), why we are setting is_12bits_color_channel in
-> >   get3dlut_config(), since right after that we are changing its values
-> >   with this line `is_12bits_color_channel =3D params->use_12bits`?
-> >=20
->=20
-> We're reading the HW default to be used unless someone sets use_12bits
-> but then we're always setting it based on use_12bits anyways. We wouldn't
-> need the former but it's code that's never hurt anyone. :)
->=20
-> > - In mpc3_set3dlut_ram10(), there is a suspicious comment for a shift
-> >   operation: `should we shift red 22bit and green 12? ask Nvenko` So, is
-> >   this operation stable/working as expected?
-> >=20
->=20
-> You can safely ignore this, at least as long as your LUT programming work=
-s.
-> If it doesn't this comment is an indication of what you can try.
+On 12/07/2022 12:02, Limonciello, Mario wrote:
+> On 7/12/2022 10:59, Rodrigo Siqueira wrote:
+>> We had an MST fix for some DELL devices that got merged, but we missed
+>> other products. This commit adds the other missing Precision devices.
+>>
+>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+>> Cc: Jerry Zuo <Jerry.Zuo@amd.com>
+>> Cc: Qian Fu <Qian.Fu@dell.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Fixes: 9fcd8af669d7 ("drm/amd/display: Ignore First MST Sideband 
+>> Message Return Error")
+>> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index e203d75834de..96a0be8508ce 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -1408,6 +1408,18 @@ static const struct dmi_system_id 
+>> hpd_disconnect_quirk_table[] = {
+>>               DMI_MATCH(DMI_PRODUCT_NAME, "Precision 3660"),
+>>           },
+>>       },
+>> +    {
+>> +        .matches = {
+>> +            DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+>> +            DMI_MATCH(DMI_PRODUCT_NAME, "Precision 3260"),
+>> +    },
+> 
+> Just a nit here, the "}," should be indented one tab to the right.
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Hi Harry,
+I made the requested change and merged it into amd-staging-drm-next.
 
-So, I need to fix many points to program 3D LUT on AMD correctly...
-Thanks for explaining all questions, from this, I'm working on a new
-version.
+Thanks
+Siqueira
 
-Best Regards,
+>> +    },
+>> +    {
+>> +        .matches = {
+>> +            DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+>> +            DMI_MATCH(DMI_PRODUCT_NAME, "Precision 3460"),
+>> +        },
+>> +    },
+>>       {}
+>>   };
+> 
 
-Melissa
-
-
-
->=20
-> Harry
->=20
-> > Thanks in advance for clarifications,
-> >=20
-> > Melissa
-> >=20
-> > [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart=
-+renesas@ideasonboard.com/
-> > [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17=
-cbb4656fe23e69
-> > [3] https://lore.kernel.org/amd-gfx/20220505220744.3sex7ka2ha2vcguv@mai=
-l.igalia.com/
-> >=20
-> > Melissa Wen (5):
-> >   Documentation/amdgpu_dm: Add DM color correction documentation
-> >   Documentation/amdgpu/display: add DC color caps info
-> >   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
-> >   drm/drm_color_mgmt: add 3D LUT to color mgmt properties
-> >   drm/amd/display: mapping new DRM 3D LUT properties to AMD hw blocks
-> >=20
-> >  .../amdgpu/display/dcn2_cm_drm_current.svg    | 1370 +++++++++++++++
-> >  .../amdgpu/display/dcn3_cm_drm_current.svg    | 1528 +++++++++++++++++
-> >  .../gpu/amdgpu/display/display-manager.rst    |   44 +
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    2 +-
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |    5 +-
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  265 ++-
-> >  drivers/gpu/drm/amd/display/dc/dc.h           |   53 +-
-> >  drivers/gpu/drm/amd/display/dc/dc_stream.h    |    4 +-
-> >  drivers/gpu/drm/drm_atomic_state_helper.c     |    7 +
-> >  drivers/gpu/drm/drm_atomic_uapi.c             |   20 +
-> >  drivers/gpu/drm/drm_color_mgmt.c              |   89 +-
-> >  drivers/gpu/drm/drm_fb_helper.c               |    5 +
-> >  drivers/gpu/drm/drm_mode_config.c             |   28 +
-> >  include/drm/drm_color_mgmt.h                  |    4 +
-> >  include/drm/drm_crtc.h                        |   24 +-
-> >  include/drm/drm_mode_config.h                 |   25 +
-> >  16 files changed, 3411 insertions(+), 62 deletions(-)
-> >  create mode 100644 Documentation/gpu/amdgpu/display/dcn2_cm_drm_curren=
-t.svg
-> >  create mode 100644 Documentation/gpu/amdgpu/display/dcn3_cm_drm_curren=
-t.svg
-> >=20
->=20
-
---cd4z3tfawg6yyrxm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLNnkEACgkQwqF3j0dL
-ehzgVQ/9FR1MGwVWttxIGVnpIvvnwzTbYQHF/sr/ntPpBv3ZF0I37HdcfH+3kxEw
-5hYxnt9/mQTYo8nBzLV+8RVIxL9bkoOy4CMypiSqMPAjh5CovHpWyfC569nceWiN
-vb8inxFRCK3Lzis3gxtczdv4v31AlVGP9+YTvoiBz/LHldu5tKnjJEYbdTUeNTxy
-hw//M+11W75Kz3Ey6ocHKYNKr95PuBBlxsI9fLdFtSSU1pCqpPKEE+sqigPZ+u/I
-cKiDGVvzN99Vj1kyhZw6HtEtLdmmqqodwIHAa1DwkDgWmAaTNzgwa4sOlO3xI2Yn
-dwp4tvJYacmPUt2gTkmU0w3N1ugUSk+UVRrA3W62sUGwRuTIINVeMvn7b5/Krbmw
-g1rgVoEI4g77r1zlQ+jPbjAki3V4VW4HNAKrMtaptsi8BDbHE0Lrx+orJWf+wdQN
-3ZahOGicGlr8zbwhvCBGd5dOIJH0CeBAS8PPobIDVqfNKRo2jkhmHPXR03e45dzS
-ViZN6aTjOnj5XTfEEPuZrknKfTz0IhtwesdE4cg5RBtOjDtaJ0CtsCOZEF32weTm
-z/TGXRKsuE87YkJlkmLC/pant94tlbFjbc6b20kJ/8yFGpVX6518zWVf/Vd6m+o3
-3t/L1O/I/lgx0XwHiXsExuVtjhLyKFt+gO4PfdhrR0BTu/Sht4o=
-=0bz5
------END PGP SIGNATURE-----
-
---cd4z3tfawg6yyrxm--
