@@ -4,64 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B69C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:33:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 063F8C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 15:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6C08F74E;
-	Tue, 12 Jul 2022 15:33:51 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16538F74E
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 15:33:49 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id t3so10343341edd.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 08:33:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=IuZqJ2BDGD1AfBH5ahLXW5nXjkt4wk0LGRlzXQrJO3k=;
- b=ZhdVg2q62o2HMKLjD7HwHpTqyTD/VpTdU8dvtXyK70Xur+/ZIO/C0sxwKMGSTMWlTS
- 7JiCuPMr9D/qGVd0mQsRGBqZ+G2tpi+HYJxn8fNwjt9qA6Hg1UazDeuH6GEiyX68dnSX
- BHfn/MBzPu+zSHEID+5X4fg8g6GNVXnHeqzak09CGBF5fHv4nm24Ti3jB6rpNNFzN/Li
- /UuMOuTd2p1ysgB3J7GTbrNBmzPhDLyf1I4ClpDI1QR4N4LEyhS6VZAWIua84/DIzhgN
- Rt7y7Ap24gtdXw4azLJfL/Qctqwi3VALS1dUxxAvMiwb4m1nUu97pvGvIR9v6fpx3RG0
- UJZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=IuZqJ2BDGD1AfBH5ahLXW5nXjkt4wk0LGRlzXQrJO3k=;
- b=tXOwTVcxdB5LvoZVXw5yCGg+//jl7REkl4mBTRaDjPE18J+9AYSdWT7xBPzkqS9D83
- UDpeBVpx4QRavNDJ0FmGhlR9BTKmz/m380J9Y98E7guKRu9Bp4+aYQGm9tuugrDmDgK/
- pwCvBQE+j1Bu+mH/R2solzewfAzyEk8W7uAaf2azllFgpo1llZY+Sk1mvKuX2DEfINDM
- kJoENmUq34Kekam4Fho8rWb9KDsZ2uXNDqgLD4vMvV/m7mHIsjNKLQU48Wm7XIXSfc/4
- 0KIOscU18y1hVfNVSwBiXsFr+nYCCyEZhVf71lwNZ3MekhClW39Ym4Dqn+fg/Q54B4p8
- lZmA==
-X-Gm-Message-State: AJIora+xhDSQFPqLyslC+OOUP91PhE0lDnM4oLFMXcEK0d+MNuxiLyJ2
- +PINHyc9mGdEAaHXbLHaKtSKFRnER98=
-X-Google-Smtp-Source: AGRyM1vgWSKk+adqukfmsX84yjDA3WBkeFqzvyGLtjsOnR4QXTrSCY9DOL8yfxdYFk8Vs2Lnv14+Pg==
-X-Received: by 2002:a05:6402:34c5:b0:43a:8f90:e643 with SMTP id
- w5-20020a05640234c500b0043a8f90e643mr32307075edc.88.1657640028199; 
- Tue, 12 Jul 2022 08:33:48 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:cf35:dc88:25dd:1187?
- ([2a02:908:1256:79a0:cf35:dc88:25dd:1187])
- by smtp.gmail.com with ESMTPSA id
- r2-20020a1709061ba200b00711edab7622sm3925682ejg.40.2022.07.12.08.33.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Jul 2022 08:33:47 -0700 (PDT)
-Message-ID: <559baace-907f-954a-af84-e840a086f62e@gmail.com>
-Date: Tue, 12 Jul 2022 17:33:46 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D991090429;
+	Tue, 12 Jul 2022 15:37:56 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FA112BCFF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 15:37:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EvtzjVSCY6MrhrP+Ch6RSsZacdaqw4kgT8CL4W7nyBIoYPOnFgiyTpwMBwIyUOIkLUJrY8FobWfx+QUGZrs4spls4XxLh9wtpv2nziImOr7yS8V2tiW8TQmXjbpP2f1rI8kdyDHVrr/L12VMcbEF8HnimKICe7i2OIB15UOLjViqbqItEKFC/9M/c3enp+VVGQiwolCAPwuItqdiGTSAJs56iFBBpBi4OfreMt+tYULZf3ZAo+dkb2Epquv+85hzqPM8/JxTUReIogYkpiRtPBv2I3FaXL595roJVKdso4zrb2ZsscTisexVrKSPzo/QSzUpPGBdL+yJvfBlIBFggg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ecaaXoKZmOqPnMJykLDeDpOPPm8NvT4Ii4i+K5jJbiE=;
+ b=HWzhC+S+3wSyaCHx9FkL8rJkV3WEMjvWckuLto2jpvX8cYOzXYKHrqM9cXtnmWPMCTX+Th6u3KadA4zzj1ZUZhDk/JwtRaxuFGraIYV2pDCEo2OmR0zjiwKuKvsfFyS/Mix9i+KyOMnwaayEj/caicIfrgcFsZJEaSVlY6/vUjFs8dn/k8yQT6LwMlu4g/mUZsz1IMmagtkVshXVT65h+YB3d7wc5R60Y+M7ZewbAZZ0viyXW1kdwfH2MFctQFiKwz0WHoK6Oc7fih298H5dIE55ycM61mme+QEY1phFpeMloBOpi4tDt+EEmGVaDGv3GbQD7Q3U+3Zvaq+ea4bvsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ecaaXoKZmOqPnMJykLDeDpOPPm8NvT4Ii4i+K5jJbiE=;
+ b=REo0tFTr+jwqrsCdodSY6NgHc49VO2pm5ZLIrygHz6ZpRTTziTFh3mK5VQxHGAByxe9Aqccv6yQVR1VdSgmLrjd1o9dyFMfMzxCtD/51sVjKVCyevDFm3p6c17uS0JFx8l3qBYJiwoXlIKhkhHeFM/FcnFd/veb/2K/PeeUsH9U=
+Received: from DM6PR06CA0099.namprd06.prod.outlook.com (2603:10b6:5:336::32)
+ by MWHPR12MB1453.namprd12.prod.outlook.com (2603:10b6:301:e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Tue, 12 Jul
+ 2022 15:37:52 +0000
+Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::24) by DM6PR06CA0099.outlook.office365.com
+ (2603:10b6:5:336::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.17 via Frontend
+ Transport; Tue, 12 Jul 2022 15:37:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5417.15 via Frontend Transport; Tue, 12 Jul 2022 15:37:51 +0000
+Received: from ryzen32.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 12 Jul
+ 2022 10:37:46 -0500
+From: Solomon Chiu <solomon.chiu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 13/21] drm/amd/display: Re-implementing ARGB16161616 pixel
+ format as 22
+Date: Tue, 12 Jul 2022 23:37:32 +0800
+Message-ID: <20220712153733.501210-1-solomon.chiu@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220708163529.3534276-1-solomon.chiu@amd.com>
+References: <20220708163529.3534276-1-solomon.chiu@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 1/2] drm/amd/display: fix comment format
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220712143159.2700970-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220712143159.2700970-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e1c8edaa-c518-4ad7-6e43-08da641c7b7b
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1453:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 04epUYsOxAjVme7yrXA7t9xBMjcZ6LKXzZtgRYNv6EDwmxq7m5zbDN8fiJWkmicE89j8E025PYrdQvO9q6gexkonyJOWU7f1cMKYVo1UJOX6cU8ZrCFvzd6297NFUt8ac47MRypKbn6K5Z7kxocnSFiWKV13+X/CjmkuEJhLm+lDAumdhb8hlbSizJT4ylqx+ZtZT27kK3NGGjJvlhOGXW2nkjz4+vDCf7C2/CIOMhXZvsVc3RgLLK8PU/uT+YxGj/pdTa0hAI27D03Pkpzke5Eo2iTwopEcQOfXTWpfG93l1uxVwAeQ+StNrjhEm9laVXG6s83JOOm9G6JWNZJR/scOPwOHnxLc9OdyjYj5Z1wzRsLMFMUDT4XuEZrb4AnQAIa/J28AOL42B2+KEEcySo0VP80O9cvtzZtfSxGj/g6/S3dTbEf/nzloCPji2lHJo3kRTZNAqn8TvundSeH2ohlwt4HCUX+1msuA99BqvL5nlw3RZ0n4NZ/q8dPHVFWGop2Nvd2q+mt8e5ZoBg9fAaPj6PZ+RwK3Nyg+pgGsgfhrMbpbwMV3h7zcEp71edCJJaautx3t7srBEr46y9GlDCwLkZ2FDj3hH1hbZ/c5S6EGBMAtvyZYxiLel11GFJFmWX9RFG67onZOUY4DA3FxrDp+Bcrp3nhzONaeRK/tSQCb8Ftptf4wKtMrdKjQn6z71h/ofjCLG2MP3mJ0syvO4/q24GY2fxB5srGYLGNxEuvb+jzv4OwMl4uAk17yRMaL6/+/B/2e0c0mmqC7y0VdDs+HcGdrpC5MR5KXnwFajJsoomPBSIap6Q7lJB3pZHbFsaQ5mTTU69VGsh6nMiyBFAfwr+PD5oAkUl2ScxjmRU0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(39860400002)(396003)(136003)(346002)(46966006)(36840700001)(40470700004)(6666004)(426003)(83380400001)(4326008)(70586007)(82310400005)(186003)(86362001)(336012)(47076005)(356005)(1076003)(70206006)(16526019)(2906002)(478600001)(8676002)(41300700001)(26005)(8936002)(316002)(44832011)(2616005)(40460700003)(36756003)(5660300002)(7696005)(81166007)(82740400003)(36860700001)(54906003)(6916009)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 15:37:51.8957 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1c8edaa-c518-4ad7-6e43-08da641c7b7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,34 +100,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>
+Cc: stylon.wang@amd.com, Reza Amini <reza.amini@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Wellenreiter Ethan <Ethan.Wellenreiter@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.07.22 um 16:31 schrieb Alex Deucher:
-> This is not a compliant kerneldoc comment, so make it just
-> a regular comment.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+From: Wellenreiter Ethan <Ethan.Wellenreiter@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for this series.
+[Why]
+ABGR16161616 colour format was added to dcn10/20/30, and set
+any ARGB16161616 to the same value as it (26). As such, the
+HDR10 Green Point y value was too far off of the EDID stated
+value for DisplayPort.
 
-> ---
->   drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-> index c4a5f8198209..436c3545a983 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-> @@ -42,7 +42,7 @@
->   #define FN(reg_name, field_name) \
->   	optc1->tg_shift->field_name, optc1->tg_mask->field_name
->   
-> -/**
-> +/*
->    * Enable CRTC
->    * Enable CRTC - call ASIC Control Object to enable Timing generator.
->    */
+[How]
+Added back the pixel format as 22 for ARGB16161616 for
+dcn10/20/30.
+
+Reviewed-by: Reza Amini <reza.amini@amd.com>
+Acked-by: Solomon Chiu <solomon.chiu@amd.com>
+Signed-off-by: Wellenreiter Ethan <Ethan.Wellenreiter@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c  | 2 ++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c  | 2 ++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  | 2 ++
+ 5 files changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
+index db7ca4b0cdb9..d4a6504dfe00 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
+@@ -361,6 +361,8 @@ void dpp1_cnv_setup (
+ 		select = INPUT_CSC_SELECT_ICSC;
+ 		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
++		pixel_format = 22;
++		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616:
+ 		pixel_format = 26; /* ARGB16161616_UNORM */
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+index 564e061ccb58..b54c12400323 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+@@ -278,6 +278,9 @@ void hubp1_program_pixel_format(
+ 				SURFACE_PIXEL_FORMAT, 10);
+ 		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
++		REG_UPDATE(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 22);
++		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616: /*we use crossbar already*/
+ 		REG_UPDATE(DCSURF_SURFACE_CONFIG,
+ 				SURFACE_PIXEL_FORMAT, 26); /* ARGB16161616_UNORM */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+index eaa7032f0f1a..ea1f14af0db7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c
+@@ -166,6 +166,8 @@ static void dpp2_cnv_setup (
+ 		select = DCN2_ICSC_SELECT_ICSC_A;
+ 		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
++		pixel_format = 22;
++		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616:
+ 		pixel_format = 26; /* ARGB16161616_UNORM */
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+index 9570c2118ccc..936af65381ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+@@ -463,6 +463,9 @@ void hubp2_program_pixel_format(
+ 				SURFACE_PIXEL_FORMAT, 10);
+ 		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
++		REG_UPDATE(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 22);
++		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616: /*we use crossbar already*/
+ 		REG_UPDATE(DCSURF_SURFACE_CONFIG,
+ 				SURFACE_PIXEL_FORMAT, 26); /* ARGB16161616_UNORM */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+index 3c77949b8110..787b852eeaf2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+@@ -244,6 +244,8 @@ void dpp3_cnv_setup (
+ 		select = INPUT_CSC_SELECT_ICSC;
+ 		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
++		pixel_format = 22;
++		break;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616:
+ 		pixel_format = 26; /* ARGB16161616_UNORM */
+ 		break;
+-- 
+2.25.1
 
