@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B2ECCA481
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B6ECCA47F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5587D10FD36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C392918A4EB;
 	Tue, 12 Jul 2022 19:48:32 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9009643E
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:39:42 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81163964C0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657654781;
+ s=mimecast20190719; t=1657654867;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5Lud1HlolljEFf8OswEvN2nWLecmIejLDjs4JxUru5Q=;
- b=GArtXOBTZRVORLFWj8mH5Y8JjUHwbaYGKOpX+o8BfVMtp93v0FNGTjuxO4sWbpZWq6+T3A
- cFElv0mPdXa/Km9Gv+N1J5K52C6ZgSG2SQ5/XAyCwkoaUJEt9W799TI8f5i4mqL8U8ZPzt
- q+tLKHLDZfTlyBETg9bRB8BEBsveeTk=
+ bh=IN+2MbILBTq8EAj5bW31Ky4wdixJFQxoXnYtSMwDdnc=;
+ b=JL0Es+gGPkFBGPI7MSEFidQWINjcDQGESjHmjm3FNa09D1WzGkQdyIbMqqg4JZJ+IMimSq
+ NHY+hOctCVINPLN+CA263oYFZOEWSG+1Irf1KVt+T1COTwM68R5h2Z11Ya4TW+j9D3P9OR
+ beHffB6sjwD6f43C1wJI0SLwfUdoMl8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-j83_L5OkN5i1Zz4bHE6VEQ-1; Tue, 12 Jul 2022 15:39:38 -0400
-X-MC-Unique: j83_L5OkN5i1Zz4bHE6VEQ-1
+ us-mta-608-KiUzqHqVPPWJSgiUy31CoA-1; Tue, 12 Jul 2022 15:40:57 -0400
+X-MC-Unique: KiUzqHqVPPWJSgiUy31CoA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFD9D101A58E;
- Tue, 12 Jul 2022 19:39:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2F4780418F;
+ Tue, 12 Jul 2022 19:40:55 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.30])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E125F40E80E0;
- Tue, 12 Jul 2022 19:39:32 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1EF0F40E80E0;
+ Tue, 12 Jul 2022 19:40:52 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v2 04/29] drm/radeon: Don't register backlight when another
- backlight should be used
-Date: Tue, 12 Jul 2022 21:38:45 +0200
-Message-Id: <20220712193910.439171-5-hdegoede@redhat.com>
+Subject: [PATCH v2 23/29] platform/x86: asus-wmi: Move acpi_backlight=native
+ quirks to ACPI video_detect.c
+Date: Tue, 12 Jul 2022 21:39:04 +0200
+Message-Id: <20220712193910.439171-24-hdegoede@redhat.com>
 In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
 References: <20220712193910.439171-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -84,95 +84,101 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Before this commit when we want userspace to use the acpi_video backlight
-device we register both the GPU's native backlight device and acpi_video's
-firmware acpi_video# backlight device. This relies on userspace preferring
-firmware type backlight devices over native ones.
+Remove the asus-wmi quirk_entry.wmi_backlight_native quirk-flag, which
+called acpi_video_set_dmi_backlight_type(acpi_backlight_native) and replace
+it with acpi/video_detect.c video_detect_dmi_table[] entries using the
+video_detect_force_native callback.
 
-Registering 2 backlight devices for a single display really is
-undesirable, don't register the GPU's native backlight device when
-another backlight device should be used.
-
-Changes in v2:
-- To avoid linker errors when radeon is builtin and video_detect.c is in
-  a module, select ACPI_VIDEO and its deps if ACPI && X86 are enabled.
-  When these are not set, ACPI_VIDEO is disabled, ensuring the stubs
-  from acpi/video.h will be used.
+acpi_video_set_dmi_backlight_type() is troublesome because it may end up
+getting called after other backlight drivers have already called
+acpi_video_get_backlight_type() resulting in the other drivers
+already being registered even though they should not.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/Kconfig                         | 6 ++++++
- drivers/gpu/drm/radeon/atombios_encoders.c      | 7 +++++++
- drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 7 +++++++
- 3 files changed, 20 insertions(+)
+ drivers/acpi/video_detect.c        |  8 ++++++++
+ drivers/platform/x86/asus-nb-wmi.c | 14 --------------
+ drivers/platform/x86/asus-wmi.c    |  3 ---
+ drivers/platform/x86/asus-wmi.h    |  1 -
+ 4 files changed, 8 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index d65119860760..a07b76e06f84 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -234,6 +234,12 @@ config DRM_RADEON
- 	select HWMON
- 	select BACKLIGHT_CLASS_DEVICE
- 	select INTERVAL_TREE
-+	# radeon depends on ACPI_VIDEO when X86 and ACPI are both enabled
-+	# for select to work, ACPI_VIDEO's dependencies must also be selected
-+	select INPUT if ACPI && X86
-+	select X86_PLATFORM_DEVICES if ACPI && X86
-+	select ACPI_WMI if ACPI && X86
-+	select ACPI_VIDEO if ACPI && X86
- 	help
- 	  Choose this option if you have an ATI Radeon graphics card.  There
- 	  are both PCI and AGP versions.  You don't need to choose this to
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index c93040e60d04..958920230d6f 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -32,6 +32,8 @@
- #include <drm/drm_file.h>
- #include <drm/radeon_drm.h>
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index 5d5215969f1d..a92322f4caff 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -554,6 +554,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "GA503"),
+ 		},
+ 	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Asus UX303UB */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
++		},
++	},
+ 	/*
+ 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
+ 	 * working native and video interface. However the default detection
+diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+index 074b4764ee8a..325ccd030a32 100644
+--- a/drivers/platform/x86/asus-nb-wmi.c
++++ b/drivers/platform/x86/asus-nb-wmi.c
+@@ -97,11 +97,6 @@ static struct quirk_entry quirk_asus_x200ca = {
+ 	.wmi_backlight_set_devstate = true,
+ };
  
-+#include <acpi/video.h>
-+
- #include "atom.h"
- #include "radeon_atombios.h"
- #include "radeon.h"
-@@ -209,6 +211,11 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
- 	if (!(rdev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
- 		return;
+-static struct quirk_entry quirk_asus_ux303ub = {
+-	.wmi_backlight_native = true,
+-	.wmi_backlight_set_devstate = true,
+-};
+-
+ static struct quirk_entry quirk_asus_x550lb = {
+ 	.wmi_backlight_set_devstate = true,
+ 	.xusb2pr = 0x01D9,
+@@ -372,15 +367,6 @@ static const struct dmi_system_id asus_quirks[] = {
+ 		},
+ 		.driver_data = &quirk_asus_x200ca,
+ 	},
+-	{
+-		.callback = dmi_matched,
+-		.ident = "ASUSTeK COMPUTER INC. UX303UB",
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
+-		},
+-		.driver_data = &quirk_asus_ux303ub,
+-	},
+ 	{
+ 		.callback = dmi_matched,
+ 		.ident = "ASUSTeK COMPUTER INC. UX330UAK",
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index ac3f5606e267..a0df14d35574 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -3609,9 +3609,6 @@ static int asus_wmi_add(struct platform_device *pdev)
+ 	if (asus->driver->quirks->wmi_force_als_set)
+ 		asus_wmi_set_als();
  
-+	if (!acpi_video_backlight_use_native()) {
-+		DRM_INFO("Skipping radeon atom DIG backlight registration\n");
-+		return;
-+	}
-+
- 	pdata = kmalloc(sizeof(struct radeon_backlight_privdata), GFP_KERNEL);
- 	if (!pdata) {
- 		DRM_ERROR("Memory allocation failed\n");
-diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-index 1a66fb969ee7..d24cedf20c47 100644
---- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-@@ -33,6 +33,8 @@
- #include <drm/drm_util.h>
- #include <drm/radeon_drm.h>
+-	if (asus->driver->quirks->wmi_backlight_native)
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
+-
+ 	if (asus->driver->quirks->xusb2pr)
+ 		asus_wmi_set_xusb2pr(asus);
  
-+#include <acpi/video.h>
-+
- #include "radeon.h"
- #include "radeon_asic.h"
- #include "radeon_legacy_encoders.h"
-@@ -387,6 +389,11 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
- 		return;
- #endif
- 
-+	if (!acpi_video_backlight_use_native()) {
-+		DRM_INFO("Skipping radeon legacy LVDS backlight registration\n");
-+		return;
-+	}
-+
- 	pdata = kmalloc(sizeof(struct radeon_backlight_privdata), GFP_KERNEL);
- 	if (!pdata) {
- 		DRM_ERROR("Memory allocation failed\n");
+diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+index 30770e411301..f30252efe1db 100644
+--- a/drivers/platform/x86/asus-wmi.h
++++ b/drivers/platform/x86/asus-wmi.h
+@@ -29,7 +29,6 @@ struct quirk_entry {
+ 	bool hotplug_wireless;
+ 	bool scalar_panel_brightness;
+ 	bool store_backlight_power;
+-	bool wmi_backlight_native;
+ 	bool wmi_backlight_set_devstate;
+ 	bool wmi_force_als_set;
+ 	bool use_kbd_dock_devid;
 -- 
 2.36.0
 
