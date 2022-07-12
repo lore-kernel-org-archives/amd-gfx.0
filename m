@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FC04C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06E60CCA47F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7898311AF4F;
-	Tue, 12 Jul 2022 19:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833998B93A;
+	Tue, 12 Jul 2022 19:48:40 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D87E496478
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:40:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116A195746
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657654812;
+ s=mimecast20190719; t=1657654777;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JXziGtgtx3d87cWTPD5qIdE+KWwwDELkhZt3OoORRNs=;
- b=gMcQwvY2kdgHbMpM2/j/JlbPN5mar4yfbCv1wwMNq/MN0tZXE0/XzriJbgNz9VxOIdM/t+
- QkZB4f1YHlneH3mBfE8d8Sd7CCTEPU90QP2onL7VsQWCO5/Hn+5HU3unBbS08kInGHflH6
- NrXIuxWoob9IRNZWhOJ9Po14/gTrOmo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=qHYYHZbH0ZyuOtVIncwhnUSFtM6/Yk1o9zdhsuFyPKQ=;
+ b=auC3e2kMfoJKISXd/K8EsXjOniOGJg+yWWdLrILOnXfEAWWi0HTTeP9irYfMV7+grxiu2r
+ 39ITdyBcTdd7ztmPyezGNBkp+gx73OX3tIbg7Ym81b6dI1pCOCIB5BtlFZyrTMuZ+2mhwo
+ hb2R6Cc9+KrHZXlSyW/j2SP3ON2U7aA=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-495-kmWpp8_JNEuaOb9EIAANLQ-1; Tue, 12 Jul 2022 15:40:11 -0400
-X-MC-Unique: kmWpp8_JNEuaOb9EIAANLQ-1
+ us-mta-43-FnZMiuJoO8-q2Y3kAQIZiw-1; Tue, 12 Jul 2022 15:39:34 -0400
+X-MC-Unique: FnZMiuJoO8-q2Y3kAQIZiw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7A2F803D57;
- Tue, 12 Jul 2022 19:40:09 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB2971C0CE66;
+ Tue, 12 Jul 2022 19:39:32 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.30])
- by smtp.corp.redhat.com (Postfix) with ESMTP id F3FA840E80E1;
- Tue, 12 Jul 2022 19:40:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EE87D40E80E0;
+ Tue, 12 Jul 2022 19:39:28 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v2 12/29] drm/nouveau: Register ACPI video backlight when
- nv_backlight registration fails
-Date: Tue, 12 Jul 2022 21:38:53 +0200
-Message-Id: <20220712193910.439171-13-hdegoede@redhat.com>
+Subject: [PATCH v2 03/29] drm/amdgpu: Don't register backlight when another
+ backlight should be used
+Date: Tue, 12 Jul 2022 21:38:44 +0200
+Message-Id: <20220712193910.439171-4-hdegoede@redhat.com>
 In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
 References: <20220712193910.439171-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -84,51 +84,95 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Typically the acpi_video driver will initialize before nouveau, which
-used to cause /sys/class/backlight/acpi_video0 to get registered and then
-nouveau would register its own nv_backlight device later. After which
-the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-to avoid there being 2 backlight devices.
+Before this commit when we want userspace to use the acpi_video backlight
+device we register both the GPU's native backlight device and acpi_video's
+firmware acpi_video# backlight device. This relies on userspace preferring
+firmware type backlight devices over native ones.
 
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+Registering 2 backlight devices for a single display really is
+undesirable, don't register the GPU's native backlight device when
+another backlight device should be used.
 
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
+Changes in v2:
+- To avoid linker errors when amdgpu is builtin and video_detect.c is in
+  a module, select ACPI_VIDEO and its deps if ACPI && X86 are enabled.
+  When these are not set, ACPI_VIDEO is disabled, ensuring the stubs
+  from acpi/video.h will be used.
 
-Add a call to the new acpi_video_register_backlight() when native backlight
-device registration has failed / was skipped to ensure that there is a
-backlight device available before the drm_device gets registered with
-userspace.
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/Kconfig                           | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c    | 7 +++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+ 3 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index 91c504c7b82c..befff2a8b763 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -437,6 +437,13 @@ nouveau_backlight_init(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index aaa7ad1f0614..d65119860760 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -258,6 +258,12 @@ config DRM_AMDGPU
+ 	select HWMON
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
++	# amdgpu depends on ACPI_VIDEO when X86 and ACPI are both enabled
++	# for select to work, ACPI_VIDEO's dependencies must also be selected
++	select INPUT if ACPI && X86
++	select X86_PLATFORM_DEVICES if ACPI && X86
++	select ACPI_WMI if ACPI && X86
++	select ACPI_VIDEO if ACPI && X86
+ 	help
+ 	  Choose this option if you have a recent AMD Radeon graphics card.
  
- fail_alloc:
- 	kfree(bl);
-+	/*
-+	 * If we get here we have an internal panel, but no nv_backlight,
-+	 * try registering an ACPI video backlight device instead.
-+	 */
-+	if (ret == 0)
-+		acpi_video_register_backlight();
+diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+index fa7421afb9a6..abf209e36fca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
++++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+@@ -26,6 +26,8 @@
+ 
+ #include <linux/pci.h>
+ 
++#include <acpi/video.h>
 +
- 	return ret;
- }
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/amdgpu_drm.h>
+ #include "amdgpu.h"
+@@ -184,6 +186,11 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
+ 	if (!(adev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
+ 		return;
  
++	if (!acpi_video_backlight_use_native()) {
++		DRM_INFO("Skipping amdgpu atom DIG backlight registration\n");
++		return;
++	}
++
+ 	pdata = kmalloc(sizeof(struct amdgpu_backlight_privdata), GFP_KERNEL);
+ 	if (!pdata) {
+ 		DRM_ERROR("Memory allocation failed\n");
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5eb111d35793..3b03a95e59a8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -86,6 +86,8 @@
+ #include <drm/drm_audio_component.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ 
++#include <acpi/video.h>
++
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
+ #include "dcn/dcn_1_0_offset.h"
+@@ -4050,6 +4052,11 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
+ 	amdgpu_dm_update_backlight_caps(dm, dm->num_of_edps);
+ 	dm->brightness[dm->num_of_edps] = AMDGPU_MAX_BL_LEVEL;
+ 
++	if (!acpi_video_backlight_use_native()) {
++		DRM_INFO("Skipping amdgpu DM backlight registration\n");
++		return;
++	}
++
+ 	props.max_brightness = AMDGPU_MAX_BL_LEVEL;
+ 	props.brightness = AMDGPU_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
 -- 
 2.36.0
 
