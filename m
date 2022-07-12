@@ -4,119 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3BAC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 22:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B08BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 00:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B06697536;
-	Tue, 12 Jul 2022 22:57:25 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 538CC9752B
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 22:57:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZdXDUaH75zz/4FbnN5Jg5uVj474UP9pyTdZsqjwWL0l9F/ubnC8rVBFvJis5xwrUn53pP2IPsY/Y/gwWuQb0/b0SZjTMBsM6lwKy7lABuqNmXny7W+kuwzGQh1lh86YiBGZmyX2RLLNYSzKMk/yDQcj2x8yEiU4zNYCKZ+NPxiEslHCiKBccMjjmnNT80puM3a6CTzJz1e5LtXqCRSKrgrRvNrdysf4gTUPMdiDA9eWfUvRUADFlZGhODt7dfvxXyzaqLCtCLlvpwQAXoXquGfmDAwEhfQl/6YbocpIlNscRShW9BZLlTstzkKj0qCN2co2LLK31XCWnvf4/LmMsyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WAXNDIXN46A0oeJqEgJIHKHFXi/ewwQbIHQ4XOjHp08=;
- b=Q7/0EaAqeCsJbpYUaKt3KHyf8wk61CS8qkFPGD+eJ37JPc26WOyT6OrwpfxcfaTi1L5mrtE4BzG4OsxrOj2330OWUiGh+eL4SqBejxo0Y2fv7/zTw11JnW4bWAOQIKUsBreiT8Dts0o5XkUUzIlLzSEI7g/vJF08HFu+Dz6pEdrO5wHHlVufy8j2YdZUhctnBK5ucgPoLSlQBZ874dQ1NZrSkctd+w5CQB4hSrzP1UmILNbCEdnHRflKy/ul8b4MGrnlMFx7L0pAIR4/i/K77kh7fDYWzT9ZAUot5b786o/pVNZG0OpPT+isV/nScDBVRKkIMoRYu0vwF+ZMLrF1LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WAXNDIXN46A0oeJqEgJIHKHFXi/ewwQbIHQ4XOjHp08=;
- b=lQhepJ5qIpjCrtKIwxmaebPBNk+FkMgGrP1H4Z7/K2fXNG4VH6avn087g7bNOlsiuHaJiquBOeG5dPAQrE6J+IA+BOumCy9WKeilhBvsSsfOtiZygYXRFJ1b6qhAyJgTJcwjmmlQU3JhGv41hsIiPs7ApHlj5rgmQihjScXht/Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5417.26; Tue, 12 Jul 2022 22:57:21 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b096:31c:bfb7:fa0a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b096:31c:bfb7:fa0a%3]) with mapi id 15.20.5417.026; Tue, 12 Jul 2022
- 22:57:21 +0000
-Message-ID: <fbaa55f0-b6ae-6dbf-7951-bdb1239017ee@amd.com>
-Date: Tue, 12 Jul 2022 18:57:19 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amdkfd: bump KFD version for unified ctx save/restore
- memory
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, JinhuiEric" <jinhuieric.huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220711184153.135021-1-jinhuieric.huang@amd.com>
- <BL1PR12MB5144B5BB5BA660DCE16E8B86F7869@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <BL1PR12MB5144B5BB5BA660DCE16E8B86F7869@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0440.namprd03.prod.outlook.com
- (2603:10b6:610:10e::29) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8653A112064;
+	Wed, 13 Jul 2022 00:58:35 +0000 (UTC)
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFDE12A3C1;
+ Tue, 12 Jul 2022 22:42:51 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id 70so8697167pfx.1;
+ Tue, 12 Jul 2022 15:42:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EOQK1yQsd3sxXf3ifqolSQDmS565G3PBpmyW4cpx2HA=;
+ b=MSBeQK///1NrBGbw7DV7tnTXdkZYNFjowCKH7HWWo6GHJtRs2JBzAZOUS8wJPeS3uB
+ FdmbaYtn+hTpf1LGNZgEyeUWRG1cVzTz/1oEyLDknyKU4hUPvpIGJ+X4vRY3nURrKaay
+ 11uzpc4OgaK1zQf7vNDHPl0glTe00vOyLDwPjtJLPoJSgRslvY7XqKtECfR51PBum7Vz
+ +hrGteaVNQuO34sksAm9/YBxtGc0pA3exzkgYaL3hFnNKNEJn3y4DsWBEdU8q+fmIgR9
+ 0JZlBNgeX/nc44836d3Gy6EyMmJKZyLrer3qSJ861OHV3LL6WQVB1FeqbxasQjhsatFy
+ ILTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=EOQK1yQsd3sxXf3ifqolSQDmS565G3PBpmyW4cpx2HA=;
+ b=4DYuYs3SvRVdGCWIQ7mGNT04+78coAzd+UnS1Ig+Q3gXdZxjYRCWU0XZV+1xHGr58n
+ jv6L6c51lmXQI0d24UhiveC/K+yKLWS3TUFEbzNqpkvEQ+BdaboZdCFXclZUQjxwXrfa
+ y6PDLkwFo69qGnvdMz+3QGesL01SW4AKDwdQFbsI2MRKLD2WBhOkC5QPXV5NFsAYvTtB
+ uM7IUSq18RSthpo/60o23ARbuwDvfg3B3BxC9dFHBc79MvkF5xr0YTZHJzS4/2T+nmT3
+ i6Toso3SYhq5Vpi63YDFceqeAsDUrptZc2YohZE0B1ODgloNgt3PXxQs7wrUoXqbgTv+
+ HBMA==
+X-Gm-Message-State: AJIora9RDhX48sPZ5vreYf+1KciMrCUYewrjR4CO+EYsdWaBn6628p4A
+ gP6KUlX0lgynI6x219p/4i1R9yfVfFsXDg==
+X-Google-Smtp-Source: AGRyM1tLJIcznWizk9iJQMKwRvzQyZlrxC0AQCyjI0CRaOuIOSRtFl2r3Pu3cEB73Omx8SddXOOy/g==
+X-Received: by 2002:a63:6c42:0:b0:3fe:465:7a71 with SMTP id
+ h63-20020a636c42000000b003fe04657a71mr398029pgc.101.1657665770859; 
+ Tue, 12 Jul 2022 15:42:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ 6-20020a631446000000b00415fcde23a4sm4552956pgu.27.2022.07.12.15.42.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Jul 2022 15:42:49 -0700 (PDT)
+From: Guenter Roeck <linux@roeck-us.net>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Enable building new display engine with KCOV
+ enabled
+Date: Tue, 12 Jul 2022 15:42:47 -0700
+Message-Id: <20220712224247.1950273-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 30ef6d18-fc83-4d87-1edb-08da6459e0c9
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6021:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +ZD8ZkcJyDm5ZfLN1BQxP5aLg1qucFRLRe3v64Qi0VfR7/1kRdtVoQYQf2VM4YoWSIFnGVUzHqZ4nM7GM15zwDb02/U3MQhTwvxvQiAv8McpvSDRER0pSRITvF7C0yvWmOHsr47rjoW+ATSf07Ut52OcrH5KPPnPD2jQDmhltQ+mvkMFmqAoFttHLwUJsqWPnumn1xF2WWUAidU8zJ/aTzGi/GXtp2K5Ev96/AK3YcK9ynIo0qNAzH7QPdGNkHiXo0zRybbMXZhD9YyVQIMBaznS95NAmyGinXqCoog9xXC1gd5n4iDTusEjtTEYJOCwx7h6zLoWOabfdMINx0wBnO/XN0sSFg3Px4RKP121U6SowMq4Wc2oQi+Q0sYA12QtqdEPSrUhNwruU4D6SQbwvtTgSoedK+iJE4ivQVm/Q/45761ifIzjBh1gLIhMZiMzxon++CiJVY9WBe9C69nCOCTC2tJjsZAV6xKBkU6pKxNV0VxaTqjtUqVueJfrp46zN5CWQqj2Rr4pvCg5e1HWt6FQFtyEU/GPrNyJLM7M1Mj2u78aOLLqlRHUqXEhqbTx+OSZqpxGR4Es+PvefU9qxrIxqWDH+FQHGLp3ztF5wAza6NMa3XAXDyd8adUDXWwScaVVr0gGIRBBQ1lY+UypqikLq+jWqLnj2e5g5a4U3eHCeOWo3VFOaf5t9Ul/K9/8DVEOGDyihaN7bPuRhWELvTdBSoRyye4eK67T5wAOCXILfAKEJY6gw1BNubfT6L6PRd9nFGB7DpckDdtEJ21rMPad4iVerSADq4Td75qcckwDLjqQA/J9DtJqmdIdLi8Q6S6MDgKGqhvlQdwIOnA3+KVls6y5LERjxicxl8cxWKA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(366004)(346002)(136003)(376002)(44832011)(36756003)(110136005)(316002)(2906002)(66556008)(36916002)(2616005)(41300700001)(6506007)(478600001)(186003)(53546011)(26005)(31686004)(66476007)(8676002)(66946007)(86362001)(83380400001)(6486002)(31696002)(6512007)(5660300002)(8936002)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlJ3bWc0eG5uMTltN1NtMXRvY1NEdk40cnRUQU9RVlp2S29hVFAwbzhEM2l4?=
- =?utf-8?B?dkc0ZFpDVlFSenpSVXg0c1ZqaTFzMEpPTXh0S0t5ckcwWmIvdHF5b2EzME5w?=
- =?utf-8?B?UXVKTEFVSFdYUys4bVBFbU9RcjVncTQ1ZDBncW05ajYyS2VpL0NiSUN4bGg1?=
- =?utf-8?B?UUh1QUZDVW5DRS9kNjMrL05rOVUwWGVyaEE1cGV6dVA3MzlHa1Z6N2hZYnlQ?=
- =?utf-8?B?VFlYajZnN09meGZIcTlyMmttS0FoS1B5RVFHaTBrTkFMbEQ4T1BnS1RyNloy?=
- =?utf-8?B?NGFDVERjYUlUVWRUY2RaQWZGLzVFMEhvQWlJa3RxbFJFbkNDN3NSWE5SK3dG?=
- =?utf-8?B?UDdKZ3F6NmdzbVFwYTBoZkVJNzVxRG81bkFWVjNTZ0toQ2ZQM3l0RzlTRWVj?=
- =?utf-8?B?STlHTTRZRHlmM2VEZTZtT3BsZFVKUVlCbys5Z1NUZGlLQjgyWld2cVJHNmtH?=
- =?utf-8?B?NnZwUE5ZZFhlOVAxYXBvRHZhQk5DdWp4YlFLa1ZDUmFzVVJEK3FIdDZsbGNm?=
- =?utf-8?B?QkNSaTdZKzZEclFxZFpBclRCVkhINW9pazU3czBIKzFOTno4d08rTm81U1VY?=
- =?utf-8?B?UVAzQXc4QVVhdWRPYWE5YzhFRFMzZ29zRUJRd3lobDR0UlpxRFpLa0krWjNh?=
- =?utf-8?B?c0FrZndZM0RSSkpWOEtraEE5Mys4WnIxekE4YlYrUjhxQ1o3SmIvNCtsS0FW?=
- =?utf-8?B?UUxrcE5WOGI1Sm8wUTIvUVdqVnRwL1FjdTNYeG1UdkdXdHFBd1ozci93d2NM?=
- =?utf-8?B?WGhBT3ZYRCtVRTJQWmZmeWxzSHFDZTNzMkFhcmIzQXdwL2J5bFk3WVZnYUd2?=
- =?utf-8?B?dzM5anNuTzdpN3dqazM4OHZtVHc2bVZyUTRPcG5yR0tEOFRuQmowZGxkYWxm?=
- =?utf-8?B?ZS9GYnV1aEJWOVhoVXN6N2ZQaDJZeFExQk9qNEkwcjdtK3A4czZOTzNGZ1Jw?=
- =?utf-8?B?RTFvYlNoSVpNQ1hiTG8vYnJ4em1yaXg2YmZ1K0FQVVhINCtiYnE1TDBWdUNP?=
- =?utf-8?B?ZXZwdmRVZVdkaUFzU1UreTAvcHRnQStVQ3NoL2Z0UjEwcEVVL3FuK25jbklW?=
- =?utf-8?B?LzhDN05nd1lmb1FRVUt4anZpZmwzODNoTUowWGZBQ2ZrdEVzNE5aU3huZk9R?=
- =?utf-8?B?V2MvK0JtS0s4SGRQQlNkMzVDMkVxcitaeUE5SzBHeU5jY2Y1OUloaUFwWGp0?=
- =?utf-8?B?bHVDTmFwYkRPYVV4S1c5WExkZEd3ZklJdHlYeDl0V1JCcFYwN1I0dUlMeGpP?=
- =?utf-8?B?aXQ4OFJyaS8zZjE4RjlxbTJjelhvajlvS1JNRnFQLzRjYk9UaVVLd05Ua09V?=
- =?utf-8?B?M0FIQWJFQ0tYdG90ZzVzUDM3U0VoK2w2TmY4VkN5WGpYcnJ4OGZvN0dhTmZI?=
- =?utf-8?B?VTEvRHlUd3RiVEhzUkRnay9VemY1ZmViT1RiZkFKdjJ1dVNFN0poNXlwOENY?=
- =?utf-8?B?cy9pT2Z4SXUraFZER1pMVVJFS1dUTEI5amtqL0FYVmw1SDFwYmNNbVhQeGYx?=
- =?utf-8?B?b1dUV016L2czQnRkY2k4SmlQZzBRYkZMVzd2UGxZQlRSUWxlS21LQ2lnOVNX?=
- =?utf-8?B?MHlqaWpMdjFFVytGOVJyeHJRSklyWTU5SVM0NDJqd1gzalVsZkpMVFNsZDZY?=
- =?utf-8?B?ZWUwTHRKY29SajBRcll3T3ZGZkVtajEvMmVTcm1kYnVUaTR2Vk5lLzU0VE5U?=
- =?utf-8?B?QVk0S1hZUHZNZjUyQW1vZ0U3dThuRGVBT1pNUFJFZXhMa0c4WGxhcWN6NGNo?=
- =?utf-8?B?SGNkaDJ3ZTV4UTRiNXh5djBoRHJXTWdXZWhVSFFiUS9DbnFRaXFoR2tEUGFF?=
- =?utf-8?B?YXBYUmI4MGdvc3hWVE82bW04RDU0dlhWTXpwUzFMQTVtTnhicW5QS3RWcWNH?=
- =?utf-8?B?WGl1N3JxSGZ5bko1MGpOeVJpUzRSZHI3c0p5eUVQbU02OS8ySklJZ1JGcVRQ?=
- =?utf-8?B?cmE0QWpxRmFGYk5EeEQ2UG1aV1hYakNSY1ZGUHBmTTRWRlR1NGxBTXZLNlhH?=
- =?utf-8?B?bzVOSlBFS0xtM1BNWFp3ZzRHbEdTY0c1b3BxbWpnWjNid1N0eXl2SGZuWW9k?=
- =?utf-8?B?SHN2NUNBMUROcXQ5RmZtSlNNcGNNT1MrR3lmSFg2MWpzZW5Ma0FMNzUrTGF1?=
- =?utf-8?Q?jgqL4Qs4nGWZmstCPiJyWNr4f?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30ef6d18-fc83-4d87-1edb-08da6459e0c9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 22:57:21.3896 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JANTE3jm2lbQ3/WK+9za9nPfp3qnJdQ7hcNq3yhhLY34Ufpy+Zxkr3UZbd/JjLlMvE7bylOKg6WD0UuOgj5ynw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 13 Jul 2022 00:58:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,65 +68,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eric sent out the corresponding user mode patches to the mailing list as 
-well. It looks a bit weird, because it looks like they're part of the 
-same patch series. But patch 2 and 3 are actually user mode patches. The 
-interesting one is patch 3.
+The new display engine uses floating point math, which is not supported
+by KCOV. Commit 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov
+is enabled") tried to work around the problem by disabling
+CONFIG_DRM_AMD_DC_DCN if KCOV_INSTRUMENT_ALL and KCOV_ENABLE_COMPARISONS
+are enabled. The result is that KCOV can not be enabled on systems which
+require this display engine. A much simpler and less invasive solution is
+to disable KCOV selectively when compiling the display enagine while
+keeping it enabled for the rest of the kernel.
 
+Fixes: 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov is enabled")
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+---
+ drivers/gpu/drm/amd/display/Kconfig     | 2 +-
+ drivers/gpu/drm/amd/display/dc/Makefile | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-Do we still need a link to a user mode patch in this case?
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index b4029c0d5d8c..96cbc87f7b6b 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -6,7 +6,7 @@ config DRM_AMD_DC
+ 	bool "AMD DC - Enable new display engine"
+ 	default y
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+-	select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
++	select DRM_AMD_DC_DCN if (X86 || PPC64)
+ 	help
+ 	  Choose this option if you want to use the new display engine
+ 	  support for AMDGPU. This adds required support for Vega and
+diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
+index b4eca0236435..b801973749d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/Makefile
+@@ -26,6 +26,9 @@
+ DC_LIBS = basics bios dml clk_mgr dce gpio irq link virtual
+ 
+ ifdef CONFIG_DRM_AMD_DC_DCN
++
++KCOV_INSTRUMENT := n
++
+ DC_LIBS += dcn20
+ DC_LIBS += dsc
+ DC_LIBS += dcn10
+-- 
+2.35.1
 
-
-Regards,
-   Felix
-
-
-On 2022-07-12 09:57, Deucher, Alexander wrote:
->
-> [AMD Official Use Only - General]
->
->
-> Can you please include a link to the proposed userspace in the commit 
-> message when you commit this?
->
-> Alex
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Eric Huang <jinhuieric.huang@amd.com>
-> *Sent:* Monday, July 11, 2022 2:41 PM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Huang, JinHuiEric <JinHuiEric.Huang@amd.com>; Kuehling, Felix 
-> <Felix.Kuehling@amd.com>
-> *Subject:* [PATCH] drm/amdkfd: bump KFD version for unified ctx 
-> save/restore memory
-> To expose unified memory for ctx save/resotre area feature
-> availablity to libhsakmt.
->
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> ---
->  include/uapi/linux/kfd_ioctl.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/include/uapi/linux/kfd_ioctl.h 
-> b/include/uapi/linux/kfd_ioctl.h
-> index 7a423855a86e..afd8ff29c74f 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -36,9 +36,10 @@
->   * - 1.8 - CRIU - Support for SDMA transfers with GTT BOs
->   * - 1.9 - Add available memory ioctl
->   * - 1.10 - Add SMI profiler event log
-> + * - 1.11 - Add unified memory for ctx save/restore area
->   */
->  #define KFD_IOCTL_MAJOR_VERSION 1
-> -#define KFD_IOCTL_MINOR_VERSION 10
-> +#define KFD_IOCTL_MINOR_VERSION 11
->
->  struct kfd_ioctl_get_version_args {
->          __u32 major_version;    /* from KFD */
-> -- 
-> 2.25.1
->
