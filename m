@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB21DC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35A7C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 14:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFBB614B5C0;
-	Tue, 12 Jul 2022 14:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5E594DA2;
+	Tue, 12 Jul 2022 14:56:56 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8C2812A81C;
- Tue, 12 Jul 2022 14:54:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D99E094DA3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 14:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=/NPqGy/kbDC5IEbL/FUb1XA0XVTu08NYRtepTQJduZo=; b=KlttEkRQkHKHhvn9Iy8v0dhlJk
- 8ET+QbItDRN1A+9JQPf85e0bZcydkqirMFbA/jthkCYizHPgbTW1nIFooCfR6EpP+fepHzn3oEqbj
- /2f+itGTZ5J+I90uSpd/Ue+h8xHZv3bAbaCKaj2aw3ZRwZYULEm+tZhR3S04qMu7koZEO+dqpkx8B
- ZJk1HJA3BoqJ6qkdOkxprcW4zD/4yDlJzhwIvpV5E2ORkCjcR5X+t+LXuDYTjsVg/5y4Bk//ElMLD
- 8TiyQDsgtHxt5PJTT7PJ4IaI0lopauUC40w7QkJnKvd65HVN4cDwy5J1O+PPBUT9ZbzF7YBp4t2Uo
- jHFDX7qA==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4GG2gQ7c04a+3GMYtJ3Qa/imUMIIJK3RIh4n62rM23g=; b=coEVQAmT/0F8U0TwYV7UPLraxi
+ lAYfV2Np2T62S7uIqKNFfhlFM9I20P2b52gjI9QQhTr/qlA4adkWvZ45afRA7eI/m+KMg+HYQ1VFa
+ Rspl4q5bZSfa85acsKBdm5Cx286/JGccn6BgdTt3Y1d3c3bxAGG0Iag3sQ7YnOOjckfzFxWNWkDM8
+ nrGjVVaFrdLp+Tfpg58QuIt79/f8yZy9pL3/FswPvx1Sr7Dqxs+zjXSlkevOu6mIle6Z2ZC/XZ8Eb
+ LSs95Fc7gIIbHJYzmF3NMsI2cwkn9t8v3bf71HaaPdoLZXROpT1NTmrg/Fsz7vnikxLSws0eVWmEO
+ B2PVExDA==;
+Received: from [177.139.47.106] (helo=[192.168.15.109])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oBHGn-00Dfai-3m; Tue, 12 Jul 2022 16:53:49 +0200
-Date: Tue, 12 Jul 2022 13:53:22 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [RFC PATCH 4/5] drm/drm_color_mgmt: add 3D LUT to color mgmt
- properties
-Message-ID: <20220712145322.cecigsjbpuqh3tem@mail.igalia.com>
-References: <20220619223104.667413-1-mwen@igalia.com>
- <20220619223104.667413-5-mwen@igalia.com>
- <Yrmf+mWk13qkcsfs@intel.com>
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oBHJd-00DfoP-AD; Tue, 12 Jul 2022 16:56:45 +0200
+Message-ID: <3e7b3827-3862-3ce9-e46e-f1a7a52423b2@igalia.com>
+Date: Tue, 12 Jul 2022 11:56:30 -0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aa3jy3xvjorzzw3a"
-Content-Disposition: inline
-In-Reply-To: <Yrmf+mWk13qkcsfs@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amd/display: make some dc_dmub_srv functions static
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>
+References: <20220708155036.1092134-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20220708155036.1092134-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +53,14 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, nikola.cornij@amd.com,
- bhawanpreet.lakha@amd.com, sunpeng.li@amd.com, alex.hung@amd.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- seanpaul@chromium.org, nicholas.kazlauskas@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com, sungjoon.kim@amd.com
+Cc: kernel test robot <lkp@intel.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Às 12:50 de 08/07/22, Alex Deucher escreveu:
+> Not used outside of dc_dmub_srv.c.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
---aa3jy3xvjorzzw3a
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 06/27, Ville Syrj=C3=A4l=C3=A4 wrote:
-> On Sun, Jun 19, 2022 at 09:31:03PM -0100, Melissa Wen wrote:
-> > Add 3D LUT for gammar correction using a 3D lookup table.  The position
-> > in the color correction pipeline where 3D LUT is applied depends on hw
-> > design, being after CTM or gamma. If just after CTM, a shaper lut must
-> > be set to shape the content for a non-linear space. That details should
-> > be handled by the driver according to its color capabilities.
->=20
-> I also cooked up a WIP 3D LUT support some time ago for Intel hw:
-> https://github.com/vsyrjala/linux/commits/3dlut
-> But that dried up due to having no userspace for it.
->=20
-> I also cooked up some basic igts for it:
-> https://patchwork.freedesktop.org/series/90165/
-
-Yes, I found your work on it, so I based part of my proposal on your
-previous proposal and also the cubic-LUT by Laurent for rcar-du [1].
-They helped me to find a path to expose 3D LUT caps, thanks.
-
->=20
-> <snip>
-> > + * =E2=80=9CLUT3D=E2=80=9D:
-> > + *	Blob property to set the 3D LUT mapping pixel data after the color
-> > + *	transformation matrix and before gamma 1D lut correction.
->=20
-> On Intel hw the 3DLUT is after the gamma LUT in the pipeline, which is
-> where I placed it in my branch.
->=20
-> There is now some discussion happening about exposing some
-> kind of color pipeline description/configuration properties:
-> https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
-
-So, initially I thought we would just map the properties according to hw
-pipeline, but in fact it isn't a good path to follow and would make a
-big mess, so Sebastian's proposal for a pipeline description makes a lot
-of sense to me. I'll join the discussion.
-
-Anyway, thanks for all inputs,
-
-Melissa
-
-[1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+ren=
-esas@ideasonboard.com/
->=20
-> --=20
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
-
---aa3jy3xvjorzzw3a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLNitsACgkQwqF3j0dL
-ehw3zw/9EC40737UmbquiGb+tP+eHu1jV+wfVOcLwtAkx9bxNINu74MW9x86nZw6
-VMqIa1FHyVTAZ0/a/nmcMNBIHGzeE13zVnYdnE91kMv0QGPNHWK+cuZGA0+xUIFB
-3yY8PXKJqZS/R2ApsDqT2qQclYpPpHoB4ziBYKY/w3y+yisNVhU1TtPNzBFkpSwG
-I6Zqz6TkMWqjjth2oW63SzhFmOiiHi5d+5n+HikHXYpfGxRVbQOipW1ZPOEigs68
-UiuMtKQairaACZUVF5mWeUD6lDxmdpOl7qLh0HjDFsTNU5sIV8g2U6ZvBubrw/QM
-DtBTkb49LlyPTFCz8NZsw+qbc+OHHGD/o3gthM/NmR0BN7dWjbbTQBFC0UOdoYlc
-u9SaNuWDGqZOEEyFlmlwOoefbYAk7rFlBGLXp/ER+IIEcnx6JOKap/GclgGmJrY1
-acP+MYE/moTBMEgpg8xifGOOodi+NGRTuRXhiGLEU1ncwyJfgFQ2vERbEwm8SoSp
-pyA8zjjJ40vtXV+Xg0AAyzOVH/2ciMxdxUy+3F5HtEi2V1dmZG07aj51uGFCHexX
-+lFEyPGLud0h6YPevJXEXmcZeA8fBaLd1u1xDs7Uyusd5nGcMZoTyTAWQ8jRT6YH
-kuApDh6xfRlt7BaRDw3iA0zMaNx8/hz8XPUoCCb30ub0P8rIODo=
-=oSGs
------END PGP SIGNATURE-----
-
---aa3jy3xvjorzzw3a--
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
