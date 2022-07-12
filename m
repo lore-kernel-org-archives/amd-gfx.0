@@ -4,117 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F7EC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 18:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23692CCA47F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 19:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E241E95C61;
-	Tue, 12 Jul 2022 18:31:23 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFCC95C61
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 18:31:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mrrLp0HMCfvPfkUwJuIGIu5K9YbOph+qglSFjaZZieKDQNqgkHpoFkwC73lsBeklI/TFlaNc2pdfWKXW996DYLLgc+jt2JNUeZB50qxLCqE+ghmYVOcZ0IxR4eNCL6sCeiN0b04to97ZNciPmyHJTAVdsqm4lfEj/mzS9Xq5JJDTOvyPQxj5LxMeYUe5BOmqf95Ob3gYjhRlykK6NjslasYEYmX2v2urx8zgF205htbVwf4V7WIbvUAJB75hIRxfyYe42yrc4U+4rNLx0e8d3uOv4/a4TBS2DUchpvObkX47Fq5XaV8ae731i7fjciL2ZurQbuXGN7uOmxJbVu6V3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tmNqUeRw3AaIX7ZzR4YD/6DwrNDEDkDlgCAB8gskN88=;
- b=fZFmbGC7n6BTryWdSlcw+qtIHusI3uxYGYA3nBxkbTIiILi3dlpljmv+JCB7Br0/Fp/MHVWYmnrn5I6THC43iCERW6UBhvt7wfsDWBupxeEOKGjIYKDRig2B7KQmvhLofetB3rZBk4cFI0Hb4a/vwUAEbCMwxyrAUdyZIYCjrZtbO9RqITV7krrwoajuTe5zFnnzyH4pBo8JVs1zAsDg56c8HN6Zuap4P9HfXhBsdDk+YrAiBEhGLFdBtqgijp3NE4ycjeZW9MFanMB9Oy/+Xj2KrwgIwuFy5RYrVJWeXkj5w5/4l0vIVMr56ynV1RXiiALbtDbUQv4Q9yaK0Zae8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tmNqUeRw3AaIX7ZzR4YD/6DwrNDEDkDlgCAB8gskN88=;
- b=Z1xsCcvukLYlwMB25XGyuXrEx0hGQzQIAoxs2pREyp4cCMJm4puB5UmONkKaQstvqR5I4ukFvNHt3umuvm9VDST5XeBHX9B//qhRrakX0ZN/G7rIlpa7sIcuhRA1PXxN2Sij93klrPhqFJnq+2EfZ1bldJtKL6xpZLT7yUG/i4w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM5PR12MB4662.namprd12.prod.outlook.com (2603:10b6:4:a6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23; Tue, 12 Jul
- 2022 18:31:18 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::6999:13c9:d124:418a]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::6999:13c9:d124:418a%7]) with mapi id 15.20.5417.026; Tue, 12 Jul 2022
- 18:31:18 +0000
-Message-ID: <45c83d58-1d82-9461-1233-af495fce834e@amd.com>
-Date: Tue, 12 Jul 2022 14:31:14 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amd/display: Ensure valid event timestamp for
- cursor-only commits
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?=
- <michel@daenzer.net>
-References: <20220711145131.712825-1-michel@daenzer.net>
- <CADnq5_PhLo4wX8vT3ZddxJ5qL0WonxOVRgou+12XtWpiM4Kwrg@mail.gmail.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <CADnq5_PhLo4wX8vT3ZddxJ5qL0WonxOVRgou+12XtWpiM4Kwrg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::27)
- To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9CF112827;
+	Tue, 12 Jul 2022 19:48:25 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B5D3964A0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 19:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1657654847;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=O6zxPNobbT083Gr1PzOqo2D9QVw8r3TZGDW4+SwhQXY=;
+ b=U4JiNs8idduJCME8oeiI5mXtkytwkWqzxXOcK9Cyx9Sz8ZqLHLy+Gt7hgB6rsfFzetBE5t
+ WMhf32q/ENXmpwbDmbmPGXQZ++eMik6dlKMOA/DtdmjiGRcMResBqQ1CBMbSazlnqT/pO3
+ SBbmZAdUxuxZvL2avAuraV9aYvjWf08=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-115-fpanUoMOOe-IBurrUrA-Mw-1; Tue, 12 Jul 2022 15:40:44 -0400
+X-MC-Unique: fpanUoMOOe-IBurrUrA-Mw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CD69380406C;
+ Tue, 12 Jul 2022 19:40:43 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.30])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6BFC140E80E1;
+ Tue, 12 Jul 2022 19:40:39 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Ben Skeggs <bskeggs@redhat.com>,
+	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+	Daniel Dadap <ddadap@nvidia.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: [PATCH v2 20/29] platform/x86: acer-wmi: Move backlight DMI quirks to
+ acpi/video_detect.c
+Date: Tue, 12 Jul 2022 21:39:01 +0200
+Message-Id: <20220712193910.439171-21-hdegoede@redhat.com>
+In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
+References: <20220712193910.439171-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4735cf89-64bc-4053-f0ad-08da6434b5d1
-X-MS-TrafficTypeDiagnostic: DM5PR12MB4662:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cQH8g8ruHMMlxNJpYgcm6WKunJW1uJEfweoEN+ZtJi6hVgGSQWzHpYHpdWR0T5+lGU4nrWgI9RPdlvzEGgN7gZXzOGP5XcecKDILT+6ACcUgC5LkJhNIRiXwG2z0+mnNqyoInrKLVMgNjjk9XlKN2iiwh2eGpWRzvq3T4bbgqXsXXXtCiteODZon/fKLrvB6UmWO3CgmUV5t/VPyG2/OXH4A4dwSUpdvDUDRz8Vvqv3p17kHMPEvN6TGueIcbowMOcyZR5wZiUs/nsqePuWf5ZN0PrwnQQb432U2tgSiYYsKJPo9Qe9+FqklpjP86M2CXV3DB+ITK0I8+0BfhwvjzUcGrxUInqWWPwm1DIksgfAZPKud70wZnAQ4lLYQNj9sx3Iuwd/XIXa+o4HXq8QQXPzNIcNZiGHy3a1dVLMnNIjU3/1JR+e03tpRg8U0poJLAfc1SVWbOAGTPUtQDutzUPF7GUSA5a+dG07YabLlCg1axHUADZ+iJRl6k85PXjiZYqIJpJ5prEdhQyjHUtiyvknXWhXPGdSLzeTVHFPaBgvSa3LKfyRrDtsTkisZ/GQLsVm45pvEwF7CcD9E6gSfG/bSpSj9kcKrHt8VPV3Zcr2Iv1xFLWVsG8I9lpmORMA88Lh3wN63KYUZPN53bLo5WZ0sps6fmzvvS/JHryTTWYeV0sLYFkns3bhYpTb7RkNgzVhngU62gnmTglM5+TgEi1WD0slVHQ1v+MDCWElWjyZfRL4lhIdnMRSU0cGJZkLr4ua3hcVP8Q6GrCZmdfBMkweeVAP2tHcvFqd2bFIFyB8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(39860400002)(366004)(136003)(396003)(36756003)(26005)(66574015)(31686004)(6512007)(6506007)(66946007)(66476007)(38100700002)(66556008)(8676002)(31696002)(41300700001)(186003)(6666004)(53546011)(4326008)(86362001)(6486002)(316002)(5660300002)(83380400001)(2616005)(54906003)(8936002)(966005)(110136005)(44832011)(2906002)(478600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEhDUnFwYjMrcG1OQjBjbWhTTzVpelRlRzdnSTMzMERXVFpiM3FBS2hZdlBD?=
- =?utf-8?B?MWN3bEdWSnBiYWFmMEExaWswb3JYT2M4ZFpQN1JlMTNBZUFESC95NGl6UkJY?=
- =?utf-8?B?MURPL25TT1JFMlo2bldES21ONUdPQmlMYTMydEVkc0pzdk85Y1BoMXZNU0xB?=
- =?utf-8?B?dW9OdGtnNFVnOVluelRxdm1oYm9JSEVOSGM2Q05XWG5HbEVJZUtJT0d3SHhh?=
- =?utf-8?B?WWkraUJmSG5WbDlGdHhCT1p5N29Ta1R2Y2h5WHQ1MWY4c05VU0pPUi91Rkpo?=
- =?utf-8?B?cXlVOFYrZEhxazFWRUwveWQzT0REOTgyR0NNNCt1d3ZYUW9VM0VKN0JsVHJ6?=
- =?utf-8?B?MzgrRlI0enRFN1dlOGRscnd3clhsdllzNzE5dkJEaHR0TFBuVyt2b1Axakx4?=
- =?utf-8?B?ZDZIdGp3Ni9kU3Q0dHlQQTh4THdOOFQxeUd3cU8rY3pBUysyQzd1K0pKYmpB?=
- =?utf-8?B?bFBRMmVGRTVjQlBLU3l0YStUZU1Gelp4c0xYNGtsV2hLWmt4TWVzTkwxbVEz?=
- =?utf-8?B?Z3BqWnZYbUxraXY0cExOU2RYYVg0OUVRWXIyT1ZWWFRvZ1hSWm5vdkpNTE9H?=
- =?utf-8?B?Vk9xTUlQRUsveFZnNHRvbzJMcjRyOWVkUmVLR2FhWklJRkovb1NURVJITW9U?=
- =?utf-8?B?c0YyMUZtV1FrUzc2a2taOCtJRDdSTjk2MEJaMWFhQkdHenJrN3Y0UUR3NFRp?=
- =?utf-8?B?WExCU2hwcVNRN1BiS1RwMTM3cVY0SGlPbW0vazBNZ3BrbHA4MU5maTd6WmIz?=
- =?utf-8?B?WmFLV0o2Qmk0OG5NQVd5dVN1eUZqcVZWRW45Yk1GUXFXY2FzeiswV3dwSk9a?=
- =?utf-8?B?akVsZXN0eTdyUkV3ckRvbmdyVFBTR3J3NlQycHhsMGFqckMzdWN4Qk9ndHlC?=
- =?utf-8?B?MlNuNGt2SXllVE9jOTlNYmlQTjZVVVc3TmdVblVCT2xuWXVKSWp1MGVya0hM?=
- =?utf-8?B?azdGNFk5MU91c3k3NWkwekkvbmw3QjUvWkkvUVI2WWFONXBUZERCSDNpUFJS?=
- =?utf-8?B?SnMxUTlmbkdnTlNNL0cxYjRYRW1ULzMwQzhnblJnQlZOclFMOXVvNkNWZWdk?=
- =?utf-8?B?MWdYTE84azZVaFR3cFV1eWNtaWdOMHRUQ2V0QUtoaE9yNTRGTzlVNnBYZTZS?=
- =?utf-8?B?KzZQNTdKUXFjT2htNllBNCsxQWFWZVgxanhkOEVHSTE0RTAzZ2xzT1Bqd3hr?=
- =?utf-8?B?czZTWWtkODdNbThHT0E3aXZqL0Q3R3ZpYTJ5RG5YdmFDcDM0dno1Um9WL2hi?=
- =?utf-8?B?VGNpRXA5aUl4ekVxZGJRNXZ2RHZjeTVXMkpmZFFoeHh4TkVEVUJla0txbmMz?=
- =?utf-8?B?NHd6ZHZxcUdWaWxsZWpFMkh4ajl1eGl4d2JNa0xUYzdDc0s5MElvM1BmQ1lx?=
- =?utf-8?B?N3ZmeTFVaUlXc0ZlQzFoU0pVazMvMjR2UStmTnk5UDJRQ0RBd2lZQXl4VFpU?=
- =?utf-8?B?czd4cGc1YmNJbTNKcG5tWm9adFRVMHE2UWRsdmNDZXp1UXJrdUkzc3JHbjh2?=
- =?utf-8?B?SG9EbkJDVkxkRThFam5LMU1rVFFVNkpmNDN5MVQrUVA4T3dtZ29UdWNIOG13?=
- =?utf-8?B?WjZXZjVaTWlTdHJYT2NRRUFQaFRpOTJOZnJ1SGlPS3JocGpZUU5XMXRhWmpn?=
- =?utf-8?B?VHd2R0xZakNWR0lXR0xrYVp5cW55OVRsKzVRZ2lHYVVydVN6R3FZQ0U4TW9I?=
- =?utf-8?B?Ky8ycnlKcnBJZ3VYMlJKSWFlTVdNNXRYak9IaTQxOUxIQkYwRHpacTVZQ0tx?=
- =?utf-8?B?d3V6dnVYVzdnTUVwdXRidWFwYy96ZE1oNEpjZ2o2dmtCeXhObktUMFpFQjhF?=
- =?utf-8?B?VlZUb0VZSGlyeVB3ME1TemtzUDI4UXFLOElLYXJEWHVsRGRjMTgrVmpBWGhF?=
- =?utf-8?B?dVdaR1lYM3MrR2F2MUVaR2NHWnpCTkIwcVU5V2E4c3Y3OVFlcElQVjNnK3Bz?=
- =?utf-8?B?VldaakJLR0d5VUZrSzRoWGNwaERPZ25CUlJaNDltSHF2WmNBYmFtaHhKUnZW?=
- =?utf-8?B?QWpkbm5vTnJTemJzNWdVOXpsYkZDdEIwY1YrOW5iMlVoMXZJMktiT3NRbWJE?=
- =?utf-8?B?L1JRV2V0Y1A0WmR3ck8rMVl4MC9kOWhxbnJXbzZjK2JOU2NpUzJlMG5qNThF?=
- =?utf-8?Q?k6CS0H3qDQ/3AqK6ZxwY8XFXF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4735cf89-64bc-4053-f0ad-08da6434b5d1
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 18:31:17.9733 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V/SCatRFGJdLpDvhhKJStinaXJ5d2IU/0j2lpRijrQFFSLusWFPO/mXqzCXuiPFoLa0X91SM2HwLAZkS4ASdvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB4662
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Mailman-Approved-At: Tue, 12 Jul 2022 19:48:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,130 +76,215 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Dor Askayo <dor.askayo@gmail.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-07-12 11:23, Alex Deucher wrote:
-> On Mon, Jul 11, 2022 at 10:51 AM Michel Dänzer <michel@daenzer.net> wrote:
->>
->> From: Michel Dänzer <mdaenzer@redhat.com>
->>
->> Requires enabling the vblank machinery for them.
->>
->> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2030>>> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
-> 
-> This looks correct to me, but it would be good if one of the display
-> guys could take a look.
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> 
+Move the backlight DMI quirks to acpi/video_detect.c, so that
+the driver no longer needs to call acpi_video_set_dmi_backlight_type().
 
-Looks fine to me.
+acpi_video_set_dmi_backlight_type() is troublesome because it may end up
+getting called after other backlight drivers have already called
+acpi_video_get_backlight_type() resulting in the other drivers
+already being registered even though they should not.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Note that even though the DMI quirk table name was video_vendor_dmi_table,
+5/6 quirks were actually quirks to use the GPU native backlight.
 
-Harry
+These 5 quirks also had a callback in their dmi_system_id entry which
+disabled the acer-wmi vendor driver; and any DMI match resulted in:
 
-> Alex
-> 
->> ---
->>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 +++++++++++++++++--
->>  1 file changed, 40 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 9dd2e0601ea8..b0667e2f3fdd 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -462,6 +462,26 @@ static void dm_pflip_high_irq(void *interrupt_params)
->>                      vrr_active, (int) !e);
->>  }
->>
->> +static void dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc)
->> +{
->> +       struct drm_crtc *crtc = &acrtc->base;
->> +       struct drm_device *dev = crtc->dev;
->> +       unsigned long flags;
->> +
->> +       drm_crtc_handle_vblank(crtc);
->> +
->> +       spin_lock_irqsave(&dev->event_lock, flags);
->> +
->> +       /* Send completion event for cursor-only commits */
->> +       if (acrtc->event && acrtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
->> +               drm_crtc_send_vblank_event(crtc, acrtc->event);
->> +               drm_crtc_vblank_put(crtc);
->> +               acrtc->event = NULL;
->> +       }
->> +
->> +       spin_unlock_irqrestore(&dev->event_lock, flags);
->> +}
->> +
->>  static void dm_vupdate_high_irq(void *interrupt_params)
->>  {
->>         struct common_irq_params *irq_params = interrupt_params;
->> @@ -500,7 +520,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
->>                  * if a pageflip happened inside front-porch.
->>                  */
->>                 if (vrr_active) {
->> -                       drm_crtc_handle_vblank(&acrtc->base);
->> +                       dm_crtc_handle_vblank(acrtc);
->>
->>                         /* BTR processing for pre-DCE12 ASICs */
->>                         if (acrtc->dm_irq_params.stream &&
->> @@ -552,7 +572,7 @@ static void dm_crtc_high_irq(void *interrupt_params)
->>          * to dm_vupdate_high_irq after end of front-porch.
->>          */
->>         if (!vrr_active)
->> -               drm_crtc_handle_vblank(&acrtc->base);
->> +               dm_crtc_handle_vblank(acrtc);
->>
->>         /**
->>          * Following stuff must happen at start of vblank, for crc
->> @@ -9134,6 +9154,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->>         struct amdgpu_bo *abo;
->>         uint32_t target_vblank, last_flip_vblank;
->>         bool vrr_active = amdgpu_dm_vrr_active(acrtc_state);
->> +       bool cursor_update = false;
->>         bool pflip_present = false;
->>         struct {
->>                 struct dc_surface_update surface_updates[MAX_SURFACES];
->> @@ -9169,8 +9190,13 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->>                 struct dm_plane_state *dm_new_plane_state = to_dm_plane_state(new_plane_state);
->>
->>                 /* Cursor plane is handled after stream updates */
->> -               if (plane->type == DRM_PLANE_TYPE_CURSOR)
->> +               if (plane->type == DRM_PLANE_TYPE_CURSOR) {
->> +                       if ((fb && crtc == pcrtc) ||
->> +                           (old_plane_state->fb && old_plane_state->crtc == pcrtc))
->> +                               cursor_update = true;
->> +
->>                         continue;
->> +               }
->>
->>                 if (!fb || !crtc || pcrtc != crtc)
->>                         continue;
->> @@ -9333,6 +9359,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->>                                 bundle->stream_update.vrr_infopacket =
->>                                         &acrtc_state->stream->vrr_infopacket;
->>                 }
->> +       } else if (cursor_update && acrtc_state->active_planes > 0 &&
->> +                  !acrtc_state->force_dpms_off &&
->> +                  acrtc_attach->base.state->event) {
->> +               drm_crtc_vblank_get(pcrtc);
->> +
->> +               spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
->> +
->> +               acrtc_attach->event = acrtc_attach->base.state->event;
->> +               acrtc_attach->base.state->event = NULL;
->> +
->> +               spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
->>         }
->>
->>         /* Update the planes if changed or disable if we don't have any. */
->> --
->> 2.36.1
->>
+	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+
+which disabled the acpi_video driver, so only the native driver was left.
+The new entries for these 5/6 devices correctly marks these as needing
+the native backlight driver.
+
+Also note that other changes in this series change the native backlight
+drivers to no longer unconditionally register their backlight. Instead
+these drivers now do this check:
+
+	if (acpi_video_get_backlight_type(false) != acpi_backlight_native)
+		return 0; /* bail */
+
+which without this patch would have broken these 5/6 "special" quirks.
+
+Since I had to look at all the commits adding the quirks anyways, to make
+sure that I understood the code correctly, I've also added links to
+the various original bugzillas for these quirks to the new entries.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ drivers/acpi/video_detect.c     | 53 ++++++++++++++++++++++++++
+ drivers/platform/x86/acer-wmi.c | 66 ---------------------------------
+ 2 files changed, 53 insertions(+), 66 deletions(-)
+
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index a514adaec14d..cd51cb0d7821 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -147,6 +147,15 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_BOARD_NAME, "X360"),
+ 		},
+ 	},
++	{
++	 /* https://bugzilla.redhat.com/show_bug.cgi?id=1128309 */
++	 .callback = video_detect_force_vendor,
++	 /* Acer KAV80 */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "KAV80"),
++		},
++	},
+ 	{
+ 	.callback = video_detect_force_vendor,
+ 	/* Asus UL30VT */
+@@ -427,6 +436,41 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_BOARD_NAME, "JV50"),
+ 		},
+ 	},
++	{
++	 /* https://bugzilla.redhat.com/show_bug.cgi?id=1012674 */
++	 .callback = video_detect_force_native,
++	 /* Acer Aspire 5741 */
++	 .matches = {
++		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5741"),
++		},
++	},
++	{
++	 /* https://bugzilla.kernel.org/show_bug.cgi?id=42993 */
++	 .callback = video_detect_force_native,
++	 /* Acer Aspire 5750 */
++	 .matches = {
++		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5750"),
++		},
++	},
++	{
++	 /* https://bugzilla.kernel.org/show_bug.cgi?id=42833 */
++	 .callback = video_detect_force_native,
++	 /* Acer Extensa 5235 */
++	 .matches = {
++		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "Extensa 5235"),
++		},
++	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Acer TravelMate 4750 */
++	 .matches = {
++		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 4750"),
++		},
++	},
+ 	{
+ 	 /* https://bugzilla.kernel.org/show_bug.cgi?id=207835 */
+ 	 .callback = video_detect_force_native,
+@@ -437,6 +481,15 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_BOARD_NAME, "BA51_MV"),
+ 		},
+ 	},
++	{
++	 /* https://bugzilla.kernel.org/show_bug.cgi?id=36322 */
++	 .callback = video_detect_force_native,
++	 /* Acer TravelMate 5760 */
++	 .matches = {
++		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 5760"),
++		},
++	},
+ 	{
+ 	.callback = video_detect_force_native,
+ 	/* ASUSTeK COMPUTER INC. GA401 */
+diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+index 9c6943e401a6..c08eeb1e0e05 100644
+--- a/drivers/platform/x86/acer-wmi.c
++++ b/drivers/platform/x86/acer-wmi.c
+@@ -643,69 +643,6 @@ static const struct dmi_system_id non_acer_quirks[] __initconst = {
+ 	{}
+ };
+ 
+-static int __init
+-video_set_backlight_video_vendor(const struct dmi_system_id *d)
+-{
+-	interface->capability &= ~ACER_CAP_BRIGHTNESS;
+-	pr_info("Brightness must be controlled by generic video driver\n");
+-	return 0;
+-}
+-
+-static const struct dmi_system_id video_vendor_dmi_table[] __initconst = {
+-	{
+-		.callback = video_set_backlight_video_vendor,
+-		.ident = "Acer TravelMate 4750",
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 4750"),
+-		},
+-	},
+-	{
+-		.callback = video_set_backlight_video_vendor,
+-		.ident = "Acer Extensa 5235",
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "Extensa 5235"),
+-		},
+-	},
+-	{
+-		.callback = video_set_backlight_video_vendor,
+-		.ident = "Acer TravelMate 5760",
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 5760"),
+-		},
+-	},
+-	{
+-		.callback = video_set_backlight_video_vendor,
+-		.ident = "Acer Aspire 5750",
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5750"),
+-		},
+-	},
+-	{
+-		.callback = video_set_backlight_video_vendor,
+-		.ident = "Acer Aspire 5741",
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5741"),
+-		},
+-	},
+-	{
+-		/*
+-		 * Note no video_set_backlight_video_vendor, we must use the
+-		 * acer interface, as there is no native backlight interface.
+-		 */
+-		.ident = "Acer KAV80",
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "KAV80"),
+-		},
+-	},
+-	{}
+-};
+-
+ /* Find which quirks are needed for a particular vendor/ model pair */
+ static void __init find_quirks(void)
+ {
+@@ -2482,9 +2419,6 @@ static int __init acer_wmi_init(void)
+ 
+ 	set_quirks();
+ 
+-	if (dmi_check_system(video_vendor_dmi_table))
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+-
+ 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
+ 		interface->capability &= ~ACER_CAP_BRIGHTNESS;
+ 
+-- 
+2.36.0
 
