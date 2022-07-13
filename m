@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544FCC43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 21:01:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FC3C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 21:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8799121F;
-	Wed, 13 Jul 2022 21:01:13 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB159121F
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 21:01:12 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id m16so15649218edb.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 14:01:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2D6B9B376;
+	Wed, 13 Jul 2022 21:20:55 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D5E39B35B;
+ Wed, 13 Jul 2022 21:20:54 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id va17so53407ejb.0;
+ Wed, 13 Jul 2022 14:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kbIu/poYX3pcBRKw4rWzgBK7lbECGzr212jL4ni35Ho=;
- b=AtG4IkPgTHTpMOC2ZaVbLGwklzeeYCkSobIUg+wLPqmDM/EP68Zf2UaEi3lCCa3HSF
- elEUtK4updH7BuSxzT3/RHGXRG2/7d7ChVwuh0HliLbnqLLDBeVj4Q+MITKt1hxGA6WH
- uUAOMlXj+leugjBrhlUgu0zzMeN/vO6lHDahiSxdq8MSGtyi8J3xnogdpunfORYkp7l6
- XmM+jftVjFwUOHdTYwSxxzzrRgNA77x5d99SUwyjFmf88troHfbTAo0YYSloa9rwCTVE
- fF4128kbfxA2Gd3LuXZHCEYX2O6giQlNMMCqwgiz3cUHz8ZXIJ3LN4FgS6dwyGC/zlpf
- vZBQ==
+ :cc; bh=K1bJUmmTrVDRGEbygJ1lyIJ3nFniytzpL0oelw3tmno=;
+ b=I3ZDdYVWtVBT1OSPDYC8/kySJQmls+2J13dZplXCWH7RblLr+tzs9e1lGC5+IPPSk/
+ Ir6IQSFBTYlC1CGSh6H2OpjjjeOdrOljpSJMxdP1OpaCiRkCqJ7JX1dASIOpa++eFtlI
+ 0hxXI+asTIeVcEFUNKrLjcWtHHcQWju6Il2qbJKozpu3qon4Yujq3r0lfCzMRY+BzQHX
+ bQoZp4ScntrtQyJZCzeupFeD0ziREeqH3Wb5ugKj2lxbH7Cg8zbM/KctdEbiNzsbthNI
+ TgyIihJ9J8unW2/SsAtDrXT+kdrA62HK6SFcsYJQjmQlCFKoDWNH6L5oxGQPlN44A6cP
+ d3dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=kbIu/poYX3pcBRKw4rWzgBK7lbECGzr212jL4ni35Ho=;
- b=6MgVQxmLQSCkdG+bvqW1NyP8jhPz0xQzr9yHRCvyUVWHnOPGggc/TMYRDfUeYswh8v
- rNzUEfLfByIWRkXH1/MH6s7TZLoDINb415s2SWDq0oBinvAMKKUjp48UZhawPoyAM8cm
- uU5WC7HBR6fbN4CSxZ1d3rzmKuI1X/HTp7uccPx+b4vtyXGTgYGKUJKzDZW7Sg3b0vSf
- 7c4y82Yr5VCV18SO2tvzf1T/CbuNJlmHjh14cOMtp0HWshlUFrTDCJR43NZYtrx6edzV
- HG2CaDo6pMYW8vbgTlQq67/27CnRah8Ge/hPL+1G7d/mkmJqzkOgd11YAcZYWbB932SO
- iJSQ==
-X-Gm-Message-State: AJIora9GDIYL0d4OatgOymkAuYSOhlvbEjenYnoaotAg6jmC4yGDNjFg
- 82GBv/zkWaMhYm+YHMarMwYdZ8AK/Hr+xoOhAqI=
-X-Google-Smtp-Source: AGRyM1u+KjIBAW04aIMbzYtbKQ1e5saRu8r0r/mIv48udUXeFG75Z/LC+D2+ip4Z1OCCCzpQDRSSeUjdCCLnrqqrQtg=
-X-Received: by 2002:a05:6402:13:b0:439:ffe8:bec9 with SMTP id
- d19-20020a056402001300b00439ffe8bec9mr7648986edu.297.1657746069894; Wed, 13
- Jul 2022 14:01:09 -0700 (PDT)
+ bh=K1bJUmmTrVDRGEbygJ1lyIJ3nFniytzpL0oelw3tmno=;
+ b=WZDEC+N+ZpP2fo4aEwzSk7kveUdH1PRe+Qo7p3NqIOYSHZMhXTzBoCONUTlCkVDv3j
+ hK14HLVQ5Inuz/Cnywg4SXKzJAfYLKNz22f4xajofj6jcPu/Q/5LAYNUTTQhuj1MPlF1
+ fqu5SrPvtFp+b+StcdEJPJjSHcp8nEncRGTvMcoZV9fn1E5tEDiWOBe8+dOEStNymQjg
+ 9uJOx+tXUigd3hUQHHU6O92H1b83KuDtPzH5/P0/n6GvKyuv4eA8TmYnaEC/I1I49my4
+ 76EVCdBbP4cH245sa+ZR2qjXsU4NKWxPT52aigyPb/JqACQgPDtBb32VXElKU5ecz2Z/
+ +VYg==
+X-Gm-Message-State: AJIora9TBUeZxGL6E9BLxi9v4V3PHXfvEsmuAANPyPEWzsQk6oM9ZJQY
+ sQbVZsTwLvIx1MuLccOxCmps/gmZZn5yUUyKQPmuER+D
+X-Google-Smtp-Source: AGRyM1toLknDPYbOmwvfivbwws5lJo4wsjZWXqnrNSdga/ddY5HDEUxX71H72568OXwwkujvZCF8Ign2JwsA/RuDpQg=
+X-Received: by 2002:a17:906:5d0b:b0:726:a043:fcb4 with SMTP id
+ g11-20020a1709065d0b00b00726a043fcb4mr5282475ejt.508.1657747252690; Wed, 13
+ Jul 2022 14:20:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
- <20220713050724.GA2471738@roeck-us.net>
- <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
- <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
-In-Reply-To: <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
+References: <20220618232737.2036722-1-linux@roeck-us.net>
+ <584fc348-7a60-26a2-af61-9edc4f4830e4@amd.com>
+ <CADnq5_NkVWqcxwLMBeskqpcSEYCEjUAK0hqvA_PAo7ACHKL2cA@mail.gmail.com>
+ <6a026c9a-c4ee-deba-e028-4c0f478c1911@roeck-us.net>
+In-Reply-To: <6a026c9a-c4ee-deba-e028-4c0f478c1911@roeck-us.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Jul 2022 17:00:58 -0400
-Message-ID: <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
-Subject: Re: Linux 5.19-rc6
+Date: Wed, 13 Jul 2022 17:20:40 -0400
+Message-ID: <CADnq5_OrxMMkazXEPHeZXp_bV890=r21DRx2QsqLXUFj4t8aYg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add missing hard-float compile flags for
+ PPC64 builds
 To: Guenter Roeck <linux@roeck-us.net>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,67 +65,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Balbir Singh <bsingharora@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Paul Mackerras <paulus@ozlabs.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Michael Ellerman <mpe@ellerman.id.au>,
+Cc: Leo Li <sunpeng.li@amd.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Axtens <dja@axtens.net>
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 13, 2022 at 4:46 PM Guenter Roeck <linux@roeck-us.net> wrote:
+On Wed, Jul 13, 2022 at 5:18 PM Guenter Roeck <linux@roeck-us.net> wrote:
 >
-> On 7/13/22 12:36, Linus Torvalds wrote:
-> > On Tue, Jul 12, 2022 at 10:07 PM Guenter Roeck <linux@roeck-us.net> wrote:
+> On 7/13/22 13:57, Alex Deucher wrote:
+> > On Thu, Jun 30, 2022 at 5:01 PM Rodrigo Siqueira Jordao
+> > <Rodrigo.Siqueira@amd.com> wrote:
 > >>
-> >> Same problems as every week.
 > >>
-> >> Building powerpc:allmodconfig ... failed
+> >>
+> >> On 2022-06-18 19:27, Guenter Roeck wrote:
+> >>> ppc:allmodconfig builds fail with the following error.
+> >>>
+> >>> powerpc64-linux-ld:
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+> >>>                uses hard float,
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_resource.o
+> >>>                uses soft float
+> >>> powerpc64-linux-ld:
+> >>>        failed to merge target specific data of file
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_resource.o
+> >>> powerpc64-linux-ld:
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+> >>>                uses hard float,
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dcn315/dcn315_resource.o
+> >>>                uses soft float
+> >>> powerpc64-linux-ld:
+> >>>        failed to merge target specific data of
+> >>>        file drivers/gpu/drm/amd/amdgpu/../display/dc/dcn315/dcn315_resource.o
+> >>> powerpc64-linux-ld:
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+> >>>                uses hard float,
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dcn316/dcn316_resource.o
+> >>>                uses soft float
+> >>> powerpc64-linux-ld:
+> >>>        failed to merge target specific data of file
+> >>>        drivers/gpu/drm/amd/amdgpu/../display/dc/dcn316/dcn316_resource.o
+> >>>
+> >>> The problem was introduced with commit 41b7a347bf14 ("powerpc: Book3S
+> >>> 64-bit outline-only KASAN support") which adds support for KASAN. This
+> >>> commit in turn enables DRM_AMD_DC_DCN because KCOV_INSTRUMENT_ALL and
+> >>> KCOV_ENABLE_COMPARISONS are no longer enabled. As result, new files are
+> >>> compiled which lack the selection of hard-float.
+> >>>
+> >>> Fixes: 41b7a347bf14 ("powerpc: Book3S 64-bit outline-only KASAN support")
+> >>> Cc: Michael Ellerman <mpe@ellerman.id.au>
+> >>> Cc: Daniel Axtens <dja@axtens.net>
+> >>> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/display/dc/dcn31/Makefile  | 4 ++++
+> >>>    drivers/gpu/drm/amd/display/dc/dcn315/Makefile | 4 ++++
+> >>>    drivers/gpu/drm/amd/display/dc/dcn316/Makefile | 4 ++++
+> >>>    3 files changed, 12 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> >>> index ec041e3cda30..74be02114ae4 100644
+> >>> --- a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> >>> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+> >>> @@ -15,6 +15,10 @@ DCN31 = dcn31_resource.o dcn31_hubbub.o dcn31_hwseq.o dcn31_init.o dcn31_hubp.o
+> >>>        dcn31_apg.o dcn31_hpo_dp_stream_encoder.o dcn31_hpo_dp_link_encoder.o \
+> >>>        dcn31_afmt.o dcn31_vpg.o
+> >>>
+> >>> +ifdef CONFIG_PPC64
+> >>> +CFLAGS_$(AMDDALPATH)/dc/dcn31/dcn31_resource.o := -mhard-float -maltivec
+> >>> +endif
+> >>> +
+> >>>    AMD_DAL_DCN31 = $(addprefix $(AMDDALPATH)/dc/dcn31/,$(DCN31))
+> >>>
+> >>>    AMD_DISPLAY_FILES += $(AMD_DAL_DCN31)
+> >>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> >>> index 59381d24800b..1395c1ced8c5 100644
+> >>> --- a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> >>> +++ b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+> >>> @@ -25,6 +25,10 @@
+> >>>
+> >>>    DCN315 = dcn315_resource.o
+> >>>
+> >>> +ifdef CONFIG_PPC64
+> >>> +CFLAGS_$(AMDDALPATH)/dc/dcn315/dcn315_resource.o := -mhard-float -maltivec
+> >>> +endif
+> >>> +
+> >>>    AMD_DAL_DCN315 = $(addprefix $(AMDDALPATH)/dc/dcn315/,$(DCN315))
+> >>>
+> >>>    AMD_DISPLAY_FILES += $(AMD_DAL_DCN315)
+> >>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> >>> index 819d44a9439b..c3d2dd78f1e2 100644
+> >>> --- a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> >>> +++ b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+> >>> @@ -25,6 +25,10 @@
+> >>>
+> >>>    DCN316 = dcn316_resource.o
+> >>>
+> >>> +ifdef CONFIG_PPC64
+> >>> +CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o := -mhard-float -maltivec
+> >>> +endif
+> >>> +
+> >>>    AMD_DAL_DCN316 = $(addprefix $(AMDDALPATH)/dc/dcn316/,$(DCN316))
+> >>>
+> >>>    AMD_DISPLAY_FILES += $(AMD_DAL_DCN316)
+> >>
+> >> Hi,
+> >>
+> >> I don't want to re-introduce those FPU flags for DCN31/DCN314/DCN316
+> >> since we fully isolate FPU operations for those ASICs inside the DML
 > >
-> > Ok, this has been going on since -rc1, which is much too long.
-> >
-> >>From your patch submission that that was rejected:
-> >
-> >> The problem was introduced with commit 41b7a347bf14 ("powerpc: Book3S
-> >> 64-bit outline-only KASAN support") which adds support for KASAN. This
-> >> commit in turn enables DRM_AMD_DC_DCN because KCOV_INSTRUMENT_ALL and
-> >> KCOV_ENABLE_COMPARISONS are no longer enabled. As result, new files are
-> >> compiled which lack the selection of hard-float.
-> >
-> > And considering that neither the ppc people nor the drm people seem
-> > interested in fixing this, and it doesn't revert cleanly I think the
-> > sane solution seems to be to just remove PPC64 support for DRM_AMD_DC
-> > entirely.
-> >
-> > IOW, does something like this (obviously nor a proper patch, but you
-> > get the idea) fix the ppc build for you?
-> >
-> >    @@ -6,7 +6,7 @@ config DRM_AMD_DC
-> >            bool "AMD DC - Enable new display engine"
-> >            default y
-> >            select SND_HDA_COMPONENT if SND_HDA_CORE
-> >    -       select DRM_AMD_DC_DCN if (X86 || PPC64) &&
-> > !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-> >    +       select DRM_AMD_DC_DCN if X86 && !(KCOV_INSTRUMENT_ALL &&
-> > KCOV_ENABLE_COMPARISONS)
-> >            help
-> >              Choose this option if you want to use the new display engine
-> >              support for AMDGPU. This adds required support for Vega and
+> > I don't understand why we don't need to add the hard-float flags back
+> > on the other DCN blocks.  Did we miss something in the DML cleanup for
+> > DCN 3.1.x?  Anyway, at this point, the patch is:
+> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> > We can sort the rest out for 5.20.
 > >
 >
-> It does, but I can't imagine that the drm or ppc people would be happy
-> about it.
+> The problem is not the FPU operations, but the fact that soft-float
+> and hard-float compiled code is linked together. The soft-float and
+> hard-float ABIs on powerpc are not compatible, so one ends up with
+> an object file which is partially soft-float and partially hard-float
+> compiled and thus uses different ABIs. That can only create chaos,
+> so the linker complains about it.
 
-If you want to apply Guenter's patch original patch:
-https://patchwork.freedesktop.org/patch/490184/
-That's fine with me.  It just kind of slipped off my radar.  We can
-dig deeper on a better fix next cycle.
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I get that, I just don't see why only DCN 3.1.x files have this
+problem.  The DCN 2.x files should as well.
 
->
-> Guenter
+Alex
