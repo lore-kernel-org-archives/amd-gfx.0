@@ -4,67 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29E98C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 21:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DDCC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 21:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B5CF9BD38;
-	Wed, 13 Jul 2022 21:35:50 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920BF9BBDA
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 21:32:30 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id l23so21865ejr.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 14:32:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CAAB12AF98;
+	Wed, 13 Jul 2022 21:38:08 +0000 (UTC)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A37269BD95
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 21:36:50 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-31bf3656517so126095497b3.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 14:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eiO9zeEKuffwwO1qFa2qtw+jOEgErpUu7Im0rIo+TAI=;
- b=HSdqrPacMhIs7Xx4ZvJuUh0uqgC/8AgZmNQWYOOs0tQjPr2+ACT1nhPCLzwsATVSE8
- EXmBrgxKI05sSa8T7/qexXyv5guVcihHfiCO7XsvDyyOLF/pOdbggNoSUChkPDiWHbHT
- MyhV2onY3BoW4S1IzBpt84ZnGOF1d5CHKpBeg=
+ :cc; bh=rWB63dsRjVMLiI6k8qFmu5fPSbSPX3yFx1MpCLPsplc=;
+ b=EDEl2+JJ8ZJz2gfKTa41oqiDbCoX/M7v9hXiGo3TCOOvsltDHVulVEezz5iZd/A9Bw
+ /NaGm/I1nQ8ZJplBN4uln1tLXdrR4t8qPNqE84Ot35exgKkWFduhO5P0Xk27Yq4ovqAv
+ NR+3DSKaAz7i5/3ypkQXy5VxMO7As4RiwqvUpV8uUNeDm4hC/dzb9IGPKOjHBf0o2tZ9
+ Ml8M3PsccDBSLWBwhcOdRjNt11K/50bar3VEepDSvqGp6V61s13tNKxGeWdEzQ8iQxDP
+ 7tC18xP0QwxYPZkQa9Tk4PEclTb2OxUzf7uvdi4WuW54MLtX44HVjVysGsd71HhziK//
+ Haeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=eiO9zeEKuffwwO1qFa2qtw+jOEgErpUu7Im0rIo+TAI=;
- b=kUWKkP5IVBQhjYxuEpgVfh31u2yXBIEsyUUap97H9OJSRvf0Us+Wnb7nUcoQCpET9a
- OB/tLNVjejB9+Ri/znEqv4aEPS2dGgxedYUeWkZvwhWJQypDfYm7VeLaHaOePyQ9dPpM
- Gz+mgpoUzv1S18H+6aJKgbtRBGz6Jyv8nxLgV/PyyyvRVXrzZ63Ix4vSPuFXBiCXRLse
- +Z0mBcGdB4y//+KvG537zbmyXkkxMTei6nvSEdQ08o/zIt0+xn13V+h4xkP+d9nwt3yk
- C6CcjqYqEt37PSkr8f1QcFStkOXXMqEz5KeMzCk4ZYnaODIn8KnbEXVP1RLQ/2rQaAQe
- CW6g==
-X-Gm-Message-State: AJIora/vL0+hYo/e7r2vnTtb2M0bN2pMR7NWfQh5B/IumStfxsys/+Yu
- jUH8IYHiJlmp2AtJnXtpeWCsR8lImY14+Bb55FQ=
-X-Google-Smtp-Source: AGRyM1sHPe5GwoTGZrJGzrOP3zrJOOKVEIjlByvu6RMtaVYnQuJgbNspOlHI76sZ0izpSleAXsg+QQ==
-X-Received: by 2002:a17:907:94c9:b0:726:9747:edbc with SMTP id
- dn9-20020a17090794c900b007269747edbcmr5370816ejc.698.1657747948660; 
- Wed, 13 Jul 2022 14:32:28 -0700 (PDT)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com.
- [209.85.221.50]) by smtp.gmail.com with ESMTPSA id
- fy12-20020a1709069f0c00b0072b7d76211dsm2397717ejc.107.2022.07.13.14.32.26
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Jul 2022 14:32:27 -0700 (PDT)
-Received: by mail-wr1-f50.google.com with SMTP id q9so17278389wrd.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 14:32:26 -0700 (PDT)
-X-Received: by 2002:a05:6000:1f8c:b0:21d:7e98:51ba with SMTP id
- bw12-20020a0560001f8c00b0021d7e9851bamr4964406wrb.442.1657747945994; Wed, 13
- Jul 2022 14:32:25 -0700 (PDT)
+ bh=rWB63dsRjVMLiI6k8qFmu5fPSbSPX3yFx1MpCLPsplc=;
+ b=WcFZ60q2JyWOlTLzvezo2ciGtwqT77O162VqlNrvbzjKaxNKFupC9BRUtpyAfjPvOQ
+ 842TqVg/C1gwPF9YzZFTC0GbgQI9maAFWBjwr23qaPFRM1tivPK+Gz55nnO5vir5GTpu
+ ZgIE8F5SycKw2XFc9iqybinzYW6ULsHloG2t7L8lpjd+U/2bCePy1jHhw5BrofbLTgiG
+ /Hpqv/RSI8NcBdoKs3MiAdWQvHHqbgmwSZxDyZ5vC9v5i4Z5CD2Oy7//XCF/09wq7pUE
+ MgCBOzcsLVwrq4T+denYWWapnblETz1RCpPEydDI+CvmRh7fc4ZXx4QEaG9vTmO/iOka
+ wOiQ==
+X-Gm-Message-State: AJIora9OmXBPu8PI30wV8zEnqVcBfwMTQWGS8HFiwr4HSDOe1YbOkW7H
+ jhcJgqYOH4wia+mpS58yf2l7EjVtMSpOobgP4Mw=
+X-Google-Smtp-Source: AGRyM1sgQ9PXyOubPn9V8k34Wsc2PRu6NEBc1R5DcWdoaa9DCTE4fhIgYxZSbwv45hqcdg+gdjjp10PN5hXe0VPo4FM=
+X-Received: by 2002:a0d:db50:0:b0:31d:83a4:cbba with SMTP id
+ d77-20020a0ddb50000000b0031d83a4cbbamr6650997ywe.478.1657748209838; Wed, 13
+ Jul 2022 14:36:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
  <20220713050724.GA2471738@roeck-us.net>
  <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
- <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
- <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
-In-Reply-To: <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 13 Jul 2022 14:32:09 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
-Message-ID: <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
+ <Ys8hqoiN5iWbslsM@shell.armlinux.org.uk>
+ <CAHk-=wjNxyXQqn=k0KipzUPoBYWQhUwybxee8GTkF_Oz6RPVFw@mail.gmail.com>
+In-Reply-To: <CAHk-=wjNxyXQqn=k0KipzUPoBYWQhUwybxee8GTkF_Oz6RPVFw@mail.gmail.com>
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Date: Wed, 13 Jul 2022 22:36:13 +0100
+Message-ID: <CADVatmMJ4f+3-z1SWOSXuygee3fMsLqjcWhEY=NLhSCj61OB5Q@mail.gmail.com>
 Subject: Re: Linux 5.19-rc6
-To: Alex Deucher <alexdeucher@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 13 Jul 2022 21:35:49 +0000
+X-Mailman-Approved-At: Wed, 13 Jul 2022 21:38:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,58 +69,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
  Michael Ellerman <mpe@ellerman.id.au>, Balbir Singh <bsingharora@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Paul Mackerras <paulus@ozlabs.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Paul Mackerras <paulus@ozlabs.org>, Alex Deucher <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>, Guenter Roeck <linux@roeck-us.net>,
  Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 13, 2022 at 2:01 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Wed, Jul 13, 2022 at 9:42 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> If you want to apply Guenter's patch original patch:
-> https://patchwork.freedesktop.org/patch/490184/
-> That's fine with me.
+> On Wed, Jul 13, 2022 at 12:49 PM Russell King (Oracle)
+> <linux@armlinux.org.uk> wrote:
+> >
+> > There may be a patch that solves that, but it's never been submitted to
+> > my patch system:
+> >
+> > https://lore.kernel.org/all/20220524025139.40212-1-wangkefeng.wang@huawei.com/
+>
+> That patch looks sane to me, but I guess Guenter would need to check
 
-Honestly, by this time I feel that it's too little, too late.
+I still see the failure in my builds with this patch. But surprisingly
+I dont see the build failure (with or without this patch) with gcc-12,
+only with gcc-11.
 
-The ppc people apparently didn't care at all about the fact that this
-driver didn't compile.
 
-At least Michael Ellerman and Daniel Axtens were cc'd on that thread
-with the proposed fix originally.
-
-I don't see any replies from ppc people as to why it happened, even
-though apparently a bog-standard "make allmodconfig" just doesn't
-build.
-
-I'd try it myself, since I do have a cross-build environment for some
-earlier cross-build verification I did.
-
-But since my upgrade to F36 it now uses gcc-12, and possibly due to
-that I get hundreds of errors long before I get to any drm drivers:
-
-  Cannot find symbol for section 19: .text.create_section_mapping.
-  arch/powerpc/mm/mem.o: failed
-  ...
-  Cannot find symbol for section 19: .text.cpu_show_meltdown.
-  drivers/base/cpu.o: failed
-  Error: External symbol 'memset' referenced from prom_init.c
-
-this cross environment used to work for me, but something changed (I
-mention gcc-12, but honestly, that's based on nothing at all, except
-for the few problems it caused on x86-64. It could be something
-entirely unrelated, but it does look like some bad interaction with
--ffunction-sections).
-
-So considering that the ppc people ignored this whole issue since the
-merge window, I think it's entirely unreasonable to then apply a
-ppc-specific patch for this at this time, when people literally asked
-"why is this needed", and there was no reply from the powerpc side.
-
-Does any of that sound like "we should support this driver on powerpc" to you?
-
-                 Linus
+-- 
+Regards
+Sudip
