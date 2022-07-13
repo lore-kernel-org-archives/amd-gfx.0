@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B08BC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 00:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23FF6C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 01:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8653A112064;
-	Wed, 13 Jul 2022 00:58:35 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFDE12A3C1;
- Tue, 12 Jul 2022 22:42:51 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id 70so8697167pfx.1;
- Tue, 12 Jul 2022 15:42:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C632C10FFAC;
+	Wed, 13 Jul 2022 01:47:45 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E557C10FFAC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 01:47:44 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id g1so12294241edb.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jul 2022 18:47:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=EOQK1yQsd3sxXf3ifqolSQDmS565G3PBpmyW4cpx2HA=;
- b=MSBeQK///1NrBGbw7DV7tnTXdkZYNFjowCKH7HWWo6GHJtRs2JBzAZOUS8wJPeS3uB
- FdmbaYtn+hTpf1LGNZgEyeUWRG1cVzTz/1oEyLDknyKU4hUPvpIGJ+X4vRY3nURrKaay
- 11uzpc4OgaK1zQf7vNDHPl0glTe00vOyLDwPjtJLPoJSgRslvY7XqKtECfR51PBum7Vz
- +hrGteaVNQuO34sksAm9/YBxtGc0pA3exzkgYaL3hFnNKNEJn3y4DsWBEdU8q+fmIgR9
- 0JZlBNgeX/nc44836d3Gy6EyMmJKZyLrer3qSJ861OHV3LL6WQVB1FeqbxasQjhsatFy
- ILTQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XiDJX/xQsq+KbRjaEn/qiQHGjEPHutoUnkeP8Hgpe5I=;
+ b=OJg8SGr2ZkqkoavcFSNI5hDSL2Kv0Lh0GHLk2eo+auE5Y5qQl2G5ATdQ66w0P67qnl
+ moJYdL3dm2242LKYN+srzAZXPxgI7+pVQ2i9j4FZsB1d0I3K0ImGjuKhEVajqW1z8zxm
+ ZyQ6YZi47EqKCu70sexDLaDmF3YAxb33+wVtQTTvPlq29NLx8fzkslE4dJAct7fO0pJy
+ 89v0eO9aG11k+cti1ndLwrF65Gbf4WeUHBboCXo/7MZJKqSTCe26DLizRL5VVpgnGHTk
+ cKGJSuIYIH5QJePDe43ap6Zv2dsGifGrMZc4Q/b0ioTAq34jrm7PX6L8aR2WeqkaHEdU
+ xT+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=EOQK1yQsd3sxXf3ifqolSQDmS565G3PBpmyW4cpx2HA=;
- b=4DYuYs3SvRVdGCWIQ7mGNT04+78coAzd+UnS1Ig+Q3gXdZxjYRCWU0XZV+1xHGr58n
- jv6L6c51lmXQI0d24UhiveC/K+yKLWS3TUFEbzNqpkvEQ+BdaboZdCFXclZUQjxwXrfa
- y6PDLkwFo69qGnvdMz+3QGesL01SW4AKDwdQFbsI2MRKLD2WBhOkC5QPXV5NFsAYvTtB
- uM7IUSq18RSthpo/60o23ARbuwDvfg3B3BxC9dFHBc79MvkF5xr0YTZHJzS4/2T+nmT3
- i6Toso3SYhq5Vpi63YDFceqeAsDUrptZc2YohZE0B1ODgloNgt3PXxQs7wrUoXqbgTv+
- HBMA==
-X-Gm-Message-State: AJIora9RDhX48sPZ5vreYf+1KciMrCUYewrjR4CO+EYsdWaBn6628p4A
- gP6KUlX0lgynI6x219p/4i1R9yfVfFsXDg==
-X-Google-Smtp-Source: AGRyM1tLJIcznWizk9iJQMKwRvzQyZlrxC0AQCyjI0CRaOuIOSRtFl2r3Pu3cEB73Omx8SddXOOy/g==
-X-Received: by 2002:a63:6c42:0:b0:3fe:465:7a71 with SMTP id
- h63-20020a636c42000000b003fe04657a71mr398029pgc.101.1657665770859; 
- Tue, 12 Jul 2022 15:42:50 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- 6-20020a631446000000b00415fcde23a4sm4552956pgu.27.2022.07.12.15.42.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jul 2022 15:42:49 -0700 (PDT)
-From: Guenter Roeck <linux@roeck-us.net>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: Enable building new display engine with KCOV
- enabled
-Date: Tue, 12 Jul 2022 15:42:47 -0700
-Message-Id: <20220712224247.1950273-1-linux@roeck-us.net>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XiDJX/xQsq+KbRjaEn/qiQHGjEPHutoUnkeP8Hgpe5I=;
+ b=bWXZnlExZdJoa0wjhkOUNMNTy3iQXV9TR6jY5fO61FEU1WImHpTBwqwFGp8CjHU1TS
+ dWTXs+q/Ii+nKKlYSiiVgl2eV2L17qmXHVOwbUG2CHHuX3dr1ZuzItM3S0KtqerDRqzQ
+ hDQFRPx0DnR4/8JSfUOZ4xT7k3KLfbUmShGgtXB8QsnMEWxtoBTNPOnUZmgBrIzmnZJL
+ CaGKozi2O2iMuhd9N/rC9Btr3OSJ/WTRlACryYJMNvFZ+TXBvBguXT02Ef177aKI7I+U
+ Os61DJMLpkDzaNnX6nCTwQY83Bq4ZqwELm6XJrlhFJoKBDrdAA4v9trThDL01peN6dxt
+ xqoQ==
+X-Gm-Message-State: AJIora/RgGjGWdkijWFGqSc/c0WVXDAt9P5YiGrlpOBZR9yFm3FkcrKO
+ 3OBiII+1i51DOUykhm9Qv86f2OwPIGmhoTkKMnoOu6OQ
+X-Google-Smtp-Source: AGRyM1tOmEGSDJyFyGxm9qRrzPD4uiHG6ISyfv/hAliNSY2tlM37YmQ78Qf1dH6WR+c81mDgXKxeQ6kQM0BFmo1l/y4=
+X-Received: by 2002:aa7:cd64:0:b0:43a:4d43:7077 with SMTP id
+ ca4-20020aa7cd64000000b0043a4d437077mr1493859edb.302.1657676863506; Tue, 12
+ Jul 2022 18:47:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 13 Jul 2022 00:58:34 +0000
+References: <20220711184153.135021-1-jinhuieric.huang@amd.com>
+ <BL1PR12MB5144B5BB5BA660DCE16E8B86F7869@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <fbaa55f0-b6ae-6dbf-7951-bdb1239017ee@amd.com>
+In-Reply-To: <fbaa55f0-b6ae-6dbf-7951-bdb1239017ee@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Jul 2022 21:47:31 -0400
+Message-ID: <CADnq5_ODdDwRO3G0M+33fONhoHnvj_Ypx8RBmZiXFCYafkSe7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: bump KFD version for unified ctx save/restore
+ memory
+To: Felix Kuehling <felix.kuehling@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,58 +64,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ JinhuiEric" <jinhuieric.huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new display engine uses floating point math, which is not supported
-by KCOV. Commit 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov
-is enabled") tried to work around the problem by disabling
-CONFIG_DRM_AMD_DC_DCN if KCOV_INSTRUMENT_ALL and KCOV_ENABLE_COMPARISONS
-are enabled. The result is that KCOV can not be enabled on systems which
-require this display engine. A much simpler and less invasive solution is
-to disable KCOV selectively when compiling the display enagine while
-keeping it enabled for the rest of the kernel.
+On Tue, Jul 12, 2022 at 6:57 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> Eric sent out the corresponding user mode patches to the mailing list as
+> well. It looks a bit weird, because it looks like they're part of the
+> same patch series. But patch 2 and 3 are actually user mode patches. The
+> interesting one is patch 3.
+>
+>
+> Do we still need a link to a user mode patch in this case?
 
-Fixes: 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov is enabled")
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/gpu/drm/amd/display/Kconfig     | 2 +-
- drivers/gpu/drm/amd/display/dc/Makefile | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+Yeah, it's hard to include it in the patch when you send it out if
+it's part of the patch set.  It's just nice to have it included when
+you commit it so that when I send the PR, I don't need to dig around
+to find the link to the user of the new UAPI.
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index b4029c0d5d8c..96cbc87f7b6b 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -6,7 +6,7 @@ config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
--	select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-+	select DRM_AMD_DC_DCN if (X86 || PPC64)
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index b4eca0236435..b801973749d2 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -26,6 +26,9 @@
- DC_LIBS = basics bios dml clk_mgr dce gpio irq link virtual
- 
- ifdef CONFIG_DRM_AMD_DC_DCN
-+
-+KCOV_INSTRUMENT := n
-+
- DC_LIBS += dcn20
- DC_LIBS += dsc
- DC_LIBS += dcn10
--- 
-2.35.1
+Alex
 
+>
+>
+> Regards,
+>    Felix
+>
+>
+> On 2022-07-12 09:57, Deucher, Alexander wrote:
+> >
+> > [AMD Official Use Only - General]
+> >
+> >
+> > Can you please include a link to the proposed userspace in the commit
+> > message when you commit this?
+> >
+> > Alex
+> > ------------------------------------------------------------------------
+> > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
+> > Eric Huang <jinhuieric.huang@amd.com>
+> > *Sent:* Monday, July 11, 2022 2:41 PM
+> > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> > *Cc:* Huang, JinHuiEric <JinHuiEric.Huang@amd.com>; Kuehling, Felix
+> > <Felix.Kuehling@amd.com>
+> > *Subject:* [PATCH] drm/amdkfd: bump KFD version for unified ctx
+> > save/restore memory
+> > To expose unified memory for ctx save/resotre area feature
+> > availablity to libhsakmt.
+> >
+> > Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+> > ---
+> >  include/uapi/linux/kfd_ioctl.h | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/include/uapi/linux/kfd_ioctl.h
+> > b/include/uapi/linux/kfd_ioctl.h
+> > index 7a423855a86e..afd8ff29c74f 100644
+> > --- a/include/uapi/linux/kfd_ioctl.h
+> > +++ b/include/uapi/linux/kfd_ioctl.h
+> > @@ -36,9 +36,10 @@
+> >   * - 1.8 - CRIU - Support for SDMA transfers with GTT BOs
+> >   * - 1.9 - Add available memory ioctl
+> >   * - 1.10 - Add SMI profiler event log
+> > + * - 1.11 - Add unified memory for ctx save/restore area
+> >   */
+> >  #define KFD_IOCTL_MAJOR_VERSION 1
+> > -#define KFD_IOCTL_MINOR_VERSION 10
+> > +#define KFD_IOCTL_MINOR_VERSION 11
+> >
+> >  struct kfd_ioctl_get_version_args {
+> >          __u32 major_version;    /* from KFD */
+> > --
+> > 2.25.1
+> >
