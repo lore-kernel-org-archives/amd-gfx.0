@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE2A7C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 12:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DCC9C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 12:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0755E11A38F;
-	Wed, 13 Jul 2022 12:38:38 +0000 (UTC)
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0659F113D9E
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 12:38:36 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id nd6so4700334qvb.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 05:38:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B080E11267D;
+	Wed, 13 Jul 2022 12:44:13 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C6D11A7BF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 12:43:56 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id va17so19704143ejb.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 05:43:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FfVKz9EMLwYD8yPKHpb7OTebSfDbc6Ne50FK5Fsr5Pg=;
- b=btxY+bzCWpk6w8uVAzut9aixH3CdtWbtfaW1RLvcWawLdrvPG4UGFFIBfVOiqbK8AF
- zA1mBQm0HTIDebwdRKVfEk1W0v5ge2+9PnyRpqfgIeFJWIpmnzk/bvMd0rW8cIHNlPZU
- 131gZD+nL1YLvs2L24aef0uLS7E9vxPqhNf5aK0nv+F6lvNqssy1CHopNrwtuIwGKMN8
- f1VwwHCMHjkp7c40Z9d9NbdBOCKtJVLoYzLBSt+z+gtDD/cX2t/5IPiqz96JxJfzvmRt
- /CX4PI/SdqG36qPMyoyQ5/XaYa4zRzLhyW++Or2dZVNHCftPOWtA9thZm8TbQQR/BqEO
- 8mig==
+ :cc; bh=IkGHyR6gHlpyja2iyPCoZnp/vlJRUt5XaOJA2dcswh8=;
+ b=mdwrbDu4tvrbCrVz26JtQunv7aw7vrJgsauK1KyRqF+6+EOr6tRDJ4aUrPKgQHb22A
+ AmiKArTx41vcmozot/ik2tyRbf8P83JCHQSuW3Y5BvnxXHATS+d8m9tC4qxgl4C2b6oq
+ SGzz+SZ6ce/7yytYX6EWUqD7iWtwY1PDJUh+ZZQS1/9rWS2oJzVzVu45a+PXnL8Blw64
+ GaYidQK+KynS9jZcBKUXShW9rTNJfxUnoi05yEqR9QPqCjldOAPKJllFVQK7seO5IVGs
+ 52wqQ1Fowp6iQNEONPdh2aVackVfgh9NACv3TXsPh1SzHSeKPTmLRyPPVP/FWNDUNA3h
+ yhxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FfVKz9EMLwYD8yPKHpb7OTebSfDbc6Ne50FK5Fsr5Pg=;
- b=NX60crB8bFPGThGkuihpibRrVgMT04WdXmzDrqPPPhCA5DluheFiTVu8na87nJJ5n3
- 13ek/mEL+COkLOjmdUZDuhfOocWiH/2IWfTWUTX400h4Pb+v2hJlFuNK28ZTTVI4O5ki
- oJwIqEujeQpC32MP1G9aehVi7YFOD1vuXtw+a4nzoVzO1xa5s8L7Xrkm2VQgCYH5syD4
- f++RLvcVQZYfh10reurh5R7NwZbuDiTqd/pRvkYQuIp5B32crAFgElx/+eCHRNx2d6xE
- ZI1aohUe2tYv9UqEIDZitNCjc3pGdj+HO1u65tIy+fUGH7F6DRAEgdmLnoEVn8b6PM8i
- 1xGg==
-X-Gm-Message-State: AJIora+NjO3GPWpj26mpr+wULZv45g5NW1T6j5UYrg1jFxGg2dtcyeJx
- nNw/PBQP/DjA9XKMGBM8+FSrRDUqc81P1fF8lC6UY9NKO+ZKEYi2KzE=
-X-Google-Smtp-Source: AGRyM1vKYJan05es/s86z6q+lFhXRpeJxPhVx6g39tSR9BfpPxAcYVEoOnodvrQY63sfrHEMpynF8q+WCUhvR6hOV2s=
-X-Received: by 2002:ad4:5765:0:b0:473:20e:746c with SMTP id
- r5-20020ad45765000000b00473020e746cmr2768919qvx.128.1657715915813; Wed, 13
- Jul 2022 05:38:35 -0700 (PDT)
+ bh=IkGHyR6gHlpyja2iyPCoZnp/vlJRUt5XaOJA2dcswh8=;
+ b=GcBFiQBwxwHe+bm9kF+NEqXEI+fi600Kh1gmQ0zugOX+ko6ujerTFkcLz1FKOckADo
+ BCu2gS+5yLw6t0FfZs6xFgM9yG7D4Cl13BujYl5e84FLCU7T3vj72R9iH8KHIvF923Ah
+ Hg8ODldyCqfwZoZj8b7quItXpNgWW7LVn1WWAFqHtzK7Oh0u7EtzVul/o98Kk9WjU8V+
+ ehdvNWtB4nKrIwvONW+hJM0mZGsYtu7DcYHzKnW1cFlMYOwmqnzJsSSTzW3RmeLLpNXZ
+ 67tiX7nV+FpRMDoB2H7HycNbm2U6XTOadE9YAaa3S8AUHBc2Kt/uhbqHjEUf32xxkJxe
+ fG4Q==
+X-Gm-Message-State: AJIora9WVRFPfKO/EL+yjgQl+CDXY/VTXwemov9QIx3x/UHHKXctgKNM
+ nC8Lq2J6WqD51LmyMDif89+4vFtoWlxYCyC+i1DxhkrV
+X-Google-Smtp-Source: AGRyM1tD5baJ0MnlSCzDJFSJ19lkzdw9i397dbTTOmo5HmUVT4gtjaSZ+OC787Oe4LFYt1dSIa80T2ZrkXXByTZOmKQ=
+X-Received: by 2002:a17:906:5d0b:b0:726:a043:fcb4 with SMTP id
+ g11-20020a1709065d0b00b00726a043fcb4mr3239550ejt.508.1657716234816; Wed, 13
+ Jul 2022 05:43:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <CABXGCsP920dX-gFOHjk0Xo-yTaQfoFwP7YT2VsG1=b9X6kYhHg@mail.gmail.com>
- <CABXGCsOywmEoKC1Gt4JMSAH5C=E9Rvjj+X+X8FY7QeBV-13YWQ@mail.gmail.com>
- <8876a42f-aef0-8322-b95d-704ac6476333@gmail.com>
- <CABXGCsNrnYZO6NfF624j0xrBkdF9vjZhcyF8iZrEr4eGcjpSCA@mail.gmail.com>
-In-Reply-To: <CABXGCsNrnYZO6NfF624j0xrBkdF9vjZhcyF8iZrEr4eGcjpSCA@mail.gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Wed, 13 Jul 2022 17:38:25 +0500
-Message-ID: <CABXGCsMSRg251use+9ZzgXZ_2xreNUh96GQsfDPdkh=xU6QGgA@mail.gmail.com>
-Subject: Re: [Bug][5.19-rc0] Between commits fdaf9a5840ac and babf0bb978e3 GPU
- stopped entering in graphic mode.
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20220713091426.938701-1-shikai.guo@amd.com>
+In-Reply-To: <20220713091426.938701-1-shikai.guo@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 13 Jul 2022 08:43:43 -0400
+Message-ID: <CADnq5_P2v_=Uh2bwQ2BoTSFAehV+rvwa2hdjTOWrhRv6uWRD9A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Remove Align VRAM allocations to 1MB on APU
+ ASIC
+To: shikai guo <shikai.guo@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,131 +62,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+Cc: Daniel Phillips <daniel.phillips@amd.com>, "Ji, Ruili" <ruili.ji@amd.com>,
+ "Kuehling, Felix" <felix.kuehling@amd.com>, Aaron Liu <aaron.liu@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jul 9, 2022 at 5:10 PM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
+On Wed, Jul 13, 2022 at 5:14 AM shikai guo <shikai.guo@amd.com> wrote:
+>
+> From: Shikai Guo <Shikai.Guo@amd.com>
+>
+> While executing KFDMemoryTest.MMBench, test case will allocate 4KB size memory 1000 times.
+> Every time, user space will get 2M memory.APU VRAM is 512M, there is not enough memory to be allocated.
+> So the 2M aligned feature is not suitable for APU.
 
-> Hi Christian,
-> if you read my initial post. You should see that I tried to bisect the issue.
-> But it is very problematic because on each step I see different symptomes.
-> And if mark different symptoms with skip step we got at end lot of
-> possible commits:
-> Here is my bisect from initial post: https://pastebin.com/AhLMNfyv
+Wouldn't it be better to decide based on vram size rather than APU vs
+dGPU?  some APUs have large carve outs.
 
-> [    8.291298] ------------[ cut here ]------------
-> [    8.291309] kernel BUG at mm/page_alloc.c:1329!
-> [    8.291324] invalid opcode: 0000 [#1] PREEMPT SMP NOPTI
-> [    8.291328] CPU: 8 PID: 599 Comm: systemd-udevd Not tainted
-> 5.18.0-rc2-003-790b45f1bc6736a8dd48ba5731b6871e0217311e+ #361
-> [    8.291333] Hardware name: System manufacturer System Product
-> Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
-> [    8.291338] RIP: 0010:free_pcp_prepare+0x58d/0x5a0
+Alex
 
-There will be a 5.19 release soon. I haven't got a working kernel
-fresher than the fdaf9a5840ac commit on any machine (all machines have
-AMD graphics).
-
-Bisecting the kernel if we considered the mutex issue as "bad" state
-and all other non working state as "skip" did not lead to anything
-useful.
-
-Even if we consider "bad" all commits in which the kernel does not
-work, this also does not lead to anything good.
-Below I did it:
-$ git bisect log
-git bisect start
-# status: waiting for both good and bad commits
-# good: [fdaf9a5840acaab18694a19e0eb0aa51162eeeed] Merge tag
-'folio-5.19' of git://git.infradead.org/users/willy/pagecache
-git bisect good fdaf9a5840acaab18694a19e0eb0aa51162eeeed
-# status: waiting for bad commit, 1 good commit known
-# bad: [babf0bb978e3c9fce6c4eba6b744c8754fd43d8e] Merge tag
-'xfs-5.19-for-linus' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux
-git bisect bad babf0bb978e3c9fce6c4eba6b744c8754fd43d8e
-
-# 01 - good: [86c87bea6b42100c67418af690919c44de6ede6e] Merge tag
-'devicetree-for-5.19' of
-git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux
-git bisect good 86c87bea6b42100c67418af690919c44de6ede6e
-
-# 02 - observed initial problem with mutex
-# bad: [43ab20c599f4dc4c3972a8386ef4ca3943b5f9cd] drm/i915/gt: Fix
-build error without CONFIG_PM
-git bisect bad 43ab20c599f4dc4c3972a8386ef4ca3943b5f9cd
-
-# 03 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x58d/0x5a0
-# bad: [790b45f1bc6736a8dd48ba5731b6871e0217311e] drm/i915/bios: Parse
-the seamless DRRS min refresh rate
-git bisect bad 790b45f1bc6736a8dd48ba5731b6871e0217311e
-
-# 04 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x455/0x650
-# bad: [c6ed9f66eb70aeaac9998bd3552ada740d90e20c]
-drm/nouveau/gr/gf100-: change gf108_gr_fwif from global to static
-git bisect bad c6ed9f66eb70aeaac9998bd3552ada740d90e20c
-
-# 05 good: [3123109284176b1532874591f7c81f3837bbdc17] Linux 5.18-rc1
-git bisect good 3123109284176b1532874591f7c81f3837bbdc17
-
-# 06 good: [711c7adc4687250deb550ee8a6994203f817b2ca] drm: exynos:
-dsi: Use drm panel_bridge API
-git bisect good 711c7adc4687250deb550ee8a6994203f817b2ca
-
-# 07 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x35e/0x410
-# bad: [047a1b877ed48098bed71fcfb1d4891e1b54441d] dma-buf &
-drm/amdgpu: remove dma_resv workaround
-git bisect bad 047a1b877ed48098bed71fcfb1d4891e1b54441d
-
-# 08 good: [644704740b8282c9ee9483a38666ee4a4561c37c] drm/amdgpu: use
-dma_resv_for_each_fence for CS workaround v2
-git bisect good 644704740b8282c9ee9483a38666ee4a4561c37c
-
-# 09 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x35e/0x410
-# bad: [61fe0ab26e36998cebec48805d6873e31f0d79d7] drm/gma500: fix a
-missing break in psb_intel_crtc_mode_set
-git bisect bad 61fe0ab26e36998cebec48805d6873e31f0d79d7
-
-# 10 good: [1c3b2a27def609473ed13b1cd668cb10deab49b4] drm/nouveau/clk:
-Fix an incorrect NULL check on list iterator
-git bisect good 1c3b2a27def609473ed13b1cd668cb10deab49b4
-
-# 11 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x35e/0x410
-# bad: [aa46154355e1e81ef746470d2e88bdb283508bff] drm/ingenic: Add
-ingenic_drm_bridge_atomic_enable and disable
-git bisect bad aa46154355e1e81ef746470d2e88bdb283508bff
-
-# 12 good: [71d637823cac7748079a912e0373476c7cf6f985] dma-buf: finally
-make dma_resv_excl_fence private v2
-git bisect good 71d637823cac7748079a912e0373476c7cf6f985
-
-# 13 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x35e/0x410
-# bad: [33f2069fb6a9c2d6509accc39521d3f4d6369576] drm/nouveau: support
-more than one write fence in fenv50_wndw_prepare_fb
-git bisect bad 33f2069fb6a9c2d6509accc39521d3f4d6369576
-
-# 14 - observed invalid opcode: 0000 [#1] PREEMPT SMP NOPTI - RIP:
-0010:free_pcp_prepare+0x35e/0x410
-# bad: [9cbbd694a58bdf24def2462276514c90cab7cf80] Merge drm/drm-next
-into drm-misc-next
-git bisect bad 9cbbd694a58bdf24def2462276514c90cab7cf80
-
-# first bad commit: [9cbbd694a58bdf24def2462276514c90cab7cf80] Merge
-drm/drm-next into drm-misc-next
-
-
-Need an alternative way to find the problem. And then the kernel will
-be released not working.
-
--- 
-Best Regards,
-Mike Gavrilov.
+>
+> guoshikai@guoshikai-MayanKD-RMB:~/linth/libhsakmt/tests/kfdtest/build$ ./kfdtest --gtest_filter=KFDMemoryTest.MMBench
+> [          ] Profile: Full Test
+> [          ] HW capabilities: 0x9
+> Note: Google Test filter = KFDMemoryTest.MMBench
+> [==========] Running 1 test from 1 test case.
+> [----------] Global test environment set-up.
+> [----------] 1 test from KFDMemoryTest
+> [ RUN      ] KFDMemoryTest.MMBench
+> [          ] Found VRAM of 512MB.
+> [          ] Available VRAM 328MB.
+> [          ] Test (avg. ns)         alloc   mapOne  umapOne   mapAll  umapAll     free
+> [          ] --------------------------------------------------------------------------
+> [          ]   4K-SysMem-noSDMA     26561    10350     5212     3787     3981    12372
+> [          ]  64K-SysMem-noSDMA     42864     6648     3973     5223     3843    15100
+> [          ]   2M-SysMem-noSDMA    312906    12614     4390     6254     4790    70260
+> [          ]  32M-SysMem-noSDMA   4417812   130437    21625    97687    18500   929562
+> [          ]   1G-SysMem-noSDMA 132161000  2738000   583000  2181000   499000 39091000
+> [          ] --------------------------------------------------------------------------
+> /home/guoshikai/linth/libhsakmt/tests/kfdtest/src/KFDMemoryTest.cpp:922: Failure
+> Value of: (hsaKmtAllocMemory(allocNode, bufSize, memFlags, &bufs[i]))
+>   Actual: 6
+> Expected: HSAKMT_STATUS_SUCCESS
+> Which is: 0
+> [  FAILED  ] KFDMemoryTest.MMBench (749 ms)
+>
+> fix this issue by adding different treatments for apu and dgpu
+>
+> Signed-off-by: ruili ji <ruili.ji@amd.com>
+> Signed-off-by: shikai guo <shikai.guo@amd.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index d1657de5f875..2ad2cd5e3e8b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -115,7 +115,9 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+>   * compromise that should work in most cases without reserving too
+>   * much memory for page tables unnecessarily (factor 16K, >> 14).
+>   */
+> -#define ESTIMATE_PT_SIZE(mem_size) max(((mem_size) >> 14), AMDGPU_VM_RESERVED_VRAM)
+> +
+> +#define ESTIMATE_PT_SIZE(adev, mem_size)   (adev->flags & AMD_IS_APU) ? \
+> +                (mem_size >> 14) : max(((mem_size) >> 14), AMDGPU_VM_RESERVED_VRAM)
+>
+>  static size_t amdgpu_amdkfd_acc_size(uint64_t size)
+>  {
+> @@ -142,7 +144,7 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>                 uint64_t size, u32 alloc_flag)
+>  {
+>         uint64_t reserved_for_pt =
+> -               ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+> +               ESTIMATE_PT_SIZE(adev, amdgpu_amdkfd_total_mem_size);
+>         size_t acc_size, system_mem_needed, ttm_mem_needed, vram_needed;
+>         int ret = 0;
+>
+> @@ -156,12 +158,15 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>                 system_mem_needed = acc_size;
+>                 ttm_mem_needed = acc_size;
+>
+> +               if (adev->flags & AMD_IS_APU)
+> +                       vram_needed = size;
+> +               else
+>                 /*
+>                  * Conservatively round up the allocation requirement to 2 MB
+>                  * to avoid fragmentation caused by 4K allocations in the tail
+>                  * 2M BO chunk.
+>                  */
+> -               vram_needed = ALIGN(size, VRAM_ALLOCATION_ALIGN);
+> +                       vram_needed = ALIGN(size, VRAM_ALLOCATION_ALIGN);
+>         } else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+>                 system_mem_needed = acc_size + size;
+>                 ttm_mem_needed = acc_size;
+> @@ -220,7 +225,10 @@ static void unreserve_mem_limit(struct amdgpu_device *adev,
+>         } else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+>                 kfd_mem_limit.system_mem_used -= acc_size;
+>                 kfd_mem_limit.ttm_mem_used -= acc_size;
+> -               adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
+> +               if (adev->flags & AMD_IS_APU)
+> +                       adev->kfd.vram_used -= size;
+> +               else
+> +                       adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
+>         } else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+>                 kfd_mem_limit.system_mem_used -= (acc_size + size);
+>                 kfd_mem_limit.ttm_mem_used -= acc_size;
+> @@ -1666,7 +1674,7 @@ int amdgpu_amdkfd_criu_resume(void *p)
+>  size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
+>  {
+>         uint64_t reserved_for_pt =
+> -               ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+> +               ESTIMATE_PT_SIZE(adev, amdgpu_amdkfd_total_mem_size);
+>         size_t available;
+>
+>         spin_lock(&kfd_mem_limit.mem_limit_lock);
+> --
+> 2.25.1
+>
