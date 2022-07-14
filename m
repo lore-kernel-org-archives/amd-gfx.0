@@ -4,56 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FF0C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15F6C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDEC511A2F3;
-	Thu, 14 Jul 2022 16:47:28 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B88811A2F2;
- Thu, 14 Jul 2022 16:47:27 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id l23so4461183ejr.5;
- Thu, 14 Jul 2022 09:47:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71D5810F876;
+	Thu, 14 Jul 2022 16:49:17 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B2E210F87C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 16:48:56 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id m16so3153319edb.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 09:48:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=qWSHX3eXBHfFTsd7QfRtWGODgvWsqs9hDqIclZtgzZE=;
- b=kjEHD1wJu+C+dldPQZx7ojIPKTrL1FNbzLNfUuC50054eSlcyxxkG9FtYASBd1JhFZ
- zPTfx9Z6roTSmWlEEC1shAmP34PHEd8Np54N9LlbrRS5kx1RwrstchC9T6RHtueoT9Qg
- mQEenWDdd4hMWQrV+I0P1VxYakhlVC5nmSeblmcvp9u5qDQjVIxDfiZz8IfU+K/I28Pw
- oHUfpYiv+hExma5ou4B/RyJYycbufZV5ncTbrAA5E5Blxc6v5kgYJdD5EIFkzRjibz9o
- mpQHBChxTagUmB+uJjFTkeixM8RvNI8/L92O0jAouKwsOamLjoJI7DtourgxPdzuWDDE
- C7Ow==
+ :cc; bh=Qdwr0Ml6l65d9PvQ1N7Cqu7i3NgaLCCXJQKH4OW6snM=;
+ b=WW+Mt5NH1K828fylJUZ5VelGkCH2HdmOWxOk4e94fwyd/+wD6pkJPQ2wgqMeaijwyX
+ 9F5ThYUcqjYGzIBAR/FBPjevBm+rlWZKPw3Cu3TCClKUF7wTKoSlc+IiG/GiuQ70+Q42
+ UDBLmTfs8LaYePDB+3Pa5U3B3CGhy9airybE4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=qWSHX3eXBHfFTsd7QfRtWGODgvWsqs9hDqIclZtgzZE=;
- b=vrfNvkulAR9hPWaa+BZ7ThD+thztN8B7EjgkqVw1zc2W611FADEjCxpnWnJfIDaRxC
- UfYFlegWa6g+6jHTZaFUTc8i8CmEGmVonJdDjL8SB0+7SP5SPt+80mA5Gp9T2m8M91pV
- UefibPTTvGx5XMB/16yHZPtWmSPVSggYpzG4EibH7SCGc2VLKCi5GTqWh2/J+FaL7J1Q
- UkoE9J5FrukwxFItqqgNnND/5BYukCOmztkQsUKcxJV3ugHO/R/hRJGlvtgaP61avGpk
- IpDMJzskBtolJiQ2i5OebusG2Oi9668+pqnXI7QbPF9h62Tbj3seg9iWQ1M4KmvFTENY
- gsRQ==
-X-Gm-Message-State: AJIora8VV7++GvuPtdwL9o9vLsB34ldu/ZmJe8Wd+BGHJoq8EhiDIxMK
- ZQkF10RQg9RbldnngCRTuh1lzYcaZG/VHZ1WqpQ=
-X-Google-Smtp-Source: AGRyM1urhg4LBIyWLSK1JsFexKVLuDaj0dQddpMeJxSn4QJM5YHaFyYHHkUUymXpIPLdQwAAdD1dPgMK7rKlzKj2n60=
-X-Received: by 2002:a17:907:94cf:b0:726:c81a:f30e with SMTP id
- dn15-20020a17090794cf00b00726c81af30emr9572150ejc.451.1657817246137; Thu, 14
- Jul 2022 09:47:26 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=Qdwr0Ml6l65d9PvQ1N7Cqu7i3NgaLCCXJQKH4OW6snM=;
+ b=gmbr4Umz2x4ahHHi4c4EEhBhG5aY8dTNswfqNxDh5uPMIT1cDDAVtdgqfZeDtZ0ihq
+ +EwFS5KkLbwwPJ5BZ0sraA5QMZjjNXPYhvBGg8rIrUvqBGNgeGX52OZ6xoOU7G6dFOJ1
+ fJiZJ97PeX3HNQHoKCfd6nsKa5gT/KlI/l6958kHSDmnCVjJGmHLfYIIyNVxmQ4/ivcP
+ msk1oN+4MjhT7oD0iZ+gYDcYnsHQuMVlFHLYNl5QkOgr4OvJ6hqjwl3jw+7z2ArI9seE
+ 7H+0YDSP0X3KFP0VVKnlv1ypf5jyzW34D6O2UsAdfA0pkToqh2So7Y7/TEw4NOHzSXQP
+ h1Ug==
+X-Gm-Message-State: AJIora+J4m6ttksoJqHCovaeihjORBApc7dlM0Ye7KHlzeqxsZmdVCqj
+ +FQ2sLzYEEW1AkKlCNMbmhTF7D6hy9mlWTcLPFU=
+X-Google-Smtp-Source: AGRyM1ujCM08DmpJlgRDrDxCNv6Uc+vaWcll6iViF3/P1Hmgcf2zko4v6mS2AZeddSceZs73qjCzZQ==
+X-Received: by 2002:a05:6402:3581:b0:43a:d66b:99b5 with SMTP id
+ y1-20020a056402358100b0043ad66b99b5mr13519596edc.375.1657817334431; 
+ Thu, 14 Jul 2022 09:48:54 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com.
+ [209.85.221.43]) by smtp.gmail.com with ESMTPSA id
+ y18-20020a1709063a9200b007030c97ae62sm874322ejd.191.2022.07.14.09.48.53
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Jul 2022 09:48:53 -0700 (PDT)
+Received: by mail-wr1-f43.google.com with SMTP id z12so3343200wrq.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 09:48:53 -0700 (PDT)
+X-Received: by 2002:a5d:544b:0:b0:21d:70cb:b4a2 with SMTP id
+ w11-20020a5d544b000000b0021d70cbb4a2mr8939974wrv.281.1657817332916; Thu, 14
+ Jul 2022 09:48:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220713151504.7521-1-andrealmeid@igalia.com>
- <CADnq5_NASpkVUpPa=CPad39AYvzueGx9vsNbUcSgqzQhh+0Lzg@mail.gmail.com>
- <a63e287b-39c0-1433-d62b-bcb9d45ad1df@igalia.com>
-In-Reply-To: <a63e287b-39c0-1433-d62b-bcb9d45ad1df@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Jul 2022 12:47:14 -0400
-Message-ID: <CADnq5_NPF6REg63Td0GWimgVAywjFQ1MWwEEKW99F10cC-VaDg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/debugfs: Expose GFXOFF state to userspace
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
+ <20220713050724.GA2471738@roeck-us.net>
+ <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
+ <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
+ <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
+ <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
+ <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
+In-Reply-To: <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 14 Jul 2022 09:48:36 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgnmaTVigBc02tjqgcZaNJiYz8Xw77P+ERAXhcYjkwd=Q@mail.gmail.com>
+Message-ID: <CAHk-=wgnmaTVigBc02tjqgcZaNJiYz8Xw77P+ERAXhcYjkwd=Q@mail.gmail.com>
+Subject: Re: Linux 5.19-rc6
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 14 Jul 2022 16:49:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,176 +78,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, kernel-dev@igalia.com,
- David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Balbir Singh <bsingharora@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Paul Mackerras <paulus@ozlabs.org>, Alex Deucher <alexander.deucher@amd.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Alex Deucher <alexdeucher@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Guenter Roeck <linux@roeck-us.net>, Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 14, 2022 at 12:45 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com=
-> wrote:
+On Thu, Jul 14, 2022 at 12:23 AM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
 >
+> Oh, it's not just this one. The lists of build regressions between v5.18
+> and v5.19-rc1 [1] resp. v5.19-rc6 [2] look surprisingly similar :-(
 >
->
-> =C3=80s 13:42 de 14/07/22, Alex Deucher escreveu:
-> > On Wed, Jul 13, 2022 at 11:15 AM Andr=C3=A9 Almeida <andrealmeid@igalia=
-.com> wrote:
-> >>
-> >> GFXOFF has two different "state" values: one to define if the GPU is
-> >> allowed/disallowed to enter GFXOFF, usually called state; and another
-> >> one to define if currently GFXOFF is being used, usually called status=
-.
-> >> Even when GFXOFF is allowed, GPU firmware can decide to not used it
-> >> accordingly to the GPU load.
-> >>
-> >> Userspace can allow/disallow GPUs to enter into GFXOFF via debugfs. Th=
-e
-> >> kernel maintains a counter of requests for GFXOFF (gfx_off_req_count)
-> >> that should be decreased to allow GFXOFF and increased to disallow.
-> >>
-> >> The issue with this interface is that userspace can't be sure if GFXOF=
-F
-> >> is currently allowed. Even by checking amdgpu_gfxoff file, one might g=
-et
-> >> an ambiguous 2, that means that GPU is currently out of GFXOFF, but th=
-at
-> >> can be either because it's currently disallowed or because it's allowe=
-d
-> >> but given the current GPU load it's enabled. Then, userspace needs to
-> >> rely on the fact that GFXOFF is enabled by default on boot and to trac=
-k
-> >> this information.
-> >>
-> >> To make userspace life easier and GFXOFF more reliable, return the
-> >> current state of GFXOFF to userspace when reading amdgpu_gfxoff with t=
-he
-> >> same semantics of writing: 0 means not allowed, not 0 means allowed.
-> >>
-> >
-> > This looks good. Can you document this in the amdgpu kerneldoc?
-> >
->
-> Sure, let me send a v2 with that
+> [1] https://lore.kernel.org/all/20220606082201.2792145-1-geert@linux-m68k.org
+> [2] https://lore.kernel.org/all/20220711064425.3084093-1-geert@linux-m68k.org
 
-While you are at it, if we are missing docs for the other gfxoff file
-can you add that as well?
+Hmm.
 
-Thanks!
+Some of them are because UM ends up defining and exposing helper
+functions like "to_phys()", which it just shouldn't do. Very generic
+name - so when some driver ends up using the same name, you get those
+errors.
 
-Alex
+And some look positively strange. Like that
 
->
-> > Alex
-> >
-> >> Expose the current status of GFXOFF through a new file,
-> >> amdgpu_gfxoff_status.
-> >>
-> >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 49 ++++++++++++++++++++=
--
-> >>  1 file changed, 47 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_debugfs.c
-> >> index f3b3c688e4e7..e2eec985adb3 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> >> @@ -1117,13 +1117,50 @@ static ssize_t amdgpu_debugfs_gfxoff_read(stru=
-ct file *f, char __user *buf,
-> >>         }
-> >>
-> >>         while (size) {
-> >> -               uint32_t value;
-> >> +               u32 value =3D adev->gfx.gfx_off_state;
-> >> +
-> >> +               r =3D put_user(value, (u32 *)buf);
-> >> +               if (r)
-> >> +                       goto out;
-> >> +
-> >> +               result +=3D 4;
-> >> +               buf +=3D 4;
-> >> +               *pos +=3D 4;
-> >> +               size -=3D 4;
-> >> +       }
-> >> +
-> >> +       r =3D result;
-> >> +out:
-> >> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> >> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> >> +
-> >> +       return r;
-> >> +}
-> >> +
-> >> +static ssize_t amdgpu_debugfs_gfxoff_status_read(struct file *f, char=
- __user *buf,
-> >> +                                                size_t size, loff_t *=
-pos)
-> >> +{
-> >> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
-> >> +       ssize_t result =3D 0;
-> >> +       int r;
-> >> +
-> >> +       if (size & 0x3 || *pos & 0x3)
-> >> +               return -EINVAL;
-> >> +
-> >> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
-> >> +       if (r < 0) {
-> >> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> >> +               return r;
-> >> +       }
-> >> +
-> >> +       while (size) {
-> >> +               u32 value;
-> >>
-> >>                 r =3D amdgpu_get_gfx_off_status(adev, &value);
-> >>                 if (r)
-> >>                         goto out;
-> >>
-> >> -               r =3D put_user(value, (uint32_t *)buf);
-> >> +               r =3D put_user(value, (u32 *)buf);
-> >>                 if (r)
-> >>                         goto out;
-> >>
-> >> @@ -1206,6 +1243,12 @@ static const struct file_operations amdgpu_debu=
-gfs_gfxoff_fops =3D {
-> >>         .llseek =3D default_llseek
-> >>  };
-> >>
-> >> +static const struct file_operations amdgpu_debugfs_gfxoff_status_fops=
- =3D {
-> >> +       .owner =3D THIS_MODULE,
-> >> +       .read =3D amdgpu_debugfs_gfxoff_status_read,
-> >> +       .llseek =3D default_llseek
-> >> +};
-> >> +
-> >>  static const struct file_operations *debugfs_regs[] =3D {
-> >>         &amdgpu_debugfs_regs_fops,
-> >>         &amdgpu_debugfs_regs2_fops,
-> >> @@ -1217,6 +1260,7 @@ static const struct file_operations *debugfs_reg=
-s[] =3D {
-> >>         &amdgpu_debugfs_wave_fops,
-> >>         &amdgpu_debugfs_gpr_fops,
-> >>         &amdgpu_debugfs_gfxoff_fops,
-> >> +       &amdgpu_debugfs_gfxoff_status_fops,
-> >>  };
-> >>
-> >>  static const char *debugfs_regs_names[] =3D {
-> >> @@ -1230,6 +1274,7 @@ static const char *debugfs_regs_names[] =3D {
-> >>         "amdgpu_wave",
-> >>         "amdgpu_gpr",
-> >>         "amdgpu_gfxoff",
-> >> +       "amdgpu_gfxoff_status",
-> >>  };
-> >>
-> >>  /**
-> >> --
-> >> 2.37.0
-> >>
+  drivers/mfd/asic3.c: error: unused variable 'asic'
+[-Werror=unused-variable]:  => 941:23
+
+which is clearly used three lines later by
+
+        iounmap(asic->tmio_cnf);
+
+and I can't find any case of 'iounmap()' having been defined to an
+empty macro or anything like that to explain it. The error in
+drivers/tty/serial/sh-sci.c looks to be exactly the same issue, just
+with ioremap() instead of iounmap().
+
+It would be good to have some way to find which build/architecture it
+is, because right now it just looks bogus.
+
+Do you perhaps use some broken compiler that complains when the empty
+inline functions don't use their arguments? Because that's what those
+ioremap/iounmap() ones look like to me, but there might be some
+magical architecture / config that has issues that aren't obvious.
+
+IOW, I'd love to get those fixed, but I would also want a little bit more info.
+
+            Linus
