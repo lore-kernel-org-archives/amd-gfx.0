@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E645CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 13:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D448CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 13:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1ACB10F2D1;
-	Thu, 14 Jul 2022 13:19:24 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7568889C85;
- Thu, 14 Jul 2022 13:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657804763; x=1689340763;
- h=date:from:to:cc:subject:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BDkvjpusDmWjSzoK4d3Uj6tqyKAdwDshhWJysv2kTB8=;
- b=BPzc92LSCdzSQ9AigiHI7EDpnfWnvHM98mt3pNBfPxZ0aY+cU01OxBVc
- 0rbTOpid5eXGVGb/ZrOVxBCYU+yc0O9fVgVaxY5/z1Mltyfm/1vARGV8x
- iiRS+eI68MlNgTRCMcRYngziyjAfUUOOMC8XPdr2SXeuqOw0vlTQ9NoeI
- jF1si8jeEvmYPfHeZI6OsUtR92X2LyL+u4lck0KkUPi7hnWOLkfbcMOaQ
- 9VG4BHeGg31O2qoLBXp/hSj4BSTXKT4dhU3QkYnsQRDBjD92ZYmZiMO6Z
- z+ItMEOO22ApQW31kS6z8eXky8FpWNapLn6gW0Q5ny21ijql7KL//wVrJ Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10407"; a="311160534"
-X-IronPort-AV: E=Sophos;i="5.92,271,1650956400"; d="scan'208";a="311160534"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2022 06:19:23 -0700
-X-IronPort-AV: E=Sophos;i="5.92,271,1650956400"; d="scan'208";a="653870183"
-Received: from maurocar-mobl2.ger.corp.intel.com (HELO maurocar-mobl2)
- ([10.252.37.128])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2022 06:19:21 -0700
-Date: Thu, 14 Jul 2022 15:19:18 +0200
-From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: add drm buddy support to amdgpu"
-Message-ID: <20220714151918.29c7a241@maurocar-mobl2>
-In-Reply-To: <83d9f973-abdd-3d8b-5955-84cfc3f49eea@amd.com>
-References: <20220708102124.493372-1-Arunpravin.PaneerSelvam@amd.com>
- <20220714145423.721e1c3b@maurocar-mobl2>
- <83d9f973-abdd-3d8b-5955-84cfc3f49eea@amd.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6239410F8B2;
+	Thu, 14 Jul 2022 13:23:20 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F38F910E9FE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 13:23:18 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id k30so2377270edk.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 06:23:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jjxoxmS5DvoidmwWcG7AW+9rJsz1oy8lI9ju8KewU8w=;
+ b=ooPdS9uSGQBXbrdBMLoayIaqB20hiyF+97maLx53UQQwkYtUlybcamQLssrGpEB7ju
+ FLWzTnowAM+z3yHus5OOp7o7+DY6y2k+g+h2K9hTPP/IHWkQMe1VzWPs1xSwB0WdwzAV
+ 5ikR7zKGP/AnrAJQJEWjRyNfE5E4rVQCG29h5HC9CttbKs0yg7fvI7czIldscIw9Kl9o
+ ouXRgKyUVN78i2/a1SSgasewmW4asseGZWOcvzlVdIgboIKBxIN4Kh2Rnt3s/7Ybq6Sl
+ F3TqZLv07FSPQGoDiV10W1l85CW6iT30Vpx0uwxsKKWOkFIwlYssD4IV0liMg1SgDlYW
+ m/Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jjxoxmS5DvoidmwWcG7AW+9rJsz1oy8lI9ju8KewU8w=;
+ b=T8U5ivtfdkg0QiTRzmhzE4qmk/7TzYDwrh4E8ez9RhVSmIyIsVqvAOIyZh1Gv8YlVM
+ iDLVFspIA5tQpzOPo9GVj3luprZLIRtBl0hijwdSkcuujgVBz3Yk6yT8OLRfR/HjEBzR
+ IlGgF99CbDjl69Qbmh5cn50igK8M2hDU0rOkLma6tWJDEDyiNseteGhzS2iT2UpKkHDS
+ hzLiVo2kTpxJLGIZBHGR8n7V+3MRnYrUOPYwp2Zkw9IPj/Z/xaM8e+/kWDCKmiogV4l7
+ tdDjCFgsBuXvaIcZ3QRGxJ2YG3+x/tC2KtgWIzh0kRLDsJzchQ0KaQBrknKoYe5U0XtA
+ qKjQ==
+X-Gm-Message-State: AJIora/pGJQ69Nxh4TRn1qBwdKvj/oBjGbjbFti1VD5XPlqlBkX0MCHd
+ R39o/NWKj5oqVA5JNn/6ZqJC5WqHdGw=
+X-Google-Smtp-Source: AGRyM1siI1xRZEQms5GOzY5nP8/P6bpX3VmliwVMfrseW12OtzPPbT/2QCyk0h/hh8F1u010mTSprQ==
+X-Received: by 2002:aa7:d60a:0:b0:43a:5795:b729 with SMTP id
+ c10-20020aa7d60a000000b0043a5795b729mr12441805edr.230.1657804997456; 
+ Thu, 14 Jul 2022 06:23:17 -0700 (PDT)
+Received: from EliteBook.fritz.box (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ ek9-20020a056402370900b0042de3d661d2sm1035399edb.1.2022.07.14.06.23.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Jul 2022 06:23:16 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Arunpravin.PaneerSelvam@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: reapply "fix start calculation in
+ amdgpu_vram_mgr_new""
+Date: Thu, 14 Jul 2022 15:23:14 +0200
+Message-Id: <20220714132315.587217-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,50 +71,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 14 Jul 2022 15:08:48 +0200
-Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+This re-applys commit 5e3f1e7729ec7a99e145e9d8ed58963d86cdfb98.
 
-> Hi Mauro,
->=20
-> well the last time I checked drm-tip was clean.
->=20
-> The revert is necessary because we had some problems with the commit=20
-> which we couldn't fix in the 5.19 cycle.
+The original problem this was reverted for was found and the correct fix
+will be merged to drm-misc-next-fixes.
 
-I see. I don't have any issues with the patch itself, provided that drm-tip
-build doesn't break ;-)
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 22 +++++++++++++-------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-> I will double check drm-tip once more.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 49e4092f447f..51d9d3a4456c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -496,16 +496,22 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 			list_splice_tail(trim_list, &vres->blocks);
+ 	}
+ 
+-	list_for_each_entry(block, &vres->blocks, link)
+-		vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
++	vres->base.start = 0;
++	list_for_each_entry(block, &vres->blocks, link) {
++		unsigned long start;
+ 
+-	block = amdgpu_vram_mgr_first_block(&vres->blocks);
+-	if (!block) {
+-		r = -EINVAL;
+-		goto error_fini;
+-	}
++		start = amdgpu_vram_mgr_block_start(block) +
++			amdgpu_vram_mgr_block_size(block);
++		start >>= PAGE_SHIFT;
+ 
+-	vres->base.start = amdgpu_vram_mgr_block_start(block) >> PAGE_SHIFT;
++		if (start > vres->base.num_pages)
++			start -= vres->base.num_pages;
++		else
++			start = 0;
++		vres->base.start = max(vres->base.start, start);
++
++		vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
++	}
+ 
+ 	if (amdgpu_is_vram_mgr_blocks_contiguous(&vres->blocks))
+ 		vres->base.placement |= TTM_PL_FLAG_CONTIGUOUS;
+-- 
+2.25.1
 
-Did a new rebase on the top of:
-	bc04f10d22f7 (drm-tip/drm-tip) drm-tip: 2022y-07m-14d-12h-41m-36s UTC inte=
-gration manifest
-
-And it is still broken on amdgpu_vram_mgr.c, but now with different issues:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c: In function =E2=80=98amdgpu_v=
-ram_mgr_new=E2=80=99:
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:465:13: error: =E2=80=98i=E2=
-=80=99 undeclared (first use in this function)
-  465 |         if (i =3D=3D 1)
-      |             ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:465:13: note: each undeclared =
-identifier is reported only once for each function it appears in
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:466:17: error: =E2=80=98node=
-=E2=80=99 undeclared (first use in this function)
-  466 |                 node->base.placement |=3D TTM_PL_FLAG_CONTIGUOUS;
-      |                 ^~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:365:33: error: unused variable=
- =E2=80=98block=E2=80=99 [-Werror=3Dunused-variable]
-  365 |         struct drm_buddy_block *block;
-      |                                 ^~~~~
-cc1: all warnings being treated as errors
-
-Regards,
-Mauro
