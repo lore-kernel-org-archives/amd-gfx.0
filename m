@@ -4,74 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A932CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 20:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F3AC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 22:28:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22E9A10ED07;
-	Thu, 14 Jul 2022 20:38:01 +0000 (UTC)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E900D10FD19;
- Thu, 14 Jul 2022 20:24:26 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- t5-20020a17090a6a0500b001ef965b262eso4140496pjj.5; 
- Thu, 14 Jul 2022 13:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:message-id:date:mime-version:user-agent:content-language:to
- :cc:references:from:subject:in-reply-to:content-transfer-encoding;
- bh=pcRnU+Ror4gYiRZTAUzcABV8hGHFjcJDb40sHS5AYVk=;
- b=hvlDHdDOxK52P0/LBKCWfDreDHWqjZ0+X00Ved/rTViRBSVXTq2lYSvFTdJu/JsxcH
- Ilil5aAXg8Df3wnUF5jyZBi6aoLWCimQsGtR7CmVIOKpKWSOuVPNVKZfbs6am4YGaExF
- 7kscXgmArrrB4keRwxUmuehwGsgP7fc2CTf4uTLkX10oMCdPBBldJlEP22szXpAuxJJD
- n7iw57jMeGLQLdoAFKejDR+I8P3rVeUeiIqy4pHiwDXDAIhXeDcUwj0xl05k5IcSnr1f
- WdV6IF0hjMPu2/tYtTRpJLj77S851CLISPSfKgjBG5iQELG6SFjYF4g1FUJiWlMvbkGO
- eIzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:subject:in-reply-to
- :content-transfer-encoding;
- bh=pcRnU+Ror4gYiRZTAUzcABV8hGHFjcJDb40sHS5AYVk=;
- b=25697zQbFs9mHfolricAUj0VL3kUqowmKZCxiikhInr4uhh6HS5RX/Jy4Soc0MXdi1
- ljSxu2pTyMeoqGtgmorIuPfD+ZMme5KD/G1jtyMSCfWZXoTMPL1RkH0AOQoufEHMCt88
- W+N9SgfbAuKfPYD+byTUr2xmeG2GYuqFCaQfoXzMUiPt0SNJ65VTwIWJTiypJqhMqx2Q
- TDt5cwvNCOYFL600NwUOQe46vvjMC6sr3U09A/s+9RWySa7W2FmyVN5/QV2rKHeIoYUE
- 2YPgEY/TA517frMd3zUH0EtrzzdDO5MC1cnfZGtjAYlsDbHcX8wpDCX3TvXMuWkcvDwt
- bsew==
-X-Gm-Message-State: AJIora/iU8mFUMxDdMKYGM4J+M0W6/RPPH6xy0NPgOuidMG+oQKMO8Xc
- WU8wK4NQz89KFClkNrc7qxA=
-X-Google-Smtp-Source: AGRyM1tx/BKIt8gG9FjSZ+ck6gTBSu+yZzhvOUhowONfqODvxLg5/2Tfh0PFxmmu7wnVClZYpTsl0Q==
-X-Received: by 2002:a17:90a:fe4:b0:1ef:8564:4f4 with SMTP id
- 91-20020a17090a0fe400b001ef856404f4mr18027029pjz.118.1657830266447; 
- Thu, 14 Jul 2022 13:24:26 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- q8-20020a17090311c800b0016bd16f8acbsm1889201plh.114.2022.07.14.13.24.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jul 2022 13:24:25 -0700 (PDT)
-Message-ID: <17edd8b1-27d3-a768-87a3-c815e5df5d14@roeck-us.net>
-Date: Thu, 14 Jul 2022 13:24:23 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91DE610E82A;
+	Thu, 14 Jul 2022 22:28:12 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2076.outbound.protection.outlook.com [40.107.96.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 337E210E0E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 22:18:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BtV4jJveXgQGVpNLtUh/82zbxSMgPI6mUYka7BwMRxS3bNMRI3tmPXE25vKE51mapcKR8ir1mkJ1l9Ae5w4NuQWsBulQr6Ptn3XYZsA6xTFzhjPGqc69b7Uu1Oj4qhS7UNnOhHnFfwG8x68OJy+0TSb8LMO9Q1eTy9Fj+7k6DR4+bJGu3PoQqClkw/qbWcaimD92DbgznijlF5NpbIeVhqHUjhLfACx+ZAuY7v2bbDozCN8KnKUlUeW5SyN1IuEBcVFoWFe53yY6ovvagYFYpRTb0Ehm8ixUJKv6PB0ghMfNX8L7tt46xMA5aNcnzx7OopzC03O9q7LOZwG8T5qnlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZMhFFg5f3z1D1C8CsA1ThqccVQdd6G9Fg+bD9Xyd88Y=;
+ b=DZT7kEyfdgz8bqoE7ZOj+33HK4ETyEYit8bH77w7Ss+B9XdgqXAEbGKbYByXy0lwPERm2rIhbGov6dLA+0UkcVWGztIjcytoNSoiH7ia9RUnybN2SSALBMSztLRXtKhzTz8/fdMfykHvgve2f/x+1fd56n7RZX20bgnfEuuues5KjZM+L+eDlnYc3ijzFAH6gcI8iNO4xzJ5tVjF2JeCIKy3XH2sSdxa4xMUYG3WDdVJXDS0GIG0OZeeZ/oMzESG2Krn47Ok2cNMWi3k0z5yBcEbYAut/EdOjpBODY/6JFYDWrj9wFy3Yspe8d3L3/HrcmtlPV3WaOpTPouv7q3dRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZMhFFg5f3z1D1C8CsA1ThqccVQdd6G9Fg+bD9Xyd88Y=;
+ b=Ut370r13oAEtMuFoU60sH/Fn27zw7hPjnt7BSqHcP+fwPIUd8Js+58oH6RtCPBedky9cBwdnskIDUd/BGknicoSnSCUaRCJyVptFmXxkwf6tXKn29ioCqExbegN3cyRMFYY8KNwS4zZfpzjIN9Vcvhdqu455HEIOUpQBK6ZnUJw=
+Received: from BN9PR03CA0546.namprd03.prod.outlook.com (2603:10b6:408:138::11)
+ by MN0PR12MB5788.namprd12.prod.outlook.com (2603:10b6:208:377::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Thu, 14 Jul
+ 2022 21:59:14 +0000
+Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:138:cafe::26) by BN9PR03CA0546.outlook.office365.com
+ (2603:10b6:408:138::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.13 via Frontend
+ Transport; Thu, 14 Jul 2022 21:59:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Thu, 14 Jul 2022 21:59:14 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 14 Jul
+ 2022 16:59:13 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/ttm: fix missing NULL check in ttm_device_swapout
+Date: Thu, 14 Jul 2022 17:58:20 -0400
+Message-ID: <20220714215820.807146-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Melissa Wen <mwen@igalia.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20220618232737.2036722-1-linux@roeck-us.net>
- <584fc348-7a60-26a2-af61-9edc4f4830e4@amd.com>
- <CADnq5_NkVWqcxwLMBeskqpcSEYCEjUAK0hqvA_PAo7ACHKL2cA@mail.gmail.com>
- <6a026c9a-c4ee-deba-e028-4c0f478c1911@roeck-us.net>
- <CADnq5_OrxMMkazXEPHeZXp_bV890=r21DRx2QsqLXUFj4t8aYg@mail.gmail.com>
- <20220713230917.GE32544@roeck-us.net>
- <CADnq5_PAg8xg2J3WUfjxK_-WFaLOK7cQd6bqWDnfVqE6fpXq2Q@mail.gmail.com>
- <20220714184919.rmsexizgfdkfboiq@mail.igalia.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] drm/amd/display: Add missing hard-float compile flags for
- PPC64 builds
-In-Reply-To: <20220714184919.rmsexizgfdkfboiq@mail.igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 14 Jul 2022 20:38:00 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fe57848b-c4df-426d-f9f8-08da65e41728
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5788:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NEC++gLzAFWayIpvoV/yZ/QTHMSXBEFtkpqtiHiGz30Zmv4m4c9YpCLzTxAXuHWyWKB9dc2ktLXZiRp9+GTLWd4Nm13dmj0cWzUpPtK39qpiVDILIz1BPDX3Il+Nh28GVw4kcbAk70qHa5zp3g5rcIGLxPDYfPr6uMbVuhL+lfEKHh7Bf9PbpRtBQCazGxJ58pNRER+CplGQkqPEeD3pOdTWS2QFMjoc3VbHdn2t0ox/RVEai42rSaqqfeM1GNkkdm0xl6QDUkweYit5bv9c0txVMO6i7ZyRkCAw1HRcb19RX/e77nlSgjazm+fQBhmDo1z0TmTKrlQdaRoiTRx2tx7lvu4ejKFuxqUNfzGBmhAllB1n8OTH8W06zIS9rJw7TQRFWNJjJ802VIpK7+x3+0pzTABkT3Onm/ngAUMi6uEM3UWklnQYTDEu5qlcbah+uY/vBl6BoYKsVXWDiP92reWSzG6FOHHFvVJJTZeiYahjltv4DDoGCBY0/G7MFbAdqHRs6xnZU2sf1xprIVdB4FIk+m3TtyEhKHP4tCgNKCiTLwOJjahHZKTFXwVJo9GsvMWgpKiPgY61Cm2W+d38rNU7+Mna+4lwc2OAVWCKanF5s/8tSgd5wqDl37jpTSIgbgH/FsAYhzWaCO/C0kXiyK8c8B5sn0vZJZyKvFw+J3b/93Sn2eOAtlTLTu1rwpocMBvG5a67xjf8yinLOC05ncrr8iljd41VGsl0if/71meXzqKlI75mrDlaGnDlOJU10Y2nmeycCMguHFn9GJ/JLqqFyI5vWV2/Xinhm/LiyE8yB5wIo0YvOq5PcKE+bzmFn8YaTGpq4TboNzDgldb/PGqudd0mRx6p4jEGodcfoG8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(376002)(396003)(346002)(39860400002)(36840700001)(46966006)(40470700004)(8936002)(82310400005)(2906002)(5660300002)(4744005)(40480700001)(36756003)(70586007)(4326008)(8676002)(70206006)(316002)(40460700003)(6916009)(6666004)(26005)(478600001)(86362001)(426003)(7696005)(81166007)(47076005)(1076003)(16526019)(186003)(336012)(2616005)(41300700001)(356005)(82740400003)(36860700001)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 21:59:14.1075 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe57848b-c4df-426d-f9f8-08da65e41728
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5788
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,135 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Axtens <dja@axtens.net>
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/14/22 11:49, Melissa Wen wrote:
-> O 07/13, Alex Deucher wrote:
->> On Wed, Jul 13, 2022 at 7:09 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>>
->>> On Wed, Jul 13, 2022 at 05:20:40PM -0400, Alex Deucher wrote:
->>>>>
->>>>> The problem is not the FPU operations, but the fact that soft-float
->>>>> and hard-float compiled code is linked together. The soft-float and
->>>>> hard-float ABIs on powerpc are not compatible, so one ends up with
->>>>> an object file which is partially soft-float and partially hard-float
->>>>> compiled and thus uses different ABIs. That can only create chaos,
->>>>> so the linker complains about it.
->>>>
->>>> I get that, I just don't see why only DCN 3.1.x files have this
->>>> problem.  The DCN 2.x files should as well.
->>>>
->>>
->>> Seen in drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile:
->>>
->>> # prevent build errors regarding soft-float vs hard-float FP ABI tags
->>> # this code is currently unused on ppc64, as it applies to Renoir APUs only
->>> ifdef CONFIG_PPC64
->>> CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
->>> endif
->>>
->>> Does that explain it ?
->>
->> I would expect to see it in dcn20_resource.c and dcn30_clk_mgr.c for
->> example.  They follow the same pattern as the dcn 3.1.x files.  They
->> call functions that use FP, but maybe there is some FP code still in
->> those functions that we missed somehow.
-> 
-> Hi,
-> 
-> I'm a little late here, but I'm not able to reproduce the issue yet.
-> I have this setup:
-> - gcc 11.3.0
-> - binutils 2.38.50
-> - mainline kernel (torvalds) version: 5.19.0-rc6 (cross-compiling)
->    -> make ARCH=powerpc CROSS_COMPILE=powerpc64-linux-gnu- allmodconfig
->      => DRM_AMD_DC [=y] && HAS_IOMEM [=y] && DRM [=m] && DRM_AMDGPU [=m] && (X86 || PPC64 [=y]) && (!KCOV_INSTRUMENT_ALL [=n] || !KCOV_ENABLE_COMPARISONS [=n])
->    -> make -j16 ARCH=powerpc CROSS_COMPILE=powerpc64-linux-gnu-
-> 
-> Am I missing something?
-> 
-> So, as Alex mentioned the possibility of some non-isolated FPU code in
-> 3.1, I reviewed dcn31 code and my best bet so far is that the issue
-> is here:
-> 
-> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c#L1721
-> 
-> Although dcn31_update_soc_for_wm_a() is only called inside
-> dml/dcn31/dcn31_fpu:
-> - dc->res_pool->funcs->update_soc_for_wm_a(dc, context);
-> 
-> it's declared in dcn31_resource and has FPU code. So, we should move it
-> to dml/dcn31/dcn31_fpu.
-> 
-> However, as I can't reproduce the issue, I don't know if it addresses
-> the problem reported here and also if everything will be clean after
-> moving it.
-> 
+Backport of Christian's patch 81b0d0e4f811 to amd-staging-drm-next. This
+branch may be nearly obsolete, but this patch may still be worth
+applying as it can serve as a template for backports to some release
+branches. It fixes intermittent kernel oopses when memory is severely
+overcommitted.
 
-I don't think that would solve anything. As I have tried to point out,
-the problem is that code compiled with hard-float is linked together
-with code compiled with soft-float. An alternate fix might be something
-like the one attached below, but I don't know if that would be correct
-and/or complete.
-
-> Guenter,
-> 
-> Can you provide more info about your setup: cross-compile or not, any
-> flags, branch, etc?
-> 
-
-Nothing special. Same compile options as the ones you use, and it is a
-cross-compile environment. I tried gcc 11.2.0 with binutils 2.36.1
-and gcc 11.3.0 with binutils 2.38.
-
-Guenter
-
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
-index ec041e3cda30..44ff6f196860 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
-@@ -10,6 +10,8 @@
-  #
-  # Makefile for dcn31.
+ drivers/gpu/drm/ttm/ttm_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-+CFLAGS_$(AMDDALPATH)/dc/dcn31/dcn31_resource.o := $(call cc-option,-mno-gnu-attribute)
+diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+index be24bb6cefd0..165a6cbb45d5 100644
+--- a/drivers/gpu/drm/ttm/ttm_device.c
++++ b/drivers/gpu/drm/ttm/ttm_device.c
+@@ -157,6 +157,9 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
+ 			list_for_each_entry(bo, &man->lru[j], lru) {
+ 				uint32_t num_pages = PFN_UP(bo->base.size);
+ 
++				if (!bo->resource)
++					continue;
 +
-  DCN31 = dcn31_resource.o dcn31_hubbub.o dcn31_hwseq.o dcn31_init.o dcn31_hubp.o \
-         dcn31_dccg.o dcn31_optc.o dcn31_dio_link_encoder.o dcn31_panel_cntl.o \
-         dcn31_apg.o dcn31_hpo_dp_stream_encoder.o dcn31_hpo_dp_link_encoder.o \
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
-index 59381d24800b..55fcae2d2aae 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
-@@ -25,6 +25,8 @@
+ 				ret = ttm_bo_swapout(bo, ctx, gfp_flags);
+ 				/* ttm_bo_swapout has dropped the lru_lock */
+ 				if (!ret)
+-- 
+2.32.0
 
-  DCN315 = dcn315_resource.o
-
-+CFLAGS_$(AMDDALPATH)/dc/dcn315/$(DCN315) := $(call cc-option,-mno-gnu-attribute)
-+
-  AMD_DAL_DCN315 = $(addprefix $(AMDDALPATH)/dc/dcn315/,$(DCN315))
-
-  AMD_DISPLAY_FILES += $(AMD_DAL_DCN315)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-index 819d44a9439b..7251ef9c1afb 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-@@ -25,6 +25,8 @@
-
-  DCN316 = dcn316_resource.o
-
-+CFLAGS_$(AMDDALPATH)/dc/dcn316/$(DCN316) := $(call cc-option,-mno-gnu-attribute)
-+
-  AMD_DAL_DCN316 = $(addprefix $(AMDDALPATH)/dc/dcn316/,$(DCN316))
-
-  AMD_DISPLAY_FILES += $(AMD_DAL_DCN316)
