@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6F2C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 19:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9416CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 19:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2221C1136AA;
-	Thu, 14 Jul 2022 19:14:54 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 191F3113697
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 19:14:52 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id y4so3666395edc.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 12:14:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/LuQaklzlHjl5BZ/8eW+8DGSrCrY0hPsrbHgWp39LsY=;
- b=j5cmfIzSb0o8su2rrNFsM+DdfRM5O8YbXY5cqf45nBqgp/YUiLdqlUXJ1FloTqUVbN
- BQBKarHQsRsU7Idd35j5Jqyzwg+9TrbSFy0jT3WdTtf0PidMS9tTqScnu2muzhtIA1or
- hYFIlkeSK/hVy7cxNIkYRGSA8tBiJ4bzfXtRFyJ8J7zDa2CEt5xXkoGu1B+T6g21zr8s
- uswP36Ao7v3PF5wL0HJwtjuBdPuZ7RVg2R2qJkKl8/oaefh+qAar3o2Du1kJjeRFhehU
- 047aB5wyIf/eECeg0D/asBMJk0/Vb1/uCy6biYnA+O4b5cV1SpbmYr7lBqnwT1+6JlVf
- Kt+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/LuQaklzlHjl5BZ/8eW+8DGSrCrY0hPsrbHgWp39LsY=;
- b=p9BX65U6dEB+RxhlgwFPi1ASGYlzDLNjly4yupHpgHDSgVWtKbkzWseIo2Pn41AjG1
- DfDhX9Em6cbntrcNy0/rRkeq6we6cKrTnYkCOuuwIDErs29udwD4fdyXsfclzC7aqVna
- PHfk9o/uS8OZkknG7bwTM1YpKZkn8pZeauwBOhf1f4pXxeBxxyxUlTQjQsJ4DOTwxuOo
- HOMpwIa/+npV9yR/OP9R9MX5WGbG6MbfEhq/UHC6md4env68kMhqYyeXnAG/dNZGkSIh
- 4Gc+9bMR7ca27LG+VmbQx0SPz3eSEJcq9B+/b6wISvqw0m/edOzXMIncaorcFnmYSq+2
- wuQg==
-X-Gm-Message-State: AJIora8d592oR8v5Uy8HQl9sJq0q4HdG52uZ7BMs4EHfzEiqHim+Fnm2
- R9m32OFKjHdqXJ6XbEc0MVZIrof316oalNsALEU=
-X-Google-Smtp-Source: AGRyM1uGYn42AA2Dmstp5qhjOfkmCIE3Gd1zm5LuMv8WTL6o5D5bfwSjt3MR+0MHK7z9l9ON7nXoiVWW+MU7Qf3SPlk=
-X-Received: by 2002:a05:6402:28c3:b0:43a:6d78:1b64 with SMTP id
- ef3-20020a05640228c300b0043a6d781b64mr14061217edb.93.1657826090552; Thu, 14
- Jul 2022 12:14:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE7810ED19;
+	Thu, 14 Jul 2022 19:18:17 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D490111306A;
+ Thu, 14 Jul 2022 19:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=4hMXKYb5oQeNCFz0c5Kq84rZ4yBy2gy1pD+jGE3P3t0=; b=hzGt9vhXedFNIhMMyzDtltnFsN
+ qHJGD1K/NmIpjvwDfx37/4PDdhVGGOYopt0A1BpHCQTMapNn6BBaNKMWNOzptlfLiaqXTOWIgcrnY
+ SQ/6ExW/Nwtao3frIJqaWQQeG8suwTLA/l7BwenxaEJ7LPzYRazspQJ1fAJtvUToQBwFzLGMLn3hp
+ ktgfgSwR8Vr6wqwrfHvGtwtvEhyuzpZYW6PpEHNL2srhziFui0utvITAiMzyFjSFl8fk++kJWrpUB
+ pjR11wBisDiyG3U372KUOBEvfc8ewyv6sVSlL2ZFMd17BXuySIu/QPaq9o7v27xsJfgcDQ4/Yg8nU
+ lXGGfS1w==;
+Received: from [177.139.47.106] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1oC4Ll-00Gla6-1q; Thu, 14 Jul 2022 21:18:13 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ 'Pan Xinhui' <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tom St Denis <tom.stdenis@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v2 1/2] drm/amd/debugfs: Expose GFXOFF state to userspace
+Date: Thu, 14 Jul 2022 16:17:44 -0300
+Message-Id: <20220714191745.45512-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
-References: <20220714164507.561751-1-mairacanal@riseup.net>
- <92eebfd3-4234-b3fa-87cc-c48b3deec33f@igalia.com>
-In-Reply-To: <92eebfd3-4234-b3fa-87cc-c48b3deec33f@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Jul 2022 15:14:39 -0400
-Message-ID: <CADnq5_OGGMTDhacr+x5jO=DttEmTvsMWPLZGxcQ=_GJS4B-r+Q@mail.gmail.com>
-Subject: Re: [PATCH 01/12] drm/amdgpu: Write masked value to control register
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,97 +57,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Magali Lemes <magalilemes00@gmail.com>, David Airlie <airlied@linux.ie>,
- Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
- xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Melissa Wen <mwen@igalia.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Harry Wentland <harry.wentland@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ kernel-dev@igalia.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 14, 2022 at 3:05 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com>=
- wrote:
->
-> Hi Ma=C3=ADra,
->
-> Thank you for your patch,
->
-> =C3=80s 13:44 de 14/07/22, Ma=C3=ADra Canal escreveu:
-> > On the dce_v6_0 and dce_v8_0 hpd tear down callback, the tmp variable
-> > should be written into the control register instead of 0.
-> >
->
-> Why? I do see that tmp was unused before your patch, but why should we
-> write it into this register? Did you manage to test this somehow?
+GFXOFF has two different "state" values: one to define if the GPU is
+allowed/disallowed to enter GFXOFF, usually called state; and another
+one to define if currently GFXOFF is being used, usually called status.
+Even when GFXOFF is allowed, GPU firmware can decide to not used it
+accordingly to the GPU load.
 
-The patch is correct.  We should only be clearing the enable bit in
-this case, not the entire register.  Clearing the other fields could
-cause spurious hotplug events as it affects the short and long pulse
-times for the HPD pin.
+Userspace can allow/disallow GPUs to enter into GFXOFF via debugfs. The
+kernel maintains a counter of requests for GFXOFF (gfx_off_req_count)
+that should be decreased to allow GFXOFF and increased to disallow.
 
-Alex
+The issue with this interface is that userspace can't be sure if GFXOFF
+is currently allowed. Even by checking amdgpu_gfxoff file, one might get
+an ambiguous 2, that means that GPU is currently out of GFXOFF, but that
+can be either because it's currently disallowed or because it's allowed
+but given the current GPU load it's enabled. Then, userspace needs to
+rely on the fact that GFXOFF is enabled by default on boot and to track
+this information.
 
->
-> > Fixes: b00861b9 ("drm/amd/amdgpu: port of DCE v6 to new headers (v3)")
-> > Fixes: 2285b91c ("drm/amdgpu/dce8: simplify hpd code")
->
-> Checking both commits, I can see that 0 is written at `mmDC_HPD1_CONTROL
-> + N` register in _hpd_fini() in them, so if you are trying to fix the
-> commit that inserted that behavior, I think aren't those ones. For instan=
-ce:
->
-> $ git show 2285b91c
->
-> [...]
->
-> @@ -479,28 +372,11 @@ static void dce_v8_0_hpd_fini(struct amdgpu_device
-> *adev)
->         list_for_each_entry(connector, &dev->mode_config.connector_list,
-> head) {
->                 struct amdgpu_connector *amdgpu_connector =3D
-> to_amdgpu_connector(connector);
->
-> -               switch (amdgpu_connector->hpd.hpd) {
-> -               case AMDGPU_HPD_1:
-> -                       WREG32(mmDC_HPD1_CONTROL, 0);
-> -                       break;
-> -               case AMDGPU_HPD_2:
-> -                       WREG32(mmDC_HPD2_CONTROL, 0);
-> -                       break;
-> -               case AMDGPU_HPD_3:
-> -                       WREG32(mmDC_HPD3_CONTROL, 0);
-> -                       break;
-> -               case AMDGPU_HPD_4:
-> -                       WREG32(mmDC_HPD4_CONTROL, 0);
-> -                       break;
-> -               case AMDGPU_HPD_5:
-> -                       WREG32(mmDC_HPD5_CONTROL, 0);
-> -                       break;
-> -               case AMDGPU_HPD_6:
-> -                       WREG32(mmDC_HPD6_CONTROL, 0);
-> -                       break;
-> -               default:
-> -                       break;
-> -               }
-> +               if (amdgpu_connector->hpd.hpd >=3D adev->mode_info.num_hp=
-d)
-> +                       continue;
-> +
-> +               WREG32(mmDC_HPD1_CONTROL +
-> hpd_offsets[amdgpu_connector->hpd.hpd], 0);
-> +
->
-> 0 was the valued written here before this commit. The commit basically
-> replaces the switch case with a sum in this snippet.
->
-> thanks,
->         andr=C3=A9
+To make userspace life easier and GFXOFF more reliable, return the
+current state of GFXOFF to userspace when reading amdgpu_gfxoff with the
+same semantics of writing: 0 means not allowed, not 0 means allowed.
+
+Expose the current status of GFXOFF through a new file,
+amdgpu_gfxoff_status.
+
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+Changes from v1: none
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 49 ++++++++++++++++++++-
+ 1 file changed, 47 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index f3b3c688e4e7..e2eec985adb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1117,13 +1117,50 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+ 	}
+ 
+ 	while (size) {
+-		uint32_t value;
++		u32 value = adev->gfx.gfx_off_state;
++
++		r = put_user(value, (u32 *)buf);
++		if (r)
++			goto out;
++
++		result += 4;
++		buf += 4;
++		*pos += 4;
++		size -= 4;
++	}
++
++	r = result;
++out:
++	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
++	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++
++	return r;
++}
++
++static ssize_t amdgpu_debugfs_gfxoff_status_read(struct file *f, char __user *buf,
++						 size_t size, loff_t *pos)
++{
++	struct amdgpu_device *adev = file_inode(f)->i_private;
++	ssize_t result = 0;
++	int r;
++
++	if (size & 0x3 || *pos & 0x3)
++		return -EINVAL;
++
++	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
++	if (r < 0) {
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++		return r;
++	}
++
++	while (size) {
++		u32 value;
+ 
+ 		r = amdgpu_get_gfx_off_status(adev, &value);
+ 		if (r)
+ 			goto out;
+ 
+-		r = put_user(value, (uint32_t *)buf);
++		r = put_user(value, (u32 *)buf);
+ 		if (r)
+ 			goto out;
+ 
+@@ -1206,6 +1243,12 @@ static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
+ 	.llseek = default_llseek
+ };
+ 
++static const struct file_operations amdgpu_debugfs_gfxoff_status_fops = {
++	.owner = THIS_MODULE,
++	.read = amdgpu_debugfs_gfxoff_status_read,
++	.llseek = default_llseek
++};
++
+ static const struct file_operations *debugfs_regs[] = {
+ 	&amdgpu_debugfs_regs_fops,
+ 	&amdgpu_debugfs_regs2_fops,
+@@ -1217,6 +1260,7 @@ static const struct file_operations *debugfs_regs[] = {
+ 	&amdgpu_debugfs_wave_fops,
+ 	&amdgpu_debugfs_gpr_fops,
+ 	&amdgpu_debugfs_gfxoff_fops,
++	&amdgpu_debugfs_gfxoff_status_fops,
+ };
+ 
+ static const char *debugfs_regs_names[] = {
+@@ -1230,6 +1274,7 @@ static const char *debugfs_regs_names[] = {
+ 	"amdgpu_wave",
+ 	"amdgpu_gpr",
+ 	"amdgpu_gfxoff",
++	"amdgpu_gfxoff_status",
+ };
+ 
+ /**
+-- 
+2.37.0
+
