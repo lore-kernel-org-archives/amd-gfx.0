@@ -4,89 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46588C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 22:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1ACCC43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 22:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D8A10E6EA;
-	Thu, 14 Jul 2022 22:28:11 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F5589070
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 21:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657835348;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GEygyms7zlOuAkql49qmkvrHjnMin5vM9GXZnCkdn/I=;
- b=BPmWoHklyY+9zX6gSz8v4rvWxiY7uKy+f3zcmV4G6MwfIqeSK91XWXfr1XEVI1El8FzbnC
- kAzFaixXisn3NC3c8zG7iaS5xfe/hxFUeDQIIKMn7PQqkFyJ8TUQAv4z+/etwJ8Rhdqrxp
- GrIGDgezpC7vxQnIjoZpChum10G+I9w=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-49-_FN5nmGBMjey4AvNuyz0eQ-1; Thu, 14 Jul 2022 17:49:07 -0400
-X-MC-Unique: _FN5nmGBMjey4AvNuyz0eQ-1
-Received: by mail-qv1-f71.google.com with SMTP id
- p13-20020ad45f4d000000b0044399a9bb4cso171212qvg.15
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 14:49:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=GEygyms7zlOuAkql49qmkvrHjnMin5vM9GXZnCkdn/I=;
- b=4uIs/0bC75gfizD+CLjcOuqhW3hZwUV3xN2nUgiSLNyOaqx5DudN+BaRw65R1wqvim
- BorMIGQQC2QjxSNKU8tMjoZQHwbeWyU9+Z6jzfQCJT1G/XFD4WPkylWs4Q3jslfrjzgf
- RrEmW6pnB7BU9NEZXKWNwdUywVSOKimtbvkc3wNNH8TkKdWmD71oSXZxb6vrzikFIIx6
- /Hioy3jUpXN6FWC40cqPHwONMrwsjxpLONb5aLyorUr0BU2DfpWv1/4zeCEo77PLF6OR
- UoagCtvH+L2QxtRn0I8eQ+2IyDVXl+LikXj4UB5f3WNzRDH4U4lQo5xAger3xrfTEjt1
- biRg==
-X-Gm-Message-State: AJIora/R3CGsNydxuWYU6fCbmwVm5zOuptmlWrxcVivo1P63vAdm2SCE
- c2JNzKZpubPrufDSc/8jRBMiREoOM9TIlHO24UIqKzWDoff1ej+HHgmSA4VcrgZQA3EJ/oVsLk1
- nBM8H42QyBnD/YyE/A+5JSQw1TA==
-X-Received: by 2002:a05:622a:348:b0:31e:b0a2:d69f with SMTP id
- r8-20020a05622a034800b0031eb0a2d69fmr10047568qtw.159.1657835346715; 
- Thu, 14 Jul 2022 14:49:06 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1tTDXt6vz+uk1u0IuFP9ZmteyZ2SIZZt8HyHxQyDYrCvqdskYmGr0Tx/0jncWIDnUhd/woGWw==
-X-Received: by 2002:a05:622a:348:b0:31e:b0a2:d69f with SMTP id
- r8-20020a05622a034800b0031eb0a2d69fmr10047546qtw.159.1657835346460; 
- Thu, 14 Jul 2022 14:49:06 -0700 (PDT)
-Received: from [192.168.8.138] ([141.154.49.182])
- by smtp.gmail.com with ESMTPSA id
- p26-20020ac8461a000000b003051f450049sm2175597qtn.8.2022.07.14.14.49.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Jul 2022 14:49:05 -0700 (PDT)
-Message-ID: <995cf5846d7ecdc02a4b38ab106e93fc58a7c037.camel@redhat.com>
-Subject: Re: [PATCH v2 00/29] drm/kms: Stop registering multiple
- /sys/class/backlight devs for a single display
-From: Lyude Paul <lyude@redhat.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, 
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Xinhui
- <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Mika
- Westerberg <mika.westerberg@linux.intel.com>, Lukas Wunner
- <lukas@wunner.de>, Mark Gross <markgross@kernel.org>, Andy Shevchenko
- <andy@kernel.org>
-Date: Thu, 14 Jul 2022 17:49:04 -0400
-In-Reply-To: <20220712193910.439171-1-hdegoede@redhat.com>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D097510E900;
+	Thu, 14 Jul 2022 22:28:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8593E10E570
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 22:17:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DkiN/yQcBV6kdch+HzCvcYphQobFKx5/e/H3U2cawPwj0NUtaYUIiEbotLRhaLqrQfC5Li8S24ZT7h6KQ12qXJK008K976EMKN4SlRXgrocH7dvIgLN15Q7UfrXapl+uXbtR/pGhhpvxc0ee0WEI5cEtMJu/ZQt0UsxLHlPzAxsyHIwXBizprjAfJWMzaBfVfZKyy7Mag8+cXxW1ajDbUXAVRJyaGHAO/eqmHMnXHkGE+ILtmr5x+YQWagwE5IUxQZxc6+DOcoCB3mEa/NnJq60ztA86ek200D3/lPFrxQoI3ZxppsBiPSPwH0PhDYviK37IPLRL7qyALAldr2h5zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rGVII6lOFJJzUlCdIX8mJY6EcLRMSF5ImJiyUw1zaxY=;
+ b=NDj+hUNUR3qH3ITc7m9BntSy6d8yF7URam3GG7m4YspDVxqVqs48utkxb3NmkC3tsz+jXolq8f9KtQ6Ti9pGhhCK1OkQ99VbJwrAYVzU+9yC0anT272cxEucn0lS/yTh+JSf/W8+AzV7EBurmajIWuzkIDSITp7PbHiYCYK5HJdfDTraZSpTCmjn7IxZkuJwkzmgQzGfoHO/aNiP1cHBWOeswtGiAiINrVctuaMM3zBXM9Y9ElZridcaVzvxl96le+fWpDrGEWi9WUj/S8ywYlR07HeyaKT4WpoWE62043yGd3NGv8lKmjc0eItYk8ItLJNr8e+D/zPLNRfoOZn4Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rGVII6lOFJJzUlCdIX8mJY6EcLRMSF5ImJiyUw1zaxY=;
+ b=UdDwuX+p7a2pECFfInqoiJkBeQqB538oglCbs3ZYu3hkhWQb6rtMuAtbMkkZWEETVxAfDzTAK7t6kS6PjqWvJGlCqqjW7aRHiVygZMm62qRpNOMRe1VUCnII+9oId0bM6nLZEx5QXlJV3JyCb0xm8eau0h0hyluFzzChZvn1o7M=
+Received: from BN9PR03CA0727.namprd03.prod.outlook.com (2603:10b6:408:110::12)
+ by CY4PR12MB1416.namprd12.prod.outlook.com (2603:10b6:903:44::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Thu, 14 Jul
+ 2022 21:22:48 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:110:cafe::e3) by BN9PR03CA0727.outlook.office365.com
+ (2603:10b6:408:110::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20 via Frontend
+ Transport; Thu, 14 Jul 2022 21:22:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Thu, 14 Jul 2022 21:22:47 +0000
+Received: from ruijing-ubuntu-pc.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Thu, 14 Jul 2022 16:22:46 -0500
+From: Ruijing Dong <ruijing.dong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: align between libdrm and drm api
+Date: Thu, 14 Jul 2022 17:22:33 -0400
+Message-ID: <20220714212233.14571-1-ruijing.dong@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2203c7b7-f617-44a7-c79d-08da65df0014
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1416:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8xXdkhQz/mbSniah9GcR1KTIIxGIvLY6MhQ1Iw7vjKXezA9ix+F4lsFkXERUJHAq8ZBLc8b1nNWbUlaqh31dwmEzqTsrQGW6z/XirYgu7dGd1nEhGT3MJeNuBtYcOp39XabVVUjVhhB+IQyxjeADyAuI4m80xWWps0Lwen653Mwyne1B6t4aE1PDfNS3Jwbu91HuDPjoGna1BHw2y7qlPOqekJQfyiTlVugSCUgmGPDaJHWpoADTRgmDMVBd51/tOqs7B/dNagP3IeJ1/G1M3IHlS6yLiCAQqV8msK1F+K6jgzLxAquL9O9RKwq2Hyis4Nf9jz6G9sz2ZS8Db48lk2DynRQhwHWQJ8MEKX9n2x14gv092XPXzujXF4Zhvkyz9DYjmJiEcnA6vMQnPKsbT6iACKSH9I7ZCuxK4GAzuLOSwUHkSJOViIti2MxBYV2lvr3TUUCWwbpfWkJLQqJ6LMS6vkPn/PxavH8jKQ33Vui79sHVjJv5OxyjDFQImQKq5qf6DA9GeYgpAObHzrBhpyVueL6B+QTji9ZtUjuxueV4DKur9h5xJ1IJdfO2vqWWIEbyTgQw7KYVX2AaoT49P1Z2p6CYXkjhD8uM37HMezEWZVAOUTUiiBrbi/b3TMvjin0IPhSpY/xQhSblKbg0goPzD78EepX/7qAjfMICvV+IY6hiiQfjpB2z+HEnOeQ/Y2rHJU4rya8fORUnBP3n2WKDl8Xv1763rrvfXckIIsrJAysdUSQ4ixLrriZYsucqinTkjgycJ4gkoS5B80Syr2U+fMtqCc9A87u0vJNVoiaRPo0ICPNKaTHNfloVifTUzIOIy1ddDrtMGpVLG3RpjTCbt9JTazYqex9sQPb9B5w=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(136003)(396003)(376002)(346002)(46966006)(40470700004)(36840700001)(47076005)(426003)(16526019)(1076003)(40480700001)(336012)(2616005)(186003)(6916009)(316002)(54906003)(8676002)(70206006)(4326008)(70586007)(41300700001)(8936002)(82310400005)(4744005)(40460700003)(5660300002)(7696005)(44832011)(478600001)(86362001)(82740400003)(2906002)(356005)(36860700001)(81166007)(36756003)(6666004)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 21:22:47.9195 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2203c7b7-f617-44a7-c79d-08da65df0014
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1416
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,124 +97,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: alexander.deucher@amd.com, ruijing.dong@amd.com, leo.liu@amd.com,
+ Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I assume you're probably good on review for the non-nouveau stuff, but if you
-end up needing any help with that feel free to poke me!
+define HW_IP_VCN_UNIFIED the same as HW_IP_VCN_ENC
 
-On Tue, 2022-07-12 at 21:38 +0200, Hans de Goede wrote:
-> Hi All,
-> 
-> As mentioned in my RFC titled "drm/kms: control display brightness through
-> drm_connector properties":
-> https://lore.kernel.org/dri-devel/0d188965-d809-81b5-74ce-7d30c49fee2d@redhat.com/
-> 
-> The first step towards this is to deal with some existing technical debt
-> in backlight handling on x86/ACPI boards, specifically we need to stop
-> registering multiple /sys/class/backlight devs for a single display.
-> 
-> This series implements my RFC describing my plan for these cleanups:
-> https://lore.kernel.org/dri-devel/98519ba0-7f18-201a-ea34-652f50343158@redhat.com/
-> 
-> This new version addresses the few small remarks made on version 1 (mainly
-> changing patch 1/29) and more importantly this finishes the refactoring by
-> else addressing all the bits from the "Other issues" section of
-> the refactor RFC (resulting in patches 15-29 which are new in v2).
-> 
-> Please review and test! I hope to be able to make an immutable branch
-> based on 5.20-rc1 + this series available for merging into the various
-> touched subsystems once 5.20-rc2 is out.
-> 
-> Regards,
-> 
-> Hans
-> 
-> 
-> Hans de Goede (29):
->   ACPI: video: Add acpi_video_backlight_use_native() helper
->   drm/i915: Don't register backlight when another backlight should be
->     used
->   drm/amdgpu: Don't register backlight when another backlight should be
->     used
->   drm/radeon: Don't register backlight when another backlight should be
->     used
->   drm/nouveau: Don't register backlight when another backlight should be
->     used
->   ACPI: video: Drop backlight_device_get_by_type() call from
->     acpi_video_get_backlight_type()
->   ACPI: video: Remove acpi_video_bus from list before tearing it down
->   ACPI: video: Simplify acpi_video_unregister_backlight()
->   ACPI: video: Make backlight class device registration a separate step
->   ACPI: video: Remove code to unregister acpi_video backlight when a
->     native backlight registers
->   drm/i915: Call acpi_video_register_backlight() (v2)
->   drm/nouveau: Register ACPI video backlight when nv_backlight
->     registration fails
->   drm/amdgpu: Register ACPI video backlight when skipping amdgpu
->     backlight registration
->   drm/radeon: Register ACPI video backlight when skipping radeon
->     backlight registration
->   ACPI: video: Refactor acpi_video_get_backlight_type() a bit
->   ACPI: video: Add Nvidia WMI EC brightness control detection
->   ACPI: video: Add Apple GMUX brightness control detection
->   platform/x86: apple-gmux: Stop calling acpi/video.h functions
->   platform/x86: toshiba_acpi: Stop using
->     acpi_video_set_dmi_backlight_type()
->   platform/x86: acer-wmi: Move backlight DMI quirks to
->     acpi/video_detect.c
->   platform/x86: asus-wmi: Drop DMI chassis-type check from backlight
->     handling
->   platform/x86: asus-wmi: Move acpi_backlight=vendor quirks to ACPI
->     video_detect.c
->   platform/x86: asus-wmi: Move acpi_backlight=native quirks to ACPI
->     video_detect.c
->   platform/x86: samsung-laptop: Move acpi_backlight=[vendor|native]
->     quirks to ACPI video_detect.c
->   ACPI: video: Remove acpi_video_set_dmi_backlight_type()
->   ACPI: video: Drop "Samsung X360" acpi_backlight=native quirk
->   ACPI: video: Drop Clevo/TUXEDO NL5xRU and NL5xNU acpi_backlight=native
->     quirks
->   ACPI: video: Fix indentation of video_detect_dmi_table[] entries
->   drm/todo: Add entry about dealing with brightness control on devices
->     with > 1 panel
-> 
->  Documentation/gpu/todo.rst                    |  68 +++
->  drivers/acpi/Kconfig                          |   1 +
->  drivers/acpi/acpi_video.c                     |  59 ++-
->  drivers/acpi/video_detect.c                   | 415 +++++++++++-------
->  drivers/gpu/drm/Kconfig                       |  12 +
->  .../gpu/drm/amd/amdgpu/atombios_encoders.c    |  14 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   9 +
->  drivers/gpu/drm/gma500/Kconfig                |   2 +
->  drivers/gpu/drm/i915/Kconfig                  |   2 +
->  .../gpu/drm/i915/display/intel_backlight.c    |   7 +
->  drivers/gpu/drm/i915/display/intel_display.c  |   8 +
->  drivers/gpu/drm/i915/display/intel_panel.c    |   3 +
->  drivers/gpu/drm/i915/i915_drv.h               |   2 +
->  drivers/gpu/drm/nouveau/nouveau_backlight.c   |  14 +
->  drivers/gpu/drm/radeon/atombios_encoders.c    |   7 +
->  drivers/gpu/drm/radeon/radeon_encoders.c      |  11 +-
->  .../gpu/drm/radeon/radeon_legacy_encoders.c   |   7 +
->  drivers/platform/x86/acer-wmi.c               |  66 ---
->  drivers/platform/x86/apple-gmux.c             |   3 -
->  drivers/platform/x86/asus-nb-wmi.c            |  21 -
->  drivers/platform/x86/asus-wmi.c               |  13 -
->  drivers/platform/x86/asus-wmi.h               |   2 -
->  drivers/platform/x86/eeepc-wmi.c              |  25 +-
->  drivers/platform/x86/samsung-laptop.c         |  87 ----
->  drivers/platform/x86/toshiba_acpi.c           |  16 -
->  include/acpi/video.h                          |   9 +-
->  26 files changed, 468 insertions(+), 415 deletions(-)
-> 
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
+---
+ include/uapi/drm/amdgpu_drm.h | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 18d3246d636e..fe33db8441bc 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -560,6 +560,7 @@ struct drm_amdgpu_gem_va {
+ #define AMDGPU_HW_IP_UVD_ENC      5
+ #define AMDGPU_HW_IP_VCN_DEC      6
+ #define AMDGPU_HW_IP_VCN_ENC      7
++#define AMDGPU_HW_IP_VCN_UNIFIED  AMDGPU_HW_IP_VCN_ENC
+ #define AMDGPU_HW_IP_VCN_JPEG     8
+ #define AMDGPU_HW_IP_NUM          9
+ 
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+2.25.1
 
