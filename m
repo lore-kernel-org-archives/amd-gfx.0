@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 015D1C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6485FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E4F11A138;
-	Thu, 14 Jul 2022 16:32:35 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D7211A138;
- Thu, 14 Jul 2022 16:32:34 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id oy13so4414965ejb.1;
- Thu, 14 Jul 2022 09:32:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D9E11A1ED;
+	Thu, 14 Jul 2022 16:37:17 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C750011A1ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 16:37:16 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id sz17so4386700ejc.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 09:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=MQQLZDnraOk05TyTJ/NoEzLsjvMb4sYNTl3FKSVedI4=;
- b=U61SpsT0ra/rbLywhQDkYlbjqbRoXP1i4GeZrk7HnehHSPteHyg0kVgayq7z7h0uDE
- 5HyRR8iWr2x17yrbhq1QVw4iafAZSAvwAxHc92+eFL0LcHD6aa3cGrv8gk9g4v81nv0s
- tD9UOZP1hGyyF+HhL4SZID9zQM+ov8Rh2dtoaRMO7pcetZW7qQ4UZKXZflTGURUpokhW
- fm8fBVJ2chR0XPfx2lNK/C/zt9OKEbKCSfUp3RUt2bAmchb84H0YwmiE+Leum2HOsK5o
- /hqXTxNonqdUJgTAlIQ5KslZtQ7lkFvOhD1cUwK1BOFEjJvtXJcVR4BnfcilWJca0AJL
- TNLQ==
+ :cc; bh=xGhBTp6XRPi0txSgTZlfvtDUPgpddOrc4ZKc5VVIM6s=;
+ b=e0uLLMIncFBbTwGIjIl1+bMVa6Sd78yc9uhbKc4xWxYJSuOISxjql2JxSbSokgAher
+ T21hOslTSYyidI7/bIkAG0mp/9ZNhXTOdWXd7VPHfYtYqWJxa2uusobA0tEJBTCmMlrx
+ Gt1RIlt0gFq4FB7TrPXQ4AD0saxWVXBFAR4xmycyhVB7bI0PAqz9UQKuCP8IHETcesBv
+ OVbOIGe8vVn4I0AoOPaFlg0L2a+514xo87I2/eA1MwoLL8zm9t/8ryAqyPNhBp2UW/rX
+ PlRsV4/4H84qomx2nhKufYlK4sC1UXTFheNIwSM4cpzz1Wpd55TxHMfdfcHWzviQG8s1
+ Wi0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=MQQLZDnraOk05TyTJ/NoEzLsjvMb4sYNTl3FKSVedI4=;
- b=cDHsfU6o8PdDHFWmlcZmLtMk2q19BlPe89jJR6ZOqlzqUq7fZnfV0gjiv8JfZ2s4l0
- k/R5Ma1BATQf1pBCbvCppSNvrd/08BTa1KUD+gL1A8cq1ejHtHsPBfuDlnNoobO/aRYt
- kUIMDkIdu/tsGrEB1AuLi4GcGcOcYrSn+tzfCYxVrG1OE4q9OUr3hRmFoz98xzeS8Zgk
- rqSABYYkv1F8WvXR/gQmoRbJcH0MTwfPyMXHlJFJkAf8DFouHCzi00CXASeacdTApUkz
- vLp54O1vh/25ySjnpTJXOjjFVfi78bs2eBvPwjlxDBQsIdu/KYArGklC+D4kyAd19vaL
- mZfg==
-X-Gm-Message-State: AJIora82qP9ojo6GGOHlzpwPhZlKf2kTPwF8kdtOG6+DEQtD7ZRZLGSg
- bW7xGPhZVeoiG30ShmwDRGlp0YrbHX4X4d8HJIQ=
-X-Google-Smtp-Source: AGRyM1vlytD0v6dn3HOd2gXV76HLjUKojSLRL55b5g8HIpRWvreWcklT0NDIWnKYlVq3tnGI7bQPKr+Z6CDJMyg1aWU=
-X-Received: by 2002:a17:907:2702:b0:72b:307b:98e6 with SMTP id
- w2-20020a170907270200b0072b307b98e6mr9621924ejk.658.1657816353203; Thu, 14
- Jul 2022 09:32:33 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=xGhBTp6XRPi0txSgTZlfvtDUPgpddOrc4ZKc5VVIM6s=;
+ b=i2kQv2h0behjngV94Qxs571jwQXx6r3c89KvBPl9WE4VrnmJ5DDxPDdUHwlQz/UdjG
+ LbMnepqjfCPsd3IKVtoxTXPdBiS9OskIdwtzP+uamL7Q228XYfdckuS/k0SyysoQPQP4
+ qDcpaiU/4jNP9lDpsVlh631G/q7jLnf4AyH8qtB19b7e//pA1l1COR66/Uci2mosxHfC
+ PUJJ3f4h1Jn083GqUgn9yWRqA6vPqoE6kO0w7czsSqm/yRporCZswf5d21UXqnDp+HLC
+ t6Xxg34XDufBpSYESRbZlSpJJMK2n1qSNS89Y8OmL4RGxlvLXIpTtelskIUlkOqp1ps4
+ 4b3Q==
+X-Gm-Message-State: AJIora9jS6Fj4fsUmW8GhJR/N8GGXD0KQ9xkyDxABCM2BhpTSSiujDJY
+ vfsqAd9PnIsb0VFv5JDAWGOvO5K/t4ra0hxe0W+2tx+z
+X-Google-Smtp-Source: AGRyM1v967M0anZhzBLm5GeEj5JA0DjTdKE/5DdEQ+hfX+QapVqZpyYibDMwZrZ/ei0QNlQWKcXiTfDn2+2GhjdCExk=
+X-Received: by 2002:a17:906:4fc5:b0:72b:9943:6f10 with SMTP id
+ i5-20020a1709064fc500b0072b99436f10mr9816539ejw.722.1657816635413; Thu, 14
+ Jul 2022 09:37:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220714134950.9564-1-andrealmeid@igalia.com>
-In-Reply-To: <20220714134950.9564-1-andrealmeid@igalia.com>
+References: <Ys6tkVXQeJcgeZn0@kili>
+In-Reply-To: <Ys6tkVXQeJcgeZn0@kili>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Jul 2022 12:32:21 -0400
-Message-ID: <CADnq5_MzH14zJnt0vj1q+dL7D=eVNz-s5WW7xYDQyHD6QANXSQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Clarify asics naming in Kconfig options
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Thu, 14 Jul 2022 12:37:03 -0400
+Message-ID: <CADnq5_OHKTsoXN1Oic+dFovWyWBFkVXDixX7WtERnOTns+1WzQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove unnecessary NULL check in
+ commit_planes_for_stream()
+To: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,53 +62,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Joshua Aberback <joshua.aberback@amd.com>, Roy Chan <roy.chan@amd.com>,
+ Jun Lei <Jun.Lei@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Michael Strauss <michael.strauss@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Jimmy Kizito <Jimmy.Kizito@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Thu, Jul 14, 2022 at 9:50 AM Andr=C3=A9 Almeida <andrealmeid@igalia.com>=
- wrote:
+Alex
+
+On Wed, Jul 13, 2022 at 7:34 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
 >
-> Clarify which architecture those asics acronyms refers to.
+> Smatch complains that:
 >
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3369 commit_planes_for_stream()
+>     warn: variable dereferenced before check 'stream' (see line 3114)
+>
+> The 'stream' pointer cannot be NULL and the check can be removed.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/Kconfig | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amd=
-gpu/Kconfig
-> index 74a8105fd2c0..7777d55275de 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> @@ -4,7 +4,7 @@ config DRM_AMDGPU_SI
->         depends on DRM_AMDGPU
->         help
->           Choose this option if you want to enable experimental support
-> -         for SI asics.
-> +         for SI (Southern Islands) asics.
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index dc2c59995a19..76f9af2c5e19 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3366,7 +3366,7 @@ static void commit_planes_for_stream(struct dc *dc,
+>                                         top_pipe_to_program->stream_res.tg,
+>                                         CRTC_STATE_VACTIVE);
 >
->           SI is already supported in radeon. Experimental support for SI
->           in amdgpu will be disabled by default and is still provided by
-> @@ -16,7 +16,8 @@ config DRM_AMDGPU_CIK
->         bool "Enable amdgpu support for CIK parts"
->         depends on DRM_AMDGPU
->         help
-> -         Choose this option if you want to enable support for CIK asics.
-> +         Choose this option if you want to enable support for CIK (Sea
-> +         Islands) asics.
+> -                       if (stream && should_use_dmub_lock(stream->link)) {
+> +                       if (should_use_dmub_lock(stream->link)) {
+>                                 union dmub_hw_lock_flags hw_locks = { 0 };
+>                                 struct dmub_hw_lock_inst_flags inst_flags = { 0 };
 >
->           CIK is already supported in radeon. Support for CIK in amdgpu
->           will be disabled by default and is still provided by radeon.
 > --
-> 2.37.0
+> 2.35.1
 >
