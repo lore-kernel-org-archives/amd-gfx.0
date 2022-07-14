@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90691C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 10:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4448FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 10:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F5FA4504;
-	Thu, 14 Jul 2022 10:39:12 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC36A4586
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:39:10 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id r6so1836208edd.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 03:39:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB6BA458D;
+	Thu, 14 Jul 2022 10:39:14 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFFC6A458D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:39:12 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id b11so2608942eju.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 03:39:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=bEM4O6fL8TrEuec7hcIMgqyfBF1EtfhleKeiv3fWxLs=;
- b=mTADyEYPjscselwf/fFhjXvdsAF4XGHVw3OBtyR5lRGA61oKBJrDpm6eX4C/PRK8xL
- yw03rxBpAhmfKR4b47URkJpR23M6j3Qv06UIHbJqLKMPYhyfXJTM74MfHc6j7VLYwYLz
- 0FExtDx3EYOkUVFDf5QMvm8RZ1FBfIY+ItwjdRe8rFWHqysRCRxErHFzrnVxwlfIoNAT
- q0BnBV16AFu/oRhg6qjg4NKiv/EZsDtuIy5nAEGpH2LBTYByyMs1LwgSoFzG2RJOcAHi
- POP6OTGcjXLM4LMy/J+OuD4aBdIUhtDSYL5xc5j4Cba3veJPj4MRyKL2OeEC3Hyu20Z+
- bkAg==
+ bh=AdvFut0rh/uAXAtDtXUY+tZD5YgCj1fQLBVIkWg1+DY=;
+ b=BDaT4ZzEjPVkTVfRoLxQbf8cYGy3N4Sli6Ag49ri7hoGWkQpHAFwSmVmspOvVtj1zB
+ mBM14GMXgGZA7zAdl9rOZM3I4UKozTWamazF3sigPWPpOc5eJgzDKTRkULaMWgn0uMrc
+ up0EMhVIpFRzMmgCamwoNE+imzPC9Aeag9CltoU1bpXnLtr0taozpbNwCPzMfMrFTZtP
+ c7ygpesvTf3qat8fibWxRNvETfC+zM/CpTuzMYoERam65c/n36OY/kD2DfPScUKpEE2o
+ ipMO5U/AMv7nwuosdyi13J9XEEmHOcpCZHOcWTZikXTyuUMFDaSQ3qdD/Lh8a+/0ux9L
+ 1kKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=bEM4O6fL8TrEuec7hcIMgqyfBF1EtfhleKeiv3fWxLs=;
- b=BGB1ba2bR/v+Z3d4CBdGifpxINL/8b2raCGpoBoMC7Pmvij2t81WNfKYhhGQLdFXqh
- Vhz03p9GC8+kXG+r3xZX8NjcMRWsPPc0oD5mTkNsCnZ0NmTOvBbpxi3ZFnrjul+NSZUX
- iDSxaiYzgMDji3aNCwruZEvO3ZwnqX+APpQZAWjkP0Eh5t2hVGgmlt+583sec/t2BzUD
- v6JKmU7j9IpOBefGfpgIYbJ3l+zgN/RdIu25hrJZqW7gxf2fGbIz9MeMO9oQXNiUIv6Y
- PxZDS6D/mcTUgJrH6PnI1S6ydCnef4b1VD6djT872MUANKGOzimd9tHcVT6NzoDZzdXo
- dfUg==
-X-Gm-Message-State: AJIora+sQjlR/EqIUmkBFq/LZfv3OihcDc63e70RsZVzz728oSmoTB2Q
- BVHAddEvRwcBEiQtXW7EeTyHGhBo76M=
-X-Google-Smtp-Source: AGRyM1vAG2PKee6ZU94/DvX2WzxB7qKBWXlJEQBRf/zmndb9XrbsBqTsXwrCOybIvJpXjoEXJsfYBQ==
-X-Received: by 2002:a05:6402:13:b0:439:ffe8:bec9 with SMTP id
- d19-20020a056402001300b00439ffe8bec9mr11604293edu.297.1657795148998; 
- Thu, 14 Jul 2022 03:39:08 -0700 (PDT)
+ bh=AdvFut0rh/uAXAtDtXUY+tZD5YgCj1fQLBVIkWg1+DY=;
+ b=r9x9YAG3LJuCtzwg9j8DT14oh59ppdZGsx1J+M/HXs/DLkfZIm4D4DveqR6AGioKlf
+ bDkW7IMlvG0HEI6nDSfOWBI0c7VFefIbVCu67qYoDrtORgUv/BDv1GHUicVPS86204ya
+ BTKuYeDw3HW4/O063Tnagbh6q7weZV3PFnuq1TTlLWHUpqouMkBrMhK9ru7/u9fVC8lM
+ cd4SZpzq6uJQen6qKZR1fgTgDk0DDkl2aOHlWfC9VMXddg4l7ouRcWeIeRcdR2Alcl1e
+ 4CXxI1XHP0y3GABTFJz+dz6gJsYohRgnsC/JvIyhzxpNKy2Qb+hNPHGkbyIW6KnaUiRP
+ x2JQ==
+X-Gm-Message-State: AJIora97CH96N1TP08GUROf4Q//ezCjsAgHl/Jb7KKTIoVBYiuQ8huT1
+ zJlng1jLlKzQriTkv0qHj7NH+NWRJU0=
+X-Google-Smtp-Source: AGRyM1u/Z1YY7Wj3TXqlGD+3i1tqzwtCw8y6ba6lfg4x6dkhKgVNeO7JTWk01WqCu5qgvk9ogfm/8Q==
+X-Received: by 2002:a17:906:1ca:b0:715:73f3:b50f with SMTP id
+ 10-20020a17090601ca00b0071573f3b50fmr8196452ejj.374.1657795151474; 
+ Thu, 14 Jul 2022 03:39:11 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- z13-20020aa7d40d000000b0043adc6552d6sm799487edq.20.2022.07.14.03.39.08
+ z13-20020aa7d40d000000b0043adc6552d6sm799487edq.20.2022.07.14.03.39.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Jul 2022 03:39:08 -0700 (PDT)
+ Thu, 14 Jul 2022 03:39:11 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org, Marek.Olsak@amd.com,
  timur.kristof@gmail.com, andrey.grodzovsky@amd.com,
  Yogesh.Mohanmarimuthu@amd.com
-Subject: [PATCH 04/10] drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP
-Date: Thu, 14 Jul 2022 12:38:56 +0200
-Message-Id: <20220714103902.7084-5-christian.koenig@amd.com>
+Subject: [PATCH 06/10] drm/amdgpu: remove SRIOV and MCBP dependencies from the
+ CS
+Date: Thu, 14 Jul 2022 12:38:58 +0200
+Message-Id: <20220714103902.7084-7-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220714103902.7084-1-christian.koenig@amd.com>
 References: <20220714103902.7084-1-christian.koenig@amd.com>
@@ -77,41 +78,37 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use DMA_RESV_USAGE_BOOKKEEP for VM page table updates and KFD preemption fence.
+We should not have any different CS constrains based
+on the execution environment.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c      | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 581c7ae41102..c6de30cffa2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -314,7 +314,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
- 	 */
- 	replacement = dma_fence_get_stub();
- 	dma_resv_replace_fences(bo->tbo.base.resv, ef->base.context,
--				replacement, DMA_RESV_USAGE_READ);
-+				replacement, DMA_RESV_USAGE_BOOKKEEP);
- 	dma_fence_put(replacement);
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 1fd3cbca20a2..03ec099d64e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -112,7 +112,8 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(p->vm->last_unlocked, tmp);
- 		dma_fence_put(tmp);
- 	} else {
--		amdgpu_bo_fence(p->vm->root.bo, f, true);
-+		dma_resv_add_fence(p->vm->root.bo->tbo.base.resv, f,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index b9de631a66a3..dfb7b4f46bc3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -323,8 +323,7 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p,
+ 		return -EINVAL;
  
- 	if (fence && !p->immediate)
+ 	if (chunk_ib->ip_type == AMDGPU_HW_IP_GFX &&
+-	    chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT &&
+-	    (amdgpu_mcbp || amdgpu_sriov_vf(p->adev))) {
++	    chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
+ 		if (chunk_ib->flags & AMDGPU_IB_FLAG_CE)
+ 			(*ce_preempt)++;
+ 		else
+@@ -1084,7 +1083,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 	if (r)
+ 		return r;
+ 
+-	if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
++	if (fpriv->csa_va) {
+ 		bo_va = fpriv->csa_va;
+ 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+ 		if (r)
 -- 
 2.25.1
 
