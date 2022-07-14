@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6485FC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1959CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D9E11A1ED;
-	Thu, 14 Jul 2022 16:37:17 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C750011A1ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 16:37:16 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id sz17so4386700ejc.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 09:37:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC1111A2CF;
+	Thu, 14 Jul 2022 16:42:21 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E7B11A2C7;
+ Thu, 14 Jul 2022 16:42:19 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id sz17so4410519ejc.9;
+ Thu, 14 Jul 2022 09:42:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xGhBTp6XRPi0txSgTZlfvtDUPgpddOrc4ZKc5VVIM6s=;
- b=e0uLLMIncFBbTwGIjIl1+bMVa6Sd78yc9uhbKc4xWxYJSuOISxjql2JxSbSokgAher
- T21hOslTSYyidI7/bIkAG0mp/9ZNhXTOdWXd7VPHfYtYqWJxa2uusobA0tEJBTCmMlrx
- Gt1RIlt0gFq4FB7TrPXQ4AD0saxWVXBFAR4xmycyhVB7bI0PAqz9UQKuCP8IHETcesBv
- OVbOIGe8vVn4I0AoOPaFlg0L2a+514xo87I2/eA1MwoLL8zm9t/8ryAqyPNhBp2UW/rX
- PlRsV4/4H84qomx2nhKufYlK4sC1UXTFheNIwSM4cpzz1Wpd55TxHMfdfcHWzviQG8s1
- Wi0g==
+ :cc:content-transfer-encoding;
+ bh=x4AugeXSCRuPAtvlRBrwestY1qbTUTFaUEkz9JRRq9Q=;
+ b=kzbJYz8gFAAT860gmXSmwM3Hxhb8XIRl5DSfP03ZfLvzBOxeICJpJf243fCimnF4cJ
+ we5Mup3nU0svqCyfxv3qFuMm2HP1XUCEd6dE7PBkkBTy36pclRIY639hqXeVsCY2MDGo
+ DAY8Bl+TQHwS9GqM7Pr+C0O8mOQ1nO9EQqaFSOlX6edk1UyYm8JZiHQAnw8LhYLh87pa
+ wkMWq8KR0VfEjg7fdjc4Sy76XhA0NdTDffYNTc4f7vDTsQf+pXlmboUK2NF95vee7k0B
+ DddM3DZEz97zS1koh7o7Sj7HJzE1HjgoZjp7xBpCIupVdecxYyqVHkzCclPl9Zly2jCi
+ pudA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xGhBTp6XRPi0txSgTZlfvtDUPgpddOrc4ZKc5VVIM6s=;
- b=i2kQv2h0behjngV94Qxs571jwQXx6r3c89KvBPl9WE4VrnmJ5DDxPDdUHwlQz/UdjG
- LbMnepqjfCPsd3IKVtoxTXPdBiS9OskIdwtzP+uamL7Q228XYfdckuS/k0SyysoQPQP4
- qDcpaiU/4jNP9lDpsVlh631G/q7jLnf4AyH8qtB19b7e//pA1l1COR66/Uci2mosxHfC
- PUJJ3f4h1Jn083GqUgn9yWRqA6vPqoE6kO0w7czsSqm/yRporCZswf5d21UXqnDp+HLC
- t6Xxg34XDufBpSYESRbZlSpJJMK2n1qSNS89Y8OmL4RGxlvLXIpTtelskIUlkOqp1ps4
- 4b3Q==
-X-Gm-Message-State: AJIora9jS6Fj4fsUmW8GhJR/N8GGXD0KQ9xkyDxABCM2BhpTSSiujDJY
- vfsqAd9PnIsb0VFv5JDAWGOvO5K/t4ra0hxe0W+2tx+z
-X-Google-Smtp-Source: AGRyM1v967M0anZhzBLm5GeEj5JA0DjTdKE/5DdEQ+hfX+QapVqZpyYibDMwZrZ/ei0QNlQWKcXiTfDn2+2GhjdCExk=
-X-Received: by 2002:a17:906:4fc5:b0:72b:9943:6f10 with SMTP id
- i5-20020a1709064fc500b0072b99436f10mr9816539ejw.722.1657816635413; Thu, 14
- Jul 2022 09:37:15 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=x4AugeXSCRuPAtvlRBrwestY1qbTUTFaUEkz9JRRq9Q=;
+ b=uySLTrttDdpU7yjzOolAqCgSA1iYDnsKEK4zDWnq2GC8m9boVECd2M/bTEswb69MwA
+ cxWQ1qAT9YRBXG21AaazrSmK4octFBR2tSdm1YjETfjfqF29Cb8SP4jaxAeJCOjThR3N
+ VYnkkpEe3FKIHjMNw9/mRKZFw9gWf81cQmubNbxgt/5Hc5/oE4RUv/x57xd6gLJyf6GN
+ A0cKghh8MYRNSlm1aqCPaCHNN5+hwIB1bgtPFGSzW9Ruk4aaw7dhGB4wZwcwxSgpVwK+
+ lPImv3ffR1EqRs7/YgKSyE22dpFkPUNFJpxBVPXY4s+PUPr3uwybd77YGJmJ0IEBdUIr
+ p+Hw==
+X-Gm-Message-State: AJIora/U00Aqk8z45ZPraiz6YH6x8YqpulhX9XtSEwGoVEFVf2Sk9Zly
+ crtTC1nrJnD1AokeTqmCtlGidc+hSreHhEaYZaI=
+X-Google-Smtp-Source: AGRyM1s+Mc89SMQKoHos9ZPccAugp4wweirStTpTkRhtA/tM5Y1Q4TJwHHRF2Hxi0vVkLIGbBFRQSHAyD0iQi5FCERw=
+X-Received: by 2002:a17:907:2702:b0:72b:307b:98e6 with SMTP id
+ w2-20020a170907270200b0072b307b98e6mr9658843ejk.658.1657816938448; Thu, 14
+ Jul 2022 09:42:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <Ys6tkVXQeJcgeZn0@kili>
-In-Reply-To: <Ys6tkVXQeJcgeZn0@kili>
+References: <20220713151504.7521-1-andrealmeid@igalia.com>
+In-Reply-To: <20220713151504.7521-1-andrealmeid@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Jul 2022 12:37:03 -0400
-Message-ID: <CADnq5_OHKTsoXN1Oic+dFovWyWBFkVXDixX7WtERnOTns+1WzQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove unnecessary NULL check in
- commit_planes_for_stream()
-To: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Thu, 14 Jul 2022 12:42:07 -0400
+Message-ID: <CADnq5_NASpkVUpPa=CPad39AYvzueGx9vsNbUcSgqzQhh+0Lzg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/debugfs: Expose GFXOFF state to userspace
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +63,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Aberback <joshua.aberback@amd.com>, Roy Chan <roy.chan@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Alex Hung <alex.hung@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
+Cc: Tom St Denis <tom.stdenis@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, kernel-dev@igalia.com,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Michael Strauss <michael.strauss@amd.com>,
- Alvin Lee <Alvin.Lee2@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Jimmy Kizito <Jimmy.Kizito@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Jul 13, 2022 at 11:15 AM Andr=C3=A9 Almeida <andrealmeid@igalia.com=
+> wrote:
+>
+> GFXOFF has two different "state" values: one to define if the GPU is
+> allowed/disallowed to enter GFXOFF, usually called state; and another
+> one to define if currently GFXOFF is being used, usually called status.
+> Even when GFXOFF is allowed, GPU firmware can decide to not used it
+> accordingly to the GPU load.
+>
+> Userspace can allow/disallow GPUs to enter into GFXOFF via debugfs. The
+> kernel maintains a counter of requests for GFXOFF (gfx_off_req_count)
+> that should be decreased to allow GFXOFF and increased to disallow.
+>
+> The issue with this interface is that userspace can't be sure if GFXOFF
+> is currently allowed. Even by checking amdgpu_gfxoff file, one might get
+> an ambiguous 2, that means that GPU is currently out of GFXOFF, but that
+> can be either because it's currently disallowed or because it's allowed
+> but given the current GPU load it's enabled. Then, userspace needs to
+> rely on the fact that GFXOFF is enabled by default on boot and to track
+> this information.
+>
+> To make userspace life easier and GFXOFF more reliable, return the
+> current state of GFXOFF to userspace when reading amdgpu_gfxoff with the
+> same semantics of writing: 0 means not allowed, not 0 means allowed.
+>
+
+This looks good. Can you document this in the amdgpu kerneldoc?
 
 Alex
 
-On Wed, Jul 13, 2022 at 7:34 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> Expose the current status of GFXOFF through a new file,
+> amdgpu_gfxoff_status.
 >
-> Smatch complains that:
->
->     drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3369 commit_planes_for_stream()
->     warn: variable dereferenced before check 'stream' (see line 3114)
->
-> The 'stream' pointer cannot be NULL and the check can be removed.
->
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 49 ++++++++++++++++++++-
+>  1 file changed, 47 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index dc2c59995a19..76f9af2c5e19 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -3366,7 +3366,7 @@ static void commit_planes_for_stream(struct dc *dc,
->                                         top_pipe_to_program->stream_res.tg,
->                                         CRTC_STATE_VACTIVE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index f3b3c688e4e7..e2eec985adb3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1117,13 +1117,50 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct =
+file *f, char __user *buf,
+>         }
 >
-> -                       if (stream && should_use_dmub_lock(stream->link)) {
-> +                       if (should_use_dmub_lock(stream->link)) {
->                                 union dmub_hw_lock_flags hw_locks = { 0 };
->                                 struct dmub_hw_lock_inst_flags inst_flags = { 0 };
+>         while (size) {
+> -               uint32_t value;
+> +               u32 value =3D adev->gfx.gfx_off_state;
+> +
+> +               r =3D put_user(value, (u32 *)buf);
+> +               if (r)
+> +                       goto out;
+> +
+> +               result +=3D 4;
+> +               buf +=3D 4;
+> +               *pos +=3D 4;
+> +               size -=3D 4;
+> +       }
+> +
+> +       r =3D result;
+> +out:
+> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +
+> +       return r;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_gfxoff_status_read(struct file *f, char __=
+user *buf,
+> +                                                size_t size, loff_t *pos=
+)
+> +{
+> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
+> +       ssize_t result =3D 0;
+> +       int r;
+> +
+> +       if (size & 0x3 || *pos & 0x3)
+> +               return -EINVAL;
+> +
+> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> +       if (r < 0) {
+> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +               return r;
+> +       }
+> +
+> +       while (size) {
+> +               u32 value;
 >
+>                 r =3D amdgpu_get_gfx_off_status(adev, &value);
+>                 if (r)
+>                         goto out;
+>
+> -               r =3D put_user(value, (uint32_t *)buf);
+> +               r =3D put_user(value, (u32 *)buf);
+>                 if (r)
+>                         goto out;
+>
+> @@ -1206,6 +1243,12 @@ static const struct file_operations amdgpu_debugfs=
+_gfxoff_fops =3D {
+>         .llseek =3D default_llseek
+>  };
+>
+> +static const struct file_operations amdgpu_debugfs_gfxoff_status_fops =
+=3D {
+> +       .owner =3D THIS_MODULE,
+> +       .read =3D amdgpu_debugfs_gfxoff_status_read,
+> +       .llseek =3D default_llseek
+> +};
+> +
+>  static const struct file_operations *debugfs_regs[] =3D {
+>         &amdgpu_debugfs_regs_fops,
+>         &amdgpu_debugfs_regs2_fops,
+> @@ -1217,6 +1260,7 @@ static const struct file_operations *debugfs_regs[]=
+ =3D {
+>         &amdgpu_debugfs_wave_fops,
+>         &amdgpu_debugfs_gpr_fops,
+>         &amdgpu_debugfs_gfxoff_fops,
+> +       &amdgpu_debugfs_gfxoff_status_fops,
+>  };
+>
+>  static const char *debugfs_regs_names[] =3D {
+> @@ -1230,6 +1274,7 @@ static const char *debugfs_regs_names[] =3D {
+>         "amdgpu_wave",
+>         "amdgpu_gpr",
+>         "amdgpu_gfxoff",
+> +       "amdgpu_gfxoff_status",
+>  };
+>
+>  /**
 > --
-> 2.35.1
+> 2.37.0
 >
