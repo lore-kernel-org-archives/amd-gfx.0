@@ -4,69 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914C6CCA47B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC7AC43334
 	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 18:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10FD10FC00;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E764510FC70;
 	Thu, 14 Jul 2022 18:54:56 +0000 (UTC)
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E12310E2F1;
- Thu, 14 Jul 2022 17:20:31 +0000 (UTC)
-Received: by mail-pl1-x632.google.com with SMTP id k19so993310pll.5;
- Thu, 14 Jul 2022 10:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=aiimYL4bGGP4Obd7S4r8NfKIKgNtZtb7QnLuS/XBbGM=;
- b=h10XwfkbRdiTDooUNnPb6LXyfdxthOG17pIb6QhROE2ENj8ZLnLAVIneYyMxI/Vsni
- EP/wwbppFhJ3tF5S76D99EqVhGqY0A/bWfRhEd2XlwEgssDD55cOxQwUCYYq+uaroqsM
- Zz4rJUqQ2p+mg3pNTdwZfINQEbnlDUFEm6ForSg8tpjYjf6PUcmZL4GTmioTO47bkLMc
- xNySOAengQHQGoQMYaJsDCOIUS0p/jR3kF/VLXz1D4WOuX8E3Smr6LzUWho5z+EhC8Vs
- NrTSZ5jbpnRCaUXYO6jbRRaQ+iZo8ee4VFo2jsMXpsNEB9x8eqhAvHDkcNBulO1ad0nJ
- gt4g==
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D89F710ED07
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 17:43:50 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id q7so2983571lji.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aQIp8jUeV/XH0MZXLU4tEbIH8uIqKDByVIHXKyZP/oM=;
+ b=S1lYzRFvIdrkIuaNzMc/xioVsE7X9wBzpEVTIMQkFWfupjKZ6kNWPumY0Ye9sveMsW
+ oaCERdVafUZh+op/+O3O+X8ETitsx6/PVxlxnnZMBOKafMqdulWvuXUMSfos9vvYhfbm
+ 3m/NkR3E706fZqsm4Ku3yk2exNh6VL2kASg58=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
- :subject:content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=aiimYL4bGGP4Obd7S4r8NfKIKgNtZtb7QnLuS/XBbGM=;
- b=JENA8gDO3+lj4Dvq9aCIRErJjAsgRL8L7oS0uSVPy1rw62kQji3On0awEj4dJBoSc8
- cthumbQPzreKF3hWEakhu6ZdYljpUtO+fndJ40JsszGw+KU1Ptc6VKf4ooFO4hKjzTSU
- RyFbPjI19bmnFp1QHso8kElCrOyuwc+mZ02BO8DIcTBdA5KFHmV+BbW0YiS5sAE1O8KO
- pEGvEhNaYseUliBviFmtog3He1iuOv0+0Kyc0fQEcpjEvOVTM27ZqqO6w4uY5XJVE2VE
- G/o2FMFM7jfgD1eCFYRa9/7f1tJ19tdNppXStb01b2X9ZIX/Y8ReYEeUAiyNrz6JU4Bh
- hFEw==
-X-Gm-Message-State: AJIora/PZWPy/n7+eqUhYhFrfOHlZOtzKDhAsAUplseXg7Gud6nGwV1i
- x/Vl+gIiYS8TxEfC/CZtpDk=
-X-Google-Smtp-Source: AGRyM1vM+4sA+x5IyNACx13FZKKy3VVeFA6buU+LX+i72+lqssb7wr0KfDVhzrwUHfklHa2xFydZTA==
-X-Received: by 2002:a17:903:234c:b0:16c:3dba:37fa with SMTP id
- c12-20020a170903234c00b0016c3dba37famr9325277plh.89.1657819230890; 
- Thu, 14 Jul 2022 10:20:30 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- w125-20020a636283000000b00419b1671c54sm1672819pgb.4.2022.07.14.10.20.29
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aQIp8jUeV/XH0MZXLU4tEbIH8uIqKDByVIHXKyZP/oM=;
+ b=be/6G6r2HRzq/ZkvMW349XfO7bf6ia9oQRlxKq0E4ghGgAdT5tJqijxuvEvlP6hjfq
+ JFwb0dwruKDLejEWjrQyraYLUOoNtZT9uqvbZ5B/tL6vCO/ILuxa7Q4C6+t1eG7uHFtT
+ LOAyCMg+U+/H1I77ZsULe+0+uhPCMVNOL2fbZusCBT/h8wGAJ6/K8yGs+5g8NBQtaRt0
+ uCgDzJ6jbYrdSArYiu8pa6t91gUCoqCn9g5veYa7m1EL5iPfQpaWCOYK8vDSclmx5pXG
+ CWsaka/W7zTaOntLLsiD2vhN+EpaX1dh15AKyWz9BJ09HdmaKFgOrsqxYMygriwHKdPS
+ wG1A==
+X-Gm-Message-State: AJIora9hztSqxfKtz67238dRQSctA7XGqOVrfr1Vz7xjgWEYqBHZRvLh
+ R8Rutclv2qe5dbFWq9+ndjHe9lRiZmlrcVqxbpo=
+X-Google-Smtp-Source: AGRyM1v8WsKjoLl96o9HJ7Cnn6TlIwgI3snlCxgjBY37cmtRuQyUWSjB+t9FLtmLQvLOR972I1afNw==
+X-Received: by 2002:a2e:9601:0:b0:25d:8019:d662 with SMTP id
+ v1-20020a2e9601000000b0025d8019d662mr5187754ljh.487.1657820628733; 
+ Thu, 14 Jul 2022 10:43:48 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com.
+ [209.85.167.45]) by smtp.gmail.com with ESMTPSA id
+ a2-20020a19e302000000b00489e50cf274sm455792lfh.229.2022.07.14.10.43.48
+ for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jul 2022 10:20:29 -0700 (PDT)
-Message-ID: <00a2cb3c-e358-b8f1-5e65-bc1c0694f54d@roeck-us.net>
-Date: Thu, 14 Jul 2022 10:20:28 -0700
+ Thu, 14 Jul 2022 10:43:48 -0700 (PDT)
+Received: by mail-lf1-f45.google.com with SMTP id d12so3975068lfq.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:43:48 -0700 (PDT)
+X-Received: by 2002:a05:6000:180f:b0:21d:68f8:c4ac with SMTP id
+ m15-20020a056000180f00b0021d68f8c4acmr9553345wrh.193.1657820267054; Thu, 14
+ Jul 2022 10:37:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH] drm/amd/display: Enable building new display engine with
- KCOV enabled
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20220712224247.1950273-1-linux@roeck-us.net>
- <98b656f3-e506-90be-ebcc-898813051e74@amd.com>
- <CADnq5_OMayFN52hr7ZWFqMHPaV5_q7Hi+4LEbNMgfTPqo3__=w@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <CADnq5_OMayFN52hr7ZWFqMHPaV5_q7Hi+4LEbNMgfTPqo3__=w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
+ <20220713050724.GA2471738@roeck-us.net>
+ <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
+ <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
+ <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
+ <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
+ <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
+ <CAHk-=wgnmaTVigBc02tjqgcZaNJiYz8Xw77P+ERAXhcYjkwd=Q@mail.gmail.com>
+ <6d5ac61b-b490-4f9d-6521-a4b7477d6fd2@roeck-us.net>
+In-Reply-To: <6d5ac61b-b490-4f9d-6521-a4b7477d6fd2@roeck-us.net>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 14 Jul 2022 10:37:30 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wh0o1-6f1skMbSh07JR+BxxZenS4ZdWuFipR-0w_Hj6Nw@mail.gmail.com>
+Message-ID: <CAHk-=wh0o1-6f1skMbSh07JR+BxxZenS4ZdWuFipR-0w_Hj6Nw@mail.gmail.com>
+Subject: Re: Linux 5.19-rc6
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 14 Jul 2022 18:54:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,76 +80,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Balbir Singh <bsingharora@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
+ Paul Mackerras <paulus@ozlabs.org>, Alex Deucher <alexander.deucher@amd.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alex Deucher <alexdeucher@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/14/22 09:29, Alex Deucher wrote:
-> Applied.  Thanks!
-> 
-> On Wed, Jul 13, 2022 at 4:03 PM Harry Wentland <harry.wentland@amd.com> wrote:
->>
->> On 2022-07-12 18:42, Guenter Roeck wrote:
->>> The new display engine uses floating point math, which is not supported
->>> by KCOV. Commit 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov
->>> is enabled") tried to work around the problem by disabling
->>> CONFIG_DRM_AMD_DC_DCN if KCOV_INSTRUMENT_ALL and KCOV_ENABLE_COMPARISONS
->>> are enabled. The result is that KCOV can not be enabled on systems which
->>> require this display engine. A much simpler and less invasive solution is
->>> to disable KCOV selectively when compiling the display enagine while
+On Thu, Jul 14, 2022 at 10:24 AM Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> We can't use virt_to_phys() and phys_to_virt() because they are defined for
+> the underlying architecture. Would uml_to_phys() and uml_to_virt() be
+> acceptable ? If so, I'll submit a patch.
 
-"enagine". Outch.
+Sure, that would be good, and make th uml helpers clearly be in the
+uml namespace.
 
-Anyway, thanks for applying.
+Another more traditional approach is to use underscored versions, but
+exactly because that's the normal thing, things like that may then
+clash with the "native architecture" version, so for uml using an
+explicit uml namespace might be the better option.
 
-Guenter
-
->>> keeping it enabled for the rest of the kernel.
->>>
->>> Fixes: 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov is enabled")
->>> Cc: Arnd Bergmann <arnd@arndb.de>
->>> Cc: Leo Li <sunpeng.li@amd.com>
->>> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
->>
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>
->> Harry
->>
->>> ---
->>>   drivers/gpu/drm/amd/display/Kconfig     | 2 +-
->>>   drivers/gpu/drm/amd/display/dc/Makefile | 3 +++
->>>   2 files changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
->>> index b4029c0d5d8c..96cbc87f7b6b 100644
->>> --- a/drivers/gpu/drm/amd/display/Kconfig
->>> +++ b/drivers/gpu/drm/amd/display/Kconfig
->>> @@ -6,7 +6,7 @@ config DRM_AMD_DC
->>>        bool "AMD DC - Enable new display engine"
->>>        default y
->>>        select SND_HDA_COMPONENT if SND_HDA_CORE
->>> -     select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
->>> +     select DRM_AMD_DC_DCN if (X86 || PPC64)
->>>        help
->>>          Choose this option if you want to use the new display engine
->>>          support for AMDGPU. This adds required support for Vega and
->>> diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
->>> index b4eca0236435..b801973749d2 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/Makefile
->>> +++ b/drivers/gpu/drm/amd/display/dc/Makefile
->>> @@ -26,6 +26,9 @@
->>>   DC_LIBS = basics bios dml clk_mgr dce gpio irq link virtual
->>>
->>>   ifdef CONFIG_DRM_AMD_DC_DCN
->>> +
->>> +KCOV_INSTRUMENT := n
->>> +
->>>   DC_LIBS += dcn20
->>>   DC_LIBS += dsc
->>>   DC_LIBS += dcn10
->>
-
+               Linus
