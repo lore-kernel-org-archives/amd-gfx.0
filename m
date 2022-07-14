@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29504C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 19:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E6FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 19:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E537113777;
-	Thu, 14 Jul 2022 19:18:25 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7E1112EC9;
- Thu, 14 Jul 2022 19:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=wlMwv2W7GppNW4+mdMkQLIwBGJUS+zaRkk+Q+NpsBjg=; b=ktpMXb04Vk8Tfpp5vf51DoeBMR
- 5T/ukhWs+mpvQfTnfPSEGggnRMv7k/v9wOpIkVdJcb9CgyDrOnLF2WRSySYYr3fVfIRlpkjzW9w42
- S8xvj2gKSCt69MaSqeNfHbMgV0t/bp10LOZOpM7CWfOIKETnLapjKL1omBmK2E8T8AktAurILQ+zz
- heV45xARt+ucMwBLnJpaNxi3ynM6P5VlEBVU5ygkH46qJv0up6QM1lcKS36U7T3CyeF5Jni0TumC5
- ZE+WJ9Q7APe+qCI3JYl3Fho91/CmxeThqMdO44RnGwyTdZNfYm1F8toarDxhKIj+m100jfvCn+Oyg
- bL6Q2Iug==;
-Received: from [177.139.47.106] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oC4Ls-00Gla6-AH; Thu, 14 Jul 2022 21:18:20 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- 'Pan Xinhui' <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tom St Denis <tom.stdenis@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v2 2/2] Documentation/gpu: Add GFXOFF section
-Date: Thu, 14 Jul 2022 16:17:45 -0300
-Message-Id: <20220714191745.45512-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220714191745.45512-1-andrealmeid@igalia.com>
-References: <20220714191745.45512-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 747F9113847;
+	Thu, 14 Jul 2022 19:21:30 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 275CE1137CE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 19:20:16 +0000 (UTC)
+Received: from mx0.riseup.net (mx0-pn.riseup.net [10.0.1.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mx0.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4LkPTC5mtNzDqYn
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 19:20:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1657826415; bh=NljIR2hRvpDPIFRLP8my4DpZzBVxkv9GDIm5oTZgAew=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CNqKc63PQ00VAoRApqTYAovZZPi3azBs0PKH4J7Q4Gn6efnjn5kuGrNwKYP9crtOh
+ Oi1urh0C389ziTZt1HQeks7JI0tbiPIzi53YaixhN7OLpXOG6QhSn1rb8BtP+B/sXV
+ ocE3Qj2bN5/r7gCLikQHzdUKyLHja3QtRTn9wjE4=
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx0.riseup.net (Postfix) with ESMTPS id 4LkPTB63SSz9sdL;
+ Thu, 14 Jul 2022 19:20:14 +0000 (UTC)
+X-Riseup-User-ID: C4CE730A79D46741672310BD4CC985878FCF1513D0B1E1B7CCD23BEBD93E5F8E
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4LkPT50pCVz5wJh;
+ Thu, 14 Jul 2022 19:20:08 +0000 (UTC)
+Message-ID: <94dad704-d81a-7dc2-423d-1f728bcb5548@riseup.net>
+Date: Thu, 14 Jul 2022 16:20:06 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH 01/12] drm/amdgpu: Write masked value to control register
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?Q?Ma=c3=adra_Canal?=
+ <mairacanal@riseup.net>
+References: <20220714164507.561751-1-mairacanal@riseup.net>
+ <92eebfd3-4234-b3fa-87cc-c48b3deec33f@igalia.com>
+ <CADnq5_OGGMTDhacr+x5jO=DttEmTvsMWPLZGxcQ=_GJS4B-r+Q@mail.gmail.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@riseup.net>
+In-Reply-To: <CADnq5_OGGMTDhacr+x5jO=DttEmTvsMWPLZGxcQ=_GJS4B-r+Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 14 Jul 2022 19:21:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +62,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- kernel-dev@igalia.com
+Cc: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ Magali Lemes <magalilemes00@gmail.com>, David Airlie <airlied@linux.ie>,
+ Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Leo Li <sunpeng.li@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Isabella Basso <isabbasso@riseup.net>, Harry Wentland <harry.wentland@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a GFXOFF section at "GPU Power Controls" file, explaining what it is
-and how userspace can interact with it.
+Às 16:14 de 14/07/22, Alex Deucher escreveu:
+> On Thu, Jul 14, 2022 at 3:05 PM André Almeida <andrealmeid@igalia.com> wrote:
+>>
+>> Hi Maíra,
+>>
+>> Thank you for your patch,
+>>
+>> Às 13:44 de 14/07/22, Maíra Canal escreveu:
+>>> On the dce_v6_0 and dce_v8_0 hpd tear down callback, the tmp variable
+>>> should be written into the control register instead of 0.
+>>>
+>>
+>> Why? I do see that tmp was unused before your patch, but why should we
+>> write it into this register? Did you manage to test this somehow?
+> 
+> The patch is correct.  We should only be clearing the enable bit in
+> this case, not the entire register.  Clearing the other fields could
+> cause spurious hotplug events as it affects the short and long pulse
+> times for the HPD pin.
+> 
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-Changes from v1: file created
-
- Documentation/gpu/amdgpu/thermal.rst | 41 ++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amdgpu/thermal.rst
-index 8aeb0186c9ef..14c0fb874cf6 100644
---- a/Documentation/gpu/amdgpu/thermal.rst
-+++ b/Documentation/gpu/amdgpu/thermal.rst
-@@ -63,3 +63,44 @@ gpu_metrics
- 
- .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-    :doc: gpu_metrics
-+
-+GFXOFF
-+======
-+
-+GFXOFF is a feature found in some mobile GPUs that saves power consumption. The
-+card's firmware uses RLC (RunList Controller) to power off the gfx engine
-+dynamically when there is no workload on gfx pipe and puts gfx into "idle"
-+state. GFXOFF is on by default on supported GPUs.
-+
-+Userspace can interact with GFXOFF through a debugfs interface:
-+
-+``amdgpu_gfxoff``
-+-----------------
-+
-+Use it to enable/disable GFXOFF, and to check if it's current enabled/disabled::
-+
-+  $ xxd -l1 -p /sys/kernel/debug/dri/0/amdgpu_gfxoff
-+  01
-+
-+- Write 0 to disable it, and 1 to enable it.
-+- Read 0 means it's disabled, 1 it's enabled.
-+
-+If it's enabled, that means that the GPU is free to enter into GFXOFF mode as
-+needed. Disabled means that it will never enter GFXOFF mode.
-+
-+``amdgpu_gfxoff_status``
-+------------------------
-+
-+Read it to check current GFXOFF's status of a GPU::
-+
-+  $ xxd -l1 -p /sys/kernel/debug/dri/0/amdgpu_gfxoff_status
-+  02
-+
-+- 0: GPU is in GFXOFF state, the gfx engine is powered down.
-+- 1: Transition out of GFXOFF state
-+- 2: Not in GFXOFF state
-+- 3: Transition into GFXOFF state
-+
-+If GFXOFF is enabled, the value will be transitioning around [0, 3], always
-+getting into 0 when possible. When it's disabled, it's always at 2. Returns
-+``-EINVAL`` if it's not supported.
--- 
-2.37.0
-
+Got it, nice catch Maíra :) Next time, please add this kind of
+information in the commit message.
