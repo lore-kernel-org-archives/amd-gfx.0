@@ -4,64 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A81C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 13:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2669C43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 13:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E131F10FB3A;
-	Thu, 14 Jul 2022 13:23:22 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4544310ED86
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 13:23:20 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id g1so2370620edb.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 06:23:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75AF410FBC7;
+	Thu, 14 Jul 2022 13:23:53 +0000 (UTC)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF0D10F8BE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 13:20:39 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id b8so2833883pjo.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 06:20:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=C9zyBXNABTrUP8L52hdntmTqNlGKEhbykzlkjNJJbIY=;
- b=pEIs6HfeSpjOSZo+217ZW1f56bmDG7u10BxalFy8yhShCLquxvnfZVGjLTsj/oP7TJ
- kfHzzNcLjsoOc4ngaJ7yehkHg5CFMy7OnI1Pp3Y9fttvTEYR8NNH04J0fdEIWx+UH3BH
- Yz5mlnsLuqDkses92LKcaOkCvYVxN2XvnHTv8QrgNd/8RFwUgm9Ai4Y8QhZsx2F5orIF
- VlNlbWMhBi2XfrH15NzsJHsgl5dwWVBZjQfJzghEvOyOTLUzeYdJQJnY6h3/EEaJmpqK
- /5KBJjItbUFxvA9C3AYg29i4jLHANw5uUjKM3Pls2joav/F887/L+tzNzIsBcSH5zLf3
- NAmw==
+ h=sender:message-id:date:mime-version:user-agent:content-language:to
+ :cc:references:from:subject:in-reply-to:content-transfer-encoding;
+ bh=9PvTbOQp4n28wbO5UWAbp8/0QyOUUqCrsa8uBKcvtAQ=;
+ b=QWUAAzr26QjP2JPSKabdts+BUza12kAxvwW3taUje2cLVmjdSW0KgliwhAGd3ieYpS
+ Y5jBon5kWw8lbyVB2ooFMUAKSJCmjxe6kV3LdUlhs/GiwSyPbqPAT/wh1QvVVhrmZXgm
+ FC0PvfUGlFzx6fZGRsjBDR+iieAhYv4o2CDGONCKASbJiQRgSeEAEruhBDghGBJc2qSh
+ WNxaoddoeQXfm6N1sqvuSED1pbP8Rg7Ud7MSzhLdbhOgvk2jf+JUlNKiywzv1SLk5Cy6
+ 4jBebTRTUciM//hkLCMqmMbaGK4th6ajF3/+bXxG4Hbe3uydE0rjCBptazINQg/zBqBW
+ U2Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=C9zyBXNABTrUP8L52hdntmTqNlGKEhbykzlkjNJJbIY=;
- b=mS9U5SHVHBgmzHdNdZFa0l6GuUW8CAeLZ9qC6sQd65hCB1CN1NNy9iShFNZiHvrPqv
- lBHydy2xt8mJERPJniqdiik8QY9gKKYpHSkhY7CYZGy1DwtALlr5Gy16SrzcmIL+y3Y3
- wVi/demff2k/7sPsFiVP0PcR3KDNvKS/IPRX5xoKanPg6Rq7AnMuDzplnTj4xerq445L
- SLkNC+jzH6s62dlQkHdpFsDuysucVSdLaebzgExVqKwHN0T3z63HqC1TxeWIApYfafuc
- Rhu7aLl7PC4nXj+UpdX81r5KuMEdiqGIA+04rFDmMrdsfMQ7QQ0akCE1EKTCCJmhTyA3
- GY+w==
-X-Gm-Message-State: AJIora+EPYRDYadfFiw1iW3H1BYBu73ZjDnUu2NuOCwnqVd2MNa182n/
- wEBfYQx/ZUvvHSY6LQ/Xr9Db1JC4/Vs=
-X-Google-Smtp-Source: AGRyM1sAsFnsvTKy4YqHclfTBPcVcmG0ZJscLdJuYk6A1zqFexQBMto0TLLHSJlSQ2DknW2JVyi7iA==
-X-Received: by 2002:a05:6402:48c:b0:43a:8bc7:f440 with SMTP id
- k12-20020a056402048c00b0043a8bc7f440mr12186497edv.8.1657804998428; 
- Thu, 14 Jul 2022 06:23:18 -0700 (PDT)
-Received: from EliteBook.fritz.box (p57b0bd9f.dip0.t-ipconnect.de.
- [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
- ek9-20020a056402370900b0042de3d661d2sm1035399edb.1.2022.07.14.06.23.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Jul 2022 06:23:18 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Arunpravin.PaneerSelvam@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: re-apply "move internal vram_mgr function
- into the C file""
-Date: Thu, 14 Jul 2022 15:23:15 +0200
-Message-Id: <20220714132315.587217-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220714132315.587217-1-christian.koenig@amd.com>
-References: <20220714132315.587217-1-christian.koenig@amd.com>
+ h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+ :content-language:to:cc:references:from:subject:in-reply-to
+ :content-transfer-encoding;
+ bh=9PvTbOQp4n28wbO5UWAbp8/0QyOUUqCrsa8uBKcvtAQ=;
+ b=SUBs6JVp+eX4munO6SH1e5Z1IenVoSFQ72h7D+e+mrCQF4zF9dqfx7AybKYhNbyviO
+ SGToulNZeDtLlJCENJn8jJBKhHogbQBvNbjKFUqCzTERUKAPQai0fL6qXfr8RnWxUQI0
+ 5ib7zONoLEd8Q3BFSSOnYzDvbql6Nk/jmgy/WXF9+ApEpDfFev9qQAmAFMqjoSUy7e3F
+ PP5OKNGCKUIatMktrGvprKxMy0k+zRkY+GSTDcm0BgxqN3gqAp0asy24f4lgi4zzjtEH
+ SN6vIxv2OXt1HKgtPgy1K7d8HGrA7vd2IGNsUP+tcjWoF+sA42qM5RKyA1FVK+A8tfL+
+ lfFg==
+X-Gm-Message-State: AJIora8MN7J1xs8ZPl+sz2bI40KxEgE3kVxgeQYJhbAbxcBfm2NK1tEG
+ vEgpET7ZjwdTrZrqX+xL5SM=
+X-Google-Smtp-Source: AGRyM1vb0HH7038vVBg8ZPsgGUNBtQC2ygxC+R2UazdBAz/qMT1uekVP93JtAXiidBih+3sNVzCqIg==
+X-Received: by 2002:a17:90a:e611:b0:1ef:92b6:d31 with SMTP id
+ j17-20020a17090ae61100b001ef92b60d31mr16029353pjy.166.1657804839084; 
+ Thu, 14 Jul 2022 06:20:39 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ l6-20020a622506000000b0052b2bf4cc42sm514506pfl.111.2022.07.14.06.20.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Jul 2022 06:20:37 -0700 (PDT)
+Message-ID: <2cac3590-3e9c-bdf3-4211-8559e581d44d@roeck-us.net>
+Date: Thu, 14 Jul 2022 06:20:35 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
+ <20220713050724.GA2471738@roeck-us.net>
+ <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
+ <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
+ <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
+ <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
+ <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: Linux 5.19-rc6
+In-Reply-To: <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 14 Jul 2022 13:23:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,99 +81,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Balbir Singh <bsingharora@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Paul Mackerras <paulus@ozlabs.org>, Alex Deucher <alexander.deucher@amd.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Alex Deucher <alexdeucher@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This re-applys commit 708d19d9f362766147cab79eccae60912c6d3068.
+On 7/14/22 00:23, Geert Uytterhoeven wrote:
+> Hi Linus,
+> 
+> On Wed, Jul 13, 2022 at 11:51 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+>> On Wed, Jul 13, 2022 at 2:01 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>> If you want to apply Guenter's patch original patch:
+>>> https://patchwork.freedesktop.org/patch/490184/
+>>> That's fine with me.
+>>
+>> Honestly, by this time I feel that it's too little, too late.
+> 
+> [...]
+> 
+>> So considering that the ppc people ignored this whole issue since the
+>> merge window, I think it's entirely unreasonable to then apply a
+>> ppc-specific patch for this at this time, when people literally asked
+>> "why is this needed", and there was no reply from the powerpc side.
+> 
+> Oh, it's not just this one. The lists of build regressions between v5.18
+> and v5.19-rc1 [1] resp. v5.19-rc6 [2] look surprisingly similar :-(
+> 
+> [1] https://lore.kernel.org/all/20220606082201.2792145-1-geert@linux-m68k.org
+> [2] https://lore.kernel.org/all/20220711064425.3084093-1-geert@linux-m68k.org
+> 
 
-The original problem this was reverted for was found and the correct fix
-will be merged to drm-misc-next-fixes.
+How do you build your images ? I don't see many of the problems you report,
+even if I build the files with W=1. It is odd, since reports such as
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 29 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 27 ------------------
- 2 files changed, 29 insertions(+), 27 deletions(-)
+drivers/mfd/asic3.c:941:23: error: unused variable 'asic'
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 51d9d3a4456c..7a5e8a7b4a1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -50,6 +50,35 @@ to_amdgpu_device(struct amdgpu_vram_mgr *mgr)
- 	return container_of(mgr, struct amdgpu_device, mman.vram_mgr);
- }
- 
-+static inline struct drm_buddy_block *
-+amdgpu_vram_mgr_first_block(struct list_head *list)
-+{
-+	return list_first_entry_or_null(list, struct drm_buddy_block, link);
-+}
-+
-+static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct list_head *head)
-+{
-+	struct drm_buddy_block *block;
-+	u64 start, size;
-+
-+	block = amdgpu_vram_mgr_first_block(head);
-+	if (!block)
-+		return false;
-+
-+	while (head != block->link.next) {
-+		start = amdgpu_vram_mgr_block_start(block);
-+		size = amdgpu_vram_mgr_block_size(block);
-+
-+		block = list_entry(block->link.next, struct drm_buddy_block, link);
-+		if (start + size != amdgpu_vram_mgr_block_start(block))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+
-+
- /**
-  * DOC: mem_info_vram_total
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-index 9a2db87186c7..4b267bf1c5db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-@@ -53,33 +53,6 @@ static inline u64 amdgpu_vram_mgr_block_size(struct drm_buddy_block *block)
- 	return PAGE_SIZE << drm_buddy_block_order(block);
- }
- 
--static inline struct drm_buddy_block *
--amdgpu_vram_mgr_first_block(struct list_head *list)
--{
--	return list_first_entry_or_null(list, struct drm_buddy_block, link);
--}
--
--static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct list_head *head)
--{
--	struct drm_buddy_block *block;
--	u64 start, size;
--
--	block = amdgpu_vram_mgr_first_block(head);
--	if (!block)
--		return false;
--
--	while (head != block->link.next) {
--		start = amdgpu_vram_mgr_block_start(block);
--		size = amdgpu_vram_mgr_block_size(block);
--
--		block = list_entry(block->link.next, struct drm_buddy_block, link);
--		if (start + size != amdgpu_vram_mgr_block_start(block))
--			return false;
--	}
--
--	return true;
--}
--
- static inline struct amdgpu_vram_mgr_resource *
- to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
- {
--- 
-2.25.1
+are real, but I just don't see that. If I build that file, I see that
+it builds with -Wno-unused-but-set-variable, due to
 
+Makefile:KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
+
+The override in scripts/Makefile.extrawarn doesn't seem to work even though
+it adds "-Wunused-but-set-variable" to the compile flags. And if I remove
+"-Wno-unused-but-set-variable" from Makefile I still don't get the error/warning.
+Confused. I must be missing something, but what ?
+
+Thanks,
+Guenter
