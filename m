@@ -4,90 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EAEDC43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20DDDC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 16:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB08711373A;
-	Thu, 14 Jul 2022 16:15:30 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF0C711373A;
- Thu, 14 Jul 2022 16:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF8C113FE1;
+	Thu, 14 Jul 2022 16:26:56 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2045.outbound.protection.outlook.com [40.107.96.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B57F113FF7;
+ Thu, 14 Jul 2022 16:26:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CovdJ7uZ7Dj5pOF9u/Y09OVGpxV0+YkxkI6Sl0jmXS4Rum+7OJjMVaCWnV0fO+PcUsrLGyMGIomjpT+8LIdP3AkGbsrDJxl3xQIk9Tj6XgaR/RFjL4upW2/jaAWBlRtoAEQvAEpuDzNAwJ5UXI8MnS1jMkzQa8Tq78d/MUuoI6K66ppkDS4cJapTBKZURaVJxQcBpiZUuZACK6/tA3oT/FxRocOWjOyrgjbxBLxzDCztXUpWxQs0KLl5IyE+PrtxActGR5jy03/vFar405qJy6DXysdXOFbzrZVeNFupT4wq2+O+vCQ9sGcCWzFU35FVFTgXiRY8UgeDun1wWbYGzw==
+ b=crLBLNYQy21aTPlOx76CFzmEHbH6WgsexMSuV6/1UZVdh0cY2RVbuE9quew/MLVFJpcakGSDHl8o+5Xl7O9hJs5/BmD8dffrXa1s+8P8/VhSgKg8CXfzxfGne3U2HLdu1+ulfk69vEGsssddDMb2Sz8D2jK2Lus9A0npUjZzv9vK1PEXVA1696NOaSSeq1VqM8NLcq9nIdzW4j80dUj1ZEz/h33ybi5Ulnyxp71oB5X5Swkh0pHNU4HIFYAn+7PL9++qtpBJku7K96wEqleA7yUGx8JuArto/xtizBHk7TUTQndWN4a4LnsKvLL+mr3YemTkXemKmstTaX7W/f3Mvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mBW4h10J7XAhyaHtTT9wydlVynoCzg0kQPS8qrn77OY=;
- b=E9AFdvpIHiCakbRHeXs/zFChKoyEZsb/N5TCgG01MkcvpOekWPZcS/rizToW4N3HxnFw36FmHaJVGwsUK/B2Hdodix1S/ZEfjL9Pe7h9BCIw/3wu2IeNPrCHY6aaIb17IUhUzhRkLizBKuKgcR9bQiNIe4IPkfYGv89l36Buj04h90TOTjrHvTtOT9wZgF3YxHTmtjhNcneCV8LeoFT+/bMHVmcjlInKNBQy8S6nTH0WZdZcqu2Qv113pF03Ss6epoIJnFWxI7Djb6raylSPWAalmxIOmHgfSzvDF5dQHobSvud5/lFlnW8wBEYfGpxJp80mv7sYU1Zrt17tjanxAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=1gkwYHucvb9/dyFFQOAbXLUpImO/iDZchLyBM7tNKJw=;
+ b=kpLhmGL8KI1GQ2eCkud4cbFmSovts0cyvG+nczAKc1N2Ebd/G0RRe1Q0VGQDNUQKbYe8YKk4iZQd2p3Wetn39hfzn+pCKM4vQJz8UYR1wHhNtLovpuYoDDlPullwOzGa+/Gp57dVxwWmh7BDP+2ZwYQSZ7PqitsMRnCLSNx2H/ZQ7xeg17Ya7lGufSGS/RomzSMCDYlH6PoqcGsRG+zo9TA2HsTK4Sww5kZG5OmgBSerLYVW7VggfcW3GL//9MGOHCqCx0o/Y76KcmsXBhN9POAKuBUyog33fPFCpAKRg40yiKQz7YU92eY+7Tq/ccFqi7t+FtHqjN8agzGf0BM1Yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mBW4h10J7XAhyaHtTT9wydlVynoCzg0kQPS8qrn77OY=;
- b=UR7I4fciUr13WZTPdogePnJvmE21pXwuR5A6D4Duh76WYBGky6dt378HKtn7C5n7eLMZbWB/93Atm3fgCr8SPaXrPD1N8XjWKK7VJuI6tO+VAEoRUx6PlpOgKaWiZrcQ4RzTT+UhfyKLwV7VbABzqcZSKmrNuYG2qSmdeRO5SR8=
-Received: from BN9PR03CA0152.namprd03.prod.outlook.com (2603:10b6:408:f4::7)
- by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Thu, 14 Jul
- 2022 16:15:26 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f4:cafe::a0) by BN9PR03CA0152.outlook.office365.com
- (2603:10b6:408:f4::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.22 via Frontend
- Transport; Thu, 14 Jul 2022 16:15:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Thu, 14 Jul 2022 16:15:26 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 14 Jul
- 2022 11:15:25 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <jgg@nvidia.com>
-Subject: [PATCH] mm: move page zone helpers from mm.h to mmzone.h
-Date: Thu, 14 Jul 2022 11:15:15 -0500
-Message-ID: <20220714161515.17107-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <715fc1ae-7bd3-5b96-175c-e1cc74920739@amd.com>
-References: <715fc1ae-7bd3-5b96-175c-e1cc74920739@amd.com>
-MIME-Version: 1.0
+ bh=1gkwYHucvb9/dyFFQOAbXLUpImO/iDZchLyBM7tNKJw=;
+ b=z6KUHhMqFLgy0+DULtIcoaqAKup4G+xR+aGMciD8T3aRadjKc6ql6txZ3+dC0sQrYq/8lvW1mQRGmoe263yv10/CqJczAOB4NWg6+hAzKRuVBLUa4Y9abnGkHWVgJpjTJQiFJ+hK3AFq9qCBGxZPsukb3ZAsVrBSOCjckZSt510=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN2PR12MB3725.namprd12.prod.outlook.com (2603:10b6:208:162::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Thu, 14 Jul
+ 2022 16:26:51 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5438.013; Thu, 14 Jul 2022
+ 16:26:51 +0000
+Message-ID: <49b28cb0-ecc5-836e-aa57-1ea133f8d2a8@amd.com>
+Date: Thu, 14 Jul 2022 18:26:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 01/10] drm/sched: move calling drm_sched_entity_select_rq
+Content-Language: en-US
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Marek.Olsak@amd.com, timur.kristof@gmail.com,
+ Yogesh.Mohanmarimuthu@amd.com
+References: <20220714103902.7084-1-christian.koenig@amd.com>
+ <20220714103902.7084-2-christian.koenig@amd.com>
+ <9bfa0ac5-b3da-8682-25d7-b818faf9a1ec@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <9bfa0ac5-b3da-8682-25d7-b818faf9a1ec@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: AM6PR08CA0005.eurprd08.prod.outlook.com
+ (2603:10a6:20b:b2::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1fff5c00-939f-40c7-d969-08da65b40ffb
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6258:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9e8653e-bb79-455a-4c64-08da65b5a87a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3725:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LOt8OaMcxbvk/8bRPeWzsR5xD09xpNKObGHaO4UDM71RlO/RCFQlISmp+C6iv+U2Yj97I/fluhNQIkkKqWO75ecziVxqW87R8j9MpCfmcuJA/aucy7AEvKMGUMCI0KnQvyJE/EKQRa1CW62fgESnZtsdZdTiynJfZMNNgAqjwB0O8ppvu3a4YhWZnzCt020TifLfYHxBZ2O6F2EkT4+9zVbmhLVEM8FBohQYno6NcLhqCHVrR0j3l7iAwjBMm1pUlHfNrolWQ0NOfJkpyaTJB6cBr7WI4PLo6w3S0m6zR9bN54Iwj09iGFjvPQvMl6tzggvmVg4aqbxr2sT1DEtYtQGYCAGysYOYRmfguhQ9wHEwiWj4XJ+56uHXDM1vCvIBaIRbwuF3C1C5q6J5BIVnyNrDjLvrXZLEabPpbkvFCK5Nr6ieNErkzPzN8vZmKzwHtwRWNrC7saa4FK0h4+l4qsMze59lgpcqJodsF6qV/EGwTAHCvtV6SlT1LaBLmDZpgHU15kkIgNWv/BSigO8NLgHi2x//ZHjgTksT3LhBpj+sBViqanaT3U5LVjm+xIzRPxrDH0KdcxmctFQ52GNc1tSmW8HHsJudCoSGqCDpvLzfPDBfyGoktbwXXtIQRmNeyKAuiNyPagC9fJ5C0HfnRTlOFWKwadHDZjWGsr3gYY+w6UrSR7wMskwzh/BWI/e2/jRUoWKUJ/UKtEqjaRHtDpmBOpZl0WXarcVbOnQmyu24EIsksflPo+Y/PF53i91M+NhOv6r6mn3MKlrNnt+83Bv56r+BfWD5NMLw0uoUMjHVzS9cFNV3Xg8IpvawkpXQRPss3U4MngGrrbwn7nGgM3Si8SMhd1sWPz+Olwg29uQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(136003)(39860400002)(376002)(346002)(40470700004)(46966006)(36840700001)(336012)(44832011)(5660300002)(26005)(81166007)(8936002)(7696005)(7416002)(16526019)(36860700001)(186003)(40460700003)(40480700001)(36756003)(8676002)(316002)(86362001)(1076003)(4326008)(70586007)(70206006)(426003)(82310400005)(54906003)(478600001)(2616005)(82740400003)(83380400001)(356005)(2906002)(47076005)(41300700001)(6916009)(6666004)(36900700001);
+X-Microsoft-Antispam-Message-Info: Sob+PhjkhZOrtfXUy3c+zGKY1SyZaZ6ozEuimDrACjvQsB4+UPJaoLTwMcTJ8ME5SI+sL3V7bld2ytx00Fz8yzPMpWPiqmTZ8ncWvgb4XhmOl+s3df9bEHCycUUM5y7ZkwCnuJc9gUVREL4JyOVmL9HficgALQFPgQYyAD6CvDDWu93xrxj+NMFXNiG16+E8Gg2g/WQrz6ZWTVwHor+In8CXvTt9M8hrwOnJEPqPu8xh+Ljvofa76PDskR98c6YyLArzMG+48r6X+lTP2of56Ntf9aPi28EdAf20JZVIjtHvPK53fBiF69C0w02daPpAzNbTyhhZ4Wok7lh0gTZqke9Mr7FtdrY0KrNhoeun4U9MUmsb8GR9Xzx8ivCZWtMyqYv37IFu+0P4CJ6R4kRR0qhKECbzkAwxEji0cGUxxwPa1ZQ4CgCUn+ajyLILskXEEY+WOQs5lRIsw9zHPQxVfzaV954Qqj73iJ9DYQLkEPd5YwZFBvAiaoPXvC9DEVBucGPgFhEn/J8vsqT051XhMeCdpMnNn/cZuhRM0uqlyy/qLi/LlKQGH0J9+eEcM5cti5eX5UkfHSKqiFqFCBFTVUAzNwJ8+j8ltlFqgOuVmIPkbhwfgrAOGLxkfUk1t5d+UgrE+ZhLLeD6RKfEjp3/QmoFZxlXzEc/F37oTxHlf3Xn1kHRssII/jiZZDEI6HcmNIiZa4WGVRNZv2czFB79b2yp6hfxtm4GWHX7AWrJpndB7PC5ZEsTXzWGVfC0RZuDXtUcm/iWshpOrc7/CZlgWB2jkCaBOjQRyKF1eFtX1kp7PKCQYAIpOJ0CxhJ8GEOegLZATceBchwzpqBF8NuIlsfCwiEZmSdCa0YqGe82fko=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(39860400002)(396003)(136003)(366004)(346002)(6512007)(6666004)(53546011)(41300700001)(6486002)(186003)(478600001)(6506007)(36756003)(31686004)(110136005)(38100700002)(6636002)(316002)(66476007)(5660300002)(8936002)(8676002)(2616005)(4326008)(2906002)(83380400001)(66556008)(66946007)(31696002)(86362001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0ZGT3k4RjlocE9wWTlaL1htQVYyWTBobHkrYWp6Z0xwRjRPWUVZL1BLNGcr?=
+ =?utf-8?B?STNuM0JWSWdaTE1mb24vejUrY2RPR3U3cFdRWThmczAwV284b292M3UwaVlx?=
+ =?utf-8?B?NUd3V3BMd2FYNndYOFlybTk4RExHbGFIZFZ5QzlkaGJBbkxWRGZXRmZaVkc4?=
+ =?utf-8?B?ZytJNE1uWGNxOXFDUzRhRWR5YURHQmRGZmFSMW5RallqOVJXMVg1Ni9pU3ht?=
+ =?utf-8?B?bUlPdzNqUUR6STBXb1ppWHEraUQvWnphVmk0cnNNZm15bit6TnBjYmxueS9Y?=
+ =?utf-8?B?S0oyS0UyOGkwVS84dTlONSsrNkpOcWpKSDBEMjUzOUlpcWZES2Y3SjBiTWtn?=
+ =?utf-8?B?Q2psV2ZYMnZMNS9aL3hobzRyWVM0dm5Cb2laTTM3QThSaElkYnhIZ3d4a2tT?=
+ =?utf-8?B?bzM0SHNFaUtSWi8zNDhJT3QxRVFTTzQzUzdtS3B3WSsvOUhWMVJReWg1RnJp?=
+ =?utf-8?B?cWJnQVQ5T1NlUHhCaUVFWktFRW5TdGVXMnpwcy9tanpZZ0FJR2taeDk0ejU1?=
+ =?utf-8?B?YU4yT3l0SytYMVBIUytZa2UrMmZVUFhnQkJiWGtyNit2aXI2L2hLWU5LWk9m?=
+ =?utf-8?B?OURncVUwcWFreWZtSGRVWm5IbUNpa09qVDRMVkkwY05QbksydkJmM3ZiaWp4?=
+ =?utf-8?B?eGU5UFlvZExFT25pckx2SzhUMHhPVUh6STIydTNGcHhpbW9WcU9XL3hEd2tQ?=
+ =?utf-8?B?djFyRmU0K2pNRDJwZC9Cb29kS21hYnNSTzgrVytsa2FudjlpSUpqMmZ2VWJQ?=
+ =?utf-8?B?TEdKemcxb21Pc3ZpYWtMQU9qZjhvU21KajdyMk1BbnFpL0JsNGg1Zmtpc3hL?=
+ =?utf-8?B?enYyUDBJcW9IeEppNDJMVVJzWEsvUnp2L2tlZ2hHcGI4NEE3U2VuL0E1ckVD?=
+ =?utf-8?B?M0kwa2NyUHFIdVplVHlYQlgrRzdWTjN3cFU5NnZoMnZZditJWTJQMWpvOHZI?=
+ =?utf-8?B?bWFyNjBvUEdTVlZ6OGRCelpWdGVsNWpremNIcThuZFM1Q0FtcnlMc0pndDNr?=
+ =?utf-8?B?d09YRHB5QkRXK3RnVExrWjVNeU5zbVZBZWNsQ25EdElRVlMzSGFoRWhhQ2p4?=
+ =?utf-8?B?QStIWFExS2tENHhiRDNYN3pXZ1JxS1NNVUdyTHpmZSt4bXpmd1VOOUE1VWJn?=
+ =?utf-8?B?T3paa09ZNC9penZnUHd3czJNK2UvZThTN0l3MTZkYmJGUXdmTVUwam5oM0E3?=
+ =?utf-8?B?bkV1c2dPcXV0SlRuY1Rrd3pjeDJmQVJadDhBcFBadUxXSEFmbHZGSStYUGU2?=
+ =?utf-8?B?TWduOUgwTHhZYklnc296Y0pnT29OUGFQT3lYUW5GcW16QzVCeC9vV3VMbW4v?=
+ =?utf-8?B?NkJyeTc2eGZmTkcyWENWSVZXeklHM3pZL2JuZjBTaDYzM0x3NDNpSFpxdHZG?=
+ =?utf-8?B?UWZFamtGUndpa2t6VlZScVZKSENxeEpSWHF2clhKc3UvMUQ3bEVVK3BrWmd0?=
+ =?utf-8?B?ZkNRRFdYcThHNURkQkM2N3BWZGNJRDlHMXprVkJ5ZTlxK3FVc0FUbm85a0ZI?=
+ =?utf-8?B?UXhVblRwMlB4OThYY3gzUDhFUHk0OHYyaUhwalVOMzR3czQ3bWw2WktCTVdU?=
+ =?utf-8?B?eWdNV1dTYUR0SEdFdHZFRTlJd1JESnJUbWFrbkxweUhWWk5Pa2JJNkN2NEdr?=
+ =?utf-8?B?d2xtT2VPWkpqQzFBc2JGcjR2WEkwK3g3YVE0RnlsOUdzWFpzMjBLWVA0R3Mz?=
+ =?utf-8?B?U2tBa3VzNTFiQzBRV3ZkTXNLOGplMFNoN2QvdC9ieHp4Z1V6eXlRUk9GYlRR?=
+ =?utf-8?B?amhaQWdPMlhDUW9IWHhnTzdUT2NZcmZXMThkQlY0R3lVYjV0L1dBekVHeW1h?=
+ =?utf-8?B?T3doUHFVN2FyQlVXTUZmQ1NHbDl5MDhVTlB4TnpTeTdWT3gvSkxLbUVqZ1ZO?=
+ =?utf-8?B?R0srMkcveFp0MVFpZ3NwaDJnRmpENWtURHNleXE3bW9xUVZ5MTQ1TmNRTElP?=
+ =?utf-8?B?V1ZPZ0NnQlh0SVNiS1ZMVVRvSmpGVlFCd2NDL3dNTEFUUHBlSjg4Ymo0amUw?=
+ =?utf-8?B?Ry9va0pPWHgzT1BHVDR2NG4xcTJGTE1BbkRSbmR3bEhWVzBhUlFJeldwLzJE?=
+ =?utf-8?B?dy9EZXRTNWdrSWl6QzdpUUZ1WU9vQm83WnJpV0xWYUgvWkMwdzJPZjVnNW5q?=
+ =?utf-8?B?ZTlwU2dBWGozL0RTNnNBb0VORC9kbmtEc2t3RXVIY2NMUklMSEk1Qy83NnVj?=
+ =?utf-8?Q?AXq1FV2Jm6V7trDBy8P9PdbtmYdyh/FXambYQnvhPMgx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 16:15:26.2247 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fff5c00-939f-40c7-d969-08da65b40ffb
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9e8653e-bb79-455a-4c64-08da65b5a87a
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 16:26:51.7982 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9TEWm/Z5k1iHPlXikKpbMJ2B9Co6shp9BIMKsiWQAHGHb93g7NmpjnSr3h+o0Fa0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3725
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,218 +129,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
- Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHY]
-It makes more sense to have these helpers in zone specific header
-file, rather than the generic mm.h
+We need this for limiting codecs like AV1 to the first instance for VCN3.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- include/linux/memremap.h |  2 +-
- include/linux/mm.h       | 78 ---------------------------------------
- include/linux/mmzone.h   | 80 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 81 insertions(+), 79 deletions(-)
+Essentially the idea is that we first initialize the job with entity, id 
+etc... and before we submit it we select a new rq for the entity. In the 
+meantime the VCN3 inline parse will have modified the available rqs for 
+the entity.
 
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index 8af304f6b504..77229165c914 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -2,7 +2,7 @@
- #ifndef _LINUX_MEMREMAP_H_
- #define _LINUX_MEMREMAP_H_
- 
--#include <linux/mm.h>
-+#include <linux/mmzone.h>
- #include <linux/range.h>
- #include <linux/ioport.h>
- #include <linux/percpu-refcount.h>
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 3b31b33bd5be..2df8c2b98d36 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1049,84 +1049,6 @@ vm_fault_t finish_mkwrite_fault(struct vm_fault *vmf);
-  *   back into memory.
-  */
- 
--/*
-- * The zone field is never updated after free_area_init_core()
-- * sets it, so none of the operations on it need to be atomic.
-- */
--
--/* Page flags: | [SECTION] | [NODE] | ZONE | [LAST_CPUPID] | ... | FLAGS | */
--#define SECTIONS_PGOFF		((sizeof(unsigned long)*8) - SECTIONS_WIDTH)
--#define NODES_PGOFF		(SECTIONS_PGOFF - NODES_WIDTH)
--#define ZONES_PGOFF		(NODES_PGOFF - ZONES_WIDTH)
--#define LAST_CPUPID_PGOFF	(ZONES_PGOFF - LAST_CPUPID_WIDTH)
--#define KASAN_TAG_PGOFF		(LAST_CPUPID_PGOFF - KASAN_TAG_WIDTH)
--
--/*
-- * Define the bit shifts to access each section.  For non-existent
-- * sections we define the shift as 0; that plus a 0 mask ensures
-- * the compiler will optimise away reference to them.
-- */
--#define SECTIONS_PGSHIFT	(SECTIONS_PGOFF * (SECTIONS_WIDTH != 0))
--#define NODES_PGSHIFT		(NODES_PGOFF * (NODES_WIDTH != 0))
--#define ZONES_PGSHIFT		(ZONES_PGOFF * (ZONES_WIDTH != 0))
--#define LAST_CPUPID_PGSHIFT	(LAST_CPUPID_PGOFF * (LAST_CPUPID_WIDTH != 0))
--#define KASAN_TAG_PGSHIFT	(KASAN_TAG_PGOFF * (KASAN_TAG_WIDTH != 0))
--
--/* NODE:ZONE or SECTION:ZONE is used to ID a zone for the buddy allocator */
--#ifdef NODE_NOT_IN_PAGE_FLAGS
--#define ZONEID_SHIFT		(SECTIONS_SHIFT + ZONES_SHIFT)
--#define ZONEID_PGOFF		((SECTIONS_PGOFF < ZONES_PGOFF)? \
--						SECTIONS_PGOFF : ZONES_PGOFF)
--#else
--#define ZONEID_SHIFT		(NODES_SHIFT + ZONES_SHIFT)
--#define ZONEID_PGOFF		((NODES_PGOFF < ZONES_PGOFF)? \
--						NODES_PGOFF : ZONES_PGOFF)
--#endif
--
--#define ZONEID_PGSHIFT		(ZONEID_PGOFF * (ZONEID_SHIFT != 0))
--
--#define ZONES_MASK		((1UL << ZONES_WIDTH) - 1)
--#define NODES_MASK		((1UL << NODES_WIDTH) - 1)
--#define SECTIONS_MASK		((1UL << SECTIONS_WIDTH) - 1)
--#define LAST_CPUPID_MASK	((1UL << LAST_CPUPID_SHIFT) - 1)
--#define KASAN_TAG_MASK		((1UL << KASAN_TAG_WIDTH) - 1)
--#define ZONEID_MASK		((1UL << ZONEID_SHIFT) - 1)
--
--static inline enum zone_type page_zonenum(const struct page *page)
--{
--	ASSERT_EXCLUSIVE_BITS(page->flags, ZONES_MASK << ZONES_PGSHIFT);
--	return (page->flags >> ZONES_PGSHIFT) & ZONES_MASK;
--}
--
--static inline enum zone_type folio_zonenum(const struct folio *folio)
--{
--	return page_zonenum(&folio->page);
--}
--
--#ifdef CONFIG_ZONE_DEVICE
--static inline bool is_zone_device_page(const struct page *page)
--{
--	return page_zonenum(page) == ZONE_DEVICE;
--}
--extern void memmap_init_zone_device(struct zone *, unsigned long,
--				    unsigned long, struct dev_pagemap *);
--#else
--static inline bool is_zone_device_page(const struct page *page)
--{
--	return false;
--}
--#endif
--
--static inline bool folio_is_zone_device(const struct folio *folio)
--{
--	return is_zone_device_page(&folio->page);
--}
--
--static inline bool is_zone_movable_page(const struct page *page)
--{
--	return page_zonenum(page) == ZONE_MOVABLE;
--}
--
- #if defined(CONFIG_ZONE_DEVICE) && defined(CONFIG_FS_DAX)
- DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
- 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index aab70355d64f..47fc41f43c48 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -730,6 +730,86 @@ static inline bool zone_is_empty(struct zone *zone)
- 	return zone->spanned_pages == 0;
- }
- 
-+#ifndef BUILD_VDSO32_64
-+/*
-+ * The zone field is never updated after free_area_init_core()
-+ * sets it, so none of the operations on it need to be atomic.
-+ */
-+
-+/* Page flags: | [SECTION] | [NODE] | ZONE | [LAST_CPUPID] | ... | FLAGS | */
-+#define SECTIONS_PGOFF		((sizeof(unsigned long)*8) - SECTIONS_WIDTH)
-+#define NODES_PGOFF		(SECTIONS_PGOFF - NODES_WIDTH)
-+#define ZONES_PGOFF		(NODES_PGOFF - ZONES_WIDTH)
-+#define LAST_CPUPID_PGOFF	(ZONES_PGOFF - LAST_CPUPID_WIDTH)
-+#define KASAN_TAG_PGOFF		(LAST_CPUPID_PGOFF - KASAN_TAG_WIDTH)
-+
-+/*
-+ * Define the bit shifts to access each section.  For non-existent
-+ * sections we define the shift as 0; that plus a 0 mask ensures
-+ * the compiler will optimise away reference to them.
-+ */
-+#define SECTIONS_PGSHIFT	(SECTIONS_PGOFF * (SECTIONS_WIDTH != 0))
-+#define NODES_PGSHIFT		(NODES_PGOFF * (NODES_WIDTH != 0))
-+#define ZONES_PGSHIFT		(ZONES_PGOFF * (ZONES_WIDTH != 0))
-+#define LAST_CPUPID_PGSHIFT	(LAST_CPUPID_PGOFF * (LAST_CPUPID_WIDTH != 0))
-+#define KASAN_TAG_PGSHIFT	(KASAN_TAG_PGOFF * (KASAN_TAG_WIDTH != 0))
-+
-+/* NODE:ZONE or SECTION:ZONE is used to ID a zone for the buddy allocator */
-+#ifdef NODE_NOT_IN_PAGE_FLAGS
-+#define ZONEID_SHIFT		(SECTIONS_SHIFT + ZONES_SHIFT)
-+#define ZONEID_PGOFF		((SECTIONS_PGOFF < ZONES_PGOFF) ? \
-+						SECTIONS_PGOFF : ZONES_PGOFF)
-+#else
-+#define ZONEID_SHIFT		(NODES_SHIFT + ZONES_SHIFT)
-+#define ZONEID_PGOFF		((NODES_PGOFF < ZONES_PGOFF) ? \
-+						NODES_PGOFF : ZONES_PGOFF)
-+#endif
-+
-+#define ZONEID_PGSHIFT		(ZONEID_PGOFF * (ZONEID_SHIFT != 0))
-+
-+#define ZONES_MASK		((1UL << ZONES_WIDTH) - 1)
-+#define NODES_MASK		((1UL << NODES_WIDTH) - 1)
-+#define SECTIONS_MASK		((1UL << SECTIONS_WIDTH) - 1)
-+#define LAST_CPUPID_MASK	((1UL << LAST_CPUPID_SHIFT) - 1)
-+#define KASAN_TAG_MASK		((1UL << KASAN_TAG_WIDTH) - 1)
-+#define ZONEID_MASK		((1UL << ZONEID_SHIFT) - 1)
-+
-+static inline enum zone_type page_zonenum(const struct page *page)
-+{
-+	ASSERT_EXCLUSIVE_BITS(page->flags, ZONES_MASK << ZONES_PGSHIFT);
-+	return (page->flags >> ZONES_PGSHIFT) & ZONES_MASK;
-+}
-+
-+static inline enum zone_type folio_zonenum(const struct folio *folio)
-+{
-+	return page_zonenum(&folio->page);
-+}
-+
-+#ifdef CONFIG_ZONE_DEVICE
-+static inline bool is_zone_device_page(const struct page *page)
-+{
-+	return page_zonenum(page) == ZONE_DEVICE;
-+}
-+extern void memmap_init_zone_device(struct zone *, unsigned long,
-+				    unsigned long, struct dev_pagemap *);
-+#else
-+static inline bool is_zone_device_page(const struct page *page)
-+{
-+	return false;
-+}
-+#endif
-+
-+static inline bool folio_is_zone_device(const struct folio *folio)
-+{
-+	return is_zone_device_page(&folio->page);
-+}
-+
-+static inline bool is_zone_movable_page(const struct page *page)
-+{
-+	return page_zonenum(page) == ZONE_MOVABLE;
-+}
-+#endif
-+
- /*
-  * Return true if [start_pfn, start_pfn + nr_pages) range has a non-empty
-  * intersection with the given zone
--- 
-2.32.0
+See the patch "revert "fix limiting AV1 to the first instance on VCN3"" 
+as well.
+
+Christian.
+
+Am 14.07.22 um 17:43 schrieb Andrey Grodzovsky:
+> Can you please remind me of the use case that requires this ? I 
+> browsed through
+> related mails in the past but haven't found when is that needed. For 
+> amdgpu
+> drm_sched_job_init and drm_sched_job_arm are called together and amdgpu
+> is the only one who supports modifying entity priority on the fly as 
+> far as i see.
+>
+> Andrey
+>
+> On 2022-07-14 06:38, Christian König wrote:
+>> We already discussed that the call to drm_sched_entity_select_rq() needs
+>> to move to drm_sched_job_arm() to be able to set a new scheduler list
+>> between _init() and _arm(). This was just not applied for some reason.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> CC: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> CC: dri-devel@lists.freedesktop.org
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_main.c | 3 +--
+>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
+>> b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 68317d3a7a27..e0ab14e0fb6b 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -592,7 +592,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
+>>                  struct drm_sched_entity *entity,
+>>                  void *owner)
+>>   {
+>> -    drm_sched_entity_select_rq(entity);
+>>       if (!entity->rq)
+>>           return -ENOENT;
+>>   @@ -628,7 +627,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+>>       struct drm_sched_entity *entity = job->entity;
+>>         BUG_ON(!entity);
+>> -
+>> +    drm_sched_entity_select_rq(entity);
+>>       sched = entity->rq->sched;
+>>         job->sched = sched;
 
