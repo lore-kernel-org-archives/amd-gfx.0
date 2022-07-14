@@ -4,61 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B41DC43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C162C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2710011A9B2;
-	Thu, 14 Jul 2022 02:48:01 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E130D11A8C5
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:47:59 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-10bd4812c29so891123fac.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 19:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ea4IZlyrjSvU0YdpTpT64+A0BD/twd5LiqN1oRGuBK0=;
- b=d+7RVYXqsEq+OuD2wpe5BeC4ix6+wTfMIkfPMtGlVdMc8k5meUuR5PV9TZc8i2zzD6
- 04LOJJuYpY8mjqWzblLo2y7KJfEVigGLMToQoRqRunOS4iruUwJkkF+VqACnKLreQ788
- lXFzVNoezKHsm0LV4ljMnmgWnXp9JfOJaAN40hCSX2plI85fuw0BAQ0B+iPd/ZEXSFhP
- UBFivS7B5bPlUBn02uZIqy/GIg+o8XgazGR2cfJVkp2oaTokmkiSylMju2xATwIfGDbs
- H5ILHxHhzNLc9I3LsUgbi3/n6oP2PGIzDo2LMZPT750fyWShVFQyx51zqUbI2M14/sLW
- mfCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ea4IZlyrjSvU0YdpTpT64+A0BD/twd5LiqN1oRGuBK0=;
- b=Y76MGsCEEHRnBtTJNKT8iFLadWBTg81LbPz8mqLxFz9BLyhKsZBJM3UKM6/ZmsI45A
- +6jdFG46GODSVzdiqb/LfZQ+maHgYZbATVTrjXJWZOyJsS6T7eC/ybeb+Pj92uqkg3dZ
- bl6bfDbW5gTWxDTS9j0or2rcYCnMNUGkg5LI7/fCUf5IpnsGJ54SVauNP50BvPJ3mP2v
- OSkoe6lLu73tNOiwo51snq7UfT097OIArIRFIdJVXhru/0gb7K0z1jPohBpAfSO0SeHW
- aR9JAkcc4ctUoboydEN14ZW+yWtzXanM7uZ8ncP3pYWhVqAJ/MELa3pI/TQRl2lB5a8s
- cplQ==
-X-Gm-Message-State: AJIora9o5p1fAM7Piu++QXzgorn8NFyE0i9Qnxl2BnHSlfQiywClV2Rw
- 4FiLdQu97bgFjkaYHWSTJaQ=
-X-Google-Smtp-Source: AGRyM1tM5mZYQrf2ZSK7p68gxwUEEGffUmvOooVyLm5GCHxqfptxwjKkGC2qqT/ET8LcYbJnNsNggA==
-X-Received: by 2002:a05:6870:73c7:b0:10c:24de:63d4 with SMTP id
- a7-20020a05687073c700b0010c24de63d4mr3447162oan.76.1657766879001; 
- Wed, 13 Jul 2022 19:47:59 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
- by smtp.gmail.com with ESMTPSA id
- l12-20020a4aa78c000000b0035ef3da8387sm145781oom.4.2022.07.13.19.47.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jul 2022 19:47:58 -0700 (PDT)
-From: Tales Aparecida <tales.aparecida@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] libsubcmd: Fix use-after-free for realloc(..., 0)
-Date: Wed, 13 Jul 2022 23:47:48 -0300
-Message-Id: <20220714024748.29696-3-tales.aparecida@gmail.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220714024748.29696-1-tales.aparecida@gmail.com>
-References: <20220714024748.29696-1-tales.aparecida@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECCB19B4D4;
+	Thu, 14 Jul 2022 02:51:08 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7D399AAD2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:51:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IcSHQ2iiDjyaETsJb5s5RUM1d20e8kA6/Uhn2MEw63ihYYFbFByqIrXMwS1HpQaFIV5kpM0YsLi4jdAyervqVqvzE2D8WuOndtr2bab8QwntVGeXrPsJ73tjPYShhP8PoK3gd63+gQjF+bxlv7y2SQUSMrkZFSLJ/N2OptMgbio8CUyg5EUKkZmUm8+HtX5Zp9yHbLX42Q34bGDkbyyezeSVH33zWrUWdw350Ud0gX9xSFFalynDpHH4KSW3TY4T0ygQL2wCqUYX8u0x6LiMDdMEo0UwoMJk6oXtXagBPj1dOUIJeQnI4nSdljpR8xUpRWdsZusOIysUQ83Kh8P9+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fDAc5NNYZGx2jj7jWYwN1SIDJdvbZaDGgjwRxBpxfjw=;
+ b=Tskzy7SDKjZD/8cUWpcwggRoT2E/6TghRxTV2U7hi4cf3bmTCJQv4d4UBiR3Y0npo5xSzRtiWcdS7qovbCL2pKYi5MQGq/y+coxybH+EFP/Ykc2EIYS2xiInTskPs/6BNNYvqhcKCApBTq2fDVMLNIfLy3NsnV0hqoax9lBhbhFA991PBgZvFl56zKQhWuJJsImoGwIFnvUFx9/xYfycJ7Cz9nv3hykabE19PWSiHDtsq3qlxp+iBmh3c27R3DBX40wHa295gKK/g6INQBdJGWPI1D8RYmrkdjxY7DgVfMRsrtROJSY5hBpbgdtoUaMm4FaBLVhhNHlz/JwpW/yERg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fDAc5NNYZGx2jj7jWYwN1SIDJdvbZaDGgjwRxBpxfjw=;
+ b=S38LVt/PvQb46BGpNU8uwAZa2Rkx324jjSqwg9TXVtIRdhlaM7BkvNkieYOAKc3JWzQNXjecOJXgi2GbUyhJ/pFF0FS75OOuGL4O7QgR3RohS5THgRqAc1ZJN8VB8XOi23e8YvV84NE3NbTVcrQmK9g8iXvxLuc1lIf5QnQ5pcs=
+Received: from MW4P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::6)
+ by DM4PR12MB5118.namprd12.prod.outlook.com (2603:10b6:5:391::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Thu, 14 Jul
+ 2022 02:51:05 +0000
+Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:114:cafe::20) by MW4P222CA0001.outlook.office365.com
+ (2603:10b6:303:114::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23 via Frontend
+ Transport; Thu, 14 Jul 2022 02:51:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Thu, 14 Jul 2022 02:51:05 +0000
+Received: from [10.65.149.18] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 13 Jul
+ 2022 21:51:03 -0500
+Message-ID: <1b7b25b7-d51f-bece-e5f8-00830a770614@amd.com>
+Date: Thu, 14 Jul 2022 10:50:47 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [PATCH] drm/amdgpu: Call trace info was found in dmesg when
+ loading amdgpu
+To: lin cao <lin.cao@amd.com>, <amd-gfx@lists.freedesktop.org>
+References: <20220714023111.46015-1-lin.cao@amd.com>
+From: JingWen Chen <jingwech@amd.com>
+In-Reply-To: <20220714023111.46015-1-lin.cao@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ddbc5403-1813-4605-828a-08da6543b24e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5118:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IpxDQIe88AEUNiPOsHphqEvp9PN/tTkCeeA7xeI4VCqO05QwnDuIKKuqNifFmnlJSjonDHrOHxpx9k7EQEIYYBiZW88RyOAmck20IrWslyCiwNUNEDF8/SiR+Q+7FlHh5d5LRj+FEPY7KnoTAfULycIaQusIeBhu3WTD0d/GGeMf0mzltxauJsrfLrosAQo7aGhKLwVt/yq5hyuB/dcqRK55xSeKlHhU5wibxIjpTS78FREv7CDRvtuukVBapB0jcEOPeM5srFXHsSuh5aiCyJeWFfLpM/6KGtjbUS/REFnJI9xb7tiT1SagPEXK339i4TBdgRUwhgfPm1iybsMDLVjUHBWB1h9uD6H+jDOL8K+Yo9ipykbcEUNz5hj3It2RIfAnZwmAg1PpIq42TyAhE2ic2DfeAXc4bKx2+BRF6iLH/NK0bPS6t6bsYnWb6UtuicHgpm3/xvA0uuxOjjPI5PltKdhl6gOYTQqPBnIVX2xRvG42zsOT57aPu4ZvPkE4qSiwgoWta6UTZR2TQ7czr/cK8rLUW5+5VV+zcVlzTGoeSDSntR7EadeEKbaYsk1eNOh9CrS6kOiTPV/nKWjYqAMtYIGGPVd4ylzdBbU5GMNqgK4Lb6Ky5sANWQCv8qVdII81sMMqMew0LQZx/pc2XryHHnyl2vHPJpm89QKvxnmFhHkujS8FcF7O9knJOjfNqtIyzJZ6dRCmW8v1/mGzhAWuAKzv/SVUZP/5LOoDGcKJfsyk3Hb+D2og36K37xW4nzZShAklD88b0FFf7hJJ0XLtgbVAFZZgMDYJF1/qdaOSgRMVy/TR+LcYIApj1UXyL1MHngnms79BEj4rhi2nbu2gj8OBoCPmEp2qBPWsO9XZXVYgWoPyN60LXYGBoiEy
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(39860400002)(376002)(396003)(136003)(46966006)(40470700004)(36840700001)(26005)(478600001)(40480700001)(2906002)(41300700001)(40460700003)(426003)(6666004)(83380400001)(53546011)(47076005)(186003)(5660300002)(8936002)(2616005)(36756003)(82310400005)(16526019)(316002)(16576012)(81166007)(336012)(110136005)(31686004)(356005)(82740400003)(70586007)(70206006)(31696002)(8676002)(36860700001)(43740500002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 02:51:05.3175 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddbc5403-1813-4605-828a-08da6543b24e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,70 +101,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
- tales.aparecida@gmail.com, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- mairacanal@riseup.net, Isabella Basso <isabbasso@riseup.net>,
- andrealmeid@riseup.net, Trevor Woerner <twoerner@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kees Cook <keescook@chromium.org>
+feel free to add
 
-GCC 12 correctly reports a potential use-after-free condition in the
-xrealloc helper. Fix the warning by avoiding an implicit "free(ptr)"
-when size == 0:
+Reviewed-by: Jingwen Chen <Jingwen.Chen2@amd.com>
 
-In file included from help.c:12:
-In function 'xrealloc',
-    inlined from 'add_cmdname' at help.c:24:2: subcmd-util.h:56:23: error: pointer may be used after 'realloc' [-Werror=use-after-free]
-   56 |                 ret = realloc(ptr, size);
-      |                       ^~~~~~~~~~~~~~~~~~
-subcmd-util.h:52:21: note: call to 'realloc' here
-   52 |         void *ret = realloc(ptr, size);
-      |                     ^~~~~~~~~~~~~~~~~~
-subcmd-util.h:58:31: error: pointer may be used after 'realloc' [-Werror=use-after-free]
-   58 |                         ret = realloc(ptr, 1);
-      |                               ^~~~~~~~~~~~~~~
-subcmd-util.h:52:21: note: call to 'realloc' here
-   52 |         void *ret = realloc(ptr, size);
-      |                     ^~~~~~~~~~~~~~~~~~
-
-Fixes: 2f4ce5ec1d447beb ("perf tools: Finalize subcmd independence")
-Reported-by: Valdis Klētnieks <valdis.kletnieks@vt.edu>
-Signed-off-by: Kees Kook <keescook@chromium.org>
-Tested-by: Valdis Klētnieks <valdis.kletnieks@vt.edu>
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
-Acked-by: Josh Poimboeuf <jpoimboe@redhat.com>
-Cc: linux-hardening@vger.kernel.org
-Cc: Valdis Klētnieks <valdis.kletnieks@vt.edu>
-Link: http://lore.kernel.org/lkml/20220213182443.4037039-1-keescook@chromium.org
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/lib/subcmd/subcmd-util.h | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
-
-diff --git a/tools/lib/subcmd/subcmd-util.h b/tools/lib/subcmd/subcmd-util.h
-index 794a375dad36..b2aec04fce8f 100644
---- a/tools/lib/subcmd/subcmd-util.h
-+++ b/tools/lib/subcmd/subcmd-util.h
-@@ -50,15 +50,8 @@ static NORETURN inline void die(const char *err, ...)
- static inline void *xrealloc(void *ptr, size_t size)
- {
- 	void *ret = realloc(ptr, size);
--	if (!ret && !size)
--		ret = realloc(ptr, 1);
--	if (!ret) {
--		ret = realloc(ptr, size);
--		if (!ret && !size)
--			ret = realloc(ptr, 1);
--		if (!ret)
--			die("Out of memory, realloc failed");
--	}
-+	if (!ret)
-+		die("Out of memory, realloc failed");
- 	return ret;
- }
- 
--- 
-2.37.0
-
+On 7/14/22 10:31 AM, lin cao wrote:
+> In the case of SRIOV, the register smnMp1_PMI_3_FIFO will get an invalid
+> value which will cause the "shift out of bound". In Ubuntu22.04, this
+> issue will be checked an related call trace will be reported in dmesg.
+>
+> Signed-off-by: lin cao <lin.cao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index b71860e5324a..fa520d79ef67 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -886,6 +886,7 @@ static void sienna_cichlid_stb_init(struct smu_context *smu);
+>  
+>  static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
+>  {
+> +	struct amdgpu_device *adev = smu->adev;
+>  	int ret = 0;
+>  
+>  	ret = sienna_cichlid_tables_init(smu);
+> @@ -896,7 +897,8 @@ static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
+>  	if (ret)
+>  		return ret;
+>  
+> -	sienna_cichlid_stb_init(smu);
+> +	if (!amdgpu_sriov_vf(adev))
+> +		sienna_cichlid_stb_init(smu);
+>  
+>  	return smu_v11_0_init_smc_tables(smu);
+>  }
