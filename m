@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90321C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B41DC43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5AA01133DC;
-	Thu, 14 Jul 2022 02:47:59 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 736BF1133DC
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:47:57 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id j3so879954oif.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 19:47:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2710011A9B2;
+	Thu, 14 Jul 2022 02:48:01 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E130D11A8C5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:47:59 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-10bd4812c29so891123fac.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 19:47:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ReUqQP41hRJpW7GcN87sBXGhzZkqMnUsoH546sV6VKY=;
- b=SIX4vN8TPgX2BtBUspHbNB615cbnXSc1XZVLiq14jP9qconpJ3L3HoucMotgQep4kt
- zOrHq7+WPJWilJ51kChHNMPbwnCkQFlxwpfdq9qHCVkKkelCTWmRPb5y+GyJfy5x19W6
- u5YZ3YgoUvbDTS6FXZt29NZe/9pFhnooQL5oNuNYN6xShL2JucMs/AfaxIGeB7kVII5Y
- fBmR8DJRF31psmSReTFkeLerDnbX2hc3ih7vHpwU32Q8lp6eLa3jYkpoqN/bqYhWxswS
- HkV+qQexTxbeEJ7Lu7/WIkj1qj6nkjFV9cKD4KqLhptNNAPcwbSL7AuCFz3eBUTWBcm3
- +vvA==
+ bh=ea4IZlyrjSvU0YdpTpT64+A0BD/twd5LiqN1oRGuBK0=;
+ b=d+7RVYXqsEq+OuD2wpe5BeC4ix6+wTfMIkfPMtGlVdMc8k5meUuR5PV9TZc8i2zzD6
+ 04LOJJuYpY8mjqWzblLo2y7KJfEVigGLMToQoRqRunOS4iruUwJkkF+VqACnKLreQ788
+ lXFzVNoezKHsm0LV4ljMnmgWnXp9JfOJaAN40hCSX2plI85fuw0BAQ0B+iPd/ZEXSFhP
+ UBFivS7B5bPlUBn02uZIqy/GIg+o8XgazGR2cfJVkp2oaTokmkiSylMju2xATwIfGDbs
+ H5ILHxHhzNLc9I3LsUgbi3/n6oP2PGIzDo2LMZPT750fyWShVFQyx51zqUbI2M14/sLW
+ mfCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ReUqQP41hRJpW7GcN87sBXGhzZkqMnUsoH546sV6VKY=;
- b=1giZGUBKQVa3+YsMrGHhJ0FpK+xFxE1lgLbtqM5JYPMoCiM+XwtnFBhSCxtw//5NYP
- nSSYLLgwL8YoIpgpbZER6uAc23CWcnVzclVvy/mYSUc3E0VNHKc8WT0kCLm/yUCzCP3g
- hoDiaN5jatuk1SM8eb3bD7u0R76Wnyh9ei8zRXf2M57eov0q7w6h91IzT08+w5uSy58I
- eDyihzg95+YDTO2/3z2NKAPLUScxSQVp+6wsc4+FnjNMd/6Vmt3XDDQO0ULpOo4AEWTy
- tu5UguwB4ygJYTMCIuMzi5Rmv4NGlOyDGcLV2YrCTR5iqkLyxNKgjMkhJHBn33+fM3EN
- HKnw==
-X-Gm-Message-State: AJIora8qhVrYJLqNt3pwrAAkCud/ylbZLja4DEMBTVlMczXOe2+UDD3P
- aoQSQVl3jrQ3q3uUlhCBZ6Y=
-X-Google-Smtp-Source: AGRyM1vTFT9gmo60HSkT77N9LIRLzIAmipxyG8nJbqH1Qe/j4dfmURrSzzX2b1V0R9wf0D61dSWciQ==
-X-Received: by 2002:aca:dad6:0:b0:32e:80bb:9c2 with SMTP id
- r205-20020acadad6000000b0032e80bb09c2mr6468084oig.106.1657766876163; 
- Wed, 13 Jul 2022 19:47:56 -0700 (PDT)
+ bh=ea4IZlyrjSvU0YdpTpT64+A0BD/twd5LiqN1oRGuBK0=;
+ b=Y76MGsCEEHRnBtTJNKT8iFLadWBTg81LbPz8mqLxFz9BLyhKsZBJM3UKM6/ZmsI45A
+ +6jdFG46GODSVzdiqb/LfZQ+maHgYZbATVTrjXJWZOyJsS6T7eC/ybeb+Pj92uqkg3dZ
+ bl6bfDbW5gTWxDTS9j0or2rcYCnMNUGkg5LI7/fCUf5IpnsGJ54SVauNP50BvPJ3mP2v
+ OSkoe6lLu73tNOiwo51snq7UfT097OIArIRFIdJVXhru/0gb7K0z1jPohBpAfSO0SeHW
+ aR9JAkcc4ctUoboydEN14ZW+yWtzXanM7uZ8ncP3pYWhVqAJ/MELa3pI/TQRl2lB5a8s
+ cplQ==
+X-Gm-Message-State: AJIora9o5p1fAM7Piu++QXzgorn8NFyE0i9Qnxl2BnHSlfQiywClV2Rw
+ 4FiLdQu97bgFjkaYHWSTJaQ=
+X-Google-Smtp-Source: AGRyM1tM5mZYQrf2ZSK7p68gxwUEEGffUmvOooVyLm5GCHxqfptxwjKkGC2qqT/ET8LcYbJnNsNggA==
+X-Received: by 2002:a05:6870:73c7:b0:10c:24de:63d4 with SMTP id
+ a7-20020a05687073c700b0010c24de63d4mr3447162oan.76.1657766879001; 
+ Wed, 13 Jul 2022 19:47:59 -0700 (PDT)
 Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
  by smtp.gmail.com with ESMTPSA id
- l12-20020a4aa78c000000b0035ef3da8387sm145781oom.4.2022.07.13.19.47.53
+ l12-20020a4aa78c000000b0035ef3da8387sm145781oom.4.2022.07.13.19.47.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jul 2022 19:47:55 -0700 (PDT)
+ Wed, 13 Jul 2022 19:47:58 -0700 (PDT)
 From: Tales Aparecida <tales.aparecida@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 1/2] objtool: Fix truncated string warning
-Date: Wed, 13 Jul 2022 23:47:47 -0300
-Message-Id: <20220714024748.29696-2-tales.aparecida@gmail.com>
+Subject: [PATCH 2/2] libsubcmd: Fix use-after-free for realloc(..., 0)
+Date: Wed, 13 Jul 2022 23:47:48 -0300
+Message-Id: <20220714024748.29696-3-tales.aparecida@gmail.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220714024748.29696-1-tales.aparecida@gmail.com>
 References: <20220714024748.29696-1-tales.aparecida@gmail.com>
@@ -76,54 +77,62 @@ Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sergei Trofimovich <slyich@gmail.com>
+From: Kees Cook <keescook@chromium.org>
 
-On GCC 12, the build fails due to a possible truncated string:
+GCC 12 correctly reports a potential use-after-free condition in the
+xrealloc helper. Fix the warning by avoiding an implicit "free(ptr)"
+when size == 0:
 
-    check.c: In function 'validate_call':
-    check.c:2865:58: error: '%d' directive output may be truncated writing between 1 and 10 bytes into a region of size 9 [-Werror=format-truncation=]
-     2865 |                 snprintf(pvname, sizeof(pvname), "pv_ops[%d]", idx);
-          |                                                          ^~
+In file included from help.c:12:
+In function 'xrealloc',
+    inlined from 'add_cmdname' at help.c:24:2: subcmd-util.h:56:23: error: pointer may be used after 'realloc' [-Werror=use-after-free]
+   56 |                 ret = realloc(ptr, size);
+      |                       ^~~~~~~~~~~~~~~~~~
+subcmd-util.h:52:21: note: call to 'realloc' here
+   52 |         void *ret = realloc(ptr, size);
+      |                     ^~~~~~~~~~~~~~~~~~
+subcmd-util.h:58:31: error: pointer may be used after 'realloc' [-Werror=use-after-free]
+   58 |                         ret = realloc(ptr, 1);
+      |                               ^~~~~~~~~~~~~~~
+subcmd-util.h:52:21: note: call to 'realloc' here
+   52 |         void *ret = realloc(ptr, size);
+      |                     ^~~~~~~~~~~~~~~~~~
 
-In theory it's a valid bug:
-
-    static char pvname[16];
-    int idx;
-    ...
-    idx = (rel->addend / sizeof(void *));
-    snprintf(pvname, sizeof(pvname), "pv_ops[%d]", idx);
-
-There are only 7 chars for %d while it could take up to 9, so the
-printed "pv_ops[%d]" string could get truncated.
-
-In reality the bug should never happen, because pv_ops only has ~80
-entries, so 7 chars for the integer is more than enough.  Still, it's
-worth fixing.  Bump the buffer size by 2 bytes to silence the warning.
-
-[ jpoimboe: changed size to 19; massaged changelog ]
-
-Fixes: db2b0c5d7b6f ("objtool: Support pv_opsindirect calls for noinstr")
-Reported-by: Adam Borowski <kilobyte@angband.pl>
-Reported-by: Martin Liška <mliska@suse.cz>
-Signed-off-by: Sergei Trofimovich <slyich@gmail.com>
-Signed-off-by: Josh Poimboeuf <jpoimboe@redhat.com>
-Link: https://lore.kernel.org/r/20220120233748.2062559-1-slyich@gmail.com
+Fixes: 2f4ce5ec1d447beb ("perf tools: Finalize subcmd independence")
+Reported-by: Valdis Klētnieks <valdis.kletnieks@vt.edu>
+Signed-off-by: Kees Kook <keescook@chromium.org>
+Tested-by: Valdis Klētnieks <valdis.kletnieks@vt.edu>
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+Acked-by: Josh Poimboeuf <jpoimboe@redhat.com>
+Cc: linux-hardening@vger.kernel.org
+Cc: Valdis Klētnieks <valdis.kletnieks@vt.edu>
+Link: http://lore.kernel.org/lkml/20220213182443.4037039-1-keescook@chromium.org
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/objtool/check.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/lib/subcmd/subcmd-util.h | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 21735829b860..750ef1c446c8 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -2823,7 +2823,7 @@ static inline bool func_uaccess_safe(struct symbol *func)
- 
- static inline const char *call_dest_name(struct instruction *insn)
+diff --git a/tools/lib/subcmd/subcmd-util.h b/tools/lib/subcmd/subcmd-util.h
+index 794a375dad36..b2aec04fce8f 100644
+--- a/tools/lib/subcmd/subcmd-util.h
++++ b/tools/lib/subcmd/subcmd-util.h
+@@ -50,15 +50,8 @@ static NORETURN inline void die(const char *err, ...)
+ static inline void *xrealloc(void *ptr, size_t size)
  {
--	static char pvname[16];
-+	static char pvname[19];
- 	struct reloc *rel;
- 	int idx;
+ 	void *ret = realloc(ptr, size);
+-	if (!ret && !size)
+-		ret = realloc(ptr, 1);
+-	if (!ret) {
+-		ret = realloc(ptr, size);
+-		if (!ret && !size)
+-			ret = realloc(ptr, 1);
+-		if (!ret)
+-			die("Out of memory, realloc failed");
+-	}
++	if (!ret)
++		die("Out of memory, realloc failed");
+ 	return ret;
+ }
  
 -- 
 2.37.0
