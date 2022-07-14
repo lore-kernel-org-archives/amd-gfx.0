@@ -4,100 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD496C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 19:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A932CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 20:38:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB6411A3DB;
-	Thu, 14 Jul 2022 19:44:42 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2CD10F4F6
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 19:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657827801;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dg9+JDWes1KzSSyj81sTXIcE5x2fJUI/Oun+MFc1PXQ=;
- b=gK0pY+AQvhOsOJA5iZa2qn29+H7d04FgaFQRWVKUeRS3q6xf0QT2EEm7Q0D4dDrWdjVVAe
- VSPTTIWg7u3yzftXBKE/HlW3Gg3i6t9V7JyB7giE3BlQJI6zsVGU9eNei78cPU6GIEbw1B
- a+WlL9Tn+9RxSdKYAp9+3ZhRi+QQlSA=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-lew_yBiwP_SVoJBVRr9ZEQ-1; Thu, 14 Jul 2022 15:43:18 -0400
-X-MC-Unique: lew_yBiwP_SVoJBVRr9ZEQ-1
-Received: by mail-ed1-f69.google.com with SMTP id
- j6-20020a05640211c600b0043a8ea2c138so2075800edw.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 12:43:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22E9A10ED07;
+	Thu, 14 Jul 2022 20:38:01 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E900D10FD19;
+ Thu, 14 Jul 2022 20:24:26 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ t5-20020a17090a6a0500b001ef965b262eso4140496pjj.5; 
+ Thu, 14 Jul 2022 13:24:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:message-id:date:mime-version:user-agent:content-language:to
+ :cc:references:from:subject:in-reply-to:content-transfer-encoding;
+ bh=pcRnU+Ror4gYiRZTAUzcABV8hGHFjcJDb40sHS5AYVk=;
+ b=hvlDHdDOxK52P0/LBKCWfDreDHWqjZ0+X00Ved/rTViRBSVXTq2lYSvFTdJu/JsxcH
+ Ilil5aAXg8Df3wnUF5jyZBi6aoLWCimQsGtR7CmVIOKpKWSOuVPNVKZfbs6am4YGaExF
+ 7kscXgmArrrB4keRwxUmuehwGsgP7fc2CTf4uTLkX10oMCdPBBldJlEP22szXpAuxJJD
+ n7iw57jMeGLQLdoAFKejDR+I8P3rVeUeiIqy4pHiwDXDAIhXeDcUwj0xl05k5IcSnr1f
+ WdV6IF0hjMPu2/tYtTRpJLj77S851CLISPSfKgjBG5iQELG6SFjYF4g1FUJiWlMvbkGO
+ eIzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+ :content-language:to:cc:references:from:subject:in-reply-to
  :content-transfer-encoding;
- bh=dg9+JDWes1KzSSyj81sTXIcE5x2fJUI/Oun+MFc1PXQ=;
- b=RVFFmirk2yoy18z025AF7DZ3zmcEf2dLvqqJGP3nDD7GL/pZahPCzQUFMtFzDF5Uq1
- CoGhJP5ycdiEZWPhdCgh6VTxRIyVPxor1pd1cQUZc2wpZYiszZ24Lri9w7oCTO/KOdLX
- WwtrHyWCD7uX9pKlonmDFBWc6i9XI4fnXBI4914WVFG2D5fnAy0ei2bAk0X+sPK4+J+K
- QiMRMunrslLpPeZS9oBKALYKL+ggCl6LLm/TvG+lkaeMxj9DuCw+Z3wMYmOrj1atlmeW
- g0BaLbAFU/BmMS0+XJe2A9y9fmUv31w16sxgNJd59rJ9AGPCjz6ZoPlOMEd+KpqctwAv
- mvzg==
-X-Gm-Message-State: AJIora/+8gp1i+wcWvKJkCytfXQu4uIPETUEvWuWYyRKstZgOzTgmMO0
- z0cqMmEuMaV5rKKGwUae3r53ARHBJOCg+Mszica8o77nktwqHWHwv6t2bdN29+u41iMe6ok+xBU
- 35hy4nMopkWH5JRspoUaEKXxvPg==
-X-Received: by 2002:aa7:cd0a:0:b0:43a:8ffd:d8de with SMTP id
- b10-20020aa7cd0a000000b0043a8ffdd8demr14293299edw.5.1657827797360; 
- Thu, 14 Jul 2022 12:43:17 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1sjzFwGcCzuqBNOwrF/HzJhG/eH+kbiODMOpHqQTx4Vp9DVXAhl6LxC4caqJ/zuahqUSYSUfQ==
-X-Received: by 2002:aa7:cd0a:0:b0:43a:8ffd:d8de with SMTP id
- b10-20020aa7cd0a000000b0043a8ffdd8demr14293272edw.5.1657827797138; 
- Thu, 14 Jul 2022 12:43:17 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ bh=pcRnU+Ror4gYiRZTAUzcABV8hGHFjcJDb40sHS5AYVk=;
+ b=25697zQbFs9mHfolricAUj0VL3kUqowmKZCxiikhInr4uhh6HS5RX/Jy4Soc0MXdi1
+ ljSxu2pTyMeoqGtgmorIuPfD+ZMme5KD/G1jtyMSCfWZXoTMPL1RkH0AOQoufEHMCt88
+ W+N9SgfbAuKfPYD+byTUr2xmeG2GYuqFCaQfoXzMUiPt0SNJ65VTwIWJTiypJqhMqx2Q
+ TDt5cwvNCOYFL600NwUOQe46vvjMC6sr3U09A/s+9RWySa7W2FmyVN5/QV2rKHeIoYUE
+ 2YPgEY/TA517frMd3zUH0EtrzzdDO5MC1cnfZGtjAYlsDbHcX8wpDCX3TvXMuWkcvDwt
+ bsew==
+X-Gm-Message-State: AJIora/iU8mFUMxDdMKYGM4J+M0W6/RPPH6xy0NPgOuidMG+oQKMO8Xc
+ WU8wK4NQz89KFClkNrc7qxA=
+X-Google-Smtp-Source: AGRyM1tx/BKIt8gG9FjSZ+ck6gTBSu+yZzhvOUhowONfqODvxLg5/2Tfh0PFxmmu7wnVClZYpTsl0Q==
+X-Received: by 2002:a17:90a:fe4:b0:1ef:8564:4f4 with SMTP id
+ 91-20020a17090a0fe400b001ef856404f4mr18027029pjz.118.1657830266447; 
+ Thu, 14 Jul 2022 13:24:26 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
  by smtp.gmail.com with ESMTPSA id
- a9-20020a05640213c900b0043b0951f7b1sm1609186edx.41.2022.07.14.12.43.16
+ q8-20020a17090311c800b0016bd16f8acbsm1889201plh.114.2022.07.14.13.24.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jul 2022 12:43:16 -0700 (PDT)
-Message-ID: <286b0209-ea8d-b3f0-9759-e3a4a86c34cb@redhat.com>
-Date: Thu, 14 Jul 2022 21:43:15 +0200
+ Thu, 14 Jul 2022 13:24:25 -0700 (PDT)
+Message-ID: <17edd8b1-27d3-a768-87a3-c815e5df5d14@roeck-us.net>
+Date: Thu, 14 Jul 2022 13:24:23 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v2 27/29] ACPI: video: Drop Clevo/TUXEDO NL5xRU and NL5xNU
- acpi_backlight=native quirks
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- Werner Sembach <wse@tuxedocomputers.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan@vger.kernel.org" <Pan@vger.kernel.org>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-28-hdegoede@redhat.com>
- <82521ebc-3f14-8d3b-5601-6b4a36ef19af@tuxedocomputers.com>
- <MN0PR12MB6101A54D0F72B0501BE818DBE2899@MN0PR12MB6101.namprd12.prod.outlook.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <MN0PR12MB6101A54D0F72B0501BE818DBE2899@MN0PR12MB6101.namprd12.prod.outlook.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.9.1
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+To: Melissa Wen <mwen@igalia.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20220618232737.2036722-1-linux@roeck-us.net>
+ <584fc348-7a60-26a2-af61-9edc4f4830e4@amd.com>
+ <CADnq5_NkVWqcxwLMBeskqpcSEYCEjUAK0hqvA_PAo7ACHKL2cA@mail.gmail.com>
+ <6a026c9a-c4ee-deba-e028-4c0f478c1911@roeck-us.net>
+ <CADnq5_OrxMMkazXEPHeZXp_bV890=r21DRx2QsqLXUFj4t8aYg@mail.gmail.com>
+ <20220713230917.GE32544@roeck-us.net>
+ <CADnq5_PAg8xg2J3WUfjxK_-WFaLOK7cQd6bqWDnfVqE6fpXq2Q@mail.gmail.com>
+ <20220714184919.rmsexizgfdkfboiq@mail.igalia.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH] drm/amd/display: Add missing hard-float compile flags for
+ PPC64 builds
+In-Reply-To: <20220714184919.rmsexizgfdkfboiq@mail.igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 14 Jul 2022 19:44:41 +0000
+X-Mailman-Approved-At: Thu, 14 Jul 2022 20:38:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,184 +83,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
+Cc: Leo Li <sunpeng.li@amd.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Daniel Axtens <dja@axtens.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 7/13/22 19:21, Limonciello, Mario wrote:
-> [Public]
-> 
-> 
-> 
->> -----Original Message-----
->> From: Werner Sembach <wse@tuxedocomputers.com>
->> Sent: Wednesday, July 13, 2022 12:08
->> To: Hans de Goede <hdegoede@redhat.com>; Ben Skeggs
->> <bskeggs@redhat.com>; Karol Herbst <kherbst@redhat.com>; Lyude
->> <lyude@redhat.com>; Daniel Dadap <ddadap@nvidia.com>; Maarten
->> Lankhorst <maarten.lankhorst@linux.intel.com>; Maxime Ripard
->> <mripard@kernel.org>; Thomas Zimmermann <tzimmermann@suse.de>;
->> Jani Nikula <jani.nikula@linux.intel.com>; Joonas Lahtinen
->> <joonas.lahtinen@linux.intel.com>; Rodrigo Vivi <rodrigo.vivi@intel.com>;
->> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Pan@vger.kernel.org; Pan, Xinhui
->> <Xinhui.Pan@amd.com>; Rafael J . Wysocki <rafael@kernel.org>; Mika
->> Westerberg <mika.westerberg@linux.intel.com>; Lukas Wunner
->> <lukas@wunner.de>; Mark Gross <markgross@kernel.org>; Andy
->> Shevchenko <andy@kernel.org>
->> Cc: nouveau@lists.freedesktop.org; Daniel Vetter <daniel@ffwll.ch>; David
->> Airlie <airlied@linux.ie>; intel-gfx <intel-gfx@lists.freedesktop.org>; dri-
->> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Len Brown
->> <lenb@kernel.org>; linux-acpi@vger.kernel.org; platform-driver-
->> x86@vger.kernel.org
->> Subject: Re: [PATCH v2 27/29] ACPI: video: Drop Clevo/TUXEDO NL5xRU and
->> NL5xNU acpi_backlight=native quirks
->>
->> Hi,
->>
->> On 7/12/22 21:39, Hans de Goede wrote:
->>> acpi_backlight=native is the default for these, but as the comment
->>> explains the quirk was still necessary because even briefly registering
->>> the acpi_video0 backlight; and then unregistering it once the native
->>> driver showed up, was leading to issues.
+On 7/14/22 11:49, Melissa Wen wrote:
+> O 07/13, Alex Deucher wrote:
+>> On Wed, Jul 13, 2022 at 7:09 PM Guenter Roeck <linux@roeck-us.net> wrote:
 >>>
->>> After the "ACPI: video: Make backlight class device registration
->>> a separate step" patch from earlier in this patch-series, we no
->>> longer briefly register the acpi_video0 backlight on systems where
->>> the native driver should be used.
+>>> On Wed, Jul 13, 2022 at 05:20:40PM -0400, Alex Deucher wrote:
+>>>>>
+>>>>> The problem is not the FPU operations, but the fact that soft-float
+>>>>> and hard-float compiled code is linked together. The soft-float and
+>>>>> hard-float ABIs on powerpc are not compatible, so one ends up with
+>>>>> an object file which is partially soft-float and partially hard-float
+>>>>> compiled and thus uses different ABIs. That can only create chaos,
+>>>>> so the linker complains about it.
+>>>>
+>>>> I get that, I just don't see why only DCN 3.1.x files have this
+>>>> problem.  The DCN 2.x files should as well.
+>>>>
 >>>
->>> So this is no longer an issue an the quirks are no longer needed.
+>>> Seen in drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile:
 >>>
->>> Cc: Werner Sembach <wse@tuxedocomputers.com>
->>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>> # prevent build errors regarding soft-float vs hard-float FP ABI tags
+>>> # this code is currently unused on ppc64, as it applies to Renoir APUs only
+>>> ifdef CONFIG_PPC64
+>>> CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
+>>> endif
+>>>
+>>> Does that explain it ?
 >>
->> Tested and can confirm: The quirks are no longer needed with this Patchset.
->>
->> Tested-by: Werner Sembach <wse@tuxedocomputers.com>
+>> I would expect to see it in dcn20_resource.c and dcn30_clk_mgr.c for
+>> example.  They follow the same pattern as the dcn 3.1.x files.  They
+>> call functions that use FP, but maybe there is some FP code still in
+>> those functions that we missed somehow.
 > 
-> Probably should include this link tag in this commit too then as it fixes
-> the Tong Fang systems too.
+> Hi,
 > 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=215683
-
-Good point, I've added this to the version in my personal tree.
-
-Regards,
-
-Hans
-
-
-
-
+> I'm a little late here, but I'm not able to reproduce the issue yet.
+> I have this setup:
+> - gcc 11.3.0
+> - binutils 2.38.50
+> - mainline kernel (torvalds) version: 5.19.0-rc6 (cross-compiling)
+>    -> make ARCH=powerpc CROSS_COMPILE=powerpc64-linux-gnu- allmodconfig
+>      => DRM_AMD_DC [=y] && HAS_IOMEM [=y] && DRM [=m] && DRM_AMDGPU [=m] && (X86 || PPC64 [=y]) && (!KCOV_INSTRUMENT_ALL [=n] || !KCOV_ENABLE_COMPARISONS [=n])
+>    -> make -j16 ARCH=powerpc CROSS_COMPILE=powerpc64-linux-gnu-
 > 
->>
->> Kind Regards,
->>
->> Werner Sembach
->>
->>> ---
->>>   drivers/acpi/video_detect.c | 75 -------------------------------------
->>>   1 file changed, 75 deletions(-)
->>>
->>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
->>> index 2a4d376a703e..4b9395d1bda7 100644
->>> --- a/drivers/acpi/video_detect.c
->>> +++ b/drivers/acpi/video_detect.c
->>> @@ -599,81 +599,6 @@ static const struct dmi_system_id
->> video_detect_dmi_table[] = {
->>>   		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
->>>   		},
->>>   	},
->>> -	/*
->>> -	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have
->> both a
->>> -	 * working native and video interface. However the default detection
->>> -	 * mechanism first registers the video interface before unregistering
->>> -	 * it again and switching to the native interface during boot. This
->>> -	 * results in a dangling SBIOS request for backlight change for some
->>> -	 * reason, causing the backlight to switch to ~2% once per boot on
->> the
->>> -	 * first power cord connect or disconnect event. Setting the native
->>> -	 * interface explicitly circumvents this buggy behaviour, by avoiding
->>> -	 * the unregistering process.
->>> -	 */
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xRU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xRU"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xRU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR,
->> "SchenkerTechnologiesGmbH"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xRU"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xRU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "Notebook"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xRU"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xRU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "AURA1501"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xRU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "EDUBOOK1502"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xNU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xNU"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xNU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR,
->> "SchenkerTechnologiesGmbH"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xNU"),
->>> -		},
->>> -	},
->>> -	{
->>> -	.callback = video_detect_force_native,
->>> -	.ident = "Clevo NL5xNU",
->>> -	.matches = {
->>> -		DMI_MATCH(DMI_SYS_VENDOR, "Notebook"),
->>> -		DMI_MATCH(DMI_BOARD_NAME, "NL5xNU"),
->>> -		},
->>> -	},
->>>
->>>   	/*
->>>   	 * Desktops which falsely report a backlight and which our heuristics
+> Am I missing something?
+> 
+> So, as Alex mentioned the possibility of some non-isolated FPU code in
+> 3.1, I reviewed dcn31 code and my best bet so far is that the issue
+> is here:
+> 
+> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c#L1721
+> 
+> Although dcn31_update_soc_for_wm_a() is only called inside
+> dml/dcn31/dcn31_fpu:
+> - dc->res_pool->funcs->update_soc_for_wm_a(dc, context);
+> 
+> it's declared in dcn31_resource and has FPU code. So, we should move it
+> to dml/dcn31/dcn31_fpu.
+> 
+> However, as I can't reproduce the issue, I don't know if it addresses
+> the problem reported here and also if everything will be clean after
+> moving it.
+> 
 
+I don't think that would solve anything. As I have tried to point out,
+the problem is that code compiled with hard-float is linked together
+with code compiled with soft-float. An alternate fix might be something
+like the one attached below, but I don't know if that would be correct
+and/or complete.
+
+> Guenter,
+> 
+> Can you provide more info about your setup: cross-compile or not, any
+> flags, branch, etc?
+> 
+
+Nothing special. Same compile options as the ones you use, and it is a
+cross-compile environment. I tried gcc 11.2.0 with binutils 2.36.1
+and gcc 11.3.0 with binutils 2.38.
+
+Guenter
+
+---
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+index ec041e3cda30..44ff6f196860 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+@@ -10,6 +10,8 @@
+  #
+  # Makefile for dcn31.
+
++CFLAGS_$(AMDDALPATH)/dc/dcn31/dcn31_resource.o := $(call cc-option,-mno-gnu-attribute)
++
+  DCN31 = dcn31_resource.o dcn31_hubbub.o dcn31_hwseq.o dcn31_init.o dcn31_hubp.o \
+         dcn31_dccg.o dcn31_optc.o dcn31_dio_link_encoder.o dcn31_panel_cntl.o \
+         dcn31_apg.o dcn31_hpo_dp_stream_encoder.o dcn31_hpo_dp_link_encoder.o \
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+index 59381d24800b..55fcae2d2aae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+@@ -25,6 +25,8 @@
+
+  DCN315 = dcn315_resource.o
+
++CFLAGS_$(AMDDALPATH)/dc/dcn315/$(DCN315) := $(call cc-option,-mno-gnu-attribute)
++
+  AMD_DAL_DCN315 = $(addprefix $(AMDDALPATH)/dc/dcn315/,$(DCN315))
+
+  AMD_DISPLAY_FILES += $(AMD_DAL_DCN315)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+index 819d44a9439b..7251ef9c1afb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
+@@ -25,6 +25,8 @@
+
+  DCN316 = dcn316_resource.o
+
++CFLAGS_$(AMDDALPATH)/dc/dcn316/$(DCN316) := $(call cc-option,-mno-gnu-attribute)
++
+  AMD_DAL_DCN316 = $(addprefix $(AMDDALPATH)/dc/dcn316/,$(DCN316))
+
+  AMD_DISPLAY_FILES += $(AMD_DAL_DCN316)
