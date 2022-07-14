@@ -4,89 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF02BC43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2F7C43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 02:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F98A05E7;
-	Thu, 14 Jul 2022 02:31:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0E0A05E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:31:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BjoW3/spr9PJm5fJhalSxwPhtx5ME2EiH2M6uYmu84cKJWsCZe/BDHYKKR7rscICBP7DiYaClG8f4nIb5Sc/EhfCqAcyEh7IPn9u4QN5m7J0rur4aQ63JX2NnxEkhUAGFunwbkrlpDDI/KBzS0nUlYfO8DXRDqyyasY7Fpz/9/2VBQJqLqKNKWvGnAPIEUQH6QqrfuT+sy0InKcVYuEwiWnKTQglczkXVpVKM6/R4VFI5Mkq1hArCO9YpYSv4C0OSvdfxhASE2NaCnaaQBSKytHFZlNNehqoR2VfOnRIJmefVMb5QbTHaN6h9d/pMEslRDI1r7T3xHpG5C10JlHuGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N76qgX/VxRGt9SKnlgcRtFpnMj2ld3FiU4vjO4us4Jo=;
- b=PsX7GftxVwLl+NPNCFImjE5Zna1s3+qaxBPuSd3gAVjadXTotPftanwHOhYPM3GMIwdp9ujX1Ngf9fspYYS1YoSxjtoMXoDFkRWvY5/fc1QamQBhthAm+lPTan2A/542bR6gV/IAuIJAXUFDixi8lQ/1v5mgrARXsuhZ2hSXAbLwVGAhTvQ0KJbEsKI13OG9DLAgSKbAeMtBcCrnhfUbSvbATYB/envF53RoCzaq8dtKovD1xBalfqnHB6jx7ho2Uxuc5+lO0hgqwcdlNRhMzhdA0Jrl/5iEbZ8xMNdskNTlZn/62/fBAoZ+VjngFEGZCJtJ84RzqC91Sl1ThUGXqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N76qgX/VxRGt9SKnlgcRtFpnMj2ld3FiU4vjO4us4Jo=;
- b=i7/K45pAmiAUek+UhGGzR2/jxH5t1NoACwU0HYIb2duxKfOoC4ScB7nuKJTyrDgeZ7sZN+VaUXNKHuqda6CyVPs0gK+70nbBdI9SgZ/atZgTIAp7prfigT6BF4bVGWAy5G0V1nwUwuU1FXO6Z3r8Le7kg6Pt9oh5C260qRZE8No=
-Received: from MW4PR04CA0164.namprd04.prod.outlook.com (2603:10b6:303:85::19)
- by CY4PR12MB1830.namprd12.prod.outlook.com (2603:10b6:903:127::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23; Thu, 14 Jul
- 2022 02:31:49 +0000
-Received: from CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:85:cafe::47) by MW4PR04CA0164.outlook.office365.com
- (2603:10b6:303:85::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
- Transport; Thu, 14 Jul 2022 02:31:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT045.mail.protection.outlook.com (10.13.175.181) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Thu, 14 Jul 2022 02:31:48 +0000
-Received: from amd-SYS-7048GR-TR.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 13 Jul 2022 21:31:46 -0500
-From: lin cao <lin.cao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Call trace info was found in dmesg when loading
- amdgpu
-Date: Thu, 14 Jul 2022 10:31:11 +0800
-Message-ID: <20220714023111.46015-1-lin.cao@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF86D11B774;
+	Thu, 14 Jul 2022 02:47:55 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A77011BC71
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 02:47:53 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-10c0430e27dso935355fac.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 19:47:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v9Z2pa3lYfgqOmxTpM+5SYBO+u1+8NSu92ncqpCfQY8=;
+ b=qqk8G4BvzxhB2/teStSBaAq8s78P80HdDRJ0x5FrK6Lg89tVtFtHohC0Z4AcBsfbAO
+ UtvqF8GyXnOttxvegkLxGSYrcnMx/1l+2fTPXAza5fg3tdM9Fv9T73dYBUImETOU/Nro
+ Wl2amSurfoa0YJh0TJanV8WZx0nEy3V0xqRnD6a5HBapfGIdb76deTDOYjA+8h8YsSps
+ 2zxfFqqIY0QdSMM5eR95KKgCHS4eF4U0LD48YamauzXoRCxeWO1jc4SDSi2J9j7q72yh
+ P0iDBnGSweFUP20VQELIHqgDBNeWvQI5T8q1EXOyhbToN8AY5pLVHo6a25YIVwuxGl+t
+ iL0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v9Z2pa3lYfgqOmxTpM+5SYBO+u1+8NSu92ncqpCfQY8=;
+ b=cEUXQB60Fx6niz1vAZHyAJpRvx6N6Y6Uw5bA+qWMwYzCTXtndqpLOLQrSuwaP/AG6d
+ CgWZHm8LpFJ1Z3CG8PEnQNuxHT5YtJncw+Te29SCD55ysK7Zef+7hZUrJ9Vi8LQQhHiz
+ Xfh7+P3nx+hiV6wG+6mYCGdC0jQWXbt4j1H1QWlNPqi0ugxaQ0bEgogrQN/ne4eoPmpJ
+ pbYSHDpkdIzNhvdBsmRoW1/r583PuYFt+fMxu3SrdcQQJeRuo9plDcho8p+5wWoVLd7g
+ rtpzIqejzuBAlpA8asNL3QL8nUcIiRHQyWYk2kasR0Xrlmi4BDoFZ0vmhSpIZqUrL1zE
+ wWYQ==
+X-Gm-Message-State: AJIora8CEkqHw2pDkjF/+5xDMFtzykGO2ziXyJ0m1VmwbUM2UW2fO1aW
+ a53U52Jl59EgNEJfaNKodwE=
+X-Google-Smtp-Source: AGRyM1tzY4Fvs6tJ3dc9U0ZOGrrTt97Ng9qKIUzGuhG4rUVktnpbjwBhaA+HsVP89EObeOKnh6UXAw==
+X-Received: by 2002:a05:6870:fb89:b0:10c:3847:f0a with SMTP id
+ kv9-20020a056870fb8900b0010c38470f0amr3426847oab.273.1657766873249; 
+ Wed, 13 Jul 2022 19:47:53 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
+ by smtp.gmail.com with ESMTPSA id
+ l12-20020a4aa78c000000b0035ef3da8387sm145781oom.4.2022.07.13.19.47.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Jul 2022 19:47:52 -0700 (PDT)
+From: Tales Aparecida <tales.aparecida@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [GIT CHERRY-PICK 0/2] Fix compilation errors on GCC12
+Date: Wed, 13 Jul 2022 23:47:46 -0300
+Message-Id: <20220714024748.29696-1-tales.aparecida@gmail.com>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eb12181e-8b5f-452a-22b1-08da654100f6
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1830:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: du7/lg0AXOhGgN3AI74AHmPUwWWmgnssE6bpUhXrwwDSiNuhdRCFQFLk8UBn2OOmloyLHTASnTN6Pcs0oSPIkE0OLsSdrCJa4+b1otFO5q6uuI4UTq9qUPGaoVqZrDYz+iP2tUx/vfxl8BQhge9T4/ptHmD8KLuapJDGfuB4n/ElPKecnvoUbVXHBFJF9TJEF4H5RZwQTUZdauTFenSlis+FdgfCydM0gc87tFENe4EkCAU5PxxFkugFX+zmKtoN7Gc4x0UuDWSLgBNwFg5oZ+Os+eOO4Em0EFMm4use9iGk62OBjBNBr0+6qEywp1/2Pk2Fn0guwze/vhuCAgkLL9bKqSTLj7eo/kYgSb9C+bpaGCJJVEdxIXSDyx5RKE9NkElROIwKQIRt/+f8A6u/LqrTStxeigcVkfd9FiLVsWG/HLD8TxNff1LgPZ4Y0WE0PzySTw0wqnsDur6vJSdw2Y0sBeLn3UaawhPr6tpdQmG1IFS73ZXfI9XisbIIjtZbodOpRU4R2qtADz4lI5JK7BbOdpg5LxoTfGwsBxfUXqIsQIJ/r55ieBP57P4v9yVB0s/8mRY+A2cy2gIIJRfw092Yd/2AkJuVdj8FH7pFPcx0DLhEqgKdHsYZKKGheh6jD0wnsFq19dztrvknxMJnwx1xctDTlXTZ6DwyF94lMB3fxW6Itvt6XIYfkH5Fjxa3rthe6z/ekU0/3WMxqBErQxuHLd6pfttPS2ytEOTKhMwF24+Dv4+/QZwzkqb1BP4JSC26uJrlNCRDz33o8HOZ6NBtqzqr0vs91nKJlZkRQatjUQeN8j2bBsxBQgFQBKRUgMgzGW8+RClyulHDJSJwuih+HJYm8BWbdX651ZjtXvg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(396003)(136003)(376002)(46966006)(36840700001)(40470700004)(36860700001)(82740400003)(41300700001)(7696005)(40460700003)(6916009)(40480700001)(54906003)(2906002)(86362001)(36756003)(26005)(5660300002)(8936002)(2616005)(70206006)(336012)(8676002)(426003)(70586007)(82310400005)(356005)(1076003)(47076005)(6666004)(16526019)(186003)(478600001)(4326008)(316002)(81166007)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 02:31:48.7413 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb12181e-8b5f-452a-22b1-08da654100f6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,41 +68,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jianzh@amd.com, lin cao <lin.cao@amd.com>
+Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
+ tales.aparecida@gmail.com, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ mairacanal@riseup.net, Isabella Basso <isabbasso@riseup.net>,
+ andrealmeid@riseup.net, Trevor Woerner <twoerner@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the case of SRIOV, the register smnMp1_PMI_3_FIFO will get an invalid
-value which will cause the "shift out of bound". In Ubuntu22.04, this
-issue will be checked an related call trace will be reported in dmesg.
+Hello Alex,
 
-Signed-off-by: lin cao <lin.cao@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I believe you are already working on a rebase right now, but could you please
+cherry-pick these two commits from torvalds/master to fix compilation errors raised by
+GCC12 in the meantime?
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index b71860e5324a..fa520d79ef67 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -886,6 +886,7 @@ static void sienna_cichlid_stb_init(struct smu_context *smu);
- 
- static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
- {
-+	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0;
- 
- 	ret = sienna_cichlid_tables_init(smu);
-@@ -896,7 +897,8 @@ static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	sienna_cichlid_stb_init(smu);
-+	if (!amdgpu_sriov_vf(adev))
-+		sienna_cichlid_stb_init(smu);
- 
- 	return smu_v11_0_init_smc_tables(smu);
- }
+SHA-1:    82880283d7fcd0a1d20964a56d6d1a5cc0df0713
+patch-id: 684ed745d944c90c2aae3c9eda5a4f5aa9cd48e5
+
+SHA-1:    52a9dab6d892763b2a8334a568bd4e2c1a6fde66
+patch-id: 6b15e90354234809c3e054332d5d37612c5995dc
+
+Thanks in advance,
+Tales
+
+Kees Cook (1):
+  libsubcmd: Fix use-after-free for realloc(..., 0)
+
+Sergei Trofimovich (1):
+  objtool: Fix truncated string warning
+
+ tools/lib/subcmd/subcmd-util.h | 11 ++---------
+ tools/objtool/check.c          |  2 +-
+ 2 files changed, 3 insertions(+), 10 deletions(-)
+
 -- 
-2.25.1
+2.37.0
 
