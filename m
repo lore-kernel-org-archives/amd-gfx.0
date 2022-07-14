@@ -4,49 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E678C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 18:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914C6CCA47B
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 18:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7F510F98A;
-	Thu, 14 Jul 2022 18:50:29 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17ABC10F968;
- Thu, 14 Jul 2022 18:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=TYlDZx+WMQ2Fx8iFZoO5UknB1+81QzVI4tZ54OqH58k=; b=puEtYIWdypVwBhbKu3pmAC9UMH
- J/iCviKOp0aaqjxynhgpcOaw2BE5Gq67py4LCB97G7SCUrAWS6BalCEjgOAd3vIJdoYj6JWgy8oIm
- 12LYo133KAx+b2kNo+h7iB+jbNfgItc4tteyFGlRAzdWkYLYQfle5DG1shcU4Vd9+oFdW2ZJMqLPb
- YEtXtbQSHe5GaItlTnF1/T+8E7SP13xg2j3i1WO1TAk5pw5mC4LFZJx33xY9jvivxscqGWnMZNj1B
- BRZuzYL9GAv+2La57OKHgwpVSOscSHZeA469rC9yVCiASqGhNQnn/2LMS5+aoTBZmsWU+aaRDBfLb
- V2DoMRMw==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oC3uc-00Gjga-IF; Thu, 14 Jul 2022 20:50:10 +0200
-Date: Thu, 14 Jul 2022 17:49:19 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Add missing hard-float compile flags
- for PPC64 builds
-Message-ID: <20220714184919.rmsexizgfdkfboiq@mail.igalia.com>
-References: <20220618232737.2036722-1-linux@roeck-us.net>
- <584fc348-7a60-26a2-af61-9edc4f4830e4@amd.com>
- <CADnq5_NkVWqcxwLMBeskqpcSEYCEjUAK0hqvA_PAo7ACHKL2cA@mail.gmail.com>
- <6a026c9a-c4ee-deba-e028-4c0f478c1911@roeck-us.net>
- <CADnq5_OrxMMkazXEPHeZXp_bV890=r21DRx2QsqLXUFj4t8aYg@mail.gmail.com>
- <20220713230917.GE32544@roeck-us.net>
- <CADnq5_PAg8xg2J3WUfjxK_-WFaLOK7cQd6bqWDnfVqE6fpXq2Q@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E10FD10FC00;
+	Thu, 14 Jul 2022 18:54:56 +0000 (UTC)
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E12310E2F1;
+ Thu, 14 Jul 2022 17:20:31 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id k19so993310pll.5;
+ Thu, 14 Jul 2022 10:20:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=aiimYL4bGGP4Obd7S4r8NfKIKgNtZtb7QnLuS/XBbGM=;
+ b=h10XwfkbRdiTDooUNnPb6LXyfdxthOG17pIb6QhROE2ENj8ZLnLAVIneYyMxI/Vsni
+ EP/wwbppFhJ3tF5S76D99EqVhGqY0A/bWfRhEd2XlwEgssDD55cOxQwUCYYq+uaroqsM
+ Zz4rJUqQ2p+mg3pNTdwZfINQEbnlDUFEm6ForSg8tpjYjf6PUcmZL4GTmioTO47bkLMc
+ xNySOAengQHQGoQMYaJsDCOIUS0p/jR3kF/VLXz1D4WOuX8E3Smr6LzUWho5z+EhC8Vs
+ NrTSZ5jbpnRCaUXYO6jbRRaQ+iZo8ee4VFo2jsMXpsNEB9x8eqhAvHDkcNBulO1ad0nJ
+ gt4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+ :subject:content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=aiimYL4bGGP4Obd7S4r8NfKIKgNtZtb7QnLuS/XBbGM=;
+ b=JENA8gDO3+lj4Dvq9aCIRErJjAsgRL8L7oS0uSVPy1rw62kQji3On0awEj4dJBoSc8
+ cthumbQPzreKF3hWEakhu6ZdYljpUtO+fndJ40JsszGw+KU1Ptc6VKf4ooFO4hKjzTSU
+ RyFbPjI19bmnFp1QHso8kElCrOyuwc+mZ02BO8DIcTBdA5KFHmV+BbW0YiS5sAE1O8KO
+ pEGvEhNaYseUliBviFmtog3He1iuOv0+0Kyc0fQEcpjEvOVTM27ZqqO6w4uY5XJVE2VE
+ G/o2FMFM7jfgD1eCFYRa9/7f1tJ19tdNppXStb01b2X9ZIX/Y8ReYEeUAiyNrz6JU4Bh
+ hFEw==
+X-Gm-Message-State: AJIora/PZWPy/n7+eqUhYhFrfOHlZOtzKDhAsAUplseXg7Gud6nGwV1i
+ x/Vl+gIiYS8TxEfC/CZtpDk=
+X-Google-Smtp-Source: AGRyM1vM+4sA+x5IyNACx13FZKKy3VVeFA6buU+LX+i72+lqssb7wr0KfDVhzrwUHfklHa2xFydZTA==
+X-Received: by 2002:a17:903:234c:b0:16c:3dba:37fa with SMTP id
+ c12-20020a170903234c00b0016c3dba37famr9325277plh.89.1657819230890; 
+ Thu, 14 Jul 2022 10:20:30 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ w125-20020a636283000000b00419b1671c54sm1672819pgb.4.2022.07.14.10.20.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Jul 2022 10:20:29 -0700 (PDT)
+Message-ID: <00a2cb3c-e358-b8f1-5e65-bc1c0694f54d@roeck-us.net>
+Date: Thu, 14 Jul 2022 10:20:28 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kcyojzyxobcaybeg"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_PAg8xg2J3WUfjxK_-WFaLOK7cQd6bqWDnfVqE6fpXq2Q@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] drm/amd/display: Enable building new display engine with
+ KCOV enabled
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20220712224247.1950273-1-linux@roeck-us.net>
+ <98b656f3-e506-90be-ebcc-898813051e74@amd.com>
+ <CADnq5_OMayFN52hr7ZWFqMHPaV5_q7Hi+4LEbNMgfTPqo3__=w@mail.gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+In-Reply-To: <CADnq5_OMayFN52hr7ZWFqMHPaV5_q7Hi+4LEbNMgfTPqo3__=w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 14 Jul 2022 18:54:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,120 +79,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
  LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Guenter Roeck <linux@roeck-us.net>, Daniel Axtens <dja@axtens.net>
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 7/14/22 09:29, Alex Deucher wrote:
+> Applied.  Thanks!
+> 
+> On Wed, Jul 13, 2022 at 4:03 PM Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+>> On 2022-07-12 18:42, Guenter Roeck wrote:
+>>> The new display engine uses floating point math, which is not supported
+>>> by KCOV. Commit 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov
+>>> is enabled") tried to work around the problem by disabling
+>>> CONFIG_DRM_AMD_DC_DCN if KCOV_INSTRUMENT_ALL and KCOV_ENABLE_COMPARISONS
+>>> are enabled. The result is that KCOV can not be enabled on systems which
+>>> require this display engine. A much simpler and less invasive solution is
+>>> to disable KCOV selectively when compiling the display enagine while
 
---kcyojzyxobcaybeg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+"enagine". Outch.
 
-O 07/13, Alex Deucher wrote:
-> On Wed, Jul 13, 2022 at 7:09 PM Guenter Roeck <linux@roeck-us.net> wrote:
-> >
-> > On Wed, Jul 13, 2022 at 05:20:40PM -0400, Alex Deucher wrote:
-> > > >
-> > > > The problem is not the FPU operations, but the fact that soft-float
-> > > > and hard-float compiled code is linked together. The soft-float and
-> > > > hard-float ABIs on powerpc are not compatible, so one ends up with
-> > > > an object file which is partially soft-float and partially hard-flo=
-at
-> > > > compiled and thus uses different ABIs. That can only create chaos,
-> > > > so the linker complains about it.
-> > >
-> > > I get that, I just don't see why only DCN 3.1.x files have this
-> > > problem.  The DCN 2.x files should as well.
-> > >
-> >
-> > Seen in drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile:
-> >
-> > # prevent build errors regarding soft-float vs hard-float FP ABI tags
-> > # this code is currently unused on ppc64, as it applies to Renoir APUs =
-only
-> > ifdef CONFIG_PPC64
-> > CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o :=3D $(call cc-optio=
-n,-mno-gnu-attribute)
-> > endif
-> >
-> > Does that explain it ?
->=20
-> I would expect to see it in dcn20_resource.c and dcn30_clk_mgr.c for
-> example.  They follow the same pattern as the dcn 3.1.x files.  They
-> call functions that use FP, but maybe there is some FP code still in
-> those functions that we missed somehow.
+Anyway, thanks for applying.
 
-Hi,
+Guenter
 
-I'm a little late here, but I'm not able to reproduce the issue yet.
-I have this setup:
-- gcc 11.3.0
-- binutils 2.38.50
-- mainline kernel (torvalds) version: 5.19.0-rc6 (cross-compiling)
-  -> make ARCH=3Dpowerpc CROSS_COMPILE=3Dpowerpc64-linux-gnu- allmodconfig
-    =3D> DRM_AMD_DC [=3Dy] && HAS_IOMEM [=3Dy] && DRM [=3Dm] && DRM_AMDGPU =
-[=3Dm] && (X86 || PPC64 [=3Dy]) && (!KCOV_INSTRUMENT_ALL [=3Dn] || !KCOV_EN=
-ABLE_COMPARISONS [=3Dn])
-  -> make -j16 ARCH=3Dpowerpc CROSS_COMPILE=3Dpowerpc64-linux-gnu-
+>>> keeping it enabled for the rest of the kernel.
+>>>
+>>> Fixes: 9d1d02ff3678 ("drm/amd/display: Don't build DCN1 when kcov is enabled")
+>>> Cc: Arnd Bergmann <arnd@arndb.de>
+>>> Cc: Leo Li <sunpeng.li@amd.com>
+>>> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+>>
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>>
+>> Harry
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/display/Kconfig     | 2 +-
+>>>   drivers/gpu/drm/amd/display/dc/Makefile | 3 +++
+>>>   2 files changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+>>> index b4029c0d5d8c..96cbc87f7b6b 100644
+>>> --- a/drivers/gpu/drm/amd/display/Kconfig
+>>> +++ b/drivers/gpu/drm/amd/display/Kconfig
+>>> @@ -6,7 +6,7 @@ config DRM_AMD_DC
+>>>        bool "AMD DC - Enable new display engine"
+>>>        default y
+>>>        select SND_HDA_COMPONENT if SND_HDA_CORE
+>>> -     select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
+>>> +     select DRM_AMD_DC_DCN if (X86 || PPC64)
+>>>        help
+>>>          Choose this option if you want to use the new display engine
+>>>          support for AMDGPU. This adds required support for Vega and
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
+>>> index b4eca0236435..b801973749d2 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/Makefile
+>>> +++ b/drivers/gpu/drm/amd/display/dc/Makefile
+>>> @@ -26,6 +26,9 @@
+>>>   DC_LIBS = basics bios dml clk_mgr dce gpio irq link virtual
+>>>
+>>>   ifdef CONFIG_DRM_AMD_DC_DCN
+>>> +
+>>> +KCOV_INSTRUMENT := n
+>>> +
+>>>   DC_LIBS += dcn20
+>>>   DC_LIBS += dsc
+>>>   DC_LIBS += dcn10
+>>
 
-Am I missing something?
-
-So, as Alex mentioned the possibility of some non-isolated FPU code in
-3.1, I reviewed dcn31 code and my best bet so far is that the issue
-is here:
-
-https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/display/d=
-c/dcn31/dcn31_resource.c#L1721
-
-Although dcn31_update_soc_for_wm_a() is only called inside
-dml/dcn31/dcn31_fpu:
-- dc->res_pool->funcs->update_soc_for_wm_a(dc, context);
-
-it's declared in dcn31_resource and has FPU code. So, we should move it
-to dml/dcn31/dcn31_fpu.
-
-However, as I can't reproduce the issue, I don't know if it addresses
-the problem reported here and also if everything will be clean after
-moving it.=20
-
-Guenter,
-
-Can you provide more info about your setup: cross-compile or not, any
-flags, branch, etc?
-
-Best Regards,
-
-Melissa
-
->=20
-> Alex
-
---kcyojzyxobcaybeg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLQZSIACgkQwqF3j0dL
-ehy0EBAAuqy8y2vEfwK96pRSCkRaiIJysUL1pz3QvqTUxRi4SWqhSzgxH/QbOVvp
-fSswoGmER38+EDnU4JsG/0QsX52NXolK5NUbFtOdDv0ZXu/AWWSStDepVSqaA1qx
-hgdImJgMJP3hfah671LqDIQHHF1PSpFfS3bH379tsn/IncbHCYXFAX8BstQ3m5ai
-46nb41H++F+uTpIL5qADSDhIQfg1+TZqxYcEkWG4BbR9oURlxS5+0Vx4fh2YYEO7
-vEOxARtCR3+rKzz5OnSlw35uaNKf+GTM1IkVvaVUP33Ec0kicmW9feU74JMGmsgO
-4ib8CLFxngfTma/WFybfyItM3dBcX2YutvZSy3L5AefCmN8gjJJUjuwC8viD0Apr
-ZM1MUIoRiWUwR4fo9V2yc6qa1EWJqzAkBDugH3+5tlqaM+s6tKpMQUqejyZfsCoa
-pz3qqh+2JALcDE9CSsy+0aOIT3wmNxUA+CWjmQNGWMGAbbkgFay9LeAwIJIz/Gc3
-68bJuWa/gT8Vq2vBxToCE3ZcBIltvPF2u09UwKgLxx7j5ym/GVm/CYLGe9E8p/yv
-sB2R/OHnaPG3bXyDEPeXGIe8aqmuwcUMJtrPPs1zL7JUm09nRYHa4d0a0NIlODOY
-kCI20wnz/M/0Zt8+fF4tBO5C7ipy9Rgr59Z3zDz+oxSNm1RvKS8=
-=T3zC
------END PGP SIGNATURE-----
-
---kcyojzyxobcaybeg--
