@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4448FC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E78C43334
 	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 10:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDB6BA458D;
-	Thu, 14 Jul 2022 10:39:14 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFFC6A458D
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:39:12 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id b11so2608942eju.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 03:39:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C237A45A5;
+	Thu, 14 Jul 2022 10:39:15 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C705CA4583
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 10:39:13 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id dn9so2633818ejc.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 03:39:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=AdvFut0rh/uAXAtDtXUY+tZD5YgCj1fQLBVIkWg1+DY=;
- b=BDaT4ZzEjPVkTVfRoLxQbf8cYGy3N4Sli6Ag49ri7hoGWkQpHAFwSmVmspOvVtj1zB
- mBM14GMXgGZA7zAdl9rOZM3I4UKozTWamazF3sigPWPpOc5eJgzDKTRkULaMWgn0uMrc
- up0EMhVIpFRzMmgCamwoNE+imzPC9Aeag9CltoU1bpXnLtr0taozpbNwCPzMfMrFTZtP
- c7ygpesvTf3qat8fibWxRNvETfC+zM/CpTuzMYoERam65c/n36OY/kD2DfPScUKpEE2o
- ipMO5U/AMv7nwuosdyi13J9XEEmHOcpCZHOcWTZikXTyuUMFDaSQ3qdD/Lh8a+/0ux9L
- 1kKw==
+ bh=QEEHOcVX9jcWEvEnHDVnuQFTANJGIJsGfJ2gHsBc/Ng=;
+ b=PiqsjVMUpPHBZqTcJvTbCFraRXTEDfnTLkTgNu/pyM1D5/WrKaSzkNOUPntNCflu2B
+ /WQX9cYA4omkFbzMaIvKyDRzZf9mRzDXmE6jWSlj1h+lm+IeaCnIfvGTpqopxn0m0PVB
+ NeqWIzXUvV6822QMFa2KIdMd7tkeVr5LdkEa8g2shbzQarTyZmnO2EUUX9yTSiny56zI
+ fYlMteCZ+lLoDtbDUPYaiH+BdjTIHpgNyba2CeDqmY/WIv3yhjMM3soOStqgRn/FiGB1
+ N8l3gzTgY8+9Nvc0i+q1kGb2j9XT0ixpCo0O0LVzD3V4xK7f+VEBJyGyNywQNwDROjJj
+ y7ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=AdvFut0rh/uAXAtDtXUY+tZD5YgCj1fQLBVIkWg1+DY=;
- b=r9x9YAG3LJuCtzwg9j8DT14oh59ppdZGsx1J+M/HXs/DLkfZIm4D4DveqR6AGioKlf
- bDkW7IMlvG0HEI6nDSfOWBI0c7VFefIbVCu67qYoDrtORgUv/BDv1GHUicVPS86204ya
- BTKuYeDw3HW4/O063Tnagbh6q7weZV3PFnuq1TTlLWHUpqouMkBrMhK9ru7/u9fVC8lM
- cd4SZpzq6uJQen6qKZR1fgTgDk0DDkl2aOHlWfC9VMXddg4l7ouRcWeIeRcdR2Alcl1e
- 4CXxI1XHP0y3GABTFJz+dz6gJsYohRgnsC/JvIyhzxpNKy2Qb+hNPHGkbyIW6KnaUiRP
- x2JQ==
-X-Gm-Message-State: AJIora97CH96N1TP08GUROf4Q//ezCjsAgHl/Jb7KKTIoVBYiuQ8huT1
- zJlng1jLlKzQriTkv0qHj7NH+NWRJU0=
-X-Google-Smtp-Source: AGRyM1u/Z1YY7Wj3TXqlGD+3i1tqzwtCw8y6ba6lfg4x6dkhKgVNeO7JTWk01WqCu5qgvk9ogfm/8Q==
-X-Received: by 2002:a17:906:1ca:b0:715:73f3:b50f with SMTP id
- 10-20020a17090601ca00b0071573f3b50fmr8196452ejj.374.1657795151474; 
- Thu, 14 Jul 2022 03:39:11 -0700 (PDT)
+ bh=QEEHOcVX9jcWEvEnHDVnuQFTANJGIJsGfJ2gHsBc/Ng=;
+ b=SkZOr8gdE4j/eluLnYU/zm6kilxdpiXbmuD+lUJGpzjVC6Q9rnObYCxK7E5cwMAbyp
+ VGksngjCwy6ONee6B1zW6h+CO2uuxzcuDXMyppORRVqruGlhgRsZ0EApVljg6ZhjwR+j
+ 12Dl9pa2eQQQU3dgeTq2TlyHP6qkq4euRqX51cSgB0UsOCBC8sVMiMDm3pxIew/xREY1
+ W8sGWugJ5dgjXUG2dGjYytxBn5wLwkYDtTcUMDZOzdebrLlVDxmgQXEjduVYwD0dn/tm
+ qk3BKvPviA4hwwVl0Nd6IdgZwE1wt0G+hS8g2iPYlXIMWTJwXTzLEM5euibC7THI9Rnc
+ t4Jw==
+X-Gm-Message-State: AJIora/2J7if5+xINqzhVNnaxgrEmNxNkcdUFjeY4ax7YHXU0sFiszlp
+ BqkxwnEKm1mUJBAFVA64eJmb7p3hifU=
+X-Google-Smtp-Source: AGRyM1uOEIfv/pP21lskt3SUb6jsKzkHH4/qDJEk4+BRNWSDO1Ue3ZDeZTxF1iiUT9b+/FiEY2sQBw==
+X-Received: by 2002:a17:906:53ca:b0:6fe:ae32:e01e with SMTP id
+ p10-20020a17090653ca00b006feae32e01emr7936428ejo.455.1657795153416; 
+ Thu, 14 Jul 2022 03:39:13 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- z13-20020aa7d40d000000b0043adc6552d6sm799487edq.20.2022.07.14.03.39.10
+ z13-20020aa7d40d000000b0043adc6552d6sm799487edq.20.2022.07.14.03.39.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Jul 2022 03:39:11 -0700 (PDT)
+ Thu, 14 Jul 2022 03:39:13 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org, Marek.Olsak@amd.com,
  timur.kristof@gmail.com, andrey.grodzovsky@amd.com,
  Yogesh.Mohanmarimuthu@amd.com
-Subject: [PATCH 06/10] drm/amdgpu: remove SRIOV and MCBP dependencies from the
- CS
-Date: Thu, 14 Jul 2022 12:38:58 +0200
-Message-Id: <20220714103902.7084-7-christian.koenig@amd.com>
+Subject: [PATCH 08/10] drm/amdgpu: revert "fix limiting AV1 to the first
+ instance on VCN3"
+Date: Thu, 14 Jul 2022 12:39:00 +0200
+Message-Id: <20220714103902.7084-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220714103902.7084-1-christian.koenig@amd.com>
 References: <20220714103902.7084-1-christian.koenig@amd.com>
@@ -78,37 +78,75 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We should not have any different CS constrains based
-on the execution environment.
+This reverts commit 250195ff744f260c169f5427422b6f39c58cb883.
+
+The job should now be initialized when we reach the parser functions.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index b9de631a66a3..dfb7b4f46bc3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -323,8 +323,7 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 39405f0db824..3cabceee5f57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1761,21 +1761,23 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_sw_ring_vm_funcs = {
+ 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
+ };
+ 
+-static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p)
++static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
++				struct amdgpu_job *job)
+ {
+ 	struct drm_gpu_scheduler **scheds;
+ 
+ 	/* The create msg must be in the first IB submitted */
+-	if (atomic_read(&p->entity->fence_seq))
++	if (atomic_read(&job->base.entity->fence_seq))
  		return -EINVAL;
  
- 	if (chunk_ib->ip_type == AMDGPU_HW_IP_GFX &&
--	    chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT &&
--	    (amdgpu_mcbp || amdgpu_sriov_vf(p->adev))) {
-+	    chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
- 		if (chunk_ib->flags & AMDGPU_IB_FLAG_CE)
- 			(*ce_preempt)++;
- 		else
-@@ -1084,7 +1083,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 	if (r)
- 		return r;
+ 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC]
+ 		[AMDGPU_RING_PRIO_DEFAULT].sched;
+-	drm_sched_entity_modify_sched(p->entity, scheds, 1);
++	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
+ 	return 0;
+ }
  
--	if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
-+	if (fpriv->csa_va) {
- 		bo_va = fpriv->csa_va;
- 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+-static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, uint64_t addr)
++static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
++			    uint64_t addr)
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va_mapping *map;
+@@ -1846,7 +1848,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, uint64_t addr)
+ 		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
+ 			continue;
+ 
+-		r = vcn_v3_0_limit_sched(p);
++		r = vcn_v3_0_limit_sched(p, job);
  		if (r)
+ 			goto out;
+ 	}
+@@ -1860,7 +1862,7 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_job *job,
+ 					   struct amdgpu_ib *ib)
+ {
+-	struct amdgpu_ring *ring = to_amdgpu_ring(p->entity->rq->sched);
++	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
+ 	uint32_t msg_lo = 0, msg_hi = 0;
+ 	unsigned i;
+ 	int r;
+@@ -1879,7 +1881,8 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 			msg_hi = val;
+ 		} else if (reg == PACKET0(p->adev->vcn.internal.cmd, 0) &&
+ 			   val == 0) {
+-			r = vcn_v3_0_dec_msg(p, ((u64)msg_hi) << 32 | msg_lo);
++			r = vcn_v3_0_dec_msg(p, job,
++					     ((u64)msg_hi) << 32 | msg_lo);
+ 			if (r)
+ 				return r;
+ 		}
 -- 
 2.25.1
 
