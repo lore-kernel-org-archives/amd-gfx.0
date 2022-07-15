@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500EBC43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15FEBC43334
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7F310E77A;
-	Sat, 16 Jul 2022 14:35:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E715110E875;
+	Sat, 16 Jul 2022 14:35:16 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C542C10F45B;
- Fri, 15 Jul 2022 00:53:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9749A10E5AB;
+ Fri, 15 Jul 2022 00:53:19 +0000 (UTC)
 Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 06F906601A45;
- Fri, 15 Jul 2022 01:53:28 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 56DEA6601A44;
+ Fri, 15 Jul 2022 01:53:15 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657846411;
- bh=PteWYx7Wt5reZT7taoySnmyR4+zPHHT7pS736ipbNiM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=avN5sLDmsCMSZuDVcZ8lQbfDsoKw+pciIyMfgqRM7c6IrRo3Ty9cJVZ/pMdy+WDGr
- jon9Zguuo7QBGZD8t6zDWjKXJKkvq4ETPvYqBpGkOX1fYWDGdr0iAiSaAFLdPm4EvE
- ZSNXNqXzQNwUv/O53RU0S8lRJVobDWrWKl1tuIxeaEIaitq17gsxqSaPxF4PEDAwff
- +JQ3TYmJUfCUfbhznSPQ70FkRRUTt8q4+NDPkMEzpu+juiaMcm6d+uPpSHxJtiZ33p
- 6c7JswUZv2KGYU7BzJnwrB81p6cGlOplDqKScJdI3hUKQ276XEjQxSTvlLwHH5D0ki
- 71NFBoJ/4bGFA==
+ s=mail; t=1657846397;
+ bh=08a2nboQlEuWwlfAHFXkuoQn5obKyHZ/ZVFgCHrEt8s=;
+ h=From:To:Cc:Subject:Date:From;
+ b=VsAEIkbATEnA4Nbk3aERHQn8fLTLVUHNv8kWnssP/Qm3YXMVzWlFtWtdiMoahCGPS
+ Kme2EsYIfptxjyFqr0HTYnhHM2YDrmur5rK32XO50Iv7OJMG9x+bqrwazS7dy309Hr
+ 1b+7CYfqa5NrdY/U09oRNR6aOmNsc2mF6BOnsa/ZBo+gnufnonFAu467YUDfXNnyVT
+ 2+7CcdCl1nQYdMBehjDmpbmWcCdsqMJ0HzNITuntSQayJH8o68ShuNneWHuMz+ft9f
+ zsNlizMtyEmX65xBz2nEMDvbw5Q3Bpj+6ANqTt35ZjsRdjlP7HA6II7WWUrvegljIb
+ rs2/bpj1V1R9Q==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -54,13 +54,12 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Subject: [PATCH v1 5/6] media: videobuf2: Stop using internal dma-buf lock
-Date: Fri, 15 Jul 2022 03:52:43 +0300
-Message-Id: <20220715005244.42198-6-dmitry.osipenko@collabora.com>
+Subject: [PATCH v1 0/6] Move all drivers to a common dma-buf locking convention
+Date: Fri, 15 Jul 2022 03:52:38 +0300
+Message-Id: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 15 Jul 2022 13:56:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,136 +82,66 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-All drivers that use dma-bufs have been moved to the updated locking
-specification and now dma-buf reservation is guaranteed to be locked
-by importers during the mapping operations. There is no need to take
-the internal dma-buf lock anymore. Remove locking from the videobuf2
-memory allocators.
+Hello,
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 +----------
- drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 11 +----------
- drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 11 +----------
- 3 files changed, 3 insertions(+), 30 deletions(-)
+This series moves all drivers to a dynamic dma-buf locking specification.
+From now on all dma-buf importers are made responsible for holding
+dma-buf's reservation lock around all operations performed over dma-bufs.
+This common locking convention allows us to utilize reservation lock more
+broadly around kernel without fearing of potential dead locks.
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index de762dbdaf78..2c69bf0470e7 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -382,18 +382,12 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_dc_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -409,14 +403,11 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir,
- 			    DMA_ATTR_SKIP_CPU_SYNC)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index 39e11600304a..e63e718c0bf7 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -424,18 +424,12 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_dma_sg_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -446,14 +440,11 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
- 	/* mapping to the client with new direction */
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
-diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-index 7831bf545874..41db707e43a4 100644
---- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-+++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-@@ -267,18 +267,12 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_vmalloc_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -289,14 +283,11 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
- 	/* mapping to the client with new direction */
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
+This patchset passes all i915 selftests. It was also tested using VirtIO,
+Panfrost, Lima and Tegra drivers. I tested cases of display+GPU,
+display+V4L and GPU+V4L dma-buf sharing, which covers majority of kernel
+drivers since rest of the drivers share same or similar code paths.
+
+This is a continuation of [1] where Christian König asked to factor out
+the dma-buf locking changes into separate series.
+
+[1] https://lore.kernel.org/dri-devel/20220526235040.678984-1-dmitry.osipenko@collabora.com/
+
+Dmitry Osipenko (6):
+  dma-buf: Add _unlocked postfix to function names
+  drm/gem: Take reservation lock for vmap/vunmap operations
+  dma-buf: Move all dma-bufs to dynamic locking specification
+  dma-buf: Acquire wait-wound context on attachment
+  media: videobuf2: Stop using internal dma-buf lock
+  dma-buf: Remove internal lock
+
+ drivers/dma-buf/dma-buf.c                     | 198 +++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   4 +-
+ drivers/gpu/drm/armada/armada_gem.c           |  14 +-
+ drivers/gpu/drm/drm_client.c                  |   4 +-
+ drivers/gpu/drm/drm_gem.c                     |  28 +++
+ drivers/gpu/drm/drm_gem_cma_helper.c          |   6 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |   6 +-
+ drivers/gpu/drm/drm_prime.c                   |  12 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   6 +-
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  20 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +-
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  20 +-
+ drivers/gpu/drm/i915/i915_gem_evict.c         |   2 +-
+ drivers/gpu/drm/i915/i915_gem_ww.c            |  26 ++-
+ drivers/gpu/drm/i915/i915_gem_ww.h            |  15 +-
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   8 +-
+ drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
+ drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
+ drivers/gpu/drm/tegra/gem.c                   |  27 +--
+ drivers/infiniband/core/umem_dmabuf.c         |  11 +-
+ .../common/videobuf2/videobuf2-dma-contig.c   |  26 +--
+ .../media/common/videobuf2/videobuf2-dma-sg.c |  23 +-
+ .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
+ .../platform/nvidia/tegra-vde/dmabuf-cache.c  |  12 +-
+ drivers/misc/fastrpc.c                        |  12 +-
+ drivers/xen/gntdev-dmabuf.c                   |  14 +-
+ include/drm/drm_gem.h                         |   3 +
+ include/linux/dma-buf.h                       |  49 ++---
+ 32 files changed, 347 insertions(+), 257 deletions(-)
+
 -- 
 2.36.1
 
