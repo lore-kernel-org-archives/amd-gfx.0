@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AA2CCA479
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B1FCCA479
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 866F9112B04;
-	Sat, 16 Jul 2022 14:37:17 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2085.outbound.protection.outlook.com [40.107.100.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A607A10E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB1FD10EAE5;
+	Sat, 16 Jul 2022 14:37:33 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B997010E06A;
+ Fri, 15 Jul 2022 15:05:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LC29cnq+Q6e7FVvgxELoWdPGQ6LjneqvAjvICk1appsp2NEQmpDmlXKztEzTPQlw+W3MJ1RHW7eTvkb7nK79IhfZJkFgodpZak+vGAHI1wxUjx0qtLm/kA6/g5rAM8UTiMazlWqkm/DxMdeTIFknBb3japx0pQZjbQ2RyOqX4kfYWDd64rsd3+kzcKiQ+FLk1kKtfqkpy3Y8wn3GsYENuC4OkMb5VlnmKvvRSP33SkzELFEjCDe/uRRnLDm1mi95fAEQu/l22nXGGSDpmwB/OYtXyx+DtX1d6Pwqhcr1osKYrOz2zqt4fLhk5rLSPRqVDJIXHT5wmzYgIBYEvUaUOw==
+ b=b5M9No4geiePklwmMfBMmz/xEnMrvtHv6hW4QCULhd3/oshMVNadTBoWjWXjnM60Q2VQbb6B5tBEgoD+KzUpyW3HkThTrdLtvhcqO/7k1DhxDlsjR2KiBiqlWAN00b/NnOQ4gXKKu6NQG8LM4mFo/mNMpmjad34PqIWSq+a/DxZbHorZG/Zfw6C0Z/HHz5ubMbRbqycEAWYhRAAGIC08chIcQjpp6UZWr8zrUOfYF2UD/6C4OfAekqj4AoByHAmmLFOnUl8SJnGT3tQG+wWoOKQGUkXYLKDBhelqmUaEvwHCYR2OHbKCiF2VtRVUf0BgI6CdcUkbgV3DtSfrScQoBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PaH5ZptwTPzOWu53v2/QeAw4AB6wasKD9B3Up4NXf7o=;
- b=dXZD3Xz/+CKD07uzd+9YFNqCnjqFUr+oJD8c/heKIGYO4dedfWOwaIMOyee9w4yMycKTItmz9p4CZUUlC4ht4dTflmHD8SNbeY6hW6Ut2U/ertRn8TKJVF+6M3gE65Ix1g8Ay2gsK3a4ZBozXdXWQeDPSaHgbk9ko7yVHh6QfxfxXRi9Vt3h4NEwrgRLLprijuuuAKM2W32HT2cqmSJPYwJvHZGnCE9Bei4xUurgz8r0STOa2FZdcdPzRWbR3lJmSa01u4paCzpb/qTE9RvUXJHEfLLTHipT2T3n/TRzmzh2Hh7IFuxLEIVOXuBH/0q/+rnAcysFSZomoS8qPXztNQ==
+ bh=F8lzcu9Uc51zZ3prS+uZltVgKEco8VgkJ2E7O9HgaPo=;
+ b=SAA6ZJV0yHUosCi1y+61teVyyJYa899BHn17bBrVn7QWQRsCepnGJqKt2iEJ6L+STgde+6lxW2CN8gyCpagZ7fwBvRdUnAwflcypmPh/jXkgkXiJI7IjmVqBhH5Xx27ss228dLZZRaViSkodrqhIrODyPgqE37Y2mMcBkIh8EujIe/SBMG6EKboJ2EVqGGJD/IbI/7AyegzxKJm1RYa4mqQFv3YOpYJNvX6XxszMiexDHSCYBaXlPTgKQVb/3v2O7kC5+1YL2ppAd039euSMcUOaCdaeWFqEz2pHW7PwJzlOz6dtCo9w4vDiXeaUISSfda6zDBg0tMQrwiJkn/xKzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PaH5ZptwTPzOWu53v2/QeAw4AB6wasKD9B3Up4NXf7o=;
- b=5dwxbe1JwmEGsI02VyBd0S94G2MSMW/LpI8ei6xiBb0FypMmdtoUq0PfcszFFCI3ncStg2eXG6T6gb+oNLkrENQBh8tz6nr2quBcF9L1tVGVZcciS6BW2iivlSG7vhurlygO8401RYgIVoKeKLE8Mlcqd90XJnd3lYJW20DTiyc=
-Received: from DS7PR05CA0107.namprd05.prod.outlook.com (2603:10b6:8:56::25) by
- MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5438.14; Fri, 15 Jul 2022 18:17:40 +0000
-Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::90) by DS7PR05CA0107.outlook.office365.com
- (2603:10b6:8:56::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.7 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:40 +0000
+ bh=F8lzcu9Uc51zZ3prS+uZltVgKEco8VgkJ2E7O9HgaPo=;
+ b=QEGXLUC1KK+U5WJng+HhzJNljtPLaZIA55bRf34M8Zyh+DorlY0vFTnjGIPGmcM8CKn9/B3z97f33ETX9tgPeW8YkAT07FVr3Uqs/PCrS2yNebjA0BPHFm3pG3QG6yAMAoCQ7x/7sXoye+CczmFYA0jbkRnwHi5ojNk0l0uRTYA=
+Received: from DM6PR07CA0057.namprd07.prod.outlook.com (2603:10b6:5:74::34) by
+ BN6PR12MB1937.namprd12.prod.outlook.com (2603:10b6:404:108::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Fri, 15 Jul
+ 2022 15:05:48 +0000
+Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::da) by DM6PR07CA0057.outlook.office365.com
+ (2603:10b6:5:74::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23 via Frontend
+ Transport; Fri, 15 Jul 2022 15:05:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,53 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
+ DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:40 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 15:05:47 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:39 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 11:17:39 -0700
-Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:38 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 11/31] drm/amd/display: Fix hard hang if DSC is disabled
-Date: Fri, 15 Jul 2022 14:16:45 -0400
-Message-ID: <20220715181705.1030401-12-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
+ 2022 10:05:43 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <jgg@nvidia.com>
+Subject: [PATCH v9 08/14] lib: test_hmm add ioctl to get zone device type
+Date: Fri, 15 Jul 2022 10:05:15 -0500
+Message-ID: <20220715150521.18165-9-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220715150521.18165-1-alex.sierra@amd.com>
+References: <20220715150521.18165-1-alex.sierra@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c21589a-9820-4e04-3a65-08da668e4ddb
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d23c36a-44d8-41e3-593d-08da66737fdc
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1937:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5WQ2EwMaHxZ4Nu3+DK/5HlSPr8Sncat8sFtMzE0d3HCuKBERAJaIOSZio6NzEYogkiMvg4VCzIuapLkP2QhmGLvbdhgvVRPmT5t70Xje2ZMZcLyt0oA3mjSGLv8tDLsPSCQfRrqE4/vlKffPJBK3CK1qlkEu25dQIZ3YFZpp/yFhNrbgsZ9EG/camQIVbaQU8IJLCqKqfiNzzm9QtcRp4mJyj+2IQhFB5ceXNTd7xyczKRJTVj2wbk/JRX7OrmOqCb1Vn5dphpTqCVMu3+2GLmhvAl/af3+o1rDwa+zotD1Cnd4DZJwfJD14S+mnHXsRBG0MRsk2BaDH5GONCiNVRDTOkFQ6ibzWzwusgOfmrm9af8k/6uUXrYo/uGPGcrl0AETgK1iVZSAf3HnM56neffgzfq248ADkCzH6ADVzjG7mq0azNUVnjvorA8Ge81Y289fbtKO0YvBKSh1pdjzDaHJKY8ToNtfiHm1WALK0432EDMHnOOohrTZRoOl6AffHHbxnfDfDXmbhP2K873dt8q/fMPmeiXpcsMrsxhA9mlr2GSlQ+wIzc86K58QmSMzJTcKNpwG5rF0nf4Rg4KDs1ApitPog0GX4V/7mHU1+hHLi8E1d65kevfDOQ1PHGWcA3JLXSNi2iGAjlfe97FhRuevlFLd6RUcdwuACuMiQBzWJgFayyQ/7vIyJV3y9+IEOuJpZgSVonLmUMGLUOoO7GMe6bm1Heie8JpTO5vUtFXC8P/TxpBvKOcmE/0pGS/P47ighYrVO5fkqG8ZA8i+8QS8OTBirLMnhRU9/WFm5aMfzfEvVb7abn80ZQi2wALrLYz9OXwBCAwbrI0R9jPVTrstttCz3xlBx7Yaie7MR82E=
+X-Microsoft-Antispam-Message-Info: QpAuV0rNSBZN+20uXTRBBkk6sZZzgGTg5Ijp4jl2IpAA7xtAAnOldNIOXTplX4p0UbI0DjvK8w/nbmZIEGTNE8VZdv1JGBryl4+EPA2hl8xYFaf/HezOxEwJmZF3NMQX2SSK0EME+46UO3RzTbP9wbNPNaFJfim5IhK8QxrGhVX91Hql1u4CKFt/xCSDbJ5ubH6X+QnWPlibn/WEo0LVw5uQ73V2IR1TTxWR2p68kCiiytk2QpfgMVwFdLAM7Ce+JDbqkMKEeejXRkzmDA7yv3M+tk7KTBQ3T/4rddmmUuIBNQbC5/IguXC+MDgVv410odUEy6qgZ8dxj1zb3SHlyEjEiSAq0rN1Dz/XLPTHTn2RCjUDw79RChvTCgvmeokumsWutwoB5Rql1O60vdaf90O2MHjDtyUBm4sTsm+oyEELyMjsXnijM5lDp8zSQwEuFlSCZdK/8MRIqPt1uHu87s1aabxQtAwTfIoKgdYAx57e8aM4jhlls5R4o/3BhRB9ypulLV7TKH3hUSL3zLnaPBJS+HQpouGoR3IVXCrFkap0JocWZ/FrjKkYQ3XdzzWmBR1t8x9Iw29g89ewZ0w13y+NNW/dQJE3EoBs48PNxGhdVWauy2t4grHZWZhSC/NCIZIhU2LJjOcuW7r5j4Oakd11W5oQZQqVzn3K5IxgW3ifu8LwI16OXF6sr9OT9WR6bdV3OeiHPQeQyqa0dzdpW0sazzeU4+LhMcoL9IsHN0lzzfpzGQBG9yDrdpTY5Ckm7w2POPaG/TeGQ3YmZ1uNNPmSu2v3XSoWupGPawI3p7zw4+IIpXz7jUTGDQmEMn4qMfpHcVWLD7o7jEwJ8YcTAgWfyazorrzJurDu6ehtWKE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(136003)(376002)(346002)(40470700004)(46966006)(36840700001)(186003)(41300700001)(1076003)(86362001)(26005)(2616005)(6916009)(82310400005)(6666004)(40480700001)(54906003)(81166007)(478600001)(356005)(40460700003)(316002)(82740400003)(336012)(47076005)(36860700001)(36756003)(70586007)(70206006)(8676002)(5660300002)(83380400001)(4326008)(8936002)(426003)(2906002)(36900700001);
+ SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(396003)(36840700001)(40470700004)(46966006)(6666004)(26005)(7696005)(70586007)(478600001)(70206006)(8676002)(7416002)(86362001)(40460700003)(4326008)(83380400001)(316002)(81166007)(82310400005)(54906003)(41300700001)(2616005)(8936002)(426003)(336012)(36860700001)(16526019)(82740400003)(6916009)(47076005)(1076003)(356005)(36756003)(40480700001)(186003)(5660300002)(44832011)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:40.3011 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c21589a-9820-4e04-3a65-08da668e4ddb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:05:47.7672 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d23c36a-44d8-41e3-593d-08da66737fdc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4409
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1937
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,58 +99,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
+ Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We want to calculate the DTB clock values when DSC is enabled; however,
-this is not the current behavior implemented in DCN32. Right now, DML is
-trying to calculate DSC values even if DSC is disabled; as a result, we
-can have a hard hang due to wrong clock calculation. This commit fixes
-this issue by moving the calculation after the DSC check.
+new ioctl cmd added to query zone device type. This will be
+used once the test_hmm adds zone device coherent type.
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Poppple <apopple@nvidia.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ lib/test_hmm.c      | 11 +++++++++--
+ lib/test_hmm_uapi.h | 14 ++++++++++----
+ 2 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 5a701d9df0f7..febaff7d7343 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -1686,17 +1686,22 @@ double dml32_RequiredDTBCLK(
- 		unsigned int              AudioRate,
- 		unsigned int              AudioLayout)
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index cfe632047839..915ef6b5b0d4 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -87,6 +87,7 @@ struct dmirror_chunk {
+ struct dmirror_device {
+ 	struct cdev		cdevice;
+ 	struct hmm_devmem	*devmem;
++	unsigned int            zone_device_type;
+ 
+ 	unsigned int		devmem_capacity;
+ 	unsigned int		devmem_count;
+@@ -1260,14 +1261,20 @@ static void dmirror_device_remove(struct dmirror_device *mdevice)
+ static int __init hmm_dmirror_init(void)
  {
--	double PixelWordRate = PixelClock /  (OutputFormat == dm_444 ? 1 : 2);
--	double HCActive = dml_ceil(DSCSlices * dml_ceil(OutputBpp *
--			dml_ceil(HActive / DSCSlices, 1) / 8.0, 1) / 3.0, 1);
--	double HCBlank = 64 + 32 *
--			dml_ceil(AudioRate *  (AudioLayout == 1 ? 1 : 0.25) * HTotal / (PixelClock * 1000), 1);
--	double AverageTribyteRate = PixelWordRate * (HCActive + HCBlank) / HTotal;
--	double HActiveTribyteRate = PixelWordRate * HCActive / HActive;
-+	double PixelWordRate;
-+	double HCActive;
-+	double HCBlank;
-+	double AverageTribyteRate;
-+	double HActiveTribyteRate;
+ 	int ret;
+-	int id;
++	int id = 0;
++	int ndevices = 0;
  
- 	if (DSCEnable != true)
- 		return dml_max(PixelClock / 4.0 * OutputBpp / 24.0, 25.0);
+ 	ret = alloc_chrdev_region(&dmirror_dev, 0, DMIRROR_NDEVICES,
+ 				  "HMM_DMIRROR");
+ 	if (ret)
+ 		goto err_unreg;
  
-+	PixelWordRate = PixelClock /  (OutputFormat == dm_444 ? 1 : 2);
-+	HCActive = dml_ceil(DSCSlices * dml_ceil(OutputBpp *
-+			dml_ceil(HActive / DSCSlices, 1) / 8.0, 1) / 3.0, 1);
-+	HCBlank = 64 + 32 *
-+			dml_ceil(AudioRate *  (AudioLayout == 1 ? 1 : 0.25) * HTotal / (PixelClock * 1000), 1);
-+	AverageTribyteRate = PixelWordRate * (HCActive + HCBlank) / HTotal;
-+	HActiveTribyteRate = PixelWordRate * HCActive / HActive;
- 	return dml_max4(PixelWordRate / 4.0, AverageTribyteRate / 4.0, HActiveTribyteRate / 4.0, 25.0) * 1.002;
- }
+-	for (id = 0; id < DMIRROR_NDEVICES; id++) {
++	memset(dmirror_devices, 0, DMIRROR_NDEVICES * sizeof(dmirror_devices[0]));
++	dmirror_devices[ndevices++].zone_device_type =
++				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
++	dmirror_devices[ndevices++].zone_device_type =
++				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
++	for (id = 0; id < ndevices; id++) {
+ 		ret = dmirror_device_init(dmirror_devices + id, id);
+ 		if (ret)
+ 			goto err_chrdev;
+diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
+index f14dea5dcd06..0511af7464ee 100644
+--- a/lib/test_hmm_uapi.h
++++ b/lib/test_hmm_uapi.h
+@@ -31,10 +31,11 @@ struct hmm_dmirror_cmd {
+ /* Expose the address space of the calling process through hmm device file */
+ #define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
+ #define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_MIGRATE		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x05, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_DEV	_IOWR('H', 0x02, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_SYS	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
  
+ /*
+  * Values returned in hmm_dmirror_cmd.ptr for HMM_DMIRROR_SNAPSHOT.
+@@ -62,4 +63,9 @@ enum {
+ 	HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE	= 0x30,
+ };
+ 
++enum {
++	/* 0 is reserved to catch uninitialized type fields */
++	HMM_DMIRROR_MEMORY_DEVICE_PRIVATE = 1,
++};
++
+ #endif /* _LIB_TEST_HMM_UAPI_H */
 -- 
-2.37.0
+2.32.0
 
