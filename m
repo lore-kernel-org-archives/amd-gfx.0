@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B688C43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4665C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25F310FC89;
-	Sat, 16 Jul 2022 14:36:15 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2C610E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51C8C10EB99;
+	Sat, 16 Jul 2022 14:36:10 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2087.outbound.protection.outlook.com [40.107.101.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0DBB10E1EA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YOoAtqweAt3P03x6GsqirLcU4cv9Q3TY4giNh42Nc8qxYhqJyxQk5/KuyOPFgLwI+1QCZpA8267BrBUbmZbOLl8NNDojfCbSqq58cxWjbbq9OR0p2bZ3w2mjKaRnjvYQdL21JgD1ijmIr3UMr/lEkJZafU5aGAKzp4ZSS7930kw3DZZriLghT7Y2rWAd7tCgpKd22tz1tvnQhNyUCQ8LEWrak8sX7IFrakqyJ3dz66Odzl6fJ+URPjZbz3b1FV3EN7IS1KKWLSwocPHp8duoRbH7jylC4fz2cB/KnuoMMS69DxIXPXzBvaPNP0LZ8PPcvNo6WErdG5BvnQ5pOtG4Ew==
+ b=YOkuL6ZT5IJgCHrHYZ+1ztY6WCEcE64tImCyjM847J/rycMcfzzEKlDZ1grxMhfQhuio57odwDPwt+Ql4yINpLZycckjVj8BVMkcUxeShHRO6Eku8ILRfhLCfBNXhXZHKoQehZkb8a7x6W6DrvFLxCB9DOMhLwFEAbuZkTfZhiwFioBEE8Zin9tV3gjjW92AQR1iwpborgg9UJmFvZ2z/6chIo9j8eReenLfv+SZ2VRDRRZbRb3PMd3g+3kAeQ5OcaE3l5QiwFhNTFOD176sz8PKoknWU78GcoLG4exInrfvTp6vMRL8JdX4pYTaQYIDCdROK2/dd/MXG5Hdbflg6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POm78dbZ9ga321HizA0P8dDksKhqjjNnlMZ7wDXJIus=;
- b=PKgPJY4WGYjbC3j4ZyHTQ5WAVe8GZOKAgTMRb5y4gJkh1Wd9+HvgY0dz+PW7dY6xRL9I05zP/kGTUL4g6bDBQV9oiTYz2lIu5X7DXmrQunOYdD4HtdEhj5IfVbB/kiufJQRLC+Ak+eHhJAZXeLo8E5DJHM3ykS06ebPUbHK2gMqJm2Csi9VqlMOtrJy+cyryRPRQOkeyRkVZapsMPkXxT1NuPLSLvNJWVBgBmIQ2OGspybE4vcVXWucJIHzdIZRXd8jJIncJxwaHtDaC0WD52aoYJhcB/cfXl6BqFBX7aPhXUfWONtd4W8cdwKQyQQzQmepqsbytujm2KyDk8GCzNw==
+ bh=DOg48YDJXIYkAVkCdz7mqdHfqeJuJa7Lds8ANq18oH0=;
+ b=aloK1Dq5JtGJBHFfpwf9w7nBTVBPpWrzDAX8QDaifexCQMUskWBVXs/NhGrm8pHZt5y4n1l3PMiEbh5ZVEzfD4dRZ/dDYDyizsgODRY4A2OnW4Aa2H+Jk8yp7fctzYflxpT4v9A/rfP0zGb85Q4EarN4s4tp/G205y+g3UMfzvM3Ygu2Xcf6FWaBqr6MqW8B8qEF7zjixrxEHIfCNZmp/rdjIiJf/X/atd1k9EOq3nAkdjxFlk3AtmMn4CGmXZpZUFk09Qx3nuJ6Ggkno7K6rDY5cXBiiloCBWd02Izu4bj0wA+TeP0k3qn/BS0CCXWWxKCjxf4WfeloQO9h+C2v9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POm78dbZ9ga321HizA0P8dDksKhqjjNnlMZ7wDXJIus=;
- b=dP85y9+aWyuk+i/zZheu7BL1oAGmEgTuBOK4nOv1RUQkc/2jA82dfra1G7zkhtfY4p5wuNuhDPKM1qlwnZe48k5l9FvDD6MfOkerMfQn42UrBM+HDdw4+bZTHJHGg1aSW8FPQMV6+4R4n4hr8IwsJHbi3vFN1GQ6ImR7jPslPOE=
-Received: from DM6PR18CA0009.namprd18.prod.outlook.com (2603:10b6:5:15b::22)
- by DM6PR12MB2795.namprd12.prod.outlook.com (2603:10b6:5:41::32) with
+ bh=DOg48YDJXIYkAVkCdz7mqdHfqeJuJa7Lds8ANq18oH0=;
+ b=1MB6U6ijahVVRBm37zYgU6eroLsKL+J0q2Si1mdlLSdGw+zxK2tipXWcJ0yhCc93dsyjFak154Rga+MRwKgjGGubQAwEqnZJO3hiaWBvtge0pCgy/SqXqOb7ihR1ryopBIYi96bSLfJiFXugYzDAkGUaPQYz5qr0byK7oIHVOKE=
+Received: from MW4PR04CA0254.namprd04.prod.outlook.com (2603:10b6:303:88::19)
+ by DM5PR12MB1804.namprd12.prod.outlook.com (2603:10b6:3:112::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15; Fri, 15 Jul
- 2022 18:17:56 +0000
-Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:15b:cafe::b2) by DM6PR18CA0009.outlook.office365.com
- (2603:10b6:5:15b::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.25 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Fri, 15 Jul
+ 2022 18:17:49 +0000
+Received: from CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:88:cafe::c6) by MW4PR04CA0254.outlook.office365.com
+ (2603:10b6:303:88::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26 via Frontend
+ Transport; Fri, 15 Jul 2022 18:17:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT013.mail.protection.outlook.com (10.13.174.227) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:49 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:55 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 13:17:48 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:54 -0500
+ 2022 13:17:48 -0500
 Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:54 -0500
+ Frontend Transport; Fri, 15 Jul 2022 13:17:47 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/31] drm/amd/display: Move ntuple to insert entry
-Date: Fri, 15 Jul 2022 14:17:00 -0400
-Message-ID: <20220715181705.1030401-27-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 19/31] drm/amd/display: Move populate phaton function to dml
+Date: Fri, 15 Jul 2022 14:16:53 -0400
+Message-ID: <20220715181705.1030401-20-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
 References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
@@ -72,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 564166e1-490d-49aa-58cd-08da668e5716
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2795:EE_
+X-MS-Office365-Filtering-Correlation-Id: e333dd2b-afd7-4d75-3584-08da668e533e
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1804:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r+iVnEkw0F9vY9UbOdRU1mPT5GAW3jD2jZPSyQvSCSuvoa33eTvSl1j/7LlhJm1vXXfXn9TXv2tTBEdwfwJfcFihoFD6twoncKz5ZxRXc567YoGl4fGLlEaHnkkD9fr6biG/P1VujvGHED0tiynWLoXAFdTFyeNw0tw0hfYoSdsDXkfJBlbipb2ujALPwjqWCjL9pVLTGrc3jjls7tQJa2aLeAwqPFt6IbyEHYoaW2XbV3IYtbWftw1i/fYp0RGo2eu7gnLtWYMpGxKnTRhDpMx1aw9PTUw142op66YrSRyjZ0asaGGW0mHY4wDvX8qXvLou+8jTMTdOuJ95I4ETRh734Ain6+ziERWx1jrQUS8ZVWU6f0xTCZn024z7giTeyGrOuJjCIiiUXk8PLXi33RmU7W6Imn33Ywpxh0/nIr52mXRlmh09b3csz9NckiBIRuOlP/mjf0NCdxShSz6Rj/F0jcefKEjPBcofGknsWeIg2FIq6h0RtjCbE4dWLcAwB6C0QPaxE8J8N9ura2cPCnxO8QBP71Sfrw9dTS9aJnaB0NXS2Cm5XnQs845BtnLcF3sAHRugWlAHbq8vUOO6s6FPw5R61cqHetsoNxDbJy4DXtznAZUWCNAUFCOJ27fv1mEMtHOnHZD6BPS+C3f8XxGU1KjsIfaNuzdkFEJ/IZIdLAGoNRu7Edv7LVeSb9KVWEVKl8sztE5aMPiXSEYpaH+c/hBaNUg5vEByRmbXueRji7yRDPnP4dhClFDCZf2iRDZ56iQRZ9RszwwisbBYdAdSsCB/Qky5eViqYbxpEz6MXNef6MZ0eWxHTHrdMTekt5CMYBy8OKONFWvKphu23mQ0czM0aA4sJEjnmsR85l8=
+X-Microsoft-Antispam-Message-Info: o+GBIDLN0jBYgaJnyKCt+Pdgj1MXDdNcvBxDIy/qFI+vfPWE6NnvQAGu1ca7MTWdfB99u8ApwUodulhpQJ657iZu19EBFoE41O7YYud/rAMmuyHvnp0f3xm+/x0dJtakxB9QM5JsMWmoYgr984FQ2jJIZsKCci0fWkv/imIR5U4iUWMcKFEOy4yUCbqDLzG6Ao3CzsJGFh5YUO/XNBkx6rQRHJgCXJtIb6ZIuP5PydP/iy4qlBlJshpMVPXSbK399/moSIkPCm1WdFnBORosjxdsROLoehPnzJfkjTGc/rSWXHoHOkmKUlmJdRToTrH40bRJlgsnzkiufT61Wos2tsPtBPr9krtrA5sMxOzeclBjsy4YW9CtGqKJOVH3epSZwRDrO7jLzIiTKcuTgE5aff7yI4e6eOpzohV3yZ6w8DH21V0+6VhPYotJ2MVfOkRS7Ho4i9nD+2GtNS58eajnaM3LB0U+2jr1UQk5Bmsr6mZdvkGcTS+rAQMrXVYpVY8Jqd+v8IB1C1uW0oaiuL8B6AZXHBNi0R4zaRQeI0VX7RqkrjaJJ1Ec9PXIsxzvOs2NBDr5RAwLP5TRhGfWkumpZhj59uX0pFkn6yj/k+2l/jwGsWEmwIcCQY9CrENnP8oHGs+Ij7fP/kVr4/1J8qXZ1jj45wnbWtkJImxVR3YNuIteBus2vwWohp6lWq61+He06ZM5GIBortEF5a92lt8x8QPRYR1IdCwmBZ4lHXVL8/oeWeFc6j5H3kdTHGthevbMdTzkbu9K6xcRv5oIQk5HwKyrcH8ufIHQlPrI36Vo885C9R9pREo1S6BRcAbjRY7HAE6WATIYlWyddZWmH1KIXdlAUyPe/xgU3r01E1BWCF4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(136003)(376002)(396003)(36840700001)(46966006)(40470700004)(2906002)(5660300002)(316002)(8676002)(70206006)(70586007)(40480700001)(54906003)(82310400005)(26005)(6916009)(478600001)(8936002)(6666004)(186003)(2616005)(41300700001)(336012)(356005)(47076005)(426003)(82740400003)(86362001)(83380400001)(36860700001)(1076003)(4326008)(36756003)(40460700003)(81166007)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(376002)(346002)(39860400002)(136003)(46966006)(36840700001)(40470700004)(2906002)(36756003)(316002)(82310400005)(40480700001)(5660300002)(4326008)(8936002)(8676002)(6916009)(70206006)(40460700003)(54906003)(86362001)(70586007)(2616005)(356005)(47076005)(478600001)(41300700001)(6666004)(1076003)(186003)(83380400001)(81166007)(336012)(36860700001)(26005)(82740400003)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:55.7724 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 564166e1-490d-49aa-58cd-08da668e5716
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:49.2446 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e333dd2b-afd7-4d75-3584-08da668e533e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2795
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1804
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,134 +110,173 @@ Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move get_optimal_ntuple to the FPU code and call it inside
-insert_entry_into_table_sorted.
+The function dcn32_helper_populate_phantom_dlg_params uses FPU
+operations. For this reason, this commit moves this function to the
+dcn32_fpu file, and we ensure that we only invoke it under the
+kernel_fpu protection.
 
 Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 28 -------------------
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 25 +++++++++++++++++
- 2 files changed, 25 insertions(+), 28 deletions(-)
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  7 +++
+ .../display/dc/dcn32/dcn32_resource_helpers.c | 44 -------------------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 43 ++++++++++++++++++
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  5 +++
+ 4 files changed, 55 insertions(+), 44 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 32edb3e5715a..adcc83e6ea55 100644
+index 39214a0dcdf2..411ce13847c2 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1956,29 +1956,6 @@ void dcn32_calculate_wm_and_dlg(struct dc *dc, struct dc_state *context,
-     DC_FP_END();
- }
+@@ -88,6 +88,7 @@
+ #include "dml/dcn30/display_mode_vba_30.h"
+ #include "vm_helper.h"
+ #include "dcn20/dcn20_vmid.h"
++#include "dml/dcn32/dcn32_fpu.h"
  
--static void get_optimal_ntuple(struct _vcs_dpi_voltage_scaling_st *entry)
+ #define DCN_BASE__INST0_SEG1                       0x000000C0
+ #define DCN_BASE__INST0_SEG2                       0x000034C0
+@@ -312,6 +313,7 @@ enum dcn32_clk_src_array_id {
+ 		.reg_name = NBIO_BASE(regBIF_BX0_ ## reg_name ## _BASE_IDX) + \
+ 					regBIF_BX0_ ## reg_name
+ 
++#undef CTX
+ #define CTX ctx
+ #define REG(reg_name) \
+ 	(DCN_BASE.instance[0].segment[reg ## reg_name ## _BASE_IDX] + reg ## reg_name)
+@@ -2667,6 +2669,11 @@ static void dcn32_full_validate_bw_helper(struct dc *dc,
+ 			memset(merge, 0, MAX_PIPES * sizeof(bool));
+ 			*vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
+ 
++			// Most populate phantom DLG params before programming hardware / timing for phantom pipe
++			DC_FP_START();
++			dcn32_helper_populate_phantom_dlg_params(dc, context, pipes, *pipe_cnt);
++			DC_FP_END();
++
+ 			// Note: We can't apply the phantom pipes to hardware at this time. We have to wait
+ 			// until driver has acquired the DMCUB lock to do it safely.
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index a6ef1dba01fe..633d3ee18cfa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -28,50 +28,6 @@
+ #include "dcn20/dcn20_resource.h"
+ #include "dml/dcn32/display_mode_vba_util_32.h"
+ 
+-/**
+- * ********************************************************************************************
+- * dcn32_helper_populate_phantom_dlg_params: Get DLG params for phantom pipes and populate pipe_ctx
+- * with those params.
+- *
+- * This function must be called AFTER the phantom pipes are added to context and run through DML
+- * (so that the DLG params for the phantom pipes can be populated), and BEFORE we program the
+- * timing for the phantom pipes.
+- *
+- * @param [in] dc: current dc state
+- * @param [in] context: new dc state
+- * @param [in] pipes: DML pipe params array
+- * @param [in] pipe_cnt: DML pipe count
+- *
+- * @return: void
+- *
+- * ********************************************************************************************
+- */
+-void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
+-		struct dc_state *context,
+-		display_e2e_pipe_params_st *pipes,
+-		int pipe_cnt)
 -{
--	if (entry->dcfclk_mhz > 0) {
--		float bw_on_sdp = entry->dcfclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
+-	uint32_t i, pipe_idx;
+-	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
+-		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+-		if (!pipe->stream)
+-			continue;
 -
--		entry->fabricclk_mhz = bw_on_sdp / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
--		entry->dram_speed_mts = bw_on_sdp / (dcn3_2_soc.num_chans *
--				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
--	} else if (entry->fabricclk_mhz > 0) {
--		float bw_on_fabric = entry->fabricclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
--
--		entry->dcfclk_mhz = bw_on_fabric / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
--		entry->dram_speed_mts = bw_on_fabric / (dcn3_2_soc.num_chans *
--				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
--	} else if (entry->dram_speed_mts > 0) {
--		float bw_on_dram = entry->dram_speed_mts * dcn3_2_soc.num_chans *
--				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
--
--		entry->fabricclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
--		entry->dcfclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
+-		if (pipe->plane_state && pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
+-			pipes[pipe_idx].pipe.dest.vstartup_start = get_vstartup(&context->bw_ctx.dml, pipes, pipe_cnt,
+-					pipe_idx);
+-			pipes[pipe_idx].pipe.dest.vupdate_offset = get_vupdate_offset(&context->bw_ctx.dml, pipes, pipe_cnt,
+-					pipe_idx);
+-			pipes[pipe_idx].pipe.dest.vupdate_width = get_vupdate_width(&context->bw_ctx.dml, pipes, pipe_cnt,
+-					pipe_idx);
+-			pipes[pipe_idx].pipe.dest.vready_offset = get_vready_offset(&context->bw_ctx.dml, pipes, pipe_cnt,
+-					pipe_idx);
+-			pipe->pipe_dlg_param = pipes[pipe_idx].pipe.dest;
+-		}
+-		pipe_idx++;
 -	}
 -}
 -
- static void remove_entry_from_table_at_index(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
- 		unsigned int index)
- {
-@@ -2062,7 +2039,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.fabricclk_mhz = 0;
- 		entry.dram_speed_mts = 0;
- 
--		get_optimal_ntuple(&entry);
- 		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
- 		DC_FP_END();
-@@ -2073,7 +2049,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 	entry.fabricclk_mhz = 0;
- 	entry.dram_speed_mts = 0;
- 
--	get_optimal_ntuple(&entry);
- 	DC_FP_START();
- 	insert_entry_into_table_sorted(table, num_entries, &entry);
- 	DC_FP_END();
-@@ -2084,7 +2059,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.fabricclk_mhz = 0;
- 		entry.dram_speed_mts = bw_params->clk_table.entries[i].memclk_mhz * 16;
- 
--		get_optimal_ntuple(&entry);
- 		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
- 		DC_FP_END();
-@@ -2097,7 +2071,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 			entry.fabricclk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
- 			entry.dram_speed_mts = 0;
- 
--			get_optimal_ntuple(&entry);
- 			DC_FP_START();
- 			insert_entry_into_table_sorted(table, num_entries, &entry);
- 			DC_FP_END();
-@@ -2109,7 +2082,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.fabricclk_mhz = max_fclk_mhz;
- 		entry.dram_speed_mts = 0;
- 
--		get_optimal_ntuple(&entry);
- 		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
- 		DC_FP_END();
+ /**
+  * ********************************************************************************************
+  * dcn32_helper_calculate_num_ways_for_subvp: Calculate number of ways needed for SubVP
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 66102db87265..7c60a954737b 100644
+index 89b596599c3d..253ff9659b0d 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -353,6 +353,29 @@ static float calculate_net_bw_in_kbytes_sec(struct _vcs_dpi_voltage_scaling_st *
- 	return limiting_bw_kbytes_sec;
+@@ -111,3 +111,46 @@ void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr)
+ 	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
  }
  
-+static void get_optimal_ntuple(struct _vcs_dpi_voltage_scaling_st *entry)
++/**
++ * dcn32_helper_populate_phantom_dlg_params - Get DLG params for phantom pipes
++ * and populate pipe_ctx with those params.
++ *
++ * This function must be called AFTER the phantom pipes are added to context
++ * and run through DML (so that the DLG params for the phantom pipes can be
++ * populated), and BEFORE we program the timing for the phantom pipes.
++ *
++ * @dc: [in] current dc state
++ * @context: [in] new dc state
++ * @pipes: [in] DML pipe params array
++ * @pipe_cnt: [in] DML pipe count
++ */
++void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
++					      struct dc_state *context,
++					      display_e2e_pipe_params_st *pipes,
++					      int pipe_cnt)
 +{
-+	if (entry->dcfclk_mhz > 0) {
-+		float bw_on_sdp = entry->dcfclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
++	uint32_t i, pipe_idx;
 +
-+		entry->fabricclk_mhz = bw_on_sdp / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
-+		entry->dram_speed_mts = bw_on_sdp / (dcn3_2_soc.num_chans *
-+				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
-+	} else if (entry->fabricclk_mhz > 0) {
-+		float bw_on_fabric = entry->fabricclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
++	dc_assert_fp_enabled();
 +
-+		entry->dcfclk_mhz = bw_on_fabric / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
-+		entry->dram_speed_mts = bw_on_fabric / (dcn3_2_soc.num_chans *
-+				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
-+	} else if (entry->dram_speed_mts > 0) {
-+		float bw_on_dram = entry->dram_speed_mts * dcn3_2_soc.num_chans *
-+				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
++	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
 +
-+		entry->fabricclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
-+		entry->dcfclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
++		if (!pipe->stream)
++			continue;
++
++		if (pipe->plane_state && pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
++			pipes[pipe_idx].pipe.dest.vstartup_start =
++				get_vstartup(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
++			pipes[pipe_idx].pipe.dest.vupdate_offset =
++				get_vupdate_offset(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
++			pipes[pipe_idx].pipe.dest.vupdate_width =
++				get_vupdate_width(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
++			pipes[pipe_idx].pipe.dest.vready_offset =
++				get_vready_offset(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
++			pipe->pipe_dlg_param = pipes[pipe_idx].pipe.dest;
++		}
++		pipe_idx++;
 +	}
 +}
 +
- void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
- 				    unsigned int *num_entries,
- 				    struct _vcs_dpi_voltage_scaling_st *entry)
-@@ -363,6 +386,8 @@ void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+index 72a6dd75af0e..492f99b6d561 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+@@ -31,4 +31,9 @@
  
- 	dc_assert_fp_enabled();
+ void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr);
  
-+	get_optimal_ntuple(entry);
++void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
++					      struct dc_state *context,
++					      display_e2e_pipe_params_st *pipes,
++					      int pipe_cnt);
 +
- 	if (*num_entries == 0) {
- 		table[0] = *entry;
- 		(*num_entries)++;
+ #endif
 -- 
 2.37.0
 
