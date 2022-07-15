@@ -4,95 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B8DBC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D8C4C43334
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1744811295F;
-	Sat, 16 Jul 2022 14:37:11 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5741D10E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32684112A6C;
+	Sat, 16 Jul 2022 14:37:13 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2075.outbound.protection.outlook.com [40.107.101.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8C310E06A;
+ Fri, 15 Jul 2022 15:05:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OkXDq4iMSNGS55opCnnqbhUwYnX7Vput0QoTdJDsNgesh4Y+X+w060MxzwV1pNZzlhl6wlPclgSJxWzs49vfgOjDUQMaL2gjRFU8UNWPyVRSgoRV0NTbGZ0/+X11qWJyG6N94wrq4kKzcPuMHIDU/zC2rx0n2z6DWkJcEIoRJ3Zx6hYDm3EZExjSTlH3GjM5AQtbI2kXq0M3qcNDfJUYG+5ygOT3xgUSG/gjzi/hrUcYyMBDY8H5WUkBVTjMVIdMNv6EA3OieMkm7yzHkfx11IRl+d7fM5+weYuO/NHgj/83P2VcSMD6B9Ws7weBGFsVE9AYZkI/LJMQfIIP4Wi4Lg==
+ b=QTudni9d/7eECfnm6r5HwLFcjVR0l06sWNmnAtJiKPv5PCvAJIBFLMBqjx0hG1GJNzBMTRtqyuCyxPFCC+9E3I1uECVsHnBEngMJ5EPFBn02XBN9HfcTxBJSmux4KnibZTDXhhG2GBsGtI/4jNSjjXSpg1Us+S2keUl0AQBpWo1eN5bFyZAVTwqZB10vCi+InL0hghQ20d08tW3S9Zo8z5woF2JA8TbPLkQnYagxTXa3R1sbWzHH3jvd0GBcGR6YTFzo1vCOPwPwqB8nRS/qvcUzF6PG+WeZXOTKZjCcVBr+wDtyJM3ClI28opzx/yPeWwvBtrOcZbI6tsTcgf7Nig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wxh/6qAPgtNUsMeoerHHmWH3j0J2P6S2ofkOfL4Hjd4=;
- b=RF50RFVC9Yx6Nv9ObLUyKXjSjvQF/rlsqA6W3BOy2ATIFx+WkasokkN/JVTJZyQFAjemCDH616MYP7cXHZGDSUK9X/a7wXlur/IU3bClf/UXBfdzwGzeU3iNyOLQHaDSKCUiTUDw0oyQRRdJmNTFzr31B4bFfE7x0cpHuSL57I9Z789Bp+3fyyNWhEaMP5nEgegjocv6jLFF0zxE33nEl0dCOQpZKHxTd5PLy0HkjS4DLt7VucvtIGx+7NLcKAtk3PTgXWcvLJM1xCqqRRcNe7M7Wp7paR/kN5svK3AOKAnMCCagSwOnPy5jkigJM5AL48d4YVvkMQudmOJbdo5dLg==
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=NqlVcfA9WUJO3WGqLXRI7P50BflhYPP+v1RCqUVTDw2mv88hJyPhnM3/zzwU8PTQEj3hYgsXNSv3bTAjMVtMq9GiopLrZW5hgj/T5aFqIx8+ANwn9//rnbvIgjvT9zmHFWxPwOpzXesZ+D/6C5h7XuYs1Phfo9SlReoAPFyOr3Srcq9a9S5a3uk4pw9uWcKGDRYMNnT5v11DJ/CV9Ok0fdGaNqTm2551JTiigQGBpx5E/3hSRtcEDbXzTEqM84FAuh2SGgtP0PlzKpYMI9y0r9rA9095le1ge+C3WmkLTUvVz3O6E0LH8RgqtKZLI/vF/0uNpLqnxCTPjmbyvFeTpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wxh/6qAPgtNUsMeoerHHmWH3j0J2P6S2ofkOfL4Hjd4=;
- b=GQTOVzW22fwp3VM3/xtfhlxkYblmfcQfWfV673IXXzz1MQJodJQJcwkSeRa27blrr5wUxtDWxoei3aN7RKw/tYOs86I5/vwxnWgOoMJ+EU+lhg8vZP9JPtWUn6LOij3p0hpWFbwal46m+vzNMWVLNFf+5At/iZDnH73potJNj9E=
-Received: from MW4PR03CA0149.namprd03.prod.outlook.com (2603:10b6:303:8c::34)
- by BYAPR12MB2773.namprd12.prod.outlook.com (2603:10b6:a03:72::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Fri, 15 Jul
- 2022 18:17:42 +0000
-Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::c7) by MW4PR03CA0149.outlook.office365.com
- (2603:10b6:303:8c::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:42 +0000
+ bh=Ds2C6hKBCPm3LMFGvWFrTQmYNyEijOJ3/DIUhvifx8M=;
+ b=En/2Oe20ruj0pbPmWdnh17SdS8PB1r7yMIjshvGZOjJXtRrnwaWMl7nUODvAPQl2rpUDNAY1t+mjMa6sjKGvF9UF+wKn+70wPugkd3jkfZP2waS6K49e+PuK9s/QQEVhubrln7vSkGEp5S+9ENBX94E11ytudQNmhx2IkkCijKU=
+Received: from DS7P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::35) by
+ CH2PR12MB3989.namprd12.prod.outlook.com (2603:10b6:610:23::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5417.23; Fri, 15 Jul 2022 15:05:52 +0000
+Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::1f) by DS7P222CA0027.outlook.office365.com
+ (2603:10b6:8:2e::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17 via Frontend
+ Transport; Fri, 15 Jul 2022 15:05:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:42 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 15:05:52 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:38 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 11:17:38 -0700
-Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:37 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/31] drm/amd/display: remove number of DSC slices override
- in DML
-Date: Fri, 15 Jul 2022 14:16:44 -0400
-Message-ID: <20220715181705.1030401-11-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
+ 2022 10:05:47 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <jgg@nvidia.com>
+Subject: [PATCH v9 12/14] tools: update test_hmm script to support SP config
+Date: Fri, 15 Jul 2022 10:05:19 -0500
+Message-ID: <20220715150521.18165-13-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220715150521.18165-1-alex.sierra@amd.com>
+References: <20220715150521.18165-1-alex.sierra@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 65479c91-e2d2-48c1-16d4-08da668e4eef
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2773:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29220a42-15c5-4ee2-dbb9-08da66738277
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3989:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NbSMZ8y8SW/8cNQ8fp4BM33rtlKsBNvJAFraU3MNTkajrEu+4Dt94A+mvbxYzcHneNQdnzqqA/4qoAIWwdbEKDvtJzIl168yXBGcqT45+tspVouwZLjsJ222oZysBxBHHuSOE7mtKmF3YLxn7uSv3GHy88h5w6QMFOL/GXBcZODjZR3D+mSzLc/AdiwmElGGqSyNsmlgG+mt5QapmDDDTNGTjq+QlMFC3I1V7wb8r4oDwhXn3Etd0B2DsmY1PeHzhnyRpYaniyBnvx4S6ozlykt/Piz+KNkghn0nuW2MNXromUMEo9o48bKA7rn/IjS3xuoDlEVhF3SpkMO2NZg3p9D3COq+dlAoJJM9wyhZUdDE7xSF846nkwvEVmVGU7cQ5/Uf6CxLW73Xl4rChh9kHwOhKoimdIId61o0EythufSV/TVuMShXlBPrveoIb8Itw3IwvaNshyPW/4eX448iBdWGR+p9yD4ESZpu/+FBwxAt9Yw/jIGCAR1/omFVAmuD0yinEpKREF7uHVAjnTp4yh8lxdUNf5OBAPYOvmhDEW2i6CYbRO4Pue1Lr1ff2hi8nkwBTGDHq/SNDFEdC5Z12s0MUWC7SLEtC8Iy1bYmcSGDePQRZiGZ3RoqIvE/sjSgFXv2Nqugaz123LBs5TV8r6xbQ93HbdSIqNgT/xCPj4TUaeh4TvaOARKAjCt8iiLT3GlnS0Wi2yyEoyZlcn8CfAink6HCY2ZZvPeNcMEETpoT1GpidWA3VjnZ5/G60jn2yjKx6aUlQ/oaeleDxMiGGr6+vS4XJSetCF8ztGoayNT02tX3m3jOUW+oL57od1wTyC1z6zZHsnEEzP1lxf6XdUr1Mgj2EilqcVSj0+HmKBIfuSycXtHYOYjeKs/bBlaD
+X-Microsoft-Antispam-Message-Info: /VYrSA2SS9Qkj13md4crjZzx7QSMBibevN8VWzZaIQ1PPuAZ3XfG0m7vbz1c15sS8qLlqa/jrjVOqbp41hHaLXVopPbruqi4wO0Xp5w303vfrdcKV04wn01G73iAZ/Q/XN95tFQXqLmN2ABPlcF5VAa1eVvFnYRBOCiVhJ/OHqWans1IKniUPWpYleGY7bYDoiwK5NFLe1Ygz1KrafPmTipYfzqk+il8s3R+b2mKoELnbmk51rUn29ItLt18UY/J81Bxu7l63A9tRl0OvPnkiBAUntfTOo7m102YFDsqScrUdhkSiPxImrkq2ODLDx0lTuYLwkrEDrEGl9r96ueNYjg5fjBk6DdJw0UfgbnZCZZJs+HSotbcX/eZvVXde8RP3VT9ofgdXVl1mEIGrtl4Fga7HvkFKFKDZ49arfg+vJ5vYfAPUPOTrH5gLcTpYZwnd3BZavxvRGbKze25Mor4LlEzL7+bFJ8KP7wmjvHeJWJMsePmmmXyKn7gF6/qVz/ZScosc+fj/f4K7seFhDSl8SaIccz773310NQHYyhKk2+vOsyBkGx2dRN0Udzyv06ixUkUIrnWeWlhni5uhl9kVUwsfjQNYRBEFiBWXRVT/sG4FN3Th097vziCoxSkY65O7jq1jbhm98s8EElt2A3NYyNG1ZhBGgrc6Llfkmo7nuSfNPBBDvSwKRXeGGEX9PE/VV46gjWZUHYy3WLQxVE8MTVB25xpB7d/zJDEDrViMEj/nuhDXDIWhiQjTESHnQy+S8IWYGiO+9HkFcewHHCYNFNSPs19c46FUL7QDanhRLaQXAS/gIg1+xO60BXokQE9P0eCKAUE7eE96gfD5dh7JrzDTt1t3NEatk2CYI9OJRE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(39860400002)(396003)(136003)(40470700004)(46966006)(36840700001)(82310400005)(36860700001)(1076003)(41300700001)(6916009)(336012)(426003)(26005)(6666004)(4326008)(186003)(5660300002)(54906003)(2616005)(8676002)(2906002)(478600001)(70206006)(81166007)(47076005)(70586007)(40480700001)(86362001)(316002)(36756003)(356005)(8936002)(82740400003)(40460700003)(83380400001)(36900700001)(44824005);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(136003)(39860400002)(396003)(376002)(46966006)(36840700001)(40470700004)(478600001)(40460700003)(5660300002)(16526019)(54906003)(316002)(26005)(7696005)(2906002)(6666004)(6916009)(44832011)(82310400005)(41300700001)(36756003)(81166007)(36860700001)(7416002)(8676002)(4326008)(2616005)(83380400001)(40480700001)(70586007)(426003)(47076005)(86362001)(1076003)(186003)(336012)(8936002)(82740400003)(356005)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:42.0152 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65479c91-e2d2-48c1-16d4-08da668e4eef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:05:52.1574 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29220a42-15c5-4ee2-dbb9-08da66738277
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2773
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3989
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,65 +99,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
+ Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
+addresses. These two parameters configure the start SP
+addresses for each device in test_hmm driver.
+Consequently, this configures zone device type as coherent.
 
-[why]
-Number of DSC slices is an input to DML with high dependency
-on display specific capability. This isn't something DML can decide
-on its own. DML has to use the original number of DSC slices input
-to DML during validation without modification. Otherwise the
-computed DSC delay will not reflect the current configuration
-and therefore causes validation failures.
-
-[how]
-Remove DML override for number of DSC slices parameter.
-
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- .../dc/dml/dcn32/display_mode_vba_32.c        | 20 -------------------
- 1 file changed, 20 deletions(-)
+ tools/testing/selftests/vm/test_hmm.sh | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index c6c3a9e6731a..1712843dafaa 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -1897,26 +1897,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				v->MaximumSwathWidthInLineBufferChroma);
- 	}
+diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
+index 0647b525a625..539c9371e592 100755
+--- a/tools/testing/selftests/vm/test_hmm.sh
++++ b/tools/testing/selftests/vm/test_hmm.sh
+@@ -40,11 +40,26 @@ check_test_requirements()
  
--	/*Number Of DSC Slices*/
--	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
--		if (mode_lib->vba.BlendingAndTiming[k] == k) {
--			if (mode_lib->vba.PixelClockBackEnd[k] > 4800) {
--				mode_lib->vba.NumberOfDSCSlices[k] = dml_ceil(mode_lib->vba.PixelClockBackEnd[k] / 600,
--						4);
--			} else if (mode_lib->vba.PixelClockBackEnd[k] > 2400) {
--				mode_lib->vba.NumberOfDSCSlices[k] = 8;
--			} else if (mode_lib->vba.PixelClockBackEnd[k] > 1200) {
--				mode_lib->vba.NumberOfDSCSlices[k] = 4;
--			} else if (mode_lib->vba.PixelClockBackEnd[k] > 340) {
--				mode_lib->vba.NumberOfDSCSlices[k] = 2;
--			} else {
--				mode_lib->vba.NumberOfDSCSlices[k] = 1;
--			}
--		} else {
--			mode_lib->vba.NumberOfDSCSlices[k] = 0;
--		}
--	}
--
- 	dml32_CalculateSwathAndDETConfiguration(
- 			mode_lib->vba.DETSizeOverride,
- 			mode_lib->vba.UsesMALLForPStateChange,
+ load_driver()
+ {
+-	modprobe $DRIVER > /dev/null 2>&1
++	if [ $# -eq 0 ]; then
++		modprobe $DRIVER > /dev/null 2>&1
++	else
++		if [ $# -eq 2 ]; then
++			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
++				> /dev/null 2>&1
++		else
++			echo "Missing module parameters. Make sure pass"\
++			"spm_addr_dev0 and spm_addr_dev1"
++			usage
++		fi
++	fi
+ 	if [ $? == 0 ]; then
+ 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
+ 		mknod /dev/hmm_dmirror0 c $major 0
+ 		mknod /dev/hmm_dmirror1 c $major 1
++		if [ $# -eq 2 ]; then
++			mknod /dev/hmm_dmirror2 c $major 2
++			mknod /dev/hmm_dmirror3 c $major 3
++		fi
+ 	fi
+ }
+ 
+@@ -58,7 +73,7 @@ run_smoke()
+ {
+ 	echo "Running smoke test. Note, this test provides basic coverage."
+ 
+-	load_driver
++	load_driver $1 $2
+ 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
+ 	unload_driver
+ }
+@@ -75,6 +90,9 @@ usage()
+ 	echo "# Smoke testing"
+ 	echo "./${TEST_NAME}.sh smoke"
+ 	echo
++	echo "# Smoke testing with SPM enabled"
++	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
++	echo
+ 	exit 0
+ }
+ 
+@@ -84,7 +102,7 @@ function run_test()
+ 		usage
+ 	else
+ 		if [ "$1" = "smoke" ]; then
+-			run_smoke
++			run_smoke $2 $3
+ 		else
+ 			usage
+ 		fi
 -- 
-2.37.0
+2.32.0
 
