@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A5ECCA479
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B688C43334
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BB010FC43;
-	Sat, 16 Jul 2022 14:36:13 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01A8D10E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25F310FC89;
+	Sat, 16 Jul 2022 14:36:15 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2C610E1EA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:18:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aoeT3OBB/pdpFuFUqG669PAxUX5ajLD6QirV2lnoS18rd2x/qUUc1HhFs2myGEj/9rnY1mLJeUAaZVQqJkylD0QJNJxqXZIZxvYeCM8IZwxue9IE+k5gqW4uNIgJUyAp7W9A4geimhgE93Gxc6PpVn/CYWsBD1sFfseXwFVtZQ980juMmdgnLC8nG+EM+wRBwsEKiGxXdRjgEBTy36CNA1mT88ak4DnqhmMfgwSfdJEl6uSG0I/Y8Wb8aN8V3LQY3q1bqOOJ9o7T/BtdqiBiUA6NFM1J+s4Jm//qdnLRNunOlcxvmRfqtDlGyu9bDmFWDV2Hi/fesTs5xUzKwezwdg==
+ b=YOoAtqweAt3P03x6GsqirLcU4cv9Q3TY4giNh42Nc8qxYhqJyxQk5/KuyOPFgLwI+1QCZpA8267BrBUbmZbOLl8NNDojfCbSqq58cxWjbbq9OR0p2bZ3w2mjKaRnjvYQdL21JgD1ijmIr3UMr/lEkJZafU5aGAKzp4ZSS7930kw3DZZriLghT7Y2rWAd7tCgpKd22tz1tvnQhNyUCQ8LEWrak8sX7IFrakqyJ3dz66Odzl6fJ+URPjZbz3b1FV3EN7IS1KKWLSwocPHp8duoRbH7jylC4fz2cB/KnuoMMS69DxIXPXzBvaPNP0LZ8PPcvNo6WErdG5BvnQ5pOtG4Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EPodHEn38OkE93/8c4/NAGRoa1JEu8eGszMrVOFoVEw=;
- b=Jy7RCmNWhN4PHi46Rg1zBUmon1TluUt6QKLvIaE7m98dzg/7G7V6pb37rlgjuW/rV+U3/6DMl3UdTyoevkuXC8NurQ9B0mJHZol2zKTuJhClWklU032b3xhURTNThZSaQK/VBHe4QAtz6MjN7l1bj+bVXfLmEOw7kqiVrjEfLA27fegEfYKP7fzWkrs0KbbikrKO8Xvr6qohcknPkpgXM4q/aVxYYg+Oq8043ZXVeucA6YKFAcV6nzPBE9rw7F9WudqmZYkTwjmmtwONWd+y/cwQb8zrLB5+9aks8afhZMh1g7X1gFOLOa0HfovnT3iZCInT/TyMyjCyclWN8TOwCQ==
+ bh=POm78dbZ9ga321HizA0P8dDksKhqjjNnlMZ7wDXJIus=;
+ b=PKgPJY4WGYjbC3j4ZyHTQ5WAVe8GZOKAgTMRb5y4gJkh1Wd9+HvgY0dz+PW7dY6xRL9I05zP/kGTUL4g6bDBQV9oiTYz2lIu5X7DXmrQunOYdD4HtdEhj5IfVbB/kiufJQRLC+Ak+eHhJAZXeLo8E5DJHM3ykS06ebPUbHK2gMqJm2Csi9VqlMOtrJy+cyryRPRQOkeyRkVZapsMPkXxT1NuPLSLvNJWVBgBmIQ2OGspybE4vcVXWucJIHzdIZRXd8jJIncJxwaHtDaC0WD52aoYJhcB/cfXl6BqFBX7aPhXUfWONtd4W8cdwKQyQQzQmepqsbytujm2KyDk8GCzNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EPodHEn38OkE93/8c4/NAGRoa1JEu8eGszMrVOFoVEw=;
- b=25lb+yK4B5TpdiBo3gB/aoZxUfaJIprIjHsDdHd8P4g9exj2UFWg10DUSiCDnsWWGP+8FHGAmJuBCfU4E8UY000fSCIjYpW/CSR/4b08/33iFurYVpg5bxzMRQnKV2+aCmcAqF+BGpAFmK+itltMEE/2Wg2NSL0MG5t7thuYY00=
-Received: from DS7PR05CA0100.namprd05.prod.outlook.com (2603:10b6:8:56::23) by
- BYAPR12MB2854.namprd12.prod.outlook.com (2603:10b6:a03:135::30) with
+ bh=POm78dbZ9ga321HizA0P8dDksKhqjjNnlMZ7wDXJIus=;
+ b=dP85y9+aWyuk+i/zZheu7BL1oAGmEgTuBOK4nOv1RUQkc/2jA82dfra1G7zkhtfY4p5wuNuhDPKM1qlwnZe48k5l9FvDD6MfOkerMfQn42UrBM+HDdw4+bZTHJHGg1aSW8FPQMV6+4R4n4hr8IwsJHbi3vFN1GQ6ImR7jPslPOE=
+Received: from DM6PR18CA0009.namprd18.prod.outlook.com (2603:10b6:5:15b::22)
+ by DM6PR12MB2795.namprd12.prod.outlook.com (2603:10b6:5:41::32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Fri, 15 Jul
- 2022 18:17:42 +0000
-Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::74) by DS7PR05CA0100.outlook.office365.com
- (2603:10b6:8:56::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.9 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15; Fri, 15 Jul
+ 2022 18:17:56 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:15b:cafe::b2) by DM6PR18CA0009.outlook.office365.com
+ (2603:10b6:5:15b::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.25 via Frontend
+ Transport; Fri, 15 Jul 2022 18:17:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,26 +45,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:41 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:55 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:40 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 13:17:55 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:40 -0500
+ 2022 13:17:54 -0500
 Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:39 -0500
+ Frontend Transport; Fri, 15 Jul 2022 13:17:54 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/31] drm/amd/display: Don't set dram clock change
- requirement for SubVP
-Date: Fri, 15 Jul 2022 14:16:46 -0400
-Message-ID: <20220715181705.1030401-13-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 26/31] drm/amd/display: Move ntuple to insert entry
+Date: Fri, 15 Jul 2022 14:17:00 -0400
+Message-ID: <20220715181705.1030401-27-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
 References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
@@ -73,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9ddee4e1-bac7-4aa6-debe-08da668e4ea5
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2854:EE_
+X-MS-Office365-Filtering-Correlation-Id: 564166e1-490d-49aa-58cd-08da668e5716
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2795:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VrsGNUiBZrZt2fZFZpWDPBd0vhqTIkgHanA4sI02LeDMycqHe75kd7S85+fkyX+L5ktTN9W3scNl4snawRuc21lX84SD0VDnu6PSLEknwEjYC6ghLmrOjQBT705nOYjDFMUcLOI5TCu4oTP5yTS4jhVKFEzH+SSRBXyUO1wq9HHof7rPH5NXfea+X7WR7ylmfdrW8ZP7FlSK+e39e4YUeF/cIKUsKBHxaI9G0zjCcQesgOIYw1ZHAlK0xrgXwhKRxyHllF9IoP5EUn17wdC3IK+ZZEag/Ik4c5NV0XHlaezaMrkxLAXTjBWMo5CMGTdlmLWt4zbZ4QGKTfGo4q8GxjGQN9YD4HvG2WpLll6cngkOuqTWZQV9Vn3QG2/cv+HzSl0oJugtrHntwKAC8raHh6thkgU3lAZr5JTMcVKv391RX7q1vjg7fBTz3YnJIFQ4GyveC0u5WuVlkZFe8Foh+5btt/vRLedmeiJbfmToy8nLNCLYkAbFzWFOHEoqGgHa7vc4aNMW0nfGxYpDU0R3J9GGHIixgWQzDeXuD3KvlHitGNJQIjKlWzCJlNtmUIfyGwEPDZs0uc5TxwBPt6uR3IHPff9eaD5bXDzoTFMhUMxBLJ7Ty+2U7qH0ev5HRMZ+0BxQ1JK9OGaT4HMkUOdAqViPg+1sUBbwKJm9MCHvSclMshaLS+mPGhg3kKV8eUNxAuk0KdvpoxELMC+e85w8cSM+BVIWCGw4MWoHp2rlId6NIVclzBSeMhUFnxhLuzmrXAfUE+3L80rCOE0VmzzxH3u/8QHqsYqkt4Medmh3mGlpSL6xnyUX4fDMZ0ZNHBUD/45egTU6vvXLOWOHPMbaOkREX6ChzHeMDFCIfHMdz0s=
+X-Microsoft-Antispam-Message-Info: r+iVnEkw0F9vY9UbOdRU1mPT5GAW3jD2jZPSyQvSCSuvoa33eTvSl1j/7LlhJm1vXXfXn9TXv2tTBEdwfwJfcFihoFD6twoncKz5ZxRXc567YoGl4fGLlEaHnkkD9fr6biG/P1VujvGHED0tiynWLoXAFdTFyeNw0tw0hfYoSdsDXkfJBlbipb2ujALPwjqWCjL9pVLTGrc3jjls7tQJa2aLeAwqPFt6IbyEHYoaW2XbV3IYtbWftw1i/fYp0RGo2eu7gnLtWYMpGxKnTRhDpMx1aw9PTUw142op66YrSRyjZ0asaGGW0mHY4wDvX8qXvLou+8jTMTdOuJ95I4ETRh734Ain6+ziERWx1jrQUS8ZVWU6f0xTCZn024z7giTeyGrOuJjCIiiUXk8PLXi33RmU7W6Imn33Ywpxh0/nIr52mXRlmh09b3csz9NckiBIRuOlP/mjf0NCdxShSz6Rj/F0jcefKEjPBcofGknsWeIg2FIq6h0RtjCbE4dWLcAwB6C0QPaxE8J8N9ura2cPCnxO8QBP71Sfrw9dTS9aJnaB0NXS2Cm5XnQs845BtnLcF3sAHRugWlAHbq8vUOO6s6FPw5R61cqHetsoNxDbJy4DXtznAZUWCNAUFCOJ27fv1mEMtHOnHZD6BPS+C3f8XxGU1KjsIfaNuzdkFEJ/IZIdLAGoNRu7Edv7LVeSb9KVWEVKl8sztE5aMPiXSEYpaH+c/hBaNUg5vEByRmbXueRji7yRDPnP4dhClFDCZf2iRDZ56iQRZ9RszwwisbBYdAdSsCB/Qky5eViqYbxpEz6MXNef6MZ0eWxHTHrdMTekt5CMYBy8OKONFWvKphu23mQ0czM0aA4sJEjnmsR85l8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(346002)(376002)(136003)(40470700004)(36840700001)(46966006)(40460700003)(5660300002)(8936002)(82740400003)(41300700001)(82310400005)(2906002)(1076003)(40480700001)(36860700001)(47076005)(83380400001)(81166007)(36756003)(26005)(6666004)(186003)(478600001)(70206006)(54906003)(336012)(70586007)(356005)(2616005)(8676002)(86362001)(6916009)(316002)(4326008)(426003)(36900700001);
+ SFS:(13230016)(4636009)(346002)(39860400002)(136003)(376002)(396003)(36840700001)(46966006)(40470700004)(2906002)(5660300002)(316002)(8676002)(70206006)(70586007)(40480700001)(54906003)(82310400005)(26005)(6916009)(478600001)(8936002)(6666004)(186003)(2616005)(41300700001)(336012)(356005)(47076005)(426003)(82740400003)(86362001)(83380400001)(36860700001)(1076003)(4326008)(36756003)(40460700003)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:41.6135 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ddee4e1-bac7-4aa6-debe-08da668e4ea5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:55.7724 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 564166e1-490d-49aa-58cd-08da668e5716
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2854
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2795
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,62 +103,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+Move get_optimal_ntuple to the FPU code and call it inside
+insert_entry_into_table_sorted.
 
-[Description]
-In general cases we want to keep the dram clock change requirement (we
-prefer configs that support MCLK switch). Only override to false for
-SubVP.
-
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c | 28 -------------------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 25 +++++++++++++++++
+ 2 files changed, 25 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index f913daabcca5..92d87745d933 100644
+index 32edb3e5715a..adcc83e6ea55 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -2984,6 +2984,7 @@ int dcn32_populate_dml_pipes_from_context(
- 	int i, pipe_cnt;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe;
-+	bool subvp_in_use = false;
- 
- 	dcn20_populate_dml_pipes_from_context(dc, context, pipes, fast_validate);
- 
-@@ -3006,6 +3007,7 @@ int dcn32_populate_dml_pipes_from_context(
- 		switch (pipe->stream->mall_stream_config.type) {
- 		case SUBVP_MAIN:
- 			pipes[pipe_cnt].pipe.src.use_mall_for_pstate_change = dm_use_mall_pstate_change_sub_viewport;
-+			subvp_in_use = true;
- 			break;
- 		case SUBVP_PHANTOM:
- 			pipes[pipe_cnt].pipe.src.use_mall_for_pstate_change = dm_use_mall_pstate_change_phantom_pipe;
-@@ -3076,6 +3078,14 @@ int dcn32_populate_dml_pipes_from_context(
- 
- 	dcn32_update_det_override_for_mpo(dc, context, pipes);
- 
-+	// In general cases we want to keep the dram clock change requirement
-+	// (prefer configs that support MCLK switch). Only override to false
-+	// for SubVP
-+	if (subvp_in_use)
-+		context->bw_ctx.dml.soc.dram_clock_change_requirement_final = false;
-+	else
-+		context->bw_ctx.dml.soc.dram_clock_change_requirement_final = true;
-+
- 	return pipe_cnt;
+@@ -1956,29 +1956,6 @@ void dcn32_calculate_wm_and_dlg(struct dc *dc, struct dc_state *context,
+     DC_FP_END();
  }
  
+-static void get_optimal_ntuple(struct _vcs_dpi_voltage_scaling_st *entry)
+-{
+-	if (entry->dcfclk_mhz > 0) {
+-		float bw_on_sdp = entry->dcfclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
+-
+-		entry->fabricclk_mhz = bw_on_sdp / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
+-		entry->dram_speed_mts = bw_on_sdp / (dcn3_2_soc.num_chans *
+-				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
+-	} else if (entry->fabricclk_mhz > 0) {
+-		float bw_on_fabric = entry->fabricclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
+-
+-		entry->dcfclk_mhz = bw_on_fabric / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
+-		entry->dram_speed_mts = bw_on_fabric / (dcn3_2_soc.num_chans *
+-				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
+-	} else if (entry->dram_speed_mts > 0) {
+-		float bw_on_dram = entry->dram_speed_mts * dcn3_2_soc.num_chans *
+-				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
+-
+-		entry->fabricclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
+-		entry->dcfclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
+-	}
+-}
+-
+ static void remove_entry_from_table_at_index(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
+ 		unsigned int index)
+ {
+@@ -2062,7 +2039,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
+ 		entry.fabricclk_mhz = 0;
+ 		entry.dram_speed_mts = 0;
+ 
+-		get_optimal_ntuple(&entry);
+ 		DC_FP_START();
+ 		insert_entry_into_table_sorted(table, num_entries, &entry);
+ 		DC_FP_END();
+@@ -2073,7 +2049,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
+ 	entry.fabricclk_mhz = 0;
+ 	entry.dram_speed_mts = 0;
+ 
+-	get_optimal_ntuple(&entry);
+ 	DC_FP_START();
+ 	insert_entry_into_table_sorted(table, num_entries, &entry);
+ 	DC_FP_END();
+@@ -2084,7 +2059,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
+ 		entry.fabricclk_mhz = 0;
+ 		entry.dram_speed_mts = bw_params->clk_table.entries[i].memclk_mhz * 16;
+ 
+-		get_optimal_ntuple(&entry);
+ 		DC_FP_START();
+ 		insert_entry_into_table_sorted(table, num_entries, &entry);
+ 		DC_FP_END();
+@@ -2097,7 +2071,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
+ 			entry.fabricclk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
+ 			entry.dram_speed_mts = 0;
+ 
+-			get_optimal_ntuple(&entry);
+ 			DC_FP_START();
+ 			insert_entry_into_table_sorted(table, num_entries, &entry);
+ 			DC_FP_END();
+@@ -2109,7 +2082,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
+ 		entry.fabricclk_mhz = max_fclk_mhz;
+ 		entry.dram_speed_mts = 0;
+ 
+-		get_optimal_ntuple(&entry);
+ 		DC_FP_START();
+ 		insert_entry_into_table_sorted(table, num_entries, &entry);
+ 		DC_FP_END();
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 66102db87265..7c60a954737b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -353,6 +353,29 @@ static float calculate_net_bw_in_kbytes_sec(struct _vcs_dpi_voltage_scaling_st *
+ 	return limiting_bw_kbytes_sec;
+ }
+ 
++static void get_optimal_ntuple(struct _vcs_dpi_voltage_scaling_st *entry)
++{
++	if (entry->dcfclk_mhz > 0) {
++		float bw_on_sdp = entry->dcfclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
++
++		entry->fabricclk_mhz = bw_on_sdp / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
++		entry->dram_speed_mts = bw_on_sdp / (dcn3_2_soc.num_chans *
++				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
++	} else if (entry->fabricclk_mhz > 0) {
++		float bw_on_fabric = entry->fabricclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
++
++		entry->dcfclk_mhz = bw_on_fabric / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
++		entry->dram_speed_mts = bw_on_fabric / (dcn3_2_soc.num_chans *
++				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100));
++	} else if (entry->dram_speed_mts > 0) {
++		float bw_on_dram = entry->dram_speed_mts * dcn3_2_soc.num_chans *
++				dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
++
++		entry->fabricclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100));
++		entry->dcfclk_mhz = bw_on_dram / (dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100));
++	}
++}
++
+ void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
+ 				    unsigned int *num_entries,
+ 				    struct _vcs_dpi_voltage_scaling_st *entry)
+@@ -363,6 +386,8 @@ void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
+ 
+ 	dc_assert_fp_enabled();
+ 
++	get_optimal_ntuple(entry);
++
+ 	if (*num_entries == 0) {
+ 		table[0] = *entry;
+ 		(*num_entries)++;
 -- 
 2.37.0
 
