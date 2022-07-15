@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8CC9C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B72FAC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D3D10EB56;
-	Sat, 16 Jul 2022 14:35:21 +0000 (UTC)
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E1211ACEC
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 07:26:34 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id p14so3160248qvo.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 00:26:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WlQWMuQP9i7JA/10N1xXkOOHrioXOIiFbLtTV9MnWc8=;
- b=ynEDlSGw/12qA/LNaVQAqgzF1Wr14S9IT8e8LqneJWu9yvdvJG+Xp118hyoboP1VEj
- dqUdW75J+XrG5AVEDod+oEqBDUF1KHvcXkA+thhDuo+qxOqqkEbmtwvYBSgA2NmzULrs
- Bi9DETiEWGPnFseTy/3T9oO4Tujqtn6waOXf1SoU2J/bkmJh8RA8ujubCDsm6w6Cj2ie
- ihFEMK3EA4lKxczLbGwxxlP8WIamHAg8C3CO73zFffCzifzuYVyQliirc8ojC7eaFTEK
- SFbB1vU4Fr1aCnoTlMaYAGP7ZIY/Tuf54SKYCvq2A5249sZ7R4VKf38NVUQ1TEDrjyOP
- UDOA==
-X-Gm-Message-State: AJIora8n7/beE3vcwOTgh2Y6L0mLgro7OcvxmgI8uDjy8kJItiSR5e4P
- Uf3ERE7UZaNrNM0nR2oLF//8nqS9X5gCuA==
-X-Google-Smtp-Source: AGRyM1uRTMHj9mflurMOu+FEPEl1AAv2N+XWmRFF8UQxOFzZAGRGXVUizpZwBueK9rPtaIiq6rdjgg==
-X-Received: by 2002:a05:6214:20e9:b0:472:f2e6:dd62 with SMTP id
- 9-20020a05621420e900b00472f2e6dd62mr10958194qvk.67.1657869993588; 
- Fri, 15 Jul 2022 00:26:33 -0700 (PDT)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com.
- [209.85.128.172]) by smtp.gmail.com with ESMTPSA id
- k7-20020a05620a414700b006b5ccec4121sm1779021qko.5.2022.07.15.00.26.32
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Jul 2022 00:26:32 -0700 (PDT)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-31c8bb90d09so39254927b3.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 00:26:32 -0700 (PDT)
-X-Received: by 2002:a81:9209:0:b0:31c:b1b7:b063 with SMTP id
- j9-20020a819209000000b0031cb1b7b063mr14363430ywg.383.1657869991832; Fri, 15
- Jul 2022 00:26:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD4C510E972;
+	Sat, 16 Jul 2022 14:35:17 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE3E10EC05;
+ Fri, 15 Jul 2022 00:53:24 +0000 (UTC)
+Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id BEB3B6601A53;
+ Fri, 15 Jul 2022 01:53:20 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1657846403;
+ bh=aI8lv7VFW2SXxbGTFIkQ0wZZXbZw8f/P4vNrO0Vkymk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=EGwBv9XPWD8z170DHR2IWk4VUPhZ7i6bGG5qY1vOfGUV65dB3PbTfQmnd9AtKK0cJ
+ P7GCOZTmlqgSJwGf3Nv7V3C12k74AcsSSvW4BYhltwqKZzhLI59eFTFefdi22Y5Woz
+ EDKxjMIYe5RG925KQKy0LrVxwROgDSzjv7W/m9dioHwEpajwRr6K2QusBN2l+kGWqr
+ 1VAqJVkSoaR/tMtUQDZm8MQsM/1dnGNDs2Pe3tTIz87mtb3M6kpnEWnud6zF4DGpm/
+ MWyw9iOvaJf2dnpiP3tppEThf7J3IkiABK6bVFVfUV7WZNztN9Ff6EyldhHkoH/Ytv
+ HCgGHjNMJ4OKg==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
+Subject: [PATCH v1 2/6] drm/gem: Take reservation lock for vmap/vunmap
+ operations
+Date: Fri, 15 Jul 2022 03:52:40 +0300
+Message-Id: <20220715005244.42198-3-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-References: <CAHk-=wgTmGaToVFdSdoFqT2sNkk7jg2rSWasUYv-tASUZ2j_0Q@mail.gmail.com>
- <20220713050724.GA2471738@roeck-us.net>
- <CAHk-=widUqghhXus_GCM9+FESa5vHqMb_pO3=0dGYH8C+yix2w@mail.gmail.com>
- <a804b76e-159f-dbc2-f8dc-62a58552e88d@roeck-us.net>
- <CADnq5_O6Tp2QPXyDCvpWuRXhDr6H1PM50Ow5YG2WeukqUd-GnQ@mail.gmail.com>
- <CAHk-=wj4+BSj2SPMRUr-TZ4Qg2o9HGOBWiJQE336YcF_U1sVNQ@mail.gmail.com>
- <CAMuHMdV9Pj9V-ZPpu=BMSkPt1uA_eCvU4+bxF8ZfHjteRk2CAg@mail.gmail.com>
- <CAHk-=wgnmaTVigBc02tjqgcZaNJiYz8Xw77P+ERAXhcYjkwd=Q@mail.gmail.com>
- <6d5ac61b-b490-4f9d-6521-a4b7477d6fd2@roeck-us.net>
-In-Reply-To: <6d5ac61b-b490-4f9d-6521-a4b7477d6fd2@roeck-us.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 Jul 2022 09:26:18 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX4Srd=WTGvtGoWhatEb8No7WUhrAYEmjX2+E11PnMVeg@mail.gmail.com>
-Message-ID: <CAMuHMdX4Srd=WTGvtGoWhatEb8No7WUhrAYEmjX2+E11PnMVeg@mail.gmail.com>
-Subject: Re: Linux 5.19-rc6
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 15 Jul 2022 13:56:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,59 +75,273 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>, Leo Li <sunpeng.li@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Balbir Singh <bsingharora@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Paul Mackerras <paulus@ozlabs.org>, Alex Deucher <alexander.deucher@amd.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Michael Ellerman <mpe@ellerman.id.au>, Alex Deucher <alexdeucher@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Axtens <dja@axtens.net>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 14, 2022 at 7:24 PM Guenter Roeck <linux@roeck-us.net> wrote:
-> On 7/14/22 09:48, Linus Torvalds wrote:
-> > And some look positively strange. Like that
-> >
-> >    drivers/mfd/asic3.c: error: unused variable 'asic'
-> > [-Werror=unused-variable]:  => 941:23
-> >
-> > which is clearly used three lines later by
-> >
-> >          iounmap(asic->tmio_cnf);
-> >
-> > and I can't find any case of 'iounmap()' having been defined to an
-> > empty macro or anything like that to explain it. The error in
-> > drivers/tty/serial/sh-sci.c looks to be exactly the same issue, just
-> > with ioremap() instead of iounmap().
-> >
-> > It would be good to have some way to find which build/architecture it
-> > is, because right now it just looks bogus.
-> >
-> > Do you perhaps use some broken compiler that complains when the empty
-> > inline functions don't use their arguments? Because that's what those
-> > ioremap/iounmap() ones look like to me, but there might be some
-> > magical architecture / config that has issues that aren't obvious.
-> >
-> > IOW, I'd love to get those fixed, but I would also want a little bit more info.
-> >
-> Geert gave the necessary hint - it looks like sh-nommu used defines
-> for iomap() and iounmap(), which made the variable unused. According
-> to Geert that was fixed a couple of days ago.
+The new common dma-buf locking convention will require buffer importers
+to hold the reservation lock around mapping operations. Make DRM GEM core
+to take the lock around the vmapping operations and update QXL and i915
+drivers to use the locked functions for the case where DRM core now holds
+the lock. This patch prepares DRM core and drivers to transition to the
+common dma-buf locking convention where vmapping of exported GEMs will
+be done under the held reservation lock.
 
-Yes, post-rc6 should be fine, as the fix went in... for the third time.
-Combine people that keep on switching back to macros without reading
-a file's history with unresponsive maintainers...
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/gpu/drm/drm_client.c                 |  4 +--
+ drivers/gpu/drm/drm_gem.c                    | 28 ++++++++++++++++++++
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c |  6 ++---
+ drivers/gpu/drm/drm_prime.c                  |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c   |  2 +-
+ drivers/gpu/drm/qxl/qxl_object.c             | 17 ++++++------
+ drivers/gpu/drm/qxl/qxl_prime.c              |  4 +--
+ include/drm/drm_gem.h                        |  3 +++
+ 8 files changed, 50 insertions(+), 18 deletions(-)
 
-Gr{oetje,eeting}s,
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index 2b230b4d6942..fbcb1e995384 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -323,7 +323,7 @@ drm_client_buffer_vmap(struct drm_client_buffer *buffer,
+ 	 * fd_install step out of the driver backend hooks, to make that
+ 	 * final step optional for internal users.
+ 	 */
+-	ret = drm_gem_vmap(buffer->gem, map);
++	ret = drm_gem_vmap_unlocked(buffer->gem, map);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -345,7 +345,7 @@ void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
+ {
+ 	struct iosys_map *map = &buffer->map;
+ 
+-	drm_gem_vunmap(buffer->gem, map);
++	drm_gem_vunmap_unlocked(buffer->gem, map);
+ }
+ EXPORT_SYMBOL(drm_client_buffer_vunmap);
+ 
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index eb0c2d041f13..9769c33cad99 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1155,6 +1155,8 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
+ 
+ int drm_gem_pin(struct drm_gem_object *obj)
+ {
++	dma_resv_assert_held(obj->resv);
++
+ 	if (obj->funcs->pin)
+ 		return obj->funcs->pin(obj);
+ 	else
+@@ -1163,6 +1165,8 @@ int drm_gem_pin(struct drm_gem_object *obj)
+ 
+ void drm_gem_unpin(struct drm_gem_object *obj)
+ {
++	dma_resv_assert_held(obj->resv);
++
+ 	if (obj->funcs->unpin)
+ 		obj->funcs->unpin(obj);
+ }
+@@ -1171,6 +1175,8 @@ int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+ {
+ 	int ret;
+ 
++	dma_resv_assert_held(obj->resv);
++
+ 	if (!obj->funcs->vmap)
+ 		return -EOPNOTSUPP;
+ 
+@@ -1186,6 +1192,8 @@ EXPORT_SYMBOL(drm_gem_vmap);
+ 
+ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
+ {
++	dma_resv_assert_held(obj->resv);
++
+ 	if (iosys_map_is_null(map))
+ 		return;
+ 
+@@ -1197,6 +1205,26 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
+ }
+ EXPORT_SYMBOL(drm_gem_vunmap);
+ 
++int drm_gem_vmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map)
++{
++	int ret;
++
++	dma_resv_lock(obj->resv, NULL);
++	ret = drm_gem_vmap(obj, map);
++	dma_resv_unlock(obj->resv);
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_gem_vmap_unlocked);
++
++void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map)
++{
++	dma_resv_lock(obj->resv, NULL);
++	drm_gem_vunmap(obj, map);
++	dma_resv_unlock(obj->resv);
++}
++EXPORT_SYMBOL(drm_gem_vunmap_unlocked);
++
+ /**
+  * drm_gem_lock_reservations - Sets up the ww context and acquires
+  * the lock on an array of GEM objects.
+diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+index 880a4975507f..e35e224e6303 100644
+--- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
++++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+@@ -354,7 +354,7 @@ int drm_gem_fb_vmap(struct drm_framebuffer *fb, struct iosys_map *map,
+ 			ret = -EINVAL;
+ 			goto err_drm_gem_vunmap;
+ 		}
+-		ret = drm_gem_vmap(obj, &map[i]);
++		ret = drm_gem_vmap_unlocked(obj, &map[i]);
+ 		if (ret)
+ 			goto err_drm_gem_vunmap;
+ 	}
+@@ -376,7 +376,7 @@ int drm_gem_fb_vmap(struct drm_framebuffer *fb, struct iosys_map *map,
+ 		obj = drm_gem_fb_get_obj(fb, i);
+ 		if (!obj)
+ 			continue;
+-		drm_gem_vunmap(obj, &map[i]);
++		drm_gem_vunmap_unlocked(obj, &map[i]);
+ 	}
+ 	return ret;
+ }
+@@ -403,7 +403,7 @@ void drm_gem_fb_vunmap(struct drm_framebuffer *fb, struct iosys_map *map)
+ 			continue;
+ 		if (iosys_map_is_null(&map[i]))
+ 			continue;
+-		drm_gem_vunmap(obj, &map[i]);
++		drm_gem_vunmap_unlocked(obj, &map[i]);
+ 	}
+ }
+ EXPORT_SYMBOL(drm_gem_fb_vunmap);
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index b75ef1756873..1bd234fd21a5 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -678,7 +678,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
+ {
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 
+-	return drm_gem_vmap(obj, map);
++	return drm_gem_vmap_unlocked(obj, map);
+ }
+ EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
+ 
+@@ -694,7 +694,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
+ {
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 
+-	drm_gem_vunmap(obj, map);
++	drm_gem_vunmap_unlocked(obj, map);
+ }
+ EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index 5ecea7df98b1..cc54a5b1d6ae 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -72,7 +72,7 @@ static int i915_gem_dmabuf_vmap(struct dma_buf *dma_buf,
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
+ 	void *vaddr;
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
+diff --git a/drivers/gpu/drm/qxl/qxl_object.c b/drivers/gpu/drm/qxl/qxl_object.c
+index 695d9308d1f0..06a58dad5f5c 100644
+--- a/drivers/gpu/drm/qxl/qxl_object.c
++++ b/drivers/gpu/drm/qxl/qxl_object.c
+@@ -168,9 +168,16 @@ int qxl_bo_vmap_locked(struct qxl_bo *bo, struct iosys_map *map)
+ 		bo->map_count++;
+ 		goto out;
+ 	}
+-	r = ttm_bo_vmap(&bo->tbo, &bo->map);
++
++	r = __qxl_bo_pin(bo);
+ 	if (r)
+ 		return r;
++
++	r = ttm_bo_vmap(&bo->tbo, &bo->map);
++	if (r) {
++		__qxl_bo_unpin(bo);
++		return r;
++	}
+ 	bo->map_count = 1;
+ 
+ 	/* TODO: Remove kptr in favor of map everywhere. */
+@@ -192,12 +199,6 @@ int qxl_bo_vmap(struct qxl_bo *bo, struct iosys_map *map)
+ 	if (r)
+ 		return r;
+ 
+-	r = __qxl_bo_pin(bo);
+-	if (r) {
+-		qxl_bo_unreserve(bo);
+-		return r;
+-	}
+-
+ 	r = qxl_bo_vmap_locked(bo, map);
+ 	qxl_bo_unreserve(bo);
+ 	return r;
+@@ -247,6 +248,7 @@ void qxl_bo_vunmap_locked(struct qxl_bo *bo)
+ 		return;
+ 	bo->kptr = NULL;
+ 	ttm_bo_vunmap(&bo->tbo, &bo->map);
++	__qxl_bo_unpin(bo);
+ }
+ 
+ int qxl_bo_vunmap(struct qxl_bo *bo)
+@@ -258,7 +260,6 @@ int qxl_bo_vunmap(struct qxl_bo *bo)
+ 		return r;
+ 
+ 	qxl_bo_vunmap_locked(bo);
+-	__qxl_bo_unpin(bo);
+ 	qxl_bo_unreserve(bo);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/qxl/qxl_prime.c b/drivers/gpu/drm/qxl/qxl_prime.c
+index 142d01415acb..9169c26357d3 100644
+--- a/drivers/gpu/drm/qxl/qxl_prime.c
++++ b/drivers/gpu/drm/qxl/qxl_prime.c
+@@ -59,7 +59,7 @@ int qxl_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+ 	struct qxl_bo *bo = gem_to_qxl_bo(obj);
+ 	int ret;
+ 
+-	ret = qxl_bo_vmap(bo, map);
++	ret = qxl_bo_vmap_locked(bo, map);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -71,5 +71,5 @@ void qxl_gem_prime_vunmap(struct drm_gem_object *obj,
+ {
+ 	struct qxl_bo *bo = gem_to_qxl_bo(obj);
+ 
+-	qxl_bo_vunmap(bo);
++	qxl_bo_vunmap_locked(bo);
+ }
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 87cffc9efa85..bf3700415229 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -420,4 +420,7 @@ void drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
+ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+ 			    u32 handle, u64 *offset);
+ 
++int drm_gem_vmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
++void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
++
+ #endif /* __DRM_GEM_H__ */
+-- 
+2.36.1
 
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
