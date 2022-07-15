@@ -4,96 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FE6C43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A01C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F76C10E926;
-	Sat, 16 Jul 2022 14:35:17 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C16F311AD59
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 11:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657886346;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ipk0rInR6PpoEbtYSvbGfZMpXE8YP5h3KoGHvT2niAs=;
- b=NoZRBIuZ7GOx3n7kqSZJ0XgK9QzZCwWFNn5de1sKuL3tdMKqllbsgmufJGDXpIgPdRn3xd
- lXFU0FyFVi6lbd4F7Z9f0EZ11wvFSbiCabLMDDP0M20kur2MN3riPfu41ZjkAhX4elLQtO
- PWZQwL4mCO0v/cj0+v7LWdcaoVJ5eQk=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-126-gqXU3VTTPUqwYt8UKKNZ7w-1; Fri, 15 Jul 2022 07:59:05 -0400
-X-MC-Unique: gqXU3VTTPUqwYt8UKKNZ7w-1
-Received: by mail-ed1-f71.google.com with SMTP id
- z14-20020a056402274e00b0043ae5c003c1so3332512edd.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 04:59:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ipk0rInR6PpoEbtYSvbGfZMpXE8YP5h3KoGHvT2niAs=;
- b=2MWgapILv1FMIVGTX8vzpNlHhXi31wLoOFP1/At3eubSQz7t1/gS6U/N4+kEqx+JDL
- giaEM3lHePRZ3skniJjoldPCnCpfxy4y02sP+6reqIWsoRLERrqqz+yQxYD7TDoD4gW8
- RbRebYmDJiLoYaxbefpHoqSvm6Ns85W5n7+gE9eeLsFZwQCSrCqjk/zDEgjv8maNic6O
- WXRNQxj7zZIDB+UB/NBGyqX7qXaSi1uBNEUdhjsSAO7PfeR4PscCJ57wxzpMbhhTFqLb
- oXpOoLOOk7lgHSB7HHiv3cf6JQDWIScJvJ5RIIuyTaMA0SfFRIZkDu7Neytuukb2srLL
- qi0Q==
-X-Gm-Message-State: AJIora9E7SVF3ydcIt7VQWxeg9Bp3pZ1Iv/puT0a5wYCMRcW+zHsNXig
- prsbIArBd0lwust219BXsht02tDr5O3cQxuqeQfqlcxuuc5hq3LkcX3WSulQWzl/frb2Dgmd7qC
- 54q1b0YwW9MFSJF9lRDpMHPQqCA==
-X-Received: by 2002:a05:6402:194d:b0:43a:82da:b0f3 with SMTP id
- f13-20020a056402194d00b0043a82dab0f3mr18337825edz.104.1657886344213; 
- Fri, 15 Jul 2022 04:59:04 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1sKUN+xW1o1Y3Cg3T0W5Ya3JCPJPj6A79DKEbu7gJ3sSLeED10PQjfOsQ7WOfuXCQZdedn+Dw==
-X-Received: by 2002:a05:6402:194d:b0:43a:82da:b0f3 with SMTP id
- f13-20020a056402194d00b0043a82dab0f3mr18337793edz.104.1657886343963; 
- Fri, 15 Jul 2022 04:59:03 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- qx21-20020a170906fcd500b0072abb95c9f4sm1932771ejb.193.2022.07.15.04.59.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Jul 2022 04:59:03 -0700 (PDT)
-Message-ID: <f68353f9-fb4c-b5fe-f7f8-69b97865c720@redhat.com>
-Date: Fri, 15 Jul 2022 13:59:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v2 16/29] ACPI: video: Add Nvidia WMI EC brightness
- control detection
-To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-17-hdegoede@redhat.com>
- <8cde70e6-1115-9b7f-d550-52b9e3623c85@nvidia.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <8cde70e6-1115-9b7f-d550-52b9e3623c85@nvidia.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5AA10EB4E;
+	Sat, 16 Jul 2022 14:35:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 525BE1133F3;
+ Fri, 15 Jul 2022 14:27:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kgzrwsvA1Uu4cW6q2JS9CkfZktaB2TwdO623MFwIPqLlTXi/rjEEF1ed5VZrI4cxVh0khtPsuazucsYdd1pinLHqzf9qHYHXKyh3NCqgfrGviEamIVEEoRhsVBfn2NBWCCE++lhPQ7AOe6N/HtfoocSMDZYVVgIZD+GjDIH8J8WrmgjkdHhnvcudczafDmLVwyAD5zup5liC2qEWm0H6i7BP45+2hmXTZy6P2WFeiSTWCMLfDXT9OMS9KTM1wCY2w05Yw3uOPyDsqultBD9JpC5kuGLWV6a1I70gEgF2O6Sr1HHqRCZl6JESYaTHKek5G02esTuBIJg8HqwAxXavvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5d6WZzKQQdvxCUVPAGjVdiWbjd6rQoADr04cbPc5maU=;
+ b=O1hA1nh5SUXCPKuEtvLskUc6feJ97GlmIOcex5tEDDwiKNPc6/K/sPG0HGzwoz7Ls3+v+gTD9KxYoCuEMQTAg44QcBysoUtL19wPKdraWRQjPLzehDZ+ynF3dPZyjUsflreDKICTn6F1GVUFVylKtPy2iIUYBhZZyoC6TpE2GmMprIR6saU5lvXcYOwInxSPFHLVnHIETeqbij+8z3xM0BZQMDgrYznHKfod9RQ0dOmuFGvuIHSibW8s1qja2HISH9hyfZSUCmelBgLaIAezrHhL0qvqZK5pvgOy3J7GYnoENxS0Iim0OhQbgWee76qb21tE5vSxB6gaSHiuRBKrNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5d6WZzKQQdvxCUVPAGjVdiWbjd6rQoADr04cbPc5maU=;
+ b=1jEWbJ90b/yXg9XlQP6lmnpxHEsrfTXgvKQKyso6LnhfF6dbwcpHiqjm+juRaVLKZlSOt+oyVWU+NDSobdYy92S3NeB5oMs58cGIELZ8U2Ow2dobCrahXdOgrqrVoeEaV+SAw/wxeFCsv8mxQfMqvjGzdxjrg+6+7/7F6PYPxZg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
+ by SJ0PR12MB5610.namprd12.prod.outlook.com (2603:10b6:a03:423::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17; Fri, 15 Jul
+ 2022 14:13:03 +0000
+Received: from SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::406d:a54b:5cd4:9b4]) by SN6PR12MB2717.namprd12.prod.outlook.com
+ ([fe80::406d:a54b:5cd4:9b4%2]) with mapi id 15.20.5438.014; Fri, 15 Jul 2022
+ 14:13:03 +0000
+Message-ID: <74dcaab4-7857-c181-44cf-f1c273843520@amd.com>
+Date: Fri, 15 Jul 2022 09:12:59 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] mm/gup: migrate device coherent pages when pinning
+ instead of failing
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 Jul 2022 13:56:14 +0000
+To: Alistair Popple <apopple@nvidia.com>
+References: <4b2f9a61-ca67-6a34-41c9-c191cac756b3@redhat.com>
+ <20220715021109.2225886-1-apopple@nvidia.com>
+From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+In-Reply-To: <20220715021109.2225886-1-apopple@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR16CA0052.namprd16.prod.outlook.com
+ (2603:10b6:208:234::21) To SN6PR12MB2717.namprd12.prod.outlook.com
+ (2603:10b6:805:68::29)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: dfffa335-9f42-4f1e-a3bc-08da666c2158
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5610:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dteG4ohwzMfyz/km7fXgb0HsPaRb/a//VnZUDLil9Kv7pw8N1MADNm8gnlhS5aDBkfS0NutkjlpdU+2bA4fNI5pvj4fxMgc/yXIligHYc0ZGoGzqqYf+88PVQggk6uT08zld3F0lEnFdfNdx1WmoK0d8XgmFAelJvRiK7FpTcf2BZeVyPnS3vCzCM5mdyUr6b9a/DkqAUDWOUZlsBYNWTD8lmLldwgxlQZM8DyX5LNFy59OQjIcbC8bKSzBIAQzyi19g1XpqBAQ/cvtWyyn752uMDNyE5me7WihoJ9rGZp9MkVxth2EDc7tFBQGmoX1Rgjy/1GK6a2WGTKz6IEQlL2kCI2+WkQzzYIPTX6F17KpWc98gf8lJ5LavpOA9XFkp14pAZKadxkCTVCWFXW4OC4D2M4pywAp4tf0XG/M4w4yoU3wRflyeZBXKsd9LxRI28ro1P5487Yr6H9zIfe2Ic03LfP0B+oYKm0aYzLN2bwzfhiWuct+Uim+SAf8J8dOwsS9oKTpYUDIL9QpFPlSW53dICBju9Sd8WiW6nCyiUjVGIj2+O7WGlC3rMw2k+07xEH1HjfpU1cab1nLDyQIrV+ep9up6MZc75b5mm5mQlaZSDzS8kBnxRqAhzfMe3j/0p8mBFdkut0KvgJVsffbswecQoTaGXInG6S8MpRmMhKUNVzVAq7H5MYNmb39yfhE5NOhdtrTWELfjYoIsNlDpev2fwmbYSW1rZ2/bR8CxYWBg/g4RsC5DARBJVHZGCaE/d46Xmp6UNBu508QPpR607vptY0mptvXHUNrSu7O7GgxWRJlN+b7Z3SIf8kuEEQ4M36dABeMaxc4RW7lOgbGqlUd9BY3AYsonsHnSXAZZ0X8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(7416002)(2906002)(5660300002)(316002)(66476007)(66946007)(8676002)(66556008)(31686004)(53546011)(6512007)(26005)(6916009)(478600001)(6486002)(8936002)(6666004)(186003)(6506007)(2616005)(41300700001)(31696002)(38100700002)(86362001)(83380400001)(4326008)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUlQUFp1K2VYSys4OGo4QnN2alJsQ3B6WnFHWmpYWUVJbnhYYTNsaFBWRHpm?=
+ =?utf-8?B?cmFwTS9Ydm5xb1hoL3hkUUpMUnpaYzdxU0syR2F5S1RoVE9DdTNhVWZEaGpy?=
+ =?utf-8?B?c0Z4cUVEZTByNDhDd20wSnNWdWZ6TmdKT1ByQUYvZkZjMXZRRnpTVldoek14?=
+ =?utf-8?B?MHBoUlZPTkNVby9KVHVNd2NoMVcrTjA5bDlETSt6Rk9GdWRYT2hJRUJyZk9s?=
+ =?utf-8?B?eEw4SjZVRStsejgvMXlMQTFDMjZWQ2dIZ3RFZWttdVZyQnNCL08vZWxKeHc5?=
+ =?utf-8?B?U2FPQVErZTZvRG94YThmbWIvWTBXRW5ibUtURlVxMnVoYjRWQzZ1LzhsN3lj?=
+ =?utf-8?B?OEs0ZjYxOVZUMngwbUtsTWVVVVV4Skx1U0VwZURoWTdHY3VISXg5WlpsbzVQ?=
+ =?utf-8?B?ZmcyQ1ZvYlN6aXVGZm45VHdjZm83VExxRUQ4YmlMeUJJWGhvR0l2UVpydUVv?=
+ =?utf-8?B?NHZtRm1ma3dNeTlrWnhBK2haZzloN1JFQXFuUThhN25TcHdYbkVVWkNTd3Qr?=
+ =?utf-8?B?N0F0SHVXWFJ2anc2cnAvTkE3WktGN0VKQUNVMnNKY0hFOHF6bHd3Nm15Nloy?=
+ =?utf-8?B?cnpRSWpwcVpHQ2JNQTdSeVU2Y2RDU09Pd2x3VXhJTTRQM21McTRwbXUxTlNk?=
+ =?utf-8?B?ZjI1UlpualM0VHJkTCsxZGIxWG1yc3QrZ25aQTBoUDczS1pSRzY4azUzMHFr?=
+ =?utf-8?B?SEwyS3MvZElVRmlsM2xpNG0wTHQ2Q1FmbWUwazdsMTVCMUV1Wm9SakVwcjNF?=
+ =?utf-8?B?UWFzT3oxMjlBTmU5bHJmNFNpK0ZuTy9OMEFKc0QzcDg5OEhjL3NOcGJtY1dv?=
+ =?utf-8?B?WjNhTUFUTFVTUk5QUWlUbkpQbWJVRE1xYzBlS0ZoRmkwNXdVdmtqR3dtVGUr?=
+ =?utf-8?B?OHNOWnMwb3JIWFZUTHZMUFA5c1NNWW5IbENDZHlZMHhTOXJDMW9vSFMzQlMx?=
+ =?utf-8?B?VldhSGFDeTlablNJSkxDM1UyMjI3b3hPdmdwSFpBWE1udEN3eVlDYWpZTS9S?=
+ =?utf-8?B?eFJwVWRQZmg4aXZIUDFrN0hJRGM2QnNjY1JMdkV1WHJzbFd3U0xraTQyMklP?=
+ =?utf-8?B?aldYWUdSNDNtOWsya2FZcG1UVlRtSDBHbEEyNXRER0kyY2JQZkVGc2NDbGxC?=
+ =?utf-8?B?clY3WDQrSkd6MGdFTnB4Sk1UOE9IU3M5eVpWK0lTcHNIZTNzTVFVMVVqbmFG?=
+ =?utf-8?B?czdTZmZVRXd4RjZaQUpCdXh2YnE0SHFNVHpOR01LU2lkZThPT2grc1pEQXZC?=
+ =?utf-8?B?Yjk1OU1OcmpHTUYwTkwreEp0Z3FMY2dxRElIVkxLbldCODArRnVRSjE3QnFj?=
+ =?utf-8?B?Z2VsdG9JZUY4NWt6ZWpmZ0F5aDdnWXM5UmNaQy9GaHhRLzRHYUkwc0xlNVAw?=
+ =?utf-8?B?VTlHbDlyUjRLS1RNczNIdHhoVU0zZ0kwbGZNekt1SittR2VmWmVMS3B2cGFq?=
+ =?utf-8?B?M1AwSEhuZ28vdU9iSDJMKy9SWDZ6dVNLS01OUHIveUh0MmM1OWROWUl3ZXda?=
+ =?utf-8?B?R0lMOVNyNHphZ2pxN1YrekFSQTl4b0d0NFptNzZ1Qi9GSHByWFJxVnNkUlcr?=
+ =?utf-8?B?VHdjcjJUQUZycFdzeTA2bmJoUjY3S1FucmJXZS9JcFZsLzV4a2VoaE9XT1o4?=
+ =?utf-8?B?NC9GL04zV0RURXpJL0l5cVFYYjllMXFUV0NTOE14V201ekRJQlpJcDdmd2Yw?=
+ =?utf-8?B?TDVNd0diRXRCNWkwRlE4c0tBMVI1cTJUUVZwRzN0RnZ1QWNCdzRnTUF4MEtO?=
+ =?utf-8?B?aEtVc0luQzAzMEJTM2RHeFltOS9SRWRxemRxN2lWaFF1TG9XNzYyVHJDNHBu?=
+ =?utf-8?B?blFlVzVxbmhVWXZwWTArc1BNMyt1SmZUN3pHRjRGTTBTcmpZbVdBQTVzNWhx?=
+ =?utf-8?B?RXRRQngraEp3SXh6bytaMEo5QmxMN1hLbXZUaEpYbVhGSHdPRFVMZU9QVFFw?=
+ =?utf-8?B?QytaOGU1SmZQaERnNUlaNGgyQXNvMHpHOHVjc0tMR2VBN2UwVmRQRFVKQm93?=
+ =?utf-8?B?MjZTY2NJa1RlQlB1TFpQUWppZDk0RHJha2FkR28wckhYUHhjRnFDZVB0SEV2?=
+ =?utf-8?B?OEdJOUtMalBxSUZTSHN5YnpwbkFJM1ZneVVubHo0eHg1TFNoOGVROS9PUGJs?=
+ =?utf-8?Q?C4TTch/PpGOSL62mpsHMzfnhK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfffa335-9f42-4f1e-a3bc-08da666c2158
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 14:13:03.0023 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UhUxWggwswgipSfw3oz+YAg6tNY5+0nB7II23dH5bdIE3b60yNeATe4PV5JI09TAPug6Tq5ezfN9um7kMWXHlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5610
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,240 +125,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: rcampbell@nvidia.com, dri-devel@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, Matthew Wilcox <willy@infradead.org>,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ amd-gfx@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
 
-On 7/12/22 22:13, Daniel Dadap wrote:
-> Thanks, Hans:
-> 
-> On 7/12/22 14:38, Hans de Goede wrote:
->> On some new laptop designs a new Nvidia specific WMI interface is present
->> which gives info about panel brightness control and may allow controlling
->> the brightness through this interface when the embedded controller is used
->> for brightness control.
->>
->> When this WMI interface is present and indicates that the EC is used,
->> then this interface should be used for brightness control.
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>   drivers/acpi/Kconfig           |  1 +
->>   drivers/acpi/video_detect.c    | 35 ++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/gma500/Kconfig |  2 ++
->>   drivers/gpu/drm/i915/Kconfig   |  2 ++
->>   include/acpi/video.h           |  1 +
->>   5 files changed, 41 insertions(+)
->>
->> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
->> index 1e34f846508f..c372385cfc3f 100644
->> --- a/drivers/acpi/Kconfig
->> +++ b/drivers/acpi/Kconfig
->> @@ -212,6 +212,7 @@ config ACPI_VIDEO
->>       tristate "Video"
->>       depends on X86 && BACKLIGHT_CLASS_DEVICE
->>       depends on INPUT
->> +    depends on ACPI_WMI
->>       select THERMAL
->>       help
->>         This driver implements the ACPI Extensions For Display Adapters
->> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
->> index 8c2863403040..7b89dc9a04a2 100644
->> --- a/drivers/acpi/video_detect.c
->> +++ b/drivers/acpi/video_detect.c
->> @@ -75,6 +75,35 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
->>       return AE_OK;
->>   }
->>   +#define WMI_BRIGHTNESS_METHOD_SOURCE            2
->> +#define WMI_BRIGHTNESS_MODE_GET                0
->> +#define WMI_BRIGHTNESS_SOURCE_EC            2
->> +
->> +struct wmi_brightness_args {
->> +    u32 mode;
->> +    u32 val;
->> +    u32 ret;
->> +    u32 ignored[3];
->> +};
->> +
->> +static bool nvidia_wmi_ec_supported(void)
->> +{
->> +    struct wmi_brightness_args args = {
->> +        .mode = WMI_BRIGHTNESS_MODE_GET,
->> +        .val = 0,
->> +        .ret = 0,
->> +    };
->> +    struct acpi_buffer buf = { (acpi_size)sizeof(args), &args };
->> +    acpi_status status;
->> +
->> +    status = wmi_evaluate_method("603E9613-EF25-4338-A3D0-C46177516DB7", 0,
->> +                     WMI_BRIGHTNESS_METHOD_SOURCE, &buf, &buf);
->> +    if (ACPI_FAILURE(status))
->> +        return false;
->> +
->> +    return args.ret == WMI_BRIGHTNESS_SOURCE_EC;
->> +}
->> +
-> 
-> 
-> The code duplication here with nvidia-wmi-ec-backlight.c is a little unfortunate. Can we move the constants, struct definition, and WMI GUID from that file to a header file that's used both by the EC backlight driver and the ACPI video driver?
+On 7/14/2022 9:11 PM, Alistair Popple wrote:
+> Currently any attempts to pin a device coherent page will fail. This is
+> because device coherent pages need to be managed by a device driver, and
+> pinning them would prevent a driver from migrating them off the device.
+>
+> However this is no reason to fail pinning of these pages. These are
+> coherent and accessible from the CPU so can be migrated just like
+> pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
+> them first try migrating them out of ZONE_DEVICE.
+>
+> [hch: rebased to the split device memory checks,
+>        moved migrate_device_page to migrate_device.c]
+>
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>
+> This patch hopefully addresses all of David's comments. It replaces both my "mm:
+> remove the vma check in migrate_vma_setup()" and "mm/gup: migrate device
+> coherent pages when pinning instead of failing" patches. I'm not sure what the
+> best way of including this is, perhaps Alex can respin the series with this
+> patch instead?
 
-Yes that is a good idea. I suggest using include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
-to move the shared definitions there.
+For sure Alistair. I'll include this in my next patch series version.
 
-If you can submit 2 patches on top of this series:
+Thanks,
+Alex Sierra
 
-1. Moving the definitions from drivers/platform/x86/nvidia-wmi-ec-backlight.c to
-   include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
-
-2. Switching the code from this patch over to using the new nvidia-wmi-ec-backlight.h
-
-Then for the next version I'll add patch 1. to the series and squash patch 2.
-into this one.
-
-> I was thinking it might be nice to add a wrapper around wmi_brightness_notify() in nvidia-wmi-ec-backlight.c that does this source == WMI_BRIGHTNESS_SOURCE_EC test, and then export it so that it can be called both here and in the EC backlight driver's probe routine, but then I guess that would make video.ko depend on nvidia-wmi-ec-backlight.ko, which seems wrong. It also seems wrong to implement the WMI plumbing in the ACPI video driver, and export it so that the EC backlight driver can use it, so I guess I can live with the duplication of the relatively simple WMI stuff here, it would just be nice to not have to define all of the API constants, structure, and GUID twice.
-
-Agreed.
-
-> 
-> 
->>   /* Force to use vendor driver when the ACPI device is known to be
->>    * buggy */
->>   static int video_detect_force_vendor(const struct dmi_system_id *d)
->> @@ -518,6 +547,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
->>   static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>   {
->>       static DEFINE_MUTEX(init_mutex);
->> +    static bool nvidia_wmi_ec_present;
->>       static bool native_available;
->>       static bool init_done;
->>       static long video_caps;
->> @@ -530,6 +560,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>           acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
->>                       ACPI_UINT32_MAX, find_video, NULL,
->>                       &video_caps, NULL);
->> +        nvidia_wmi_ec_present = nvidia_wmi_ec_supported();
->>           init_done = true;
->>       }
->>       if (native)
->> @@ -547,6 +578,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>       if (acpi_backlight_dmi != acpi_backlight_undef)
->>           return acpi_backlight_dmi;
->>   +    /* Special cases such as nvidia_wmi_ec and apple gmux. */
->> +    if (nvidia_wmi_ec_present)
->> +        return acpi_backlight_nvidia_wmi_ec;
-> 
-> 
-> Should there also be a change to the EC backlight driver to call acpi_video_get_backlight_type() and make sure we get acpi_backlight_nvidia_wmi_ec? I don't see such a change in this patch series; I could implement it (and test it) against your patch if there's some reason you didn't do so with the current patchset.
-
-I was thinking about this myself too and I decided it was not necessary since
-acpi_video_get_backlight_type() will always return acpi_backlight_nvidia_wmi_ec.
-
-But thinking more about this, that is not true, a user might try to force
-using a different backlight firmware interface by e.g. adding:
-acpi_backlight=video on the kernel commandline.
-
-So yes a patch adding something like this:
-
-	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
-		return -ENODEV;
-
-to the EC backlight driver would be very welcome.
-
-> 
-> 
->> +
->>       /* On systems with ACPI video use either native or ACPI video. */
->>       if (video_caps & ACPI_VIDEO_BACKLIGHT) {
->>           /*
->> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
->> index 0cff20265f97..807b989e3c77 100644
->> --- a/drivers/gpu/drm/gma500/Kconfig
->> +++ b/drivers/gpu/drm/gma500/Kconfig
->> @@ -7,6 +7,8 @@ config DRM_GMA500
->>       select ACPI_VIDEO if ACPI
->>       select BACKLIGHT_CLASS_DEVICE if ACPI
->>       select INPUT if ACPI
->> +    select X86_PLATFORM_DEVICES if ACPI
->> +    select ACPI_WMI if ACPI
-> 
-> 
-> I'm not sure I understand why the Intel DRM drivers pick up the additional platform/x86 and WMI dependencies here. ACPI_VIDEO already depends on these, doesn't it?
-
-It does.
-
-> If Kconfig doesn't otherwise automatically pull in an option's dependencies when selecting that option
-
-Right that is the reason why this is done, for select the Kconfig block must also select all deps
-
-> then shouldn't Nouveau's Kconfig get updated as well?
-> It selects ACPI_VIDEO in some configuration cases.
-
-nouveau's Kconfig block already selects ACPI_WMI:
-
-config DRM_NOUVEAU
-	tristate "Nouveau (NVIDIA) cards"
-	...
-	select X86_PLATFORM_DEVICES if ACPI && X86
-	select ACPI_WMI if ACPI && X86
-	...
-	select ACPI_VIDEO if ACPI && X86
-
-That is why this patch does not add this.
-
-> (It looks like amdgpu doesn't currently select ACPI_VIDEO, maybe because it doesn't depend on it the way the Intel drivers do: there are several AMD+NVIDIA iGPU/dGPU designs out there which use this backlight interface.)
-
-Correct, but with this series amdgpu/radeon also start using ACPI_VIDEO
-functions so these patches:
-
-https://patchwork.freedesktop.org/patch/493650/
-https://patchwork.freedesktop.org/patch/493653/
-
-Add the necessary selects and I cheated a bit and also made
-them select ACPI_WMI already even though that is only
-necessary after this patch (which comes later in the series).
-
-I hope this answers al your questions...
-
-Regards,
-
-Hans
-
-
-
-> 
-> 
->>       help
->>         Say yes for an experimental 2D KMS framebuffer driver for the
->>         Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
->> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
->> index 7ae3b7d67fcf..3efce05d7b57 100644
->> --- a/drivers/gpu/drm/i915/Kconfig
->> +++ b/drivers/gpu/drm/i915/Kconfig
->> @@ -23,6 +23,8 @@ config DRM_I915
->>       # but for select to work, need to select ACPI_VIDEO's dependencies, ick
->>       select BACKLIGHT_CLASS_DEVICE if ACPI
->>       select INPUT if ACPI
->> +    select X86_PLATFORM_DEVICES if ACPI
->> +    select ACPI_WMI if ACPI
->>       select ACPI_VIDEO if ACPI
->>       select ACPI_BUTTON if ACPI
->>       select SYNC_FILE
->> diff --git a/include/acpi/video.h b/include/acpi/video.h
->> index 0625806d3bbd..91578e77ac4e 100644
->> --- a/include/acpi/video.h
->> +++ b/include/acpi/video.h
->> @@ -48,6 +48,7 @@ enum acpi_backlight_type {
->>       acpi_backlight_video,
->>       acpi_backlight_vendor,
->>       acpi_backlight_native,
->> +    acpi_backlight_nvidia_wmi_ec,
->>   };
->>     #if IS_ENABLED(CONFIG_ACPI_VIDEO)
-> 
-
+>
+>   - Alistair
+>
+>   mm/gup.c            | 50 +++++++++++++++++++++++++++++++++++++------
+>   mm/internal.h       |  1 +
+>   mm/migrate_device.c | 52 +++++++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 96 insertions(+), 7 deletions(-)
+>
+> diff --git a/mm/gup.c b/mm/gup.c
+> index b65fe8bf5af4..22b97ab61cd9 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -1881,7 +1881,7 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>   	unsigned long isolation_error_count = 0, i;
+>   	struct folio *prev_folio = NULL;
+>   	LIST_HEAD(movable_page_list);
+> -	bool drain_allow = true;
+> +	bool drain_allow = true, coherent_pages = false;
+>   	int ret = 0;
+>   
+>   	for (i = 0; i < nr_pages; i++) {
+> @@ -1891,9 +1891,38 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>   			continue;
+>   		prev_folio = folio;
+>   
+> -		if (folio_is_longterm_pinnable(folio))
+> +		/*
+> +		 * Device coherent pages are managed by a driver and should not
+> +		 * be pinned indefinitely as it prevents the driver moving the
+> +		 * page. So when trying to pin with FOLL_LONGTERM instead try
+> +		 * to migrate the page out of device memory.
+> +		 */
+> +		if (folio_is_device_coherent(folio)) {
+> +			/*
+> +			 * We always want a new GUP lookup with device coherent
+> +			 * pages.
+> +			 */
+> +			pages[i] = 0;
+> +			coherent_pages = true;
+> +
+> +			/*
+> +			 * Migration will fail if the page is pinned, so convert
+> +			 * the pin on the source page to a normal reference.
+> +			 */
+> +			if (gup_flags & FOLL_PIN) {
+> +				get_page(&folio->page);
+> +				unpin_user_page(&folio->page);
+> +			}
+> +
+> +			ret = migrate_device_coherent_page(&folio->page);
+> +			if (ret)
+> +				goto unpin_pages;
+> +
+>   			continue;
+> +		}
+>   
+> +		if (folio_is_longterm_pinnable(folio))
+> +			continue;
+>   		/*
+>   		 * Try to move out any movable page before pinning the range.
+>   		 */
+> @@ -1919,7 +1948,8 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>   				    folio_nr_pages(folio));
+>   	}
+>   
+> -	if (!list_empty(&movable_page_list) || isolation_error_count)
+> +	if (!list_empty(&movable_page_list) || isolation_error_count
+> +		|| coherent_pages)
+>   		goto unpin_pages;
+>   
+>   	/*
+> @@ -1929,10 +1959,16 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>   	return nr_pages;
+>   
+>   unpin_pages:
+> -	if (gup_flags & FOLL_PIN) {
+> -		unpin_user_pages(pages, nr_pages);
+> -	} else {
+> -		for (i = 0; i < nr_pages; i++)
+> +	/*
+> +	 * pages[i] might be NULL if any device coherent pages were found.
+> +	 */
+> +	for (i = 0; i < nr_pages; i++) {
+> +		if (!pages[i])
+> +			continue;
+> +
+> +		if (gup_flags & FOLL_PIN)
+> +			unpin_user_page(pages[i]);
+> +		else
+>   			put_page(pages[i]);
+>   	}
+>   
+> diff --git a/mm/internal.h b/mm/internal.h
+> index c0f8fbe0445b..899dab512c5a 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -853,6 +853,7 @@ int numa_migrate_prep(struct page *page, struct vm_area_struct *vma,
+>   		      unsigned long addr, int page_nid, int *flags);
+>   
+>   void free_zone_device_page(struct page *page);
+> +int migrate_device_coherent_page(struct page *page);
+>   
+>   /*
+>    * mm/gup.c
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 18bc6483f63a..7feeb447e3b9 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -686,6 +686,12 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+>   		}
+>   
+>   		if (!page) {
+> +			/*
+> +			 * The only time there is no vma is when called from
+> +			 * migrate_device_coherent_page(). However this isn't
+> +			 * called if the page could not be unmapped.
+> +			 */
+> +			VM_BUG_ON(!migrate->vma);
+>   			if (!(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+>   				continue;
+>   			if (!notified) {
+> @@ -794,3 +800,49 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
+>   	}
+>   }
+>   EXPORT_SYMBOL(migrate_vma_finalize);
+> +
+> +/*
+> + * Migrate a device coherent page back to normal memory. The caller should have
+> + * a reference on page which will be copied to the new page if migration is
+> + * successful or dropped on failure.
+> + */
+> +int migrate_device_coherent_page(struct page *page)
+> +{
+> +	unsigned long src_pfn, dst_pfn = 0;
+> +	struct migrate_vma args;
+> +	struct page *dpage;
+> +
+> +	WARN_ON_ONCE(PageCompound(page));
+> +
+> +	lock_page(page);
+> +	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
+> +	args.src = &src_pfn;
+> +	args.dst = &dst_pfn;
+> +	args.cpages = 1;
+> +	args.npages = 1;
+> +	args.vma = NULL;
+> +
+> +	/*
+> +	 * We don't have a VMA and don't need to walk the page tables to find
+> +	 * the source page. So call migrate_vma_unmap() directly to unmap the
+> +	 * page as migrate_vma_setup() will fail if args.vma == NULL.
+> +	 */
+> +	migrate_vma_unmap(&args);
+> +	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
+> +		return -EBUSY;
+> +
+> +	dpage = alloc_page(GFP_USER | __GFP_NOWARN);
+> +	if (dpage) {
+> +		lock_page(dpage);
+> +		dst_pfn = migrate_pfn(page_to_pfn(dpage));
+> +	}
+> +
+> +	migrate_vma_pages(&args);
+> +	if (src_pfn & MIGRATE_PFN_MIGRATE)
+> +		copy_highpage(dpage, page);
+> +	migrate_vma_finalize(&args);
+> +
+> +	if (src_pfn & MIGRATE_PFN_MIGRATE)
+> +		return 0;
+> +	return -EBUSY;
+> +}
