@@ -4,119 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D763C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 08:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1ABC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 08:22:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 625A711B777;
-	Fri, 15 Jul 2022 08:19:15 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3297A11B777;
- Fri, 15 Jul 2022 08:19:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8795711B84E;
+	Fri, 15 Jul 2022 08:22:07 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61C811B85E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 08:22:06 +0000 (UTC)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26F4uFNf032708;
+ Fri, 15 Jul 2022 08:22:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=mVO3E39yBAMY1t3OdQu9hivXxz5A52KU7FtiJ1uABfo=;
+ b=aJL8T2GSFrdohdsdC/AMb1NFBODbz/xTpNG41HcR3zyv1jBJaARLoPPEnjLJ2YasA6Gr
+ jv5aAw2GeIbNykddEh0eY/lXg2LG210l1kLoMxVGygmFs3qi/4tS3I9w1FG5vauU4q+T
+ qcp2ou/inE2uMy8XQ3kum8MHa7IL0A4q4v9DrIIVfEAd5Q7lYgUpgFJw4UM6Ojq+bhIB
+ 6KNWaxp5Irm0SSlps9SMTxvoBS2BhlrqN8ctHMefLwRbP6ROdRAWm9jRJsHnM3X2qLkj
+ aLR832JD2z6sY9zSVzMQodvAnj6y91yHKS+t3Ka71+u0wZIUqQk/XJAs+KQjEAtzotS1 Xw== 
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h71r1er96-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 15 Jul 2022 08:22:03 +0000
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 26F8Bh2j032712; Fri, 15 Jul 2022 08:22:02 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2169.outbound.protection.outlook.com [104.47.59.169])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
+ 3h7046ynmy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 15 Jul 2022 08:22:01 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SWX6knO5X1WkL6fWokRwAwSdO9mBe+CfhWZ0Rz+2UKsFU4WA5tUx2YdJRx5Rqdw4wO5gpVNSN85b9XMZsP0AaKi2uRPMYw9zAjaOIhkvM/IZT6C3GDsLssLKsY5zKbSQfTwYna5EqSYy1E1NPlSvafiqoHUTri7b9ZKIR2DyYhdUOaPwd0R8thFZ+ZUGccZlhNRi4YOk9O+R5SaFVbU3Xov26pi8W7WrUBfNuRfxXwc/1t3/KwtIUsb1BABPIAmP8Bc6Z9NHS8uOBIlQx2wZjpOsZ3keeR5QGot2SRGpPvg7IkFBaY0nNz3zQi40h53x29aSJU5HJsERYN4GHZeXWA==
+ b=UYPuh+CIbS78xctupi+GiruE4cegO111N5C1ozOsb/FAzvgIyQ/nQsIGu+ImgYTBg5Qioj6Z/vNp4v1C30y12quH9f/PNx4oXPZ8gakxgUX+3DXjh/py7HHksxKOlbMcPph8ntFX8SDbk46peG8TD+IKria0UKaQ3xG3WWYe8v9Oz3d4E1TRl/+foFeaOnab/4Ne3g6gyTdyGge6RG3gqs43j5u0T1TzCjZJrytVPtNng1kG+i5GJA2EAIF5//6wndWhorXm9h0ri25/1k59FS62kdUcruyg94ACB8P9C/eOdmdGADDiwTWFsFwXjqP5/ChArG8Xa8gvavdqf33qsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JsedbK+RJSO+qwLVjExUAR1gwLJMC0b3SeI8yXK8ZBQ=;
- b=Yp3rXSypRK/0aYlcqkxeUBjGVXCAaMlnIZKKeW/GJJgRLfk0wjmBQ3/G2vWkwVbEFpt+YQnr/GDl7fO3o/KZmb7j7PNI0Os9kWbL26s1MJgDe2DGWPnHlLWGCmCjOCH9u2WyPjZ3kelmMGA3Ug0df5ILgcoEzd2of+BdoJQUrN3pi6FJ+EWnj06y2ZQLMFdlbcTTxibvm0fY8VZ+qxQy/ksrkx76pZCCTryWuwhfAIHKvtiKSpMOmbPlOgV6+FZ46sn5+hcWFTngIGPNtgx1qKK4bOaBpddgmTqSW02o4OrmbwQCHP1QZ/pswE8OJMDSKMbwLU4IV5M8/QB0OmVykQ==
+ bh=mVO3E39yBAMY1t3OdQu9hivXxz5A52KU7FtiJ1uABfo=;
+ b=GMdIsZZKUtULR14Al2ldQVHvsCJ8219XnX2Zf7Vq1r50Fu/pUENrGJ0GxdkXadcoOZStNekSfydeC45KjeXJMQmvVl2Vh0cIGTTAWFxRO0ujdx+jkujjs9pRCAssXWSvt6OPsMaBtVh7k1cuuZX7jKxsKt2DD5+uOkX0ytyPytjfzkKzQcHK/2ACdBrY9acsAzWpDQP8u0986ZiJkEjT3uZMuB9x9Md0wmPBl+2DGRSG6a4yRGJOEx+gh2IXxHUeJbY699fWPg6FEjWOL4p8yXzLw5g3+bTfzsnfh9SP3w2sYbCp/wfbdGNvfewiblwgj6D1u8kPJzewse0Zk1GbFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JsedbK+RJSO+qwLVjExUAR1gwLJMC0b3SeI8yXK8ZBQ=;
- b=lW6XFijRoClkegZRO9MoACKEO/mSBsnJMGKvq7cFzFhtNpkVGmfP/ARd1oKCCmO/Jd0o6feW8CIJjkCPgW4+jkhSH26J+wwMTAzRgwNTngZHmynoa/6G3aH42cGkshoqsrvsi2G3/KZSobjQdvtHW1uAQYExgUiKZWJvWwnsbNU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com (2603:10b6:5:1ca::24)
- by MN2PR12MB4336.namprd12.prod.outlook.com (2603:10b6:208:1df::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Fri, 15 Jul
- 2022 08:19:10 +0000
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::8982:9580:31db:d96b]) by DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::8982:9580:31db:d96b%7]) with mapi id 15.20.5417.028; Fri, 15 Jul 2022
- 08:19:10 +0000
-Content-Type: multipart/alternative;
- boundary="------------C6PTEz51v3OXFaiIjCj3HkD4"
-Message-ID: <5ad24101-8db7-06eb-f28d-5e0c455592ce@amd.com>
-Date: Fri, 15 Jul 2022 13:48:56 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH -next] drm/amdgpu: double free error and freeing
- uninitialized null pointer
-Content-Language: en-US
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Sebin Sebastian <mailmesebin00@gmail.com>
-References: <20220710132911.399325-1-mailmesebin00@gmail.com>
- <21df71a6-44d4-48a6-17d2-d463174a10c7@igalia.com>
- <YtAw4dra+g1rcAXd@sebin-inspiron>
- <1106b107-6373-9f89-5310-ea29db9fdf75@igalia.com>
-From: "Somalapuram, Amaranath" <asomalap@amd.com>
-In-Reply-To: <1106b107-6373-9f89-5310-ea29db9fdf75@igalia.com>
-X-ClientProxiedBy: PN3PR01CA0086.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::8) To DM6PR12MB3897.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::24)
+ bh=mVO3E39yBAMY1t3OdQu9hivXxz5A52KU7FtiJ1uABfo=;
+ b=s56n/etALWuAArJnibADgUKVc53EeGMUaTVYefd/Lt3OFkr25LtojbvSVNtvcgB4q7LQZQajJLfKfZ6Z76vJDATbJoAJQg75sjDVBDdG1hybyHzaU/JoUheB6ClDY7V85zhhMaV5HxM9EN32BY6PItBkZZT3nQrF90Ov9dlQKqM=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by DM5PR10MB1593.namprd10.prod.outlook.com
+ (2603:10b6:3:e::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.25; Fri, 15 Jul
+ 2022 08:22:00 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b%6]) with mapi id 15.20.5438.014; Fri, 15 Jul 2022
+ 08:22:00 +0000
+Date: Fri, 15 Jul 2022 11:21:51 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Rodrigo.Siqueira@amd.com
+Subject: [bug report] drm/amd/display: Add basic infrastructure for enabling
+ FAMS
+Message-ID: <YtEjn1ZqrLegCgHQ@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: ZR0P278CA0022.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::9) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4406027a-1e6f-49ed-737b-08da663ab1af
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4336:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef40de28-7451-4de3-50c9-08da663b1707
+X-MS-TrafficTypeDiagnostic: DM5PR10MB1593:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sRGRPL7LzT44nqdGHva0b1J99xE5MtmTLdmzolNuk3lUeYe8qaeSf1Cf1cG8bRD1/5wubSGt2JyTQG3jBUEryVbJmCmei1H1WQoovMxahrO6aDSed8W/I1LF20dIT1uLLH+hk1+Eckf7j9xaN7G0w+rPAp7Lj+dtBPvYtGK04bYeCWMVAMxD6kcyTmA4mB8aRvDSTSzbaDAjFv4CR78llQKfosHvk8gk3inYouL1/j+xcXNCn99hpbHXlQBlHfKapp9nNo3R2LrYz4aQKd0HSynhsBIfG/+0DR8WRwpBnqG38okya6n/DYdeSWxRWg/WGOSCWDRRX8DK3gyORHHuoi+BxxnTRVIKF5V5bnOR+1Yunx3IflzfqY7kTnFMIbrsxHE+Kk2ZOaztjz2r+mONA/l5P86fHMC6USi392PzzodyHKO+0AZ3BrxdvhFZKMecWkMLHVvkeaaVHJ5eaJuHzUdSRC/jXMIx6Z6dh8KMCMertMjpicS5/V71TsK+5j/kiim1R9LcI17P4Tb9oaoTevTQkOdXN2YRJh+nn5nmBGCF+MMKK2IIfCW1LHIzFudH5/5jMT0MzoD5zUE+ariqfOlyBK12cft0kUCz8TtK587EMXZymfJH6a9JdINSwSb90jvBTh/zS1k2mZhxveqt1rs1UlGjAL/xn4kO/3jSXXlRsQvyIX6OzSrKuxvRkTeNCjIra39vXeKfaAmQQfaR1I7WG7arsctw2UuR+WpHvrgKduLmLn0UpU40NJAvpqGWkjtb2KLRygQ5qkutUuQO+SkMY3vvK4H00LSfH+k1KxbFm615snAtDldCs5PBtfQ95zZBq2rSR4TNrbv5fmxhRd2SVgxeagRsk5D47XCDZjU=
+X-Microsoft-Antispam-Message-Info: 0857c9Slt13VVQNE8vYFJfpn6wabv4vJ99k3xG1NYYOXvA0CRnCvt48PZzCdlMe4Xn2rZkc3gWJCnYxtryULko8ZvEVSU6PD1kTkthDTCmiC5SOx3pr4wHqF3JbrhzhGgC1ioy/p+VmBzAmKT8n+PCEIqlcVXr9nivkccYAjs3YFguQjkx8cISveSHmBtZb9DOb+fMvygkql4j0WTW4yNX0YnW2Vl0+kNB5OS9Bk70gt3pbW+3xWqDirBniz2MLrvMKEzBREuB9W9fEE7MMCYTknu2QHoV5BLradV9L+bT6Fph8Jl4g6VWpW+/WQ/ZzTID6AXVzgO7I3IC6Vxqi1X3VJEw8dVe6RWCvm+KQ5RcR1fsKZdmIOeSStEGYZB3f39Z89JtLxvmeHG5oz/ZHUU1/SUYIqHn3FjjcJ11qvfCKbV2lDdcVMzgDJJ3UsChUbRovb16q9IeFG3+PtmwZT7YRfiYHsk1Dizs+2lEFQyFVu4wuwkzWMMsdTbcotDUwMkHpY9d9yVmfrRZ1pG9CbpPWVeAFsgzM7c5TXoftiPfjXZY5FE56GW9iVEmQkj9Ua1OAyC00UOXIM6ak8rZSoF9+P8siV0mK9tfSYtv6qviJfzcoC5+SULJOUlOv1oMwi1rkvOMULIMl0GHU9Pfl2YwkJDqNPU+NRMfbuoZ/uDRvCeY1K7us0lV+eM1DK44woNESTB7qgFq3WsGEns2q+hXI9fnK6F06SrJ3qQJtMzLo/VbvY7g70Tqhm2PSSFIKip7qTjOVwrUMeleSK6Echw8jTH6szCFpprg7xKXzt4paJj9fx1GeEcuNPJ5NG0QAG
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3897.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(136003)(396003)(376002)(346002)(110136005)(316002)(54906003)(26005)(186003)(38100700002)(6512007)(36756003)(2616005)(31686004)(31696002)(478600001)(66946007)(8676002)(66476007)(4326008)(53546011)(6506007)(66556008)(33964004)(8936002)(6666004)(83380400001)(6486002)(5660300002)(41300700001)(2906002)(62123004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(7916004)(346002)(376002)(39860400002)(396003)(366004)(136003)(44832011)(186003)(5660300002)(8936002)(66946007)(38350700002)(4326008)(66556008)(316002)(86362001)(8676002)(6512007)(9686003)(4744005)(66476007)(6916009)(6506007)(2906002)(6486002)(38100700002)(33716001)(83380400001)(478600001)(52116002)(41300700001)(6666004)(26005);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZW0rV21sbWowTFRrVTIvYjlreXhlLy9wTWNOZVZJR3Baa0w3OGpIbGlORTNr?=
- =?utf-8?B?eFpTQjVpQkNjM2d1a1Rqd29oZHB0ZDg3K2kreVZ0eUhYT0VaRTI0SzdkYWJV?=
- =?utf-8?B?YTlaSGtXQUlxM25PNzEzeFN2bElnR1VJV2hiNTVxRkpleHNrTFA3RmRSQ2xn?=
- =?utf-8?B?V0hLcWFxc05sS1h1WHhsQi9idC9VditxOG9IV1F1V2cvR24yTTZzL014VXdQ?=
- =?utf-8?B?aUVLaXZvSXJXekE4dGZQTlVMMExYYi93V3VpbXFyWDBZRS9ON0VzRng4UVZU?=
- =?utf-8?B?NW5MY1FpV3hhamt5d2hCUERRbUxiNjlCVnArVmI1QjNsM29rcDFIL2x3dFZG?=
- =?utf-8?B?djM4em5qa3d4UEtuQ0szQ0Q3eXRaSlBiOS9iRGVFcVhTdFh6TUhvMDFWLytx?=
- =?utf-8?B?WnE1bmRobkpFSUhlQ0cxQVVXbVJiR29vUHRLK29WaFR6NkVoR0o5ZXZyNkg4?=
- =?utf-8?B?MUphMExYTTlXR2VWL2V6KzJNc2ZGODArL1VuYTQzY0dYZnM2bXlWUkdDSlNa?=
- =?utf-8?B?M3lDbXVyTXpBZzhOYzZjWlU1anBzcnczb1pNQXJ4Y0U1Rm9aTVQxdWVVVThs?=
- =?utf-8?B?bHl2R2xnckJhR3hPV1hIbWFDWWNhZ1g1cnhDVmk4cXlPMGZOTUhOd2ZYR3VH?=
- =?utf-8?B?M2lHdXlQaWh3Z3QrMFZrUXloamxHSUZ1WHNMYjN1cTRscG5sOURqL2taNkZU?=
- =?utf-8?B?UEFPcXZuSitSUVdjUU5rSUxQVlhPb0Irai9FQ1NMRzZlT2hmWlY5QUw3ZEhD?=
- =?utf-8?B?Vk0xN0srNkczUHlJSmJFTU1MR09SMzVjTUhITnhtajdVSHltUm5YaW5sWHlF?=
- =?utf-8?B?TUZkZDdPRkNwdDhOYjlQb05GUktQakNGOE5zei91cDhGbkg1TDhDU2FSSkhU?=
- =?utf-8?B?cS94T2NOT1ZKQVJDV3R0cDJrYzdMaUFHcStIUkU0M0JINlQ5b2xuc0dCZ2RW?=
- =?utf-8?B?L1ZFZFNnckpXUnlkbU5Ra3QvemFZNzRYZldvaGhxRDl1Smg1ZjJ2eE9JVWJt?=
- =?utf-8?B?QjlLdmU1S0c1bDhlQ0RXemtFbzRzK3VpUVZYdjZIb1A1b0ppZUtzZVRBcklY?=
- =?utf-8?B?cjFidGNUYWsrR1VpNGpvaWZKM3FiMHpiOXNSTisyWW1jem9oand6UEFSQmE5?=
- =?utf-8?B?ZktZRGZ4aElRc092R3lYL1FCMmxveU9PSHIyUjNuWHV6TVZUcjZhSjZGMUhO?=
- =?utf-8?B?elY1SlcvVldSV1VZdXVPK2pRazJYaVBDU0pIb3VvWGF0RVhHNFphbGwrQ091?=
- =?utf-8?B?eVY4Z1hwRG1mTEJBVDEyWmU5WVRBQ1JCYU1CVFNyV3I0b1hSL1lVS09LREVz?=
- =?utf-8?B?bzJ2aVREdHhIWFZoRlpRMUI2RlhDZEVtUTI5Mzg2MGFuV3dpMHc4Y2FETDhO?=
- =?utf-8?B?dzZISzF6NW1CeGtkVkt4SkwxWUJ2RksxaGpZNzR0UTVJOGlVdFphQW9RcCtB?=
- =?utf-8?B?WTdjazliK3VGRGg0YmNheDJVREc0aEFhV3VVQUEyWWVPL2l3c3hyeFRXTUhV?=
- =?utf-8?B?WWFiTWF0NHc4R2Nzb0ZmNDE2ek5vUGNwNlNmY3pqR1JVbDFvcndacUF3TElO?=
- =?utf-8?B?MVd5UXV6ZXJURVA1dFNxbFpSMmNVMGZZNjVXckxrY2NnMHkvcUl3QXF4aEZp?=
- =?utf-8?B?Y0k1b3hIK1o2VmZPMGlFa3FkaFRqT1BQQVprSFk3ZUhNSitKSnBQcUFieWZJ?=
- =?utf-8?B?S2NsUno0MHIwV1ZpMTBKZUVOMzdNcFBWZ3BPNk1LRUNtVEtJRlZCZEw2RFAr?=
- =?utf-8?B?anJ1aER2UTdYYlhhd2pDWFNNMjN3MHdiZXhtNzYwYjVLSC9oY1N4dUwrbzBj?=
- =?utf-8?B?NTN6QkhKRU45RFJORnBYOWY3L082VzgwV2g1eWl0TEZteHhKcDZ5NkZYV25n?=
- =?utf-8?B?NWFwdVB4TXZ3ZGU1a2lVbHJ0Z1lmU2Z0T3cyYnp5VWd1YThMWEtFWUdBaE1L?=
- =?utf-8?B?dkxadFk5WkM3YXpRdkNCUllsOEJnVnErbnZyNXRwaUxJMkF5TjlKS2x3eXQ0?=
- =?utf-8?B?b2MrcnNjMnhndnVaTURCSUhkTDJsZmZpZTI0RnhkOVl6T0VmYUpGb0lZRWd5?=
- =?utf-8?B?Z05sRkkvUW1tckJHYzVYb2V2TVNGN1BpRUJqQVpEY3lRdlp5amE0QzExWWJ3?=
- =?utf-8?Q?k2sIN6XpY0e+xgNsJZ4IL5V/j?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4406027a-1e6f-49ed-737b-08da663ab1af
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3897.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UZUQcWOt74eiOSSjAEtB4czaVRUfw1Ij6crirO0gBJHTX9a/fPi7WuuEshxt?=
+ =?us-ascii?Q?M3r/yBmmkhuEoAxfM0jB1spVsj9Oz8KoXkd5eWT/3e+KMTwZe0tUAoXE0CJM?=
+ =?us-ascii?Q?n2kxel9//P1T0zip4PHrqL/2i7z1cKpHeMmmvsp4e1JknqRca5nUOE2f2ftS?=
+ =?us-ascii?Q?9rDPPMizJQ+ru5yD2DTIClEOhiBHrxN3oBKnbMtBrWyMGBNCVnxo3ZcxFOLA?=
+ =?us-ascii?Q?Ep4kwkpnb4lhn3obz+2atLeLwYCBYDxjZudmxPblc1V8lltTJoKPwIQoLISU?=
+ =?us-ascii?Q?9k4eQcVmEdfGRMLwwyzmIwfoHjzPiPfMY6QgBUKzZAPiWihj/SHoMh4phC5P?=
+ =?us-ascii?Q?AvDH9SuxripJ2GI7BQeB6qKfbT3b6Ui08CiW6FAB/CsbT5LLvWcMFJqwc/mb?=
+ =?us-ascii?Q?5F6uCo8AENjmeCi2n6ccFndjurGirJA2c1ZAaVnTe9mOfbgFIjOEoj78hkJJ?=
+ =?us-ascii?Q?PQsRxRh/1YBUQWQ5m2ZJBQ2lY7cZiLNfWPXXZUMNrZPyRquE9zIiKoyrHL67?=
+ =?us-ascii?Q?4rsqEVNGzo1cQWq3nF+sfL73qZk/6d2a4dducMb3oTKexN1BYWxlXJvzpDj/?=
+ =?us-ascii?Q?xW2vQ5UM0VWWuhhvtkjJSqIapjFtfK+1ofCh08qyhbggJzymzV6RtkzTcwCr?=
+ =?us-ascii?Q?SW92VyR9XHkGS5TgvOyG1t4tDcZqGJSOKJUN/hsXoglUJ1myFqmnK2/hCraU?=
+ =?us-ascii?Q?QOujDsI/ToVmJ2Yd1xyaeORhUWaNyiFQXErOZbzJkB4Q7xrI1AmpOaBEsbpY?=
+ =?us-ascii?Q?YaSyQRC3VaY+XuIRylvAoLC4gfG+svS9aMLSFGdEVxNTTN15hdqUJEVLIhF/?=
+ =?us-ascii?Q?6E8/WqwBczOdXEgnhKXyFsOz0IzwPy7r+OGAAvY7zGbGB3M1BGfBWl+ltdeM?=
+ =?us-ascii?Q?Ds2rmI/zr4uKpWS8XUJcJNbog4BMlCQ1CddpM65cVBK2sMMllCFL9llZM98P?=
+ =?us-ascii?Q?xrW7w5zfAIqlo+oikGwHcAK1Zvl08txGUM1cYs7M6Ui0E8UYDbSGiUOXigOD?=
+ =?us-ascii?Q?Wu1ozGQaULRUyQvbtEQBlqBYxRLQoCkjNu3HWB4yAoGAi2cR/4S0xKdXh/vc?=
+ =?us-ascii?Q?y3w5jlO5u/ve4Z3B8H49lJJeMGNXA471xhjaatlf1ZP4PP7adSdYNQL8gyJO?=
+ =?us-ascii?Q?nkm/hsjqw/3JTZcRDlM+nRzjJXzPSgImgaQyjfKI54v65uXNtPPjHkC5vHop?=
+ =?us-ascii?Q?3F69iM61npJcGf5b6sck1Rh3Xk3AQgwVatUTqUQVVwj8fYuh/js5rYBJMcOW?=
+ =?us-ascii?Q?v9/OoiigFS3oL6uu+rdqsKohvkOhAykNuC8qJSYHKfXJhCIHRSQz9v/O1Skt?=
+ =?us-ascii?Q?gFOIOqfM4gzUchwR7QBznNkceOIWOCvG3253GR+bxzlrgJSOLiEcZDNdVNEJ?=
+ =?us-ascii?Q?t7TWpE+vMl7fUwcir35s4sx4UHB+DmKfd3PnUfcCQRZc897yfsh3onYdSlql?=
+ =?us-ascii?Q?FoT07UpwCm2fj2mHqNOYmH6vz7qQi344x7GrCNxg5W3ZLgvtCed7sA/omIaN?=
+ =?us-ascii?Q?hkTmRn1goIIARIwsMWIx63KB4jHJmUUMPGOu7Tkis7OCMIwZjkxMFg6/gKMx?=
+ =?us-ascii?Q?cvQUTg4FbWyY9iBExSZGKV27BKGMMp6GmhTTTrguLERAns46h6rgfC2Qeezp?=
+ =?us-ascii?Q?fg=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef40de28-7451-4de3-50c9-08da663b1707
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 08:19:10.5454 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 08:22:00.3055 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hGTj5tM6CRjcQvIR3vud37SYsetRWSMl1/8D4+C7LFmo1lPZdtMr2myNY+Ys3uZubtyTGsueNgQcldpHKWGDhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4336
+X-MS-Exchange-CrossTenant-UserPrincipalName: Upugje9rhR7D9CbBZEniEwnavB75vH51md6aptoxK7g6PN45onsyFElMwDRMt3RvaR5dtFawhLzreEFrJINWFK4zG5I3K85a0kZeuKrolrU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR10MB1593
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.883
+ definitions=2022-07-15_03:2022-07-14,
+ 2022-07-15 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0
+ suspectscore=0 mlxlogscore=878 mlxscore=0 spamscore=0 malwarescore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2206140000 definitions=main-2207150035
+X-Proofpoint-ORIG-GUID: 1vj2vwMkDivcnZU4_4LONwmEzvv1ImHO
+X-Proofpoint-GUID: 1vj2vwMkDivcnZU4_4LONwmEzvv1ImHO
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,277 +147,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Nirmoy Das <nirmoy.das@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------C6PTEz51v3OXFaiIjCj3HkD4
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hello Rodrigo Siqueira,
 
+This is a semi-automatic email about new static checker warnings.
 
-On 7/14/2022 9:13 PM, André Almeida wrote:
-> Às 12:06 de 14/07/22, Sebin Sebastian escreveu:
->> On Tue, Jul 12, 2022 at 12:14:27PM -0300, André Almeida wrote:
->>> Hi Sebin,
->>>
->>> Às 10:29 de 10/07/22, Sebin Sebastian escreveu:
->>>> Fix two coverity warning's double free and and an uninitialized pointer
->>>> read. Both tmp and new are pointing at same address and both are freed
->>>> which leads to double free. Freeing tmp in the condition after new is
->>>> assigned with new address fixes the double free issue. new is not
->>>> initialized to null which also leads to a free on an uninitialized
->>>> pointer.
->>>> Coverity issue: 1518665 (uninitialized pointer read)
->>>> 		1518679 (double free)
->>> What are those numbers?
->>>
->> These numbers are the issue ID's for the errors that are being reported
->> by the coverity static analyzer tool.
->>
-> I see, but I don't know which tool was used, so those seem like random
-> number to me. I would just remove this part of your commit message, but
-> if you want to keep it, you need to at least mention what's the tool.
+The patch 00fa7f031dd4: "drm/amd/display: Add basic infrastructure
+for enabling FAMS" from Jun 16, 2022, leads to the following Smatch
+complaint:
 
-new variable is not needed to initialize.
+    drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:311 dc_dmub_srv_p_state_delegate()
+    warn: variable dereferenced before check 'dc' (see line 309)
 
-The only condition double free happens is:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c
+   308		int ramp_up_num_steps = 1; // TODO: Ramp is currently disabled. Reenable it.
+   309		uint8_t visual_confirm_enabled = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS;
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+Dereference
 
-tmp = new;
-                 if (sscanf(reg_offset, "%X %n", &tmp[i], &ret) != 1) {
-                         ret = -EINVAL;
-                         goto error_free; *//    if it hits this*
-                 }/
-/
+   310	
+   311		if (dc == NULL)
+                    ^^^^^^^^^^
+NULL check is too late
 
-and can be avoided like:
+   312			return false;
+   313	
 
-  error_free:
--       kfree(tmp);
-+       if (tmp != new)
-+               kfree(tmp);
-         kfree(new);
-         return ret;
-  }
-
-
-Regards,
-
-S.Amarnath
-
->>>> Signed-off-by: Sebin Sebastian<mailmesebin00@gmail.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 8 +++++---
->>>>   1 file changed, 5 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>> index f3b3c688e4e7..d82fe0e1b06b 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>> @@ -1660,7 +1660,7 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
->>>>   {
->>>>   	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
->>>>   	char reg_offset[11];
->>>> -	uint32_t *new, *tmp = NULL;
->>>> +	uint32_t *new = NULL, *tmp = NULL;
->>>>   	int ret, i = 0, len = 0;
->>>>   
->>>>   	do {
->>>> @@ -1692,17 +1692,19 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
->>>>   		goto error_free;
->>>>   	}
->>> If the `if (!new) {` above this line is true, will be tmp freed?
->>>
->> Yes, It doesn't seem to free tmp here. Should I free tmp immediately
->> after the do while loop and remove `kfree(tmp)` from the `if (ret)`
->> block? Thanks for pointing out the errors.
-> If you free immediately after the while loop, then you would risk a use
-> after free here:
->
-> 	swap(adev->reset_dump_reg_list, tmp);
->
-> So this isn't the solution either.
->
->>>>   	ret = down_write_killable(&adev->reset_domain->sem);
->>>> -	if (ret)
->>>> +	if (ret) {
->>>> +		kfree(tmp);
->>>>   		goto error_free;
->>>> +	}
->>>>   
->>>>   	swap(adev->reset_dump_reg_list, tmp);
->>>>   	swap(adev->reset_dump_reg_value, new);
->>>>   	adev->num_regs = i;
->>>>   	up_write(&adev->reset_domain->sem);
->>>> +	kfree(tmp);
->>>>   	ret = size;
->>>>   
->>>>   error_free:
->>>> -	kfree(tmp);
->>>>   	kfree(new);
->>>>   	return ret;
->>>>   }
---------------C6PTEz51v3OXFaiIjCj3HkD4
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/14/2022 9:13 PM, André Almeida
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:1106b107-6373-9f89-5310-ea29db9fdf75@igalia.com">
-      <pre class="moz-quote-pre" wrap="">Às 12:06 de 14/07/22, Sebin Sebastian escreveu:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On Tue, Jul 12, 2022 at 12:14:27PM -0300, André Almeida wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hi Sebin,
-
-Às 10:29 de 10/07/22, Sebin Sebastian escreveu:
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Fix two coverity warning's double free and and an uninitialized pointer
-read. Both tmp and new are pointing at same address and both are freed
-which leads to double free. Freeing tmp in the condition after new is
-assigned with new address fixes the double free issue. new is not
-initialized to null which also leads to a free on an uninitialized
-pointer.
-Coverity issue: 1518665 (uninitialized pointer read)
-		1518679 (double free)
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">
-What are those numbers?
-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">These numbers are the issue ID's for the errors that are being reported
-by the coverity static analyzer tool.
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I see, but I don't know which tool was used, so those seem like random
-number to me. I would just remove this part of your commit message, but
-if you want to keep it, you need to at least mention what's the tool.
-</pre>
-    </blockquote>
-    <p>new variable is not needed to initialize.</p>
-    <p>The only condition double free happens is:</p>
-    <p>tmp = new;<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sscanf(reg_offset, &quot;%X %n&quot;, &amp;tmp[i],
-      &amp;ret) != 1) {<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = -EINVAL;<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_free; &nbsp;&nbsp;&nbsp;<b> //&nbsp;&nbsp;&nbsp; if it hits
-        this</b><br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<i><br>
-      </i></p>
-    <p>and can be avoided like:<br>
-    </p>
-    &nbsp;error_free:<br>
-    -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(tmp);<br>
-    +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp != new)<br>
-    +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(tmp);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(new);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-    &nbsp;}<br>
-    <p><br>
-    </p>
-    <p>Regards,</p>
-    <p>S.Amarnath<br>
-    </p>
-    <blockquote type="cite" cite="mid:1106b107-6373-9f89-5310-ea29db9fdf75@igalia.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Sebin Sebastian <a class="moz-txt-link-rfc2396E" href="mailto:mailmesebin00@gmail.com">&lt;mailmesebin00@gmail.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index f3b3c688e4e7..d82fe0e1b06b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1660,7 +1660,7 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)-&gt;i_private;
- 	char reg_offset[11];
--	uint32_t *new, *tmp = NULL;
-+	uint32_t *new = NULL, *tmp = NULL;
- 	int ret, i = 0, len = 0;
- 
- 	do {
-@@ -1692,17 +1692,19 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
- 		goto error_free;
- 	}
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">
-If the `if (!new) {` above this line is true, will be tmp freed?
-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Yes, It doesn't seem to free tmp here. Should I free tmp immediately
-after the do while loop and remove `kfree(tmp)` from the `if (ret)`
-block? Thanks for pointing out the errors.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-If you free immediately after the while loop, then you would risk a use
-after free here:
-
-	swap(adev-&gt;reset_dump_reg_list, tmp);
-
-So this isn't the solution either.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap=""> 	ret = down_write_killable(&amp;adev-&gt;reset_domain-&gt;sem);
--	if (ret)
-+	if (ret) {
-+		kfree(tmp);
- 		goto error_free;
-+	}
- 
- 	swap(adev-&gt;reset_dump_reg_list, tmp);
- 	swap(adev-&gt;reset_dump_reg_value, new);
- 	adev-&gt;num_regs = i;
- 	up_write(&amp;adev-&gt;reset_domain-&gt;sem);
-+	kfree(tmp);
- 	ret = size;
- 
- error_free:
--	kfree(tmp);
- 	kfree(new);
- 	return ret;
- }
-</pre>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------C6PTEz51v3OXFaiIjCj3HkD4--
+regards,
+dan carpenter
