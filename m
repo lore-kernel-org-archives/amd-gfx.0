@@ -4,66 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A18C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BC2C43334
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C487E10E7E5;
-	Sat, 16 Jul 2022 14:35:15 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32EBB10F34B;
- Fri, 15 Jul 2022 00:53:35 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9D2B16601A58;
- Fri, 15 Jul 2022 01:53:31 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657846414;
- bh=dr1tdx4u+QvM7fiw6wlWFPP0AWqXDJCr42blBc4VyZo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ro35pEWIBbDVr6SddC5oV5g2IzAdYCQ3y39D9s1jFkM7smnJyAgxodZSXxxyi3By8
- vMPfDkSHreXz6dIrXY8zBhAWBr1SM9hPDKzcb1APoGPjVGznW4DbygpAPhmM4v4iqy
- kNNVNMXe48miNTWrShOswaJRdmoyXxS+0Vc5FpskaDX7p6X/PMys3epI9Nmfk8p88w
- W05tRtqheMg9fof74rfgYjOepSdS637dIAmjASMEhKQqWj6B1RlfwPWmspDEMsVozQ
- 9wRaNESK5yw9FLxoEgVom8kYmxVCD9KC6cScU7I+CCyZasFjtY2KBGQMWY6R6v6p3h
- 1UaDnXFpv8SQQ==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Subject: [PATCH v1 6/6] dma-buf: Remove internal lock
-Date: Fri, 15 Jul 2022 03:52:44 +0300
-Message-Id: <20220715005244.42198-7-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C1710E9EB;
+	Sat, 16 Jul 2022 14:35:19 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7C2F10E06A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 14:45:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YJpJn0EnLaduspDIGnphugs1buO+zJGt7sh1mX3/wEi4JLJ0h7Wp+jaon+vAhRVRKJB4AEW1PjdzaY5X+vjAFcjnvuk1W4sOZS39bMLjacbxGh3ah8a8YszT2hmZPALDw/BdGFd/dvzwxV4PicekD52JSExBkQoubhNUnq7iaEPLC66P9CTRY2rIcmgJGY13PVQFBoc3Wf0S313Pp/RAt8tLWSkD/MLxGFJWpxbOobfKJIfMDUpvbfkKKJ8Yp/PnYFsvo3wbXeOC1RK7PqKavO4WhTfHmeTEDGLB9tS1DboQ47FNjY5e0OXac+w9sI+svwfCIyeSn7uw8kiPorkaLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tA4AXF8fPr1yilUjOXYA4QsaAgEuA0BWX7BuUvVto6Q=;
+ b=c9w7GZ/5zOdHzZ9IgOIV4f2O5CEko9lGOmkx+72aLzGHkQjw9FVcTQE0XRMu0yDYH3fn0SBNJvXj3PmzhPS5WgzNPOQ8msGWMf22lDVJv7bMRdpek9mw9wP1AgXWgsJvwTjh14SZqbpb0MDlJgQp0uh30sVVQGkVJkj44ZVWYf2wSF6QNKgZKbmba5AJHLYkz8p6PTcdD0rPJyyJxGiEJutF0MIDcd4egX8Sqa+/Q5WRVkhIAotcAtgChe3QbE38+9Sfy93ZlirPNtalRq2C3w2/j4A2+bGYbfbDP87mWEfEQuiQ1U/tJT18gH3R3lWXcS3fR9k/1xIfKfpRCueVnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tA4AXF8fPr1yilUjOXYA4QsaAgEuA0BWX7BuUvVto6Q=;
+ b=NIv2JYmTDgDyIhSfm5mb3v4OeCS+8+GrAH2boAhUfyFf8423nSa21FQ/FkQKXD2jNVmFkAJTSFCdy9YOUru00esCj4pJ52VWhXAL9bp7gfXQBgFfwY5GoKIErgdRZgGERz8QQ3LTwtqMNFOK0fPGXVFZIfI6eNpjmocSkpv3GaY=
+Received: from MW4PR03CA0240.namprd03.prod.outlook.com (2603:10b6:303:b9::35)
+ by MN2PR12MB3853.namprd12.prod.outlook.com (2603:10b6:208:162::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Fri, 15 Jul
+ 2022 14:45:07 +0000
+Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b9:cafe::36) by MW4PR03CA0240.outlook.office365.com
+ (2603:10b6:303:b9::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19 via Frontend
+ Transport; Fri, 15 Jul 2022 14:45:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 14:45:06 +0000
+Received: from ruijing-ubuntu-pc.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Fri, 15 Jul 2022 09:45:05 -0500
+From: Ruijing Dong <ruijing.dong@amd.com>
+To: <Christian.Koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: add HW_IP_VCN_UNIFIED type
+Date: Fri, 15 Jul 2022 10:44:53 -0400
+Message-ID: <20220715144453.46786-1-ruijing.dong@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 Jul 2022 13:56:14 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 40c6bcad-f38f-42b0-027b-08da66709c2f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3853:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WIX/BAtLLAvcgpfUHfwMuX1LhjwxQWANB0MaIfbI9KMauzXP8tMUKIqYtxsQMMCJ5Z5wo72tSbpzgxO2h9iw7cNU+G+eyY2uk3UmF9tkNdwZjXy6MEXRSDkdmFeI4XWcgy7MDYmD5gHzAneX0WuYV6FD3uXzfNlxFem+Mfi3ytXaKPWVUF+sEYtOi8amA8TO86fCYz5cLw3Y9c7rD/TdbcGPkSUXs8DsRQvwJgqnXgbbtt9YappOukR4RWufxUmiS18Hr49W3VKaIyKf4sWXS2+kD4jj4DIzMPlZmlVH1veYKQnLddP/ZQnNSyaiDH1lHLczK3zvt4etAlaTEhPBTFaDEKZTCXtDDjkh86HaMNP3zf6vpEgUaiJF/8YTCSgjw2boRDhlJIyUzuD3mqhDdgW5UUfzqFPutFHzJVB3HbIZh544g835oo8rWmvGrQ5fFc+Dndca/TIiPIvw6V7p2GnCLOEo+sWSljNoBu/YTOjUtXqkZt9+wqTvwO7wg+NTr0t4d5Jwxjsz/M3PIqF6oMPgyFiYhM/0kZQYw7YfN547iW6bjxAisHwBTXBgQD3pUHdrghQlnHDGrUwhm5y4xjpLOEe9bCHk4vdKNA84RcCSBzSLK5qBrrJduhkxopj+98DxM05tKfqHjrwwAbpk30ysMykJY+igafcq6PDGacWgcYHEO3HPSxpRh7XgdVm0FWTI5mmwFRrKiny0MaQeixzcLyDQj+l3o0TUqgZQMtejtpw718qAwKMDHLXXowHuQ75zPf+fkrUzQoPYErvKM7aZnG9JFvIrYFbdrd8Rjp8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(346002)(39860400002)(376002)(36840700001)(40470700004)(46966006)(81166007)(478600001)(110136005)(966005)(36756003)(82740400003)(356005)(7696005)(41300700001)(336012)(426003)(47076005)(70206006)(6666004)(26005)(54906003)(1076003)(186003)(16526019)(2616005)(316002)(40480700001)(82310400005)(40460700003)(2906002)(8676002)(4326008)(44832011)(4744005)(5660300002)(8936002)(83380400001)(86362001)(70586007)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 14:45:06.7168 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40c6bcad-f38f-42b0-027b-08da66709c2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3853
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,88 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: alexander.deucher@amd.com, ruijing.dong@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The internal dma-buf lock isn't needed anymore because the updated
-locking specification claims that dma-buf reservation must be locked
-by importers, and thus, the internal data is already protected by the
-reservation lock. Remove the obsoleted internal lock.
+Define HW_IP_VCN_UNIFIED type the same as HW_IP_VCN_ENC.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+VCN4 support for libdrm needs a new definition for
+the unified queue, so that it can align to the kernel.
+
+link: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/245/commits
+
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
 ---
- drivers/dma-buf/dma-buf.c | 5 -----
- include/linux/dma-buf.h   | 9 ---------
- 2 files changed, 14 deletions(-)
+ include/uapi/drm/amdgpu_drm.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 37545ecb845a..4cc739537ebd 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -656,7 +656,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 18d3246d636e..fe33db8441bc 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -560,6 +560,7 @@ struct drm_amdgpu_gem_va {
+ #define AMDGPU_HW_IP_UVD_ENC      5
+ #define AMDGPU_HW_IP_VCN_DEC      6
+ #define AMDGPU_HW_IP_VCN_ENC      7
++#define AMDGPU_HW_IP_VCN_UNIFIED  AMDGPU_HW_IP_VCN_ENC
+ #define AMDGPU_HW_IP_VCN_JPEG     8
+ #define AMDGPU_HW_IP_NUM          9
  
- 	dmabuf->file = file;
- 
--	mutex_init(&dmabuf->lock);
- 	INIT_LIST_HEAD(&dmabuf->attachments);
- 
- 	mutex_lock(&db_list.lock);
-@@ -1459,7 +1458,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 		return -EINVAL;
- 
- 	dma_resv_lock(dmabuf->resv, NULL);
--	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
- 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
-@@ -1479,7 +1477,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	*map = dmabuf->vmap_ptr;
- 
- out_unlock:
--	mutex_unlock(&dmabuf->lock);
- 	dma_resv_unlock(dmabuf->resv);
- 	return ret;
- }
-@@ -1500,13 +1497,11 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
- 
- 	dma_resv_lock(dmabuf->resv, NULL);
--	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
- 			dmabuf->ops->vunmap(dmabuf, map);
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
--	mutex_unlock(&dmabuf->lock);
- 	dma_resv_unlock(dmabuf->resv);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index da924a56d58f..abdd99042c77 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -326,15 +326,6 @@ struct dma_buf {
- 	/** @ops: dma_buf_ops associated with this buffer object. */
- 	const struct dma_buf_ops *ops;
- 
--	/**
--	 * @lock:
--	 *
--	 * Used internally to serialize list manipulation, attach/detach and
--	 * vmap/unmap. Note that in many cases this is superseeded by
--	 * dma_resv_lock() on @resv.
--	 */
--	struct mutex lock;
--
- 	/**
- 	 * @vmapping_counter:
- 	 *
 -- 
-2.36.1
+2.25.1
 
