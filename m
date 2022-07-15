@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3ACC43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 355BEC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A5E10EB10;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3BA10EA22;
 	Sat, 16 Jul 2022 14:36:11 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8875E10E275
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:39 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7DDE10E1EA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZpsDSYO6woEqt3w6dUr3HQsSyKbnONtffbAPMgKNXKStS+9hT4r8i5pxrFSAtd1me1OjIgIyZgDjoWwomAyQcN+GJnhLMwsLM5nwRj1H6u5gYoZBpFPaZ1ly08hUsIb5KDPIxQJBGJFIaQqBV2V0+7mDlU/7gUP2QZ+XWRyyqKPR0LHU1M/Nlh6622H6GPisNSRaWS611AhKNdZZCN3wqcvUL01PFgsmKy+bOh5Q7ksiU03HOwA2/4m7DmuV5R/lF2J8GWyWowahV41+eCuBClFQUl+1YBc47525F2OgN9D2HCKtXPp3/E6UYDTIHXqVOmlQEYDzAivR5h8B0Tnlwg==
+ b=NnF2KkZQFegpk+zbYLwhzkvxTdaSahmkCxmO9lpL0ID00wahjRjuGvz7mOgqOVj8+SqaDpczhOBM6NA3rKKhanY9gV0s/Ba1dYmE1fFeMzqDRbETGlXxURJDSJX30k2fBNeT3l7qRG/o34+6HQUqnO/4yaE+bgo4DA2w2lOybPDvWrmIAyKV+hU1jaijLTvfHDyzihkdmz01J0vhmXUIr8NgLhVcVntIZxoIUKYuXH6ulbCKpYfWT0AjX4RKS9AHUnbeLeEna+um5M5QYV3zWjbt1fJARrhRmzzjNzXP27ji3mPOyj0DOhzF0PvuqCOyZPkNC2lkcv5vRCUg4uyJRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l52ZiKuuCdXxTwENQ1zdk08IC+2RDwzIkrzMEI9bPe0=;
- b=OVhZmSSUIUoBXaOTOTvUtUJNlYdVAb4Z1qES4YlpcJkWhcZx0dOsyC4jIQSk4pCGbdRrcEHy+GH1wRwfm8bq0zxpynW8QBVSGZUcNui6o75UzSo3+gK6jX0gHc56HhfR/z21uCLfS+10sO+BE2MiEIgE3IpoAxlRfLZwHDbYcGK+uN1W73ICfZ47vVxFslJzdWXFkuwICkxGvtfCiK1nsj+eu3iz7L/61ry3XmOPZT+5dwrsOWD2BqFYvN5nePuzNZ+1i1zNO1EkMh2ybkX49gR88RYZ3uLqZ6GOml6ZDRY7vIVZ7kpRjqQlKiXkYaNGI3tHuE3wDYJLO+rdteRrSQ==
+ bh=pVFWtkTt/ysFNSmRraax2nqoCKf7/UjgxrauGxj9pfs=;
+ b=E5ZzVa5E1pGWlaeiwCygP2qN8mh8/94G5PLz91TqTF7+AvNJxS1K37hPFaGdQQfZeOCsEZex6fIvrqhzGehNkWcfczOKktu8YtyGwGsM0N7A7SbMEPc8rqVQxtMoJugSP6Fx/TTJOMj+cGElf+FTA9k6PWFxfohrSaDTP2lwSOvwxrOqpAiMrewOlxKRZjkcJB4QXU9WS5CVTbID77hwi4Iu+tGdrKzJsFrX36jYfv1pi45lFMjGVdU4u1+MPWzN71zr/GVmmw/InCxL/pW7UdLiPfIMtoeSDywcKzfp1NWPu3OZeW0uhNQo0D5kAeYf87yG4wztF2rQ3vGzk7Gxag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l52ZiKuuCdXxTwENQ1zdk08IC+2RDwzIkrzMEI9bPe0=;
- b=EwUC1ydkrzz8OcQYdwLp9gkdD2Tw4CHy+962+rxaXt2F5a3Y+KY6QvW7c7Zvk0SW+gKuwUwOsQXqiIiM0YA91hLI8OkS6/hJgkKt44fQp46JACgm9+f0OmCKBoP3iYz9PCjYtMz+ZiA0NJR1V8MvrGsyNBnZ/tw7GTA0MXKo26s=
-Received: from DS7PR03CA0147.namprd03.prod.outlook.com (2603:10b6:5:3b4::32)
- by BN6PR12MB1411.namprd12.prod.outlook.com (2603:10b6:404:1f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23; Fri, 15 Jul
- 2022 18:17:36 +0000
-Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::b7) by DS7PR03CA0147.outlook.office365.com
- (2603:10b6:5:3b4::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.22 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:36 +0000
+ bh=pVFWtkTt/ysFNSmRraax2nqoCKf7/UjgxrauGxj9pfs=;
+ b=qeWFx/YoDoju0nKF4ItaLxNRHxYiOfVHG+9HRmX1p92wiWZ4XvEmDQX+ZkA8AItVKjnrM3r5MCrPJG7y+woy60mVbYc4rNzSAWd+o20CatTM+4uqGe4mKDpG5EdhTGLrIxJNWmE1+96g6+nq+c4ucaLS7gqmnDWjnzfb9m0Xs4g=
+Received: from DM6PR07CA0053.namprd07.prod.outlook.com (2603:10b6:5:74::30) by
+ DM6PR12MB4563.namprd12.prod.outlook.com (2603:10b6:5:28e::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5438.12; Fri, 15 Jul 2022 18:17:48 +0000
+Received: from DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::61) by DM6PR07CA0053.outlook.office365.com
+ (2603:10b6:5:74::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14 via Frontend
+ Transport; Fri, 15 Jul 2022 18:17:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,26 +45,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
+ DM6NAM11FT013.mail.protection.outlook.com (10.13.173.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:35 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:47 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:35 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 13:17:47 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 11:17:35 -0700
+ 2022 13:17:47 -0500
 Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:29 -0500
+ Frontend Transport; Fri, 15 Jul 2022 13:17:46 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/31] drm/amd/display: Add tags for indicating mst progress
- status
-Date: Fri, 15 Jul 2022 14:16:41 -0400
-Message-ID: <20220715181705.1030401-8-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 18/31] drm/amd/display: Drop FPU flags from dcn32_clk_mgr
+Date: Fri, 15 Jul 2022 14:16:52 -0400
+Message-ID: <20220715181705.1030401-19-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
 References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
@@ -73,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d445e718-1451-41fa-af48-08da668e4b40
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1411:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcd4c98e-f4cf-4d5a-4d60-08da668e5271
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4563:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LwXB/fDPNEx57RISayaW9fdGMw4Pebn9CF9VWT0Kqd3ZxeOc/1lEpFSKceRkIYRsrILdtUCdTD/zQLU4B185Sy/cSMdt5Jrihkbfv2joO4dJhLW9cRGC9HnVZ3lWFHln8OA0b1RjkpoQJyScWN2c/tukxmEWz5kRMKnZax0G+O9c2hMIr8fE65slnNgQgJ3efXHTwKC+yPmdq61jya9VRcsep/3DRYZK/FwTrRtgFVX+GCoLMEju+3fxbdr3C2UZ2RSBCM/XayFOt38Ie3wnTaCGGSHCIpHeszV4WHvXXBNu2iqTSK4Gm7Hl5ShjsPLP0vZ7eNDX+Gsitr+8zwGv6QludahNhFaMPsVzFKKdYO95Nlka2rRVb7G2oDp1tOZt+mD8sPH5HtmXqzqLIrwPrCE5+ZsUhGZ0gk1/0tpRSsQuPSS3geBDqhOEajQhh52Vj9sjLVkvpJDWBBqxl+h7mdhpoxHqM5t5Jt8nD6ytPVhV5gAz5dhYAUPiRJ0iZ81n9Le2+x7vsZCHLM1zP3Ks1Q5MYGeRjwf84KapuNzFl2V6QE2jjqmwFmCkpjVUX6s+OEH+JwNDVIUm+YGNT4VsCY7dpzziyb94p1iW85sjYdx8+e0TTp8T7BnsAoh1ix5FtFSJCwdH8OrFfe9IMqYBIAO5+NIFOEzRburvzqlMZB06GmNlDY1ClMO+d8zpVs05HxOlucAmcKqZd9tTLlccMbr7zY9CsIe8RTbCGoJayBp9BmXbkrtW9qBC5u03zjztiA7hRQevflSIEl3wDy1zxjtX4JFmH+PLTYvBqg5kx4ks/h8dMBtr0x9kaWFO+3YbZN6rVjdKmRmCFBVB52RPBF4mU/wmm3k8iWyOBEaiz1w=
+X-Microsoft-Antispam-Message-Info: XnvufPfKV1KH3LxgUMKIhNOp842wBhJIxP8q3Bccf/VpUdp/w4X23jYMFXKaYxp+xV82UnrK58+VWA+vab82R/USyixhRn1l0Y3evMl1np41827wWMzhQi9Bqz39oqnXJjLKVUMarcUq3MPPHZcvfCsO8xb4TE5EaC1hPJk5kr7DgR9jHZO+fVrhrJUoX51RRn5wBLt6FXc/62xji0EdvMfKMkvuarcgB7z9oa9ACA8HGpPv+ZkM3wI00Q6wwd0DkQvZ7Y+f3Q9tOZ5pcTdSnUezT+2TN7+HdB/V/60ggBbApPfhvVO9pQxRcG9FDFsSd8ispC9GU7DWhiqF/YXwJOxV8+D68eijggcoENQCJTlqjyGyF1Fg0yaC9cmV/OpCnpJqLpyWZa/bCTMbTHR41I6o6dAMhN30IJzYJ26tc0D69cT1n85hIPV30AhGw2qtySIH/4bJ5CZv0Xe2iPCM9hvhf5JIg/+socdFFLSc8/OljobNyhVSn9n97iZB0bxwinb9Q6XfVpW15/ws8HXhcizp2kpv3+FBVZWKM8HcY2k4kSCEpSe7863wrccZH0YpZ8BQx0ZHbrELb1eVEMi9n5ptsMA/mI++OdZlMVh0SZuLCBjQ07Y+pUNBM2cUoLNHttIkdKXPIwikgXZLkQ1SgadM5pFkkMgp9/hh2N2REsbc2aLHO0Nl3GNQkOQs18a6M8bJOSOb1okIAAD/Us/HA/K4/hM7+zQTI7OnwEqhgubRajkEqs81qVjvJlivcc5w/ftK+xAWwJcsrHzfe2+bRQZgmMycIV7wCSuICSiFKxbMsTfLfBOUju59ysBwIA8ykfIguFuKAOsfXC+qfMoz5eAWUzBGTwr7xRK5GHIv7Vk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(376002)(396003)(39860400002)(40470700004)(36840700001)(46966006)(40480700001)(86362001)(426003)(478600001)(82740400003)(336012)(54906003)(4326008)(70586007)(8676002)(47076005)(70206006)(36756003)(36860700001)(186003)(356005)(83380400001)(1076003)(81166007)(41300700001)(2906002)(316002)(6666004)(40460700003)(26005)(6916009)(82310400005)(2616005)(8936002)(5660300002)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(346002)(376002)(136003)(396003)(36840700001)(40470700004)(46966006)(36756003)(336012)(426003)(5660300002)(47076005)(30864003)(70586007)(2906002)(186003)(1076003)(36860700001)(83380400001)(2616005)(82310400005)(8936002)(70206006)(86362001)(4326008)(26005)(54906003)(6666004)(478600001)(6916009)(316002)(40480700001)(41300700001)(8676002)(82740400003)(81166007)(356005)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:35.9328 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d445e718-1451-41fa-af48-08da668e4b40
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:47.9799 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcd4c98e-f4cf-4d5a-4d60-08da668e5271
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1411
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,240 +103,346 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Hersen Wu <hersenxs.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+We are working to isolate FPU operations inside the DML folder, and the
+file dcn32_clk_mgr has some of these operations. This commit moves the
+FPU operations inside the clock manager and creates the dcn32_fpu file
+to aggregate those operations. Note that there is no functional change
+ere, just moving code from one part to another.
 
-[Why & How]
-In order to leverage igt tool to maintain mst feature, expose new
-debugfs entry "mst_progress_status".
-
-In our dm flow, record down the result of each phase of mst and user
-can examine the mst result by checking whether each phase get completed
-successfully.
-
-Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 20 ++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 46 ++++++++++++++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 18 +++++++-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 13 ++++++
- 4 files changed, 94 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  25 ----
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  81 +------------
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 113 ++++++++++++++++++
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  34 ++++++
+ 5 files changed, 153 insertions(+), 102 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 33d66d4897dc..cdfd32c4128c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -571,6 +571,14 @@ struct dsc_preferred_settings {
- 	bool dsc_force_disable_passthrough;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+index 053084121db2..a48453612d10 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+@@ -188,31 +188,6 @@ CLK_MGR_DCN32 = dcn32_clk_mgr.o dcn32_clk_mgr_smu_msg.o
  
-+enum mst_progress_status {
-+	MST_STATUS_DEFAULT = 0,
-+	MST_PROBE = BIT(0),
-+	MST_REMOTE_EDID = BIT(1),
-+	MST_ALLOCATE_NEW_PAYLOAD = BIT(2),
-+	MST_CLEAR_ALLOCATED_PAYLOAD = BIT(3),
-+};
-+
- struct amdgpu_dm_connector {
+ AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DCN32))
  
- 	struct drm_connector base;
-@@ -623,8 +631,20 @@ struct amdgpu_dm_connector {
- 	struct drm_display_mode freesync_vid_base;
+-ifdef CONFIG_X86
+-CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -msse
+-endif
+-
+-ifdef CONFIG_PPC64
+-CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mhard-float -maltivec
+-endif
+-
+-ifdef CONFIG_CC_IS_GCC
+-ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+-IS_OLD_GCC = 1
+-endif
+-endif
+-
+-ifdef CONFIG_X86
+-ifdef IS_OLD_GCC
+-# Stack alignment mismatch, proceed with caution.
+-# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
+-# (8B stack alignment).
+-CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -mpreferred-stack-boundary=4
+-else
+-CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn32/dcn32_clk_mgr.o := -msse2
+-endif
+-endif
+-
+ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN32)
  
- 	int psr_skip_count;
-+
-+	/* Record progress status of mst*/
-+	uint8_t mst_status;
- };
+ endif
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 08f07f31fe73..10726571007d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -42,6 +42,7 @@
+ #include "dcn/dcn_3_2_0_sh_mask.h"
  
-+static inline void amdgpu_dm_set_mst_status(uint8_t *status,
-+		uint8_t flags, bool set)
-+{
-+	if (set)
-+		*status |= flags;
-+	else
-+		*status &= ~flags;
-+}
-+
- #define to_amdgpu_dm_connector(x) container_of(x, struct amdgpu_dm_connector, base)
+ #include "dcn32/dcn32_clk_mgr.h"
++#include "dml/dcn32/dcn32_fpu.h"
  
- extern const struct amdgpu_ip_block_version dm_ip_block;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 991e58a3a78c..cd8db385eda0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -49,6 +49,13 @@ struct dmub_debugfs_trace_entry {
- 	uint32_t param1;
- };
+ #define DCN_BASE__INST0_SEG1                       0x000000C0
  
-+static const char *const mst_progress_status[] = {
-+	"probe",
-+	"remote_edid",
-+	"allocate_new_payload",
-+	"clear_allocated_payload",
-+};
-+
- static inline const char *yesno(bool v)
+@@ -146,83 +147,9 @@ static void dcn32_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e cl
+ 
+ static void dcn32_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
  {
- 	return v ? "yes" : "no";
-@@ -2607,6 +2614,41 @@ static int dp_is_mst_connector_show(struct seq_file *m, void *unused)
- 	return 0;
+-	/* defaults */
+-	double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
+-	double fclk_change_latency_us = clk_mgr->base.ctx->dc->dml.soc.fclk_change_latency_us;
+-	double sr_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_exit_time_us;
+-	double sr_enter_plus_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_enter_plus_exit_time_us;
+-	/* For min clocks use as reported by PM FW and report those as min */
+-	uint16_t min_uclk_mhz			= clk_mgr->base.bw_params->clk_table.entries[0].memclk_mhz;
+-	uint16_t min_dcfclk_mhz			= clk_mgr->base.bw_params->clk_table.entries[0].dcfclk_mhz;
+-	uint16_t setb_min_uclk_mhz		= min_uclk_mhz;
+-	uint16_t dcfclk_mhz_for_the_second_state = clk_mgr->base.ctx->dc->dml.soc.clock_limits[2].dcfclk_mhz;
+-
+-	/* For Set B ranges use min clocks state 2 when available, and report those to PM FW */
+-	if (dcfclk_mhz_for_the_second_state)
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = dcfclk_mhz_for_the_second_state;
+-	else
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = clk_mgr->base.bw_params->clk_table.entries[0].dcfclk_mhz;
+-
+-	if (clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz)
+-		setb_min_uclk_mhz = clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz;
+-
+-	/* Set A - Normal - default values */
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].valid = true;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us = pstate_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us = sr_exit_time_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
+-
+-	/* Set B - Performance - higher clocks, using DPM[2] DCFCLK and UCLK */
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].valid = true;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.pstate_latency_us = pstate_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_exit_time_us = sr_exit_time_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_uclk = setb_min_uclk_mhz;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_uclk = 0xFFFF;
+-
+-	/* Set C - Dummy P-State - P-State latency set to "dummy p-state" value */
+-	/* 'DalDummyClockChangeLatencyNs' registry key option set to 0x7FFFFFFF can be used to disable Set C for dummy p-state */
+-	if (clk_mgr->base.ctx->dc->bb_overrides.dummy_clock_change_latency_ns != 0x7FFFFFFF) {
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].valid = true;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = 38;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us = sr_exit_time_us;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_uclk = 0xFFFF;
+-		clk_mgr->base.bw_params->dummy_pstate_table[0].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[0].memclk_mhz * 16;
+-		clk_mgr->base.bw_params->dummy_pstate_table[0].dummy_pstate_latency_us = 38;
+-		clk_mgr->base.bw_params->dummy_pstate_table[1].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[1].memclk_mhz * 16;
+-		clk_mgr->base.bw_params->dummy_pstate_table[1].dummy_pstate_latency_us = 9;
+-		clk_mgr->base.bw_params->dummy_pstate_table[2].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz * 16;
+-		clk_mgr->base.bw_params->dummy_pstate_table[2].dummy_pstate_latency_us = 8;
+-		clk_mgr->base.bw_params->dummy_pstate_table[3].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[3].memclk_mhz * 16;
+-		clk_mgr->base.bw_params->dummy_pstate_table[3].dummy_pstate_latency_us = 5;
+-	}
+-	/* Set D - MALL - SR enter and exit time specific to MALL, TBD after bringup or later phase for now use DRAM values / 2 */
+-	/* For MALL DRAM clock change latency is N/A, for watermak calculations use lowest value dummy P state latency */
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].valid = true;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.pstate_latency_us = clk_mgr->base.bw_params->dummy_pstate_table[3].dummy_pstate_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.fclk_change_latency_us = fclk_change_latency_us;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.sr_exit_time_us = sr_exit_time_us; // TBD
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us; // TBD
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.wm_type = WATERMARKS_MALL;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_dcfclk = 0xFFFF;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_uclk = min_uclk_mhz;
+-	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
++	DC_FP_START();
++	dcn32_build_wm_range_table_fpu(clk_mgr);
++	DC_FP_END();
  }
  
+ void dcn32_init_clocks(struct clk_mgr *clk_mgr_base)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index c48688cdd7f7..01cb0ef3a2b0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -72,6 +72,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/display_mode_vba_31.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/display_rq_dlg_calc_31.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_32.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_rq_dlg_calc_32.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_ccflags)
+@@ -124,6 +125,7 @@ DML += dcn30/dcn30_fpu.o dcn30/display_mode_vba_30.o dcn30/display_rq_dlg_calc_3
+ DML += dcn31/display_mode_vba_31.o dcn31/display_rq_dlg_calc_31.o
+ DML += dcn32/display_mode_vba_32.o dcn32/display_rq_dlg_calc_32.o dcn32/display_mode_vba_util_32.o
+ DML += dcn31/dcn31_fpu.o
++DML += dcn32/dcn32_fpu.o
+ DML += dcn301/dcn301_fpu.o
+ DML += dcn302/dcn302_fpu.o
+ DML += dcn303/dcn303_fpu.o
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+new file mode 100644
+index 000000000000..89b596599c3d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: MIT
 +/*
-+ * function description: Read out the mst progress status
++ * Copyright 2022 Advanced Micro Devices, Inc.
 + *
-+ * This function helps to determine the mst progress status of
-+ * a mst connector.
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
 + *
-+ * Access it with the following command:
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
 + *
-+ *	cat /sys/kernel/debug/dri/0/DP-X/mst_progress_status
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
 + *
 + */
-+static int dp_mst_progress_status_show(struct seq_file *m, void *unused)
++#include "dcn32_fpu.h"
++
++// We need this includes for WATERMARKS_* defines
++#include "clk_mgr/dcn32/dcn32_smu13_driver_if.h"
++
++void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr)
 +{
-+	struct drm_connector *connector = m->private;
-+	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+	struct amdgpu_device *adev = drm_to_adev(connector->dev);
-+	int i;
++	/* defaults */
++	double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
++	double fclk_change_latency_us = clk_mgr->base.ctx->dc->dml.soc.fclk_change_latency_us;
++	double sr_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_exit_time_us;
++	double sr_enter_plus_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_enter_plus_exit_time_us;
++	/* For min clocks use as reported by PM FW and report those as min */
++	uint16_t min_uclk_mhz			= clk_mgr->base.bw_params->clk_table.entries[0].memclk_mhz;
++	uint16_t min_dcfclk_mhz			= clk_mgr->base.bw_params->clk_table.entries[0].dcfclk_mhz;
++	uint16_t setb_min_uclk_mhz		= min_uclk_mhz;
++	uint16_t dcfclk_mhz_for_the_second_state = clk_mgr->base.ctx->dc->dml.soc.clock_limits[2].dcfclk_mhz;
 +
-+	mutex_lock(&aconnector->hpd_lock);
-+	mutex_lock(&adev->dm.dc_lock);
++	dc_assert_fp_enabled();
 +
-+	if (aconnector->mst_status == MST_STATUS_DEFAULT) {
-+		seq_puts(m, "disabled\n");
-+	} else {
-+		for (i = 0; i < sizeof(mst_progress_status)/sizeof(char *); i++)
-+			seq_printf(m, "%s:%s\n",
-+				mst_progress_status[i],
-+				aconnector->mst_status & BIT(i) ? "done" : "not_done");
++	/* For Set B ranges use min clocks state 2 when available, and report those to PM FW */
++	if (dcfclk_mhz_for_the_second_state)
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = dcfclk_mhz_for_the_second_state;
++	else
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = clk_mgr->base.bw_params->clk_table.entries[0].dcfclk_mhz;
++
++	if (clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz)
++		setb_min_uclk_mhz = clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz;
++
++	/* Set A - Normal - default values */
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].valid = true;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us = pstate_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.fclk_change_latency_us = fclk_change_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us = sr_exit_time_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
++
++	/* Set B - Performance - higher clocks, using DPM[2] DCFCLK and UCLK */
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].valid = true;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.pstate_latency_us = pstate_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.fclk_change_latency_us = fclk_change_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_exit_time_us = sr_exit_time_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_dcfclk = 0xFFFF;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_uclk = setb_min_uclk_mhz;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_uclk = 0xFFFF;
++
++	/* Set C - Dummy P-State - P-State latency set to "dummy p-state" value */
++	/* 'DalDummyClockChangeLatencyNs' registry key option set to 0x7FFFFFFF can be used to disable Set C for dummy p-state */
++	if (clk_mgr->base.ctx->dc->bb_overrides.dummy_clock_change_latency_ns != 0x7FFFFFFF) {
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].valid = true;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = 38;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.fclk_change_latency_us = fclk_change_latency_us;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us = sr_exit_time_us;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_dcfclk = 0xFFFF;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_uclk = min_uclk_mhz;
++		clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_uclk = 0xFFFF;
++		clk_mgr->base.bw_params->dummy_pstate_table[0].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[0].memclk_mhz * 16;
++		clk_mgr->base.bw_params->dummy_pstate_table[0].dummy_pstate_latency_us = 38;
++		clk_mgr->base.bw_params->dummy_pstate_table[1].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[1].memclk_mhz * 16;
++		clk_mgr->base.bw_params->dummy_pstate_table[1].dummy_pstate_latency_us = 9;
++		clk_mgr->base.bw_params->dummy_pstate_table[2].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[2].memclk_mhz * 16;
++		clk_mgr->base.bw_params->dummy_pstate_table[2].dummy_pstate_latency_us = 8;
++		clk_mgr->base.bw_params->dummy_pstate_table[3].dram_speed_mts = clk_mgr->base.bw_params->clk_table.entries[3].memclk_mhz * 16;
++		clk_mgr->base.bw_params->dummy_pstate_table[3].dummy_pstate_latency_us = 5;
 +	}
-+
-+	mutex_unlock(&adev->dm.dc_lock);
-+	mutex_unlock(&aconnector->hpd_lock);
-+
-+	return 0;
++	/* Set D - MALL - SR enter and exit time specific to MALL, TBD after bringup or later phase for now use DRAM values / 2 */
++	/* For MALL DRAM clock change latency is N/A, for watermak calculations use lowest value dummy P state latency */
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].valid = true;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.pstate_latency_us = clk_mgr->base.bw_params->dummy_pstate_table[3].dummy_pstate_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.fclk_change_latency_us = fclk_change_latency_us;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.sr_exit_time_us = sr_exit_time_us / 2; // TBD
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us / 2; // TBD
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.wm_type = WATERMARKS_MALL;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_dcfclk = min_dcfclk_mhz;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_dcfclk = 0xFFFF;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.min_uclk = min_uclk_mhz;
++	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
 +}
- 
- DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
- DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
-@@ -2619,6 +2661,7 @@ DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
- DEFINE_SHOW_ATTRIBUTE(internal_display);
- DEFINE_SHOW_ATTRIBUTE(psr_capability);
- DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
-+DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
- 
- static const struct file_operations dp_dsc_clock_en_debugfs_fops = {
- 	.owner = THIS_MODULE,
-@@ -2762,7 +2805,8 @@ static const struct {
- 		{"dp_dsc_fec_support", &dp_dsc_fec_support_fops},
- 		{"max_bpc", &dp_max_bpc_debugfs_fops},
- 		{"dsc_disable_passthrough", &dp_dsc_disable_passthrough_debugfs_fops},
--		{"is_mst_connector", &dp_is_mst_connector_fops}
-+		{"is_mst_connector", &dp_is_mst_connector_fops},
-+		{"mst_progress_status", &dp_mst_progress_status_fops}
- };
- 
- #ifdef CONFIG_DRM_AMD_DC_HDCP
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 137645d40b72..d66e3cd64ebd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -312,6 +312,8 @@ bool dm_helpers_dp_mst_send_payload_allocation(
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_dp_mst_topology_mgr *mst_mgr;
- 	struct drm_dp_mst_port *mst_port;
-+	enum mst_progress_status set_flag = MST_ALLOCATE_NEW_PAYLOAD;
-+	enum mst_progress_status clr_flag = MST_CLEAR_ALLOCATED_PAYLOAD;
- 
- 	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
- 
-@@ -325,8 +327,20 @@ bool dm_helpers_dp_mst_send_payload_allocation(
- 	if (!mst_mgr->mst_state)
- 		return false;
- 
--	/* It's OK for this to fail */
--	drm_dp_update_payload_part2(mst_mgr);
-+	if (!enable) {
-+		set_flag = MST_CLEAR_ALLOCATED_PAYLOAD;
-+		clr_flag = MST_ALLOCATE_NEW_PAYLOAD;
-+	}
 +
-+	if (drm_dp_update_payload_part2(mst_mgr)) {
-+		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			set_flag, false);
-+	} else {
-+		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			set_flag, true);
-+		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			clr_flag, false);
-+	}
- 
- 	if (!enable)
- 		drm_dp_mst_deallocate_vcpi(mst_mgr, mst_port);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 168d5676b657..c69c1086b35c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -179,6 +179,8 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+new file mode 100644
+index 000000000000..72a6dd75af0e
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
 +
-+	aconnector->mst_status = MST_STATUS_DEFAULT;
- 	drm_modeset_unlock(&root->mst_mgr.base.lock);
- }
- 
-@@ -279,6 +281,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		edid = drm_dp_mst_get_edid(connector, &aconnector->mst_port->mst_mgr, aconnector->port);
- 
- 		if (!edid) {
-+			amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			MST_REMOTE_EDID, false);
++#ifndef __DCN32_FPU_H__
++#define __DCN32_FPU_H__
 +
- 			drm_connector_update_edid_property(
- 				&aconnector->base,
- 				NULL);
-@@ -309,6 +314,8 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		}
- 
- 		aconnector->edid = edid;
-+		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			MST_REMOTE_EDID, true);
- 	}
- 
- 	if (aconnector->dc_sink && aconnector->dc_sink->sink_signal == SIGNAL_TYPE_VIRTUAL) {
-@@ -430,6 +437,10 @@ dm_dp_mst_detect(struct drm_connector *connector,
- 		dc_sink_release(aconnector->dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
++#include "clk_mgr_internal.h"
 +
-+		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
-+			false);
- 	}
- 
- 	return connection_status;
-@@ -526,6 +537,8 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	connector = &aconnector->base;
- 	aconnector->port = port;
- 	aconnector->mst_port = master;
-+	amdgpu_dm_set_mst_status(&aconnector->mst_status,
-+			MST_PROBE, true);
- 
- 	if (drm_connector_init(
- 		dev,
++void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr);
++
++#endif
 -- 
 2.37.0
 
