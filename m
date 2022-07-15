@@ -4,95 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30351CCA479
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36AF7C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C1B10FF41;
-	Sat, 16 Jul 2022 14:36:22 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2059.outbound.protection.outlook.com [40.107.95.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 733C510E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F33C10F557;
+	Sat, 16 Jul 2022 14:36:59 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF50710E06A;
+ Fri, 15 Jul 2022 15:05:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DpKRleG+tggMdluA7seaqZ2GjtRit+7kg4bCFSda2t0owoJDfsnGFqX1C5k5uqtvE6CZ1VyiQ7OkzmcjTjrGMx7i8Gern6eHgOxmJdyhxxoxqRHGnR+LW1ryBu5Yy/515PpGOW3+LMv6pb9tuE1bs+pEHp4DeRs4NuRTyW1m7EUcqAOyfxQU4wJ5GPULJEJ7UqISC1tseHa3p9gulv/4eiMB8sW4Tp3CncXxZOpjJvBiJxqtCvLg75h9/5150R0ZbIUgu+iaZnyR7H1VvLA58ni27UKTjwe/SVaxYL6ZZlFF/RXrzF1e2Zks8kxXmPfA24OvdU2Z0oXJ6Uorch4A2Q==
+ b=RuxfDi8WJjxQr6f+IOcXOi0gzWpwqBAxG6LW+7k9C9/R7Nhg/5jQGBpZ9/52qtYEuTOeFlbMKSUL5LCIjrNigeTbWJ4tcUIv9u/IuMz0OUbo+XS4QaibfCnfXzZdrJ9E/Fl1ye/PodfWDhjoZF7CMXtysqjhGa2xrCHDp09D+lsjNICXrD6MPqujkTxKYbrp3Z+6doWFLE74f6Lnrk3fknLIa8/g739SGYyy0Ez0gw6qZxtRtKyY3dkU+uCS7yXcf5cG6l1dpzIc67x4FbeEnj2bcR8C/Ml7IRRZtRMG9XNVsC29ietKIvF11nA+EnDJZIC5XgwU+U+Cnep0BOdUyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQME0GAWIbB3rZ9ukXsN46m8HADFYdHOyzpkMWNeiaQ=;
- b=FPaAxNGn9MhBG1o0OijhGiySkjittwKjYUf4eDgffwO34lbt4K/n7yEjG7SVCuxqBw7DeBgx1HDDk4bkiCMImalvxKG+FaVfyGfXHGLSIABnhWA55G/3LUXYLOD6LpeLJB+5OgoJFNJCSCgrblUfmunue8ZmJh1Dpc28pt47k0FfRwNiw7C3eit7yrJ/ybPqAQVM7EhNswTgyRzs2rxsq90nDB8WY9ITRyZ3TQUpeOmjt8PypQtZrIxbsUhO51bC1Zxggy61TbQodKYspJFBpXk9U1qpwGKSQNlJQ5M6eVvVZbBhRHTpjtnFRhaLYcMc7sqL4I3ZhLHYb33EhPHIKA==
+ bh=W3l0gEneWCJT4Ri2gf2TD+v66/MIF7719Km5cR/hjO0=;
+ b=YaENBHD/sAkJg9HXvHkPOLvpg0w9ICjzRtKFkA4nPHh7qnPy25p4pNH6/Ed4FKUN5tLp2E+eR56EU7K4PUtnFD8bpqPrQ2bk69Y7f2Tv5HGrw5KtK1II6VJOVqt84QgjnAQoTvBrsGFvK6MH0cg5Y2eQG7vPK84DqPDa0HLzNqEGx1GrZyUKCQZnJaa8sKBdAjxj7gF3kuPW9QsehI10lmPaULYvfNgyEQWMcl98HowbNljpAUbPo2Zbs9wWkleXP+coPCtzHdBz5+xbWviL+V1QExqJGxvBEFQEs4OuvbQMvg4p+wc0IvALrTvNkfYwPIFB3dp/rLqTPuyDKzpfGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQME0GAWIbB3rZ9ukXsN46m8HADFYdHOyzpkMWNeiaQ=;
- b=GmLj7ui9TVZvd++gTkK3581uIezQ7wlARP2jR72VHZpQGewljxcC4mQwbGO2qsDIe3DsKDmKxC3yjSwAihPyU+dlTrQHBo+MysZCrcZb9ZYciz1Oesg0vzVlikMjb89bDGX2WZWKk85h+S61e4QGagyqAz2EydYzhdmKB84Uv9w=
-Received: from MW4PR03CA0134.namprd03.prod.outlook.com (2603:10b6:303:8c::19)
- by SJ1PR12MB6145.namprd12.prod.outlook.com (2603:10b6:a03:45c::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Fri, 15 Jul
- 2022 18:17:43 +0000
-Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::56) by MW4PR03CA0134.outlook.office365.com
- (2603:10b6:303:8c::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.22 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:43 +0000
+ bh=W3l0gEneWCJT4Ri2gf2TD+v66/MIF7719Km5cR/hjO0=;
+ b=nyJwpsWRmjn51UnkJaii6DfqQ2vgHxwT8gpPV1BVD9XcGNicr30szpnKzdO+QQ/JF0QlcpF4UM2nZckAscgIeiYdtQRXah4N3+06ZJrwDQhsF5eyVwAnLCTCk/VN6IEjYJMeKworEaYVOuqR8RcDj9EQKxgipjruK7Uaku/cRRo=
+Received: from DS7P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::17) by
+ MN2PR12MB3630.namprd12.prod.outlook.com (2603:10b6:208:cc::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5417.23; Fri, 15 Jul 2022 15:05:44 +0000
+Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::4e) by DS7P222CA0005.outlook.office365.com
+ (2603:10b6:8:2e::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17 via Frontend
+ Transport; Fri, 15 Jul 2022 15:05:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:42 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 15:05:43 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:41 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:41 -0500
-Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:40 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/31] drm/amd/display: Update de-tile override to anticipate
- pipe splitting
-Date: Fri, 15 Jul 2022 14:16:47 -0400
-Message-ID: <20220715181705.1030401-14-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
+ 2022 10:05:41 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <jgg@nvidia.com>
+Subject: [PATCH v9 06/14] mm/gup: migrate device coherent pages when pinning
+ instead of failing
+Date: Fri, 15 Jul 2022 10:05:13 -0500
+Message-ID: <20220715150521.18165-7-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220715150521.18165-1-alex.sierra@amd.com>
+References: <20220715150521.18165-1-alex.sierra@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9b471412-89f7-4d27-858b-08da668e4f61
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6145:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3452268-56ce-42ce-50d0-08da66737d88
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3630:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eAhAYVtlkUMRi9ccm8kAxwiI9ctAhlUpHlIu6cUmhP93YQHrpxDcX2IGXyzgvMi7Kz8T+m+b+JnU5x59F337EG5B7/QzrTkIf1dGtxJMrHwvKcwYWvAczS/BXoSpxlfPSct/Wk4mmJA4BHvwVHN5yVatkZwKpppvpesy+cNvnncFMEE7o64WantFInVlBr3u0hMc8CcWc2TJxxC52lWgCztWwMCAyYImLWmeBhGPDh07yAkeIzH4Hsqw9SHAvBIf2kdBmGEcyCNZ/2GFxJo9mKX3e+xXDZVclvdRYHRLYZpfA3xnrzxPxtr8zZS5Cy8m0wfy6B7vu0K/Fl4aBEObznCJLkXSq+mGpc6nbmaYE8BNAsrLMh/ZA48tballJjTZEnE1zVcgRyLoxIosdgkrJLLxMIk2JOVfRimKHDP2GrYeUtGgsTmGGNC5vevxKhp7nY5kH0aLuppqOPMVh1+yLERn25T2140wNn4sqUzdcPIR6JeyIedmNZIDO+1dZufH0YIBO8UdWkpnM9ZMELHQX0mw1fX50IwUXJPmJwGmAKWAkOf3ZL7wTsvok8dB7q6U8KdpAvrTx2TEjxN72eGGB/IIMKdD5nwTfkbqhsm+H4GYJ6t4E6b7ls2j0zt81/CJNzJbZVgNBWPQXNBA2qFFkroh5hXkBL/6xYc1himSiS66ypRbyZ62zJouwD/Li4wKO5A4NO4CKK4cnIEwVPcRycAGJhm+nDULSorjeY3kIb35C0QKTvYa+lMVDahzS7wI3kClMWrAEoBvm7VpJjrwauEaDlw5IHYlytB0cRcLiasguGbkjlsZGY4vekjHDZqWKoy3r5AfSYEgGqC8k1L0kY3drVoKJJSrigecnudfC0Y=
+X-Microsoft-Antispam-Message-Info: MXxToRlP+XuoGQ1xwl0Wp0Hyf0j5KsWqDggjqCP/S9tQuSXJN2OIsf42dKc6+ehXN6QPZNmj7ULfYxhBBNeYiu+LB+GWusjb7morTAtkDpaPA8UH7AlfGsd6H7/SWWBOnuextJgXRSV/KwATUsXYYs984/xdbtzmf7T4wrKBfNzbZndPkd8/T877QAn/YvLTaFa80dvCUpqBT2AV7406zNSrWhalF2+yx2jWeZ8BegdtIPFNrcQccGZmxnCzLiZ4KYl6g06o7tbk0X9gR7VfDl7ZvC7h2uz2IUb1PpX+HnQFIX4OA2DettoyMBarFIZdz8iTdcBKdzwPcIcgzy3eFJxzclin8oqbUnQ+J8gjemAzoPsUJoY56avh+ts3ldhMTkcp7XmnT1dnLWj8uJBg6EKsNYNDNLeqMQoy0g8+qH+ejcmNbiuQ/b92MKSC4sRsY04a2LifXJ4qVW6P4ezliOg9XNgroK5dr6988Nap2d5T4ACRf5k6nAXgGUJurhW1ITmWL7oJZJ6Uqpu8lSsByxNLeqO6/CD8Jm3IFXj2c1suT8i819QlzwP04K+Le6bXZlyFUVvjb7z1cK2jealMOcQyTzX691mYUbl7tqzCjIn/OIZ9k7a/5yKjX19ABEg57iwrpoBProvIm0WAmTKsUpmsjwvg8I8qF3yV0JkaEh50SIGCBjmYhaCDd8uXXQYZJiIJsakAMQOlFtwJMqswHSSUBP6++CoBqSSmFrrNeK8d9Zq+gkJeG+JHx/zVPUQRDqeh6h89lkVrCm4sWfxLGWY9xrP2jtpZOG3oAFEl9WIa4v9GyaAdxT1ecExTnVUthO66EH0ejfpn2DKBWh4ecs5+DeMftZQd+qCy6AuFDkE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966006)(36840700001)(40470700004)(478600001)(2616005)(82310400005)(26005)(54906003)(316002)(82740400003)(6916009)(41300700001)(86362001)(40480700001)(40460700003)(356005)(81166007)(336012)(83380400001)(36860700001)(426003)(47076005)(5660300002)(2906002)(15650500001)(36756003)(70206006)(1076003)(70586007)(8936002)(4326008)(8676002)(186003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(39860400002)(396003)(376002)(40470700004)(46966006)(36840700001)(44832011)(7416002)(5660300002)(2906002)(40480700001)(70586007)(316002)(8936002)(70206006)(16526019)(478600001)(186003)(54906003)(82310400005)(26005)(6916009)(7696005)(8676002)(41300700001)(2616005)(6666004)(47076005)(426003)(336012)(81166007)(82740400003)(86362001)(83380400001)(356005)(1076003)(4326008)(36756003)(40460700003)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:42.7652 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b471412-89f7-4d27-858b-08da668e4f61
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:05:43.8610 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3452268-56ce-42ce-50d0-08da66737d88
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6145
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3630
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,243 +100,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan
- Liu <HaoPing.Liu@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Taimur Hassan <Syed.Hassan@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
+ Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Taimur Hassan <Syed.Hassan@amd.com>
+From: Alistair Popple <apopple@nvidia.com>
 
-[Why]
-For certain MPO configurations, DML will split a pipe after DET buffer has
-already been allocated by driver, resulting in allocation of more DET
-segments than the configurable return buffer has, causing underflow.
+Currently any attempts to pin a device coherent page will fail. This is
+because device coherent pages need to be managed by a device driver, and
+pinning them would prevent a driver from migrating them off the device.
 
-[How]
-Determine during DET override calculation whether or not a pipe will be
-split later on by DML, and distribute DET segments based on expected
-number of pipes.
+However this is no reason to fail pinning of these pages. These are
+coherent and accessible from the CPU so can be migrated just like
+pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
+them first try migrating them out of ZONE_DEVICE.
 
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
+[hch: rebased to the split device memory checks,
+      moved migrate_device_page to migrate_device.c]
+
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource.c |  22 ++--
- .../drm/amd/display/dc/dcn32/dcn32_resource.h |   6 +-
- .../display/dc/dcn32/dcn32_resource_helpers.c | 112 +++++++++---------
- 3 files changed, 69 insertions(+), 71 deletions(-)
+ mm/gup.c            | 50 +++++++++++++++++++++++++++++++++++++------
+ mm/internal.h       |  1 +
+ mm/migrate_device.c | 52 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 96 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 92d87745d933..631876832dfa 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -2984,7 +2984,7 @@ int dcn32_populate_dml_pipes_from_context(
- 	int i, pipe_cnt;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe;
--	bool subvp_in_use = false;
-+	bool subvp_in_use = false, is_pipe_split_expected[MAX_PIPES];
+diff --git a/mm/gup.c b/mm/gup.c
+index b65fe8bf5af4..22b97ab61cd9 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -1881,7 +1881,7 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+ 	unsigned long isolation_error_count = 0, i;
+ 	struct folio *prev_folio = NULL;
+ 	LIST_HEAD(movable_page_list);
+-	bool drain_allow = true;
++	bool drain_allow = true, coherent_pages = false;
+ 	int ret = 0;
  
- 	dcn20_populate_dml_pipes_from_context(dc, context, pipes, fast_validate);
+ 	for (i = 0; i < nr_pages; i++) {
+@@ -1891,9 +1891,38 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+ 			continue;
+ 		prev_folio = folio;
  
-@@ -3046,6 +3046,9 @@ int dcn32_populate_dml_pipes_from_context(
- 			if (dc->debug.enable_single_display_2to1_odm_policy)
- 				pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_2to1;
- 		}
+-		if (folio_is_longterm_pinnable(folio))
++		/*
++		 * Device coherent pages are managed by a driver and should not
++		 * be pinned indefinitely as it prevents the driver moving the
++		 * page. So when trying to pin with FOLL_LONGTERM instead try
++		 * to migrate the page out of device memory.
++		 */
++		if (folio_is_device_coherent(folio)) {
++			/*
++			 * We always want a new GUP lookup with device coherent
++			 * pages.
++			 */
++			pages[i] = 0;
++			coherent_pages = true;
 +
-+		is_pipe_split_expected[i] = dcn32_predict_pipe_split(context, pipes[i].pipe, i);
-+
- 		pipe_cnt++;
- 	}
- 
-@@ -3053,8 +3056,7 @@ int dcn32_populate_dml_pipes_from_context(
- 	 * the DET available for each pipe). Use the DET override input to maintain our driver
- 	 * policy.
- 	 */
--	switch (pipe_cnt) {
--	case 1:
-+	if (pipe_cnt == 1 && !is_pipe_split_expected[0]) {
- 		pipes[0].pipe.src.det_size_override = DCN3_2_MAX_DET_SIZE;
- 		if (pipe->plane_state && !dc->debug.disable_z9_mpc) {
- 			if (!is_dual_plane(pipe->plane_state->format)) {
-@@ -3065,18 +3067,8 @@ int dcn32_populate_dml_pipes_from_context(
- 					pipes[0].pipe.src.det_size_override = 320; // 5K or higher
- 			}
- 		}
--		break;
--	case 2:
--	case 3:
--	case 4:
--		// For 2 and 3 pipes, use (MAX_DET_SIZE / pipe_cnt), for 4 pipes use default size for each pipe
--		for (i = 0; i < pipe_cnt; i++) {
--			pipes[i].pipe.src.det_size_override = (pipe_cnt < 4) ? (DCN3_2_MAX_DET_SIZE / pipe_cnt) : DCN3_2_DEFAULT_DET_SIZE;
--		}
--		break;
--	}
--
--	dcn32_update_det_override_for_mpo(dc, context, pipes);
-+	} else
-+		dcn32_determine_det_override(context, pipes, is_pipe_split_expected, pipe_cnt);
- 
- 	// In general cases we want to keep the dram clock change requirement
- 	// (prefer configs that support MCLK switch). Only override to false
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-index db4546317cb5..10254ab7e9d9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-@@ -100,7 +100,9 @@ bool dcn32_all_pipes_have_stream_and_plane(struct dc *dc,
- bool dcn32_subvp_in_use(struct dc *dc,
- 		struct dc_state *context);
- 
--void dcn32_update_det_override_for_mpo(struct dc *dc, struct dc_state *context,
--	display_e2e_pipe_params_st *pipes);
-+bool dcn32_predict_pipe_split(struct dc_state *context, display_pipe_params_st pipe, int index);
-+
-+void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_params_st *pipes,
-+		bool *is_pipe_split_expected, int pipe_cnt);
- 
- #endif /* _DCN32_RESOURCE_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index e001f6d1f6c3..a6ef1dba01fe 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -26,6 +26,8 @@
- // header file of functions being implemented
- #include "dcn32_resource.h"
- #include "dcn20/dcn20_resource.h"
-+#include "dml/dcn32/display_mode_vba_util_32.h"
-+
- /**
-  * ********************************************************************************************
-  * dcn32_helper_populate_phantom_dlg_params: Get DLG params for phantom pipes and populate pipe_ctx
-@@ -195,66 +197,68 @@ bool dcn32_subvp_in_use(struct dc *dc,
- 	return false;
- }
- 
--/* For MPO we adjust the DET allocation to ensure we have enough DET buffer when an MPO pipe
-- * is removed. For example for 1 MPO + 1 non-MPO normally we would allocate 6 DET segments
-- * for each pipe [6, 6, 6]. But when transitioning out of MPO it would change from
-- * [6, 6, 6] -> [9, 9]. However, if VUPDATE for the non-MPO pipe comes first we would be
-- * trying to allocate more DET than what's currently available which would result in underflow.
-- *
-- * In this case we must ensure there is enough buffer when transitioning in and out of MPO:
-- *
-- * 1 MPO (2 plane) + 1 non-MPO case:
-- * [4, 4, 9]<->[9, 9]: Allocate 4 each for MPO pipes, and maintain 9 for non-MPO pipe
-- *
-- * 1 MPO (2 plane) + 2 non-MPO case:
-- * [3, 3, 5, 5]<->[6, 6, 6]
-- *
-- * 1 MPO (3 plane) + 1 non-MPO case:
-- * [3, 3, 3, 9]<->[4, 4, 9] or [3, 3, 3, 6]<->[9, 9]
-- *
-- * For multi-display MPO case all pipes will have 4 segments:
-- * Removing MPO on one of the displays will result in 3 pipes
-- * (1 MPO and 1 non-MPO which is covered by single MPO stream case).
-- */
--void dcn32_update_det_override_for_mpo(struct dc *dc, struct dc_state *context,
--	display_e2e_pipe_params_st *pipes)
-+bool dcn32_predict_pipe_split(struct dc_state *context, display_pipe_params_st pipe, int index)
- {
--	uint8_t i, mpo_stream_index, pipe_cnt;
--	uint8_t mpo_stream_count = 0;
--	uint8_t mpo_planes = 0; // Only used in single display MPO case
--	unsigned int j;
--	struct resource_context *res_ctx = &context->res_ctx;
-+	double pscl_throughput, pscl_throughput_chroma, dpp_clk_single_dpp, clock,
-+		clk_frequency = 0.0, vco_speed = context->bw_ctx.dml.soc.dispclk_dppclk_vco_speed_mhz;
- 
--	for (i = 0; i < context->stream_count; i++) {
--		if (context->stream_status[i].plane_count > 1) {
--			mpo_stream_index = i;
--			mpo_stream_count++;
--			mpo_planes = context->stream_status[i].plane_count;
--		}
--	}
-+	dml32_CalculateSinglePipeDPPCLKAndSCLThroughput(pipe.scale_ratio_depth.hscl_ratio,
-+			pipe.scale_ratio_depth.hscl_ratio_c,
-+			pipe.scale_ratio_depth.vscl_ratio,
-+			pipe.scale_ratio_depth.vscl_ratio_c,
-+			context->bw_ctx.dml.ip.max_dchub_pscl_bw_pix_per_clk,
-+			context->bw_ctx.dml.ip.max_pscl_lb_bw_pix_per_clk,
-+			pipe.dest.pixel_rate_mhz,
-+			pipe.src.source_format,
-+			pipe.scale_taps.htaps,
-+			pipe.scale_taps.htaps_c,
-+			pipe.scale_taps.vtaps,
-+			pipe.scale_taps.vtaps_c,
- 
--	if (mpo_stream_count == 1) {
--		for (j = 0, pipe_cnt = 0; j < dc->res_pool->pipe_count; j++) {
--			if (!res_ctx->pipe_ctx[j].stream)
--				continue;
-+			/* Output */
-+			&pscl_throughput, &pscl_throughput_chroma,
-+			&dpp_clk_single_dpp);
- 
--			if (context->res_ctx.pipe_ctx[j].stream == context->streams[mpo_stream_index]) {
--				// For 3 plane MPO + 1 non-MPO, do [3, 3, 3, 9]
--				// For 2 plane MPO + 1 non-MPO, do [4, 4, 9]
--				if (context->stream_count - mpo_stream_count == 1)
--					pipes[pipe_cnt].pipe.src.det_size_override = DCN3_2_DET_SEG_SIZE * (mpo_planes == 2 ? 4 : 3);
--				else if (context->stream_count - mpo_stream_count == 2)
--					pipes[pipe_cnt].pipe.src.det_size_override = DCN3_2_DET_SEG_SIZE * 3;
-+	clock = dpp_clk_single_dpp * (1 + context->bw_ctx.dml.soc.dcn_downspread_percent / 100);
-+
-+	if (clock > 0)
-+		clk_frequency = vco_speed * 4.0 / ((int) (vco_speed * 4.0));
-+
-+	if (clk_frequency > context->bw_ctx.dml.soc.clock_limits[index].dppclk_mhz)
-+		return true;
-+	else
-+		return false;
-+}
-+
-+void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_params_st *pipes,
-+		bool *is_pipe_split_expected, int pipe_cnt)
-+{
-+	int i, j, count, stream_segments, pipe_segments[MAX_PIPES];
-+
-+	if (context->stream_count > 0) {
-+		stream_segments = 18 / context->stream_count;
-+		for (i = 0, count = 0; i < context->stream_count; i++) {
-+			for (j = 0; j < pipe_cnt; j++) {
-+				if (context->res_ctx.pipe_ctx[j].stream == context->streams[i]) {
-+					count++;
-+					if (is_pipe_split_expected[j])
-+						count++;
-+				}
++			/*
++			 * Migration will fail if the page is pinned, so convert
++			 * the pin on the source page to a normal reference.
++			 */
++			if (gup_flags & FOLL_PIN) {
++				get_page(&folio->page);
++				unpin_user_page(&folio->page);
 +			}
-+			pipe_segments[i] = stream_segments / count;
++
++			ret = migrate_device_coherent_page(&folio->page);
++			if (ret)
++				goto unpin_pages;
++
+ 			continue;
 +		}
  
--			} else if (context->res_ctx.pipe_ctx[j].stream &&
--					context->res_ctx.pipe_ctx[j].stream != context->streams[mpo_stream_index]) {
--				// Update for non-MPO pipes
--				if (context->stream_count - mpo_stream_count == 1)
--					pipes[pipe_cnt].pipe.src.det_size_override = DCN3_2_DET_SEG_SIZE * 9;
--				else if (context->stream_count - mpo_stream_count == 2)
--					pipes[pipe_cnt].pipe.src.det_size_override = DCN3_2_DET_SEG_SIZE * 5;
-+		for (i = 0; i < pipe_cnt; i++) {
-+			pipes[i].pipe.src.det_size_override = 0;
-+			for (j = 0; j < context->stream_count; j++) {
-+				if (context->res_ctx.pipe_ctx[i].stream == context->streams[j]) {
-+					pipes[i].pipe.src.det_size_override = pipe_segments[j] * DCN3_2_DET_SEG_SIZE;
-+					break;
-+				}
- 			}
--			pipe_cnt++;
++		if (folio_is_longterm_pinnable(folio))
++			continue;
+ 		/*
+ 		 * Try to move out any movable page before pinning the range.
+ 		 */
+@@ -1919,7 +1948,8 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+ 				    folio_nr_pages(folio));
+ 	}
+ 
+-	if (!list_empty(&movable_page_list) || isolation_error_count)
++	if (!list_empty(&movable_page_list) || isolation_error_count
++		|| coherent_pages)
+ 		goto unpin_pages;
+ 
+ 	/*
+@@ -1929,10 +1959,16 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+ 	return nr_pages;
+ 
+ unpin_pages:
+-	if (gup_flags & FOLL_PIN) {
+-		unpin_user_pages(pages, nr_pages);
+-	} else {
+-		for (i = 0; i < nr_pages; i++)
++	/*
++	 * pages[i] might be NULL if any device coherent pages were found.
++	 */
++	for (i = 0; i < nr_pages; i++) {
++		if (!pages[i])
++			continue;
++
++		if (gup_flags & FOLL_PIN)
++			unpin_user_page(pages[i]);
++		else
+ 			put_page(pages[i]);
+ 	}
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index c0f8fbe0445b..899dab512c5a 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -853,6 +853,7 @@ int numa_migrate_prep(struct page *page, struct vm_area_struct *vma,
+ 		      unsigned long addr, int page_nid, int *flags);
+ 
+ void free_zone_device_page(struct page *page);
++int migrate_device_coherent_page(struct page *page);
+ 
+ /*
+  * mm/gup.c
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 18bc6483f63a..7feeb447e3b9 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -686,6 +686,12 @@ void migrate_vma_pages(struct migrate_vma *migrate)
  		}
-+	} else {
-+		for (i = 0; i < pipe_cnt; i++)
-+			pipes[i].pipe.src.det_size_override = 4 * DCN3_2_DET_SEG_SIZE; //DCN3_2_DEFAULT_DET_SIZE
+ 
+ 		if (!page) {
++			/*
++			 * The only time there is no vma is when called from
++			 * migrate_device_coherent_page(). However this isn't
++			 * called if the page could not be unmapped.
++			 */
++			VM_BUG_ON(!migrate->vma);
+ 			if (!(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+ 				continue;
+ 			if (!notified) {
+@@ -794,3 +800,49 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
  	}
  }
+ EXPORT_SYMBOL(migrate_vma_finalize);
++
++/*
++ * Migrate a device coherent page back to normal memory. The caller should have
++ * a reference on page which will be copied to the new page if migration is
++ * successful or dropped on failure.
++ */
++int migrate_device_coherent_page(struct page *page)
++{
++	unsigned long src_pfn, dst_pfn = 0;
++	struct migrate_vma args;
++	struct page *dpage;
++
++	WARN_ON_ONCE(PageCompound(page));
++
++	lock_page(page);
++	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
++	args.src = &src_pfn;
++	args.dst = &dst_pfn;
++	args.cpages = 1;
++	args.npages = 1;
++	args.vma = NULL;
++
++	/*
++	 * We don't have a VMA and don't need to walk the page tables to find
++	 * the source page. So call migrate_vma_unmap() directly to unmap the
++	 * page as migrate_vma_setup() will fail if args.vma == NULL.
++	 */
++	migrate_vma_unmap(&args);
++	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
++		return -EBUSY;
++
++	dpage = alloc_page(GFP_USER | __GFP_NOWARN);
++	if (dpage) {
++		lock_page(dpage);
++		dst_pfn = migrate_pfn(page_to_pfn(dpage));
++	}
++
++	migrate_vma_pages(&args);
++	if (src_pfn & MIGRATE_PFN_MIGRATE)
++		copy_highpage(dpage, page);
++	migrate_vma_finalize(&args);
++
++	if (src_pfn & MIGRATE_PFN_MIGRATE)
++		return 0;
++	return -EBUSY;
++}
 -- 
-2.37.0
+2.32.0
 
