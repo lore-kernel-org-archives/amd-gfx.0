@@ -4,94 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C809DC43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC9D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CFF410F5A8;
-	Sat, 16 Jul 2022 14:35:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A36310E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1CA10F679;
+	Sat, 16 Jul 2022 14:35:46 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F23B810E04A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 15:42:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fLfVt/3LgzLrLJu1vgMuoDYxtJ1jnSb5gQuyX7cKfVUjXaYCQhKKA8z2FLkuMkDYeVdsV1bNYhFLYaU9aFjNWxJDMpEsURjBgbcUq6ZOFvnLABVxot77gTE290+mI07QrWl0L+fOyGKLus4PzHFYKyh3M85Q/6I2BkYWhAa7KZeKkcVo9GUwW8Pf514LyswmmycwpPFb3TNZ401mD20YrSlGlzrJkranCB80bAUD9W+K3Jg8cBA4oZUzWqbZ6UdbiWlZz1TW35QqStoUJiWX1He6olXDijTZcO8GVH47M6i1rk8U2YJp8HUo1Xg/lJAZPX+9Cusbo9KdRceA/oUPVA==
+ b=R4RggRCVbMMeQvgBlQ31gz5NriOCdXzcQhtlfnQrhPvR53cmpN7zWJlrLGq7jEyDElkiNGjAwXFVtXNTl7awtuQS86s6qtBIQ9Q4hjEo/t9F8nfIqb9uM7qek8EGGyhfMDV1DBIliiPd/+21AdOF/DlGDQr0IB0B9Jq7NkHoEmN/wLCsaw7VBLB3KyDYtEfNKZkRf/tau2mViKqfJcut7agz78XNM+OhX3zie+oZUf6RncSyZ/lLya4W81yMdJKO8YiqNZOs/8nGGzqeNtUSuBlBC9vo4SBPsvjcu4TzRYXrdbZ3SfLvlA3McbpV6qRJb7EvI/GPx0EZ1fjzrkQs9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Br9w7nexEINInDdDV8CPquNtFFALLquMBTMbPS5y9HA=;
- b=Yoipt3eNck0IHf5v3UcQEazaJVfT+0u7ePjdwZfaPhhE53X/XbhFkb/OSLk5pmZBiUyIqhjwPyEE696O1brzSE8+kOTjXgd9bIuP3jkhJ8tj2TKF+50TiIqLUCWlavHPd5O376ttAsu2Am3/IbIIoVXmpGJlt0sBmndQUh9oKZI7QjjGoehH19DDl1inkcNMcbez/dkasjaoVHpNC4adaurDBGZmMmn8MT1IO6x/liSiH9UPR1heZlsO6dGLdVpsANT444lFS8bxlVVSrQQGg/lCfssCZIrf+5QTOuSFgCzmR44DjeBbpkH/Lxh36fdKZuUVNnGBlGYiQYAMJi/hmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Es71fy0iyrw2laXb86bDY+EVefRfYfkchLywaDP86gI=;
+ b=EYJ73IfJgNQcBvOgxwTjmI/XwzMuz/MRWSYNoSECi7tKPxW1G8Tkf/+GJXXrT1lZlFWl7b3jjstYmp7OMqT+jsTDCwVMc6x8HTPOIYvBdKOSlpC0ZxQGFJshArNFR3Y+xfg+DizxXQvguABekCp8j3n0YC1/O/qT4m7ODXGs7c8MKTNy1gqRCTqenADHB6u0KbeEmJ4PR1SoxhUCwLjLXtvDqBsF8R1YYqLIIPT7sU2A/Sq+nLjVWgUV19nl2vAmPzzxZxYX3gG+zf55NVBYKY8lxPzZFmAILEzk298hysMs+NJpmiOmBktzfjeYpoqSVvieHwJdH2NUjnDpFbApOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Br9w7nexEINInDdDV8CPquNtFFALLquMBTMbPS5y9HA=;
- b=FUaLXsE89FtscGRra/wprI43FFZFfttDNEDHTyLxR1aIy45uP0E0U3CGvvoI4dPCZ5C/j8VK68yWw+dtIY553EBkdMQcoDllqB836t5REmonHpw+fBZlrFp620Xl6911ddSkq/LDV43Ux846BA3yq7BOWDe64D5VbOnmKbj11s8=
-Received: from MW4P221CA0019.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::24)
- by DM5PR12MB1756.namprd12.prod.outlook.com (2603:10b6:3:108::10) with
+ bh=Es71fy0iyrw2laXb86bDY+EVefRfYfkchLywaDP86gI=;
+ b=QIMR3C/rbOqZKVuCLyKj/7MrQ6srx93/WLx/05RMsvZZXfwc4mq4Zh+2h76JigRQCgO3sIHeUKXbgY+GpKBiDzSgVzL6RTlSCMGGOxJoUBMQ8MRatw5jrmHPMSfz/cA9J35Djg8zWOsvJgxtT4zwczBPJrLtCfrFle1t9FlFLnc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DS0PR12MB6535.namprd12.prod.outlook.com (2603:10b6:8:c0::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17; Fri, 15 Jul
- 2022 18:17:51 +0000
-Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::f3) by MW4P221CA0019.outlook.office365.com
- (2603:10b6:303:8b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:51 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:50 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:50 -0500
-Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:49 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 21/31] drm/amd/display: Move insert entry table to the FPU code
-Date: Fri, 15 Jul 2022 14:16:55 -0400
-Message-ID: <20220715181705.1030401-22-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.25; Fri, 15 Jul
+ 2022 15:42:44 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9da9:705a:18ae:5e91]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::9da9:705a:18ae:5e91%9]) with mapi id 15.20.5438.017; Fri, 15 Jul 2022
+ 15:42:44 +0000
+Message-ID: <c2619d27-a480-2f13-cbdd-1f409c5e4738@amd.com>
+Date: Fri, 15 Jul 2022 11:42:42 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 3/3] drm/amdgpu: skip put fence if signal fails
+Content-Language: en-US
+To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220715084356.427458-1-Jiadong.Zhu@amd.com>
+ <20220715084356.427458-3-Jiadong.Zhu@amd.com>
+ <7ca91143-9da1-4fc4-0cde-268705764e42@gmail.com>
+ <DS7PR12MB633367D703FBDC999E8B7E79F48B9@DS7PR12MB6333.namprd12.prod.outlook.com>
+ <SJ1PR12MB633848FACEAA771E018BAA0EF48B9@SJ1PR12MB6338.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <SJ1PR12MB633848FACEAA771E018BAA0EF48B9@SJ1PR12MB6338.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT3PR01CA0011.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::30) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 57473e06-1837-4f4e-2796-08da668e5477
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03b444db-aca9-45c5-a186-08da6678a904
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6535:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E/pe19fSeD20DDPrJVNaklPVF9wq8ZSr/Yw/RrL+cxFugLqCjkYmGGG6hiLkuy0I7a5jHOzoPSeqgaFHs8Pga8nCtbbs/gSCB5Ro4JcO5AuxjXe4MR04t7yPoSBPr/tH6lBtSxSEqLZwmzWbTFuqV7eOIjFBRCXIuavuaxVEoxgGYgxL4kgBcbDPHUJ+1GrlIj04JoSY72hdNVO1b3pPNCeCRT7ecSUatYnafTCN+jSzMrZcVPKN8uMp565twsvyzi4glLfToQyWbkQ0yW9vyNJj8FvbMn3Uf4ha61v9hjfR+9CV0Dnl+nIJViJP9gTO3Mm8OVUJrSDMhJyvA5mVEtJby3Yvufvu0xaBrOmfAq/7glrWDhdTQVcJ+nAqu6cOcChTDv3Xzq4OaHs4A3CV/VTbhdSc72Ru0aWM7KLI+32rqCr/mc+XT/3GLo8kbkGKFWSCVozhs85uDdQ92x9p/RNVs8pYCemLIQaSXemGFDgSFCcQAs9bZzubKNnDFoLAcVewt/LupCFrNyXAakILn5hUwUIi4oXFwbBm8rhasM/WvcNcXFc7zNPJL5+W6yomJzsgmR+OsWgKw5QWr/MfGG0EoQOav+NMC9iOJMaoQ2E7oyxoY98Ei4d2lvTZm8bhc8ssuycA7cxGNDa+WtL5lgGmqQHhVVLSArhB/sg9u/dCRq8jmldQkQgvUcsfEKCXbNZmYXDKM16rXHPTivrACKEOAPfxJAqtqaTd1iyEDjTBPeWIuk5+S0tmcOfoqDLHnYIzdOJEbqPl5VW5QpgdVoLEyYDaXvpC80QS0AF1bCAKkv/ttGMTAneagQO5xrK04PKvvoPCsV0mp8+yM8jdTw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(39860400002)(136003)(396003)(36840700001)(40470700004)(46966006)(30864003)(6916009)(36860700001)(40460700003)(81166007)(26005)(36756003)(6666004)(316002)(54906003)(41300700001)(478600001)(82310400005)(2616005)(70586007)(70206006)(8676002)(336012)(426003)(356005)(47076005)(4326008)(83380400001)(40480700001)(5660300002)(1076003)(8936002)(2906002)(82740400003)(186003)(86362001)(36900700001);
+X-Microsoft-Antispam-Message-Info: p7eeMwB1z3qu+tfVSm8oND8bDycfg/ZfEFn6q3MO7aZus7eUiBw7YeOK3SiFJN6LeRwSsNLT8VM7M/jsgLaKncBFOHP5WcMBZq7agool0eoEffKV4jD872bAXKfCJLMhMhTowdVUshktR0Uv2z9DQq7RTI1upKtrRxN4mZnGe9ULUyXWLEP8EYeCn1osJKchNbhH+40maahOfj46MMXom3q6bn35kiOWs8VIfYnxFEFOubMriqnbtLyLy9Yy9TdgW7PsVQwP6fodaULxnm49LAeswbXL+0AOvFKZmBR+3sygy+eSxeAkX3YDjq1QBCNRMirBBep8/3ppufsuqpAFI3KBonhukMJ+L1Ms7fLurBlLyvlmJasxnD99JwjV+US4QVptoHEzuGTICmvLbvPFQh/czf72YNC36IXF+cdqmN73UsydtlTLuosnbDYaoCprT0zKzlGhMcPCVmnQSuIc4jHAXOJ2fXFyynBu5Bt1ZFoA5unPBe2uWP+GCwJuLHYft/Yg1d3ydSSiBbOYvL3jhEowi4vqANDlKrfXTinaUpt8U0ZpTJpEbi7yaH42aMCC1fry6SA+LVKj8JSTO9tlm3xuS04SLH5NhxIAWcP896DiqM2NtE/EGiW/IU6d7iCom00IJz/Mu5s41LzP78Psx8jbCKNJKUQXcOIHKh8VpDjLgXMmPsk6eBEJ4BimJYyU2G+AKGPtcqFG8hylr4lGQ7q/a0vYkDy3vgOPowQKqkb3xITENqxDl9ziPp+xlB5j1ZQPzv9iBB1JJaUrc+DY2bvosonV7ezDy4/nM7OeM31ByKtL57Xx3fj6OgfmDhmwum2CGr9GC+l+dzJ/VL/W8Z0EWIoYHLt1PokmSfJkaR2/DrsDw/fQDENvqyABkmSi
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(39860400002)(366004)(396003)(376002)(83380400001)(66476007)(8936002)(66946007)(966005)(54906003)(4326008)(8676002)(31686004)(110136005)(316002)(66574015)(36756003)(66556008)(86362001)(53546011)(186003)(44832011)(6512007)(6486002)(41300700001)(6506007)(45080400002)(2906002)(5660300002)(2616005)(31696002)(38100700002)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWZFSTEvQTUwRDZDMzJpWUc2Q3lOM0FxNlppbTJWM1p6MlVraGNIbTFMdXZt?=
+ =?utf-8?B?UUxNekRUOC95U2NIUy9tWTJNYnBGcEJGVHlHWW9uam9TMzJvU3JxaHYwTnBy?=
+ =?utf-8?B?cnhKd2hJK2FSc1NlV0kxVlh2dWhHWVczdXVBeGN2WHhQMFBJcFgrbTlPL01U?=
+ =?utf-8?B?QVRqZlpOUlcwNHZqTjAxMlFtT0o3RFBXZjFnVjVic0ROQ2dZQnUyYjRNa1Bs?=
+ =?utf-8?B?eDZjMnVwVXlZU29hMjVpY2VlQXBXQ1g5dGo0VFNqZjdGY2YwT2FDTlZDYzkr?=
+ =?utf-8?B?emxtM21NMVhIeERCQmFXUkxaVXpZeEZURm1LWmxPQ2FjWUlGbFRTL2dFL2pR?=
+ =?utf-8?B?MzA2RjlhU3pUcG53L3c4dEZSRzJST0JqbUJSZ2ZPMjdXSjVOejF1eUJ6Vkpz?=
+ =?utf-8?B?QTllM1ZNQ2xFb1ZvSVJydE5VSFNDS1dSZG52V3M5T0tIWW5VcElNYktBVEFS?=
+ =?utf-8?B?bFNlNnJzUFFoZkJINFM0aWx3TnpQeHloTzJ4WXdNclpDWUFEZ1liV21OZE13?=
+ =?utf-8?B?ZEhLSzVxSEJVaGVDTTJIK1FOOWV4NjQ4aUVJTjNRbGI5cWFLRDUwYStBRWxJ?=
+ =?utf-8?B?MUtNUk1RVlBWZjBxMlltaXdkb0V2RFBOQjAvUHB3U1M2bE5WMTRCS3B5bjlC?=
+ =?utf-8?B?blJKT204TnFFL1lwK1pCaHN2Qm1WaGNNUVp0dk5GZ3ZGbzRZM211L2dXN2VH?=
+ =?utf-8?B?NjQ0UWpuVk1nVXYzRXAvMm02RC9MZlk2ZERsZldIbENZVWw0U285bFFoZVZH?=
+ =?utf-8?B?bTMvSDA2Wm11eTBlT25YN2tmWGZtV2ZMS2RNdk1HS05QY1Z3ZnlUTUlweEJm?=
+ =?utf-8?B?N0lubG50bFFhVi8zNXVlYUVFY0ZISElnRWRvZXpsUE5XZW4zbFBVa3I2R2dL?=
+ =?utf-8?B?a2VxZXdKRUVVK04wa3Izajk2K2ovL0t1b1E4NUhzUlhnQmJzeDJMT2lqNzNl?=
+ =?utf-8?B?c082cXMrQTMvejNXVUlGc3MyVCtsSVpXOTlwWUxHelhQN25tVkMraHVNVFVR?=
+ =?utf-8?B?OHVPZmZ2SnoyTkRKYjdaZGF0YXVmcnlTSmxLMnF4cE1vOXhNenlGeHpGVEV2?=
+ =?utf-8?B?aXVrUXhVR0NnUFdUclhBRXUwRmUrazhWN1Q3Q1cxQzZRTHhBMGZZUWZNRFpF?=
+ =?utf-8?B?bndlT0RBUURwaWJkZWQzaVNESmlsei9ZM3c1NGZhUm9Rc2RlNVI2aDFQc2JC?=
+ =?utf-8?B?c0RobjdpdjlxZWVNYUVEdjJQeHJ3TC9HVisrT1lQN1FQR2VrWGR6SDFqR0RI?=
+ =?utf-8?B?b2FZVjJkaVFDQkR4RXN0ZGZrdllEeHBUbi9aVVdEczVLWllYallYaDV1Qkgv?=
+ =?utf-8?B?THdUUEpLcWYrNzlCd29WVStHc1ZTT2I5TmdhZE13cVlDZlZKRE1BQ24xRm9a?=
+ =?utf-8?B?V0JYUDhLS2daU1dGN3ZXVTBLRGxvRm1JNkRxeFNsQnJtQ0g3YnVCQjEvMys2?=
+ =?utf-8?B?OGhJQ3NRWm4xQmhvRzdwLzNIcXBWYWEwZHp5clJyYU54Y0ExNS9iU3BOT3Zr?=
+ =?utf-8?B?NTB2Y0NxWnpNWlE5ZVZmTHN1UVdSWDFUb3FHeVdpVWJQWXJLSWwxZ1hqNzJ4?=
+ =?utf-8?B?K2NyQkQ4enpGeEIwdmsvNWwzbGtnRzFkNDBPa2ErdTYxQ3ZJRmdQRWdYNm1a?=
+ =?utf-8?B?dTZhMW94SjV4VlYzQXkvUnpEbE9PTEdiL1k5VDFOZ1JoeVN2V1UzalVsNUI5?=
+ =?utf-8?B?SEpNdENyWEFJSWxpSm14ZnBLLzNFR285ano4SzFzYk5zZzlocCtHOFBYQ2p4?=
+ =?utf-8?B?dUVmM3gwL0FidERnWnV2azVCTFpOL1g5RW5lUjVKL2FsY2d0Sk44bVpHc0VV?=
+ =?utf-8?B?RG96allzS2Z3KzJ1dmVJWUJLSFp2WFo1MkFPOURKcUhxVEVORkZ0S09IT1Az?=
+ =?utf-8?B?N04rd0IwNE1raGc5MmVaV2djdFJJUTdMSUc1VmtpRXg2dS9Ocm5pZk9qOVdu?=
+ =?utf-8?B?bEZzY0lqZEVucUtlM1BNN3prV25VV1R0NlVJSFNKYXhOVmJyRGMxWnhQZTdO?=
+ =?utf-8?B?T2tUemJJSjYwWm55emdybUE5SGRoNmNDK1RHNHpRTG15QmRwdVkrZ2FNd29V?=
+ =?utf-8?B?QkR2cUNhOFo5MUREYlFEY3RsN2IwNklrcjRaemwxbFQrTko4cnFrdG5GTHEx?=
+ =?utf-8?B?U0NXMzRlYXlTeGFvTnErYm1TS3l3ZXJNQWk2Y2Z1Tlg4ZDdMTWwweDdPa3Rp?=
+ =?utf-8?Q?Wdz0WsVaq1GIISmZmveea4KolxumU7JAsXjNZhEiOrER?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:51.2955 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57473e06-1837-4f4e-2796-08da668e5477
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03b444db-aca9-45c5-a186-08da6678a904
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:42:44.5670 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1756
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 53dPU/oWLSu9NJy0jZimsfB+/uod2EgLROTT0q9PqNHXwEMcZTTwyp2cW6BuchVgDEOr0ud0HR7FB9RfFJNE7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,514 +130,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The insert_entry_into_table_sorted function uses FPU operation and calls
-other static functions support. This commit moves the insert entry
-function with all the required struct and static functions to the FPU
-file.
 
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 188 +-----------------
- .../drm/amd/display/dc/dcn32/dcn32_resource.h |   3 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 186 +++++++++++++++++
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |   9 +
- 4 files changed, 208 insertions(+), 178 deletions(-)
+On 2022-07-15 05:28, Zhu, Jiadong wrote:
+> [AMD Official Use Only - General]
+>
+> Updated some comments
+>
+> -----Original Message-----
+> From: Zhu, Jiadong
+> Sent: Friday, July 15, 2022 5:13 PM
+> To: Christian König <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> Cc: Huang, Ray <Ray.Huang@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
+> Subject: RE: [PATCH 3/3] drm/amdgpu: skip put fence if signal fails
+>
+> Hi Christian,
+>
+> The resubmitted job in function amdgpu_ib_preempt_job_recovery returns the same hw fence because of this commit:
+>
+> static void amdgpu_ib_preempt_job_recovery(struct drm_gpu_scheduler *sched) {
+>          struct drm_sched_job *s_job;
+>          struct dma_fence *fence;
+>
+>          spin_lock(&sched->job_list_lock);
+>          list_for_each_entry(s_job, &sched->pending_list, list) {
+>                  fence = sched->ops->run_job(s_job);       //fence returned has the same address with swapped fences
+>                  dma_fence_put(fence);
+>          }
+>          spin_unlock(&sched->job_list_lock);
+> }
+>
+>
+>
+> commit c530b02f39850a639b72d01ebbf7e5d745c60831
+> Author: Jack Zhang <Jack.Zhang1@amd.com>
+> Date:   Wed May 12 15:06:35 2021 +0800
+>
+>      drm/amd/amdgpu embed hw_fence into amdgpu_job
+>
+>      Why: Previously hw fence is alloced separately with job.
+>      It caused historical lifetime issues and corner cases.
+>      The ideal situation is to take fence to manage both job
+>      and fence's lifetime, and simplify the design of gpu-scheduler.
+>
+>      How:
+>      We propose to embed hw_fence into amdgpu_job.
+>      1. We cover the normal job submission by this method.
+>      2. For ib_test, and submit without a parent job keep the
+>      legacy way to create a hw fence separately.
+>      v2:
+>      use AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT to show that the fence is
+>      embedded in a job.
+>      v3:
+>      remove redundant variable ring in amdgpu_job
+>      v4:
+>      add tdr sequence support for this feature. Add a job_run_counter to
+>      indicate whether this job is a resubmit job.
+>      v5
+>      add missing handling in amdgpu_fence_enable_signaling
+>
+>      Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+>      Signed-off-by: Jack Zhang <Jack.Zhang7@hotmail.com>
+>      Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>      Reviewed by: Monk Liu <monk.liu@amd.com>
+>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>
+> Thus the fence we swapped out is signaled and put twice in the following 2 functions and we get " refcount_t: underflow; use-after-free. " errors latter.
+>
+>                  /* wait for jobs finished */
+>                  amdgpu_fence_wait_empty(ring); //wait on the resubmitted fence which is signaled and put somewhere else. The refcount decreased by 1 after amdgpu_fence_wait_empty.
+>
+>                  /* signal the old fences */
+>                  amdgpu_ib_preempt_signal_fences(fences, length);   //signal and put the previous swapped fence, signal would return -22.
+>
+> Thanks,
+> Jiadong
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index a56d87140eba..1c124231b00a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -115,137 +115,6 @@ static const struct IP_BASE DCN_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C
- 
- #define DC_LOGGER_INIT(logger)
- 
--#define DCN3_2_DEFAULT_DET_SIZE 256
--#define DCN3_2_MAX_DET_SIZE 1152
--#define DCN3_2_MIN_DET_SIZE 128
--#define DCN3_2_MIN_COMPBUF_SIZE_KB 128
--
--struct _vcs_dpi_ip_params_st dcn3_2_ip = {
--	.gpuvm_enable = 0,
--	.gpuvm_max_page_table_levels = 4,
--	.hostvm_enable = 0,
--	.rob_buffer_size_kbytes = 128,
--	.det_buffer_size_kbytes = DCN3_2_DEFAULT_DET_SIZE,
--	.config_return_buffer_size_in_kbytes = 1280,
--	.compressed_buffer_segment_size_in_kbytes = 64,
--	.meta_fifo_size_in_kentries = 22,
--	.zero_size_buffer_entries = 512,
--	.compbuf_reserved_space_64b = 256,
--	.compbuf_reserved_space_zs = 64,
--	.dpp_output_buffer_pixels = 2560,
--	.opp_output_buffer_lines = 1,
--	.pixel_chunk_size_kbytes = 8,
--	.alpha_pixel_chunk_size_kbytes = 4, // not appearing in spreadsheet, match c code from hw team
--	.min_pixel_chunk_size_bytes = 1024,
--	.dcc_meta_buffer_size_bytes = 6272,
--	.meta_chunk_size_kbytes = 2,
--	.min_meta_chunk_size_bytes = 256,
--	.writeback_chunk_size_kbytes = 8,
--	.ptoi_supported = false,
--	.num_dsc = 4,
--	.maximum_dsc_bits_per_component = 12,
--	.maximum_pixels_per_line_per_dsc_unit = 6016,
--	.dsc422_native_support = true,
--	.is_line_buffer_bpp_fixed = true,
--	.line_buffer_fixed_bpp = 57,
--	.line_buffer_size_bits = 1171920, //DPP doc, DCN3_2_DisplayMode_73.xlsm still shows as 986880 bits with 48 bpp
--	.max_line_buffer_lines = 32,
--	.writeback_interface_buffer_size_kbytes = 90,
--	.max_num_dpp = 4,
--	.max_num_otg = 4,
--	.max_num_hdmi_frl_outputs = 1,
--	.max_num_wb = 1,
--	.max_dchub_pscl_bw_pix_per_clk = 4,
--	.max_pscl_lb_bw_pix_per_clk = 2,
--	.max_lb_vscl_bw_pix_per_clk = 4,
--	.max_vscl_hscl_bw_pix_per_clk = 4,
--	.max_hscl_ratio = 6,
--	.max_vscl_ratio = 6,
--	.max_hscl_taps = 8,
--	.max_vscl_taps = 8,
--	.dpte_buffer_size_in_pte_reqs_luma = 64,
--	.dpte_buffer_size_in_pte_reqs_chroma = 34,
--	.dispclk_ramp_margin_percent = 1,
--	.max_inter_dcn_tile_repeaters = 8,
--	.cursor_buffer_size = 16,
--	.cursor_chunk_size = 2,
--	.writeback_line_buffer_buffer_size = 0,
--	.writeback_min_hscl_ratio = 1,
--	.writeback_min_vscl_ratio = 1,
--	.writeback_max_hscl_ratio = 1,
--	.writeback_max_vscl_ratio = 1,
--	.writeback_max_hscl_taps = 1,
--	.writeback_max_vscl_taps = 1,
--	.dppclk_delay_subtotal = 47,
--	.dppclk_delay_scl = 50,
--	.dppclk_delay_scl_lb_only = 16,
--	.dppclk_delay_cnvc_formatter = 28,
--	.dppclk_delay_cnvc_cursor = 6,
--	.dispclk_delay_subtotal = 125,
--	.dynamic_metadata_vm_enabled = false,
--	.odm_combine_4to1_supported = false,
--	.dcc_supported = true,
--	.max_num_dp2p0_outputs = 2,
--	.max_num_dp2p0_streams = 4,
--};
--
--struct _vcs_dpi_soc_bounding_box_st dcn3_2_soc = {
--	.clock_limits = {
--		{
--			.state = 0,
--			.dcfclk_mhz = 1564.0,
--			.fabricclk_mhz = 400.0,
--			.dispclk_mhz = 2150.0,
--			.dppclk_mhz = 2150.0,
--			.phyclk_mhz = 810.0,
--			.phyclk_d18_mhz = 667.0,
--			.phyclk_d32_mhz = 625.0,
--			.socclk_mhz = 1200.0,
--			.dscclk_mhz = 716.667,
--			.dram_speed_mts = 1600.0,
--			.dtbclk_mhz = 1564.0,
--		},
--	},
--	.num_states = 1,
--	.sr_exit_time_us = 5.20,
--	.sr_enter_plus_exit_time_us = 9.60,
--	.sr_exit_z8_time_us = 285.0,
--	.sr_enter_plus_exit_z8_time_us = 320,
--	.writeback_latency_us = 12.0,
--	.round_trip_ping_latency_dcfclk_cycles = 263,
--	.urgent_latency_pixel_data_only_us = 4.0,
--	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
--	.urgent_latency_vm_data_only_us = 4.0,
--	.fclk_change_latency_us = 20,
--	.usr_retraining_latency_us = 2,
--	.smn_latency_us = 2,
--	.mall_allocated_for_dcn_mbytes = 64,
--	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
--	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
--	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
--	.pct_ideal_sdp_bw_after_urgent = 100.0,
--	.pct_ideal_fabric_bw_after_urgent = 67.0,
--	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 20.0,
--	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0, // N/A, for now keep as is until DML implemented
--	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 30.0, // N/A, for now keep as is until DML implemented
--	.pct_ideal_dram_bw_after_urgent_strobe = 67.0,
--	.max_avg_sdp_bw_use_normal_percent = 80.0,
--	.max_avg_fabric_bw_use_normal_percent = 60.0,
--	.max_avg_dram_bw_use_normal_strobe_percent = 50.0,
--	.max_avg_dram_bw_use_normal_percent = 15.0,
--	.num_chans = 8,
--	.dram_channel_width_bytes = 2,
--	.fabric_datapath_to_dcn_data_return_bytes = 64,
--	.return_bus_width_bytes = 64,
--	.downspread_percent = 0.38,
--	.dcn_downspread_percent = 0.5,
--	.dram_clock_change_latency_us = 400,
--	.dispclk_dppclk_vco_speed_mhz = 4300.0,
--	.do_urgent_latency_adjustment = true,
--	.urgent_latency_adjustment_fabric_clock_component_us = 1.0,
--	.urgent_latency_adjustment_fabric_clock_reference_mhz = 1000,
--};
--
- enum dcn32_clk_src_array_id {
- 	DCN32_CLK_SRC_PLL0,
- 	DCN32_CLK_SRC_PLL1,
-@@ -3455,53 +3324,6 @@ static void get_optimal_ntuple(struct _vcs_dpi_voltage_scaling_st *entry)
- 	}
- }
- 
--static float calculate_net_bw_in_kbytes_sec(struct _vcs_dpi_voltage_scaling_st *entry)
--{
--	float memory_bw_kbytes_sec = entry->dram_speed_mts * dcn3_2_soc.num_chans *
--			dcn3_2_soc.dram_channel_width_bytes * ((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
--
--	float fabric_bw_kbytes_sec = entry->fabricclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
--
--	float sdp_bw_kbytes_sec = entry->dcfclk_mhz * dcn3_2_soc.return_bus_width_bytes * ((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
--
--	float limiting_bw_kbytes_sec = memory_bw_kbytes_sec;
--
--	if (fabric_bw_kbytes_sec < limiting_bw_kbytes_sec)
--		limiting_bw_kbytes_sec = fabric_bw_kbytes_sec;
--
--	if (sdp_bw_kbytes_sec < limiting_bw_kbytes_sec)
--		limiting_bw_kbytes_sec = sdp_bw_kbytes_sec;
--
--	return limiting_bw_kbytes_sec;
--}
--
--static void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
--		struct _vcs_dpi_voltage_scaling_st *entry)
--{
--	int index = 0;
--	int i = 0;
--	float net_bw_of_new_state = 0;
--
--	if (*num_entries == 0) {
--		table[0] = *entry;
--		(*num_entries)++;
--	} else {
--		net_bw_of_new_state = calculate_net_bw_in_kbytes_sec(entry);
--		while (net_bw_of_new_state > calculate_net_bw_in_kbytes_sec(&table[index])) {
--			index++;
--			if (index >= *num_entries)
--				break;
--		}
--
--		for (i = *num_entries; i > index; i--) {
--			table[i] = table[i - 1];
--		}
--
--		table[index] = *entry;
--		(*num_entries)++;
--	}
--}
--
- static void remove_entry_from_table_at_index(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
- 		unsigned int index)
- {
-@@ -3586,7 +3408,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.dram_speed_mts = 0;
- 
- 		get_optimal_ntuple(&entry);
-+		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
-+		DC_FP_END();
- 	}
- 
- 	// Insert the max DCFCLK
-@@ -3595,7 +3419,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 	entry.dram_speed_mts = 0;
- 
- 	get_optimal_ntuple(&entry);
-+	DC_FP_START();
- 	insert_entry_into_table_sorted(table, num_entries, &entry);
-+	DC_FP_END();
- 
- 	// Insert the UCLK DPMS
- 	for (i = 0; i < num_uclk_dpms; i++) {
-@@ -3604,7 +3430,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.dram_speed_mts = bw_params->clk_table.entries[i].memclk_mhz * 16;
- 
- 		get_optimal_ntuple(&entry);
-+		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
-+		DC_FP_END();
- 	}
- 
- 	// If FCLK is coarse grained, insert individual DPMs.
-@@ -3615,7 +3443,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 			entry.dram_speed_mts = 0;
- 
- 			get_optimal_ntuple(&entry);
-+			DC_FP_START();
- 			insert_entry_into_table_sorted(table, num_entries, &entry);
-+			DC_FP_END();
- 		}
- 	}
- 	// If FCLK fine grained, only insert max
-@@ -3625,7 +3455,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		entry.dram_speed_mts = 0;
- 
- 		get_optimal_ntuple(&entry);
-+		DC_FP_START();
- 		insert_entry_into_table_sorted(table, num_entries, &entry);
-+		DC_FP_END();
- 	}
- 
- 	// At this point, the table contains all "points of interest" based on
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-index 901aa7e13bd2..7ccad84b1f16 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-@@ -33,6 +33,9 @@
- #define TO_DCN32_RES_POOL(pool)\
- 	container_of(pool, struct dcn32_resource_pool, base)
- 
-+extern struct _vcs_dpi_ip_params_st dcn3_2_ip;
-+extern struct _vcs_dpi_soc_bounding_box_st dcn3_2_soc;
-+
- struct dcn32_resource_pool {
- 	struct resource_pool base;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 1b9e34f1232a..4223a9a9dd45 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -28,6 +28,132 @@
- // We need this includes for WATERMARKS_* defines
- #include "clk_mgr/dcn32/dcn32_smu13_driver_if.h"
- 
-+struct _vcs_dpi_ip_params_st dcn3_2_ip = {
-+	.gpuvm_enable = 0,
-+	.gpuvm_max_page_table_levels = 4,
-+	.hostvm_enable = 0,
-+	.rob_buffer_size_kbytes = 128,
-+	.det_buffer_size_kbytes = DCN3_2_DEFAULT_DET_SIZE,
-+	.config_return_buffer_size_in_kbytes = 1280,
-+	.compressed_buffer_segment_size_in_kbytes = 64,
-+	.meta_fifo_size_in_kentries = 22,
-+	.zero_size_buffer_entries = 512,
-+	.compbuf_reserved_space_64b = 256,
-+	.compbuf_reserved_space_zs = 64,
-+	.dpp_output_buffer_pixels = 2560,
-+	.opp_output_buffer_lines = 1,
-+	.pixel_chunk_size_kbytes = 8,
-+	.alpha_pixel_chunk_size_kbytes = 4,
-+	.min_pixel_chunk_size_bytes = 1024,
-+	.dcc_meta_buffer_size_bytes = 6272,
-+	.meta_chunk_size_kbytes = 2,
-+	.min_meta_chunk_size_bytes = 256,
-+	.writeback_chunk_size_kbytes = 8,
-+	.ptoi_supported = false,
-+	.num_dsc = 4,
-+	.maximum_dsc_bits_per_component = 12,
-+	.maximum_pixels_per_line_per_dsc_unit = 6016,
-+	.dsc422_native_support = true,
-+	.is_line_buffer_bpp_fixed = true,
-+	.line_buffer_fixed_bpp = 57,
-+	.line_buffer_size_bits = 1171920,
-+	.max_line_buffer_lines = 32,
-+	.writeback_interface_buffer_size_kbytes = 90,
-+	.max_num_dpp = 4,
-+	.max_num_otg = 4,
-+	.max_num_hdmi_frl_outputs = 1,
-+	.max_num_wb = 1,
-+	.max_dchub_pscl_bw_pix_per_clk = 4,
-+	.max_pscl_lb_bw_pix_per_clk = 2,
-+	.max_lb_vscl_bw_pix_per_clk = 4,
-+	.max_vscl_hscl_bw_pix_per_clk = 4,
-+	.max_hscl_ratio = 6,
-+	.max_vscl_ratio = 6,
-+	.max_hscl_taps = 8,
-+	.max_vscl_taps = 8,
-+	.dpte_buffer_size_in_pte_reqs_luma = 64,
-+	.dpte_buffer_size_in_pte_reqs_chroma = 34,
-+	.dispclk_ramp_margin_percent = 1,
-+	.max_inter_dcn_tile_repeaters = 8,
-+	.cursor_buffer_size = 16,
-+	.cursor_chunk_size = 2,
-+	.writeback_line_buffer_buffer_size = 0,
-+	.writeback_min_hscl_ratio = 1,
-+	.writeback_min_vscl_ratio = 1,
-+	.writeback_max_hscl_ratio = 1,
-+	.writeback_max_vscl_ratio = 1,
-+	.writeback_max_hscl_taps = 1,
-+	.writeback_max_vscl_taps = 1,
-+	.dppclk_delay_subtotal = 47,
-+	.dppclk_delay_scl = 50,
-+	.dppclk_delay_scl_lb_only = 16,
-+	.dppclk_delay_cnvc_formatter = 28,
-+	.dppclk_delay_cnvc_cursor = 6,
-+	.dispclk_delay_subtotal = 125,
-+	.dynamic_metadata_vm_enabled = false,
-+	.odm_combine_4to1_supported = false,
-+	.dcc_supported = true,
-+	.max_num_dp2p0_outputs = 2,
-+	.max_num_dp2p0_streams = 4,
-+};
-+
-+struct _vcs_dpi_soc_bounding_box_st dcn3_2_soc = {
-+	.clock_limits = {
-+		{
-+			.state = 0,
-+			.dcfclk_mhz = 1564.0,
-+			.fabricclk_mhz = 400.0,
-+			.dispclk_mhz = 2150.0,
-+			.dppclk_mhz = 2150.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.phyclk_d32_mhz = 625.0,
-+			.socclk_mhz = 1200.0,
-+			.dscclk_mhz = 716.667,
-+			.dram_speed_mts = 16000.0,
-+			.dtbclk_mhz = 1564.0,
-+		},
-+	},
-+	.num_states = 1,
-+	.sr_exit_time_us = 5.20,
-+	.sr_enter_plus_exit_time_us = 9.60,
-+	.sr_exit_z8_time_us = 285.0,
-+	.sr_enter_plus_exit_z8_time_us = 320,
-+	.writeback_latency_us = 12.0,
-+	.round_trip_ping_latency_dcfclk_cycles = 263,
-+	.urgent_latency_pixel_data_only_us = 4.0,
-+	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
-+	.urgent_latency_vm_data_only_us = 4.0,
-+	.fclk_change_latency_us = 20,
-+	.usr_retraining_latency_us = 2,
-+	.smn_latency_us = 2,
-+	.mall_allocated_for_dcn_mbytes = 64,
-+	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
-+	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
-+	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
-+	.pct_ideal_sdp_bw_after_urgent = 100.0,
-+	.pct_ideal_fabric_bw_after_urgent = 67.0,
-+	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 20.0,
-+	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0, // N/A, for now keep as is until DML implemented
-+	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 30.0, // N/A, for now keep as is until DML implemented
-+	.pct_ideal_dram_bw_after_urgent_strobe = 67.0,
-+	.max_avg_sdp_bw_use_normal_percent = 80.0,
-+	.max_avg_fabric_bw_use_normal_percent = 60.0,
-+	.max_avg_dram_bw_use_normal_strobe_percent = 50.0,
-+	.max_avg_dram_bw_use_normal_percent = 15.0,
-+	.num_chans = 8,
-+	.dram_channel_width_bytes = 2,
-+	.fabric_datapath_to_dcn_data_return_bytes = 64,
-+	.return_bus_width_bytes = 64,
-+	.downspread_percent = 0.38,
-+	.dcn_downspread_percent = 0.5,
-+	.dram_clock_change_latency_us = 400,
-+	.dispclk_dppclk_vco_speed_mhz = 4300.0,
-+	.do_urgent_latency_adjustment = true,
-+	.urgent_latency_adjustment_fabric_clock_component_us = 1.0,
-+	.urgent_latency_adjustment_fabric_clock_reference_mhz = 1000,
-+};
-+
- void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr)
- {
- 	/* defaults */
-@@ -191,3 +317,63 @@ bool dcn32_predict_pipe_split(struct dc_state *context, display_pipe_params_st p
- 		return false;
- }
- 
-+static float calculate_net_bw_in_kbytes_sec(struct _vcs_dpi_voltage_scaling_st *entry)
-+{
-+	float memory_bw_kbytes_sec;
-+	float fabric_bw_kbytes_sec;
-+	float sdp_bw_kbytes_sec;
-+	float limiting_bw_kbytes_sec;
-+
-+	memory_bw_kbytes_sec = entry->dram_speed_mts *
-+				dcn3_2_soc.num_chans *
-+				dcn3_2_soc.dram_channel_width_bytes *
-+				((float)dcn3_2_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only / 100);
-+
-+	fabric_bw_kbytes_sec = entry->fabricclk_mhz *
-+				dcn3_2_soc.return_bus_width_bytes *
-+				((float)dcn3_2_soc.pct_ideal_fabric_bw_after_urgent / 100);
-+
-+	sdp_bw_kbytes_sec = entry->dcfclk_mhz *
-+				dcn3_2_soc.return_bus_width_bytes *
-+				((float)dcn3_2_soc.pct_ideal_sdp_bw_after_urgent / 100);
-+
-+	limiting_bw_kbytes_sec = memory_bw_kbytes_sec;
-+
-+	if (fabric_bw_kbytes_sec < limiting_bw_kbytes_sec)
-+		limiting_bw_kbytes_sec = fabric_bw_kbytes_sec;
-+
-+	if (sdp_bw_kbytes_sec < limiting_bw_kbytes_sec)
-+		limiting_bw_kbytes_sec = sdp_bw_kbytes_sec;
-+
-+	return limiting_bw_kbytes_sec;
-+}
-+
-+void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
-+				    unsigned int *num_entries,
-+				    struct _vcs_dpi_voltage_scaling_st *entry)
-+{
-+	int i = 0;
-+	int index = 0;
-+	float net_bw_of_new_state = 0;
-+
-+	dc_assert_fp_enabled();
-+
-+	if (*num_entries == 0) {
-+		table[0] = *entry;
-+		(*num_entries)++;
-+	} else {
-+		net_bw_of_new_state = calculate_net_bw_in_kbytes_sec(entry);
-+		while (net_bw_of_new_state > calculate_net_bw_in_kbytes_sec(&table[index])) {
-+			index++;
-+			if (index >= *num_entries)
-+				break;
-+		}
-+
-+		for (i = *num_entries; i > index; i--)
-+			table[i] = table[i - 1];
-+
-+		table[index] = *entry;
-+		(*num_entries)++;
-+	}
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-index d5f157cdd0b4..62cb0c1d462c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-@@ -29,6 +29,11 @@
- 
- #include "clk_mgr_internal.h"
- 
-+#define DCN3_2_DEFAULT_DET_SIZE 256
-+#define DCN3_2_MAX_DET_SIZE 1152
-+#define DCN3_2_MIN_DET_SIZE 128
-+#define DCN3_2_MIN_COMPBUF_SIZE_KB 128
-+
- void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr);
- 
- void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
-@@ -40,4 +45,8 @@ bool dcn32_predict_pipe_split(struct dc_state *context,
- 			      display_pipe_params_st pipe,
- 			      int index);
- 
-+void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
-+				    unsigned int *num_entries,
-+				    struct _vcs_dpi_voltage_scaling_st *entry);
-+
- #endif
--- 
-2.37.0
 
+Did you have 'drm/amdgpu: Follow up change to previous drm scheduler 
+change.' this commit in your branch while you encountered this problem ? 
+I don't see an underflow issue
+for the preempted job when inspecting the code with this commit in mind -
+
+amdgpu_fence_emit
+             dma_fence_init 1
+             dma_fence_get(fence) 2
+             rcu_assign_pointer(*ptr, dma_fence_get(fence) 3
+
+drm_sched_main
+     s_fence->parent = dma_fence_get(fence); 4
+     dma_fence_put(fence); 3
+
+amdgpu_ib_preempt_job_recovery
+     amdgpu_fence_emit
+         if (job && job->job_run_counter) -> dma_fence_get(fence); 4
+         rcu_assign_pointer(*ptr, dma_fence_get(fence)); 5
+
+     dma_fence_put(fence); 4
+
+amdgpu_fence_wait_empty
+     dma_fence_get_rcu(fence) 5
+     dma_fence_put(fence) 4
+
+amdgpu_process_fence (EOP interrupt for re-submission of preempted job)
+     dma_fence_put 3
+
+amdgpu_ib_preempt_signal_fences
+     dma_fence_put 2
+
+amdgpu_job_free_cb
+     dma_fence_put(&job->hw_fence) 1
+
+drm_sched_fence_release_scheduled
+     dma_fence_put(fence->parent); 0
+
+Also take a look here for reference - 
+https://drive.google.com/file/d/1yEoeW6OQC9WnwmzFW6NBLhFP_jD0xcHm/view
+
+Andrey
+
+
+
+
+
+Andrey
+
+
+>
+>
+> -----Original Message-----
+> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+> Sent: Friday, July 15, 2022 4:48 PM
+> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>; amd-gfx@lists.freedesktop.org; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> Cc: Huang, Ray <Ray.Huang@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
+> Subject: Re: [PATCH 3/3] drm/amdgpu: skip put fence if signal fails
+>
+> [CAUTION: External Email]
+>
+> Am 15.07.22 um 10:43 schrieb jiadong.zhu@amd.com:
+>> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
+>>
+>> Dma_fence_signal returning non-zero indicates that the fence is
+>> signaled and put somewhere else.
+>> Skip dma_fence_put to make the fence refcount correct.
+> Well quite a big NAK on this.
+>
+> Reference counting should be completely independent where a fence signals.
+>
+> Andrey can you take a look at this as well?
+>
+> Thanks,
+> Christian.
+>
+>> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--
+>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>> index f4ed0785d523..93c1a5e83835 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>> @@ -1500,8 +1500,8 @@ static void amdgpu_ib_preempt_signal_fences(struct dma_fence **fences,
+>>                fence = fences[i];
+>>                if (!fence)
+>>                        continue;
+>> -             dma_fence_signal(fence);
+>> -             dma_fence_put(fence);
+>> +             if (!dma_fence_signal(fence))
+>> +                     dma_fence_put(fence);
+>>        }
+>>    }
+>>
