@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE2EC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F32C43334
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1940010E814;
-	Sat, 16 Jul 2022 14:35:57 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2052.outbound.protection.outlook.com [40.107.95.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F11CC10E06A;
- Fri, 15 Jul 2022 15:05:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62EAE10F7C3;
+	Sat, 16 Jul 2022 14:35:50 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B540A10E433
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RZRF1TDyYTkePpm5UDFvaa+q+RKtdpelBSC1EW/APmomeYGnnO+BTjoaRFrUTc1Yl4lAOSMoaBrYpVQttN2QqKYx0gunHXMiRqXsWeYyEdKanHHoLND3pY8MRgPBhmdXPJBuYVJDWD1lXhJpOOjT3SJh49R8atkKrotkWXO6soRzU/jD2Ts1kRcjaBZaP6aW6y2nWzqkVjmVbKehXiCdNyo+93EIqSw747z6HNhXM01m9Bz7FiIDh1K1Nvw34q0F+WxZ+07EM4c/lIreErIInpYWKUD166vEuZ6209eGz0B+H5rVLU4QDSfBwCRTWZB0JfSAKjDIYjTjSAXs7016Yg==
+ b=fLuOqgaajdlBFlY0r86VfnunVIZRxYhedJfvQVaO7RveBWpjUTjKFHipbqZtZ6IlAfC/8Ez6E0LTlTkjSrktYCStLww2qKiqgp2fHH++yH+Y5YhsgNwDVXv2wdMzZ2zgSQhHI8Y3BzP/htOSAFx3dUcz309I09W8ARkUwzoK+ZHFWdYBsop7RlkeNxzz4jO9lVwaGh7F53q5sOTSf6Tl1RLo1DGfFSjRIinDZO95uywJXNDl4pP9J+N6BPlsM41ChAJCW0X/vfLSJhR+M3QkSWoZnVXwMbdMgUtLbLf0I/4fhzsHR89QHyXG8fzfXo9xQX6ua8+QDer7cCQyhHbhdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qXHkTMDP9sqYKzMO3NOS8Ic3UgCNCptiqPNyD5wLuTo=;
- b=azAGDWIfDRmjXUhYY5FoQGOt58JdoS6x3YLXu0G+2aecRttxCigJHxiMXV6FdQwma/Cd3E0HaemtQsFGeujzRE4j9bRhxdUphnWwZDpz8NTxS0S5fsZbvEd+d+j8vqCKTBJshLDMIjBG88LTX+GAJ8HpyvXZx2SrDFAM/sXZIugeil5OhpNBpb3yB/GA9o4cyLGnYV27zoYi+7LQmjS5DwEDybYkK9CG8CD2pWZy6z7pFad9uDIqllDbJ7G4O3kU688G5IwUrQlZy+uScJ9Q3Oct8PMO6WIhAhTCu7ZQkQ4ngUR3wOtvIt9dgI+pSAWQa3sbvhFYPII1YYnLjro7lg==
+ bh=TXPW31x4/Ml+fll9siKcOQcyX+3+Fa9+dIW6VFk7zS4=;
+ b=D3hxfdsxd0r1bo2U89wAJyzPJFiZOmn5+NyP3JgDvy9AI9S8JmDAD2xQF+loeOOzXkPuL9U0Axuyryjfugm5L+IhS+bmr5mnoLyP4RcFfttZGVT0pmZHDrN0CghKgr/htg640VZKEmicqoFf2+UA3NgmubZSvik98cU150MRmc8OxETer1J/uol1ivRoefWWSjegltw4ls06xaKIthjY+0kLP55z/KIQ6vulWfwgMdjc1YZYSAI8jN2ZY8e4S4h4CW5VONOwW9aeyBNRgZNUbTD++gfal2NE8kfEA1d/j5BEj6mUszALWwATnDTqgvhbAs/yHSQm6NOPZWT6vc2gYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qXHkTMDP9sqYKzMO3NOS8Ic3UgCNCptiqPNyD5wLuTo=;
- b=TMjSy7Q2kE1lujecROxMW0O1xxin2NAFjPQaY6QXNXPWp/AkqkWF2Op07KEfhIdETr/1ZbAKAcCK7tusflJziptW6AEPrLXIXKFuhhe2kY8LtdfPR252kYvobHoM97Jmu9t2q9sUJt8hEjKLdX55S6Gxezud9CqmpTYy7G0HN6k=
-Received: from DS7P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::6) by
- BN6PR1201MB0132.namprd12.prod.outlook.com (2603:10b6:405:4d::8) with
+ bh=TXPW31x4/Ml+fll9siKcOQcyX+3+Fa9+dIW6VFk7zS4=;
+ b=bVZE15EdkCAfHybSdbZP/TsJmiqX6yqji2IuoQgZrMGmc3t9MXuzAA+6RyNZpHM2ISWbZcpNAF7KkHzO6WRARcRg5nksBs7NVwoAnkVKk43wZ7IZ3CoupT3gLECS7A4oGEQoRfx+UJ03Nc0kI8M44LdJUAvAWPyRyw0t4AmEPeY=
+Received: from DM6PR21CA0014.namprd21.prod.outlook.com (2603:10b6:5:174::24)
+ by LV2PR12MB5797.namprd12.prod.outlook.com (2603:10b6:408:17b::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Fri, 15 Jul
- 2022 15:05:49 +0000
-Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::20) by DS7P222CA0010.outlook.office365.com
- (2603:10b6:8:2e::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15 via Frontend
- Transport; Fri, 15 Jul 2022 15:05:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.13; Fri, 15 Jul
+ 2022 18:17:38 +0000
+Received: from DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:174:cafe::46) by DM6PR21CA0014.outlook.office365.com
+ (2603:10b6:5:174::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.5 via Frontend
+ Transport; Fri, 15 Jul 2022 18:17:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
+ DM6NAM11FT064.mail.protection.outlook.com (10.13.172.234) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 15:05:49 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:38 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 10:05:45 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <jgg@nvidia.com>
-Subject: [PATCH v9 10/14] lib: add support for device coherent type in test_hmm
-Date: Fri, 15 Jul 2022 10:05:17 -0500
-Message-ID: <20220715150521.18165-11-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220715150521.18165-1-alex.sierra@amd.com>
-References: <20220715150521.18165-1-alex.sierra@amd.com>
+ 2022 13:17:37 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
+ 2022 11:17:37 -0700
+Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Fri, 15 Jul 2022 13:17:36 -0500
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 09/31] drm/amd/display: Create a file dedicated for CRTC
+Date: Fri, 15 Jul 2022 14:16:43 -0400
+Message-ID: <20220715181705.1030401-10-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.37.0
+In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
+References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 34a8bad6-141d-474c-e1fe-08da667380d1
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0132:EE_
+X-MS-Office365-Filtering-Correlation-Id: c42a9e8d-f266-45b3-f798-08da668e4ca4
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5797:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M4CUOyIxt1XqmueQbDN5PbNGG1yZoJfCK8rdcPpt8pnApGfF9Vna94uux9MqCXl8ToW+g3YhRVzLSVGQooR0bgkKvjyL8Sr+hWlZszjW5+mlJ7ZFqCno72BsMlDJ/tlMJFHzII9LHi/0jKGIOZUgsTvVHBTquhzFtUO1QTWY4mnbOtF7F+PoAXn7Zzb9+oyWivgWyzYPhaINo/tmnJGzTo6UsLOOQqvyy1Bf0F+amB+QA/enSAqGbcrW8N2DxKMT56cDZ2y1W3uDG84Vg1eGOgY/fo2ivOozgDIFjYwvBLH79t9zAb/Ni/2/02E08JQjVrsL36LofZtaf8b67OyOqCrkZL2Sj5Vs3cj1Gc3dDxLSIarMWGUN98H66jJ+xCwtoM9d7lyK9wwHsYLvYfYRAUmmT5BFCdiTq7hLvpbjURJ+D/CSgJX2uSAKJ0vr4oNQHZJhT/9PqGw6OaHops4RwuIgFSeXF26hTh2YtM7OOGf6obYazpEU6Oebb3r1uJtORR6PKRNJKM+wsShUxzHbpRNRK8cvI5nI4QAxWR2GwQ93HKKpUuP31T6Hez+7wMVZoliyq/6/pjOarXVzDxwfE2x1ntLWRLn4xvutWzbF32MlB4B56/iOwZC9eItyuh1Z4+dqR/dLibSmFJ7lHjC2IWmQ00oMClpFKw5VgqTVZLsnEfgquQ/VJKCsUEKdR6QFexHvRbM3NNt42okewxAkkn8o3DvKUAeqAOZHDEOlETRJw1Dg3/QspFyYEXLsYKTMWOOe2kc+O9/RKMa5u/2pRFGbvO0Kz+8ten/GxorkzSAAcGIqT16qRwcxNnj5cTY/O4SLUTGbJgeoPIkJ9qmWJ0mz7PlyU4KJCtD5Q46FGmc=
+X-Microsoft-Antispam-Message-Info: epq6ZvCzcLs8aBSdKXr1Sw1NAVhSryG1HdbobFGxPT1V3PqGN+tyfe+uiQy/jA/4BpjQGXGT+RnAtVslcvZozZwbBemcNJmG54WBAwkSFnwhCYiEdELp7ilUmA5AgwMOXSOqpkNdtEvNkW26yFub7Q+qTDG0oDmQqdezyjDQcjGFjjMnwbit4lbvP8RX4AjFOQ39zkqo0dgWxoQOkS5mcsLwDj5aRYuKX7qBw835z+ttb9SVbMipeHdZs0o/WNWAMdNen2tVCW0PhSiyzxIoKfCeS4H+Tclvi9evoAbPr2Cn8/pdXJJlorhvrp8Jqjx3wevZU4SQ+vARjFT4wSLLGUm6AuOYjeR73hdRtX0BoKlH3vCUHgpeXEJvgydetpDbqF6tSsrOvMx0gXHH7yOUWL/UghDEdZxLxsi1am8WVxgyKAZVE/uThNprlSokqWZaHlmdbHWdZ8QBS+rgAA5HgmIDlVDIQn72yPt9vVjY2D06Ec7KMcm6oGEi/pSdE0Z0PPDpLKLH5vXAw4zDmB2rdA4RLXsHdH3XiScq8j4YPC6frBJgxukoqfLPtUfQUKAZkjh5SirQ7E2Pbj6gcdxuiI3gLs63gE9/wfiznLwTOVa/Om6kdEjk2Xi5wBOfbh9NP6HYC69TiGo0+5nw576Rrtya2bJn3PAtTnGgo1gEwx0uWgRFeQRPFJiVYpfqNDnVMc8jUM0v+UNxScfp6SCORqU1y1lX2AHETdFdBf/oaproVPxMF9gBsxBjiZVqXyK603kNxlWS+tILvWl+hG1s+fSgE8iM83hftZM8I5HOfRB4GknmnQ8LI6jkel0wI3qg3E9F9n+VLgmVflBp3BaK6zudaArXakPgzpi1SPprl60=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(39860400002)(346002)(136003)(40470700004)(46966006)(36840700001)(8936002)(36756003)(356005)(70206006)(54906003)(478600001)(6916009)(426003)(44832011)(30864003)(316002)(5660300002)(40460700003)(81166007)(82740400003)(70586007)(86362001)(4326008)(8676002)(7416002)(47076005)(83380400001)(336012)(2616005)(16526019)(82310400005)(41300700001)(7696005)(186003)(6666004)(36860700001)(1076003)(40480700001)(2906002)(26005)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(136003)(396003)(376002)(346002)(40470700004)(36840700001)(46966006)(83380400001)(8676002)(82740400003)(81166007)(336012)(1076003)(2616005)(47076005)(426003)(316002)(186003)(40480700001)(8936002)(2906002)(4326008)(86362001)(82310400005)(6666004)(356005)(6916009)(5660300002)(41300700001)(478600001)(70206006)(26005)(70586007)(54906003)(36860700001)(36756003)(40460700003)(30864003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:05:49.3919 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34a8bad6-141d-474c-e1fe-08da667380d1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:38.2521 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c42a9e8d-f266-45b3-f798-08da668e4ca4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0132
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,466 +103,1083 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
- Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Device Coherent type uses device memory that is coherently accesible by
-the CPU. This could be shown as SP (special purpose) memory range
-at the BIOS-e820 memory enumeration. If no SP memory is supported in
-system, this could be faked by setting CONFIG_EFI_FAKE_MEMMAP.
+[Why]
+The amdgpu_dm file contains most of the code that works as an interface
+between DRM API and DC. As a result, this file becomes very large since
+it comprises multiple abstractions such as CRTC manipulation.
 
-Currently, test_hmm only supports two different SP ranges of at least
-256MB size. This could be specified in the kernel parameter variable
-efi_fake_mem. Ex. Two SP ranges of 1GB starting at 0x100000000 &
-0x140000000 physical address. Ex.
-efi_fake_mem=1G@0x100000000:0x40000,1G@0x140000000:0x40000
+[How]
+This commit extracts the CRTC code to its specific file named
+amdgpu_dm_crtc. This change does not change anything inside the
+functions; the only exception is converting some static functions to a
+global function.
 
-Private and coherent device mirror instances can be created in the same
-probed. This is done by passing the module parameters spm_addr_dev0 &
-spm_addr_dev1. In this case, it will create four instances of
-device_mirror. The first two correspond to private device type, the
-last two to coherent type. Then, they can be easily accessed from user
-space through /dev/hmm_mirror<num_device>. Usually num_device 0 and 1
-are for private, and 2 and 3 for coherent types. If no module
-parameters are passed, two instances of private type device_mirror will
-be created only.
-
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Poppple <apopple@nvidia.com>
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Acked-by: Alan Liu <HaoPing.Liu@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- lib/test_hmm.c      | 253 +++++++++++++++++++++++++++++++++-----------
- lib/test_hmm_uapi.h |   4 +
- 2 files changed, 196 insertions(+), 61 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 434 +---------------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 463 ++++++++++++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |  51 ++
+ 4 files changed, 516 insertions(+), 433 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index afb30af9f3ff..7930853e7fc5 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -32,11 +32,22 @@
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+index ec559ea902a3..90fb0f3cdb6f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+@@ -28,6 +28,7 @@
+ AMDGPUDM = \
+ 	amdgpu_dm.o \
+ 	amdgpu_dm_plane.o \
++	amdgpu_dm_crtc.o \
+ 	amdgpu_dm_irq.o \
+ 	amdgpu_dm_mst_types.o \
+ 	amdgpu_dm_color.o
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ceac70e93ece..bf01ed340ec3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -47,6 +47,7 @@
+ #include "atom.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_plane.h"
++#include "amdgpu_dm_crtc.h"
+ #ifdef CONFIG_DRM_AMD_DC_HDCP
+ #include "amdgpu_dm_hdcp.h"
+ #include <drm/drm_hdcp.h>
+@@ -204,9 +205,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev);
+ /* removes and deallocates the drm structures, created by the above function */
+ static void amdgpu_dm_destroy_drm_device(struct amdgpu_display_manager *dm);
  
- #include "test_hmm_uapi.h"
- 
--#define DMIRROR_NDEVICES		2
-+#define DMIRROR_NDEVICES		4
- #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
- #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
- #define DEVMEM_CHUNKS_RESERVE		16
- 
-+/*
-+ * For device_private pages, dpage is just a dummy struct page
-+ * representing a piece of device memory. dmirror_devmem_alloc_page
-+ * allocates a real system memory page as backing storage to fake a
-+ * real device. zone_device_data points to that backing page. But
-+ * for device_coherent memory, the struct page represents real
-+ * physical CPU-accessible memory that we can use directly.
-+ */
-+#define BACKING_PAGE(page) (is_device_private_page((page)) ? \
-+			   (page)->zone_device_data : (page))
-+
- static unsigned long spm_addr_dev0;
- module_param(spm_addr_dev0, long, 0644);
- MODULE_PARM_DESC(spm_addr_dev0,
-@@ -125,6 +136,21 @@ static int dmirror_bounce_init(struct dmirror_bounce *bounce,
- 	return 0;
- }
- 
-+static bool dmirror_is_private_zone(struct dmirror_device *mdevice)
-+{
-+	return (mdevice->zone_device_type ==
-+		HMM_DMIRROR_MEMORY_DEVICE_PRIVATE) ? true : false;
-+}
-+
-+static enum migrate_vma_direction
-+dmirror_select_device(struct dmirror *dmirror)
-+{
-+	return (dmirror->mdevice->zone_device_type ==
-+		HMM_DMIRROR_MEMORY_DEVICE_PRIVATE) ?
-+		MIGRATE_VMA_SELECT_DEVICE_PRIVATE :
-+		MIGRATE_VMA_SELECT_DEVICE_COHERENT;
-+}
-+
- static void dmirror_bounce_fini(struct dmirror_bounce *bounce)
- {
- 	vfree(bounce->ptr);
-@@ -575,16 +601,19 @@ static int dmirror_allocate_chunk(struct dmirror_device *mdevice,
- static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
- {
- 	struct page *dpage = NULL;
--	struct page *rpage;
-+	struct page *rpage = NULL;
- 
- 	/*
--	 * This is a fake device so we alloc real system memory to store
--	 * our device memory.
-+	 * For ZONE_DEVICE private type, this is a fake device so we allocate
-+	 * real system memory to store our device memory.
-+	 * For ZONE_DEVICE coherent type we use the actual dpage to store the
-+	 * data and ignore rpage.
- 	 */
--	rpage = alloc_page(GFP_HIGHUSER);
--	if (!rpage)
--		return NULL;
--
-+	if (dmirror_is_private_zone(mdevice)) {
-+		rpage = alloc_page(GFP_HIGHUSER);
-+		if (!rpage)
-+			return NULL;
-+	}
- 	spin_lock(&mdevice->lock);
- 
- 	if (mdevice->free_pages) {
-@@ -603,7 +632,8 @@ static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
- 	return dpage;
- 
- error:
--	__free_page(rpage);
-+	if (rpage)
-+		__free_page(rpage);
+-static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+-			       struct drm_plane *plane,
+-			       uint32_t link_index);
+ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+ 				    struct amdgpu_dm_connector *amdgpu_dm_connector,
+ 				    uint32_t link_index,
+@@ -335,20 +333,6 @@ get_crtc_by_otg_inst(struct amdgpu_device *adev,
  	return NULL;
  }
  
-@@ -629,12 +659,16 @@ static void dmirror_migrate_alloc_and_copy(struct migrate_vma *args,
- 		 * unallocated pte_none() or read-only zero page.
- 		 */
- 		spage = migrate_pfn_to_page(*src);
-+		if (WARN(spage && is_zone_device_page(spage),
-+		     "page already in device spage pfn: 0x%lx\n",
-+		     page_to_pfn(spage)))
-+			continue;
- 
- 		dpage = dmirror_devmem_alloc_page(mdevice);
- 		if (!dpage)
- 			continue;
- 
--		rpage = dpage->zone_device_data;
-+		rpage = BACKING_PAGE(dpage);
- 		if (spage)
- 			copy_highpage(rpage, spage);
- 		else
-@@ -648,6 +682,8 @@ static void dmirror_migrate_alloc_and_copy(struct migrate_vma *args,
- 		 */
- 		rpage->zone_device_data = dmirror;
- 
-+		pr_debug("migrating from sys to dev pfn src: 0x%lx pfn dst: 0x%lx\n",
-+			 page_to_pfn(spage), page_to_pfn(dpage));
- 		*dst = migrate_pfn(page_to_pfn(dpage));
- 		if ((*src & MIGRATE_PFN_WRITE) ||
- 		    (!spage && args->vma->vm_flags & VM_WRITE))
-@@ -725,11 +761,7 @@ static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
- 		if (!dpage)
- 			continue;
- 
--		/*
--		 * Store the page that holds the data so the page table
--		 * doesn't have to deal with ZONE_DEVICE private pages.
--		 */
--		entry = dpage->zone_device_data;
-+		entry = BACKING_PAGE(dpage);
- 		if (*dst & MIGRATE_PFN_WRITE)
- 			entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
- 		entry = xa_store(&dmirror->pt, pfn, entry, GFP_ATOMIC);
-@@ -809,15 +841,126 @@ static int dmirror_exclusive(struct dmirror *dmirror,
- 	return ret;
- }
- 
--static int dmirror_migrate(struct dmirror *dmirror,
--			   struct hmm_dmirror_cmd *cmd)
-+static vm_fault_t dmirror_devmem_fault_alloc_and_copy(struct migrate_vma *args,
-+						      struct dmirror *dmirror)
-+{
-+	const unsigned long *src = args->src;
-+	unsigned long *dst = args->dst;
-+	unsigned long start = args->start;
-+	unsigned long end = args->end;
-+	unsigned long addr;
-+
-+	for (addr = start; addr < end; addr += PAGE_SIZE,
-+				       src++, dst++) {
-+		struct page *dpage, *spage;
-+
-+		spage = migrate_pfn_to_page(*src);
-+		if (!spage || !(*src & MIGRATE_PFN_MIGRATE))
-+			continue;
-+
-+		if (WARN_ON(!is_device_private_page(spage) &&
-+			    !is_device_coherent_page(spage)))
-+			continue;
-+		spage = BACKING_PAGE(spage);
-+		dpage = alloc_page_vma(GFP_HIGHUSER_MOVABLE, args->vma, addr);
-+		if (!dpage)
-+			continue;
-+		pr_debug("migrating from dev to sys pfn src: 0x%lx pfn dst: 0x%lx\n",
-+			 page_to_pfn(spage), page_to_pfn(dpage));
-+
-+		lock_page(dpage);
-+		xa_erase(&dmirror->pt, addr >> PAGE_SHIFT);
-+		copy_highpage(dpage, spage);
-+		*dst = migrate_pfn(page_to_pfn(dpage));
-+		if (*src & MIGRATE_PFN_WRITE)
-+			*dst |= MIGRATE_PFN_WRITE;
-+	}
-+	return 0;
-+}
-+
-+static unsigned long
-+dmirror_successful_migrated_pages(struct migrate_vma *migrate)
-+{
-+	unsigned long cpages = 0;
-+	unsigned long i;
-+
-+	for (i = 0; i < migrate->npages; i++) {
-+		if (migrate->src[i] & MIGRATE_PFN_VALID &&
-+		    migrate->src[i] & MIGRATE_PFN_MIGRATE)
-+			cpages++;
-+	}
-+	return cpages;
-+}
-+
-+static int dmirror_migrate_to_system(struct dmirror *dmirror,
-+				     struct hmm_dmirror_cmd *cmd)
- {
- 	unsigned long start, end, addr;
- 	unsigned long size = cmd->npages << PAGE_SHIFT;
- 	struct mm_struct *mm = dmirror->notifier.mm;
- 	struct vm_area_struct *vma;
--	unsigned long src_pfns[64];
--	unsigned long dst_pfns[64];
-+	unsigned long src_pfns[64] = { 0 };
-+	unsigned long dst_pfns[64] = { 0 };
-+	struct migrate_vma args;
-+	unsigned long next;
-+	int ret;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	/* Since the mm is for the mirrored process, get a reference first. */
-+	if (!mmget_not_zero(mm))
-+		return -EINVAL;
-+
-+	cmd->cpages = 0;
-+	mmap_read_lock(mm);
-+	for (addr = start; addr < end; addr = next) {
-+		vma = vma_lookup(mm, addr);
-+		if (!vma || !(vma->vm_flags & VM_READ)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+		next = min(end, addr + (ARRAY_SIZE(src_pfns) << PAGE_SHIFT));
-+		if (next > vma->vm_end)
-+			next = vma->vm_end;
-+
-+		args.vma = vma;
-+		args.src = src_pfns;
-+		args.dst = dst_pfns;
-+		args.start = addr;
-+		args.end = next;
-+		args.pgmap_owner = dmirror->mdevice;
-+		args.flags = dmirror_select_device(dmirror);
-+
-+		ret = migrate_vma_setup(&args);
-+		if (ret)
-+			goto out;
-+
-+		pr_debug("Migrating from device mem to sys mem\n");
-+		dmirror_devmem_fault_alloc_and_copy(&args, dmirror);
-+
-+		migrate_vma_pages(&args);
-+		cmd->cpages += dmirror_successful_migrated_pages(&args);
-+		migrate_vma_finalize(&args);
-+	}
-+out:
-+	mmap_read_unlock(mm);
-+	mmput(mm);
-+
-+	return ret;
-+}
-+
-+static int dmirror_migrate_to_device(struct dmirror *dmirror,
-+				struct hmm_dmirror_cmd *cmd)
-+{
-+	unsigned long start, end, addr;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	struct mm_struct *mm = dmirror->notifier.mm;
-+	struct vm_area_struct *vma;
-+	unsigned long src_pfns[64] = { 0 };
-+	unsigned long dst_pfns[64] = { 0 };
- 	struct dmirror_bounce bounce;
- 	struct migrate_vma args;
- 	unsigned long next;
-@@ -854,6 +997,7 @@ static int dmirror_migrate(struct dmirror *dmirror,
- 		if (ret)
- 			goto out;
- 
-+		pr_debug("Migrating from sys mem to device mem\n");
- 		dmirror_migrate_alloc_and_copy(&args, dmirror);
- 		migrate_vma_pages(&args);
- 		dmirror_migrate_finalize_and_map(&args, dmirror);
-@@ -862,7 +1006,10 @@ static int dmirror_migrate(struct dmirror *dmirror,
- 	mmap_read_unlock(mm);
- 	mmput(mm);
- 
--	/* Return the migrated data for verification. */
-+	/*
-+	 * Return the migrated data for verification.
-+	 * Only for pages in device zone
-+	 */
- 	ret = dmirror_bounce_init(&bounce, start, size);
- 	if (ret)
- 		return ret;
-@@ -905,6 +1052,12 @@ static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
- 			*perm = HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL;
- 		else
- 			*perm = HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE;
-+	} else if (is_device_coherent_page(page)) {
-+		/* Is the page migrated to this device or some other? */
-+		if (dmirror->mdevice == dmirror_page_to_device(page))
-+			*perm = HMM_DMIRROR_PROT_DEV_COHERENT_LOCAL;
-+		else
-+			*perm = HMM_DMIRROR_PROT_DEV_COHERENT_REMOTE;
- 	} else if (is_zero_pfn(page_to_pfn(page)))
- 		*perm = HMM_DMIRROR_PROT_ZERO;
- 	else
-@@ -1092,8 +1245,12 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
- 		ret = dmirror_write(dmirror, &cmd);
- 		break;
- 
--	case HMM_DMIRROR_MIGRATE:
--		ret = dmirror_migrate(dmirror, &cmd);
-+	case HMM_DMIRROR_MIGRATE_TO_DEV:
-+		ret = dmirror_migrate_to_device(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_MIGRATE_TO_SYS:
-+		ret = dmirror_migrate_to_system(dmirror, &cmd);
- 		break;
- 
- 	case HMM_DMIRROR_EXCLUSIVE:
-@@ -1155,14 +1312,13 @@ static const struct file_operations dmirror_fops = {
- 
- static void dmirror_devmem_free(struct page *page)
- {
--	struct page *rpage = page->zone_device_data;
-+	struct page *rpage = BACKING_PAGE(page);
- 	struct dmirror_device *mdevice;
- 
--	if (rpage)
-+	if (rpage != page)
- 		__free_page(rpage);
- 
- 	mdevice = dmirror_page_to_device(page);
--
- 	spin_lock(&mdevice->lock);
- 	mdevice->cfree++;
- 	page->zone_device_data = mdevice->free_pages;
-@@ -1170,43 +1326,11 @@ static void dmirror_devmem_free(struct page *page)
- 	spin_unlock(&mdevice->lock);
- }
- 
--static vm_fault_t dmirror_devmem_fault_alloc_and_copy(struct migrate_vma *args,
--						      struct dmirror *dmirror)
+-static inline bool amdgpu_dm_vrr_active_irq(struct amdgpu_crtc *acrtc)
 -{
--	const unsigned long *src = args->src;
--	unsigned long *dst = args->dst;
--	unsigned long start = args->start;
--	unsigned long end = args->end;
--	unsigned long addr;
+-	return acrtc->dm_irq_params.freesync_config.state ==
+-		       VRR_STATE_ACTIVE_VARIABLE ||
+-	       acrtc->dm_irq_params.freesync_config.state ==
+-		       VRR_STATE_ACTIVE_FIXED;
+-}
 -
--	for (addr = start; addr < end; addr += PAGE_SIZE,
--				       src++, dst++) {
--		struct page *dpage, *spage;
+-static inline bool amdgpu_dm_vrr_active(struct dm_crtc_state *dm_state)
+-{
+-	return dm_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE ||
+-	       dm_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+-}
 -
--		spage = migrate_pfn_to_page(*src);
--		if (!spage || !(*src & MIGRATE_PFN_MIGRATE))
--			continue;
--		spage = spage->zone_device_data;
+ static inline bool is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
+ 					      struct dm_crtc_state *new_state)
+ {
+@@ -464,26 +448,6 @@ static void dm_pflip_high_irq(void *interrupt_params)
+ 		     vrr_active, (int) !e);
+ }
+ 
+-static void dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc)
+-{
+-	struct drm_crtc *crtc = &acrtc->base;
+-	struct drm_device *dev = crtc->dev;
+-	unsigned long flags;
 -
--		dpage = alloc_page_vma(GFP_HIGHUSER_MOVABLE, args->vma, addr);
--		if (!dpage)
--			continue;
+-	drm_crtc_handle_vblank(crtc);
 -
--		lock_page(dpage);
--		xa_erase(&dmirror->pt, addr >> PAGE_SHIFT);
--		copy_highpage(dpage, spage);
--		*dst = migrate_pfn(page_to_pfn(dpage));
--		if (*src & MIGRATE_PFN_WRITE)
--			*dst |= MIGRATE_PFN_WRITE;
+-	spin_lock_irqsave(&dev->event_lock, flags);
+-
+-	/* Send completion event for cursor-only commits */
+-	if (acrtc->event && acrtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
+-		drm_crtc_send_vblank_event(crtc, acrtc->event);
+-		drm_crtc_vblank_put(crtc);
+-		acrtc->event = NULL;
 -	}
+-
+-	spin_unlock_irqrestore(&dev->event_lock, flags);
+-}
+-
+ static void dm_vupdate_high_irq(void *interrupt_params)
+ {
+ 	struct common_irq_params *irq_params = interrupt_params;
+@@ -1261,52 +1225,6 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
+ 
+ }
+ 
+-static void vblank_control_worker(struct work_struct *work)
+-{
+-	struct vblank_control_work *vblank_work =
+-		container_of(work, struct vblank_control_work, work);
+-	struct amdgpu_display_manager *dm = vblank_work->dm;
+-
+-	mutex_lock(&dm->dc_lock);
+-
+-	if (vblank_work->enable)
+-		dm->active_vblank_irq_count++;
+-	else if(dm->active_vblank_irq_count)
+-		dm->active_vblank_irq_count--;
+-
+-	dc_allow_idle_optimizations(dm->dc, dm->active_vblank_irq_count == 0);
+-
+-	DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
+-
+-	/*
+-	 * Control PSR based on vblank requirements from OS
+-	 *
+-	 * If panel supports PSR SU, there's no need to disable PSR when OS is
+-	 * submitting fast atomic commits (we infer this by whether the OS
+-	 * requests vblank events). Fast atomic commits will simply trigger a
+-	 * full-frame-update (FFU); a specific case of selective-update (SU)
+-	 * where the SU region is the full hactive*vactive region. See
+-	 * fill_dc_dirty_rects().
+-	 */
+-	if (vblank_work->stream && vblank_work->stream->link) {
+-		if (vblank_work->enable) {
+-			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
+-			    vblank_work->stream->link->psr_settings.psr_allow_active)
+-				amdgpu_dm_psr_disable(vblank_work->stream);
+-		} else if (vblank_work->stream->link->psr_settings.psr_feature_enabled &&
+-			   !vblank_work->stream->link->psr_settings.psr_allow_active &&
+-			   vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
+-			amdgpu_dm_psr_enable(vblank_work->stream);
+-		}
+-	}
+-
+-	mutex_unlock(&dm->dc_lock);
+-
+-	dc_stream_release(vblank_work->stream);
+-
+-	kfree(vblank_work);
+-}
+-
+ static void dm_handle_hpd_rx_offload_work(struct work_struct *work)
+ {
+ 	struct hpd_rx_irq_offload_work *offload_work;
+@@ -2382,9 +2300,6 @@ static int dm_hw_fini(void *handle)
+ }
+ 
+ 
+-static int dm_enable_vblank(struct drm_crtc *crtc);
+-static void dm_disable_vblank(struct drm_crtc *crtc);
+-
+ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 				 struct dc_state *state, bool enable)
+ {
+@@ -4676,13 +4591,6 @@ static int dm_early_init(void *handle)
+ 	return 0;
+ }
+ 
+-static bool modeset_required(struct drm_crtc_state *crtc_state,
+-			     struct dc_stream_state *new_stream,
+-			     struct dc_stream_state *old_stream)
+-{
+-	return crtc_state->active && drm_atomic_crtc_needs_modeset(crtc_state);
+-}
+-
+ static bool modereset_required(struct drm_crtc_state *crtc_state)
+ {
+ 	return !crtc_state->active && drm_atomic_crtc_needs_modeset(crtc_state);
+@@ -5913,182 +5821,6 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 	return stream;
+ }
+ 
+-static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
+-{
+-	drm_crtc_cleanup(crtc);
+-	kfree(crtc);
+-}
+-
+-static void dm_crtc_destroy_state(struct drm_crtc *crtc,
+-				  struct drm_crtc_state *state)
+-{
+-	struct dm_crtc_state *cur = to_dm_crtc_state(state);
+-
+-	/* TODO Destroy dc_stream objects are stream object is flattened */
+-	if (cur->stream)
+-		dc_stream_release(cur->stream);
+-
+-
+-	__drm_atomic_helper_crtc_destroy_state(state);
+-
+-
+-	kfree(state);
+-}
+-
+-static void dm_crtc_reset_state(struct drm_crtc *crtc)
+-{
+-	struct dm_crtc_state *state;
+-
+-	if (crtc->state)
+-		dm_crtc_destroy_state(crtc, crtc->state);
+-
+-	state = kzalloc(sizeof(*state), GFP_KERNEL);
+-	if (WARN_ON(!state))
+-		return;
+-
+-	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+-}
+-
+-static struct drm_crtc_state *
+-dm_crtc_duplicate_state(struct drm_crtc *crtc)
+-{
+-	struct dm_crtc_state *state, *cur;
+-
+-	cur = to_dm_crtc_state(crtc->state);
+-
+-	if (WARN_ON(!crtc->state))
+-		return NULL;
+-
+-	state = kzalloc(sizeof(*state), GFP_KERNEL);
+-	if (!state)
+-		return NULL;
+-
+-	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
+-
+-	if (cur->stream) {
+-		state->stream = cur->stream;
+-		dc_stream_retain(state->stream);
+-	}
+-
+-	state->active_planes = cur->active_planes;
+-	state->vrr_infopacket = cur->vrr_infopacket;
+-	state->abm_level = cur->abm_level;
+-	state->vrr_supported = cur->vrr_supported;
+-	state->freesync_config = cur->freesync_config;
+-	state->cm_has_degamma = cur->cm_has_degamma;
+-	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
+-	state->mpo_requested = cur->mpo_requested;
+-	/* TODO Duplicate dc_stream after objects are stream object is flattened */
+-
+-	return &state->base;
+-}
+-
+-#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+-static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
+-{
+-	crtc_debugfs_init(crtc);
+-
+-	return 0;
+-}
+-#endif
+-
+-static inline int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
+-{
+-	enum dc_irq_source irq_source;
+-	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+-	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+-	int rc;
+-
+-	irq_source = IRQ_TYPE_VUPDATE + acrtc->otg_inst;
+-
+-	rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EBUSY;
+-
+-	DRM_DEBUG_VBL("crtc %d - vupdate irq %sabling: r=%d\n",
+-		      acrtc->crtc_id, enable ? "en" : "dis", rc);
+-	return rc;
+-}
+-
+-static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+-{
+-	enum dc_irq_source irq_source;
+-	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+-	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+-	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
+-	struct amdgpu_display_manager *dm = &adev->dm;
+-	struct vblank_control_work *work;
+-	int rc = 0;
+-
+-	if (enable) {
+-		/* vblank irq on -> Only need vupdate irq in vrr mode */
+-		if (amdgpu_dm_vrr_active(acrtc_state))
+-			rc = dm_set_vupdate_irq(crtc, true);
+-	} else {
+-		/* vblank irq off -> vupdate irq off */
+-		rc = dm_set_vupdate_irq(crtc, false);
+-	}
+-
+-	if (rc)
+-		return rc;
+-
+-	irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
+-
+-	if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
+-		return -EBUSY;
+-
+-	if (amdgpu_in_reset(adev))
+-		return 0;
+-
+-	if (dm->vblank_control_workqueue) {
+-		work = kzalloc(sizeof(*work), GFP_ATOMIC);
+-		if (!work)
+-			return -ENOMEM;
+-
+-		INIT_WORK(&work->work, vblank_control_worker);
+-		work->dm = dm;
+-		work->acrtc = acrtc;
+-		work->enable = enable;
+-
+-		if (acrtc_state->stream) {
+-			dc_stream_retain(acrtc_state->stream);
+-			work->stream = acrtc_state->stream;
+-		}
+-
+-		queue_work(dm->vblank_control_workqueue, &work->work);
+-	}
+-
 -	return 0;
 -}
 -
- static vm_fault_t dmirror_devmem_fault(struct vm_fault *vmf)
+-static int dm_enable_vblank(struct drm_crtc *crtc)
+-{
+-	return dm_set_vblank(crtc, true);
+-}
+-
+-static void dm_disable_vblank(struct drm_crtc *crtc)
+-{
+-	dm_set_vblank(crtc, false);
+-}
+-
+-/* Implemented only the options currently available for the driver */
+-static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+-	.reset = dm_crtc_reset_state,
+-	.destroy = amdgpu_dm_crtc_destroy,
+-	.set_config = drm_atomic_helper_set_config,
+-	.page_flip = drm_atomic_helper_page_flip,
+-	.atomic_duplicate_state = dm_crtc_duplicate_state,
+-	.atomic_destroy_state = dm_crtc_destroy_state,
+-	.set_crc_source = amdgpu_dm_crtc_set_crc_source,
+-	.verify_crc_source = amdgpu_dm_crtc_verify_crc_source,
+-	.get_crc_sources = amdgpu_dm_crtc_get_crc_sources,
+-	.get_vblank_counter = amdgpu_get_vblank_counter_kms,
+-	.enable_vblank = dm_enable_vblank,
+-	.disable_vblank = dm_disable_vblank,
+-	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
+-#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-	.late_register = amdgpu_dm_crtc_late_register,
+-#endif
+-};
+-
+ static enum drm_connector_status
+ amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
  {
- 	struct migrate_vma args;
--	unsigned long src_pfns;
--	unsigned long dst_pfns;
-+	unsigned long src_pfns = 0;
-+	unsigned long dst_pfns = 0;
- 	struct page *rpage;
- 	struct dmirror *dmirror;
- 	vm_fault_t ret;
-@@ -1226,7 +1350,7 @@ static vm_fault_t dmirror_devmem_fault(struct vm_fault *vmf)
- 	args.src = &src_pfns;
- 	args.dst = &dst_pfns;
- 	args.pgmap_owner = dmirror->mdevice;
--	args.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
-+	args.flags = dmirror_select_device(dmirror);
- 
- 	if (migrate_vma_setup(&args))
- 		return VM_FAULT_SIGBUS;
-@@ -1305,6 +1429,12 @@ static int __init hmm_dmirror_init(void)
- 				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
- 	dmirror_devices[ndevices++].zone_device_type =
- 				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
-+	if (spm_addr_dev0 && spm_addr_dev1) {
-+		dmirror_devices[ndevices++].zone_device_type =
-+					HMM_DMIRROR_MEMORY_DEVICE_COHERENT;
-+		dmirror_devices[ndevices++].zone_device_type =
-+					HMM_DMIRROR_MEMORY_DEVICE_COHERENT;
-+	}
- 	for (id = 0; id < ndevices; id++) {
- 		ret = dmirror_device_init(dmirror_devices + id, id);
- 		if (ret)
-@@ -1327,7 +1457,8 @@ static void __exit hmm_dmirror_exit(void)
- 	int id;
- 
- 	for (id = 0; id < DMIRROR_NDEVICES; id++)
--		dmirror_device_remove(dmirror_devices + id);
-+		if (dmirror_devices[id].zone_device_type)
-+			dmirror_device_remove(dmirror_devices + id);
- 	unregister_chrdev_region(dmirror_dev, DMIRROR_NDEVICES);
- }
- 
-diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
-index f700da7807c1..e31d58c9034a 100644
---- a/lib/test_hmm_uapi.h
-+++ b/lib/test_hmm_uapi.h
-@@ -50,6 +50,8 @@ struct hmm_dmirror_cmd {
-  *					device the ioctl() is made
-  * HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE: Migrated device private page on some
-  *					other device
-+ * HMM_DMIRROR_PROT_DEV_COHERENT: Migrate device coherent page on the device
-+ *				  the ioctl() is made
-  */
- enum {
- 	HMM_DMIRROR_PROT_ERROR			= 0xFF,
-@@ -61,6 +63,8 @@ enum {
- 	HMM_DMIRROR_PROT_ZERO			= 0x10,
- 	HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL	= 0x20,
- 	HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE	= 0x30,
-+	HMM_DMIRROR_PROT_DEV_COHERENT_LOCAL	= 0x40,
-+	HMM_DMIRROR_PROT_DEV_COHERENT_REMOTE	= 0x50,
+@@ -6624,113 +6356,6 @@ amdgpu_dm_connector_helper_funcs = {
+ 	.atomic_check = amdgpu_dm_connector_atomic_check,
  };
  
- enum {
+-static void dm_crtc_helper_disable(struct drm_crtc *crtc)
+-{
+-}
+-
+-static int count_crtc_active_planes(struct drm_crtc_state *new_crtc_state)
+-{
+-	struct drm_atomic_state *state = new_crtc_state->state;
+-	struct drm_plane *plane;
+-	int num_active = 0;
+-
+-	drm_for_each_plane_mask(plane, state->dev, new_crtc_state->plane_mask) {
+-		struct drm_plane_state *new_plane_state;
+-
+-		/* Cursor planes are "fake". */
+-		if (plane->type == DRM_PLANE_TYPE_CURSOR)
+-			continue;
+-
+-		new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+-
+-		if (!new_plane_state) {
+-			/*
+-			 * The plane is enable on the CRTC and hasn't changed
+-			 * state. This means that it previously passed
+-			 * validation and is therefore enabled.
+-			 */
+-			num_active += 1;
+-			continue;
+-		}
+-
+-		/* We need a framebuffer to be considered enabled. */
+-		num_active += (new_plane_state->fb != NULL);
+-	}
+-
+-	return num_active;
+-}
+-
+-static void dm_update_crtc_active_planes(struct drm_crtc *crtc,
+-					 struct drm_crtc_state *new_crtc_state)
+-{
+-	struct dm_crtc_state *dm_new_crtc_state =
+-		to_dm_crtc_state(new_crtc_state);
+-
+-	dm_new_crtc_state->active_planes = 0;
+-
+-	if (!dm_new_crtc_state->stream)
+-		return;
+-
+-	dm_new_crtc_state->active_planes =
+-		count_crtc_active_planes(new_crtc_state);
+-}
+-
+-static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+-				      struct drm_atomic_state *state)
+-{
+-	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
+-										crtc);
+-	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+-	struct dc *dc = adev->dm.dc;
+-	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+-	int ret = -EINVAL;
+-
+-	trace_amdgpu_dm_crtc_atomic_check(crtc_state);
+-
+-	dm_update_crtc_active_planes(crtc, crtc_state);
+-
+-	if (WARN_ON(unlikely(!dm_crtc_state->stream &&
+-			modeset_required(crtc_state, NULL, dm_crtc_state->stream)))) {
+-		return ret;
+-	}
+-
+-	/*
+-	 * We require the primary plane to be enabled whenever the CRTC is, otherwise
+-	 * drm_mode_cursor_universal may end up trying to enable the cursor plane while all other
+-	 * planes are disabled, which is not supported by the hardware. And there is legacy
+-	 * userspace which stops using the HW cursor altogether in response to the resulting EINVAL.
+-	 */
+-	if (crtc_state->enable &&
+-		!(crtc_state->plane_mask & drm_plane_mask(crtc->primary))) {
+-		DRM_DEBUG_ATOMIC("Can't enable a CRTC without enabling the primary plane\n");
+-		return -EINVAL;
+-	}
+-
+-	/* In some use cases, like reset, no stream is attached */
+-	if (!dm_crtc_state->stream)
+-		return 0;
+-
+-	if (dc_validate_stream(dc, dm_crtc_state->stream) == DC_OK)
+-		return 0;
+-
+-	DRM_DEBUG_ATOMIC("Failed DC stream validation\n");
+-	return ret;
+-}
+-
+-static bool dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
+-				      const struct drm_display_mode *mode,
+-				      struct drm_display_mode *adjusted_mode)
+-{
+-	return true;
+-}
+-
+-static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
+-	.disable = dm_crtc_helper_disable,
+-	.atomic_check = dm_crtc_helper_atomic_check,
+-	.mode_fixup = dm_crtc_helper_mode_fixup,
+-	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+-};
+-
+ static void dm_encoder_helper_disable(struct drm_encoder *encoder)
+ {
+ 
+@@ -6888,63 +6513,6 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+ }
+ #endif
+ 
+-static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+-			       struct drm_plane *plane,
+-			       uint32_t crtc_index)
+-{
+-	struct amdgpu_crtc *acrtc = NULL;
+-	struct drm_plane *cursor_plane;
+-
+-	int res = -ENOMEM;
+-
+-	cursor_plane = kzalloc(sizeof(*cursor_plane), GFP_KERNEL);
+-	if (!cursor_plane)
+-		goto fail;
+-
+-	cursor_plane->type = DRM_PLANE_TYPE_CURSOR;
+-	res = amdgpu_dm_plane_init(dm, cursor_plane, 0, NULL);
+-
+-	acrtc = kzalloc(sizeof(struct amdgpu_crtc), GFP_KERNEL);
+-	if (!acrtc)
+-		goto fail;
+-
+-	res = drm_crtc_init_with_planes(
+-			dm->ddev,
+-			&acrtc->base,
+-			plane,
+-			cursor_plane,
+-			&amdgpu_dm_crtc_funcs, NULL);
+-
+-	if (res)
+-		goto fail;
+-
+-	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
+-
+-	/* Create (reset) the plane state */
+-	if (acrtc->base.funcs->reset)
+-		acrtc->base.funcs->reset(&acrtc->base);
+-
+-	acrtc->max_cursor_width = dm->adev->dm.dc->caps.max_cursor_size;
+-	acrtc->max_cursor_height = dm->adev->dm.dc->caps.max_cursor_size;
+-
+-	acrtc->crtc_id = crtc_index;
+-	acrtc->base.enabled = false;
+-	acrtc->otg_inst = -1;
+-
+-	dm->adev->mode_info.crtcs[crtc_index] = acrtc;
+-	drm_crtc_enable_color_mgmt(&acrtc->base, MAX_COLOR_LUT_ENTRIES,
+-				   true, MAX_COLOR_LUT_ENTRIES);
+-	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
+-
+-	return 0;
+-
+-fail:
+-	kfree(acrtc);
+-	kfree(cursor_plane);
+-	return res;
+-}
+-
+-
+ static int to_drm_connector_type(enum signal_type st)
+ {
+ 	switch (st) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+new file mode 100644
+index 000000000000..a9413acfe4dc
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -0,0 +1,463 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++#include <drm/drm_vblank.h>
++#include <drm/drm_atomic_helper.h>
++
++#include "dc.h"
++#include "amdgpu.h"
++#include "amdgpu_dm_psr.h"
++#include "amdgpu_dm_crtc.h"
++#include "amdgpu_dm_plane.h"
++#include "amdgpu_dm_trace.h"
++#include "amdgpu_dm_debugfs.h"
++
++void dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc)
++{
++	struct drm_crtc *crtc = &acrtc->base;
++	struct drm_device *dev = crtc->dev;
++	unsigned long flags;
++
++	drm_crtc_handle_vblank(crtc);
++
++	spin_lock_irqsave(&dev->event_lock, flags);
++
++	/* Send completion event for cursor-only commits */
++	if (acrtc->event && acrtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
++		drm_crtc_send_vblank_event(crtc, acrtc->event);
++		drm_crtc_vblank_put(crtc);
++		acrtc->event = NULL;
++	}
++
++	spin_unlock_irqrestore(&dev->event_lock, flags);
++}
++
++bool modeset_required(struct drm_crtc_state *crtc_state,
++			     struct dc_stream_state *new_stream,
++			     struct dc_stream_state *old_stream)
++{
++	return crtc_state->active && drm_atomic_crtc_needs_modeset(crtc_state);
++}
++
++bool amdgpu_dm_vrr_active_irq(struct amdgpu_crtc *acrtc)
++
++{
++	return acrtc->dm_irq_params.freesync_config.state ==
++		       VRR_STATE_ACTIVE_VARIABLE ||
++	       acrtc->dm_irq_params.freesync_config.state ==
++		       VRR_STATE_ACTIVE_FIXED;
++}
++
++int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
++{
++	enum dc_irq_source irq_source;
++	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++	int rc;
++
++	irq_source = IRQ_TYPE_VUPDATE + acrtc->otg_inst;
++
++	rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EBUSY;
++
++	DRM_DEBUG_VBL("crtc %d - vupdate irq %sabling: r=%d\n",
++		      acrtc->crtc_id, enable ? "en" : "dis", rc);
++	return rc;
++}
++
++bool amdgpu_dm_vrr_active(struct dm_crtc_state *dm_state)
++{
++	return dm_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE ||
++	       dm_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
++}
++
++static void vblank_control_worker(struct work_struct *work)
++{
++	struct vblank_control_work *vblank_work =
++		container_of(work, struct vblank_control_work, work);
++	struct amdgpu_display_manager *dm = vblank_work->dm;
++
++	mutex_lock(&dm->dc_lock);
++
++	if (vblank_work->enable)
++		dm->active_vblank_irq_count++;
++	else if (dm->active_vblank_irq_count)
++		dm->active_vblank_irq_count--;
++
++	dc_allow_idle_optimizations(
++		dm->dc, dm->active_vblank_irq_count == 0 ? true : false);
++
++	DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
++
++	/*
++	 * Control PSR based on vblank requirements from OS
++	 *
++	 * If panel supports PSR SU, there's no need to disable PSR when OS is
++	 * submitting fast atomic commits (we infer this by whether the OS
++	 * requests vblank events). Fast atomic commits will simply trigger a
++	 * full-frame-update (FFU); a specific case of selective-update (SU)
++	 * where the SU region is the full hactive*vactive region. See
++	 * fill_dc_dirty_rects().
++	 */
++	if (vblank_work->stream && vblank_work->stream->link) {
++		if (vblank_work->enable) {
++			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
++			    vblank_work->stream->link->psr_settings.psr_allow_active)
++				amdgpu_dm_psr_disable(vblank_work->stream);
++		} else if (vblank_work->stream->link->psr_settings.psr_feature_enabled &&
++			   !vblank_work->stream->link->psr_settings.psr_allow_active &&
++			   vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
++			amdgpu_dm_psr_enable(vblank_work->stream);
++		}
++	}
++
++	mutex_unlock(&dm->dc_lock);
++
++	dc_stream_release(vblank_work->stream);
++
++	kfree(vblank_work);
++}
++
++static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
++{
++	enum dc_irq_source irq_source;
++	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
++	struct amdgpu_display_manager *dm = &adev->dm;
++	struct vblank_control_work *work;
++	int rc = 0;
++
++	if (enable) {
++		/* vblank irq on -> Only need vupdate irq in vrr mode */
++		if (amdgpu_dm_vrr_active(acrtc_state))
++			rc = dm_set_vupdate_irq(crtc, true);
++	} else {
++		/* vblank irq off -> vupdate irq off */
++		rc = dm_set_vupdate_irq(crtc, false);
++	}
++
++	if (rc)
++		return rc;
++
++	irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
++
++	if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
++		return -EBUSY;
++
++	if (amdgpu_in_reset(adev))
++		return 0;
++
++	if (dm->vblank_control_workqueue) {
++		work = kzalloc(sizeof(*work), GFP_ATOMIC);
++		if (!work)
++			return -ENOMEM;
++
++		INIT_WORK(&work->work, vblank_control_worker);
++		work->dm = dm;
++		work->acrtc = acrtc;
++		work->enable = enable;
++
++		if (acrtc_state->stream) {
++			dc_stream_retain(acrtc_state->stream);
++			work->stream = acrtc_state->stream;
++		}
++
++		queue_work(dm->vblank_control_workqueue, &work->work);
++	}
++
++	return 0;
++}
++
++int dm_enable_vblank(struct drm_crtc *crtc)
++{
++	return dm_set_vblank(crtc, true);
++}
++
++void dm_disable_vblank(struct drm_crtc *crtc)
++{
++	dm_set_vblank(crtc, false);
++}
++
++static void dm_crtc_destroy_state(struct drm_crtc *crtc,
++				  struct drm_crtc_state *state)
++{
++	struct dm_crtc_state *cur = to_dm_crtc_state(state);
++
++	/* TODO Destroy dc_stream objects are stream object is flattened */
++	if (cur->stream)
++		dc_stream_release(cur->stream);
++
++
++	__drm_atomic_helper_crtc_destroy_state(state);
++
++
++	kfree(state);
++}
++
++static struct drm_crtc_state *dm_crtc_duplicate_state(struct drm_crtc *crtc)
++{
++	struct dm_crtc_state *state, *cur;
++
++	cur = to_dm_crtc_state(crtc->state);
++
++	if (WARN_ON(!crtc->state))
++		return NULL;
++
++	state = kzalloc(sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return NULL;
++
++	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
++
++	if (cur->stream) {
++		state->stream = cur->stream;
++		dc_stream_retain(state->stream);
++	}
++
++	state->active_planes = cur->active_planes;
++	state->vrr_infopacket = cur->vrr_infopacket;
++	state->abm_level = cur->abm_level;
++	state->vrr_supported = cur->vrr_supported;
++	state->freesync_config = cur->freesync_config;
++	state->cm_has_degamma = cur->cm_has_degamma;
++	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
++	state->mpo_requested = cur->mpo_requested;
++	/* TODO Duplicate dc_stream after objects are stream object is flattened */
++
++	return &state->base;
++}
++
++static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
++{
++	drm_crtc_cleanup(crtc);
++	kfree(crtc);
++}
++
++static void dm_crtc_reset_state(struct drm_crtc *crtc)
++{
++	struct dm_crtc_state *state;
++
++	if (crtc->state)
++		dm_crtc_destroy_state(crtc, crtc->state);
++
++	state = kzalloc(sizeof(*state), GFP_KERNEL);
++	if (WARN_ON(!state))
++		return;
++
++	__drm_atomic_helper_crtc_reset(crtc, &state->base);
++}
++
++#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
++static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
++{
++	crtc_debugfs_init(crtc);
++
++	return 0;
++}
++#endif
++
++/* Implemented only the options currently available for the driver */
++static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
++	.reset = dm_crtc_reset_state,
++	.destroy = amdgpu_dm_crtc_destroy,
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = dm_crtc_duplicate_state,
++	.atomic_destroy_state = dm_crtc_destroy_state,
++	.set_crc_source = amdgpu_dm_crtc_set_crc_source,
++	.verify_crc_source = amdgpu_dm_crtc_verify_crc_source,
++	.get_crc_sources = amdgpu_dm_crtc_get_crc_sources,
++	.get_vblank_counter = amdgpu_get_vblank_counter_kms,
++	.enable_vblank = dm_enable_vblank,
++	.disable_vblank = dm_disable_vblank,
++	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
++#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
++	.late_register = amdgpu_dm_crtc_late_register,
++#endif
++};
++
++static void dm_crtc_helper_disable(struct drm_crtc *crtc)
++{
++}
++
++static int count_crtc_active_planes(struct drm_crtc_state *new_crtc_state)
++{
++	struct drm_atomic_state *state = new_crtc_state->state;
++	struct drm_plane *plane;
++	int num_active = 0;
++
++	drm_for_each_plane_mask(plane, state->dev, new_crtc_state->plane_mask) {
++		struct drm_plane_state *new_plane_state;
++
++		/* Cursor planes are "fake". */
++		if (plane->type == DRM_PLANE_TYPE_CURSOR)
++			continue;
++
++		new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++
++		if (!new_plane_state) {
++			/*
++			 * The plane is enable on the CRTC and hasn't changed
++			 * state. This means that it previously passed
++			 * validation and is therefore enabled.
++			 */
++			num_active += 1;
++			continue;
++		}
++
++		/* We need a framebuffer to be considered enabled. */
++		num_active += (new_plane_state->fb != NULL);
++	}
++
++	return num_active;
++}
++
++static void dm_update_crtc_active_planes(struct drm_crtc *crtc,
++					 struct drm_crtc_state *new_crtc_state)
++{
++	struct dm_crtc_state *dm_new_crtc_state =
++		to_dm_crtc_state(new_crtc_state);
++
++	dm_new_crtc_state->active_planes = 0;
++
++	if (!dm_new_crtc_state->stream)
++		return;
++
++	dm_new_crtc_state->active_planes =
++		count_crtc_active_planes(new_crtc_state);
++}
++
++static bool dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
++				      const struct drm_display_mode *mode,
++				      struct drm_display_mode *adjusted_mode)
++{
++	return true;
++}
++
++static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
++				      struct drm_atomic_state *state)
++{
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
++										crtc);
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++	struct dc *dc = adev->dm.dc;
++	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
++	int ret = -EINVAL;
++
++	trace_amdgpu_dm_crtc_atomic_check(crtc_state);
++
++	dm_update_crtc_active_planes(crtc, crtc_state);
++
++	if (WARN_ON(unlikely(!dm_crtc_state->stream &&
++			modeset_required(crtc_state, NULL, dm_crtc_state->stream)))) {
++		return ret;
++	}
++
++	/*
++	 * We require the primary plane to be enabled whenever the CRTC is, otherwise
++	 * drm_mode_cursor_universal may end up trying to enable the cursor plane while all other
++	 * planes are disabled, which is not supported by the hardware. And there is legacy
++	 * userspace which stops using the HW cursor altogether in response to the resulting EINVAL.
++	 */
++	if (crtc_state->enable &&
++		!(crtc_state->plane_mask & drm_plane_mask(crtc->primary))) {
++		DRM_DEBUG_ATOMIC("Can't enable a CRTC without enabling the primary plane\n");
++		return -EINVAL;
++	}
++
++	/* In some use cases, like reset, no stream is attached */
++	if (!dm_crtc_state->stream)
++		return 0;
++
++	if (dc_validate_stream(dc, dm_crtc_state->stream) == DC_OK)
++		return 0;
++
++	DRM_DEBUG_ATOMIC("Failed DC stream validation\n");
++	return ret;
++}
++
++static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
++	.disable = dm_crtc_helper_disable,
++	.atomic_check = dm_crtc_helper_atomic_check,
++	.mode_fixup = dm_crtc_helper_mode_fixup,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
++};
++
++int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
++			       struct drm_plane *plane,
++			       uint32_t crtc_index)
++{
++	struct amdgpu_crtc *acrtc = NULL;
++	struct drm_plane *cursor_plane;
++
++	int res = -ENOMEM;
++
++	cursor_plane = kzalloc(sizeof(*cursor_plane), GFP_KERNEL);
++	if (!cursor_plane)
++		goto fail;
++
++	cursor_plane->type = DRM_PLANE_TYPE_CURSOR;
++	res = amdgpu_dm_plane_init(dm, cursor_plane, 0, NULL);
++
++	acrtc = kzalloc(sizeof(struct amdgpu_crtc), GFP_KERNEL);
++	if (!acrtc)
++		goto fail;
++
++	res = drm_crtc_init_with_planes(
++			dm->ddev,
++			&acrtc->base,
++			plane,
++			cursor_plane,
++			&amdgpu_dm_crtc_funcs, NULL);
++
++	if (res)
++		goto fail;
++
++	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
++
++	/* Create (reset) the plane state */
++	if (acrtc->base.funcs->reset)
++		acrtc->base.funcs->reset(&acrtc->base);
++
++	acrtc->max_cursor_width = dm->adev->dm.dc->caps.max_cursor_size;
++	acrtc->max_cursor_height = dm->adev->dm.dc->caps.max_cursor_size;
++
++	acrtc->crtc_id = crtc_index;
++	acrtc->base.enabled = false;
++	acrtc->otg_inst = -1;
++
++	dm->adev->mode_info.crtcs[crtc_index] = acrtc;
++	drm_crtc_enable_color_mgmt(&acrtc->base, MAX_COLOR_LUT_ENTRIES,
++				   true, MAX_COLOR_LUT_ENTRIES);
++	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
++
++	return 0;
++
++fail:
++	kfree(acrtc);
++	kfree(cursor_plane);
++	return res;
++}
++
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+new file mode 100644
+index 000000000000..1ac8692354cf
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __AMDGPU_DM_CRTC_H__
++#define __AMDGPU_DM_CRTC_H__
++
++void dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc);
++
++bool modeset_required(struct drm_crtc_state *crtc_state,
++		      struct dc_stream_state *new_stream,
++		      struct dc_stream_state *old_stream);
++
++int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable);
++
++bool amdgpu_dm_vrr_active_irq(struct amdgpu_crtc *acrtc);
++
++bool amdgpu_dm_vrr_active(struct dm_crtc_state *dm_state);
++
++int dm_enable_vblank(struct drm_crtc *crtc);
++
++void dm_disable_vblank(struct drm_crtc *crtc);
++
++int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
++			struct drm_plane *plane,
++			uint32_t link_index);
++
++#endif
++
 -- 
-2.32.0
+2.37.0
 
