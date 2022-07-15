@@ -4,94 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32E1C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0419CCA479
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F150110FC28;
-	Sat, 16 Jul 2022 14:37:36 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1E610E1EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 18:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A2010FC56;
+	Sat, 16 Jul 2022 14:37:37 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ACA910E05A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:15:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kWTXIFcYpXzkNokD+7/N+v7iyI59fLIxCWD/Ctk1ZpdO39BgDetew8cR4mQRWEv9Q764Upq5B1IcoCepdy3ZNqZiT0Mc5qv+cVgL572T+i7EngEHW4O+h7keg2Tpa4bfuKNGlL36QhKE0bsXQTNRzDB8mUF7HtGSf0lCpPCxhWpBy3FdYfvA+McOAUix8nghmXkv7xkA7RVzOxcQD0O3E/QzP/5dOUDlI+30L3iKLGetdmizlyXHIVB4CAAAak1b637hWQmZxAKBGClQldjh1YLItBjQbzCf/JUm7RaFPVw2vETRgdcu/4cvhKuvb8wjgCSvUJksufOKZXR/gvT0JA==
+ b=m4L9WckVCazzhBR7IksAw1/b5ldhuCaPbn4uhcIJ5a2So/w/I4sa3rKJstgm5ZYY8gv5nxUyJQ5GOL93j3tuAZQ6CjhXwZz9a4dTZl3ZzkYYzIHZHLl1p/Z9LU2pkY8DabIeGRVk7cykht+eRp5w4ntti2OmInkBtMOHMbwxGwsG841cnzWzbQAchXlYxkob/om/R5jzye1ETQ//CmXCnqN1gTla4WbfvHGunrVrLBSBLM2Zuwq0vKkXF7p6TMz658bquQB7Sd1HZ1zLY0fiXSRW0cLThOkIns5stQaj0rxLqSAdkx1+xF7UB3SNRFrsDgUm1LxPEcKrw7NYEcSkxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uesMKJNoegovOASyI1CCxR/Te45UmuA+uek2K2epwWI=;
- b=VUaE/lznbV2kv2rY2qbXwiduiOfIGMhZP/5OFzID+AEqch/GKNH2OnT/PVqJ9L3SoftOQDRqrS79J3sdco2g1cRDquXbjaHP1cIQg1XJ3wb8apaRaKGd1i5Qi9FVJWeXeYO6HUUGaXky95ym59M5Zo1UOVTRsJdBCmuv1HatxMjFIu4d4XL0/XATK/U/dlNnxmL5zjXNQXBoTMBGqBX3MdJZKIpd1+DCwMoU+cU8R3qzo5lMorTr7bQgNc3+b/mi2KnhKhx33P+SZ111Dm5EfQoDGcDV0m2juNKxrQc3z0SMcMBro+4Vi3ZCjjBzf/OTdo+7BD5CYZyVNkaugB5D5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Q8iZYP9fU5SdAERyGjMrNDqXelll5MGU4jR2ctYwm8M=;
+ b=TVIE0rI3Gzg3WS6KQ0ML63IckBprhHwwrE/uo2vjs1Kt3fDbmsChWsC3TpV/UljBwV72Bm4Cp7873Pb9kqMCvpKS8JRIK5rtpLOP29yOgbk/lVg4MfydEAZWMvnNkyUbcw6Nqj12B1D3RhfV1jUOsJWFQcRGavGVCowosCyd+ykrtwPZmLLXg7+IMnhBIdFPCy/NDh68cuNWJOgtaJNlRL1Vz31wy8LfixiYAVyY4kh5BwFvUdkP4Kt5S1U3FBNo7okQYoV8oy9tIXKG068zv+OrHLfuDSrT9E4NyKBnoNmDcoAteZ902HiCrEfAFcP7L+ICxytfRTbZ1F4GQmDYOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uesMKJNoegovOASyI1CCxR/Te45UmuA+uek2K2epwWI=;
- b=PGBzmS4gHfRjWjzS6OJnU7Wh6xFhi5jVcVIQU2C2/eVKVJ+1nb8U0iodx4L2myaokEAcxlwYXiPO3TMYvbFRxcscQCQcHCVTbCwPnV8Q+HLwv5HD/WFCxtCBPLUG+mQCxbaCDqWS1/bzfLXLOV9Edhtmw/pIHjenDV9Zd59j3is=
-Received: from MW4P221CA0021.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::26)
- by MWHPR12MB1181.namprd12.prod.outlook.com (2603:10b6:300:e::21) with
+ bh=Q8iZYP9fU5SdAERyGjMrNDqXelll5MGU4jR2ctYwm8M=;
+ b=rZ8ITBhofPCD4kz7yE3w97EI4DBuwXMNWxk5eOVQXdXcPtYhuJ/NeyhiZ2efgxi0L3RSswebvL4uq7JDa3v/IpMuEFB+Govrdzr/RQ1/Ub6RmWvpV6oRnCbhmddxR0IFnkM+ZhArGsdMdrTDvyZisjSoJJwNP/luDc+ztz6udds=
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
+ MWHPR1201MB0207.namprd12.prod.outlook.com (2603:10b6:301:4d::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Fri, 15 Jul
- 2022 18:17:52 +0000
-Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::8a) by MW4P221CA0021.outlook.office365.com
- (2603:10b6:303:8b::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.15 via Frontend
- Transport; Fri, 15 Jul 2022 18:17:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 18:17:52 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 13:17:51 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
- 2022 11:17:50 -0700
-Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Fri, 15 Jul 2022 13:17:50 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 22/31] drm/amd/display: Move phanton stream to FPU code
-Date: Fri, 15 Jul 2022 14:16:56 -0400
-Message-ID: <20220715181705.1030401-23-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bc4b82b3-312a-4bbd-96b6-08da668e54e9
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1181:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eiQBbFuJsY2d9njgvkE6hGVuAyC1eOkJVlZGJ1Amz+7oVl0hmmXqLOjEzWfGLU2YuBhCq0dCwMcDik4qmcailhcQ5wCwCEhitstOptlk6HTAFU6oCa4YsOELKIDhIZUL/vsZv0lR1qvU1gYVu/QDWkI/9Ds0aVb7uCcZt6zdUpY6dP4fZTmYXSZA0OcP4nU/X4oNNkK2Fsxy9gNc3sfY8zWke3xphxPTHsq7ViRokcIaNbmUooU1Hc97+lBuhrVY00u02q1xgdZZmcNOLvaidUl40N4CPuWnwUpZdUHVYbjBFKyQY7dLPrCggmL46GF7kk0pfy+MpeyrnF2uG89xVD7BmfNYWxY9qY7fv/f+lyL0KKSNVh98YOugVhjLmLDhdwbhoRxpLicdws1brN0sk7rnHt4ceYwyKXXArWY4/1adKKtbzY2BFzs8CQ6LiarQiS9coAzCLtpVZUYPZawADwIIFzsXoheAnSr2Xv/weeVIKDMVIJlQkMBehrgsWCLbwGdigVSKUyN7KIZvKnYHs2teMniTAxQB3aWuJ2CtDO2hoo5ijrt57Iyt5LsVbShuEAxs7wvxIAFy6VLHYYoynidleA5vnaEBBkMuTvvlPHIXX4V1fE36SUzvrLKyVWl0/OoPWdXDQUVcBUYuvTrKlbJu0nQxkzctNfkg1e74TLBrGQPXDVMyAMke2bzadAH1W/r1tLfXXIdbf2VqzcQDhnMTABcPeVRqXjlouRyoaUArhhlYlcp+F+AVSgE9cxd/9pSgzLwGJBzUYCRsB9iGYS0YZ5Ma1zqFo8GMEL8ZnAUQO8H4zHaIv7PW0+ZUHLy9OAWFk04JL8r9ku6SJDiFvIndtBS1bxd74AOxrnKL00I=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(396003)(39860400002)(376002)(136003)(40470700004)(36840700001)(46966006)(86362001)(36756003)(426003)(40460700003)(47076005)(336012)(82740400003)(83380400001)(36860700001)(186003)(2616005)(1076003)(26005)(8936002)(5660300002)(41300700001)(478600001)(82310400005)(8676002)(4326008)(356005)(6916009)(54906003)(81166007)(70206006)(2906002)(316002)(70586007)(40480700001)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Fri, 15 Jul
+ 2022 20:15:02 +0000
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::f5d2:bde1:c504:efee]) by DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::f5d2:bde1:c504:efee%6]) with mapi id 15.20.5438.019; Fri, 15 Jul 2022
+ 20:15:02 +0000
+From: "Liu, Leo" <Leo.Liu@amd.com>
+To: "Dong, Ruijing" <Ruijing.Dong@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
+Thread-Topic: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
+Thread-Index: AQHYmIYVFDP9vNlL8EuBYaP5/8/XtK1/3fmA
+Date: Fri, 15 Jul 2022 20:15:02 +0000
+Message-ID: <DM8PR12MB5399302BCB68C0717BE2DD0FE58B9@DM8PR12MB5399.namprd12.prod.outlook.com>
+References: <20220715200410.301438-1-ruijing.dong@amd.com>
+In-Reply-To: <20220715200410.301438-1-ruijing.dong@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=5d97b9f5-52f1-42cf-a519-8452e55b1f34;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-15T20:14:39Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9ccb812f-1745-45e7-a125-08da669eb309
+x-ms-traffictypediagnostic: MWHPR1201MB0207:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DJF2sDfsO1c7T/6LMpPpPJAxqvBFxe+5Mr1rEMmfmf191LoE52z3Oyzdjsz7NRNO/vziQmaprWDcMpMHnXzpnnjHpCp2dnJQT1WGoNt+oTIWHvNxu48XkLi/J+1VJeatEqG6q8tbfsywHQSPjkmujCfWfjE+bEZTv0ZtxsIh7fc1a06NZx0qKNZNK1isCBQJGhxi5QfeNjg07FVcCBKuIMwrXqIlFav1yQaFvmILSHnlEFYYoa0qTS3GbHODyAJVLOXQQZW9UyVQ1s/n5lH/0UIOqO8BqPGQ2VvGTiQ6wvP1gdDgDT3lX9T+tj5gGbS06Ry5eJl/6Hin0HDJXj8CCA/RBD2zO/g0kGt0QoFQAW+gfGZMBJxPdGYjSU1r6ozfIhpDdbVjySHRoFaZpn79OW2jHn/oW4xKts+kQhUMA9mHW31ZewDrZ7Uxcuc5MxekHyg26FbTfXHjqAmHbr9unhdwM9TEPTG7EbMs1xgprg8+V4FW7P6QRHTGIQK5rlKnJEumJUX95lHRSLq8eBEideAHWKc+VjJ3bJOxRUyzS5CK7RoWl4ErmD/EUVzRXHLypBPKycL099Pmx8z9taZCY7G7dqPLb/Yq9IauGdkigpte0/067UEh6l/fnHFSWOJi/4Dg+LytcUrouRtcL6eVdqAc9ZgKXmNsiKP2kEgSS5metXdamB+Ywa1pFB3tKZB0R+x0NPyoUWQwRU981sX8cFQLzvgxCejhzWnOAzUTuXLdQmpWYgu2EVLbWtB50jMs58L/pvpnNiMh+7fm9uMKDA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(396003)(39860400002)(376002)(346002)(136003)(55016003)(38070700005)(2906002)(186003)(966005)(478600001)(38100700002)(316002)(6506007)(53546011)(41300700001)(7696005)(66446008)(9686003)(110136005)(66556008)(5660300002)(83380400001)(71200400001)(26005)(86362001)(66476007)(8676002)(33656002)(64756008)(66946007)(52536014)(4326008)(122000001)(76116006)(8936002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?diB5hOh9qD/wOOGxg5vnUNt0iojPWfNl9t+PRU7vznB5zf2+WBbzJqWllmO5?=
+ =?us-ascii?Q?IZySWnJb9vQJIBKOkV3BqwMT/xiD0zAqd71BoYpAEMcgnrVQ2E1qxnmNwDvg?=
+ =?us-ascii?Q?tTmNKskY+2S1L1UWppiczPwbk4LDD8roc6ivKBClPGgYXUznsIzcH9z8y8lr?=
+ =?us-ascii?Q?7alCfw8ZirnofI/dKBZNwckCRtsBSabRbg3k5owa8n9L8JUG0SRtDjnWNb3P?=
+ =?us-ascii?Q?nCGOAjkbg0X1P7ovDDomjrfaPJAlBurb5cgjDF1AZlfpebKcO8/8gBaA3Jeg?=
+ =?us-ascii?Q?jrcKAzmE5063NmUStVYiICynggm64uYX2+BY8rImKOqDkUwjkOEidzRbBa56?=
+ =?us-ascii?Q?c+TG4hyGMQuZP74o8vrLa5u6v5XmNeOJnhU6AzxLEkI8rWhQvp0YEW8wjfnQ?=
+ =?us-ascii?Q?CNF1kieE2z4nSYP7Rqjwb1Jn0Hx2+Tv1/pkFDM29+r8PynA6UMY0rxTTYMhY?=
+ =?us-ascii?Q?DQL0VBs1qPjmQU7LvdlE/YcMyXKlVjAcw5DilyKkmVcRBoezhfDDOXPinpsJ?=
+ =?us-ascii?Q?T/3wVzlaLjfvmMhOSxD01YLfxQJdj9gPtVGgEGE3botfeftvOkXDcvGiCcOg?=
+ =?us-ascii?Q?H3cFzUbYhZdVW1MgkVJ1SMGQavTYfy6ym3ghc/UNiXymyqnqIY2L99jcmL4N?=
+ =?us-ascii?Q?kqCKpwgAYGlHlw9yUDi71SptaFpZt8pAw0M9s1+unPXwI6bc+Mo+7p1xs9HV?=
+ =?us-ascii?Q?Tf7UKFQb9x+JAaYSiPpLyqNk/nDc0hSF98O4SwTEVaxgWgzlOt5bgCZvpdf/?=
+ =?us-ascii?Q?yxd9DUUift7vB5dv7p6CPGupaXwPItfsFlKDnxOF7HCgxYYVUeuDLs8pvhQW?=
+ =?us-ascii?Q?GCGAAarqzNJ+iqWXzVLn/TzhMPMV0PXUphg8G3K9ygHGk7STyckl58eL7lpD?=
+ =?us-ascii?Q?KBWH9JaBAMKyuWZT87G7i80Ar6jd4UVTxua3z4xgl1EBd7iPyru91gt24wRx?=
+ =?us-ascii?Q?kIIfubgajK0QcM6jQh5uwArmFXaHcEDvgYpIQpeUCdQvFVScjS1uwMr+6OZq?=
+ =?us-ascii?Q?+ZvRrgW8n+W92Cbr674Z7OCLlPizK82LqQzB+LLoOnTmYP+cqfVDEU7bLN2z?=
+ =?us-ascii?Q?qfHcf7XS6M4JeGI/6K0NggdPQ6Sm0O7o8r4WGoF+zaPTJIyDnOe/owAORre3?=
+ =?us-ascii?Q?RXwWp0Q6L4t/+a3XNjIZK95RbcPamday6zGQt6jPlxTKllux1rnoZQWJ/Hsr?=
+ =?us-ascii?Q?uKbargfiX4wc54jtIbgnoG2HIoJZiwershmpH1CQtffteO8ZMH3IBnGPpeUe?=
+ =?us-ascii?Q?DnkrVrZqMOkViljQDPsusIEPXa7gWOHE/WjPGMqOW9AUNBrnh/I5qTNzRos+?=
+ =?us-ascii?Q?ZggwlQCehxs06Xm/f3lssoRd1VCFE2qrN89iVjpU0OSkdOlCQxgDfNdavFbk?=
+ =?us-ascii?Q?Ex+i/cBhWcZNOjP9vwWfxjsBrZVVCrBMbantqLOyu3hlbk4miY5sPaeVj9Ks?=
+ =?us-ascii?Q?BNOeFGN9TmqrqGBQPM3sXnWCmEmQ90mjb0u/A7kkxhbJMX0oJKIEshQ3vF8a?=
+ =?us-ascii?Q?YEoJ/XHtrNzPUis3B749k/wBi6HxC0H5CkV4madj3pWKwoTJgOnm0C3EE8nG?=
+ =?us-ascii?Q?5vFX9vdpAJ/QHAYS+Gc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 18:17:52.0455 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc4b82b3-312a-4bbd-96b6-08da668e54e9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1181
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ccb812f-1745-45e7-a125-08da669eb309
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2022 20:15:02.0340 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Tkk2Zb37J3+huoY40T7wXoyjCl40yHiOAEQP6nsOnwsNmu8kbe23IsIK8x/SSk7y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,241 +123,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit moves phanton FPU stream to dcn32_fpu file.
+[AMD Official Use Only - General]
 
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Leo Liu <leo.liu@amd.com>
+
+-----Original Message-----
+From: Dong, Ruijing <Ruijing.Dong@amd.com>
+Sent: July 15, 2022 4:04 PM
+To: Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop=
+.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.c=
+om>; Dong, Ruijing <Ruijing.Dong@amd.com>
+Subject: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
+
+From VCN4, AMDGPU_HW_IP_VCN_UNIFIED is used to support both encoding and de=
+coding jobs, it re-uses the same queue number of AMDGPU_HW_IP_VCN_ENC.
+
+link: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/245/commits
+
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 89 +------------------
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 84 +++++++++++++++++
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  8 ++
- 3 files changed, 94 insertions(+), 87 deletions(-)
+ include/uapi/drm/amdgpu_drm.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 1c124231b00a..a1bf24ad0787 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1831,93 +1831,6 @@ static void dcn32_enable_phantom_plane(struct dc *dc,
- 	}
- }
- 
--/**
-- * ***************************************************************************************
-- * dcn32_set_phantom_stream_timing: Set timing params for the phantom stream
-- *
-- * Set timing params of the phantom stream based on calculated output from DML.
-- * This function first gets the DML pipe index using the DC pipe index, then
-- * calls into DML (get_subviewport_lines_needed_in_mall) to get the number of
-- * lines required for SubVP MCLK switching and assigns to the phantom stream
-- * accordingly.
-- *
-- * - The number of SubVP lines calculated in DML does not take into account
-- * FW processing delays and required pstate allow width, so we must include
-- * that separately.
-- *
-- * - Set phantom backporch = vstartup of main pipe
-- *
-- * @param [in] dc: current dc state
-- * @param [in] context: new dc state
-- * @param [in] ref_pipe: Main pipe for the phantom stream
-- * @param [in] pipes: DML pipe params
-- * @param [in] pipe_cnt: number of DML pipes
-- * @param [in] dc_pipe_idx: DC pipe index for the main pipe (i.e. ref_pipe)
-- *
-- * @return: void
-- *
-- * ***************************************************************************************
-- */
--static void dcn32_set_phantom_stream_timing(struct dc *dc,
--		struct dc_state *context,
--		struct pipe_ctx *ref_pipe,
--		struct dc_stream_state *phantom_stream,
--		display_e2e_pipe_params_st *pipes,
--		unsigned int pipe_cnt,
--		unsigned int dc_pipe_idx)
--{
--	unsigned int i, pipe_idx;
--	struct pipe_ctx *pipe;
--	uint32_t phantom_vactive, phantom_bp, pstate_width_fw_delay_lines;
--	unsigned int vlevel = context->bw_ctx.dml.vba.VoltageLevel;
--	unsigned int dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
--	unsigned int socclk = context->bw_ctx.dml.vba.SOCCLKPerState[vlevel];
--
--	// Find DML pipe index (pipe_idx) using dc_pipe_idx
--	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
--		pipe = &context->res_ctx.pipe_ctx[i];
--
--		if (!pipe->stream)
--			continue;
--
--		if (i == dc_pipe_idx)
--			break;
--
--		pipe_idx++;
--	}
--
--	// Calculate lines required for pstate allow width and FW processing delays
--	pstate_width_fw_delay_lines = ((double)(dc->caps.subvp_fw_processing_delay_us +
--			dc->caps.subvp_pstate_allow_width_us) / 1000000) *
--			(ref_pipe->stream->timing.pix_clk_100hz * 100) /
--			(double)ref_pipe->stream->timing.h_total;
--
--	// Update clks_cfg for calling into recalculate
--	pipes[0].clks_cfg.voltage = vlevel;
--	pipes[0].clks_cfg.dcfclk_mhz = dcfclk;
--	pipes[0].clks_cfg.socclk_mhz = socclk;
--
--	// DML calculation for MALL region doesn't take into account FW delay
--	// and required pstate allow width for multi-display cases
--	phantom_vactive = get_subviewport_lines_needed_in_mall(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx) +
--				pstate_width_fw_delay_lines;
--
--	// For backporch of phantom pipe, use vstartup of the main pipe
--	phantom_bp = get_vstartup(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
--
--	phantom_stream->dst.y = 0;
--	phantom_stream->dst.height = phantom_vactive;
--	phantom_stream->src.y = 0;
--	phantom_stream->src.height = phantom_vactive;
--
--	phantom_stream->timing.v_addressable = phantom_vactive;
--	phantom_stream->timing.v_front_porch = 1;
--	phantom_stream->timing.v_total = phantom_stream->timing.v_addressable +
--						phantom_stream->timing.v_front_porch +
--						phantom_stream->timing.v_sync_width +
--						phantom_bp;
--}
--
- static struct dc_stream_state *dcn32_enable_phantom_stream(struct dc *dc,
- 		struct dc_state *context,
- 		display_e2e_pipe_params_st *pipes,
-@@ -1939,7 +1852,9 @@ static struct dc_stream_state *dcn32_enable_phantom_stream(struct dc *dc,
- 	memcpy(&phantom_stream->timing, &ref_pipe->stream->timing, sizeof(phantom_stream->timing));
- 	memcpy(&phantom_stream->src, &ref_pipe->stream->src, sizeof(phantom_stream->src));
- 	memcpy(&phantom_stream->dst, &ref_pipe->stream->dst, sizeof(phantom_stream->dst));
-+	DC_FP_START();
- 	dcn32_set_phantom_stream_timing(dc, context, ref_pipe, phantom_stream, pipes, pipe_cnt, dc_pipe_idx);
-+	DC_FP_END();
- 
- 	dc_add_stream_to_ctx(dc, context, phantom_stream);
- 	return phantom_stream;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 4223a9a9dd45..74ccf453349c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -377,3 +377,87 @@ void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
- 	}
- }
- 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h =
+index 18d3246d636e..e268cd3cdb12 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -560,6 +560,12 @@ struct drm_amdgpu_gem_va {
+ #define AMDGPU_HW_IP_UVD_ENC      5
+ #define AMDGPU_HW_IP_VCN_DEC      6
+ #define AMDGPU_HW_IP_VCN_ENC      7
 +/**
-+ * dcn32_set_phantom_stream_timing: Set timing params for the phantom stream
-+ *
-+ * Set timing params of the phantom stream based on calculated output from DML.
-+ * This function first gets the DML pipe index using the DC pipe index, then
-+ * calls into DML (get_subviewport_lines_needed_in_mall) to get the number of
-+ * lines required for SubVP MCLK switching and assigns to the phantom stream
-+ * accordingly.
-+ *
-+ * - The number of SubVP lines calculated in DML does not take into account
-+ * FW processing delays and required pstate allow width, so we must include
-+ * that separately.
-+ *
-+ * - Set phantom backporch = vstartup of main pipe
-+ *
-+ * @dc: current dc state
-+ * @context: new dc state
-+ * @ref_pipe: Main pipe for the phantom stream
-+ * @pipes: DML pipe params
-+ * @pipe_cnt: number of DML pipes
-+ * @dc_pipe_idx: DC pipe index for the main pipe (i.e. ref_pipe)
++ * From VCN4, AMDGPU_HW_IP_VCN_UNIFIED is used to support
++ * both encoding and decoding jobs, it re-uses the same
++ * queue number of AMDGPU_HW_IP_VCN_ENC.
 + */
-+void dcn32_set_phantom_stream_timing(struct dc *dc,
-+				     struct dc_state *context,
-+				     struct pipe_ctx *ref_pipe,
-+				     struct dc_stream_state *phantom_stream,
-+				     display_e2e_pipe_params_st *pipes,
-+				     unsigned int pipe_cnt,
-+				     unsigned int dc_pipe_idx)
-+{
-+	unsigned int i, pipe_idx;
-+	struct pipe_ctx *pipe;
-+	uint32_t phantom_vactive, phantom_bp, pstate_width_fw_delay_lines;
-+	unsigned int vlevel = context->bw_ctx.dml.vba.VoltageLevel;
-+	unsigned int dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
-+	unsigned int socclk = context->bw_ctx.dml.vba.SOCCLKPerState[vlevel];
-+
-+	dc_assert_fp_enabled();
-+
-+	// Find DML pipe index (pipe_idx) using dc_pipe_idx
-+	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
-+		pipe = &context->res_ctx.pipe_ctx[i];
-+
-+		if (!pipe->stream)
-+			continue;
-+
-+		if (i == dc_pipe_idx)
-+			break;
-+
-+		pipe_idx++;
-+	}
-+
-+	// Calculate lines required for pstate allow width and FW processing delays
-+	pstate_width_fw_delay_lines = ((double)(dc->caps.subvp_fw_processing_delay_us +
-+			dc->caps.subvp_pstate_allow_width_us) / 1000000) *
-+			(ref_pipe->stream->timing.pix_clk_100hz * 100) /
-+			(double)ref_pipe->stream->timing.h_total;
-+
-+	// Update clks_cfg for calling into recalculate
-+	pipes[0].clks_cfg.voltage = vlevel;
-+	pipes[0].clks_cfg.dcfclk_mhz = dcfclk;
-+	pipes[0].clks_cfg.socclk_mhz = socclk;
-+
-+	// DML calculation for MALL region doesn't take into account FW delay
-+	// and required pstate allow width for multi-display cases
-+	phantom_vactive = get_subviewport_lines_needed_in_mall(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx) +
-+				pstate_width_fw_delay_lines;
-+
-+	// For backporch of phantom pipe, use vstartup of the main pipe
-+	phantom_bp = get_vstartup(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
-+
-+	phantom_stream->dst.y = 0;
-+	phantom_stream->dst.height = phantom_vactive;
-+	phantom_stream->src.y = 0;
-+	phantom_stream->src.height = phantom_vactive;
-+
-+	phantom_stream->timing.v_addressable = phantom_vactive;
-+	phantom_stream->timing.v_front_porch = 1;
-+	phantom_stream->timing.v_total = phantom_stream->timing.v_addressable +
-+						phantom_stream->timing.v_front_porch +
-+						phantom_stream->timing.v_sync_width +
-+						phantom_bp;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-index 62cb0c1d462c..4abef908dca9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
-@@ -49,4 +49,12 @@ void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *table,
- 				    unsigned int *num_entries,
- 				    struct _vcs_dpi_voltage_scaling_st *entry);
- 
-+void dcn32_set_phantom_stream_timing(struct dc *dc,
-+				     struct dc_state *context,
-+				     struct pipe_ctx *ref_pipe,
-+				     struct dc_stream_state *phantom_stream,
-+				     display_e2e_pipe_params_st *pipes,
-+				     unsigned int pipe_cnt,
-+				     unsigned int dc_pipe_idx);
-+
- #endif
--- 
-2.37.0
++#define AMDGPU_HW_IP_VCN_UNIFIED  AMDGPU_HW_IP_VCN_ENC
+ #define AMDGPU_HW_IP_VCN_JPEG     8
+ #define AMDGPU_HW_IP_NUM          9
+
+--
+2.25.1
 
