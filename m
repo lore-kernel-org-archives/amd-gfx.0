@@ -4,115 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C181C43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 929D4C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2AE10F470;
-	Sat, 16 Jul 2022 14:35:40 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F93C10E0E5
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 15:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD9C10F2F3;
+	Sat, 16 Jul 2022 14:35:38 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F0310E06A;
+ Fri, 15 Jul 2022 15:05:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mEUtl1/Vx9Xj0Ei8lcX2BJAQYwE/6rROuVpEmiz5YOmg9S7Yxy74albDfJB50JBbMr3ti4PDT2ZxBybRx3Oqr8OWUcUbZMA1se+P+uoXwrcXovCKIDEqIUUiUnOIkqV3XxhTs8UOLNLS2RR8txVIJh+CQcms5+ZXWTxsd4NgsDNb9wx6j/xxen2E3SjPh4ta8f/KOCYpPHneM/g224VIylFnih0uLjHoq3aI70neSMhN+i3T7lBeOiEgT9DNOe87LhHTOXNDssFxr5veyXvGNZSyC7i3jIScFiVtlqAgl6bgYzWS/tF6wHVEaKVeRCzHfOEid3nPWULkp45u6UN+LA==
+ b=GnN5Xdgc9ZCNHDOOYHVq3zMkcmhbNrGHEF5RiRIDXi03V1fgPU8RDJ8HFmQ2TF+7CSZUYKEVARvzVmUBH/p0iEioR/7gT3kVhyl+sARKnlQ73L6VQoEqVuf+cu/4nVAgb9qRD1e8I1lVx4OX13BHjSFeDWDq937QSToDZKNmIOrW7ZxQ0YxEiWURNLn6gA+UgPaCmyJb5lcW51wfYWF5nELpy1EsjWCqHiPTf9128zHBCL2xbwHV1IhU02qiyECIGc9MkL2tJMu9z106FYp4VLySV/qiG41nJL/nIOcLJd0nfQ5dQejzcIFiWNJElJE+De7/q3w7+pJmHj1skXTQjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PpdF5S7oo5Uo+4VNBf2z/gzPwwEhr6CqhCvZ2m0AXlo=;
- b=SHOcCbgUP45jFF3at3tnuMiCB5YKtLvoWk90mtmpyBU50aWvAu/Ls9g7Q652Bz8rpZ8Zub8WRiLVjQZY7n03X5qyHwUilw58GS4Wdp1Ti2ro2xc03eEhmFf8isOHo+/m6cgJvMjY5j9qOt0WP99ienE++iO84NirT+D/AhnVZj82IBEw0CC5erdR4dhxzqloXH2A672kKM8FnISoHBi+oBuVUSItN89wbXdNS5mvwAlfsnCJAVSzICT6EKPVgi2Up54IGBFAuY7PxnUU3Nm0/XYu65aj5mLwln0yqajeoycD/Isrmz28Lawcx3OgPnhmeest4NhLIyw7xLxRBOIZEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=FBYoUu7uH3DDQme91+PAxWkWEbnIBTP5UUW8lp9tsk8=;
+ b=nUDK49xDNBg2yDXr8cz5O272U+dgcVmRHJwufi4zSW9WMGsVSKogEBx/ZAqf52zwgciZn7JbQrxkzg/pKEriWkw6WgPGg1J0gu4tO1+cAZECXkLbi1f2ZDHBTBZE/YdNeF7pn4HgWjU3SoLY+A21PKnAfjsRqn57od82spVR8OfrIKb3pdJsXASs18517b1p4Q+Wx/L0uj0eeCVpm+wYUh58iuw/x+CcoAvHurYg9MZoI6gyjlXs+ml+Z8aXxHzQ3N3j/+MAlUyNvrNq97gqD687klHM8mCtsJA9Dvy5mCqbOr7RaxD0jbdQi3SIRUgKvqSdIwQJSHGjy5qP+sLF+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PpdF5S7oo5Uo+4VNBf2z/gzPwwEhr6CqhCvZ2m0AXlo=;
- b=qjG4oh9qkhU60fKvRrOfY24U4Db3vdYRVGprdRa2KlVY7GykHYOGUuoCI1/0M7MEsCcqkraH9EZZGsp12qc0faNYNsyhyPn6POw3hHs7kxuhxKN/dg6YjX4n9ef4cf4ekeePAm67zCYi1sWlz0qT0FeaktuiGnwM4T1A/h5SH7s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by CY4PR12MB1415.namprd12.prod.outlook.com (2603:10b6:903:43::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.14; Fri, 15 Jul
- 2022 15:18:22 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5438.013; Fri, 15 Jul 2022
- 15:18:21 +0000
-Message-ID: <c06f6582-46aa-9abb-5094-f027cf01c1c6@amd.com>
-Date: Fri, 15 Jul 2022 17:18:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v2] drm/amdgpu: add HW_IP_VCN_UNIFIED type
-Content-Language: en-US
-To: Ruijing Dong <ruijing.dong@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220715144453.46786-1-ruijing.dong@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220715144453.46786-1-ruijing.dong@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR04CA0045.eurprd04.prod.outlook.com
- (2603:10a6:20b:f0::22) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=FBYoUu7uH3DDQme91+PAxWkWEbnIBTP5UUW8lp9tsk8=;
+ b=xwp0Whuyu621ottdglPoiwm3tJhPuFqkLa2f82H44Ta0MO8Fn9504YmeQn7bywXNrriCBAR+EYXtGn5c/pv1gtSecbSUImwLORCJlNJAxAreBBB6JouHwsNCCKtkfrbcZpUeZDQIK1L3id45CmjhO9YFc0MvswaWp2nlol0p+mc=
+Received: from DS7P222CA0017.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::26) by
+ BN7PR12MB2660.namprd12.prod.outlook.com (2603:10b6:408:29::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5438.19; Fri, 15 Jul 2022 15:05:50 +0000
+Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::13) by DS7P222CA0017.outlook.office365.com
+ (2603:10b6:8:2e::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12 via Frontend
+ Transport; Fri, 15 Jul 2022 15:05:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Fri, 15 Jul 2022 15:05:49 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 15 Jul
+ 2022 10:05:46 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <jgg@nvidia.com>
+Subject: [PATCH v9 11/14] tools: update hmm-test to support device coherent
+ type
+Date: Fri, 15 Jul 2022 10:05:18 -0500
+Message-ID: <20220715150521.18165-12-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220715150521.18165-1-alex.sierra@amd.com>
+References: <20220715150521.18165-1-alex.sierra@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a00a7f58-c581-4902-10f5-08da667540fb
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1415:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6146424-3dc7-4ed5-52fe-08da66738125
+X-MS-TrafficTypeDiagnostic: BN7PR12MB2660:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TjIx5GsEL90cycfGv7hesZVC7pJqtwL6C5b/6H8mg7vcrOUJG6K3xyUi2iJ+xv6HOJHCC+H4IdYf4mLm+jhKumiVANHfJx0ac4m3EBwxsZzhEE9cyPNettV99WZRxn7EB3GUsu4c8xqpNT24iUxjBPVPj7+PUinGKr47GTRreGaQH0JI/O1vOMy/1HTQui0HUDJKXUtzjSs+Fgyo/77e5gJsgJPNIAzX7GjD8r3RuDEWyK7//v08Kewjv7PxoVDOyS5/kfCrC3NJsgwhb1PHK/JoEhHlWp2QB0Zma9T5NNb0FflUv89mlqLOfIEGyVJxJAGZcp1hZ12hWSHWPF5kU3L4FH2e0b23lwVZ3KKnwgay/f9q1rcu7fylnij++tETub6EiyvjUphlEmEBgN8xtIWHrrx/MSKKPwZDuw/nNue5r61DVxUookbF7OWbV3CksJsz5q4rgFlV7r0Ny80IBlqsM8mflOgW/SVXNmwqdzA8orGm8aeA2/2hjQf/jIz038OzSp5IRBYSSTNl7+rJ8nqE/VwB0gLt9BtDn3Ujmo/gmOg3rcpi1d5s1zlLQoDECoiaVEOZJxnQu0t+DsK0+Zo3rUSNQBAyGQLeRmsxsN7YKQ4Y291od/7kityEYQfUt9QN+dHJ0z53DCjsH540pw0fScrLBZlA+1nQjhCLR+rvd3Bv0RiLENycOZRPY0kBpa40aANKdHrAoigau5hRWyw0ksmhmYTGXz5EajD1lggklwjYuGsKk4/s1O3vF8Wb5Ef0+zrvrNhbW/z20CIIr8aWfxF8qGkUKtZ2EJFAvXA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(186003)(6512007)(966005)(6486002)(5660300002)(8936002)(83380400001)(2906002)(316002)(41300700001)(2616005)(86362001)(31686004)(66476007)(31696002)(66556008)(66946007)(36756003)(4326008)(8676002)(38100700002)(6506007)(478600001)(6666004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: +CD5iilQbPHY7Z05cwIO2+jYU1j/rXmueLFzi9mjfRfp+PF+M9KcntgHMbl6T5a1aUnrszSQnog/pjx7syuhxp+mRr+gZnzb3FPMxuWgsgcKXZoYE1SexjlIuNdory62U2I5Nu0K2lO+VOVdqRtIcBgfnLcvO068SkOzGsnQ1RV+llsFkTbVZULDDz4kEtrfmnJ6PRworG2n3eWhfBxF3cqrkdUTWViZycp1jTgJioocvIsWsE+XBfEFM4jgN9Tv7o6RLi5/hJXJUwev79rQyLmp+Q8XQPEgirRdqLh4ISJeXQr4ZiaBfbZf9QHFoUJN79/Xxzh72bTY4RebcUXLDnWK++rfnKgEOIxA4SM00WpUsFNk+3WrRCXBE4tZ2hoUSgrHSFHBIuTxJ+pFm14HFArqReYVozb6015cRBYc8a2pQiQgU/xjW+Qae/lr3+1gxsCvEtHaGrGN42nC94tcOq2zZxcKD5KYgtJQtYGbpqiR6l27SWT5zNSzSqmtTga+aAb4Q2oNzwMpmL+bToiv/hj4TpTjcyIDIAZDTM4RUJnnl1ZNrekuYoR0WZfqf3fkBMxFr0lpZBiuwiv2Ir91TWJmJEwu9VaF18cXXReq6lTM2NjreH1N3lEIxcdch6E6a+ZN89KOJ34HFZ99ciF2jh77GAmJbVVhEz/t5U82GfHbcKXW0+MXLeaJyY4rkddYWoxJ3MLDmsQ1VJpWUwp/QrG1K3Cszol0tMnoWNMOGZLKVXYzmbSjeSlduxnyuSKDoPYCX5Ecf20/0KZsxSx8mI35vqzFz/FX2Oy5y33e5sFW/d2hJv4oLTtF9SKPY/m4vnvCsTf9YnS5rI9t/JEQLhJ3kAVMRHN1Y6ubnyZuw/s=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(346002)(396003)(376002)(136003)(36840700001)(40470700004)(46966006)(44832011)(7416002)(2616005)(478600001)(47076005)(426003)(336012)(356005)(2906002)(6666004)(7696005)(54906003)(6916009)(316002)(40480700001)(15650500001)(82740400003)(186003)(16526019)(40460700003)(1076003)(41300700001)(4326008)(83380400001)(8676002)(8936002)(70586007)(70206006)(82310400005)(36756003)(26005)(5660300002)(86362001)(81166007)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3NVMkI1LzdvbWl4WGQrWit6U1VtUWxpbkwwS2dOdVlmSmFsMzEzcUV4TDFa?=
- =?utf-8?B?QkZxR1FMSll4dUVXNHpQZ2t1dU5Tb0Rsbk0vTlJoc2xKRHpSWGJ4bjJqU0xV?=
- =?utf-8?B?MGVHVHlFTmR4MVBFem5pVnlCdms0Slhtbmk4Unh0RWI2N0pLeUg5V25vYTVR?=
- =?utf-8?B?LzZEeitMeVFaMW8ySGFORVBJUGlMSURGcE5hSXFQUHBKSE5ZQlg5ZHNMeWZl?=
- =?utf-8?B?S1FldjNsdFZZS2o3UjFxNytWdEdYM3lKait3WldRQlJud0dVTldOd0NiZ1lt?=
- =?utf-8?B?NGxlcXI4L3dWeDltaFMwTHgvUk51ZDRYUGJLWTd6Z1RXaVUzYURqa1RTczAw?=
- =?utf-8?B?ZW05NlRMLzkzbHUwQ2VOVzRCdTBlNlJPaTE1TC9seUZmSlZuRTJPRlRTU1JL?=
- =?utf-8?B?WWxmZ2xDSys2UkduNmdkSTNrUkhVblYrWmR3dnNZd3RoQy9QUTZLRDZoMUlm?=
- =?utf-8?B?R3g3WmN1a21BRmZJZCtOcDdmQWh0OWpuNGtVeUpsNktPMWNoN290TVE1TFBy?=
- =?utf-8?B?UURSOGNPR2tXeGlkUk9DK0lkek84NENwcFE0bHVUMHprS1BaQlVUTWlxaFRN?=
- =?utf-8?B?V0lTTVJMNlVnNTYwTVpoNkdzSndmS0lIYlFVbEliUndrZUhjQnpkWHdoN0Qx?=
- =?utf-8?B?d2QyeDFmMUpXamc3SEYxdGlJRGFPM1RNMjc2WVlVRUNCU2lJSDY2NEUzTGZY?=
- =?utf-8?B?bFZkcHNnUG5LVlVxOHhiVk5NUGdjU3hXT0REVzN1bWV6bC9UQy9lZEZQZmFu?=
- =?utf-8?B?YnVraTZBc2ZUZzdvWXk5aHFxQWUzb1dKUkdBVkJlUjZHSnYzOGFycFNzb3VE?=
- =?utf-8?B?Vjk3ZFpndHF0M2crTDhpMUgydElGcVA2SFhFTkVsOWdCckF3K2RvcEFJangz?=
- =?utf-8?B?R0FRSWJrT1V4QStQbkhNQXRiVzhpN2xnQ0hCSnBlY0ptZDloU2hOZVNtQ0JV?=
- =?utf-8?B?dWk0QmNMNDFNcmNtMUhyUDN2WkpCdUhnRmVLalQ1dnVadlMrMjRNNE9PZ2F2?=
- =?utf-8?B?OGdXaS9aSXYyankya3paY3NCa0JTdzAyZ004MElnRnZUVncyUnNvWUhXdzEw?=
- =?utf-8?B?VW0zdTlSMHpFdmZjaEU2N2dNcGNVa0dWSlVSUmFwak9HV011TzJVQUdicldD?=
- =?utf-8?B?dk1Bb1BON3BOWGN4RzdQNHJpbWEybVA2MkpRRHpJT3lqbHd5RkFNZDBNNE5H?=
- =?utf-8?B?Yit2SDFqbzdrSmtidHZ4dmZ2YWFValJWemprcm5SMTREQ2o5aWRVQTNwOG14?=
- =?utf-8?B?THU2cDRLY0x6NmkrVUN0dEdocHZheVRQNFFjTkkzUzdlU2dpTGZGSmF5WlZP?=
- =?utf-8?B?ZlVtVWVFMW1zdGRFK0ZudmNFZG0weW1oZ3lpeWgvRDBvOGxPWVU4T2pSY3JV?=
- =?utf-8?B?bW5EbGtWQmQ5eVV6MDdtdFp2VUtNUi9FQlZTZzNETGNiV1JxREZtd1B6dTJK?=
- =?utf-8?B?Yk9iR0F5NUcvMWtyZEIyN0RpTVVTbityVUpOTHg5RExsMFpncWZMczRFa2Jr?=
- =?utf-8?B?czEvN2JUTU03VjVsbUtHN0JvWTVEZkI5MUdETlUrLzIyY2FyOHg0RldJdkU0?=
- =?utf-8?B?YnhVaURMWS9mcEFiQ01KMnN3SWE0ZnNkZGp1Vk5SRW9LeUNnaHllMDFPUlZs?=
- =?utf-8?B?MEF6TVg0L0txVW4raGVBZjdrbXRNdit0UXBFeEFkL0Z0eVRIMlRGYThpaUc5?=
- =?utf-8?B?dko0aFQwcGRhRDlnLzhhT1pzeElTcmtjbVAwdXBMamJBSzZFTDdROVZEZUFB?=
- =?utf-8?B?REZPdGdPNGFjWTF6ZDhXcHduckFGaHdGOGlSbFRWb0tZRDdiZzFoRnRiSFBL?=
- =?utf-8?B?K294eFhyQk5YOFBuc2xmTHVXR0daVDErcm9ncTVmY3h2dUdKbTRuV3ZhbkJN?=
- =?utf-8?B?OU5lc0xGbE1pdG5NOUVSa3ZrdW1zSWpwYnovN24wUjIvY25HajNTdmt5SUhX?=
- =?utf-8?B?bXI4ZDZxOWtHVm5KM2grWHp4R0RmOEVKdTNEWHJDWjZHZlMvMHBtL1pwWjlT?=
- =?utf-8?B?QStYbnZWOExzTzJlZGtrdFhsaDcvQ3p0UzZjSnJVcnRzRTFVZGhIQmdQUStM?=
- =?utf-8?B?SmprM0hKOHVWTWhwWVFUODZLVGFsd2E0c3V1bW9KQnRVelRxQ1VwS1RxSlg5?=
- =?utf-8?B?SldoUEpJY3BDUkJPRjNIWnE2bVl0MTFaU3V5UDNmcGRBTVRURGtZVFNyNlVS?=
- =?utf-8?Q?Dte54fjH7YE6X0t91zdb4DfWLiwhOegXTIs37EeemDtY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a00a7f58-c581-4902-10f5-08da667540fb
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:18:21.6248 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2022 15:05:49.9231 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6146424-3dc7-4ed5-52fe-08da66738125
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dD3Ou3h3DcUO25XgCPKKoxTp4ekazDJaO76U/YQPtgDs+JfqLHQWIgvQC2a8DpZU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1415
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,43 +100,301 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, leo.liu@amd.com
+Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
+ Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.07.22 um 16:44 schrieb Ruijing Dong:
-> Define HW_IP_VCN_UNIFIED type the same as HW_IP_VCN_ENC.
->
-> VCN4 support for libdrm needs a new definition for
-> the unified queue, so that it can align to the kernel.
->
-> link: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/245/commits
->
-> Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
-> ---
->   include/uapi/drm/amdgpu_drm.h | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 18d3246d636e..fe33db8441bc 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -560,6 +560,7 @@ struct drm_amdgpu_gem_va {
->   #define AMDGPU_HW_IP_UVD_ENC      5
->   #define AMDGPU_HW_IP_VCN_DEC      6
->   #define AMDGPU_HW_IP_VCN_ENC      7
-> +#define AMDGPU_HW_IP_VCN_UNIFIED  AMDGPU_HW_IP_VCN_ENC
+Test cases such as migrate_fault and migrate_multiple, were modified to
+explicit migrate from device to sys memory without the need of page
+faults, when using device coherent type.
 
-Why exactly do we need a new define for this? Essentially the encode 
-queue is extended with new functionality, isn't it?
+Snapshot test case updated to read memory device type first and based
+on that, get the proper returned results migrate_ping_pong test case
+added to test explicit migration from device to sys memory for both
+private and coherent zone types.
 
-So I think we should just stick to AMDGPU_HW_IP_VCN_ENC and not add an 
-alias for it.
+Helpers to migrate from device to sys memory and vicerversa
+were also added.
 
-Regards,
-Christian.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ tools/testing/selftests/vm/hmm-tests.c | 121 ++++++++++++++++++++-----
+ 1 file changed, 100 insertions(+), 21 deletions(-)
 
->   #define AMDGPU_HW_IP_VCN_JPEG     8
->   #define AMDGPU_HW_IP_NUM          9
->   
+diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
+index 203323967b50..4b547188ec40 100644
+--- a/tools/testing/selftests/vm/hmm-tests.c
++++ b/tools/testing/selftests/vm/hmm-tests.c
+@@ -46,6 +46,13 @@ struct hmm_buffer {
+ 	uint64_t	faults;
+ };
+ 
++enum {
++	HMM_PRIVATE_DEVICE_ONE,
++	HMM_PRIVATE_DEVICE_TWO,
++	HMM_COHERENCE_DEVICE_ONE,
++	HMM_COHERENCE_DEVICE_TWO,
++};
++
+ #define TWOMEG		(1 << 21)
+ #define HMM_BUFFER_SIZE (1024 << 12)
+ #define HMM_PATH_MAX    64
+@@ -60,6 +67,21 @@ FIXTURE(hmm)
+ 	unsigned int	page_shift;
+ };
+ 
++FIXTURE_VARIANT(hmm)
++{
++	int     device_number;
++};
++
++FIXTURE_VARIANT_ADD(hmm, hmm_device_private)
++{
++	.device_number = HMM_PRIVATE_DEVICE_ONE,
++};
++
++FIXTURE_VARIANT_ADD(hmm, hmm_device_coherent)
++{
++	.device_number = HMM_COHERENCE_DEVICE_ONE,
++};
++
+ FIXTURE(hmm2)
+ {
+ 	int		fd0;
+@@ -68,6 +90,24 @@ FIXTURE(hmm2)
+ 	unsigned int	page_shift;
+ };
+ 
++FIXTURE_VARIANT(hmm2)
++{
++	int     device_number0;
++	int     device_number1;
++};
++
++FIXTURE_VARIANT_ADD(hmm2, hmm2_device_private)
++{
++	.device_number0 = HMM_PRIVATE_DEVICE_ONE,
++	.device_number1 = HMM_PRIVATE_DEVICE_TWO,
++};
++
++FIXTURE_VARIANT_ADD(hmm2, hmm2_device_coherent)
++{
++	.device_number0 = HMM_COHERENCE_DEVICE_ONE,
++	.device_number1 = HMM_COHERENCE_DEVICE_TWO,
++};
++
+ static int hmm_open(int unit)
+ {
+ 	char pathname[HMM_PATH_MAX];
+@@ -81,12 +121,19 @@ static int hmm_open(int unit)
+ 	return fd;
+ }
+ 
++static bool hmm_is_coherent_type(int dev_num)
++{
++	return (dev_num >= HMM_COHERENCE_DEVICE_ONE);
++}
++
+ FIXTURE_SETUP(hmm)
+ {
+ 	self->page_size = sysconf(_SC_PAGE_SIZE);
+ 	self->page_shift = ffs(self->page_size) - 1;
+ 
+-	self->fd = hmm_open(0);
++	self->fd = hmm_open(variant->device_number);
++	if (self->fd < 0 && hmm_is_coherent_type(variant->device_number))
++		SKIP(exit(0), "DEVICE_COHERENT not available");
+ 	ASSERT_GE(self->fd, 0);
+ }
+ 
+@@ -95,9 +142,11 @@ FIXTURE_SETUP(hmm2)
+ 	self->page_size = sysconf(_SC_PAGE_SIZE);
+ 	self->page_shift = ffs(self->page_size) - 1;
+ 
+-	self->fd0 = hmm_open(0);
++	self->fd0 = hmm_open(variant->device_number0);
++	if (self->fd0 < 0 && hmm_is_coherent_type(variant->device_number0))
++		SKIP(exit(0), "DEVICE_COHERENT not available");
+ 	ASSERT_GE(self->fd0, 0);
+-	self->fd1 = hmm_open(1);
++	self->fd1 = hmm_open(variant->device_number1);
+ 	ASSERT_GE(self->fd1, 0);
+ }
+ 
+@@ -211,6 +260,20 @@ static void hmm_nanosleep(unsigned int n)
+ 	nanosleep(&t, NULL);
+ }
+ 
++static int hmm_migrate_sys_to_dev(int fd,
++				   struct hmm_buffer *buffer,
++				   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
++}
++
++static int hmm_migrate_dev_to_sys(int fd,
++				   struct hmm_buffer *buffer,
++				   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_SYS, buffer, npages);
++}
++
+ /*
+  * Simple NULL test of device open/close.
+  */
+@@ -875,7 +938,7 @@ TEST_F(hmm, migrate)
+ 		ptr[i] = i;
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -923,7 +986,7 @@ TEST_F(hmm, migrate_fault)
+ 		ptr[i] = i;
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -936,7 +999,7 @@ TEST_F(hmm, migrate_fault)
+ 		ASSERT_EQ(ptr[i], i);
+ 
+ 	/* Migrate memory to the device again. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -976,7 +1039,7 @@ TEST_F(hmm, migrate_shared)
+ 	ASSERT_NE(buffer->ptr, MAP_FAILED);
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, -ENOENT);
+ 
+ 	hmm_buffer_free(buffer);
+@@ -1015,7 +1078,7 @@ TEST_F(hmm2, migrate_mixed)
+ 	p = buffer->ptr;
+ 
+ 	/* Migrating a protected area should be an error. */
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, npages);
+ 	ASSERT_EQ(ret, -EINVAL);
+ 
+ 	/* Punch a hole after the first page address. */
+@@ -1023,7 +1086,7 @@ TEST_F(hmm2, migrate_mixed)
+ 	ASSERT_EQ(ret, 0);
+ 
+ 	/* We expect an error if the vma doesn't cover the range. */
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 3);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 3);
+ 	ASSERT_EQ(ret, -EINVAL);
+ 
+ 	/* Page 2 will be a read-only zero page. */
+@@ -1055,13 +1118,13 @@ TEST_F(hmm2, migrate_mixed)
+ 
+ 	/* Now try to migrate pages 2-5 to device 1. */
+ 	buffer->ptr = p + 2 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 4);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 4);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 4);
+ 
+ 	/* Page 5 won't be migrated to device 0 because it's on device 1. */
+ 	buffer->ptr = p + 5 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
+ 	ASSERT_EQ(ret, -ENOENT);
+ 	buffer->ptr = p;
+ 
+@@ -1070,8 +1133,12 @@ TEST_F(hmm2, migrate_mixed)
+ }
+ 
+ /*
+- * Migrate anonymous memory to device private memory and fault it back to system
+- * memory multiple times.
++ * Migrate anonymous memory to device memory and back to system memory
++ * multiple times. In case of private zone configuration, this is done
++ * through fault pages accessed by CPU. In case of coherent zone configuration,
++ * the pages from the device should be explicitly migrated back to system memory.
++ * The reason is Coherent device zone has coherent access by CPU, therefore
++ * it will not generate any page fault.
+  */
+ TEST_F(hmm, migrate_multiple)
+ {
+@@ -1107,8 +1174,7 @@ TEST_F(hmm, migrate_multiple)
+ 			ptr[i] = i;
+ 
+ 		/* Migrate memory to device. */
+-		ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer,
+-				      npages);
++		ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 		ASSERT_EQ(ret, 0);
+ 		ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -1116,7 +1182,13 @@ TEST_F(hmm, migrate_multiple)
+ 		for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
+ 			ASSERT_EQ(ptr[i], i);
+ 
+-		/* Fault pages back to system memory and check them. */
++		/* Migrate back to system memory and check them. */
++		if (hmm_is_coherent_type(variant->device_number)) {
++			ret = hmm_migrate_dev_to_sys(self->fd, buffer, npages);
++			ASSERT_EQ(ret, 0);
++			ASSERT_EQ(buffer->cpages, npages);
++		}
++
+ 		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
+ 			ASSERT_EQ(ptr[i], i);
+ 
+@@ -1354,13 +1426,13 @@ TEST_F(hmm2, snapshot)
+ 
+ 	/* Page 5 will be migrated to device 0. */
+ 	buffer->ptr = p + 5 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 1);
+ 
+ 	/* Page 6 will be migrated to device 1. */
+ 	buffer->ptr = p + 6 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 1);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 1);
+ 
+@@ -1377,9 +1449,16 @@ TEST_F(hmm2, snapshot)
+ 	ASSERT_EQ(m[2], HMM_DMIRROR_PROT_ZERO | HMM_DMIRROR_PROT_READ);
+ 	ASSERT_EQ(m[3], HMM_DMIRROR_PROT_READ);
+ 	ASSERT_EQ(m[4], HMM_DMIRROR_PROT_WRITE);
+-	ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
+-			HMM_DMIRROR_PROT_WRITE);
+-	ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
++	if (!hmm_is_coherent_type(variant->device_number0)) {
++		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
++				HMM_DMIRROR_PROT_WRITE);
++		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
++	} else {
++		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_COHERENT_LOCAL |
++				HMM_DMIRROR_PROT_WRITE);
++		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_DEV_COHERENT_REMOTE |
++				HMM_DMIRROR_PROT_WRITE);
++	}
+ 
+ 	hmm_buffer_free(buffer);
+ }
+-- 
+2.32.0
 
