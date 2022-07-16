@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F284CC43334
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 19:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE962C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 22:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB2610E0E0;
-	Sat, 16 Jul 2022 19:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F79310F63F;
+	Sat, 16 Jul 2022 22:25:46 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9CC410E0E0;
- Sat, 16 Jul 2022 19:52:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C03B210EE28;
+ Sat, 16 Jul 2022 22:25:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
@@ -19,24 +19,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
  In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=6ppoxgdipskmmbW5jBQLibvHxWKVt7t/b+tu2ackF68=; b=JojGInDTU8Kz2yjwVlXOw9Vk/v
- Yig/L9s04sffB8MI0oyjtD+QmyeKUehMumRKeAg4P1zYD3kEbBCQdB7IPKCpsB5FYnhmwkvYb3YbQ
- 0d9lnytUjUC8FxlpjQlDRs5wr9Ny1g459ncScbi9pCa5L/CNnxGRWFlAeuy/ACqr3vVZbPM6+tGAm
- KiXJglgq75FjYuvSTx0DtZj9zAwSvOydUKlRSOsIinvGr5kU1PObtkapIjeqmm83TvheIVMBHV+SA
- YRusFDvkAhP8lZ6A8l2x6Vlq6Oog22J4dBqqTRV+eDsVLAMsND73XjxF7lgml2MEL0QxNfAGt16pI
- dFDfnBjg==;
+ bh=PMs68WYNHJhkS1kcL7j8c65He4Lc5Yr6NcHeOzGMwok=; b=WAaZAKFbCqOjMCMCR7o1WiKjO8
+ zE26eq3kCQDj5UBRHvNzAraxlBNtu6GZr0EYvdq1b6tjYvnRHToX/HDoxj1r95wZmH6LljHsoUwE0
+ G1xvoaMKQHfNXIihUTWuW4Wj2c9q7zJu6+OFfP2XAEAQups4MnS2kg4tY2RMUnrJ+wMaHfMY4DEgs
+ BnAYOIgjdP91Hu8lwVBgjyX2jLriF45u6FMhEpckNN0PFpAWEYKphWFQK/zElMzH2s5iWEcTwYuWN
+ 9oLp+3cYAnkzV3jF9E0/enx0rcYeXn5RDlFI142s+WsW1PgOFj5DYVaCXtxUiBsJ818Xc/GhxytVj
+ Kjg6pPiw==;
 Received: from [165.90.126.25] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oCnpt-001zN4-32; Sat, 16 Jul 2022 21:52:21 +0200
+ id 1oCqEG-00274N-Js; Sun, 17 Jul 2022 00:25:40 +0200
 From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH] drm/amd/display: move dcn31_update_soc_for_wm_a func to dml
- fpu folder
-Date: Sat, 16 Jul 2022 18:51:44 -0100
-Message-Id: <20220716195144.342960-1-mwen@igalia.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com
+Subject: [PATCH 0/4] Documentation/amdgpu/display: describe color and blend
+ mode properties mapping
+Date: Sat, 16 Jul 2022 21:25:25 -0100
+Message-Id: <20220716222529.421115-1-mwen@igalia.com>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -51,90 +50,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Melissa Wen <mwen@igalia.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- linux-kernel@vger.kernel.org
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ nicholas.kazlauskas@amd.com, amd-gfx@lists.freedesktop.org,
+ sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Although dcn31_update_soc_for_wm_a() is only called in dml/dcn31/dcn31_fpu by
-dc->res_pool->funcs->update_soc_for_wm_a(dc, context), it's declared in
-dcn31_resource that is not FPU protected. Move this function to dcn31_fpu
-file as part of the work to isolate FPU code.
+Patches 1 and 2 describe DM mapping of DRM color correction properties
+to DC interface and where detached from 3D LUT RFC series [1]. Patches 3
+and 4 describe MPC block programming that matches the three DRM blend
+modes and came from previous work [2][3] and discussions on AMD issue
+tracker. Let me know any misleading information.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 9 ---------
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h | 1 -
- drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 9 +++++++++
- drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  | 2 ++
- 4 files changed, 11 insertions(+), 10 deletions(-)
+[1] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.com/
+[2] https://lore.kernel.org/amd-gfx/20220329201835.2393141-1-mwen@igalia.com/
+[3] https://lore.kernel.org/amd-gfx/7a95d6a4-bc2f-b0e8-83f8-8cc5b75599f2@amd.com/
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index 16bbccc69fdc..17c776e88514 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -1716,15 +1716,6 @@ int dcn31_populate_dml_pipes_from_context(
- 	return pipe_cnt;
- }
- 
--void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
--{
--	if (dc->clk_mgr->bw_params->wm_table.entries[WM_A].valid) {
--		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].pstate_latency_us;
--		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_enter_plus_exit_time_us;
--		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_exit_time_us;
--	}
--}
--
- void dcn31_calculate_wm_and_dlg(
- 		struct dc *dc, struct dc_state *context,
- 		display_e2e_pipe_params_st *pipes,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
-index 393458015d6a..41f8ec99da6b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
-@@ -59,7 +59,6 @@ dcn31_set_mcif_arb_params(struct dc *dc,
- 			  struct dc_state *context,
- 			  display_e2e_pipe_params_st *pipes,
- 			  int pipe_cnt);
--void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context);
- 
- struct resource_pool *dcn31_create_resource_pool(
- 		const struct dc_init_data *init_data,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index 7be3476989ce..facac3daeaca 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -435,6 +435,15 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc = {
- 	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
- };
- 
-+void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
-+{
-+	if (dc->clk_mgr->bw_params->wm_table.entries[WM_A].valid) {
-+		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].pstate_latency_us;
-+		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_enter_plus_exit_time_us;
-+		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_exit_time_us;
-+	}
-+}
-+
- void dcn31_calculate_wm_and_dlg_fp(
- 		struct dc *dc, struct dc_state *context,
- 		display_e2e_pipe_params_st *pipes,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-index 24ac19c83687..0a10de80c1a4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-@@ -31,6 +31,8 @@
- #define DCN3_15_MIN_COMPBUF_SIZE_KB 128
- #define DCN3_16_DEFAULT_DET_SIZE 192
- 
-+void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context);
-+
- void dcn31_calculate_wm_and_dlg_fp(
- 		struct dc *dc, struct dc_state *context,
- 		display_e2e_pipe_params_st *pipes,
+Melissa Wen (4):
+  Documentation/amdgpu_dm: Add DM color correction documentation
+  Documentation/amdgpu/display: add DC color caps info
+  drm/amd/display: add doc entries for MPC blending configuration
+  Documentation/gpu/amdgpu/amdgpu_dm: add DM docs for pixel blend mode
+
+ .../amdgpu/display/dcn2_cm_drm_current.svg    | 1370 +++++++++++++++
+ .../amdgpu/display/dcn3_cm_drm_current.svg    | 1529 +++++++++++++++++
+ .../gpu/amdgpu/display/display-manager.rst    |  142 ++
+ Documentation/gpu/drm-kms.rst                 |    2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  121 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   74 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |   91 +-
+ 7 files changed, 3270 insertions(+), 59 deletions(-)
+ create mode 100644 Documentation/gpu/amdgpu/display/dcn2_cm_drm_current.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/dcn3_cm_drm_current.svg
+
 -- 
 2.35.1
 
