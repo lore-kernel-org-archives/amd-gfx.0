@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB83DC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594E3C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25263A9C9F;
-	Mon, 18 Jul 2022 06:38:42 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BB3A9CC6;
- Mon, 18 Jul 2022 06:38:38 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id n7so8530162ioo.7;
- Sun, 17 Jul 2022 23:38:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B63CDA9D12;
+	Mon, 18 Jul 2022 06:38:52 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C87A9C97;
+ Mon, 18 Jul 2022 06:38:33 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id h145so8530267iof.9;
+ Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4dDgtpEw8MKBMS31pj2gEm6m+ax4+WVBkcmAcIHRbQQ=;
- b=M+I5IKt/NHWduA4uX6HcHdZUMM7aL66QEQ9JUMrhNOQnXcU7Luu9mqxnD+nEZQFwER
- 7CJETz0l1sdEFopbFbgb2kh1qJyVsc8CuHKF4LEu55a0p6pyFvGqAmeWtYtT6YhFYt5o
- /pp+BWmK7O86IG/LRNLh8CGF1/zoY8qiMBKsw5ukZbAtY/d3GRCjpVYkQdywAS1Kx17Z
- xMh3oWrJEuAFb2UkSlbSyQkfaGQapN00/TV5s/Oa2YQVMUnq5kTTsWMMnGH5kG7lH2VI
- QqlXy4b44kPytfonMcelTcqdjs/6UvRnXpW4WYV5w4AGBYHCHvBGwSL8HjtjhXyTaGy2
- OLMw==
+ bh=qHCsllpYuf8vvnWucr6BFoiX98frrfaryjZSZIrR9Cs=;
+ b=dQtYjZH7Y2ktn7swRpXpFp1VJ/8uRWkuq6/eS2C6+q5+u4vgNMMmgrZccBqhGy0ZsB
+ hEa5z71H7E0JwYXd/xV4JEs7CrplwktTJBOgFnBH1g37QNsGkEOme0S6X+ob6JyuxUUO
+ 1JHPJ21+T+FYllFHh2NeXuHn2SgZfXqoY9FlffcKfyEu9Q0M4QrGqVQ4TqoU+kJdVM3B
+ XDH8zTa0N1eS1S9c90ulcwygf5EE5VdMvbM7MuH+Hyoj4gmTFa5BwlVJMR7qs9aaMR+u
+ Er0oI7UrvZWm/nMtXVLBEKXRyjttBudUgXTzeURQkQ5ay5P/ypgO/uDwEaCig9d1H+wJ
+ aeMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4dDgtpEw8MKBMS31pj2gEm6m+ax4+WVBkcmAcIHRbQQ=;
- b=OD6Ed1U3P8KwbgZZ8P42kT8e3OelVA5tRxa7jy7v1WrLryYS7o8lWSaETGnpF8hlmw
- TDUEKQcJoyWpOE8WYOYGEOZ0dJcmNMZZC2ibvDIKhVEO2tx8fRIC8b/OgMqSBckuBGQH
- kMboAhQ7HctuoFTZpMxwpDPGQ06Y8LZLfFkmBYtoJbKlvYQ9vnM08HX7HU1VqNnUg4U5
- dMh85AJR4kJZJWbk5VdQ0dsR/p0qqukuFd9u/H455AV1imsCvKvdbVUBMClNRDjOtEdv
- dA4A5Wi7mNrzZOqUFgjR9mxnnAmFt/UKWnID7yz/F4b+UW316S3Q7Em1zD+zN8uoPtmg
- MvBA==
-X-Gm-Message-State: AJIora94A/zxoK4CUx0SjpDZYF2DUK/3bQJaTazmd7YLd1blJI+smKZw
- NsJWunmDqenuOuDdtJLkmtNuw5dl0Pk=
-X-Google-Smtp-Source: AGRyM1utggbi9jTJm0AEr8LHih4RXvISMQdr+q/8EkwlAMRaUHMXM8ZzC3yqeUR5RMfGoeN2L/DYTA==
-X-Received: by 2002:a05:6638:25c4:b0:341:4c88:bd11 with SMTP id
- u4-20020a05663825c400b003414c88bd11mr7482127jat.190.1658126317725; 
- Sun, 17 Jul 2022 23:38:37 -0700 (PDT)
+ bh=qHCsllpYuf8vvnWucr6BFoiX98frrfaryjZSZIrR9Cs=;
+ b=IyzqDuFvKAImgdrQLUaCumpXEKW/YGf2Z5O5atyhtLl5nK0IzjJx3kjwSKUm5y9IvZ
+ X9nYEebtpE6GG0lB8PcDzbeRxVgzSU8OZrLcgncHYcgBSAFI+4p9+50iLyeQ/BmdERyy
+ QffUshjZL8R7LCjwKgkv59UHeZzCqGJngv/jLHa8T9O8wXzsSAaa64Aswb2CYjpfjJfp
+ 10IlHOv8mdJ+zWV3gXOrEdK2pInQc5DNwHJmQn51/ZdwgMThzyLa+ZBcSWJuJ8onfNBy
+ 7X01ih5KegH17QrXzB/b46ERpB2NrxYpoh25jI3spowGiPEfTZa0Cw2VX0SLvXbnhnxT
+ ws1A==
+X-Gm-Message-State: AJIora8Z54w45paqjlJC5RysfrmSWi56IXwUU7OJxVz67NFxGxLJqF+r
+ pyuAhAc1KZJPPFDBNT5GXdY=
+X-Google-Smtp-Source: AGRyM1vusRCgpjeqybiE9EOKodXaTWV9mkaIog+GJtzdXZccoEZoM7R9aJLeURhYqLEm5WyV9m9i3Q==
+X-Received: by 2002:a6b:5915:0:b0:67b:dbd6:3e04 with SMTP id
+ n21-20020a6b5915000000b0067bdbd63e04mr7371656iob.8.1658126312659; 
+ Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.36
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:37 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 17/41] dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
-Date: Mon, 18 Jul 2022 00:36:01 -0600
-Message-Id: <20220718063641.9179-18-jim.cromie@gmail.com>
+Subject: [PATCH v3 13/41] kernel/module: add __dyndbg_classes section
+Date: Mon, 18 Jul 2022 00:35:57 -0600
+Message-Id: <20220718063641.9179-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -74,225 +74,218 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Demonstrate use of DECLARE_DYNDBG_CLASSMAP macro, and expose them as
-sysfs-nodes for testing.
+Like existing sections, particularly __dyndbg, this new one is an
+array/address and its length.  In a close imitation of __dyndbg
+handling, these are defined, then passed around, as follows:
 
-For each of the 4 class-map-types:
+vmlinux.lds.h:
 
-  - declare a class-map of that type,
-  - declare the enum corresponding to those class-names
-  - share _base across 0..30 range
-  - add a __pr_debug_cls() call for each class-name
-  - declare 2 sysnodes for each class-map
-    for 'p' flag, and future 'T' flag
+KEEP the new section, which also silences orphan section warning on
+loadable modules.  Add (__start_/__stop_)__dyndbg_classes linker
+symbols for the c externs (below).
 
-These declarations create the following sysfs parameter interface:
+kernel/module/internal.h:
+- add new fields for classes,length to struct load_info,
 
-  :> pwd
-  /sys/module/test_dynamic_debug/parameters
-  :> ls
-  T_disjoint  T_levels  T_symbolic  T_verbosity  do_prints
-  p_disjoint  p_levels  p_symbolic  p_verbosity
+kernel/module.c:
+- fill new fields in find_module_sections(), using section_objs()
+- extend callchain prototypes
+  to pass classes, length
+  load_module(): pass new info to dynamic_debug_setup()
+  dynamic_debug_setup(): new params, pass through to ddebug_add_module()
 
-NOTES:
+dynamic_debug.c:
+- add externs to the linker symbols.
 
-The local wrapper macro is an api candidate, but there are already too
-many parameters.  OTOH, maybe related enum should be in there too,
-since it has _base inter-dependencies.
+ddebug_add_module(): add params for classes, length.
+- It currently builds a debug_table, and *will* find and attach classes.
 
-The T_* params control the (future) T flag on the same class'd
-pr_debug callsites as their p* counterparts.  Using them will fail,
-until the dyndbg-trace patches are added in.
-
-:#> echo 1 > T_disjoint
-[   28.792489] dyndbg: disjoint: 0x1 > test_dynamic_debug.T_D2
-[   28.793848] dyndbg: query 0: "class D2_CORE +T" mod:*
-[   28.795086] dyndbg: split into words: "class" "D2_CORE" "+T"
-[   28.796467] dyndbg: op='+'
-[   28.797148] dyndbg: unknown flag 'T'
-[   28.798021] dyndbg: flags parse failed
-[   28.798947] dyndbg: processed 1 queries, with 0 matches, 1 errs
-[   28.800378] dyndbg: bit_0: -22 matches on class: D2_CORE -> 0x1
-[   28.801959] dyndbg: test_dynamic_debug.T_D2: updated 0x0 -> 0x1
-[   28.803974] dyndbg: total matches: -22
+dynamic_debug_init(): compute num_classes from linker symbols, and add
+new _start, num_classes params to ddebug_add_module() calls.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 125 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 110 insertions(+), 15 deletions(-)
+ include/asm-generic/vmlinux.lds.h |  3 +++
+ include/linux/dynamic_debug.h     |  9 ++++++---
+ kernel/module/internal.h          |  2 ++
+ kernel/module/main.c              | 10 +++++++---
+ lib/dynamic_debug.c               | 22 ++++++++++++++++------
+ 5 files changed, 34 insertions(+), 12 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index ba3882ca3e48..eac85e4e996a 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -10,57 +10,152 @@
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 7515a465ec03..9b8bd5504ad9 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -345,6 +345,9 @@
+ 	*(__tracepoints)						\
+ 	/* implement dynamic printk debug */				\
+ 	. = ALIGN(8);							\
++	__start___dyndbg_classes = .;					\
++	KEEP(*(__dyndbg_classes))					\
++	__stop___dyndbg_classes = .;					\
+ 	__start___dyndbg = .;						\
+ 	KEEP(*(__dyndbg))						\
+ 	__stop___dyndbg = .;						\
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 84e97cd0e8c4..f57076e02767 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -115,8 +115,10 @@ struct ddebug_class_map {
  
- #include <linux/module.h>
+ #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
  
--static void do_prints(void); /* device under test */
--
--/* run tests by reading or writing sysfs node */
-+/* run tests by reading or writing sysfs node: do_prints */
+-int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+-				const char *modname);
++int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
++		      struct ddebug_class_map *classes, unsigned int num_classes,
++		      const char *modname);
++
+ extern int ddebug_remove_module(const char *mod_name);
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+@@ -285,7 +287,8 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ #include <linux/errno.h>
+ #include <linux/printk.h>
  
-+static void do_prints(void); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
+-static inline int ddebug_add_module(struct _ddebug *tab, unsigned int n,
++static inline int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
++				    struct ddebug_class_map *classes, unsigned int num_classes,
+ 				    const char *modname)
  {
- 	do_prints();
  	return 0;
- }
--
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
- 	do_prints();
- 	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
- }
--
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
- 	.get = param_get_do_prints,
- };
--
- module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
- 
--static void do_alpha(void)
-+/*
-+ * Using the CLASSMAP api:
-+ * - classmaps must have corresponding enum
-+ * - enum symbols must match/correlate with class-name strings in the map.
-+ * - base must equal enum's 1st value
-+ * - multiple maps must set their base to share the 0-30 class_id space !!
-+ *   (build-bug-on tips welcome)
-+ * Additionally, here:
-+ * - tie together sysname, mapname, bitsname, flagsname
-+ */
-+#define DD_SYS_WRAP(_model, _flags)					\
-+	static unsigned long bits_##_model;				\
-+	static struct ddebug_classes_bitmap_param _flags##_model = {	\
-+		.bits = &bits_##_model,					\
-+		.flags = #_flags,					\
-+		.map = &map_##_model,					\
-+	};								\
-+	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
-+
-+/* numeric input, independent bits */
-+enum cat_disjoint {
-+	D2_CORE = 0,
-+	D2_DRIVER,
-+	D2_KMS,
-+	D2_PRIME,
-+	D2_ATOMIC,
-+	D2_VBL,
-+	D2_STATE,
-+	D2_LEASE,
-+	D2_DP,
-+	D2_DRMRES };
-+DECLARE_DYNDBG_CLASSMAP(map_disjoint, DD_CLASS_TYPE_DISJOINT, 0,
-+			"D2_CORE",
-+			"D2_DRIVER",
-+			"D2_KMS",
-+			"D2_PRIME",
-+			"D2_ATOMIC",
-+			"D2_VBL",
-+			"D2_STATE",
-+			"D2_LEASE",
-+			"D2_DP",
-+			"D2_DRMRES");
-+DD_SYS_WRAP(disjoint, p);
-+DD_SYS_WRAP(disjoint, T);
-+
-+/* symbolic input, independent bits */
-+enum cat_symbolic { LOW = 11, MID, HI };
-+DECLARE_DYNDBG_CLASSMAP(map_symbolic, DD_CLASS_TYPE_SYMBOLIC, 10,
-+			"LOW", "MID", "HI");
-+DD_SYS_WRAP(symbolic, p);
-+DD_SYS_WRAP(symbolic, T);
-+
-+/* numeric verbosity, V2 > V1 related */
-+enum cat_verbosity { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
-+DECLARE_DYNDBG_CLASSMAP(map_verbosity, DD_CLASS_TYPE_VERBOSE, 14,
-+		       "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7");
-+DD_SYS_WRAP(verbosity, p);
-+DD_SYS_WRAP(verbosity, T);
-+
-+/* symbolic verbosity */
-+enum cat_levels { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
-+DECLARE_DYNDBG_CLASSMAP(map_levels, DD_CLASS_TYPE_LEVELS, 22,
-+			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
-+DD_SYS_WRAP(levels, p);
-+DD_SYS_WRAP(levels, T);
-+
-+/* stand-in for all pr_debug etc */
-+#define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
-+
-+static void do_cats(void)
- {
--	pr_debug("do alpha\n");
-+	pr_debug("doing categories\n");
-+
-+	prdbg(LOW);
-+	prdbg(MID);
-+	prdbg(HI);
-+
-+	prdbg(D2_CORE);
-+	prdbg(D2_DRIVER);
-+	prdbg(D2_KMS);
-+	prdbg(D2_PRIME);
-+	prdbg(D2_ATOMIC);
-+	prdbg(D2_VBL);
-+	prdbg(D2_STATE);
-+	prdbg(D2_LEASE);
-+	prdbg(D2_DP);
-+	prdbg(D2_DRMRES);
- }
--static void do_beta(void)
-+
-+static void do_levels(void)
- {
--	pr_debug("do beta\n");
-+	pr_debug("doing levels\n");
-+
-+	prdbg(V1);
-+	prdbg(V2);
-+	prdbg(V3);
-+	prdbg(V4);
-+	prdbg(V5);
-+	prdbg(V6);
-+	prdbg(V7);
-+
-+	prdbg(L1);
-+	prdbg(L2);
-+	prdbg(L3);
-+	prdbg(L4);
-+	prdbg(L5);
-+	prdbg(L6);
-+	prdbg(L7);
+diff --git a/kernel/module/internal.h b/kernel/module/internal.h
+index bc5507ab8450..02601dfe452b 100644
+--- a/kernel/module/internal.h
++++ b/kernel/module/internal.h
+@@ -60,7 +60,9 @@ struct load_info {
+ 	char *secstrings, *strtab;
+ 	unsigned long symoffs, stroffs, init_typeoffs, core_typeoffs;
+ 	struct _ddebug *debug;
++	struct ddebug_class_map *debug_classes;
+ 	unsigned int num_debug;
++	unsigned int num_debug_classes;
+ 	bool sig_ok;
+ #ifdef CONFIG_KALLSYMS
+ 	unsigned long mod_kallsyms_init_off;
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index fed58d30725d..0f8e888908df 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -1593,11 +1593,12 @@ static void free_modinfo(struct module *mod)
+ 	}
  }
  
- static void do_prints(void)
+-static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num)
++static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num,
++				struct ddebug_class_map *classes, unsigned int num_classes)
  {
--	do_alpha();
--	do_beta();
-+	do_cats();
-+	do_levels();
+ 	if (!debug)
+ 		return;
+-	ddebug_add_module(debug, num, mod->name);
++	ddebug_add_module(debug, num, classes, num_classes, mod->name);
  }
  
- static int __init test_dynamic_debug_init(void)
+ static void dynamic_debug_remove(struct module *mod, struct _ddebug *debug)
+@@ -2093,6 +2094,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
+ 	if (section_addr(info, "__obsparm"))
+ 		pr_warn("%s: Ignoring obsolete parameters\n", mod->name);
+ 
++	info->debug_classes = section_objs(info, "__dyndbg_classes",
++				   sizeof(*info->debug_classes), &info->num_debug_classes);
+ 	info->debug = section_objs(info, "__dyndbg",
+ 				   sizeof(*info->debug), &info->num_debug);
+ 
+@@ -2783,7 +2786,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
+ 	}
+ 
+ 	init_build_id(mod, info);
+-	dynamic_debug_setup(mod, info->debug, info->num_debug);
++	dynamic_debug_setup(mod, info->debug, info->num_debug,
++			    info->debug_classes, info->num_debug_classes);
+ 
+ 	/* Ftrace init must be called in the MODULE_STATE_UNFORMED state */
+ 	ftrace_module_init(mod);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index e96dc216463b..b6d80ba25bf5 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -41,6 +41,8 @@
+ 
+ extern struct _ddebug __start___dyndbg[];
+ extern struct _ddebug __stop___dyndbg[];
++extern struct ddebug_class_map __start___dyndbg_classes[];
++extern struct ddebug_class_map __stop___dyndbg_classes[];
+ 
+ struct ddebug_table {
+ 	struct list_head link;
+@@ -923,8 +925,9 @@ static const struct proc_ops proc_fops = {
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+  */
+-int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+-			     const char *name)
++int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
++		      struct ddebug_class_map *classes, unsigned int num_classes,
++		      const char *name)
  {
- 	pr_debug("init start\n");
--
- 	do_prints();
--
- 	pr_debug("init done\n");
+ 	struct ddebug_table *dt;
+ 
+@@ -940,14 +943,14 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+ 	 * this struct ddebug_table.
+ 	 */
+ 	dt->mod_name = name;
+-	dt->num_ddebugs = n;
++	dt->num_ddebugs = num_debugs;
+ 	dt->ddebugs = tab;
+ 
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
++	vpr_info("%3u debug prints in module %s\n", num_debugs, dt->mod_name);
  	return 0;
  }
  
- static void __exit test_dynamic_debug_exit(void)
- {
--	pr_debug("exiting\n");
-+	pr_debug("exited\n");
- }
+@@ -1064,6 +1067,7 @@ static int __init dynamic_debug_init(void)
+ 	char *cmdline;
+ 	int ret = 0;
+ 	int n = 0, entries = 0, modct = 0;
++	int num_classes = __stop___dyndbg_classes - __start___dyndbg_classes;
  
- module_init(test_dynamic_debug_init);
+ 	if (&__start___dyndbg == &__stop___dyndbg) {
+ 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
+@@ -1081,7 +1085,9 @@ static int __init dynamic_debug_init(void)
+ 		entries++;
+ 		if (strcmp(modname, iter->modname)) {
+ 			modct++;
+-			ret = ddebug_add_module(iter_start, n, modname);
++			ret = ddebug_add_module(iter_start, n,
++						__start___dyndbg_classes, num_classes,
++						modname);
+ 			if (ret)
+ 				goto out_err;
+ 			n = 0;
+@@ -1090,7 +1096,8 @@ static int __init dynamic_debug_init(void)
+ 		}
+ 		n++;
+ 	}
+-	ret = ddebug_add_module(iter_start, n, modname);
++	ret = ddebug_add_module(iter_start, n,
++				__start___dyndbg_classes, num_classes, modname);
+ 	if (ret)
+ 		goto out_err;
+ 
+@@ -1099,6 +1106,9 @@ static int __init dynamic_debug_init(void)
+ 		 entries, modct, (int)((modct * sizeof(struct ddebug_table)) >> 10),
+ 		 (int)((entries * sizeof(struct _ddebug)) >> 10));
+ 
++	if (num_classes)
++		v2pr_info("  %d builtin ddebug class-maps\n", num_classes);
++
+ 	/* now that ddebug tables are loaded, process all boot args
+ 	 * again to find and activate queries given in dyndbg params.
+ 	 * While this has already been done for known boot params, it
 -- 
 2.36.1
 
