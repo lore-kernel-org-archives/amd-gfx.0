@@ -4,126 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF92C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 14:15:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B54DC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 14:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7E778BD48;
-	Mon, 18 Jul 2022 14:15:02 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2042.outbound.protection.outlook.com [40.107.100.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3A98BD8A
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 14:15:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JCmAlyD9WRAiVIS2rNG43nhEV3ORsRDkLOroouxd7uFcmXb2yFNsuLCIuF5uC7R8yFu3i52YblWkJJ0rgfaxTu+aU5HclwI5nGrGumniXMbGaTTKOFZLT46+SrVuKIoNr9auiuJrp508oqdOLepcA0K3t98e/URJ29LyPoDEdKr7iZ9JtoTczNHco1fRUeChzSoe9X+46gi+WxCr0ddM50TYKJTSrZA2YH9zuryStBaVfkQX8TsadL47e5gLH3C5iyeics2FSsthWBNTbzaoevVK2msmeWbI6ND8fW9IyvW6sh+4UQwFVb2WQbvQpf5UdS+VQx0H+jQi/JWluKodsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5K8B8D6hybB/KbADkhuM1VcfCvaXQVV0yXl0bQ3Vhuk=;
- b=F7aW1FBe8lABIOI2AhjqzSoxd4R7vemGnK98ChPiZx74Oyay7+4U0B07irtAmSVsYn/Vk+pSiHaMyM7ICvIAZYVgMhGscAlKXIgxXUjFbBQHKE9EfFCza1MBfTtGNxUtpc2RNqhFHcYhyb+iwNdQ6EZQwuuDNfTB4njiHTO/OJRRVO1McAMD/McKoBRxVNEFhm7fSMsoOkWPy5nfq6QztdHzfFyfRbYy2ADbPN+ssB+qEcAG/y8FFlOj1YL/kiG9Tfkx9dT+oVLJiFCKfEz+JpK/pLUEv/FTtuDGZl8MERk7e4xf/61iSxtOiz3AvsNATxDerq4BXfX+GUSxBFXFhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5K8B8D6hybB/KbADkhuM1VcfCvaXQVV0yXl0bQ3Vhuk=;
- b=JGVs216pwktQ8546BMHPLss9l7jn6kGxAFvQJyoINWAJ3BjMS3FVXQa3UkLIosJn4pd2kBNgaEJwxCbMDndox+ptSGXUpSLzPySdVfEd0dzWs7pSvaBRqF3CwZDIYMGREji8KCRrJT43DNxijpecP53dlY5z9Dv0rKM6tNBVthQ=
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
- by DM4PR12MB5119.namprd12.prod.outlook.com (2603:10b6:5:392::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Mon, 18 Jul
- 2022 14:14:59 +0000
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::bc88:3db6:f931:98fc]) by SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::bc88:3db6:f931:98fc%5]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
- 14:14:58 +0000
-From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Leo"
- <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
-Thread-Topic: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
-Thread-Index: AQHYmIYVYr2zSI2ZiUqf3I0W/7KGq62Dtl2AgABytwCAAAGaAIAAAWlA
-Date: Mon, 18 Jul 2022 14:14:58 +0000
-Message-ID: <SJ1PR12MB61946514C9D9B9DF87C9CF06958C9@SJ1PR12MB6194.namprd12.prod.outlook.com>
-References: <20220715200410.301438-1-ruijing.dong@amd.com>
- <e2dbaab9-de5a-3180-13a8-cec2c8b0285d@amd.com>
- <7beb798d-73ba-7015-7b3d-441a5daef26f@amd.com>
- <4f91384a-bef6-b8da-77c1-0bd5f4e7b3c1@amd.com>
-In-Reply-To: <4f91384a-bef6-b8da-77c1-0bd5f4e7b3c1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=a84de01f-c638-446a-a273-109719995ce2;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-18T13:59:17Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6f4c3f93-fc74-47da-642b-08da68c7e5ab
-x-ms-traffictypediagnostic: DM4PR12MB5119:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: J8rSdG3h3cNUsDqMvIj+AMWQoO9wi084kRk0jGt1tRl+a56XVkQeDh6qL2rVCfK32Wvolf4HQ3LL5WwABVujlMAZ8Ox8eqs+moKLmFKC4kP40/+zATtyjX97+RN/t2DNKQuZlFNWzy37AyPiL8MDj3m1DIb4AOKkDoGj/iGfeSOA30dNeJpVyONOvC/rzraB1kfI/HHHInUTdcWrPPBTeeL8sEZPRtLC0qtZ3+hfCfhs2PXQL9tcS1Te+/j2TsTxmoC6b3JRqrTu6Un++3Ontd0zuHb0av6iVgDZi/LMa4N+Gze8SMTUpD4WTPPL4ve0ofjFYLndWciOv+JRntFvlQLjFu4dzCOPcw8IRAAmmDwgzrwWFTQzZ21EbNStS1z02RhkpResxgGgZu9qT2e3XNRbvkAcXlWeJ8mZNB4jZ5zcUfNvff2PFdpe6PfXGesu6MS2A1+RvvmTJvfOW4MWDQEYFG1kJMqAjj8WoJoLJcHE8cEnnC5oY4/Fu0vCx6tqW/6mNezz1vjBkwnw2nM22FeOERlrIfB9d6mlaeM7dKf3OZveChUZUAWKVSEUZ0Cggs1MKOpj6oL+u1lChDI3WXVaVRhOpELLMjLQBtrRfDlc7l4GS1BIyz1lvPhf1OUmzL4e/luDkysKvdBZRCqO9CvDXpUBELrqoEUob6zvdbj6v2+rm2MPeY2VTTA2qEkneUlo0/84MSQWYa3hEprcDzAH8kEpTeot10b+Iuz29cwIxpLxV4/tCdf3oPFhulnFzt+GMt7OueSfrCtaB8hmhw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(39860400002)(366004)(396003)(346002)(83380400001)(26005)(9686003)(186003)(33656002)(41300700001)(2906002)(6506007)(7696005)(66574015)(53546011)(55016003)(478600001)(966005)(5660300002)(52536014)(8936002)(86362001)(110136005)(316002)(122000001)(38070700005)(38100700002)(64756008)(66446008)(66476007)(66556008)(71200400001)(4326008)(66946007)(76116006)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YXA2KzB2bVhJMmV3M3hwMDF6cHJhd3dKckxDemhyVE1DKzNMby96VXVwRDFq?=
- =?utf-8?B?cUhQT201dGRtTFhJVWszcnZPUEZhUnJHemhRaU5mQkw2USs2TDZqbFdZS1Zy?=
- =?utf-8?B?cEJBc3dzY1dYQVdEV29lODhrZlhDSkRpaXJPSTVWUklCeW4wMlR2MU56Z2Z0?=
- =?utf-8?B?aDNFcFFCVG1ISjhnMWV3UUNpZTJYRkhYRWFWbEptNEswZldaVGtPTnJmTjdG?=
- =?utf-8?B?QUE1UlRUMlA0RHp5cGZpNm1OcStkOHFzclQ4V1NFSVEwcFhFUndSWTV4bVpu?=
- =?utf-8?B?TnpTaUVNajZ5QkJGSDB5dFV0Mmw4L2JCYklkUlRmWUdQbU5iL3paSmVFNEVx?=
- =?utf-8?B?Tmd3dXlaWEk3dmQ5SzBDVkZhSFdLenA4dFArbUJVYjJSUG9WRXBVcUlUVWxF?=
- =?utf-8?B?M0VyOXhCbHZuMDlpMFA0Y0p6KzZKRVJncXdFZTlENmxLdi9oT2tRajkzZGNU?=
- =?utf-8?B?eGlKNGRGZFBoOStjYVd0NE5rZE41N0FKWXcvU29TbWR1bWs3NDZxU3B5bGFY?=
- =?utf-8?B?YlJpbmNXaHNjdEZ0TDFLL1k0RllyVzZ6SXNteEl2c0REL0Z3amI4aSt2UnZB?=
- =?utf-8?B?SlY5K3dqWDE5NkRlOER3bGk3R21wNVBzR1RlTnpiVmFORy9hQ1pwUnJIdVlZ?=
- =?utf-8?B?Si9NcXhHL2d5bjIwWmwrWEkvWmZ4bDkzQ04rMXZ5NjN2Q0czYkxWdWJPYU5v?=
- =?utf-8?B?RXZKUUErL0NJK01WZFlrRnRLRnZydnNRclMveDFHdkd1T1dnM0hraE42b1d4?=
- =?utf-8?B?U3djKzBWUzh3a2lyM1ZuNmtEbzkxRXZINitvRUdoK0MzOGNyeElsc2NYUytx?=
- =?utf-8?B?aUh0ZnNwTUlCdmN1MDRqZEdNaU51RUcrM3BER1h6YmxHZFQwa1V0Ujh1ZDl2?=
- =?utf-8?B?Uzl3Q2xBaUUxaVVZSk1TcDUyN0tzbEpiSUwxS2pQTE1NNkVTZ1JKWDBMRkJS?=
- =?utf-8?B?R0svZkZQQXNWV2hCK0QrdEZIMTR0R1ZqM1Q3OXdRMStYaG5sZmRLTFdHMENO?=
- =?utf-8?B?WXAwb0YvckJqY2h6TzBNNStOZ1lnbG9iUVNwejJ2WVd2Uk1nVno3SEc5QW9m?=
- =?utf-8?B?UHpnZk1wbTZQbDlVaTI0elY4MHVyQU01ak52bDFMc3FGOUJTdWJ4OXArZmpv?=
- =?utf-8?B?Ty9wc3VrOTdxQjdCRnJsT09QeXp3b3BRaDBQMkhhbzExSmMzSm1TOXdRbkpn?=
- =?utf-8?B?THRVTUFTU3o5WHFVZ0phMk5MS1RRMVBuc1huWlVuVFVldDc3b3RVbDZyd2Zh?=
- =?utf-8?B?Z0VOeVpDbW85NHozcjNFQldpdEZkZWNid0RaTnVEb2txQVlMM2t5Skg1SS81?=
- =?utf-8?B?Ykl3VTNNeHJuck16RFpIVU45SUpNTUgvU1RBOFZ5bk8yQXZsMG1QRi9YK0Jr?=
- =?utf-8?B?WTlhWjE2anNXM3pseGRaT1c0bDdnemRaM0NsZG1QY1UxL2t1c2xCR0FlaW50?=
- =?utf-8?B?SlEzL3ZNSi9USFJtYVdPd052aDYzeERHWEZ4WlljRDEzcVR5aS84MFlySXdz?=
- =?utf-8?B?cjVOUjVnSWdiL0hYcnhLMGowejNrc0RSaFJRMDQ0OGF3TURHSEY2WUZLcmxB?=
- =?utf-8?B?RnYrV1h2dGlwZ1FxZVBRdXdvcEZ5bjlSYmhyeDVGM3U5K1YyVDJnWTdGSzJ5?=
- =?utf-8?B?bGR4OFBwM29TbEMvclZSTG91My9pREFnVjVNRkt1QjRaREVvWHpSY0E2OW5k?=
- =?utf-8?B?bWZBWWpYNm1sRkI3WWYvdElGTUxaWWNjTlhoNHNxeWQ4a0pIVnlwaHdIeFhr?=
- =?utf-8?B?VnZ0NnVFcHY1ajk5ZnhGYUlnQnRxR2QzMWE1Z0xUMXRLdDc4RDRGY3UwTExR?=
- =?utf-8?B?ajhlRVBEZUJPclZsbklWMVJmYWZsMlN3TWliOVBzMjQ4YXFwVVlieGRrMFBv?=
- =?utf-8?B?UllVTmRLaTRqNEJGZms1TlIwcVFrbS8vVE5CTTFLRWI5bjR0M3g1MWJsOWtm?=
- =?utf-8?B?UnB4dXBkb2VWZ1h4clAxc1g3TGZjcnV0aWlHRXpWSlVCUllnUjlYTWxEL2pJ?=
- =?utf-8?B?UCt1ZkhuREw5dFdtSUNzV2ZHUGl5YWc3QldLZFQyOHF5aXZRN2NJT0FZcXhm?=
- =?utf-8?B?LzRJVHNld3hsNWdDYit5MGNYSFdzeHZsYkJ0RHBaSjdtaDkvREFvd0NaeDNp?=
- =?utf-8?Q?q2iQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id D61172A732;
+	Mon, 18 Jul 2022 14:29:48 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 314AD2A713
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 14:29:47 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id r6so15547408edd.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 07:29:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dLssqXvwa3q+ea2mxjjDw+Bu//jMhL/kV/X+O/Dk0i4=;
+ b=qVmDVnOzCC/CjxAHGSy7zZsRVZFyXsh2776GD0UAdAJ/rcZ82B3RPm2O5EFhjMmH46
+ gpjPKzOFv+DBZXdU0xrjy/4eo86kZYpvQrzE6J0pHHRqbaoCyfEklnKypPY9c800ey9B
+ 8Whl/RiUmOhdLuBVhJztQrgFlBFwa4ReffRxKw4A7hliHB9QFrbc0kjz0oBuSz6tz07N
+ BOGx9XoaMIzZlZS0TKi2u45l58/R5Hr9G/6lW0lOpj/Af1wJVWaoLUsuD0CdivxZy2fs
+ HR2dUJ+mWGec3J8zuZbv69xxdIrxZWY6/wHY6k+/edOVyUcx2BPWtPsq5b+IKDhdil3W
+ FhnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dLssqXvwa3q+ea2mxjjDw+Bu//jMhL/kV/X+O/Dk0i4=;
+ b=PUr8oFYy4AWSyv13evLGQ9i3nxaekdhuU3kbxdCg1+j+BUZmo7ZlxwNwFPh5KIPOyV
+ EPEiydmYCBj4du0RrsrKqMRl5MIDT0QxS6I3Ng2JtPcfv5gEhuot/L/iPdx1Y0W+eHFG
+ qrOx7MKbze9/h6eId32b20hN/D+DvWzEr2AqqHhjAJxy32CEkc4y4hskr6LO1Nlvj3Ib
+ Ei7lPah0F28dMkBRBORhzzDhxw3cTE/K1QcGtJjUBHx/THkX50fnYxJQ8GR58muEJEEt
+ PWNX+t+0Svx7sGM3cUpGyCW/DbjNR/JdmVVwQ6+F/PHMeGsnYsoeBysXuCMF0W8h9fxe
+ DEVQ==
+X-Gm-Message-State: AJIora8CtT/nQYfEWZsr2pYiXaOaJvPxKF4zXTnp/6Sqwn/qc+3w7UG2
+ /rdnADgMwh5tIwWI87bcXZ1fX5QhHgzwoBmwIzBAZDJD
+X-Google-Smtp-Source: AGRyM1tK3ql/r0tFoPPBpR/H6uWngLLKbhgkjCHEvjf9si8B8IStKVMhtqQnJXaaQCpiSlsAXBi4dZNEF8VOsxYf7fs=
+X-Received: by 2002:a05:6402:13:b0:439:ffe8:bec9 with SMTP id
+ d19-20020a056402001300b00439ffe8bec9mr38395313edu.297.1658154584943; Mon, 18
+ Jul 2022 07:29:44 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f4c3f93-fc74-47da-642b-08da68c7e5ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2022 14:14:58.7185 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vBlT1XMxbtoABYcxQAeX/K+4bljAMBlx5TGlAOfbImYUwscwhi0zuKOLciD1GaEI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5119
+References: <20220715181705.1030401-1-Rodrigo.Siqueira@amd.com>
+ <20220715181705.1030401-9-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20220715181705.1030401-9-Rodrigo.Siqueira@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 18 Jul 2022 10:29:31 -0400
+Message-ID: <CADnq5_NZiUAcGWcrdNE+Rxbyj-dSSrhQ3-cW_Z67eRken9YYAQ@mail.gmail.com>
+Subject: Re: [PATCH 08/31] drm/amd/display: Create a file dedicated to planes
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,75 +62,4173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Alan Liu <HaoPing.Liu@amd.com>,
+ "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Solomon Chiu <solomon.chiu@amd.com>,
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Gutierrez,
+ Agustin" <agustin.gutierrez@amd.com>, "Kotarac, Pavle" <pavle.kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCj4+IFdoYXQgaGFwcGVuZWQgaXMg
-dGhhdCB0aGUgZW5jb2RlIHJpbmcgd2FzIGV4dGVuZGVkIHdpdGggZGVjb2RlIGZ1bmN0aW9uYWxp
-dHkuIEluIG90aGVyIHdvcmRzIHdlIHN0aWxsIHVzZSB0aGUgc2FtZSBmb3JtYXQgZm9yIGVuY29k
-aW5nLCB3ZSBqdXN0IGFkZGVkIGFub3RoZXIgb25lIGZvciBkZWNvZGluZyBhcyB3ZWxsLg0KDQpK
-dXN0IHRvIGNsYXJpZnkgdGhlIGZvcm1hdCBkaWZmZXJlbmNlIGJldHdlZW4gbGVnYWN5IGVuY29k
-aW5nIGFuZCB1bmlmaWVkIHF1ZXVlLCB3ZSBjYW4gZG8gZWl0aGVyIHdheSBpbiB0aGUgY29kZS4N
-Cg0KVW5pZmllZCBxdWV1ZSByZXF1aXJlcyBhIGRpZmZlcmVudCBmb3JtYXQuIFRoZSBvcmlnaW5h
-bCBlbmNvZGluZy9kZWNvZGluZyBmb3JtYXQgY2Fubm90IGJlIHVzZWQgaW4gdW5pZmllZCBxdWV1
-ZSwgd2hpY2ggcmVxdWlyZXMgdG8gaGF2ZSB0d28gbmV3IGhlYWRlcnMsICJlbmdpbmUgaW5mbyIg
-dG8gaW5kaWNhdGUgdGhlIGNvbWluZyBJQiBwYWNrYWdlIHR5cGUsIGVuY29kaW5nIG9yIGRlY29k
-aW5nOyBhbmQgdGhlICJzaWduYXR1cmUgaGVhZGVyIiB0byBndWFyYW50ZWUgdGhlIGNvbWluZyBJ
-QiBwYWNrYWdlJ3MgaW50ZWdyaXR5LCBpZiB0aGlzIGZhaWxlZCwgdGhlIHdob2xlIElCIHBhY2th
-Z2Ugd2lsbCBiZSBkaXNjYXJkZWQgYnkgVkNOIEZXLiBUaGF0IGlzIHdoeSBJIHdhcyB0aGlua2lu
-ZyB0byBoYXZlIGEgYmlhcyBvZiBBTURHUFVfSFdfSVBfVkNOX0VOQyBjb3VsZCBiZSBiZXR0ZXIg
-aW4gdGhlIGZ1dHVyZS4NCg0KVGhhbmtzLA0KUnVpamluZw0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNv
-bT4NClNlbnQ6IE1vbmRheSwgSnVseSAxOCwgMjAyMiA5OjU0IEFNDQpUbzogTGl1LCBMZW8gPExl
-by5MaXVAYW1kLmNvbT47IERvbmcsIFJ1aWppbmcgPFJ1aWppbmcuRG9uZ0BhbWQuY29tPjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhh
-bmRlci5EZXVjaGVyQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIHY0XSBkcm0vYW1kZ3B1
-OiBhZGQgSFdfSVBfVkNOX1VOSUZJRUQgdHlwZQ0KDQpBbSAxOC4wNy4yMiB1bSAxNTo0OCBzY2hy
-aWViIExlbyBMaXU6DQo+DQo+IE9uIDIwMjItMDctMTggMDI6NTcsIENocmlzdGlhbiBLw7ZuaWcg
-d3JvdGU6DQo+PiBBbSAxNS4wNy4yMiB1bSAyMjowNCBzY2hyaWViIFJ1aWppbmcgRG9uZzoNCj4+
-PiAgRnJvbSBWQ040LCBBTURHUFVfSFdfSVBfVkNOX1VOSUZJRUQgaXMgdXNlZCB0byBzdXBwb3J0
-IGJvdGgNCj4+PiBlbmNvZGluZyBhbmQgZGVjb2Rpbmcgam9icywgaXQgcmUtdXNlcyB0aGUgc2Ft
-ZSBxdWV1ZSBudW1iZXIgb2YNCj4+PiBBTURHUFVfSFdfSVBfVkNOX0VOQy4NCj4+Pg0KPj4+IGxp
-bms6DQo+Pj4gaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL21lc2EvZHJtLy0vbWVyZ2Vf
-cmVxdWVzdHMvMjQ1L2NvbW1pdHMNCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFJ1aWppbmcgRG9u
-ZyA8cnVpamluZy5kb25nQGFtZC5jb20+DQo+Pj4gLS0tDQo+Pj4gICBpbmNsdWRlL3VhcGkvZHJt
-L2FtZGdwdV9kcm0uaCB8IDYgKysrKysrDQo+Pj4gICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRp
-b25zKCspDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJt
-LmgNCj4+PiBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGluZGV4IDE4ZDMyNDZkNjM2
-ZS4uZTI2OGNkM2NkYjEyDQo+Pj4gMTAwNjQ0DQo+Pj4gLS0tIGEvaW5jbHVkZS91YXBpL2RybS9h
-bWRncHVfZHJtLmgNCj4+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPj4+
-IEBAIC01NjAsNiArNTYwLDEyIEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV92YSB7DQo+Pj4gICAj
-ZGVmaW5lIEFNREdQVV9IV19JUF9VVkRfRU5DICAgICAgNQ0KPj4+ICAgI2RlZmluZSBBTURHUFVf
-SFdfSVBfVkNOX0RFQyAgICAgIDYNCj4+PiAgICNkZWZpbmUgQU1ER1BVX0hXX0lQX1ZDTl9FTkMg
-ICAgICA3DQo+Pj4gKy8qKg0KPj4NCj4+IFBsZWFzZSBkb24ndCB1c2UgIi8qKiIgaGVyZSwgdGhh
-dCBpcyBiYWRseSBmb3JtYXRlZCBmb3IgYSBrZXJuZWxkb2MNCj4+IGNvbW1lbnQuDQo+Pg0KPj4+
-ICsgKiBGcm9tIFZDTjQsIEFNREdQVV9IV19JUF9WQ05fVU5JRklFRCBpcyB1c2VkIHRvIHN1cHBv
-cnQNCj4+PiArICogYm90aCBlbmNvZGluZyBhbmQgZGVjb2Rpbmcgam9icywgaXQgcmUtdXNlcyB0
-aGUgc2FtZQ0KPj4+ICsgKiBxdWV1ZSBudW1iZXIgb2YgQU1ER1BVX0hXX0lQX1ZDTl9FTkMuDQo+
-Pj4gKyAqLw0KPj4+ICsjZGVmaW5lIEFNREdQVV9IV19JUF9WQ05fVU5JRklFRCAgQU1ER1BVX0hX
-X0lQX1ZDTl9FTkMNCj4+DQo+PiBJJ20gc3RpbGwgaW4gZG91YnQgdGhhdCBhZGRpbmcgYW5vdGhl
-ciBkZWZpbmUgd2l0aCB0aGUgc2FtZSB2YWx1ZSBhcw0KPj4gQU1ER1BVX0hXX0lQX1ZDTl9FTkMg
-aXMgYSBnb29kIGlkZWEuDQo+DQo+IEhpIENocmlzdGlhbiwNCj4NCj4gRnJvbSBWQ040LCB0aGVy
-ZSBpcyBubyBWQ04gZGVjIGFuZCBlbmMgcmluZyB0eXBlIGFueSBtb3JlLCB0aGUNCj4gZGVjb2Rl
-L2VuY29kZSB3aWxsIGdvIHRocm91Z2ggdGhlIHVuaWZpZWQgcXVldWUsIHNvIHVzaW5nDQo+IEFN
-REdQVV9IV19JUF9WQ05fRU5DIGlzIG5vIGxvbmdlciBhY2N1cmF0ZSAuIEtlZXBpbmcNCj4gQU1E
-R1BVX0hXX0lQX1ZDTl9FTkMgdHlwZSBpcyBmb3IgbGVnYWN5IEhXLCBhbmQgdGhlIG5ldw0KPiBB
-TURHUFVfSFdfSVBfVkNOX1VOSUZJRUQganVzdCBoYXBwZW4gdG8gdXNlIHRoZSBzYW1lIEhXIHJp
-bmcgYXMgbGVnYWN5DQo+IGVuY29kZSByaW5nLCBzbyByZXVzZSB0aGUgdmFsdWUsIGFuZCB0aGF0
-IGlzIHRoZSB3aG9sZSBpZGVhLg0KDQpZZWFoLCBJIHVuZGVyc3RhbmQgeW91ciByZWFzb25pbmcg
-SSBqdXN0IGRvbid0IHNlZSBpdCB0aGlzIHdheS4NCg0KV2hhdCBoYXBwZW5lZCBpcyB0aGF0IHRo
-ZSBlbmNvZGUgcmluZyB3YXMgZXh0ZW5kZWQgd2l0aCBkZWNvZGUgZnVuY3Rpb25hbGl0eS4gSW4g
-b3RoZXIgd29yZHMgd2Ugc3RpbGwgdXNlIHRoZSBzYW1lIGZvcm1hdCBmb3IgZW5jb2RpbmcsIHdl
-IGp1c3QgYWRkZWQgYW5vdGhlciBvbmUgZm9yIGRlY29kaW5nIGFzIHdlbGwuDQoNClJlbmFtaW5n
-IHRoZSBlbnVtIGFuZCBhZGRpbmcgQU1ER1BVX0hXX0lQX1ZDTl9VTklGSUVEIHN1Z2dlc3RzIHRo
-YXQgdGhpcyBpcyBzb21ldGhpbmcgY29tcGxldGVseSBuZXcsIHdoaWNoIGlzIG5vdCB0aGUgY2Fz
-ZSBoZXJlLiBUaGUgZW5jb2RpbmcgY29tbWFuZHMgc3RheSB0aGUgc2FtZSwgZG9uJ3QgdGhleT8N
-Cg0KU28gdG8gc3VtIGl0IHVwIG15IHN1Z2dlc3Rpb24gaXMgdG8gc3RpY2sgd2l0aCBBTURHUFVf
-SFdfSVBfVkNOX0VOQyBhbmQganVzdCBkb2N1bWVudCBvbiB0aGUgZGVmaW5pdGlvbiB0aGF0IHRo
-aXMgaXMgdXNlZCBmb3IgYm90aCBlbmNvZGUgYXMgd2VsbCBhcyBkZWNvZGUgc3RhcnRpbmcgd2l0
-aCBWQ040Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQo+DQo+IFRoYW5rcywNCj4NCj4gTGVv
-DQo+DQo+DQo+Pg0KPj4NCj4+IEluc3RlYWQgd2Ugc2hvdWxkIGp1c3QgYWRkIHRoZSBjb21tZW50
-IHRvIEFNREdQVV9IV19JUF9WQ05fRU5DLg0KPj4NCj4+IFJlZ2FyZHMsDQo+PiBDaHJpc3RpYW4u
-DQo+Pg0KPj4+ICAgI2RlZmluZSBBTURHUFVfSFdfSVBfVkNOX0pQRUcgICAgIDgNCj4+PiAgICNk
-ZWZpbmUgQU1ER1BVX0hXX0lQX05VTSAgICAgICAgICA5DQo+Pg0KDQo=
+On Sat, Jul 16, 2022 at 10:38 AM Rodrigo Siqueira
+<Rodrigo.Siqueira@amd.com> wrote:
+>
+> [Why]
+> The amdgpu_dm file contains most of the code that works as an interface
+> between DRM API and DC. As a result, this file becomes very large since
+> it comprises multiple abstractions such as plane manipulation.
+>
+> [How]
+> This commit extracts the plane code to its specific file named
+> amdgpu_dm_plane. This change does not change anything inside the
+> functions; the only exception is converting some static functions to a
+> global function.
+>
+> Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+> Acked-by: Alan Liu <HaoPing.Liu@amd.com>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |    7 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2135 +++--------------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 1637 +++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   73 +
+>  4 files changed, 2057 insertions(+), 1795 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> index 718e123a3230..ec559ea902a3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> @@ -25,7 +25,12 @@
+>
+>
+>
+> -AMDGPUDM = amdgpu_dm.o amdgpu_dm_irq.o amdgpu_dm_mst_types.o amdgpu_dm_color.o
+> +AMDGPUDM = \
+> +       amdgpu_dm.o \
+> +       amdgpu_dm_plane.o \
+> +       amdgpu_dm_irq.o \
+> +       amdgpu_dm_mst_types.o \
+> +       amdgpu_dm_color.o
+>
+>  ifdef CONFIG_DRM_AMD_DC_DCN
+>  AMDGPUDM += dc_fpu.o
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index dae998e014b0..ceac70e93ece 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -46,6 +46,7 @@
+>  #include "amdgpu_ucode.h"
+>  #include "atom.h"
+>  #include "amdgpu_dm.h"
+> +#include "amdgpu_dm_plane.h"
+>  #ifdef CONFIG_DRM_AMD_DC_HDCP
+>  #include "amdgpu_dm_hdcp.h"
+>  #include <drm/drm_hdcp.h>
+> @@ -203,10 +204,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev);
+>  /* removes and deallocates the drm structures, created by the above function */
+>  static void amdgpu_dm_destroy_drm_device(struct amdgpu_display_manager *dm);
+>
+> -static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> -                               struct drm_plane *plane,
+> -                               unsigned long possible_crtcs,
+> -                               const struct dc_plane_cap *plane_cap);
+>  static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+>                                struct drm_plane *plane,
+>                                uint32_t link_index);
+> @@ -225,12 +222,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state);
+>  static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>                                   struct drm_atomic_state *state);
+>
+> -static void handle_cursor_update(struct drm_plane *plane,
+> -                                struct drm_plane_state *old_plane_state);
+> -
+> -static const struct drm_format_info *
+> -amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+> -
+>  static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector);
+>  static void handle_hpd_rx_irq(void *param);
+>
+> @@ -4315,11 +4306,11 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+>         case IP_VERSION(3, 0, 0):
+>         case IP_VERSION(3, 1, 2):
+>         case IP_VERSION(3, 1, 3):
+> -       case IP_VERSION(3, 1, 4):
+>         case IP_VERSION(3, 1, 5):
+>         case IP_VERSION(3, 1, 6):
+>         case IP_VERSION(3, 2, 0):
+>         case IP_VERSION(3, 2, 1):
+> +       case IP_VERSION(3, 1, 4):
+>         case IP_VERSION(2, 1, 0):
+
+This hunk should probably be dropped?  It's unrelated to the patch and
+makes the ordering incorrect.
+
+Alex
+
+>                 if (register_outbox_irq_handlers(dm->adev)) {
+>                         DRM_ERROR("DM: Failed to initialize IRQ\n");
+> @@ -4707,1104 +4698,222 @@ static const struct drm_encoder_funcs amdgpu_dm_encoder_funcs = {
+>         .destroy = amdgpu_dm_encoder_destroy,
+>  };
+>
+> -
+> -static void get_min_max_dc_plane_scaling(struct drm_device *dev,
+> -                                        struct drm_framebuffer *fb,
+> -                                        int *min_downscale, int *max_upscale)
+> -{
+> -       struct amdgpu_device *adev = drm_to_adev(dev);
+> -       struct dc *dc = adev->dm.dc;
+> -       /* Caps for all supported planes are the same on DCE and DCN 1 - 3 */
+> -       struct dc_plane_cap *plane_cap = &dc->caps.planes[0];
+> -
+> -       switch (fb->format->format) {
+> -       case DRM_FORMAT_P010:
+> -       case DRM_FORMAT_NV12:
+> -       case DRM_FORMAT_NV21:
+> -               *max_upscale = plane_cap->max_upscale_factor.nv12;
+> -               *min_downscale = plane_cap->max_downscale_factor.nv12;
+> -               break;
+> -
+> -       case DRM_FORMAT_XRGB16161616F:
+> -       case DRM_FORMAT_ARGB16161616F:
+> -       case DRM_FORMAT_XBGR16161616F:
+> -       case DRM_FORMAT_ABGR16161616F:
+> -               *max_upscale = plane_cap->max_upscale_factor.fp16;
+> -               *min_downscale = plane_cap->max_downscale_factor.fp16;
+> -               break;
+> -
+> -       default:
+> -               *max_upscale = plane_cap->max_upscale_factor.argb8888;
+> -               *min_downscale = plane_cap->max_downscale_factor.argb8888;
+> -               break;
+> -       }
+> -
+> -       /*
+> -        * A factor of 1 in the plane_cap means to not allow scaling, ie. use a
+> -        * scaling factor of 1.0 == 1000 units.
+> -        */
+> -       if (*max_upscale == 1)
+> -               *max_upscale = 1000;
+> -
+> -       if (*min_downscale == 1)
+> -               *min_downscale = 1000;
+> -}
+> -
+> -
+> -static int fill_dc_scaling_info(struct amdgpu_device *adev,
+> -                               const struct drm_plane_state *state,
+> -                               struct dc_scaling_info *scaling_info)
+> +static int
+> +fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+> +                           const enum surface_pixel_format format,
+> +                           enum dc_color_space *color_space)
+>  {
+> -       int scale_w, scale_h, min_downscale, max_upscale;
+> -
+> -       memset(scaling_info, 0, sizeof(*scaling_info));
+> -
+> -       /* Source is fixed 16.16 but we ignore mantissa for now... */
+> -       scaling_info->src_rect.x = state->src_x >> 16;
+> -       scaling_info->src_rect.y = state->src_y >> 16;
+> +       bool full_range;
+>
+> -       /*
+> -        * For reasons we don't (yet) fully understand a non-zero
+> -        * src_y coordinate into an NV12 buffer can cause a
+> -        * system hang on DCN1x.
+> -        * To avoid hangs (and maybe be overly cautious)
+> -        * let's reject both non-zero src_x and src_y.
+> -        *
+> -        * We currently know of only one use-case to reproduce a
+> -        * scenario with non-zero src_x and src_y for NV12, which
+> -        * is to gesture the YouTube Android app into full screen
+> -        * on ChromeOS.
+> -        */
+> -       if (((adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 0)) ||
+> -           (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 1))) &&
+> -           (state->fb && state->fb->format->format == DRM_FORMAT_NV12 &&
+> -           (scaling_info->src_rect.x != 0 || scaling_info->src_rect.y != 0)))
+> -               return -EINVAL;
+> +       *color_space = COLOR_SPACE_SRGB;
+>
+> -       scaling_info->src_rect.width = state->src_w >> 16;
+> -       if (scaling_info->src_rect.width == 0)
+> -               return -EINVAL;
+> +       /* DRM color properties only affect non-RGB formats. */
+> +       if (format < SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
+> +               return 0;
+>
+> -       scaling_info->src_rect.height = state->src_h >> 16;
+> -       if (scaling_info->src_rect.height == 0)
+> -               return -EINVAL;
+> +       full_range = (plane_state->color_range == DRM_COLOR_YCBCR_FULL_RANGE);
+>
+> -       scaling_info->dst_rect.x = state->crtc_x;
+> -       scaling_info->dst_rect.y = state->crtc_y;
+> +       switch (plane_state->color_encoding) {
+> +       case DRM_COLOR_YCBCR_BT601:
+> +               if (full_range)
+> +                       *color_space = COLOR_SPACE_YCBCR601;
+> +               else
+> +                       *color_space = COLOR_SPACE_YCBCR601_LIMITED;
+> +               break;
+>
+> -       if (state->crtc_w == 0)
+> -               return -EINVAL;
+> +       case DRM_COLOR_YCBCR_BT709:
+> +               if (full_range)
+> +                       *color_space = COLOR_SPACE_YCBCR709;
+> +               else
+> +                       *color_space = COLOR_SPACE_YCBCR709_LIMITED;
+> +               break;
+>
+> -       scaling_info->dst_rect.width = state->crtc_w;
+> +       case DRM_COLOR_YCBCR_BT2020:
+> +               if (full_range)
+> +                       *color_space = COLOR_SPACE_2020_YCBCR;
+> +               else
+> +                       return -EINVAL;
+> +               break;
+>
+> -       if (state->crtc_h == 0)
+> +       default:
+>                 return -EINVAL;
+> -
+> -       scaling_info->dst_rect.height = state->crtc_h;
+> -
+> -       /* DRM doesn't specify clipping on destination output. */
+> -       scaling_info->clip_rect = scaling_info->dst_rect;
+> -
+> -       /* Validate scaling per-format with DC plane caps */
+> -       if (state->plane && state->plane->dev && state->fb) {
+> -               get_min_max_dc_plane_scaling(state->plane->dev, state->fb,
+> -                                            &min_downscale, &max_upscale);
+> -       } else {
+> -               min_downscale = 250;
+> -               max_upscale = 16000;
+>         }
+>
+> -       scale_w = scaling_info->dst_rect.width * 1000 /
+> -                 scaling_info->src_rect.width;
+> -
+> -       if (scale_w < min_downscale || scale_w > max_upscale)
+> -               return -EINVAL;
+> -
+> -       scale_h = scaling_info->dst_rect.height * 1000 /
+> -                 scaling_info->src_rect.height;
+> -
+> -       if (scale_h < min_downscale || scale_h > max_upscale)
+> -               return -EINVAL;
+> -
+> -       /*
+> -        * The "scaling_quality" can be ignored for now, quality = 0 has DC
+> -        * assume reasonable defaults based on the format.
+> -        */
+> -
+>         return 0;
+>  }
+>
+> -static void
+> -fill_gfx8_tiling_info_from_flags(union dc_tiling_info *tiling_info,
+> -                                uint64_t tiling_flags)
+> -{
+> -       /* Fill GFX8 params */
+> -       if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE) == DC_ARRAY_2D_TILED_THIN1) {
+> -               unsigned int bankw, bankh, mtaspect, tile_split, num_banks;
+> -
+> -               bankw = AMDGPU_TILING_GET(tiling_flags, BANK_WIDTH);
+> -               bankh = AMDGPU_TILING_GET(tiling_flags, BANK_HEIGHT);
+> -               mtaspect = AMDGPU_TILING_GET(tiling_flags, MACRO_TILE_ASPECT);
+> -               tile_split = AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT);
+> -               num_banks = AMDGPU_TILING_GET(tiling_flags, NUM_BANKS);
+> -
+> -               /* XXX fix me for VI */
+> -               tiling_info->gfx8.num_banks = num_banks;
+> -               tiling_info->gfx8.array_mode =
+> -                               DC_ARRAY_2D_TILED_THIN1;
+> -               tiling_info->gfx8.tile_split = tile_split;
+> -               tiling_info->gfx8.bank_width = bankw;
+> -               tiling_info->gfx8.bank_height = bankh;
+> -               tiling_info->gfx8.tile_aspect = mtaspect;
+> -               tiling_info->gfx8.tile_mode =
+> -                               DC_ADDR_SURF_MICRO_TILING_DISPLAY;
+> -       } else if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE)
+> -                       == DC_ARRAY_1D_TILED_THIN1) {
+> -               tiling_info->gfx8.array_mode = DC_ARRAY_1D_TILED_THIN1;
+> -       }
+> -
+> -       tiling_info->gfx8.pipe_config =
+> -                       AMDGPU_TILING_GET(tiling_flags, PIPE_CONFIG);
+> -}
+> -
+> -static void
+> -fill_gfx9_tiling_info_from_device(const struct amdgpu_device *adev,
+> -                                 union dc_tiling_info *tiling_info)
+> -{
+> -       tiling_info->gfx9.num_pipes =
+> -               adev->gfx.config.gb_addr_config_fields.num_pipes;
+> -       tiling_info->gfx9.num_banks =
+> -               adev->gfx.config.gb_addr_config_fields.num_banks;
+> -       tiling_info->gfx9.pipe_interleave =
+> -               adev->gfx.config.gb_addr_config_fields.pipe_interleave_size;
+> -       tiling_info->gfx9.num_shader_engines =
+> -               adev->gfx.config.gb_addr_config_fields.num_se;
+> -       tiling_info->gfx9.max_compressed_frags =
+> -               adev->gfx.config.gb_addr_config_fields.max_compress_frags;
+> -       tiling_info->gfx9.num_rb_per_se =
+> -               adev->gfx.config.gb_addr_config_fields.num_rb_per_se;
+> -       tiling_info->gfx9.shaderEnable = 1;
+> -       if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
+> -               tiling_info->gfx9.num_pkrs = adev->gfx.config.gb_addr_config_fields.num_pkrs;
+> -}
+> -
+>  static int
+> -validate_dcc(struct amdgpu_device *adev,
+> -            const enum surface_pixel_format format,
+> -            const enum dc_rotation_angle rotation,
+> -            const union dc_tiling_info *tiling_info,
+> -            const struct dc_plane_dcc_param *dcc,
+> -            const struct dc_plane_address *address,
+> -            const struct plane_size *plane_size)
+> +fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+> +                           const struct drm_plane_state *plane_state,
+> +                           const uint64_t tiling_flags,
+> +                           struct dc_plane_info *plane_info,
+> +                           struct dc_plane_address *address,
+> +                           bool tmz_surface,
+> +                           bool force_disable_dcc)
+>  {
+> -       struct dc *dc = adev->dm.dc;
+> -       struct dc_dcc_surface_param input;
+> -       struct dc_surface_dcc_cap output;
+> -
+> -       memset(&input, 0, sizeof(input));
+> -       memset(&output, 0, sizeof(output));
+> +       const struct drm_framebuffer *fb = plane_state->fb;
+> +       const struct amdgpu_framebuffer *afb =
+> +               to_amdgpu_framebuffer(plane_state->fb);
+> +       int ret;
+>
+> -       if (!dcc->enable)
+> -               return 0;
+> +       memset(plane_info, 0, sizeof(*plane_info));
+>
+> -       if (format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN ||
+> -           !dc->cap_funcs.get_dcc_compression_cap)
+> +       switch (fb->format->format) {
+> +       case DRM_FORMAT_C8:
+> +               plane_info->format =
+> +                       SURFACE_PIXEL_FORMAT_GRPH_PALETA_256_COLORS;
+> +               break;
+> +       case DRM_FORMAT_RGB565:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_RGB565;
+> +               break;
+> +       case DRM_FORMAT_XRGB8888:
+> +       case DRM_FORMAT_ARGB8888:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
+> +               break;
+> +       case DRM_FORMAT_XRGB2101010:
+> +       case DRM_FORMAT_ARGB2101010:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB2101010;
+> +               break;
+> +       case DRM_FORMAT_XBGR2101010:
+> +       case DRM_FORMAT_ABGR2101010:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR2101010;
+> +               break;
+> +       case DRM_FORMAT_XBGR8888:
+> +       case DRM_FORMAT_ABGR8888:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR8888;
+> +               break;
+> +       case DRM_FORMAT_NV21:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr;
+> +               break;
+> +       case DRM_FORMAT_NV12:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_YCrCb;
+> +               break;
+> +       case DRM_FORMAT_P010:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_10bpc_YCrCb;
+> +               break;
+> +       case DRM_FORMAT_XRGB16161616F:
+> +       case DRM_FORMAT_ARGB16161616F:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F;
+> +               break;
+> +       case DRM_FORMAT_XBGR16161616F:
+> +       case DRM_FORMAT_ABGR16161616F:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F;
+> +               break;
+> +       case DRM_FORMAT_XRGB16161616:
+> +       case DRM_FORMAT_ARGB16161616:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616;
+> +               break;
+> +       case DRM_FORMAT_XBGR16161616:
+> +       case DRM_FORMAT_ABGR16161616:
+> +               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616;
+> +               break;
+> +       default:
+> +               DRM_ERROR(
+> +                       "Unsupported screen format %p4cc\n",
+> +                       &fb->format->format);
+>                 return -EINVAL;
+> +       }
+>
+> -       input.format = format;
+> -       input.surface_size.width = plane_size->surface_size.width;
+> -       input.surface_size.height = plane_size->surface_size.height;
+> -       input.swizzle_mode = tiling_info->gfx9.swizzle;
+> -
+> -       if (rotation == ROTATION_ANGLE_0 || rotation == ROTATION_ANGLE_180)
+> -               input.scan = SCAN_DIRECTION_HORIZONTAL;
+> -       else if (rotation == ROTATION_ANGLE_90 || rotation == ROTATION_ANGLE_270)
+> -               input.scan = SCAN_DIRECTION_VERTICAL;
+> +       switch (plane_state->rotation & DRM_MODE_ROTATE_MASK) {
+> +       case DRM_MODE_ROTATE_0:
+> +               plane_info->rotation = ROTATION_ANGLE_0;
+> +               break;
+> +       case DRM_MODE_ROTATE_90:
+> +               plane_info->rotation = ROTATION_ANGLE_90;
+> +               break;
+> +       case DRM_MODE_ROTATE_180:
+> +               plane_info->rotation = ROTATION_ANGLE_180;
+> +               break;
+> +       case DRM_MODE_ROTATE_270:
+> +               plane_info->rotation = ROTATION_ANGLE_270;
+> +               break;
+> +       default:
+> +               plane_info->rotation = ROTATION_ANGLE_0;
+> +               break;
+> +       }
+>
+> -       if (!dc->cap_funcs.get_dcc_compression_cap(dc, &input, &output))
+> -               return -EINVAL;
+>
+> -       if (!output.capable)
+> -               return -EINVAL;
+> +       plane_info->visible = true;
+> +       plane_info->stereo_format = PLANE_STEREO_FORMAT_NONE;
+>
+> -       if (dcc->independent_64b_blks == 0 &&
+> -           output.grph.rgb.independent_64b_blks != 0)
+> -               return -EINVAL;
+> +       plane_info->layer_index = 0;
+>
+> -       return 0;
+> -}
+> +       ret = fill_plane_color_attributes(plane_state, plane_info->format,
+> +                                         &plane_info->color_space);
+> +       if (ret)
+> +               return ret;
+>
+> -static bool
+> -modifier_has_dcc(uint64_t modifier)
+> -{
+> -       return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier);
+> -}
+> +       ret = fill_plane_buffer_attributes(adev, afb, plane_info->format,
+> +                                          plane_info->rotation, tiling_flags,
+> +                                          &plane_info->tiling_info,
+> +                                          &plane_info->plane_size,
+> +                                          &plane_info->dcc, address,
+> +                                          tmz_surface, force_disable_dcc);
+> +       if (ret)
+> +               return ret;
+>
+> -static unsigned
+> -modifier_gfx9_swizzle_mode(uint64_t modifier)
+> -{
+> -       if (modifier == DRM_FORMAT_MOD_LINEAR)
+> -               return 0;
+> +       fill_blending_from_plane_state(
+> +               plane_state, &plane_info->per_pixel_alpha, &plane_info->pre_multiplied_alpha,
+> +               &plane_info->global_alpha, &plane_info->global_alpha_value);
+>
+> -       return AMD_FMT_MOD_GET(TILE, modifier);
+> +       return 0;
+>  }
+>
+> -static const struct drm_format_info *
+> -amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+> +static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+> +                                   struct dc_plane_state *dc_plane_state,
+> +                                   struct drm_plane_state *plane_state,
+> +                                   struct drm_crtc_state *crtc_state)
+>  {
+> -       return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
+> -}
+> +       struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+> +       struct amdgpu_framebuffer *afb = (struct amdgpu_framebuffer *)plane_state->fb;
+> +       struct dc_scaling_info scaling_info;
+> +       struct dc_plane_info plane_info;
+> +       int ret;
+> +       bool force_disable_dcc = false;
+>
+> -static void
+> -fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
+> -                                   union dc_tiling_info *tiling_info,
+> -                                   uint64_t modifier)
+> -{
+> -       unsigned int mod_bank_xor_bits = AMD_FMT_MOD_GET(BANK_XOR_BITS, modifier);
+> -       unsigned int mod_pipe_xor_bits = AMD_FMT_MOD_GET(PIPE_XOR_BITS, modifier);
+> -       unsigned int pkrs_log2 = AMD_FMT_MOD_GET(PACKERS, modifier);
+> -       unsigned int pipes_log2;
+> +       ret = fill_dc_scaling_info(adev, plane_state, &scaling_info);
+> +       if (ret)
+> +               return ret;
+>
+> -       pipes_log2 = min(5u, mod_pipe_xor_bits);
+> +       dc_plane_state->src_rect = scaling_info.src_rect;
+> +       dc_plane_state->dst_rect = scaling_info.dst_rect;
+> +       dc_plane_state->clip_rect = scaling_info.clip_rect;
+> +       dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+>
+> -       fill_gfx9_tiling_info_from_device(adev, tiling_info);
+> +       force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
+> +       ret = fill_dc_plane_info_and_addr(adev, plane_state,
+> +                                         afb->tiling_flags,
+> +                                         &plane_info,
+> +                                         &dc_plane_state->address,
+> +                                         afb->tmz_surface,
+> +                                         force_disable_dcc);
+> +       if (ret)
+> +               return ret;
+>
+> -       if (!IS_AMD_FMT_MOD(modifier))
+> -               return;
+> +       dc_plane_state->format = plane_info.format;
+> +       dc_plane_state->color_space = plane_info.color_space;
+> +       dc_plane_state->format = plane_info.format;
+> +       dc_plane_state->plane_size = plane_info.plane_size;
+> +       dc_plane_state->rotation = plane_info.rotation;
+> +       dc_plane_state->horizontal_mirror = plane_info.horizontal_mirror;
+> +       dc_plane_state->stereo_format = plane_info.stereo_format;
+> +       dc_plane_state->tiling_info = plane_info.tiling_info;
+> +       dc_plane_state->visible = plane_info.visible;
+> +       dc_plane_state->per_pixel_alpha = plane_info.per_pixel_alpha;
+> +       dc_plane_state->pre_multiplied_alpha = plane_info.pre_multiplied_alpha;
+> +       dc_plane_state->global_alpha = plane_info.global_alpha;
+> +       dc_plane_state->global_alpha_value = plane_info.global_alpha_value;
+> +       dc_plane_state->dcc = plane_info.dcc;
+> +       dc_plane_state->layer_index = plane_info.layer_index; // Always returns 0
+> +       dc_plane_state->flip_int_enabled = true;
+>
+> -       tiling_info->gfx9.num_pipes = 1u << pipes_log2;
+> -       tiling_info->gfx9.num_shader_engines = 1u << (mod_pipe_xor_bits - pipes_log2);
+> -
+> -       if (adev->family >= AMDGPU_FAMILY_NV) {
+> -               tiling_info->gfx9.num_pkrs = 1u << pkrs_log2;
+> -       } else {
+> -               tiling_info->gfx9.num_banks = 1u << mod_bank_xor_bits;
+> -
+> -               /* for DCC we know it isn't rb aligned, so rb_per_se doesn't matter. */
+> -       }
+> -}
+> -
+> -enum dm_micro_swizzle {
+> -       MICRO_SWIZZLE_Z = 0,
+> -       MICRO_SWIZZLE_S = 1,
+> -       MICRO_SWIZZLE_D = 2,
+> -       MICRO_SWIZZLE_R = 3
+> -};
+> -
+> -static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+> -                                         uint32_t format,
+> -                                         uint64_t modifier)
+> -{
+> -       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> -       const struct drm_format_info *info = drm_format_info(format);
+> -       int i;
+> -
+> -       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
+> -
+> -       if (!info)
+> -               return false;
+> -
+> -       /*
+> -        * We always have to allow these modifiers:
+> -        * 1. Core DRM checks for LINEAR support if userspace does not provide modifiers.
+> -        * 2. Not passing any modifiers is the same as explicitly passing INVALID.
+> -        */
+> -       if (modifier == DRM_FORMAT_MOD_LINEAR ||
+> -           modifier == DRM_FORMAT_MOD_INVALID) {
+> -               return true;
+> -       }
+> -
+> -       /* Check that the modifier is on the list of the plane's supported modifiers. */
+> -       for (i = 0; i < plane->modifier_count; i++) {
+> -               if (modifier == plane->modifiers[i])
+> -                       break;
+> -       }
+> -       if (i == plane->modifier_count)
+> -               return false;
+> -
+> -       /*
+> -        * For D swizzle the canonical modifier depends on the bpp, so check
+> -        * it here.
+> -        */
+> -       if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
+> -           adev->family >= AMDGPU_FAMILY_NV) {
+> -               if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
+> -                       return false;
+> -       }
+> -
+> -       if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
+> -           info->cpp[0] < 8)
+> -               return false;
+> -
+> -       if (modifier_has_dcc(modifier)) {
+> -               /* Per radeonsi comments 16/64 bpp are more complicated. */
+> -               if (info->cpp[0] != 4)
+> -                       return false;
+> -               /* We support multi-planar formats, but not when combined with
+> -                * additional DCC metadata planes. */
+> -               if (info->num_planes > 1)
+> -                       return false;
+> -       }
+> -
+> -       return true;
+> -}
+> -
+> -static void
+> -add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_t mod)
+> -{
+> -       if (!*mods)
+> -               return;
+> -
+> -       if (*cap - *size < 1) {
+> -               uint64_t new_cap = *cap * 2;
+> -               uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
+> -
+> -               if (!new_mods) {
+> -                       kfree(*mods);
+> -                       *mods = NULL;
+> -                       return;
+> -               }
+> -
+> -               memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
+> -               kfree(*mods);
+> -               *mods = new_mods;
+> -               *cap = new_cap;
+> -       }
+> -
+> -       (*mods)[*size] = mod;
+> -       *size += 1;
+> -}
+> -
+> -static void
+> -add_gfx9_modifiers(const struct amdgpu_device *adev,
+> -                  uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> -{
+> -       int pipes = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> -       int pipe_xor_bits = min(8, pipes +
+> -                               ilog2(adev->gfx.config.gb_addr_config_fields.num_se));
+> -       int bank_xor_bits = min(8 - pipe_xor_bits,
+> -                               ilog2(adev->gfx.config.gb_addr_config_fields.num_banks));
+> -       int rb = ilog2(adev->gfx.config.gb_addr_config_fields.num_se) +
+> -                ilog2(adev->gfx.config.gb_addr_config_fields.num_rb_per_se);
+> -
+> -
+> -       if (adev->family == AMDGPU_FAMILY_RV) {
+> -               /* Raven2 and later */
+> -               bool has_constant_encode = adev->asic_type > CHIP_RAVEN || adev->external_rev_id >= 0x81;
+> -
+> -               /*
+> -                * No _D DCC swizzles yet because we only allow 32bpp, which
+> -                * doesn't support _D on DCN
+> -                */
+> -
+> -               if (has_constant_encode) {
+> -                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> -                                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> -                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1));
+> -               }
+> -
+> -               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> -                           AMD_FMT_MOD_SET(DCC, 1) |
+> -                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> -                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0));
+> -
+> -               if (has_constant_encode) {
+> -                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> -                                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> -
+> -                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                                   AMD_FMT_MOD_SET(RB, rb) |
+> -                                   AMD_FMT_MOD_SET(PIPE, pipes));
+> -               }
+> -
+> -               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> -                           AMD_FMT_MOD_SET(DCC, 1) |
+> -                           AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> -                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> -                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0) |
+> -                           AMD_FMT_MOD_SET(RB, rb) |
+> -                           AMD_FMT_MOD_SET(PIPE, pipes));
+> -       }
+> -
+> -       /*
+> -        * Only supported for 64bpp on Raven, will be filtered on format in
+> -        * dm_plane_format_mod_supported.
+> -        */
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> -
+> -       if (adev->family == AMDGPU_FAMILY_RV) {
+> -               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> -                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> -       }
+> -
+> -       /*
+> -        * Only supported for 64bpp on Raven, will be filtered on format in
+> -        * dm_plane_format_mod_supported.
+> -        */
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -
+> -       if (adev->family == AMDGPU_FAMILY_RV) {
+> -               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> -                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -       }
+> -}
+> -
+> -static void
+> -add_gfx10_1_modifiers(const struct amdgpu_device *adev,
+> -                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> -{
+> -       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> -
+> -
+> -       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -}
+> -
+> -static void
+> -add_gfx10_3_modifiers(const struct amdgpu_device *adev,
+> -                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> -{
+> -       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> -       int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> -                   AMD_FMT_MOD_SET(DCC, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> -                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> -
+> -       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> -                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> -}
+> -
+> -static void
+> -add_gfx11_modifiers(struct amdgpu_device *adev,
+> -                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> -{
+> -       int num_pipes = 0;
+> -       int pipe_xor_bits = 0;
+> -       int num_pkrs = 0;
+> -       int pkrs = 0;
+> -       u32 gb_addr_config;
+> -       u8 i = 0;
+> -       unsigned swizzle_r_x;
+> -       uint64_t modifier_r_x;
+> -       uint64_t modifier_dcc_best;
+> -       uint64_t modifier_dcc_4k;
+> -
+> -       /* TODO: GFX11 IP HW init hasnt finish and we get zero if we read from
+> -        * adev->gfx.config.gb_addr_config_fields.num_{pkrs,pipes} */
+> -       gb_addr_config = RREG32_SOC15(GC, 0, regGB_ADDR_CONFIG);
+> -       ASSERT(gb_addr_config != 0);
+> -
+> -       num_pkrs = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PKRS);
+> -       pkrs = ilog2(num_pkrs);
+> -       num_pipes = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PIPES);
+> -       pipe_xor_bits = ilog2(num_pipes);
+> -
+> -       for (i = 0; i < 2; i++) {
+> -               /* Insert the best one first. */
+> -               /* R_X swizzle modes are the best for rendering and DCC requires them. */
+> -               if (num_pipes > 16)
+> -                       swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX11_256K_R_X : AMD_FMT_MOD_TILE_GFX9_64K_R_X;
+> -               else
+> -                       swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX9_64K_R_X : AMD_FMT_MOD_TILE_GFX11_256K_R_X;
+> -
+> -               modifier_r_x = AMD_FMT_MOD |
+> -                              AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+> -                              AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> -                              AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
+> -                              AMD_FMT_MOD_SET(PACKERS, pkrs);
+> -
+> -               /* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11 (it's implied to be 1). */
+> -               modifier_dcc_best = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |
+> -                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B);
+> -
+> -               /* DCC settings for 4K and greater resolutions. (required by display hw) */
+> -               modifier_dcc_4k = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
+> -                                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> -                                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> -                                 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B);
+> -
+> -               add_modifier(mods, size, capacity, modifier_dcc_best);
+> -               add_modifier(mods, size, capacity, modifier_dcc_4k);
+> -
+> -               add_modifier(mods, size, capacity, modifier_dcc_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> -               add_modifier(mods, size, capacity, modifier_dcc_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> -
+> -               add_modifier(mods, size, capacity, modifier_r_x);
+> -       }
+> -
+> -       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> -             AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+> -                        AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D));
+> -}
+> -
+> -static int
+> -get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
+> -{
+> -       uint64_t size = 0, capacity = 128;
+> -       *mods = NULL;
+> -
+> -       /* We have not hooked up any pre-GFX9 modifiers. */
+> -       if (adev->family < AMDGPU_FAMILY_AI)
+> -               return 0;
+> -
+> -       *mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
+> -
+> -       if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+> -               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> -               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> -               return *mods ? 0 : -ENOMEM;
+> -       }
+> -
+> -       switch (adev->family) {
+> -       case AMDGPU_FAMILY_AI:
+> -       case AMDGPU_FAMILY_RV:
+> -               add_gfx9_modifiers(adev, mods, &size, &capacity);
+> -               break;
+> -       case AMDGPU_FAMILY_NV:
+> -       case AMDGPU_FAMILY_VGH:
+> -       case AMDGPU_FAMILY_YC:
+> -       case AMDGPU_FAMILY_GC_10_3_6:
+> -       case AMDGPU_FAMILY_GC_10_3_7:
+> -               if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
+> -                       add_gfx10_3_modifiers(adev, mods, &size, &capacity);
+> -               else
+> -                       add_gfx10_1_modifiers(adev, mods, &size, &capacity);
+> -               break;
+> -       case AMDGPU_FAMILY_GC_11_0_0:
+> -       case AMDGPU_FAMILY_GC_11_0_2:
+> -               add_gfx11_modifiers(adev, mods, &size, &capacity);
+> -               break;
+> -       }
+> -
+> -       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> -
+> -       /* INVALID marks the end of the list. */
+> -       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> -
+> -       if (!*mods)
+> -               return -ENOMEM;
+> -
+> -       return 0;
+> -}
+> -
+> -static int
+> -fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+> -                                         const struct amdgpu_framebuffer *afb,
+> -                                         const enum surface_pixel_format format,
+> -                                         const enum dc_rotation_angle rotation,
+> -                                         const struct plane_size *plane_size,
+> -                                         union dc_tiling_info *tiling_info,
+> -                                         struct dc_plane_dcc_param *dcc,
+> -                                         struct dc_plane_address *address,
+> -                                         const bool force_disable_dcc)
+> -{
+> -       const uint64_t modifier = afb->base.modifier;
+> -       int ret = 0;
+> -
+> -       fill_gfx9_tiling_info_from_modifier(adev, tiling_info, modifier);
+> -       tiling_info->gfx9.swizzle = modifier_gfx9_swizzle_mode(modifier);
+> -
+> -       if (modifier_has_dcc(modifier) && !force_disable_dcc) {
+> -               uint64_t dcc_address = afb->address + afb->base.offsets[1];
+> -               bool independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
+> -               bool independent_128b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_128B, modifier);
+> -
+> -               dcc->enable = 1;
+> -               dcc->meta_pitch = afb->base.pitches[1];
+> -               dcc->independent_64b_blks = independent_64b_blks;
+> -               if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) >= AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {
+> -                       if (independent_64b_blks && independent_128b_blks)
+> -                               dcc->dcc_ind_blk = hubp_ind_block_64b_no_128bcl;
+> -                       else if (independent_128b_blks)
+> -                               dcc->dcc_ind_blk = hubp_ind_block_128b;
+> -                       else if (independent_64b_blks && !independent_128b_blks)
+> -                               dcc->dcc_ind_blk = hubp_ind_block_64b;
+> -                       else
+> -                               dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
+> -               } else {
+> -                       if (independent_64b_blks)
+> -                               dcc->dcc_ind_blk = hubp_ind_block_64b;
+> -                       else
+> -                               dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
+> -               }
+> -
+> -               address->grph.meta_addr.low_part = lower_32_bits(dcc_address);
+> -               address->grph.meta_addr.high_part = upper_32_bits(dcc_address);
+> -       }
+> -
+> -       ret = validate_dcc(adev, format, rotation, tiling_info, dcc, address, plane_size);
+> -       if (ret)
+> -               drm_dbg_kms(adev_to_drm(adev), "validate_dcc: returned error: %d\n", ret);
+> -
+> -       return ret;
+> -}
+> -
+> -static int
+> -fill_plane_buffer_attributes(struct amdgpu_device *adev,
+> -                            const struct amdgpu_framebuffer *afb,
+> -                            const enum surface_pixel_format format,
+> -                            const enum dc_rotation_angle rotation,
+> -                            const uint64_t tiling_flags,
+> -                            union dc_tiling_info *tiling_info,
+> -                            struct plane_size *plane_size,
+> -                            struct dc_plane_dcc_param *dcc,
+> -                            struct dc_plane_address *address,
+> -                            bool tmz_surface,
+> -                            bool force_disable_dcc)
+> -{
+> -       const struct drm_framebuffer *fb = &afb->base;
+> -       int ret;
+> -
+> -       memset(tiling_info, 0, sizeof(*tiling_info));
+> -       memset(plane_size, 0, sizeof(*plane_size));
+> -       memset(dcc, 0, sizeof(*dcc));
+> -       memset(address, 0, sizeof(*address));
+> -
+> -       address->tmz_surface = tmz_surface;
+> -
+> -       if (format < SURFACE_PIXEL_FORMAT_VIDEO_BEGIN) {
+> -               uint64_t addr = afb->address + fb->offsets[0];
+> -
+> -               plane_size->surface_size.x = 0;
+> -               plane_size->surface_size.y = 0;
+> -               plane_size->surface_size.width = fb->width;
+> -               plane_size->surface_size.height = fb->height;
+> -               plane_size->surface_pitch =
+> -                       fb->pitches[0] / fb->format->cpp[0];
+> -
+> -               address->type = PLN_ADDR_TYPE_GRAPHICS;
+> -               address->grph.addr.low_part = lower_32_bits(addr);
+> -               address->grph.addr.high_part = upper_32_bits(addr);
+> -       } else if (format < SURFACE_PIXEL_FORMAT_INVALID) {
+> -               uint64_t luma_addr = afb->address + fb->offsets[0];
+> -               uint64_t chroma_addr = afb->address + fb->offsets[1];
+> -
+> -               plane_size->surface_size.x = 0;
+> -               plane_size->surface_size.y = 0;
+> -               plane_size->surface_size.width = fb->width;
+> -               plane_size->surface_size.height = fb->height;
+> -               plane_size->surface_pitch =
+> -                       fb->pitches[0] / fb->format->cpp[0];
+> -
+> -               plane_size->chroma_size.x = 0;
+> -               plane_size->chroma_size.y = 0;
+> -               /* TODO: set these based on surface format */
+> -               plane_size->chroma_size.width = fb->width / 2;
+> -               plane_size->chroma_size.height = fb->height / 2;
+> -
+> -               plane_size->chroma_pitch =
+> -                       fb->pitches[1] / fb->format->cpp[1];
+> -
+> -               address->type = PLN_ADDR_TYPE_VIDEO_PROGRESSIVE;
+> -               address->video_progressive.luma_addr.low_part =
+> -                       lower_32_bits(luma_addr);
+> -               address->video_progressive.luma_addr.high_part =
+> -                       upper_32_bits(luma_addr);
+> -               address->video_progressive.chroma_addr.low_part =
+> -                       lower_32_bits(chroma_addr);
+> -               address->video_progressive.chroma_addr.high_part =
+> -                       upper_32_bits(chroma_addr);
+> -       }
+> -
+> -       if (adev->family >= AMDGPU_FAMILY_AI) {
+> -               ret = fill_gfx9_plane_attributes_from_modifiers(adev, afb, format,
+> -                                                               rotation, plane_size,
+> -                                                               tiling_info, dcc,
+> -                                                               address,
+> -                                                               force_disable_dcc);
+> -               if (ret)
+> -                       return ret;
+> -       } else {
+> -               fill_gfx8_tiling_info_from_flags(tiling_info, tiling_flags);
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static void
+> -fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> -                              bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+> -                              bool *global_alpha, int *global_alpha_value)
+> -{
+> -       *per_pixel_alpha = false;
+> -       *pre_multiplied_alpha = true;
+> -       *global_alpha = false;
+> -       *global_alpha_value = 0xff;
+> -
+> -       if (plane_state->plane->type != DRM_PLANE_TYPE_OVERLAY)
+> -               return;
+> -
+> -       if (plane_state->pixel_blend_mode == DRM_MODE_BLEND_PREMULTI ||
+> -               plane_state->pixel_blend_mode == DRM_MODE_BLEND_COVERAGE) {
+> -               static const uint32_t alpha_formats[] = {
+> -                       DRM_FORMAT_ARGB8888,
+> -                       DRM_FORMAT_RGBA8888,
+> -                       DRM_FORMAT_ABGR8888,
+> -               };
+> -               uint32_t format = plane_state->fb->format->format;
+> -               unsigned int i;
+> -
+> -               for (i = 0; i < ARRAY_SIZE(alpha_formats); ++i) {
+> -                       if (format == alpha_formats[i]) {
+> -                               *per_pixel_alpha = true;
+> -                               break;
+> -                       }
+> -               }
+> -
+> -               if (*per_pixel_alpha && plane_state->pixel_blend_mode == DRM_MODE_BLEND_COVERAGE)
+> -                       *pre_multiplied_alpha = false;
+> -       }
+> -
+> -       if (plane_state->alpha < 0xffff) {
+> -               *global_alpha = true;
+> -               *global_alpha_value = plane_state->alpha >> 8;
+> -       }
+> -}
+> -
+> -static int
+> -fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+> -                           const enum surface_pixel_format format,
+> -                           enum dc_color_space *color_space)
+> -{
+> -       bool full_range;
+> -
+> -       *color_space = COLOR_SPACE_SRGB;
+> -
+> -       /* DRM color properties only affect non-RGB formats. */
+> -       if (format < SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
+> -               return 0;
+> -
+> -       full_range = (plane_state->color_range == DRM_COLOR_YCBCR_FULL_RANGE);
+> -
+> -       switch (plane_state->color_encoding) {
+> -       case DRM_COLOR_YCBCR_BT601:
+> -               if (full_range)
+> -                       *color_space = COLOR_SPACE_YCBCR601;
+> -               else
+> -                       *color_space = COLOR_SPACE_YCBCR601_LIMITED;
+> -               break;
+> -
+> -       case DRM_COLOR_YCBCR_BT709:
+> -               if (full_range)
+> -                       *color_space = COLOR_SPACE_YCBCR709;
+> -               else
+> -                       *color_space = COLOR_SPACE_YCBCR709_LIMITED;
+> -               break;
+> -
+> -       case DRM_COLOR_YCBCR_BT2020:
+> -               if (full_range)
+> -                       *color_space = COLOR_SPACE_2020_YCBCR;
+> -               else
+> -                       return -EINVAL;
+> -               break;
+> -
+> -       default:
+> -               return -EINVAL;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static int
+> -fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+> -                           const struct drm_plane_state *plane_state,
+> -                           const uint64_t tiling_flags,
+> -                           struct dc_plane_info *plane_info,
+> -                           struct dc_plane_address *address,
+> -                           bool tmz_surface,
+> -                           bool force_disable_dcc)
+> -{
+> -       const struct drm_framebuffer *fb = plane_state->fb;
+> -       const struct amdgpu_framebuffer *afb =
+> -               to_amdgpu_framebuffer(plane_state->fb);
+> -       int ret;
+> -
+> -       memset(plane_info, 0, sizeof(*plane_info));
+> -
+> -       switch (fb->format->format) {
+> -       case DRM_FORMAT_C8:
+> -               plane_info->format =
+> -                       SURFACE_PIXEL_FORMAT_GRPH_PALETA_256_COLORS;
+> -               break;
+> -       case DRM_FORMAT_RGB565:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_RGB565;
+> -               break;
+> -       case DRM_FORMAT_XRGB8888:
+> -       case DRM_FORMAT_ARGB8888:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
+> -               break;
+> -       case DRM_FORMAT_XRGB2101010:
+> -       case DRM_FORMAT_ARGB2101010:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB2101010;
+> -               break;
+> -       case DRM_FORMAT_XBGR2101010:
+> -       case DRM_FORMAT_ABGR2101010:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR2101010;
+> -               break;
+> -       case DRM_FORMAT_XBGR8888:
+> -       case DRM_FORMAT_ABGR8888:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR8888;
+> -               break;
+> -       case DRM_FORMAT_NV21:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr;
+> -               break;
+> -       case DRM_FORMAT_NV12:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_YCrCb;
+> -               break;
+> -       case DRM_FORMAT_P010:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_VIDEO_420_10bpc_YCrCb;
+> -               break;
+> -       case DRM_FORMAT_XRGB16161616F:
+> -       case DRM_FORMAT_ARGB16161616F:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F;
+> -               break;
+> -       case DRM_FORMAT_XBGR16161616F:
+> -       case DRM_FORMAT_ABGR16161616F:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F;
+> -               break;
+> -       case DRM_FORMAT_XRGB16161616:
+> -       case DRM_FORMAT_ARGB16161616:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616;
+> -               break;
+> -       case DRM_FORMAT_XBGR16161616:
+> -       case DRM_FORMAT_ABGR16161616:
+> -               plane_info->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616;
+> -               break;
+> -       default:
+> -               DRM_ERROR(
+> -                       "Unsupported screen format %p4cc\n",
+> -                       &fb->format->format);
+> -               return -EINVAL;
+> -       }
+> -
+> -       switch (plane_state->rotation & DRM_MODE_ROTATE_MASK) {
+> -       case DRM_MODE_ROTATE_0:
+> -               plane_info->rotation = ROTATION_ANGLE_0;
+> -               break;
+> -       case DRM_MODE_ROTATE_90:
+> -               plane_info->rotation = ROTATION_ANGLE_90;
+> -               break;
+> -       case DRM_MODE_ROTATE_180:
+> -               plane_info->rotation = ROTATION_ANGLE_180;
+> -               break;
+> -       case DRM_MODE_ROTATE_270:
+> -               plane_info->rotation = ROTATION_ANGLE_270;
+> -               break;
+> -       default:
+> -               plane_info->rotation = ROTATION_ANGLE_0;
+> -               break;
+> -       }
+> -
+> -       plane_info->visible = true;
+> -       plane_info->stereo_format = PLANE_STEREO_FORMAT_NONE;
+> -
+> -       plane_info->layer_index = 0;
+> -
+> -       ret = fill_plane_color_attributes(plane_state, plane_info->format,
+> -                                         &plane_info->color_space);
+> -       if (ret)
+> -               return ret;
+> -
+> -       ret = fill_plane_buffer_attributes(adev, afb, plane_info->format,
+> -                                          plane_info->rotation, tiling_flags,
+> -                                          &plane_info->tiling_info,
+> -                                          &plane_info->plane_size,
+> -                                          &plane_info->dcc, address, tmz_surface,
+> -                                          force_disable_dcc);
+> -       if (ret)
+> -               return ret;
+> -
+> -       fill_blending_from_plane_state(
+> -               plane_state, &plane_info->per_pixel_alpha, &plane_info->pre_multiplied_alpha,
+> -               &plane_info->global_alpha, &plane_info->global_alpha_value);
+> -
+> -       return 0;
+> -}
+> -
+> -static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+> -                                   struct dc_plane_state *dc_plane_state,
+> -                                   struct drm_plane_state *plane_state,
+> -                                   struct drm_crtc_state *crtc_state)
+> -{
+> -       struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+> -       struct amdgpu_framebuffer *afb = (struct amdgpu_framebuffer *)plane_state->fb;
+> -       struct dc_scaling_info scaling_info;
+> -       struct dc_plane_info plane_info;
+> -       int ret;
+> -       bool force_disable_dcc = false;
+> -
+> -       ret = fill_dc_scaling_info(adev, plane_state, &scaling_info);
+> -       if (ret)
+> -               return ret;
+> -
+> -       dc_plane_state->src_rect = scaling_info.src_rect;
+> -       dc_plane_state->dst_rect = scaling_info.dst_rect;
+> -       dc_plane_state->clip_rect = scaling_info.clip_rect;
+> -       dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+> -
+> -       force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
+> -       ret = fill_dc_plane_info_and_addr(adev, plane_state,
+> -                                         afb->tiling_flags,
+> -                                         &plane_info,
+> -                                         &dc_plane_state->address,
+> -                                         afb->tmz_surface,
+> -                                         force_disable_dcc);
+> -       if (ret)
+> -               return ret;
+> -
+> -       dc_plane_state->format = plane_info.format;
+> -       dc_plane_state->color_space = plane_info.color_space;
+> -       dc_plane_state->format = plane_info.format;
+> -       dc_plane_state->plane_size = plane_info.plane_size;
+> -       dc_plane_state->rotation = plane_info.rotation;
+> -       dc_plane_state->horizontal_mirror = plane_info.horizontal_mirror;
+> -       dc_plane_state->stereo_format = plane_info.stereo_format;
+> -       dc_plane_state->tiling_info = plane_info.tiling_info;
+> -       dc_plane_state->visible = plane_info.visible;
+> -       dc_plane_state->per_pixel_alpha = plane_info.per_pixel_alpha;
+> -       dc_plane_state->pre_multiplied_alpha = plane_info.pre_multiplied_alpha;
+> -       dc_plane_state->global_alpha = plane_info.global_alpha;
+> -       dc_plane_state->global_alpha_value = plane_info.global_alpha_value;
+> -       dc_plane_state->dcc = plane_info.dcc;
+> -       dc_plane_state->layer_index = plane_info.layer_index; // Always returns 0
+> -       dc_plane_state->flip_int_enabled = true;
+> -
+> -       /*
+> -        * Always set input transfer function, since plane state is refreshed
+> -        * every time.
+> -        */
+> -       ret = amdgpu_dm_update_plane_color_mgmt(dm_crtc_state, dc_plane_state);
+> -       if (ret)
+> -               return ret;
+> +       /*
+> +        * Always set input transfer function, since plane state is refreshed
+> +        * every time.
+> +        */
+> +       ret = amdgpu_dm_update_plane_color_mgmt(dm_crtc_state, dc_plane_state);
+> +       if (ret)
+> +               return ret;
+>
+>         return 0;
+>  }
+> @@ -6165,7 +5274,7 @@ static void fill_stream_properties_from_drm_display_mode(
+>         timing_out->scan_type = SCANNING_TYPE_NODATA;
+>         timing_out->hdmi_vic = 0;
+>
+> -       if(old_stream) {
+> +       if (old_stream) {
+>                 timing_out->vic = old_stream->timing.vic;
+>                 timing_out->flags.HSYNC_POSITIVE_POLARITY = old_stream->timing.flags.HSYNC_POSITIVE_POLARITY;
+>                 timing_out->flags.VSYNC_POSITIVE_POLARITY = old_stream->timing.flags.VSYNC_POSITIVE_POLARITY;
+> @@ -6387,16 +5496,126 @@ static void dm_enable_per_frame_crtc_master_sync(struct dc_state *context)
+>         }
+>  }
+>
+> +/**
+> + * DOC: FreeSync Video
+> + *
+> + * When a userspace application wants to play a video, the content follows a
+> + * standard format definition that usually specifies the FPS for that format.
+> + * The below list illustrates some video format and the expected FPS,
+> + * respectively:
+> + *
+> + * - TV/NTSC (23.976 FPS)
+> + * - Cinema (24 FPS)
+> + * - TV/PAL (25 FPS)
+> + * - TV/NTSC (29.97 FPS)
+> + * - TV/NTSC (30 FPS)
+> + * - Cinema HFR (48 FPS)
+> + * - TV/PAL (50 FPS)
+> + * - Commonly used (60 FPS)
+> + * - Multiples of 24 (48,72,96 FPS)
+> + *
+> + * The list of standards video format is not huge and can be added to the
+> + * connector modeset list beforehand. With that, userspace can leverage
+> + * FreeSync to extends the front porch in order to attain the target refresh
+> + * rate. Such a switch will happen seamlessly, without screen blanking or
+> + * reprogramming of the output in any other way. If the userspace requests a
+> + * modesetting change compatible with FreeSync modes that only differ in the
+> + * refresh rate, DC will skip the full update and avoid blink during the
+> + * transition. For example, the video player can change the modesetting from
+> + * 60Hz to 30Hz for playing TV/NTSC content when it goes full screen without
+> + * causing any display blink. This same concept can be applied to a mode
+> + * setting change.
+> + */
+> +static struct drm_display_mode *
+> +get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+> +               bool use_probed_modes)
+> +{
+> +       struct drm_display_mode *m, *m_pref = NULL;
+> +       u16 current_refresh, highest_refresh;
+> +       struct list_head *list_head = use_probed_modes ?
+> +               &aconnector->base.probed_modes :
+> +               &aconnector->base.modes;
+> +
+> +       if (aconnector->freesync_vid_base.clock != 0)
+> +               return &aconnector->freesync_vid_base;
+> +
+> +       /* Find the preferred mode */
+> +       list_for_each_entry (m, list_head, head) {
+> +               if (m->type & DRM_MODE_TYPE_PREFERRED) {
+> +                       m_pref = m;
+> +                       break;
+> +               }
+> +       }
+> +
+> +       if (!m_pref) {
+> +               /* Probably an EDID with no preferred mode. Fallback to first entry */
+> +               m_pref = list_first_entry_or_null(
+> +                               &aconnector->base.modes, struct drm_display_mode, head);
+> +               if (!m_pref) {
+> +                       DRM_DEBUG_DRIVER("No preferred mode found in EDID\n");
+> +                       return NULL;
+> +               }
+> +       }
+> +
+> +       highest_refresh = drm_mode_vrefresh(m_pref);
+> +
+> +       /*
+> +        * Find the mode with highest refresh rate with same resolution.
+> +        * For some monitors, preferred mode is not the mode with highest
+> +        * supported refresh rate.
+> +        */
+> +       list_for_each_entry (m, list_head, head) {
+> +               current_refresh  = drm_mode_vrefresh(m);
+> +
+> +               if (m->hdisplay == m_pref->hdisplay &&
+> +                   m->vdisplay == m_pref->vdisplay &&
+> +                   highest_refresh < current_refresh) {
+> +                       highest_refresh = current_refresh;
+> +                       m_pref = m;
+> +               }
+> +       }
+> +
+> +       drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
+> +       return m_pref;
+> +}
+> +
+> +static bool is_freesync_video_mode(const struct drm_display_mode *mode,
+> +               struct amdgpu_dm_connector *aconnector)
+> +{
+> +       struct drm_display_mode *high_mode;
+> +       int timing_diff;
+> +
+> +       high_mode = get_highest_refresh_rate_mode(aconnector, false);
+> +       if (!high_mode || !mode)
+> +               return false;
+> +
+> +       timing_diff = high_mode->vtotal - mode->vtotal;
+> +
+> +       if (high_mode->clock == 0 || high_mode->clock != mode->clock ||
+> +           high_mode->hdisplay != mode->hdisplay ||
+> +           high_mode->vdisplay != mode->vdisplay ||
+> +           high_mode->hsync_start != mode->hsync_start ||
+> +           high_mode->hsync_end != mode->hsync_end ||
+> +           high_mode->htotal != mode->htotal ||
+> +           high_mode->hskew != mode->hskew ||
+> +           high_mode->vscan != mode->vscan ||
+> +           high_mode->vsync_start - mode->vsync_start != timing_diff ||
+> +           high_mode->vsync_end - mode->vsync_end != timing_diff)
+> +               return false;
+> +       else
+> +               return true;
+> +}
+> +
+>  #if defined(CONFIG_DRM_AMD_DC_DCN)
+>  static void update_dsc_caps(struct amdgpu_dm_connector *aconnector,
+> -                                                       struct dc_sink *sink, struct dc_stream_state *stream,
+> -                                                       struct dsc_dec_dpcd_caps *dsc_caps)
+> +                           struct dc_sink *sink, struct dc_stream_state *stream,
+> +                           struct dsc_dec_dpcd_caps *dsc_caps)
+>  {
+>         stream->timing.flags.DSC = 0;
+>         dsc_caps->is_dsc_supported = false;
+>
+>         if (aconnector->dc_link && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+> -               sink->sink_signal == SIGNAL_TYPE_EDP)) {
+> +           sink->sink_signal == SIGNAL_TYPE_EDP)) {
+>                 if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE ||
+>                         sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER)
+>                         dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
+> @@ -6406,6 +5625,7 @@ static void update_dsc_caps(struct amdgpu_dm_connector *aconnector,
+>         }
+>  }
+>
+> +
+>  static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+>                                     struct dc_sink *sink, struct dc_stream_state *stream,
+>                                     struct dsc_dec_dpcd_caps *dsc_caps,
+> @@ -6464,9 +5684,10 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+>         }
+>  }
+>
+> +
+>  static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+> -                                                                               struct dc_sink *sink, struct dc_stream_state *stream,
+> -                                                                               struct dsc_dec_dpcd_caps *dsc_caps)
+> +                                       struct dc_sink *sink, struct dc_stream_state *stream,
+> +                                       struct dsc_dec_dpcd_caps *dsc_caps)
+>  {
+>         struct drm_connector *drm_connector = &aconnector->base;
+>         uint32_t link_bandwidth_kbps;
+> @@ -6477,7 +5698,6 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+>
+>         link_bandwidth_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
+>                                                         dc_link_get_link_cap(aconnector->dc_link));
+> -
+>         if (stream->link && stream->link->local_sink)
+>                 max_dsc_target_bpp_limit_override =
+>                         stream->link->local_sink->edid_caps.panel_patch.max_dsc_target_bpp_limit;
+> @@ -6501,8 +5721,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+>                                                 &stream->timing,
+>                                                 &stream->timing.dsc_cfg)) {
+>                                 stream->timing.flags.DSC = 1;
+> -                               DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from SST RX\n",
+> -                                                                __func__, drm_connector->name);
+> +                               DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from SST RX\n", __func__, drm_connector->name);
+>                         }
+>                 } else if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
+>                         timing_bw_in_kbps = dc_bandwidth_in_kbps_from_timing(&stream->timing);
+> @@ -6530,126 +5749,16 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+>         if (aconnector->dsc_settings.dsc_force_enable == DSC_CLK_FORCE_ENABLE)
+>                 stream->timing.flags.DSC = 1;
+>
+> -       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_num_slices_h)
+> -               stream->timing.dsc_cfg.num_slices_h = aconnector->dsc_settings.dsc_num_slices_h;
+> -
+> -       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_num_slices_v)
+> -               stream->timing.dsc_cfg.num_slices_v = aconnector->dsc_settings.dsc_num_slices_v;
+> -
+> -       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_bits_per_pixel)
+> -               stream->timing.dsc_cfg.bits_per_pixel = aconnector->dsc_settings.dsc_bits_per_pixel;
+> -}
+> -#endif /* CONFIG_DRM_AMD_DC_DCN */
+> -
+> -/**
+> - * DOC: FreeSync Video
+> - *
+> - * When a userspace application wants to play a video, the content follows a
+> - * standard format definition that usually specifies the FPS for that format.
+> - * The below list illustrates some video format and the expected FPS,
+> - * respectively:
+> - *
+> - * - TV/NTSC (23.976 FPS)
+> - * - Cinema (24 FPS)
+> - * - TV/PAL (25 FPS)
+> - * - TV/NTSC (29.97 FPS)
+> - * - TV/NTSC (30 FPS)
+> - * - Cinema HFR (48 FPS)
+> - * - TV/PAL (50 FPS)
+> - * - Commonly used (60 FPS)
+> - * - Multiples of 24 (48,72,96,120 FPS)
+> - *
+> - * The list of standards video format is not huge and can be added to the
+> - * connector modeset list beforehand. With that, userspace can leverage
+> - * FreeSync to extends the front porch in order to attain the target refresh
+> - * rate. Such a switch will happen seamlessly, without screen blanking or
+> - * reprogramming of the output in any other way. If the userspace requests a
+> - * modesetting change compatible with FreeSync modes that only differ in the
+> - * refresh rate, DC will skip the full update and avoid blink during the
+> - * transition. For example, the video player can change the modesetting from
+> - * 60Hz to 30Hz for playing TV/NTSC content when it goes full screen without
+> - * causing any display blink. This same concept can be applied to a mode
+> - * setting change.
+> - */
+> -static struct drm_display_mode *
+> -get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+> -                         bool use_probed_modes)
+> -{
+> -       struct drm_display_mode *m, *m_pref = NULL;
+> -       u16 current_refresh, highest_refresh;
+> -       struct list_head *list_head = use_probed_modes ?
+> -                                                   &aconnector->base.probed_modes :
+> -                                                   &aconnector->base.modes;
+> -
+> -       if (aconnector->freesync_vid_base.clock != 0)
+> -               return &aconnector->freesync_vid_base;
+> -
+> -       /* Find the preferred mode */
+> -       list_for_each_entry (m, list_head, head) {
+> -               if (m->type & DRM_MODE_TYPE_PREFERRED) {
+> -                       m_pref = m;
+> -                       break;
+> -               }
+> -       }
+> -
+> -       if (!m_pref) {
+> -               /* Probably an EDID with no preferred mode. Fallback to first entry */
+> -               m_pref = list_first_entry_or_null(
+> -                       &aconnector->base.modes, struct drm_display_mode, head);
+> -               if (!m_pref) {
+> -                       DRM_DEBUG_DRIVER("No preferred mode found in EDID\n");
+> -                       return NULL;
+> -               }
+> -       }
+> -
+> -       highest_refresh = drm_mode_vrefresh(m_pref);
+> -
+> -       /*
+> -        * Find the mode with highest refresh rate with same resolution.
+> -        * For some monitors, preferred mode is not the mode with highest
+> -        * supported refresh rate.
+> -        */
+> -       list_for_each_entry (m, list_head, head) {
+> -               current_refresh  = drm_mode_vrefresh(m);
+> -
+> -               if (m->hdisplay == m_pref->hdisplay &&
+> -                   m->vdisplay == m_pref->vdisplay &&
+> -                   highest_refresh < current_refresh) {
+> -                       highest_refresh = current_refresh;
+> -                       m_pref = m;
+> -               }
+> -       }
+> -
+> -       drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
+> -       return m_pref;
+> -}
+> -
+> -static bool is_freesync_video_mode(const struct drm_display_mode *mode,
+> -                                  struct amdgpu_dm_connector *aconnector)
+> -{
+> -       struct drm_display_mode *high_mode;
+> -       int timing_diff;
+> -
+> -       high_mode = get_highest_refresh_rate_mode(aconnector, false);
+> -       if (!high_mode || !mode)
+> -               return false;
+> -
+> -       timing_diff = high_mode->vtotal - mode->vtotal;
+> +       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_num_slices_h)
+> +               stream->timing.dsc_cfg.num_slices_h = aconnector->dsc_settings.dsc_num_slices_h;
+>
+> -       if (high_mode->clock == 0 || high_mode->clock != mode->clock ||
+> -           high_mode->hdisplay != mode->hdisplay ||
+> -           high_mode->vdisplay != mode->vdisplay ||
+> -           high_mode->hsync_start != mode->hsync_start ||
+> -           high_mode->hsync_end != mode->hsync_end ||
+> -           high_mode->htotal != mode->htotal ||
+> -           high_mode->hskew != mode->hskew ||
+> -           high_mode->vscan != mode->vscan ||
+> -           high_mode->vsync_start - mode->vsync_start != timing_diff ||
+> -           high_mode->vsync_end - mode->vsync_end != timing_diff)
+> -               return false;
+> -       else
+> -               return true;
+> +       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_num_slices_v)
+> +               stream->timing.dsc_cfg.num_slices_v = aconnector->dsc_settings.dsc_num_slices_v;
+> +
+> +       if (stream->timing.flags.DSC && aconnector->dsc_settings.dsc_bits_per_pixel)
+> +               stream->timing.dsc_cfg.bits_per_pixel = aconnector->dsc_settings.dsc_bits_per_pixel;
+>  }
+> +#endif /* CONFIG_DRM_AMD_DC_DCN */
+>
+>  static struct dc_stream_state *
+>  create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+> @@ -6674,6 +5783,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>  #if defined(CONFIG_DRM_AMD_DC_DCN)
+>         struct dsc_dec_dpcd_caps dsc_caps;
+>  #endif
+> +
+>         struct dc_sink *sink = NULL;
+>
+>         memset(&saved_mode, 0, sizeof(saved_mode));
+> @@ -6737,7 +5847,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>                         drm_mode_copy(&mode, freesync_mode);
+>                 } else {
+>                         decide_crtc_timing_for_drm_display_mode(
+> -                               &mode, preferred_mode, scale);
+> +                                       &mode, preferred_mode, scale);
+>
+>                         preferred_refresh = drm_mode_vrefresh(preferred_mode);
+>                 }
+> @@ -6748,7 +5858,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>         else if (!dm_state)
+>                 drm_mode_set_crtcinfo(&mode, 0);
+>
+> -       /*
+> +       /*
+>         * If scaling is enabled and refresh rate didn't change
+>         * we copy the vic and polarities of the old timings
+>         */
+> @@ -6996,7 +6106,8 @@ amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
+>             !aconnector->fake_enable)
+>                 connected = (aconnector->dc_sink != NULL);
+>         else
+> -               connected = (aconnector->base.force == DRM_FORCE_ON);
+> +               connected = (aconnector->base.force == DRM_FORCE_ON ||
+> +                               aconnector->base.force == DRM_FORCE_ON_DIGITAL);
+>
+>         update_subconnector_property(aconnector);
+>
+> @@ -7120,18 +6231,21 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+>         int i;
+>
+>         /*
+> -        * Call only if mst_mgr was iniitalized before since it's not done
+> +        * Call only if mst_mgr was initialized before since it's not done
+>          * for all connector types.
+>          */
+>         if (aconnector->mst_mgr.dev)
+>                 drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
+>
+> +#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||\
+> +       defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+>         for (i = 0; i < dm->num_of_edps; i++) {
+>                 if ((link == dm->backlight_link[i]) && dm->backlight_dev[i]) {
+>                         backlight_device_unregister(dm->backlight_dev[i]);
+>                         dm->backlight_dev[i] = NULL;
+>                 }
+>         }
+> +#endif
+>
+>         if (aconnector->dc_em_sink)
+>                 dc_sink_release(aconnector->dc_em_sink);
+> @@ -7172,6 +6286,7 @@ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+>                 state->base.max_requested_bpc = 8;
+>                 state->vcpi_slots = 0;
+>                 state->pbn = 0;
+> +
+>                 if (connector->connector_type == DRM_MODE_CONNECTOR_eDP)
+>                         state->abm_level = amdgpu_dm_abm_level;
+>
+> @@ -7561,10 +6676,10 @@ static void dm_update_crtc_active_planes(struct drm_crtc *crtc,
+>  }
+>
+>  static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+> -                                      struct drm_atomic_state *state)
+> +                                     struct drm_atomic_state *state)
+>  {
+>         struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
+> -                                                                         crtc);
+> +                                                                               crtc);
+>         struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+>         struct dc *dc = adev->dm.dc;
+>         struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+> @@ -7575,7 +6690,7 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+>         dm_update_crtc_active_planes(crtc, crtc_state);
+>
+>         if (WARN_ON(unlikely(!dm_crtc_state->stream &&
+> -                    modeset_required(crtc_state, NULL, dm_crtc_state->stream)))) {
+> +                       modeset_required(crtc_state, NULL, dm_crtc_state->stream)))) {
+>                 return ret;
+>         }
+>
+> @@ -7586,7 +6701,7 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+>          * userspace which stops using the HW cursor altogether in response to the resulting EINVAL.
+>          */
+>         if (crtc_state->enable &&
+> -           !(crtc_state->plane_mask & drm_plane_mask(crtc->primary))) {
+> +               !(crtc_state->plane_mask & drm_plane_mask(crtc->primary))) {
+>                 DRM_DEBUG_ATOMIC("Can't enable a CRTC without enabling the primary plane\n");
+>                 return -EINVAL;
+>         }
+> @@ -7624,21 +6739,21 @@ static void dm_encoder_helper_disable(struct drm_encoder *encoder)
+>  int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
+>  {
+>         switch (display_color_depth) {
+> -               case COLOR_DEPTH_666:
+> -                       return 6;
+> -               case COLOR_DEPTH_888:
+> -                       return 8;
+> -               case COLOR_DEPTH_101010:
+> -                       return 10;
+> -               case COLOR_DEPTH_121212:
+> -                       return 12;
+> -               case COLOR_DEPTH_141414:
+> -                       return 14;
+> -               case COLOR_DEPTH_161616:
+> -                       return 16;
+> -               default:
+> -                       break;
+> -               }
+> +       case COLOR_DEPTH_666:
+> +               return 6;
+> +       case COLOR_DEPTH_888:
+> +               return 8;
+> +       case COLOR_DEPTH_101010:
+> +               return 10;
+> +       case COLOR_DEPTH_121212:
+> +               return 12;
+> +       case COLOR_DEPTH_141414:
+> +               return 14;
+> +       case COLOR_DEPTH_161616:
+> +               return 16;
+> +       default:
+> +               break;
+> +       }
+>         return 0;
+>  }
+>
+> @@ -7669,7 +6784,7 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+>         if (!state->duplicated) {
+>                 int max_bpc = conn_state->max_requested_bpc;
+>                 is_y420 = drm_mode_is_420_also(&connector->display_info, adjusted_mode) &&
+> -                               aconnector->force_yuv420_output;
+> +                         aconnector->force_yuv420_output;
+>                 color_depth = convert_color_depth_from_display_info(connector,
+>                                                                     is_y420,
+>                                                                     max_bpc);
+> @@ -7724,7 +6839,7 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+>                         if (!stream)
+>                                 continue;
+>
+> -                       if ((struct amdgpu_dm_connector*)stream->dm_stream_context == aconnector)
+> +                       if ((struct amdgpu_dm_connector *)stream->dm_stream_context == aconnector)
+>                                 break;
+>
+>                         stream = NULL;
+> @@ -7773,466 +6888,6 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+>  }
+>  #endif
+>
+> -static void dm_drm_plane_reset(struct drm_plane *plane)
+> -{
+> -       struct dm_plane_state *amdgpu_state = NULL;
+> -
+> -       if (plane->state)
+> -               plane->funcs->atomic_destroy_state(plane, plane->state);
+> -
+> -       amdgpu_state = kzalloc(sizeof(*amdgpu_state), GFP_KERNEL);
+> -       WARN_ON(amdgpu_state == NULL);
+> -
+> -       if (amdgpu_state)
+> -               __drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+> -}
+> -
+> -static struct drm_plane_state *
+> -dm_drm_plane_duplicate_state(struct drm_plane *plane)
+> -{
+> -       struct dm_plane_state *dm_plane_state, *old_dm_plane_state;
+> -
+> -       old_dm_plane_state = to_dm_plane_state(plane->state);
+> -       dm_plane_state = kzalloc(sizeof(*dm_plane_state), GFP_KERNEL);
+> -       if (!dm_plane_state)
+> -               return NULL;
+> -
+> -       __drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
+> -
+> -       if (old_dm_plane_state->dc_state) {
+> -               dm_plane_state->dc_state = old_dm_plane_state->dc_state;
+> -               dc_plane_state_retain(dm_plane_state->dc_state);
+> -       }
+> -
+> -       return &dm_plane_state->base;
+> -}
+> -
+> -static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+> -                               struct drm_plane_state *state)
+> -{
+> -       struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
+> -
+> -       if (dm_plane_state->dc_state)
+> -               dc_plane_state_release(dm_plane_state->dc_state);
+> -
+> -       drm_atomic_helper_plane_destroy_state(plane, state);
+> -}
+> -
+> -static const struct drm_plane_funcs dm_plane_funcs = {
+> -       .update_plane   = drm_atomic_helper_update_plane,
+> -       .disable_plane  = drm_atomic_helper_disable_plane,
+> -       .destroy        = drm_primary_helper_destroy,
+> -       .reset = dm_drm_plane_reset,
+> -       .atomic_duplicate_state = dm_drm_plane_duplicate_state,
+> -       .atomic_destroy_state = dm_drm_plane_destroy_state,
+> -       .format_mod_supported = dm_plane_format_mod_supported,
+> -};
+> -
+> -static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+> -                                     struct drm_plane_state *new_state)
+> -{
+> -       struct amdgpu_framebuffer *afb;
+> -       struct drm_gem_object *obj;
+> -       struct amdgpu_device *adev;
+> -       struct amdgpu_bo *rbo;
+> -       struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
+> -       struct list_head list;
+> -       struct ttm_validate_buffer tv;
+> -       struct ww_acquire_ctx ticket;
+> -       uint32_t domain;
+> -       int r;
+> -
+> -       if (!new_state->fb) {
+> -               DRM_DEBUG_KMS("No FB bound\n");
+> -               return 0;
+> -       }
+> -
+> -       afb = to_amdgpu_framebuffer(new_state->fb);
+> -       obj = new_state->fb->obj[0];
+> -       rbo = gem_to_amdgpu_bo(obj);
+> -       adev = amdgpu_ttm_adev(rbo->tbo.bdev);
+> -       INIT_LIST_HEAD(&list);
+> -
+> -       tv.bo = &rbo->tbo;
+> -       tv.num_shared = 1;
+> -       list_add(&tv.head, &list);
+> -
+> -       r = ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
+> -       if (r) {
+> -               dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+> -               return r;
+> -       }
+> -
+> -       if (plane->type != DRM_PLANE_TYPE_CURSOR)
+> -               domain = amdgpu_display_supported_domains(adev, rbo->flags);
+> -       else
+> -               domain = AMDGPU_GEM_DOMAIN_VRAM;
+> -
+> -       r = amdgpu_bo_pin(rbo, domain);
+> -       if (unlikely(r != 0)) {
+> -               if (r != -ERESTARTSYS)
+> -                       DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+> -               ttm_eu_backoff_reservation(&ticket, &list);
+> -               return r;
+> -       }
+> -
+> -       r = amdgpu_ttm_alloc_gart(&rbo->tbo);
+> -       if (unlikely(r != 0)) {
+> -               amdgpu_bo_unpin(rbo);
+> -               ttm_eu_backoff_reservation(&ticket, &list);
+> -               DRM_ERROR("%p bind failed\n", rbo);
+> -               return r;
+> -       }
+> -
+> -       ttm_eu_backoff_reservation(&ticket, &list);
+> -
+> -       afb->address = amdgpu_bo_gpu_offset(rbo);
+> -
+> -       amdgpu_bo_ref(rbo);
+> -
+> -       /**
+> -        * We don't do surface updates on planes that have been newly created,
+> -        * but we also don't have the afb->address during atomic check.
+> -        *
+> -        * Fill in buffer attributes depending on the address here, but only on
+> -        * newly created planes since they're not being used by DC yet and this
+> -        * won't modify global state.
+> -        */
+> -       dm_plane_state_old = to_dm_plane_state(plane->state);
+> -       dm_plane_state_new = to_dm_plane_state(new_state);
+> -
+> -       if (dm_plane_state_new->dc_state &&
+> -           dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
+> -               struct dc_plane_state *plane_state =
+> -                       dm_plane_state_new->dc_state;
+> -               bool force_disable_dcc = !plane_state->dcc.enable;
+> -
+> -               fill_plane_buffer_attributes(
+> -                       adev, afb, plane_state->format, plane_state->rotation,
+> -                       afb->tiling_flags,
+> -                       &plane_state->tiling_info, &plane_state->plane_size,
+> -                       &plane_state->dcc, &plane_state->address,
+> -                       afb->tmz_surface, force_disable_dcc);
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+> -static void dm_plane_helper_cleanup_fb(struct drm_plane *plane,
+> -                                      struct drm_plane_state *old_state)
+> -{
+> -       struct amdgpu_bo *rbo;
+> -       int r;
+> -
+> -       if (!old_state->fb)
+> -               return;
+> -
+> -       rbo = gem_to_amdgpu_bo(old_state->fb->obj[0]);
+> -       r = amdgpu_bo_reserve(rbo, false);
+> -       if (unlikely(r)) {
+> -               DRM_ERROR("failed to reserve rbo before unpin\n");
+> -               return;
+> -       }
+> -
+> -       amdgpu_bo_unpin(rbo);
+> -       amdgpu_bo_unreserve(rbo);
+> -       amdgpu_bo_unref(&rbo);
+> -}
+> -
+> -static int dm_plane_helper_check_state(struct drm_plane_state *state,
+> -                                      struct drm_crtc_state *new_crtc_state)
+> -{
+> -       struct drm_framebuffer *fb = state->fb;
+> -       int min_downscale, max_upscale;
+> -       int min_scale = 0;
+> -       int max_scale = INT_MAX;
+> -
+> -       /* Plane enabled? Validate viewport and get scaling factors from plane caps. */
+> -       if (fb && state->crtc) {
+> -               /* Validate viewport to cover the case when only the position changes */
+> -               if (state->plane->type != DRM_PLANE_TYPE_CURSOR) {
+> -                       int viewport_width = state->crtc_w;
+> -                       int viewport_height = state->crtc_h;
+> -
+> -                       if (state->crtc_x < 0)
+> -                               viewport_width += state->crtc_x;
+> -                       else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hdisplay)
+> -                               viewport_width = new_crtc_state->mode.crtc_hdisplay - state->crtc_x;
+> -
+> -                       if (state->crtc_y < 0)
+> -                               viewport_height += state->crtc_y;
+> -                       else if (state->crtc_y + state->crtc_h > new_crtc_state->mode.crtc_vdisplay)
+> -                               viewport_height = new_crtc_state->mode.crtc_vdisplay - state->crtc_y;
+> -
+> -                       if (viewport_width < 0 || viewport_height < 0) {
+> -                               DRM_DEBUG_ATOMIC("Plane completely outside of screen\n");
+> -                               return -EINVAL;
+> -                       } else if (viewport_width < MIN_VIEWPORT_SIZE*2) { /* x2 for width is because of pipe-split. */
+> -                               DRM_DEBUG_ATOMIC("Viewport width %d smaller than %d\n", viewport_width, MIN_VIEWPORT_SIZE*2);
+> -                               return -EINVAL;
+> -                       } else if (viewport_height < MIN_VIEWPORT_SIZE) {
+> -                               DRM_DEBUG_ATOMIC("Viewport height %d smaller than %d\n", viewport_height, MIN_VIEWPORT_SIZE);
+> -                               return -EINVAL;
+> -                       }
+> -
+> -               }
+> -
+> -               /* Get min/max allowed scaling factors from plane caps. */
+> -               get_min_max_dc_plane_scaling(state->crtc->dev, fb,
+> -                                            &min_downscale, &max_upscale);
+> -               /*
+> -                * Convert to drm convention: 16.16 fixed point, instead of dc's
+> -                * 1.0 == 1000. Also drm scaling is src/dst instead of dc's
+> -                * dst/src, so min_scale = 1.0 / max_upscale, etc.
+> -                */
+> -               min_scale = (1000 << 16) / max_upscale;
+> -               max_scale = (1000 << 16) / min_downscale;
+> -       }
+> -
+> -       return drm_atomic_helper_check_plane_state(
+> -               state, new_crtc_state, min_scale, max_scale, true, true);
+> -}
+> -
+> -static int dm_plane_atomic_check(struct drm_plane *plane,
+> -                                struct drm_atomic_state *state)
+> -{
+> -       struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+> -                                                                                plane);
+> -       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> -       struct dc *dc = adev->dm.dc;
+> -       struct dm_plane_state *dm_plane_state;
+> -       struct dc_scaling_info scaling_info;
+> -       struct drm_crtc_state *new_crtc_state;
+> -       int ret;
+> -
+> -       trace_amdgpu_dm_plane_atomic_check(new_plane_state);
+> -
+> -       dm_plane_state = to_dm_plane_state(new_plane_state);
+> -
+> -       if (!dm_plane_state->dc_state)
+> -               return 0;
+> -
+> -       new_crtc_state =
+> -               drm_atomic_get_new_crtc_state(state,
+> -                                             new_plane_state->crtc);
+> -       if (!new_crtc_state)
+> -               return -EINVAL;
+> -
+> -       ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+> -       if (ret)
+> -               return ret;
+> -
+> -       ret = fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
+> -       if (ret)
+> -               return ret;
+> -
+> -       if (dc_validate_plane(dc, dm_plane_state->dc_state) == DC_OK)
+> -               return 0;
+> -
+> -       return -EINVAL;
+> -}
+> -
+> -static int dm_plane_atomic_async_check(struct drm_plane *plane,
+> -                                      struct drm_atomic_state *state)
+> -{
+> -       /* Only support async updates on cursor planes. */
+> -       if (plane->type != DRM_PLANE_TYPE_CURSOR)
+> -               return -EINVAL;
+> -
+> -       return 0;
+> -}
+> -
+> -static void dm_plane_atomic_async_update(struct drm_plane *plane,
+> -                                        struct drm_atomic_state *state)
+> -{
+> -       struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state,
+> -                                                                          plane);
+> -       struct drm_plane_state *old_state =
+> -               drm_atomic_get_old_plane_state(state, plane);
+> -
+> -       trace_amdgpu_dm_atomic_update_cursor(new_state);
+> -
+> -       swap(plane->state->fb, new_state->fb);
+> -
+> -       plane->state->src_x = new_state->src_x;
+> -       plane->state->src_y = new_state->src_y;
+> -       plane->state->src_w = new_state->src_w;
+> -       plane->state->src_h = new_state->src_h;
+> -       plane->state->crtc_x = new_state->crtc_x;
+> -       plane->state->crtc_y = new_state->crtc_y;
+> -       plane->state->crtc_w = new_state->crtc_w;
+> -       plane->state->crtc_h = new_state->crtc_h;
+> -
+> -       handle_cursor_update(plane, old_state);
+> -}
+> -
+> -static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+> -       .prepare_fb = dm_plane_helper_prepare_fb,
+> -       .cleanup_fb = dm_plane_helper_cleanup_fb,
+> -       .atomic_check = dm_plane_atomic_check,
+> -       .atomic_async_check = dm_plane_atomic_async_check,
+> -       .atomic_async_update = dm_plane_atomic_async_update
+> -};
+> -
+> -/*
+> - * TODO: these are currently initialized to rgb formats only.
+> - * For future use cases we should either initialize them dynamically based on
+> - * plane capabilities, or initialize this array to all formats, so internal drm
+> - * check will succeed, and let DC implement proper check
+> - */
+> -static const uint32_t rgb_formats[] = {
+> -       DRM_FORMAT_XRGB8888,
+> -       DRM_FORMAT_ARGB8888,
+> -       DRM_FORMAT_RGBA8888,
+> -       DRM_FORMAT_XRGB2101010,
+> -       DRM_FORMAT_XBGR2101010,
+> -       DRM_FORMAT_ARGB2101010,
+> -       DRM_FORMAT_ABGR2101010,
+> -       DRM_FORMAT_XRGB16161616,
+> -       DRM_FORMAT_XBGR16161616,
+> -       DRM_FORMAT_ARGB16161616,
+> -       DRM_FORMAT_ABGR16161616,
+> -       DRM_FORMAT_XBGR8888,
+> -       DRM_FORMAT_ABGR8888,
+> -       DRM_FORMAT_RGB565,
+> -};
+> -
+> -static const uint32_t overlay_formats[] = {
+> -       DRM_FORMAT_XRGB8888,
+> -       DRM_FORMAT_ARGB8888,
+> -       DRM_FORMAT_RGBA8888,
+> -       DRM_FORMAT_XBGR8888,
+> -       DRM_FORMAT_ABGR8888,
+> -       DRM_FORMAT_RGB565
+> -};
+> -
+> -static const u32 cursor_formats[] = {
+> -       DRM_FORMAT_ARGB8888
+> -};
+> -
+> -static int get_plane_formats(const struct drm_plane *plane,
+> -                            const struct dc_plane_cap *plane_cap,
+> -                            uint32_t *formats, int max_formats)
+> -{
+> -       int i, num_formats = 0;
+> -
+> -       /*
+> -        * TODO: Query support for each group of formats directly from
+> -        * DC plane caps. This will require adding more formats to the
+> -        * caps list.
+> -        */
+> -
+> -       switch (plane->type) {
+> -       case DRM_PLANE_TYPE_PRIMARY:
+> -               for (i = 0; i < ARRAY_SIZE(rgb_formats); ++i) {
+> -                       if (num_formats >= max_formats)
+> -                               break;
+> -
+> -                       formats[num_formats++] = rgb_formats[i];
+> -               }
+> -
+> -               if (plane_cap && plane_cap->pixel_format_support.nv12)
+> -                       formats[num_formats++] = DRM_FORMAT_NV12;
+> -               if (plane_cap && plane_cap->pixel_format_support.p010)
+> -                       formats[num_formats++] = DRM_FORMAT_P010;
+> -               if (plane_cap && plane_cap->pixel_format_support.fp16) {
+> -                       formats[num_formats++] = DRM_FORMAT_XRGB16161616F;
+> -                       formats[num_formats++] = DRM_FORMAT_ARGB16161616F;
+> -                       formats[num_formats++] = DRM_FORMAT_XBGR16161616F;
+> -                       formats[num_formats++] = DRM_FORMAT_ABGR16161616F;
+> -               }
+> -               break;
+> -
+> -       case DRM_PLANE_TYPE_OVERLAY:
+> -               for (i = 0; i < ARRAY_SIZE(overlay_formats); ++i) {
+> -                       if (num_formats >= max_formats)
+> -                               break;
+> -
+> -                       formats[num_formats++] = overlay_formats[i];
+> -               }
+> -               break;
+> -
+> -       case DRM_PLANE_TYPE_CURSOR:
+> -               for (i = 0; i < ARRAY_SIZE(cursor_formats); ++i) {
+> -                       if (num_formats >= max_formats)
+> -                               break;
+> -
+> -                       formats[num_formats++] = cursor_formats[i];
+> -               }
+> -               break;
+> -       }
+> -
+> -       return num_formats;
+> -}
+> -
+> -static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> -                               struct drm_plane *plane,
+> -                               unsigned long possible_crtcs,
+> -                               const struct dc_plane_cap *plane_cap)
+> -{
+> -       uint32_t formats[32];
+> -       int num_formats;
+> -       int res = -EPERM;
+> -       unsigned int supported_rotations;
+> -       uint64_t *modifiers = NULL;
+> -
+> -       num_formats = get_plane_formats(plane, plane_cap, formats,
+> -                                       ARRAY_SIZE(formats));
+> -
+> -       res = get_plane_modifiers(dm->adev, plane->type, &modifiers);
+> -       if (res)
+> -               return res;
+> -
+> -       res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
+> -                                      &dm_plane_funcs, formats, num_formats,
+> -                                      modifiers, plane->type, NULL);
+> -       kfree(modifiers);
+> -       if (res)
+> -               return res;
+> -
+> -       if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+> -           plane_cap && plane_cap->per_pixel_alpha) {
+> -               unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+> -                                         BIT(DRM_MODE_BLEND_PREMULTI) |
+> -                                         BIT(DRM_MODE_BLEND_COVERAGE);
+> -
+> -               drm_plane_create_alpha_property(plane);
+> -               drm_plane_create_blend_mode_property(plane, blend_caps);
+> -       }
+> -
+> -       if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+> -           plane_cap &&
+> -           (plane_cap->pixel_format_support.nv12 ||
+> -            plane_cap->pixel_format_support.p010)) {
+> -               /* This only affects YUV formats. */
+> -               drm_plane_create_color_properties(
+> -                       plane,
+> -                       BIT(DRM_COLOR_YCBCR_BT601) |
+> -                       BIT(DRM_COLOR_YCBCR_BT709) |
+> -                       BIT(DRM_COLOR_YCBCR_BT2020),
+> -                       BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+> -                       BIT(DRM_COLOR_YCBCR_FULL_RANGE),
+> -                       DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
+> -       }
+> -
+> -       supported_rotations =
+> -               DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+> -               DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+> -
+> -       if (dm->adev->asic_type >= CHIP_BONAIRE &&
+> -           plane->type != DRM_PLANE_TYPE_CURSOR)
+> -               drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
+> -                                                  supported_rotations);
+> -
+> -       drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+> -
+> -       /* Create (reset) the plane state */
+> -       if (plane->funcs->reset)
+> -               plane->funcs->reset(plane);
+> -
+> -       return 0;
+> -}
+> -
+>  static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+>                                struct drm_plane *plane,
+>                                uint32_t crtc_index)
+> @@ -9072,114 +7727,6 @@ static void remove_stream(struct amdgpu_device *adev,
+>         acrtc->enabled = false;
+>  }
+>
+> -static int get_cursor_position(struct drm_plane *plane, struct drm_crtc *crtc,
+> -                              struct dc_cursor_position *position)
+> -{
+> -       struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+> -       int x, y;
+> -       int xorigin = 0, yorigin = 0;
+> -
+> -       if (!crtc || !plane->state->fb)
+> -               return 0;
+> -
+> -       if ((plane->state->crtc_w > amdgpu_crtc->max_cursor_width) ||
+> -           (plane->state->crtc_h > amdgpu_crtc->max_cursor_height)) {
+> -               DRM_ERROR("%s: bad cursor width or height %d x %d\n",
+> -                         __func__,
+> -                         plane->state->crtc_w,
+> -                         plane->state->crtc_h);
+> -               return -EINVAL;
+> -       }
+> -
+> -       x = plane->state->crtc_x;
+> -       y = plane->state->crtc_y;
+> -
+> -       if (x <= -amdgpu_crtc->max_cursor_width ||
+> -           y <= -amdgpu_crtc->max_cursor_height)
+> -               return 0;
+> -
+> -       if (x < 0) {
+> -               xorigin = min(-x, amdgpu_crtc->max_cursor_width - 1);
+> -               x = 0;
+> -       }
+> -       if (y < 0) {
+> -               yorigin = min(-y, amdgpu_crtc->max_cursor_height - 1);
+> -               y = 0;
+> -       }
+> -       position->enable = true;
+> -       position->translate_by_source = true;
+> -       position->x = x;
+> -       position->y = y;
+> -       position->x_hotspot = xorigin;
+> -       position->y_hotspot = yorigin;
+> -
+> -       return 0;
+> -}
+> -
+> -static void handle_cursor_update(struct drm_plane *plane,
+> -                                struct drm_plane_state *old_plane_state)
+> -{
+> -       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> -       struct amdgpu_framebuffer *afb = to_amdgpu_framebuffer(plane->state->fb);
+> -       struct drm_crtc *crtc = afb ? plane->state->crtc : old_plane_state->crtc;
+> -       struct dm_crtc_state *crtc_state = crtc ? to_dm_crtc_state(crtc->state) : NULL;
+> -       struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+> -       uint64_t address = afb ? afb->address : 0;
+> -       struct dc_cursor_position position = {0};
+> -       struct dc_cursor_attributes attributes;
+> -       int ret;
+> -
+> -       if (!plane->state->fb && !old_plane_state->fb)
+> -               return;
+> -
+> -       DC_LOG_CURSOR("%s: crtc_id=%d with size %d to %d\n",
+> -                     __func__,
+> -                     amdgpu_crtc->crtc_id,
+> -                     plane->state->crtc_w,
+> -                     plane->state->crtc_h);
+> -
+> -       ret = get_cursor_position(plane, crtc, &position);
+> -       if (ret)
+> -               return;
+> -
+> -       if (!position.enable) {
+> -               /* turn off cursor */
+> -               if (crtc_state && crtc_state->stream) {
+> -                       mutex_lock(&adev->dm.dc_lock);
+> -                       dc_stream_set_cursor_position(crtc_state->stream,
+> -                                                     &position);
+> -                       mutex_unlock(&adev->dm.dc_lock);
+> -               }
+> -               return;
+> -       }
+> -
+> -       amdgpu_crtc->cursor_width = plane->state->crtc_w;
+> -       amdgpu_crtc->cursor_height = plane->state->crtc_h;
+> -
+> -       memset(&attributes, 0, sizeof(attributes));
+> -       attributes.address.high_part = upper_32_bits(address);
+> -       attributes.address.low_part  = lower_32_bits(address);
+> -       attributes.width             = plane->state->crtc_w;
+> -       attributes.height            = plane->state->crtc_h;
+> -       attributes.color_format      = CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA;
+> -       attributes.rotation_angle    = 0;
+> -       attributes.attribute_flags.value = 0;
+> -
+> -       attributes.pitch = afb->base.pitches[0] / afb->base.format->cpp[0];
+> -
+> -       if (crtc_state->stream) {
+> -               mutex_lock(&adev->dm.dc_lock);
+> -               if (!dc_stream_set_cursor_attributes(crtc_state->stream,
+> -                                                        &attributes))
+> -                       DRM_ERROR("DC failed to set cursor attributes\n");
+> -
+> -               if (!dc_stream_set_cursor_position(crtc_state->stream,
+> -                                                  &position))
+> -                       DRM_ERROR("DC failed to set cursor position\n");
+> -               mutex_unlock(&adev->dm.dc_lock);
+> -       }
+> -}
+> -
+>  static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+>  {
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> new file mode 100644
+> index 000000000000..e27621e11947
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -0,0 +1,1637 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + * Authors: AMD
+> + *
+> + */
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_plane_helper.h>
+> +#include <drm/drm_fourcc.h>
+> +
+> +#include "amdgpu.h"
+> +#include "dal_asic_id.h"
+> +#include "amdgpu_display.h"
+> +#include "amdgpu_dm_trace.h"
+> +#include "gc/gc_11_0_0_offset.h"
+> +#include "gc/gc_11_0_0_sh_mask.h"
+> +
+> +/*
+> + * TODO: these are currently initialized to rgb formats only.
+> + * For future use cases we should either initialize them dynamically based on
+> + * plane capabilities, or initialize this array to all formats, so internal drm
+> + * check will succeed, and let DC implement proper check
+> + */
+> +static const uint32_t rgb_formats[] = {
+> +       DRM_FORMAT_XRGB8888,
+> +       DRM_FORMAT_ARGB8888,
+> +       DRM_FORMAT_RGBA8888,
+> +       DRM_FORMAT_XRGB2101010,
+> +       DRM_FORMAT_XBGR2101010,
+> +       DRM_FORMAT_ARGB2101010,
+> +       DRM_FORMAT_ABGR2101010,
+> +       DRM_FORMAT_XRGB16161616,
+> +       DRM_FORMAT_XBGR16161616,
+> +       DRM_FORMAT_ARGB16161616,
+> +       DRM_FORMAT_ABGR16161616,
+> +       DRM_FORMAT_XBGR8888,
+> +       DRM_FORMAT_ABGR8888,
+> +       DRM_FORMAT_RGB565,
+> +};
+> +
+> +static const uint32_t overlay_formats[] = {
+> +       DRM_FORMAT_XRGB8888,
+> +       DRM_FORMAT_ARGB8888,
+> +       DRM_FORMAT_RGBA8888,
+> +       DRM_FORMAT_XBGR8888,
+> +       DRM_FORMAT_ABGR8888,
+> +       DRM_FORMAT_RGB565
+> +};
+> +
+> +static const u32 cursor_formats[] = {
+> +       DRM_FORMAT_ARGB8888
+> +};
+> +
+> +enum dm_micro_swizzle {
+> +       MICRO_SWIZZLE_Z = 0,
+> +       MICRO_SWIZZLE_S = 1,
+> +       MICRO_SWIZZLE_D = 2,
+> +       MICRO_SWIZZLE_R = 3
+> +};
+> +
+> +const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+> +{
+> +       return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
+> +}
+> +
+> +void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> +                              bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+> +                              bool *global_alpha, int *global_alpha_value)
+> +{
+> +       *per_pixel_alpha = false;
+> +       *pre_multiplied_alpha = true;
+> +       *global_alpha = false;
+> +       *global_alpha_value = 0xff;
+> +
+> +       if (plane_state->plane->type != DRM_PLANE_TYPE_OVERLAY)
+> +               return;
+> +
+> +       if (plane_state->pixel_blend_mode == DRM_MODE_BLEND_PREMULTI ||
+> +               plane_state->pixel_blend_mode == DRM_MODE_BLEND_COVERAGE) {
+> +               static const uint32_t alpha_formats[] = {
+> +                       DRM_FORMAT_ARGB8888,
+> +                       DRM_FORMAT_RGBA8888,
+> +                       DRM_FORMAT_ABGR8888,
+> +               };
+> +               uint32_t format = plane_state->fb->format->format;
+> +               unsigned int i;
+> +
+> +               for (i = 0; i < ARRAY_SIZE(alpha_formats); ++i) {
+> +                       if (format == alpha_formats[i]) {
+> +                               *per_pixel_alpha = true;
+> +                               break;
+> +                       }
+> +               }
+> +
+> +               if (*per_pixel_alpha && plane_state->pixel_blend_mode == DRM_MODE_BLEND_COVERAGE)
+> +                       *pre_multiplied_alpha = false;
+> +       }
+> +
+> +       if (plane_state->alpha < 0xffff) {
+> +               *global_alpha = true;
+> +               *global_alpha_value = plane_state->alpha >> 8;
+> +       }
+> +}
+> +
+> +static void add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_t mod)
+> +{
+> +       if (!*mods)
+> +               return;
+> +
+> +       if (*cap - *size < 1) {
+> +               uint64_t new_cap = *cap * 2;
+> +               uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
+> +
+> +               if (!new_mods) {
+> +                       kfree(*mods);
+> +                       *mods = NULL;
+> +                       return;
+> +               }
+> +
+> +               memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
+> +               kfree(*mods);
+> +               *mods = new_mods;
+> +               *cap = new_cap;
+> +       }
+> +
+> +       (*mods)[*size] = mod;
+> +       *size += 1;
+> +}
+> +
+> +bool modifier_has_dcc(uint64_t modifier)
+> +{
+> +       return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier);
+> +}
+> +
+> +unsigned modifier_gfx9_swizzle_mode(uint64_t modifier)
+> +{
+> +       if (modifier == DRM_FORMAT_MOD_LINEAR)
+> +               return 0;
+> +
+> +       return AMD_FMT_MOD_GET(TILE, modifier);
+> +}
+> +
+> +static void fill_gfx8_tiling_info_from_flags(union dc_tiling_info *tiling_info,
+> +                                uint64_t tiling_flags)
+> +{
+> +       /* Fill GFX8 params */
+> +       if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE) == DC_ARRAY_2D_TILED_THIN1) {
+> +               unsigned int bankw, bankh, mtaspect, tile_split, num_banks;
+> +
+> +               bankw = AMDGPU_TILING_GET(tiling_flags, BANK_WIDTH);
+> +               bankh = AMDGPU_TILING_GET(tiling_flags, BANK_HEIGHT);
+> +               mtaspect = AMDGPU_TILING_GET(tiling_flags, MACRO_TILE_ASPECT);
+> +               tile_split = AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT);
+> +               num_banks = AMDGPU_TILING_GET(tiling_flags, NUM_BANKS);
+> +
+> +               /* XXX fix me for VI */
+> +               tiling_info->gfx8.num_banks = num_banks;
+> +               tiling_info->gfx8.array_mode =
+> +                               DC_ARRAY_2D_TILED_THIN1;
+> +               tiling_info->gfx8.tile_split = tile_split;
+> +               tiling_info->gfx8.bank_width = bankw;
+> +               tiling_info->gfx8.bank_height = bankh;
+> +               tiling_info->gfx8.tile_aspect = mtaspect;
+> +               tiling_info->gfx8.tile_mode =
+> +                               DC_ADDR_SURF_MICRO_TILING_DISPLAY;
+> +       } else if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE)
+> +                       == DC_ARRAY_1D_TILED_THIN1) {
+> +               tiling_info->gfx8.array_mode = DC_ARRAY_1D_TILED_THIN1;
+> +       }
+> +
+> +       tiling_info->gfx8.pipe_config =
+> +                       AMDGPU_TILING_GET(tiling_flags, PIPE_CONFIG);
+> +}
+> +
+> +static void fill_gfx9_tiling_info_from_device(const struct amdgpu_device *adev,
+> +                                 union dc_tiling_info *tiling_info)
+> +{
+> +       /* Fill GFX9 params */
+> +       tiling_info->gfx9.num_pipes =
+> +               adev->gfx.config.gb_addr_config_fields.num_pipes;
+> +       tiling_info->gfx9.num_banks =
+> +               adev->gfx.config.gb_addr_config_fields.num_banks;
+> +       tiling_info->gfx9.pipe_interleave =
+> +               adev->gfx.config.gb_addr_config_fields.pipe_interleave_size;
+> +       tiling_info->gfx9.num_shader_engines =
+> +               adev->gfx.config.gb_addr_config_fields.num_se;
+> +       tiling_info->gfx9.max_compressed_frags =
+> +               adev->gfx.config.gb_addr_config_fields.max_compress_frags;
+> +       tiling_info->gfx9.num_rb_per_se =
+> +               adev->gfx.config.gb_addr_config_fields.num_rb_per_se;
+> +       tiling_info->gfx9.shaderEnable = 1;
+> +       if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
+> +               tiling_info->gfx9.num_pkrs = adev->gfx.config.gb_addr_config_fields.num_pkrs;
+> +}
+> +
+> +static void fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
+> +                                   union dc_tiling_info *tiling_info,
+> +                                   uint64_t modifier)
+> +{
+> +       unsigned int mod_bank_xor_bits = AMD_FMT_MOD_GET(BANK_XOR_BITS, modifier);
+> +       unsigned int mod_pipe_xor_bits = AMD_FMT_MOD_GET(PIPE_XOR_BITS, modifier);
+> +       unsigned int pkrs_log2 = AMD_FMT_MOD_GET(PACKERS, modifier);
+> +       unsigned int pipes_log2;
+> +
+> +       pipes_log2 = min(5u, mod_pipe_xor_bits);
+> +
+> +       fill_gfx9_tiling_info_from_device(adev, tiling_info);
+> +
+> +       if (!IS_AMD_FMT_MOD(modifier))
+> +               return;
+> +
+> +       tiling_info->gfx9.num_pipes = 1u << pipes_log2;
+> +       tiling_info->gfx9.num_shader_engines = 1u << (mod_pipe_xor_bits - pipes_log2);
+> +
+> +       if (adev->family >= AMDGPU_FAMILY_NV) {
+> +               tiling_info->gfx9.num_pkrs = 1u << pkrs_log2;
+> +       } else {
+> +               tiling_info->gfx9.num_banks = 1u << mod_bank_xor_bits;
+> +
+> +               /* for DCC we know it isn't rb aligned, so rb_per_se doesn't matter. */
+> +       }
+> +}
+> +
+> +static int validate_dcc(struct amdgpu_device *adev,
+> +            const enum surface_pixel_format format,
+> +            const enum dc_rotation_angle rotation,
+> +            const union dc_tiling_info *tiling_info,
+> +            const struct dc_plane_dcc_param *dcc,
+> +            const struct dc_plane_address *address,
+> +            const struct plane_size *plane_size)
+> +{
+> +       struct dc *dc = adev->dm.dc;
+> +       struct dc_dcc_surface_param input;
+> +       struct dc_surface_dcc_cap output;
+> +
+> +       memset(&input, 0, sizeof(input));
+> +       memset(&output, 0, sizeof(output));
+> +
+> +       if (!dcc->enable)
+> +               return 0;
+> +
+> +       if (format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN ||
+> +           !dc->cap_funcs.get_dcc_compression_cap)
+> +               return -EINVAL;
+> +
+> +       input.format = format;
+> +       input.surface_size.width = plane_size->surface_size.width;
+> +       input.surface_size.height = plane_size->surface_size.height;
+> +       input.swizzle_mode = tiling_info->gfx9.swizzle;
+> +
+> +       if (rotation == ROTATION_ANGLE_0 || rotation == ROTATION_ANGLE_180)
+> +               input.scan = SCAN_DIRECTION_HORIZONTAL;
+> +       else if (rotation == ROTATION_ANGLE_90 || rotation == ROTATION_ANGLE_270)
+> +               input.scan = SCAN_DIRECTION_VERTICAL;
+> +
+> +       if (!dc->cap_funcs.get_dcc_compression_cap(dc, &input, &output))
+> +               return -EINVAL;
+> +
+> +       if (!output.capable)
+> +               return -EINVAL;
+> +
+> +       if (dcc->independent_64b_blks == 0 &&
+> +           output.grph.rgb.independent_64b_blks != 0)
+> +               return -EINVAL;
+> +
+> +       return 0;
+> +}
+> +
+> +static int fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+> +                                         const struct amdgpu_framebuffer *afb,
+> +                                         const enum surface_pixel_format format,
+> +                                         const enum dc_rotation_angle rotation,
+> +                                         const struct plane_size *plane_size,
+> +                                         union dc_tiling_info *tiling_info,
+> +                                         struct dc_plane_dcc_param *dcc,
+> +                                         struct dc_plane_address *address,
+> +                                         const bool force_disable_dcc)
+> +{
+> +       const uint64_t modifier = afb->base.modifier;
+> +       int ret = 0;
+> +
+> +       fill_gfx9_tiling_info_from_modifier(adev, tiling_info, modifier);
+> +       tiling_info->gfx9.swizzle = modifier_gfx9_swizzle_mode(modifier);
+> +
+> +       if (modifier_has_dcc(modifier) && !force_disable_dcc) {
+> +               uint64_t dcc_address = afb->address + afb->base.offsets[1];
+> +               bool independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
+> +               bool independent_128b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_128B, modifier);
+> +
+> +               dcc->enable = 1;
+> +               dcc->meta_pitch = afb->base.pitches[1];
+> +               dcc->independent_64b_blks = independent_64b_blks;
+> +               if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) >= AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {
+> +                       if (independent_64b_blks && independent_128b_blks)
+> +                               dcc->dcc_ind_blk = hubp_ind_block_64b_no_128bcl;
+> +                       else if (independent_128b_blks)
+> +                               dcc->dcc_ind_blk = hubp_ind_block_128b;
+> +                       else if (independent_64b_blks && !independent_128b_blks)
+> +                               dcc->dcc_ind_blk = hubp_ind_block_64b;
+> +                       else
+> +                               dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
+> +               } else {
+> +                       if (independent_64b_blks)
+> +                               dcc->dcc_ind_blk = hubp_ind_block_64b;
+> +                       else
+> +                               dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
+> +               }
+> +
+> +               address->grph.meta_addr.low_part = lower_32_bits(dcc_address);
+> +               address->grph.meta_addr.high_part = upper_32_bits(dcc_address);
+> +       }
+> +
+> +       ret = validate_dcc(adev, format, rotation, tiling_info, dcc, address, plane_size);
+> +       if (ret)
+> +               drm_dbg_kms(adev_to_drm(adev), "validate_dcc: returned error: %d\n", ret);
+> +
+> +       return ret;
+> +}
+> +
+> +static void add_gfx10_1_modifiers(const struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> +
+> +
+> +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +}
+> +
+> +static void add_gfx9_modifiers(const struct amdgpu_device *adev,
+> +                  uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipes = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +       int pipe_xor_bits = min(8, pipes +
+> +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_se));
+> +       int bank_xor_bits = min(8 - pipe_xor_bits,
+> +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_banks));
+> +       int rb = ilog2(adev->gfx.config.gb_addr_config_fields.num_se) +
+> +                ilog2(adev->gfx.config.gb_addr_config_fields.num_rb_per_se);
+> +
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               /* Raven2 and later */
+> +               bool has_constant_encode = adev->asic_type > CHIP_RAVEN || adev->external_rev_id >= 0x81;
+> +
+> +               /*
+> +                * No _D DCC swizzles yet because we only allow 32bpp, which
+> +                * doesn't support _D on DCN
+> +                */
+> +
+> +               if (has_constant_encode) {
+> +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1));
+> +               }
+> +
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                           AMD_FMT_MOD_SET(DCC, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0));
+> +
+> +               if (has_constant_encode) {
+> +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +
+> +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                                   AMD_FMT_MOD_SET(RB, rb) |
+> +                                   AMD_FMT_MOD_SET(PIPE, pipes));
+> +               }
+> +
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                           AMD_FMT_MOD_SET(DCC, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0) |
+> +                           AMD_FMT_MOD_SET(RB, rb) |
+> +                           AMD_FMT_MOD_SET(PIPE, pipes));
+> +       }
+> +
+> +       /*
+> +        * Only supported for 64bpp on Raven, will be filtered on format in
+> +        * dm_plane_format_mod_supported.
+> +        */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> +       }
+> +
+> +       /*
+> +        * Only supported for 64bpp on Raven, will be filtered on format in
+> +        * dm_plane_format_mod_supported.
+> +        */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +       }
+> +}
+> +
+> +static void add_gfx10_3_modifiers(const struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +       int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> +
+> +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +}
+> +
+> +static void add_gfx11_modifiers(struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int num_pipes = 0;
+> +       int pipe_xor_bits = 0;
+> +       int num_pkrs = 0;
+> +       int pkrs = 0;
+> +       u32 gb_addr_config;
+> +       u8 i = 0;
+> +       unsigned swizzle_r_x;
+> +       uint64_t modifier_r_x;
+> +       uint64_t modifier_dcc_best;
+> +       uint64_t modifier_dcc_4k;
+> +
+> +       /* TODO: GFX11 IP HW init hasnt finish and we get zero if we read from
+> +        * adev->gfx.config.gb_addr_config_fields.num_{pkrs,pipes}
+> +        */
+> +       gb_addr_config = RREG32_SOC15(GC, 0, regGB_ADDR_CONFIG);
+> +       ASSERT(gb_addr_config != 0);
+> +
+> +       num_pkrs = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PKRS);
+> +       pkrs = ilog2(num_pkrs);
+> +       num_pipes = 1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PIPES);
+> +       pipe_xor_bits = ilog2(num_pipes);
+> +
+> +       for (i = 0; i < 2; i++) {
+> +               /* Insert the best one first. */
+> +               /* R_X swizzle modes are the best for rendering and DCC requires them. */
+> +               if (num_pipes > 16)
+> +                       swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX11_256K_R_X : AMD_FMT_MOD_TILE_GFX9_64K_R_X;
+> +               else
+> +                       swizzle_r_x = !i ? AMD_FMT_MOD_TILE_GFX9_64K_R_X : AMD_FMT_MOD_TILE_GFX11_256K_R_X;
+> +
+> +               modifier_r_x = AMD_FMT_MOD |
+> +                              AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+> +                              AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                              AMD_FMT_MOD_SET(TILE, swizzle_r_x) |
+> +                              AMD_FMT_MOD_SET(PACKERS, pkrs);
+> +
+> +               /* DCC_CONSTANT_ENCODE is not set because it can't vary with gfx11 (it's implied to be 1). */
+> +               modifier_dcc_best = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 0) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B);
+> +
+> +               /* DCC settings for 4K and greater resolutions. (required by display hw) */
+> +               modifier_dcc_4k = modifier_r_x | AMD_FMT_MOD_SET(DCC, 1) |
+> +                                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                                 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B);
+> +
+> +               add_modifier(mods, size, capacity, modifier_dcc_best);
+> +               add_modifier(mods, size, capacity, modifier_dcc_4k);
+> +
+> +               add_modifier(mods, size, capacity, modifier_dcc_best | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> +               add_modifier(mods, size, capacity, modifier_dcc_4k | AMD_FMT_MOD_SET(DCC_RETILE, 1));
+> +
+> +               add_modifier(mods, size, capacity, modifier_r_x);
+> +       }
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                       AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX11) |
+> +                       AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D));
+> +}
+> +
+> +static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
+> +{
+> +       uint64_t size = 0, capacity = 128;
+> +       *mods = NULL;
+> +
+> +       /* We have not hooked up any pre-GFX9 modifiers. */
+> +       if (adev->family < AMDGPU_FAMILY_AI)
+> +               return 0;
+> +
+> +       *mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
+> +
+> +       if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+> +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> +               return *mods ? 0 : -ENOMEM;
+> +       }
+> +
+> +       switch (adev->family) {
+> +       case AMDGPU_FAMILY_AI:
+> +       case AMDGPU_FAMILY_RV:
+> +               add_gfx9_modifiers(adev, mods, &size, &capacity);
+> +               break;
+> +       case AMDGPU_FAMILY_NV:
+> +       case AMDGPU_FAMILY_VGH:
+> +       case AMDGPU_FAMILY_YC:
+> +       case AMDGPU_FAMILY_GC_10_3_6:
+> +       case AMDGPU_FAMILY_GC_10_3_7:
+> +               if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
+> +                       add_gfx10_3_modifiers(adev, mods, &size, &capacity);
+> +               else
+> +                       add_gfx10_1_modifiers(adev, mods, &size, &capacity);
+> +               break;
+> +       case AMDGPU_FAMILY_GC_11_0_0:
+> +       case AMDGPU_FAMILY_GC_11_0_2:
+> +               add_gfx11_modifiers(adev, mods, &size, &capacity);
+> +               break;
+> +       }
+> +
+> +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> +
+> +       /* INVALID marks the end of the list. */
+> +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> +
+> +       if (!*mods)
+> +               return -ENOMEM;
+> +
+> +       return 0;
+> +}
+> +
+> +static int get_plane_formats(const struct drm_plane *plane,
+> +                            const struct dc_plane_cap *plane_cap,
+> +                            uint32_t *formats, int max_formats)
+> +{
+> +       int i, num_formats = 0;
+> +
+> +       /*
+> +        * TODO: Query support for each group of formats directly from
+> +        * DC plane caps. This will require adding more formats to the
+> +        * caps list.
+> +        */
+> +
+> +       switch (plane->type) {
+> +       case DRM_PLANE_TYPE_PRIMARY:
+> +               for (i = 0; i < ARRAY_SIZE(rgb_formats); ++i) {
+> +                       if (num_formats >= max_formats)
+> +                               break;
+> +
+> +                       formats[num_formats++] = rgb_formats[i];
+> +               }
+> +
+> +               if (plane_cap && plane_cap->pixel_format_support.nv12)
+> +                       formats[num_formats++] = DRM_FORMAT_NV12;
+> +               if (plane_cap && plane_cap->pixel_format_support.p010)
+> +                       formats[num_formats++] = DRM_FORMAT_P010;
+> +               if (plane_cap && plane_cap->pixel_format_support.fp16) {
+> +                       formats[num_formats++] = DRM_FORMAT_XRGB16161616F;
+> +                       formats[num_formats++] = DRM_FORMAT_ARGB16161616F;
+> +                       formats[num_formats++] = DRM_FORMAT_XBGR16161616F;
+> +                       formats[num_formats++] = DRM_FORMAT_ABGR16161616F;
+> +               }
+> +               break;
+> +
+> +       case DRM_PLANE_TYPE_OVERLAY:
+> +               for (i = 0; i < ARRAY_SIZE(overlay_formats); ++i) {
+> +                       if (num_formats >= max_formats)
+> +                               break;
+> +
+> +                       formats[num_formats++] = overlay_formats[i];
+> +               }
+> +               break;
+> +
+> +       case DRM_PLANE_TYPE_CURSOR:
+> +               for (i = 0; i < ARRAY_SIZE(cursor_formats); ++i) {
+> +                       if (num_formats >= max_formats)
+> +                               break;
+> +
+> +                       formats[num_formats++] = cursor_formats[i];
+> +               }
+> +               break;
+> +       }
+> +
+> +       return num_formats;
+> +}
+> +
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +static int attach_color_mgmt_properties(struct amdgpu_display_manager *dm, struct drm_plane *plane)
+> +{
+> +       drm_object_attach_property(&plane->base,
+> +                                  dm->degamma_lut_property,
+> +                                  0);
+> +       drm_object_attach_property(&plane->base,
+> +                                  dm->degamma_lut_size_property,
+> +                                  MAX_COLOR_LUT_ENTRIES);
+> +       drm_object_attach_property(&plane->base, dm->ctm_property,
+> +                                  0);
+> +       drm_object_attach_property(&plane->base, dm->sdr_boost_property,
+> +                                  DEFAULT_SDR_BOOST);
+> +
+> +       return 0;
+> +}
+> +#endif
+> +
+> +int fill_plane_buffer_attributes(struct amdgpu_device *adev,
+> +                            const struct amdgpu_framebuffer *afb,
+> +                            const enum surface_pixel_format format,
+> +                            const enum dc_rotation_angle rotation,
+> +                            const uint64_t tiling_flags,
+> +                            union dc_tiling_info *tiling_info,
+> +                            struct plane_size *plane_size,
+> +                            struct dc_plane_dcc_param *dcc,
+> +                            struct dc_plane_address *address,
+> +                            bool tmz_surface,
+> +                            bool force_disable_dcc)
+> +{
+> +       const struct drm_framebuffer *fb = &afb->base;
+> +       int ret;
+> +
+> +       memset(tiling_info, 0, sizeof(*tiling_info));
+> +       memset(plane_size, 0, sizeof(*plane_size));
+> +       memset(dcc, 0, sizeof(*dcc));
+> +       memset(address, 0, sizeof(*address));
+> +
+> +       address->tmz_surface = tmz_surface;
+> +
+> +       if (format < SURFACE_PIXEL_FORMAT_VIDEO_BEGIN) {
+> +               uint64_t addr = afb->address + fb->offsets[0];
+> +
+> +               plane_size->surface_size.x = 0;
+> +               plane_size->surface_size.y = 0;
+> +               plane_size->surface_size.width = fb->width;
+> +               plane_size->surface_size.height = fb->height;
+> +               plane_size->surface_pitch =
+> +                       fb->pitches[0] / fb->format->cpp[0];
+> +
+> +               address->type = PLN_ADDR_TYPE_GRAPHICS;
+> +               address->grph.addr.low_part = lower_32_bits(addr);
+> +               address->grph.addr.high_part = upper_32_bits(addr);
+> +       } else if (format < SURFACE_PIXEL_FORMAT_INVALID) {
+> +               uint64_t luma_addr = afb->address + fb->offsets[0];
+> +               uint64_t chroma_addr = afb->address + fb->offsets[1];
+> +
+> +               plane_size->surface_size.x = 0;
+> +               plane_size->surface_size.y = 0;
+> +               plane_size->surface_size.width = fb->width;
+> +               plane_size->surface_size.height = fb->height;
+> +               plane_size->surface_pitch =
+> +                       fb->pitches[0] / fb->format->cpp[0];
+> +
+> +               plane_size->chroma_size.x = 0;
+> +               plane_size->chroma_size.y = 0;
+> +               /* TODO: set these based on surface format */
+> +               plane_size->chroma_size.width = fb->width / 2;
+> +               plane_size->chroma_size.height = fb->height / 2;
+> +
+> +               plane_size->chroma_pitch =
+> +                       fb->pitches[1] / fb->format->cpp[1];
+> +
+> +               address->type = PLN_ADDR_TYPE_VIDEO_PROGRESSIVE;
+> +               address->video_progressive.luma_addr.low_part =
+> +                       lower_32_bits(luma_addr);
+> +               address->video_progressive.luma_addr.high_part =
+> +                       upper_32_bits(luma_addr);
+> +               address->video_progressive.chroma_addr.low_part =
+> +                       lower_32_bits(chroma_addr);
+> +               address->video_progressive.chroma_addr.high_part =
+> +                       upper_32_bits(chroma_addr);
+> +       }
+> +
+> +       if (adev->family >= AMDGPU_FAMILY_AI) {
+> +               ret = fill_gfx9_plane_attributes_from_modifiers(adev, afb, format,
+> +                                                               rotation, plane_size,
+> +                                                               tiling_info, dcc,
+> +                                                               address,
+> +                                                               force_disable_dcc);
+> +               if (ret)
+> +                       return ret;
+> +       } else {
+> +               fill_gfx8_tiling_info_from_flags(tiling_info, tiling_flags);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+> +                                     struct drm_plane_state *new_state)
+> +{
+> +       struct amdgpu_framebuffer *afb;
+> +       struct drm_gem_object *obj;
+> +       struct amdgpu_device *adev;
+> +       struct amdgpu_bo *rbo;
+> +       struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
+> +       struct list_head list;
+> +       struct ttm_validate_buffer tv;
+> +       struct ww_acquire_ctx ticket;
+> +       uint32_t domain;
+> +       int r;
+> +
+> +       if (!new_state->fb) {
+> +               DRM_DEBUG_KMS("No FB bound\n");
+> +               return 0;
+> +       }
+> +
+> +       afb = to_amdgpu_framebuffer(new_state->fb);
+> +       obj = new_state->fb->obj[0];
+> +       rbo = gem_to_amdgpu_bo(obj);
+> +       adev = amdgpu_ttm_adev(rbo->tbo.bdev);
+> +       INIT_LIST_HEAD(&list);
+> +
+> +       tv.bo = &rbo->tbo;
+> +       tv.num_shared = 1;
+> +       list_add(&tv.head, &list);
+> +
+> +       r = ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
+> +       if (r) {
+> +               dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+> +               return r;
+> +       }
+> +
+> +       if (plane->type != DRM_PLANE_TYPE_CURSOR)
+> +               domain = amdgpu_display_supported_domains(adev, rbo->flags);
+> +       else
+> +               domain = AMDGPU_GEM_DOMAIN_VRAM;
+> +
+> +       r = amdgpu_bo_pin(rbo, domain);
+> +       if (unlikely(r != 0)) {
+> +               if (r != -ERESTARTSYS)
+> +                       DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+> +               ttm_eu_backoff_reservation(&ticket, &list);
+> +               return r;
+> +       }
+> +
+> +       r = amdgpu_ttm_alloc_gart(&rbo->tbo);
+> +       if (unlikely(r != 0)) {
+> +               amdgpu_bo_unpin(rbo);
+> +               ttm_eu_backoff_reservation(&ticket, &list);
+> +               DRM_ERROR("%p bind failed\n", rbo);
+> +               return r;
+> +       }
+> +
+> +       ttm_eu_backoff_reservation(&ticket, &list);
+> +
+> +       afb->address = amdgpu_bo_gpu_offset(rbo);
+> +
+> +       amdgpu_bo_ref(rbo);
+> +
+> +       /**
+> +        * We don't do surface updates on planes that have been newly created,
+> +        * but we also don't have the afb->address during atomic check.
+> +        *
+> +        * Fill in buffer attributes depending on the address here, but only on
+> +        * newly created planes since they're not being used by DC yet and this
+> +        * won't modify global state.
+> +        */
+> +       dm_plane_state_old = to_dm_plane_state(plane->state);
+> +       dm_plane_state_new = to_dm_plane_state(new_state);
+> +
+> +       if (dm_plane_state_new->dc_state &&
+> +           dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
+> +               struct dc_plane_state *plane_state =
+> +                       dm_plane_state_new->dc_state;
+> +               bool force_disable_dcc = !plane_state->dcc.enable;
+> +
+> +               fill_plane_buffer_attributes(
+> +                       adev, afb, plane_state->format, plane_state->rotation,
+> +                       afb->tiling_flags,
+> +                       &plane_state->tiling_info, &plane_state->plane_size,
+> +                       &plane_state->dcc, &plane_state->address,
+> +                       afb->tmz_surface, force_disable_dcc);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static void dm_plane_helper_cleanup_fb(struct drm_plane *plane,
+> +                                      struct drm_plane_state *old_state)
+> +{
+> +       struct amdgpu_bo *rbo;
+> +       int r;
+> +
+> +       if (!old_state->fb)
+> +               return;
+> +
+> +       rbo = gem_to_amdgpu_bo(old_state->fb->obj[0]);
+> +       r = amdgpu_bo_reserve(rbo, false);
+> +       if (unlikely(r)) {
+> +               DRM_ERROR("failed to reserve rbo before unpin\n");
+> +               return;
+> +       }
+> +
+> +       amdgpu_bo_unpin(rbo);
+> +       amdgpu_bo_unreserve(rbo);
+> +       amdgpu_bo_unref(&rbo);
+> +}
+> +
+> +static void get_min_max_dc_plane_scaling(struct drm_device *dev,
+> +                                        struct drm_framebuffer *fb,
+> +                                        int *min_downscale, int *max_upscale)
+> +{
+> +       struct amdgpu_device *adev = drm_to_adev(dev);
+> +       struct dc *dc = adev->dm.dc;
+> +       /* Caps for all supported planes are the same on DCE and DCN 1 - 3 */
+> +       struct dc_plane_cap *plane_cap = &dc->caps.planes[0];
+> +
+> +       switch (fb->format->format) {
+> +       case DRM_FORMAT_P010:
+> +       case DRM_FORMAT_NV12:
+> +       case DRM_FORMAT_NV21:
+> +               *max_upscale = plane_cap->max_upscale_factor.nv12;
+> +               *min_downscale = plane_cap->max_downscale_factor.nv12;
+> +               break;
+> +
+> +       case DRM_FORMAT_XRGB16161616F:
+> +       case DRM_FORMAT_ARGB16161616F:
+> +       case DRM_FORMAT_XBGR16161616F:
+> +       case DRM_FORMAT_ABGR16161616F:
+> +               *max_upscale = plane_cap->max_upscale_factor.fp16;
+> +               *min_downscale = plane_cap->max_downscale_factor.fp16;
+> +               break;
+> +
+> +       default:
+> +               *max_upscale = plane_cap->max_upscale_factor.argb8888;
+> +               *min_downscale = plane_cap->max_downscale_factor.argb8888;
+> +               break;
+> +       }
+> +
+> +       /*
+> +        * A factor of 1 in the plane_cap means to not allow scaling, ie. use a
+> +        * scaling factor of 1.0 == 1000 units.
+> +        */
+> +       if (*max_upscale == 1)
+> +               *max_upscale = 1000;
+> +
+> +       if (*min_downscale == 1)
+> +               *min_downscale = 1000;
+> +}
+> +
+> +int dm_plane_helper_check_state(struct drm_plane_state *state,
+> +                                      struct drm_crtc_state *new_crtc_state)
+> +{
+> +       struct drm_framebuffer *fb = state->fb;
+> +       int min_downscale, max_upscale;
+> +       int min_scale = 0;
+> +       int max_scale = INT_MAX;
+> +
+> +       /* Plane enabled? Validate viewport and get scaling factors from plane caps. */
+> +       if (fb && state->crtc) {
+> +               /* Validate viewport to cover the case when only the position changes */
+> +               if (state->plane->type != DRM_PLANE_TYPE_CURSOR) {
+> +                       int viewport_width = state->crtc_w;
+> +                       int viewport_height = state->crtc_h;
+> +
+> +                       if (state->crtc_x < 0)
+> +                               viewport_width += state->crtc_x;
+> +                       else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hdisplay)
+> +                               viewport_width = new_crtc_state->mode.crtc_hdisplay - state->crtc_x;
+> +
+> +                       if (state->crtc_y < 0)
+> +                               viewport_height += state->crtc_y;
+> +                       else if (state->crtc_y + state->crtc_h > new_crtc_state->mode.crtc_vdisplay)
+> +                               viewport_height = new_crtc_state->mode.crtc_vdisplay - state->crtc_y;
+> +
+> +                       if (viewport_width < 0 || viewport_height < 0) {
+> +                               DRM_DEBUG_ATOMIC("Plane completely outside of screen\n");
+> +                               return -EINVAL;
+> +                       } else if (viewport_width < MIN_VIEWPORT_SIZE*2) { /* x2 for width is because of pipe-split. */
+> +                               DRM_DEBUG_ATOMIC("Viewport width %d smaller than %d\n", viewport_width, MIN_VIEWPORT_SIZE*2);
+> +                               return -EINVAL;
+> +                       } else if (viewport_height < MIN_VIEWPORT_SIZE) {
+> +                               DRM_DEBUG_ATOMIC("Viewport height %d smaller than %d\n", viewport_height, MIN_VIEWPORT_SIZE);
+> +                               return -EINVAL;
+> +                       }
+> +
+> +               }
+> +
+> +               /* Get min/max allowed scaling factors from plane caps. */
+> +               get_min_max_dc_plane_scaling(state->crtc->dev, fb,
+> +                                            &min_downscale, &max_upscale);
+> +               /*
+> +                * Convert to drm convention: 16.16 fixed point, instead of dc's
+> +                * 1.0 == 1000. Also drm scaling is src/dst instead of dc's
+> +                * dst/src, so min_scale = 1.0 / max_upscale, etc.
+> +                */
+> +               min_scale = (1000 << 16) / max_upscale;
+> +               max_scale = (1000 << 16) / min_downscale;
+> +       }
+> +
+> +       return drm_atomic_helper_check_plane_state(
+> +               state, new_crtc_state, min_scale, max_scale, true, true);
+> +}
+> +
+> +int fill_dc_scaling_info(struct amdgpu_device *adev,
+> +                               const struct drm_plane_state *state,
+> +                               struct dc_scaling_info *scaling_info)
+> +{
+> +       int scale_w, scale_h, min_downscale, max_upscale;
+> +
+> +       memset(scaling_info, 0, sizeof(*scaling_info));
+> +
+> +       /* Source is fixed 16.16 but we ignore mantissa for now... */
+> +       scaling_info->src_rect.x = state->src_x >> 16;
+> +       scaling_info->src_rect.y = state->src_y >> 16;
+> +
+> +       /*
+> +        * For reasons we don't (yet) fully understand a non-zero
+> +        * src_y coordinate into an NV12 buffer can cause a
+> +        * system hang on DCN1x.
+> +        * To avoid hangs (and maybe be overly cautious)
+> +        * let's reject both non-zero src_x and src_y.
+> +        *
+> +        * We currently know of only one use-case to reproduce a
+> +        * scenario with non-zero src_x and src_y for NV12, which
+> +        * is to gesture the YouTube Android app into full screen
+> +        * on ChromeOS.
+> +        */
+> +       if (((adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 0)) ||
+> +           (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 1))) &&
+> +           (state->fb && state->fb->format->format == DRM_FORMAT_NV12 &&
+> +           (scaling_info->src_rect.x != 0 || scaling_info->src_rect.y != 0)))
+> +               return -EINVAL;
+> +
+> +       scaling_info->src_rect.width = state->src_w >> 16;
+> +       if (scaling_info->src_rect.width == 0)
+> +               return -EINVAL;
+> +
+> +       scaling_info->src_rect.height = state->src_h >> 16;
+> +       if (scaling_info->src_rect.height == 0)
+> +               return -EINVAL;
+> +
+> +       scaling_info->dst_rect.x = state->crtc_x;
+> +       scaling_info->dst_rect.y = state->crtc_y;
+> +
+> +       if (state->crtc_w == 0)
+> +               return -EINVAL;
+> +
+> +       scaling_info->dst_rect.width = state->crtc_w;
+> +
+> +       if (state->crtc_h == 0)
+> +               return -EINVAL;
+> +
+> +       scaling_info->dst_rect.height = state->crtc_h;
+> +
+> +       /* DRM doesn't specify clipping on destination output. */
+> +       scaling_info->clip_rect = scaling_info->dst_rect;
+> +
+> +       /* Validate scaling per-format with DC plane caps */
+> +       if (state->plane && state->plane->dev && state->fb) {
+> +               get_min_max_dc_plane_scaling(state->plane->dev, state->fb,
+> +                                            &min_downscale, &max_upscale);
+> +       } else {
+> +               min_downscale = 250;
+> +               max_upscale = 16000;
+> +       }
+> +
+> +       scale_w = scaling_info->dst_rect.width * 1000 /
+> +                 scaling_info->src_rect.width;
+> +
+> +       if (scale_w < min_downscale || scale_w > max_upscale)
+> +               return -EINVAL;
+> +
+> +       scale_h = scaling_info->dst_rect.height * 1000 /
+> +                 scaling_info->src_rect.height;
+> +
+> +       if (scale_h < min_downscale || scale_h > max_upscale)
+> +               return -EINVAL;
+> +
+> +       /*
+> +        * The "scaling_quality" can be ignored for now, quality = 0 has DC
+> +        * assume reasonable defaults based on the format.
+> +        */
+> +
+> +       return 0;
+> +}
+> +
+> +static int dm_plane_atomic_check(struct drm_plane *plane,
+> +                                struct drm_atomic_state *state)
+> +{
+> +       struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+> +                                                                                plane);
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +       struct dc *dc = adev->dm.dc;
+> +       struct dm_plane_state *dm_plane_state;
+> +       struct dc_scaling_info scaling_info;
+> +       struct drm_crtc_state *new_crtc_state;
+> +       int ret;
+> +
+> +       trace_amdgpu_dm_plane_atomic_check(new_plane_state);
+> +
+> +       dm_plane_state = to_dm_plane_state(new_plane_state);
+> +
+> +       if (!dm_plane_state->dc_state)
+> +               return 0;
+> +
+> +       new_crtc_state =
+> +               drm_atomic_get_new_crtc_state(state,
+> +                                             new_plane_state->crtc);
+> +       if (!new_crtc_state)
+> +               return -EINVAL;
+> +
+> +       ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret = fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if (dc_validate_plane(dc, dm_plane_state->dc_state) == DC_OK)
+> +               return 0;
+> +
+> +       return -EINVAL;
+> +}
+> +
+> +static int dm_plane_atomic_async_check(struct drm_plane *plane,
+> +                                      struct drm_atomic_state *state)
+> +{
+> +       /* Only support async updates on cursor planes. */
+> +       if (plane->type != DRM_PLANE_TYPE_CURSOR)
+> +               return -EINVAL;
+> +
+> +       return 0;
+> +}
+> +
+> +static int get_cursor_position(struct drm_plane *plane, struct drm_crtc *crtc,
+> +                              struct dc_cursor_position *position)
+> +{
+> +       struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+> +       int x, y;
+> +       int xorigin = 0, yorigin = 0;
+> +
+> +       if (!crtc || !plane->state->fb)
+> +               return 0;
+> +
+> +       if ((plane->state->crtc_w > amdgpu_crtc->max_cursor_width) ||
+> +           (plane->state->crtc_h > amdgpu_crtc->max_cursor_height)) {
+> +               DRM_ERROR("%s: bad cursor width or height %d x %d\n",
+> +                         __func__,
+> +                         plane->state->crtc_w,
+> +                         plane->state->crtc_h);
+> +               return -EINVAL;
+> +       }
+> +
+> +       x = plane->state->crtc_x;
+> +       y = plane->state->crtc_y;
+> +
+> +       if (x <= -amdgpu_crtc->max_cursor_width ||
+> +           y <= -amdgpu_crtc->max_cursor_height)
+> +               return 0;
+> +
+> +       if (x < 0) {
+> +               xorigin = min(-x, amdgpu_crtc->max_cursor_width - 1);
+> +               x = 0;
+> +       }
+> +       if (y < 0) {
+> +               yorigin = min(-y, amdgpu_crtc->max_cursor_height - 1);
+> +               y = 0;
+> +       }
+> +       position->enable = true;
+> +       position->translate_by_source = true;
+> +       position->x = x;
+> +       position->y = y;
+> +       position->x_hotspot = xorigin;
+> +       position->y_hotspot = yorigin;
+> +
+> +       return 0;
+> +}
+> +
+> +void handle_cursor_update(struct drm_plane *plane,
+> +                                struct drm_plane_state *old_plane_state)
+> +{
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +       struct amdgpu_framebuffer *afb = to_amdgpu_framebuffer(plane->state->fb);
+> +       struct drm_crtc *crtc = afb ? plane->state->crtc : old_plane_state->crtc;
+> +       struct dm_crtc_state *crtc_state = crtc ? to_dm_crtc_state(crtc->state) : NULL;
+> +       struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+> +       uint64_t address = afb ? afb->address : 0;
+> +       struct dc_cursor_position position = {0};
+> +       struct dc_cursor_attributes attributes;
+> +       int ret;
+> +
+> +       if (!plane->state->fb && !old_plane_state->fb)
+> +               return;
+> +
+> +       DC_LOG_CURSOR("%s: crtc_id=%d with size %d to %d\n",
+> +                     __func__,
+> +                     amdgpu_crtc->crtc_id,
+> +                     plane->state->crtc_w,
+> +                     plane->state->crtc_h);
+> +
+> +       ret = get_cursor_position(plane, crtc, &position);
+> +       if (ret)
+> +               return;
+> +
+> +       if (!position.enable) {
+> +               /* turn off cursor */
+> +               if (crtc_state && crtc_state->stream) {
+> +                       mutex_lock(&adev->dm.dc_lock);
+> +                       dc_stream_set_cursor_position(crtc_state->stream,
+> +                                                     &position);
+> +                       mutex_unlock(&adev->dm.dc_lock);
+> +               }
+> +               return;
+> +       }
+> +
+> +       amdgpu_crtc->cursor_width = plane->state->crtc_w;
+> +       amdgpu_crtc->cursor_height = plane->state->crtc_h;
+> +
+> +       memset(&attributes, 0, sizeof(attributes));
+> +       attributes.address.high_part = upper_32_bits(address);
+> +       attributes.address.low_part  = lower_32_bits(address);
+> +       attributes.width             = plane->state->crtc_w;
+> +       attributes.height            = plane->state->crtc_h;
+> +       attributes.color_format      = CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA;
+> +       attributes.rotation_angle    = 0;
+> +       attributes.attribute_flags.value = 0;
+> +
+> +       attributes.pitch = afb->base.pitches[0] / afb->base.format->cpp[0];
+> +
+> +       if (crtc_state->stream) {
+> +               mutex_lock(&adev->dm.dc_lock);
+> +               if (!dc_stream_set_cursor_attributes(crtc_state->stream,
+> +                                                        &attributes))
+> +                       DRM_ERROR("DC failed to set cursor attributes\n");
+> +
+> +               if (!dc_stream_set_cursor_position(crtc_state->stream,
+> +                                                  &position))
+> +                       DRM_ERROR("DC failed to set cursor position\n");
+> +               mutex_unlock(&adev->dm.dc_lock);
+> +       }
+> +}
+> +
+> +static void dm_plane_atomic_async_update(struct drm_plane *plane,
+> +                                        struct drm_atomic_state *state)
+> +{
+> +       struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state,
+> +                                                                          plane);
+> +       struct drm_plane_state *old_state =
+> +               drm_atomic_get_old_plane_state(state, plane);
+> +
+> +       trace_amdgpu_dm_atomic_update_cursor(new_state);
+> +
+> +       swap(plane->state->fb, new_state->fb);
+> +
+> +       plane->state->src_x = new_state->src_x;
+> +       plane->state->src_y = new_state->src_y;
+> +       plane->state->src_w = new_state->src_w;
+> +       plane->state->src_h = new_state->src_h;
+> +       plane->state->crtc_x = new_state->crtc_x;
+> +       plane->state->crtc_y = new_state->crtc_y;
+> +       plane->state->crtc_w = new_state->crtc_w;
+> +       plane->state->crtc_h = new_state->crtc_h;
+> +
+> +       handle_cursor_update(plane, old_state);
+> +}
+> +
+> +static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+> +       .prepare_fb = dm_plane_helper_prepare_fb,
+> +       .cleanup_fb = dm_plane_helper_cleanup_fb,
+> +       .atomic_check = dm_plane_atomic_check,
+> +       .atomic_async_check = dm_plane_atomic_async_check,
+> +       .atomic_async_update = dm_plane_atomic_async_update
+> +};
+> +
+> +static void dm_drm_plane_reset(struct drm_plane *plane)
+> +{
+> +       struct dm_plane_state *amdgpu_state = NULL;
+> +
+> +       if (plane->state)
+> +               plane->funcs->atomic_destroy_state(plane, plane->state);
+> +
+> +       amdgpu_state = kzalloc(sizeof(*amdgpu_state), GFP_KERNEL);
+> +       WARN_ON(amdgpu_state == NULL);
+> +
+> +       if (amdgpu_state)
+> +               __drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +       if (amdgpu_state)
+> +               amdgpu_state->sdr_boost = DEFAULT_SDR_BOOST;
+> +#endif
+> +}
+> +
+> +static struct drm_plane_state *
+> +dm_drm_plane_duplicate_state(struct drm_plane *plane)
+> +{
+> +       struct dm_plane_state *dm_plane_state, *old_dm_plane_state;
+> +
+> +       old_dm_plane_state = to_dm_plane_state(plane->state);
+> +       dm_plane_state = kzalloc(sizeof(*dm_plane_state), GFP_KERNEL);
+> +       if (!dm_plane_state)
+> +               return NULL;
+> +
+> +       __drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
+> +
+> +       if (old_dm_plane_state->dc_state) {
+> +               dm_plane_state->dc_state = old_dm_plane_state->dc_state;
+> +               dc_plane_state_retain(dm_plane_state->dc_state);
+> +       }
+> +
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +       if (dm_plane_state->degamma_lut)
+> +               drm_property_blob_get(dm_plane_state->degamma_lut);
+> +       if (dm_plane_state->ctm)
+> +               drm_property_blob_get(dm_plane_state->ctm);
+> +
+> +       dm_plane_state->sdr_boost = old_dm_plane_state->sdr_boost;
+> +#endif
+> +
+> +       return &dm_plane_state->base;
+> +}
+> +
+> +static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+> +                                         uint32_t format,
+> +                                         uint64_t modifier)
+> +{
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +       const struct drm_format_info *info = drm_format_info(format);
+> +       struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
+> +
+> +       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
+> +
+> +       if (!info)
+> +               return false;
+> +
+> +       /*
+> +        * We always have to allow these modifiers:
+> +        * 1. Core DRM checks for LINEAR support if userspace does not provide modifiers.
+> +        * 2. Not passing any modifiers is the same as explicitly passing INVALID.
+> +        */
+> +       if (modifier == DRM_FORMAT_MOD_LINEAR ||
+> +           modifier == DRM_FORMAT_MOD_INVALID) {
+> +               return true;
+> +       }
+> +
+> +       /* check if swizzle mode is supported by this version of DCN */
+> +       switch (asic_id.chip_family) {
+> +       case FAMILY_SI:
+> +       case FAMILY_CI:
+> +       case FAMILY_KV:
+> +       case FAMILY_CZ:
+> +       case FAMILY_VI:
+> +               /* asics before AI does not have modifier support */
+> +               return false;
+> +       case FAMILY_AI:
+> +       case FAMILY_RV:
+> +       case FAMILY_NV:
+> +       case FAMILY_VGH:
+> +       case FAMILY_YELLOW_CARP:
+> +       case AMDGPU_FAMILY_GC_10_3_6:
+> +       case AMDGPU_FAMILY_GC_10_3_7:
+> +               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_D:
+> +                       return true;
+> +               default:
+> +                       return false;
+> +               }
+> +               break;
+> +       case AMDGPU_FAMILY_GC_11_0_0:
+> +               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+> +               case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+> +               case AMD_FMT_MOD_TILE_GFX9_64K_D:
+> +                       return true;
+> +               default:
+> +                       return false;
+> +               }
+> +               break;
+> +       default:
+> +               ASSERT(0); /* Unknown asic */
+> +               break;
+> +       }
+> +
+> +       /*
+> +        * For D swizzle the canonical modifier depends on the bpp, so check
+> +        * it here.
+> +        */
+> +       if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
+> +           adev->family >= AMDGPU_FAMILY_NV) {
+> +               if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
+> +                       return false;
+> +       }
+> +
+> +       if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
+> +           info->cpp[0] < 8)
+> +               return false;
+> +
+> +       if (modifier_has_dcc(modifier)) {
+> +               /* Per radeonsi comments 16/64 bpp are more complicated. */
+> +               if (info->cpp[0] != 4)
+> +                       return false;
+> +               /* We support multi-planar formats, but not when combined with
+> +                * additional DCC metadata planes.
+> +                */
+> +               if (info->num_planes > 1)
+> +                       return false;
+> +       }
+> +
+> +       return true;
+> +}
+> +
+> +static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+> +                               struct drm_plane_state *state)
+> +{
+> +       struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
+> +
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +       drm_property_blob_put(dm_plane_state->degamma_lut);
+> +       drm_property_blob_put(dm_plane_state->ctm);
+> +#endif
+> +       if (dm_plane_state->dc_state)
+> +               dc_plane_state_release(dm_plane_state->dc_state);
+> +
+> +       drm_atomic_helper_plane_destroy_state(plane, state);
+> +}
+> +
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +/* copied from drm_atomic_uapi.c */
+> +static int atomic_replace_property_blob_from_id(struct drm_device *dev,
+> +                                        struct drm_property_blob **blob,
+> +                                        uint64_t blob_id,
+> +                                        ssize_t expected_size,
+> +                                        ssize_t expected_elem_size,
+> +                                        bool *replaced)
+> +{
+> +       struct drm_property_blob *new_blob = NULL;
+> +
+> +       if (blob_id != 0) {
+> +               new_blob = drm_property_lookup_blob(dev, blob_id);
+> +               if (new_blob == NULL)
+> +                       return -EINVAL;
+> +
+> +               if (expected_size > 0 &&
+> +                   new_blob->length != expected_size) {
+> +                       drm_property_blob_put(new_blob);
+> +                       return -EINVAL;
+> +               }
+> +               if (expected_elem_size > 0 &&
+> +                   new_blob->length % expected_elem_size != 0) {
+> +                       drm_property_blob_put(new_blob);
+> +                       return -EINVAL;
+> +               }
+> +       }
+> +
+> +       *replaced |= drm_property_replace_blob(blob, new_blob);
+> +       drm_property_blob_put(new_blob);
+> +
+> +       return 0;
+> +}
+> +
+> +int dm_drm_plane_set_property(struct drm_plane *plane,
+> +                             struct drm_plane_state *state,
+> +                             struct drm_property *property,
+> +                             uint64_t val)
+> +{
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +       struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
+> +       int ret = 0;
+> +       bool replaced;
+> +
+> +       if (property == adev->dm.degamma_lut_property) {
+> +               ret = atomic_replace_property_blob_from_id(adev_to_drm(adev),
+> +                               &dm_plane_state->degamma_lut,
+> +                               val, -1, sizeof(struct drm_color_lut),
+> +                               &replaced);
+> +       } else if (property == adev->dm.ctm_property) {
+> +               ret = atomic_replace_property_blob_from_id(adev_to_drm(adev),
+> +                               &dm_plane_state->ctm,
+> +                               val,
+> +                               sizeof(struct drm_color_ctm), -1,
+> +                               &replaced);
+> +       } else if (property == adev->dm.sdr_boost_property) {
+> +               dm_plane_state->sdr_boost = val;
+> +       } else {
+> +               return -EINVAL;
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+> +int dm_drm_plane_get_property(struct drm_plane *plane,
+> +                             const struct drm_plane_state *state,
+> +                             struct drm_property *property,
+> +                             uint64_t *val)
+> +{
+> +       struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +
+> +       if (property == adev->dm.degamma_lut_property) {
+> +               *val = (dm_plane_state->degamma_lut) ?
+> +                       dm_plane_state->degamma_lut->base.id : 0;
+> +       } else if (property == adev->dm.ctm_property) {
+> +               *val = (dm_plane_state->ctm) ? dm_plane_state->ctm->base.id : 0;
+> +       } else if (property == adev->dm.sdr_boost_property) {
+> +               *val = dm_plane_state->sdr_boost;
+> +       } else {
+> +               return -EINVAL;
+> +       }
+> +
+> +       return 0;
+> +}
+> +#endif
+> +
+> +static const struct drm_plane_funcs dm_plane_funcs = {
+> +       .update_plane   = drm_atomic_helper_update_plane,
+> +       .disable_plane  = drm_atomic_helper_disable_plane,
+> +       .destroy        = drm_primary_helper_destroy,
+> +       .reset = dm_drm_plane_reset,
+> +       .atomic_duplicate_state = dm_drm_plane_duplicate_state,
+> +       .atomic_destroy_state = dm_drm_plane_destroy_state,
+> +       .format_mod_supported = dm_plane_format_mod_supported,
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +       .atomic_set_property = dm_drm_plane_set_property,
+> +       .atomic_get_property = dm_drm_plane_get_property,
+> +#endif
+> +};
+> +
+> +int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> +                               struct drm_plane *plane,
+> +                               unsigned long possible_crtcs,
+> +                               const struct dc_plane_cap *plane_cap)
+> +{
+> +       uint32_t formats[32];
+> +       int num_formats;
+> +       int res = -EPERM;
+> +       unsigned int supported_rotations;
+> +       uint64_t *modifiers = NULL;
+> +
+> +       num_formats = get_plane_formats(plane, plane_cap, formats,
+> +                                       ARRAY_SIZE(formats));
+> +
+> +       res = get_plane_modifiers(dm->adev, plane->type, &modifiers);
+> +       if (res)
+> +               return res;
+> +
+> +       res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
+> +                                      &dm_plane_funcs, formats, num_formats,
+> +                                      modifiers, plane->type, NULL);
+> +       kfree(modifiers);
+> +       if (res)
+> +               return res;
+> +
+> +       if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+> +           plane_cap && plane_cap->per_pixel_alpha) {
+> +               unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+> +                                         BIT(DRM_MODE_BLEND_PREMULTI) |
+> +                                         BIT(DRM_MODE_BLEND_COVERAGE);
+> +
+> +               drm_plane_create_alpha_property(plane);
+> +               drm_plane_create_blend_mode_property(plane, blend_caps);
+> +       }
+> +
+> +       if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+> +           plane_cap &&
+> +           (plane_cap->pixel_format_support.nv12 ||
+> +            plane_cap->pixel_format_support.p010)) {
+> +               /* This only affects YUV formats. */
+> +               drm_plane_create_color_properties(
+> +                       plane,
+> +                       BIT(DRM_COLOR_YCBCR_BT601) |
+> +                       BIT(DRM_COLOR_YCBCR_BT709) |
+> +                       BIT(DRM_COLOR_YCBCR_BT2020),
+> +                       BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+> +                       BIT(DRM_COLOR_YCBCR_FULL_RANGE),
+> +                       DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
+> +       }
+> +
+> +       supported_rotations =
+> +               DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+> +               DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+> +
+> +       if (dm->adev->asic_type >= CHIP_BONAIRE &&
+> +           plane->type != DRM_PLANE_TYPE_CURSOR)
+> +               drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
+> +                                                  supported_rotations);
+> +
+> +       drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+> +
+> +#ifdef CONFIG_DRM_AMD_DC_HDR
+> +       attach_color_mgmt_properties(dm, plane);
+> +#endif
+> +       /* Create (reset) the plane state */
+> +       if (plane->funcs->reset)
+> +               plane->funcs->reset(plane);
+> +
+> +       return 0;
+> +}
+> +
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> new file mode 100644
+> index 000000000000..95168c2cfa6f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -0,0 +1,73 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + * Authors: AMD
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_DM_PLANE_H__
+> +#define __AMDGPU_DM_PLANE_H__
+> +
+> +#include "dc.h"
+> +
+> +void handle_cursor_update(struct drm_plane *plane,
+> +                         struct drm_plane_state *old_plane_state);
+> +
+> +int fill_dc_scaling_info(struct amdgpu_device *adev,
+> +                        const struct drm_plane_state *state,
+> +                        struct dc_scaling_info *scaling_info);
+> +
+> +void get_min_max_dc_plane_scaling(struct drm_device *dev,
+> +                                 struct drm_framebuffer *fb,
+> +                                 int *min_downscale, int *max_upscale);
+> +
+> +int dm_plane_helper_check_state(struct drm_plane_state *state,
+> +                               struct drm_crtc_state *new_crtc_state);
+> +
+> +bool modifier_has_dcc(uint64_t modifier);
+> +
+> +unsigned int modifier_gfx9_swizzle_mode(uint64_t modifier);
+> +
+> +int fill_plane_buffer_attributes(struct amdgpu_device *adev,
+> +                                const struct amdgpu_framebuffer *afb,
+> +                                const enum surface_pixel_format format,
+> +                                const enum dc_rotation_angle rotation,
+> +                                const uint64_t tiling_flags,
+> +                                union dc_tiling_info *tiling_info,
+> +                                struct plane_size *plane_size,
+> +                                struct dc_plane_dcc_param *dcc,
+> +                                struct dc_plane_address *address,
+> +                                bool tmz_surface,
+> +                                bool force_disable_dcc);
+> +
+> +int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> +                        struct drm_plane *plane,
+> +                        unsigned long possible_crtcs,
+> +                        const struct dc_plane_cap *plane_cap);
+> +
+> +const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+> +
+> +void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> +                                   bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+> +                                   bool *global_alpha, int *global_alpha_value);
+> +
+> +#endif
+> --
+> 2.37.0
+>
