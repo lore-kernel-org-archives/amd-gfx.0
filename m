@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A95CC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16FFC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2F510F236;
-	Mon, 18 Jul 2022 19:00:49 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18B7F10F1F1
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:00:47 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id mf4so23039143ejc.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:00:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72CFE10F313;
+	Mon, 18 Jul 2022 19:02:55 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B4910F313
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:02:53 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id z23so23027540eju.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:02:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=VQyoH7Iz8mEpqAOd0ZONZyEq4M37QPm603w2BBFwKM8=;
- b=Z79+e/QKWsVqEovUmcQ2HznGd9tPqIiEP5LgIpEpC7EHyvSgvZ6t5FZRTRMhZHZLGN
- M9+guF5Kv6dOe9rhbQGBtAPC63QjnJON4DrsYkf13p8b2jizjEhg9uNHyiz5gCpGKUJU
- amsxg0l8FbxjkVnVVT11Bq0lf//qNSZnSSWN8xuyppw3PXiO+g58dAUHMz2tgOpHpsAE
- lKbypVyE16N+UPos58AN9XJk/jLsIjMbkPaW4ry1F/rciHBVI9ssjViIobffSlbWiB9s
- XX1KUi6qymYRQLLM/93caMa381BoDz/bJVbGqz988oAVh8T+meqjiOu53xMkXQY6j/Pz
- N1wA==
+ bh=5eZUjMBlv+MHYtkWtM00Fh2DEyY+EQOvDm4200JOmkc=;
+ b=QUNSfxy+Cb5amV/eOl1pSDwfWLs7tXgKRh9KTBSQ5AZzkYGjCQ0trWoeeOm+GhZFG2
+ Yvpz7/c9SzxH/gtw+ckQjPwhHlPgyact+idm7tj5XUJnqHkWShCGnTgAXjxUrkI6m0Ca
+ 5OOcm0KMZbRafk3RUCKmf7KoQDrvxxnYl6LvGaWh5wmoLFCuYwhHqDXk6RKdLksG8KQJ
+ 9dTP6VARVBnWD83LHsQnizjFJQt0lJOY2FYrssWyDkLU4qWkwm+O/FIuXd6ktR8ibp10
+ cZjeyZzlpWQ3fuhQz6sD90mtjLt9DsAdHAqeO9nsM0NXkRcgfT4MVHyLBHJNmmtmPiL0
+ SieA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=VQyoH7Iz8mEpqAOd0ZONZyEq4M37QPm603w2BBFwKM8=;
- b=5YhZSbwSyvBE1E4QC833X3YMYyh/vryvGqxvGHqtkkvEJR+GyLcWybo7pIm/qS1z+b
- XHbmUyMRtaugh+syMyofyxMzoc4uYwR0Hr0H3CpvxeBkSvXg1I9akx9n6AHA+5IdTOtA
- Da0rc5aGryiHRJMPg/a0nt59z4z+hYr7mitYY5TidUpN2j3Se49J7Bs9SaRKLu6BZTke
- 5MK/D8p3kpR6qH63+ZeED2esV6uhFp+G5pVoIgBkfAMmjTIlUWWH1UO6CkJ/6mbh3rZ/
- lP2/JK3OffVulqqwODsGbMYx2E8DtaFlebLfIr7wx1tcC+y4bYhJuirVYnicIG8u1paZ
- LjSg==
-X-Gm-Message-State: AJIora8JvdUEzWiHiubtNPOAG+2HE3PylBX3+iFv0rv0lVh+GbsZ3xc+
- 2hgrwf9NQSrZPM+/qPmbW8BSc0pAnab7gzTMD6U=
-X-Google-Smtp-Source: AGRyM1sAm0ceprBeNasxCBhGobuk2pQl9XbeaWeQmikg9R40pJTUHYeb+giTHB2g6CW/mQzFSVkhhZ9LsDrrgRr3LwU=
-X-Received: by 2002:a17:907:2702:b0:72b:307b:98e6 with SMTP id
- w2-20020a170907270200b0072b307b98e6mr27482559ejk.658.1658170845590; Mon, 18
- Jul 2022 12:00:45 -0700 (PDT)
+ bh=5eZUjMBlv+MHYtkWtM00Fh2DEyY+EQOvDm4200JOmkc=;
+ b=Cc+yiaGm4rABYrx1Sis6dSUccASbmwGhbUk7r213WNyQDeR+P9uEnIqGLT5FDxxWgy
+ FOcHMAvDsJelSy1/3FgP9/OES8RraHQ6Z1iDql13aZ/t0WZnX8WAikAkeiZSE36pSAEc
+ W1O4tVwTh09MHFGzKjmhkbRoStkB/MueUQ/HU0Yv5YxoEeL2lM57c5FuIAxmsETUUleq
+ r6uoyj1B1Lq3tbMCRqVzBh7Tm+7VuJCDT58+gpBlbyL/S6NgpSPe54FZXGYVnc5ycGFs
+ HZnOIMANP9mmd86LzbY6IKtaKttlQCr4X/hZh2UcPl9A3TtaGqjhYI+9vM/p/OVz32o+
+ tLoA==
+X-Gm-Message-State: AJIora8a8GA/mmcp7MRVFr/N1WOqytfviHTpZmfP6bXldMOQwn5FODsV
+ ht5eSOM/zZ7Z6odxBNWqj6E5FMN/CHhzLeM/qrE=
+X-Google-Smtp-Source: AGRyM1vb0994V4n0N4nVQ5zZ3Q+6sY9BLaheAKz+lLSpF84KnxgMo3VEQgstLOpF3Z9pm7TKpvgWJOla7v7oPlmIhaY=
+X-Received: by 2002:a17:906:9751:b0:72f:1b36:e1de with SMTP id
+ o17-20020a170906975100b0072f1b36e1demr10911090ejy.451.1658170971881; Mon, 18
+ Jul 2022 12:02:51 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220714164507.561751-1-mairacanal@riseup.net>
- <20220714164507.561751-9-mairacanal@riseup.net>
-In-Reply-To: <20220714164507.561751-9-mairacanal@riseup.net>
+ <20220714164507.561751-10-mairacanal@riseup.net>
+In-Reply-To: <20220714164507.561751-10-mairacanal@riseup.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Jul 2022 15:00:34 -0400
-Message-ID: <CADnq5_MYHR256zeDaGpbs9=ax9LqmThWeZ0Ld4_YUfNeDMwuqw@mail.gmail.com>
-Subject: Re: [PATCH 09/12] drm/amd/display: Remove unused MaxUsedBW variable
+Date: Mon, 18 Jul 2022 15:02:40 -0400
+Message-ID: <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
+Subject: Re: [PATCH 10/12] drm/amd/display: Remove parameters from
+ dml30_CalculateWriteBackDISPCLK
 To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -80,91 +81,110 @@ Cc: Magali Lemes <magalilemes00@gmail.com>, Leo Li <sunpeng.li@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
-Alex
-
 On Thu, Jul 14, 2022 at 12:46 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
 rote:
 >
-> Remove the variable MaxUsedBW from the function
-> DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCal=
-culation.
-> As a side-effect, the variables MaxPerPlaneVActiveWRBandwidth and
-> WRBandwidth are also removed.
->
-> This was pointed by clang with the following warning:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:=
-3043:10:
-> warning: variable 'MaxUsedBW' set but not used [-Wunused-but-set-variable=
-]
->                 double MaxUsedBW =3D 0;
->                        ^
-> 1 warning generated.
+> The parameters WritebackPixelFormat and WritebackVRatio are removed as
+> they are not used on the function dml30_CalculateWriteBackDISPCLK.
+
+Maybe this is done for consistency with other dml code for other DCN blocks=
+?
+
+Alex
+
 >
 > Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
 > ---
->  .../dc/dml/dcn30/display_mode_vba_30.c        | 28 -------------------
->  1 file changed, 28 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c        | 2 --
+>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c  | 6 ------
+>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h  | 2 --
+>  3 files changed, 10 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drive=
+rs/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> index a8db1306750e..746bb93ade6c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> @@ -322,10 +322,8 @@ void dcn30_fpu_populate_dml_writeback_from_context(
+>                                  * parameters per pipe
+>                                  */
+>                                 writeback_dispclk =3D dml30_CalculateWrit=
+eBackDISPCLK(
+> -                                               dout_wb.wb_pixel_format,
+>                                                 pipes[pipe_cnt].pipe.dest=
+.pixel_rate_mhz,
+>                                                 dout_wb.wb_hratio,
+> -                                               dout_wb.wb_vratio,
+>                                                 dout_wb.wb_htaps_luma,
+>                                                 dout_wb.wb_vtaps_luma,
+>                                                 dout_wb.wb_src_width,
 > diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30=
 .c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-> index 842eb94ebe04..876b321b30ca 100644
+> index 876b321b30ca..37049daaab4c 100644
 > --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
 > +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-> @@ -3037,40 +3037,12 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchP=
-arametersWatermarksAndPerforman
+> @@ -1938,10 +1938,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchPa=
+rametersWatermarksAndPerforman
+>                 if (v->WritebackEnable[k]) {
+>                         v->WritebackDISPCLK =3D dml_max(v->WritebackDISPC=
+LK,
+>                                 dml30_CalculateWriteBackDISPCLK(
+> -                                               v->WritebackPixelFormat[k=
+],
+>                                                 v->PixelClock[k],
+>                                                 v->WritebackHRatio[k],
+> -                                               v->WritebackVRatio[k],
+>                                                 v->WritebackHTaps[k],
+>                                                 v->WritebackVTaps[k],
+>                                                 v->WritebackSourceWidth[k=
+],
+> @@ -3284,10 +3282,8 @@ static double CalculateTWait(
+>  }
 >
->         {
->                 //Maximum Bandwidth Used
-> -               double TotalWRBandwidth =3D 0;
-> -               double MaxPerPlaneVActiveWRBandwidth =3D 0;
-> -               double WRBandwidth =3D 0;
-> -               double MaxUsedBW =3D 0;
-> -               for (k =3D 0; k < v->NumberOfActivePlanes; ++k) {
-> -                       if (v->WritebackEnable[k] =3D=3D true
-> -                                       && v->WritebackPixelFormat[k] =3D=
-=3D dm_444_32) {
-> -                               WRBandwidth =3D v->WritebackDestinationWi=
-dth[k] * v->WritebackDestinationHeight[k]
-> -                                               / (v->HTotal[k] * v->Writ=
-ebackSourceHeight[k] / v->PixelClock[k]) * 4;
-> -                       } else if (v->WritebackEnable[k] =3D=3D true) {
-> -                               WRBandwidth =3D v->WritebackDestinationWi=
-dth[k] * v->WritebackDestinationHeight[k]
-> -                                               / (v->HTotal[k] * v->Writ=
-ebackSourceHeight[k] / v->PixelClock[k]) * 8;
-> -                       }
-> -                       TotalWRBandwidth =3D TotalWRBandwidth + WRBandwid=
-th;
-> -                       MaxPerPlaneVActiveWRBandwidth =3D dml_max(MaxPerP=
-laneVActiveWRBandwidth, WRBandwidth);
-> -               }
-> -
->                 v->TotalDataReadBandwidth =3D 0;
->                 for (k =3D 0; k < v->NumberOfActivePlanes; ++k) {
->                         v->TotalDataReadBandwidth =3D v->TotalDataReadBan=
-dwidth
->                                         + v->ReadBandwidthPlaneLuma[k]
->                                         + v->ReadBandwidthPlaneChroma[k];
->                 }
-> -
-> -               {
-> -                       double MaxPerPlaneVActiveRDBandwidth =3D 0;
-> -                       for (k =3D 0; k < v->NumberOfActivePlanes; ++k) {
-> -                               MaxPerPlaneVActiveRDBandwidth =3D dml_max=
-(MaxPerPlaneVActiveRDBandwidth,
-> -                                               v->ReadBandwidthPlaneLuma=
-[k] + v->ReadBandwidthPlaneChroma[k]);
-> -
-> -                       }
-> -               }
-> -
-> -               MaxUsedBW =3D MaxTotalRDBandwidth + TotalWRBandwidth;
->         }
->
->         // VStartup Margin
+>  double dml30_CalculateWriteBackDISPCLK(
+> -               enum source_format_class WritebackPixelFormat,
+>                 double PixelClock,
+>                 double WritebackHRatio,
+> -               double WritebackVRatio,
+>                 unsigned int WritebackHTaps,
+>                 unsigned int WritebackVTaps,
+>                 long   WritebackSourceWidth,
+> @@ -3794,10 +3790,8 @@ void dml30_ModeSupportAndSystemConfigurationFull(s=
+truct display_mode_lib *mode_l
+>                 if (v->WritebackEnable[k] =3D=3D true) {
+>                         v->WritebackRequiredDISPCLK =3D dml_max(v->Writeb=
+ackRequiredDISPCLK,
+>                                         dml30_CalculateWriteBackDISPCLK(
+> -                                                       v->WritebackPixel=
+Format[k],
+>                                                         v->PixelClock[k],
+>                                                         v->WritebackHRati=
+o[k],
+> -                                                       v->WritebackVRati=
+o[k],
+>                                                         v->WritebackHTaps=
+[k],
+>                                                         v->WritebackVTaps=
+[k],
+>                                                         v->WritebackSourc=
+eWidth[k],
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30=
+.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+> index daaf0883b84d..12c070434eee 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+> @@ -29,10 +29,8 @@
+>  void dml30_recalculate(struct display_mode_lib *mode_lib);
+>  void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib=
+ *mode_lib);
+>  double dml30_CalculateWriteBackDISPCLK(
+> -               enum source_format_class WritebackPixelFormat,
+>                 double PixelClock,
+>                 double WritebackHRatio,
+> -               double WritebackVRatio,
+>                 unsigned int WritebackHTaps,
+>                 unsigned int WritebackVTaps,
+>                 long   WritebackSourceWidth,
 > --
 > 2.36.1
 >
