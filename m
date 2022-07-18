@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE43CC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9538ECCA479
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3280CA9D95;
-	Mon, 18 Jul 2022 06:39:29 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6EC4A9D65;
- Mon, 18 Jul 2022 06:39:13 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id v185so8526788ioe.11;
- Sun, 17 Jul 2022 23:39:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3324AA9D9B;
+	Mon, 18 Jul 2022 06:39:30 +0000 (UTC)
+Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
+ [IPv6:2607:f8b0:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3898FA9D68;
+ Mon, 18 Jul 2022 06:39:16 +0000 (UTC)
+Received: by mail-il1-x134.google.com with SMTP id w9so2043957ilg.1;
+ Sun, 17 Jul 2022 23:39:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EYeRKHCadEBtSKbwYD7EHdFzJWdc3juHJwHU+OhGc68=;
- b=jd2SSLXQTb4GidOhjmN+Bc97PLnF1pjWdReen7IekiYT5fbKtiVdzijhzxn40kvjwM
- EZZZhYhWgzUUHHaE4hDzYCJ9Lv4ywpIw5Vx/XCmP5e8ce/U4guj9q2Zrw2AFA8Fn5zT0
- VUA9XgWuEEvV3r3B1bMkbLnGIMw3g7luFAmYbMccWJBUb2dlCuIAY8B81IdS4NWy+K+p
- B0PO1VDZOaU3wa71crVU2RlSOtGObVhfdvOEl5PSnNRFQGdm5uYeiFSALTtUTP/lUvtx
- 228ojpxHt4W18/a+l5fmkt36kXigmtnThB8LRSUO5rEEzEZ1GsHbViXnw3LKowHhE7hW
- aZuw==
+ bh=PreM9K4Lz+lhKCwMgValwSazrZm7+amowtHkQkgFWDk=;
+ b=LFxBRJ7a/Nv5NzUkMEuCYRqXl19E+Q3GMjURKrBmj9VsSYq0zzZtxZ5vOZZFUdZ1ot
+ d5oKxrHW8R5HjVP3wdFMEQKiNwM6pj8ufRlMeJEthzecASXQ60ORWtiQrIrfOlT+3AIn
+ 91kSChuQ4dhLcXqe37bRSv5DCXv714w325kaYurGWVUohr1Krhn+Xnq8ytPUH497upce
+ 1hHKcQ/Y5Qx4N49nqwtKoTF2Av4FwfzxBf+OXTb0aCEw4Kl5LEQGrQyVre4EeHw5o6QC
+ XTQxMJJU/XhbLs199R4BrieqnZ3yKUjagsc8tQdfQMCkAgQzCN1Vm7HU7Es+XesZW8PK
+ Ko1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EYeRKHCadEBtSKbwYD7EHdFzJWdc3juHJwHU+OhGc68=;
- b=IRA6YO0N/9K7+xLbQmkmTPmf4TDTrZiEc3t/CVHlSKwSfDCTej2bO2Puhd0vercaOr
- w0Pb74nWaBjvZ8w75A1QjqPB16H8/N7YxJQXvF//xkiYZqYEqFN2LZxBpsXcoJV0HlFm
- XUM94cBbU33oQnApNPpmkLKjSGi8HlfpJUXKROiA5UHer2SV1icUor+S6heNvfu8sbos
- cBS8luOQsaN4rKbziS0+K7/EQA8YE65Ocd1G7quAn6cLeAqz/2aHZ70qcQoYNmFGMxVR
- q6oEzd/mKk/sfLbF8NoYKBTjkniyQ5EbL1PR1Zi4bg/oGvsFEb/fuXY738HEqFFOufgD
- lyBQ==
-X-Gm-Message-State: AJIora8/lUMmamvDrMld6EgHMVyj6+SJ/2HNCacsjVBMbSTOnvR5Mbrz
- +8xwqyUImpazSgqRcXZmgls=
-X-Google-Smtp-Source: AGRyM1tbDbLg61RGiNlLc8kAzP7jUeEdBlS0zixWC+z+vSEbuCEXbcqlunyIjSLJXhAtsq09/HEqkg==
-X-Received: by 2002:a05:6602:2ccf:b0:67b:e772:a7a2 with SMTP id
- j15-20020a0566022ccf00b0067be772a7a2mr6291821iow.109.1658126353071; 
- Sun, 17 Jul 2022 23:39:13 -0700 (PDT)
+ bh=PreM9K4Lz+lhKCwMgValwSazrZm7+amowtHkQkgFWDk=;
+ b=zLs1nJLYJcYk9MilTsGQS2BRbvKALnOAANOkgrbVVSdsKfccKNqA0Yk6swjKvGLykM
+ vafotD2DZcjY+C82jSfU7MA+U31TiuHJOtdz31ZBDSf8Dy8ZTDbXgtWll9WxsG1ABacH
+ gJ0wlwz2Qt8cxNzaBwKbnqZBNejKHIb37yg8LMaqPkgolAU6q7gbxQsfBHPnp39G0W81
+ WPnM4oVv1Eu47bTzXhxaECu16r9q7q7t60keB3Q0S5RSPj8YlfWmFw4I1NXM+UOwE3PN
+ 8RhUj/wwhTLtegxNZ3rroim5X1MDLdReCA1euW3B4i7RREGK0G0iB3/0rx3fmGJWL7Wq
+ r9eA==
+X-Gm-Message-State: AJIora+R9UvhjCjN5/Yri4ZwN0ry1QAScFEUUtpXFzFTtpAfgvwrAbwa
+ U5uCeittJFX40piQJf95yME=
+X-Google-Smtp-Source: AGRyM1sT2V+PvwqpgnT8APZI75F+1wceYHGWkpHLCM/URQjL1FoRpq7OQun67gmg7iSn+Ul7bsfvnw==
+X-Received: by 2002:a92:cda1:0:b0:2dc:7c5c:ddb7 with SMTP id
+ g1-20020a92cda1000000b002dc7c5cddb7mr13213850ild.161.1658126355868; 
+ Sun, 17 Jul 2022 23:39:15 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.12
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:12 -0700 (PDT)
+ Sun, 17 Jul 2022 23:39:15 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 33/39] dyndbg/drm: POC add tracebits sysfs-knob
-Date: Mon, 18 Jul 2022 00:36:27 -0600
-Message-Id: <20220718063641.9179-44-jim.cromie@gmail.com>
+Subject: [PATCH v3 34/41] dyndbg: add 2 trace-events: drm_{,dev}debug
+Date: Mon, 18 Jul 2022 00:36:29 -0600
+Message-Id: <20220718063641.9179-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -74,52 +74,160 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clone DRM.debug interface to DRM.tracebits: ie map bits to
-drm-debug-categories, except this interface enables messages to
-tracefs, not to syslog.
+Add include/trace/events/drm.h, with 2 new events: drm_debug() &
+drm_devdbg(), and call them from drm_dbg() & drm_dev_dbg().  This is
+easy, cuz the callers already build the vaf that the callee wants.
 
-1- we reuse the class-map added previously.
-   this reflects the single source of both syslog/trace events
+This allows the 3-5k drm.debug/on-dyndbg callsites to independently
+(re-)direct messages to tracefs, not just syslog.  ISTM this is good;
+debug traffic can be sent (just) to the tool where it can be best
+used.  Over time, I'd expect to see less traffic to syslog.
 
-2- add a 2nd struct ddebug_classes_bitmap_param
-   refs 1, reusing it.
-   flags = "T", to enable trace-events on this callsite.
+NOTE: The message formats for the 2 events are both sub-optimal.
+(both have event-name too)
 
-3- module_param_cb([2]) - does the sysfs part
+drm_devdbg: TP_printk("cat:%d, %s %s", __entry->drm_debug_category,
+
+  "cat:%d" should be "%s", but the classnames arent really in-scope
+  here.  Maybe the events-decl-header should be under drm somewhere,
+  so that class-names are available.
+
+  It would also be nice to replace the event-name with the classname,
+  as the names are highly client centric.
+
+drm_dbg: TP_printk("%s", __get_str(msg))
+
+  same as above.
+
+NB:
+
+The existing category param in this callchain is partially redundant;
+when descriptor is available, it has the callsite's class_id.  If
+later, CONFIG_DRM_USE_DYNAMIC_DEBUG:=y (hardwired), then category can
+be dropped here, since the descriptor will always be available.
+
+Also, if combined with header-move (or maybe its expanding inclusion
+by lib/dynamic_debug), we could add the optional flags prefix, by
+exposing dynamic_emit_prefix.  And perhaps this could be done only in
+TP_printk, to save work while writing to the ring-buffer.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/drm_print.c | 25 ++++++++++++-----
+ include/trace/events/drm.h  | 54 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 72 insertions(+), 7 deletions(-)
+ create mode 100644 include/trace/events/drm.h
 
 diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 9fb0b8e40dca..47a41d96beea 100644
+index 92f3f45e410c..9fb0b8e40dca 100644
 --- a/drivers/gpu/drm/drm_print.c
 +++ b/drivers/gpu/drm/drm_print.c
-@@ -45,6 +45,9 @@
- unsigned long __drm_debug;
- EXPORT_SYMBOL(__drm_debug);
+@@ -35,6 +35,9 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_print.h>
  
-+unsigned long __drm_trace;
-+EXPORT_SYMBOL(__drm_trace);
++#define CREATE_TRACE_POINTS
++#include <trace/events/drm.h>
 +
- MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
- "\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
- "\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
-@@ -77,6 +80,13 @@ static struct ddebug_classes_bitmap_param drm_debug_bitmap = {
- 	.map = &drm_debug_classes,
- };
- module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
-+
-+static struct ddebug_classes_bitmap_param drm_trace_bitmap = {
-+	.bits = &__drm_trace,
-+	.flags = "T",
-+	.map = &drm_debug_classes,
-+};
-+module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap, 0600);
- #endif
+ /*
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+@@ -293,13 +296,19 @@ void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
+ 	vaf.fmt = format;
+ 	vaf.va = &args;
  
- void __drm_puts_coredump(struct drm_printer *p, const char *str)
+-	if (dev)
+-		dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
+-			   __builtin_return_address(0), &vaf);
+-	else
+-		printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
+-		       __builtin_return_address(0), &vaf);
+-
++	if (dev) {
++		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
++			dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
++				   __builtin_return_address(0), &vaf);
++		if (desc->flags & _DPRINTK_FLAGS_TRACE)
++			trace_drm_devdbg(dev, category, &vaf);
++	} else {
++		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
++			printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
++			       __builtin_return_address(0), &vaf);
++		if (desc->flags & _DPRINTK_FLAGS_TRACE)
++			trace_drm_debug(category, &vaf);
++	}
+ 	va_end(args);
+ }
+ EXPORT_SYMBOL(__drm_dev_dbg);
+@@ -319,6 +328,8 @@ void ___drm_dbg(struct _ddebug *desc, enum drm_debug_category category, const ch
+ 	printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
+ 	       __builtin_return_address(0), &vaf);
+ 
++	trace_drm_debug(category, &vaf);
++
+ 	va_end(args);
+ }
+ EXPORT_SYMBOL(___drm_dbg);
+diff --git a/include/trace/events/drm.h b/include/trace/events/drm.h
+new file mode 100644
+index 000000000000..589fa1e1f2c2
+--- /dev/null
++++ b/include/trace/events/drm.h
+@@ -0,0 +1,54 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM drm
++
++#if !defined(_TRACE_DRM_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_DRM_H
++
++#include <linux/tracepoint.h>
++
++/* drm_debug() was called, pass its args */
++TRACE_EVENT(drm_debug,
++	    TP_PROTO(int drm_debug_category, struct va_format *vaf),
++
++	    TP_ARGS(drm_debug_category, vaf),
++
++	    TP_STRUCT__entry(
++		    __field(int, drm_debug_category)
++		    __vstring(msg, vaf->fmt, vaf->va)
++		    ),
++
++	    TP_fast_assign(
++		    __entry->drm_debug_category = drm_debug_category;
++		    __assign_vstr(msg, vaf->fmt, vaf->va);
++		    ),
++
++	    TP_printk("%s", __get_str(msg))
++);
++
++/* drm_devdbg() was called, pass its args, preserving order */
++TRACE_EVENT(drm_devdbg,
++	    TP_PROTO(const struct device *dev, int drm_debug_category, struct va_format *vaf),
++
++	    TP_ARGS(dev, drm_debug_category, vaf),
++
++	    TP_STRUCT__entry(
++		    __field(const struct device*, dev)
++		    __field(int, drm_debug_category)
++		    __vstring(msg, vaf->fmt, vaf->va)
++		    ),
++
++	    TP_fast_assign(
++		    __entry->drm_debug_category = drm_debug_category;
++		    __entry->dev = dev;
++		    __assign_vstr(msg, vaf->fmt, vaf->va);
++		    ),
++
++	    TP_printk("cat:%d, %s %s", __entry->drm_debug_category,
++		      dev_name(__entry->dev), __get_str(msg))
++);
++
++#endif /* _TRACE_DRM_H */
++
++/* This part must be outside protection */
++#include <trace/define_trace.h>
 -- 
 2.36.1
 
