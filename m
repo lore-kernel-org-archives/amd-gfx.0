@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59E8C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 18:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB73C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 18:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E17510E961;
-	Mon, 18 Jul 2022 18:52:49 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E9410E961
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 18:52:48 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id ez10so22931435ejc.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 11:52:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E59510EA1F;
+	Mon, 18 Jul 2022 18:53:43 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB39210EA1F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 18:53:42 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id y8so16608185eda.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 11:53:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=UXmtdUhrJat96q6rc3xCOJzu4OogdeIRqntsuTRjLRQ=;
- b=XLxe7i6ykG4WCMIYi9HZMI3sAy3BYK0lxLOgbdHHPNt31x99iY8v6kjKu/iNMP2DoN
- y1SCu1/2aLdhrfPU3erTOAcoosGqtpOeV4PpzLdw1qZEyj2phMBaoW1c2X6X/JQ1ltHu
- 9hXr/uPoUsTMTxyHiEIzuEBEQlnezltMsh0xvy0IJy002TtPWUBrHa0d/aHOiwcrIjw/
- Mx4dOEMetIVD6LDDNEH5fsxXpL/ycyk7D8jHCubKX/06iYpDYnuYPOj8CrHug90v3aTc
- vqnmAN1aPZhV24t4QfYyMgmG1nGirVSeuMcPAr5rXqv57BDfRij2hwlyhHyIeG46s9eg
- dNuA==
+ bh=QQCeFWAFeeYdE8AjB15uv+68TOpyaBwb6vwqnHcmGmg=;
+ b=OrKeVKLURvey9dO5WC2LaIReRqt7JeYxJsb/rxtAYnzaWF/YswmZK+RmgID5pk5hJ+
+ kwlW7xQy+/+uWXFRS9wo4msdp85Hp6C34wrtXKeRwWMqUr2My1sj8+3e3bEjU7jVOQI1
+ xktxra0gDL4AEWJ1Mdug6zemBkkhvI9b4OxuaHgQ36ncjSDTjolCYNKJJrsqyYmbuVQG
+ fZFtl8bNT1l/QlkNJ4uo65jqgfe+NYJP34lF0uZ2bse8xDLKSOEkBBwhiWWd5f3qIVz7
+ l8Ch2Ij6oDNz9+AFTY0Dqd851oN1jQu836XjaboYL3eT0qqK54oz20rGTXwlPP8zMCA7
+ /IVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=UXmtdUhrJat96q6rc3xCOJzu4OogdeIRqntsuTRjLRQ=;
- b=y3XLg52+gY/Ywb1Dg2yPp/zc9XIVtxVygXEM/qli/z3IVgvKLBzB5OGkP5LFMZZg2I
- n44kW531EIuVKwNscLK86i4BL4NZptvSpXJ4y7Zf76+tcy5QAkoBvxnK/lcaHDuTkRaw
- BT+OwADw2nDw8A+K1wz9OstFQKZ0jEyahdsRvlBnGFQjxqSlvN6ugqI7W5J0h7uzPK5R
- ynaS8TcN7BgkRLQzd5u3cIWtlvFKGEGCCS13yvksbVwZpTKaOLbEl0QM7qkprbp47P2p
- tpnk+liYazJExOeXfvchKJF4xPFD3wqgMbrqR+SM0w15TVdbX+Z41ITplX7nX7ujqr9I
- ulJA==
-X-Gm-Message-State: AJIora8hMw+VYE2S6JbgBUfJ0ycgl5QtMiKp4Lubp+xpDgqJjR+Qt4Ki
- QI5Bf3sMV/jDFgRhoRGO0pBneucppwR6kVWpj5o=
-X-Google-Smtp-Source: AGRyM1spfpipEO03MLUtPx4xNAYzVBWFgnXy1amuY1fxS7wlSg6Kh4maX/RyytZkZmeRURFyr433xVx45qXcMgI20jc=
-X-Received: by 2002:a17:906:9751:b0:72f:1b36:e1de with SMTP id
- o17-20020a170906975100b0072f1b36e1demr10874082ejy.451.1658170366855; Mon, 18
- Jul 2022 11:52:46 -0700 (PDT)
+ bh=QQCeFWAFeeYdE8AjB15uv+68TOpyaBwb6vwqnHcmGmg=;
+ b=Moj/VZwoScGZ+ULxJPkj9JohZzOCjVz2pSRl16jWCNL2cPwsuJ9HMg6PTQ3iyBvoj7
+ LDgprxt5o0/QrbKmlj71P+Q7InNmuZyUgSkASWU8TLx8mWLYzDIWfrj2I0y+vX+LXLR2
+ i7M0EgA57BTVrHg2foR/fYUk6bv+gplHGchFan20H07ScDR9gVU+6LEtcDI/s5WqFvjE
+ 4dz6EsUMsPk5McB9HMDASJYmES3gwZaot4wyc+OsWXHBCI1lqzsUNBjBuexDwvT6g8hB
+ W7urL2JppMB/0ZSz8G5yJIOepdBtju+vWRsGIfrVC0+Ol5GymUDa30X2Wk1Tk402hUXW
+ TbXA==
+X-Gm-Message-State: AJIora//QqnrVrVqriKhADEAHYsVnAGbOHsNVGapTY6oAoCxnYkxjrqJ
+ QXY2nSIoqmmvtl6qhAH7zVC/K58YSMyuJ1wTaY8=
+X-Google-Smtp-Source: AGRyM1vFm/q16yDnNmxPJrCn+CGhjdvi5dklwjRveBxeTxdUBq2J0ybUbYU2ZNuqC3neB0Opwn5rrTn1N/7NR2hhiTg=
+X-Received: by 2002:a05:6402:2895:b0:43b:1e47:c132 with SMTP id
+ eg21-20020a056402289500b0043b1e47c132mr32853099edb.425.1658170421073; Mon, 18
+ Jul 2022 11:53:41 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220714164507.561751-1-mairacanal@riseup.net>
- <20220714164507.561751-2-mairacanal@riseup.net>
-In-Reply-To: <20220714164507.561751-2-mairacanal@riseup.net>
+ <20220714164507.561751-3-mairacanal@riseup.net>
+In-Reply-To: <20220714164507.561751-3-mairacanal@riseup.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Jul 2022 14:52:34 -0400
-Message-ID: <CADnq5_NU_m=M3QZiKAD3NsCQZExi7ffecpc0TrYz3qSFCky=dw@mail.gmail.com>
-Subject: Re: [PATCH 02/12] drm/amd/display: Change get_pipe_idx function scope
+Date: Mon, 18 Jul 2022 14:53:29 -0400
+Message-ID: <CADnq5_NzUdMWL2Am6hPkZsthMu=ONPvb1Lu85v0f2PoqA5uWNw@mail.gmail.com>
+Subject: Re: [PATCH 03/12] drm/amd/display: Remove unused clk_src variable
 To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -87,45 +87,38 @@ Alex
 On Thu, Jul 14, 2022 at 12:45 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
 rote:
 >
-> Turn previously global function into a static function as it is not used
-> outside the file.
+> Remove the variable clk_src from the function dcn3_get_pix_clk_dividers.
+>
+> This was pointed by clang with the following warning:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_clock_source.c:1279:25: =
+warning:
+> variable 'clk_src' set but not used [-Wunused-but-set-variable]
+>         struct dce110_clk_src *clk_src;
+>                                ^
+> 1 warning generated.
 >
 > Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
 > ---
->  drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h | 1 -
->  2 files changed, 1 insertion(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/driv=
-ers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-> index 39f93072b5e0..c5a0a3649e9a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-> @@ -251,7 +251,7 @@ unsigned int get_total_surface_size_in_mall_bytes(
->         return size;
->  }
->
-> -unsigned int get_pipe_idx(struct display_mode_lib *mode_lib, unsigned in=
-t plane_idx)
-> +static unsigned int get_pipe_idx(struct display_mode_lib *mode_lib, unsi=
-gned int plane_idx)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driv=
+ers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> index 5cc7cc0b2f2d..d55da1ab1ac2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> @@ -1276,9 +1276,7 @@ static uint32_t dcn3_get_pix_clk_dividers(
+>                 struct pll_settings *pll_settings)
 >  {
->         int pipe_idx =3D -1;
->         int i;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/driv=
-ers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> index 47b149d4bfcf..6e61b5382361 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> @@ -165,7 +165,6 @@ unsigned int get_total_surface_size_in_mall_bytes(
->                 struct display_mode_lib *mode_lib,
->                 const display_e2e_pipe_params_st *pipes,
->                 unsigned int num_pipes);
-> -unsigned int get_pipe_idx(struct display_mode_lib *mode_lib, unsigned in=
-t plane_idx);
+>         unsigned long long actual_pix_clk_100Hz =3D pix_clk_params ? pix_=
+clk_params->requested_pix_clk_100hz : 0;
+> -       struct dce110_clk_src *clk_src;
 >
->  bool get_is_phantom_pipe(struct display_mode_lib *mode_lib,
->                 const display_e2e_pipe_params_st *pipes,
+> -       clk_src =3D TO_DCE110_CLK_SRC(cs);
+>         DC_LOGGER_INIT();
+>
+>         if (pix_clk_params =3D=3D NULL || pll_settings =3D=3D NULL
 > --
 > 2.36.1
 >
