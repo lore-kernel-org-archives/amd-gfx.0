@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09798C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457ACC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 828C910F86A;
-	Mon, 18 Jul 2022 19:07:44 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 691C010F851
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:07:43 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id ss3so23009407ejc.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:07:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2FAB10FEEF;
+	Mon, 18 Jul 2022 19:20:13 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC4F910FEA8;
+ Mon, 18 Jul 2022 19:20:11 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id bp15so23134281ejb.6;
+ Mon, 18 Jul 2022 12:20:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=d1EsRYsrFcVhqYe4UO8ZXO5ahBBHcUfIDb3IMgr66Ww=;
- b=IYWMUEl2BSZV6xQvtzRcNY0qngRJdMFUes9ugI+BerQqsM5fZKdDGB2xwuRKwpfGq8
- iOH4V98s78W5N3OtOhjZDKkpY2QwHX6FdgSZBKT6PFXinZPORQLp9tq+2gNRpFg5t/KZ
- IjM9S8Ao11YOHs3IQOI/YXTezsUT7HHKLdtg2XeZXT3SMcGGNthEveOEtERNLFcC4snx
- QLJ3DC0vqvRyE5/ZTQmD0g7V//AoynVNiyTIubGWBZdjtCpqzQGJkc5EUSxxEfupK0ZJ
- vEpTyEil24KJD1wVCVy+x7hg0CLzJ0Iq4wyUor1ZL9ZvUyBhfbADr+7qUeYRJ4PMt+C0
- mU9Q==
+ :cc; bh=fDVNBc5XFFotjrwcydHiypKXUfp1J1vJ62G1p2tMV7U=;
+ b=EJ/i0KJbHMhLxMbMKiPgUB+Ict+QTFLWIizt2rzN6Mpuseg9ivTpkRHifKSoauZXdr
+ K99ieViZW/J8eAIa50eUtNDmKo2UBd+zELvGikiVob3lJTp4CNYzO2tIUyRu6SqWZiy/
+ 26GrO13LXaJPVpChcY3s0tMFzhdTQ/HLX7q/UpUK+W+BU1UMCFBUsXY6GcxMnrmWieGH
+ 5b9VAhdgS8GQ+m1WIi0mXyR4LdUgp3WVdLQDTSoffyoWa87ZEdzTdeqTDZRKkbzjyDW6
+ ZMQkPm8sK15ubhCHc3hgSW1hftVdya748mT8RXSJdgJEfgh6eazy/9K2MYm3QW0A+BV5
+ 5VMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=d1EsRYsrFcVhqYe4UO8ZXO5ahBBHcUfIDb3IMgr66Ww=;
- b=ETjqL4L12ZsyKWfUPmuMqQqhJO32nYGYeguHL78ljptQ8rbAZz/rNNaCJqG9ZMqveO
- KSKpozbXXnvKBY+EiSso7mavme+yQkPsdnrQCFG5MX3oUQ3OCSEfc4acv02w38RQ81ia
- OfJ9HFDbLqzkjhu1rkvsGVKd2KnUpdb8RRIz2InrXCaFhscUbU7AFFCdTQW53+1jeJyE
- CL4aGK83OkCHEYcQVvK9/MUd9bcqWFoGgkiA7oiWzhyL3w9RlhB/3eDMhoJxPNuHHR+g
- GvuZD2k92r713jPbdB6WGnjNl8Ux5T70UNQ/sxn7MWr3wAXc6ToAOCbNLVivcbclUisR
- ZHdA==
-X-Gm-Message-State: AJIora9B2WxRsvgieJoPeeKeDPEQvmmohdCYbMiHM1KWUXujaNE2WXy5
- z0G3Y6WgWHX8Ll/93M7k9p2DEcVxvlurAXeMjGA=
-X-Google-Smtp-Source: AGRyM1t9iiOJzTdQ5QsGPH8QnERUgZ9dLU+MGZoKziZttmoPDFnU6cxZsBdgcMSilSHpLxooQdnjL5v0Pm6EmHwzOu4=
-X-Received: by 2002:a17:907:2888:b0:72b:8f41:1405 with SMTP id
- em8-20020a170907288800b0072b8f411405mr26111910ejc.564.1658171261957; Mon, 18
- Jul 2022 12:07:41 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=fDVNBc5XFFotjrwcydHiypKXUfp1J1vJ62G1p2tMV7U=;
+ b=pBQAZNZBO3m+02WgD8iJUkygV8FkxzcUPlrFXu9O7A+EwTiF9RzHuIdRvPUsb0ck7O
+ rEWo+CKqCZdZpvjFcmW0nXubHdBK0bUgJlY6gmcWa+Pv88Oar+sYhNDJxtgStUURhuN7
+ Feq5lHLR44h2DyCCbTIQuLqY4TaCVoc7smsG6EI+OV3cl+yxJFVWYfQfbsCXKgYcleeT
+ AFes+E3ans/v8Vq5g3NL5aVngmPPshxYL4Uywz17/+0UOmcbZU8+QSMma7Dvr3iCgcP6
+ XxlCOnCjYFuzC2rXpoIhfPaazSG+BQpKP0Q6IYJswPuFU/u06zLW+lIGSSVhVNkan/j7
+ gl1g==
+X-Gm-Message-State: AJIora+9A6WXg0J/ep/TH+ZxY6i4kQtzIHzbtEt9ah+vZHpbhMcco9nW
+ 6qbMny3Ey9fEJ3CtIu7MQFMBZ3j/fdt3cp7iNt8SvrdlYCA=
+X-Google-Smtp-Source: AGRyM1ur2bqm5pr5cbh5rgKbT3pVk/P8Dls3bG/jth0KuxuUuRorDatAm+HJDMCix4gcpdnhluhJceIdy1X/+KT1aoM=
+X-Received: by 2002:a17:907:1623:b0:72b:64e3:878a with SMTP id
+ hb35-20020a170907162300b0072b64e3878amr27869282ejc.185.1658172010375; Mon, 18
+ Jul 2022 12:20:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220714164507.561751-1-mairacanal@riseup.net>
-In-Reply-To: <20220714164507.561751-1-mairacanal@riseup.net>
+References: <20220716195144.342960-1-mwen@igalia.com>
+In-Reply-To: <20220716195144.342960-1-mwen@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Jul 2022 15:07:30 -0400
-Message-ID: <CADnq5_NaOO0MNy=84U9GJboVziAakYNMt_qqWVxm6p2At+rzfg@mail.gmail.com>
-Subject: Re: [PATCH 01/12] drm/amdgpu: Write masked value to control register
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
+Date: Mon, 18 Jul 2022 15:19:57 -0400
+Message-ID: <CADnq5_PYbVMKwfDhxAU2GEKG_CBB7QHohirX2WkCn33k6cVkug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: move dcn31_update_soc_for_wm_a func to
+ dml fpu folder
+To: Melissa Wen <mwen@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,76 +62,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Magali Lemes <magalilemes00@gmail.com>, Leo Li <sunpeng.li@amd.com>,
- Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
- xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Melissa Wen <mwen@igalia.com>, David Airlie <airlied@linux.ie>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Harry Wentland <harry.wentland@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: kernel-dev@igalia.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied with a trivial fix for dcn314_resource.c.
 
-On Thu, Jul 14, 2022 at 12:45 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
-rote:
+Thanks!
+
+Alex
+
+On Sat, Jul 16, 2022 at 3:52 PM Melissa Wen <mwen@igalia.com> wrote:
 >
-> On the dce_v6_0 and dce_v8_0 hpd tear down callback, the tmp variable
-> should be written into the control register instead of 0.
+> Although dcn31_update_soc_for_wm_a() is only called in dml/dcn31/dcn31_fpu by
+> dc->res_pool->funcs->update_soc_for_wm_a(dc, context), it's declared in
+> dcn31_resource that is not FPU protected. Move this function to dcn31_fpu
+> file as part of the work to isolate FPU code.
 >
-> Fixes: b00861b9 ("drm/amd/amdgpu: port of DCE v6 to new headers (v3)")
-> Fixes: 2285b91c ("drm/amdgpu/dce8: simplify hpd code")
-> Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 9 ---------
+>  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h | 1 -
+>  drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 9 +++++++++
+>  drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  | 2 ++
+>  4 files changed, 11 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index f5a29526684d..0a7b1c002822 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -339,7 +339,7 @@ static void dce_v6_0_hpd_fini(struct amdgpu_device *a=
-dev)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> index 16bbccc69fdc..17c776e88514 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> @@ -1716,15 +1716,6 @@ int dcn31_populate_dml_pipes_from_context(
+>         return pipe_cnt;
+>  }
 >
->                 tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
-nector->hpd.hpd]);
->                 tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
-> -               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
-hpd.hpd], 0);
-> +               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
-hpd.hpd], tmp);
+> -void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
+> -{
+> -       if (dc->clk_mgr->bw_params->wm_table.entries[WM_A].valid) {
+> -               context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].pstate_latency_us;
+> -               context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_enter_plus_exit_time_us;
+> -               context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_exit_time_us;
+> -       }
+> -}
+> -
+>  void dcn31_calculate_wm_and_dlg(
+>                 struct dc *dc, struct dc_state *context,
+>                 display_e2e_pipe_params_st *pipes,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+> index 393458015d6a..41f8ec99da6b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+> @@ -59,7 +59,6 @@ dcn31_set_mcif_arb_params(struct dc *dc,
+>                           struct dc_state *context,
+>                           display_e2e_pipe_params_st *pipes,
+>                           int pipe_cnt);
+> -void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context);
 >
->                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
-d.hpd);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index 780a8aa972fe..f57f4a25cf5a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -333,7 +333,7 @@ static void dce_v8_0_hpd_fini(struct amdgpu_device *a=
-dev)
+>  struct resource_pool *dcn31_create_resource_pool(
+>                 const struct dc_init_data *init_data,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> index 7be3476989ce..facac3daeaca 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> @@ -435,6 +435,15 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc = {
+>         .urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
+>  };
 >
->                 tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
-nector->hpd.hpd]);
->                 tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
-> -               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
-hpd.hpd], 0);
-> +               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
-hpd.hpd], tmp);
+> +void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
+> +{
+> +       if (dc->clk_mgr->bw_params->wm_table.entries[WM_A].valid) {
+> +               context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].pstate_latency_us;
+> +               context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_enter_plus_exit_time_us;
+> +               context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_exit_time_us;
+> +       }
+> +}
+> +
+>  void dcn31_calculate_wm_and_dlg_fp(
+>                 struct dc *dc, struct dc_state *context,
+>                 display_e2e_pipe_params_st *pipes,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+> index 24ac19c83687..0a10de80c1a4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+> @@ -31,6 +31,8 @@
+>  #define DCN3_15_MIN_COMPBUF_SIZE_KB 128
+>  #define DCN3_16_DEFAULT_DET_SIZE 192
 >
->                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
-d.hpd);
->         }
+> +void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context);
+> +
+>  void dcn31_calculate_wm_and_dlg_fp(
+>                 struct dc *dc, struct dc_state *context,
+>                 display_e2e_pipe_params_st *pipes,
 > --
-> 2.36.1
+> 2.35.1
 >
