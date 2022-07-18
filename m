@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056ACC43334
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C9BC433EF
 	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB28A9D75;
-	Mon, 18 Jul 2022 06:39:17 +0000 (UTC)
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A77A9CCA;
- Mon, 18 Jul 2022 06:38:47 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id h16so5562324ila.2;
- Sun, 17 Jul 2022 23:38:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6337AA9D7A;
+	Mon, 18 Jul 2022 06:39:19 +0000 (UTC)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 159B1A9CFF;
+ Mon, 18 Jul 2022 06:38:55 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id l11so3423409ilf.11;
+ Sun, 17 Jul 2022 23:38:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=smzB/k68xh/FUqryWbOBUBLDbn4KcKzhEOP/Gwd4FZo=;
- b=ah2TZz5keynCDPjyhkGgnYVjD/qc6MmYD6vhncSoTTncxjPnxFCvzY7KxwxmtivoLW
- pCnnvOsNmSyY8Ol9371D6otdo2TgPokbFHQ2WATaOb6NEsR+SiFbk6y2Pk6vrJwQj4id
- Bt1g3bIyiCI39owjXvN7O1AcruFaTtWkW0IY5/5FeNyM1UEb4Se0d7OKjOsMeP7gEz/7
- NOs0KhETf9lINi69BUTouUt5STjab4J6mxcqANq6c1FSpu0gO3vD6IuySuVhEbF/n68H
- hAhkizEZocCkq3FCVtYAia7dUZLjg7b2WmKlrqlYHGfxH6b/njsJEoqWcQVv4rRX0KEI
- CV6g==
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=YEGztQy6ga6KUkQrsvEfp8u/3M+3l98VGnRZQkPO0jMUYZjQg9qtUoFUBBC7rln+ZA
+ 8O4TnNNfSiTpTc0B8K5IQkZMH5SUxvcrTYpo2JFvT97bdAcIGgdvnEy66Z6cuA+k12hS
+ J9XwgngRgdee7snErWB86Ty0x94lH0uuqoeQ3xjXbCkx9JSlaKoPwvD78Qql7qCRH8h2
+ fGpIvpWWH67QZiUQHr+Wjpo90wiTzvHH9L17xD33r7Z800yDqcfgJbgXm2j92i5YRZ4Y
+ /3AjylCNPBUMYRwLzM1eKjljZHirzrMLU5TF61eVmZcBSpQMwEGtvgJ+I65gZH1kxWTM
+ r53g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=smzB/k68xh/FUqryWbOBUBLDbn4KcKzhEOP/Gwd4FZo=;
- b=KE7J4nbD4Rl2NFjHu+Q/YSO2h6ShGUp15CYKwG29gewcO/YT1GIfC6niVnNsNjnfsD
- lY/qghHx24lmxyIX+KSn9BH3qOOuix41Jw6+7mADiqk+KQ+bfHbUp16awBRe835TvJ2D
- oFFhbj2IWMPjsZEfDUSzvBLdAAFBmabtI/wGrothLWTKQqm2TFeY4kTNpisQhRQYi5LH
- hpq5etEIXGrta3lbMDrTEpZ3YiRiykVVPfaIH5VD9QQRGGBJdfN2RmIRqQiQXowDoQ8C
- jQ37Qd4ia292kTPLerFuokFIYGhWDqNR4p6oa0E4XLvJO5f+MjEj+6Fu/PaRdUJ7aqDZ
- Grcw==
-X-Gm-Message-State: AJIora9fuaXlDUDC38Y+bLItdg0V2iDBp+hVs+qQ4DUuZUsYjuglBPrs
- H5jTMo8VpzE9MzmXbdeTWLg=
-X-Google-Smtp-Source: AGRyM1sqMK5bl/L6uxE9zzl1H/ELATJwPDh1PJA+wiVwCUtsbWTUDfw6n+PWmZQ5IGlrzydsR+cCpw==
-X-Received: by 2002:a05:6e02:1c07:b0:2dc:e707:e49d with SMTP id
- l7-20020a056e021c0700b002dce707e49dmr2168383ilh.190.1658126327071; 
- Sun, 17 Jul 2022 23:38:47 -0700 (PDT)
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=fF8ocNX527QJglrO6p4LirO7879lW+mT6Iw5EJGzOxsMDwD8/gF9xt90CqcxmvOGKj
+ uPzgKcQf/cV2A86Wijg2Wv+J6vydXKAg45KP5UB5asc4Fk07Cd+EXshKwevGMb3U6rZ1
+ 6Aiym813Ndox6XIPi2NdyX8axjiRYku8TSqfcgvHuRIr4quV6DWXyc3Pmb28p9RSARlC
+ WH0Ci6qd1eTr/3iRuwc5psuMqh/c/by0SuBcYoGgQAP11Uk2llTxnHlyxQIN0D5TgwJR
+ 2Kh1SHiCyDRILyr+8jPi4fmh1gtzPhODuO4l4B6YY8a70w4tyIOlmtTnQw0Xe0hKABWt
+ yGsg==
+X-Gm-Message-State: AJIora99p1KpgACQNZUMw1mFwESLzWMk6eH9hgncFWaXctFcanC32NEA
+ jIYTjv55U6DLGFaKu0mLgtY=
+X-Google-Smtp-Source: AGRyM1vIkK9Fe645GPG4U3WPQcuvW5cRy7aJvr7ZHb17vBPzeb28JtrIcG2OKMPtUIwhFoZNrI9idw==
+X-Received: by 2002:a05:6e02:174d:b0:2dc:5fe0:eae1 with SMTP id
+ y13-20020a056e02174d00b002dc5fe0eae1mr12105485ill.235.1658126333307; 
+ Sun, 17 Jul 2022 23:38:53 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.46
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:46 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 24/41] drm-print: add drm_dbg_driver to improve namespace
- symmetry
-Date: Mon, 18 Jul 2022 00:36:08 -0600
-Message-Id: <20220718063641.9179-25-jim.cromie@gmail.com>
+Subject: [PATCH v3 26/41] drm_print: refine drm_debug_enabled for jump-label
+Date: Mon, 18 Jul 2022 00:36:13 -0600
+Message-Id: <20220718063641.9179-30-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -75,44 +74,104 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_print defines all of these:
-    drm_dbg_{core,kms,prime,atomic,vbl,lease,_dp,_drmres}
+In order to use dynamic-debug's jump-label optimization in drm-debug,
+its clarifying to refine drm_debug_enabled into 3 uses:
 
-but not drm_dbg_driver itself, since it was the original drm_dbg.
+1.   drm_debug_enabled - legacy, public
+2. __drm_debug_enabled - optimized for dyndbg jump-label enablement.
+3.  _drm_debug_enabled - pr_debug instrumented, observable
 
-To improve namespace symmetry, change the drm_dbg defn to
-drm_dbg_driver, and redef grandfathered name to symmetric one.
+1. The legacy version always checks the bits.
 
-This will help with nouveau, which uses its own stack of macros to
-construct calls to dev_info, dev_dbg, etc, for which adaptation means
-drm_dbg_##driver constructs.
+2. is privileged, for use by __drm_dbg(), __drm_dev_dbg(), which do an
+early return unless the category is enabled.  For dyndbg builds, debug
+callsites are selectively "pre-enabled", so __drm_debug_enabled()
+short-circuits to true there.  Remaining callers of 1 may be able to
+use 2, case by case.
+
+3. is 1st wrapped in a macro, with a pr_debug, which reports each
+usage in /proc/dynamic_debug/control, making it observable in the
+logs.  The macro lets the pr_debug see the real caller, not an inline
+function.
+
+When plugged into 1, 3 identified ~10 remaining callers of the
+function, leading to the follow-on cleanup patch, and would allow
+activating the pr_debugs, estimating the callrate, and the potential
+savings by using the wrapper macro.  It is unused ATM, but it fills
+out the picture.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_print.c |  4 ++--
+ include/drm/drm_print.h     | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 21b416af0be2..effb95b3c2bf 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -285,7 +285,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	struct va_format vaf;
+ 	va_list args;
+ 
+-	if (!drm_debug_enabled(category))
++	if (!__drm_debug_enabled(category))
+ 		return;
+ 
+ 	va_start(args, format);
+@@ -308,7 +308,7 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ 	struct va_format vaf;
+ 	va_list args;
+ 
+-	if (!drm_debug_enabled(category))
++	if (!__drm_debug_enabled(category))
+ 		return;
+ 
+ 	va_start(args, format);
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 2d2cef76b5c1..3aa5e9ea26f4 100644
+index dfdd81c3287c..7631b5fb669e 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
-@@ -467,7 +467,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+@@ -321,11 +321,39 @@ enum drm_debug_category {
+ 	DRM_UT_DRMRES
+ };
  
- #define drm_dbg_core(drm, fmt, ...)					\
- 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
--#define drm_dbg(drm, fmt, ...)						\
-+#define drm_dbg_driver(drm, fmt, ...)						\
- 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
- #define drm_dbg_kms(drm, fmt, ...)					\
- 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
-@@ -486,6 +486,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- #define drm_dbg_drmres(drm, fmt, ...)					\
- 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
++/*
++ * 3 name flavors of drm_debug_enabled:
++ *   drm_debug_enabled - public/legacy, always checks bits
++ *  _drm_debug_enabled - instrumented to observe call-rates, est overheads.
++ * __drm_debug_enabled - privileged - knows jump-label state, can short-circuit
++ */
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+ 	return unlikely(__drm_debug & BIT(category));
+ }
  
-+#define drm_dbg(drm, fmt, ...)	drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
- 
++/*
++ * Wrap fn in macro, so that the pr_debug sees the actual caller, not
++ * the inline fn.  Using this name creates a callsite entry / control
++ * point in /proc/dynamic_debug/control.
++ */
++#define _drm_debug_enabled(category)				\
++	({							\
++		pr_debug("todo: maybe avoid via dyndbg\n");     \
++		drm_debug_enabled(category);			\
++	})
++
++#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++/*
++ * dyndbg is wrapping the drm.debug API, so as to avoid the runtime
++ * bit-test overheads of drm_debug_enabled() in those api calls.
++ * In this case, executed callsites are known enabled, so true.
++ */
++#define __drm_debug_enabled(category)	true
++#else
++#define __drm_debug_enabled(category)	drm_debug_enabled(category)
++#endif
++
  /*
-  * printk based logging
+  * struct device based logging
+  *
 -- 
 2.36.1
 
