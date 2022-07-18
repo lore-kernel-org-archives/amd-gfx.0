@@ -4,59 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB3DCCA482
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E1DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6361A685F;
-	Mon, 18 Jul 2022 06:40:22 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE709A9DA4;
- Mon, 18 Jul 2022 06:39:31 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id c16so4317778ils.7;
- Sun, 17 Jul 2022 23:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=UI797gthTzsKQz4UC9U2UIsi1BTd/WhNl6933XAQbZ4=;
- b=f43LFaj608ze6ozZk4VKeO33ZLWMOOojxLUmJ7LEeiD+4x56rjGnPebHrfk3Cho/OK
- hofvFaByKVFqNznKwkziLToWE6HdxehJVMLzhmThEvwEK2CPTsyDOZR+oEoig7yqF1Ho
- hk4FtIIZvizYVvkdbEzeMfj5Cejy86Y1fctUrGdt62G2e/+GwanKeTXqIAJoL/hJL84y
- ERtq/dRQUQGw76Q3Cn1FsT2D73SfSOaKukhDpdzq7Bi9nuUmlzvXcGm10V6WuX3y8bJ0
- D3vsv4HDU4cY/fFSa9Pq4MioSvTiKky264nmif2VFFf3Etl3Zn1x1GRgnoBQ6n14v6hA
- xdrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=UI797gthTzsKQz4UC9U2UIsi1BTd/WhNl6933XAQbZ4=;
- b=Vq++sLqoSCWanLjQqFcLnsObzWHIpY0UV+4QXmVoHpbWOKSXzfWin8TtSlmXStB3cL
- yIZov/WsgRFOxIeQ+jjo7unGZ0qSzcIJCcAAtw9rcCdhLEcggH6+PTsaE9YZb0CC6ooF
- twFJmvvUPl90GYXTvcQwRA0kBsWA8DHQwv4K3qWxAiRvo0Ub/UMlUWT1z6k7ySntYL4u
- cw7eiMAOYEXCsBWFpqScxHmtSPd96xUWMa62yxQtvTqd1y8T1vFaRxqfcJSI7ao2gJ93
- j0g5Y+EyPgS/4krckqUjx3vaWkoPr7dAWnCjHkmeoC5PYbIljXs30IYYC190uCksbrMF
- HDGQ==
-X-Gm-Message-State: AJIora8w50K7OCEPWpx79lwLd2v9OT5dWIec7hXOv0irtvIGnDyq76WH
- q+k9VyzTd2dHqK/n0apJvvU=
-X-Google-Smtp-Source: AGRyM1uU/W7sVgBywmdq4f7AYm2RGP2Prq92TcUVVy64b1LhMl2lBnCzJZwu6YempPq+3WxxY1KE7g==
-X-Received: by 2002:a05:6e02:1583:b0:2d7:a75d:888f with SMTP id
- m3-20020a056e02158300b002d7a75d888fmr12678536ilu.13.1658126371511; 
- Sun, 17 Jul 2022 23:39:31 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:30 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com
-Subject: [PATCH v3 41/41] nouveau-dyndbg: wip subdev refine, breaks on use
-Date: Mon, 18 Jul 2022 00:36:41 -0600
-Message-Id: <20220718063641.9179-58-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
-References: <20220718063641.9179-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D54AA421;
+	Mon, 18 Jul 2022 06:58:00 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46A84AA421
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 06:57:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OzaVbNL6lZvjTsiBFnrvAWAQVr2UPT/bnEvqxXKW9Cz05YxcJIzWwekvovXlp9YH3sbHU2Rer27+cD4Mf17DitAMrvSmREKnvKUNKEQjS97nV/39RpSoMvEDue3RuXvHEEpLAyKK9CsV6hyqXFktTvTOftwhWlYTqrPmMHbiJBnsTZVZwn9DyGfHysnz7qjKUajHVvz7ZG1jZ5lsfJUkGpuAeC15xgABu1OsJnjg9r2an9d9rqc4eDIz+b0jPeeUhPEJe0s1sU2e7j5Nitp3a2K1U7oEdkJikJsuSHPVBTvEMBB0fly9w2Wlmm5X67A2wBdvAiSDeLddXL8MQPc43Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z25lKUJdiYbDs40K9j/tuJJxAThEqUv8Vvhk7onH4Sg=;
+ b=mURMtgwJaUGkqn7EDyzBsYOBTABbhbRVYNzJJ9O38Tj2w1XhxTu+Xo0DUQEsqwUSWwErvGXumxIJeusJnVdC2124rOg4a4yq8y8PJLZVikcI0uSzZsr+jrEz8Y9Xi3i+TFJN7X2newPwg9GdGuzXiJpMJiTYkFP6zMn3SsQ5o9xIig8VVsoArtNBnMyR9HhrChQnftgqw9C6k2oXQCyOm3vzeZMww09Bx2yzd5rEFdqPh03nej00W9s8ftBXkFWU5g93AeR9zVHtkhHq7Cm7xnVUqYbaOz/KF71nV9QoDr0S127PWTL9u02JOZwAq7M5tMJdkRKL0ZqAKp2Ib+tgiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z25lKUJdiYbDs40K9j/tuJJxAThEqUv8Vvhk7onH4Sg=;
+ b=LfXXuvo2EcjPvHl7uLSm7EfeGrLiFnSyyZm9g0COSXpJ61kLu6cqbSWaajbtWK7iPqmL720AXE5WxGmqo6M4NzMMj4sAqYhdZdUm6nZO+L9QMCuRrKlp0zoTSM/P1Bzc0qJ6iqOe/3zwLannz1nc9570f6BW5ThPKTeZr4Op/YU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BL0PR12MB2818.namprd12.prod.outlook.com (2603:10b6:208:37::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Mon, 18 Jul
+ 2022 06:57:57 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
+ 06:57:56 +0000
+Message-ID: <e2dbaab9-de5a-3180-13a8-cec2c8b0285d@amd.com>
+Date: Mon, 18 Jul 2022 08:57:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v4] drm/amdgpu: add HW_IP_VCN_UNIFIED type
+Content-Language: en-US
+To: Ruijing Dong <ruijing.dong@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220715200410.301438-1-ruijing.dong@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220715200410.301438-1-ruijing.dong@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0130.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b2727462-6d1d-4fca-96bd-08da688ad7ec
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2818:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1bjOBTOXsTDcoZOnC0yHysDLoQsDCqcTwy6RKPYw/Hiv95hmHYUj+lEbRP1DRuev55p3JP3knbP0AS9QJwomNJU0VJ9USfQOZtEZKznlOD/PMX9Mw/5JvgN7F8pEsZ/4HAS4hPyUv8CC8BP7Dkqzo2l3fqpRe0EvL5zK3i+1OfZkg1sXyhCodKnv2JfJt/+YlLn3V+5e1/1z45yP1oLSjDX/PRFKKI4hiy0GV/J4TPJM4pOL0kMe6bd1h8MJpX8EA+4EZ5AenRmqiYm1+bmp41z+EpLSQ/3gtHnybUu9KSVoAfaC5pBxjwkq2ZD9r413r8U2K+gSKRefGt5vseK3qRjGnBu5yX1jqAkN7S5cSBucO5VaW+OsLRv6raIliQ5FRFfxqnzgHQXAWPHUDfPdTwF6PXyLhTVZDugr2ttI9rOfpP+O23wTpcFveT29GuE1Uqa7smHauh2CFdShhp/rzj9UpdV2iFa9awSI7teV2+/PoS6q1HoPHAIZtaT9ZXvqmZjXQt570sMN1O/lPApJDTjm6/O6WTF3OgW81HEGq1Nv1JT6zhxI7zdJP2hwdcbjjVt+fdC6d7JDjlrPb6UgYEJQZAUcAhtaGeTMviQONWa+PhZledLvfZP8VswssIYAil/ae3CxB1nxBU+2ECfSnvLwU4UR2vM2cUTlFBxfqBsaHK7ige5KHjuqmja4F7q9A7+a2yJD+f4xSb1/DhOs9pe9M3EjG4yyRV9F+8aY0hH0FbwtVyCpfBtPSJyXesvdqGFubHz5GR4/WFspm9ugeMqI01zQKQeokYT22bLAvF4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(39860400002)(346002)(396003)(366004)(376002)(2616005)(6512007)(5660300002)(86362001)(6486002)(8936002)(6506007)(478600001)(41300700001)(31696002)(2906002)(4326008)(83380400001)(186003)(966005)(66556008)(36756003)(31686004)(66476007)(8676002)(316002)(66946007)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEdLbkJmMGZNN2ZmQ09GZW9XcWw4RlJheTQ2TDlXV0U3Qmg5Z2M5NGFMRTFC?=
+ =?utf-8?B?UWZLTU1mbERKbm5PT1VhVFlQVnJoemRDMENodUFxOXdPa2R2U2J3eWhFblJo?=
+ =?utf-8?B?Vk1GZzFuSWo4cHNYQW00TlQ1dkVMZ3lmV0ZsR0s3bXorNXI4NUdDNGU2RFF3?=
+ =?utf-8?B?UkkwSGJxaGl6eVNtaE92NTV3ZEVEcEs0QkQwY04xbmxhVUdWN2dodE9GbFpG?=
+ =?utf-8?B?KzExRVNBV2lLdzIwYkVXdjB0c3Urbm9SOXZ0eUZLaGRKb05JdS9IM3lyYnZT?=
+ =?utf-8?B?SndJMjVlTmkwTHBic3RyQzA5c3lmWUxUcXgweWJHUlNJWmtRNUUxZG5JUGp0?=
+ =?utf-8?B?Q1dpV0QrSXhISnYzK1FGNHlBUWFUbGV1Tk5veWJYekFMSWc1OXpYYm1kSnEv?=
+ =?utf-8?B?TzZTZnk5RkNoenQ0NTJaM0xSc2dBcmM1N0Y1RjdWamt3dmRxYm4yR3NBaVQv?=
+ =?utf-8?B?WkNZMFBYaUJiZ0RETGJzY3lrNGxtc1F1N1lYR3RiZFNERUoxNzRWczhRNDRG?=
+ =?utf-8?B?YWxHY0VjL2tDejdyWUUzZ2N3R1hQSXFXRllUZlBEY0pFRzBCV1JPRFJOV1pv?=
+ =?utf-8?B?Zmh6NDl4aDAzaUlhTk1aSVRlb25IbXZSNVhQUGZJYkp6TjRVa1Bvd0pGdTh6?=
+ =?utf-8?B?UC93VlV6Zm8vcWs1YUdSbXRBOXhlczZvaVh3Z1l0bHNxUGRZbHNlZjhCNFM1?=
+ =?utf-8?B?NVBWeDE0eTVvVDFyVGNQdGlxMFZlTVp5VHErSlBHSWhTbHcvd2hqZUFlVjVj?=
+ =?utf-8?B?U243dGV5TGRDWmo0ZlJTZ29jOVFEUmtqVHg5TEV4UWI5N09wa09kSS9BQzZD?=
+ =?utf-8?B?VzlHanZxdE5tWmtzSndFcFllNjRabHZNTzg2YVdNRk1oUVlHSktzMVNISmFG?=
+ =?utf-8?B?d1QwKzA2WGNTMmMwT0NicHhjNStITno4RHRadHdHaTFNMlI2WVZpK0dnTVQv?=
+ =?utf-8?B?OXZPVHBKR2cvSDRYaDljdTRnencrUDI2cGdnR2ZERlZPYXFldUxCZXIrOFp1?=
+ =?utf-8?B?dHlVZ2NsZEV1VWc1QlVOLzZnOExZdGVNTVp1ZkprK283NzgzV3RMV3Z0SVVk?=
+ =?utf-8?B?WXV0U0lqRVNLNFpMUnoyTHNSL1kveFI4WHpYNG9rbVk2WUVjdjRrOHR0bkx6?=
+ =?utf-8?B?VUU1d09pYWxuVGJKWko3WXM5ZE10eDMrclhGNmprdXJhTDF3OTlaZGo0NlhN?=
+ =?utf-8?B?bjNFWmlxQk8ydG5ucTZicGtRcmNFYWpUZHI3NzllSElRS1VuRHlGVEtWRWRR?=
+ =?utf-8?B?ek1FWkNOQlhySVNBZDJIbURGbENrUjhjYnd1dklqSWE1Y2gzOVRZTnYzU2xJ?=
+ =?utf-8?B?bm9naXVVQVp4dDRKa2kyZ283MmQ0TkRsMDRnNlZnZHpWdy9pRHdKYmk4Y3lM?=
+ =?utf-8?B?dlB1bkZ3SnlyUGtSRWtyekw0R1lldGxyWTJLN20xV0tCb1I5NDg3UXh6cTF0?=
+ =?utf-8?B?VVdpdzZrOHBVaWRRa0Y0MnNEcEozZ2ZycU9vblRwR2EzTERQaWhYNDFpRzhw?=
+ =?utf-8?B?VmM5YjU4SG91YzR3cTRMYXpkajJsNWdXb0FlWnc5RzRNaS81eERHU0hnYmRS?=
+ =?utf-8?B?U2tLNXdUT1NUVVJDSGhJVkhRQzZsWHpjOHk1ZzBhTDBwNmF5bHdaSk5Xc25i?=
+ =?utf-8?B?bmF2NGgwZktFTTRHaHE5OVQ5TDI4eldDcE1EOEIxV3ZOQjFuU29NbTZwZStI?=
+ =?utf-8?B?WExLdWpqUlc5UEdiNjNsMUhya2d4UnUwTDQ0UXVrT21Oa2gwTWtWT0dwMkhC?=
+ =?utf-8?B?anhkTDU3MEE5U1FuT2ZaQ0NWZ0FudmdlNVRnbmxyendhQmxxb1YvMFZwNVpL?=
+ =?utf-8?B?YkJ2WG9vbkF2RlcvWFZ5V1V4TWcyVThNYUxJWFI1OWNFc0twUzJGdU8rQyth?=
+ =?utf-8?B?M08rb0pXUDh6ZmFSREdPczl0dzMwZVZyT3BUYkRESnd5eVRNa0xhVWF4SUV1?=
+ =?utf-8?B?dnNnY05VL0l6SmFSOWdVVUZNOTZXM3Jsbnp0U0QrTjR3RXYxeVVLY1dQaEgz?=
+ =?utf-8?B?RGJvQzFLblQyZ05lUG1CbmxUdjVReHBPTkVUOHJzRDRleXl2em5xeGRXYVdq?=
+ =?utf-8?B?c1JJT2dGczREQlorVGhxMmMwL3hZMS9BazVwZnNOVENHWmFxMkd0QXhTeDBB?=
+ =?utf-8?B?ZkxCYkNXbFo3aFVma2t3Vys1R1lxc1dzQ1MreFIrME5OVHhiOVVqVVdVVG16?=
+ =?utf-8?Q?kn9Vv5elA2sZMWVAa1ZEG/X2Mlbj0r9rg1pXvWrXz4QO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2727462-6d1d-4fca-96bd-08da688ad7ec
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 06:57:56.6072 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y+Hgrgr5RmJTwUDvDdscztC7WxhIimfR1G2umZtSnTFt8eWYVvuteZ7YmxHmcGcU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2818
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,103 +124,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change nvkm_subdev.debug to a ulong, so dyndbg can maybe use it.
+Am 15.07.22 um 22:04 schrieb Ruijing Dong:
+>  From VCN4, AMDGPU_HW_IP_VCN_UNIFIED is used to support
+> both encoding and decoding jobs, it re-uses the same
+> queue number of AMDGPU_HW_IP_VCN_ENC.
+>
+> link: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/245/commits
+>
+> Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
+> ---
+>   include/uapi/drm/amdgpu_drm.h | 6 ++++++
+>   1 file changed, 6 insertions(+)
+>
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 18d3246d636e..e268cd3cdb12 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -560,6 +560,12 @@ struct drm_amdgpu_gem_va {
+>   #define AMDGPU_HW_IP_UVD_ENC      5
+>   #define AMDGPU_HW_IP_VCN_DEC      6
+>   #define AMDGPU_HW_IP_VCN_ENC      7
+> +/**
 
-Move macro decl from nv-drm.c to subdev.c, and add a struct
-ddebug_classes_bitmap_param and a module_param_cb() that creates the
-sysfs-knob.
+Please don't use "/**" here, that is badly formated for a kerneldoc comment.
 
-Finally, in nvkm_subdev_ctor(), *attempt* to set dyndbg's pointer to
-the debug address, so that dyndbg can observe the underlying debug
-value, and make enable/disable decisions based upon it.
+> + * From VCN4, AMDGPU_HW_IP_VCN_UNIFIED is used to support
+> + * both encoding and decoding jobs, it re-uses the same
+> + * queue number of AMDGPU_HW_IP_VCN_ENC.
+> + */
+> +#define AMDGPU_HW_IP_VCN_UNIFIED  AMDGPU_HW_IP_VCN_ENC
 
-But Im not getting the ctor called, so the ptr is NULL when refd.
+I'm still in doubt that adding another define with the same value as 
+AMDGPU_HW_IP_VCN_ENC is a good idea.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- .../drm/nouveau/include/nvkm/core/subdev.h    |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  7 ------
- drivers/gpu/drm/nouveau/nvkm/core/subdev.c    | 23 +++++++++++++++++++
- 3 files changed, 24 insertions(+), 8 deletions(-)
+Instead we should just add the comment to AMDGPU_HW_IP_VCN_ENC.
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-index d5f6ca05d5fa..05807403fdd6 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-@@ -19,7 +19,7 @@ struct nvkm_subdev {
- 	enum nvkm_subdev_type type;
- 	int inst;
- 	char name[16];
--	u32 debug;
-+	unsigned long debug;
- 	struct list_head head;
- 
- 	void **pself;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 85b63b527877..d45c71ffc09e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -90,13 +90,6 @@ DECLARE_DYNDBG_CLASSMAP(nv_cli_debug_verbose, DD_CLASS_TYPE_VERBOSE, 10,
- 			"NV_CLI_DBG_TRACE",
- 			"NV_CLI_DBG_SPAM");
- 
--DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
--			"NV_SUBDEV_DBG_OFF",
--			"NV_SUBDEV_DBG_INFO",
--			"NV_SUBDEV_DBG_DEBUG",
--			"NV_SUBDEV_DBG_TRACE",
--			"NV_SUBDEV_DBG_SPAM");
--
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
- module_param_named(config, nouveau_config, charp, 0400);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-index a74b7acb6832..227871c3a749 100644
---- a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-@@ -26,6 +26,27 @@
- #include <core/option.h>
- #include <subdev/mc.h>
- 
-+#include <linux/dynamic_debug.h>
-+#include <linux/module.h>
-+
-+#define DEBUG
-+
-+DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
-+			"NV_SUBDEV_DBG_OFF",
-+			"NV_SUBDEV_DBG_INFO",
-+			"NV_SUBDEV_DBG_DEBUG",
-+			"NV_SUBDEV_DBG_TRACE",
-+			"NV_SUBDEV_DBG_SPAM");
-+
-+static struct ddebug_classes_bitmap_param nv_subdev_verbose = {
-+	.bits = NULL, // wants &_subdev->debug
-+	.flags = "p",
-+	.map = &nv_subdev_debug_verbose,
-+};
-+module_param_cb(debug_subdev, &param_ops_dyndbg_classes, &nv_subdev_verbose, 0600);
-+
-+
-+
- const char *
- nvkm_subdev_type[NVKM_SUBDEV_NR] = {
- #define NVKM_LAYOUT_ONCE(type,data,ptr,...) [type] = #ptr,
-@@ -180,6 +201,8 @@ nvkm_subdev_ctor(const struct nvkm_subdev_func *func, struct nvkm_device *device
- 	else
- 		strscpy(subdev->name, nvkm_subdev_type[type], sizeof(subdev->name));
- 	subdev->debug = nvkm_dbgopt(device->dbgopt, subdev->name);
-+	nv_subdev_verbose.bits = &subdev->debug;
-+	pr_debug("updated bitmap: %px\n", &nv_subdev_verbose.bits);
- 	list_add_tail(&subdev->head, &device->subdev);
- }
- 
--- 
-2.36.1
+Regards,
+Christian.
+
+>   #define AMDGPU_HW_IP_VCN_JPEG     8
+>   #define AMDGPU_HW_IP_NUM          9
+>   
 
