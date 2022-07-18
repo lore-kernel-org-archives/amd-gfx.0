@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31BAC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF380C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8160A9DDA;
-	Mon, 18 Jul 2022 06:39:43 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5459EA9D54;
- Mon, 18 Jul 2022 06:39:27 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id d4so5550290ilc.8;
- Sun, 17 Jul 2022 23:39:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E32A9DDF;
+	Mon, 18 Jul 2022 06:39:44 +0000 (UTC)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAE91A9D3C;
+ Mon, 18 Jul 2022 06:39:01 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id l24so8517329ion.13;
+ Sun, 17 Jul 2022 23:39:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4h3uY9TThXC1PV4gG3mzVW2/VJmh8sYmlsiKmbk1ueg=;
- b=pragKMwsSkcMk3t0vUXFzvmCdBkZfTmsKdg6x1AsQUUj8DyJYts9OeNeWFGnwDYrhX
- blQS0nSUVlBDFUcV2TV4PM68hBNlWKYtWwowbHYIng6Vc8H7vPaLR5vhOB4ZpUbQ8jE0
- v4Pw/nsT0XWMU1Je6Kc6QtSrG5JwvPK7JTXKwCcmgDg0gjiPCuHtBZVEQ8xvu0pNOl8P
- vQahuu3q30bsO200BSvYmMw3I4xTsqFVz62wJKlFG8prZcmNzAZ7SPl9Way3cL5g5FXe
- 1YmrIXPWwDgjsJ4v1ehXDNO+ABJVGB6b+aF83J8X5Ed0IW3CdDXTfGmyXPNmJp86H5oA
- dSKw==
+ bh=jNKkCgLqEI2boDLpZwejJXZn34G9kSTsspfFnsYp3v8=;
+ b=DIj3HQKCERamyW4ZrDjIQWrt/bzE1N7TE75YEZkym3e6iM9t8HXiqi172/nGPIPCQv
+ lfFXDTX70ooYcSPYywhqmHnTV1ZofDK+Xgx6+7e3miicgfOMiARBsok3iM9YnYHDpZcA
+ KLKAckgBcLrQQu3n8p4cbNhALuTlnz1ly94iQEl4DopPLqjDPxXvcRroDxkKAfluGlKr
+ Rca7CmSgdz9Hp94G0pxDQLMlI/A3HcRi3P5DlcGTvefQXc2TXRyhsMllt03ETDu87ozz
+ QzN4iSGWjD0m1yihq4SdWNuM0SPPdpL2oMBh8/TOyIJvGDa3Tvce9r2Ywk9l8HBSO8jk
+ lr7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4h3uY9TThXC1PV4gG3mzVW2/VJmh8sYmlsiKmbk1ueg=;
- b=Vex1BtxzCUwv83z7PPtgyoHHQa79R5EI1F2xrbKx9sX/OuwF0cIpxRG+wk9g3aKjMv
- W6yhQiA4wa2ted3sShXvyFP+ip7n4tJmgZJ3ztpfH75btMSHLaUDtDicUzvlz4B+KHzr
- QmWTKE+TU/R03xNWf6RJ4xtxq272vzNe6LW8suMlBJ9Z/hIt+r7/aWm8UG2wlrX2ppig
- +ijia0GdlOPrxQdCnBjxCsKSahu/YzVCNeNQqtdGePikEv4eUpICF1A+ypJ9e4qfzzRt
- mSDcQtA7soCw0xXCgKj0HtY1IE+uiPOnNG4LcPI9nk8pUV1hzpt5lnDyTmAIkolKVsPI
- nu8g==
-X-Gm-Message-State: AJIora/zvFUAxJ3mtF8vG+0nm0M+uEkoAnYBePDzSTLfyibejBhmDOic
- +LvnomdVQml1x+9kvyMckIA=
-X-Google-Smtp-Source: AGRyM1uxkIZYdg2hpRqOBvqhpK/kcl3egJaIC6Zu3w+t42+3lEhhgc1jI9Fd8BolosGMwq/dbywnVQ==
-X-Received: by 2002:a05:6e02:1b0c:b0:2dc:8b29:f1d5 with SMTP id
- i12-20020a056e021b0c00b002dc8b29f1d5mr12741424ilv.184.1658126366608; 
- Sun, 17 Jul 2022 23:39:26 -0700 (PDT)
+ bh=jNKkCgLqEI2boDLpZwejJXZn34G9kSTsspfFnsYp3v8=;
+ b=m0gyz0+Gs23zeMIb8R7mjsOlv4DzINGjBW+XZaB6i6EAV3b1kIMXoDWGvb1yC3+k+e
+ 12dSYfpSoclnBbrReQdYfSJNtu6HTpzuxuvDrq97m3nq+86dqaMgOi8h8KJc4v0WrXRA
+ VXzusNgrNoZmHMO2LbMD504esGz/Jxv6BhEz24mDYt62e0JniNlrrz3o12ruEsvmAUHF
+ zZh5S+ojqGuIuyfR5ARo2wNID4BU9wXbfqAdo72UPcS7sViOd/0zmLtahttc9Lhs4kMR
+ zs4H1YRm6iV5luwd0KMide6jgr2MbxUbc6Ec/2K2+BSIrm1OOv+1VfTIERfWy/SmHjn9
+ IY/A==
+X-Gm-Message-State: AJIora9QI4V/Rbi1gWzxyISPkHfOqW6Z0aADDL9zoicqUXa1z+pZlt48
+ GBfTge301XfXIw4c+vBcR/Y=
+X-Google-Smtp-Source: AGRyM1tO8xLm+5r1mDN1qe58a+7SJEGBl2hpTXXQAjhyZ+gncZOa5kNvdZyCgd6WzO7ECwwQ/7Ls/g==
+X-Received: by 2002:a02:c812:0:b0:33f:4812:4699 with SMTP id
+ p18-20020a02c812000000b0033f48124699mr12850296jao.314.1658126341609; 
+ Sun, 17 Jul 2022 23:39:01 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.25
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:26 -0700 (PDT)
+ Sun, 17 Jul 2022 23:39:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 38/41] nouveau-dyndbg: alter DEBUG, TRACE,
- SPAM levels to use dyndbg
-Date: Mon, 18 Jul 2022 00:36:37 -0600
-Message-Id: <20220718063641.9179-54-jim.cromie@gmail.com>
+Subject: [PATCH v3 29/41] nouveau: change nvkm_debug/trace to use dev_dbg POC
+Date: Mon, 18 Jul 2022 00:36:19 -0600
+Message-Id: <20220718063641.9179-36-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -75,63 +74,71 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clone the nvkm_printk,_,__ macro ladder into nvkm_drmdbg,_,__.
-And alter debug, trace, spam macros to use the renamed ladder.
+These 2 macros formerly used dev_info, and they still check
+subdev->debug to gate the printing.  So dyndbg control is redundant
+ATM (and possibly confusing, since its off by default).
 
-This *sets-up* to remove the _subdev->debug >= (l) condition from the
-__ macro, once the bitmap-param is wired up correctly (pointing at the
-right state-bit-vector), and figured into dyndbg's jump-label
-enablement.
+prdbg count is up from 3, or from 65 (with VMM_DEBUG here)
 
-Also, with DYNDBG=y, sites will be off, until enabled by >control, or
-by #define DEBUG at compile time.
+[    7.765379] dyndbg: 516 debug prints in module nouveau
 
-Starting with this as a model:
+Its possible to control error, warn, info callsites too, but they're
+usually on, and the .data overheads on ~450 more callsites (56 bytes
+each) would just be wasted.
 
-    static struct ddebug_classes_bitmap_param drm_trace_bitmap = {
-	.bits = &__drm_trace,
-	.flags = "T",
-	.map = &drm_trace_classes,
-    };
-    module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap,..
+$ for l in fatal error warn info debug trace spam; do
+      echo $l; ack nvkm_$l drivers/gpu |wc; done
+fatal
+      3      19     335
+error
+    289    1956   30651
+warn
+     84     513    8860
+info
+     14      88    1502
+debug
+    387    2339   40844
+trace
+     31     219    3368
+spam
+      1       7     123
 
-We basically need to clone that, but ref a different .bits:
-	.bits = &_subdev->debug,
-	while respecting the _subdev's lifecycle.
-	hints welcomed.
+bash-5.1# echo $(( 516-65-387-31-1 ))
+32
 
-no functional changes. (other than dyndbg's default-off)
+Thats approximate; not accounting #defines and doc/comment mentions.
+
+NOTE: this patch changes the log-level of the macro-issued messages
+from KERN_INFO to KERN_DEBUG.  Adding a .kern_lvl field to struct
+_ddebug could fix that.
+
+RFC: dyndbg & subdev->debug
+
+Separate class-maps for each subdev are possible; except for the
+coordinated use of _base, each is independent, including choice of
+DISJOINT or LEVELS, as long as class-names don't conflict.
+So theres some flexibility.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-index 065d07ccea87..b9c2afab321f 100644
+index 96113c8bee8c..065d07ccea87 100644
 --- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
 +++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-@@ -59,9 +59,17 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
+@@ -59,8 +59,8 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
  #define nvkm_error(s,f,a...) nvkm_printk((s), ERROR,    err, f, ##a)
  #define nvkm_warn(s,f,a...)  nvkm_printk((s),  WARN, notice, f, ##a)
  #define nvkm_info(s,f,a...)  nvkm_printk((s),  INFO,   info, f, ##a)
--#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,    dbg, f, ##a)
--#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,    dbg, f, ##a)
--#define nvkm_spam(s,f,a...)  nvkm_printk((s),  SPAM,    dbg, f, ##a)
-+
-+#define nvkm_drmdbg__(s,l,p,f,a...) do {				\
-+	const struct nvkm_subdev *_subdev = (s);			\
-+	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))	\
-+		dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
-+} while(0)
-+#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_DBG_##l, dbg, f, ##a)
-+#define nvkm_debug(s,f,a...) nvkm_drmdbg_((s), DEBUG, f, ##a)
-+#define nvkm_trace(s,f,a...) nvkm_drmdbg_((s), TRACE, f, ##a)
-+#define nvkm_spam(s,f,a...)  nvkm_drmdbg_((s),  SPAM, f, ##a)
+-#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,   info, f, ##a)
+-#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,   info, f, ##a)
++#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,    dbg, f, ##a)
++#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,    dbg, f, ##a)
+ #define nvkm_spam(s,f,a...)  nvkm_printk((s),  SPAM,    dbg, f, ##a)
  
  #define nvkm_error_ratelimited(s,f,a...) nvkm_printk((s), ERROR, err_ratelimited, f, ##a)
-+
- #endif
 -- 
 2.36.1
 
