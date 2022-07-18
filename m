@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F11DEC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97027C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A7BFA9CF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A1AA9D1A;
 	Mon, 18 Jul 2022 06:38:57 +0000 (UTC)
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E71A9CE2;
- Mon, 18 Jul 2022 06:38:50 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id d4so5549846ilc.8;
- Sun, 17 Jul 2022 23:38:50 -0700 (PDT)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0265A9D13;
+ Mon, 18 Jul 2022 06:38:52 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id e69so1016112iof.5;
+ Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
- b=QOj/ip4QduY99K5+0N6BwKZcMk9msE0SGoTjqXARq+LWFxr6/0bzuaAq/fTXPcfgsL
- lyDmaEtB0JuvmvlQ3zr01MXAbeKDsfjogGM9KZI6FamF7thaIZAYEUJ8thxtpO5U6mKB
- Hn1n9T1ePbUiRFzYiPZpfDlMf5f72C33mzCA3VTNFNvUrrtBaaQwJxxfLQTIOQufNwWd
- 1vMtXfkwa/RpyAdQKoAyRA0MowG7dKJOknG7QcDzyeUVspW7z2Oocueq9rGspg0LM9re
- ntR/GnRpxzezcqXVod9+iEacWBm9bZZA+eiwQBQ6xoWAsSTxEOdmupmzEjlj1ZEGVtjO
- hxeA==
+ bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
+ b=kCRs+Jve0+XGHhIxdB3mmFeZylXdbtMLklqhfaR1ydEZYWgo7D5k2T0GfMyFaIF+Mu
+ DfBBFGiZ39RL5js7LrywsQ7yMwys8mFu9/rDzX5fH01vp6DpmfvzJlIZln9U4CCiDCEa
+ pakejwsO4sR/8yp3wGipu/4boNY566EqF65JzObl2Am++yhT/PELHi/0Ok7FaoO/VX9q
+ OSbCZQTP8l8N+4bU7ntDEhHk1raSprffQ2qTqjtSC6y1k++k1fqmnctGDmLNArPx9IiJ
+ neXMzRFJFWMRfJAtw3LJtPDYvXyX3m3vkuHFZfn7DOj3EKxwMKKkok4kiLppZWSGCjyr
+ 4mYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
- b=7wtro2Ujvf76zalirYr4KzIezQA9/xN17rRtiEi9OKJIAq8qjwW6dE6OC21X+sCgwU
- +nKU8f+QyK/sgYD808TRlVZe0Gn2Krhffu5Ar/xVq+8Woy4xucR/U5ivMuMtBq3gp4Im
- k749gcQcPBQH0mq2soLO8QPp58Tqa1bD2DTeJAW5HUsMpNv/UUwvxVUtla5jnn0qAYcq
- 17CfxZvt0m7r8CCCwGUf8mToMp5bmQ6sfbWMftjHuXRFXWglzLb8/mOx5zRkCJcYjUq2
- Cs/+kSG7xPP0TdxeGgmgiLvzhKsTPC/wF4+C7RL6p4KEWXjMTC4bUehHHHt117GozX5H
- wWYg==
-X-Gm-Message-State: AJIora9q9czGR1xIiR5E8dmRv7uOGzcC/2B8Ic06FWEpNgcLW/qdVmWX
- NfAm7Ftp/DBmWpZXPWvPA6s=
-X-Google-Smtp-Source: AGRyM1tx0yp4KSHzPyYHxnLdlzPSkyd1rVu+bV6AGVvQK9o2oS6/so1HEdIv1j9Y0schHyfmZruDjw==
-X-Received: by 2002:a05:6e02:b21:b0:2dc:6d2d:5a61 with SMTP id
- e1-20020a056e020b2100b002dc6d2d5a61mr13218223ilu.273.1658126329652; 
- Sun, 17 Jul 2022 23:38:49 -0700 (PDT)
+ bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
+ b=NTaIByDElRVvh+8dypQMQiXrt68QQKN9zwnQJZeUCdKkrc45F4kulz7UN9AFYpUhPu
+ se2x1EeSNnIbu2IXRDUAO4v/8IwVu7LnWPir5Rj+ZPhXuCeu8e0K+AgtkNZ/eOlYFKsk
+ EXRDJUrEKPBpVwVsL9/ItyRJ3rl64S7kWzoObqtpRgJJeO8iRVtm9crZ7jrZ4V4tlrW7
+ 8emoFhK+GGYnOefBJAYD8GmoJmHC022kOd7gYtVx/hK0HCwLupUmI+ClFDgR604GR+Al
+ eFzQT0HFyvxAuc7962rIeANNyGK96tq+hwqzEVXC7jn+szEDmDYgyxKcaqmm2XHLE7uW
+ d1VQ==
+X-Gm-Message-State: AJIora8vydAvlMoFPzGsuTdYzCyPFeJmBVWniz9BamfrmP6XEI565PiF
+ +Q7NIf5F6EzLFbhjUI1G+Nw=
+X-Google-Smtp-Source: AGRyM1stJcHA/jLNC9vrIZHBAb4b7QvvNW4O66h+ecSWwwuZvXQ0OmFQAfVn6fJUqy9UXP+zSpjQkQ==
+X-Received: by 2002:a05:6638:d86:b0:341:4ece:3c4 with SMTP id
+ l6-20020a0566380d8600b003414ece03c4mr6832119jaj.235.1658126332277; 
+ Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.48
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:49 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:51 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 25/41] drm-print: include dyndbg header indirectly
-Date: Mon, 18 Jul 2022 00:36:10 -0600
-Message-Id: <20220718063641.9179-27-jim.cromie@gmail.com>
+Subject: [PATCH v3 26/39] drm_print: prefer bare printk KERN_DEBUG on generic
+ fn
+Date: Mon, 18 Jul 2022 00:36:12 -0600
+Message-Id: <20220718063641.9179-29-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -74,38 +75,55 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-lkp robot told me:
+drm_print.c calls pr_debug() just once, from __drm_printfn_debug(),
+which is a generic/service fn.  The callsite is compile-time enabled
+by DEBUG in both DYNAMIC_DEBUG=y/n builds.
 
-  >> drivers/gpu/drm/drm_ioc32.c:989:2:
-  error: call to undeclared function '_dynamic_func_call_cls';
-  ISO C99 and later do not support implicit function declarations
-  [-Wimplicit-function-declaration]
+For dyndbg builds, reverting this callsite back to bare printk is
+correcting a few anti-features:
 
-           DRM_DEBUG("comm=\"%s\", pid=%d, dev=0x%lx, auth=%d, %s\n",
+1- callsite is generic, serves multiple drm users.
+   it is soft-wired on currently by #define DEBUG
+   could accidentally: #> echo -p > /proc/dynamic_debug/control
 
-Since that macro is defined in drm_print.h, include <dynamic_debug.h>
-there too, so that any uses have the definitions of all the macros in
-the callchain.
+2- optional "decorations" by dyndbg are unhelpful/misleading here,
+   they describe only the generic site, not end users
 
-This is done as a separate patch mostly to see how lkp sorts it;
-I'll probably squash it with HEAD~1
+IOW, 1,2 are unhelpful at best, and possibly confusing.
+
+reverting yields a nominal data and text shrink:
+
+   text    data     bss     dec     hex filename
+ 462583   36604   54592 553779   87333 /kernel/drivers/gpu/drm/drm.ko
+ 462515   36532   54592 553639   872a7 -dirty/kernel/drivers/gpu/drm/drm.ko
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_print.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 3aa5e9ea26f4..dfdd81c3287c 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -31,6 +31,7 @@
- #include <linux/seq_file.h>
- #include <linux/device.h>
- #include <linux/debugfs.h>
-+#include <linux/dynamic_debug.h>
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index effb95b3c2bf..e0de79a22255 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -23,8 +23,6 @@
+  * Rob Clark <robdclark@gmail.com>
+  */
  
- #include <drm/drm.h>
+-#define DEBUG /* for pr_debug() */
+-
+ #include <linux/stdarg.h>
+ 
+ #include <linux/io.h>
+@@ -185,7 +183,8 @@ EXPORT_SYMBOL(__drm_printfn_info);
+ 
+ void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
+ {
+-	pr_debug("%s %pV", p->prefix, vaf);
++	/* pr_debug callsite decorations are unhelpful here */
++	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
+ }
+ EXPORT_SYMBOL(__drm_printfn_debug);
  
 -- 
 2.36.1
