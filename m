@@ -4,87 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF0BC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 22:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A2D5C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 23:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8470110FE69;
-	Mon, 18 Jul 2022 22:52:52 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC510FF13
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 22:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bUJO1MuyEJdj3M5c/0DD3V7CON1B0+zWd3zOWmyE3iBODvlLVx7UAvlokFMgm5PwghqAwn9hZ+cMcfQVvuMVV8jglv4PgDfnaI63kTwZD6s69w5Eeqk4twx4Yg1TRp/VXgkbdBdQKtRA3PtsOD5wT+A1RaxqgbNy16wv7ZhSQRXyfmh5MmZfBbUj/i9VKoOfTxcNVYUwcMngYVLh4gymQ9b8HD/lTgCWfSyK7agDoyX8kLi7YonJMv+El81o8fq7KzbzRWcmTXGUjfnM7Tenqw3AtZEmfbQt/kHTo4eFWYDAT1Rlx2BcF6RDwUOWLzMVQwxaR0Fduhn8cJHc/zowSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WykDuaohwenmYAYLR6R4GwMi22TDJcc3li8UFcaySUs=;
- b=OWHtVJo+C7XKUJF02hBUy1Az3SIgrOGRSAWduYE/2QuwfrfUaEJibqcoNyJzxw+gYsTDfm4xvCahv+61CguaTaY59BbDxryidGqgADpNv3rnsXUM5Z/dF+OVXIfGTAqWi8ytPWASDszhSbz3aj7xndOf93R49f75jPbe/3B355IypmbKvjoMJ3Ny2RAVdpOU+y6Ce6re4M9Tzg4j5e3me9RSXttQ6WprEhLydTaP9UX2gmh0smwIuCC9z6neEN2bEx2AV7zS37XhGP7C+/D97DlblW8ODFJDVcAXnEoZ8he8pCh4zqYJEZsNxaQ1fg4D07xO49v9o4QlpFRblC0gUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WykDuaohwenmYAYLR6R4GwMi22TDJcc3li8UFcaySUs=;
- b=0JCtkdWa5FSnAQDvtCgHjKWhevun8/kbXt50ao4CJIudGarLRn4aL6PXFNUlMMUjE4XyUYQ+z/KNCdJJc80njI4YfhLJKSEZ0/4ycY43J+ZPdx2cw3OdaRJsrkwv2SVkJ8akbDDnzW8CXKWO8kdPza9N0ZlHsUYI+JLeL/v0Bh4=
-Received: from MW4PR03CA0004.namprd03.prod.outlook.com (2603:10b6:303:8f::9)
- by CH0PR12MB5251.namprd12.prod.outlook.com (2603:10b6:610:d2::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17; Mon, 18 Jul
- 2022 22:52:44 +0000
-Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8f:cafe::40) by MW4PR03CA0004.outlook.office365.com
- (2603:10b6:303:8f::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
- Transport; Mon, 18 Jul 2022 22:52:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Mon, 18 Jul 2022 22:52:43 +0000
-Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 18 Jul
- 2022 17:52:42 -0500
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Refactor code to handle non coherent and uncached
-Date: Mon, 18 Jul 2022 18:52:27 -0400
-Message-ID: <20220718225227.17382-1-rajneesh.bhardwaj@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E100113155;
+	Mon, 18 Jul 2022 23:50:13 +0000 (UTC)
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [IPv6:2607:f8b0:4864:20::830])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDA16113155
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 23:50:11 +0000 (UTC)
+Received: by mail-qt1-x830.google.com with SMTP id c20so9952031qtw.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 16:50:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=kGG9hK6/fhPYP5ESwwboqRMB7+NvjeWq6Eay6lmiXCI=;
+ b=VlLfcO29O92uk5Fj654ZAYB7C4/sETGre2JqOjHe66hQut5b9toLVEFq8KqrnDyUk+
+ lTyXLtkMF4os2hZropep5TrTK5KfFbYVhS8vU/iGRC1aZKV6QfGiZ2YUAtcZnGhz3n+8
+ TnfclZ2FfDCg9e2/jrfiD9WhMrzpl8dWmzC/kt4LZmUebSaHvhmiYEpZ/jxuxFMsy/QA
+ jlf07oF/b8Da9yqqhah9prZzFFF30sPHJUC4/g9utSFUEmkfzVn43JNNN9BLsGKkClYl
+ stwB1CBZ4EFltfW5/TFsHr8rbhENFLMZAbjMi2c5MSaIAVjG2fVxWBCjBwD+f3BKnyIJ
+ 3kkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=kGG9hK6/fhPYP5ESwwboqRMB7+NvjeWq6Eay6lmiXCI=;
+ b=FEibV3LvkeZopT4c5V5XPVd47C4FRBcd47jY55j9sDVAyb9/HOsFj9/O6cuXwZDZlx
+ jjDVpaq44HRCxDz/tWjcm+9XjD4V4jPcMv1f2/VIQjhnVYSgBMyYratArY9MYJs7tLEB
+ apYV7cIkg5H1XT4fFkXQeAgJ28dd5OYZQfGp85g4JEmCRtvvXRGjwK58oNy/7WNvbHX2
+ 6L9zjVIOcbMHdL5rwCQijtmJ+46p/dIpO7coIaJGxk+cVAbEjA/RN8Mu34YD11S20nL+
+ yP4Np2+JoQPc7crOhJsj7/SXJDHmZtuRvq3h+lGA4hIGtUTrhX9PGSISumxoYYc2Ru8Z
+ f71Q==
+X-Gm-Message-State: AJIora/QRe7//milj3ozLZflL2QbLj7MSkM7bCE4MyOZJ0ymMLNwQy59
+ hmIUiivtyNjimB91v62gWGg2cNaJxoqCIVsfiPBYbCHEOD7E9D7VGIM=
+X-Google-Smtp-Source: AGRyM1vMh64VQZjysUkcwkuFQsafV2uQy9g9bSldWAXIM8dm2+6Fak+IMbz2mEZ9QMVqycyjrr6XbkFl4eGN0ibWRp8=
+X-Received: by 2002:a05:622a:19aa:b0:31e:f81d:7371 with SMTP id
+ u42-20020a05622a19aa00b0031ef81d7371mr2513259qtc.345.1658188210793; Mon, 18
+ Jul 2022 16:50:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c65c65c1-23ba-4e98-7daf-08da691039d3
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5251:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L2qiZ+pVdVqO60TvhXm1Tqz9fV2iRJCiWFQOGvp00ZhZ8a7Rr4/BwtXKjW8iuwwoNEoOEFml5wOlOmmvBWULE8hveBNBkhHKjBGMuG8+jS2cUgfCI/KfF9ZrlDiHp0tKoOl/Uk5/gMQxyVO+om/2Q1H9GDpXdrbTuVUhHd1wjSmucvx+wx72BiyUV7k/Z/Zxo7aD24QbDUOU/c6wODVkoRSpdZX+RuXFH303X7UmQaVAH0d/ZRBiqCkYNSx1XmFZ6x2m6F/GEC1F8i9FZmVOSa2yahxwkAdUckk7dem1o2XWMhkIBBTmOVHz2b9pQb3v38YV85usFnXNOUqAvHdfWAdQ1qI9j90jz52zYoyALKV2FmnGjUvIOrEwbtqNYopF5YzhEb00UVI353Y+51cSBSvaSlIxFB2gHCzKBm+PDJXm+Lej4oJGvkqljmCyVND/zf87SYWOqhO6ifb0/va5jhgz97j200q5CBoWob87B3vvODVbQ2S/160+Tx7qN83Ww5k3H/9dWAlCzxmIhIfPCN+GgIIKlEwFbnr6ZrZlR6n+gzojCVJIFYPPzXqM48a8qRhe8SUOzUvfJT3Goj1qhpjSXrF4LDdxWAhqEka7MKEpIgBeNeXIO5ls0QYTjApWfQUnxs7fTFpovoDHsyzLd9Hyu+Y8mXCe7JJ4ynxmxEWT2VXnKygJaHq0ZamZT1bM1naVbLhD1EjGF9qkVQlmVv/6kV4TLJUdO825Cqyr9vucIzTSslIssi8hGeQ6FGlCwhvmlT6xxj74bNDcVouEVJ5zIDQiKU+tHbU6SKjOumqAkoVlkuzJzrpyQDP8lSjbl5zeKByhRnOXVQ7jFwqoeA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(396003)(346002)(39860400002)(46966006)(40470700004)(36840700001)(478600001)(8936002)(4326008)(86362001)(8676002)(6916009)(36860700001)(316002)(54906003)(40460700003)(70586007)(36756003)(70206006)(44832011)(6666004)(7696005)(81166007)(5660300002)(2906002)(26005)(41300700001)(356005)(82310400005)(82740400003)(426003)(83380400001)(40480700001)(1076003)(186003)(47076005)(16526019)(2616005)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 22:52:43.5026 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c65c65c1-23ba-4e98-7daf-08da691039d3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5251
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 19 Jul 2022 04:50:00 +0500
+Message-ID: <CABXGCsPRrUoNtO4J8H8aLWRCGGZkwHqtOZV9Edamd2pXVB0ooA@mail.gmail.com>
+Subject: Command "clinfo" causes BUG: kernel NULL pointer dereference,
+ address: 0000000000000008 on driver amdgpu
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,98 +61,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amber.Lin@amd.com, Alex Deucher <Alexander.Deucher@amd.com>,
- Felix.Kuehling@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Joseph Greathouse <joseph.greathouse@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This simplifies existing coherence handling for Arcturus and Aldabaran
-to account for !coherent && uncached scenarios.
+Hi guys I continue testing 5.19 rc7 and found the bug.
+Command "clinfo" causes BUG: kernel NULL pointer dereference, address:
+0000000000000008 on driver amdgpu.
 
-Cc: Joseph Greathouse <joseph.greathouse@amd.com>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 53 +++++++++----------
- 1 file changed, 26 insertions(+), 27 deletions(-)
+Here is trace:
+[ 1320.203332] BUG: kernel NULL pointer dereference, address: 0000000000000008
+[ 1320.203338] #PF: supervisor read access in kernel mode
+[ 1320.203340] #PF: error_code(0x0000) - not-present page
+[ 1320.203341] PGD 0 P4D 0
+[ 1320.203344] Oops: 0000 [#1] PREEMPT SMP NOPTI
+[ 1320.203346] CPU: 5 PID: 1226 Comm: kworker/5:2 Tainted: G W L
+-------- --- 5.19.0-0.rc7.53.fc37.x86_64+debug #1
+[ 1320.203348] Hardware name: System manufacturer System Product
+Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
+[ 1320.203350] Workqueue: events delayed_fput
+[ 1320.203354] RIP: 0010:dma_resv_add_fence+0x5a/0x2d0
+[ 1320.203358] Code: 85 c0 0f 84 43 02 00 00 8d 50 01 09 c2 0f 88 47
+02 00 00 8b 15 73 10 99 01 49 8d 45 70 48 89 44 24 10 85 d2 0f 85 05
+02 00 00 <49> 8b 44 24 08 48 3d 80 93 53 97 0f 84 06 01 00 00 48 3d 20
+93 53
+[ 1320.203360] RSP: 0018:ffffaf4cc1adfc68 EFLAGS: 00010246
+[ 1320.203362] RAX: ffff976660408208 RBX: ffff975f545f2000 RCX: 0000000000000000
+[ 1320.203363] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff976660408198
+[ 1320.203364] RBP: ffff976806f6e800 R08: 0000000000000000 R09: 0000000000000000
+[ 1320.203366] R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
+[ 1320.203367] R13: ffff976660408198 R14: ffff975f545f2000 R15: ffff976660408198
+[ 1320.203368] FS: 0000000000000000(0000) GS:ffff976de1200000(0000)
+knlGS:0000000000000000
+[ 1320.203370] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 1320.203371] CR2: 0000000000000008 CR3: 00000007fb31c000 CR4: 0000000000350ee0
+[ 1320.203372] Call Trace:
+[ 1320.203374] <TASK>
+[ 1320.203378] amdgpu_amdkfd_gpuvm_destroy_cb+0x5d/0x1e0 [amdgpu]
+[ 1320.203516] amdgpu_vm_fini+0x2f/0x4e0 [amdgpu]
+[ 1320.203625] ? mutex_destroy+0x21/0x50
+[ 1320.203629] amdgpu_driver_postclose_kms+0x1da/0x2b0 [amdgpu]
+[ 1320.203734] drm_file_free.part.0+0x20d/0x260
+[ 1320.203738] drm_release+0x6a/0x120
+[ 1320.203741] __fput+0xab/0x270
+[ 1320.203743] delayed_fput+0x1f/0x30
+[ 1320.203745] process_one_work+0x2a0/0x600
+[ 1320.203749] worker_thread+0x4f/0x3a0
+[ 1320.203751] ? process_one_work+0x600/0x600
+[ 1320.203753] kthread+0xf5/0x120
+[ 1320.203755] ? kthread_complete_and_exit+0x20/0x20
+[ 1320.203758] ret_from_fork+0x22/0x30
+[ 1320.203764] </TASK>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index d1657de5f875..0fdfd79f69ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -471,45 +471,44 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
- 
- 	switch (adev->asic_type) {
- 	case CHIP_ARCTURUS:
--		if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
--			if (bo_adev == adev)
--				mapping_flags |= coherent ?
--					AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
--			else
--				mapping_flags |= coherent ?
--					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
--		} else {
--			mapping_flags |= coherent ?
--				AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
--		}
--		break;
- 	case CHIP_ALDEBARAN:
--		if (coherent && uncached) {
--			if (adev->gmc.xgmi.connected_to_cpu ||
--				!(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
--				snoop = true;
--			mapping_flags |= AMDGPU_VM_MTYPE_UC;
--		} else if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-+		if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
- 			if (bo_adev == adev) {
--				mapping_flags |= coherent ?
--					AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
--				if (adev->gmc.xgmi.connected_to_cpu)
-+				if (uncached)
-+					mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+				else if (coherent)
-+					mapping_flags |= AMDGPU_VM_MTYPE_CC;
-+				else
-+					mapping_flags |= AMDGPU_VM_MTYPE_RW;
-+				if (adev->asic_type == CHIP_ALDEBARAN &&
-+				    adev->gmc.xgmi.connected_to_cpu)
- 					snoop = true;
- 			} else {
--				mapping_flags |= coherent ?
--					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+				if (uncached || coherent)
-+					mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+				else
-+					mapping_flags |= AMDGPU_VM_MTYPE_NC;
- 				if (amdgpu_xgmi_same_hive(adev, bo_adev))
- 					snoop = true;
- 			}
- 		} else {
-+			if (uncached || coherent)
-+				mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			else
-+				mapping_flags |= AMDGPU_VM_MTYPE_NC;
- 			snoop = true;
--			mapping_flags |= coherent ?
--				AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
- 		}
- 		break;
- 	default:
--		mapping_flags |= coherent ?
--			AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+		if (uncached || coherent)
-+			mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+		else
-+			mapping_flags |= AMDGPU_VM_MTYPE_NC;
-+
-+		if (!(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
-+			snoop = true;
-+
-+
- 	}
- 
- 	pte_flags = amdgpu_gem_va_map_flags(adev, mapping_flags);
+Full kernel log is here:
+https://pastebin.com/EeKh2LEr
+
+And one hour later after a lot of messages "BUG: workqueue lockup" GPU
+completely hung.
+
+I will be glad to test patches that fix this bug.
+
 -- 
-2.17.1
-
+Best Regards,
+Mike Gavrilov.
