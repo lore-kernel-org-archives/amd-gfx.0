@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97027C43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F075C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8A1AA9D1A;
-	Mon, 18 Jul 2022 06:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACB09A9D3B;
+	Mon, 18 Jul 2022 06:39:00 +0000 (UTC)
 Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
  [IPv6:2607:f8b0:4864:20::d32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0265A9D13;
- Mon, 18 Jul 2022 06:38:52 +0000 (UTC)
-Received: by mail-io1-xd32.google.com with SMTP id e69so1016112iof.5;
- Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A46AA9D2F;
+ Mon, 18 Jul 2022 06:38:56 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id e69so1016182iof.5;
+ Sun, 17 Jul 2022 23:38:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
  bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
- b=kCRs+Jve0+XGHhIxdB3mmFeZylXdbtMLklqhfaR1ydEZYWgo7D5k2T0GfMyFaIF+Mu
- DfBBFGiZ39RL5js7LrywsQ7yMwys8mFu9/rDzX5fH01vp6DpmfvzJlIZln9U4CCiDCEa
- pakejwsO4sR/8yp3wGipu/4boNY566EqF65JzObl2Am++yhT/PELHi/0Ok7FaoO/VX9q
- OSbCZQTP8l8N+4bU7ntDEhHk1raSprffQ2qTqjtSC6y1k++k1fqmnctGDmLNArPx9IiJ
- neXMzRFJFWMRfJAtw3LJtPDYvXyX3m3vkuHFZfn7DOj3EKxwMKKkok4kiLppZWSGCjyr
- 4mYg==
+ b=f/KZKpyhGpIlCYaS0gA1BFPLtLDquMCzBHon0q9Bmi7kklpxFO944AWw6wWXYwoTV2
+ abxp21pEUKvbxpQqpBDyQjKINXOFQzATNRu9yBMX7gUdf1GoWBrYn9GDfgdmWQbtAxde
+ EtPT2ri4B7Yw5ZTDYvmCe1hg7Nkl6qKjUWmac4ljdkw65UCGw6bylaZ5OkrhKsDys94S
+ vzDJInG5O1ud1YgARAiuaMFIOquPZXTFmX3Psr0VoMtkGBu9HfwShCCZykTW8PoiqGqL
+ hPLFreJuzhQ/NIa611hTCoxu1MX1JyU+TZA4YZAEy/XKfMdF3QSBnMWGQ5y4M+7hCEvO
+ FrYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
  bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
- b=NTaIByDElRVvh+8dypQMQiXrt68QQKN9zwnQJZeUCdKkrc45F4kulz7UN9AFYpUhPu
- se2x1EeSNnIbu2IXRDUAO4v/8IwVu7LnWPir5Rj+ZPhXuCeu8e0K+AgtkNZ/eOlYFKsk
- EXRDJUrEKPBpVwVsL9/ItyRJ3rl64S7kWzoObqtpRgJJeO8iRVtm9crZ7jrZ4V4tlrW7
- 8emoFhK+GGYnOefBJAYD8GmoJmHC022kOd7gYtVx/hK0HCwLupUmI+ClFDgR604GR+Al
- eFzQT0HFyvxAuc7962rIeANNyGK96tq+hwqzEVXC7jn+szEDmDYgyxKcaqmm2XHLE7uW
- d1VQ==
-X-Gm-Message-State: AJIora8vydAvlMoFPzGsuTdYzCyPFeJmBVWniz9BamfrmP6XEI565PiF
- +Q7NIf5F6EzLFbhjUI1G+Nw=
-X-Google-Smtp-Source: AGRyM1stJcHA/jLNC9vrIZHBAb4b7QvvNW4O66h+ecSWwwuZvXQ0OmFQAfVn6fJUqy9UXP+zSpjQkQ==
-X-Received: by 2002:a05:6638:d86:b0:341:4ece:3c4 with SMTP id
- l6-20020a0566380d8600b003414ece03c4mr6832119jaj.235.1658126332277; 
- Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
+ b=7/bUfrI5nGXwXsbkJPwh+3wQgJikILqBEmOfbX1x8RERRnDN8DfaaA1s2BLqINPy8f
+ q+CHKwSiVwxCY/Ap/vEtQ+E9E2GDISrqZIIVtoxcoRqGOQA5eoqEydr88GVYfwUFiXQi
+ h7cGcNQ0qOb7TX2YuzRpip+k4yqnRXjIH6bs7Sx7d/pYCEKB7VjMCKSw9Wp/74YdIpMM
+ fPEc81qIEdiByDdgRJXAHHE2A6zAvuqbAyiatl6cf5oeVtAI1Y7Du2WW15eW1GFq2Z2A
+ 8ZX6o+wtNEKH29yrlO1dJpJELCA5gJLf+uO+d5WzSmzhCrcudBDDnkb2JUJMaOEzkbF/
+ rAgQ==
+X-Gm-Message-State: AJIora9KASmisN550xj2z8vj22BMWf4HVRl5jIfKOeoypqWRvnB1cwv1
+ RpsLN/W2ZjcaiW5aubo5x+g=
+X-Google-Smtp-Source: AGRyM1u6+hnoyE7imG9e2ZOpcRgHgd2HNWZPxpVx+PBcSJJrITFOH8rnfPuUCEJ5oQkifbtYcrb+Rw==
+X-Received: by 2002:a05:6638:3e9a:b0:33f:6b03:a298 with SMTP id
+ ch26-20020a0566383e9a00b0033f6b03a298mr13595183jab.150.1658126336226; 
+ Sun, 17 Jul 2022 23:38:56 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.51
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:51 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 26/39] drm_print: prefer bare printk KERN_DEBUG on generic
+Subject: [PATCH v3 27/41] drm_print: prefer bare printk KERN_DEBUG on generic
  fn
-Date: Mon, 18 Jul 2022 00:36:12 -0600
-Message-Id: <20220718063641.9179-29-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:15 -0600
+Message-Id: <20220718063641.9179-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
