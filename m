@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16FFC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09798C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:07:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CFE10F313;
-	Mon, 18 Jul 2022 19:02:55 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B4910F313
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:02:53 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id z23so23027540eju.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:02:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 828C910F86A;
+	Mon, 18 Jul 2022 19:07:44 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 691C010F851
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:07:43 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id ss3so23009407ejc.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=5eZUjMBlv+MHYtkWtM00Fh2DEyY+EQOvDm4200JOmkc=;
- b=QUNSfxy+Cb5amV/eOl1pSDwfWLs7tXgKRh9KTBSQ5AZzkYGjCQ0trWoeeOm+GhZFG2
- Yvpz7/c9SzxH/gtw+ckQjPwhHlPgyact+idm7tj5XUJnqHkWShCGnTgAXjxUrkI6m0Ca
- 5OOcm0KMZbRafk3RUCKmf7KoQDrvxxnYl6LvGaWh5wmoLFCuYwhHqDXk6RKdLksG8KQJ
- 9dTP6VARVBnWD83LHsQnizjFJQt0lJOY2FYrssWyDkLU4qWkwm+O/FIuXd6ktR8ibp10
- cZjeyZzlpWQ3fuhQz6sD90mtjLt9DsAdHAqeO9nsM0NXkRcgfT4MVHyLBHJNmmtmPiL0
- SieA==
+ bh=d1EsRYsrFcVhqYe4UO8ZXO5ahBBHcUfIDb3IMgr66Ww=;
+ b=IYWMUEl2BSZV6xQvtzRcNY0qngRJdMFUes9ugI+BerQqsM5fZKdDGB2xwuRKwpfGq8
+ iOH4V98s78W5N3OtOhjZDKkpY2QwHX6FdgSZBKT6PFXinZPORQLp9tq+2gNRpFg5t/KZ
+ IjM9S8Ao11YOHs3IQOI/YXTezsUT7HHKLdtg2XeZXT3SMcGGNthEveOEtERNLFcC4snx
+ QLJ3DC0vqvRyE5/ZTQmD0g7V//AoynVNiyTIubGWBZdjtCpqzQGJkc5EUSxxEfupK0ZJ
+ vEpTyEil24KJD1wVCVy+x7hg0CLzJ0Iq4wyUor1ZL9ZvUyBhfbADr+7qUeYRJ4PMt+C0
+ mU9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=5eZUjMBlv+MHYtkWtM00Fh2DEyY+EQOvDm4200JOmkc=;
- b=Cc+yiaGm4rABYrx1Sis6dSUccASbmwGhbUk7r213WNyQDeR+P9uEnIqGLT5FDxxWgy
- FOcHMAvDsJelSy1/3FgP9/OES8RraHQ6Z1iDql13aZ/t0WZnX8WAikAkeiZSE36pSAEc
- W1O4tVwTh09MHFGzKjmhkbRoStkB/MueUQ/HU0Yv5YxoEeL2lM57c5FuIAxmsETUUleq
- r6uoyj1B1Lq3tbMCRqVzBh7Tm+7VuJCDT58+gpBlbyL/S6NgpSPe54FZXGYVnc5ycGFs
- HZnOIMANP9mmd86LzbY6IKtaKttlQCr4X/hZh2UcPl9A3TtaGqjhYI+9vM/p/OVz32o+
- tLoA==
-X-Gm-Message-State: AJIora8a8GA/mmcp7MRVFr/N1WOqytfviHTpZmfP6bXldMOQwn5FODsV
- ht5eSOM/zZ7Z6odxBNWqj6E5FMN/CHhzLeM/qrE=
-X-Google-Smtp-Source: AGRyM1vb0994V4n0N4nVQ5zZ3Q+6sY9BLaheAKz+lLSpF84KnxgMo3VEQgstLOpF3Z9pm7TKpvgWJOla7v7oPlmIhaY=
-X-Received: by 2002:a17:906:9751:b0:72f:1b36:e1de with SMTP id
- o17-20020a170906975100b0072f1b36e1demr10911090ejy.451.1658170971881; Mon, 18
- Jul 2022 12:02:51 -0700 (PDT)
+ bh=d1EsRYsrFcVhqYe4UO8ZXO5ahBBHcUfIDb3IMgr66Ww=;
+ b=ETjqL4L12ZsyKWfUPmuMqQqhJO32nYGYeguHL78ljptQ8rbAZz/rNNaCJqG9ZMqveO
+ KSKpozbXXnvKBY+EiSso7mavme+yQkPsdnrQCFG5MX3oUQ3OCSEfc4acv02w38RQ81ia
+ OfJ9HFDbLqzkjhu1rkvsGVKd2KnUpdb8RRIz2InrXCaFhscUbU7AFFCdTQW53+1jeJyE
+ CL4aGK83OkCHEYcQVvK9/MUd9bcqWFoGgkiA7oiWzhyL3w9RlhB/3eDMhoJxPNuHHR+g
+ GvuZD2k92r713jPbdB6WGnjNl8Ux5T70UNQ/sxn7MWr3wAXc6ToAOCbNLVivcbclUisR
+ ZHdA==
+X-Gm-Message-State: AJIora9B2WxRsvgieJoPeeKeDPEQvmmohdCYbMiHM1KWUXujaNE2WXy5
+ z0G3Y6WgWHX8Ll/93M7k9p2DEcVxvlurAXeMjGA=
+X-Google-Smtp-Source: AGRyM1t9iiOJzTdQ5QsGPH8QnERUgZ9dLU+MGZoKziZttmoPDFnU6cxZsBdgcMSilSHpLxooQdnjL5v0Pm6EmHwzOu4=
+X-Received: by 2002:a17:907:2888:b0:72b:8f41:1405 with SMTP id
+ em8-20020a170907288800b0072b8f411405mr26111910ejc.564.1658171261957; Mon, 18
+ Jul 2022 12:07:41 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220714164507.561751-1-mairacanal@riseup.net>
- <20220714164507.561751-10-mairacanal@riseup.net>
-In-Reply-To: <20220714164507.561751-10-mairacanal@riseup.net>
+In-Reply-To: <20220714164507.561751-1-mairacanal@riseup.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Jul 2022 15:02:40 -0400
-Message-ID: <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
-Subject: Re: [PATCH 10/12] drm/amd/display: Remove parameters from
- dml30_CalculateWriteBackDISPCLK
+Date: Mon, 18 Jul 2022 15:07:30 -0400
+Message-ID: <CADnq5_NaOO0MNy=84U9GJboVziAakYNMt_qqWVxm6p2At+rzfg@mail.gmail.com>
+Subject: Re: [PATCH 01/12] drm/amdgpu: Write masked value to control register
 To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -81,110 +79,60 @@ Cc: Magali Lemes <magalilemes00@gmail.com>, Leo Li <sunpeng.li@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 14, 2022 at 12:46 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
+Applied.  Thanks!
+
+On Thu, Jul 14, 2022 at 12:45 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
 rote:
 >
-> The parameters WritebackPixelFormat and WritebackVRatio are removed as
-> they are not used on the function dml30_CalculateWriteBackDISPCLK.
-
-Maybe this is done for consistency with other dml code for other DCN blocks=
-?
-
-Alex
-
+> On the dce_v6_0 and dce_v8_0 hpd tear down callback, the tmp variable
+> should be written into the control register instead of 0.
 >
+> Fixes: b00861b9 ("drm/amd/amdgpu: port of DCE v6 to new headers (v3)")
+> Fixes: 2285b91c ("drm/amdgpu/dce8: simplify hpd code")
 > Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
 > ---
->  drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c        | 2 --
->  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c  | 6 ------
->  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h  | 2 --
->  3 files changed, 10 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drive=
-rs/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> index a8db1306750e..746bb93ade6c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> @@ -322,10 +322,8 @@ void dcn30_fpu_populate_dml_writeback_from_context(
->                                  * parameters per pipe
->                                  */
->                                 writeback_dispclk =3D dml30_CalculateWrit=
-eBackDISPCLK(
-> -                                               dout_wb.wb_pixel_format,
->                                                 pipes[pipe_cnt].pipe.dest=
-.pixel_rate_mhz,
->                                                 dout_wb.wb_hratio,
-> -                                               dout_wb.wb_vratio,
->                                                 dout_wb.wb_htaps_luma,
->                                                 dout_wb.wb_vtaps_luma,
->                                                 dout_wb.wb_src_width,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30=
-.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-> index 876b321b30ca..37049daaab4c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-> @@ -1938,10 +1938,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchPa=
-rametersWatermarksAndPerforman
->                 if (v->WritebackEnable[k]) {
->                         v->WritebackDISPCLK =3D dml_max(v->WritebackDISPC=
-LK,
->                                 dml30_CalculateWriteBackDISPCLK(
-> -                                               v->WritebackPixelFormat[k=
-],
->                                                 v->PixelClock[k],
->                                                 v->WritebackHRatio[k],
-> -                                               v->WritebackVRatio[k],
->                                                 v->WritebackHTaps[k],
->                                                 v->WritebackVTaps[k],
->                                                 v->WritebackSourceWidth[k=
-],
-> @@ -3284,10 +3282,8 @@ static double CalculateTWait(
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index f5a29526684d..0a7b1c002822 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -339,7 +339,7 @@ static void dce_v6_0_hpd_fini(struct amdgpu_device *a=
+dev)
 >
->  double dml30_CalculateWriteBackDISPCLK(
-> -               enum source_format_class WritebackPixelFormat,
->                 double PixelClock,
->                 double WritebackHRatio,
-> -               double WritebackVRatio,
->                 unsigned int WritebackHTaps,
->                 unsigned int WritebackVTaps,
->                 long   WritebackSourceWidth,
-> @@ -3794,10 +3790,8 @@ void dml30_ModeSupportAndSystemConfigurationFull(s=
-truct display_mode_lib *mode_l
->                 if (v->WritebackEnable[k] =3D=3D true) {
->                         v->WritebackRequiredDISPCLK =3D dml_max(v->Writeb=
-ackRequiredDISPCLK,
->                                         dml30_CalculateWriteBackDISPCLK(
-> -                                                       v->WritebackPixel=
-Format[k],
->                                                         v->PixelClock[k],
->                                                         v->WritebackHRati=
-o[k],
-> -                                                       v->WritebackVRati=
-o[k],
->                                                         v->WritebackHTaps=
-[k],
->                                                         v->WritebackVTaps=
-[k],
->                                                         v->WritebackSourc=
-eWidth[k],
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30=
-.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
-> index daaf0883b84d..12c070434eee 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
-> @@ -29,10 +29,8 @@
->  void dml30_recalculate(struct display_mode_lib *mode_lib);
->  void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib=
- *mode_lib);
->  double dml30_CalculateWriteBackDISPCLK(
-> -               enum source_format_class WritebackPixelFormat,
->                 double PixelClock,
->                 double WritebackHRatio,
-> -               double WritebackVRatio,
->                 unsigned int WritebackHTaps,
->                 unsigned int WritebackVTaps,
->                 long   WritebackSourceWidth,
+>                 tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
+nector->hpd.hpd]);
+>                 tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
+> -               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], 0);
+> +               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], tmp);
+>
+>                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
+d.hpd);
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index 780a8aa972fe..f57f4a25cf5a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -333,7 +333,7 @@ static void dce_v8_0_hpd_fini(struct amdgpu_device *a=
+dev)
+>
+>                 tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
+nector->hpd.hpd]);
+>                 tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
+> -               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], 0);
+> +               WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], tmp);
+>
+>                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
+d.hpd);
+>         }
 > --
 > 2.36.1
 >
