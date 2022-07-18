@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F2A5C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E11CCA479
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFB7A9E1D;
-	Mon, 18 Jul 2022 06:40:04 +0000 (UTC)
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E396FA9D1D;
- Mon, 18 Jul 2022 06:39:17 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id u20so8542287iob.8;
- Sun, 17 Jul 2022 23:39:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E16A9E56;
+	Mon, 18 Jul 2022 06:40:15 +0000 (UTC)
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0576A9D1D;
+ Mon, 18 Jul 2022 06:39:28 +0000 (UTC)
+Received: by mail-il1-x129.google.com with SMTP id w16so5094794ilh.0;
+ Sun, 17 Jul 2022 23:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=xVymCjFaAr/5yeRejIIRfFKQFL+urAeap4IneZPJK3A=;
- b=TZCDaB/E1h9K6V+1wRwZrPHB6yR8ieopMbhU0T72lThsFAorfY+23F9+tGu8yfBBLG
- CB/pEf86R/I+mKVIfww3I7HoY72HkIHEIUjxzIUMb+cTPhCiy01wt+QmcYy7ikcQeLDq
- dNXXYRmXZ1yQDh6cVokV2A2U4YVXHSk1oztnHAiBL9CsDPG2auXRIflERhaQOn4rrw2q
- 246lJ7ilPT8u5QwNI7BocOiJZDUD0tFz3V+JTUY4psFiYEnMCrG1cQkl/74h/U6J5V5I
- 2TE2XsHC7tE2eSHjyyNwjBr9kt/VTauE0Ath6eKU4X+skaERHpHuP74EGJU3hOhxo1K6
- GU/Q==
+ bh=CRaYOM5N2Fpgdluj7apd1mQHejWq3ClMMzk6PiyYq0c=;
+ b=UCp4LmmEli9JSGOZxhB+PM6vmpQEpN6oEdrOeADstttiSDeNCDeesOLbEgY+HgKEcc
+ Ytrg4CFkytA2c1O8ReqEolNJk13C608JyU35ae6lRYSh4nvoPFcodaaMPZUthZ6OrSZz
+ WkeFIhr5Zh3eAJdDXN0cCyoVU6GwhWcm5wm4OhGJsDfc6lcmf1ecnvRGaLD5UOeGauHA
+ CZtM5FbUMdDjhQhaB5hlsjsBTW7T8k8w/Mw/jcghIFG7TMTztxEsyGMOOzlR4umW90IY
+ +3ku1plLnAUO+mJASLB5XuEoFIS8IivKKHXBKqXJ0M/3OVAe4A6PD5++8hnxCichZO/D
+ T51A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=xVymCjFaAr/5yeRejIIRfFKQFL+urAeap4IneZPJK3A=;
- b=pzl/L1mSksTqOZ1BU5EcGk5ay4utTXk+L2qX52AX0a0ZAPNF4LU91PMr0W07j0uiJj
- nOrG6eDlyPTMpuVR8xPnSf3AZspehI52tRmQUj5s51SUrSMsxh7NTkBM7oq/0ix92nbK
- LnI/RwypwFkzYNRcU0Qqu05JuoV2VF6yhDoKRJqLTXNpWFQyXbdldhSituMt6KpnX64+
- N+m34F/Y1VOsmHzi+uB7Y/N5c9dBM8MPbULrDCJS1nQhqjZKbfZaEB9gNYGJ7sSWDx6I
- rZ2YwHznS5+7R6DaRRzWRvlU+Z7YIKg1XgokIa0/79I233dn+bjLTxCJpkjbdYuqn0Gg
- 7X9w==
-X-Gm-Message-State: AJIora/2bZ78ff0sEnCXidJne8oZtHT03eWeWteCmna/Nm8S4u5RddOs
- m7eLSvI1B21Gq0VM7hZsNJ4=
-X-Google-Smtp-Source: AGRyM1tXakblIq58YCRuai1nPvzJ40KwVPWjcdd4TIg0HGtwQ6OJxwnGo5QJ8AqhvgWqnmtPxVmErw==
-X-Received: by 2002:a05:6638:3d0a:b0:33f:5368:a95f with SMTP id
- cl10-20020a0566383d0a00b0033f5368a95fmr13546280jab.123.1658126357146; 
- Sun, 17 Jul 2022 23:39:17 -0700 (PDT)
+ bh=CRaYOM5N2Fpgdluj7apd1mQHejWq3ClMMzk6PiyYq0c=;
+ b=MDxM0O5VxTtOK7esEkW8h2KgIjt++OHfTlMKaj0GCM7k5Qrq7SbQkjV/uWpLIThskB
+ aOc2uoingqiRp4WPmkTvUveza6Fb0nyAjHcBraQFCQ+H7O44hOeorU/HWYGUUCsYmbQj
+ 4bbqGHM11zO/9h5gZ48FahfUM/VYT4byYqPNbjjRunpHt57Q5gAWYyxsBO0d9GN1iqnj
+ liTn4IMfLhc9JVVng7PTBRKTUN56eshic9OQTTc4Ka9HtP7nlXY3WigiD/Dzxtg9D/2L
+ qVOZrh/hDqouru1O/slonX6xoD8e57H3+/q0dywr3ECAxvcDBIs1vHlK0aXdo8Fjd5GP
+ KmOw==
+X-Gm-Message-State: AJIora8AqbXIw2YIX7ZRepgHZqaEKUBOBQ1rJOkBKtTV+Qs+vpN6nsHv
+ mi2XtTEOpXNBwjqx9/VmHgI=
+X-Google-Smtp-Source: AGRyM1uk7CbZyzjhZdLeyISwfXvc3vTUVD1FONDcjDrIlsIzJfD1mIwVx8r5I4nBchvhmmhMH2B+Cw==
+X-Received: by 2002:a92:c247:0:b0:2dc:8467:170c with SMTP id
+ k7-20020a92c247000000b002dc8467170cmr12283048ilo.225.1658126367871; 
+ Sun, 17 Jul 2022 23:39:27 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.16
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:16 -0700 (PDT)
+ Sun, 17 Jul 2022 23:39:27 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 35/41] dyndbg: add 2 more trace-events: pr_debug, dev_dbg
-Date: Mon, 18 Jul 2022 00:36:30 -0600
-Message-Id: <20220718063641.9179-47-jim.cromie@gmail.com>
+Subject: [PATCH v3 39/41] nouveau-dbg: add 2 verbose-classmaps for CLI, SUBDEV
+Date: Mon, 18 Jul 2022 00:36:38 -0600
+Message-Id: <20220718063641.9179-55-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -74,321 +74,158 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ddebug_trace() currently issues a single printk:console event.
-Replace that, adding include/trace/events/dyndbg.h, which defines 2
-new events:
+nouveau has additional debug variables to consider:
 
-- dyndbg:prdbg  - from trace_prdbg()  - if !dev
-- dyndbg:devdbg - from trace_devdbg() - if !!dev
+drivers/gpu/drm/nouveau/include/nvkm/core/device.h
+131:	if (_device->debug >= (l))                                             \
 
-This links the legacy pr_debug API to tracefs, via dyndbg, allowing
-pr_debug()s etc to add just a little more user-context to the
-trace-logs, and then at users option, less syslog.
+drivers/gpu/drm/nouveau/include/nvkm/core/client.h
+39:	if (_client->debug >= NV_DBG_##l)                                      \
 
-The 2 new trace_*() calls accept their caller's args respectively,
-keeping the available info w/o alteration; we can't improve on
-full disclosure.  The args:
+drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+54:	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))              \
 
- 1- struct _ddebug *descriptor, giving tracefs all of dyndbg's info.
-    this replaces flags, which is in desc
- 2- struct device *dev, used by trace_devdbg(), if !!dev
+This is another baby-step, that seems not to break, so lets get a
+snapshot.
 
-The trace_*() calls need the descriptor arg, the prototypes of the
-callchain above them are extended to provide it.
+whats done here:
 
-dev_dbg(desc, dev...), if dev is true, issues a trace_devdbg(),
-otherwise trace_prdbg().  This way we don't consume buffer space
-storing nulls.  Otherwise the events are equivalent.
+In nouveau_drm.c, declare class-names: NV_CLI_DBG_* NV_SUBDEV_DBG_* by
+calling DECLARE_DYNDBG_CLASSMAP(verbose-type) 2x more, right after the
+drm DECLARE, for cli and subdev.  Adjust base to 10,15, to avoid 0-10
+allocated subsystem-wide for drm.debug.  This shares the 0..30
+classid-space.
+
+In nvkm/core/debug.h, add enums to match the names, with initial
+values to match the bases.
+
+In nvkm/core/subdev.h, alter (recently added) nvkm_drmdbg_() to use
+NV_SUBDEV_DBG_* instead of NV_DBG_*.  Note: this is undone next,
+because base != CONFIG_NOUVEAU_DEBUG.
+
+NOTES:
+
+class-name-space is flat and wide, so super-generic names like INFO
+should be prefixed; who could predict what a generic "V1" does across
+all modules.
+
+A sub-system prefix, such as "DRM_UT_" could be considered a working
+shorthand for module "foo,bar,buzz" (which wouldnt work), but it adds
+a layer of authors-judgment in the classifications.
+
+In both classmaps, Ive left FATAL..WARN out, they're not really
+optional the way INFO..SPAM are; even if they were defaulted to on,
+dyndbg shouldn't be able to turn them off.
+
+bash-5.1# modprobe nouveau
+[  966.107833] dyndbg:   3 debug prints in module wmi
+[  966.342188] dyndbg: class[0]: module:nouveau base:15 len:5 ty:1
+[  966.342873] dyndbg:  15: 0 NV_SUBDEV_DBG_OFF
+[  966.343352] dyndbg:  16: 1 NV_SUBDEV_DBG_INFO
+[  966.343912] dyndbg:  17: 2 NV_SUBDEV_DBG_DEBUG
+[  966.344443] dyndbg:  18: 3 NV_SUBDEV_DBG_TRACE
+[  966.344938] dyndbg:  19: 4 NV_SUBDEV_DBG_SPAM
+[  966.345402] dyndbg: class[1]: module:nouveau base:10 len:5 ty:1
+[  966.346011] dyndbg:  10: 0 NV_CLI_DBG_OFF
+[  966.346477] dyndbg:  11: 1 NV_CLI_DBG_INFO
+[  966.346989] dyndbg:  12: 2 NV_CLI_DBG_DEBUG
+[  966.347442] dyndbg:  13: 3 NV_CLI_DBG_TRACE
+[  966.347875] dyndbg:  14: 4 NV_CLI_DBG_SPAM
+[  966.348284] dyndbg: class[2]: module:nouveau base:0 len:10 ty:0
+[  966.348888] dyndbg:  0: 0 DRM_UT_CORE
+[  966.349310] dyndbg:  1: 1 DRM_UT_DRIVER
+[  966.349694] dyndbg:  2: 2 DRM_UT_KMS
+[  966.350083] dyndbg:  3: 3 DRM_UT_PRIME
+[  966.350482] dyndbg:  4: 4 DRM_UT_ATOMIC
+[  966.351016] dyndbg:  5: 5 DRM_UT_VBL
+[  966.351475] dyndbg:  6: 6 DRM_UT_STATE
+[  966.351899] dyndbg:  7: 7 DRM_UT_LEASE
+[  966.352309] dyndbg:  8: 8 DRM_UT_DP
+[  966.352678] dyndbg:  9: 9 DRM_UT_DRMRES
+[  966.353104] dyndbg: module:nouveau attached 3 classes
+[  966.353759] dyndbg: 119 debug prints in module nouveau
+
+NOTE: it was 632 with previous commit, switching NV_DEBUG to use
+NV_SUBDEV_DBG_DEBUG instead of NV_DBG_DEBUG is the cause.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/trace/events/dyndbg.h | 74 +++++++++++++++++++++++++++++++++++
- lib/dynamic_debug.c           | 73 +++++++++++++++++-----------------
- 2 files changed, 111 insertions(+), 36 deletions(-)
- create mode 100644 include/trace/events/dyndbg.h
+ .../gpu/drm/nouveau/include/nvkm/core/debug.h    | 16 ++++++++++++++++
+ .../gpu/drm/nouveau/include/nvkm/core/subdev.h   |  3 ++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c            | 14 ++++++++++++++
+ 3 files changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/include/trace/events/dyndbg.h b/include/trace/events/dyndbg.h
-new file mode 100644
-index 000000000000..e19fcb56566c
---- /dev/null
-+++ b/include/trace/events/dyndbg.h
-@@ -0,0 +1,74 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM dyndbg
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
+index b4a9c7d991ca..6a155a23a3d1 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
+@@ -9,4 +9,20 @@
+ #define NV_DBG_TRACE    5
+ #define NV_DBG_PARANOIA 6
+ #define NV_DBG_SPAM     7
 +
-+#if !defined(_TRACE_DYNDBG_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_DYNDBG_H
++enum nv_cli_dbg_verbose {
++	NV_CLI_DBG_OFF = 10,
++	NV_CLI_DBG_INFO,
++	NV_CLI_DBG_DEBUG,
++	NV_CLI_DBG_TRACE,
++	NV_CLI_DBG_SPAM
++};
++enum nv_subdev_dbg_verbose {
++	NV_SUBDEV_DBG_OFF = 15,
++	NV_SUBDEV_DBG_INFO,
++	NV_SUBDEV_DBG_DEBUG,
++	NV_SUBDEV_DBG_TRACE,
++	NV_SUBDEV_DBG_SPAM
++};
 +
-+#include <linux/tracepoint.h>
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+index b9c2afab321f..bf9c69f4fc3e 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+@@ -2,6 +2,7 @@
+ #ifndef __NVKM_SUBDEV_H__
+ #define __NVKM_SUBDEV_H__
+ #include <core/device.h>
++#include <core/debug.h>
+ 
+ enum nvkm_subdev_type {
+ #define NVKM_LAYOUT_ONCE(t,s,p,...) t,
+@@ -65,7 +66,7 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
+ 	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))	\
+ 		dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
+ } while(0)
+-#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_DBG_##l, dbg, f, ##a)
++#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_SUBDEV_DBG_##l, dbg, f, ##a)
+ #define nvkm_debug(s,f,a...) nvkm_drmdbg_((s), DEBUG, f, ##a)
+ #define nvkm_trace(s,f,a...) nvkm_drmdbg_((s), TRACE, f, ##a)
+ #define nvkm_spam(s,f,a...)  nvkm_drmdbg_((s),  SPAM, f, ##a)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 76e3a8d50b01..85b63b527877 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -83,6 +83,20 @@ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
+ 			"DRM_UT_DP",
+ 			"DRM_UT_DRMRES");
+ 
++DECLARE_DYNDBG_CLASSMAP(nv_cli_debug_verbose, DD_CLASS_TYPE_VERBOSE, 10,
++			"NV_CLI_DBG_OFF",
++			"NV_CLI_DBG_INFO",
++			"NV_CLI_DBG_DEBUG",
++			"NV_CLI_DBG_TRACE",
++			"NV_CLI_DBG_SPAM");
 +
-+/* capture pr_debug() callsite descriptor and message */
-+TRACE_EVENT(prdbg,
-+	    TP_PROTO(const struct _ddebug *desc, const char *text, size_t len),
++DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
++			"NV_SUBDEV_DBG_OFF",
++			"NV_SUBDEV_DBG_INFO",
++			"NV_SUBDEV_DBG_DEBUG",
++			"NV_SUBDEV_DBG_TRACE",
++			"NV_SUBDEV_DBG_SPAM");
 +
-+	    TP_ARGS(desc, text, len),
-+
-+	    TP_STRUCT__entry(
-+		    __field(const struct _ddebug *, desc)
-+		    __dynamic_array(char, msg, len + 1)
-+		    ),
-+
-+	    TP_fast_assign(
-+		    __entry->desc = desc;
-+		    /*
-+		     * Each trace entry is printed in a new line.
-+		     * If the msg finishes with '\n', cut it off
-+		     * to avoid blank lines in the trace.
-+		     */
-+		    if (len > 0 && (text[len - 1] == '\n'))
-+			    len -= 1;
-+
-+		    memcpy(__get_str(msg), text, len);
-+		    __get_str(msg)[len] = 0;
-+		    ),
-+
-+	    TP_printk("%s.%s %s", __entry->desc->modname,
-+		      __entry->desc->function, __get_str(msg))
-+);
-+
-+/* capture dev_dbg() callsite descriptor, device, and message */
-+TRACE_EVENT(devdbg,
-+	    TP_PROTO(const struct _ddebug *desc, const struct device *dev,
-+		     const char *text, size_t len),
-+
-+	    TP_ARGS(desc, dev, text, len),
-+
-+	    TP_STRUCT__entry(
-+		    __field(const struct _ddebug *, desc)
-+		    __field(const struct device *, dev)
-+		    __dynamic_array(char, msg, len + 1)
-+		    ),
-+
-+	    TP_fast_assign(
-+		    __entry->desc = desc;
-+		    __entry->dev = (struct device *) dev;
-+		    /*
-+		     * Each trace entry is printed in a new line.
-+		     * If the msg finishes with '\n', cut it off
-+		     * to avoid blank lines in the trace.
-+		     */
-+		    if (len > 0 && (text[len - 1] == '\n'))
-+			    len -= 1;
-+
-+		    memcpy(__get_str(msg), text, len);
-+		    __get_str(msg)[len] = 0;
-+		    ),
-+
-+	    TP_printk("%s.%s %s", __entry->desc->modname,
-+		      __entry->desc->function, __get_str(msg))
-+);
-+
-+#endif /* _TRACE_DYNDBG_H */
-+
-+/* This part must be outside protection */
-+#include <trace/define_trace.h>
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 66f12b9127c7..e000d037cb2e 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -36,7 +36,9 @@
- #include <linux/sched.h>
- #include <linux/device.h>
- #include <linux/netdevice.h>
--#include <trace/events/printk.h>
-+
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/dyndbg.h>
- 
- #include <rdma/ib_verbs.h>
- 
-@@ -855,7 +857,9 @@ struct ddebug_trace_bufs {
- static DEFINE_PER_CPU(struct ddebug_trace_bufs, ddebug_trace_bufs);
- static DEFINE_PER_CPU(int, ddebug_trace_reserve);
- 
--static void ddebug_trace(const char *fmt, va_list args)
-+__printf(3, 0)
-+static void ddebug_trace(struct _ddebug *desc, const struct device *dev,
-+			 const char *fmt, va_list args)
- {
- 	struct ddebug_trace_buf *buf;
- 	int bufidx;
-@@ -874,7 +878,11 @@ static void ddebug_trace(const char *fmt, va_list args)
- 	buf = this_cpu_ptr(ddebug_trace_bufs.bufs) + bufidx;
- 
- 	len = vscnprintf(buf->buf, sizeof(buf->buf), fmt, args);
--	trace_console(buf->buf, len);
-+
-+	if (!dev)
-+		trace_prdbg(desc, buf->buf, len);
-+	else
-+		trace_devdbg(desc, dev, buf->buf, len);
- 
- out:
- 	/* As above. */
-@@ -884,9 +892,9 @@ static void ddebug_trace(const char *fmt, va_list args)
- }
- 
- __printf(2, 3)
--static void ddebug_printk(unsigned int flags, const char *fmt, ...)
-+static void ddebug_printk(struct _ddebug *desc, const char *fmt, ...)
- {
--	if (flags & _DPRINTK_FLAGS_TRACE) {
-+	if (desc->flags & _DPRINTK_FLAGS_TRACE) {
- 		va_list args;
- 
- 		va_start(args, fmt);
-@@ -894,11 +902,11 @@ static void ddebug_printk(unsigned int flags, const char *fmt, ...)
- 		 * All callers include the KERN_DEBUG prefix to keep the
- 		 * vprintk case simple; strip it out for tracing.
- 		 */
--		ddebug_trace(fmt + strlen(KERN_DEBUG), args);
-+		ddebug_trace(desc, NULL, fmt + strlen(KERN_DEBUG), args);
- 		va_end(args);
- 	}
- 
--	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+	if (desc->flags & _DPRINTK_FLAGS_PRINTK) {
- 		va_list args;
- 
- 		va_start(args, fmt);
-@@ -908,19 +916,19 @@ static void ddebug_printk(unsigned int flags, const char *fmt, ...)
- }
- 
- __printf(3, 4)
--static void ddebug_dev_printk(unsigned int flags, const struct device *dev,
-+static void ddebug_dev_printk(struct _ddebug *desc, const struct device *dev,
- 			      const char *fmt, ...)
- {
- 
--	if (flags & _DPRINTK_FLAGS_TRACE) {
-+	if (desc->flags & _DPRINTK_FLAGS_TRACE) {
- 		va_list args;
- 
- 		va_start(args, fmt);
--		ddebug_trace(fmt, args);
-+		ddebug_trace(desc, dev, fmt, args);
- 		va_end(args);
- 	}
- 
--	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+	if (desc->flags & _DPRINTK_FLAGS_PRINTK) {
- 		va_list args;
- 
- 		va_start(args, fmt);
-@@ -943,7 +951,7 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 
--	ddebug_printk(descriptor->flags, KERN_DEBUG "%s%pV",
-+	ddebug_printk(descriptor, KERN_DEBUG "%s%pV",
- 		      dynamic_emit_prefix(descriptor, buf), &vaf);
- 
- 	va_end(args);
-@@ -954,7 +962,6 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- 		       const struct device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
--	unsigned int flags;
- 	va_list args;
- 
- 	BUG_ON(!descriptor);
-@@ -964,15 +971,14 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
--	flags = descriptor->flags;
- 
- 	if (!dev) {
--		ddebug_printk(flags, KERN_DEBUG "(NULL device *): %pV",
--			      &vaf);
-+		ddebug_printk(descriptor, KERN_DEBUG "(NULL device *): %pV",
-+			       &vaf);
- 	} else {
- 		char buf[PREFIX_SIZE] = "";
- 
--		ddebug_dev_printk(flags, dev, "%s%s %s: %pV",
-+		ddebug_dev_printk(descriptor, dev, "%s%s %s: %pV",
- 				  dynamic_emit_prefix(descriptor, buf),
- 				  dev_driver_string(dev), dev_name(dev),
- 				  &vaf);
-@@ -988,7 +994,6 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 			  const struct net_device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
--	unsigned int flags;
- 	va_list args;
- 
- 	BUG_ON(!descriptor);
-@@ -998,24 +1003,22 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
--	flags = descriptor->flags;
- 
- 	if (dev && dev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		ddebug_dev_printk(flags, dev->dev.parent,
--				   "%s%s %s %s%s: %pV",
--				   dynamic_emit_prefix(descriptor, buf),
--				   dev_driver_string(dev->dev.parent),
--				   dev_name(dev->dev.parent),
--				   netdev_name(dev), netdev_reg_state(dev),
--				   &vaf);
-+		ddebug_dev_printk(descriptor, dev->dev.parent,
-+				  "%s%s %s %s%s: %pV",
-+				  dynamic_emit_prefix(descriptor, buf),
-+				  dev_driver_string(dev->dev.parent),
-+				  dev_name(dev->dev.parent),
-+				  netdev_name(dev), netdev_reg_state(dev),
-+				  &vaf);
- 	} else if (dev) {
--		ddebug_printk(flags, KERN_DEBUG "%s%s: %pV",
--			       netdev_name(dev), netdev_reg_state(dev), &vaf);
-+		ddebug_dev_printk(descriptor, &dev->dev, KERN_DEBUG "%s%s: %pV",
-+				  netdev_name(dev), netdev_reg_state(dev), &vaf);
- 	} else {
--		ddebug_printk(flags, KERN_DEBUG "(NULL net_device): %pV",
--			       &vaf);
-+		ddebug_printk(descriptor, KERN_DEBUG "(NULL net_device): %pV", &vaf);
- 	}
- 
- 	va_end(args);
-@@ -1031,18 +1034,16 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- {
- 	struct va_format vaf;
- 	va_list args;
--	unsigned int flags;
- 
- 	va_start(args, fmt);
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
--	flags = descriptor->flags;
- 
- 	if (ibdev && ibdev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		ddebug_dev_printk(flags, ibdev->dev.parent,
-+		ddebug_dev_printk(descriptor, ibdev->dev.parent,
- 				  "%s%s %s %s: %pV",
- 				  dynamic_emit_prefix(descriptor, buf),
- 				  dev_driver_string(ibdev->dev.parent),
-@@ -1050,10 +1051,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 				  dev_name(&ibdev->dev),
- 				  &vaf);
- 	} else if (ibdev) {
--		ddebug_printk(flags, KERN_DEBUG "%s: %pV",
--			      dev_name(&ibdev->dev), &vaf);
-+		ddebug_dev_printk(descriptor, &ibdev->dev, KERN_DEBUG "%s: %pV",
-+				  dev_name(&ibdev->dev), &vaf);
- 	} else {
--		ddebug_printk(flags, KERN_DEBUG "(NULL ip_device): %pV", &vaf);
-+		ddebug_printk(descriptor, KERN_DEBUG "(NULL ip_device): %pV", &vaf);
- 	}
- 
- 	va_end(args);
+ MODULE_PARM_DESC(config, "option string to pass to driver core");
+ static char *nouveau_config;
+ module_param_named(config, nouveau_config, charp, 0400);
 -- 
 2.36.1
 
