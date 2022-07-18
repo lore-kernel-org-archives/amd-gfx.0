@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9289FC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78B0C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31E7A9D1C;
-	Mon, 18 Jul 2022 06:38:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBC45A9D13;
+	Mon, 18 Jul 2022 06:38:55 +0000 (UTC)
 Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
  [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C86F9A9C7E;
- Mon, 18 Jul 2022 06:38:34 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id l24so8516815ion.13;
- Sun, 17 Jul 2022 23:38:34 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5F5A9C7E;
+ Mon, 18 Jul 2022 06:38:42 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id l24so8516952ion.13;
+ Sun, 17 Jul 2022 23:38:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
- b=FxC846ClQVIi+f6PMtM9tRIoxL3e5paGcXhJwJWz/sjH6UiqFgNZ6DhU/PxJJacxqx
- oU8iwKjYgieiVTqtM856BZ+6MM7e4Ed1F04bSOTM+mxMGrKLFu3melGweyMyyOlS6IHS
- ABAjwrdrOV1BKjkLVt7T/mXqHF9FqY/3pfxFXHLc+1iQfRQAc6tmfaKGHOZATyrQBA8R
- ohxIBPzm3Iix72eObA6EqHH6bXAIsQcUjHe0thBhtJTIHkEUcYDqAI/IOSlXNd8C+LkF
- dbFjWYJ7h+uk6N+EJnlkFMJyCCpJGvTOGYoLSEalz9C73MdI9BuSU5BcnVX8qQP6M9eT
- rKoQ==
+ bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
+ b=NlKJ0Al3ag1Jhf0hGu4Wm6GEDW0U1Ctt/erztLWJUbl7b7LDLTqnHoH6wqsOcxzIX1
+ YRdvbHGjWWcnDQngq4Okk42W4NP9m9LG0bE7hvlhdJto2ks2jY0dOsux8k6iiK2ugimu
+ fg+BJ/bsqS6F7NrVGgKaxT+Karyf+C6lq3ezf/hzijUIfcsCnmPL20OJNfJn5cEqYm5s
+ zWZi2A356x1RQ4MHZg3p8yVKXIwIwRmMoIDko2jQIX/HZ/HEitlxwuVu/L1UwHGpD5Uj
+ wbpA1MkfNIW5fQVwsf4S7tY9bNeAyzMulRAezSPpmtmPkrPGIhURnsql9u4qmQuayE35
+ nhZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
- b=00FAAdFKpZ0KAsvAXM2m3kZidjSlroqKIMwHB0+Pd1Zx0JTCijqq0i8nvYTOcuLLmo
- G9mwWzvy6U/X+AsFPIdkLeJa38UwlG/7mh2Uwcolk5YuzoSnoXfuD3EimiGh8VEooLaL
- PcfqermpnWHCBW93Pc1sQLVJh+CVPQUQMb4wwmzsOZKcupjbnes78ftVTVTkB+3BfpTj
- GlIcyE52nVbh5oIW2/CeA54a8j2Rdv1qAQLEtN35xeWxyELlkSagyVj2Njd1i1Og2UqE
- GFxhPp7cXETZKNB2cxzBxcQA93jD3YWXcc6nejdIuE8vC4hpQIp2sfNtXjG3kWRF5et3
- E4TQ==
-X-Gm-Message-State: AJIora8EwmHk9/0REJWAJZUvIZuyERc/u3UbFgsNpwAJeMXgvWz0hIV0
- 3ilzJ+PWK7cK7tVHL1Hmrds=
-X-Google-Smtp-Source: AGRyM1sja1SHJIrCETpqnn0UQIv8wyl5xm/spjHbsIPj6nJIEkLF/62jjUUyRgNuCfdmCdhRCzdtlw==
-X-Received: by 2002:a05:6638:1616:b0:341:6400:cccb with SMTP id
- x22-20020a056638161600b003416400cccbmr3871449jas.299.1658126314053; 
- Sun, 17 Jul 2022 23:38:34 -0700 (PDT)
+ bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
+ b=pQBYaf4glkS6mQ+L5WIOZ6chrBtgLIpLkNx2MFyIPpvnzgO868FwOwoTq8Uwslk8dm
+ LZH/YSgHr7E9jlU80C/LAzY/NkONCt2Vmf+SY8bS+KMYK5WVO92XR2+h/YiUzsyB6xt8
+ 21vXhw2ZE6T6SGXd83Iq/ehLPCbLulqeNCI+vyfUxYrBZWlQZFSKDSTJ7Uc/qsy5U4aQ
+ /XATVkJH5An+cceIZwIqv5cRR6gpxJq+zw9JxQHGbSV+1QGkbUG60grthvVsicYhWuqO
+ mxWAZ7qJ/gxxNqfCjFjMBPWNUML/NCOuPh4Ou5/6THWKT5AUt2iE03ZiqdXGmk8KDCXl
+ Pr7w==
+X-Gm-Message-State: AJIora+9y1PGv6KEhbPw1/zXrDDLPvqRybqLFJDA+4O3Rjq+pNikLY62
+ HYEeq6EulP8+8aYYROQN68E=
+X-Google-Smtp-Source: AGRyM1s8PQQUfjkEGsIYa/DQ21W8eXDUCQjydh5hQU7h/oaZBUdlotSDP9kAURVOWDQPuLcVgtmOsQ==
+X-Received: by 2002:a5d:950f:0:b0:672:4199:45c2 with SMTP id
+ d15-20020a5d950f000000b00672419945c2mr11981349iom.161.1658126321753; 
+ Sun, 17 Jul 2022 23:38:41 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.32
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:33 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 14/41] dyndbg: add ddebug_attach_module_classes
-Date: Mon, 18 Jul 2022 00:35:58 -0600
-Message-Id: <20220718063641.9179-15-jim.cromie@gmail.com>
+Subject: [PATCH v3 20/41] drm_print: condense enum drm_debug_category
+Date: Mon, 18 Jul 2022 00:36:04 -0600
+Message-Id: <20220718063641.9179-21-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -74,99 +74,92 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ddebug_attach_module_classes(), call it from ddebug_add_module().
-It scans the classes/section its given, finds records where the
-module-name matches the module being added, and adds them to the
-module's maps list.  No locking here, since the record
-isn't yet linked into the ddebug_tables list.
+enum drm_debug_category has 10 categories, but is initialized with
+bitmasks which require 10 bits of underlying storage.  By using
+natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
+the enum fits in 4 bits, allowing the category to be represented
+directly in pr_debug callsites, via the ddebug.class_id field.
 
-It is called indirectly from 2 sources:
+While this slightly pessimizes the bit-test in drm_debug_enabled(),
+using dyndbg with JUMP_LABEL will avoid the function entirely.
 
- - from load_module(), where it scans the module's __dyndbg_classes
-   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
-   the module.
+NOTE: this change forecloses the possibility of doing:
 
- - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
-   definitions of each builtin module have been packed together.
-   This is why ddebug_attach_module_classes() checks module-name.
+  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
 
-RFC:
-
-Its (highly) likely that builtin classes will be ordered by module
-name (just like prdbg descriptors are in the __dyndbg section).  So
-the list can be replaced by a vector (ptr + length), which will work
-for loaded modules too.  This would imitate whats currently done for
-the _ddebug descriptors.
-
-That said, converting to vector,len is close to pointless; a small
-minority of modules will ever define a class-map, and almost all of
-them will have only 1 or 2 class-maps, so theres only a couple dozen
-pointers to save.
+but thats already strongly implied by the use of the enum itself; its
+not a normal enum if it can be 2 values simultaneously.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 34 +++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+ include/drm/drm_print.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b6d80ba25bf5..e29730686cfb 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link;
-+	struct list_head link, maps;
- 	const char *mod_name;
- 	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 22fabdeed297..b3b470440e46 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -279,49 +279,49 @@ enum drm_debug_category {
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
+ 	 */
+-	DRM_UT_CORE		= 0x01,
++	DRM_UT_CORE,
+ 	/**
+ 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
+ 	 * radeon, ... macro.
+ 	 */
+-	DRM_UT_DRIVER		= 0x02,
++	DRM_UT_DRIVER,
+ 	/**
+ 	 * @DRM_UT_KMS: Used in the modesetting code.
+ 	 */
+-	DRM_UT_KMS		= 0x04,
++	DRM_UT_KMS,
+ 	/**
+ 	 * @DRM_UT_PRIME: Used in the prime code.
+ 	 */
+-	DRM_UT_PRIME		= 0x08,
++	DRM_UT_PRIME,
+ 	/**
+ 	 * @DRM_UT_ATOMIC: Used in the atomic code.
+ 	 */
+-	DRM_UT_ATOMIC		= 0x10,
++	DRM_UT_ATOMIC,
+ 	/**
+ 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+ 	 */
+-	DRM_UT_VBL		= 0x20,
++	DRM_UT_VBL,
+ 	/**
+ 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+ 	 */
+-	DRM_UT_STATE		= 0x40,
++	DRM_UT_STATE,
+ 	/**
+ 	 * @DRM_UT_LEASE: Used in the lease code.
+ 	 */
+-	DRM_UT_LEASE		= 0x80,
++	DRM_UT_LEASE,
+ 	/**
+ 	 * @DRM_UT_DP: Used in the DP code.
+ 	 */
+-	DRM_UT_DP		= 0x100,
++	DRM_UT_DP,
+ 	/**
+ 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+ 	 */
+-	DRM_UT_DRMRES		= 0x200,
++	DRM_UT_DRMRES
  };
  
-+static void ddebug_attach_module_classes(struct ddebug_table *dt,
-+					 struct ddebug_class_map *classes,
-+					 int num_classes)
-+{
-+	struct ddebug_class_map *cm;
-+	int i, j, ct = 0;
-+
-+	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+
-+		if (!strcmp(cm->mod_name, dt->mod_name)) {
-+
-+			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
-+				  cm->mod_name, cm->base, cm->length, cm->map_type);
-+
-+			for (j = 0; j < cm->length; j++)
-+				v3pr_info(" %d: %d %s\n", j + cm->base, j,
-+					  cm->class_names[j]);
-+
-+			list_add(&cm->link, &dt->maps);
-+			ct++;
-+		}
-+	}
-+	if (ct)
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+}
-+
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -946,6 +972,12 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
- 	dt->num_ddebugs = num_debugs;
- 	dt->ddebugs = tab;
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+-	return unlikely(__drm_debug & category);
++	return unlikely(__drm_debug & BIT(category));
+ }
  
-+	INIT_LIST_HEAD(&dt->link);
-+	INIT_LIST_HEAD(&dt->maps);
-+
-+	if (classes && num_classes)
-+		ddebug_attach_module_classes(dt, classes, num_classes);
-+
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
+ /*
 -- 
 2.36.1
 
