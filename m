@@ -4,88 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 699DEC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:33:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE46C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 19:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7B4810E11F;
-	Mon, 18 Jul 2022 19:33:03 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B92510E11F
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:33:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GPreft0B/8QchisMVrDX1Xu4YOdjcgZOBdwLIy1r0iW3IkMHsvplJzJjboZLpgBPdRbcpxJCJIDutPJMntPt2IrmqED4Vv5F/rp9IA6QFIsm1d//FJSdPvvpJUx0GQLZJI/MHBz7xzAYVYt1UaOKCfxpPZt/zTFlzxhJjNgCW+7aGBQaurVZOl+EFpN5Qg+DomV1hzm7ZGeuDA9Wg2jzxVnun5Z35Z/2OBh8RIPfVPcvBxCabEtlau02dsf0T2G7YkdHkYyGCeIwUm7YphnIvhOJqqO/zaYgtWVNHdOnmDNuQ9WvZgT5qnQhMYl/5VcrbC4w9sF9iWUbw2XP8FWklw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O7cCEoqaFCts0LCvuRM3vAnd64KILj7iIavDvsEyguo=;
- b=EkU032oqnc4EjaBAY/K3fqi6kL2S6OM7OFmEpX+eRD8bWbAVY3pfe/N5LyzuQaU11HeStbiJQoKF32Fsq8ItDINv2qRUXGsXqxdlqBj7eOLwJt2NjcfJJAInMXb0diQL+cYVgdtdmb19Opq24TBQsj6Cl4NJ2D751O8xrBUCK275U4jstojLKtI7eck7VOYFBNAzQ7qonBzllt+mGjUZZpUwe27BsHdoaVw5cwXhCXycCU/gj7o7e5lrSGRCzeIVvCY2GL9bTTRci/VVumyoUCT2KmPSyjwpwHk9RRpt2jXU1Gmv3gdg2Qev7jI7bGd0PEB0CEs+RTiBv/XQVFKPfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O7cCEoqaFCts0LCvuRM3vAnd64KILj7iIavDvsEyguo=;
- b=q0hBDO8U8H3wl+6Y8sDEc49vTk6e11y8gus+4oT6MkbCAodRC1MKB9R4xFJuBFWrMQc+kqnT+tPX/zMTRUlDODoWNywcLNZits9lg12bbqyA0oacSYsLvsG3uDMJbW9dpiVJCyp9sSqHL9yQ1Ge9gttVH/yJE5IkfSieL2k6Pys=
-Received: from DS7PR05CA0081.namprd05.prod.outlook.com (2603:10b6:8:57::6) by
- BYAPR12MB2710.namprd12.prod.outlook.com (2603:10b6:a03:68::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5438.17; Mon, 18 Jul 2022 19:33:00 +0000
-Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:57:cafe::f0) by DS7PR05CA0081.outlook.office365.com
- (2603:10b6:8:57::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.7 via Frontend
- Transport; Mon, 18 Jul 2022 19:33:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT066.mail.protection.outlook.com (10.13.173.179) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Mon, 18 Jul 2022 19:33:00 +0000
-Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 18 Jul
- 2022 14:32:59 -0500
-From: Gavin Wan <Gavin.Wan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix scratch register access method in SRIOV
-Date: Mon, 18 Jul 2022 15:32:29 -0400
-Message-ID: <20220718193229.142120-1-Gavin.Wan@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88FA110E623;
+	Mon, 18 Jul 2022 19:40:25 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A0710E0A1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 19:40:24 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id sz17so23192295ejc.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jul 2022 12:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=C3vRVpSQ7AjoHtEgq79gqiBlH2RX9WfThea5RKHJgoU=;
+ b=kwPrLs9gGdUmJ8PTec+vpxtHVByRE493EaYELF+LyehNE+af9+qqBssLrOXX57E3kr
+ RrsuztA4KOO5vPI6qg9ptH3fSx2FQ5S8CSePgqXq0RX302H6NmwgFekafAy71NCjMkav
+ UkiZ2M8TW5sKnCgpNEHtxi9gN+3ziJF787P2dqpcts6Q7N6LIydey0k2ix6i00oodCNh
+ 1es7eJtsJRBlPlEl0bP4CenOocElcJFPZmdh9NwS+WuxNG+ViSEDOAxtPbQmfw5vo7EL
+ qEvn/YQwNE2WG8uYCu0TBRzxYLHdWXvUcrbBTozTFIuPnZ+J5c9AKz3i456qqprug3eS
+ litA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=C3vRVpSQ7AjoHtEgq79gqiBlH2RX9WfThea5RKHJgoU=;
+ b=h4Djg+Ya8g7CUP+lBQIMosChjzmfcHVgM5DKpXog8sZcMMAO0yvznYkRocFUXFE7JF
+ lcFQgClNU9s4Y2oz+fAx/vX7nxmEXL0YFfGxUChjmv1CIgrWA2hNjmbyaz3SUzie1Jlo
+ 681JAh5/klb8gAJxUjnaNjPaH2CmhA9iCv7eduIgu0cdhUM8D6RhpXbRmfpBIKDH0te7
+ 8jOev3mcUU52ECZLS/dsPg2WQgr2wS8hUzSb1EXXzSo2rW34mav7oviQc3UKMb4Xow60
+ nLtBqFFd4VXNE/W98Y3grbZZ6ATOiih4FvplUv4yQ9Ula/ZDBz0J0MDpY285Ma1TXWIW
+ oY5w==
+X-Gm-Message-State: AJIora+fZZ5pVCIYt8oT+4hRTKrvs6PYzEhPXL747I6WHyj8zUeOfT8C
+ /PikpecG9PlUbPWnoxp13Dtvqi0ut2Q=
+X-Google-Smtp-Source: AGRyM1umtpCVuC0bqx+QIPJnOFxGU8igHoMV2PqmrTYBS5Pl6F6zud4yXcjniR4pGsOmrn5UlSQzUw==
+X-Received: by 2002:a17:907:28d6:b0:72b:7497:76b with SMTP id
+ en22-20020a17090728d600b0072b7497076bmr26297383ejc.365.1658173222434; 
+ Mon, 18 Jul 2022 12:40:22 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:224c:44a4:ecb8:82c2?
+ ([2a02:908:1256:79a0:224c:44a4:ecb8:82c2])
+ by smtp.gmail.com with ESMTPSA id
+ dx24-20020a170906a85800b006fed93bf71fsm5931440ejb.18.2022.07.18.12.40.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Jul 2022 12:40:21 -0700 (PDT)
+Message-ID: <d844be3e-68c5-2390-f706-2955780ea637@gmail.com>
+Date: Mon, 18 Jul 2022 21:40:20 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: fix scratch register access method in SRIOV
+Content-Language: en-US
+To: Gavin Wan <Gavin.Wan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220718193229.142120-1-Gavin.Wan@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220718193229.142120-1-Gavin.Wan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 786d6dac-1d7c-4da0-3e46-08da68f45325
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2710:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M3nDdH/7MlU2oT1RlR27w9K0j7BwU0ZniB6E3qGUyqqAH1Z4aPZyhgmHeRWxw0ZgAz5Nl2oXxOsT7CqR3R1Ipy/eDA4Y4EuiyX80IEaGUAHDL2aKP1D/dcSysQzkeqRFCQ/fpiOosmSp4SKbBgj5ZxqXS9OJl5RW9um0uks2ofqIxQA+Wt+lZ1ZF1cEuu71ijY6NmgoV0Nsvg0gDoyUqwuTb2Y1dRQDULPCOqRvNEahYLRIffyN3lV97eIC075SoaXZEx1H/k4E9DAAY9Lwip02z/9f4JaczFhO0/5gR3PVYtL9nmssuZWvDb3qzHjR+ZDyOdAju8f3HbdsEGurbmP0WuWqGmaPhCVbbMn6r8QuQ+Q5QuAIXGA6a4t7v+L3kLoup2Tch2nAtNY1GqrcoejDhNGQk9GCnSj7udur7LTIKx54UIJB0v0HHToUehIRkBMJhY47GUXqQ5uBBQgZ4eUgC1vOdpCgslHbSxfSnjCiac0gWiilvFXN4wa90Fytg4hp3FFbe/37pRL7C/2zMQrnpGEzEXPOUDLMqqD/K1kjK5RNLqqiTFeD6aKsEqlihAxVt2fHdHSG9RaZvD47Od1jrPI6douxXQaHymruBNm0a/YSSxd9uYcgBPaMRDhZx37ROw3IbgUToKV3ahIvP1ZS1GVxbaP1LIoj/yVFsyt7bQegythcfTyc7G/2JZltwLD73bkT2iGE/laZFZgsUJEuNMeWQ6ZB90DJvs6fTIlFETKg/FPYZGTT6cQ7zdSjEAN9/Et0zyMzHBIxTHW7i9jaFsSA8UtEDYpaGC7WN7THZjX6+cFpQ3crg5uJyHjcSz+JgXcOXWRdb2NToCb0icQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(396003)(39860400002)(376002)(46966006)(40470700004)(36840700001)(478600001)(41300700001)(8676002)(4326008)(86362001)(70206006)(70586007)(40480700001)(316002)(6916009)(82310400005)(83380400001)(47076005)(40460700003)(426003)(336012)(36860700001)(26005)(81166007)(16526019)(6666004)(7696005)(356005)(1076003)(186003)(82740400003)(2906002)(36756003)(2616005)(5660300002)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 19:33:00.1511 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 786d6dac-1d7c-4da0-3e46-08da68f45325
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,53 +73,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gavin Wan <Gavin.Wan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The scratch register should be accessed through MMIO instead of RLCG
-in SRIOV, since it being used in RLCG register access function.
+Am 18.07.22 um 21:32 schrieb Gavin Wan:
+> The scratch register should be accessed through MMIO instead of RLCG
+> in SRIOV, since it being used in RLCG register access function.
+>
+> Fixes: 0e1314781b9c("drm/amdgpu: nuke dynamic gfx scratch reg allocation")
+>
+> Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
+> Change-Id: I888cb3b96856583e764b35a098bcf8bff01ad90c
 
-Fixes: 0e1314781b9c("drm/amdgpu: nuke dynamic gfx scratch reg allocation")
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
-Change-Id: I888cb3b96856583e764b35a098bcf8bff01ad90c
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 5349ca4d19e3..c6e0f9313a7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -987,23 +987,23 @@ static void gfx_v9_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
- static int gfx_v9_0_ring_test_ring(struct amdgpu_ring *ring)
- {
- 	struct amdgpu_device *adev = ring->adev;
-+	uint32_t scratch = SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0);
- 	uint32_t tmp = 0;
- 	unsigned i;
- 	int r;
- 
--	WREG32_SOC15(GC, 0, mmSCRATCH_REG0, 0xCAFEDEAD);
-+	WREG32(scratch, 0xCAFEDEAD);
- 	r = amdgpu_ring_alloc(ring, 3);
- 	if (r)
- 		return r;
- 
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
--	amdgpu_ring_write(ring, SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0) -
--			  PACKET3_SET_UCONFIG_REG_START);
-+	amdgpu_ring_write(ring, scratch - PACKET3_SET_UCONFIG_REG_START);
- 	amdgpu_ring_write(ring, 0xDEADBEEF);
- 	amdgpu_ring_commit(ring);
- 
- 	for (i = 0; i < adev->usec_timeout; i++) {
--		tmp = RREG32_SOC15(GC, 0, mmSCRATCH_REG0);
-+		tmp = RREG32(scratch);
- 		if (tmp == 0xDEADBEEF)
- 			break;
- 		udelay(1);
--- 
-2.34.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 5349ca4d19e3..c6e0f9313a7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -987,23 +987,23 @@ static void gfx_v9_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
+>   static int gfx_v9_0_ring_test_ring(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> +	uint32_t scratch = SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0);
+>   	uint32_t tmp = 0;
+>   	unsigned i;
+>   	int r;
+>   
+> -	WREG32_SOC15(GC, 0, mmSCRATCH_REG0, 0xCAFEDEAD);
+> +	WREG32(scratch, 0xCAFEDEAD);
+>   	r = amdgpu_ring_alloc(ring, 3);
+>   	if (r)
+>   		return r;
+>   
+>   	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
+> -	amdgpu_ring_write(ring, SOC15_REG_OFFSET(GC, 0, mmSCRATCH_REG0) -
+> -			  PACKET3_SET_UCONFIG_REG_START);
+> +	amdgpu_ring_write(ring, scratch - PACKET3_SET_UCONFIG_REG_START);
+>   	amdgpu_ring_write(ring, 0xDEADBEEF);
+>   	amdgpu_ring_commit(ring);
+>   
+>   	for (i = 0; i < adev->usec_timeout; i++) {
+> -		tmp = RREG32_SOC15(GC, 0, mmSCRATCH_REG0);
+> +		tmp = RREG32(scratch);
+>   		if (tmp == 0xDEADBEEF)
+>   			break;
+>   		udelay(1);
 
