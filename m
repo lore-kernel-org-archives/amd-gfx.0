@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B0FC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A80C43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB5AA9D81;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26F54A9D82;
 	Mon, 18 Jul 2022 06:39:20 +0000 (UTC)
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
- [IPv6:2607:f8b0:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431F8A9D27;
- Mon, 18 Jul 2022 06:38:55 +0000 (UTC)
-Received: by mail-il1-x134.google.com with SMTP id w9so2043701ilg.1;
- Sun, 17 Jul 2022 23:38:55 -0700 (PDT)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAC13A9D35;
+ Mon, 18 Jul 2022 06:38:57 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id v1so1930484ilg.4;
+ Sun, 17 Jul 2022 23:38:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=KwNFZurtVy8n4N2ByhPI9NLko8yxI3e0nauRdiHbBkA=;
- b=l8MZDCiAayaWvEOkX5wGIdAG3bZyiX7o81qlDwT+yRLYR2I2ZqlsVm5gYjxliR/dO1
- 5ycOh71NVgFAqb8jRkfG+UYjRPzj6zupoXSaJ5SAOv0pxTyOwUhtXfqsehg8/CNIZCQH
- H7NW8SU/xpsHiPl7kXW/BwX4KD3q7rxoz84i0TxHFXdbL2ov/UVO6h6aBRf2lm63gL6W
- E2nun1uASBtjgGAjNZrrbgOit1cXubreoGXQwh6+hhkiQ/KSZM7auqMD+CCDvVP1+pWd
- lD5JELHaIOB9pcadhqAx/0q7add+1dCiO4SAo5nzDW4c7DweAX+xORIV0SDkUfTMqY2A
- FfaA==
+ bh=Nos6Fle5iQJrLSEDWrE/GX8T005NKGNifJ3oR077PWk=;
+ b=P4hBgjKRqMCY+hmcUZhDoAuDRruv35rfgM5mC8EuY6oCtqnGIrGNWt1p0k1HDf+cvh
+ 5w3jP4ViOTICE0COMGVaPapr46yRDMqCAl3TW+EWLEmFBmlqcNlnLisB5ZvK2OituqIe
+ qtxI+WuBPj8IlpU95N/EbpeWUlgF7W0s9XTL4iGsbH1WXecFSFabddqFhf3JVQvS6+j6
+ 1HNUDe1NpsJUs9/qz5tP6/Ola4r2yh399H0lwyPdT4bOFVoACK78vqZC6mTHaWNEcTSJ
+ yqp6QASViYDSS1XId4ejjsNAjp9+hssCId3kE/iUfs/AGfbbtu1SFF0MbpTBUeeth44r
+ D3uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=KwNFZurtVy8n4N2ByhPI9NLko8yxI3e0nauRdiHbBkA=;
- b=H5QS0YFYI4yQTTzMoyeTpf/1wHRSsMJ6EBZsyr0irQpYUL8VELDLb8GreQeBqV1lMP
- WjL4m/ZvjuMQzt28QXZARGKlatFnjsjvbqa2qvX6kT7mHSb9i9ldRHLx+8zQpofQWhep
- jHgPlEy+khPy4uZ75eukr7znDSkfZ02JI9+bUCxvho4QQHri4X1Dy63ahH1NKJGTkbQK
- R3kWJIN/7KocyA9x89znYViMj9xaWROaCG16RBBkwcBHCKcBOmdZze9Y2UVbwtRpHFO4
- FF/3inqYUcPuaL7ZIY9LPGBVDnx8YJ/8kxgWUmWoo7xSmtZBhzg+vR43a0/ks5Tva0x8
- 8mHQ==
-X-Gm-Message-State: AJIora8I4VX2iqW+uo+qEjyGg47LPx+SyOiUmyrQR+/eMo2xLOl3m3RW
- 1r3jEQUAid2E3po0GH9yFxc=
-X-Google-Smtp-Source: AGRyM1sMErcA/EOBdISRpBYd0XV3/+146ARelus0WJg89/tGCLQyf32KLxLRFtPYgBmkzcuOrAF+rA==
-X-Received: by 2002:a92:c262:0:b0:2dc:e5e6:6a2e with SMTP id
- h2-20020a92c262000000b002dce5e66a2emr2231682ild.150.1658126334910; 
- Sun, 17 Jul 2022 23:38:54 -0700 (PDT)
+ bh=Nos6Fle5iQJrLSEDWrE/GX8T005NKGNifJ3oR077PWk=;
+ b=7QZrqkW5bOx2bcfAKYTtTnoTs6pFoMsCuN9U7x9bemH85dXENtWSIQxnODzAecJkXB
+ DaV+NM+TPuWyUlYyajTxvaSAHYkWqCmU0rWS/DHLxfjxTZ8hk7wNjTReNECUxE1IDrgF
+ j9t/+9Ov24WNhpKV2KJN6IOJOvGJIcqhgXUOtb2y8mhTxJ34BFZlTYi1296viCJzJoKR
+ 7hsyALaNLH2XHUbueMtHF4D562bgCleRgofiiEt6TYvQDKuaX+cQASOxUpa85mXMU8mT
+ 7e8YWp99kl/R9ZeFmE70oxrIHYUuVXpsB4IQavnx0zLpUi0Gx6iGOTJfQYnTga0tcyG8
+ Bujg==
+X-Gm-Message-State: AJIora/hYOmQItfSEh3oQjHqAC0jezVG0AKF6Y0DJUKBmbIcnoGkGU83
+ EIwRmOo6ZEuZrvwLBhAksFk=
+X-Google-Smtp-Source: AGRyM1uw/5zI4fKGm/w1RdX44Md6lruBgB5ihFwHmqH+p2b3YJQptIHopUBcL+8xV1DyUO1gZeSrpw==
+X-Received: by 2002:a92:cd85:0:b0:2dc:7a9f:e14d with SMTP id
+ r5-20020a92cd85000000b002dc7a9fe14dmr12242226ilb.314.1658126337480; 
+ Sun, 17 Jul 2022 23:38:57 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.53
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:54 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:56 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 27/39] drm_print: add _ddebug descriptor to drm_*dbg
+Subject: [PATCH v3 28/41] drm_print: add _ddebug descriptor to drm_*dbg
  prototypes
-Date: Mon, 18 Jul 2022 00:36:14 -0600
-Message-Id: <20220718063641.9179-31-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:16 -0600
+Message-Id: <20220718063641.9179-33-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -141,7 +141,7 @@ index e0de79a22255..92f3f45e410c 100644
  	struct va_format vaf;
  	va_list args;
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 3c16b00b6d21..2879a2f84381 100644
+index 7631b5fb669e..46f14cfb401e 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
 @@ -363,9 +363,10 @@ static inline bool drm_debug_enabled(enum drm_debug_category category)
@@ -173,7 +173,7 @@ index 3c16b00b6d21..2879a2f84381 100644
  #endif
  
  /**
-@@ -522,17 +523,17 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+@@ -523,17 +524,17 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
   * Prefer drm_device based logging over device or prink based logging.
   */
  
