@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1977DC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B24DCCA479
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98427A9CE4;
-	Mon, 18 Jul 2022 06:38:53 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06835A9CF3;
- Mon, 18 Jul 2022 06:38:41 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id u20so8541606iob.8;
- Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8991EA9D18;
+	Mon, 18 Jul 2022 06:38:54 +0000 (UTC)
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B674A9CBA;
+ Mon, 18 Jul 2022 06:38:43 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id w16so5094297ilh.0;
+ Sun, 17 Jul 2022 23:38:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7rhud6KiWPK9Rg3r2XKY9MM0hek8TuHbkddrs1VaWHY=;
- b=E1UWZHQhYpnF05lJPCZPs518kYSieCwOrMeOeNFK2zz8yAiEYTE5xXETteyJBMkfcA
- j//+kGxyjZl0ZIbXxilfZVT7exAQGU01Q3wH0j+Mmkx1QQto1BScd9DR3luyCj/s87BR
- aR9y1EIav/Yig7Ezw2qPrE+vgBDcUV8mcs7mqAT+eK4aIj7jAjwCslcUkG2/dfkbU3dm
- zSqS0oh8ApHYv/f4trBfof+StDEDBQaExYyvFsL3BbZTVd2nZ7Symnd5IHQQ/YWpISig
- 3jfulJv9hDHScIH1wbCqJa9pAsIz0G7T78YOhaQoj6srnaf+/S7djta08pPbn2h/0xiK
- VNwg==
+ bh=BNS0w3QJhu2C9zSwVf1bIN998VE3nZkuL7IReih3E8I=;
+ b=fq+biAjyDAbzUqXTvJHNE11ULG1kX4A+EoskH5sXn+4AnKh0INAuWsWTvZodTik8pi
+ MwSQl7oCYc7i2Iwc++8eERAijtpp1tTkNgASC4P4FV2m19jizStsiUuV4+oS6hu1TwrC
+ HbBdcbHHLaQEabUsN4c+Jnk99LiFQ1uYEP3bBpcGTdEU2on8VBcmTKRJf7NrpZHunD9k
+ khcLK+OGCH4q+lkKnlYkvqmQOK3KTL1TecouMaV9fUePO0NFkQxcrhhVT4PIhwbgs6uf
+ viqRa2+X1iO9LlrM3rezHkLk5DCdgXS7qJWMbL4c3svnV9e5kewNw2mPs1tOJzvJc8AU
+ 6o+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7rhud6KiWPK9Rg3r2XKY9MM0hek8TuHbkddrs1VaWHY=;
- b=wapT10jAf+dTW7PeF60O/jzZJum4AtC7Tqwr8Mp+6teTOAwcQqP2ChVOTBInED4oqQ
- 8EC4osk9BtWNHwO/T1c0J/6pme/kL6L/qGye67haGALu2nX7/Nuf14wwPOSxTHHvuh+l
- rb9wEZsgFPOHfz28qJocru3jRonrurikc7z9igpdXLfX3x0XCHxanNbXw4KP0NVwbV9r
- Vvf4m9edGbLDaThj+3o9kQtWKlazzekPn7k6veIXC2RxS6jJKQep1FHvO3U+5U6PIAOw
- jsR59V8beeKoZXfDtgiT9XUlUF0IA5qCkhMS16uUOxiC6/WjSZXCINGd5i4z+badU5hh
- AYrw==
-X-Gm-Message-State: AJIora/aglSXrIv/HvJ2o6bbODATgy+gPLpvp7yedI6A7nG29T2rR2ga
- yvGm+azyYccPIiEc3iCZ5M4=
-X-Google-Smtp-Source: AGRyM1u3gcsyJSmQf3gZqr/jiybtthilOebJxN/AKCid2Bz8ZRRmH2BuQZrmfH+7JtAkM4mb9lgPQQ==
-X-Received: by 2002:a05:6638:150b:b0:341:6ac2:acc4 with SMTP id
- b11-20020a056638150b00b003416ac2acc4mr2263307jat.111.1658126320575; 
- Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
+ bh=BNS0w3QJhu2C9zSwVf1bIN998VE3nZkuL7IReih3E8I=;
+ b=hPq9h/Hsnb5X4CCTi1sdg0Kx4NCQyPbajBF90yBLGqDNRtVVMzxrWoaD07uNVDZ5VC
+ EW2aqrOrZxhGYxUDTf/xQipx4eqepCUkZDIaOa5KHp8/w4+XCo6rwT2a8VR4hNR38hCh
+ fWS84lom077+3BHKPrifQ3+e1s4rUi4QhoL92675YCJ31VuVGmY5ZtVW1RDVDDkxI++P
+ DRK5H4jcbY5R2C04LBPhjrBQEnerGR7TN+XOQsL7SL1FFCJ0rZeVDluG6C80ELd9jWS3
+ /vLKNlEK0Be/DQ7n14E6QLS785fl/3YXlt6PMfQUIXai+QVSTudQttWxa94l/87NM1Es
+ z4pQ==
+X-Gm-Message-State: AJIora/ABT6IaIIl3A3kEMRU+Laz1CuT7o6Oh7YzQs5WWJ3C3PjUQEK/
+ IAtZ/BpqerC5FdKpGRPe+OERsqO8uR8=
+X-Google-Smtp-Source: AGRyM1uHfm3VrWLk5XhWmywd4azOthSSe45BhPmXMYOdNeuAkBEFJEEzoaijgtSD/Au8raYg46uJ9w==
+X-Received: by 2002:a92:ca4c:0:b0:2dc:864f:8a53 with SMTP id
+ q12-20020a92ca4c000000b002dc864f8a53mr12954390ilo.299.1658126322988; 
+ Sun, 17 Jul 2022 23:38:42 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.39
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 19/41] doc-dyndbg: edit dynamic-debug-howto for brevity,
- audience
-Date: Mon, 18 Jul 2022 00:36:03 -0600
-Message-Id: <20220718063641.9179-20-jim.cromie@gmail.com>
+Subject: [PATCH v3 21/41] drm: POC drm on dyndbg - use in core, 2 helpers,
+ 3 drivers.
+Date: Mon, 18 Jul 2022 00:36:05 -0600
+Message-Id: <20220718063641.9179-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -69,380 +69,273 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rework/modernize docs:
+Use DECLARE_DYNDBG_CLASSMAP across DRM:
 
- - use /proc/dynamic_debug/control in examples
-   its *always* there (when dyndbg is config'd), even when <debugfs> is not.
-   drop <debugfs> talk, its a distraction here.
+ - in .c files, since macro defines/initializes a record
 
- - read before write. Viewing before Controlling.
-   control file as Catalog.
+ - in drivers, $mod_{drv,drm,param}.c
+   ie where param setup is done (since a class-bitmap is a param)
 
- - focus on use by a system administrator
-   add an alias to make examples more readable
-   drop grep-101 lessons, admins know this.
+ - in drm/drm_print.c, since thats where it
+   adds the class-bitmap, and replaces module_param_named.
 
- - use init/main.c as 1st example, thread it thru doc where useful.
-   everybodys kernel boots, runs these.
+ - in drm_*_helper modules:
+   dp/drm_dp - 1st item in makefile target
+   drivers/gpu/drm/drm_crtc_helper.c - random pick iirc.
 
- - add *prdbg* api section
-   to the bottom of the file, its for developers more than admins.
-   move list of api functions there.
+Since these modules all use identical class-maps (ie: names and
+.class_id's) they all will respond together to class FOO changes:
 
- - simplify - drop extra words, phrases, sentences.
+  :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
 
- - add "decorator" flags line to unify "prefix", trim fmlt descriptions
+ttm and video have 2,8 callsites each, I havent looked.
 
-CC: linux-doc@vger.kernel.org
+NOTES:
+
+DRM's enum drm_debug_category values need to sync with the index of
+their respective class-names here.  Then .class_id == category, and
+dyndbg's class FOO mechanisms will enable drm_dbg(DRM_UT_KMS, ...).
+
+Though DRM needs consistent categories across all modules, thats not
+generally needed; modules X and Y could define FOO differently (ie
+different corresponding .class_id), changes are made according to each
+module's private class-map.
+
+No callsites are actually selected here, since none are class'd yet.
+
+change __drm_debug from int to long, so BIT() is usable on it.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       | 238 +++++++++---------
- 1 file changed, 120 insertions(+), 118 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 +++++++++++++
+ drivers/gpu/drm/display/drm_dp_helper.c | 13 ++++++++++++
+ drivers/gpu/drm/drm_crtc_helper.c       | 13 ++++++++++++
+ drivers/gpu/drm/drm_print.c             | 27 +++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_params.c      | 12 +++++++++++
+ drivers/gpu/drm/nouveau/nouveau_drm.c   | 13 ++++++++++++
+ include/drm/drm_print.h                 |  3 ++-
+ 7 files changed, 92 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index d8954ab05c7b..cdf1da69e43c 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -5,30 +5,19 @@ Dynamic debug
- Introduction
- ============
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 8890300766a5..ba96d33137b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -38,6 +38,8 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/suspend.h>
+ #include <linux/cc_platform.h>
++#include <linux/fb.h>
++#include <linux/dynamic_debug.h>
  
--This document describes how to use the dynamic debug (dyndbg) feature.
-+Dynamic debug allows you to dynamically enable/disable kernel
-+debug-print code to obtain additional kernel information.
+ #include "amdgpu.h"
+ #include "amdgpu_irq.h"
+@@ -183,6 +185,18 @@ int amdgpu_vcnfw_log;
  
--Dynamic debug is designed to allow you to dynamically enable/disable
--kernel code to obtain additional kernel information.  Currently, if
--``CONFIG_DYNAMIC_DEBUG`` is set, then all ``pr_debug()``/``dev_dbg()`` and
--``print_hex_dump_debug()``/``print_hex_dump_bytes()`` calls can be dynamically
--enabled per-callsite.
-+If ``/proc/dynamic_debug/control`` exists, your kernel has dynamic debug.
-+You'll need root access (sudo su) to use this.
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
  
--If you do not want to enable dynamic debug globally (i.e. in some embedded
--system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
--debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
--modules which you'd like to dynamically debug later.
--
--If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is just
--shortcut for ``print_hex_dump(KERN_DEBUG)``.
--
--For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
--its ``prefix_str`` argument, if it is constant string; or ``hexdump``
--in case ``prefix_str`` is built dynamically.
-+Dynamic debug provides:
- 
--Dynamic debug has even more useful features:
-+ * a Catalog of all *prdbgs* in your kernel.
-+   ``cat /proc/dynamic_debug/control`` to see them.
- 
-- * Simple query language allows turning on and off debugging
--   statements by matching any combination of 0 or 1 of:
-+ * a Simple query/command language to alter *prdbgs* by selecting on
-+   any combination of 0 or 1 of:
- 
-    - source filename
-    - function name
-@@ -37,107 +26,88 @@ Dynamic debug has even more useful features:
-    - format string
-    - class name (as known/declared by each module)
- 
-- * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
--   which can be read to display the complete list of known debug
--   statements, to help guide you
--
--Controlling dynamic debug Behaviour
--===================================
--
--The behaviour of ``pr_debug()``/``dev_dbg()`` are controlled via writing to a
--control file in the 'debugfs' filesystem. Thus, you must first mount
--the debugfs filesystem, in order to make use of this feature.
--Subsequently, we refer to the control file as:
--``<debugfs>/dynamic_debug/control``. For example, if you want to enable
--printing from source file ``svcsock.c``, line 1603 you simply do::
--
--  nullarbor:~ # echo 'file svcsock.c line 1603 +p' >
--				<debugfs>/dynamic_debug/control
--
--If you make a mistake with the syntax, the write will fail thus::
--
--  nullarbor:~ # echo 'file svcsock.c wtf 1 +p' >
--				<debugfs>/dynamic_debug/control
--  -bash: echo: write error: Invalid argument
--
--Note, for systems without 'debugfs' enabled, the control file can be
--found in ``/proc/dynamic_debug/control``.
--
- Viewing Dynamic Debug Behaviour
- ===============================
- 
--You can view the currently configured behaviour of all the debug
--statements via::
-+You can view the currently configured behaviour in the *prdbg* catalog:
- 
--  nullarbor:~ # cat <debugfs>/dynamic_debug/control
-+  :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  net/sunrpc/svc_rdma.c:323 [svcxprt_rdma]svc_rdma_cleanup =_ "SVCRDMA Module Removed, deregister RPC RDMA transport\012"
--  net/sunrpc/svc_rdma.c:341 [svcxprt_rdma]svc_rdma_init =_ "\011max_inline       : %d\012"
--  net/sunrpc/svc_rdma.c:340 [svcxprt_rdma]svc_rdma_init =_ "\011sq_depth         : %d\012"
--  net/sunrpc/svc_rdma.c:338 [svcxprt_rdma]svc_rdma_init =_ "\011max_requests     : %d\012"
--  ...
-+  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
-+  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
-+  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
-+  init/main.c:1426 [main]run_init_process =_ "    %s\012"
-+  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
-+  init/main.c:1429 [main]run_init_process =_ "    %s\012"
- 
-+The 3rd space-delimited column shows the current flags, preceded by
-+a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
- 
--You can also apply standard Unix text manipulation filters to this
--data, e.g.::
-+Controlling dynamic debug Behaviour
-+===================================
- 
--  nullarbor:~ # grep -i rdma <debugfs>/dynamic_debug/control  | wc -l
--  62
-+The behaviour of *prdbg* sites are controlled by writing
-+query/commands to the control file.  Example::
- 
--  nullarbor:~ # grep -i tcp <debugfs>/dynamic_debug/control | wc -l
--  42
-+  # grease the interface
-+  :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
- 
--The third column shows the currently enabled flags for each debug
--statement callsite (see below for definitions of the flags).  The
--default value, with no flags enabled, is ``=_``.  So you can view all
--the debug statement callsites with any non-default flags::
-+  :#> ddcmd '-p; module main func run* +p'
-+  :#> grep =p /proc/dynamic_debug/control
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
-+  init/main.c:1426 [main]run_init_process =p "    %s\012"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
-+  init/main.c:1429 [main]run_init_process =p "    %s\012"
- 
--  nullarbor:~ # awk '$3 != "=_"' <debugfs>/dynamic_debug/control
--  # filename:lineno [module]function flags format
--  net/sunrpc/svcsock.c:1603 [sunrpc]svc_send p "svc_process: st_sendto returned %d\012"
-+Error messages go to console/syslog:
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+  :#> ddcmd mode foo +p
-+  dyndbg: unknown keyword "mode"
-+  dyndbg: query parse failed
-+  bash: echo: write error: Invalid argument
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+ 	.delayed_reset_work = __DELAYED_WORK_INITIALIZER(
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index e7c22c2ca90c..eb7aef22e7fd 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -29,6 +29,7 @@
+ #include <linux/sched.h>
+ #include <linux/seq_file.h>
+ #include <linux/string_helpers.h>
++#include <linux/dynamic_debug.h>
+ 
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -38,6 +39,18 @@
+ 
+ #include "drm_dp_helper_internal.h"
+ 
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+If debugfs is also enabled and mounted, ``dynamic_debug/control`` is
-+also under the mount-dir, typically ``/sys/kernel/debug/``.
+ struct dp_aux_backlight {
+ 	struct backlight_device *base;
+ 	struct drm_dp_aux *aux;
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index b632825654a9..80f2cf807dae 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -32,6 +32,7 @@
+ #include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/moduleparam.h>
++#include <linux/dynamic_debug.h>
  
- Command Language Reference
- ==========================
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -50,6 +51,18 @@
  
--At the lexical level, a command comprises a sequence of words separated
-+At the basic lexical level, a command is a sequence of words separated
- by spaces or tabs.  So these are all equivalent::
+ #include "drm_crtc_helper_internal.h"
  
--  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
--				<debugfs>/dynamic_debug/control
--  nullarbor:~ # echo -n '  file   svcsock.c     line  1603 +p  ' >
--				<debugfs>/dynamic_debug/control
--  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd file svcsock.c line 1603 +p
-+  :#> ddcmd "file svcsock.c line 1603 +p"
-+  :#> ddcmd '  file   svcsock.c     line  1603 +p  '
- 
- Command submissions are bounded by a write() system call.
- Multiple commands can be written together, separated by ``;`` or ``\n``::
- 
--  ~# echo "func pnpacpi_get_resources +p; func pnp_assign_mem +p" \
--     > <debugfs>/dynamic_debug/control
-+  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd <<"EOC"
-+  func pnpacpi_get_resources +p
-+  func pnp_assign_mem +p
-+  EOC
-+  :#> cat query-batch-file > /proc/dynamic_debug/control
- 
--If your query set is big, you can batch them too::
-+You can also use wildcards in each query term. The match rule supports
-+``*`` (matches zero or more characters) and ``?`` (matches exactly one
-+character). For example, you can match all usb drivers::
- 
--  ~# cat query-batch-file > <debugfs>/dynamic_debug/control
-+  :#> ddcmd file "drivers/usb/*" +p	# "" to suppress shell expansion
- 
--Another way is to use wildcards. The match rule supports ``*`` (matches
--zero or more characters) and ``?`` (matches exactly one character). For
--example, you can match all usb drivers::
--
--  ~# echo "file drivers/usb/* +p" > <debugfs>/dynamic_debug/control
--
--At the syntactical level, a command comprises a sequence of match
--specifications, followed by a flags change specification::
-+Syntactically, a command is pairs of keyword values, followed by a
-+flags change or setting::
- 
-   command ::= match-spec* flags-spec
- 
--The match-spec's are used to choose a subset of the known pr_debug()
--callsites to which to apply the flags-spec.  Think of them as a query
--with implicit ANDs between each pair.  Note that an empty list of
--match-specs will select all debug statement callsites.
-+The match-spec's select *prdbgs* from the catalog, upon which to apply
-+the flags-spec, all constraints are ANDed together.  An absent keyword
-+is the same as keyword "*".
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
+ /**
+  * DOC: overview
+  *
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index f783d4963d4b..44be95fac164 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+  */
+-unsigned int __drm_debug;
++unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
--A match specification comprises a keyword, which controls the
--attribute of the callsite to be compared, and a value to compare
--against.  Possible keywords are:::
-+A match specification is a keyword, which selects the attribute of
-+the callsite to be compared, and a value to compare against.  Possible
-+keywords are:::
- 
-   match-spec ::= 'func' string |
- 		 'file' string |
-@@ -213,6 +183,7 @@ class
- 
- 	class DRM_UT_KMS	# a DRM.debug category
- 	class JUNK		# silent non-match
-+	// class TLD_*		# NOTICE: no wildcard in class names
- 
- line
-     The given line number or range of line numbers is compared
-@@ -239,17 +210,16 @@ of the characters::
- The flags are::
- 
-   p    enables the pr_debug() callsite.
--  f    Include the function name in the printed message
--  l    Include line number in the printed message
--  m    Include module name in the printed message
--  t    Include thread ID in messages not generated from interrupt context
--  _    No flags are set. (Or'd with others on input)
-+  _    enables no flags.
- 
--For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only ``p`` flag
--have meaning, other flags ignored.
-+  Decorator flags add to the message-prefix, in order:
-+  t    Include thread ID, or <intr>
-+  m    Include module name
-+  f    Include the function name
-+  l    Include line number
- 
--For display, the flags are preceded by ``=``
--(mnemonic: what the flags are currently equal to).
-+For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only
-+the ``p`` flag has meaning, other flags are ignored.
- 
- Note the regexp ``^[-+=][flmpt_]+$`` matches a flags specification.
- To clear all flags at once, use ``=_`` or ``-flmpt``.
-@@ -324,7 +294,7 @@ For ``CONFIG_DYNAMIC_DEBUG`` kernels, any settings given at boot-time (or
- enabled by ``-DDEBUG`` flag during compilation) can be disabled later via
- the debugfs interface if the debug messages are no longer needed::
- 
--   echo "module module_name -p" > <debugfs>/dynamic_debug/control
-+   echo "module module_name -p" > /proc/dynamic_debug/control
- 
- Examples
- ========
-@@ -332,37 +302,31 @@ Examples
- ::
- 
-   // enable the message at line 1603 of file svcsock.c
--  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'file svcsock.c line 1603 +p'
- 
-   // enable all the messages in file svcsock.c
--  nullarbor:~ # echo -n 'file svcsock.c +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'file svcsock.c +p'
- 
-   // enable all the messages in the NFS server module
--  nullarbor:~ # echo -n 'module nfsd +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'module nfsd +p'
- 
-   // enable all 12 messages in the function svc_process()
--  nullarbor:~ # echo -n 'func svc_process +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'func svc_process +p'
- 
-   // disable all 12 messages in the function svc_process()
--  nullarbor:~ # echo -n 'func svc_process -p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'func svc_process -p'
- 
-   // enable messages for NFS calls READ, READLINK, READDIR and READDIR+.
--  nullarbor:~ # echo -n 'format "nfsd: READ" +p' >
--				<debugfs>/dynamic_debug/control
-+  :#> ddcmd 'format "nfsd: READ" +p'
- 
-   // enable messages in files of which the paths include string "usb"
--  nullarbor:~ # echo -n 'file *usb* +p' > <debugfs>/dynamic_debug/control
-+  :#> ddcmd 'file *usb* +p' > /proc/dynamic_debug/control
- 
-   // enable all messages
--  nullarbor:~ # echo -n '+p' > <debugfs>/dynamic_debug/control
-+  :#> ddcmd '+p' > /proc/dynamic_debug/control
- 
-   // add module, function to all enabled messages
--  nullarbor:~ # echo -n '+mf' > <debugfs>/dynamic_debug/control
-+  :#> ddcmd '+mf' > /proc/dynamic_debug/control
- 
-   // boot-args example, with newlines and comments for readability
-   Kernel command line: ...
-@@ -375,3 +339,41 @@ Examples
-     dyndbg="file init/* +p #cmt ; func parse_one +p"
-     // enable pr_debugs in 2 functions in a module loaded later
-     pc87360.dyndbg="func pc87360_init_device +p; func pc87360_find +p"
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+@@ -52,7 +52,30 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
+ "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
+ "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
+-module_param_named(debug, __drm_debug, int, 0600);
 +
-+Kernel Configuration
-+====================
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++module_param_named(debug, __drm_debug, ulong, 0600);
++#else
++/* classnames must match vals of enum drm_debug_category */
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+Dynamic Debug is enabled via kernel config items:
++static struct ddebug_classes_bitmap_param drm_debug_bitmap = {
++	.bits = &__drm_debug,
++	.flags = "p",
++	.map = &drm_debug_classes,
++};
++module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++#endif
+ 
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 701fbc98afa0..b0ce128e245a 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -29,6 +29,18 @@
+ #include "i915_params.h"
+ #include "i915_drv.h"
+ 
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+  CONFIG_DYNAMIC_DEBUG=y	# build catalog, enables CORE
-+  CONFIG_DYNAMIC_DEBUG_CORE=y	# enable mechanics only, skip catalog
+ #define i915_param_named(name, T, perm, desc) \
+ 	module_param_named(name, i915_modparams.name, T, perm); \
+ 	MODULE_PARM_DESC(name, desc)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 561309d447e0..76e3a8d50b01 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -28,6 +28,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/mmu_notifier.h>
++#include <linux/dynamic_debug.h>
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_crtc_helper.h>
+@@ -70,6 +71,18 @@
+ #include "nouveau_svm.h"
+ #include "nouveau_dmem.h"
+ 
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+Fedora's distro-kernel has both, and has 7250 *prdbgs*.  Each callsite
-+record uses 56 bytes, so the impact on memory is non-trivial.
-+
-+If you do not want to enable dynamic debug globally (i.e. in some embedded
-+system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
-+debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
-+modules which you'd like to dynamically debug later.
-+
-+
-+Kernel *prdbg* API
-+==================
-+
-+The following functions are cataloged and controllable when dynamic
-+debug is enabled::
-+
-+  pr_debug()
-+  dev_dbg()
-+  print_hex_dump_debug()
-+  print_hex_dump_bytes()
-+
-+Otherwise, they are off by default; ``ccflags += -DDEBUG`` or
-+``#define DEBUG`` in a source file will enable them appropriately.
-+
-+If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is
-+just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
-+
-+For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
-+its ``prefix_str`` argument, if it is constant string; or ``hexdump``
-+in case ``prefix_str`` is built dynamically.
+ MODULE_PARM_DESC(config, "option string to pass to driver core");
+ static char *nouveau_config;
+ module_param_named(config, nouveau_config, charp, 0400);
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index b3b470440e46..668273e36c2c 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -35,7 +35,7 @@
+ #include <drm/drm.h>
+ 
+ /* Do *not* use outside of drm_print.[ch]! */
+-extern unsigned int __drm_debug;
++extern unsigned long __drm_debug;
+ 
+ /**
+  * DOC: print
+@@ -275,6 +275,7 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+  *
+  */
+ enum drm_debug_category {
++	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+ 	/**
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
 -- 
 2.36.1
 
