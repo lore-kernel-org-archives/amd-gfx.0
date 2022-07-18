@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594E3C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1977DC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B63CDA9D12;
-	Mon, 18 Jul 2022 06:38:52 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C87A9C97;
- Mon, 18 Jul 2022 06:38:33 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id h145so8530267iof.9;
- Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98427A9CE4;
+	Mon, 18 Jul 2022 06:38:53 +0000 (UTC)
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
+ [IPv6:2607:f8b0:4864:20::d2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06835A9CF3;
+ Mon, 18 Jul 2022 06:38:41 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id u20so8541606iob.8;
+ Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=qHCsllpYuf8vvnWucr6BFoiX98frrfaryjZSZIrR9Cs=;
- b=dQtYjZH7Y2ktn7swRpXpFp1VJ/8uRWkuq6/eS2C6+q5+u4vgNMMmgrZccBqhGy0ZsB
- hEa5z71H7E0JwYXd/xV4JEs7CrplwktTJBOgFnBH1g37QNsGkEOme0S6X+ob6JyuxUUO
- 1JHPJ21+T+FYllFHh2NeXuHn2SgZfXqoY9FlffcKfyEu9Q0M4QrGqVQ4TqoU+kJdVM3B
- XDH8zTa0N1eS1S9c90ulcwygf5EE5VdMvbM7MuH+Hyoj4gmTFa5BwlVJMR7qs9aaMR+u
- Er0oI7UrvZWm/nMtXVLBEKXRyjttBudUgXTzeURQkQ5ay5P/ypgO/uDwEaCig9d1H+wJ
- aeMA==
+ bh=7rhud6KiWPK9Rg3r2XKY9MM0hek8TuHbkddrs1VaWHY=;
+ b=E1UWZHQhYpnF05lJPCZPs518kYSieCwOrMeOeNFK2zz8yAiEYTE5xXETteyJBMkfcA
+ j//+kGxyjZl0ZIbXxilfZVT7exAQGU01Q3wH0j+Mmkx1QQto1BScd9DR3luyCj/s87BR
+ aR9y1EIav/Yig7Ezw2qPrE+vgBDcUV8mcs7mqAT+eK4aIj7jAjwCslcUkG2/dfkbU3dm
+ zSqS0oh8ApHYv/f4trBfof+StDEDBQaExYyvFsL3BbZTVd2nZ7Symnd5IHQQ/YWpISig
+ 3jfulJv9hDHScIH1wbCqJa9pAsIz0G7T78YOhaQoj6srnaf+/S7djta08pPbn2h/0xiK
+ VNwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=qHCsllpYuf8vvnWucr6BFoiX98frrfaryjZSZIrR9Cs=;
- b=IyzqDuFvKAImgdrQLUaCumpXEKW/YGf2Z5O5atyhtLl5nK0IzjJx3kjwSKUm5y9IvZ
- X9nYEebtpE6GG0lB8PcDzbeRxVgzSU8OZrLcgncHYcgBSAFI+4p9+50iLyeQ/BmdERyy
- QffUshjZL8R7LCjwKgkv59UHeZzCqGJngv/jLHa8T9O8wXzsSAaa64Aswb2CYjpfjJfp
- 10IlHOv8mdJ+zWV3gXOrEdK2pInQc5DNwHJmQn51/ZdwgMThzyLa+ZBcSWJuJ8onfNBy
- 7X01ih5KegH17QrXzB/b46ERpB2NrxYpoh25jI3spowGiPEfTZa0Cw2VX0SLvXbnhnxT
- ws1A==
-X-Gm-Message-State: AJIora8Z54w45paqjlJC5RysfrmSWi56IXwUU7OJxVz67NFxGxLJqF+r
- pyuAhAc1KZJPPFDBNT5GXdY=
-X-Google-Smtp-Source: AGRyM1vusRCgpjeqybiE9EOKodXaTWV9mkaIog+GJtzdXZccoEZoM7R9aJLeURhYqLEm5WyV9m9i3Q==
-X-Received: by 2002:a6b:5915:0:b0:67b:dbd6:3e04 with SMTP id
- n21-20020a6b5915000000b0067bdbd63e04mr7371656iob.8.1658126312659; 
- Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
+ bh=7rhud6KiWPK9Rg3r2XKY9MM0hek8TuHbkddrs1VaWHY=;
+ b=wapT10jAf+dTW7PeF60O/jzZJum4AtC7Tqwr8Mp+6teTOAwcQqP2ChVOTBInED4oqQ
+ 8EC4osk9BtWNHwO/T1c0J/6pme/kL6L/qGye67haGALu2nX7/Nuf14wwPOSxTHHvuh+l
+ rb9wEZsgFPOHfz28qJocru3jRonrurikc7z9igpdXLfX3x0XCHxanNbXw4KP0NVwbV9r
+ Vvf4m9edGbLDaThj+3o9kQtWKlazzekPn7k6veIXC2RxS6jJKQep1FHvO3U+5U6PIAOw
+ jsR59V8beeKoZXfDtgiT9XUlUF0IA5qCkhMS16uUOxiC6/WjSZXCINGd5i4z+badU5hh
+ AYrw==
+X-Gm-Message-State: AJIora/aglSXrIv/HvJ2o6bbODATgy+gPLpvp7yedI6A7nG29T2rR2ga
+ yvGm+azyYccPIiEc3iCZ5M4=
+X-Google-Smtp-Source: AGRyM1u3gcsyJSmQf3gZqr/jiybtthilOebJxN/AKCid2Bz8ZRRmH2BuQZrmfH+7JtAkM4mb9lgPQQ==
+X-Received: by 2002:a05:6638:150b:b0:341:6ac2:acc4 with SMTP id
+ b11-20020a056638150b00b003416ac2acc4mr2263307jat.111.1658126320575; 
+ Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.31
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:32 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Subject: [PATCH v3 13/41] kernel/module: add __dyndbg_classes section
-Date: Mon, 18 Jul 2022 00:35:57 -0600
-Message-Id: <20220718063641.9179-14-jim.cromie@gmail.com>
+Subject: [PATCH v3 19/41] doc-dyndbg: edit dynamic-debug-howto for brevity,
+ audience
+Date: Mon, 18 Jul 2022 00:36:03 -0600
+Message-Id: <20220718063641.9179-20-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
@@ -68,224 +69,380 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: linux-doc@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Like existing sections, particularly __dyndbg, this new one is an
-array/address and its length.  In a close imitation of __dyndbg
-handling, these are defined, then passed around, as follows:
+Rework/modernize docs:
 
-vmlinux.lds.h:
+ - use /proc/dynamic_debug/control in examples
+   its *always* there (when dyndbg is config'd), even when <debugfs> is not.
+   drop <debugfs> talk, its a distraction here.
 
-KEEP the new section, which also silences orphan section warning on
-loadable modules.  Add (__start_/__stop_)__dyndbg_classes linker
-symbols for the c externs (below).
+ - read before write. Viewing before Controlling.
+   control file as Catalog.
 
-kernel/module/internal.h:
-- add new fields for classes,length to struct load_info,
+ - focus on use by a system administrator
+   add an alias to make examples more readable
+   drop grep-101 lessons, admins know this.
 
-kernel/module.c:
-- fill new fields in find_module_sections(), using section_objs()
-- extend callchain prototypes
-  to pass classes, length
-  load_module(): pass new info to dynamic_debug_setup()
-  dynamic_debug_setup(): new params, pass through to ddebug_add_module()
+ - use init/main.c as 1st example, thread it thru doc where useful.
+   everybodys kernel boots, runs these.
 
-dynamic_debug.c:
-- add externs to the linker symbols.
+ - add *prdbg* api section
+   to the bottom of the file, its for developers more than admins.
+   move list of api functions there.
 
-ddebug_add_module(): add params for classes, length.
-- It currently builds a debug_table, and *will* find and attach classes.
+ - simplify - drop extra words, phrases, sentences.
 
-dynamic_debug_init(): compute num_classes from linker symbols, and add
-new _start, num_classes params to ddebug_add_module() calls.
+ - add "decorator" flags line to unify "prefix", trim fmlt descriptions
 
+CC: linux-doc@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h |  3 +++
- include/linux/dynamic_debug.h     |  9 ++++++---
- kernel/module/internal.h          |  2 ++
- kernel/module/main.c              | 10 +++++++---
- lib/dynamic_debug.c               | 22 ++++++++++++++++------
- 5 files changed, 34 insertions(+), 12 deletions(-)
+ .../admin-guide/dynamic-debug-howto.rst       | 238 +++++++++---------
+ 1 file changed, 120 insertions(+), 118 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 7515a465ec03..9b8bd5504ad9 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -345,6 +345,9 @@
- 	*(__tracepoints)						\
- 	/* implement dynamic printk debug */				\
- 	. = ALIGN(8);							\
-+	__start___dyndbg_classes = .;					\
-+	KEEP(*(__dyndbg_classes))					\
-+	__stop___dyndbg_classes = .;					\
- 	__start___dyndbg = .;						\
- 	KEEP(*(__dyndbg))						\
- 	__stop___dyndbg = .;						\
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 84e97cd0e8c4..f57076e02767 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -115,8 +115,10 @@ struct ddebug_class_map {
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index d8954ab05c7b..cdf1da69e43c 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -5,30 +5,19 @@ Dynamic debug
+ Introduction
+ ============
  
- #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
+-This document describes how to use the dynamic debug (dyndbg) feature.
++Dynamic debug allows you to dynamically enable/disable kernel
++debug-print code to obtain additional kernel information.
  
--int ddebug_add_module(struct _ddebug *tab, unsigned int n,
--				const char *modname);
-+int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
-+		      struct ddebug_class_map *classes, unsigned int num_classes,
-+		      const char *modname);
+-Dynamic debug is designed to allow you to dynamically enable/disable
+-kernel code to obtain additional kernel information.  Currently, if
+-``CONFIG_DYNAMIC_DEBUG`` is set, then all ``pr_debug()``/``dev_dbg()`` and
+-``print_hex_dump_debug()``/``print_hex_dump_bytes()`` calls can be dynamically
+-enabled per-callsite.
++If ``/proc/dynamic_debug/control`` exists, your kernel has dynamic debug.
++You'll need root access (sudo su) to use this.
+ 
+-If you do not want to enable dynamic debug globally (i.e. in some embedded
+-system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
+-debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
+-modules which you'd like to dynamically debug later.
+-
+-If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is just
+-shortcut for ``print_hex_dump(KERN_DEBUG)``.
+-
+-For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+-its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+-in case ``prefix_str`` is built dynamically.
++Dynamic debug provides:
+ 
+-Dynamic debug has even more useful features:
++ * a Catalog of all *prdbgs* in your kernel.
++   ``cat /proc/dynamic_debug/control`` to see them.
+ 
+- * Simple query language allows turning on and off debugging
+-   statements by matching any combination of 0 or 1 of:
++ * a Simple query/command language to alter *prdbgs* by selecting on
++   any combination of 0 or 1 of:
+ 
+    - source filename
+    - function name
+@@ -37,107 +26,88 @@ Dynamic debug has even more useful features:
+    - format string
+    - class name (as known/declared by each module)
+ 
+- * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
+-   which can be read to display the complete list of known debug
+-   statements, to help guide you
+-
+-Controlling dynamic debug Behaviour
+-===================================
+-
+-The behaviour of ``pr_debug()``/``dev_dbg()`` are controlled via writing to a
+-control file in the 'debugfs' filesystem. Thus, you must first mount
+-the debugfs filesystem, in order to make use of this feature.
+-Subsequently, we refer to the control file as:
+-``<debugfs>/dynamic_debug/control``. For example, if you want to enable
+-printing from source file ``svcsock.c``, line 1603 you simply do::
+-
+-  nullarbor:~ # echo 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
+-
+-If you make a mistake with the syntax, the write will fail thus::
+-
+-  nullarbor:~ # echo 'file svcsock.c wtf 1 +p' >
+-				<debugfs>/dynamic_debug/control
+-  -bash: echo: write error: Invalid argument
+-
+-Note, for systems without 'debugfs' enabled, the control file can be
+-found in ``/proc/dynamic_debug/control``.
+-
+ Viewing Dynamic Debug Behaviour
+ ===============================
+ 
+-You can view the currently configured behaviour of all the debug
+-statements via::
++You can view the currently configured behaviour in the *prdbg* catalog:
+ 
+-  nullarbor:~ # cat <debugfs>/dynamic_debug/control
++  :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+-  net/sunrpc/svc_rdma.c:323 [svcxprt_rdma]svc_rdma_cleanup =_ "SVCRDMA Module Removed, deregister RPC RDMA transport\012"
+-  net/sunrpc/svc_rdma.c:341 [svcxprt_rdma]svc_rdma_init =_ "\011max_inline       : %d\012"
+-  net/sunrpc/svc_rdma.c:340 [svcxprt_rdma]svc_rdma_init =_ "\011sq_depth         : %d\012"
+-  net/sunrpc/svc_rdma.c:338 [svcxprt_rdma]svc_rdma_init =_ "\011max_requests     : %d\012"
+-  ...
++  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
++  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
++  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
++  init/main.c:1426 [main]run_init_process =_ "    %s\012"
++  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
++  init/main.c:1429 [main]run_init_process =_ "    %s\012"
+ 
++The 3rd space-delimited column shows the current flags, preceded by
++a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
+ 
+-You can also apply standard Unix text manipulation filters to this
+-data, e.g.::
++Controlling dynamic debug Behaviour
++===================================
+ 
+-  nullarbor:~ # grep -i rdma <debugfs>/dynamic_debug/control  | wc -l
+-  62
++The behaviour of *prdbg* sites are controlled by writing
++query/commands to the control file.  Example::
+ 
+-  nullarbor:~ # grep -i tcp <debugfs>/dynamic_debug/control | wc -l
+-  42
++  # grease the interface
++  :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
+ 
+-The third column shows the currently enabled flags for each debug
+-statement callsite (see below for definitions of the flags).  The
+-default value, with no flags enabled, is ``=_``.  So you can view all
+-the debug statement callsites with any non-default flags::
++  :#> ddcmd '-p; module main func run* +p'
++  :#> grep =p /proc/dynamic_debug/control
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
++  init/main.c:1426 [main]run_init_process =p "    %s\012"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
++  init/main.c:1429 [main]run_init_process =p "    %s\012"
+ 
+-  nullarbor:~ # awk '$3 != "=_"' <debugfs>/dynamic_debug/control
+-  # filename:lineno [module]function flags format
+-  net/sunrpc/svcsock.c:1603 [sunrpc]svc_send p "svc_process: st_sendto returned %d\012"
++Error messages go to console/syslog:
 +
- extern int ddebug_remove_module(const char *mod_name);
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
-@@ -285,7 +287,8 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- #include <linux/errno.h>
- #include <linux/printk.h>
- 
--static inline int ddebug_add_module(struct _ddebug *tab, unsigned int n,
-+static inline int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
-+				    struct ddebug_class_map *classes, unsigned int num_classes,
- 				    const char *modname)
- {
- 	return 0;
-diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-index bc5507ab8450..02601dfe452b 100644
---- a/kernel/module/internal.h
-+++ b/kernel/module/internal.h
-@@ -60,7 +60,9 @@ struct load_info {
- 	char *secstrings, *strtab;
- 	unsigned long symoffs, stroffs, init_typeoffs, core_typeoffs;
- 	struct _ddebug *debug;
-+	struct ddebug_class_map *debug_classes;
- 	unsigned int num_debug;
-+	unsigned int num_debug_classes;
- 	bool sig_ok;
- #ifdef CONFIG_KALLSYMS
- 	unsigned long mod_kallsyms_init_off;
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index fed58d30725d..0f8e888908df 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -1593,11 +1593,12 @@ static void free_modinfo(struct module *mod)
- 	}
- }
- 
--static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num)
-+static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num,
-+				struct ddebug_class_map *classes, unsigned int num_classes)
- {
- 	if (!debug)
- 		return;
--	ddebug_add_module(debug, num, mod->name);
-+	ddebug_add_module(debug, num, classes, num_classes, mod->name);
- }
- 
- static void dynamic_debug_remove(struct module *mod, struct _ddebug *debug)
-@@ -2093,6 +2094,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
- 	if (section_addr(info, "__obsparm"))
- 		pr_warn("%s: Ignoring obsolete parameters\n", mod->name);
- 
-+	info->debug_classes = section_objs(info, "__dyndbg_classes",
-+				   sizeof(*info->debug_classes), &info->num_debug_classes);
- 	info->debug = section_objs(info, "__dyndbg",
- 				   sizeof(*info->debug), &info->num_debug);
- 
-@@ -2783,7 +2786,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
- 	}
- 
- 	init_build_id(mod, info);
--	dynamic_debug_setup(mod, info->debug, info->num_debug);
-+	dynamic_debug_setup(mod, info->debug, info->num_debug,
-+			    info->debug_classes, info->num_debug_classes);
- 
- 	/* Ftrace init must be called in the MODULE_STATE_UNFORMED state */
- 	ftrace_module_init(mod);
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e96dc216463b..b6d80ba25bf5 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -41,6 +41,8 @@
- 
- extern struct _ddebug __start___dyndbg[];
- extern struct _ddebug __stop___dyndbg[];
-+extern struct ddebug_class_map __start___dyndbg_classes[];
-+extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
- 	struct list_head link;
-@@ -923,8 +925,9 @@ static const struct proc_ops proc_fops = {
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-  */
--int ddebug_add_module(struct _ddebug *tab, unsigned int n,
--			     const char *name)
-+int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
-+		      struct ddebug_class_map *classes, unsigned int num_classes,
-+		      const char *name)
- {
- 	struct ddebug_table *dt;
- 
-@@ -940,14 +943,14 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 	 * this struct ddebug_table.
- 	 */
- 	dt->mod_name = name;
--	dt->num_ddebugs = n;
-+	dt->num_ddebugs = num_debugs;
- 	dt->ddebugs = tab;
- 
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
--	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
-+	vpr_info("%3u debug prints in module %s\n", num_debugs, dt->mod_name);
- 	return 0;
- }
- 
-@@ -1064,6 +1067,7 @@ static int __init dynamic_debug_init(void)
- 	char *cmdline;
- 	int ret = 0;
- 	int n = 0, entries = 0, modct = 0;
-+	int num_classes = __stop___dyndbg_classes - __start___dyndbg_classes;
- 
- 	if (&__start___dyndbg == &__stop___dyndbg) {
- 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
-@@ -1081,7 +1085,9 @@ static int __init dynamic_debug_init(void)
- 		entries++;
- 		if (strcmp(modname, iter->modname)) {
- 			modct++;
--			ret = ddebug_add_module(iter_start, n, modname);
-+			ret = ddebug_add_module(iter_start, n,
-+						__start___dyndbg_classes, num_classes,
-+						modname);
- 			if (ret)
- 				goto out_err;
- 			n = 0;
-@@ -1090,7 +1096,8 @@ static int __init dynamic_debug_init(void)
- 		}
- 		n++;
- 	}
--	ret = ddebug_add_module(iter_start, n, modname);
-+	ret = ddebug_add_module(iter_start, n,
-+				__start___dyndbg_classes, num_classes, modname);
- 	if (ret)
- 		goto out_err;
- 
-@@ -1099,6 +1106,9 @@ static int __init dynamic_debug_init(void)
- 		 entries, modct, (int)((modct * sizeof(struct ddebug_table)) >> 10),
- 		 (int)((entries * sizeof(struct _ddebug)) >> 10));
- 
-+	if (num_classes)
-+		v2pr_info("  %d builtin ddebug class-maps\n", num_classes);
++  :#> ddcmd mode foo +p
++  dyndbg: unknown keyword "mode"
++  dyndbg: query parse failed
++  bash: echo: write error: Invalid argument
 +
- 	/* now that ddebug tables are loaded, process all boot args
- 	 * again to find and activate queries given in dyndbg params.
- 	 * While this has already been done for known boot params, it
++If debugfs is also enabled and mounted, ``dynamic_debug/control`` is
++also under the mount-dir, typically ``/sys/kernel/debug/``.
+ 
+ Command Language Reference
+ ==========================
+ 
+-At the lexical level, a command comprises a sequence of words separated
++At the basic lexical level, a command is a sequence of words separated
+ by spaces or tabs.  So these are all equivalent::
+ 
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
+-  nullarbor:~ # echo -n '  file   svcsock.c     line  1603 +p  ' >
+-				<debugfs>/dynamic_debug/control
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd file svcsock.c line 1603 +p
++  :#> ddcmd "file svcsock.c line 1603 +p"
++  :#> ddcmd '  file   svcsock.c     line  1603 +p  '
+ 
+ Command submissions are bounded by a write() system call.
+ Multiple commands can be written together, separated by ``;`` or ``\n``::
+ 
+-  ~# echo "func pnpacpi_get_resources +p; func pnp_assign_mem +p" \
+-     > <debugfs>/dynamic_debug/control
++  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
++  :#> ddcmd <<"EOC"
++  func pnpacpi_get_resources +p
++  func pnp_assign_mem +p
++  EOC
++  :#> cat query-batch-file > /proc/dynamic_debug/control
+ 
+-If your query set is big, you can batch them too::
++You can also use wildcards in each query term. The match rule supports
++``*`` (matches zero or more characters) and ``?`` (matches exactly one
++character). For example, you can match all usb drivers::
+ 
+-  ~# cat query-batch-file > <debugfs>/dynamic_debug/control
++  :#> ddcmd file "drivers/usb/*" +p	# "" to suppress shell expansion
+ 
+-Another way is to use wildcards. The match rule supports ``*`` (matches
+-zero or more characters) and ``?`` (matches exactly one character). For
+-example, you can match all usb drivers::
+-
+-  ~# echo "file drivers/usb/* +p" > <debugfs>/dynamic_debug/control
+-
+-At the syntactical level, a command comprises a sequence of match
+-specifications, followed by a flags change specification::
++Syntactically, a command is pairs of keyword values, followed by a
++flags change or setting::
+ 
+   command ::= match-spec* flags-spec
+ 
+-The match-spec's are used to choose a subset of the known pr_debug()
+-callsites to which to apply the flags-spec.  Think of them as a query
+-with implicit ANDs between each pair.  Note that an empty list of
+-match-specs will select all debug statement callsites.
++The match-spec's select *prdbgs* from the catalog, upon which to apply
++the flags-spec, all constraints are ANDed together.  An absent keyword
++is the same as keyword "*".
++
+ 
+-A match specification comprises a keyword, which controls the
+-attribute of the callsite to be compared, and a value to compare
+-against.  Possible keywords are:::
++A match specification is a keyword, which selects the attribute of
++the callsite to be compared, and a value to compare against.  Possible
++keywords are:::
+ 
+   match-spec ::= 'func' string |
+ 		 'file' string |
+@@ -213,6 +183,7 @@ class
+ 
+ 	class DRM_UT_KMS	# a DRM.debug category
+ 	class JUNK		# silent non-match
++	// class TLD_*		# NOTICE: no wildcard in class names
+ 
+ line
+     The given line number or range of line numbers is compared
+@@ -239,17 +210,16 @@ of the characters::
+ The flags are::
+ 
+   p    enables the pr_debug() callsite.
+-  f    Include the function name in the printed message
+-  l    Include line number in the printed message
+-  m    Include module name in the printed message
+-  t    Include thread ID in messages not generated from interrupt context
+-  _    No flags are set. (Or'd with others on input)
++  _    enables no flags.
+ 
+-For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only ``p`` flag
+-have meaning, other flags ignored.
++  Decorator flags add to the message-prefix, in order:
++  t    Include thread ID, or <intr>
++  m    Include module name
++  f    Include the function name
++  l    Include line number
+ 
+-For display, the flags are preceded by ``=``
+-(mnemonic: what the flags are currently equal to).
++For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only
++the ``p`` flag has meaning, other flags are ignored.
+ 
+ Note the regexp ``^[-+=][flmpt_]+$`` matches a flags specification.
+ To clear all flags at once, use ``=_`` or ``-flmpt``.
+@@ -324,7 +294,7 @@ For ``CONFIG_DYNAMIC_DEBUG`` kernels, any settings given at boot-time (or
+ enabled by ``-DDEBUG`` flag during compilation) can be disabled later via
+ the debugfs interface if the debug messages are no longer needed::
+ 
+-   echo "module module_name -p" > <debugfs>/dynamic_debug/control
++   echo "module module_name -p" > /proc/dynamic_debug/control
+ 
+ Examples
+ ========
+@@ -332,37 +302,31 @@ Examples
+ ::
+ 
+   // enable the message at line 1603 of file svcsock.c
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'file svcsock.c line 1603 +p'
+ 
+   // enable all the messages in file svcsock.c
+-  nullarbor:~ # echo -n 'file svcsock.c +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'file svcsock.c +p'
+ 
+   // enable all the messages in the NFS server module
+-  nullarbor:~ # echo -n 'module nfsd +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'module nfsd +p'
+ 
+   // enable all 12 messages in the function svc_process()
+-  nullarbor:~ # echo -n 'func svc_process +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'func svc_process +p'
+ 
+   // disable all 12 messages in the function svc_process()
+-  nullarbor:~ # echo -n 'func svc_process -p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'func svc_process -p'
+ 
+   // enable messages for NFS calls READ, READLINK, READDIR and READDIR+.
+-  nullarbor:~ # echo -n 'format "nfsd: READ" +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'format "nfsd: READ" +p'
+ 
+   // enable messages in files of which the paths include string "usb"
+-  nullarbor:~ # echo -n 'file *usb* +p' > <debugfs>/dynamic_debug/control
++  :#> ddcmd 'file *usb* +p' > /proc/dynamic_debug/control
+ 
+   // enable all messages
+-  nullarbor:~ # echo -n '+p' > <debugfs>/dynamic_debug/control
++  :#> ddcmd '+p' > /proc/dynamic_debug/control
+ 
+   // add module, function to all enabled messages
+-  nullarbor:~ # echo -n '+mf' > <debugfs>/dynamic_debug/control
++  :#> ddcmd '+mf' > /proc/dynamic_debug/control
+ 
+   // boot-args example, with newlines and comments for readability
+   Kernel command line: ...
+@@ -375,3 +339,41 @@ Examples
+     dyndbg="file init/* +p #cmt ; func parse_one +p"
+     // enable pr_debugs in 2 functions in a module loaded later
+     pc87360.dyndbg="func pc87360_init_device +p; func pc87360_find +p"
++
++Kernel Configuration
++====================
++
++Dynamic Debug is enabled via kernel config items:
++
++  CONFIG_DYNAMIC_DEBUG=y	# build catalog, enables CORE
++  CONFIG_DYNAMIC_DEBUG_CORE=y	# enable mechanics only, skip catalog
++
++Fedora's distro-kernel has both, and has 7250 *prdbgs*.  Each callsite
++record uses 56 bytes, so the impact on memory is non-trivial.
++
++If you do not want to enable dynamic debug globally (i.e. in some embedded
++system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
++debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
++modules which you'd like to dynamically debug later.
++
++
++Kernel *prdbg* API
++==================
++
++The following functions are cataloged and controllable when dynamic
++debug is enabled::
++
++  pr_debug()
++  dev_dbg()
++  print_hex_dump_debug()
++  print_hex_dump_bytes()
++
++Otherwise, they are off by default; ``ccflags += -DDEBUG`` or
++``#define DEBUG`` in a source file will enable them appropriately.
++
++If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is
++just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
++
++For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
++its ``prefix_str`` argument, if it is constant string; or ``hexdump``
++in case ``prefix_str`` is built dynamically.
 -- 
 2.36.1
 
