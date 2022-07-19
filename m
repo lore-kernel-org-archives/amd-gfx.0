@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C862AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 10:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3E1C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 11:26:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2FF14BA90;
-	Tue, 19 Jul 2022 10:49:58 +0000 (UTC)
-Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8543514BA80
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 10:49:56 +0000 (UTC)
-Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx0.riseup.net (Postfix) with ESMTPS id 4LnFw34t05z9sCL;
- Tue, 19 Jul 2022 10:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1658227796; bh=Ri5omEkx4yywAb5vqBol9N6WX/R0pI30IilgPEksBS8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=R4iCTQQwCkkrXuaLYhcBfpmGWcA/rVh2fkBNWldeEphZ6J9xIGykOTVgnB0X8Fc+0
- pNOO5YzgLU/xUAj5hB/+EMM6VwZdDdld0MvQDirckC9WwltHjY3YWHPILpzY36h+t/
- aaygKWGPOKx1NHtDuW16J0wXQN2+YSsY9xSVfJ44=
-X-Riseup-User-ID: EEE829733DFF2080357C100C4A86768D5216BCF03DB2B109F65E97AD5C01DF6D
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4LnFvy0CXXz5vw2;
- Tue, 19 Jul 2022 10:49:49 +0000 (UTC)
-Message-ID: <fef5812c-53e9-9222-e888-3556c6a9cc7a@riseup.net>
-Date: Tue, 19 Jul 2022 07:49:46 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C0011A03F;
+	Tue, 19 Jul 2022 11:26:23 +0000 (UTC)
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [IPv6:2607:f8b0:4864:20::734])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD85812A42C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 11:26:20 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id m7so731008qkk.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 04:26:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Zj2vSwWLjHhdOghbkFyO2x020jbfnFjdb1H8pyvZ0As=;
+ b=kEHeD8Jooc4pSo0l4igOizCdoICj/kVQfN533zGFK13r0+qe2E+aT8IhcwKP1gqOU6
+ eLBpxTlVClzXs81a4n/YYbvu3jhV8zIOlW98B3D9PdpOtW/UgnTmf9c113f69lvHi4e4
+ 5CfQP4HXnTIq/JX3VMiQIT1AHQh4YDAeIQnDg4Fgk5tJzKqXKoXaJfD8teIM8veEqMcw
+ Rlvclbp8y3valaTMFJzXDJTbi5d6sfDly9wLxddlXY6rB3dXn8aToq//vJcO5YBVAsTv
+ KaLmfIyK3rSOWJUMJJNqXDHa6rehVwM+HY1wZ3AhSmU6tmnUA2tevqtOm9ILKTDxEGr6
+ Apow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Zj2vSwWLjHhdOghbkFyO2x020jbfnFjdb1H8pyvZ0As=;
+ b=p30HK+Q0t7DXzf7uEs9YqKb90VmahO1Zv+JP6A85bY7bKRbKa0M9B/XsSUNjjFvtdI
+ EUlrnCSOUf1DAVluqRx/dHQrwia5yBrqK6g40qqTph3YfoiclRVWA7dgd8HHdyikkLXE
+ 74NsXF1q1UugKJdbC15gkPRti4yBASVnzQbQYNb0ATJt1mhBgnIUB5y+WpwkEm3x4dlF
+ LJx60TcJKb2Kocx+uLg6joLk22L02yA26r3Wlvd7cko+J6YwgzAqz8QRYaxGlACJOhvX
+ C0uRBpfLF8Qqvwnmc8t/9dIepSW5SHUsGoVsMUnx2/QdH3dmmpsvl6s5RC6Cl2fBIAIT
+ 2QtQ==
+X-Gm-Message-State: AJIora8J30x9hszD6M3/BvTZ8F9JfmwDT253RGWchn2aYY9VXeEPI81v
+ G0heR/RpS3+xGI4mcFJLNEOv6LPCj606Rkz29eYbNk0NJil3nxFxDkc=
+X-Google-Smtp-Source: AGRyM1vnEAZbtXcRbBKdb0v90eSYy+6qITpc1hAy6u9D25CBQU4p6BZweUCVK4xB+S88cr1OkyCGlKT5qwtcSFW3fhI=
+X-Received: by 2002:a37:946:0:b0:6b5:c58a:6ab1 with SMTP id
+ 67-20020a370946000000b006b5c58a6ab1mr15045126qkj.663.1658229979845; Tue, 19
+ Jul 2022 04:26:19 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH 10/12] drm/amd/display: Remove parameters from
- dml30_CalculateWriteBackDISPCLK
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20220714164507.561751-1-mairacanal@riseup.net>
- <20220714164507.561751-10-mairacanal@riseup.net>
- <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-In-Reply-To: <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CABXGCsPRrUoNtO4J8H8aLWRCGGZkwHqtOZV9Edamd2pXVB0ooA@mail.gmail.com>
+ <DM5PR12MB24695F88092ADF033A2522E6F18F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <CAHbf0-GssD3jP4ZjVQeP1Bgu+uHE3OXAEWLeZJA5VdWHzqbBjQ@mail.gmail.com>
+In-Reply-To: <CAHbf0-GssD3jP4ZjVQeP1Bgu+uHE3OXAEWLeZJA5VdWHzqbBjQ@mail.gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 19 Jul 2022 16:26:09 +0500
+Message-ID: <CABXGCsMvJ6JWc3yO8Lv38ZHEHzhhOZUipA4cuc5E=RPSt0WbZQ@mail.gmail.com>
+Subject: Re: Command "clinfo" causes BUG: kernel NULL pointer dereference,
+ address: 0000000000000008 on driver amdgpu
+To: Mike Lothian <mike@fireburn.co.uk>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,116 +64,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Magali Lemes <magalilemes00@gmail.com>, Leo Li <sunpeng.li@amd.com>,
- Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
- xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Melissa Wen <mwen@igalia.com>, David Airlie <airlied@linux.ie>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Harry Wentland <harry.wentland@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/18/22 16:02, Alex Deucher wrote:
-> On Thu, Jul 14, 2022 at 12:46 PM Maíra Canal <mairacanal@riseup.net> wrote:
->>
->> The parameters WritebackPixelFormat and WritebackVRatio are removed as
->> they are not used on the function dml30_CalculateWriteBackDISPCLK.
-> 
-> Maybe this is done for consistency with other dml code for other DCN blocks?
-> 
-> Alex
+On Tue, Jul 19, 2022 at 1:40 PM Mike Lothian <mike@fireburn.co.uk> wrote:
+>
+> I was told that this patch replaces the patch you mentioned
+> https://patchwork.freedesktop.org/series/106078/ and it the one
+> that'll hopefully land in Linus's tree
+>
 
-This is reasonable. Anyway, the functions
-dml30_CalculateWriteBackDISPCLK and dml31_CalculateWriteBackDISPCLK are
-identical. May I send a v2 from PATCH 11/12 with the original function
-signature?
+Great, I confirm that both patches solve the issue.
+As I understand the second patch [1] is more right and it should be
+land merged 5.19 soon, right?
 
+And since we are talking about clinfo, there is a question.
+No one has encountered the problem that on configurations with two
+GPUs, it hangs in a cycle since it completely occupies one processor
+core. In my case, one GPU is in the RENOIR processor, and the other is
+a discrete AMD Radeon 6800M. In the BIOS there is no ability to turn
+off the integrated GPU in the processor, so there is no way to check
+this configuration with each GPU separately. In the kernel log there
+is no error so it is most likely a user space issue , but I am not
+sure about it.
+
+clinfo backtrace is here [2]
+
+[1] https://patchwork.freedesktop.org/series/106078/
+[2] https://pastebin.com/wv5iGibi
+
+-- 
 Best Regards,
-- Maíra Canal
-
-> 
->>
->> Signed-off-by: Maíra Canal <mairacanal@riseup.net>
->> ---
->>  drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c        | 2 --
->>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c  | 6 ------
->>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h  | 2 --
->>  3 files changed, 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
->> index a8db1306750e..746bb93ade6c 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
->> @@ -322,10 +322,8 @@ void dcn30_fpu_populate_dml_writeback_from_context(
->>                                  * parameters per pipe
->>                                  */
->>                                 writeback_dispclk = dml30_CalculateWriteBackDISPCLK(
->> -                                               dout_wb.wb_pixel_format,
->>                                                 pipes[pipe_cnt].pipe.dest.pixel_rate_mhz,
->>                                                 dout_wb.wb_hratio,
->> -                                               dout_wb.wb_vratio,
->>                                                 dout_wb.wb_htaps_luma,
->>                                                 dout_wb.wb_vtaps_luma,
->>                                                 dout_wb.wb_src_width,
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
->> index 876b321b30ca..37049daaab4c 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
->> @@ -1938,10 +1938,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
->>                 if (v->WritebackEnable[k]) {
->>                         v->WritebackDISPCLK = dml_max(v->WritebackDISPCLK,
->>                                 dml30_CalculateWriteBackDISPCLK(
->> -                                               v->WritebackPixelFormat[k],
->>                                                 v->PixelClock[k],
->>                                                 v->WritebackHRatio[k],
->> -                                               v->WritebackVRatio[k],
->>                                                 v->WritebackHTaps[k],
->>                                                 v->WritebackVTaps[k],
->>                                                 v->WritebackSourceWidth[k],
->> @@ -3284,10 +3282,8 @@ static double CalculateTWait(
->>  }
->>
->>  double dml30_CalculateWriteBackDISPCLK(
->> -               enum source_format_class WritebackPixelFormat,
->>                 double PixelClock,
->>                 double WritebackHRatio,
->> -               double WritebackVRatio,
->>                 unsigned int WritebackHTaps,
->>                 unsigned int WritebackVTaps,
->>                 long   WritebackSourceWidth,
->> @@ -3794,10 +3790,8 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->>                 if (v->WritebackEnable[k] == true) {
->>                         v->WritebackRequiredDISPCLK = dml_max(v->WritebackRequiredDISPCLK,
->>                                         dml30_CalculateWriteBackDISPCLK(
->> -                                                       v->WritebackPixelFormat[k],
->>                                                         v->PixelClock[k],
->>                                                         v->WritebackHRatio[k],
->> -                                                       v->WritebackVRatio[k],
->>                                                         v->WritebackHTaps[k],
->>                                                         v->WritebackVTaps[k],
->>                                                         v->WritebackSourceWidth[k],
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
->> index daaf0883b84d..12c070434eee 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
->> @@ -29,10 +29,8 @@
->>  void dml30_recalculate(struct display_mode_lib *mode_lib);
->>  void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib);
->>  double dml30_CalculateWriteBackDISPCLK(
->> -               enum source_format_class WritebackPixelFormat,
->>                 double PixelClock,
->>                 double WritebackHRatio,
->> -               double WritebackVRatio,
->>                 unsigned int WritebackHTaps,
->>                 unsigned int WritebackVTaps,
->>                 long   WritebackSourceWidth,
->> --
->> 2.36.1
->>
+Mike Gavrilov.
