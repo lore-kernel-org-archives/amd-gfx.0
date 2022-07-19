@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B92BAC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 19:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3283C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 19:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B54411B370;
-	Tue, 19 Jul 2022 19:49:43 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E61CB11B7CE
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 19:49:41 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id oy13so29110089ejb.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 12:49:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D23113063;
+	Tue, 19 Jul 2022 19:50:50 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2301113063;
+ Tue, 19 Jul 2022 19:50:47 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id os14so29230558ejb.4;
+ Tue, 19 Jul 2022 12:50:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kGaYb8GJ+5uBruxZ07JZRxMtKvYjxNNMUtRhRScm2e4=;
- b=DnakFoXBnTy6Hwo/jWH6+xw0mCPX4Bv89A8fsu+1f+k2TszwnONZxmmwkthYfo4Wiw
- 0pGaMMc5XURJ59DgAmyiHOLh57eclZXV0P7aMolV2O+4V8/zPzyw79zYn3L+0q2lYUx7
- 0RV5LDulDZJfi+/Sg+jGEDbLL9kpDDK2NbTSi++P7OAOmxu8Yq3khHTXvnpizLTe9SYg
- NZGpXgFfzqMjABF9o0wf+oRL1mTy3IMxR8c3ItHOITw5p6TjfjLNDxrllaotUtiTA/aB
- 3piHf/iqlJLdpx8RmFlzTjqO0lKLCd5/wzwVoy1xyzhk78iVpu9Pdku11lUWOA0hw1mn
- ZWqA==
+ :cc:content-transfer-encoding;
+ bh=MP2mNoHV5UbwTy8FhxrYTOnqC74G4vp1u8y7Ih8i6Gk=;
+ b=HXOii4OqRMngJ85erwxpuDjSbMYDxJE4qXyd0P9MRABSLjttvKm45KAun5SY4VCsS9
+ K6C42blnp93B2q6MMIefScXhep5eIC8mYUjr74y6OqyIbz9jpyrahwzV9pQKGpDl5ZXI
+ LF21HIlI+tl05fwyzoavG+zd5I4vZCiVi97GTM/8zqbX8PVtQN9o21tshr4q1XUk0itr
+ AI1Fn7jaeYQTngHANbBxE+ByFuVmTXgKT25Me4aYipyD0AeDcr5yo2p5V0qcCcMWtsxw
+ jUeGzE9acPC8dcwn5DxwBBIj+DcFc6jt0uW4FOqbflK/luDSDKdNf80NOlIn3vCEla7C
+ ADbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kGaYb8GJ+5uBruxZ07JZRxMtKvYjxNNMUtRhRScm2e4=;
- b=UAUKu4BpkUgrjDJY8n3jmNhcLCgX1mHDQUaPoixybP2PrtVVkY0iCmN20YeU2yd4Cv
- hsrStAf1Yc/X6qhmvQ8WvAND3VvKkyyDfnYHX8g+ovyT9FJjE6eKJXKXIhrTs9wJKi6b
- ii3u7VnnmrQ8K+h98t2zRHA6flBAT8sXmLQXKrk15gcbtCq5dS265kLH1ATnMTs4Sly+
- qPdZB58nZ/V0EF+JJtH1Qq/jobKFg0my6MfXJd0xpXmmZyoiKl3ePT0Vvvmc3FWM3OOt
- S5olwESQyrUVl0OuIewmJDQBlEm0emk2sjd0CtCcxmjmjhNMrxwRuATJHbY9bP+ZqY+9
- OuWw==
-X-Gm-Message-State: AJIora85nBBv5233aKRB3K19kn3mfXFZpLHIfjmnxV9i3XS9ii3dIJ5P
- 8n+Lg1fB4r8cwOl/Ib6Y+t4GbHKwrsjZRqCs3As=
-X-Google-Smtp-Source: AGRyM1sDpf7TAw4N91inZAWsr9O6PuZsaEN3MobPbWzK6tAkzqOxS25zCxiAFZBTGMYSkpWbgabTVJZtRuxgDxsvy+c=
-X-Received: by 2002:a17:907:2702:b0:72b:307b:98e6 with SMTP id
- w2-20020a170907270200b0072b307b98e6mr32616184ejk.658.1658260180358; Tue, 19
- Jul 2022 12:49:40 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=MP2mNoHV5UbwTy8FhxrYTOnqC74G4vp1u8y7Ih8i6Gk=;
+ b=WjxlqSFPBfVG5PNVKYOxkjWLTa8dQZ3R3TlMai+cipxuly9Q9hqunlTFowi0Sa/aP3
+ u8X4McGxd6TZEvGlmULIo86qSj87JbGi9w5YdyaIz6EGOBXDQKeobLs40gk86eGb4EHz
+ t0uui5OLk9h7m2xqCgvliQFugnENyU6pVyqQDEpXACVGZXoX2QFBKhXznBXvQwHqd292
+ /yVWOKHugEw+L2uktUvlBwUcp8trjh/r+V4nm1RpNS2apaldG89XMqxOXjkZoy2Xt2w5
+ JUoJuriCZMCVDvZIOGbR0UbD44ALB4PxPHtVC3r2su1U6aFmj8eNTBKODUJsCQvwgQcQ
+ wouw==
+X-Gm-Message-State: AJIora+hOfYvPzRIuBDO8P5lpV95hs2lV8e2cOe3tvrSQjoFlL3qneav
+ f4jW7W4XQY6n4HakT8A4EvByQyTDW6MredfP9Y5U+U4d
+X-Google-Smtp-Source: AGRyM1u6s0KwsJBJwcN1pS55Zw9h79wwsGyapUUrqQkHflO0aWasIqdqMC6rDczKC50rhDnaYsEeROk2BJOIpddn6Oc=
+X-Received: by 2002:a17:907:1623:b0:72b:64e3:878a with SMTP id
+ hb35-20020a170907162300b0072b64e3878amr33075752ejc.185.1658260246316; Tue, 19
+ Jul 2022 12:50:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220708015346.3027-1-xinhui.pan@amd.com>
- <CAHbf0-Fo4qE1RCaH2uHHW1YTkHb-yFCMnix0rjsq+K1RCMQxSg@mail.gmail.com>
-In-Reply-To: <CAHbf0-Fo4qE1RCaH2uHHW1YTkHb-yFCMnix0rjsq+K1RCMQxSg@mail.gmail.com>
+References: <20220716035732.30449-1-wangborong@cdjrlc.com>
+ <ada7fc21-17e3-d3e0-5316-55ee6669ccd3@amd.com>
+In-Reply-To: <ada7fc21-17e3-d3e0-5316-55ee6669ccd3@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Jul 2022 15:49:28 -0400
-Message-ID: <CADnq5_P2sX4imt2buEF6GDP9qvRWF4cjKQ7060nMHLdhC1bxVQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove one duplicated ef removal
-To: Mike Lothian <mike@fireburn.co.uk>
+Date: Tue, 19 Jul 2022 15:50:34 -0400
+Message-ID: <CADnq5_PtDTX0WBxW9e4SbzLnm15XTsir++26tp0YLnknAdNdYg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Fix comment typo
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +64,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com,
- xinhui pan <xinhui.pan@amd.com>, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, airlied@linux.ie, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jason Wang <wangborong@cdjrlc.com>, daniel@ffwll.ch, alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 19, 2022 at 4:32 AM Mike Lothian <mike@fireburn.co.uk> wrote:
->
-> With this patch applied on Linus's tree 5.18-rc7 I get the following warning:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:1367:20: warning:
-> unused variable 'pd' [-Wunused-variable]
->        struct amdgpu_bo *pd = vm->root.bo;
->                          ^
-> 1 warning generated.
->
-> It does fix the nullpointer though :D
+Applied.  Thanks!
 
-I fixed that up when I pulled the patch in.
-
-Alex
-
+On Tue, Jul 19, 2022 at 8:33 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
->
-> On Fri, 8 Jul 2022 at 02:55, xinhui pan <xinhui.pan@amd.com> wrote:
+> Am 16.07.22 um 05:57 schrieb Jason Wang:
+> > The double `have' is duplicated in line 696, remove one.
 > >
-> > That has been done in BO release notify.
-> >
-> > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> > Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 5 -----
-> >  1 file changed, 5 deletions(-)
+> >   drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > index 0f9811d02f61..49536fa8d269 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > @@ -1583,11 +1583,6 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
-> >         if (!process_info)
-> >                 return;
+> > diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/rade=
+on/radeon_gem.c
+> > index 84843b3b3aef..261fcbae88d7 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> > @@ -693,7 +693,7 @@ int radeon_gem_va_ioctl(struct drm_device *dev, voi=
+d *data,
+> >       }
 > >
-> > -       /* Release eviction fence from PD */
-> > -       amdgpu_bo_reserve(pd, false);
-> > -       amdgpu_bo_fence(pd, NULL, false);
-> > -       amdgpu_bo_unreserve(pd);
-> > -
-> >         /* Update process info */
-> >         mutex_lock(&process_info->lock);
-> >         process_info->n_vms--;
-> > --
-> > 2.34.1
-> >
+> >       /* !! DONT REMOVE !!
+> > -      * We don't support vm_id yet, to be sure we don't have have brok=
+en
+> > +      * We don't support vm_id yet, to be sure we don't have broken
+> >        * userspace, reject anyone trying to use non 0 value thus moving
+> >        * forward we can use those fields without breaking existant user=
+space
+> >        */
+>
