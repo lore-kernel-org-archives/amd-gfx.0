@@ -4,58 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4488BC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 08:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B35C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 09:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D78B011BAE4;
-	Tue, 19 Jul 2022 08:41:00 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E69411AF04
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 08:40:58 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so30275337fac.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 01:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SjTMYyNdBeUu7iomKZchO0cdHcESp1feqssx2cB1fms=;
- b=73FS09WA3/I7Q5DJHVJdYGp21QdQ/EcCS2t02L8sMAMb5r4K+NbYLj6EKD2qO+E04n
- +Es7yB8DjJCJ/445YlF46KW9w108Y/KR0xllDNsmgUmd6vbzlVeqnhVmWsX6MFHZ7PUN
- nQhsQLT81guwsIFf72u8nMG5Kmb7MudZNWNhxKGUSz9NrjlawyjETh8swwMNMNsSLMvz
- VgOB9AUpfuPjBi+qIx9aOCq/jDGsZeD+13vs4JTSgKpn/NVuAKlu/q/WtmB1ZtYr1Si9
- 5YALk5mdUYNtsT100hDNm+d+GoNTbP9iAzFNWeehUWRHx8bPFyBKfcRp7ZKIF3Uu+uT0
- ekbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SjTMYyNdBeUu7iomKZchO0cdHcESp1feqssx2cB1fms=;
- b=nPebEpCWY+vUtU1vbemc5TDoRiqyZVYf5+eHTrWowCMpCCyynM2gDRALqSOo5vSm4X
- mXYVt21hpo5jBFwot4HKmKSQkg5x9ZbeyYXO0EdeM5b3GtjsaE4I25bm1cwPM8F0PA66
- ji7Ry6CPiuN0XsjPlFVUX6YY5lQXgRMkKyDgoTby9ajRV6C6KmSSv4x0jcYuvM9tGTT2
- jTSfiz4iPeMY7zvXzIfBwIlh8z/2rocG9YCcAlaBM9RGP/rj3ZdYbx1fhn78RzlKB13b
- FhaDavZ13i2WQBhA4bq15ietxex7BT8xybY6wDa9mzu/Z7lWsk7SBJwZCNA4XDdAikQk
- rGgg==
-X-Gm-Message-State: AJIora9/2zKhqMSM3w40ivCJ91ohLYNpswkKGosRWmrLG5VTdL1+PGoD
- 08rA46pgc5YcyqVAe8K2045kODIpZQqi8KqPCWO0fA==
-X-Google-Smtp-Source: AGRyM1tsVwlXGy0aUgRSYFGzXhmchcLKINd9UasySXdc4KsjpivFEr+j9ktcFKrrWQQQg71eQZ/+XTkGC+OS/qdZRik=
-X-Received: by 2002:a05:6870:c10b:b0:10d:1992:f249 with SMTP id
- f11-20020a056870c10b00b0010d1992f249mr10553048oad.256.1658220057827; Tue, 19
- Jul 2022 01:40:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1422414B0A3;
+	Tue, 19 Jul 2022 09:33:25 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6A314B0AA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 09:33:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cgsjGjzTeP4N2QOK8VNwPI6QQH9BWHz369lbPRGMC8CX/F+3nMAqCw47Tjf8Za8z4Wa9WLROWAx0LRjB/sXLSv7GGPSzwFwPDBzbi/GPWUQaYrqr8tATk7DcBBoNmk/ZaXPrc4+NXWf8gdtQcy08bfgBTEyd/o27Fugl+49KT17oRYiyaE2CqCoZTjvf4B2PM/0cD+iziEWlVROtneM57FQXgtvxjzLGUEsQ7HppW1JgTTsD6RCsJhg3kw4fL90DNP7f3XjCHkRi5isuIfLEeSjVED192K3BVUH/Q2nKb4599JH4na0cYDMQdnerJh/ZcDoYm7zaIVsGRtzJVONpDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bvZ9TlNP9amvNnla0e/e2CdRQI47PZ6PkLqbJKDXM/Y=;
+ b=ABjB5QFPbA+WwkXlR2PbN6K98wOkiTGCAsCQvNbxUgn0+FhliHNtEDgefw3mAUa6qLBDhO939KJe/+Qoyb0JrRy4VArfKKj00uJWQjsSzCLJmu1DEG/jteNN92vIRyQU4EZGVqDTq2CMmpS3gnrhCrHzFJuTpmOlfxSiv0RPwucZ0NCjAyo2lweXwGITZtWMrUk4MTInVP4GjhcdCoM/389QBBQFHz3xKCLRPOokHqaRiR6z1+cTz/sGA7BfD6iNduhk7W5rkEdx8q71X5friqvZSotqvJAYF5FyDeFrXjdEG/xm5MBW1ODMKK3YBQo+T4a3sM6enaN/ytKIrVpj+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bvZ9TlNP9amvNnla0e/e2CdRQI47PZ6PkLqbJKDXM/Y=;
+ b=15PTIOCvqFJYCfwU/TtvEUwj3Jm1K9JYTJ8K6n+exviN0a2aVvsT+U/5ecjwQn227AzjXFC+bb1A6mRDb5HTpY2edmZQWaNRFrxy9ouZUebse2wDIxU2gztZXSxKuLjhObyiZXdcHS8Rcq0ooPOk7xndNcGq5s5bf/N0NytT4nA=
+Received: from DM6PR12CA0018.namprd12.prod.outlook.com (2603:10b6:5:1c0::31)
+ by PH8PR12MB7027.namprd12.prod.outlook.com (2603:10b6:510:1be::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20; Tue, 19 Jul
+ 2022 09:33:20 +0000
+Received: from DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1c0:cafe::35) by DM6PR12CA0018.outlook.office365.com
+ (2603:10b6:5:1c0::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17 via Frontend
+ Transport; Tue, 19 Jul 2022 09:33:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT019.mail.protection.outlook.com (10.13.172.172) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5438.12 via Frontend Transport; Tue, 19 Jul 2022 09:33:19 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 19 Jul
+ 2022 04:33:17 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/4] drm/amd/pm: enable GPO feature support for SMU13.0.0
+Date: Tue, 19 Jul 2022 17:32:41 +0800
+Message-ID: <20220719093244.27827-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-References: <CABXGCsPRrUoNtO4J8H8aLWRCGGZkwHqtOZV9Edamd2pXVB0ooA@mail.gmail.com>
- <DM5PR12MB24695F88092ADF033A2522E6F18F9@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB24695F88092ADF033A2522E6F18F9@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Tue, 19 Jul 2022 09:40:46 +0100
-Message-ID: <CAHbf0-GssD3jP4ZjVQeP1Bgu+uHE3OXAEWLeZJA5VdWHzqbBjQ@mail.gmail.com>
-Subject: Re: Command "clinfo" causes BUG: kernel NULL pointer dereference,
- address: 0000000000000008 on driver amdgpu
-To: "Chen, Guchun" <Guchun.Chen@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1177d315-4cb6-4793-4a05-08da6969b79b
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7027:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tVPedpmtmXtPZ6bo61zFLtWglkrFZ6BUpwxPiiewX9sNH158x2xV6c8/INMxcGfSOlj7IaJXb07ZJPKH6N6yDq4Mg6NDCI0JJE0RQQqvm7KzABQRzhCcGKZSEMcVxgqtw1aBiXK74GRL4vH3pkQ3wOetNJlStcb/8Rweo+rNMk2zTz8COqgQUhXI/E00qiNAkdODJNlhysjw+ZPWnhmOXZJK+OPIUsiGiV351uwt089Hot6+t0DziYKiPs+mY3OhMHuYYsEFaRXU7KHsowqoQ34u/OULNaGcR34XbMnSnQvKlJqnYWVn5UFjd3VFf8wXCCvqhU+fPaQ9APOuJOC0CfKfXtui2/6tXXGbW4ejMH2+A05fIfKeYp3IdfLRB9n3PqAygHZIzyuJexFbd7M+6Jxie0o/DK0FqIEdD1X62H9J77kG7osAW7y2cliY6ts05bw9+8BYIMlP6c3Iei6OnNCCeqWFPoRiFWmoBZu07C87mOcNunGTgQoD77MZzbYEQkDO4DOhGuyPc+raIBxUyR19OJX18sY1BIWtXRSKx7RRlWsbJE++026W/o0WpzOrWJVSKO61s28tJM1U7qVkdiAyYnPlbkwGLUpFivq9EISg0DlhmZM4YAh2d2TOhJJn8eJkgMbdMkLYT2TCyaapIagrkb2Z1NSafGQux/arqE9rSlXtlI7CsP3AqzfUcofLBcAW+6oOlVS1AiFpCDyI4Xs858Z2T7hSFB6u2EwYsO9xOBZHwpj6c06qBqKTajENumy0ncsOV0T8CVvVjzZk3aKS5uyztIGBs9nlVW6BEc1jizfpNS02v3wvAAQbsM82v9v7CMR+DaUjvEucjJtk2a8XVGH/29Nov6mbmC9dtEXu6DeM/ybOE4l2xh4gyJXg
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(396003)(376002)(39860400002)(36840700001)(46966006)(40470700004)(40460700003)(26005)(6916009)(41300700001)(426003)(1076003)(82310400005)(16526019)(336012)(47076005)(2616005)(186003)(36756003)(54906003)(70586007)(478600001)(36860700001)(40480700001)(2906002)(70206006)(8936002)(316002)(81166007)(86362001)(7696005)(8676002)(4326008)(5660300002)(6666004)(4744005)(44832011)(82740400003)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2022 09:33:19.8299 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1177d315-4cb6-4793-4a05-08da6969b79b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7027
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I was told that this patch replaces the patch you mentioned
-https://patchwork.freedesktop.org/series/106078/ and it the one
-that'll hopefully land in Linus's tree
+The feature is ready with latest firmwares.
 
-On Tue, 19 Jul 2022 at 03:33, Chen, Guchun <Guchun.Chen@amd.com> wrote:
->
-> Patch https://patchwork.freedesktop.org/series/106024/ should fix this.
->
-> Regards,
-> Guchun
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mikhai=
-l Gavrilov
-> Sent: Tuesday, July 19, 2022 7:50 AM
-> To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Linux List Kernel Maili=
-ng <linux-kernel@vger.kernel.org>; Christian K=C3=B6nig <ckoenig.leichtzume=
-rken@gmail.com>
-> Subject: Command "clinfo" causes BUG: kernel NULL pointer dereference, ad=
-dress: 0000000000000008 on driver amdgpu
->
-> Hi guys I continue testing 5.19 rc7 and found the bug.
-> Command "clinfo" causes BUG: kernel NULL pointer dereference, address:
-> 0000000000000008 on driver amdgpu.
->
-> Here is trace:
-> [ 1320.203332] BUG: kernel NULL pointer dereference, address: 00000000000=
-00008 [ 1320.203338] #PF: supervisor read access in kernel mode [ 1320.2033=
-40] #PF: error_code(0x0000) - not-present page [ 1320.203341] PGD 0 P4D 0 [=
- 1320.203344] Oops: 0000 [#1] PREEMPT SMP NOPTI [ 1320.203346] CPU: 5 PID: =
-1226 Comm: kworker/5:2 Tainted: G W L
-> -------- --- 5.19.0-0.rc7.53.fc37.x86_64+debug #1 [ 1320.203348] Hardware=
- name: System manufacturer System Product Name/ROG STRIX X570-I GAMING, BIO=
-S 4403 04/27/2022 [ 1320.203350] Workqueue: events delayed_fput [ 1320.2033=
-54] RIP: 0010:dma_resv_add_fence+0x5a/0x2d0
-> [ 1320.203358] Code: 85 c0 0f 84 43 02 00 00 8d 50 01 09 c2 0f 88 47
-> 02 00 00 8b 15 73 10 99 01 49 8d 45 70 48 89 44 24 10 85 d2 0f 85 05
-> 02 00 00 <49> 8b 44 24 08 48 3d 80 93 53 97 0f 84 06 01 00 00 48 3d 20
-> 93 53
-> [ 1320.203360] RSP: 0018:ffffaf4cc1adfc68 EFLAGS: 00010246 [ 1320.203362]=
- RAX: ffff976660408208 RBX: ffff975f545f2000 RCX: 0000000000000000 [ 1320.2=
-03363] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff976660408198 [ =
-1320.203364] RBP: ffff976806f6e800 R08: 0000000000000000 R09: 0000000000000=
-000 [ 1320.203366] R10: 0000000000000000 R11: 0000000000000001 R12: 0000000=
-000000000 [ 1320.203367] R13: ffff976660408198 R14: ffff975f545f2000 R15: f=
-fff976660408198 [ 1320.203368] FS: 0000000000000000(0000) GS:ffff976de12000=
-00(0000)
-> knlGS:0000000000000000
-> [ 1320.203370] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033 [ 1320.20=
-3371] CR2: 0000000000000008 CR3: 00000007fb31c000 CR4: 0000000000350ee0 [ 1=
-320.203372] Call Trace:
-> [ 1320.203374] <TASK>
-> [ 1320.203378] amdgpu_amdkfd_gpuvm_destroy_cb+0x5d/0x1e0 [amdgpu] [ 1320.=
-203516] amdgpu_vm_fini+0x2f/0x4e0 [amdgpu] [ 1320.203625] ? mutex_destroy+0=
-x21/0x50 [ 1320.203629] amdgpu_driver_postclose_kms+0x1da/0x2b0 [amdgpu] [ =
-1320.203734] drm_file_free.part.0+0x20d/0x260 [ 1320.203738] drm_release+0x=
-6a/0x120 [ 1320.203741] __fput+0xab/0x270 [ 1320.203743] delayed_fput+0x1f/=
-0x30 [ 1320.203745] process_one_work+0x2a0/0x600 [ 1320.203749] worker_thre=
-ad+0x4f/0x3a0 [ 1320.203751] ? process_one_work+0x600/0x600 [ 1320.203753] =
-kthread+0xf5/0x120 [ 1320.203755] ? kthread_complete_and_exit+0x20/0x20
-> [ 1320.203758] ret_from_fork+0x22/0x30
-> [ 1320.203764] </TASK>
->
-> Full kernel log is here:
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpaste=
-bin.com%2FEeKh2LEr&amp;data=3D05%7C01%7Cguchun.chen%40amd.com%7C06749e19d65=
-b418748dc08da6918435f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63793785=
-0184140997%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJB=
-TiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3Dx1%2FR7m9Vy2XwkXKXsm=
-EOeaAyv44ZKNsU4caZJOOSIvY%3D&amp;reserved=3D0
->
-> And one hour later after a lot of messages "BUG: workqueue lockup" GPU co=
-mpletely hung.
->
-> I will be glad to test patches that fix this bug.
->
-> --
-> Best Regards,
-> Mike Gavrilov.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Change-Id: I581a7aae2618134a9d196cd383cdabf3516efec0
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index ce2fa04e3926..fe7528c83843 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -310,6 +310,8 @@ smu_v13_0_0_get_allowed_feature_mask(struct smu_context *smu,
+ 
+ 	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_VR0HOT_BIT);
+ 
++	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFX_POWER_OPTIMIZER_BIT);
++
+ 	return 0;
+ }
+ 
+-- 
+2.29.0
+
