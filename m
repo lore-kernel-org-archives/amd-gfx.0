@@ -4,84 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A63C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 12:55:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA52C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 12:55:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A90FB14A86D;
-	Tue, 19 Jul 2022 12:55:21 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF0DE11B540
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 08:41:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1658220062;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aCQLJQOHcJOJ8JmCqZRzHzMUpESxVjd3NNjhzKxLWQs=;
- b=Sk9pVL3nLTNm+GI2UzYgk45qGkMGxqaDTToP1XCcg5rG21ST6Mc/cGy56bbRxVk4oH3FW2
- dCBpyqFP/rK+T0gbeyQuDiE/eFoU0ZTDGHLm+5DoQiDa/VMbgCfw4LpFTpzACdZDk+V7nM
- nFLLkX4+j6eVLz3hIfH52RN/PZk9qgY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-630-_hZ_yvA4NZG76LR4d62SsQ-1; Tue, 19 Jul 2022 04:40:58 -0400
-X-MC-Unique: _hZ_yvA4NZG76LR4d62SsQ-1
-Received: by mail-wm1-f71.google.com with SMTP id
- n21-20020a7bc5d5000000b003a2ff4d7a9bso5224570wmk.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 01:40:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBAA14A8B8;
+	Tue, 19 Jul 2022 12:55:22 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526B314AB80
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 09:14:02 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ cb12-20020a056830618c00b00616b871cef3so11231383otb.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 02:14:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=USiHEWO3jenD+4D67wgYkGKlAcIRmi0lfoN5PdFyKzQ=;
+ b=dFYdzZzeGTwRc0FPEgBG5fRwMWNVjXZzxLxwtIHOW4IyAUtC1iJhL8ze0h/ntk8Iq4
+ lKlrAFaVxT4/pV4802tsmPOfXqrd/5krNwAeme2Ty0hfRzSXMQ2O+C/Kf1izAeM/mOcz
+ 8LysLHAdaCtPPppxeQNBi2EL1ZGV/VNGij1I4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=aCQLJQOHcJOJ8JmCqZRzHzMUpESxVjd3NNjhzKxLWQs=;
- b=2hrf/vpI9qR5Staou6iWh3S4OvV+FIF8zA4KMm8w8MXoUQEDxi4vMohwhc6I+YCLgF
- he625paLi/ybxAfidPlYgIZDTsHJgF7naU3BR5qLZpXSx6PDJaAnnQlfqVwqpbpJz0D+
- PK3TxM0t5WGEyTk+2DP0IopxJDF1tBEywlS9ZcntRRqUjiHAS4KIQdXUPdRgifG38+0k
- 2mKzXEIN/quJvlQKRU/ZFw+p1mAYkKLB1HELrxzZ/KwM/4VwKBHnTQ/IfnYMg33bsBPf
- NUGKNuCOPvQqKNmnxjyOCTQbLvlKadapj/2DlXiOK3+vmwNdhgf50+VyHvDlCQUbPon6
- f/zg==
-X-Gm-Message-State: AJIora9XfeWg4Pz+2+i5cFlDYm6cyXUdxpwe/+GJhQJHIxk76LJTN3E4
- KC7HgV0W2lYN7M9OO6+C8H4i6EMw5H+qkCYLRCIb6D5yBa2dPG5T1OKmT87w8i/Zd8UbF9kngAg
- SdLotmlS2JtTEcwnW1t7Ce8/yaw==
-X-Received: by 2002:a7b:c381:0:b0:3a2:aef9:8df4 with SMTP id
- s1-20020a7bc381000000b003a2aef98df4mr37053747wmj.7.1658220057356; 
- Tue, 19 Jul 2022 01:40:57 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1toW+ZoFXTJPEFs8reXmrBMtF0NaGli8q7vJKFZ+PCo4DXMfNrAYpetGiTuQdFEWq6RXg/h9w==
-X-Received: by 2002:a7b:c381:0:b0:3a2:aef9:8df4 with SMTP id
- s1-20020a7bc381000000b003a2aef98df4mr37053722wmj.7.1658220057065; 
- Tue, 19 Jul 2022 01:40:57 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c709:600:7807:c947:bc5a:1aea?
- (p200300cbc70906007807c947bc5a1aea.dip0.t-ipconnect.de.
- [2003:cb:c709:600:7807:c947:bc5a:1aea])
- by smtp.gmail.com with ESMTPSA id
- j23-20020a05600c1c1700b003a32251c3f9sm1833646wms.5.2022.07.19.01.40.56
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=USiHEWO3jenD+4D67wgYkGKlAcIRmi0lfoN5PdFyKzQ=;
+ b=ilcJum859ZfC4IfyU7mUsl+fY2uuf2gsIImcHZhptWUtHsDHwHIrgjyKGFltUJh74X
+ gBoVldZzxMyCPVYcKulq1m6o/ruLMaHBYebbQx1ZkkJLnPHxHg5IfUPTK/e2V4vghGdz
+ wPN/5VJ/bjLV0+nvzx6lapVawhjNiaW03Lm2vXuTIDzjaLHQbDpUtWuxOhPhgLKr/SCb
+ S7mdY5htm2i63jV1EuNdxSbesXh0w7CsDbyxI/fBeUgxLeXPeG3Lhlgd0ZHofU0qXcjf
+ xJScqdzRT25wQC3qnNlu7jCvidpQ+iYrhDn2k85MMwCDBnH8TA4JdxY/SjR8pb7PoCSU
+ DDvw==
+X-Gm-Message-State: AJIora8rMuCIlZlEbKE1inOSREZlO2NbQ2GQhYHMXtmZL5pBnyjq8W7x
+ OiRdigPyOO6zihMXCrvKTR2/5A7dIV3VqA==
+X-Google-Smtp-Source: AGRyM1uxjDDKD7depwDMkvm3u3Nj9KawuQvgq4t9MjGtFbow9kilwBRicETN6MudKhoiD6QTqvAARQ==
+X-Received: by 2002:a9d:6484:0:b0:60b:eb0b:4054 with SMTP id
+ g4-20020a9d6484000000b0060beb0b4054mr13159322otl.159.1658222041172; 
+ Tue, 19 Jul 2022 02:14:01 -0700 (PDT)
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com.
+ [209.85.161.53]) by smtp.gmail.com with ESMTPSA id
+ t26-20020a4ac89a000000b004358b15cfe8sm3577767ooq.13.2022.07.19.02.14.00
+ for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jul 2022 01:40:56 -0700 (PDT)
-Message-ID: <d0e631e1-c7ef-4e03-6c34-189042b84005@redhat.com>
-Date: Tue, 19 Jul 2022 10:40:55 +0200
+ Tue, 19 Jul 2022 02:14:01 -0700 (PDT)
+Received: by mail-oo1-f53.google.com with SMTP id
+ n16-20020a4a9550000000b0043568f1343bso2778272ooi.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 02:14:00 -0700 (PDT)
+X-Received: by 2002:a81:6ccd:0:b0:31d:c77:73e5 with SMTP id
+ h196-20020a816ccd000000b0031d0c7773e5mr33706265ywc.314.1658222030025; Tue, 19
+ Jul 2022 02:13:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v9 06/14] mm/gup: migrate device coherent pages when
- pinning instead of failing
-To: Andrew Morton <akpm@linux-foundation.org>
-References: <20220715150521.18165-1-alex.sierra@amd.com>
- <20220715150521.18165-7-alex.sierra@amd.com>
- <225554c2-9174-555e-ddc0-df95c39211bc@redhat.com>
- <20220718133235.4fdbd6ec303219e5a3ba49cf@linux-foundation.org>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <20220718133235.4fdbd6ec303219e5a3ba49cf@linux-foundation.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+From: Tomasz Figa <tfiga@chromium.org>
+Date: Tue, 19 Jul 2022 18:13:39 +0900
+X-Gmail-Original-Message-ID: <CAAFQd5C0dx5X=VEqXDyj22fbxs1jhOQLLid3vSNfAc9vataPhg@mail.gmail.com>
+Message-ID: <CAAFQd5C0dx5X=VEqXDyj22fbxs1jhOQLLid3vSNfAc9vataPhg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/6] Move all drivers to a common dma-buf locking
+ convention
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 19 Jul 2022 12:55:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,57 +76,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
- willy@infradead.org, Felix.Kuehling@amd.com, apopple@nvidia.com,
- amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
- jglisse@redhat.com, dri-devel@lists.freedesktop.org, jgg@nvidia.com,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-rdma@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ spice-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ Chia-I Wu <olvaffe@gmail.com>, linux-media@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 18.07.22 22:32, Andrew Morton wrote:
-> On Mon, 18 Jul 2022 12:56:29 +0200 David Hildenbrand <david@redhat.com> wrote:
-> 
->>>  		/*
->>>  		 * Try to move out any movable page before pinning the range.
->>>  		 */
->>> @@ -1919,7 +1948,8 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
->>>  				    folio_nr_pages(folio));
->>>  	}
->>>  
->>> -	if (!list_empty(&movable_page_list) || isolation_error_count)
->>> +	if (!list_empty(&movable_page_list) || isolation_error_count
->>> +		|| coherent_pages)
->>
->> The common style is to
->>
->> a) add the || to the end of the previous line
->> b) indent such the we have a nice-to-read alignment
->>
->> if (!list_empty(&movable_page_list) || isolation_error_count ||
->>     coherent_pages)
->>
-> 
-> I missed that.  This series is now in mm-stable so any fix will need to
-> be a standalone followup patch, please.
-> 
->> Apart from that lgtm.
->>
->> Reviewed-by: David Hildenbrand <david@redhat.com>
-> 
-> And your reviewed-by's will be lost.  Stupid git.
+On Fri, Jul 15, 2022 at 9:53 AM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> Hello,
+>
+> This series moves all drivers to a dynamic dma-buf locking specification.
+> From now on all dma-buf importers are made responsible for holding
+> dma-buf's reservation lock around all operations performed over dma-bufs.
+> This common locking convention allows us to utilize reservation lock more
+> broadly around kernel without fearing of potential dead locks.
+>
+> This patchset passes all i915 selftests. It was also tested using VirtIO,
+> Panfrost, Lima and Tegra drivers. I tested cases of display+GPU,
+> display+V4L and GPU+V4L dma-buf sharing, which covers majority of kernel
+> drivers since rest of the drivers share same or similar code paths.
+>
+> This is a continuation of [1] where Christian K=C3=B6nig asked to factor =
+out
+> the dma-buf locking changes into separate series.
+>
+> [1] https://lore.kernel.org/dri-devel/20220526235040.678984-1-dmitry.osip=
+enko@collabora.com/
+>
+> Dmitry Osipenko (6):
+>   dma-buf: Add _unlocked postfix to function names
+>   drm/gem: Take reservation lock for vmap/vunmap operations
+>   dma-buf: Move all dma-bufs to dynamic locking specification
+>   dma-buf: Acquire wait-wound context on attachment
+>   media: videobuf2: Stop using internal dma-buf lock
+>   dma-buf: Remove internal lock
+>
+>  drivers/dma-buf/dma-buf.c                     | 198 +++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   4 +-
+>  drivers/gpu/drm/armada/armada_gem.c           |  14 +-
+>  drivers/gpu/drm/drm_client.c                  |   4 +-
+>  drivers/gpu/drm/drm_gem.c                     |  28 +++
+>  drivers/gpu/drm/drm_gem_cma_helper.c          |   6 +-
+>  drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
+>  drivers/gpu/drm/drm_gem_shmem_helper.c        |   6 +-
+>  drivers/gpu/drm/drm_prime.c                   |  12 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   6 +-
+>  drivers/gpu/drm/exynos/exynos_drm_gem.c       |   2 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  20 +-
+>  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   2 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +-
+>  .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  20 +-
+>  drivers/gpu/drm/i915/i915_gem_evict.c         |   2 +-
+>  drivers/gpu/drm/i915/i915_gem_ww.c            |  26 ++-
+>  drivers/gpu/drm/i915/i915_gem_ww.h            |  15 +-
+>  drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   8 +-
+>  drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
+>  drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
+>  drivers/gpu/drm/tegra/gem.c                   |  27 +--
+>  drivers/infiniband/core/umem_dmabuf.c         |  11 +-
+>  .../common/videobuf2/videobuf2-dma-contig.c   |  26 +--
+>  .../media/common/videobuf2/videobuf2-dma-sg.c |  23 +-
+>  .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
 
-I know, I already raised my concerns regarding the new workflow, so I
-won't repeat that. I can understand (too some degree) that we don't want
-code to change just before the new merge window opens.
+For the videobuf2 changes:
 
-But I do wonder if we really don't even want to do subject+description
-updates. Sure, the commit IDs will change. Who cares?
+Acked-by: Tomasz Figa <tfiga@chromium.org>
 
-Anyhow, it is what it is.
-
--- 
-Thanks,
-
-David / dhildenb
-
+Best regards,
+Tomasz
