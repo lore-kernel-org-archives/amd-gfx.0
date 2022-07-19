@@ -4,36 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B963CCA47F
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 12:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA342CCA481
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 12:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8450A14A874;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F84B14A87B;
 	Tue, 19 Jul 2022 12:55:21 +0000 (UTC)
-Received: from smtpbg.qq.com (biz-43-154-221-58.mail.qq.com [43.154.221.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBCC818AA3A;
- Tue, 19 Jul 2022 11:59:49 +0000 (UTC)
-X-QQ-mid: bizesmtp84t1658231978t4u9l6dy
-Received: from localhost.localdomain ( [171.223.96.21])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 19 Jul 2022 19:59:36 +0800 (CST)
-X-QQ-SSF: 01000000002000F0U000B00A0000020
-X-QQ-FEAT: 3uhoZqdeMHMkGTYpkkjDgOhxGAR++wlBx2LmCDenBU68zf3/NsGKrawlk8a1s
- 3GQwHzKIHhUpq7Vu+NnGP8opGQyr2IOdnZl4QEr4ZnffrQzsOtA5tEIu5VtWrr5Rr6nZWth
- DVpxdk96/GLl1wgNxcXRsGDK8r0iIgh8XYuTEbPY8wfMDnaGvH1r/tzbSSVawuNaqL81awY
- ctlUKbRpH0G+drjgv+GDGXQJ9uQNVinQtZrDe5Xe+mpHq7lRvDeGgdR+UFuf5WNoyPSDNL7
- 3m++iuZYOAm1S/vXw0mj0PYzFxWxnYKuTFtA/YBZa/6juNsubDupYkhSUC56oBtoXH7BdRw
- XPBh/SripEEQzVeC6jDZLqNXIUb2C9k8gNDGXOm9strZoQEVCV72qy1+f5oZw==
-X-QQ-GoodBg: 0
-From: Jason Wang <wangborong@cdjrlc.com>
-To: daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: Fix comment typo
-Date: Sat, 16 Jul 2022 11:57:32 +0800
-Message-Id: <20220716035732.30449-1-wangborong@cdjrlc.com>
-X-Mailer: git-send-email 2.35.1
+X-Greylist: delayed 487 seconds by postgrey-1.36 at gabe;
+ Tue, 19 Jul 2022 10:48:39 UTC
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A0E12B854;
+ Tue, 19 Jul 2022 10:48:39 +0000 (UTC)
+Received: from localhost.localdomain (unknown [83.149.199.65])
+ by mail.ispras.ru (Postfix) with ESMTPS id 4FA0340D403D;
+ Tue, 19 Jul 2022 10:40:24 +0000 (UTC)
+From: Andrey Strachuk <strochuk@ispras.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: remove useless condition in
+ amdgpu_job_stop_all_jobs_on_sched()
+Date: Tue, 19 Jul 2022 13:39:54 +0300
+Message-Id: <20220719103954.6737-1-strochuk@ispras.ru>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Tue, 19 Jul 2022 12:55:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,33 +38,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Jason Wang <wangborong@cdjrlc.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Jack Zhang <Jack.Zhang1@amd.com>, Andrey Strachuk <strochuk@ispras.ru>,
+ Guchun Chen <guchun.chen@amd.com>, Emma Anholt <emma@anholt.net>,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Surbhi Kakarya <surbhi.kakarya@amd.com>, Melissa Wen <mwen@igalia.com>,
+ ldv-project@linuxtesting.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The double `have' is duplicated in line 696, remove one.
+Local variable 'rq' is initialized by an address
+of field of drm_sched_job, so it does not make
+sense to compare 'rq' with NULL.
 
-Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Signed-off-by: Andrey Strachuk <strochuk@ispras.ru>
+Fixes: 7c6e68c777f1 ("drm/amdgpu: Avoid HW GPU reset for RAS.")
 ---
- drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 84843b3b3aef..261fcbae88d7 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -693,7 +693,7 @@ int radeon_gem_va_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	/* !! DONT REMOVE !!
--	 * We don't support vm_id yet, to be sure we don't have have broken
-+	 * We don't support vm_id yet, to be sure we don't have broken
- 	 * userspace, reject anyone trying to use non 0 value thus moving
- 	 * forward we can use those fields without breaking existant userspace
- 	 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 67f66f2f1809..600401f2a98f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -285,10 +285,6 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ 	/* Signal all jobs not yet scheduled */
+ 	for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= DRM_SCHED_PRIORITY_MIN; i--) {
+ 		struct drm_sched_rq *rq = &sched->sched_rq[i];
+-
+-		if (!rq)
+-			continue;
+-
+ 		spin_lock(&rq->lock);
+ 		list_for_each_entry(s_entity, &rq->entities, list) {
+ 			while ((s_job = to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
 -- 
-2.35.1
+2.25.1
 
