@@ -4,54 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFE1BC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 19:53:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E159C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 20:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8F111B936;
-	Tue, 19 Jul 2022 19:53:04 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09C2711B6CB
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 19:53:03 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id fy29so28065127ejc.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 12:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xKaj18NiNL3OAzIIlF53H9NSW/7VCa9w2TsLc9Ya6D0=;
- b=ToQoVKO0Bzs4uumr97bboAEWscy6hL4a6itdmVmlUwcKI+ce1HsWn7W2qbbpMU/Irr
- 53kcxw+mSX1FIlGXDIyB+2QODAB7BsKJfN6/Ra1OreWXvtgizdRYfyyMnzaBlidqsUCO
- 3FcvZEmAzCvRpXy1Pnq/PjR4HHnSHN3fANqjpGm9mW4IVHGBQlY8KjI4EEY85rym3Oua
- uu8hraJFQ4mfIncd1Ca866KP4+S7uaaj3TCKOJMd15qYtTkQKbjbtoYB13HBLHyGbFK+
- uXpeGfuC+aDnxeUrub9xmuMwuxzdsy8RBOmPZTdH4iVf6TroTiB6lbPtB2kNxp9Odi5Y
- ssvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xKaj18NiNL3OAzIIlF53H9NSW/7VCa9w2TsLc9Ya6D0=;
- b=ZFH+vZ8Z9EYX2APrHLTNl5Ajn565UWQaCHNJ7tX8r1/FpGLhARzgsRMWnZZGeg61c8
- mHoUpNh6949OocLaXmFG9eDPMNxyWpJzcbSIjgXdGnVLO0+sIgQ4R5tpkgY4sdSh3MO/
- U4Q42IsFVUTvblI3k/X3WP1/8J4huhM82BB3RlFXeE1biFwydkfGFF2fQO9g372/G2RP
- ZFcOti94+ZYJIA9+mzQ385GUlxGIoIUqkY9oIdLHc4B02LKX0Is3JTMFLo3yQLuS7ACs
- gify7yHKxJlI1JnJ4/rNNYoxG9flh/Xb1SSVjsP5zqzIEkU2L/fcHYj64VuBB5icG/AY
- KsxA==
-X-Gm-Message-State: AJIora848nmxMvOF5xOcc4x1/MeJmynouy5IaCgFbiuiztpJLU2/wB+i
- Q85wXaWIRiHGXQhm61kxEsLNqEvw7IBLgfeCEkiMPaly
-X-Google-Smtp-Source: AGRyM1uzDwNqyNhwG62b+djHyaMix2JfcGSNmyfBynoQII8bJ4Q3otZgmBFbfDjNkAaKM81Q4SrOAKwNsietVkJ2Ubo=
-X-Received: by 2002:a17:907:2cf6:b0:72b:9d9b:2404 with SMTP id
- hz22-20020a1709072cf600b0072b9d9b2404mr31845029ejc.171.1658260381402; Tue, 19
- Jul 2022 12:53:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8F9E112EE2;
+	Tue, 19 Jul 2022 20:08:13 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD1E5112639;
+ Tue, 19 Jul 2022 20:05:38 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-232.nat.spd-mgts.ru
+ [109.252.119.232])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8773166019F4;
+ Tue, 19 Jul 2022 21:05:34 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1658261136;
+ bh=87heNz60iY2xXlfWeCdMcHlfvOyIp4RDnOqiE+7EyOg=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=klOb5xsgl6l9ubftW1+ax0k9cZtkpR2szLSY0RrNAUUhC80j9cYIvyx7gq8L/l4sQ
+ sCPxodFYLm8cs6LJuLmCgfGJsD8BX8RJ0cpaixj0UjYBDHsXPcXAJbLfScrWaMUl5X
+ p/wkh4kyop0Xmmtp+8262aY0Wor62j5jd4HSYKZ370A48M7D5QrqJnsIscNmaC3Eia
+ 0j8c8rYOSxeZEg/93bpTWiR3rdmQr/8qej0g5rWxZsP9s0FIXV53EAVH1lMqfFhgYw
+ HuVA4WjPXUPCS8++l3ROc0LKS5ut6fthJb9IwFqa8va09T/4H3uZb2AiQ7A5DufA3O
+ IE4FiFlv7vybg==
+Message-ID: <43446124-b99a-32d8-f797-7ec0cdca9ee4@collabora.com>
+Date: Tue, 19 Jul 2022 23:05:30 +0300
 MIME-Version: 1.0
-References: <20220708225549.2061140-1-alexander.deucher@amd.com>
-In-Reply-To: <20220708225549.2061140-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Jul 2022 15:52:50 -0400
-Message-ID: <CADnq5_PFtZPHkUWUNa-iBofmZV=dVj4MMuEC8NYkDKMtgen-7g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add the IP discovery IP versions for HW
- INFO data
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v1 4/6] dma-buf: Acquire wait-wound context on attachment
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>
+References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+ <20220715005244.42198-5-dmitry.osipenko@collabora.com>
+ <5ec9313e-8498-2838-0320-331c347ce905@amd.com>
+ <1ce233a2-36c9-3698-59f0-c4ff902bec60@collabora.com>
+In-Reply-To: <1ce233a2-36c9-3698-59f0-c4ff902bec60@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 19 Jul 2022 20:08:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +79,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series.
+On 7/15/22 09:59, Dmitry Osipenko wrote:
+> On 7/15/22 09:50, Christian König wrote:
+>> Am 15.07.22 um 02:52 schrieb Dmitry Osipenko:
+>>> Intel i915 GPU driver uses wait-wound mutex to lock multiple GEMs on the
+>>> attachment to the i915 dma-buf. In order to let all drivers utilize
+>>> shared
+>>> wait-wound context during attachment in a general way, make dma-buf
+>>> core to
+>>> acquire the ww context internally for the attachment operation and update
+>>> i915 driver to use the importer's ww context instead of the internal one.
+>>>
+>>>  From now on all dma-buf exporters shall use the importer's ww context
+>>> for
+>>> the attachment operation.
+>>>
+>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>> ---
+>>>   drivers/dma-buf/dma-buf.c                     |  8 +++++-
+>>>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  2 +-
+>>>   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+>>>   drivers/gpu/drm/i915/gem/i915_gem_object.h    |  6 ++---
+>>>   drivers/gpu/drm/i915/i915_gem_evict.c         |  2 +-
+>>>   drivers/gpu/drm/i915/i915_gem_ww.c            | 26 +++++++++++++++----
+>>>   drivers/gpu/drm/i915/i915_gem_ww.h            | 15 +++++++++--
+>>>   7 files changed, 47 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>> index 0ee588276534..37545ecb845a 100644
+>>> --- a/drivers/dma-buf/dma-buf.c
+>>> +++ b/drivers/dma-buf/dma-buf.c
+>>> @@ -807,6 +807,8 @@ static struct sg_table * __map_dma_buf(struct
+>>> dma_buf_attachment *attach,
+>>>    * Optionally this calls &dma_buf_ops.attach to allow
+>>> device-specific attach
+>>>    * functionality.
+>>>    *
+>>> + * Exporters shall use ww_ctx acquired by this function.
+>>> + *
+>>>    * Returns:
+>>>    *
+>>>    * A pointer to newly created &dma_buf_attachment on success, or a
+>>> negative
+>>> @@ -822,6 +824,7 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf
+>>> *dmabuf, struct device *dev,
+>>>                   void *importer_priv)
+>>>   {
+>>>       struct dma_buf_attachment *attach;
+>>> +    struct ww_acquire_ctx ww_ctx;
+>>>       int ret;
+>>>         if (WARN_ON(!dmabuf || !dev))
+>>> @@ -841,7 +844,8 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf
+>>> *dmabuf, struct device *dev,
+>>>       attach->importer_ops = importer_ops;
+>>>       attach->importer_priv = importer_priv;
+>>>   -    dma_resv_lock(dmabuf->resv, NULL);
+>>> +    ww_acquire_init(&ww_ctx, &reservation_ww_class);
+>>> +    dma_resv_lock(dmabuf->resv, &ww_ctx);
+>>
+>> That won't work like this. The core property of a WW context is that you
+>> need to unwind all the locks and re-quire them with the contended one
+>> first.
+>>
+>> When you statically lock the imported one here you can't do that any more.
+> 
+> You're right. I felt that something is missing here, but couldn't
+> notice. I'll think more about this and enable
+> CONFIG_DEBUG_WW_MUTEX_SLOWPATH. Thank you!
+> 
 
-Alex
+Christian, do you think we could make an excuse for the attach()
+callback and make the exporter responsible for taking the resv lock? It
+will be inconsistent with the rest of the callbacks, where importer
+takes the lock, but it will be the simplest and least invasive solution.
+It's very messy to do a cross-driver ww locking, I don't think it's the
+right approach.
 
-On Fri, Jul 8, 2022 at 6:56 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Use the former pad element to store the IP versions from the
-> IP discovery table.  This allows userspace to get the IP
-> version from the kernel to better align with hardware IP
-> versions.
->
-> Proposed mesa patch:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17411/diffs?commit_id=c8a63590dfd0d64e6e6a634dcfed993f135dd075
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 24 ++++++++++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h           |  3 ++-
->  2 files changed, 26 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 4b44a4bc2fb3..7e03f3719d11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -473,6 +473,30 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
->
->         result->hw_ip_version_major = adev->ip_blocks[i].version->major;
->         result->hw_ip_version_minor = adev->ip_blocks[i].version->minor;
-> +
-> +       if (adev->asic_type >= CHIP_VEGA10) {
-> +               switch (type) {
-> +               case AMD_IP_BLOCK_TYPE_GFX:
-> +                       result->ip_discovery_version = adev->ip_versions[GC_HWIP][0];
-> +                       break;
-> +               case AMD_IP_BLOCK_TYPE_SDMA:
-> +                       result->ip_discovery_version = adev->ip_versions[SDMA0_HWIP][0];
-> +                       break;
-> +               case AMD_IP_BLOCK_TYPE_UVD:
-> +               case AMD_IP_BLOCK_TYPE_VCN:
-> +               case AMD_IP_BLOCK_TYPE_JPEG:
-> +                       result->ip_discovery_version = adev->ip_versions[UVD_HWIP][0];
-> +                       break;
-> +               case AMD_IP_BLOCK_TYPE_VCE:
-> +                       result->ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
-> +                       break;
-> +               default:
-> +                       result->ip_discovery_version = 0;
-> +                       break;
-> +               }
-> +       } else {
-> +               result->ip_discovery_version = 0;
-> +       }
->         result->capabilities_flags = 0;
->         result->available_rings = (1 << num_rings) - 1;
->         result->ib_start_alignment = ib_start_alignment;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 18d3246d636e..3a2674b4a2d9 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1093,7 +1093,8 @@ struct drm_amdgpu_info_hw_ip {
->         __u32  ib_size_alignment;
->         /** Bitmask of available rings. Bit 0 means ring 0, etc. */
->         __u32  available_rings;
-> -       __u32  _pad;
-> +       /** version info: bits 23:16 major, 15:8 minor, 7:0 revision */
-> +       __u32  ip_discovery_version;
->  };
->
->  struct drm_amdgpu_info_num_handles {
-> --
-> 2.35.3
->
+-- 
+Best regards,
+Dmitry
