@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636DFC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 09:57:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C862AC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 10:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BBE714B28A;
-	Tue, 19 Jul 2022 09:57:43 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4698D14B285;
- Tue, 19 Jul 2022 09:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658224661; x=1689760661;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=laAAGAFPWmzBPc4gyCOIzMohz+CBatsdCDcYOXHaU+8=;
- b=EZD3Y7uGc9cCvkyBD31zOjukJ69wup0eSK5Q63GhPW4i8zsp+vW6m7be
- qgpYDu09sR0UaXyQHEBwTGlt/M0fIVWcvkgoCGP30plUV1mLdCC4ruupl
- F8Eo8XKj+JkUieR1XnaC1NZXti+2Mm0w/eTJY24Qv/dAuQB0sVu+l8/m+
- +aFw7XjFbT968f3zAjycEY1tL6yPxDQZwih8tzoDgHn5PwAA0IxaXgeT8
- ZSKfU5yN8lobix9dD1UClzEqDPpsWFEgoAuWqB8CrwnWVUBKzNVDKaGCR
- hBhUF3yiFVWP1roVNoDtmZhDvMYtPDFRkH4F+bYtEJZH5nqKyrk9RiuJc w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10412"; a="350414189"
-X-IronPort-AV: E=Sophos;i="5.92,283,1650956400"; d="scan'208";a="350414189"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2022 02:57:41 -0700
-X-IronPort-AV: E=Sophos;i="5.92,283,1650956400"; d="scan'208";a="594776497"
-Received: from slinke-mobl1.ger.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.251.210.1])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2022 02:57:38 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 3/3] drm/i915: Use luminance range calculated during edid
- parsing
-Date: Tue, 19 Jul 2022 12:57:00 +0300
-Message-Id: <20220719095700.14923-4-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220719095700.14923-1-jouni.hogander@intel.com>
-References: <20220719095700.14923-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2FF14BA90;
+	Tue, 19 Jul 2022 10:49:58 +0000 (UTC)
+Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8543514BA80
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 10:49:56 +0000 (UTC)
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx0.riseup.net (Postfix) with ESMTPS id 4LnFw34t05z9sCL;
+ Tue, 19 Jul 2022 10:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1658227796; bh=Ri5omEkx4yywAb5vqBol9N6WX/R0pI30IilgPEksBS8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=R4iCTQQwCkkrXuaLYhcBfpmGWcA/rVh2fkBNWldeEphZ6J9xIGykOTVgnB0X8Fc+0
+ pNOO5YzgLU/xUAj5hB/+EMM6VwZdDdld0MvQDirckC9WwltHjY3YWHPILpzY36h+t/
+ aaygKWGPOKx1NHtDuW16J0wXQN2+YSsY9xSVfJ44=
+X-Riseup-User-ID: EEE829733DFF2080357C100C4A86768D5216BCF03DB2B109F65E97AD5C01DF6D
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4LnFvy0CXXz5vw2;
+ Tue, 19 Jul 2022 10:49:49 +0000 (UTC)
+Message-ID: <fef5812c-53e9-9222-e888-3556c6a9cc7a@riseup.net>
+Date: Tue, 19 Jul 2022 07:49:46 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH 10/12] drm/amd/display: Remove parameters from
+ dml30_CalculateWriteBackDISPCLK
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20220714164507.561751-1-mairacanal@riseup.net>
+ <20220714164507.561751-10-mairacanal@riseup.net>
+ <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
+In-Reply-To: <CADnq5_Ot2ecb=D7M2fznBWuZiC-OwPPAnfPfwFXbnrWcevAtzA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,60 +54,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Manasi Navare <manasi.d.navare@intel.com>,
- Mika Kahola <mika.kahola@intel.com>
+Cc: Magali Lemes <magalilemes00@gmail.com>, Leo Li <sunpeng.li@amd.com>,
+ Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Melissa Wen <mwen@igalia.com>, David Airlie <airlied@linux.ie>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of using fixed 0 - 512 range use luminance range calculated
-as a part of edid parsing. As a backup fall back to static 0 - 512.
+On 7/18/22 16:02, Alex Deucher wrote:
+> On Thu, Jul 14, 2022 at 12:46 PM Maíra Canal <mairacanal@riseup.net> wrote:
+>>
+>> The parameters WritebackPixelFormat and WritebackVRatio are removed as
+>> they are not used on the function dml30_CalculateWriteBackDISPCLK.
+> 
+> Maybe this is done for consistency with other dml code for other DCN blocks?
+> 
+> Alex
 
-v3: Clean-ups suggested by Jani Nikula
-v2: Use values calculated during edid parsing
+This is reasonable. Anyway, the functions
+dml30_CalculateWriteBackDISPCLK and dml31_CalculateWriteBackDISPCLK are
+identical. May I send a v2 from PATCH 11/12 with the original function
+signature?
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Mika Kahola <mika.kahola@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Best Regards,
+- Maíra Canal
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index c92d5bb2326a..83af95bce98d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -278,6 +278,8 @@ intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pi
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
-+	struct drm_luminance_range_info *luminance_range =
-+		&connector->base.display_info.luminance_range;
- 	int ret;
- 
- 	if (panel->backlight.edp.intel.sdr_uses_aux) {
-@@ -293,8 +295,17 @@ intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pi
- 		}
- 	}
- 
--	panel->backlight.max = 512;
--	panel->backlight.min = 0;
-+	if (luminance_range->max_luminance) {
-+		panel->backlight.max = luminance_range->max_luminance;
-+		panel->backlight.min = luminance_range->min_luminance;
-+	} else {
-+		panel->backlight.max = 512;
-+		panel->backlight.min = 0;
-+	}
-+
-+	drm_dbg_kms(&i915->drm, "Using backlight range %d..%d\n", panel->backlight.min,
-+		    panel->backlight.max);
-+
- 	panel->backlight.level = intel_dp_aux_hdr_get_backlight(connector, pipe);
- 	panel->backlight.enabled = panel->backlight.level != 0;
- 
--- 
-2.25.1
-
+> 
+>>
+>> Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+>> ---
+>>  drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c        | 2 --
+>>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c  | 6 ------
+>>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h  | 2 --
+>>  3 files changed, 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+>> index a8db1306750e..746bb93ade6c 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+>> @@ -322,10 +322,8 @@ void dcn30_fpu_populate_dml_writeback_from_context(
+>>                                  * parameters per pipe
+>>                                  */
+>>                                 writeback_dispclk = dml30_CalculateWriteBackDISPCLK(
+>> -                                               dout_wb.wb_pixel_format,
+>>                                                 pipes[pipe_cnt].pipe.dest.pixel_rate_mhz,
+>>                                                 dout_wb.wb_hratio,
+>> -                                               dout_wb.wb_vratio,
+>>                                                 dout_wb.wb_htaps_luma,
+>>                                                 dout_wb.wb_vtaps_luma,
+>>                                                 dout_wb.wb_src_width,
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+>> index 876b321b30ca..37049daaab4c 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+>> @@ -1938,10 +1938,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>>                 if (v->WritebackEnable[k]) {
+>>                         v->WritebackDISPCLK = dml_max(v->WritebackDISPCLK,
+>>                                 dml30_CalculateWriteBackDISPCLK(
+>> -                                               v->WritebackPixelFormat[k],
+>>                                                 v->PixelClock[k],
+>>                                                 v->WritebackHRatio[k],
+>> -                                               v->WritebackVRatio[k],
+>>                                                 v->WritebackHTaps[k],
+>>                                                 v->WritebackVTaps[k],
+>>                                                 v->WritebackSourceWidth[k],
+>> @@ -3284,10 +3282,8 @@ static double CalculateTWait(
+>>  }
+>>
+>>  double dml30_CalculateWriteBackDISPCLK(
+>> -               enum source_format_class WritebackPixelFormat,
+>>                 double PixelClock,
+>>                 double WritebackHRatio,
+>> -               double WritebackVRatio,
+>>                 unsigned int WritebackHTaps,
+>>                 unsigned int WritebackVTaps,
+>>                 long   WritebackSourceWidth,
+>> @@ -3794,10 +3790,8 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>>                 if (v->WritebackEnable[k] == true) {
+>>                         v->WritebackRequiredDISPCLK = dml_max(v->WritebackRequiredDISPCLK,
+>>                                         dml30_CalculateWriteBackDISPCLK(
+>> -                                                       v->WritebackPixelFormat[k],
+>>                                                         v->PixelClock[k],
+>>                                                         v->WritebackHRatio[k],
+>> -                                                       v->WritebackVRatio[k],
+>>                                                         v->WritebackHTaps[k],
+>>                                                         v->WritebackVTaps[k],
+>>                                                         v->WritebackSourceWidth[k],
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+>> index daaf0883b84d..12c070434eee 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+>> @@ -29,10 +29,8 @@
+>>  void dml30_recalculate(struct display_mode_lib *mode_lib);
+>>  void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib);
+>>  double dml30_CalculateWriteBackDISPCLK(
+>> -               enum source_format_class WritebackPixelFormat,
+>>                 double PixelClock,
+>>                 double WritebackHRatio,
+>> -               double WritebackVRatio,
+>>                 unsigned int WritebackHTaps,
+>>                 unsigned int WritebackVTaps,
+>>                 long   WritebackSourceWidth,
+>> --
+>> 2.36.1
+>>
