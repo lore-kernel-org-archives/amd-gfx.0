@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E33C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 18:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7524BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 18:35:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A777B8B22B;
-	Tue, 19 Jul 2022 18:35:13 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2071.outbound.protection.outlook.com [40.107.212.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE468B1A8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0253A8B241;
+	Tue, 19 Jul 2022 18:35:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B27B8B20A
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 18:35:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lgyac5b8qNK1BfWpWLUxS/ER08DOJ3tLbmROt1E7pCP2HkBsZ0aUx+qQX0JVPzLPy4iiFzUy90b7nCGbrZh71DTZzXZcTahBe6KWGAK9sILqq1Kox4CKSe+VTFoBY1mfx4+VE33QJt3l+H/MStKaYRa6EXEM0qhfBzC1dUT5Sm3RfE9WRFnhdBdeqPiSGghbIash0UCZ1zklVJafr+01RC6EwGvFH7VTg9eDEQZx9+/PB91vuHNAyRQpL2dROyTLBGcJ1xq+625wG2jYzjUM3RVcdP4KBrICvXwLmV9FRtcV5ITtIvcUlbMW09y/L+F3pMcETA+7drufbXoHLi2eIw==
+ b=Uk9ozTr/6FyXnukRtCR4tT4E83CaETpoHY+J8DjmyjMe2HYLVRIZ+Jt/cFF5gV5JKbZ3w//mgo6FpE8fzY00W/wbq2f7pxcTejs+8qfsDj23SJO8FK2DRCsUn6uqB3VB7DXJj73tO4bPTKq4SnEQ8BMPX7NA5OI5o2K+Dnh1beimjAa4pu+zxdW/rpqzGGimgDOHrTUnP46NFuzLHpe8LXVGEvVFdcOdytsqaokNt1eafTeXt7II3r85xsrUhpuEy3gwNvvELukS/pXmeAm11ZAoICm+oTR9UroDiI24jcNOg9IcxkyyRYmE2SVEgEJMcRdOGUQaI1jsecdPKHyjJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N9LuwI69zpZMS8dHTGVqx2xXG2ExZtwQqLxl+/SHvD4=;
- b=Y53HcVMt9ciAx3Mnxl6Nx1FZsxzz01LpVjE2BgB7uVSIWTalgeVLLsObYrL13daLnxjArOCuq69/2XTdQ5dMzz7zEDxy349LG3gCbGu6vAcVqdcQeinta2yCOPhQuObJorw7VU3NuI36E5FbnX7zRKCdj9SZyYNpJcnCizy9QBoeGcBAFQSByq+K6lIWfkxcM9XNiLD3PW+MWoT6b92bXhr8VgaJZg+tGMQ2tWd0ttKUdhf1B9QacCjuWeiadwQyUr5QrB9oC2IGHfhjS6/6A7BTaUN3kwQ1gGO5i/K9HzTuqGBGQCgAUepOtTv8/OAPmdxhmjiEPuacwlwkZFr0Mg==
+ bh=ttM9Ycfm9F1+vJDM8qVnjyuIbGIf0ZMx4e5aZueFdv4=;
+ b=SFJp1FEKkaQ6UsPLNHliYIk8paY0Q/r2y0HIabzwskb3AL1tk4sQTOVYk4Jg5uPx2xJ3YrFDoELzBaV9heG56isgIUbnIi1yIK4b61i2j6o13NOZ4w8sxALh4Pi5b5ks6/sZukHUtFgcaZjEMQWe8KZ/75ALSf+EzwPiTVsVbr41uDnowqIc/pxjY+sVYYq6dYKBifp9Xrd09xnd9ULDLHapP4u9HqKDEgFCAlOnHcfVu6fjov9RhrQUj4B7vyD2JbSEcwEbpBfognlee+RDYB81GkSVIwSM1NUW8fCQIU5lHvzaSaD8cbVKH+iXL+hdaWSIN4F4Z4i7EEX7Igge6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N9LuwI69zpZMS8dHTGVqx2xXG2ExZtwQqLxl+/SHvD4=;
- b=4gfCTJC6tezEfYLt+/Ip7zdZTQtfg0bkuI5V2xGt65xD0R6vmHje6XvpntIctmibDHC+WzK9UuL23w/XbpWrYf4qyyZr3tC50t/Dv0LVhxHfVNNBaUlS0zwm7YZLfhA2BkxlQALjuOqbVljpXC9AfnAibjXDUBEhsYCUfG2v5Uk=
-Received: from MW4PR03CA0015.namprd03.prod.outlook.com (2603:10b6:303:8f::20)
- by DM5PR12MB1257.namprd12.prod.outlook.com (2603:10b6:3:74::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ttM9Ycfm9F1+vJDM8qVnjyuIbGIf0ZMx4e5aZueFdv4=;
+ b=IpEKEmDaOd/1HUM1FfsIHl7yolZb54BBcdimLifzIpNNLZ+9rqFGP+8z2KNIfhYR5yXLrpVs2kDOy3DLHsdBLKTShLex7BFdneUzlJTJ6C6iSGcaOqhnsJqL61Y104318OeZ4X+Unh2tv46Rre8DFTxeWz33Oylz39EQ8+X9VHk=
+Received: from MW4PR03CA0024.namprd03.prod.outlook.com (2603:10b6:303:8f::29)
+ by BY5PR12MB3748.namprd12.prod.outlook.com (2603:10b6:a03:1ad::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20; Tue, 19 Jul
- 2022 18:35:07 +0000
+ 2022 18:35:08 +0000
 Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8f:cafe::1e) by MW4PR03CA0015.outlook.office365.com
- (2603:10b6:303:8f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23 via Frontend
- Transport; Tue, 19 Jul 2022 18:35:07 +0000
+ (2603:10b6:303:8f:cafe::6c) by MW4PR03CA0024.outlook.office365.com
+ (2603:10b6:303:8f::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15 via Frontend
+ Transport; Tue, 19 Jul 2022 18:35:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5438.12 via Frontend Transport; Tue, 19 Jul 2022 18:35:07 +0000
+ 15.20.5438.12 via Frontend Transport; Tue, 19 Jul 2022 18:35:08 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 19 Jul
- 2022 13:34:57 -0500
+ 2022 13:34:58 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/4] drm/amdgpu: move non-DC vblank handling out of irq code
-Date: Tue, 19 Jul 2022 14:34:35 -0400
-Message-ID: <20220719183436.1705006-3-alexander.deucher@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: clarify DC checks
+Date: Tue, 19 Jul 2022 14:34:36 -0400
+Message-ID: <20220719183436.1705006-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220719183436.1705006-1-alexander.deucher@amd.com>
 References: <20220719183436.1705006-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80e6558c-ec08-47b8-4b2b-08da69b567a1
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ee89647-40b2-4331-e0de-08da69b5681a
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3748:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ckxc5JxSfAccYyVCR6fLueA4JxxMybIeN+cctw9a3i1EquGNEgaHTKnp0g8pIydC1mKl7xNmAc9dBcg/8VoEwtQZDzrNV+94kmKUDqYBhcwTd5YYusWZIsXZyLuGbr4sraVU9TPo7peFD1iaRGgRljtWAMu8ltTYelWCRr/yPkfSMgsTlQdUSMVCo1BHlE6DoPaHSG0tJ7i9kdsQVStkccaIZyUsWo6uq6nfr2A6KaI9Y+ktaCWhzUmVDOavtAy4squhNHEOoSnGZQNq6Xwout4uTgulu5yyYvweFQevPlrcG9AbSdTXbWGB5U+JMQUm49ZmSlX3JIU+FeGJXJx4ICtL9K7USlbUf//kAwGkUNqxfqqaw4SRBLl+SzSsysvBAT74bTCyRe+Amo7AFIl5MlLe82AmJfMlJCmoTOTFpmsKt9tiYyPmBvuPXYtNLSQMLxjzxXCEzRLvOm+yTSa2j+tE66ooWQgzMgMGONyiEStN8u6SQkfPaGvHlcB9zOKSWOmssqiJmZsBt/kkauLe7OAoIE2HqUFUxA85blgnL0KdhSAGdvne9yLbPQ6gcnQ+0WzbRp8PKCoav1afXtJ8094DR6nU8Qga3CV+ivwjAg0tn0/P3A9XP9zQkkF0SoqOMwGAYGfdtw92l4J8j9Z4/kGrwVZRz+PmgpVBbceDKhTaWsB7cVVRtRWFGh4uuuCeJY2m/cUR+vWODiuFHLHP/yXczl189tc8+/ZUVTy/dwmyk92OQ+UsoI8oTYyjZdXWrOwffsvByLROf9flon1HAxizej8qKIefeBL7smvtO2nY5/XCbu4kZivsYHXZdan6ntQ5LvNGZW3RvPTZ9f8gUfHZLMLWXp5gpGWW2gDdohY=
+X-Microsoft-Antispam-Message-Info: 6ZrNcC4WFL3eRYmdH73RkGWsZwA6aa0n9WSzOoH9ULVgShE+CCZYw+N9r9QyX9AY/2BAifNvvs0+6sIOWG+V8GFL0WkOlVX/3NeUOhn0n0pNAj697trR+gwGXMTvZarQg49HApq8gJmabaL5BAXoImGkX9fz4BDS0BIAwnN/4tFvjlalmLPAtVbLhasR4uC/XXiDs0lmlkO16BpNdxF7EE7V/veFrUfgxTvvni/XYZ4E1/UoMnzmtxN8gW/RJR46Y6Hgb0Xa2vBZtiaallocimmJpIF3Lf4crDQMOE4NO0ADwntD3b2byxOk0YP1eovEILQdQkXcxJLvPcFePnEfbjDzr406A2J/EPHoUSKFNMEqWi3LT0t5PS1A+vmkqYQ5SGXZnVuySMw5hJoofYi6qbFRBi+aZas9E7C5d/1yUDdno5Un0HuIsHGJT+xwg6x0uEXM9AKXVFb5NrI8d6hSyMe/4YKOudNCXkzbATQtEu6iYbE5xNKc6JlTkFPjkQ28vXfeho7pccW2JcdXxKZZCIifd/CJozJ4w7zd10EWm8rCFfrsdrH4ybNWIHiWCPDxiTDxqhwuuVJEsESnozNY/pJAv2hIMMn+qq6vkYfDQw0JOZRBex73tTcPU/zEP4EXJC4YRFV6RCy8HdeGzNzrJi0PR091S/ipd8bp/LHrkZQFdq0TCSkzx+EIcwCSo0ELxUBGy9v4WAViKDoMsm0Vl5UHawnCoewY5ufS9gEOFlROSiQ14d1xgmkWGr6cvowBhP3MJGQx8Gdfvbl7+Zt4YBLKJAv6GMwv8AB2sp/ecPgraMJX0MnfgT/H/1ffMUWH/mNuY6T/BWNRL0UVT/3ltA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(396003)(39860400002)(376002)(136003)(46966006)(40470700004)(36840700001)(1076003)(2616005)(6666004)(41300700001)(186003)(83380400001)(86362001)(2906002)(5660300002)(336012)(26005)(81166007)(30864003)(16526019)(36860700001)(47076005)(426003)(40480700001)(478600001)(70206006)(4326008)(82310400005)(8936002)(8676002)(70586007)(6916009)(316002)(40460700003)(7696005)(356005)(82740400003)(36756003)(21314003)(36900700001);
+ SFS:(13230016)(4636009)(346002)(396003)(136003)(39860400002)(376002)(46966006)(40470700004)(36840700001)(82310400005)(2906002)(1076003)(6666004)(41300700001)(186003)(2616005)(86362001)(40480700001)(26005)(478600001)(83380400001)(5660300002)(36860700001)(16526019)(336012)(47076005)(70206006)(8676002)(4326008)(426003)(8936002)(356005)(70586007)(7696005)(40460700003)(36756003)(82740400003)(81166007)(316002)(6916009)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2022 18:35:07.2779 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80e6558c-ec08-47b8-4b2b-08da69b567a1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2022 18:35:08.0748 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ee89647-40b2-4331-e0de-08da69b5681a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1257
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3748
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,326 +103,169 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move it into the DCE code for each generation. This avoids
-confusion with the different display paths.
+There are several places where we don't want to check
+if a particular asic could support DC, but rather, if
+DC is enabled.  Set a flag if DC is enabled and check
+for that rather than if a device supports DC or not.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 35 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c     | 58 +--------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    | 12 +++++
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      | 13 +++++
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      | 13 +++++
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       | 14 +++++
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       | 14 +++++
- 8 files changed, 103 insertions(+), 57 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 32 ++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  2 +-
+ 8 files changed, 26 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index b0fa5d065d50..220554e7c548 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -44,6 +44,41 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_vblank.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f111694cea2f..889db62d2ee8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1059,6 +1059,8 @@ struct amdgpu_device {
+ 	uint32_t                        scpm_status;
  
-+/**
-+ * amdgpu_display_hotplug_work_func - work handler for display hotplug event
-+ *
-+ * @work: work struct pointer
-+ *
-+ * This is the hotplug event work handler (all ASICs).
-+ * The work gets scheduled from the IRQ handler if there
-+ * was a hotplug interrupt.  It walks through the connector table
-+ * and calls hotplug handler for each connector. After this, it sends
-+ * a DRM hotplug event to alert userspace.
-+ *
-+ * This design approach is required in order to defer hotplug event handling
-+ * from the IRQ handler to a work handler because hotplug handler has to use
-+ * mutexes which cannot be locked in an IRQ handler (since &mutex_lock may
-+ * sleep).
-+ */
-+void amdgpu_display_hotplug_work_func(struct work_struct *work)
-+{
-+	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
-+						  hotplug_work);
-+	struct drm_device *dev = adev_to_drm(adev);
-+	struct drm_mode_config *mode_config = &dev->mode_config;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter iter;
+ 	struct work_struct		reset_work;
 +
-+	mutex_lock(&mode_config->mutex);
-+	drm_connector_list_iter_begin(dev, &iter);
-+	drm_for_each_connector_iter(connector, &iter)
-+		amdgpu_connector_hotplug(connector);
-+	drm_connector_list_iter_end(&iter);
-+	mutex_unlock(&mode_config->mutex);
-+	/* Just fire off a uevent and let userspace tell us what to do */
-+	drm_helper_hpd_irq_event(dev);
-+}
-+
- static int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 					   struct amdgpu_framebuffer *rfb,
- 					   const struct drm_mode_fb_cmd2 *mode_cmd,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 560352f7c317..9d19940f73c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -35,6 +35,7 @@
- #define amdgpu_display_add_encoder(adev, e, s, c) (adev)->mode_info.funcs->add_encoder((adev), (e), (s), (c))
- #define amdgpu_display_add_connector(adev, ci, sd, ct, ib, coi, h, r) (adev)->mode_info.funcs->add_connector((adev), (ci), (sd), (ct), (ib), (coi), (h), (r))
- 
-+void amdgpu_display_hotplug_work_func(struct work_struct *work);
- void amdgpu_display_update_priority(struct amdgpu_device *adev);
- uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
- 					  uint64_t bo_flags);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 89011bae7588..a6aef488a822 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -100,41 +100,6 @@ const char *soc15_ih_clientid_name[] = {
- 	"MP1"
++	bool                            dc_enabled;
  };
  
--/**
-- * amdgpu_hotplug_work_func - work handler for display hotplug event
-- *
-- * @work: work struct pointer
-- *
-- * This is the hotplug event work handler (all ASICs).
-- * The work gets scheduled from the IRQ handler if there
-- * was a hotplug interrupt.  It walks through the connector table
-- * and calls hotplug handler for each connector. After this, it sends
-- * a DRM hotplug event to alert userspace.
-- *
-- * This design approach is required in order to defer hotplug event handling
-- * from the IRQ handler to a work handler because hotplug handler has to use
-- * mutexes which cannot be locked in an IRQ handler (since &mutex_lock may
-- * sleep).
-- */
--static void amdgpu_hotplug_work_func(struct work_struct *work)
--{
--	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
--						  hotplug_work);
--	struct drm_device *dev = adev_to_drm(adev);
--	struct drm_mode_config *mode_config = &dev->mode_config;
--	struct drm_connector *connector;
--	struct drm_connector_list_iter iter;
--
--	mutex_lock(&mode_config->mutex);
--	drm_connector_list_iter_begin(dev, &iter);
--	drm_for_each_connector_iter(connector, &iter)
--		amdgpu_connector_hotplug(connector);
--	drm_connector_list_iter_end(&iter);
--	mutex_unlock(&mode_config->mutex);
--	/* Just fire off a uevent and let userspace tell us what to do */
--	drm_helper_hpd_irq_event(dev);
--}
--
- /**
-  * amdgpu_irq_disable_all - disable *all* interrupts
-  *
-@@ -317,21 +282,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- 		}
- 	}
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 130060834b4e..fbec4191c5b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -846,7 +846,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+ 	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
+ 
+ 	if (atif->notifications.brightness_change) {
+-		if (amdgpu_device_has_dc_support(adev)) {
++		if (adev->dc_enabled) {
+ #if defined(CONFIG_DRM_AMD_DC)
+ 			struct amdgpu_display_manager *dm = &adev->dm;
+ 			if (dm->backlight_dev[0])
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index f3b3c688e4e7..fe85eb9ebd09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1755,7 +1755,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	amdgpu_ta_if_debugfs_init(adev);
+ 
+ #if defined(CONFIG_DRM_AMD_DC)
+-	if (amdgpu_device_has_dc_support(adev))
++	if (adev->dc_enabled)
+ 		dtn_debugfs_init(adev);
+ #endif
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index f7ffd60e1dd6..ee25a227bbb7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4153,25 +4153,27 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+ 
+ 	amdgpu_ras_resume(adev);
+ 
+-	/*
+-	 * Most of the connector probing functions try to acquire runtime pm
+-	 * refs to ensure that the GPU is powered on when connector polling is
+-	 * performed. Since we're calling this from a runtime PM callback,
+-	 * trying to acquire rpm refs will cause us to deadlock.
+-	 *
+-	 * Since we're guaranteed to be holding the rpm lock, it's safe to
+-	 * temporarily disable the rpm helpers so this doesn't deadlock us.
+-	 */
++	if (adev->mode_info.num_crtc) {
++		/*
++		 * Most of the connector probing functions try to acquire runtime pm
++		 * refs to ensure that the GPU is powered on when connector polling is
++		 * performed. Since we're calling this from a runtime PM callback,
++		 * trying to acquire rpm refs will cause us to deadlock.
++		 *
++		 * Since we're guaranteed to be holding the rpm lock, it's safe to
++		 * temporarily disable the rpm helpers so this doesn't deadlock us.
++		 */
+ #ifdef CONFIG_PM
+-	dev->dev->power.disable_depth++;
++		dev->dev->power.disable_depth++;
+ #endif
+-	if (!amdgpu_device_has_dc_support(adev))
+-		drm_helper_hpd_irq_event(dev);
+-	else
+-		drm_kms_helper_hotplug_event(dev);
++		if (!adev->dc_enabled)
++			drm_helper_hpd_irq_event(dev);
++		else
++			drm_kms_helper_hotplug_event(dev);
+ #ifdef CONFIG_PM
+-	dev->dev->power.disable_depth--;
++		dev->dev->power.disable_depth--;
+ #endif
++	}
+ 	adev->in_suspend = false;
+ 
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 220554e7c548..ec2bebcec968 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -549,7 +549,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
+ 	 */
+ 	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
+ 	    amdgpu_bo_support_uswc(bo_flags) &&
+-	    amdgpu_device_has_dc_support(adev) &&
++	    adev->dc_enabled &&
+ 	    adev->mode_info.gpu_vm_support)
+ 		domain |= AMDGPU_GEM_DOMAIN_GTT;
+ #endif
+@@ -1315,7 +1315,7 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+ 					 "dither",
+ 					 amdgpu_dither_enum_list, sz);
+ 
+-	if (amdgpu_device_has_dc_support(adev)) {
++	if (adev->dc_enabled) {
+ 		adev->mode_info.abm_level_property =
+ 			drm_property_create_range(adev_to_drm(adev), 0,
+ 						  "abm level", 0, 4);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index ae63a8e38857..0f2bf76a6585 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2421,7 +2421,7 @@ static int amdgpu_runtime_idle_check_display(struct device *dev)
+ 		if (ret)
+ 			return ret;
+ 
+-		if (amdgpu_device_has_dc_support(adev)) {
++		if (adev->dc_enabled) {
+ 			struct drm_crtc *crtc;
+ 
+ 			drm_for_each_crtc(crtc, drm_dev) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3e83fed540e8..8de9ab83ebbb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4684,6 +4684,7 @@ static int dm_early_init(void *handle)
+ 		adev_to_drm(adev)->dev,
+ 		&dev_attr_s3_debug);
+ #endif
++	adev->dc_enabled = true;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 1eb4e613b27a..331fe508b6d0 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1504,7 +1504,7 @@ static void pp_pm_compute_clocks(void *handle)
+ 	struct pp_hwmgr *hwmgr = handle;
+ 	struct amdgpu_device *adev = hwmgr->adev;
  
 -	if (!amdgpu_device_has_dc_support(adev)) {
--		if (!adev->enable_virtual_display)
--			/* Disable vblank IRQs aggressively for power-saving */
--			/* XXX: can this be enabled for DC? */
--			adev_to_drm(adev)->vblank_disable_immediate = true;
--
--		r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
--		if (r)
--			return r;
--
--		/* Pre-DCE11 */
--		INIT_WORK(&adev->hotplug_work,
--				amdgpu_hotplug_work_func);
--	}
--
- 	INIT_WORK(&adev->irq.ih1_work, amdgpu_irq_handle_ih1);
- 	INIT_WORK(&adev->irq.ih2_work, amdgpu_irq_handle_ih2);
- 	INIT_WORK(&adev->irq.ih_soft_work, amdgpu_irq_handle_ih_soft);
-@@ -345,11 +295,8 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- 	/* PCI devices require shared interrupts. */
- 	r = request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_drm(adev)->driver->name,
- 			adev_to_drm(adev));
--	if (r) {
--		if (!amdgpu_device_has_dc_support(adev))
--			flush_work(&adev->hotplug_work);
-+	if (r)
- 		return r;
--	}
- 	adev->irq.installed = true;
- 	adev->irq.irq = irq;
- 	adev_to_drm(adev)->max_vblank_count = 0x00ffffff;
-@@ -366,9 +313,6 @@ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
- 		adev->irq.installed = false;
- 		if (adev->irq.msi_enabled)
- 			pci_free_irq_vectors(adev->pdev);
--
--		if (!amdgpu_device_has_dc_support(adev))
--			flush_work(&adev->hotplug_work);
- 	}
- 
- 	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 108e8e8a1a36..327166f2f35c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -512,6 +512,15 @@ static int amdgpu_vkms_sw_init(void *handle)
- 			return r;
- 	}
- 
-+
-+	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	if (r)
-+		return r;
-+
-+	/* Pre-DCE11 */
-+	INIT_WORK(&adev->hotplug_work,
-+		  amdgpu_display_hotplug_work_func);
-+
- 	drm_kms_helper_poll_init(adev_to_drm(adev));
- 
- 	adev->mode_info.mode_config_initialized = true;
-@@ -584,6 +593,9 @@ static int amdgpu_vkms_hw_init(void *handle)
- 
- static int amdgpu_vkms_hw_fini(void *handle)
- {
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	flush_work(&adev->hotplug_work);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 9c964cd3b5d4..2e90cd828895 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2831,6 +2831,17 @@ static int dce_v10_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* Disable vblank IRQs aggressively for power-saving */
-+	/* XXX: can this be enabled for DC? */
-+	adev_to_drm(adev)->vblank_disable_immediate = true;
-+
-+	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	if (r)
-+		return r;
-+
-+	INIT_WORK(&adev->hotplug_work,
-+		  amdgpu_display_hotplug_work_func);
-+
- 	drm_kms_helper_poll_init(adev_to_drm(adev));
- 
- 	adev->mode_info.mode_config_initialized = true;
-@@ -2893,6 +2904,8 @@ static int dce_v10_0_hw_fini(void *handle)
- 
- 	dce_v10_0_pageflip_interrupt_fini(adev);
- 
-+	flush_work(&adev->hotplug_work);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index e0ad9f27dc3f..b32acbaad293 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -2950,6 +2950,17 @@ static int dce_v11_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* Disable vblank IRQs aggressively for power-saving */
-+	/* XXX: can this be enabled for DC? */
-+	adev_to_drm(adev)->vblank_disable_immediate = true;
-+
-+	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	if (r)
-+		return r;
-+
-+	INIT_WORK(&adev->hotplug_work,
-+		  amdgpu_display_hotplug_work_func);
-+
- 	drm_kms_helper_poll_init(adev_to_drm(adev));
- 
- 	adev->mode_info.mode_config_initialized = true;
-@@ -3023,6 +3034,8 @@ static int dce_v11_0_hw_fini(void *handle)
- 
- 	dce_v11_0_pageflip_interrupt_fini(adev);
- 
-+	flush_work(&adev->hotplug_work);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 3caf6f386042..1d33bb4acf10 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2707,6 +2707,18 @@ static int dce_v6_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* Disable vblank IRQs aggressively for power-saving */
-+	/* XXX: can this be enabled for DC? */
-+	adev_to_drm(adev)->vblank_disable_immediate = true;
-+
-+	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	if (r)
-+		return r;
-+
-+	/* Pre-DCE11 */
-+	INIT_WORK(&adev->hotplug_work,
-+		  amdgpu_display_hotplug_work_func);
-+
- 	drm_kms_helper_poll_init(adev_to_drm(adev));
- 
- 	return r;
-@@ -2765,6 +2777,8 @@ static int dce_v6_0_hw_fini(void *handle)
- 
- 	dce_v6_0_pageflip_interrupt_fini(adev);
- 
-+	flush_work(&adev->hotplug_work);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 7c75df5bffed..62bd00c3c4f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2728,6 +2728,18 @@ static int dce_v8_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* Disable vblank IRQs aggressively for power-saving */
-+	/* XXX: can this be enabled for DC? */
-+	adev_to_drm(adev)->vblank_disable_immediate = true;
-+
-+	r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-+	if (r)
-+		return r;
-+
-+	/* Pre-DCE11 */
-+	INIT_WORK(&adev->hotplug_work,
-+		  amdgpu_display_hotplug_work_func);
-+
- 	drm_kms_helper_poll_init(adev_to_drm(adev));
- 
- 	adev->mode_info.mode_config_initialized = true;
-@@ -2788,6 +2800,8 @@ static int dce_v8_0_hw_fini(void *handle)
- 
- 	dce_v8_0_pageflip_interrupt_fini(adev);
- 
-+	flush_work(&adev->hotplug_work);
-+
- 	return 0;
- }
- 
++	if (!adev->dc_enabled) {
+ 		amdgpu_dpm_get_active_displays(adev);
+ 		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
+ 		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
 -- 
 2.35.3
 
