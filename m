@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7D3C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFEFFC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 600848F49A;
-	Wed, 20 Jul 2022 15:33:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 005D18F1FD;
+	Wed, 20 Jul 2022 15:33:44 +0000 (UTC)
 Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
  [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD74D8F414;
- Wed, 20 Jul 2022 15:33:14 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id n138so13301270iod.4;
- Wed, 20 Jul 2022 08:33:14 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2EE8F432;
+ Wed, 20 Jul 2022 15:33:22 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id v185so14533781ioe.11;
+ Wed, 20 Jul 2022 08:33:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Bh0/DFoYhEptZ3Qmb/gPoAkKxPWthqE3Rxq7bl/8jnk=;
- b=JQTsaj5bsHW1A21441YtEzu8im412HFkWgrXGy5rx6TZLXeh+xN1vxXIl7uiyPsMk6
- d50DsIjRWy6nil/5OHeWAMuByA3KUmLG5riMo+sYYag0KGTq72nSpSCqyrmM5F5CdxGH
- 25hFGl17GuwRwsLIEgnJBGRBWyHZpUaIwjW+147AMBBWk3fAYrYT/v3ZWndeAfcZuFIg
- biPUzTQcprbxUKROygS/LE/9Ev7oB1FoCxMCgq6IRiFraSmYsX6rHc9rwX/K1KPBtqP0
- Er6MH3MYgVqDdgklBAs3lzMh6PnC+uZVuKnqzi+SE/fYqh3pQIUDM0goWKmgVQctiKwD
- AhpA==
+ bh=HZbYvD7pJXDxjfsN+JYVR2+qF0bIhodb6pVaemEpRTA=;
+ b=hOhN43cI8Chgjet64meYIFjS4Y1rO6BE8K55GH1ONL9RL/lfOIjpnfHgy6Toyw+RYd
+ Ml3LC1IEsQmHEN0sQ5Y657mBznLOD86U15tkS5CnoDZijv95I3fO08lw+ijFcqlffYmP
+ 5V9yMG0vSX4iVPq5a86EpklhKDvbJ9dThbUmDjY0TlIFiY6Yt99PICLoMnCzR4ba5wKO
+ JMxZqIyGHS3XCADhwH3THc4MMqHI3dp9FAQ1COnOWe3r252psvV37TOmmQKt9TOuoHPw
+ Slcng1SaQf368Z6dmhHxOuB3X472SwZkdXSquyP05E+GOpfNT0Cx3r9trb6E6CIg0DhP
+ lqkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Bh0/DFoYhEptZ3Qmb/gPoAkKxPWthqE3Rxq7bl/8jnk=;
- b=Om9/KtS2F4BXJ5zmFzHXR/4kv7t4jvzlMw2xgacsTPao8nm5cXc58bqyxq35AgSHsv
- FlV78Cp8dn7GPPUoPb/bCBWSKwNO7fWCllcb85+PE0vlIG+eJjY+PkiyXr9G7vLhfTAU
- +L4cvD+V4+Ps286oes2Ei9BJTsm0tIcxGU9/oCL8UL0mwExG3IJDnH3DSVV24K/9hwsb
- S96dFZj1bqQY1htJVT2/mgg9MjtRmlXtrt9e9EfnrcUYQSfOvk/zG219haifj1iwT/SL
- tifuf8/kshKmmWNIyuQcerS04L0fARBIrIfAwte/+NgJCmUF/Jc5DX6KhxdFcjddLhEC
- rK2Q==
-X-Gm-Message-State: AJIora864K+lsGpFkYfQLgVIIm1rsvoVyegVhGkmDjD29wE9ykQOKCZ7
- 9b6yrVEF8DEuXidtOr+1aJzDoX+ua6F0gw==
-X-Google-Smtp-Source: AGRyM1sPkm7XlD4wLqoEnILMc+uWfxvF071/Bv9kfUhYq3Fb4AKSc+MHYwZnLcSTMkXROAmESKm4tw==
-X-Received: by 2002:a05:6602:15c8:b0:67c:45c7:40c9 with SMTP id
- f8-20020a05660215c800b0067c45c740c9mr1516208iow.138.1658331193907; 
- Wed, 20 Jul 2022 08:33:13 -0700 (PDT)
+ bh=HZbYvD7pJXDxjfsN+JYVR2+qF0bIhodb6pVaemEpRTA=;
+ b=IRy3t3tgVI0oU/5JCxqWL2TPghJrRNaohGrq0NDDx9snuR4YnrrcGqRM4cOptsY+Sa
+ kgJ6VkKmuch2iEmL4RJGu2MSf8DSbfXaMYDHY8yOuVdzezUtUEQ35O9QbX5sVLJs4cD7
+ OMd25Oq+5ogl/RYbVWe9LeV5EVyDGWrYa9g7WDc2X76YkSq6bs5qRnYBzI0fp/S5THew
+ aEXwO6aFdfJjmqP2PEJi+l7ATCbNTpXcB0f6KsRm+NAGcGb9B8HNn2RQpw0hsaEFhF+U
+ +xcr7teHTWKEpCCkrEg744MYur2SueRKALO84Z4nbBDng0uHl/YA6i9e4sfacn82dXmX
+ NGDQ==
+X-Gm-Message-State: AJIora+ER0H483KPCokcl0nXkJmt8hBjpoODz74JI5GAQi2CVUKv7zoc
+ yI7f/bLiHW4XH5mHxCCPskJ3sdcTihOozg==
+X-Google-Smtp-Source: AGRyM1ubPXrYKZI2z6DWenFNH3fxrgSBjC3VQxEnfgRBnTBQMHk/sQFMEBj5vHAx3Z+FwFZhl+MlgQ==
+X-Received: by 2002:a05:6638:168a:b0:341:5f8c:51f8 with SMTP id
+ f10-20020a056638168a00b003415f8c51f8mr10618853jat.282.1658331201318; 
+ Wed, 20 Jul 2022 08:33:21 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.11
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:13 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:21 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 15/41] dyndbg: validate class FOO by checking with module
-Date: Wed, 20 Jul 2022 09:32:07 -0600
-Message-Id: <20220720153233.144129-16-jim.cromie@gmail.com>
+Subject: [PATCH v4 22/41] drm_print: interpose drm_*dbg with forwarding macros
+Date: Wed, 20 Jul 2022 09:32:14 -0600
+Message-Id: <20220720153233.144129-23-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -75,183 +75,111 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add module-to-class validation:
+change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
+functions (with __ prefix added).
 
-  #> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
+Those functions sit below the categorized layer of macros implementing
+the DRM debug.category API, and implement most of it.  These are good
+places to insert dynamic-debug jump-label mechanics, which will allow
+DRM to avoid the runtime cost of drm_debug_enabled().
 
-If a query has "class FOO", then ddebug_find_valid_class(), called
-from ddebug_change(), requires that FOO is known to module X,
-otherwize the query is skipped entirely for X.  This protects each
-module's class-space, other than the default:31.
+no functional changes.
 
-The authors' choice of FOO is highly selective, giving isolation
-and/or coordinated sharing of FOOs.  For example, only DRM modules
-should know and respond to DRM_UT_KMS.
-
-So this, combined with module's opt-in declaration of known classes,
-effectively privatizes the .class_id space for each module (or
-coordinated set of modules).
-
-Notes:
-
-For all "class FOO" queries, ddebug_find_valid_class() is called, it
-returns the map matching the query, and sets valid_class via an
-*outvar).
-
-If no "class FOO" is supplied, valid_class = _CLASS_DFLT.  This
-insures that legacy queries do not trample on new class'd callsites,
-as they get added.
-
-Also add a new column to control-file output, displaying non-default
-class-name (when found) or the "unknown _id:", if it has not been
-(correctly) declared with one of the declarator macros.
+memory cost baseline: (unchanged)
+bash-5.1# drms_load
+[    9.220389] dyndbg:   1 debug prints in module drm
+[    9.224426] ACPI: bus type drm_connector registered
+[    9.302192] dyndbg:   2 debug prints in module ttm
+[    9.305033] dyndbg:   8 debug prints in module video
+[    9.627563] dyndbg: 127 debug prints in module i915
+[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
+[   10.091345] dyndbg: 2196 debug prints in module amdgpu
+[   10.106589] [drm] amdgpu kernel modesetting enabled.
+[   10.107270] amdgpu: CRAT table not found
+[   10.107926] amdgpu: Virtual CRAT table created for CPU
+[   10.108398] amdgpu: Topology: Add CPU node
+[   10.168507] dyndbg:   3 debug prints in module wmi
+[   10.329587] dyndbg:   3 debug prints in module nouveau
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 76 ++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 68 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_print.c | 10 +++++-----
+ include/drm/drm_print.h     |  9 +++++++--
+ 2 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e29730686cfb..4c27bbe5187e 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -56,6 +56,7 @@ struct ddebug_query {
- 	const char *module;
- 	const char *function;
- 	const char *format;
-+	const char *class_string;
- 	unsigned int first_lineno, last_lineno;
- };
- 
-@@ -136,15 +137,33 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- 			fmtlen--;
- 	}
- 
--	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u\n",
--		 msg,
--		 query->function ?: "",
--		 query->filename ?: "",
--		 query->module ?: "",
--		 fmtlen, query->format ?: "",
--		 query->first_lineno, query->last_lineno);
-+	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
-+		  msg,
-+		  query->function ?: "",
-+		  query->filename ?: "",
-+		  query->module ?: "",
-+		  fmtlen, query->format ?: "",
-+		  query->first_lineno, query->last_lineno, query->class_string);
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 44be95fac164..21b416af0be2 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
  }
+ EXPORT_SYMBOL(drm_dev_printk);
  
-+static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
-+							  const char *class_string, int *class_id)
-+{
-+	struct ddebug_class_map *map;
-+	int idx;
-+
-+	list_for_each_entry(map, &dt->maps, link) {
-+		idx = match_string(map->class_names, map->length, class_string);
-+		if (idx >= 0) {
-+			*class_id = idx + map->base;
-+			return map;
-+		}
-+	}
-+	*class_id = -ENOENT;
-+	return NULL;
-+}
-+
-+#define __outvar /* filled by callee */
- /*
-  * Search the tables for _ddebug's which match the given `query' and
-  * apply the `flags' and `mask' to them.  Returns number of matching
-@@ -159,6 +178,8 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int newflags;
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
-+	struct ddebug_class_map *map = NULL;
-+	int __outvar valid_class;
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+-		 const char *format, ...)
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++		   const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
  
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -169,9 +190,22 @@ static int ddebug_change(const struct ddebug_query *query,
- 		    !match_wildcard(query->module, dt->mod_name))
- 			continue;
- 
-+		if (query->class_string) {
-+			map = ddebug_find_valid_class(dt, query->class_string, &valid_class);
-+			if (!map)
-+				continue;
-+		} else {
-+			/* constrain query, do not touch class'd callsites */
-+			valid_class = _DPRINTK_CLASS_DFLT;
-+		}
-+
- 		for (i = 0; i < dt->num_ddebugs; i++) {
- 			struct _ddebug *dp = &dt->ddebugs[i];
- 
-+			/* match site against query-class */
-+			if (dp->class_id != valid_class)
-+				continue;
-+
- 			/* match against the source filename */
- 			if (query->filename &&
- 			    !match_wildcard(query->filename, dp->filename) &&
-@@ -420,6 +454,8 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		} else if (!strcmp(keyword, "line")) {
- 			if (parse_linerange(query, arg))
- 				return -EINVAL;
-+		} else if (!strcmp(keyword, "class")) {
-+			rc = check_set(&query->class_string, arg, "class");
- 		} else {
- 			pr_err("unknown keyword \"%s\"\n", keyword);
- 			return -EINVAL;
-@@ -854,6 +890,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 	return dp;
+ 	va_end(args);
  }
+-EXPORT_SYMBOL(drm_dev_dbg);
++EXPORT_SYMBOL(__drm_dev_dbg);
  
-+#define class_in_range(class_id, map)					\
-+	(class_id >= map->base && class_id < map->base + map->length)
-+
-+static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
-+{
-+	struct ddebug_class_map *map;
-+
-+	list_for_each_entry(map, &iter->table->maps, link)
-+		if (class_in_range(dp->class_id, map))
-+			return map->class_names[dp->class_id - map->base];
-+
-+	return NULL;
-+}
-+
- /*
-  * Seq_ops show method.  Called several times within a read()
-  * call from userspace, with ddebug_lock held.  Formats the
-@@ -865,6 +915,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 	struct ddebug_iter *iter = m->private;
- 	struct _ddebug *dp = p;
- 	struct flagsbuf flags;
-+	char const *class;
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...)
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
  
- 	if (p == SEQ_START_TOKEN) {
- 		seq_puts(m,
-@@ -877,7 +928,16 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		   iter->table->mod_name, dp->function,
- 		   ddebug_describe_flags(dp->flags, &flags));
- 	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
--	seq_puts(m, "\"\n");
-+	seq_puts(m, "\"");
-+
-+	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
-+		class = ddebug_class_name(iter, dp);
-+		if (class)
-+			seq_printf(m, " class:%s", class);
-+		else
-+			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+	}
-+	seq_puts(m, "\n");
- 
- 	return 0;
+ 	va_end(args);
  }
+-EXPORT_SYMBOL(__drm_dbg);
++EXPORT_SYMBOL(___drm_dbg);
+ 
+ void __drm_err(const char *format, ...)
+ {
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 668273e36c2c..c429c258c957 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -335,7 +335,7 @@ __printf(3, 4)
+ void drm_dev_printk(const struct device *dev, const char *level,
+ 		    const char *format, ...);
+ __printf(3, 4)
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 		 const char *format, ...);
+ 
+ /**
+@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
+ 
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+  *
+@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+  */
+ 
+ __printf(2, 3)
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...);
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
++#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++
+ /* Macros to make printk easier */
+ 
+ #define _DRM_PRINTK(once, level, fmt, ...)				\
 -- 
 2.36.1
 
