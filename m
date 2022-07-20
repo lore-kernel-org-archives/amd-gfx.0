@@ -4,88 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1762AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jul 2022 21:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5327EC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 01:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 202FB882A9;
-	Tue, 19 Jul 2022 21:15:33 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2087.outbound.protection.outlook.com [40.107.212.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E02D814B715
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jul 2022 21:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC6B610E5AB;
+	Wed, 20 Jul 2022 01:46:34 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2063.outbound.protection.outlook.com [40.107.95.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9E5A10EB91
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 01:46:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KvfboxH6+6O2nN5EtCWNUBlIs5ho2AwzYFaDL6NJAeeqv9L8l+OiAfTYSOO/pzFhUAwd1aKI8s6YWqrM0KB6/5S7R25atzvK3ptu7wWDrPfcqZl7jCjiej1ULnqWQPeY/+Ddr0oDwgd269O3nm8nm+t0VUzy3fJnozg1uvE469tbSPumwp/DsASBEURU1KbVz/fUR3Yr4sDv1NJ2UyMoeXK7ZoEt9+mjbPXXDK8/hee9x5iD/5T1xMRvXprbGWXoyq4MmVFSWV161pMhivKnqJhIBYwglqUgSqjEAaoDOOUYqrajjV0ZBJikFxZjzb27OtBhFKrGCJEH2NPVwpYGvA==
+ b=UQHDQKBgUP65pOwWX1g4XWAETx2pLG2f/7IrcvLpt81gwZd5UdAV7LcKKIq52ScMI+grvqky+E1f/UW81nxCu+Tc51ZC4SLNwqveEeya49ERE7YNbTS7wbEY13KgbNRratvvEluJS8RXISsSOMBNPWmVe84ZAJXdLpQRxzxvQWviDJR5nK7wG81hT+QRuFD/EtH/VP9d4Sw3OX5HyWIfMunNKiw77YsGDCbWs90H6A/A+80K3nFK/UxgDyWn+G028SDOOWtHs2IIZhEDTn/YVIbS4sjNxQJclE8e8RYba7zqb7FVvF2EmWFCVnn2uA2xt1a2DYvHLnCVG4kA1oWZ8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ljISpooiziwlkcSrtCrKhFiuixZ+/gVI/h+zlfmZJxQ=;
- b=T3/h1WgBC1L4jUuacxVJxpuks1iLBRj222ZRLnOJpRRNb0GKRRs/GZ2fUChLvivDrypWwXVYCLtOP06Xf4XT+F4/Kb0bglluETA2ErapCOdF0B9oB79Pb9BR2n6r6dmKTKoPJzraUBAHMMeqgMJ3HUaWkHtyhNsBKz0SEEIweLtc2qVxmjz8pVLn+Gj19CWLtcgZ3T/exfPGzs+e5qLqBkSYvnyjPOujFfFXLCoyWOxuSL0oHqbNPo78U4eKbC55l93znIXEJNhaYRK4br6H8I28AprsHRFHcnWridE1euxah4VoF6ifQ7F8LYwOaBKleHzyO1fNSFI/4rM7qDGscQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=1XHFBcwZ5twg72YNG1gbnfPlHj0PJbQGgaGsi1/m5Rw=;
+ b=i6hb7ldxaevElG8D6iepULJpL193KEXdhV2KmLBQAGyMN2JlHM0epkb+yVff1FVxIvN+wn3KJCQ4GkvXDoIxEMB997C939lGiChikRA/Dl2O2equJmSDVj+bnnV/9/1FlPIqbWfdPwmOFDOuZ/ur99PdKfUjngL6iLhubIMh2lrb39pOqNYFFznIKCHh6HrhCi30ZpCIXLXqz0NT6ONhlOhYjL/qxczO01/+XSZ5Uag4laI2BtIP9+ju788vr6/nSIhqlgBdmRZWEv2r6MwkekhpDs7ox6Ab4j0xTF5K04TkaZ579pHLksObSH1bFanEzae5mrQiPZjgJNZo8UlaOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ljISpooiziwlkcSrtCrKhFiuixZ+/gVI/h+zlfmZJxQ=;
- b=hXrmq/VAwVWxwXe7mshoFHptFt2G0StssY5sBnhci2CA2RzS4UO0q92MHAYTAnQc68Fdr+w92BdhmnhjsaqJqxN0YOYFhgoI98XimKiuYJgE08oz9OBNjSu16w2uCvVTZcumO+A2pTVbB9NtUrRCpx5Crmi02yJE08RRiPEzh6w=
-Received: from DS7P222CA0023.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::9) by
- PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13) with
+ bh=1XHFBcwZ5twg72YNG1gbnfPlHj0PJbQGgaGsi1/m5Rw=;
+ b=dTBS49RxNOl06ATDV97kI15Mtdvv2WFnJNU8NLITB5NqLM32xWdKgL0odI/lJ9fVGqjXLjfUAGRRQGwVk2V8L5TP4jFL8b8vuMDR+BjkT/GKLse2tOZwFYI0Q2N6Ga7jRJH4/oDuf2pNDj25H8gMsRy1TKRD4cxTx5ujdSqPKuY=
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) by
+ MN0PR12MB6295.namprd12.prod.outlook.com (2603:10b6:208:3c0::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20; Tue, 19 Jul
- 2022 21:15:29 +0000
-Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::96) by DS7P222CA0023.outlook.office365.com
- (2603:10b6:8:2e::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20 via Frontend
- Transport; Tue, 19 Jul 2022 21:15:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Tue, 19 Jul 2022 21:15:23 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 19 Jul
- 2022 16:15:07 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: reduce stack size in dcn32 dml
-Date: Tue, 19 Jul 2022 17:14:48 -0400
-Message-ID: <20220719211448.2873045-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: deaf675f-3c9e-4430-1854-08da69cbcb6a
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zDb9TrTCtc8NyZ4W+ZFlE+f+InvSrMvBJnb6WVdzY0RZ9pPI7RYRk//+++o8xVUje9WcRB7b6goet2K7N4QX9zAUQS9jc84SU6Q+fO/8f1L0b3AJ4AYhhLzC73PBsuUsGruUb28JjgDztSutIcQM0KEWTA8E8m6F3O55EKAk/n4cFibXU0q1Z95oy3oJlo/zgR2MoolFsvDydEcUqJjtu/f4j0+NAMiyl1nyQK2GYk/OSUtj+u42VLPcie+5oANfmUNmnisq2+Mw53JVobf3IP9DRHKJVlVXWbPTSuRWsqVBf8tI9o0cMaStgH4C/ANuT/jaSOon2keZ3aYiLMJXlZfyJle/98H9Q4NjXaOQ641S67VipKRClu9ZauD3gy6sF2PeS+rRAbTYIEoj/zu1BvcoGtip7ub4aPhz/eK3rUpBQ2z4smQcDP21m1/+45eouvE2v0qbkK9L1kOCJntMUEc01xqT5Jbeo/mYqUSg/2WAUY87Ow/mbsAmrEE375B9WyP91xxOw/k4k4AvBr+Ym4jOK2F2IBkjZeIw6LCwMHeBmFOGSj0KIfVolirKcB8KLO3TcsLTPSYjq2upcxtHunOS7rL8U8dPOHSa0RDac313TqRxOLmhKk5t+/hsIRr+0NMNaPJeR2wxPq/dAsyiukBRbdVWgRLYkhnRs9tkS7NNQ9WWtJ4G1A+ilemHSb/oinmRhPKz2JH5Wok3/y0M4Jhp/sEoECRNbYMj9HECYXjflET9PkScL9p0gIZYtabjx7Oh/eyWpuVUqu6kUJMVsvzPqI3TIQR9dZfLzG6GHGXNqxFDqr2hHoX0W/Vu24A6h/krDgrg/mBOnOdVAVJylw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(136003)(376002)(396003)(40470700004)(36840700001)(46966006)(2906002)(81166007)(7696005)(86362001)(47076005)(8936002)(82740400003)(70586007)(426003)(478600001)(83380400001)(336012)(8676002)(6666004)(186003)(41300700001)(70206006)(40460700003)(356005)(16526019)(26005)(30864003)(40480700001)(54906003)(4326008)(19627235002)(2616005)(6916009)(5660300002)(316002)(36860700001)(36756003)(82310400005)(1076003)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Wed, 20 Jul
+ 2022 01:46:28 +0000
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::c057:b59f:7b09:8c5f]) by DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::c057:b59f:7b09:8c5f%6]) with mapi id 15.20.5438.023; Wed, 20 Jul 2022
+ 01:46:28 +0000
+From: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: modify mcbp implement for gfx9
+Thread-Topic: [PATCH 1/2] drm/amdgpu: modify mcbp implement for gfx9
+Thread-Index: AQHYmxSZX7TC5bWsgUiubIDR/CALl62FuR+AgADBVkA=
+Date: Wed, 20 Jul 2022 01:46:28 +0000
+Message-ID: <DS7PR12MB6333A41391105BB84F427CE0F48E9@DS7PR12MB6333.namprd12.prod.outlook.com>
+References: <20220719020918.410753-1-Jiadong.Zhu@amd.com>
+ <bd9908fb-c5a9-4e0a-2efd-aa6e7c05faec@amd.com>
+In-Reply-To: <bd9908fb-c5a9-4e0a-2efd-aa6e7c05faec@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b844e909-f19b-4243-b903-e9799162d5bf;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-20T01:30:35Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a2607dcf-482b-4e3b-15eb-08da69f1a9d4
+x-ms-traffictypediagnostic: MN0PR12MB6295:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zJlg8FEYmIZITsLs01amC8fILLOrp2aWJ1pc4Nx/J5ifZgjPcD2vSkj6t/gAFN8LZeRn5tCs3WP/yOBHWjcBLQn9BhwniisYE4eZ4M2Lmg+zTbRFjcC6EO1XIRu8g7tsGb7iTgogN6tekWlWo8Xe/kveqITXyTPCAePy29yMpGOBUkoHoQuziYlPt81rsWRIeQyVRzKbXyfa2lt7mbty7rc/aGBthKxnwJf4voh6nkybqvGrPHEXIEhGoOYr0euQ1iV4c5oXrcR5KNOnxZ0WZjjmES+VOuGfLHHY4aj6fI+PCklU6D/IIucNHSaJOSParbCfJ0icIKyC/RxKTlMwNGPexEeIIwDzzg1O9J+D4ej34i4cstGivTlL2Yp/hnZbmhVoh76OTOsCwdWBf+EBBrG5TRuC9FcE4xrR+075jqc0fED66QQ4CgmIGkVhH9xevsrsAOAwhumwJmRNC04m99egePJ8Eus4lS4Cw+5wQKWJWosi4pTDHb3IsUTFp9bWFVa8FS1hhxDGpeh3hLXWTq3NAQlSm1S2KJQsTiZNDBx9qhdcYTbd9ammMZEK+Kbau2zlK0RIYJ5zWPOsbm0/fCLJUPFk6iu21yf11Eoce1TUxWQCXUOtofcMQqekfn6y/9uXsl5goTglhJ8IUNgsH7JbFSxDpVSkCA4WGkI1W1wTUx5rc24fOsPwU7b2SSMwlWD1bGm2YCH8IjiRzbENLYLGzTVoiFL7TewisaWeqaVSlanuzCdusu2tP9+nysBBgh4W6aCWin9YEDzxlmRnmQvdQrJ4K4YQMQ0ln4XdbOi0KGFPKdfF3AYv/TgZ/hoY
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6333.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(7696005)(110136005)(53546011)(9686003)(33656002)(4326008)(2906002)(30864003)(71200400001)(41300700001)(66446008)(478600001)(54906003)(64756008)(55016003)(5660300002)(26005)(8936002)(66556008)(52536014)(66476007)(316002)(6506007)(66946007)(38100700002)(8676002)(86362001)(83380400001)(186003)(76116006)(38070700005)(122000001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UWtUeTAwVFBNeVgzdlBLa3FyMncrOE9oYVowVWFmc1NVN3JSQi9TK2Ixa0hL?=
+ =?utf-8?B?bXNZMitPMVJLUmc1S1ZyNkhPUkVVS3p5amhKc1VBWnJCWUtlTEgxOXVMZzYy?=
+ =?utf-8?B?OTZ5UmZkL3ovZnk0ZkNJbXk1eEFBWVNDbFBHZ085Q2FsT0ZYblc1TVB4ZjJD?=
+ =?utf-8?B?SG9OaStyeE1yandlTko0MmtOQ0VXQXI2d0dEM0lGbU05aUR2N3A0THF1bUtR?=
+ =?utf-8?B?cHh4SHlxRjROdnV4WGg0ZzFoanhyN1dKL1E4c3Npc0NrOENUbXlEcmtxUS9Z?=
+ =?utf-8?B?QTBSQzQwQlJrOWlQa0FnTVQrNHpGMTdmN1BySVlScjR6MHZ5eVNEK2tFMC9Z?=
+ =?utf-8?B?Q3VVZlA4VlYyOEtJN1JjQ2RXeVVwc0NVc1FLVlBlTVZ5R2c4NGlUMHQ2RFUv?=
+ =?utf-8?B?YytIM3F0aENBdU9aRUJhLzJtSkZCanRXWFlwOWt6QXNieXZ6MEc3V3dMYWpY?=
+ =?utf-8?B?MGlFQUVlbHovbUF4ZzhVcytDRVptSXlJcG85VmFxZGdRcjBWck5WQW9ZeWRu?=
+ =?utf-8?B?OE9hcDZWUmJoaHpVSUxGclcrRXVlZElsMkVCdk92NVkwYlRDV3pwejFMQkYz?=
+ =?utf-8?B?emhqcUxkeW1ySmtiQ2UwTHpHMGVJSk5kY0NnTkp0WStRUTVBYVpTYU8rQ25M?=
+ =?utf-8?B?amNYZDZCenpHN2JXdGlGd3F6OVJNbnlTTDM5MldLMlNGZ0pSNGtHaWFxeVR0?=
+ =?utf-8?B?RVBSRGF5YmZxbUJKQ0JhQXNZbWo0SnFEWHV2YnVTdXQ3ajFWWmlVUVdTVVVD?=
+ =?utf-8?B?M3hKSUlrcy9JYStqTjM2aG5mNUV4N29jMy85ck5vKzlIUmVTWXkxd2p1U2x0?=
+ =?utf-8?B?UGRJMXM1UnkzUzFYaTY3M2Nhb3dVeDdKYTlOc3lISmhKZ0s5M2ZDcDR6YXMr?=
+ =?utf-8?B?SGovRnN4d3I3Y2lXd3E2Y0xBWHVjZk9uWUNxd25ZQTZLb3ExM25OQThRZkFq?=
+ =?utf-8?B?dWRiNjhDQUF0MlN4K2FQNlpQbW9oUXJ6QmJjSDRPT05xbGY5SDFCaGlQWTdp?=
+ =?utf-8?B?Qzd3NG5SZXM1NVArR3JibDFtUTM3L0JjWExIRTd4YnlYNk5MWi9IYTE2SVZx?=
+ =?utf-8?B?SnI5NVZmUXhTbTY4UStIclZwUGYzMWJHZFJ2L1h4aHNTQVp0VXNma0NvTGJF?=
+ =?utf-8?B?WU5qa0VCd1Qzek9PSkR6UGdqalNMNUJTL2NEQW9OTW9DVm9zTE9pQ0hRZGpv?=
+ =?utf-8?B?QUlJQmEwOEZuVStiWFRFWXloTGlRWHR1YW1FWDVSUXpxbm8zTnhDNHpzaE9o?=
+ =?utf-8?B?RmhpOEM2TkgyWDBvRmtBVXFNREQ4YjZmSG1FWGpGM2NuS0xGWEFZRU53WUFP?=
+ =?utf-8?B?MlMxQVkya1dHNGNkY2FlYkJoRzhZR3lBbVFSdmZEU0xocmorYXdoeHNiV3RM?=
+ =?utf-8?B?cGhoZHJLZ21wKzE1RSswbjlJNUhlcVd0OW1LWkUwQjFMTFBHbS90VzRoMnFy?=
+ =?utf-8?B?M3p3V1ZBZFlDWmM3UURTVk5ncndmdnBpRlNGVDFKM3BOOVdXVE9SMXRtN2NO?=
+ =?utf-8?B?c1J4QkJpNGpycVJhU3ZQQ0hqeXRqYlVPYnFoT3h6dzJtWUw5NmphNWVrczhu?=
+ =?utf-8?B?Z29LQjdqMGVSZEVzY1ZGc3JaRGEvMjdyZE1BbFpxNWtweWF5b3R2aFUvVzhR?=
+ =?utf-8?B?WERtKzl1RE1mbjAvYXNBeGtxVGd0UGw3d2dvR1VLVzBjRU5ORzE4RXFjdkZT?=
+ =?utf-8?B?c1ZYVS9wZ01JUnRPNmZURFR1UmMwUEx0Unh3eFNUZjVDOGpGd2RGMDFidHp2?=
+ =?utf-8?B?aUlSRS8zelhnQ0sycWUyZW1HK1RmU01HQkFONHZTQy9lNXpGY3Ayb0gwd3lF?=
+ =?utf-8?B?bVp2S2szL3NtSmF4KzRLc1F3VFgvWE03WHN0SGRUQ1oreEIzSk5zOGFFZTJW?=
+ =?utf-8?B?UzVMbytkRmtkOE02ZC95UWs0bG1NWU9memw3b1B6Q3dxb0t4eFB3OWdYTGVy?=
+ =?utf-8?B?RlBub2RMWUc5cTEyVE8yTkdYTXlDUjlLTE9lai9aUFR5c2J3UTdUQW1udDcx?=
+ =?utf-8?B?VlNkTVc5aDdCQXo1VEhPQzNwYis0MzMzdzU4QTBXYjJEeXprekRUS3Y1T3Qy?=
+ =?utf-8?B?S3M1c3QxK0xXNWZmMDI0QjBBbnU2UWYxYUgvQ3BiaC9rWmdBOHhmSGJQbGpv?=
+ =?utf-8?Q?6EMpEpq30hDrFf7HjQ/dkXrJw?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2022 21:15:23.6320 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: deaf675f-3c9e-4430-1854-08da69cbcb6a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5757
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6333.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2607dcf-482b-4e3b-15eb-08da69f1a9d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2022 01:46:28.3317 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: t3hvT/COzg17T9gxD+9kARzm+nzLLbv6/GzmFIBRliUvUTTFPtIocAMFiGvHGFKs9ZMJhG1qfa+MfR4Ieo1sQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6295
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,416 +132,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move additional dummy structures off the stack and into
-the dummy vars structure.
-
-Fixes the following:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1659:1: error: the frame size of 2144 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
- 1659 | }
-      | ^
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'dml32_ModeSupportAndSystemConfigurationFull':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:3799:1: error: the frame size of 2464 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
- 3799 | } // ModeSupportAndSystemConfigurationFull
-      | ^
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>
----
- .../dc/dml/dcn32/display_mode_vba_32.c        | 214 ++++++++----------
- .../drm/amd/display/dc/dml/display_mode_vba.h |   3 +
- 2 files changed, 100 insertions(+), 117 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index 349e36ae9333..441311cb9a86 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -67,6 +67,18 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	int iteration;
- 	double MaxTotalRDBandwidth;
- 	unsigned int NextPrefetchMode;
-+	double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
-+	bool DestinationLineTimesForPrefetchLessThan2 = false;
-+	bool VRatioPrefetchMoreThanMax = false;
-+	double dummy_unit_vector[DC__NUM_DPP__MAX];
-+	double TWait;
-+	double dummy_single[2];
-+	bool dummy_boolean[1];
-+	enum clock_change_support dummy_dramchange_support;
-+	enum dm_fclock_change_support dummy_fclkchange_support;
-+	bool dummy_USRRetrainingSupport;
-+	double TotalWRBandwidth = 0;
-+	double WRBandwidth = 0;
- 
- #ifdef __DML_VBA_DEBUG__
- 	dml_print("DML::%s: --- START ---\n", __func__);
-@@ -702,11 +714,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	NextPrefetchMode = mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb];
- 
- 	do {
--		double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
--		bool DestinationLineTimesForPrefetchLessThan2 = false;
--		bool VRatioPrefetchMoreThanMax = false;
--		double dummy_unit_vector[DC__NUM_DPP__MAX];
--
- 		MaxTotalRDBandwidth = 0;
- #ifdef __DML_VBA_DEBUG__
- 		dml_print("DML::%s: Start loop: VStartup = %d\n", __func__, mode_lib->vba.VStartupLines);
-@@ -715,41 +722,39 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			/* NOTE PerfetchMode variable is invalid in DAL as per the input received.
- 			 * Hence the direction is to use PrefetchModePerState.
- 			 */
--			double TWait = dml32_CalculateTWait(
--					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
--					mode_lib->vba.UsesMALLForPStateChange[k],
--					mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
--					mode_lib->vba.DRRDisplay[k],
--					mode_lib->vba.DRAMClockChangeLatency,
--					mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
--					mode_lib->vba.SREnterPlusExitTime);
--
--			DmlPipe myPipe;
--
--			myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
--			myPipe.Dispclk = mode_lib->vba.DISPCLK;
--			myPipe.PixelClock = mode_lib->vba.PixelClock[k];
--			myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
--			myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
--			myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
--			myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
--			myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
--			myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
--			myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
--			myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
--			myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
--			myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
--			myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
--			myPipe.HTotal = mode_lib->vba.HTotal[k];
--			myPipe.HActive = mode_lib->vba.HActive[k];
--			myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
--			myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
--			myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
--			myPipe.BytePerPixelY = v->BytePerPixelY[k];
--			myPipe.BytePerPixelC = v->BytePerPixelC[k];
--			myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
-+			TWait = dml32_CalculateTWait(
-+				mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
-+				mode_lib->vba.UsesMALLForPStateChange[k],
-+				mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
-+				mode_lib->vba.DRRDisplay[k],
-+				mode_lib->vba.DRAMClockChangeLatency,
-+				mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
-+				mode_lib->vba.SREnterPlusExitTime);
-+
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dispclk = mode_lib->vba.DISPCLK;
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HTotal = mode_lib->vba.HTotal[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HActive = mode_lib->vba.HActive[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelY = v->BytePerPixelY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelC = v->BytePerPixelC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
- 			v->ErrorResult[k] = dml32_CalculatePrefetchSchedule(v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.HostVMInefficiencyFactor,
--					&myPipe, v->DSCDelay[k],
-+					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe, v->DSCDelay[k],
- 					mode_lib->vba.DPPCLKDelaySubtotal + mode_lib->vba.DPPCLKDelayCNVCFormater,
- 					mode_lib->vba.DPPCLKDelaySCL,
- 					mode_lib->vba.DPPCLKDelaySCLLBOnly,
-@@ -898,8 +903,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- #endif
- 
- 		{
--			double dummy_single[1];
--
- 			dml32_CalculatePrefetchBandwithSupport(
- 					mode_lib->vba.NumberOfActiveSurfaces,
- 					mode_lib->vba.ReturnBW,
-@@ -931,8 +934,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			dummy_unit_vector[k] = 1.0;
- 
- 		{
--			double  dummy_single[1];
--			bool dummy_boolean[1];
- 			dml32_CalculatePrefetchBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
- 					mode_lib->vba.ReturnBW,
- 					v->NoUrgentLatencyHidingPre,
-@@ -1039,8 +1040,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			}
- 
- 			{
--				double  dummy_single[2];
--				bool dummy_boolean[1];
- 				dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
- 						mode_lib->vba.ReturnBW,
- 						mode_lib->vba.ImmediateFlipRequirement,
-@@ -1149,22 +1148,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 	//Watermarks and NB P-State/DRAM Clock Change Support
- 	{
--		SOCParametersList mmSOCParameters;
--		enum clock_change_support dummy_dramchange_support;
--		enum dm_fclock_change_support dummy_fclkchange_support;
--		bool dummy_USRRetrainingSupport;
--
--		mmSOCParameters.UrgentLatency = v->UrgentLatency;
--		mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
--		mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
--		mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
--		mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
--		mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
--		mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
--		mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
--		mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
--		mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
--		mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.UrgentLatency = v->UrgentLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
- 
- 		dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
- 			mode_lib->vba.USRRetrainingRequiredFinal,
-@@ -1182,7 +1176,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			v->dpte_group_bytes,
- 			v->meta_row_height,
- 			v->meta_row_height_chroma,
--			mmSOCParameters,
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
- 			mode_lib->vba.WritebackChunkSize,
- 			mode_lib->vba.SOCCLK,
- 			v->DCFCLKDeepSleep,
-@@ -1486,9 +1480,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 	{
- 		//Maximum Bandwidth Used
--		double TotalWRBandwidth = 0;
--		double WRBandwidth = 0;
--
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.WritebackEnable[k] == true
- 					&& mode_lib->vba.WritebackPixelFormat[k] == dm_444_32) {
-@@ -1582,9 +1573,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- #ifdef __DML_VBA_ALLOW_DELTA__
- 	{
--		double dummy_single[2];
- 		unsigned int dummy_integer[1];
--		bool dummy_boolean[1];
- 
- 		// Calculate z8 stutter eff assuming 0 reserved space
- 		dml32_CalculateStutterEfficiency(v->CompressedBufferSizeInkByte,
-@@ -1669,20 +1658,33 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	unsigned int TotalNumberOfActiveDP2p0;
- 	unsigned int TotalNumberOfActiveDP2p0Outputs;
- 	unsigned int TotalDSCUnitsRequired;
--	unsigned int m;
- 	unsigned int ReorderingBytes;
- 	bool FullFrameMALLPStateMethod;
- 	bool SubViewportMALLPStateMethod;
- 	bool PhantomPipeMALLPStateMethod;
- 	unsigned int MaximumMPCCombine;
-+	bool NoChroma;
-+	bool TotalAvailablePipesSupportNoDSC;
-+	unsigned int NumberOfDPPNoDSC;
-+	enum odm_combine_mode ODMModeNoDSC = dm_odm_combine_mode_disabled;
-+	double RequiredDISPCLKPerSurfaceNoDSC;
-+	bool TotalAvailablePipesSupportDSC;
-+	unsigned int NumberOfDPPDSC;
-+	enum odm_combine_mode ODMModeDSC = dm_odm_combine_mode_disabled;
-+	double RequiredDISPCLKPerSurfaceDSC;
-+	double BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
-+	unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
-+	unsigned int TotalSlots;
-+	double VMDataOnlyReturnBWPerState;
-+	double HostVMInefficiencyFactor;
-+	unsigned int NextPrefetchModeState;
-+	struct vba_vars_st *v = &mode_lib->vba;
-+	int i, j;
-+	unsigned int k, m;
- 
- #ifdef __DML_VBA_DEBUG__
- 	dml_print("DML::%s: called\n", __func__);
- #endif
--	struct vba_vars_st *v = &mode_lib->vba;
--
--	int i, j;
--	unsigned int k;
- 
- 	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
- 
-@@ -1991,21 +1993,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	for (i = 0; i < v->soc.num_states; i++) {
- 		for (j = 0; j < 2; j++) {
--			bool NoChroma;
- 			mode_lib->vba.TotalNumberOfActiveDPP[i][j] = 0;
- 			mode_lib->vba.TotalAvailablePipesSupport[i][j] = true;
- 
- 			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
--
--				bool TotalAvailablePipesSupportNoDSC;
--				unsigned int NumberOfDPPNoDSC;
--				enum odm_combine_mode ODMModeNoDSC = dm_odm_combine_mode_disabled;
--				double RequiredDISPCLKPerSurfaceNoDSC;
--				bool TotalAvailablePipesSupportDSC;
--				unsigned int NumberOfDPPDSC;
--				enum odm_combine_mode ODMModeDSC = dm_odm_combine_mode_disabled;
--				double RequiredDISPCLKPerSurfaceDSC;
--
- 				dml32_CalculateODMMode(
- 						mode_lib->vba.MaximumPixelsPerLinePerDSCUnit,
- 						mode_lib->vba.HActive[k],
-@@ -2147,8 +2138,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							mode_lib->vba.Output[0])) {
- 				while (!(mode_lib->vba.TotalNumberOfActiveDPP[i][j] >= mode_lib->vba.MaxNumDPP
- 						|| mode_lib->vba.TotalNumberOfSingleDPPSurfaces[i][j] == 0)) {
--					double BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
--					unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
- 
- 					for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 						if (mode_lib->vba.MPCCombineUse[k]
-@@ -2264,8 +2253,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 
- 	for (i = 0; i < v->soc.num_states; ++i) {
--		unsigned int TotalSlots;
--
- 		mode_lib->vba.ExceededMultistreamSlots[i] = false;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.OutputMultistreamEn[k] == true && mode_lib->vba.OutputMultistreamId[k] == k) {
-@@ -2474,8 +2461,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	/*DSC Delay per state*/
- 	for (i = 0; i < v->soc.num_states; ++i) {
--		unsigned int m;
--
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			mode_lib->vba.DSCDelayPerState[i][k] = dml32_DSCDelayRequirement(
- 					mode_lib->vba.RequiresDSC[i][k], mode_lib->vba.ODMCombineEnablePerState[i][k],
-@@ -3120,9 +3105,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	for (i = 0; i < (int) v->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
--			double VMDataOnlyReturnBWPerState;
--			double HostVMInefficiencyFactor;
--			unsigned int NextPrefetchModeState;
- 
- 			mode_lib->vba.TimeCalc = 24 / mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
- 
-@@ -3191,8 +3173,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				mode_lib->vba.MaxVStartup = mode_lib->vba.NextMaxVStartup;
- 
- 				for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
--					DmlPipe myPipe;
--
- 					mode_lib->vba.TWait = dml32_CalculateTWait(
- 							mode_lib->vba.PrefetchModePerState[i][j],
- 							mode_lib->vba.UsesMALLForPStateChange[k],
-@@ -3202,34 +3182,34 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							mode_lib->vba.FCLKChangeLatency, mode_lib->vba.UrgLatency[i],
- 							mode_lib->vba.SREnterPlusExitTime);
- 
--					myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
--					myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
--					myPipe.PixelClock = mode_lib->vba.PixelClock[k];
--					myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
--					myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
--					myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
--					myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
--					myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
--					myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
--					myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
--					myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
--					myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
--					myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
--					myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
--					myPipe.HTotal = mode_lib->vba.HTotal[k];
--					myPipe.HActive = mode_lib->vba.HActive[k];
--					myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
--					myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
--					myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
--					myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
--					myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
--					myPipe.ProgressiveToInterlaceUnitInOPP =
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HTotal = mode_lib->vba.HTotal[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HActive = mode_lib->vba.HActive[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ProgressiveToInterlaceUnitInOPP =
- 							mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
- 
- 					mode_lib->vba.NoTimeForPrefetch[i][j][k] =
- 						dml32_CalculatePrefetchSchedule(
- 							HostVMInefficiencyFactor,
--							&myPipe,
-+							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe,
- 							mode_lib->vba.DSCDelayPerState[i][k],
- 							mode_lib->vba.DPPCLKDelaySubtotal +
- 								mode_lib->vba.DPPCLKDelayCNVCFormater,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-index 47b149d4bfcf..b3905a55772b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-@@ -197,6 +197,8 @@ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCal
- 	unsigned int ReorderBytes;
- 	unsigned int VMDataOnlyReturnBW;
- 	double HostVMInefficiencyFactor;
-+	DmlPipe myPipe;
-+	SOCParametersList mmSOCParameters;
- };
- 
- struct dml32_ModeSupportAndSystemConfigurationFull {
-@@ -212,6 +214,7 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
- 	double DSTXAfterScaler[DC__NUM_DPP__MAX];
- 	double MaxTotalVActiveRDBandwidth;
- 	bool dummy_boolean_array[2][DC__NUM_DPP__MAX];
-+	DmlPipe myPipe;
- };
- 
- struct dummy_vars {
--- 
-2.35.3
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIENocmlzdGlhbiwNCg0KVGhl
+cmUgaXMgYW4gaW1iZWQgcHJvamVjdCBiYXNlZCBvbiB4ZW4uIE9uZSBvZiB0aGUgZ3Vlc3Qgdm0g
+d2l0aCBoaWdoIHByaW9yaXR5IGpvYnMgbmVlZHMgdG8gc2VuZCBwcmVlbXB0aW9uIGFnYWluc3Qg
+dGhlIG90aGVyIHZtLg0KVGhlcmUgYXJlIHNvbWUgd29ya3MgaW4gb3RoZXIgY29tcG9uZW50IGlu
+Y2x1ZGluZyB1bWQgYW5kIHFlbXUsIGV0Yy4gRm9yIGttZCwgd2UganVzdCBtb2RpZnkgdGhlIG1j
+YnAgcmVsYXRlZCBmdW5jdGlvbnMgdG8gcGFzcyB0aGUgdW5pdCB0ZXN0Lg0KDQpUaGFua3MsDQpK
+aWFkb25nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLb2VuaWcsIENocmlz
+dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KU2VudDogVHVlc2RheSwgSnVseSAxOSwg
+MjAyMiA5OjU5IFBNDQpUbzogWmh1LCBKaWFkb25nIDxKaWFkb25nLlpodUBhbWQuY29tPjsgYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1k
+LmNvbT47IExpdSwgQWFyb24gPEFhcm9uLkxpdUBhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRD
+SCAxLzJdIGRybS9hbWRncHU6IG1vZGlmeSBtY2JwIGltcGxlbWVudCBmb3IgZ2Z4OQ0KDQpXZWxs
+IHdoYXQncyB0aGUgYmFja2dyb3VuZCBmb3IgdGhpcz8NCg0KU28gZmFyIE1DQlAgaXNuJ3QgYSB2
+YWxpZGF0ZWQgZmVhdHVyZSwgd2UganVzdCBhZGRlZCBzb21lIGRlYnVnZnMgaW50ZXJmYWNlIGZv
+ciB0ZXN0aW5nIGl0Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxOS4wNy4yMiB1bSAw
+NDowOSBzY2hyaWViIGppYWRvbmcuemh1QGFtZC5jb206DQo+IEZyb206ICJKaWFkb25nLlpodSIg
+PEppYWRvbmcuWmh1QGFtZC5jb20+DQo+DQo+IDEuIFVzZSB1bm1hcF9xdWV1ZSBwYWNrYWdlIHRv
+IHRyaWdnZXIgcHJlZW1wdGlvbiBvbiBnZng5DQo+ICAgICBBZGQgdHJhaWxpbmcgZmVuY2UgdG8g
+dHJhY2sgdGhlIHByZWVtcHRpb24gZG9uZS4NCj4gMi4gTW9kaWZ5IGVtaXRfY2VfbWV0YSBlbWl0
+X2RlX21ldGEgZnVuY3Rpb25zDQo+ICAgICBmb3IgdGhlIHJlc3VtZWQgaWJzLg0KPiAtLS0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIHwgICAxICsNCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgIHwgMTU2ICsrKysrKysrKysr
+KysrKysrKysrLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTVkLmggICAg
+ICB8ICAgMiArDQo+ICAgMyBmaWxlcyBjaGFuZ2VkLCAxMzggaW5zZXJ0aW9ucygrKSwgMjEgZGVs
+ZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcmluZy5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jpbmcu
+aA0KPiBpbmRleCA4MmMxNzhhOTAzM2EuLmNhNjI2ZjBhZDdiMSAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaA0KPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oDQo+IEBAIC01OSw2ICs1OSw3IEBAIGVudW0g
+YW1kZ3B1X3JpbmdfcHJpb3JpdHlfbGV2ZWwgew0KPiAgICNkZWZpbmUgQU1ER1BVX0ZFTkNFX0ZM
+QUdfNjRCSVQgICAgICAgICAoMSA8PCAwKQ0KPiAgICNkZWZpbmUgQU1ER1BVX0ZFTkNFX0ZMQUdf
+SU5UICAgICAgICAgICAoMSA8PCAxKQ0KPiAgICNkZWZpbmUgQU1ER1BVX0ZFTkNFX0ZMQUdfVENf
+V0JfT05MWSAgICAoMSA8PCAyKQ0KPiArI2RlZmluZSBBTURHUFVfRkVOQ0VfRkxBR19FWEVDICAg
+ICAgICAgICgxIDw8IDMpDQo+DQo+ICAgI2RlZmluZSB0b19hbWRncHVfcmluZyhzKSBjb250YWlu
+ZXJfb2YoKHMpLCBzdHJ1Y3QgYW1kZ3B1X3JpbmcsDQo+IHNjaGVkKQ0KPg0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4gaW5kZXggNTMzMjg5OTY0MmRjLi5lMmM2MTQ0
+NDE2OTEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
+LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPiBAQCAt
+NzUxLDcgKzc1MSw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OV8wX3NldF9ybGNfZnVuY3Moc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZ2V0X2N1X2lu
+Zm8oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHN0cnVjdCBhbWRncHVfY3VfaW5mbyAqY3VfaW5mbyk7DQo+ICAgc3RhdGljIHVpbnQ2
+NF90IGdmeF92OV8wX2dldF9ncHVfY2xvY2tfY291bnRlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0K
+PiAqYWRldik7IC1zdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfZGVfbWV0YShzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcNCj4gKnJpbmcpOw0KPiArc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0
+X2RlX21ldGEoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBib29sDQo+ICtyZXN1bWUpOw0KPiAg
+IHN0YXRpYyB1NjQgZ2Z4X3Y5XzBfcmluZ19nZXRfcnB0cl9jb21wdXRlKHN0cnVjdCBhbWRncHVf
+cmluZyAqcmluZyk7DQo+ICAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcXVlcnlfcmFzX2Vycm9yX2Nv
+dW50KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgdm9pZCAqcmFzX2Vycm9yX3N0YXR1cyk7DQo+IEBAIC04MjQsOSAr
+ODI0LDEwIEBAIHN0YXRpYyB2b2lkIGdmeF92OV8wX2tpcV91bm1hcF9xdWV1ZXMoc3RydWN0IGFt
+ZGdwdV9yaW5nICpraXFfcmluZywNCj4gICAgICAgICAgICAgICAgICAgICAgIFBBQ0tFVDNfVU5N
+QVBfUVVFVUVTX0RPT1JCRUxMX09GRlNFVDAocmluZy0+ZG9vcmJlbGxfaW5kZXgpKTsNCj4NCj4g
+ICAgICAgaWYgKGFjdGlvbiA9PSBQUkVFTVBUX1FVRVVFU19OT19VTk1BUCkgew0KPiAtICAgICAg
+ICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCBsb3dlcl8zMl9iaXRzKGdwdV9hZGRy
+KSk7DQo+IC0gICAgICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIHVwcGVyXzMy
+X2JpdHMoZ3B1X2FkZHIpKTsNCj4gLSAgICAgICAgICAgICBhbWRncHVfcmluZ193cml0ZShraXFf
+cmluZywgc2VxKTsNCj4gKyAgICAgICAgICAgICBhbWRncHVfcmluZ193cml0ZShraXFfcmluZywg
+bG93ZXJfMzJfYml0cyhyaW5nLT53cHRyICYgcmluZy0+YnVmX21hc2spKTsNCj4gKyAgICAgICAg
+ICAgICBhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgMCk7DQo+ICsgICAgICAgICAgICAgYW1k
+Z3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOw0KPiArDQo+ICAgICAgIH0gZWxzZSB7DQo+ICAg
+ICAgICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOw0KPiAgICAgICAgICAg
+ICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAwKTsNCj4gQEAgLTU0NDYsMTEgKzU0NDcs
+MTUgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2liX2dmeChzdHJ1Y3QNCj4gYW1k
+Z3B1X3JpbmcgKnJpbmcsDQo+DQo+ICAgICAgIGNvbnRyb2wgfD0gaWItPmxlbmd0aF9kdyB8ICh2
+bWlkIDw8IDI0KTsNCj4NCj4gLSAgICAgaWYgKGFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2KSAm
+JiAoaWItPmZsYWdzICYgQU1ER1BVX0lCX0ZMQUdfUFJFRU1QVCkpIHsNCj4gKyAgICAgaWYgKChh
+bWRncHVfc3Jpb3ZfdmYocmluZy0+YWRldikgfHwgYW1kZ3B1X21jYnApICYmIChpYi0+ZmxhZ3Mg
+Jg0KPiArQU1ER1BVX0lCX0ZMQUdfUFJFRU1QVCkpIHsNCj4gICAgICAgICAgICAgICBjb250cm9s
+IHw9IElORElSRUNUX0JVRkZFUl9QUkVfRU5CKDEpOw0KPg0KPiArICAgICAgICAgICAgIGlmIChm
+bGFncyAmIEFNREdQVV9JQl9QUkVFTVBURUQpDQo+ICsgICAgICAgICAgICAgICAgICAgICBjb250
+cm9sIHw9IElORElSRUNUX0JVRkZFUl9QUkVfUkVTVU1FKDEpOw0KPiArDQo+ICAgICAgICAgICAg
+ICAgaWYgKCEoaWItPmZsYWdzICYgQU1ER1BVX0lCX0ZMQUdfQ0UpICYmIHZtaWQpDQo+IC0gICAg
+ICAgICAgICAgICAgICAgICBnZnhfdjlfMF9yaW5nX2VtaXRfZGVfbWV0YShyaW5nKTsNCj4gKyAg
+ICAgICAgICAgICAgICAgICAgIGdmeF92OV8wX3JpbmdfZW1pdF9kZV9tZXRhKHJpbmcsDQo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoIWFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2
+KSAmJiBmbGFncyAmIEFNREdQVV9JQl9QUkVFTVBURUQpID8NCj4gK3RydWUgOiBmYWxzZSk7DQo+
+ICAgICAgIH0NCj4NCj4gICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgaGVhZGVyKTsNCj4g
+QEAgLTU1MDUsNiArNTUxMCw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OV8wX3JpbmdfZW1pdF9mZW5j
+ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRyLA0KPiAgICAgICBib29sIHdyaXRl
+NjRiaXQgPSBmbGFncyAmIEFNREdQVV9GRU5DRV9GTEFHXzY0QklUOw0KPiAgICAgICBib29sIGlu
+dF9zZWwgPSBmbGFncyAmIEFNREdQVV9GRU5DRV9GTEFHX0lOVDsNCj4gICAgICAgYm9vbCB3cml0
+ZWJhY2sgPSBmbGFncyAmIEFNREdQVV9GRU5DRV9GTEFHX1RDX1dCX09OTFk7DQo+ICsgICAgIGJv
+b2wgZXhlYyA9IGZsYWdzICYgQU1ER1BVX0ZFTkNFX0ZMQUdfRVhFQzsNCj4NCj4gICAgICAgLyog
+UkVMRUFTRV9NRU0gLSBmbHVzaCBjYWNoZXMsIHNlbmQgaW50ICovDQo+ICAgICAgIGFtZGdwdV9y
+aW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19SRUxFQVNFX01FTSwgNikpOyBAQA0KPiAt
+NTUxNSw2ICs1NTIxLDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2ZlbmNlKHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZywgdTY0IGFkZHIsDQo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIEVPUF9UQ19XQl9BQ1RJT05fRU4gfA0KPiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBFT1BfVENfTURfQUNUSU9OX0VO
+KSkgfA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRVZFTlRfVFlQRShDQUNIRV9G
+TFVTSF9BTkRfSU5WX1RTX0VWRU5UKSB8DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoZXhlYyA/IEVPUF9FWEVDIDogMHgwKSB8DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBFVkVOVF9JTkRFWCg1KSkpOw0KPiAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBE
+QVRBX1NFTCh3cml0ZTY0Yml0ID8gMiA6IDEpIHwNCj4gSU5UX1NFTChpbnRfc2VsID8gMiA6IDAp
+KTsNCj4NCj4gQEAgLTU2MjAsMzMgKzU2MjcsMTMyIEBAIHN0YXRpYyB2b2lkIGdmeF92OV9yaW5n
+X2VtaXRfc2Ioc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQ0KPiAgICAgICBhbWRncHVfcmluZ193
+cml0ZShyaW5nLCAwKTsNCj4gICB9DQo+DQo+IC1zdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2Vt
+aXRfY2VfbWV0YShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+ICtzdGF0aWMgdm9pZCBnZnhf
+djlfMF9yaW5nX2VtaXRfY2VfbWV0YShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIGJvb2wNCj4g
+K3Jlc3VtZSkNCj4gICB7DQo+ICsgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcmlu
+Zy0+YWRldjsNCj4gICAgICAgc3RydWN0IHY5X2NlX2liX3N0YXRlIGNlX3BheWxvYWQgPSB7MH07
+DQo+IC0gICAgIHVpbnQ2NF90IGNzYV9hZGRyOw0KPiArICAgICB1aW50NjRfdCBvZmZzZXQsIGNl
+X3BheWxvYWRfZ3B1X2FkZHI7DQo+ICsgICAgIHZvaWQgKmNlX3BheWxvYWRfY3B1X2FkZHI7DQo+
+ICAgICAgIGludCBjbnQ7DQo+DQo+ICAgICAgIGNudCA9IChzaXplb2YoY2VfcGF5bG9hZCkgPj4g
+MikgKyA0IC0gMjsNCj4gLSAgICAgY3NhX2FkZHIgPSBhbWRncHVfY3NhX3ZhZGRyKHJpbmctPmFk
+ZXYpOw0KPiArDQo+ICsgICAgIGlmIChyaW5nLT5pc19tZXNfcXVldWUpIHsNCj4gKyAgICAgICAg
+ICAgICBvZmZzZXQgPSBvZmZzZXRvZihzdHJ1Y3QgYW1kZ3B1X21lc19jdHhfbWV0YV9kYXRhLA0K
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdmeFswXS5nZnhfbWV0YV9kYXRhKSAr
+DQo+ICsgICAgICAgICAgICAgICAgICAgICBvZmZzZXRvZihzdHJ1Y3QgdjlfZ2Z4X21ldGFfZGF0
+YSwgY2VfcGF5bG9hZCk7DQo+ICsgICAgICAgICAgICAgY2VfcGF5bG9hZF9ncHVfYWRkciA9DQo+
+ICsgICAgICAgICAgICAgICAgICAgICBhbWRncHVfbWVzX2N0eF9nZXRfb2Zmc19ncHVfYWRkcihy
+aW5nLCBvZmZzZXQpOw0KPiArICAgICAgICAgICAgIGNlX3BheWxvYWRfY3B1X2FkZHIgPQ0KPiAr
+ICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X21lc19jdHhfZ2V0X29mZnNfY3B1X2FkZHIocmlu
+Zywgb2Zmc2V0KTsNCj4gKyAgICAgfSBlbHNlIHsNCj4gKyAgICAgICAgICAgICBvZmZzZXQgPSBv
+ZmZzZXRvZihzdHJ1Y3QgdjlfZ2Z4X21ldGFfZGF0YSwgY2VfcGF5bG9hZCk7DQo+ICsgICAgICAg
+ICAgICAgY2VfcGF5bG9hZF9ncHVfYWRkciA9IGFtZGdwdV9jc2FfdmFkZHIocmluZy0+YWRldikg
+KyBvZmZzZXQ7DQo+ICsgICAgICAgICAgICAgY2VfcGF5bG9hZF9jcHVfYWRkciA9IGFkZXYtPnZp
+cnQuY3NhX2NwdV9hZGRyICsgb2Zmc2V0Ow0KPiArICAgICB9DQo+DQo+ICAgICAgIGFtZGdwdV9y
+aW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklURV9EQVRBLCBjbnQpKTsNCj4gICAg
+ICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgKFdSSVRFX0RBVEFfRU5HSU5FX1NFTCgyKSB8DQo+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBXUklURV9EQVRBX0RTVF9TRUwoOCkgfA0K
+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JfQ09ORklSTSkgfA0KPiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgV1JJVEVfREFUQV9DQUNIRV9QT0xJQ1koMCkpOw0KPiAt
+ICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBsb3dlcl8zMl9iaXRzKGNzYV9hZGRyICsgb2Zm
+c2V0b2Yoc3RydWN0IHY5X2dmeF9tZXRhX2RhdGEsIGNlX3BheWxvYWQpKSk7DQo+IC0gICAgIGFt
+ZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMoY3NhX2FkZHIgKyBvZmZzZXRvZihz
+dHJ1Y3QgdjlfZ2Z4X21ldGFfZGF0YSwgY2VfcGF5bG9hZCkpKTsNCj4gLSAgICAgYW1kZ3B1X3Jp
+bmdfd3JpdGVfbXVsdGlwbGUocmluZywgKHZvaWQgKikmY2VfcGF5bG9hZCwgc2l6ZW9mKGNlX3Bh
+eWxvYWQpID4+IDIpOw0KPiArICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBsb3dlcl8zMl9i
+aXRzKGNlX3BheWxvYWRfZ3B1X2FkZHIpKTsNCj4gKyAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
+ZywgdXBwZXJfMzJfYml0cyhjZV9wYXlsb2FkX2dwdV9hZGRyKSk7DQo+ICsNCj4gKyAgICAgaWYg
+KHJlc3VtZSkNCj4gKyAgICAgICAgICAgICBhbWRncHVfcmluZ193cml0ZV9tdWx0aXBsZShyaW5n
+LCBjZV9wYXlsb2FkX2NwdV9hZGRyLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHNpemVvZihjZV9wYXlsb2FkKSA+PiAyKTsNCj4gKyAgICAgZWxzZQ0KPiArICAg
+ICAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlX211bHRpcGxlKHJpbmcsICh2b2lkICopJmNlX3Bh
+eWxvYWQsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZW9m
+KGNlX3BheWxvYWQpID4+IDIpOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IGdmeF92OV8wX3Jp
+bmdfcHJlZW1wdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpIHsNCj4gKyAgICAgaW50IGks
+IHIgPSAwOw0KPiArICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7
+DQo+ICsgICAgIHN0cnVjdCBhbWRncHVfa2lxICpraXEgPSAmYWRldi0+Z2Z4LmtpcTsNCj4gKyAg
+ICAgc3RydWN0IGFtZGdwdV9yaW5nICpraXFfcmluZyA9ICZraXEtPnJpbmc7DQo+ICsgICAgIHVu
+c2lnbmVkIGxvbmcgZmxhZ3M7DQo+ICsNCj4gKyAgICAgaWYgKCFraXEtPnBtZiB8fCAha2lxLT5w
+bWYtPmtpcV91bm1hcF9xdWV1ZXMpDQo+ICsgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+
+ICsNCj4gKyAgICAgc3Bpbl9sb2NrX2lycXNhdmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7DQo+
+ICsNCj4gKyAgICAgaWYgKGFtZGdwdV9yaW5nX2FsbG9jKGtpcV9yaW5nLCBraXEtPnBtZi0+dW5t
+YXBfcXVldWVzX3NpemUpKSB7DQo+ICsgICAgICAgICAgICAgc3Bpbl91bmxvY2tfaXJxcmVzdG9y
+ZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsNCj4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT01F
+TTsNCj4gKyAgICAgfQ0KPiArDQo+ICsgICAgIC8qIGFzc2VydCBwcmVlbXB0aW9uIGNvbmRpdGlv
+biAqLw0KPiArICAgICBhbWRncHVfcmluZ19zZXRfcHJlZW1wdF9jb25kX2V4ZWMocmluZywgZmFs
+c2UpOw0KPiArDQo+ICsgICAgIHJpbmctPnRyYWlsX3NlcSArPSAxOw0KPiArICAgICBhbWRncHVf
+cmluZ19hbGxvYyhyaW5nLCA4KTsNCj4gKyAgICAgZ2Z4X3Y5XzBfcmluZ19lbWl0X2ZlbmNlKHJp
+bmcsIHJpbmctPnRyYWlsX2ZlbmNlX2dwdV9hZGRyLA0KPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJpbmctPnRyYWlsX3NlcSwgQU1ER1BVX0ZFTkNFX0ZMQUdfRVhFQyk7DQo+ICsg
+ICAgIC8qIGFzc2VydCBJQiBwcmVlbXB0aW9uLCBlbWl0IHRoZSB0cmFpbGluZyBmZW5jZSAqLw0K
+PiArICAgICBraXEtPnBtZi0+a2lxX3VubWFwX3F1ZXVlcyhraXFfcmluZywgcmluZywgUFJFRU1Q
+VF9RVUVVRVNfTk9fVU5NQVAsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJp
+bmctPnRyYWlsX2ZlbmNlX2dwdV9hZGRyLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICByaW5nLT50cmFpbF9zZXEpOw0KPiArDQo+ICsgICAgIGFtZGdwdV9yaW5nX2NvbW1pdChr
+aXFfcmluZyk7DQo+ICsgICAgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmtpcS0+cmluZ19sb2Nr
+LCBmbGFncyk7DQo+ICsNCj4gKyAgICAgLyogcG9sbCB0aGUgdHJhaWxpbmcgZmVuY2UgKi8NCj4g
+KyAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsgaSsrKSB7DQo+ICsgICAg
+ICAgICAgICAgaWYgKHJpbmctPnRyYWlsX3NlcSA9PQ0KPiArICAgICAgICAgICAgICAgICBsZTMy
+X3RvX2NwdSgqKHJpbmctPnRyYWlsX2ZlbmNlX2NwdV9hZGRyKSkpDQo+ICsgICAgICAgICAgICAg
+ICAgICAgICBicmVhazsNCj4gKyAgICAgICAgICAgICB1ZGVsYXkoMSk7DQo+ICsgICAgIH0NCj4g
+Kw0KPiArICAgICBpZiAoaSA+PSBhZGV2LT51c2VjX3RpbWVvdXQpIHsNCj4gKyAgICAgICAgICAg
+ICByID0gLUVJTlZBTDsNCj4gKyAgICAgICAgICAgICBEUk1fRVJST1IoInJpbmcgJWQgZmFpbGVk
+IHRvIHByZWVtcHQgaWJcbiIsIHJpbmctPmlkeCk7DQo+ICsgICAgIH0NCj4gKw0KPiArICAgICBh
+bWRncHVfcmluZ19jb21taXQocmluZyk7DQo+ICsgICAgIC8qcmVzZXQgdGhlIENQX1ZNSURfUFJF
+RU1QVCBhZnRlciB0cmFpbGluZyBmZW5jZSovDQo+ICsgICAgIFdSRUczMl9TT0MxNShHQywgMCwg
+bW1DUF9WTUlEX1BSRUVNUFQsIDB4MCk7DQo+ICsNCj4gKyAgICAgLyogZGVhc3NlcnQgcHJlZW1w
+dGlvbiBjb25kaXRpb24gKi8NCj4gKyAgICAgYW1kZ3B1X3Jpbmdfc2V0X3ByZWVtcHRfY29uZF9l
+eGVjKHJpbmcsIHRydWUpOw0KPiArICAgICByZXR1cm4gcjsNCj4gICB9DQo+DQo+IC1zdGF0aWMg
+dm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfZGVfbWV0YShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcp
+DQo+ICtzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfZGVfbWV0YShzdHJ1Y3QgYW1kZ3B1
+X3JpbmcgKnJpbmcsIGJvb2wNCj4gK3Jlc3VtZSkNCj4gICB7DQo+ICsgICAgIHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsNCj4gICAgICAgc3RydWN0IHY5X2RlX2liX3N0
+YXRlIGRlX3BheWxvYWQgPSB7MH07DQo+IC0gICAgIHVpbnQ2NF90IGNzYV9hZGRyLCBnZHNfYWRk
+cjsNCj4gKyAgICAgdWludDY0X3Qgb2Zmc2V0LCBnZHNfYWRkciwgZGVfcGF5bG9hZF9ncHVfYWRk
+cjsNCj4gKyAgICAgdm9pZCAqZGVfcGF5bG9hZF9jcHVfYWRkcjsNCj4gICAgICAgaW50IGNudDsN
+Cj4NCj4gLSAgICAgY3NhX2FkZHIgPSBhbWRncHVfY3NhX3ZhZGRyKHJpbmctPmFkZXYpOw0KPiAt
+ICAgICBnZHNfYWRkciA9IGNzYV9hZGRyICsgNDA5NjsNCj4gKyAgICAgaWYgKHJpbmctPmlzX21l
+c19xdWV1ZSkgew0KPiArICAgICAgICAgICAgIG9mZnNldCA9IG9mZnNldG9mKHN0cnVjdCBhbWRn
+cHVfbWVzX2N0eF9tZXRhX2RhdGEsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Z2Z4WzBdLmdmeF9tZXRhX2RhdGEpICsNCj4gKyAgICAgICAgICAgICAgICAgICAgIG9mZnNldG9m
+KHN0cnVjdCB2OV9nZnhfbWV0YV9kYXRhLCBkZV9wYXlsb2FkKTsNCj4gKyAgICAgICAgICAgICBk
+ZV9wYXlsb2FkX2dwdV9hZGRyID0NCj4gKyAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9tZXNf
+Y3R4X2dldF9vZmZzX2dwdV9hZGRyKHJpbmcsIG9mZnNldCk7DQo+ICsgICAgICAgICAgICAgZGVf
+cGF5bG9hZF9jcHVfYWRkciA9DQo+ICsgICAgICAgICAgICAgICAgICAgICBhbWRncHVfbWVzX2N0
+eF9nZXRfb2Zmc19jcHVfYWRkcihyaW5nLCBvZmZzZXQpOw0KPiArDQo+ICsgICAgICAgICAgICAg
+b2Zmc2V0ID0gb2Zmc2V0b2Yoc3RydWN0IGFtZGdwdV9tZXNfY3R4X21ldGFfZGF0YSwNCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBnZnhbMF0uZ2RzX2JhY2t1cCkgKw0KPiArICAg
+ICAgICAgICAgICAgICAgICAgb2Zmc2V0b2Yoc3RydWN0IHY5X2dmeF9tZXRhX2RhdGEsIGRlX3Bh
+eWxvYWQpOw0KPiArICAgICAgICAgICAgIGdkc19hZGRyID0gYW1kZ3B1X21lc19jdHhfZ2V0X29m
+ZnNfZ3B1X2FkZHIocmluZywgb2Zmc2V0KTsNCj4gKyAgICAgfSBlbHNlIHsNCj4gKyAgICAgICAg
+ICAgICBvZmZzZXQgPSBvZmZzZXRvZihzdHJ1Y3QgdjlfZ2Z4X21ldGFfZGF0YSwgZGVfcGF5bG9h
+ZCk7DQo+ICsgICAgICAgICAgICAgZGVfcGF5bG9hZF9ncHVfYWRkciA9IGFtZGdwdV9jc2FfdmFk
+ZHIocmluZy0+YWRldikgKyBvZmZzZXQ7DQo+ICsgICAgICAgICAgICAgZGVfcGF5bG9hZF9jcHVf
+YWRkciA9IGFkZXYtPnZpcnQuY3NhX2NwdV9hZGRyICsgb2Zmc2V0Ow0KPiArDQo+ICsgICAgICAg
+ICAgICAgZ2RzX2FkZHIgPSBBTElHTihhbWRncHVfY3NhX3ZhZGRyKHJpbmctPmFkZXYpICsNCj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9DU0FfU0laRSAtIGFkZXYtPmdk
+cy5nZHNfc2l6ZSwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBBR0VfU0laRSk7
+DQo+ICsgICAgIH0NCj4gKw0KPiAgICAgICBkZV9wYXlsb2FkLmdkc19iYWNrdXBfYWRkcmxvID0g
+bG93ZXJfMzJfYml0cyhnZHNfYWRkcik7DQo+ICAgICAgIGRlX3BheWxvYWQuZ2RzX2JhY2t1cF9h
+ZGRyaGkgPSB1cHBlcl8zMl9iaXRzKGdkc19hZGRyKTsNCj4NCj4gQEAgLTU2NTYsOSArNTc2Miwx
+NSBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfZGVfbWV0YShzdHJ1Y3QgYW1kZ3B1
+X3JpbmcgKnJpbmcpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBXUklURV9EQVRB
+X0RTVF9TRUwoOCkgfA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JfQ09ORklS
+TSkgfA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JJVEVfREFUQV9DQUNIRV9Q
+T0xJQ1koMCkpOw0KPiAtICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBsb3dlcl8zMl9iaXRz
+KGNzYV9hZGRyICsgb2Zmc2V0b2Yoc3RydWN0IHY5X2dmeF9tZXRhX2RhdGEsIGRlX3BheWxvYWQp
+KSk7DQo+IC0gICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMoY3NhX2Fk
+ZHIgKyBvZmZzZXRvZihzdHJ1Y3QgdjlfZ2Z4X21ldGFfZGF0YSwgZGVfcGF5bG9hZCkpKTsNCj4g
+LSAgICAgYW1kZ3B1X3Jpbmdfd3JpdGVfbXVsdGlwbGUocmluZywgKHZvaWQgKikmZGVfcGF5bG9h
+ZCwgc2l6ZW9mKGRlX3BheWxvYWQpID4+IDIpOw0KPiArICAgICBhbWRncHVfcmluZ193cml0ZShy
+aW5nLCBsb3dlcl8zMl9iaXRzKGRlX3BheWxvYWRfZ3B1X2FkZHIpKTsNCj4gKyAgICAgYW1kZ3B1
+X3Jpbmdfd3JpdGUocmluZywgdXBwZXJfMzJfYml0cyhkZV9wYXlsb2FkX2dwdV9hZGRyKSk7DQo+
+ICsNCj4gKyAgICAgaWYgKHJlc3VtZSkNCj4gKyAgICAgICAgICAgICBhbWRncHVfcmluZ193cml0
+ZV9tdWx0aXBsZShyaW5nLCBkZV9wYXlsb2FkX2NwdV9hZGRyLA0KPiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHNpemVvZihkZV9wYXlsb2FkKSA+PiAyKTsNCj4gKyAg
+ICAgZWxzZQ0KPiArICAgICAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlX211bHRpcGxlKHJpbmcs
+ICh2b2lkICopJmRlX3BheWxvYWQsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgc2l6ZW9mKGRlX3BheWxvYWQpID4+IDIpOw0KPiAgIH0NCj4NCj4gICBzdGF0aWMg
+dm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfZnJhbWVfY250bChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
+bmcsDQo+IGJvb2wgc3RhcnQsIEBAIC01Njc0LDggKzU3ODYsOSBAQCBzdGF0aWMgdm9pZCBnZnhf
+djlfcmluZ19lbWl0X2NudHhjbnRsKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3Qg
+ZmxhZ3MpDQo+ICAgew0KPiAgICAgICB1aW50MzJfdCBkdzIgPSAwOw0KPg0KPiAtICAgICBpZiAo
+YW1kZ3B1X3NyaW92X3ZmKHJpbmctPmFkZXYpKQ0KPiAtICAgICAgICAgICAgIGdmeF92OV8wX3Jp
+bmdfZW1pdF9jZV9tZXRhKHJpbmcpOw0KPiArICAgICBpZiAoYW1kZ3B1X3NyaW92X3ZmKHJpbmct
+PmFkZXYpIHx8IGFtZGdwdV9tY2JwKQ0KPiArICAgICAgICAgICAgIGdmeF92OV8wX3JpbmdfZW1p
+dF9jZV9tZXRhKHJpbmcsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoIWFt
+ZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2KSAmJiBmbGFncyAmIEFNREdQVV9JQl9QUkVFTVBURUQp
+DQo+ICs/IHRydWUgOiBmYWxzZSk7DQo+DQo+ICAgICAgIGR3MiB8PSAweDgwMDAwMDAwOyAvKiBz
+ZXQgbG9hZF9lbmFibGUgb3RoZXJ3aXNlIHRoaXMgcGFja2FnZSBpcyBqdXN0IE5PUHMgKi8NCj4g
+ICAgICAgaWYgKGZsYWdzICYgQU1ER1BVX0hBVkVfQ1RYX1NXSVRDSCkgeyBAQCAtNzAyNCw2ICs3
+MTM3LDcgQEAgc3RhdGljDQo+IGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhfdjlf
+MF9yaW5nX2Z1bmNzX2dmeCA9IHsNCj4gICAgICAgLmVtaXRfY250eGNudGwgPSBnZnhfdjlfcmlu
+Z19lbWl0X2NudHhjbnRsLA0KPiAgICAgICAuaW5pdF9jb25kX2V4ZWMgPSBnZnhfdjlfMF9yaW5n
+X2VtaXRfaW5pdF9jb25kX2V4ZWMsDQo+ICAgICAgIC5wYXRjaF9jb25kX2V4ZWMgPSBnZnhfdjlf
+MF9yaW5nX2VtaXRfcGF0Y2hfY29uZF9leGVjLA0KPiArICAgICAucHJlZW1wdF9pYiA9IGdmeF92
+OV8wX3JpbmdfcHJlZW1wdF9pYiwNCj4gICAgICAgLmVtaXRfZnJhbWVfY250bCA9IGdmeF92OV8w
+X3JpbmdfZW1pdF9mcmFtZV9jbnRsLA0KPiAgICAgICAuZW1pdF93cmVnID0gZ2Z4X3Y5XzBfcmlu
+Z19lbWl0X3dyZWcsDQo+ICAgICAgIC5lbWl0X3JlZ193YWl0ID0gZ2Z4X3Y5XzBfcmluZ19lbWl0
+X3JlZ193YWl0LCBkaWZmIC0tZ2l0DQo+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29j
+MTVkLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNWQuaA0KPiBpbmRleCA3
+OTk5MjVkMjJmYzguLjYxNGU5Zjg0NjdmYiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvc29jMTVkLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c29jMTVkLmgNCj4gQEAgLTE2Miw2ICsxNjIsNyBAQA0KPiAgICAgICAgICAgICAgICAqIDIgLSBC
+eXBhc3MNCj4gICAgICAgICAgICAgICAgKi8NCj4gICAjZGVmaW5lICAgICBJTkRJUkVDVF9CVUZG
+RVJfUFJFX0VOQih4KSAgICAgICAgICAgICAgICgoeCkgPDwgMjEpDQo+ICsjZGVmaW5lICAgICBJ
+TkRJUkVDVF9CVUZGRVJfUFJFX1JFU1VNRSh4KSAgICAgICAgICAgKCh4KSA8PCAzMCkNCj4gICAj
+ZGVmaW5lICAgICBQQUNLRVQzX0NPUFlfREFUQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweDQwDQo+ICAgI2RlZmluZSAgICAgUEFDS0VUM19QRlBfU1lOQ19NRSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHg0Mg0KPiAgICNkZWZpbmUgICAgIFBBQ0tFVDNfQ09ORF9XUklURSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4NDUNCj4gQEAgLTE4NCw2ICsxODUsNyBAQA0K
+PiAgICNkZWZpbmUgICAgICAgICAgICAgRU9QX1RDX0FDVElPTl9FTiAgICAgICAgICAgICAgICAg
+ICAgICAgICgxIDw8IDE3KSAvKiBMMiAqLw0KPiAgICNkZWZpbmUgICAgICAgICAgICAgRU9QX1RD
+X05DX0FDVElPTl9FTiAgICAgICAgICAgICAgICAgICAgICgxIDw8IDE5KQ0KPiAgICNkZWZpbmUg
+ICAgICAgICAgICAgRU9QX1RDX01EX0FDVElPTl9FTiAgICAgICAgICAgICAgICAgICAgICgxIDw8
+IDIxKSAvKiBMMiBtZXRhZGF0YSAqLw0KPiArI2RlZmluZSAgICAgICAgICAgICAgRU9QX0VYRUMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDEgPDwgMjgpIC8qIEZvciBU
+cmFpbGluZyBGZW5jZSAqLw0KPg0KPiAgICNkZWZpbmUgICAgICAgICAgICAgREFUQV9TRUwoeCkg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgoeCkgPDwgMjkpDQo+ICAgICAgICAgICAgICAg
+LyogMCAtIGRpc2NhcmQNCg0K
