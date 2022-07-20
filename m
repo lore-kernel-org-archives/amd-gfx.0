@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 764BAC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 16:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA3CDC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 17:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE1FE90A0E;
-	Wed, 20 Jul 2022 16:54:55 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8067890A8D;
- Wed, 20 Jul 2022 16:54:54 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id j22so34171470ejs.2;
- Wed, 20 Jul 2022 09:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KJnc07zqN8Uo4UvUaljLOYZFnviJ9P8iNPOnwTu14I4=;
- b=Y6pbjajsctFjZSoED0Cs1ua/GKW3LfgmuRNTcGPciVK3aZF8ewVtwNz+0YWkx+Sf9e
- ToPuuKyyR11/PMFju/xwZbAC03cBo0QqHATq4YglrLIRV2BMU3LhEo535+BTpmY11b9r
- 88RKBUajnpyMW7HQfK/nx4J/wxm0dXptlktHxsQArH7rvMGt9SH0FgHlcWHqXQ3XMBvW
- EPLEnid12mNehX7u3fKk+jRAmDOq6oXk8T+MpCJQDogPwWIxo9FAc3SmBUnzlSiJcESh
- MbocDtjUxHUAfH5DpWsJdQ2fjXwgtizNdIiULNv6yXsO4UaJPHwRkoKlKXBx7VzGjOFS
- eRPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KJnc07zqN8Uo4UvUaljLOYZFnviJ9P8iNPOnwTu14I4=;
- b=07IIkVyMyPFyE/Ag7tg0QO1RRz2BnPHCefckjF+VQYEa79Fpin0zrciHKRDWQQ/ypF
- XLjyCm6u/TQLf1EGBXoejsSQmBk3PJCYABFlnWHimyHXK9tcWhJRvacTpWSjvl0j8eoH
- RR8z2rvaUKYKthyQr/Z3RZbOx6HodyQp1ixLl+2TYmUb3jj0IBs/nscVPKwDWVTwCga6
- tzP3HLzTlIb5IAwqz944js0bA3yuD8HGthx6hUeVpMU0EbGGJ52y2aNYl59lst0rxZ1K
- i/c2rfBD20pMskE+pmZZ0132GE5eSvgJiYTl3U4VaXAeHVAFZNGU+JmYf2SUj0ISwFz/
- GZuA==
-X-Gm-Message-State: AJIora9Thue16eV0pA8+QX/29rp3WAD8dZVsHIQYSalc/St2bvvWWHzP
- XQCc0jE1Q1zvrCKuBE7p8cJbJDJtQN6Oc/BK8ic=
-X-Google-Smtp-Source: AGRyM1sJbnpvMcDLP+GUx8jP5LqLOrqTB40lzbLLU6RfYZJnzUHLf5CJWzlf9rtQpvcYU1jOG2hNDebloGE30lfZNeU=
-X-Received: by 2002:a17:907:2e01:b0:72b:740c:1543 with SMTP id
- ig1-20020a1709072e0100b0072b740c1543mr36293825ejc.571.1658336093066; Wed, 20
- Jul 2022 09:54:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6564B902DF;
+	Wed, 20 Jul 2022 17:23:39 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B86D904A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 17:23:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Cc:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=W/Yu100lZmwCk1AoXTZry92Dzw8k2Yelaok3lPKUyOY=; b=EcC02f+sxMAUSQFpMryJihNKIz
+ Ntt2Sm+i16R65LPLYVXN0VY9XbpuvGIKawH5EbcORYN/0dEZtYZYcyMxT8Q3CxdlZ78i6ixQMsX6d
+ ZAJnCbDD78hmsgzagvW4mS1uBCcRgvTdp1lHL803uhiziRxVEBHJBHEF6P8pLTrps/9hhFF8AwvuE
+ /fhL3BXNIpAFKp44A2uhtxXzsRwgURWSOLih/OODlJiynPVCORrpDLjXV4oBX6Zlci0zN2793M/SA
+ /jRiq/jrEzTOI0Y37wKNA8gosjxsPmgTTgFJC6vfDKCgYL5b2bpdqP7mNg2+gFUFZEx9xFTJopd53
+ 7oBenU/Q==;
+Received: from 201-13-50-220.dsl.telesp.net.br ([201.13.50.220]
+ helo=[192.168.15.109]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oEDQ8-000Yqo-94; Wed, 20 Jul 2022 19:23:36 +0200
+Message-ID: <5268b500-23fb-d716-4b73-22a7ed403258@igalia.com>
+Date: Wed, 20 Jul 2022 14:23:18 -0300
 MIME-Version: 1.0
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-15-hdegoede@redhat.com>
-In-Reply-To: <20220712193910.439171-15-hdegoede@redhat.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 20 Jul 2022 12:54:41 -0400
-Message-ID: <CADnq5_NqO210gk3AxfU2wow4xqAgEaF2=5qtr29zS=K75ExQtg@mail.gmail.com>
-Subject: Re: [PATCH v2 14/29] drm/radeon: Register ACPI video backlight when
- skipping radeon backlight registration
-To: Hans de Goede <hdegoede@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Fix the incomplete product number
+Content-Language: en-US
+To: Roy Sun <Roy.Sun@amd.com>
+References: <20220720082659.49637-1-Roy.Sun@amd.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20220720082659.49637-1-Roy.Sun@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +53,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- Ben Skeggs <bskeggs@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 12, 2022 at 3:40 PM Hans de Goede <hdegoede@redhat.com> wrote:
->
-> Typically the acpi_video driver will initialize before radeon, which
-> used to cause /sys/class/backlight/acpi_video0 to get registered and then
-> radeon would register its own radeon_bl# device later. After which
-> the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-> to avoid there being 2 backlight devices.
->
-> This means that userspace used to briefly see 2 devices and the
-> disappearing of acpi_video0 after a brief time confuses the systemd
-> backlight level save/restore code, see e.g.:
-> https://bbs.archlinux.org/viewtopic.php?id=269920
->
-> To fix this the ACPI video code has been modified to make backlight class
-> device registration a separate step, relying on the drm/kms driver to
-> ask for the acpi_video backlight registration after it is done setting up
-> its native backlight device.
->
-> Add a call to the new acpi_video_register_backlight() when radeon skips
-> registering its own backlight device because of e.g. the firmware_flags
-> or the acpi_video_get_backlight_type() return value. This ensures that
-> if the acpi_video backlight device should be used, it will be available
-> before the radeon drm_device gets registered with userspace.
->
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+Às 05:26 de 20/07/22, Roy Sun escreveu:
+> The comments say that the product number is a 16-digit HEX string so the
+> buffer needs to be at least 17 characters to hold the NUL terminator.
+> 
+> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
 > ---
->  drivers/gpu/drm/radeon/radeon_encoders.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
-> index 46549d5179ee..c1cbebb51be1 100644
-> --- a/drivers/gpu/drm/radeon/radeon_encoders.c
-> +++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-> @@ -30,6 +30,8 @@
->  #include <drm/drm_device.h>
->  #include <drm/radeon_drm.h>
->
-> +#include <acpi/video.h>
-> +
->  #include "radeon.h"
->  #include "radeon_atombios.h"
->  #include "radeon_legacy_encoders.h"
-> @@ -167,7 +169,7 @@ static void radeon_encoder_add_backlight(struct radeon_encoder *radeon_encoder,
->                 return;
->
->         if (radeon_backlight == 0) {
-> -               return;
-> +               use_bl = false;
->         } else if (radeon_backlight == 1) {
->                 use_bl = true;
->         } else if (radeon_backlight == -1) {
-> @@ -193,6 +195,13 @@ static void radeon_encoder_add_backlight(struct radeon_encoder *radeon_encoder,
->                 else
->                         radeon_legacy_backlight_init(radeon_encoder, connector);
->         }
-> +
-> +       /*
-> +        * If there is no native backlight device (which may happen even when
-> +        * use_bl==true) try registering an ACPI video backlight device instead.
-> +        */
-> +       if (!rdev->mode_info.bl_encoder)
-> +               acpi_video_register_backlight();
->  }
->
->  void
-> --
-> 2.36.0
->
+
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
+
+...but I would appreciate a more detailed commit message with the points
+I raised in the review
