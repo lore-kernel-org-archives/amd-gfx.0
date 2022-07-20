@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C782C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 12:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C746DC43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 12:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A88A8BEF1;
-	Wed, 20 Jul 2022 12:48:43 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92CB58BF03
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 12:48:42 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id v5so2052454wmj.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 05:48:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4B28CFC4;
+	Wed, 20 Jul 2022 12:50:22 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 674C68CFD2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 12:50:21 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id b6so10266585wmq.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 05:50:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=N0NhBkqxV47ixs4cJqS9/L9EhMR2ivQoVF/AlzDACj8=;
- b=hEMZEnw1oqAXO4pwdHssK9rVg42LxkOyaR2js3MNiPk8+zvn4VEE+lplKrkF+wuS3u
- FNnppVxDOVEVQDCreOwRRznGm9xvegarv+vb4nacckyCrTRyVJlgU0UUPoUHm0N8CsWi
- xC78+Jxg/nJg/sVCLZciA4yJER8Wegq0mNgHKEhu2bHBKGKeHQDDuyoQfcU7JLKcpmY4
- 0DQ7Qiab1hRA3MmBM5XTka/KXOKCZj92F/2tlYKt0PYXz6ffDtNCvHF+7TDPr+HD4sa+
- Z6MEGgmuzUeN45Hrnqf/EPb4eCAP/OT5T8sx9ksEIx6g4XsAKcWkX6E0/K/+b8ySSmJi
- sgbA==
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=iH4DV4mzOnr0Wqtu8cdfc1pwfzKa6Q9JjoHfrfj4XhE=;
+ b=jt3btPi5WFQWy0tLs8rjyNIjOcAXd1Yt4tTq59VSFcxeVn+JQuy7Iig/qPTmjDZ+C/
+ 5rvqF/oK4wrUoac301GtaRF3juGwN4edRCzyku+0xAKU6HtdMScMC2TGa3YRappzCYtZ
+ A4HWMrw5TjjGfNXW0gl2nDiSMIuySskPd5RW7V2lyw53F3RozaWYnvlu/XAuyioL7Y6S
+ FHuSkIHseQ32ie9NQmsUjSAWpjdgDlQ9DcUM1/xcTJwqCgNmHK3Ij2DRVwd5evzW2enZ
+ BfFa93W6VN9noqQS8GV4aQRA4lYIxyzF/vcHJ+RQ3RrKIxSWPza14PBXjsEaSEKBAq71
+ +LXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=N0NhBkqxV47ixs4cJqS9/L9EhMR2ivQoVF/AlzDACj8=;
- b=OWItmMp8UZX/Mdm0/RXM7TnU1ihmlZTjQVSvYkzPj/VL0CGU2dYTyBrPnqqiWEYgnu
- Twck0HKNzyI40No6r2mWwqTAG5FM3NI9F1BTLP4TNq7kxCAcL7yxoXRLD8ZhfbYDi/Fx
- o/4R0WY02pFAWsv6FVRmbBCkMkvIPAwwmTdN/F6ZEOpqmSFME1zuBPFYuUiK9ybKnkl8
- 6Yfgi6ooQ8hXvmVQNT+HWizw1Xai1FQGKWb8+PcnmuL0zdKnN/mxJ7Yv6h58t9wR0d5f
- tbwkVpIoM0g71cBNR4qYYQJewuWTj/29tIJidFbSs/liA/nXJrjgjKZRZjEZIl4S0upv
- 8tDg==
-X-Gm-Message-State: AJIora8kCZzshOVAR21HwqDUOwXiPVZEQD5nLnoAp/t2KZyTlU90jmNJ
- z7wUKYSeiUubv8kpErQrvRZfUhAUgEM=
-X-Google-Smtp-Source: AGRyM1ucMg73Y/fw0SPuCJSLwKKhwc53JomPA40WvEmKeer0/KrSeOre6kW7DtpMSVvOD22sp033GA==
-X-Received: by 2002:a05:600c:3ac4:b0:3a3:19c5:7cb2 with SMTP id
- d4-20020a05600c3ac400b003a319c57cb2mr3661687wms.63.1658321320985; 
- Wed, 20 Jul 2022 05:48:40 -0700 (PDT)
+ bh=iH4DV4mzOnr0Wqtu8cdfc1pwfzKa6Q9JjoHfrfj4XhE=;
+ b=x5ET/GLui7/ag6i/SWYTHFNyCEMJg0Ld/qkaLJj08bWw0aK9LHkXvtWgaLScgAhctO
+ PgBCdrHKZUWSqzbQmlRp11ROf2BSyLQ0S0eggGvufZbpHiR+ahn9TJyvpUb17z4gyoXd
+ XiNbZF8UofcXWos4YQYwsiBFHGs6OUBbLwp5+PeH11wlcl9iU2itTbA3HfPsF03uaRfR
+ 5xgvLIdPttdi4XTbjwKh8T+JDj9lq2ObjiHHei97YhDCK+d9WWZGcCyC4VArex2K7pKr
+ /eeaXacJo1/5tM7xxFuf4TYt7izVHPBN8ZXgFNd6gbbBtf4cLEVkF8rXwqaWk2LP71YX
+ ZQBA==
+X-Gm-Message-State: AJIora926VnX2r5hW1hxVfxWoI9so9mDoAWRrrlWXhwIO+CPUw/16Ekq
+ sV3Nd6WL+1OmVmEJx7OBKFIOovgwxEw=
+X-Google-Smtp-Source: AGRyM1ulK9gelPI93HM9Vj88U7x9T0ijyJAUb0WsaL6fnCWtsXum+SlJ7zsXiH5qcUksEVHMef3utw==
+X-Received: by 2002:a05:600c:3553:b0:3a3:2b65:299e with SMTP id
+ i19-20020a05600c355300b003a32b65299emr1870763wmq.145.1658321419990; 
+ Wed, 20 Jul 2022 05:50:19 -0700 (PDT)
 Received: from ?IPV6:2a02:908:1256:79a0:c3a3:a774:9c4e:7491?
  ([2a02:908:1256:79a0:c3a3:a774:9c4e:7491])
  by smtp.gmail.com with ESMTPSA id
- h21-20020a05600c351500b003a31df6af2esm3111352wmq.1.2022.07.20.05.48.39
+ m184-20020a1c26c1000000b003a04722d745sm2336642wmm.23.2022.07.20.05.50.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Jul 2022 05:48:40 -0700 (PDT)
-Message-ID: <4adb712e-f310-580a-bb00-7ab0cd73c104@gmail.com>
-Date: Wed, 20 Jul 2022 14:48:38 +0200
+ Wed, 20 Jul 2022 05:50:19 -0700 (PDT)
+Message-ID: <ee4e323a-38c6-208c-417b-d3101aeee067@gmail.com>
+Date: Wed, 20 Jul 2022 14:50:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdgpu: Fix the incomplete product number
+Subject: Re: [PATCH 1/2] drm/amdgpu: drop non-necessary call trace dump
 Content-Language: en-US
-To: Roy Sun <Roy.Sun@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220720082659.49637-1-Roy.Sun@amd.com>
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220720090640.47497-1-evan.quan@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220720082659.49637-1-Roy.Sun@amd.com>
+In-Reply-To: <20220720090640.47497-1-evan.quan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,32 +73,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.07.22 um 10:26 schrieb Roy Sun:
-> The comments say that the product number is a 16-digit HEX string so the
-> buffer needs to be at least 17 characters to hold the NUL terminator.
+Am 20.07.22 um 11:06 schrieb Evan Quan:
+> This extra call trace dump comes out in every gpu reset.
+> And it gives people a wrong impression that something
+> went wrong. Although actually there was not.
 >
-> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Change-Id: I884af405b6b3cd52b9024408a21fd39811a01f4d
 
 Acked-by: Christian König <christian.koenig@amd.com>
 
+And please guys don't add calls to dump_stack() in the future. That's 
+really not supposed to be here.
+
+Thanks,
+Christian.
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 -
+>   1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 9f729a648005..187e3dae3965 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1019,7 +1019,7 @@ struct amdgpu_device {
->   	bool                            psp_sysfs_en;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index b79ee4ffb879..1b1a70a6da18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4667,7 +4667,6 @@ static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
+>   	int i;
 >   
->   	/* Chip product information */
-> -	char				product_number[16];
-> +	char				product_number[20];
->   	char				product_name[AMDGPU_PRODUCT_NAME_LEN];
->   	char				serial[20];
+>   	lockdep_assert_held(&adev->reset_domain->sem);
+> -	dump_stack();
 >   
+>   	for (i = 0; i < adev->num_regs; i++) {
+>   		adev->reset_dump_reg_value[i] = RREG32(adev->reset_dump_reg_list[i]);
 
