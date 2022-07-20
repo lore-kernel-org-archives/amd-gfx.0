@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84822CCA480
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:36:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB63C43334
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC63C8F5A3;
-	Wed, 20 Jul 2022 15:34:12 +0000 (UTC)
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91A248F49A;
- Wed, 20 Jul 2022 15:33:32 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id h145so14543470iof.9;
- Wed, 20 Jul 2022 08:33:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5DA8F491;
+	Wed, 20 Jul 2022 15:34:26 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1F68F4D2;
+ Wed, 20 Jul 2022 15:33:36 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id e69so7024862iof.5;
+ Wed, 20 Jul 2022 08:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
- b=Sg4IB9kGmmBPHRzIVUlrlhfbZfKHArauwcu6AiOjsnbSCBHhDwJ0MEUH5PF1c2/o0m
- 2RExuMVSQ3Kosf2EGRNdLyl7D5DRoRdvDMEXATj4WDBuiWnPqemVqGDLvZol/Wc33XeE
- AB7Rh/2teOZ3UcCnzwpVWXLyj3NYn3Al4EAuB89kwN+w62KIo5QEYlt1BN6Zt+3WrdvK
- gLKrcdeF/CLMYm3Y1KBps2atZd34BvNsfVc5nQvoecAjKnBsIWh0Qh5m9EJ2gCPENXiW
- Wuj5b+3LlKvzbsd4t6UsSV/t5Nx0SPCXZS1WcDtvWWoy5E5+6jgrEt5FEyBSgvQVPApg
- +mzg==
+ bh=KKkb9oOdw91XqyLkF4FwBMUXpB/qcPhIT6fnMrSUSuE=;
+ b=jNzQH+cIih6YKYxi0SJF9FYNIcumb+PAuinYFT5w9F7nBtrqeWdklMdzdme4aW2UQ9
+ RzM+wc+U5cCsaCap+DCY0ZhItwuVJt/1W3eRewMMP/TwgLxsIIq2OT8FSZhlZPqX7UcI
+ 1rKuEin88F190fVpfFEIFN6YCTCZZnIBUK5Z/YirRvq6bldI1DWDG+b6t+JDw6796KjC
+ qlKISzSCOo6knC4+LhLEc2fvpUjleJo+EK6v6T4WXYJH7/LL2u7jOf4zI5CL+5oxz7oc
+ Gvg0UxbXV0sMiXgdO4gX16dqoU+GCGqX0qUuhlv56W3QLpST6tryU+AfkmCfghfXtev8
+ heaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
- b=I5wFfwoAVJkvdkDrFThfY2nSCMm63R8pIR8oyW+m08uTj9Gzz1wqgSStNBl7zskDjI
- c8xb4X15KmM1AL0B69FEanohdFc0lzm63U7AwJkfH3myR/zb0XOVcTmaUP03DqZEod37
- QxtwKcew7ruTUv6PBRLx2ZcPPKCCSIm2NhjlkQ2wDXQZWSYdzwhpSD2VYCsMtNueDejl
- d74Opykbqj6SQtU/IA5FNVERtgNQI0+huxBeODWxJVQ9kt6Lu2Rp5RnLaEWKdHOt1Hjs
- 3iViA6YBvOUuYE5RUEHTfZz/mk4bH6BbZGmpBQC1ZkzmONgFEavIjztkxx6ij9EvtJSc
- VAww==
-X-Gm-Message-State: AJIora/OJtTcmGrXVK6FI1JvcZUYAVpf4a3ak1KZ9E1g6UWKcA0fa/NR
- Orh0hvso895/ESkiza6hSX0YuuvmYJ+OSQ==
-X-Google-Smtp-Source: AGRyM1s3Jwm3E0k9SmEYSdLegsEXyEWU7kImD4jLAgMmt6/vVYvMXfIYEMuIQsTjuYpVq9aQrhwHaA==
-X-Received: by 2002:a05:6602:486:b0:678:dad9:e56a with SMTP id
- y6-20020a056602048600b00678dad9e56amr17209191iov.97.1658331210548; 
- Wed, 20 Jul 2022 08:33:30 -0700 (PDT)
+ bh=KKkb9oOdw91XqyLkF4FwBMUXpB/qcPhIT6fnMrSUSuE=;
+ b=dqAaYHofXJ9B9Ml8c/ZGfaTmxgaUSuKTUohSZGUocEMCzJ/twu35l3C4cuI1SzZIT9
+ dxhO8kMnzxA0c15gH8guX0XIV9Cqae4/qq488ozOn/IummTPZc2GVslRvwp1Yx+e/Emr
+ kpfaVBQjhMJUhJk/NCUfrnDiuegOxpthepG6qHbVLbI79AHpCukHXyyuTOvitWfX1MED
+ mNBWgv7bQPTupw68ysEUo/E9xW4hERbvneMtUaWPyBKwhD8v2u6yuFNzYxWxUSstAt2Q
+ WVWljLvN64NxPsWh1sYrPs2l5zJiZhhyeuI7yPub2HRgusNRIJCmq/0ZROPtsq/p5fv0
+ p+7Q==
+X-Gm-Message-State: AJIora8OVZMbyGVCDS/8Z+f7PBVblD4A41qA7b4LRXS8SG5PpAu2G8J5
+ C4OsAUt4GnOaqamFQSvD8XXDBQ/pk1A9mQ==
+X-Google-Smtp-Source: AGRyM1uIfLb5rLzPPH/Aaeu1zQmKz33M0vdDNckg4O1vdNljI0Qliw0QCy3F3L1UHNY8aSe68o5DeA==
+X-Received: by 2002:a02:c8c9:0:b0:33f:3647:e751 with SMTP id
+ q9-20020a02c8c9000000b0033f3647e751mr19303269jao.225.1658331215765; 
+ Wed, 20 Jul 2022 08:33:35 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.29
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:30 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:35 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 31/41] dyndbg: add _DPRINTK_FLAGS_ENABLED
-Date: Wed, 20 Jul 2022 09:32:23 -0600
-Message-Id: <20220720153233.144129-32-jim.cromie@gmail.com>
+Subject: [PATCH v4 36/41] dyndbg/drm: POC add tracebits sysfs-knob
+Date: Wed, 20 Jul 2022 09:32:28 -0600
+Message-Id: <20220720153233.144129-37-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -71,90 +71,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, vincent.whitchurch@axis.com
+Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Distinguish the condition: _DPRINTK_FLAGS_ENABLED from the bit:
-_DPRINTK_FLAGS_PRINT, and re-define former in terms of latter, in
-preparation to add a 2nd bit: _DPRINTK_FLAGS_TRACE
+clone DRM.debug interface to DRM.tracebits: ie declare __drm_trace,
+map its bits to drm-debug-categories, except this interface enables
+messages to tracefs, not to syslog.
 
-Update JUMP_LABEL code block to check _DPRINTK_FLAGS_ENABLED symbol.
-Also add a 'K' to get new symbol _DPRINTK_FLAGS_PRINTK, in order to
-break any stale uses.
+1- we reuse the drm_debug_classes class-map added previously.
+   this reflects the single source of both syslog/trace events
+   and is why structs classmap and bitmap-param are separate.
 
-CC: vincent.whitchurch@axis.com
+2- add a 2nd struct ddebug_classes_bitmap_param
+   refs 1, reusing it.
+   flags = "T", to enable trace-events on this callsite.
+
+3- module_param_cb([2]) - does the sysfs part
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 10 ++++++----
- lib/dynamic_debug.c           |  8 ++++----
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_print.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b50bdd5c8184..38cfdd5c0bdc 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -32,7 +32,7 @@ struct _ddebug {
- 	 * writes commands to <debugfs>/dynamic_debug/control
- 	 */
- #define _DPRINTK_FLAGS_NONE	0
--#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
-+#define _DPRINTK_FLAGS_PRINTK	(1 << 0) /* printk() a message using the format */
- #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
- #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
- #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
-@@ -42,8 +42,10 @@ struct _ddebug {
- 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
- 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 9fb0b8e40dca..47a41d96beea 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -45,6 +45,9 @@
+ unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
-+#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
++unsigned long __drm_trace;
++EXPORT_SYMBOL(__drm_trace);
 +
- #if defined DEBUG
--#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
-+#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
- #else
- #define _DPRINTK_FLAGS_DEFAULT 0
- #endif
-@@ -191,10 +193,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #ifdef DEBUG
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
- #else
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+ "\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
+ "\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
+@@ -77,6 +80,13 @@ static struct ddebug_classes_bitmap_param drm_debug_bitmap = {
+ 	.map = &drm_debug_classes,
+ };
+ module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++
++static struct ddebug_classes_bitmap_param drm_trace_bitmap = {
++	.bits = &__drm_trace,
++	.flags = "T",
++	.map = &drm_debug_classes,
++};
++module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap, 0600);
  #endif
  
- #endif /* CONFIG_JUMP_LABEL */
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index dd27dc514aa3..2a46c642373a 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -89,7 +89,7 @@ static inline const char *trim_prefix(const char *path)
- }
- 
- static struct { unsigned flag:8; char opt_char; } opt_array[] = {
--	{ _DPRINTK_FLAGS_PRINT, 'p' },
-+	{ _DPRINTK_FLAGS_PRINTK, 'p' },
- 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
- 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
- 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
-@@ -246,10 +246,10 @@ static int ddebug_change(const struct ddebug_query *query,
- 			if (newflags == dp->flags)
- 				continue;
- #ifdef CONFIG_JUMP_LABEL
--			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(newflags & _DPRINTK_FLAGS_PRINT))
-+			if (dp->flags & _DPRINTK_FLAGS_ENABLED) {
-+				if (!(newflags & _DPRINTK_FLAGS_ENABLED))
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
-+			} else if (newflags & _DPRINTK_FLAGS_ENABLED) {
- 				static_branch_enable(&dp->key.dd_key_true);
- 			}
- #endif
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
 -- 
 2.36.1
 
