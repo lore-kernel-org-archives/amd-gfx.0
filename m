@@ -4,88 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94D42C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 02:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA2C5C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 02:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E76AC112668;
-	Wed, 20 Jul 2022 02:50:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9BA112507
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jul 2022 02:50:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A5UufdhU+hynASOSXExrUt6IEJelEUFzpJ5c/0++qqscgHiZdjjMkvyRV1/DvRrVW1L12oC8/tdioaVZNgRU/tAcLoCxQxJf/fgml1HkkIVzcW3cQsdPlXgvNidTkNzxZzmDc/hK1seO3fXlyBd4SYt/G/L/ibMenFOZVlco9AXAUPlqTikoP65dFKcSkNbLBJ9pBebyBAI+vgPjl+mmZBcbLrEGMxRzrwfD64pSltVjbAjr/r7LrVKB1NOP7Y5ZyQ5dfaTA0zuwV7wnZnnAo5nXlgB88gawtm59ktnMRncdd8FUEDQ+B/XL4d8oevy4vs0TCS1CREVf4Ax6nL7TXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ESqTxvEGQhi5gns3k1cPsSydDvdYeMZemdEru8lC/N4=;
- b=Fv1PIgM19SafU1ScBLj2n8Adeh7dhoDQtX//Zw3wgxs/bVciw9bBcl+3VSUy5tNmN3+4QqB44IB60mPfWGfToEY2jMW1Y97ul9O+4Ojp7dqIfHashSx7sDBEin5pDNtRMmovEvZj/B4HfBpibsPzyiMWVvBlVdovskSPCRnxqmQYvtGwHnnXESxwxYS6G+KDX9SN2EBhOU7iEkrsCaOQO4y5So7EFY4XJJsgYPYez8i0Zn0Htd2hup811e4zIXK4HSOSB+z5JPkjGpRvvXdPhWNkvzz73C3hUgDjRDpX1+cloz2haS7b240+fEh2+m6HQSJMUxTNIiEzwtm/KSt0YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ESqTxvEGQhi5gns3k1cPsSydDvdYeMZemdEru8lC/N4=;
- b=A+TQY4Ke9H/qWeKg0uAbQ990eO3jqL8mifH12NJHEV6CF8x1GwfJYcu/7CDnBtSX+YfDnsY/oK5+CBJVDtA3J9ZQ5XY6OO8bywiOGenjdKO71X5gdn6c8LDMc7S0A5VUb05bsT3/v8/rB5k4YKmjJSDWtb2/QUJv/1nZJHmNJKI=
-Received: from DM6PR02CA0138.namprd02.prod.outlook.com (2603:10b6:5:1b4::40)
- by DM6PR12MB2780.namprd12.prod.outlook.com (2603:10b6:5:4e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15; Wed, 20 Jul
- 2022 02:50:42 +0000
-Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1b4:cafe::fa) by DM6PR02CA0138.outlook.office365.com
- (2603:10b6:5:1b4::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23 via Frontend
- Transport; Wed, 20 Jul 2022 02:50:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT066.mail.protection.outlook.com (10.13.173.179) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Wed, 20 Jul 2022 02:50:41 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 19 Jul
- 2022 21:50:38 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/pm/swsmu: add ras eeprom i2c function for smu13 v13_0_0
-Date: Wed, 20 Jul 2022 10:49:25 +0800
-Message-ID: <20220720024925.9640-1-YiPeng.Chai@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F4810F49F;
+	Wed, 20 Jul 2022 02:51:41 +0000 (UTC)
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Wed, 20 Jul 2022 02:37:58 UTC
+Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E32310EE5F;
+ Wed, 20 Jul 2022 02:37:57 +0000 (UTC)
+X-UUID: 4b2493d0abb1454f94b27e49650f6071-20220720
+X-GW-Reason: 11109
+X-Policy-Incident: 5pS25Lu25Lq66LaF6L+HNeS6uumcgOimgeWuoeaguA==
+X-Content-Feature: ica/max.line-size 113 audit/email.address 1 dict/adv 2
+ dict/notice 1 dict/software 1 dict/transaction 1
+ meta/cnt.alert 1
+X-CPASD-INFO: b0381e85685c4e40b44fa25d7b01848e@q4BtWF6XZmViWHevg6h_aoJlZJaRXlW
+ zeZxQYWZkZIWVgnxsTWBoXVeFhGxQYV9dYFF5d2pZYmBgY1B9i4Jyj1RgXmCCVHSTgKRqU2hflQ==
+X-CLOUD-ID: b0381e85685c4e40b44fa25d7b01848e
+X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
+ TVAL:196.
+ 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:408.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
+ PHC:-5
+ .0, SPF:4.0, EDMS:-5, IPLABEL:4352.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
+ SIG:-
+ 5, AUF:0, DUF:1635, ACD:23, DCD:23, SL:0, EISP:0, AG:0, CFC:0.593, CFSR:0.024,
+ UAT:0, RA
+ F:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
+ ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
+X-CPASD-ID: 4b2493d0abb1454f94b27e49650f6071-20220720
+X-CPASD-BLOCK: 1000
+X-CPASD-STAGE: 1
+X-UUID: 4b2493d0abb1454f94b27e49650f6071-20220720
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(111.48.58.12)] by mailgw
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1275142349; Wed, 20 Jul 2022 10:17:46 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: use native mode for dp aux transfer
+Date: Wed, 20 Jul 2022 10:16:39 +0800
+Message-Id: <20220720021639.58406-1-lizhenneng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 88fb5c11-1d0b-498d-4951-08da69faa2a9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2780:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bfZj2rJFS69TSiELJmNOl3nEvtnHEy5migkA2wKnkyM4EHhICqAK8sRmpzO98fMoROLqcte1u8Xt0haeD3T30gcW165n/u/I+kkVbhMd5PnLa1uNgNTcvqNaUMufcc7dZ4x5qrgBiOT+3ctYVofrsg5Dkjsu/2/NWCWgBFjEvJ9uIxqVmlrptHDvKGCvJ9hJ5AiAP/gqd2eGVtHrWfop0nITfaAEcyIPL/FtPrJEuxbhaGgslageXJaue/hSmePWkBtiLdDBCQ9SKQULKeuLeBc2uXxX/7wh8ga4SryPQy1eX72bdPGADJ7KAlaTzsdIGpHxbymdV8qIDSTCcUvShnudkeEwLvsHB4iOsfI2RsPrgSGmleAEQssz12n5jBQ8QKpp+SAsJjuj1Jzye2aT/OfXBs+/h8jJ5kjpmab38QkKvmen/hOa27DNjTCi57U49w+QeL8VrWSjl3vDKO1Si3SVfb+2pdBIw5Z9CuFo2EUPET0Ic7ZD40aRxKXe8yeIV0l+0dyNInQHaO9SDETu0PNry8VKsBBuEpTk04Nxt9IRs0FRwoLn1zh8Wfcv07Cvq1iassG3PofSJ6u3rpj8+O0yrIg5YMcnrdOPJTJUjQn3gOojZ4JEwXsEPPx5Og6G4lhRSV7DoCbYqReZUAtRElnbQi234ULm0LrF9ZYNdW2cZcO9lOILjEr4aUCiWCjlBSuGuN9/85O4T7Q17VW0KKQuxG0NTkR9Ric/jLGqI4uqFxX12ayTZKNEpndxXFLTAFYjyufMFDNgXweojngsl8E9tSQ0MFhFJS+TTuhr2f3VLzwl2tLkHfVsKhhzoQ1uOdxH/9xAMxaI2XbcB+7dQLVCZhSWMGLWsHFlJNbWRHU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(376002)(136003)(39860400002)(40470700004)(36840700001)(46966006)(70586007)(7696005)(8676002)(70206006)(4326008)(8936002)(82310400005)(47076005)(186003)(16526019)(86362001)(336012)(426003)(6916009)(40480700001)(83380400001)(356005)(82740400003)(54906003)(40460700003)(36756003)(316002)(2616005)(478600001)(81166007)(6666004)(5660300002)(26005)(2906002)(41300700001)(36860700001)(1076003)(21314003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2022 02:50:41.6996 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88fb5c11-1d0b-498d-4951-08da69faa2a9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2780
+X-Mailman-Approved-At: Wed, 20 Jul 2022 02:51:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,200 +61,409 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <evan.quan@amd.com>, Tao.Zhou1@amd.com,
- YiPeng Chai <YiPeng.Chai@amd.com>, yipechai@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, Candice.Li@amd.com,
- John.Clements@amd.com, Hawking.Zhang@amd.com
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Zhenneng Li <lizhenneng@kylinos.cn>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ras eeprom i2c function for smu13 v13_0_0.
+When using amdgpu for e8860, the monitor sometimes haven't any signal,
+and the kernel reports some errors:
+[   17.317302][ 2] [ T1045] [drm:amdgpu_atombios_dp_link_train [amdgpu]] *ERROR* channel eq failed: 5 tries
+[   17.326963][ 2] [ T1045] [drm:amdgpu_atombios_dp_link_train [amdgpu]] *ERROR* channel eq failed
+But if I use radeon for e8860, everything are always normal, the reason is
+that radeon use native mode and amdgpu use atombios mode
+when init dp aux, so when I use native mode for amdgpu, everything
+are always normal.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Acked-by: Evan Quan <evan.quan@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+Change-Id: Ia9a2be3ab03e56b1c8337fdbf713461196fbc58f
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 157 ++++++++++++++++++
- 1 file changed, 157 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile          |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h          |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c | 273 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h     |   2 +
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c     |   5 +-
+ 7 files changed, 290 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index ce2fa04e3926..2b83191e8006 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -196,6 +196,7 @@ static struct cmn2asic_mapping smu_v13_0_0_table_map[SMU_TABLE_COUNT] = {
- 	TAB_MAP(DRIVER_SMU_CONFIG),
- 	TAB_MAP(ACTIVITY_MONITOR_COEFF),
- 	[SMU_TABLE_COMBO_PPTABLE] = {1, TABLE_COMBO_PPTABLE},
-+	TAB_MAP(I2C_COMMANDS),
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 3e0e2eb7e235..2913cf46f848 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+ 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+ 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+-	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
++	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_dp_auxch.o
  
- static struct cmn2asic_mapping smu_v13_0_0_pwr_src_map[SMU_POWER_SOURCE_COUNT] = {
-@@ -1606,9 +1607,165 @@ static bool smu_v13_0_0_is_mode1_reset_supported(struct smu_context *smu)
- 	return true;
- }
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
  
-+static int smu_v13_0_0_i2c_xfer(struct i2c_adapter *i2c_adap,
-+				   struct i2c_msg *msg, int num_msgs)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 30ce6bb6fa77..15e0288b1997 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -238,6 +238,8 @@ extern int amdgpu_num_kcq;
+ #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
+ extern int amdgpu_vcnfw_log;
+ 
++extern int amdgpu_auxch;
++
+ #define AMDGPU_VM_MAX_NUM_CTX			4096
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+ #define AMDGPU_DEFAULT_GTT_SIZE_MB		3072ULL /* 3GB by default */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 9ba4817a9148..68c8d79e2937 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -49,7 +49,10 @@ static struct amdgpu_i2c_bus_rec amdgpu_atombios_get_bus_rec_for_i2c_gpio(ATOM_G
+ 
+ 	memset(&i2c, 0, sizeof(struct amdgpu_i2c_bus_rec));
+ 
+-	i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex);
++	if (amdgpu_auxch)
++		i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex) * 4;
++	else
++		i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex);
+ 	i2c.mask_data_reg = le16_to_cpu(gpio->usDataMaskRegisterIndex);
+ 	i2c.en_clk_reg = le16_to_cpu(gpio->usClkEnRegisterIndex);
+ 	i2c.en_data_reg = le16_to_cpu(gpio->usDataEnRegisterIndex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
+new file mode 100644
+index 000000000000..22078f1ca936
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
+@@ -0,0 +1,273 @@
++/*
++ * Copyright 2015 Red Hat Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: Dave Airlie
++ */
++
++#include "amdgpu.h"
++
++#define 	AUX_SW_RX_OVERFLOW			(1 << 8)
++#define 	AUX_SW_RX_HPD_DISCON			(1 << 9)
++#define 	AUX_SW_RX_PARTIAL_BYTE			(1 << 10)
++#define 	AUX_SW_NON_AUX_MODE			(1 << 11)
++#define 	AUX_SW_RX_SYNC_INVALID_L		(1 << 17)
++#define 	AUX_SW_RX_SYNC_INVALID_H		(1 << 18)
++#define 	AUX_SW_RX_INVALID_START			(1 << 19)
++#define 	AUX_SW_RX_RECV_NO_DET			(1 << 20)
++#define 	AUX_SW_RX_RECV_INVALID_H		(1 << 22)
++#define 	AUX_SW_RX_RECV_INVALID_V		(1 << 23)
++#define		AUX_CONTROL				0x6200
++#define 	AUX_HPD_SEL(x)				(((x) & 0x7) << 20)
++#define 	AUX_EN					(1 << 0)
++#define 	AUX_LS_READ_EN				(1 << 8)
++#define		AUX_SW_CONTROL				0x6204
++#define 	AUX_SW_WR_BYTES(x)			(((x) & 0x1f) << 16)
++#define AUX_SW_DATA					0x6218
++#define AUX_SW_DATA_RW					(1 << 0)
++#define AUX_SW_AUTOINCREMENT_DISABLE			(1 << 31)
++#define AUX_SW_INTERRUPT_CONTROL			0x620c
++#define 	AUX_SW_DONE_ACK				(1 << 1)
++#define 	AUX_SW_GO				(1 << 0)
++#define AUX_SW_STATUS					0x6210
++#define 	AUX_SW_DONE				(1 << 0)
++#define 	AUX_SW_RX_TIMEOUT			(1 << 7)
++#define AUX_SW_DATA_RW					(1 << 0)
++#define AUX_SW_DATA_MASK(x)				(((x) & 0xff) << 8)
++
++#define AUX_RX_ERROR_FLAGS (AUX_SW_RX_OVERFLOW |	     \
++			    AUX_SW_RX_HPD_DISCON |	     \
++			    AUX_SW_RX_PARTIAL_BYTE |	     \
++			    AUX_SW_NON_AUX_MODE |	     \
++			    AUX_SW_RX_SYNC_INVALID_L |	     \
++			    AUX_SW_RX_SYNC_INVALID_H |	     \
++			    AUX_SW_RX_INVALID_START |	     \
++			    AUX_SW_RX_RECV_NO_DET |	     \
++			    AUX_SW_RX_RECV_INVALID_H |	     \
++			    AUX_SW_RX_RECV_INVALID_V)
++
++#define AUX_SW_REPLY_GET_BYTE_COUNT(x) (((x) >> 24) & 0x1f)
++
++#define BARE_ADDRESS_SIZE 3
++
++#define R100_MM_INDEX                   0x0000
++#define R100_MM_DATA                      0x0004
++#define AMDGPU_MIN_MMIO_SIZE 0x10000
++uint32_t venus_mm_rreg_slow(struct amdgpu_device *adev, uint32_t reg)
 +{
-+	struct amdgpu_smu_i2c_bus *smu_i2c = i2c_get_adapdata(i2c_adap);
-+	struct amdgpu_device *adev = smu_i2c->adev;
-+	struct smu_context *smu = adev->powerplay.pp_handle;
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct smu_table *table = &smu_table->driver_table;
-+	SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
-+	int i, j, r, c;
-+	u16 dir;
++        unsigned long flags;
++        uint32_t ret;
 +
-+	if (!adev->pm.dpm_enabled)
-+		return -EBUSY;
++        spin_lock_irqsave(&adev->mmio_idx_lock, flags);
++        writel(reg, ((void __iomem *)adev->rmmio) + R100_MM_INDEX);
++        ret = readl(((void __iomem *)adev->rmmio) + R100_MM_DATA);
++        spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
++        return ret;
++}
++void venus_mm_wreg_slow(struct amdgpu_device *adev, uint32_t reg, uint32_t v)
++{
++        unsigned long flags;
 +
-+	req = kzalloc(sizeof(*req), GFP_KERNEL);
-+	if (!req)
-+		return -ENOMEM;
-+
-+	req->I2CcontrollerPort = smu_i2c->port;
-+	req->I2CSpeed = I2C_SPEED_FAST_400K;
-+	req->SlaveAddress = msg[0].addr << 1; /* wants an 8-bit address */
-+	dir = msg[0].flags & I2C_M_RD;
-+
-+	for (c = i = 0; i < num_msgs; i++) {
-+		for (j = 0; j < msg[i].len; j++, c++) {
-+			SwI2cCmd_t *cmd = &req->SwI2cCmds[c];
-+
-+			if (!(msg[i].flags & I2C_M_RD)) {
-+				/* write */
-+				cmd->CmdConfig |= CMDCONFIG_READWRITE_MASK;
-+				cmd->ReadWriteData = msg[i].buf[j];
-+			}
-+
-+			if ((dir ^ msg[i].flags) & I2C_M_RD) {
-+				/* The direction changes.
-+				 */
-+				dir = msg[i].flags & I2C_M_RD;
-+				cmd->CmdConfig |= CMDCONFIG_RESTART_MASK;
-+			}
-+
-+			req->NumCmds++;
-+
-+			/*
-+			 * Insert STOP if we are at the last byte of either last
-+			 * message for the transaction or the client explicitly
-+			 * requires a STOP at this particular message.
-+			 */
-+			if ((j == msg[i].len - 1) &&
-+			    ((i == num_msgs - 1) || (msg[i].flags & I2C_M_STOP))) {
-+				cmd->CmdConfig &= ~CMDCONFIG_RESTART_MASK;
-+				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
-+			}
-+		}
-+	}
-+	mutex_lock(&adev->pm.mutex);
-+	r = smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
-+	mutex_unlock(&adev->pm.mutex);
-+	if (r)
-+		goto fail;
-+
-+	for (c = i = 0; i < num_msgs; i++) {
-+		if (!(msg[i].flags & I2C_M_RD)) {
-+			c += msg[i].len;
-+			continue;
-+		}
-+		for (j = 0; j < msg[i].len; j++, c++) {
-+			SwI2cCmd_t *cmd = &res->SwI2cCmds[c];
-+
-+			msg[i].buf[j] = cmd->ReadWriteData;
-+		}
-+	}
-+	r = num_msgs;
-+fail:
-+	kfree(req);
-+	return r;
++        spin_lock_irqsave(&adev->mmio_idx_lock, flags);
++        writel(reg, ((void __iomem *)adev->rmmio) + R100_MM_INDEX);
++        writel(v, ((void __iomem *)adev->rmmio) + R100_MM_DATA);
++        spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
++}
++static inline uint32_t venus_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
++                                    bool always_indirect)
++{
++        /* The mmio size is 64kb at minimum. Allows the if to be optimized out. */
++        if ((reg < adev->rmmio_size || reg < AMDGPU_MIN_MMIO_SIZE) && !always_indirect)
++                return readl(((void __iomem *)adev->rmmio) + reg);
++        else
++                return venus_mm_rreg_slow(adev, reg);
++}
++static inline void venus_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
++                                bool always_indirect)
++{
++        if ((reg < adev->rmmio_size || reg < AMDGPU_MIN_MMIO_SIZE) && !always_indirect)
++                writel(v, ((void __iomem *)adev->rmmio) + reg);
++        else
++                venus_mm_wreg_slow(adev, reg, v);
 +}
 +
-+static u32 smu_v13_0_0_i2c_func(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
-+}
++#define RREG32_VENUS(reg) venus_mm_rreg(adev, (reg), false)
++#define WREG32_VENUS(reg, v) venus_mm_wreg(adev, (reg), (v), false)
 +
-+static const struct i2c_algorithm smu_v13_0_0_i2c_algo = {
-+	.master_xfer = smu_v13_0_0_i2c_xfer,
-+	.functionality = smu_v13_0_0_i2c_func,
++static const u32 aux_offset[] =
++{
++	0x6200 - 0x6200,
++	0x6250 - 0x6200,
++	0x62a0 - 0x6200,
++	0x6300 - 0x6200,
++	0x6350 - 0x6200,
++	0x63a0 - 0x6200,
 +};
 +
-+static const struct i2c_adapter_quirks smu_v13_0_0_i2c_control_quirks = {
-+	.flags = I2C_AQ_COMB | I2C_AQ_COMB_SAME_ADDR | I2C_AQ_NO_ZERO_LEN,
-+	.max_read_len  = MAX_SW_I2C_COMMANDS,
-+	.max_write_len = MAX_SW_I2C_COMMANDS,
-+	.max_comb_1st_msg_len = 2,
-+	.max_comb_2nd_msg_len = MAX_SW_I2C_COMMANDS - 2,
-+};
-+
-+static int smu_v13_0_0_i2c_control_init(struct smu_context *smu)
++ssize_t
++amdgpu_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
 +{
-+	struct amdgpu_device *adev = smu->adev;
-+	int res, i;
++	struct amdgpu_i2c_chan *chan =
++		container_of(aux, struct amdgpu_i2c_chan, aux);
++	struct drm_device *dev = chan->dev;
++	struct amdgpu_device *adev = dev->dev_private;
++	int ret = 0, i;
++	uint32_t tmp, ack = 0;
++	int instance = chan->rec.i2c_id & 0xf;
++	u8 byte;
++	u8 *buf = msg->buffer;
++	int retry_count = 0;
++	int bytes;
++	int msize;
++	bool is_write = false;
 +
-+	for (i = 0; i < MAX_SMU_I2C_BUSES; i++) {
-+		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
-+		struct i2c_adapter *control = &smu_i2c->adapter;
++	if (WARN_ON(msg->size > 16))
++		return -E2BIG;
 +
-+		smu_i2c->adev = adev;
-+		smu_i2c->port = i;
-+		mutex_init(&smu_i2c->mutex);
-+		control->owner = THIS_MODULE;
-+		control->class = I2C_CLASS_SPD;
-+		control->dev.parent = &adev->pdev->dev;
-+		control->algo = &smu_v13_0_0_i2c_algo;
-+		snprintf(control->name, sizeof(control->name), "AMDGPU SMU %d", i);
-+		control->quirks = &smu_v13_0_0_i2c_control_quirks;
-+		i2c_set_adapdata(control, smu_i2c);
++	switch (msg->request & ~DP_AUX_I2C_MOT) {
++	case DP_AUX_NATIVE_WRITE:
++	case DP_AUX_I2C_WRITE:
++		is_write = true;
++		break;
++	case DP_AUX_NATIVE_READ:
++	case DP_AUX_I2C_READ:
++		break;
++	default:
++		return -EINVAL;
++	}
 +
-+		res = i2c_add_adapter(control);
-+		if (res) {
-+			DRM_ERROR("Failed to register hw i2c, err: %d\n", res);
-+			goto Out_err;
++	/* work out two sizes required */
++	msize = 0;
++	bytes = BARE_ADDRESS_SIZE;
++	if (msg->size) {
++		msize = msg->size - 1;
++		bytes++;
++		if (is_write)
++			bytes += msg->size;
++	}
++
++	mutex_lock(&chan->mutex);
++
++	/* switch the pad to aux mode */
++	tmp = RREG32_VENUS(chan->rec.mask_clk_reg);
++	tmp |= (1 << 16);
++	WREG32_VENUS(chan->rec.mask_clk_reg, tmp);
++
++	/* setup AUX control register with correct HPD pin */
++	tmp = RREG32_VENUS(AUX_CONTROL + aux_offset[instance]);
++	tmp &= AUX_HPD_SEL(0x7);
++	tmp |= AUX_HPD_SEL(chan->rec.hpd);
++	tmp |= AUX_EN | AUX_LS_READ_EN;
++
++	WREG32_VENUS(AUX_CONTROL + aux_offset[instance], tmp);
++
++	/* atombios appears to write this twice lets copy it */
++	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
++	       AUX_SW_WR_BYTES(bytes));
++	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
++	       AUX_SW_WR_BYTES(bytes));
++
++	/* write the data header into the registers */
++	/* request, address, msg size */
++	byte = (msg->request << 4) | ((msg->address >> 16) & 0xf);
++	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++	       AUX_SW_DATA_MASK(byte) | AUX_SW_AUTOINCREMENT_DISABLE);
++
++	byte = (msg->address >> 8) & 0xff;
++	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++	       AUX_SW_DATA_MASK(byte));
++
++	byte = msg->address & 0xff;
++	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++	       AUX_SW_DATA_MASK(byte));
++
++	byte = msize;
++	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++	       AUX_SW_DATA_MASK(byte));
++
++	/* if we are writing - write the msg buffer */
++	if (is_write) {
++		for (i = 0; i < msg->size; i++) {
++			WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++			       AUX_SW_DATA_MASK(buf[i]));
 +		}
 +	}
 +
-+	/* assign the buses used for the FRU EEPROM and RAS EEPROM */
-+	/* XXX ideally this would be something in a vbios data table */
-+	adev->pm.ras_eeprom_i2c_bus = &adev->pm.smu_i2c[1].adapter;
-+	adev->pm.fru_eeprom_i2c_bus = &adev->pm.smu_i2c[0].adapter;
++	/* clear the ACK */
++	WREG32_VENUS(AUX_SW_INTERRUPT_CONTROL + aux_offset[instance], AUX_SW_DONE_ACK);
 +
-+	return 0;
-+Out_err:
-+	for ( ; i >= 0; i--) {
-+		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
-+		struct i2c_adapter *control = &smu_i2c->adapter;
++	/* write the size and GO bits */
++	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
++	       AUX_SW_WR_BYTES(bytes) | AUX_SW_GO);
 +
-+		i2c_del_adapter(control);
++	/* poll the status registers - TODO irq support */
++	do {
++		tmp = RREG32_VENUS(AUX_SW_STATUS + aux_offset[instance]);
++		if (tmp & AUX_SW_DONE) {
++			break;
++		}
++		usleep_range(100, 200);
++	} while (retry_count++ < 1000);
++
++	if (retry_count >= 1000) {
++		DRM_ERROR("auxch hw never signalled completion, error %08x\n", tmp);
++		ret = -EIO;
++		goto done;
 +	}
-+	return res;
-+}
 +
-+static void smu_v13_0_0_i2c_control_fini(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	int i;
-+
-+	for (i = 0; i < MAX_SMU_I2C_BUSES; i++) {
-+		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
-+		struct i2c_adapter *control = &smu_i2c->adapter;
-+
-+		i2c_del_adapter(control);
++	if (tmp & AUX_SW_RX_TIMEOUT) {
++		ret = -ETIMEDOUT;
++		goto done;
 +	}
-+	adev->pm.ras_eeprom_i2c_bus = NULL;
-+	adev->pm.fru_eeprom_i2c_bus = NULL;
-+}
++	if (tmp & AUX_RX_ERROR_FLAGS) {
++		DRM_DEBUG_KMS_RATELIMITED("dp_aux_ch flags not zero: %08x\n",
++					  tmp);
++		ret = -EIO;
++		goto done;
++	}
 +
- static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
- 	.get_allowed_feature_mask = smu_v13_0_0_get_allowed_feature_mask,
- 	.set_default_dpm_table = smu_v13_0_0_set_default_dpm_table,
-+	.i2c_init = smu_v13_0_0_i2c_control_init,
-+	.i2c_fini = smu_v13_0_0_i2c_control_fini,
- 	.is_dpm_running = smu_v13_0_0_is_dpm_running,
- 	.dump_pptable = smu_v13_0_0_dump_pptable,
- 	.init_microcode = smu_v13_0_init_microcode,
++	bytes = AUX_SW_REPLY_GET_BYTE_COUNT(tmp);
++	if (bytes) {
++		WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
++		       AUX_SW_DATA_RW | AUX_SW_AUTOINCREMENT_DISABLE);
++
++		tmp = RREG32_VENUS(AUX_SW_DATA + aux_offset[instance]);
++		ack = (tmp >> 8) & 0xff;
++
++		for (i = 0; i < bytes - 1; i++) {
++			tmp = RREG32_VENUS(AUX_SW_DATA + aux_offset[instance]);
++			if (buf)
++				buf[i] = (tmp >> 8) & 0xff;
++		}
++		if (buf)
++			ret = bytes - 1;
++	}
++
++	WREG32_VENUS(AUX_SW_INTERRUPT_CONTROL + aux_offset[instance], AUX_SW_DONE_ACK);
++
++	if (is_write)
++		ret = msg->size;
++done:
++	mutex_unlock(&chan->mutex);
++
++	if (ret >= 0)
++		msg->reply = ack >> 4;
++	return ret;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 8890300766a5..2ac7636ddafb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -180,6 +180,7 @@ int amdgpu_num_kcq = -1;
+ int amdgpu_smartshift_bias;
+ int amdgpu_use_xgmi_p2p = 1;
+ int amdgpu_vcnfw_log;
++int amdgpu_auxch = 0;
+ 
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+ 
+@@ -882,6 +883,9 @@ MODULE_PARM_DESC(smu_pptable_id,
+ 	"specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
+ module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
+ 
++MODULE_PARM_DESC(auxch, "Use native auxch experimental support (1 = enable, 0 = disable, -1 = auto)");
++module_param_named(auxch, amdgpu_auxch, int, 0444);
++
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index f80b4838cea1..95fffc110c75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -619,5 +619,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
+ 				uint32_t page_flip_flags, uint32_t target,
+ 				struct drm_modeset_acquire_ctx *ctx);
+ extern const struct drm_mode_config_funcs amdgpu_mode_funcs;
++extern ssize_t
++amdgpu_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+index 87c41e0e9b7c..846ecc315665 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
++++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+@@ -188,7 +188,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
+ void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+ {
+ 	amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
+-	amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
++	if (amdgpu_auxch)
++		amdgpu_connector->ddc_bus->aux.transfer = amdgpu_dp_aux_transfer_native;
++	else
++		amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
+ 	amdgpu_connector->ddc_bus->aux.drm_dev = amdgpu_connector->base.dev;
+ 
+ 	drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
 -- 
 2.25.1
 
