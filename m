@@ -4,44 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EFB9CCA485
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 19:33:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D74CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 21:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2FAC113B2E;
-	Wed, 20 Jul 2022 19:33:37 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94302113B75;
- Wed, 20 Jul 2022 19:33:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5aiCLfUd4x+v/sPSorz6ahzPNB6QcnOd1IfKWjk97/c=; b=l5eKnxWPlOlJRB7KS2HXmOR5Hj
- H2Swc7rNHWmydQw92/1KqS56XPKyhHHOs1Ui40H9DHJbyXr+s2xM8ff/+Bsee1b9/FHw/5SEljfo2
- fBanWhcBesO41+sTYNJ8QC8L2Its38GJtXYGcP0zZuPWOmgZMX233r/K2V5NVQgF1Bxk+Rn18AzBO
- WVSH2t59WcFuM6KN7aLhLXUqjT6d55uxgF1IdWeTCXLU3T83X0LiREmhDvbcLL8i21hA0/wlTXZac
- tlFlmlAoRja0NzMqjAP4U3+hmPruEM6OBwhcx2ye5TrdScw+19EvsugxXn9FaKy/4xnqCAcd7OCPJ
- 3bf4KZDg==;
-Received: from [165.90.126.25] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oEFRh-000fxI-Oj; Wed, 20 Jul 2022 21:33:21 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH 5/5] drm/amd/display: move FPU code from dcn301 clk mgr to DML
- folder
-Date: Wed, 20 Jul 2022 18:32:08 -0100
-Message-Id: <20220720193208.1131493-6-mwen@igalia.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220720193208.1131493-1-mwen@igalia.com>
-References: <20220720193208.1131493-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1B14AE47;
+	Wed, 20 Jul 2022 21:09:43 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9DA214AE06;
+ Wed, 20 Jul 2022 21:09:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hlk10Te/Ej/oYpM9TG9al4/iUKGdR2Hd9sMYtMZHjyHK33I0NAaFZEBvvEIpIBSuetzaElojShz22UPJ78DeIU178JtL+P1XrM730XN5HeeyM5eiVGUonCpNORzyz1zS+6lLYjCyCwbbejwY9Jk2h88leHJWUdg0pItI12dQtCnpDBR5IhbuSmPC1PM8irJFO3xNlFnuhUkoaS0ZDzzF4MxKxUQVg6KhK7wLEaFMSSfsVpWsPjIjO8jNUl+c/o8kCamNdOqdEdhaKlhB5HpW/u1zpKiRvnPbc/XdgE8VsdmkzGN4y16W51U/sTvaB1eHOMDw/C0Un06UbIKQqyJpJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sn198IrSCDDnI7Pl/XV+lMfBQ7onEfAYGdcKJXh+vnU=;
+ b=d/IkGPnKjYcE/MBBBVZ9qLJJW+KHqvnDWA8Fc4on4hbgWgt7uYAFCmChqoC5x4Cp7SEojPg68Td95K81MrvrlwHIKcm/a7nZ8Yr5xSdWlFyKsFwYI9nd4U8OF6+WcaRx+o4UniBJ+qUTIKca8vuRyen6t1O85bC3m6Soo/2aSFi+egChyNEZQlb/6LX+/q4UiUDl48WXtEHDrw1eP+UsDB67KFRNXbankfvxzb6YRHQlaKmXRjGKH/28gIxE2HeE2ms3vtdHRs4pEOlS5zVX3wOGKtYqXfYiIpkBRVyukoGvoSpBsOzAtAxb+XqkSgylsbno7uU6zKSYNpIcm1y6Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sn198IrSCDDnI7Pl/XV+lMfBQ7onEfAYGdcKJXh+vnU=;
+ b=z7ytmz6N6P7BXXUWH0q8sy1UjoKbOwoJsQbODfH4C8wzgW54e74ZPbHuikj8xJPuE86tsEPKZWoY5lXlcJIykZe5ggh9ngUprvq7ej8MP3znYlcs6NF3TpoXSsu+7LN+Rv/rUBfHubT9yDpZDAtkz7wjwXmDiyifTgVdQJvWfPM=
+Received: from BN9PR03CA0130.namprd03.prod.outlook.com (2603:10b6:408:fe::15)
+ by MW3PR12MB4540.namprd12.prod.outlook.com (2603:10b6:303:52::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19; Wed, 20 Jul
+ 2022 21:09:39 +0000
+Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fe:cafe::4) by BN9PR03CA0130.outlook.office365.com
+ (2603:10b6:408:fe::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.13 via Frontend
+ Transport; Wed, 20 Jul 2022 21:09:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5458.17 via Frontend Transport; Wed, 20 Jul 2022 21:09:38 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 20 Jul
+ 2022 16:09:36 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-5.19
+Date: Wed, 20 Jul 2022 17:09:17 -0400
+Message-ID: <20220720210917.6202-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 117559bd-6af3-41d8-e8df-08da6a942804
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4540:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dVx0rS5T/hWflJ9W4JampkbQsSW2yIzFfXTGRqvq2eXdibpmVeEeBYJVv2GuqAJbGdoEhLGjUqtwlqDfxKrv1KfzWSAMhIZBiwwmp9YOepZN8dmFal1VnH9BxO8m+bXOUF8xTyzlA3LPEffW6NinTMpc7QOgUUi1byEEzW5FI2cZxzAbNljewleaU3rErc2QlRjbOlVCx4s4XRtMqUNsNsCOmnKfUpjY1UtXGNBMG6Xda15NqD3GZ2iWROPsEJTbpyjSRUCj5eG9YdU9MMn0BQrdkyNrOVvV/uW04KaMO98GaY/JXgONcIsp+tVsTI+VG7l9uwLy2WoBX8IQx6ASqX0BX3eZ3qF7ka4lqP2MQj8pv1oSDx2IxxNTcQ4YchdWUemGkVNCpVX/JmLfD0fHZeTMOStqfTlSDyOKdQbmKRb5MA+9ZvCuroXV9sPWZ7lSsDB31fQEcRP4qxcK6P2GUQelpDtG7jy9bkGCTlBbjSUgpDwgGfYLLYjTL1AkEP5WAkLBDaZNHYXiws/ddboI+h7Tp4SI8jXoNnx7ZG5ISsWZ1zTi4mJCuhZPx40JguyUysd7Dp2PCgbEFBlVAjxyro2h2uJ7BkW1qaWv1SaevuEWVvkgl4p2gUPy6S6zbUNdsI4VM5IvtheEU42KeWVV228W6MRuvueoWmjVU4Ev9xeaaK1gGzUuGbNZ9frK3JjmStAbnY5AQ1W+NOT1wNAa1NgGsEWPOHlN8bbMdZT7iawKeXBtJXpuh5uADCLcPk2yEA+j2P4wCFwBXl46nUSJWctYqoXhlPsPbJ00mn8rrvE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(39860400002)(346002)(376002)(396003)(36840700001)(46966006)(40470700004)(8936002)(6666004)(2906002)(26005)(110136005)(82310400005)(316002)(966005)(2616005)(7696005)(36756003)(36860700001)(40460700003)(41300700001)(4326008)(5660300002)(1076003)(70206006)(356005)(82740400003)(40480700001)(81166007)(8676002)(478600001)(16526019)(426003)(83380400001)(86362001)(70586007)(47076005)(336012)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2022 21:09:38.4835 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 117559bd-6af3-41d8-e8df-08da6a942804
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4540
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,262 +98,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Guenter Roeck <linux@roeck-us.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The -mno-gnu-attribute option in dcn301 clk mgr makefile hides a soft vs
-hard fp error for powerpc. After removing this flag, we can see some FPU
-code remains there:
+Hi Dave, Daniel,
 
-gcc-11.3.0-nolibc/powerpc64-linux/bin/powerpc64-linux-ld:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o uses
-hard float,
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn301/vg_clk_mgr.o
-uses soft float
+A couple more fixes for 5.19 this week.  These are in addition to the
+PR I sent late last week:
+https://lists.freedesktop.org/archives/amd-gfx/2022-July/081597.html
 
-Therefore, remove the -mno-gnu-attribute flag for dcn301/powerpc and
-move FPU-associated code to DML folder.
+The following changes since commit 2d4bd81fea1ad6ebba543bd6da3ef5179d130e6a:
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  6 --
- .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    | 86 ++-----------------
- .../display/dc/clk_mgr/dcn301/vg_clk_mgr.h    |  3 +
- .../amd/display/dc/dml/dcn301/dcn301_fpu.c    | 74 ++++++++++++++++
- 4 files changed, 84 insertions(+), 85 deletions(-)
+  drm/amd/display: Fix new dmub notification enabling in DM (2022-07-15 10:04:59 -0400)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-index 15b660a951a5..271d8e573181 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-@@ -123,12 +123,6 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
- ###############################################################################
- CLK_MGR_DCN301 = vg_clk_mgr.o dcn301_smu.o
- 
--# prevent build errors regarding soft-float vs hard-float FP ABI tags
--# this code is currently unused on ppc64, as it applies to VanGogh APUs only
--ifdef CONFIG_PPC64
--CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
--endif
--
- AMD_DAL_CLK_MGR_DCN301 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn301/,$(CLK_MGR_DCN301))
- 
- AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN301)
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-index f310b0d25a07..65f224af03c0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-@@ -32,6 +32,10 @@
- // For dcn20_update_clocks_update_dpp_dto
- #include "dcn20/dcn20_clk_mgr.h"
- 
-+// For DML FPU code
-+#include "dml/dcn20/dcn20_fpu.h"
-+#include "dml/dcn301/dcn301_fpu.h"
-+
- #include "vg_clk_mgr.h"
- #include "dcn301_smu.h"
- #include "reg_helper.h"
-@@ -526,81 +530,6 @@ static struct clk_bw_params vg_bw_params = {
- 
- };
- 
--static struct wm_table ddr4_wm_table = {
--	.entries = {
--		{
--			.wm_inst = WM_A,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 6.09,
--			.sr_enter_plus_exit_time_us = 7.14,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_B,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_C,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_D,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
--			.valid = true,
--		},
--	}
--};
--
--static struct wm_table lpddr5_wm_table = {
--	.entries = {
--		{
--			.wm_inst = WM_A,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
--			.sr_exit_time_us = 13.5,
--			.sr_enter_plus_exit_time_us = 16.5,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_B,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
--			.sr_exit_time_us = 13.5,
--			.sr_enter_plus_exit_time_us = 16.5,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_C,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
--			.sr_exit_time_us = 13.5,
--			.sr_enter_plus_exit_time_us = 16.5,
--			.valid = true,
--		},
--		{
--			.wm_inst = WM_D,
--			.wm_type = WM_TYPE_PSTATE_CHG,
--			.pstate_latency_us = 11.65333,
--			.sr_exit_time_us = 13.5,
--			.sr_enter_plus_exit_time_us = 16.5,
--			.valid = true,
--		},
--	}
--};
--
--
- static unsigned int find_dcfclk_for_voltage(const struct vg_dpm_clocks *clock_table,
- 		unsigned int voltage)
- {
-@@ -670,10 +599,9 @@ static void vg_clk_mgr_helper_populate_bw_params(
- 		/*
- 		 * WM set D will be re-purposed for memory retraining
- 		 */
--		bw_params->wm_table.entries[WM_D].pstate_latency_us = LPDDR_MEM_RETRAIN_LATENCY;
--		bw_params->wm_table.entries[WM_D].wm_inst = WM_D;
--		bw_params->wm_table.entries[WM_D].wm_type = WM_TYPE_RETRAINING;
--		bw_params->wm_table.entries[WM_D].valid = true;
-+		DC_FP_START();
-+		dcn21_clk_mgr_set_bw_params_wm_table(bw_params);
-+		DC_FP_END();
- 	}
- 
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-index 7255477307f1..75884f572989 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-@@ -29,6 +29,9 @@
- 
- struct watermarks;
- 
-+extern struct wm_table ddr4_wm_table;
-+extern struct wm_table lpddr5_wm_table;
-+
- struct smu_watermark_set {
- 	struct watermarks *wm_set;
- 	union large_integer mc_address;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-index e4863f0bf0f6..7ef66e511ec8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-@@ -214,6 +214,80 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_01_soc = {
- 	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
- };
- 
-+struct wm_table ddr4_wm_table = {
-+	.entries = {
-+		{
-+			.wm_inst = WM_A,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.72,
-+			.sr_exit_time_us = 6.09,
-+			.sr_enter_plus_exit_time_us = 7.14,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_B,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.72,
-+			.sr_exit_time_us = 10.12,
-+			.sr_enter_plus_exit_time_us = 11.48,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_C,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.72,
-+			.sr_exit_time_us = 10.12,
-+			.sr_enter_plus_exit_time_us = 11.48,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_D,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.72,
-+			.sr_exit_time_us = 10.12,
-+			.sr_enter_plus_exit_time_us = 11.48,
-+			.valid = true,
-+		},
-+	}
-+};
-+
-+struct wm_table lpddr5_wm_table = {
-+	.entries = {
-+		{
-+			.wm_inst = WM_A,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.65333,
-+			.sr_exit_time_us = 13.5,
-+			.sr_enter_plus_exit_time_us = 16.5,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_B,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.65333,
-+			.sr_exit_time_us = 13.5,
-+			.sr_enter_plus_exit_time_us = 16.5,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_C,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.65333,
-+			.sr_exit_time_us = 13.5,
-+			.sr_enter_plus_exit_time_us = 16.5,
-+			.valid = true,
-+		},
-+		{
-+			.wm_inst = WM_D,
-+			.wm_type = WM_TYPE_PSTATE_CHG,
-+			.pstate_latency_us = 11.65333,
-+			.sr_exit_time_us = 13.5,
-+			.sr_enter_plus_exit_time_us = 16.5,
-+			.valid = true,
-+		},
-+	}
-+};
-+
- static void calculate_wm_set_for_vlevel(int vlevel,
- 		struct wm_range_table_entry *table_entry,
- 		struct dcn_watermarks *wm_set,
--- 
-2.35.1
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.19-2022-07-20
+
+for you to fetch changes up to 90af0ca047f3049c4b46e902f432ad6ef1e2ded6:
+
+  drm/amdgpu: Protect the amdgpu_bo_list list with a mutex v2 (2022-07-20 16:23:34 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.19-2022-07-20:
+
+amdgpu:
+- Drop redundant buffer cleanup that can lead to a segfault
+- Add a bo_list mutex to avoid possible list corruption in CS
+
+----------------------------------------------------------------
+Luben Tuikov (1):
+      drm/amdgpu: Protect the amdgpu_bo_list list with a mutex v2
+
+xinhui pan (1):
+      drm/amdgpu: Remove one duplicated ef removal
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  6 ------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c      |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h      |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 16 +++++++++++++---
+ 4 files changed, 19 insertions(+), 10 deletions(-)
