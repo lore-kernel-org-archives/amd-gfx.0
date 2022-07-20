@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82975C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72491CCA480
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9548F5A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB018F5A2;
 	Wed, 20 Jul 2022 15:33:48 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DED38F080;
- Wed, 20 Jul 2022 15:33:27 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id h16so9464678ila.2;
- Wed, 20 Jul 2022 08:33:27 -0700 (PDT)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06F0A8EE21;
+ Wed, 20 Jul 2022 15:33:12 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id f1so3671756ilu.3;
+ Wed, 20 Jul 2022 08:33:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
- b=QcgmlDOmoAMqL35v3ejFDLRzXBZIm6n6GwVn+lx4z0ZgXr5nskM3OD/50IRGBuK1vF
- ql6tHKm+VvQtqxuetnQPraDm942VhsAHkxC2RISp1WQ+SEaJqBotvHcqaUGMulsjNccl
- WhqUdu3teLc/hGumg3gMdMl+wsiJ7erY79o2M1Dk1x8Sr0FHKiQeIFc8PAsNh+Mgf7LG
- Xiss+qhlFoGolG7+ywdPHzgSPbzWT6EtfWQK7E3Kk7nPLyfjkOY+LjO7vZOgjQIVh6I4
- rohcADD3b3s0D4UhMCnlPVR4uwgZa+bdlfOSvcuORH9KMrs2cWN3BcZhNevgofVYt9tj
- exxA==
+ bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
+ b=d+67njnWDelpHaqOD26340pTCyqzyEICJmMm4QUPE12KYfp2LZeBJr7m7AcDyUEbOn
+ lHjM4lnOAp9hej2anoPoBYC7lRQ8r6aP0oFPx0ijIlV62GZwlSqYRDmAX9NwXaiUy0Be
+ v1vO2IkQTpJWJTm0q/0QY7ggte0Jn0PPp130Ms5NixpFh1wELDJ4o5VpYftq65zxxHqF
+ jmLKvidj0PqnopGNco5fN1IjDk5X0jVWnX1hhRRBlVg9htZHLPMpXdwi4wQ0kXseHeKj
+ ZAfCf8kN/zW0yUkR/vWnAsN94Wlcm9k4r/qWwFp8vt4bT661KNdqq507Kji+mWuYYMQ/
+ 14xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=32h4ubovfLqXqscU0MjDWSjTeAO9s1p2u7LEUUtd5rI=;
- b=i0mELeoyodKsTQ69MRs86oJDAcVMAN/oJWXldqqT3F9obGxhHi2ZkpdB8aK5sDryLq
- 0o7jUGwcLCOHoFi61s/wwuqSpnu6P5PY/JGyVbF1qBmgzeO6ir14Y8jdtlKW/06Pa/sA
- 6Ud9mBKgInnnvJrnuBnOV6vaHG+2UwQ3iDD0KRSAhiD5xPOtqqKvYFcgZbHQ0yx6jmtm
- V0VLyMRVe/s1+HYK/Ax1K7GpEJmVBgQy2oLykhT6vQp8rctIjFpT+wJtkKPlP51yZa37
- lzw4CR+0hE10TqCK2JOFg38GdCjgAgriNTtkudu7QILIspZcJjH7dAoz1fIHcgFFJjEa
- F2+g==
-X-Gm-Message-State: AJIora/r9YDX4m2rLx8gmBsraWwtBmHcipli1RhLjf7jL/J9SRsIuHFn
- SA44cFO3UdrB17jSsIJ1lwAq6qDeR5YGqg==
-X-Google-Smtp-Source: AGRyM1tZDrFhjX4z97EMn1515+sq3R3UhNPy+jAXCyyFitX9QpgEHSlG/Tdc/TQksCUPNSU+zqnftQ==
-X-Received: by 2002:a05:6e02:158a:b0:2d3:f198:9f39 with SMTP id
- m10-20020a056e02158a00b002d3f1989f39mr20123294ilu.206.1658331206385; 
- Wed, 20 Jul 2022 08:33:26 -0700 (PDT)
+ bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
+ b=NtLas1tPidw7dcFiuwIigsLCAqAhpcdWN5tm0ldLj86fpGkQjSd0/55aHUh7aNlq9a
+ RmtfvaYAe+KjS/5BF7svztJPBB71BaCVNcggUC8dk3PdwoHm1mFNYcrhvuHfKh+YX2ze
+ TftmHz3TJT71XhgASWtab5WLav3c/a8nnjVeB9Ef1FYE62uZ4buGvQflZwnA1Cfm2P8B
+ VBNI1o+LsCf6nUxNJ6TofZkECfByb4ag4JsemZ+FaeLidQjmonfTDgKj6yRF5p5DjLJh
+ DJ/irwJljGCKBOxnWvfu1vn7LRAwYx4eOfj2IuwyWZYZjiO2QUnAknGVmJMQtvQWpXPT
+ ivzg==
+X-Gm-Message-State: AJIora+csAnM3E2LKxUmTLrERB2mgfS99fzUCPGiL1Ku7K5J8cRfTLnm
+ lUlYC2/k20f5nWiFw0Soi8jWqC1jCzb7TA==
+X-Google-Smtp-Source: AGRyM1s4EXyRHWLAXXSXnUPQRetY3sLBQCIRzQd0Zg6vDllrcgW8/C0Gh2tsl3MCdLpW7MnR3nt6TQ==
+X-Received: by 2002:a92:2a0a:0:b0:2d9:2571:f57e with SMTP id
+ r10-20020a922a0a000000b002d92571f57emr18809012ile.154.1658331191870; 
+ Wed, 20 Jul 2022 08:33:11 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.25
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:26 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:11 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 27/41] drm_print: prefer bare printk KERN_DEBUG on generic
- fn
-Date: Wed, 20 Jul 2022 09:32:19 -0600
-Message-Id: <20220720153233.144129-28-jim.cromie@gmail.com>
+Subject: [PATCH v4 14/41] dyndbg: add ddebug_attach_module_classes
+Date: Wed, 20 Jul 2022 09:32:06 -0600
+Message-Id: <20220720153233.144129-15-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -76,56 +75,99 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_print.c calls pr_debug() just once, from __drm_printfn_debug(),
-which is a generic/service fn.  The callsite is compile-time enabled
-by DEBUG in both DYNAMIC_DEBUG=y/n builds.
+Add ddebug_attach_module_classes(), call it from ddebug_add_module().
+It scans the classes/section its given, finds records where the
+module-name matches the module being added, and adds them to the
+module's maps list.  No locking here, since the record
+isn't yet linked into the ddebug_tables list.
 
-For dyndbg builds, reverting this callsite back to bare printk is
-correcting a few anti-features:
+It is called indirectly from 2 sources:
 
-1- callsite is generic, serves multiple drm users.
-   it is soft-wired on currently by #define DEBUG
-   could accidentally: #> echo -p > /proc/dynamic_debug/control
+ - from load_module(), where it scans the module's __dyndbg_classes
+   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
+   the module.
 
-2- optional "decorations" by dyndbg are unhelpful/misleading here,
-   they describe only the generic site, not end users
+ - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
+   definitions of each builtin module have been packed together.
+   This is why ddebug_attach_module_classes() checks module-name.
 
-IOW, 1,2 are unhelpful at best, and possibly confusing.
+RFC:
 
-reverting yields a nominal data and text shrink:
+Its (highly) likely that builtin classes will be ordered by module
+name (just like prdbg descriptors are in the __dyndbg section).  So
+the list can be replaced by a vector (ptr + length), which will work
+for loaded modules too.  This would imitate whats currently done for
+the _ddebug descriptors.
 
-   text    data     bss     dec     hex filename
- 462583   36604   54592 553779   87333 /kernel/drivers/gpu/drm/drm.ko
- 462515   36532   54592 553639   872a7 -dirty/kernel/drivers/gpu/drm/drm.ko
+That said, converting to vector,len is close to pointless; a small
+minority of modules will ever define a class-map, and almost all of
+them will have only 1 or 2 class-maps, so theres only a couple dozen
+pointers to save.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ lib/dynamic_debug.c | 34 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index effb95b3c2bf..e0de79a22255 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -23,8 +23,6 @@
-  * Rob Clark <robdclark@gmail.com>
-  */
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index b6d80ba25bf5..e29730686cfb 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
--#define DEBUG /* for pr_debug() */
--
- #include <linux/stdarg.h>
+ struct ddebug_table {
+-	struct list_head link;
++	struct list_head link, maps;
+ 	const char *mod_name;
+ 	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
+@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
+ 	.proc_write = ddebug_proc_write
+ };
  
- #include <linux/io.h>
-@@ -185,7 +183,8 @@ EXPORT_SYMBOL(__drm_printfn_info);
++static void ddebug_attach_module_classes(struct ddebug_table *dt,
++					 struct ddebug_class_map *classes,
++					 int num_classes)
++{
++	struct ddebug_class_map *cm;
++	int i, j, ct = 0;
++
++	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
++
++		if (!strcmp(cm->mod_name, dt->mod_name)) {
++
++			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
++				  cm->mod_name, cm->base, cm->length, cm->map_type);
++
++			for (j = 0; j < cm->length; j++)
++				v3pr_info(" %d: %d %s\n", j + cm->base, j,
++					  cm->class_names[j]);
++
++			list_add(&cm->link, &dt->maps);
++			ct++;
++		}
++	}
++	if (ct)
++		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
++}
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -946,6 +972,12 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
+ 	dt->num_ddebugs = num_debugs;
+ 	dt->ddebugs = tab;
  
- void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
- {
--	pr_debug("%s %pV", p->prefix, vaf);
-+	/* pr_debug callsite decorations are unhelpful here */
-+	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
- }
- EXPORT_SYMBOL(__drm_printfn_debug);
- 
++	INIT_LIST_HEAD(&dt->link);
++	INIT_LIST_HEAD(&dt->maps);
++
++	if (classes && num_classes)
++		ddebug_attach_module_classes(dt, classes, num_classes);
++
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
 -- 
 2.36.1
 
