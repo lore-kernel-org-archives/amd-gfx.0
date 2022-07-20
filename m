@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72491CCA480
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6C04CCA480
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB018F5A2;
-	Wed, 20 Jul 2022 15:33:48 +0000 (UTC)
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F0A8EE21;
- Wed, 20 Jul 2022 15:33:12 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id f1so3671756ilu.3;
- Wed, 20 Jul 2022 08:33:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1650A8F4C8;
+	Wed, 20 Jul 2022 15:34:02 +0000 (UTC)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B99DF8F4E1;
+ Wed, 20 Jul 2022 15:33:39 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id s13so2180686ilp.13;
+ Wed, 20 Jul 2022 08:33:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
- b=d+67njnWDelpHaqOD26340pTCyqzyEICJmMm4QUPE12KYfp2LZeBJr7m7AcDyUEbOn
- lHjM4lnOAp9hej2anoPoBYC7lRQ8r6aP0oFPx0ijIlV62GZwlSqYRDmAX9NwXaiUy0Be
- v1vO2IkQTpJWJTm0q/0QY7ggte0Jn0PPp130Ms5NixpFh1wELDJ4o5VpYftq65zxxHqF
- jmLKvidj0PqnopGNco5fN1IjDk5X0jVWnX1hhRRBlVg9htZHLPMpXdwi4wQ0kXseHeKj
- ZAfCf8kN/zW0yUkR/vWnAsN94Wlcm9k4r/qWwFp8vt4bT661KNdqq507Kji+mWuYYMQ/
- 14xA==
+ bh=CRaYOM5N2Fpgdluj7apd1mQHejWq3ClMMzk6PiyYq0c=;
+ b=TiKvkfEJnMQvusPLOqEk2+j+qtanTItHOvCJWsnTNso6XNvCHMdoFjuYh7QAZ0vvMf
+ fX0520m7tAOw/LOi2+P2e/wwI/ROfNZ2tEAJj3rGxgseccy4xS+iHSWWGJvErEI9z39w
+ szwpY+jKmww/ZZyRAtJde6V3L/QorQjiB8ytmsT/nq8iCocDCZo11gEFLCdT3shbGRaW
+ u/h28/xjphJog8hN+c9PCdsxVaGf85fivnskSqWruh5ggziWw7ZHYc0RLCCkU7Cvy+ug
+ fMfZnjSlslk+iZp5Heh5sSg088Tp10cI+hf0CRzSX8GyQ+bRL+wJFJMew0I/Q+TmNl46
+ hhEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0keNK2iWc5vvIPQtHEufP+pJ7nMjLLdNpxSJECvJiok=;
- b=NtLas1tPidw7dcFiuwIigsLCAqAhpcdWN5tm0ldLj86fpGkQjSd0/55aHUh7aNlq9a
- RmtfvaYAe+KjS/5BF7svztJPBB71BaCVNcggUC8dk3PdwoHm1mFNYcrhvuHfKh+YX2ze
- TftmHz3TJT71XhgASWtab5WLav3c/a8nnjVeB9Ef1FYE62uZ4buGvQflZwnA1Cfm2P8B
- VBNI1o+LsCf6nUxNJ6TofZkECfByb4ag4JsemZ+FaeLidQjmonfTDgKj6yRF5p5DjLJh
- DJ/irwJljGCKBOxnWvfu1vn7LRAwYx4eOfj2IuwyWZYZjiO2QUnAknGVmJMQtvQWpXPT
- ivzg==
-X-Gm-Message-State: AJIora+csAnM3E2LKxUmTLrERB2mgfS99fzUCPGiL1Ku7K5J8cRfTLnm
- lUlYC2/k20f5nWiFw0Soi8jWqC1jCzb7TA==
-X-Google-Smtp-Source: AGRyM1s4EXyRHWLAXXSXnUPQRetY3sLBQCIRzQd0Zg6vDllrcgW8/C0Gh2tsl3MCdLpW7MnR3nt6TQ==
-X-Received: by 2002:a92:2a0a:0:b0:2d9:2571:f57e with SMTP id
- r10-20020a922a0a000000b002d92571f57emr18809012ile.154.1658331191870; 
- Wed, 20 Jul 2022 08:33:11 -0700 (PDT)
+ bh=CRaYOM5N2Fpgdluj7apd1mQHejWq3ClMMzk6PiyYq0c=;
+ b=UcWtM42VSkDWJBOurbQz7g4ENNVzrP++skTo3C4VAksvbTq/dBiP7iY5/H4U2DsGy7
+ v1Fy/7eQ798MJavj5PId5aLHcC95R0ZDPZAnhr5QfLRrUYKdf1+V+VJz88VvsKRvfImD
+ QmcqS1BGLOfoC7jLhyMZcJaOPFRBsm+ssf/nwrY2hitWNhUg3LPFpMmZ60bP/VBET3BI
+ 27wtVuO0ymVC16/QzyfyvRlDYkMCRPfhjDsoQ6hZChOxB4LMOoexJ8p+wxoNFxc+RFsU
+ KzP3fnxANW7yjX7rRJ5YngY+Vn/QfM+pYY1CyeKpiaGMrhmLsKsYYK2FkS0dFTqJoyw0
+ 0ObA==
+X-Gm-Message-State: AJIora9o88iqjSCvrBrsxKVyLnropU6AclfANkO7xc98LdDZIxorW+IN
+ M1MeAdHTprklouZYosswe5qoI5n72n0M1A==
+X-Google-Smtp-Source: AGRyM1uco/ev3SMjVsq1YM3DKOQSLyiWvFUbjemLQJt/a1pmcjvGvxri+Yuy70ti6nWF/nQcdDeeFw==
+X-Received: by 2002:a92:cac1:0:b0:2da:d188:ad84 with SMTP id
+ m1-20020a92cac1000000b002dad188ad84mr18752363ilq.21.1658331218713; 
+ Wed, 20 Jul 2022 08:33:38 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.10
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:11 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:38 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 14/41] dyndbg: add ddebug_attach_module_classes
-Date: Wed, 20 Jul 2022 09:32:06 -0600
-Message-Id: <20220720153233.144129-15-jim.cromie@gmail.com>
+Subject: [PATCH v4 39/41] nouveau-dbg: add 2 verbose-classmaps for CLI, SUBDEV
+Date: Wed, 20 Jul 2022 09:32:31 -0600
+Message-Id: <20220720153233.144129-40-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -75,99 +75,158 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ddebug_attach_module_classes(), call it from ddebug_add_module().
-It scans the classes/section its given, finds records where the
-module-name matches the module being added, and adds them to the
-module's maps list.  No locking here, since the record
-isn't yet linked into the ddebug_tables list.
+nouveau has additional debug variables to consider:
 
-It is called indirectly from 2 sources:
+drivers/gpu/drm/nouveau/include/nvkm/core/device.h
+131:	if (_device->debug >= (l))                                             \
 
- - from load_module(), where it scans the module's __dyndbg_classes
-   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
-   the module.
+drivers/gpu/drm/nouveau/include/nvkm/core/client.h
+39:	if (_client->debug >= NV_DBG_##l)                                      \
 
- - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
-   definitions of each builtin module have been packed together.
-   This is why ddebug_attach_module_classes() checks module-name.
+drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+54:	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))              \
 
-RFC:
+This is another baby-step, that seems not to break, so lets get a
+snapshot.
 
-Its (highly) likely that builtin classes will be ordered by module
-name (just like prdbg descriptors are in the __dyndbg section).  So
-the list can be replaced by a vector (ptr + length), which will work
-for loaded modules too.  This would imitate whats currently done for
-the _ddebug descriptors.
+whats done here:
 
-That said, converting to vector,len is close to pointless; a small
-minority of modules will ever define a class-map, and almost all of
-them will have only 1 or 2 class-maps, so theres only a couple dozen
-pointers to save.
+In nouveau_drm.c, declare class-names: NV_CLI_DBG_* NV_SUBDEV_DBG_* by
+calling DECLARE_DYNDBG_CLASSMAP(verbose-type) 2x more, right after the
+drm DECLARE, for cli and subdev.  Adjust base to 10,15, to avoid 0-10
+allocated subsystem-wide for drm.debug.  This shares the 0..30
+classid-space.
+
+In nvkm/core/debug.h, add enums to match the names, with initial
+values to match the bases.
+
+In nvkm/core/subdev.h, alter (recently added) nvkm_drmdbg_() to use
+NV_SUBDEV_DBG_* instead of NV_DBG_*.  Note: this is undone next,
+because base != CONFIG_NOUVEAU_DEBUG.
+
+NOTES:
+
+class-name-space is flat and wide, so super-generic names like INFO
+should be prefixed; who could predict what a generic "V1" does across
+all modules.
+
+A sub-system prefix, such as "DRM_UT_" could be considered a working
+shorthand for module "foo,bar,buzz" (which wouldnt work), but it adds
+a layer of authors-judgment in the classifications.
+
+In both classmaps, Ive left FATAL..WARN out, they're not really
+optional the way INFO..SPAM are; even if they were defaulted to on,
+dyndbg shouldn't be able to turn them off.
+
+bash-5.1# modprobe nouveau
+[  966.107833] dyndbg:   3 debug prints in module wmi
+[  966.342188] dyndbg: class[0]: module:nouveau base:15 len:5 ty:1
+[  966.342873] dyndbg:  15: 0 NV_SUBDEV_DBG_OFF
+[  966.343352] dyndbg:  16: 1 NV_SUBDEV_DBG_INFO
+[  966.343912] dyndbg:  17: 2 NV_SUBDEV_DBG_DEBUG
+[  966.344443] dyndbg:  18: 3 NV_SUBDEV_DBG_TRACE
+[  966.344938] dyndbg:  19: 4 NV_SUBDEV_DBG_SPAM
+[  966.345402] dyndbg: class[1]: module:nouveau base:10 len:5 ty:1
+[  966.346011] dyndbg:  10: 0 NV_CLI_DBG_OFF
+[  966.346477] dyndbg:  11: 1 NV_CLI_DBG_INFO
+[  966.346989] dyndbg:  12: 2 NV_CLI_DBG_DEBUG
+[  966.347442] dyndbg:  13: 3 NV_CLI_DBG_TRACE
+[  966.347875] dyndbg:  14: 4 NV_CLI_DBG_SPAM
+[  966.348284] dyndbg: class[2]: module:nouveau base:0 len:10 ty:0
+[  966.348888] dyndbg:  0: 0 DRM_UT_CORE
+[  966.349310] dyndbg:  1: 1 DRM_UT_DRIVER
+[  966.349694] dyndbg:  2: 2 DRM_UT_KMS
+[  966.350083] dyndbg:  3: 3 DRM_UT_PRIME
+[  966.350482] dyndbg:  4: 4 DRM_UT_ATOMIC
+[  966.351016] dyndbg:  5: 5 DRM_UT_VBL
+[  966.351475] dyndbg:  6: 6 DRM_UT_STATE
+[  966.351899] dyndbg:  7: 7 DRM_UT_LEASE
+[  966.352309] dyndbg:  8: 8 DRM_UT_DP
+[  966.352678] dyndbg:  9: 9 DRM_UT_DRMRES
+[  966.353104] dyndbg: module:nouveau attached 3 classes
+[  966.353759] dyndbg: 119 debug prints in module nouveau
+
+NOTE: it was 632 with previous commit, switching NV_DEBUG to use
+NV_SUBDEV_DBG_DEBUG instead of NV_DBG_DEBUG is the cause.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 34 +++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+ .../gpu/drm/nouveau/include/nvkm/core/debug.h    | 16 ++++++++++++++++
+ .../gpu/drm/nouveau/include/nvkm/core/subdev.h   |  3 ++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c            | 14 ++++++++++++++
+ 3 files changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b6d80ba25bf5..e29730686cfb 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
+index b4a9c7d991ca..6a155a23a3d1 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
+@@ -9,4 +9,20 @@
+ #define NV_DBG_TRACE    5
+ #define NV_DBG_PARANOIA 6
+ #define NV_DBG_SPAM     7
++
++enum nv_cli_dbg_verbose {
++	NV_CLI_DBG_OFF = 10,
++	NV_CLI_DBG_INFO,
++	NV_CLI_DBG_DEBUG,
++	NV_CLI_DBG_TRACE,
++	NV_CLI_DBG_SPAM
++};
++enum nv_subdev_dbg_verbose {
++	NV_SUBDEV_DBG_OFF = 15,
++	NV_SUBDEV_DBG_INFO,
++	NV_SUBDEV_DBG_DEBUG,
++	NV_SUBDEV_DBG_TRACE,
++	NV_SUBDEV_DBG_SPAM
++};
++
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+index b9c2afab321f..bf9c69f4fc3e 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+@@ -2,6 +2,7 @@
+ #ifndef __NVKM_SUBDEV_H__
+ #define __NVKM_SUBDEV_H__
+ #include <core/device.h>
++#include <core/debug.h>
  
- struct ddebug_table {
--	struct list_head link;
-+	struct list_head link, maps;
- 	const char *mod_name;
- 	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
+ enum nvkm_subdev_type {
+ #define NVKM_LAYOUT_ONCE(t,s,p,...) t,
+@@ -65,7 +66,7 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
+ 	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))	\
+ 		dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
+ } while(0)
+-#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_DBG_##l, dbg, f, ##a)
++#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_SUBDEV_DBG_##l, dbg, f, ##a)
+ #define nvkm_debug(s,f,a...) nvkm_drmdbg_((s), DEBUG, f, ##a)
+ #define nvkm_trace(s,f,a...) nvkm_drmdbg_((s), TRACE, f, ##a)
+ #define nvkm_spam(s,f,a...)  nvkm_drmdbg_((s),  SPAM, f, ##a)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 76e3a8d50b01..85b63b527877 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -83,6 +83,20 @@ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT, 0,
+ 			"DRM_UT_DP",
+ 			"DRM_UT_DRMRES");
  
-+static void ddebug_attach_module_classes(struct ddebug_table *dt,
-+					 struct ddebug_class_map *classes,
-+					 int num_classes)
-+{
-+	struct ddebug_class_map *cm;
-+	int i, j, ct = 0;
++DECLARE_DYNDBG_CLASSMAP(nv_cli_debug_verbose, DD_CLASS_TYPE_VERBOSE, 10,
++			"NV_CLI_DBG_OFF",
++			"NV_CLI_DBG_INFO",
++			"NV_CLI_DBG_DEBUG",
++			"NV_CLI_DBG_TRACE",
++			"NV_CLI_DBG_SPAM");
 +
-+	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
++DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
++			"NV_SUBDEV_DBG_OFF",
++			"NV_SUBDEV_DBG_INFO",
++			"NV_SUBDEV_DBG_DEBUG",
++			"NV_SUBDEV_DBG_TRACE",
++			"NV_SUBDEV_DBG_SPAM");
 +
-+		if (!strcmp(cm->mod_name, dt->mod_name)) {
-+
-+			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
-+				  cm->mod_name, cm->base, cm->length, cm->map_type);
-+
-+			for (j = 0; j < cm->length; j++)
-+				v3pr_info(" %d: %d %s\n", j + cm->base, j,
-+					  cm->class_names[j]);
-+
-+			list_add(&cm->link, &dt->maps);
-+			ct++;
-+		}
-+	}
-+	if (ct)
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+}
-+
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -946,6 +972,12 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int num_debugs,
- 	dt->num_ddebugs = num_debugs;
- 	dt->ddebugs = tab;
- 
-+	INIT_LIST_HEAD(&dt->link);
-+	INIT_LIST_HEAD(&dt->maps);
-+
-+	if (classes && num_classes)
-+		ddebug_attach_module_classes(dt, classes, num_classes);
-+
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
+ MODULE_PARM_DESC(config, "option string to pass to driver core");
+ static char *nouveau_config;
+ module_param_named(config, nouveau_config, charp, 0400);
 -- 
 2.36.1
 
