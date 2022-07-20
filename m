@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45AE6C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875FBC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8BA68F589;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A958F592;
 	Wed, 20 Jul 2022 15:33:47 +0000 (UTC)
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [IPv6:2607:f8b0:4864:20::d31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35A3E8F2AD;
- Wed, 20 Jul 2022 15:33:18 +0000 (UTC)
-Received: by mail-io1-xd31.google.com with SMTP id e69so7024064iof.5;
- Wed, 20 Jul 2022 08:33:18 -0700 (PDT)
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1041A8F24F;
+ Wed, 20 Jul 2022 15:33:26 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id n13so902463ilk.1;
+ Wed, 20 Jul 2022 08:33:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ZHDzkEhZoFsdqauYBoZorLHVYYv4cPxhPxoqjWUWckg=;
- b=Dja2UkKDPW71ayxf3vHJr7iOBZSZF0C5/hhTqLWKtJ0/dtnvJfi3599UJ9sqDWKcCQ
- CZVjvGNpr2mo1HM1YTxQQijvmnRg6EaohMnGAzgTo0rcn7poMH6BUVZnUj1LblOi7btS
- IIP6tcPO3mjZERBH+2Gw8/icz9sVK/gUJZXZj/WB+s+1J50t48vdwNHhubv/qUy3RU5L
- mn+7fix4fSwpOl5KhHaTyUd8p7VwKNBjwGULj5da7mgmv8EwrpRpY2byq5TYZp9OmKgg
- 9ZcaHDo+5KfXqvs/rTNNbRDXqIKJ82kTIXbExJDEsQmGdwBcXxCyb5f+qX/XAfxn4HWK
- YGJg==
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=UiQrI4NAxDEw/Kcvs8mdBmMie/F3AReVKsUfiDFKKkKV/60UTtcp24qzXjSLpud2gj
+ 9Havnqesmom1O4wOKiFAGJnPeh7tCgG+P6muBOG2rYJkGG1f4Wb5Psu/DCj3/idvW7eF
+ /4+ZbT9GIPXZkhyZnf0N7vgYZDCJ1gnwQ2xU0H06BLarUURhBA9f77Qdf4J8YxVunZPq
+ Cd+b9DJsdE7Zzx7CU5vhBawDCFKc4Em7E+3ml4dc7mn1GMCIKsSmuLvHDEiSxlXOLRwy
+ RWKTHZ+VHvmKFTocmKEwyfQdbhct42GPbBtyphaK9cac+2sgTiO2JWLKb5zDSwDIjBGU
+ CGEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ZHDzkEhZoFsdqauYBoZorLHVYYv4cPxhPxoqjWUWckg=;
- b=QUIEaV/QImsZaFNItsMIobDKqO0JeGCbNu/CGbEFH6q0CohPjqqySj/+lzynUmmYbu
- NXBctkK1rF849h30Jzx2HbAyyltJokm7BNb69qCvz4CTrVJj3U3fl57GZhCxHfzBX1rn
- MFbfytwo6gcG/2oNEuamXtmSMg8k3EWnLDB22qIT4lq0024PBMtMRvB3dOnwiQZqgm83
- eSRqkbV/zp1GPYuvraJxTuXK7nbldlK+Hek5kfAmk8g4QNmQytRQkSLE3OQXKtqeUJ6u
- snue/K2aaDOHj/UM6jioLS87VHNQHPGst6D7ckVbquiH3Vk4rGq55fUUq9MbmieGvEjr
- ilbQ==
-X-Gm-Message-State: AJIora8WLHeIhZZm63Cyk9AQ+jS3HupUxmnUnXGv4/+P5NvDDH2QSqKx
- 9GfVgLTA/quT8lZtJfar7+qBlhdz3and1g==
-X-Google-Smtp-Source: AGRyM1t4773yD6yWKlBfmX+NVK4lEVLSgWtkftGvBXTzzGqZjj1E7prZFFtJe/0emwwdGKFFnJmvkQ==
-X-Received: by 2002:a05:6638:3807:b0:341:709f:31a7 with SMTP id
- i7-20020a056638380700b00341709f31a7mr8695948jav.206.1658331197235; 
- Wed, 20 Jul 2022 08:33:17 -0700 (PDT)
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=Y5zkL17iJImMI62dj7ZHP6utHhTwMrygkRkTo6iSTfNW2rFzcO5LyhgpIHWNsxhAIk
+ BserXkfMxddok7dpI0Qxr6FLV6tT/JD960dKQz4Vl2e18W4pQo609Rltr9hohclqxpyz
+ tiJFEDelvCFecDLpsv5yQjuZoupMDkUvE8c9/Bo23UzolcO2sbcR3pYMIVwKrIQSTobp
+ DpioDA0N53AhDl+IEt/c7gur1XK5I62dZZqC6IrAQUgOjtsw8A2pVL/+fbYvpj+w41Uy
+ le+jO1trS5ulADsff2MQPhA7YCWb/Hwzbop/sMhFWQEiMA6Wru0Hlj21DZPn6H4ho9Tq
+ BZww==
+X-Gm-Message-State: AJIora/5d9bwxID9IeI5AIMJZv/Sg6SyB/JH+lkMwjkHSPhzCosfAbf2
+ P0cfjB8rfLfIDowaEF4IXUE17tnxvZDOgA==
+X-Google-Smtp-Source: AGRyM1vsAnChCcLMNEoMvV8wLSjEjQQ9rrUOK39l29F0zKEoltZsjv7zG+YH5EQU1tNKAP9U2llX9A==
+X-Received: by 2002:a92:1944:0:b0:2dc:23f4:76a1 with SMTP id
+ e4-20020a921944000000b002dc23f476a1mr17897759ilm.44.1658331205464; 
+ Wed, 20 Jul 2022 08:33:25 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.16
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:16 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:25 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 18/41] doc-dyndbg: describe "class CLASS_NAME" query support
-Date: Wed, 20 Jul 2022 09:32:10 -0600
-Message-Id: <20220720153233.144129-19-jim.cromie@gmail.com>
+Subject: [PATCH v4 26/41] drm_print: refine drm_debug_enabled for jump-label
+Date: Wed, 20 Jul 2022 09:32:18 -0600
+Message-Id: <20220720153233.144129-27-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -75,50 +75,104 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an explanation of the new "class CLASS_NAME" syntax and meaning,
-noting that the module determines if CLASS_NAME applies to it.
+In order to use dynamic-debug's jump-label optimization in drm-debug,
+its clarifying to refine drm_debug_enabled into 3 uses:
+
+1.   drm_debug_enabled - legacy, public
+2. __drm_debug_enabled - optimized for dyndbg jump-label enablement.
+3.  _drm_debug_enabled - pr_debug instrumented, observable
+
+1. The legacy version always checks the bits.
+
+2. is privileged, for use by __drm_dbg(), __drm_dev_dbg(), which do an
+early return unless the category is enabled.  For dyndbg builds, debug
+callsites are selectively "pre-enabled", so __drm_debug_enabled()
+short-circuits to true there.  Remaining callers of 1 may be able to
+use 2, case by case.
+
+3. is 1st wrapped in a macro, with a pr_debug, which reports each
+usage in /proc/dynamic_debug/control, making it observable in the
+logs.  The macro lets the pr_debug see the real caller, not an inline
+function.
+
+When plugged into 1, 3 identified ~10 remaining callers of the
+function, leading to the follow-on cleanup patch, and would allow
+activating the pr_debugs, estimating the callrate, and the potential
+savings by using the wrapper macro.  It is unused ATM, but it fills
+out the picture.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/drm_print.c |  4 ++--
+ include/drm/drm_print.h     | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index a89cfa083155..d8954ab05c7b 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -35,6 +35,7 @@ Dynamic debug has even more useful features:
-    - line number (including ranges of line numbers)
-    - module name
-    - format string
-+   - class name (as known/declared by each module)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 21b416af0be2..effb95b3c2bf 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -285,7 +285,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	struct va_format vaf;
+ 	va_list args;
  
-  * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
-    which can be read to display the complete list of known debug
-@@ -142,6 +143,7 @@ against.  Possible keywords are:::
- 		 'file' string |
- 		 'module' string |
- 		 'format' string |
-+		 'class' string |
- 		 'line' line-range
+-	if (!drm_debug_enabled(category))
++	if (!__drm_debug_enabled(category))
+ 		return;
  
-   line-range ::= lineno |
-@@ -203,6 +205,15 @@ format
- 	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
- 	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
+ 	va_start(args, format);
+@@ -308,7 +308,7 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ 	struct va_format vaf;
+ 	va_list args;
  
-+class
-+    The given class_name is validated against each module, which may
-+    have declared a list of known class_names.  If the class_name is
-+    found for a module, callsite & class matching and adjustment
-+    proceeds.  Examples::
+-	if (!drm_debug_enabled(category))
++	if (!__drm_debug_enabled(category))
+ 		return;
+ 
+ 	va_start(args, format);
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index dfdd81c3287c..7631b5fb669e 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -321,11 +321,39 @@ enum drm_debug_category {
+ 	DRM_UT_DRMRES
+ };
+ 
++/*
++ * 3 name flavors of drm_debug_enabled:
++ *   drm_debug_enabled - public/legacy, always checks bits
++ *  _drm_debug_enabled - instrumented to observe call-rates, est overheads.
++ * __drm_debug_enabled - privileged - knows jump-label state, can short-circuit
++ */
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+ 	return unlikely(__drm_debug & BIT(category));
+ }
+ 
++/*
++ * Wrap fn in macro, so that the pr_debug sees the actual caller, not
++ * the inline fn.  Using this name creates a callsite entry / control
++ * point in /proc/dynamic_debug/control.
++ */
++#define _drm_debug_enabled(category)				\
++	({							\
++		pr_debug("todo: maybe avoid via dyndbg\n");     \
++		drm_debug_enabled(category);			\
++	})
 +
-+	class DRM_UT_KMS	# a DRM.debug category
-+	class JUNK		# silent non-match
++#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++/*
++ * dyndbg is wrapping the drm.debug API, so as to avoid the runtime
++ * bit-test overheads of drm_debug_enabled() in those api calls.
++ * In this case, executed callsites are known enabled, so true.
++ */
++#define __drm_debug_enabled(category)	true
++#else
++#define __drm_debug_enabled(category)	drm_debug_enabled(category)
++#endif
 +
- line
-     The given line number or range of line numbers is compared
-     against the line number of each ``pr_debug()`` callsite.  A single
+ /*
+  * struct device based logging
+  *
 -- 
 2.36.1
 
