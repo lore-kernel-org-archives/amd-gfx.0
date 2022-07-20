@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EDC1C43334
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA8AC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3E18F267;
-	Wed, 20 Jul 2022 15:33:11 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E0F8EF80;
- Wed, 20 Jul 2022 15:33:06 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id i5so2085704ila.6;
- Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF34D8F284;
+	Wed, 20 Jul 2022 15:33:12 +0000 (UTC)
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE038F09E;
+ Wed, 20 Jul 2022 15:33:02 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id q14so14513062iod.3;
+ Wed, 20 Jul 2022 08:33:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
- b=Y5HEVETahfPBl0XuDwNcpwbhDtxLka2FBUl1Z72oJMgVTwzrLu8aGTIJII/PLLLWOt
- IEzaoJWuVneUEwYdvIn8hzksyGwpo8HcQB5gXRO3IWmdpJ5N6RgL/wzKfK0Ti6+E9FME
- WW+N6YnAzvRTUnmgFu9UoAUHMQEn4GumKs6lF56PlnClB+//8PlihsT7Vj3XIPRL7K8z
- P5oPirbf8NnIYbDQbM3fh+QLpAqOpHduxnBzkRch4+qnPvetAvWmLIq7kDtzM/+LlE/8
- R9CKpQs7yTJYiJsgngEkktYlbXkNyagr3m3t7QKq1sjtM69CWpnosSkqjNlOi5YxBEUS
- UtRQ==
+ bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
+ b=qNlA5xnrP3dY6ZBo7PXii+qRTIAByeqj28yVQuJCOT0ubi3TgCaT54kFQ00w14763y
+ wAI04ZYHMWXx1AqiwzLuT/7iWFXPHchbJXuiuo4IZuoI0cx/zkUKaeds1SR0g0UKMdnW
+ W/ojC57aQn8H6oMIs/L2zuomHNRkm6mOdzG/+QhA4uv8sIKN5cGULtJzpwNx/coAqujM
+ Z2rFmj2ElmewtytIxj5/LdfZ1z7pNZ80/688E2+qy05+cnsSfxYq2udliUp/rK9eDi1Y
+ AMNuwLNrIUNk2BRXDXdZHuBpsfuTpB0nK45sEuFItqYLgdX/g23nX79cK2s5Z6N2+hge
+ +UNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
- b=DUPJmqJOWcYKJdJEzp+/1sSbzV1yG8ws6Y9j6g3RV4S9JYHNt2di8RHwyykjKLr3XH
- 2HqtYGHiNmeZmI6KOEtq6hN0KCB5z20i17zp3VniUanhyINGbAIPDSLS5s4qAapJ5Git
- Ca8GtBUGb6H2yqggTWrO0Nn9oMoh0dx8ZJiXksI3KhuNATxH7OTFQmGJ6gMBGJOE+xoP
- pa7iRwVCpvytgMUQwMm/2X0RV1j4qp3rAeXt17GYMrrfxNmf77HUMI4GlAMn90/siJBV
- W565v4TW3OChMp8YbnMxXB+5O1YG9ZBFZtr68gE7FDE6Der/uxrnqi+/3B6s/GngPvLE
- Iycg==
-X-Gm-Message-State: AJIora9fCkOSKkZ/KlVjf0rLux1MYBvsIEZsyqu9xEr1RmKGATwi2wix
- w/40ygKQHoE8ZqvdcBy/xH4tw6xFy9Kudg==
-X-Google-Smtp-Source: AGRyM1vQFjF1U+du0qqojqZ58ujUSrOID0TD0O2Q+WyDu8O1EdEbRTeqyziPe+0d2bXVupAt9xeSyA==
-X-Received: by 2002:a05:6e02:1405:b0:2da:c72f:e3a7 with SMTP id
- n5-20020a056e02140500b002dac72fe3a7mr19021150ilo.113.1658331184363; 
- Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
+ bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
+ b=50cu1jeQvQ4kJdCIzgCUPzpK2PXpsVF4p1PdyQ3MeBu0Cf+8zT1NYhiWl56IrIKSu9
+ byqQnmJU+gU85sQmnPrrlHD2KJT/7MUfPMfaaWSOG96x4VxGNpCOyh8G+NdmSNsxkrE5
+ /QIBNV1G9qFfdNnnykgjN9Ngmbcha0RcwLlpayhNqnA/0ykfiSmNdjRrK3ZfNbWDbvos
+ Qv22YWZd4flBkTl1KnRE2TATQtMm7sbll3G8rjHiitJ2mcslqJOnrDO0IKDexb3J3U4N
+ AGRPEzhAoe1MpO5Sv2aI/y/LrReWX273ap5xxCPKn/pomf0NyANZx6fjFUYPOnmi4yss
+ zTXQ==
+X-Gm-Message-State: AJIora8mqEVfSmLROwXqAmVSG9NPOhNpCAHrxfx0teB2d87zVL7kfnVF
+ 3OL+DXz6qOVs8qnmf8A4gdUPd9eDXX2ypQ==
+X-Google-Smtp-Source: AGRyM1tlbO/lueDTuTgCkX1RNPYngfLRVWh/GzwKGNRrE6W6SM3+kIPn9XLId99oUoH5l1MLmGPI9Q==
+X-Received: by 2002:a05:6638:3801:b0:341:68f6:932 with SMTP id
+ i1-20020a056638380100b0034168f60932mr9091331jav.71.1658331181037; 
+ Wed, 20 Jul 2022 08:33:01 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.03
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Subject: [PATCH v4 07/41] dyndbg: let query-modname override actual module name
-Date: Wed, 20 Jul 2022 09:31:59 -0600
-Message-Id: <20220720153233.144129-8-jim.cromie@gmail.com>
+Subject: [PATCH v4 04/41] dyndbg: reverse module walk in cat control
+Date: Wed, 20 Jul 2022 09:31:56 -0600
+Message-Id: <20220720153233.144129-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
@@ -75,69 +75,31 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's control-parser: ddebug_parse_query(), requires that search
-terms: module, func, file, lineno, are used only once in a query; a
-thing cannot be named both foo and bar.
+/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
+fix this by adding new ddebug_tables to tail of list.
 
-The cited commit added an overriding module modname, taken from the
-module loader, which is authoritative.  So it set query.module 1st,
-which disallowed its use in the query-string.
+This puts init/main.c entries 1st, which looks intentional.
 
-But now, its useful to allow a module-load to enable classes across a
-whole (or part of) a subsystem at once.
+no functional changes.
 
-  # enable (dynamic-debug in) drm only
-  modprobe drm dyndbg="class DRM_UT_CORE +p"
-
-  # get drm_helper too
-  modprobe drm dyndbg="class DRM_UT_CORE module drm* +p"
-
-  # get everything that knows DRM_UT_CORE
-  modprobe drm dyndbg="class DRM_UT_CORE module * +p"
-
-  # also for boot-args:
-  drm.dyndbg="class DRM_UT_CORE module * +p"
-
-So convert the override into a default, by filling it only when/after
-the query-string omitted the module.
-
-NB: the query class FOO handling is forthcoming.
-
-Fixes: 8e59b5cfb9a6 dynamic_debug: add modname arg to exec_query callchain
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e5cbe603000c..5a849716220a 100644
+index 8faf584f2f4b..7fb99492c16f 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -385,10 +385,6 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		return -EINVAL;
- 	}
+@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+ 	dt->ddebugs = tab;
  
--	if (modname)
--		/* support $modname.dyndbg=<multiple queries> */
--		query->module = modname;
--
- 	for (i = 0; i < nwords; i += 2) {
- 		char *keyword = words[i];
- 		char *arg = words[i+1];
-@@ -429,6 +425,13 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		if (rc)
- 			return rc;
- 	}
-+	if (!query->module && modname)
-+		/*
-+		 * support $modname.dyndbg=<multiple queries>, when
-+		 * not given in the query itself
-+		 */
-+		query->module = modname;
-+
- 	vpr_info_dq(query, "parsed");
- 	return 0;
- }
+ 	mutex_lock(&ddebug_lock);
+-	list_add(&dt->link, &ddebug_tables);
++	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+ 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
 -- 
 2.36.1
 
