@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71850C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 05:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC3E6C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 05:13:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4E3111ACF3;
-	Thu, 21 Jul 2022 05:13:32 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 972D411AC07
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 05:13:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5458C11ADF0;
+	Thu, 21 Jul 2022 05:13:36 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2049.outbound.protection.outlook.com [40.107.96.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F24C11ADEA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 05:13:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BO+La0MfHg1FNKI5X+AI0R4fOK60VBgYtlwltN4AJ2C2vD7Zf8j26RMjenEId3marCMhR9oYLLVsZQ0w8jayLrInircVye9fW10a30CX9kx+fBkXHKnsooU4bYnzO0Mcojf8/JL/ynx0lLWhj/S/R06ubKduTA5rxE2eyFhAkbvRj20/B2B8fHBPA3JHHaO6Wyzje5Bi3uIy99OGFQcVFiCiKiONc1gkdQtCVJYRzbH2nSAVtCuucKxrRbLX70TqrnNE/UkhS+O7YbK41pNktLkqchHZegNvnHEktQhsjh+3BMbz9GCSchEhyiuUUP+zp2dPKqf0F3KNA3JNVS5/9A==
+ b=b5qJaLDucrEWes+gmdsF7FZAtxmY6UCKm8jVZFzk+MDwfzZlOMGl2OLqgAE3oh9pPL77/Vfo1xWszbRG9SKyZCYVjASO7tZCwHosFdPJSKtOlBqggef44P3Y9ntOtWpxdg2IBXo9TwuXywlVgzFtdc2mCTohc9c3nMycstZObLZx7gT38Z7k2MfoORN55AbHRcd1JucE4I/3Nr4uWCb8615cublJ0mUWF3OTXUws2v3qQoLJ9S8iwdBOkvQfpwCHIcCy/CxNckmL1ZtCB48IhArjjHujwlECbVntEwO6i7bKbC2i3sIyuGwc1FbCbO0xhR4h50wz3lQ3DnWatXqa4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O9k0oMnZU0OHuI4LPiRv/jfOetYkeoxPwD8hXUl+MHc=;
- b=fjy54uats6jI20/9whM2P6zPp9oMorZiX1A2+bsGqguR2SvM0pYGz4B0GEuOV5LuVO2mpZiqnBnJvw9VYvSq+GTr4ZqiYHlxT7jqzf/nJyrYs6wFE8GFxhsBmIvkLCCwFzcAhVWJ3qRHG/+bSySqUQ8H1joW8FvPm2MNCCl0tfmV4vlbGOYnZND/DZWZ/5foQTlV324CaTqqlzlRzSurBBl0JHFmF3YBE+1Osh6ART9gdHzcNro7Y9gStdoRGGBTWJReBSLoD5fLhjHXAbmW+O04kJe1ixMiFRrcAsU49lyhRnWGapOWxbF3P+n510U4QGtEsKPHvKaBA5BDCAzTdg==
+ bh=fcX3Yd3XciA2/tkCPkfJ4YEUznr5JjQA+5bVskb6rGM=;
+ b=ZOL+GXSi1X4M0Lzm4yF06q0ZSULKZZFTZcpFx+VXExwv6e7jazKfT6vcdct0ERFYF2wAO+nTqwFbCfo16oo4SOR8MP9eS55Ote3tW4vfeGNjhQK63wtqtkJ1AxGPjFcBDrRIMziIZqFWTQHuhVUVDQrlNJ6Zu+x1LQgbIiFFYMDoblYN0kXLuPtgN2iO3OuSn7ff8Ds3K3orQLu9cFCyqhKMOcoGAaDnH31rgEOq8AMIZj7MYyWJrPNJ9oP08mp7HL+461teBY2Ejkx1w0THkghyiFVoNMAW1mUhZPGmteC/NOy/5h2Rca00xcRiwC4bD4hKe/4k9/KOrB61nDQIWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O9k0oMnZU0OHuI4LPiRv/jfOetYkeoxPwD8hXUl+MHc=;
- b=DBebk29bZ3ZpqS2Nh+IW2TABIcJeoiIFDbwL4sVmOLE8gBKrURbE+SbSKRvvMXcIGjaGxvAGPLQjdBc7CGagkQTomTYgpeUmOZMHQHotXrr1Dh6AVFcthL+06gY0wYQAnyfuHvcY55BvtEQujR9zUyyrOGCFWsj5H42+MLe3JgA=
-Received: from DM6PR03CA0033.namprd03.prod.outlook.com (2603:10b6:5:40::46) by
- CH2PR12MB4807.namprd12.prod.outlook.com (2603:10b6:610:a::23) with
+ bh=fcX3Yd3XciA2/tkCPkfJ4YEUznr5JjQA+5bVskb6rGM=;
+ b=H53xyZ1OD2DsrmxTWdW/+r2/BvKvQtXPOfec1B2aoty7v0zhrmxDLm/m9ZerSryd7TJxrhNJPl+zxn7008iz3dWRtbYYZdAyRR4rfAx8eAOdJeIklxB62fGKg7tLh5eyZQZmM7RWbJI7V7b9FpZK666jJcYaEY72vhdGts8Oh34=
+Received: from DM6PR03CA0011.namprd03.prod.outlook.com (2603:10b6:5:40::24) by
+ BYAPR12MB3350.namprd12.prod.outlook.com (2603:10b6:a03:ab::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5438.19; Thu, 21 Jul 2022 05:13:23 +0000
+ 15.20.5438.21; Thu, 21 Jul 2022 05:13:26 +0000
 Received: from DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:40:cafe::47) by DM6PR03CA0033.outlook.office365.com
- (2603:10b6:5:40::46) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:40:cafe::39) by DM6PR03CA0011.outlook.office365.com
+ (2603:10b6:5:40::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19 via Frontend
- Transport; Thu, 21 Jul 2022 05:13:23 +0000
+ Transport; Thu, 21 Jul 2022 05:13:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT032.mail.protection.outlook.com (10.13.173.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 05:13:23 +0000
+ 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 05:13:26 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
- 2022 00:13:22 -0500
+ 2022 00:13:24 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/5] drm/amd/display: reduce stack size in dcn32 dml (v2)
-Date: Thu, 21 Jul 2022 01:13:01 -0400
-Message-ID: <20220721051305.1356754-1-alexander.deucher@amd.com>
+Subject: [PATCH 5/5] drm/amd/display: reduce stack for
+ dml32_CalculatePrefetchSchedule
+Date: Thu, 21 Jul 2022 01:13:05 -0400
+Message-ID: <20220721051305.1356754-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220721051305.1356754-1-alexander.deucher@amd.com>
+References: <20220721051305.1356754-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0194bc1a-3c57-49b3-d079-08da6ad7bc35
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4807:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8eab003-3646-4222-db0a-08da6ad7bdee
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3350:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mFqHawnslpJqYob8FPd3xs0qqEzUx9wHxB0LnSOCMBtAXb4FYRt7sgheml8s2S21qZLE9TuS6BTTe3wAJl/krEZTQvkca4v/DtLwB5PpSmHpO/ttuOn7c4vCYuo0IIaQP+59NLQceqWZMhrTMt4VNrowrXHZVdhW609CPCNObN1gFbqeajbDyeBSXKdWGT/JXgHKzDIIN5TeBH4wwmY1RtQ+6xHxyNWfUPtBFb6CU9QDjgbtWj/AmmHXVZMZ70gorck9aRq6HvZ40nxzA1SIiAbd0uBCTZcPAlCkqq3EFRPlESeSMiHAZUD74yMEw1nk1etx4vlj3wwAZxrQd1AdhhQ7gxSCnGqm8LXBDbaabI90SneCKD2Ol7sSTZlAvo1HPRb5VW6xqwrjm6xxU5TXmY4UukqgRnPQDX9wSH8SKnfVSQd1pi22wuM1CukxYxTXhP2ARbxlIRkYF2r/nirb9c07Tk5bcLHfHRvuG9WgSpcvmmvAh+D3sZlQqQ8sFLElgARcbDbFBXkkMVXLdmpis17F/IHsR3sAymuf8tbb3E1zccNCr4I6SswJjnpAD9VnBKtSzKmA6b3SWiyrZP8KvuzQn2+rfTMFGKr/O+fRCZN8lDeBT7tT4GY579GX7igRDNS+Qg7GWNTeM8Z1uPbfXr1KfiJEFrDOA+0YLzu3kmXCd8ieXnHeJcvAc6EMfmMQ73d7kV/lNj+NGTvSrsqbISUSqlBseCVkmWN1F7DgBx0wU8V6e4UUHovBtD5S2H0IFZCEJ2iMyeDcGj+TNloDWSif9W1iDgdOcGf94gyC65X8l2OUDnWHPF5b8FkzWBFvmFjeqzw5s1/y2TIJKoONJePFDKdMOYuMXQVVaGJKv+o=
+X-Microsoft-Antispam-Message-Info: GcnaBA8JJ1CtAAItyOcAdRcgPuj2T1AWtVa4gtn7PxBI09CWsy2DEd4KZ7hgzMc7ADJD2FSX5xK081DAWe2zpOF5JMTXV7V+OPoiTF3UKO1iEy85Av0ihBXpjSpCtoHU347Mhd5fIw2LLV+RUPwfagZLcp2IbsQYlgftHik/9/2fZzNU6JlldsZaMh00NUjIBROKn3jj97yp3SDa8L6WT/TVJervCJBpks41N2gHHFpe4Gp+ITLcGZUiMe5O0/BfHD2pydPrD+4A2DQWHa1MoaNqsQKNOAGiuVeCgez8zVgnGfaPpjP9212RyiSIimWRmhWVUaEMGS9vhf5+Qz9ggk1e3bbuduwy2gQIGfE47hrCA78u9h++7CceAUOVoh5Ocu1n6HznNHnjqb1bNug6DBCWRr4Z8ZPi+lQuCON81JgbvyXOip48GiOB3g2UIE35fAjGcRKfhIInCs9S89iV/CbmutQ0Rg+7ZOXlYjS/MNXFnRlSP2gfyWaR16ebNZmIR+i01zvI+HQkZhhJJbLb2L/nwTyYyFxAVH6+Fyax1sTwk4x64Bv5IqjmDjEv0srzis8kbB49/HiUz0lNgfFaj9oTTWYUT566pop8GAw6vFa9+NdTfy698Hi0pH3hWQXQJDmVz99qiDt03hClU2TnBSuOTjsMl1AIp1F9BJwubFFxSWrjql27fLw07nFS5cJgsnOU8p2MDuI+MtNuvMsFF79HBcBHCtiCfAvnE4I+3lC6Gm+AgncIxn9ZuhAHizbsy6T99hx9+cwqs9k0kEYzSqhYWRqvI3Pnxj7ngrpLHWumuGQ0gbAENSD1nzHkyffQbDvvqhLXoUZgOlVRRtMQFS5SC2nXwyfjEwZHKb0P9P4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(39860400002)(376002)(396003)(36840700001)(46966006)(40470700004)(54906003)(19627235002)(82310400005)(6666004)(70586007)(36860700001)(2616005)(316002)(7696005)(40460700003)(36756003)(6916009)(26005)(41300700001)(82740400003)(2906002)(81166007)(5660300002)(1076003)(4326008)(40480700001)(8676002)(70206006)(478600001)(186003)(356005)(426003)(83380400001)(47076005)(16526019)(336012)(30864003)(8936002)(86362001)(36900700001)(559001)(579004)(44824005);
+ SFS:(13230016)(4636009)(39860400002)(346002)(376002)(396003)(136003)(40470700004)(36840700001)(46966006)(40480700001)(86362001)(356005)(186003)(82740400003)(8676002)(83380400001)(1076003)(81166007)(41300700001)(47076005)(30864003)(478600001)(36756003)(7696005)(426003)(19627235002)(16526019)(336012)(26005)(6666004)(2616005)(54906003)(70206006)(5660300002)(4326008)(36860700001)(8936002)(6916009)(316002)(40460700003)(82310400005)(2906002)(70586007)(36900700001)(579004)(44824005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 05:13:23.3565 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0194bc1a-3c57-49b3-d079-08da6ad7bc35
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 05:13:26.2313 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8eab003-3646-4222-db0a-08da6ad7bdee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4807
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3350
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,924 +105,849 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move additional dummy structures off the stack and into
-the dummy vars structure.
-
-Fixes the following:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1659:1: error: the frame size of 2144 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
- 1659 | }
-      | ^
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'dml32_ModeSupportAndSystemConfigurationFull':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:3799:1: error: the frame size of 2464 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
- 3799 | } // ModeSupportAndSystemConfigurationFull
-      | ^
-
-v2: move more stuff to dummy structure, fix init order (Alex)
+Move stack variables to dummy structure.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: Stephen Rothwell <sfr@canb.auug.org.au>
 ---
- .../dc/dml/dcn32/display_mode_vba_32.c        | 411 ++++++++----------
- .../drm/amd/display/dc/dml/display_mode_vba.h |  36 ++
- 2 files changed, 217 insertions(+), 230 deletions(-)
+ .../dc/dml/dcn32/display_mode_vba_32.c        |   5 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   | 394 ++++++++----------
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |   1 +
+ .../drm/amd/display/dc/dml/display_mode_vba.h |  38 ++
+ 4 files changed, 227 insertions(+), 211 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index e9204c711cb9..9c2003fbe8fa 100644
+index f7d108123b07..db3e43499a26 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -65,6 +65,12 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	int iteration;
- 	double MaxTotalRDBandwidth;
- 	unsigned int NextPrefetchMode;
-+	double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
-+	bool DestinationLineTimesForPrefetchLessThan2 = false;
-+	bool VRatioPrefetchMoreThanMax = false;
-+	double TWait;
-+	double TotalWRBandwidth = 0;
-+	double WRBandwidth = 0;
- 
- #ifdef __DML_VBA_DEBUG__
- 	dml_print("DML::%s: --- START ---\n", __func__);
-@@ -710,11 +716,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	NextPrefetchMode = mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb];
- 
- 	do {
--		double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
--		bool DestinationLineTimesForPrefetchLessThan2 = false;
--		bool VRatioPrefetchMoreThanMax = false;
--		double dummy_unit_vector[DC__NUM_DPP__MAX];
--
- 		MaxTotalRDBandwidth = 0;
- #ifdef __DML_VBA_DEBUG__
- 		dml_print("DML::%s: Start loop: VStartup = %d\n", __func__, mode_lib->vba.VStartupLines);
-@@ -723,41 +724,39 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			/* NOTE PerfetchMode variable is invalid in DAL as per the input received.
- 			 * Hence the direction is to use PrefetchModePerState.
- 			 */
--			double TWait = dml32_CalculateTWait(
--					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
--					mode_lib->vba.UsesMALLForPStateChange[k],
--					mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
--					mode_lib->vba.DRRDisplay[k],
--					mode_lib->vba.DRAMClockChangeLatency,
--					mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
--					mode_lib->vba.SREnterPlusExitTime);
--
--			DmlPipe myPipe;
--
--			myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
--			myPipe.Dispclk = mode_lib->vba.DISPCLK;
--			myPipe.PixelClock = mode_lib->vba.PixelClock[k];
--			myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
--			myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
--			myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
--			myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
--			myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
--			myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
--			myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
--			myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
--			myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
--			myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
--			myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
--			myPipe.HTotal = mode_lib->vba.HTotal[k];
--			myPipe.HActive = mode_lib->vba.HActive[k];
--			myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
--			myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
--			myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
--			myPipe.BytePerPixelY = v->BytePerPixelY[k];
--			myPipe.BytePerPixelC = v->BytePerPixelC[k];
--			myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
-+			TWait = dml32_CalculateTWait(
-+				mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
-+				mode_lib->vba.UsesMALLForPStateChange[k],
-+				mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
-+				mode_lib->vba.DRRDisplay[k],
-+				mode_lib->vba.DRAMClockChangeLatency,
-+				mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
-+				mode_lib->vba.SREnterPlusExitTime);
-+
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dispclk = mode_lib->vba.DISPCLK;
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HTotal = mode_lib->vba.HTotal[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HActive = mode_lib->vba.HActive[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelY = v->BytePerPixelY[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelC = v->BytePerPixelC[k];
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
- 			v->ErrorResult[k] = dml32_CalculatePrefetchSchedule(v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.HostVMInefficiencyFactor,
--					&myPipe, v->DSCDelay[k],
-+					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe, v->DSCDelay[k],
+@@ -757,7 +757,9 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelY = v->BytePerPixelY[k];
+ 			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelC = v->BytePerPixelC[k];
+ 			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
+-			v->ErrorResult[k] = dml32_CalculatePrefetchSchedule(v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.HostVMInefficiencyFactor,
++			v->ErrorResult[k] = dml32_CalculatePrefetchSchedule(
++					&v->dummy_vars.dml32_CalculatePrefetchSchedule,
++					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.HostVMInefficiencyFactor,
+ 					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe, v->DSCDelay[k],
  					mode_lib->vba.DPPCLKDelaySubtotal + mode_lib->vba.DPPCLKDelayCNVCFormater,
  					mode_lib->vba.DPPCLKDelaySCL,
- 					mode_lib->vba.DPPCLKDelaySCLLBOnly,
-@@ -906,8 +905,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- #endif
- 
- 		{
--			double dummy_single[1];
--
- 			dml32_CalculatePrefetchBandwithSupport(
- 					mode_lib->vba.NumberOfActiveSurfaces,
- 					mode_lib->vba.ReturnBW,
-@@ -931,16 +928,14 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 					/* output */
- 					&MaxTotalRDBandwidth,
--					&dummy_single[0],
-+					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
- 					&v->PrefetchModeSupported);
- 		}
- 
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k)
--			dummy_unit_vector[k] = 1.0;
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector[k] = 1.0;
- 
- 		{
--			double  dummy_single[1];
--			bool dummy_boolean[1];
- 			dml32_CalculatePrefetchBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
- 					mode_lib->vba.ReturnBW,
- 					v->NoUrgentLatencyHidingPre,
-@@ -954,17 +949,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 					v->cursor_bw_pre,
- 					v->prefetch_vmrow_bw,
- 					mode_lib->vba.DPPPerPlane,
--					dummy_unit_vector,
--					dummy_unit_vector,
--					dummy_unit_vector,
--					dummy_unit_vector,
--					dummy_unit_vector,
--					dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
- 
- 					/* output */
--					&dummy_single[0],
-+					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
- 					&v->FractionOfUrgentBandwidth,
--					&dummy_boolean[0]);
-+					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);
- 		}
- 
- 		if (VRatioPrefetchMoreThanMax != false || DestinationLineTimesForPrefetchLessThan2 != false) {
-@@ -1047,8 +1042,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			}
- 
- 			{
--				double  dummy_single[2];
--				bool dummy_boolean[1];
- 				dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
- 						mode_lib->vba.ReturnBW,
- 						mode_lib->vba.ImmediateFlipRequirement,
-@@ -1072,7 +1065,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 						/* output */
- 						&v->total_dcn_read_bw_with_flip,    // Single  *TotalBandwidth
--						&dummy_single[0],                        // Single  *FractionOfUrgentBandwidth
-+						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],                        // Single  *FractionOfUrgentBandwidth
- 						&v->ImmediateFlipSupported);        // Boolean *ImmediateFlipBandwidthSupport
- 
- 				dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
-@@ -1089,17 +1082,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 						v->cursor_bw_pre,
- 						v->prefetch_vmrow_bw,
- 						mode_lib->vba.DPPPerPlane,
--						dummy_unit_vector,
--						dummy_unit_vector,
--						dummy_unit_vector,
--						dummy_unit_vector,
--						dummy_unit_vector,
--						dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
-+						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
- 
- 						/* output */
--						&dummy_single[1],                                // Single  *TotalBandwidth
-+						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[1],                                // Single  *TotalBandwidth
- 						&v->FractionOfUrgentBandwidthImmediateFlip, // Single  *FractionOfUrgentBandwidth
--						&dummy_boolean[0]);                              // Boolean *ImmediateFlipBandwidthSupport
-+						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);                              // Boolean *ImmediateFlipBandwidthSupport
- 			}
- 
- 			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
-@@ -1157,22 +1150,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 	//Watermarks and NB P-State/DRAM Clock Change Support
- 	{
--		SOCParametersList mmSOCParameters;
--		enum clock_change_support dummy_dramchange_support;
--		enum dm_fclock_change_support dummy_fclkchange_support;
--		bool dummy_USRRetrainingSupport;
--
--		mmSOCParameters.UrgentLatency = v->UrgentLatency;
--		mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
--		mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
--		mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
--		mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
--		mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
--		mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
--		mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
--		mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
--		mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
--		mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.UrgentLatency = v->UrgentLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
-+		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
- 
- 		dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
- 			mode_lib->vba.USRRetrainingRequiredFinal,
-@@ -1190,7 +1178,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			v->dpte_group_bytes,
- 			v->meta_row_height,
- 			v->meta_row_height_chroma,
--			mmSOCParameters,
-+			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
- 			mode_lib->vba.WritebackChunkSize,
- 			mode_lib->vba.SOCCLK,
- 			v->DCFCLKDeepSleep,
-@@ -1227,12 +1215,12 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 			/* Output */
- 			&v->Watermark,
--			&dummy_dramchange_support,
-+			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_dramchange_support,
- 			v->MaxActiveDRAMClockChangeLatencySupported,
- 			v->SubViewportLinesNeededInMALL,
--			&dummy_fclkchange_support,
-+			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_fclkchange_support,
- 			&v->MinActiveFCLKChangeLatencySupported,
--			&dummy_USRRetrainingSupport,
-+			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_USRRetrainingSupport,
- 			mode_lib->vba.ActiveDRAMClockChangeLatencyMargin);
- 
- 		/* DCN32 has a new struct Watermarks (typedef) which is used to store
-@@ -1494,9 +1482,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- 	{
- 		//Maximum Bandwidth Used
--		double TotalWRBandwidth = 0;
--		double WRBandwidth = 0;
--
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.WritebackEnable[k] == true
- 					&& mode_lib->vba.WritebackPixelFormat[k] == dm_444_32) {
-@@ -1590,9 +1575,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- #ifdef __DML_VBA_ALLOW_DELTA__
- 	{
--		double dummy_single[2];
- 		unsigned int dummy_integer[1];
--		bool dummy_boolean[1];
- 
- 		// Calculate z8 stutter eff assuming 0 reserved space
- 		dml32_CalculateStutterEfficiency(v->CompressedBufferSizeInkByte,
-@@ -1645,14 +1628,14 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 				v->meta_row_bw, v->dpte_row_bw,
- 
- 				/* Output */
--				&dummy_single[0],
--				&dummy_single[1],
-+				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
-+				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[1],
- 				&dummy_integer[0],
- 				&v->Z8StutterEfficiencyNotIncludingVBlankBestCase,
- 				&v->Z8StutterEfficiencyBestCase,
- 				&v->Z8NumberOfStutterBurstsPerFrameBestCase,
- 				&v->StutterPeriodBestCase,
--				&dummy_boolean[0]);
-+				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);
- 	}
- #else
- 	v->Z8StutterEfficiencyNotIncludingVBlankBestCase = v->Z8StutterEfficiencyNotIncludingVBlank;
-@@ -1668,32 +1651,18 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 
- void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
- {
--	unsigned int dummy_integer[4];
--	bool dummy_boolean[2];
--	bool MPCCombineMethodAsNeededForPStateChangeAndVoltage;
--	bool MPCCombineMethodAsPossible;
--	enum odm_combine_mode dummy_odm_mode[DC__NUM_DPP__MAX];
--	unsigned int TotalNumberOfActiveOTG;
--	unsigned int TotalNumberOfActiveHDMIFRL;
--	unsigned int TotalNumberOfActiveDP2p0;
--	unsigned int TotalNumberOfActiveDP2p0Outputs;
--	unsigned int TotalDSCUnitsRequired;
--	unsigned int m;
--	unsigned int ReorderingBytes;
--	bool FullFrameMALLPStateMethod;
--	bool SubViewportMALLPStateMethod;
--	bool PhantomPipeMALLPStateMethod;
-+	struct vba_vars_st *v = &mode_lib->vba;
-+	int i, j;
-+	unsigned int k, m;
- 	unsigned int MaximumMPCCombine;
-+	unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth;
-+	unsigned int TotalSlots;
- 	bool CompBufReservedSpaceNeedAdjustment;
- 	bool CompBufReservedSpaceNeedAdjustmentSingleDPP;
- 
- #ifdef __DML_VBA_DEBUG__
- 	dml_print("DML::%s: called\n", __func__);
- #endif
--	struct vba_vars_st *v = &mode_lib->vba;
--
--	int i, j;
--	unsigned int k;
- 
- 	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
- 
-@@ -1945,7 +1914,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			mode_lib->vba.Read256BlockHeightC,
- 			mode_lib->vba.Read256BlockWidthY,
- 			mode_lib->vba.Read256BlockWidthC,
--			dummy_odm_mode,
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_odm_mode,
- 			mode_lib->vba.BlendingAndTiming,
- 			mode_lib->vba.BytePerPixelY,
- 			mode_lib->vba.BytePerPixelC,
-@@ -1973,35 +1942,26 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			mode_lib->vba.SingleDPPViewportSizeSupportPerSurface,/* bool ViewportSizeSupportPerSurface[] */
- 			&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[1][0]); /* bool           *ViewportSizeSupport */
- 
--	MPCCombineMethodAsNeededForPStateChangeAndVoltage = false;
--	MPCCombineMethodAsPossible = false;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage = false;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible = false;
- 
- 	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 		if (mode_lib->vba.MPCCombineUse[k] == dm_mpc_reduce_voltage_and_clocks)
--			MPCCombineMethodAsNeededForPStateChangeAndVoltage = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage = true;
- 		if (mode_lib->vba.MPCCombineUse[k] == dm_mpc_always_when_possible)
--			MPCCombineMethodAsPossible = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible = true;
- 	}
--	mode_lib->vba.MPCCombineMethodIncompatible = MPCCombineMethodAsNeededForPStateChangeAndVoltage
--			&& MPCCombineMethodAsPossible;
-+	mode_lib->vba.MPCCombineMethodIncompatible = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage
-+			&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible;
- 
- 	for (i = 0; i < v->soc.num_states; i++) {
- 		for (j = 0; j < 2; j++) {
--			bool NoChroma;
- 			mode_lib->vba.TotalNumberOfActiveDPP[i][j] = 0;
- 			mode_lib->vba.TotalAvailablePipesSupport[i][j] = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC = dm_odm_combine_mode_disabled;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC = dm_odm_combine_mode_disabled;
- 
- 			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
--
--				bool TotalAvailablePipesSupportNoDSC;
--				unsigned int NumberOfDPPNoDSC;
--				enum odm_combine_mode ODMModeNoDSC = dm_odm_combine_mode_disabled;
--				double RequiredDISPCLKPerSurfaceNoDSC;
--				bool TotalAvailablePipesSupportDSC;
--				unsigned int NumberOfDPPDSC;
--				enum odm_combine_mode ODMModeDSC = dm_odm_combine_mode_disabled;
--				double RequiredDISPCLKPerSurfaceDSC;
--
- 				dml32_CalculateODMMode(
- 						mode_lib->vba.MaximumPixelsPerLinePerDSCUnit,
- 						mode_lib->vba.HActive[k],
-@@ -2018,10 +1978,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						mode_lib->vba.DISPCLKDPPCLKVCOSpeed,
- 
- 						/* Output */
--						&TotalAvailablePipesSupportNoDSC,
--						&NumberOfDPPNoDSC,
--						&ODMModeNoDSC,
--						&RequiredDISPCLKPerSurfaceNoDSC);
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportNoDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPNoDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceNoDSC);
- 
- 				dml32_CalculateODMMode(
- 						mode_lib->vba.MaximumPixelsPerLinePerDSCUnit,
-@@ -2039,10 +1999,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						mode_lib->vba.DISPCLKDPPCLKVCOSpeed,
- 
- 						/* Output */
--						&TotalAvailablePipesSupportDSC,
--						&NumberOfDPPDSC,
--						&ODMModeDSC,
--						&RequiredDISPCLKPerSurfaceDSC);
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC,
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceDSC);
- 
- 				dml32_CalculateOutputLink(
- 						mode_lib->vba.PHYCLKPerState[i],
-@@ -2060,8 +2020,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						mode_lib->vba.NumberOfDSCSlices[k],
- 						mode_lib->vba.AudioSampleRate[k],
- 						mode_lib->vba.AudioSampleLayout[k],
--						ODMModeNoDSC,
--						ODMModeDSC,
-+						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC,
-+						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC,
- 						mode_lib->vba.DSCEnable[k],
- 						mode_lib->vba.OutputLinkDPLanes[k],
- 						mode_lib->vba.OutputLinkDPRate[k],
-@@ -2075,21 +2035,21 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						&mode_lib->vba.RequiredSlots[i][k]);
- 
- 				if (mode_lib->vba.RequiresDSC[i][k] == false) {
--					mode_lib->vba.ODMCombineEnablePerState[i][k] = ODMModeNoDSC;
-+					mode_lib->vba.ODMCombineEnablePerState[i][k] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC;
- 					mode_lib->vba.RequiredDISPCLKPerSurface[i][j][k] =
--							RequiredDISPCLKPerSurfaceNoDSC;
--					if (!TotalAvailablePipesSupportNoDSC)
-+							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceNoDSC;
-+					if (!v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportNoDSC)
- 						mode_lib->vba.TotalAvailablePipesSupport[i][j] = false;
- 					mode_lib->vba.TotalNumberOfActiveDPP[i][j] =
--							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + NumberOfDPPNoDSC;
-+							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPNoDSC;
- 				} else {
--					mode_lib->vba.ODMCombineEnablePerState[i][k] = ODMModeDSC;
-+					mode_lib->vba.ODMCombineEnablePerState[i][k] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC;
- 					mode_lib->vba.RequiredDISPCLKPerSurface[i][j][k] =
--							RequiredDISPCLKPerSurfaceDSC;
--					if (!TotalAvailablePipesSupportDSC)
-+							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceDSC;
-+					if (!v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportDSC)
- 						mode_lib->vba.TotalAvailablePipesSupport[i][j] = false;
- 					mode_lib->vba.TotalNumberOfActiveDPP[i][j] =
--							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + NumberOfDPPDSC;
-+							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPDSC;
- 				}
- 			}
- 
-@@ -2124,7 +2084,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			}
- 
- 			mode_lib->vba.TotalNumberOfSingleDPPSurfaces[i][j] = 0;
--			NoChroma = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma = true;
- 
- 			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 				if (mode_lib->vba.NoOfDPP[i][j][k] == 1)
-@@ -2134,7 +2094,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						|| mode_lib->vba.SourcePixelFormat[k] == dm_420_10
- 						|| mode_lib->vba.SourcePixelFormat[k] == dm_420_12
- 						|| mode_lib->vba.SourcePixelFormat[k] == dm_rgbe_alpha) {
--					NoChroma = false;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma = false;
- 				}
- 			}
- 
-@@ -2145,15 +2105,15 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 
- 			if (j == 1 && !dml32_UnboundedRequest(mode_lib->vba.UseUnboundedRequesting,
--					mode_lib->vba.TotalNumberOfActiveDPP[i][j], NoChroma,
-+					mode_lib->vba.TotalNumberOfActiveDPP[i][j], v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma,
- 					mode_lib->vba.Output[0],
- 					mode_lib->vba.SurfaceTiling[0],
- 					CompBufReservedSpaceNeedAdjustment,
- 					mode_lib->vba.DisableUnboundRequestIfCompBufReservedSpaceNeedAdjustment)) {
- 				while (!(mode_lib->vba.TotalNumberOfActiveDPP[i][j] >= mode_lib->vba.MaxNumDPP
- 						|| mode_lib->vba.TotalNumberOfSingleDPPSurfaces[i][j] == 0)) {
--					double BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
--					unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
-+					NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
- 
- 					for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 						if (mode_lib->vba.MPCCombineUse[k]
-@@ -2161,13 +2121,13 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							mode_lib->vba.MPCCombineUse[k] != dm_mpc_reduce_voltage &&
- 							mode_lib->vba.ReadBandwidthLuma[k] +
- 							mode_lib->vba.ReadBandwidthChroma[k] >
--							BWOfNonCombinedSurfaceOfMaximumBandwidth &&
-+							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth &&
- 							(mode_lib->vba.ODMCombineEnablePerState[i][k] !=
- 							dm_odm_combine_mode_2to1 &&
- 							mode_lib->vba.ODMCombineEnablePerState[i][k] !=
- 							dm_odm_combine_mode_4to1) &&
- 								mode_lib->vba.MPCCombine[i][j][k] == false) {
--							BWOfNonCombinedSurfaceOfMaximumBandwidth =
-+							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth =
- 								mode_lib->vba.ReadBandwidthLuma[k]
- 								+ mode_lib->vba.ReadBandwidthChroma[k];
- 							NumberOfNonCombinedSurfaceOfMaximumBandwidth = k;
-@@ -2233,28 +2193,28 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	} // i (VOLTAGE_STATE)
- 
- 	/* Total Available OTG, HDMIFRL, DP Support Check */
--	TotalNumberOfActiveOTG = 0;
--	TotalNumberOfActiveHDMIFRL = 0;
--	TotalNumberOfActiveDP2p0 = 0;
--	TotalNumberOfActiveDP2p0Outputs = 0;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG = 0;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveHDMIFRL = 0;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 = 0;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs = 0;
- 
- 	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 		if (mode_lib->vba.BlendingAndTiming[k] == k) {
--			TotalNumberOfActiveOTG = TotalNumberOfActiveOTG + 1;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG + 1;
- 			if (mode_lib->vba.Output[k] == dm_dp2p0) {
--				TotalNumberOfActiveDP2p0 = TotalNumberOfActiveDP2p0 + 1;
-+				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 + 1;
- 				if (mode_lib->vba.OutputMultistreamId[k]
- 						== k || mode_lib->vba.OutputMultistreamEn[k] == false) {
--					TotalNumberOfActiveDP2p0Outputs = TotalNumberOfActiveDP2p0Outputs + 1;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs + 1;
- 				}
- 			}
- 		}
- 	}
- 
--	mode_lib->vba.NumberOfOTGSupport = (TotalNumberOfActiveOTG <= mode_lib->vba.MaxNumOTG);
--	mode_lib->vba.NumberOfHDMIFRLSupport = (TotalNumberOfActiveHDMIFRL <= mode_lib->vba.MaxNumHDMIFRLOutputs);
--	mode_lib->vba.NumberOfDP2p0Support = (TotalNumberOfActiveDP2p0 <= mode_lib->vba.MaxNumDP2p0Streams
--			&& TotalNumberOfActiveDP2p0Outputs <= mode_lib->vba.MaxNumDP2p0Outputs);
-+	mode_lib->vba.NumberOfOTGSupport = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG <= mode_lib->vba.MaxNumOTG);
-+	mode_lib->vba.NumberOfHDMIFRLSupport = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveHDMIFRL <= mode_lib->vba.MaxNumHDMIFRLOutputs);
-+	mode_lib->vba.NumberOfDP2p0Support = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 <= mode_lib->vba.MaxNumDP2p0Streams
-+			&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs <= mode_lib->vba.MaxNumDP2p0Outputs);
- 
- 	/* Display IO and DSC Support Check */
- 	mode_lib->vba.NonsupportedDSCInputBPC = false;
-@@ -2269,8 +2229,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 
- 	for (i = 0; i < v->soc.num_states; ++i) {
--		unsigned int TotalSlots;
--
- 		mode_lib->vba.ExceededMultistreamSlots[i] = false;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.OutputMultistreamEn[k] == true && mode_lib->vba.OutputMultistreamId[k] == k) {
-@@ -2441,12 +2399,12 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 
- 	/* Check DSC Unit and Slices Support */
--	TotalDSCUnitsRequired = 0;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
- 
- 	for (i = 0; i < v->soc.num_states; ++i) {
- 		mode_lib->vba.NotEnoughDSCUnits[i] = false;
- 		mode_lib->vba.NotEnoughDSCSlices[i] = false;
--		TotalDSCUnitsRequired = 0;
-+		v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
- 		mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = true;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.RequiresDSC[i][k] == true) {
-@@ -2454,33 +2412,31 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					if (mode_lib->vba.HActive[k]
- 							> 4 * mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
- 						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
--					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 4;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 4;
- 					if (mode_lib->vba.NumberOfDSCSlices[k] > 16)
- 						mode_lib->vba.NotEnoughDSCSlices[i] = true;
- 				} else if (mode_lib->vba.ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1) {
- 					if (mode_lib->vba.HActive[k]
- 							> 2 * mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
- 						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
--					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 2;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 2;
- 					if (mode_lib->vba.NumberOfDSCSlices[k] > 8)
- 						mode_lib->vba.NotEnoughDSCSlices[i] = true;
- 				} else {
- 					if (mode_lib->vba.HActive[k] > mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
- 						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
--					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 1;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 1;
- 					if (mode_lib->vba.NumberOfDSCSlices[k] > 4)
- 						mode_lib->vba.NotEnoughDSCSlices[i] = true;
- 				}
- 			}
- 		}
--		if (TotalDSCUnitsRequired > mode_lib->vba.NumberOfDSC)
-+		if (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired > mode_lib->vba.NumberOfDSC)
- 			mode_lib->vba.NotEnoughDSCUnits[i] = true;
- 	}
- 
- 	/*DSC Delay per state*/
- 	for (i = 0; i < v->soc.num_states; ++i) {
--		unsigned int m;
--
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			mode_lib->vba.DSCDelayPerState[i][k] = dml32_DSCDelayRequirement(
- 					mode_lib->vba.RequiresDSC[i][k], mode_lib->vba.ODMCombineEnablePerState[i][k],
-@@ -2576,8 +2532,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					mode_lib->vba.DETBufferSizeCThisState,
- 					&mode_lib->vba.UnboundedRequestEnabledThisState,
- 					&mode_lib->vba.CompressedBufferSizeInkByteThisState,
--					&dummy_integer[0], /* Long CompBufReservedSpaceKBytes */
--					&dummy_boolean[0], /* bool CompBufReservedSpaceNeedAdjustment */
-+					&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer[0], /* Long CompBufReservedSpaceKBytes */
-+					&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean[0], /* bool CompBufReservedSpaceNeedAdjustment */
- 					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[0],
- 					&mode_lib->vba.ViewportSizeSupport[i][j]);
- 
-@@ -2942,7 +2898,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		}
- 	}
- 
--	ReorderingBytes = mode_lib->vba.NumberOfChannels
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes = mode_lib->vba.NumberOfChannels
- 			* dml_max3(mode_lib->vba.UrgentOutOfOrderReturnPerChannelPixelDataOnly,
- 					mode_lib->vba.UrgentOutOfOrderReturnPerChannelPixelMixedWithVMData,
- 					mode_lib->vba.UrgentOutOfOrderReturnPerChannelVMDataOnly);
-@@ -2998,20 +2954,20 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			&& (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_full_frame));
- 	}
- 
--	FullFrameMALLPStateMethod = false;
--	SubViewportMALLPStateMethod = false;
--	PhantomPipeMALLPStateMethod = false;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod = false;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod = false;
-+	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod = false;
- 
- 	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_full_frame)
--			FullFrameMALLPStateMethod = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod = true;
- 		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_sub_viewport)
--			SubViewportMALLPStateMethod = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod = true;
- 		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_phantom_pipe)
--			PhantomPipeMALLPStateMethod = true;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod = true;
- 	}
--	mode_lib->vba.InvalidCombinationOfMALLUseForPState = (SubViewportMALLPStateMethod
--			!= PhantomPipeMALLPStateMethod) || (SubViewportMALLPStateMethod && FullFrameMALLPStateMethod);
-+	mode_lib->vba.InvalidCombinationOfMALLUseForPState = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod
-+			!= v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod) || (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod && v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod);
- 
- 	if (mode_lib->vba.UseMinimumRequiredDCFCLK == true) {
- 		dml32_UseMinimumDCFCLK(
-@@ -3025,7 +2981,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				mode_lib->vba.SREnterPlusExitTime,
- 				mode_lib->vba.ReturnBusWidth,
- 				mode_lib->vba.RoundTripPingLatencyCycles,
--				ReorderingBytes,
-+				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes,
- 				mode_lib->vba.PixelChunkSizeInKByte,
- 				mode_lib->vba.MetaChunkSize,
- 				mode_lib->vba.GPUVMEnable,
-@@ -3088,7 +3044,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					/ mode_lib->vba.ReturnBWPerState[i][j]
- 					> (mode_lib->vba.RoundTripPingLatencyCycles + 32)
- 							/ mode_lib->vba.DCFCLKState[i][j]
--							+ ReorderingBytes / mode_lib->vba.ReturnBWPerState[i][j]) {
-+							+ v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes / mode_lib->vba.ReturnBWPerState[i][j]) {
- 				mode_lib->vba.ROBSupport[i][j] = true;
- 			} else {
- 				mode_lib->vba.ROBSupport[i][j] = false;
-@@ -3130,9 +3086,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	for (i = 0; i < (int) v->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
--			double VMDataOnlyReturnBWPerState;
--			double HostVMInefficiencyFactor;
--			unsigned int NextPrefetchModeState;
- 
- 			mode_lib->vba.TimeCalc = 24 / mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
- 
-@@ -3172,37 +3125,35 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					mode_lib->vba.UrgentBurstFactorChroma,
- 					mode_lib->vba.UrgentBurstFactorCursor);
- 
--			VMDataOnlyReturnBWPerState = dml32_get_return_bw_mbps_vm_only(&mode_lib->vba.soc, i,
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.VMDataOnlyReturnBWPerState = dml32_get_return_bw_mbps_vm_only(&mode_lib->vba.soc, i,
- 					mode_lib->vba.DCFCLKState[i][j], mode_lib->vba.FabricClockPerState[i],
- 					mode_lib->vba.DRAMSpeedPerState[i]);
--			HostVMInefficiencyFactor = 1;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor = 1;
- 
- 			if (mode_lib->vba.GPUVMEnable && mode_lib->vba.HostVMEnable)
--				HostVMInefficiencyFactor = mode_lib->vba.ReturnBWPerState[i][j]
--						/ VMDataOnlyReturnBWPerState;
-+				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor = mode_lib->vba.ReturnBWPerState[i][j]
-+						/ v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.VMDataOnlyReturnBWPerState;
- 
- 			mode_lib->vba.ExtraLatency = dml32_CalculateExtraLatency(
--					mode_lib->vba.RoundTripPingLatencyCycles, ReorderingBytes,
-+					mode_lib->vba.RoundTripPingLatencyCycles, v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes,
- 					mode_lib->vba.DCFCLKState[i][j], mode_lib->vba.TotalNumberOfActiveDPP[i][j],
- 					mode_lib->vba.PixelChunkSizeInKByte,
- 					mode_lib->vba.TotalNumberOfDCCActiveDPP[i][j], mode_lib->vba.MetaChunkSize,
- 					mode_lib->vba.ReturnBWPerState[i][j], mode_lib->vba.GPUVMEnable,
- 					mode_lib->vba.HostVMEnable, mode_lib->vba.NumberOfActiveSurfaces,
- 					mode_lib->vba.NoOfDPPThisState, mode_lib->vba.dpte_group_bytes,
--					HostVMInefficiencyFactor, mode_lib->vba.HostVMMinPageSize,
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor, mode_lib->vba.HostVMMinPageSize,
- 					mode_lib->vba.HostVMMaxNonCachedPageTableLevels);
- 
--			NextPrefetchModeState = mode_lib->vba.MinPrefetchMode;
-+			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState = mode_lib->vba.MinPrefetchMode;
- 
- 			mode_lib->vba.NextMaxVStartup = mode_lib->vba.MaxMaxVStartup[i][j];
- 
- 			do {
--				mode_lib->vba.PrefetchModePerState[i][j] = NextPrefetchModeState;
-+				mode_lib->vba.PrefetchModePerState[i][j] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState;
- 				mode_lib->vba.MaxVStartup = mode_lib->vba.NextMaxVStartup;
- 
- 				for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
--					DmlPipe myPipe;
--
- 					mode_lib->vba.TWait = dml32_CalculateTWait(
- 							mode_lib->vba.PrefetchModePerState[i][j],
- 							mode_lib->vba.UsesMALLForPStateChange[k],
-@@ -3212,34 +3163,34 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							mode_lib->vba.FCLKChangeLatency, mode_lib->vba.UrgLatency[i],
- 							mode_lib->vba.SREnterPlusExitTime);
- 
--					myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
--					myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
--					myPipe.PixelClock = mode_lib->vba.PixelClock[k];
--					myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
--					myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
--					myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
--					myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
--					myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
--					myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
--					myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
--					myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
--					myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
--					myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
--					myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
--					myPipe.HTotal = mode_lib->vba.HTotal[k];
--					myPipe.HActive = mode_lib->vba.HActive[k];
--					myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
--					myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
--					myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
--					myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
--					myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
--					myPipe.ProgressiveToInterlaceUnitInOPP =
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HTotal = mode_lib->vba.HTotal[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HActive = mode_lib->vba.HActive[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ProgressiveToInterlaceUnitInOPP =
- 							mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
+@@ -3195,6 +3197,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
  
  					mode_lib->vba.NoTimeForPrefetch[i][j][k] =
  						dml32_CalculatePrefetchSchedule(
--							HostVMInefficiencyFactor,
--							&myPipe,
-+							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor,
-+							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe,
++							&v->dummy_vars.dml32_CalculatePrefetchSchedule,
+ 							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor,
+ 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe,
  							mode_lib->vba.DSCDelayPerState[i][k],
- 							mode_lib->vba.DPPCLKDelaySubtotal +
- 								mode_lib->vba.DPPCLKDelayCNVCFormater,
-@@ -3298,7 +3249,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[0],         // double *Tdmdl_vm
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[1],         // double *Tdmdl
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[2],         // double *TSetup
--							&dummy_integer[0],         							    // unsigned int   *VUpdateOffsetPix
-+							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer[0],         							    // unsigned int   *VUpdateOffsetPix
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[3],         // unsigned int   *VUpdateWidthPix
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[4]);        // unsigned int   *VReadyOffsetPix
- 				}
-@@ -3427,7 +3378,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index 40b4c88ff2e7..4b010b1b8aed 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -3342,6 +3342,7 @@ double dml32_CalculateExtraLatency(
+ } // CalculateExtraLatency
  
- 					for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
--						dml32_CalculateFlipSchedule(HostVMInefficiencyFactor,
-+						dml32_CalculateFlipSchedule(v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor,
- 							mode_lib->vba.ExtraLatency,
- 							mode_lib->vba.UrgLatency[i],
- 							mode_lib->vba.GPUVMMaxPageTableLevels,
-@@ -3501,7 +3452,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				if (mode_lib->vba.MaxVStartup <= __DML_VBA_MIN_VSTARTUP__
- 						|| mode_lib->vba.AnyLinesForVMOrRowTooLarge == false) {
- 					mode_lib->vba.NextMaxVStartup = mode_lib->vba.MaxMaxVStartup[i][j];
--					NextPrefetchModeState = NextPrefetchModeState + 1;
-+					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState + 1;
+ bool dml32_CalculatePrefetchSchedule(
++		struct dml32_CalculatePrefetchSchedule *st_vars,
+ 		double HostVMInefficiencyFactor,
+ 		DmlPipe *myPipe,
+ 		unsigned int DSCDelay,
+@@ -3405,45 +3406,18 @@ bool dml32_CalculatePrefetchSchedule(
+ 		double   *VReadyOffsetPix)
+ {
+ 	bool MyError = false;
+-	unsigned int DPPCycles, DISPCLKCycles;
+-	double DSTTotalPixelsAfterScaler;
+-	double LineTime;
+-	double dst_y_prefetch_equ;
+-	double prefetch_bw_oto;
+-	double Tvm_oto;
+-	double Tr0_oto;
+-	double Tvm_oto_lines;
+-	double Tr0_oto_lines;
+-	double dst_y_prefetch_oto;
+-	double TimeForFetchingMetaPTE = 0;
+-	double TimeForFetchingRowInVBlank = 0;
+-	double LinesToRequestPrefetchPixelData = 0;
+-	unsigned int HostVMDynamicLevelsTrips;
+-	double  trip_to_mem;
+-	double  Tvm_trips;
+-	double  Tr0_trips;
+-	double  Tvm_trips_rounded;
+-	double  Tr0_trips_rounded;
+-	double  Lsw_oto;
+-	double  Tpre_rounded;
+-	double  prefetch_bw_equ;
+-	double  Tvm_equ;
+-	double  Tr0_equ;
+-	double  Tdmbf;
+-	double  Tdmec;
+-	double  Tdmsks;
+-	double  prefetch_sw_bytes;
+-	double  bytes_pp;
+-	double  dep_bytes;
+-	unsigned int max_vratio_pre = __DML_MAX_VRATIO_PRE__;
+-	double  min_Lsw;
+-	double  Tsw_est1 = 0;
+-	double  Tsw_est3 = 0;
++
++	st_vars->TimeForFetchingMetaPTE = 0;
++	st_vars->TimeForFetchingRowInVBlank = 0;
++	st_vars->LinesToRequestPrefetchPixelData = 0;
++	st_vars->max_vratio_pre = __DML_MAX_VRATIO_PRE__;
++	st_vars->Tsw_est1 = 0;
++	st_vars->Tsw_est3 = 0;
+ 
+ 	if (GPUVMEnable == true && HostVMEnable == true)
+-		HostVMDynamicLevelsTrips = HostVMMaxNonCachedPageTableLevels;
++		st_vars->HostVMDynamicLevelsTrips = HostVMMaxNonCachedPageTableLevels;
+ 	else
+-		HostVMDynamicLevelsTrips = 0;
++		st_vars->HostVMDynamicLevelsTrips = 0;
+ #ifdef __DML_VBA_DEBUG__
+ 	dml_print("DML::%s: GPUVMEnable = %d\n", __func__, GPUVMEnable);
+ 	dml_print("DML::%s: GPUVMPageTableLevels = %d\n", __func__, GPUVMPageTableLevels);
+@@ -3466,19 +3440,19 @@ bool dml32_CalculatePrefetchSchedule(
+ 			TSetup,
+ 
+ 			/* output */
+-			&Tdmbf,
+-			&Tdmec,
+-			&Tdmsks,
++			&st_vars->Tdmbf,
++			&st_vars->Tdmec,
++			&st_vars->Tdmsks,
+ 			VUpdateOffsetPix,
+ 			VUpdateWidthPix,
+ 			VReadyOffsetPix);
+ 
+-	LineTime = myPipe->HTotal / myPipe->PixelClock;
+-	trip_to_mem = UrgentLatency;
+-	Tvm_trips = UrgentExtraLatency + trip_to_mem * (GPUVMPageTableLevels * (HostVMDynamicLevelsTrips + 1) - 1);
++	st_vars->LineTime = myPipe->HTotal / myPipe->PixelClock;
++	st_vars->trip_to_mem = UrgentLatency;
++	st_vars->Tvm_trips = UrgentExtraLatency + st_vars->trip_to_mem * (GPUVMPageTableLevels * (st_vars->HostVMDynamicLevelsTrips + 1) - 1);
+ 
+ 	if (DynamicMetadataVMEnabled == true)
+-		*Tdmdl = TWait + Tvm_trips + trip_to_mem;
++		*Tdmdl = TWait + st_vars->Tvm_trips + st_vars->trip_to_mem;
+ 	else
+ 		*Tdmdl = TWait + UrgentExtraLatency;
+ 
+@@ -3488,15 +3462,15 @@ bool dml32_CalculatePrefetchSchedule(
+ #endif
+ 
+ 	if (DynamicMetadataEnable == true) {
+-		if (VStartup * LineTime < *TSetup + *Tdmdl + Tdmbf + Tdmec + Tdmsks) {
++		if (VStartup * st_vars->LineTime < *TSetup + *Tdmdl + st_vars->Tdmbf + st_vars->Tdmec + st_vars->Tdmsks) {
+ 			*NotEnoughTimeForDynamicMetadata = true;
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: Not Enough Time for Dynamic Meta!\n", __func__);
+ 			dml_print("DML::%s: Tdmbf: %fus - time for dmd transfer from dchub to dio output buffer\n",
+-					__func__, Tdmbf);
+-			dml_print("DML::%s: Tdmec: %fus - time dio takes to transfer dmd\n", __func__, Tdmec);
++					__func__, st_vars->Tdmbf);
++			dml_print("DML::%s: Tdmec: %fus - time dio takes to transfer dmd\n", __func__, st_vars->Tdmec);
+ 			dml_print("DML::%s: Tdmsks: %fus - time before active dmd must complete transmission at dio\n",
+-					__func__, Tdmsks);
++					__func__, st_vars->Tdmsks);
+ 			dml_print("DML::%s: Tdmdl: %fus - time for fabric to become ready and fetch dmd\n",
+ 					__func__, *Tdmdl);
+ #endif
+@@ -3508,21 +3482,21 @@ bool dml32_CalculatePrefetchSchedule(
+ 	}
+ 
+ 	*Tdmdl_vm =  (DynamicMetadataEnable == true && DynamicMetadataVMEnabled == true &&
+-			GPUVMEnable == true ? TWait + Tvm_trips : 0);
++			GPUVMEnable == true ? TWait + st_vars->Tvm_trips : 0);
+ 
+ 	if (myPipe->ScalerEnabled)
+-		DPPCycles = DPPCLKDelaySubtotalPlusCNVCFormater + DPPCLKDelaySCL;
++		st_vars->DPPCycles = DPPCLKDelaySubtotalPlusCNVCFormater + DPPCLKDelaySCL;
+ 	else
+-		DPPCycles = DPPCLKDelaySubtotalPlusCNVCFormater + DPPCLKDelaySCLLBOnly;
++		st_vars->DPPCycles = DPPCLKDelaySubtotalPlusCNVCFormater + DPPCLKDelaySCLLBOnly;
+ 
+-	DPPCycles = DPPCycles + myPipe->NumberOfCursors * DPPCLKDelayCNVCCursor;
++	st_vars->DPPCycles = st_vars->DPPCycles + myPipe->NumberOfCursors * DPPCLKDelayCNVCCursor;
+ 
+-	DISPCLKCycles = DISPCLKDelaySubtotal;
++	st_vars->DISPCLKCycles = DISPCLKDelaySubtotal;
+ 
+ 	if (myPipe->Dppclk == 0.0 || myPipe->Dispclk == 0.0)
+ 		return true;
+ 
+-	*DSTXAfterScaler = DPPCycles * myPipe->PixelClock / myPipe->Dppclk + DISPCLKCycles *
++	*DSTXAfterScaler = st_vars->DPPCycles * myPipe->PixelClock / myPipe->Dppclk + st_vars->DISPCLKCycles *
+ 			myPipe->PixelClock / myPipe->Dispclk + DSCDelay;
+ 
+ 	*DSTXAfterScaler = *DSTXAfterScaler + (myPipe->ODMMode != dm_odm_combine_mode_disabled ? 18 : 0)
+@@ -3532,10 +3506,10 @@ bool dml32_CalculatePrefetchSchedule(
+ 			+ ((myPipe->ODMMode == dm_odm_mode_mso_1to4) ? myPipe->HActive * 3 / 4 : 0);
+ 
+ #ifdef __DML_VBA_DEBUG__
+-	dml_print("DML::%s: DPPCycles: %d\n", __func__, DPPCycles);
++	dml_print("DML::%s: DPPCycles: %d\n", __func__, st_vars->DPPCycles);
+ 	dml_print("DML::%s: PixelClock: %f\n", __func__, myPipe->PixelClock);
+ 	dml_print("DML::%s: Dppclk: %f\n", __func__, myPipe->Dppclk);
+-	dml_print("DML::%s: DISPCLKCycles: %d\n", __func__, DISPCLKCycles);
++	dml_print("DML::%s: DISPCLKCycles: %d\n", __func__, st_vars->DISPCLKCycles);
+ 	dml_print("DML::%s: DISPCLK: %f\n", __func__,  myPipe->Dispclk);
+ 	dml_print("DML::%s: DSCDelay: %d\n", __func__,  DSCDelay);
+ 	dml_print("DML::%s: ODMMode: %d\n", __func__,  myPipe->ODMMode);
+@@ -3548,9 +3522,9 @@ bool dml32_CalculatePrefetchSchedule(
+ 	else
+ 		*DSTYAfterScaler = 0;
+ 
+-	DSTTotalPixelsAfterScaler = *DSTYAfterScaler * myPipe->HTotal + *DSTXAfterScaler;
+-	*DSTYAfterScaler = dml_floor(DSTTotalPixelsAfterScaler / myPipe->HTotal, 1);
+-	*DSTXAfterScaler = DSTTotalPixelsAfterScaler - ((double) (*DSTYAfterScaler * myPipe->HTotal));
++	st_vars->DSTTotalPixelsAfterScaler = *DSTYAfterScaler * myPipe->HTotal + *DSTXAfterScaler;
++	*DSTYAfterScaler = dml_floor(st_vars->DSTTotalPixelsAfterScaler / myPipe->HTotal, 1);
++	*DSTXAfterScaler = st_vars->DSTTotalPixelsAfterScaler - ((double) (*DSTYAfterScaler * myPipe->HTotal));
+ #ifdef __DML_VBA_DEBUG__
+ 	dml_print("DML::%s: DSTXAfterScaler: %d (final)\n", __func__,  *DSTXAfterScaler);
+ 	dml_print("DML::%s: DSTYAfterScaler: %d (final)\n", __func__, *DSTYAfterScaler);
+@@ -3558,132 +3532,132 @@ bool dml32_CalculatePrefetchSchedule(
+ 
+ 	MyError = false;
+ 
+-	Tr0_trips = trip_to_mem * (HostVMDynamicLevelsTrips + 1);
++	st_vars->Tr0_trips = st_vars->trip_to_mem * (st_vars->HostVMDynamicLevelsTrips + 1);
+ 
+ 	if (GPUVMEnable == true) {
+-		Tvm_trips_rounded = dml_ceil(4.0 * Tvm_trips / LineTime, 1.0) / 4.0 * LineTime;
+-		Tr0_trips_rounded = dml_ceil(4.0 * Tr0_trips / LineTime, 1.0) / 4.0 * LineTime;
++		st_vars->Tvm_trips_rounded = dml_ceil(4.0 * st_vars->Tvm_trips / st_vars->LineTime, 1.0) / 4.0 * st_vars->LineTime;
++		st_vars->Tr0_trips_rounded = dml_ceil(4.0 * st_vars->Tr0_trips / st_vars->LineTime, 1.0) / 4.0 * st_vars->LineTime;
+ 		if (GPUVMPageTableLevels >= 3) {
+-			*Tno_bw = UrgentExtraLatency + trip_to_mem *
+-					(double) ((GPUVMPageTableLevels - 2) * (HostVMDynamicLevelsTrips + 1) - 1);
++			*Tno_bw = UrgentExtraLatency + st_vars->trip_to_mem *
++					(double) ((GPUVMPageTableLevels - 2) * (st_vars->HostVMDynamicLevelsTrips + 1) - 1);
+ 		} else if (GPUVMPageTableLevels == 1 && myPipe->DCCEnable != true) {
+-			Tr0_trips_rounded = dml_ceil(4.0 * UrgentExtraLatency / LineTime, 1.0) /
+-					4.0 * LineTime; // VBA_ERROR
++			st_vars->Tr0_trips_rounded = dml_ceil(4.0 * UrgentExtraLatency / st_vars->LineTime, 1.0) /
++					4.0 * st_vars->LineTime; // VBA_ERROR
+ 			*Tno_bw = UrgentExtraLatency;
+ 		} else {
+ 			*Tno_bw = 0;
+ 		}
+ 	} else if (myPipe->DCCEnable == true) {
+-		Tvm_trips_rounded = LineTime / 4.0;
+-		Tr0_trips_rounded = dml_ceil(4.0 * Tr0_trips / LineTime, 1.0) / 4.0 * LineTime;
++		st_vars->Tvm_trips_rounded = st_vars->LineTime / 4.0;
++		st_vars->Tr0_trips_rounded = dml_ceil(4.0 * st_vars->Tr0_trips / st_vars->LineTime, 1.0) / 4.0 * st_vars->LineTime;
+ 		*Tno_bw = 0;
+ 	} else {
+-		Tvm_trips_rounded = LineTime / 4.0;
+-		Tr0_trips_rounded = LineTime / 2.0;
++		st_vars->Tvm_trips_rounded = st_vars->LineTime / 4.0;
++		st_vars->Tr0_trips_rounded = st_vars->LineTime / 2.0;
+ 		*Tno_bw = 0;
+ 	}
+-	Tvm_trips_rounded = dml_max(Tvm_trips_rounded, LineTime / 4.0);
+-	Tr0_trips_rounded = dml_max(Tr0_trips_rounded, LineTime / 4.0);
++	st_vars->Tvm_trips_rounded = dml_max(st_vars->Tvm_trips_rounded, st_vars->LineTime / 4.0);
++	st_vars->Tr0_trips_rounded = dml_max(st_vars->Tr0_trips_rounded, st_vars->LineTime / 4.0);
+ 
+ 	if (myPipe->SourcePixelFormat == dm_420_8 || myPipe->SourcePixelFormat == dm_420_10
+ 			|| myPipe->SourcePixelFormat == dm_420_12) {
+-		bytes_pp = myPipe->BytePerPixelY + myPipe->BytePerPixelC / 4;
++		st_vars->bytes_pp = myPipe->BytePerPixelY + myPipe->BytePerPixelC / 4;
+ 	} else {
+-		bytes_pp = myPipe->BytePerPixelY + myPipe->BytePerPixelC;
++		st_vars->bytes_pp = myPipe->BytePerPixelY + myPipe->BytePerPixelC;
+ 	}
+ 
+-	prefetch_sw_bytes = PrefetchSourceLinesY * swath_width_luma_ub * myPipe->BytePerPixelY
++	st_vars->prefetch_sw_bytes = PrefetchSourceLinesY * swath_width_luma_ub * myPipe->BytePerPixelY
+ 			+ PrefetchSourceLinesC * swath_width_chroma_ub * myPipe->BytePerPixelC;
+-	prefetch_bw_oto = dml_max(bytes_pp * myPipe->PixelClock / myPipe->DPPPerSurface,
+-			prefetch_sw_bytes / (dml_max(PrefetchSourceLinesY, PrefetchSourceLinesC) * LineTime));
++	st_vars->prefetch_bw_oto = dml_max(st_vars->bytes_pp * myPipe->PixelClock / myPipe->DPPPerSurface,
++			st_vars->prefetch_sw_bytes / (dml_max(PrefetchSourceLinesY, PrefetchSourceLinesC) * st_vars->LineTime));
+ 
+-	min_Lsw = dml_max(PrefetchSourceLinesY, PrefetchSourceLinesC) / max_vratio_pre;
+-	min_Lsw = dml_max(min_Lsw, 1.0);
+-	Lsw_oto = dml_ceil(4.0 * dml_max(prefetch_sw_bytes / prefetch_bw_oto / LineTime, min_Lsw), 1.0) / 4.0;
++	st_vars->min_Lsw = dml_max(PrefetchSourceLinesY, PrefetchSourceLinesC) / st_vars->max_vratio_pre;
++	st_vars->min_Lsw = dml_max(st_vars->min_Lsw, 1.0);
++	st_vars->Lsw_oto = dml_ceil(4.0 * dml_max(st_vars->prefetch_sw_bytes / st_vars->prefetch_bw_oto / st_vars->LineTime, st_vars->min_Lsw), 1.0) / 4.0;
+ 
+ 	if (GPUVMEnable == true) {
+-		Tvm_oto = dml_max3(
+-				Tvm_trips,
+-				*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / prefetch_bw_oto,
+-				LineTime / 4.0);
++		st_vars->Tvm_oto = dml_max3(
++				st_vars->Tvm_trips,
++				*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / st_vars->prefetch_bw_oto,
++				st_vars->LineTime / 4.0);
+ 	} else
+-		Tvm_oto = LineTime / 4.0;
++		st_vars->Tvm_oto = st_vars->LineTime / 4.0;
+ 
+ 	if ((GPUVMEnable == true || myPipe->DCCEnable == true)) {
+-		Tr0_oto = dml_max4(
+-				Tr0_trips,
+-				(MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) / prefetch_bw_oto,
+-				(LineTime - Tvm_oto)/2.0,
+-				LineTime / 4.0);
++		st_vars->Tr0_oto = dml_max4(
++				st_vars->Tr0_trips,
++				(MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) / st_vars->prefetch_bw_oto,
++				(st_vars->LineTime - st_vars->Tvm_oto)/2.0,
++				st_vars->LineTime / 4.0);
+ #ifdef __DML_VBA_DEBUG__
+ 		dml_print("DML::%s: Tr0_oto max0 = %f\n", __func__,
+-				(MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) / prefetch_bw_oto);
+-		dml_print("DML::%s: Tr0_oto max1 = %f\n", __func__, Tr0_trips);
+-		dml_print("DML::%s: Tr0_oto max2 = %f\n", __func__, LineTime - Tvm_oto);
+-		dml_print("DML::%s: Tr0_oto max3 = %f\n", __func__, LineTime / 4);
++				(MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) / st_vars->prefetch_bw_oto);
++		dml_print("DML::%s: Tr0_oto max1 = %f\n", __func__, st_vars->Tr0_trips);
++		dml_print("DML::%s: Tr0_oto max2 = %f\n", __func__, st_vars->LineTime - st_vars->Tvm_oto);
++		dml_print("DML::%s: Tr0_oto max3 = %f\n", __func__, st_vars->LineTime / 4);
+ #endif
+ 	} else
+-		Tr0_oto = (LineTime - Tvm_oto) / 2.0;
++		st_vars->Tr0_oto = (st_vars->LineTime - st_vars->Tvm_oto) / 2.0;
+ 
+-	Tvm_oto_lines = dml_ceil(4.0 * Tvm_oto / LineTime, 1) / 4.0;
+-	Tr0_oto_lines = dml_ceil(4.0 * Tr0_oto / LineTime, 1) / 4.0;
+-	dst_y_prefetch_oto = Tvm_oto_lines + 2 * Tr0_oto_lines + Lsw_oto;
++	st_vars->Tvm_oto_lines = dml_ceil(4.0 * st_vars->Tvm_oto / st_vars->LineTime, 1) / 4.0;
++	st_vars->Tr0_oto_lines = dml_ceil(4.0 * st_vars->Tr0_oto / st_vars->LineTime, 1) / 4.0;
++	st_vars->dst_y_prefetch_oto = st_vars->Tvm_oto_lines + 2 * st_vars->Tr0_oto_lines + st_vars->Lsw_oto;
+ 
+-	dst_y_prefetch_equ = VStartup - (*TSetup + dml_max(TWait + TCalc, *Tdmdl)) / LineTime -
++	st_vars->dst_y_prefetch_equ = VStartup - (*TSetup + dml_max(TWait + TCalc, *Tdmdl)) / st_vars->LineTime -
+ 			(*DSTYAfterScaler + (double) *DSTXAfterScaler / (double) myPipe->HTotal);
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 	dml_print("DML::%s: HTotal = %d\n", __func__, myPipe->HTotal);
+-	dml_print("DML::%s: min_Lsw = %f\n", __func__, min_Lsw);
++	dml_print("DML::%s: min_Lsw = %f\n", __func__, st_vars->min_Lsw);
+ 	dml_print("DML::%s: *Tno_bw = %f\n", __func__, *Tno_bw);
+ 	dml_print("DML::%s: UrgentExtraLatency = %f\n", __func__, UrgentExtraLatency);
+-	dml_print("DML::%s: trip_to_mem = %f\n", __func__, trip_to_mem);
++	dml_print("DML::%s: trip_to_mem = %f\n", __func__, st_vars->trip_to_mem);
+ 	dml_print("DML::%s: BytePerPixelY = %d\n", __func__, myPipe->BytePerPixelY);
+ 	dml_print("DML::%s: PrefetchSourceLinesY = %f\n", __func__, PrefetchSourceLinesY);
+ 	dml_print("DML::%s: swath_width_luma_ub = %d\n", __func__, swath_width_luma_ub);
+ 	dml_print("DML::%s: BytePerPixelC = %d\n", __func__, myPipe->BytePerPixelC);
+ 	dml_print("DML::%s: PrefetchSourceLinesC = %f\n", __func__, PrefetchSourceLinesC);
+ 	dml_print("DML::%s: swath_width_chroma_ub = %d\n", __func__, swath_width_chroma_ub);
+-	dml_print("DML::%s: prefetch_sw_bytes = %f\n", __func__, prefetch_sw_bytes);
+-	dml_print("DML::%s: bytes_pp = %f\n", __func__, bytes_pp);
++	dml_print("DML::%s: prefetch_sw_bytes = %f\n", __func__, st_vars->prefetch_sw_bytes);
++	dml_print("DML::%s: bytes_pp = %f\n", __func__, st_vars->bytes_pp);
+ 	dml_print("DML::%s: PDEAndMetaPTEBytesFrame = %d\n", __func__, PDEAndMetaPTEBytesFrame);
+ 	dml_print("DML::%s: MetaRowByte = %d\n", __func__, MetaRowByte);
+ 	dml_print("DML::%s: PixelPTEBytesPerRow = %d\n", __func__, PixelPTEBytesPerRow);
+ 	dml_print("DML::%s: HostVMInefficiencyFactor = %f\n", __func__, HostVMInefficiencyFactor);
+-	dml_print("DML::%s: Tvm_trips = %f\n", __func__, Tvm_trips);
+-	dml_print("DML::%s: Tr0_trips = %f\n", __func__, Tr0_trips);
+-	dml_print("DML::%s: prefetch_bw_oto = %f\n", __func__, prefetch_bw_oto);
+-	dml_print("DML::%s: Tr0_oto = %f\n", __func__, Tr0_oto);
+-	dml_print("DML::%s: Tvm_oto = %f\n", __func__, Tvm_oto);
+-	dml_print("DML::%s: Tvm_oto_lines = %f\n", __func__, Tvm_oto_lines);
+-	dml_print("DML::%s: Tr0_oto_lines = %f\n", __func__, Tr0_oto_lines);
+-	dml_print("DML::%s: Lsw_oto = %f\n", __func__, Lsw_oto);
+-	dml_print("DML::%s: dst_y_prefetch_oto = %f\n", __func__, dst_y_prefetch_oto);
+-	dml_print("DML::%s: dst_y_prefetch_equ = %f\n", __func__, dst_y_prefetch_equ);
++	dml_print("DML::%s: Tvm_trips = %f\n", __func__, st_vars->Tvm_trips);
++	dml_print("DML::%s: Tr0_trips = %f\n", __func__, st_vars->Tr0_trips);
++	dml_print("DML::%s: prefetch_bw_oto = %f\n", __func__, st_vars->prefetch_bw_oto);
++	dml_print("DML::%s: Tr0_oto = %f\n", __func__, st_vars->Tr0_oto);
++	dml_print("DML::%s: Tvm_oto = %f\n", __func__, st_vars->Tvm_oto);
++	dml_print("DML::%s: Tvm_oto_lines = %f\n", __func__, st_vars->Tvm_oto_lines);
++	dml_print("DML::%s: Tr0_oto_lines = %f\n", __func__, st_vars->Tr0_oto_lines);
++	dml_print("DML::%s: Lsw_oto = %f\n", __func__, st_vars->Lsw_oto);
++	dml_print("DML::%s: dst_y_prefetch_oto = %f\n", __func__, st_vars->dst_y_prefetch_oto);
++	dml_print("DML::%s: dst_y_prefetch_equ = %f\n", __func__, st_vars->dst_y_prefetch_equ);
+ #endif
+ 
+-	dst_y_prefetch_equ = dml_floor(4.0 * (dst_y_prefetch_equ + 0.125), 1) / 4.0;
+-	Tpre_rounded = dst_y_prefetch_equ * LineTime;
++	st_vars->dst_y_prefetch_equ = dml_floor(4.0 * (st_vars->dst_y_prefetch_equ + 0.125), 1) / 4.0;
++	st_vars->Tpre_rounded = st_vars->dst_y_prefetch_equ * st_vars->LineTime;
+ #ifdef __DML_VBA_DEBUG__
+-	dml_print("DML::%s: dst_y_prefetch_equ: %f (after round)\n", __func__, dst_y_prefetch_equ);
+-	dml_print("DML::%s: LineTime: %f\n", __func__, LineTime);
++	dml_print("DML::%s: dst_y_prefetch_equ: %f (after round)\n", __func__, st_vars->dst_y_prefetch_equ);
++	dml_print("DML::%s: LineTime: %f\n", __func__, st_vars->LineTime);
+ 	dml_print("DML::%s: VStartup: %d\n", __func__, VStartup);
+ 	dml_print("DML::%s: Tvstartup: %fus - time between vstartup and first pixel of active\n",
+-			__func__, VStartup * LineTime);
++			__func__, VStartup * st_vars->LineTime);
+ 	dml_print("DML::%s: TSetup: %fus - time from vstartup to vready\n", __func__, *TSetup);
+ 	dml_print("DML::%s: TCalc: %fus - time for calculations in dchub starting at vready\n", __func__, TCalc);
+-	dml_print("DML::%s: Tdmbf: %fus - time for dmd transfer from dchub to dio output buffer\n", __func__, Tdmbf);
+-	dml_print("DML::%s: Tdmec: %fus - time dio takes to transfer dmd\n", __func__, Tdmec);
++	dml_print("DML::%s: Tdmbf: %fus - time for dmd transfer from dchub to dio output buffer\n", __func__, st_vars->Tdmbf);
++	dml_print("DML::%s: Tdmec: %fus - time dio takes to transfer dmd\n", __func__, st_vars->Tdmec);
+ 	dml_print("DML::%s: Tdmdl_vm: %fus - time for vm stages of dmd\n", __func__, *Tdmdl_vm);
+ 	dml_print("DML::%s: Tdmdl: %fus - time for fabric to become ready and fetch dmd\n", __func__, *Tdmdl);
+ 	dml_print("DML::%s: DSTYAfterScaler: %d lines - number of lines of pipeline and buffer delay after scaler\n",
+ 			__func__, *DSTYAfterScaler);
+ #endif
+-	dep_bytes = dml_max(PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor,
++	st_vars->dep_bytes = dml_max(PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor,
+ 			MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor);
+ 
+-	if (prefetch_sw_bytes < dep_bytes)
+-		prefetch_sw_bytes = 2 * dep_bytes;
++	if (st_vars->prefetch_sw_bytes < st_vars->dep_bytes)
++		st_vars->prefetch_sw_bytes = 2 * st_vars->dep_bytes;
+ 
+ 	*PrefetchBandwidth = 0;
+ 	*DestinationLinesToRequestVMInVBlank = 0;
+@@ -3691,61 +3665,61 @@ bool dml32_CalculatePrefetchSchedule(
+ 	*VRatioPrefetchY = 0;
+ 	*VRatioPrefetchC = 0;
+ 	*RequiredPrefetchPixDataBWLuma = 0;
+-	if (dst_y_prefetch_equ > 1) {
++	if (st_vars->dst_y_prefetch_equ > 1) {
+ 		double PrefetchBandwidth1;
+ 		double PrefetchBandwidth2;
+ 		double PrefetchBandwidth3;
+ 		double PrefetchBandwidth4;
+ 
+-		if (Tpre_rounded - *Tno_bw > 0) {
++		if (st_vars->Tpre_rounded - *Tno_bw > 0) {
+ 			PrefetchBandwidth1 = (PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor + 2 * MetaRowByte
+ 					+ 2 * PixelPTEBytesPerRow * HostVMInefficiencyFactor
+-					+ prefetch_sw_bytes) / (Tpre_rounded - *Tno_bw);
+-			Tsw_est1 = prefetch_sw_bytes / PrefetchBandwidth1;
++					+ st_vars->prefetch_sw_bytes) / (st_vars->Tpre_rounded - *Tno_bw);
++			st_vars->Tsw_est1 = st_vars->prefetch_sw_bytes / PrefetchBandwidth1;
+ 		} else
+ 			PrefetchBandwidth1 = 0;
+ 
+-		if (VStartup == MaxVStartup && (Tsw_est1 / LineTime < min_Lsw)
+-				&& Tpre_rounded - min_Lsw * LineTime - 0.75 * LineTime - *Tno_bw > 0) {
++		if (VStartup == MaxVStartup && (st_vars->Tsw_est1 / st_vars->LineTime < st_vars->min_Lsw)
++				&& st_vars->Tpre_rounded - st_vars->min_Lsw * st_vars->LineTime - 0.75 * st_vars->LineTime - *Tno_bw > 0) {
+ 			PrefetchBandwidth1 = (PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor + 2 * MetaRowByte
+ 					+ 2 * PixelPTEBytesPerRow * HostVMInefficiencyFactor)
+-					/ (Tpre_rounded - min_Lsw * LineTime - 0.75 * LineTime - *Tno_bw);
++					/ (st_vars->Tpre_rounded - st_vars->min_Lsw * st_vars->LineTime - 0.75 * st_vars->LineTime - *Tno_bw);
+ 		}
+ 
+-		if (Tpre_rounded - *Tno_bw - 2 * Tr0_trips_rounded > 0)
+-			PrefetchBandwidth2 = (PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor + prefetch_sw_bytes) /
+-			(Tpre_rounded - *Tno_bw - 2 * Tr0_trips_rounded);
++		if (st_vars->Tpre_rounded - *Tno_bw - 2 * st_vars->Tr0_trips_rounded > 0)
++			PrefetchBandwidth2 = (PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor + st_vars->prefetch_sw_bytes) /
++			(st_vars->Tpre_rounded - *Tno_bw - 2 * st_vars->Tr0_trips_rounded);
+ 		else
+ 			PrefetchBandwidth2 = 0;
+ 
+-		if (Tpre_rounded - Tvm_trips_rounded > 0) {
++		if (st_vars->Tpre_rounded - st_vars->Tvm_trips_rounded > 0) {
+ 			PrefetchBandwidth3 = (2 * MetaRowByte + 2 * PixelPTEBytesPerRow * HostVMInefficiencyFactor
+-					+ prefetch_sw_bytes) / (Tpre_rounded - Tvm_trips_rounded);
+-			Tsw_est3 = prefetch_sw_bytes / PrefetchBandwidth3;
++					+ st_vars->prefetch_sw_bytes) / (st_vars->Tpre_rounded - st_vars->Tvm_trips_rounded);
++			st_vars->Tsw_est3 = st_vars->prefetch_sw_bytes / PrefetchBandwidth3;
+ 		} else
+ 			PrefetchBandwidth3 = 0;
+ 
+ 
+ 		if (VStartup == MaxVStartup &&
+-				(Tsw_est3 / LineTime < min_Lsw) && Tpre_rounded - min_Lsw * LineTime - 0.75 *
+-				LineTime - Tvm_trips_rounded > 0) {
++				(st_vars->Tsw_est3 / st_vars->LineTime < st_vars->min_Lsw) && st_vars->Tpre_rounded - st_vars->min_Lsw * st_vars->LineTime - 0.75 *
++				st_vars->LineTime - st_vars->Tvm_trips_rounded > 0) {
+ 			PrefetchBandwidth3 = (2 * MetaRowByte + 2 * PixelPTEBytesPerRow * HostVMInefficiencyFactor)
+-					/ (Tpre_rounded - min_Lsw * LineTime - 0.75 * LineTime - Tvm_trips_rounded);
++					/ (st_vars->Tpre_rounded - st_vars->min_Lsw * st_vars->LineTime - 0.75 * st_vars->LineTime - st_vars->Tvm_trips_rounded);
+ 		}
+ 
+-		if (Tpre_rounded - Tvm_trips_rounded - 2 * Tr0_trips_rounded > 0) {
+-			PrefetchBandwidth4 = prefetch_sw_bytes /
+-					(Tpre_rounded - Tvm_trips_rounded - 2 * Tr0_trips_rounded);
++		if (st_vars->Tpre_rounded - st_vars->Tvm_trips_rounded - 2 * st_vars->Tr0_trips_rounded > 0) {
++			PrefetchBandwidth4 = st_vars->prefetch_sw_bytes /
++					(st_vars->Tpre_rounded - st_vars->Tvm_trips_rounded - 2 * st_vars->Tr0_trips_rounded);
+ 		} else {
+ 			PrefetchBandwidth4 = 0;
+ 		}
+ 
+ #ifdef __DML_VBA_DEBUG__
+-		dml_print("DML::%s: Tpre_rounded: %f\n", __func__, Tpre_rounded);
++		dml_print("DML::%s: Tpre_rounded: %f\n", __func__, st_vars->Tpre_rounded);
+ 		dml_print("DML::%s: Tno_bw: %f\n", __func__, *Tno_bw);
+-		dml_print("DML::%s: Tvm_trips_rounded: %f\n", __func__, Tvm_trips_rounded);
+-		dml_print("DML::%s: Tsw_est1: %f\n", __func__, Tsw_est1);
+-		dml_print("DML::%s: Tsw_est3: %f\n", __func__, Tsw_est3);
++		dml_print("DML::%s: Tvm_trips_rounded: %f\n", __func__, st_vars->Tvm_trips_rounded);
++		dml_print("DML::%s: Tsw_est1: %f\n", __func__, st_vars->Tsw_est1);
++		dml_print("DML::%s: Tsw_est3: %f\n", __func__, st_vars->Tsw_est3);
+ 		dml_print("DML::%s: PrefetchBandwidth1: %f\n", __func__, PrefetchBandwidth1);
+ 		dml_print("DML::%s: PrefetchBandwidth2: %f\n", __func__, PrefetchBandwidth2);
+ 		dml_print("DML::%s: PrefetchBandwidth3: %f\n", __func__, PrefetchBandwidth3);
+@@ -3758,9 +3732,9 @@ bool dml32_CalculatePrefetchSchedule(
+ 
+ 			if (PrefetchBandwidth1 > 0) {
+ 				if (*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / PrefetchBandwidth1
+-						>= Tvm_trips_rounded
++						>= st_vars->Tvm_trips_rounded
+ 						&& (MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor)
+-								/ PrefetchBandwidth1 >= Tr0_trips_rounded) {
++								/ PrefetchBandwidth1 >= st_vars->Tr0_trips_rounded) {
+ 					Case1OK = true;
  				} else {
- 					mode_lib->vba.NextMaxVStartup = mode_lib->vba.NextMaxVStartup - 1;
- 				}
-@@ -3515,7 +3466,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							&& !mode_lib->vba.ImmediateFlipRequiredFinal)
- 							|| mode_lib->vba.ImmediateFlipSupportedForState[i][j] == true))
- 					|| (mode_lib->vba.NextMaxVStartup == mode_lib->vba.MaxMaxVStartup[i][j]
--							&& NextPrefetchModeState > mode_lib->vba.MaxPrefetchMode)));
-+							&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState > mode_lib->vba.MaxPrefetchMode)));
+ 					Case1OK = false;
+@@ -3771,9 +3745,9 @@ bool dml32_CalculatePrefetchSchedule(
  
- 			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 				mode_lib->vba.use_one_row_for_frame_this_state[k] =
-@@ -3591,7 +3542,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						&mode_lib->vba.Watermark, // Store the values in vba
- 						&mode_lib->vba.DRAMClockChangeSupport[i][j],
- 						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single2[0], // double *MaxActiveDRAMClockChangeLatencySupported
--						&dummy_integer[0], // Long SubViewportLinesNeededInMALL[]
-+						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer[0], // Long SubViewportLinesNeededInMALL[]
- 						&mode_lib->vba.FCLKChangeSupport[i][j],
- 						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single2[1], // double *MinActiveFCLKChangeLatencySupported
- 						&mode_lib->vba.USRRetrainingSupport[i][j],
+ 			if (PrefetchBandwidth2 > 0) {
+ 				if (*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / PrefetchBandwidth2
+-						>= Tvm_trips_rounded
++						>= st_vars->Tvm_trips_rounded
+ 						&& (MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor)
+-						/ PrefetchBandwidth2 < Tr0_trips_rounded) {
++						/ PrefetchBandwidth2 < st_vars->Tr0_trips_rounded) {
+ 					Case2OK = true;
+ 				} else {
+ 					Case2OK = false;
+@@ -3784,9 +3758,9 @@ bool dml32_CalculatePrefetchSchedule(
+ 
+ 			if (PrefetchBandwidth3 > 0) {
+ 				if (*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / PrefetchBandwidth3 <
+-						Tvm_trips_rounded && (MetaRowByte + PixelPTEBytesPerRow *
++						st_vars->Tvm_trips_rounded && (MetaRowByte + PixelPTEBytesPerRow *
+ 								HostVMInefficiencyFactor) / PrefetchBandwidth3 >=
+-								Tr0_trips_rounded) {
++								st_vars->Tr0_trips_rounded) {
+ 					Case3OK = true;
+ 				} else {
+ 					Case3OK = false;
+@@ -3796,80 +3770,80 @@ bool dml32_CalculatePrefetchSchedule(
+ 			}
+ 
+ 			if (Case1OK)
+-				prefetch_bw_equ = PrefetchBandwidth1;
++				st_vars->prefetch_bw_equ = PrefetchBandwidth1;
+ 			else if (Case2OK)
+-				prefetch_bw_equ = PrefetchBandwidth2;
++				st_vars->prefetch_bw_equ = PrefetchBandwidth2;
+ 			else if (Case3OK)
+-				prefetch_bw_equ = PrefetchBandwidth3;
++				st_vars->prefetch_bw_equ = PrefetchBandwidth3;
+ 			else
+-				prefetch_bw_equ = PrefetchBandwidth4;
++				st_vars->prefetch_bw_equ = PrefetchBandwidth4;
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: Case1OK: %d\n", __func__, Case1OK);
+ 			dml_print("DML::%s: Case2OK: %d\n", __func__, Case2OK);
+ 			dml_print("DML::%s: Case3OK: %d\n", __func__, Case3OK);
+-			dml_print("DML::%s: prefetch_bw_equ: %f\n", __func__, prefetch_bw_equ);
++			dml_print("DML::%s: prefetch_bw_equ: %f\n", __func__, st_vars->prefetch_bw_equ);
+ #endif
+ 
+-			if (prefetch_bw_equ > 0) {
++			if (st_vars->prefetch_bw_equ > 0) {
+ 				if (GPUVMEnable == true) {
+-					Tvm_equ = dml_max3(*Tno_bw + PDEAndMetaPTEBytesFrame *
+-							HostVMInefficiencyFactor / prefetch_bw_equ,
+-							Tvm_trips, LineTime / 4);
++					st_vars->Tvm_equ = dml_max3(*Tno_bw + PDEAndMetaPTEBytesFrame *
++							HostVMInefficiencyFactor / st_vars->prefetch_bw_equ,
++							st_vars->Tvm_trips, st_vars->LineTime / 4);
+ 				} else {
+-					Tvm_equ = LineTime / 4;
++					st_vars->Tvm_equ = st_vars->LineTime / 4;
+ 				}
+ 
+ 				if ((GPUVMEnable == true || myPipe->DCCEnable == true)) {
+-					Tr0_equ = dml_max4((MetaRowByte + PixelPTEBytesPerRow *
+-							HostVMInefficiencyFactor) / prefetch_bw_equ, Tr0_trips,
+-							(LineTime - Tvm_equ) / 2, LineTime / 4);
++					st_vars->Tr0_equ = dml_max4((MetaRowByte + PixelPTEBytesPerRow *
++							HostVMInefficiencyFactor) / st_vars->prefetch_bw_equ, st_vars->Tr0_trips,
++							(st_vars->LineTime - st_vars->Tvm_equ) / 2, st_vars->LineTime / 4);
+ 				} else {
+-					Tr0_equ = (LineTime - Tvm_equ) / 2;
++					st_vars->Tr0_equ = (st_vars->LineTime - st_vars->Tvm_equ) / 2;
+ 				}
+ 			} else {
+-				Tvm_equ = 0;
+-				Tr0_equ = 0;
++				st_vars->Tvm_equ = 0;
++				st_vars->Tr0_equ = 0;
+ #ifdef __DML_VBA_DEBUG__
+ 				dml_print("DML: prefetch_bw_equ equals 0! %s:%d\n", __FILE__, __LINE__);
+ #endif
+ 			}
+ 		}
+ 
+-		if (dst_y_prefetch_oto < dst_y_prefetch_equ) {
+-			*DestinationLinesForPrefetch = dst_y_prefetch_oto;
+-			TimeForFetchingMetaPTE = Tvm_oto;
+-			TimeForFetchingRowInVBlank = Tr0_oto;
+-			*PrefetchBandwidth = prefetch_bw_oto;
++		if (st_vars->dst_y_prefetch_oto < st_vars->dst_y_prefetch_equ) {
++			*DestinationLinesForPrefetch = st_vars->dst_y_prefetch_oto;
++			st_vars->TimeForFetchingMetaPTE = st_vars->Tvm_oto;
++			st_vars->TimeForFetchingRowInVBlank = st_vars->Tr0_oto;
++			*PrefetchBandwidth = st_vars->prefetch_bw_oto;
+ 		} else {
+-			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
+-			TimeForFetchingMetaPTE = Tvm_equ;
+-			TimeForFetchingRowInVBlank = Tr0_equ;
+-			*PrefetchBandwidth = prefetch_bw_equ;
++			*DestinationLinesForPrefetch = st_vars->dst_y_prefetch_equ;
++			st_vars->TimeForFetchingMetaPTE = st_vars->Tvm_equ;
++			st_vars->TimeForFetchingRowInVBlank = st_vars->Tr0_equ;
++			*PrefetchBandwidth = st_vars->prefetch_bw_equ;
+ 		}
+ 
+-		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
++		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * st_vars->TimeForFetchingMetaPTE / st_vars->LineTime, 1.0) / 4.0;
+ 
+ 		*DestinationLinesToRequestRowInVBlank =
+-				dml_ceil(4.0 * TimeForFetchingRowInVBlank / LineTime, 1.0) / 4.0;
++				dml_ceil(4.0 * st_vars->TimeForFetchingRowInVBlank / st_vars->LineTime, 1.0) / 4.0;
+ 
+-		LinesToRequestPrefetchPixelData = *DestinationLinesForPrefetch -
++		st_vars->LinesToRequestPrefetchPixelData = *DestinationLinesForPrefetch -
+ 				*DestinationLinesToRequestVMInVBlank - 2 * *DestinationLinesToRequestRowInVBlank;
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 		dml_print("DML::%s: DestinationLinesForPrefetch = %f\n", __func__, *DestinationLinesForPrefetch);
+ 		dml_print("DML::%s: DestinationLinesToRequestVMInVBlank = %f\n",
+ 				__func__, *DestinationLinesToRequestVMInVBlank);
+-		dml_print("DML::%s: TimeForFetchingRowInVBlank = %f\n", __func__, TimeForFetchingRowInVBlank);
+-		dml_print("DML::%s: LineTime = %f\n", __func__, LineTime);
++		dml_print("DML::%s: TimeForFetchingRowInVBlank = %f\n", __func__, st_vars->TimeForFetchingRowInVBlank);
++		dml_print("DML::%s: LineTime = %f\n", __func__, st_vars->LineTime);
+ 		dml_print("DML::%s: DestinationLinesToRequestRowInVBlank = %f\n",
+ 				__func__, *DestinationLinesToRequestRowInVBlank);
+ 		dml_print("DML::%s: PrefetchSourceLinesY = %f\n", __func__, PrefetchSourceLinesY);
+-		dml_print("DML::%s: LinesToRequestPrefetchPixelData = %f\n", __func__, LinesToRequestPrefetchPixelData);
++		dml_print("DML::%s: LinesToRequestPrefetchPixelData = %f\n", __func__, st_vars->LinesToRequestPrefetchPixelData);
+ #endif
+ 
+-		if (LinesToRequestPrefetchPixelData >= 1 && prefetch_bw_equ > 0) {
+-			*VRatioPrefetchY = (double) PrefetchSourceLinesY / LinesToRequestPrefetchPixelData;
++		if (st_vars->LinesToRequestPrefetchPixelData >= 1 && st_vars->prefetch_bw_equ > 0) {
++			*VRatioPrefetchY = (double) PrefetchSourceLinesY / st_vars->LinesToRequestPrefetchPixelData;
+ 			*VRatioPrefetchY = dml_max(*VRatioPrefetchY, 1.0);
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: VRatioPrefetchY = %f\n", __func__, *VRatioPrefetchY);
+@@ -3877,12 +3851,12 @@ bool dml32_CalculatePrefetchSchedule(
+ 			dml_print("DML::%s: VInitPreFillY = %d\n", __func__, VInitPreFillY);
+ #endif
+ 			if ((SwathHeightY > 4) && (VInitPreFillY > 3)) {
+-				if (LinesToRequestPrefetchPixelData > (VInitPreFillY - 3.0) / 2.0) {
++				if (st_vars->LinesToRequestPrefetchPixelData > (VInitPreFillY - 3.0) / 2.0) {
+ 					*VRatioPrefetchY =
+ 							dml_max((double) PrefetchSourceLinesY /
+-									LinesToRequestPrefetchPixelData,
++									st_vars->LinesToRequestPrefetchPixelData,
+ 									(double) MaxNumSwathY * SwathHeightY /
+-									(LinesToRequestPrefetchPixelData -
++									(st_vars->LinesToRequestPrefetchPixelData -
+ 									(VInitPreFillY - 3.0) / 2.0));
+ 					*VRatioPrefetchY = dml_max(*VRatioPrefetchY, 1.0);
+ 				} else {
+@@ -3896,7 +3870,7 @@ bool dml32_CalculatePrefetchSchedule(
+ #endif
+ 			}
+ 
+-			*VRatioPrefetchC = (double) PrefetchSourceLinesC / LinesToRequestPrefetchPixelData;
++			*VRatioPrefetchC = (double) PrefetchSourceLinesC / st_vars->LinesToRequestPrefetchPixelData;
+ 			*VRatioPrefetchC = dml_max(*VRatioPrefetchC, 1.0);
+ 
+ #ifdef __DML_VBA_DEBUG__
+@@ -3905,11 +3879,11 @@ bool dml32_CalculatePrefetchSchedule(
+ 			dml_print("DML::%s: VInitPreFillC = %d\n", __func__, VInitPreFillC);
+ #endif
+ 			if ((SwathHeightC > 4)) {
+-				if (LinesToRequestPrefetchPixelData > (VInitPreFillC - 3.0) / 2.0) {
++				if (st_vars->LinesToRequestPrefetchPixelData > (VInitPreFillC - 3.0) / 2.0) {
+ 					*VRatioPrefetchC =
+ 						dml_max(*VRatioPrefetchC,
+ 							(double) MaxNumSwathC * SwathHeightC /
+-							(LinesToRequestPrefetchPixelData -
++							(st_vars->LinesToRequestPrefetchPixelData -
+ 							(VInitPreFillC - 3.0) / 2.0));
+ 					*VRatioPrefetchC = dml_max(*VRatioPrefetchC, 1.0);
+ 				} else {
+@@ -3924,25 +3898,25 @@ bool dml32_CalculatePrefetchSchedule(
+ 			}
+ 
+ 			*RequiredPrefetchPixDataBWLuma = (double) PrefetchSourceLinesY
+-					/ LinesToRequestPrefetchPixelData * myPipe->BytePerPixelY * swath_width_luma_ub
+-					/ LineTime;
++					/ st_vars->LinesToRequestPrefetchPixelData * myPipe->BytePerPixelY * swath_width_luma_ub
++					/ st_vars->LineTime;
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: BytePerPixelY = %d\n", __func__, myPipe->BytePerPixelY);
+ 			dml_print("DML::%s: swath_width_luma_ub = %d\n", __func__, swath_width_luma_ub);
+-			dml_print("DML::%s: LineTime = %f\n", __func__, LineTime);
++			dml_print("DML::%s: LineTime = %f\n", __func__, st_vars->LineTime);
+ 			dml_print("DML::%s: RequiredPrefetchPixDataBWLuma = %f\n",
+ 					__func__, *RequiredPrefetchPixDataBWLuma);
+ #endif
+ 			*RequiredPrefetchPixDataBWChroma = (double) PrefetchSourceLinesC /
+-					LinesToRequestPrefetchPixelData
++					st_vars->LinesToRequestPrefetchPixelData
+ 					* myPipe->BytePerPixelC
+-					* swath_width_chroma_ub / LineTime;
++					* swath_width_chroma_ub / st_vars->LineTime;
+ 		} else {
+ 			MyError = true;
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML:%s: MyErr set. LinesToRequestPrefetchPixelData: %f, should be > 0\n",
+-					__func__, LinesToRequestPrefetchPixelData);
++					__func__, st_vars->LinesToRequestPrefetchPixelData);
+ #endif
+ 			*VRatioPrefetchY = 0;
+ 			*VRatioPrefetchC = 0;
+@@ -3951,15 +3925,15 @@ bool dml32_CalculatePrefetchSchedule(
+ 		}
+ #ifdef __DML_VBA_DEBUG__
+ 		dml_print("DML: Tpre: %fus - sum of time to request meta pte, 2 x data pte + meta data, swaths\n",
+-			(double)LinesToRequestPrefetchPixelData * LineTime +
+-			2.0*TimeForFetchingRowInVBlank + TimeForFetchingMetaPTE);
+-		dml_print("DML:  Tvm: %fus - time to fetch page tables for meta surface\n", TimeForFetchingMetaPTE);
++			(double)st_vars->LinesToRequestPrefetchPixelData * st_vars->LineTime +
++			2.0*st_vars->TimeForFetchingRowInVBlank + st_vars->TimeForFetchingMetaPTE);
++		dml_print("DML:  Tvm: %fus - time to fetch page tables for meta surface\n", st_vars->TimeForFetchingMetaPTE);
+ 		dml_print("DML: To: %fus - time for propagation from scaler to optc\n",
+-			(*DSTYAfterScaler + ((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * LineTime);
++			(*DSTYAfterScaler + ((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * st_vars->LineTime);
+ 		dml_print("DML: Tvstartup - TSetup - Tcalc - Twait - Tpre - To > 0\n");
+-		dml_print("DML: Tslack(pre): %fus - time left over in schedule\n", VStartup * LineTime -
+-			TimeForFetchingMetaPTE - 2*TimeForFetchingRowInVBlank - (*DSTYAfterScaler +
+-			((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * LineTime - TWait - TCalc - *TSetup);
++		dml_print("DML: Tslack(pre): %fus - time left over in schedule\n", VStartup * st_vars->LineTime -
++			st_vars->TimeForFetchingMetaPTE - 2*st_vars->TimeForFetchingRowInVBlank - (*DSTYAfterScaler +
++			((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * st_vars->LineTime - TWait - TCalc - *TSetup);
+ 		dml_print("DML: row_bytes = dpte_row_bytes (per_pipe) = PixelPTEBytesPerRow = : %d\n",
+ 				PixelPTEBytesPerRow);
+ #endif
+@@ -3967,7 +3941,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 		MyError = true;
+ #ifdef __DML_VBA_DEBUG__
+ 		dml_print("DML::%s: MyErr set, dst_y_prefetch_equ = %f (should be > 1)\n",
+-				__func__, dst_y_prefetch_equ);
++				__func__, st_vars->dst_y_prefetch_equ);
+ #endif
+ 	}
+ 
+@@ -3983,10 +3957,10 @@ bool dml32_CalculatePrefetchSchedule(
+ 			dml_print("DML::%s: HostVMInefficiencyFactor = %f\n", __func__, HostVMInefficiencyFactor);
+ 			dml_print("DML::%s: DestinationLinesToRequestVMInVBlank = %f\n",
+ 					__func__, *DestinationLinesToRequestVMInVBlank);
+-			dml_print("DML::%s: LineTime = %f\n", __func__, LineTime);
++			dml_print("DML::%s: LineTime = %f\n", __func__, st_vars->LineTime);
+ #endif
+ 			prefetch_vm_bw = PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor /
+-					(*DestinationLinesToRequestVMInVBlank * LineTime);
++					(*DestinationLinesToRequestVMInVBlank * st_vars->LineTime);
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: prefetch_vm_bw = %f\n", __func__, prefetch_vm_bw);
+ #endif
+@@ -4003,7 +3977,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 			prefetch_row_bw = 0;
+ 		} else if (*DestinationLinesToRequestRowInVBlank > 0) {
+ 			prefetch_row_bw = (MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) /
+-					(*DestinationLinesToRequestRowInVBlank * LineTime);
++					(*DestinationLinesToRequestRowInVBlank * st_vars->LineTime);
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 			dml_print("DML::%s: MetaRowByte = %d\n", __func__, MetaRowByte);
+@@ -4026,12 +4000,12 @@ bool dml32_CalculatePrefetchSchedule(
+ 
+ 	if (MyError) {
+ 		*PrefetchBandwidth = 0;
+-		TimeForFetchingMetaPTE = 0;
+-		TimeForFetchingRowInVBlank = 0;
++		st_vars->TimeForFetchingMetaPTE = 0;
++		st_vars->TimeForFetchingRowInVBlank = 0;
+ 		*DestinationLinesToRequestVMInVBlank = 0;
+ 		*DestinationLinesToRequestRowInVBlank = 0;
+ 		*DestinationLinesForPrefetch = 0;
+-		LinesToRequestPrefetchPixelData = 0;
++		st_vars->LinesToRequestPrefetchPixelData = 0;
+ 		*VRatioPrefetchY = 0;
+ 		*VRatioPrefetchC = 0;
+ 		*RequiredPrefetchPixDataBWLuma = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+index ecd4f1e7d1f7..37a314ce284b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+@@ -715,6 +715,7 @@ double dml32_CalculateExtraLatency(
+ 		unsigned int HostVMMaxNonCachedPageTableLevels);
+ 
+ bool dml32_CalculatePrefetchSchedule(
++		struct dml32_CalculatePrefetchSchedule *st_vars,
+ 		double HostVMInefficiencyFactor,
+ 		DmlPipe *myPipe,
+ 		unsigned int DSCDelay,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-index 6e61b5382361..492aec634b68 100644
+index 42e4e4c5e656..8460aefe7b6d 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
 +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-@@ -196,6 +196,13 @@ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCal
- 	unsigned int ReorderBytes;
- 	unsigned int VMDataOnlyReturnBW;
- 	double HostVMInefficiencyFactor;
-+	DmlPipe myPipe;
-+	SOCParametersList mmSOCParameters;
-+	double dummy_unit_vector[DC__NUM_DPP__MAX];
-+	double dummy_single[2];
-+	enum clock_change_support dummy_dramchange_support;
-+	enum dm_fclock_change_support dummy_fclkchange_support;
-+	bool dummy_USRRetrainingSupport;
+@@ -247,6 +247,43 @@ struct dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport {
+ 	unsigned int LBLatencyHidingSourceLinesC[DC__NUM_DPP__MAX];
  };
  
- struct dml32_ModeSupportAndSystemConfigurationFull {
-@@ -211,6 +218,35 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
- 	double DSTXAfterScaler[DC__NUM_DPP__MAX];
- 	double MaxTotalVActiveRDBandwidth;
- 	bool dummy_boolean_array[2][DC__NUM_DPP__MAX];
-+	enum odm_combine_mode dummy_odm_mode[DC__NUM_DPP__MAX];
-+	DmlPipe myPipe;
-+	unsigned int dummy_integer[4];
-+	unsigned int TotalNumberOfActiveOTG;
-+	unsigned int TotalNumberOfActiveHDMIFRL;
-+	unsigned int TotalNumberOfActiveDP2p0;
-+	unsigned int TotalNumberOfActiveDP2p0Outputs;
-+	unsigned int TotalDSCUnitsRequired;
-+	unsigned int ReorderingBytes;
-+	unsigned int TotalSlots;
-+	unsigned int NumberOfDPPDSC;
-+	unsigned int NumberOfDPPNoDSC;
-+	unsigned int NextPrefetchModeState;
-+	bool MPCCombineMethodAsNeededForPStateChangeAndVoltage;
-+	bool MPCCombineMethodAsPossible;
-+	bool FullFrameMALLPStateMethod;
-+	bool SubViewportMALLPStateMethod;
-+	bool PhantomPipeMALLPStateMethod;
-+	bool NoChroma;
-+	bool TotalAvailablePipesSupportNoDSC;
-+	bool TotalAvailablePipesSupportDSC;
-+	enum odm_combine_mode ODMModeNoDSC;
-+	enum odm_combine_mode ODMModeDSC;
-+	double RequiredDISPCLKPerSurfaceNoDSC;
-+	double RequiredDISPCLKPerSurfaceDSC;
-+	double BWOfNonCombinedSurfaceOfMaximumBandwidth;
-+	double VMDataOnlyReturnBWPerState;
-+	double HostVMInefficiencyFactor;
-+	bool dummy_boolean[2];
++struct dml32_CalculatePrefetchSchedule {
++	unsigned int DPPCycles, DISPCLKCycles;
++	double DSTTotalPixelsAfterScaler;
++	double LineTime;
++	double dst_y_prefetch_equ;
++	double prefetch_bw_oto;
++	double Tvm_oto;
++	double Tr0_oto;
++	double Tvm_oto_lines;
++	double Tr0_oto_lines;
++	double dst_y_prefetch_oto;
++	double TimeForFetchingMetaPTE;
++	double TimeForFetchingRowInVBlank;
++	double LinesToRequestPrefetchPixelData;
++	unsigned int HostVMDynamicLevelsTrips;
++	double trip_to_mem;
++	double Tvm_trips;
++	double Tr0_trips;
++	double Tvm_trips_rounded;
++	double Tr0_trips_rounded;
++	double Lsw_oto;
++	double Tpre_rounded;
++	double prefetch_bw_equ;
++	double Tvm_equ;
++	double Tr0_equ;
++	double Tdmbf;
++	double Tdmec;
++	double Tdmsks;
++	double prefetch_sw_bytes;
++	double bytes_pp;
++	double dep_bytes;
++	unsigned int max_vratio_pre;
++	double min_Lsw;
++	double Tsw_est1;
++	double Tsw_est3;
++};
++
+ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation {
+ 	unsigned int dummy_integer_array[2][DC__NUM_DPP__MAX];
+ 	double dummy_single_array[2][DC__NUM_DPP__MAX];
+@@ -321,6 +358,7 @@ struct dummy_vars {
+ 	struct dml32_CalculateSwathAndDETConfiguration dml32_CalculateSwathAndDETConfiguration;
+ 	struct dml32_CalculateVMRowAndSwath dml32_CalculateVMRowAndSwath;
+ 	struct dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport;
++	struct dml32_CalculatePrefetchSchedule dml32_CalculatePrefetchSchedule;
  };
  
- struct dummy_vars {
+ struct vba_vars_st {
 -- 
 2.35.3
 
