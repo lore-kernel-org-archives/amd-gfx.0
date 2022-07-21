@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89ED2C43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 09:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC94C43334
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 09:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074BC18A6AE;
-	Thu, 21 Jul 2022 09:52:23 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF42D18AC6F
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 09:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0EA2BD7A;
+	Thu, 21 Jul 2022 09:52:29 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2079.outbound.protection.outlook.com [40.107.96.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A72778BE3E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 09:52:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RSCG9rkbpT9B+/5zBQAUOqF/uHHEeLtlHLJwP5X3diTW/HoD1LHlceWQ92gZQko5wRCXTOFmiTR+Q0Oy8GUj/7v6Hbi+irgBF0SznZLVWhAFLQtRNUu4/kxlPmIyqmcwUEN9Y/ZNuFV8sSa/QTjvy3BtKqv4n9foDOSmzg/fPBwm0FH0qb9IYx6yeM5+h1iqA80qDa5mYxVMHoVPFOpOnQLyk5Ul5WpDZn/fqW/yx+jk68mOOrces2tEa4ZvJmBM4LItUQugaRvlFzwfwgUnWUZV3b91m6jb/ubrQIFV+VUgzzgDllGocEfPVxTHoEq/4ot5T+pijPqSmAZqPykF4g==
+ b=OpQuAbGqVPaTbOmqXczfRiI/mHg2hLHegKNi8PyvBKzKmF9Cvj5a5QzVVYcM2IV2gvCjdNT5QK1fCe+kqGxvTnvtkifcAKZcRIGjN7Ls2fj10iJAEoFki3i3D2OrgPkV8qsk0hZAuOyOhJhw5tb9Mc3jgFs4tI4714palUPdrL8HwC8nZh6m5bKLo3ENaZNeVvLVjZ7or47TIw5etKV0Qqv+yyTT2+ds1VqnEylx5DT/roP668CSTk/xD1YQ1kaiks3ZWjun7GdBZvmRCjl/4wNTyY0PUa7XE0LtqpESSztSCw+p8eD/SF1VwdIE7eTsYSx/fmUhaPu+9unyG6ayxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SA4SKQgkKN1sxS4gEZl0rUReMQLIoFYOp3TfIqQDgQ8=;
- b=nq3JLr9UGjkDNOfzYpMt+Ntodmbmelom4QgA+k/SiqwAo813nFOiI5EJWt4FcSwqTpLskejY9tWts0gFa1uSVlafxmoU8lCbpLrVxXLK1BZtkdnzEtxMKYyvdsOES0A3ariYclPyEdhMEHsulG7G5Txz48XmgeH6BDRnAd0d3vnxjhcUBjNIxxtqfM3a555BjHhpC8ULLZ30y3icRvgEIwdWGd+/XzMv568lKbMud7QYBP8+oXNMnabY1NWzL7cOTOAF7/teZrJP9uL9z/ldRAsW0mHQbH+WdWF0owP2BSetcYIN4tjC8kIV0k+e9o9zaIEkvRaVJqgpYoBqP7gHGw==
+ bh=mSBes/mlBrFI8gJjaMhi4DYCZKxwT763eLZa2nY7o14=;
+ b=M478VxtWvLNBMfKLGGQazftthYXASNG0cQiFZBth0BlL3r+HGdyUORuTqasaIkZIpDyDkw0ZHtkOvVZafwXrzOSXn8xtqEMCb8BMNQiWD82BbgKYhU5/CJadjTHb/CFyEYIoXAmynwlpqSRSZRJsWb3iEaVtzf9MswYVOy5dsyM9cZs80E+Lx+covAn2a9XFXOOd1X69SrewSALaSOdS9rj6lgoluRLIBV3rvGGTiRBN49dnopBuDUKvgY4vXL2JvfOCFbWZH/SK+u5MkKIdJJlMjDmWpJy/Ea55gOHzY6+iU5sMVYr17ODlOnUvm9Ms1CizVGmG4bGLZy7uG/lnYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SA4SKQgkKN1sxS4gEZl0rUReMQLIoFYOp3TfIqQDgQ8=;
- b=qkVJ9X0t4k7iIj7m5ZAtv9sHNCM2d3yU5yUHPZGUGKcZKkXBijOP+3YIJOsGz3JHwNgmnaEqiT3OFGstCAK34OB99YfnQ1yKQRcZDoRSOl8S+xHfxDL9ldjKMiyWzS2Z1VMEO22brgBu2F+iIdynH6pyA5G17zagvqipDb9zXlU=
-Received: from MW4PR03CA0168.namprd03.prod.outlook.com (2603:10b6:303:8d::23)
- by BN9PR12MB5241.namprd12.prod.outlook.com (2603:10b6:408:11e::15)
+ bh=mSBes/mlBrFI8gJjaMhi4DYCZKxwT763eLZa2nY7o14=;
+ b=crmcsjg9tvpCHqEZSxozz73ETj9lXyxyoP+C2s4BnDUojcKPjBmXE+xe7m1MCG32cbPtHMFvAlTd9Q32Zfz5YMaIGKRb932jPhRhizKMANFcx5X7SnR88Iy68/QGEGXx6CDauu1GN1be2mJS6JBUo6IWMblKWJbBr6p2fLGLyQw=
+Received: from MW4PR03CA0069.namprd03.prod.outlook.com (2603:10b6:303:b6::14)
+ by CH2PR12MB4327.namprd12.prod.outlook.com (2603:10b6:610:7d::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15; Thu, 21 Jul
- 2022 09:52:18 +0000
-Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::61) by MW4PR03CA0168.outlook.office365.com
- (2603:10b6:303:8d::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.23 via Frontend
- Transport; Thu, 21 Jul 2022 09:52:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17; Thu, 21 Jul
+ 2022 09:52:22 +0000
+Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b6:cafe::60) by MW4PR03CA0069.outlook.office365.com
+ (2603:10b6:303:b6::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17 via Frontend
+ Transport; Thu, 21 Jul 2022 09:52:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,52 +45,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
+ CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 09:52:18 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 09:52:22 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
- 2022 04:52:17 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 04:52:21 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
- 2022 02:52:16 -0700
+ 2022 04:52:21 -0500
 Received: from horace-sm-debug2.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Thu, 21 Jul 2022 04:52:13 -0500
+ Frontend Transport; Thu, 21 Jul 2022 04:52:17 -0500
 From: Horace Chen <horace.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/6] drm/amdgpu: add CHIP_IP_DISCOVERY support for
- virtualization
-Date: Thu, 21 Jul 2022 17:52:05 +0800
-Message-ID: <20220721095210.37519-1-horace.chen@amd.com>
+Subject: [PATCH 2/6] drm/amdgpu: add sriov nbio callback structure
+Date: Thu, 21 Jul 2022 17:52:06 +0800
+Message-ID: <20220721095210.37519-2-horace.chen@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220721095210.37519-1-horace.chen@amd.com>
+References: <20220721095210.37519-1-horace.chen@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5715a596-afff-4d20-ce0f-08da6afeb2e9
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5241:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87a63800-c29e-484b-9f07-08da6afeb589
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4327:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4x00CRyMYDUSKBs6Z7Nu8BjTF1Yaa2Or/nQeXrrNxAxZxMmIZye9lBHzl+EjHhvHCIQ0r6FD8EPivkij+3SKOpI4Hys1i7jA8241Mwtm8qr8K8h6WqMeMVdF82r9PAXnGLhSFl5azC8TnGKqwjWEUx+iK1n5tjopNEha/QDcbwM+9qG9Zn09pUKbio0B9b8ZRmMBFhr8rhjA9Wb4eeImip6mmYsrHZlSPT95iCQpXIWL8TcNgnsgPIA5Pt8z3FygWnICUIe/wR7nofOIfBAVMUxZzxDOunXGb/aw2fwajFWsh5YGapkEKUYcRBZDTrR4bSwzuHJ0Yr8kcDpZ113A/inC20hAQ/yg5VEw9QpSxhAIZg/HMZSSOwWUW1vXbu1lyG2VuHuv+QoR626YtoqLCt6U2N6e/1/OP50Bd9SqY5ybFn0TqhhB8YW+yvOQFJGkCT47ybq/PpUph0ZpLq8fB7nvjRN4ZIZxZBYVQ8GCqsV9vHPKPxJZDt8BYTp6+qgD2qivwhis2wZYnSx5IafuYXcBU6No2XlvMBpVkwUkphFxK9qTyhPaIeGqI0p7i/JxqxvBCkicsZ5VGyeujGoXc8vVIB/ceL7EdmXmOVCxU5JnxcJ1DsMuZjAxS948vjAqwBu4S/wWC9HF+CttTDKeIl+gFVEXYm61lE09CKDQpOLOkryTVc2TJDT8WUxRMZQIsBkfCB2wKuWer5ds384+DwcQQ+Ohcuag1MQrl6zsaGazjnoHX/nsd5E7M5eRevOWxWuaajBKDrHQb6tcOovAtHHsHVsz7DB0ZCngVHrYI9eF0Q2WWHQJXU6isLLf6e/fQKVz87mwLXgQ9XML8Y2MRQ==
+X-Microsoft-Antispam-Message-Info: xsDjzAHqvfVDP7wSnCYCE9lf05NuEVFgOEJNSKZy+W1C1b9AZQRS1h0qYTWgcXylCqVgEEZoTYNinbobCMFb/JoaG9GDWmsNkp6h2si1w3HWk7wFz6IbXCifZpU+iqYBY3/xQxP4bS94NHDeGtCylNGPnT+mIA56kllFpV29KX/LoYmicFqNIu2O8dnBFi4e+YKABByLrE073f5smu5ykbMClTg3JUtk6Vr2Wo6cJs4oSSQnfcFoTR1EWKY+ChQ1QsJ1mNf8bx4X+de33822ZI/93wqk5D9HfU+zGR6zCjlPG97s2cndwcETRmbtIvGBr8AlVOH6PdXY0MMcq1kSKWinMNtHU60upucTh2ZXFJqzk4nCIcNdNBKyTW1hnE2oCZHc3CJjbYrH92Ga/hZDqA/IWQ/wyZlI3qdAK/S43X5kjeZUM/HrXV7ClMaiB3/ESmPd/4rlCUobbeJNdxjyNOwIg+5FPA4csZOpjRDqSbOHjFN3lAaYx/7ffm/ieJe62umtlp0T0lTTv5aDJhoG6c9lj5TnpNRuWqkQAT+HlH2vccVfRK+Eq0CFhImh8XFLxOU/K8YJXsEVco1OqQuRKEHS4bA+y8atlfKPhC40MpMVVBKIsbt0LAfrYDVOAwqlJ1uqCpY6IDewnCZzcyQJ3bN84Uu8JMm69zMRSPiu/d2aogfrkIATXS22tOfimccb1wqxZOuc+QsT/bGZXfOUVV5DJichu93XrT/J43tZATA+v0c+0FJkdT5ptXM28JzVtsX/wrfZTT36Dfhh5U7ytlv0FUbLF8h8ZPbPzu+o1fmOgbizbBpcNGV/Tx2xwCbg1hglVZwW285B7YRF2k6xwA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(396003)(346002)(136003)(36840700001)(46966006)(40470700004)(6666004)(356005)(2906002)(40480700001)(36860700001)(41300700001)(7696005)(81166007)(83380400001)(47076005)(336012)(82310400005)(82740400003)(8676002)(6916009)(54906003)(44832011)(186003)(426003)(8936002)(316002)(478600001)(2616005)(40460700003)(70206006)(5660300002)(26005)(86362001)(70586007)(4326008)(1076003)(36756003)(36900700001);
+ SFS:(13230016)(4636009)(396003)(346002)(39860400002)(136003)(376002)(46966006)(40470700004)(36840700001)(81166007)(83380400001)(1076003)(47076005)(6666004)(82740400003)(186003)(426003)(44832011)(336012)(41300700001)(2906002)(478600001)(36860700001)(40480700001)(26005)(2616005)(8936002)(4326008)(5660300002)(82310400005)(356005)(6916009)(86362001)(40460700003)(70586007)(54906003)(7696005)(8676002)(36756003)(316002)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 09:52:18.0532 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5715a596-afff-4d20-ce0f-08da6afeb2e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 09:52:22.4404 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87a63800-c29e-484b-9f07-08da6afeb589
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5241
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,34 +113,101 @@ Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For further chips we will use CHIP_IP_DISCOVERY, so add this
-support for virtualization
+[Why]
+under SR-IOV, the nbio doorbell range will be defined by PF. So VF
+nbio doorbell range registers will be blocked. It will cause violation
+if VF access those registers directly.
+
+[How]
+create an nbio_v4_3_sriov_funcs for sriov nbio_v4_3 initialization to
+skip the setting for the doorbell range registers.
 
 Signed-off-by: Horace Chen <horace.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c        | 44 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h        |  1 +
+ 3 files changed, 49 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 7d7044e9de2f..ab55602ff534 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -705,6 +705,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
- 	case CHIP_SIENNA_CICHLID:
- 	case CHIP_ARCTURUS:
- 	case CHIP_ALDEBARAN:
-+	case CHIP_IP_DISCOVERY:
- 		reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 242d1847c4aa..f559fda2811f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2232,7 +2232,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
- 	default: /* other chip doesn't support SRIOV */
-@@ -748,6 +749,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
- 		case CHIP_NAVI10:
- 		case CHIP_NAVI12:
- 		case CHIP_SIENNA_CICHLID:
-+		case CHIP_IP_DISCOVERY:
- 			nv_set_virt_ops(adev);
- 			/* try send GPU_INIT_DATA request to host */
- 			amdgpu_virt_request_init_data(adev);
+ 	case IP_VERSION(4, 3, 0):
+ 	case IP_VERSION(4, 3, 1):
+-		adev->nbio.funcs = &nbio_v4_3_funcs;
++		if (amdgpu_sriov_vf(adev))
++			adev->nbio.funcs = &nbio_v4_3_sriov_funcs;
++		else
++			adev->nbio.funcs = &nbio_v4_3_funcs;
+ 		adev->nbio.hdp_flush_reg = &nbio_v4_3_hdp_flush_reg;
+ 		break;
+ 	case IP_VERSION(7, 7, 0):
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+index 982a89f841d5..15eb3658d70e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+@@ -488,3 +488,47 @@ const struct amdgpu_nbio_funcs nbio_v4_3_funcs = {
+ 	.get_rom_offset = nbio_v4_3_get_rom_offset,
+ 	.program_aspm = nbio_v4_3_program_aspm,
+ };
++
++
++static void nbio_v4_3_sriov_ih_doorbell_range(struct amdgpu_device *adev,
++					bool use_doorbell, int doorbell_index)
++{
++}
++
++static void nbio_v4_3_sriov_sdma_doorbell_range(struct amdgpu_device *adev, int instance,
++					  bool use_doorbell, int doorbell_index,
++					  int doorbell_size)
++{
++}
++
++static void nbio_v4_3_sriov_vcn_doorbell_range(struct amdgpu_device *adev, bool use_doorbell,
++					 int doorbell_index, int instance)
++{
++}
++
++static void nbio_v4_3_sriov_gc_doorbell_init(struct amdgpu_device *adev)
++{
++}
++
++const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs = {
++	.get_hdp_flush_req_offset = nbio_v4_3_get_hdp_flush_req_offset,
++	.get_hdp_flush_done_offset = nbio_v4_3_get_hdp_flush_done_offset,
++	.get_pcie_index_offset = nbio_v4_3_get_pcie_index_offset,
++	.get_pcie_data_offset = nbio_v4_3_get_pcie_data_offset,
++	.get_rev_id = nbio_v4_3_get_rev_id,
++	.mc_access_enable = nbio_v4_3_mc_access_enable,
++	.get_memsize = nbio_v4_3_get_memsize,
++	.sdma_doorbell_range = nbio_v4_3_sriov_sdma_doorbell_range,
++	.vcn_doorbell_range = nbio_v4_3_sriov_vcn_doorbell_range,
++	.gc_doorbell_init = nbio_v4_3_sriov_gc_doorbell_init,
++	.enable_doorbell_aperture = nbio_v4_3_enable_doorbell_aperture,
++	.enable_doorbell_selfring_aperture = nbio_v4_3_enable_doorbell_selfring_aperture,
++	.ih_doorbell_range = nbio_v4_3_sriov_ih_doorbell_range,
++	.update_medium_grain_clock_gating = nbio_v4_3_update_medium_grain_clock_gating,
++	.update_medium_grain_light_sleep = nbio_v4_3_update_medium_grain_light_sleep,
++	.get_clockgating_state = nbio_v4_3_get_clockgating_state,
++	.ih_control = nbio_v4_3_ih_control,
++	.init_registers = nbio_v4_3_init_registers,
++	.remap_hdp_registers = nbio_v4_3_remap_hdp_registers,
++	.get_rom_offset = nbio_v4_3_get_rom_offset,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
+index ade43661d7a9..711999ceedf4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
+@@ -28,5 +28,6 @@
+ 
+ extern const struct nbio_hdp_flush_reg nbio_v4_3_hdp_flush_reg;
+ extern const struct amdgpu_nbio_funcs nbio_v4_3_funcs;
++extern const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs;
+ 
+ #endif
 -- 
 2.25.1
 
