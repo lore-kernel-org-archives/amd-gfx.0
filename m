@@ -4,47 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8934DC43334
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 17:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60EDDC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 17:27:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7F8F11BA15;
-	Thu, 21 Jul 2022 17:27:05 +0000 (UTC)
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBA311B909;
- Thu, 21 Jul 2022 17:27:04 +0000 (UTC)
-Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4LpfdM44yrzDr4R;
- Thu, 21 Jul 2022 17:27:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1658424423; bh=tLbHRN+1HXM03PQNvYmbcQ4E87fMLPaXXEod+l2R5Dw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=XLMgp7Y4ElJ5ReFZnBd1+/TY6/l45fvnNGgdwyyp7WHGcZavpLx4YDicsa92I6yr0
- Ot0LwvNww1nxCQLntxuuF/r8x2L6g4ZS1Jvq+g8iA9vw0F3lJjY99kWaBzQN9Jbtt4
- eH4WgayKgQ17mCARinnc+5AbXL3XZzdZ/50/36ZU=
-X-Riseup-User-ID: 23B284C68BE6ABE9CC990460759E1236BD94AD3094C54EC02C595A1ADAFBC734
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews2.riseup.net (Postfix) with ESMTPSA id 4LpfdG44xKz214c;
- Thu, 21 Jul 2022 17:26:57 +0000 (UTC)
-Message-ID: <158dc220-3901-26fc-2f51-ebcecc091e17@riseup.net>
-Date: Thu, 21 Jul 2022 14:26:54 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id D788E18AF04;
+	Thu, 21 Jul 2022 17:27:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2044.outbound.protection.outlook.com [40.107.244.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7BE918AB50
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 17:27:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FQxE6qf0C9oLeoBvCXa6nhzO/cpCAEKbWZb05m3+CSgvuGnIp0PWLxkJhQrryOiDjfkIH43dp4NVCRVky0t0YGF4c1q9+5oq4sqkAyLHk+a2lMbDlXz4c0oRYYsVKksN77NFS6wsZxZYcvngnvgDRSbL4TC7kfeJNsWHOYLhAbg8mLTfzeT3BM1rkxJdM0YvHVVnPYepLhiOtjavSH2XiT9LpCogdZZjkvm8CHQLyiQ1aqZpmoRvZ7Jzq7g/nXVM71+gpU+58eRIGWEEEXzfSkiZTlKVa5rGUSM/c4tjMQtNEboXKZQwnY9STH0ac0rX/UdCAuebFUbYX8/6c3886Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9J4zn4y4L8t9ccLGoXV6NpZ67PTsuZ8xKu9X6yusYug=;
+ b=I98/EadvXc/ptoF5lM4uKywSfipPzUdzZm9LQjIVt2VK/VH4Noxneray1DPRjQD/B056/sdVZSD0l+B9ySbeV3nLzTwOwdDHGeQgqraRxffw2I1IOBlX9v/XrWDjGjz7RLyp4aLqQPUlhmHzdbfWKV+XdErq9YCybp/0zPkp8AK3D9LrnZvMIgx95DsW6hGDkvh1y8F3rBG1hAy/2RhGimKofrpE0jothHbSvyru2FMoZAoDHk0drX6MzzwR50WyF0qYKJTysqaz0XYSgNd9Y/tibKYguLhFPldLLZwZ5ZH/+JOHOSOpYoB3z+QD/ixnw9rgwfthPqJQf5rWouq+0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9J4zn4y4L8t9ccLGoXV6NpZ67PTsuZ8xKu9X6yusYug=;
+ b=ZDjBoZ9bJ9pJ7BgZvF3R096gw5JnSOnB1jVtFpxnU4T+oezhFlr6WOvA6Ap4FoG17ZfO+oLjCztYydA1Se5b/29ZgX4tcrUMFb8/GtWqejhqcicd6Ni7O1JOLazCfBzMrgjEObIf8zmDT/qjbkS5lfLx7/Oml77Fb7uWI8cqGCw=
+Received: from BN9PR03CA0908.namprd03.prod.outlook.com (2603:10b6:408:107::13)
+ by DM6PR12MB3308.namprd12.prod.outlook.com (2603:10b6:5:182::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Thu, 21 Jul
+ 2022 17:27:47 +0000
+Received: from BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:107:cafe::34) by BN9PR03CA0908.outlook.office365.com
+ (2603:10b6:408:107::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12 via Frontend
+ Transport; Thu, 21 Jul 2022 17:27:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT047.mail.protection.outlook.com (10.13.177.220) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 17:27:47 +0000
+Received: from sonny-TP67XE.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
+ 2022 12:27:42 -0500
+From: Sonny Jiang <sonny.jiang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/5] drm/amdgpu: add VCN function in NBIO v7.7
+Date: Thu, 21 Jul 2022 13:27:09 -0400
+Message-ID: <20220721172712.309984-2-sonny.jiang@amd.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220721172712.309984-1-sonny.jiang@amd.com>
+References: <20220721172712.309984-1-sonny.jiang@amd.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH 5/5] drm/amd/display: move FPU code from dcn301 clk mgr to
- DML folder
-Content-Language: en-US
-To: Melissa Wen <mwen@igalia.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-References: <20220720193208.1131493-1-mwen@igalia.com>
- <20220720193208.1131493-6-mwen@igalia.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-In-Reply-To: <20220720193208.1131493-6-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 304f2c31-a25c-401f-a7a0-08da6b3e5448
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3308:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pEzPp4o98EBW1N2ZVeTWmSOikiUdO+n4Tp8dCU9xbF4Rg3jTwF55/kLAlGAhHXMbWbiQfkEe66dVng9rgNe3QeCx86mEXbTQO251u0eRWk8aP+R+XUmyQiUW8T5q3Hchq6Q1HgW9CZ99FUTw/f1N37KAYMi3PG2Ijw+bCf/M8up4vv7jlFyliELhz5oh3uLv4GdkDvdEcBeqeEH6mLDpFBznwkil8wojvRmp1jzSgKspg66JzsCVyiZUIEKmMRcVOTjx+gS9U2bQRvL1SEaECpsaDvD7LpVRkIAHS0npu9vE2bqCc078vlghZUTDYO2LlIj3GKvTRI56MPozrLQYD+1O0MEuijdHhmdUWEndI9GulENuhh1niAfZMNln3UdmkYSBAkcjGHNl2CLB8bsBuDFjn/Y4r9T0MxWQzVMdqL8bIZvsqGU6jegqec2m8JyG/B4bAaHjY20UEH5P/oBYIxn2oUPrBoGnRmOR3+SdYKvjkB6MYAnI2Rpx9td1I1VJtHRTri5lKk8a7dvdFcZdoV3sFljaoruavrR9bWpenK2fw+nq4CRv+jVDpqMsW4vy4czC/+b5uQYTQaHbA7KNQ/G+DcjscEhhSawLoo7zW0UX7mB/Xhba/T/Je/eZ7otoAyJTazGUPV+xNQ74P4oYB54HIVIC+qTCdvuvF4MR+KoqLkgSQ1tbZ/h38+UZXP5wYq7+jCjtx1G3luDUr+1bmZFfw066jasXnBhV2UzlR6nxjRpMfeI6dKBAW18QOjkLWVILSPpdkAB70Sl+9d26Rzo+oZuAOBRiieowzEIeBShwWgXeR4GTc2YdgUhmYPlBhY+8oBsxv6qoxy6VI8GNbg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(136003)(39860400002)(376002)(396003)(36840700001)(40470700004)(46966006)(316002)(82740400003)(36756003)(5660300002)(2906002)(336012)(70586007)(8676002)(4326008)(81166007)(54906003)(82310400005)(6916009)(26005)(40460700003)(83380400001)(86362001)(36860700001)(6666004)(41300700001)(7696005)(478600001)(70206006)(40480700001)(356005)(1076003)(16526019)(8936002)(186003)(426003)(44832011)(47076005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 17:27:47.1757 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 304f2c31-a25c-401f-a7a0-08da6b3e5448
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,271 +99,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Guenter Roeck <linux@roeck-us.net>,
- linux-kernel@vger.kernel.org
+Cc: Sonny Jiang <sonny.jiang@amd.com>, James Zhu <James.Zhu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Melissa,
+Add function to support VCN_4_0_2 doorbell
 
-On 7/20/22 16:32, Melissa Wen wrote:
-> The -mno-gnu-attribute option in dcn301 clk mgr makefile hides a soft vs
-> hard fp error for powerpc. After removing this flag, we can see some FPU
-> code remains there:
-> 
-> gcc-11.3.0-nolibc/powerpc64-linux/bin/powerpc64-linux-ld:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o uses
-> hard float,
-> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn301/vg_clk_mgr.o
-> uses soft float
-> 
-> Therefore, remove the -mno-gnu-attribute flag for dcn301/powerpc and
-> move FPU-associated code to DML folder.
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->  .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  6 --
->  .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    | 86 ++-----------------
->  .../display/dc/clk_mgr/dcn301/vg_clk_mgr.h    |  3 +
->  .../amd/display/dc/dml/dcn301/dcn301_fpu.c    | 74 ++++++++++++++++
->  4 files changed, 84 insertions(+), 85 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index 15b660a951a5..271d8e573181 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -123,12 +123,6 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
->  ###############################################################################
->  CLK_MGR_DCN301 = vg_clk_mgr.o dcn301_smu.o
->  
-> -# prevent build errors regarding soft-float vs hard-float FP ABI tags
-> -# this code is currently unused on ppc64, as it applies to VanGogh APUs only
-> -ifdef CONFIG_PPC64
-> -CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
-> -endif
-> -
->  AMD_DAL_CLK_MGR_DCN301 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn301/,$(CLK_MGR_DCN301))
->  
->  AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN301)
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> index f310b0d25a07..65f224af03c0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> @@ -32,6 +32,10 @@
->  // For dcn20_update_clocks_update_dpp_dto
->  #include "dcn20/dcn20_clk_mgr.h"
->  
-> +// For DML FPU code
-> +#include "dml/dcn20/dcn20_fpu.h"
-> +#include "dml/dcn301/dcn301_fpu.h"
-> +
+Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
+Reviewed-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-I guess the "dml/dcn301/dcn301_fpu.h" header is not needed, as you only
-use dcn21_clk_mgr_set_bw_params_wm_table and the structs are on the
-source file.
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
+index e786b825cea9..01e8288d09a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
+@@ -83,6 +83,26 @@ static void nbio_v7_7_sdma_doorbell_range(struct amdgpu_device *adev, int instan
+ 	WREG32_PCIE_PORT(reg, doorbell_range);
+ }
+ 
++static void nbio_v7_7_vcn_doorbell_range(struct amdgpu_device *adev, bool use_doorbell,
++					int doorbell_index, int instance)
++{
++	u32 reg = SOC15_REG_OFFSET(NBIO, 0, regGDC0_BIF_VCN0_DOORBELL_RANGE);
++	u32 doorbell_range = RREG32_PCIE_PORT(reg);
++
++	if (use_doorbell) {
++		doorbell_range = REG_SET_FIELD(doorbell_range,
++					       GDC0_BIF_VCN0_DOORBELL_RANGE, OFFSET,
++					       doorbell_index);
++		doorbell_range = REG_SET_FIELD(doorbell_range,
++					       GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 8);
++	} else {
++		doorbell_range = REG_SET_FIELD(doorbell_range,
++					       GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 0);
++	}
++
++	WREG32_PCIE_PORT(reg, doorbell_range);
++}
++
+ static void nbio_v7_7_enable_doorbell_aperture(struct amdgpu_device *adev,
+ 					       bool enable)
+ {
+@@ -238,6 +258,7 @@ const struct amdgpu_nbio_funcs nbio_v7_7_funcs = {
+ 	.mc_access_enable = nbio_v7_7_mc_access_enable,
+ 	.get_memsize = nbio_v7_7_get_memsize,
+ 	.sdma_doorbell_range = nbio_v7_7_sdma_doorbell_range,
++	.vcn_doorbell_range = nbio_v7_7_vcn_doorbell_range,
+ 	.enable_doorbell_aperture = nbio_v7_7_enable_doorbell_aperture,
+ 	.enable_doorbell_selfring_aperture = nbio_v7_7_enable_doorbell_selfring_aperture,
+ 	.ih_doorbell_range = nbio_v7_7_ih_doorbell_range,
+-- 
+2.36.1
 
-Besides that, to the whole series:
-Reviewed-by: Maíra Canal <mairacanal@riseup.net>
-
-Best Regards,
-- Maíra Canal
-
->  #include "vg_clk_mgr.h"
->  #include "dcn301_smu.h"
->  #include "reg_helper.h"
-> @@ -526,81 +530,6 @@ static struct clk_bw_params vg_bw_params = {
->  
->  };
->  
-> -static struct wm_table ddr4_wm_table = {
-> -	.entries = {
-> -		{
-> -			.wm_inst = WM_A,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.72,
-> -			.sr_exit_time_us = 6.09,
-> -			.sr_enter_plus_exit_time_us = 7.14,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_B,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.72,
-> -			.sr_exit_time_us = 10.12,
-> -			.sr_enter_plus_exit_time_us = 11.48,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_C,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.72,
-> -			.sr_exit_time_us = 10.12,
-> -			.sr_enter_plus_exit_time_us = 11.48,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_D,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.72,
-> -			.sr_exit_time_us = 10.12,
-> -			.sr_enter_plus_exit_time_us = 11.48,
-> -			.valid = true,
-> -		},
-> -	}
-> -};
-> -
-> -static struct wm_table lpddr5_wm_table = {
-> -	.entries = {
-> -		{
-> -			.wm_inst = WM_A,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.65333,
-> -			.sr_exit_time_us = 13.5,
-> -			.sr_enter_plus_exit_time_us = 16.5,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_B,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.65333,
-> -			.sr_exit_time_us = 13.5,
-> -			.sr_enter_plus_exit_time_us = 16.5,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_C,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.65333,
-> -			.sr_exit_time_us = 13.5,
-> -			.sr_enter_plus_exit_time_us = 16.5,
-> -			.valid = true,
-> -		},
-> -		{
-> -			.wm_inst = WM_D,
-> -			.wm_type = WM_TYPE_PSTATE_CHG,
-> -			.pstate_latency_us = 11.65333,
-> -			.sr_exit_time_us = 13.5,
-> -			.sr_enter_plus_exit_time_us = 16.5,
-> -			.valid = true,
-> -		},
-> -	}
-> -};
-> -
-> -
->  static unsigned int find_dcfclk_for_voltage(const struct vg_dpm_clocks *clock_table,
->  		unsigned int voltage)
->  {
-> @@ -670,10 +599,9 @@ static void vg_clk_mgr_helper_populate_bw_params(
->  		/*
->  		 * WM set D will be re-purposed for memory retraining
->  		 */
-> -		bw_params->wm_table.entries[WM_D].pstate_latency_us = LPDDR_MEM_RETRAIN_LATENCY;
-> -		bw_params->wm_table.entries[WM_D].wm_inst = WM_D;
-> -		bw_params->wm_table.entries[WM_D].wm_type = WM_TYPE_RETRAINING;
-> -		bw_params->wm_table.entries[WM_D].valid = true;
-> +		DC_FP_START();
-> +		dcn21_clk_mgr_set_bw_params_wm_table(bw_params);
-> +		DC_FP_END();
->  	}
->  
->  }
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-> index 7255477307f1..75884f572989 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.h
-> @@ -29,6 +29,9 @@
->  
->  struct watermarks;
->  
-> +extern struct wm_table ddr4_wm_table;
-> +extern struct wm_table lpddr5_wm_table;
-> +
->  struct smu_watermark_set {
->  	struct watermarks *wm_set;
->  	union large_integer mc_address;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-> index e4863f0bf0f6..7ef66e511ec8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-> @@ -214,6 +214,80 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_01_soc = {
->  	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
->  };
->  
-> +struct wm_table ddr4_wm_table = {
-> +	.entries = {
-> +		{
-> +			.wm_inst = WM_A,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.72,
-> +			.sr_exit_time_us = 6.09,
-> +			.sr_enter_plus_exit_time_us = 7.14,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_B,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.72,
-> +			.sr_exit_time_us = 10.12,
-> +			.sr_enter_plus_exit_time_us = 11.48,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_C,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.72,
-> +			.sr_exit_time_us = 10.12,
-> +			.sr_enter_plus_exit_time_us = 11.48,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_D,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.72,
-> +			.sr_exit_time_us = 10.12,
-> +			.sr_enter_plus_exit_time_us = 11.48,
-> +			.valid = true,
-> +		},
-> +	}
-> +};
-> +
-> +struct wm_table lpddr5_wm_table = {
-> +	.entries = {
-> +		{
-> +			.wm_inst = WM_A,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.65333,
-> +			.sr_exit_time_us = 13.5,
-> +			.sr_enter_plus_exit_time_us = 16.5,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_B,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.65333,
-> +			.sr_exit_time_us = 13.5,
-> +			.sr_enter_plus_exit_time_us = 16.5,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_C,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.65333,
-> +			.sr_exit_time_us = 13.5,
-> +			.sr_enter_plus_exit_time_us = 16.5,
-> +			.valid = true,
-> +		},
-> +		{
-> +			.wm_inst = WM_D,
-> +			.wm_type = WM_TYPE_PSTATE_CHG,
-> +			.pstate_latency_us = 11.65333,
-> +			.sr_exit_time_us = 13.5,
-> +			.sr_enter_plus_exit_time_us = 16.5,
-> +			.valid = true,
-> +		},
-> +	}
-> +};
-> +
->  static void calculate_wm_set_for_vlevel(int vlevel,
->  		struct wm_range_table_entry *table_entry,
->  		struct dcn_watermarks *wm_set,
