@@ -4,88 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78987C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 13:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A489C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 14:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83A00112923;
-	Thu, 21 Jul 2022 13:45:47 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3779B112D86
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 13:45:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ElXr4/+Hql15UIi1H17Kreu1FQ3R3h43mnSArpAqw7yCGY19D6CKHvJqA88xvjd/E5Ss4wwjyLZcKBjFgmxJXHR16QsaHqoNTY5kZDPW8jto2w/7n5qgsu4st59moGEkCBgs5uu8nxGgEHZ/w3S1wng4gs+1JrqLd4bDPaH1cc+O9kkbQvs3UoFg7t7k6t95OSLuKjeCsi/MqotvSFO6QC2/LwfTEYZXu3hx6bTeW7ubLcDokitleQkt4s/kM+C4WwmkPXh/bSMJuLID+5oLLgSllG4cdlYLOH7chV9JIuJUAF0tzvBi6cZiP/Kd0tmOX6qgRrZMmSOrIVuFkjf5dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MzJdMLPwQ+TQFcdpNEuPXrR+8Uy2+AXXl3bHm/QmFlA=;
- b=WZz4RrfX3Nur+jLF0EPcDYggUaKcvgVa+zvudVq+CDGfhzhRNFoUZJpnLbyQyIG7wP37EYdX9eCz7hoJJGpScnxrLwj37d6PFeOkcXWm/NHTsRp0GePY1i17Ofdfu3uKr7G3Eh1ESoeGEElIh5qfkFZ7Vsn8W0NxIAW1TvZ+sazV/Th5iVUwQLN+bweCEHlo9xz5yD8oJ7EnTiYTBw05kmmq9bxp0jTv8fQAd9u2Vjk7NBhC3vm3v4Gk3/kPgR5kFJzhSNp0wpNtaSmnpvHpKJoKr5z/NGAuhz7zk/RqD0QKb53ZPFnUjdr8nFLNDkfvH7gwDqNkMN2XaPJxeggCOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MzJdMLPwQ+TQFcdpNEuPXrR+8Uy2+AXXl3bHm/QmFlA=;
- b=UqmnBgpG1ViKgVNBTE6FqSwhdx3+omHLQin5+ryxO9tHwmcp/kWE9jfTVkr1q7MBeW7fG7igivF2VsvHnAjn4LBYzeGOLYpGuglMNmvBiplYSCEOaQSerXSkOHS5s63uh1Iuam1U/LCzvFNwgwZ29h2nfuKpkJ6DlKw6c0l3wxM=
-Received: from MW3PR06CA0017.namprd06.prod.outlook.com (2603:10b6:303:2a::22)
- by BL1PR12MB5729.namprd12.prod.outlook.com (2603:10b6:208:384::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Thu, 21 Jul
- 2022 13:45:42 +0000
-Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::f4) by MW3PR06CA0017.outlook.office365.com
- (2603:10b6:303:2a::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
- Transport; Thu, 21 Jul 2022 13:45:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 13:45:41 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
- 2022 08:45:31 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdkfd: Correct mmu_notifier_get failure handling
-Date: Thu, 21 Jul 2022 09:44:38 -0400
-Message-ID: <20220721134438.23653-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A95FB11A27E;
+	Thu, 21 Jul 2022 14:37:19 +0000 (UTC)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4874011A27E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 14:37:18 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id w12so2386097edd.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jul 2022 07:37:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9c7nQf9wTV4yz9hKVf/YayUXQBjs4WSUF5A+YnsAG8M=;
+ b=aH0ut5b/z/M2ZVSYvLaf8MEwfv3NGH4KE0YOu+SZrHH0ieSyTwfB62zz52BXKWIBOe
+ jBS4sKwDf2PQ+Ykv113yJmEnq/VMWIhdGU9ZfFgr5rVa0r/j+7pFLGwZaWNDg/IFeLQg
+ FrkAfbmyIYispusjX7riNmVKyxBe6mekV4dJqiTD7OCparYTbFnyn8jozXvguUYmh2rm
+ mY2T8qnL47hwrY8lyDYbCJAb/pIzxzEYn8oWoyPbCZ/gYjYe1X+g3pwap33owPUZNvz3
+ vnTQ7hqC0pKrthza2k7Xp2qjMK0C5DJvMax40XEhyGN1CHn8nlcWfErx9Miy09VEWa8+
+ Si0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9c7nQf9wTV4yz9hKVf/YayUXQBjs4WSUF5A+YnsAG8M=;
+ b=eSO1rbaF/UqmeVrlPp1tWr1ZuwxJlAtpuC8X75se+KbAbfwPFup+58pk7rJdbyce50
+ zQvrzcXto4aNfzy2k4ulH66ffHghiflR8gwh5PFWGlvSkUTkIQHgKj2MvZ/8qKB60dMO
+ g2xDEDZJ21lRUz6WNmeH2hh730zGF6fZsoN8TjNwK0NR7s9roJ5+c8SMVBmks5OcvpOM
+ BVDZcK4V88+/vxIlITC4mETm8dnxihVL2pHPTDZCI2k+SHRHh7/1f7x5D57PIJxQYKRQ
+ OlsLk50IaNdjyQWxu1a8tgdD5SlQsoPWsO21qnC+LjgWYhYOJlcgvcsI307MWoisYp94
+ 8nxg==
+X-Gm-Message-State: AJIora/sAppZ/c0ZwDJIyPWTGgYnnVeaRWR0bsaMvmhtGSa4ZtW/bmZB
+ 9dSUHlIOiRWG0a00IFZLQQ83a+JDOmeVe8qs7Z16+UbRg7I=
+X-Google-Smtp-Source: AGRyM1u7h60Rgz0lW14D4R+dObP6SsnpU0n+Nx+ysqrXnT0B6cxZ16L0z/lJAt69C/RSApBhKM7dUZPlm96Sgbc6KJA=
+X-Received: by 2002:a05:6402:248d:b0:437:dd4c:e70e with SMTP id
+ q13-20020a056402248d00b00437dd4ce70emr56570012eda.75.1658414236539; Thu, 21
+ Jul 2022 07:37:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 37101221-d666-4852-b8e0-08da6b1f4dd6
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5729:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: irkRqAi3N+LYGszt6yNku6CZ1d0lu3tyxO5nCyJsFKe6gqwONSImUEdDfGiPttWdLABfNmNVYiOPhnScHE9d/gvzlx2ZC0VOtm4ddSIG0BwahddMvYFPZyK5q5Gx4hRYatxDzLOcblNUEHnmctFPvWMKcLT6X9uIrGZzDtVnk4zK/bg9a2UXFGmMwe5vTABdkVCX6IYS6t719wlu/xZ7RSSHRAXq8ciUkI8x7tm1tWJ0A2qRc8o/w2MDu6cWO/zxXIpuoX5t7R7jPlXczsRGWl1TTosHofs7aT55OFVYQGKREpiRlatbZVCOz3gpI6R6eLYpFjWGAYRBKgbNAWHYeEcoZRWUuYEgMk6L5M8C3UdjfoIvwATUGWDP01/BSPYtO+6wUU0jDd/4pq+Vqoe3OW1NOT3J8WkvzA4X2dy0oUpPzP0DF/ddTHObIxYx6KEsWeZ3HkygQdqwkkvwVRLyMveMb8zCpQHidP9To/9yJuD2icOUSxkssP8a5Ny/WBSpSupKAzGUHFFOQeMfXr2FRqtX0jqHysRfbyG9O0MaZVS1dEaWKegNzuV85QdmaL9OVYGKthDFflyNdd3SZk6GsQ5s5XtQIa72QpD1Hxpl4ouJ6FAZSeZwNduoNBPsN+xQ5aJp5igy5w768e2dXL/JeXkMALBtDYtQ3JZqclA9FfFzhA6uTZqcwWga8gruQ7CSCfamqkzfejNqzc9eEO2pGgOAo3xg85yR0Wk3aB+CYqbnYehPlzUr5Bc79eD1kzyYCmG0F6LUPGY/jxlVnVhydOedyxmWtU1X0FWAVqKhROIyJTnwRmOo8ord1pLniJCFNNBygwd3u7DKOJfWunnFfw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(346002)(376002)(396003)(39860400002)(36840700001)(40470700004)(46966006)(2616005)(16526019)(316002)(54906003)(6916009)(186003)(47076005)(426003)(40460700003)(1076003)(70206006)(70586007)(4326008)(83380400001)(8676002)(336012)(356005)(26005)(7696005)(82740400003)(5660300002)(81166007)(86362001)(41300700001)(478600001)(82310400005)(40480700001)(2906002)(36860700001)(36756003)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 13:45:41.8547 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37101221-d666-4852-b8e0-08da6b1f4dd6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5729
+References: <20220721095210.37519-1-horace.chen@amd.com>
+In-Reply-To: <20220721095210.37519-1-horace.chen@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 21 Jul 2022 10:37:04 -0400
+Message-ID: <CADnq5_PoE3m2qic2tqRn8pwgXBFS24u=5gRPpg90qHocqbietQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: add CHIP_IP_DISCOVERY support for
+ virtualization
+To: Horace Chen <horace.chen@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,48 +62,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If process has signal pending, mmu_notifier_get_locked fails and calls
-ops->free_notifier, kfd_process_free_notifier will schedule
-kfd_process_wq_release as process refcount is 1, but process structure
-is already freed. This use after free bug causes system crash with
-different backtrace.
+On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
+>
+> For further chips we will use CHIP_IP_DISCOVERY, so add this
+> support for virtualization
 
-The fix is to increase process refcount and then decrease the refcount
-after mmu_notifier_get success.
+All current and future chips will use CHIP_IP_DISCOVERY.  If we plan
+to keep the register the same for all new aics, this should be fine.
+If we might need to have it per asic I think you might want something
+more like this:
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 9be57389301b..0bdd71f9a8fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -709,6 +709,16 @@ void amdgpu_detect_virtualization(struct
+amdgpu_device *adev)
+        case CHIP_ALDEBARAN:
+                reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+                break;
++       case CHIP_IP_DISCOVERY:
++               switch (adev->ip_versions[GC_HWIP][0]) {
++               case IP_VERSION(11, 0, 0):
++                       reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
++                       break;
++               default:
++                       reg = 0;
++                       break;
++               }
++               break;
+        default: /* other chip doesn't support SRIOV */
+                reg = 0;
+                break;
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index fc38a4d81420..d8591721270b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1405,6 +1405,11 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
- 			(uintptr_t)process->mm);
- 
-+	/* Avoid free_notifier to start kfd_process_wq_release if
-+	 * mmu_notifier_get failed because of pending signal.
-+	 */
-+	kref_get(&process->ref);
-+
- 	/* MMU notifier registration must be the last call that can fail
- 	 * because after this point we cannot unwind the process creation.
- 	 * After this point, mmu_notifier_put will trigger the cleanup by
-@@ -1417,6 +1422,7 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	}
- 	BUG_ON(mn != &process->mmu_notifier);
- 
-+	kfd_unref_process(process);
- 	get_task_struct(process->lead_thread);
- 
- 	return process;
--- 
-2.35.1
+Alex
 
+>
+> Signed-off-by: Horace Chen <horace.chen@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 7d7044e9de2f..ab55602ff534 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -705,6 +705,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>         case CHIP_SIENNA_CICHLID:
+>         case CHIP_ARCTURUS:
+>         case CHIP_ALDEBARAN:
+> +       case CHIP_IP_DISCOVERY:
+>                 reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+>                 break;
+>         default: /* other chip doesn't support SRIOV */
+> @@ -748,6 +749,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>                 case CHIP_NAVI10:
+>                 case CHIP_NAVI12:
+>                 case CHIP_SIENNA_CICHLID:
+> +               case CHIP_IP_DISCOVERY:
+>                         nv_set_virt_ops(adev);
+>                         /* try send GPU_INIT_DATA request to host */
+>                         amdgpu_virt_request_init_data(adev);
+> --
+> 2.25.1
+>
