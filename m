@@ -4,90 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB93C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 20:44:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96F61C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 20:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC77D93937;
-	Fri, 22 Jul 2022 20:44:28 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3DA938BF
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 20:44:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LduK1pAD5VkncTtGL7lscCHIV2VdSpawmT/u7mqtIg+iVOJS+KWTttz08oChIMCwxC+yQQKjyScDxW1FYsf2GPh+GovDPaxtMvPmJpmJnqvZHSgxjH+JfgqO/2xXD2jj7+71c1kT4I1lLXzeEz2Nu7L9jRvgii5ghAG40ZrS3WgFgUx7snq3rbdc3IZ3NDxkvh+h/ln/2O7mT7R2t7SYSxw73LONK+qgZRLWpYQp2Xa893oQq5RFvAhH0pR2ioFvRmyrd1V95L9853cKz7OlZ1c11T4NsLsCGdLewknn+naelRKm8gFji17ebf//JHVZAZyXhm+8x0lPON81YkCiag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qZklcLKYET3x8gxMT/WAntu4FR6H8UvY270Hbeq0bts=;
- b=BSnJN2ayHCEQNnVHtIxlu/PCK8SJBoRWVxBRttHKaPyc+tK28gsHjtMNCDMcVDYxreIEOpWpvTYtDC9PuT1cGZu0JitF50bU8w/08xuZ9weC8wJjsIrHp69FqJDB1XzYfFmNc6rP25ImYQVxVZi/lLmvk5J300Xag4CBgRw565n33AflFOvwUygoivBXrQ9vSnbw78b8wDR7htKR7PgfpHr+98JsmsjbeajWGtbf/PCvGXiT8rzVv/1VB1QS7zDGqYHJFfhYj3uVH+1PNRbkZyuqV0hNAGo1XGi61M2fRJ1CO9dUHJ1K3ik0EZulwTiyk7AfpoUUOtAYxrLBekT9dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qZklcLKYET3x8gxMT/WAntu4FR6H8UvY270Hbeq0bts=;
- b=RFG+Hz0S3fn4mX2YHWxnzEYLGeJu9rwwUQUtqfXK/gz0liMJh6TU3cSPwF/6PySlZCacHxCJLUYpn9cK0esYp81yBMtYChdhTtM/ZtirTU2p/dWa9DJDLgyUfl8ruhA6GzD5HTp8MtkwoDJBgU74qtNWRPjHoaZadDNXxoZAICk=
-Received: from MW4PR03CA0061.namprd03.prod.outlook.com (2603:10b6:303:b6::6)
- by CY5PR12MB6059.namprd12.prod.outlook.com (2603:10b6:930:2c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Fri, 22 Jul
- 2022 20:44:25 +0000
-Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b6:cafe::b4) by MW4PR03CA0061.outlook.office365.com
- (2603:10b6:303:b6::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
- Transport; Fri, 22 Jul 2022 20:44:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Fri, 22 Jul 2022 20:44:24 +0000
-Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 22 Jul
- 2022 15:44:21 -0500
-From: Alex Hung <alex.hung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 31/31] drm/amd/display: 3.2.196
-Date: Fri, 22 Jul 2022 14:31:37 -0600
-Message-ID: <20220722203137.4043516-32-alex.hung@amd.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220722203137.4043516-1-alex.hung@amd.com>
-References: <20220722203137.4043516-1-alex.hung@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 264B510F7CF;
+	Fri, 22 Jul 2022 20:51:57 +0000 (UTC)
+Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D0F211B2E4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 20:51:55 +0000 (UTC)
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx0.riseup.net (Postfix) with ESMTPS id 4LqM7G6Mhnz9sq4;
+ Fri, 22 Jul 2022 20:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1658523115; bh=gjc1ybG7wtv6z+hzBCrIwQYHlmjeVCxk5fxir8Jjlqk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=F7Q7+dyq5Ui24uFSD4/HQP9cMnzCCCg7PhK5qWGaq+a/iIZB+sGKLMrca6oJbktkO
+ pwZjEzpMsKm1Fw1SqVa7WDap0C7xsCQU/qLUbY+CRyhB+XRUUWYnFMQYMbT2oJL1QZ
+ 9hurUWupVYxaNyE5/p1XJ/9WvGlEQMwlhfRKHkiE=
+X-Riseup-User-ID: E8A02C98A745F31582DCA022DB87E830C0D1BC5750FCE72F4A9055006E515ABE
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4LqM790tH7z5vNB;
+ Fri, 22 Jul 2022 20:51:48 +0000 (UTC)
+Message-ID: <f90aad9f-19b7-0214-9ba3-ad16bf3e818e@riseup.net>
+Date: Fri, 22 Jul 2022 17:51:45 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH v2 3/4] drm/amd/display: Remove parameters from
+ rq_dlg_get_dlg_reg
+Content-Language: en-US
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+References: <20220721183633.1004611-1-mairacanal@riseup.net>
+ <20220721183633.1004611-3-mairacanal@riseup.net>
+ <88080eb0-e1c2-7b87-6175-72f2842562ba@amd.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
+In-Reply-To: <88080eb0-e1c2-7b87-6175-72f2842562ba@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2db219e4-9b7d-4bb4-729e-08da6c22f68d
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6059:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fTZwpdihR9LUTwHXsFBUKK+azNPO8T9GkxWX2weAvrF+boMHzfAvZNyKp1tKppZXB+XImgmibvkuEyb7LsPlTzS9a10YNtr9Gv+MGpOnrzRIKzREVGwFqOQj7PahAACcpCPopGxLOdvFtnHs3Lt+GagdbQQOtFh1K35Gzv2RSgOVhWEfqYQgQO4is54/ZBgtK8nsG4Nq6hZKefrlw75gbc2Lomk1//MCZI+/Tr6IQnz4QUsDgu8SWgXaVtgZKN5AvuD+X7DCeJvfzy1drG7j1X7EzYB+5yRvSHZ9lYkm0THRL3zVuGx2/9D1lPWCOE2l4Zm9BqAJzNcu5iEnOUZNz68MkDT+H+TkvpE4thw3hIH+tL2XH1toLqeS5O2GNglQLHZSblzBdWird4EmJ+d3J0hNZL5y1gShe90i6GGRXm9vYccLTbdsz6VeLAS/j3CBKWjz96R25H1Q4rQQZYrBJhDt+dI/t9yuwcehjAJGctJzQ+LbNG08dHTk5gnfM/6ih3Ei1Px+RQJI5H4i6nXy+uusbKOsQb2wHBR0E8r1oykYiiWQj8YWnt3Px0IOfi22CODMbfe5EeNGTvwce1U9UiYWuJY4qWcU8F7oJjpZ7nOlW9HmKHRcbVHdHEqntTo7wnS9rkZrsCLJZGxmHprjQYkyCepN/pNz35KSae1tm8fWyLL1QsxovrRiMXzLgcLI4FEXohpoCQLtWYREK7G74v+qMtU01Jz3UyZrSmcNEMHxg87MQXtnF3yKLPSWISBb+4dyEHanP6NpBiPPdW74J7ffpzUKMMHqs6rKyoI1PnitSztMNGq9KZ0p7wrBd9NDUO+qHmFVCrNEP6ELR41Ovg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(396003)(39860400002)(346002)(46966006)(40470700004)(36840700001)(478600001)(5660300002)(86362001)(40480700001)(8936002)(2616005)(426003)(336012)(47076005)(6666004)(2906002)(41300700001)(1076003)(26005)(44832011)(186003)(16526019)(7696005)(40460700003)(36756003)(83380400001)(82310400005)(70586007)(356005)(70206006)(54906003)(316002)(36860700001)(82740400003)(8676002)(81166007)(6916009)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 20:44:24.5624 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2db219e4-9b7d-4bb4-729e-08da6c22f68d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,69 +60,478 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, mark.broadworth@amd.com,
- Anthony Koo <anthony.koo@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, daniel.wheeler@amd.com, Aurabindo.Pillai@amd.com,
- Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: magalilemes00@gmail.com, tales.aparecida@gmail.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, "Li,
+ Roman" <roman.li@amd.com>, mwen@igalia.com,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
+Hi Siqueira,
 
-This version brings along following fixes:
+On 7/22/22 17:11, Rodrigo Siqueira Jordao wrote:
+> Hi Maira,
+> 
+> First of all, thanks a lot for this patch. This change is really helpful
+> for reducing the stack size. I just have few comments inline.
 
-- Copy crc_skip_count when duplicating CRTC state
-- Add debug option for idle optimizations on cursor updates
-- Disable MPC split for DCN32/321
-- Add missing ODM 2:1 policy logic
-- Update DCN32 and DCN321 SR latencies
-- Add reinstate dram in the FPO logic
-- Add dc_ctx to link_enc_create() parameters
-- Cache cursor when cursor exceeds 64x64
-- Add support for manual DMUB FAMS trigger
-- Fix dpstreamclk programming
-- Add missing AUDIO_DTO_SEL reg field
-- Add OTG/ODM functions
-- Use correct clock source constructor for DCN314
-- Use correct DTO_SRC_SEL for 128b/132b encoding
-- Add pixel rate div calcs and programming
-- Remove FPU flags from DCN30 Makefile
-- Create patch bounding box function for isolate FPU
-- Move mclk calculation function to DML
-- Remove FPU operations from dcn201 resources
-- Fallback to SW cursor if SubVP + cursor too big
-- Drop unnecessary FPU flags on dcn302 files
-- Reboot while unplug hdcp enabled dp from mst hub
-- Reset pipe count when iterating for DET override
-- Calculate MALL cache lines based on Mblks required
-- Fix two MPO videos in single display ODM combine mode
-- Guard against zero memory channels
-- Updates SubVP + SubVP DRR cases updates
-- Fix OPTC function pointers for DCN314
-- Add enable/disable FIFO callbacks to stream setup
-- Avoid MPC infinite loop
 
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Anthony Koo <anthony.koo@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thank you for the feedback!
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d05bbe193bfa..8e1e40083ec8 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -47,7 +47,7 @@ struct aux_payload;
- struct set_config_cmd_payload;
- struct dmub_notification;
- 
--#define DC_VER "3.2.195"
-+#define DC_VER "3.2.196"
- 
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
--- 
-2.37.1
+> 
+> On 2022-07-21 14:36, Maíra Canal wrote:
+>> Across all DCN's (except DCN32, that has a separate
+>> rq_dlg_get_dlg_reg), the parameters const bool vm_en, const bool
+>> ignore_viewport_pos, and const bool immediate_flip_support are not used
+>> on the function. Therefore, change the rq_dlg_get_dlg_reg signature
+>> by deleting those parameters.
+>>
+>> Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+>> ---
+>> v1 -> v2:
+>> - Replace "enum" to "enum entries" (André Almeida).
+>> ---
+>>   .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |  3 +--
+>>   .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  5 +----
+>>   .../dc/dml/dcn20/display_rq_dlg_calc_20.h     |  5 +----
+>>   .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   |  5 +----
+>>   .../dc/dml/dcn20/display_rq_dlg_calc_20v2.h   |  5 +----
+>>   .../dc/dml/dcn21/display_rq_dlg_calc_21.c     |  5 +----
+>>   .../dc/dml/dcn21/display_rq_dlg_calc_21.h     |  5 +----
+>>   .../dc/dml/dcn30/display_rq_dlg_calc_30.c     | 18 +++---------------
+>>   .../dc/dml/dcn30/display_rq_dlg_calc_30.h     |  5 +----
+>>   .../dc/dml/dcn31/display_rq_dlg_calc_31.c     | 19 +++----------------
+>>   .../dc/dml/dcn31/display_rq_dlg_calc_31.h     |  5 +----
+>>   .../dc/dml/dcn314/display_rq_dlg_calc_314.c   | 15 ++-------------
+>>   .../dc/dml/dcn314/display_rq_dlg_calc_314.h   |  5 +----
+>>   .../drm/amd/display/dc/dml/display_mode_lib.h |  5 +----
+>>   .../gpu/drm/amd/display/dc/dml/dml_wrapper.c  |  3 +--
+>>   15 files changed, 20 insertions(+), 88 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> index dc60b835e938..d9cfb29a2651 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+>> @@ -857,8 +857,7 @@ void dcn20_calculate_dlg_params(
+>>                   pipe_cnt,
+>>                   pipe_idx,
+>>                   cstate_en,
+>> -                context->bw_ctx.bw.dcn.clk.p_state_change_support,
+>> -                false, false, true);
+>> +                context->bw_ctx.bw.dcn.clk.p_state_change_support);
+>>            
+>> context->bw_ctx.dml.funcs.rq_dlg_get_rq_reg(&context->bw_ctx.dml,
+>>                   &context->res_ctx.pipe_ctx[i].rq_regs,
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+>> index 548cdef8a8ad..d0a4c69b47c8 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+>> @@ -1553,10 +1553,7 @@ void dml20_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib *mode_lib,
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool pstate_en)
+>>   {
+>>       display_rq_params_st rq_param = {0};
+>>       display_dlg_sys_params_st dlg_sys_param = {0};
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
+>> index 8b23867e97c1..36c3692e53b8 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
+>> @@ -65,9 +65,6 @@ void dml20_rq_dlg_get_dlg_reg(
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support);
+>> +        const bool pstate_en);
+>>     #endif
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+>> index 0fc9f3e3ffae..17df9d31c11f 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+>> @@ -1554,10 +1554,7 @@ void dml20v2_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib *mode_lib,
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool pstate_en)
+>>   {
+>>       display_rq_params_st rq_param = {0};
+>>       display_dlg_sys_params_st dlg_sys_param = {0};
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
+>> index 2b4e46ea1c3d..f524f1ccfe41 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
+>> @@ -65,9 +65,6 @@ void dml20v2_rq_dlg_get_dlg_reg(
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support);
+>> +        const bool pstate_en);
+>>     #endif
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+>> index 618f4b682ab1..502dafc6dd79 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+>> @@ -1662,10 +1662,7 @@ void dml21_rq_dlg_get_dlg_reg(
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool pstate_en)
+>>   {
+>>       display_rq_params_st rq_param = {0};
+>>       display_dlg_sys_params_st dlg_sys_param = {0};
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
+>> index af6ad0ca9cf8..822c68089ca8 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
+>> @@ -65,9 +65,6 @@ void dml21_rq_dlg_get_dlg_reg(
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support);
+>> +        const bool pstate_en);
+>>     #endif
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+>> index 8179be1f34bb..b3bdb7283a7e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+>> @@ -898,10 +898,7 @@ static void dml_rq_dlg_get_dlg_params(struct
+>> display_mode_lib *mode_lib,
+>>       const display_rq_dlg_params_st rq_dlg_param,
+>>       const display_dlg_sys_params_st dlg_sys_param,
+>>       const bool cstate_en,
+>> -    const bool pstate_en,
+>> -    const bool vm_en,
+>> -    const bool ignore_viewport_pos,
+>> -    const bool immediate_flip_support)
+>> +    const bool pstate_en)
+>>   {
+>>       const display_pipe_source_params_st *src =
+>> &e2e_pipe_param[pipe_idx].pipe.src;
+>>       const display_pipe_dest_params_st *dst =
+>> &e2e_pipe_param[pipe_idx].pipe.dest;
+>> @@ -1031,9 +1028,6 @@ static void dml_rq_dlg_get_dlg_params(struct
+>> display_mode_lib *mode_lib,
+>>         dml_print("DML_DLG: %s:  cstate_en = %d\n", __func__, cstate_en);
+>>       dml_print("DML_DLG: %s:  pstate_en = %d\n", __func__, pstate_en);
+>> -    dml_print("DML_DLG: %s:  vm_en     = %d\n", __func__, vm_en);
+>> -    dml_print("DML_DLG: %s:  ignore_viewport_pos  = %d\n", __func__,
+>> ignore_viewport_pos);
+>> -    dml_print("DML_DLG: %s:  immediate_flip_support  = %d\n",
+>> __func__, immediate_flip_support);
+>>         dml_print("DML_DLG: %s: dppclk_freq_in_mhz     = %3.2f\n",
+>> __func__, dppclk_freq_in_mhz);
+>>       dml_print("DML_DLG: %s: dispclk_freq_in_mhz    = %3.2f\n",
+>> __func__, dispclk_freq_in_mhz);
+>> @@ -1746,10 +1740,7 @@ void dml30_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib *mode_lib,
+>>       const unsigned int num_pipes,
+>>       const unsigned int pipe_idx,
+>>       const bool cstate_en,
+>> -    const bool pstate_en,
+>> -    const bool vm_en,
+>> -    const bool ignore_viewport_pos,
+>> -    const bool immediate_flip_support)
+>> +    const bool pstate_en)
+>>   {
+>>       display_rq_params_st rq_param = { 0 };
+>>       display_dlg_sys_params_st dlg_sys_param = { 0 };
+>> @@ -1785,10 +1776,7 @@ void dml30_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib *mode_lib,
+>>           rq_param.dlg,
+>>           dlg_sys_param,
+>>           cstate_en,
+>> -        pstate_en,
+>> -        vm_en,
+>> -        ignore_viewport_pos,
+>> -        immediate_flip_support);
+>> +        pstate_en);
+>>       dml_print("DML_DLG: Calculation for pipe[%d] end\n", pipe_idx);
+>>   }
+>>   diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
+>> index 625e41f8d575..d28ed3ae3f94 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
+>> @@ -61,9 +61,6 @@ void dml30_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib             *mode_lib,
+>>           const unsigned int            num_pipes,
+>>           const unsigned int            pipe_idx,
+>>           const bool                    cstate_en,
+>> -        const bool                    pstate_en,
+>> -        const bool                    vm_en,
+>> -        const bool                    ignore_viewport_pos,
+>> -        const bool                    immediate_flip_support);
+>> +        const bool                    pstate_en);
+>>     #endif
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+>> index 66b82e4f05c6..c36dd3a79871 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+>> @@ -859,10 +859,7 @@ static void dml_rq_dlg_get_dlg_params(
+>>           const display_rq_dlg_params_st *rq_dlg_param,
+>>           const display_dlg_sys_params_st *dlg_sys_param,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool pstate_en)
+>>   {
+>>       const display_pipe_source_params_st *src =
+>> &e2e_pipe_param[pipe_idx].pipe.src;
+>>       const display_pipe_dest_params_st *dst =
+>> &e2e_pipe_param[pipe_idx].pipe.dest;
+>> @@ -970,9 +967,6 @@ static void dml_rq_dlg_get_dlg_params(
+>>         dml_print("DML_DLG: %s: cstate_en = %d\n", __func__, cstate_en);
+>>       dml_print("DML_DLG: %s: pstate_en = %d\n", __func__, pstate_en);
+>> -    dml_print("DML_DLG: %s: vm_en     = %d\n", __func__, vm_en);
+>> -    dml_print("DML_DLG: %s: ignore_viewport_pos  = %d\n", __func__,
+>> ignore_viewport_pos);
+>> -    dml_print("DML_DLG: %s: immediate_flip_support  = %d\n",
+>> __func__, immediate_flip_support);
+>>         dml_print("DML_DLG: %s: dppclk_freq_in_mhz     = %3.2f\n",
+>> __func__, dppclk_freq_in_mhz);
+>>       dml_print("DML_DLG: %s: refclk_freq_in_mhz     = %3.2f\n",
+>> __func__, refclk_freq_in_mhz);
+>> @@ -983,7 +977,6 @@ static void dml_rq_dlg_get_dlg_params(
+>>       disp_dlg_regs->refcyc_per_htotal = (unsigned int)
+>> (ref_freq_to_pix_freq * (double) htotal * dml_pow(2, 8));
+>>       disp_dlg_regs->dlg_vblank_end = interlaced ? (vblank_end / 2) :
+>> vblank_end;    // 15 bits
+>>   -    //set_prefetch_mode(mode_lib, cstate_en, pstate_en,
+>> ignore_viewport_pos, immediate_flip_support);
+>>       min_ttu_vblank = get_min_ttu_vblank_in_us(mode_lib,
+>> e2e_pipe_param, num_pipes, pipe_idx);    // From VBA
+>>         dlg_vblank_start = interlaced ? (vblank_start / 2) :
+>> vblank_start;
+>> @@ -1576,10 +1569,7 @@ void dml31_rq_dlg_get_dlg_reg(
+>>           const unsigned int num_pipes,
+>>           const unsigned int pipe_idx,
+>>           const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool pstate_en)
+>>   {
+>>       display_rq_params_st rq_param = {0};
+>>       display_dlg_sys_params_st dlg_sys_param = {0};
+>> @@ -1610,10 +1600,7 @@ void dml31_rq_dlg_get_dlg_reg(
+>>               &rq_param.dlg,
+>>               &dlg_sys_param,
+>>               cstate_en,
+>> -            pstate_en,
+>> -            vm_en,
+>> -            ignore_viewport_pos,
+>> -            immediate_flip_support);
+>> +            pstate_en);
+>>       dml_print("DML_DLG: Calculation for pipe[%d] end\n", pipe_idx);
+>>   }
+>>   diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
+>> index 8ee991351699..5b0b438a9804 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
+>> @@ -61,9 +61,6 @@ void dml31_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib             *mode_lib,
+>>           const unsigned int            num_pipes,
+>>           const unsigned int            pipe_idx,
+>>           const bool                    cstate_en,
+>> -        const bool                    pstate_en,
+>> -        const bool                    vm_en,
+>> -        const bool                    ignore_viewport_pos,
+>> -        const bool                    immediate_flip_support);
+>> +        const bool                    pstate_en);
+>>     #endif
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+>> index 61ee9ba063a7..37ecc4a6ae11 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+>> @@ -943,11 +943,7 @@ static void dml_rq_dlg_get_dlg_params(
+>>           display_ttu_regs_st *disp_ttu_regs,
+>>           const display_rq_dlg_params_st *rq_dlg_param,
+>>           const display_dlg_sys_params_st *dlg_sys_param,
+>> -        const bool cstate_en,
+>> -        const bool pstate_en,
+>> -        const bool vm_en,
+>> -        const bool ignore_viewport_pos,
+>> -        const bool immediate_flip_support)
+>> +        const bool cstate_en)
+>>   {
+>>       const display_pipe_source_params_st *src =
+>> &e2e_pipe_param[pipe_idx].pipe.src;
+>>       const display_pipe_dest_params_st *dst =
+>> &e2e_pipe_param[pipe_idx].pipe.dest;
+>> @@ -1060,9 +1056,6 @@ static void dml_rq_dlg_get_dlg_params(
+>>         dml_print("DML_DLG: %s: cstate_en = %d\n", __func__, cstate_en);
+>>       dml_print("DML_DLG: %s: pstate_en = %d\n", __func__, pstate_en);
+> 
+> hmmm... I'm not sure if I missed something, but you dropped the variable
+> pstate_en from the parameter list, but you still have it here. Is this
+> correct?
 
+Yep, I missed that. But I remember have compiled the code and deploying
+it. So, I went to check it and examine it I found out that the
+dml314_rq_dlg_get_dlg_reg is not even used on the codebase. Which can
+indicate one of two things:
+
+1. Should exist a dml314_func struct on the dml/display_mode_lib.c with
+this function.
+
+2. The dml/dcn314/display_rq_dlg_calc_314 files should be deleted, as
+none of its functions are used on the codebase.
+
+I believe you might know which one is the correct option.
+
+> 
+>> -    dml_print("DML_DLG: %s: vm_en     = %d\n", __func__, vm_en);
+>> -    dml_print("DML_DLG: %s: ignore_viewport_pos  = %d\n", __func__,
+>> ignore_viewport_pos);
+>> -    dml_print("DML_DLG: %s: immediate_flip_support  = %d\n",
+>> __func__, immediate_flip_support);
+> 
+> Why are we dropping these logs? It is already hard to debug DML code,
+> and reducing the amount of information that we can get does not sound
+> good to me.
+
+The parameters vm_en, ignore_viewport_pos, and immediate_flip_support
+are hard-coded into code as `false, false, true` on all calls of the
+function rq_dlg_get_dlg_reg (there are only two: on cn20/dcn20_fpu.c and
+on dml/dml_wrapper.c). As these parameters are already known and don't
+change, I don't believe that they add much value to the debug log as the
+log will be always the same.
+
+Moreover, I could argue that they are polluting the debug log, as none
+of those parameters are being called anywhere else on the codebase. So,
+you already know their value from the beginning, and it is the only time
+they will ever appear on the log, as they are not considered parameters
+anywhere else.
+
+Best Regards,
+- Maíra Canal
+
+> 
+> Thanks
+> Siqueira
+> 
+>>         dml_print("DML_DLG: %s: dppclk_freq_in_mhz     = %3.2f\n",
+>> __func__, dppclk_freq_in_mhz);
+>>       dml_print("DML_DLG: %s: refclk_freq_in_mhz     = %3.2f\n",
+>> __func__, refclk_freq_in_mhz);
+>> @@ -1073,7 +1066,6 @@ static void dml_rq_dlg_get_dlg_params(
+>>       disp_dlg_regs->refcyc_per_htotal = (unsigned int)
+>> (ref_freq_to_pix_freq * (double) htotal * dml_pow(2, 8));
+>>       disp_dlg_regs->dlg_vblank_end = interlaced ? (vblank_end / 2) :
+>> vblank_end;    // 15 bits
+>>   -    //set_prefetch_mode(mode_lib, cstate_en, pstate_en,
+>> ignore_viewport_pos, immediate_flip_support);
+>>       min_ttu_vblank = get_min_ttu_vblank_in_us(mode_lib,
+>> e2e_pipe_param, num_pipes, pipe_idx);    // From VBA
+>>         dlg_vblank_start = interlaced ? (vblank_start / 2) :
+>> vblank_start;
+>> @@ -1725,9 +1717,6 @@ void dml314_rq_dlg_get_dlg_reg(
+>>               &rq_param.dlg,
+>>               &dlg_sys_param,
+>>               cstate_en,
+>> -            pstate_en,
+>> -            vm_en,
+>> -            ignore_viewport_pos,
+>> -            immediate_flip_support);
+>> +            pstate_en);
+>>       dml_print("DML_DLG: Calculation for pipe[%d] end\n", pipe_idx);
+>>   }
+>> diff --git
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.h
+>> index 49cb85d1056c..d2c1ba8b7ebf 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.h
+>> @@ -62,9 +62,6 @@ void dml314_rq_dlg_get_dlg_reg(struct
+>> display_mode_lib             *mode_lib,
+>>           const unsigned int            num_pipes,
+>>           const unsigned int            pipe_idx,
+>>           const bool                    cstate_en,
+>> -        const bool                    pstate_en,
+>> -        const bool                    vm_en,
+>> -        const bool                    ignore_viewport_pos,
+>> -        const bool                    immediate_flip_support);
+>> +        const bool                    pstate_en);
+>>     #endif
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+>> b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+>> index 2bdd6ed22611..8a4b60a278b5 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+>> @@ -55,10 +55,7 @@ struct dml_funcs {
+>>               const unsigned int num_pipes,
+>>               const unsigned int pipe_idx,
+>>               const bool cstate_en,
+>> -            const bool pstate_en,
+>> -            const bool vm_en,
+>> -            const bool ignore_viewport_pos,
+>> -            const bool immediate_flip_support);
+>> +            const bool pstate_en);
+>>       void (*rq_dlg_get_rq_reg)(
+>>           struct display_mode_lib *mode_lib,
+>>           display_rq_regs_st *rq_regs,
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
+>> b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
+>> index b4b51e51fc25..e39e2363ea0a 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
+>> @@ -1647,8 +1647,7 @@ static void dml_calculate_dlg_params(
+>>                   pipe_cnt,
+>>                   pipe_idx,
+>>                   cstate_en,
+>> -                context->bw_ctx.bw.dcn.clk.p_state_change_support,
+>> -                false, false, true);
+>> +                context->bw_ctx.bw.dcn.clk.p_state_change_support);
+>>            
+>> context->bw_ctx.dml.funcs.rq_dlg_get_rq_reg(&context->bw_ctx.dml,
+>>                   &context->res_ctx.pipe_ctx[i].rq_regs,
+> 
