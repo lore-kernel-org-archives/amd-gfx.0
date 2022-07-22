@@ -4,53 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8186C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10187C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:23:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA7390514;
-	Fri, 22 Jul 2022 13:17:43 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334C48FF98
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:17:42 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id mf4so8577606ejc.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:17:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8O/Lowp4UCQeUTL2u5dR4+bCnN306GyFrNzt3fdoQC0=;
- b=Kt58Mu/axyfcuw92DL4oxCsFU3glCiTXqmSEjTIVvEgLkmSCxrr3wAxUaRyjQO5xO7
- qq7GRC09B9TKdclGQdFeQEFVmK/x4NXbDstg7RPzaPiaBZHxjg4mD65tPyCXha6h1wWT
- 8/yZ/4n5ZrXshIAN55zssfpSyVWWiOOiQ1k6oeTD8KbStRMl6c+P9z5FbZYi4yfHoQnV
- EYH84qyU1HhOAhhUKGv+M0M12YdRkCTwGJ6S3FO+PtossjwDhXQQcbxyVnzrby6XdNdS
- b5a7jFxwCkR5iYjc1qtrSJoY5Cq2FIMvib7o6+yEhgj3j421LAtEkOhy8yWZh5SzZz61
- JJVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8O/Lowp4UCQeUTL2u5dR4+bCnN306GyFrNzt3fdoQC0=;
- b=T7Pl7TOmCdz9orqRA2kDs6Do3xgcE+COpCWB9XLdVck0oX18l3xzABpiFNexWsQkOJ
- BCXGS+7L7dfhxvH0xqjLwTtedcFU/OeU6ykRoZqSFOaTEchuW8U0AUjMZ4X2E9IpTYch
- X8ifphVFHcRu0+Qewe2cqVmtX0tyoRqUr1sJ1uCBP/ZaPRJcP/hhrF4Nwaw3RDEUXb6H
- eNFz0i+ZvVWWuzWqt87UZDFiWEwuaQXYXArVvZSPctG13bV9qgbxHVIgxaSLJ9BH7g8L
- RFr/0yY7dj8N7zHHnz3f2uowwMlGASAVbFTmU91KZCCOwmKokrArD4zRR6TU9GC2I27a
- 5UcQ==
-X-Gm-Message-State: AJIora+UVvhHG/uNaH7xzlMpR9Nr+1QY0glwpBa1QZNrvB8Yt+GvtRm3
- vyut5wJlJQz70hthE/C+w/hK2lSu14li2vNwnDgAziCGV6w=
-X-Google-Smtp-Source: AGRyM1sfTLu3Qs4nqMEUO3DQ2qVW/0gKMzO5f0RDfzuD/qhqGuIiqEylmhbhhC3me6H89AEdI9bqz0S2TjCaLYnrHyU=
-X-Received: by 2002:a17:907:2722:b0:72b:6a93:bf9a with SMTP id
- d2-20020a170907272200b0072b6a93bf9amr449394ejl.424.1658495860714; Fri, 22 Jul
- 2022 06:17:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220721095210.37519-1-horace.chen@amd.com>
- <20220721095210.37519-6-horace.chen@amd.com>
-In-Reply-To: <20220721095210.37519-6-horace.chen@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Jul 2022 09:17:28 -0400
-Message-ID: <CADnq5_PNO6b0k9qH5q2gPCfwb=vt4LjNytJSN7UjP6-m0EKgYg@mail.gmail.com>
-Subject: Re: [PATCH 6/6] drm/amdgpu: sriov remove vcn_4_0 and jpeg_4_0
-To: Horace Chen <horace.chen@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82CFF8D6E1;
+	Fri, 22 Jul 2022 13:23:42 +0000 (UTC)
+Received: from redcrew.org (redcrew.org [37.157.195.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645018D3E9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:23:40 +0000 (UTC)
+Received: from server.danny.cz (85-71-161-19.rce.o2.cz [85.71.161.19])
+ by redcrew.org (Postfix) with ESMTP id D7B52A0C;
+ Fri, 22 Jul 2022 15:23:38 +0200 (CEST)
+Received: from talos.danny.cz (unknown
+ [IPv6:2001:470:5c11:160:47df:83f6:718e:218])
+ by server.danny.cz (Postfix) with SMTP id 4D41A11AA6B;
+ Fri, 22 Jul 2022 15:23:38 +0200 (CEST)
+Date: Fri, 22 Jul 2022 15:23:38 +0200
+From: Dan =?UTF-8?B?SG9yw6Fr?= <dan@danny.cz>
+To: Michael Ellerman <michael@ellerman.id.au>
+Subject: Re: [PATCH] amdgpu: re-enable DCN for ppc64le
+Message-Id: <20220722152338.da89f3c445f503ab3b349e78@danny.cz>
+In-Reply-To: <87o7xhcoqh.fsf@mpe.ellerman.id.au>
+References: <20220722082122.571974-1-dan@danny.cz>
+ <87o7xhcoqh.fsf@mpe.ellerman.id.au>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; powerpc64le-redhat-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,47 +42,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Kevin Wang <Kevin1.Wang@amd.com>, amd-gfx@lists.freedesktop.org,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexdeucher@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
->
-> SRIOV needs to initialize mmsch instead of multimedia engines
-> directly. So currently remove them for SR-IOV until the code and
-> firmwares are ready.
->
-> Signed-off-by: Horace Chen <horace.chen@amd.com>
+On Fri, 22 Jul 2022 22:32:06 +1000
+Michael Ellerman <michael@ellerman.id.au> wrote:
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Hi Dan,
+> 
+> [ Cc += linuxppc-dev  ]
+> 
+> Dan Horák <dan@danny.cz> writes:
+> > Commit d11219ad53dc disabled the DCN driver for all platforms that
+> > define PPC64 due long build issues during "make allmodconfig" using
+> > cross-compilation. Cross-compilation defaults to the ppc64_defconfig
+> > and thus big-endian toolchain configuration. The ppc64le platform uses a
+> > different ABI and doesn't suffer from the build issues.
+> 
+> Unfortunately it's a bit messier than that.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index f559fda2811f..3f7e1d683df3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -1900,8 +1900,10 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
->                 case IP_VERSION(4, 0, 0):
->                 case IP_VERSION(4, 0, 2):
->                 case IP_VERSION(4, 0, 4):
-> -                       amdgpu_device_ip_block_add(adev, &vcn_v4_0_ip_block);
-> -                       amdgpu_device_ip_block_add(adev, &jpeg_v4_0_ip_block);
-> +                       if (!amdgpu_sriov_vf(adev)) {
-> +                               amdgpu_device_ip_block_add(adev, &vcn_v4_0_ip_block);
-> +                               amdgpu_device_ip_block_add(adev, &jpeg_v4_0_ip_block);
-> +                       }
->                         break;
->                 default:
->                         dev_err(adev->dev,
-> --
-> 2.25.1
->
+yes, seems it is :-)
+
+> The build error occurs when the compiler is built to use a 64-bit long
+> double type.
+> 
+> The ppc64le ABI document says that long double should be 128-bits, but
+> there are ppc64le compilers out there that are configured to use 64-bit
+> long double, notably the kernel.org crosstool compilers.
+> 
+> So just testing for CPU_LITTLE_ENDIAN means we'll still get build errors
+> on those compilers.
+> 
+> But I think we can detect the long double size and key off that. Can you
+> test the patch below works for you?
+
+yes, it does work, meaning it defines AMD_DC_DCN on Fedora/ppc64le (and
+build is OK)
+
+
+		Dan
+
+> 
+> cheers
+> 
+> 
+> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+> index 7aa12e88c580..e9f8cd50af99 100644
+> --- a/arch/powerpc/Kconfig
+> +++ b/arch/powerpc/Kconfig
+> @@ -281,6 +281,9 @@ config PPC
+>  	# Please keep this list sorted alphabetically.
+>  	#
+>  
+> +config PCC_LONG_DOUBLE_128
+> +	def_bool $(success,test "$(shell,echo __LONG_DOUBLE_128__ | $(CC) -E -P -)" = 1)
+> +
+>  config PPC_BARRIER_NOSPEC
+>  	bool
+>  	default y
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> index b4029c0d5d8c..ec6771e87e73 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -6,7 +6,7 @@ config DRM_AMD_DC
+>  	bool "AMD DC - Enable new display engine"
+>  	default y
+>  	select SND_HDA_COMPONENT if SND_HDA_CORE
+> -	select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
+> +	select DRM_AMD_DC_DCN if (X86 || PPC_LONG_DOUBLE_128) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
+>  	help
+>  	  Choose this option if you want to use the new display engine
+>  	  support for AMDGPU. This adds required support for Vega and
