@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE274C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 07:35:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BDFEC43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 07:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA3D10E3B3;
-	Fri, 22 Jul 2022 07:35:09 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 064B710E323
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 07:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EBAE10E323;
+	Fri, 22 Jul 2022 07:35:10 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E52310E323
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 07:35:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=brJgRYCMeA7vCRoqyncvV4J7klLKD08cOQ+unIW0OUZzCjW1/d1cv3PZ83UvdFvIdkMWv1oe0wWeR3ULiGQAjML1vGrqqjyMNAKrghQmQbVDNaHdAoJ0ptLLbhGIIMD9qxVsJrErag3OHBYWQMWUMGkf3OqCPRvZ8bzuAZPWZt5u88LQgDY4rlddotv9m1qWZPnDq9sdYHgt3orPi57Di30ijIHPubU6ijrGq0cDG+tB+/dqkfSmZJUGYkZTXP780NsQWhMD31v8E6btZaEZzXoLr2BXVhUmLZzBIYHl2YhqrH1h0Pwh9dzZAh3dqR8CXQFxs5HSMdESK4dnIL/jog==
+ b=P8G/CzvaqPLyRaltZs1uzXx9bi3ALfJTGsYUAt2hfMVsOVTsjCk9Sk/cNwK7y4Wg8IQuIqqFWaa1gljQW6Rbft5p55bzgoz5Cg98dPiUMfL3zN9s58+PYpGotnotof4H6/DRd11xRHdW2R77RxwzBZ0XwD5VGIEQcIhr+84QrEpJjNlcD1U71O8z5Yu5uRLrDfNLdJrAVInXyUHDsU7idrTSmzVpLPkP5tj0oaAiylXQRxOIcoRgGh/Gi1H2725qFnDcfCC76/DjoUbakEzD2YJx1Brm+ZBs30PjlofLmSlACmWuFmUTNThRxgB8nxCa3cOTttC5LwB2YgoCB7vpFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=57gJ3ZHGEMyBvUdBGtqYeMK35XCwUtRyl3to8kR0hqI=;
- b=i9jOxmjSRYGKz2+0VBAG/MS5cB3czu0I62QYlZskYj6dguSGC9rdLaN/HHX1b3RH22Tqua/Cao0YC0OGsh4iSryLVx3bgMmDY90uHKx2TYACfjC6beDkpgVsNlz8u+VDGFT13WfKS+jSSMZTkG1nXsVNCBpNP/NO0kpf0/+OywbS3Ar3htKF1cZOy7t7lH3Dqk6FvOChE/BqwaGEgMLJnENfAeZLKkl4/M82f2ifH/T3Lj92XZViLPLvwmoXUt/N8KYGzksRswKoLrQLu6dnkWwSF5AISILf7NiX9kRNIVLlHi4OpDQvev694UMjYiR7+F8OkPryvhhAAbNOmW3cpQ==
+ bh=+0zDyVGqV3MroBNcYzPK6rzKFd00HixUdCgpbIqUfnI=;
+ b=ICN2Xg8Ak9/iT5WSqZo1vT/7R7b8D+IZOSCyeDPn/A9oR8iH+3jekuK0f1swce0dxMbi/iQMgTME9THnGLKI2qER8ZNgD7+gN7bvNrZmOhHvaBLnJ2tXE8WNbWiKEZnaZbH4QGM4RV3Vwk1vZxcYtlgD05PIowWcKC+ZfeeuQXMOxL3KojiiHBuKLY7bsyBohPW7tBHio0yGSWE397vbMApf6K1J3nyNUu/qFIs5US+yqQdMFgUv2AD1sq5EKBdb7Jw/3sgHOodUrPc0KPdkgIy/IbjWGfdx+ke4jAAcyI/AV7jdaLB0mz9FbkE/jlHS1wFNDoAPFTFkvqLpNKck4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=57gJ3ZHGEMyBvUdBGtqYeMK35XCwUtRyl3to8kR0hqI=;
- b=ttwLAngq779DSe6J4YSndgJKloU91IqjXCEvtbLrwX/F08e9bjlCv00W1+fXU/xSsOycAsc7LGcpRBphYIRu+Jioi1E1Wvd23K2f3AYYIdOQv/2jB8YLgXJ0YpBDxV9icw/W7V5I+7518gYlAeStjwwiz/TvHXGKjnXF5m22yrQ=
-Received: from BN0PR04CA0039.namprd04.prod.outlook.com (2603:10b6:408:e8::14)
- by DM5PR12MB1276.namprd12.prod.outlook.com (2603:10b6:3:79::18) with
+ bh=+0zDyVGqV3MroBNcYzPK6rzKFd00HixUdCgpbIqUfnI=;
+ b=UC3AZUdHcWqcllAafQ7GgRWx8P+wgQQ2cjBBaqMcXNCfU0LlGgIkW7P8j7vSoQDaqhfkgr8olvFgIn/M8lYE6L3SaZ3yabz3o1NxKMdhFTFREcBxRr2BcDVP8+cPfRl/nh4/C2Vpoy78X1cteQTRXDulu+TO3U/aO5H8qAeoj8w=
+Received: from BN0PR04CA0060.namprd04.prod.outlook.com (2603:10b6:408:e8::35)
+ by DM6PR12MB4730.namprd12.prod.outlook.com (2603:10b6:5:30::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.17; Fri, 22 Jul
- 2022 07:35:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Fri, 22 Jul
+ 2022 07:35:05 +0000
 Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::46) by BN0PR04CA0039.outlook.office365.com
- (2603:10b6:408:e8::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
- Transport; Fri, 22 Jul 2022 07:35:04 +0000
+ (2603:10b6:408:e8:cafe::12) by BN0PR04CA0060.outlook.office365.com
+ (2603:10b6:408:e8::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23 via Frontend
+ Transport; Fri, 22 Jul 2022 07:35:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,19 +51,19 @@ Received: from SATLEXMB03.amd.com (165.204.84.17) by
 Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 22 Jul
- 2022 02:34:52 -0500
+ 2022 02:35:03 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 22 Jul
- 2022 00:34:52 -0700
+ 2022 00:34:54 -0700
 Received: from victor-test02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Fri, 22 Jul 2022 02:34:50 -0500
+ Transport; Fri, 22 Jul 2022 02:34:52 -0500
 From: Victor Zhao <Victor.Zhao@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/5] drm/amdgpu: add debugfs amdgpu_reset_level
-Date: Fri, 22 Jul 2022 15:34:00 +0800
-Message-ID: <20220722073403.5171-2-Victor.Zhao@amd.com>
+Subject: [PATCH 3/5] drm/amdgpu: save and restore gc hub regs
+Date: Fri, 22 Jul 2022 15:34:01 +0800
+Message-ID: <20220722073403.5171-3-Victor.Zhao@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220722073403.5171-1-Victor.Zhao@amd.com>
 References: <20220722073403.5171-1-Victor.Zhao@amd.com>
@@ -72,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 74af6353-e288-402d-dabc-08da6bb4b191
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a2c3b4f-cf49-40fb-997c-08da6bb4b1f3
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4730:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9I3hKy0cuwZW/6NPayJXpvMNZl6gY/rC7U3+aHw4GBZc/rkPSoTEQFMMIU/CckjNpwPn4WejY1ayEDDiHjeaBxGk/dHAl58cCJMS7EQYtwQFNg3VFd1X+6EMjh1VklL2dkqEh2VlnoktwfIXY5kKccKujTPVcoC0j6dspSyz9+KZgt0cY/kHfqXu4Gg6fmFP623nLM7xwm1kWPLV8c1jzmhHybmARbQbriDELTXzG0n7mwpRs0eilj5GYWLuYgu/ZtIQqDRkfCKenjrf2yzlzPPmjLd7vJzzrS6lfqVXXWs1llQhybFdvKwc4xf97QMHJ/B+l/iKldJQMJBzrRI9Zyghd0NRSVnT8L71fS2UiieTrmojh5lAPOVNRObDcCDda5FqrDEsHPRwOtm2fstCBUmwxPh63viGRO5Q6d6Q1pxQm/yE2kZq7QrSNRheQSWPvAbO8p6GtDSkawaHTSFURDSOaVCil1KSHV05jXkVyySxyJJCBsOOzXUS6CxZglYselYiL3Gc5Uu+d0gRZUBzGFGFqPJ7k2mB6m/LgZqi5A2p+JR3aCB8WtWZF7FF3gcTZLTXE8sSEg2hU75nP90xn8yAGID8RFIhKe4omch95YGOvz2zvgY/Ffc7d0cLKy4IS7xFrKU3iCYkWj3qDH/GErqoIOO6iD2r6tlSKkLq9yK8i7YOLakSTjqGojAxjzZDZ3oPD2wmtwP2ItM1zGA1ILpszoBxSkNbPnOv1Yy9yFKZR4Y0eIXY3rYvbXUfQD7RBa61EBA4Uvw1m77XFP3p+rNebEn1BkJ/Tw3Eoj/r6lka0+/+Q3gnvjhi2Sy/YQZJgxOrhZhvWirSN6JmPolAeg==
+X-Microsoft-Antispam-Message-Info: DGzaEJMw7aKGPinL7WvJI7t8J6hKFHoJgskeA+Z1a1yQ3OG+pPSK9qWwL9BD6FqJdCO7ljoVLsXcKle4VPB9uVL0BAtE8XZYHy8HwASuaPwwKWPFLkTaAI6B7ee+RQiK3jVzsGuo/vBQQgiG0TKH0UKKpoSW5N7HYU1AuQAFXx/DY1sij0M3+KJkL3uheu6LbLS31ecpc7kGg19mhLBtGc8n8wNSZpjVqIkYDbL7K+OMYw3DUUc39wq2tUYKN+9/8jPmpjDixd/I7Cg5mX1gao5/fyGEbTXD+xgzmjAO4++KmRp030XYjd8qdN+hdDCW8dbUjxTFD96Boze1nUMlnywp+s8EIZdL/E5O9enXdu0sSttdI2F/4VIvVu1WRNpjMPgJPkB2Ljr0oUD/6hF8LsNCDyYrK0ukEBHNXSGTOxXhEyqznpXib699mbzZqyaCIctzz18E7lQ4BksW58ODsPa5q5OmKrrAr9Pmx4OWo76Syx3Asw26UZpX+L7RimRIYgLQkX6DqFHONFAGzjDjTdsHRQEAKabTUE6SBv+xUd+gxrfGE1Wsr2crdYndtuH6hhbSSDzr9KZqFGbFFjP8CdMYnx39DoQ8NNR1sKUO4Z4a7snRCsJZtCqtytUmtw5Y2nMDDtstA2eMcgXySYZXsXSZfcNVCtxXiTRgj5QP4jhMg2qCxZXRV5WDlbgK45N06TDX8JS4q6TlCCuwc5JGIyKoc3pO2HuYbkOG4fKSNFyiOKRVfvl3WugyXnvDRANDEzAmTwkz8PXtxPp48iCHhVCyWmAnHiwOEw1nXExX0VwUF00ToLkxLVgPxvCGfmV+oCjT+noPWbViOjHyrWrjGw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(136003)(396003)(39860400002)(36840700001)(46966006)(40470700004)(70206006)(4326008)(6916009)(70586007)(8676002)(36860700001)(356005)(316002)(426003)(336012)(54906003)(8936002)(86362001)(81166007)(2906002)(82740400003)(5660300002)(41300700001)(6666004)(7696005)(26005)(186003)(40480700001)(47076005)(40460700003)(2616005)(36756003)(1076003)(82310400005)(83380400001)(478600001)(36900700001);
+ SFS:(13230016)(4636009)(396003)(376002)(346002)(136003)(39860400002)(40470700004)(46966006)(36840700001)(186003)(336012)(82740400003)(40460700003)(54906003)(316002)(47076005)(82310400005)(426003)(81166007)(6916009)(86362001)(70586007)(2616005)(4326008)(356005)(1076003)(478600001)(70206006)(8676002)(83380400001)(36860700001)(2906002)(26005)(6666004)(41300700001)(7696005)(30864003)(5660300002)(36756003)(40480700001)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 07:35:04.3132 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74af6353-e288-402d-dabc-08da6bb4b191
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 07:35:04.9538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a2c3b4f-cf49-40fb-997c-08da6bb4b1f3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1276
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,137 +108,203 @@ Cc: Alexander.Deucher@amd.com, emily.deng@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce amdgpu_reset_level debugfs in order to help debug and
-test specific type of reset. Also helps blocking unwanted type of
-resets.
-
-By default, mode2 reset will not be enabled
+Save and restore gfxhub regs as they will be reset during mode 2
 
 Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  3 +++
- 5 files changed, 34 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h    |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       | 26 +++++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c      | 72 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   |  7 +-
+ .../include/asic_reg/gc/gc_10_3_0_offset.h    |  4 ++
+ 5 files changed, 110 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6cd1e0a6dffc..c661231a6a07 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -238,6 +238,7 @@ extern int amdgpu_si_support;
- extern int amdgpu_cik_support;
- #endif
- extern int amdgpu_num_kcq;
-+extern uint amdgpu_reset_level_mask;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+index beabab515836..f8036f2b100e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+@@ -35,6 +35,8 @@ struct amdgpu_gfxhub_funcs {
+ 	void (*init)(struct amdgpu_device *adev);
+ 	int (*get_xgmi_info)(struct amdgpu_device *adev);
+ 	void (*utcl2_harvest)(struct amdgpu_device *adev);
++	void (*mode2_save_regs)(struct amdgpu_device *adev);
++	void (*mode2_restore_regs)(struct amdgpu_device *adev);
+ };
  
- #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
- extern int amdgpu_vcnfw_log;
-@@ -274,6 +275,9 @@ extern int amdgpu_vcnfw_log;
- #define AMDGPU_RESET_VCE			(1 << 13)
- #define AMDGPU_RESET_VCE1			(1 << 14)
+ struct amdgpu_gfxhub {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 008eaca27151..0305b660cd17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -264,6 +264,32 @@ struct amdgpu_gmc {
+ 	u64 mall_size;
+ 	/* number of UMC instances */
+ 	int num_umc;
++	/* mode2 save restore */
++	u64 VM_L2_CNTL;
++	u64 VM_L2_CNTL2;
++	u64 VM_DUMMY_PAGE_FAULT_CNTL;
++	u64 VM_DUMMY_PAGE_FAULT_ADDR_LO32;
++	u64 VM_DUMMY_PAGE_FAULT_ADDR_HI32;
++	u64 VM_L2_PROTECTION_FAULT_CNTL;
++	u64 VM_L2_PROTECTION_FAULT_CNTL2;
++	u64 VM_L2_PROTECTION_FAULT_MM_CNTL3;
++	u64 VM_L2_PROTECTION_FAULT_MM_CNTL4;
++	u64 VM_L2_PROTECTION_FAULT_ADDR_LO32;
++	u64 VM_L2_PROTECTION_FAULT_ADDR_HI32;
++	u64 VM_DEBUG;
++	u64 VM_L2_MM_GROUP_RT_CLASSES;
++	u64 VM_L2_BANK_SELECT_RESERVED_CID;
++	u64 VM_L2_BANK_SELECT_RESERVED_CID2;
++	u64 VM_L2_CACHE_PARITY_CNTL;
++	u64 VM_L2_IH_LOG_CNTL;
++	u64 VM_CONTEXT_CNTL[16];
++	u64 VM_CONTEXT_PAGE_TABLE_BASE_ADDR_LO32[16];
++	u64 VM_CONTEXT_PAGE_TABLE_BASE_ADDR_HI32[16];
++	u64 VM_CONTEXT_PAGE_TABLE_START_ADDR_LO32[16];
++	u64 VM_CONTEXT_PAGE_TABLE_START_ADDR_HI32[16];
++	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_LO32[16];
++	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_HI32[16];
++	u64 MC_VM_MX_L1_TLB_CNTL;
+ };
  
-+#define AMDGPU_RESET_LEVEL_SOFT_RECOVERY (1 << 0)
-+#define AMDGPU_RESET_LEVEL_MODE2 (1 << 1)
-+
- /* max cursor sizes (in pixels) */
- #define CIK_CURSOR_WIDTH 128
- #define CIK_CURSOR_HEIGHT 128
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index e2eec985adb3..235c48e4ba4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1661,12 +1661,29 @@ static int amdgpu_debugfs_sclk_set(void *data, u64 val)
- 	return ret;
+ #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+index d8c531581116..51cf8acd2d79 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -576,6 +576,76 @@ static void gfxhub_v2_1_utcl2_harvest(struct amdgpu_device *adev)
+ 	}
  }
  
-+static int amdgpu_debugfs_reset_level_get(void *data, u64 *val)
++static void gfxhub_v2_1_save_regs(struct amdgpu_device *adev)
 +{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-+	*val = amdgpu_reset_level_mask;
-+	return 0;
++	int i;
++	adev->gmc.VM_L2_CNTL = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL);
++	adev->gmc.VM_L2_CNTL2 = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL2);
++	adev->gmc.VM_DUMMY_PAGE_FAULT_CNTL = RREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_CNTL);
++	adev->gmc.VM_DUMMY_PAGE_FAULT_ADDR_LO32 = RREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_ADDR_LO32);
++	adev->gmc.VM_DUMMY_PAGE_FAULT_ADDR_HI32 = RREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_ADDR_HI32);
++	adev->gmc.VM_L2_PROTECTION_FAULT_CNTL = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL);
++	adev->gmc.VM_L2_PROTECTION_FAULT_CNTL2 = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2);
++	adev->gmc.VM_L2_PROTECTION_FAULT_MM_CNTL3 = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_MM_CNTL3);
++	adev->gmc.VM_L2_PROTECTION_FAULT_MM_CNTL4 = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_MM_CNTL4);
++	adev->gmc.VM_L2_PROTECTION_FAULT_ADDR_LO32 = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_ADDR_LO32);
++	adev->gmc.VM_L2_PROTECTION_FAULT_ADDR_HI32 = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_ADDR_HI32);
++	adev->gmc.VM_DEBUG = RREG32_SOC15(GC, 0, mmGCVM_DEBUG);
++	adev->gmc.VM_L2_MM_GROUP_RT_CLASSES = RREG32_SOC15(GC, 0, mmGCVM_L2_MM_GROUP_RT_CLASSES);
++	adev->gmc.VM_L2_BANK_SELECT_RESERVED_CID = RREG32_SOC15(GC, 0, mmGCVM_L2_BANK_SELECT_RESERVED_CID);
++	adev->gmc.VM_L2_BANK_SELECT_RESERVED_CID2 = RREG32_SOC15(GC, 0, mmGCVM_L2_BANK_SELECT_RESERVED_CID2);
++	adev->gmc.VM_L2_CACHE_PARITY_CNTL = RREG32_SOC15(GC, 0, mmGCVM_L2_CACHE_PARITY_CNTL);
++	adev->gmc.VM_L2_IH_LOG_CNTL = RREG32_SOC15(GC, 0, mmGCVM_L2_IH_LOG_CNTL);
++
++	for (i = 0; i <= 15; i++) {
++		adev->gmc.VM_CONTEXT_CNTL[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL, i);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_BASE_ADDR_LO32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32, i * 2);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_BASE_ADDR_HI32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32, i * 2);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_START_ADDR_LO32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32, i * 2);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_START_ADDR_HI32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32, i * 2);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_END_ADDR_LO32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32, i * 2);
++		adev->gmc.VM_CONTEXT_PAGE_TABLE_END_ADDR_HI32[i] = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32, i * 2);
++	}
++
++	adev->gmc.MC_VM_MX_L1_TLB_CNTL = RREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL);
 +}
 +
-+static int amdgpu_debugfs_reset_level_set(void *data, u64 val)
++static void gfxhub_v2_1_restore_regs(struct amdgpu_device *adev)
 +{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-+	amdgpu_reset_level_mask = val;
-+	return 0;
++	int i;
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL, adev->gmc.VM_L2_CNTL);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL2, adev->gmc.VM_L2_CNTL2);
++	WREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_CNTL, adev->gmc.VM_DUMMY_PAGE_FAULT_CNTL);
++	WREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_ADDR_LO32, adev->gmc.VM_DUMMY_PAGE_FAULT_ADDR_LO32);
++	WREG32_SOC15(GC, 0, mmGCVM_DUMMY_PAGE_FAULT_ADDR_HI32, adev->gmc.VM_DUMMY_PAGE_FAULT_ADDR_HI32);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, adev->gmc.VM_L2_PROTECTION_FAULT_CNTL);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2, adev->gmc.VM_L2_PROTECTION_FAULT_CNTL2);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_MM_CNTL3, adev->gmc.VM_L2_PROTECTION_FAULT_MM_CNTL3);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_MM_CNTL4, adev->gmc.VM_L2_PROTECTION_FAULT_MM_CNTL4);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_ADDR_LO32, adev->gmc.VM_L2_PROTECTION_FAULT_ADDR_LO32);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_ADDR_HI32, adev->gmc.VM_L2_PROTECTION_FAULT_ADDR_HI32);
++	WREG32_SOC15(GC, 0, mmGCVM_DEBUG, adev->gmc.VM_DEBUG);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_MM_GROUP_RT_CLASSES, adev->gmc.VM_L2_MM_GROUP_RT_CLASSES);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_BANK_SELECT_RESERVED_CID, adev->gmc.VM_L2_BANK_SELECT_RESERVED_CID);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_BANK_SELECT_RESERVED_CID2, adev->gmc.VM_L2_BANK_SELECT_RESERVED_CID2);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CACHE_PARITY_CNTL, adev->gmc.VM_L2_CACHE_PARITY_CNTL);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_IH_LOG_CNTL, adev->gmc.VM_L2_IH_LOG_CNTL);
++
++	for (i = 0; i <= 15; i++) {
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL, i, adev->gmc.VM_CONTEXT_CNTL[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_BASE_ADDR_LO32[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_BASE_ADDR_HI32[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_START_ADDR_LO32[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_START_ADDR_HI32[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_END_ADDR_LO32[i]);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32, i * 2, adev->gmc.VM_CONTEXT_PAGE_TABLE_END_ADDR_HI32[i]);
++	}
++
++	WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE, adev->gmc.vram_start >> 24);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_TOP, adev->gmc.vram_end >> 24);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, adev->gmc.MC_VM_MX_L1_TLB_CNTL);
 +}
 +
- DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
- 			amdgpu_debugfs_ib_preempt, "%llu\n");
+ const struct amdgpu_gfxhub_funcs gfxhub_v2_1_funcs = {
+ 	.get_fb_location = gfxhub_v2_1_get_fb_location,
+ 	.get_mc_fb_offset = gfxhub_v2_1_get_mc_fb_offset,
+@@ -586,4 +656,6 @@ const struct amdgpu_gfxhub_funcs gfxhub_v2_1_funcs = {
+ 	.init = gfxhub_v2_1_init,
+ 	.get_xgmi_info = gfxhub_v2_1_get_xgmi_info,
+ 	.utcl2_harvest = gfxhub_v2_1_utcl2_harvest,
++	.mode2_save_regs = gfxhub_v2_1_save_regs,
++	.mode2_restore_regs = gfxhub_v2_1_restore_regs,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+index 0512960bed23..51a5b68f77d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
++++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+@@ -94,8 +94,11 @@ sienna_cichlid_mode2_prepare_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ 	int r = 0;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
  
- DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
- 			amdgpu_debugfs_sclk_set, "%llu\n");
+-	if (!amdgpu_sriov_vf(adev))
++	if (!amdgpu_sriov_vf(adev)) {
++		if (adev->gfxhub.funcs->mode2_save_regs)
++			adev->gfxhub.funcs->mode2_save_regs(adev);
+ 		r = sienna_cichlid_mode2_suspend_ip(adev);
++	}
  
-+DEFINE_DEBUGFS_ATTRIBUTE(fops_reset_level, amdgpu_debugfs_reset_level_get,
-+			amdgpu_debugfs_reset_level_set, "%llu\n");
-+
- static ssize_t amdgpu_reset_dump_register_list_read(struct file *f,
- 				char __user *buf, size_t size, loff_t *pos)
- {
-@@ -1785,6 +1802,9 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		return PTR_ERR(ent);
+ 	return r;
+ }
+@@ -152,6 +155,8 @@ static int sienna_cichlid_mode2_restore_ip(struct amdgpu_device *adev)
  	}
  
-+	debugfs_create_file("amdgpu_reset_level", 0200, root, adev,
-+				  &fops_reset_level);
-+
- 	/* Register debugfs entries for amdgpu_ttm */
- 	amdgpu_ttm_debugfs_init(adev);
- 	amdgpu_debugfs_pm_init(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index e8c6c3fe9374..fb8f3cb853a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -198,6 +198,7 @@ struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
- 	.timeout_fatal_disable = false,
- 	.period = 0x0, /* default to 0x0 (timeout disable) */
- };
-+uint amdgpu_reset_level_mask = 0x1;
- 
- /**
-  * DOC: vramlimit (int)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 831fb222139c..f16ab1a54b70 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -74,6 +74,9 @@ int amdgpu_reset_prepare_hwcontext(struct amdgpu_device *adev,
- {
- 	struct amdgpu_reset_handler *reset_handler = NULL;
- 
-+	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_MODE2))
-+		return -ENOSYS;
-+
- 	if (test_bit(AMDGPU_SKIP_MODE2_RESET, &reset_context->flags))
- 		return -ENOSYS;
- 
-@@ -93,6 +96,9 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
- 	int ret;
- 	struct amdgpu_reset_handler *reset_handler = NULL;
- 
-+	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_MODE2))
-+		return -ENOSYS;
-+
- 	if (test_bit(AMDGPU_SKIP_MODE2_RESET, &reset_context->flags))
- 		return -ENOSYS;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index d3558c34d406..1ffdc050a077 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -405,6 +405,9 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
- {
- 	ktime_t deadline = ktime_add_us(ktime_get(), 10000);
- 
-+	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_SOFT_RECOVERY))
-+		return false;
-+
- 	if (amdgpu_sriov_vf(ring->adev) || !ring->funcs->soft_recovery || !fence)
- 		return false;
- 
+ 	/* Reinit GFXHUB */
++	if (adev->gfxhub.funcs->mode2_restore_regs)
++		adev->gfxhub.funcs->mode2_restore_regs(adev);
+ 	adev->gfxhub.funcs->init(adev);
+ 	r = adev->gfxhub.funcs->gart_enable(adev);
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+index f21554a1c86c..594bffce93a9 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+@@ -3129,6 +3129,8 @@
+ #define mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32_BASE_IDX                                          0
+ #define mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32                                                   0x15cc
+ #define mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32_BASE_IDX                                          0
++#define mmGCVM_DEBUG                                                                                   0x15cd
++#define mmGCVM_DEBUG_BASE_IDX                                                                          0
+ #define mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32                                             0x15ce
+ #define mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32_BASE_IDX                                    0
+ #define mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_HI32                                             0x15cf
+@@ -3151,6 +3153,8 @@
+ #define mmGCVM_L2_BANK_SELECT_RESERVED_CID2_BASE_IDX                                                   0
+ #define mmGCVM_L2_CACHE_PARITY_CNTL                                                                    0x15d8
+ #define mmGCVM_L2_CACHE_PARITY_CNTL_BASE_IDX                                                           0
++#define mmGCVM_L2_IH_LOG_CNTL                                                                          0x15d9
++#define mmGCVM_L2_IH_LOG_CNTL_BASE_IDX                                                                 0
+ #define mmGCVM_L2_CNTL5                                                                                0x15dc
+ #define mmGCVM_L2_CNTL5_BASE_IDX                                                                       0
+ #define mmGCVM_L2_GCR_CNTL                                                                             0x15dd
 -- 
 2.25.1
 
