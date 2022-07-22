@@ -4,116 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ACA4C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 08:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 098C7CCA489
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 08:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD0918A92A;
-	Fri, 22 Jul 2022 08:20:00 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2052.outbound.protection.outlook.com [40.107.100.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1BBA18A873
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 08:19:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=etEYNM08bC59JypT+k7CwB9P8XptxhB+0R/wv4hxXCPfsB/Mt3YJsNdlejJZqltySYvzWCalc3iRXY28LO/PIsDmXuF2ucGgosCaG0A+K64KmF8UTcmi9YT6OesgioJdwqs8Tnp9F4F0fh/rpwVCuBAH6hH2X1JOvihfcvADZZl37BfsNaxuNV7ymakR2WIp/Bx/2cvqF45zgh6n3qAHUyS53OikNk4Fe3QBPFeKKos8wnjTcGBirsk+bP9a97Pf+QV4phaO7X7jWi1lkKZKjrje13P1Hzggmhdpkduu5nxLuifCwxyYzCDL2QhVWbIPzGNWq7lMhVC4zNsR9o0HKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ilhxExSXuF4jyQLAF3YCFkXkVYxCdk3ihMv0zgHiuP8=;
- b=mJZ17P2F8go6o/BVI11TBlhHiy2J0fvvMnXCXwCqVgxSLzfBYIvUDn6h9HtsrE+TdHSlWRdjuCcV+FCs39kTqR7J9V5uspu4mx+8D1i5zPOfX2x49b8K3YQtkQHGoGXpoHWt8UcULbdss6j5qjQqJ+sKumAaZXgTOlECRzY8Dd0yuQTVggJdlEZJx0WUM68JvoJLP3/gnwvkNPbVEYlOps+4s1GJqihIUXWhSAGhnXgMu+PaShX0v0u18nJ5Yj5sSixpvMDzXkmoyfl7vMr+vGbxYfXYX1pvOthL9Z2RZwYhxgEyxXZQqvu3zPj7wl+/izAaqJgQ46M1y3HmJGMQ8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ilhxExSXuF4jyQLAF3YCFkXkVYxCdk3ihMv0zgHiuP8=;
- b=HgUTOKV5qPPrImOyfsTumONepF3dZZOMuyYQI49eC0KzfebrgL6RQJx6CiEcYXCUO7hoEJjOk6goYNK493As8POzWRQW4YGlgCHSSCt6BiSulAoVRes8Z7N5D/90rr7KV0mSmk+n42wYUbLwCu7z2+i6LSi+FD2nVb5RyT/z5uc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB3722.namprd12.prod.outlook.com (2603:10b6:5:1c3::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Fri, 22 Jul
- 2022 08:19:53 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5458.019; Fri, 22 Jul 2022
- 08:19:53 +0000
-Message-ID: <30f6ef1d-a1b3-3228-37f5-3cfede6431b5@amd.com>
-Date: Fri, 22 Jul 2022 10:19:48 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4721318BAC1;
+	Fri, 22 Jul 2022 08:22:59 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7EDA18B973
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 08:22:57 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id ez10so7222180ejc.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 01:22:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ZILkT+jdGiQJpLkRQ2mOlKaZS/11NdKISgq7KHtzMlI=;
+ b=hdqyhrzqxHq67WttF0uvblwKvH1n5SwEE0ZnmzGEXKm6GcFTO6qAsHpnMFKPNaOd6X
+ Qp98ANffO0Z2UgGoQZDwo5D9DK6ChnWjBF284qum/NqPvyAEIT1fTaZ1wBnH0r7pkAOi
+ hN833sQpH1IvHjbPQT/Zk3Z/0tLIQ9FA3iJEH72YpW4Nuvmq3yGkG5GDHWoA9Djk3G+8
+ yYTEUauUlSx/EJsZanXRuSzoSYOAlHcBMjVhKyIBKIov1lhoh5mehKZXQ+QnCLvk/YmT
+ a/oq5I+DR7PlaYNUj7z3Oc2nicOq9BKkc/dhSLXX7Ae9pq8/vSWGpSMZf/okuKVut2H7
+ CUWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ZILkT+jdGiQJpLkRQ2mOlKaZS/11NdKISgq7KHtzMlI=;
+ b=rCZ0nQcjlghmOwkuU5N3zPNN3diJvX7vLwHP+l8I0fHJzE/Zba7hCTOukVztxSUKIb
+ 1tnOzLo0WWemhPfB4KKNRXVPNRlDj5Gndi2sjSCT5rMcrhr/amcuYbNoHSxlZmjfQXf/
+ cacCCURwt/5nJR789H/gNBPGrPnQaAJSe58VOTgNyZYqz/Gg77H3TOqK3WeaLwqM0vrJ
+ U4tZUCGeZO7OpM4Ob5izMJGYoXnxtLKoF3DNBDX1Gn+cNvvbYaSHEdazt2blQEYaN75T
+ AXqemireSzIcSuG42FlD94UjOJih/KDli9429JP5CBfBueDZKtMiftali4knSx8VHsLN
+ 3whQ==
+X-Gm-Message-State: AJIora9kVgW1h/t1siyHiDYrMiAN1xr02FlodJxIeFYYlVwAgoYtP5qg
+ VlVTZGe5kzyqwJ8vvbQeM90=
+X-Google-Smtp-Source: AGRyM1sJt+cB7DAX9PS15nDjVitOWh9RMfZmOJYYh0Mi/7aBV8eCGwyzq9oBFiBL2/+WLboKx7R5Ug==
+X-Received: by 2002:a17:907:a218:b0:72b:8aae:3f84 with SMTP id
+ qp24-20020a170907a21800b0072b8aae3f84mr2168432ejc.367.1658478176014; 
+ Fri, 22 Jul 2022 01:22:56 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:ed7f:6516:71c3:dc37?
+ ([2a02:908:1256:79a0:ed7f:6516:71c3:dc37])
+ by smtp.gmail.com with ESMTPSA id
+ gr19-20020a170906e2d300b0072b2f95d5d1sm1735732ejb.170.2022.07.22.01.22.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Jul 2022 01:22:55 -0700 (PDT)
+Message-ID: <74eada76-0445-2d10-87d7-90fe177b307f@gmail.com>
+Date: Fri, 22 Jul 2022 10:22:54 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH 2/5] drm/amdgpu: add debugfs amdgpu_reset_level
+Subject: Re: [PATCH] drm/amd/display: reduce stack size in dcn32 dml (v2)
 Content-Language: en-US
-To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220722073403.5171-1-Victor.Zhao@amd.com>
- <20220722073403.5171-2-Victor.Zhao@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220722073403.5171-2-Victor.Zhao@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220720160520.2992065-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220720160520.2992065-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0156.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::17) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69d7f5d0-40d6-409b-9cd3-08da6bbaf470
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3722:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7Vy4mywinysAk8EZJDoH9jEsaMPOAZix1hTjpZJDe/6WdxVKXa5PL17UhdHAzfIbyMrh1lLmltN8C8ASU7iU3klH78yM7RSb4zzMCitW6QKZAfEgsGHT8AY4uwnVcxBVmzBamRojuFaf4z20bdVec0dzbT3DTYUMkLcdJiDGdA+FMuz8445yAdpxS5Q2oZnxVwE3n6rSNWVnO7fK+aiYbReaXDKmnDvVbYu2Ep5+IvZGlyAt493FiUIc9jqI1HTsWJYiP1XlZJJNRhU4Rpden//ov3hV5JOVOfh9AwGZgwqysZI/X74WM/Rbdwzj2q9B0HI3cFy1X380y6D5F8bKKWz9sDU9UdDlzJdX5ktgJAttTyqaX/Q7XR6Q04w9FsPoNLRNy1fsKBCP6/TgYhefZJYqjVvMjDh9jnZZzgAsF9c9dYYKHFVVFLb15SX84n74OSO+PUjqFyy3Dx/1NlwtRvUY8MpyoAYsIlRCJ1D0zJPTET+1E14dsIyL6e2K8SNduocjlyAkVoNne7/JLB0c3hH98yfbCGRDai7K2LcXgtmLv0KI9STa1/i5ub3BbSPHWMm1vpbVGCHHb8cPYBsqGyqWfY7OhsOqPd1BaiFMtZz3UkBLJ6GAo1fad/zy6IoSdcsfpBOClYiBhRT1sZgdJMGoDl3EK8PltlyvpXZOI34Rl3zejQNzfM/Oc3w4abW2BilhxVY98QonyQtQ17UZpMCdplkyWXbcvakjpYvmuN3nEWJe9uNkr0gI9WkvM4nH0SMo/suRAdvJ9c/DtGkVGf1K49yDdt7AdAqKg4WZ2+GzvAjFlEwdcxaoFTwNTEeFm3yDGcSH+VPAmuCjsvqfEQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(316002)(31696002)(86362001)(8936002)(5660300002)(8676002)(4326008)(66946007)(66476007)(66556008)(186003)(2616005)(83380400001)(38100700002)(41300700001)(6486002)(6666004)(6512007)(478600001)(6506007)(2906002)(36756003)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHZybkxuVHhjK2kyTzB2ZHh6dTArTzJqRTNHeC9rc2IzelkwNGdvV0x0SFg0?=
- =?utf-8?B?bTVrSG45Tmx2dXA1TTBIUm5qMVhMTkg4RDZ4c0NNRWZua0hCWlliWTlXdWor?=
- =?utf-8?B?dG8vUWdoRzF3SGRWa1orTitwVkZqUHFMNGJEQjZrSzN1R2JMTDJlRVBFQWIy?=
- =?utf-8?B?WkF5ZURLcE91akU4L05LaWpTbWMxcmc1c3ZUbWNheU9nMTZpdDZPQ3AzYmZn?=
- =?utf-8?B?MTAvWi9mN0Q4Rzg2dG5CdUZhdWtqaHZ5anZKYzcwaDJnNDBrbmU3Y2xCYkhp?=
- =?utf-8?B?Z2VlWklsVWZNYm02SzN3bDlRNlhjWStYNDB0NzkzVHlGM0NObUZTcU8yMk8x?=
- =?utf-8?B?WHJRVEtjSjZyL0FLN2t1Qzc3R2MwV2Z6R0duQWNobStKVldoZXp0ZjltdkZF?=
- =?utf-8?B?aElKOS9qVlBpakNDQmQvWHp6MU12VGtiOTJsYlFEYXBjVDRBWmhwQnlqSmlO?=
- =?utf-8?B?Y1l2NFBjeEg1S3JrcEZUKy9ZV3ZwelJsVmc2UVJFTC80cnpwbWtXU0pEdzE2?=
- =?utf-8?B?dnp2cUZGc3NVQ2tYL0p4NGdKMngzbWdXdlo5OUVUWjJsc1Yxd25xYklUUENK?=
- =?utf-8?B?ejBjOUpRR2JHNUNFNEZlblpFTjJIK09rMk9lQ25JRGwwdDgyd2JOQUttSm84?=
- =?utf-8?B?c0lDYUlkQjlTMGJlOHBwb3pFWFlUZnVaaDhtcHRMZWNQTC9JVTBOV2pza2pC?=
- =?utf-8?B?SCtQcmE1MTFsK2xxZDlGdTBaNXAvYXJVSTZHSmVWSzZCN09Ld3BqcW5mZ2xh?=
- =?utf-8?B?MkFxQThkbzhnMWhtSE9JUmY0eGxqWUFnRTMrRU9nOG5aOVNWajNKdmFDLytE?=
- =?utf-8?B?cTZFUmxaVkFNSm5FNVRGU1ovRDRVdmhnUVhZcjhNUTUranFVdlg5YW5hQ0d4?=
- =?utf-8?B?OE1KcTlDQ2Zsa2JxR0lDN3E3S28wNHMycDFSZExCbkxHaFA3UDdRK3R1N2F4?=
- =?utf-8?B?eFJnaEhZUTNTV3JEUENCN2tpNloxR2lSYjNFdytFb3h3ckZIWTNJb0NsV2Rn?=
- =?utf-8?B?empuUG4vcjR0MkRBMmZOSytDREFkTTg3cjJqSEkxaXZIaWtNMUNxc3g3cVhu?=
- =?utf-8?B?aXdEdmoxYkd1amVHRWF1ZE9iSkplTHZhYUl0T0N2bjhPeHVCNVN3UmhYWGVP?=
- =?utf-8?B?OUt2TGE1VjdvelFqVk4rdG94M2hNWW9WSDByVVJ0Y0ZkRm03VThPN0h6TjFo?=
- =?utf-8?B?RU4vd05mWEF4ckJMWE5SY25sS3JtMFNkZlRPS1R2Y2JPcTN6b3RuL2JRVTQz?=
- =?utf-8?B?dnRJWmUrM05oT2lrN0N6d1lRVi9lUjMwMlZodUVlYjBtbDVDNVEyZ0R4eXh3?=
- =?utf-8?B?b0ZTcGtWVzIvU3BMb2dBaU0zQnh2THRLN3dMVnF6VGJ0Zmk1SjVPaVExR3Mz?=
- =?utf-8?B?NU82cXVuY2llK1I2M2ZRRWtFUGJibW9VYzNpcld3M2RDWEJTYURQNnFBNnJQ?=
- =?utf-8?B?WXg4Ky9XWkI1T3VTb2NKSHR5RG5Ma3NUTVgvbWZSejR3TDk0a3VBYTZjamRm?=
- =?utf-8?B?T0Z1K0JxU3hjb2pTTW1xRDY0aUF0RS9JZkVxR0FjdkNrenh0dkhUMEova1p6?=
- =?utf-8?B?UHNvR3VLbGpXZW5BckMwUXBVNHhxdWQ5Ym8rUjhmdXZJWlZmMWNLQ3BqRk4z?=
- =?utf-8?B?b2JDT1dRbzF6Vy9xOFkycENScjFJR1kvT3IzV3NpWE92YkNaVllhb3ZuUVoy?=
- =?utf-8?B?bWwrV0dXdmRQbjd2N0NpVE83djBtUUIyNXdDYUxXN3FONmNuenNjNjFMVCtJ?=
- =?utf-8?B?Z3NSL1l1Wi9sYkZXVXpxbXhFeFM3cHpDSDlpNStCd0ZsTi9ZczFieUZKOXJW?=
- =?utf-8?B?YUduelY1eXNvV2hvMGJvdWFYZEJ0VUhZRTdpVzM5YldqQ3NxWnVhNk9XOXBx?=
- =?utf-8?B?Sm5BdTZNb0hudG1EWG5MeGF1WjRDZko4RVloV053alNVWisrSXdzKzNwV2tp?=
- =?utf-8?B?dnBoaDVqdlpST1pnZU1TeGs1ZWNQbXFSbk9rVndMSnN2YjVRTTFnODk4WTBx?=
- =?utf-8?B?T0tJTnZ0eklLQXhCeEJlS0ZpODRnSXRGbkIyZDl0YnZ6clhKUFZmRUtTc00y?=
- =?utf-8?B?aWFNMDNnQUJRbUFIWU1wNHFjWlVmVnZZWXlNTmROTTVvYVJqOHdXNTJKZDly?=
- =?utf-8?B?MGpBdWg3VlhVYXQxbFdCYjhKNytoYUVPTTZTTEE1M1hMMEpuWVZORy9kQUx1?=
- =?utf-8?Q?qb8AmkTt8wc1Fmmx7uA6of8kHtKWAOEP2zXwyY4o9Bud?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69d7f5d0-40d6-409b-9cd3-08da6bbaf470
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 08:19:53.6706 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h0wahyTei+r5uhFEuKv1p2weRz22opTefDHpyF3Ipb044aolaI9IPrYLlrw6C97N
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3722
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,148 +73,909 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, emily.deng@amd.com
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well NAK to the debugfs approach, stuff like that is usually a module 
-parameter.
-
-Apart from that this series needs to be reviewed by Andrey.
-
-Regards,
-Christian.
-
-Am 22.07.22 um 09:34 schrieb Victor Zhao:
-> Introduce amdgpu_reset_level debugfs in order to help debug and
-> test specific type of reset. Also helps blocking unwanted type of
-> resets.
+Am 20.07.22 um 18:05 schrieb Alex Deucher:
+> Move additional dummy structures off the stack and into
+> the dummy vars structure.
 >
-> By default, mode2 reset will not be enabled
+> Fixes the following:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation':
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1659:1: error: the frame size of 2144 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
+>   1659 | }
+>        | ^
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function 'dml32_ModeSupportAndSystemConfigurationFull':
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:3799:1: error: the frame size of 2464 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
+>   3799 | } // ModeSupportAndSystemConfigurationFull
+>        | ^
 >
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> v2: more more stuff to dummy structure, fix init order (Alex)
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Stephen Rothwell <sfr@canb.auug.org.au>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  4 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 ++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |  6 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  3 +++
->   5 files changed, 34 insertions(+)
+>   .../dc/dml/dcn32/display_mode_vba_32.c        | 406 ++++++++----------
+>   .../drm/amd/display/dc/dml/display_mode_vba.h |  35 ++
+>   2 files changed, 214 insertions(+), 227 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 6cd1e0a6dffc..c661231a6a07 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -238,6 +238,7 @@ extern int amdgpu_si_support;
->   extern int amdgpu_cik_support;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> index 349e36ae9333..91450a973920 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+> @@ -67,6 +67,12 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   	int iteration;
+>   	double MaxTotalRDBandwidth;
+>   	unsigned int NextPrefetchMode;
+> +	double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
+> +	bool DestinationLineTimesForPrefetchLessThan2 = false;
+> +	bool VRatioPrefetchMoreThanMax = false;
+> +	double TWait;
+> +	double TotalWRBandwidth = 0;
+> +	double WRBandwidth = 0;
+>   
+>   #ifdef __DML_VBA_DEBUG__
+>   	dml_print("DML::%s: --- START ---\n", __func__);
+> @@ -702,11 +708,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   	NextPrefetchMode = mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb];
+>   
+>   	do {
+> -		double MaxTotalRDBandwidthNoUrgentBurst = 0.0;
+> -		bool DestinationLineTimesForPrefetchLessThan2 = false;
+> -		bool VRatioPrefetchMoreThanMax = false;
+> -		double dummy_unit_vector[DC__NUM_DPP__MAX];
+> -
+>   		MaxTotalRDBandwidth = 0;
+>   #ifdef __DML_VBA_DEBUG__
+>   		dml_print("DML::%s: Start loop: VStartup = %d\n", __func__, mode_lib->vba.VStartupLines);
+> @@ -715,41 +716,39 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   			/* NOTE PerfetchMode variable is invalid in DAL as per the input received.
+>   			 * Hence the direction is to use PrefetchModePerState.
+>   			 */
+> -			double TWait = dml32_CalculateTWait(
+> -					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
+> -					mode_lib->vba.UsesMALLForPStateChange[k],
+> -					mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
+> -					mode_lib->vba.DRRDisplay[k],
+> -					mode_lib->vba.DRAMClockChangeLatency,
+> -					mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
+> -					mode_lib->vba.SREnterPlusExitTime);
+> -
+> -			DmlPipe myPipe;
+> -
+> -			myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
+> -			myPipe.Dispclk = mode_lib->vba.DISPCLK;
+> -			myPipe.PixelClock = mode_lib->vba.PixelClock[k];
+> -			myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
+> -			myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
+> -			myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
+> -			myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
+> -			myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
+> -			myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
+> -			myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
+> -			myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
+> -			myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
+> -			myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
+> -			myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
+> -			myPipe.HTotal = mode_lib->vba.HTotal[k];
+> -			myPipe.HActive = mode_lib->vba.HActive[k];
+> -			myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
+> -			myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
+> -			myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
+> -			myPipe.BytePerPixelY = v->BytePerPixelY[k];
+> -			myPipe.BytePerPixelC = v->BytePerPixelC[k];
+> -			myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
+> +			TWait = dml32_CalculateTWait(
+> +				mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
+> +				mode_lib->vba.UsesMALLForPStateChange[k],
+> +				mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
+> +				mode_lib->vba.DRRDisplay[k],
+> +				mode_lib->vba.DRAMClockChangeLatency,
+> +				mode_lib->vba.FCLKChangeLatency, v->UrgentLatency,
+> +				mode_lib->vba.SREnterPlusExitTime);
+> +
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dppclk = mode_lib->vba.DPPCLK[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.Dispclk = mode_lib->vba.DISPCLK;
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCFClkDeepSleep = v->DCFCLKDeepSleep;
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DPPPerSurface = mode_lib->vba.DPPPerPlane[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesY = v->BlockWidth256BytesY[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesY = v->BlockHeight256BytesY[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockWidth256BytesC = v->BlockWidth256BytesC[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BlockHeight256BytesC = v->BlockHeight256BytesC[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HTotal = mode_lib->vba.HTotal[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.HActive = mode_lib->vba.HActive[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ODMMode = mode_lib->vba.ODMCombineEnabled[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelY = v->BytePerPixelY[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.BytePerPixelC = v->BytePerPixelC[k];
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe.ProgressiveToInterlaceUnitInOPP = mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
+>   			v->ErrorResult[k] = dml32_CalculatePrefetchSchedule(v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.HostVMInefficiencyFactor,
+> -					&myPipe, v->DSCDelay[k],
+> +					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.myPipe, v->DSCDelay[k],
+>   					mode_lib->vba.DPPCLKDelaySubtotal + mode_lib->vba.DPPCLKDelayCNVCFormater,
+>   					mode_lib->vba.DPPCLKDelaySCL,
+>   					mode_lib->vba.DPPCLKDelaySCLLBOnly,
+> @@ -898,8 +897,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
 >   #endif
->   extern int amdgpu_num_kcq;
-> +extern uint amdgpu_reset_level_mask;
 >   
->   #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
->   extern int amdgpu_vcnfw_log;
-> @@ -274,6 +275,9 @@ extern int amdgpu_vcnfw_log;
->   #define AMDGPU_RESET_VCE			(1 << 13)
->   #define AMDGPU_RESET_VCE1			(1 << 14)
+>   		{
+> -			double dummy_single[1];
+> -
+>   			dml32_CalculatePrefetchBandwithSupport(
+>   					mode_lib->vba.NumberOfActiveSurfaces,
+>   					mode_lib->vba.ReturnBW,
+> @@ -923,16 +920,14 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
 >   
-> +#define AMDGPU_RESET_LEVEL_SOFT_RECOVERY (1 << 0)
-> +#define AMDGPU_RESET_LEVEL_MODE2 (1 << 1)
-> +
->   /* max cursor sizes (in pixels) */
->   #define CIK_CURSOR_WIDTH 128
->   #define CIK_CURSOR_HEIGHT 128
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index e2eec985adb3..235c48e4ba4d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1661,12 +1661,29 @@ static int amdgpu_debugfs_sclk_set(void *data, u64 val)
->   	return ret;
->   }
+>   					/* output */
+>   					&MaxTotalRDBandwidth,
+> -					&dummy_single[0],
+> +					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
+>   					&v->PrefetchModeSupported);
+>   		}
 >   
-> +static int amdgpu_debugfs_reset_level_get(void *data, u64 *val)
-> +{
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-> +	*val = amdgpu_reset_level_mask;
-> +	return 0;
-> +}
-> +
-> +static int amdgpu_debugfs_reset_level_set(void *data, u64 val)
-> +{
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-> +	amdgpu_reset_level_mask = val;
-> +	return 0;
-> +}
-> +
->   DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
->   			amdgpu_debugfs_ib_preempt, "%llu\n");
+>   		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k)
+> -			dummy_unit_vector[k] = 1.0;
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector[k] = 1.0;
 >   
->   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
->   			amdgpu_debugfs_sclk_set, "%llu\n");
+>   		{
+> -			double  dummy_single[1];
+> -			bool dummy_boolean[1];
+>   			dml32_CalculatePrefetchBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
+>   					mode_lib->vba.ReturnBW,
+>   					v->NoUrgentLatencyHidingPre,
+> @@ -946,17 +941,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   					v->cursor_bw_pre,
+>   					v->prefetch_vmrow_bw,
+>   					mode_lib->vba.DPPPerPlane,
+> -					dummy_unit_vector,
+> -					dummy_unit_vector,
+> -					dummy_unit_vector,
+> -					dummy_unit_vector,
+> -					dummy_unit_vector,
+> -					dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +					v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
 >   
-> +DEFINE_DEBUGFS_ATTRIBUTE(fops_reset_level, amdgpu_debugfs_reset_level_get,
-> +			amdgpu_debugfs_reset_level_set, "%llu\n");
-> +
->   static ssize_t amdgpu_reset_dump_register_list_read(struct file *f,
->   				char __user *buf, size_t size, loff_t *pos)
+>   					/* output */
+> -					&dummy_single[0],
+> +					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
+>   					&v->FractionOfUrgentBandwidth,
+> -					&dummy_boolean[0]);
+> +					&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);
+>   		}
+>   
+>   		if (VRatioPrefetchMoreThanMax != false || DestinationLineTimesForPrefetchLessThan2 != false) {
+> @@ -1039,8 +1034,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   			}
+>   
+>   			{
+> -				double  dummy_single[2];
+> -				bool dummy_boolean[1];
+>   				dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
+>   						mode_lib->vba.ReturnBW,
+>   						mode_lib->vba.ImmediateFlipRequirement,
+> @@ -1064,7 +1057,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   						/* output */
+>   						&v->total_dcn_read_bw_with_flip,    // Single  *TotalBandwidth
+> -						&dummy_single[0],                        // Single  *FractionOfUrgentBandwidth
+> +						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],                        // Single  *FractionOfUrgentBandwidth
+>   						&v->ImmediateFlipSupported);        // Boolean *ImmediateFlipBandwidthSupport
+>   
+>   				dml32_CalculateImmediateFlipBandwithSupport(mode_lib->vba.NumberOfActiveSurfaces,
+> @@ -1081,17 +1074,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   						v->cursor_bw_pre,
+>   						v->prefetch_vmrow_bw,
+>   						mode_lib->vba.DPPPerPlane,
+> -						dummy_unit_vector,
+> -						dummy_unit_vector,
+> -						dummy_unit_vector,
+> -						dummy_unit_vector,
+> -						dummy_unit_vector,
+> -						dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+> +						v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_unit_vector,
+>   
+>   						/* output */
+> -						&dummy_single[1],                                // Single  *TotalBandwidth
+> +						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[1],                                // Single  *TotalBandwidth
+>   						&v->FractionOfUrgentBandwidthImmediateFlip, // Single  *FractionOfUrgentBandwidth
+> -						&dummy_boolean[0]);                              // Boolean *ImmediateFlipBandwidthSupport
+> +						&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);                              // Boolean *ImmediateFlipBandwidthSupport
+>   			}
+>   
+>   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+> @@ -1149,22 +1142,17 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   	//Watermarks and NB P-State/DRAM Clock Change Support
+>   	{
+> -		SOCParametersList mmSOCParameters;
+> -		enum clock_change_support dummy_dramchange_support;
+> -		enum dm_fclock_change_support dummy_fclkchange_support;
+> -		bool dummy_USRRetrainingSupport;
+> -
+> -		mmSOCParameters.UrgentLatency = v->UrgentLatency;
+> -		mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
+> -		mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
+> -		mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
+> -		mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
+> -		mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
+> -		mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
+> -		mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
+> -		mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
+> -		mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
+> -		mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.UrgentLatency = v->UrgentLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.ExtraLatency = v->UrgentExtraLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.WritebackLatency = mode_lib->vba.WritebackLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.DRAMClockChangeLatency = mode_lib->vba.DRAMClockChangeLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.FCLKChangeLatency = mode_lib->vba.FCLKChangeLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitTime = mode_lib->vba.SRExitTime;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitTime = mode_lib->vba.SREnterPlusExitTime;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SRExitZ8Time = mode_lib->vba.SRExitZ8Time;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SREnterPlusExitZ8Time = mode_lib->vba.SREnterPlusExitZ8Time;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.USRRetrainingLatency = mode_lib->vba.USRRetrainingLatency;
+> +		v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters.SMNLatency = mode_lib->vba.SMNLatency;
+>   
+>   		dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
+>   			mode_lib->vba.USRRetrainingRequiredFinal,
+> @@ -1182,7 +1170,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   			v->dpte_group_bytes,
+>   			v->meta_row_height,
+>   			v->meta_row_height_chroma,
+> -			mmSOCParameters,
+> +			v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
+>   			mode_lib->vba.WritebackChunkSize,
+>   			mode_lib->vba.SOCCLK,
+>   			v->DCFCLKDeepSleep,
+> @@ -1219,12 +1207,12 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   			/* Output */
+>   			&v->Watermark,
+> -			&dummy_dramchange_support,
+> +			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_dramchange_support,
+>   			v->MaxActiveDRAMClockChangeLatencySupported,
+>   			v->SubViewportLinesNeededInMALL,
+> -			&dummy_fclkchange_support,
+> +			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_fclkchange_support,
+>   			&v->MinActiveFCLKChangeLatencySupported,
+> -			&dummy_USRRetrainingSupport,
+> +			&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_USRRetrainingSupport,
+>   			mode_lib->vba.ActiveDRAMClockChangeLatencyMargin);
+>   
+>   		/* DCN32 has a new struct Watermarks (typedef) which is used to store
+> @@ -1486,9 +1474,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   	{
+>   		//Maximum Bandwidth Used
+> -		double TotalWRBandwidth = 0;
+> -		double WRBandwidth = 0;
+> -
+>   		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   			if (mode_lib->vba.WritebackEnable[k] == true
+>   					&& mode_lib->vba.WritebackPixelFormat[k] == dm_444_32) {
+> @@ -1582,9 +1567,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   #ifdef __DML_VBA_ALLOW_DELTA__
+>   	{
+> -		double dummy_single[2];
+>   		unsigned int dummy_integer[1];
+> -		bool dummy_boolean[1];
+>   
+>   		// Calculate z8 stutter eff assuming 0 reserved space
+>   		dml32_CalculateStutterEfficiency(v->CompressedBufferSizeInkByte,
+> @@ -1637,14 +1620,14 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   				v->meta_row_bw, v->dpte_row_bw,
+>   
+>   				/* Output */
+> -				&dummy_single[0],
+> -				&dummy_single[1],
+> +				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[0],
+> +				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_single[1],
+>   				&dummy_integer[0],
+>   				&v->Z8StutterEfficiencyNotIncludingVBlankBestCase,
+>   				&v->Z8StutterEfficiencyBestCase,
+>   				&v->Z8NumberOfStutterBurstsPerFrameBestCase,
+>   				&v->StutterPeriodBestCase,
+> -				&dummy_boolean[0]);
+> +				&v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.dummy_boolean);
+>   	}
+>   #else
+>   	v->Z8StutterEfficiencyNotIncludingVBlankBestCase = v->Z8StutterEfficiencyNotIncludingVBlank;
+> @@ -1660,29 +1643,16 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>   
+>   void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
 >   {
-> @@ -1785,6 +1802,9 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   		return PTR_ERR(ent);
+> -	unsigned int dummy_integer[4];
+> -	bool MPCCombineMethodAsNeededForPStateChangeAndVoltage;
+> -	bool MPCCombineMethodAsPossible;
+> -	enum odm_combine_mode dummy_odm_mode[DC__NUM_DPP__MAX];
+> -	unsigned int TotalNumberOfActiveOTG;
+> -	unsigned int TotalNumberOfActiveHDMIFRL;
+> -	unsigned int TotalNumberOfActiveDP2p0;
+> -	unsigned int TotalNumberOfActiveDP2p0Outputs;
+> -	unsigned int TotalDSCUnitsRequired;
+> -	unsigned int m;
+> -	unsigned int ReorderingBytes;
+> -	bool FullFrameMALLPStateMethod;
+> -	bool SubViewportMALLPStateMethod;
+> -	bool PhantomPipeMALLPStateMethod;
+> +	struct vba_vars_st *v = &mode_lib->vba;
+> +	int i, j;
+> +	unsigned int k, m;
+>   	unsigned int MaximumMPCCombine;
+> +	unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth;
+> +	unsigned int TotalSlots;
+>   
+>   #ifdef __DML_VBA_DEBUG__
+>   	dml_print("DML::%s: called\n", __func__);
+>   #endif
+> -	struct vba_vars_st *v = &mode_lib->vba;
+> -
+> -	int i, j;
+> -	unsigned int k;
+>   
+>   	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
+>   
+> @@ -1951,7 +1921,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   			mode_lib->vba.Read256BlockHeightC,
+>   			mode_lib->vba.Read256BlockWidthY,
+>   			mode_lib->vba.Read256BlockWidthC,
+> -			dummy_odm_mode,
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_odm_mode,
+>   			mode_lib->vba.BlendingAndTiming,
+>   			mode_lib->vba.BytePerPixelY,
+>   			mode_lib->vba.BytePerPixelC,
+> @@ -1977,35 +1947,26 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   			mode_lib->vba.SingleDPPViewportSizeSupportPerSurface,/* bool ViewportSizeSupportPerSurface[] */
+>   			&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_boolean_array[1][0]); /* bool           *ViewportSizeSupport */
+>   
+> -	MPCCombineMethodAsNeededForPStateChangeAndVoltage = false;
+> -	MPCCombineMethodAsPossible = false;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage = false;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible = false;
+>   
+>   	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   		if (mode_lib->vba.MPCCombineUse[k] == dm_mpc_reduce_voltage_and_clocks)
+> -			MPCCombineMethodAsNeededForPStateChangeAndVoltage = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage = true;
+>   		if (mode_lib->vba.MPCCombineUse[k] == dm_mpc_always_when_possible)
+> -			MPCCombineMethodAsPossible = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible = true;
+>   	}
+> -	mode_lib->vba.MPCCombineMethodIncompatible = MPCCombineMethodAsNeededForPStateChangeAndVoltage
+> -			&& MPCCombineMethodAsPossible;
+> +	mode_lib->vba.MPCCombineMethodIncompatible = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage
+> +			&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible;
+>   
+>   	for (i = 0; i < v->soc.num_states; i++) {
+>   		for (j = 0; j < 2; j++) {
+> -			bool NoChroma;
+>   			mode_lib->vba.TotalNumberOfActiveDPP[i][j] = 0;
+>   			mode_lib->vba.TotalAvailablePipesSupport[i][j] = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC = dm_odm_combine_mode_disabled;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC = dm_odm_combine_mode_disabled;
+>   
+>   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+> -
+> -				bool TotalAvailablePipesSupportNoDSC;
+> -				unsigned int NumberOfDPPNoDSC;
+> -				enum odm_combine_mode ODMModeNoDSC = dm_odm_combine_mode_disabled;
+> -				double RequiredDISPCLKPerSurfaceNoDSC;
+> -				bool TotalAvailablePipesSupportDSC;
+> -				unsigned int NumberOfDPPDSC;
+> -				enum odm_combine_mode ODMModeDSC = dm_odm_combine_mode_disabled;
+> -				double RequiredDISPCLKPerSurfaceDSC;
+> -
+>   				dml32_CalculateODMMode(
+>   						mode_lib->vba.MaximumPixelsPerLinePerDSCUnit,
+>   						mode_lib->vba.HActive[k],
+> @@ -2022,10 +1983,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						mode_lib->vba.DISPCLKDPPCLKVCOSpeed,
+>   
+>   						/* Output */
+> -						&TotalAvailablePipesSupportNoDSC,
+> -						&NumberOfDPPNoDSC,
+> -						&ODMModeNoDSC,
+> -						&RequiredDISPCLKPerSurfaceNoDSC);
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportNoDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPNoDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceNoDSC);
+>   
+>   				dml32_CalculateODMMode(
+>   						mode_lib->vba.MaximumPixelsPerLinePerDSCUnit,
+> @@ -2043,10 +2004,10 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						mode_lib->vba.DISPCLKDPPCLKVCOSpeed,
+>   
+>   						/* Output */
+> -						&TotalAvailablePipesSupportDSC,
+> -						&NumberOfDPPDSC,
+> -						&ODMModeDSC,
+> -						&RequiredDISPCLKPerSurfaceDSC);
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC,
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceDSC);
+>   
+>   				dml32_CalculateOutputLink(
+>   						mode_lib->vba.PHYCLKPerState[i],
+> @@ -2064,8 +2025,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						mode_lib->vba.NumberOfDSCSlices[k],
+>   						mode_lib->vba.AudioSampleRate[k],
+>   						mode_lib->vba.AudioSampleLayout[k],
+> -						ODMModeNoDSC,
+> -						ODMModeDSC,
+> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC,
+> +						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC,
+>   						mode_lib->vba.DSCEnable[k],
+>   						mode_lib->vba.OutputLinkDPLanes[k],
+>   						mode_lib->vba.OutputLinkDPRate[k],
+> @@ -2079,21 +2040,21 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						&mode_lib->vba.RequiredSlots[i][k]);
+>   
+>   				if (mode_lib->vba.RequiresDSC[i][k] == false) {
+> -					mode_lib->vba.ODMCombineEnablePerState[i][k] = ODMModeNoDSC;
+> +					mode_lib->vba.ODMCombineEnablePerState[i][k] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeNoDSC;
+>   					mode_lib->vba.RequiredDISPCLKPerSurface[i][j][k] =
+> -							RequiredDISPCLKPerSurfaceNoDSC;
+> -					if (!TotalAvailablePipesSupportNoDSC)
+> +							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceNoDSC;
+> +					if (!v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportNoDSC)
+>   						mode_lib->vba.TotalAvailablePipesSupport[i][j] = false;
+>   					mode_lib->vba.TotalNumberOfActiveDPP[i][j] =
+> -							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + NumberOfDPPNoDSC;
+> +							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPNoDSC;
+>   				} else {
+> -					mode_lib->vba.ODMCombineEnablePerState[i][k] = ODMModeDSC;
+> +					mode_lib->vba.ODMCombineEnablePerState[i][k] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ODMModeDSC;
+>   					mode_lib->vba.RequiredDISPCLKPerSurface[i][j][k] =
+> -							RequiredDISPCLKPerSurfaceDSC;
+> -					if (!TotalAvailablePipesSupportDSC)
+> +							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.RequiredDISPCLKPerSurfaceDSC;
+> +					if (!v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalAvailablePipesSupportDSC)
+>   						mode_lib->vba.TotalAvailablePipesSupport[i][j] = false;
+>   					mode_lib->vba.TotalNumberOfActiveDPP[i][j] =
+> -							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + NumberOfDPPDSC;
+> +							mode_lib->vba.TotalNumberOfActiveDPP[i][j] + v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NumberOfDPPDSC;
+>   				}
+>   			}
+>   
+> @@ -2128,7 +2089,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   			}
+>   
+>   			mode_lib->vba.TotalNumberOfSingleDPPSurfaces[i][j] = 0;
+> -			NoChroma = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma = true;
+>   
+>   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   				if (mode_lib->vba.NoOfDPP[i][j][k] == 1)
+> @@ -2138,17 +2099,17 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						|| mode_lib->vba.SourcePixelFormat[k] == dm_420_10
+>   						|| mode_lib->vba.SourcePixelFormat[k] == dm_420_12
+>   						|| mode_lib->vba.SourcePixelFormat[k] == dm_rgbe_alpha) {
+> -					NoChroma = false;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma = false;
+>   				}
+>   			}
+>   
+>   			if (j == 1 && !dml32_UnboundedRequest(mode_lib->vba.UseUnboundedRequesting,
+> -							mode_lib->vba.TotalNumberOfActiveDPP[i][j], NoChroma,
+> +							mode_lib->vba.TotalNumberOfActiveDPP[i][j], v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NoChroma,
+>   							mode_lib->vba.Output[0])) {
+>   				while (!(mode_lib->vba.TotalNumberOfActiveDPP[i][j] >= mode_lib->vba.MaxNumDPP
+>   						|| mode_lib->vba.TotalNumberOfSingleDPPSurfaces[i][j] == 0)) {
+> -					double BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
+> -					unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth = 0;
+> +					NumberOfNonCombinedSurfaceOfMaximumBandwidth = 0;
+>   
+>   					for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   						if (mode_lib->vba.MPCCombineUse[k]
+> @@ -2156,13 +2117,13 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   							mode_lib->vba.MPCCombineUse[k] != dm_mpc_reduce_voltage &&
+>   							mode_lib->vba.ReadBandwidthLuma[k] +
+>   							mode_lib->vba.ReadBandwidthChroma[k] >
+> -							BWOfNonCombinedSurfaceOfMaximumBandwidth &&
+> +							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth &&
+>   							(mode_lib->vba.ODMCombineEnablePerState[i][k] !=
+>   							dm_odm_combine_mode_2to1 &&
+>   							mode_lib->vba.ODMCombineEnablePerState[i][k] !=
+>   							dm_odm_combine_mode_4to1) &&
+>   								mode_lib->vba.MPCCombine[i][j][k] == false) {
+> -							BWOfNonCombinedSurfaceOfMaximumBandwidth =
+> +							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.BWOfNonCombinedSurfaceOfMaximumBandwidth =
+>   								mode_lib->vba.ReadBandwidthLuma[k]
+>   								+ mode_lib->vba.ReadBandwidthChroma[k];
+>   							NumberOfNonCombinedSurfaceOfMaximumBandwidth = k;
+> @@ -2228,28 +2189,28 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   	} // i (VOLTAGE_STATE)
+>   
+>   	/* Total Available OTG, HDMIFRL, DP Support Check */
+> -	TotalNumberOfActiveOTG = 0;
+> -	TotalNumberOfActiveHDMIFRL = 0;
+> -	TotalNumberOfActiveDP2p0 = 0;
+> -	TotalNumberOfActiveDP2p0Outputs = 0;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG = 0;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveHDMIFRL = 0;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 = 0;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs = 0;
+>   
+>   	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   		if (mode_lib->vba.BlendingAndTiming[k] == k) {
+> -			TotalNumberOfActiveOTG = TotalNumberOfActiveOTG + 1;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG + 1;
+>   			if (mode_lib->vba.Output[k] == dm_dp2p0) {
+> -				TotalNumberOfActiveDP2p0 = TotalNumberOfActiveDP2p0 + 1;
+> +				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 + 1;
+>   				if (mode_lib->vba.OutputMultistreamId[k]
+>   						== k || mode_lib->vba.OutputMultistreamEn[k] == false) {
+> -					TotalNumberOfActiveDP2p0Outputs = TotalNumberOfActiveDP2p0Outputs + 1;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs + 1;
+>   				}
+>   			}
+>   		}
 >   	}
 >   
-> +	debugfs_create_file("amdgpu_reset_level", 0200, root, adev,
-> +				  &fops_reset_level);
-> +
->   	/* Register debugfs entries for amdgpu_ttm */
->   	amdgpu_ttm_debugfs_init(adev);
->   	amdgpu_debugfs_pm_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index e8c6c3fe9374..fb8f3cb853a7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -198,6 +198,7 @@ struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
->   	.timeout_fatal_disable = false,
->   	.period = 0x0, /* default to 0x0 (timeout disable) */
+> -	mode_lib->vba.NumberOfOTGSupport = (TotalNumberOfActiveOTG <= mode_lib->vba.MaxNumOTG);
+> -	mode_lib->vba.NumberOfHDMIFRLSupport = (TotalNumberOfActiveHDMIFRL <= mode_lib->vba.MaxNumHDMIFRLOutputs);
+> -	mode_lib->vba.NumberOfDP2p0Support = (TotalNumberOfActiveDP2p0 <= mode_lib->vba.MaxNumDP2p0Streams
+> -			&& TotalNumberOfActiveDP2p0Outputs <= mode_lib->vba.MaxNumDP2p0Outputs);
+> +	mode_lib->vba.NumberOfOTGSupport = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveOTG <= mode_lib->vba.MaxNumOTG);
+> +	mode_lib->vba.NumberOfHDMIFRLSupport = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveHDMIFRL <= mode_lib->vba.MaxNumHDMIFRLOutputs);
+> +	mode_lib->vba.NumberOfDP2p0Support = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0 <= mode_lib->vba.MaxNumDP2p0Streams
+> +			&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalNumberOfActiveDP2p0Outputs <= mode_lib->vba.MaxNumDP2p0Outputs);
+>   
+>   	/* Display IO and DSC Support Check */
+>   	mode_lib->vba.NonsupportedDSCInputBPC = false;
+> @@ -2264,8 +2225,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   	}
+>   
+>   	for (i = 0; i < v->soc.num_states; ++i) {
+> -		unsigned int TotalSlots;
+> -
+>   		mode_lib->vba.ExceededMultistreamSlots[i] = false;
+>   		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   			if (mode_lib->vba.OutputMultistreamEn[k] == true && mode_lib->vba.OutputMultistreamId[k] == k) {
+> @@ -2436,12 +2395,12 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   	}
+>   
+>   	/* Check DSC Unit and Slices Support */
+> -	TotalDSCUnitsRequired = 0;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
+>   
+>   	for (i = 0; i < v->soc.num_states; ++i) {
+>   		mode_lib->vba.NotEnoughDSCUnits[i] = false;
+>   		mode_lib->vba.NotEnoughDSCSlices[i] = false;
+> -		TotalDSCUnitsRequired = 0;
+> +		v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
+>   		mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = true;
+>   		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   			if (mode_lib->vba.RequiresDSC[i][k] == true) {
+> @@ -2449,33 +2408,31 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					if (mode_lib->vba.HActive[k]
+>   							> 4 * mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
+>   						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
+> -					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 4;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 4;
+>   					if (mode_lib->vba.NumberOfDSCSlices[k] > 16)
+>   						mode_lib->vba.NotEnoughDSCSlices[i] = true;
+>   				} else if (mode_lib->vba.ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1) {
+>   					if (mode_lib->vba.HActive[k]
+>   							> 2 * mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
+>   						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
+> -					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 2;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 2;
+>   					if (mode_lib->vba.NumberOfDSCSlices[k] > 8)
+>   						mode_lib->vba.NotEnoughDSCSlices[i] = true;
+>   				} else {
+>   					if (mode_lib->vba.HActive[k] > mode_lib->vba.MaximumPixelsPerLinePerDSCUnit)
+>   						mode_lib->vba.PixelsPerLinePerDSCUnitSupport[i] = false;
+> -					TotalDSCUnitsRequired = TotalDSCUnitsRequired + 1;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired + 1;
+>   					if (mode_lib->vba.NumberOfDSCSlices[k] > 4)
+>   						mode_lib->vba.NotEnoughDSCSlices[i] = true;
+>   				}
+>   			}
+>   		}
+> -		if (TotalDSCUnitsRequired > mode_lib->vba.NumberOfDSC)
+> +		if (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired > mode_lib->vba.NumberOfDSC)
+>   			mode_lib->vba.NotEnoughDSCUnits[i] = true;
+>   	}
+>   
+>   	/*DSC Delay per state*/
+>   	for (i = 0; i < v->soc.num_states; ++i) {
+> -		unsigned int m;
+> -
+>   		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   			mode_lib->vba.DSCDelayPerState[i][k] = dml32_DSCDelayRequirement(
+>   					mode_lib->vba.RequiresDSC[i][k], mode_lib->vba.ODMCombineEnablePerState[i][k],
+> @@ -2932,7 +2889,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   		}
+>   	}
+>   
+> -	ReorderingBytes = mode_lib->vba.NumberOfChannels
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes = mode_lib->vba.NumberOfChannels
+>   			* dml_max3(mode_lib->vba.UrgentOutOfOrderReturnPerChannelPixelDataOnly,
+>   					mode_lib->vba.UrgentOutOfOrderReturnPerChannelPixelMixedWithVMData,
+>   					mode_lib->vba.UrgentOutOfOrderReturnPerChannelVMDataOnly);
+> @@ -2988,20 +2945,20 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   			&& (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_full_frame));
+>   	}
+>   
+> -	FullFrameMALLPStateMethod = false;
+> -	SubViewportMALLPStateMethod = false;
+> -	PhantomPipeMALLPStateMethod = false;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod = false;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod = false;
+> +	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod = false;
+>   
+>   	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_full_frame)
+> -			FullFrameMALLPStateMethod = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod = true;
+>   		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_sub_viewport)
+> -			SubViewportMALLPStateMethod = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod = true;
+>   		if (mode_lib->vba.UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_phantom_pipe)
+> -			PhantomPipeMALLPStateMethod = true;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod = true;
+>   	}
+> -	mode_lib->vba.InvalidCombinationOfMALLUseForPState = (SubViewportMALLPStateMethod
+> -			!= PhantomPipeMALLPStateMethod) || (SubViewportMALLPStateMethod && FullFrameMALLPStateMethod);
+> +	mode_lib->vba.InvalidCombinationOfMALLUseForPState = (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod
+> +			!= v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.PhantomPipeMALLPStateMethod) || (v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SubViewportMALLPStateMethod && v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.FullFrameMALLPStateMethod);
+>   
+>   	if (mode_lib->vba.UseMinimumRequiredDCFCLK == true) {
+>   		dml32_UseMinimumDCFCLK(
+> @@ -3015,7 +2972,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   				mode_lib->vba.SREnterPlusExitTime,
+>   				mode_lib->vba.ReturnBusWidth,
+>   				mode_lib->vba.RoundTripPingLatencyCycles,
+> -				ReorderingBytes,
+> +				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes,
+>   				mode_lib->vba.PixelChunkSizeInKByte,
+>   				mode_lib->vba.MetaChunkSize,
+>   				mode_lib->vba.GPUVMEnable,
+> @@ -3078,7 +3035,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					/ mode_lib->vba.ReturnBWPerState[i][j]
+>   					> (mode_lib->vba.RoundTripPingLatencyCycles + 32)
+>   							/ mode_lib->vba.DCFCLKState[i][j]
+> -							+ ReorderingBytes / mode_lib->vba.ReturnBWPerState[i][j]) {
+> +							+ v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes / mode_lib->vba.ReturnBWPerState[i][j]) {
+>   				mode_lib->vba.ROBSupport[i][j] = true;
+>   			} else {
+>   				mode_lib->vba.ROBSupport[i][j] = false;
+> @@ -3120,9 +3077,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   
+>   	for (i = 0; i < (int) v->soc.num_states; ++i) {
+>   		for (j = 0; j <= 1; ++j) {
+> -			double VMDataOnlyReturnBWPerState;
+> -			double HostVMInefficiencyFactor;
+> -			unsigned int NextPrefetchModeState;
+>   
+>   			mode_lib->vba.TimeCalc = 24 / mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
+>   
+> @@ -3162,37 +3116,35 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					mode_lib->vba.UrgentBurstFactorChroma,
+>   					mode_lib->vba.UrgentBurstFactorCursor);
+>   
+> -			VMDataOnlyReturnBWPerState = dml32_get_return_bw_mbps_vm_only(&mode_lib->vba.soc, i,
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.VMDataOnlyReturnBWPerState = dml32_get_return_bw_mbps_vm_only(&mode_lib->vba.soc, i,
+>   					mode_lib->vba.DCFCLKState[i][j], mode_lib->vba.FabricClockPerState[i],
+>   					mode_lib->vba.DRAMSpeedPerState[i]);
+> -			HostVMInefficiencyFactor = 1;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor = 1;
+>   
+>   			if (mode_lib->vba.GPUVMEnable && mode_lib->vba.HostVMEnable)
+> -				HostVMInefficiencyFactor = mode_lib->vba.ReturnBWPerState[i][j]
+> -						/ VMDataOnlyReturnBWPerState;
+> +				v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor = mode_lib->vba.ReturnBWPerState[i][j]
+> +						/ v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.VMDataOnlyReturnBWPerState;
+>   
+>   			mode_lib->vba.ExtraLatency = dml32_CalculateExtraLatency(
+> -					mode_lib->vba.RoundTripPingLatencyCycles, ReorderingBytes,
+> +					mode_lib->vba.RoundTripPingLatencyCycles, v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.ReorderingBytes,
+>   					mode_lib->vba.DCFCLKState[i][j], mode_lib->vba.TotalNumberOfActiveDPP[i][j],
+>   					mode_lib->vba.PixelChunkSizeInKByte,
+>   					mode_lib->vba.TotalNumberOfDCCActiveDPP[i][j], mode_lib->vba.MetaChunkSize,
+>   					mode_lib->vba.ReturnBWPerState[i][j], mode_lib->vba.GPUVMEnable,
+>   					mode_lib->vba.HostVMEnable, mode_lib->vba.NumberOfActiveSurfaces,
+>   					mode_lib->vba.NoOfDPPThisState, mode_lib->vba.dpte_group_bytes,
+> -					HostVMInefficiencyFactor, mode_lib->vba.HostVMMinPageSize,
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor, mode_lib->vba.HostVMMinPageSize,
+>   					mode_lib->vba.HostVMMaxNonCachedPageTableLevels);
+>   
+> -			NextPrefetchModeState = mode_lib->vba.MinPrefetchMode;
+> +			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState = mode_lib->vba.MinPrefetchMode;
+>   
+>   			mode_lib->vba.NextMaxVStartup = mode_lib->vba.MaxMaxVStartup[i][j];
+>   
+>   			do {
+> -				mode_lib->vba.PrefetchModePerState[i][j] = NextPrefetchModeState;
+> +				mode_lib->vba.PrefetchModePerState[i][j] = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState;
+>   				mode_lib->vba.MaxVStartup = mode_lib->vba.NextMaxVStartup;
+>   
+>   				for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
+> -					DmlPipe myPipe;
+> -
+>   					mode_lib->vba.TWait = dml32_CalculateTWait(
+>   							mode_lib->vba.PrefetchModePerState[i][j],
+>   							mode_lib->vba.UsesMALLForPStateChange[k],
+> @@ -3202,34 +3154,34 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   							mode_lib->vba.FCLKChangeLatency, mode_lib->vba.UrgLatency[i],
+>   							mode_lib->vba.SREnterPlusExitTime);
+>   
+> -					myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
+> -					myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
+> -					myPipe.PixelClock = mode_lib->vba.PixelClock[k];
+> -					myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
+> -					myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
+> -					myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
+> -					myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
+> -					myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
+> -					myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
+> -					myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
+> -					myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
+> -					myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
+> -					myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
+> -					myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
+> -					myPipe.HTotal = mode_lib->vba.HTotal[k];
+> -					myPipe.HActive = mode_lib->vba.HActive[k];
+> -					myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
+> -					myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
+> -					myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
+> -					myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
+> -					myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
+> -					myPipe.ProgressiveToInterlaceUnitInOPP =
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dppclk = mode_lib->vba.RequiredDPPCLK[i][j][k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.Dispclk = mode_lib->vba.RequiredDISPCLK[i][j];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.PixelClock = mode_lib->vba.PixelClock[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCFClkDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[i][j];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DPPPerSurface = mode_lib->vba.NoOfDPP[i][j][k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourceRotation = mode_lib->vba.SourceRotation[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesY = mode_lib->vba.Read256BlockWidthY[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesY = mode_lib->vba.Read256BlockHeightY[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockWidth256BytesC = mode_lib->vba.Read256BlockWidthC[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BlockHeight256BytesC = mode_lib->vba.Read256BlockHeightC[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HTotal = mode_lib->vba.HTotal[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.HActive = mode_lib->vba.HActive[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.DCCEnable = mode_lib->vba.DCCEnable[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ODMMode = mode_lib->vba.ODMCombineEnablePerState[i][k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.SourcePixelFormat = mode_lib->vba.SourcePixelFormat[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelY = mode_lib->vba.BytePerPixelY[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.BytePerPixelC = mode_lib->vba.BytePerPixelC[k];
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe.ProgressiveToInterlaceUnitInOPP =
+>   							mode_lib->vba.ProgressiveToInterlaceUnitInOPP;
+>   
+>   					mode_lib->vba.NoTimeForPrefetch[i][j][k] =
+>   						dml32_CalculatePrefetchSchedule(
+> -							HostVMInefficiencyFactor,
+> -							&myPipe,
+> +							v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor,
+> +							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.myPipe,
+>   							mode_lib->vba.DSCDelayPerState[i][k],
+>   							mode_lib->vba.DPPCLKDelaySubtotal +
+>   								mode_lib->vba.DPPCLKDelayCNVCFormater,
+> @@ -3288,7 +3240,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[0],         // double *Tdmdl_vm
+>   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[1],         // double *Tdmdl
+>   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[2],         // double *TSetup
+> -							&dummy_integer[0],         							    // unsigned int   *VUpdateOffsetPix
+> +							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer[0],         							    // unsigned int   *VUpdateOffsetPix
+>   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[3],         // unsigned int   *VUpdateWidthPix
+>   							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single[4]);        // unsigned int   *VReadyOffsetPix
+>   				}
+> @@ -3417,7 +3369,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					}
+>   
+>   					for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
+> -						dml32_CalculateFlipSchedule(HostVMInefficiencyFactor,
+> +						dml32_CalculateFlipSchedule(v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.HostVMInefficiencyFactor,
+>   							mode_lib->vba.ExtraLatency,
+>   							mode_lib->vba.UrgLatency[i],
+>   							mode_lib->vba.GPUVMMaxPageTableLevels,
+> @@ -3491,7 +3443,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   				if (mode_lib->vba.MaxVStartup <= __DML_VBA_MIN_VSTARTUP__
+>   						|| mode_lib->vba.AnyLinesForVMOrRowTooLarge == false) {
+>   					mode_lib->vba.NextMaxVStartup = mode_lib->vba.MaxMaxVStartup[i][j];
+> -					NextPrefetchModeState = NextPrefetchModeState + 1;
+> +					v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState + 1;
+>   				} else {
+>   					mode_lib->vba.NextMaxVStartup = mode_lib->vba.NextMaxVStartup - 1;
+>   				}
+> @@ -3505,7 +3457,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   							&& !mode_lib->vba.ImmediateFlipRequiredFinal)
+>   							|| mode_lib->vba.ImmediateFlipSupportedForState[i][j] == true))
+>   					|| (mode_lib->vba.NextMaxVStartup == mode_lib->vba.MaxMaxVStartup[i][j]
+> -							&& NextPrefetchModeState > mode_lib->vba.MaxPrefetchMode)));
+> +							&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.NextPrefetchModeState > mode_lib->vba.MaxPrefetchMode)));
+>   
+>   			for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
+>   				mode_lib->vba.use_one_row_for_frame_this_state[k] =
+> @@ -3581,7 +3533,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   						&mode_lib->vba.Watermark, // Store the values in vba
+>   						&mode_lib->vba.DRAMClockChangeSupport[i][j],
+>   						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single2[0], // double *MaxActiveDRAMClockChangeLatencySupported
+> -						&dummy_integer[0], // Long SubViewportLinesNeededInMALL[]
+> +						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_integer[0], // Long SubViewportLinesNeededInMALL[]
+>   						&mode_lib->vba.FCLKChangeSupport[i][j],
+>   						&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.dummy_single2[1], // double *MinActiveFCLKChangeLatencySupported
+>   						&mode_lib->vba.USRRetrainingSupport[i][j],
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> index 47b149d4bfcf..d4b6fa0a9ee3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> @@ -197,6 +197,13 @@ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCal
+>   	unsigned int ReorderBytes;
+>   	unsigned int VMDataOnlyReturnBW;
+>   	double HostVMInefficiencyFactor;
+> +	DmlPipe myPipe;
+> +	SOCParametersList mmSOCParameters;
+> +	double dummy_unit_vector[DC__NUM_DPP__MAX];
+> +	double dummy_single[2];
+> +	enum clock_change_support dummy_dramchange_support;
+> +	enum dm_fclock_change_support dummy_fclkchange_support;
+> +	bool dummy_USRRetrainingSupport;
 >   };
-> +uint amdgpu_reset_level_mask = 0x1;
 >   
->   /**
->    * DOC: vramlimit (int)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index 831fb222139c..f16ab1a54b70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -74,6 +74,9 @@ int amdgpu_reset_prepare_hwcontext(struct amdgpu_device *adev,
->   {
->   	struct amdgpu_reset_handler *reset_handler = NULL;
+>   struct dml32_ModeSupportAndSystemConfigurationFull {
+> @@ -212,6 +219,34 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
+>   	double DSTXAfterScaler[DC__NUM_DPP__MAX];
+>   	double MaxTotalVActiveRDBandwidth;
+>   	bool dummy_boolean_array[2][DC__NUM_DPP__MAX];
+> +	enum odm_combine_mode dummy_odm_mode[DC__NUM_DPP__MAX];
+> +	DmlPipe myPipe;
+> +	unsigned int dummy_integer[4];
+> +	unsigned int TotalNumberOfActiveOTG;
+> +	unsigned int TotalNumberOfActiveHDMIFRL;
+> +	unsigned int TotalNumberOfActiveDP2p0;
+> +	unsigned int TotalNumberOfActiveDP2p0Outputs;
+> +	unsigned int TotalDSCUnitsRequired;
+> +	unsigned int ReorderingBytes;
+> +	unsigned int TotalSlots;
+> +	unsigned int NumberOfDPPDSC;
+> +	unsigned int NumberOfDPPNoDSC;
+> +	unsigned int NextPrefetchModeState;
+> +	bool MPCCombineMethodAsNeededForPStateChangeAndVoltage;
+> +	bool MPCCombineMethodAsPossible;
+> +	bool FullFrameMALLPStateMethod;
+> +	bool SubViewportMALLPStateMethod;
+> +	bool PhantomPipeMALLPStateMethod;
+> +	bool NoChroma;
+> +	bool TotalAvailablePipesSupportNoDSC;
+> +	bool TotalAvailablePipesSupportDSC;
+> +	enum odm_combine_mode ODMModeNoDSC;
+> +	enum odm_combine_mode ODMModeDSC;
+> +	double RequiredDISPCLKPerSurfaceNoDSC;
+> +	double RequiredDISPCLKPerSurfaceDSC;
+> +	double BWOfNonCombinedSurfaceOfMaximumBandwidth;
+> +	double VMDataOnlyReturnBWPerState;
+> +	double HostVMInefficiencyFactor;
+>   };
 >   
-> +	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_MODE2))
-> +		return -ENOSYS;
-> +
->   	if (test_bit(AMDGPU_SKIP_MODE2_RESET, &reset_context->flags))
->   		return -ENOSYS;
->   
-> @@ -93,6 +96,9 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
->   	int ret;
->   	struct amdgpu_reset_handler *reset_handler = NULL;
->   
-> +	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_MODE2))
-> +		return -ENOSYS;
-> +
->   	if (test_bit(AMDGPU_SKIP_MODE2_RESET, &reset_context->flags))
->   		return -ENOSYS;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index d3558c34d406..1ffdc050a077 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -405,6 +405,9 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
->   {
->   	ktime_t deadline = ktime_add_us(ktime_get(), 10000);
->   
-> +	if (!(amdgpu_reset_level_mask & AMDGPU_RESET_LEVEL_SOFT_RECOVERY))
-> +		return false;
-> +
->   	if (amdgpu_sriov_vf(ring->adev) || !ring->funcs->soft_recovery || !fence)
->   		return false;
->   
+>   struct dummy_vars {
 
