@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3176C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C55FC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 376F193CA2;
-	Fri, 22 Jul 2022 13:15:16 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D21193BC8
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:15:14 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id m8so5800138edd.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:15:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76C5D1133A3;
+	Fri, 22 Jul 2022 13:16:10 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0640712B366
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:16:07 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id bp15so8545610ejb.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4+ddiPTel2vFa1kYX8gfVcB4xgjKvz4TiOUm2fZjs1U=;
- b=Ux75VCLqYHZoxBrro68VM9NtcpOqu8BgPz8puYrbyQOg6cHBQWKRSwts+kpyzfuKwW
- gTxX1GbnvOfZZu2i5mC12ojW0R17b6mx8/CKxBz7QrdvGVOA1SXiax5o6MXbMsPZTF+l
- ujQx6GHcDnUBFTSt0ahYYy4XFTmOSRebeEwe/FbfhOtD6+fNTivu19X/r83q35C5t+IH
- Nox+/Q5oMTSxUSm1ELEHHWt/FNHtDhIewG6Zm3E93up94m052edESi5BArUpUm9k8JX/
- zeh6jIDW/DOEWaBZNeXzborgQMXPS6QbTGr/4+fvKqPJofaxz/9ElrMrM6b0AGvDWpTQ
- chmQ==
+ :cc; bh=5XE41gQdPCBU8MKUqSG0o97F3kIyQIsCgKbPGMZ7Dsg=;
+ b=JpDaVpTKrr+Eq6w3rPm8nb9aKanSW7ZuH9y01FkBaO/4Z4n7XaSGxN1QHx+d3y1cCm
+ Bniv8jUPtWFDuRXyE94xPmhanAjB5T2SADEe/lNDAy0rVFSyTqmxQ8s9OyTW5dFRlwNK
+ XwqPzXYZ3/PVXIph92JfrcGvzFen93K09wBIw9+K0bgUFq1hZZA7eLh56K0r+17VtXEm
+ TBSDqmSh4zaqEgPVRvV6BZMeD3DNM/rD6+SC26ymk506WMkpB2Q+/0UW8OAzDOemUvot
+ uImg7sKhDByLsD/8HrFxT/bZBp6Ew9lJGUwspj59U/W9Omx6P5GfjqfAyr9LkhPEg5aB
+ al0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=4+ddiPTel2vFa1kYX8gfVcB4xgjKvz4TiOUm2fZjs1U=;
- b=C17CiWMk08366oEVSt9g+hWlL5uLI/2mRzTQ1WAJX0k+6K7wsrK197427ZPusCqnkg
- epmGZ6tMnhTjUUEysFBGPrpbbN09R29+JYKEi/H6n1DF9Pm/ZoeNMqbK7D6u0x5KZWxN
- uRYtkUOs4piFlVxplEqDETEs0cyoKoIKlmMa4uekTgqmzAYOCeIQ2e07T5AwBl0b9Y/j
- Vb9kn0vd0HnZtay1ee6qKrP8jZ5g2uBedQn8TjKAQx+s7IRtr62M5kp6T/PLDVLjw8TI
- dkKrISNBfeTKClf7+aaImmRAFYbr0DA2zNVCkSBl+Mluqo0LduAsV+qajjD9Watvo3ys
- p7Qg==
-X-Gm-Message-State: AJIora9p33LxXBiTkvuraan2UQlOR99XHEoMB2o17+K2A9g4pt+Vz/09
- jyWFjeKfA7+eM/eY6SD/L3uJtC5eysYLfB1Iw0DVpRd/
-X-Google-Smtp-Source: AGRyM1vGFewvCOi/UD0VuVrFVyU+ROekpHNu+0pQu9GVTTNyHS2itl69QUkyhtvkhkpujBeGIPEulftks0fctj9A/30=
-X-Received: by 2002:a05:6402:500e:b0:43b:6f0:756b with SMTP id
- p14-20020a056402500e00b0043b06f0756bmr631081eda.221.1658495712752; Fri, 22
- Jul 2022 06:15:12 -0700 (PDT)
+ bh=5XE41gQdPCBU8MKUqSG0o97F3kIyQIsCgKbPGMZ7Dsg=;
+ b=LKdTtLs2ZlVWcNjJUvemyAWr6dO2etmGEd1/4K52XgKt4zzgJcdw49bv5+0Y8Vg50c
+ 229lWv8Eg+3LhFYE467PWk8w/q3HClD7hSe7IhrO3brqYYCbD4M551q2ayrpfhLr6PoT
+ iP+l/VTBDrTogEiVw4UmVUMwvTIVfj6pNxHesdd7BjH0DK9iG1RuE3pRHAcJRqBjO9E7
+ Vwot7kZbkx29/h+Ia6nk+7W4kSo6NGssAjh9pwxBX/kHf3pFvqRR7QlAREvpXXu/9Ody
+ kyTurWjjac0NAHRng4yDaKhB47xyHkisS2ld0UmhfEONOd+K/qqPkTtC14knXAaQcI2B
+ bKNw==
+X-Gm-Message-State: AJIora+nCv/jeStO1TH2Jo3VFMoFFgJct5fBiMO7IEKUaS+7A8xn17E0
+ TgygqqqrpAjPqe2Sj+ZVHFZ4kQ38flwuSe3yXAJa/GP4
+X-Google-Smtp-Source: AGRyM1uGRulnBj7L6sFX1vO+74fyXeXCVyhbVcBcodV/0eAfDHBfMir3emiCniFmbLRTf3eXWqu60j9KfvZU38xlNU0=
+X-Received: by 2002:a17:907:2722:b0:72b:6a93:bf9a with SMTP id
+ d2-20020a170907272200b0072b6a93bf9amr444223ejl.424.1658495765458; Fri, 22 Jul
+ 2022 06:16:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220721095210.37519-1-horace.chen@amd.com>
- <20220721095210.37519-3-horace.chen@amd.com>
-In-Reply-To: <20220721095210.37519-3-horace.chen@amd.com>
+ <20220721095210.37519-4-horace.chen@amd.com>
+In-Reply-To: <20220721095210.37519-4-horace.chen@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Jul 2022 09:15:00 -0400
-Message-ID: <CADnq5_N0jc==nPZexbAQbtpgaminNKmxuWoZX-D+mM1iygKWgg@mail.gmail.com>
-Subject: Re: [PATCH 3/6] drm/amdgpu: add a compute pipe reset for SR-IOV
+Date: Fri, 22 Jul 2022 09:15:53 -0400
+Message-ID: <CADnq5_PX__UVwQNQOrcWNYYN=JYHr3+h8cTeJ9wZBNeyZGXH0A@mail.gmail.com>
+Subject: Re: [PATCH 4/6] drm/amdgpu: enable WPTR_POLL_ENABLE for sriov on
+ sdma_v6_0
 To: Horace Chen <horace.chen@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,43 +76,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
 >
 > [Why]
-> Under SR-IOV, we are not sure whether pipe status is
-> good or not when doing initialization. The compute engine
-> maybe fail to bringup if pipe status is bad.
-
-Seems like this should be safe for bare metal too.  Can we just do
-this for both to simplify the code?
-
-Alex
-
+> Under SR-IOV, if VF is switched out then its doorbell will be disabled,
+> SDMA rely on WPTR_POLL to get doorbells which was sent during VF
+> switched-out time.
 >
 > [How]
-> For SR-IOV, disable the compute engine to do a pipe reset
-> before we do initialization.
+> For SR-IOV, set SDMA WPTR_POLL_ENABLE to 1.
 >
 > Signed-off-by: Horace Chen <horace.chen@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 0d8193b30fc5..b8f197a5ee84 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -4586,8 +4586,12 @@ static int gfx_v11_0_hw_init(void *handle)
->                 DRM_WARN("Invalid gb_addr_config !\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index 0200cb3a31a4..23b01b121492 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -593,7 +593,10 @@ static int sdma_v6_0_gfx_resume(struct amdgpu_device *adev)
+>                        lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
 >
->         if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
-> -           adev->gfx.rs64_enable)
-> +           adev->gfx.rs64_enable) {
+>                 rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
+> -               rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 0);
 > +               if (amdgpu_sriov_vf(adev))
-> +                       gfx_v11_0_cp_compute_enable(adev, false);
-> +
->                 gfx_v11_0_config_gfx_rs64(adev);
-> +       }
+> +                       rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 1);
+> +               else
+> +                       rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 0);
+>                 rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, F32_WPTR_POLL_ENABLE, 1);
 >
->         r = gfx_v11_0_gfxhub_enable(adev);
->         if (r)
+>                 WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
 > --
 > 2.25.1
 >
