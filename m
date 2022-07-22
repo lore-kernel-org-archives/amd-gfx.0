@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5648C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77010C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF9811AA3E;
-	Fri, 22 Jul 2022 13:16:52 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2FD811B4F1
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:16:48 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id z23so8467018eju.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:16:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E15F78BEC1;
+	Fri, 22 Jul 2022 13:17:24 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AABB8BD11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:17:24 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id z22so5815128edd.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:17:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3SqpgEw+Yj0r00IOTZmaF80bpVxXIHtBXVj99Gwozns=;
- b=euTtFcTvmpUXyUPY5v/NL0HQIJRIq1cgGQpF1aWSX9WH6cfn9nDHxxI7FnEkHqVn7v
- Pfrxs3/s1YjUTBSnZIeAKKYQfUYI/JkLSN3TS+Zoag3DpWNvF3KcvTZ/wo0o9K6aoR+t
- FD7TKk9GBom4UlUXmJyvqnW8ACAB4tKlP5wB0gtyGVrL75+3aZh2cojyZsnbCTvV7MDF
- 58uGsNWpareWlUwBWYs8TY8GcvwnhCyhARpekkhfpFeYDZOMn/vdXpwpcJgN69s1yZ/t
- gjjn7jdOFp9nXdPQ3EJUvZEy41WFTupDlyHTrjpF6aHNmBymIsQeKHND63yGjX5goQSA
- RNWw==
+ :cc; bh=HUQCoYxB2Bh1aayiX9TOnZEyA2CtM0DAhw9bCrQNoXU=;
+ b=ZrzU5j9op/a6nP9qdbi1IJoNZLYbedslFSQ/TyJpZc8uvH0BIkObDqO2ZRY/1YLAHr
+ akHQh4xR8E5CXuGyqCnnXRKedj/GGkI2ly+eoAtD5TI/yCTyjpnGmVz7uQ1WYDKwMlkO
+ NDjov0f0b2MPgQEGyZyBbcedLpRuqNL/3KG+ibyPDPz5LnA9KvWtbtOkk/GlhXp5d741
+ myu0/p4ZfcYxYr3Bx+JY+K5AXknwHmNyaDHqi+NycYNuZnjvHrp2IrYwmXtVQa0SivW/
+ +6XlJKk5hIeX08RCdF+DqZPDVeGm+EGnNmJTH75xMXyIlJXmDLKwF1ru8vfV9YSbYoIi
+ qiug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3SqpgEw+Yj0r00IOTZmaF80bpVxXIHtBXVj99Gwozns=;
- b=6lf2/5jQ5JMTwXz01/gGaFNyxLskRlEqmJm1b2D0G2tDGIcA2hIzNwhAWSzbIn2nUy
- rI57ljuCv6Q/zoNYQor9nzpQp7ux+uz/J2CUzeWIfNd00oBW4A5yJu09CQ+UXIDwYr19
- XJP9WBWw8QEOhi4WFIMWeCjUxxxmMWBh1T6ghOqhPUPJOlUjN4Cx8w8s74JqT60ZSCsw
- MwTsp2Pwv3BJKHFi+3K+JOu/QIuYbeylBOvgdXhW4xSK1jQS8/PZz/NXe0rhlSg1J8tB
- 0kgUTfD9LptwmLxM24I6HEfzUKP+FaUEejSG8bulsZ7adrmkceuD5rJ9CNDCfmlbyff0
- VjYA==
-X-Gm-Message-State: AJIora+gOiHktda/+ldDMTm//o0RUv4HJJ+XOsGwjrxiui1BIFUefket
- j05fVIyMESPgKEnc7RE2AP0UbKObiIa64z6XHcCOyRCXAO8=
-X-Google-Smtp-Source: AGRyM1txrlPHo7BurhwxWsOE9RoFKVCkZ/k8sCqhS+/A2boKZhESfyLfUB7qNBJGZgVlsnwkbG9TVfjGUzqE+4dDOzA=
-X-Received: by 2002:a17:907:a427:b0:72b:8cc5:5487 with SMTP id
- sg39-20020a170907a42700b0072b8cc55487mr462889ejc.354.1658495807183; Fri, 22
- Jul 2022 06:16:47 -0700 (PDT)
+ bh=HUQCoYxB2Bh1aayiX9TOnZEyA2CtM0DAhw9bCrQNoXU=;
+ b=2LHNsEPnkxlqROjY75wNXBfE5PosT6rtMySJ0befQ2zqv7ZEyuaisW+qDMi4kcTlxb
+ xo79JIZm/zv9PczwcE6Uk5J9i3YckaoH/e2s2yFLJoNNj7IjUx85/B63wciWFX6znMUg
+ ts2iI70129kafvo31I3sBRA+/rRVLXu+cQNslq5JP3kiXCCY/03kZeg28O7TfMJxhFRv
+ 6F9+5XuaBbdxmul7rM1kuLdVTsA7T8MpFh2JR8klLhLyhEW6hV7wtsAUUcmBNPnDZTHc
+ qU5QwDEHl68EMHk4YjICLhmyx+d5zLy46MoIomM2mG4tB0bNEj1VCiuhwPDxs5aB1rJl
+ PQaQ==
+X-Gm-Message-State: AJIora+BUlnpOVyhNntUVNpVY0iKziYsvZN6lZ47mECDU8fe/JFOsM7h
+ Rt5B6VyEZ8SX8AxqJMfGVDGALf5+iXATUW04xwmg6lOP65g=
+X-Google-Smtp-Source: AGRyM1sMDXPei/Y1qx5sR5gG7dDsgE0Cc2p8fGRyfbzDRww2ZSLOSD6d/wCQjpS/pn/zNVipZd64yX5TOHQfe182uh0=
+X-Received: by 2002:a05:6402:1e94:b0:43a:9e92:bf2 with SMTP id
+ f20-20020a0564021e9400b0043a9e920bf2mr656314edf.248.1658495843087; Fri, 22
+ Jul 2022 06:17:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220721095210.37519-1-horace.chen@amd.com>
- <20220721095210.37519-2-horace.chen@amd.com>
-In-Reply-To: <20220721095210.37519-2-horace.chen@amd.com>
+ <20220721095210.37519-5-horace.chen@amd.com>
+In-Reply-To: <20220721095210.37519-5-horace.chen@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Jul 2022 09:16:35 -0400
-Message-ID: <CADnq5_M5NU1Vp_Pqs_Lvn7Gf6445QrwXmfa1V-uWWiSNC1Q-bg@mail.gmail.com>
-Subject: Re: [PATCH 2/6] drm/amdgpu: add sriov nbio callback structure
+Date: Fri, 22 Jul 2022 09:17:11 -0400
+Message-ID: <CADnq5_PfNu+1O27W8KPr_eKwBx7+H45Jc8dRZNEbuasZYRZa4A@mail.gmail.com>
+Subject: Re: [PATCH 5/6] drm/amdgpu: refine virtualization psp fw skip check
 To: Horace Chen <horace.chen@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,103 +74,110 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
 >
-> [Why]
-> under SR-IOV, the nbio doorbell range will be defined by PF. So VF
-> nbio doorbell range registers will be blocked. It will cause violation
-> if VF access those registers directly.
->
-> [How]
-> create an nbio_v4_3_sriov_funcs for sriov nbio_v4_3 initialization to
-> skip the setting for the doorbell range registers.
+> SR-IOV may need to load different firmwares for different ASIC inside
+> VF.
+> So create a new function in amdgpu_virt to check whether FW load needs
+> to be skipped.
 >
 > Signed-off-by: Horace Chen <horace.chen@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c        | 44 +++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h        |  1 +
->  3 files changed, 49 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 17 +++-----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 29 ++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  2 ++
+>  3 files changed, 34 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 242d1847c4aa..f559fda2811f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2232,7 +2232,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 6540582ecbf8..a601d0f67b1f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -334,11 +334,12 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
+>                 ret = psp_init_cap_microcode(psp, "aldebaran");
+>                 ret &= psp_init_ta_microcode(psp, "aldebaran");
 >                 break;
->         case IP_VERSION(4, 3, 0):
->         case IP_VERSION(4, 3, 1):
-> -               adev->nbio.funcs = &nbio_v4_3_funcs;
-> +               if (amdgpu_sriov_vf(adev))
-> +                       adev->nbio.funcs = &nbio_v4_3_sriov_funcs;
+> +       case IP_VERSION(13, 0, 0):
+> +               break;
+>         default:
+>                 BUG();
+>                 break;
+>         }
+> -
+>         return ret;
+>  }
+>
+> @@ -2389,19 +2390,7 @@ static bool fw_load_skip_check(struct psp_context *psp,
+>                 return true;
+>
+>         if (amdgpu_sriov_vf(psp->adev) &&
+> -          (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA0
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA4
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA5
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA6
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA7
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_G
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
+> -           || ucode->ucode_id == AMDGPU_UCODE_ID_SMC))
+> +           amdgpu_virt_fw_load_skip_check(psp->adev, ucode->ucode_id))
+>                 /*skip ucode loading in SRIOV VF */
+>                 return true;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index ab55602ff534..ba367799d087 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -807,6 +807,35 @@ enum amdgpu_sriov_vf_mode amdgpu_virt_get_sriov_vf_mode(struct amdgpu_device *ad
+>         return mode;
+>  }
+>
+> +bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev, uint32_t ucode_id)
+> +{
+> +       /* this version doesn't support sriov autoload */
+> +       if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 0)) {
+> +               if (ucode_id == AMDGPU_UCODE_ID_VCN1 ||
+> +                   ucode_id == AMDGPU_UCODE_ID_VCN)
+> +                       return false;
 > +               else
-> +                       adev->nbio.funcs = &nbio_v4_3_funcs;
->                 adev->nbio.hdp_flush_reg = &nbio_v4_3_hdp_flush_reg;
->                 break;
->         case IP_VERSION(7, 7, 0):
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> index 982a89f841d5..15eb3658d70e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> @@ -488,3 +488,47 @@ const struct amdgpu_nbio_funcs nbio_v4_3_funcs = {
->         .get_rom_offset = nbio_v4_3_get_rom_offset,
->         .program_aspm = nbio_v4_3_program_aspm,
->  };
+> +                       return true;
+> +       }
 > +
+> +       if (ucode_id == AMDGPU_UCODE_ID_SDMA0
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA1
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA2
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA3
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA4
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA5
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA6
+> +           || ucode_id == AMDGPU_UCODE_ID_SDMA7
+> +           || ucode_id == AMDGPU_UCODE_ID_RLC_G
+> +           || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
+> +           || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
+> +           || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
+> +           || ucode_id == AMDGPU_UCODE_ID_SMC)
+> +               return true;
 > +
-> +static void nbio_v4_3_sriov_ih_doorbell_range(struct amdgpu_device *adev,
-> +                                       bool use_doorbell, int doorbell_index)
-> +{
+> +       return false;
 > +}
 > +
-> +static void nbio_v4_3_sriov_sdma_doorbell_range(struct amdgpu_device *adev, int instance,
-> +                                         bool use_doorbell, int doorbell_index,
-> +                                         int doorbell_size)
-> +{
-> +}
-> +
-> +static void nbio_v4_3_sriov_vcn_doorbell_range(struct amdgpu_device *adev, bool use_doorbell,
-> +                                        int doorbell_index, int instance)
-> +{
-> +}
-> +
-> +static void nbio_v4_3_sriov_gc_doorbell_init(struct amdgpu_device *adev)
-> +{
-> +}
-> +
-> +const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs = {
-> +       .get_hdp_flush_req_offset = nbio_v4_3_get_hdp_flush_req_offset,
-> +       .get_hdp_flush_done_offset = nbio_v4_3_get_hdp_flush_done_offset,
-> +       .get_pcie_index_offset = nbio_v4_3_get_pcie_index_offset,
-> +       .get_pcie_data_offset = nbio_v4_3_get_pcie_data_offset,
-> +       .get_rev_id = nbio_v4_3_get_rev_id,
-> +       .mc_access_enable = nbio_v4_3_mc_access_enable,
-> +       .get_memsize = nbio_v4_3_get_memsize,
-> +       .sdma_doorbell_range = nbio_v4_3_sriov_sdma_doorbell_range,
-> +       .vcn_doorbell_range = nbio_v4_3_sriov_vcn_doorbell_range,
-> +       .gc_doorbell_init = nbio_v4_3_sriov_gc_doorbell_init,
-> +       .enable_doorbell_aperture = nbio_v4_3_enable_doorbell_aperture,
-> +       .enable_doorbell_selfring_aperture = nbio_v4_3_enable_doorbell_selfring_aperture,
-> +       .ih_doorbell_range = nbio_v4_3_sriov_ih_doorbell_range,
-> +       .update_medium_grain_clock_gating = nbio_v4_3_update_medium_grain_clock_gating,
-> +       .update_medium_grain_light_sleep = nbio_v4_3_update_medium_grain_light_sleep,
-> +       .get_clockgating_state = nbio_v4_3_get_clockgating_state,
-> +       .ih_control = nbio_v4_3_ih_control,
-> +       .init_registers = nbio_v4_3_init_registers,
-> +       .remap_hdp_registers = nbio_v4_3_remap_hdp_registers,
-> +       .get_rom_offset = nbio_v4_3_get_rom_offset,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
-> index ade43661d7a9..711999ceedf4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
-> @@ -28,5 +28,6 @@
->
->  extern const struct nbio_hdp_flush_reg nbio_v4_3_hdp_flush_reg;
->  extern const struct amdgpu_nbio_funcs nbio_v4_3_funcs;
-> +extern const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs;
->
+>  void amdgpu_virt_update_sriov_video_codec(struct amdgpu_device *adev,
+>                         struct amdgpu_video_codec_info *encode, uint32_t encode_array_size,
+>                         struct amdgpu_video_codec_info *decode, uint32_t decode_array_size)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 239f232f9c02..cd6fce05978f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -343,4 +343,6 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev,
+>                        u32 acc_flags, u32 hwip);
+>  u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+>                       u32 offset, u32 acc_flags, u32 hwip);
+> +bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev,
+> +                       uint32_t ucode_id);
 >  #endif
 > --
 > 2.25.1
