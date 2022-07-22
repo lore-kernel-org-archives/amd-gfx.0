@@ -4,131 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E31CCA489
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jul 2022 22:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6D9C43334
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 01:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B034E8F28A;
-	Thu, 21 Jul 2022 22:09:09 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2068A8EBB5;
- Thu, 21 Jul 2022 21:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2828518A7A7;
+	Fri, 22 Jul 2022 01:37:55 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E99D18B57E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 01:37:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j5QzQ+DD6tVQrBul2FdieqLYfGaZ1Rd3LVjBEgf8Dy5NbCkOernOvYBMtr2lEy7KUg1X6Araj8RhdcnmUmLk6q1+Bd6wpZSGmsdEpd1lLJJeUkxDZR61uEi7Ad1aIKA0PUrOT3Rfu7V+/v0emRM/niOfAHBWBt9OqDy73Ebjnx4N/ObwgOZluHtH7E32NYL8BO9Wj3VayJtn5emohrYLbWnasCKSkAay8Avw+bzyldUMYWIaqvh6g69NTlaHLj1T0BR7IDs7YXsq/G4wO2TgMmyRxKB8YumaZPmPvCVX8gP9Q8KPfJS+/P5s09Y5Q7IPUsWPH8Ivx0jlZMFNrY+F7A==
+ b=j4ccPLGDoaBChFRTj8BvwLJU6Ww0qxkrTMQnr0EOIY/50dxhXW1/RGOa2u6dSO9ntNlUVVq9ETc1FC+PKZHvm5qIvFpB3+g61rzPH9QXqPLUU8V+dqCbdCxNrTXxsQWByTCZiDG84udj9QbrM2dnsO0G7600kOUUKPOVOHjqZZB+4SktQeMibTuiHr+VDUdWXY1/wWhDNnIf4deBHFyz4aDi2zEkHXygDSugQzfTMyzuj6kNpnOG5kwhHllZyrgHoY19v6xPhOjF0qa+P0IqKQ67Nr6tyLrCZ9baFHqQtxHfESooJEQJ16r6o8eYJNKZuoMuZbfrvUHq8X0/WiLiEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M1C/0oNIsNZe/4LQMZJj3woOuUc+3we2d2WVgPqvFEo=;
- b=iheCL+8nnNv+R7jZ5m0AFc32aAMfhPxoIVk4AKSBuh8O7knOeYW7R+xTXpCF+S4X6oxi8c12A+a6PdnCLLs6nb01/2NxL0ezj9WYJSXHThb582sH+HGJRcBn3HYa9kxffJ7zZTAxadvfV0L0Kxdhhqy18+4XPfs1A5G3ALJsJierO1PiHudPT7wu0y14Ve89OEX3y1hufaiKxpLb7Xy/NoYqeZLkvx5fCZVCXT0FCkKBNRwHxPgZaU36iAh53veTLCj2rLX8g3Zu0/XGIVO9EADxdPyAAi3jB/Ri40G4GBLVvKiz74xLyvN/a0VM7rod8eQPw3BLg1t7nE20yZ7/xA==
+ bh=dDMJFIn3APuB9BUTGV9RLhCkCHw4jZQjXdAQFIIiyHY=;
+ b=Rgcgyunt7IGpqXDHTzJEz1DgXTpLA7VGU/Ryc/RhbVD44fMTno5MHfbgTrd9KPnjDd3ZmB3gxm/kV5wby/+fox2lowesKo2eg1JnVRA5Hy+nBbHGK/SnnzEulc76xzXeTqxgxqh8I8MFcho0MjKxgK6HJPP5Ki2E6VeiY4L5FXzTdfAUlfBCOivND6C9HdsQuGvkkxvC8N/fCLA01dVu2lOEPimPHeB5TjdSX+IhUvYYipcOpnw4A8bgL15r7mE6ede/rT25jkIgbFg4RCPbe62jpapyE7rKvYqNVfgwZvJ0kLGtBBL4+PWVgnN9WLaMAYRS/mwlI7Sh3AoJd5ex7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M1C/0oNIsNZe/4LQMZJj3woOuUc+3we2d2WVgPqvFEo=;
- b=lUpd7drc82vh1YbPK4dP7dsYKiSKzKU+1oVFhXNlWUI7PoIaYaOPflpCukSWcyYUjST64aagtakPDQvEPHCl2VuPIql+ggq1yEvWeeQqHLOp6opZznIOTb2HHriL1HvQChoSMi+zNSSoCCC1itps1b3ql87ACtnoUIxmf4afuAxWDXbm9/cUcTC5W3+ApBOAG8DIbVfeYG3pKajy71wjfWnp0++8vyo50XbcJ3YyJxJy/JwdyG73eExTDnagh0yMdqktquUtcW2qo4H8qsQo3pYYq3rgi/6NHOh7nhthfnIOCfLwaFku0P+2jq0SwoZBD5FO63IsaJ0CQiEMzaJdfQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
- MN2PR12MB4287.namprd12.prod.outlook.com (2603:10b6:208:1dd::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Thu, 21 Jul
- 2022 21:24:57 +0000
-Received: from DM6PR12MB2763.namprd12.prod.outlook.com
- ([fe80::d043:c95a:cf42:cff4]) by DM6PR12MB2763.namprd12.prod.outlook.com
- ([fe80::d043:c95a:cf42:cff4%7]) with mapi id 15.20.5438.023; Thu, 21 Jul 2022
- 21:24:57 +0000
-Message-ID: <641cb059-48f5-5f05-5ec2-610f1215391c@nvidia.com>
-Date: Thu, 21 Jul 2022 16:24:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 01/29] ACPI: video: Add
- acpi_video_backlight_use_native() helper
+ bh=dDMJFIn3APuB9BUTGV9RLhCkCHw4jZQjXdAQFIIiyHY=;
+ b=Qe8yPHYVtfHnxh31vigHWfwzvccOiNVO4m0Ie7h8IThjuWEYHV71rsSaB5eUSe2BYdy34t5LELMYdqP7mXwFbsLNvvFFSaG6icJfv9SWoqEsSLCJqTDc2by8hOAX67PgInnAi5DEwAke0b7UMBCP57QEizq2MKpGBpw8hpQP+sw=
+Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
+ by CH0PR12MB5154.namprd12.prod.outlook.com (2603:10b6:610:b9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Fri, 22 Jul
+ 2022 01:37:52 +0000
+Received: from BL1PR12MB5237.namprd12.prod.outlook.com
+ ([fe80::ccfc:c945:4212:711]) by BL1PR12MB5237.namprd12.prod.outlook.com
+ ([fe80::ccfc:c945:4212:711%7]) with mapi id 15.20.5458.019; Fri, 22 Jul 2022
+ 01:37:51 +0000
+From: "Liu, Aaron" <Aaron.Liu@amd.com>
+To: "Guo, Shikai" <Shikai.Guo@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: Add get_gfx_off_status interface
+Thread-Topic: [PATCH] drm/amd/pm: Add get_gfx_off_status interface
+Thread-Index: AQHYnN/8A9Bbk2w0P0KS2u/Y3hhPjq2JmVfg
+Date: Fri, 22 Jul 2022 01:37:51 +0000
+Message-ID: <BL1PR12MB5237A4AA3008DBC9460E9506F0909@BL1PR12MB5237.namprd12.prod.outlook.com>
+References: <20220721085738.2528792-1-shikai.guo@amd.com>
+In-Reply-To: <20220721085738.2528792-1-shikai.guo@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-2-hdegoede@redhat.com>
-From: Daniel Dadap <ddadap@nvidia.com>
-In-Reply-To: <20220712193910.439171-2-hdegoede@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DM6PR11CA0067.namprd11.prod.outlook.com
- (2603:10b6:5:14c::44) To DM6PR12MB2763.namprd12.prod.outlook.com
- (2603:10b6:5:48::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a4664dbb-b980-40bb-f23e-08da6b5f7617
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4287:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5a3faq4CSzsDftecNffk4fkjH07GO7rmYSCqVs+qIu0xMxGHahE1/+Hd0rlN7nAA6N96DD96szvxnGb4h8TdF+OfVwEcmvV/M2t3+E2lEbGho79uwpg+sEhyAwkjmaV+Ah2pV8IxL4sQ0hQlxxNUxmbXrmmRk+w19uQG0ZK80mnAlY7qiat7g9b5gKu3vmyJlqwG/GP6XhNtSztHmFNx68l8KraN5Uah6M40W87UXpQ/lldfj3qjSYuw4GspqFDv2yPXyj0oD7a8dTk/Bs8AiUV88cHwptjaSryNwhiiz4DJ5SWZk18WCBXp8rMBDYeegNITXreT21lpq3rKdBX3YideNw2Twih+G0yajUAdqqJGEFNrWJK2QBkVQyji7EKhpJ2W9Qn1MY9v+uKoZIFiWt/Kh62DDsxZzOTstsTP6o3FipokW0RFcCVyIr4gOaLxM6ARfUvJOX3jiDcij60vjRjyzIuW8Y7x0ZcDkxeCzWaOjnGsoKcj1yenfVgGkc2c1xzKsebMRfq8EGi3uNfrEnqlf/CnMlEz86R1PFmtL+DDjqK87ugu01eVheqav9ayeXjpwjdqNFMJ21lpYYm8Li9v939KYhiqhPqukm+Lc+iEqdZciU/mEn6k/kTxxGJHJV+/f28J/SUkqTGMSxRgN1r1Q+odgjZf4WX/UE1iurb2z7tug3hueKdDE3yCmD5lnMNHK3tlzzSjt9WIcyjm+mYUqSsFY0N1MEgvlDR7U8Rydf3b0BqJjzo0Tvwijl1yGpYKk0ObVkVECUarvof2BvRy0nuhqXaDPyVg9UyfgYfsE32DH3PC5DWr5NopGPHfFaSMjO0O8EUFWoT64sB6g5pK3wavE8A/FXD0bPXFUV0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(8936002)(36756003)(921005)(31696002)(5660300002)(54906003)(31686004)(7416002)(478600001)(186003)(2616005)(110136005)(83380400001)(316002)(41300700001)(6666004)(6506007)(8676002)(38100700002)(86362001)(6486002)(2906002)(6512007)(26005)(53546011)(66556008)(66476007)(4326008)(66946007)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-22T01:31:23Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=edda8f85-b8a3-47a6-b494-2acd29e30479;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-07-22T01:37:46Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 80c34151-1e17-4edc-8c94-9bb476b2e5e8
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 67b793ba-75f6-481a-4249-08da6b82cab0
+x-ms-traffictypediagnostic: CH0PR12MB5154:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6KFQc3PkvG0kROLETd5vYFakr0CprmbCgOQ/VeLmzH5g/o8soBDG7jylOLsbwZI4Llo6CRjXWGls5mt0QASnEFiL1R2YEDdloTILEsgn93iR9LXygyR2cikWp132tKfLMKkWQHWwb9IHO0yOwUZM7rSw5usosc1t8tBnZxmRTOw/lhxgJ8Jc392Nmxg6pNQAYgwnr5ScC9TkRQHy9qg6AuHixTEVRCP+rkrS9BXoMdZwSAlFVIRMF13Um6VxDVtLeRWXE+mgUUD2/ynUEnBanFKrf4151Vzkuf8r8a46sdG0TU+5GLP5pqxgcu5jH8zwPWVDlXT0mMRGvDYcenBKMNusNx0ENJ/jrpm52d9PrmZ/U2tq5JSgbyxQCqhk/TlZANlgjDj2ojk+8lDNGrN8/kQ9t5Ixx45XuQIcAf6uwqXLHUjztH5mosvjYZ33AsbUYENY/FNsU5FKpf771VU/2pLYNGzyVRBbXOQfpSdATI86dGg+WDeM+f0BZskp7j79XbW4pNb++NyK237VbQewDTXDXUpBxZEP+fuzsSNza4oayJwiEhqzVE4xMT2Lcmrcftjrki5WNyrmPJBppRrUQv+jV+SE8UJ03fiG86a8my4L1/PKFWs2ke5OMDhzA/H/h/PnHJQfmVUYH0fx4kwY5RHXsGSn0BbHnsX0gw/bdXU9fkZBwUh6evC49S5Geb5t7eHfUv+QUECk0Zxa5aE57SThKBkrKMq0P4mPvinj0I+FJqXoNFmAXYgjSszne76TibGSXONIQAoXtIgrK3Ri7Iyj8fxA+xjzQSoyQu911rUfuB+zrTtLkpe9HkZIEApm
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(376002)(136003)(396003)(366004)(346002)(86362001)(38070700005)(38100700002)(122000001)(33656002)(186003)(6506007)(83380400001)(7696005)(478600001)(71200400001)(41300700001)(2906002)(26005)(55016003)(53546011)(54906003)(110136005)(9686003)(316002)(66946007)(76116006)(8936002)(66556008)(4326008)(66446008)(8676002)(66476007)(5660300002)(52536014)(64756008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEhDVUNEQnFPSEZnc3kwdi80d2Y5SUlBUU14TGJaYlRXU09EZlg5NXkydTVv?=
- =?utf-8?B?a0FvNFZBZG45MmhnV3M4b2tacW9NVmZmMkR4TTh1YnRpTnNPaEVNZEJIRjR5?=
- =?utf-8?B?ZldDMGVkVklRV1NyNVA4UGloeEcrVVA1SlBNWXMwQmkvK2ptaWN1djVFSk9S?=
- =?utf-8?B?NXZmaW1LUzF1ZTVMMFRtUGVUaTV1OE1adWZmRU5leE1zT0ZrdDNMeTVHOGJj?=
- =?utf-8?B?VU8zYlZyU2pUT0FhbklpLzJtUDdHekU3d3JIVVBCaDc5cHIwbytySGdxSUZ4?=
- =?utf-8?B?UzFpaDYwUGdDZktpMnhpWSt2VFVJcnpoUFR3N3BLYXozczBKM2NKc1dka2I5?=
- =?utf-8?B?TCtKZGJYZW4yNm01dkxvOHdpOWVhaW1xdGl5eGdCTVZ2Y0xSR0lLYlh6VE1z?=
- =?utf-8?B?VXNuNEQxSDZsNFl3M1lBcllQaFNNbjdiMnF0M0piS05XV1FXOGxQWFJPa1Rr?=
- =?utf-8?B?UjhFZk03UFZzSTJMWmJmSldqK0J1cEdHMW0yL1BUL0tHT1RIZVFRRTZERlBu?=
- =?utf-8?B?cEtPMkliSEtLY0M3M3lYRzF0UUI3dWJFMG5RMFN2SUZ6KytIbW52OEdDdk9M?=
- =?utf-8?B?TW1BU2tXT0I3dHd3VVpvWWZzR0xWamg2MHBVczBqUFVQYWhwaXBXdkNNbHYx?=
- =?utf-8?B?dWIxRXQwYXpLQ09KMW9YRjdDNllLV0dGM0d3Wkc1UmN4c0RnaDVaTExZcFk0?=
- =?utf-8?B?UUVvcDVsRm82akZodmdYcXRVT3NuRjJOTEVxQ1VHMi9uZUtpUzJVTTJrcXdh?=
- =?utf-8?B?VXRUS1ZmeGh5NE90SG5RTEt0djZKa2pUZHp3OUZvWnY0SkUwK1dPRFRXc0pL?=
- =?utf-8?B?a2VqQlc1aWF6a0xjRTR1cm1WcTh0cHZFOGxkUnp1U3NJR2pzQjZheXY1TjRP?=
- =?utf-8?B?aDU1TWJ5ZmltSDZJWkZnOXF4M2dwUEZYMVpKL2ZzNlZQc1cvUEl3aVdKUUc1?=
- =?utf-8?B?Q2NBWE9TOE4xUUNYUVgyTkFFU2hsQ1ZOam1UVjl6MThPYmR1cThlZks1REVz?=
- =?utf-8?B?SXYyM3V1NHd5R1N4dnNXWXJ3amxXMlFiMnpKNlkzdzRpbU1BUTVVK2h5OG12?=
- =?utf-8?B?SHE2NmxkRnFCU2JnVkhlRVZ1dEFnK0N5ZTFuVDVmR3AwM2kyQjVWWWJnL1BR?=
- =?utf-8?B?dEo3RHl2V1VpQnFSTnlYcmhDOWY1RHc5N1p2bE91azVxTnBMYmwvR2pZcUUy?=
- =?utf-8?B?NzZpMG01QUc4Vy8wMlI4VTRzcXJiRE9mZUpwYm0xekl2cllPOHBLVTNPaDdt?=
- =?utf-8?B?aUtWdlF6VzRHczV4b3hWc05NL1A1NGJMZnhpOG5ySitEVHAySkgxZlAvcitJ?=
- =?utf-8?B?cDFzYWlMZG4yMHJtQWlKUnQ4T2ltR2c1VUtOT2l3dHFHb0VXSWpzOVZLOThN?=
- =?utf-8?B?Q1dnMFEwVGZZemZUa0twSGVmN3lvU2ViNW5ZbnpwNSt4WkhMbmhVS0xKU0Qz?=
- =?utf-8?B?clFqTUlEaDltL296aFd4YmY1bHp4eC90dW1iM3hCVkJIQnpoT0xxVWxtRTUr?=
- =?utf-8?B?NXlZTnNkZ05KSFhQYW5zQWYzL05LT3ZVUkFDWVIzeWVBUlprMTJ6bTh5ZGp6?=
- =?utf-8?B?M3ZiVmRVWU9hQ1BwZFZjSmxsLytVTk4vRVdCbXZPemJXZ3grWlh2TVBFcnBy?=
- =?utf-8?B?T1RyNVdZNTUyWHlWb0crNWJoRTFlc1pSMzhZT1NYaGNJbHZTbjZpaTdTc081?=
- =?utf-8?B?U2hsR0R5cDRqRjRBTExYclZwU21HaW84SDhQQXAyS2hONVJnaFhiOU43dTNk?=
- =?utf-8?B?VlhEY1JIR2RKSklTQUpGMVhLTmlMWldjUWFRUnVtbVFSd1R0RXJjc0gvUkx5?=
- =?utf-8?B?ME5xTmtob1AzRUQxektVRzNhQnI0SHUrbTZwblcvMlVvNGh0TlBIa0kwdEha?=
- =?utf-8?B?dnpLWDc2b1FWbXFwd25VRkw1MWZHTnlSYWFYSlJ3dkg0V1VHWUQ0NjFYVHUy?=
- =?utf-8?B?YmQyb2JPTTJBZE00cEtDMTZJNTBxTEZ1WnV6UlZVNVlTUjlzamV0YTY4VWgw?=
- =?utf-8?B?WnBDU1Z2eTkzdCtFU0txR2JXR0JrUnpaY3BEbEJVZTBwcFE1VFVMZTFvdzhq?=
- =?utf-8?B?Ulg1VW9HVzlESHhrem9CTzNhdHZhSUczVUNXbEVDZGI2cCtsU2NtbHFnakVT?=
- =?utf-8?Q?Kbgmbf+ELgIXhwhBFjf9tlcCf?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4664dbb-b980-40bb-f23e-08da6b5f7617
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0HNvdpxZAdQ/i885yvnKn6R3Mic9dRQo71vWczIH0HXj1wjdWT80QwaJdD1O?=
+ =?us-ascii?Q?hpe3gqN4f84Ry84Jfczksg4tP6uujWX8KkGHQ2HPZPxm9xe6K+tOtTvIRQTq?=
+ =?us-ascii?Q?SRGrBOPTymo5YEvDFeHXGAfpzPurpbo3mzyD0FDUOIbsnS4RQTvJK8/TSG6f?=
+ =?us-ascii?Q?G6HoNhOPi4w36kDQ03sVEvYNQecn9NTSpQK5x7P4d3KvJgCrXeTziU8FYFJI?=
+ =?us-ascii?Q?9kFRpo7EXlbjhVrEIfbJUYHtjkcpBmRCTbWhNbbtNDOBgRhAm1y3oHwKwQdg?=
+ =?us-ascii?Q?vHIikEHDEt6DFAyb5cvtdaQPRRyaFVmT/JPHIBZ0ZZBgmschtM6nkQ+zd5SV?=
+ =?us-ascii?Q?Fdn8UOu0OYW0X1gmPIT4ahEljnYChKAtxebgDlhj6e9sldx17ty3ZS3Y04kI?=
+ =?us-ascii?Q?yRAT0stpe2wq+96Ishwge7bPfUjFp8vn9B6A1jQvTrbCLq9vy9A1mTElu6z1?=
+ =?us-ascii?Q?LEiKha4gNJV6eKHQcdI1nkOXeYoWITZzJuswtJ7O0qq3NUVKhz9yN82q3+MA?=
+ =?us-ascii?Q?EyhD7l4rt0r/6JjUEyLpu3l/JGyy6RFRhHs9znvhlIcP0RD5jprcWGHidRYO?=
+ =?us-ascii?Q?eYLqK5CKIXRzpqncE90HHaR9gPJQ9ho2FTaO+BS1fI8Uc21316xKj2wIwUru?=
+ =?us-ascii?Q?51urEayN9ga7RLn/xgrv4dU0kCXovWu1SkQuxQ+n5Sa/4f+sf9Yyf22fj2jU?=
+ =?us-ascii?Q?K1GWIPr8oPeYxSHq2PZhnYLC1yZV/nWoFtkIDhjcGAL92Ue7/ApkIctXWQcd?=
+ =?us-ascii?Q?Y5mpC2wNi2Mp5xtmnFmtsDJ7tvbHBFDUB9ZqXK+b6l1Yjgx4G60lv/U+9TaP?=
+ =?us-ascii?Q?kDosBSTE1CfDylhTOXX3R19qNlqjq00eziGIfnPhIAFZFuf2w5/V6YFwl7K6?=
+ =?us-ascii?Q?+5lD/UlciMNZmX0JmAs/dKDCPnUm3h7tjLWTa5jaiPcQGJeZjx5QmmjIy4XE?=
+ =?us-ascii?Q?UPjfo7aOGB52BLx4zRCkGrNf8/dhQHz92YY/JjZqZbtLaDd6YZyx7rinVmGm?=
+ =?us-ascii?Q?fQTTfF7TJSSy0wBUO4yWY41eFoMO3rEB1Ue0ZSiCvRnccvc/6NS65JcF1YDg?=
+ =?us-ascii?Q?0767yPoCyBD4qne5HeWcMbOzdYkIHpYUkEZQULYp3h/negoMwv7lWW/XZ/nA?=
+ =?us-ascii?Q?GCisN+m4lY2Zrxf2KYr+v4+shrCJNqi+DMcie8jHgwAWO3BgU4wG7EQQCCIP?=
+ =?us-ascii?Q?ntIRrDpJ+YH02Prd0fDy2Ce8Kt9nCmY/gMKdBs5tyoXo/iEUNqYUpzOBOuTS?=
+ =?us-ascii?Q?qZxyo2k58RZp5a33NjhvkhpL88+/aCGYVGhWccN7r1SY8AMvdsunncmNeQBR?=
+ =?us-ascii?Q?Jhue+84dUqo86lAS8M3hh51PmQKSAAkJ4Pkp5SYkbNlntz/8reuQ/HgWgHRG?=
+ =?us-ascii?Q?NUq2lVXVRiPbk/9qZjLTkIkILnkgHdw5BVixUW0hNlbBmEIzt/5Og4q7tQlD?=
+ =?us-ascii?Q?bR/Qhw/xOKaojKQo8pJmSwQP2jf2VUKlwUhHjRx+jqE6rNhakQOG1i1JhjGN?=
+ =?us-ascii?Q?405sJvh0rqQiWzQGHMHDCnPLyx29p8hZZnZNee9JVMmYoBKd+LrqbGSUcODD?=
+ =?us-ascii?Q?1ksZx95Y80oVVsIJoDE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 21:24:57.6504 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7GKNVLwwbOCoWqCgtE2BSiW3jSQmYYdcT4r/t0cGVIA/XrPMSU3eL8W/03fog/1uzqwErYaBK2JXoAw68m7iyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4287
-X-Mailman-Approved-At: Thu, 21 Jul 2022 22:09:08 +0000
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67b793ba-75f6-481a-4249-08da6b82cab0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2022 01:37:51.6347 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iZYTXWpu7Qx0NbSmclqvIHskfjpNHNEjL8ha1GhK9dezMcYxNtLnbNWiZfd+LLma
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,166 +129,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liang,
+ Prike" <Prike.Liang@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Guo,
+ Shikai" <Shikai.Guo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
-On 7/12/22 14:38, Hans de Goede wrote:
-> ATM on x86 laptops where we want userspace to use the acpi_video backlight
-> device we often register both the GPU's native backlight device and
-> acpi_video's firmware acpi_video# backlight device. This relies on
-> userspace preferring firmware type backlight devices over native ones, but
-> registering 2 backlight devices for a single display really is undesirable.
->
-> On x86 laptops where the native GPU backlight device should be used,
-> the registering of other backlight devices is avoided by their drivers
-> using acpi_video_get_backlight_type() and only registering their backlight
-> if the return value matches their type.
->
-> acpi_video_get_backlight_type() uses
-> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
-> driver is available and will never return native if this returns
-> false. This means that the GPU's native backlight registering code
-> cannot just call acpi_video_get_backlight_type() to determine if it
-> should register its backlight, since acpi_video_get_backlight_type() will
-> never return native until the native backlight has already registered.
->
-> To fix this add a new internal native function parameter to
-> acpi_video_get_backlight_type(), which when set to true will make
-> acpi_video_get_backlight_type() behave as if a native backlight has
-> already been registered.
->
-> And add a new acpi_video_backlight_use_native() helper, which sets this
-> to true, for use in native GPU backlight code.
->
-> Changes in v2:
-> - Replace adding a native parameter to acpi_video_get_backlight_type() with
->    adding a new acpi_video_backlight_use_native() helper.
->
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Shikai,
+
+Yellow carp's SMUIO is 13_0_1.=20
+#define regSMUIO_GFX_MISC_CNTL                                             =
+                             0x00c5
+
+This register in your patch is from smuio_13_0_2_offset.h and this register=
+'s value is different to 13_0_1.
+#define regSMUIO_GFX_MISC_CNTL                                             =
+                             0x00d1
+
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> shikai.guo@amd.com
+> Sent: Thursday, July 21, 2022 4:58 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
+> <Prike.Liang@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Guo, Shikai
+> <Shikai.Guo@amd.com>
+> Subject: [PATCH] drm/amd/pm: Add get_gfx_off_status interface
+>=20
+> From: Shikai Guo <Shikai.Guo@amd.com>
+>=20
+> add get_gfx_off_status interface to yellow_carp_ppt_funcs structure.
+>=20
+> Signed-off-by: Shikai Guo <shikai.guo@amd.com>
 > ---
->   drivers/acpi/video_detect.c | 24 ++++++++++++++++++++----
->   include/acpi/video.h        |  5 +++++
->   2 files changed, 25 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-> index becc198e4c22..4346c990022d 100644
-> --- a/drivers/acpi/video_detect.c
-> +++ b/drivers/acpi/video_detect.c
-> @@ -17,8 +17,9 @@
->    * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
->    * sony_acpi,... can take care about backlight brightness.
->    *
-> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
-> - * which driver should handle the backlight.
-> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
-> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
-> + * use the acpi_video_backlight_use_native() helper for this.
->    *
->    * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
->    * this file will not be compiled and acpi_video_get_backlight_type() will
-> @@ -548,9 +549,10 @@ static int acpi_video_backlight_notify(struct notifier_block *nb,
->    * Arguably the native on win8 check should be done first, but that would
->    * be a behavior change, which may causes issues.
->    */
-> -enum acpi_backlight_type acpi_video_get_backlight_type(void)
-> +static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->   {
->   	static DEFINE_MUTEX(init_mutex);
-> +	static bool native_available;
->   	static bool init_done;
->   	static long video_caps;
->   
-> @@ -570,6 +572,8 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
->   			backlight_notifier_registered = true;
->   		init_done = true;
->   	}
-> +	if (native)
-> +		native_available = true;
->   	mutex_unlock(&init_mutex);
->   
->   	if (acpi_backlight_cmdline != acpi_backlight_undef)
-> @@ -581,13 +585,25 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
->   	if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
->   		return acpi_backlight_vendor;
->   
-> -	if (acpi_osi_is_win8() && backlight_device_get_by_type(BACKLIGHT_RAW))
-> +	if (acpi_osi_is_win8() &&
-> +	    (native_available || backlight_device_get_by_type(BACKLIGHT_RAW)))
->   		return acpi_backlight_native;
->   
->   	return acpi_backlight_video;
-
-
-So I ran into a minor problem when testing the NVIDIA proprietary driver 
-against this change set, after checking 
-acpi_video_backlight_use_native() before registering the NVIDIA 
-proprietary driver's backlight handler. Namely, for the case where a 
-user installs the NVIDIA proprietary driver after the video.ko has 
-already registered its backlight handler, we end up with both the 
-firmware and native handlers registered simultaneously, since the ACPI 
-video driver no longer unregisters its backlight handler. In this state, 
-desktop environments end up preferring the registered but non-functional 
-firmware handler from video.ko. (Manually twiddling the sysfs interface 
-for the native NVIDIA handler works fine.) When rebooting the system 
-after installing the NVIDIA proprietary driver, it is able to register 
-its native handler before the delayed work to register the ACPI video 
-backlight handler fires, so we end up with only one (native) handler, 
-and userspace is happy.
-
-Maybe this will be moot later on, when the existing sysfs interface is 
-deprecated, and it probably isn't a huge deal, since a reboot fixes 
-things (I imagine installing an in-tree DRM/KMS driver on an already 
-running kernel isn't really a thing, which is why this isn't a problem 
-with the in-tree drivers), but would it make sense to unregister the 
-ACPI video backlight handler here before returning 
-acpi_backlight_native? That way, we'll briefly end up with zero 
-backlight handlers rather than briefly ending up with two of them. Not 
-sure if that's really any better, though.
-
-
->   }
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 30
+> +++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> index 70cbc46341a3..2e39b629e7e6 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> @@ -31,6 +31,7 @@
+>  #include "smu_v13_0_1_ppsmc.h"
+>  #include "smu_v13_0_1_pmfw.h"
+>  #include "smu_cmn.h"
+> +#include "asic_reg/smuio/smuio_13_0_2_offset.h"
+>=20
+>  /*
+>   * DO NOT use these for err/warn/info/debug messages.
+> @@ -42,6 +43,9 @@
+>  #undef pr_info
+>  #undef pr_debug
+>=20
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS_MASK
+> 	0x00000006L
+> +#define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS__SHIFT
+> 		0x1
 > +
-> +enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>  #define FEATURE_MASK(feature) (1ULL << feature)  #define
+> SMC_DPM_FEATURE ( \
+>  	FEATURE_MASK(FEATURE_CCLK_DPM_BIT) | \ @@ -587,6 +591,31
+> @@ static ssize_t yellow_carp_get_gpu_metrics(struct smu_context *smu,
+>  	return sizeof(struct gpu_metrics_v2_1);  }
+>=20
+> +/**
+> + * yellow_carp_get_gfxoff_status - get gfxoff status
+> + *
+> + * @smu: smu_context pointer
+> + *
+> + * This function will be used to get gfxoff status
+> + *
+> + * Returns 0=3DGFXOFF(default).
+> + * Returns 1=3DTransition out of GFX State.
+> + * Returns 2=3DNot in GFXOFF.
+> + * Returns 3=3DTransition into GFXOFF.
+> + */
+> +static uint32_t yellow_carp_get_gfxoff_status(struct smu_context *smu)
 > +{
-> +	return __acpi_video_get_backlight_type(false);
-> +}
->   EXPORT_SYMBOL(acpi_video_get_backlight_type);
->   
-> +bool acpi_video_backlight_use_native(void)
-> +{
-> +	return __acpi_video_get_backlight_type(true) == acpi_backlight_native;
-> +}
-> +EXPORT_SYMBOL(acpi_video_backlight_use_native);
+> +	uint32_t reg;
+> +	uint32_t gfxOff_Status =3D 0;
+> +	struct amdgpu_device *adev =3D smu->adev;
 > +
->   /*
->    * Set the preferred backlight interface type based on DMI info.
->    * This function allows DMI blacklists to be implemented by external
-> diff --git a/include/acpi/video.h b/include/acpi/video.h
-> index db8548ff03ce..4705e339c252 100644
-> --- a/include/acpi/video.h
-> +++ b/include/acpi/video.h
-> @@ -56,6 +56,7 @@ extern void acpi_video_unregister(void);
->   extern int acpi_video_get_edid(struct acpi_device *device, int type,
->   			       int device_id, void **edid);
->   extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
-> +extern bool acpi_video_backlight_use_native(void);
->   extern void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type);
->   /*
->    * Note: The value returned by acpi_video_handles_brightness_key_presses()
-> @@ -77,6 +78,10 @@ static inline enum acpi_backlight_type acpi_video_get_backlight_type(void)
->   {
->   	return acpi_backlight_vendor;
->   }
-> +static inline bool acpi_video_backlight_use_native(void)
-> +{
-> +	return true;
+> +	reg =3D RREG32_SOC15(SMUIO, 0, regSMUIO_GFX_MISC_CNTL);
+> +	gfxOff_Status =3D (reg &
+> SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS_MASK)
+> +		>> SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS__SHIFT;
+> +
+> +	return gfxOff_Status;
 > +}
->   static inline void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
->   {
->   }
+> +
+>  static int yellow_carp_set_default_dpm_tables(struct smu_context *smu)  =
+{
+>  	struct smu_table_context *smu_table =3D &smu->smu_table; @@ -
+> 1186,6 +1215,7 @@ static const struct pptable_funcs yellow_carp_ppt_funcs
+> =3D {
+>  	.get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+>  	.set_driver_table_location =3D smu_v13_0_set_driver_table_location,
+>  	.gfx_off_control =3D smu_v13_0_gfx_off_control,
+> +	.get_gfx_off_status =3D yellow_carp_get_gfxoff_status,
+>  	.post_init =3D yellow_carp_post_smu_init,
+>  	.mode2_reset =3D yellow_carp_mode2_reset,
+>  	.get_dpm_ultimate_freq =3D yellow_carp_get_dpm_ultimate_freq,
+> --
+> 2.25.1
