@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C55FC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749AAC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 13:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76C5D1133A3;
-	Fri, 22 Jul 2022 13:16:10 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0640712B366
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:16:07 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id bp15so8545610ejb.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:16:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B1E11A5E0;
+	Fri, 22 Jul 2022 13:16:30 +0000 (UTC)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C55412AD20
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 13:16:29 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id v12so5802745edc.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jul 2022 06:16:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5XE41gQdPCBU8MKUqSG0o97F3kIyQIsCgKbPGMZ7Dsg=;
- b=JpDaVpTKrr+Eq6w3rPm8nb9aKanSW7ZuH9y01FkBaO/4Z4n7XaSGxN1QHx+d3y1cCm
- Bniv8jUPtWFDuRXyE94xPmhanAjB5T2SADEe/lNDAy0rVFSyTqmxQ8s9OyTW5dFRlwNK
- XwqPzXYZ3/PVXIph92JfrcGvzFen93K09wBIw9+K0bgUFq1hZZA7eLh56K0r+17VtXEm
- TBSDqmSh4zaqEgPVRvV6BZMeD3DNM/rD6+SC26ymk506WMkpB2Q+/0UW8OAzDOemUvot
- uImg7sKhDByLsD/8HrFxT/bZBp6Ew9lJGUwspj59U/W9Omx6P5GfjqfAyr9LkhPEg5aB
- al0Q==
+ :cc:content-transfer-encoding;
+ bh=PAaho0IhhQYlez98JfjRGU5nOjjU+e/Evp5xPq8myTY=;
+ b=U9fJjqNKgCeSbr4xwU86R0+vE+ID1nYQ8p2QjiPqsKAKvER2C/oP5RsnpZ/j2t1zq/
+ 8bJko6JF2aPhTvdO00DVSTc083e+NGOwHcCsbA0H7dLOHgp3vhGVEVWLc9rrZIgiREWV
+ kSdkKMosf1rpQN9uOc6SViJw8avfX6dcc5SaM9+i13JrEokL4c5bgTthjN2m3KK+0EYG
+ MdjuFfnvMZfDcJ5SEEl+kuqIlPqZryP9fBbbHviS52P38NjJBQadVnhntPlkVHwEd235
+ ZAvVdon9pNeHI4IAw7At/lODYvkpYN/bJ/M50fhfVDsvn4+LeM5Mj158wkE7dhMhuf43
+ iA2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5XE41gQdPCBU8MKUqSG0o97F3kIyQIsCgKbPGMZ7Dsg=;
- b=LKdTtLs2ZlVWcNjJUvemyAWr6dO2etmGEd1/4K52XgKt4zzgJcdw49bv5+0Y8Vg50c
- 229lWv8Eg+3LhFYE467PWk8w/q3HClD7hSe7IhrO3brqYYCbD4M551q2ayrpfhLr6PoT
- iP+l/VTBDrTogEiVw4UmVUMwvTIVfj6pNxHesdd7BjH0DK9iG1RuE3pRHAcJRqBjO9E7
- Vwot7kZbkx29/h+Ia6nk+7W4kSo6NGssAjh9pwxBX/kHf3pFvqRR7QlAREvpXXu/9Ody
- kyTurWjjac0NAHRng4yDaKhB47xyHkisS2ld0UmhfEONOd+K/qqPkTtC14knXAaQcI2B
- bKNw==
-X-Gm-Message-State: AJIora+nCv/jeStO1TH2Jo3VFMoFFgJct5fBiMO7IEKUaS+7A8xn17E0
- TgygqqqrpAjPqe2Sj+ZVHFZ4kQ38flwuSe3yXAJa/GP4
-X-Google-Smtp-Source: AGRyM1uGRulnBj7L6sFX1vO+74fyXeXCVyhbVcBcodV/0eAfDHBfMir3emiCniFmbLRTf3eXWqu60j9KfvZU38xlNU0=
-X-Received: by 2002:a17:907:2722:b0:72b:6a93:bf9a with SMTP id
- d2-20020a170907272200b0072b6a93bf9amr444223ejl.424.1658495765458; Fri, 22 Jul
- 2022 06:16:05 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=PAaho0IhhQYlez98JfjRGU5nOjjU+e/Evp5xPq8myTY=;
+ b=1swhxbEYKJ5Ma8Z7I7ILWeams2XXFTg2ZE5i9T8UicE9Wfdng69VyKdvGlZNju9YRC
+ lli50sV3/zbTvpcUptCTyYPvSBgX8YnKfFz6gNms/Ws1tVpdIeBsz1YdWfjse5UHDMdu
+ y1gf9ZejlJHPHzz1ldlp6R5ijygAjfveSW/9vwNfoupMemkb6XaKgqcOtEdT9F96tptC
+ J7BATWi/QKBZCF0H60o07AHuNHasEU1tNvdAqksgGsgSYLdEJHsk8ioT+pMWIbpGO+M6
+ o3w6/863Rb3j6n/opJp3zlxE/3/GZTFVR/N0ZPOcJb22ABToXYGLoBRbGSMe70zpsUHn
+ LaOQ==
+X-Gm-Message-State: AJIora9Wi6XfuaAkzHEVd3OVhj1NvAC+oUiNGSZ1yFioizKv+aHLAhMS
+ GglsTYDZg3W9muTsiag8oI02IW/bNzXfStPW1jikoSlIKYY=
+X-Google-Smtp-Source: AGRyM1vjWo7gzEipEqiaOYXC8lWIfAKi3OzGPPqB8hB9D//BIyHxdxW0cbcbeGTGD8SU93yBQ7lZeTbMM/L+qJr8ybY=
+X-Received: by 2002:a05:6402:248d:b0:437:dd4c:e70e with SMTP id
+ q13-20020a056402248d00b00437dd4ce70emr624147eda.75.1658495787983; Fri, 22 Jul
+ 2022 06:16:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220721095210.37519-1-horace.chen@amd.com>
- <20220721095210.37519-4-horace.chen@amd.com>
-In-Reply-To: <20220721095210.37519-4-horace.chen@amd.com>
+ <CADnq5_PoE3m2qic2tqRn8pwgXBFS24u=5gRPpg90qHocqbietQ@mail.gmail.com>
+ <BL1PR12MB5061D3195F5AF7BCBF12DA7BE1909@BL1PR12MB5061.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5061D3195F5AF7BCBF12DA7BE1909@BL1PR12MB5061.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Jul 2022 09:15:53 -0400
-Message-ID: <CADnq5_PX__UVwQNQOrcWNYYN=JYHr3+h8cTeJ9wZBNeyZGXH0A@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/amdgpu: enable WPTR_POLL_ENABLE for sriov on
- sdma_v6_0
-To: Horace Chen <horace.chen@amd.com>
+Date: Fri, 22 Jul 2022 09:16:16 -0400
+Message-ID: <CADnq5_POxVAB-Z0CZNC2LJWGgE4frYe0u6Ziove7AUeSAcVEWw@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: add CHIP_IP_DISCOVERY support for
+ virtualization
+To: "Chen, Horace" <Horace.Chen@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +66,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Kevin Wang <Kevin1.Wang@amd.com>, amd-gfx@lists.freedesktop.org,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Xiao,
+ Jack" <Jack.Xiao@amd.com>, "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Xu,
+ Feifei" <Feifei.Xu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
+On Thu, Jul 21, 2022 at 11:32 PM Chen, Horace <Horace.Chen@amd.com> wrote:
 >
-> [Why]
-> Under SR-IOV, if VF is switched out then its doorbell will be disabled,
-> SDMA rely on WPTR_POLL to get doorbells which was sent during VF
-> switched-out time.
+> [AMD Official Use Only - General]
 >
-> [How]
-> For SR-IOV, set SDMA WPTR_POLL_ENABLE to 1.
+> Hi Alex,
 >
-> Signed-off-by: Horace Chen <horace.chen@amd.com>
+> By current design, we will keep this register same for all new asics.
+> Also, the amdgpu_detect_virtualization will be called before we read the =
+IP discovery table (virtualization needs to send a message to host machine =
+to request for the IP discovery table preparation). So we can't use any IP =
+version to decide the register.
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index 0200cb3a31a4..23b01b121492 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -593,7 +593,10 @@ static int sdma_v6_0_gfx_resume(struct amdgpu_device *adev)
->                        lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
+> Regards,
+> Horace.
 >
->                 rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
-> -               rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 0);
-> +               if (amdgpu_sriov_vf(adev))
-> +                       rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 1);
-> +               else
-> +                       rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, WPTR_POLL_ENABLE, 0);
->                 rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_QUEUE0_RB_CNTL, F32_WPTR_POLL_ENABLE, 1);
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Thursday, July 21, 2022 10:37 PM
+> To: Chen, Horace <Horace.Chen@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; Grodzovsky, Andrey <Andrey.Grodzovsky@=
+amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; W=
+ang, Yang(Kevin) <KevinYang.Wang@amd.com>; Xiaojie Yuan <xiaojie.yuan@amd.c=
+om>; Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.De=
+ucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Koenig, Christian <Christia=
+n.Koenig@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhang, Hawking <Hawking.Zh=
+ang@amd.com>
+> Subject: Re: [PATCH 1/6] drm/amdgpu: add CHIP_IP_DISCOVERY support for vi=
+rtualization
 >
->                 WREG32_SOC15_IP(GC, sdma_v6_0_get_reg_offset(adev, i, regSDMA0_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
-> --
-> 2.25.1
+> On Thu, Jul 21, 2022 at 5:52 AM Horace Chen <horace.chen@amd.com> wrote:
+> >
+> > For further chips we will use CHIP_IP_DISCOVERY, so add this support
+> > for virtualization
 >
+> All current and future chips will use CHIP_IP_DISCOVERY.  If we plan to k=
+eep the register the same for all new aics, this should be fine.
+> If we might need to have it per asic I think you might want something mor=
+e like this:
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 9be57389301b..0bdd71f9a8fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -709,6 +709,16 @@ void amdgpu_detect_virtualization(struct
+> amdgpu_device *adev)
+>         case CHIP_ALDEBARAN:
+>                 reg =3D RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+>                 break;
+> +       case CHIP_IP_DISCOVERY:
+> +               switch (adev->ip_versions[GC_HWIP][0]) {
+> +               case IP_VERSION(11, 0, 0):
+> +                       reg =3D RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+> +                       break;
+> +               default:
+> +                       reg =3D 0;
+> +                       break;
+> +               }
+> +               break;
+>         default: /* other chip doesn't support SRIOV */
+>                 reg =3D 0;
+>                 break;
+>
+> Alex
+>
+> >
+> > Signed-off-by: Horace Chen <horace.chen@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > index 7d7044e9de2f..ab55602ff534 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > @@ -705,6 +705,7 @@ void amdgpu_detect_virtualization(struct amdgpu_dev=
+ice *adev)
+> >         case CHIP_SIENNA_CICHLID:
+> >         case CHIP_ARCTURUS:
+> >         case CHIP_ALDEBARAN:
+> > +       case CHIP_IP_DISCOVERY:
+> >                 reg =3D RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+> >                 break;
+> >         default: /* other chip doesn't support SRIOV */ @@ -748,6
+> > +749,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+> >                 case CHIP_NAVI10:
+> >                 case CHIP_NAVI12:
+> >                 case CHIP_SIENNA_CICHLID:
+> > +               case CHIP_IP_DISCOVERY:
+> >                         nv_set_virt_ops(adev);
+> >                         /* try send GPU_INIT_DATA request to host */
+> >                         amdgpu_virt_request_init_data(adev);
+> > --
+> > 2.25.1
+> >
