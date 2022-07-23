@@ -4,54 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9400C43334
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 23:23:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF26C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Jul 2022 12:49:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3968DEFD;
-	Fri, 22 Jul 2022 23:23:35 +0000 (UTC)
-Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
- [IPv6:2607:f8b0:4864:20::936])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC3F8D03C;
- Fri, 22 Jul 2022 23:23:33 +0000 (UTC)
-Received: by mail-ua1-x936.google.com with SMTP id p8so2229634uam.12;
- Fri, 22 Jul 2022 16:23:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H6150pqoWoOOw/lAJbUkZ59K/WEGjR9gsX2GFab7M58=;
- b=eK9PNazH/F/4ye1M4tVZ9ecg73SDf/W4qANoYbKJikLfkkjpOsHbLx/TsDZYGJXTGp
- wNPfVpmVCdzKFYTl1r7qdJciLMLSs8B1VKTDEgKW+6VjXxIsxcxI/v7bGRRkPnrsFgMx
- 4TVqNl93oOq6WAxDExnfagVuMkI1KzT0HjVNz08d5aL5Us4CMI4snuBzGxZIec3URA44
- ss9uZiedIOP00HSNCSDtVjHNS/IVcsbDt2gEBofckpPxwlBDxmGuckcPTAojwOazUMZq
- f47pxIy8Sjc4K0b6d7d7OlwCmIjFpTbcK8I0RI3a1/So9M0SgZa621FngXX2+sRvKaDw
- Kx5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=H6150pqoWoOOw/lAJbUkZ59K/WEGjR9gsX2GFab7M58=;
- b=XujLDjV4QeoW23EXr/otgMxUZ7NWkHlGPy5QWZ4kC790sFfzezAx/DgyaOy3Tf+pN5
- ldN7nUp/R2P/arqQ85emy3OLnZqnuKHRTFiR0uqIkOg/TTV/3IH0PQ80Mz+x/gYFyHaf
- Btr+GfbKsVprDgBSUNbE9cdtCc8qzhEaSOigxfvcfJpUNhJPL/ycn+2ik+sb3Lr6y6CO
- E63pCRprPLMNMUEjppxmDUGPaiPeAEItodjofjOhIDF4Ap26TbDFjwP93fEhRxVxzkAs
- mux/p9E7lXAID/Yd1gusHf76F75nLEFjMduVtXQ6XKPBVmVEu4BlcLPzppq8UU3ohaMo
- qUOQ==
-X-Gm-Message-State: AJIora8MspuVkJyHyXYdc9482GL2yjsx/jS3Bh0IBhEIseKczhlwhwVu
- 7oKBjEC56plxkhcXfehI0acbejBOmS2DXBlNpaQ=
-X-Google-Smtp-Source: AGRyM1vzndmwuPlK5HRqj8b1Fq+uP7vvBVOkD444MrDZCrjjmtELUGYvTarxuRNb0/BJpVQYCnvdqiyEHPp4Qu6UOzo=
-X-Received: by 2002:ab0:3f0c:0:b0:383:f357:9c02 with SMTP id
- bt12-20020ab03f0c000000b00383f3579c02mr895717uab.19.1658532212987; Fri, 22
- Jul 2022 16:23:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29713A119F;
+	Sat, 23 Jul 2022 12:49:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97F7AA119A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 Jul 2022 12:48:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S5VeC9dEmykIsdMpNEqVKvrl5PnOedb3+pLscptVVaspAs2otWgaORmeVbxON+148OWp7mps34Og3sHrcGYmxis3MVrghg5gBOjHgCLa5aUHkxgwwnW3JWgbMSuZ8IMpnS1LJ02nveVOX9Qf7ly+aad9IKB47zYM8E4XCgnDq2CwxKjaw39PEZWcZxwcfm6e38DTdroRaLLs1HY9mL01KgNx0U2ere404Vo77AJi0VVf+uIC+TpQ7jQLIU2Aw/OS7ZPTWYuI0nTBOEVWfgno4Gj4cFrW69n0RdtJWxUKzDMkz6wFuO6xiznOuOqpvRwrIj+VnMzl1cdtcMQoImln4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D/wKGAXmjlCOcByW2xEn+xSoj8qAzQjpxTQoL0hpNQQ=;
+ b=Vgpg5NmTAKtGs1rpugj10raNHNv9bZZZpAjfEilHpijlnjm75Xr3WzL4mpax9EGf5lQkwIUexL2ITrWAKvSpJuANLmWSyOCIYD16yBDhTsPOFmxnpQiCEKe5YhdqvVJrzUPEK65tQfKQd3OPQrod27RTQ7ia2InpYOtNnt2B5sG909k94AfieqHjkJIVUelqNnu7aPlp1js3So+aPqMC0r8Gy/99LAJAcEjjIIEXP+mJCD6yk3CYdZJIPBk0b6WUxOYQZJkBAldnlGqas7dIKmxOgiav5BFTThz5D8tbD9RG4Tq2V7OxChHSarvag9kn2iBBWFoX60xwyHs54HHyvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D/wKGAXmjlCOcByW2xEn+xSoj8qAzQjpxTQoL0hpNQQ=;
+ b=Z6pur0S0mOFCUDctVQ8LDe/moFZT+2wZwO1YJY/kbWDe90H0xzhjRMA+mvkDDK+IVVo/yn4YdsegoXhonZGdbih32hI8AtjrQVjhUvzbwdQKNcb/DAuAtF6akekn2EHrWb2S9shSqVkpjPOPtHyd5pvIgZ0mJ5F/Y3A3CSPED3Y=
+Received: from MW4PR04CA0383.namprd04.prod.outlook.com (2603:10b6:303:81::28)
+ by CH2PR12MB3832.namprd12.prod.outlook.com (2603:10b6:610:24::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Sat, 23 Jul
+ 2022 12:48:56 +0000
+Received: from CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::8a) by MW4PR04CA0383.outlook.office365.com
+ (2603:10b6:303:81::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.24 via Frontend
+ Transport; Sat, 23 Jul 2022 12:48:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT009.mail.protection.outlook.com (10.13.175.61) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 12:48:55 +0000
+Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Sat, 23 Jul
+ 2022 07:48:53 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: correct RLC_RLCS_BOOTLOAD_STATUS offset and index
+Date: Sat, 23 Jul 2022 20:41:33 +0800
+Message-ID: <20220723124133.669673-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-References: <20220720153233.144129-1-jim.cromie@gmail.com>
- <20220720153233.144129-13-jim.cromie@gmail.com>
- <9e34b45f-c091-223b-58ac-107cfbebd92c@akamai.com>
-In-Reply-To: <9e34b45f-c091-223b-58ac-107cfbebd92c@akamai.com>
-From: jim.cromie@gmail.com
-Date: Fri, 22 Jul 2022 17:23:06 -0600
-Message-ID: <CAJfuBxwiMtmH6n4OPDOStfKKiWQ_+EFDxG=xLNPUfET-96gA=g@mail.gmail.com>
-Subject: Re: [PATCH v4 12/41] dyndbg: add DECLARE_DYNDBG_CLASSMAP
-To: Jason Baron <jbaron@akamai.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b45c57d4-3ee6-4f2d-c091-08da6ca9b489
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3832:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PfFxD7JD10Af+sHgRVPgc2qQKfgj28w6OlSHSITABnOCnTW/1k0GO6u2LhzIK/nQ09cqz36HlzUN4QWfTB//jREMASQ1sKOV8HQ+HTUbibNBFIgvaC/VDp11zmZM5j61Kz3HFGBL5AQqvDlfAB5Sp4JtU599aQNHujT0CYS12jubXqMc3RFiXNk5hPuhe8h/EhKs+H5jVxzTJUjuw6bH80ZBAFf8jF9+oSvN4TqqMtun9PBVg9NCan3ds7PEbEOT+78ht3FfNFH8oCikAEeyC5P7v6vVaoFgZID2fY8ZwVGKn8bEf7kF1l8vHYCzNQ1ZE3MRh4tLi4OjOw8nfRHbuSzEne+nqlUEpFYZdSGn/1fcC9GZJ+K8KtHAH28CU2QL/fpq24B65nqISVdcUoBkGptUQCBy5t2nkt5AzZ3LE+et+pHirzx4qVvuCLrTpHIny0Tw9W537e6riyoI6f4uHx1UNYoS7GNQvLpcR+AShX7L1JVmFDEkAlA9X6vgbY8AINRkV42wkG7V0GTMUK3PP/tQPac5u/vvjP1clh2sf+Y+jK5lYxLxCorMjKh/zkW5zvJXLLp60nkaFh+Sucv6c7VVUc89B5lKPUVKaZP6MXVPDqHgHjDQ+jKARu284UdAi3GTCDw/LOTn/C5mAR3FzHu+hCXANQo3v18IZt4OpOjLnNfKfR03n8uP/BtNeG0olbc0/AieKRdxlOZaflqHvuO/cXpOMTqae4Y2B9sZlOmXPlSf2U/UScF8q1iXQbK+VH+PVHkSPba4HQVF21Zf+0sD8ZAU3c0ptASdOLQ8oZiroAOzUJ5V2I/ztWRqlgjlma0Ow6uedY295oqprpb5Eg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(136003)(39860400002)(346002)(396003)(46966006)(40470700004)(36840700001)(70206006)(41300700001)(8936002)(16526019)(82310400005)(86362001)(356005)(19627235002)(426003)(336012)(2616005)(81166007)(316002)(1076003)(6916009)(54906003)(478600001)(47076005)(186003)(40460700003)(82740400003)(70586007)(8676002)(36860700001)(83380400001)(4326008)(40480700001)(26005)(2906002)(7696005)(36756003)(5660300002)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 12:48:55.8671 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b45c57d4-3ee6-4f2d-c091-08da6ca9b489
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3832
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,81 +97,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Xiaojian.Du@amd.com,
+ Yifan Zhang <yifan1.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 22, 2022 at 2:23 PM Jason Baron <jbaron@akamai.com> wrote:
->
->
->
-> On 7/20/22 11:32, Jim Cromie wrote:
-> > DECLARE_DYNDBG_CLASSMAP lets modules declare a set of classnames, this
-> > opt-in authorizes dyndbg to allow enabling of prdbgs by their class:
-> >
-> >    :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
-> >
-> > This is just the setup; following commits deliver.
-> >
-> > The macro declares and initializes a static struct ddebug_class_map:
-> >
-> >  - maps approved class-names to class_ids used in module,
-> >    by array order. forex: DRM_UT_*
-> >  - class-name vals allow validation of "class FOO" queries
-> >    using macro is opt-in
-> >  - enum class_map_type - determines interface, behavior
-> >
-> > Each module has its own .class_id space, and only known class-names
-> > will be authorized for a manipulation.  Only DRM stuff should know this:
-> >
-> >   :#> echo class DRM_UT_CORE +p > control     # across all modules
-> >
-> > pr_debugs (with default class_id) are still controllable as before.
-> >
-> > DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, classes...) is::
-> >
-> >  _var: name of the static struct var. user passes to module_param_cb()
-> >        if they want a sysfs node. (ive only done it this way).
-> >
-> >  _maptype: this is hard-coded to DD_CLASS_TYPE_DISJOINT for now.
-> >
-> >  _base: usually 0, it allows splitting 31 classes into subranges, so
-> >       that multiple classes / sysfs-nodes can share the module's
-> >       class-id space.
-> >
-> >  classes: list of class_name strings, these are mapped to class-ids
-> >         starting at _base.  This class-names list must have a
-> >         corresponding ENUM, with SYMBOLS that match the literals,
-> >         and 1st enum val = _base.
-> >
-> > enum class_map_type has 4 values, on 2 factors::
-> >
-> >  - classes are disjoint/independent vs relative/x<y/verbosity.
-> >    disjoint is basis, verbosity by overlay.
-> >
-> >  - input NUMBERS vs [+-]CLASS_NAMES
-> >    uints, ideally hex.  vs  +DRM_UT_CORE,-DRM_UT_KMS
-> >
->
-> Could the naming here directly reflect the 2 factors? At least for me
-> I think it's more readable. So something like:
->
+this patch corrects RLC_RLCS_BOOTLOAD_STATUS offset and index for
+GC 11.0.1
 
-yeah, those were 1st-pass names.
-your names are more regular
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-> DD_CLASS_TYPE_DISJOINT_NUM
-> DD_CLASS_TYPE_DISJOINT_NAME
-> DD_CLASS_TYPE_LEVEL_NUM
-> DD_CLASS_TYPE_LEVEL_NAME
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 0787a965615b..fb9aefb1b404 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -77,6 +77,9 @@
+ #define regICG_SQ_CLK_CTRL_BASE_IDX                                                                     1
+ #define regSPI_GFX_CRAWLER_CONFIG                                                                       0x1296
+ #define regSPI_GFX_CRAWLER_CONFIG_BASE_IDX                                                              0
++#define regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1                                                           0x4e7e
++#define regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1_BASE_IDX                                                  1
++
+ 
+ MODULE_FIRMWARE("amdgpu/gc_11_0_0_pfp.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_0_0_me.bin");
+@@ -2800,7 +2803,10 @@ static int gfx_v11_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+ 		cp_status = RREG32_SOC15(GC, 0, regCP_STAT);
+-		bootload_status = RREG32_SOC15(GC, 0, regRLC_RLCS_BOOTLOAD_STATUS);
++		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(11, 0, 1))
++			bootload_status = RREG32_SOC15(GC, 0, regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1);
++		else
++			bootload_status = RREG32_SOC15(GC, 0, regRLC_RLCS_BOOTLOAD_STATUS);
+ 		if ((cp_status == 0) &&
+ 		    (REG_GET_FIELD(bootload_status,
+ 			RLC_RLCS_BOOTLOAD_STATUS, BOOTLOAD_COMPLETE) == 1)) {
+-- 
+2.37.1
 
-s/_NAME/_NAMES/  - the plural suggests list,comma-separated
-
-s/(DISJOINT)_NUM/$1_BITS/  - strongly signals expected input form
-
-LEVEL - while VERBOSE spoke to me, LEVEL has legacy: include/linux/kern_levels.h
-LEVELS - pluralize ?
-NUM - Im not crazy about, but it stands well in opposition to _BITS
