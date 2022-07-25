@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8868EC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 11:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9484FC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 12:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 605969A242;
-	Mon, 25 Jul 2022 11:43:48 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56EB9A0EF;
- Mon, 25 Jul 2022 11:43:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2722EA6890;
+	Mon, 25 Jul 2022 12:23:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAC7EA6890
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 12:23:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dMN5ZpW29gQ+rt6J/7EbgezqU86WLno5GIC2P2sQeHD2iKepxfZe0v4yoSLz7Rsbsk39Idak6KjCdsYcvgf2ijLkiBDc0H/OsVS/E2epw+W/ci54P/7w3rbqzPMwQWNM5XRlAlpvLPBMyo8lubjwFqY6d2Rm//wRhEtsA5rZUtGYIpOmTp00NDKrGE0cDn2h6MBR7AasGYd7gpI5kFOZBlsffHWTvrQ4fn6P1xIQppWPD8OBHqUTVRpw5dxTlk5ZkX/3btT7cBTcI4rUtn4z44wbBegYglTSCNHffWw83KO/2kCLdgcq9ysp40WOnfPsmx4Nsloz1kltc7dBNMP09A==
+ b=gpDAlBy3D3L+cdfmO0llNHi0vIUQCAFSfvrWjIWK2qCwZQrD3RpUMnMoILraYaHaizmyk7/eJD8myP7JizqmkYLcEXsXTGMm1B0zsqbkqi2ezp1MM4OmgVfwf5llKneRj/aXCvWMRPsA9a1LxRf6g2IH8a3jsZemY+cuNpCwZuBhDNQU8Kx3rnA0MFA3IQr2ui62XYfWjgCGag3xWm0zbKPHmJkyEXwcIWmZtLSnoaFCFzq5pCK/r1obB/Q4Bb4MQXTnpd3g21dqrBFf47h975bLBCiliLEQv2lG3VGznwQabNv2VQFIeCJGuCxHlP4HHH0oEDa8RhihDCfT2IBnxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FePSpMgBi9CXeN/BwcWyhiS0kyWrCsGcy44aOngy7HE=;
- b=W1/2jsk4N9byx8gVLKEgZxL1dy64zClHNWAeZt+sE+9WfN8DYaCJGANz7KwX4ky2Md+dnMNox9svmWjL75Q57Jo1YgsjXSbBEcmVjkMQD2LobYEbv3tlhHkeWproGdbTFOeRNLhfx9j758E5omvWNlO2DsoF4L5tBkVc/S5sY1RHGVmzqg8WwGq0R3+Uj11CbOzXhQ5maL/M2djc2hHGhssukCyaX+GSyxURQhOsIw350KNlFTHJ+tEXtC43DnE31sDWTuN+Wr24fLoXpCf+F7YUj1JkLipsIEVJPCrBuYpGN+uRRE/uplTMcIV2NyabFzGwPWE+gng8UqvgE3WFdQ==
+ bh=E0prnVKysK1wP8VAdweh+XXA8kPbVWEn22Fk0GQhf+g=;
+ b=JI2ycIHlThrZB1cpBu6nCwkAYswxEhbzKCs78eR3xkAhLuuyXph9mOL3jT/uaamMpsYdBwzqHyTsQjzz+hT6Mo66607La3/QsoDRcPXZm2XPzxjXcIcRUmvlpt25PpeMVpBxnzyJQjXXWKMi5+2GPoeJzMfGPRMZ1bEVQAg7HbhFCEcUWM/C04Gh8C2JjoWD02PguZyht7q+hJj9NZP6aUP1d9D8bMd4UeafXwhYCfYK5rHWeubJlA4nEBAbZ2n3Ie5MtNVXO7PtGfGwFHdrXOVPk79TecaffR6aOeEJ0Bs+mflas+IeFGzMBRMXBsxS915LtPLKn/XhF0gFWunAWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FePSpMgBi9CXeN/BwcWyhiS0kyWrCsGcy44aOngy7HE=;
- b=NkVaIySzzwiwtPNywIegkjdDBlBsRbw/YspcChZVxDMQv+DktS0BaDziDLg8JIuqagzKcm/gXwaxxo2RN0iaNuaqCThcyGdLGMzQavGA5IkOYReOyt0SiiHcaDh5ywz+FgEMleQxL8owUmlJNNtxt7suq9lmVqPqRaGW8CBRFFc=
-Received: from BN9PR03CA0304.namprd03.prod.outlook.com (2603:10b6:408:112::9)
- by SN7PR12MB6863.namprd12.prod.outlook.com (2603:10b6:806:264::19)
+ bh=E0prnVKysK1wP8VAdweh+XXA8kPbVWEn22Fk0GQhf+g=;
+ b=AY0P/GatDUTVv9P7Ne0qixunzFOley/4j9TZtr3Ma0e/f357EfAmGm15HYtMr8CACYNdLldeykwm0/VceY2M5Q+ji4aPedAWuHev1DadlJHAPNGrEkZ9J2SiN9+RHGXCqZ5SWeQSfejZYqUkhnleVUFz6ieB3PVfMuJ6uz2n+1Q=
+Received: from MW4PR04CA0053.namprd04.prod.outlook.com (2603:10b6:303:6a::28)
+ by IA1PR12MB6650.namprd12.prod.outlook.com (2603:10b6:208:3a1::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Mon, 25 Jul
- 2022 11:43:41 +0000
-Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::ab) by BN9PR03CA0304.outlook.office365.com
- (2603:10b6:408:112::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19 via Frontend
- Transport; Mon, 25 Jul 2022 11:43:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.24; Mon, 25 Jul
+ 2022 12:23:53 +0000
+Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6a:cafe::40) by MW4PR04CA0053.outlook.office365.com
+ (2603:10b6:303:6a::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.23 via Frontend
+ Transport; Mon, 25 Jul 2022 12:23:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Mon, 25 Jul 2022 11:43:41 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 25 Jul 2022 06:43:37 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
-Subject: [PATCH v2 6/6] drm/ttm: Switch to using the new res callback
-Date: Mon, 25 Jul 2022 04:42:40 -0700
-Message-ID: <20220725114240.4844-6-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
+ 15.20.5458.17 via Frontend Transport; Mon, 25 Jul 2022 12:23:52 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 25 Jul
+ 2022 07:23:51 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdgpu: Allow TTM to evict svm bo from same process
+Date: Mon, 25 Jul 2022 08:23:15 -0400
+Message-ID: <20220725122317.24606-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 88d5d355-acba-402a-cf1a-08da6e32ebee
-X-MS-TrafficTypeDiagnostic: SN7PR12MB6863:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3924cb9e-99e9-4022-4731-08da6e38898a
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6650:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yJkApc1zNIwgzgW8TfY7bl+i283Ckw/aeH4o+qxry24WdG3N2tr+uBzIIH+30vqGWApNrxdlNQgLeJkdFSKC6nj0pGW9qJ/1ArDKLh7gV4P69dWyOGtVFjBuRqnViwSeFNusDLxJmbF/+P2IW76L9E9rmtS616IF2yV1PRPGtTWUz85ZOBThCWE2Q3FL208p9wbCnv7pvpEgA3y3qb2L2yxswBJ9pYZspH79B5Jrrd34Csrj0CaHTgU/blFc1NoNeAR/j29QDATzgovatps/7S2NfxWJEow6wb58tccXr6zftUHCeUvlhBF+JqUUPxhffjGKmsENU33kHMvzawM7p3ZGqvajTJOvBta4RHjeegaKN6dTUpEE22PCgrW13Yo2myILtnGBut657uzEP/psclNwILup3uw049iM8jriBFCZ67NEZhKx1WTkpK7vElODjSN8y+q2xvgxqKgi5IkEH4i33MKr+cI7r3GHkPQF/AGyzGQXcPxCWzLgTLquRAeC8uoEP3RyQiaNlPN+Y33/Az+p2jCaN9s/4RRrGuP5AO9Q2V9LbZ1iY177wFXzMRMVESO9gfwizFxdv+Su8Fezjq5lS3n7gIwySw0JyNOWk6/95sAkaawksYknqsZLtXygdtQU+XrrEy9cmQqzAdMhXvXV6Hp8MfnTDMSz1JvIwwwoVx80nRcZofoifIa4z2ROcz7gr1U6VZNPc/2hUzKyaw05LtNaCvMmUqralVRs9w1PU8/D8zgCMOTL7piTb7MY2aKZtvpWw2+yRcXULhkJu7BJFOUCxuVPl+npJOjDgPr0Uy/CzKMU9Z4EkhN2oxDXZNHUkh9GbM6VU76s3C2lPw==
+X-Microsoft-Antispam-Message-Info: k5vA8nX2TnMA+HZ0l+mzf4ja+lOwGfPJNP21W1sP8VOBNqsbhKDmLH4+UNkawGmkZJ88JOADHdgHWsZVz/gm+mc7oqqoqEo2Q8edYhP3X8woSY9fyhgr7RW11HmOsG2P0r91cSQT6MoNjfdcttaz25s4jVnzwkrnubybTkpT2LKXx74V8Gl4y0bqfFkpbWvne6k14N56B4CjNkQ0SHJgH8uavtWVlnGbSxVXUitR9PENFC4peHj+Rr5OfSB2sy683Zdoyis3pIpkUnJfM5r/GQswDUVWip1Y+lUl2M3gk4+z0sTcVA5XHDTz2wG026ynDMqXW0REwktynSJBHNi8UJ04KQvRUfIbKrPwy+VMB5HyK9/ZAMEumYRf8CAuNZA6JsWxB5Acmw/yDlpjlDSGHbCkqlb/Y0NakUOA6uG+QLluRIece0jlnpW2owF5WunGASKeL5ii6bgEL/lHzx7F80hJBMkBmElEVkCvIZ9gtpzFEhWMdRWvxNz1QDMp9uFmDbzlgCxcfTAhSpZM2ulKr0w80CntMsrdXca3oj8vnTPvYb42vGqNWkZdtcP3vmU8mgFALzTWOtqabQ1R28JHa5tbqsQOCmV6RnWW3pjqgorrOfcu3zdSiYcBHaRdHZHnNoT8PWQ71PwTNHrTuh8+eITQRLZsSmxz4eBUTBSHMu4tlXSDV/LSDWm13M4BWZpfelq3BYoF028nHwfl8lKZDJeV/k1dHvmb227ZoBeJzV+IgNZfeFPo4/0yWMq2XFy6pM747C8j8qd/ldp3POev7jTHQGB7l8y+b3O1cv9/DmH513o5KQ+KAquWhpQBfMFL+3xmAeDWOcH/ocB1JqA3eg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(396003)(346002)(376002)(46966006)(40470700004)(36840700001)(70586007)(36756003)(4326008)(478600001)(82310400005)(36860700001)(70206006)(8676002)(8936002)(316002)(5660300002)(110136005)(26005)(1076003)(186003)(7696005)(16526019)(47076005)(54906003)(336012)(66574015)(426003)(2906002)(6666004)(41300700001)(40460700003)(82740400003)(2616005)(83380400001)(40480700001)(356005)(81166007)(86362001)(36900700001);
+ SFS:(13230016)(4636009)(346002)(39860400002)(136003)(376002)(396003)(40470700004)(46966006)(36840700001)(54906003)(5660300002)(8936002)(36860700001)(6916009)(36756003)(41300700001)(4326008)(70206006)(316002)(70586007)(8676002)(478600001)(7696005)(2616005)(186003)(47076005)(6666004)(426003)(336012)(2906002)(82740400003)(1076003)(40480700001)(83380400001)(82310400005)(356005)(81166007)(26005)(40460700003)(86362001)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 11:43:41.1438 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d5d355-acba-402a-cf1a-08da6e32ebee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 12:23:52.9236 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3924cb9e-99e9-4022-4731-08da6e38898a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6863
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6650
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,146 +97,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- luben.tuikov@amd.com, christian.koenig@amd.com, matthew.auld@intel.com
+Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Apply new intersect and compatible callback instead
-of having a generic placement range verfications.
+To support SVM range VRAM overcommitment, TTM should be able to evict
+svm bo of same process to system memory, to get space to alloc new svm
+bo.
 
-v2: Added a separate callback for compatiblilty
-    checks (Christian)
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 45 +++++++------------------
- drivers/gpu/drm/ttm/ttm_bo.c            |  9 +++--
- drivers/gpu/drm/ttm/ttm_resource.c      |  5 +--
- 3 files changed, 20 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 170935c294f5..7d25a10395c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1328,11 +1328,12 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
- static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 					    const struct ttm_place *place)
- {
--	unsigned long num_pages = bo->resource->num_pages;
- 	struct dma_resv_iter resv_cursor;
--	struct amdgpu_res_cursor cursor;
- 	struct dma_fence *f;
- 
-+	if (!amdgpu_bo_is_amdgpu_bo(bo))
-+		return ttm_bo_eviction_valuable(bo, place);
-+
- 	/* Swapout? */
- 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
- 		return true;
-@@ -1351,40 +1352,20 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 			return false;
- 	}
- 
--	switch (bo->resource->mem_type) {
--	case AMDGPU_PL_PREEMPT:
--		/* Preemptible BOs don't own system resources managed by the
--		 * driver (pages, VRAM, GART space). They point to resources
--		 * owned by someone else (e.g. pageable memory in user mode
--		 * or a DMABuf). They are used in a preemptible context so we
--		 * can guarantee no deadlocks and good QoS in case of MMU
--		 * notifiers or DMABuf move notifiers from the resource owner.
--		 */
-+	/* Preemptible BOs don't own system resources managed by the
-+	 * driver (pages, VRAM, GART space). They point to resources
-+	 * owned by someone else (e.g. pageable memory in user mode
-+	 * or a DMABuf). They are used in a preemptible context so we
-+	 * can guarantee no deadlocks and good QoS in case of MMU
-+	 * notifiers or DMABuf move notifiers from the resource owner.
-+	 */
-+	if (bo->resource->mem_type == AMDGPU_PL_PREEMPT)
- 		return false;
--	case TTM_PL_TT:
--		if (amdgpu_bo_is_amdgpu_bo(bo) &&
--		    amdgpu_bo_encrypted(ttm_to_amdgpu_bo(bo)))
--			return false;
--		return true;
- 
--	case TTM_PL_VRAM:
--		/* Check each drm MM node individually */
--		amdgpu_res_first(bo->resource, 0, (u64)num_pages << PAGE_SHIFT,
--				 &cursor);
--		while (cursor.remaining) {
--			if (place->fpfn < PFN_DOWN(cursor.start + cursor.size)
--			    && !(place->lpfn &&
--				 place->lpfn <= PFN_DOWN(cursor.start)))
--				return true;
--
--			amdgpu_res_next(&cursor, cursor.size);
--		}
-+	if (bo->resource->mem_type == TTM_PL_TT &&
-+	    amdgpu_bo_encrypted(ttm_to_amdgpu_bo(bo)))
- 		return false;
- 
--	default:
--		break;
--	}
--
- 	return ttm_bo_eviction_valuable(bo, place);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index 1d0dbff87d3f..e8bb32f4ca14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -159,11 +159,14 @@ static void amdkfd_fence_release(struct dma_fence *f)
  }
  
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index c1bd006a5525..03409409e43e 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -518,6 +518,9 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 			      const struct ttm_place *place)
+ /**
+- * amdkfd_fence_check_mm - Check if @mm is same as that of the fence @f
+- *  if same return TRUE else return FALSE.
++ * amdkfd_fence_check_mm
+  *
+  * @f: [IN] fence
+  * @mm: [IN] mm that needs to be verified
++ *
++ * Check if @mm is same as that of the fence @f, if same return TRUE else
++ * return FALSE.
++ * For svm bo, which support vram overcommitment, always return FALSE.
+  */
+ bool amdkfd_fence_check_mm(struct dma_fence *f, struct mm_struct *mm)
  {
-+	struct ttm_resource *res = bo->resource;
-+	struct ttm_device *bdev = bo->bdev;
-+
- 	dma_resv_assert_held(bo->base.resv);
- 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+@@ -171,7 +174,7 @@ bool amdkfd_fence_check_mm(struct dma_fence *f, struct mm_struct *mm)
+ 
+ 	if (!fence)
+ 		return false;
+-	else if (fence->mm == mm)
++	else if (fence->mm == mm  && !fence->svm_bo)
  		return true;
-@@ -525,11 +528,7 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 	/* Don't evict this BO if it's outside of the
- 	 * requested placement range
- 	 */
--	if (place->fpfn >= (bo->resource->start + bo->resource->num_pages) ||
--	    (place->lpfn && place->lpfn <= bo->resource->start))
--		return false;
--
--	return true;
-+	return ttm_resource_intersect(bdev, res, place, bo->base.size);
- }
- EXPORT_SYMBOL(ttm_bo_eviction_valuable);
  
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 4cd31d24c3e7..60e8a0ed269c 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -316,6 +316,8 @@ static bool ttm_resource_places_compat(struct ttm_resource *res,
- 				       const struct ttm_place *places,
- 				       unsigned num_placement)
- {
-+	struct ttm_buffer_object *bo = res->bo;
-+	struct ttm_device *bdev = bo->bdev;
- 	unsigned i;
- 
- 	if (res->placement & TTM_PL_FLAG_TEMPORARY)
-@@ -324,8 +326,7 @@ static bool ttm_resource_places_compat(struct ttm_resource *res,
- 	for (i = 0; i < num_placement; i++) {
- 		const struct ttm_place *heap = &places[i];
- 
--		if (res->start < heap->fpfn || (heap->lpfn &&
--		    (res->start + res->num_pages) > heap->lpfn))
-+		if (!ttm_resource_compatible(bdev, res, heap, bo->base.size))
- 			continue;
- 
- 		if ((res->mem_type == heap->mem_type) &&
+ 	return false;
 -- 
-2.25.1
+2.35.1
 
