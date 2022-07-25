@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58CA4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 19:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA2DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 19:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B932CC1B1D;
-	Mon, 25 Jul 2022 19:28:23 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2A27C1A70
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 19:20:15 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id z18so2924312edb.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 12:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XVDIZFYcquyDU30LBhCPD/PXD8V3Ex6g+/4Jt+pCRG0=;
- b=AzQOEmHT1inFFysvEynnDtRbqEeUYeR3B2ZfONqWXZGdpODf9tTWJBIMwQvdfinCE6
- 8EN+GqBKJQTMGcSZ9cYlGyaoEZMlReop1K92FAHZ1Kc+VjrcDKpUg8JJP71bsnkzKbs3
- mRPrDdQCmFJwtfI+xqu7XqXj1zo3TG0h/Dd74=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XVDIZFYcquyDU30LBhCPD/PXD8V3Ex6g+/4Jt+pCRG0=;
- b=fUayBtlDP1u53X33Xoe+thmfDWP2/6S2/iV3eTrnpXQV4R7DrHbiyxHKElXSaTyQdx
- 7EmKzr5hlCs5sGzH280Va4j8koi29K8AieZzdpvEZiTwEy8EvFn5ESZUbo5LF9mfX2/K
- 3Cwzz8ruvpb5A1T2QFhiezMlkcPwkEvDEx+R+6c832SEivcVK82cJqNLD9yfLJrtYB1z
- qT+6SoMkdUy4z+LGe0oPZ2X+0DrrBBYyeR8klMShJ1IRGyV/rWBplR9oDyKZGjOmenrk
- ODCxN2Ys7LebA36mgr2t42Y9dyoTWPrOEUkmwkwVsI76uXYv9mCJvMLoTjLjb48PImUs
- 362Q==
-X-Gm-Message-State: AJIora9y5ka5eBln//TvVFpNkZXLlPcFtpLWLpqDr/wWiT3y34hgo2PD
- nA+xzEU7jOE/WNe02PuuKwjGvw8X3quc5+vD
-X-Google-Smtp-Source: AGRyM1sM+A4sSkQfBAPgRUdsoskQ+gu9CMFRhYRD7f73ZtwFtYnTA+uoU9RNcZ7BTV+1M651pkpTGg==
-X-Received: by 2002:a05:6402:26c8:b0:43c:1ce4:e9a4 with SMTP id
- x8-20020a05640226c800b0043c1ce4e9a4mr4343138edd.26.1658776814011; 
- Mon, 25 Jul 2022 12:20:14 -0700 (PDT)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com.
- [209.85.221.53]) by smtp.gmail.com with ESMTPSA id
- h12-20020a170906718c00b0072aed3b2158sm5616457ejk.45.2022.07.25.12.20.13
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Jul 2022 12:20:13 -0700 (PDT)
-Received: by mail-wr1-f53.google.com with SMTP id k11so16911911wrx.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 12:20:13 -0700 (PDT)
-X-Received: by 2002:a05:6000:180f:b0:21d:68f8:c4ac with SMTP id
- m15-20020a056000180f00b0021d68f8c4acmr8625583wrh.193.1658776813045; Mon, 25
- Jul 2022 12:20:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04334C1C09;
+	Mon, 25 Jul 2022 19:38:20 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2375C1C09
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 19:38:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:Cc:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=97xO8MpFS+EQbJKonkUxT/N6K6HBArw170AmLWWPjwQ=; b=PbDXy7RLKJIT+yYEk0vo/vPBfx
+ VIEC1crm13lenFzk1uslKvnoQPdmuL0mvBd+8wnwVeTZL6SLii3SvvQtuMrRSY/zx/KOk0qiLuzXy
+ UN/47P2Vz8FptS1H9n64bL43VIokll0nDffsg35UnhvHFVTNEFwDSlL1+UhjfazOtJqwXwrv48A6q
+ 0W+AyNv2davaJL0OP0Z6gVi/8GuCWKpFrDBCjrE8TDXTqxVirS+uASdl9/jYz8g6U2WhIv1l4X7i0
+ GBR1badPzVN2iFiVgr1CBMeTcE2Iwq4Ck2D6vNmnnDziTUwZ1pEaVJwJmDDBUb3Det99iItNBedL6
+ Khmzd42Q==;
+Received: from 201-13-50-220.dsl.telesp.net.br ([201.13.50.220]
+ helo=[192.168.15.109]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oG3uC-006KCz-F9; Mon, 25 Jul 2022 21:38:16 +0200
+Message-ID: <7c866655-7736-6911-eec4-9beb46435207@igalia.com>
+Date: Mon, 25 Jul 2022 16:38:00 -0300
 MIME-Version: 1.0
-References: <20220725123918.1903255-1-mpe@ellerman.id.au>
-In-Reply-To: <20220725123918.1903255-1-mpe@ellerman.id.au>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 25 Jul 2022 12:19:57 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wihON4Ytte5zLHWNQtTapUvCpkToxY06OjX-_2B+Gq6Gg@mail.gmail.com>
-Message-ID: <CAHk-=wihON4Ytte5zLHWNQtTapUvCpkToxY06OjX-_2B+Gq6Gg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Re-enable DCN for 64-bit powerpc
-To: Michael Ellerman <mpe@ellerman.id.au>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 25 Jul 2022 19:28:22 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Fix the incomplete product number
+Content-Language: en-US
+To: Roy Sun <Roy.Sun@amd.com>
+References: <20220722045646.106225-1-Roy.Sun@amd.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20220722045646.106225-1-Roy.Sun@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +53,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dan@danny.cz, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- tpearson@raptorengineering.com, alexdeucher@gmail.com,
- linuxppc-dev@lists.ozlabs.org, linux@roeck-us.net
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 25, 2022 at 5:39 AM Michael Ellerman <mpe@ellerman.id.au> wrote:
->
-> Further digging shows that the build failures only occur with compilers
-> that default to 64-bit long double.
+Às 01:56 de 22/07/22, Roy Sun escreveu:
+> The comments say that the product number is a 16-digit HEX string so the
+> buffer needs to be at least 17 characters to hold the NUL terminator. Expand
+> the buffer size to 20 to avoid the alignment issues.
+> 
+> The comment:Product number should only be 16 characters. Any
+> more,and something could be wrong. Cap it at 16 to be safe
+> 
+> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+> ---
 
-Where the heck do we have 'long double' things anywhere in the kernel?
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
 
-I tried to grep for it, and failed miserably. I found some constants
-that would qualify, but they were in the v4l colorspaces-details.rst
-doc file.
-
-Strange.
-
-             Linus
+Next time, please make your subject as [PATCH v2] and add a changelog to
+make review easier.
