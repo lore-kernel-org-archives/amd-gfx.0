@@ -4,67 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44421C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 15:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D59BC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 15:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE5B8C04FA;
-	Mon, 25 Jul 2022 15:25:03 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B83E514AAE1;
- Mon, 25 Jul 2022 15:20:58 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0E8DC6601B11;
- Mon, 25 Jul 2022 16:20:55 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1658762457;
- bh=DVtZpDETPDz1Tl/Y0JEy8TcpSw0bjK+Blc/2gSYJBIE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NABBnj9JDkfOlkvIwO0QQ8DA48ShR2d7RQknapcRk5ShlsVfkE1EA2jFDIsKSPq1X
- IWBP5DGm6k4EDGHUaH4LJf7TRUTNe+TrFwzTvvH9b/ygfqvm6uqZsWLlKTxzkfGefe
- uxVJuYRAhM6GhjJKabfRBa7C9KRGUFLzV5ozvGQOWxCQwVI8yMLuuGIBjMbbdEORal
- bxwwx8a281MnuZW2yl7qCKylrZeWu87VhGEymN3VCDYBtM47zmc2ht/GL3Xwgi2h5H
- HqZ9gDhdR1dbUY/tNrGedwyIuymDfPbSICbr6oErTpk+xD2HfOFLZd+3HUMRofGesd
- rggxYtZiIBK9A==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Subject: [PATCH v2 3/5] dma-buf: Move all dma-bufs to dynamic locking
- specification
-Date: Mon, 25 Jul 2022 18:18:37 +0300
-Message-Id: <20220725151839.31622-4-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
-References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1790C0629;
+	Mon, 25 Jul 2022 15:27:07 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870D0C0635
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 15:27:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bstXqg4Ovw/t06T09fLPy7tZpxBDhOF0X8G/QrOA3ErRA9kz06ZUxsOStJn4yI8C7G1kYPrKAxLfIuR0L7FwVAX0fOPlBPCJ1swEvpJxAbsLuQsiE/chO+i0BWviZNqBEVVX5sLC2wqYFixo0k1KTz/MjwMF4yR8IrIFVGvzRCAF83up1YWxKPrIKDTP7x2vDXxlAvCXftlgRkDYhTzSobuj63qHeOygea2AitSnPa3ctp1ccD9nzQHzLm7z9lLoXtQzt4LB6pZmVPZwEqBCNnaskCG83UEUMdLEwg6weqSA+tHvErlGWUuD+GA6RyfbKnrO7tlqSaji9H3ouWKiFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1rMoDljytJ6jDZYsVH+t5ZKUPNWKqhdhnZUedE4WtLY=;
+ b=Vso4AFVVpwbU4EOA5DmaWYs/S8tdhR3XktswUv+F7JXN8G1AGA8uMFJTjKfVYvVzV6R7aYfWwS4lJ5rX0gDI/cHjOYh09JKjGRixiibgcSKyLbYcYdECceru4cm5afhhkhFBTCZ0feHvRSX2BJGrept30Fz6cYfnmLMCu42rsc4V0fX0xzba9cMWuI381Djp7bOHVptsRBJOS9aPBcBCvn730ncdknzle2qeqbUstzTY1iWJykwgFvXoX+Oq6J067zZRBjglpYfptqUSpp4/eCa9bmOqHmI/NLuzOaljw04xEHkAVX9tZE74HT4sTLLj3cUWWNJE+7ifbLhElsduqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1rMoDljytJ6jDZYsVH+t5ZKUPNWKqhdhnZUedE4WtLY=;
+ b=wKOnsFYF3IoMN3EU3ilGkxNy9Jo9TiL4YTX8oz0jk9LHFWVm7xLnbfsl72WtRODgOzj6PlCi9ji3QhJ9v/fNfMfUIbT57PfaN3j4W4+HAGNa2GyGutBSF16WcqvjcgG7Gm6PIDJOa9qk5wbatGQP8ih8DxKeRF6bemXYAdb93PM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by CY5PR12MB6346.namprd12.prod.outlook.com (2603:10b6:930:21::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.24; Mon, 25 Jul
+ 2022 15:27:04 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f484:f216:c67b:e595]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f484:f216:c67b:e595%6]) with mapi id 15.20.5458.024; Mon, 25 Jul 2022
+ 15:27:04 +0000
+Message-ID: <34f90984-c332-2adf-d1b6-d8afdc7cfa41@amd.com>
+Date: Mon, 25 Jul 2022 11:27:03 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 2/3] drm/amdkfd: Set svm range max pages
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220725122317.24606-1-Philip.Yang@amd.com>
+ <20220725122317.24606-2-Philip.Yang@amd.com>
+ <044e7f8e-9fa5-d78b-39f8-84bce155d4c6@amd.com>
+From: philip yang <yangp@amd.com>
+In-Reply-To: <044e7f8e-9fa5-d78b-39f8-84bce155d4c6@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Jul 2022 15:24:54 +0000
+X-ClientProxiedBy: CH0PR04CA0068.namprd04.prod.outlook.com
+ (2603:10b6:610:74::13) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b6e73d23-b954-485b-aa43-08da6e522108
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6346:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qJbaswv2naZIYmXQk0Sxv4B6k38z5bJs9LcT3h9EjPdrgDuoohUaHsJSSJOquwnI4JN5bZw3J/o+j08dtkYOMIvL8+fpx57a9prcdpwIXlO/wZblyQKjaQ2R230r0MyA0y5iZfCaKedPkEEl3frzokefbbBTuy/sRYgGPpLRwl72k+OTS3fOgWMz4ovr2ksOaRaGZ1jJ7nKVotnWu2PgLxV28rxqOH6sbc8eFZdbHQUGdNOJuQQLGOp5CAna1F0K5vsVsGDTsagq89NUXinP/7hab2yaJtbgHMRCG/FjmuwafJRM2c7FSGjxMrheqb1xNvdE9Y0meb37QXaWRKU5XBZ/R0E8zRqUJy9Lb8KczA6w6oYRbWBRNTeluaTwMsRbe8PlXZOhuy+zZH4OZwGKA0/QQNdv7dj8RmmUvcbqOA+puZVmwUPg3fRyxV4vcurE/SBB/5jLbfLxQboHddwT/m0eWZEBw2w8piUbOkpvMxRHsLzUDRP6R3exM7SQ57SS1jmXemWe13SHul10Sf7jkafArMsk6MhY4UxI5Qeo+GdTy7qFCIDQVoqIXe9Cd0w0HtRmRcrE3kcV1cnCfHtEP92clxuuPoghvrGUT0qi4XWth0MtwbF+Hia4hIwlEMFY1CBiSEomWtSsp8KL8dOk3fPDQeD3Kf2+iigtXMaDE7D+0ybb2UnGRAS0vUIJ0ZS1+Scz7uU5b/jCz0yJS/w7TXaEMESv9Jlgv8Wz64CvT2XAbI2cGcKNeYT7NJU9nnMMTNVuazBqY8i6q4Yl7DwcYr3X/uqdJjUijIOmTuv1/2xWJCmdaLVdwr7ArS9n4X1jw6S0ifWRmWhMplID94ygYA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(39860400002)(346002)(376002)(136003)(366004)(5660300002)(38100700002)(8936002)(6486002)(41300700001)(2906002)(110136005)(316002)(478600001)(6512007)(186003)(26005)(8676002)(83380400001)(66476007)(2616005)(53546011)(6506007)(66556008)(31686004)(66946007)(36756003)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGJNdUhWUUVDZ0E0ZXR3emV5U29iRFFTQTQyVncrNWlyVzN5WmcwZS9CRWRo?=
+ =?utf-8?B?L1pHendHTVYyVnpZTnZjdWtqb0VXUHVEMTUveEJGZERiZzkvWkRZOStYbjQ3?=
+ =?utf-8?B?T00xM2wvMk44d252T3FuR1VZN25SdXltTFN1bVpyZnVPS3BwcEpXTTVUT3dU?=
+ =?utf-8?B?RFVsdjNrL0pSSjAzdEx3eGRnZjFFRGJ3VDdia1JTMmgvYzRPK3BkZnBiQm4y?=
+ =?utf-8?B?bFlnSWtJelhXdmVtWDQyMG9jWG1yOHV1TFE3bjhkOXAwOEc4VUdSNjJEclAz?=
+ =?utf-8?B?bE8yYVo2ZUQ4Z3BJbDBDd3FvWlNjYTFnTjhWbkEwQjhKUEdvMWFZU3dMSXBT?=
+ =?utf-8?B?Wm51Umk3T1ZPOVBGamZ4VVV0LzloS0xieHRqU0ZlQllnaGlPRld2L0Izclg3?=
+ =?utf-8?B?Z3JLRko1L1NPeVhsUjdubVZKdGF5NEpQZ251NUdydnRkSzR4VlJYdkFWcEUr?=
+ =?utf-8?B?UlJnRGRrSnljbXYzbVYyMVI4WnhaL0FURWVTYlM2WVZ1RU1yNlZyMzJMMGM1?=
+ =?utf-8?B?Q1pSM0hXQUJ2NElIYUFpSWJtN1l1MUFFZ3krakFYWVJ4ZXgxNEh6bTFvczRF?=
+ =?utf-8?B?RkJwSVROZnZBVlp1V0p4SlhCcWkrMnpvTFFiWUpzd21tc3lUT09sQ3ZwR2Fl?=
+ =?utf-8?B?anJ0TUVvM0U4d2ZINElNWmpNUHdTQy9RY2tWS05qQkxqL24ycGRkZXNXNDNF?=
+ =?utf-8?B?V250T2FEdDlRbzBBbVArdjZvNTU5NzNJZ2VWN1ZFYTM4K2U0c2hLdmpOTDQ0?=
+ =?utf-8?B?UkVoOE5wRU93UStxaUhBRUJyUnVLTWlxbzJ3Z2lqa3EwbkRsNGFWTDcyRkxQ?=
+ =?utf-8?B?enUwdk9nWEZuQUhqSDV3aGxqNHFoaHYzNTdJUGQ4K1FXc3ZYc1BIQ3hyMWVO?=
+ =?utf-8?B?SUxkU3l4M1pnUlphMWlKV25vdzQ3cEpIamxWdHk1ZWRReDVIVG9IRTRYendv?=
+ =?utf-8?B?U2NoaS9pdXFsTGJ3ZTd0ZE5sS0MyMEFDdUFVd3FOd0J3UGRsVmV4Yk13MmZU?=
+ =?utf-8?B?RHFFUjFrMUF0WnRRYWFYRHlac2tmSHNUbDVwWUFQWXV6TUZ4K0d4K1Y1dlhh?=
+ =?utf-8?B?UG9kb1VFdzJ3YS9aUUhkNWJsOTJydThHK3VIV3ZsQVhYd1ZnRm13Y2xmRzJL?=
+ =?utf-8?B?UXFGblhWUGhUbXFRRXZmbHJoRFJJc3djZFdlby9tMXgvbHA5UGkzYUlmOGl3?=
+ =?utf-8?B?akpnbSsxZkw5SndVeHQ5SHMzOTgxbDlTZlgwUklnNStmY25lZ2RzOG5maWg0?=
+ =?utf-8?B?WXovOGFveHNEeXYza3N3UTFOOWxVL1VDZkRsVmw4UVpUczltNkd2R096OTF6?=
+ =?utf-8?B?UmtmZitXWDFZUklaMXFvMTJpc0pjWW81QzhIdHp3QWt0UTFoWTBlbkNCeFNX?=
+ =?utf-8?B?SENVa2pTYnBqS3BnRXZ3SUU1NVYyUkYwcFV0VTVJSE5ZVVZYV1QyUGNBVzd1?=
+ =?utf-8?B?Mm5OLzFBb0N0SXI5QkN1aDFvMStUcFd4NXQvV2tUVFk3QmtkS25WSExnVlZq?=
+ =?utf-8?B?ZENkdGl4VFRtN296QkU3eW1qRTJ0R1loQWlBV2Y3MGpCeGRzd1h6aWJ6aFkv?=
+ =?utf-8?B?T09XTms0UW1RZ0hjTGpUTWtnblluT0dCY3hSSWlVaWFxY3RGbnhEVDNMeHN0?=
+ =?utf-8?B?QmpHTW1ILzFKOTl4WCsrbk54REpJNXl2V0t3TGNSWFhDMnJHZEk0UTNVSktn?=
+ =?utf-8?B?aGtGVmRqWCs2UjVoS016Wk1sSkxZSEJGWHdweSs0Y0FvcVdwcUhuOXZSN0s2?=
+ =?utf-8?B?QkVLK2VBR3ZranRjNlpjcU9DUTlXa1l2Z21rYU5uNFN3RFA1RW1ENVVPYnFH?=
+ =?utf-8?B?NVZpclpkZUlBZzQvMndLK0hzNHZWcm8zQ2l6eXlpa3JnV2FGYXJmMDFHVmJD?=
+ =?utf-8?B?V1lqTDdQUk5WUkdhTzBTTVdUYVhHSkNOa0ZLQ0ZVMWljUGd4SGRETHRUTlU3?=
+ =?utf-8?B?WXJKOUZyWVdpNDNDdzJ5WnVTZmhXZnllYkd5RU9LRW1BUmM2ZFArelFRUzcw?=
+ =?utf-8?B?WlRscnM5U0JxWFl3cFM1cUtVRjFmNWdjcSt5dnY1bkVsbTNQdVpTZUt5cUM3?=
+ =?utf-8?B?U0RSZXhTc01ITjcramZKNzhjM3JDcGhzNkY1bGZMNHJSamlmNnNxYXdhZFoy?=
+ =?utf-8?Q?k650=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6e73d23-b954-485b-aa43-08da6e522108
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 15:27:04.8185 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WX7dSWbL5gKK4dz7dYOJ0kiDa0qjRR/Xj8YsmQ+/3AtnI/DUNkt9t0aaMuK3t7qN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6346
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,568 +126,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch moves the non-dynamic dma-buf users over to the dynamic
-locking specification. The strict locking convention prevents deadlock
-situation for dma-buf importers and exporters.
-
-Previously the "unlocked" versions of the dma-buf API functions weren't
-taking the reservation lock and this patch makes them to take the lock.
-
-Intel and AMD GPU drivers already were mapping imported dma-bufs under
-the held lock, hence the "locked" variant of the functions are added
-for them and the drivers are updated to use the "locked" versions.
-
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- Documentation/driver-api/dma-buf.rst       |   6 +
- drivers/dma-buf/dma-buf.c                  | 186 ++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   4 +-
- drivers/gpu/drm/drm_prime.c                |   4 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |   8 +-
- include/linux/dma-buf.h                    |  28 ++--
- 6 files changed, 179 insertions(+), 57 deletions(-)
-
-diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-index 36a76cbe9095..622b8156d212 100644
---- a/Documentation/driver-api/dma-buf.rst
-+++ b/Documentation/driver-api/dma-buf.rst
-@@ -119,6 +119,12 @@ DMA Buffer ioctls
- 
- .. kernel-doc:: include/uapi/linux/dma-buf.h
- 
-+DMA-BUF locking convention
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+.. kernel-doc:: drivers/dma-buf/dma-buf.c
-+   :doc: locking convention
-+
- Kernel Functions and Structures Reference
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d16237a6ffaa..bfdd551c7571 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -559,7 +559,7 @@ static struct file *dma_buf_getfile(struct dma_buf *dmabuf, int flags)
-  * 2. Userspace passes this file-descriptors to all drivers it wants this buffer
-  *    to share with: First the file descriptor is converted to a &dma_buf using
-  *    dma_buf_get(). Then the buffer is attached to the device using
-- *    dma_buf_attach().
-+ *    dma_buf_attach_unlocked().
-  *
-  *    Up to this stage the exporter is still free to migrate or reallocate the
-  *    backing storage.
-@@ -569,8 +569,8 @@ static struct file *dma_buf_getfile(struct dma_buf *dmabuf, int flags)
-  *    dma_buf_map_attachment() and dma_buf_unmap_attachment().
-  *
-  * 4. Once a driver is done with a shared buffer it needs to call
-- *    dma_buf_detach() (after cleaning up any mappings) and then release the
-- *    reference acquired with dma_buf_get() by calling dma_buf_put().
-+ *    dma_buf_detach_unlocked() (after cleaning up any mappings) and then
-+ *    release the reference acquired with dma_buf_get() by calling dma_buf_put().
-  *
-  * For the detailed semantics exporters are expected to implement see
-  * &dma_buf_ops.
-@@ -794,6 +794,63 @@ static struct sg_table * __map_dma_buf(struct dma_buf_attachment *attach,
- 	return sg_table;
- }
- 
-+/**
-+ * DOC: locking convention
-+ *
-+ * In order to avoid deadlock situations between dma-buf exports and importers,
-+ * all dma-buf API users must follow the common dma-buf locking convention.
-+ *
-+ * Convention for importers
-+ *
-+ * 1. Importers must hold the dma-buf reservation lock when calling these
-+ *    functions:
-+ *
-+ *     - dma_buf_pin()
-+ *     - dma_buf_unpin()
-+ *     - dma_buf_move_notify()
-+ *     - dma_buf_map_attachment_locked()
-+ *     - dma_buf_unmap_attachment_locked()
-+ *
-+ * 2. Importers must not hold the dma-buf reservation lock when calling these
-+ *    functions:
-+ *
-+ *     - dma_buf_attach_unlocked()
-+ *     - dma_buf_dynamic_attach_unlocked()
-+ *     - dma_buf_detach_unlocked()
-+ *     - dma_buf_export(
-+ *     - dma_buf_fd()
-+ *     - dma_buf_get()
-+ *     - dma_buf_put()
-+ *     - dma_buf_begin_cpu_access()
-+ *     - dma_buf_end_cpu_access()
-+ *     - dma_buf_map_attachment_unlocked()
-+ *     - dma_buf_unmap_attachment_unlocked()
-+ *     - dma_buf_vmap_unlocked()
-+ *     - dma_buf_vunmap_unlocked()
-+ *
-+ * Convention for exporters
-+ *
-+ * 1. These &dma_buf_ops callbacks are invoked with unlocked dma-buf
-+ *    reservation and exporter can take the lock:
-+ *
-+ *     - &dma_buf_ops.attach()
-+ *     - &dma_buf_ops.detach()
-+ *     - &dma_buf_ops.release()
-+ *     - &dma_buf_ops.begin_cpu_access()
-+ *     - &dma_buf_ops.end_cpu_access()
-+ *
-+ * 2. These &dma_buf_ops callbacks are invoked with locked dma-buf
-+ *    reservation and exporter can't take the lock:
-+ *
-+ *     - &dma_buf_ops.pin()
-+ *     - &dma_buf_ops.unpin()
-+ *     - &dma_buf_ops.map_dma_buf()
-+ *     - &dma_buf_ops.unmap_dma_buf()
-+ *     - &dma_buf_ops.mmap()
-+ *     - &dma_buf_ops.vmap()
-+ *     - &dma_buf_ops.vunmap()
-+ */
-+
- /**
-  * dma_buf_dynamic_attach_unlocked - Add the device to dma_buf's attachments list
-  * @dmabuf:		[in]	buffer to attach device to.
-@@ -802,7 +859,7 @@ static struct sg_table * __map_dma_buf(struct dma_buf_attachment *attach,
-  * @importer_priv:	[in]	importer private pointer for the attachment
-  *
-  * Returns struct dma_buf_attachment pointer for this attachment. Attachments
-- * must be cleaned up by calling dma_buf_detach().
-+ * must be cleaned up by calling dma_buf_detach_unlocked().
-  *
-  * Optionally this calls &dma_buf_ops.attach to allow device-specific attach
-  * functionality.
-@@ -858,8 +915,8 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 	    dma_buf_is_dynamic(dmabuf)) {
- 		struct sg_table *sgt;
- 
-+		dma_resv_lock(attach->dmabuf->resv, NULL);
- 		if (dma_buf_is_dynamic(attach->dmabuf)) {
--			dma_resv_lock(attach->dmabuf->resv, NULL);
- 			ret = dmabuf->ops->pin(attach);
- 			if (ret)
- 				goto err_unlock;
-@@ -872,8 +929,7 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 			ret = PTR_ERR(sgt);
- 			goto err_unpin;
- 		}
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_unlock(attach->dmabuf->resv);
-+		dma_resv_unlock(attach->dmabuf->resv);
- 		attach->sgt = sgt;
- 		attach->dir = DMA_BIDIRECTIONAL;
- 	}
-@@ -889,8 +945,7 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 		dmabuf->ops->unpin(attach);
- 
- err_unlock:
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_unlock(attach->dmabuf->resv);
-+	dma_resv_unlock(attach->dmabuf->resv);
- 
- 	dma_buf_detach_unlocked(dmabuf, attach);
- 	return ERR_PTR(ret);
-@@ -927,7 +982,7 @@ static void __unmap_dma_buf(struct dma_buf_attachment *attach,
-  * @dmabuf:	[in]	buffer to detach from.
-  * @attach:	[in]	attachment to be detached; is free'd after this call.
-  *
-- * Clean up a device attachment obtained by calling dma_buf_attach().
-+ * Clean up a device attachment obtained by calling dma_buf_attach_unlocked().
-  *
-  * Optionally this calls &dma_buf_ops.detach for device-specific detach.
-  */
-@@ -937,21 +992,19 @@ void dma_buf_detach_unlocked(struct dma_buf *dmabuf,
- 	if (WARN_ON(!dmabuf || !attach))
- 		return;
- 
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+
- 	if (attach->sgt) {
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_lock(attach->dmabuf->resv, NULL);
- 
- 		__unmap_dma_buf(attach, attach->sgt, attach->dir);
- 
--		if (dma_buf_is_dynamic(attach->dmabuf)) {
-+		if (dma_buf_is_dynamic(attach->dmabuf))
- 			dmabuf->ops->unpin(attach);
--			dma_resv_unlock(attach->dmabuf->resv);
--		}
- 	}
--
--	dma_resv_lock(dmabuf->resv, NULL);
- 	list_del(&attach->node);
-+
- 	dma_resv_unlock(dmabuf->resv);
-+
- 	if (dmabuf->ops->detach)
- 		dmabuf->ops->detach(dmabuf, attach);
- 
-@@ -1030,10 +1083,11 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, DMA_BUF);
-  *
-  * Important: Dynamic importers must wait for the exclusive fence of the struct
-  * dma_resv attached to the DMA-BUF first.
-+ *
-+ * Importer is responsible for holding dmabuf's reservation lock.
-  */
--struct sg_table *
--dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
--				enum dma_data_direction direction)
-+struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment *attach,
-+					       enum dma_data_direction direction)
- {
- 	struct sg_table *sg_table;
- 	int r;
-@@ -1043,8 +1097,7 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- 	if (WARN_ON(!attach || !attach->dmabuf))
- 		return ERR_PTR(-EINVAL);
- 
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	if (attach->sgt) {
- 		/*
-@@ -1059,7 +1112,6 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- 	}
- 
- 	if (dma_buf_is_dynamic(attach->dmabuf)) {
--		dma_resv_assert_held(attach->dmabuf->resv);
- 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
- 			r = attach->dmabuf->ops->pin(attach);
- 			if (r)
-@@ -1099,10 +1151,38 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- #endif /* CONFIG_DMA_API_DEBUG */
- 	return sg_table;
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_locked, DMA_BUF);
-+
-+/**
-+ * dma_buf_map_attachment_unlocked - Returns the scatterlist table of the attachment;
-+ * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment whose scatterlist is to be returned
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_map_attachment_locked().
-+ */
-+struct sg_table *
-+dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
-+				enum dma_data_direction direction)
-+{
-+	struct sg_table *sg_table;
-+
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf))
-+		return ERR_PTR(-EINVAL);
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	sg_table = dma_buf_map_attachment_locked(attach, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+
-+	return sg_table;
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_unlocked, DMA_BUF);
- 
- /**
-- * dma_buf_unmap_attachment_unlocked - unmaps and decreases usecount of the buffer;might
-+ * dma_buf_unmap_attachment_locked - unmaps and decreases usecount of the buffer;might
-  * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-  * dma_buf_ops.
-  * @attach:	[in]	attachment to unmap buffer from
-@@ -1110,31 +1190,51 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_unlocked, DMA_BUF);
-  * @direction:  [in]    direction of DMA transfer
-  *
-  * This unmaps a DMA mapping for @attached obtained by dma_buf_map_attachment().
-+ *
-+ * Importer is responsible for holding dmabuf's reservation lock.
-  */
--void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
--				       struct sg_table *sg_table,
--				       enum dma_data_direction direction)
-+void dma_buf_unmap_attachment_locked(struct dma_buf_attachment *attach,
-+				     struct sg_table *sg_table,
-+				     enum dma_data_direction direction)
- {
- 	might_sleep();
- 
--	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
--		return;
--
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	if (attach->sgt == sg_table)
- 		return;
- 
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_assert_held(attach->dmabuf->resv);
--
- 	__unmap_dma_buf(attach, sg_table, direction);
- 
- 	if (dma_buf_is_dynamic(attach->dmabuf) &&
- 	    !IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY))
- 		dma_buf_unpin(attach);
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_locked, DMA_BUF);
-+
-+/**
-+ * dma_buf_unmap_attachment_unlocked - unmaps and decreases usecount of the buffer;might
-+ * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment to unmap buffer from
-+ * @sg_table:	[in]	scatterlist info of the buffer to unmap
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_unmap_attachment_locked().
-+ */
-+void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
-+				       struct sg_table *sg_table,
-+				       enum dma_data_direction direction)
-+{
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
-+		return;
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	dma_buf_unmap_attachment_locked(attach, sg_table, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_unlocked, DMA_BUF);
- 
- /**
-@@ -1174,8 +1274,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_move_notify, DMA_BUF);
-  *
-  *   Interfaces::
-  *
-- *      void \*dma_buf_vmap(struct dma_buf \*dmabuf, struct iosys_map \*map)
-- *      void dma_buf_vunmap(struct dma_buf \*dmabuf, struct iosys_map \*map)
-+ *      void \*dma_buf_vmap_unlocked(struct dma_buf \*dmabuf, struct iosys_map \*map)
-+ *      void dma_buf_vunmap_unlocked(struct dma_buf \*dmabuf, struct iosys_map \*map)
-  *
-  *   The vmap call can fail if there is no vmap support in the exporter, or if
-  *   it runs out of vmalloc space. Note that the dma-buf layer keeps a reference
-@@ -1348,6 +1448,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 			  unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
- 
-@@ -1368,7 +1470,11 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
- 
-@@ -1401,6 +1507,7 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
-@@ -1422,6 +1529,7 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 
- out_unlock:
- 	mutex_unlock(&dmabuf->lock);
-+	dma_resv_unlock(dmabuf->resv);
- 	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
-@@ -1440,6 +1548,7 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
-@@ -1447,6 +1556,7 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
- 	mutex_unlock(&dmabuf->lock);
-+	dma_resv_unlock(dmabuf->resv);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index dd6ac1606316..1b426116c22e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -882,7 +882,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
- 			struct sg_table *sgt;
- 
- 			attach = gtt->gobj->import_attach;
--			sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
-+			sgt = dma_buf_map_attachment_locked(attach, DMA_BIDIRECTIONAL);
- 			if (IS_ERR(sgt))
- 				return PTR_ERR(sgt);
- 
-@@ -1007,7 +1007,7 @@ static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
- 		struct dma_buf_attachment *attach;
- 
- 		attach = gtt->gobj->import_attach;
--		dma_buf_unmap_attachment_unlocked(attach, ttm->sg, DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_locked(attach, ttm->sg, DMA_BIDIRECTIONAL);
- 		ttm->sg = NULL;
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 1bd234fd21a5..b75ef1756873 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -678,7 +678,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	return drm_gem_vmap_unlocked(obj, map);
-+	return drm_gem_vmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
- 
-@@ -694,7 +694,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	drm_gem_vunmap_unlocked(obj, map);
-+	drm_gem_vunmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index cc54a5b1d6ae..d1bb6a3760e8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -241,8 +241,8 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 
- 	assert_object_held(obj);
- 
--	pages = dma_buf_map_attachment_unlocked(obj->base.import_attach,
--						DMA_BIDIRECTIONAL);
-+	pages = dma_buf_map_attachment_locked(obj->base.import_attach,
-+					      DMA_BIDIRECTIONAL);
- 	if (IS_ERR(pages))
- 		return PTR_ERR(pages);
- 
-@@ -270,8 +270,8 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- static void i915_gem_object_put_pages_dmabuf(struct drm_i915_gem_object *obj,
- 					     struct sg_table *pages)
- {
--	dma_buf_unmap_attachment_unlocked(obj->base.import_attach, pages,
--					  DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_locked(obj->base.import_attach, pages,
-+					DMA_BIDIRECTIONAL);
- }
- 
- static const struct drm_i915_gem_object_ops i915_gem_object_dmabuf_ops = {
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 9ab09569dec1..e7a6a8d28862 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -46,7 +46,7 @@ struct dma_buf_ops {
- 	/**
- 	 * @attach:
- 	 *
--	 * This is called from dma_buf_attach() to make sure that a given
-+	 * This is called from dma_buf_attach_unlocked() to make sure that a given
- 	 * &dma_buf_attachment.dev can access the provided &dma_buf. Exporters
- 	 * which support buffer objects in special locations like VRAM or
- 	 * device-specific carveout areas should check whether the buffer could
-@@ -74,7 +74,7 @@ struct dma_buf_ops {
- 	/**
- 	 * @detach:
- 	 *
--	 * This is called by dma_buf_detach() to release a &dma_buf_attachment.
-+	 * This is called by dma_buf_detach_unlocked() to release a &dma_buf_attachment.
- 	 * Provided so that exporters can clean up any housekeeping for an
- 	 * &dma_buf_attachment.
- 	 *
-@@ -94,7 +94,7 @@ struct dma_buf_ops {
- 	 * exclusive with @cache_sgt_mapping.
- 	 *
- 	 * This is called automatically for non-dynamic importers from
--	 * dma_buf_attach().
-+	 * dma_buf_attach_unlocked().
- 	 *
- 	 * Note that similar to non-dynamic exporters in their @map_dma_buf
- 	 * callback the driver must guarantee that the memory is available for
-@@ -124,8 +124,8 @@ struct dma_buf_ops {
- 	/**
- 	 * @map_dma_buf:
- 	 *
--	 * This is called by dma_buf_map_attachment() and is used to map a
--	 * shared &dma_buf into device address space, and it is mandatory. It
-+	 * This is called by dma_buf_map_attachment_locked() and is used to map
-+	 * a shared &dma_buf into device address space, and it is mandatory. It
- 	 * can only be called if @attach has been called successfully.
- 	 *
- 	 * This call may sleep, e.g. when the backing storage first needs to be
-@@ -181,8 +181,8 @@ struct dma_buf_ops {
- 	/**
- 	 * @unmap_dma_buf:
- 	 *
--	 * This is called by dma_buf_unmap_attachment() and should unmap and
--	 * release the &sg_table allocated in @map_dma_buf, and it is mandatory.
-+	 * This is called by dma_buf_unmap_attachment_locked() and should unmap
-+	 * and release the &sg_table allocated in @map_dma_buf, and it is mandatory.
- 	 * For static dma_buf handling this might also unpin the backing
- 	 * storage if this is the last mapping of the DMA buffer.
- 	 */
-@@ -509,10 +509,10 @@ struct dma_buf_attach_ops {
-  * and its user device(s). The list contains one attachment struct per device
-  * attached to the buffer.
-  *
-- * An attachment is created by calling dma_buf_attach(), and released again by
-- * calling dma_buf_detach(). The DMA mapping itself needed to initiate a
-- * transfer is created by dma_buf_map_attachment() and freed again by calling
-- * dma_buf_unmap_attachment().
-+ * An attachment is created by calling dma_buf_attach_unlocked(), and released
-+ * again by calling dma_buf_detach_unlocked(). The DMA mapping itself needed to
-+ * initiate a transfer is created by dma_buf_map_attachment_locked() and freed
-+ * again by calling dma_buf_unmap_attachment_locked().
-  */
- struct dma_buf_attachment {
- 	struct dma_buf *dmabuf;
-@@ -626,6 +626,12 @@ void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *,
- 				       struct sg_table *,
- 				       enum dma_data_direction);
- 
-+struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment *,
-+					       enum dma_data_direction);
-+void dma_buf_unmap_attachment_locked(struct dma_buf_attachment *attach,
-+				     struct sg_table *sg_table,
-+				     enum dma_data_direction direction);
-+
- void dma_buf_move_notify(struct dma_buf *dma_buf);
- int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
- 			     enum dma_data_direction dir);
--- 
-2.36.1
-
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-07-25 10:34, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:044e7f8e-9fa5-d78b-39f8-84bce155d4c6@amd.com">Am
+      2022-07-25 um 08:23 schrieb Philip Yang:
+      <br>
+      <blockquote type="cite">This will be used to split giant svm range
+        into smaller ranges, to
+        <br>
+        support VRAM overcommitment by giant range and improve GPU retry
+        fault
+        <br>
+        recover on giant range.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |&nbsp; 2 ++
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp; | 15 +++++++++++++++
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 +++
+        <br>
+        &nbsp; 3 files changed, 20 insertions(+)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+        <br>
+        index 9667015a6cbc..b1f87aa6138b 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+        <br>
+        @@ -1019,6 +1019,8 @@ int svm_migrate_init(struct amdgpu_device
+        *adev)
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        amdgpu_amdkfd_reserve_system_mem(SVM_HMM_PAGE_STRUCT_SIZE(size));
+        <br>
+        &nbsp; +&nbsp;&nbsp;&nbsp; svm_range_set_max_pages(adev);
+        <br>
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_info(&quot;HMM registered %ldMB device memory\n&quot;, size
+        &gt;&gt; 20);
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        index b592aee6d9d6..cf9565ddddf8 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        @@ -46,6 +46,11 @@
+        <br>
+        &nbsp;&nbsp; */
+        <br>
+        &nbsp; #define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING&nbsp;&nbsp;&nbsp; (2UL *
+        NSEC_PER_MSEC)
+        <br>
+        &nbsp; +/* Giant svm range split into smaller ranges based on this,
+        it is decided using
+        <br>
+        + * minimum of all dGPU/APU 1/32 VRAM size, between 2MB to 1GB
+        and align to 2MB.
+        <br>
+        + */
+        <br>
+        +uint64_t max_svm_range_pages;
+        <br>
+        +
+        <br>
+        &nbsp; struct criu_svm_metadata {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head list;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_criu_svm_range_priv_data data;
+        <br>
+        @@ -1869,6 +1874,16 @@ static struct svm_range
+        *svm_range_clone(struct svm_range *old)
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new;
+        <br>
+        &nbsp; }
+        <br>
+        +__init void svm_range_set_max_pages(struct amdgpu_device *adev)
+        <br>
+      </blockquote>
+      <br>
+      Why is this marked as __init? This can run much later than module
+      init.
+      <br>
+      <br>
+    </blockquote>
+    <p>Thanks, this was called in amdgpu_amdkfd_init from module init,
+      forget to remove __init after calling from svm_migrate_init, which
+      is called from pci_probe.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:044e7f8e-9fa5-d78b-39f8-84bce155d4c6@amd.com">
+      <br>
+      <blockquote type="cite">+{
+        <br>
+        +&nbsp;&nbsp;&nbsp; uint64_t pages;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; /* 1/32 VRAM size in pages */
+        <br>
+        +&nbsp;&nbsp;&nbsp; pages = adev-&gt;gmc.real_vram_size &gt;&gt; 17;
+        <br>
+        +&nbsp;&nbsp;&nbsp; pages = clamp(pages, 1ULL &lt;&lt; 9, 1ULL &lt;&lt; 18);
+        <br>
+        +&nbsp;&nbsp;&nbsp; max_svm_range_pages = min_not_zero(max_svm_range_pages,
+        pages);
+        <br>
+        +&nbsp;&nbsp;&nbsp; max_svm_range_pages = ALIGN(max_svm_range_pages, 1ULL
+        &lt;&lt; 9);
+        <br>
+      </blockquote>
+      <br>
+      I'd recommend updating max_svm_range_pages with a single
+      WRITE_ONCE to avoid race conditions with GPU hot-plug.
+      <br>
+      <br>
+      Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+}
+        <br>
+        &nbsp; &nbsp; /**
+        <br>
+        &nbsp;&nbsp; * svm_range_add - add svm range and handle overlap
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+        <br>
+        index eab7f6d3b13c..346a41bf8dbf 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+        <br>
+        @@ -204,6 +204,9 @@ void
+        svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
+        struct mm_s
+        <br>
+        &nbsp; #define KFD_IS_SVM_API_SUPPORTED(dev) ((dev)-&gt;pgmap.type !=
+        0)
+        <br>
+        &nbsp; &nbsp; void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+        <br>
+        +
+        <br>
+        +__init void svm_range_set_max_pages(struct amdgpu_device
+        *adev);
+        <br>
+        +
+        <br>
+        &nbsp; #else
+        <br>
+        &nbsp; &nbsp; struct kfd_process;
+        <br>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
