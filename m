@@ -4,74 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC87C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 17:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB50DC43334
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 17:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E050C117C;
-	Mon, 25 Jul 2022 17:14:44 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9B5AC1178;
- Mon, 25 Jul 2022 17:14:42 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id sz17so21804261ejc.9;
- Mon, 25 Jul 2022 10:14:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=PsEDs2sB6VTTsynOD5EXDiVHEuLPZM2uDMTj+W3oixs=;
- b=O4HEIsqaXtS/uJ82/RRje6BznMahv6VAuHOtkMPDr0QJHmJRWTD+/KVWNJmLaQjOd8
- URse5UVdAlXVfXDRWonRy52pvv28YZAib+vT3JuHUjIVkbp1uaDI1E7gINC5YKSW5DK7
- 16LlQwoz1+gp7QjUlT8ziXnoLZjBEf+bb7jznJ4gAzKix1EZV+6KcSMM2+IV/+lJqBKX
- U78KHwLCoLwH2JBASgJkJbRM9xcbGM1rOwc2yt0x835hXvDtzwlQw2pEOaPyTsuMOclk
- 4Gf/DiQMnIkVlykXcxRaUxgt+JEVqX6i619K3v5IfiDLJ77/ZmUjNNWlWMKfVAZJFIGF
- L6+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=PsEDs2sB6VTTsynOD5EXDiVHEuLPZM2uDMTj+W3oixs=;
- b=wEYhGI6VP1gbHweHWSNB063BOud+y7/YycWnYt8f5t0erO8GjT7SgfPsBn01IjDPI/
- 2axWmxNYmNPpESO38qPnQyJFfRd2vKQXU9ZfRraxIRMn3M0a1u2pmQHbHJG9e0HUYG2Q
- SBsOLpkQSaMsgbW8Dq/2qVxu5ZXT6IG2mhc4BVuYCrOJMY8jX7Y06YqK8ePJCOVThz1M
- F8fS7el+sP9WC1VhzliBvwWTTCTvxaZobxwskGpF0msGLHuABVJgxDADbiyjLIsazBfw
- m/DwWh/bHbTxQsQ4IytTJOSqjWapfIJRhtRW0sHsj79iCFU4LWQ3YvISc56ZuXbH0jqW
- QENA==
-X-Gm-Message-State: AJIora/47/hF9gsbDbKjuH11jm87wGC6/fQEhA7xMX4vakPHClJ9IPhk
- Gesd74KTcmHA80voudfImO8=
-X-Google-Smtp-Source: AGRyM1vpCXjFlR773mUV+AuP5Gq3igg92En4yUb/mGxELjqi4k4eCc9iHH1JspvEPn8Zx+LmJmOYXQ==
-X-Received: by 2002:a17:906:93ef:b0:72b:491c:a36e with SMTP id
- yl15-20020a17090693ef00b0072b491ca36emr10785887ejb.593.1658769281176; 
- Mon, 25 Jul 2022 10:14:41 -0700 (PDT)
-Received: from ?IPV6:2a02:8109:23bf:f368:bef3:7a44:cf7a:f6a4?
- ([2a02:8109:23bf:f368:bef3:7a44:cf7a:f6a4])
- by smtp.gmail.com with ESMTPSA id
- la16-20020a170907781000b0072b92daef1csm5613851ejc.146.2022.07.25.10.14.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Jul 2022 10:14:40 -0700 (PDT)
-Message-ID: <3897e61d-6e30-8626-aac0-4ac1ef9957c2@gmail.com>
-Date: Mon, 25 Jul 2022 19:14:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 512B0C1197;
+	Mon, 25 Jul 2022 17:15:30 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0C8C1197
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 17:15:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a3bYSxFnnrABLMuHJ8s4evMtbSehy3yl2FVbyjvOyUQXANggCJ6MMFlEksjas88zJwmAJjHYIObu0nuy4VREMpT9dCw3tc2CIxb+jmsDNUCHqBSXq+DVHL5TH4FoetntyXY46hO+UZMMCaPOBgemc8y29ncsLw5QpyIwSZhcXgkCuW97pUIu7KSEFoz5CQHtXcghPZcTp+maZlnLOteSL/RRUAOkp6J1CcNyxejKmFpFjFKEQB/IqARK7bqo2TbrrfwgROFURhuWyUrReQFe1Jj/D5pFMZL4TLMjH4pmclWl65JhgShEzRMd/AIHqmqaK3ZR73yOrgFx/AS0KGYYeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Z/7eWwDeoY99sTXIjritZiiyYvkBVwTvm++CdjLA0c=;
+ b=KZx4nG9Yt/z9I5inoty/1j+kFvBEXWjR7sNd6KpV9nnfcdELOg8L4Lg+TtTJInXy1qHWTBbRNQhHx8OHVBbOxV0e6mleOJzjk78XuQ6vLadrk580FBaOPf/ihvsR3ypKlEISUG9xTsq/fLQg8OwCzBdHJf6H6rO7tA4ZplvmW29A6Pfh2IoGTAfvFIGKUz96fXD9DEs2NZh+XAz+AA0hyNwwm3OMhJsvAT58pGTBHJvfHQnvaeiXiRn93e5xgc8CxpbwoHdAk2LFzWjGr07FDCBYwoRqu/Y5JnLTh58Ea+nKs1n8e6ANcChzUqGxnYDwx5l33Uc+aTmxAt3CszHLAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Z/7eWwDeoY99sTXIjritZiiyYvkBVwTvm++CdjLA0c=;
+ b=UcSUzXE+V6hAtA2fq4k+Jsuz5M3FjD2w6IARpAk5oe7PcADyvCPzwoCi8h3S+NrhMRKr7ab/CPgKUUoLnUKBPv8QTzwk8HGL5hYEqyXIgWiCfwcBde1jgNbPuwJwt4RCLmUwCBXq1LzUSuguwxm3wBMbtyMbWwwcb0lheKAUYG0=
+Received: from BN6PR2001CA0024.namprd20.prod.outlook.com
+ (2603:10b6:404:b4::34) by CH2PR12MB4875.namprd12.prod.outlook.com
+ (2603:10b6:610:35::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Mon, 25 Jul
+ 2022 17:15:26 +0000
+Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:b4:cafe::c1) by BN6PR2001CA0024.outlook.office365.com
+ (2603:10b6:404:b4::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
+ Transport; Mon, 25 Jul 2022 17:15:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5458.17 via Frontend Transport; Mon, 25 Jul 2022 17:15:26 +0000
+Received: from magnus.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 25 Jul
+ 2022 12:15:24 -0500
+From: Daniel Phillips <daniel.phillips@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/1] drm/amdgpu: Remove rounding from vram allocation path
+Date: Mon, 25 Jul 2022 10:14:41 -0700
+Message-ID: <20220725171441.11695-1-daniel.phillips@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/3] Revert "drm/amdgpu: move internal vram_mgr function
- into the C file"
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220708093047.492662-1-Arunpravin.PaneerSelvam@amd.com>
- <a56afc27-3556-38ea-0d10-f7069091967e@suse.de>
- <476c4e58-ba0c-0736-2618-e7899dd5b60f@linux.intel.com>
- <ceba1244-33a8-9b74-6379-4d0569ca9bdb@amd.com>
- <b7b44b45-4143-963c-3279-87bdc6f727c1@suse.de>
- <3b66f6fe-422a-62e9-ff55-74d9f631d6e3@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <3b66f6fe-422a-62e9-ff55-74d9f631d6e3@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f5dd0992-2700-48fa-7a94-08da6e61444d
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4875:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XWE2wOWJsd6x/3owNScYK1wO4McTkAzW3hz+MIts5Q1fGuILrxan30oHx5kcV3ZevLJuCsYc7T5gwbjXGrKRHOdEO10XFzJ8dLBHdyDp+sR4P+2OMS1QkIk3euJFSntezsH1j/KKXEb/OQv3pFEZ14u1fK+IxQ84klp3/YTH4y4pA9biphbXRV5jUzDBtTiFm23neOD3B6uiv8cBbxgz8Zrw38nJnDpgdcHi+wuQofugyLPzxQb4AwVTi+mgOK/RmBeRrDXcppl/vzB2R9E9eF0Nz+T8itOYzvjWI20MqhoF6/g5WQhEnbh1XJpiphFCPakXyCUarraoti5i1FSvGEso2oLqP6aTwLnNpYVozOrcHPLG0Q9y3NwEN/S2GzvOvBTDQPBUq9WlUR3yDyc7uw3LewHWpu6gLUsHXId5fgN9p+jKLLwDw2+Gv4XXd5tHP65bkMImeKuMlzSwCNOJ980r4ejG54x0nJjW2eS682c49uLpS4hsKk9jCOVOn71gH6LLnrJVcSZ1pyS3h3RfY7y6AnYYqon6m6Ytc2YDOAGhf3QmQTWprpQ+0AxGcJXTUXO+ofbr9AyOV68OzKqg7X6vCX/ucqTIZ8+oYF+Fg96RoGtjXuirecREcHDzwNITnHuEvIDigcmk4vMhtO37+AFn3vl8dt3qv9/s1GaHqd64piFWD40EpZL+fR0QbKXqVOCco/SqxPAWBSb214mam8xJ1PCJK3uGfdFBT4J+XbnnVtP8pcBGy6QlZfdgk0Rd9T3XusiwNS2AFlXgqnkBeoWXKWJ8cBzoLGPBsejNS+WKaoZToaMzFv7t08xmmLHvNDIlgDLy+pD7c1wiiqunOw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(346002)(376002)(39860400002)(46966006)(40470700004)(36840700001)(426003)(2906002)(7696005)(6666004)(41300700001)(86362001)(1076003)(5660300002)(83380400001)(47076005)(336012)(40460700003)(16526019)(186003)(2616005)(8936002)(40480700001)(44832011)(36756003)(356005)(4326008)(6916009)(8676002)(82740400003)(70206006)(36860700001)(70586007)(54906003)(81166007)(26005)(316002)(478600001)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 17:15:26.2064 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5dd0992-2700-48fa-7a94-08da6e61444d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,211 +97,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com
+Cc: Daniel Phillips <daniel.phillips@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.07.22 um 17:27 schrieb Tvrtko Ursulin:
->
-> On 24/07/2022 19:28, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 22.07.22 um 17:47 schrieb Christian König:
->>> Hi Tvrtko,
->>>
->>> scratching my head what exactly is going on here.
->>>
->>> I've build tested drm-tip a couple of test in the last week and it 
->>> always worked flawlessly.
->>>
->>> It looks like that some conflict resolution is sometimes not applied 
->>> correctly, but I have no idea why.
->>
->> It worked last week, but must have been reintroduced meanhwile.
->> Please fetch the latest drm-tip and rebuild. The attached config 
->> produces the error on my system.
->
-> What is the status with this? I hit a conflict on an implicated file 
-> just now trying to rebuild drm-tip:
->
-> Unmerged paths:
->   (use "git add/rm <file>..." as appropriate to mark resolution)
->         deleted by us: drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->
-> I had an other i915 conflict to solve and as grep amdgpu_vram_mgr.h 
-> drivers/gpu/drm/amd produced nothing I just did a git rm on it and 
-> pushed the resolution.
->
-> Let me know if I broke something, re-broke something, or whatever.. 
-> Build of amdgpu certainly still looks broken on my end, both before 
-> and after me rebuilding drm-tip so maybe I just preserved the breakage.
+Rounding up allocations in the allocation path caused test regressions,
+so now just round in the availability path.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-It looks like that somehow re-broke, but I'm not sure how.
-
-I've fetched drm-tip on Friday at around 1pm CET and build it and that 
-worked perfectly fine.
-
-Essentially the status of drm-misc-next for the following files should 
-be carried on in drm-tip:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-
-Regards,
-Christian.
-
->
-> Regards,
->
-> Tvrtko
->
->>
->> Best regards
->> Thomas
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>> Am 22.07.22 um 16:46 schrieb Tvrtko Ursulin:
->>>>
->>>> On 14/07/2022 09:45, Thomas Zimmermann wrote:
->>>>> Hi
->>>>>
->>>>> Am 08.07.22 um 11:30 schrieb Arunpravin Paneer Selvam:
->>>>>> This reverts commit 708d19d9f362766147cab79eccae60912c6d3068.
->>>>>
->>>>> This commit is only present in drm-misc-next. Should the revert be 
->>>>> cherry-picked into drm-misc-next-fixes?
->>>>
->>>> Seemed like an appropriate thread to raise this, in case my pings 
->>>> about it on #dri-devel and #radeon go un-noticed since it is Friday 
->>>> after all.
->>>>
->>>> So for me dri-tip today fails to build the amdgpu driver.
->>>>
->>>> I had to revert 925b6e59138cefa47275c67891c65d48d3266d57 to make it 
->>>> build. This conflicts a bit but seems trivial. Without this revert 
->>>> code seems confused with different versions of struct 
->>>> amdgpu_vram_mgr and build fails violently (increase your scroll 
->>>> back buffers to see it all).
->>>>
->>>> Regards,
->>>>
->>>> Tvrtko
->>>>
->>>>> Best regards
->>>>> Thomas
->>>>>
->>>>>>
->>>>>> This is part of a revert of the following commits:
->>>>>> commit 708d19d9f362 ("drm/amdgpu: move internal vram_mgr function 
->>>>>> into the C file")
->>>>>> commit 5e3f1e7729ec ("drm/amdgpu: fix start calculation in 
->>>>>> amdgpu_vram_mgr_new")
->>>>>> commit c9cad937c0c5 ("drm/amdgpu: add drm buddy support to amdgpu")
->>>>>>
->>>>>> [WHY]
->>>>>> Few users reported garbaged graphics as soon as x starts,
->>>>>> reverting until this can be resolved.
->>>>>>
->>>>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>>>> <Arunpravin.PaneerSelvam@amd.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 29 
->>>>>> --------------------
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h | 27 
->>>>>> ++++++++++++++++++
->>>>>>   2 files changed, 27 insertions(+), 29 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>>> index 7a5e8a7b4a1b..51d9d3a4456c 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>>> @@ -50,35 +50,6 @@ to_amdgpu_device(struct amdgpu_vram_mgr *mgr)
->>>>>>       return container_of(mgr, struct amdgpu_device, mman.vram_mgr);
->>>>>>   }
->>>>>> -static inline struct drm_buddy_block *
->>>>>> -amdgpu_vram_mgr_first_block(struct list_head *list)
->>>>>> -{
->>>>>> -    return list_first_entry_or_null(list, struct 
->>>>>> drm_buddy_block, link);
->>>>>> -}
->>>>>> -
->>>>>> -static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct 
->>>>>> list_head *head)
->>>>>> -{
->>>>>> -    struct drm_buddy_block *block;
->>>>>> -    u64 start, size;
->>>>>> -
->>>>>> -    block = amdgpu_vram_mgr_first_block(head);
->>>>>> -    if (!block)
->>>>>> -        return false;
->>>>>> -
->>>>>> -    while (head != block->link.next) {
->>>>>> -        start = amdgpu_vram_mgr_block_start(block);
->>>>>> -        size = amdgpu_vram_mgr_block_size(block);
->>>>>> -
->>>>>> -        block = list_entry(block->link.next, struct 
->>>>>> drm_buddy_block, link);
->>>>>> -        if (start + size != amdgpu_vram_mgr_block_start(block))
->>>>>> -            return false;
->>>>>> -    }
->>>>>> -
->>>>>> -    return true;
->>>>>> -}
->>>>>> -
->>>>>> -
->>>>>> -
->>>>>>   /**
->>>>>>    * DOC: mem_info_vram_total
->>>>>>    *
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->>>>>> index 4b267bf1c5db..9a2db87186c7 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->>>>>> @@ -53,6 +53,33 @@ static inline u64 
->>>>>> amdgpu_vram_mgr_block_size(struct drm_buddy_block *block)
->>>>>>       return PAGE_SIZE << drm_buddy_block_order(block);
->>>>>>   }
->>>>>> +static inline struct drm_buddy_block *
->>>>>> +amdgpu_vram_mgr_first_block(struct list_head *list)
->>>>>> +{
->>>>>> +    return list_first_entry_or_null(list, struct 
->>>>>> drm_buddy_block, link);
->>>>>> +}
->>>>>> +
->>>>>> +static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct 
->>>>>> list_head *head)
->>>>>> +{
->>>>>> +    struct drm_buddy_block *block;
->>>>>> +    u64 start, size;
->>>>>> +
->>>>>> +    block = amdgpu_vram_mgr_first_block(head);
->>>>>> +    if (!block)
->>>>>> +        return false;
->>>>>> +
->>>>>> +    while (head != block->link.next) {
->>>>>> +        start = amdgpu_vram_mgr_block_start(block);
->>>>>> +        size = amdgpu_vram_mgr_block_size(block);
->>>>>> +
->>>>>> +        block = list_entry(block->link.next, struct 
->>>>>> drm_buddy_block, link);
->>>>>> +        if (start + size != amdgpu_vram_mgr_block_start(block))
->>>>>> +            return false;
->>>>>> +    }
->>>>>> +
->>>>>> +    return true;
->>>>>> +}
->>>>>> +
->>>>>>   static inline struct amdgpu_vram_mgr_resource *
->>>>>>   to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
->>>>>>   {
->>>>>
->>>
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 043a808c88a3..014a594899fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -40,10 +40,10 @@
+ #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
+ 
+ /*
+- * Align VRAM allocations to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
++ * Align VRAM availability to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
+  * BO chunk
+  */
+-#define VRAM_ALLOCATION_ALIGN (1 << 21)
++#define VRAM_AVAILABLITY_ALIGN (1 << 21)
+ 
+ /* Impose limit on how much memory KFD can use */
+ static struct {
+@@ -149,7 +149,7 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 		 * to avoid fragmentation caused by 4K allocations in the tail
+ 		 * 2M BO chunk.
+ 		 */
+-		vram_needed = ALIGN(size, VRAM_ALLOCATION_ALIGN);
++		vram_needed = size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+ 		system_mem_needed = size;
+ 	} else if (!(alloc_flag &
+@@ -198,7 +198,7 @@ static void unreserve_mem_limit(struct amdgpu_device *adev,
+ 		kfd_mem_limit.system_mem_used -= size;
+ 		kfd_mem_limit.ttm_mem_used -= size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-		adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
++		adev->kfd.vram_used -= size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+ 		kfd_mem_limit.system_mem_used -= size;
+ 	} else if (!(alloc_flag &
+@@ -1642,7 +1642,6 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
+ 	uint64_t reserved_for_pt =
+ 		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+ 	size_t available;
+-
+ 	spin_lock(&kfd_mem_limit.mem_limit_lock);
+ 	available = adev->gmc.real_vram_size
+ 		- adev->kfd.vram_used
+@@ -1650,7 +1649,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
+ 		- reserved_for_pt;
+ 	spin_unlock(&kfd_mem_limit.mem_limit_lock);
+ 
+-	return ALIGN_DOWN(available, VRAM_ALLOCATION_ALIGN);
++	return ALIGN_DOWN(available, VRAM_AVAILABLITY_ALIGN);
+ }
+ 
+ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+-- 
+2.34.1
 
