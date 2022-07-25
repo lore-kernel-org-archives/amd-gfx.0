@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3780C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 23:39:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18502C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 23:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9826110EECE;
-	Mon, 25 Jul 2022 23:39:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F67710FB7C;
+	Mon, 25 Jul 2022 23:59:09 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 682A010EECE;
- Mon, 25 Jul 2022 23:39:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54AA310FB6F;
+ Mon, 25 Jul 2022 23:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,29 +19,28 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Zt/P3e2xArbvy3gQPjSJj81ryeekwV1xnydX+463/tU=; b=j2SkKjTtAuQo8yx0a4sTbZLuLk
- rRzeGeaiod0i0a95YKX2BuMx19KjeUvm+SXl30WC7pOy63qvSKsEqspXRRi06NIhaqruvmVAZnzlo
- 42ovgpEfyqz6GSeHDoREM5DDcHj2yWWqqK5o9pApV+YZ3jfGYPOgGWtJU90f40RIVB8mnqR9GkpXV
- V+1d4GrDEKdk9WvUTxp2H73unAQwZiyTz9748jledQ17Nj2OOdU45EAPo6WatZ6MoKfIfBjzsMkl4
- RkDxoICr/NyoaDL7Bx+2rzm2O+NjpqNYEDUjxx85+XyaELVe+wl1aATMZz5IZpIL+MEw/uv51r6j9
- Qb0hL24Q==;
+ bh=O2ubfH2wQgxmJZWUP8M1vkKi6rTyTW4C61EL27uDGLI=; b=FdDGoOYDIjVUe17qJdSxcppF/6
+ BgyYILkT7FztFKmP5+K0qCFLxZJWgrWhYxWMSilPQ4diZCLP3Se96eLLn4WPnI6lY6ITlMj6DAPQy
+ VhK13AaOvQEp+JM6mzrrAjFHoNgvCfFnIecAQWxnBDbLf/CfOiQWjd7I/V6rMW2ANaWfyI1THxdfJ
+ 2RRlR/Yi0CZ/dCebV1OhcjrSLd08zWg6GCAaPZSivHXCg/pYcRO1jjChs9qJFJNdIwNDcvmD+M9oP
+ X/Ye4KdN1/p09or297EABop8W2NJ0cxKaB0HTzJ5EL18QHUWC8KRSokCcfX598Lc1yTlEhUU7Dwck
+ hIqTgYGw==;
 Received: from [165.90.126.25] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oG7fG-006a7K-P6; Tue, 26 Jul 2022 01:39:06 +0200
-Date: Mon, 25 Jul 2022 22:38:53 -0100
+ id 1oG7yX-006bNf-8M; Tue, 26 Jul 2022 01:59:01 +0200
+Date: Mon, 25 Jul 2022 22:58:48 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Magali Lemes <magalilemes00@gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: change variables type
-Message-ID: <20220725233853.5y7wgpbhfau24ric@mail.igalia.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: include missing headers
+Message-ID: <20220725235848.372aapiwvmxiiowt@mail.igalia.com>
 References: <20220725181559.250030-1-magalilemes00@gmail.com>
- <a7589316-2a55-85f2-b665-5fe4bebf7a69@igalia.com>
- <4f359e30-90f8-c8bf-4e07-6856fcfd3506@gmail.com>
+ <20220725181559.250030-2-magalilemes00@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kvkmki7ubvlju5ob"
+ protocol="application/pgp-signature"; boundary="fydmeijpi4u4gmq5"
 Content-Disposition: inline
-In-Reply-To: <4f359e30-90f8-c8bf-4e07-6856fcfd3506@gmail.com>
+In-Reply-To: <20220725181559.250030-2-magalilemes00@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,116 +52,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
- siqueirajordao@riseup.net, mairacanal@riseup.net, sunpeng.li@amd.com,
+Cc: siqueirajordao@riseup.net, mairacanal@riseup.net, sunpeng.li@amd.com,
  tales.aparecida@gmail.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- isabbasso@riseup.net, andrealmeid@riseup.net, christian.koenig@amd.com
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ isabbasso@riseup.net, andrealmeid@riseup.net, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---kvkmki7ubvlju5ob
-Content-Type: text/plain; charset=iso-8859-1
+--fydmeijpi4u4gmq5
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On 07/25, Magali Lemes wrote:
+> Add missing headers to solve the following warnings from sparse:
 >=20
-> On 7/25/22 16:42, Andr=E9 Almeida wrote:
-> > Hi Magali,
-> >=20
-> > =C0s 15:15 de 25/07/22, Magali Lemes escreveu:
-> > > As "dcn3_15_soc" and "dcn3_16_soc" are of type "struct
-> > > _vcs_dpi_soc_bounding_box_st", change their types accordingly.
-> > >=20
-> > I can see that indeed this type change sense for those variables, but
-> > isn't a bit strange that the type was wrong in the first place? I wonder
-> > if this variable is even used, given that it would very likely throw a
-> > compiler error when using the wrong type and trying to access struct
-> > members that aren't defined.
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:656:17: wa=
+rning: symbol 'ddr4_wm_table_gs' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:693:17: wa=
+rning: symbol 'lpddr4_wm_table_gs' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:730:17: wa=
+rning: symbol 'lpddr4_wm_table_with_disabled_ppt' was not declared. Should =
+it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:767:17: wa=
+rning: symbol 'ddr4_wm_table_rn' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:804:17: wa=
+rning: symbol 'ddr4_1R_wm_table_rn' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:841:17: wa=
+rning: symbol 'lpddr4_wm_table_rn' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn301/dcn301_fpu.c:217:17: =
+warning: symbol 'ddr4_wm_table' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn301/dcn301_fpu.c:254:17: =
+warning: symbol 'lpddr5_wm_table' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:53:30: war=
+ning: symbol 'dcn3_1_ip' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:117:37: wa=
+rning: symbol 'dcn3_1_soc' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:197:30: wa=
+rning: symbol 'dcn3_15_ip' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:262:37: wa=
+rning: symbol 'dcn3_15_soc' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:293:30: wa=
+rning: symbol 'dcn3_16_ip' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/dcn31_fpu.c:358:37: wa=
+rning: symbol 'dcn3_16_soc' was not declared. Should it be static?
 >=20
->=20
-> A compilation error would be thrown if either "dc/dcn315/dcn315_resource.=
-h"
-> or "dc/dcn316/dcn316_resource.h" were included in the files where
-> "dcn3_15_soc" and "dcn3_16_soc" are initialized. Since they are not
-> included, the wrong variable type error is not shown.
-> To solve the sparse warning in the second patch of this series, those
-> variables need to be declared first, but they are already declared, we're
-> only missing the headers. If I only add the headers, then those variables
-> will be seen, and I get the expected incompatible variables types error. =
-So,
-> fixing the types here is a preliminary work for the next patch.
->=20
-
 Hi Magali,
 
-Thanks for inspecting it. What you say makes sense, but Andr=E9 pointed
-out something that makes sense to me too.
+Nice catch! See some comments below:
 
-As fas as I checked, dcn3_15_soc and dcn16_soc is not used outside their
-respective FPU files. Maybe the proper solution is removing those
-declarations (and make the struct static). Can you take a look at it?
+> Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.h | 1 +
+>  drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c      | 1 +
+>  drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c    | 1 +
+>  drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c      | 3 +++
+>  4 files changed, 6 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.h b/=
+drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.h
+> index 2e088c5171b2..f1319957e400 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.h
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.h
+> @@ -28,6 +28,7 @@
+> =20
+>  #include "clk_mgr.h"
+>  #include "dm_pp_smu.h"
+> +#include "clk_mgr_internal.h"
 
-Best Regards,
+I see that this fix (right above) comes from another warning not listed
+in the commit message. Can you explicit it there or split it in
+another commit if possible?
+
+Also, clk_mgr/dcn21/rn_clk_mgr.c includes clk_mgr_internal.h and
+rn_clk_mgr.h; I wonder if a cleaner solution is to remove the
+`#include clk_mgr_internal.h` from rn_clk_mgr.c too.
+
+The remaining changes seems correct to me.
+
+Thanks,
 
 Melissa
->=20
-> Magali
->=20
->=20
-> >=20
-> > > Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h | 2 +-
-> > >   2 files changed, 2 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h =
-b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
-> > > index 39929fa67a51..45276317c057 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
-> > > @@ -32,7 +32,7 @@
-> > >   	container_of(pool, struct dcn315_resource_pool, base)
-> > >   extern struct _vcs_dpi_ip_params_st dcn3_15_ip;
-> > > -extern struct _vcs_dpi_ip_params_st dcn3_15_soc;
-> > > +extern struct _vcs_dpi_soc_bounding_box_st dcn3_15_soc;
-> > >   struct dcn315_resource_pool {
-> > >   	struct resource_pool base;
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h =
-b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-> > > index 0dc5a6c13ae7..d2234aac5449 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-> > > @@ -32,7 +32,7 @@
-> > >   	container_of(pool, struct dcn316_resource_pool, base)
-> > >   extern struct _vcs_dpi_ip_params_st dcn3_16_ip;
-> > > -extern struct _vcs_dpi_ip_params_st dcn3_16_soc;
-> > > +extern struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc;
-> > >   struct dcn316_resource_pool {
-> > >   	struct resource_pool base;
 
---kvkmki7ubvlju5ob
+> =20
+>  extern struct wm_table ddr4_wm_table_gs;
+>  extern struct wm_table lpddr4_wm_table_gs;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drive=
+rs/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> index eeeae52fe6fc..45e9f4663abe 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> @@ -30,6 +30,7 @@
+>  #include "dchubbub.h"
+>  #include "dcn20/dcn20_resource.h"
+>  #include "dcn21/dcn21_resource.h"
+> +#include "clk_mgr/dcn21/rn_clk_mgr.h"
+> =20
+>  #include "dcn20_fpu.h"
+> =20
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/dri=
+vers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> index 7ef66e511ec8..d211cf6d234c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> @@ -26,6 +26,7 @@
+>  #include "clk_mgr.h"
+>  #include "dcn20/dcn20_resource.h"
+>  #include "dcn301/dcn301_resource.h"
+> +#include "clk_mgr/dcn301/vg_clk_mgr.h"
+> =20
+>  #include "dml/dcn20/dcn20_fpu.h"
+>  #include "dcn301_fpu.h"
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drive=
+rs/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> index e36cfa5985ea..2d11a2c13345 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+> @@ -25,6 +25,9 @@
+> =20
+>  #include "resource.h"
+>  #include "clk_mgr.h"
+> +#include "dcn31/dcn31_resource.h"
+> +#include "dcn315/dcn315_resource.h"
+> +#include "dcn316/dcn316_resource.h"
+> =20
+>  #include "dml/dcn20/dcn20_fpu.h"
+>  #include "dcn31_fpu.h"
+> --=20
+> 2.37.1
+>=20
+
+--fydmeijpi4u4gmq5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLfKYAACgkQwqF3j0dL
-ehzLTQ/+IwJ5XwbEYtQOtKhEkTZqvfj+TLtKF5DGcM4hGBw3WAfajyLZAHPGRGnH
-7r4G4evjr8FjsYugkiMuFbu6CyKnEU43stfyhjxrWNujglNopMXmNOUj6e8pEb8M
-G9uqf2e/SHEzCSv9vbIrdkeA28dz6TJgyuMG53rf6H/Wh53uxY/Ob8QtlJv2immK
-Bmb4NdHThVm0rpNg60rBF3dDHxcPSN7OhXRhVSlhH0m3HYr/zoz4kW3jF/Z9j5bz
-yPGgpdaA2gI6l5Za18kyqJc4D7QaSF8Ls/Pejkdv4XXuYW07C4VwKRB3pJzd0gYs
-TPoWw2F2vZ5t/1qf9+4aQFGj8yPcwPNS684+ivHiE1/RBZAC05IqRiDfEF+Gnfhj
-t0qCuIf9YL23nYXJiEKgj5CxBWQMsdvXMohJbntc17BXOGRPafZIYklqlrAnlWrl
-j28dTcHlrzoogvr8pqtxFK0hyYBDyYZN7UBFCLNuuUZZHiUqBY4LFpmvz7Fp135A
-mSedlYz8IuNfuqIuM2RnQKjdRuF+j4TSIDZB+qmZuNDV/aMK5uvOsH0J2vS3jBcU
-iHXYgxRLA9jHLO2ZNLrMnBx9HGK+zEh9lQn8M0x2b6b47sYeXpH7ugatmO1dLCdU
-0GY6fxjhF+sf64alOobfOI+P9WZld9s9Ig/w2/DdOUqlddygrgk=
-=4VRc
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLfLhYACgkQwqF3j0dL
+ehxzPBAAlERN6pDxUTfpiujfTDPJOWpVtWnC1Masl4psyPTOojPrar7khCz7lyZL
+BVRSXjIGV7seRAe765s8oEb9D5GQUqMU3Jlpro1EBWF7AQ77qV3/hPlyhYCDr4tM
+am9En8V4PynUgos/ayu+ALEmgPNlBAlJd46fY2rln/4VlPAAyJosp1ipVMzMe4vL
+6QPonpOvTVcVoc3LjNGc2sDGfu1Ktmmou6fRKiHAXk4Wfk8ak55yzH5AoWG+X881
+SiiDdT+kt7U8c0cIdVvdt9T7aksOgPtAixDe22pZon2FaMfqjvOWrobRwOg2qAUG
+UXxHXxWUs1+2+y1J+AYx91WWdJ9A9S/po+Qaw/pdKNmGMwRQljcVTwrk4J46ib78
+F71NSi+39+cvyNOmnZoYpCy0A+YXJWoLsXv6bw225ntqA7Jyqf3LstklMaJYeTgh
+m0gGwQ4eJXZqcnfY29S7W+O4jo6gQXJJBC6Di/bJO1MBUQmPgmFWjaKJdpt7Peax
+SHrzyQwz2GZr1g3hq8MM+9KezYp5BpcjJEdNyC22Tu4+5mEmvs8aR+ZlY4VEEfXE
++UeILM57PyFFeYoqvL9wcyzPDCZwp+aHtl3Y7H7zxHZLcUmlpx9uAmipI3hobiKF
+k1a5jmi5Y3ez0FP14YsQPtyIE1EaEs+vSHbAXlPsn7tLIqpm16g=
+=MbwT
 -----END PGP SIGNATURE-----
 
---kvkmki7ubvlju5ob--
+--fydmeijpi4u4gmq5--
