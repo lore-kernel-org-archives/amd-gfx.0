@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5F6CC43334
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 18:03:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03130C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 18:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26752C148D;
-	Mon, 25 Jul 2022 18:03:04 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 197EBC020B
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 18:03:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA9DC14BB;
+	Mon, 25 Jul 2022 18:04:21 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF819C14BB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 18:04:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gAj+99qeWVbQFuxG8ggmTgVmKpWa9TjLXciuaAqjCgzaGiQskQAoiRoNc1YNYLxqFLcP3hpCEBSE96LN/bsag6cBKvNkd0dr4fK9zw45VeKBCeB1WwCrj4i43KxNxcDSzBxpMH1+S0URHamc80CLVfAmQ9xWu0peSun+63xsUdv1AfSjDUxo8OVtekRztJ2ur51oU1gjDbN1yDZ3h+aiSkiIMYQWmJadpPhAUtlQsWDyA3ehAumekiyFna5ZAxa7ZWb8W233BdAt99cWFSh6T9/76E5u+9C1Si+Tkrp3XJ9Jr6pGbotHrdXno5nEkTcb3bexv0pAgyV/Sv8whMs2aw==
+ b=OZaT9bNqD59qGgW8JXf34XNHfOjOOE3gj1w0xb0aH93jfUFFm8FYwlJ7G0ayhdEvCv6AK2nlLnYuorQLzoWMk5W/2/lCJlqTOtsOkbuN5Vo76TA/3upmtFkKbxkH9R9cwSeta8er04bZfzD7m4w+06bwa/TF61Vhs8eDngQzwDaLRUtv765vzSEzn1/zPm4uyzYTC9Cgr2TqRMIgU8zL6OLTiylTpZhs7BrY5S0XBctY8XYlxp5ftrRr0v9OqtNfnUgGrKCZAQ+JPZGPa++j/rVueCU4NCzXmtDsHvY1N2WsllbtazWxWYN5W5M2PFjER4Y9C3lCpO5A9H21FDDNew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vMPP2JRxaFI1fa9MWuz7L2a06g/WU7R6tsW6GHiocg8=;
- b=BTdO32+s4HQv1kSPCh9K1I2KUCDGAp81dgvqJPKFqmZZujpCuBJAZB6RUIulDXvLB+LijyxOTNXJRYh6YuorsQNN89/pbXPpjQlcnJHxWdus87pjl8Qgb8nRWbNtJRd8luY7Qt9Ox+EfSqHzpqyYiDcfOJw3EgPtjMlT1xp1yaDd1ZAnoRgfh+8wMmEAeOMCHExgBUWjUnmthud4PDaOtg0HZjh0DwiqqGC/1zVKoGiC+9KdHy2dvxWJ6gLlDkcyT3X/qGLx4Z7OQ6fttfBvYt22en8FUCHVDOTZRkI7jWJDsqXbQYhVjN9M94cAPP8qKsGdJMLXZLOXwQHjYqj32w==
+ bh=8K8HGWkLI7YvfhMm+BcwKmYgqr/9Mii3KhGQ/87Sp0g=;
+ b=JcJnW+d//00RdF2e7k3GT2jiQkzIIOZTcqi6WxBkzkP6sR0YwD7/nSdBChFIulNX7gtPmS8B5dRAxvf4vYWTcd3jPQ8lxxWBcBJkm7HV+OmByXjYlfVsUo7TJp7g45ikaqe7RWFO0HqkBotxvMHag33FoyQ2efMOfAqURhq50EBz3Z9CxwUsgsiWVV8gtUpM9z1eEDphMD4X7C/6E66anfymmnkAQKbIMA9zqB/D58F+1PXIxMCjOTGzXLJ6jpHpAU/or9HnVSEyg3LZ94obDm4Wei6aHGYPvN/38IFYgZK7l+mSZwA3rsuxrR+icsjQCCo1jpVsnEJDXM1mYy5N1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vMPP2JRxaFI1fa9MWuz7L2a06g/WU7R6tsW6GHiocg8=;
- b=KIW2j8Rhnj13eUE3RcSDRfNeLb1738Ht9WdSLejoxbE5pFLlAs/NVgmWNc7gnnZ/LCkliDuawUM1WVfd4K0SKID95eVwQ+OFvg82Gpar/G4swRdBW+18IQQo6aiY7dblhhDtQIUNY/Dr4ZvT+aNSY2gotIV5060gKGHl0RISkJo=
+ bh=8K8HGWkLI7YvfhMm+BcwKmYgqr/9Mii3KhGQ/87Sp0g=;
+ b=P2VGY8yn4z4GPrnPANfXAKjCm4MR/vVUYMMOC6oesSKA3xrwzMS6cFOmXmTHkhOGTYCXvCNY4KwGlIu2OVq6yMCNlx62fKLhXN6kii+EjIW5uXiNnysYVg/A/EDh6W3Z9+/PT1ZRQMrK03dm+0FQlL25fMjRYJtuTJi9LpLi2ak=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SA1PR12MB5658.namprd12.prod.outlook.com (2603:10b6:806:235::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.24; Mon, 25 Jul
- 2022 18:02:59 +0000
+ by DM5PR12MB1643.namprd12.prod.outlook.com (2603:10b6:4:11::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5458.21; Mon, 25 Jul 2022 18:04:18 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::406d:afb5:d2d7:8115%5]) with mapi id 15.20.5458.024; Mon, 25 Jul 2022
- 18:02:58 +0000
-Message-ID: <3d31300f-4f32-1aa2-8c50-c2a4f79a6ca2@amd.com>
-Date: Mon, 25 Jul 2022 14:02:56 -0400
+ 18:04:18 +0000
+Message-ID: <662c46c3-1713-5f63-1bd4-1e86eb1d213e@amd.com>
+Date: Mon, 25 Jul 2022 14:04:15 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v2 2/3] drm/amdkfd: Set svm range max pages
+Subject: Re: [PATCH v2 3/3] drm/amdkfd: Split giant svm range
 Content-Language: en-US
 To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220725171943.9155-1-Philip.Yang@amd.com>
- <20220725171943.9155-2-Philip.Yang@amd.com>
+ <20220725171943.9155-3-Philip.Yang@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220725171943.9155-2-Philip.Yang@amd.com>
+In-Reply-To: <20220725171943.9155-3-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0159.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::32) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0148.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::21) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8f205e5-cbed-41ff-30ce-08da6e67e871
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5658:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8c5a3df-c3d4-4464-4c0f-08da6e68179c
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1643:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5lYqGZp0p56GARbBwgAfmUE2vJKIi7Sp/OFeStn+t7+xuROMExjLtvyYf6p473F6EBRJ+hKYf/Xz5q0lvDqngFzhPepJszB8lK0ufAfyumw6GnvY1tqdj2UndQVkk3K9WkitV1OjJbE7tbOedYXY20rnlw5bIMdGsXWe7WLbqRdWvHmCD5NGrq0MfWb5eCqJJ2Ix91GCuAdptdiN+D2ZcplLZ5n9v2zKB+I5BTq414mP5iwl6AFj5mq5FS40UdUevM42t/UVvo1gME7oKLGwH/26g04aC1XJetJmXloGs+J/FAyqrM14K5P7lrGU/5Stewmp6Z8JGFqgMupAKoeKA9KIelpcM/zOyZjAfeUhdoY0lHksKZ/IeRej0zeURZpVjkP1Esu+6US0vY2hGCMNd8D2BOgcax9WJbWlxJDXasSjPXlL3xsP/jVxr1BrGp32CJZoJaQeUtAyO6LPVu8jXPrqI5cruwxdt11CMI96ZSB8GpD4ToNmhJvoKCjazjsA1tX/0JnDpkUnkQjk+PlbGekOhYWsNllYLCdVTNTyLkWr/H3C8VI+4c88a51LC3T7gfHn2qDKlXn/ROfsu9g+oSdEin21ySs529ypB0BZ8Qm068+B052KHvl3fcD2CtWNIggqVL//fdH0cOEybJKdxXpEip8Qf0NvJ3ot/maFiX2/0SnlmN4jpEY4WYpfgOgScUqNnW2vu01KvFuH6TUAuHkFgTEBvSkfnNuTzYYTdUCBTzxX0S7+XGKBPvKkxWyjXWqVifsdrE0Fp6Kl4NEBaiouJb6SZ/xN3b0ap3wUBf8BJXtY9fVsMf4vaOBhnEUwWWHjF4Jip/w+H95GNBpe8A==
+X-Microsoft-Antispam-Message-Info: ANbW/GiSznoEaLtaIpqJWQqafzC3DwwWqUG+zWy6U6h9CAQX28pmkrHGdc7aJMILohRIVx8f05ZGy4yi2VuzrX8t5GSLvkdil/G8xZd91yk4oX2jkwRaDHjOa+DK1i9jgqXwtmFehvJ9H9/DST2JPINzBCJMFkstC5JosVJXH2QvN9EJRg/yn+O6C8RORuMpiiBGkx/fFgH3JCL2R31WbhGvTx1086r/aRCKpqLlaHepFabjwKdH1uGB7vxNRTfqTadSXmFAC7D0c3KhVDUAEJ6/mo9YjU6/2KrRzRwSSdcHey4Pvfa755+v1u2Nzz8eemSZODVTxhHTAnNXle3DqSWG/gL8V6EY46cdc1Xp2NiYg3UrbQUu3RgG4aX5vzL/B6WRNRqCOCUc/0H61EmV+rkWR1iHt3xKTTKgCL5m+HnOQHCSG2XRB0XLQrpAa2GcFscbEeGCtkGZICSwLH+2S7BYD1wxGsEiSsO5tJ3euxzs2Yb0e/Zb+3PUJFr9h83RfNhCNhva+JAamdthE32UnPv+r83zpyoUtIiIp53nqNkgSzMv2sJBok5AGHHJn6sVm0+bAM9h1d2Y6oR1gR80DDbLIgsyD2hK/kM3L/gUKGICXWOQqnKk3iz30ORZEYFeX/sKDEUNKRSEvb1ouf8DQJqhdl8qRMrh4KQh+CgN9ojhYRmEdGDo+eBfFMn8eiz1Co2IDrsXQslIzWGxC/HoJavEZwZtEtPFOu7V+nVx3kb7u6Ible9WLhJlqs3raU+1mRI4Wl56CEGnml0+6qNeuDh/CAt779P9rL4tIWKrX3GROsLGmIFtL4tmO7rPUCQmYtjtkSvksFgs70i/jBUXZQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(31686004)(83380400001)(31696002)(86362001)(6512007)(26005)(36756003)(38100700002)(8936002)(186003)(2616005)(316002)(6486002)(6506007)(41300700001)(478600001)(44832011)(5660300002)(8676002)(66946007)(66556008)(66476007)(2906002)(43740500002)(45980500001);
+ SFS:(13230016)(4636009)(346002)(136003)(376002)(39860400002)(396003)(366004)(8936002)(6486002)(478600001)(86362001)(31696002)(6506007)(2616005)(6666004)(44832011)(5660300002)(38100700002)(26005)(6512007)(41300700001)(36756003)(31686004)(83380400001)(316002)(8676002)(2906002)(66556008)(66946007)(66476007)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eno0NFNJS0pmc0ZuaFZwMDJEYVFIcjNuMVRpRm1uOUFvV0lTK1NVVFZNRzZX?=
- =?utf-8?B?dmY2RFRycW1mMUZ6TThTMHFaNWQyMlpwb1QzRTNiWll1QnI0a0p5eURoNm5W?=
- =?utf-8?B?eEJYZFlLMXhtTDgvaWRWVkZaRnA1TG5VdlZBZmdpRG51RVk3ZXM0ejFlWWVq?=
- =?utf-8?B?dmZDbU9YWjVPRGZBR3BRSjlEZ1dCajAwWUZTdDA3UGlhZmFVcTltYmNUaDM2?=
- =?utf-8?B?SXR5ZkVLY002MFFrNUlvckVTSmY3MG5MNkpRN1Q2WVpiTHdseWF6MXkza2ln?=
- =?utf-8?B?akJ0c1IwNUZvS2xxNksvWjRodjB0OWY4S1ZQMy9sS0tleTVKRFFOUGpMTi9Y?=
- =?utf-8?B?QmNPMlo3alV6QUg4NHVLWVgwOU9rMDEvQ2RmWEdHT3d3T1QyL0tVY3ovVW9w?=
- =?utf-8?B?Mkl6Z29wR2R0V29jOGt4ZDBVSjVsWE5URkRwUjV5V3M1a3dxelAzY21PVUpv?=
- =?utf-8?B?TklEQmVpVUpNT3RWM3l1bmE5V0MzZFcxY0JJNlQwdHNhbUdyK2hWcXZSZXFE?=
- =?utf-8?B?RDlzaktvdW93OEtac0RRZk44cWFvWnhLOThWWE1FZEh1c1hHUHo5TWVERVNS?=
- =?utf-8?B?cnVFMTEzTUpNQStLOTlONWhuVWhIQ1QyV245Y3RtMU5ldzRDeVdORjg3NFhw?=
- =?utf-8?B?N3JvSyt3L0ljSWh6a0ZZRkFaOGM4MlVGM21EZ2NDZHllQzdBTVdqU2FZRW5m?=
- =?utf-8?B?SE4rZ2ZUczJ0TjczS29RSXhiZUIyWEplSjRVWEUzdVlNSFhLUXNFbkJTWCtU?=
- =?utf-8?B?cG92cTI3VXdacVhPKzViUzZNVFAxdkVDV2hpV1VGZmZGVG5hVXFsWEE0b09F?=
- =?utf-8?B?aUZuQ2dDZmg1Q1ZBQXBSd2FRYUE1Q0RPNFNBQm0rc3BEZGNpVTNBdDcwY0No?=
- =?utf-8?B?YTZFQ0FGbXQ2eGxtUThHSjBwODd3MkVJMVM2Qy9CU3lHRGpENHpxYlp3NGlz?=
- =?utf-8?B?MDRZd3A0K3lHc3BWclhkb2RXUlBIc3R6QVVFY0hHd1BMUVBFSlM0UmllUlRL?=
- =?utf-8?B?anVBeEtOWlB6cnh2aVRGSVJiWlJkcGhTTjliVkIrQTdDQytGNjdmZE9zOFNw?=
- =?utf-8?B?N3J2NEgrRGZJTGdXTEtQdkJOREFTalFpdmM3VSswK2FCL25TVUVFenZocUsz?=
- =?utf-8?B?ZkRqYVFXeWZ3TXdMbkZyWnhsamFXbzBxWWxlUzlYMnd0bTFLQkdJY3p2d2tD?=
- =?utf-8?B?Q2pGODh2Q3pCajEyMXdvQ0M2aGZtdWdaMTlja1BocnFXbEtWK0RSMjlIeTZN?=
- =?utf-8?B?cFhhaDNOaHMvRlZhSkNGTmJzRit2MWFRRk4wTUhZMGhIaEwrbzNxV3RtakZL?=
- =?utf-8?B?UXpyQkJoL0N5Z0NMUUQ4QzRuelZrNDdUWDFzZyszWmd3TzZ5SGFDZ0FuRXBt?=
- =?utf-8?B?aWZobjFJUEZ5RFYvUXFzaXpGWXVKZ2tOZi9ac0d0OTNVRHF4Mm5NdnBtMVVO?=
- =?utf-8?B?WkU3UVpIR1N6OG95aHZ0aVg2dEFEczNUc0s5TU4wWDlVWW9vSERxak9FY1dV?=
- =?utf-8?B?WU4zdkZITGxkRUJ4bG5jRk5IaGZKRjdyakVsdVltWlIzNktGOEQyVnM5U29S?=
- =?utf-8?B?N0ZMdm9UNXJqNVV3UWxoWStUQnAyWEF4WFBQV2xHcXlXMGJLanBqdXpWN0kr?=
- =?utf-8?B?eE41TFFhZkFGRTJuN21ER0dCZ1UxK3NZTEtURnlDcWtMMjhaQU1NM1R0Q0hj?=
- =?utf-8?B?RVJmK2Q0dU4wZU9mbFpudlV2NDFwVWxvUjArbUhDM29XK243N0FsdnhhVGZz?=
- =?utf-8?B?bmpuaElRbERDbmlQQkUzV0ZNdGwwZ3RlTFUrcVlhUmp1SDBmME9TY2RQRU9w?=
- =?utf-8?B?OEZLbXpoVUtRQld1MTJjNUxUUUw5anRyMHk3NFc1TjIzN2FUMEFRNC80RlNK?=
- =?utf-8?B?VjVFQm1xUTUzQ0JVLzFCOGVSYW5oYW14OS9VbC9PejZDZGxEeTdBZXRSalBL?=
- =?utf-8?B?U0x4QzNEOTlUdXVSUUM5YUFLa1Y2RDAwUlhPSDlvYnF6VHNFYlRUbFordnc3?=
- =?utf-8?B?ZWVxUW9iMnVsYkxDQnhWSnB4Y1BNdWludzdydkRHMVAvUDhzSlQ0N1NzK0hD?=
- =?utf-8?B?dWlQZFA4WnFnUTBXZGRsN0p0NDdLcGxwaW5aMk5VMUNIaU9FL015ZFNNdmZp?=
- =?utf-8?Q?4K0FGleLEH5DZLP7EN1K1fHxr?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dTYyTzB3TWVIQ1R5Q2VQaUgyaFp1M0VFRHFXcXE3eXY3V0QwaThZY1lGRDFq?=
+ =?utf-8?B?L1BWOTdLdkdLTmlnRDZUMlJxYjFOUVhwekRlcEJObTdVUXVOS0N6RStrQ2lH?=
+ =?utf-8?B?WTNiUGRESmFvWXBaNWhCd0EzcHV2UmEwMTRKekdNc2JiUlhpVVRnci9MMDVR?=
+ =?utf-8?B?QXVmVDhSVXhWeHpVT2hDdDNIT0tmSFNZZW9YbDAvaHBKbUFjQStVOFgwOHEv?=
+ =?utf-8?B?aU55TWhyVU5sOGVEbStid3JOL1dLMWduSnNic0Rnc3JUL1d2WndseW1UQnhW?=
+ =?utf-8?B?dGVFWGxGZWJMbzRXdmg1WnZLS2ZuR3VUeG9xSzVwQUluQXRrcVYrOG5sM2px?=
+ =?utf-8?B?MkxGRlZneFhIdzVCL1hjZlAySGxLNlhFYWVtSkVtSkFPSEUrcWtjQm1mVzY1?=
+ =?utf-8?B?QkZDY0dIRmkxK25CcUoxaW8wSjIvQlJJazJtcE8rOFV3NFUxcEFzMUdSeUdR?=
+ =?utf-8?B?TW5IdzQrSWd1aTBwd1lMSWIyaFI5bUlRVStFUDRXdkx3R0RsdURtSlQ5WndQ?=
+ =?utf-8?B?dnBPQnppQ0ZiaVNrS1FlVWZXZWM1QmJsdDk0ajFSMlRURDAvLzlxOHJaemh5?=
+ =?utf-8?B?QVlpNmUwN0E2Q3pBdmJiLzRQZ1hyOU1ocXBoUVZUY2tGMVZuL1hYbXBieWdh?=
+ =?utf-8?B?UXp0N1diMElJWnYybjZVUGJMakVhT0ZZRDRZYmZVUnFDckhaMmQzODl1Q3ho?=
+ =?utf-8?B?VGJrOFRNSm5TZFRFWjEwNnJLZW10TWxyR2psUjdHNkFUV1JyR1A1ZzV3blNI?=
+ =?utf-8?B?L0N6NnZiTW5zdjIzOXMxazd0L2UycnBOTnZ4UTB5OUpUdTlnOURLRUpBU1Mr?=
+ =?utf-8?B?azlFdkE0cE81bUtYS1l3LzZLd1gxbTdmTElJQm5mbHRuZWkyc3RDNGVXRE92?=
+ =?utf-8?B?OHFxU3hWRzFkSFRrMkRHN0tHY3RPZktuZU0xVXpINllxWG9uRzlkZHNFUXo4?=
+ =?utf-8?B?UW5Sc0c2elNpaHMvSTJPUHd6NGVlcGJkalN3eFRmN01BeE9jSnZXNzZuSHBY?=
+ =?utf-8?B?WlBPM3JvK1I2YlhpdGMzekpVK1pST2RYMEtaYWRMS0t2cU16YmJZaFNsdnl0?=
+ =?utf-8?B?TU11SnU3ajdueGxrOFQwQmYyaU1mbzNvaFZkKzd3UGZsaGoybDBSRWhTc2FH?=
+ =?utf-8?B?M3lzOXJsYlRuMC9NaGJKSkI0Ym1LNURxeVZwSnRITEEvYUIzaWl5aVhVRmJ1?=
+ =?utf-8?B?cm1MRFRSd2dJQXBoTlZWOEVHZHV0Y2dzUUVwWTJrSmUzR1ozQURYTlpmRFZy?=
+ =?utf-8?B?RThsYkZUakR6MTBMWVJTUmYyVHVkNE1CV0pEcEZZUXh4NHF2ZWExNUNjOG51?=
+ =?utf-8?B?RmEreDBmUUt1T2p5RmFVd0ZQelQ0M1E1WUhiS1U2SUo2ODdaUVo4Y2w1YStt?=
+ =?utf-8?B?MmRBTU93ODJqeEJwcVlFZGEvY2ExRlBpeVZyTUZRUCtBY1pCUS8yd25xcTFH?=
+ =?utf-8?B?ZWpnWHNtekdoeEt6bWI1K0JPRGgvcHFRWFJaa1F3R2x1SkEweHZCdmRKc2hv?=
+ =?utf-8?B?OHYraVYyU3diSyt4T2paMHJvRkV2NCtrZzVYNzZhSUVRZGMzSGdvTUJQSVZK?=
+ =?utf-8?B?ZXhKaFdLbUY3Ulp3WEg1dk1zSEptYUpJL2RaaGltcHhPcFJiZVUvNm9pRUZi?=
+ =?utf-8?B?Z3kxYTJpZ1FXSEVzSlo3VnZmRDllZHhrZElKYTV1U1hWOXNtVGJield4S2Qr?=
+ =?utf-8?B?cWp3SXFaY053UGRQRGZwRE1ISzZINDlmZnVNMUJGeFFMVWtsdmw4N0xCUEtH?=
+ =?utf-8?B?STNKTk04VnJpcWJHSmdwZzFKTTRvSGNaUkJlT0NDMGVJQm82SS9LRU9XTGo3?=
+ =?utf-8?B?ekVVVktTc1R0YjRqVk9hWDFoTjlsbEQ0N2ZNVEN3dU1XUFBXRzB3MWdiZUNK?=
+ =?utf-8?B?WHZKUlladlVta0s4b0hXd2Y4a2Z3WXBKOXhJdU40VHo0bzdrU2pNa1huc0F0?=
+ =?utf-8?B?RUdqSUdFT2FuclZNQzZ2MjU5Z2toNjNhNitNU3RHRTR1Qi9xZ0RZVWNVeWgx?=
+ =?utf-8?B?b2ZVV2N4Z0ttYkx2bHZDZ0Q4eHpUZ3piQXo1OFRrVFNLWDYyMTY5b2lNMUF1?=
+ =?utf-8?B?a2FQYjVQSVBnV0doN0RNQWpVdms3ODlBWDh4cmxBOWExcXZHMnVpSThQbS9x?=
+ =?utf-8?Q?55mmGDzPIUW85+Kt6HbKKC4bU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8f205e5-cbed-41ff-30ce-08da6e67e871
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8c5a3df-c3d4-4464-4c0f-08da6e68179c
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 18:02:58.8171 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2022 18:04:17.9369 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 00dHYnldGcz9ySnC6A95D3XktkCDUg00r2hPewy8hOjZEiYtag5SMHIx7wbueJ4NpCnmSg865qXIRf8mJ879rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5658
+X-MS-Exchange-CrossTenant-UserPrincipalName: F+RqmBOBg2cyJP14Keu7nHDzIy0Ag/Q0dmu5mOjwWoRKVSJCvF+2S//Bfreq2Bwu/odsCRhub6fUAw9FsCEGhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,101 +127,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
 Am 2022-07-25 um 13:19 schrieb Philip Yang:
-> This will be used to split giant svm range into smaller ranges, to
-> support VRAM overcommitment by giant range and improve GPU retry fault
-> recover on giant range.
+> Giant svm range split to smaller ranges, align the range start address
+> to max svm range pages to improve MMU TLB usage.
 >
 > Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  2 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 19 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  3 +++
->   3 files changed, 24 insertions(+)
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 49 +++++++++++++++++++---------
+>   1 file changed, 33 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 9667015a6cbc..b1f87aa6138b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -1019,6 +1019,8 @@ int svm_migrate_init(struct amdgpu_device *adev)
->   
->   	amdgpu_amdkfd_reserve_system_mem(SVM_HMM_PAGE_STRUCT_SIZE(size));
->   
-> +	svm_range_set_max_pages(adev);
-> +
->   	pr_info("HMM registered %ldMB device memory\n", size >> 20);
->   
->   	return 0;
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index b592aee6d9d6..098060147de6 100644
+> index 098060147de6..6529a40fb508 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -46,6 +46,11 @@
->    */
->   #define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING	(2UL * NSEC_PER_MSEC)
->   
-> +/* Giant svm range split into smaller ranges based on this, it is decided using
-> + * minimum of all dGPU/APU 1/32 VRAM size, between 2MB to 1GB and align to 2MB.
-> + */
-> +uint64_t max_svm_range_pages;
-> +
->   struct criu_svm_metadata {
->   	struct list_head list;
->   	struct kfd_criu_svm_range_priv_data data;
-> @@ -1870,6 +1875,20 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
->   	return new;
+> @@ -1889,6 +1889,31 @@ void svm_range_set_max_pages(struct amdgpu_device *adev)
+>   	WRITE_ONCE(max_svm_range_pages, max_pages);
 >   }
 >   
-> +void svm_range_set_max_pages(struct amdgpu_device *adev)
+> +static int
+> +svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
+> +		    uint64_t max_pages, struct list_head *insert_list,
+> +		    struct list_head *update_list)
 > +{
-> +	uint64_t max_pages;
-> +	uint64_t pages;
+> +	struct svm_range *prange;
+> +	uint64_t l;
 > +
-> +	/* 1/32 VRAM size in pages */
-> +	pages = adev->gmc.real_vram_size >> 17;
-> +	pages = clamp(pages, 1ULL << 9, 1ULL << 18);
-> +	max_pages = READ_ONCE(max_svm_range_pages);
-> +	max_pages = min_not_zero(max_pages, pages);
-> +	max_pages = ALIGN(max_pages, 1ULL << 9);
-
-In the next patch you use max_svm_range_pages as alignment parameter in 
-an ALIGN_DOWN macro. The ALIGN... macros assume that the alignment is a 
-power of two. Just aligning it with 2MB is not enough.
-
-I also don't understand why you do the alignment after taking the 
-min_not_zero. If you assume that max_svm_range_pages was correctly 
-aligned before, you can just to the alignment to a power of two before 
-the min_not_zero call.
-
-The READ_ONCE ... WRITE_ONCE is not atomic. It should work as long as 
-this function can't be called on multiple threads concurrently. That is, 
-it should work as long as GPU initialization or hotplug is somehow 
-serialized. I'm not sure whether that's the case. If that is not 
-assured, the proper way to do this is either with a global or static 
-spinlock or with a cmpxchg in a retry loop.
-
-Regards,
-   Felix
-
-
-> +	WRITE_ONCE(max_svm_range_pages, max_pages);
+> +	pr_debug("max_svm_range_pages 0x%llx adding [0x%llx 0x%llx]\n",
+> +		 max_pages, start, last);
+> +
+> +	while (last >= start) {
+> +		l = min(last, ALIGN_DOWN(start + max_pages, max_pages) - 1);
+> +
+> +		prange = svm_range_new(svms, start, l);
+> +		if (!prange)
+> +			return -ENOMEM;
+> +		list_add(&prange->list, insert_list);
+> +		list_add(&prange->update_list, update_list);
+> +
+> +		start = l + 1;
+> +	}
+> +	return 0;
 > +}
 > +
 >   /**
 >    * svm_range_add - add svm range and handle overlap
 >    * @p: the range add to this process svms
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> index eab7f6d3b13c..9156b041ef17 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> @@ -204,6 +204,9 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
->   #define KFD_IS_SVM_API_SUPPORTED(dev) ((dev)->pgmap.type != 0)
+> @@ -1991,14 +2016,11 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
 >   
->   void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
-> +
-> +void svm_range_set_max_pages(struct amdgpu_device *adev);
-> +
->   #else
+>   		/* insert a new node if needed */
+>   		if (node->start > start) {
+> -			prange = svm_range_new(svms, start, node->start - 1);
+> -			if (!prange) {
+> -				r = -ENOMEM;
+> +			r = svm_range_split_new(svms, start, node->start - 1,
+> +						READ_ONCE(max_svm_range_pages),
+> +						insert_list, update_list);
+> +			if (r)
+>   				goto out;
+> -			}
+> -
+> -			list_add(&prange->list, insert_list);
+> -			list_add(&prange->update_list, update_list);
+>   		}
 >   
->   struct kfd_process;
+>   		node = next;
+> @@ -2006,15 +2028,10 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>   	}
+>   
+>   	/* add a final range at the end if needed */
+> -	if (start <= last) {
+> -		prange = svm_range_new(svms, start, last);
+> -		if (!prange) {
+> -			r = -ENOMEM;
+> -			goto out;
+> -		}
+> -		list_add(&prange->list, insert_list);
+> -		list_add(&prange->update_list, update_list);
+> -	}
+> +	if (start <= last)
+> +		r = svm_range_split_new(svms, start, last,
+> +					READ_ONCE(max_svm_range_pages),
+> +					insert_list, update_list);
+>   
+>   out:
+>   	if (r)
