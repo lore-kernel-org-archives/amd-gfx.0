@@ -4,39 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C663DCCA473
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 13:09:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36FD1C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 13:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26304B1F1A;
-	Mon, 25 Jul 2022 13:09:25 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CAEAB1BC
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 12:39:57 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Ls0490wGkz4xFw;
- Mon, 25 Jul 2022 22:39:53 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1658752794;
- bh=eSOLGSxxYNa3xROdrcKx9ie20r/UPvDadRCttEkmp6M=;
- h=From:To:Cc:Subject:Date:From;
- b=cckJ3ie61VXTZuA+PJMocDjxpnWF/WYCTpYuoWoOZeNNZaoeifq0LXqGf7YfGv8KV
- 0TDZTeNx2uzQaJ0HAGCc1XIsbOf0FbumYT/OqzSWsOvTgaJaS3wQCNgt+3o++wbozi
- 0FNLgy7uWSdbgZjGtjtOcccfDNzNjcMDbm8eQ4jjWYeTWUMVT4G8YPIfoEKhu0NoEv
- VJPEv55b50XmApiJGBght5zqEYINJ2rMkGXGpkVicV/bxOBAzEgfxjbAZba/b1/tTZ
- hJddKbV/AOcUWV9sOIDm64SauKpGxUAMKlHViu1zvBLGdfHbK+G3eT6u+02vkWEWMW
- ZwPIaX3/+pRkA==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: <linuxppc-dev@lists.ozlabs.org>
-Subject: [PATCH] drm/amdgpu: Re-enable DCN for 64-bit powerpc
-Date: Mon, 25 Jul 2022 22:39:18 +1000
-Message-Id: <20220725123918.1903255-1-mpe@ellerman.id.au>
-X-Mailer: git-send-email 2.35.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7026411B0A3;
+	Mon, 25 Jul 2022 13:36:01 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E0414B396
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 13:35:59 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id t3so13995180edd.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 06:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tvrK94lGLpIbhCOdWbzjY4GCkQX4Bxfw5jfbcDao4T8=;
+ b=DOOihBoan+j/EnmbVQBbEyMmfLYGy/ohK0hb0FZ5pJRNvWXJHISeU/ADZGpzT9LyLA
+ 0+NhenjXLYTMfZbfJfaEa+QCdhxJxaqbjk/BDJgM1kpbwpXbRp/evUrCQURvc7MO+EUp
+ XFErxo7ZpjW6436i8ebXLq1op8IHnmveO3+p8feMam9oVdkjLvqHEMbfmS1CTy+gZPgm
+ EBqtKR2TMkzp5kUaEUpD6hoyIG/ZPi6BPlZLr9ys3WtEUgxekBFePOXS4suhvr3e0GYp
+ 6ivmcNv0+jyOS5lxDynfW07hTEzzOnLPKg7n8VEZlMi/LOr2wjavO1k7PkYliWXCQzzC
+ BlXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tvrK94lGLpIbhCOdWbzjY4GCkQX4Bxfw5jfbcDao4T8=;
+ b=62ydva884GZ3P39UwrG4J0AfhAFO0uKyaFtnrr6NI2OvGUbTNuS5qi1K1UGckjplod
+ 2NE4/9+yn5dsgSABbR44x76hsiwWo9TKsWQgadw7yQ4HbZ5wumYET0LoxjaNIanIGjal
+ 0DsoVhuH4xBTKSg+ulmp/JstCUErh6Ji92DjwyN6FFNlCP+y02+awxvCLIjyiMU7kY0a
+ VkubEO98h/iKJ3uAG/NpXcuyDdHh3yjGGEwhL1DRqMm0KvTtyjTe7dBazVY4ph4PFQyy
+ sbIC0H/+cULLKMHvhDGQBGAoWNavAwfnAA4mZkbear9m/kfpWJzE2dJ+7ltUs3dMH3Sw
+ az4g==
+X-Gm-Message-State: AJIora/m4W14+ZVogGeOESz6fORqweaYYPVILhCOtga/0OhTdMgIWxzw
+ Lvf5QBAYLFB00zdObbkuwE96766ganFj7TfCx7I=
+X-Google-Smtp-Source: AGRyM1sr8dytd69o81SMZ9hX73I6iWZXjWLSW7wAG/1fadj6QiVuJNaQLlTNw+b6Rf8RdV+6QeFEWPxcSQk6ZBFvs2k=
+X-Received: by 2002:a05:6402:d0a:b0:437:f9a1:8493 with SMTP id
+ eb10-20020a0564020d0a00b00437f9a18493mr13426497edb.226.1658756158119; Mon, 25
+ Jul 2022 06:35:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Jul 2022 13:09:24 +0000
+References: <20220722045646.106225-1-Roy.Sun@amd.com>
+ <DM6PR12MB5534F34CAB5A844675A344D6FF959@DM6PR12MB5534.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB5534F34CAB5A844675A344D6FF959@DM6PR12MB5534.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 25 Jul 2022 09:35:46 -0400
+Message-ID: <CADnq5_N9sfqf4GRUBC2XEBBvjwZLrR57DVr1KDVO1hYiNy-=iw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix the incomplete product number
+To: "Sun, Roy" <Roy.Sun@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,74 +62,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dan@danny.cz, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- tpearson@raptorengineering.com, alexdeucher@gmail.com,
- torvalds@linux-foundation.org, linux@roeck-us.net
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit d11219ad53dc ("amdgpu: disable powerpc support for the newer
-display engine") disabled the DCN driver for all of powerpc due to
-unresolved build failures with some compilers.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Further digging shows that the build failures only occur with compilers
-that default to 64-bit long double.
-
-Both the ppc64 and ppc64le ABIs define long double to be 128-bits, but
-there are compilers in the wild that default to 64-bits. The compilers
-provided by the major distros (Fedora, Ubuntu) default to 128-bits and
-are not affected by the build failure.
-
-There is a compiler flag to force 128-bit long double, which may be the
-correct long term fix, but as an interim fix only allow building the DCN
-driver if long double is 128-bits by default.
-
-The bisection in commit d11219ad53dc must have gone off the rails at
-some point, the build failure occurs all the way back to the original
-commit that enabled DCN support on powerpc, at least with some
-toolchains.
-
-Depends-on: d11219ad53dc ("amdgpu: disable powerpc support for the newer display engine")
-Fixes: 16a9dea110a6 ("amdgpu: Enable initial DCN support on POWER")
-Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2100
----
- arch/powerpc/Kconfig                | 4 ++++
- drivers/gpu/drm/amd/display/Kconfig | 2 +-
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-Alex, are you OK if I take this via the powerpc tree for v5.19?
-
-cheers
-
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 7aa12e88c580..287cc2d4a4b3 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -281,6 +281,10 @@ config PPC
- 	# Please keep this list sorted alphabetically.
- 	#
- 
-+config PPC_LONG_DOUBLE_128
-+	depends on PPC64
-+	def_bool $(success,test "$(shell,echo __LONG_DOUBLE_128__ | $(CC) -E -P -)" = 1)
-+
- config PPC_BARRIER_NOSPEC
- 	bool
- 	default y
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 0ba0598eba20..ec6771e87e73 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -6,7 +6,7 @@ config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
--	select DRM_AMD_DC_DCN if X86 && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-+	select DRM_AMD_DC_DCN if (X86 || PPC_LONG_DOUBLE_128) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
--- 
-2.35.3
-
+On Mon, Jul 25, 2022 at 3:29 AM Sun, Roy <Roy.Sun@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Ping
+>
+> -----Original Message-----
+> From: Roy Sun <Roy.Sun@amd.com>
+> Sent: Friday, July 22, 2022 12:57 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Sun, Roy <Roy.Sun@amd.com>
+> Subject: [PATCH] drm/amdgpu: Fix the incomplete product number
+>
+> The comments say that the product number is a 16-digit HEX string so the buffer needs to be at least 17 characters to hold the NUL terminator. Expand the buffer size to 20 to avoid the alignment issues.
+>
+> The comment:Product number should only be 16 characters. Any more,and something could be wrong. Cap it at 16 to be safe
+>
+> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9f729a648005..187e3dae3965 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1019,7 +1019,7 @@ struct amdgpu_device {
+>         bool                            psp_sysfs_en;
+>
+>         /* Chip product information */
+> -       char                            product_number[16];
+> +       char                            product_number[20];
+>         char                            product_name[AMDGPU_PRODUCT_NAME_LEN];
+>         char                            serial[20];
+>
+> --
+> 2.34.1
