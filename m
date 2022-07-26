@@ -4,88 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4742EC43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 11:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79A9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 462CC1121AB;
-	Tue, 26 Jul 2022 11:15:37 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F47714A9ED
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 11:15:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UdsSJEd90bSQNrWnHV4QoMjBXNBcE4D5rJhRzpyUDt1+gpg1vZS+nlDvgX19aznmBSUaJE6U2BPnF/Oknpy25rOV/LFftiCL3HP6kMiiMVNdK/dpJ0ImEmac6wUbXteoRpL/BgbTlf3D4JaKZx/yJS30fZrB6eGGfLd2DogRHFETtclfcXA9A/+uuJAqi4XRagwZUx7bUcBPBo1TbUk5jEUeVjHagzAvRy0bZYQAWqDIKcS6PLIgoSDsPlx2MF1VbZarwjUVlq/mxJMxEODuzg+sY6r5MQKHvMbkrneEuLDmdUsupHf2K4mc24NsfQsDYlAFq8oRVj1yM/jRdHDDGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SLFOhwWg08WdXS3d7oL4M4b/evRbin0C8Za2kTJ0+Oo=;
- b=mw+Hg1JbE7hmGVm7gWFM2xpWZEazeAKphQpgJ8soKlgGSvYY9F2zDNDuXcTQ9h+GggewXz1BNUpULiSXLSyc4mt0rShBOV4UhJk71B2MZ3UeHt5OPRpMp7IH5ej/RYwP0RZS33ztCZuDUGnMg/tz/4s9sQQ5vzt/kyiM9p5SBxF4ZEoPLWNm/H7AJ02SuCtXoHetJBw4ECKxmKvZcvDjmNjlW0gWkKEobanjldwWF1gMcgaf6lc4A57YEF87olPxLY4TMGH/lzhP0tN0ZUjS50rdU2qs/AyjNJ4AzE8++Y74CawupiSS6fMzOAwU2vqHfUqCEHirx5+iFTwphsDkGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SLFOhwWg08WdXS3d7oL4M4b/evRbin0C8Za2kTJ0+Oo=;
- b=i9RkYa8Wy/rhs9RYUJ8Hmw/LAAGSyJN2NgF4SGH1aoHB6rob6Clg7njZOWVwXgAQEC66wKn2RUTTRCE6K2EqRYGKaSoVwaX1qOgdizMA4mq1iRYj09Q8C5gux47SpszAmPtanCS9bht4AA2ej6SuYBalNsH4IO4IjoCLbAgLmRw=
-Received: from DM5PR08CA0031.namprd08.prod.outlook.com (2603:10b6:4:60::20) by
- BL1PR12MB5924.namprd12.prod.outlook.com (2603:10b6:208:39b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.23; Tue, 26 Jul
- 2022 11:15:32 +0000
-Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::fb) by DM5PR08CA0031.outlook.office365.com
- (2603:10b6:4:60::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.22 via Frontend
- Transport; Tue, 26 Jul 2022 11:15:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Tue, 26 Jul 2022 11:15:31 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 26 Jul
- 2022 06:15:26 -0500
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: fix kgd_mem memory leak when importing dmabuf
-Date: Tue, 26 Jul 2022 19:15:13 +0800
-Message-ID: <20220726111513.2215655-1-Lang.Yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16690112760;
+	Tue, 26 Jul 2022 12:07:05 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9916113CEB;
+ Tue, 26 Jul 2022 12:07:03 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-10d845dcf92so18234319fac.12; 
+ Tue, 26 Jul 2022 05:07:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=7T38UTPHaDYqfOXMWpYC5zzC9yjWJzkWI04Yg2JEH3c=;
+ b=nPC11/34luiHEnb1tElXmYo/Fb76IC0BjQEzDU0JmRpe9j3i3ay2HVChCT0sDqPF9A
+ LClxDfnuhb2jk1g2FNgGIKzFjDi9YhDU9KtGZYkx2Icm2hmpSO5/6nIMwOlxNb3WPePZ
+ XpOlv3Rp+C/PorqSv5F2yhuCUB+ZCN+MdCyplkk2KXaGP0I5Cu0kpb2MHFqH5i9EvnS3
+ RV6e+GJRXlnjOI4c6n1flbBoLVV8Z15+S5yI5iSNlgkLg28KKuwj7SS6a86PtM67tTZw
+ 1Oieb/QWqpR+2kX0mlHy3tosCEPTGdze3QGFMxtgO6WDMOKl3qvgsxVxjLSmXLeoYA6Y
+ M/ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=7T38UTPHaDYqfOXMWpYC5zzC9yjWJzkWI04Yg2JEH3c=;
+ b=kmN/pfFftJIfYRe5G5Jgi9Dipm6Mg3xNsNylHnTwX/875wONiEuC4hN6TS5gAy8T7N
+ Y8Xr3+9iDlUcrLgIshh8oL+rzaFe7edMtB5w846SEgTQcsyg7LrOwkejQ2K3XMIpZvKg
+ +7YYnUKUVjjrwteLJfOXDiH7Urj6YJZ93aBrqfLw+ZXIlXNgM7Q5gIgS4doDcKcsEXjB
+ C/Dlgz824G1HMauh58v1XlEEI4XGgkTvZ02G1VAMQnrrsirSr4zQIMTw4yEgbYdUf7r0
+ g8RYa2KXKym/lJRb+19uofh/uhiRCSS1KAXdB2bQnAW8gmYBM/tG0cscNnNRpYXByzeV
+ d9yw==
+X-Gm-Message-State: AJIora/CGF2OqO80nxp4nRfbuzpB94OeUMH/z/Z/pL4NmKqqv3Dz6kTB
+ S7Y8s7l038BNIdNF2MWU8TA=
+X-Google-Smtp-Source: AGRyM1vYmk1/vlAA7ySYkjL2JlboJAsT4TLAa+QChodCThP0tZk1joXUO2gfrVYmNHWMSjaykZOKPQ==
+X-Received: by 2002:a05:6870:6087:b0:10b:aef4:db0a with SMTP id
+ t7-20020a056870608700b0010baef4db0amr16070887oae.17.1658837222558; 
+ Tue, 26 Jul 2022 05:07:02 -0700 (PDT)
+Received: from ?IPV6:2804:14c:bbe3:4370:95da:f07f:e927:6958?
+ ([2804:14c:bbe3:4370:95da:f07f:e927:6958])
+ by smtp.gmail.com with ESMTPSA id
+ t22-20020a9d7756000000b0061c3246bd42sm6223803otl.44.2022.07.26.05.06.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Jul 2022 05:07:02 -0700 (PDT)
+Message-ID: <88ce4703-e295-f41a-5905-d8afe5589f80@gmail.com>
+Date: Tue, 26 Jul 2022 09:06:55 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/2] drm/amd/display: change variables type
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>
+References: <20220725181559.250030-1-magalilemes00@gmail.com>
+ <a7589316-2a55-85f2-b665-5fe4bebf7a69@igalia.com>
+ <4f359e30-90f8-c8bf-4e07-6856fcfd3506@gmail.com>
+ <20220725233853.5y7wgpbhfau24ric@mail.igalia.com>
+From: Magali Lemes <magalilemes00@gmail.com>
+In-Reply-To: <20220725233853.5y7wgpbhfau24ric@mail.igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 931384cc-cddb-41a2-2c32-08da6ef8278c
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5924:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5hJ411zSVG6ciuKl0S6HR8TE6wU9/Lq+fZkF/cLlSsrf5/x05CEQrhrrP2sG1E8IRazc/ZPffeGAvoWmt3eqGUCl4cvF2JCypG1vbOHwYaAqBw/h9xU8QFF93D2T+ZZAinVVmk1oITWR8iq8OKErJMp6auBUI6VmQ6SnK0PO87IvnfkMuszHJ4YV2WS6fE6u1JLSoaC6BzeeN19cR7JWUYn1fyqHyHQkMFCdNqq7r8OtpVwBVUv7Utje5U4Qs/uh00mbnwSz5XvcAsHsbhgFme5enia3FZyvhiGKZBCJ970FaM2WH2AMnBgOO0n9kDASrSxKsYsQGgf9CT9NHEna20gcYmKZJfoSs42Sr6IKPNxQEfk1cCBrwsC09dC7/j7w3XrFRu2sOfnRRZ9t+VzC7rbvpsjzInYJHCoAfb0gvQjVLE4WC3yLJe0rt+NViuRg922io/S22zGSsChMZW8UpHPumKsCC9amXVOpC6rjDVKg/o/U3vO9BbIjeSG8sqxO+syNuSTs+SDGE8kRXEUsLDyxutPpFF7Q8KmlDW5LKV/TG4Wr8aUBQa67suN8+uEqlCDJdYgwiYQki/yqh1CM+boJh2NdYcRakimbwFipdIqlUBZozk/rPjXFrZg00XR1obezve9hhB0xvTVUk7SIQ064A5nXD54s1xG4EIufnQRcuRRnADyqfc/m4nqj5Bo46Tzg2iJnlTYI21CAZ8IdIyJptB2LNwvFIQpD2Wb2jZM4ErKJ1U5qvAh2t4IOgeMLLoXjv/ZLvfDo0vow2fgjseQklj/XDWwKFukUfrw5Sw9/Suz/GVtGXyuD3WBOAJ3T+fRhJGeFosh4LiR3MA5Jbw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(396003)(39860400002)(136003)(46966006)(36840700001)(40470700004)(86362001)(36860700001)(36756003)(356005)(47076005)(70206006)(1076003)(426003)(186003)(8936002)(16526019)(336012)(81166007)(82740400003)(26005)(7696005)(478600001)(82310400005)(316002)(54906003)(6916009)(6666004)(40480700001)(5660300002)(4326008)(8676002)(2616005)(70586007)(2906002)(41300700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 11:15:31.9539 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931384cc-cddb-41a2-2c32-08da6ef8278c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5924
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,48 +77,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Lang Yu <Lang.Yu@amd.com>
+Cc: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ siqueirajordao@riseup.net, mairacanal@riseup.net, sunpeng.li@amd.com,
+ tales.aparecida@gmail.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ isabbasso@riseup.net, andrealmeid@riseup.net, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The kgd_mem memory allocated in amdgpu_amdkfd_gpuvm_import_dmabuf()
-is not freed properly.
+On 7/25/22 20:38, Melissa Wen wrote:
 
-Explicitly free it in amdgpu_amdkfd_gpuvm_free_memory_of_gpu()
-under condition "mem->bo->kfd_bo != mem".
+> On 07/25, Magali Lemes wrote:
+>> On 7/25/22 16:42, André Almeida wrote:
+>>> Hi Magali,
+>>>
+>>> Às 15:15 de 25/07/22, Magali Lemes escreveu:
+>>>> As "dcn3_15_soc" and "dcn3_16_soc" are of type "struct
+>>>> _vcs_dpi_soc_bounding_box_st", change their types accordingly.
+>>>>
+>>> I can see that indeed this type change sense for those variables, but
+>>> isn't a bit strange that the type was wrong in the first place? I wonder
+>>> if this variable is even used, given that it would very likely throw a
+>>> compiler error when using the wrong type and trying to access struct
+>>> members that aren't defined.
+>>
+>> A compilation error would be thrown if either "dc/dcn315/dcn315_resource.h"
+>> or "dc/dcn316/dcn316_resource.h" were included in the files where
+>> "dcn3_15_soc" and "dcn3_16_soc" are initialized. Since they are not
+>> included, the wrong variable type error is not shown.
+>> To solve the sparse warning in the second patch of this series, those
+>> variables need to be declared first, but they are already declared, we're
+>> only missing the headers. If I only add the headers, then those variables
+>> will be seen, and I get the expected incompatible variables types error. So,
+>> fixing the types here is a preliminary work for the next patch.
+>>
+> Hi Magali,
+>
+> Thanks for inspecting it. What you say makes sense, but André pointed
+> out something that makes sense to me too.
+>
+> As fas as I checked, dcn3_15_soc and dcn16_soc is not used outside their
+> respective FPU files. Maybe the proper solution is removing those
+> declarations (and make the struct static). Can you take a look at it?
+>
+> Best Regards,
+>
+> Melissa
 
-Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Hi, Melissa. Thank you for the suggestion!
+My sole reason not to make those structs static was to keep some sort of 
+consistency with the rest of the dcn*_resource.h files, since that is 
+where all the other structs are first declared. I'm not sure, though, if 
+that's a good enough reason not to turn these variables into static. Let 
+me know what you think.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 6bba6961eee7..086bed40cf34 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1803,6 +1803,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		uint64_t *size)
- {
- 	struct amdkfd_process_info *process_info = mem->process_info;
-+	struct kgd_mem *tmp_mem = mem->bo->kfd_bo;
- 	unsigned long bo_size = mem->bo->tbo.base.size;
- 	struct kfd_mem_attachment *entry, *tmp;
- 	struct bo_vm_reservation_context ctx;
-@@ -1895,6 +1896,13 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	 */
- 	drm_gem_object_put(&mem->bo->tbo.base);
- 
-+	/*
-+	 * For kgd_mem allocated in amdgpu_amdkfd_gpuvm_import_dmabuf(),
-+	 * explicitly free it here.
-+	 */
-+	if (mem != tmp_mem)
-+		kfree(mem);
-+
- 	return ret;
- }
- 
--- 
-2.25.1
+Magali
 
+
+
+> Magali
+>
+>
+>>>> Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h | 2 +-
+>>>>    drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h | 2 +-
+>>>>    2 files changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
+>>>> index 39929fa67a51..45276317c057 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
+>>>> @@ -32,7 +32,7 @@
+>>>>    	container_of(pool, struct dcn315_resource_pool, base)
+>>>>    extern struct _vcs_dpi_ip_params_st dcn3_15_ip;
+>>>> -extern struct _vcs_dpi_ip_params_st dcn3_15_soc;
+>>>> +extern struct _vcs_dpi_soc_bounding_box_st dcn3_15_soc;
+>>>>    struct dcn315_resource_pool {
+>>>>    	struct resource_pool base;
+>>>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
+>>>> index 0dc5a6c13ae7..d2234aac5449 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
+>>>> @@ -32,7 +32,7 @@
+>>>>    	container_of(pool, struct dcn316_resource_pool, base)
+>>>>    extern struct _vcs_dpi_ip_params_st dcn3_16_ip;
+>>>> -extern struct _vcs_dpi_ip_params_st dcn3_16_soc;
+>>>> +extern struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc;
+>>>>    struct dcn316_resource_pool {
+>>>>    	struct resource_pool base;
