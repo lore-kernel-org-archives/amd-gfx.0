@@ -4,51 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68673C04A68
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 18:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A53BC00140
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 19:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F8297A1F;
-	Tue, 26 Jul 2022 18:23:18 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11D6A9788C;
- Tue, 26 Jul 2022 18:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=+7t/7eAOvi8kAxMn65dXL5tgH7liqj/5NHPtUP/lMtI=; b=pAqbxLvpfzTFr1RX7FKZOOenJu
- fQASXOaguX5weGrJTPL/0MdF5aDoGdczDr/KHCDN84mFJs+mvbfv5kQNKyQm9tzcFu138DfGU8mK5
- Ksy6EzgNzIXPg7yGTC/VqrDQT3m6Tw/ASh5sKGxGtBmxS1ziqAHZuhD0R1Aj0d6Ua27+85Kd4+Bt9
- 2N1Mwxfqa2qo2nT8kJjh/YAffcJnaGu36OFjCTKGrNsK2jXbUlChrVA9246W9GyJVe4ecMgpQufCv
- SD1IBaySgilNopilgOlVAvL0d0b8H/ZzxYO6FbtXOQm0UWGyYc/25HzGRcr2k8gzY+nP27ogPh5cg
- +Fb4xDRg==;
-Received: from 201-13-50-220.dsl.telesp.net.br ([201.13.50.220]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oGPD5-007aEh-VD; Tue, 26 Jul 2022 20:23:12 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- 'Pan Xinhui' <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tom St Denis <tom.stdenis@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v2 4/4] drm/amdgpu: Document gfx_off members of struct
- amdgpu_gfx
-Date: Tue, 26 Jul 2022 15:21:52 -0300
-Message-Id: <20220726182152.123649-5-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220726182152.123649-1-andrealmeid@igalia.com>
-References: <20220726182152.123649-1-andrealmeid@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99BE496DD4;
+	Tue, 26 Jul 2022 19:32:33 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21CDE99B8C;
+ Tue, 26 Jul 2022 19:05:08 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 90DD9B819BF;
+ Tue, 26 Jul 2022 19:05:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7469C433C1;
+ Tue, 26 Jul 2022 19:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
+ s=korg; t=1658862306;
+ bh=8HO1+0RNEW20BOdzYYpK3e0czzp1ctqmJl8m1mL5930=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=jtWtbCvK3nAkuqT2HuiCQ7VGsG6UUqOPsV6eZjfDx6mo6ENgUYGB52rsb2vBlQWwz
+ w2cz8xupjrK9I0ISykF/uaB+onTvwra4lMAK6ilCsMeHDnXFebfJemPcSOKKQIAeVv
+ eDoEcuJScyoa0uvCKR+qZSe8ejnDGj1gw5J79dF0=
+Date: Tue, 26 Jul 2022 12:05:04 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+Subject: Re: [PATCH v9 06/14] mm/gup: migrate device coherent pages when
+ pinning instead of failing
+Message-Id: <20220726120504.39498eff3843baf1d8fd5168@linux-foundation.org>
+In-Reply-To: <adb2031b-774d-e645-2aec-f9de433b0a7c@amd.com>
+References: <20220715150521.18165-1-alex.sierra@amd.com>
+ <20220715150521.18165-7-alex.sierra@amd.com>
+ <225554c2-9174-555e-ddc0-df95c39211bc@redhat.com>
+ <20220718133235.4fdbd6ec303219e5a3ba49cf@linux-foundation.org>
+ <adb2031b-774d-e645-2aec-f9de433b0a7c@amd.com>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 26 Jul 2022 19:32:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,41 +55,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- kernel-dev@igalia.com
+Cc: rcampbell@nvidia.com, willy@infradead.org,
+ David Hildenbrand <david@redhat.com>, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add comments to document gfx_off related members of struct amdgpu_gfx.
+On Mon, 25 Jul 2022 21:22:06 -0500 "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com> wrote:
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+> >> a) add the || to the end of the previous line
+> >> b) indent such the we have a nice-to-read alignment
+> >>
+> >> if (!list_empty(&movable_page_list) || isolation_error_count ||
+> >>      coherent_pages)
+> >>
+> > I missed that.  This series is now in mm-stable so any fix will need to
+> > be a standalone followup patch, please.
+> Hi Andrew,
+> Just wanted to make sure nothing is missing from our side to merge this 
+> patch series.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 1b8b4a5270c9..8abdf41d0f83 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -332,12 +332,12 @@ struct amdgpu_gfx {
- 	uint32_t                        srbm_soft_reset;
- 
- 	/* gfx off */
--	bool                            gfx_off_state; /* true: enabled, false: disabled */
--	struct mutex                    gfx_off_mutex;
--	uint32_t                        gfx_off_req_count; /* default 1, enable gfx off: dec 1, disable gfx off: add 1 */
--	struct delayed_work             gfx_off_delay_work;
--	uint32_t                        gfx_off_residency;
--	uint64_t                        gfx_off_entrycount;
-+	bool                            gfx_off_state;      /* true: enabled, false: disabled */
-+	struct mutex                    gfx_off_mutex;      /* mutex to change gfxoff state */
-+	uint32_t                        gfx_off_req_count;  /* default 1, enable gfx off: dec 1, disable gfx off: add 1 */
-+	struct delayed_work             gfx_off_delay_work; /* async work to set gfx block off */
-+	uint32_t                        gfx_off_residency;  /* last logged residency */
-+	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
- 
- 	/* pipe reservation */
- 	struct mutex			pipe_reserve_mutex;
--- 
-2.37.1
-
+It's queued in mm-stable and all looks good for a 5.20-rc1 merge.
