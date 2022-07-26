@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5501AC00140
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 20:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F56C00140
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 20:22:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DFBB18BD8F;
-	Tue, 26 Jul 2022 20:22:30 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2058.outbound.protection.outlook.com [40.107.96.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC91D14B776
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 20:22:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B788BDFF;
+	Tue, 26 Jul 2022 20:22:42 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A6D10E2DF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 20:22:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m6Uwf8Kh0jxh5lLzqxA56qVMKGLlQD+ueqk2UWUBQh6Hc0aFjD1Uztk7NCtSx7x+rl6zdadc0lsNwN2wksOu8XfhAImgQn7o6UrM33jxZWSR5izeGtGLjHU7ykoqIvIKw8t6h+ccFNfOLCxNmHXAmFQwmuobMbGYI8vs5J3RmVJ5bG0g3xBzQgTkYeeUPWNpDL9Z4IUVyJjZdyOm0oHVCTUf4mllun3C52brPPJF07sqgfkRaZZvktiLVRCVBAkYAJdsBwFF2BQgpZVD+rIwawpdarW8UeMY9Mksa8yb7GNYB68aVY4f2Tnp8XGg7XHDatR0hbb6GO7UqN5jdDaRmA==
+ b=odG6T3maFgobt4pIUrn4bfTH3z5tS9RX1EV7dx/hDDNCnPF32eMO79fgjW7lBzhZQaMYDU+XmU0sWM5yvHP5iDW5NvnAj76Iywbbz40LRKpnx4DMwLsyKTGMZUMaIF2nOGekA+uw29jNPyIYFTlPg6TriVgMi3mZtXOAl0IljJ7Bxh1Fp5KIc4EZ+P/76DA1QqT2nujLuL9S0Qu5ZSu+U6Qdd9MeOh72EtPOYyZF+ESiRc2Ne6eSz2/sCTmF80lmgiPxpn0PfpjIVWZL2dv/6t3dWEDbsuAQWJDv8/8eGEpmilSoHb0VF9seoE2D5M/7STcLmLud/WCxzNFKl4lsDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BhWVxkZ/pzvcQWhWpyWDatUdjZuLgS+37V151y0vR0o=;
- b=VXSI9ExE2A/L9xoPpxTRxB7R8i2ivMUFFWP6Vox9SLhPCGuxw7TwtqsCqSIR5KwbgCtrKBzDnZmjr4R8vYNNBXvTaKb2H1qpRT1S5puvMkmzgXvGYmn/FtHgYwOoKdw7hO0OPCPak8sCEzukD2P8D9OWnC3AM0WufnHdgJirEC9AOP+X1HqvlJiL+EWigvzKq6sqCeyxLzu5PZ3Dqwr+aLMF5PIpAdAMUITg05GvAQHlXioj34HBc+JKPVpLEIaqLkvsXJVXn1LOIu2h8UVFhYLnIoChnloIJ9LH5OrUy2UVG+1ytiESPIu1nYoX1IsILEIzytnXlob9C0VK57k9dQ==
+ bh=B0HWUstNGyzLlIdTWG/++X+IFqUwPcTmDl+BcWDPCfc=;
+ b=YI0dhIdoRfPu30GDlBFO+r9FnasUXmhTkLcy7gZm9t4FE/MiYmcAo8Evxb5MyXWYal3j5xvyeWsCLU+OpDHTd378bWc/fQe5to1GFh246EV9WTrjRdu7QBItgUeYWyF/IcmlNLEdIOazsXK5H7umvTr9rnRVvbshx1yHr3m6lhr825rR5UdL0t8x18JfIdvTwu3MgLlgm3vh4/o6znjNsrUx0zEHSTUU2ADtAe/+ApLjrX0uC7SZu5FCDGJ2Ja8cakNh++MikvyjqZCettRjPWSfztNqrbiKu26tkAi/dyWZkuKpTU2kq9ud0/axe/TdIuBgadbMratkmThiuYH5uA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BhWVxkZ/pzvcQWhWpyWDatUdjZuLgS+37V151y0vR0o=;
- b=EAAb4t6LuxXGAwlLw8eK+CJA6VO1uwnjxrKe0WSGjIt53cIq3a/2ENt0TezVf/QGCljEpbNGFcqE8QqHWcC+a7sWAs7XzKkApb1QId+mcyy8/nQKemu/uIFLnlqvkdhTr3/CZlP0JByt6DDbZDV1RDKcsgz3hS40Y1ACFHSI+/w=
-Received: from MW4P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::21)
- by CY4PR12MB1814.namprd12.prod.outlook.com (2603:10b6:903:125::16)
+ bh=B0HWUstNGyzLlIdTWG/++X+IFqUwPcTmDl+BcWDPCfc=;
+ b=GrQKQsFCaiEP/d7dfDAp3/cQiNn4ECoxk0T0KO02d23kGVCEkhNDLAfxu5YE3t8hSNhl2aYLjw/mEgmfR+2D2Q+CKK95pg4DjyGIKMQLnCKlYyQtpXMwQLFVwqUk2Y2eojuwzWFXo9U7UTdKxc/egK+Y+U8vKunIXUDxJuqnLeI=
+Received: from MW4P222CA0026.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::31)
+ by BY5PR12MB3953.namprd12.prod.outlook.com (2603:10b6:a03:194::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.21; Tue, 26 Jul
- 2022 20:22:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.20; Tue, 26 Jul
+ 2022 20:22:24 +0000
 Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:114:cafe::cd) by MW4P222CA0016.outlook.office365.com
- (2603:10b6:303:114::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20 via Frontend
- Transport; Tue, 26 Jul 2022 20:22:23 +0000
+ (2603:10b6:303:114:cafe::2e) by MW4P222CA0026.outlook.office365.com
+ (2603:10b6:303:114::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23 via Frontend
+ Transport; Tue, 26 Jul 2022 20:22:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,18 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Tue, 26 Jul 2022 20:22:23 +0000
+ 15.20.5458.17 via Frontend Transport; Tue, 26 Jul 2022 20:22:24 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 26 Jul
  2022 15:22:22 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] Revert "drm/amd/display: attempt to fix the logic in
- commit_planes_for_stream()"
-Date: Tue, 26 Jul 2022 16:21:58 -0400
-Message-ID: <20220726202159.305943-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: Fix indentation in
+ commit_planes_for_stream()
+Date: Tue, 26 Jul 2022 16:21:59 -0400
+Message-ID: <20220726202159.305943-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220726202159.305943-1-alexander.deucher@amd.com>
+References: <20220726202159.305943-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 65c665ad-ab86-4a28-4d0e-08da6f448cd3
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3802a7cf-cda0-4089-32cc-08da6f448d3c
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3953:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +jPdkjnvY5y1bkwWq5v9V5C6XVqsTwIqpaDjTfD71volE/XFVDU6RALSI23hXucNkrmqd5PeAnaRnOam92Qdp7LMm+OjAOXYE/nEWA0u0HsAN2ezUPVsRyTOlyco3jFkhPhvZg/4GyojeYd0vt6CNr6notAmmho7ExvVVyAH3IXlUBLwRzPOUsr2kglf1oQgUP5HN9fRqprQEloT3yNQ0zMQaAKsIFofZX27EtCAUNRT+fFaSXwGG3nW4NSdj2FCB1S+aeIlv1TH23SHAC71NyTadic8kdIM56s0lh1Pr9VJBi60gXahEGsAAn8+eAzCeUDZVFAw7YTxyyiFf7J66JTeQI2/vrEEaMdzCTGPYrOgCNk4eJBQ2vJdcHKo8Z3nEkw3n+qPWYtsd2s0Ca/7lsJGxZmYErdwZRnkLqDsNdjWyyGCA6r4e63JjMx8fp71g13/zjPTgY78R6EBmZwcTMgFL3j3DpEaX7CjNO5Lmg7HHzk5cpPuVgrPLUWS2kBcv4BIZGIhgxVFGc2AssMCukQekl6LKOTubxDfj6fdLNk1ZPgG0jbGOF27SCoYmxwOdhfFfx/d+R/8qHG6nBkPCFPC+ReviDv3NNoPKQStYo165IFqPmUgzBFScADe/7PqDSgNoVEhyTJiOmbeNjjiJp3J99emQFvXhMaNjb/UYpwULk5fqq2LCVXGksdkWf6mv1iTCXfFGDPSICq4KehVwMFT29sAbmRmc3jr8B8g5cA8dxDMfQFWNGAgJe25SGne0haVCvzuqK/6YB4wA8L7QQL6C3xgYqvYxDfjn53Lg6Iaa3c5UhtrMceEc7PA/Qu9Oa7EbFk9F/Gfi2mO2k7B7Q==
+X-Microsoft-Antispam-Message-Info: vQG0zzdp2kdZr1u1E508LAZPocnQkG+xkFMivNw5DlNm74NSQE70WDO4CX8+5hW/NAnAztYDc1Vlb562KakVmiZlxdRD5HauqLmrLC77YzIAOflVvcgq/EhhyKOUlRpvRpcSSJ0p573mVt6LrUJnfPH7tq/db+23lr3rVxyCFPglyTms6wRoqljTbGf4hijPm0NLjdvKCotlbrAYbe12zkydkacXJO3yTA0LZeFe+/7iTE/qDKjQ3YT37I0euA68AjexpAAYmml6u/YE2KvhWh+JVu0oSiHNVVOvvt6Ne69Qlspb+0oZ1J501Qexrd9QNRU2vc27p4R0Wc9i5jkgpvp++GGywdto+vsC0XP4RaM132o0yqjegNr7guUVp2uziRoMuXu/JnTZmGXLnlUywlYZ3/0QslK8M0lSlW02L6wG8jPeUpkHnzzCxwiptnnqZdqaZ6NuYtkvLZM/W+ImRAl4U0IC+hDegFemuoNaat7lBxVRi1gDTb5Dpcmx36O19nUA7uWB5tNZE4MMf33h6jv3Tm2Tc9ZTiD/BjOmH13JxdH335pG0bKQlZXf0XBjGnuFdeLzlDGaY60/if5S3Qm7O1ab8iyZeHelqeHuv72lLxHByM45shsWbWQtD4PPPN9po/Ma8p2J3osOho627Jz8SK8gjZcXAujAKWOp0O7KfMuLcZZIWpCn9UcTPGmsYmnoWyR9ix56c5FbsPm2ts/SIEL5H1FWXZRR92YU6J5B11kac5MCiO4Q3Pj36lQweAmd7r0OtXxzaeqtyt4yGY3gK8KsgWFzoMfQR2Fo91jmF+PDiysX3nmoF8TusbCrj4YFWVfuzkem7yzluW8GpBw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(376002)(396003)(136003)(346002)(40470700004)(46966006)(36840700001)(316002)(54906003)(16526019)(6916009)(1076003)(2616005)(186003)(36756003)(82310400005)(426003)(336012)(40460700003)(47076005)(5660300002)(2906002)(8936002)(81166007)(4326008)(356005)(82740400003)(70586007)(83380400001)(41300700001)(86362001)(40480700001)(478600001)(70206006)(26005)(7696005)(6666004)(36860700001)(8676002)(36900700001);
+ SFS:(13230016)(4636009)(396003)(39860400002)(136003)(376002)(346002)(36840700001)(46966006)(40470700004)(40460700003)(70206006)(8676002)(1076003)(6916009)(82310400005)(4326008)(54906003)(70586007)(478600001)(2616005)(2906002)(26005)(40480700001)(7696005)(36860700001)(316002)(81166007)(8936002)(82740400003)(356005)(86362001)(6666004)(5660300002)(83380400001)(36756003)(186003)(16526019)(426003)(41300700001)(336012)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 20:22:23.5276 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65c665ad-ab86-4a28-4d0e-08da6f448cd3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 20:22:24.2307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3802a7cf-cda0-4089-32cc-08da6f448d3c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1814
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,9 +107,7 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit a0d10c437c1c9859d24a16b90abf85120603b4ff.
-
-This caused a regression in the DC team testing.
+No functional change.  Just update whitespace.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: Alvin Lee <Alvin.Lee2@amd.com>
@@ -115,93 +115,102 @@ Cc: Martin Leung <martin.leung@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 45 +++++++++++-------------
- 1 file changed, 21 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 62 ++++++++++++------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index e42f44fc1c08..7be3ad1c717c 100644
+index 7be3ad1c717c..8c97abd3bc5b 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3229,7 +3229,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 				odm_pipe->ttu_regs.min_ttu_vblank = MAX_TTU;
+@@ -3365,8 +3365,8 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+ 
+ 		if (!pipe_ctx->top_pipe &&
+-			!pipe_ctx->prev_odm_pipe &&
+-			should_update_pipe_for_stream(context, pipe_ctx, stream)) {
++		    !pipe_ctx->prev_odm_pipe &&
++		    should_update_pipe_for_stream(context, pipe_ctx, stream)) {
+ 			struct dc_stream_status *stream_status = NULL;
+ 
+ 			if (!pipe_ctx->plane_state)
+@@ -3455,27 +3455,27 @@ static void commit_planes_for_stream(struct dc *dc,
+ 
  	}
  
--	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed) {
+-		if (update_type != UPDATE_TYPE_FAST)
+-			if (dc->hwss.commit_subvp_config)
+-				dc->hwss.commit_subvp_config(dc, context);
++	if (update_type != UPDATE_TYPE_FAST)
++		if (dc->hwss.commit_subvp_config)
++			dc->hwss.commit_subvp_config(dc, context);
+ 
+-		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
+-			dc->hwss.interdependent_update_lock(dc, context, false);
+-		} else {
+-			dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
+-		}
++	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
++		dc->hwss.interdependent_update_lock(dc, context, false);
++	} else {
++		dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
++	}
+ 
+-		if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+-			if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+-				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
+-					top_pipe_to_program->stream_res.tg,
+-					CRTC_STATE_VACTIVE);
+-				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
+-					top_pipe_to_program->stream_res.tg,
+-					CRTC_STATE_VBLANK);
+-				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
+-					top_pipe_to_program->stream_res.tg,
+-					CRTC_STATE_VACTIVE);
 +	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
- 		if (top_pipe_to_program &&
- 			top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
- 			if (should_use_dmub_lock(stream->link)) {
-@@ -3247,7 +3247,6 @@ static void commit_planes_for_stream(struct dc *dc,
- 				top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable(
- 						top_pipe_to_program->stream_res.tg);
- 		}
--	}
- 
- 	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
- 		if (dc->hwss.subvp_pipe_control_lock)
-@@ -3456,27 +3455,27 @@ static void commit_planes_for_stream(struct dc *dc,
- 
- 	}
- 
--	if (update_type != UPDATE_TYPE_FAST)
--		if (dc->hwss.commit_subvp_config)
--			dc->hwss.commit_subvp_config(dc, context);
-+		if (update_type != UPDATE_TYPE_FAST)
-+			if (dc->hwss.commit_subvp_config)
-+				dc->hwss.commit_subvp_config(dc, context);
- 
--	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
--		dc->hwss.interdependent_update_lock(dc, context, false);
--	} else {
--		dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
--	}
-+		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-+			dc->hwss.interdependent_update_lock(dc, context, false);
-+		} else {
-+			dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
-+		}
- 
--	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed) {
--		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
--			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--				top_pipe_to_program->stream_res.tg,
--				CRTC_STATE_VACTIVE);
--			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--				top_pipe_to_program->stream_res.tg,
--				CRTC_STATE_VBLANK);
--			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--				top_pipe_to_program->stream_res.tg,
--				CRTC_STATE_VACTIVE);
-+		if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
-+			if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
-+				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+					top_pipe_to_program->stream_res.tg,
-+					CRTC_STATE_VACTIVE);
-+				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+					top_pipe_to_program->stream_res.tg,
-+					CRTC_STATE_VBLANK);
-+				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+					top_pipe_to_program->stream_res.tg,
-+					CRTC_STATE_VACTIVE);
++		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++				top_pipe_to_program->stream_res.tg,
++				CRTC_STATE_VACTIVE);
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++				top_pipe_to_program->stream_res.tg,
++				CRTC_STATE_VBLANK);
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++				top_pipe_to_program->stream_res.tg,
++				CRTC_STATE_VACTIVE);
  
  			if (should_use_dmub_lock(stream->link)) {
  				union dmub_hw_lock_flags hw_locks = { 0 };
-@@ -3493,9 +3492,8 @@ static void commit_planes_for_stream(struct dc *dc,
+@@ -3485,9 +3485,9 @@ static void commit_planes_for_stream(struct dc *dc,
+ 				inst_flags.dig_inst = top_pipe_to_program->stream_res.tg->inst;
+ 
+ 				dmub_hw_lock_mgr_cmd(dc->ctx->dmub_srv,
+-							false,
+-							&hw_locks,
+-							&inst_flags);
++						     false,
++						     &hw_locks,
++						     &inst_flags);
+ 			} else
  				top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_disable(
  					top_pipe_to_program->stream_res.tg);
- 		}
--	}
- 
--	if (update_type != UPDATE_TYPE_FAST) {
-+	if (update_type != UPDATE_TYPE_FAST)
- 		dc->hwss.post_unlock_program_front_end(dc, context);
- 
+@@ -3499,13 +3499,13 @@ static void commit_planes_for_stream(struct dc *dc,
  		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
-@@ -3508,7 +3506,6 @@ static void commit_planes_for_stream(struct dc *dc,
- 			if (dc->hwss.subvp_pipe_control_lock)
- 				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
- 		}
--	}
+ 		 * move the SubVP lock to after the phantom pipes have been setup
+ 		 */
+-		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
+-			if (dc->hwss.subvp_pipe_control_lock)
+-				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
+-		} else {
+-			if (dc->hwss.subvp_pipe_control_lock)
+-				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
+-		}
++	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
++		if (dc->hwss.subvp_pipe_control_lock)
++			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
++	} else {
++		if (dc->hwss.subvp_pipe_control_lock)
++			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
++	}
  
  	// Fire manual trigger only when bottom plane is flipped
  	for (j = 0; j < dc->res_pool->pipe_count; j++) {
