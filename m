@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0BFC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B03C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8CCA8FAD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A158B8FAC6;
 	Tue, 26 Jul 2022 12:54:23 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8270911BB90;
- Tue, 26 Jul 2022 07:27:36 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
+Received: from out30-44.freemail.mail.aliyun.com
+ (out30-44.freemail.mail.aliyun.com [115.124.30.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74E3211BBE3;
+ Tue, 26 Jul 2022 07:26:58 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R631e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VKUN944_1658820450; 
+ TI=SMTPD_---0VKUN8hD_1658820412; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VKUN944_1658820450) by smtp.aliyun-inc.com;
- Tue, 26 Jul 2022 15:27:33 +0800
+ fp:SMTPD_---0VKUN8hD_1658820412) by smtp.aliyun-inc.com;
+ Tue, 26 Jul 2022 15:26:54 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 17/20] drm/amd/display: Clean up some inconsistent indenting
-Date: Tue, 26 Jul 2022 15:25:52 +0800
-Message-Id: <20220726072555.91323-17-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 08/20] drm/amd/display: Clean up some inconsistent indenting
+Date: Tue, 26 Jul 2022 15:25:43 +0800
+Message-Id: <20220726072555.91323-8-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 In-Reply-To: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
 References: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
@@ -53,33 +53,53 @@ No functional modification involved.
 
 smatch warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:713 dml32_CalculateSwathWidth() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_dpp_cm.c:67 dpp30_get_gamcor_current() warn: inconsistent indenting.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- .../amd/display/dc/dml/dcn32/display_mode_vba_util_32.c   | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../drm/amd/display/dc/dcn30/dcn30_dpp_cm.c   | 25 ++++++++-----------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 4b010b1b8aed..07f8f3b8626b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -710,10 +710,10 @@ void dml32_CalculateSwathWidth(
- 	unsigned int k, j;
- 	enum odm_combine_mode MainSurfaceODMMode;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+index 87dbeca18984..e43f77c11c00 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+@@ -61,23 +61,20 @@ static enum dc_lut_mode dpp30_get_gamcor_current(struct dpp *dpp_base)
+ 	uint32_t lut_mode;
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
  
--    unsigned int surface_width_ub_l;
--    unsigned int surface_height_ub_l;
--    unsigned int surface_width_ub_c;
--    unsigned int surface_height_ub_c;
-+	unsigned int surface_width_ub_l;
-+	unsigned int surface_height_ub_l;
-+	unsigned int surface_width_ub_c;
-+	unsigned int surface_height_ub_c;
+-	REG_GET(CM_GAMCOR_CONTROL,
+-			CM_GAMCOR_MODE_CURRENT, &state_mode);
++	REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_MODE_CURRENT, &state_mode);
  
- #ifdef __DML_VBA_DEBUG__
- 	dml_print("DML::%s: ForceSingleDPP = %d\n", __func__, ForceSingleDPP);
+-		if (state_mode == 0)
+-			mode = LUT_BYPASS;
++	if (state_mode == 0)
++		mode = LUT_BYPASS;
+ 
+-		if (state_mode == 2) {//Programmable RAM LUT
+-			REG_GET(CM_GAMCOR_CONTROL,
+-					CM_GAMCOR_SELECT_CURRENT, &lut_mode);
+-
+-			if (lut_mode == 0)
+-				mode = LUT_RAM_A;
+-			else
+-				mode = LUT_RAM_B;
+-		}
++	if (state_mode == 2) {//Programmable RAM LUT
++		REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, &lut_mode);
++		if (lut_mode == 0)
++			mode = LUT_RAM_A;
++		else
++			mode = LUT_RAM_B;
++	}
+ 
+-		return mode;
++	return mode;
+ }
+ 
+ static void dpp3_program_gammcor_lut(
 -- 
 2.20.1.7.g153144c
 
