@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD1F7C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BF1C43334
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 489E48FA99;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2743E8FA96;
 	Tue, 26 Jul 2022 12:54:22 +0000 (UTC)
 Received: from out30-44.freemail.mail.aliyun.com
  (out30-44.freemail.mail.aliyun.com [115.124.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 002AE11B60F;
- Tue, 26 Jul 2022 07:27:40 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8F111B5B7;
+ Tue, 26 Jul 2022 07:27:06 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R981e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VKUOHEZ_1658820454; 
+ TI=SMTPD_---0VKUPgkw_1658820420; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VKUOHEZ_1658820454) by smtp.aliyun-inc.com;
- Tue, 26 Jul 2022 15:27:36 +0800
+ fp:SMTPD_---0VKUPgkw_1658820420) by smtp.aliyun-inc.com;
+ Tue, 26 Jul 2022 15:27:03 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 18/20] drm/amd/display: Clean up some inconsistent indenting
-Date: Tue, 26 Jul 2022 15:25:53 +0800
-Message-Id: <20220726072555.91323-18-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 10/20] drm/amd/display: Clean up some inconsistent indenting
+Date: Tue, 26 Jul 2022 15:25:45 +0800
+Message-Id: <20220726072555.91323-10-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 In-Reply-To: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
 References: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
@@ -53,48 +53,112 @@ No functional modification involved.
 
 smatch warnings:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn303/dcn303_fpu.c:205 dcn303_fpu_update_bw_bounding_box() warn: inconsistent indenting.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn303/dcn303_fpu.c:355 dcn303_fpu_init_soc_bounding_box() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_mpc.c:116 mpc3_get_ogam_current() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_mpc.c:445 mpc3_get_shaper_current() warn: inconsistent indenting.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- .../drm/amd/display/dc/dml/dcn303/dcn303_fpu.c    | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 70 +++++++++----------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-index 8fb14baed208..3eb3a021ab7d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-@@ -202,7 +202,7 @@ void dcn303_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_p
- 	unsigned int num_dcfclk_sta_targets = 4;
- 	unsigned int num_uclk_states;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+index 1981a71b961b..ad1c1b703874 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+@@ -109,32 +109,32 @@ enum dc_lut_mode mpc3_get_ogam_current(struct mpc *mpc, int mpcc_id)
+ 	uint32_t state_ram_lut_in_use;
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
  
--    dc_assert_fp_enabled();
-+	dc_assert_fp_enabled();
+-	REG_GET_2(MPCC_OGAM_CONTROL[mpcc_id],
+-			MPCC_OGAM_MODE_CURRENT, &state_mode,
+-			MPCC_OGAM_SELECT_CURRENT, &state_ram_lut_in_use);
++	REG_GET_2(MPCC_OGAM_CONTROL[mpcc_id], MPCC_OGAM_MODE_CURRENT, &state_mode,
++		  MPCC_OGAM_SELECT_CURRENT, &state_ram_lut_in_use);
  
- 	if (dc->ctx->dc_bios->vram_info.num_chans)
- 		dcn3_03_soc.num_chans = dc->ctx->dc_bios->vram_info.num_chans;
-@@ -349,14 +349,11 @@ void dcn303_fpu_init_soc_bounding_box(struct bp_soc_bb_info bb_info)
- 	dc_assert_fp_enabled();
- 
- 	if (bb_info.dram_clock_change_latency_100ns > 0)
--				dcn3_03_soc.dram_clock_change_latency_us =
--					bb_info.dram_clock_change_latency_100ns * 10;
-+		dcn3_03_soc.dram_clock_change_latency_us = bb_info.dram_clock_change_latency_100ns * 10;
- 
--			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
--				dcn3_03_soc.sr_enter_plus_exit_time_us =
--					bb_info.dram_sr_enter_exit_latency_100ns * 10;
-+	if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
-+		dcn3_03_soc.sr_enter_plus_exit_time_us = bb_info.dram_sr_enter_exit_latency_100ns * 10;
- 
--			if (bb_info.dram_sr_exit_latency_100ns > 0)
--				dcn3_03_soc.sr_exit_time_us =
--					bb_info.dram_sr_exit_latency_100ns * 10;
-+	if (bb_info.dram_sr_exit_latency_100ns > 0)
-+		dcn3_03_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
+-		switch (state_mode) {
++	switch (state_mode) {
++	case 0:
++		mode = LUT_BYPASS;
++		break;
++	case 2:
++		switch (state_ram_lut_in_use) {
+ 		case 0:
+-			mode = LUT_BYPASS;
++			mode = LUT_RAM_A;
+ 			break;
+-		case 2:
+-			switch (state_ram_lut_in_use) {
+-			case 0:
+-				mode = LUT_RAM_A;
+-				break;
+-			case 1:
+-				mode = LUT_RAM_B;
+-				break;
+-			default:
+-				mode = LUT_BYPASS;
+-				break;
+-			}
++		case 1:
++			mode = LUT_RAM_B;
+ 			break;
+ 		default:
+ 			mode = LUT_BYPASS;
+ 			break;
+ 		}
+-		return mode;
++		break;
++	default:
++		mode = LUT_BYPASS;
++		break;
++	}
++
++	return mode;
  }
+ 
+ void mpc3_power_on_ogam_lut(
+@@ -439,24 +439,24 @@ static enum dc_lut_mode mpc3_get_shaper_current(struct mpc *mpc, uint32_t rmu_id
+ 	uint32_t state_mode;
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+ 
+-	REG_GET(SHAPER_CONTROL[rmu_idx],
+-			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &state_mode);
++	REG_GET(SHAPER_CONTROL[rmu_idx], MPC_RMU_SHAPER_LUT_MODE_CURRENT, &state_mode);
+ 
+-		switch (state_mode) {
+-		case 0:
+-			mode = LUT_BYPASS;
+-			break;
+-		case 1:
+-			mode = LUT_RAM_A;
+-			break;
+-		case 2:
+-			mode = LUT_RAM_B;
+-			break;
+-		default:
+-			mode = LUT_BYPASS;
+-			break;
+-		}
+-		return mode;
++	switch (state_mode) {
++	case 0:
++		mode = LUT_BYPASS;
++		break;
++	case 1:
++		mode = LUT_RAM_A;
++		break;
++	case 2:
++		mode = LUT_RAM_B;
++		break;
++	default:
++		mode = LUT_BYPASS;
++		break;
++	}
++
++	return mode;
+ }
+ 
+ static void mpc3_configure_shaper_lut(
 -- 
 2.20.1.7.g153144c
 
