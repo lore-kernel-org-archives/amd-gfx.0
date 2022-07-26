@@ -4,32 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BF1C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F5ECCA47E
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2743E8FA96;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B24D8FA84;
 	Tue, 26 Jul 2022 12:54:22 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
- (out30-44.freemail.mail.aliyun.com [115.124.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8F111B5B7;
- Tue, 26 Jul 2022 07:27:06 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R981e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VKUPgkw_1658820420; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VKUPgkw_1658820420) by smtp.aliyun-inc.com;
- Tue, 26 Jul 2022 15:27:03 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH 10/20] drm/amd/display: Clean up some inconsistent indenting
-Date: Tue, 26 Jul 2022 15:25:45 +0800
-Message-Id: <20220726072555.91323-10-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
-References: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
+X-Greylist: delayed 566 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Jul 2022 00:56:48 UTC
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B1E11228C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 00:56:48 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4LsJCQ717gz4x1d;
+ Tue, 26 Jul 2022 10:47:14 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1658796436;
+ bh=J9yu53lhhX0ehyV3JzkSGwZjLJLxwxnpts7lB9FNFWg=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=nOi+DKO6pAKNMiIRsSnbhfQJ5RTa3S6GisPurroblZlwbhsziob6fnXSwN5ohtR6t
+ wJZfBYD9/53mrGcnAtN3ay2qtf1KzTsCLxvUVL61kfTkvujBOShLcO2JUsfm2zOjB3
+ Hdlyg327quF/vSNVeYh+AYEHSmbPmgDen+3qxEh3P+qIfs7WEqYqI2tzPfwajeLlK7
+ NN4RduDY7xfBSLbjXPcieslPd4B2MUClNgV4siQeo37WDP7bwlqLwoWG1WizQ8IqAv
+ t/YZNyr4lBXXP9Fw/E+Dgc/7/Z/JseW8+2+fTsdq4+9flkDRHeaNy7VVPdw17UelqH
+ LJeZq6eJGcQBg==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Guenter Roeck <linux@roeck-us.net>, Segher Boessenkool
+ <segher@kernel.crashing.org>, Timothy Pearson
+ <tpearson@raptorengineering.com>
+Subject: Re: [PATCH] drm/amdgpu: Re-enable DCN for 64-bit powerpc
+In-Reply-To: <5ef016a9-c1bb-91dd-454d-504d26074477@roeck-us.net>
+References: <20220725123918.1903255-1-mpe@ellerman.id.au>
+ <CAHk-=wihON4Ytte5zLHWNQtTapUvCpkToxY06OjX-_2B+Gq6Gg@mail.gmail.com>
+ <1446417444.13111032.1658777648586.JavaMail.zimbra@raptorengineeringinc.com>
+ <20220725204217.GU25951@gate.crashing.org>
+ <5ef016a9-c1bb-91dd-454d-504d26074477@roeck-us.net>
+Date: Tue, 26 Jul 2022 10:47:12 +1000
+Message-ID: <87mtcwbsz3.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 26 Jul 2022 12:54:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -42,123 +57,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+Cc: Dan =?utf-8?Q?Hor=C3=A1k?= <dan@danny.cz>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ amd-gfx <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexdeucher@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional modification involved.
+Guenter Roeck <linux@roeck-us.net> writes:
+> On 7/25/22 13:42, Segher Boessenkool wrote:
+>> On Mon, Jul 25, 2022 at 02:34:08PM -0500, Timothy Pearson wrote:
+>>>>> Further digging shows that the build failures only occur with compilers
+>>>>> that default to 64-bit long double.
+>>>>
+>>>> Where the heck do we have 'long double' things anywhere in the kernel?
+>>>>
+>>>> I tried to grep for it, and failed miserably. I found some constants
+>>>> that would qualify, but they were in the v4l colorspaces-details.rst
+>>>> doc file.
+>>>>
+>>>> Strange.
+>>>
+>>> We don't, at least not that I can see.  The affected code uses standard doubles.
+>>>
+>>> What I'm wondering is if the compiler is getting confused between standard and long doubles when they are both the same bit length...
+>> 
+>> The compiler emits the same code (DFmode things, double precision float)
+>> in both cases, and it itself does not see any difference anymore fairly
+>> early in the pipeline.  Compare to int and long on most 32-bit targets,
+>> both are SImode, the compiler will not see different types anymore:
+>> there *are* no types, except in the compiler frontend.
+>> 
+>> It only happens for powerpc64le things, and not for powerpc64 builds.
+>> 
+>> It is probably a GCC problem.  I don't see what forces the GCC build
+>> here to use 64-bit long double either btw?  Compilers build via buildall
+>> have all kinds of unnecessary things disabled, but not that, not
+>> directly at least.
+>> 
+>
+>  From what little documentation I can find, there appears to be
+> "--with-long-double-128" and "--with-long-double-format=ieee".
+> That looks like something that would need to be enabled, not disabled.
+>
+> FWIW, depending on compiler build options such as the above for kernel
+> builds seems to be a little odd to me, and I am not sure I'd want to
+> blame gcc if the kernel wants to be built with 128-bit floating point
+> as default.
 
-smatch warnings:
+The kernel doesn't care what the size is, but ld refuses to link objects
+built with soft/hard float if the long double size is 64-bits.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_mpc.c:116 mpc3_get_ogam_current() warn: inconsistent indenting.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_mpc.c:445 mpc3_get_shaper_current() warn: inconsistent indenting.
+> At the very least, that should be documented somewhere,
+> and if possible the kernel should refuse to build if the compiler build
+> options don't meet the requirements.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 70 +++++++++----------
- 1 file changed, 35 insertions(+), 35 deletions(-)
+The ABI says long double is 128-bits. So it's documented there :)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-index 1981a71b961b..ad1c1b703874 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-@@ -109,32 +109,32 @@ enum dc_lut_mode mpc3_get_ogam_current(struct mpc *mpc, int mpcc_id)
- 	uint32_t state_ram_lut_in_use;
- 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
- 
--	REG_GET_2(MPCC_OGAM_CONTROL[mpcc_id],
--			MPCC_OGAM_MODE_CURRENT, &state_mode,
--			MPCC_OGAM_SELECT_CURRENT, &state_ram_lut_in_use);
-+	REG_GET_2(MPCC_OGAM_CONTROL[mpcc_id], MPCC_OGAM_MODE_CURRENT, &state_mode,
-+		  MPCC_OGAM_SELECT_CURRENT, &state_ram_lut_in_use);
- 
--		switch (state_mode) {
-+	switch (state_mode) {
-+	case 0:
-+		mode = LUT_BYPASS;
-+		break;
-+	case 2:
-+		switch (state_ram_lut_in_use) {
- 		case 0:
--			mode = LUT_BYPASS;
-+			mode = LUT_RAM_A;
- 			break;
--		case 2:
--			switch (state_ram_lut_in_use) {
--			case 0:
--				mode = LUT_RAM_A;
--				break;
--			case 1:
--				mode = LUT_RAM_B;
--				break;
--			default:
--				mode = LUT_BYPASS;
--				break;
--			}
-+		case 1:
-+			mode = LUT_RAM_B;
- 			break;
- 		default:
- 			mode = LUT_BYPASS;
- 			break;
- 		}
--		return mode;
-+		break;
-+	default:
-+		mode = LUT_BYPASS;
-+		break;
-+	}
-+
-+	return mode;
- }
- 
- void mpc3_power_on_ogam_lut(
-@@ -439,24 +439,24 @@ static enum dc_lut_mode mpc3_get_shaper_current(struct mpc *mpc, uint32_t rmu_id
- 	uint32_t state_mode;
- 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
- 
--	REG_GET(SHAPER_CONTROL[rmu_idx],
--			MPC_RMU_SHAPER_LUT_MODE_CURRENT, &state_mode);
-+	REG_GET(SHAPER_CONTROL[rmu_idx], MPC_RMU_SHAPER_LUT_MODE_CURRENT, &state_mode);
- 
--		switch (state_mode) {
--		case 0:
--			mode = LUT_BYPASS;
--			break;
--		case 1:
--			mode = LUT_RAM_A;
--			break;
--		case 2:
--			mode = LUT_RAM_B;
--			break;
--		default:
--			mode = LUT_BYPASS;
--			break;
--		}
--		return mode;
-+	switch (state_mode) {
-+	case 0:
-+		mode = LUT_BYPASS;
-+		break;
-+	case 1:
-+		mode = LUT_RAM_A;
-+		break;
-+	case 2:
-+		mode = LUT_RAM_B;
-+		break;
-+	default:
-+		mode = LUT_BYPASS;
-+		break;
-+	}
-+
-+	return mode;
- }
- 
- static void mpc3_configure_shaper_lut(
--- 
-2.20.1.7.g153144c
+The kernel expects that passing `-m64 -mlittle-endian -mabi=elfv2` will
+produce code that conforms to the 64-bit Little Endian ELFv2 ABI :D
 
+But it seems those flags are not sufficient.
+
+There is an -mlong-double-128 flag, which appears to do the right thing
+regardless of how the compiler was built. I will probably add that to
+the kernel CFLAGS, but that's not a change I want to do just before the
+v5.19 release.
+
+cheers
