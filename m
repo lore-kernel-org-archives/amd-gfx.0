@@ -4,91 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F56C00140
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 20:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 229EFC00140
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 20:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B788BDFF;
-	Tue, 26 Jul 2022 20:22:42 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16A6D10E2DF
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 20:22:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=odG6T3maFgobt4pIUrn4bfTH3z5tS9RX1EV7dx/hDDNCnPF32eMO79fgjW7lBzhZQaMYDU+XmU0sWM5yvHP5iDW5NvnAj76Iywbbz40LRKpnx4DMwLsyKTGMZUMaIF2nOGekA+uw29jNPyIYFTlPg6TriVgMi3mZtXOAl0IljJ7Bxh1Fp5KIc4EZ+P/76DA1QqT2nujLuL9S0Qu5ZSu+U6Qdd9MeOh72EtPOYyZF+ESiRc2Ne6eSz2/sCTmF80lmgiPxpn0PfpjIVWZL2dv/6t3dWEDbsuAQWJDv8/8eGEpmilSoHb0VF9seoE2D5M/7STcLmLud/WCxzNFKl4lsDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B0HWUstNGyzLlIdTWG/++X+IFqUwPcTmDl+BcWDPCfc=;
- b=YI0dhIdoRfPu30GDlBFO+r9FnasUXmhTkLcy7gZm9t4FE/MiYmcAo8Evxb5MyXWYal3j5xvyeWsCLU+OpDHTd378bWc/fQe5to1GFh246EV9WTrjRdu7QBItgUeYWyF/IcmlNLEdIOazsXK5H7umvTr9rnRVvbshx1yHr3m6lhr825rR5UdL0t8x18JfIdvTwu3MgLlgm3vh4/o6znjNsrUx0zEHSTUU2ADtAe/+ApLjrX0uC7SZu5FCDGJ2Ja8cakNh++MikvyjqZCettRjPWSfztNqrbiKu26tkAi/dyWZkuKpTU2kq9ud0/axe/TdIuBgadbMratkmThiuYH5uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B0HWUstNGyzLlIdTWG/++X+IFqUwPcTmDl+BcWDPCfc=;
- b=GrQKQsFCaiEP/d7dfDAp3/cQiNn4ECoxk0T0KO02d23kGVCEkhNDLAfxu5YE3t8hSNhl2aYLjw/mEgmfR+2D2Q+CKK95pg4DjyGIKMQLnCKlYyQtpXMwQLFVwqUk2Y2eojuwzWFXo9U7UTdKxc/egK+Y+U8vKunIXUDxJuqnLeI=
-Received: from MW4P222CA0026.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::31)
- by BY5PR12MB3953.namprd12.prod.outlook.com (2603:10b6:a03:194::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.20; Tue, 26 Jul
- 2022 20:22:24 +0000
-Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:114:cafe::2e) by MW4P222CA0026.outlook.office365.com
- (2603:10b6:303:114::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23 via Frontend
- Transport; Tue, 26 Jul 2022 20:22:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Tue, 26 Jul 2022 20:22:24 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 26 Jul
- 2022 15:22:22 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/display: Fix indentation in
- commit_planes_for_stream()
-Date: Tue, 26 Jul 2022 16:21:59 -0400
-Message-ID: <20220726202159.305943-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220726202159.305943-1-alexander.deucher@amd.com>
-References: <20220726202159.305943-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89FD4A5C3C;
+	Tue, 26 Jul 2022 20:48:10 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89BA4A5BF9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 20:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=l9ZR32nvB1+nParfaYWTtqXW9ZIvNJF2ndoRcfn4lJc=; b=fHZVd3uljUA6l2x6Qzp8GlO80N
+ bxfLjdysxF8kqDu4bAkEA71viWKdN0uYxWKAtr/hAhyqqUxMv1apDH8gx1FeHk7IQ/X2fxJW0zmKi
+ Vw3BDk4yAb39mEurFjSxlKV51DrEX7bKIPJ9lhc0HlKnHycY8GI712JsW66K6E0cAKnOAsXTZlWXu
+ e7crCI6Z6Oc2YkEBv7PiRIb1M2SOvfcNSfCb5gvbweDJoFyX5iZGjhy9KBKIwv3+keBeKlX8mUZUN
+ ijxRa6dGxPdZlvskBNx9n9YUFV9rcWs+hIt/LPxv3+beR1oVvUP0G4G8KNsRh35++D5d6h8jB/8Dh
+ ruo7Y/mQ==;
+Received: from 201-13-50-220.dsl.telesp.net.br ([201.13.50.220]
+ helo=[192.168.15.109]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oGRTJ-007iDW-6V; Tue, 26 Jul 2022 22:48:05 +0200
+Message-ID: <bf37f042-c316-17e4-581c-2783628f0c92@igalia.com>
+Date: Tue, 26 Jul 2022 17:47:49 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: amdgpu: misc ugliness and inconsistency
+Content-Language: en-US
+To: Dan Carpenter <dan.carpenter@oracle.com>, amd-gfx@lists.freedesktop.org
+References: <YuAN1aR9jGmnR/wk@kili>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <YuAN1aR9jGmnR/wk@kili>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3802a7cf-cda0-4089-32cc-08da6f448d3c
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3953:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vQG0zzdp2kdZr1u1E508LAZPocnQkG+xkFMivNw5DlNm74NSQE70WDO4CX8+5hW/NAnAztYDc1Vlb562KakVmiZlxdRD5HauqLmrLC77YzIAOflVvcgq/EhhyKOUlRpvRpcSSJ0p573mVt6LrUJnfPH7tq/db+23lr3rVxyCFPglyTms6wRoqljTbGf4hijPm0NLjdvKCotlbrAYbe12zkydkacXJO3yTA0LZeFe+/7iTE/qDKjQ3YT37I0euA68AjexpAAYmml6u/YE2KvhWh+JVu0oSiHNVVOvvt6Ne69Qlspb+0oZ1J501Qexrd9QNRU2vc27p4R0Wc9i5jkgpvp++GGywdto+vsC0XP4RaM132o0yqjegNr7guUVp2uziRoMuXu/JnTZmGXLnlUywlYZ3/0QslK8M0lSlW02L6wG8jPeUpkHnzzCxwiptnnqZdqaZ6NuYtkvLZM/W+ImRAl4U0IC+hDegFemuoNaat7lBxVRi1gDTb5Dpcmx36O19nUA7uWB5tNZE4MMf33h6jv3Tm2Tc9ZTiD/BjOmH13JxdH335pG0bKQlZXf0XBjGnuFdeLzlDGaY60/if5S3Qm7O1ab8iyZeHelqeHuv72lLxHByM45shsWbWQtD4PPPN9po/Ma8p2J3osOho627Jz8SK8gjZcXAujAKWOp0O7KfMuLcZZIWpCn9UcTPGmsYmnoWyR9ix56c5FbsPm2ts/SIEL5H1FWXZRR92YU6J5B11kac5MCiO4Q3Pj36lQweAmd7r0OtXxzaeqtyt4yGY3gK8KsgWFzoMfQR2Fo91jmF+PDiysX3nmoF8TusbCrj4YFWVfuzkem7yzluW8GpBw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(136003)(376002)(346002)(36840700001)(46966006)(40470700004)(40460700003)(70206006)(8676002)(1076003)(6916009)(82310400005)(4326008)(54906003)(70586007)(478600001)(2616005)(2906002)(26005)(40480700001)(7696005)(36860700001)(316002)(81166007)(8936002)(82740400003)(356005)(86362001)(6666004)(5660300002)(83380400001)(36756003)(186003)(16526019)(426003)(41300700001)(336012)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 20:22:24.2307 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3802a7cf-cda0-4089-32cc-08da6f448d3c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,120 +53,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- Martin Leung <martin.leung@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional change.  Just update whitespace.
+Hi Dan,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Alvin Lee <Alvin.Lee2@amd.com>
-Cc: Martin Leung <martin.leung@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 62 ++++++++++++------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+Às 12:52 de 26/07/22, Dan Carpenter escreveu:
+> Hi AMD devs,
+> 
+> I guess there was a big merge in linux-next the other day?  Anyway, it
+> generated a lot of Smatch warnings.  I reported some of them but there
+> is just a lot so I'm mass reporting these.
+> 
+> Inconsistent NULL checking can be harmless.  Part of the function
+> assumes that the pointer can be NULL and part assumes that it cannot.
+> It does not make sense, but it is often harmless and the correct
+> response is just to remove the NULL check.
+> 
+> The other class of reports is inconsistent indenting.  There were two
+> bugs but I already fixed one and reported the other so these should be
+> harmless.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 7be3ad1c717c..8c97abd3bc5b 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3365,8 +3365,8 @@ static void commit_planes_for_stream(struct dc *dc,
- 		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
- 
- 		if (!pipe_ctx->top_pipe &&
--			!pipe_ctx->prev_odm_pipe &&
--			should_update_pipe_for_stream(context, pipe_ctx, stream)) {
-+		    !pipe_ctx->prev_odm_pipe &&
-+		    should_update_pipe_for_stream(context, pipe_ctx, stream)) {
- 			struct dc_stream_status *stream_status = NULL;
- 
- 			if (!pipe_ctx->plane_state)
-@@ -3455,27 +3455,27 @@ static void commit_planes_for_stream(struct dc *dc,
- 
- 	}
- 
--		if (update_type != UPDATE_TYPE_FAST)
--			if (dc->hwss.commit_subvp_config)
--				dc->hwss.commit_subvp_config(dc, context);
-+	if (update_type != UPDATE_TYPE_FAST)
-+		if (dc->hwss.commit_subvp_config)
-+			dc->hwss.commit_subvp_config(dc, context);
- 
--		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
--			dc->hwss.interdependent_update_lock(dc, context, false);
--		} else {
--			dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
--		}
-+	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-+		dc->hwss.interdependent_update_lock(dc, context, false);
-+	} else {
-+		dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
-+	}
- 
--		if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
--			if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
--				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--					top_pipe_to_program->stream_res.tg,
--					CRTC_STATE_VACTIVE);
--				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--					top_pipe_to_program->stream_res.tg,
--					CRTC_STATE_VBLANK);
--				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
--					top_pipe_to_program->stream_res.tg,
--					CRTC_STATE_VACTIVE);
-+	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
-+		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
-+			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+				top_pipe_to_program->stream_res.tg,
-+				CRTC_STATE_VACTIVE);
-+			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+				top_pipe_to_program->stream_res.tg,
-+				CRTC_STATE_VBLANK);
-+			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
-+				top_pipe_to_program->stream_res.tg,
-+				CRTC_STATE_VACTIVE);
- 
- 			if (should_use_dmub_lock(stream->link)) {
- 				union dmub_hw_lock_flags hw_locks = { 0 };
-@@ -3485,9 +3485,9 @@ static void commit_planes_for_stream(struct dc *dc,
- 				inst_flags.dig_inst = top_pipe_to_program->stream_res.tg->inst;
- 
- 				dmub_hw_lock_mgr_cmd(dc->ctx->dmub_srv,
--							false,
--							&hw_locks,
--							&inst_flags);
-+						     false,
-+						     &hw_locks,
-+						     &inst_flags);
- 			} else
- 				top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_disable(
- 					top_pipe_to_program->stream_res.tg);
-@@ -3499,13 +3499,13 @@ static void commit_planes_for_stream(struct dc *dc,
- 		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
- 		 * move the SubVP lock to after the phantom pipes have been setup
- 		 */
--		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
--			if (dc->hwss.subvp_pipe_control_lock)
--				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
--		} else {
--			if (dc->hwss.subvp_pipe_control_lock)
--				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
--		}
-+	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-+		if (dc->hwss.subvp_pipe_control_lock)
-+			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
-+	} else {
-+		if (dc->hwss.subvp_pipe_control_lock)
-+			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
-+	}
- 
- 	// Fire manual trigger only when bottom plane is flipped
- 	for (j = 0; j < dc->res_pool->pipe_count; j++) {
--- 
-2.35.3
+For this class, I believe this series fixes most of them:
 
+https://lore.kernel.org/amd-gfx/20220726072555.91323-1-jiapeng.chong@linux.alibaba.com/
+
+> 
+> regards,
+> dan carpenter
+> 
+> Inconsistent NULL checks:
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1271 handle_cursor_update() error: we previously assumed 'afb' could be null (see line 1230)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_resource.c:1017 dcn201_acquire_idle_pipe_for_layer() error: we previously assumed 'head_pipe' could be null (see line 1011)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_hwseq.c:222 dcn21_set_backlight_level() error: we previously assumed 'panel_cntl' could be null (see line 213)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:765 dcn30_apply_idle_power_optimizations() error: we previously assumed 'stream' could be null (see line 749)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:767 dcn30_apply_idle_power_optimizations() error: we previously assumed 'plane' could be null (see line 749)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hwseq.c:284 dcn31_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 117)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:896 dcn32_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 738)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:777 subvp_drr_schedulable() error: we previously assumed 'pipe->stream' could be null (see line 768)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:868 subvp_vblank_schedulable() error: we previously assumed 'subvp_pipe' could be null (see line 860)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:250 dcn201_init_hw() warn: variable dereferenced before check 'res_pool->dccg' (see line 227)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:782 dcn20_enable_stream_timing() warn: variable dereferenced before check 'pipe_ctx->stream_res.tg' (see line 698)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hwseq.c:157 dcn31_init_hw() warn: variable dereferenced before check 'res_pool->dccg' (see line 147)
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:765 dcn32_init_hw() warn: variable dereferenced before check 'res_pool->dccg' (see line 742)
+> 
+> Bad indenting:
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c:107 dcn201_update_clocks() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c:716 dcn314_clk_mgr_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c:655 dcn315_clk_mgr_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c:683 dcn316_clk_mgr_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c:726 dcn31_clk_mgr_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2152 dcn10_align_pixel_clocks() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn301/dcn301_resource.c:854 dcn301_hubbub_create() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:618 dcn32_set_output_transfer_func() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:910 dcn32_init_hw() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_mpc.c:306 mpc32_get_shaper_current() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1979 dcn32_resource_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:2319 dcn32_resource_construct() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn303/dcn303_fpu.c:205 dcn303_fpu_update_bw_bounding_box() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn303/dcn303_fpu.c:355 dcn303_fpu_init_soc_bounding_box() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/dcn30_fpu.c:185 optc3_fpu_set_vrr_m_const() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/dcn30_fpu.c:355 dcn30_fpu_set_mcif_arb_params() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/dcn30_fpu.c:384 dcn30_fpu_calculate_wm_and_dlg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/dcn30_fpu.c:390 dcn30_fpu_calculate_wm_and_dlg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:1110 CalculatePrefetchSchedule() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:1113 CalculatePrefetchSchedule() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:1341 CalculatePrefetchSchedule() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_rq_dlg_calc_31.c:1099 dml_rq_dlg_get_dlg_params() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn321/dcn321_fpu.c:516 dcn321_update_bw_bounding_box_fpu() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2069 dcn32_update_bw_bounding_box_fpu() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:683 DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:220 dml32_rq_dlg_get_dlg_reg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:224 dml32_rq_dlg_get_dlg_reg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:235 dml32_rq_dlg_get_dlg_reg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:240 dml32_rq_dlg_get_dlg_reg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:51 dml32_rq_dlg_get_rq_reg() warn: inconsistent indenting
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_rq_dlg_calc_32.c:68 dml32_rq_dlg_get_rq_reg() warn: inconsistent indenting
+> 
