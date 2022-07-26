@@ -4,62 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659A9C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 08:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32D64C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 09:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F7291120E5;
-	Tue, 26 Jul 2022 08:41:08 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61288112164;
- Tue, 26 Jul 2022 08:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658824866; x=1690360866;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=cDvh1RXCJi/hmIjoLQ82PzKrIfG7t8B0IO+umeOg2jA=;
- b=YfA615uPbkKhmpn/dp/F6gw6HOd2nOiOtXArkbLEMLegmAyixGov1ixZ
- SndouPBf+6ZPaMPr56eRvWIYjf0HZZDMq1Jm/spCkCxv+Y+oMFJhIJVe3
- FxRV6IBPPxN85b0KNfjZ2FbyctxFw1KCi36PqSebo2oxmDKOOe8ivZUKn
- qy0uZv0sPuOCRqeICaAnTaclYhFSXjhQpErRUVPDULkh+RvYFcdEUOJ/S
- RtpfMyqB75iuxbp6+BN0Xpp7ilIy+W8iucfWBw93P5IPZB11Gt77Zvcyo
- rcz2HB/VWs2IC06DUGceqS2a1brQtTEhst2HuamnPml/uIhy/0laKR8qi Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10419"; a="285447301"
-X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="285447301"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2022 01:41:05 -0700
-X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="927243867"
-Received: from atilson-mobl2.ger.corp.intel.com (HELO [10.213.238.124])
- ([10.213.238.124])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2022 01:41:04 -0700
-Message-ID: <52b519d6-ea46-35a9-81fd-256a44937dbd@linux.intel.com>
-Date: Tue, 26 Jul 2022 09:41:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFBA11B65D;
+	Tue, 26 Jul 2022 09:06:58 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E7B11B65D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 09:06:57 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ cb12-20020a056830618c00b00616b871cef3so10416984otb.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 02:06:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=ylBrzowu+eGaApVeDqlalvEvp+57s7hk0BIPy7jfV9k=;
+ b=auVDwqQtDptkEmLPknCD7bcdZDGSp9rxO29K77AJg/LXBB7Ux7TdFn74//V0SB59Iw
+ tyM4iXWk3SqUSIB3zcJ8H1NHjWMApe66BYEMvItPEwPT3wmwgI4+MQlx8f7WU/+E8GFJ
+ KnUKn2535ODowab5mWLRXW2n/7KAWGPIciH/5N62F9WjvPw9TKz+je1Xs8/3AquOd7hK
+ 0x8P8axI6NMvlqv29l99cHVVWYKQNyNdHbaC63sviwioK6LekiZmsG9/R1UzMKlqpvvq
+ eqFMnKlFKtAlLwAU4XBiWlVaSwCs1HuFaM3bSWb97bFLuQAzf369sYFmfQVE5K4B56aV
+ 9HQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=ylBrzowu+eGaApVeDqlalvEvp+57s7hk0BIPy7jfV9k=;
+ b=asuzRuAdlLcIPqykL/v4EuuSLbHC0NYZ24K/wXzspn9wXX9FGElviVwcs9WhAPVVu7
+ 7vgKEYm/YmbV54g/hh9srPSG/yGl97a0bvR02cm7d9V1wnxoaoRyV4uGGOe8Gf8EQfW6
+ XfmvL9Ne60eOjhtsr2RAUz7Y4W/Ma1pyCLBInHrJ2RtKqa8MUfrF6PuTWoROQdxwlp9H
+ V709D3GVYrDsKTKJ7pafUMpYouwm4AV4ZfEDhWDnSVbmZOS5quPnH+/H99UAYHM0v1ys
+ mGv55vRz0cMARPCcnb/k6AIxQtMoeAvrz/ZIdtxxHTcmxtRqTDYzFtHLZRF6hpD775ub
+ cLcw==
+X-Gm-Message-State: AJIora89Ziaoi6HgtRe/qei9O03tNS9FENTPy/5KLP2qAzPsA97dasyK
+ cgRQudjB5T/vcdky1vmfpp6kWKtQkyuJtV3TyHdxozQo
+X-Google-Smtp-Source: AGRyM1uUoahGyeyMZew7mlOHVH6np14h7fifZ4udFYsUmzDrAEP0munMbaG4eNMM1r7P8t8M/RK8hWAZAsk8KtXhEkA=
+X-Received: by 2002:a05:6830:9c6:b0:60c:7352:2c03 with SMTP id
+ y6-20020a05683009c600b0060c73522c03mr6155149ott.138.1658826416603; Tue, 26
+ Jul 2022 02:06:56 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/3] Revert "drm/amdgpu: move internal vram_mgr function
- into the C file"
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220708093047.492662-1-Arunpravin.PaneerSelvam@amd.com>
- <a56afc27-3556-38ea-0d10-f7069091967e@suse.de>
- <476c4e58-ba0c-0736-2618-e7899dd5b60f@linux.intel.com>
- <ceba1244-33a8-9b74-6379-4d0569ca9bdb@amd.com>
- <b7b44b45-4143-963c-3279-87bdc6f727c1@suse.de>
- <3b66f6fe-422a-62e9-ff55-74d9f631d6e3@linux.intel.com>
- <3897e61d-6e30-8626-aac0-4ac1ef9957c2@gmail.com>
- <d78e0eab-74b8-443b-950a-7adaf963e595@suse.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <d78e0eab-74b8-443b-950a-7adaf963e595@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Tom Cook <tom.k.cook@gmail.com>
+Date: Tue, 26 Jul 2022 10:06:45 +0100
+Message-ID: <CAFSh4Uw776o-kySa+=VGY=Ejnt+kgj_HU3DpDT96AMzRwUa0sQ@mail.gmail.com>
+Subject: Crash on resume from S3
+To: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,69 +59,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+I have a Ryzen 7 3700U in an HP laptop.  lspci describes the GPU in this way:
 
-On 26/07/2022 08:46, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 25.07.22 um 19:14 schrieb Christian König:
->> Am 25.07.22 um 17:27 schrieb Tvrtko Ursulin:
->>>
->>> On 24/07/2022 19:28, Thomas Zimmermann wrote:
->>>> Hi
->>>>
->>>> Am 22.07.22 um 17:47 schrieb Christian König:
->>>>> Hi Tvrtko,
->>>>>
->>>>> scratching my head what exactly is going on here.
->>>>>
->>>>> I've build tested drm-tip a couple of test in the last week and it 
->>>>> always worked flawlessly.
->>>>>
->>>>> It looks like that some conflict resolution is sometimes not 
->>>>> applied correctly, but I have no idea why.
->>>>
->>>> It worked last week, but must have been reintroduced meanhwile.
->>>> Please fetch the latest drm-tip and rebuild. The attached config 
->>>> produces the error on my system.
->>>
->>> What is the status with this? I hit a conflict on an implicated file 
->>> just now trying to rebuild drm-tip:
->>>
->>> Unmerged paths:
->>>   (use "git add/rm <file>..." as appropriate to mark resolution)
->>>         deleted by us: drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->>>
->>> I had an other i915 conflict to solve and as grep amdgpu_vram_mgr.h 
->>> drivers/gpu/drm/amd produced nothing I just did a git rm on it and 
->>> pushed the resolution.
->>>
->>> Let me know if I broke something, re-broke something, or whatever.. 
->>> Build of amdgpu certainly still looks broken on my end, both before 
->>> and after me rebuilding drm-tip so maybe I just preserved the breakage.
->>
->> It looks like that somehow re-broke, but I'm not sure how.
->>
->> I've fetched drm-tip on Friday at around 1pm CET and build it and that 
->> worked perfectly fine.
->>
->> Essentially the status of drm-misc-next for the following files should 
->> be carried on in drm-tip:
->>
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> 
-> I've reset these files to their state as in drm-misc-next and updated 
-> drm-tip. It appears to be working again from what I could test locally. 
-> Please try at your earliest convenience.
+04:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+[AMD/ATI] Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile
+Series] (rev c1)
 
-Builds for me now - thank you!
+This laptop has never successfully resumed from suspend (I have tried
+every 5.x kernel).  Currently on 5.18.0, the system appears to be okay
+after resume apart from the gpu which is usually giving a blank
+screen, occasionally a scrambled output.  After rebooting, I see this
+in syslog:
+
+Jul 25 11:02:18 frog kernel: [240782.968674] amdgpu 0000:04:00.0:
+amdgpu: GPU reset begin!
+Jul 25 11:02:19 frog kernel: [240783.974891] amdgpu 0000:04:00.0:
+[drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test
+failed (-110)
+Jul 25 11:02:19 frog kernel: [240783.988650] [drm] free PSP TMR buffer
+Jul 25 11:02:19 frog kernel: [240784.019057] CPU: 4 PID: 305612 Comm:
+kworker/u32:17 Not tainted 5.18.0 #1
+Jul 25 11:02:19 frog kernel: [240784.019063] Hardware name: HP HP ENVY
+x360 Convertible 15-ds0xxx/85DD, BIOS F.20 05/28/2020
+Jul 25 11:02:19 frog kernel: [240784.019067] Workqueue:
+amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+Jul 25 11:02:19 frog kernel: [240784.019079] Call Trace:
+Jul 25 11:02:19 frog kernel: [240784.019082]  <TASK>
+Jul 25 11:02:19 frog kernel: [240784.019085]  dump_stack_lvl+0x49/0x5f
+Jul 25 11:02:19 frog kernel: [240784.019095]  dump_stack+0x10/0x12
+Jul 25 11:02:19 frog kernel: [240784.019099]
+amdgpu_do_asic_reset+0x2f/0x4e0 [amdgpu]
+Jul 25 11:02:19 frog kernel: [240784.019278]
+amdgpu_device_gpu_recover_imp+0x41e/0xb50 [amdgpu]
+Jul 25 11:02:19 frog kernel: [240784.019452]
+amdgpu_job_timedout+0x155/0x1b0 [amdgpu]
+Jul 25 11:02:19 frog kernel: [240784.019674]
+drm_sched_job_timedout+0x74/0xf0 [gpu_sched]
+Jul 25 11:02:19 frog kernel: [240784.019681]  ?
+amdgpu_cgs_destroy_device+0x10/0x10 [amdgpu]
+Jul 25 11:02:19 frog kernel: [240784.019896]  ?
+drm_sched_job_timedout+0x74/0xf0 [gpu_sched]
+Jul 25 11:02:19 frog kernel: [240784.019903]  process_one_work+0x227/0x440
+Jul 25 11:02:19 frog kernel: [240784.019908]  worker_thread+0x31/0x3d0
+Jul 25 11:02:19 frog kernel: [240784.019912]  ? process_one_work+0x440/0x440
+Jul 25 11:02:19 frog kernel: [240784.019914]  kthread+0xfe/0x130
+Jul 25 11:02:19 frog kernel: [240784.019918]  ?
+kthread_complete_and_exit+0x20/0x20
+Jul 25 11:02:19 frog kernel: [240784.019923]  ret_from_fork+0x22/0x30
+Jul 25 11:02:19 frog kernel: [240784.019930]  </TASK>
+Jul 25 11:02:19 frog kernel: [240784.019934] amdgpu 0000:04:00.0:
+amdgpu: MODE2 reset
+Jul 25 11:02:19 frog kernel: [240784.020178] amdgpu 0000:04:00.0:
+amdgpu: GPU reset succeeded, trying to resume
+Jul 25 11:02:19 frog kernel: [240784.020552] [drm] PCIE GART of 1024M enabled.
+Jul 25 11:02:19 frog kernel: [240784.020555] [drm] PTB located at
+0x000000F400900000
+Jul 25 11:02:19 frog kernel: [240784.020577] [drm] VRAM is lost due to
+GPU reset!
+Jul 25 11:02:19 frog kernel: [240784.020579] [drm] PSP is resuming...
+Jul 25 11:02:19 frog kernel: [240784.040465] [drm] reserve 0x400000
+from 0xf47fc00000 for PSP TMR
+
+I'm running the latest BIOS from HP.  Is there anything I can do to
+work around this?  Or anything I can do to help debug it?
 
 Regards,
-
-Tvrtko
+Tom Cook
