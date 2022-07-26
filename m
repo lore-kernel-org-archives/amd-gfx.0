@@ -4,43 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD873C43334
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50289CCA48B
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 097E58FB5A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A92D8FB70;
 	Tue, 26 Jul 2022 12:54:45 +0000 (UTC)
-X-Greylist: delayed 525 seconds by postgrey-1.36 at gabe;
- Tue, 26 Jul 2022 00:56:09 UTC
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754FC10E128
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jul 2022 00:56:09 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4LsJPh01Psz4x1T;
- Tue, 26 Jul 2022 10:56:07 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1658796968;
- bh=XM/sSLZCdmxU7N0ibsdjeo384f6+QLdmjSl5hrtE3HY=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=kWgG78BPwfOqjitCUhFJ1j7aQuatzG1Kzsf+7936A1WLUoNMph3bVIxIlABiTDJEJ
- hIIcGB/y8AFSlwe/+vhMtJcBEakfJHeQb/EPEh1G7QM8Fj1g7kmD4E4rDvBAscAEEQ
- Y9m7YoapBqwumAnrkXpPVFp4iTJcszdtuCXUjKZ3zAyIkxhYTxrIpZQ+9viWvCIJZN
- Lo+0ODKIoi8+wOoWZGyX2w81RnbtPvoDX+kaetTWOCl8t08KBgIfEZU4r9ji6GmqBD
- XC9xzCTHZvgPJML2QJUKrzkpJdrABgL2gtRQwE/S/p+qpY1A+EQDJrveHxPMK7Qwkp
- zoGf02DW07bSw==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] drm/amdgpu: Re-enable DCN for 64-bit powerpc
-In-Reply-To: <CAHk-=wihON4Ytte5zLHWNQtTapUvCpkToxY06OjX-_2B+Gq6Gg@mail.gmail.com>
-References: <20220725123918.1903255-1-mpe@ellerman.id.au>
- <CAHk-=wihON4Ytte5zLHWNQtTapUvCpkToxY06OjX-_2B+Gq6Gg@mail.gmail.com>
-Date: Tue, 26 Jul 2022 10:56:07 +1000
-Message-ID: <87k080bsk8.fsf@mpe.ellerman.id.au>
+Received: from out30-42.freemail.mail.aliyun.com
+ (out30-42.freemail.mail.aliyun.com [115.124.30.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 218F911B5B7;
+ Tue, 26 Jul 2022 07:27:23 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0VKUIMGu_1658820438; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VKUIMGu_1658820438) by smtp.aliyun-inc.com;
+ Tue, 26 Jul 2022 15:27:20 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH 14/20] drm/amd/display: Clean up some inconsistent indenting
+Date: Tue, 26 Jul 2022 15:25:49 +0800
+Message-Id: <20220726072555.91323-14-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
+References: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 26 Jul 2022 12:54:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,39 +42,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dan@danny.cz, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- tpearson@raptorengineering.com, alexdeucher@gmail.com,
- linuxppc-dev@lists.ozlabs.org, linux@roeck-us.net
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
+ Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Linus Torvalds <torvalds@linux-foundation.org> writes:
-> On Mon, Jul 25, 2022 at 5:39 AM Michael Ellerman <mpe@ellerman.id.au> wrote:
->>
->> Further digging shows that the build failures only occur with compilers
->> that default to 64-bit long double.
->
-> Where the heck do we have 'long double' things anywhere in the kernel?
+No functional modification involved.
 
-There's one or two uses, but not in any code that's relevant to this
-issue AFAICS.
+smatch warnings:
 
-> I tried to grep for it, and failed miserably. I found some constants
-> that would qualify, but they were in the v4l colorspaces-details.rst
-> doc file.
->
-> Strange.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dpp_cm.c:450 dpp20_get_blndgam_current() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dpp_cm.c:543 dpp20_get_shaper_current() warn: inconsistent indenting.
 
-It doesn't seem to matter if you use long double or not. It's just that
-if the long double size is 64-bits the linker refuses to link a mixture
-of soft/hard-float objects.
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ .../drm/amd/display/dc/dcn20/dcn20_dpp_cm.c   | 68 +++++++++----------
+ 1 file changed, 34 insertions(+), 34 deletions(-)
 
-The 64-bit ABI says long double is 128-bits, so the compilers that are
-using 64-bit long double are either not built correctly, or we are not
-passing the correct flags to them.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
+index 2feb051a2002..598caa508d43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
+@@ -444,24 +444,24 @@ static enum dc_lut_mode dpp20_get_blndgam_current(struct dpp *dpp_base)
+ 	uint32_t state_mode;
+ 	struct dcn20_dpp *dpp = TO_DCN20_DPP(dpp_base);
+ 
+-	REG_GET(CM_BLNDGAM_LUT_WRITE_EN_MASK,
+-					CM_BLNDGAM_CONFIG_STATUS, &state_mode);
++	REG_GET(CM_BLNDGAM_LUT_WRITE_EN_MASK, CM_BLNDGAM_CONFIG_STATUS, &state_mode);
+ 
+-		switch (state_mode) {
+-		case 0:
+-			mode = LUT_BYPASS;
+-			break;
+-		case 1:
+-			mode = LUT_RAM_A;
+-			break;
+-		case 2:
+-			mode = LUT_RAM_B;
+-			break;
+-		default:
+-			mode = LUT_BYPASS;
+-			break;
+-		}
+-		return mode;
++	switch (state_mode) {
++	case 0:
++		mode = LUT_BYPASS;
++		break;
++	case 1:
++		mode = LUT_RAM_A;
++		break;
++	case 2:
++		mode = LUT_RAM_B;
++		break;
++	default:
++		mode = LUT_BYPASS;
++		break;
++	}
++
++	return mode;
+ }
+ 
+ bool dpp20_program_blnd_lut(
+@@ -537,24 +537,24 @@ static enum dc_lut_mode dpp20_get_shaper_current(struct dpp *dpp_base)
+ 	uint32_t state_mode;
+ 	struct dcn20_dpp *dpp = TO_DCN20_DPP(dpp_base);
+ 
+-	REG_GET(CM_SHAPER_LUT_WRITE_EN_MASK,
+-			CM_SHAPER_CONFIG_STATUS, &state_mode);
++	REG_GET(CM_SHAPER_LUT_WRITE_EN_MASK, CM_SHAPER_CONFIG_STATUS, &state_mode);
+ 
+-		switch (state_mode) {
+-		case 0:
+-			mode = LUT_BYPASS;
+-			break;
+-		case 1:
+-			mode = LUT_RAM_A;
+-			break;
+-		case 2:
+-			mode = LUT_RAM_B;
+-			break;
+-		default:
+-			mode = LUT_BYPASS;
+-			break;
+-		}
+-		return mode;
++	switch (state_mode) {
++	case 0:
++		mode = LUT_BYPASS;
++		break;
++	case 1:
++		mode = LUT_RAM_A;
++		break;
++	case 2:
++		mode = LUT_RAM_B;
++		break;
++	default:
++		mode = LUT_BYPASS;
++		break;
++	}
++
++	return mode;
+ }
+ 
+ static void dpp20_configure_shaper_lut(
+-- 
+2.20.1.7.g153144c
 
-There's an -mlong-double-128 flag which we can pass at build time which
-seems to do the right thing, I will probably add that to the kernel
-CFLAGS, but I want that to get a bit more testing.
-
-cheers
