@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50289CCA48B
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F226ECCA47E
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jul 2022 12:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A92D8FB70;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B2A8FB7B;
 	Tue, 26 Jul 2022 12:54:45 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
- (out30-42.freemail.mail.aliyun.com [115.124.30.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 218F911B5B7;
- Tue, 26 Jul 2022 07:27:23 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A04911B187;
+ Tue, 26 Jul 2022 07:27:51 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R961e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VKUIMGu_1658820438; 
+ TI=SMTPD_---0VKUN9FD_1658820463; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VKUIMGu_1658820438) by smtp.aliyun-inc.com;
- Tue, 26 Jul 2022 15:27:20 +0800
+ fp:SMTPD_---0VKUN9FD_1658820463) by smtp.aliyun-inc.com;
+ Tue, 26 Jul 2022 15:27:45 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 14/20] drm/amd/display: Clean up some inconsistent indenting
-Date: Tue, 26 Jul 2022 15:25:49 +0800
-Message-Id: <20220726072555.91323-14-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 20/20] drm/amd/display: Clean up some inconsistent indenting
+Date: Tue, 26 Jul 2022 15:25:55 +0800
+Message-Id: <20220726072555.91323-20-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 In-Reply-To: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
 References: <20220726072555.91323-1-jiapeng.chong@linux.alibaba.com>
@@ -53,103 +53,185 @@ No functional modification involved.
 
 smatch warnings:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dpp_cm.c:450 dpp20_get_blndgam_current() warn: inconsistent indenting.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dpp_cm.c:543 dpp20_get_shaper_current() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1372 dp_dsc_clock_en_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1478 dp_dsc_clock_en_write() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1563 dp_dsc_slice_width_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1667 dp_dsc_slice_width_write() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1752 dp_dsc_slice_height_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1856 dp_dsc_slice_height_write() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1937 dp_dsc_bits_per_pixel_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2038 dp_dsc_bits_per_pixel_write() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2117 dp_dsc_pic_width_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2178 dp_dsc_pic_height_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2254 dp_dsc_chunk_size_read() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2330 dp_dsc_slice_bpg_offset_read() warn: inconsistent indenting.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- .../drm/amd/display/dc/dcn20/dcn20_dpp_cm.c   | 68 +++++++++----------
- 1 file changed, 34 insertions(+), 34 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 72 +++++++++----------
+ 1 file changed, 36 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
-index 2feb051a2002..598caa508d43 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
-@@ -444,24 +444,24 @@ static enum dc_lut_mode dpp20_get_blndgam_current(struct dpp *dpp_base)
- 	uint32_t state_mode;
- 	struct dcn20_dpp *dpp = TO_DCN20_DPP(dpp_base);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index aa4edf182095..0e48824f55e3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1369,9 +1369,9 @@ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
  
--	REG_GET(CM_BLNDGAM_LUT_WRITE_EN_MASK,
--					CM_BLNDGAM_CONFIG_STATUS, &state_mode);
-+	REG_GET(CM_BLNDGAM_LUT_WRITE_EN_MASK, CM_BLNDGAM_CONFIG_STATUS, &state_mode);
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
  
--		switch (state_mode) {
--		case 0:
--			mode = LUT_BYPASS;
--			break;
--		case 1:
--			mode = LUT_RAM_A;
--			break;
--		case 2:
--			mode = LUT_RAM_B;
--			break;
--		default:
--			mode = LUT_BYPASS;
--			break;
--		}
--		return mode;
-+	switch (state_mode) {
-+	case 0:
-+		mode = LUT_BYPASS;
-+		break;
-+	case 1:
-+		mode = LUT_RAM_A;
-+		break;
-+	case 2:
-+		mode = LUT_RAM_B;
-+		break;
-+	default:
-+		mode = LUT_BYPASS;
-+		break;
-+	}
-+
-+	return mode;
- }
+ 	if (!pipe_ctx) {
+@@ -1475,9 +1475,9 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
  
- bool dpp20_program_blnd_lut(
-@@ -537,24 +537,24 @@ static enum dc_lut_mode dpp20_get_shaper_current(struct dpp *dpp_base)
- 	uint32_t state_mode;
- 	struct dcn20_dpp *dpp = TO_DCN20_DPP(dpp_base);
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
  
--	REG_GET(CM_SHAPER_LUT_WRITE_EN_MASK,
--			CM_SHAPER_CONFIG_STATUS, &state_mode);
-+	REG_GET(CM_SHAPER_LUT_WRITE_EN_MASK, CM_SHAPER_CONFIG_STATUS, &state_mode);
+ 	if (!pipe_ctx || !pipe_ctx->stream)
+@@ -1560,9 +1560,9 @@ static ssize_t dp_dsc_slice_width_read(struct file *f, char __user *buf,
  
--		switch (state_mode) {
--		case 0:
--			mode = LUT_BYPASS;
--			break;
--		case 1:
--			mode = LUT_RAM_A;
--			break;
--		case 2:
--			mode = LUT_RAM_B;
--			break;
--		default:
--			mode = LUT_BYPASS;
--			break;
--		}
--		return mode;
-+	switch (state_mode) {
-+	case 0:
-+		mode = LUT_BYPASS;
-+		break;
-+	case 1:
-+		mode = LUT_RAM_A;
-+		break;
-+	case 2:
-+		mode = LUT_RAM_B;
-+		break;
-+	default:
-+		mode = LUT_BYPASS;
-+		break;
-+	}
-+
-+	return mode;
- }
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
  
- static void dpp20_configure_shaper_lut(
+ 	if (!pipe_ctx) {
+@@ -1664,9 +1664,9 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx || !pipe_ctx->stream)
+@@ -1749,9 +1749,9 @@ static ssize_t dp_dsc_slice_height_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
+@@ -1853,9 +1853,9 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx || !pipe_ctx->stream)
+@@ -1934,9 +1934,9 @@ static ssize_t dp_dsc_bits_per_pixel_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
+@@ -2035,9 +2035,9 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx || !pipe_ctx->stream)
+@@ -2114,9 +2114,9 @@ static ssize_t dp_dsc_pic_width_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
+@@ -2175,9 +2175,9 @@ static ssize_t dp_dsc_pic_height_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
+@@ -2251,9 +2251,9 @@ static ssize_t dp_dsc_chunk_size_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
+@@ -2327,9 +2327,9 @@ static ssize_t dp_dsc_slice_bpg_offset_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream &&
+-			    pipe_ctx->stream->link == aconnector->dc_link)
+-				break;
++		if (pipe_ctx && pipe_ctx->stream &&
++		    pipe_ctx->stream->link == aconnector->dc_link)
++			break;
+ 	}
+ 
+ 	if (!pipe_ctx) {
 -- 
 2.20.1.7.g153144c
 
