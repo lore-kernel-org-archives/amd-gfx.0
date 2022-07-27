@@ -4,30 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7F4C04A68
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 07:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D2FC19F29
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 07:41:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3995BEB01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0F9112FEE;
 	Wed, 27 Jul 2022 07:41:31 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
- (out30-54.freemail.mail.aliyun.com [115.124.30.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1363AF076;
- Tue, 26 Jul 2022 22:28:16 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R421e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VKXar-j_1658874491; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VKXar-j_1658874491) by smtp.aliyun-inc.com;
- Wed, 27 Jul 2022 06:28:12 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: airlied@linux.ie
-Subject: [PATCH -next] drm/amd/display: remove unneeded semicolon
-Date: Wed, 27 Jul 2022 06:28:09 +0800
-Message-Id: <20220726222809.64709-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
+ Wed, 27 Jul 2022 03:05:33 UTC
+Received: from mail.nfschina.com (unknown
+ [IPv6:2400:dd01:100f:2:72e2:84ff:fe10:5f45])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 01A45C004B;
+ Wed, 27 Jul 2022 03:05:33 +0000 (UTC)
+Received: from localhost (unknown [127.0.0.1])
+ by mail.nfschina.com (Postfix) with ESMTP id 0D0EC1E80D8E;
+ Wed, 27 Jul 2022 11:00:25 +0800 (CST)
+X-Virus-Scanned: amavisd-new at test.com
+Received: from mail.nfschina.com ([127.0.0.1])
+ by localhost (mail.nfschina.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id ZSFJZEL-oIX6; Wed, 27 Jul 2022 11:00:22 +0800 (CST)
+Received: from localhost.localdomain (unknown [180.167.10.98])
+ (Authenticated sender: yuzhe@nfschina.com)
+ by mail.nfschina.com (Postfix) with ESMTPA id 97E001E80D05;
+ Wed, 27 Jul 2022 11:00:21 +0800 (CST)
+From: Yu Zhe <yuzhe@nfschina.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Subject: [PATCH] drm/amdkfd: use time_is_before_jiffies(a + b) to replace
+ "jiffies - a > b"
+Date: Wed, 27 Jul 2022 10:59:17 +0800
+Message-Id: <20220727025917.22477-1-yuzhe@nfschina.com>
+X-Mailer: git-send-email 2.11.0
 X-Mailman-Approved-At: Wed, 27 Jul 2022 07:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -40,36 +47,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Yang Li <yang.lee@linux.alibaba.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Yu Zhe <yuzhe@nfschina.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ liqiong@nfschina.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the following coccicheck warning:
-./drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c:2344:67-68: Unneeded semicolon
+time_is_before_jiffies deals with timer wrapping correctly.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-index 39428488a052..ca44df4fca74 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-@@ -2341,7 +2341,7 @@ void dcn201_populate_dml_writeback_from_context_fpu(struct dc *dc,
- 				dout_wb.wb_dst_width = wb_info->dwb_params.dest_width;
- 				dout_wb.wb_dst_height = wb_info->dwb_params.dest_height;
- 				dout_wb.wb_htaps_luma = wb_info->dwb_params.scaler_taps.h_taps;
--				dout_wb.wb_vtaps_luma = wb_info->dwb_params.scaler_taps.v_taps;;
-+				dout_wb.wb_vtaps_luma = wb_info->dwb_params.scaler_taps.v_taps;
- 				dout_wb.wb_htaps_chroma = wb_info->dwb_params.scaler_taps.h_taps_c;
- 				dout_wb.wb_vtaps_chroma = wb_info->dwb_params.scaler_taps.v_taps_c;
- 				dout_wb.wb_hratio = wb_info->dwb_params.cnv_params.crop_en ?
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+index a9466d154395..6397926e059c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+@@ -156,7 +156,7 @@ static void interrupt_wq(struct work_struct *work)
+ 	while (dequeue_ih_ring_entry(dev, ih_ring_entry)) {
+ 		dev->device_info.event_interrupt_class->interrupt_wq(dev,
+ 								ih_ring_entry);
+-		if (jiffies - start_jiffies > HZ) {
++		if (time_is_before_jiffies(start_jiffies + HZ)) {
+ 			/* If we spent more than a second processing signals,
+ 			 * reschedule the worker to avoid soft-lockup warnings
+ 			 */
 -- 
-2.20.1.7.g153144c
+2.11.0
 
