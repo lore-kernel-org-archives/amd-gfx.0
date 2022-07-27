@@ -4,93 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163A6C04A68
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 07:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE46C04A68
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 08:53:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97DA4B2C8D;
-	Wed, 27 Jul 2022 07:57:50 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8CF8B1963;
- Wed, 27 Jul 2022 07:57:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SURFNaRUKPdl/ciMoDO+YG2RhAx6zGj4GloXqa2zliUFDCiOAf9MuQq3wnjFLQ/tOP1rFYCg/rDgiqxGunXrDBwIKKGGse7TdqfJIDZvjIU6erz6YTSQIfo1v9S5lq9Ke5QFVMXQxCzFbM8MJ6JdJToRqpETOcowCG9AWl2vOdjHOEG9oMeNbKMWyY/QlrgY3L53ENyDGlNbtNUooLI8x9dA2qBtjBtPrmUnxqKX7ksQvwkXxDKHkiTPqUTbcWjOjExVNm5gqi7VAIngKFxEu+OtOBzpKeHs6VYLMpjIzymMDGVq+xsRih/XuwVaun4yJawigEomkRR8/EvVhC4xWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E6HdarEyEq6f4GDYbMStrWKik1hv3aKo11JTNVpe0yM=;
- b=RMVN+4cFCsV7UfRT+LGoZK5NG25aFqvMmJXeaxiPmFyBrNZaasjWSmCdPJubZMlxyKzGnMP5BSibtk2jRdt6w0Y5LbGYCqDhSveSDBlI40H6lBhQ8p3iN15c9Vz6z9q5ypjC86nbzC0LmDsH4F8NtC3Gq5Vfng0YepOG4CNPfdBKe273gqumnR/sat3J+IR1aiOEMyPlisuQ6wZnRkow0A+bu9qyCV16HfgpO6nNK5+33Gr8sGiAAQhPx25neBWBsWD/nnpTK2tYV8h6dr5DuH/Xb4eBS3ELFZ0+hEZVIpxBtdFL2QGoqNKQMp4swSaAw5oBoXqw0sSpCMMB4a7B6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E6HdarEyEq6f4GDYbMStrWKik1hv3aKo11JTNVpe0yM=;
- b=yIR6GRpaLoGh0BA/KH3H/p0D3xNnR32CmqEUg4sU6EHrntj0YWCliPFAYhUHLH3xVVd6IFHzApSXIeUXrYXm+wH+h9m7BminFTRQj6yqu38w5pUfHKa2+0d56DLaq2mZ3E1hlfNcaILZJ3P/uebUmK5mLIZY1JXfMuXk5GTdQ/k=
-Received: from BN9PR03CA0934.namprd03.prod.outlook.com (2603:10b6:408:108::9)
- by MWHPR12MB1182.namprd12.prod.outlook.com (2603:10b6:300:b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Wed, 27 Jul
- 2022 07:57:47 +0000
-Received: from BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:108:cafe::d1) by BN9PR03CA0934.outlook.office365.com
- (2603:10b6:408:108::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.20 via Frontend
- Transport; Wed, 27 Jul 2022 07:57:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT034.mail.protection.outlook.com (10.13.176.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5482.10 via Frontend Transport; Wed, 27 Jul 2022 07:57:46 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 27 Jul 2022 02:57:30 -0500
-From: Arvind Yadav <Arvind.Yadav@amd.com>
-To: <Christian.Koenig@amd.com>, <andrey.grodzovsky@amd.com>,
- <shashank.sharma@amd.com>, <amaranath.somalapuram@amd.com>,
- <Luben.Tuikov@amd.com>, <Alexander.Deucher@amd.com>,
- <Arunpravin.PaneerSelvam@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <sumit.semwal@linaro.org>, <dri-devel@lists.freedesktop.org>,
- <gustavo@padovan.org>
-Subject: [PATCH] dma-buf: use struct_size helper instead of kzalloc
-Date: Wed, 27 Jul 2022 13:27:12 +0530
-Message-ID: <20220727075712.591488-1-Arvind.Yadav@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAB1DC3184;
+	Wed, 27 Jul 2022 08:53:26 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 779C2C3184
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jul 2022 08:53:26 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ s10-20020a4ab54a000000b00435f410bbacso986912ooo.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jul 2022 01:53:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1nfX1X1aPK8BV1L7+T/YY3BWkRvAMEOVSWH/dDwx5FE=;
+ b=l9IqC6BQoNhtKR1GsbVNd2YZ3J3HfSPCrGZ3bvrXyAH92zLjDbAk/JG2ILp3S9e2si
+ Az1IJFtQCMybc5HqwqjpZDKGXEul2CEkXl7Rw5kMMOyco5i7/+s5yuleG8L+Plvl81DZ
+ RfPxFJFMnEmlc+n4/2ICLbMkco1VfzpzIeM/BdcPycWtZxhMc+nOfZTBP+l7VauVjmWN
+ U12QLmcaGH1lmvX+Jzi3CqhCANiEQcuWvA0VMWtQI5WCdiJGAcYEh67QYcwqMx+aHh9e
+ rFZxRo/UA9pimWXRssKdmxXaf3LfGvEImupWad8VvgDYiJSZ0DqclN+PTPai8opAGgk0
+ g1FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1nfX1X1aPK8BV1L7+T/YY3BWkRvAMEOVSWH/dDwx5FE=;
+ b=tskfEj9wMnm+qBd/FJhp/vudnviwVwdT7+KY8QYwY/gSXKXpfyC5F0xIwh3MG8YurT
+ o/o8rXu+nLm/kuQkpC8LcSEh9PAY49Eeto0jpmgO9poeuSTVhmLM6X2sZG12+J9ySCvS
+ tn6wyd1ow/3O4Dk6urlOouaPDag7Nv5Pv8AvDcGUXufrOhc8nxuItMVGZCmifJErJlat
+ Z4aFnAws9zhj+XJ0hIEbpV7cA75515TRhE4gqNtjNRJH+29NdC0fqt4Uj2nNCdStxxyA
+ ckHVHrKD+SBj1LgbBpGJf0RlqyQAO33mTJl2kqLe+dBicZ1aUlJ9QxIbExGPezFOjdHb
+ 5f7w==
+X-Gm-Message-State: AJIora+BaWkmS4MfpI0OO0M0dFSj0jletCJEn+BShbr9m1ZtiItKjCnY
+ wmnEhPCbZYWe8rNuSLzTOkYMSKmz5+QCc8K5vlQ=
+X-Google-Smtp-Source: AGRyM1vIS3zDFHS5QThWiAV1Dq1XoxlCcfTN3dJsoftAehggAjYJ0JkiuqWIR87QU/1OFEEi4w/tjp90w//Z/EFVPis=
+X-Received: by 2002:a4a:14c7:0:b0:435:440e:c60c with SMTP id
+ 190-20020a4a14c7000000b00435440ec60cmr7121088ood.89.1658912005327; Wed, 27
+ Jul 2022 01:53:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 92ff4bfb-f9b5-4fae-ed45-08da6fa5b1d0
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1182:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pf5moXXVxXxX+t2QmcaDbRwW28N9PIdaVWP45mouyYefRvcW3et3mf/cC0NiSl2WA0FxWcyNTLxA64l1+uZsUqf7yQCoTkn7ug18zRsHmNyUdHwoXzNuMQGpq38h2f5vq2RNltbuwDneH/M3Hqy1gVt2jxuCR+Ah/qqWC6OAQeBjRPOml9zLX4TARwUeXJCp3H0cdV1wgXGsdS569ihrbJk89CS810goE6gAlwoBklE7r5x0p0Bp8sdOwu5jlcApT/EI5zDUxyDfIwi8owOtJu7kQzTiEtAFNwyCOjcSS8n0das5RzDZV1ndFN+NbxxW0vCY1WJM+p9nUc2jGsttMA0r4hVB0Vi2DAxQgPREFaUT29UAqQA8C3SaRQeaD/Xmtn9H82U3Zf1hMzFORUSmoRl+ot27h/Ft7ruMb0Y2t33wDSsuYJ0MRt/pFg066ahIeX8gZKxel62lsiVXv0EaafVQbxPeAXJ9Q1PXeaxwCGScAF8xuude+bhCniotFl6EeRldm/z3+258bjK/kw5H5XPNzezat/Qgb3LWIN4ocBPdfpe6ROWnbj/36pYKZNxx9LKRKojW6PWEp16uvJTZFy1Bfb5GbAS5lLGWAhTAhvE6ZrsXIqTJVYvMBY9AWwjTi6T/k+V5SPsQ7o1FF1AjKUsh+UOP7KlC78C/uzZjviB+tmXG/OkvFZJ4A/zddxEeM2GjbIxJo3E1l7G1miDCbuQuWOve0DL7muw7HPAXcFLpEKPwkmFvBzbeA2xT3o1vbB6bUCSbPYD3HCFYgQVcG73sY7biux8AYrZpTneN2oVF4ozEAteHU/QaDxpJ/duXcgVfaGFimfxfZrOc4R46axe1ABQILOP9z5nPxQaYU7tjsM+nuqIv5uYc7H2OKLhaZc0XAokp7RV07ZlZZ/JQgA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(136003)(346002)(376002)(396003)(46966006)(36840700001)(40470700004)(186003)(426003)(1076003)(41300700001)(336012)(16526019)(2616005)(4326008)(70586007)(8676002)(110136005)(47076005)(36756003)(83380400001)(70206006)(54906003)(26005)(7696005)(2906002)(6666004)(40460700003)(356005)(40480700001)(36860700001)(86362001)(8936002)(316002)(5660300002)(478600001)(81166007)(82740400003)(921005)(82310400005)(36900700001)(2101003)(83996005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 07:57:46.9111 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92ff4bfb-f9b5-4fae-ed45-08da6fa5b1d0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1182
+References: <CAFSh4Uw776o-kySa+=VGY=Ejnt+kgj_HU3DpDT96AMzRwUa0sQ@mail.gmail.com>
+ <7f3e2f3e-bd8e-7971-d85e-616ecd858323@amd.com>
+In-Reply-To: <7f3e2f3e-bd8e-7971-d85e-616ecd858323@amd.com>
+From: Tom Cook <tom.k.cook@gmail.com>
+Date: Wed, 27 Jul 2022 09:53:14 +0100
+Message-ID: <CAFSh4Uwz3v=93PhcthdgazoEeVjOV2hONAurMDDC2RPEx7-Zdw@mail.gmail.com>
+Subject: Re: Crash on resume from S3
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,71 +63,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, Arvind Yadav <Arvind.Yadav@amd.com>,
- jason@jlekstrand.net
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace zero-length array allocation with flexible-array member
-because Dynamic calculations should not be performed for memory
-allocator due to the risk of them overflowing. So using struct_size()
-helper instead of an open-coded version in order to avoid any potential
-type mistakes.
+https://gitlab.freedesktop.org/drm/amd/-/issues/2105
 
-Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
----
- drivers/dma-buf/dma-fence-array.c | 6 ++----
- include/linux/dma-fence-array.h   | 2 ++
- 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-index 5c8a7084577b..3ebb6c5fa287 100644
---- a/drivers/dma-buf/dma-fence-array.c
-+++ b/drivers/dma-buf/dma-fence-array.c
-@@ -70,7 +70,7 @@ static void dma_fence_array_cb_func(struct dma_fence *f,
- static bool dma_fence_array_enable_signaling(struct dma_fence *fence)
- {
- 	struct dma_fence_array *array = to_dma_fence_array(fence);
--	struct dma_fence_array_cb *cb = (void *)(&array[1]);
-+	struct dma_fence_array_cb *cb = array->array_cb;
- 	unsigned i;
- 
- 	for (i = 0; i < array->num_fences; ++i) {
-@@ -157,13 +157,11 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
- 					       bool signal_on_any)
- {
- 	struct dma_fence_array *array;
--	size_t size = sizeof(*array);
- 
- 	WARN_ON(!num_fences || !fences);
- 
- 	/* Allocate the callback structures behind the array. */
--	size += num_fences * sizeof(struct dma_fence_array_cb);
--	array = kzalloc(size, GFP_KERNEL);
-+	array = kzalloc(struct_size(array, array_cb, num_fences), GFP_KERNEL);
- 	if (!array)
- 		return NULL;
- 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index ec7f25def392..bd2d2db55840 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -33,6 +33,7 @@ struct dma_fence_array_cb {
-  * @num_pending: fences in the array still pending
-  * @fences: array of the fences
-  * @work: internal irq_work function
-+ * @array_cb: callback helper for fence array
-  */
- struct dma_fence_array {
- 	struct dma_fence base;
-@@ -43,6 +44,7 @@ struct dma_fence_array {
- 	struct dma_fence **fences;
- 
- 	struct irq_work work;
-+	struct dma_fence_array_cb array_cb[];
- };
- 
- /**
--- 
-2.25.1
-
+On Tue, Jul 26, 2022 at 6:10 PM Andrey Grodzovsky
+<andrey.grodzovsky@amd.com> wrote:
+>
+> The stack trace is expected part of reset procedure  so that ok. The
+> issue you are having is a hang on one of GPU jobs during resume which
+> triggers a GPU reset attempt.
+>
+> You can open a ticket with this issue here
+> https://gitlab.freedesktop.org/drm/amd/-/issues, please attach full
+> dmesg log.
+>
+> Andrey
+>
+> On 2022-07-26 05:06, Tom Cook wrote:
+> > I have a Ryzen 7 3700U in an HP laptop.  lspci describes the GPU in this way:
+> >
+> > 04:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+> > [AMD/ATI] Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile
+> > Series] (rev c1)
+> >
+> > This laptop has never successfully resumed from suspend (I have tried
+> > every 5.x kernel).  Currently on 5.18.0, the system appears to be okay
+> > after resume apart from the gpu which is usually giving a blank
+> > screen, occasionally a scrambled output.  After rebooting, I see this
+> > in syslog:
+> >
+> > Jul 25 11:02:18 frog kernel: [240782.968674] amdgpu 0000:04:00.0:
+> > amdgpu: GPU reset begin!
+> > Jul 25 11:02:19 frog kernel: [240783.974891] amdgpu 0000:04:00.0:
+> > [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test
+> > failed (-110)
+> > Jul 25 11:02:19 frog kernel: [240783.988650] [drm] free PSP TMR buffer
+> > Jul 25 11:02:19 frog kernel: [240784.019057] CPU: 4 PID: 305612 Comm:
+> > kworker/u32:17 Not tainted 5.18.0 #1
+> > Jul 25 11:02:19 frog kernel: [240784.019063] Hardware name: HP HP ENVY
+> > x360 Convertible 15-ds0xxx/85DD, BIOS F.20 05/28/2020
+> > Jul 25 11:02:19 frog kernel: [240784.019067] Workqueue:
+> > amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+> > Jul 25 11:02:19 frog kernel: [240784.019079] Call Trace:
+> > Jul 25 11:02:19 frog kernel: [240784.019082]  <TASK>
+> > Jul 25 11:02:19 frog kernel: [240784.019085]  dump_stack_lvl+0x49/0x5f
+> > Jul 25 11:02:19 frog kernel: [240784.019095]  dump_stack+0x10/0x12
+> > Jul 25 11:02:19 frog kernel: [240784.019099]
+> > amdgpu_do_asic_reset+0x2f/0x4e0 [amdgpu]
+> > Jul 25 11:02:19 frog kernel: [240784.019278]
+> > amdgpu_device_gpu_recover_imp+0x41e/0xb50 [amdgpu]
+> > Jul 25 11:02:19 frog kernel: [240784.019452]
+> > amdgpu_job_timedout+0x155/0x1b0 [amdgpu]
+> > Jul 25 11:02:19 frog kernel: [240784.019674]
+> > drm_sched_job_timedout+0x74/0xf0 [gpu_sched]
+> > Jul 25 11:02:19 frog kernel: [240784.019681]  ?
+> > amdgpu_cgs_destroy_device+0x10/0x10 [amdgpu]
+> > Jul 25 11:02:19 frog kernel: [240784.019896]  ?
+> > drm_sched_job_timedout+0x74/0xf0 [gpu_sched]
+> > Jul 25 11:02:19 frog kernel: [240784.019903]  process_one_work+0x227/0x440
+> > Jul 25 11:02:19 frog kernel: [240784.019908]  worker_thread+0x31/0x3d0
+> > Jul 25 11:02:19 frog kernel: [240784.019912]  ? process_one_work+0x440/0x440
+> > Jul 25 11:02:19 frog kernel: [240784.019914]  kthread+0xfe/0x130
+> > Jul 25 11:02:19 frog kernel: [240784.019918]  ?
+> > kthread_complete_and_exit+0x20/0x20
+> > Jul 25 11:02:19 frog kernel: [240784.019923]  ret_from_fork+0x22/0x30
+> > Jul 25 11:02:19 frog kernel: [240784.019930]  </TASK>
+> > Jul 25 11:02:19 frog kernel: [240784.019934] amdgpu 0000:04:00.0:
+> > amdgpu: MODE2 reset
+> > Jul 25 11:02:19 frog kernel: [240784.020178] amdgpu 0000:04:00.0:
+> > amdgpu: GPU reset succeeded, trying to resume
+> > Jul 25 11:02:19 frog kernel: [240784.020552] [drm] PCIE GART of 1024M enabled.
+> > Jul 25 11:02:19 frog kernel: [240784.020555] [drm] PTB located at
+> > 0x000000F400900000
+> > Jul 25 11:02:19 frog kernel: [240784.020577] [drm] VRAM is lost due to
+> > GPU reset!
+> > Jul 25 11:02:19 frog kernel: [240784.020579] [drm] PSP is resuming...
+> > Jul 25 11:02:19 frog kernel: [240784.040465] [drm] reserve 0x400000
+> > from 0xf47fc00000 for PSP TMR
+> >
+> > I'm running the latest BIOS from HP.  Is there anything I can do to
+> > work around this?  Or anything I can do to help debug it?
+> >
+> > Regards,
+> > Tom Cook
