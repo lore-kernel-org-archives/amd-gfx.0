@@ -4,89 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF6AC19F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 05:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 671CAC04A68
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 06:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6500F11A2B8;
-	Wed, 27 Jul 2022 05:30:59 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2061.outbound.protection.outlook.com [40.107.95.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEF0B11A097;
- Wed, 27 Jul 2022 05:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C18DC18B5C5;
+	Wed, 27 Jul 2022 06:32:09 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2054.outbound.protection.outlook.com [40.107.100.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 980A48FD4E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jul 2022 06:32:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J+YrRVmxzXbfUxXqacNEI7DNInyi3jo4GVQ9korA2E70zbVPZI2nfrmO0Q8/EYmh47lWKTDg80huJPEXhMXEkxiLxz915ys6ja6CaSq0/XEDx0zhh3MkrFhz1bpRwzDCqUZeqx5mCI41W5zSeU3s/9+akKd88PPECwS0Ql14cEGji3ECYS3aWAnOdMwIFi0h62oskK9++R4WrhE96c6GKuNo6Yx31oLMVMsCMp9uynDbcU8UHnpmVV4RUJCO8MNwYmMVCDoSjJHL3GnUbEnRyuA9cOy0rR4OQMPX5NEnTJ6bKIEbfBOBphKbnHaH8o65DyaNstp5Fi41plywZ7tyqQ==
+ b=WyD3cas6JzQmSZdDfc0BdkR6dOXkYF/ymIkcdJCfAMXo+/1fP15tst6iPhNDbGq4jxLinmhZX9CybCEOKEu2Dg80Tpg4qA5IQveTm8x/YpEwdLZRimNzeDhkzBnVCMW6afsSkxWzFnIgQ335nrHpka7DwrGanluyMtB3WsgncTLx5unoE1HDRSEVcHjHX/vXqtM0NhfG9zXv43XzzO5c+AMZpa++SuycxpUxeSBK4gCZQGlE8RiaP18NelS7MRugSoNjMBfgCkV5VkGKKMBwNnPf0ooSHyo6V69mPYQGK7Z1/cISPqRLVK7cY5v0myl/txtE/L/3scB8IlcOUHydlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=An6BlZLV0SgBCMCIalE/HmLZcGgp3U0Ts1OKFrEO93U=;
- b=NBPF03HWqLsFZr3toLng4ATHVg6vujShHH84q9kp+F07/iSuta8oStZTSsI8VL/f6susbJXbnARUCn7Y5PdSJ/i6y7FIUVAMwN7YssVfOz/ZmrzHSBDSIdAoDOyX4hEejS6aU8dJgnWIUuE9/MjgOVTkdAr65kEwgu33G7O8z7eN28C8t6aUVoyzaq2Kk+xorBBJZX75rTtuRYzL40FCUXX3Ev25DixiWaiI7qK7+odCscK7meZjDOl14qv0hzlE/CBYgixY4OfaiO8dhI6RPsZagUW7N+W4rF7Zixr1zvnnupj67aseiRGNuibHcNutc7YE7IDSh2n6A1wEStHl6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=oeJTUT/vs2KzuJ5AZ1JTz/MueMmIcTrvfJ1CVXWeOm8=;
+ b=LdNPoVdFEyg2NUYiTOYJyHSCnNqVljN8qXT+XmSOQ1VIO9KmoLxNk5UJliFpFRbS/+0d3esuVykBFQBMSwaQTLI+a38UfDbPpl3XdEndjZ+gQK1vXsA0WMA+EoR3j3LudbJoEAkPFp+oRZOGdWChwg/PHo+UINQOpurEZR+2tttmyy6SCkAmflXO96gmbZja9l1WmUrd/P8fF0zZd4bGwq+7DdMZWAqHLl4OZ1Rdfr6sYlA8GnPYqTORF5mYgL6TAC3Biwj7yYSQVD3PO9kUOD+BBHPBqeUEekjHIqRpKoklJzhUzICP19ZkSOBnUriKT61gAMVv+R6Ekeug7x5TQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=An6BlZLV0SgBCMCIalE/HmLZcGgp3U0Ts1OKFrEO93U=;
- b=t1VR0QnZI8VxLIZwnG83K4/AqtTqAWJ5rWq4dOSAMwRnHM/vv3mw0m45q56dRUN8GwftsZhHIbzXzjirwyZuZxS0u96vnheBNafBLxL6mp5SBe2eoVgdb7GQbCD9ULmn0uNyiapyCtkyw1SpAQepjVM3bbY+DFN9kt898B4f2OE=
-Received: from BN0PR03CA0038.namprd03.prod.outlook.com (2603:10b6:408:e7::13)
- by MWHPR1201MB2526.namprd12.prod.outlook.com (2603:10b6:300:ec::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=oeJTUT/vs2KzuJ5AZ1JTz/MueMmIcTrvfJ1CVXWeOm8=;
+ b=mg1qq6aYKzIoj2I4EDAD+YcGjMyW5hFXmRrVwmm3wFBErziE41WTeRs05anPadUov5BGLZR7EF1JkT+UuMMgWcE22Uhujzrf7PK/dynFiIEF1he4Q3Hbwq1jhqu8GyA3Q1Unh92Dbd34xJ2q50pqFxcV94V/VCvaIC89h0zaH0o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by MN2PR12MB4501.namprd12.prod.outlook.com (2603:10b6:208:269::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Wed, 27 Jul
- 2022 05:30:53 +0000
-Received: from BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e7:cafe::f) by BN0PR03CA0038.outlook.office365.com
- (2603:10b6:408:e7::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.21 via Frontend
- Transport; Wed, 27 Jul 2022 05:30:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT034.mail.protection.outlook.com (10.13.176.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5482.10 via Frontend Transport; Wed, 27 Jul 2022 05:30:52 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 27 Jul 2022 00:30:49 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/ttm: Fix dummy res NULL ptr deref bug
-Date: Tue, 26 Jul 2022 22:30:32 -0700
-Message-ID: <20220727053032.3668-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2022 06:32:04 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::6d50:f6c5:cea4:1d95%7]) with mapi id 15.20.5458.025; Wed, 27 Jul 2022
+ 06:32:04 +0000
+Message-ID: <c3be91d3-a8ee-2e3a-714c-c70229e6ffcc@amd.com>
+Date: Wed, 27 Jul 2022 12:06:29 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [bug report] drm/amdgpu: create I2S platform devices for Jadeite
+ platform
+Content-Language: en-US
+To: Dan Carpenter <dan.carpenter@oracle.com>
+References: <YuAFgoepMHvkw3CB@kili>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <YuAFgoepMHvkw3CB@kili>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0025.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::30) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a0ea23c3-ebf1-4bdc-e46a-08da6f912c05
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB2526:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0ea05c2-d89a-4b26-db95-08da6f99b888
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4501:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iigSN8UM/QFKXlLLmeOYDYKV0NVqx/KUnwitPnTOL0V92bKt5ZOSfcKOtkLq7SmfwLAFmHdDOJYkOINbqqEC4suQ/IbMo1qUx1otzPuXcpWmlU/lC2h2xFg6Tu8bvCRVdH1VpEhoceUpFcIU/svQu0g7QkWvpRuiCotylcph+eQtOcBfuk4I94q5OUJZ6Qqcw2DgGcPs6/YFyqX7PxJEIHXiKg2ssprN0waicVio89jTqwCqXs00aVI2nt+FYmGVsFs0Mp3+N8kTzlkeKRomAeYVH9pmQlqKUhFkTNOqDm8dCH/5aRtA4hy8uVh/1fykZheTZfCCg+fa7TDk3OYpf83A2k5Swl5FUhzyYxGuEnExU8zd0tkp8kt+kwxan4aJCmFIFFuxgPkWW/S4PjaNwBynutEYT8GY2uh1tOl/vHGdnm1q3EjyzzYQrHq3m6htmtK5UxopSY7f5SikufNA5yyk3DrlOkNvzB9oHFwbe65h/HG6b2u9tbKvonAlKzU87O1E6oa+QxyKnEYlzm9NIMt+isbMswZIw9AWdQfD//3n7iQGjL2xhJRKNYMyEGdhJS7FTwT4xMYP1vIZ2c351ikD10FKN72IbEXVzsT2INOjc3r9lzDE/2MSspFsMJA0xAiUv/tZLn7PfdTWB5bHJ87cu6nFotebpDNAwIL1BheeulJ2Dup8ysE7nPKwgMgG/zC8lkyyIPo08Kc5xED2h2fe+YedC4Z+6DgK+HsEqERbtxtEfB6qYu9+74ekIALYmqY3DMMr7n5NOs6WX/aL5v9NCQjNnv+jBgPKCtjnAC9YmpgfEJlEpmEWFIZSDKNGtaDZ2/luaZpShRle554ccg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(136003)(39860400002)(396003)(36840700001)(46966006)(40470700004)(82310400005)(6666004)(16526019)(316002)(36756003)(86362001)(47076005)(186003)(41300700001)(426003)(83380400001)(7696005)(2906002)(40460700003)(1076003)(336012)(5660300002)(356005)(2616005)(4326008)(40480700001)(54906003)(82740400003)(8936002)(26005)(478600001)(110136005)(70586007)(36860700001)(70206006)(8676002)(81166007)(36900700001);
+X-Microsoft-Antispam-Message-Info: T5rAqa1cHLHMyaNBLbMaMgFfTydo0//Z1xrNw48aWPKpWoObALtSn4FZA592Kv7p85+YZBZc+8qUhk2dy+5J+S7ZXxapBG0OKGgTW+AvLDrve6eGPyrOgL4qXWoqBUplmshPMTZxYZOVkxzzpmaQQmFGGB9K4cq6hbHdNGdW0bz+kZLNHtbrRll9MFCmBne2wb8TAO8EKRgkaqr2HGcCkZTFLLy5X0QF6zvrRb+XWiGSYX9sjzc4oKUnMFk/UepNDg1naoFzpl1ZP2CZ3z63CKvKVUTxi7iOnCU51K0J4xts6K1ONEG3BUTGpxwv0a0S9oxhAAiQhjHMsBPXCR8/c5f/InSgrzRRXVL5KVXe7i1bMN8YBb2qgW0h3y1wXiJQ/8zkAisbM7xH23duI9kt+HIDhpqXhXT7qlUoRuD8XRuE3LKV/z4RNR2HcPjxnAnxXdcNHaDhrWWZ5T/IHYJlqzH8JdyEttOeKwGidEYRj2rOB0gZp3o2CLJdJJV5qFn9UsPP6S2SrZ9P0ClrtDQ03BItM24hHeiBW4deMZpDRzdPIKbk5/1QVVSUPaVHphSdaXhPm/MLB0m91YMXdXgQ6feyvXcF23dtk74wOqN7egPFH/C7Kcq+qz5a2SlSswISN7qCJJ0tTVqJqOaCG15wzdA1CXonHpQDmT6sh0lwYJdE/mja+6u5BKbThNUDGJ2w7+rjvkC9P6V66myTji0XN56CLqh0EkkFWyffauj7EJM06BAcRmN+FqlcS6fjxSJ8nz3hDyFCzfLLG0vSH9+2zj9GyjKwMFlNrBTR+EeVMz+ijuwhujC3xZOlej6Aw/jTwnLrD0bJNdEOW3eMtLxl0w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(366004)(136003)(346002)(396003)(39860400002)(8676002)(4326008)(66946007)(66556008)(5660300002)(36756003)(66476007)(30864003)(8936002)(6486002)(38100700002)(2616005)(2906002)(53546011)(478600001)(31696002)(316002)(41300700001)(186003)(6666004)(6512007)(86362001)(6506007)(31686004)(6916009)(83380400001)(26005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHl5NUkyN0ZCbzlINGI5cmswbnY1dU51N0VraWJSWjBvYkIyRWdCQUtpRjdF?=
+ =?utf-8?B?cHl4L0JyL25LMTRoVCsrK1loT1VqSkRnQ2J3bDlhd3dTOTZPY3RBandlTnFM?=
+ =?utf-8?B?UWZTWjVDVGtMYUhQOTJGaW1aRG5YamJOT3BFYjU0QjM1d3RwMnhEeDdhV0NW?=
+ =?utf-8?B?MlJKSzVxSXJjcWdWdHYweThKajdJWHlRUnFNc3VaTHdJVEpzODVqZ3ZjTjJy?=
+ =?utf-8?B?eFd0bkxwbTQ2RFhzZUM1d0ZBdjFPRE1PZTNuT3p2TUVvbzY1NUN3bmFmeXBh?=
+ =?utf-8?B?bUN0eU1LaUFFTUFidmpZUm1vZ3BiaGMrdmlmMXpMNGN2OCtYU1MvcG1hNmdj?=
+ =?utf-8?B?S3RSbENSY09HMFlKbWhpZUpidWJPZExtT3FuazZFanJNREpkN3g5Rm5QNWw1?=
+ =?utf-8?B?M1pjd2t0Z0U1RnFna3RKeVdUbHgyM1V5TndjeUZTbUNqdWNLQnUyZ3VYTzNy?=
+ =?utf-8?B?Ui9jRGJzY1JIZmNLSkUwejRCdmFEd1ZGU0NKMVA1am44V1ZsTmdZRmFaOGlY?=
+ =?utf-8?B?S3cxUDlveGFRcFhLMUVZVTNWUk1QRFlMU0YxME5jdVp4SGVmOVpRZGF3MHZK?=
+ =?utf-8?B?d1MvU1NvdTllRnQzRTJBQm9lS2NUd083K21FM2cwUGhVWXFvWFRrd0JmS0N3?=
+ =?utf-8?B?SHhob0wwZ1NDcCs0Tk5Mdm90RHMxaVB1REJGTHBOMWFacmRJb01WV0dKR3Bo?=
+ =?utf-8?B?cEh1WW9Ka3lLRUVZTmxBZUhQRTBIbWRCQU5CUWVWdERObDAwdXhWMitNWlJX?=
+ =?utf-8?B?OXpvUVNRTW8wTTFDSC94Um1lYXdHSnErQXpvaFMya3JXUnNaZ1pxTE1pMXdq?=
+ =?utf-8?B?SjNGK2I2RDJ6QURVSFNKMUJsbWR4WXhxNE45UktSNmtsaUprTkgxVWpTa1Vn?=
+ =?utf-8?B?MmVsbVBwNTduQkRMeGFVWi8wcVRrTTZJM25GWGxUTkZBRjh1Qjd1Z3pSeStl?=
+ =?utf-8?B?Y2dCZGZUQjArSlBsaTdpMVhobk1pNTNDZ2Jab0dKeEF4TmVvcSthc1hWeFI5?=
+ =?utf-8?B?WDZsWkVqdHhYTFRyUWpQMHk1cy9Nc05oT3UyRGJ2VGhHRDZadFgyZmMxdGUw?=
+ =?utf-8?B?bHMvaThZZ0Zsb3llcFFZRzI4bWZTc3VRUFo0RWFZZnVpTUFvYTMwUmFRYzRT?=
+ =?utf-8?B?c0YvUnZsTkNsR0RoRVBwczlZVjFId3E0L0toY09XVjZnZVkrSThvNE52d1dE?=
+ =?utf-8?B?U2V2bW1qOTllU0k1OGEraEpvK0g5TzdWM0laQnpGNGtaYVJBMkZSME9aVjVm?=
+ =?utf-8?B?V2NjNXNzS0xSV0gwMmg3b21admcrb2NsWmozSVM3Z2gxRjhXWDYzR005MXVH?=
+ =?utf-8?B?SkZUR0JnRElxYWl6QXpZTFllYk1VUCtlbGhURXZqZFpEaWZCVXEwTk9Yb3JB?=
+ =?utf-8?B?SFBDYWhnUUd2Y25TVmZ6UWhvUG9NanZOeXB3OUQ0R0xUM25sTnljMXZrWW85?=
+ =?utf-8?B?Y2ovRzJ6R3JxTGdhVGkxcU9TM2tlOHlWWVV2Y08zdWhncFdGYVhLUmZXaDFX?=
+ =?utf-8?B?NnI3MFA0VlNPTjhvYkpyS0lYT2V1MnczbDJGN1BrMlB3NU9seUgwNHhpVXdD?=
+ =?utf-8?B?a2JLVkwyMkdkbzl2MWJmc0VacDFDTFo5MTdwM0M0OWFNQjd2YXRBMWJFSEJ5?=
+ =?utf-8?B?azNpM3oyd0MwTkl2WXJ3UGxLRE9FWDZtbHdyWGpDOW1XM1pwNVpXRldXa1Vq?=
+ =?utf-8?B?dm1McWlFM2swem9DOFVlNy9LdXprMnYwV2dSU2ZZdXQzQUFmcm1pdFM1dGYz?=
+ =?utf-8?B?UzNKQjRpaThwWnBPd2g3a1dxQlVieGtsdlUwNDl2MkZuZ1QyM1A1b250a3RV?=
+ =?utf-8?B?UGVYcEtGeDVnOHhxNVQydUdXZzFBdzViTUFOQWFIWXA2TCtWSjhmRy9CTm82?=
+ =?utf-8?B?T0hPVWNFUDR1TWlIdHJZRkFQWnVHMmdpWTV6SEhGdndLSEgwYWs5N1RzRnpU?=
+ =?utf-8?B?UWtLdlFmNGErbHJHNURvTmFLOHhNS0kyMlp5ekQvcGxWNTVoY3pkS0JBNlNm?=
+ =?utf-8?B?MFh4bVpUanBselpvcjQzSUVMQ29kdU0wWlVLQjU2MkdCdXNBWnltQmlGM1ho?=
+ =?utf-8?B?aXE3TFRsd2l3VElvY3BhQ2NWZWs1V3dRN3duMklMRlNvQWVFYmo5OFFLL0Jh?=
+ =?utf-8?Q?EjfH2HFiT7AsQzc2jW62fL2A8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 05:30:52.5246 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0ea23c3-ebf1-4bdc-e46a-08da6f912c05
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0ea05c2-d89a-4b26-db95-08da6f99b888
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 06:32:04.6752 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2526
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JrwbEN8WPtf4aN3mRp+sce9jUa0x9L09Mh1quQFr3cvgFzoKMRMGtTCTcK63BQMjPKcHcETb4BVj+BMFwfeUVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4501
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,134 +124,324 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, luben.tuikov@amd.com,
- kernel test robot <oliver.sang@intel.com>, christian.koenig@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check the bo->resource value before accessing the resource
-mem_type.
+On 7/26/22 8:47 PM, Dan Carpenter wrote:
+> Hello Vijendar Mukunda,
+> 
+> The patch 4c33e5179ff1: "drm/amdgpu: create I2S platform devices for
+> Jadeite platform" from Jun 30, 2022, leads to the following Smatch
+> static checker warning:
+> 
+>     drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c:393 acp_hw_init()
+>     error: buffer overflow 'i2s_pdata' 3 <= 3
+>     drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c:396 acp_hw_init()
+>     error: buffer overflow 'i2s_pdata' 3 <= 3
 
-v2: Fix commit description unwrapped warning
+will fix it and provide a patch.
 
-<log snip>
-[   40.191227][  T184] general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN PTI
-[   40.192995][  T184] KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-[   40.194411][  T184] CPU: 1 PID: 184 Comm: systemd-udevd Not tainted 5.19.0-rc4-00721-gb297c22b7070 #1
-[   40.196063][  T184] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.0-debian-1.16.0-4 04/01/2014
-[   40.199605][  T184] RIP: 0010:ttm_bo_validate+0x1b3/0x240 [ttm]
-[   40.200754][  T184] Code: e8 72 c5 ff ff 83 f8 b8 74 d4 85 c0 75 54 49 8b 9e 58 01 00 00 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 10 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 04 3c 03 7e 44 8b 53 10 31 c0 85 d2 0f 85 58
-[   40.203685][  T184] RSP: 0018:ffffc900006df0c8 EFLAGS: 00010202
-[   40.204630][  T184] RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 1ffff1102f4bb71b
-[   40.205864][  T184] RDX: 0000000000000002 RSI: ffffc900006df208 RDI: 0000000000000010
-[   40.207102][  T184] RBP: 1ffff920000dbe1a R08: ffffc900006df208 R09: 0000000000000000
-[   40.208394][  T184] R10: ffff88817a5f0000 R11: 0000000000000001 R12: ffffc900006df110
-[   40.209692][  T184] R13: ffffc900006df0f0 R14: ffff88817a5db800 R15: ffffc900006df208
-[   40.210862][  T184] FS:  00007f6b1d16e8c0(0000) GS:ffff88839d700000(0000) knlGS:0000000000000000
-[   40.212250][  T184] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   40.213275][  T184] CR2: 000055a1001d4ff0 CR3: 00000001700f4000 CR4: 00000000000006e0
-[   40.214469][  T184] Call Trace:
-[   40.214974][  T184]  <TASK>
-[   40.215438][  T184]  ? ttm_bo_bounce_temp_buffer+0x140/0x140 [ttm]
-[   40.216572][  T184]  ? mutex_spin_on_owner+0x240/0x240
-[   40.217456][  T184]  ? drm_vma_offset_add+0xaa/0x100 [drm]
-[   40.218457][  T184]  ttm_bo_init_reserved+0x3d6/0x540 [ttm]
-[   40.219410][  T184]  ? shmem_get_inode+0x744/0x980
-[   40.220231][  T184]  ttm_bo_init_validate+0xb1/0x200 [ttm]
-[   40.221172][  T184]  ? bo_driver_evict_flags+0x340/0x340 [drm_vram_helper]
-[   40.222530][  T184]  ? ttm_bo_init_reserved+0x540/0x540 [ttm]
-[   40.223643][  T184]  ? __do_sys_finit_module+0x11a/0x1c0
-[   40.224654][  T184]  ? __shmem_file_setup+0x102/0x280
-[   40.234764][  T184]  drm_gem_vram_create+0x305/0x480 [drm_vram_helper]
-[   40.235766][  T184]  ? bo_driver_evict_flags+0x340/0x340 [drm_vram_helper]
-[   40.236846][  T184]  ? __kasan_slab_free+0x108/0x180
-[   40.237650][  T184]  drm_gem_vram_fill_create_dumb+0x134/0x340 [drm_vram_helper]
-[   40.238864][  T184]  ? local_pci_probe+0xdf/0x180
-[   40.239674][  T184]  ? drmm_vram_helper_init+0x400/0x400 [drm_vram_helper]
-[   40.240826][  T184]  drm_client_framebuffer_create+0x19c/0x400 [drm]
-[   40.241955][  T184]  ? drm_client_buffer_delete+0x200/0x200 [drm]
-[   40.243001][  T184]  ? drm_client_pick_crtcs+0x554/0xb80 [drm]
-[   40.244030][  T184]  drm_fb_helper_generic_probe+0x23f/0x940 [drm_kms_helper]
-[   40.245226][  T184]  ? __cond_resched+0x1c/0xc0
-[   40.245987][  T184]  ? drm_fb_helper_memory_range_to_clip+0x180/0x180 [drm_kms_helper]
-[   40.247316][  T184]  ? mutex_unlock+0x80/0x100
-[   40.248005][  T184]  ? __mutex_unlock_slowpath+0x2c0/0x2c0
-[   40.249083][  T184]  drm_fb_helper_single_fb_probe+0x907/0xf00 [drm_kms_helper]
-[   40.250314][  T184]  ? drm_fb_helper_check_var+0x1180/0x1180 [drm_kms_helper]
-[   40.251540][  T184]  ? __cond_resched+0x1c/0xc0
-[   40.252321][  T184]  ? mutex_lock+0x9f/0x100
-[   40.253062][  T184]  __drm_fb_helper_initial_config_and_unlock+0xb9/0x2c0 [drm_kms_helper]
-[   40.254394][  T184]  drm_fbdev_client_hotplug+0x56f/0x840 [drm_kms_helper]
-[   40.255477][  T184]  drm_fbdev_generic_setup+0x165/0x3c0 [drm_kms_helper]
-[   40.256607][  T184]  bochs_pci_probe+0x6b7/0x900 [bochs]
-[   40.257515][  T184]  ? _raw_spin_lock_irqsave+0x87/0x100
-[   40.258312][  T184]  ? bochs_hw_init+0x480/0x480 [bochs]
-[   40.259244][  T184]  ? bochs_hw_init+0x480/0x480 [bochs]
-[   40.260186][  T184]  local_pci_probe+0xdf/0x180
-[   40.260928][  T184]  pci_call_probe+0x15f/0x500
-[   40.265798][  T184]  ? _raw_spin_lock+0x81/0x100
-[   40.266508][  T184]  ? pci_pm_suspend_noirq+0x980/0x980
-[   40.267322][  T184]  ? pci_assign_irq+0x81/0x280
-[   40.268096][  T184]  ? pci_match_device+0x351/0x6c0
-[   40.268883][  T184]  ? kernfs_put+0x18/0x40
-[   40.269611][  T184]  pci_device_probe+0xee/0x240
-[   40.270352][  T184]  really_probe+0x435/0xa80
-[   40.271021][  T184]  __driver_probe_device+0x2ab/0x480
-[   40.271828][  T184]  driver_probe_device+0x49/0x140
-[   40.272627][  T184]  __driver_attach+0x1bd/0x4c0
-[   40.273372][  T184]  ? __device_attach_driver+0x240/0x240
-[   40.274273][  T184]  bus_for_each_dev+0x11e/0x1c0
-[   40.275080][  T184]  ? subsys_dev_iter_exit+0x40/0x40
-[   40.275951][  T184]  ? klist_add_tail+0x132/0x280
-[   40.276767][  T184]  bus_add_driver+0x39b/0x580
-[   40.277574][  T184]  driver_register+0x20f/0x3c0
-[   40.278281][  T184]  ? 0xffffffffc04a2000
-[   40.278894][  T184]  do_one_initcall+0x8a/0x300
-[   40.279642][  T184]  ? trace_event_raw_event_initcall_level+0x1c0/0x1c0
-[   40.280707][  T184]  ? kasan_unpoison+0x23/0x80
-[   40.281479][  T184]  ? kasan_unpoison+0x23/0x80
-[   40.282197][  T184]  do_init_module+0x190/0x640
-[   40.282926][  T184]  load_module+0x221b/0x2780
-[   40.283611][  T184]  ? layout_and_allocate+0x5c0/0x5c0
-[   40.284401][  T184]  ? kernel_read_file+0x286/0x6c0
-[   40.285216][  T184]  ? __x64_sys_fspick+0x2c0/0x2c0
-[   40.286043][  T184]  ? mmap_region+0x4e7/0x1300
-[   40.286832][  T184]  ? __do_sys_finit_module+0x11a/0x1c0
-[   40.287743][  T184]  __do_sys_finit_module+0x11a/0x1c0
-[   40.288636][  T184]  ? __ia32_sys_init_module+0xc0/0xc0
-[   40.289557][  T184]  ? __seccomp_filter+0x15e/0xc80
-[   40.290341][  T184]  ? vm_mmap_pgoff+0x185/0x240
-[   40.291060][  T184]  do_syscall_64+0x3b/0xc0
-[   40.291763][  T184]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
-[   40.292678][  T184] RIP: 0033:0x7f6b1d6279b9
-[   40.293438][  T184] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d a7 54 0c 00 f7 d8 64 89 01 48
-[   40.296302][  T184] RSP: 002b:00007ffe7f51b798 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-[   40.297633][  T184] RAX: ffffffffffffffda RBX: 00005642dcca2880 RCX: 00007f6b1d6279b9
-[   40.298890][  T184] RDX: 0000000000000000 RSI: 00007f6b1d7b2e2d RDI: 0000000000000016
-[   40.300199][  T184] RBP: 0000000000020000 R08: 0000000000000000 R09: 00005642dccd5530
-[   40.301547][  T184] R10: 0000000000000016 R11: 0000000000000246 R12: 00007f6b1d7b2e2d
-[   40.302698][  T184] R13: 0000000000000000 R14: 00005642dcca4230 R15: 00005642dcca2880
-
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reported-by: kernel test robot <oliver.sang@intel.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index c1bd006a5525..590110fdf59c 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -912,7 +912,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 	/*
- 	 * We might need to add a TTM.
- 	 */
--	if (bo->resource->mem_type == TTM_PL_SYSTEM) {
-+	if (!bo->resource || bo->resource->mem_type == TTM_PL_SYSTEM) {
- 		ret = ttm_tt_create(bo, true);
- 		if (ret)
- 			return ret;
--- 
-2.25.1
+--
+Vijendar
+> 
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+>     225 static int acp_hw_init(void *handle)
+>     226 {
+>     227         int r;
+>     228         u64 acp_base;
+>     229         u32 val = 0;
+>     230         u32 count = 0;
+>     231         struct i2s_platform_data *i2s_pdata = NULL;
+>     232 
+>     233         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>     234 
+>     235         const struct amdgpu_ip_block *ip_block =
+>     236                 amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_ACP);
+>     237 
+>     238         if (!ip_block)
+>     239                 return -EINVAL;
+>     240 
+>     241         r = amd_acp_hw_init(adev->acp.cgs_device,
+>     242                             ip_block->version->major, ip_block->version->minor);
+>     243         /* -ENODEV means board uses AZ rather than ACP */
+>     244         if (r == -ENODEV) {
+>     245                 amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_ACP, true);
+>     246                 return 0;
+>     247         } else if (r) {
+>     248                 return r;
+>     249         }
+>     250 
+>     251         if (adev->rmmio_size == 0 || adev->rmmio_size < 0x5289)
+>     252                 return -EINVAL;
+>     253 
+>     254         acp_base = adev->rmmio_base;
+>     255         adev->acp.acp_genpd = kzalloc(sizeof(struct acp_pm_domain), GFP_KERNEL);
+>     256         if (!adev->acp.acp_genpd)
+>     257                 return -ENOMEM;
+>     258 
+>     259         adev->acp.acp_genpd->gpd.name = "ACP_AUDIO";
+>     260         adev->acp.acp_genpd->gpd.power_off = acp_poweroff;
+>     261         adev->acp.acp_genpd->gpd.power_on = acp_poweron;
+>     262         adev->acp.acp_genpd->adev = adev;
+>     263 
+>     264         pm_genpd_init(&adev->acp.acp_genpd->gpd, NULL, false);
+>     265         dmi_check_system(acp_quirk_table);
+>     266         switch (acp_machine_id) {
+>     267         case ST_JADEITE:
+>     268         {
+>     269                 adev->acp.acp_cell = kcalloc(2, sizeof(struct mfd_cell),
+>     270                                              GFP_KERNEL);
+>     271                 if (!adev->acp.acp_cell) {
+>     272                         r = -ENOMEM;
+>     273                         goto failure;
+>     274                 }
+>     275 
+>     276                 adev->acp.acp_res = kcalloc(3, sizeof(struct resource), GFP_KERNEL);
+>     277                 if (!adev->acp.acp_res) {
+>     278                         r = -ENOMEM;
+>     279                         goto failure;
+>     280                 }
+>     281 
+>     282                 i2s_pdata = kcalloc(1, sizeof(struct i2s_platform_data), GFP_KERNEL);
+>     283                 if (!i2s_pdata) {
+>     284                         r = -ENOMEM;
+>     285                         goto failure;
+>     286                 }
+>     287 
+>     288                 i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+>     289                                       DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+>     290                 i2s_pdata[0].cap = DWC_I2S_PLAY | DWC_I2S_RECORD;
+>     291                 i2s_pdata[0].snd_rates = SNDRV_PCM_RATE_8000_96000;
+>     292                 i2s_pdata[0].i2s_reg_comp1 = ACP_I2S_COMP1_CAP_REG_OFFSET;
+>     293                 i2s_pdata[0].i2s_reg_comp2 = ACP_I2S_COMP2_CAP_REG_OFFSET;
+>     294 
+>     295                 adev->acp.acp_res[0].name = "acp2x_dma";
+>     296                 adev->acp.acp_res[0].flags = IORESOURCE_MEM;
+>     297                 adev->acp.acp_res[0].start = acp_base;
+>     298                 adev->acp.acp_res[0].end = acp_base + ACP_DMA_REGS_END;
+>     299 
+>     300                 adev->acp.acp_res[1].name = "acp2x_dw_i2s_play_cap";
+>     301                 adev->acp.acp_res[1].flags = IORESOURCE_MEM;
+>     302                 adev->acp.acp_res[1].start = acp_base + ACP_I2S_CAP_REGS_START;
+>     303                 adev->acp.acp_res[1].end = acp_base + ACP_I2S_CAP_REGS_END;
+>     304 
+>     305                 adev->acp.acp_res[2].name = "acp2x_dma_irq";
+>     306                 adev->acp.acp_res[2].flags = IORESOURCE_IRQ;
+>     307                 adev->acp.acp_res[2].start = amdgpu_irq_create_mapping(adev, 162);
+>     308                 adev->acp.acp_res[2].end = adev->acp.acp_res[2].start;
+>     309 
+>     310                 adev->acp.acp_cell[0].name = "acp_audio_dma";
+>     311                 adev->acp.acp_cell[0].num_resources = 3;
+>     312                 adev->acp.acp_cell[0].resources = &adev->acp.acp_res[0];
+>     313                 adev->acp.acp_cell[0].platform_data = &adev->asic_type;
+>     314                 adev->acp.acp_cell[0].pdata_size = sizeof(adev->asic_type);
+>     315 
+>     316                 adev->acp.acp_cell[1].name = "designware-i2s";
+>     317                 adev->acp.acp_cell[1].num_resources = 1;
+>     318                 adev->acp.acp_cell[1].resources = &adev->acp.acp_res[1];
+>     319                 adev->acp.acp_cell[1].platform_data = &i2s_pdata[0];
+>     320                 adev->acp.acp_cell[1].pdata_size = sizeof(struct i2s_platform_data);
+>     321                 r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell, 2);
+>     322                 if (r)
+>     323                         goto failure;
+>     324                 r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+>     325                                           acp_genpd_add_device);
+>     326                 if (r)
+>     327                         goto failure;
+>     328                 break;
+>     329         }
+>     330         default:
+>     331                 adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
+>     332                                              GFP_KERNEL);
+>     333 
+>     334                 if (!adev->acp.acp_cell) {
+>     335                         r = -ENOMEM;
+>     336                         goto failure;
+>     337                 }
+>     338 
+>     339                 adev->acp.acp_res = kcalloc(5, sizeof(struct resource), GFP_KERNEL);
+>     340                 if (!adev->acp.acp_res) {
+>     341                         r = -ENOMEM;
+>     342                         goto failure;
+>     343                 }
+>     344 
+>     345                 i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
+>                                             ^
+> 3 elements
+> 
+>     346                 if (!i2s_pdata) {
+>     347                         r = -ENOMEM;
+>     348                         goto failure;
+>     349                 }
+>     350 
+>     351                 switch (adev->asic_type) {
+>     352                 case CHIP_STONEY:
+>     353                         i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+>     354                                 DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+>     355                         break;
+>     356                 default:
+>     357                         i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
+>     358                 }
+>     359                 i2s_pdata[0].cap = DWC_I2S_PLAY;
+>     360                 i2s_pdata[0].snd_rates = SNDRV_PCM_RATE_8000_96000;
+>     361                 i2s_pdata[0].i2s_reg_comp1 = ACP_I2S_COMP1_PLAY_REG_OFFSET;
+>     362                 i2s_pdata[0].i2s_reg_comp2 = ACP_I2S_COMP2_PLAY_REG_OFFSET;
+>     363                 switch (adev->asic_type) {
+>     364                 case CHIP_STONEY:
+>     365                         i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+>     366                                 DW_I2S_QUIRK_COMP_PARAM1 |
+>     367                                 DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+>     368                         break;
+>     369                 default:
+>     370                         i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+>     371                                 DW_I2S_QUIRK_COMP_PARAM1;
+>     372                 }
+>     373 
+>     374                 i2s_pdata[1].cap = DWC_I2S_RECORD;
+>     375                 i2s_pdata[1].snd_rates = SNDRV_PCM_RATE_8000_96000;
+>     376                 i2s_pdata[1].i2s_reg_comp1 = ACP_I2S_COMP1_CAP_REG_OFFSET;
+>     377                 i2s_pdata[1].i2s_reg_comp2 = ACP_I2S_COMP2_CAP_REG_OFFSET;
+>     378 
+>     379                 i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
+>     380                 switch (adev->asic_type) {
+>     381                 case CHIP_STONEY:
+>     382                         i2s_pdata[2].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+>     383                         break;
+>     384                 default:
+>     385                         break;
+>     386                 }
+>     387 
+>     388                 i2s_pdata[2].cap = DWC_I2S_PLAY | DWC_I2S_RECORD;
+>     389                 i2s_pdata[2].snd_rates = SNDRV_PCM_RATE_8000_96000;
+>     390                 i2s_pdata[2].i2s_reg_comp1 = ACP_BT_COMP1_REG_OFFSET;
+>     391                 i2s_pdata[2].i2s_reg_comp2 = ACP_BT_COMP2_REG_OFFSET;
+>     392 
+> --> 393                 i2s_pdata[3].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
+>                         ^^^^^^^^^^^^
+> 
+>     394                 switch (adev->asic_type) {
+>     395                 case CHIP_STONEY:
+>     396                         i2s_pdata[3].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+>                                 ^^^^^^^^^^^^
+> 
+> Out of boundses.
+> 
+>     397                         break;
+>     398                 default:
+>     399                         break;
+>     400                 }
+>     401                 adev->acp.acp_res[0].name = "acp2x_dma";
+>     402                 adev->acp.acp_res[0].flags = IORESOURCE_MEM;
+>     403                 adev->acp.acp_res[0].start = acp_base;
+>     404                 adev->acp.acp_res[0].end = acp_base + ACP_DMA_REGS_END;
+>     405 
+>     406                 adev->acp.acp_res[1].name = "acp2x_dw_i2s_play";
+>     407                 adev->acp.acp_res[1].flags = IORESOURCE_MEM;
+>     408                 adev->acp.acp_res[1].start = acp_base + ACP_I2S_PLAY_REGS_START;
+>     409                 adev->acp.acp_res[1].end = acp_base + ACP_I2S_PLAY_REGS_END;
+>     410 
+>     411                 adev->acp.acp_res[2].name = "acp2x_dw_i2s_cap";
+>     412                 adev->acp.acp_res[2].flags = IORESOURCE_MEM;
+>     413                 adev->acp.acp_res[2].start = acp_base + ACP_I2S_CAP_REGS_START;
+>     414                 adev->acp.acp_res[2].end = acp_base + ACP_I2S_CAP_REGS_END;
+>     415 
+>     416                 adev->acp.acp_res[3].name = "acp2x_dw_bt_i2s_play_cap";
+>     417                 adev->acp.acp_res[3].flags = IORESOURCE_MEM;
+>     418                 adev->acp.acp_res[3].start = acp_base + ACP_BT_PLAY_REGS_START;
+>     419                 adev->acp.acp_res[3].end = acp_base + ACP_BT_PLAY_REGS_END;
+>     420 
+>     421                 adev->acp.acp_res[4].name = "acp2x_dma_irq";
+>     422                 adev->acp.acp_res[4].flags = IORESOURCE_IRQ;
+>     423                 adev->acp.acp_res[4].start = amdgpu_irq_create_mapping(adev, 162);
+>     424                 adev->acp.acp_res[4].end = adev->acp.acp_res[4].start;
+>     425 
+>     426                 adev->acp.acp_cell[0].name = "acp_audio_dma";
+>     427                 adev->acp.acp_cell[0].num_resources = 5;
+>     428                 adev->acp.acp_cell[0].resources = &adev->acp.acp_res[0];
+>     429                 adev->acp.acp_cell[0].platform_data = &adev->asic_type;
+>     430                 adev->acp.acp_cell[0].pdata_size = sizeof(adev->asic_type);
+>     431 
+>     432                 adev->acp.acp_cell[1].name = "designware-i2s";
+>     433                 adev->acp.acp_cell[1].num_resources = 1;
+>     434                 adev->acp.acp_cell[1].resources = &adev->acp.acp_res[1];
+>     435                 adev->acp.acp_cell[1].platform_data = &i2s_pdata[0];
+>     436                 adev->acp.acp_cell[1].pdata_size = sizeof(struct i2s_platform_data);
+>     437 
+>     438                 adev->acp.acp_cell[2].name = "designware-i2s";
+>     439                 adev->acp.acp_cell[2].num_resources = 1;
+>     440                 adev->acp.acp_cell[2].resources = &adev->acp.acp_res[2];
+>     441                 adev->acp.acp_cell[2].platform_data = &i2s_pdata[1];
+>     442                 adev->acp.acp_cell[2].pdata_size = sizeof(struct i2s_platform_data);
+>     443 
+>     444                 adev->acp.acp_cell[3].name = "designware-i2s";
+>     445                 adev->acp.acp_cell[3].num_resources = 1;
+>     446                 adev->acp.acp_cell[3].resources = &adev->acp.acp_res[3];
+>     447                 adev->acp.acp_cell[3].platform_data = &i2s_pdata[2];
+>     448                 adev->acp.acp_cell[3].pdata_size = sizeof(struct i2s_platform_data);
+>     449 
+>     450                 r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell, ACP_DEVS);
+>     451                 if (r)
+>     452                         goto failure;
+>     453 
+>     454                 r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+>     455                                           acp_genpd_add_device);
+>     456                 if (r)
+>     457                         goto failure;
+>     458         }
+>     459 
+>     460         /* Assert Soft reset of ACP */
+>     461         val = cgs_read_register(adev->acp.cgs_device, mmACP_SOFT_RESET);
+>     462 
+>     463         val |= ACP_SOFT_RESET__SoftResetAud_MASK;
+>     464         cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+>     465 
+>     466         count = ACP_SOFT_RESET_DONE_TIME_OUT_VALUE;
+>     467         while (true) {
+>     468                 val = cgs_read_register(adev->acp.cgs_device, mmACP_SOFT_RESET);
+>     469                 if (ACP_SOFT_RESET__SoftResetAudDone_MASK ==
+>     470                     (val & ACP_SOFT_RESET__SoftResetAudDone_MASK))
+>     471                         break;
+>     472                 if (--count == 0) {
+>     473                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+>     474                         r = -ETIMEDOUT;
+>     475                         goto failure;
+>     476                 }
+>     477                 udelay(100);
+>     478         }
+>     479         /* Enable clock to ACP and wait until the clock is enabled */
+>     480         val = cgs_read_register(adev->acp.cgs_device, mmACP_CONTROL);
+>     481         val = val | ACP_CONTROL__ClkEn_MASK;
+>     482         cgs_write_register(adev->acp.cgs_device, mmACP_CONTROL, val);
+>     483 
+>     484         count = ACP_CLOCK_EN_TIME_OUT_VALUE;
+>     485 
+>     486         while (true) {
+>     487                 val = cgs_read_register(adev->acp.cgs_device, mmACP_STATUS);
+>     488                 if (val & (u32) 0x1)
+>     489                         break;
+>     490                 if (--count == 0) {
+>     491                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+>     492                         r = -ETIMEDOUT;
+>     493                         goto failure;
+>     494                 }
+>     495                 udelay(100);
+>     496         }
+>     497         /* Deassert the SOFT RESET flags */
+>     498         val = cgs_read_register(adev->acp.cgs_device, mmACP_SOFT_RESET);
+>     499         val &= ~ACP_SOFT_RESET__SoftResetAud_MASK;
+>     500         cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+>     501         return 0;
+>     502 
+>     503 failure:
+>     504         kfree(i2s_pdata);
+>     505         kfree(adev->acp.acp_res);
+>     506         kfree(adev->acp.acp_cell);
+>     507         kfree(adev->acp.acp_genpd);
+>     508         return r;
+>     509 }
+> 
+> regards,
+> dan carpenter
 
