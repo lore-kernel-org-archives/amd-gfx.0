@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5337DC04A68
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 22:19:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E608DC19F29
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 22:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AB9C7AF8;
-	Wed, 27 Jul 2022 22:19:27 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2074.outbound.protection.outlook.com [40.107.220.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F9CC7989
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jul 2022 22:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A2EC7B89;
+	Wed, 27 Jul 2022 22:19:30 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29962C7B34
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jul 2022 22:19:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Imc1fqR/mKrpdkCpOL9FFytqa6kp5WOr9i3Cugts9DmQJ9AhufUqrMHf6kf4gKSvEqLZhrXdIqspWFVnv7nZ71er5XxI5n0tDcekm+RAQ2gYaRUuL8/D3M/FAoie+NxbOZtYmaemHOTptTmebg5og47qBf1lmyXOFl5JYCixqwcGqQfAtAsiisxb6RXzaMYN5IPrPh0md6JtrxChuPqb+62quF4bjUcowT0A0RZIfwyL4ldXPcgDMdRyCBS2eza0/rZeP25asc5i3J70syGPDJt4eC5u+C8sdFCdO0w3xmuU4AK0bXYm9Baa5b0ZyDakAuAV03aOkWQO6CTeGMCXEg==
+ b=jxDsqekMxXCLmvL0pgYoXu+qVcNifbDK7vtty0AU/xi5UDRsSg7c4ezIHBEPPrHmR6TSBWqGpc9cPV9YdS4dLfnzalamJBxBqNz+8nDwzyhe3veUc6N7k2ntdJbqXnLzVT8J3Avs8Y6SAtBcLspu9L4bIlIknGJpsOvR3Dp2DimxcYFCLjTD61p12sWiGJ12Yxu5PnaYPDOX7LY8R/Ga0ECFGKoKMovxprLgbX61mSFxsLTuCg+aEJhx1CqxryqOzpHi/YCvfrwSTOBR850LMPleRWvcLNpjJiT2Cvl6hf9R0laMrZdGminSaYs0Wv87jN+zMoYOVOetWi4Xq9Vi3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XdjwgexnK07UuHONb39nwdSk0Ov+7H5gQeoNcLMLPds=;
- b=FXLL1xnPvgYe1f0MolhLLVgL3JUSq/npfeF+/A12l853cxkstC7RQpRzCezwV5hbj3YuODL9Ja0kA54LDFawfCytvhrmh4vM12iOfvxLgwaxo4gZAJ3yzLtLrc4YqxG9VhNINjHBbGuq0cb4WU5bVxbS5tldqT+lxPGtGwzuD3YkdynTlGLADiVGTWul1HWc3eRpA20+XtVM/lyIpVw7o26Hf4uxQFaGcZvHphGaUhgNxcu2hItYyvMk+ZAilXDQQfKkpICC3ZbsI0Ym7HiM+mruUxc56PCI9hRTWF+9d65KVZkdX+tpR1VJkKebJkoLiM657cl5RJAUUhcP8KJrhA==
+ bh=nMQIuvawa1YEIxB4U5305GEwJsgkDo7qNmszQeig9H4=;
+ b=DXJk+hlsuoLkS4HE+54s8A16AyFUGMtNzuk5T3Wta/OzbKRlzs/b4aw+hR8zWSk5wRx3qkcl6U87O0dBozrrISMWSrFdE73HEBDjywTdFxEao4t6Yoa7Z861kumNTEo+eks2BnO33ZRhcVWRTTGlLoObFblsC8ChcbT5mWQS7Fh77gACSpWQq/0DMzMKRr8waBs2kCrhQWDD+W9oqFka3Zr4zU+P/nDMF2655WS5rtnJzDBPQ9oBL0PwdGUp03pXIg3rEJmRcy6sP4RenOpxWmJ6RxpylZLRwmP5BObCKzGdr67iKLTqpO+x87Yvp2Bgyvm5Kwl8rs6oTXwQjwKpBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XdjwgexnK07UuHONb39nwdSk0Ov+7H5gQeoNcLMLPds=;
- b=lJ7GnLoOS3GltfAmLDTvD7v5DK/gYGaIW2+2jV2bdfwGdKa/3Ait6axiNQAqzLriZ5xHAlbGCdVRKMYJdn2Fim1PZfUc73cCp8KIRSSZchHTBKrnrEj52Mu3zu0V4MR8BnHZwZlA5+6zPmZuD36dlqVmIj4UHR22OHgb66Q6w8c=
-Received: from MW4PR04CA0239.namprd04.prod.outlook.com (2603:10b6:303:87::34)
- by DM5PR12MB1354.namprd12.prod.outlook.com (2603:10b6:3:7a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Wed, 27 Jul
- 2022 22:19:22 +0000
+ bh=nMQIuvawa1YEIxB4U5305GEwJsgkDo7qNmszQeig9H4=;
+ b=wpn7OiG0NzyVEgQ64MqJV+aptWLuHcwldtlUDgRMCPi0gmunXyJMC5ibK17CST8C5Ybm9t1G+kdoymdJ/zBpEfGrqonWp0hq0PTs1nPAHorZ9rQtTRYiYmLTxqZP37uBCIshnJnWvG4jVbvyeKtvy8O0cSUVuShd/EeWPvAHdWw=
+Received: from MW4PR04CA0231.namprd04.prod.outlook.com (2603:10b6:303:87::26)
+ by PH7PR12MB5618.namprd12.prod.outlook.com (2603:10b6:510:134::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Wed, 27 Jul
+ 2022 22:19:25 +0000
 Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::15) by MW4PR04CA0239.outlook.office365.com
- (2603:10b6:303:87::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.21 via Frontend
- Transport; Wed, 27 Jul 2022 22:19:22 +0000
+ (2603:10b6:303:87:cafe::f) by MW4PR04CA0231.outlook.office365.com
+ (2603:10b6:303:87::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.10 via Frontend
+ Transport; Wed, 27 Jul 2022 22:19:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT068.mail.protection.outlook.com (10.13.175.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5482.10 via Frontend Transport; Wed, 27 Jul 2022 22:19:21 +0000
+ 15.20.5482.10 via Frontend Transport; Wed, 27 Jul 2022 22:19:24 +0000
 Received: from atma3.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 27 Jul
- 2022 17:19:20 -0500
+ 2022 17:19:22 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 0/4] Revert reduce stack size for DML code
-Date: Wed, 27 Jul 2022 18:18:51 -0400
-Message-ID: <20220727221855.324361-1-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 3/4] Revert "drm/amd/display: reduce stack for
+ dml32_CalculateVMRowAndSwath"
+Date: Wed, 27 Jul 2022 18:18:54 -0400
+Message-ID: <20220727221855.324361-4-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220727221855.324361-1-Rodrigo.Siqueira@amd.com>
+References: <20220727221855.324361-1-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ef9f5d38-72f1-4841-2cae-08da701e0e7b
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89b1656a-f424-46dc-0e53-08da701e104c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5618:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fDBUn1bHWCoX8lQqnTC8PUrxYGEgk1Y4oCoDHZa7569WYyWEZy6AGAkr+Lu4ElzIyivy4RRGgvcrFdp4sKcq9p8zmQTBYmJMsIb1/+n3kzjTncY1mIKhfp8T50Py0H0W8Kqx+BogbC27KSIhsGnlai7lwmxCfX24VkY6p23VnfX3HjpjQhRcJjlwpzw0KYtDSNXjQaZmF4PS8FeKIU6c7DR2AsKZ2UkJJPv0qgsYqMsViJuapyBdoVelrqj4txDCvYcdVc52Vd7eC8gIYBfg6D5XvfiaCNfx7iqnO0dYVXhN0H0d5eEErPYAKb6dOc1JyWS9kUWSQlwrnh6gKkHmlTK9vaqrphoDvN9GJmqEeOkdG7t2j6RDPy0xRDuBQG0+4pJe+EiWyLaNfvK0+VbKZyiMSjkORfWvgxa1CgyopX/26wkf2IzqdY+VHCgqO54mvHU+wX4Tpi+XQYXqQtznFM5/vcO1+hK1UUTCP4F5w8Ypr58Bs8nECyrWOcV9FVvY9bC5QBpayIVka4MYKfiW5n9FPS9c5Qiz9aU919gd50NYup6PjTvzfh4yvbdDW9AD95okxVSOpa3im72UxcLGnZkES/b7AVcCG2//S0CRh716byM8oaYtFrEjfgnQNaDPHZNuC3JARHjGGY4JDxVxC9NHeN7D5VT+Oz2QPSxANKo2xRzZItBoLoEnNlSdWulGZ5ha6wdSvc4v9JhsANgJxVHM1COdCVatr+vkaIOqu08QfaF8qynbvtDhQI2brvYk1QJcomsLqe4fTcVnz+X4hVBYgCtf+elplyw9t5k1ssHORpUdRzVi1CW0MP+81yJNIhDaRTcw8cAuudDSMxL2DA==
+X-Microsoft-Antispam-Message-Info: ZDmY4bEU5kkoOEMqnDW0m71me0Q1vJ5AuRpwkQ0wl+xrK3iGE/ABuR9hzC4G58Nfsl2V/FqpekcX3014JH/IbIPoreQiIpWunBcHwAQDdmqpqbZo5eLksaBTqnPNtfERLCVdU9uopV4gDtB3X8RHzKnS10vjwrLXuWP1RDfJt7GLfvyCouxn0y5W17fAcsHmqIrd1hoxIR0uWXL/9+rKkPF7467Ee7yPgG5lyrEsirVZfwp3UXPQEbMWh1V1HcKGB3nNHrY12U4jI0DANRZANlOgX1Cl/G2rGY2SopzgvVXOy/7V7Z9wXCpQXfzXRpJ5m4SNlkhYExkUniZWlIw4j1FDZtW694P48Vv8qMJtbA8RD9oF56SJZRDao/LaxMqaXiS67LjrekoAVz/YY/s7t9P503T/Qt3CtyOFxtkgiiiISn3IeIJx4ArPbuz3OSK6krOjAvHzzhtIwd0o0avZUgw7rlRE1Ji5nLR08e/0Q/VJYWMsuIl/LiSvwm6POg/BKzKu1df2N6zNOjL9SAbBS75XIvS/3JyT5K7VtFnHZf7kJhBKiQNIyx6YornzJfcvpl73zE/z8jfFeeGOGU3XHvQCDKAQPPwi8wAx6RCyTmocACeuld4lWpkvg6vJC5c7a/UzJDBwxVA2/3WJitTwGgVuh6RzGJ8iZilHTo7AXVD9kczyWv5pTP5GtHrNf5mQJReyX7+IoPNs3vSo/oabpC3lRuG+ysgal+gBw0Wb8cpOQMKvEmqBV+YzrXfesqiQx6Y1LSxySkpslX3dGUDFscYgcKN5lEUzJ5SMP6mhhMH0qx2vxSslcNRXJulrabCPBiv9zwbxw/ZGf4kDg4JzAWzFm+9yERB6bl0RC3BjtZQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(376002)(39860400002)(136003)(40470700004)(46966006)(36840700001)(7696005)(86362001)(186003)(478600001)(1076003)(6666004)(81166007)(41300700001)(316002)(83380400001)(47076005)(82310400005)(426003)(40460700003)(16526019)(26005)(36756003)(336012)(19627235002)(6916009)(54906003)(36860700001)(70586007)(8676002)(4326008)(82740400003)(70206006)(8936002)(2906002)(2616005)(356005)(40480700001)(5660300002)(36900700001);
+ SFS:(13230016)(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966006)(40470700004)(36840700001)(30864003)(426003)(1076003)(316002)(36860700001)(40460700003)(19627235002)(186003)(356005)(4326008)(8936002)(16526019)(5660300002)(6916009)(336012)(2906002)(41300700001)(70586007)(81166007)(26005)(47076005)(2616005)(83380400001)(40480700001)(8676002)(6666004)(7696005)(54906003)(82740400003)(82310400005)(86362001)(478600001)(36756003)(70206006)(36900700001)(44824005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 22:19:21.8911 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef9f5d38-72f1-4841-2cae-08da701e0e7b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 22:19:24.9221 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89b1656a-f424-46dc-0e53-08da701e104c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1354
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,41 +107,328 @@ Cc: Leo Li <sunpeng.li@amd.com>, Stephen Rothwell <sfr@canb.auug.org.au>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We had a stack size issue on DML, and we tried to fix it by moving some
-of the local variables to some of the DML struct. In this process of
-reducing the stack size, we sent some other patches that fixed the issue
-reported by Stephen, and the below set of patches become unnecessary:
+This reverts commit a0a68cda2ef8446b55d1b0baa8c352812639b196.
 
-987949933127 drm/amd/display: reduce stack for dml32_CalculatePrefetchSchedule
-8f08cd32b767 drm/amd/display: reduce stack for dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport
-5d526d124fe3 drm/amd/display: reduce stack for dml32_CalculateVMRowAndSwath
-f6ceebcc7825 drm/amd/display: reduce stack for dml32_CalculateSwathAndDETConfiguration
-
-For this reason, this patchset reverts all of the above patches.
+This commit was a part of a patchset responsible for reducing the stack
+size. However, after some other changes, this commit becomes
+unnecessary, so we are reverting it here.
 
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ .../dc/dml/dcn32/display_mode_vba_32.c        |   2 -
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   | 110 ++++++++++--------
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |   1 -
+ .../drm/amd/display/dc/dml/display_mode_vba.h |  19 ---
+ 4 files changed, 62 insertions(+), 70 deletions(-)
 
-Thanks
-Siqueira
-
-Rodrigo Siqueira (4):
-  Revert "drm/amd/display: reduce stack for
-    dml32_CalculatePrefetchSchedule"
-  Revert "drm/amd/display: reduce stack for
-    dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport"
-  Revert "drm/amd/display: reduce stack for
-    dml32_CalculateVMRowAndSwath"
-  Revert "drm/amd/display: reduce stack for
-    dml32_CalculateSwathAndDETConfiguration"
-
- .../dc/dml/dcn32/display_mode_vba_32.c        |  12 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 812 ++++++++++--------
- .../dc/dml/dcn32/display_mode_vba_util_32.h   |   5 -
- .../drm/amd/display/dc/dml/display_mode_vba.h | 106 ---
- 4 files changed, 441 insertions(+), 494 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index 55f351d5b610..3cfd3cc4d60c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -461,7 +461,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 	{
+ 
+ 		dml32_CalculateVMRowAndSwath(
+-				&v->dummy_vars.dml32_CalculateVMRowAndSwath,
+ 				mode_lib->vba.NumberOfActiveSurfaces,
+ 				v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.SurfaceParameters,
+ 				v->SurfaceSizeInMALL,
+@@ -2746,7 +2745,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 
+ 			{
+ 				dml32_CalculateVMRowAndSwath(
+-						&v->dummy_vars.dml32_CalculateVMRowAndSwath,
+ 						mode_lib->vba.NumberOfActiveSurfaces,
+ 						v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.SurfParameters,
+ 						mode_lib->vba.SurfaceSizeInMALL,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index c0dab2b2c446..f9adfd7371dc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -1867,7 +1867,6 @@ void dml32_CalculateSurfaceSizeInMall(
+ } // CalculateSurfaceSizeInMall
+ 
+ void dml32_CalculateVMRowAndSwath(
+-		struct dml32_CalculateVMRowAndSwath *st_vars,
+ 		unsigned int NumberOfActiveSurfaces,
+ 		DmlPipe myPipe[],
+ 		unsigned int SurfaceSizeInMALL[],
+@@ -1933,6 +1932,21 @@ void dml32_CalculateVMRowAndSwath(
+ 		unsigned int BIGK_FRAGMENT_SIZE[])
+ {
+ 	unsigned int k;
++	unsigned int PTEBufferSizeInRequestsForLuma[DC__NUM_DPP__MAX];
++	unsigned int PTEBufferSizeInRequestsForChroma[DC__NUM_DPP__MAX];
++	unsigned int PDEAndMetaPTEBytesFrameY;
++	unsigned int PDEAndMetaPTEBytesFrameC;
++	unsigned int MetaRowByteY[DC__NUM_DPP__MAX];
++	unsigned int MetaRowByteC[DC__NUM_DPP__MAX];
++	unsigned int PixelPTEBytesPerRowY[DC__NUM_DPP__MAX];
++	unsigned int PixelPTEBytesPerRowC[DC__NUM_DPP__MAX];
++	unsigned int PixelPTEBytesPerRowY_one_row_per_frame[DC__NUM_DPP__MAX];
++	unsigned int PixelPTEBytesPerRowC_one_row_per_frame[DC__NUM_DPP__MAX];
++	unsigned int dpte_row_width_luma_ub_one_row_per_frame[DC__NUM_DPP__MAX];
++	unsigned int dpte_row_height_luma_one_row_per_frame[DC__NUM_DPP__MAX];
++	unsigned int dpte_row_width_chroma_ub_one_row_per_frame[DC__NUM_DPP__MAX];
++	unsigned int dpte_row_height_chroma_one_row_per_frame[DC__NUM_DPP__MAX];
++	bool one_row_per_frame_fits_in_buffer[DC__NUM_DPP__MAX];
+ 
+ 	for (k = 0; k < NumberOfActiveSurfaces; ++k) {
+ 		if (HostVMEnable == true) {
+@@ -1954,15 +1968,15 @@ void dml32_CalculateVMRowAndSwath(
+ 				myPipe[k].SourcePixelFormat == dm_rgbe_alpha) {
+ 			if ((myPipe[k].SourcePixelFormat == dm_420_10 || myPipe[k].SourcePixelFormat == dm_420_12) &&
+ 					!IsVertical(myPipe[k].SourceRotation)) {
+-				st_vars->PTEBufferSizeInRequestsForLuma[k] =
++				PTEBufferSizeInRequestsForLuma[k] =
+ 						(PTEBufferSizeInRequestsLuma + PTEBufferSizeInRequestsChroma) / 2;
+-				st_vars->PTEBufferSizeInRequestsForChroma[k] = st_vars->PTEBufferSizeInRequestsForLuma[k];
++				PTEBufferSizeInRequestsForChroma[k] = PTEBufferSizeInRequestsForLuma[k];
+ 			} else {
+-				st_vars->PTEBufferSizeInRequestsForLuma[k] = PTEBufferSizeInRequestsLuma;
+-				st_vars->PTEBufferSizeInRequestsForChroma[k] = PTEBufferSizeInRequestsChroma;
++				PTEBufferSizeInRequestsForLuma[k] = PTEBufferSizeInRequestsLuma;
++				PTEBufferSizeInRequestsForChroma[k] = PTEBufferSizeInRequestsChroma;
+ 			}
+ 
+-			st_vars->PDEAndMetaPTEBytesFrameC = dml32_CalculateVMAndRowBytes(
++			PDEAndMetaPTEBytesFrameC = dml32_CalculateVMAndRowBytes(
+ 					myPipe[k].ViewportStationary,
+ 					myPipe[k].DCCEnable,
+ 					myPipe[k].DPPPerSurface,
+@@ -1982,21 +1996,21 @@ void dml32_CalculateVMRowAndSwath(
+ 					GPUVMMaxPageTableLevels,
+ 					GPUVMMinPageSizeKBytes[k],
+ 					HostVMMinPageSize,
+-					st_vars->PTEBufferSizeInRequestsForChroma[k],
++					PTEBufferSizeInRequestsForChroma[k],
+ 					myPipe[k].PitchC,
+ 					myPipe[k].DCCMetaPitchC,
+ 					myPipe[k].BlockWidthC,
+ 					myPipe[k].BlockHeightC,
+ 
+ 					/* Output */
+-					&st_vars->MetaRowByteC[k],
+-					&st_vars->PixelPTEBytesPerRowC[k],
++					&MetaRowByteC[k],
++					&PixelPTEBytesPerRowC[k],
+ 					&dpte_row_width_chroma_ub[k],
+ 					&dpte_row_height_chroma[k],
+ 					&dpte_row_height_linear_chroma[k],
+-					&st_vars->PixelPTEBytesPerRowC_one_row_per_frame[k],
+-					&st_vars->dpte_row_width_chroma_ub_one_row_per_frame[k],
+-					&st_vars->dpte_row_height_chroma_one_row_per_frame[k],
++					&PixelPTEBytesPerRowC_one_row_per_frame[k],
++					&dpte_row_width_chroma_ub_one_row_per_frame[k],
++					&dpte_row_height_chroma_one_row_per_frame[k],
+ 					&meta_req_width_chroma[k],
+ 					&meta_req_height_chroma[k],
+ 					&meta_row_width_chroma[k],
+@@ -2024,19 +2038,19 @@ void dml32_CalculateVMRowAndSwath(
+ 					&VInitPreFillC[k],
+ 					&MaxNumSwathC[k]);
+ 		} else {
+-			st_vars->PTEBufferSizeInRequestsForLuma[k] = PTEBufferSizeInRequestsLuma + PTEBufferSizeInRequestsChroma;
+-			st_vars->PTEBufferSizeInRequestsForChroma[k] = 0;
+-			st_vars->PixelPTEBytesPerRowC[k] = 0;
+-			st_vars->PDEAndMetaPTEBytesFrameC = 0;
+-			st_vars->MetaRowByteC[k] = 0;
++			PTEBufferSizeInRequestsForLuma[k] = PTEBufferSizeInRequestsLuma + PTEBufferSizeInRequestsChroma;
++			PTEBufferSizeInRequestsForChroma[k] = 0;
++			PixelPTEBytesPerRowC[k] = 0;
++			PDEAndMetaPTEBytesFrameC = 0;
++			MetaRowByteC[k] = 0;
+ 			MaxNumSwathC[k] = 0;
+ 			PrefetchSourceLinesC[k] = 0;
+-			st_vars->dpte_row_height_chroma_one_row_per_frame[k] = 0;
+-			st_vars->dpte_row_width_chroma_ub_one_row_per_frame[k] = 0;
+-			st_vars->PixelPTEBytesPerRowC_one_row_per_frame[k] = 0;
++			dpte_row_height_chroma_one_row_per_frame[k] = 0;
++			dpte_row_width_chroma_ub_one_row_per_frame[k] = 0;
++			PixelPTEBytesPerRowC_one_row_per_frame[k] = 0;
+ 		}
+ 
+-		st_vars->PDEAndMetaPTEBytesFrameY = dml32_CalculateVMAndRowBytes(
++		PDEAndMetaPTEBytesFrameY = dml32_CalculateVMAndRowBytes(
+ 				myPipe[k].ViewportStationary,
+ 				myPipe[k].DCCEnable,
+ 				myPipe[k].DPPPerSurface,
+@@ -2056,21 +2070,21 @@ void dml32_CalculateVMRowAndSwath(
+ 				GPUVMMaxPageTableLevels,
+ 				GPUVMMinPageSizeKBytes[k],
+ 				HostVMMinPageSize,
+-				st_vars->PTEBufferSizeInRequestsForLuma[k],
++				PTEBufferSizeInRequestsForLuma[k],
+ 				myPipe[k].PitchY,
+ 				myPipe[k].DCCMetaPitchY,
+ 				myPipe[k].BlockWidthY,
+ 				myPipe[k].BlockHeightY,
+ 
+ 				/* Output */
+-				&st_vars->MetaRowByteY[k],
+-				&st_vars->PixelPTEBytesPerRowY[k],
++				&MetaRowByteY[k],
++				&PixelPTEBytesPerRowY[k],
+ 				&dpte_row_width_luma_ub[k],
+ 				&dpte_row_height_luma[k],
+ 				&dpte_row_height_linear_luma[k],
+-				&st_vars->PixelPTEBytesPerRowY_one_row_per_frame[k],
+-				&st_vars->dpte_row_width_luma_ub_one_row_per_frame[k],
+-				&st_vars->dpte_row_height_luma_one_row_per_frame[k],
++				&PixelPTEBytesPerRowY_one_row_per_frame[k],
++				&dpte_row_width_luma_ub_one_row_per_frame[k],
++				&dpte_row_height_luma_one_row_per_frame[k],
+ 				&meta_req_width[k],
+ 				&meta_req_height[k],
+ 				&meta_row_width[k],
+@@ -2098,19 +2112,19 @@ void dml32_CalculateVMRowAndSwath(
+ 				&VInitPreFillY[k],
+ 				&MaxNumSwathY[k]);
+ 
+-		PDEAndMetaPTEBytesFrame[k] = st_vars->PDEAndMetaPTEBytesFrameY + st_vars->PDEAndMetaPTEBytesFrameC;
+-		MetaRowByte[k] = st_vars->MetaRowByteY[k] + st_vars->MetaRowByteC[k];
++		PDEAndMetaPTEBytesFrame[k] = PDEAndMetaPTEBytesFrameY + PDEAndMetaPTEBytesFrameC;
++		MetaRowByte[k] = MetaRowByteY[k] + MetaRowByteC[k];
+ 
+-		if (st_vars->PixelPTEBytesPerRowY[k] <= 64 * st_vars->PTEBufferSizeInRequestsForLuma[k] &&
+-				st_vars->PixelPTEBytesPerRowC[k] <= 64 * st_vars->PTEBufferSizeInRequestsForChroma[k]) {
++		if (PixelPTEBytesPerRowY[k] <= 64 * PTEBufferSizeInRequestsForLuma[k] &&
++				PixelPTEBytesPerRowC[k] <= 64 * PTEBufferSizeInRequestsForChroma[k]) {
+ 			PTEBufferSizeNotExceeded[k] = true;
+ 		} else {
+ 			PTEBufferSizeNotExceeded[k] = false;
+ 		}
+ 
+-		st_vars->one_row_per_frame_fits_in_buffer[k] = (st_vars->PixelPTEBytesPerRowY_one_row_per_frame[k] <= 64 * 2 *
+-			st_vars->PTEBufferSizeInRequestsForLuma[k] &&
+-			st_vars->PixelPTEBytesPerRowC_one_row_per_frame[k] <= 64 * 2 * st_vars->PTEBufferSizeInRequestsForChroma[k]);
++		one_row_per_frame_fits_in_buffer[k] = (PixelPTEBytesPerRowY_one_row_per_frame[k] <= 64 * 2 *
++			PTEBufferSizeInRequestsForLuma[k] &&
++			PixelPTEBytesPerRowC_one_row_per_frame[k] <= 64 * 2 * PTEBufferSizeInRequestsForChroma[k]);
+ 	}
+ 
+ 	dml32_CalculateMALLUseForStaticScreen(
+@@ -2118,7 +2132,7 @@ void dml32_CalculateVMRowAndSwath(
+ 			MALLAllocatedForDCN,
+ 			UseMALLForStaticScreen,   // mode
+ 			SurfaceSizeInMALL,
+-			st_vars->one_row_per_frame_fits_in_buffer,
++			one_row_per_frame_fits_in_buffer,
+ 			/* Output */
+ 			UsesMALLForStaticScreen); // boolen
+ 
+@@ -2144,13 +2158,13 @@ void dml32_CalculateVMRowAndSwath(
+ 				!(UseMALLForPStateChange[k] == dm_use_mall_pstate_change_full_frame);
+ 
+ 		if (use_one_row_for_frame[k]) {
+-			dpte_row_height_luma[k] = st_vars->dpte_row_height_luma_one_row_per_frame[k];
+-			dpte_row_width_luma_ub[k] = st_vars->dpte_row_width_luma_ub_one_row_per_frame[k];
+-			st_vars->PixelPTEBytesPerRowY[k] = st_vars->PixelPTEBytesPerRowY_one_row_per_frame[k];
+-			dpte_row_height_chroma[k] = st_vars->dpte_row_height_chroma_one_row_per_frame[k];
+-			dpte_row_width_chroma_ub[k] = st_vars->dpte_row_width_chroma_ub_one_row_per_frame[k];
+-			st_vars->PixelPTEBytesPerRowC[k] = st_vars->PixelPTEBytesPerRowC_one_row_per_frame[k];
+-			PTEBufferSizeNotExceeded[k] = st_vars->one_row_per_frame_fits_in_buffer[k];
++			dpte_row_height_luma[k] = dpte_row_height_luma_one_row_per_frame[k];
++			dpte_row_width_luma_ub[k] = dpte_row_width_luma_ub_one_row_per_frame[k];
++			PixelPTEBytesPerRowY[k] = PixelPTEBytesPerRowY_one_row_per_frame[k];
++			dpte_row_height_chroma[k] = dpte_row_height_chroma_one_row_per_frame[k];
++			dpte_row_width_chroma_ub[k] = dpte_row_width_chroma_ub_one_row_per_frame[k];
++			PixelPTEBytesPerRowC[k] = PixelPTEBytesPerRowC_one_row_per_frame[k];
++			PTEBufferSizeNotExceeded[k] = one_row_per_frame_fits_in_buffer[k];
+ 		}
+ 
+ 		if (MetaRowByte[k] <= DCCMetaBufferSizeBytes)
+@@ -2158,7 +2172,7 @@ void dml32_CalculateVMRowAndSwath(
+ 		else
+ 			DCCMetaBufferSizeNotExceeded[k] = false;
+ 
+-		PixelPTEBytesPerRow[k] = st_vars->PixelPTEBytesPerRowY[k] + st_vars->PixelPTEBytesPerRowC[k];
++		PixelPTEBytesPerRow[k] = PixelPTEBytesPerRowY[k] + PixelPTEBytesPerRowC[k];
+ 		if (use_one_row_for_frame[k])
+ 			PixelPTEBytesPerRow[k] = PixelPTEBytesPerRow[k] / 2;
+ 
+@@ -2169,11 +2183,11 @@ void dml32_CalculateVMRowAndSwath(
+ 				myPipe[k].VRatioChroma,
+ 				myPipe[k].DCCEnable,
+ 				myPipe[k].HTotal / myPipe[k].PixelClock,
+-				st_vars->MetaRowByteY[k], st_vars->MetaRowByteC[k],
++				MetaRowByteY[k], MetaRowByteC[k],
+ 				meta_row_height[k],
+ 				meta_row_height_chroma[k],
+-				st_vars->PixelPTEBytesPerRowY[k],
+-				st_vars->PixelPTEBytesPerRowC[k],
++				PixelPTEBytesPerRowY[k],
++				PixelPTEBytesPerRowC[k],
+ 				dpte_row_height_luma[k],
+ 				dpte_row_height_chroma[k],
+ 
+@@ -2189,12 +2203,12 @@ void dml32_CalculateVMRowAndSwath(
+ 		dml_print("DML::%s: k=%d, dpte_row_height_luma         = %d\n",  __func__, k, dpte_row_height_luma[k]);
+ 		dml_print("DML::%s: k=%d, dpte_row_width_luma_ub       = %d\n",
+ 				__func__, k, dpte_row_width_luma_ub[k]);
+-		dml_print("DML::%s: k=%d, PixelPTEBytesPerRowY         = %d\n",  __func__, k, st_vars->PixelPTEBytesPerRowY[k]);
++		dml_print("DML::%s: k=%d, PixelPTEBytesPerRowY         = %d\n",  __func__, k, PixelPTEBytesPerRowY[k]);
+ 		dml_print("DML::%s: k=%d, dpte_row_height_chroma       = %d\n",
+ 				__func__, k, dpte_row_height_chroma[k]);
+ 		dml_print("DML::%s: k=%d, dpte_row_width_chroma_ub     = %d\n",
+ 				__func__, k, dpte_row_width_chroma_ub[k]);
+-		dml_print("DML::%s: k=%d, PixelPTEBytesPerRowC         = %d\n",  __func__, k, st_vars->PixelPTEBytesPerRowC[k]);
++		dml_print("DML::%s: k=%d, PixelPTEBytesPerRowC         = %d\n",  __func__, k, PixelPTEBytesPerRowC[k]);
+ 		dml_print("DML::%s: k=%d, PixelPTEBytesPerRow          = %d\n",  __func__, k, PixelPTEBytesPerRow[k]);
+ 		dml_print("DML::%s: k=%d, PTEBufferSizeNotExceeded     = %d\n",
+ 				__func__, k, PTEBufferSizeNotExceeded[k]);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+index 974006e5ecb7..158cfa2af1af 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+@@ -362,7 +362,6 @@ void dml32_CalculateSurfaceSizeInMall(
+ 		bool *ExceededMALLSize);
+ 
+ void dml32_CalculateVMRowAndSwath(
+-		struct dml32_CalculateVMRowAndSwath *st_vars,
+ 		unsigned int NumberOfActiveSurfaces,
+ 		DmlPipe myPipe[],
+ 		unsigned int SurfaceSizeInMALL[],
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+index b326184cfa4a..6cf814c2cc8d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+@@ -196,24 +196,6 @@ struct dml32_CalculateSwathAndDETConfiguration {
+ 	unsigned int DETBufferSizeInKByteForSwathCalculation;
+ };
+ 
+-struct dml32_CalculateVMRowAndSwath {
+-	unsigned int PTEBufferSizeInRequestsForLuma[DC__NUM_DPP__MAX];
+-	unsigned int PTEBufferSizeInRequestsForChroma[DC__NUM_DPP__MAX];
+-	unsigned int PDEAndMetaPTEBytesFrameY;
+-	unsigned int PDEAndMetaPTEBytesFrameC;
+-	unsigned int MetaRowByteY[DC__NUM_DPP__MAX];
+-	unsigned int MetaRowByteC[DC__NUM_DPP__MAX];
+-	unsigned int PixelPTEBytesPerRowY[DC__NUM_DPP__MAX];
+-	unsigned int PixelPTEBytesPerRowC[DC__NUM_DPP__MAX];
+-	unsigned int PixelPTEBytesPerRowY_one_row_per_frame[DC__NUM_DPP__MAX];
+-	unsigned int PixelPTEBytesPerRowC_one_row_per_frame[DC__NUM_DPP__MAX];
+-	unsigned int dpte_row_width_luma_ub_one_row_per_frame[DC__NUM_DPP__MAX];
+-	unsigned int dpte_row_height_luma_one_row_per_frame[DC__NUM_DPP__MAX];
+-	unsigned int dpte_row_width_chroma_ub_one_row_per_frame[DC__NUM_DPP__MAX];
+-	unsigned int dpte_row_height_chroma_one_row_per_frame[DC__NUM_DPP__MAX];
+-	bool one_row_per_frame_fits_in_buffer[DC__NUM_DPP__MAX];
+-};
+-
+ struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation {
+ 	unsigned int dummy_integer_array[2][DC__NUM_DPP__MAX];
+ 	double dummy_single_array[2][DC__NUM_DPP__MAX];
+@@ -286,7 +268,6 @@ struct dummy_vars {
+ 	DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation;
+ 	struct dml32_ModeSupportAndSystemConfigurationFull dml32_ModeSupportAndSystemConfigurationFull;
+ 	struct dml32_CalculateSwathAndDETConfiguration dml32_CalculateSwathAndDETConfiguration;
+-	struct dml32_CalculateVMRowAndSwath dml32_CalculateVMRowAndSwath;
+ };
+ 
+ struct vba_vars_st {
 -- 
 2.35.1
 
