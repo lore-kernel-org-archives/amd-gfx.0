@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092A9C00144
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 12:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01839C19F2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 14:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6DD310E0F2;
-	Fri, 29 Jul 2022 12:37:59 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE92410E0F2
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 12:37:55 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id z23so8293619eju.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 05:37:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Fu8dlxwrYBW72hvBK9lkKWvr0IanIkt+rVNekPgtNlo=;
- b=mOfeiFJ6kk8OPtSkMEeuD+KMxSypWebMqYLG69Aa5mqdnTy6Wr0px6e+RF8gNfO+Mh
- Vg1JcCbE4RswBcU6FywP4Xu0HU1eRxDbxvNmvlbgnr6JlTR6nFG7o9O3coXIZZqXbjCA
- 7Eh1TQm18TbiveKFdk3QVA2VAAsg8kNADcS0lZ7KsdOWVyZLk0gTVjoya0FrdQ/hgYTT
- nasAGafDxre4xsgU6UuxdTFUQWeZeL2XheDLpZotbD81BznvW+hYcKCg58nZQN1vFHHp
- MMyvuTHkrtVtMEWETWM1ADKbCvV7K2G8nmY7njU6rHUtRL3kw4i+sSxKfPgdHD8wJaKS
- Bw9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Fu8dlxwrYBW72hvBK9lkKWvr0IanIkt+rVNekPgtNlo=;
- b=XQzy3/gmukRbsSeBcmZD3MBcdaKSThMt5/GWXWriv8Vk6YclDPivAWTY29aJxwnosF
- Dhdmm2LnkKOIwaLw4YZ2r0CmXUrFtSJ2LsyIMmagBoiJU+OQGMrHv9SW8pSLhH9h54C5
- XCqfFmiQSZOT1Y7pon5I0pQNBrtDxXsfC5m/Ro5uCI5qKBG1ghwVkIACf2ZDvu9I/gSn
- H0cpU+zAjeGwW6wMtvTTAsrNY9LaiMJG5OslyBj3z/fggMd6zSp5l1Nauc2ex+SjOcyp
- BJmwCZegJpe+zN+LlBDpDccvvmNkb8RifKhw5jbP1UlgDK+QqKklMY2C4PTicuQz/+nE
- aNAw==
-X-Gm-Message-State: AJIora8ag3nk9VQJOUQujEBchzVABfmDhtNMQfSryqrsreleB4qzSfA9
- tMDF14ScY8wLXdGfaTU6cT3fyivR61J9TkkCYB58Cg==
-X-Google-Smtp-Source: AGRyM1uSProj6DPU7YVk7zJCGNhilPhw7rRSFkEa2hX/os/wiHxyYM+alQLS3IJDEW8iO7TdwzlLS7ZcQY/nWYOrzpQ=
-X-Received: by 2002:a17:907:6087:b0:72f:36ff:7fa2 with SMTP id
- ht7-20020a170907608700b0072f36ff7fa2mr2786682ejc.162.1659098274111; Fri, 29
- Jul 2022 05:37:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C43D10FDD2;
+	Fri, 29 Jul 2022 14:16:20 +0000 (UTC)
+Received: from gandalf.ozlabs.org (mail.ozlabs.org
+ [IPv6:2404:9400:2221:ea00::3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4685011B9B5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 22:48:48 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Lv5RF24Lmz4x1Y;
+ Fri, 29 Jul 2022 08:48:41 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1659048523;
+ bh=mwPzqIV4UuXxDn6ljSWvgbOCpVyOwUH09MPyk56EBOY=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=RZVg5oFBMFfW8k8XO5aOVbeu35E+PfLdXIM2yghnEKGgywisWyrlFhogBVqOVYxI+
+ RWcpCp2CHVFxCoiI2pSsz5DPjNWy7J8EIiCktFnkVywD07oWrGzek9j+Aqdnkmwe84
+ 5gLtD3n7i7XTNzKaNuxFiBNB0+KlJ1f2wd5ruTU+WZ83D4RW+yBS7MYEETLwUgIbz7
+ NxjY6pIHzl7sfJEpR0wuzvQJLVZdB+09bRGaEG9rb3gqwFL4CpiUfMXqDZ0S9B2mG+
+ DQpWvqnbffgckswIS/axHUP5DokaaZbkV/cKWoRmpGGEoW+DIpiXL0rg1P2dXDgzsX
+ 190CUnzFVeLSQ==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd/display: Fix a compilation failure on PowerPC
+ caused by FPU code
+In-Reply-To: <20220728203347.2019728-1-Rodrigo.Siqueira@amd.com>
+References: <20220728203347.2019728-1-Rodrigo.Siqueira@amd.com>
+Date: Fri, 29 Jul 2022 08:48:40 +1000
+Message-ID: <87y1wcc0qf.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-References: <CAEzXK1o+57sPVgPyFoQMkAyqzOko6Td8O-f-6eP_qLn0DkYs3A@mail.gmail.com>
-In-Reply-To: <CAEzXK1o+57sPVgPyFoQMkAyqzOko6Td8O-f-6eP_qLn0DkYs3A@mail.gmail.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Fri, 29 Jul 2022 13:37:42 +0100
-Message-ID: <CAHbf0-EHB+0e5D5cs1Br1_zhozJMhcNN3+eYfxUhk18LNgb48g@mail.gmail.com>
-Subject: Re: Please consider Open-source OpenCL support in amdgpu/mesa
-To: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Mailman-Approved-At: Fri, 29 Jul 2022 14:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +51,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I've recently gotten ROCm 5.1.3 working on Gentoo with the open
-drivers and using upstream llvm 14.0.6, it's enough to get LuxMark 3
-running (well with fast math disabled)
+Rodrigo Siqueira <Rodrigo.Siqueira@amd.com> writes:
+> We got a report from Stephen/Michael that the PowerPC build was failing
+> with the following error:
+>
+> ld: drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.o uses hard float, drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.o uses soft float
+> ld: failed to merge target specific data of file drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.o
+>
+> This error happened because of the function optc3_set_vrr_m_const. This
+> function expects a double as a parameter in a code that is not allowed
+> to have FPU operations. After further investigation, it became clear
+> that optc3_set_vrr_m_const was never invoked, so we can safely drop this
+> function and fix the ld issue.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Reported-by: Michael Ellerman <mpe@ellerman.id.au>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c        | 8 --------
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h        | 3 ---
+>  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c        | 1 -
+>  drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h | 2 --
+>  4 files changed, 14 deletions(-)
 
-You might want to look for a distro that packages ROCm for you as
-Clover is nowhere near ready
+Thanks, that fixes the build issue for me.
 
-On Fri, 29 Jul 2022 at 11:06, Lu=C3=ADs Mendes <luis.p.mendes@gmail.com> wr=
-ote:
->
-> Hi,
->
-> I am an Aparapi project developer that has been struggling for two
-> years to get an RX 5700 properly running OpenCL applications.
->
-> First of all, as an end consumer, I would like to congratulate the
-> open-source amdgpu driver for its stability and performance, as well
-> as the team behind it! Unfortunately I cannot say the same for the
-> closed source, proprietary drivers which have been a nightmare in
-> terms of quality and stability and currently the only way to have
-> OpenCL... which in reality is not the case, because it does not have
-> any stability.
->
-> The open-source driver has been superior in terms of OpenGL and Vulkan
-> stability and performance, it just misses OpenCL to be complete.
->
-> I am not expecting any reply on this, nor that it will make the
-> Open-source OpenCL support for AMD graphics cards a reality... I just
-> want to share this reality that I am experiencing for two years, with
-> many amdgpu-pro driver versions tested and also the new deb based
-> amdgpu-install drivers. None of them provided a working solution,
-> neither legacy based, nor rocr based ones. The machine starts running
-> a few OpenCL jobs, which after a few seconds lead to a black screen,
-> followed by GPU reset and machine hanging. The same OpenCL jobs run
-> fine on a GT 1030. There is also a big issue when running the RX 5700
-> as a secondary GPU, aside with the GT 1030 as the primary card, which
-> causes the amdgpu driver to fail to load and renders the RX 5700
-> unusable. I just wanted to share my experience with this card and hope
-> for a better future.
->
-> Please consider Open-source OpenCL support in amdgpu/mesa.
->
-> Best regards,
-> Lu=C3=ADs Mendes
+Tested-by: Michael Ellerman <mpe@ellerman.id.au>
+
+cheers
