@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED5CC04A68
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 18:22:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A57F9C04A68
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 18:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E673710E241;
-	Thu, 28 Jul 2022 18:21:46 +0000 (UTC)
-Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A87210E070
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 18:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC6A10EEED;
+	Thu, 28 Jul 2022 18:21:54 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B82C10E18E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 18:21:51 +0000 (UTC)
 Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
  client-signature RSA-PSS (2048 bits) client-digest SHA256)
  (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx0.riseup.net (Postfix) with ESMTPS id 4LtzWC2zrqz9spX;
- Thu, 28 Jul 2022 18:21:43 +0000 (UTC)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4LtzWL4g4NzDryt;
+ Thu, 28 Jul 2022 18:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1659032503; bh=jaNzaNvCEhS2AXkA7K80CoMdT/QIxgViEtzB1k8nm5g=;
+ t=1659032510; bh=dOc0h9A9+TLSSc0lCI/yNseuodcICoVaSAtd2WgMo0w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p+4XtFahyDtTKE3LGYXkAiHihWm/wNd22PbpsULP1ZyPzLnxUdKy7CeX6r9JDkKeE
- n+FD6m2ca5/z1y01UA71w0bZKTDAKe5WKygOQ8XtR1L+/GCfMxUuFjCQeLghKJvI05
- zGYgXbEkCNhUQflwg5/eqH14ObCKotV2BCmJBtLQ=
-X-Riseup-User-ID: 7085B217FDD4BF70B4736E5A2DFB7BA16FA17F0EC436EF3BDB26F2BC14E00E67
+ b=tO0UfFSsv6mnmmzOZaOJ6Dr/G614Ee99NzciEXbTQ9u8mp1/LKL1ccVDpPZP0nzTZ
+ NLWbktGbSJkq7k9BBMs0vrJUw8fQptPWirTf0r8/UPptVKdG9cHLub55g2eu3NgaBz
+ +VC24M3OkFakTqDHIyQjvbQBKOkSdodNI0Rr3/hk=
+X-Riseup-User-ID: 4D0DE29A87800F0FBEFA4C6F967DE3A6FA7B671924CE920BA49D2ED64E91A686
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4LtzW61d0Hz5vMX;
- Thu, 28 Jul 2022 18:21:37 +0000 (UTC)
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4LtzWF275dz5vMX;
+ Thu, 28 Jul 2022 18:21:45 +0000 (UTC)
 From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
  Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 01/16] drm/amd/display: Remove NonUrgentLatencyTolerance VBA
+Subject: [PATCH 02/16] drm/amd/display: Remove CompBufReservedSpace* VBA
  variable
-Date: Thu, 28 Jul 2022 15:20:33 -0300
-Message-Id: <20220728182047.264825-2-mairacanal@riseup.net>
+Date: Thu, 28 Jul 2022 15:20:34 -0300
+Message-Id: <20220728182047.264825-3-mairacanal@riseup.net>
 In-Reply-To: <20220728182047.264825-1-mairacanal@riseup.net>
 References: <20220728182047.264825-1-mairacanal@riseup.net>
 MIME-Version: 1.0
@@ -62,81 +62,69 @@ Cc: magalilemes00@gmail.com, tales.aparecida@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The NonUrgentLatencyTolerance variable from the struct vba_vars_st is
-only used on assignments, so its value is not used on code. Moreover,
-its getter function is not used also. So, remove the
-NonUrgentLatencyTolerance entry from the struct vba_vars_st.
+The variables CompBufReservedSpaceZs, CompBufReservedSpace64B and
+CompBufReservedSpaceNeedAdjustment from the struct vba_vars_st are
+only used on assignments, so their values are not used on code. Moreover,
+their getter functions are not used also. So, remove the variables
+entries from the struct vba_vars_st.
 
 Signed-off-by: Maíra Canal <mairacanal@riseup.net>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c    | 4 ----
- .../gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c  | 4 ----
- drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c         | 1 -
- drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h         | 2 --
- 4 files changed, 11 deletions(-)
+ .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c   | 3 ---
+ drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c        | 2 --
+ drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h        | 5 -----
+ 3 files changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-index d3b5b6fedf04..8a499f8066b7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-@@ -1768,10 +1768,6 @@ static void dml20_DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPer
- 				mode_lib->vba.UrgentLatencySupportUs[k]);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index 573504de1789..a1fb2d1d1cdb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -307,9 +307,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 					 .dummy_boolean); /* bool *ViewportSizeSupport */
  	}
  
--	// Non-Urgent Latency Tolerance
--	mode_lib->vba.NonUrgentLatencyTolerance = mode_lib->vba.MinUrgentLatencySupportUs
--			- mode_lib->vba.UrgentWatermark;
+-	v->CompBufReservedSpaceZs     = v->CompBufReservedSpaceKBytes * 1024.0 / 256.0;
+-	v->CompBufReservedSpace64B    = v->CompBufReservedSpaceKBytes * 1024.0 / 64.0;
 -
- 	// DSCCLK
- 	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; ++k) {
- 		if ((mode_lib->vba.BlendingAndTiming[k] != k) || !mode_lib->vba.DSCEnabled[k]) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-index 63bbdf8b8678..ef7f0b8ed2d5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-@@ -1804,10 +1804,6 @@ static void dml20v2_DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndP
- 				mode_lib->vba.UrgentLatencySupportUs[k]);
- 	}
- 
--	// Non-Urgent Latency Tolerance
--	mode_lib->vba.NonUrgentLatencyTolerance = mode_lib->vba.MinUrgentLatencySupportUs
--			- mode_lib->vba.UrgentWatermark;
--
- 	// DSCCLK
- 	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; ++k) {
- 		if ((mode_lib->vba.BlendingAndTiming[k] != k) || !mode_lib->vba.DSCEnabled[k]) {
+ 	// DCFCLK Deep Sleep
+ 	dml32_CalculateDCFCLKDeepSleep(
+ 			mode_lib->vba.NumberOfActiveSurfaces,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index 503e7d984ff0..5dc2f52165fb 100644
+index 5dc2f52165fb..d1c720b48b0c 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -102,7 +102,6 @@ dml_get_attr_func(stutter_efficiency_no_vblank, mode_lib->vba.StutterEfficiencyN
- dml_get_attr_func(stutter_period, mode_lib->vba.StutterPeriod);
- dml_get_attr_func(urgent_latency, mode_lib->vba.UrgentLatency);
- dml_get_attr_func(urgent_extra_latency, mode_lib->vba.UrgentExtraLatency);
--dml_get_attr_func(nonurgent_latency, mode_lib->vba.NonUrgentLatencyTolerance);
- dml_get_attr_func(dram_clock_change_latency, mode_lib->vba.MinActiveDRAMClockChangeLatencySupported);
- dml_get_attr_func(dispclk_calculated, mode_lib->vba.DISPCLK_calculated);
- dml_get_attr_func(total_data_read_bw, mode_lib->vba.TotalDataReadBandwidth);
+@@ -122,8 +122,6 @@ dml_get_attr_func(fclk_watermark, mode_lib->vba.Watermark.FCLKChangeWatermark);
+ dml_get_attr_func(usr_retraining_watermark, mode_lib->vba.Watermark.USRRetrainingWatermark);
+ 
+ dml_get_attr_func(comp_buffer_reserved_space_kbytes, mode_lib->vba.CompBufReservedSpaceKBytes);
+-dml_get_attr_func(comp_buffer_reserved_space_64bytes, mode_lib->vba.CompBufReservedSpace64B);
+-dml_get_attr_func(comp_buffer_reserved_space_zs, mode_lib->vba.CompBufReservedSpaceZs);
+ dml_get_attr_func(unbounded_request_enabled, mode_lib->vba.UnboundedRequestEnabled);
+ 
+ #define dml_get_pipe_attr_func(attr, var)  double get_##attr(struct display_mode_lib *mode_lib, const display_e2e_pipe_params_st *pipes, unsigned int num_pipes, unsigned int which_pipe) \
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-index 8460aefe7b6d..cb125f7d0814 100644
+index cb125f7d0814..632041cf49bb 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
 +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-@@ -50,7 +50,6 @@ dml_get_attr_decl(stutter_efficiency);
- dml_get_attr_decl(stutter_period);
- dml_get_attr_decl(urgent_latency);
- dml_get_attr_decl(urgent_extra_latency);
--dml_get_attr_decl(nonurgent_latency);
- dml_get_attr_decl(dram_clock_change_latency);
- dml_get_attr_decl(dispclk_calculated);
- dml_get_attr_decl(total_data_read_bw);
-@@ -648,7 +647,6 @@ struct vba_vars_st {
- 	double WritebackDRAMClockChangeWatermark;
- 	double StutterEfficiency;
- 	double StutterEfficiencyNotIncludingVBlank;
--	double NonUrgentLatencyTolerance;
- 	double MinActiveDRAMClockChangeLatencySupported;
- 	double Z8StutterEfficiencyBestCase;
- 	unsigned int Z8NumberOfStutterBurstsPerFrameBestCase;
+@@ -67,8 +67,6 @@ dml_get_attr_decl(min_meta_chunk_size_in_byte);
+ dml_get_attr_decl(fclk_watermark);
+ dml_get_attr_decl(usr_retraining_watermark);
+ dml_get_attr_decl(comp_buffer_reserved_space_kbytes);
+-dml_get_attr_decl(comp_buffer_reserved_space_64bytes);
+-dml_get_attr_decl(comp_buffer_reserved_space_zs);
+ dml_get_attr_decl(unbounded_request_enabled);
+ 
+ #define dml_get_pipe_attr_decl(attr) double get_##attr(struct display_mode_lib *mode_lib, const display_e2e_pipe_params_st *pipes, unsigned int num_pipes, unsigned int which_pipe)
+@@ -655,9 +653,6 @@ struct vba_vars_st {
+ 	Watermarks      Watermark;
+ 	bool DCHUBBUB_ARB_CSTATE_MAX_CAP_MODE;
+ 	unsigned int CompBufReservedSpaceKBytes;
+-	unsigned int CompBufReservedSpace64B;
+-	unsigned int CompBufReservedSpaceZs;
+-	bool CompBufReservedSpaceNeedAdjustment;
+ 
+ 	// These are the clocks calcuated by the library but they are not actually
+ 	// used explicitly. They are fetched by tests and then possibly used. The
 -- 
 2.37.1
 
