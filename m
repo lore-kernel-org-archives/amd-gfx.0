@@ -4,37 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4397CC04A68
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 03:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D13C19F28
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 03:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB35C9C25;
-	Thu, 28 Jul 2022 03:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F08E194AD1;
+	Thu, 28 Jul 2022 03:36:22 +0000 (UTC)
 Received: from mail.nfschina.com (unknown
  [IPv6:2400:dd01:100f:2:72e2:84ff:fe10:5f45])
- by gabe.freedesktop.org (Postfix) with ESMTP id BD3A193F14;
- Thu, 28 Jul 2022 03:31:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id EDD4D10F24E;
+ Thu, 28 Jul 2022 02:20:43 +0000 (UTC)
 Received: from localhost (unknown [127.0.0.1])
- by mail.nfschina.com (Postfix) with ESMTP id B4A441E80D72;
- Thu, 28 Jul 2022 11:31:31 +0800 (CST)
+ by mail.nfschina.com (Postfix) with ESMTP id C65111E80D89;
+ Thu, 28 Jul 2022 10:20:35 +0800 (CST)
 X-Virus-Scanned: amavisd-new at test.com
 Received: from mail.nfschina.com ([127.0.0.1])
  by localhost (mail.nfschina.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id ANGcd-Ku-b8R; Thu, 28 Jul 2022 11:31:29 +0800 (CST)
-Received: from localhost.localdomain (unknown [180.167.10.98])
+ with ESMTP id pEUBs0og3I2Z; Thu, 28 Jul 2022 10:20:32 +0800 (CST)
+Received: from [172.30.18.178] (unknown [180.167.10.98])
  (Authenticated sender: yuzhe@nfschina.com)
- by mail.nfschina.com (Postfix) with ESMTPA id 4D8BE1E80CF5;
- Thu, 28 Jul 2022 11:31:28 +0800 (CST)
-From: Yu Zhe <yuzhe@nfschina.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ by mail.nfschina.com (Postfix) with ESMTPA id 59D301E80D72;
+ Thu, 28 Jul 2022 10:20:32 +0800 (CST)
+Subject: Re: [PATCH] drm/amdkfd: use time_is_before_jiffies(a + b) to replace
+ "jiffies - a > b"
+To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
  daniel@ffwll.ch
-Subject: [PATCH v2] drm/amdkfd: use time_is_before_jiffies(a + b) to replace
- "jiffies - a > b"
-Date: Thu, 28 Jul 2022 11:30:26 +0800
-Message-Id: <20220728033026.15952-1-yuzhe@nfschina.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220727025917.22477-1-yuzhe@nfschina.com>
 References: <20220727025917.22477-1-yuzhe@nfschina.com>
+ <17e02cd8-eba1-91b8-2506-91a7893ac967@amd.com>
+From: Yu Zhe <yuzhe@nfschina.com>
+Message-ID: <69adb14d-9f70-b118-14b2-92de75596c38@nfschina.com>
+Date: Thu, 28 Jul 2022 10:20:28 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
+MIME-Version: 1.0
+In-Reply-To: <17e02cd8-eba1-91b8-2506-91a7893ac967@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Thu, 28 Jul 2022 03:36:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,41 +53,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yu Zhe <yuzhe@nfschina.com>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- liqiong@nfschina.com, amd-gfx@lists.freedesktop.org
+Cc: liqiong@nfschina.com, kernel-janitors@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-time_is_before_jiffies deals with timer wrapping correctly.
+在 2022年07月28日 00:04, Felix Kuehling 写道:
 
-Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> This patch introduces a build warning for me:
+>    CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_interrupt.o
+> In file included from /home/fkuehlin/compute/kernel/include/linux/spinlock.h:54,
+>                   from /home/fkuehlin/compute/kernel/include/linux/mmzone.h:8,
+>                   from /home/fkuehlin/compute/kernel/include/linux/gfp.h:6,
+>                   from /home/fkuehlin/compute/kernel/include/linux/slab.h:15,
+>                   from /home/fkuehlin/compute/kernel/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_interrupt.c:44:
+> /home/fkuehlin/compute/kernel/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_interrupt.c: In function ?interrupt_wq?:
+> /home/fkuehlin/compute/kernel/include/linux/typecheck.h:12:18: warning: comparison of distinct pointer types lacks a cast
+>     12 |  (void)(&__dummy == &__dummy2); \
+>        |                  ^~
+> /home/fkuehlin/compute/kernel/include/linux/jiffies.h:106:3: note: in expansion of macro ?typecheck?
+>    106 |   typecheck(unsigned long, b) && \
+>        |   ^~~~~~~~~
+> /home/fkuehlin/compute/kernel/include/linux/jiffies.h:154:35: note: in expansion of macro ?time_after?
+>    154 | #define time_is_before_jiffies(a) time_after(jiffies, a)
+>        |                                   ^~~~~~~~~~
+> /home/fkuehlin/compute/kernel/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_interrupt.c:159:7: note: in expansion of macro ?time_is_before_jiffies?
+>    159 |   if (time_is_before_jiffies(start_jiffies + HZ)) {
+>        |       ^~~~~~~~~~~~~~~~~~~~~~
+> I think you need to change the the definition of start_jiffies to be
+> unsigned long. Do you want to submit a v2 of your patch?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index a9466d154395..34772fe74296 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -146,7 +146,7 @@ static void interrupt_wq(struct work_struct *work)
- 	struct kfd_dev *dev = container_of(work, struct kfd_dev,
- 						interrupt_work);
- 	uint32_t ih_ring_entry[KFD_MAX_RING_ENTRY_SIZE];
--	long start_jiffies = jiffies;
-+	unsigned long start_jiffies = jiffies;
- 
- 	if (dev->device_info.ih_ring_entry_size > sizeof(ih_ring_entry)) {
- 		dev_err_once(dev->adev->dev, "Ring entry too small\n");
-@@ -156,7 +156,7 @@ static void interrupt_wq(struct work_struct *work)
- 	while (dequeue_ih_ring_entry(dev, ih_ring_entry)) {
- 		dev->device_info.event_interrupt_class->interrupt_wq(dev,
- 								ih_ring_entry);
--		if (jiffies - start_jiffies > HZ) {
-+		if (time_is_before_jiffies(start_jiffies + HZ)) {
- 			/* If we spent more than a second processing signals,
- 			 * reschedule the worker to avoid soft-lockup warnings
- 			 */
--- 
-2.11.0
+Yes, I will submit v2 patch later.
 
+> That said, I think the existing code was fine, though the type-mismatch
+> highlighted by your patch is a bit iffy.
+
+And if the timer wrap changes in the future you won't have to alter your driver code. So I think it's better.
+
+> Regards,
+>    Felix
+> Am 2022-07-26 um 22:59 schrieb Yu Zhe:
+>> time_is_before_jiffies deals with timer wrapping correctly.
+>> Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 2 +-
+>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+>> index a9466d154395..6397926e059c 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+>> @@ -156,7 +156,7 @@ static void interrupt_wq(struct work_struct *work)
+>>        while (dequeue_ih_ring_entry(dev, ih_ring_entry)) {
+>>            dev->device_info.event_interrupt_class->interrupt_wq(dev,
+>>                                    ih_ring_entry);
+>> -        if (jiffies - start_jiffies > HZ) {
+>> +        if (time_is_before_jiffies(start_jiffies + HZ)) {
+>>                /* If we spent more than a second processing signals,
+>>                 * reschedule the worker to avoid soft-lockup warnings
+>>                 */
+>
