@@ -4,121 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65912C00144
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 09:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C94C00144
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 09:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB22714BB9D;
-	Fri, 29 Jul 2022 09:06:12 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCCA014BB1B
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 09:05:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D46810E0E8;
+	Fri, 29 Jul 2022 09:27:57 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6FA510E0E8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 09:27:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KP+CzkZCz671CSeIS9buCSNprCwc7KtNZLofVhx0vPuhWl3sQTvWaFtJU/j7gIA8xNBiqGttPKDjXq5FIerops2Gu42gWonYrvgQassZ9pofAxtLfQ208iS3tvrhtw2glmL+oxFdq+HSXNWRNkeYGmv24tCqjFcY44j9U/kMLfGNPbLXTZ+OdEcAOoD1sbmKgoQctJuAWYXy3FLm2DB44j1Ice7w9cFamAQF20nnl4ZGTOjju8YXTRl9XloW0bZopLCQk/MsbYLG9svrQoDWMOq7DiTimtn/0Rqi/+382IxaYuHbObPLMNAxiBAqJKBb1M4kXc0hkLKT+tB/pc2LWQ==
+ b=kU4Rc9r/EkisguubE7RBa7s5vrs3m7Yod9AlfMyrmwIC+Z/klU+yy58bm0HMke/HfwVNlo+ePNk/2KluFDQ/U0i3OwfIFk0RU3odXTmjTAEAnK/2+hhyRw5XE+QYA8AA+j7TBAjYzbIPsXhfUtZLBSOM7h3+1Z853gBI+2YMQDQqQ2/TCHcP/EmnWMtOdDSwuqF5p61kAFxxv7QwLBVeEjZIW6/jqF0M1JdCM/OcPeaCWPgEPIBQ+BQJsGyTImDzmVHGaYNy86ocaQQrZjv4JAuH+JfI2dpJisERIvH9aaZ6buBOh4NoV86SHMYfyzVbrYMq20ZmBtpwQRbNVe4DVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t7/Ira1sXSDvBRhl8bIhn4b7sMLERjgMRUjLJNcG+ds=;
- b=lsclYL7aPthlMfU6jqUrdjIcbTPrgOA5ekh11I9ynLAiGwWEhcz+lCHKrNUyV/HTnoRRCdOxfHOp/1u+mKAkQR8uFoaiLSBFqlzisBzXiO66AdPn4IcFfSEPPheGV3je9kpOSGmGuC1k53R2o6Ptd4MRGD3QUkcETauOdhimTr2fgfQoBR4JgqOa++d5dDUT/P/xl7ouWHRpyHWJGnFlS4CBhosUeaPZVFXj/YhG/hMO8v6KrwSjBQoflFeBh0lwr4kUDmJFeU/j3EzIaqOk17bSvriaJQ4LbX22SVQayaewsLHART1He06lpF4S7nKNK5FkfRH4jAxSiPEFrrwG7g==
+ bh=7d08BXZoU3rTmAVmJtqK5RPux4i6iVLYNhV8eiEbA+o=;
+ b=P/JL3wNEUx5D6zzoNEleY03weF6flHQ/VZTBdpKSlA+W7QcccANqz1oC2+1z9yqOnBeJv8+XMwYVShOmda9pOFsUreikIvT98rIpX8Q3yRZJ5JZ32RK5x8GgtuoaAia4jILm4LRawH8Qf79exa6JXGQ2Nn/I3wb2NKdOz8w/Yw2bP41vQ7yXSrQH/+Hag80Lya9m667xyFFFMWRBZMvahxl1Axl8sAsWraDzbikmxfIx5SiCnRTcp8RqFgquLyizPLY62V8MV0Kcmp9s5ELsPZhVgxE3kW58git9TgbHYneIwkTYo+RJE+KLnwXo70shlaIxbBRDlTl63fFoprMMxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t7/Ira1sXSDvBRhl8bIhn4b7sMLERjgMRUjLJNcG+ds=;
- b=dOD3QpJ1C3skF8BbglZ6pdN5vYws/aIMHvPnCAWyl64S/Z+2IXmUhxaqk5rFeFdgLE2iZ8ZuGUlrDxKfO6Qz+pIV9VFc3lnLIzTTfjUwGqDN8E4d5w7xUwqw6zUYXKDoMgfqMJrU0BgN2r6XHuzLXVMZiDOEsJcSbdwDG0m8hOc=
+ bh=7d08BXZoU3rTmAVmJtqK5RPux4i6iVLYNhV8eiEbA+o=;
+ b=iG9Ru2wswTMCKOx3QdS92N7d7xTjVbnsnvynrdt8PByazNbjD+TBUYrgoI0gcqw0vZGX7XY4jiwb/MLALVmq4GWOPMwKmBQmz8nM8Tux5JV3HkTHg4qjqSDCgh0mUt78ozdiz8CrBiPIyaQQcWZWLzWfHIzk9xIJ06gRSAABEOA=
 Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM6PR12MB2730.namprd12.prod.outlook.com (2603:10b6:5:41::20) with
+ DM6PR12MB3292.namprd12.prod.outlook.com (2603:10b6:5:18c::31) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5458.20; Fri, 29 Jul 2022 09:05:50 +0000
+ 15.20.5482.11; Fri, 29 Jul 2022 09:27:53 +0000
 Received: from DM6PR12MB4340.namprd12.prod.outlook.com
  ([fe80::f028:1155:8518:3fee]) by DM6PR12MB4340.namprd12.prod.outlook.com
  ([fe80::f028:1155:8518:3fee%4]) with mapi id 15.20.5482.011; Fri, 29 Jul 2022
- 09:05:50 +0000
+ 09:27:52 +0000
 From: "Zhao, Victor" <Victor.Zhao@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 1/6] drm/amdgpu: add mode2 reset for sienna_cichlid
-Thread-Topic: [PATCH v2 1/6] drm/amdgpu: add mode2 reset for sienna_cichlid
-Thread-Index: AQHYom0WkLD6Dfs1KEmSJv2wstayX62U3Z8AgAAyQsA=
-Date: Fri, 29 Jul 2022 09:05:50 +0000
-Message-ID: <DM6PR12MB43408D46760F912F6FB44290FA999@DM6PR12MB4340.namprd12.prod.outlook.com>
+Subject: RE: [PATCH v2 6/6] drm/amdgpu: reduce reset time
+Thread-Topic: [PATCH v2 6/6] drm/amdgpu: reduce reset time
+Thread-Index: AQHYom0be2dQsrCAL06hdfBMK+4uVq2U3yQAgAAw9pA=
+Date: Fri, 29 Jul 2022 09:27:52 +0000
+Message-ID: <DM6PR12MB43407E1407CEFA32AF3ED7D9FA999@DM6PR12MB4340.namprd12.prod.outlook.com>
 References: <20220728103027.27255-1-Victor.Zhao@amd.com>
- <DM6PR12MB26192D26D9AD1756ED5FC27BE4999@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26192D26D9AD1756ED5FC27BE4999@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <20220728103027.27255-6-Victor.Zhao@amd.com>
+ <8dd25904-dca5-a9c4-9c8a-567b3d8db7e2@amd.com>
+In-Reply-To: <8dd25904-dca5-a9c4-9c8a-567b3d8db7e2@amd.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-29T06:05:40Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-29T09:18:41Z; 
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9c3ffb05-c29c-4384-a23f-dd25f52f7785;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8fe29eb4-6f0e-478e-bc2e-2158d2368ed2;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
 msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-07-29T09:05:48Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-07-29T09:27:50Z
 msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
 msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
 msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: c94370c4-37ca-4ce3-8619-5ceaeef68a32
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 7fa55efc-8e16-40a8-b531-3fab77e5a031
 msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d8f2510e-8dde-4d19-b452-08da714188ab
-x-ms-traffictypediagnostic: DM6PR12MB2730:EE_
+x-ms-office365-filtering-correlation-id: 3c8fe407-2303-44a0-731f-08da71449cd3
+x-ms-traffictypediagnostic: DM6PR12MB3292:EE_
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9/gYfyDa4sixC5Uk8EP2xfHfZYsxDRcn3x5puByo6K5zr0D29B4BHLK8D891DdDnb2GHXHUPd252KTecfnAWzwiD8sl30c59s2XfpP+AtoOlTfoNwGI7cnGRpLbRpLcskF3ejdvhk7+mSAbNzq+5/70gTPLt9m7zNAxpiooUwMKyw04l9/tcbdy4Wm00l5p2bDnwojUUXhTt148mQd1UxjQoe6FJGVVZoh7+vx1/hyosyEI0csUeH+iI5J4euEz/sZogHk/lYSJ6KNbwhIPCehXo4HXO5DZ5/iLQqkXiJzcMm9zn7C4aUPb2fFpvLFzw/Hmbb9ldEtjd2y+mTHZqwYSTLh1oZtOJbNpQxbX5ej2GHO+NXnHUCuJdofTUEh8B1lq7aGrzSVfM8DpaZ67vdZ0yuYsk+jT4rPU9MCaTz9O1amBIUFf+PbqxlX8/9gPovbOFNl9ElBQiXlMiDaRUXTxNNm2quyZEtjK2+NV1reyw3ftuK8UDprLNm8cfMIzcbmzS1miNm5YjX/0xKJHwJ1e9aZrYq2H2ajZa7+gfn8G0/sxdxtH7WxjuDaj7mLDci6x5UrvBzDsKHq2EjUo3+v3yT7qF8fLSIk9hzG4N5hVMJCOxlleVK6wZc5oHceeuzYUgh1N34xgZW0y7RBPAEMTJg4sJTbLAQ6HCBVNDGJdifLE7c/l9U7NWwLLbq88lGED6zrpoH43hQF2mbV4DxPmPuryqPhU9AXrL64DL8Z+GUwcKzCOYLUUAAFywqDDu7xnUOIPiNyvGMHXWDkTGhu+bSFdqfK4s/a5dLu81XOs=
+x-microsoft-antispam-message-info: cqJyC5aLLu5hlCO7tZv5A6yqaYoCHngiiyCklB+xZx8/Y7blRHqGT3K5ViLTkr5TeGgYl2Pg1tdtbPOP1HCbGrDKM2aI6vUfcfo7ApIRmVgS6yo8zM1gYXyvVys7neGmtKY0UDpfegXa0JemGym1DkdyW7Fj5h9RIblSa3AH9SiYHWpHk2qO2zsjXyHWEZXunhhrsAMIclva/RQvIQzeQYlZMl0uXFJhuzPPl1bHYXyADA1Cy5LpklxyDF+y7vlZcCqt2ao3/RvSMG5C2B3BQePQDTo4S+fS4SaDbZ0oMmHLgps/JqM53mkxDbMTQ8yt8x8Vf/gIajVt7sasknZOY/mnfUvzwe+0yKMnwTlCy50lgrpfPRorgYWj/v04NfxUhaSk0ezWdeUk7iD50XTFGLGfA3CieM8kWDcT9FojP+XfVkWSYBOB6T9qvmRxlVVIoT0xPsYe1En2IUZdWdn/Maf2klxETScqyF67YIiIrPM3E4/GREA1EKKpk0VATt0BLcNhASqgoTLgdrHh8K/12GDwn/w/vf3BAlFAl4r8l6RqGfOG4RsZvzsV1gMAUl00Tq4pWHsGCNWUBq+S97v8wrh80Msg5FuCVMeaP6bpwHpWhLnqVXC587B/EmYwbzWegAvT+8HBB0ai2jkBX/aEw+NY7v3NebB3SFMsmd+HfiW7iROSyCKN7URu3e1HuCrs22ICJSXpHl/a+e6OTSqKf4Manxkq7xjpkIdXS4IW5Wwpix1iLGIJ24+P3TpUycu9Ln9HjQUR2HPOT1yG4EQ5DIH6qva7Q8x03jLlS0xmbTTqE/KduZDp34XcZyl8eEya
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(396003)(366004)(39860400002)(136003)(55016003)(19627235002)(122000001)(316002)(83380400001)(52536014)(8936002)(2906002)(38100700002)(478600001)(41300700001)(5660300002)(54906003)(33656002)(8676002)(110136005)(76116006)(9686003)(71200400001)(66446008)(26005)(4326008)(64756008)(86362001)(38070700005)(186003)(7696005)(6506007)(53546011)(66476007)(66556008)(66946007)(579004);
+ SFS:(13230016)(4636009)(396003)(366004)(376002)(39860400002)(346002)(136003)(86362001)(83380400001)(38100700002)(38070700005)(66556008)(66946007)(76116006)(66446008)(64756008)(8676002)(55016003)(110136005)(316002)(122000001)(4326008)(54906003)(66476007)(2906002)(6506007)(52536014)(26005)(8936002)(9686003)(7696005)(53546011)(5660300002)(33656002)(186003)(478600001)(71200400001)(41300700001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/wAPsza4qfPhCjyRHI3t+9HabsHozJZZdFvdEX7tCo/e2rzS3GrdOMAQKUvY?=
- =?us-ascii?Q?xa0gd0t0PkCIm1NW3zeLKIVnMJZTOE08M2L9Jq7pZidKgF3ImiwKCEqqkGPZ?=
- =?us-ascii?Q?YNhClSktXL5GUFuHbuNKn9FI/Tw2w8AbnWYj+UjVwKDbtxZPB7LXgEQsvrXC?=
- =?us-ascii?Q?YPQctOGppJJlohi+l+FVZTxsNVIOa1KQfjKgU4QTjZTPcHkvixjM2GQ96SGm?=
- =?us-ascii?Q?0flTwaA5r7LMhTGpkJWpaWR50H+fbNR1PSlPCrRz+An7VrMyGqNtubJ0VK2h?=
- =?us-ascii?Q?+J2L5e9xKcqQ6QrfeVsq67F83vHUZOsbOpVZl3+mw8TYHtAGYHupvbNNC7TU?=
- =?us-ascii?Q?l56A6uj3S4q6bSSiAhOZ9zAHt1UKOMw9xq8P2uLqoRI22WBaa8W264lR6Dai?=
- =?us-ascii?Q?RACLfE4yOCOMgMZNOaVDPXRyMwwd2LtQm8iiJoFd+0c8YnGLdPG6kbvF8kiU?=
- =?us-ascii?Q?99WCGZ9PP308aqOK4l2+C7CY5xzsPwaQYD803o35JiIWMUjboF+ALnr++5j6?=
- =?us-ascii?Q?QzJpJDGKNgb0Fz6/y3ZvrtHqFTKYMWMWJqkhQrXtifkB5mmPnOfx367rsNNe?=
- =?us-ascii?Q?tmgSKeQ8WdiWPeZ4+dP2Ne6sknp3lWtO/0CXDTJ9XHljdldL5wjvXFgdUj2z?=
- =?us-ascii?Q?cCekhUgxKBVOi0oLHcHAQQDUORS9+zyC38X5iVBXu7Ec27no8LVNNkZN29LP?=
- =?us-ascii?Q?sChqArjRkFc2dklc5D7ULlMbq7f6VU8CNrvjwMAWoWLayGZ7ecdYXLU57A+1?=
- =?us-ascii?Q?YRzSwE5GlD8IpOshYVGCapON2lx3n/vlmG7ctGxHcC/mslFcq4HpHF5wgVHs?=
- =?us-ascii?Q?zI1iIPs0PX3IoUaW7mfSs363k6tszENT5sFY/jjzxCTVA/Z7PQTsbYPa6Z7w?=
- =?us-ascii?Q?/vNO2oo23M0unOBcTFAcfbaP6gg+lHWk+OIN271IJLFkSiN4p55+Tl2OaDTu?=
- =?us-ascii?Q?VYLJ4Pz3c10RqEctX4HLaDPyTTlQk6bO2WkRfynAmPABigPL1ay5NrdZivRg?=
- =?us-ascii?Q?a7rsJhTf61/nIYJNrj7t/g47uy42y+a9yLI8fN/DY72gUrLoURfBiVzedLtQ?=
- =?us-ascii?Q?OndlpHyodAIxzl3pEaI4PiRGCYfI/GuBs8jiGHjEHZWtCBoJpo2LsxcF7EZt?=
- =?us-ascii?Q?DMDAhnlWv6fzB3QCjW7hiVBhzBfyIZgr2ijrJ+LfFJ3srBXt3HuMvqx+5AOv?=
- =?us-ascii?Q?aXRqVP5QkOA4XirxWVNRFjMvbMZQFH4wzklv+7UE/dIwSJRRzScttVaqKfQ7?=
- =?us-ascii?Q?QC+RBxs21dEVsYTLK7WdQs7npgqAuFh+kFnt92rPPpNKnd5mhCSHHLfgWzlp?=
- =?us-ascii?Q?3E5lQxVV/WwCort7taMP/rTLoOUYNaDGEo1yVow0PmKMfZKIy9Nh3fCbDwiH?=
- =?us-ascii?Q?jI1CWuGcgxNhxW5yQ8wvmWxf1h8XMj4+kjQdt2Y9wbHhhBfszl9QGxfVTKEo?=
- =?us-ascii?Q?z4HBuvpIux+2zeOuqjFJvohCmppscFPEH1CPp7DIRdToDsdHx6FJHVtds4fm?=
- =?us-ascii?Q?NDAGWMDIE73LZPpxQAvnAlzuMQy8IrxD5ptNeFXvLRVSyfKQub0S0L7BhtPq?=
- =?us-ascii?Q?3k8kYTmLhhmyF/4Yq70=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VFdtamFUUXJGVmozSjJQcXlvWjF2Q2pVckJSVHU2SWU2YVk2WWVHYWNTOE5H?=
+ =?utf-8?B?RkpiZWhnbml4YVRINzRPY1k2eitFNHdWMktiRW1TNTA1dURFbVpxM3NpYlV2?=
+ =?utf-8?B?SVJXdVZ5MlBzemhQSjJzTmNFSnBScWlBZ1UvdGlGTVMwRDJYNXdSRjF2UVF0?=
+ =?utf-8?B?ZENzUGN0OGlEcVlqcktGVDdjVThzckYrejZXUWdNRHllSlZHMURZdC9rYVJj?=
+ =?utf-8?B?ZFBGMVJLTHNiRDFUL3Y3OXhaMmpZekd0ZEZsSThwMTNNSE1QUU1xcFUzTTUz?=
+ =?utf-8?B?dHdXdmsvbUVOQmFvWlRKbmlzWlowUDdPajJ2QnJzTmRoRk80SmtDUmRyWmVL?=
+ =?utf-8?B?SG9oZnhya2YwZ21pSk5IVklLNWhDWTJyWkUxWHBpbWlZU0E2YU5rRUtIZ3Zq?=
+ =?utf-8?B?RUkwcWh0WHZwdG1ZRSsxazRNekNWQ1dLN091NzZOenRSSzV5eGcxOEY2eG52?=
+ =?utf-8?B?UlNLQ3JZMm1ienRFYmlRZGdpT21HbTNrSGcyN2ErMTByTTVmR1MzS3BtNzQ3?=
+ =?utf-8?B?QUNxOTBheDFkbW1NaW1PUTEvUUdBWFpUdlplelRILzYrZHpFSjVXS052b3Mv?=
+ =?utf-8?B?bHBhRXg3WFd0WEJoRDk1YU5nNjdPT2VEN09nNGR3UVZEZURxWUU2K21SN2U3?=
+ =?utf-8?B?bzlHam02NkR1VXZIclBBUzZleURqR2pHRS9vYnZ0c0dEYVJSQjdZUGRGM1dE?=
+ =?utf-8?B?akV5bDlHZnVjdE5uTERaeXNrYkNGUU1US1NMZzNLR2pOVGFETFZ2aStrcVpU?=
+ =?utf-8?B?NHUvTGlseG9qRlhhNGtHS01OUU9USGtQN0E1cFU5eWJLOTZLMmcva0pFckpC?=
+ =?utf-8?B?NlpETHdRa3ZJK2hkSWN5YVlGRHh3QzVyTFc2TXZUdVRlTE1xRmFKVjMzcWdm?=
+ =?utf-8?B?Z3pFSmU1ZWdEclk0SE5lMjFNbUdRYVVCS0VQN1d5TWR4YWVaMG8vdHFVSDdI?=
+ =?utf-8?B?YU1FYTRQQ0NOeVh1dDdXL0JKdkl5Rm9PWFN3Z2pTakM4TnRwVHppdC9zWTNa?=
+ =?utf-8?B?blY4UUk3eHlQNm5zejdrd2dlYmpsSzAvay9xOFhkVDhJSjI5a045UTk1cEVY?=
+ =?utf-8?B?TXk1djFCdHNZanYxcDdrNXJPK3B0YnpnZzdGWTZ2TFdaeTQyc3JPbFo1NVR6?=
+ =?utf-8?B?dnpuL1h1NGdJeGZDNnB3TXlBemUxMGdmZk5MeFVTd0JZYVhWVzJoTG8xaith?=
+ =?utf-8?B?ZmQ5TUhmakorc2F4eHlUVHQwZjl5QXhlb1JMTXlWOTVaMyttR2psQ2RyYUNZ?=
+ =?utf-8?B?ek1pdU1XUHdMY3JvNzhaU25yRnZMOE9VZkwreVlRZUJIN2JrL0ZGRFM4d3Iv?=
+ =?utf-8?B?RC9nOFJ0Tmd6bmNoV2FYUzJ2QmVIT05Nc0ZEdXhDZTBWS2cvY1pvSXZISVZp?=
+ =?utf-8?B?UmErL1pnOG5meGI5MjI1ZFY5bjhSM2Q5WVdTNVVlNUJmV2JEd0hGVkswenRM?=
+ =?utf-8?B?S0tjQkVCN205dkY2ckFucHJWcHNLdDcyMlM5VmxwZzVxcHpuQmx6RGNsdnhF?=
+ =?utf-8?B?d05uUStYb1Jpd1lMS200N1liUjFMUjM0VlRNTFpBY2JFcGVqWmxIOFNTeHh6?=
+ =?utf-8?B?VEw1a1FycStPY3hsVzRqM3F5VUUzaTZGQkJxM1JoU0FuZmVuRW5iNDkxUU9X?=
+ =?utf-8?B?WVJSYVlLcmFEV0F3clpEbFQrelpJdDc2YXJGZzA0VzY5VjEwMjdNeUhiQkVY?=
+ =?utf-8?B?TWI0d2F2SUJhWGFjeldocnJzc3BQb28yd2lDSUs5bFIxWlNzZ2t4c3QxVW85?=
+ =?utf-8?B?OEtITnhvKzhCZ2kwTDR2ZUJvYmpVSEpOYkhiKytwNzFObEF0OGdXUDJPaEl1?=
+ =?utf-8?B?STJoZXF0OVpCa0xqVCtYdi9pTzA2MlArWm45SEgva3BiRDRkT1RVRGZEQU5J?=
+ =?utf-8?B?dDVzU1o4aHRoSjVkdHNIRUI1eGY1TG9vR00yU1JWR2J2VUhYVWs2a2UrTkYv?=
+ =?utf-8?B?UDMwTTk2MXQ2eUVxa0dvMDBVeXh2WUdkYWJaaVZ1RWN0NUs1THlmZXlaNzRT?=
+ =?utf-8?B?ZHRvekw4ZVczd3U1Q0dwUDJ3RzRqQy9pR1RaMVQ5bnp3cktWZUlHaUxFUk8r?=
+ =?utf-8?B?eFNwbWtWcDVOWFlGY3Fud0VPbGtZOWdYdXhVaVM2T2NTQWtQTVI5RlcrUVVX?=
+ =?utf-8?Q?JFOI=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8f2510e-8dde-4d19-b452-08da714188ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2022 09:05:50.5956 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c8fe407-2303-44a0-731f-08da71449cd3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2022 09:27:52.8539 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C4eoqkfvSrzhzV6sQxTC3NW8Nlq1QIy4WUz3oRQLOuWfRlJ8VZb6R09IsveVqxPu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2730
+X-MS-Exchange-CrossTenant-userprincipalname: 06uoX6s52ln01d3oy4RWxRzq6gLVFJC/0ABqPHocinUWve6r2fOgiUJAHUwdWwUr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,623 +145,103 @@ Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Grodzovsky,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
-
-Thanks for catching.
-
-
-Thanks,
-Victor
-
-
-
------Original Message-----
-From: Quan, Evan <Evan.Quan@amd.com>=20
-Sent: Friday, July 29, 2022 2:06 PM
-To: Zhao, Victor <Victor.Zhao@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Deng, Emily <Emily.Deng@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>; G=
-rodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-Subject: RE: [PATCH v2 1/6] drm/amdgpu: add mode2 reset for sienna_cichlid
-
-[AMD Official Use Only - General]
-
-
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of=20
-> Victor Zhao
-> Sent: Thursday, July 28, 2022 6:30 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deng, Emily <Emily.Deng@amd.com>; Zhao, Victor=20
-> <Victor.Zhao@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-> Subject: [PATCH v2 1/6] drm/amdgpu: add mode2 reset for sienna_cichlid
->=20
-> To meet the requirement for multi container usecase which needs a=20
-> quicker reset and not causing VRAM lost, adding the Mode2 reset=20
-> handler for sienna_cichlid.
->=20
-> v2: move skip mode2 flag part separately
->=20
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |   7 +
->  drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   | 297
-> ++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/sienna_cichlid.h   |  32 ++
->  .../pm/swsmu/inc/pmfw_if/smu_v11_0_7_ppsmc.h  |   4 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   3 +-
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  54 ++++
->  7 files changed, 395 insertions(+), 4 deletions(-)  create mode=20
-> 100644 drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/sienna_cichlid.h
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
-> b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index c7d0cd15b5ef..7030ac2d7d2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -75,7 +75,7 @@ amdgpu-y +=3D \
->  	vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_v7_0.o=20
-> vega10_reg_init.o \
->  	vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o arct_reg_init.o=20
-> mxgpu_nv.o \
->  	nbio_v7_2.o hdp_v4_0.o hdp_v5_0.o aldebaran_reg_init.o aldebaran.o=20
-> soc21.o \
-> -	nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o
-> +	sienna_cichlid.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o
-> lsdma_v6_0.o
->=20
->  # add DF block
->  amdgpu-y +=3D \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index 32c86a0b145c..f778466bb9db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -23,6 +23,7 @@
->=20
->  #include "amdgpu_reset.h"
->  #include "aldebaran.h"
-> +#include "sienna_cichlid.h"
->=20
->  int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
->  			     struct amdgpu_reset_handler *handler) @@ -40,6 +41,9 @@ int=20
-> amdgpu_reset_init(struct amdgpu_device *adev)
->  	case IP_VERSION(13, 0, 2):
->  		ret =3D aldebaran_reset_init(adev);
->  		break;
-> +	case IP_VERSION(11, 0, 7):
-> +		ret =3D sienna_cichlid_reset_init(adev);
-> +		break;
->  	default:
->  		break;
->  	}
-> @@ -55,6 +59,9 @@ int amdgpu_reset_fini(struct amdgpu_device *adev)
->  	case IP_VERSION(13, 0, 2):
->  		ret =3D aldebaran_reset_fini(adev);
->  		break;
-> +	case IP_VERSION(11, 0, 7):
-> +		ret =3D sienna_cichlid_reset_fini(adev);
-> +		break;
->  	default:
->  		break;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-> b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-> new file mode 100644
-> index 000000000000..0512960bed23
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-> @@ -0,0 +1,297 @@
-> +/*
-> + * Copyright 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person=20
-> +obtaining a
-> + * copy of this software and associated documentation files (the
-> "Software"),
-> + * to deal in the Software without restriction, including without=20
-> + limitation
-> + * the rights to use, copy, modify, merge, publish, distribute,=20
-> + sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom=20
-> + the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be=20
-> + included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
-> THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include "sienna_cichlid.h"
-> +#include "amdgpu_reset.h"
-> +#include "amdgpu_amdkfd.h"
-> +#include "amdgpu_dpm.h"
-> +#include "amdgpu_job.h"
-> +#include "amdgpu_ring.h"
-> +#include "amdgpu_ras.h"
-> +#include "amdgpu_psp.h"
-> +#include "amdgpu_xgmi.h"
-> +
-> +static struct amdgpu_reset_handler *
-> +sienna_cichlid_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
-> +			    struct amdgpu_reset_context *reset_context) {
-> +	struct amdgpu_reset_handler *handler;
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	if (reset_context->method !=3D AMD_RESET_METHOD_NONE) {
-> +		list_for_each_entry(handler, &reset_ctl->reset_handlers,
-> +				     handler_list) {
-> +			if (handler->reset_method =3D=3D reset_context-
-> >method)
-> +				return handler;
-> +		}
-> +	} else {
-> +		list_for_each_entry(handler, &reset_ctl->reset_handlers,
-> +				     handler_list) {
-> +			if (handler->reset_method =3D=3D
-> AMD_RESET_METHOD_MODE2 &&
-> +			    adev->pm.fw_version >=3D 0x3a5500 &&
-> +			    !amdgpu_sriov_vf(adev)) {
-> +				reset_context->method =3D
-> AMD_RESET_METHOD_MODE2;
-> +				return handler;
-> +			}
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static int sienna_cichlid_mode2_suspend_ip(struct amdgpu_device=20
-> +*adev) {
-> +	int r, i;
-> +
-> +	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-> +	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> +
-> +	for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA))
-> +			continue;
-> +
-> +		r =3D adev->ip_blocks[i].version->funcs->suspend(adev);
-> +
-> +		if (r) {
-> +			dev_err(adev->dev,
-> +				"suspend of IP block <%s> failed %d\n",
-> +				adev->ip_blocks[i].version->funcs->name, r);
-> +			return r;
-> +		}
-> +		adev->ip_blocks[i].status.hw =3D false;
-> +	}
-> +
-> +	return r;
-> +}
-> +
-> +static int
-> +sienna_cichlid_mode2_prepare_hwcontext(struct amdgpu_reset_control
-> *reset_ctl,
-> +				  struct amdgpu_reset_context
-> *reset_context)
-> +{
-> +	int r =3D 0;
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	if (!amdgpu_sriov_vf(adev))
-> +		r =3D sienna_cichlid_mode2_suspend_ip(adev);
-> +
-> +	return r;
-> +}
-> +
-> +static void sienna_cichlid_async_reset(struct work_struct *work) {
-> +	struct amdgpu_reset_handler *handler;
-> +	struct amdgpu_reset_control *reset_ctl =3D
-> +		container_of(work, struct amdgpu_reset_control,
-> reset_work);
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	list_for_each_entry(handler, &reset_ctl->reset_handlers,
-> +			     handler_list) {
-> +		if (handler->reset_method =3D=3D reset_ctl->active_reset) {
-> +			dev_dbg(adev->dev, "Resetting device\n");
-> +			handler->do_reset(adev);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
-> +static int sienna_cichlid_mode2_reset(struct amdgpu_device *adev) {
-> +	/* disable BM */
-> +	pci_clear_master(adev->pdev);
-> +	adev->asic_reset_res =3D amdgpu_dpm_mode2_reset(adev);
-> +	return adev->asic_reset_res;
-> +}
-> +
-> +static int
-> +sienna_cichlid_mode2_perform_reset(struct amdgpu_reset_control
-> *reset_ctl,
-> +			      struct amdgpu_reset_context *reset_context) {
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +	int r;
-> +
-> +	r =3D sienna_cichlid_mode2_reset(adev);
-> +	if (r) {
-> +		dev_err(adev->dev,
-> +			"ASIC reset failed with error, %d ", r);
-> +	}
-> +	return r;
-> +}
-> +
-> +static int sienna_cichlid_mode2_restore_ip(struct amdgpu_device=20
-> +*adev) {
-> +	int i, r;
-> +	struct psp_context *psp =3D &adev->psp;
-> +
-> +	r =3D psp_rlc_autoload_start(psp);
-> +	if (r) {
-> +		dev_err(adev->dev, "Failed to start rlc autoload\n");
-> +		return r;
-> +	}
-> +
-> +	/* Reinit GFXHUB */
-> +	adev->gfxhub.funcs->init(adev);
-> +	r =3D adev->gfxhub.funcs->gart_enable(adev);
-> +	if (r) {
-> +		dev_err(adev->dev, "GFXHUB gart reenable failed after
-> reset\n");
-> +		return r;
-> +	}
-> +
-> +	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +		if (adev->ip_blocks[i].version->type =3D=3D
-> AMD_IP_BLOCK_TYPE_IH)
-> +			r =3D adev->ip_blocks[i].version->funcs-
-> >resume(adev);
-> +		if (r) {
-> +			dev_err(adev->dev,
-> +				"resume of IP block <%s> failed %d\n",
-> +				adev->ip_blocks[i].version->funcs->name, r);
-> +			return r;
-> +		}
-> +
-> +		adev->ip_blocks[i].status.hw =3D true;
-[Quan, Evan] It seems above operation will set the hw.status to true for al=
-l IPs. Although actually the resuming only performed on IH.
-That seems an issue.
-
-BR
-Evan
-> +	}
-> +
-> +	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA))
-> +			continue;
-> +		r =3D adev->ip_blocks[i].version->funcs->resume(adev);
-> +		if (r) {
-> +			dev_err(adev->dev,
-> +				"resume of IP block <%s> failed %d\n",
-> +				adev->ip_blocks[i].version->funcs->name, r);
-> +			return r;
-> +		}
-> +
-> +		adev->ip_blocks[i].status.hw =3D true;
-> +	}
-> +
-> +	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA))
-> +			continue;
-> +
-> +		if (adev->ip_blocks[i].version->funcs->late_init) {
-> +			r =3D adev->ip_blocks[i].version->funcs->late_init(
-> +				(void *)adev);
-> +			if (r) {
-> +				dev_err(adev->dev,
-> +					"late_init of IP block <%s> failed %d
-> after reset\n",
-> +					adev->ip_blocks[i].version->funcs-
-> >name,
-> +					r);
-> +				return r;
-> +			}
-> +		}
-> +		adev->ip_blocks[i].status.late_initialized =3D true;
-> +	}
-> +
-> +	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
-> +	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
-> +
-> +	return r;
-> +}
-> +
-> +static int
-> +sienna_cichlid_mode2_restore_hwcontext(struct amdgpu_reset_control
-> *reset_ctl,
-> +				  struct amdgpu_reset_context
-> *reset_context)
-> +{
-> +	int r;
-> +	struct amdgpu_device *tmp_adev =3D (struct amdgpu_device
-> *)reset_ctl->handle;
-> +
-> +	dev_info(tmp_adev->dev,
-> +			"GPU reset succeeded, trying to resume\n");
-> +	r =3D sienna_cichlid_mode2_restore_ip(tmp_adev);
-> +	if (r)
-> +		goto end;
-> +
-> +	/*
-> +	* Add this ASIC as tracked as reset was already
-> +	* complete successfully.
-> +	*/
-> +	amdgpu_register_gpu_instance(tmp_adev);
-> +
-> +	/* Resume RAS */
-> +	amdgpu_ras_resume(tmp_adev);
-> +
-> +	amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
-> +
-> +	r =3D amdgpu_ib_ring_tests(tmp_adev);
-> +	if (r) {
-> +		dev_err(tmp_adev->dev,
-> +			"ib ring test failed (%d).\n", r);
-> +		r =3D -EAGAIN;
-> +		tmp_adev->asic_reset_res =3D r;
-> +		goto end;
-> +	}
-> +
-> +end:
-> +	if (r)
-> +		return -EAGAIN;
-> +	else
-> +		return r;
-> +}
-> +
-> +static struct amdgpu_reset_handler sienna_cichlid_mode2_handler =3D {
-> +	.reset_method		=3D AMD_RESET_METHOD_MODE2,
-> +	.prepare_env		=3D NULL,
-> +	.prepare_hwcontext	=3D sienna_cichlid_mode2_prepare_hwcontext,
-> +	.perform_reset		=3D
-> sienna_cichlid_mode2_perform_reset,
-> +	.restore_hwcontext	=3D sienna_cichlid_mode2_restore_hwcontext,
-> +	.restore_env		=3D NULL,
-> +	.do_reset		=3D sienna_cichlid_mode2_reset,
-> +};
-> +
-> +int sienna_cichlid_reset_init(struct amdgpu_device *adev) {
-> +	struct amdgpu_reset_control *reset_ctl;
-> +
-> +	reset_ctl =3D kzalloc(sizeof(*reset_ctl), GFP_KERNEL);
-> +	if (!reset_ctl)
-> +		return -ENOMEM;
-> +
-> +	reset_ctl->handle =3D adev;
-> +	reset_ctl->async_reset =3D sienna_cichlid_async_reset;
-> +	reset_ctl->active_reset =3D AMD_RESET_METHOD_NONE;
-> +	reset_ctl->get_reset_handler =3D sienna_cichlid_get_reset_handler;
-> +
-> +	INIT_LIST_HEAD(&reset_ctl->reset_handlers);
-> +	INIT_WORK(&reset_ctl->reset_work, reset_ctl->async_reset);
-> +	/* Only mode2 is handled through reset control now */
-> +	amdgpu_reset_add_handler(reset_ctl,
-> &sienna_cichlid_mode2_handler);
-> +
-> +	adev->reset_cntl =3D reset_ctl;
-> +
-> +	return 0;
-> +}
-> +
-> +int sienna_cichlid_reset_fini(struct amdgpu_device *adev) {
-> +	kfree(adev->reset_cntl);
-> +	adev->reset_cntl =3D NULL;
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.h
-> b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.h
-> new file mode 100644
-> index 000000000000..5213b162dacd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.h
-> @@ -0,0 +1,32 @@
-> +/*
-> + * Copyright 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person=20
-> +obtaining a
-> + * copy of this software and associated documentation files (the
-> "Software"),
-> + * to deal in the Software without restriction, including without=20
-> + limitation
-> + * the rights to use, copy, modify, merge, publish, distribute,=20
-> + sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom=20
-> + the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be=20
-> + included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
-> THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __SIENNA_CICHLID_H__
-> +#define __SIENNA_CICHLID_H__
-> +
-> +#include "amdgpu.h"
-> +
-> +int sienna_cichlid_reset_init(struct amdgpu_device *adev); int=20
-> +sienna_cichlid_reset_fini(struct amdgpu_device *adev);
-> +
-> +#endif
-> diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_0_7_ppsmc.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_0_7_ppsmc.h
-> index d2e10a724560..82cf9e563065 100644
-> ---
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_0_7_ppsmc.h
-> +++
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_0_7_ppsmc.h
-> @@ -137,7 +137,7 @@
->  #define PPSMC_MSG_DisallowGpo                    0x56
->=20
->  #define PPSMC_MSG_Enable2ndUSB20Port             0x57
-> -
-> -#define PPSMC_Message_Count                      0x58
-> +#define PPSMC_MSG_DriverMode2Reset               0x5D
-> +#define PPSMC_Message_Count                      0x5E
->=20
->  #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> index 19084a4fcb2b..28f6a1eb6945 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -235,7 +235,8 @@
->  	__SMU_DUMMY_MAP(UnforceGfxVid),           \
->  	__SMU_DUMMY_MAP(HeavySBR),			\
->  	__SMU_DUMMY_MAP(SetBadHBMPagesRetiredFlagsPerChannel), \
-> -	__SMU_DUMMY_MAP(EnableGfxImu),
-> +	__SMU_DUMMY_MAP(EnableGfxImu), \
-> +	__SMU_DUMMY_MAP(DriverMode2Reset),
->=20
->  #undef __SMU_DUMMY_MAP
->  #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index fa520d79ef67..a73d241bb64f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -154,6 +154,7 @@ static struct cmn2asic_msg_mapping=20
-> sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
->  	MSG_MAP(SetGpoFeaturePMask,
-> 	PPSMC_MSG_SetGpoFeaturePMask,          0),
->  	MSG_MAP(DisallowGpo,
-> 	PPSMC_MSG_DisallowGpo,                 0),
->  	MSG_MAP(Enable2ndUSB20Port,
-> 	PPSMC_MSG_Enable2ndUSB20Port,          0),
-> +	MSG_MAP(DriverMode2Reset,
-> 	PPSMC_MSG_DriverMode2Reset,	       0),
->  };
->=20
->  static struct cmn2asic_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT]
-> =3D {
-> @@ -4254,6 +4255,57 @@ static int
-> sienna_cichlid_stb_get_data_direct(struct smu_context *smu,
->  	return 0;
->  }
->=20
-> +static bool sienna_cichlid_is_mode2_reset_supported(struct=20
-> +smu_context
-> *smu)
-> +{
-> +	return true;
-> +}
-> +
-> +static int sienna_cichlid_mode2_reset(struct smu_context *smu) {
-> +	u32 smu_version;
-> +	int ret =3D 0, index;
-> +	struct amdgpu_device *adev =3D smu->adev;
-> +	int timeout =3D 100;
-> +
-> +	smu_cmn_get_smc_version(smu, NULL, &smu_version);
-> +
-> +	index =3D smu_cmn_to_asic_specific_index(smu,
-> CMN2ASIC_MAPPING_MSG,
-> +
-> 	SMU_MSG_DriverMode2Reset);
-> +
-> +	mutex_lock(&smu->message_lock);
-> +
-> +	ret =3D smu_cmn_send_msg_without_waiting(smu, (uint16_t)index,
-> +					       SMU_RESET_MODE_2);
-> +
-> +	ret =3D smu_cmn_wait_for_response(smu);
-> +	while (ret !=3D 0 && timeout) {
-> +		ret =3D smu_cmn_wait_for_response(smu);
-> +		/* Wait a bit more time for getting ACK */
-> +		if (ret !=3D 0) {
-> +			--timeout;
-> +			usleep_range(500, 1000);
-> +			continue;
-> +		} else {
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!timeout) {
-> +		dev_err(adev->dev,
-> +			"failed to send mode2 message \tparam: 0x%08x
-> response %#x\n",
-> +			SMU_RESET_MODE_2, ret);
-> +		goto out;
-> +	}
-> +
-> +	dev_info(smu->adev->dev, "restore config space...\n");
-> +	/* Restore the config space saved during init */
-> +	amdgpu_device_load_pci_state(adev->pdev);
-> +out:
-> +	mutex_unlock(&smu->message_lock);
-> +
-> +	return ret;
-> +}
-> +
->  static const struct pptable_funcs sienna_cichlid_ppt_funcs =3D {
->  	.get_allowed_feature_mask =3D
-> sienna_cichlid_get_allowed_feature_mask,
->  	.set_default_dpm_table =3D sienna_cichlid_set_default_dpm_table,
-> @@ -4348,6 +4400,8 @@ static const struct pptable_funcs=20
-> sienna_cichlid_ppt_funcs =3D {
->  	.get_default_config_table_settings =3D=20
-> sienna_cichlid_get_default_config_table_settings,
->  	.set_config_table =3D sienna_cichlid_set_config_table,
->  	.get_unique_id =3D sienna_cichlid_get_unique_id,
-> +	.mode2_reset_is_support =3D
-> sienna_cichlid_is_mode2_reset_supported,
-> +	.mode2_reset =3D sienna_cichlid_mode2_reset,
->  };
->=20
->  void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
-> --
-> 2.25.1
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIExpam8sDQoNCkNhbiB5b3Ug
+YmUgbW9yZSBzcGVjaWZpYyB3aHkgb3RoZXIgZ3B1cyBjYW4gYmUgYWZmZWN0ZWQ/IEkgZG9u4oCZ
+dCBoYXZlIGEgeGdtaSBzeXN0ZW0gb24gbXkgc2lkZS4gSSB0aG91Z2h0IHJlc2V0X2RvbWFpbiBp
+cyBwZXIgZGV2aWNlLg0KDQoNClRoYW5rcywNClZpY3Rvcg0KDQoNCg0KLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCkZyb206IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+IA0KU2Vu
+dDogRnJpZGF5LCBKdWx5IDI5LCAyMDIyIDI6MTEgUE0NClRvOiBaaGFvLCBWaWN0b3IgPFZpY3Rv
+ci5aaGFvQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IERlbmcs
+IEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5H
+cm9kem92c2t5QGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIHYyIDYvNl0gZHJtL2FtZGdw
+dTogcmVkdWNlIHJlc2V0IHRpbWUNCg0KDQoNCk9uIDcvMjgvMjAyMiA0OjAwIFBNLCBWaWN0b3Ig
+WmhhbyB3cm90ZToNCj4gSW4gbXVsdGkgY29udGFpbmVyIHVzZSBjYXNlLCByZXNldCB0aW1lIGlz
+IGltcG9ydGFudCwgc28gc2tpcCByaW5nIA0KPiB0ZXN0cyBhbmQgY3AgaGFsdCB3YWl0IGR1cmlu
+ZyBpcCBzdXNwZW5kaW5nIGZvciByZXNldCBhcyB0aGV5IGFyZSANCj4gZ29pbmcgdG8gZmFpbCBh
+bmQgY29zdCBtb3JlIHRpbWUgb24gcmVzZXQNCj4gDQo+IHYyOiBhZGQgYSBoYW5nIGZsYWcgdG8g
+aW5kaWNhdGUgdGhlIHJlc2V0IGNvbWVzIGZyb20gYSBqb2IgdGltZW91dCwgDQo+IHNraXAgcmlu
+ZyB0ZXN0IGFuZCBjcCBoYWx0IHdhaXQgaW4gdGhpcyBjYXNlDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
+OiBWaWN0b3IgWmhhbyA8VmljdG9yLlpoYW9AYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jICAgfCAgMyArKy0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgICB8ICAyICsrDQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jlc2V0LmMgfCAgMSArDQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3Jlc2V0LmggfCAgMSArDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3YxMF8wLmMgICAgfCAxMSArKysrKysrKystLQ0KPiAgIDUgZmlsZXMgY2hh
+bmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMgDQo+IGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jDQo+IGluZGV4IDIyMmQzZDdlYTA3Ni4uYzcz
+NWExN2M2YWZiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZ2Z4LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5j
+DQo+IEBAIC0yNyw2ICsyNyw3IEBADQo+ICAgI2luY2x1ZGUgImFtZGdwdV9nZnguaCINCj4gICAj
+aW5jbHVkZSAiYW1kZ3B1X3JsYy5oIg0KPiAgICNpbmNsdWRlICJhbWRncHVfcmFzLmgiDQo+ICsj
+aW5jbHVkZSAiYW1kZ3B1X3Jlc2V0LmgiDQo+ICAgDQo+ICAgLyogZGVsYXkgMC4xIHNlY29uZCB0
+byBlbmFibGUgZ2Z4IG9mZiBmZWF0dXJlICovDQo+ICAgI2RlZmluZSBHRlhfT0ZGX0RFTEFZX0VO
+QUJMRSAgICAgICAgIG1zZWNzX3RvX2ppZmZpZXMoMTAwKQ0KPiBAQCAtNDc3LDcgKzQ3OCw3IEBA
+IGludCBhbWRncHVfZ2Z4X2Rpc2FibGVfa2NxKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0K
+PiAgIAkJa2lxLT5wbWYtPmtpcV91bm1hcF9xdWV1ZXMoa2lxX3JpbmcsICZhZGV2LT5nZnguY29t
+cHV0ZV9yaW5nW2ldLA0KPiAgIAkJCQkJICAgUkVTRVRfUVVFVUVTLCAwLCAwKTsNCj4gICANCj4g
+LQlpZiAoYWRldi0+Z2Z4LmtpcS5yaW5nLnNjaGVkLnJlYWR5KQ0KPiArCWlmIChhZGV2LT5nZngu
+a2lxLnJpbmcuc2NoZWQucmVhZHkgJiYgIShhbWRncHVfaW5fcmVzZXQoYWRldikgJiYgDQo+ICth
+ZGV2LT5yZXNldF9kb21haW4tPmhhbmcpKQ0KPiAgIAkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfaGVs
+cGVyKGtpcV9yaW5nKTsNCg0KT24gYSBzeXN0ZW0gd2l0aCBtdWx0aXBsZSBHUFVzIGludGVyY29u
+bmVjdGVkLCB0aGlzIHdpbGwgYWZmZWN0IG90aGVyIEdQVXMgYXMgd2VsbCBvbiB3aGljaCBqb2Ig
+d2FzIG5vdCByZWFsbHkgcnVubmluZy4gSSBndWVzcyB5b3VyIHVzZWNhc2UgaGVyZSBpcyBkZXZp
+Y2Ugc3BlY2lmaWMuDQoNClRoYW5rcywNCkxpam8NCg0KPiAgIAlzcGluX3VubG9jaygmYWRldi0+
+Z2Z4LmtpcS5yaW5nX2xvY2spOw0KPiAgIA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9qb2IuYw0KPiBpbmRleCA2YzNlNzI5MDE1M2YuLmJiNDA4ODBhNTU3ZiAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jDQo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiBAQCAtNDksNiArNDks
+NyBAQCBzdGF0aWMgZW51bSBkcm1fZ3B1X3NjaGVkX3N0YXQgYW1kZ3B1X2pvYl90aW1lZG91dChz
+dHJ1Y3QgZHJtX3NjaGVkX2pvYiAqc19qb2IpDQo+ICAgCX0NCj4gICANCj4gICAJbWVtc2V0KCZ0
+aSwgMCwgc2l6ZW9mKHN0cnVjdCBhbWRncHVfdGFza19pbmZvKSk7DQo+ICsJYWRldi0+cmVzZXRf
+ZG9tYWluLT5oYW5nID0gdHJ1ZTsNCj4gICANCj4gICAJaWYgKGFtZGdwdV9ncHVfcmVjb3Zlcnkg
+JiYNCj4gICAJICAgIGFtZGdwdV9yaW5nX3NvZnRfcmVjb3ZlcnkocmluZywgam9iLT52bWlkLCAN
+Cj4gc19qb2ItPnNfZmVuY2UtPnBhcmVudCkpIHsgQEAgLTgzLDYgKzg0LDcgQEAgc3RhdGljIGVu
+dW0gZHJtX2dwdV9zY2hlZF9zdGF0IGFtZGdwdV9qb2JfdGltZWRvdXQoc3RydWN0IGRybV9zY2hl
+ZF9qb2IgKnNfam9iKQ0KPiAgIAl9DQo+ICAgDQo+ICAgZXhpdDoNCj4gKwlhZGV2LT5yZXNldF9k
+b21haW4tPmhhbmcgPSBmYWxzZTsNCj4gICAJZHJtX2Rldl9leGl0KGlkeCk7DQo+ICAgCXJldHVy
+biBEUk1fR1BVX1NDSEVEX1NUQVRfTk9NSU5BTDsNCj4gICB9DQo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmVzZXQuYyANCj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmVzZXQuYw0KPiBpbmRleCA5ZGE1ZWFkNTBjOTAuLmI4Mjhm
+ZTc3M2Y1MCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3Jlc2V0LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jlc2V0
+LmMNCj4gQEAgLTE1NSw2ICsxNTUsNyBAQCBzdHJ1Y3QgYW1kZ3B1X3Jlc2V0X2RvbWFpbiAqYW1k
+Z3B1X3Jlc2V0X2NyZWF0ZV9yZXNldF9kb21haW4oZW51bSBhbWRncHVfcmVzZXRfZA0KPiAgIAlh
+dG9taWNfc2V0KCZyZXNldF9kb21haW4tPmluX2dwdV9yZXNldCwgMCk7DQo+ICAgCWF0b21pY19z
+ZXQoJnJlc2V0X2RvbWFpbi0+cmVzZXRfcmVzLCAwKTsNCj4gICAJaW5pdF9yd3NlbSgmcmVzZXRf
+ZG9tYWluLT5zZW0pOw0KPiArCXJlc2V0X2RvbWFpbi0+aGFuZyA9IGZhbHNlOw0KPiAgIA0KPiAg
+IAlyZXR1cm4gcmVzZXRfZG9tYWluOw0KPiAgIH0NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yZXNldC5oIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9yZXNldC5oDQo+IGluZGV4IGNjNGIyZWViMjRjZi4uMjllMzI0YWRkNTUy
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmVzZXQu
+aA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmVzZXQuaA0KPiBA
+QCAtODQsNiArODQsNyBAQCBzdHJ1Y3QgYW1kZ3B1X3Jlc2V0X2RvbWFpbiB7DQo+ICAgCXN0cnVj
+dCByd19zZW1hcGhvcmUgc2VtOw0KPiAgIAlhdG9taWNfdCBpbl9ncHVfcmVzZXQ7DQo+ICAgCWF0
+b21pY190IHJlc2V0X3JlczsNCj4gKwlib29sIGhhbmc7DQo+ICAgfTsNCj4gICANCj4gICANCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIA0KPiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jDQo+IGluZGV4IGZhZmJhZDNj
+ZjA4ZC4uYTM4NGUwNGQ5MTZjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjEwXzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djEwXzAuYw0KPiBAQCAtMjksNiArMjksNyBAQA0KPiAgICNpbmNsdWRlICJhbWRncHUuaCINCj4g
+ICAjaW5jbHVkZSAiYW1kZ3B1X2dmeC5oIg0KPiAgICNpbmNsdWRlICJhbWRncHVfcHNwLmgiDQo+
+ICsjaW5jbHVkZSAiYW1kZ3B1X3Jlc2V0LmgiDQo+ICAgI2luY2x1ZGUgIm52LmgiDQo+ICAgI2lu
+Y2x1ZGUgIm52ZC5oIg0KPiAgIA0KPiBAQCAtNTk3MSw2ICs1OTcyLDkgQEAgc3RhdGljIGludCBn
+ZnhfdjEwXzBfY3BfZ2Z4X2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBl
+bmFibGUpDQo+ICAgCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfTUVfQ05UTCwgdG1wKTsNCj4g
+ICAJfQ0KPiAgIA0KPiArCWlmICgoYW1kZ3B1X2luX3Jlc2V0KGFkZXYpICYmIGFkZXYtPnJlc2V0
+X2RvbWFpbi0+aGFuZykgJiYgIWVuYWJsZSkNCj4gKwkJcmV0dXJuIDA7DQo+ICsNCj4gICAJZm9y
+IChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsgaSsrKSB7DQo+ICAgCQlpZiAoUlJFRzMy
+X1NPQzE1KEdDLCAwLCBtbUNQX1NUQVQpID09IDApDQo+ICAgCQkJYnJlYWs7DQo+IEBAIC03NTY5
+LDggKzc1NzMsMTAgQEAgc3RhdGljIGludCBnZnhfdjEwXzBfa2lxX2Rpc2FibGVfa2dxKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAlmb3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51
+bV9nZnhfcmluZ3M7IGkrKykNCj4gICAJCWtpcS0+cG1mLT5raXFfdW5tYXBfcXVldWVzKGtpcV9y
+aW5nLCAmYWRldi0+Z2Z4LmdmeF9yaW5nW2ldLA0KPiAgIAkJCQkJICAgUFJFRU1QVF9RVUVVRVMs
+IDAsIDApOw0KPiAtDQo+IC0JcmV0dXJuIGFtZGdwdV9yaW5nX3Rlc3RfaGVscGVyKGtpcV9yaW5n
+KTsNCj4gKwlpZiAoIShhbWRncHVfaW5fcmVzZXQoYWRldikgJiYgYWRldi0+cmVzZXRfZG9tYWlu
+LT5oYW5nKSkNCj4gKwkJcmV0dXJuIGFtZGdwdV9yaW5nX3Rlc3RfaGVscGVyKGtpcV9yaW5nKTsN
+Cj4gKwllbHNlDQo+ICsJCXJldHVybiAwOw0KPiAgIH0NCj4gICAjZW5kaWYNCj4gICANCj4gQEAg
+LTc2MTAsNiArNzYxNiw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2h3X2Zpbmkodm9pZCAqaGFu
+ZGxlKQ0KPiAgIA0KPiAgIAkJcmV0dXJuIDA7DQo+ICAgCX0NCj4gKw0KPiAgIAlnZnhfdjEwXzBf
+Y3BfZW5hYmxlKGFkZXYsIGZhbHNlKTsNCj4gICAJZ2Z4X3YxMF8wX2VuYWJsZV9ndWlfaWRsZV9p
+bnRlcnJ1cHQoYWRldiwgZmFsc2UpOw0KPiAgIA0KPiANCg==
