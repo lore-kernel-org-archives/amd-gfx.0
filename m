@@ -4,78 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66B7C04A68
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 22:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E29CC00140
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 03:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C18A0113513;
-	Thu, 28 Jul 2022 22:21:14 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 110F310E350
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 22:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1659046871;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gXHo3CFCrAMARz8FmOIc/wfp1RQLr9t3UxdcITMHRm4=;
- b=Mb5T6rL/alOog9BPCJckCScJXHKxTVQIEIo9IsJaV42H1t6qNVnxfLIb7bdzwfFxVPzqFv
- pV9wpvThDkj4d8ZbM3BiXp5FZljdJqdh96NdAkN/8pspMG1BM1FKCjPEBocc7+2QfTA5RZ
- MHREQ4l7wEO03yEubqCVVoaVVTamIR8=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-387-5i7XxzsUOval9u2QF24U0g-1; Thu, 28 Jul 2022 18:21:09 -0400
-X-MC-Unique: 5i7XxzsUOval9u2QF24U0g-1
-Received: by mail-qk1-f197.google.com with SMTP id
- n15-20020a05620a294f00b006b5768a0ed0so2372684qkp.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 15:21:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=gXHo3CFCrAMARz8FmOIc/wfp1RQLr9t3UxdcITMHRm4=;
- b=o2erZtcl8YVJ+uSj4JmK8PQilRrW0RpiLrmkUreAkug0ckTQxM7DZpyBaBIS+8uC44
- Osc/KnRw6WLB5xEjYzr3lhhkdTvGP3bIB8MfEs01zmPeQRAwr/Ru98ZCsorJIon7resa
- 7ou+crzLH2shy8Da56cr4IKDfPBLQwWG8kZj21wbcW0cxX19yzTgMDhRgD4xI1h2D3iB
- ThGvTInno4HoXi8i/KFCPoe/im8/4y8c9coP5cNlwKG1MbQTuTjbA34tXkooXPqx7/uG
- exEjHov0eYmnbS1LTTby57Q2h9g0XMxMYYuw9e2dneY+F3MHBKC0GKT8ilOI5Oc67tbc
- cKgQ==
-X-Gm-Message-State: AJIora93rAuMwhYo3LACYMdqPgSoOvQJUoMOsvXX1TI6G15NSdIxwqyY
- vqf640/1GCR7aiHkLPVdQzquwAil0/lKSbHtgDucD3kD5baxzvOqXH/37nnGLzDQ+hDwEUXFtfa
- F1kBOO6JuP1hN7HGCnhY1l49afg==
-X-Received: by 2002:a05:620a:28c5:b0:6b5:e488:32f9 with SMTP id
- l5-20020a05620a28c500b006b5e48832f9mr765767qkp.205.1659046869227; 
- Thu, 28 Jul 2022 15:21:09 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1sin1/H9Ji3/ORk6jyiYizYwrnVoGj73ZveW7/f+x3aeq/nHlLOY1tWmV/1B0pt74uP5N4P/w==
-X-Received: by 2002:a05:620a:28c5:b0:6b5:e488:32f9 with SMTP id
- l5-20020a05620a28c500b006b5e48832f9mr765760qkp.205.1659046868980; 
- Thu, 28 Jul 2022 15:21:08 -0700 (PDT)
-Received: from [192.168.8.138] (pool-100-0-245-4.bstnma.fios.verizon.net.
- [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
- fb26-20020a05622a481a00b00304fc3d144esm1154618qtb.1.2022.07.28.15.21.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jul 2022 15:21:08 -0700 (PDT)
-Message-ID: <44fab45aeae56ddcb5074ca16ed2b2a4e4f67b7f.camel@redhat.com>
-Subject: Re: [RESEND RFC 00/18] drm/display/dp_mst: Drop Radeon MST support,
- make MST atomic-only
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Thu, 28 Jul 2022 18:21:06 -0400
-In-Reply-To: <20220607192933.1333228-1-lyude@redhat.com>
-References: <20220607192933.1333228-1-lyude@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 954A110F1A0;
+	Fri, 29 Jul 2022 03:16:41 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9FF510FD2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 03:16:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M1ZBy6Ec4K8KwstV7AJBo5nqbevbiK6qg9eoQgyazM+QXjij5TpEOB1bPgQyWMvxvHzzwWEbWSqg5pIHZBWFu4GB1sgroFWCqKmzmz9sidWePDazC5WhDmoH7OZsIYb3BlsTLCIMbKzPDZ+Sab0cB/B5zJ2tTJaJK0RMFtolmf+L/Z6m64MMw/VFfenobQFehTz443SNF4l7x76fLGcKuEpE2b2IplVJlI/JliUCl5hNhevVNkQJT0Aq8cdikIHJDiiBip6biI0+/Yz4almWL3WC84Ek8t/K6tdrBj2cy9sd7cJ9DxS5Sp3r3l6p4dxiix8Orye5Q1l42Ngl6Y8+4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Z/7eWwDeoY99sTXIjritZiiyYvkBVwTvm++CdjLA0c=;
+ b=Uhs7EE6gFsOhl3got3VQEkX+vRNxDQC70ZUTSVVdV+nRv6XSrY4Fg3cim/zS37mDGTlxINIi9Aw44S/r5XQs3ZLpfBtV0Yw8kppfaghyFQmlMb18Zg4juX/G0UchpdPJO5T6KsmDj4OBnaSdnmTGsan/RGqn7jI3UXlyTgFYxddCqn92Y+N9KwpfX/C5xThPhBy28Kx+wB4GM+EEak0bv8vbXngwJ1z1oGjSrbaygIiNmXoFDY8w6Av5cySX8LYZB+u2kJFOr+SVg9qGpe0/CreK6PN/xSRtesas2Yj9BHNl1kNLPzfgH7qzhzsyFaiA3izIIvyiW/xXZAVFZwCAKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Z/7eWwDeoY99sTXIjritZiiyYvkBVwTvm++CdjLA0c=;
+ b=xNbWpKpd2bWxgMdujXg2jcr9m0uDbnvZ3aetcrBFsPMkZ9txY/jbz+OW8V/hELODMnMELt3fREwNnmEOW4PIwAz3wLKInCWXJ+ZYF7XVkxBqrS0NAQmIxK4euJSAEJR8Zq8zjxaMzJ2hYw9YhojNw/KqA8sOC76SCOsrVwPbIsI=
+Received: from DS7PR06CA0022.namprd06.prod.outlook.com (2603:10b6:8:2a::10) by
+ DM4PR12MB6448.namprd12.prod.outlook.com (2603:10b6:8:8a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5482.11; Fri, 29 Jul 2022 03:16:33 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::e5) by DS7PR06CA0022.outlook.office365.com
+ (2603:10b6:8:2a::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.7 via Frontend
+ Transport; Fri, 29 Jul 2022 03:16:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5482.10 via Frontend Transport; Fri, 29 Jul 2022 03:16:33 +0000
+Received: from magnus.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 28 Jul
+ 2022 22:16:32 -0500
+From: Daniel Phillips <daniel.phillips@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Remove rounding from vram allocation path
+Date: Thu, 28 Jul 2022 20:16:11 -0700
+Message-ID: <20220729031612.120310-1-daniel.phillips@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 376c581f-649a-4769-a5eb-08da7110bd4e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6448:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6vM8u/p05Dh8htQQSeIBuNxz3HCYxMuzBQB3zreeWZ9QuDxf09/A6akvkhTMfBZecepgH0E0bflWTc47+877ajv/pVmYiWywgZ72X/dsQNyABkoPcGM2ALnQ8189MW2Md3tQHJIrjT/BDXD79Beh7Ybb5Vz09TKmm6HRlJTViUoTavVzK4oRNp3RY/A7eJcsYm/L7DDOXNYcMEgQc9BFio9PkmilTXWyYCd/SbsOWzLPuDZaPL5P6wA6VytduuG4HslcupgxbO6ZZEmP1LOnsk0uZJamZPIq3hFdw9eBeQW6djaMhQqrzPdrxZ88bdD/TrcxxDTqbhbSndGv3HNLYrgILy9X7dgrBE8IJXT9zoHz/6BCT97OFhVgdgjCIamNT2ekJo3UKmUVfupOnV1fJDc7ZhRur/OBpHy3g/kxCe+nLKwHStlqYX2XA0EP382fQ8QddDFc6SbmfF9+evqs7htVGnQOuKom/25bSvcjtFlmuDuVWtcB2Lm+wsVERAsciNvAjkiSmKFrM/AynGvEYGsfU1b0gxaNYlNAhNdbc8mFJF/0I2l0CWdqGibYiCoyCGSTgBzp3zUymSxHfjTx1Poeb2yZeJ0TjCY11P0ElQbdSfLRnMMCxyZUYWxcqDwwMPAnwEcc6BMR69YhqRvZl1z0yglAq7RkKw9Ysh/iqSeWaSaaS627+S37WelVK8VzXoqx1enhD71mvjioLhNzPyhY4mojunNuA/HNrDcs6bE7QIYuTA+mIEAa2c6g1IzDuylxc9wy1dBCYlKiEQ6COAmZX92TMffEYpsyoH2HSBZ3p4D/W6jVCG2u90aPzMILGhPM6gRxu1IG5DHg64u/FA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(376002)(39860400002)(346002)(36840700001)(46966006)(40470700004)(2906002)(86362001)(81166007)(426003)(186003)(2616005)(336012)(16526019)(47076005)(44832011)(316002)(82310400005)(1076003)(5660300002)(8936002)(4326008)(8676002)(70586007)(36756003)(40480700001)(70206006)(83380400001)(41300700001)(40460700003)(6666004)(478600001)(54906003)(6916009)(82740400003)(26005)(356005)(7696005)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 03:16:33.4872 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 376c581f-649a-4769-a5eb-08da7110bd4e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6448
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,128 +97,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
- Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: Daniel Phillips <daniel.phillips@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sorry for taking a while on respinning this! I've been busy with trying to
-review as much nouveau patches as possible before we passed the deadline for
-getting pulled into the kernel, since we've got quite a lot of pending patches
-coming up. The pull deadline we had from Dave has passed at this point though,
-so I should have a chance to respin this in the next few business days.
+Rounding up allocations in the allocation path caused test regressions,
+so now just round in the availability path.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-On Tue, 2022-06-07 at 15:29 -0400, Lyude Paul wrote:
-> Ugh, thanks ./scripts/get_maintainers.pl for confusing and breaking
-> git-send email <<. Sorry for the resend everyone.
-> 
-> For quite a while we've been carrying around a lot of legacy modesetting
-> code in the MST helpers that has been rather annoying to keep around,
-> and very often gets in the way of trying to implement additional
-> functionality in MST such as fallback link rate retraining, dynamic BPC
-> management and DSC support, etc. because of the fact that we can't rely
-> on atomic for everything.
-> 
-> Luckily, we only actually have one user of the legacy MST code in the
-> kernel - radeon. Originally I was thinking of trying to maintain this
-> code and keep it around in some form, but I'm pretty unconvinced anyone
-> is actually using this. My reasoning for that is because I've seen
-> nearly no issues regarding MST on radeon for quite a while now - despite
-> the fact my local testing seems to indicate it's quite broken. This
-> isn't too surprising either, as MST support in radeon.ko is gated behind
-> a module parameter that isn't enabled by default. This isn't to say I
-> wouldn't be open to alternative suggestions, but I'd rather not be the
-> one to have to spend time on that if at all possible! Plus, I already
-> floated the idea of dropping this code by AMD folks a few times and
-> didn't get much resistance.
-> 
-> As well, this series has some basic refactoring that I did along the way
-> and some bugs I had to fix in order to get my atomic-only MST code
-> working. Most of this is pretty straight forward and simply renaming
-> things to more closely match the DisplayPort specification, as I think
-> this will also make maintaining this code a lot easier in the long run
-> (I've gotten myself confused way too many times because of this).
-> 
-> So far I've tested this on all three MST drivers: amdgpu, i915 and
-> nouveau, along with making sure that removing the radeon MST code
-> doesn't break anything else. The one thing I very much could use help
-> with regarding testing though is making sure that this works with
-> amdgpu's DSC support on MST.
-> 
-> So, with this we should be using the atomic state as much as possible
-> with MST modesetting, hooray!
-> 
-> Cc: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Sean Paul <sean@poorly.run>
-> 
-> Lyude Paul (18):
->   drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
->   drm/amdgpu/dm/mst: Rename get_payload_table()
->   drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
->   drm/display/dp_mst: Call them time slots, not VCPI slots
->   drm/display/dp_mst: Fix confusing docs for
->     drm_dp_atomic_release_time_slots()
->   drm/display/dp_mst: Add some missing kdocs for atomic MST structs
->   drm/display/dp_mst: Add helper for finding payloads in atomic MST
->     state
->   drm/display/dp_mst: Add nonblocking helpers for DP MST
->   drm/display/dp_mst: Don't open code modeset checks for releasing time
->     slots
->   drm/display/dp_mst: Fix modeset tracking in
->     drm_dp_atomic_release_vcpi_slots()
->   drm/nouveau/kms: Cache DP encoders in nouveau_connector
->   drm/nouveau/kms: Pull mst state in for all modesets
->   drm/display/dp_mst: Add helpers for serializing SST <-> MST
->     transitions
->   drm/display/dp_mst: Drop all ports from topology on CSNs before
->     queueing link address work
->   drm/display/dp_mst: Skip releasing payloads if last connected port
->     isn't connected
->   drm/display/dp_mst: Maintain time slot allocations when deleting
->     payloads
->   drm/radeon: Drop legacy MST support
->   drm/display/dp_mst: Move all payload info into the atomic state
-> 
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   72 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  111 +-
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  126 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c |   10 +-
->  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    4 +-
->  .../amd/display/include/link_service_types.h  |   18 +-
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 1160 ++++++++---------
->  drivers/gpu/drm/i915/display/intel_display.c  |   11 +
->  drivers/gpu/drm/i915/display/intel_dp.c       |    9 +
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   91 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c     |   24 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  202 ++-
->  drivers/gpu/drm/nouveau/dispnv50/disp.h       |    2 +
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |   18 +-
->  drivers/gpu/drm/nouveau/nouveau_connector.h   |    3 +
->  drivers/gpu/drm/radeon/Makefile               |    2 +-
->  drivers/gpu/drm/radeon/atombios_crtc.c        |   11 +-
->  drivers/gpu/drm/radeon/atombios_encoders.c    |   59 -
->  drivers/gpu/drm/radeon/radeon_atombios.c      |    2 -
->  drivers/gpu/drm/radeon/radeon_connectors.c    |   61 +-
->  drivers/gpu/drm/radeon/radeon_device.c        |    1 -
->  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  778 -----------
->  drivers/gpu/drm/radeon/radeon_drv.c           |    4 -
->  drivers/gpu/drm/radeon/radeon_encoders.c      |   14 +-
->  drivers/gpu/drm/radeon/radeon_irq_kms.c       |   10 +-
->  drivers/gpu/drm/radeon/radeon_mode.h          |   40 -
->  include/drm/display/drm_dp_mst_helper.h       |  230 ++--
->  27 files changed, 991 insertions(+), 2082 deletions(-)
->  delete mode 100644 drivers/gpu/drm/radeon/radeon_dp_mst.c
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 043a808c88a3..014a594899fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -40,10 +40,10 @@
+ #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
+ 
+ /*
+- * Align VRAM allocations to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
++ * Align VRAM availability to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
+  * BO chunk
+  */
+-#define VRAM_ALLOCATION_ALIGN (1 << 21)
++#define VRAM_AVAILABLITY_ALIGN (1 << 21)
+ 
+ /* Impose limit on how much memory KFD can use */
+ static struct {
+@@ -149,7 +149,7 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 		 * to avoid fragmentation caused by 4K allocations in the tail
+ 		 * 2M BO chunk.
+ 		 */
+-		vram_needed = ALIGN(size, VRAM_ALLOCATION_ALIGN);
++		vram_needed = size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+ 		system_mem_needed = size;
+ 	} else if (!(alloc_flag &
+@@ -198,7 +198,7 @@ static void unreserve_mem_limit(struct amdgpu_device *adev,
+ 		kfd_mem_limit.system_mem_used -= size;
+ 		kfd_mem_limit.ttm_mem_used -= size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-		adev->kfd.vram_used -= ALIGN(size, VRAM_ALLOCATION_ALIGN);
++		adev->kfd.vram_used -= size;
+ 	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+ 		kfd_mem_limit.system_mem_used -= size;
+ 	} else if (!(alloc_flag &
+@@ -1642,7 +1642,6 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
+ 	uint64_t reserved_for_pt =
+ 		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+ 	size_t available;
+-
+ 	spin_lock(&kfd_mem_limit.mem_limit_lock);
+ 	available = adev->gmc.real_vram_size
+ 		- adev->kfd.vram_used
+@@ -1650,7 +1649,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
+ 		- reserved_for_pt;
+ 	spin_unlock(&kfd_mem_limit.mem_limit_lock);
+ 
+-	return ALIGN_DOWN(available, VRAM_ALLOCATION_ALIGN);
++	return ALIGN_DOWN(available, VRAM_AVAILABLITY_ALIGN);
+ }
+ 
+ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+2.34.1
 
