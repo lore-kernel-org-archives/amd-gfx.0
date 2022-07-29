@@ -4,115 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 425F6C00144
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 06:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D087C19F2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 06:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C712510E6D7;
-	Fri, 29 Jul 2022 06:11:26 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8608F10E128
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jul 2022 06:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDC110EF01;
+	Fri, 29 Jul 2022 06:11:31 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F4010E2CF;
+ Fri, 29 Jul 2022 06:11:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fbW1YtXkaSpKFYCDfYXJLt9F9Jq2/QR3nWWqtjYeyXNtVIUcfbJ8U2/9c0Tjv/uCYZc1QhvHcRQ5I1Esp+2Jp6I8ctT1RbfwvyIBV01yh86eMWwfvT6yLHJFb+CMnYEMWPOw9wlTotNmeZM7lwgXoDanJdB9CboU8eoPiBmQ8EHMam3jzRWcSyfaErSBkwqcxhMIVE7QbKwsOyUrMGFw/erHLNPzEyn5rQVUuq512VmFwdtZjAlXPsJp8nqoMcmUIR4nSPI9Jhv9uy+1EaQnM+ffgkPr7VJ/Ri53+9wIU7O0Ro9w4D09Xt0gDqvnU29tXDnE00XzXNfbb6qyDjycOQ==
+ b=XAzveqO7rRMexrU5z95PZzXKuIwgGCnrMU+xDDmTNPEz0dAAv2rxnnFwe0AW6Mjcp84rsW2+Ldi1rJ8Jhlajo2ab4oXxdMxfqcBHpohz8TiWn53r7fs1o2idySUj1vCwksRaiG8eWlSAzAaBL3XP4btfHHG7nh6vQvdbyNoPA4ZwOobp06oleaCVbZYVmHTAfrmy/9Mthnp717B7kfu5CxRKn9hCC3Kuc5AYJOqTQn8mTmECzMGL1sR46+Qx7XUHQz7p8FAs07XrtfJdlSBRAumhJn+l7TPsu9iB6aaA2GCV8UpB++vUzpAV3xhmdz/MNXDSq92d/rWanHm+TOaRjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mYbRBHXLE561yc+1d0VFFH4BB2i/hbkrl8T5tQIBs1s=;
- b=FUdvYzW/WlsG61TOmt1Fj4kb040NdaYVIxE+hwQp8cLoyvkolFcfzYv3N3NBYsrHvoi2SQ1G3r5Lxycvm8EB4T4JxrgZ1tFAn2kYQLxssBIp5vUMRwmKyPT2pc5y6IDI5j2WRZ6CW5ZWV7ZLkR9ILAPj90C5llYAEodGqxWmnzCtIcdAPe3coievDVK/DFU/L7qsV6OxhC4pEpPehxUvDDMnKbLAKRs5NPV2uzzEtb9cND3bUx2orayqZr7qcMIz4sQO+80KOfe7wmrsbkBB6+P96DetasZCWYyCEYp6INkLex+uG7hiZ9fFA/MDQ9oYXsJ1sFgcE/2rktoY6N0wIQ==
+ bh=JLChjpw0JTcvOSEUGDo24K4rOFdGuCuyIINOPclIO9E=;
+ b=SxkUKDPgTCim8bMBv4hS/UrDJFlcG5+HKslxXLlIP/x4JLqy/3arlRpjUjPyhaNkpwLA/Y//lLd+zTmhiiV395R14ubg0MQPacU93oPuhdtZ5i0MpLbtKLaNn99iJRsKSzuN0EvUwXotrvEWAr5aaduqV5VisIBUMEyuSFkqejDH908mWdkono6GSaVvkVFTkTmz9ASisa3JLEM8iVUsxAs5nc34hwYUebnQpERDWbs/cZCLgYylK2mA3imBH61jn14eyAiwWaADIIX1g87df3A3XR3X6b1/XhCdEu/Sj0uCxCrgfAui2lUzfGC3eiwIwTSlg1zHcpRjHakPS9zA5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mYbRBHXLE561yc+1d0VFFH4BB2i/hbkrl8T5tQIBs1s=;
- b=Sw8QH2nfUHrtWIf5svbaMHsxY1GnaeW0M2DKXLuH7MCFM/LL2uuzX1Lo62p1qY7A9N4vIQLf1lcX13OBvEk72inEvUw7Qul/fAFwvlBeWj+eeJvqjW4tBbq9CcdeYNcfvq1iqzaEHz2QHJrj1tFm1NuxaGSUOy68OL8obZwJefs=
+ bh=JLChjpw0JTcvOSEUGDo24K4rOFdGuCuyIINOPclIO9E=;
+ b=GXUns2z/vfGOBLwHNV9vpHaFibXjskxfhCYF42eLbWo+4oZNA8hTqTaQdLGJ9gZJTr43kk5fNPceyVxhnoJ8YJpjxN0JcJL2WxS3r/j4LbyY/c9yGgF2h57qxf0wuCyStYW8RZFSvUgcoHIK/IhurspROqQZRlFURAiwmulZFWU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by MN2PR12MB3774.namprd12.prod.outlook.com (2603:10b6:208:16a::13)
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by BYAPR12MB2677.namprd12.prod.outlook.com (2603:10b6:a03:69::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.11; Fri, 29 Jul
- 2022 06:11:20 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::41b6:a196:4f46:c9b0]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::41b6:a196:4f46:c9b0%5]) with mapi id 15.20.5458.025; Fri, 29 Jul 2022
- 06:11:20 +0000
-Message-ID: <8dd25904-dca5-a9c4-9c8a-567b3d8db7e2@amd.com>
-Date: Fri, 29 Jul 2022 11:41:10 +0530
+ 2022 06:11:10 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::a1d8:6a71:213b:6e14]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::a1d8:6a71:213b:6e14%9]) with mapi id 15.20.5458.025; Fri, 29 Jul 2022
+ 06:11:09 +0000
+Message-ID: <e26eb1d4-8758-b949-aa1b-767bb20a282d@amd.com>
+Date: Fri, 29 Jul 2022 11:40:58 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 6/6] drm/amdgpu: reduce reset time
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v3 4/6] drm/i915: Implement intersect/compatible functions
 Content-Language: en-US
-To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220728103027.27255-1-Victor.Zhao@amd.com>
- <20220728103027.27255-6-Victor.Zhao@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20220728103027.27255-6-Victor.Zhao@amd.com>
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+References: <20220728143315.968590-1-Arunpravin.PaneerSelvam@amd.com>
+ <20220728143315.968590-4-Arunpravin.PaneerSelvam@amd.com>
+ <b2dc0312-2f4d-a593-30e4-68971c6cbca5@intel.com>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <b2dc0312-2f4d-a593-30e4-68971c6cbca5@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0069.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::12) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0111.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::10) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9d9b6a9a-46b4-4744-cc78-08da712927ad
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3774:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea638451-12dd-43f4-35b9-08da71292168
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2677:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O/UqmtYSncdt29efUNrK8dEwO8aIeS080bM1a4I7mKIIy6v6pXGHJq65f+pVMS18AfbGkQHFWs4WvpTFz0CqJ49nCwTJpEQ9TJ/EfulNFqF+/5ZGM7U+QI73uipjnCg1vzKiTDnRw3Idc64NAuNSQdIsO4Ps9fdEk/rxfglhJAZdNO8bXuIJquvStSsvopiECo0sBuV4AQCNa1Za4l4pOKxv+GobeVPhHs+HhBGp0iBld3BLCxxRZ+i/bMEJddhv4nyLEBM8ccX/PZHx3xGFh1l4hlGWSSsjT+8bet6o06zJGlZi5sv0rZSD6MOoGdDW1CWy1g/zd57RxWwr6ODeonyAxqOc94Hyc4ZUzE43X5WC1H3FnptPm8PBjsjl1IcDr1LbZ2OlK7gNjwPQ7jxvMkCCATBTb/XSC+KZQmw/Cj5JWZIx1i4DtYj/oeLdCTlH7cLolriEZl2ezRV+++mg6yZCLhHTsVnUAjkyJuMFfBE/vAxFEUR393miYQ7oiXHmp0VN1cK3DK9UEuXAgignVWFxL/U3s/xY0Z0OMMuHrQuDsoQJnoOiG6TxI91fbrUnVCxScZZatF28+PjYl+FKqaToF2fj5kyHYktSuBJT0CnxKXwIToTaNQdru+gnDbM4ij+VohFRQga4rC8a82AgWbL7wEgGDktd0YfPF582uefXaKlAtdDqoza/V4RjLdOUlfgRZCDwzGRos1FmCfyflfM41UjKBZkD5voGpdMZDdbL3CYAxQLDau/sUzL/2VdDKJ+fjaphtkEmFczhGnQADZWf6FTrSXdOLnQuACpELsNjVBLWaXmw/6VXOS0X0hSV+Olkqne5AxmqtuukTjMgJA==
+X-Microsoft-Antispam-Message-Info: IySYEsx6WF8cOdm6dPNEsZtGKZScaFt322CC1IKEHx6xGwkoSSTUAaVHleCpp4A5qEjYj2htbJ4YmGpQTZR+s15niFURhUEn3VqZR50Gp05M4KUXLlTLkU4xu/ncoSIm5ABmrhkaznk7cCgOowPbbmPB7tfNlOfsnAsK/80QCX8zuCB3Hzi8FANTGSZwmOW2uotC6DfEKMgajpv92QNHFgKWJNm0TvWdZQcP3fih989YyldKmSPRg5LXGI2Ggaf8ajFkOttGhG3zPCzE+2fto16fuexE53r01lMykhXu/GHvhQ2lH42OFdFBqovludKm7L903OllsbucQHKFMigw1NFLw+EGopRWfAfgCVWlplCU6Noyir4cw1An75E6eiSQAdc3MQWL+6+i+2hMHcu+zePfDWdBwIFNqfKnmOHmaSyrRHSFm3Bg/QxceniNySyml9jQCfdOkTQdJcdwU5KLqq3mGCCVLbqYj9MxleeOhGPFxAYycer0o8MhJ5nGOP3p0zKkr/iTmxfWPUoB2Uzfm4pz5j7ugQ0OnNLLLHktcJqKGLSfF4vi6D908tAhMQlusGnOiDuStr0CGvv+gzSgSUy8k5s+NaE11FfPhtiGIdUi4DCgotk1pT/uEFm9t2OuF7xYCmeD97NjuuFbIRJMketcm/cu07z/3FYLJD8r9hliN5GnLh4LTFB1cK73zeBWEVoEiu8vqIHcGjHt3TPJmUeJ5ovQk5LxwOrHbIiOINSeE86kFsg5JtkbfZhyqQHxj41Hd1TSlgUD1tVBYg875vrr3e+k6NSrJJ6YGiF9T1uwBJqdPuxWFtEvNOwQ7ouS
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(366004)(396003)(376002)(136003)(8936002)(36756003)(5660300002)(478600001)(8676002)(4326008)(31686004)(66946007)(66556008)(66476007)(6486002)(316002)(186003)(2616005)(6666004)(2906002)(41300700001)(6506007)(26005)(6512007)(53546011)(83380400001)(38100700002)(86362001)(31696002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(376002)(346002)(39860400002)(396003)(366004)(6666004)(6506007)(66574015)(53546011)(2616005)(186003)(2906002)(36756003)(86362001)(31686004)(6512007)(26005)(31696002)(41300700001)(38100700002)(8676002)(66556008)(66476007)(4326008)(66946007)(83380400001)(316002)(5660300002)(8936002)(6486002)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTNkWE1FV0RLUVQ2UWt3d1JJZk5zcGxPSWM4SWRxS2pjZXZNWUNKQy9qOEZj?=
- =?utf-8?B?TFBReUplSkNjSVdmcUlPWDB1VGxrVWErZGRBd1VPT25aanVvRm1EaGdEUVRB?=
- =?utf-8?B?WDY2UVVLTXNSTm41cFpYVU9Hb1hpT21LejRGY0hlVWtzSFFocEJyRXBBNnli?=
- =?utf-8?B?T3RtSVBHOE5mTnAyK05xUzNSd2JHd3l1WWVCZkFRSnpRZUdTK2MwR3lnRGg5?=
- =?utf-8?B?ZnJvT3IwL3lBRFArZC9NVUlMeUdOUTZRUUp4M0prQVpId1l5dUNJeXo2WTJa?=
- =?utf-8?B?L3FLOXRjbmMycWpNMDJlM0RndnRNSkF4aURZaG5yQjJaeTVNaWpHZER0dUx0?=
- =?utf-8?B?RWJxb1pNSlYrbEoxQ1NZQlRuM3dxNTJ3RnIvcjBCZEQ2dVZJdUZPQlBQQmZI?=
- =?utf-8?B?QjZIaGhPbUlkTlZyYWc0Y3pKazJHSTNJM2lLd2VmcEpsK0Fsd1VoNnpoR0JH?=
- =?utf-8?B?cWZMSUY5TGVKbC9OODJlVkppdEZFWkFsS2dCcDViUk9WWnVKU2NwZllWSE9r?=
- =?utf-8?B?TlF0b01Ob3lmN2x6TXFxSW8rbnYycGQ4bW1PZSt4Z3E5VDdhZGhKZ0wxSFNJ?=
- =?utf-8?B?cXFPN3RtZy90aTNXOUFGL250OUhlb054eVhlaGhGQTRwQlpHenQ4SGFPN0xU?=
- =?utf-8?B?dkdlOG8vZmg4OFJIOUwzV0ova1d1NDE4SFFEZ2FYdVR5cWVPYm9ueHFKVHlB?=
- =?utf-8?B?cTRoRXpsbUhhOFJ1TXBDRVZPbjZQWmZvMklQMWtMQW1jUFpzcEJadXBnNXZk?=
- =?utf-8?B?ZHR6ZUFWcFYvUHpKVDgyQ201c3JSRzBuMTA5anB5aWxNRVpyN05USGwranNz?=
- =?utf-8?B?VC9lS3RoSU5wYURjODczVWFHTHc3SGk0eE1ZbDU3Y3BESElmTTNBVVBTdS9Q?=
- =?utf-8?B?QXQ0anVFeDJERlRDVW5iNWordHU5ZDFVK1BnNFpaMms4bTBncTNLaU9GZUxn?=
- =?utf-8?B?c25DUDAxYXpicmZma0xlbFlLdVoxazVJV3RSTW9ybjk1OEZpS0tWSFZPQXFR?=
- =?utf-8?B?dHAySWRiZUh4cjBkMUJtWGRHeGRhWjBhOTVocU1ScGFNRFdrZ3VpbC9vdTF4?=
- =?utf-8?B?cVF0cUFkSWFacVdjMEZrSTk4OUdxUkxRa3NiRGE0ejhZd29iWXBWbHBOZW5D?=
- =?utf-8?B?ZjRQWm81cXJJaWRpd2Y2VjJmVWdhUTVhTXFUUzUyS01ZL2puYldEWk0zRW1n?=
- =?utf-8?B?WkFRM256NTRLNVZ1eStFTWdJaG52SHdJeEQxUXdUcDN4bWUwVjZkZmpwWkgy?=
- =?utf-8?B?b1RyNFh2SG4xQU9FUVcxM3FIcEp5NXFhOVR3Smd0SVdnMzVSeFRWcUZraFVy?=
- =?utf-8?B?T3hKQXduNWdFaFJlZzhiREhGa0FlNzExeEZ1K21nR2lvVjNDVm1jZUh2QjZ2?=
- =?utf-8?B?TExQMG9XM3FrZk1aWmNPQVlWRndpQ3p2MndqV1Rid3djYzljVDVIUTV5MzNZ?=
- =?utf-8?B?NTNNQ1FHekFsS3hFTzVoL1ZiaDJobUFRNnVEVVM0SUNGaEQ4bTlZMkVDcUIw?=
- =?utf-8?B?cUw1UFlxQ2k5WVJuTGhwZW5xc08wVGIzd1E2emdZL01zOVVQVzhMRVdBbThS?=
- =?utf-8?B?TXVieU5XdjlkVUcrZ05Dc0pvOXB0OVJiZHJ5cmpCNmlhM3pVWkN2ZmtpSTh4?=
- =?utf-8?B?OGpmdDBsZnlJTEFNN2NMTVdUS2xYbVVQa1lFdlptT3FINkI5YUYzWnJvb0dR?=
- =?utf-8?B?VG5Wcld1SVA2ajZyZTNDN3JrckJHQVNneFpjM3B1RUwyeXljMy9LTldRWlpW?=
- =?utf-8?B?UDRPOUY5ZHpaL3pmYzRJcmRxS0VEcitSS2xKZml0SDBjNGw2ZlQyejBIVm5W?=
- =?utf-8?B?ZW9PeHpXck5KcXRnUmFkWUowL3MwUmZrS3dwVWxVRmNWVENLNEJyUFVoVUFy?=
- =?utf-8?B?MDVodGxoekFNVnVCZVpIS0l3d2Z0R2NJaU9KNUZtMSthLzF4SWw0amRidGNN?=
- =?utf-8?B?WG5qTVdxU1hhcHpQaGpibUpoYldsNXVMcGdMTk1kVCs4WnkyK1JnSW5RTVEv?=
- =?utf-8?B?WTJQclVtNFdLSGdGSjBHZ0daOUFLZFdXeG5yUU1VbENOTGtUSC9xbkJsOEh4?=
- =?utf-8?B?YytaRmwwWXVYVHZnaVdvenRPcXNzN29hZDBONmt3OGNlZzJ2ZUpEOUVMNmxu?=
- =?utf-8?Q?gF6P6lAonz9i5Mthzfw/ndFSZ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUdOdUZ1cFNuc2MyOTA4QzRUVGZOUmtkclRSaXI3K1lXWFY4Mkk2Qzk4QTJW?=
+ =?utf-8?B?UkI4ZmNGY2RuTHBYZFdqem52ZEpKZWg5eVdyVnVhazE4MG1mY1FtRlhmUDJh?=
+ =?utf-8?B?YUZwOG42VkErZ01rUy9scUdOcXh0MVFoekRpdnZrblVHelUrTSs1SnMxaUx1?=
+ =?utf-8?B?UmJublFBRnlKWm91Y0ZhdnpyUmZmb2JxMjZvS1VXNit5bHdDaHcrR1lPWm5j?=
+ =?utf-8?B?YlJNQk1hWWFnMXhEckkvRXpTTThIWHdMa2tYSGJWaVp0MExoN0ZHdW9RTUJR?=
+ =?utf-8?B?eW9rVkN2MnRJRjFMdm9GRlM4NDZLYUhnWUc1Ly9lL2ExZVVFVldLRE9acnl0?=
+ =?utf-8?B?WWJXRFhDUkVFVEQxRElpUmRKalFNWFdhMEdFM0E1TjFaVWVtQk1DazA4dDhO?=
+ =?utf-8?B?OWZDaW9Wb2s4emlUb0VtK2RSYW5MMnp0YW1CZVRUcGRndVVVb3hpaHlQVFQ5?=
+ =?utf-8?B?T3pzL2RqRC9KVmRIK2luSzVaK0krMG5wYTBnOHVSVExQT2NMV0lhWmdFZkxO?=
+ =?utf-8?B?VjJ5YjFlbU5ZTWtzZTZGZFJGdjZ3SjlGa2Mzc1NZWHJGYXgwL1hlVngvbSs4?=
+ =?utf-8?B?TU5UMm5xdUlKZTJHWlBKaDJJQVlNM3dVK3dBcDlEQUllYVBodHd2WC9YNlN1?=
+ =?utf-8?B?YnJMZ2RGNDRGR3VHVVFJOTBlVEtPNmdFZ2NUTUFyaE9nazc2U2FWWG1nbnhk?=
+ =?utf-8?B?ZWNtWnQ5Ky9PbGlaNjE5cVcwdlM1Z0ZXR3IzT0NyaHNoQlJQUU4vdFVJbnlV?=
+ =?utf-8?B?dmd6Q2hXZ2JkT0dHWldPTittYk91NzQ3THZ4SVRySHNGZWhVazA1aGRhV0Ft?=
+ =?utf-8?B?eXRSREppN0ZVY25yTkVNTWt0VU9qckY2TUtyUmdPVzR6dUh6TzA4aHM2V1cw?=
+ =?utf-8?B?WCtQR3NKV3o4VkNITEhTMlhrdFc3bFcyT3ltSjVXa2lQRkZiMTdqbnUrcHVm?=
+ =?utf-8?B?cHBOcm9KSkVQazZoYU1CckUrcWVWNHM2Wnl5RVlhcDFPckFidW5ndFlrY0tv?=
+ =?utf-8?B?MnhsSS9yQTRqMG5OcHF5MDVBbjdKTkEyYlNZazd1aFR4UzJLbklqZk9YcUg5?=
+ =?utf-8?B?RG5LbWxiUWthZXA4UW5rWmQwU0J6ZUZLZFJKd3ZLbTVUaEd5clFyWU1sZFho?=
+ =?utf-8?B?RCtBTzhkV0VZS3dwZlRneE5WczhpWnpDQU5TMUw2VUUzSEQ3UEZ3emNSSG10?=
+ =?utf-8?B?V0dFWDhWdVZVaCtCYU9oZmdHTE1paDlNL1d1Y2d3czZhT0oyK2kxcjFsM3dl?=
+ =?utf-8?B?cm9lNDZuWVk0RkhSREYyZFJvaTFYS3RGa1pFTjY0N2szYlk3SlQvZ3NUVUJj?=
+ =?utf-8?B?K0NlVVNacmlxMzk0S0pMT0t2ZUM4TjhMaS82c2VuVjMvL1VzdnVzNEpEeHow?=
+ =?utf-8?B?RU96TkJaWkZRM3dSMktwTGdlODFtbnkrOVdjSEw3VWx0REt0S3VrTm1CZ0R2?=
+ =?utf-8?B?aXNCWktabU4rUlBEbUZ3c2N0T2tHU0wzWERTWEFJaUt1MHduNTNObjN1ejU5?=
+ =?utf-8?B?YnhFRDY2bHNNVzZaR0prWXUzSjVzU0Nna2wxeUkydG1XUGtyZkl4d2lYRWg4?=
+ =?utf-8?B?MmdXNHRSTmVUcjJtMmEwdlRrOWxwRlRnWHdTVy8rMUhVR3JsazlESTRrL0Jo?=
+ =?utf-8?B?U1lYcXZXbG9FY2ZGTmoxR0ZTMU9EeHh4TDNYU2JOcjVsbnpQdGp2SlFnN1JB?=
+ =?utf-8?B?QTF0Ung3OUJYTmxZb3k5bzhuTmxUTm5MRUhHc1QrR3JBQ3ZHT21aU2NHbGc1?=
+ =?utf-8?B?RjRkNUd2c0luWkplcDlzdHFaYTczODVsakFmSzFXYWpRVDFrMWZTZFZ1eFNa?=
+ =?utf-8?B?NDczcC8venlLa1hhYWZrNGIxYW53ZXFYMHdRUEVqZ2E0RWFSTjdKbDNIRGx3?=
+ =?utf-8?B?dDdXd2NUWE9PN2RWdlVoMHJjdW92OWZrajM3WVE1dnVzTyt2N2RWRy9IV3Za?=
+ =?utf-8?B?NVdYL3JBMHN4WDRMM3Y0OVlvQ2V5VjV4OVZVa1JyaFRvTTc5amZRMDJFZEcr?=
+ =?utf-8?B?OUU1NXZxck50cXQ1Wlo5eW5hdmM4cEVlaU51SU5jb2tDSVZYS1k0d24wVk16?=
+ =?utf-8?B?bDVIcjNOejRqVlJpaUdJNlErbDh1R24ycktXM2NwQ25CRDZYbUVLalVkeUo3?=
+ =?utf-8?Q?0qf6d5BMeUuqDVEWozPBs20Lm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d9b6a9a-46b4-4744-cc78-08da712927ad
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea638451-12dd-43f4-35b9-08da71292168
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 06:11:20.3551 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 06:11:09.7102 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ofFrw46fZgWKzr2p4LnLdlJx7wYRmvklvDXfy2ShugDkLldXJCM55IR0qWi5Yvzx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3774
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Hgn4Wvmxw55b5ieKDYiBKrhZOa6h+ubTF/X6UUlIH5OeaPKxoZnUbv7npMLlCJDWYtxt6XQMUNmxxK87nQlBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2677
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,143 +127,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: emily.deng@amd.com, Andrey.Grodzovsky@amd.com
+Cc: alexander.deucher@amd.com, luben.tuikov@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 7/28/2022 4:00 PM, Victor Zhao wrote:
-> In multi container use case, reset time is important, so skip ring
-> tests and cp halt wait during ip suspending for reset as they are
-> going to fail and cost more time on reset
-> 
-> v2: add a hang flag to indicate the reset comes from a job timeout,
-> skip ring test and cp halt wait in this case
-> 
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c   |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   |  2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |  1 +
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c    | 11 +++++++++--
->   5 files changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 222d3d7ea076..c735a17c6afb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -27,6 +27,7 @@
->   #include "amdgpu_gfx.h"
->   #include "amdgpu_rlc.h"
->   #include "amdgpu_ras.h"
-> +#include "amdgpu_reset.h"
->   
->   /* delay 0.1 second to enable gfx off feature */
->   #define GFX_OFF_DELAY_ENABLE         msecs_to_jiffies(100)
-> @@ -477,7 +478,7 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev)
->   		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.compute_ring[i],
->   					   RESET_QUEUES, 0, 0);
->   
-> -	if (adev->gfx.kiq.ring.sched.ready)
-> +	if (adev->gfx.kiq.ring.sched.ready && !(amdgpu_in_reset(adev) && adev->reset_domain->hang))
->   		r = amdgpu_ring_test_helper(kiq_ring);
+On 7/28/2022 8:57 PM, Matthew Auld wrote:
+> On 28/07/2022 15:33, Arunpravin Paneer Selvam wrote:
+>> Implemented a new intersect and compatible callback function
+>> fetching start offset from drm buddy allocator.
+>>
+>> v2: move the bits that are specific to buddy_man (Matthew)
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 39 +-----------
+>>   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 62 +++++++++++++++++++
+>>   2 files changed, 64 insertions(+), 37 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c 
+>> b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> index 70e2ed4e99df..54eead15d74b 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> @@ -396,43 +396,8 @@ static bool i915_ttm_eviction_valuable(struct 
+>> ttm_buffer_object *bo,
+>>       if (!i915_gem_object_evictable(obj))
+>>           return false;
+>>   -    switch (res->mem_type) {
+>> -    case I915_PL_LMEM0: {
+>> -        struct ttm_resource_manager *man =
+>> -            ttm_manager_type(bo->bdev, res->mem_type);
+>> -        struct i915_ttm_buddy_resource *bman_res =
+>> -            to_ttm_buddy_resource(res);
+>> -        struct drm_buddy *mm = bman_res->mm;
+>> -        struct drm_buddy_block *block;
+>> -
+>> -        if (!place->fpfn && !place->lpfn)
+>> -            return true;
+>> -
+>> -        GEM_BUG_ON(!place->lpfn);
+>> -
+>> -        /*
+>> -         * If we just want something mappable then we can quickly check
+>> -         * if the current victim resource is using any of the CPU
+>> -         * visible portion.
+>> -         */
+>> -        if (!place->fpfn &&
+>> -            place->lpfn == i915_ttm_buddy_man_visible_size(man))
+>> -            return bman_res->used_visible_size > 0;
+>> -
+>> -        /* Real range allocation */
+>> -        list_for_each_entry(block, &bman_res->blocks, link) {
+>> -            unsigned long fpfn =
+>> -                drm_buddy_block_offset(block) >> PAGE_SHIFT;
+>> -            unsigned long lpfn = fpfn +
+>> -                (drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+>> -
+>> -            if (place->fpfn < lpfn && place->lpfn > fpfn)
+>> -                return true;
+>> -        }
+>> -        return false;
+>> -    } default:
+>> -        break;
+>> -    }
+>> +    if (res->mem_type == I915_PL_LMEM0)
+>> +        return ttm_bo_eviction_valuable(bo, place);
+>
+> We should be able to drop the mem_type == I915_PL_LMEM0 check here I 
+> think, and just unconditionally do:
+>
+> return ttm_bo_eviction_valuable(bo, place);
+okay
+>
+>>         return true;
+>>   }
+>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c 
+>> b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> index a5109548abc0..9d2a31154d58 100644
+>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> @@ -178,6 +178,66 @@ static void i915_ttm_buddy_man_free(struct 
+>> ttm_resource_manager *man,
+>>       kfree(bman_res);
+>>   }
+>>   +static bool i915_ttm_buddy_man_intersect(struct 
+>> ttm_resource_manager *man,
+>
+> Nit: intersects
+ok
+>
+>> +                     struct ttm_resource *res,
+>> +                     const struct ttm_place *place,
+>> +                     size_t size)
+>> +{
+>> +    struct i915_ttm_buddy_resource *bman_res = 
+>> to_ttm_buddy_resource(res);
+>> +    u32 start, num_pages = PFN_UP(size);
+>> +    struct drm_buddy_block *block;
+>> +
+>> +    if (!place->fpfn && !place->lpfn)
+>> +        return true;
+I place bug_on check here
+GEM_BUG_ON(!place->lpfn);
+>> +
+>> +    /*
+>> +     * If we just want something mappable then we can quickly check
+>> +     * if the current victim resource is using any of the CP
+>> +     * visible portion.
+>> +     */
+>> +    if (!place->fpfn &&
+>> +        place->lpfn == i915_ttm_buddy_man_visible_size(man))
+>> +        return bman_res->used_visible_size > 0;
+>> +
+>> +    /* Check each drm buddy block individually */
+>> +    list_for_each_entry(block, &bman_res->blocks, link) {
+>> +        start = drm_buddy_block_offset(block) >> PAGE_SHIFT;
+>> +        /* Don't evict BOs outside of the requested placement range */
+>> +        if (place->fpfn >= (start + num_pages) ||
+>> +            (place->lpfn && place->lpfn <= start))
+>> +            return false;
+>> +    }
+>> +
+>> +    return true;
+>
+> We need to account for the block size somewhere. Also same bug in the 
+> amdgpu patch it seems. We also need to do this the other way around 
+> and keep checking until we find something that overlaps, for example 
+> if the first block doesn't intersect/overlap we will incorrectly 
+> return false here, even if one of the other blocks does intersect.
+>
+> list_for_each_entry() {
+>     fpfn = drm_buddy_block_size(mm, block) >> PAGE_SHIFT;
+>     lpfn = fpfn + drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+>
+>     if (place->fpfn < lpfn && place->lpfn > fpfn)
+>         return true;
+> }
+>
+> return false;
+yes, here the final code looks like,
+list_for_each_entry(block, &bman_res->blocks, link) {
+                 unsigned long fpfn =
+                         drm_buddy_block_offset(block) >> PAGE_SHIFT;
+                 unsigned long lpfn = fpfn +
+                         (drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+                 /* Don't evict BOs outside of the requested placement 
+range */
+                 if (place->fpfn < lpfn && place->lpfn > fpfn)
+                         return true;
+         }
 
-On a system with multiple GPUs interconnected, this will affect other 
-GPUs as well on which job was not really running. I guess your usecase 
-here is device specific.
+return false;
 
-Thanks,
-Lijo
+>
+>> +}
+>> +
+>> +static bool i915_ttm_buddy_man_compatible(struct 
+>> ttm_resource_manager *man,
+>> +                      struct ttm_resource *res,
+>> +                      const struct ttm_place *place,
+>> +                      size_t size)
+>> +{
+>> +    struct i915_ttm_buddy_resource *bman_res = 
+>> to_ttm_buddy_resource(res);
+>> +    u32 start, num_pages = PFN_UP(size);
+>> +    struct drm_buddy_block *block;
+>> +
+>> +    if (!place->fpfn && !place->lpfn)
+>> +        return true;
+I place bug_on check here
+GEM_BUG_ON(!place->lpfn);
+>> +
+>> +    if (!place->fpfn &&
+>> +        place->lpfn == i915_ttm_buddy_man_visible_size(man))
+>> +        return bman_res->used_visible_size == res->num_pages;
+>> +
+>> +    /* Check each drm buddy block individually */
+>> +    list_for_each_entry(block, &bman_res->blocks, link) {
+>> +        start = drm_buddy_block_offset(block) >> PAGE_SHIFT;
+>> +        if (start < place->fpfn ||
+>> +            (place->lpfn && (start + num_pages) > place->lpfn))
+>
+> Same here. We need to consider the block size/range.
+ahh somehow missed the block size, here the final code looks like,
 
->   	spin_unlock(&adev->gfx.kiq.ring_lock);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 6c3e7290153f..bb40880a557f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -49,6 +49,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   	}
->   
->   	memset(&ti, 0, sizeof(struct amdgpu_task_info));
-> +	adev->reset_domain->hang = true;
->   
->   	if (amdgpu_gpu_recovery &&
->   	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
-> @@ -83,6 +84,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   	}
->   
->   exit:
-> +	adev->reset_domain->hang = false;
->   	drm_dev_exit(idx);
->   	return DRM_GPU_SCHED_STAT_NOMINAL;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index 9da5ead50c90..b828fe773f50 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -155,6 +155,7 @@ struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_d
->   	atomic_set(&reset_domain->in_gpu_reset, 0);
->   	atomic_set(&reset_domain->reset_res, 0);
->   	init_rwsem(&reset_domain->sem);
-> +	reset_domain->hang = false;
->   
->   	return reset_domain;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> index cc4b2eeb24cf..29e324add552 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -84,6 +84,7 @@ struct amdgpu_reset_domain {
->   	struct rw_semaphore sem;
->   	atomic_t in_gpu_reset;
->   	atomic_t reset_res;
-> +	bool hang;
->   };
->   
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index fafbad3cf08d..a384e04d916c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -29,6 +29,7 @@
->   #include "amdgpu.h"
->   #include "amdgpu_gfx.h"
->   #include "amdgpu_psp.h"
-> +#include "amdgpu_reset.h"
->   #include "nv.h"
->   #include "nvd.h"
->   
-> @@ -5971,6 +5972,9 @@ static int gfx_v10_0_cp_gfx_enable(struct amdgpu_device *adev, bool enable)
->   		WREG32_SOC15(GC, 0, mmCP_ME_CNTL, tmp);
->   	}
->   
-> +	if ((amdgpu_in_reset(adev) && adev->reset_domain->hang) && !enable)
-> +		return 0;
-> +
->   	for (i = 0; i < adev->usec_timeout; i++) {
->   		if (RREG32_SOC15(GC, 0, mmCP_STAT) == 0)
->   			break;
-> @@ -7569,8 +7573,10 @@ static int gfx_v10_0_kiq_disable_kgq(struct amdgpu_device *adev)
->   	for (i = 0; i < adev->gfx.num_gfx_rings; i++)
->   		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.gfx_ring[i],
->   					   PREEMPT_QUEUES, 0, 0);
-> -
-> -	return amdgpu_ring_test_helper(kiq_ring);
-> +	if (!(amdgpu_in_reset(adev) && adev->reset_domain->hang))
-> +		return amdgpu_ring_test_helper(kiq_ring);
-> +	else
-> +		return 0;
->   }
->   #endif
->   
-> @@ -7610,6 +7616,7 @@ static int gfx_v10_0_hw_fini(void *handle)
->   
->   		return 0;
->   	}
-> +
->   	gfx_v10_0_cp_enable(adev, false);
->   	gfx_v10_0_enable_gui_idle_interrupt(adev, false);
->   
-> 
+/* Check each drm buddy block individually */
+     list_for_each_entry(block, &bman_res->blocks, link) {
+                 unsigned long fpfn =
+                         drm_buddy_block_offset(block) >> PAGE_SHIFT;
+                 unsigned long lpfn = fpfn +
+                         (drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+                 if (fpfn < place->fpfn || lpfn > place->lpfn)
+                         return false;
+         }
+return true;
+>
+> Otherwise I think looks good.
+>
+>> +            return false;
+>> +    }
+>> +
+>> +    return true;
+>> +}
+>> +
+>>   static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
+>>                        struct drm_printer *printer)
+>>   {
+>> @@ -205,6 +265,8 @@ static void i915_ttm_buddy_man_debug(struct 
+>> ttm_resource_manager *man,
+>>   static const struct ttm_resource_manager_func 
+>> i915_ttm_buddy_manager_func = {
+>>       .alloc = i915_ttm_buddy_man_alloc,
+>>       .free = i915_ttm_buddy_man_free,
+>> +    .intersects = i915_ttm_buddy_man_intersect,
+>> +    .compatible = i915_ttm_buddy_man_compatible,
+>>       .debug = i915_ttm_buddy_man_debug,
+>>   };
+
