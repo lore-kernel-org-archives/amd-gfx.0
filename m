@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6507BC19F2A
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Jul 2022 21:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F33C00144
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Aug 2022 12:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5E6612B181;
-	Sat, 30 Jul 2022 21:10:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C68DD113876;
- Sat, 30 Jul 2022 21:09:56 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BC85260F68;
- Sat, 30 Jul 2022 21:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A7FC433C1;
- Sat, 30 Jul 2022 21:09:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659215395;
- bh=ePqpEWYI6NuRsWft+lvrNOptjvzOQrmx491q5KinAVw=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=ndyN8CSrdlsjDcPhVIsaxHZ4YEF3xB2rzS/C+brd9fsD3iszC0Rvn4FI0njZ/iqqc
- gNxXzYaGv21bea0XtXuTmzhCRxFEiuyiosjaEMtBVYy5lQSzwoK7MoDeTnIUdndmsz
- Ijfl1ATZDneRrXnu6pzsncTcukFhhNxxX79K2Io6XpLzolvDPbEJrY1cxXkXd198Ja
- 6yVI0F4pKdc3QBGxW4deitGpV8te+bZKg+EnKFHhX8RgPGsLF4P4anpu/v0NRRZBHN
- ZZ8Ylqu2Tj6jjCxok+hL5C5grj9gDg4Y48QeeJLCQjkpz4gf+f0Ft+7tyYXkNwrLHv
- rEitkSY0gu9Mg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id BB4B05C034F; Sat, 30 Jul 2022 14:09:54 -0700 (PDT)
-Date: Sat, 30 Jul 2022 14:09:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: Stack-frame warnings in display_mode_vba_32.c
-Message-ID: <20220730210954.GU2860372@paulmck-ThinkPad-P17-Gen-1>
-References: <20220730022532.GA1234397@paulmck-ThinkPad-P17-Gen-1>
- <85a49b72-8bb7-b3b3-8a69-2c90cda8079d@igalia.com>
- <20220730051238.GR2860372@paulmck-ThinkPad-P17-Gen-1>
- <80410e6e-838b-fa3d-1f87-710eb3c751c5@roeck-us.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58AA995E19;
+	Mon,  1 Aug 2022 12:40:33 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3AE995D38
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Aug 2022 12:40:17 +0000 (UTC)
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4LxHlN4nPRzDqGt;
+ Mon,  1 Aug 2022 12:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1659357616; bh=DrT1LeaDfNwwsNUchbsuDRJXsZzb3gVGQhZQOPYtNzQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=mf6jZmQoGkE+u3cUdqqccDw0O7OZ7rmt2eodyOCULd4653wzwBwtbzXearfN0Ic+W
+ FZZ8nfp1QR5wG9jij0300mtz03P0TAknWvYNNnDVVj9xK/eH4dKj3ZVEsytOtnrdVI
+ 8OMiP/xWuwW/mSrfRQMmOYNyYQiCBV2f6GxnWiro=
+X-Riseup-User-ID: ECBF70E8AE18FA2C3A4503D85996DE13307D642BFD9025435F88ABC64A82DC45
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4LxHlJ1fnBz5vMX;
+ Mon,  1 Aug 2022 12:40:12 +0000 (UTC)
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amd/display: Drop XFCEnabled parameter from
+ CalculatePrefetchSchedule
+Date: Mon,  1 Aug 2022 09:40:06 -0300
+Message-Id: <20220801124006.89027-1-mairacanal@riseup.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <80410e6e-838b-fa3d-1f87-710eb3c751c5@roeck-us.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,66 +53,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
-Cc: sfr@canb.auug.org.au,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>, arnd@arndb.de,
- sunpeng.li@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-next@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- harry.wentland@amd.com
+Cc: magalilemes00@gmail.com, tales.aparecida@gmail.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jul 30, 2022 at 02:06:10AM -0700, Guenter Roeck wrote:
-> On 7/29/22 22:12, Paul E. McKenney wrote:
-> > On Fri, Jul 29, 2022 at 11:41:55PM -0300, André Almeida wrote:
-> > > Hi Paul,
-> > > 
-> > > Às 23:25 de 29/07/22, Paul E. McKenney escreveu:
-> > > > Hello!
-> > > > 
-> > > > I am seeing the following in allmodconfig builds of recent -next on x86:
-> > > > 
-> > > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function ‘DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation’:
-> > > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1659:1: error: the frame size of 2144 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
-> > > >   1659 | }
-> > > >        | ^
-> > > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: In function ‘dml32_ModeSupportAndSystemConfigurationFull’:
-> > > > drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:3799:1: error: the frame size of 2480 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
-> > > >   3799 | } // ModeSupportAndSystemConfigurationFull
-> > > >        | ^
-> > > 
-> > > I think they are fixed at amd-staging-drm-next:
-> > > 
-> > > git log --oneline amd/amd-staging-drm-next
-> > > drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> > > 953daa61981b drm/amd/display: Reduce stack size in the mode support function
-> > > 361e705e712d drm/amd/display: reduce stack for
-> > > dml32_CalculatePrefetchSchedule
-> > > f2dbf5a4dd1e drm/amd/display: reduce stack for
-> > > dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport
-> > > a0a68cda2ef8 drm/amd/display: reduce stack for dml32_CalculateVMRowAndSwath
-> > > ca6730ca0f01 drm/amd/display: reduce stack for
-> > > dml32_CalculateSwathAndDETConfiguration
-> > > 593eef8c1a5e drm/amd/display: reduce stack size in dcn32 dml (v2)
-> > > 
-> > > https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> > 
-> > Very good, thank you!  I will test again on the next -next.
-> > 
-> 
-> Did you try next-20220728 ?
-> 
-> groeck@server:~/src/linux-next$ git describe
-> next-20220728
-> groeck@server:~/src/linux-next$ git log --oneline drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c
-> 1b54a0121dba drm/amd/display: Reduce stack size in the mode support function
-> 86e4863e67a9 drm/amd/display: reduce stack for dml32_CalculatePrefetchSchedule
-> 3c3abac60117 drm/amd/display: reduce stack for dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport
-> c3b3f9ba25e6 drm/amd/display: reduce stack for dml32_CalculateVMRowAndSwath
-> bac4b41d917a drm/amd/display: reduce stack for dml32_CalculateSwathAndDETConfiguration
-> 7acc487ab57e drm/amd/display: reduce stack size in dcn32 dml (v2)
+The XFCEnabled parameter from the CalculatePrefetchSchedule function is
+not used and is only mentioned in a couple of comments. Therefore,
+remove the argument and the comments.
 
-Indeed, next-20220728 does avoid the problem, thank you!
+Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+---
+ .../dc/dml/dcn21/display_mode_vba_21.c        | 21 +++----------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
-							Thanx, Paul
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+index 8a7485e21d53..05cbc6968cde 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+@@ -120,7 +120,6 @@ static bool CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightY,
+ 		unsigned int SwathHeightC,
+ 		double TWait,
+-		bool XFCEnabled,
+ 		double XFCRemoteSurfaceFlipDelay,
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		double *DSTXAfterScaler,
+@@ -673,7 +672,6 @@ static bool CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightY,
+ 		unsigned int SwathHeightC,
+ 		double TWait,
+-		bool XFCEnabled,
+ 		double XFCRemoteSurfaceFlipDelay,
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		double *DSTXAfterScaler,
+@@ -910,12 +908,7 @@ static bool CalculatePrefetchSchedule(
+ 			TimeForFetchingMetaPTE = dml_max(*Tno_bw + (double) PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / *PrefetchBandwidth,
+ 					dml_max(UrgentExtraLatency + UrgentLatency * (GPUVMPageTableLevels * (HostVMDynamicLevels + 1) - 1), LineTime / 4));
+ 		} else {
+-// 5/30/2018 - This was an optimization requested from Sy but now NumberOfCursors is no longer a factor
+-//             so if this needs to be reinstated, then it should be officially done in the VBA code as well.
+-//			if (mode_lib->NumberOfCursors > 0 || XFCEnabled)
+-				TimeForFetchingMetaPTE = LineTime / 4;
+-//			else
+-//				TimeForFetchingMetaPTE = 0.0;
++			TimeForFetchingMetaPTE = LineTime / 4;
+ 		}
+ 
+ 		if ((GPUVMEnable == true || DCCEnable == true)) {
+@@ -931,11 +924,7 @@ static bool CalculatePrefetchSchedule(
+ 											LineTime
+ 													/ 4.0)));
+ 		} else {
+-// See note above dated 5/30/2018
+-//			if (NumberOfCursors > 0 || XFCEnabled)
+-				TimeForFetchingRowInVBlank = (LineTime - TimeForFetchingMetaPTE) / 2.0;
+-//			else // TODO: Did someone else add this??
+-//				TimeForFetchingRowInVBlank = 0.0;
++			TimeForFetchingRowInVBlank = (LineTime - TimeForFetchingMetaPTE) / 2.0;
+ 		}
+ 
+ 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
+@@ -943,11 +932,9 @@ static bool CalculatePrefetchSchedule(
+ 		*DestinationLinesToRequestRowInVBlank = dml_ceil(4.0 * TimeForFetchingRowInVBlank / LineTime, 1.0) / 4.0;
+ 
+ 		LinesToRequestPrefetchPixelData = *DestinationLinesForPrefetch
+-// See note above dated 5/30/2018
+-//						- ((NumberOfCursors > 0 || GPUVMEnable || DCCEnable) ?
+ 						- ((GPUVMEnable || DCCEnable) ?
+ 								(*DestinationLinesToRequestVMInVBlank + 2 * *DestinationLinesToRequestRowInVBlank) :
+-								0.0); // TODO: Did someone else add this??
++								0.0);
+ 
+ 		if (LinesToRequestPrefetchPixelData > 0) {
+ 
+@@ -2200,7 +2187,6 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 							mode_lib->vba.SwathHeightY[k],
+ 							mode_lib->vba.SwathHeightC[k],
+ 							TWait,
+-							mode_lib->vba.XFCEnabled[k],
+ 							mode_lib->vba.XFCRemoteSurfaceFlipDelay,
+ 							mode_lib->vba.ProgressiveToInterlaceUnitInOPP,
+ 							&locals->DSTXAfterScaler[k],
+@@ -3493,7 +3479,6 @@ static noinline void CalculatePrefetchSchedulePerPlane(
+ 			locals->SwathHeightYThisState[k],
+ 			locals->SwathHeightCThisState[k],
+ 			mode_lib->vba.TWait,
+-			mode_lib->vba.XFCEnabled[k],
+ 			mode_lib->vba.XFCRemoteSurfaceFlipDelay,
+ 			mode_lib->vba.ProgressiveToInterlaceUnitInOPP,
+ 			&locals->dst_x_after_scaler,
+-- 
+2.37.1
+
