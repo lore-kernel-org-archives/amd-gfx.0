@@ -4,80 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC5CCC00140
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Aug 2022 22:12:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB71DC19F28
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Aug 2022 07:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F12C191DCD;
-	Tue,  2 Aug 2022 22:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6FC112535;
+	Wed,  3 Aug 2022 07:22:01 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE5D94EFD
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Aug 2022 22:12:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5486310F0AF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Aug 2022 11:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1659478354;
+ s=mimecast20190719; t=1659439905;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8Y0WynJgJNSfh9M8m5gL0/rvOhxBadhWnHgYusmFFV8=;
- b=Ih8uuOPpqg4X8IB8KGtTmyFgzVfh6okKyz/GH5TQNrL/LYlNLXy4nt9wCsuDlQ0HB71vmw
- LymUiu424hsmYX26akKJsANV57EY79sJtfR4G12xJzW0MHg5oL+U1iVKSRQ8k+8O8vZmXf
- CjLPgs5n0oW4AZr4OvlZKiqxOS4G9uY=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=FxqPiRlh1yMkKL/E8jj94PNhXHLVuyAe9c6skMkF0Wc=;
+ b=RJvZ8ZYLK/nE0NFxFyz8saYNBzmPHZA4R6AFhZrjWRGqxXxtbIGtDvGMuIM1gxjigtGF7l
+ IBrnGUVUf4GM7yIwG/BEwjtXixsgYvD584FhfaJDddKc5TPoXrHTd/7VwS+erNYbUByVye
+ 8L4lrSYE98oxjHRNzBZXnRFJ736Z+b8=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-319-D23R6pSkPXeSK9WCkP-Pbg-1; Tue, 02 Aug 2022 18:12:31 -0400
-X-MC-Unique: D23R6pSkPXeSK9WCkP-Pbg-1
-Received: by mail-qk1-f197.google.com with SMTP id
- h8-20020a05620a284800b006b5c98f09fbso12639535qkp.21
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Aug 2022 15:12:31 -0700 (PDT)
+ us-mta-643-99pyw9glMjm7f9DckmcO9w-1; Tue, 02 Aug 2022 07:31:44 -0400
+X-MC-Unique: 99pyw9glMjm7f9DckmcO9w-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ sc31-20020a1709078a1f00b0073096c2b4e1so1508529ejc.22
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Aug 2022 04:31:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=8Y0WynJgJNSfh9M8m5gL0/rvOhxBadhWnHgYusmFFV8=;
- b=JzMJjruyx/1PwewmkyTUyWia8xxWrIuvBWiVNYqj+aZ+nbCLCejfDgp6yhKD6e/Qct
- 5Z3HcYtWFo8woi26dyxQK50qVvqH0OqfZMUYAODsXFYBf0Sm9+80geX/pA81Oy2umYjK
- gDxj+enAQHi4Gz0kb275ethlqyXUtxDeMjtKb4XwSS573NAevHMooJMEOnds0i3X4FY0
- jpzxNaTFeI7ZqR/uQKwpWX7dj4wLaA+v5OBmG1pAR2ihHqaONCEm3/GWBTR2nnQR/LJJ
- +KGSJlvyo2O3pugjLzkxvFLGHHEX3ytEHdmFMPMaUzr/GlpTJYmxtCLXsT1nx5dELtvc
- 3m6A==
-X-Gm-Message-State: AJIora8hsglUNJfRgySj2tN78mDOTdKOy3wZu/pu5RDRrik4t1IiBRn2
- 4yLtNdGXoAV7NsSlqGtebVPQ012YnYD9wWZJiwaXbrlyOBox7FAAFzV9zcK6f7DB4ZWGUKiZ6S1
- d/M6Tv5MY1qI928BBerCovBzS4w==
-X-Received: by 2002:a05:620a:c52:b0:6b5:467f:4f6d with SMTP id
- u18-20020a05620a0c5200b006b5467f4f6dmr17268472qki.503.1659478350604; 
- Tue, 02 Aug 2022 15:12:30 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1vVi4NYTvyopJmtP9Nw2sj+ZJUYf1nCNfIK7eICNG5FUBO+EPj7/KKC2dY5Fub85vgbFtL4GQ==
-X-Received: by 2002:a05:620a:c52:b0:6b5:467f:4f6d with SMTP id
- u18-20020a05620a0c5200b006b5467f4f6dmr17268453qki.503.1659478350366; 
- Tue, 02 Aug 2022 15:12:30 -0700 (PDT)
-Received: from [192.168.8.138] (pool-100-0-245-4.bstnma.fios.verizon.net.
- [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
- o20-20020ac87c54000000b0033a5048464fsm1898043qtv.11.2022.08.02.15.12.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Aug 2022 15:12:29 -0700 (PDT)
-Message-ID: <31d47373883e9aabe5bfa7b172e21b84cc6a164d.camel@redhat.com>
-Subject: Re: [RESEND RFC 15/18] drm/display/dp_mst: Skip releasing payloads
- if last connected port isn't connected
-From: Lyude Paul <lyude@redhat.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Date: Tue, 02 Aug 2022 18:12:28 -0400
-In-Reply-To: <CO6PR12MB54890BFD954BBF578E2ADA67FC819@CO6PR12MB5489.namprd12.prod.outlook.com>
-References: <20220607192933.1333228-1-lyude@redhat.com>
- <20220607192933.1333228-16-lyude@redhat.com>
- <CO6PR12MB54890BFD954BBF578E2ADA67FC819@CO6PR12MB5489.namprd12.prod.outlook.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ bh=FxqPiRlh1yMkKL/E8jj94PNhXHLVuyAe9c6skMkF0Wc=;
+ b=dN9knHl7kV2CdHMcDd8Rlln0HNAeonrBvaFAlxaoidPIOr+o6vMPAzYPpy2JF+ZSjF
+ zEqnoYsrPmjO2WvvPaHwrLxe5FhRKVd87U7ezGPuvv2vMYJGwgjFVzmXC4V0Mykf4k2E
+ EHfOelK7ADOrOB0xao1dVDMQ9d/jLSRno7pxROETKRCEe59GXt5nMDLTL5ijPxGgLjnO
+ 5MJXtkHE2HE4MbFrn+9xrHmFCLvVkgaXJvjTExuEaOOYQH/76y5b1Xo/Y3VR4Vug7SZY
+ lhEmkym9O8b/HF78fTuFaMPblum+JPedXZi+v3bk96yo72Sf/9zjK37BlBYtYOigUJ8P
+ RKzA==
+X-Gm-Message-State: AJIora/v7yddeWlpKxSmvnJQ0PBPaPOU64FIyezG4DqkGszRfFch69+n
+ Nk7+HP4+bSxt/ArW6FMKTPuQ21Nu4PULZ599PyKYDKVd+KlHhMAurIxRTL60OliHLjOgPZE1OQd
+ wHPonMzuo9R21cY2uDLL1HzsHsg==
+X-Received: by 2002:a05:6402:3693:b0:43d:1a40:21fd with SMTP id
+ ej19-20020a056402369300b0043d1a4021fdmr19623020edb.206.1659439902803; 
+ Tue, 02 Aug 2022 04:31:42 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tNxpGaKCMx+igbAw2yE0EpAVqV6AkR7oivw+9P3IiykmsJcYsdcyEeEWSy1/fVO3/cp3fmOg==
+X-Received: by 2002:a05:6402:3693:b0:43d:1a40:21fd with SMTP id
+ ej19-20020a056402369300b0043d1a4021fdmr19622969edb.206.1659439902460; 
+ Tue, 02 Aug 2022 04:31:42 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ s4-20020a056402036400b0043cbdb16fbbsm8116245edw.24.2022.08.02.04.31.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Aug 2022 04:31:41 -0700 (PDT)
+Message-ID: <331ebd23-d2a4-bb33-5462-b9bd3284ab69@redhat.com>
+Date: Tue, 2 Aug 2022 13:31:41 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 01/29] ACPI: video: Add
+ acpi_video_backlight_use_native() helper
+To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220712193910.439171-1-hdegoede@redhat.com>
+ <20220712193910.439171-2-hdegoede@redhat.com>
+ <641cb059-48f5-5f05-5ec2-610f1215391c@nvidia.com>
+ <20e4ffcf-2a3a-e671-5f98-1602b78df3cb@nvidia.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20e4ffcf-2a3a-e671-5f98-1602b78df3cb@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 03 Aug 2022 07:21:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,305 +104,232 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
- "Lakha, 
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>,
- Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2022-07-05 at 08:45 +0000, Lin, Wayne wrote:
-> [Public]
+Hi Daniel,
+
+On 7/21/22 23:30, Daniel Dadap wrote:
 > 
+> On 7/21/22 16:24, Daniel Dadap wrote:
+>>
+>> On 7/12/22 14:38, Hans de Goede wrote:
+>>> ATM on x86 laptops where we want userspace to use the acpi_video backlight
+>>> device we often register both the GPU's native backlight device and
+>>> acpi_video's firmware acpi_video# backlight device. This relies on
+>>> userspace preferring firmware type backlight devices over native ones, but
+>>> registering 2 backlight devices for a single display really is undesirable.
+>>>
+>>> On x86 laptops where the native GPU backlight device should be used,
+>>> the registering of other backlight devices is avoided by their drivers
+>>> using acpi_video_get_backlight_type() and only registering their backlight
+>>> if the return value matches their type.
+>>>
+>>> acpi_video_get_backlight_type() uses
+>>> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
+>>> driver is available and will never return native if this returns
+>>> false. This means that the GPU's native backlight registering code
+>>> cannot just call acpi_video_get_backlight_type() to determine if it
+>>> should register its backlight, since acpi_video_get_backlight_type() will
+>>> never return native until the native backlight has already registered.
+>>>
+>>> To fix this add a new internal native function parameter to
+>>> acpi_video_get_backlight_type(), which when set to true will make
+>>> acpi_video_get_backlight_type() behave as if a native backlight has
+>>> already been registered.
+>>>
+>>> And add a new acpi_video_backlight_use_native() helper, which sets this
+>>> to true, for use in native GPU backlight code.
+>>>
+>>> Changes in v2:
+>>> - Replace adding a native parameter to acpi_video_get_backlight_type() with
+>>>    adding a new acpi_video_backlight_use_native() helper.
+>>>
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>> ---
+>>>   drivers/acpi/video_detect.c | 24 ++++++++++++++++++++----
+>>>   include/acpi/video.h        |  5 +++++
+>>>   2 files changed, 25 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+>>> index becc198e4c22..4346c990022d 100644
+>>> --- a/drivers/acpi/video_detect.c
+>>> +++ b/drivers/acpi/video_detect.c
+>>> @@ -17,8 +17,9 @@
+>>>    * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
+>>>    * sony_acpi,... can take care about backlight brightness.
+>>>    *
+>>> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
+>>> - * which driver should handle the backlight.
+>>> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
+>>> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
+>>> + * use the acpi_video_backlight_use_native() helper for this.
+>>>    *
+>>>    * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
+>>>    * this file will not be compiled and acpi_video_get_backlight_type() will
+>>> @@ -548,9 +549,10 @@ static int acpi_video_backlight_notify(struct notifier_block *nb,
+>>>    * Arguably the native on win8 check should be done first, but that would
+>>>    * be a behavior change, which may causes issues.
+>>>    */
+>>> -enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>>> +static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+>>>   {
+>>>       static DEFINE_MUTEX(init_mutex);
+>>> +    static bool native_available;
+>>>       static bool init_done;
+>>>       static long video_caps;
+>>>   @@ -570,6 +572,8 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>>>               backlight_notifier_registered = true;
+>>>           init_done = true;
+>>>       }
+>>> +    if (native)
+>>> +        native_available = true;
+>>>       mutex_unlock(&init_mutex);
+>>>         if (acpi_backlight_cmdline != acpi_backlight_undef)
+>>> @@ -581,13 +585,25 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>>>       if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
+>>>           return acpi_backlight_vendor;
+>>>   -    if (acpi_osi_is_win8() && backlight_device_get_by_type(BACKLIGHT_RAW))
+>>> +    if (acpi_osi_is_win8() &&
+>>> +        (native_available || backlight_device_get_by_type(BACKLIGHT_RAW)))
+>>>           return acpi_backlight_native;
+>>>         return acpi_backlight_video;
+>>
+>>
+>> So I ran into a minor problem when testing the NVIDIA proprietary driver against this change set, after checking acpi_video_backlight_use_native() before registering the NVIDIA proprietary driver's backlight handler. Namely, for the case where a user installs the NVIDIA proprietary driver after the video.ko has already registered its backlight handler, we end up with both the firmware and native handlers registered simultaneously, since the ACPI video driver no longer unregisters its backlight handler. In this state, desktop environments end up preferring the registered but non-functional firmware handler from video.ko. (Manually twiddling the sysfs interface for the native NVIDIA handler works fine.) When rebooting the system after installing the NVIDIA proprietary driver, it is able to register its native handler before the delayed work to register the ACPI video backlight handler fires, so we end up with only one (native) handler, and userspace is happy.
+>>
+>> Maybe this will be moot later on, when the existing sysfs interface is deprecated, and it probably isn't a huge deal, since a reboot fixes things (I imagine installing an in-tree DRM/KMS driver on an already running kernel isn't really a thing, which is why this isn't a problem with the in-tree drivers), but would it make sense to unregister the ACPI video backlight handler here before returning acpi_backlight_native? That way, we'll briefly end up with zero backlight handlers rather than briefly ending up with two of them. Not sure if that's really any better, though.
+>>
 > 
+> Thinking about this a little more, maybe it's better not to overly complicate things, and just assert that users of the NVIDIA proprietary driver will need to reboot after installation in order to get the backlight working, at least until we get further along in this effort and the backlight interface transitions to the DRM connector property you have proposed.
+
+Right, this series stops unregistering the acpi_video# /sys/class/backlight
+devices because the idea is to never register them in the first place.
+
+Registering them in the first place causes 2 problems:
+
+1. It causes userspace to see udev events for the register + unregister
+and by the time the systemd backlight level save/restore helper runs
+from udev the unregister has already happened and it logs ugly errors.
+More in general this kinda racy behavior just is ugly.
+
+2. On some hw merely registering the backlight device, which I think
+at least tries to retrieve the current level through ACPI, is causing
+issues. So now we have DMI quirks to force the native backlight on
+some devices, even though the heuristics also say native eventually,
+just to avoid the race. Avoiding the add + remove dance allows
+us to drop a bunch of quirks and likely also fixes issues on other
+devices which we don't yet know need the quirk.
+
+
+So this patch-set changes the acpi_video.c code to no longer register
+the acpi_video# backlight devices at init time *at all*. Instead native
+drivers are supposed to now call acpi_video_register_backlight()
+when they have found an internal panel. But to avoid this causing
+the acpi_video# backlight devices to not show up at all in some
+cases (e.g. native kms drivers blacklisted) the acpi_video code
+also calls acpi_video_register_backlight() itself after 8 seconds.
+
+I believe this is what you are hitting, the 8 seconds have passed
+before the nvidia driver calls acpi_video_backlight_use_native(),
+so the acpi_video# backlight devices have registered (and no longer
+go away).
+
+This is not only a problem when installing the nvidia binary driver
+for the first time. It can also be a problem if the binary driver
+is not in the initrd and leaving the initrd takes longer then
+8 seconds, say because of a diskcrypt password. So I believe that
+this really can be a problem with the nvidia binary driver.
+
+But I think this is easy to fix. We could make the 8 second
+delay configurable by replacing the ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY
+define with a module-parameter; and we could make "0" as value mean
+that acpi_video.c will never call acpi_video_register_backlight()
+itself.
+
+Since the various (also counting distor packaging) nvidia binary
+driver installers already all modify the kernel commandline to
+blacklist nouveau, then the installers can just also pass this
+parameter and then acpi_video.c will never register the acpi_video#.
+
+This does mean that the nvidia binary driver then must call
+acpi_video_register_backlight() when an internal panel is found.
+
+Note the current patches to amdgpu/nouveau skip the calling of
+acpi_video_register_backlight() when
+the acpi_video_backlight_use_native() call returns true and they
+have registered their own backlight. But calling it always is ok
+*as long as the driver is driving the laptops internal panel* !
+
+acpi_video_register_backlight() contains:
+
+       if (acpi_video_get_backlight_type() != acpi_backlight_video)
+                return 0;
+
+So calling it when a native backlight has already been registered
+is a no-op.
+
+Please let me know if the proposed solution works for you and
+if you want me to make ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY a
+module-option for the next version.
+
+Regards,
+
+Hans
+
+
+p.s.
+
+I think that eventually I might even try to make the new
+module-param default to 0 / default to not having acpi_video.c
+do the registering itself ever and see how that goes...
+
+
+
+
+>>>   }
+>>> +
+>>> +enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>>> +{
+>>> +    return __acpi_video_get_backlight_type(false);
+>>> +}
+>>>   EXPORT_SYMBOL(acpi_video_get_backlight_type);
+>>>   +bool acpi_video_backlight_use_native(void)
+>>> +{
+>>> +    return __acpi_video_get_backlight_type(true) == acpi_backlight_native;
+>>> +}
+>>> +EXPORT_SYMBOL(acpi_video_backlight_use_native);
+>>> +
+>>>   /*
+>>>    * Set the preferred backlight interface type based on DMI info.
+>>>    * This function allows DMI blacklists to be implemented by external
+>>> diff --git a/include/acpi/video.h b/include/acpi/video.h
+>>> index db8548ff03ce..4705e339c252 100644
+>>> --- a/include/acpi/video.h
+>>> +++ b/include/acpi/video.h
+>>> @@ -56,6 +56,7 @@ extern void acpi_video_unregister(void);
+>>>   extern int acpi_video_get_edid(struct acpi_device *device, int type,
+>>>                      int device_id, void **edid);
+>>>   extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
+>>> +extern bool acpi_video_backlight_use_native(void);
+>>>   extern void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type);
+>>>   /*
+>>>    * Note: The value returned by acpi_video_handles_brightness_key_presses()
+>>> @@ -77,6 +78,10 @@ static inline enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>>>   {
+>>>       return acpi_backlight_vendor;
+>>>   }
+>>> +static inline bool acpi_video_backlight_use_native(void)
+>>> +{
+>>> +    return true;
+>>> +}
+>>>   static inline void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
+>>>   {
+>>>   }
 > 
-> > -----Original Message-----
-> > From: Lyude Paul <lyude@redhat.com>
-> > Sent: Wednesday, June 8, 2022 3:30 AM
-> > To: dri-devel@lists.freedesktop.org; nouveau@lists.freedesktop.org; amd-
-> > gfx@lists.freedesktop.org
-> > Cc: Lin, Wayne <Wayne.Lin@amd.com>; Ville Syrjälä
-> > <ville.syrjala@linux.intel.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Jani
-> > Nikula
-> > <jani.nikula@intel.com>; Imre Deak <imre.deak@intel.com>; Daniel Vetter
-> > <daniel.vetter@ffwll.ch>; Sean Paul <sean@poorly.run>; David Airlie
-> > <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; Thomas Zimmermann
-> > <tzimmermann@suse.de>; Lakha, Bhawanpreet
-> > <Bhawanpreet.Lakha@amd.com>; open list <linux-kernel@vger.kernel.org>
-> > Subject: [RESEND RFC 15/18] drm/display/dp_mst: Skip releasing payloads if
-> > last connected port isn't connected
-> > 
-> > In the past, we've ran into strange issues regarding errors in response to
-> > trying to destroy payloads after a port has been unplugged. We fixed this
-> > back in:
-> > 
-> > This is intended to replace the workaround that was added here:
-> > 
-> > commit 3769e4c0af5b ("drm/dp_mst: Avoid to mess up payload table by
-> > ports in stale topology")
-> > 
-> > which was intended fix to some of the payload leaks that were observed
-> > before, where we would attempt to determine if the port was still
-> > connected to the topology before updating payloads using
-> > drm_dp_mst_port_downstream_of_branch. This wasn't a particularly good
-> > solution, since one of the points of still having port and mstb validation
-> > is to
-> > avoid sending messages to newly disconnected branches wherever possible
-> > - thus the required use of drm_dp_mst_port_downstream_of_branch
-> > would indicate something may be wrong with said validation.
-> > 
-> > It seems like it may have just been races and luck that made
-> > drm_dp_mst_port_downstream_of_branch work however, as while I was
-> > trying to figure out the true cause of this issue when removing the legacy
-> > MST code - I discovered an important excerpt in section 2.14.2.3.3.6 of
-> > the DP
-> > 2.0
-> > specs:
-> > 
-> > "BAD_PARAM - This reply is transmitted when a Message Transaction
-> > parameter is in error; for example, the next port number is invalid or /no
-> > device is connected/ to the port associated with the port number."
-> > 
-> > Sure enough - removing the calls to
-> > drm_dp_mst_port_downstream_of_branch()
-> > and instead checking the ->ddps field of the parent port to see whether we
-> > should release a given payload or not seems to totally fix the issue. This
-> > does
-> > actually make sense to me, as it seems the implication is that given a
-> > topology where an MSTB is removed, the payload for the MST parent's port
-> > will be released automatically if that port is also marked as
-> > disconnected.
-> > However, if there's another parent in the chain after that which is
-> > connected
-> > - payloads must be released there with an ALLOCATE_PAYLOAD message.
-> > 
-> > So, let's do that!
-> > 
-> > Signed-off-by: Lyude Paul <lyude@redhat.com>
-> > Cc: Wayne Lin <Wayne.Lin@amd.com>
-> > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> > Cc: Jani Nikula <jani.nikula@intel.com>
-> > Cc: Imre Deak <imre.deak@intel.com>
-> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > Cc: Sean Paul <sean@poorly.run>
-> > ---
-> >  drivers/gpu/drm/display/drm_dp_mst_topology.c | 51 +++++++------------
-> >  1 file changed, 17 insertions(+), 34 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > index dd314586bac3..70adb8db4335 100644
-> > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > @@ -3137,7 +3137,7 @@ static struct drm_dp_mst_port
-> > *drm_dp_get_last_connected_port_to_mstb(struct drm  static struct
-> > drm_dp_mst_branch *  drm_dp_get_last_connected_port_and_mstb(struct
-> > drm_dp_mst_topology_mgr *mgr,
-> >                                         struct drm_dp_mst_branch *mstb,
-> > -                                       int *port_num)
-> > +                                       struct drm_dp_mst_port
-> > **last_port)
-> >  {
-> >         struct drm_dp_mst_branch *rmstb = NULL;
-> >         struct drm_dp_mst_port *found_port;
-> > @@ -3153,7 +3153,8 @@
-> > drm_dp_get_last_connected_port_and_mstb(struct
-> > drm_dp_mst_topology_mgr *mgr,
-> > 
-> >                 if (drm_dp_mst_topology_try_get_mstb(found_port-
-> > > parent)) {
-> >                         rmstb = found_port->parent;
-> > -                       *port_num = found_port->port_num;
-> > +                       *last_port = found_port;
-> > +                       drm_dp_mst_get_port_malloc(found_port);
-> >                 } else {
-> >                         /* Search again, starting from this parent */
-> >                         mstb = found_port->parent;
-> > @@ -3170,7 +3171,7 @@ static int drm_dp_payload_send_msg(struct
-> > drm_dp_mst_topology_mgr *mgr,
-> >                                    int pbn)
-> >  {
-> >         struct drm_dp_sideband_msg_tx *txmsg;
-> > -       struct drm_dp_mst_branch *mstb;
-> > +       struct drm_dp_mst_branch *mstb = NULL;
-> >         int ret, port_num;
-> >         u8 sinks[DRM_DP_MAX_SDP_STREAMS];
-> >         int i;
-> > @@ -3178,12 +3179,22 @@ static int drm_dp_payload_send_msg(struct
-> > drm_dp_mst_topology_mgr *mgr,
-> >         port_num = port->port_num;
-> >         mstb = drm_dp_mst_topology_get_mstb_validated(mgr, port-
-> > > parent);
-> >         if (!mstb) {
-> > -               mstb = drm_dp_get_last_connected_port_and_mstb(mgr,
-> > -                                                              port-
-> > >parent,
-> > -                                                              &port_num);
-> > +               struct drm_dp_mst_port *rport = NULL;
-> > +               bool ddps;
-> > 
-> > +               mstb = drm_dp_get_last_connected_port_and_mstb(mgr,
-> > port->parent,
-> > +&rport);
-> >                 if (!mstb)
-> >                         return -EINVAL;
-> > +
-> > +               ddps = rport->ddps;
-> > +               port_num = rport->port_num;
-> > +               drm_dp_mst_put_port_malloc(rport);
-> > +
-> > +               /* If the port is currently marked as disconnected, don't
-> > send
-> > a payload message */
-> > +               if (!ddps) {
-> Hi Lyude,
-> 
-> Thanks for driving this!
-> Shouldn't we still send ALLOCATE_PAYLOAD with PBN 0 to the last connected 
-> Port even its peer device is disconnected? We rely on this "path msg" to
-> update
-> all payload ID tables along the virtual payload channel.
-> 
-
-Do you know if there's any devices that break with this change, btw? Would be
-super useful to know imho, and if so I might be alright with dropping it
-depending on what the answer to the next paragraph is.
-
-> commit 3769e4c0af5b ("drm/dp_mst: Avoid to mess up payload table by
-> ports in stale topology") was trying to skip updating payload for a target
-> which is
-> no longer existing in the current topology rooted at mgr->mst_primary. I
-> passed
-> "mgr->mst_primary" to drm_dp_mst_port_downstream_of_branch() previously.
-> Sorry, I might not fully understand the issue you've seen. Could you
-> elaborate on
-> this more please?
-> 
-> Thanks!
-
-I will have to double check this since it's been a month, but basically - the
-idea of having the topology references in the first place was to be the one
-check for figuring out whether something's in a topology or not. I've been
-thinking of maybe trying to replace it at some point, but I think we'd want to
-do it all over the helpers instead of just in certain spots.
-
-The other thing I noticed was that when I was rewriting this code, I noticed
-it seemed a lot like we had misunderstood the issue that was causing leaks in
-the first place. The BAD_PARAM we noticed indicates the payload we're trying
-to remove on the other end doesn't exist anymore, meaning the branch device in
-question got rid of any payloads it had active in response to the CSN. In
-testing though I found that payloads would be automatically released in
-situations where the last reachable port was marked as disconnected via a
-previous CSN, but was still reachable otherwise, and not in any other
-situation. This also seemed to match up with the excerpts in the DP spec that
-I found, so I assumed it was probably correct.
-
-Also, I think using the DDPS field instead of trying to traverse the topology
-state (which might not have been fully updated yet in response to CSNs) might
-be a slightly better idea since DDPS may end up being updated before the port
-has been removed from our in-memory topology, which is kind of one of the
-reasons I've been considering trying to come up with a better solution then
-topology references someday (unfortunately it works 'good enough' for the most
-part, so definitely not a priority). This is 100% a guess on my part though.
-
-> > +                       ret = -EINVAL;
-> > +                       goto fail_put;
-> > +               }
-> >         }
-> > 
-> >         txmsg = kzalloc(sizeof(*txmsg), GFP_KERNEL); @@ -3384,7 +3395,6
-> > @@ int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr
-> > *mgr, int start_s
-> >         struct drm_dp_mst_port *port;
-> >         int i, j;
-> >         int cur_slots = start_slot;
-> > -       bool skip;
-> > 
-> >         mutex_lock(&mgr->payload_lock);
-> >         for (i = 0; i < mgr->max_payloads; i++) { @@ -3399,16 +3409,6 @@
-> > int
-> > drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
-> > int start_s
-> >                         port = container_of(vcpi, struct drm_dp_mst_port,
-> >                                             vcpi);
-> > 
-> > -                       mutex_lock(&mgr->lock);
-> > -                       skip
-> > = !drm_dp_mst_port_downstream_of_branch(port, mgr->mst_primary);
-> > -                       mutex_unlock(&mgr->lock);
-> > -
-> > -                       if (skip) {
-> > -                               drm_dbg_kms(mgr->dev,
-> > -                                           "Virtual channel %d is not in
-> > current
-> > topology\n",
-> > -                                           i);
-> > -                               continue;
-> > -                       }
-> >                         /* Validated ports don't matter if we're releasing
-> >                          * VCPI
-> >                          */
-> > @@ -3509,7 +3509,6 @@ int drm_dp_update_payload_part2(struct
-> > drm_dp_mst_topology_mgr *mgr)
-> >         struct drm_dp_mst_port *port;
-> >         int i;
-> >         int ret = 0;
-> > -       bool skip;
-> > 
-> >         mutex_lock(&mgr->payload_lock);
-> >         for (i = 0; i < mgr->max_payloads; i++) { @@ -3519,13 +3518,6 @@
-> > int
-> > drm_dp_update_payload_part2(struct drm_dp_mst_topology_mgr *mgr)
-> > 
-> >                 port = container_of(mgr->proposed_vcpis[i], struct
-> > drm_dp_mst_port, vcpi);
-> > 
-> > -               mutex_lock(&mgr->lock);
-> > -               skip = !drm_dp_mst_port_downstream_of_branch(port,
-> > mgr->mst_primary);
-> > -               mutex_unlock(&mgr->lock);
-> > -
-> > -               if (skip)
-> > -                       continue;
-> > -
-> >                 drm_dbg_kms(mgr->dev, "payload %d %d\n", i, mgr-
-> > > payloads[i].payload_state);
-> >                 if (mgr->payloads[i].payload_state == DP_PAYLOAD_LOCAL)
-> > {
-> >                         ret = drm_dp_create_payload_step2(mgr, port, mgr-
-> > > proposed_vcpis[i]->vcpi, &mgr->payloads[i]); @@ -4780,18 +4772,9 @@
-> > EXPORT_SYMBOL(drm_dp_mst_reset_vcpi_slots);
-> >  void drm_dp_mst_deallocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
-> >                                 struct drm_dp_mst_port *port)
-> >  {
-> > -       bool skip;
-> > -
-> >         if (!port->vcpi.vcpi)
-> >                 return;
-> > 
-> > -       mutex_lock(&mgr->lock);
-> > -       skip = !drm_dp_mst_port_downstream_of_branch(port, mgr-
-> > > mst_primary);
-> > -       mutex_unlock(&mgr->lock);
-> > -
-> > -       if (skip)
-> > -               return;
-> > -
-> >         drm_dp_mst_put_payload_id(mgr, port->vcpi.vcpi);
-> >         port->vcpi.num_slots = 0;
-> >         port->vcpi.pbn = 0;
-> > --
-> > 2.35.3
-> --
-> Wayne Lin
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
 
