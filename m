@@ -4,46 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F65C3F6B0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Aug 2022 16:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14207C19F28
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Aug 2022 18:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A162C11AE51;
-	Wed,  3 Aug 2022 16:30:22 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D981110F066
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Aug 2022 16:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=d3lI/n0DQlC6/35HbAsTJhjn7Jimq1jxItGybqOfrvg=; b=Ss95/gziEzrojbiodshV96KYMc
- jb2H+W8sLvJnJqoZUdeWarKrYjHnR5E4ItglAPreAZEBL/xBqtvSKoXk8l/IPMheglXbEpQW6MtXI
- W190hujaSI2B33m691HXj6ZvjpptSseA5xCruyAKZcswj6p1yvgvx1qaXfpWIkDY1S/s6LUA2N7Tr
- otMFgFoFJ6LvxokQWx1UrZs6u9A+iSj0A1MirCkw2Az98sj8VrH0/cpkppWxbuKuHRez9yVu4UgrH
- JSgNBCKJhiYYY9vNltTLbDsjijx9uGOnW2Lsuj9gZmr9FNy4IKutsF4WQs7EOMRfjC3vUxON43Kxt
- CUh8tkKQ==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oJHG2-00Fd4c-C5; Wed, 03 Aug 2022 18:30:06 +0200
-Date: Wed, 3 Aug 2022 15:29:52 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, sungjoon.kim@amd.com, nikola.cornij@amd.com
-Subject: Re: [PATCH] drm/amd/display: set panel orientation before
- drm_dev_register
-Message-ID: <20220803162952.odxi24tb6krgt42n@mail.igalia.com>
-References: <20220803162402.3412968-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C69210FC34;
+	Wed,  3 Aug 2022 18:56:25 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2063.outbound.protection.outlook.com [40.107.96.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C18BF113CFA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Aug 2022 18:56:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kjlgbYPe2l5DzNtugBIqyiCC6+4baSClm1fR03IOhgVmYvxlFzjZLuLM67eWanTfNV93qVxDyAUSraGNLCk7gyWCTfacMqmQhbx3rKRbYtGfeoeg/6mdyF4CLlTm8RNqbuJMezh0aULzdWRGIfwTKybCX2nF1xE2427N5CRH5mDY+Z62OvX6/cm0uCGOd4d8AJbFVIx2bRZlkbo9IXnXgeIz8qRHYu1dWMjaCcNc7lSc6Z39ISvkQypYxC910xbU6cBci78tP0AQfFD023mDuWbbrGvo4Md+oBDZ+4FyumFDoQDnfLaYG2PRmh/q5Nu59Obg47vUOYss8B81LABBxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eQ3+ZY4yhYKVDyG3fYnRwS4UtLzU1AToTP1AuNFusy4=;
+ b=c/irbDPbYRq3wc1wR0ZR63OHb2pY/Mo64sMMdBXjvvwDqnsIrD7bOBP1oeUvEH9jE6qBBHFP3XzRHpvLSfxYOZjT6/0iyNuTPqTTC7txu0VB7+7sjHufq2gG76qv97e87AsmK1PmXNq3s9Bbo94wfzEuN2J+oARX5Nwwt/Pk0yd2h1JI4CrXu4adWcxf+aoKpEXNqFojVGTVi5euTRMxYTBTmxvep2lZ2TzBB34d+/bgVD9s1geM0GY6knTatFcTrQBmNVbMGdARCc3MRUSnIHvHIOcKa9Tga+KopX03DBgzkjz29IAtnZ0h9/FBJDGgSx1TOF4wGNMpdd83hsq3cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eQ3+ZY4yhYKVDyG3fYnRwS4UtLzU1AToTP1AuNFusy4=;
+ b=bovCLhamtXE6Zn70fVogfkW26CbTjPED9HmJPNyrfYrMLsAOICPUJgb3KSSvVLtkaH+KbaxaFkN3uDYCIuHmd9YlT5LcQHf6U73TV5YQfH4+h+vZFT5/JnPFRvcw9iJQwJRSp9C6UHLTpoxSxhOUy+2gZLTSObVUFVYMbInIfxk=
+Received: from DM6PR06CA0063.namprd06.prod.outlook.com (2603:10b6:5:54::40) by
+ MN2PR12MB4159.namprd12.prod.outlook.com (2603:10b6:208:1da::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Wed, 3 Aug
+ 2022 18:56:05 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:54:cafe::91) by DM6PR06CA0063.outlook.office365.com
+ (2603:10b6:5:54::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16 via Frontend
+ Transport; Wed, 3 Aug 2022 18:56:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Wed, 3 Aug 2022 18:56:05 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 3 Aug
+ 2022 13:56:04 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Allocate doorbells only when needed
+Date: Wed, 3 Aug 2022 14:55:43 -0400
+Message-ID: <20220803185543.36786-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="se7qec4jvcwmn7c5"
-Content-Disposition: inline
-In-Reply-To: <20220803162402.3412968-1-mwen@igalia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 38a14ea5-2bab-4864-9cc1-08da7581d1a6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4159:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5e4zxlIjkRwKCUoLv28CaGZO0HfYnb/dLW2lWTh1g12MEZRzq6goTo7+YeTgB0KdHdyfNNSTXpkyEedjUEPHbo1sImm4/4UvRZMEDKbeKtRGRUv9rf5MC/4QarYVnBA3VD43G2dR6jzqQAwIIV8yxTT3EMehuOkXSdpCH3taLvPGa9cTaaA/rk/3JbkuPu2K2/yPlnXEnx3U7NkouvkAC/58J/dATGL1J4jFIVQggYL4JkJ/2/Rz2kA53uYonw9xezSawdhN7dJEMOXGmgvmYYA5xlFRYoVRsb06Q7AuGmyzNChP6NGtus16ZUhXP5e9R0Ah83xr2GBf4inCiVcEUigwEoS1U5uozrnW8MYwOrSG+TXbeVTPGcgriwuZk7LofIO1cavfesrAO82m80GmlokuT7GIeZoUKBg4zK1asbeJkltstAr/sky1fXFtkRcYlN/5qSs1teTiTleBlzmen/z3Tm1VSJ7OQyOrDW7FYhsBGCx8yVHo8/zO4fvMWHI3fJMPPqexGayyFbC7N1+sc0pdfoo9m4OC5on5QfjFA0ZmPpCbZFIKYeetwvd9KgHy7D15+FhG5njHCsaUCeUazqpTOOahGYMXKME8IosubXu58tQMINXTkpcIoHWH980APwdTH4Mp3ny5ubnknGxp5O4YQsHfdPuUvJcGLc+Tip96tryFYnit3+yj7TDj1O6oiwk+xzXrIePxMYKBuwLp4ZGYMhzHxy/JaepF2oheyeuhbems4HuInpJT5jNtxtRm5et86mFVam5ZaWEhS4W5o7QJxMe9cd/6/JQtsucKUkRgmNvnE/axZcPbAKKuQGSsYkOWO0EtWqEb8ap2EZtMRA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(136003)(346002)(39860400002)(396003)(40470700004)(46966006)(36840700001)(70586007)(36756003)(70206006)(8676002)(36860700001)(82310400005)(8936002)(5660300002)(316002)(6916009)(478600001)(1076003)(16526019)(2616005)(26005)(47076005)(186003)(336012)(426003)(41300700001)(6666004)(2906002)(7696005)(40480700001)(81166007)(356005)(83380400001)(82740400003)(40460700003)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2022 18:56:05.3997 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38a14ea5-2bab-4864-9cc1-08da7581d1a6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,305 +97,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: contact@emersion.fr, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Only allocate doorbells when the first queue is created on a GPU or the
+doorbells need to be mapped into CPU or GPU virtual address space. This
+avoids allocating doorbells unnecessarily and can allow more processes
+to use KFD on multi-GPU systems.
 
---se7qec4jvcwmn7c5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c |  9 +++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  5 -----
+ 3 files changed, 22 insertions(+), 5 deletions(-)
 
-On 08/03, Melissa Wen wrote:
-> To set the panel orientation property with quirk, we need the mode size
-> provided by EDID. This info is available after EDID is read by dc_link_de=
-tect()
-> and updated by amdgpu_dm_update_connector_after_detect(). The detection
-> happens at driver load in amdgpu_dm_initialize_drm_device() and,
-> therefore, we can get modes and set panel orientation before
-> drm_dev_register() to avoid DRM warns on creating the connector property
-> after device registration:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 2b3d8bc8f0aa..907f4711abce 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -327,6 +327,12 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
+ 
++	if (!pdd->doorbell_index &&
++	    kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
++		err = -ENOMEM;
++		goto err_alloc_doorbells;
++	}
++
+ 	/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
+ 	 * on unmapped queues for usermode queue oversubscription (no aggregated doorbell)
+ 	 */
+@@ -404,6 +410,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 	if (wptr_bo)
+ 		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
+ err_wptr_map_gart:
++err_alloc_doorbells:
+ err_bind_process:
+ err_pdd:
+ 	mutex_unlock(&p->mutex);
+@@ -1092,6 +1099,10 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 			goto err_unlock;
+ 		}
+ 		offset = kfd_get_process_doorbells(pdd);
++		if (!offset) {
++			err = -ENOMEM;
++			goto err_unlock;
++		}
+ 	} else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
+ 		if (args->size != PAGE_SIZE) {
+ 			err = -EINVAL;
+@@ -2173,6 +2184,8 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+ 			return -EINVAL;
+ 
+ 		offset = kfd_get_process_doorbells(pdd);
++		if (!offset)
++			return -ENOMEM;
+ 	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
+ 		/* MMIO BOs need remapped bus address */
+ 		if (bo_bucket->size != PAGE_SIZE) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index cb3d2ccc5100..b33798f89ef0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -157,6 +157,8 @@ int kfd_doorbell_mmap(struct kfd_dev *dev, struct kfd_process *process,
+ 
+ 	/* Calculate physical address of doorbell */
+ 	address = kfd_get_process_doorbells(pdd);
++	if (!address)
++		return -ENOMEM;
+ 	vma->vm_flags |= VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESERVE |
+ 				VM_DONTDUMP | VM_PFNMAP;
+ 
+@@ -275,6 +277,13 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
+ 
+ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+ {
++	if (!pdd->doorbell_index) {
++		int r = kfd_alloc_process_doorbells(pdd->dev,
++						    &pdd->doorbell_index);
++		if (r)
++			return 0;
++	}
++
+ 	return pdd->dev->doorbell_base +
+ 		pdd->doorbell_index * kfd_doorbell_process_slice(pdd->dev);
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 6c83a519b3a1..951b63677248 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1499,11 +1499,6 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 	if (!pdd)
+ 		return NULL;
+ 
+-	if (kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
+-		pr_err("Failed to alloc doorbell for pdd\n");
+-		goto err_free_pdd;
+-	}
+-
+ 	if (init_doorbell_bitmap(&pdd->qpd, dev)) {
+ 		pr_err("Failed to init doorbell for process\n");
+ 		goto err_free_pdd;
+-- 
+2.32.0
 
-+ cc'ing: Simon Ser
-
->=20
-> [    2.563969] ------------[ cut here ]------------
-> [    2.563971] WARNING: CPU: 6 PID: 325 at drivers/gpu/drm/drm_mode_objec=
-t.c:45 drm_mode_object_add+0x72/0x80 [drm]
-> [    2.563997] Modules linked in: btusb btrtl btbcm btintel btmtk bluetoo=
-th rfkill ecdh_generic ecc usbhid crc16 amdgpu(+) drm_ttm_helper ttm agpgar=
-t gpu_sched i2c_algo_bit drm_display_helper drm_kms_helper syscopyarea sysf=
-illrect sysimgblt fb_sys_fops drm serio_raw sdhci_pci atkbd libps2 cqhci vi=
-valdi_fmap ccp sdhci i8042 crct10dif_pclmul crc32_pclmul hid_multitouch gha=
-sh_clmulni_intel aesni_intel crypto_simd cryptd wdat_wdt mmc_core cec xhci_=
-pci sp5100_tco rng_core xhci_pci_renesas serio 8250_dw i2c_hid_acpi i2c_hid=
- btrfs blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq d=
-m_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
-> [    2.564032] CPU: 6 PID: 325 Comm: systemd-udevd Not tainted 5.18.0-amd=
--staging-drm-next+ #67
-> [    2.564034] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/2=
-022
-> [    2.564036] RIP: 0010:drm_mode_object_add+0x72/0x80 [drm]
-> [    2.564053] Code: f0 89 c3 85 c0 78 07 89 45 00 44 89 65 04 4c 89 ef e=
-8 e2 99 04 f1 31 c0 85 db 0f 4e c3 5b 5d 41 5c 41 5d c3 80 7f 50 00 74 ac <=
-0f> 0b eb a8 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 54 4c
-> [    2.564055] RSP: 0018:ffffb2e880413860 EFLAGS: 00010202
-> [    2.564056] RAX: ffffffffc0ba1440 RBX: ffff99508a860010 RCX: 000000000=
-0000001
-> [    2.564057] RDX: 00000000b0b0b0b0 RSI: ffff99508c050110 RDI: ffff99508=
-a860010
-> [    2.564058] RBP: ffff99508c050110 R08: 0000000000000020 R09: ffff99508=
-c292c20
-> [    2.564059] R10: 0000000000000000 R11: ffff99508c0507d8 R12: 00000000b=
-0b0b0b0
-> [    2.564060] R13: 0000000000000004 R14: ffffffffc068a4b6 R15: ffffffffc=
-068a47f
-> [    2.564061] FS:  00007fc69b5f1a40(0000) GS:ffff9953aff80000(0000) knlG=
-S:0000000000000000
-> [    2.564063] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    2.564063] CR2: 00007f9506804000 CR3: 0000000107f92000 CR4: 000000000=
-0350ee0
-> [    2.564065] Call Trace:
-> [    2.564068]  <TASK>
-> [    2.564070]  drm_property_create+0xc9/0x170 [drm]
-> [    2.564088]  drm_property_create_enum+0x1f/0x70 [drm]
-> [    2.564105]  drm_connector_set_panel_orientation_with_quirk+0x96/0xc0 =
-[drm]
-> [    2.564123]  get_modes+0x4fb/0x530 [amdgpu]
-> [    2.564378]  drm_helper_probe_single_connector_modes+0x1ad/0x850 [drm_=
-kms_helper]
-> [    2.564390]  drm_client_modeset_probe+0x229/0x1400 [drm]
-> [    2.564411]  ? xas_store+0x52/0x5e0
-> [    2.564416]  ? kmem_cache_alloc_trace+0x177/0x2c0
-> [    2.564420]  __drm_fb_helper_initial_config_and_unlock+0x44/0x4e0 [drm=
-_kms_helper]
-> [    2.564430]  drm_fbdev_client_hotplug+0x173/0x210 [drm_kms_helper]
-> [    2.564438]  drm_fbdev_generic_setup+0xa5/0x166 [drm_kms_helper]
-> [    2.564446]  amdgpu_pci_probe+0x35e/0x370 [amdgpu]
-> [    2.564621]  local_pci_probe+0x45/0x80
-> [    2.564625]  ? pci_match_device+0xd7/0x130
-> [    2.564627]  pci_device_probe+0xbf/0x220
-> [    2.564629]  ? sysfs_do_create_link_sd+0x69/0xd0
-> [    2.564633]  really_probe+0x19c/0x380
-> [    2.564637]  __driver_probe_device+0xfe/0x180
-> [    2.564639]  driver_probe_device+0x1e/0x90
-> [    2.564641]  __driver_attach+0xc0/0x1c0
-> [    2.564643]  ? __device_attach_driver+0xe0/0xe0
-> [    2.564644]  ? __device_attach_driver+0xe0/0xe0
-> [    2.564646]  bus_for_each_dev+0x78/0xc0
-> [    2.564648]  bus_add_driver+0x149/0x1e0
-> [    2.564650]  driver_register+0x8f/0xe0
-> [    2.564652]  ? 0xffffffffc1023000
-> [    2.564654]  do_one_initcall+0x44/0x200
-> [    2.564657]  ? kmem_cache_alloc_trace+0x177/0x2c0
-> [    2.564659]  do_init_module+0x4c/0x250
-> [    2.564663]  __do_sys_init_module+0x12e/0x1b0
-> [    2.564666]  do_syscall_64+0x3b/0x90
-> [    2.564670]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [    2.564673] RIP: 0033:0x7fc69bff232e
-> [    2.564674] Code: 48 8b 0d 45 0b 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 6=
-6 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <=
-48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 12 0b 0c 00 f7 d8 64 89 01 48
-> [    2.564676] RSP: 002b:00007ffe872ba3e8 EFLAGS: 00000246 ORIG_RAX: 0000=
-0000000000af
-> [    2.564677] RAX: ffffffffffffffda RBX: 000055873f797820 RCX: 00007fc69=
-bff232e
-> [    2.564678] RDX: 000055873f7bf390 RSI: 0000000001155e81 RDI: 00007fc69=
-9e4d010
-> [    2.564679] RBP: 00007fc699e4d010 R08: 000055873f7bfe20 R09: 000000000=
-1155e90
-> [    2.564680] R10: 000000055873f7bf R11: 0000000000000246 R12: 000055873=
-f7bf390
-> [    2.564681] R13: 000000000000000d R14: 000055873f7c4cb0 R15: 000055873=
-f797820
-> [    2.564683]  </TASK>
-> [    2.564683] ---[ end trace 0000000000000000 ]---
-> [    2.564696] ------------[ cut here ]------------
-> [    2.564696] WARNING: CPU: 6 PID: 325 at drivers/gpu/drm/drm_mode_objec=
-t.c:242 drm_object_attach_property+0x52/0x80 [drm]
-> [    2.564717] Modules linked in: btusb btrtl btbcm btintel btmtk bluetoo=
-th rfkill ecdh_generic ecc usbhid crc16 amdgpu(+) drm_ttm_helper ttm agpgar=
-t gpu_sched i2c_algo_bit drm_display_helper drm_kms_helper syscopyarea sysf=
-illrect sysimgblt fb_sys_fops drm serio_raw sdhci_pci atkbd libps2 cqhci vi=
-valdi_fmap ccp sdhci i8042 crct10dif_pclmul crc32_pclmul hid_multitouch gha=
-sh_clmulni_intel aesni_intel crypto_simd cryptd wdat_wdt mmc_core cec xhci_=
-pci sp5100_tco rng_core xhci_pci_renesas serio 8250_dw i2c_hid_acpi i2c_hid=
- btrfs blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq d=
-m_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
-> [    2.564738] CPU: 6 PID: 325 Comm: systemd-udevd Tainted: G        W   =
-      5.18.0-amd-staging-drm-next+ #67
-> [    2.564740] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/2=
-022
-> [    2.564741] RIP: 0010:drm_object_attach_property+0x52/0x80 [drm]
-> [    2.564759] Code: 2d 83 f8 18 74 33 48 89 74 c1 08 48 8b 4f 08 48 89 9=
-4 c1 c8 00 00 00 48 8b 47 08 83 00 01 c3 4d 85 d2 75 dd 83 7f 58 01 75 d7 <=
-0f> 0b eb d3 41 80 78 50 00 74 cc 0f 0b eb c8 44 89 ce 48 c7 c7 28
-> [    2.564760] RSP: 0018:ffffb2e8804138d8 EFLAGS: 00010246
-> [    2.564761] RAX: 0000000000000010 RBX: ffff99508c1a2000 RCX: ffff99508=
-c1a2180
-> [    2.564762] RDX: 0000000000000003 RSI: ffff99508c050100 RDI: ffff99508=
-c1a2040
-> [    2.564763] RBP: 00000000ffffffff R08: ffff99508a860010 R09: 00000000c=
-0c0c0c0
-> [    2.564763] R10: 0000000000000000 R11: 0000000000000020 R12: ffff99508=
-a860010
-> [    2.564764] R13: ffff995088733008 R14: ffff99508c1a2000 R15: ffffffffc=
-068a47f
-> [    2.564765] FS:  00007fc69b5f1a40(0000) GS:ffff9953aff80000(0000) knlG=
-S:0000000000000000
-> [    2.564766] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    2.564767] CR2: 00007f9506804000 CR3: 0000000107f92000 CR4: 000000000=
-0350ee0
-> [    2.564768] Call Trace:
-> [    2.564769]  <TASK>
-> [    2.564770]  drm_connector_set_panel_orientation_with_quirk+0x4a/0xc0 =
-[drm]
-> [    2.564789]  get_modes+0x4fb/0x530 [amdgpu]
-> [    2.565024]  drm_helper_probe_single_connector_modes+0x1ad/0x850 [drm_=
-kms_helper]
-> [    2.565036]  drm_client_modeset_probe+0x229/0x1400 [drm]
-> [    2.565056]  ? xas_store+0x52/0x5e0
-> [    2.565060]  ? kmem_cache_alloc_trace+0x177/0x2c0
-> [    2.565062]  __drm_fb_helper_initial_config_and_unlock+0x44/0x4e0 [drm=
-_kms_helper]
-> [    2.565072]  drm_fbdev_client_hotplug+0x173/0x210 [drm_kms_helper]
-> [    2.565080]  drm_fbdev_generic_setup+0xa5/0x166 [drm_kms_helper]
-> [    2.565088]  amdgpu_pci_probe+0x35e/0x370 [amdgpu]
-> [    2.565261]  local_pci_probe+0x45/0x80
-> [    2.565263]  ? pci_match_device+0xd7/0x130
-> [    2.565265]  pci_device_probe+0xbf/0x220
-> [    2.565267]  ? sysfs_do_create_link_sd+0x69/0xd0
-> [    2.565268]  really_probe+0x19c/0x380
-> [    2.565270]  __driver_probe_device+0xfe/0x180
-> [    2.565272]  driver_probe_device+0x1e/0x90
-> [    2.565274]  __driver_attach+0xc0/0x1c0
-> [    2.565276]  ? __device_attach_driver+0xe0/0xe0
-> [    2.565278]  ? __device_attach_driver+0xe0/0xe0
-> [    2.565279]  bus_for_each_dev+0x78/0xc0
-> [    2.565281]  bus_add_driver+0x149/0x1e0
-> [    2.565283]  driver_register+0x8f/0xe0
-> [    2.565285]  ? 0xffffffffc1023000
-> [    2.565286]  do_one_initcall+0x44/0x200
-> [    2.565288]  ? kmem_cache_alloc_trace+0x177/0x2c0
-> [    2.565290]  do_init_module+0x4c/0x250
-> [    2.565291]  __do_sys_init_module+0x12e/0x1b0
-> [    2.565294]  do_syscall_64+0x3b/0x90
-> [    2.565296]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [    2.565297] RIP: 0033:0x7fc69bff232e
-> [    2.565298] Code: 48 8b 0d 45 0b 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 6=
-6 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <=
-48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 12 0b 0c 00 f7 d8 64 89 01 48
-> [    2.565299] RSP: 002b:00007ffe872ba3e8 EFLAGS: 00000246 ORIG_RAX: 0000=
-0000000000af
-> [    2.565301] RAX: ffffffffffffffda RBX: 000055873f797820 RCX: 00007fc69=
-bff232e
-> [    2.565302] RDX: 000055873f7bf390 RSI: 0000000001155e81 RDI: 00007fc69=
-9e4d010
-> [    2.565303] RBP: 00007fc699e4d010 R08: 000055873f7bfe20 R09: 000000000=
-1155e90
-> [    2.565303] R10: 000000055873f7bf R11: 0000000000000246 R12: 000055873=
-f7bf390
-> [    2.565304] R13: 000000000000000d R14: 000055873f7c4cb0 R15: 000055873=
-f797820
-> [    2.565306]  </TASK>
-> [    2.565307] ---[ end trace 0000000000000000 ]---
->=20
-> Fixes: d77de7880e0e0 ("amd/display: enable panel orientation quirks")
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 0d54c1486739..c2806695589a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4133,6 +4133,7 @@ static void register_backlight_device(struct amdgpu=
-_display_manager *dm,
->  	}
->  }
-> =20
-> +static void amdgpu_set_panel_orientation(struct amdgpu_dm_connector *aco=
-nnector);
-> =20
->  /*
->   * In this architecture, the association
-> @@ -4324,6 +4325,7 @@ static int amdgpu_dm_initialize_drm_device(struct a=
-mdgpu_device *adev)
->  					adev_to_drm(adev)->vblank_disable_immediate =3D false;
->  			}
->  		}
-> +		amdgpu_set_panel_orientation(aconnector);
->  	}
-> =20
->  	/* Software is initialized. Now we can register interrupt handlers. */
-> @@ -6672,16 +6674,28 @@ static void amdgpu_dm_connector_add_common_modes(=
-struct drm_encoder *encoder,
->  	}
->  }
-> =20
-> -static void amdgpu_set_panel_orientation(struct drm_connector *connector)
-> +static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *conn=
-ector,
-> +					      struct edid *edid);
-> +
-> +static void amdgpu_set_panel_orientation(struct amdgpu_dm_connector *aco=
-nnector)
->  {
->  	struct drm_encoder *encoder;
-> +	struct drm_connector *connector =3D &aconnector->base;
->  	struct amdgpu_encoder *amdgpu_encoder;
->  	const struct drm_display_mode *native_mode;
-> +	struct edid *edid =3D aconnector->edid;
-> =20
->  	if (connector->connector_type !=3D DRM_MODE_CONNECTOR_eDP &&
->  	    connector->connector_type !=3D DRM_MODE_CONNECTOR_LVDS)
->  		return;
-> =20
-> +	if (!drm_edid_is_valid(edid))
-> +		return;
-> +
-> +	mutex_lock(&connector->dev->mode_config.mutex);
-> +	amdgpu_dm_connector_ddc_get_modes(connector, edid);
-> +	mutex_unlock(&connector->dev->mode_config.mutex);
-> +
->  	encoder =3D amdgpu_dm_connector_to_encoder(connector);
->  	if (!encoder)
->  		return;
-> @@ -6726,8 +6740,6 @@ static void amdgpu_dm_connector_ddc_get_modes(struc=
-t drm_connector *connector,
->  		 * restored here.
->  		 */
->  		amdgpu_dm_update_freesync_caps(connector, edid);
-> -
-> -		amdgpu_set_panel_orientation(connector);
->  	} else {
->  		amdgpu_dm_connector->num_modes =3D 0;
->  	}
-> --=20
-> 2.35.1
->=20
-
---se7qec4jvcwmn7c5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmLqonUACgkQwqF3j0dL
-ehy8vxAAg6imursN9x0tqxP0X49Wq0sNtCJJqOoJQxHwgtKx39QxLuy2ZyAG74El
-dtb8CWR1bwZ+r848lSmNMiOQ7pPjZf3gAyMjpkK05x6jarnX5wc3wuPGt/VSw5MS
-KSzYC5aDih6UqKm/txaMYEKRXL48HMDozHkbKyJQdOAoFsS8IsNus2vhvgy/Pif2
-FbhaPEkSv/kOtb7RL/4rj9A9kLUPndPrTJk895stu4Gnsw/lpUsnuXNhG4o+TwW2
-tnlkxxEKqn+eM3b4RaRurZSu/T1NccyrSYhbNjgfZzGBuTKvZnFgn+yq9MF0QI2H
-3jf8RtCyj8DOQjoXhIgICliZf3eKrI/IOuCsiLACy7C+SQwH5q7hishINKHmXhcf
-651ClMdIuhGOSPN105rE5G3lYWofTGvOk+y4ON3YyqXwVCfPUVr4h0bfQCTJNGCO
-XI3vvz+PlzBcYgO9EHB0IwA9c3/EMz2U5Al4kODk/5yW4js4OnxlMZW63hQGG7Gj
-SiuEXGIrYWA+bKHs+ZcW9iKtDZi3dLb9uIbiReRQh0/zNVw2WKqoxZjr/OG+IybP
-VDmZnS5EYLHetBfBiGDm2vswcdSkE27+8A3ndziCqDkmwZYFvg6OPcRP2DPYlMNY
-4W83+xmk1lImMV8qxY1EkRt+gxG8x6uiDatmc3HtfiSr0REV/jM=
-=iu7W
------END PGP SIGNATURE-----
-
---se7qec4jvcwmn7c5--
