@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50D9C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 15:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48206C25B07
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 16:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB3C9BF91;
-	Thu,  4 Aug 2022 15:53:15 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3069BF8A
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 15:53:02 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id b16so195153edd.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 08:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=kfOK7s3xFsw9XOCf5rZ5v1wNOUbWhtj/0D6S2FQvtM4=;
- b=xkMI17oM3zfPjoCLWJIfoLEnzXtAFKPZa4ZWlivsE178VeTOwHGHU9Hr4pUoF4Fx5S
- e5YGoJoRK/7ejxUK4KXnY7eldNgTsVQ2YrMR5ogMfXVKZJtB/QUM5al6wZmb10Kdg3jN
- s80XcOp8siV+ER6lpOr5DSL58AxHq3TX45uYGA1BvPIJLivLpurOqY402nDfKfJZEzYY
- kQnYggNAwZjX6kO83NC1DuySWHjriR7yj2vyTtF38zJF7oVm/t7a9+qkfrSmrcH2CSgW
- 9rYw92j4oquUkSL8DYp7d/2V15rgUrXkgF1HU9mqEJzxSGqzGYh1tcYl0fdN0SrmHJ0G
- LPtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=kfOK7s3xFsw9XOCf5rZ5v1wNOUbWhtj/0D6S2FQvtM4=;
- b=6hPTEX+DGdJ9Ugo/AYibAeaZ3NIy6yZg68VfHdQXLIehc7/3KkoorX4ZZrWQK4EBz4
- 3M4GSrTxkBHDzs4ShmlRqVr9kdya/sCR7Rk965eMvk720eZxFtSojabrBADkEMYIXYxL
- oyRqDHL6kwDWHj5cbOMzTM037DgTfdqDBg/UVVICIHP2raShqxnlw9FIGd4iOWw8LJEA
- 14MHZXIhYkW7tRZrQUMcRTVJnAY5s97ZeiHPd1OLfIUfxKlI248wpBof6IZGBTXS7y4l
- /9ALaw+Ddy7fwah8H0Ti1SkXkDUCYcZdNQVFie/qIGHmwpxQPjS8LwTbhbqjl+zWQUI1
- PlpQ==
-X-Gm-Message-State: ACgBeo1e9aqCtsrvNFExnzKnJY75KI2eD1PgpS1fSnO9RzM8pIOfk2xu
- DMzFMKTzSayhirUTfOCbaq4N4JdRHR7NZWp/ekPvVg==
-X-Google-Smtp-Source: AA6agR6lQ9q9dJTBGl3Gilpz3rF721hsEVFdi6SAsf5d+O2sa6KidsumgOaF4nVCpZCbmEiXDBPvWVfWUWYmNO/CD1s=
-X-Received: by 2002:a05:6402:2d1:b0:43c:bb20:71bf with SMTP id
- b17-20020a05640202d100b0043cbb2071bfmr2688992edx.59.1659628380746; Thu, 04
- Aug 2022 08:53:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63C34112673;
+	Thu,  4 Aug 2022 16:03:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 980579BE0E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 16:02:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DgXKfVMoRNN5jcxY0mZdKzXhQAPy/alAyPLpY60NXxbPo9nsSg8FZi3vmzl2cn5tLJwze+c2cwrTdozwn6+NXFePqFHXgfihef1/3vYwg5M0Ry/nxkUmVvWbgoAG8y5l4vtVPaQSle6N1RpD+YEE3G/ehxn2302jVoySWMQGDWYCA2Ed6+At35IoxS7dq9RvwMnLdnlGxiW2SgISiulsqPm/d2vGrqqwHoOZJ1BSAtEQ3NmB5KcBI2j5PZH5ZDfMHxQYfek7OMDdlygR/+6zL5LPxHMLf45LTuT+tXOwYe1pEp6uAxN/xectO9gKBmFdP+RMbxqBG4oK4dlxeUhxyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rN67Xnt8VMzq/DjVYOYBxoMn2oe4EuhuEYJo2z1xBPA=;
+ b=R/xBYhN548NII0YYqN3zYSB8yLzUtmYnSswtpYpJiN0B9EqYa7AjNfZ5dTHNYgaW1BiXrlF7ssCPQEgu7HzgfVjkA4QK1tWsE3WWK7ZF6eStipH9QsnJ9VIa8zP7JFo6PAwkAkTBadDlp7MB2BIp7+E5ZWwyjZF0N8HyG/rY1R3Pcp8NLoMpBdsrzKpraIv+cUdXyHYrpgZcYrQoIl41cavHtnj0Rxax7BCFE1TmUQbxNwMyBe62wp2E0HG5VdJV6bpY5BXD/qRfj12SDbCSozks9+kTxLOT/nJCg1u1Y6Ky1rdE8p3RkwJNNaPOHA/h1kj78rIOdMZNAeVbNkZzVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rN67Xnt8VMzq/DjVYOYBxoMn2oe4EuhuEYJo2z1xBPA=;
+ b=EiDJwlQqxADWKdyuzwGwPw93BTEWukD1x1rPDKEuBwJzzSWQSlSIjcxS8hF0ZXQr1RJg87PTUZahqj7JCHYMeNYh2hpXB2lmjacwFtoVlOh5rpfpBcZ08ArGfclHUaMxDeAN3ILj8yp7K7C8HDUccXtxgfvhyznp/QIRoe+LnA0=
+Received: from BN9PR03CA0776.namprd03.prod.outlook.com (2603:10b6:408:13a::31)
+ by IA1PR12MB6458.namprd12.prod.outlook.com (2603:10b6:208:3aa::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 4 Aug
+ 2022 16:02:47 +0000
+Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13a:cafe::6a) by BN9PR03CA0776.outlook.office365.com
+ (2603:10b6:408:13a::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16 via Frontend
+ Transport; Thu, 4 Aug 2022 16:02:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Thu, 4 Aug 2022 16:02:47 +0000
+Received: from rocm-perf01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 4 Aug
+ 2022 11:02:44 -0500
+From: Joseph Greathouse <Joseph.Greathouse@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Enable translate_further to extend UTCL2 reach
+Date: Thu, 4 Aug 2022 11:01:58 -0500
+Message-ID: <20220804160158.937021-1-Joseph.Greathouse@amd.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20220708102124.493372-1-Arunpravin.PaneerSelvam@amd.com>
- <20220714145423.721e1c3b@maurocar-mobl2>
- <83d9f973-abdd-3d8b-5955-84cfc3f49eea@amd.com>
- <CADnq5_MNkeG4E9ZXRLpgFQxrDN9jDhk7KYYHbjvtY-cUt5Kk8A@mail.gmail.com>
- <076231a3-38e9-e013-e106-aa926d009e77@amd.com>
- <87zgh6b1dp.wl-ashutosh.dixit@intel.com>
-In-Reply-To: <87zgh6b1dp.wl-ashutosh.dixit@intel.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Thu, 4 Aug 2022 16:52:49 +0100
-Message-ID: <CAHbf0-EpHZmpqFgbyY753xQ2HZ_26bYT3qkYy0+EiVfYowzqxg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: add drm buddy support to amdgpu"
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 98234fee-906a-441e-38f9-08da7632c676
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6458:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KZChqVrGCjfclnSZ753I1YCjLp4uc9LO3PdEdr/u9YzFVZkdGVSVIsXcA602BEQWYqIqjoTxT8KKv8/OkZpztcgCXGFsmyJmnkHxgzWBRi5YmZpE25m0ua2fxHvqaBG2Z7FI5tWxfAYJLXe+yCJHwBfS+I0FJAQrgSYsYDhazy9s465xRYtoVKj9yPz1j3sluyoxrQSgcvolfLHmBbbThfr8vYvENYFZAhgr25IHtAUQKjtluf27IS+zMe0xRsXdeW3jM9sbPMWmY8mfbRKBeD/HSe4qo8J/K2z4rk4Yy6Gkbbk6LHmIpvb+BtO2VTKJ36TH8YVFTIigcxC1KSgCiLJiWt2Nd9KIsYRbrMXSa1B7EX7cR2TZZJVYOKabn23oHRrKKHdLSKq0cRZFKJHnPoJkEzwIcxWQzE9qqBAhaXaTYWn6gayrB2CWPALnSnO42KywuP0EUP2KOALbg4OGMYPmggXj2Db7H96MTWMHBOKONoXkbTZt9HwLjHKnqbTrcWekhQJpU43psYUTPLW7u/pcN5F3lVJXmvpNrl8/ZLYzkZuCtwAO7jGc5Zbosv0DEyZQTvPK+ahPtn2d8eOdSERyvV9me09WcMq4Kui8PnPb0TdKcX44NZ94ScLZn/s3eSlUMrM3o1ogWUPQW3P0qsvJ22mwS48l90+c97B9cMzPAp0rPNbus0xc85Wp5WhVesK7eMKo9vDRht2MBVLTpqwQANomBXg4++Xe5hGfR8heyOyGo+cO5fR2Fq3Cu8OAgAWoi51H+/LKf1lr+szTcWrnNosH1ok1ohWJj6VFMZ/FjQRHHRgrE1BXOZwDdWCW8XlchwZXRd+NVNNryUmlvQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(136003)(39860400002)(346002)(396003)(46966006)(36840700001)(40470700004)(2906002)(6666004)(478600001)(41300700001)(70586007)(4326008)(8676002)(86362001)(7696005)(70206006)(316002)(6916009)(36756003)(40480700001)(54906003)(336012)(426003)(47076005)(82310400005)(186003)(16526019)(26005)(83380400001)(8936002)(5660300002)(1076003)(2616005)(82740400003)(81166007)(356005)(36860700001)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2022 16:02:47.5800 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98234fee-906a-441e-38f9-08da7632c676
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6458
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,80 +97,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Kent.Russell@amd.com, Joseph Greathouse <Joseph.Greathouse@amd.com>,
+ Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Enable translate_further on Arcturus and Aldebaran server chips
+in order to increase the UTCL2 reach from 8 GiB to 64 GiB,
+which is more in line with the amount of framebuffer DRAM in
+the devices.
 
-When is this relanding?
+Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Cheers
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 22761a3bb818..ab89d91975ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1624,12 +1624,15 @@ static int gmc_v9_0_sw_init(void *handle)
+ 			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 47);
+ 		else
+ 			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
++		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2))
++			adev->gmc.translate_further = adev->vm_manager.num_level > 1;
+ 		break;
+ 	case IP_VERSION(9, 4, 1):
+ 		adev->num_vmhubs = 3;
+ 
+ 		/* Keep the vm size same with Vega20 */
+ 		amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
++		adev->gmc.translate_further = adev->vm_manager.num_level > 1;
+ 		break;
+ 	default:
+ 		break;
+-- 
+2.20.1
 
-Mike
-
-On Mon, 18 Jul 2022 at 21:40, Dixit, Ashutosh <ashutosh.dixit@intel.com> wr=
-ote:
->
-> On Thu, 14 Jul 2022 08:00:32 -0700, Christian K=C3=B6nig wrote:
-> >
-> > Am 14.07.22 um 15:33 schrieb Alex Deucher:
-> > > On Thu, Jul 14, 2022 at 9:09 AM Christian K=C3=B6nig
-> > > <christian.koenig@amd.com> wrote:
-> > >> Hi Mauro,
-> > >>
-> > >> well the last time I checked drm-tip was clean.
-> > >>
-> > >> The revert is necessary because we had some problems with the commit
-> > >> which we couldn't fix in the 5.19 cycle.
-> > > Would it be worth reverting the revert and applying the actual fix[1]=
-?
-> > >   It's a huge revert unfortunately while the actual fix is like 10
-> > > lines of code.  I'm concerned there will be subtle fallout from the
-> > > revert due to how extensive it is.
-> >
-> > We have other bug fixes and cleanups around that patch which didn't mad=
-e it
-> > into 5.19 either. I don't want to create an ever greater mess.
-> >
-> > Real question is why building drm-tip work for me but not for others?
->
-> Seeing this on latest drm-tip:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:54:1: error: redefinition of=
- =E2=80=98amdgpu_vram_mgr_first_block=E2=80=99
->    54 | amdgpu_vram_mgr_first_block(struct list_head *list)
->       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h:29,
->                  from drivers/gpu/drm/amd/amdgpu/amdgpu.h:73,
->                  from drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:28:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h:57:1: note: previous definit=
-ion of =E2=80=98amdgpu_vram_mgr_first_block=E2=80=99 with type =E2=80=98str=
-uct drm_buddy_block *(struct list_head *)=E2=80=99
->    57 | amdgpu_vram_mgr_first_block(struct list_head *list)
->       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:59:20: error: redefinition o=
-f =E2=80=98amdgpu_is_vram_mgr_blocks_contiguous=E2=80=99
->    59 | static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct li=
-st_head *head)
->       |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h:62:20: note: previous defini=
-tion of =E2=80=98amdgpu_is_vram_mgr_blocks_contiguous=E2=80=99 with type =
-=E2=80=98bool(struct list_head *)=E2=80=99 {aka =E2=80=98_Bool(struct list_=
-head *)=E2=80=99}
->    62 | static inline bool amdgpu_is_vram_mgr_blocks_contiguous(struct li=
-st_head *head)
->       |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> make[4]: *** [scripts/Makefile.build:249: drivers/gpu/drm/amd/amdgpu/amdg=
-pu_vram_mgr.o] Error 1
-> make[4]: *** Waiting for unfinished jobs....
-> make[3]: *** [scripts/Makefile.build:466: drivers/gpu/drm/amd/amdgpu] Err=
-or 2
-> make[2]: *** [scripts/Makefile.build:466: drivers/gpu/drm] Error 2
-> make[1]: *** [scripts/Makefile.build:466: drivers/gpu] Error 2
