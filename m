@@ -4,66 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E57C00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:30:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A45C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:30:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84A93B40E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 125E5B40E0;
 	Fri,  5 Aug 2022 07:24:06 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DECBA2B8F4
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 21:59:20 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id w19so1693232ejc.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 14:59:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=IcNrO1+0hMqd184OyaCGXcplDsRzgmMXiA2NSTUXMiA=;
- b=DgUfEmbFi+7iccqebXv/ZmxHK9r9RdQFXNZ8Dr8nUqVqSFRu1k1i4dkyHQybTDWbVO
- sp+j5Hqj+Tzo+GWbTEgXuKCuNQljNQ9hMiFfoJp1J9Mgms1GKmSOP/+HzKIHuHs4qy4O
- 3hYvbGIWtatQX31kWhmvlVBT2gIyBbOi9AxB0=
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB6AA32A6;
+ Thu,  4 Aug 2022 18:02:13 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id v3so721221wrp.0;
+ Thu, 04 Aug 2022 11:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=/C+hKhyGa8Z8FqlEwwzUM2g+6zJUxH3CoGD+BmNpkRU=;
+ b=R8+tjsNc1/Im1xglpXDPLenvKjzuwlsNixpILoBBmgw1sfowInHxLfXcsUxBYDCPqe
+ BT0FbPwYmxRogJJkTHEWDG9cuc6pw4fni2WFcQ1bHrQDsMmEWDf7mUGRFtKfQ1BZzYk3
+ 7R4XAhochon4AtoWTnt32GOF3r5207wHw2Sfu8eR0RWFknb4QFrg32JZawvESIn4Vpjw
+ zI+Oy82c5uBFxWD8obCGqB1qwzab8ZbyTu9W15RiyYXGUxMg0C44+SiJzpmxJjj71M8z
+ dsdCNlaUcILZ501DtzJB2AWnBMuDOaoBPenga+h78WHT+qH9stUufLiZ9TdsRU8wF5GC
+ G4qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=IcNrO1+0hMqd184OyaCGXcplDsRzgmMXiA2NSTUXMiA=;
- b=Rt8pxaG4i/iZ5k4H/+qRArYv0bkYR+nNpQt+47gyBvjgP6/mqbyCzD8/IUbq2EFndx
- ypzOOUHmypwigFNjFHBmmceAJU/BQQSstyi0dgYWSt2uGSICz/HRyqjCrk101iv89pzQ
- G/a1MVZYN2IUTx5lcwDwF+lKxFEi0IuwzbjSro2W+kBHqEglh9dMlCvu4mBQ0TFzhlQ0
- LeO90thVLsr2bwtFiho5R6PO48RtWQAX5Eezd+SwifMn+gRcn5EHOlQsCtpsZV6YUGlM
- uXuAgmRu6JC4ByS2b08NdRHPeS5Nw5oKwKvbdwbZrco5vAqyJlgCkw2mHeVbEjhdrrfb
- u8QA==
-X-Gm-Message-State: ACgBeo0NQ/6AQHH2xFpliq+MP03LMWH8+D7TVRvtBmYVLQ9nidk70N33
- NgRvkd4AoD8bq3wGQMGaL0XO1SU85ZLgnoZW
-X-Google-Smtp-Source: AA6agR7Ea5yZCD2MnYhuj0ME3E7n7ustfgZ+QX47mCat4HvEg2+tykGnZoUze9tzmpz7MFED1GJVSg==
-X-Received: by 2002:a17:907:2d12:b0:72b:67fb:89a5 with SMTP id
- gs18-20020a1709072d1200b0072b67fb89a5mr2883968ejc.507.1659650358884; 
- Thu, 04 Aug 2022 14:59:18 -0700 (PDT)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com.
- [209.85.221.48]) by smtp.gmail.com with ESMTPSA id
- 23-20020a170906329700b007305c007e43sm772159ejw.135.2022.08.04.14.59.17
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Aug 2022 14:59:18 -0700 (PDT)
-Received: by mail-wr1-f48.google.com with SMTP id p10so1228528wru.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 14:59:17 -0700 (PDT)
-X-Received: by 2002:a5d:638b:0:b0:220:6e1a:8794 with SMTP id
- p11-20020a5d638b000000b002206e1a8794mr2534090wru.193.1659650357549; Thu, 04
- Aug 2022 14:59:17 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=/C+hKhyGa8Z8FqlEwwzUM2g+6zJUxH3CoGD+BmNpkRU=;
+ b=hlo3PitmFtqRBlFRLFvSZCqUKjKkuaVaPBn+TOHOO3YzMBCDNWcw6yetK0k5xcSEjk
+ WrjEMr3h4tzqKdcoMR8YiKTlrUJU38ksUQfZbdjN4WbY4fBziwVF3vNxEHix0bsJ1CAN
+ /PwMfJxb+sKixkQ9nYoBs6diGBG8UOVz8WI91JQQB9IFTAQk4vUxCafbW2cELNz5O6ei
+ nusgfTWCOuxqWtneFagvK6QhMdDzliM3zuVzjGSh5e65YBJYvMZw4x/J4pwGlhI2AWIM
+ IyfTZquHoXCSb8M/zGlmVDYmjS0BRTjwzBJFltsgPUQuU+jg7/+Z0PpCj+7/6TwGdGVF
+ OHLA==
+X-Gm-Message-State: ACgBeo2i+i3YS9/uU/1CieDUD6D9NhxhkMci1j8eieH/Hd6lYHWKbZtJ
+ O4X+6xv/O1CLLB+jqJW4nvOhkP1M7Lk=
+X-Google-Smtp-Source: AA6agR7MZ6Eh57nonDd1sdO5SezOu2y7/MW7ivmV4BitL7fH4HYDy4P9YkvpltcjsrHf+7Vev7SsRQ==
+X-Received: by 2002:a05:6000:186f:b0:21d:96af:31ea with SMTP id
+ d15-20020a056000186f00b0021d96af31eamr2145172wri.646.1659636131906; 
+ Thu, 04 Aug 2022 11:02:11 -0700 (PDT)
+Received: from debian.office.codethink.co.uk
+ ([2405:201:8005:8149:e5c9:c0ac:4d82:e94b])
+ by smtp.gmail.com with ESMTPSA id
+ n32-20020a05600c3ba000b003a2e27fc275sm2411299wms.12.2022.08.04.11.02.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Aug 2022 11:02:11 -0700 (PDT)
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amd/amdgpu: fix build failure due to implicit declaration
+Date: Thu,  4 Aug 2022 19:01:46 +0100
+Message-Id: <20220804180146.63184-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <YuwRyQYPCb1FD+mr@debian>
- <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
- <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
- <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
-In-Reply-To: <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 4 Aug 2022 14:59:01 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whpa_FJjvzWdWdSzecTbVtndbQqg35=_o+ohM3X1_xKTA@mail.gmail.com>
-Message-ID: <CAHk-=whpa_FJjvzWdWdSzecTbVtndbQqg35=_o+ohM3X1_xKTA@mail.gmail.com>
-Subject: Re: mainline build failure for x86_64 allmodconfig with clang
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,27 +70,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@linux.ie>, clang-built-linux <llvm@lists.linux.dev>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 4, 2022 at 1:43 PM Nathan Chancellor <nathan@kernel.org> wrote:
->
-> I do note that commit 1b54a0121dba ("drm/amd/display: Reduce stack size
-> in the mode support function") did have a workaround for GCC. It appears
-> clang will still inline mode_support_configuration(). If I mark it as
-> 'noinline', the warning disappears in that file.
+The builds for alpha and mips allmodconfig fails with the error:
 
-That sounds like probably the best option for now. Gcc does not inline
-that function (at least for allmodconfig builds in my testing), so if
-that makes clang match what gcc does, it seems a reasonable thing to
-do.
+drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:534:23:
+  error: implicit declaration of function 'vmalloc'; did you mean
+  'kvmalloc'? [-Werror=implicit-function-declaration]
 
-            Linus
+drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:534:21:
+  error: assignment to 'void *' from 'int' makes pointer from integer
+  without a cast [-Werror=int-conversion]
+
+drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:545:33: error: implicit declaration
+  of function 'vfree'; did you mean 'kvfree'?
+  [-Werror=implicit-function-declaration]
+
+Add the header file for vmalloc and vfree.
+
+Reported-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index 63b2d32545cc..726a5bba40b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -22,6 +22,7 @@
+  */
+ #include <linux/dev_printk.h>
+ #include <drm/drm_drv.h>
++#include <linux/vmalloc.h>
+ #include "amdgpu.h"
+ #include "amdgpu_psp.h"
+ #include "amdgpu_ucode.h"
+-- 
+2.30.2
+
