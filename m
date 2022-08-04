@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48206C25B07
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 16:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FA0AC19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 16:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C34112673;
-	Thu,  4 Aug 2022 16:03:06 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 980579BE0E
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 16:02:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DgXKfVMoRNN5jcxY0mZdKzXhQAPy/alAyPLpY60NXxbPo9nsSg8FZi3vmzl2cn5tLJwze+c2cwrTdozwn6+NXFePqFHXgfihef1/3vYwg5M0Ry/nxkUmVvWbgoAG8y5l4vtVPaQSle6N1RpD+YEE3G/ehxn2302jVoySWMQGDWYCA2Ed6+At35IoxS7dq9RvwMnLdnlGxiW2SgISiulsqPm/d2vGrqqwHoOZJ1BSAtEQ3NmB5KcBI2j5PZH5ZDfMHxQYfek7OMDdlygR/+6zL5LPxHMLf45LTuT+tXOwYe1pEp6uAxN/xectO9gKBmFdP+RMbxqBG4oK4dlxeUhxyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rN67Xnt8VMzq/DjVYOYBxoMn2oe4EuhuEYJo2z1xBPA=;
- b=R/xBYhN548NII0YYqN3zYSB8yLzUtmYnSswtpYpJiN0B9EqYa7AjNfZ5dTHNYgaW1BiXrlF7ssCPQEgu7HzgfVjkA4QK1tWsE3WWK7ZF6eStipH9QsnJ9VIa8zP7JFo6PAwkAkTBadDlp7MB2BIp7+E5ZWwyjZF0N8HyG/rY1R3Pcp8NLoMpBdsrzKpraIv+cUdXyHYrpgZcYrQoIl41cavHtnj0Rxax7BCFE1TmUQbxNwMyBe62wp2E0HG5VdJV6bpY5BXD/qRfj12SDbCSozks9+kTxLOT/nJCg1u1Y6Ky1rdE8p3RkwJNNaPOHA/h1kj78rIOdMZNAeVbNkZzVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rN67Xnt8VMzq/DjVYOYBxoMn2oe4EuhuEYJo2z1xBPA=;
- b=EiDJwlQqxADWKdyuzwGwPw93BTEWukD1x1rPDKEuBwJzzSWQSlSIjcxS8hF0ZXQr1RJg87PTUZahqj7JCHYMeNYh2hpXB2lmjacwFtoVlOh5rpfpBcZ08ArGfclHUaMxDeAN3ILj8yp7K7C8HDUccXtxgfvhyznp/QIRoe+LnA0=
-Received: from BN9PR03CA0776.namprd03.prod.outlook.com (2603:10b6:408:13a::31)
- by IA1PR12MB6458.namprd12.prod.outlook.com (2603:10b6:208:3aa::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 4 Aug
- 2022 16:02:47 +0000
-Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::6a) by BN9PR03CA0776.outlook.office365.com
- (2603:10b6:408:13a::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16 via Frontend
- Transport; Thu, 4 Aug 2022 16:02:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5504.14 via Frontend Transport; Thu, 4 Aug 2022 16:02:47 +0000
-Received: from rocm-perf01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 4 Aug
- 2022 11:02:44 -0500
-From: Joseph Greathouse <Joseph.Greathouse@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Enable translate_further to extend UTCL2 reach
-Date: Thu, 4 Aug 2022 11:01:58 -0500
-Message-ID: <20220804160158.937021-1-Joseph.Greathouse@amd.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F180E8BA65;
+	Thu,  4 Aug 2022 16:14:12 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45B6912B9C4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 16:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=oIl41bVRn7xwYAdNHSVjWlWFEeO94OzLBgjQrJ5ghM8=; b=c4TPBIMMWYCZ5i9tV7ai4EnWx5
+ MVL1+7ZFsmCoK3XQUD/O783OvnKS/P024MtLW+b/4+c/FVd7XLt3Usz2Il1ayBWKtTOzStJVNBkTw
+ uT9I1di0xw1XXJTewwaicAYRdx2uL+nFpGMqRE3HiGEP7ggxiUBZ6hN1uSpVX8h6STB0MxpGOL02o
+ xD9dXRzw8fItBeszZdwHrFl6AiDVyqKkzeYgGzQcOWez7M7oBOItcZDDzw79a9wugfo6eygWnY73k
+ 7t3BzxGS8lY6fiOPRHV70Id8M2WvQtDM8kACTSYdRJ2YesYJqgzrquS0VjDe//+vXmd6K4SaY04Rr
+ ZN83yhbQ==;
+Received: from [165.90.126.25] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1oJdU0-00GIGu-8K; Thu, 04 Aug 2022 18:14:00 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, sungjoon.kim@amd.com, nikola.cornij@amd.com
+Subject: [PATCH v2] drm/amd/display: set panel orientation before
+ drm_dev_register
+Date: Thu,  4 Aug 2022 15:13:49 -0100
+Message-Id: <20220804161349.3561177-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 98234fee-906a-441e-38f9-08da7632c676
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6458:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KZChqVrGCjfclnSZ753I1YCjLp4uc9LO3PdEdr/u9YzFVZkdGVSVIsXcA602BEQWYqIqjoTxT8KKv8/OkZpztcgCXGFsmyJmnkHxgzWBRi5YmZpE25m0ua2fxHvqaBG2Z7FI5tWxfAYJLXe+yCJHwBfS+I0FJAQrgSYsYDhazy9s465xRYtoVKj9yPz1j3sluyoxrQSgcvolfLHmBbbThfr8vYvENYFZAhgr25IHtAUQKjtluf27IS+zMe0xRsXdeW3jM9sbPMWmY8mfbRKBeD/HSe4qo8J/K2z4rk4Yy6Gkbbk6LHmIpvb+BtO2VTKJ36TH8YVFTIigcxC1KSgCiLJiWt2Nd9KIsYRbrMXSa1B7EX7cR2TZZJVYOKabn23oHRrKKHdLSKq0cRZFKJHnPoJkEzwIcxWQzE9qqBAhaXaTYWn6gayrB2CWPALnSnO42KywuP0EUP2KOALbg4OGMYPmggXj2Db7H96MTWMHBOKONoXkbTZt9HwLjHKnqbTrcWekhQJpU43psYUTPLW7u/pcN5F3lVJXmvpNrl8/ZLYzkZuCtwAO7jGc5Zbosv0DEyZQTvPK+ahPtn2d8eOdSERyvV9me09WcMq4Kui8PnPb0TdKcX44NZ94ScLZn/s3eSlUMrM3o1ogWUPQW3P0qsvJ22mwS48l90+c97B9cMzPAp0rPNbus0xc85Wp5WhVesK7eMKo9vDRht2MBVLTpqwQANomBXg4++Xe5hGfR8heyOyGo+cO5fR2Fq3Cu8OAgAWoi51H+/LKf1lr+szTcWrnNosH1ok1ohWJj6VFMZ/FjQRHHRgrE1BXOZwDdWCW8XlchwZXRd+NVNNryUmlvQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(39860400002)(346002)(396003)(46966006)(36840700001)(40470700004)(2906002)(6666004)(478600001)(41300700001)(70586007)(4326008)(8676002)(86362001)(7696005)(70206006)(316002)(6916009)(36756003)(40480700001)(54906003)(336012)(426003)(47076005)(82310400005)(186003)(16526019)(26005)(83380400001)(8936002)(5660300002)(1076003)(2616005)(82740400003)(81166007)(356005)(36860700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2022 16:02:47.5800 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98234fee-906a-441e-38f9-08da7632c676
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6458
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,41 +52,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent.Russell@amd.com, Joseph Greathouse <Joseph.Greathouse@amd.com>,
- Christian.Koenig@amd.com
+Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable translate_further on Arcturus and Aldebaran server chips
-in order to increase the UTCL2 reach from 8 GiB to 64 GiB,
-which is more in line with the amount of framebuffer DRAM in
-the devices.
+To set the panel orientation property with quirk, we need the mode size
+provided by EDID. This info is available after EDID is read by dc_link_detect()
+and updated by amdgpu_dm_update_connector_after_detect(). The detection
+happens at driver load in amdgpu_dm_initialize_drm_device() and,
+therefore, we can get modes and set panel orientation before
+drm_dev_register() to avoid DRM warns on creating the connector property
+after device registration:
 
-Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+[    2.563969] ------------[ cut here ]------------
+[    2.563971] WARNING: CPU: 6 PID: 325 at drivers/gpu/drm/drm_mode_object.c:45 drm_mode_object_add+0x72/0x80 [drm]
+[    2.563997] Modules linked in: btusb btrtl btbcm btintel btmtk bluetooth rfkill ecdh_generic ecc usbhid crc16 amdgpu(+) drm_ttm_helper ttm agpgart gpu_sched i2c_algo_bit drm_display_helper drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm serio_raw sdhci_pci atkbd libps2 cqhci vivaldi_fmap ccp sdhci i8042 crct10dif_pclmul crc32_pclmul hid_multitouch ghash_clmulni_intel aesni_intel crypto_simd cryptd wdat_wdt mmc_core cec xhci_pci sp5100_tco rng_core xhci_pci_renesas serio 8250_dw i2c_hid_acpi i2c_hid btrfs blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq dm_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
+[    2.564032] CPU: 6 PID: 325 Comm: systemd-udevd Not tainted 5.18.0-amd-staging-drm-next+ #67
+[    2.564034] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/2022
+[    2.564036] RIP: 0010:drm_mode_object_add+0x72/0x80 [drm]
+[    2.564053] Code: f0 89 c3 85 c0 78 07 89 45 00 44 89 65 04 4c 89 ef e8 e2 99 04 f1 31 c0 85 db 0f 4e c3 5b 5d 41 5c 41 5d c3 80 7f 50 00 74 ac <0f> 0b eb a8 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 54 4c
+[    2.564055] RSP: 0018:ffffb2e880413860 EFLAGS: 00010202
+[    2.564056] RAX: ffffffffc0ba1440 RBX: ffff99508a860010 RCX: 0000000000000001
+[    2.564057] RDX: 00000000b0b0b0b0 RSI: ffff99508c050110 RDI: ffff99508a860010
+[    2.564058] RBP: ffff99508c050110 R08: 0000000000000020 R09: ffff99508c292c20
+[    2.564059] R10: 0000000000000000 R11: ffff99508c0507d8 R12: 00000000b0b0b0b0
+[    2.564060] R13: 0000000000000004 R14: ffffffffc068a4b6 R15: ffffffffc068a47f
+[    2.564061] FS:  00007fc69b5f1a40(0000) GS:ffff9953aff80000(0000) knlGS:0000000000000000
+[    2.564063] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    2.564063] CR2: 00007f9506804000 CR3: 0000000107f92000 CR4: 0000000000350ee0
+[    2.564065] Call Trace:
+[    2.564068]  <TASK>
+[    2.564070]  drm_property_create+0xc9/0x170 [drm]
+[    2.564088]  drm_property_create_enum+0x1f/0x70 [drm]
+[    2.564105]  drm_connector_set_panel_orientation_with_quirk+0x96/0xc0 [drm]
+[    2.564123]  get_modes+0x4fb/0x530 [amdgpu]
+[    2.564378]  drm_helper_probe_single_connector_modes+0x1ad/0x850 [drm_kms_helper]
+[    2.564390]  drm_client_modeset_probe+0x229/0x1400 [drm]
+[    2.564411]  ? xas_store+0x52/0x5e0
+[    2.564416]  ? kmem_cache_alloc_trace+0x177/0x2c0
+[    2.564420]  __drm_fb_helper_initial_config_and_unlock+0x44/0x4e0 [drm_kms_helper]
+[    2.564430]  drm_fbdev_client_hotplug+0x173/0x210 [drm_kms_helper]
+[    2.564438]  drm_fbdev_generic_setup+0xa5/0x166 [drm_kms_helper]
+[    2.564446]  amdgpu_pci_probe+0x35e/0x370 [amdgpu]
+[    2.564621]  local_pci_probe+0x45/0x80
+[    2.564625]  ? pci_match_device+0xd7/0x130
+[    2.564627]  pci_device_probe+0xbf/0x220
+[    2.564629]  ? sysfs_do_create_link_sd+0x69/0xd0
+[    2.564633]  really_probe+0x19c/0x380
+[    2.564637]  __driver_probe_device+0xfe/0x180
+[    2.564639]  driver_probe_device+0x1e/0x90
+[    2.564641]  __driver_attach+0xc0/0x1c0
+[    2.564643]  ? __device_attach_driver+0xe0/0xe0
+[    2.564644]  ? __device_attach_driver+0xe0/0xe0
+[    2.564646]  bus_for_each_dev+0x78/0xc0
+[    2.564648]  bus_add_driver+0x149/0x1e0
+[    2.564650]  driver_register+0x8f/0xe0
+[    2.564652]  ? 0xffffffffc1023000
+[    2.564654]  do_one_initcall+0x44/0x200
+[    2.564657]  ? kmem_cache_alloc_trace+0x177/0x2c0
+[    2.564659]  do_init_module+0x4c/0x250
+[    2.564663]  __do_sys_init_module+0x12e/0x1b0
+[    2.564666]  do_syscall_64+0x3b/0x90
+[    2.564670]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[    2.564673] RIP: 0033:0x7fc69bff232e
+[    2.564674] Code: 48 8b 0d 45 0b 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 12 0b 0c 00 f7 d8 64 89 01 48
+[    2.564676] RSP: 002b:00007ffe872ba3e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000af
+[    2.564677] RAX: ffffffffffffffda RBX: 000055873f797820 RCX: 00007fc69bff232e
+[    2.564678] RDX: 000055873f7bf390 RSI: 0000000001155e81 RDI: 00007fc699e4d010
+[    2.564679] RBP: 00007fc699e4d010 R08: 000055873f7bfe20 R09: 0000000001155e90
+[    2.564680] R10: 000000055873f7bf R11: 0000000000000246 R12: 000055873f7bf390
+[    2.564681] R13: 000000000000000d R14: 000055873f7c4cb0 R15: 000055873f797820
+[    2.564683]  </TASK>
+[    2.564683] ---[ end trace 0000000000000000 ]---
+[    2.564696] ------------[ cut here ]------------
+[    2.564696] WARNING: CPU: 6 PID: 325 at drivers/gpu/drm/drm_mode_object.c:242 drm_object_attach_property+0x52/0x80 [drm]
+[    2.564717] Modules linked in: btusb btrtl btbcm btintel btmtk bluetooth rfkill ecdh_generic ecc usbhid crc16 amdgpu(+) drm_ttm_helper ttm agpgart gpu_sched i2c_algo_bit drm_display_helper drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm serio_raw sdhci_pci atkbd libps2 cqhci vivaldi_fmap ccp sdhci i8042 crct10dif_pclmul crc32_pclmul hid_multitouch ghash_clmulni_intel aesni_intel crypto_simd cryptd wdat_wdt mmc_core cec xhci_pci sp5100_tco rng_core xhci_pci_renesas serio 8250_dw i2c_hid_acpi i2c_hid btrfs blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq dm_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
+[    2.564738] CPU: 6 PID: 325 Comm: systemd-udevd Tainted: G        W         5.18.0-amd-staging-drm-next+ #67
+[    2.564740] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/2022
+[    2.564741] RIP: 0010:drm_object_attach_property+0x52/0x80 [drm]
+[    2.564759] Code: 2d 83 f8 18 74 33 48 89 74 c1 08 48 8b 4f 08 48 89 94 c1 c8 00 00 00 48 8b 47 08 83 00 01 c3 4d 85 d2 75 dd 83 7f 58 01 75 d7 <0f> 0b eb d3 41 80 78 50 00 74 cc 0f 0b eb c8 44 89 ce 48 c7 c7 28
+[    2.564760] RSP: 0018:ffffb2e8804138d8 EFLAGS: 00010246
+[    2.564761] RAX: 0000000000000010 RBX: ffff99508c1a2000 RCX: ffff99508c1a2180
+[    2.564762] RDX: 0000000000000003 RSI: ffff99508c050100 RDI: ffff99508c1a2040
+[    2.564763] RBP: 00000000ffffffff R08: ffff99508a860010 R09: 00000000c0c0c0c0
+[    2.564763] R10: 0000000000000000 R11: 0000000000000020 R12: ffff99508a860010
+[    2.564764] R13: ffff995088733008 R14: ffff99508c1a2000 R15: ffffffffc068a47f
+[    2.564765] FS:  00007fc69b5f1a40(0000) GS:ffff9953aff80000(0000) knlGS:0000000000000000
+[    2.564766] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    2.564767] CR2: 00007f9506804000 CR3: 0000000107f92000 CR4: 0000000000350ee0
+[    2.564768] Call Trace:
+[    2.564769]  <TASK>
+[    2.564770]  drm_connector_set_panel_orientation_with_quirk+0x4a/0xc0 [drm]
+[    2.564789]  get_modes+0x4fb/0x530 [amdgpu]
+[    2.565024]  drm_helper_probe_single_connector_modes+0x1ad/0x850 [drm_kms_helper]
+[    2.565036]  drm_client_modeset_probe+0x229/0x1400 [drm]
+[    2.565056]  ? xas_store+0x52/0x5e0
+[    2.565060]  ? kmem_cache_alloc_trace+0x177/0x2c0
+[    2.565062]  __drm_fb_helper_initial_config_and_unlock+0x44/0x4e0 [drm_kms_helper]
+[    2.565072]  drm_fbdev_client_hotplug+0x173/0x210 [drm_kms_helper]
+[    2.565080]  drm_fbdev_generic_setup+0xa5/0x166 [drm_kms_helper]
+[    2.565088]  amdgpu_pci_probe+0x35e/0x370 [amdgpu]
+[    2.565261]  local_pci_probe+0x45/0x80
+[    2.565263]  ? pci_match_device+0xd7/0x130
+[    2.565265]  pci_device_probe+0xbf/0x220
+[    2.565267]  ? sysfs_do_create_link_sd+0x69/0xd0
+[    2.565268]  really_probe+0x19c/0x380
+[    2.565270]  __driver_probe_device+0xfe/0x180
+[    2.565272]  driver_probe_device+0x1e/0x90
+[    2.565274]  __driver_attach+0xc0/0x1c0
+[    2.565276]  ? __device_attach_driver+0xe0/0xe0
+[    2.565278]  ? __device_attach_driver+0xe0/0xe0
+[    2.565279]  bus_for_each_dev+0x78/0xc0
+[    2.565281]  bus_add_driver+0x149/0x1e0
+[    2.565283]  driver_register+0x8f/0xe0
+[    2.565285]  ? 0xffffffffc1023000
+[    2.565286]  do_one_initcall+0x44/0x200
+[    2.565288]  ? kmem_cache_alloc_trace+0x177/0x2c0
+[    2.565290]  do_init_module+0x4c/0x250
+[    2.565291]  __do_sys_init_module+0x12e/0x1b0
+[    2.565294]  do_syscall_64+0x3b/0x90
+[    2.565296]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[    2.565297] RIP: 0033:0x7fc69bff232e
+[    2.565298] Code: 48 8b 0d 45 0b 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 12 0b 0c 00 f7 d8 64 89 01 48
+[    2.565299] RSP: 002b:00007ffe872ba3e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000af
+[    2.565301] RAX: ffffffffffffffda RBX: 000055873f797820 RCX: 00007fc69bff232e
+[    2.565302] RDX: 000055873f7bf390 RSI: 0000000001155e81 RDI: 00007fc699e4d010
+[    2.565303] RBP: 00007fc699e4d010 R08: 000055873f7bfe20 R09: 0000000001155e90
+[    2.565303] R10: 000000055873f7bf R11: 0000000000000246 R12: 000055873f7bf390
+[    2.565304] R13: 000000000000000d R14: 000055873f7c4cb0 R15: 000055873f797820
+[    2.565306]  </TASK>
+[    2.565307] ---[ end trace 0000000000000000 ]---
+
+--
+
+v2:
+- call amdgpu_dm_connector_get_modes() instead of ddc_get_modes() (Harry)
+
+Fixes: d77de7880e0e0 ("amd/display: enable panel orientation quirks")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 22761a3bb818..ab89d91975ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1624,12 +1624,15 @@ static int gmc_v9_0_sw_init(void *handle)
- 			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 47);
- 		else
- 			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
-+		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2))
-+			adev->gmc.translate_further = adev->vm_manager.num_level > 1;
- 		break;
- 	case IP_VERSION(9, 4, 1):
- 		adev->num_vmhubs = 3;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0d54c1486739..2de37b976c23 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4133,6 +4133,7 @@ static void register_backlight_device(struct amdgpu_display_manager *dm,
+ 	}
+ }
  
- 		/* Keep the vm size same with Vega20 */
- 		amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
-+		adev->gmc.translate_further = adev->vm_manager.num_level > 1;
- 		break;
- 	default:
- 		break;
++static void amdgpu_set_panel_orientation(struct drm_connector *connector);
+ 
+ /*
+  * In this architecture, the association
+@@ -4324,6 +4325,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 					adev_to_drm(adev)->vblank_disable_immediate = false;
+ 			}
+ 		}
++		amdgpu_set_panel_orientation(&aconnector->base);
+ 	}
+ 
+ 	/* Software is initialized. Now we can register interrupt handlers. */
+@@ -6682,6 +6684,10 @@ static void amdgpu_set_panel_orientation(struct drm_connector *connector)
+ 	    connector->connector_type != DRM_MODE_CONNECTOR_LVDS)
+ 		return;
+ 
++	mutex_lock(&connector->dev->mode_config.mutex);
++	amdgpu_dm_connector_get_modes(connector);
++	mutex_unlock(&connector->dev->mode_config.mutex);
++
+ 	encoder = amdgpu_dm_connector_to_encoder(connector);
+ 	if (!encoder)
+ 		return;
+@@ -6726,8 +6732,6 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+ 		 * restored here.
+ 		 */
+ 		amdgpu_dm_update_freesync_caps(connector, edid);
+-
+-		amdgpu_set_panel_orientation(connector);
+ 	} else {
+ 		amdgpu_dm_connector->num_modes = 0;
+ 	}
 -- 
-2.20.1
+2.35.1
 
