@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3511EC00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A88CC00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9123AB40E9;
-	Fri,  5 Aug 2022 07:24:08 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A159E9BEC0;
- Thu,  4 Aug 2022 18:37:09 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id p10so730539wru.8;
- Thu, 04 Aug 2022 11:37:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc; bh=B8IeHwDJ6wqDm/ZlgAQSN22yY4qh5x2F6/SpKGeiUr4=;
- b=RFdiP7g41bMHSuMHMiydnwChvxj1DJWx5rXs+ZgU3/sQs9HhnLQlrPwdGj3Gqqnn9n
- 5z9sg2V6E0k2bf4iy5j5GzNAwM16wjfIT7NubNfE2zdsNcVG//wlm3eQozf6aRqWwdzz
- A9oMzSdzLMARXzg3mKeGg+bpOPVKB4zBDazlwiZnS643LJda8iK3l0aclLgfHDlCKHCI
- oMFAW/cnYCqY8qwlYxGNfuu3xlFa0qGS9SKQXnT5H/8U7dkBN8yIo+ciPo49zlXrIu3S
- 06w88Fnm55q4Mb2OZaKqYBm+mdk+9S5lzoytIKUoufIHrV/QdZKZjBo0VqJv6UoXJZ8Q
- 5bEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc;
- bh=B8IeHwDJ6wqDm/ZlgAQSN22yY4qh5x2F6/SpKGeiUr4=;
- b=4RP8rxKBbAGQFZQl+UKxl+eG4srZhecxITrlhCGY8eD2wBMGN3F/F1S8jtlbBaiGnV
- 4n+UxD+ZzQPBjJjvZvKZK44YS3ZTCWm72OEOSeuGqSC5ZElkkVX2gAWIy+l1vuuiVq7+
- czaG7T/55nDerz+R6yHfifP5+gY9tHWjPsEFviDgVmMcahGt2m5rCqPAp/CUmln1hSNx
- gdYChDiYNLawj/DRlDyWHtFzQywd+hblbceHNWqaAAGvo+Hd7YYoL2Q66OHLwzNy4Bwb
- uJbZfSx8hlT9amOF/SdtSSWoe1GB+DpPrLYjj4Pt06vUFRIZGgItqq4BtD3wn1MdsvgO
- JneQ==
-X-Gm-Message-State: ACgBeo0toy8CCg+m2hLEE1xKxPHoHCJn6dpg1kUMNcVdb2QBYzmTERre
- lFdP2BRVBz0gqqBtuNhv0uGW6FVQPaw=
-X-Google-Smtp-Source: AA6agR6BXtu4trhevGRN8TVyo6MRrwFBM4GRm3VN7u8yo8mEIkgNVkRgvawIxNMQllSvIRGPR7rAVA==
-X-Received: by 2002:a5d:4f86:0:b0:21e:f78b:33f1 with SMTP id
- d6-20020a5d4f86000000b0021ef78b33f1mr2331775wru.38.1659638228064; 
- Thu, 04 Aug 2022 11:37:08 -0700 (PDT)
-Received: from debian ([2405:201:8005:8149:e5c9:c0ac:4d82:e94b])
- by smtp.gmail.com with ESMTPSA id
- y10-20020adfe6ca000000b0021f0cf9e543sm2070037wrm.2.2022.08.04.11.37.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Aug 2022 11:37:07 -0700 (PDT)
-Date: Thu, 4 Aug 2022 19:36:57 +0100
-From: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Subject: mainline build failure for x86_64 allmodconfig with clang
-Message-ID: <YuwRyQYPCb1FD+mr@debian>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A1BB40E5;
+	Fri,  5 Aug 2022 07:24:06 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B790693974;
+ Thu,  4 Aug 2022 09:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1659606899; x=1691142899;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=5RIWFKoSAkEGflgC6RNjV8O9/LB7SOFSrF3/QfRUi4I=;
+ b=LdRi81IUPTKOHZ8w9Z/pGnzYYJGF+uxMNJBbgwRE1kEdvzK2VMN++uj0
+ Bdj/S7uO74CsuvSOzktmwmw5ePABPRWIRiosYP6Q8CyxS7Am79gOc5qWl
+ T3Wxx2VWbi8jP+GeKfptc/zylYCXAlawqallbPsEirpnyyrHtpS/wpj8T
+ +/X7crhr9xP5BH9rtwfw1JZHE85EDgsRaicdJoajR8yKaA5Kpwf3QiNKT
+ T0CC0+YjhxVZyN6jnwKeQyJrXiHppso5AMIVAqflEo7+4ldpDsCx/hx4h
+ ekEkrjrzro35DXjRZn2crxUBr6TuSnSo2BQHjYi170N2DvV8nCbJab2g8 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10428"; a="291113927"
+X-IronPort-AV: E=Sophos;i="5.93,215,1654585200"; d="scan'208";a="291113927"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2022 02:54:48 -0700
+X-IronPort-AV: E=Sophos;i="5.93,215,1654585200"; d="scan'208";a="662470867"
+Received: from wujunyox-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.59.120])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2022 02:54:44 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 2/3] drm/amdgpu_dm: Rely on split out luminance
+ calculation function
+In-Reply-To: <20220719095700.14923-3-jouni.hogander@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220719095700.14923-1-jouni.hogander@intel.com>
+ <20220719095700.14923-3-jouni.hogander@intel.com>
+Date: Thu, 04 Aug 2022 12:54:42 +0300
+Message-ID: <877d3opc4d.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,36 +61,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: clang-built-linux <llvm@lists.linux.dev>, David Airlie <airlied@linux.ie>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ Manasi Navare <manasi.d.navare@intel.com>, Mika Kahola <mika.kahola@intel.com>,
+ Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+On Tue, 19 Jul 2022, Jouni H=C3=B6gander <jouni.hogander@intel.com> wrote:
+> Luminance range calculation was split out into drm_edid.c and is now
+> part of edid parsing. Rely on values calculated during edid parsing and
+> use these for caps->aux_max_input_signal and caps->aux_min_input_signal.
 
-The latest mainline kernel branch fails to build for x86_64 allmodconfig
-with clang. The errors are:
+Harry, I'll merge patches 1 & 3 in this series through drm-misc-next,
+because I think they're good to go, and fix stuff in i915.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3596:6: error: stack frame size (2216) exceeds limit (2048) in 'dml30_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+Can I get your rb/ack to merge this patch as well, or do you want to
+take this later via your tree?
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3908:6: error: stack frame size (2184) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1726:6: error: stack frame size (2176) exceeds limit (2048) in 'dml32_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-
-git bisect points to 3876a8b5e241 ("drm/amd/display: Enable building new display engine with KCOV enabled").
-
-My last good build for clang was with e2b542100719 ("Merge tag 'flexible-array-transformations-UAPI-6.0-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gustavoars/linux").
-
-I will be happy to test any patch or provide any extra log if needed.
+BR,
+Jani.
 
 
---
-Regards
-Sudip
+>
+> v2: Use values calculated during edid parsing
+>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Mika Kahola <mika.kahola@intel.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> Signed-off-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 +++----------------
+>  1 file changed, 4 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 3e83fed540e8..eb7abdeb8653 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2903,15 +2903,12 @@ static struct drm_mode_config_helper_funcs amdgpu=
+_dm_mode_config_helperfuncs =3D {
+>=20=20
+>  static void update_connector_ext_caps(struct amdgpu_dm_connector *aconne=
+ctor)
+>  {
+> -	u32 max_avg, min_cll, max, min, q, r;
+>  	struct amdgpu_dm_backlight_caps *caps;
+>  	struct amdgpu_display_manager *dm;
+>  	struct drm_connector *conn_base;
+>  	struct amdgpu_device *adev;
+>  	struct dc_link *link =3D NULL;
+> -	static const u8 pre_computed_values[] =3D {
+> -		50, 51, 52, 53, 55, 56, 57, 58, 59, 61, 62, 63, 65, 66, 68, 69,
+> -		71, 72, 74, 75, 77, 79, 81, 82, 84, 86, 88, 90, 92, 94, 96, 98};
+> +	struct drm_luminance_range_info *luminance_range;
+>  	int i;
+>=20=20
+>  	if (!aconnector || !aconnector->dc_link)
+> @@ -2933,8 +2930,6 @@ static void update_connector_ext_caps(struct amdgpu=
+_dm_connector *aconnector)
+>  	caps =3D &dm->backlight_caps[i];
+>  	caps->ext_caps =3D &aconnector->dc_link->dpcd_sink_ext_caps;
+>  	caps->aux_support =3D false;
+> -	max_avg =3D conn_base->hdr_sink_metadata.hdmi_type1.max_fall;
+> -	min_cll =3D conn_base->hdr_sink_metadata.hdmi_type1.min_cll;
+>=20=20
+>  	if (caps->ext_caps->bits.oled =3D=3D 1 /*||
+>  	    caps->ext_caps->bits.sdr_aux_backlight_control =3D=3D 1 ||
+> @@ -2946,31 +2941,9 @@ static void update_connector_ext_caps(struct amdgp=
+u_dm_connector *aconnector)
+>  	else if (amdgpu_backlight =3D=3D 1)
+>  		caps->aux_support =3D true;
+>=20=20
+> -	/* From the specification (CTA-861-G), for calculating the maximum
+> -	 * luminance we need to use:
+> -	 *	Luminance =3D 50*2**(CV/32)
+> -	 * Where CV is a one-byte value.
+> -	 * For calculating this expression we may need float point precision;
+> -	 * to avoid this complexity level, we take advantage that CV is divided
+> -	 * by a constant. From the Euclids division algorithm, we know that CV
+> -	 * can be written as: CV =3D 32*q + r. Next, we replace CV in the
+> -	 * Luminance expression and get 50*(2**q)*(2**(r/32)), hence we just
+> -	 * need to pre-compute the value of r/32. For pre-computing the values
+> -	 * We just used the following Ruby line:
+> -	 *	(0...32).each {|cv| puts (50*2**(cv/32.0)).round}
+> -	 * The results of the above expressions can be verified at
+> -	 * pre_computed_values.
+> -	 */
+> -	q =3D max_avg >> 5;
+> -	r =3D max_avg % 32;
+> -	max =3D (1 << q) * pre_computed_values[r];
+> -
+> -	// min luminance: maxLum * (CV/255)^2 / 100
+> -	q =3D DIV_ROUND_CLOSEST(min_cll, 255);
+> -	min =3D max * DIV_ROUND_CLOSEST((q * q), 100);
+> -
+> -	caps->aux_max_input_signal =3D max;
+> -	caps->aux_min_input_signal =3D min;
+> +	luminance_range =3D &conn_base->display_info.luminance_range;
+> +	caps->aux_min_input_signal =3D luminance_range->min_luminance;
+> +	caps->aux_max_input_signal =3D luminance_range->max_luminance;
+>  }
+>=20=20
+>  void amdgpu_dm_update_connector_after_detect(
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
