@@ -4,54 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772C6C00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1497DC00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A683B40E7;
-	Fri,  5 Aug 2022 07:24:07 +0000 (UTC)
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
- [IPv6:2607:f8b0:4864:20::b32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0589FA35F4;
- Thu,  4 Aug 2022 18:06:42 +0000 (UTC)
-Received: by mail-yb1-xb32.google.com with SMTP id o15so277698yba.10;
- Thu, 04 Aug 2022 11:06:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17FF4B40DC;
+	Fri,  5 Aug 2022 07:24:05 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7752B9690F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 18:52:28 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id o22so758850edc.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 11:52:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=W5vtOsGoRNFUeWobww4WWm+woSsVgSrVSuurs+lnPco=;
- b=Q4OVg/NCWfPBpO0ZwT+yZpjwRI5Ie989Hve6f+OWo+s3Asy9HPU46cI5AIaTJdwuNj
- NjmBa5dIdzN0o/iUiosBRTX85lzcOmurw8yGwJzgJkPQYVw10FbxjXSrGeKDmqs0BXYf
- n6ePRZze6YOK4/F60l5ES0L2Wro7NL1X+FOQnKyjwlB+EivnOGXcPo2dSwVzqjG7lgve
- Duwd+X0N+MA4+cwin9Ls9y894QMToWhZ5iz6qpEv0WfnHjVAkUdXPUZKMTwIQvZEa1Qj
- 5/AL2iZPzqcNSvCTmTlpPAZ0uSVVrU/53dFvYKzwaEVDbsjhh9RPBE1UGMJuMEFgCcSG
- vYDg==
+ bh=d9A+1UrQLh0WcW9MhwNlbIKjJoOc9nVaeZ+f3kn5XJg=;
+ b=Wghr6irArPcwVSc+CNnhrrsEu9dnr4MgYqspEvpRuXFzsOtqFWg2OW0RZw0DsbJhbG
+ 7KYJuxI+hGsaf1e3eCH86NhWL3mKYHLchNkwelwizVdbqx2TCHmSyTmd7/UiTNDRDtqj
+ 1bkDxMnc43SYw+VE+NmTMF0O+9AkEy2ziVWdw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=W5vtOsGoRNFUeWobww4WWm+woSsVgSrVSuurs+lnPco=;
- b=2QFkSVEgy5GBSsYIdkU6qkdnOYmIlN+BTMet2y/Rmrq+cGtTWFopvlWOt7ziKkA+gi
- GHpZmjuTHTW7/HDxDpBiOCCwR8afb3fgEk35uu/ByulwwAAnzi1VgYxPRUYBIYGLo4+V
- i+58Qxwj1+z8gl4YU6ngoZ9XOoJSGp12h4Eu94mq51e08oSIXRmPT6EceLlPr1n1e6lN
- HdBYHjG/OSp/OEAHHXVDAG3id5nGfoLyW9mgC1PWvYoZWh7eUUXGKw1BWI3llQouMUwa
- KtZop27s3fLg7/Uw1Ar4RgWltf6icRgsnE5BmKWbiSfZsznnbImSRUobdlCpzenox82y
- 2Ysg==
-X-Gm-Message-State: ACgBeo0Sk/VJ9nrCppofTdj98jg9ASaFf+EkjMT7ATOPRqHCOsKw3IcO
- TGg1rX3Ry+xGBP8MIholIatPTXyiwlLgEXmh8nY=
-X-Google-Smtp-Source: AA6agR57/OeeTbYU5ZkJThBEpdOtwXIQZvZCIqiQ04Q1TZ4ctcZEEhntZH9Yy6UT9m1c3NZp2bWN9S5OdB1CpEm2Tx4=
-X-Received: by 2002:a25:508b:0:b0:672:e8af:3bfe with SMTP id
- e133-20020a25508b000000b00672e8af3bfemr2283126ybb.106.1659636401974; Thu, 04
- Aug 2022 11:06:41 -0700 (PDT)
+ bh=d9A+1UrQLh0WcW9MhwNlbIKjJoOc9nVaeZ+f3kn5XJg=;
+ b=aNXJf8dz38jxt/SEDRjlM2+059IhPo3HnybUxYbhYaaNCuJ/dhEWg0+vaquOk0w6xD
+ 1PwpymOS38PUfF74LcFx04tlWmq+9oYv4s/5EQzb7hbg/ZNbrydbJ8BkKvgJ08Y3HYPn
+ 640j6eKC2UaLbx9JGEw07WyLu6BmDpmkDI7htdhjh30g3h/7TwLKAekQE3kja33XFOFz
+ ww/ru/2wW1HyBRkcGdtofOim13Nbxj/2NVA7srM7Azx/z25wcNgCdlarhywYucJ03ZpU
+ 1bUXG7i+fthxnKXencwYdiQ2FiYCFRKdJRHKiTGB7nJiwCzoMcecZROWrQflnBMEOSli
+ Vfqg==
+X-Gm-Message-State: ACgBeo3vFGTSRrbDQoQJdSpFVM39ysjlj1V7RnxQnBVbWFfP1C7bDeOU
+ /GZFGZOA2sI2u8rbjBZIgZBuTH/RRpisAn64
+X-Google-Smtp-Source: AA6agR5e2v4MZ6ixpIfPFvoB/nezx6lkks3Hg8SuKVY4QkisnayC+UFLK1wKeNX6TqkMVVrl9KcJeQ==
+X-Received: by 2002:a05:6402:190e:b0:43e:1588:4c32 with SMTP id
+ e14-20020a056402190e00b0043e15884c32mr3349125edz.76.1659639146395; 
+ Thu, 04 Aug 2022 11:52:26 -0700 (PDT)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
+ [209.85.221.47]) by smtp.gmail.com with ESMTPSA id
+ s18-20020a1709062ed200b007304d084c5esm591504eji.166.2022.08.04.11.52.25
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Aug 2022 11:52:25 -0700 (PDT)
+Received: by mail-wr1-f47.google.com with SMTP id h13so792331wrf.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 11:52:25 -0700 (PDT)
+X-Received: by 2002:adf:edcb:0:b0:21e:d043:d271 with SMTP id
+ v11-20020adfedcb000000b0021ed043d271mr2265646wro.274.1659639145076; Thu, 04
+ Aug 2022 11:52:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <Yut2otE1h2xtC79o@debian>
- <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
-In-Reply-To: <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Thu, 4 Aug 2022 19:06:05 +0100
-Message-ID: <CADVatmOTkf1LfC0teDe8OLm6+Ctm28TWvefRM=frf+aB_seSKw@mail.gmail.com>
-Subject: Re: mainline build failure due to 6fdd2077ec03 ("drm/amd/amdgpu: add
- memory training support for PSP_V13")
-To: Linus Torvalds <torvalds@linux-foundation.org>
+References: <YuwRyQYPCb1FD+mr@debian>
+In-Reply-To: <YuwRyQYPCb1FD+mr@debian>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 4 Aug 2022 11:52:09 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
+Message-ID: <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
+Subject: Re: mainline build failure for x86_64 allmodconfig with clang
+To: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -65,38 +73,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chengming Gui <Jack.Gui@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ clang-built-linux <llvm@lists.linux.dev>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 4, 2022 at 6:17 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
+On Thu, Aug 4, 2022 at 11:37 AM Sudip Mukherjee (Codethink)
+<sudipm.mukherjee@gmail.com> wrote:
 >
-> On Thu, Aug 4, 2022 at 12:35 AM Sudip Mukherjee (Codethink)
-> <sudipm.mukherjee@gmail.com> wrote:
-> >
-> > I will be happy to test any patch or provide any extra log if needed.
->
-> It sounds like that file just needs to get a
->
->     #include <linux/vmalloc.h>
->
-> there, and for some reason architectures other than alpha and mips end
-> up getting it accidentally through other headers.
->
-> Mind testing just adding that header file, and perhaps even sending a
-> patch if (when) that works for you?
+> git bisect points to 3876a8b5e241 ("drm/amd/display: Enable building new display engine with KCOV enabled").
 
-Tested on alpha allmodconfig, that worked.
-And also sent the patch.
+Ahh. So that was presumably why it was disabled before - because it
+presumably does disgusting things that make KCOV generate even bigger
+stack frames than it already has.
 
+Those functions do seem to have fairly big stack footprints already (I
+didn't try to look into why, I assume it's partly due to aggressive
+inlining, and probably some automatic structures on stack). But gcc
+doesn't seem to make it all that much worse with KCOV (and my clang
+build doesn't enable KCOV).
 
---
-Regards
-Sudip
+So it's presumably some KCOV-vs-clang thing. Nathan?
+
+              Linus
