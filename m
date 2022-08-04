@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0CEC00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:30:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772C6C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:31:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 192E2B40E1;
-	Fri,  5 Aug 2022 07:24:06 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 613808FBFD;
- Thu,  4 Aug 2022 07:35:11 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id z12so14084711wrs.9;
- Thu, 04 Aug 2022 00:35:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A683B40E7;
+	Fri,  5 Aug 2022 07:24:07 +0000 (UTC)
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0589FA35F4;
+ Thu,  4 Aug 2022 18:06:42 +0000 (UTC)
+Received: by mail-yb1-xb32.google.com with SMTP id o15so277698yba.10;
+ Thu, 04 Aug 2022 11:06:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc; bh=5EU04U6zAYyIYzGGcwcDfmg2hMhuz1M0NEedR2ivuW0=;
- b=RszuOa+odpEaiEJy45G5YW+s0j47TpRmy+lEDVUwPVP6JcsPJrwMo8tspfvRb7fMre
- W99E7nWmRNZSwcQhGwF7U5/tPYQqr8NnwO1Jj52xEZHtAju58FkRMFQifV7yjHz4R7uZ
- m+nMVKawX5MR5rLXmzXaeUmOP9JPQ/GTqa8O616Ny/hVj/FzIVxzhR4i5VxzKP4Uxs2N
- NNcVAj7HwHwKi4SGOn+kAUk7hOVyYV9XW6b6mu/ZbjjRwmTOHtMXIMuyrNK1WhC89ZXv
- +7u8jVSkbkWWd/rROPN/oXOkKdOy+nWLplYIFpAPipSroyvbydNn4zA69ceObU+QdJu0
- 2W5A==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=W5vtOsGoRNFUeWobww4WWm+woSsVgSrVSuurs+lnPco=;
+ b=Q4OVg/NCWfPBpO0ZwT+yZpjwRI5Ie989Hve6f+OWo+s3Asy9HPU46cI5AIaTJdwuNj
+ NjmBa5dIdzN0o/iUiosBRTX85lzcOmurw8yGwJzgJkPQYVw10FbxjXSrGeKDmqs0BXYf
+ n6ePRZze6YOK4/F60l5ES0L2Wro7NL1X+FOQnKyjwlB+EivnOGXcPo2dSwVzqjG7lgve
+ Duwd+X0N+MA4+cwin9Ls9y894QMToWhZ5iz6qpEv0WfnHjVAkUdXPUZKMTwIQvZEa1Qj
+ 5/AL2iZPzqcNSvCTmTlpPAZ0uSVVrU/53dFvYKzwaEVDbsjhh9RPBE1UGMJuMEFgCcSG
+ vYDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc;
- bh=5EU04U6zAYyIYzGGcwcDfmg2hMhuz1M0NEedR2ivuW0=;
- b=hNI4SrBFyTzk9nR3IIvFNZXQ0ZDM0f4YnUD0dGHoPid/hLn0rB/lpsg/UHYfcCqYBv
- Vj+aDeoV9L1LzXtdUbhO7gbAc4xQmNRs7RTELMHxQx8kpaGcVgr3jbpTmHy4a7XCZqxR
- gQVe1wTwEPGoehXseVXHb7EndGYtLRijF/p+eH33ByXh8LIPFofgw+QKSrc7woJVHj/w
- Jb6LbBECZNaWAXGjBeq6ue4Vpa0H2Zjr23eiI5Osy8RVEH/mgzbDlcFAq9BIoVS5ZCI5
- ZSGyZfqF8I2yFupXC7N6NN9KBtN4/jKXxxaxT27pSrueTEx2UlIFZWr3O3IHVJs68Djm
- E3kg==
-X-Gm-Message-State: ACgBeo3qmDyTDNC3acnLRfQ20YsNLFDqWYBXNi6viysnMnBU3YlbS/+L
- +3Wc1GCKdhPVmMglWkudAAE=
-X-Google-Smtp-Source: AA6agR7QyZrRl97ERrAkEom1RkOvNNl2TGMuPIkZIfvXeehObd0r+4cGJ+S6KNmKW/eNfqqc4NTEgg==
-X-Received: by 2002:a5d:64c1:0:b0:220:83fd:521e with SMTP id
- f1-20020a5d64c1000000b0022083fd521emr435672wri.428.1659598509871; 
- Thu, 04 Aug 2022 00:35:09 -0700 (PDT)
-Received: from debian ([2405:201:8005:8149:e5c9:c0ac:4d82:e94b])
- by smtp.gmail.com with ESMTPSA id
- d14-20020adfe84e000000b0021badf3cb26sm309913wrn.63.2022.08.04.00.35.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Aug 2022 00:35:08 -0700 (PDT)
-Date: Thu, 4 Aug 2022 08:34:58 +0100
-From: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
-To: Chengming Gui <Jack.Gui@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: mainline build failure due to 6fdd2077ec03 ("drm/amd/amdgpu: add
- memory training support for PSP_V13")
-Message-ID: <Yut2otE1h2xtC79o@debian>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=W5vtOsGoRNFUeWobww4WWm+woSsVgSrVSuurs+lnPco=;
+ b=2QFkSVEgy5GBSsYIdkU6qkdnOYmIlN+BTMet2y/Rmrq+cGtTWFopvlWOt7ziKkA+gi
+ GHpZmjuTHTW7/HDxDpBiOCCwR8afb3fgEk35uu/ByulwwAAnzi1VgYxPRUYBIYGLo4+V
+ i+58Qxwj1+z8gl4YU6ngoZ9XOoJSGp12h4Eu94mq51e08oSIXRmPT6EceLlPr1n1e6lN
+ HdBYHjG/OSp/OEAHHXVDAG3id5nGfoLyW9mgC1PWvYoZWh7eUUXGKw1BWI3llQouMUwa
+ KtZop27s3fLg7/Uw1Ar4RgWltf6icRgsnE5BmKWbiSfZsznnbImSRUobdlCpzenox82y
+ 2Ysg==
+X-Gm-Message-State: ACgBeo0Sk/VJ9nrCppofTdj98jg9ASaFf+EkjMT7ATOPRqHCOsKw3IcO
+ TGg1rX3Ry+xGBP8MIholIatPTXyiwlLgEXmh8nY=
+X-Google-Smtp-Source: AA6agR57/OeeTbYU5ZkJThBEpdOtwXIQZvZCIqiQ04Q1TZ4ctcZEEhntZH9Yy6UT9m1c3NZp2bWN9S5OdB1CpEm2Tx4=
+X-Received: by 2002:a25:508b:0:b0:672:e8af:3bfe with SMTP id
+ e133-20020a25508b000000b00672e8af3bfemr2283126ybb.106.1659636401974; Thu, 04
+ Aug 2022 11:06:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <Yut2otE1h2xtC79o@debian>
+ <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
+In-Reply-To: <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Date: Thu, 4 Aug 2022 19:06:05 +0100
+Message-ID: <CADVatmOTkf1LfC0teDe8OLm6+Ctm28TWvefRM=frf+aB_seSKw@mail.gmail.com>
+Subject: Re: mainline build failure due to 6fdd2077ec03 ("drm/amd/amdgpu: add
+ memory training support for PSP_V13")
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,37 +65,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Chengming Gui <Jack.Gui@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+On Thu, Aug 4, 2022 at 6:17 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Thu, Aug 4, 2022 at 12:35 AM Sudip Mukherjee (Codethink)
+> <sudipm.mukherjee@gmail.com> wrote:
+> >
+> > I will be happy to test any patch or provide any extra log if needed.
+>
+> It sounds like that file just needs to get a
+>
+>     #include <linux/vmalloc.h>
+>
+> there, and for some reason architectures other than alpha and mips end
+> up getting it accidentally through other headers.
+>
+> Mind testing just adding that header file, and perhaps even sending a
+> patch if (when) that works for you?
 
-The latest mainline kernel branch fails to build for alpha and mips
-allmodconfig with the error:
+Tested on alpha allmodconfig, that worked.
+And also sent the patch.
 
-drivers/gpu/drm/amd/amdgpu/psp_v13_0.c: In function 'psp_v13_0_memory_training':
-drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:534:23: error: implicit declaration of function 'vmalloc'; did you mean 'kvmalloc'? [-Werror=implicit-function-declaration]
-  534 |                 buf = vmalloc(sz);
-      |                       ^~~~~~~
-      |                       kvmalloc
-drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:534:21: error: assignment to 'void *' from 'int' makes pointer from integer without a cast [-Werror=int-conversion]
-  534 |                 buf = vmalloc(sz);
-      |                     ^
-drivers/gpu/drm/amd/amdgpu/psp_v13_0.c:545:33: error: implicit declaration of function 'vfree'; did you mean 'kvfree'? [-Werror=implicit-function-declaration]
-  545 |                                 vfree(buf);
-      |                                 ^~~~~
-      |                                 kvfree
-
-git bisect pointed to 6fdd2077ec03 ("drm/amd/amdgpu: add memory training support for PSP_V13").
-
-And, reverting that commit has fixed the build failure.
-
-I will be happy to test any patch or provide any extra log if needed.
 
 --
 Regards
