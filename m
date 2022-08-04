@@ -4,63 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 083CFC00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E57C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF16B40E8;
-	Fri,  5 Aug 2022 07:24:08 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1260FA17C4
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 17:17:40 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id dc19so418701ejb.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 10:17:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A93B40E2;
+	Fri,  5 Aug 2022 07:24:06 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DECBA2B8F4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 21:59:20 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id w19so1693232ejc.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 14:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=W3oQTjR935kyPwW8JTzNphawSp0RrVbBZvc3FA95SqM=;
- b=CXWDpj8EE+E/y1A4LLIdWpEV4dz6BU5+YOyxOh/YLtPkJwFlBJB1T2YAT5I0CWpJbm
- VVDqDcqzQQ8s3ioCrfGbckfIaXDN/DMIQcyKDaq2cGGklhoikD/bu8Yh47Rv2wLjHhXb
- ti4AKQ9roXLqZxh+MOQdxpogEjPOBzv2zGxt8=
+ bh=IcNrO1+0hMqd184OyaCGXcplDsRzgmMXiA2NSTUXMiA=;
+ b=DgUfEmbFi+7iccqebXv/ZmxHK9r9RdQFXNZ8Dr8nUqVqSFRu1k1i4dkyHQybTDWbVO
+ sp+j5Hqj+Tzo+GWbTEgXuKCuNQljNQ9hMiFfoJp1J9Mgms1GKmSOP/+HzKIHuHs4qy4O
+ 3hYvbGIWtatQX31kWhmvlVBT2gIyBbOi9AxB0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=W3oQTjR935kyPwW8JTzNphawSp0RrVbBZvc3FA95SqM=;
- b=6rMGLScp8ikgh51lcD/GP7zaPZ/Yqh/2O8smkVA36eRw0iv0IiK6thIaljvOWb2Ehn
- PpiFqL1jHOuOz1yfLfjKSCdE9GC68m6z3h1Om15bRNS6cNBWysCt01ek0h61Z8RKz5uI
- 39Afd6HQHK/JWyufPsmwUVEvcLwzwI3kGFGjyISTUMVj7ptmOqOVgwxmQiWMy/8R4THz
- 23uv3lLAoL5FPq3LAEF11l7gvmWytKOpRv7uQlywkoU/5ceIBy4nlu7Y2P76/OB3k0Jp
- kI8tl+UVYL8oRl4WP3nQ1eZ6nn0jf+NTXglpcSs3B0j/WNeFH04cQ+UumfSmrF0bcojV
- Fj5A==
-X-Gm-Message-State: ACgBeo3eM8xWgMesX1DP9C+nYiVLFt8yyQZwxrhEG+9pZ9O9SKsbV6mP
- dOsZ3cePY+JD91wqdHM1IUXhZhukGUno9Wi8
-X-Google-Smtp-Source: AA6agR639nsLMJ+SwIonjLJd0T+WRkREae1Q6r56Ystnwf5P8uYxopG30ZcghcUc1gIeGd4MhkGJqQ==
-X-Received: by 2002:a17:907:2e0d:b0:72b:5cf4:464a with SMTP id
- ig13-20020a1709072e0d00b0072b5cf4464amr2152957ejc.87.1659633459030; 
- Thu, 04 Aug 2022 10:17:39 -0700 (PDT)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com.
- [209.85.221.53]) by smtp.gmail.com with ESMTPSA id
- b12-20020a1709065e4c00b00730b61d8a5esm553642eju.61.2022.08.04.10.17.38
+ bh=IcNrO1+0hMqd184OyaCGXcplDsRzgmMXiA2NSTUXMiA=;
+ b=Rt8pxaG4i/iZ5k4H/+qRArYv0bkYR+nNpQt+47gyBvjgP6/mqbyCzD8/IUbq2EFndx
+ ypzOOUHmypwigFNjFHBmmceAJU/BQQSstyi0dgYWSt2uGSICz/HRyqjCrk101iv89pzQ
+ G/a1MVZYN2IUTx5lcwDwF+lKxFEi0IuwzbjSro2W+kBHqEglh9dMlCvu4mBQ0TFzhlQ0
+ LeO90thVLsr2bwtFiho5R6PO48RtWQAX5Eezd+SwifMn+gRcn5EHOlQsCtpsZV6YUGlM
+ uXuAgmRu6JC4ByS2b08NdRHPeS5Nw5oKwKvbdwbZrco5vAqyJlgCkw2mHeVbEjhdrrfb
+ u8QA==
+X-Gm-Message-State: ACgBeo0NQ/6AQHH2xFpliq+MP03LMWH8+D7TVRvtBmYVLQ9nidk70N33
+ NgRvkd4AoD8bq3wGQMGaL0XO1SU85ZLgnoZW
+X-Google-Smtp-Source: AA6agR7Ea5yZCD2MnYhuj0ME3E7n7ustfgZ+QX47mCat4HvEg2+tykGnZoUze9tzmpz7MFED1GJVSg==
+X-Received: by 2002:a17:907:2d12:b0:72b:67fb:89a5 with SMTP id
+ gs18-20020a1709072d1200b0072b67fb89a5mr2883968ejc.507.1659650358884; 
+ Thu, 04 Aug 2022 14:59:18 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com.
+ [209.85.221.48]) by smtp.gmail.com with ESMTPSA id
+ 23-20020a170906329700b007305c007e43sm772159ejw.135.2022.08.04.14.59.17
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Aug 2022 10:17:38 -0700 (PDT)
-Received: by mail-wr1-f53.google.com with SMTP id bv3so507375wrb.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 10:17:38 -0700 (PDT)
-X-Received: by 2002:a5d:56cf:0:b0:21e:ce64:afe7 with SMTP id
- m15-20020a5d56cf000000b0021ece64afe7mr2010623wrw.281.1659633457704; Thu, 04
- Aug 2022 10:17:37 -0700 (PDT)
+ Thu, 04 Aug 2022 14:59:18 -0700 (PDT)
+Received: by mail-wr1-f48.google.com with SMTP id p10so1228528wru.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 14:59:17 -0700 (PDT)
+X-Received: by 2002:a5d:638b:0:b0:220:6e1a:8794 with SMTP id
+ p11-20020a5d638b000000b002206e1a8794mr2534090wru.193.1659650357549; Thu, 04
+ Aug 2022 14:59:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <Yut2otE1h2xtC79o@debian>
-In-Reply-To: <Yut2otE1h2xtC79o@debian>
+References: <YuwRyQYPCb1FD+mr@debian>
+ <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
+ <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
+ <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
+In-Reply-To: <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 4 Aug 2022 10:17:21 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
-Message-ID: <CAHk-=wjPF0dXvDeqPiSzpev4KhhWU0-R8muaYVF73vy2Vw=QTw@mail.gmail.com>
-Subject: Re: mainline build failure due to 6fdd2077ec03 ("drm/amd/amdgpu: add
- memory training support for PSP_V13")
-To: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+Date: Thu, 4 Aug 2022 14:59:01 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whpa_FJjvzWdWdSzecTbVtndbQqg35=_o+ohM3X1_xKTA@mail.gmail.com>
+Message-ID: <CAHk-=whpa_FJjvzWdWdSzecTbVtndbQqg35=_o+ohM3X1_xKTA@mail.gmail.com>
+Subject: Re: mainline build failure for x86_64 allmodconfig with clang
+To: Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,28 +76,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chengming Gui <Jack.Gui@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+Cc: Arnd Bergmann <arnd@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@linux.ie>, clang-built-linux <llvm@lists.linux.dev>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 4, 2022 at 12:35 AM Sudip Mukherjee (Codethink)
-<sudipm.mukherjee@gmail.com> wrote:
+On Thu, Aug 4, 2022 at 1:43 PM Nathan Chancellor <nathan@kernel.org> wrote:
 >
-> I will be happy to test any patch or provide any extra log if needed.
+> I do note that commit 1b54a0121dba ("drm/amd/display: Reduce stack size
+> in the mode support function") did have a workaround for GCC. It appears
+> clang will still inline mode_support_configuration(). If I mark it as
+> 'noinline', the warning disappears in that file.
 
-It sounds like that file just needs to get a
+That sounds like probably the best option for now. Gcc does not inline
+that function (at least for allmodconfig builds in my testing), so if
+that makes clang match what gcc does, it seems a reasonable thing to
+do.
 
-    #include <linux/vmalloc.h>
-
-there, and for some reason architectures other than alpha and mips end
-up getting it accidentally through other headers.
-
-Mind testing just adding that header file, and perhaps even sending a
-patch if (when) that works for you?
-
-                    Linus
+            Linus
