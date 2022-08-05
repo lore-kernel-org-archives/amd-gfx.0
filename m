@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1497DC00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 07:31:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8509C25B08
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 09:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17FF4B40DC;
-	Fri,  5 Aug 2022 07:24:05 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7752B9690F
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Aug 2022 18:52:28 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id o22so758850edc.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 11:52:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=d9A+1UrQLh0WcW9MhwNlbIKjJoOc9nVaeZ+f3kn5XJg=;
- b=Wghr6irArPcwVSc+CNnhrrsEu9dnr4MgYqspEvpRuXFzsOtqFWg2OW0RZw0DsbJhbG
- 7KYJuxI+hGsaf1e3eCH86NhWL3mKYHLchNkwelwizVdbqx2TCHmSyTmd7/UiTNDRDtqj
- 1bkDxMnc43SYw+VE+NmTMF0O+9AkEy2ziVWdw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=d9A+1UrQLh0WcW9MhwNlbIKjJoOc9nVaeZ+f3kn5XJg=;
- b=aNXJf8dz38jxt/SEDRjlM2+059IhPo3HnybUxYbhYaaNCuJ/dhEWg0+vaquOk0w6xD
- 1PwpymOS38PUfF74LcFx04tlWmq+9oYv4s/5EQzb7hbg/ZNbrydbJ8BkKvgJ08Y3HYPn
- 640j6eKC2UaLbx9JGEw07WyLu6BmDpmkDI7htdhjh30g3h/7TwLKAekQE3kja33XFOFz
- ww/ru/2wW1HyBRkcGdtofOim13Nbxj/2NVA7srM7Azx/z25wcNgCdlarhywYucJ03ZpU
- 1bUXG7i+fthxnKXencwYdiQ2FiYCFRKdJRHKiTGB7nJiwCzoMcecZROWrQflnBMEOSli
- Vfqg==
-X-Gm-Message-State: ACgBeo3vFGTSRrbDQoQJdSpFVM39ysjlj1V7RnxQnBVbWFfP1C7bDeOU
- /GZFGZOA2sI2u8rbjBZIgZBuTH/RRpisAn64
-X-Google-Smtp-Source: AA6agR5e2v4MZ6ixpIfPFvoB/nezx6lkks3Hg8SuKVY4QkisnayC+UFLK1wKeNX6TqkMVVrl9KcJeQ==
-X-Received: by 2002:a05:6402:190e:b0:43e:1588:4c32 with SMTP id
- e14-20020a056402190e00b0043e15884c32mr3349125edz.76.1659639146395; 
- Thu, 04 Aug 2022 11:52:26 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
- [209.85.221.47]) by smtp.gmail.com with ESMTPSA id
- s18-20020a1709062ed200b007304d084c5esm591504eji.166.2022.08.04.11.52.25
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Aug 2022 11:52:25 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id h13so792331wrf.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Aug 2022 11:52:25 -0700 (PDT)
-X-Received: by 2002:adf:edcb:0:b0:21e:d043:d271 with SMTP id
- v11-20020adfedcb000000b0021ed043d271mr2265646wro.274.1659639145076; Thu, 04
- Aug 2022 11:52:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C908B2BE1F;
+	Fri,  5 Aug 2022 09:09:09 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDC510E3C3;
+ Fri,  5 Aug 2022 09:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1659690529; x=1691226529;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=HcwH7rBY8c9G5DxpGNSvCKWHB22AViIT69knXHJMmAw=;
+ b=GXaKM9iruNLc1EMGzDXitVupLYPkQr1gvbjdaLhtJl/+B5l4CwrfthMg
+ GbaV4wvS44VqRp4T2Q+eWlRFVtWc/e2UZXtKUSC71OtoZ1MjD9HirKZVb
+ QUgKoO2fUl9bVyJUdrnUcjapwsJfWx3ujGMgbjTVua4e05vaMi4jHEJ7S
+ EIadZLO+LCU9BPgBoJJX2NVtJl4xyzKkRpZPb/WXXuSUgVnu9sBOg4m3W
+ JY3m3BKp18gzY41p/oX/yijZ8deiEgf6Du01OfcYwTP1BvruYsLio63w1
+ YjxbV+LCFPoO7IMNBtNWlNvOjvlqPHrzav1JHjN+2p9RYZ9cQ5cagcYp/ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10429"; a="287721249"
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="287721249"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 02:08:47 -0700
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="554047600"
+Received: from namitaga-mobl.ger.corp.intel.com (HELO [10.213.224.55])
+ ([10.213.224.55])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 02:08:45 -0700
+Message-ID: <3a0ef983-6774-7de4-a2e5-0424e215460d@intel.com>
+Date: Fri, 5 Aug 2022 10:08:43 +0100
 MIME-Version: 1.0
-References: <YuwRyQYPCb1FD+mr@debian>
-In-Reply-To: <YuwRyQYPCb1FD+mr@debian>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 4 Aug 2022 11:52:09 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
-Message-ID: <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
-Subject: Re: mainline build failure for x86_64 allmodconfig with clang
-To: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 05 Aug 2022 07:24:03 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.12.0
+Subject: Re: [PATCH v4 4/6] drm/i915: Implement intersect/compatible functions
+Content-Language: en-GB
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+References: <20220804085952.6137-1-Arunpravin.PaneerSelvam@amd.com>
+ <20220804085952.6137-4-Arunpravin.PaneerSelvam@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20220804085952.6137-4-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,30 +61,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- clang-built-linux <llvm@lists.linux.dev>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, luben.tuikov@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 4, 2022 at 11:37 AM Sudip Mukherjee (Codethink)
-<sudipm.mukherjee@gmail.com> wrote:
->
-> git bisect points to 3876a8b5e241 ("drm/amd/display: Enable building new display engine with KCOV enabled").
+On 04/08/2022 09:59, Arunpravin Paneer Selvam wrote:
+> Implemented a new intersect and compatible callback function
+> fetching start offset from drm buddy allocator.
+> 
+> v3: move the bits that are specific to buddy_man (Matthew)
+> v4: consider the block size /range (Matthew)
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 41 +----------
+>   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 73 +++++++++++++++++++
+>   2 files changed, 74 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index 70e2ed4e99df..bf5fd6886ca0 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -379,7 +379,6 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
+>   				       const struct ttm_place *place)
+>   {
+>   	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
+> -	struct ttm_resource *res = bo->resource;
+>   
+>   	if (!obj)
+>   		return false;
+> @@ -396,45 +395,7 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
+>   	if (!i915_gem_object_evictable(obj))
+>   		return false;
+>   
+> -	switch (res->mem_type) {
+> -	case I915_PL_LMEM0: {
+> -		struct ttm_resource_manager *man =
+> -			ttm_manager_type(bo->bdev, res->mem_type);
+> -		struct i915_ttm_buddy_resource *bman_res =
+> -			to_ttm_buddy_resource(res);
+> -		struct drm_buddy *mm = bman_res->mm;
+> -		struct drm_buddy_block *block;
+> -
+> -		if (!place->fpfn && !place->lpfn)
+> -			return true;
+> -
+> -		GEM_BUG_ON(!place->lpfn);
+> -
+> -		/*
+> -		 * If we just want something mappable then we can quickly check
+> -		 * if the current victim resource is using any of the CPU
+> -		 * visible portion.
+> -		 */
+> -		if (!place->fpfn &&
+> -		    place->lpfn == i915_ttm_buddy_man_visible_size(man))
+> -			return bman_res->used_visible_size > 0;
+> -
+> -		/* Real range allocation */
+> -		list_for_each_entry(block, &bman_res->blocks, link) {
+> -			unsigned long fpfn =
+> -				drm_buddy_block_offset(block) >> PAGE_SHIFT;
+> -			unsigned long lpfn = fpfn +
+> -				(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+> -
+> -			if (place->fpfn < lpfn && place->lpfn > fpfn)
+> -				return true;
+> -		}
+> -		return false;
+> -	} default:
+> -		break;
+> -	}
+> -
+> -	return true;
+> +	return ttm_bo_eviction_valuable(bo, place);
+>   }
+>   
+>   static void i915_ttm_evict_flags(struct ttm_buffer_object *bo,
+> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> index a5109548abc0..9def01d5f368 100644
+> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+> @@ -178,6 +178,77 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
+>   	kfree(bman_res);
+>   }
+>   
+> +static bool i915_ttm_buddy_man_intersects(struct ttm_resource_manager *man,
+> +					  struct ttm_resource *res,
+> +					  const struct ttm_place *place,
+> +					  size_t size)
+> +{
+> +	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
+> +	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+> +	struct drm_buddy *mm = &bman->mm;
+> +	struct drm_buddy_block *block;
+> +
+> +	if (!place->fpfn && !place->lpfn)
+> +		return true;
+> +
+> +	GEM_BUG_ON(!place->lpfn);
+> +
+> +	/*
+> +	 * If we just want something mappable then we can quickly check
+> +	 * if the current victim resource is using any of the CP
 
-Ahh. So that was presumably why it was disabled before - because it
-presumably does disgusting things that make KCOV generate even bigger
-stack frames than it already has.
+Nit: s/CP/CPU/
 
-Those functions do seem to have fairly big stack footprints already (I
-didn't try to look into why, I assume it's partly due to aggressive
-inlining, and probably some automatic structures on stack). But gcc
-doesn't seem to make it all that much worse with KCOV (and my clang
-build doesn't enable KCOV).
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-So it's presumably some KCOV-vs-clang thing. Nathan?
-
-              Linus
+> +	 * visible portion.
+> +	 */
+> +	if (!place->fpfn &&
+> +	    place->lpfn == i915_ttm_buddy_man_visible_size(man))
+> +		return bman_res->used_visible_size > 0;
+> +
+> +	/* Check each drm buddy block individually */
+> +	list_for_each_entry(block, &bman_res->blocks, link) {
+> +		unsigned long fpfn =
+> +			drm_buddy_block_offset(block) >> PAGE_SHIFT;
+> +		unsigned long lpfn = fpfn +
+> +			(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+> +
+> +		if (place->fpfn < lpfn && place->lpfn > fpfn)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +static bool i915_ttm_buddy_man_compatible(struct ttm_resource_manager *man,
+> +					  struct ttm_resource *res,
+> +					  const struct ttm_place *place,
+> +					  size_t size)
+> +{
+> +	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
+> +	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+> +	struct drm_buddy *mm = &bman->mm;
+> +	struct drm_buddy_block *block;
+> +
+> +	if (!place->fpfn && !place->lpfn)
+> +		return true;
+> +
+> +	GEM_BUG_ON(!place->lpfn);
+> +
+> +	if (!place->fpfn &&
+> +	    place->lpfn == i915_ttm_buddy_man_visible_size(man))
+> +		return bman_res->used_visible_size == res->num_pages;
+> +
+> +	/* Check each drm buddy block individually */
+> +	list_for_each_entry(block, &bman_res->blocks, link) {
+> +		unsigned long fpfn =
+> +			drm_buddy_block_offset(block) >> PAGE_SHIFT;
+> +		unsigned long lpfn = fpfn +
+> +			(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
+> +
+> +		if (fpfn < place->fpfn || lpfn > place->lpfn)
+> +			return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>   static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
+>   				     struct drm_printer *printer)
+>   {
+> @@ -205,6 +276,8 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
+>   static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
+>   	.alloc = i915_ttm_buddy_man_alloc,
+>   	.free = i915_ttm_buddy_man_free,
+> +	.intersects = i915_ttm_buddy_man_intersects,
+> +	.compatible = i915_ttm_buddy_man_compatible,
+>   	.debug = i915_ttm_buddy_man_debug,
+>   };
+>   
