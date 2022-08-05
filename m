@@ -4,54 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C8EC00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 16:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02EF4C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 16:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40ACFB7CD3;
-	Fri,  5 Aug 2022 16:18:49 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED4E7B7D74;
- Fri,  5 Aug 2022 16:17:05 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 80B5DB80B20;
- Fri,  5 Aug 2022 16:17:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AC7C43140;
- Fri,  5 Aug 2022 16:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659716223;
- bh=8grFLuwlQy0Ot8AOJ3yQKp3FjPtqCsWnDxEz8xLu22U=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=S1Zay7+AGgZcUCq7wrx5A/C0aep+dKgB5hcEjFtW4tftu/80/B6Q8OcvcwNhq+Otu
- o222N5h+m/UXeaeDBok542Ri8zeZAGBgaLJ+Y31oeXxv6WUrdkg5fE5gyoBtFjQtmk
- slz8VGRuiJsttzZCXh9Z0zJADXe35fRHrOy/k/qhXYgTTneYaN95kk+9Al5yDGJa6w
- 7yBzHnwUTcOdXpHxuzYOeTY70INSOjkjzzKg/g7OxKzY1RXLJ0KNZiLIBF+/1WJDjV
- Qyd4zMIPm7hw9L2O/QptByvsMheDELqbCm0et8wP2oNga9unCv5w1R9iOgczug9GBK
- SAZ8bzhOxoZvQ==
-Received: by mail-ej1-f54.google.com with SMTP id dc19so5793851ejb.12;
- Fri, 05 Aug 2022 09:17:03 -0700 (PDT)
-X-Gm-Message-State: ACgBeo3d0RY/b49gi8gq1I9fYAoyq155L8kPcCu28MtYpw+HuNrgxWKn
- pbFblXG0FXevfeXDY2wi5wKZUN1SFzwA0K4kRdk=
-X-Google-Smtp-Source: AA6agR4R1JzUUmCUe4J6toqC9u62zKSlRPtv5bfElt/h5Y16RKiwaSKXI4eB4mnRJZxJJ+hBT4gy7eHrda+QQm1kO9Q=
-X-Received: by 2002:a17:907:28d6:b0:731:5d0:4401 with SMTP id
- en22-20020a17090728d600b0073105d04401mr1753624ejc.765.1659716221514; Fri, 05
- Aug 2022 09:17:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC5C5B868B;
+	Fri,  5 Aug 2022 16:45:01 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20B50B8682
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Aug 2022 16:44:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZUSP9neiHG0iQ1F1+EHtvBIBlPpShvYC/UAP4zTrnfAvIa3qVXaiP89JorWOQc8i7mcxG9yhhkxO1UQ7y8ynFlbcaQLKh4dDiJPVW20HeXIDa3fImFfSwuzkkJIxNZfo3BEGKEBxdmm5Tjp9BmSjWOZT2r/pd4v4QczjEyqJeXD1v8yn7h1v1pe9QE/N40VX8DciRwwemtRWyT+0RFy/zVw2r7myTiJfC9n6Vw9+Vc/b2/sephXAKJ+szqpj5Uca2X9u0sZSV5gnwkSXmGKuWbJ/sRCpkE1ZjXmQEJf13c+rNBjSlc4ue/a8hpiqL6a0xZA4uhQjVPiKkVLhWD6iXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dWLMVOP9E5MYe9DxIcFscwUOm+eVIIrxod0OdXsII6s=;
+ b=LBuV01jMM/0ksndx24pvqKe2O8EYTU5V7o/utVB//NXfp3Eyud7DuZHiMyDZXW4yOmL6pvtIeVNVOPb8NgouYZ9gBv6UA6siQKwBrz5pZ2ZZ6M+4KVX6WmeiB9Byms1euES0xHHHfBL3ETevSng+NYKdZo3FdFIywJYah0VguR9HcN3gkzJzCbA7Xs6prKfk4vnwkJSBu5VuqyRawtEfMBazuLJmCW024Dl1zpLy5OmNVJN8Zbjq0ozJrHSIAnYvb6LYW3M0YezUlmMWzRqf8k5lcAdA0jq6bZoE2GofuTvoHRhCwxd3YOKHkdkrTCzbtVrml1pYm5f9WqEVxi1XWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dWLMVOP9E5MYe9DxIcFscwUOm+eVIIrxod0OdXsII6s=;
+ b=DJ0rgj1v+a4pR1f4sNrgkIVjyQ42C3nfXNobRXJBnrgwCuSpD+aOUhvye2Ib1vx9qsovS0QTGkovzKTrSmhhO4QC8fB3kT0qgl2/mPoa/EUW8z2GOdRKRwEB6U60RS5bW0hoLakCzrmdv6/J0pRAoqsKZyVUe8MRyz1dogFOVGw=
+Received: from BN9P221CA0011.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::31)
+ by BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Fri, 5 Aug
+ 2022 16:44:41 +0000
+Received: from BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10a:cafe::f8) by BN9P221CA0011.outlook.office365.com
+ (2603:10b6:408:10a::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16 via Frontend
+ Transport; Fri, 5 Aug 2022 16:44:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT014.mail.protection.outlook.com (10.13.177.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Fri, 5 Aug 2022 16:44:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 5 Aug
+ 2022 11:44:38 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 5 Aug
+ 2022 11:44:38 -0500
+Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Fri, 5 Aug 2022 11:44:33 -0500
+From: Tom Chung <chiahsuan.chung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/32] DC Patches July 29 2022
+Date: Sat, 6 Aug 2022 00:42:57 +0800
+Message-ID: <20220805164329.2988533-1-chiahsuan.chung@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <YuwRyQYPCb1FD+mr@debian>
- <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
- <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
- <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
- <9fb73284-7572-5703-93d3-f83a43535baf@amd.com>
-In-Reply-To: <9fb73284-7572-5703-93d3-f83a43535baf@amd.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Fri, 5 Aug 2022 18:16:45 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3Fv=_+GV9r=k4jP72zZOjJowL-GOue-51EhyVDBaEfEw@mail.gmail.com>
-Message-ID: <CAK8P3a3Fv=_+GV9r=k4jP72zZOjJowL-GOue-51EhyVDBaEfEw@mail.gmail.com>
-Subject: Re: mainline build failure for x86_64 allmodconfig with clang
-To: Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 89114f72-8a5a-4ca3-9141-08da7701cb2f
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5175:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qm6deaY4UnHVzsMDJxvzp8Yfz4zNSVXivhrf0HTpI6HF2KoV5l17Dv/yNQHSVvlKkFzB2JSLKKK5ZxRBMfCT407emXOLfUdnw4oKEKdM/eYEaHqMjM8wkK8nieNhPDN/JEkvgmfz1ns3NGddLGWwhHfZSGiv6pBrzrqHfQ+hmLokdGY6oMG9rocjwBPp8bEorsxxInEn5nMFJIYpgT9G6wrm/JKCweCmbdQgTQ+AamwN8KQydiV3Rr4Q8smvpiWpCQVvu+lymQrGVN1dU9mCAzSqGP35oJlZqYuM3EVGWuExTUDaVDmn49VMW2ZEZU4AvH77+zhcAlh/dERFDwBD3NMht74OYY82n2dx1ZRA4di4dgUSuY9cxec2gXDZj30nHZfVdKb8i0aD4aWw0BswceL7JCXsW5QwVUXSbVFQeSQtMAPLlyaVAie8cHcFEvVY63w9F4tk3vtnyy5CVnLyqEheViImZ5s7yeeX7BAhVcviBuVTGeYUATCCQl6SWRx/98LrMIHPaZhczZ6PKtBAv/vwbhjkqJOz+V/+TS9ZDpD6asHS/mM6YryCpe5vEEpAMzlmZdg7Oh/9b+9+4mnhzmJ3ocnf2V+z0N8oDglczkiTBu0qp79eZDXsMkOq9bR1N5nNTMir584Q2c9cr8ENKXenr4pVIAgi+GAYQTZsxKXEVGAgO8zB8sLzN3O3CPUm0hSCpQHTrv3VgMaYOy5ezQxxWo8cPxGqh3zzN2DCcCuS2jpFsW6aiOuNmRYC1+idA6XL1EUtDYFQVaMHrT2vJAmfZaGoayj1LPtKp63t0YSlARbr32DhXR/r73npWVBZ9bU5hWYBV+kbPsP8lAS53Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(376002)(346002)(39860400002)(136003)(40470700004)(36840700001)(46966006)(2906002)(6666004)(2616005)(83380400001)(70586007)(70206006)(36860700001)(316002)(47076005)(41300700001)(5660300002)(336012)(426003)(478600001)(40460700003)(6916009)(1076003)(54906003)(186003)(40480700001)(26005)(36756003)(356005)(82740400003)(82310400005)(81166007)(8936002)(86362001)(7696005)(4326008)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 16:44:41.3286 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89114f72-8a5a-4ca3-9141-08da7701cb2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,96 +101,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- clang-built-linux <llvm@lists.linux.dev>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: stylon.wang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 5, 2022 at 5:32 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > I do notice that these files build with a non-configurable
-> > -Wframe-large-than value:
-> >
-> > $ rg frame_warn_flag drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > 54:frame_warn_flag := -Wframe-larger-than=2048
->
-> Tbh, I was looking at the history and I can't find a good reason this
-> was added. It should be safe to drop this. I would much rather use
-> the CONFIG_FRAME_WARN value than override it.
->
-> AFAIK most builds use 2048 by default anyways.
+This DC patchset brings along following fixes:
 
-I'm fairly sure this was done for 32-bit builds, which default to a lower
-warning limit of 1024 bytes and would otherwise run into this
-problem when 64-bit platforms don't. With the default warning limit,
-clang warns even more about an i386 build:
+- Move fpu file to dml folder
+- Fix CAB allocation for multiple displays
+- Add a variable to update FCLK
+- Fix TMDS 4K@60Hz YCbCr420 corruption issue
+- Fix MPC tree infinite loop in some case
+- Fix SubVP calculations
+- Fix HDMI VSIF V3 blank screen issue
+- Add some documentation to the code
+- Allow alternate prefetch modes in DML for DCN32
+- Fix VPG instancing for dcn314 HPO
+- Check correct bounds for stream encoder instances for DCN303
+- Enable SubVP by default on DCN32 & DCN321
+- Fix DTBCLK not correct for dcn314
+- Fix Compile-time warning
+- Fix the stereo mode hang issue
+- Fix display light up issue
 
-display/dc/dml/dcn20/display_rq_dlg_calc_20.c:1549:6: error: stack
-frame size (1324) exceeds limit (1024) in 'dml20_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:1550:6: error: stack
-frame size (1324) exceeds limit (1024) in 'dml20v2_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn30/display_rq_dlg_calc_30.c:1742:6: error: stack
-frame size (1484) exceeds limit (1024) in 'dml30_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn31/display_rq_dlg_calc_31.c:1571:6: error: stack
-frame size (1548) exceeds limit (1024) in 'dml31_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn21/display_rq_dlg_calc_21.c:1657:6: error: stack
-frame size (1388) exceeds limit (1024) in 'dml21_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn32/display_rq_dlg_calc_32.c:206:6: error: stack
-frame size (1276) exceeds limit (1024) in 'dml32_rq_dlg_get_dlg_reg'
-display/dc/dml/dcn31/display_mode_vba_31.c:2049:13: error: stack frame
-size (1468) exceeds limit (1024) in
-'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation'
-display/dc/dml/dcn20/display_mode_vba_20v2.c:1145:13: error: stack
-frame size (1228) exceeds limit (1024) in
-'dml20v2_DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation'
-display/dc/dml/dcn20/display_mode_vba_20.c:1085:13: error: stack frame
-size (1340) exceeds limit (1024) in
-'dml20_DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation'
-display/dc/dml/dcn31/display_mode_vba_31.c:3908:6: error: stack frame
-size (1996) exceeds limit (1024) in
-'dml31_ModeSupportAndSystemConfigurationFull'
-display/dc/dml/dcn21/display_mode_vba_21.c:1466:13: error: stack frame
-size (1308) exceeds limit (1024) in
-'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation'
-display/dc/dml/dcn20/display_mode_vba_20v2.c:3393:6: error: stack
-frame size (1356) exceeds limit (1024) in
-'dml20v2_ModeSupportAndSystemConfigurationFull'
-display/dc/dml/dcn20/display_mode_vba_20.c:3286:6: error: stack frame
-size (1468) exceeds limit (1024) in
-'dml20_ModeSupportAndSystemConfigurationFull'
-display/dc/dml/dcn21/display_mode_vba_21.c:3518:6: error: stack frame
-size (1228) exceeds limit (1024) in
-'dml21_ModeSupportAndSystemConfigurationFull'
-display/dc/dml/dcn30/display_mode_vba_30.c:1906:13: error: stack frame
-size (1436) exceeds limit (1024) in
-'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation'
-display/dc/dml/dcn30/display_mode_vba_30.c:3596:6: error: stack frame
-size (2092) exceeds limit (1024) in
-'dml30_ModeSupportAndSystemConfigurationFull'
-> > I do note that commit 1b54a0121dba ("drm/amd/display: Reduce stack size
-> > in the mode support function") did have a workaround for GCC. It appears
-> > clang will still inline mode_support_configuration(). If I mark it as
-> > 'noinline', the warning disappears in that file.
->
-> That'd be the best quick fix. I guess if we split out functions to fix
-> stack usage we should mark them as 'noinline' in the future to avoid
-> agressive compiler optimizations.
+Aric Cyr (1):
+  drm/amd/display: 3.2.197
 
-While splitting out sub-functions can help reduce the maximum stack
-usage, it seems that in this case it makes the actual problem worse:
-I see 2168 bytes for the combined
-dml32_ModeSupportAndSystemConfigurationFull(), but marking
-mode_support_configuration() as noinline gives me 1992 bytes
-for the outer function plus 384 bytes for the inner one. So it does
-avoid the warning (barely), but not the problem that the warning tries
-to point out.
+Aurabindo Pillai (3):
+  drm/amd/display: fix CAB allocation for multiple displays
+  drm/amd/display: Check correct bounds for stream encoder instances for
+    DCN303
+  drm/amd/display: Enable SubVP by default on DCN32 & DCN321
 
-        Arnd
+Daniel Miess (2):
+  drm/amd/display: Use pixels per container logic for DCN314 DCCG
+    dividers
+  drm/amd/display: Fix TMDS 4K@60Hz YCbCr420 corruption issue
+
+David Galiffi (2):
+  drm/amd/display: Allow alternate prefetch modes in DML for DCN32
+  drm/amd/display: Fix Compile-time Warning
+
+Duncan Ma (2):
+  drm/amd/display: Fix VPG instancing for dcn314 HPO
+  drm/amd/display: Correct DTBCLK for dcn314
+
+Huang, ChiaWen (1):
+  drm/amd/display: Device flash garbage before get in OS
+
+Josip Pavic (1):
+  drm/amd/display: Avoid MPC infinite loop
+
+Lee, Alvin (8):
+  drm/amd/display: Revert "fix 32 bit compilation errors in
+    dc_dmub_srv.c"
+  drm/amd/display: Add a variable to update FCLK latency
+  drm/amd/display: Refactor SubVP calculation to remove FPU
+  drm/amd/display: Add 16 lines margin for SubVP
+  drm/amd/display: Fix subvp calculations
+  drm/amd/display: Revert "attempt to fix the logic in
+    commit_planes_for_stream()"
+  drm/amd/display: For stereo keep "FLIP_ANY_FRAME"
+  drm/amd/display: Don't try to enter MALL SS if stereo3d
+
+Leo (Hanghong) Ma (1):
+  drm/amd/display: Fix HDMI VSIF V3 incorrect issue
+
+Meenakshikumar Somasundaram (1):
+  drm/amd/display: Fix TDR eDP and USB4 display light up issue
+
+Rodrigo Siqueira (9):
+  drm/amd/display: Create FPU files for DCN314
+  drm/amd/display: Move populate dml pipes from DCN314 to dml
+  drm/amd/display: Drop FPU flags from Makefile
+  drm/amd/display: Add documentation to some of the cursor struct
+  drm/amd/display: Add basic kernel doc to CRC code under DC
+  drm/amd/display: Add some extra kernel doc to amdgpu_dm
+  drm/amd/display: Document pipe split policy
+  drm/amd/display: Expand documentation for timing
+  drm/amd/display: Document some of the DML structs
+
+Wang, Fudong (1):
+  drm/amd/display: clear optc underflow before turn off odm clock
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  46 ++-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |  12 +-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.h        |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  45 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  40 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  93 +++--
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  | 148 ++++++-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |   1 +
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |   1 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c  |   6 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c |  44 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c  |   6 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c |   2 +-
+ .../amd/display/dc/dcn303/dcn303_resource.c   |   2 +-
+ .../gpu/drm/amd/display/dc/dcn314/Makefile    |  25 --
+ .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |  42 +-
+ .../drm/amd/display/dc/dcn314/dcn314_hwseq.h  |   4 +
+ .../drm/amd/display/dc/dcn314/dcn314_init.c   |   2 +
+ .../amd/display/dc/dcn314/dcn314_resource.c   | 341 +---------------
+ .../amd/display/dc/dcn314/dcn314_resource.h   |   3 +
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  39 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.c |   2 +-
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |   3 +-
+ .../amd/display/dc/dcn321/dcn321_resource.c   |   3 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    | 376 ++++++++++++++++++
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.h    |  40 ++
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  46 ++-
+ .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |   7 +
+ .../amd/display/dc/dml/display_mode_structs.h |  34 ++
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   4 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |  14 +-
+ .../amd/display/modules/freesync/freesync.c   |  15 +-
+ 34 files changed, 968 insertions(+), 498 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.h
+
+-- 
+2.25.1
+
