@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06769C00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EAB4C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4473B12AD79;
-	Fri,  5 Aug 2022 21:54:36 +0000 (UTC)
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [IPv6:2607:f8b0:4864:20::d31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE08931AA;
- Fri,  5 Aug 2022 21:54:15 +0000 (UTC)
-Received: by mail-io1-xd31.google.com with SMTP id c185so2856651iof.7;
- Fri, 05 Aug 2022 14:54:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E719E931AA;
+	Fri,  5 Aug 2022 21:54:46 +0000 (UTC)
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3C9412A843;
+ Fri,  5 Aug 2022 21:54:23 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id z8so680261ile.0;
+ Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=dW/qowRKwpSX+eB9zQgpcFjLzbW7/9zpGPg2Go1FHeI=;
- b=pQqact85NoRb+xtdb4neqHJ2MSf9lwR+gCDz0zUVVjYSEELKbLwImAE6CSqgl+Q4XM
- /dOHKlBwUpeC9a8Kj6oBimwhLi3DHsK4O7zQm0pwLrcX3ZopEjW6HZIbh6YyUFVaafZr
- 5szL5MQBQwSMH6R3xf437A6KKteGEzAGGiy7gbo8AlKfmlJRbUz1IBy9CwCiAbuPknfT
- e4D/JLSz4pesGI29pQZJh6dO5qlsWwfDg/FTM/7hrS1PjqPn4Ghoe084pBnGzOmJ/PYX
- 0xmtTY4hBf2zQIPotw1GI23q+epE7LZx9a7RP/txZjlmC6Ra0OXTYFDlot7BqDZmDYEk
- VVxQ==
+ bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
+ b=GttURaGyNyjlXmWKacrpk22jV/0PvPsnt5RSXlSpOmWKIOS1FVVSqslXr8i7diNjqQ
+ B8bkPGOWHdOKP350Spcfvc2YAsmiq/DcD5C1wo0gN9gkyB/bIob/YY66WXpxdtoM3lUZ
+ adw/rX4gz+YhYkxP4A+dvAgGqGer5xJc0fzlLSxAvmp99IRcl8QU2Tw2cTyWIMWa3mbk
+ +WLxYSAXcQKdm2uaaGJq1a4Ooltfmbb2XptYWsKw4nHWkF5LzoQn2PdHKR0NRyGelXun
+ xlOcEXK3Sj29apYYZlO8KM9a8Mtb/H4JV9NYpZbd8JqlUhRtKjxvE8x7Bg+2g4wCPp3q
+ fBfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=dW/qowRKwpSX+eB9zQgpcFjLzbW7/9zpGPg2Go1FHeI=;
- b=wzdXhDGHT5op8lvA60RqdXWK0e0/C12oDmGzct3bcE9YaycbqhWJlL2V9OZTIawcA+
- CEB6s1AlfH2M/Qx/GE8hReu09Ij2gXC1QZVBtFIynNyO+2LIQVEFmoQWWchohecoP4/o
- /gzlnOy81HpwAX+ungS5xZUNVW+JcctuTEGaF5lx66z6JPoqQ5yuQ1PZMB9rruaKZ8L3
- vFGFQSd/COsOvLpvd9IMBtXFjIAcCsxkvKZi+947dTh3c5WYln4KyqJ11m4SgIigEOid
- TD6x0HV+Efi2Xw4j5na6iCDQ50fziMsyFPX91bg7f5NJa526qSB7/h312CvWmFalpbCe
- qVJA==
-X-Gm-Message-State: ACgBeo2V/t79MCP6rTLDNWl5ORSUSwIQ2n+N6g4BXzKt3aQelEPzBSCu
- YJeykA2cRueySELRqmxWZSs=
-X-Google-Smtp-Source: AA6agR6g0h/uRqkZBCEfyjVwXC4v1QUrTS31if9Ucl65W+giIN8r0CzRcZcoL+STwGJBx/6L7Fqtaw==
-X-Received: by 2002:a05:6638:3792:b0:342:b241:13c2 with SMTP id
- w18-20020a056638379200b00342b24113c2mr3231037jal.257.1659736454304; 
- Fri, 05 Aug 2022 14:54:14 -0700 (PDT)
+ bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
+ b=XrHpivDLB9TC9FuZzWAMKXF976HXVkJQTEKdOI7Wr688nXF86X5zm2OYq4y07jLI7M
+ Q0mb2Sxk2QIbG5KYHVNqp1RXtNZvlv3uguC4Fp6kAPohHXpIYvc1KOnlpSZ9Ene9sQnz
+ rH1/BWadLaBEXsP2fYXIjwjhh0A2/Xa5S4wem+zyJfjaHh8qR23Zr5TtaVU86t1vL8j+
+ c3+Jfp3vIMWC9LYFY0rtb0fZx0jsYoKGah1382r/31SFSYo1A4IhRUnYQtqUGU7X3S6m
+ 6qhuQWpu3aPC4Skw235MUNPV5dxb8skfpYeL+chkcYvQOqn4scZEfrohMSocjuM2+4ck
+ VoZA==
+X-Gm-Message-State: ACgBeo36FupzZ1PuYPhJLcxcA22lzOUzkxDSvl/1sdWmso8uWINNVLHr
+ U7OMDu55WEN1TefsFesk9xM=
+X-Google-Smtp-Source: AA6agR7/BqFC2YyWdpPet7vO1o3I+g5zfP53AO5Z/UYQa5Q4GCzcWqQvhq1jsWqDvHh+aYBwIiWqsw==
+X-Received: by 2002:a05:6e02:194d:b0:2de:a54b:2e51 with SMTP id
+ x13-20020a056e02194d00b002dea54b2e51mr3914987ilu.257.1659736463061; 
+ Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.13
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:13 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:22 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Subject: [PATCH v5 02/33] dyndbg: fix module.dyndbg handling
-Date: Fri,  5 Aug 2022 15:53:24 -0600
-Message-Id: <20220805215355.3509287-3-jim.cromie@gmail.com>
+Subject: [PATCH v5 04/33] dyndbg: reverse module walk in cat control
+Date: Fri,  5 Aug 2022 15:53:26 -0600
+Message-Id: <20220805215355.3509287-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
@@ -73,47 +73,36 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>
+ robdclark@gmail.com, seanpaul@chromium.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For CONFIG_DYNAMIC_DEBUG=N, the ddebug_dyndbg_module_param_cb()
-stub-fn is too permissive:
+/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
+fix this by adding new ddebug_tables to tail of list.
 
-bash-5.1# modprobe drm JUNKdyndbg
-bash-5.1# modprobe drm dyndbgJUNK
-[   42.933220] dyndbg param is supported only in CONFIG_DYNAMIC_DEBUG builds
-[   42.937484] ACPI: bus type drm_connector registered
+This puts init/main.c entries 1st, which looks more than coincidental.
 
-This caused no ill effects, because unknown parameters are either
-ignored by default with an "unknown parameter" warning, or ignored
-because dyndbg allows its no-effect use on non-dyndbg builds.
+no functional changes.
 
-But since the code has an explicit feedback message, it should be
-issued accurately.  Fix with strcmp for exact param-name match.
-
-Reported-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Fixes: b48420c1d301 dynamic_debug: make dynamic-debug work for module initialization
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
+ lib/dynamic_debug.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index dce631e678dd..f30b01aa9fa4 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -201,7 +201,7 @@ static inline int ddebug_remove_module(const char *mod)
- static inline int ddebug_dyndbg_module_param_cb(char *param, char *val,
- 						const char *modname)
- {
--	if (strstr(param, "dyndbg")) {
-+	if (!strcmp(param, "dyndbg")) {
- 		/* avoid pr_warn(), which wants pr_fmt() fully defined */
- 		printk(KERN_WARNING "dyndbg param is supported only in "
- 			"CONFIG_DYNAMIC_DEBUG builds\n");
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 8faf584f2f4b..7fb99492c16f 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+ 	dt->ddebugs = tab;
+ 
+ 	mutex_lock(&ddebug_lock);
+-	list_add(&dt->link, &ddebug_tables);
++	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+ 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
 -- 
 2.37.1
 
