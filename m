@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A44A6C00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 19:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB65C00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1FDA6106;
-	Fri,  5 Aug 2022 19:32:54 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE669A3E57;
- Fri,  5 Aug 2022 19:32:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1359C61A36;
- Fri,  5 Aug 2022 19:32:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6385CC4347C;
- Fri,  5 Aug 2022 19:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659727953;
- bh=mfEh6ybw6rE7/YvSjSNtL1TZqU0Vwg2ccAlpa8gmxCw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=LX1rWOzm68paQ6IF/V/Z7Jyc4mrDJMxk18613pIutd20SJHjYfs8ZhEb+NcRWW05d
- MXovB+DdlRSYT/gY3UIS7oUWTnQ6Ma47JwlMLJ2KnAmdSKv5rbgaSpS2BtD2/28tq4
- rB1JGnZgbQBUwc6ohYPWw+vYSmCvEqBTbnujzgvplYHbExArH2u2i3DUWOv8LBCE7g
- ScShm5/Xl1O0DZjH6hn6562iDgdMKwrr3b80zPM5FwwhwBnYEAnjLxH5S+is3Jhp9p
- plohILwpbGdi9lOPyJmrVHVYDzrzbXoMNGgzVr7pUDH3A3H1U39o2wxM/bwqRJexqt
- 3iAmOBvR3Rk3A==
-Received: by mail-ej1-f49.google.com with SMTP id uj29so6791385ejc.0;
- Fri, 05 Aug 2022 12:32:33 -0700 (PDT)
-X-Gm-Message-State: ACgBeo2SDrsheGYsVpMR6LOJNzThoYtSo5rwGfGHekf1AleUYyVx80bF
- Oo5VBb1wvpLuB0JSKjOLa+dUiaQXlV9HRCZhfa0=
-X-Google-Smtp-Source: AA6agR6sufpPn7fKAXba69irZ//FbrrVb5P7LMB5EmBMDbLarfIv7nL6lJv4uXFV2w0bUTCcP1jOVQ494qKG5VTQJm8=
-X-Received: by 2002:a17:907:28d6:b0:731:5d0:4401 with SMTP id
- en22-20020a17090728d600b0073105d04401mr2212923ejc.765.1659727951560; Fri, 05
- Aug 2022 12:32:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 199FBB9FE8;
+	Fri,  5 Aug 2022 21:15:41 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A21B9E78;
+ Fri,  5 Aug 2022 21:13:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FTM5m389Oq1huyKLYWEUWTBUYz0lnmC4paW4UjWMfr4zfcJOxdxRmHPKy4ha4OsXy8YMUUSJ4h+68p6dpzVs5PIFbR1psPAz+B4fRit5YNIyghP0miyVW6ZSqlLNxdhYHugWZvQQ/lxBte1mJ0FW9Fg+tun5H/G/EORRdqm3m851BU5YfPIsp+I+47Q6xjjQUrxvNM97ItDufuO39wstQdomgS0eUZIsWPwCYFNvFWE/wWE2+TfMYDb9+f5SLl4DbdP8v0k3Cq1uKkwzHrsUqdbsp7UjFBvh6+QqvGhJKnUX1mPgXGEiicwq3BjFUBPf3U4PW38AykApZD6dBkiDRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z7NBT2kuC6NI1KC/ha2MEPlmndNE3immfWXCeILsGGk=;
+ b=Qp8GX13Cvm9IP6oLSvh/kqKO7YBgtQ9HSLyA54NbcceXQnS2if4tSz5Dht8yYcgB37qklqXJCUqEHvIiWsISDB7/uI8I9HVlhnJRffuR8dU41xMOLDAlheVMvN+kQQlqL+J11Nq20+3hnzacRERGP/D4BrWidsaAQ0kZYvN8JlVMqaePX5+ZMkCSQpznHGfiUY4F/VZ+MfYnJRCHjU5oMZe/++zWMLDYdb9T9B4MpCTEQRjuaYLei93JaciQ9qLwZrMrl0wLG9by9qagpbPSBOfFSVOY/hmFNISfLzhJBRhORU5orW28KTXEV+ZQp/Na6Kj1Ul3dTipjPEybkzArBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z7NBT2kuC6NI1KC/ha2MEPlmndNE3immfWXCeILsGGk=;
+ b=lgH7m/X0SBxExz+Tfy7iWOKu0iIZZTRi8O00UFj3EKQBiTDaEzBfk00RrDpQmnjj35m0Syz7TYSkY30GqTU7CvEAdLV2Iah+ABxuiqfBlTtsrqP1BapFHTzSKEq/NPBJ6VHGLJiZandhfGcbTrxToqkr3EMZ03Q1CKWKg6kVhnU=
+Received: from DS7PR03CA0032.namprd03.prod.outlook.com (2603:10b6:5:3b5::7) by
+ PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15; Fri, 5 Aug
+ 2022 21:13:21 +0000
+Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::be) by DS7PR03CA0032.outlook.office365.com
+ (2603:10b6:5:3b5::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14 via Frontend
+ Transport; Fri, 5 Aug 2022 21:13:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Fri, 5 Aug 2022 21:13:20 +0000
+Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 5 Aug
+ 2022 16:13:17 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 1/3] drm/dp_mst: add passthrough_aux to struct
+ drm_dp_mst_port
+Date: Fri, 5 Aug 2022 17:13:03 -0400
+Message-ID: <20220805211317.176672-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-References: <YuwRyQYPCb1FD+mr@debian>
- <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
- <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
- <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
- <9fb73284-7572-5703-93d3-f83a43535baf@amd.com>
- <CAK8P3a3Fv=_+GV9r=k4jP72zZOjJowL-GOue-51EhyVDBaEfEw@mail.gmail.com>
- <Yu1bMqL5tsbq1ojj@dev-arch.thelio-3990X>
-In-Reply-To: <Yu1bMqL5tsbq1ojj@dev-arch.thelio-3990X>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Fri, 5 Aug 2022 21:32:13 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3PAxkctN6AXOsoTBTFgwHhk7_OSYwJ4Rgk7Dbs+bc0Qw@mail.gmail.com>
-Message-ID: <CAK8P3a3PAxkctN6AXOsoTBTFgwHhk7_OSYwJ4Rgk7Dbs+bc0Qw@mail.gmail.com>
-Subject: Re: mainline build failure for x86_64 allmodconfig with clang
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3910ee1c-cd67-4a19-9baf-08da77275335
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6868:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6MFM508ZVhXSCIr4flpQ1S4d6uLkVqwqAeWe30oOYRZaa+5iHmWEOovNUqf/PCq3lUvRLMMV62MTj8ZSLAHLjWAh/UGyo0zBZEnASwSNJZ5A+tIRfrhTIPEjBiMDwYSXnUN7ijWxgkueEx9NFCRNOjFm/WyhKQMQUbGB9uAsluEhuuSu9pIDQn5OABPUCXhCmmA3pf0ND5WFgZEjg+gUJ5pIKhrrzcPI2M1Gr6Cgz458E1VMAVx5OedAmWdjje+YBC2GO+J0DAVmjmlzcbZTZdzYNzWA7tsIOfqxkm+Va8nPKrPLHusNT/J3khESlI2tT6lBWuiHsetN+53MR6eSstb2q83ci2cuVEI/RwLSI0YNpJd9XooUG4evl8909U9a8spkjjKXgox2Atk3tKzs61+7zYznNBA6KUPYEwnS1AZVD+N6rH7ukctiad7xzrUkEWrvafohpRHo9prKBN6N6mBaBgYcenUc7xhq51a4UPaoevLFwq/isJObpUc1Qwonw8ERfdS3c7ky5tprddu7JSq9uVSyasVvXFHvB+FuHP5k6Mt0TLiMJqIkMfTXcQiEX8RL21+u7jSnnXGtgmPe726wo7wM7W0b06gCBB7SqcGqeceTY1pj/eowmPpuo306+IWQUkU2RQ0aSMPZq111Qy0dYsXFnRMTB8QnxrfUq/zO5H53lezTuZeJQ4uPSZs1MD3dti4x2uXz7sgQU2yfbA6cFVd9jdFojaayqCqeXAKsJNWff21bGx0ZXPfbXVUjz8oQWsityf/COX8CLyPnsSe86LO184QqdMGKMYqoAEwe/qNUuKcXHW95U0f0gPYqkiHiJ/cXTqoXP5jP3C9NWNCzgi8pRgHYcCMsriKh5C7r3JcJ6tFzQVKcJq1JRKd/
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(136003)(396003)(39860400002)(40470700004)(46966006)(36840700001)(86362001)(316002)(81166007)(54906003)(8936002)(6916009)(36756003)(356005)(40480700001)(70206006)(8676002)(4326008)(7696005)(26005)(70586007)(41300700001)(6666004)(16526019)(336012)(47076005)(426003)(2616005)(83380400001)(82740400003)(186003)(40460700003)(1076003)(478600001)(82310400005)(2906002)(36860700001)(5660300002)(44832011)(7416002)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 21:13:20.8704 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3910ee1c-cd67-4a19-9baf-08da77275335
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,95 +98,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- clang-built-linux <llvm@lists.linux.dev>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Ian Chen <ian.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Imran Khan <imran.f.khan@oracle.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Kees Cook <keescook@chromium.org>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, hersenxs.wu@amd.com,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ David Zhang <dingchen.zhang@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Roman Li <Roman.Li@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Claudio Suarez <cssk@net-c.es>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Colin Ian King <colin.king@intel.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 5, 2022 at 8:02 PM Nathan Chancellor <nathan@kernel.org> wrote:
-> On Fri, Aug 05, 2022 at 06:16:45PM +0200, Arnd Bergmann wrote:
-> > On Fri, Aug 5, 2022 at 5:32 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > While splitting out sub-functions can help reduce the maximum stack
-> > usage, it seems that in this case it makes the actual problem worse:
-> > I see 2168 bytes for the combined
-> > dml32_ModeSupportAndSystemConfigurationFull(), but marking
-> > mode_support_configuration() as noinline gives me 1992 bytes
-> > for the outer function plus 384 bytes for the inner one. So it does
-> > avoid the warning (barely), but not the problem that the warning tries
-> > to point out.
->
-> I haven't had a chance to take a look at splitting things up yet, would
-> you recommend a different approach?
+Currently, there is no way to identify if DSC pass-through can be
+enabled and what aux DSC pass-through requests ought to be sent to. So,
+add a variable to struct drm_dp_mst_port that keeps track of the
+aforementioned information.
 
-Splitting up large functions can help when you have large local variables
-that are used in different parts of the function, and the split gets the
-compiler to reuse stack locations.
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+v2: define DP_DSC_PASSTHROUGH_IS_SUPPORTED
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
+ include/drm/display/drm_dp.h                  | 1 +
+ include/drm/display/drm_dp_mst_helper.h       | 3 +++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
-I think in this particular function, the problem isn't actually local variables
-but either pushing variables on the stack for argument passing,
-or something that causes the compiler to run out of registers so it
-has to spill registers to the stack.
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 67b3b9697da7..71915afd9892 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5921,8 +5921,10 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 		/* Enpoint decompression with DP-to-DP peer device */
+ 		if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+ 		    (endpoint_fec & DP_FEC_CAPABLE) &&
+-		    (upstream_dsc & 0x2) /* DSC passthrough */)
++		    (upstream_dsc & DP_DSC_PASSTHROUGH_IS_SUPPORTED)) {
++			port->passthrough_aux = &immediate_upstream_port->aux;
+ 			return &port->aux;
++		}
+ 
+ 		/* Virtual DPCD decompression with DP-to-DP peer device */
+ 		return &immediate_upstream_port->aux;
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 9e3aff7e68bb..4d0abe4c7ea9 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -239,6 +239,7 @@
+ 
+ #define DP_DSC_SUPPORT                      0x060   /* DP 1.4 */
+ # define DP_DSC_DECOMPRESSION_IS_SUPPORTED  (1 << 0)
++# define DP_DSC_PASSTHROUGH_IS_SUPPORTED    (1 << 1)
+ 
+ #define DP_DSC_REV                          0x061
+ # define DP_DSC_MAJOR_MASK                  (0xf << 0)
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 10adec068b7f..4a39c95f8afd 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -86,6 +86,8 @@ struct drm_dp_vcpi {
+  * @next: link to next port on this branch device
+  * @aux: i2c aux transport to talk to device connected to this port, protected
+  * by &drm_dp_mst_topology_mgr.base.lock.
++ * @passthrough_aux: parent aux to which DSC pass-through requests should be
++ * sent, only set if DSC pass-through is possible.
+  * @parent: branch device parent of this port
+  * @vcpi: Virtual Channel Payload info for this port.
+  * @connector: DRM connector this port is connected to. Protected by
+@@ -140,6 +142,7 @@ struct drm_dp_mst_port {
+ 	 */
+ 	struct drm_dp_mst_branch *mstb;
+ 	struct drm_dp_aux aux; /* i2c bus for this port? */
++	struct drm_dp_aux *passthrough_aux;
+ 	struct drm_dp_mst_branch *parent;
+ 
+ 	struct drm_dp_vcpi vcpi;
+-- 
+2.37.1
 
-In either case, one has to actually look at the generated output
-and then try to rearrange the codes so this does not happen.
-
-One thing to try would be to condense a function call like
-
-                dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
-
-&v->dummy_vars.dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport,
-                        mode_lib->vba.USRRetrainingRequiredFinal,
-                        mode_lib->vba.UsesMALLForPStateChange,
-
-mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
-                        mode_lib->vba.NumberOfActiveSurfaces,
-                        mode_lib->vba.MaxLineBufferLines,
-                        mode_lib->vba.LineBufferSizeFinal,
-                        mode_lib->vba.WritebackInterfaceBufferSize,
-                        mode_lib->vba.DCFCLK,
-                        mode_lib->vba.ReturnBW,
-                        mode_lib->vba.SynchronizeTimingsFinal,
-
-mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
-                        mode_lib->vba.DRRDisplay,
-                        v->dpte_group_bytes,
-                        v->meta_row_height,
-                        v->meta_row_height_chroma,
-
-v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
-                        mode_lib->vba.WritebackChunkSize,
-                        mode_lib->vba.SOCCLK,
-                        v->DCFCLKDeepSleep,
-                        mode_lib->vba.DETBufferSizeY,
-                        mode_lib->vba.DETBufferSizeC,
-                        mode_lib->vba.SwathHeightY,
-                        mode_lib->vba.SwathHeightC,
-                        mode_lib->vba.LBBitPerPixel,
-                        v->SwathWidthY,
-                        v->SwathWidthC,
-                        mode_lib->vba.HRatio,
-                        mode_lib->vba.HRatioChroma,
-                        mode_lib->vba.vtaps,
-                        mode_lib->vba.VTAPsChroma,
-                        mode_lib->vba.VRatio,
-                        mode_lib->vba.VRatioChroma,
-                        mode_lib->vba.HTotal,
-                        mode_lib->vba.VTotal,
-                        mode_lib->vba.VActive,
-                        mode_lib->vba.PixelClock,
-                        mode_lib->vba.BlendingAndTiming,
-                        .... /* more arguments */);
-
-into calling conventions that take a pointer to 'mode_lib->vba' and another
-one to 'v', so these are no longer passed on the stack individually.
-
-       Arnd
