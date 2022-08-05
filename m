@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AB7C25B08
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5B5C25B0D
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C5FA147B;
-	Fri,  5 Aug 2022 21:54:56 +0000 (UTC)
-Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
- [IPv6:2607:f8b0:4864:20::d32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1364112A6BA;
- Fri,  5 Aug 2022 21:54:27 +0000 (UTC)
-Received: by mail-io1-xd32.google.com with SMTP id q124so2869707iod.3;
- Fri, 05 Aug 2022 14:54:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3B48A1BDC;
+	Fri,  5 Aug 2022 21:54:57 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC40A12A287;
+ Fri,  5 Aug 2022 21:54:38 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id v185so2831621ioe.11;
+ Fri, 05 Aug 2022 14:54:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=8oKEUq0EPzmllL1JKxsnzcEjeLeYCN2EOuzsBk4Lakg=;
- b=Z7Y4gNIuk1bd9NXInzS3xECyNbs5yvKfMdNd5uDzQIsLhCynYm5Ml3+Sjl1BQce/pZ
- whGmKTeAEsMdzkvbdlOjpR5DZryQKK4T8BqruPO+aM6DxWQmY9nH3xMnR5StQzeyTz/M
- PUKTD3o/51KTbaw1xEXio290b6Zi3mtfpvQtfvwPntT7s9hixz1XTbbvf1jkmjD2fSLS
- Na3MZDoiawvqnfr1m8sQVoTnzdn7abqs/LnQ1K5BVaF94OQgZi/IJcF6A/YJ6xp7oEVm
- qhfOV8ABrOupE32VP9UD0HuGKXuDbgOdmQIcA9ZBwORPZ6VQP3FbpDBGPUnYdXZHJFc7
- nMeA==
+ bh=03YfOG/DYkz2iArGNb3db5n/xIxeb8G0N8JzLa+YgtM=;
+ b=Ef8WxDG6NyTqC1EZi34gpAEnT+rPZyUcpKaupYnsastTiTGt/Zml/WC2ZzmjZbPHJd
+ phHYyJnYLo6WNB7AlpKLXeN7qbGd1YhUzPvz54QZqQHrtKcLgdsPeyn5+iu9TjI7SjCc
+ Qt/6C50I1yy1ZjGFAU+VCo8OEqIPU+1me4r5nevY5orszEf7tJIjZit7XmergLU/BhIS
+ ORDvsxyCYrTMPQgMLi5PvpsAC4TmoxZwKTf11WtCzm1JE0tcK5kecwMswiOh5HEtMNgs
+ rPlk4sTnLuYzZlm/RO3Nt/CpOY5B3amJFFyJpZOUJOsMWYTIJo5Bn0xeyqAHZ46Benmm
+ PB+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=8oKEUq0EPzmllL1JKxsnzcEjeLeYCN2EOuzsBk4Lakg=;
- b=6XoIWe6gYYZ5EpadCMLbBZquT6Dj9FAEDRF8srgJDUXpK5ie4HIkwqGdhNC/V9AxTC
- GFtGSaEKOBJdQnf+zuxtQrSjcQh/UaScKxAIhMIzaOtjQZBjH9Ff+LaeoypgB27A+JCU
- fiPl8bcul9wHngDxL07YvpS/4AVX4uIFFSNw5kE0Rb+qrZOpfvPJcqaDJYSkpVmS5sE4
- eJMYYnkSVkPs3EPIQ/TGqXYL88qMJlIIERZ6VvaSIbfHwu7fGqxEmKXaUmdNi9mro30K
- yBVUsZvCLaZGlPUq68xVeTDATmZm/QJp1Stv9m6BRlGaieLxW12jBx2Mdrup2qHCoQk1
- 9MCg==
-X-Gm-Message-State: ACgBeo1I/zOjDrdAh4hmENC0O7kwl2P0VFXIv2LUpomwELQ5+tjdJGkT
- i2AyssGH67zvkK7ZVMEk+0Y=
-X-Google-Smtp-Source: AA6agR7UeYnK8xvl0wwhLHfYV68Yb0uAXZRnCcFJ+O9Xr14Frnao6jEA5Wnu7EbuD1TO+KC8WXNI1w==
-X-Received: by 2002:a05:6638:22cd:b0:341:6180:c86f with SMTP id
- j13-20020a05663822cd00b003416180c86fmr3991488jat.57.1659736466315; 
- Fri, 05 Aug 2022 14:54:26 -0700 (PDT)
+ bh=03YfOG/DYkz2iArGNb3db5n/xIxeb8G0N8JzLa+YgtM=;
+ b=H9j5ysJeydsvvaDAsiJGDC3i6p2gY42S1i2d8qEofn+0uLfwQz9aObXa6R2LRSP9et
+ D+4+nUKCNsAfm7m88ayQ7ZbYG98Kmxt5lVt1krpEyyWGNZCuW8QgmxerbJhgmaCuZc8M
+ 1wMRqdXYz3LrIyUNiWk7lk4o4CWddNz7ZpSrY3uVW4QDYuTklUVRsmpQJfTv/gJvBhsu
+ ZDdlawkW1oSsm+b9Pj5KEyEkAJeNhcmtJ2TKGkBa7Pz/1IrsRYYNxP3UBtk3y3M/XuFC
+ 7ypgoVuoTUMPcSZJguVlMNgH5L2SvkgulS3KTLOyVT5zqIc6IkRl5NjNXNecwLAt4pdF
+ 5afQ==
+X-Gm-Message-State: ACgBeo136hg02A1/SF1eNbVyX2Qp9xa5pTJ1MRyJytWYR2yTeAOQxnUu
+ WcyLxZjisf8DXC0UHZrHOf4SmVcmDNj5Sg==
+X-Google-Smtp-Source: AA6agR55/RU9MHoTbUutY3ptQmA/V1qzWroUOdNy6Xs+Ay1Qupqmyek5BzBPcr17ZMFLvPmsNZWM3A==
+X-Received: by 2002:a05:6638:d86:b0:341:4ece:3c4 with SMTP id
+ l6-20020a0566380d8600b003414ece03c4mr3708242jaj.235.1659736477900; 
+ Fri, 05 Aug 2022 14:54:37 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.25
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:26 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:37 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Subject: [PATCH v5 05/33] dyndbg: reverse module.callsite walk in cat control
-Date: Fri,  5 Aug 2022 15:53:27 -0600
-Message-Id: <20220805215355.3509287-6-jim.cromie@gmail.com>
+Subject: [PATCH v5 16/33] dyndbg: add ddebug_attach_module_classes
+Date: Fri,  5 Aug 2022 15:53:38 -0600
+Message-Id: <20220805215355.3509287-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
@@ -77,78 +77,99 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Walk the module's vector of callsites backwards; ie N..0.  This
-"corrects" the backwards appearance of a module's prdbg vector when
-walked 0..N.  I think this is due to linker mechanics, which I'm
-inclined to treat as immutable, and the order is fixable in display.
+Add ddebug_attach_module_classes(), call it from ddebug_add_module().
+It scans the classes/section its given, finds records where the
+module-name matches the module being added, and adds them to the
+module's maps list.  No locking here, since the record
+isn't yet linked into the ddebug_tables list.
 
-No functional changes.
+It is called indirectly from 2 sources:
 
-Combined with previous commit, which reversed tables-list, we get:
+ - from load_module(), where it scans the module's __dyndbg_classes
+   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
+   the module.
 
-  :#> head -n7 /proc/dynamic_debug/control
-  # filename:lineno [module]function flags format
-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012"
-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
+ - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
+   definitions of each builtin module have been packed together.
+   This is why ddebug_attach_module_classes() checks module-name.
+
+NOTES
+
+Its (highly) likely that builtin classes will be ordered by module
+name (just like prdbg descriptors are in the __dyndbg section).  So
+the list can be replaced by a vector (ptr + length), which will work
+for loaded modules too.  This would imitate whats currently done for
+the _ddebug descriptors.
+
+That said, converting to vector,len is close to pointless; a small
+minority of modules will ever define a class-map, and almost all of
+them will have only 1 or 2 class-maps, so theres only a couple dozen
+pointers to save.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- lib/dynamic_debug.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ lib/dynamic_debug.c | 34 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 7fb99492c16f..8ff11977b8bd 100644
+index 0d6cb6b258bd..a3ace5866f1b 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -59,7 +59,7 @@ struct ddebug_query {
+@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
- struct ddebug_iter {
- 	struct ddebug_table *table;
--	unsigned int idx;
-+	int idx;
+ struct ddebug_table {
+-	struct list_head link;
++	struct list_head link, maps;
+ 	const char *mod_name;
+ 	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
+@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
+ 	.proc_write = ddebug_proc_write
  };
  
- struct flag_settings {
-@@ -805,13 +805,12 @@ static struct _ddebug *ddebug_iter_first(struct ddebug_iter *iter)
- {
- 	if (list_empty(&ddebug_tables)) {
- 		iter->table = NULL;
--		iter->idx = 0;
- 		return NULL;
- 	}
- 	iter->table = list_entry(ddebug_tables.next,
- 				 struct ddebug_table, link);
--	iter->idx = 0;
--	return &iter->table->ddebugs[iter->idx];
-+	iter->idx = iter->table->num_ddebugs;
-+	return &iter->table->ddebugs[--iter->idx];
- }
- 
++static void ddebug_attach_module_classes(struct ddebug_table *dt,
++					 struct ddebug_class_map *classes,
++					 int num_classes)
++{
++	struct ddebug_class_map *cm;
++	int i, j, ct = 0;
++
++	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
++
++		if (!strcmp(cm->mod_name, dt->mod_name)) {
++
++			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
++				  cm->mod_name, cm->base, cm->length, cm->map_type);
++
++			for (j = 0; j < cm->length; j++)
++				v3pr_info(" %d: %d %s\n", j + cm->base, j,
++					  cm->class_names[j]);
++
++			list_add(&cm->link, &dt->maps);
++			ct++;
++		}
++	}
++	if (ct)
++		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
++}
++
  /*
-@@ -824,15 +823,16 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
- {
- 	if (iter->table == NULL)
- 		return NULL;
--	if (++iter->idx == iter->table->num_ddebugs) {
-+	if (--iter->idx < 0) {
- 		/* iterate to next table */
--		iter->idx = 0;
- 		if (list_is_last(&iter->table->link, &ddebug_tables)) {
- 			iter->table = NULL;
- 			return NULL;
- 		}
- 		iter->table = list_entry(iter->table->link.next,
- 					 struct ddebug_table, link);
-+		iter->idx = iter->table->num_ddebugs;
-+		--iter->idx;
- 	}
- 	return &iter->table->ddebugs[iter->idx];
- }
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -953,6 +979,12 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	INIT_LIST_HEAD(&dt->link);
++	INIT_LIST_HEAD(&dt->maps);
++
++	if (classes && num_classes)
++		ddebug_attach_module_classes(dt, classes, num_classes);
++
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
 -- 
 2.37.1
 
