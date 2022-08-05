@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EAB4C00140
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B5AC00140
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E719E931AA;
-	Fri,  5 Aug 2022 21:54:46 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C9412A843;
- Fri,  5 Aug 2022 21:54:23 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id z8so680261ile.0;
- Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8540D10E418;
+	Fri,  5 Aug 2022 21:54:49 +0000 (UTC)
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD44412ACB2;
+ Fri,  5 Aug 2022 21:54:32 +0000 (UTC)
+Received: by mail-il1-x130.google.com with SMTP id p9so732939ilq.13;
+ Fri, 05 Aug 2022 14:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
- b=GttURaGyNyjlXmWKacrpk22jV/0PvPsnt5RSXlSpOmWKIOS1FVVSqslXr8i7diNjqQ
- B8bkPGOWHdOKP350Spcfvc2YAsmiq/DcD5C1wo0gN9gkyB/bIob/YY66WXpxdtoM3lUZ
- adw/rX4gz+YhYkxP4A+dvAgGqGer5xJc0fzlLSxAvmp99IRcl8QU2Tw2cTyWIMWa3mbk
- +WLxYSAXcQKdm2uaaGJq1a4Ooltfmbb2XptYWsKw4nHWkF5LzoQn2PdHKR0NRyGelXun
- xlOcEXK3Sj29apYYZlO8KM9a8Mtb/H4JV9NYpZbd8JqlUhRtKjxvE8x7Bg+2g4wCPp3q
- fBfg==
+ bh=EnuR+keQjXA7ZwTiZJLhSmBlKaThlIrTj1y/b6sKDaY=;
+ b=WV0zPfyg/e+rsqNwIWECvFc+AIdD4kBWBYrI3REAb15JmdHrO7Z4sZ+8Y98wIfVcNp
+ 6H4OUpTUflLeUpZqHc0qKyj0AuCamG+jV3B+T0/IcTG3KqfFKlTp7WK+FQaO1fOBKa+p
+ fB+CyTyxfUEXySNwKwJ5RqkFU6dIOyNkirVrBk4EqcO2wEZBH8yvNpU0DCVkDsEZeH11
+ BilrfS+JrpJV2XJlPcXEcafAT4MH4qkjF6J/6NuQxClOqon/i4Y6Sr4CHnI59ALSTq2u
+ Zip4eCTxKfWCTC9KjWBePNFD9XrebuEVPMvsv6WMddjhuXe+NxkM0z/jJMAuoVnkY4Bg
+ OBzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
- b=XrHpivDLB9TC9FuZzWAMKXF976HXVkJQTEKdOI7Wr688nXF86X5zm2OYq4y07jLI7M
- Q0mb2Sxk2QIbG5KYHVNqp1RXtNZvlv3uguC4Fp6kAPohHXpIYvc1KOnlpSZ9Ene9sQnz
- rH1/BWadLaBEXsP2fYXIjwjhh0A2/Xa5S4wem+zyJfjaHh8qR23Zr5TtaVU86t1vL8j+
- c3+Jfp3vIMWC9LYFY0rtb0fZx0jsYoKGah1382r/31SFSYo1A4IhRUnYQtqUGU7X3S6m
- 6qhuQWpu3aPC4Skw235MUNPV5dxb8skfpYeL+chkcYvQOqn4scZEfrohMSocjuM2+4ck
- VoZA==
-X-Gm-Message-State: ACgBeo36FupzZ1PuYPhJLcxcA22lzOUzkxDSvl/1sdWmso8uWINNVLHr
- U7OMDu55WEN1TefsFesk9xM=
-X-Google-Smtp-Source: AA6agR7/BqFC2YyWdpPet7vO1o3I+g5zfP53AO5Z/UYQa5Q4GCzcWqQvhq1jsWqDvHh+aYBwIiWqsw==
-X-Received: by 2002:a05:6e02:194d:b0:2de:a54b:2e51 with SMTP id
- x13-20020a056e02194d00b002dea54b2e51mr3914987ilu.257.1659736463061; 
- Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
+ bh=EnuR+keQjXA7ZwTiZJLhSmBlKaThlIrTj1y/b6sKDaY=;
+ b=TTPP5FUGQ6vrAjgM3hwnioGw94dX52KsZSqp11d3S0vB55nqZQHfVWmofsEpiwXsi4
+ OpXfFdym04HF2UaI8eF26gODBCs93QKxJs/zBtGTzM985yUpqibl+dWqrMvwgeCNsNDL
+ tL6POwwU/709OV/ICrjR14FpIvPj6fLVKfPeuZVJV4doCoHTuuINhC/jhQnvN3Fp5zfu
+ V/9KopZhIxEnNyWOMsO/Atz8ODLaE6b2tC4THi/MyUmF9j5/YoVo+Ns+N2lmZ4D45z18
+ 64ABC+WPqjhp6UH3ZLhMk43rqS9yDomASanUiUXN5LglFMS2w3u5VTCx0jWzM3OxC1MD
+ i2iQ==
+X-Gm-Message-State: ACgBeo0l+9xl/9f7J7HouQASV2MntNtViw8n3YWujSvRA2mcXMN+qOff
+ QVB84nFZNVgQvw6QYk2Gczg=
+X-Google-Smtp-Source: AA6agR7RQl6/i8GZ2VkpSGkaEeOT5qr6Gt8uEvpPBs6KmrImmuonAI1Jpb/Qf/zJbkDoHLbSiMTXzA==
+X-Received: by 2002:a05:6e02:1a07:b0:2de:9742:a426 with SMTP id
+ s7-20020a056e021a0700b002de9742a426mr4136925ild.274.1659736471616; 
+ Fri, 05 Aug 2022 14:54:31 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.22
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:22 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:31 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Subject: [PATCH v5 04/33] dyndbg: reverse module walk in cat control
-Date: Fri,  5 Aug 2022 15:53:26 -0600
-Message-Id: <20220805215355.3509287-5-jim.cromie@gmail.com>
+Subject: [PATCH v5 10/33] dyndbg: cleanup local vars in ddebug_init
+Date: Fri,  5 Aug 2022 15:53:32 -0600
+Message-Id: <20220805215355.3509287-11-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
@@ -77,32 +77,90 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
-fix this by adding new ddebug_tables to tail of list.
+rework var-names for clarity, regularity
+rename variables
+  - n to mod_sites - it counts sites-per-module
+  - entries to i - display only
+  - iter_start to iter_mod_start - marks start of each module's subrange
+  - modct to mod_ct - stylistic
 
-This puts init/main.c entries 1st, which looks more than coincidental.
+new iterator var:
+  - site - cursor parallel to iter
+    this allows 'demotion' of iter->site (for removal later)
 
-no functional changes.
+treat vars as iters:
+  - drop init at top
+    init just above for-loop, in a textual block
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/dynamic_debug.c | 33 +++++++++++++++++----------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8faf584f2f4b..7fb99492c16f 100644
+index e96dc216463b..2e8ebef3bd0d 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 	dt->ddebugs = tab;
+@@ -1059,11 +1059,10 @@ static int __init dynamic_debug_init_control(void)
  
- 	mutex_lock(&ddebug_lock);
--	list_add(&dt->link, &ddebug_tables);
-+	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
+ static int __init dynamic_debug_init(void)
+ {
+-	struct _ddebug *iter, *iter_start;
+-	const char *modname = NULL;
++	struct _ddebug *iter, *iter_mod_start;
++	int ret, i, mod_sites, mod_ct;
++	const char *modname;
+ 	char *cmdline;
+-	int ret = 0;
+-	int n = 0, entries = 0, modct = 0;
  
- 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
+ 	if (&__start___dyndbg == &__stop___dyndbg) {
+ 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
+@@ -1074,30 +1073,32 @@ static int __init dynamic_debug_init(void)
+ 		ddebug_init_success = 1;
+ 		return 0;
+ 	}
+-	iter = __start___dyndbg;
++
++	iter = iter_mod_start = __start___dyndbg;
+ 	modname = iter->modname;
+-	iter_start = iter;
+-	for (; iter < __stop___dyndbg; iter++) {
+-		entries++;
++	i = mod_sites = mod_ct = 0;
++
++	for (; iter < __stop___dyndbg; iter++, i++, mod_sites++) {
++
+ 		if (strcmp(modname, iter->modname)) {
+-			modct++;
+-			ret = ddebug_add_module(iter_start, n, modname);
++			mod_ct++;
++			ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
+ 			if (ret)
+ 				goto out_err;
+-			n = 0;
++
++			mod_sites = 0;
+ 			modname = iter->modname;
+-			iter_start = iter;
++			iter_mod_start = iter;
+ 		}
+-		n++;
+ 	}
+-	ret = ddebug_add_module(iter_start, n, modname);
++	ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
+ 	if (ret)
+ 		goto out_err;
+ 
+ 	ddebug_init_success = 1;
+ 	vpr_info("%d prdebugs in %d modules, %d KiB in ddebug tables, %d kiB in __dyndbg section\n",
+-		 entries, modct, (int)((modct * sizeof(struct ddebug_table)) >> 10),
+-		 (int)((entries * sizeof(struct _ddebug)) >> 10));
++		 i, mod_ct, (int)((mod_ct * sizeof(struct ddebug_table)) >> 10),
++		 (int)((i * sizeof(struct _ddebug)) >> 10));
+ 
+ 	/* now that ddebug tables are loaded, process all boot args
+ 	 * again to find and activate queries given in dyndbg params.
 -- 
 2.37.1
 
