@@ -4,116 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEDBCC00140
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 06:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EF2C00140
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 07:11:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C009710E238;
-	Mon,  8 Aug 2022 06:51:38 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8AC14B13D;
- Mon,  8 Aug 2022 06:51:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gKgLBpjYxl3ks/LIJkqRL8eCHI6w7KorKQJg5Zm91RuR4O9IA8BfeDThiEnJEJcQkP2dupyw1RTJ9o1kpdAR4e5nYQG3T0M/+NughAJ937mBNe0fNa0l58/brz422KFUWQZaeiAogAo6bc0bc/ZqnydjaRvG4YczcH1795+8LaMKXV7ZAOW3XBbxgvGT9PPsp4c7tqzm+dKAG43mYAxG4XM3NOktjtsPKIEMWgz/tpjEHbqMV89clC6GC4b+CP+Y8x4WTiFPp15XO5eAJmA3nva0ZV52IQVv78NmmB16o+4SQIUl45zD/NnFtO3EYgwC5ua1DH+ik45g2o88L7c/0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z7PeAeJJhqmCceTi+w+Vs4frEI5RxJaWEEG4PhH/RhI=;
- b=HwoRB6KvJUE2YCvdLrl33kUj9M2K9Zr8pMNJhjQX658Ev0Tsh6rMuZJ/DBVf2A80yRzLHIV4cR4ZQGMEA4WDV0tn0WGftwtLXomLLNxXXV3wXCM+8Kx5CmMVzlScomqq+r2R/LjAdjhkvNoXdSIRHkOND4mh6EI5e6MPrSIhlqPmmh6nRTUFC5Ii+vee9FVFtPIp47eXWXOgd+ij6ebiLRBPzeExSbbhsw988TsGpWd7FmsFmxk48W8RVJ1JNAuAokTSo8b6ffRIzgxXrot6RAk6CLVAnny+1Pvka2nRz6pzyoG7qAqpyv7MDxZiM5t7AVhy0G22opEaufJfG6RzWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z7PeAeJJhqmCceTi+w+Vs4frEI5RxJaWEEG4PhH/RhI=;
- b=Y6G3Z0iYSZpaHLDW+C+dHY+P2vDi9e/SWBU9wGkvtzTXSGNYC7Awz25ZrvMDkPPHB5HXgtT0ac6/JqiEyhICquP88n6oRFxG/SAHQbjR/rOPSMC7KoUUaUm9+OX+EkMzTWgw8642qoD+LeGXVAIniO2OS0Ab2kikETn89AQPvx0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com (2603:10b6:5:1ca::24)
- by SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Mon, 8 Aug
- 2022 06:51:28 +0000
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::a8e9:62b7:e65a:1887]) by DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::a8e9:62b7:e65a:1887%7]) with mapi id 15.20.5504.020; Mon, 8 Aug 2022
- 06:51:28 +0000
-Message-ID: <fc8c3406-8aa2-d3c3-f133-7e2f15889adb@amd.com>
-Date: Mon, 8 Aug 2022 12:21:15 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] amdgpu: add context creation flags in CS IOCTL
-Content-Language: en-US
-To: Shashank Sharma <shashank.sharma@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220802135558.6324-1-shashank.sharma@amd.com>
-From: "Somalapuram, Amaranath" <asomalap@amd.com>
-In-Reply-To: <20220802135558.6324-1-shashank.sharma@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0094.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::9) To DM6PR12MB3897.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::24)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2949D90768;
+	Mon,  8 Aug 2022 07:11:18 +0000 (UTC)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DACB210E0D5;
+ Sat,  6 Aug 2022 12:40:52 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id k14so2382774pfh.0;
+ Sat, 06 Aug 2022 05:40:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc;
+ bh=o6pt3V1ha9yMo8oPh0RhSV7A5lQkFUBOGwSJxIjKq5Y=;
+ b=K3zZNGyQzBOJGo9GHJ77B64dvtlpK4HGVReHiflBNDRpOjaH5sqOdA8CSpHY5CKTyf
+ jMxciE0uAHt180KJ/Y+huKoZL4LmZDsa6WkKOyCwoxB/ThJX4uVJEg7ZTShFI/az0Ar2
+ z7gP6VTnSFHOO3nyj7PfGi5h2pn3jkcI30MOA4gJBLa6ZPkeSr1jNi+ni+/957EXpVKE
+ 8cMH0A3oIzRK5Ii74+i2xFTbbdfg/VV4lJGKX03EHlP6Q0ikAumdp8EVEn0EXa//V+ro
+ 7vXPHclNzVW+zRBDjtu+d19HsGrRLP2TD974QnRupiahEXDmXn0SLRi8PGivCy1jVQMg
+ wXwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=o6pt3V1ha9yMo8oPh0RhSV7A5lQkFUBOGwSJxIjKq5Y=;
+ b=6NTuzYho6NrbPH5Q0W7WbBF8jIF+h/GjUNld7/LnrkNh0ha7HXYG6JYaSaZpnE88lT
+ AhqH7KW/Ku+zYUNJaa4o5Dt0YFeKc5pzmozXkOkljm4C5yNdut2tK5Mk7RxAxOspdjyn
+ 0mMzUD9bWeB+t53haOcHhkI2QMro+JhLO7VEPZ8ZAqoXHExb2Dh6dWDAITPlN9mx56rC
+ o4H/uVqWtSZ73vjd0JlCvtsnQ9te5a+O1BoYauEPhgxAUeqw/y5NL7bjaibl5qes+2o8
+ BQYRbJ76BsKhP5fzpF7Hvd+z8tJ3O2lC0WYRpoV/Ya6i1+vVbqHWCIILm2B/GjT284Wc
+ 3Utg==
+X-Gm-Message-State: ACgBeo3JjNV2Gxx3TyoYxxCuVbT+s39pMRSxJYnNfcngjvpPV9QNX9sQ
+ T5bZnUfULDMZ5+zS+Kif9Wvb87XKQeY=
+X-Google-Smtp-Source: AA6agR4HVXRr5ozE4MZULCJYLmm+yzEtIzOb6rNsc6/YEix1fRqJBoSHmvvrRwFlh1pZPSou+4rtrw==
+X-Received: by 2002:a63:d555:0:b0:41b:ca49:54c3 with SMTP id
+ v21-20020a63d555000000b0041bca4954c3mr9091265pgi.360.1659789652285; 
+ Sat, 06 Aug 2022 05:40:52 -0700 (PDT)
+Received: from debian.me (subs02-180-214-232-10.three.co.id. [180.214.232.10])
+ by smtp.gmail.com with ESMTPSA id
+ r19-20020a634413000000b0040c9df2b060sm3072702pga.30.2022.08.06.05.40.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Aug 2022 05:40:51 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id 80D7A103B77; Sat,  6 Aug 2022 19:40:46 +0700 (WIB)
+Date: Sat, 6 Aug 2022 19:40:46 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH v5 19/33] doc-dyndbg: edit dynamic-debug-howto for
+ brevity, audience
+Message-ID: <Yu5hTr6qcLwiPRNp@debian.me>
+References: <20220805215355.3509287-1-jim.cromie@gmail.com>
+ <20220805215355.3509287-20-jim.cromie@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5693f673-9027-4a77-fb52-08da790a6af1
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5488:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GIn0yZAjC7kyIujNTTEV2Xnul7qMv1Wan/K7t9cm46cz5WvMuLgUvKEcvzR4l+w2xjwnkbaJnitDrq61/Zgfu42y8L5K0br+hVms12drkXymFfy3OJCV6cP3H4ndcN0jERsVU64Jx3aKtdwc2F6MXOb/znn01WhLn78ktQMvYyMNWvWVkFFvnBGTfgK8hGN9D3P20cY1O3idpMCNkG4PUlpYxVIjO8d3No0v6654NzXVgRB9GzLTgNPCDTpXhAtoFOUoP9QqIJTP0e6cJY/FuoWSnUcL25Q3dNzkbyg0wf2YYAL7yJ0PBU6whWo/ZlEWDwLry7n3BadIS7PV32asHyemhIkKWxJQpBOEJery46tizGrsEzUbAvoXcXX4wZj2jNH3ut8Dlqb7S4lIPFQGcNXbUz2Q4wn1mCIio3rq+I0yBJgSbmU4k+uB79WlPXgGF234bIkqycbwVBmyRivt9scLFEqcLVmKsGk1pgna/OeonMTGQ3RjLjjoS2Dcn/8GN1T2ktekv31DadqkVN4fjwhmVT/TFQrdjM2cxndXUyn3VCL4giHITRWUYlpKvBsmN0HCXzfd632rx/ON+sfy+VlGMb8PygdpzrCPLSKY/T8nrd5nqiz+5wO3gsL08iNDiJuTxDAvbN+BKlOM22McFB3WHfPmEAjpwyj4Gm/ysu97UQg64Yz7EC2P1uBwn2T1pJIEYwWn8qHkzXp7qwXPvTZ/OQ2diD4a2fVtIVekH6MCk8r5aBCYkwNpY5c6XSflCrxolOOMZFBJ8SRc37a4JJCxN8R6oBJ90x2FzHn2Z0yyO/KUcW5PZuNTNcct5453NoFOPtvYwjQcZ71H7i2nvw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3897.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(39860400002)(346002)(396003)(366004)(6666004)(2906002)(53546011)(6512007)(41300700001)(6506007)(83380400001)(38100700002)(2616005)(186003)(6486002)(478600001)(4326008)(36756003)(450100002)(8676002)(66476007)(66556008)(8936002)(66946007)(31686004)(54906003)(316002)(31696002)(5660300002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q29iNDh1ZjU4K0dYcFl5SWt1M0g2WmFXN0tYdlhiWnpRcEU2bnZJN2FDNTdV?=
- =?utf-8?B?amVTTnRyK1lhNVdBbFc4UU8wR28vMStpSG51QlZVVHVYc3E3WS9OUzJBTnoz?=
- =?utf-8?B?ZVBpaWFZSWpZeGxTWDR2dFhpS1BHSjV5TXJ3SFlBZWlManE4SUl6RG9KMUhu?=
- =?utf-8?B?eUI4RDRYdGRBVXlUTW9RdDFRU3JtQXlTR05yZ3ZoL0JaSU91RHMzMVRaeXgx?=
- =?utf-8?B?Ykh3NkJXOExJenNZSUVrajJScVRMc3RReTJVZzRxNkQ5bkV2YUJReGZUSFdX?=
- =?utf-8?B?dEJ3cUhBWlBJdzVMVjV0OWIxd1Z3elY5WW9uL3paQmlqRFo2YVNXQ1hzdmpK?=
- =?utf-8?B?TnBLQWpnNElmcTJBNWRJUDFXTzl6WFo3cUhoOVdxV21vdFBQejZxdU1rOVFZ?=
- =?utf-8?B?SU4xTUtOY2E1SysrZ0dEMzRHN1JvNnFQZU4xMjVHRFdOdVdzYVpzQTNMQ25o?=
- =?utf-8?B?UzdkRU5BNk1HU0lLKzZYM2tSckZZZzZHVStJNjMrRVhZZnZFUDJHbndDM29y?=
- =?utf-8?B?M3BOMjBuVDFnQlJMUUpOUndZVGM4YlphcDhvTDkvV2Jja1NtWDI2cWNLWlha?=
- =?utf-8?B?THpjcVJLSFVNMVAyMWV0WW4vM0F0M0laa0c1cW94aGFQcVhHdnpwYWdodWpK?=
- =?utf-8?B?eUVjUkwvOXdyNWJlQ1JtRmtTaDVKcitVd2c1MUxZTUx3aDZKekwrdnQ2NTM3?=
- =?utf-8?B?SEtEVW9icWQzY285Z1E1dDQ5WTZjWEJTMGh2STlHQVNMd1gvSnJaS0NNMnVr?=
- =?utf-8?B?cHNZWW1HZGRPbXY3eDJKZEMrdW1IWXcrQ2Nva3lvbDZiSGo4NzNSNFM0dzZp?=
- =?utf-8?B?L0dQREt2S0k0b2ppUU1SS2tmaGh6VHhRN2QvQ0VoQTdEUVQ2NUtodXhsWDZv?=
- =?utf-8?B?Q0ZvNEtuMXo1UzMzSUhsQjlwZXRrbUlRTXpPUHNuL0Rxd2JJaElYS3pINGVt?=
- =?utf-8?B?K204ZWZpV0FPTUVaOHVGV0Z6T1RSR2J1bjEyL0lBcGlUVTVranF1b1E0ZVM5?=
- =?utf-8?B?T3pBeTlUdVozVHhlNVN3L0ZIdkQyZkRVSTRLVTRhbmNMSUduUFp3bHlyQ3c5?=
- =?utf-8?B?YkRXQ1B2RTNNc0pYbFNFVkZFc1ExQ2ZXK0Q4emVwMXJKMkRaUlJQc29CeXZQ?=
- =?utf-8?B?dS9Gd21IZUhXSms0MXBEbTA1UCtHT2NXdThPQjZ3N3h1OXZRYUR4WW5tellJ?=
- =?utf-8?B?Y0J4bTlGOStjM0kvR3BHamlKdk1pdkYyR1dFNmQ5ZUhiRVNacjJSVEJrV2dk?=
- =?utf-8?B?bTVMOEprUEliWms1Nk4xZnR5K25VaU01MHlBUCtwQXkvT1JGS1lrbURydENN?=
- =?utf-8?B?UXhYRG9ZdWZQZHh3U01NcU5lVzFoRjM5YUZpbFNiYkhrZlg2YnZHTzBudFJT?=
- =?utf-8?B?UzdDVXNzR2QwRDRLTjJFS0FGRFJqWVFjb2d4amtwdHE5NDVKZXJxVEJWaTlD?=
- =?utf-8?B?NkJHSWdwa3cvLzlNL0VVZ2c3S2FSc3NnNUNuSXBXU3pVRm9hSnM0S2FaRkhN?=
- =?utf-8?B?dzQvS0RjaHAwakxGZldkdFA3Si9SUFpuUXZZNU1BR2wxUWtRbDJNWmMyMzFt?=
- =?utf-8?B?aWNiMkloSjZwZTFGM1FqUTFDaVlheWJlSTcwcllRWmpKMlRGcnlpbWFDUTFu?=
- =?utf-8?B?THhGejVVSVluL1RXS1lvWGZKNzNqclZFQi9mS214N3cxck5QY0RvZzlHNzFt?=
- =?utf-8?B?eGJOM2F5SDRSRnVneDd0a05Ua0piWm90OXRGZUQyVWpKc2c4OTFEUzlpYXBj?=
- =?utf-8?B?ejZpbnNYTHJNNnBNZ0wyWWw4VWNKT0hkek1KTmx1YzJWMzh1RUJlVGEzWjQ1?=
- =?utf-8?B?N2VpV2hSU1V6Y09iM2t6S0FZSWtZQlpPVDJPaG1qOXc3OERVL2liK3BRbTFU?=
- =?utf-8?B?VmI2L0RvWThtVWR2bFdpQTIxbWg3Sm9KTnozcy9CRUtFKy8vTjBCYW9OMVRw?=
- =?utf-8?B?ZFcybFpBSkdtY1VUQ2tBT3ErL05lbU1UTkRqcmY0T3ljNlJaVU55Mit5VDFz?=
- =?utf-8?B?V1hOMWhReWFabTRwZE5oMk1mNDhiZ25yT3Q2N0tMOWdPeDNaNC95SHYwL0pM?=
- =?utf-8?B?Y1R3VU9PQjBXa2IxbFJmS2UwV1dvMFdaRTl0ajRaZnNlNlJ6RzJqUldOTElW?=
- =?utf-8?B?TGRSYmV6RkZrQlprSU5VS1g1TUV2cnJyRFkrWUVKOFRCV1EyQjBmcUNPTW9D?=
- =?utf-8?Q?2SiUq41k09omU+nOphcFWaKRNS6szfMrb+FTQnLPqW2g?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5693f673-9027-4a77-fb52-08da790a6af1
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3897.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2022 06:51:28.1285 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sJQT1VoCG5uD1Y4X+diQiSQnmSXHFkKpMBJ4iScu7On6agQQW+plrctDapKiZuoauaFuT0QJXVJwPcCKwm3fCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5488
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="zCnbKQzWNc0slIHJ"
+Content-Disposition: inline
+In-Reply-To: <20220805215355.3509287-20-jim.cromie@gmail.com>
+X-Mailman-Approved-At: Mon, 08 Aug 2022 07:11:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,118 +74,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Marek Olsak <marek.olsak@amd.com>,
- Amarnath Somalapuram <amaranath.somalapuram@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: robdclark@gmail.com, linux-doc@vger.kernel.org, gregkh@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, jbaron@akamai.com,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/2/2022 7:25 PM, Shashank Sharma wrote:
-> This patch adds:
-> - A new input parameter "flags" in the amdgpu_ctx_create2 call.
-> - Some new flags defining workload type hints.
-> - Some change in the caller function of amdgpu_ctx_create2, to
->    accomodate this new parameter.
->
-> The idea is to pass the workload hints while context creation, so
-> that kernel GPU scheduler can pass this information to GPU FW, which in
-> turn can adjust the GPU characterstics as per the workload type.
->
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Marek Olsak <marek.olsak@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Amarnath Somalapuram <amaranath.somalapuram@amd.com>
-> ---
->   amdgpu/amdgpu.h          |  2 ++
->   amdgpu/amdgpu_cs.c       |  5 ++++-
->   include/drm/amdgpu_drm.h | 10 +++++++++-
->   3 files changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-> index b118dd48..1ebb46e6 100644
-> --- a/amdgpu/amdgpu.h
-> +++ b/amdgpu/amdgpu.h
-> @@ -874,6 +874,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle handle,
->    *
->    * \param   dev      - \c [in] Device handle. See #amdgpu_device_initialize()
->    * \param   priority - \c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*
-> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->    * \param   context  - \c [out] GPU Context handle
->    *
->    * \return   0 on success\n
-> @@ -884,6 +885,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle handle,
->   */
->   int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   			 uint32_t priority,
-> +			 uint32_t flags,
->   			 amdgpu_context_handle *context);
->   /**
->    * Create GPU execution Context
-> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-> index fad484bf..d4723ea5 100644
-> --- a/amdgpu/amdgpu_cs.c
-> +++ b/amdgpu/amdgpu_cs.c
-> @@ -44,12 +44,14 @@ static int amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
->    *
->    * \param   dev      - \c [in] Device handle. See #amdgpu_device_initialize()
->    * \param   priority - \c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*
-> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->    * \param   context  - \c [out] GPU Context handle
->    *
->    * \return  0 on success otherwise POSIX Error code
->   */
->   drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   				     uint32_t priority,
-> +				     uint32_t flags,
->   				     amdgpu_context_handle *context)
->   {
->   	struct amdgpu_context *gpu_context;
-> @@ -74,6 +76,7 @@ drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   	memset(&args, 0, sizeof(args));
->   	args.in.op = AMDGPU_CTX_OP_ALLOC_CTX;
->   	args.in.priority = priority;
-> +	args.in.flags = flags;
->   
->   	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CTX, &args, sizeof(args));
->   	if (r)
-> @@ -97,7 +100,7 @@ error:
->   drm_public int amdgpu_cs_ctx_create(amdgpu_device_handle dev,
->   				    amdgpu_context_handle *context)
->   {
-> -	return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, context);
-> +	return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 0, context);
+--zCnbKQzWNc0slIHJ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-How do we set workload hint from application, amdgpu_cs_ctx_create show 
-have flag ?
+On Fri, Aug 05, 2022 at 03:53:41PM -0600, Jim Cromie wrote:
+> Rework/modernize docs:
+>=20
+>  - use /proc/dynamic_debug/control in examples
+>    its *always* there (when dyndbg is config'd), even when <debugfs> is n=
+ot.
+>    drop <debugfs> talk, its a distraction here.
+>=20
+>  - alias ddcmd=3D'echo $* > /proc/dynamic_debug/control
+>    focus on args: declutter, hide boilerplate, make pwd independent.
+>=20
+>  - swap sections: Viewing before Controlling. control file as Catalog.
+>=20
+>  - focus on use by a system administrator
+>    add an alias to make examples more readable
+>    drop grep-101 lessons, admins know this.
+>=20
+>  - use init/main.c as 1st example, thread it thru doc where useful.
+>    everybodys kernel boots, runs these.
+>=20
+>  - add *prdbg* api section
+>    to the bottom of the file, its for developers more than admins.
+>    move list of api functions there.
+>=20
+>  - simplify - drop extra words, phrases, sentences.
+>=20
+>  - add "decorator" flags line to unify "prefix", trim fmlt descriptions
+>=20
+> CC: linux-doc@vger.kernel.org
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>=20
 
-Regards,
-S.Amarnath
->   }
->   
->   /**
-> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
-> index 0cbd1540..d9fb1f20 100644
-> --- a/include/drm/amdgpu_drm.h
-> +++ b/include/drm/amdgpu_drm.h
-> @@ -238,10 +238,18 @@ union drm_amdgpu_bo_list {
->   #define AMDGPU_CTX_PRIORITY_HIGH        512
->   #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
->   
-> +/* GPU context workload hint bitmask */
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_MASK    0xFF
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_NONE    0
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_3D      (1 << 1)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VIDEO   (1 << 2)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VR      (1 << 3)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_COMPUTE (1 << 4)
-> +
->   struct drm_amdgpu_ctx_in {
->   	/** AMDGPU_CTX_OP_* */
->   	__u32	op;
-> -	/** For future use, no flags defined so far */
-> +	/** AMDGPU_CTX_FLAGS_* */
->   	__u32	flags;
->   	__u32	ctx_id;
->   	/** AMDGPU_CTX_PRIORITY_* */
+The documentation LGTM (no new warnings).
+
+Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--zCnbKQzWNc0slIHJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTsebsWCPCpxY9T92n/R0PGQ3AzwAUCYu5hNQAKCRD/R0PGQ3Az
+wGuzAYDy/O8VqIX4dB6ItFwNHJm1rs7Qg4OuYgYbKFvhP69MPdWx64MR4soFNSUx
+y/x/+HABgNTyMUR8QKMtJnT6K443IFX7iqf6bs05/IbT4PqLQjZXkpc+PQBWALvU
+6LjFercp5g==
+=Aeer
+-----END PGP SIGNATURE-----
+
+--zCnbKQzWNc0slIHJ--
