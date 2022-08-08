@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5EECC00140
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11563C00140
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8A0518A5D2;
-	Mon,  8 Aug 2022 11:46:44 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E2F12B21D;
- Mon,  8 Aug 2022 11:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C67E2B038;
+	Mon,  8 Aug 2022 11:57:20 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061.outbound.protection.outlook.com [40.107.93.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA0E8CFD3;
+ Mon,  8 Aug 2022 11:57:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E5Q0mdVDs0LGye5fnslAqYTbQ44InMgJ2I+mwu5zMjRvh0CnXTPezSbc+eoz6I9mLDg5QKYgcHFZPTwWMpl0+9OX6ZnY1o3h3j4xZ216oiWhJD/jRDPOtlBzKsgrIpaC5nGvNRR9J6qP46aJUjR6PexSqGjV8P/28GZ3UnltQQrhQgaW7RKp+Kthsv4wOMnZHZDpPdFQ3bSWuN/fJbayaU7FQfF0vBGCYJ9MeeeLTvySCdoukPKMGpCEyXFmAA+LBAyzp0JPN0gvoQuzZuNDKtKJLdaQzegMLon3HGN7LXMo8aNcA44kpREUCyTzsvCfjTBKgPry8/QD1Go+SraeBw==
+ b=XMh9qncq/eANlEa2zYSDVRdap7X7JUXJpFxnZZe6M24DInNcvo6XUc/Sc+nvySDbHHzsJp2Vf5L/RUXzZjawA4Wh0Du25MZazUKY5HrZohLaBAB1YVxl/y4IxLeJ4LUXRjQQOctQTgm2iCPdRuzkxr+DjtKOz8fuIcN76TBD6wa15oDcnkjD+x7CN9++UvnRGR7SYJAK2NBPzyoM2gMkwRInBg2LfgSTTOZcXQuh2QsrdNHDfjGspVK7t18RTod1Qy3cx8lk1M2hv0eXfKjBttoYk5OqOCkx2kqFY3g5A4yl+NdKstAPakb4W0IHN1srvnjU/qbNO2OXm4rKjjvweg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jdNZWZltWloqCHwcDM9EYrMnpVqkuCk3Lnyzau8YomU=;
- b=k6jvg+Pnc85Q3selPeL7p6ep1M45ntYVWyVhu8+3dje004GBL3YgwM8MsgByYSt1ERgZZfR1UJltVDW1NQUgUJtbEJGPuHCq3dyPcaBajnLL0gjzF9nyjYRmQYueGwWxfOgxpXELsss+otEZtQOBeAbA/tJcRBo99k2hzfuuvz+R6gofRWAqK39VJ79sA1Kar/JMHMl8bi9HCJX2iKaqx+GCzqGO5h0lFL1v6yZAQNkKqsTT3lg+ukjJGwK4YhzhgN9CrtKrayb0JXPVkt2S0O9oDUpqQAMY+WKwMQ4Dd5XzbF7iwaoiZztUU3K6dixxmKONUf97bttFJ91S+vILkg==
+ bh=yNrimScN2waA9o7W+zFq5/oKQDBPyR8OOif1kwiQ3Gs=;
+ b=KpxCxyxdFQK7zYLRBY96NJBP7IWpDC5jEcU1G1vTJaaIYfyfcca/qBwOz/witHl0wmQxQnvEeP5Sr9iIFfOzXD7/J3ii4ov5ROvCFbtyFlxdDk98NKVcMFOO6efRNe6daqxC3rcvd5Pzvd4BXQEuxfqDCAKlI2qkc3atJ+fZ0YuPicchxE+n0f7ADM/3DHu+37Sk6z5HeTkAcJtTHRlOrFxG/shiM/N0seRBN6TZwqDzld9/PrFU4lY/1mLzg4nDTXRBOnA1edbAywqZDz8sehXroSzDFwDD1kSl6j9C3sTH2gZQTgWzh26QWt1vxKmZ2cYBa28zA9oj0oCO2ce3BQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jdNZWZltWloqCHwcDM9EYrMnpVqkuCk3Lnyzau8YomU=;
- b=TsbuPnCWCBDTa/XrFhFH2iDZ2fzy8XgNn4kN/u0zqKuat9N1WoM9kAHr7YdSxFvL3ZsmDUsefA7GEnx6LzIdrp1e7mTDEC0u5rpYCrSDlZhJmoL8TP5VAiiAA1C5c/KcMzpOlZSZs+Dbo3g2LudszgqLkTP1thxWl0Mg4VC7Hus=
+ bh=yNrimScN2waA9o7W+zFq5/oKQDBPyR8OOif1kwiQ3Gs=;
+ b=sehvM28VRuV/G09JyhvmtluDiZ7CLsygecWBOoWh0sNrNvbWC22czJ3b+2iWOCK44wVKxTZ37+FCfuC6tGuq6nKv7WoUjtqjRAXwWEUQcZtYyK01L6IrL5HnAK0+ofnFxiygkpt1Bcutz/JjvlLmvq4ycvEkCMNDwT+55A8pJCQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by BL0PR12MB4660.namprd12.prod.outlook.com (2603:10b6:207:34::30)
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BL0PR12MB4706.namprd12.prod.outlook.com (2603:10b6:208:82::25)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.20; Mon, 8 Aug
- 2022 11:46:32 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::289f:f718:af41:f38a]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::289f:f718:af41:f38a%7]) with mapi id 15.20.5504.020; Mon, 8 Aug 2022
- 11:46:32 +0000
-Message-ID: <57c92713-b06a-e68a-9079-72f44c2ca3b9@amd.com>
-Date: Mon, 8 Aug 2022 13:46:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH] amdgpu: add context creation flags in CS IOCTL
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17; Mon, 8 Aug
+ 2022 11:56:57 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Mon, 8 Aug 2022
+ 11:56:57 +0000
+Message-ID: <5d813403-7cbd-13f5-ca96-713f92207aa8@amd.com>
+Date: Mon, 8 Aug 2022 13:56:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/ttm: Fix dummy res NULL ptr deref bug
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220802135558.6324-1-shashank.sharma@amd.com>
- <acc970f2-632f-0372-8082-6bd54f0c7cf5@amd.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <acc970f2-632f-0372-8082-6bd54f0c7cf5@amd.com>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+References: <20220726162205.2778-1-Arunpravin.PaneerSelvam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220726162205.2778-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P191CA0088.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8a::29) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+X-ClientProxiedBy: FR3P281CA0070.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::22) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7ed6afa2-ba59-4af2-46c4-08da7933a376
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4660:EE_
+X-MS-Office365-Filtering-Correlation-Id: acf96dba-646a-491a-9080-08da79351855
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4706:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2d0BO+HMFcltXQLopw+B26NQ+moVfPtDSW+2xamQEImybqivWaI3wBrMPYgqOCuShZxuG4FHGDeIRSUfI2OqQuAQNbEC0xJA0sD386cl3yT2sCeEsAu3hdkTobw7NXyjc/OEBpgWtlmQnmGNeSwoFVlkG/9/MHnKeQ5WvzToD3rPuTy5zoTKjh0DNHTUmGrzA14L0TJTMSDVd6FSaMMQsWe0p2H/Nujs6R72BxwcN31tB6gO2XKx7ZTRi4eYssjNRwc/PlkWzRvU1n5LqbaiwJwRPPCSJSsidJgQtTNqgZ1DMsGNFjiDjf5TQiyg/c3DaOiUWTByBLV9oRBlJ3SnG1G1EkRkWhLSeIaEImFjTUNGf3x/HmOQxgfKUdvKu26ao1HM9lPF5wvi5tnqMWzyN52NYh+uc3zGxTllEAanFOOjVR2ITrZwMheHsCMLGLfAxSCg+UjtyTYYu4piG6D7kPsexy2iOLKx5TRR0Q3MHAEpd00Ilb1KafEma6bD9t2WP8Wp7YrwrdTxn+7/jSpsBxbo4RyXE87/bLwM6Pi9qrt/6qP3RQnieW7zMb6fVMPg2dmO12rscboZ9uyIt44u65Cvvpt7L1ikEsr9ie1+Vav+HRYA6oDXBxhXqdoU2GHWtUOmq3RlT1OUBa+8hB9V3G41C+IlQ2FXGNd+ISpJkb8qwOnBigJ7d6F+CRWbJFYzkOM6kL3rOml+N+WLrip+DDKoksEMJRok7SPAPiVJzIHaLPY5K2Oc+t4ypDyyE/1H86X/zQQr/EXyBl12C9j/76l4QFZ23r002OJAIuOH4AdVbDMALTx8E4yCTY0a4z1Z8hPaOCtnKQhCvnJd7UKrBQ==
+X-Microsoft-Antispam-Message-Info: xXth0SZHnhvH6HATUT44hyy1kcaoIOzYuMca4xRbpYz76ndd1/zlX5tk6IwORsKH8FphkY/oioY2g0iOmgBQ8Q2HdmjH+/u1u9qSC4yZ7cTVkzxESNdK/PZ/WWRM1Jc1/IPbFg8D1Q7n/VRZY3Zx2Xcp14vU98idZMiSAkkXOMXDPVVGWqWRop/4ZHMpgM7G+fnHTKATASFuOx1cas1Opq79OkfgqTqDtEIxOCSoRZ+AdahaAqDz1Di2c/UMJmdlsy2aCMozRmmciAejjHjHEh+D9JmHlU6wrs23aHBDv1Q/pRYrF5PGiNeojlNyTqQrTjVPzM6jvxeQVAt/nEnpZ6vgpUpeNvEFckNtc6JoQgQ9CGrh7vPe5a3cS39B0Pfyfq3YDPlDXT+tOzKEFPd0yaQnsYWyAfxkxzn2Z7TRLwnuH1uI7xBxcy7/ALnGbJxVNZmQL9Vh3A8C9YZ+YhflCyaBnTj2PnMuKsupCoJOPXBekSRBa5+4qQIkS4XCgEEpuAE2S1kLXNgAudPm+OAht3NFxo9LVpdjheAxDQ0JuWn8HZl0FPQ9MEmbQBaKaIEzvBrx0kZd1fUWTXHu/rIwk98dUPAADNQ0EDfHZ3OGVa6RtUg084uFI+yKRhWxKtL/QitnhIdazqwsoLs2CdyKwK3ynmXWB8AcHoxO4nxGMVKUGDDx5MSbAvOHJQQDVgKRDec6APSV0KYBgCU6Z22sZa2Yglg44Dd2/QvHA3Sf6v54tUDn7PSZ2LpmVebiQqy2Qzq4GxolzRIzJA7wJdgbL5gfJ912MDc9GipNlYe3Tna62+1K86c663xdhy/pS/2MGSl/zMljcQii5hsNxkv3geIgYaX8VwCJi/QWKn2a/g4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(376002)(136003)(366004)(39860400002)(316002)(8936002)(66946007)(8676002)(450100002)(4326008)(66476007)(66556008)(478600001)(6486002)(66574015)(186003)(31696002)(86362001)(2616005)(6512007)(38100700002)(6666004)(53546011)(83380400001)(41300700001)(54906003)(5660300002)(2906002)(36756003)(6506007)(31686004)(26005)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(478600001)(6486002)(966005)(66946007)(4326008)(2906002)(66476007)(31686004)(8936002)(38100700002)(5660300002)(66556008)(86362001)(66574015)(2616005)(41300700001)(186003)(6666004)(6512007)(6506007)(316002)(36756003)(31696002)(8676002)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXI0OWppWERlNmVqM2F2c000cFF5U1hPZkFHSk01bG13MC9Calhvd2ZHVXow?=
- =?utf-8?B?NXV3N3ZaazFNc3EyOHF1ODlmMG4rNXhITmJsdjAzVUdHVW8waTRoMGFxQUdE?=
- =?utf-8?B?U1RJVTlkd3dtamRrcVJnVEFVWTFNTHlWT0hON1J4WGdZVmFFNmxISE1ydXFC?=
- =?utf-8?B?clQ1NEhSMmRpclE0djNBL2NyT1lFellLa2VaRjR3NzlQaXQzZkVoRS82Ykhm?=
- =?utf-8?B?cW52RHRyNDBoKy9GZUhNdGs5TEZjb0doWE5Ud012ekErNlJkTEZITCtaSVM4?=
- =?utf-8?B?dW1kZUpxWHJhcWdNQit4VFFhcnloZzlDbW5rS0s5eGdiOFY2Nk84RHpnbDV6?=
- =?utf-8?B?WTFwZy9uWWJYUVAxeUlNeUgvdkg3SFJpbkNPbXU3cGg5YlliTC9wamJvVzN5?=
- =?utf-8?B?TVlQU0lJcEEyNFFEL1FaV1NkMk5LaUlrekpwVTdkQ2Nqd0FnZHoyemtZY1dV?=
- =?utf-8?B?cjRZOVNlZnhkeGFCRWgxZDBvR2ZKM3RJSDN4b0IrcGkzNzRDWUVPdzQ3N1or?=
- =?utf-8?B?Z0ZMdUY4N0F0WGZ1UWJPT0h3ZE1rT1hzT01aQXhXSmxIbGtDaDZjR2pGVHA4?=
- =?utf-8?B?eXl2U2VXd05yNVpNRHEzQ3UrbHQ0VXNXVmRld2F4VXhXRXFoWDVwVit3YUo0?=
- =?utf-8?B?WHNpMC8wZjVGeCtWT09wNmdYZzEyR0N2RFZFTGQrb0FKT2ZGNHU2aUd2UnBC?=
- =?utf-8?B?UERwR3NzYzNhbzVjcXpMZjN5Sm1DQmEwd2wyT0haNEcrai96OWVLUm9Fa0gr?=
- =?utf-8?B?MFMzSGFEaTQzVXo1THg0TENiTDFIaVZBSE9tVzhyb3dGYkV6UlRZb0dlc0FQ?=
- =?utf-8?B?NmhndG5OMkVFVmlmd1ZVRjZkRXVua0x6MlBmS0h1K1pOUUlHWndjQVAyZWtX?=
- =?utf-8?B?ZjJjUmdjWjVBYnpYUENYaUpwNnNuNGc5L25rYjVRdWxnOWZwbkJtM0wzdkZ3?=
- =?utf-8?B?ZEQrSkh2c3A4S1E4SUszZlRURDNYb0RqQ0ZXellxd0lrclBUMU9sVmRKRlhi?=
- =?utf-8?B?cXRyMHB4UStFNmhiREYxWjc4MUx0d0hYamtiYUJMU3dIOFhIUXZwMXAxa1pP?=
- =?utf-8?B?T1djZHVxUVVva2p3b3FqTDlZOHVOSU1lYko5WlRjb2hidkc1WlFCRTNMVmlH?=
- =?utf-8?B?RXJiR2tHOFlJbjVtSi9ZdVJLT3hhUm9rREtqMG9DSW92aGF0UXVYVk1kOXBD?=
- =?utf-8?B?TjB6bDlkUCtWNVlsRjZPeFErNUVRRnJ5UGJkSWd5MW1UMk1TQjFrVkh0YlFR?=
- =?utf-8?B?U3ZPcHhPeCtzZE5OdFBXc0tDS3lnZDNYT3dPSUxXZVRKNHF5d0tlSGpIcUxE?=
- =?utf-8?B?S3dOVlBHZy9qNC82dnpSa3ZzRksrRDR0YWlHL1pvZzZnMi9IK0FSYVRFdzdE?=
- =?utf-8?B?OTBWWHpuUGtLakpDajNjM1ArMndNQlB5RTF4cnEyVnpwSkFtNWJUZDMwY0M3?=
- =?utf-8?B?VEp6NFJCZllidFB3OUpveUFCN1BCb3NiWWpOSlI3NFo4eEVVbjZNSlRRdkZv?=
- =?utf-8?B?ZlJ5RUo4YkpHMmVjVldlc1JPY050NGpvb0Z4NjFhL0lncWYwTDFSbDZVM1RF?=
- =?utf-8?B?ck90bU05aXpwSkd6a3NVd3ZFeTA3MWgxSW1McE9NQjhoM09JK2xZUHo4ME8r?=
- =?utf-8?B?djhxeGc5VjhIWGhENFVZQ0pEelVGK0hkR0l5akFld0krS3NOckZLQXhONXli?=
- =?utf-8?B?b1g1Z2VaWVdTUklvRzdBL2thOGtzTzM1eXlIR05qVm1oTmpGYXMzWFdOQjFU?=
- =?utf-8?B?UUdDVEJrQWNLUzZuUWVoVmE4U2JoS3ZodUFmSTF2MTV4UHRMa2xQQXB3RjVh?=
- =?utf-8?B?YXAxa1Bad3NDVGR1QzhlWGhPVWs3c1I0SzFVelNFU1M1b05yWTZKcFBDSDBF?=
- =?utf-8?B?S01DekZlQ1pIRml6N0ZiTXB1amllalNPTkZ0bzhWSHB0QnZNY3hsOEJaMWFk?=
- =?utf-8?B?bEdUS094ZzQ4anREaVRRT0FJOHM1L0Nhb0VZaW13di9CbTRTTzFUaW82Nk1y?=
- =?utf-8?B?S0ZxdDgzSWRwdjhUcHdlWG9JQ25VUWMvb2plTGx1U0YwSTdCOHdRM2cwd2JJ?=
- =?utf-8?B?S0svQ1V0dmZNczJvM3ptZEtwWUVhQUlBT1ZWTkhhQjRIcEFjZ2RKYXVjUHZa?=
- =?utf-8?Q?HCMVwhftYyXmPPBkyj211BnB0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVoyazJSN2JnZ0xRZ0lWUndnL0czRTVZS3RRdDI3Tll0RjNwWENVbUJMT240?=
+ =?utf-8?B?Q0tuYWdpRm14ZXlBOWlsaG1MbXZOSXVFR2hudmpWanBad2tLampHY3pXK2RX?=
+ =?utf-8?B?aTVkdUZ6NlJYREY5SVkyQUY2ZGhWc3U1VTRTZEtRV00yTkkzZTdrTE9iS3Zw?=
+ =?utf-8?B?ckpvZkowZnp4V2lPejlLU3ZVSG05Uk9UbXlsczlOU3FGaWlSdlFybXZieXdL?=
+ =?utf-8?B?QXozMW5ZcGtpa3AweEV2b0cxMjUwd09XbVpIeGhCQU0vbkZ2NnBoVkJuc2hp?=
+ =?utf-8?B?eThnbEQ4R0Y0ZTI4K0pwL3JDaUYyTmVBK2tGalQxVnRWam8vWnEwNmplQUo3?=
+ =?utf-8?B?dkpMa2lTbDdPanpYYmdXYzFCaHRpZUFIZDdscTlyazRWUUl4cmlIcUxjSWVs?=
+ =?utf-8?B?cGhBMldVcmNzdDlyaHU3Nlo5aG5wZmRDa2kreVI5ZU5KMTk1aWVjelhXSWY0?=
+ =?utf-8?B?a2p6UTdqNXpkYVRoZHJlVUxpc0VDVkx1eUlDdEhXdGtBQUVIZXZiYTYvZWZS?=
+ =?utf-8?B?UWRzdjZ5bklENmZ3cW9VRS95SUU2ajlhM0cwcmRudmh5dVBYbjNSeEtqMnJi?=
+ =?utf-8?B?VEErc29TSXlqWm14MUFvQWJ0ZU5aL0w4Rng2QTFabnExWk54aXlNeFY3d2No?=
+ =?utf-8?B?ZGhwNDdSakpnQndXQVBocHM0ZDhjS2JaQTI4Q3czcXFIRHo1WEZIMHIzYXlC?=
+ =?utf-8?B?VC9zcTl2bFdxeW9YTGF0S1BieE05T2xBTFNFUDhIU212QTMyNklwWWE5NEVI?=
+ =?utf-8?B?WWFPS09Pb0lOMDNINmhJZFhCNFJVTE10YmhaR3hWazZTUDNpMWwvbkw4Y05v?=
+ =?utf-8?B?Z3NXQzdheSsvU1ZZdGRmbG9NdDdwNVgwNGhXNFpWSkhTNGkzWWdrRFRveDlk?=
+ =?utf-8?B?djdlSkVCdThURzBDMEw0cEtzbzQyaFZ0RTliKzN5bVpvdGw5UDhVTnRvdzVS?=
+ =?utf-8?B?SE54K3JjYlZhQXY5TWRjaWFhUThzVDd2djkrN0d4b3phaVMyMWQyc0hvQU5L?=
+ =?utf-8?B?bjRIV3dMaW1FTGlsMnYvdXRBd01lbi9QSEpCN1NnMmZXa2xpeHI1SjBlekl0?=
+ =?utf-8?B?K2piMkpDaTJrVVBqWmNnZTQ2SjNvaEpWZkhEdWxQajFnS293VUl1Rnd5WFBH?=
+ =?utf-8?B?RW1ETHlGanJ5dTFhZjVURVNzL1VHTzFBc2VzRmt0QWV3ckRMaE5JTFd6dGQz?=
+ =?utf-8?B?Z2xiN05YWnNieHBlQlZObks2MEplZXZMTlhqTFhsR2VTNVh3cFk2cDR2SVN0?=
+ =?utf-8?B?S3B5enZEWWc4UkRFNERmU1YvKzZnbExabmFFUVllSkF6QWlLYVNQTU8ydTdX?=
+ =?utf-8?B?b3hKU0s4dytmTCtsc2lVVU5BakYrYnVwdDhWWFdZTjhIV0F1YmNxRG5VeExP?=
+ =?utf-8?B?R0kyeCt6SUFiY3VlWjVHVkV4ekVQdzc0Q1lNbldXSGlZL2xYTmI5ayswcHRU?=
+ =?utf-8?B?ekh6anFTYWhsNWxsNkdVYWlRbXFUR1kzRkRWT1NQSHJrbVhyOUpqOVJrT3Nz?=
+ =?utf-8?B?bkFZK2F6V2w5b2IwSHord3dEemtnWEM2aDRXam5BN244QmQ3NGtPa0NMaWp3?=
+ =?utf-8?B?QmxtY1JlNEFmMXZFNnYyd3pKQUFvU1NzdGdUcTZJSDZiSE9UNWRZVTg2cHQv?=
+ =?utf-8?B?cTArZFpoVkRYbStUSk43bUNiaGJFbFdBS01pRmQ0eDFHUTlCRkRVcEpsOTFD?=
+ =?utf-8?B?YmVxTzd0T0REZVYrRHd2VzJzanFxZTdlemkxRVgyVUR5Vy9YSHBPWkZGTUFT?=
+ =?utf-8?B?alRtU2huYW5lZ0V0OHNoZmF5VnkzQVdtNWtHTzdBSWtmbFVROG5ZU0pDWTh0?=
+ =?utf-8?B?TmJxZ2dtYU52alFpQ20rWkl4RnppdUcwWXVNVHo3MVhkMGVndmdJcldSZFEx?=
+ =?utf-8?B?dUM4UmlRUEpLSkNQb29HYmhpQkNycW16R2t5OE9xeGtvSGtHZGtxd0VTZjYy?=
+ =?utf-8?B?RHRFTld3TXQva2k0dEU1MXdwdFlSS1pWQ1RJUi9YNENOK3k0ZzdhSXlkaFda?=
+ =?utf-8?B?QWYyNnkrY2NKOVNYd0ZJUGpCNzR2SXM3cnBXckxBYUFDWG9sbDlUbFdWUnhC?=
+ =?utf-8?B?MUFtN1FidjlnNUdBSVpEcHlpOUxCN3E1cURFQzNGZDhqQjMwT0xmK0ltRzc2?=
+ =?utf-8?B?QmpRR3NlY2ZxaXhKRWZUVmREYVhMY2cvTTErWUpVem9ra3JrcEJjenhqL0Ew?=
+ =?utf-8?Q?48hqv0TiPT8RgKIeF+DPxgYO9F2mJ49MukqUZFs8RV26?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ed6afa2-ba59-4af2-46c4-08da7933a376
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acf96dba-646a-491a-9080-08da79351855
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2022 11:46:32.2514 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2022 11:56:57.7803 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XODLNq8I4il1UtUdpYHSf3q7KTZfBnwjCLFJmqNGOnCiP7REf6NOFSU3RjpXGAykGMIKWTF4f5Qf3kT/YGdvfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4660
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4SEB8xAt29OmEBgA5DqXfm3iGT8PU6zXZLbSfrbeeNtZM8cKocCkJ7XBnVg6oaVj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,141 +126,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Marek Olsak <marek.olsak@amd.com>,
- Amarnath Somalapuram <amaranath.somalapuram@amd.com>
+Cc: alexander.deucher@amd.com, luben.tuikov@amd.com,
+ kernel test robot <oliver.sang@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 26.07.22 um 18:22 schrieb Arunpravin Paneer Selvam:
+> Check the bo->resource value before accessing the resource
+> mem_type.
+>
+> <log snip>
+> [   40.191227][  T184] general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN PTI
+> [   40.192995][  T184] KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+> [   40.194411][  T184] CPU: 1 PID: 184 Comm: systemd-udevd Not tainted 5.19.0-rc4-00721-gb297c22b7070 #1
+> [   40.196063][  T184] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.0-debian-1.16.0-4 04/01/2014
+> [   40.199605][  T184] RIP: 0010:ttm_bo_validate+0x1b3/0x240 [ttm]
+> [   40.200754][  T184] Code: e8 72 c5 ff ff 83 f8 b8 74 d4 85 c0 75 54 49 8b 9e 58 01 00 00 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 10 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 04 3c 03 7e 44 8b 53 10 31 c0 85 d2 0f 85 58
+> [   40.203685][  T184] RSP: 0018:ffffc900006df0c8 EFLAGS: 00010202
+> [   40.204630][  T184] RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 1ffff1102f4bb71b
+> [   40.205864][  T184] RDX: 0000000000000002 RSI: ffffc900006df208 RDI: 0000000000000010
+> [   40.207102][  T184] RBP: 1ffff920000dbe1a R08: ffffc900006df208 R09: 0000000000000000
+> [   40.208394][  T184] R10: ffff88817a5f0000 R11: 0000000000000001 R12: ffffc900006df110
+> [   40.209692][  T184] R13: ffffc900006df0f0 R14: ffff88817a5db800 R15: ffffc900006df208
+> [   40.210862][  T184] FS:  00007f6b1d16e8c0(0000) GS:ffff88839d700000(0000) knlGS:0000000000000000
+> [   40.212250][  T184] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   40.213275][  T184] CR2: 000055a1001d4ff0 CR3: 00000001700f4000 CR4: 00000000000006e0
+> [   40.214469][  T184] Call Trace:
+> [   40.214974][  T184]  <TASK>
+> [   40.215438][  T184]  ? ttm_bo_bounce_temp_buffer+0x140/0x140 [ttm]
+> [   40.216572][  T184]  ? mutex_spin_on_owner+0x240/0x240
+> [   40.217456][  T184]  ? drm_vma_offset_add+0xaa/0x100 [drm]
+> [   40.218457][  T184]  ttm_bo_init_reserved+0x3d6/0x540 [ttm]
+> [   40.219410][  T184]  ? shmem_get_inode+0x744/0x980
+> [   40.220231][  T184]  ttm_bo_init_validate+0xb1/0x200 [ttm]
+> [   40.221172][  T184]  ? bo_driver_evict_flags+0x340/0x340 [drm_vram_helper]
+> [   40.222530][  T184]  ? ttm_bo_init_reserved+0x540/0x540 [ttm]
+> [   40.223643][  T184]  ? __do_sys_finit_module+0x11a/0x1c0
+> [   40.224654][  T184]  ? __shmem_file_setup+0x102/0x280
+> [   40.234764][  T184]  drm_gem_vram_create+0x305/0x480 [drm_vram_helper]
+> [   40.235766][  T184]  ? bo_driver_evict_flags+0x340/0x340 [drm_vram_helper]
+> [   40.236846][  T184]  ? __kasan_slab_free+0x108/0x180
+> [   40.237650][  T184]  drm_gem_vram_fill_create_dumb+0x134/0x340 [drm_vram_helper]
+> [   40.238864][  T184]  ? local_pci_probe+0xdf/0x180
+> [   40.239674][  T184]  ? drmm_vram_helper_init+0x400/0x400 [drm_vram_helper]
+> [   40.240826][  T184]  drm_client_framebuffer_create+0x19c/0x400 [drm]
+> [   40.241955][  T184]  ? drm_client_buffer_delete+0x200/0x200 [drm]
+> [   40.243001][  T184]  ? drm_client_pick_crtcs+0x554/0xb80 [drm]
+> [   40.244030][  T184]  drm_fb_helper_generic_probe+0x23f/0x940 [drm_kms_helper]
+> [   40.245226][  T184]  ? __cond_resched+0x1c/0xc0
+> [   40.245987][  T184]  ? drm_fb_helper_memory_range_to_clip+0x180/0x180 [drm_kms_helper]
+> [   40.247316][  T184]  ? mutex_unlock+0x80/0x100
+> [   40.248005][  T184]  ? __mutex_unlock_slowpath+0x2c0/0x2c0
+> [   40.249083][  T184]  drm_fb_helper_single_fb_probe+0x907/0xf00 [drm_kms_helper]
+> [   40.250314][  T184]  ? drm_fb_helper_check_var+0x1180/0x1180 [drm_kms_helper]
+> [   40.251540][  T184]  ? __cond_resched+0x1c/0xc0
+> [   40.252321][  T184]  ? mutex_lock+0x9f/0x100
+> [   40.253062][  T184]  __drm_fb_helper_initial_config_and_unlock+0xb9/0x2c0 [drm_kms_helper]
+> [   40.254394][  T184]  drm_fbdev_client_hotplug+0x56f/0x840 [drm_kms_helper]
+> [   40.255477][  T184]  drm_fbdev_generic_setup+0x165/0x3c0 [drm_kms_helper]
+> [   40.256607][  T184]  bochs_pci_probe+0x6b7/0x900 [bochs]
+> [   40.257515][  T184]  ? _raw_spin_lock_irqsave+0x87/0x100
+> [   40.258312][  T184]  ? bochs_hw_init+0x480/0x480 [bochs]
+> [   40.259244][  T184]  ? bochs_hw_init+0x480/0x480 [bochs]
+> [   40.260186][  T184]  local_pci_probe+0xdf/0x180
+> [   40.260928][  T184]  pci_call_probe+0x15f/0x500
+> [   40.265798][  T184]  ? _raw_spin_lock+0x81/0x100
+> [   40.266508][  T184]  ? pci_pm_suspend_noirq+0x980/0x980
+> [   40.267322][  T184]  ? pci_assign_irq+0x81/0x280
+> [   40.268096][  T184]  ? pci_match_device+0x351/0x6c0
+> [   40.268883][  T184]  ? kernfs_put+0x18/0x40
+> [   40.269611][  T184]  pci_device_probe+0xee/0x240
+> [   40.270352][  T184]  really_probe+0x435/0xa80
+> [   40.271021][  T184]  __driver_probe_device+0x2ab/0x480
+> [   40.271828][  T184]  driver_probe_device+0x49/0x140
+> [   40.272627][  T184]  __driver_attach+0x1bd/0x4c0
+> [   40.273372][  T184]  ? __device_attach_driver+0x240/0x240
+> [   40.274273][  T184]  bus_for_each_dev+0x11e/0x1c0
+> [   40.275080][  T184]  ? subsys_dev_iter_exit+0x40/0x40
+> [   40.275951][  T184]  ? klist_add_tail+0x132/0x280
+> [   40.276767][  T184]  bus_add_driver+0x39b/0x580
+> [   40.277574][  T184]  driver_register+0x20f/0x3c0
+> [   40.278281][  T184]  ? 0xffffffffc04a2000
+> [   40.278894][  T184]  do_one_initcall+0x8a/0x300
+> [   40.279642][  T184]  ? trace_event_raw_event_initcall_level+0x1c0/0x1c0
+> [   40.280707][  T184]  ? kasan_unpoison+0x23/0x80
+> [   40.281479][  T184]  ? kasan_unpoison+0x23/0x80
+> [   40.282197][  T184]  do_init_module+0x190/0x640
+> [   40.282926][  T184]  load_module+0x221b/0x2780
+> [   40.283611][  T184]  ? layout_and_allocate+0x5c0/0x5c0
+> [   40.284401][  T184]  ? kernel_read_file+0x286/0x6c0
+> [   40.285216][  T184]  ? __x64_sys_fspick+0x2c0/0x2c0
+> [   40.286043][  T184]  ? mmap_region+0x4e7/0x1300
+> [   40.286832][  T184]  ? __do_sys_finit_module+0x11a/0x1c0
+> [   40.287743][  T184]  __do_sys_finit_module+0x11a/0x1c0
+> [   40.288636][  T184]  ? __ia32_sys_init_module+0xc0/0xc0
+> [   40.289557][  T184]  ? __seccomp_filter+0x15e/0xc80
+> [   40.290341][  T184]  ? vm_mmap_pgoff+0x185/0x240
+> [   40.291060][  T184]  do_syscall_64+0x3b/0xc0
+> [   40.291763][  T184]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
+> [   40.292678][  T184] RIP: 0033:0x7f6b1d6279b9
+> [   40.293438][  T184] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d a7 54 0c 00 f7 d8 64 89 01 48
+> [   40.296302][  T184] RSP: 002b:00007ffe7f51b798 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [   40.297633][  T184] RAX: ffffffffffffffda RBX: 00005642dcca2880 RCX: 00007f6b1d6279b9
+> [   40.298890][  T184] RDX: 0000000000000000 RSI: 00007f6b1d7b2e2d RDI: 0000000000000016
+> [   40.300199][  T184] RBP: 0000000000020000 R08: 0000000000000000 R09: 00005642dccd5530
+> [   40.301547][  T184] R10: 0000000000000016 R11: 0000000000000246 R12: 00007f6b1d7b2e2d
+> [   40.302698][  T184] R13: 0000000000000000 R14: 00005642dcca4230 R15: 00005642dcca2880
+>
+> For more details: https://lists.01.org/hyperkitty/list/lkp@lists.01.org/thread/CDDMUNPBPCKKVECT35ZIUG7FN5ZMSFCQ/
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Reported-by: kernel test robot <oliver.sang@intel.com>
 
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-On 8/8/2022 12:59 PM, Christian König wrote:
-> Am 02.08.22 um 15:55 schrieb Shashank Sharma:
->> This patch adds:
->> - A new input parameter "flags" in the amdgpu_ctx_create2 call.
->> - Some new flags defining workload type hints.
->> - Some change in the caller function of amdgpu_ctx_create2, to
->>    accomodate this new parameter.
->>
->> The idea is to pass the workload hints while context creation,
-> 
-> Bad idea.
-> 
-> Please take AMDGPU_CTX_OP_SET_STABLE_PSTATE and 
-> AMDGPU_CTX_OP_GET_STABLE_PSTATE as blueprint for this and don't add 
-> extra flags to the context creation.
-> 
-> Regards,
-> Christian.
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index c1bd006a5525..590110fdf59c 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -912,7 +912,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+>   	/*
+>   	 * We might need to add a TTM.
+>   	 */
+> -	if (bo->resource->mem_type == TTM_PL_SYSTEM) {
+> +	if (!bo->resource || bo->resource->mem_type == TTM_PL_SYSTEM) {
+>   		ret = ttm_tt_create(bo, true);
+>   		if (ret)
+>   			return ret;
 
-Hey Christian,
-Noted, let me have a look at AMDGPU_CTX_OP_GET/SET_STABLE_PSTATE 
-implementation.
-
-- Shashank
-
-> 
-> 
->>   so
->> that kernel GPU scheduler can pass this information to GPU FW, which in
->> turn can adjust the GPU characterstics as per the workload type.
->>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Marek Olsak <marek.olsak@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Cc: Amarnath Somalapuram <amaranath.somalapuram@amd.com>
->> ---
->>   amdgpu/amdgpu.h          |  2 ++
->>   amdgpu/amdgpu_cs.c       |  5 ++++-
->>   include/drm/amdgpu_drm.h | 10 +++++++++-
->>   3 files changed, 15 insertions(+), 2 deletions(-)
->>
->> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
->> index b118dd48..1ebb46e6 100644
->> --- a/amdgpu/amdgpu.h
->> +++ b/amdgpu/amdgpu.h
->> @@ -874,6 +874,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
->> handle,
->>    *
->>    * \param   dev      - \c [in] Device handle. See 
->> #amdgpu_device_initialize()
->>    * \param   priority - \c [in] Context creation flags. See 
->> AMDGPU_CTX_PRIORITY_*
->> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->>    * \param   context  - \c [out] GPU Context handle
->>    *
->>    * \return   0 on success\n
->> @@ -884,6 +885,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
->> handle,
->>   */
->>   int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->>                uint32_t priority,
->> +             uint32_t flags,
->>                amdgpu_context_handle *context);
->>   /**
->>    * Create GPU execution Context
->> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
->> index fad484bf..d4723ea5 100644
->> --- a/amdgpu/amdgpu_cs.c
->> +++ b/amdgpu/amdgpu_cs.c
->> @@ -44,12 +44,14 @@ static int 
->> amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
->>    *
->>    * \param   dev      - \c [in] Device handle. See 
->> #amdgpu_device_initialize()
->>    * \param   priority - \c [in] Context creation flags. See 
->> AMDGPU_CTX_PRIORITY_*
->> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->>    * \param   context  - \c [out] GPU Context handle
->>    *
->>    * \return  0 on success otherwise POSIX Error code
->>   */
->>   drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->>                        uint32_t priority,
->> +                     uint32_t flags,
->>                        amdgpu_context_handle *context)
->>   {
->>       struct amdgpu_context *gpu_context;
->> @@ -74,6 +76,7 @@ drm_public int 
->> amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->>       memset(&args, 0, sizeof(args));
->>       args.in.op = AMDGPU_CTX_OP_ALLOC_CTX;
->>       args.in.priority = priority;
->> +    args.in.flags = flags;
->>       r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CTX, &args, 
->> sizeof(args));
->>       if (r)
->> @@ -97,7 +100,7 @@ error:
->>   drm_public int amdgpu_cs_ctx_create(amdgpu_device_handle dev,
->>                       amdgpu_context_handle *context)
->>   {
->> -    return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 
->> context);
->> +    return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 0, 
->> context);
->>   }
->>   /**
->> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
->> index 0cbd1540..d9fb1f20 100644
->> --- a/include/drm/amdgpu_drm.h
->> +++ b/include/drm/amdgpu_drm.h
->> @@ -238,10 +238,18 @@ union drm_amdgpu_bo_list {
->>   #define AMDGPU_CTX_PRIORITY_HIGH        512
->>   #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
->> +/* GPU context workload hint bitmask */
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_MASK    0xFF
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_NONE    0
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_3D      (1 << 1)
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VIDEO   (1 << 2)
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VR      (1 << 3)
->> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_COMPUTE (1 << 4)
->> +
->>   struct drm_amdgpu_ctx_in {
->>       /** AMDGPU_CTX_OP_* */
->>       __u32    op;
->> -    /** For future use, no flags defined so far */
->> +    /** AMDGPU_CTX_FLAGS_* */
->>       __u32    flags;
->>       __u32    ctx_id;
->>       /** AMDGPU_CTX_PRIORITY_* */
-> 
