@@ -4,67 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EA3C25B07
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5EECC00140
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:46:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E66D991F4;
-	Mon,  8 Aug 2022 11:31:09 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFCF499187;
- Mon,  8 Aug 2022 11:30:55 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id a7so16050584ejp.2;
- Mon, 08 Aug 2022 04:30:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=dAEB+ltJy92aHJia4rkluIFFluTtwX5Z1gYtEjy8D4Y=;
- b=BogbkyhW0jpxu8TZ2/FZ6IImPEXkk0ZXX7XIcE0Dz9n+YhTS8cg9RU2rnrvh/2RAqd
- 3ah3WYJGwt47hbstjEyPyJeUg+XTLNXZTAngQgpyobPBkEQ71TiUxpcMGjSGkIqmsUZq
- GlEgzZI5zwdNCamT3uBoDXIV3IEq2yCaVWWo2EqYIRIHcqF608yDyqV8G0L+n5ydRHC1
- IEQZotoAlYPaCxpQHRF0zGq8+kb8KBKrwI5r8DPzB1ZWBVJArAEAZnFOIMhcJxuUEhC7
- UJXrd+Pd4HG/+4BMI7H1xf4IZMc+i9BD6AF9SNkE6+Xqd2ECeIFDenuE7CHmGYf7XN0a
- X79g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=dAEB+ltJy92aHJia4rkluIFFluTtwX5Z1gYtEjy8D4Y=;
- b=IxS2tABHPhHjt3xgXFlqCEGYyIUT4iv2pNLRGQd92CNDD8+nhWusWE0KOKqZ9fpmmi
- 5Dq7+StrTQ1OLlzgPpJrUeiaPLj74xPJGosJYOgjjktZlyT78OtrNT+oe5QO0wBGk4U5
- PnnASUmgIk8oMpHOWma//Zhg3N//5+pCohm6btq9rz/hrvvLpzL2Uyns1TEy/JV7Mce1
- xgOF28bSmHBxKvN0Ft0ZArOENEP+HCFFDyCsGRSvor0mLBZvRN91g5XTpq6fPHK/n7Ms
- Pe3R+mKncc4EiMD9OaUx9nkcYHUXM8BD1iFjR7rzGB/SXd7lhoqElMtwRXR/vwxG7iYg
- mhQw==
-X-Gm-Message-State: ACgBeo2rEtZgG1/9yrvs2cQXl3rymnZ4i+XhlLljin45Q6cqUjug09Mc
- j6OfbTktpG0Xs9gvzcBTfw4=
-X-Google-Smtp-Source: AA6agR6EWxK4X/LpXbejTAc6NOFR/jRq0fCwafMfgJ/wtJ/x0PwvL5uZHd+pzB3sAkDzRUmOGLf/GQ==
-X-Received: by 2002:a17:906:7303:b0:730:a4e8:27f1 with SMTP id
- di3-20020a170906730300b00730a4e827f1mr13593548ejc.474.1659958254273; 
- Mon, 08 Aug 2022 04:30:54 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:2de9:6498:3b4e:7aeb?
- ([2a02:908:1256:79a0:2de9:6498:3b4e:7aeb])
- by smtp.gmail.com with ESMTPSA id
- e12-20020a50fb8c000000b0043a78236cd2sm4442087edq.89.2022.08.08.04.30.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Aug 2022 04:30:53 -0700 (PDT)
-Message-ID: <8398d805-a749-dac6-9bf8-6f93935dd2ec@gmail.com>
-Date: Mon, 8 Aug 2022 13:30:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 2/6] drm/ttm: Implement intersect/compatible functions
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A0518A5D2;
+	Mon,  8 Aug 2022 11:46:44 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E2F12B21D;
+ Mon,  8 Aug 2022 11:46:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E5Q0mdVDs0LGye5fnslAqYTbQ44InMgJ2I+mwu5zMjRvh0CnXTPezSbc+eoz6I9mLDg5QKYgcHFZPTwWMpl0+9OX6ZnY1o3h3j4xZ216oiWhJD/jRDPOtlBzKsgrIpaC5nGvNRR9J6qP46aJUjR6PexSqGjV8P/28GZ3UnltQQrhQgaW7RKp+Kthsv4wOMnZHZDpPdFQ3bSWuN/fJbayaU7FQfF0vBGCYJ9MeeeLTvySCdoukPKMGpCEyXFmAA+LBAyzp0JPN0gvoQuzZuNDKtKJLdaQzegMLon3HGN7LXMo8aNcA44kpREUCyTzsvCfjTBKgPry8/QD1Go+SraeBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jdNZWZltWloqCHwcDM9EYrMnpVqkuCk3Lnyzau8YomU=;
+ b=k6jvg+Pnc85Q3selPeL7p6ep1M45ntYVWyVhu8+3dje004GBL3YgwM8MsgByYSt1ERgZZfR1UJltVDW1NQUgUJtbEJGPuHCq3dyPcaBajnLL0gjzF9nyjYRmQYueGwWxfOgxpXELsss+otEZtQOBeAbA/tJcRBo99k2hzfuuvz+R6gofRWAqK39VJ79sA1Kar/JMHMl8bi9HCJX2iKaqx+GCzqGO5h0lFL1v6yZAQNkKqsTT3lg+ukjJGwK4YhzhgN9CrtKrayb0JXPVkt2S0O9oDUpqQAMY+WKwMQ4Dd5XzbF7iwaoiZztUU3K6dixxmKONUf97bttFJ91S+vILkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jdNZWZltWloqCHwcDM9EYrMnpVqkuCk3Lnyzau8YomU=;
+ b=TsbuPnCWCBDTa/XrFhFH2iDZ2fzy8XgNn4kN/u0zqKuat9N1WoM9kAHr7YdSxFvL3ZsmDUsefA7GEnx6LzIdrp1e7mTDEC0u5rpYCrSDlZhJmoL8TP5VAiiAA1C5c/KcMzpOlZSZs+Dbo3g2LudszgqLkTP1thxWl0Mg4VC7Hus=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by BL0PR12MB4660.namprd12.prod.outlook.com (2603:10b6:207:34::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.20; Mon, 8 Aug
+ 2022 11:46:32 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::289f:f718:af41:f38a]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::289f:f718:af41:f38a%7]) with mapi id 15.20.5504.020; Mon, 8 Aug 2022
+ 11:46:32 +0000
+Message-ID: <57c92713-b06a-e68a-9079-72f44c2ca3b9@amd.com>
+Date: Mon, 8 Aug 2022 13:46:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] amdgpu: add context creation flags in CS IOCTL
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
-References: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
- <20220725114240.4844-2-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220725114240.4844-2-Arunpravin.PaneerSelvam@amd.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20220802135558.6324-1-shashank.sharma@amd.com>
+ <acc970f2-632f-0372-8082-6bd54f0c7cf5@amd.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+In-Reply-To: <acc970f2-632f-0372-8082-6bd54f0c7cf5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6P191CA0088.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:209:8a::29) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7ed6afa2-ba59-4af2-46c4-08da7933a376
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4660:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2d0BO+HMFcltXQLopw+B26NQ+moVfPtDSW+2xamQEImybqivWaI3wBrMPYgqOCuShZxuG4FHGDeIRSUfI2OqQuAQNbEC0xJA0sD386cl3yT2sCeEsAu3hdkTobw7NXyjc/OEBpgWtlmQnmGNeSwoFVlkG/9/MHnKeQ5WvzToD3rPuTy5zoTKjh0DNHTUmGrzA14L0TJTMSDVd6FSaMMQsWe0p2H/Nujs6R72BxwcN31tB6gO2XKx7ZTRi4eYssjNRwc/PlkWzRvU1n5LqbaiwJwRPPCSJSsidJgQtTNqgZ1DMsGNFjiDjf5TQiyg/c3DaOiUWTByBLV9oRBlJ3SnG1G1EkRkWhLSeIaEImFjTUNGf3x/HmOQxgfKUdvKu26ao1HM9lPF5wvi5tnqMWzyN52NYh+uc3zGxTllEAanFOOjVR2ITrZwMheHsCMLGLfAxSCg+UjtyTYYu4piG6D7kPsexy2iOLKx5TRR0Q3MHAEpd00Ilb1KafEma6bD9t2WP8Wp7YrwrdTxn+7/jSpsBxbo4RyXE87/bLwM6Pi9qrt/6qP3RQnieW7zMb6fVMPg2dmO12rscboZ9uyIt44u65Cvvpt7L1ikEsr9ie1+Vav+HRYA6oDXBxhXqdoU2GHWtUOmq3RlT1OUBa+8hB9V3G41C+IlQ2FXGNd+ISpJkb8qwOnBigJ7d6F+CRWbJFYzkOM6kL3rOml+N+WLrip+DDKoksEMJRok7SPAPiVJzIHaLPY5K2Oc+t4ypDyyE/1H86X/zQQr/EXyBl12C9j/76l4QFZ23r002OJAIuOH4AdVbDMALTx8E4yCTY0a4z1Z8hPaOCtnKQhCvnJd7UKrBQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(346002)(376002)(136003)(366004)(39860400002)(316002)(8936002)(66946007)(8676002)(450100002)(4326008)(66476007)(66556008)(478600001)(6486002)(66574015)(186003)(31696002)(86362001)(2616005)(6512007)(38100700002)(6666004)(53546011)(83380400001)(41300700001)(54906003)(5660300002)(2906002)(36756003)(6506007)(31686004)(26005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXI0OWppWERlNmVqM2F2c000cFF5U1hPZkFHSk01bG13MC9Calhvd2ZHVXow?=
+ =?utf-8?B?NXV3N3ZaazFNc3EyOHF1ODlmMG4rNXhITmJsdjAzVUdHVW8waTRoMGFxQUdE?=
+ =?utf-8?B?U1RJVTlkd3dtamRrcVJnVEFVWTFNTHlWT0hON1J4WGdZVmFFNmxISE1ydXFC?=
+ =?utf-8?B?clQ1NEhSMmRpclE0djNBL2NyT1lFellLa2VaRjR3NzlQaXQzZkVoRS82Ykhm?=
+ =?utf-8?B?cW52RHRyNDBoKy9GZUhNdGs5TEZjb0doWE5Ud012ekErNlJkTEZITCtaSVM4?=
+ =?utf-8?B?dW1kZUpxWHJhcWdNQit4VFFhcnloZzlDbW5rS0s5eGdiOFY2Nk84RHpnbDV6?=
+ =?utf-8?B?WTFwZy9uWWJYUVAxeUlNeUgvdkg3SFJpbkNPbXU3cGg5YlliTC9wamJvVzN5?=
+ =?utf-8?B?TVlQU0lJcEEyNFFEL1FaV1NkMk5LaUlrekpwVTdkQ2Nqd0FnZHoyemtZY1dV?=
+ =?utf-8?B?cjRZOVNlZnhkeGFCRWgxZDBvR2ZKM3RJSDN4b0IrcGkzNzRDWUVPdzQ3N1or?=
+ =?utf-8?B?Z0ZMdUY4N0F0WGZ1UWJPT0h3ZE1rT1hzT01aQXhXSmxIbGtDaDZjR2pGVHA4?=
+ =?utf-8?B?eXl2U2VXd05yNVpNRHEzQ3UrbHQ0VXNXVmRld2F4VXhXRXFoWDVwVit3YUo0?=
+ =?utf-8?B?WHNpMC8wZjVGeCtWT09wNmdYZzEyR0N2RFZFTGQrb0FKT2ZGNHU2aUd2UnBC?=
+ =?utf-8?B?UERwR3NzYzNhbzVjcXpMZjN5Sm1DQmEwd2wyT0haNEcrai96OWVLUm9Fa0gr?=
+ =?utf-8?B?MFMzSGFEaTQzVXo1THg0TENiTDFIaVZBSE9tVzhyb3dGYkV6UlRZb0dlc0FQ?=
+ =?utf-8?B?NmhndG5OMkVFVmlmd1ZVRjZkRXVua0x6MlBmS0h1K1pOUUlHWndjQVAyZWtX?=
+ =?utf-8?B?ZjJjUmdjWjVBYnpYUENYaUpwNnNuNGc5L25rYjVRdWxnOWZwbkJtM0wzdkZ3?=
+ =?utf-8?B?ZEQrSkh2c3A4S1E4SUszZlRURDNYb0RqQ0ZXellxd0lrclBUMU9sVmRKRlhi?=
+ =?utf-8?B?cXRyMHB4UStFNmhiREYxWjc4MUx0d0hYamtiYUJMU3dIOFhIUXZwMXAxa1pP?=
+ =?utf-8?B?T1djZHVxUVVva2p3b3FqTDlZOHVOSU1lYko5WlRjb2hidkc1WlFCRTNMVmlH?=
+ =?utf-8?B?RXJiR2tHOFlJbjVtSi9ZdVJLT3hhUm9rREtqMG9DSW92aGF0UXVYVk1kOXBD?=
+ =?utf-8?B?TjB6bDlkUCtWNVlsRjZPeFErNUVRRnJ5UGJkSWd5MW1UMk1TQjFrVkh0YlFR?=
+ =?utf-8?B?U3ZPcHhPeCtzZE5OdFBXc0tDS3lnZDNYT3dPSUxXZVRKNHF5d0tlSGpIcUxE?=
+ =?utf-8?B?S3dOVlBHZy9qNC82dnpSa3ZzRksrRDR0YWlHL1pvZzZnMi9IK0FSYVRFdzdE?=
+ =?utf-8?B?OTBWWHpuUGtLakpDajNjM1ArMndNQlB5RTF4cnEyVnpwSkFtNWJUZDMwY0M3?=
+ =?utf-8?B?VEp6NFJCZllidFB3OUpveUFCN1BCb3NiWWpOSlI3NFo4eEVVbjZNSlRRdkZv?=
+ =?utf-8?B?ZlJ5RUo4YkpHMmVjVldlc1JPY050NGpvb0Z4NjFhL0lncWYwTDFSbDZVM1RF?=
+ =?utf-8?B?ck90bU05aXpwSkd6a3NVd3ZFeTA3MWgxSW1McE9NQjhoM09JK2xZUHo4ME8r?=
+ =?utf-8?B?djhxeGc5VjhIWGhENFVZQ0pEelVGK0hkR0l5akFld0krS3NOckZLQXhONXli?=
+ =?utf-8?B?b1g1Z2VaWVdTUklvRzdBL2thOGtzTzM1eXlIR05qVm1oTmpGYXMzWFdOQjFU?=
+ =?utf-8?B?UUdDVEJrQWNLUzZuUWVoVmE4U2JoS3ZodUFmSTF2MTV4UHRMa2xQQXB3RjVh?=
+ =?utf-8?B?YXAxa1Bad3NDVGR1QzhlWGhPVWs3c1I0SzFVelNFU1M1b05yWTZKcFBDSDBF?=
+ =?utf-8?B?S01DekZlQ1pIRml6N0ZiTXB1amllalNPTkZ0bzhWSHB0QnZNY3hsOEJaMWFk?=
+ =?utf-8?B?bEdUS094ZzQ4anREaVRRT0FJOHM1L0Nhb0VZaW13di9CbTRTTzFUaW82Nk1y?=
+ =?utf-8?B?S0ZxdDgzSWRwdjhUcHdlWG9JQ25VUWMvb2plTGx1U0YwSTdCOHdRM2cwd2JJ?=
+ =?utf-8?B?S0svQ1V0dmZNczJvM3ptZEtwWUVhQUlBT1ZWTkhhQjRIcEFjZ2RKYXVjUHZa?=
+ =?utf-8?Q?HCMVwhftYyXmPPBkyj211BnB0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ed6afa2-ba59-4af2-46c4-08da7933a376
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2022 11:46:32.2514 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XODLNq8I4il1UtUdpYHSf3q7KTZfBnwjCLFJmqNGOnCiP7REf6NOFSU3RjpXGAykGMIKWTF4f5Qf3kT/YGdvfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,79 +125,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, luben.tuikov@amd.com, christian.koenig@amd.com,
- matthew.auld@intel.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Marek Olsak <marek.olsak@amd.com>,
+ Amarnath Somalapuram <amaranath.somalapuram@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Am 25.07.22 um 13:42 schrieb Arunpravin Paneer Selvam:
-> Implemented a new intersect and compatible callback functions
-> to ttm range manager fetching start offset from drm mm range
-> allocator.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_range_manager.c | 33 +++++++++++++++++++++++++
->   1 file changed, 33 insertions(+)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-> index d91666721dc6..12b8d9b36fe6 100644
-> --- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-> +++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-> @@ -113,6 +113,37 @@ static void ttm_range_man_free(struct ttm_resource_manager *man,
->   	kfree(node);
->   }
->   
-> +static bool ttm_range_man_intersect(struct ttm_resource_manager *man,
-> +				    struct ttm_resource *res,
-> +				    const struct ttm_place *place,
-> +				    size_t size)
-> +{
-> +	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-> +	u32 num_pages = PFN_UP(size);
-> +
-> +	/* Don't evict BOs outside of the requested placement range */
-> +	if (place->fpfn >= (node->start + num_pages) ||
-> +	    (place->lpfn && place->lpfn <= node->start))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static bool ttm_range_man_compatible(struct ttm_resource_manager *man,
-> +				     struct ttm_resource *res,
-> +				     const struct ttm_place *place,
-> +				     size_t size)
-> +{
-> +	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-> +	u32 num_pages = PFN_UP(size);
-> +
-> +	if (node->start < place->fpfn ||
+On 8/8/2022 12:59 PM, Christian König wrote:
+> Am 02.08.22 um 15:55 schrieb Shashank Sharma:
+>> This patch adds:
+>> - A new input parameter "flags" in the amdgpu_ctx_create2 call.
+>> - Some new flags defining workload type hints.
+>> - Some change in the caller function of amdgpu_ctx_create2, to
+>>    accomodate this new parameter.
+>>
+>> The idea is to pass the workload hints while context creation,
+> 
+> Bad idea.
+> 
+> Please take AMDGPU_CTX_OP_SET_STABLE_PSTATE and 
+> AMDGPU_CTX_OP_GET_STABLE_PSTATE as blueprint for this and don't add 
+> extra flags to the context creation.
+> 
+> Regards,
+> Christian.
 
-This should probably be "<=".
+Hey Christian,
+Noted, let me have a look at AMDGPU_CTX_OP_GET/SET_STABLE_PSTATE 
+implementation.
 
-Regards,
-Christian.
+- Shashank
 
-> +	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
->   static void ttm_range_man_debug(struct ttm_resource_manager *man,
->   				struct drm_printer *printer)
->   {
-> @@ -126,6 +157,8 @@ static void ttm_range_man_debug(struct ttm_resource_manager *man,
->   static const struct ttm_resource_manager_func ttm_range_manager_func = {
->   	.alloc = ttm_range_man_alloc,
->   	.free = ttm_range_man_free,
-> +	.intersect = ttm_range_man_intersect,
-> +	.compatible = ttm_range_man_compatible,
->   	.debug = ttm_range_man_debug
->   };
->   
-
+> 
+> 
+>>   so
+>> that kernel GPU scheduler can pass this information to GPU FW, which in
+>> turn can adjust the GPU characterstics as per the workload type.
+>>
+>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Marek Olsak <marek.olsak@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Cc: Amarnath Somalapuram <amaranath.somalapuram@amd.com>
+>> ---
+>>   amdgpu/amdgpu.h          |  2 ++
+>>   amdgpu/amdgpu_cs.c       |  5 ++++-
+>>   include/drm/amdgpu_drm.h | 10 +++++++++-
+>>   3 files changed, 15 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+>> index b118dd48..1ebb46e6 100644
+>> --- a/amdgpu/amdgpu.h
+>> +++ b/amdgpu/amdgpu.h
+>> @@ -874,6 +874,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
+>> handle,
+>>    *
+>>    * \param   dev      - \c [in] Device handle. See 
+>> #amdgpu_device_initialize()
+>>    * \param   priority - \c [in] Context creation flags. See 
+>> AMDGPU_CTX_PRIORITY_*
+>> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
+>>    * \param   context  - \c [out] GPU Context handle
+>>    *
+>>    * \return   0 on success\n
+>> @@ -884,6 +885,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle 
+>> handle,
+>>   */
+>>   int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
+>>                uint32_t priority,
+>> +             uint32_t flags,
+>>                amdgpu_context_handle *context);
+>>   /**
+>>    * Create GPU execution Context
+>> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
+>> index fad484bf..d4723ea5 100644
+>> --- a/amdgpu/amdgpu_cs.c
+>> +++ b/amdgpu/amdgpu_cs.c
+>> @@ -44,12 +44,14 @@ static int 
+>> amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
+>>    *
+>>    * \param   dev      - \c [in] Device handle. See 
+>> #amdgpu_device_initialize()
+>>    * \param   priority - \c [in] Context creation flags. See 
+>> AMDGPU_CTX_PRIORITY_*
+>> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
+>>    * \param   context  - \c [out] GPU Context handle
+>>    *
+>>    * \return  0 on success otherwise POSIX Error code
+>>   */
+>>   drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
+>>                        uint32_t priority,
+>> +                     uint32_t flags,
+>>                        amdgpu_context_handle *context)
+>>   {
+>>       struct amdgpu_context *gpu_context;
+>> @@ -74,6 +76,7 @@ drm_public int 
+>> amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
+>>       memset(&args, 0, sizeof(args));
+>>       args.in.op = AMDGPU_CTX_OP_ALLOC_CTX;
+>>       args.in.priority = priority;
+>> +    args.in.flags = flags;
+>>       r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CTX, &args, 
+>> sizeof(args));
+>>       if (r)
+>> @@ -97,7 +100,7 @@ error:
+>>   drm_public int amdgpu_cs_ctx_create(amdgpu_device_handle dev,
+>>                       amdgpu_context_handle *context)
+>>   {
+>> -    return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 
+>> context);
+>> +    return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 0, 
+>> context);
+>>   }
+>>   /**
+>> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+>> index 0cbd1540..d9fb1f20 100644
+>> --- a/include/drm/amdgpu_drm.h
+>> +++ b/include/drm/amdgpu_drm.h
+>> @@ -238,10 +238,18 @@ union drm_amdgpu_bo_list {
+>>   #define AMDGPU_CTX_PRIORITY_HIGH        512
+>>   #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
+>> +/* GPU context workload hint bitmask */
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_MASK    0xFF
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_NONE    0
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_3D      (1 << 1)
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VIDEO   (1 << 2)
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VR      (1 << 3)
+>> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_COMPUTE (1 << 4)
+>> +
+>>   struct drm_amdgpu_ctx_in {
+>>       /** AMDGPU_CTX_OP_* */
+>>       __u32    op;
+>> -    /** For future use, no flags defined so far */
+>> +    /** AMDGPU_CTX_FLAGS_* */
+>>       __u32    flags;
+>>       __u32    ctx_id;
+>>       /** AMDGPU_CTX_PRIORITY_* */
+> 
