@@ -4,116 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14CCC00140
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5622C00140
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:35:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4075D97FEA;
-	Mon,  8 Aug 2022 11:10:31 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB9C97180;
- Mon,  8 Aug 2022 11:00:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kx5Py4mhKHRBqruNIuVHwC10uZ8jMWRrtwnsOKJbQcD6YIl6gh54kVzZ0N+/uoAsQ/ZKRkazprg85W7ZKfUp5vT/fFjSIEyMfEfVrbDcmWB6FpA8D+UpUbifJTWKxMNIaviF12bVv060+NB72q8ai1desKYAAcDv80hMwXjQ/wHFI8kDZHsTsxEyM+LrXp0/CFhzBdcDLlbCx4QXOxAG09PU0pWW8103OGgbId96fs9BxAthDmhvJHuHTGkbD1yqms57TbUzK3VojU4myFEejwghCd8t8qFc6KzB68oC6DQUxsHdYqblUQvSn1UYK1VKS1d2FE4Srs9K6EesPunUFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Rzb5w0yl8FalnXsHxrelBgvG8IfNT9lSABf+ZjSu6w=;
- b=PFlTgwYiB6wIurcacYjruI0XIougiKCa9rHDgVStHK4gZ2f4+7Hqg1iKA7wx/ABCcqma1ArYfChbhKRW9BGQr3+7zEdzdudVLZoO9Mn9ZFpm3HKWF9/CsOsW5q3K0pewpP6zrrZG3wEX5SQkF/lJTa8WstDNQ2rBvNMVC0m34+QFuE4jB2OdVjYY1zeWnyQvgagn7CPQbWh/ZjDHnXnGU9IlyhPSaty4nO8EevSNppK81lF15Q2C+9WQIOCooSD0hG7A5YCzBANhWAhECuSkCHAzVdV8MD8SJglbPYEPWwIhZjOJw34KKYgxhMUzfqSvaSdD2seu61SS3B8VdMYlzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Rzb5w0yl8FalnXsHxrelBgvG8IfNT9lSABf+ZjSu6w=;
- b=4WOKp1gtF9gXvDDXFhrTHKuusaR6RnydsNn05AbPmonMEWr6v2EjL+/Y1JsmOYXN5E1tRsJMz2BD8YzzYPKbeX4cqeBLu312TE3TN9yeBKErlgjAJ2OKpWRFO3pUlSPahTkTnrap1MIF3KaEm/Q/23R94KulVY2ohbSnOR7oDf0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BN8PR12MB2995.namprd12.prod.outlook.com (2603:10b6:408:41::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17; Mon, 8 Aug
- 2022 11:00:04 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Mon, 8 Aug 2022
- 11:00:03 +0000
-Message-ID: <acc970f2-632f-0372-8082-6bd54f0c7cf5@amd.com>
-Date: Mon, 8 Aug 2022 12:59:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1A1987A8;
+	Mon,  8 Aug 2022 11:30:24 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A7A976A5;
+ Mon,  8 Aug 2022 11:28:33 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id kb8so16032064ejc.4;
+ Mon, 08 Aug 2022 04:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=n0CAi9pds/V29zU7AxtYcUqo8kNQ6o6h5I9nksSIB5Y=;
+ b=HmkiaYhVXxCh5T3W/Qn+x6LgKPShRn8pVmCHUrPiSCVUMXMBfnED+x+EFXeTwWzRa4
+ o3r7x9SmZ5EBRF5k6bT24SrDXnSMX+w/n01eLZuGBTmke5oOynXYUbHusFvF//Xw8Ovi
+ LIWXA4tE95IbPz6ZR8WWhOtykJv0uBeNCoOFcbH0j+DBr4CwHCoMw7QA8tT0TjKGabGf
+ eYsTT2BmAIzM6idnMJYNr93nhSc+yNe2fsKnHM12W4kExPp5I0nL2G7IQq7HcuzESwjy
+ UMDRL/HPxJmKwSZVmiX1WlmVLGiX9yzzwSDI+xWdGTGBXQVBYlhJzKHw+ZUF9rJlQqAl
+ kgOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=n0CAi9pds/V29zU7AxtYcUqo8kNQ6o6h5I9nksSIB5Y=;
+ b=2TslTLzEEuoh6XKLSX/tE5Mrs54vvjtoGfo5ztSlDAju23RSJVMHz+Xd1E96rs6pOB
+ 7e68OW0JpEUDfizgDSenVo7sMJa8W2KCeADjFkppRnkt5Ges50CFCF4tEkkSbd6N+oYM
+ SWt6gw5XxGx/x2G/WGDFdtsqGufd9HviencmS1ZZp3Opnt+NA3b1LPj2theQq3kP0CCk
+ VrL0w86d7j/Cmbne2n/7OWBm+yn7vHRwb5nJQM5h41qjowblNO6b6SBGw53TvAdg6KjX
+ 3Z90ZxDAB2kjyGsgZ7ygGrOzYmVYjelp5tNufahC4EGLNOXLPOMZaNIZLw7yttudeELi
+ jmoA==
+X-Gm-Message-State: ACgBeo21Bzmr8EZ81088wvZ+wdMuJxb08GiEtf2qJMU1f+WHABCW0fYp
+ UD1+iXvE2JrS7AC68hnpZD4NMWUSi+0=
+X-Google-Smtp-Source: AA6agR5CCGvOrNmkJeoroYuKc9EmH2tKz1aTOPz9R2NZDdpsd21ivvCte1eExyenis8aYhJYZm5uxQ==
+X-Received: by 2002:a17:907:6d23:b0:731:147f:9e32 with SMTP id
+ sa35-20020a1709076d2300b00731147f9e32mr8609326ejc.280.1659958112105; 
+ Mon, 08 Aug 2022 04:28:32 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:2de9:6498:3b4e:7aeb?
+ ([2a02:908:1256:79a0:2de9:6498:3b4e:7aeb])
+ by smtp.gmail.com with ESMTPSA id
+ bd9-20020a056402206900b0043bbf79b3ebsm4479485edb.54.2022.08.08.04.28.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Aug 2022 04:28:31 -0700 (PDT)
+Message-ID: <c6fdc73d-8877-b261-6e46-0094d4bb4527@gmail.com>
+Date: Mon, 8 Aug 2022 13:28:30 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] amdgpu: add context creation flags in CS IOCTL
+Subject: Re: [PATCH v2 1/6] drm/ttm: Add new callbacks to ttm res mgr
 Content-Language: en-US
-To: Shashank Sharma <shashank.sharma@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220802135558.6324-1-shashank.sharma@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220802135558.6324-1-shashank.sharma@amd.com>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+References: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM7PR02CA0007.eurprd02.prod.outlook.com
- (2603:10a6:20b:100::17) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2609aa20-b480-4657-661a-08da792d255f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2995:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FttIps4t8BhHvtdmWfM4TiY5cEPGi73LH229RAvm+WEZD1IBVD5ELPjce8BMEj0b4tRtjMieccs8QnWnUqwSOxgOVxE7O1z0HUZmyzubt6+pnf5JXivn4kBjn5/to9x7AXmhP5K5Ice8e5qc3nYKGezfnUm9E/b/vOykGpbldhLotW5CLd5GF8phSVJFdp0RnnmCSifUJG8n8S+OSikGeNXsrZV0rKwD91ENIbhwxonOhuB+PzqjfZ0jZd09mrhotcQQFUll0jARdWvp80gn5R+fv27yCB2JStPEBcUK1vqpr9CXUjuovsKzE37d8TL32sk5BTP6jj2zd4BsVYyAZq7RiuJtKLBDFRHg+R0BGPcLyUL5kvj5zpMZHG+dNvZZAxLE6fK2m79soa2SMwuRVo77I+n9hT9Mm6xnXEWbGJKELdq1lejWu6KrB9gEh5MCieOT1h7z/GhU+zrOHv+Y5LDnG43mP8+x2Tecfik5f10Zlwy2e7ykdxrN3k7f/hGqQCAKpxstGOqFrUQSH00rUqbHNUe+kDphTpYP9zc2vnjm32/hvnKhMB19XXHhjaDJtlmf8fTsVjzo5eSUamEsrJ8zcXpQSrAaGQ+U/XjL1WZleBKlyZWlz1ko2Klu097KqqoYirIPnHMSSaW3A81i7WF9ESjLxhgN7BR3agxPWD+Hc3lzmwSO4cosQc0LOKZaWGBRwtjMOFjnsbMhfe8ZmsCNOac7r/vTNvWjbyUyrUiNYvP8lDDMbM1vzL8aiVYZDztFoXnSTLzyXH9xyyTmGlHtYD7oPFk8twgzF3KzMyVeRL/SxZ0dMN+Nkh+lqKdHRGtzPSdBEoxVLW4u0cvHRQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(396003)(39860400002)(366004)(346002)(376002)(186003)(41300700001)(36756003)(8936002)(5660300002)(31686004)(83380400001)(2616005)(2906002)(86362001)(31696002)(66476007)(66556008)(66946007)(450100002)(38100700002)(54906003)(6486002)(478600001)(316002)(4326008)(8676002)(6666004)(6506007)(6512007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WG1oeVVoZEsrejA1VHRpcXBZWUFWdkk3ODJFRE9zbHhLZU5LQzRnT3gxbmJx?=
- =?utf-8?B?MGwxQmd3Z05pMEFhRDhDUUZvSDhHZVU3RHpuRlY2VGUzVFBUdGJsaVRCWVhz?=
- =?utf-8?B?NTUwWXlEMHVBUksyK3h6TytzbHZ6RktYRmRuTk4yb0hvbGRaZmVMU1V3ZCtv?=
- =?utf-8?B?bkpmMkdoNWhDSFVzMXBWTGtrV21jelZWVXduZDFpMFhEZ3lyQjY1dmdDeUM5?=
- =?utf-8?B?TU5aV3lJVjF0L1pOSGNWdUJueVdKeWxGaFdodWZuVys0N012N1g5cWZvTW4x?=
- =?utf-8?B?UkQ2WjRXUDJzK2NGOGJzNENBendlRW0xN0poSHZHQS9RRXFyUUVJV1hhZWRI?=
- =?utf-8?B?WHcwWHFrK2FUaS9oMngyQmpEUFpnK01zWG5nd0JCRTdDWFBtdnJxZGlFZXNq?=
- =?utf-8?B?c3RTVEdFYWtEMDFPL0VvNDVxeVQxcEJ3L01ITjd4RmZVeHJLMlVnOWExeFRq?=
- =?utf-8?B?ZE51YlhHZUdQYzN2SWhvY0p4UEZ0MnZ1KzRFTnVmK0NtOXlYY3NjYTJqYVNY?=
- =?utf-8?B?SXpzNGFySjE1OWxnMVdreDZnazl6amo5WXVPbUFCS1B0cjlSUW4zREpGZ2J0?=
- =?utf-8?B?WDdqRTEzZ1VKWkl4U1ZoSzhYYm1EeGlTenJGcE1YdXdVb3FtT090MDhoSnlx?=
- =?utf-8?B?c3g2aEpkT0VqOUNFb0Y4VmRDSmNJNjkxSGFPNGxRd3R3Y0F6Y285SVZBK2F1?=
- =?utf-8?B?dkpxRUVPczFwdnRmTnRJWGlBUE1oKzZTNHVTYndaN1BrVG9nQ1gzbTR2R1FU?=
- =?utf-8?B?WlFHVSszOHhLWVZDMDFQKzBCLzg1ak9BR0kwOUZObGZTWlpnR0Y0MjdqNFNm?=
- =?utf-8?B?NE1qZGF4aXdBTUpGc1BTU3cxdVgzTE9EY3lUYVJTc3hNcDA0azVSNGpxMkwr?=
- =?utf-8?B?c3ZzdG1xajgrNmdKTWdBUUxCejl6VTFkUTF5QWZhU01CZXNHSWc0UWhLbG9L?=
- =?utf-8?B?aEU5RW5ua1F2RG9NSjNNZVhXV2NmSlRyaWJNaXVxbHNoaUNNbkRMUHB0OG8r?=
- =?utf-8?B?dmJxeTB3YWg4NE02NGFxU2w1ZFFzZU5ielFRa1U5c1gyZnZYOHVpNGp6VjNn?=
- =?utf-8?B?RGxNbjUzZkVmYk1FT2dac3dVeWYrN0d5NFgvSWdYMmVFTWZSOTkwQldidEpp?=
- =?utf-8?B?dmMwZUJWbDBkMnNMK3lucUpKK2k3bVNtbnZTaDBxMnRkSnZUZmFUUkFNeUdQ?=
- =?utf-8?B?bWpDV2xEOHFwalV2Rm94N2p6NjNwSUxvcWdMcUllNFc0NGtDcU1TcnhoYWJ3?=
- =?utf-8?B?RXZUT0tOMFY3REsrZmNyYzRrU2I0eEQyNmFqd0lHK0I5eWxpRk5wQW5CbTBQ?=
- =?utf-8?B?TGlucVlMWW9odjZ1OWRJbFRnaHFMaCtDU2p1ZzhwNFVRSkQydU50NldFWWtw?=
- =?utf-8?B?WW4rNlJnZ1YwZ3hZSWZadWdFME5ncFZkWFpicEhXT2RxUGN2ZnR4azNTcUF2?=
- =?utf-8?B?Z2VRc3J3TzlIUkhIQXhhZ2RVa1VHM21QaSt5Yk13ZVBUeUFrTFZ1MEt1Tk1m?=
- =?utf-8?B?N3N0ajFlWDFRWGJ4RzR1Ly9QVG1GNDBVdTJFOVcvMUlnOWluUG9QOHI3RTlI?=
- =?utf-8?B?VjlZeENKMWlhdzNvRDhtbVdIR0EyZVpKa25xbis5ZlZxQ1dkR1VuTStSTG4r?=
- =?utf-8?B?K1l3WWRLV0NteFRGazVYYm52SXREQ1ZrM05QeVRVSEgyaGdYSDVxUGkvcW03?=
- =?utf-8?B?ek9BK2VGUTNIaUw2SG41dTNHOXpyeGhqUkhZVUh0cjBjSE12WkpOQ3BtK2p3?=
- =?utf-8?B?SXJkVFg5MXhVSHMzd1F3V3lpRFZ3NmNKRUFTdnJSYVkrYllDNjFtZVlvNDd2?=
- =?utf-8?B?NGhzcnJPVVdrbkR6Z1VyQU5yUm1zYWUzQklHbFE0MTllYVZ5RHk1M1ZZM21k?=
- =?utf-8?B?Um9OU3lyMmlySXc4V2dVeEJLbEI2WFd6SCs5MWZQbDRPaWdSaE1sYTBLVWZY?=
- =?utf-8?B?U2FLK3J3dzZnQWFMZ255L0VvNUUxbk4vdGNHUVFVWkp3Ymx0SmxOZiszK2FR?=
- =?utf-8?B?djU0Y2draFhHYnlORXNxZUVkWU9xd0k3YmxOTU0xOWRqd3RHcmhLQmRwK2tX?=
- =?utf-8?B?amdMc1hRQkdiTFE1VmhRcUNXME1HVFdCenpBZWo0eWhjNEU3RzE3dXpiVTlC?=
- =?utf-8?B?QVBYTTcyZWFSZ0p2cmlLT0tPK3c1MjFJVXdNRmpRMW5tN0VSOCtGcXA5R25N?=
- =?utf-8?Q?gDGCnw/cL+rc7clpvJ3lx+LRDjsvVCeku2eb5ecptZL2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2609aa20-b480-4657-661a-08da792d255f
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2022 11:00:03.7282 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Y8VUhrMAabAAJHuxZs+dfF85Rq+r6PVP/bgDiHDqlia1YdttMU0p1BVsf8iuBb7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2995
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,124 +75,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Marek Olsak <marek.olsak@amd.com>,
- Amarnath Somalapuram <amaranath.somalapuram@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, luben.tuikov@amd.com, christian.koenig@amd.com,
+ matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.08.22 um 15:55 schrieb Shashank Sharma:
-> This patch adds:
-> - A new input parameter "flags" in the amdgpu_ctx_create2 call.
-> - Some new flags defining workload type hints.
-> - Some change in the caller function of amdgpu_ctx_create2, to
->    accomodate this new parameter.
+Am 25.07.22 um 13:42 schrieb Arunpravin Paneer Selvam:
+> We are adding two new callbacks to ttm resource manager
+> function to handle intersection and compatibility of
+> placement and resources.
 >
-> The idea is to pass the workload hints while context creation,
+> v2: move the amdgpu and ttm_range_manager changes to
+>      separate patches (Christian)
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_resource.c | 59 ++++++++++++++++++++++++++++++
+>   include/drm/ttm/ttm_resource.h     | 39 ++++++++++++++++++++
+>   2 files changed, 98 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> index 20f9adcc3235..4cd31d24c3e7 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -253,6 +253,65 @@ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
+>   }
+>   EXPORT_SYMBOL(ttm_resource_free);
+>   
+> +/**
+> + * ttm_resource_intersect - test for intersection
+> + *
+> + * @bdev: TTM device structure
+> + * @res: The resource to test
+> + * @place: The placement to test
+> + * @size: How many bytes the new allocation needs.
+> + *
+> + * Test if @res intersects with @place and @size. Used for testing if evictions
+> + * are valueable or not.
+> + *
+> + * Returns true if the res placement intersects with @place and @size.
+> + */
+> +bool ttm_resource_intersect(struct ttm_device *bdev,
+> +			    struct ttm_resource *res,
+> +			    const struct ttm_place *place,
+> +			    size_t size)
+> +{
+> +	struct ttm_resource_manager *man;
+> +
+> +	if (!res)
+> +		return false;
+> +
+> +	man = ttm_manager_type(bdev, res->mem_type);
+> +	if (!place || !man->func->intersect)
+> +		return true;
+> +
+> +	return man->func->intersect(man, res, place, size);
+> +}
+> +
+> +/**
+> + * ttm_resource_compatible - test for compatibility
+> + *
+> + * @bdev: TTM device structure
+> + * @res: The resource to test
+> + * @place: The placement to test
+> + * @size: How many bytes the new allocation needs.
+> + *
+> + * Test if @res compatible with @place and @size.
+> + *
+> + * Returns true if the res placement compatible with @place and @size.
+> + */
+> +bool ttm_resource_compatible(struct ttm_device *bdev,
+> +			     struct ttm_resource *res,
+> +			     const struct ttm_place *place,
+> +			     size_t size)
+> +{
+> +	struct ttm_resource_manager *man;
+> +
+> +	if (!res)
+> +		return false;
+> +
+> +	man = ttm_manager_type(bdev, res->mem_type);
+> +	if (!place || !man->func->compatible)
 
-Bad idea.
+Well that !place is probably misplaced here.
 
-Please take AMDGPU_CTX_OP_SET_STABLE_PSTATE and 
-AMDGPU_CTX_OP_GET_STABLE_PSTATE as blueprint for this and don't add 
-extra flags to the context creation.
+When no placement is given then that's either illegal or the resource is 
+never compatible.
+
+Maybe move that check up to the !res if and return false.
+
+> +		return true;
+> +
+> +	return man->func->compatible(man, res, place, size);
+> +}
+> +
+>   static bool ttm_resource_places_compat(struct ttm_resource *res,
+>   				       const struct ttm_place *places,
+>   				       unsigned num_placement)
+> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+> index ca89a48c2460..68042e165c40 100644
+> --- a/include/drm/ttm/ttm_resource.h
+> +++ b/include/drm/ttm/ttm_resource.h
+> @@ -88,6 +88,37 @@ struct ttm_resource_manager_func {
+>   	void (*free)(struct ttm_resource_manager *man,
+>   		     struct ttm_resource *res);
+>   
+> +	/**
+> +	 * struct ttm_resource_manager_func member intersect
+> +	 *
+> +	 * @man: Pointer to a memory type manager.
+> +	 * @res: Pointer to a struct ttm_resource to be checked.
+> +	 * @place: Placement to check against.
+> +	 * @size: Size of the check.
+> +	 *
+> +	 * Test if @res intersects with @place + @size. Used to judge if
+> +	 * evictions are valueable or not.
+> +	 */
+> +	bool (*intersect)(struct ttm_resource_manager *man,
+> +			  struct ttm_resource *res,
+> +			  const struct ttm_place *place,
+> +			  size_t size);
+> +
+> +	/**
+> +	 * struct ttm_resource_manager_func member compatible
+> +	 *
+> +	 * @man: Pointer to a memory type manager.
+> +	 * @res: Pointer to a struct ttm_resource to be checked.
+> +	 * @place: Placement to check against.
+> +	 * @size: Size of the check.
+> +	 *
+> +	 * Test if @res compatible with @place + @size.
+
+"Used to check of the need to move the backing store or not."
+
+Apart from that looks good to me.
 
 Regards,
 Christian.
 
-
->   so
-> that kernel GPU scheduler can pass this information to GPU FW, which in
-> turn can adjust the GPU characterstics as per the workload type.
->
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Marek Olsak <marek.olsak@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Amarnath Somalapuram <amaranath.somalapuram@amd.com>
-> ---
->   amdgpu/amdgpu.h          |  2 ++
->   amdgpu/amdgpu_cs.c       |  5 ++++-
->   include/drm/amdgpu_drm.h | 10 +++++++++-
->   3 files changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-> index b118dd48..1ebb46e6 100644
-> --- a/amdgpu/amdgpu.h
-> +++ b/amdgpu/amdgpu.h
-> @@ -874,6 +874,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle handle,
->    *
->    * \param   dev      - \c [in] Device handle. See #amdgpu_device_initialize()
->    * \param   priority - \c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*
-> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->    * \param   context  - \c [out] GPU Context handle
->    *
->    * \return   0 on success\n
-> @@ -884,6 +885,7 @@ int amdgpu_bo_list_update(amdgpu_bo_list_handle handle,
->   */
->   int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   			 uint32_t priority,
-> +			 uint32_t flags,
->   			 amdgpu_context_handle *context);
->   /**
->    * Create GPU execution Context
-> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-> index fad484bf..d4723ea5 100644
-> --- a/amdgpu/amdgpu_cs.c
-> +++ b/amdgpu/amdgpu_cs.c
-> @@ -44,12 +44,14 @@ static int amdgpu_cs_reset_sem(amdgpu_semaphore_handle sem);
->    *
->    * \param   dev      - \c [in] Device handle. See #amdgpu_device_initialize()
->    * \param   priority - \c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*
-> + * \param   flags    - \c [in] Context flags. See AMDGPU_CTX_FLAGS_*
->    * \param   context  - \c [out] GPU Context handle
->    *
->    * \return  0 on success otherwise POSIX Error code
->   */
->   drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   				     uint32_t priority,
-> +				     uint32_t flags,
->   				     amdgpu_context_handle *context)
->   {
->   	struct amdgpu_context *gpu_context;
-> @@ -74,6 +76,7 @@ drm_public int amdgpu_cs_ctx_create2(amdgpu_device_handle dev,
->   	memset(&args, 0, sizeof(args));
->   	args.in.op = AMDGPU_CTX_OP_ALLOC_CTX;
->   	args.in.priority = priority;
-> +	args.in.flags = flags;
->   
->   	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CTX, &args, sizeof(args));
->   	if (r)
-> @@ -97,7 +100,7 @@ error:
->   drm_public int amdgpu_cs_ctx_create(amdgpu_device_handle dev,
->   				    amdgpu_context_handle *context)
->   {
-> -	return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, context);
-> +	return amdgpu_cs_ctx_create2(dev, AMDGPU_CTX_PRIORITY_NORMAL, 0, context);
->   }
->   
->   /**
-> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
-> index 0cbd1540..d9fb1f20 100644
-> --- a/include/drm/amdgpu_drm.h
-> +++ b/include/drm/amdgpu_drm.h
-> @@ -238,10 +238,18 @@ union drm_amdgpu_bo_list {
->   #define AMDGPU_CTX_PRIORITY_HIGH        512
->   #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
->   
-> +/* GPU context workload hint bitmask */
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_MASK    0xFF
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_NONE    0
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_3D      (1 << 1)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VIDEO   (1 << 2)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_VR      (1 << 3)
-> +#define AMDGPU_CTX_FLAGS_WORKLOAD_HINT_COMPUTE (1 << 4)
+> +	 */
+> +	bool (*compatible)(struct ttm_resource_manager *man,
+> +			   struct ttm_resource *res,
+> +			   const struct ttm_place *place,
+> +			   size_t size);
 > +
->   struct drm_amdgpu_ctx_in {
->   	/** AMDGPU_CTX_OP_* */
->   	__u32	op;
-> -	/** For future use, no flags defined so far */
-> +	/** AMDGPU_CTX_FLAGS_* */
->   	__u32	flags;
->   	__u32	ctx_id;
->   	/** AMDGPU_CTX_PRIORITY_* */
+>   	/**
+>   	 * struct ttm_resource_manager_func member debug
+>   	 *
+> @@ -329,6 +360,14 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
+>   		       const struct ttm_place *place,
+>   		       struct ttm_resource **res);
+>   void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res);
+> +bool ttm_resource_intersect(struct ttm_device *bdev,
+> +			    struct ttm_resource *res,
+> +			    const struct ttm_place *place,
+> +			    size_t size);
+> +bool ttm_resource_compatible(struct ttm_device *bdev,
+> +			     struct ttm_resource *res,
+> +			     const struct ttm_place *place,
+> +			     size_t size);
+>   bool ttm_resource_compat(struct ttm_resource *res,
+>   			 struct ttm_placement *placement);
+>   void ttm_resource_set_bo(struct ttm_resource *res,
 
