@@ -4,112 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BBDEC19F2D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 09:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BBC3C19F2D
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 09:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5437F8F9A5;
-	Tue,  9 Aug 2022 09:21:34 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551139134D
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Aug 2022 09:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 081188FE86;
+	Tue,  9 Aug 2022 09:23:43 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2072.outbound.protection.outlook.com [40.107.212.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6464710F3B9;
+ Tue,  9 Aug 2022 09:23:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Iwd1xoI7pBRJ+g6LWJKcSohy2ZiVRTmM5Ywocxo62lv1ggP0a8s0iKMedWtZuHsx5sBNDpJTPc/pnxrw+yO+Y0Tnavibmn22I2HSfsvBTOBFADSlhEFRia1gx7+94PQHrfumEgmZYBuX3Rvs1biAv/Dms+P5TbHQR+kb7YxoUYnbHj1iQdvqpUrH9poBRHRSiqMiqkc+xbwE4KZPd7h3ihQ/sAoC6JJz4kdm4N0xcUYGhAAhS1RGS5Ou8rfLzOHalsIh+MfVTG7xXYfVNuZOxBKFqogB3kUzgTDF8hB8yNJO/HvTg3dkXNmfj1lATtSoD1F/X67jnIM9hRBdnZTj6w==
+ b=ccG53vbVM7uDPLslrZtUkIUQktyM4MGa4gndVUOJ1I/IyzbkKTmRSceGnjUcva3f5Arhb4+11idXODkFlMHmfFBLWknM/81LEkONS99WYp54rITGC5NgmZvxIDHsWaNMtgw83uCWfMjGl2b4h3O50+W2mFLviQWn1xwgDvWzySDHcxMcdGromo1F/Axq9It0u/2mRUSQ7Nf6Jxnx9JS9FlrKC5oOMB/XnVDNFXT7uY43/iAOycHKiGjnKf1AXplEyHhtNjV7F7STq7r8TX7JatmDg/85UCFSvMCzrux0n0D8J2KylzhR765CeZcR84ksYk0WThBI6XyHM64x8frjSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IK5+LXayF7m5hEUyB5gBsYBOHDuLvBgNH2VG8oHg3YE=;
- b=Pi1IwOOxnID7JgDFHlGc4EwnCa4u33RofjX3kV6+CFh2sDsb6llgGqwUXUhgbVCsneOK9yhuZs/8Vc0sXx9RNtgP3f5I/rAIZ176lmMZB+bSKd1VHgKTdEge2lLAFqdf3yQTykbaZ3h1P88cCVOV6fgXhCXc6cZldxtO1Vz16q9XAQRJ9FPtvlnPBE6AkXGgSFP3DZIoPQuvjS2a4IESmOo6eAldf5cj2Er1InDU1grh8JUJ92QQ+03sWkbXge3JBHRBnJQC3h3yOFpDMGp86iCpa9CMVIgu0sAhACwxQfomDl15hIYStVfKTqPaGsdmyuFqJmPv4ukBdgbWlffTnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=8v6w+tI5Qh2FNNZ5F9CX8rAR6L0gg/O0dShmJZ0CJ/Y=;
+ b=Mzndpe4U/R3TNg3HmGrnhwuXALJOz5klKKmAxJ/msD8c+gclbhyp1YQ2BM061413eyFROAQ0m1Pme5o1W7XfaJQJRAJX7zhYCNwfdNOZ478ULhf3jLmZrvy0Hu6ESspDgsZkCJ6CHXz60HSvAJVCDTj5rg/gFlds68wegRbQGiqBAgPJIyd0Tl5wtCcuRQnSrwEXIi2As4UtZs/YvOSe6NgD0bHmlNhcV3Ko/8+xY7ziCgov8Qyzd+T+KOfPvmvEQYmv6Z4j5SeNqVprrsIdF2WsCNNeldS0lvdKZdab/t+ZPzXqI4VYZNwIKsCGF80iyXnRAwZjOGkw8YRkQTmuzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IK5+LXayF7m5hEUyB5gBsYBOHDuLvBgNH2VG8oHg3YE=;
- b=s/HCib61Mv4ys8IB8LC51sVlcD3z3/bHrJZCGQm/A2wXwD3oW7rXizaPj1Ip8uYk6dus1dJ/znldi5kW+Drem3kOUBa2zww12aAyxhqzHRQYPJhjARPoCYXxMicKpjfXRtsDaFeVhv5wgFjAJvXipj1TWN6ROkfIYmWs5WUgtMg=
-Received: from DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) by
- BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Tue, 9 Aug
- 2022 09:21:01 +0000
-Received: from DS7PR12MB6333.namprd12.prod.outlook.com
- ([fe80::207d:4364:5b65:b484]) by DS7PR12MB6333.namprd12.prod.outlook.com
- ([fe80::207d:4364:5b65:b484%3]) with mapi id 15.20.5504.021; Tue, 9 Aug 2022
- 09:21:01 +0000
-From: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: modify mcbp implement for gfx9(v2)
-Thread-Topic: [PATCH 1/2] drm/amdgpu: modify mcbp implement for gfx9(v2)
-Thread-Index: AQHYq9CRjYhNQOsQvEWAPXqvcnpXC62mSZPQ
-Date: Tue, 9 Aug 2022 09:21:01 +0000
-Message-ID: <DS7PR12MB633394912926A7E531FB5D81F4629@DS7PR12MB6333.namprd12.prod.outlook.com>
-References: <20220809091448.958375-1-jiadong.zhu@amd.com>
-In-Reply-To: <20220809091448.958375-1-jiadong.zhu@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e4ce5818-603d-4e82-a3f4-9e84c63708ba;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-08-09T09:15:43Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e3dc45e5-d0f6-4a98-0f71-08da79e87a12
-x-ms-traffictypediagnostic: BN9PR12MB5179:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ggDBqWXZgmn1TRRcC9g7bZxzzjs5y/62ZMuPUeR2uMnvrBZ70MmKo8qHu6NYRk9qxg3yGiW1jODoFdSudTVannz3QDwD9HGPee25JzrSajz4dJBsaoqXrcRmL38LBjnHWmYeO5Dmo71DVS+UwBcvoX72Hpl/Zx1DdeIKV/TguQedeLkoVsZ1gvANX0aNe+KGT2OOP1eUatdnKm8XJ/MI3vDsiAt40Duy5X1x7di0vC3CO40D25Ab3r+7+U1tP/+GENDv2ve6+ryKQZt6grMNcPXI8lw9RWCKfi1PATYpyGSvCQKwypNh/bdFz4dNKR+AFEoTvuTeIezrtJXQ8ObK1cgqkyIeVESYHAcpb0f8PLQ6IX3A8XqnP3LZHfbKAvflvtr/BCo1+KJ1mU9Lmp8KrA1qCMjD9gpq3+EF6l86zwVDP9vptxeHLMSMWHsj0zJ1edJ730YCiwsvy7NJ38nqGt8ytH0L7JIN7oHX3YKp4/QEtvpJgEIf1os6MVRrHYGa52JOESgkEm0RmBBFIbpyGF27rp1diR+QSwv9pJx18/pMuWoS4tgLsvdJjEVIktE4Zm/xXCA8CSSBI9zbZ/3AsOPksZjgP9TeWF2ZAZtdMR0Q/ZFnNIxfcLU9z6D0YV1wJ2UDznScLLpwqjZUmqjbhn2r2wIIKyBv8mLnnDsplkLd+HXga+4nAsZv+05OuIT+R7RmZnukiCiM77kswC35cS/JA1lGybfO9XWp/8lw6MWXZZatSopoIBfo3QKYifGfV9cEbu1jLdFI09ZTStxXmlQZRfD16YRrlRtdCyR+IFkAFPmVoR0Rbk3KdhPPY/9b
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6333.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(396003)(346002)(366004)(136003)(376002)(76116006)(66946007)(122000001)(66476007)(8936002)(52536014)(66556008)(30864003)(186003)(64756008)(8676002)(38070700005)(38100700002)(4326008)(66446008)(5660300002)(55016003)(478600001)(71200400001)(9686003)(6506007)(7696005)(41300700001)(26005)(53546011)(2906002)(6916009)(316002)(54906003)(33656002)(83380400001)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?92PWkN/aBI/IFjsG6Lb+7wKtyJnIVFLBR0RYL1YtBweztZMt9fJwnnibVRTN?=
- =?us-ascii?Q?4qMtXcNv+rjWJSgedfSPqRpxOytkXu7PQD705n3se0/YCo1HPIiaxDNr0hcR?=
- =?us-ascii?Q?3RI6IL+cYX00djPCacYQgFlmy3fZqIYfHdCBbWBMsS0AUaXRY4EEtdnwMNOx?=
- =?us-ascii?Q?PHAcrDtub0xHJvXLrUooRoHAIdLSnCNb1lbTEUTI5PLhs7+Ad97o+8PB7Fr2?=
- =?us-ascii?Q?rQOds9pcEy3O6iKGw1XwoGR3HfWfqmT/Eifqq9Xo31+Fp3rdg4E4z3d0gdze?=
- =?us-ascii?Q?wo6VRuyEw7pt3wTsRjJpeNEIOLzGrVaVKL3Vu94h4H/y40sQzjTisR8dhjdj?=
- =?us-ascii?Q?PYfospLJM6qdMwkEHr3S8AedaidPOSqE/MLP4TzgWlrQk8pN8fAEF+QlebP8?=
- =?us-ascii?Q?v8n2vX/Y4AwJs7KfcUNL7B41AwhO8jw7pOO/KZsl1K/RA/RF2gUq+No/NXGz?=
- =?us-ascii?Q?ufOXH+6tbtiL3N0b6nFlgj3qu9G8NNYl6lOmql8gU1iFjidwuDbBiTZBg2nu?=
- =?us-ascii?Q?OYbNSOSmRqLki6JzIE5V+hUDSfnmt431ilTn40BBKA5+3rjrzlXfd6U1osTj?=
- =?us-ascii?Q?bBqXLYbXy/J+Kbv30XXcvabGoSkT3sFV76ugPgNu5ClRvCpqQlJlJVcypkgT?=
- =?us-ascii?Q?gvibLT4BcSYa+n4W06BcWWeR4FZaTLEo5KTywWIw67yG5feS7Qq2Pyzou+1y?=
- =?us-ascii?Q?O9ZQLJZuIivxObKcXN4ElRgyBaGpWkjT50tm3Nk72O2yAWynmwN6PAAWU9DO?=
- =?us-ascii?Q?4w4V1qhyIsizPmDcjIhv9KjAMprjjykKuvKen8jhbHsEaJPbM1CgI6nkAH+T?=
- =?us-ascii?Q?wwhG5K2YNwxjaTOvTkpbAIhYrA3Ytx1uw7eoJM39te09gNOo9uRmywTDahBz?=
- =?us-ascii?Q?r0QmQm24uZxVhdExN0srLg0SFBxEvZugKHa3UERtIYMJ9PHR3wNymcYiqV5+?=
- =?us-ascii?Q?MtEgdtwm/hJpmSH+9TsvmGI5Uuf3y50Nb6b/q+xIIttTzt9h/6dXGP0gYF96?=
- =?us-ascii?Q?M+OPb6n5WKjkOQC70K0KD+5Zuh30dkpR2BtVSSHZVDiIc2Siq1UEGEpDV0Tn?=
- =?us-ascii?Q?P1vszVaCWds9bftqojguiJz/YxCnU5hu4Ii2f0fVm6GPUaPubjMqOPAeQ1Um?=
- =?us-ascii?Q?I3+kUEnVvKgYxE2IPtHQm8rGRQ4VyC5R4UoXrprfETXmHGAbgmKzsOhqZu35?=
- =?us-ascii?Q?dFIsHGU52+YXcg7OV0iIx2Twq9nGYO2k2352CnbXSMaDlMCWGDd7PlPKXYGP?=
- =?us-ascii?Q?knToolXEfCrW2V9vXVRAmRgozEXpfknHWzfM7umsAIp2iY3GaD5eI8hGSUrc?=
- =?us-ascii?Q?lOxkccCMN7hM2FqW7/gVRjUs0Py6bK8XnOV4x9iXGpLO0Pf5lxpYNTRefdwi?=
- =?us-ascii?Q?Vkm0vEmLw7LEXumbJgbYdMt5IoxX6e1cnXDwsNudVSV9n+EziY9WFOwpaPBu?=
- =?us-ascii?Q?yc0/aZSVgvpjtGwO+iF0ufIrinhDwfJLSLIdJbeCuRO1OCdWunGnaO6jzDZX?=
- =?us-ascii?Q?FxZ3jXaE5glgwCZVju/iXxsM8m85S3v+WBYatgYsidq4aLl1ubKsnec33SV/?=
- =?us-ascii?Q?+CpX+/DqRXTl7S1/XEDbDt+MDhDhSkIW+UR3qWCF?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=8v6w+tI5Qh2FNNZ5F9CX8rAR6L0gg/O0dShmJZ0CJ/Y=;
+ b=oAyYolJXWHuK7n0GRzQyQDdeq1wUWFjH8kiu9P14jf2D9D7iq56jN2pmupyHKxefmQWPlwWYJ62fq3qvADsuKHxcE8D7aGRxQQ9FRYk9ma9ykXjqmHi7qGKiF8Ss4aXfENaOPaJf3Op2HZrXMgEVQT+gpAcIAWDX0REdiJLf5gg=
+Received: from DM5PR07CA0051.namprd07.prod.outlook.com (2603:10b6:4:ad::16) by
+ SN6PR12MB4767.namprd12.prod.outlook.com (2603:10b6:805:e5::32) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5504.15; Tue, 9 Aug 2022 09:23:21 +0000
+Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ad:cafe::8d) by DM5PR07CA0051.outlook.office365.com
+ (2603:10b6:4:ad::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.14 via Frontend
+ Transport; Tue, 9 Aug 2022 09:23:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Tue, 9 Aug 2022 09:23:21 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 9 Aug 2022 04:23:18 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
+Subject: [PATCH v5 1/6] drm/ttm: Add new callbacks to ttm res mgr
+Date: Tue, 9 Aug 2022 02:22:25 -0700
+Message-ID: <20220809092230.2808-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f9800ff1-7850-4b3f-e154-08da79e8cdb4
+X-MS-TrafficTypeDiagnostic: SN6PR12MB4767:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NI7wnBeq5b/cMe8zeTwfJ/7q0lWJeJzwliLudtxiOxTmzDf/mDkFaO7FagruS4V558dvsr42owMIZeGBPDKrF9Pzrn3kvkSoezaepdDXyrWXiK15jP96zMXRIMQCA/zzr3i396tQbL5MrL5mXizMScL7wb01pcmjduEEVLZM0Y9762M9Lne80pNs58ltXMcRTsilCaUh6QKXRw8bzfGAMjRZqI8WZ118vKKVr508j4YXkLQCLAChRtTD734i7T9NIKxzIqM8vZMIEFsP7F8+8aPAoVqaM4CZh7vChXtT63qBcO1fpkFNoDpRIqw/k4+e4Af/5p1MLRVJvomBdx6skKAlVkBzNSI3LvGYbod2kAoj5tit15n4DZC41xrUVMePCY5c2Uee4lOjLNog3TFyMUTULk6ZWBtdQjjUc3XUR3RFMWdzWNPryKJ6DL0FwgP/1Z+Ypw2S6uFu7fADv9L05Q3kR4Gs79O9ZPHiS088Q7QxceePdO5xUn16RokMK1k7UmPovQU8Tc3eh9PsYwZp+r7+alboH4QSVGbU3n8kI3jsaLWdZVN7N0JK7rNAip5UUXRVuOMuGsodDGNmvh4u6ByzjYiV1pxfwHE0mozgZN4+/AGf6IPhkmwWjH7/YXy0unmGpgk9KrmDeLU8rsnAHMPo7nBNnySrE/dh82YmdcQubWolVYIH2B/DaPHbsDp0KHYfyNIZL542t0pFcNYza2Q25uYI9T1serXLNWn80mW+H80bJeI7TWKxN4382/4PUOLcsAisJEHMT1NboAYxMWn3yReqrs/f4gv54/YhK7crJlLIte9Qburodk1F48z8UBzgtkW/3rxiHA0cIwYMaA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(396003)(346002)(136003)(376002)(40470700004)(46966006)(36840700001)(8676002)(5660300002)(70586007)(82310400005)(70206006)(40480700001)(4326008)(8936002)(40460700003)(16526019)(2906002)(36860700001)(47076005)(82740400003)(81166007)(356005)(86362001)(2616005)(26005)(6666004)(110136005)(54906003)(36756003)(41300700001)(316002)(336012)(7696005)(1076003)(186003)(426003)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6333.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3dc45e5-d0f6-4a98-0f71-08da79e87a12
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2022 09:21:01.3411 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jeVj3ItyvaB4FvFyv5Duu+aKWJNtZyaJrEj2/cfpH0khrGYoqPFCtv/0gqOUa84PKPyGSFB9XWp46J7jSSIlDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5179
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 09:23:21.5966 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9800ff1-7850-4b3f-e154-08da79e8cdb4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4767
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,354 +98,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>
+Cc: alexander.deucher@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ luben.tuikov@amd.com, christian.koenig@amd.com, matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+We are adding two new callbacks to ttm resource manager
+function to handle intersection and compatibility of
+placement and resources.
 
-Hi,
+v2: move the amdgpu and ttm_range_manager changes to
+    separate patches (Christian)
+v3: rename "intersect" to "intersects" (Matthew)
+v4: move !place check to the !res if and return false
+    in ttm_resource_compatible() function (Christian)
 
-This patch is to correct the mcbp package for gfx9, which is the basic func=
-tion used for debugfs.
-There are no logic about when to trigger mcbp.
-Shall we get this reviewed?
-
-Thanks,
-Jiadong
-
------Original Message-----
-From: Zhu, Jiadong <Jiadong.Zhu@amd.com>
-Sent: Tuesday, August 9, 2022 5:15 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Liu, Aaron <Aaron.Liu@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Zhu, Ji=
-adong <Jiadong.Zhu@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: modify mcbp implement for gfx9(v2)
-
-From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
-
-1. Use unmap_queue package to trigger preemption on gfx9
-   Add trailing fence to track the preemption done.
-2. Modify emit_ce_meta emit_de_meta functions
-   for the resumed ibs.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 159 ++++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/soc15d.h      |   2 +
- 3 files changed, 141 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/ttm/ttm_resource.c | 59 ++++++++++++++++++++++++++++++
+ include/drm/ttm/ttm_resource.h     | 40 ++++++++++++++++++++
+ 2 files changed, 99 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.h
-index 82c178a9033a..ca626f0ad7b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -59,6 +59,7 @@ enum amdgpu_ring_priority_level {
- #define AMDGPU_FENCE_FLAG_64BIT         (1 << 0)
- #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
- #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
-+#define AMDGPU_FENCE_FLAG_EXEC          (1 << 3)
-
- #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index 5332899642dc..0b7cb4cf13c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -751,7 +751,7 @@ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device=
- *adev);  static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
-                                struct amdgpu_cu_info *cu_info);
- static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)=
-; -static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);
-+static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool
-+resume);
- static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);  stat=
-ic void gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev,
-                                          void *ras_error_status);
-@@ -824,9 +824,10 @@ static void gfx_v9_0_kiq_unmap_queues(struct amdgpu_ri=
-ng *kiq_ring,
-                        PACKET3_UNMAP_QUEUES_DOORBELL_OFFSET0(ring->doorbel=
-l_index));
-
-        if (action =3D=3D PREEMPT_QUEUES_NO_UNMAP) {
--               amdgpu_ring_write(kiq_ring, lower_32_bits(gpu_addr));
--               amdgpu_ring_write(kiq_ring, upper_32_bits(gpu_addr));
--               amdgpu_ring_write(kiq_ring, seq);
-+               amdgpu_ring_write(kiq_ring, lower_32_bits(ring->wptr & ring=
-->buf_mask));
-+               amdgpu_ring_write(kiq_ring, 0);
-+               amdgpu_ring_write(kiq_ring, 0);
-+
-        } else {
-                amdgpu_ring_write(kiq_ring, 0);
-                amdgpu_ring_write(kiq_ring, 0);
-@@ -5446,11 +5447,15 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu=
-_ring *ring,
-
-        control |=3D ib->length_dw | (vmid << 24);
-
--       if (amdgpu_sriov_vf(ring->adev) && (ib->flags & AMDGPU_IB_FLAG_PREE=
-MPT)) {
-+       if ((amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp) && (ib->flags &
-+AMDGPU_IB_FLAG_PREEMPT)) {
-                control |=3D INDIRECT_BUFFER_PRE_ENB(1);
-
-+               if (flags & AMDGPU_IB_PREEMPTED)
-+                       control |=3D INDIRECT_BUFFER_PRE_RESUME(1);
-+
-                if (!(ib->flags & AMDGPU_IB_FLAG_CE) && vmid)
--                       gfx_v9_0_ring_emit_de_meta(ring);
-+                       gfx_v9_0_ring_emit_de_meta(ring,
-+                                (!amdgpu_sriov_vf(ring->adev) && flags & A=
-MDGPU_IB_PREEMPTED) ?
-+true : false);
-        }
-
-        amdgpu_ring_write(ring, header);
-@@ -5505,6 +5510,7 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ri=
-ng *ring, u64 addr,
-        bool write64bit =3D flags & AMDGPU_FENCE_FLAG_64BIT;
-        bool int_sel =3D flags & AMDGPU_FENCE_FLAG_INT;
-        bool writeback =3D flags & AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-+       bool exec =3D flags & AMDGPU_FENCE_FLAG_EXEC;
-
-        /* RELEASE_MEM - flush caches, send int */
-        amdgpu_ring_write(ring, PACKET3(PACKET3_RELEASE_MEM, 6)); @@ -5515,=
-6 +5521,7 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring,=
- u64 addr,
-                                               EOP_TC_WB_ACTION_EN |
-                                               EOP_TC_MD_ACTION_EN)) |
-                                 EVENT_TYPE(CACHE_FLUSH_AND_INV_TS_EVENT) |
-+                                (exec ? EOP_EXEC : 0x0) |
-                                 EVENT_INDEX(5)));
-        amdgpu_ring_write(ring, DATA_SEL(write64bit ? 2 : 1) | INT_SEL(int_=
-sel ? 2 : 0));
-
-@@ -5620,33 +5627,135 @@ static void gfx_v9_ring_emit_sb(struct amdgpu_ring=
- *ring)
-        amdgpu_ring_write(ring, 0);
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 20f9adcc3235..ea67976f1f60 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -253,6 +253,65 @@ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
  }
-
--static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring)
-+static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool
-+resume)
- {
-+       struct amdgpu_device *adev =3D ring->adev;
-        struct v9_ce_ib_state ce_payload =3D {0};
--       uint64_t csa_addr;
-+       uint64_t offset, ce_payload_gpu_addr;
-+       void *ce_payload_cpu_addr;
-        int cnt;
-
-        cnt =3D (sizeof(ce_payload) >> 2) + 4 - 2;
--       csa_addr =3D amdgpu_csa_vaddr(ring->adev);
+ EXPORT_SYMBOL(ttm_resource_free);
+ 
++/**
++ * ttm_resource_intersects - test for intersection
++ *
++ * @bdev: TTM device structure
++ * @res: The resource to test
++ * @place: The placement to test
++ * @size: How many bytes the new allocation needs.
++ *
++ * Test if @res intersects with @place and @size. Used for testing if evictions
++ * are valueable or not.
++ *
++ * Returns true if the res placement intersects with @place and @size.
++ */
++bool ttm_resource_intersects(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size)
++{
++	struct ttm_resource_manager *man;
 +
-+       if (ring->is_mes_queue) {
-+               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
-+                                 gfx[0].gfx_meta_data) +
-+                       offsetof(struct v9_gfx_meta_data, ce_payload);
-+               ce_payload_gpu_addr =3D
-+                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+               ce_payload_cpu_addr =3D
-+                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+       } else {
-+               offset =3D offsetof(struct v9_gfx_meta_data, ce_payload);
-+               ce_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + offs=
-et;
-+               ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
-+       }
-
-        amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt));
-        amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
-                                 WRITE_DATA_DST_SEL(8) |
-                                 WR_CONFIRM) |
-                                 WRITE_DATA_CACHE_POLICY(0));
--       amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9=
-_gfx_meta_data, ce_payload)));
--       amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9=
-_gfx_meta_data, ce_payload)));
--       amdgpu_ring_write_multiple(ring, (void *)&ce_payload, sizeof(ce_pay=
-load) >> 2);
-+       amdgpu_ring_write(ring, lower_32_bits(ce_payload_gpu_addr));
-+       amdgpu_ring_write(ring, upper_32_bits(ce_payload_gpu_addr));
++	if (!res)
++		return false;
 +
-+       if (resume)
-+               amdgpu_ring_write_multiple(ring, ce_payload_cpu_addr,
-+                                          sizeof(ce_payload) >> 2);
-+       else
-+               amdgpu_ring_write_multiple(ring, (void *)&ce_payload,
-+                                          sizeof(ce_payload) >> 2);
++	man = ttm_manager_type(bdev, res->mem_type);
++	if (!place || !man->func->intersects)
++		return true;
++
++	return man->func->intersects(man, res, place, size);
 +}
 +
-+static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ring *ring) {
-+       int i, r =3D 0;
-+       struct amdgpu_device *adev =3D ring->adev;
-+       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq;
-+       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
-+       unsigned long flags;
++/**
++ * ttm_resource_compatible - test for compatibility
++ *
++ * @bdev: TTM device structure
++ * @res: The resource to test
++ * @place: The placement to test
++ * @size: How many bytes the new allocation needs.
++ *
++ * Test if @res compatible with @place and @size.
++ *
++ * Returns true if the res placement compatible with @place and @size.
++ */
++bool ttm_resource_compatible(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size)
++{
++	struct ttm_resource_manager *man;
 +
-+       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-+               return -EINVAL;
++	if (!res || !place)
++		return false;
 +
-+       spin_lock_irqsave(&kiq->ring_lock, flags);
++	man = ttm_manager_type(bdev, res->mem_type);
++	if (!man->func->compatible)
++		return true;
 +
-+       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-+               spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+               return -ENOMEM;
-+       }
++	return man->func->compatible(man, res, place, size);
++}
 +
-+       /* assert preemption condition */
-+       amdgpu_ring_set_preempt_cond_exec(ring, false);
+ static bool ttm_resource_places_compat(struct ttm_resource *res,
+ 				       const struct ttm_place *places,
+ 				       unsigned num_placement)
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index ca89a48c2460..5afc6d664fde 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -88,6 +88,38 @@ struct ttm_resource_manager_func {
+ 	void (*free)(struct ttm_resource_manager *man,
+ 		     struct ttm_resource *res);
+ 
++	/**
++	 * struct ttm_resource_manager_func member intersects
++	 *
++	 * @man: Pointer to a memory type manager.
++	 * @res: Pointer to a struct ttm_resource to be checked.
++	 * @place: Placement to check against.
++	 * @size: Size of the check.
++	 *
++	 * Test if @res intersects with @place + @size. Used to judge if
++	 * evictions are valueable or not.
++	 */
++	bool (*intersects)(struct ttm_resource_manager *man,
++			   struct ttm_resource *res,
++			   const struct ttm_place *place,
++			   size_t size);
 +
-+       ring->trail_seq +=3D 1;
-+       amdgpu_ring_alloc(ring, 13);
-+       gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
-+                                 ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC);
-+       /*reset the CP_VMID_PREEMPT after trailing fence*/
-+       amdgpu_ring_emit_wreg(ring,
-+                                 SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT=
-),
-+                                 0x0);
++	/**
++	 * struct ttm_resource_manager_func member compatible
++	 *
++	 * @man: Pointer to a memory type manager.
++	 * @res: Pointer to a struct ttm_resource to be checked.
++	 * @place: Placement to check against.
++	 * @size: Size of the check.
++	 *
++	 * Test if @res compatible with @place + @size. Used to check of
++	 * the need to move the backing store or not.
++	 */
++	bool (*compatible)(struct ttm_resource_manager *man,
++			   struct ttm_resource *res,
++			   const struct ttm_place *place,
++			   size_t size);
 +
-+       /* assert IB preemption, emit the trailing fence */
-+       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
-+                                  ring->trail_fence_gpu_addr,
-+                                  ring->trail_seq);
-+
-+       amdgpu_ring_commit(kiq_ring);
-+       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+
-+       /* poll the trailing fence */
-+       for (i =3D 0; i < adev->usec_timeout; i++) {
-+               if (ring->trail_seq =3D=3D
-+                   le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-+                       break;
-+               udelay(1);
-+       }
-+
-+       if (i >=3D adev->usec_timeout) {
-+               r =3D -EINVAL;
-+               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-+       }
-+
-+       amdgpu_ring_commit(ring);
-+
-+       /* deassert preemption condition */
-+       amdgpu_ring_set_preempt_cond_exec(ring, true);
-+       return r;
- }
+ 	/**
+ 	 * struct ttm_resource_manager_func member debug
+ 	 *
+@@ -329,6 +361,14 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
+ 		       const struct ttm_place *place,
+ 		       struct ttm_resource **res);
+ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res);
++bool ttm_resource_intersects(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size);
++bool ttm_resource_compatible(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size);
+ bool ttm_resource_compat(struct ttm_resource *res,
+ 			 struct ttm_placement *placement);
+ void ttm_resource_set_bo(struct ttm_resource *res,
 
--static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
-+static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool
-+resume)
- {
-+       struct amdgpu_device *adev =3D ring->adev;
-        struct v9_de_ib_state de_payload =3D {0};
--       uint64_t csa_addr, gds_addr;
-+       uint64_t offset, gds_addr, de_payload_gpu_addr;
-+       void *de_payload_cpu_addr;
-        int cnt;
-
--       csa_addr =3D amdgpu_csa_vaddr(ring->adev);
--       gds_addr =3D csa_addr + 4096;
-+       if (ring->is_mes_queue) {
-+               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
-+                                 gfx[0].gfx_meta_data) +
-+                       offsetof(struct v9_gfx_meta_data, de_payload);
-+               de_payload_gpu_addr =3D
-+                       amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+               de_payload_cpu_addr =3D
-+                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+
-+               offset =3D offsetof(struct amdgpu_mes_ctx_meta_data,
-+                                 gfx[0].gds_backup) +
-+                       offsetof(struct v9_gfx_meta_data, de_payload);
-+               gds_addr =3D amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset)=
-;
-+       } else {
-+               offset =3D offsetof(struct v9_gfx_meta_data, de_payload);
-+               de_payload_gpu_addr =3D amdgpu_csa_vaddr(ring->adev) + offs=
-et;
-+               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + offset;
-+
-+               gds_addr =3D ALIGN(amdgpu_csa_vaddr(ring->adev) +
-+                                AMDGPU_CSA_SIZE - adev->gds.gds_size,
-+                                PAGE_SIZE);
-+       }
-+
-        de_payload.gds_backup_addrlo =3D lower_32_bits(gds_addr);
-        de_payload.gds_backup_addrhi =3D upper_32_bits(gds_addr);
-
-@@ -5656,9 +5765,15 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu=
-_ring *ring)
-                                 WRITE_DATA_DST_SEL(8) |
-                                 WR_CONFIRM) |
-                                 WRITE_DATA_CACHE_POLICY(0));
--       amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9=
-_gfx_meta_data, de_payload)));
--       amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9=
-_gfx_meta_data, de_payload)));
--       amdgpu_ring_write_multiple(ring, (void *)&de_payload, sizeof(de_pay=
-load) >> 2);
-+       amdgpu_ring_write(ring, lower_32_bits(de_payload_gpu_addr));
-+       amdgpu_ring_write(ring, upper_32_bits(de_payload_gpu_addr));
-+
-+       if (resume)
-+               amdgpu_ring_write_multiple(ring, de_payload_cpu_addr,
-+                                          sizeof(de_payload) >> 2);
-+       else
-+               amdgpu_ring_write_multiple(ring, (void *)&de_payload,
-+                                          sizeof(de_payload) >> 2);
- }
-
- static void gfx_v9_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool s=
-tart, @@ -5674,8 +5789,9 @@ static void gfx_v9_ring_emit_cntxcntl(struct am=
-dgpu_ring *ring, uint32_t flags)  {
-        uint32_t dw2 =3D 0;
-
--       if (amdgpu_sriov_vf(ring->adev))
--               gfx_v9_0_ring_emit_ce_meta(ring);
-+       if (amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp)
-+               gfx_v9_0_ring_emit_ce_meta(ring,
-+                                   (!amdgpu_sriov_vf(ring->adev) && flags =
-& AMDGPU_IB_PREEMPTED) ?
-+true : false);
-
-        dw2 |=3D 0x80000000; /* set load_enable otherwise this package is j=
-ust NOPs */
-        if (flags & AMDGPU_HAVE_CTX_SWITCH) {
-@@ -7024,6 +7140,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_f=
-uncs_gfx =3D {
-        .emit_cntxcntl =3D gfx_v9_ring_emit_cntxcntl,
-        .init_cond_exec =3D gfx_v9_0_ring_emit_init_cond_exec,
-        .patch_cond_exec =3D gfx_v9_0_ring_emit_patch_cond_exec,
-+       .preempt_ib =3D gfx_v9_0_ring_preempt_ib,
-        .emit_frame_cntl =3D gfx_v9_0_ring_emit_frame_cntl,
-        .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
-        .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait, diff --git a/driver=
-s/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-index 799925d22fc8..614e9f8467fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-@@ -162,6 +162,7 @@
-                 * 2 - Bypass
-                 */
- #define     INDIRECT_BUFFER_PRE_ENB(x)          ((x) << 21)
-+#define     INDIRECT_BUFFER_PRE_RESUME(x)           ((x) << 30)
- #define        PACKET3_COPY_DATA                               0x40
- #define        PACKET3_PFP_SYNC_ME                             0x42
- #define        PACKET3_COND_WRITE                              0x45
-@@ -184,6 +185,7 @@
- #define                EOP_TC_ACTION_EN                        (1 << 17) /=
-* L2 */
- #define                EOP_TC_NC_ACTION_EN                     (1 << 19)
- #define                EOP_TC_MD_ACTION_EN                     (1 << 21) /=
-* L2 metadata */
-+#define                EOP_EXEC                                        (1 =
-<< 28) /* For Trailing Fence */
-
- #define                DATA_SEL(x)                             ((x) << 29)
-                /* 0 - discard
---
+base-commit: 5727dcfd8486399c40e39d2c08fe36fedab29d99
+-- 
 2.25.1
 
