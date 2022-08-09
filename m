@@ -4,116 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6D31C19F2D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 13:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14BDC19F2D
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 15:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7A07D60ED;
-	Tue,  9 Aug 2022 13:28:36 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D712D6055;
- Tue,  9 Aug 2022 13:28:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E74C8DA6AA;
+	Tue,  9 Aug 2022 15:10:33 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E02DA619
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Aug 2022 15:10:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dg3DY6lGnDG2Dvqb47DCq3PkMG8HyWQCVqohvY1iJ7i2yrS0KmZKTl9e0Yb3E1BSycs99KRv8ZDs3KeuofRXZ06PjIbvke/oBNbyOxA6xvlSa4Whq/bfkm6975kE+4nRhMwEXwc1hKuy6XB1jvYMe6OTH4maX0kvKFv+I2pO/0e7mG971I9XKUnIarV2NcuSg7kSTJEr9VPBvabKAef6cGAQmM8+y1LO2KA8kcnnGMd01R1p2WiiQA3oKXHgipiBOnNX7Y7Eyzhmk890SacdTQxgGu1Rdk0V6o6J3513CHne4w1bsfrVm6j1JugSAspz0ItCy/y/CrYBsChTp50xOQ==
+ b=IgET50VGQU3XKnFzsskO8IKMlvxUy6FfmdmFJTwpg5ypRxYxRFRSAW4sl7OfazgcIj0JGyx89eWaTdCljk5mM9dZwfzeQWvTl/ywut/F0xNgSYALU/cBzgj9XMJE2AZvQ0lOK5AXvxPF+/U0s3kR+qcy+2dP1TsCcBQfS/dMRxILQ2RPTFEQNPrHkIPfonmaGaVt5kOBGCHrd0cr4P3bnPE1SsQvclpO/9+O3V3SPDn6UbmU1ncHhJTI0LjrSAczmTP+Wo3ckCE2eip/IN69mcvPUU6Cw6lp6zpDv8iGEYjROsw1pRr3p2/1GaAJV6G1xEf3JPoL+97h/sEc0oFmrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OMr6BGvPgfJk77GXwl1rvLZBUkIB0pxwZI1N0jf4HVM=;
- b=RQlOGyZjVOHfTY5ozBWGX1vb1GchdXbu0hjFw+yiOSPsXSJ8z1FcxH3OxDxNAlKBHXXA80wtssQk19IOjv+1wTGJ9yupUdm54UcoPtiOPrg+QTQNRUv0j607GdjR4vAIGrJ7UwVxDZIqSSN5TW7Wfvvu9O9QOoGxzktC1rwQlP3OQ5pMgzMwiEe0H1s3wKFdfT2pqKnprsgQtmNlJJg4vnkqkK3KSdrlQO3JKZSpTrXtdxMZCCp6ev2T9dmm9lhYb16WlgsJwQdX9x8X3owEAzs998aiooJIoOvBUy9aostPv+WFxdh/56oHr54urFfBC2mOsqMiyr+rD79vcXT0xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=LyY47Eex/OqfxJplQ6cHw2emIZIhNvq9brHXBGEI1ls=;
+ b=ABlKuLEcIr31uGek/jma4M8SzbU7euMMKzdfL1e7J6idjWvxQ+zpem6X766A92PZD7vFTqeTtjGJhiZlOq9XRxESTB3aa7ehBy8roVK2mUjVnpocML3GxH3+K2VJD4Rfn0gdWz5hEXyDjZ96VjynAu6RKuY5qDKhxTvWsKSEtPOV+PBu7cmhN88EvKZid7g4ZE+GaXZpycxb5lt1gI+dihMUvfwn0oVoaqrvQaS3cxzrlJlM1LQKmmIiEgApTDYjTTehmuQ488Ii5Jwt4jFW3tftW0iIhDxjaqlEjaF23nxAIaNpntcG8FYepPNvyidQi1z9ESMiVqJcMEYHdesasQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OMr6BGvPgfJk77GXwl1rvLZBUkIB0pxwZI1N0jf4HVM=;
- b=hab+nvgq9a9ZdtD5dKFJ3ZENZJ9c91GGHlMIAt3AaeSK439teEWAsro2VKZdllGNL+gsmhYP4CwHiExoCbxvZlAPrXSQQebj0fDolUUCgmi9RAmFOgvN6MzYMo/L+cOeiqCAvey87MVqBpGels/q9NeI2vVNnDZgYq+d3A7+jYA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MN2PR12MB4141.namprd12.prod.outlook.com (2603:10b6:208:1d5::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Tue, 9 Aug
- 2022 13:28:14 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Tue, 9 Aug 2022
- 13:28:14 +0000
-Message-ID: <7cf898fd-f3fe-061d-19ec-68d74627bd7d@amd.com>
-Date: Tue, 9 Aug 2022 15:28:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drivers:gpu:drm:amd:amdgpu:amdgpu_cs.c:fix a potential
- use-after-free
-Content-Language: en-US
-To: Wentao_Liang <Wentao_Liang_g@163.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com
-References: <20220728121237.9201-1-Wentao_Liang_g@163.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220728121237.9201-1-Wentao_Liang_g@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0125.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::7) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=LyY47Eex/OqfxJplQ6cHw2emIZIhNvq9brHXBGEI1ls=;
+ b=EOKNPSU/JtlYW1UPcZBvqJNW9jd33LoAh6mPSl3e6zzThf3Q8ZY8vdKEV1NjJRO7Gn7X936e991In/8lq6FhoimJaYcui4kH+eCvXQOo5gLSBycte9pBxC7Gi/HBHNT0rPLzs/8elyDwsGU8AWKlS3D0BI46K8WBwgrycdMFvo8=
+Received: from DM6PR06CA0101.namprd06.prod.outlook.com (2603:10b6:5:336::34)
+ by PH8PR12MB6698.namprd12.prod.outlook.com (2603:10b6:510:1cd::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Tue, 9 Aug
+ 2022 15:10:06 +0000
+Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::13) by DM6PR06CA0101.outlook.office365.com
+ (2603:10b6:5:336::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.18 via Frontend
+ Transport; Tue, 9 Aug 2022 15:10:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5504.14 via Frontend Transport; Tue, 9 Aug 2022 15:10:06 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 9 Aug
+ 2022 10:10:04 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/4] Revert "drm/amdgpu/display: disable prefer_shadow for
+ generic fb helpers"
+Date: Tue, 9 Aug 2022 10:10:05 -0500
+Message-ID: <20220809151008.20376-2-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220809151008.20376-1-mario.limonciello@amd.com>
+References: <20220809151008.20376-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 70b5a1d8-4a1f-40ca-fa47-08da7a0b02f0
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4141:EE_
+X-MS-Office365-Filtering-Correlation-Id: 435a0385-eb5b-47ca-a1e9-08da7a193e34
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6698:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EZ7z0KmmXkeXZlD8NdMCapinQ4NbjF8HS8nWb3PyxMdYzk0r7HxFxtkxCYtI0fZsKurC5Tj3ck7MuuRWFTa9JrLJzvu2zP6O0TItAzdO7jMW0y8XL3GtPWvQuB40QgPJNNGvI8+w+rwoMQ3Br0t9lQOFcJdXMe87Y/BlzeHoTeZ4Os+yjtM9KxMU8DaIy0ByWkfvKUy0wP86VzKg8ri7CDsMVbDfoUaegrJhaLOhh3GHOLjVcxaeZckhUlDsv1FGBHcVejg3NWBe3JZcNRY5IlQn0Mj1BFlfo8/tRJiUoIWqZEGn9XTf2b5LgShBU0V4bu2yw1u85ZaIP/s9T3oAGHc8obtNkReb80JsHq0llEAHkWXNkc3I7O7P+EftIBOQpjCE/SeTtI4JEno9QTkC0Z8xPLnFe3OkPNMpU4rHr33nu4hHSlTdkfKSJuEonuJWKdbWBbsQ702K7c4iwk32zTZycgmNm1nCUf+jJ+ivkcmsNafR14nWuZrmB7mxqtdCzgAXLHve3Ywo6TWi7ooqtcwv62fc/2OovIYtNifFRyk4nD9Zod9I/YDPD3r6ENuqWygC9uh7Qa50eed2W6Rgp2gnsEVdSWoZQKn1YRb/3lpiWrXnxCEw9r34pNAjCAPrfAhKk7044UXjxXX6I1ybENjivfvvI+40OshJn6Wd1f+AqfwUr70C0QuR6zSSX19bWEpyzM3QGBxuFo0zh1gsv8z6CByjKk4yFGVP1Pi/o7ORLheHOoykq1LZZuAR17xrfmS9yycQlZU/Bo7lm4g5gMgLfvSAdMcDUpRXT3rOiJ/A0d3BAI827ZNcvbu8zGdsAvLkCCA7tPIjcOXotEK6tw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(31686004)(186003)(86362001)(6506007)(2616005)(83380400001)(26005)(36756003)(6666004)(31696002)(66574015)(6512007)(5660300002)(316002)(6486002)(6636002)(478600001)(41300700001)(8676002)(66476007)(66556008)(66946007)(38100700002)(8936002)(4326008)(2906002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: QspyO4lZeMcplUTvj5nj1ZZWVNXNzer7ETdcqS0j+Oy+3lc3inFz42z4r5YJApjrSpfocFxx4hiHeQTYaC6m63caKOqjDB+g6D5R5rvcx7JyKCSeyW1zfhmVR40N8UVgJ7g8uDBELoWVt5W0TogG3gCg8Z01fJ/pDZlukSfXRM/sEUnkOlVcS+eOkv7yFvrdSBHXz7ITGeGCyjau9zINm/kNYrv2mOcaVxZ8NMpxrf/6ZcTHU51p876N0KUeZpJuTu6GSDQcABTcnNcu3KxJAurPOg/bn4iICZPFdvzNt5T0cyJ+MdYujv9VbsNVjMa7IDWGS6QeDWyXl3qb1inBb6ERjD49zu98DPaZ7VTxEFjDIGCin4PmNjMhotxcb18rMSqYf8zda8MQ07TfIsvkWXxAwkExR1PrHvHdj5feRyVCCwmWfCJ8B6f+5nl19Wmvg3VjRQzUHG8px9WvA5IHNjrZyqADS4ZcxM/MB5+BkrNRFEBBGuZOwLRXjLexY0eNm9U6wTOA5rIy/ICn5G3K08jMsXe4YmxhrS5160SX/FDPS1j+vCYztqVK/QR8KYCoodbjSZPr2qftAU5KQKk6UbwUhr3oZVNrun8ULfFaClNTwekQyr8fqISwBhdGApT4wnXGgzB9hvZ0rmVHvFp2tSso74UY0e7gD0kWmH8T4TmyL5UzRdJwM6cN1KEfJZBU4Xw1mel65LSpdJOXlnSXcSZLrHtv4tZ1g/KV2Ny70gAbpFBNDXswPiIAzT+2/HQbOTdoPM/LKEKXNnJf1s5yBRrtzNqvm+sAPEfujtbt1DofSzTWaQQZrOe/XTJIQQMxJMNLvH85JmBKqeawgL43PWYd0kbr+93xpUH42c3EhfVhE96fJlwDi9fcZvp7p2JE9LaUqydsDt/B4ZDNbuTu4Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(396003)(136003)(346002)(376002)(36840700001)(46966006)(40470700004)(4326008)(5660300002)(40480700001)(86362001)(478600001)(41300700001)(1076003)(7696005)(40460700003)(966005)(2616005)(44832011)(36860700001)(82310400005)(2906002)(426003)(83380400001)(47076005)(26005)(81166007)(356005)(16526019)(336012)(82740400003)(54906003)(8936002)(70586007)(70206006)(36756003)(316002)(6916009)(8676002)(186003)(41533002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkpOQjF4eTRHaVRzV2lVd2NIelpoakpkUVdUdmViY0R5T0l4Uk1VWVVNYk5q?=
- =?utf-8?B?NUpaNDBQTm14M2h0VGpRLzJYWW9QTjNYQys2TjhEKzZsREhEaWdYQ3BKTFVI?=
- =?utf-8?B?dmxraTJhMW9KbXQ3d09NU1F1NCtOU2J0ekNpZHJ5TFJBSExhUEM3V29aTXhx?=
- =?utf-8?B?WmdSMTN6b2RQR24zeXJSY3JUd3p4aTJIR2U5YkVEblhNUHdCWGoyUzRNN2Jw?=
- =?utf-8?B?VXV6MWY3WmxibzBLTDJmRTVpa0ZYbjRpd3kycENtOExwNWwwTHZrTXovMFNM?=
- =?utf-8?B?V0YrZHo3NkVpTHRZZHlJZngvOGZiVmgyT0pzRGE1aVNZSHgrUStXLzVNTjlB?=
- =?utf-8?B?WGc2L1gxYjBjNk10cnhBWXU2QnBRMUk2a1ZJMHFRdFZWQ3d4anc1cTNrVWk1?=
- =?utf-8?B?RXBwZThmZzMyQ1RUdjIxZDM2UFRTVkRWb1h0Tnc4VU1zOTdzbzdWQkd6Y1Nh?=
- =?utf-8?B?dnlGekNSTFpBdGVmZUFKUHUzQ25Cemp3a3NrZkpacGdHTnV2ODA2emcyUjNF?=
- =?utf-8?B?RUxhYWQ4Ump0NVl0TnNhY2FiekdtWUswRTdMZzJqM08wbm0yOW5CaU9XZTVq?=
- =?utf-8?B?RXNWcm1NbHJWOC9sa1gySENRN0U3dkJHcDJLVXUwMkFZY2NIRExPQ3VBRHo4?=
- =?utf-8?B?K2hjenF5b2g1ZEljZ2FjT2VmbnlZMFBEQjloa29uSnJ1cFNTeFl5TndjVE0z?=
- =?utf-8?B?VkFrRFlGZGhQand1allkZHZsWTVSN1pyL0VCazAxWEo3cHJ1aEorWjRVRVJ1?=
- =?utf-8?B?Wng0VGlxWS9RS0JVcUluWjZPYnQrQk42M0xPcWErMytZV0JTUDdpZ3dMZnRm?=
- =?utf-8?B?WUVQemphUzVqZDlKWU4zVVdpTlRYbXIrWWJSM2RxTjFsUGVER3UxdGN1Wlpk?=
- =?utf-8?B?UEZOM1BVTk1Bd09OcTJDZlllb0gzb0VUaVA2Qk43b0dWRDYvTVhucC9pN1lC?=
- =?utf-8?B?Qk5nZ1FPdjd1dGdFbjlxVldFUUpzQjEyeGFYa0dHdTRmVjV0UjYyK0lsZ1M4?=
- =?utf-8?B?ZXp2eCtmMXpRTHpDcDBGU2ZGMzFXYVFwNW5nbGZadlNnNnI2ZDlxckthZXVu?=
- =?utf-8?B?R3dISGw5K2ZZaVZUYWNxZjVTanF2QlZFK3RmaGpaTnBTKzBtb05GWEFxZzZP?=
- =?utf-8?B?bXpTUEpyb01zTnRCazR4V0pjcUpCOUVua1BWZGpFRnhSTkxkMWxMVkVmWmtI?=
- =?utf-8?B?cGRaRnkzRXpzWDkvWlQ2cmRrVThTVzhSVnVFUmJVYmZnZmRPTHZ5SFRKa3VJ?=
- =?utf-8?B?VGVOZWZpMUZOKzQrblovODZYbG9SOVJMR2t4ZEZFRndWMWpxY2pJSzlkZytP?=
- =?utf-8?B?NFN0OHhFanV2bHR5ditDaU55eGpWaG4zRXlhOGp6TDBlYmRCbGxTaDJYR1B4?=
- =?utf-8?B?eHNiaTFheS9lbXBFVHlwK0RjbXMxaUg4VEdpakVmdzVkMlhJRUt1eTUvVlNr?=
- =?utf-8?B?UHdzeWVhWnpBbGtLa1cveWxMMWVCY2dxVjlCUkVaazg4cFBJZm84RnJRMjZH?=
- =?utf-8?B?Z2wxdmRKcHBjSithZWNSNDFhZDZ3NnBWSklpa2paK3JpSUs1TFZhZmQxZTd3?=
- =?utf-8?B?UU9mbVhwSTJadmEwM0I0aVJ1M003WU80NDYvbk5OVXFRKzlScm9RRXdiSlVh?=
- =?utf-8?B?U3pkcWw5SzRSc2d2L3U2cGt3RnMzMEdUYTBnNWlFeUZRTkxNWXh5bmtBaUVV?=
- =?utf-8?B?VFhVT3QvZTNoY1JIZ0dDM1RBeHIyTnd2dXJGd0dpb3FWMFNNMnRzTHlnS0lR?=
- =?utf-8?B?bFg2K0RtdjVQWUJrYXd5M2JCbTdncGJTKy9KaXVsbFBUdzk4Q0hKd0NLZzFq?=
- =?utf-8?B?MXdheDdnNTdvQWtybzZ5UzVtTUVYMHN2VWlwNFJaZm9FMFFLV1hlTjFNRy9i?=
- =?utf-8?B?WGVLb0lNeEVjSTZxQnNzSCt0S1IyRUc0aFZ1WkdicEsybFZid2VodHJwNmhn?=
- =?utf-8?B?VjErRVJZWnFvKzM2TWxrM1pOS1RYS3BJajFjbFlGZndCeWZ4a0pUaHpYdUlL?=
- =?utf-8?B?ZU1IdnBOdXdlbDFmL1FVVUd3c1VRYmRsZHh0WmdhaFZHZkdOWGxQZlZqK0dZ?=
- =?utf-8?B?eDQvSUVIRVJqdXJjUUdkcWkwWExoNzU3NDVxTnBCK3NwbGRWRkJJN3g2OEl1?=
- =?utf-8?Q?TI1fBZN1nz7ezhDFUXsow5WI8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70b5a1d8-4a1f-40ca-fa47-08da7a0b02f0
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 13:28:14.1266 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 15:10:06.1816 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 435a0385-eb5b-47ca-a1e9-08da7a193e34
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UyMe0otblRCdCqceXNGz6IRVHFZUIJbew9eJymKOzTwTtBkDYTGTyYXB7Dvf6xkK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4141
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6698
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,68 +100,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Alexander.Deucher@amd.com, h.judt@gmx.at, Renjith.Pananchikkal@amd.com,
+ Evan.Quan@amd.com, Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.07.22 um 14:12 schrieb Wentao_Liang:
-> in line 1535, "dma_fence_put(fence);" drop the reference to fence and may
-> cause fence to be released. However, fence is used subsequently in line
-> 1542 "fence->error". This may result in an use-after-free bug.
->
-> It can be fixed by recording fence->error in a variable before dropping
-> the reference to fence and referencing it after dropping.
->
-> The bug has been confirmed by Christian König on 2021-08-16. Now, I
-> resend this patch with my real name. I hope the patch can be updated
-> in a near future.
+Switching to the generic fb helpers caused a regression for S4, but the
+workaround for this regression on S4 caused another regression for S3 on
+a WX3200.
 
-The subject line should be something like "drm/amdgpu: fix potential use 
-after free".
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216119
+Fixes: 3a4b1cc28fbd ("drm/amdgpu/display: disable prefer_shadow for generic fb helpers")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 3 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            | 3 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            | 3 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             | 3 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             | 3 +--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ 6 files changed, 6 insertions(+), 12 deletions(-)
 
->
-> Signed-off-by: Wentao_Liang <Wentao_Liang_g@163.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index b28af04b0c3e..1d675a5838f2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1518,7 +1518,7 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
->   				     struct drm_amdgpu_fence *fences)
->   {
->   	uint32_t fence_count = wait->in.fence_count;
-> -	unsigned int i;
-> +	unsigned int i, error;
-
->   	long r = 1;
->   
->   	for (i = 0; i < fence_count; i++) {
-> @@ -1533,14 +1533,15 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
->   
->   		r = dma_fence_wait_timeout(fence, true, timeout);
->   		dma_fence_put(fence);
-> +		error = fence->error;
-
-That's still the wrong order, you need to get the fence error before 
-dropping the reference.
-
-Christian.
-
->   		if (r < 0)
->   			return r;
->   
->   		if (r == 0)
->   			break;
->   
-> -		if (fence->error)
-> -			return fence->error;
-> +		if (error)
-> +			return error;
->   	}
->   
->   	memset(wait, 0, sizeof(*wait));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 108e8e8a1a36..576849e95296 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -496,8 +496,7 @@ static int amdgpu_vkms_sw_init(void *handle)
+ 	adev_to_drm(adev)->mode_config.max_height = YRES_MAX;
+ 
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 
+ 	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 9c964cd3b5d4..288fce7dc0ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -2796,8 +2796,7 @@ static int dce_v10_0_sw_init(void *handle)
+ 	adev_to_drm(adev)->mode_config.max_height = 16384;
+ 
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 
+ 	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index e0ad9f27dc3f..cbe5250b31cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -2914,8 +2914,7 @@ static int dce_v11_0_sw_init(void *handle)
+ 	adev_to_drm(adev)->mode_config.max_height = 16384;
+ 
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 
+ 	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 77f5e998a120..b1c44fab074f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -2673,8 +2673,7 @@ static int dce_v6_0_sw_init(void *handle)
+ 	adev_to_drm(adev)->mode_config.max_width = 16384;
+ 	adev_to_drm(adev)->mode_config.max_height = 16384;
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+ 	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index 802e5c753271..572b9fa7298a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -2693,8 +2693,7 @@ static int dce_v8_0_sw_init(void *handle)
+ 	adev_to_drm(adev)->mode_config.max_height = 16384;
+ 
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 
+ 	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ddcb7845f642..ee0cd2f279f2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3823,8 +3823,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+ 	adev_to_drm(adev)->mode_config.max_height = 16384;
+ 
+ 	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+-	/* disable prefer shadow for now due to hibernation issues */
+-	adev_to_drm(adev)->mode_config.prefer_shadow = 0;
++	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+ 	/* indicates support for immediate flip */
+ 	adev_to_drm(adev)->mode_config.async_page_flip = true;
+ 
+-- 
+2.34.1
 
