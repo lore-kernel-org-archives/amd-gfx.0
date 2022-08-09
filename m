@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E17A8C19F2D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 16:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19A22C19F2D
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 17:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0CA7B0DAA;
-	Tue,  9 Aug 2022 16:09:33 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2040.outbound.protection.outlook.com [40.107.96.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB4832BD15
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Aug 2022 16:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0199894E04;
+	Tue,  9 Aug 2022 17:05:11 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2049.outbound.protection.outlook.com [40.107.101.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08B9A94A03
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Aug 2022 17:04:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nE7eCybMBgf5obRfKAniaX2tUiktBhZaVWA/SW0/5FYPNTvxp0ni2S0xUQZoQfiqPZgCt5EUBtkLrBO9HrWQCqflSwEGnvhwgSVtxHzFo9fTCKJMBC2M5riGTII05qGwZLq+AjakXbYkLie4siKasqxMKGWIOoT2hgLKSv6XgM+RXaW4djpCHlJwWe+mabXUcGQHrXm9cZsCvFiHUgk2EuvfHwPuV8cgm8DnHM8SXWFThAlsmTiLDCaCwW3BNJ10WPzc3mKBTJnjdfiYzLp1whSuCY+f0APomW4YRbpP3ZT/iKFgPVCWTUt1vyRE2Nbf086qNmBe0jlTEOVjEevcSA==
+ b=bqYLIHJrq5PoWfHkswrOf+UnXt37gL0wQvyTd9zwjgDlAwWN/Evva5kToFFtA1C+l+/Fe2CJ4T+TcfFN/tc1CXJjM2TiZUvPlqZgk3QZ1qpfpItt/55UzmOJrfazhQ6zg7e3nVkC8F9q3do+PQ5vB/SzPIz6F3br4PukDdz/nQExubbfN7IUtJD8VjQaGoSET796D57RA3hYiWLg92+9dlmaWR8HTRoaaWyKQy1LQOVeqyC537lzNC+S4mjuv0E8OMSJTGDrA4CZj1Z7uPgKlGnEsBDV1TNk6gM4q6ck6gw+lel6x0OUd+SOiwT7mLN0sLxzoF3cpSFPc06Bg5MzVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ejn1fONxRJAgH2xz98fvJwaweyxnpDmVfjAfNTLAoQ=;
- b=d5gvRbM8eez4LNTgdlRgJV4j8irSRxPS1XMIg83CB/WpUr0uGj3++DFysPJYLJbziJl5bT4Q4h0B45YEEoAB8jK/s7pS3ZM9dPnwlVOQNHKAzoalbPHTHyoH+LZJxg3SdRFlRSF17DPW4zq/yJg7oXi3i7RLq9x5e0+lYNfZav5f3VfajPMXeI7kkTLU0P0vsxnZt3M3H7ISJxEeAEN7lU4ojXnOIlSCZ+rq6FFXMG36OEq0mxVfuTgOCSTl94mQB+qGRI8BniJ7Sh2DlpKLBunbzBJhsfLD/EEyE8JvPYSk5oVABeGzcxs4PmhaspfD90mxmbvya05GiPfFNLV59A==
+ bh=cJUyinVzJDvlG3SrY66IkC9Ft/ragX5o3cUhZnccTCc=;
+ b=dBoNCooE6RcY6HDvAX3aV7Gzp2BVZ+BliZ5epBoycYLK7DhEzfDuVVyNHof+kSS+ZAq9w395af0oIyKl0pSn8rqrMDXGaTM7zIfjvNXUpNKJx2gnZNOfB0xSTDbuR3NJVLOI/rFST77H+gWE++WJcczkvGGoMdVenRwUr6FKNo61LZ+qQUrokGn+e43+sVyR6zK9/7FibNauxapwXekvt49nhKu4j9vFirwCPHu3gUnOtlkCGRFQv7S7foRuYx33U4lPnA2F6ta7rvvLEFoopUgIXWpZzrVaC7BLt+PHNshaTgf25b675CQM6Khl2digIkm69XeKzGgipLTb36ccOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ejn1fONxRJAgH2xz98fvJwaweyxnpDmVfjAfNTLAoQ=;
- b=wAAQOVf0J0T4HxHav3FlwVTT0De6grrtrTQzTe0dBpE40DBH6ePqjBqy0XsT8h6JFFeu9/opR4F1ODLaI/YknAzOU6FztNN3C88uBJ0sPGUF2cT6g0FWoCj/g2pL4/z/Y2TAXiWFK95CdhiAV5siJaMJAJ9tafNHo8Oe7k0xCB8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by MN2PR12MB4392.namprd12.prod.outlook.com (2603:10b6:208:264::24)
+ bh=cJUyinVzJDvlG3SrY66IkC9Ft/ragX5o3cUhZnccTCc=;
+ b=tOvxMXgL5B0n1psq2U1BEDhqmPb5BZMFsoy71cYHZiMwFq687F5YTSld41pu4S8DXPckhG/zqbZiIwyGWm6SiRJGDCRGuD0l9NztOZCdG+ygqb8DBuEwb0oi9V4MBjw9AslPu0MX7fzXth3tVW0OHRWDXyjM2+wCSI7IU9r4Co8=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BY5PR12MB4307.namprd12.prod.outlook.com (2603:10b6:a03:20c::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Tue, 9 Aug
- 2022 16:09:15 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::4489:9a98:ef82:6c67]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::4489:9a98:ef82:6c67%3]) with mapi id 15.20.5504.021; Tue, 9 Aug 2022
- 16:09:15 +0000
-Message-ID: <8eaa78aa-1dd7-18a4-d3bc-0da6ab34d18a@amd.com>
-Date: Tue, 9 Aug 2022 11:09:12 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 0/4] Fix S3 and S4 issues related to fbdev
+ 2022 17:04:53 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::f832:8c21:41ee:5876]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::f832:8c21:41ee:5876%9]) with mapi id 15.20.5504.020; Tue, 9 Aug 2022
+ 17:04:53 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>, "Milinkovic, Dusica" <Dusica.Milinkovic@amd.com>
+Subject: Re: [PATCH] Increase tlb flush timeout for sriov
+Thread-Topic: [PATCH] Increase tlb flush timeout for sriov
+Thread-Index: AQHYpxfT6ZS0zUSi1kmQBa2JzW6uXq2lgnSAgAAcZYCAATcmjw==
+Date: Tue, 9 Aug 2022 17:04:53 +0000
+Message-ID: <BL1PR12MB5144B0E91F2FB97B3B0A7545F7629@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220803090134.529299-1-dusica.milinkovic@amd.com>
+ <CADnq5_ODjyTHPpGcsuHpbmaC-_MXvzKq7xXVKY9e5q7bwRBAfw@mail.gmail.com>
+ <CH0PR12MB537246946D63A6599FD167CAF4639@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB537246946D63A6599FD167CAF4639@CH0PR12MB5372.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20220809151008.20376-1-mario.limonciello@amd.com>
- <CADnq5_OTV8C8oSicO7=7TAGy1s9ZwX40Pi1XHYFCizw_UiO-8Q@mail.gmail.com>
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <CADnq5_OTV8C8oSicO7=7TAGy1s9ZwX40Pi1XHYFCizw_UiO-8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR07CA0021.namprd07.prod.outlook.com
- (2603:10b6:208:1a0::31) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b05be2b3-a75c-429d-4f69-08da7a21816b
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4392:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U3Pzs1TfF8sQLAbYwKBoTMQQIkfp/WI71ZzXl93DDM6lZ4HnSYNB7QxWLLr9N2cYepEtSIbXdrWRjUmlAOmrxVYDF7PrCLqENPjv56WrR7UQl1Xj72gz4g0217tjI4Z5+39w2lAnsIkUPoCCSF3xJY0VlkhqG48EJstqTupRqJZvfwxQS9JSSCsrMAjp2GPnXkzMuW/XCK0+3wYRkftlySSUc4qihGZEeh02ED+78NAe7w/s4a5pYCtPR5qvIPoFxeH5xlgyMbse+qTNWm6nj6vMpmHGZzlfIBClKyi52dji9ecadUirZdDIhY+kn88lz/0EGLKu/MmaGiSsfgajoz5qzatDKsoHIOfW+UXsOMhbdTpXtgb7xcmsK4At5vASjOVRquOKKDr9OL845u5NpncEZdzKloss0sGRRyarm6Mp3y4S8ss/ngprxYA5ch8bvssTBbIp7qjnHqcB8BtNV4ClO0iWOGi0x7hs34Ws9DIgwAuQJfKM6+GZ0bVQOrLzzqLTgQCR6XhpyAgIx75gk8dxdfwxSWDjieISIdjCLzzz/jxBoWg+o4DW5ewj1btyXlWJXDeympShKxhm8hItEl8qVK+SwVrtd4DXBBpzUQsKqV0xMJTmrUHKwLO6iHG7gR1mKh2grKSjrQpu96IU80Lqbep5NYWTnr4e2urfjd26d4PJLXM/BmsDOFOkgzGVnBsC/gcINNPuSQN7yVZ2JEbJFKqVTV2+3SbjzheMrW6DgHhJazfDxoHewo6k/Cxk3emAMgY3ngPx5Lo8bA75m4y0aEUS5WmpKHGi7aTR6hl7WDgzPc0pPFrUGX6RNSPmFLVGs+O6wRfRfRb54cgv3g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(39860400002)(366004)(396003)(376002)(316002)(6666004)(2906002)(2616005)(6916009)(478600001)(66946007)(36756003)(66476007)(31686004)(66556008)(4326008)(41300700001)(8676002)(5660300002)(6486002)(38100700002)(6512007)(31696002)(83380400001)(86362001)(26005)(8936002)(53546011)(6506007)(186003)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-08-09T17:04:53.028Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f5c97710-a957-43a9-2ad1-08da7a294757
+x-ms-traffictypediagnostic: BY5PR12MB4307:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qNRd5UM+pGoxjYai8dyEcoJh+LoMrlGyb2kKQq8xXoJM+qG5Y5qBXouJPzCjx4losp9VWpNDOrf04n2QE8/GmZYWb/ZqVgwNJQeRpCnJ0drS9ZJYP3cwWGX/fLg5m7gfHHDqwSpgbS0ydaiOvZoAAIIhQtbZtdHXyy4VE74cddqb2A7bRi09adEltU2ygWgDxROR3RZOFc5ydcgLsUDotnH7kBcc/o6jGkha+CXcU9c+GQUGnT74qlz7jrffveUoWe5GhgJB3sHO8P1M9WfzQew1S4KsZgtwHwvUqCGpjRaG/v1B3cQOoAYbL2dXaeXhfkQXgTWmU5h/xplnvVI/u7h7NWAYKI91Wq3Oo44YcG5bp8Pc02PzK/nJCQFmbk0wjgcxXABt6BJuPZ2FUAOQUs1BsfVRHFRGVnmWPWTMU//7wcev3FjKjw4fTYS1t1QXLrIPZ7ftF3p+tuUeYt2rFjeKtPmHgRbpZujDq5PhvwxMkoC8he6rpe13a7aBKKqNWGthRb+eRG5b/ABAtEIpw0D5KkVkF8hS193oMVSvxJfE0EWO39mnI5oTRBf+NsuCvE8UuYSa3+Hrs0gSyISK7nCFHcmiqAFwo+wICN3dwnTZ9hVdmmqa0CBxNfkjS6wHzMg1jCmURgnC86U3NXy8VTwJhk1JV2V7kta7cLxSuEsEa7yhij6DCY0Y45d1D63St8QgOCk0dUrZza4X+f+zgrYkOJT5XcMGA1+S40h/dxqFhJqDOxrMrNYr4SqbbfVkIn4pMvW+fN68oNXBgpVOM6Na5zqCjp6pkcfR6uQ8zC9v3211gxoHhdTy3LBCrWC1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(376002)(346002)(396003)(366004)(136003)(478600001)(316002)(110136005)(71200400001)(41300700001)(6636002)(4326008)(6506007)(2906002)(55016003)(8676002)(66446008)(66946007)(66556008)(64756008)(66476007)(5660300002)(8936002)(76116006)(52536014)(38100700002)(122000001)(19627405001)(38070700005)(33656002)(86362001)(186003)(9686003)(53546011)(7696005)(83380400001)(26005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnJSbUtKS3JoVXBSZmFqUHBVV0dHVGtsaDErSWxHdkFNSkVEZVRqMmRVYkE3?=
- =?utf-8?B?NVZ4YVAxaHdDOVlVUnlHQ1RFRUZPWk83YVh2WGZ3d25RT3dEWS9XVlgyZnI1?=
- =?utf-8?B?OHpCS1QxbVA2MlJKOXMvaEtWVERwenRqQU1HSzBMbXMvZHJMbTVjT0RPNUZV?=
- =?utf-8?B?TjRDWUV6V2h1THpodFNxd1FqTWlVdjZrdzcxMVpySDZ1UzdDaWhtS0FOamJP?=
- =?utf-8?B?R2lYUVo0eVJ1VXREM3grSlVkUUlWRkYxQ3JiNDlDL2lXOWNzN3J1TUZvdHQ2?=
- =?utf-8?B?WVlLUk5ydStUTkxGcGFjdzRvM2ZKcVZCbGlqRC9BUW4rc1llNUNVZjlKYWRX?=
- =?utf-8?B?TFY5dUQzTUlMcTZoQmtkMG5LTW5ZV09OVnR2WUV4eUtNeUVvZHN0UDgwSDhI?=
- =?utf-8?B?aWgxTGY4RXIwMUYrRlVCclNZQWdUV3l4L01jUGFmaXk5MXc3cyt3MDR4ZG4x?=
- =?utf-8?B?SWNvOG5qVEs5anZtMUZId1NxcloxQ01VT1ZYM3JjTXhXdHZSZHVxd291K01N?=
- =?utf-8?B?VmFrbCtCRmd1L3p5a2NveG9RMXpOTWk5MU93T0d2YXR5c2Noa0ltQ2RTWmsw?=
- =?utf-8?B?NFZOZ2pDLzFnZEYzZVZIa21ob1RGOS9XUzgyT0ZHTlgxeXdlRHhxNmxuNE9n?=
- =?utf-8?B?ZWVPT3d2dlA4RWRCcUg5WSt3OW5aeWhQUnU4dW1vSDVGcGhZSW9ITVR1OWE2?=
- =?utf-8?B?M1R5UEhjZTlDRDVXU3NVaTFINWU4b2RyRHdCZHRTMk9TMkk2RG13SG8rNHdB?=
- =?utf-8?B?cEVRYVB1aCszaWdxaWJBMkFramhzSzRHaHJWUlM1aTg3REhCZmNtTCtjeDJl?=
- =?utf-8?B?MFFDVlh3L01CZmNVek1Dai9DZFpKcWd3eVkrNURCVUFBY2FPL0NBY01Ga2Ro?=
- =?utf-8?B?L05kTE9mWndqYXI4U1JaL1NDSDJSWUtDaHdQQk5CeHZBOWRidmtQb0g4bFVY?=
- =?utf-8?B?alB5U3c2Q1B3clRxMnBKWm5HR0tGWktEaDhKdDM1TEhHNXRVd1NEL3h4QjFC?=
- =?utf-8?B?YUNxVjlyR1lMSEVTalpGWTNYNEtNN2VzUzBHaFpvNVRPQjJCcnYvckcyRDBH?=
- =?utf-8?B?V2xBTmpST0VoQ2haMzRIMExoTDQrWWxKOUdIT1dmTVp2alBvemlpeURmeSsz?=
- =?utf-8?B?OGhtTG1VaVRxL2VrYnZIbUhZRVMyanVuZGJ2dnJBVmszaStGeEs4MFBBQ1cr?=
- =?utf-8?B?MUlqdjdlYmxsTnljaGhDQ1cxTGY1a05rbVQzaS9ocW42ZmhNUUhNUXJoakJG?=
- =?utf-8?B?WTNZNjJ3MVRvYzUrZlBqWkhnejIvTVM5WFZaNTJ1ZHU2OG94WWF0d2RJbFBR?=
- =?utf-8?B?RENnQVdIeDJ4WDJzd2xmaUo3bE9BdlFXaVpYTFFydHE4WlhNTEV3UEpvNDM5?=
- =?utf-8?B?TnM2RW9oSFlrdU9icWZyN0ZqVElQNTdzbFpPdTBLMVR4Q0Fja3JjZS9wOURL?=
- =?utf-8?B?aFp1dmUxdUE1VVM0UlFCZFdvWmJWWGlsN1lZNlZkWnBVM3JJMmJrK05CaGQ5?=
- =?utf-8?B?R2ZyMUh0c1FmT2RQSzBMUlZ6SVJWWFNRa0NrMEwrVEo4SWU1S3RGK20vYWRT?=
- =?utf-8?B?WHErOTk2MmllMUFQMDkrTkpBdFlrVmt4VnhhNjY0RHZKcjdQd1ZmZVRnWjRU?=
- =?utf-8?B?YWxkdStkT1V4S0RLVVpqK1l5RHY1VFhCdWpPL1d6TGEyK1NoN3BmcytSSGo2?=
- =?utf-8?B?bHBUdVU4bHVDSHJaT1AwQ2pSODEza0laeVVIYW9kN0VSUHNoWHdXVk9rUXJZ?=
- =?utf-8?B?WC9vRmxQSCttZkthOHA4UlNuZTFWQ0xCTVU3UGQvVitrWGlnNURSemlBNVFV?=
- =?utf-8?B?TjVHbXhhWDVKc0NEeE9Mczloai9remxhSGZrZ2NuM205UmRCVEZEL25MUXZH?=
- =?utf-8?B?a1NYQmo3MkpEaUN2VHFPWjFPVmVoV3B0S1FMT045MFZRa1dOUytmU1crR0g4?=
- =?utf-8?B?cHQ5QWpSaVpPM0hHNlBCUTg2RHMvTkJ3YzV3Nkg3K0szOUExT2xGWmpoVVRN?=
- =?utf-8?B?M1cyaDhmZ1JlZUhqRWgwMXM4RVVwT3c2MDF1bDR2c2dlc2ZDNjUreGFURUdi?=
- =?utf-8?B?TlNBWUdzZm5UMUFuZzBuQnQ1aWhrQ2FmNXBGVXdSdi9qdWpmbWR1T0JRb0w1?=
- =?utf-8?Q?nVTp4W66oPRl5rkRJdGIqD7hv?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Zh2Kv+eiz42qtKKSAaDagYRJb1ekRvttJCmZVI33Tr6Tsc+2bwt4/AJ7Ma9B?=
+ =?us-ascii?Q?QDeQ5uZYdry5Ptbe+kmseV26oK0QmCw3e/VCO3AGQkeLcRsfR2CzqArj8R+c?=
+ =?us-ascii?Q?TEdwLYfeCQVhHsLEkbIk4L5aqYoT5DFZCqwILoTOokOOE0T+73JsFcc6Uo/w?=
+ =?us-ascii?Q?Wt54k9geZDQVXl6LhX5/2Y9OT6638I7uZj5gM2YVyDp7UwBy1puA94pqNzYP?=
+ =?us-ascii?Q?4dRlJA1atV6QOJ1F2fmRJWWOFEVRjByg3gju/w7mqoGyNJLONLERpcOcoBby?=
+ =?us-ascii?Q?YYkb3kEHTIQUQQN6FfXu8hcZbZmoIQqWY1GTbNruEr0x2stb6dHevRcLWWf/?=
+ =?us-ascii?Q?9Xh43gLylZZFbQkD39gaPAR5d2m93oM4gtqopYB5OwZbH8GFPP911mPAd+oN?=
+ =?us-ascii?Q?47DOIvoBD2cETCNZvDp/x5hFcWyf1il3EcNr4Rlbg9qAk9ND4kEExHm4coZi?=
+ =?us-ascii?Q?8k+4J2J8oFUwl6eZvtyM0ONLlJ0dXKfrmuQaW91Bm4YAM29MiIqR8AAgKTuj?=
+ =?us-ascii?Q?7qKciISCUBUVDU+raM8l/NPTCoSvE5hFZ71kN1yCMMyyEonnTK+CDHCswlHX?=
+ =?us-ascii?Q?3iJkWA50FL1N2E1x7B3VQqpeE7ZelgA8CalpI+ohdg+Mexdno4s8eHCOOq2Z?=
+ =?us-ascii?Q?XDwzWudqLCjfufdvkORCM7wjJcOeSS2uNO2D8vz8Q44sY8TnKh57bJiyOMUa?=
+ =?us-ascii?Q?iFAzpQDgKhbOutnsG0lGsJznB04apnC4bZeeHnKwJXVQCVGGPt4TJw2oOC+d?=
+ =?us-ascii?Q?fgOEmzgiwM0slfyD7aU3fz3SQFpLb9EgCxprzoDkARn1Ca13jZrGATifstXk?=
+ =?us-ascii?Q?TQ8kmgJWfU0B4Oom/cQJVtEwkGLz6qNH3Io8cv4S3eWS12wXcgrch6VXQ3Rz?=
+ =?us-ascii?Q?PdRA2KKQ3VlgT4mV+uEs8A+1k4uK6YJVI/HeEOJrJY5bneNB/N46alVg5qUN?=
+ =?us-ascii?Q?V1u2hSrLu8UATiplLMRZ3hBM9ghw2KZqoBYHwJehfnpnV8uhSd8heXHF5u0A?=
+ =?us-ascii?Q?i+Y3ZDcnIsBlQp/rN2uVXWt+oWAlWaehgUUYn6GwBvmExyAPVKHf/ELnZNOM?=
+ =?us-ascii?Q?4J8Gu37yXCJ/pgtOEAZEf5hIvRzwbGJI9SsqWpC9frWJkkhZPNtbzPOWGAZN?=
+ =?us-ascii?Q?C3vWeoHF7uDvrkAaNy21S5f2upZ8ooRe2NuCuZaFYggLkALpGh4d6nATSVWq?=
+ =?us-ascii?Q?4liWBQBbB7Nv14B87L4Oov/pCNPw/FgDfEdw6zeNiV7JyrxzERLLs4Tbd8TH?=
+ =?us-ascii?Q?SlWzO/Qw4C8YRpEkSsY3ZOn/pFi/38bN5x7yYumffvc4q+ePbmVMkZvKltHY?=
+ =?us-ascii?Q?lXQFua0aW5TovD9FyqrM3nbQodQZKdqOGWH10fEUA50pmo/P7hYpRwDvV5Oa?=
+ =?us-ascii?Q?FzBGRMLzrKsPfvbYImX5CXoI3Rzb1Eo1tjeO2jd2PkakEQjSPCRWTOJ4wEQt?=
+ =?us-ascii?Q?10UlHxdsszMdw4v+to2M8Vn3rsx/BEO370s4moS8gcb9PuEiIaSCe4OAt16F?=
+ =?us-ascii?Q?E28P3mUKXpPNULKepeEegh3gXbTUFNRZtTrK7gyCgLSLxy0kPv3k31SQoKAD?=
+ =?us-ascii?Q?/cKJr/7rD8rN8IYtMf4=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144B0E91F2FB97B3B0A7545F7629BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b05be2b3-a75c-429d-4f69-08da7a21816b
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 16:09:15.1086 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ea830cF/J4nV1oP11pGHem/EvA/HLc1t5yhzcHSiB7FfG93HradoPbzmEGl1EqQVUU2ko54fTZtOv9QWAWph9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4392
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c97710-a957-43a9-2ad1-08da7a294757
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2022 17:04:53.5333 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: t4jWe+E1EyHoUJVNcnusMDozMlNGfOGr3K0Am6yG+fLppD89HSMultPTKEBoXXyQlx0tjo+vn5WEL+JaZ8Ln/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,69 +123,334 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan.Quan@amd.com, h.judt@gmx.at,
- Renjith.Pananchikkal@amd.com, amd-gfx@lists.freedesktop.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/9/2022 10:50, Alex Deucher wrote:
-> On Tue, Aug 9, 2022 at 11:10 AM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
->>
->> Moving to the generic fbdev helper introduced a regression in S4 support
->> on Hawaii PRO graphics cards.  A workaround commit was introduced to
->> avoid this S4 regression until the root cause could be found, but that
->> workaround commit introduced a completely separate regression on S3 on
->> a WX3200.
->>
->> This series reverts all the code to move to generic fbdev helpers to
->> fix both issues.
-> 
-> I'm not opposed to reverting this, but I fear we'll never get rid of
-> this old fbdev code.  
+--_000_BL1PR12MB5144B0E91F2FB97B3B0A7545F7629BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah, makes sense to me.
+[AMD Official Use Only - General]
 
-> What about just applying the workaround for
-> hawaii as per the attached patch?  There is always the concern that
-> this will lead to more workarounds, but I'd rather avoid touching the
-> older asic support as much as possible.
+Please add these details to the patch description when you respin.
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Liu, Sha=
+oyun <Shaoyun.Liu@amd.com>
+Sent: Monday, August 8, 2022 6:30 PM
+To: Alex Deucher <alexdeucher@gmail.com>; Milinkovic, Dusica <Dusica.Milink=
+ovic@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Increase tlb flush timeout for sriov
 
-Yup that fixes S3 for me on the WX3200 (tested on top of 040370564b68) 
-and I would expect keeps the W/A for S4 on the Hawaii one working 
-effectively.
+As I discussed with Alice ,this change is when multi-vf running compute ben=
+chmark (Luxmark) at the same time, which involves multiple vf  do the tlb i=
+nvalidation at the same time. They observed kiq timeout after submit the tl=
+b invalidate command. Although each vf has the invalidate register set, but=
+ from hw, the invalidate requests are queue to execute.
 
-Reviewed-and-Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+Alice, as we discussed, we can use maximum 12*100ms for the timeout , it sh=
+ouldn't be 6000ms. Did you see issues with 1200 ms timeout?
 
-> 
-> Alex
-> 
->>
->> Mario Limonciello (4):
->>    Revert "drm/amdgpu/display: disable prefer_shadow for generic fb
->>      helpers"
->>    Revert "drm/amdgpu: keep fbdev buffers pinned during suspend"
->>    Revert "drm/amdgpu: drop amdgpu_display_gem_fb_init()"
->>    Revert "drm/amdgpu: use generic fb helpers instead of setting up AMD
->>      own's."
->>
->>   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  12 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  43 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  13 -
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        | 388 ++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  30 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  25 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |   3 +-
->>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   3 +-
->>   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   3 +-
->>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   3 +-
->>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   3 +-
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +-
->>   13 files changed, 457 insertions(+), 74 deletions(-)
->>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->>
->> --
->> 2.34.1
->>
+Regards
+Shaoyun.liu
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
+cher <alexdeucher@gmail.com>
+Sent: August 8, 2022 4:49 PM
+To: Milinkovic, Dusica <Dusica.Milinkovic@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Increase tlb flush timeout for sriov
 
+On Wed, Aug 3, 2022 at 5:02 AM Dusica Milinkovic
+<dusica.milinkovic@amd.com> wrote:
+>
+
+Please include a patch description.  Why do you need a longer timeout?
+ What problem does it fix?
+
+> Signed-off-by: Dusica Milinkovic <dusica.milinkovic@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6 +++++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 6 +++++-
+>  2 files changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v10_0.c
+> index 9ae8cdaa033e..6ab7d329916f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -419,6 +419,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgp=
+u_device *adev,
+>         uint32_t seq;
+>         uint16_t queried_pasid;
+>         bool ret;
+> +       uint32_t sriov_usec_timeout =3D 6000000;  /* wait for 12 * 500ms =
+for SRIOV */
+>         struct amdgpu_ring *ring =3D &adev->gfx.kiq.ring;
+>         struct amdgpu_kiq *kiq =3D &adev->gfx.kiq;
+>
+> @@ -437,7 +438,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdg=
+pu_device *adev,
+>
+>                 amdgpu_ring_commit(ring);
+>                 spin_unlock(&adev->gfx.kiq.ring_lock);
+> -               r =3D amdgpu_fence_wait_polling(ring, seq, adev->usec_tim=
+eout);
+> +               if (amdgpu_sriov_vf(adev))
+> +                       r =3D amdgpu_fence_wait_polling(ring, seq, sriov_=
+usec_timeout);
+> +               else
+> +                       r =3D amdgpu_fence_wait_polling(ring, seq, adev->=
+usec_timeout);
+
+What about something like this?
+u32 usec_timeout =3D amdgpu_sriov_vf(adev) ? 6000000 :
+adev->usec_timeout;  /* wait for 12 * 500ms for SRIOV */
+...
+r =3D amdgpu_fence_wait_polling(ring, seq, usec_timeout);
+
+
+>                 if (r < 1) {
+>                         dev_err(adev->dev, "wait for kiq fence error: %ld=
+.\n", r);
+>                         return -ETIME;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index 22761a3bb818..941a6b52fa72 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -896,6 +896,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu=
+_device *adev,
+>         uint32_t seq;
+>         uint16_t queried_pasid;
+>         bool ret;
+> +       uint32_t sriov_usec_timeout =3D 6000000;  /* wait for 12 * 500ms =
+for SRIOV */
+>         struct amdgpu_ring *ring =3D &adev->gfx.kiq.ring;
+>         struct amdgpu_kiq *kiq =3D &adev->gfx.kiq;
+>
+> @@ -935,7 +936,10 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgp=
+u_device *adev,
+>
+>                 amdgpu_ring_commit(ring);
+>                 spin_unlock(&adev->gfx.kiq.ring_lock);
+> -               r =3D amdgpu_fence_wait_polling(ring, seq, adev->usec_tim=
+eout);
+> +               if (amdgpu_sriov_vf(adev))
+> +                       r =3D amdgpu_fence_wait_polling(ring, seq, sriov_=
+usec_timeout);
+> +               else
+> +                       r =3D amdgpu_fence_wait_polling(ring, seq, adev->=
+usec_timeout);
+
+Same comment here.
+
+Alex
+
+>                 if (r < 1) {
+>                         dev_err(adev->dev, "wait for kiq fence error: %ld=
+.\n", r);
+>                         up_read(&adev->reset_domain->sem);
+> --
+> 2.25.1
+>
+
+--_000_BL1PR12MB5144B0E91F2FB97B3B0A7545F7629BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Please add these details to the patch description when you respin.<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Liu@=
+amd.com&gt;<br>
+<b>Sent:</b> Monday, August 8, 2022 6:30 PM<br>
+<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; Milinkovic, Dusica &=
+lt;Dusica.Milinkovic@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Subject:</b> Re: [PATCH] Increase tlb flush timeout for sriov</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div style=3D"font-family:inherit; font-size:inherit; color:inherit"></div>
+<div>As I discussed with Alice ,this change is when multi-vf running comput=
+e benchmark (Luxmark) at the same time, which involves multiple vf&nbsp; do=
+ the tlb invalidation at the same time. They observed kiq timeout after sub=
+mit the tlb invalidate command. Although
+ each vf has the invalidate register set, but from hw, the invalidate reque=
+sts are queue to execute.
+</div>
+<div><br>
+</div>
+<div>Alice, as we discussed, we can use maximum 12*100ms for the timeout , =
+it shouldn't be 6000ms. Did you see issues with 1200 ms timeout?</div>
+<div><br>
+</div>
+<div>Regards</div>
+<div>Shaoyun.liu</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
+r@gmail.com&gt;<br>
+<b>Sent:</b> August 8, 2022 4:49 PM<br>
+<b>To:</b> Milinkovic, Dusica &lt;Dusica.Milinkovic@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Subject:</b> Re: [PATCH] Increase tlb flush timeout for sriov</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">On Wed, Aug 3, 2022 at 5:02 AM Dusica Milinkovic=
+<br>
+&lt;dusica.milinkovic@amd.com&gt; wrote:<br>
+&gt;<br>
+<br>
+Please include a patch description.&nbsp; Why do you need a longer timeout?=
+<br>
+&nbsp;What problem does it fix?<br>
+<br>
+&gt; Signed-off-by: Dusica Milinkovic &lt;dusica.milinkovic@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6 +++++-<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp; | 6 +++++-<br>
+&gt;&nbsp; 2 files changed, 10 insertions(+), 2 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gmc_v10_0.c<br>
+&gt; index 9ae8cdaa033e..6ab7d329916f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; @@ -419,6 +419,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct am=
+dgpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seq;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t queried_pasid=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sriov_usec_timeout =3D =
+6000000;&nbsp; /* wait for 12 * 500ms for SRIOV */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ri=
+ng =3D &amp;adev-&gt;gfx.kiq.ring;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq=
+ =3D &amp;adev-&gt;gfx.kiq;<br>
+&gt;<br>
+&gt; @@ -437,7 +438,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct a=
+mdgpu_device *adev,<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(ring);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, seq, adev-&gt;usec_ti=
+meout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgp=
+u_fence_wait_polling(ring, seq, sriov_usec_timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgp=
+u_fence_wait_polling(ring, seq, adev-&gt;usec_timeout);<br>
+<br>
+What about something like this?<br>
+u32 usec_timeout =3D amdgpu_sriov_vf(adev) ? 6000000 :<br>
+adev-&gt;usec_timeout;&nbsp; /* wait for 12 * 500ms for SRIOV */<br>
+...<br>
+r =3D amdgpu_fence_wait_polling(ring, seq, usec_timeout);<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=
+ev_err(adev-&gt;dev, &quot;wait for kiq fence error: %ld.\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
+eturn -ETIME;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v9_0.c<br>
+&gt; index 22761a3bb818..941a6b52fa72 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+&gt; @@ -896,6 +896,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amd=
+gpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seq;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t queried_pasid=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sriov_usec_timeout =3D =
+6000000;&nbsp; /* wait for 12 * 500ms for SRIOV */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ri=
+ng =3D &amp;adev-&gt;gfx.kiq.ring;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq=
+ =3D &amp;adev-&gt;gfx.kiq;<br>
+&gt;<br>
+&gt; @@ -935,7 +936,10 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct am=
+dgpu_device *adev,<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(ring);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, seq, adev-&gt;usec_ti=
+meout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgp=
+u_fence_wait_polling(ring, seq, sriov_usec_timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgp=
+u_fence_wait_polling(ring, seq, adev-&gt;usec_timeout);<br>
+<br>
+Same comment here.<br>
+<br>
+Alex<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=
+ev_err(adev-&gt;dev, &quot;wait for kiq fence error: %ld.\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u=
+p_read(&amp;adev-&gt;reset_domain-&gt;sem);<br>
+&gt; --<br>
+&gt; 2.25.1<br>
+&gt;<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144B0E91F2FB97B3B0A7545F7629BL1PR12MB5144namp_--
