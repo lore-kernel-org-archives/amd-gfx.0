@@ -4,55 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0DCAC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E623C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5818E113475;
-	Wed, 10 Aug 2022 16:45:36 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F72010ECF2;
- Wed, 10 Aug 2022 16:45:21 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id s199so12531574oie.3;
- Wed, 10 Aug 2022 09:45:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D8A14B1D0;
+	Wed, 10 Aug 2022 16:51:44 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30BB214AE13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 16:51:37 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id k26so28783000ejx.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 09:51:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=NSIuwia75AioRZjhVarBTibdxYk00sTiEecc5ZuZS9E=;
- b=kENX+o4wrssMMzqSMw1M5ozx3d9utXAbtsvarJNWyuPkDc0Nt0xz8M5ab94yxFwhpA
- 2q4Tfc3dZzhbuauuTMXJ1rDTDHzoNndJZ34Gkz2IZ1Gn4VA4DHTTsgxehTQgLooSKTSj
- Mk1twBkTQH81k6OcYGdzZGUPXMCnj1doRu7wz/MMza6nfA/b8n0Qny1gf6H8denI3p1L
- ASE/p0vlAe8y8ZVTPNajx4ywJd54/Tuq05vxqKB7Pu4jGNGwD6RhS118w/aTLCfNjfak
- btlyz29j3oWlgHNvGUHomi6hBSutYtwLHzWd955xtH7Mrqx310IHeM59DpkkRbZbHBMS
- 8v9w==
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=fXbCy9rHvZVgM+p3VOlHYad9cpzN6zg2P8UrX5OIFFc=;
+ b=CAMS3hmpRcptOI8wWHCDgANGOmk5hppXTYO6bplECSCu8Q31P5Utw5ZtbjB4IfttYt
+ z8HYfB0373QsAQ52EDc06BflvRxYjpRlzXUXpSPKKTnTnSHZH1vNRYKyZuR9HaMjZiQ/
+ 5Bdjyed4TX8H+fZIcuRege+xm2V3ivz0SG8/CGFFOyMmTkC64dcFd6IPPgS5TR95D9rt
+ CTD8z2hZjLi+OxDEwqbfDiPgwveVx/PszPOexbKNW3j7BxF4RRNOkeni+Heoz10srgJ+
+ 07/eY+07hZZPHUtglmprAQilJcw7A71yFTrBPxK3FyDCJ9LSwJ0nKJISMNnQJWuXL7cZ
+ 8BOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=NSIuwia75AioRZjhVarBTibdxYk00sTiEecc5ZuZS9E=;
- b=njMiH5BHiQ2kjBqf5IuHnRveDsL+vkvmBk6eGGN7U6LslTUWWLcgoeI3dmJMOerki1
- hskJ6ZFBD+o2ULitv8EdpO6GWP6pALR1WI/APkbphnZEpSxcrYJSWvjVYsZT8grblRba
- iZtDRn76EiZsYxwR73n1d2xiYjJQXz6n3D3ws4bdejCLk2K7fAL7XlHGKJLWT7DqemKF
- j8D4YdMoTsBpLLYlDOUi/EULrUfoDWn/EK+HYOcc9M6tYj/6tdf/Dt05sLc2SxyjSfvB
- uCo8pxDxi9MCtXfdXnBAZoljoCUZFrsq9e99tiv1wwRZJ574Y1gnTUA73bwz05QX99rc
- InEw==
-X-Gm-Message-State: ACgBeo3JmVapLQ+l/WLQGN/1qWf4h9FUkgFeeAzIvRyQlCl+cSKMAU+v
- T6IkWLW+sFMsw2Th5C0V1cdBD/bfc9OFZRwVDBNAhXzC
-X-Google-Smtp-Source: AA6agR5jPsxMjdCvQPJkJJ+C80rMfEQkIZzWUMSmXSQvgYmlAZKZFe2wka+OZiJrFoMim+O04MFy8r1YAwnmqV1ykp0=
-X-Received: by 2002:a05:6808:19a3:b0:33e:1525:3fb4 with SMTP id
- bj35-20020a05680819a300b0033e15253fb4mr1793219oib.106.1660149920416; Wed, 10
- Aug 2022 09:45:20 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=fXbCy9rHvZVgM+p3VOlHYad9cpzN6zg2P8UrX5OIFFc=;
+ b=jkcRI/qL06LFeBYMLOm9oEZ0tZcLRUBP0MecC/OKATc6fyE3+F2yOhluPTO1v/p49T
+ 1DzsiaVrGSue8nbmEZ1JF5DpiYLWk1TLKnpaFTrhmDHsJvU2EFoRlF7FPZakZwcTzYGj
+ WjNRL4MkfblEbu9rnmjz8omG6RxIjwK5lIcTKHlzFwvDcqk7gkNCpfB1TdhQiu5D7Ojh
+ SW6TaUWJILeX96MoHBQqroeITXPXYCmkk9BMINMhALtQiT6eriOwRfVXBvR9X/BFMRAD
+ RPox4E/Zv5qXjNjp1ZY4tVfbzk7XbDk+Cc5Ws+WcO7lBYZqL1D45XNRqInjr6W9UhbXb
+ ugjA==
+X-Gm-Message-State: ACgBeo35LzcsFqRPL3nafzOhV1qTe5uYM/NTo7T2PSHqIKpR7gL3SV0F
+ Nb84u14Jl0lk8j9ABTmSOrg=
+X-Google-Smtp-Source: AA6agR7GJh+8qabu4EQH6qsfk0Tq4Sfnx1ijAbgSfPKbLm5E4mxa+4CDPA3AJFfKP8lqwOm2Wkj7ow==
+X-Received: by 2002:a17:907:3ea8:b0:730:9756:7c81 with SMTP id
+ hs40-20020a1709073ea800b0073097567c81mr21515778ejc.726.1660150296198; 
+ Wed, 10 Aug 2022 09:51:36 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:792d:ce01:420a:664a?
+ ([2a02:908:1256:79a0:792d:ce01:420a:664a])
+ by smtp.gmail.com with ESMTPSA id
+ n6-20020aa7c786000000b0043a554818afsm7917083eds.42.2022.08.10.09.51.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Aug 2022 09:51:35 -0700 (PDT)
+Message-ID: <572bd280-09ef-4026-c812-b91b9fe4b7e0@gmail.com>
+Date: Wed, 10 Aug 2022 18:51:33 +0200
 MIME-Version: 1.0
-References: <20220801135259.3039679-1-imre.deak@intel.com>
- <o3jSEcvDEw1afwzuUMylF9fY-EM-Kz5wHJVoktY8yNal0kEyLHa44nNBP1OTb4emiqyTuwxSVeiT52eYgSXYwGHmaGMiI60hDYJOOhS8Q-8=@emersion.fr>
-In-Reply-To: <o3jSEcvDEw1afwzuUMylF9fY-EM-Kz5wHJVoktY8yNal0kEyLHa44nNBP1OTb4emiqyTuwxSVeiT52eYgSXYwGHmaGMiI60hDYJOOhS8Q-8=@emersion.fr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 Aug 2022 12:45:09 -0400
-Message-ID: <CADnq5_OK3H1QHA156G5z5w9-Mhj7ZwXaAJwfTv=E3zPTAYEaTw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amd/display: Fix merge conflict resolution in
- amdgpu_dm_plane.c
-To: Simon Ser <contact@emersion.fr>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [Patch V2] drm/amdgpu: Increase tlb flush timeout for sriov
+Content-Language: en-US
+To: Dusica Milinkovic <Dusica.Milinkovic@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220810085004.107210-1-Dusica.Milinkovic@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220810085004.107210-1-Dusica.Milinkovic@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +74,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Mon, Aug 1, 2022 at 10:08 AM Simon Ser <contact@emersion.fr> wrote:
+
+Am 10.08.22 um 10:50 schrieb Dusica Milinkovic:
+> [Why]
+> During multi-vf executing benchmark (Luxmark) observed kiq error timeout.
+> It happenes because all of VFs do the tlb invalidation at the same time.
+> Although each VF has the invalidate register set, from hardware side
+> the invalidate requests are queue to execute.
 >
-> Acked-by: Simon Ser <contact@emersion.fr>
+> [How]
+> In case of 12 VF increase timeout on 12*100ms
 >
-> CC amd-gfx
+> Signed-off-by: Dusica Milinkovic <Dusica.Milinkovic@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6 +++++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 6 +++++-
+>   2 files changed, 10 insertions(+), 2 deletions(-)
 >
-> On Monday, August 1st, 2022 at 15:52, Imre Deak <imre.deak@intel.com> wrote:
->
-> > The API change introduced in
-> >
-> > commit 30c637151cfa ("drm/plane-helper: Export individual helpers")
-> >
-> > was missed in the conflict resolution of
-> >
-> > commit d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
-> >
-> > fix this up.
-> >
-> > Fixes: d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
-> > Cc: Simon Ser contact@emersion.fr
-> >
-> > Cc: Thomas Zimmermann tzimmermann@suse.de
-> >
-> > Acked-by: Thomas Zimmermann tzimmermann@suse.de
-> >
-> > Signed-off-by: Imre Deak imre.deak@intel.com
-> >
-> > ---
-> > drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 +-
-> > 1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > index 8cd25b2ea0dca..5eb5d31e591de 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > @@ -1562,7 +1562,7 @@ int dm_drm_plane_get_property(struct drm_plane *plane,
-> > static const struct drm_plane_funcs dm_plane_funcs = {
-> > .update_plane = drm_atomic_helper_update_plane,
-> > .disable_plane = drm_atomic_helper_disable_plane,
-> > - .destroy = drm_primary_helper_destroy,
-> > + .destroy = drm_plane_helper_destroy,
-> > .reset = dm_drm_plane_reset,
-> > .atomic_duplicate_state = dm_drm_plane_duplicate_state,
-> > .atomic_destroy_state = dm_drm_plane_destroy_state,
-> > --
-> > 2.37.1
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 9ae8cdaa033e..5743975efea5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -419,6 +419,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   	uint32_t seq;
+>   	uint16_t queried_pasid;
+>   	bool ret;
+> +	uint32_t sriov_usec_timeout = 1200000;  /* wait for 12 * 100ms for SRIOV */
+
+Please put that as a define into some header and never ever write 
+comments at the same line after a define.
+
+
+
+>   	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+>   	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>   
+> @@ -437,7 +438,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   
+>   		amdgpu_ring_commit(ring);
+>   		spin_unlock(&adev->gfx.kiq.ring_lock);
+> -		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+> +		if (amdgpu_sriov_vf(adev))
+> +			r = amdgpu_fence_wait_polling(ring, seq, sriov_usec_timeout);
+> +		else
+> +			r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+
+Don't duplicate the whole call, just change the parameter.
+
+Regards,
+Christian.
+
+>   		if (r < 1) {
+>   			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+>   			return -ETIME;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index ab89d91975ab..bab26982b3f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -896,6 +896,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   	uint32_t seq;
+>   	uint16_t queried_pasid;
+>   	bool ret;
+> +	uint32_t sriov_usec_timeout = 1200000;  /* wait for 12 * 100ms for SRIOV */
+>   	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+>   	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>   
+> @@ -935,7 +936,10 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   
+>   		amdgpu_ring_commit(ring);
+>   		spin_unlock(&adev->gfx.kiq.ring_lock);
+> -		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+> +		if (amdgpu_sriov_vf(adev))
+> +			r = amdgpu_fence_wait_polling(ring, seq, sriov_usec_timeout);
+> +		else
+> +			r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+>   		if (r < 1) {
+>   			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+>   			up_read(&adev->reset_domain->sem);
+
