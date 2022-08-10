@@ -4,55 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E374FC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 15:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DE8C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4B2B8EB0F;
-	Wed, 10 Aug 2022 15:57:45 +0000 (UTC)
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D548AE98;
- Wed, 10 Aug 2022 15:57:37 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-10e6bdbe218so18268799fac.10; 
- Wed, 10 Aug 2022 08:57:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=D332tIEC5qZA+2v1aF7oqZP76Nc0uHuaS+9UBYQnMSY=;
- b=SPzt8Er15c0/1ir+dkWZ4YaTefkit/sba5ySr7EOWCX1a15PKxHi96Bekiij14Oj9E
- KbYncyBD4U/QHSCjFVHKKH/nuz0ieHySUywNFXIZ0vv4dOT0GcxLbeZGC84yKju6eDwO
- VFv55pw+zWQ3xyfClYyP7T2d5WwWpMmiToyljivD74zhJEnDHGF6456B+qr4M441MEV+
- M2YgELVPtnowCO4fEOSwy7sDNTApNiKRjjc5mjwo3f8r/osH/P9I4cvRoOzs6uEe9S+w
- /S1n/pI8H2nyBrXO5trZfSgXn7qNGu7AjOFglzwmakVrrD+DBwfAa2i4/9g5kcdbPnsJ
- mjFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=D332tIEC5qZA+2v1aF7oqZP76Nc0uHuaS+9UBYQnMSY=;
- b=yWi2N3WqtUNcQfI5BKrE2SqxMZD1ot0+aarQpJdVw7KUDUNQ63aYtFlBoaduP1m8fL
- CWkzlRDoleOVPQq2yxe1JjgyFVgWHq+tvlg8mADJbVUYsiBiPUInOh8TvSnGp2QxWozz
- +3cE+JOmlOVzutQKBxjyqFQfp4vs2Uvc3G7giBM9+FKAyFJU/7A2naBy1dDcAaHYaBWl
- zwi/5ncHt93KUCY019v1vSBPRztwTGZfeqRPTFUueU80jwpQ8jeYfF2kcggZ4+tkNqhF
- bP1gnO+i24BVlMoq1QiNBcXoS5+ojKJ6a4Tl8JXxJr2YV6aHiUSnOZmYOOziWAiQgSAr
- 3+Nw==
-X-Gm-Message-State: ACgBeo0LV6WxFOqSN+UQQg7mAqIw2Tuk0bxQXcxVp+90ViNKZsynNgU1
- i1fhOFfhBhV/j6V519oeFhte0lVEnrmGmeA44m8=
-X-Google-Smtp-Source: AA6agR4MeaIsJ9o2zQxHjpx8+Y0OUvyRfCxhFk6Vs05DJ2iVybOtAieG8xQ344mI4roaNvgbi6iaOJesEQp6C2sy5D8=
-X-Received: by 2002:a05:6870:3398:b0:113:7f43:d0e9 with SMTP id
- w24-20020a056870339800b001137f43d0e9mr1690928oae.33.1660147057231; Wed, 10
- Aug 2022 08:57:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2CFD8F863;
+	Wed, 10 Aug 2022 16:02:06 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 774F810E102;
+ Wed, 10 Aug 2022 16:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=KKr3/p7RXk6Xd7JZFfPWIxAClLn2mUrBIY5Ne5PRLek=; b=L8dRFbdhNwtpr3+2ATPgf6lwH+
+ u9BwHPLH/dmnm8mITuJ++Gpx8rqBHuB9s9Gi+HTKufdfpzmmCjAnkCws4n+2p01pYZHGMzOzVtpEL
+ RFczXZ3mXbUA80XgWJ4LAkAhyvVxdufnWXVy3dSLghfCbLXINAN3HvyS/qcjKLBOZIK0yCfM2olL6
+ v2DR/p8zT4xS5CKOke0TXJzlywb3+hQJTO9d7NXIdgmug2XNX6S4dCvOnqpHUEeoT4JItkfR/QLMo
+ YUSqKGm2A/H8s8tyQF4P8NOjoYzX/aXhuKmTpa1Qxg+q3qhbnR1Nqfj8ZOZuHwt1nV0RigknlSFxW
+ m+9OeSxw==;
+Received: from [191.17.41.12] (helo=[192.168.15.109])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1oLo9N-004UMr-Ht; Wed, 10 Aug 2022 18:01:41 +0200
+Message-ID: <0e3b981b-f324-d52c-dc67-4ea9100769ef@igalia.com>
+Date: Wed, 10 Aug 2022 13:01:22 -0300
 MIME-Version: 1.0
-References: <20220726182152.123649-1-andrealmeid@igalia.com>
-In-Reply-To: <20220726182152.123649-1-andrealmeid@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 Aug 2022 11:57:26 -0400
-Message-ID: <CADnq5_MJAbhQ8VZcPVY5nhg3VnefKPnSscMnRPsm2wB04G6wBg@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
 Subject: Re: [PATCH v2 0/4] drm/amd: Add more GFXOFF stats for vangogh
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20220726182152.123649-1-andrealmeid@igalia.com>
+ <CADnq5_MJAbhQ8VZcPVY5nhg3VnefKPnSscMnRPsm2wB04G6wBg@mail.gmail.com>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <CADnq5_MJAbhQ8VZcPVY5nhg3VnefKPnSscMnRPsm2wB04G6wBg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,56 +61,61 @@ Cc: Tom St Denis <tom.stdenis@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 26, 2022 at 2:23 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com>=
- wrote:
->
-> This series adds new logging features for GFXOFF available for vangogh
-> and documentation for it.
->
-> I've created a small userspace program to interact with this new debugfs
-> interface and it can be found at:
->
-> https://gitlab.freedesktop.org/andrealmeid/gfxoff_tool
->
-> Changelog:
->  v2:
->  - Make entrycount uint64_t
->  - Add a note in docs about data types and overflow
-
-A minor comment on patch 2, the rest looks good to me.
-
-Thanks,
-
-Alex
 
 
->
-> Andr=C3=A9 Almeida (4):
->   drm/amd: Add detailed GFXOFF stats to debugfs
->   drm/amd/pm: Implement GFXOFF's entry count and residency for vangogh
->   Documentation/gpu: Document GFXOFF's count and residency
->   drm/amdgpu: Document gfx_off members of struct amdgpu_gfx
->
->  Documentation/gpu/amdgpu/thermal.rst          |  18 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 168 ++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  39 ++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  14 +-
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  45 +++++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   3 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  35 +++-
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  22 +++
->  .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |   5 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   5 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  92 ++++++++++
->  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
->  13 files changed, 443 insertions(+), 8 deletions(-)
->
-> --
-> 2.37.1
->
+Às 12:57 de 10/08/22, Alex Deucher escreveu:
+> On Tue, Jul 26, 2022 at 2:23 PM André Almeida <andrealmeid@igalia.com> wrote:
+>>
+>> This series adds new logging features for GFXOFF available for vangogh
+>> and documentation for it.
+>>
+>> I've created a small userspace program to interact with this new debugfs
+>> interface and it can be found at:
+>>
+>> https://gitlab.freedesktop.org/andrealmeid/gfxoff_tool
+>>
+>> Changelog:
+>>  v2:
+>>  - Make entrycount uint64_t
+>>  - Add a note in docs about data types and overflow
+> 
+> A minor comment on patch 2, the rest looks good to me.
+> 
+
+ok, let me send a v3
+
+> Thanks,
+> 
+> Alex
+> 
+> 
+>>
+>> André Almeida (4):
+>>   drm/amd: Add detailed GFXOFF stats to debugfs
+>>   drm/amd/pm: Implement GFXOFF's entry count and residency for vangogh
+>>   Documentation/gpu: Document GFXOFF's count and residency
+>>   drm/amdgpu: Document gfx_off members of struct amdgpu_gfx
+>>
+>>  Documentation/gpu/amdgpu/thermal.rst          |  18 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 168 ++++++++++++++++++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  39 ++++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  14 +-
+>>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  45 +++++
+>>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   3 +
+>>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  35 +++-
+>>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  22 +++
+>>  .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |   5 +-
+>>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   5 +-
+>>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  92 ++++++++++
+>>  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
+>>  13 files changed, 443 insertions(+), 8 deletions(-)
+>>
+>> --
+>> 2.37.1
+>>
