@@ -4,52 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED81C19F2D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 23:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 105DDC19F2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 03:22:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0A9DDA5C;
-	Tue,  9 Aug 2022 23:43:14 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F44ADDA3B
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Aug 2022 23:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660088581;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AUpfOTYrSH4dy2eE+ZqJO2+PWrqvVOIkfWOVnHZIzSk=;
- b=RbT1vxlz16ERTE7ta1aCOqX6Qf75JCYkEMgWObpSnXftBnu2CaniVEnyDwWc/6VIA8GZiZ
- p8FgMGP/CzRY2lzUpq2MPRdpErLH7zAhELwEM+4uQl7Azc/jgdZPnrMm54IOlGILaAGz36
- K7Q+Z/iYUQNGfFvrvtj9uEgShNogfPg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-335-iaAickkbOnqP2U-A_qKlTQ-1; Tue, 09 Aug 2022 19:42:58 -0400
-X-MC-Unique: iaAickkbOnqP2U-A_qKlTQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A99208037B5;
- Tue,  9 Aug 2022 23:42:56 +0000 (UTC)
-Received: from emerald.redhat.com (unknown [10.22.16.176])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6DC11492C3B;
- Tue,  9 Aug 2022 23:42:54 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [RFC v3] drm/display/dp_mst: Add helpers for serializing SST <-> MST
- transitions
-Date: Tue,  9 Aug 2022 19:42:38 -0400
-Message-Id: <20220809234252.295372-1-lyude@redhat.com>
-In-Reply-To: <20220808235203.123892-14-lyude@redhat.com>
-References: <20220808235203.123892-14-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E443EE588B;
+	Wed, 10 Aug 2022 03:21:56 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF7BE5860
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 03:21:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fGgDs6RBdB1ceBhVXGD1mcpcUMT9KAApXqtV6ScYLxWSOljkFzo12fJl4g6KlhcLRQTI9FOZ65AhFdWreWQzfwDBiXwZbztr/pY36zrmlXE8qYe/QJohWMqs0zTjbQyt8AikBfiuttuSSw0EmqxcqkZ26jipMxshdV1mmc8vKpOdG2KnIliShmRaVKoeASNdHEoOwmgEVfmIfFbm9kGrYPg+N5lx5IbOkX22O28lAI44EuaZ8wHXwMKQw++OxRoPSXSv+6ITkLUhjsVy8jKiydcuXTH0KrOvXLqXFWVIlNSteIebmdXEhBX23lfc9VISMmMhKcx++24Zaq/EMNLQSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lkeuWdPO4jYWlIa6IddIO9HKnH5ULqXbnfg2A1/X/jo=;
+ b=dahPURw5DiTB5Y1FZz/oF2A44Mt834WO6/OWJtSwukVdlPoZQ+ChTa8rno4R1YtcoVLECgNCr3CDYJ7WfqsZQu6KMIj3q3dlki9b42TVsVVjmG3KjatugdMJ44UMU8YdtxJkit1f2FKfhxWUJN9zMltPz/X9i84H2tOMBXdyFurBm8MocI1X05agrhV1TONMd3eJA8NqtSAkyWSaxAGjyDn9/fZB82AsLHoYIX3TjdM/UW6SDjSwO1Jae+WsHNzLW0Rh604iJtlHRuKpbZrkYeZuSHcfmhmwusX8K1NjEUvdp12yqvscYToBN8s6L7lpjgyOuq4NqNyUMStg8Wg64Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lkeuWdPO4jYWlIa6IddIO9HKnH5ULqXbnfg2A1/X/jo=;
+ b=oxmqZD/B/PAzaMqk/lGchJLebAnQGq5U6eqMAYWESAVgCqEEV8LLBz/bk2mLflhfsprxJTdJNytxShT7KeQxpRi1FxpMXRa2WWUld53hZpvv+nL+Cj1OhPbjjvxbpLwBcm95bWq9KlJdVyWu1URnNRXXhM/DQHAA/hXPjlUZ+Fk=
+Received: from MW4PR03CA0177.namprd03.prod.outlook.com (2603:10b6:303:8d::32)
+ by DM4PR12MB5772.namprd12.prod.outlook.com (2603:10b6:8:63::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.20; Wed, 10 Aug
+ 2022 03:21:45 +0000
+Received: from CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::1d) by MW4PR03CA0177.outlook.office365.com
+ (2603:10b6:303:8d::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14 via Frontend
+ Transport; Wed, 10 Aug 2022 03:21:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT047.mail.protection.outlook.com (10.13.174.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5525.11 via Frontend Transport; Wed, 10 Aug 2022 03:21:44 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 9 Aug
+ 2022 22:21:42 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdgpu: disable 3DCGCG/CGLS temporarily due to
+ stability issue
+Date: Wed, 10 Aug 2022 11:21:20 +0800
+Message-ID: <20220810032122.1774860-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8acf9297-bd89-47b8-71c5-08da7a7f73e9
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5772:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Zcy9uV4r4ZFGnNHUnFxcImQK/JqEXbbTsWTbrd3NjkPkghh1UzHb3zpugRd1S+iTL82sEwsoqaIVAoLHxaTlw2DAh6r/qWSPy4dxNWoiJpOB224sW6NOoJ/oTicTqMdoLfKW8cfeK89vmeYbpYESn9ydzTuuVpdBvjjY4L6K2szcHIw5LH/5I2zd3NLckXNCnZuMfz4HkSxzydw2VBgiNycM2xMiS7yMDqA4QhLOHF4+CHtbSO2aUAIAvYQGhs22wZmpASjLkEQkWcO4rFOA+QpG9hoqPK1Mzgo/V32KXGXBUw8Mj9MlHCRmmW45fSKZjMizDGRl3O6o1zf5zadkEt4FwPwaIardCvI61wio7EUCPcDia6g3CXMGn3327mKlBBF3QmOBMvu43HJVfjtFJgsj0qkCI27fhmU2wfKH8IA4HlvNl4zTtebpIrzJV/iiKSUvszsTwG2sB8jRhsKwRPgJ9dQZj/vZlkssi9WfOwZ10py95pupPb8JHUOarlmq7Dk4p85bRrEB6wA0C4LUsZfcWKczp32lSVnV3Jdhs/YaRNe7bQV2wSbZE5/BkG57FnC2kKsVZTzYH7pxdP50XUqb8XdfxvJPHWJEYfs3L9ERiEZ5bsKMPFoifr0SCnFnI1SY1m/h4c+JAXTUbICvwNo34HM5iErRL3a+fm7ek2X0otbg5v24o+aPsv75c0OJbrZpaT7Z5dy15S/HN4d6OEzmoP4k892DXIK7T35qY2R0xFt8Y+WVhnRNwHbF87Z34WTnIvIx6Obb8fSxutbfjl84FaNhBo/zzD7ceklLJkVyMm8fPogFG2vvt25kz26e+YWMIb7rUbGbAKkiyirZtQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(39860400002)(376002)(346002)(36840700001)(46966006)(40470700004)(6666004)(478600001)(36756003)(81166007)(82740400003)(356005)(16526019)(426003)(186003)(2616005)(1076003)(336012)(47076005)(26005)(41300700001)(54906003)(86362001)(40480700001)(82310400005)(7696005)(6916009)(70586007)(5660300002)(8676002)(4326008)(4744005)(70206006)(40460700003)(316002)(44832011)(36860700001)(8936002)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2022 03:21:44.8585 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8acf9297-bd89-47b8-71c5-08da7a7f73e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5772
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,259 +98,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Uma Shankar <uma.shankar@intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula <jani.nikula@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, Sean Paul <seanpaul@chromium.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Jude Shih <shenshih@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Roman Li <roman.li@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Manasi Navare <manasi.d.navare@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Fernando Ramos <greenfoo@u92.eu>
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>,
+ hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There's another kind of situation where we could potentially race with
-nonblocking modesets and MST, especially if we were to only use the locking
-provided by atomic modesetting:
+Some stability issues were reported with these features.
 
-* Display 1 begins as enabled on DP-1 in SST mode
-* Display 1 switches to MST mode, exposes one sink in MST mode
-* Userspace does non-blocking modeset to disable the SST display
-* Userspace does non-blocking modeset to enable the MST display with a
-  different CRTC, but the SST display hasn't been fully taken down yet
-* Execution order between the last two commits isn't guaranteed since they
-  share no drm resources
-
-We can fix this however, by ensuring that we always pull in the atomic
-topology state whenever a connector capable of driving an MST display
-performs its atomic check - and then tracking CRTC commits happening on the
-SST connector in the MST topology state. So, let's add some simple helpers
-for doing that and hook them up in various drivers.
-
-v2:
-* Use intel_dp_mst_source_support() to check for MST support in i915, fixes
-  CI failures
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Wayne Lin <Wayne.Lin@amd.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Sean Paul <sean@poorly.run>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I5fccae63bd530d6ff9e4167bb1c44319830806f9
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +++
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 59 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c       |  9 +++
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.h       |  2 +
- drivers/gpu/drm/nouveau/nouveau_connector.c   | 14 +++++
- include/drm/display/drm_dp_mst_helper.h       |  2 +
- 7 files changed, 94 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1739710003a4..51732bd603a9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6318,10 +6318,17 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
- 		drm_atomic_get_old_connector_state(state, conn);
- 	struct drm_crtc *crtc = new_con_state->crtc;
- 	struct drm_crtc_state *new_crtc_state;
-+	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(conn);
- 	int ret;
- 
- 	trace_amdgpu_dm_connector_atomic_check(new_con_state);
- 
-+	if (conn->connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-+		ret = drm_dp_mst_root_conn_atomic_check(new_con_state, &aconn->mst_mgr);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	if (!crtc)
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 2f7c43f88d74..97e8f8a83ed4 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4597,6 +4597,65 @@ void drm_dp_mst_atomic_wait_for_dependencies(struct drm_atomic_state *state)
- }
- EXPORT_SYMBOL(drm_dp_mst_atomic_wait_for_dependencies);
- 
-+/**
-+ * drm_dp_mst_root_conn_atomic_check() - Serialize CRTC commits on MST-capable connectors operating
-+ * in SST mode
-+ * @new_conn_state: The new connector state of the &drm_connector
-+ * @mgr: The MST topology manager for the &drm_connector
-+ *
-+ * Since MST uses fake &drm_encoder structs, the generic atomic modesetting code isn't able to
-+ * serialize non-blocking commits happening on the real DP connector of an MST topology switching
-+ * into/away from MST mode - as the CRTC on the real DP connector and the CRTCs on the connector's
-+ * MST topology will never share the same &drm_encoder.
-+ *
-+ * This function takes care of this serialization issue, by checking a root MST connector's atomic
-+ * state to determine if it is about to have a modeset - and then pulling in the MST topology state
-+ * if so, along with adding any relevant CRTCs to &drm_dp_mst_topology_state.pending_crtc_mask.
-+ *
-+ * Drivers implementing MST must call this function from the
-+ * &drm_connector_helper_funcs.atomic_check hook of any physical DP &drm_connector capable of
-+ * driving MST sinks.
-+ *
-+ * Returns:
-+ * 0 on success, negative error code otherwise
-+ */
-+int drm_dp_mst_root_conn_atomic_check(struct drm_connector_state *new_conn_state,
-+				      struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	struct drm_atomic_state *state = new_conn_state->state;
-+	struct drm_connector_state *old_conn_state =
-+		drm_atomic_get_old_connector_state(state, new_conn_state->connector);
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_dp_mst_topology_state *mst_state = NULL;
-+
-+	if (new_conn_state->crtc) {
-+		crtc_state = drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
-+		if (crtc_state && drm_atomic_crtc_needs_modeset(crtc_state)) {
-+			mst_state = drm_atomic_get_mst_topology_state(state, mgr);
-+			if (IS_ERR(mst_state))
-+				return PTR_ERR(mst_state);
-+
-+			mst_state->pending_crtc_mask |= drm_crtc_mask(new_conn_state->crtc);
-+		}
-+	}
-+
-+	if (old_conn_state->crtc) {
-+		crtc_state = drm_atomic_get_new_crtc_state(state, old_conn_state->crtc);
-+		if (crtc_state && drm_atomic_crtc_needs_modeset(crtc_state)) {
-+			if (!mst_state) {
-+				mst_state = drm_atomic_get_mst_topology_state(state, mgr);
-+				if (IS_ERR(mst_state))
-+					return PTR_ERR(mst_state);
-+			}
-+
-+			mst_state->pending_crtc_mask |= drm_crtc_mask(old_conn_state->crtc);
-+		}
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_root_conn_atomic_check);
-+
- /**
-  * drm_dp_mst_update_slots() - updates the slot info depending on the DP ecoding format
-  * @mst_state: mst_state to update
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 32292c0be2bd..a4e113253df3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4992,12 +4992,21 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
- {
- 	struct drm_i915_private *dev_priv = to_i915(conn->dev);
- 	struct intel_atomic_state *state = to_intel_atomic_state(_state);
-+	struct drm_connector_state *conn_state = drm_atomic_get_new_connector_state(_state, conn);
-+	struct intel_connector *intel_conn = to_intel_connector(conn);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(intel_conn->encoder);
- 	int ret;
- 
- 	ret = intel_digital_connector_atomic_check(conn, &state->base);
- 	if (ret)
- 		return ret;
- 
-+	if (intel_dp_mst_source_support(intel_dp)) {
-+		ret = drm_dp_mst_root_conn_atomic_check(conn_state, &intel_dp->mst_mgr);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/*
- 	 * We don't enable port sync on BDW due to missing w/as and
- 	 * due to not having adjusted the modeset sequence appropriately.
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 24807aa9da5f..7e9a0b50bb42 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1813,7 +1813,7 @@ nv50_sor_func = {
- 	.destroy = nv50_sor_destroy,
- };
- 
--static bool nv50_has_mst(struct nouveau_drm *drm)
-+bool nv50_has_mst(struct nouveau_drm *drm)
- {
- 	struct nvkm_bios *bios = nvxx_bios(&drm->client.device);
- 	u32 data;
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.h b/drivers/gpu/drm/nouveau/dispnv50/disp.h
-index 38dec11e7dda..9d66c9c726c3 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.h
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.h
-@@ -106,6 +106,8 @@ void nv50_dmac_destroy(struct nv50_dmac *);
-  */
- struct nouveau_encoder *nv50_real_outp(struct drm_encoder *encoder);
- 
-+bool nv50_has_mst(struct nouveau_drm *drm);
-+
- u32 *evo_wait(struct nv50_dmac *, int nr);
- void evo_kick(u32 *, struct nv50_dmac *);
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index bdaec3427f14..6c412c1c1221 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1105,11 +1105,25 @@ nouveau_connector_best_encoder(struct drm_connector *connector)
- 	return NULL;
- }
- 
-+static int
-+nouveau_connector_atomic_check(struct drm_connector *connector, struct drm_atomic_state *state)
-+{
-+	struct nouveau_connector *nv_conn = nouveau_connector(connector);
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+
-+	if (!nv_conn->dp_encoder || !nv50_has_mst(nouveau_drm(connector->dev)))
-+		return 0;
-+
-+	return drm_dp_mst_root_conn_atomic_check(conn_state, &nv_conn->dp_encoder->dp.mstm->mgr);
-+}
-+
- static const struct drm_connector_helper_funcs
- nouveau_connector_helper_funcs = {
- 	.get_modes = nouveau_connector_get_modes,
- 	.mode_valid = nouveau_connector_mode_valid,
- 	.best_encoder = nouveau_connector_best_encoder,
-+	.atomic_check = nouveau_connector_atomic_check,
- };
- 
- static const struct drm_connector_funcs
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 0ef7d0e6cf0c..b9c361b242ea 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -911,6 +911,8 @@ int drm_dp_send_query_stream_enc_status(struct drm_dp_mst_topology_mgr *mgr,
- 		struct drm_dp_mst_port *port,
- 		struct drm_dp_query_stream_enc_status_ack_reply *status);
- int __must_check drm_dp_mst_atomic_check(struct drm_atomic_state *state);
-+int __must_check drm_dp_mst_root_conn_atomic_check(struct drm_connector_state *new_conn_state,
-+						   struct drm_dp_mst_topology_mgr *mgr);
- 
- void drm_dp_mst_get_port_malloc(struct drm_dp_mst_port *port);
- void drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index bbbf760f8ad2..77d549dbe2a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -546,8 +546,10 @@ static int soc21_common_early_init(void *handle)
+ 	case IP_VERSION(11, 0, 0):
+ 		adev->cg_flags = AMD_CG_SUPPORT_GFX_CGCG |
+ 			AMD_CG_SUPPORT_GFX_CGLS |
++#if 0
+ 			AMD_CG_SUPPORT_GFX_3D_CGCG |
+ 			AMD_CG_SUPPORT_GFX_3D_CGLS |
++#endif
+ 			AMD_CG_SUPPORT_GFX_MGCG |
+ 			AMD_CG_SUPPORT_REPEATER_FGCG |
+ 			AMD_CG_SUPPORT_GFX_FGCG |
 -- 
-2.37.1
+2.29.0
 
