@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A265EC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0DCAC00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D6F11135CF;
-	Wed, 10 Aug 2022 16:42:39 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A762918BA6C;
- Wed, 10 Aug 2022 16:41:23 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- cb12-20020a056830618c00b00616b871cef3so10992975otb.5; 
- Wed, 10 Aug 2022 09:41:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5818E113475;
+	Wed, 10 Aug 2022 16:45:36 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F72010ECF2;
+ Wed, 10 Aug 2022 16:45:21 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id s199so12531574oie.3;
+ Wed, 10 Aug 2022 09:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=XTiTJ4FxwpWw84LKiNSYSTO/gnrN5qUZqhqmKW/Gh4w=;
- b=iga87Q0F4KLtml0NyMbtr1doo/KawlNydW0obAC9W9XBiNKTLuc1dMMr/L4myWJJ96
- RjUTWxAXFZr3TjlQ21zg9Of0DCXVXPRilL9UrcA8kO7QEhdtNkFddzJx/QOHI8CbQWIm
- 7W4UcXySZoD/kMnHqpgnbDT3yf1ctBtw3XpjfDz/Nv3fYhMV3x1Ui3sG8O73WGnfFMAe
- Y7LRSZCv7bOs1dQa/KbAX9s7/bHvJnL0OAzEIqFm0nxq3ObFt0VMZrAPsC0ZvUDh/IZ6
- 4hVNzZlY6ScDa9WRaxIODBundsFeu2eK/lej7WY//Sp2ZdQVZX4euO6ivO6wgJNB8C4U
- J1vg==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=NSIuwia75AioRZjhVarBTibdxYk00sTiEecc5ZuZS9E=;
+ b=kENX+o4wrssMMzqSMw1M5ozx3d9utXAbtsvarJNWyuPkDc0Nt0xz8M5ab94yxFwhpA
+ 2q4Tfc3dZzhbuauuTMXJ1rDTDHzoNndJZ34Gkz2IZ1Gn4VA4DHTTsgxehTQgLooSKTSj
+ Mk1twBkTQH81k6OcYGdzZGUPXMCnj1doRu7wz/MMza6nfA/b8n0Qny1gf6H8denI3p1L
+ ASE/p0vlAe8y8ZVTPNajx4ywJd54/Tuq05vxqKB7Pu4jGNGwD6RhS118w/aTLCfNjfak
+ btlyz29j3oWlgHNvGUHomi6hBSutYtwLHzWd955xtH7Mrqx310IHeM59DpkkRbZbHBMS
+ 8v9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=XTiTJ4FxwpWw84LKiNSYSTO/gnrN5qUZqhqmKW/Gh4w=;
- b=plRdnXNK23U2IHQvk0n/Ps17LdEp+P+C7GO9wapSRue/qQp24QZOS0rk20fr0aZekm
- pyKYZNV3w0myhw7KQdhi7dxyGrBMU33IzE4lEg24ooBfMyTaF1q3OgdYhfOu0T/AQEfp
- cYTMUFaILLSm1orEEYXqFJWBsUeQmDtmsgbKon81Pw0LRwml3dIpnCfAY2bqtEIUFnD6
- FQ0Viy0fjwYzt9ooZoXZQiysMtUPN+7ioFIygvW2PZjv4asFAcXQKlnZGOaakmj+laoD
- op4whgtTE3VfG3XzEKLMzjH6kRykGY6iWlPLzkQgVPD3CZTXkP34vUbAnO7/MICOJew6
- Qgtg==
-X-Gm-Message-State: ACgBeo1qlruzyd1Zaj1HIcCE6YiJQ+I02qeBQzS83lPIdykSL2QQsdr0
- B+o+wtLaxsb631Fb/IdiJcc+ci9Y0Nrb9PERc74=
-X-Google-Smtp-Source: AA6agR6wR4ecNZe8+daGyRZM7VDRQFe/FZPJGUKIa38dUFuAS7M6VAf17HivKhzzWW1T/4Ni+myaw/45sJblGkIs5ZM=
-X-Received: by 2002:a9d:c64:0:b0:636:df4c:e766 with SMTP id
- 91-20020a9d0c64000000b00636df4ce766mr5897353otr.12.1660149682412; Wed, 10 Aug
- 2022 09:41:22 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=NSIuwia75AioRZjhVarBTibdxYk00sTiEecc5ZuZS9E=;
+ b=njMiH5BHiQ2kjBqf5IuHnRveDsL+vkvmBk6eGGN7U6LslTUWWLcgoeI3dmJMOerki1
+ hskJ6ZFBD+o2ULitv8EdpO6GWP6pALR1WI/APkbphnZEpSxcrYJSWvjVYsZT8grblRba
+ iZtDRn76EiZsYxwR73n1d2xiYjJQXz6n3D3ws4bdejCLk2K7fAL7XlHGKJLWT7DqemKF
+ j8D4YdMoTsBpLLYlDOUi/EULrUfoDWn/EK+HYOcc9M6tYj/6tdf/Dt05sLc2SxyjSfvB
+ uCo8pxDxi9MCtXfdXnBAZoljoCUZFrsq9e99tiv1wwRZJ574Y1gnTUA73bwz05QX99rc
+ InEw==
+X-Gm-Message-State: ACgBeo3JmVapLQ+l/WLQGN/1qWf4h9FUkgFeeAzIvRyQlCl+cSKMAU+v
+ T6IkWLW+sFMsw2Th5C0V1cdBD/bfc9OFZRwVDBNAhXzC
+X-Google-Smtp-Source: AA6agR5jPsxMjdCvQPJkJJ+C80rMfEQkIZzWUMSmXSQvgYmlAZKZFe2wka+OZiJrFoMim+O04MFy8r1YAwnmqV1ykp0=
+X-Received: by 2002:a05:6808:19a3:b0:33e:1525:3fb4 with SMTP id
+ bj35-20020a05680819a300b0033e15253fb4mr1793219oib.106.1660149920416; Wed, 10
+ Aug 2022 09:45:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220730034923.25500-1-mailmesebin00@gmail.com>
- <31187f41-64c8-d7ce-fcf2-5da421b3e194@igalia.com>
-In-Reply-To: <31187f41-64c8-d7ce-fcf2-5da421b3e194@igalia.com>
+References: <20220801135259.3039679-1-imre.deak@intel.com>
+ <o3jSEcvDEw1afwzuUMylF9fY-EM-Kz5wHJVoktY8yNal0kEyLHa44nNBP1OTb4emiqyTuwxSVeiT52eYgSXYwGHmaGMiI60hDYJOOhS8Q-8=@emersion.fr>
+In-Reply-To: <o3jSEcvDEw1afwzuUMylF9fY-EM-Kz5wHJVoktY8yNal0kEyLHa44nNBP1OTb4emiqyTuwxSVeiT52eYgSXYwGHmaGMiI60hDYJOOhS8Q-8=@emersion.fr>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 Aug 2022 12:41:11 -0400
-Message-ID: <CADnq5_OOWekUj-Y8Y64=vUUMfUmEXUyQ1Ougmqj2afKtu6hdNA@mail.gmail.com>
-Subject: Re: [PATCHv2 -next] drm/amdgpu: double free error and freeing
- uninitialized null pointer
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Wed, 10 Aug 2022 12:45:09 -0400
+Message-ID: <CADnq5_OK3H1QHA156G5z5w9-Mhj7ZwXaAJwfTv=E3zPTAYEaTw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd/display: Fix merge conflict resolution in
+ amdgpu_dm_plane.c
+To: Simon Ser <contact@emersion.fr>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,32 +64,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- David Airlie <airlied@linux.ie>, Sebin Sebastian <mailmesebin00@gmail.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-On Mon, Aug 1, 2022 at 1:08 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com> =
-wrote:
+On Mon, Aug 1, 2022 at 10:08 AM Simon Ser <contact@emersion.fr> wrote:
 >
-> =C3=80s 00:46 de 30/07/22, Sebin Sebastian escreveu:
-> > Fix a double free and an uninitialized pointer read error. Both tmp and
-> > new are pointing at same address and both are freed which leads to
-> > double free. Adding a check to verify if new and tmp are free in the
-> > error_free label fixes the double free issue. new is not initialized to
-> > null which also leads to a free on an uninitialized pointer.
+> Acked-by: Simon Ser <contact@emersion.fr>
+>
+> CC amd-gfx
+>
+> On Monday, August 1st, 2022 at 15:52, Imre Deak <imre.deak@intel.com> wrote:
+>
+> > The API change introduced in
 > >
-> > Suggested by: S. Amaranath <Amaranath.Somalapuram@amd.com>
-> > Signed-off-by: Sebin Sebastian <mailmesebin00@gmail.com>
->
-> Reviewed-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> > commit 30c637151cfa ("drm/plane-helper: Export individual helpers")
+> >
+> > was missed in the conflict resolution of
+> >
+> > commit d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
+> >
+> > fix this up.
+> >
+> > Fixes: d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
+> > Cc: Simon Ser contact@emersion.fr
+> >
+> > Cc: Thomas Zimmermann tzimmermann@suse.de
+> >
+> > Acked-by: Thomas Zimmermann tzimmermann@suse.de
+> >
+> > Signed-off-by: Imre Deak imre.deak@intel.com
+> >
+> > ---
+> > drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > index 8cd25b2ea0dca..5eb5d31e591de 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > @@ -1562,7 +1562,7 @@ int dm_drm_plane_get_property(struct drm_plane *plane,
+> > static const struct drm_plane_funcs dm_plane_funcs = {
+> > .update_plane = drm_atomic_helper_update_plane,
+> > .disable_plane = drm_atomic_helper_disable_plane,
+> > - .destroy = drm_primary_helper_destroy,
+> > + .destroy = drm_plane_helper_destroy,
+> > .reset = dm_drm_plane_reset,
+> > .atomic_duplicate_state = dm_drm_plane_duplicate_state,
+> > .atomic_destroy_state = dm_drm_plane_destroy_state,
+> > --
+> > 2.37.1
