@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 097BEC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A265EC00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 16:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A770818A95E;
-	Wed, 10 Aug 2022 16:37:01 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21BB214A8E8
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 16:35:13 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id w197so5297109oie.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 09:35:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D6F11135CF;
+	Wed, 10 Aug 2022 16:42:39 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A762918BA6C;
+ Wed, 10 Aug 2022 16:41:23 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ cb12-20020a056830618c00b00616b871cef3so10992975otb.5; 
+ Wed, 10 Aug 2022 09:41:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=u8yHwcZjwogyUbRDEZ3azdOScbZUsGNDHdwbVyrRpUI=;
- b=VZmJh6/X+7lwEPCWOklKS8ZysHJh+x58bovk/TSCRcucKb9/BQ0UVrD65z3c4Td6p0
- Hk3/cuHAoRiKKq2dFILSPiVmCDYWgRmbBbbkVsk8tpszB8Z39oAjprfZmg8NOWRkwAbN
- VYHVW55nHsTZmHQpH6CAQfoc372URwz1+7qCpvUiIOF0DFq95ZVBNtgmx76N0iLwefkb
- FMcKK3uchNfA2e8tJdeWETHGvZBpsJcBdg1OZjJ0y2ZYGscjqYU3CCNhDfeO4iWjhWoZ
- raEBNBFZzoxsO/2JZu1S/7N7iDoo5WQNxdXOabKOp1k4SU41i9h0bwzJ9wYBssPa3hFW
- jOmg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=XTiTJ4FxwpWw84LKiNSYSTO/gnrN5qUZqhqmKW/Gh4w=;
+ b=iga87Q0F4KLtml0NyMbtr1doo/KawlNydW0obAC9W9XBiNKTLuc1dMMr/L4myWJJ96
+ RjUTWxAXFZr3TjlQ21zg9Of0DCXVXPRilL9UrcA8kO7QEhdtNkFddzJx/QOHI8CbQWIm
+ 7W4UcXySZoD/kMnHqpgnbDT3yf1ctBtw3XpjfDz/Nv3fYhMV3x1Ui3sG8O73WGnfFMAe
+ Y7LRSZCv7bOs1dQa/KbAX9s7/bHvJnL0OAzEIqFm0nxq3ObFt0VMZrAPsC0ZvUDh/IZ6
+ 4hVNzZlY6ScDa9WRaxIODBundsFeu2eK/lej7WY//Sp2ZdQVZX4euO6ivO6wgJNB8C4U
+ J1vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=u8yHwcZjwogyUbRDEZ3azdOScbZUsGNDHdwbVyrRpUI=;
- b=QpDQtt4SUYUNl1NPBEVvwYmqB+D/C+nT/6epp7TvzWsieb8u0eWvq07itbEsHUg6Sq
- awuA8DgXlBZgdybKRYv8FP1V7WjJc82milKiP1Tb5L5QjurReZQaARGZyw5UJ6L2Qw7L
- QfXDeT9qki20wf2ejuCcetTOCCHL+5fFAr8l56fAs0BQWQa1FL+2DTy5lREULjt2ekkd
- Cu+MNgf1HbmWxIbDpRrwG+PjjZV//hzamMwkX1H5t9ybbCrcg7jy4GFtcCJujnE04ti7
- am6WFFuuE9XOD2tO1AFQXQS009YfYtPmX/5jvLZgBi9U+LxSFrJoeH9OnybhYVjEuT5m
- S83A==
-X-Gm-Message-State: ACgBeo1jDE6A2e1BMti2S1X3b3qQctPofnGgpW5O6A5NQkyhWQDgO42L
- wQKBMkKD0qOayQgHoBBK4VYQn90a/Y3aGT94lVzU0nk7
-X-Google-Smtp-Source: AA6agR6FS4CQNoWUIylU4OKtd1ZfJV7mePzCzxmpLEC22RobfxyZZuKCe79NlGr4pSj8CMNZQ0boSjcTCPR4oxkat/s=
-X-Received: by 2002:a05:6808:19a3:b0:33e:1525:3fb4 with SMTP id
- bj35-20020a05680819a300b0033e15253fb4mr1777426oib.106.1660149311282; Wed, 10
- Aug 2022 09:35:11 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=XTiTJ4FxwpWw84LKiNSYSTO/gnrN5qUZqhqmKW/Gh4w=;
+ b=plRdnXNK23U2IHQvk0n/Ps17LdEp+P+C7GO9wapSRue/qQp24QZOS0rk20fr0aZekm
+ pyKYZNV3w0myhw7KQdhi7dxyGrBMU33IzE4lEg24ooBfMyTaF1q3OgdYhfOu0T/AQEfp
+ cYTMUFaILLSm1orEEYXqFJWBsUeQmDtmsgbKon81Pw0LRwml3dIpnCfAY2bqtEIUFnD6
+ FQ0Viy0fjwYzt9ooZoXZQiysMtUPN+7ioFIygvW2PZjv4asFAcXQKlnZGOaakmj+laoD
+ op4whgtTE3VfG3XzEKLMzjH6kRykGY6iWlPLzkQgVPD3CZTXkP34vUbAnO7/MICOJew6
+ Qgtg==
+X-Gm-Message-State: ACgBeo1qlruzyd1Zaj1HIcCE6YiJQ+I02qeBQzS83lPIdykSL2QQsdr0
+ B+o+wtLaxsb631Fb/IdiJcc+ci9Y0Nrb9PERc74=
+X-Google-Smtp-Source: AA6agR6wR4ecNZe8+daGyRZM7VDRQFe/FZPJGUKIa38dUFuAS7M6VAf17HivKhzzWW1T/4Ni+myaw/45sJblGkIs5ZM=
+X-Received: by 2002:a9d:c64:0:b0:636:df4c:e766 with SMTP id
+ 91-20020a9d0c64000000b00636df4ce766mr5897353otr.12.1660149682412; Wed, 10 Aug
+ 2022 09:41:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220805160930.13664-1-shaoyun.liu@amd.com>
-In-Reply-To: <20220805160930.13664-1-shaoyun.liu@amd.com>
+References: <20220730034923.25500-1-mailmesebin00@gmail.com>
+ <31187f41-64c8-d7ce-fcf2-5da421b3e194@igalia.com>
+In-Reply-To: <31187f41-64c8-d7ce-fcf2-5da421b3e194@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 Aug 2022 12:35:00 -0400
-Message-ID: <CADnq5_N18cwfpxO-U7yhp2snY170_Y07f2xddCzdf4pjn-hwaQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use sjt mec fw on aldebaran for sriov
-To: shaoyunl <shaoyun.liu@amd.com>
+Date: Wed, 10 Aug 2022 12:41:11 -0400
+Message-ID: <CADnq5_OOWekUj-Y8Y64=vUUMfUmEXUyQ1Ougmqj2afKtu6hdNA@mail.gmail.com>
+Subject: Re: [PATCHv2 -next] drm/amdgpu: double free error and freeing
+ uninitialized null pointer
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,73 +66,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Tom St Denis <tom.stdenis@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ David Airlie <airlied@linux.ie>, Sebin Sebastian <mailmesebin00@gmail.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 5, 2022 at 12:11 PM shaoyunl <shaoyun.liu@amd.com> wrote:
->
-> The second jump table is required on live migration or mulitple VF
-> configuration on Aldebaran. With this implemented, the first level
-> jump table(hw used) will be same, mec fw internal will use the
-> second level jump table jump to the real functionality implementation.
-> so the different VF can load different version of MEC as long as
-> they support sjt
-
-You might want some sort of mechanism to determine if the sjt firmware
-was loaded so you know whether live migration is possible, although I
-guess it's probably only used in controlled environments so it would
-be a known prerequisite.
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Applied.  Thanks!
 
 Alex
 
+On Mon, Aug 1, 2022 at 1:08 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com> =
+wrote:
 >
-> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
+> =C3=80s 00:46 de 30/07/22, Sebin Sebastian escreveu:
+> > Fix a double free and an uninitialized pointer read error. Both tmp and
+> > new are pointing at same address and both are freed which leads to
+> > double free. Adding a check to verify if new and tmp are free in the
+> > error_free label fixes the double free issue. new is not initialized to
+> > null which also leads to a free on an uninitialized pointer.
+> >
+> > Suggested by: S. Amaranath <Amaranath.Somalapuram@amd.com>
+> > Signed-off-by: Sebin Sebastian <mailmesebin00@gmail.com>
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index c6e0f9313a7f..7f187558220e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -126,6 +126,8 @@ MODULE_FIRMWARE("amdgpu/green_sardine_rlc.bin");
->  MODULE_FIRMWARE("amdgpu/aldebaran_mec.bin");
->  MODULE_FIRMWARE("amdgpu/aldebaran_mec2.bin");
->  MODULE_FIRMWARE("amdgpu/aldebaran_rlc.bin");
-> +MODULE_FIRMWARE("amdgpu/aldebaran_sjt_mec.bin");
-> +MODULE_FIRMWARE("amdgpu/aldebaran_sjt_mec2.bin");
->
->  #define mmTCP_CHAN_STEER_0_ARCT                                                                0x0b03
->  #define mmTCP_CHAN_STEER_0_ARCT_BASE_IDX                                                       0
-> @@ -1496,7 +1498,11 @@ static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
->         const struct common_firmware_header *header = NULL;
->         const struct gfx_firmware_header_v1_0 *cp_hdr;
->
-> -       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", chip_name);
-> +       if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_ALDEBARAN))
-> +               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sjt_mec.bin", chip_name);
-> +       else
-> +               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", chip_name);
-> +
->         err = request_firmware(&adev->gfx.mec_fw, fw_name, adev->dev);
->         if (err)
->                 goto out;
-> @@ -1509,7 +1515,11 @@ static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
->
->
->         if (gfx_v9_0_load_mec2_fw_bin_support(adev)) {
-> -               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name);
-> +               if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_ALDEBARAN))
-> +                       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sjt_mec2.bin", chip_name);
-> +               else
-> +                       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name);
-> +
->                 err = request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
->                 if (!err) {
->                         err = amdgpu_ucode_validate(adev->gfx.mec2_fw);
-> --
-> 2.17.1
->
+> Reviewed-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
