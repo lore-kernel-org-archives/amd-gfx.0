@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F7C8C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FA4C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31641A18C1;
-	Thu, 11 Aug 2022 12:54:17 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 624D8A729E
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 07:37:27 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- q9-20020a17090a2dc900b001f58bcaca95so4542540pjm.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:37:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=NcU2K7qPg3sebdA5bOJPql0+gvPYJdFf9wk35Xzco8A=;
- b=Ib49xUPIrpk9e6UG9jWofU3kC/kxSQoHt38NeZoIU6Xls6w/WfqXT72GEDI2qktT9O
- 6Cz6L1K7tReUYbf9IQWF2JG9xkF8Ijs9xrzlVHoaHCKZxRAG3O8InS07wm8EtcM2Cns2
- +kueEfg+OqFbI9oykGmD14Aqd+F2UD6SdvGJOj+m4AILGQsz6M0mWKc94mBDLrwfFmWy
- CPoQkFaBPdO4jfYysPxjArV3CwveNzztKj9075sg2VM+FiKAkDdyCY5Yw7bemaoJrjP5
- CR4rCy0+mnIf+ZsBCbg093T7YyCwjp6MZuTCR4CJqDWttJIBRbuaqSfNigQxD1h78dOs
- SaPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=NcU2K7qPg3sebdA5bOJPql0+gvPYJdFf9wk35Xzco8A=;
- b=S1B/9jRCHm8X8II57OiHoowpRGwvQBd1/rUHY/meJN6hJtJDJwJ8XEVYKH8C7kzYwb
- TSpni24EhOkiqsLePVDZaF2kJg5labj/66HXFC8AUUj+oK7FL0lJ6oe0IrPJuFU9pzFg
- 7GzYsaZnRq01BMBkckhU29rtd2U4MQY5WrvWj397ffPVcCLJiUPeAvzfPZcld7aegrjc
- +MN1PQ3ABxhgJZMw3tlti4K2lEqALaVal9Un2w/QvIDrc2vQY/UmpFxoxLaagkXnVu/n
- cLVWYcsR+8K3RL5kgynSIi4VDMPdqTNjIaNlgBh8XNb+iPf9B3kaWiSFIjuLbRv4rJJR
- r2IA==
-X-Gm-Message-State: ACgBeo00tbl7azpCn9VTe0rAA1TVwFDGD/MdLksqfUeOynaPgVsU9FeM
- tcHliJJeLmS1kX2mRVBv1hkbFevNZlQ4+71/W7IkOGTQBu8CPtby
-X-Google-Smtp-Source: AA6agR7/kXSPnHePuTr8wDqinipw0OoNG9ImIpImU5EoTwDIJYfN53GJlFuyxNsyfWy0DJOMZdTR+MvNO/zIK0RKRsc=
-X-Received: by 2002:a67:cb0c:0:b0:357:9897:32d4 with SMTP id
- b12-20020a67cb0c000000b00357989732d4mr13346386vsl.18.1660203435364; Thu, 11
- Aug 2022 00:37:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F8514B938;
+	Thu, 11 Aug 2022 12:54:18 +0000 (UTC)
+Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D57A72DC;
+ Thu, 11 Aug 2022 07:26:01 +0000 (UTC)
+X-UUID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
+X-CPASD-INFO: 12437b500c9c49a980b461ad49267f8a@eoJuU2SUY2Bcg3uvg3ysc1hhkmRmXYG
+ zdnNSZmWWZIGVgnxsTV5qXFWCgGpQYWNdYlV3fGtQYmBgZFB5i4Jyj1RgXmCCVHSTgHNsVGNlkg==
+X-CLOUD-ID: 12437b500c9c49a980b461ad49267f8a
+X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
+ TVAL:196.
+ 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:245.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
+ PHC:-5
+ .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
+ SIG:-
+ 5, AUF:2, DUF:2126, ACD:46, DCD:46, SL:0, EISP:0, AG:0, CFC:0.597, CFSR:0.039,
+ UAT:0, RA
+ F:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
+ ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
+X-CPASD-ID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
+X-CPASD-BLOCK: 1000
+X-CPASD-STAGE: 1
+X-UUID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 634263236; Thu, 11 Aug 2022 15:25:53 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/radeon: add a force flush to delay work when radeon
+Date: Thu, 11 Aug 2022 15:25:40 +0800
+Message-Id: <20220811072540.964309-1-lizhenneng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220811004010.61299-1-tales.aparecida@gmail.com>
- <20220811004010.61299-8-tales.aparecida@gmail.com>
-In-Reply-To: <20220811004010.61299-8-tales.aparecida@gmail.com>
-From: David Gow <davidgow@google.com>
-Date: Thu, 11 Aug 2022 15:37:04 +0800
-Message-ID: <CABVgOSmJm0W1OAk7Ja8zb_WMcj=kXx7-w9J747k5sRySi1Jyfw@mail.gmail.com>
-Subject: Re: [PATCH 7/8] drm/amd/display: Introduce KUnit tests to dc_dmub_srv
- library
-To: Tales Aparecida <tales.aparecida@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Aug 2022 12:54:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,434 +54,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrealmeid@riseup.net, Thomas Zimmermann <tzimmermann@suse.de>,
- siqueirajordao@riseup.net, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
- Leo Li <sunpeng.li@amd.com>, Isabella Basso <isabbasso@riseup.net>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, magalilemes00@gmail.com,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
- Trevor Woerner <twoerner@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- KUnit Development <kunit-dev@googlegroups.com>
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 11, 2022 at 8:41 AM Tales Aparecida
-<tales.aparecida@gmail.com> wrote:
->
-> From: Ma=C3=ADra Canal <mairacanal@riseup.net>
->
-> Add unit test to the SubVP feature in order to avoid possible
-> regressions and assure the code robustness.
->
-> Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
-> Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
-> ---
+Although radeon card fence and wait for gpu to finish processing current batch rings,
+there is still a corner case that radeon lockup work queue may not be fully flushed,
+and meanwhile the radeon_suspend_kms() function has called pci_set_power_state() to
+put device in D3hot state.
+Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
+> Configuration and Message requests are the only TLPs accepted by a Function in
+> the D3hot state. All other received Requests must be handled as Unsupported Requests,
+> and all received Completions may optionally be handled as Unexpected Completions.
+This issue will happen in following logs:
+Unable to handle kernel paging request at virtual address 00008800e0008010
+CPU 0 kworker/0:3(131): Oops 0
+pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 Tainted: G        W
+pc is at si_gpu_check_soft_reset+0x3c/0x240
+ra is at si_dma_is_lockup+0x34/0xd0
+v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
+t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
+t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
+s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
+s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
+s6 = fff00007ef07bd98
+a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
+a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
+t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
+t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
+gp = ffffffff81d89690  sp = 00000000aa814126
+Disabling lock debugging due to kernel taint
+Trace:
+[<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
+[<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
+[<ffffffff80977010>] process_one_work+0x280/0x550
+[<ffffffff80977350>] worker_thread+0x70/0x7c0
+[<ffffffff80977410>] worker_thread+0x130/0x7c0
+[<ffffffff80982040>] kthread+0x200/0x210
+[<ffffffff809772e0>] worker_thread+0x0/0x7c0
+[<ffffffff80981f8c>] kthread+0x14c/0x210
+[<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
+[<ffffffff80981e40>] kthread+0x0/0x210
+ Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8  40230101
+ <88210000> 4821ed21
+So force lockup work queue flush to fix this problem.
 
-FYI: This seems to have a dependency issue. See below.
+Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+---
+ drivers/gpu/drm/radeon/radeon_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Otherwise, I haven't had a chance to review it properly yet, but I'll
-try to take a closer look over the next few days.
-
-Cheers,
--- David
-
->  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   4 +
->  .../amd/display/tests/dc/dc_dmub_srv_test.c   | 285 ++++++++++++++++++
->  2 files changed, 289 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test=
-.c
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/d=
-rm/amd/display/dc/dc_dmub_srv.c
-> index 2d61c2a91cee..f5dd1f69840e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> @@ -809,3 +809,7 @@ void dc_dmub_srv_log_diagnostic_data(struct dc_dmub_s=
-rv *dc_dmub_srv)
->                 diag_data.is_cw0_enabled,
->                 diag_data.is_cw6_enabled);
->  }
-> +
-> +#if IS_ENABLED(CONFIG_AMD_DC_BASICS_KUNIT_TEST)
-> +#include "../tests/dc/dc_dmub_srv_test.c"
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c b/dr=
-ivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
-> new file mode 100644
-> index 000000000000..051079cbf65e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
-> @@ -0,0 +1,285 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * KUnit tests for dc_dmub_srv.c
-> + *
-> + * Copyright (C) 2022, Ma=C3=ADra Canal <mairacanal@riseup.net>
-> + */
-> +
-> +#include <kunit/test.h>
-> +#include "dc_dmub_srv.h"
-> +
-> +struct populate_subvp_cmd_drr_info_test_case {
-> +       const char *desc;
-> +       struct dc *dc;
-> +       struct pipe_ctx *subvp_pipe;
-> +       struct pipe_ctx *vblank_pipe;
-> +       const u8 drr_in_use;
-> +       const u8 drr_window_size_ms;
-> +       const u16 min_vtotal_supported;
-> +       const u16 max_vtotal_supported;
-> +       const u8 use_ramping;
-> +};
-> +
-> +struct populate_subvp_cmd_drr_info_test_case populate_subvp_cmd_drr_info=
-_cases[] =3D {
-> +       {
-> +               .desc =3D "Same Clock Frequency",
-> +               .dc =3D &(struct dc) {
-> +                       .caps =3D {
-> +                               .subvp_prefetch_end_to_mall_start_us =3D =
-0,
-> +                       }
-> +               },
-> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 2784,
-> +                                       .v_addressable =3D 1080,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                               .mall_stream_config =3D {
-> +                                       .paired_stream =3D &(struct dc_st=
-ream_state) {
-> +                                               .timing =3D {
-> +                                                       .h_total =3D 3600=
-,
-> +                                                       .v_total =3D 1111=
-,
-> +                                                       .v_addressable =
-=3D 1080,
-> +                                                       .v_front_porch =
-=3D 3,
-> +                                                       .pix_clk_100hz =
-=3D 1855800,
-> +                                               },
-> +                                       },
-> +                               },
-> +                       },
-> +               },
-> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 2784,
-> +                                       .v_total =3D 1111,
-> +                                       .v_addressable =3D 1080,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                       },
-> +               },
-> +               .drr_in_use =3D true,
-> +               .use_ramping =3D false,
-> +               .drr_window_size_ms =3D 4,
-> +               .min_vtotal_supported =3D 2540,
-> +               .max_vtotal_supported =3D 2619,
-> +       },
-> +       {
-> +               .desc =3D "Same Clock Frequency with Prefetch End to Mall=
- Start",
-> +               .dc =3D &(struct dc) {
-> +                       .caps =3D {
-> +                               .subvp_prefetch_end_to_mall_start_us =3D =
-500,
-> +                       }
-> +               },
-> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 2784,
-> +                                       .v_addressable =3D 1080,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                               .mall_stream_config =3D {
-> +                                       .paired_stream =3D &(struct dc_st=
-ream_state) {
-> +                                               .timing =3D {
-> +                                                       .h_total =3D 3600=
-,
-> +                                                       .v_total =3D 1111=
-,
-> +                                                       .v_addressable =
-=3D 1080,
-> +                                                       .v_front_porch =
-=3D 3,
-> +                                                       .pix_clk_100hz =
-=3D 1855800,
-> +                                               },
-> +                                       },
-> +                               },
-> +                       },
-> +               },
-> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 2784,
-> +                                       .v_total =3D 1111,
-> +                                       .v_addressable =3D 1080,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                       },
-> +               },
-> +               .drr_in_use =3D true,
-> +               .use_ramping =3D false,
-> +               .drr_window_size_ms =3D 4,
-> +               .min_vtotal_supported =3D 2540,
-> +               .max_vtotal_supported =3D 2619,
-> +       },
-> +       {
-> +               .desc =3D "Same Clock Frequency Not Multiple of 2",
-> +               .dc =3D &(struct dc) {
-> +                       .caps =3D {
-> +                               .subvp_prefetch_end_to_mall_start_us =3D =
-0,
-> +                       }
-> +               },
-> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 2784,
-> +                                       .v_addressable =3D 1080,
-> +                                       .pix_clk_100hz =3D 1866743,
-> +                               },
-> +                               .mall_stream_config =3D {
-> +                                       .paired_stream =3D &(struct dc_st=
-ream_state) {
-> +                                               .timing =3D {
-> +                                                       .h_total =3D 3600=
-,
-> +                                                       .v_total =3D 2400=
-,
-> +                                                       .v_addressable =
-=3D 2360,
-> +                                                       .v_front_porch =
-=3D 4,
-> +                                                       .pix_clk_100hz =
-=3D 1866743,
-> +                                               },
-> +                                       },
-> +                               },
-> +                       },
-> +               },
-> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 3600,
-> +                                       .v_total =3D 2400,
-> +                                       .v_addressable =3D 2360,
-> +                                       .pix_clk_100hz =3D 1866743,
-> +                               },
-> +                       },
-> +               },
-> +               .drr_in_use =3D true,
-> +               .use_ramping =3D false,
-> +               .drr_window_size_ms =3D 4,
-> +               .min_vtotal_supported =3D 1387,
-> +               .max_vtotal_supported =3D 2875,
-> +       },
-> +       {
-> +               .desc =3D "Different Clock Frequency for smaller h_total =
-and v_total",
-> +               .dc =3D &(struct dc) {
-> +                       .caps =3D {
-> +                               .subvp_prefetch_end_to_mall_start_us =3D =
-300,
-> +                       }
-> +               },
-> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 1280,
-> +                                       .v_addressable =3D 600,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                               .mall_stream_config =3D {
-> +                                       .paired_stream =3D &(struct dc_st=
-ream_state) {
-> +                                               .timing =3D {
-> +                                                       .h_total =3D 1280=
-,
-> +                                                       .v_total =3D 720,
-> +                                                       .v_addressable =
-=3D 600,
-> +                                                       .v_front_porch =
-=3D 4,
-> +                                                       .pix_clk_100hz =
-=3D 1866743,
-> +                                               },
-> +                                       },
-> +                               },
-> +                       },
-> +               },
-> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 1280,
-> +                                       .v_total =3D 720,
-> +                                       .v_addressable =3D 600,
-> +                                       .pix_clk_100hz =3D 2100800,
-> +                               },
-> +                       },
-> +               },
-> +               .drr_in_use =3D true,
-> +               .use_ramping =3D false,
-> +               .drr_window_size_ms =3D 4,
-> +               .min_vtotal_supported =3D 1477,
-> +               .max_vtotal_supported =3D 9954,
-> +       },
-> +       {
-> +               .desc =3D "Different Clock Frequency for approximately 19=
-20x1080",
-> +               .dc =3D &(struct dc) {
-> +                       .caps =3D {
-> +                               .subvp_prefetch_end_to_mall_start_us =3D =
-0,
-> +                       }
-> +               },
-> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 1920,
-> +                                       .v_addressable =3D 1000,
-> +                                       .pix_clk_100hz =3D 1855800,
-> +                               },
-> +                               .mall_stream_config =3D {
-> +                                       .paired_stream =3D &(struct dc_st=
-ream_state) {
-> +                                               .timing =3D {
-> +                                                       .h_total =3D 1911=
-,
-> +                                                       .v_total =3D 1080=
-,
-> +                                                       .v_addressable =
-=3D 1000,
-> +                                                       .v_front_porch =
-=3D 7,
-> +                                                       .pix_clk_100hz =
-=3D 1866743,
-> +                                               },
-> +                                       },
-> +                               },
-> +                       },
-> +               },
-> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> +                       .stream =3D &(struct dc_stream_state) {
-> +                               .timing =3D {
-> +                                       .h_total =3D 1280,
-> +                                       .v_total =3D 720,
-> +                                       .v_addressable =3D 600,
-> +                                       .pix_clk_100hz =3D 2100800,
-> +                               },
-> +                       },
-> +               },
-> +               .drr_in_use =3D true,
-> +               .use_ramping =3D false,
-> +               .drr_window_size_ms =3D 4,
-> +               .min_vtotal_supported =3D 2482,
-> +               .max_vtotal_supported =3D 8971,
-> +       },
-> +};
-> +
-> +static void populate_subvp_cmd_drr_info_test_to_desc(struct
-> +               populate_subvp_cmd_drr_info_test_case * t, char *desc)
-> +{
-> +       strcpy(desc, t->desc);
-> +}
-> +
-> +KUNIT_ARRAY_PARAM(populate_subvp_cmd_drr_info, populate_subvp_cmd_drr_in=
-fo_cases,
-> +                 populate_subvp_cmd_drr_info_test_to_desc);
-> +
-> +static void populate_subvp_cmd_drr_info_test(struct kunit *test)
-> +{
-> +       const struct populate_subvp_cmd_drr_info_test_case *test_param =
-=3D
-> +               test->param_value;
-> +       struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 *pipe_data;
-> +
-> +       pipe_data =3D kunit_kzalloc(test,
-> +                                 sizeof(struct dmub_cmd_fw_assisted_mclk=
-_switch_pipe_data_v2),
-> +                                 GFP_KERNEL);
-> +
-> +       populate_subvp_cmd_drr_info(test_param->dc, test_param->subvp_pip=
-e,
-> +                                   test_param->vblank_pipe, pipe_data);
-
-Should this be hidden behind an #ifdef CONFIG_DRM_AMD_DC_DCN
-
-Otherwise, there are build issues under UML:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c:
-In function =E2=80=98populate_subvp_cmd_drr_info_test=E2=80=99:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c:=
-260:9:
-error: implicit declaration of function =E2=80=98populate_subvp_cmd_drr_inf=
-o=E2=80=99;
-did you mean =E2=80=98populate_subvp_cmd_drr_info_test=E2=80=99? [-Werror
-=3Dimplicit-function-declaration]
- 260 |         populate_subvp_cmd_drr_info(test_param->dc,
-test_param->subvp_pipe,
-     |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-     |         populate_subvp_cmd_drr_info_test
-cc1: some warnings being treated as errors
-make[5]: *** [../scripts/Makefile.build:249:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.o] Error 1
-
-Making the test skip itself if this isn't enabled worked fine here.
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 15692cb241fc..e608ca26780a 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
+ 		if (r) {
+ 			/* delay GPU reset to resume */
+ 			radeon_fence_driver_force_completion(rdev, i);
++		} else {
++			/* finish executing delayed work */
++			flush_delayed_work(&rdev->fence_drv[i].lockup_work);
+ 		}
+ 	}
+ 
+-- 
+2.25.1
 
 
-
-
-> +
-> +       KUNIT_EXPECT_EQ(test, test_param->drr_in_use,
-> +                       pipe_data->pipe_config.vblank_data.drr_info.drr_i=
-n_use);
-> +       KUNIT_EXPECT_EQ(test, test_param->drr_window_size_ms,
-> +                       pipe_data->pipe_config.vblank_data.drr_info.drr_w=
-indow_size_ms);
-> +       KUNIT_EXPECT_EQ(test, test_param->use_ramping,
-> +                       pipe_data->pipe_config.vblank_data.drr_info.use_r=
-amping);
-> +       KUNIT_EXPECT_EQ(test, test_param->min_vtotal_supported,
-> +                       pipe_data->pipe_config.vblank_data.drr_info.min_v=
-total_supported);
-> +       KUNIT_EXPECT_EQ(test, test_param->max_vtotal_supported,
-> +                       pipe_data->pipe_config.vblank_data.drr_info.max_v=
-total_supported);
-> +}
-> +
-> +static struct kunit_case dc_dmub_srv_cases[] =3D {
-> +       KUNIT_CASE_PARAM(populate_subvp_cmd_drr_info_test, populate_subvp=
-_cmd_drr_info_gen_params),
-> +       {  }
-> +};
-> +
-> +static struct kunit_suite dc_dmub_srv_suite =3D {
-> +       .name =3D "dc_dmub_srv",
-> +       .test_cases =3D dc_dmub_srv_cases,
-> +};
-> +
-> +kunit_test_suite(dc_dmub_srv_suite);
-> --
-> 2.37.0
->
-> --
-> You received this message because you are subscribed to the Google Groups=
- "KUnit Development" group.
-> To unsubscribe from this group and stop receiving emails from it, send an=
- email to kunit-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit https://groups.google.com/d/msgi=
-d/kunit-dev/20220811004010.61299-8-tales.aparecida%40gmail.com.
+No virus found
+		Checked by Hillstone Network AntiVirus
