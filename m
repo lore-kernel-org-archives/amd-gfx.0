@@ -4,69 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8958C00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 00:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E9FC00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 01:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F88412B464;
-	Thu, 11 Aug 2022 00:41:28 +0000 (UTC)
-Received: from mail-vk1-xa31.google.com (mail-vk1-xa31.google.com
- [IPv6:2607:f8b0:4864:20::a31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 241498B6BA
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:41:06 +0000 (UTC)
-Received: by mail-vk1-xa31.google.com with SMTP id t64so2266319vkb.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 17:41:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=Ui1A+YO8XaMfV3Wu9piqXAbScqHCc8fcJSOueheAjRU=;
- b=QnN1Uh5F0Y/K1VG+SJBylkSEc8OHKOTND4DeAl/t6R1OvKj3FXAaHpjoYOD3RNbQfW
- hRkg/RDelbN/KFtpUcIYU6ba4VwkoUdwWiubLZxGOvCWuPb1NvhCCiLfbJEgn69US/ua
- +TwPrD22ktGT7R0VV/kShMyr1VOcsVJ5vZLwQvhRV972QSzjckVqT3130sGc6kGHj41n
- AYwGp5VlBdYII7kL6VAiJGRFZtHlCz6qTyqmVLN+ImiM88MWuHBxp8J1lf0uu7+lP4xU
- V3i9Gt6ZuUCG/NU7sQgaMSkKWoYbkFZdyNZfXmSLjImRZIvCwKSnF7CfdKvKuJH4GtuC
- Zm/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=Ui1A+YO8XaMfV3Wu9piqXAbScqHCc8fcJSOueheAjRU=;
- b=evaqtBG2rXjKVXq/Rl80YWOIUSKp/aAXoQdsUuQ1q4JtK0Ata99yNxzp+w6HVcgzai
- 9P6SVLhp7QxVgJbRooC8Xc7Kv58NGnDBaXlL/++SJZaAlylvn88NnyM+vFmrvr33LQ3K
- EhceZc3noSvZhdEzif5nklNY4JvlMHpQaiLEZMDTUYGsqcvJ7x8aYpZYi/eqoqbbqgZG
- hcABP92KYlJQvfzus/NNh7xXMYexULu9NPC7YL3MYiyWdqO7JjcJb4V5iprx4WDCVlAt
- Ao8xel0+ipBn2zBSGsKelZh66w0saAXs3ZrnykOUnXpHO4HZdY6Y+dIuS8DvCFsne/oM
- Z7KA==
-X-Gm-Message-State: ACgBeo1fuMtnp4ux36eaFPTfiPPIf4Z4RKMv+3UB5iesjMf7AsRWyOAQ
- 0bRfe8GU/cfjenEl98G2ibA=
-X-Google-Smtp-Source: AA6agR6uSPKvKwjJvTUxrbhTEurVgBYQBNkCheBB8UyUaO4nmhyDTEBfmfOwrCq15g/qGKIvXbcR/A==
-X-Received: by 2002:a1f:5ed8:0:b0:377:4b5f:41f1 with SMTP id
- s207-20020a1f5ed8000000b003774b5f41f1mr12656052vkb.35.1660178465827; 
- Wed, 10 Aug 2022 17:41:05 -0700 (PDT)
-Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
- by smtp.gmail.com with ESMTPSA id
- z188-20020a1fc9c5000000b003791113188csm893072vkf.55.2022.08.10.17.41.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 17:41:05 -0700 (PDT)
-From: Tales Aparecida <tales.aparecida@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH 8/8] Documentation/gpu: Add Display Core Unit Test
- documentation
-Date: Wed, 10 Aug 2022 21:40:10 -0300
-Message-Id: <20220811004010.61299-9-tales.aparecida@gmail.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220811004010.61299-1-tales.aparecida@gmail.com>
-References: <20220811004010.61299-1-tales.aparecida@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F42510E688;
+	Thu, 11 Aug 2022 01:49:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8A598868
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 01:49:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YnfEVzSdK5RkhZB2cVZ8FtR9xb/kA+sz+PVY9lu882peHtQnd0meNWaJveLmPw6yVcu75hJrzvMQtN4hpWuFldTqzYnNKhrLFHqbbMKH5t2FDYdrSZeRf78jK5Vy23eolLRtOR2lktDLTZ++feJE+XGA2fBVygM15iij0qsBGzwCQLqWjkpaxDmAYxnvplRPFOc97EqlsBcD+UZejfGRv7REAkViswg9NMtK5IQfo8D9JE6M4i9lheQGtKt78JY2qw03ixjBhJxzLfUS40y01Tzg5BsykLYjvtB0dlE47kg1KyStZBNhFlzHawPmRSmW5ZKxvF/GBxHN7MYMxw1iQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fBRO7OUHSV2+Yuk8TQv4L7ujvXe2AaNAcWUDl9tqQKE=;
+ b=fD26IFjnkzFUJ+Ph3tCQnxjyW0gbf2HHC0VamasvMs7oGTcELe7dXhSv0Dh4DkSYsOmRMGfoV95eK1qPXkPuiVD5gpvmqVJUP6yCeYHFWUgMExObjDirlMSj+z2W6INmfbGxOvmIMllY818Ro4J+Y7sLFZYW0CaHLDBHb1Xvh1IwG1g0GAE02jKzg6yphp+/fZ71c330ouFYYSbgCs5fAYuDBVJ5OoSKQh1cRhWJWDOBPRDtnIX5qWniqNEeF7ltP4fHIUJgreTmzJjkG/ru1AZlZ7DwC2EL1CCKggwrqm5O5wpvv1u9ozuhVV7ksaFZ3Ld6lS/EyBjuocydndwPPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fBRO7OUHSV2+Yuk8TQv4L7ujvXe2AaNAcWUDl9tqQKE=;
+ b=uJ/+BD+sVUzcjb71SuoHWpdBKGS0EiQuRdAhIGclrlKsShRZZ8NOTyO9Yg4IzNQLFPIq/lZG0FmujHgQp30JOPf4cNOMsgm2iYpz+pLTLZjsD6DgNikm/FAuYw3hlkpRfzTB3QkBi7iYhjnam9XrInhdHPsI8K+TR8pn/HoJxbo=
+Received: from MW2PR16CA0057.namprd16.prod.outlook.com (2603:10b6:907:1::34)
+ by DM4PR12MB5200.namprd12.prod.outlook.com (2603:10b6:5:397::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 11 Aug
+ 2022 01:49:39 +0000
+Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::93) by MW2PR16CA0057.outlook.office365.com
+ (2603:10b6:907:1::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.20 via Frontend
+ Transport; Thu, 11 Aug 2022 01:49:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5525.11 via Frontend Transport; Thu, 11 Aug 2022 01:49:38 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 10 Aug
+ 2022 20:49:37 -0500
+Received: from kenneth-u2004-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Wed, 10 Aug 2022 20:49:36 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: add ih cg and hdp sd on smu_v13_0_7
+Date: Thu, 11 Aug 2022 09:49:34 +0800
+Message-ID: <20220811014934.1140719-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 29118856-0ac3-4243-829e-08da7b3bc09d
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5200:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DkOKpiefXeADVMIHcz4jqdcyEcCBmryGYFtmsEnYAplX61+2/DUNAEiHntV/4/JasPfYSaS6yF+HmNBubY0j5+KI9H20fBw1iffmq5sQWpRVdxe61CL+JR4l6cBMqgAEw1ivDzOfkjp9PvoauaLcFmI9CfavIWysrLKfVo38vvzgOEs7i406VlyLQL0iOkCySFPf6Ig1QId5br3F5ZoX93yvPvBLvoeoq9uLmoB6AbsbhZqPnfvLgGLr9K5Tp61wVv2vlv3Fk9hSee1JFmGnCZ5m6PcyRRjhpfdXu5uEkuy6ji9g8++d9XP4UlRVwhUu50u64+67hMIH3ojEg0SKJUIzH9ESh4lDPhv+5nCLpdYl1qoiOPtfQj8hSXlFwId79syPJ3WVhAQh/oFpi1q+Dfbn83UagV6sjX1KqSSJbHra7UDYjuoq8Ng5SHCmd4kf+UpskddbDqhDl2REh+VOnKV7ocb4H4XManmAjqQD0M94Ypww/38veLfU8O8AJYrBZYs+1tOObwGlvS2YABYBeJkFmIcZv3jum3JdTYyxG/BvZ4fTOuj6fPErZK9znlLcZv6nCaQXxKgw8QLUm+ZPXjClzyRswlLiNiBEwoZcLK6lB0uJVhK+hazRdEMJuekV4e6sQaURxa5yUa8mePfUrfDBeBII11mdiEYw+yQHy6Mot89JDeQz4jNlDwPumERDqRu9XMgjrkN5hfIGbGTnrTDwKXmBclSDyLoBblPO4ws3zMQLH18iaJMh+YOjJPJOJkw/TBUXH1i4srPuH/Lqeh6rp7YJlHSPjjNzuMM5XzyoJhXgP3kKBZC76RSOcZpdBHqK7R1fRTfomlk0MQ5+pA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(136003)(376002)(396003)(346002)(46966006)(36840700001)(40470700004)(336012)(41300700001)(7696005)(426003)(47076005)(2616005)(26005)(2906002)(40480700001)(86362001)(40460700003)(1076003)(356005)(81166007)(83380400001)(70586007)(82740400003)(8936002)(82310400005)(70206006)(4326008)(186003)(36860700001)(6916009)(478600001)(36756003)(8676002)(5660300002)(44832011)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2022 01:49:38.9306 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29118856-0ac3-4243-829e-08da7b3bc09d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,118 +97,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
- tales.aparecida@gmail.com, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- mairacanal@riseup.net, kunit-dev@googlegroups.com,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Trevor Woerner <twoerner@gmail.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Maíra Canal <mairacanal@riseup.net>
+add ih cg and hdp sd on smu_v13_0_7
 
-Explain how to run the KUnit tests present in the AMDGPU's Display
-Core and clarify which architectures and tools can be used to run
-the tests. Moreover, explains how to add new tests to the existing
-tests.
-
-Signed-off-by: Maíra Canal <mairacanal@riseup.net>
-Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- .../gpu/amdgpu/display/display-test.rst       | 73 +++++++++++++++++++
- Documentation/gpu/amdgpu/display/index.rst    |  1 +
- 2 files changed, 74 insertions(+)
- create mode 100644 Documentation/gpu/amdgpu/display/display-test.rst
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/amdgpu/display/display-test.rst b/Documentation/gpu/amdgpu/display/display-test.rst
-new file mode 100644
-index 000000000000..f2eb8e3213ea
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/display-test.rst
-@@ -0,0 +1,73 @@
-+.. SPDX-License-Identifier: GPL-2.0+
-+
-+========================
-+Display Core Unit Tests
-+========================
-+
-+Display core provides a set of unit tests, currently focused on the Display Mode
-+Library. The unit tests use KUnit (Kernel Unit Testing Framework), a common
-+framework for unit tests within the Linux Kernel.
-+
-+This section covers the specifics of the tests for the AMDGPU driver. For general
-+information about KUnit, please refer to Documentation/dev-tools/kunit/start.rst.
-+
-+How to run the tests?
-+=====================
-+
-+In order to facilitate running the test suite, a configuration file is present
-+in ``drivers/gpu/drm/amd/display/tests/dc/.kunitconfig``. This configuration file
-+can be used to run the kunit_tool, a Python script (``tools/testing/kunit/kunit.py``)
-+used to configure, build, exec, parse and run tests.
-+
-+.. code-block:: bash
-+
-+	$ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-+	    --kunitconfig=drivers/gpu/drm/amd/display/tests
-+
-+Currently, the Display Core Unit Tests are only supported on x86_64.
-+
-+Moreover, the tests can also be run on real hardware or in other emulation
-+environments. To include the Display Core Unit Tests on a deployable kernel,
-+you might add the following config options to your ``.config``:
-+
-+.. code-block:: none
-+
-+	CONFIG_KUNIT=y
-+	CONFIG_AMDGPU=m
-+	CONFIG_AMD_DC_BASICS_KUNIT_TEST=y
-+	CONFIG_DML_KUNIT_TEST=y
-+
-+Once the kernel is built and installed, you can load the ``amdgpu`` module
-+to run all tests available.
-+
-+Also, the tests can be added to the kernel as built-in modules, by adding the
-+following config options to your ``.config``:
-+
-+.. code-block:: none
-+
-+	CONFIG_KUNIT=y
-+	CONFIG_AMDGPU=y
-+	CONFIG_AMD_DC_BASICS_KUNIT_TEST=y
-+	CONFIG_DML_KUNIT_TEST=y
-+
-+In order to run specific tests, you can check the filter options from KUnit on
-+Documentation/dev-tools/kunit/kunit-tool.rst.
-+
-+How to add new tests?
-+=====================
-+
-+Tests covering different parts of the Display Core are always welcomed. Adding
-+a new test is a simple procedure, that consists in creating a unit test file
-+and adding the following guard to the end of the tested file:
-+
-+.. code-block:: c
-+
-+	#ifdef CONFIG_MY_KUNIT_TEST
-+	#include "my_kunit_test.c"
-+	#endif
-+
-+The ``display/tests`` folder replicates the folder hierarchy of the ``display``
-+folder, so this must be considered while adding new tests.
-+
-+More information on how to write unit tests with the KUnit API can be provided
-+on Documentation/dev-tools/kunit/api/test.rst.
-diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
-index c1fb2fb3c710..4f4e72e3e75f 100644
---- a/Documentation/gpu/amdgpu/display/index.rst
-+++ b/Documentation/gpu/amdgpu/display/index.rst
-@@ -28,4 +28,5 @@ table of content:
-    display-manager.rst
-    dc-debug.rst
-    dcn-overview.rst
-+   display-test.rst
-    dc-glossary.rst
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index bbbf760f8ad2..686e17770c63 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -575,7 +575,9 @@ static int soc21_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_VCN_MGCG |
+ 			AMD_CG_SUPPORT_JPEG_MGCG |
+ 			AMD_CG_SUPPORT_ATHUB_MGCG |
+-			AMD_CG_SUPPORT_ATHUB_LS;
++			AMD_CG_SUPPORT_ATHUB_LS |
++			AMD_CG_SUPPORT_IH_CG |
++			AMD_CG_SUPPORT_HDP_SD;
+ 		adev->pg_flags =
+ 			AMD_PG_SUPPORT_VCN |
+ 			AMD_PG_SUPPORT_VCN_DPG |
+@@ -690,6 +692,7 @@ static int soc21_common_set_clockgating_state(void *handle,
+ 
+ 	switch (adev->ip_versions[NBIO_HWIP][0]) {
+ 	case IP_VERSION(4, 3, 0):
++	case IP_VERSION(4, 3, 1):
+ 		adev->nbio.funcs->update_medium_grain_clock_gating(adev,
+ 				state == AMD_CG_STATE_GATE);
+ 		adev->nbio.funcs->update_medium_grain_light_sleep(adev,
 -- 
-2.37.0
+2.25.1
 
