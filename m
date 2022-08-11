@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC5ECC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 20:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F28C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 20:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3ED58F059;
-	Thu, 11 Aug 2022 20:43:42 +0000 (UTC)
-Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
- [IPv6:2607:f8b0:4864:20::931])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D3B8EFEE
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 20:43:38 +0000 (UTC)
-Received: by mail-ua1-x931.google.com with SMTP id l7so7376334ual.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 13:43:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1DD28F097;
+	Thu, 11 Aug 2022 20:43:58 +0000 (UTC)
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [IPv6:2607:f8b0:4864:20::e31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 790BE8EFD0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 20:43:42 +0000 (UTC)
+Received: by mail-vs1-xe31.google.com with SMTP id d126so15174230vsd.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 13:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=vfq3pJ5zfQ+WnS65JbneitHsv0wlpWwn+9h4BV1QTjQ=;
- b=FOPREgmDk5GRRe+ezi3LiI4+m3LAoszAmrytmsrTgA/ndEcqQnlCGRkZMf56HKjO3a
- 4r/ZzsdciMvSjZFno/s5wVyRyOjIloF+ygZDCvwWLT0+UqNRm0KA4kMz3UOPFRolowVy
- SKsVBdEthLtY0nx70i8xn+kBJ95WG4oIrDRCZ4J3e5LTrVZb0DTVkltivEnOCTgP5wu1
- PD+n4S/z85Wb66Ieoze27v2qfhtRPvaFN50y51ajCm4bBeQCHIGumSveQ9HaFPf4srRU
- uwM0BCutL4To6/E+ARumU2IMAt8/M9vUby/ku8EF64GZzvLIwH/FHNzUKIrOQEIAsoWx
- GUQA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=fGLEsX6f7eB86knQL2Eok2YJ/oihu0tXU04F3LSO7N0=;
+ b=JhnRzM0rrNjJ8WLyBzonqSHp/33gvEbfsRzRnt7XWXnb4AcU7oASuMx12uDReKkXOM
+ hhV77v2r2a3GbNflvp0IEujeudiqSl+i4KB+uoN6pgBoQx0XvuU4SsHAcdGR0fcdV8lR
+ wWf2A70H8dbR5Rj4jrA2MFMPPlwK/FXrPa5dc5Edt/1qqrFCRuMsdvoFvLA2gM3VVwnD
+ LzLJaTGiQY576N8zvI8KAqowYIP6vtfl6LbC8cazSjOrhc5uXYGxFfLIzDFRS5ULOJD7
+ uS3V2UxtRu5ho0/cp72l8SwYTDvqLlNfeJEj7MJgOJV257XAi56nUi0seAcltERV2urC
+ PcmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=vfq3pJ5zfQ+WnS65JbneitHsv0wlpWwn+9h4BV1QTjQ=;
- b=V10GPVFkrkNx86kKvgSZac1rTL6MmAlFrnK+XxEMS25b25XY/BKLm4RHzMb55wzMfu
- heqfW74wqjQHWkgrFFTJ24+YLWqiAa7C4GZ28nbcfIDWoYdXbP6LvBj9TlBtlSkk2qAY
- TRCeYzD9InzXNdCncEhf4ff+tbIzSIiehS++jZ1tfIH4545xYaYwYtpTB3hQWn11N+Vw
- ILSMAD0aCtXo47mhKrq4DQ/6e3Gqy4kpTflLb1t4ovrWsRtAxM+WpqLHo14E3bv9oCz3
- 0wY3FpqKpxeyzMWRYJ51o4Tp532shZL7/vrgtY93cUYba2FdMPxBeEQyWpBhEhA3AcAV
- 9v+A==
-X-Gm-Message-State: ACgBeo1/mH18Ggcerc2QbhnmK9Lkk0+8kAd2XT/9lrtBt8uZccK7+W2S
- bx8MyEzVXz046zhyVLSwPdU=
-X-Google-Smtp-Source: AA6agR7ePNZLLmc4Lb3IX/XBH0iqUhdlLNDSrv79My9jIdNGU2TiV3wNtKfvQd4umhbCzkvvbmW8BQ==
-X-Received: by 2002:a05:6130:10b:b0:37f:a52:99fd with SMTP id
- h11-20020a056130010b00b0037f0a5299fdmr493170uag.96.1660250617264; 
- Thu, 11 Aug 2022 13:43:37 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=fGLEsX6f7eB86knQL2Eok2YJ/oihu0tXU04F3LSO7N0=;
+ b=0S6z+UP0n3dTMIV8u0oI058Mh+oijGqU4JkO/Xa/PxyhwoxJWwjK+1zRD/G2gR5u2k
+ 6nhNrG0o9nOYtxf/4AjnHQjjze+/XqJbIyBgW3zwZdaYMVqNU6c8kUcmfJcKnd0IBjSg
+ TlHpkd7BnIt3keq3xcVaXchRltyaKUuzPzIm5B/+3R5MJMMcCcwVReXSwIrg7RgEmKp8
+ 2ZJqRLniCnAi4qs8IvuIAvyEUXRlnyfWadrMSs3m4T/cZKdKFKR20DabaizvZanSS4D7
+ lrkzb0pM11LNcob5m2GHdDMAKap5TXLb6+v8lJdp53q8qCuvUiMg/67SCOJLFfVMnuvc
+ UQgw==
+X-Gm-Message-State: ACgBeo3Jv06bVklXEPwhNvNuRouRMYrz5mEn8tJTWyUf3b+S4FcNK2d1
+ 2/6BHDYhQcX9HqBSG5sYBnY=
+X-Google-Smtp-Source: AA6agR41eZPqTV4Fj/bVE8YEK8ysmBA8PWDRrC2ZGvMhkc6sBFhRiIVkYtXpmazE1QrSHPjv7PcuGA==
+X-Received: by 2002:a05:6102:5e6:b0:385:361:5892 with SMTP id
+ w6-20020a05610205e600b0038503615892mr541039vsf.7.1660250621592; 
+ Thu, 11 Aug 2022 13:43:41 -0700 (PDT)
 Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
  by smtp.gmail.com with ESMTPSA id
- n23-20020a67ee97000000b00388d3be20bfsm226846vsp.28.2022.08.11.13.43.33
+ n23-20020a67ee97000000b00388d3be20bfsm226846vsp.28.2022.08.11.13.43.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Aug 2022 13:43:36 -0700 (PDT)
+ Thu, 11 Aug 2022 13:43:41 -0700 (PDT)
 From: Tales Aparecida <tales.aparecida@gmail.com>
 To: davidgow@google.com, Harry Wentland <harry.wentland@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
@@ -54,10 +54,12 @@ To: davidgow@google.com, Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 0/2] drm/amd/display: fix MIN_I64 overflow on bw_fixed.c
-Date: Thu, 11 Aug 2022 17:43:25 -0300
-Message-Id: <20220811204327.411709-1-tales.aparecida@gmail.com>
+Subject: [PATCH 1/2] drm/amd/display: fix overflow on MIN_I64 definition
+Date: Thu, 11 Aug 2022 17:43:26 -0300
+Message-Id: <20220811204327.411709-2-tales.aparecida@gmail.com>
 X-Mailer: git-send-email 2.37.0
+In-Reply-To: <20220811204327.411709-1-tales.aparecida@gmail.com>
+References: <20220811204327.411709-1-tales.aparecida@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -79,37 +81,48 @@ Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: David Gow <davidgow@google.com>
 
-This series fixes an error accused by GCC and some checkpatch warnings.
+The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
+integer overflow, because it is treated as a positive value, which is
+then negated. The temporary positive value is not necessarily
+representable.
 
-The first patch of this series fixes an error reported and fixed by
-David Gow (thanks!) at [1], where the macro MIN_I64 was used for the
-first time and warned about an integer overflow.
-The fix uses a similar syntax from include/vdso/limits.h
+This causes the following warning:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
+warning: integer overflow in expression ‘-9223372036854775808’ of type
+‘long long int’ results in ‘-9223372036854775808’ [-Woverflow]
+  30 |         (int64_t)(-(1LL << 63))
+     |                   ^
 
-To cause the error you can either apply that series or, for example,
-define a global variable:
+Writing out (-MAX_I64 - 1) works instead.
 
-    int64_t min_i64 = MIN_I64;
+Signed-off-by: David Gow <davidgow@google.com>
+Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-The second patch fix lesser warnings in the same file.
-
-Thanks for the review!
-
-[1] https://lore.kernel.org/amd-gfx/CABVgOSmkeybnR2sGEEgn1Cb0cR2eKxW=vhXkHjC5xCuhaxsqVg@mail.gmail.com/
-
-David Gow (1):
-  drm/amd/display: fix overflow on MIN_I64 definition
-
-Tales Aparecida (1):
-  drm/amd/display: fix minor codestyle problems
-
- .../gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c    | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
-
-
-base-commit: 1a60172c97fd2b51151cf17483f372bb61246c0b
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
+index 6ca288fb5fb9..2d46bc527b21 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
+@@ -26,12 +26,12 @@
+ #include "bw_fixed.h"
+ 
+ 
+-#define MIN_I64 \
+-	(int64_t)(-(1LL << 63))
+-
+ #define MAX_I64 \
+ 	(int64_t)((1ULL << 63) - 1)
+ 
++#define MIN_I64 \
++	(-MAX_I64 - 1)
++
+ #define FRACTIONAL_PART_MASK \
+ 	((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
+ 
 -- 
 2.37.0
 
