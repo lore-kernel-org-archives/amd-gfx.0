@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54EC8C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B3B3C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 13:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68719A4E47;
-	Thu, 11 Aug 2022 12:54:31 +0000 (UTC)
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 607ECABE3D;
- Thu, 11 Aug 2022 11:32:21 +0000 (UTC)
-X-UUID: ff9f4d8306354fb196b7d922a2cb1400-20220811
-X-GW-Reason: 11109
-X-Policy-Incident: 5pS25Lu25Lq66LaF6L+HMTDkurrpnIDopoHlrqHmoLg=
-X-Content-Feature: ica/max.line-size 113 audit/email.address 1 dict/adv 2
- dict/notice 2 dict/software 1 dict/transaction 1
- meta/cnt.alert 1
-X-CPASD-INFO: 41a7705116064a5f92a4568cd298c964@fYGbV2RiY2FdVnKCg6SAoFljkWRlYli
- ypmxZaJFpYlSVgnxsTV5qXFWCgGpQYWNdYlV3fGtQYmBgZFB5i4Jyj1RgXmCCVHSTgHZrgWdlYA==
-X-CLOUD-ID: 41a7705116064a5f92a4568cd298c964
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:196.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:408.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5
- .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-
- 5, AUF:1, DUF:2124, ACD:46, DCD:46, SL:0, EISP:0, AG:0, CFC:0.593, CFSR:0.024,
- UAT:0, RA
- F:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: ff9f4d8306354fb196b7d922a2cb1400-20220811
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: ff9f4d8306354fb196b7d922a2cb1400-20220811
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 2069526652; Thu, 11 Aug 2022 15:20:31 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: use native mode for dp aux transfer
-Date: Thu, 11 Aug 2022 15:20:12 +0800
-Message-Id: <20220811072012.962460-1-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027DD98B8B;
+	Thu, 11 Aug 2022 13:10:17 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 740B6B0B56
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 13:10:11 +0000 (UTC)
+Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4M3RxG3GV7zDrP4;
+ Thu, 11 Aug 2022 13:10:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1660223410; bh=gB+CNwjDdA0guTF5KMMzkCfVHxQU1FyLyBhLjHb9Rcc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=XjhkBHFbk+8PR0rzrO5mb/SiGO+dztxgetuAe2BHMZ9Eptci/VBZquEEh4b7W3S42
+ 6oNdjr5ofhD4+FXc7JIIXA7fPM3Sx3psfCJnI41f0mNU6ihfIhuAl5JaHrRtptovhX
+ 8152s91/rkSXBg4lv+xx4U+Qac7acJHHXtJ4RUuc=
+X-Riseup-User-ID: 7CA76209DF30AAA97F089815D88F9849438C6878D51D75B7528F60AD662C62E5
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4M3Rx65jpYz5vTb;
+ Thu, 11 Aug 2022 13:10:02 +0000 (UTC)
+Message-ID: <f7e02eb7-8efd-158a-7373-7f56eee8cf34@riseup.net>
+Date: Thu, 11 Aug 2022 10:09:58 -0300
 MIME-Version: 1.0
+Subject: Re: [PATCH 0/8] drm/amd/display: Introduce KUnit to Display Mode
+ Library
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Tales Aparecida <tales.aparecida@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+References: <20220811004010.61299-1-tales.aparecida@gmail.com>
+ <6d24ac92-7ea9-0c35-a97a-bfb53b84f655@amd.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
+In-Reply-To: <6d24ac92-7ea9-0c35-a97a-bfb53b84f655@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 11 Aug 2022 12:54:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,412 +61,280 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zhenneng Li <lizhenneng@kylinos.cn>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
+ amd-gfx@lists.freedesktop.org, mwen@igalia.com, kunit-dev@googlegroups.com,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
+ Trevor Woerner <twoerner@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When using amdgpu for e8860, the monitor sometimes haven't any signal,
-and the kernel reports some errors:
-[   17.317302][ 2] [ T1045] [drm:amdgpu_atombios_dp_link_train [amdgpu]] *ERROR* channel eq failed: 5 tries
-[   17.326963][ 2] [ T1045] [drm:amdgpu_atombios_dp_link_train [amdgpu]] *ERROR* channel eq failed
-But if I use radeon for e8860, everything are always normal, the reason is
-that radeon use native mode and amdgpu use atombios mode
-when init dp aux, so when I use native mode for amdgpu, everything
-are always normal.
-
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
-Change-Id: Ia9a2be3ab03e56b1c8337fdbf713461196fbc58f
----
- drivers/gpu/drm/amd/amdgpu/Makefile          |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c | 273 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h     |   2 +
- drivers/gpu/drm/amd/amdgpu/atombios_dp.c     |   5 +-
- 7 files changed, 290 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 3e0e2eb7e235..2913cf46f848 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
- 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
- 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
- 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
--	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
-+	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_dp_auxch.o
- 
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 30ce6bb6fa77..15e0288b1997 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -238,6 +238,8 @@ extern int amdgpu_num_kcq;
- #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
- extern int amdgpu_vcnfw_log;
- 
-+extern int amdgpu_auxch;
-+
- #define AMDGPU_VM_MAX_NUM_CTX			4096
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
- #define AMDGPU_DEFAULT_GTT_SIZE_MB		3072ULL /* 3GB by default */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 9ba4817a9148..68c8d79e2937 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -49,7 +49,10 @@ static struct amdgpu_i2c_bus_rec amdgpu_atombios_get_bus_rec_for_i2c_gpio(ATOM_G
- 
- 	memset(&i2c, 0, sizeof(struct amdgpu_i2c_bus_rec));
- 
--	i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex);
-+	if (amdgpu_auxch)
-+		i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex) * 4;
-+	else
-+		i2c.mask_clk_reg = le16_to_cpu(gpio->usClkMaskRegisterIndex);
- 	i2c.mask_data_reg = le16_to_cpu(gpio->usDataMaskRegisterIndex);
- 	i2c.en_clk_reg = le16_to_cpu(gpio->usClkEnRegisterIndex);
- 	i2c.en_data_reg = le16_to_cpu(gpio->usDataEnRegisterIndex);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
-new file mode 100644
-index 000000000000..22078f1ca936
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dp_auxch.c
-@@ -0,0 +1,273 @@
-+/*
-+ * Copyright 2015 Red Hat Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: Dave Airlie
-+ */
-+
-+#include "amdgpu.h"
-+
-+#define 	AUX_SW_RX_OVERFLOW			(1 << 8)
-+#define 	AUX_SW_RX_HPD_DISCON			(1 << 9)
-+#define 	AUX_SW_RX_PARTIAL_BYTE			(1 << 10)
-+#define 	AUX_SW_NON_AUX_MODE			(1 << 11)
-+#define 	AUX_SW_RX_SYNC_INVALID_L		(1 << 17)
-+#define 	AUX_SW_RX_SYNC_INVALID_H		(1 << 18)
-+#define 	AUX_SW_RX_INVALID_START			(1 << 19)
-+#define 	AUX_SW_RX_RECV_NO_DET			(1 << 20)
-+#define 	AUX_SW_RX_RECV_INVALID_H		(1 << 22)
-+#define 	AUX_SW_RX_RECV_INVALID_V		(1 << 23)
-+#define		AUX_CONTROL				0x6200
-+#define 	AUX_HPD_SEL(x)				(((x) & 0x7) << 20)
-+#define 	AUX_EN					(1 << 0)
-+#define 	AUX_LS_READ_EN				(1 << 8)
-+#define		AUX_SW_CONTROL				0x6204
-+#define 	AUX_SW_WR_BYTES(x)			(((x) & 0x1f) << 16)
-+#define AUX_SW_DATA					0x6218
-+#define AUX_SW_DATA_RW					(1 << 0)
-+#define AUX_SW_AUTOINCREMENT_DISABLE			(1 << 31)
-+#define AUX_SW_INTERRUPT_CONTROL			0x620c
-+#define 	AUX_SW_DONE_ACK				(1 << 1)
-+#define 	AUX_SW_GO				(1 << 0)
-+#define AUX_SW_STATUS					0x6210
-+#define 	AUX_SW_DONE				(1 << 0)
-+#define 	AUX_SW_RX_TIMEOUT			(1 << 7)
-+#define AUX_SW_DATA_RW					(1 << 0)
-+#define AUX_SW_DATA_MASK(x)				(((x) & 0xff) << 8)
-+
-+#define AUX_RX_ERROR_FLAGS (AUX_SW_RX_OVERFLOW |	     \
-+			    AUX_SW_RX_HPD_DISCON |	     \
-+			    AUX_SW_RX_PARTIAL_BYTE |	     \
-+			    AUX_SW_NON_AUX_MODE |	     \
-+			    AUX_SW_RX_SYNC_INVALID_L |	     \
-+			    AUX_SW_RX_SYNC_INVALID_H |	     \
-+			    AUX_SW_RX_INVALID_START |	     \
-+			    AUX_SW_RX_RECV_NO_DET |	     \
-+			    AUX_SW_RX_RECV_INVALID_H |	     \
-+			    AUX_SW_RX_RECV_INVALID_V)
-+
-+#define AUX_SW_REPLY_GET_BYTE_COUNT(x) (((x) >> 24) & 0x1f)
-+
-+#define BARE_ADDRESS_SIZE 3
-+
-+#define R100_MM_INDEX                   0x0000
-+#define R100_MM_DATA                      0x0004
-+#define AMDGPU_MIN_MMIO_SIZE 0x10000
-+uint32_t venus_mm_rreg_slow(struct amdgpu_device *adev, uint32_t reg)
-+{
-+        unsigned long flags;
-+        uint32_t ret;
-+
-+        spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-+        writel(reg, ((void __iomem *)adev->rmmio) + R100_MM_INDEX);
-+        ret = readl(((void __iomem *)adev->rmmio) + R100_MM_DATA);
-+        spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
-+        return ret;
-+}
-+void venus_mm_wreg_slow(struct amdgpu_device *adev, uint32_t reg, uint32_t v)
-+{
-+        unsigned long flags;
-+
-+        spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-+        writel(reg, ((void __iomem *)adev->rmmio) + R100_MM_INDEX);
-+        writel(v, ((void __iomem *)adev->rmmio) + R100_MM_DATA);
-+        spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
-+}
-+static inline uint32_t venus_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
-+                                    bool always_indirect)
-+{
-+        /* The mmio size is 64kb at minimum. Allows the if to be optimized out. */
-+        if ((reg < adev->rmmio_size || reg < AMDGPU_MIN_MMIO_SIZE) && !always_indirect)
-+                return readl(((void __iomem *)adev->rmmio) + reg);
-+        else
-+                return venus_mm_rreg_slow(adev, reg);
-+}
-+static inline void venus_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
-+                                bool always_indirect)
-+{
-+        if ((reg < adev->rmmio_size || reg < AMDGPU_MIN_MMIO_SIZE) && !always_indirect)
-+                writel(v, ((void __iomem *)adev->rmmio) + reg);
-+        else
-+                venus_mm_wreg_slow(adev, reg, v);
-+}
-+
-+#define RREG32_VENUS(reg) venus_mm_rreg(adev, (reg), false)
-+#define WREG32_VENUS(reg, v) venus_mm_wreg(adev, (reg), (v), false)
-+
-+static const u32 aux_offset[] =
-+{
-+	0x6200 - 0x6200,
-+	0x6250 - 0x6200,
-+	0x62a0 - 0x6200,
-+	0x6300 - 0x6200,
-+	0x6350 - 0x6200,
-+	0x63a0 - 0x6200,
-+};
-+
-+ssize_t
-+amdgpu_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
-+{
-+	struct amdgpu_i2c_chan *chan =
-+		container_of(aux, struct amdgpu_i2c_chan, aux);
-+	struct drm_device *dev = chan->dev;
-+	struct amdgpu_device *adev = dev->dev_private;
-+	int ret = 0, i;
-+	uint32_t tmp, ack = 0;
-+	int instance = chan->rec.i2c_id & 0xf;
-+	u8 byte;
-+	u8 *buf = msg->buffer;
-+	int retry_count = 0;
-+	int bytes;
-+	int msize;
-+	bool is_write = false;
-+
-+	if (WARN_ON(msg->size > 16))
-+		return -E2BIG;
-+
-+	switch (msg->request & ~DP_AUX_I2C_MOT) {
-+	case DP_AUX_NATIVE_WRITE:
-+	case DP_AUX_I2C_WRITE:
-+		is_write = true;
-+		break;
-+	case DP_AUX_NATIVE_READ:
-+	case DP_AUX_I2C_READ:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* work out two sizes required */
-+	msize = 0;
-+	bytes = BARE_ADDRESS_SIZE;
-+	if (msg->size) {
-+		msize = msg->size - 1;
-+		bytes++;
-+		if (is_write)
-+			bytes += msg->size;
-+	}
-+
-+	mutex_lock(&chan->mutex);
-+
-+	/* switch the pad to aux mode */
-+	tmp = RREG32_VENUS(chan->rec.mask_clk_reg);
-+	tmp |= (1 << 16);
-+	WREG32_VENUS(chan->rec.mask_clk_reg, tmp);
-+
-+	/* setup AUX control register with correct HPD pin */
-+	tmp = RREG32_VENUS(AUX_CONTROL + aux_offset[instance]);
-+	tmp &= AUX_HPD_SEL(0x7);
-+	tmp |= AUX_HPD_SEL(chan->rec.hpd);
-+	tmp |= AUX_EN | AUX_LS_READ_EN;
-+
-+	WREG32_VENUS(AUX_CONTROL + aux_offset[instance], tmp);
-+
-+	/* atombios appears to write this twice lets copy it */
-+	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
-+	       AUX_SW_WR_BYTES(bytes));
-+	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
-+	       AUX_SW_WR_BYTES(bytes));
-+
-+	/* write the data header into the registers */
-+	/* request, address, msg size */
-+	byte = (msg->request << 4) | ((msg->address >> 16) & 0xf);
-+	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+	       AUX_SW_DATA_MASK(byte) | AUX_SW_AUTOINCREMENT_DISABLE);
-+
-+	byte = (msg->address >> 8) & 0xff;
-+	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+	       AUX_SW_DATA_MASK(byte));
-+
-+	byte = msg->address & 0xff;
-+	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+	       AUX_SW_DATA_MASK(byte));
-+
-+	byte = msize;
-+	WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+	       AUX_SW_DATA_MASK(byte));
-+
-+	/* if we are writing - write the msg buffer */
-+	if (is_write) {
-+		for (i = 0; i < msg->size; i++) {
-+			WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+			       AUX_SW_DATA_MASK(buf[i]));
-+		}
-+	}
-+
-+	/* clear the ACK */
-+	WREG32_VENUS(AUX_SW_INTERRUPT_CONTROL + aux_offset[instance], AUX_SW_DONE_ACK);
-+
-+	/* write the size and GO bits */
-+	WREG32_VENUS(AUX_SW_CONTROL + aux_offset[instance],
-+	       AUX_SW_WR_BYTES(bytes) | AUX_SW_GO);
-+
-+	/* poll the status registers - TODO irq support */
-+	do {
-+		tmp = RREG32_VENUS(AUX_SW_STATUS + aux_offset[instance]);
-+		if (tmp & AUX_SW_DONE) {
-+			break;
-+		}
-+		usleep_range(100, 200);
-+	} while (retry_count++ < 1000);
-+
-+	if (retry_count >= 1000) {
-+		DRM_ERROR("auxch hw never signalled completion, error %08x\n", tmp);
-+		ret = -EIO;
-+		goto done;
-+	}
-+
-+	if (tmp & AUX_SW_RX_TIMEOUT) {
-+		ret = -ETIMEDOUT;
-+		goto done;
-+	}
-+	if (tmp & AUX_RX_ERROR_FLAGS) {
-+		DRM_DEBUG_KMS_RATELIMITED("dp_aux_ch flags not zero: %08x\n",
-+					  tmp);
-+		ret = -EIO;
-+		goto done;
-+	}
-+
-+	bytes = AUX_SW_REPLY_GET_BYTE_COUNT(tmp);
-+	if (bytes) {
-+		WREG32_VENUS(AUX_SW_DATA + aux_offset[instance],
-+		       AUX_SW_DATA_RW | AUX_SW_AUTOINCREMENT_DISABLE);
-+
-+		tmp = RREG32_VENUS(AUX_SW_DATA + aux_offset[instance]);
-+		ack = (tmp >> 8) & 0xff;
-+
-+		for (i = 0; i < bytes - 1; i++) {
-+			tmp = RREG32_VENUS(AUX_SW_DATA + aux_offset[instance]);
-+			if (buf)
-+				buf[i] = (tmp >> 8) & 0xff;
-+		}
-+		if (buf)
-+			ret = bytes - 1;
-+	}
-+
-+	WREG32_VENUS(AUX_SW_INTERRUPT_CONTROL + aux_offset[instance], AUX_SW_DONE_ACK);
-+
-+	if (is_write)
-+		ret = msg->size;
-+done:
-+	mutex_unlock(&chan->mutex);
-+
-+	if (ret >= 0)
-+		msg->reply = ack >> 4;
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 8890300766a5..2ac7636ddafb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -180,6 +180,7 @@ int amdgpu_num_kcq = -1;
- int amdgpu_smartshift_bias;
- int amdgpu_use_xgmi_p2p = 1;
- int amdgpu_vcnfw_log;
-+int amdgpu_auxch = 0;
- 
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
- 
-@@ -882,6 +883,9 @@ MODULE_PARM_DESC(smu_pptable_id,
- 	"specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
- module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
- 
-+MODULE_PARM_DESC(auxch, "Use native auxch experimental support (1 = enable, 0 = disable, -1 = auto)");
-+module_param_named(auxch, amdgpu_auxch, int, 0444);
-+
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index f80b4838cea1..95fffc110c75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -619,5 +619,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
- 				uint32_t page_flip_flags, uint32_t target,
- 				struct drm_modeset_acquire_ctx *ctx);
- extern const struct drm_mode_config_funcs amdgpu_mode_funcs;
-+extern ssize_t
-+amdgpu_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-index 87c41e0e9b7c..846ecc315665 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-@@ -188,7 +188,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
- void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
- {
- 	amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
--	amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
-+	if (amdgpu_auxch)
-+		amdgpu_connector->ddc_bus->aux.transfer = amdgpu_dp_aux_transfer_native;
-+	else
-+		amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
- 	amdgpu_connector->ddc_bus->aux.drm_dev = amdgpu_connector->base.dev;
- 
- 	drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
--- 
-2.25.1
 
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+On 8/11/22 08:22, Christian König wrote:
+> 
+> 
+> Am 11.08.22 um 02:40 schrieb Tales Aparecida:
+>> Hello,
+>>
+>> This series is the consolidation of an RFC sent earlier this year [RFC]
+>> bringing unit testing to the AMDPGU driver. [gsoc]
+>>
+>> Our main goal is to bring unit testing to the AMD display driver; in
+>> particular, we'll focus on the Display Mode Library (DML) for DCN2.0,
+>> DMUB, and some of the DCE functions. This implementation intends to
+>> help developers to recognize bugs before they are merged into the
+>> mainline and also makes it possible for future code refactors of the
+>> AMD display driver.
+>>
+>> For the implementation of the tests, we decided to go with the Kernel
+>> Unit Testing Framework (KUnit). KUnit makes it possible to run test
+>> suites on kernel boot or load the tests as a module. It reports all test
+>> case results through a TAP (Test Anything Protocol) in the kernel log.
+>> Moreover, KUnit unifies the test structure and provides tools to
+>> simplify the testing for developers and CI systems.
+>>
+>> In regards to CI pipelines, we believe kunit_tool[kunit_tool] provides
+>> ease of use, but we are also working on integrating KUnit into IGT, for
+>> those already depending on the tool [igt_patch].
+>>
+>> We've chosen what we believe to be the simplest approach to integrate
+>> KUnit tests into amdgpu [kunit_static]. We took into consideration that
+>> this driver relies heavily on static functions with complex behavior
+>> which would benefit from unit testing, otherwise, black-box tested
+>> through public functions with dozens of arguments and sometimes high
+>> cyclomatic complexity. Further than that, this approach also helps
+>> beginners by avoiding the need to edit any Makefiles. Other approaches
+>> are available and we would gladly receive feedback on this matter.
+> 
+> Yeah, that approach immediately trigger goosebumps for me. We should 
+> absolutely not do that.
+> 
+> The static functions are subject to change and we shouldn't need to 
+> change the unit tests when only the internals change.
+
+I agree with you that ideally, we should not test static functions. But, 
+considering the scope of the AMD Display Core functions, it is pretty 
+hard to avoid it.
+
+Most of the exposed functions on the AMD Display Core have dozens of 
+side effects and some functions pass the 500 lines. In this sense, it is 
+pretty hard to write a proper unit test for the function. If we think 
+through the theory of equivalence partition, when we have two 
+parameters, we have a simple area to analyze the boundary values and the 
+partition. If we have more than 4 parameters, we have a hyperplane with 
+dimension n to analyze, which means that finding the partitions and the 
+boundary values gets harder and harder.
+
+In the Display Core, there are static functions with more than 50 
+parameters and the exposed functions call more the one static function, 
+so we might be analyzing more than 100 parameters, which I don't believe 
+is possible for a unit test.
+
+In theory, I agree that we should not test the static functions. But, 
+considering the current scope of the AMD Display code, I don't believe 
+it is viable to test on the exposed functions.
+
+Best Regards,
+- Maíra Canal
+
+> 
+> Instead black box testing and/or exposing tests as a separate module 
+> (e.g. for the fixed point calculations for example) is probably the way 
+> to go.
+> 
+> Just my thoughts on this, essentially our display team has to take a look.
+> 
+> Regards,
+> Christian.
+> 
+>>
+>> The first three patches add KUnit represent what we intend to do on the
+>> rest of the DML modules: systematic testing of the DML functions,
+>> especially mathematically complicated functions. Also, it shows how
+>> simple it is to add new tests to the DML.
+>>
+>> Among the tests, we highlight the dcn20_fpu_test, which, had it existed
+>> then, could catch the defects introduced to dcn20_fpu.c by
+>> 8861c27a6c [dcn20_bug] later fixed by 9ad5d02c2a [dcn20_fix].
+>>
+>> In this series, there's also an example of how unit tests can help avoid
+>> regressions and keeping track of changes in behavior.
+>>
+>> Applying this series on top of the amd-staging-drm-next (2305916dca04)
+>> and running its tests will result in a failure in the `dc_dmub_srv`
+>> test, you can verify that with:
+>>
+>> $ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+>>         --kunitconfig=drivers/gpu/drm/amd/display/tests
+>>
+>> ```
+>> ...
+>> [20:19:00] # Subtest: populate_subvp_cmd_drr_info_test
+>> [20:19:00] # populate_subvp_cmd_drr_info_test: pass:0 fail:5 skip:0 
+>> total:5
+>> [20:19:00] not ok 1 - populate_subvp_cmd_drr_info_test
+>> [20:19:00] ======== [FAILED] populate_subvp_cmd_drr_info_test =========
+>> [20:19:00] # Subtest: dc_dmub_srv
+>> [20:19:00] 1..1
+>> [20:19:00] # Totals: pass:0 fail:5 skip:0 total:5
+>> [20:19:00] not ok 8 - dc_dmub_srv
+>> [20:19:00] =================== [FAILED] dc_dmub_srv ===================
+>> [20:19:00] ============================================================
+>> [20:19:00] Testing complete. Passed: 59, Failed: 5, Crashed: 0, 
+>> Skipped: 0, Errors: 0
+>> ```
+>> Full output at: 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fshare.riseup.net%2F%23SOggjANeLfbibdiHu2e_Ug&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=kiaq3dfpSMiFGkMIXKHhHsMyr7o%2FuvKgny0ifF%2FzrmA%3D&amp;reserved=0 
+>>
+>>
+>> This is due to a known regression introduced by commit 5da7f4134357
+>> ("drm/amd/display: fix 32 bit compilation errors in dc_dmub_srv.c")
+>> [dmub_bug], which resulted in the struct's members being zero.  As an
+>> exercise, you can revert the offending patch and run the tests again,
+>> but that would still result in failure, albeit with a different output.
+>>
+>> Full output when reverted: 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fshare.riseup.net%2F%23EEBgtgXjAmof5vZ_qs7_sg&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=%2Flv%2FAOosByeD8vPteKdqGqv2QHf50S6nTNTqma91fm8%3D&amp;reserved=0 
+>>
+>>
+>> This regression is currently being worked on [dmub_fix], and this
+>> test-series will result in a success if applied alongside the
+>> fix-series, particularly the patches 1-13/32.
+>>
+>> ```
+>> [17:48:14] Testing complete. Passed: 64, Failed: 0, Crashed: 0, 
+>> Skipped: 0, Errors: 0
+>> ```
+>> Full successful output: 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fshare.riseup.net%2F%23migyN1Xpy3Gyq1it84HhNw&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=zMOuzPypnx6oH9rMUYZwLpHELZd%2FaId4Tdh93LRr8bM%3D&amp;reserved=0 
+>>
+>>
+>> This series depends on a couple of Kunit patches already merged into
+>> torvalds/master, which themselves depends on older patches:
+>>
+>> commit 61695f8c5d51 ("kunit: split resource API from test.h into new 
+>> resource.h")
+>> commit 2852ca7fba9f ("panic: Taint kernel if tests are run")
+>> commit cfc1d277891e ("module: Move all into module/")
+>> commit cdebea6968fa ("kunit: split resource API impl from test.c into 
+>> new resource.c")
+>> commit cae56e1740f5 ("kunit: rename print_subtest_{start,end} for 
+>> clarity (s/subtest/suite)")
+>> commit 1cdba21db2ca ("kunit: add ability to specify suite-level init 
+>> and exit functions")
+>> commit c272612cb4a2 ("kunit: Taint the kernel when KUnit tests are run")
+>> commit 3d6e44623841 ("kunit: unify module and builtin suite definitions")
+>> commit a02353f49162 ("kunit: bail out of test filtering logic quicker 
+>> if OOM")
+>> commit 1b11063d32d7 ("kunit: fix executor OOM error handling logic on 
+>> non-UML")
+>> commit e5857d396f35 ("kunit: flatten kunit_suite*** to kunit_suite** 
+>> in .kunit_test_suites")
+>> commit 94681e289bf5 ("kunit: executor: Fix a memory leak on failure in 
+>> kunit_filter_tests")
+>>
+>> You can get a for branch ready for compilation at
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fisinyaaa%2Flinux%2F-%2Ftags%2Fintroduce-kunit-for-amd-v1&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=hqIFUFjM1UDOTXYsckuoLP9nyxAvlVB4iCMs8FWkGnc%3D&amp;reserved=0 
+>>
+>>
+>> Thanks in advance for your time taking a look and sending any feedback!
+>>
+>> Best regards,
+>> Isabella Basso, Magali Lemes, Maíra Canal, and Tales Aparecida
+>>
+>> [RFC] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Famd-gfx%2F20220608010709.272962-1-maira.canal%40usp.br%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=XEk%2FNJacxlhjCymXuo3tVQHle9MtiSCKIOXyP%2B4Pa3M%3D&amp;reserved=0 
+>>
+>> [gsoc] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsummerofcode.withgoogle.com%2Fprograms%2F2022%2Forganizations%2Fxorg-foundation&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=ZxjFnl5bjczfWxzpHOEKDU314QS4hmbIxTgvjPxqmJs%3D&amp;reserved=0 
+>>
+>> [kunit_tool] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.kernel.org%2Fdoc%2Fhtml%2Flatest%2Fdev-tools%2Fkunit%2Fkunit-tool.html&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=0jUQGUFKW8BVVgpD4sNkkLdqMn23X1S67y7Fj0RqZKY%3D&amp;reserved=0 
+>>
+>> [igt_patch] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Farchives%2Figt-dev%2F2022-June%2F042895.html&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=JmOfrDfQIWohsDCg%2F1BLyFckeG1CWfmM3NPwcpE5WFQ%3D&amp;reserved=0 
+>>
+>> [kunit_static] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.kernel.org%2Fdev-tools%2Fkunit%2Fusage.html%23testing-static-functions&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=IWA0KRuA1T3YCZIpq9JD8wTxE8gTZi%2B9aLJywU1Os4k%3D&amp;reserved=0 
+>>
+>> [dcn20_bug] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Famd-gfx%2F20220603185042.3408844-6-Rodrigo.Siqueira%40amd.com%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=b7B7QscRHX2STfVGRiE09RxYSvZTDLW59vi7lQTPrM0%3D&amp;reserved=0 
+>>
+>> [dcn20_fix] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Famd-gfx%2F20220608164856.1870594-1-sunpeng.li%40amd.com%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=yQR9AxoguAvVR%2BGni9GUhSdhgHKujcUXujFL30QZqAc%3D&amp;reserved=0 
+>>
+>> [dmub_bug] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Famd-gfx%2F20220708052650.1029150-1-alexander.deucher%40amd.com%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752284993982%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=WUb4zaBIhOd8oAjmcn19itKTbulUFepGfAtY%2FWLmrq8%3D&amp;reserved=0 
+>>
+>> [dmub_fix] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Famd-gfx%2F20220805175826.2992171-14-chiahsuan.chung%40amd.com%2FT%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cb44787cd3628425b078d08da7b3213c7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637957752285150231%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=Z4AWumNHtXuHo8h7%2Fh%2Bdd0VqBQeywtbaD35pCKs0neQ%3D&amp;reserved=0 
+>>
+>>
+>> Isabella Basso (1):
+>>    drm/amd/display: Introduce Kunit tests to display_rq_dlg_calc_20
+>>
+>> Magali Lemes (1):
+>>    drm/amd/display: Introduce KUnit tests for dcn20_fpu
+>>
+>> Maíra Canal (5):
+>>    drm/amd/display: Introduce KUnit tests to the bw_fixed library
+>>    drm/amd/display: Introduce KUnit tests to the display_mode_vba library
+>>    drm/amd/display: Introduce KUnit to dcn20/display_mode_vba_20 library
+>>    drm/amd/display: Introduce KUnit tests to dc_dmub_srv library
+>>    Documentation/gpu: Add Display Core Unit Test documentation
+>>
+>> Tales Aparecida (1):
+>>    drm/amd/display: Introduce KUnit tests for fixed31_32 library
+>>
+>>   .../gpu/amdgpu/display/display-test.rst       |  73 ++
+>>   Documentation/gpu/amdgpu/display/index.rst    |   1 +
+>>   drivers/gpu/drm/amd/display/Kconfig           |  25 +
+>>   .../drm/amd/display/dc/basics/fixpt31_32.c    |   5 +
+>>   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   4 +
+>>   .../drm/amd/display/dc/dml/calcs/bw_fixed.c   |   3 +
+>>   .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   4 +
+>>   .../dc/dml/dcn20/display_mode_vba_20.c        |   4 +
+>>   .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |   4 +
+>>   .../drm/amd/display/dc/dml/display_mode_vba.c |   3 +
+>>   .../gpu/drm/amd/display/tests/.kunitconfig    |   7 +
+>>   .../dc/basics/dc_basics_fixpt31_32_test.c     | 232 ++++++
+>>   .../amd/display/tests/dc/dc_dmub_srv_test.c   | 285 +++++++
+>>   .../tests/dc/dml/calcs/bw_fixed_test.c        | 323 ++++++++
+>>   .../tests/dc/dml/dcn20/dcn20_fpu_test.c       | 560 +++++++++++++
+>>   .../dc/dml/dcn20/display_mode_vba_20_test.c   | 227 ++++++
+>>   .../dml/dcn20/display_rq_dlg_calc_20_test.c   | 112 +++
+>>   .../tests/dc/dml/display_mode_vba_test.c      | 741 ++++++++++++++++++
+>>   18 files changed, 2613 insertions(+)
+>>   create mode 100644 Documentation/gpu/amdgpu/display/display-test.rst
+>>   create mode 100644 drivers/gpu/drm/amd/display/tests/.kunitconfig
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/basics/dc_basics_fixpt31_32_test.c
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dml/calcs/bw_fixed_test.c
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/dcn20_fpu_test.c
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_rq_dlg_calc_20_test.c 
+>>
+>>   create mode 100644 
+>> drivers/gpu/drm/amd/display/tests/dc/dml/display_mode_vba_test.c
+>>
+>>
+>> base-commit: 2305916dca043ed69bd464f74a886b0216780aa6
+>> prerequisite-patch-id: 83185f6c5da6070e7b0b608bc705a2d3bf295ae6
+>> prerequisite-patch-id: 65407777e3bb20dfe5051f4f4cc7deb6a3c2ed34
+>> prerequisite-patch-id: 60af3dadcfd4a778f10dd09fafbde6061d98528b
+>> prerequisite-patch-id: 92d9259125f2982da5945be995b4ae2af1ca7c32
+>> prerequisite-patch-id: f35acb6c07c0bd5496df919214351399d9aed5b5
+>> prerequisite-patch-id: 8a9637d89966e51adfe11e3fd3d17fcf1328b472
+>> prerequisite-patch-id: ea6f40f1cfb61fddb9d1562111897e184da49bf7
+>> prerequisite-patch-id: ae79651ae7b2e02520b18fc7eded463afea757e5
+>> prerequisite-patch-id: ba795b981f3e94890540f452e658e28408b500d2
+>> prerequisite-patch-id: abd5e51f483a9afb08af468db043e2ebc7ce6867
+>> prerequisite-patch-id: a31028824a461f8b4a6b9244035e246efbee9c71
+>> prerequisite-patch-id: a65dfe200981f8584ba3b1f9813faa4f0022a13e
+> 
