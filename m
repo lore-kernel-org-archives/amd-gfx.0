@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED45CC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E48C25B0C
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 693158D66D;
-	Thu, 11 Aug 2022 16:05:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBA9F900E1;
- Thu, 11 Aug 2022 16:05:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC91610F178;
+	Thu, 11 Aug 2022 16:05:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE3418A19E;
+ Thu, 11 Aug 2022 16:05:11 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BC6A8613F8;
- Thu, 11 Aug 2022 16:05:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA21C433D6;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 52F7D6133D;
  Thu, 11 Aug 2022 16:05:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704A4C433C1;
+ Thu, 11 Aug 2022 16:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660233912;
- bh=xLtHnm8micGLNicVMjboefOx/JO/OJlkNNbj8JJtSvw=;
+ s=k20201202; t=1660233909;
+ bh=QWsvTVdOsB728owrMyfiqkNbfhBqYwdkZ8D14NLC2D4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=doAu4RdcwgdsuJKXXhtTvc2qZ/a5jUEUuJ0MdbJBnTJS+6yDGoNRW7UiLjtl/BSOQ
- GouofQOtd2Yqwc83EZSbp/RrzxMuVN67aietQWfRBevlYaeVT3MrxdFMbq+PMjIbJ0
- 1192NBqwOhOybFH2pqD7NAPb/hREV7AxeseNNafWAIFmODvzR6G2ZeEyY0Ze2fzVhW
- FkVvWjBRLgl7DGyalPJaZv1KghnCXgyLrIaMO0n6thYfdCWAiKBQQleIugtqYkhDU8
- Irw/WMl9uyum/khSkIEhA1mpZ4I+BAjJuw/vLjzeSk7FSWUkXF6nBX57EmMbj0hZ9t
- FB4H1DmaL2dWQ==
+ b=GJ9hxBn/0PENmMv6RQ4eUXO3h8Sp0EVsM7nR+lVA7kdBcrMrb8y26m+O9Y2/45HDL
+ EU/U7t6TrJ3erNvBQE2OAVowldvaSLvrNcoqrqE2AreqwsQstT5m5n6jVCEtXrKBmk
+ sN+wHCm6SXqWREDYteD8QRJKwmC8mva63uvY0/0zy575zAIIiiAUXLXIkgbvKN0E7Y
+ P/q9Wl++Bivx2nkSoSeBwJRn5QupMsW7fQGy5XsQv6FaIZUZM8ruw4wgS31t11ZR3Z
+ 6g3KIdPKByE+IqWjV+vpDpo4TKzE+qNNhQ6oQ56Nh+7poY1/oXbIz+Cec85xFsoxih
+ rN86hXgIITqLA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 11/46] drm/radeon: Initialize fences array
- entries in radeon_sa_bo_next_hole
-Date: Thu, 11 Aug 2022 12:03:35 -0400
-Message-Id: <20220811160421.1539956-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 10/46] drm/radeon: integer overflow in
+ radeon_mode_dumb_create()
+Date: Thu, 11 Aug 2022 12:03:34 -0400
+Message-Id: <20220811160421.1539956-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811160421.1539956-1-sashal@kernel.org>
 References: <20220811160421.1539956-1-sashal@kernel.org>
@@ -63,50 +64,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
 
-[ Upstream commit 0381ac3ca2e727d4dfb7264d9416a8ba6bb6c18b ]
+[ Upstream commit feb54650bae25f2a2adfc493e3e254e7c27a3fba ]
 
-Similar to the handling of amdgpu_sa_bo_next_hole in commit 6a15f3ff19a8
-("drm/amdgpu: Initialize fences array entries in amdgpu_sa_bo_next_hole"),
+Similar to the handling of amdgpu_mode_dumb_create in commit 54ef0b5461c0
+("drm/amdgpu: integer overflow in amdgpu_mode_dumb_create()"),
 we thought a patch might be needed here as well.
 
-The entries were only initialized once in radeon_sa_bo_new. If a fence
-wasn't signalled yet in the first radeon_sa_bo_next_hole call, but then
-got signalled before a later radeon_sa_bo_next_hole call, it could
-destroy the fence but leave its pointer in the array, resulting in
-use-after-free in radeon_sa_bo_new.
+args->size is a u64.  arg->pitch and args->height are u32.  The
+multiplication will overflow instead of using the high 32 bits as
+intended.
 
 Signed-off-by: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_sa.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
-index 310c322c7112..0981948bd9ed 100644
---- a/drivers/gpu/drm/radeon/radeon_sa.c
-+++ b/drivers/gpu/drm/radeon/radeon_sa.c
-@@ -267,6 +267,8 @@ static bool radeon_sa_bo_next_hole(struct radeon_sa_manager *sa_manager,
- 	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
- 		struct radeon_sa_bo *sa_bo;
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index e5c4271e64ed..ac56d1dec214 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -758,7 +758,7 @@ int radeon_mode_dumb_create(struct drm_file *file_priv,
  
-+		fences[i] = NULL;
-+
- 		if (list_empty(&sa_manager->flist[i])) {
- 			continue;
- 		}
-@@ -332,10 +334,8 @@ int radeon_sa_bo_new(struct radeon_device *rdev,
+ 	args->pitch = radeon_align_pitch(rdev, args->width,
+ 					 DIV_ROUND_UP(args->bpp, 8), 0);
+-	args->size = args->pitch * args->height;
++	args->size = (u64)args->pitch * args->height;
+ 	args->size = ALIGN(args->size, PAGE_SIZE);
  
- 	spin_lock(&sa_manager->wq.lock);
- 	do {
--		for (i = 0; i < RADEON_NUM_RINGS; ++i) {
--			fences[i] = NULL;
-+		for (i = 0; i < RADEON_NUM_RINGS; ++i)
- 			tries[i] = 0;
--		}
- 
- 		do {
- 			radeon_sa_bo_try_free(sa_manager);
+ 	r = radeon_gem_object_create(rdev, args->size, 0,
 -- 
 2.35.1
 
