@@ -4,57 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5045BC19F2D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 07:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0413C19F2D
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 08:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E8FA79CC;
-	Thu, 11 Aug 2022 07:30:33 +0000 (UTC)
-Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com
- [IPv6:2607:f8b0:4864:20::e29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2F7A68E9
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 07:19:36 +0000 (UTC)
-Received: by mail-vs1-xe29.google.com with SMTP id o123so17472791vsc.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=c/MVcLOcSgyFUkgmMizWq4d9JL417TeooBL0/ACfehA=;
- b=K3ZJ5qqxKtBjIeSYucSMO1XSSK/N/mOAH4IqlHnldaN6iqkwMdbibZC3lA+srSxtmt
- qqzluMn5uWgaedLgSZYBYmvP6UhW1Nv5WbnyqBt6b3xCvp8hI8OFHRaDgv7jmo6TlgA2
- r3EFq9bDDz1biLnIM7oiC4ixLHgy7+limLEuJZx6NKH5a5Qb48hbHqnnOgMdfKT9lc+X
- AmOFkYJXyp6YmhRObfyLQkQDghE8NmvLrNXkFwwZC/khKGkk2UDXTbjQQQI/O1Szr5Zu
- YJKS6BOsHpuA9+huhNhTJlw9EampS1OEDLmFgVKtXFo51kqrJRboy04sbwm+A/Zh3PQ1
- ZyHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=c/MVcLOcSgyFUkgmMizWq4d9JL417TeooBL0/ACfehA=;
- b=p9MPetAA7HrzbT7tay/pRp+Sg1Z8RQRbjHsK7PMUdQmceuTjnIk7pPKVR1zpnHVQxT
- qfX3zKYuZoeDrM7nogUcB8LypmRA6nwP6XbFJLxG9MKGzwKi41po0qnT2HFfzgovobTE
- mqrIQCGdUtXYLbm/r7/3sVoizSpfYWAuLVxpcQ93muPuTpvvF7ydWUPqL//qT/qaDxon
- Thx7fLO7W/ecJ7DL8eVH3k7b1RvAj2u2TDaUTPbsGALZRvy2rX8GJiyzIVQts2EWQAYZ
- LSqCVqycceC8BCl1CzaNLDpV7tUxqj3bzYcLcWfsrSAQMEapIPB7qE1BowM/9lP6vuJT
- jKlg==
-X-Gm-Message-State: ACgBeo14tRrdnFmrcWKSTaw8itMz0qCxVUjU4KgMdHbnBzTtkXEFYEQb
- Hu9vqit3u0KE7EqB/2NRTFtSADX2tH6Rd/0rjE3R7w==
-X-Google-Smtp-Source: AA6agR6FwRdcbC2k/EXHBRwNRFbz0Cke6MeOnjFJtHxTq9ExOZFibOHUXVmAxFae9zSCUKXgQOBdY9GA1cXF8tLoj8A=
-X-Received: by 2002:a67:c198:0:b0:383:b020:f7c4 with SMTP id
- h24-20020a67c198000000b00383b020f7c4mr13878512vsj.71.1660202375046; Thu, 11
- Aug 2022 00:19:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2849453F;
+	Thu, 11 Aug 2022 08:40:53 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5A710EB17
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 08:40:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ncniWPLa6tlYBQqoGYHW617kG6XKzcf9JSiajeQ4GTA++D/ojEjS/GDJmvHGhoGqOmiwSx/lOB8Y5T2JyxAvOUR93vif89nDojOKzn3qmHAYI+OYUAaEa+LgLUu94zS/GZ6dJBpB2cMnFw6VsaOYZZKpCWeebtIhcykIjhk2HeGlT+6YbW/b3Y5Q23S3E6EJ8iw+cgwb/baSKzE9DkmGbdykUCp1Z4G8Ka3/6Pmrs5cFsRH59uyAvkiqVNvbfkVaTBYR5mFz6CWnKUWpHeXaMsGvGr6KMnP225UMZeYzsHVfjDp5RrjoVF96wXKv4x3noV4VYZvRofsCL41wWhcjxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P35lRD0k6hKfnzw7HvvZ1dv6g/sicPE3VnMGP+At3B0=;
+ b=CHx7AJ1SBqtMdSmr0UAqskBaoYa6Ki0ethKCsq6TMeo2VSOso35jvGZSX7gjQJTvs1g0S7Vr1zUI0GMzcScevDi8SCvXLla1DPh7+AOZ+K7MSSoXJJK1KBcg3nFtyUUzc9fAuaV17bhpv7LlG+rjdgxDhea2h7yWswDxpjrCdmFIzRJjhSiOzhS5Kkw3pHFFkmoj4RPXd29Y+QMwK+T/gsHP6tLEOK7VJQbGt5pjz1hI4NpBcR+IigYzBjAMryfAkRDP/DEQA2/OBFAgsx3xrC18m/+Cr3/GMDvEB31UcGA+EUNlkj5g8URbKCTqU0BnWwRCzLfS7ezh2MEHD4TVfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P35lRD0k6hKfnzw7HvvZ1dv6g/sicPE3VnMGP+At3B0=;
+ b=fTa/EQgVCRi3gxoPK95xGIN3/RYjZe+q26tM9XVs37uRwl5exrr/IcjHbxdUwPjiuCXkdl0wvIEUNzW3w61vjnsfzoLrWqu734ddJQ9N8OPNbQsIiJc8UHR2cLHQ3ZYOFxHPPWZMbU4oScaDNlwcBuvR1Hn7gJ7wZoKi9A7q1ag=
+Received: from MW4P223CA0024.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::29)
+ by MWHPR12MB1134.namprd12.prod.outlook.com (2603:10b6:300:c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 11 Aug
+ 2022 08:40:45 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:80:cafe::6d) by MW4P223CA0024.outlook.office365.com
+ (2603:10b6:303:80::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11 via Frontend
+ Transport; Thu, 11 Aug 2022 08:40:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5525.11 via Frontend Transport; Thu, 11 Aug 2022 08:40:45 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 11 Aug
+ 2022 03:40:43 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 11 Aug
+ 2022 01:40:37 -0700
+Received: from kenneth-u2004-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Thu, 11 Aug 2022 03:40:36 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: add mode1 support on smu_v13_0_7
+Date: Thu, 11 Aug 2022 16:40:29 +0800
+Message-ID: <20220811084029.1924377-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220811004010.61299-1-tales.aparecida@gmail.com>
- <20220811004010.61299-2-tales.aparecida@gmail.com>
- <CAGS_qxryOVG_ZvV1+i_egPZO8Ngq4EoFRK=Q_J9S8urj3kPyxA@mail.gmail.com>
-In-Reply-To: <CAGS_qxryOVG_ZvV1+i_egPZO8Ngq4EoFRK=Q_J9S8urj3kPyxA@mail.gmail.com>
-From: David Gow <davidgow@google.com>
-Date: Thu, 11 Aug 2022 15:19:23 +0800
-Message-ID: <CABVgOSm0Sakf8wnwCt8xB09+U3rzgxYPToOWkJK4ssfc-AkX2A@mail.gmail.com>
-Subject: Re: [PATCH 1/8] drm/amd/display: Introduce KUnit tests for fixed31_32
- library
-To: Daniel Latypov <dlatypov@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 11 Aug 2022 07:30:06 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f46cfeeb-4346-4fd2-a659-08da7b752f0e
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1134:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: V4bix2oeqpWQmjc2IYKpXHT6Deq93w/1zJpXV0+1rwei0HUi6eSbbBXJW6ODlOSVDBGLgIx97+8v61/utxBCjR8Z51nm5OOUe/joUeUDnoFwDS2WsY/qGpu184fXXIADSXBlA/QkIRq7i5ZRF4JiApT/17zC+6d81k25Y2mCZIRv+cqv2/i9pltC+IfgYrxVCoW+Yg32t4G6zpDJkfm3+ZU8MMqpkKPXng2Q8FSSqJcvxS6lboIYCMuDWy9Lq2Ipto5RGJV9z0OcGihqVWA9faOGl1MSbQRFULwJgnSAqKG+9xJOCudOdVUfep8dq3z3IDTR8JjV+NwHl32BLqOaBn1OyIUrEtElud9SWUFk7wXM7ilk/o9hBLyTUopEa5cCIEZGUz/RwSG2yvwT5p6XUJbwaeItmJt5ybk1RmIz8nMrpoNPmQ87QufXclBB+w+EEY+g4lIdEOmeP/2J43Ol1tCp67TdoBShDe4CtHiYj1C2pwLrKaoXczFeQXe2fG6se2f5ulBT5eyqj5/eyVFlB6K/MnpbH45VgIXW9dE81d6oNjqD4ARcxKhdfSmUojRv4lWiJeAtzq/EHQrI+VeFDVe177CMz+s4+QEmyPCbBag60yeb/XtEkbjBCKEq2ndKTOgxCJiOuW9Z0gin1v3AZGSqSvxd+oEZ3/3FFJIUsPqptTLhSPjWB8lGlOmv9tcqtFoIhI5cadPvpp44fEh1vaKPkbQp82n55FL70PKIaBxD06JymQ86j0qzk9wT8nfzMzQHu51xb5rct8hTt2JrpaJj7ZuHsbBR1BtTOGNF7oTwHsxjWlUVcveoYkQyAgo5SSwLj7VxU9bPsQ8+fEBSVg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(376002)(39860400002)(136003)(346002)(36840700001)(46966006)(40470700004)(2906002)(40460700003)(8936002)(356005)(5660300002)(81166007)(44832011)(40480700001)(86362001)(82310400005)(2616005)(426003)(186003)(336012)(1076003)(47076005)(26005)(41300700001)(6666004)(7696005)(36860700001)(478600001)(316002)(6916009)(4326008)(8676002)(82740400003)(70206006)(70586007)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2022 08:40:45.5350 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f46cfeeb-4346-4fd2-a659-08da7b752f0e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1134
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,83 +101,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: siqueirajordao@riseup.net, David Airlie <airlied@linux.ie>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
- Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
- Jonathan Corbet <corbet@lwn.net>, magalilemes00@gmail.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- KUnit Development <kunit-dev@googlegroups.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Leo Li <sunpeng.li@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
- Trevor Woerner <twoerner@gmail.com>,
- Tales Aparecida <tales.aparecida@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 11, 2022 at 11:05 AM 'Daniel Latypov' via KUnit
-Development <kunit-dev@googlegroups.com> wrote:
->
-> On Wed, Aug 10, 2022 at 5:40 PM Tales Aparecida
-> <tales.aparecida@gmail.com> wrote:
-> >
-> > The fixed31_32 library performs a lot of the mathematical operations
-> > involving fixed-point arithmetic and the conversion of integers to
-> > fixed-point representation.
-> >
-> > This unit tests intend to assure the proper functioning of the basic
-> > mathematical operations of fixed-point arithmetic, such as
-> > multiplication, conversion from fractional to fixed-point number,
-> > and more. Use kunit_tool to run:
-> >
-> > $ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-> >         --kunitconfig=drivers/gpu/drm/amd/display/tests/
->
-> Nice, thanks for including a kunitconfig, that'll help a lot.
->
-> Just as an FYI: if you're working on top of torvalds/master, I think
-> you would no longer need --arch=x86_64.
-> Before, CONFIG_PCI=y was tricky to enable on UML, but commit
-> 6fc3a8636a7b ("kunit: tool: Enable virtio/PCI by default on UML")
-> landed for 6.0.
->
-> I.e. I can run this command on torvalds/master w/ no other patches applied:
->
-> $ ./tools/testing/kunit/kunit.py config --kunitconfig=/dev/stdin <<EOF
-> CONFIG_KUNIT=y
-> CONFIG_PCI=y
-> CONFIG_DRM=y
-> CONFIG_DRM_AMDGPU=y
-> CONFIG_DRM_AMD_DC=y
-> EOF
->
-> I haven't tried to apply this series locally yet to double-check, but
-> I'm pretty sure that means these tests should work as well.
-> Running under UML would hopefully have faster compile times and be
-> less resource heavy than a QEMU VM (but I've not measured to verify
-> that).
->
+add mode1 support since it's missing on smu_v13_0_7
 
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-There are still a few issues which prevent these tests from working on
-UML I haven't had a chance to go through all of them yet, but I'll
-drop a couple of quick responses to some of the individual patches.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index d78375d9a141..1016d1c216d8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1567,6 +1567,16 @@ static int smu_v13_0_7_set_mp1_state(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++static bool smu_v13_0_7_is_mode1_reset_supported(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++
++	/* SRIOV does not support SMU mode1 reset */
++	if (amdgpu_sriov_vf(adev))
++		return false;
++
++	return true;
++}
+ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
+@@ -1626,6 +1636,8 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.baco_set_state = smu_v13_0_baco_set_state,
+ 	.baco_enter = smu_v13_0_baco_enter,
+ 	.baco_exit = smu_v13_0_baco_exit,
++	.mode1_reset_is_support = smu_v13_0_7_is_mode1_reset_supported,
++	.mode1_reset = smu_v13_0_mode1_reset,
+ 	.set_mp1_state = smu_v13_0_7_set_mp1_state,
+ };
+ 
+-- 
+2.25.1
 
-The first thing to note is that amdgpu doesn't actually build on UML
-at all without:
-https://patchwork.kernel.org/project/linux-rdma/patch/20220218075727.2737623-3-davidgow@google.com/
-
-IIRC, no-one liked spreading !defined(CONFIG_UML) everwhere. Replacing
-it with IS_ENABLED(CONFIG_X86) also works, as X86_64 is defined on
-UML, but X86 isn't.
-
-The other issues are basically just other missing #ifdef checks or
-dependencies. Plus there's a warning on my system even under x86_64
-for integer overflow in the MIN_I64 definition.
-
-Cheers,
--- David
