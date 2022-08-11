@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB4EC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521E1C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B95EB44D0;
-	Thu, 11 Aug 2022 15:36:13 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B0718B078;
- Thu, 11 Aug 2022 15:36:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01601B44EA;
+	Thu, 11 Aug 2022 15:36:27 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9633A2E1F;
+ Thu, 11 Aug 2022 15:36:16 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C2B2C61620;
- Thu, 11 Aug 2022 15:36:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3EEC43140;
- Thu, 11 Aug 2022 15:36:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7390FB82157;
+ Thu, 11 Aug 2022 15:36:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F19DC433B5;
+ Thu, 11 Aug 2022 15:36:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232164;
- bh=DuTwacPrQi8SpKVCwo8IL9ID57K2gYT2UIZtXBk5aXU=;
+ s=k20201202; t=1660232174;
+ bh=3WO1X/r96fVsa2TO+JzUldSo6EvsERimnvGpjqkZ4pc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K+pMtuG/ERjjpovv7xWF0FpXkaUNLHFxHoy8TQeXPLV9khvBUbqMi7S9DVCLMXg93
- hgLwjj40rXqok2CSO8DF7xWXT8ry0sjQyaFFGye+s7NaniUfzruLJ+hJfHY/r1Te2G
- HJQ/6YrZ8DffN6OssK1g9K+gKBwMKtqDXRtFP0XVylZsGhNH0OJUyUSsyGSfMa/dCZ
- 1q12LQf6lPHFCNLBlQqZ1tMqPOZpgAYZ8mXCgX9rRsWAxlOvkd5SltHCnXU/CZKmJ2
- pbgLpCmJuV1QnhLJNvNr9N1NOvLhj1s4PHhcY5aoCPsK9YIdBRoKvwHtzO8+vF1P42
- UrS4D8HPSTlyw==
+ b=nuO4RWeN8Z6N8ieq5f8QWfzCrdoZHUb5nbW9p50BWnSyPO1dMhee1Uddvh4XA8kua
+ r/rdUD+Ih4AP4ut46ecTE3uOh5gbAHHbRda/+HKZ5IsSX7U5A8mmjKrcIyA7PrM0IE
+ PKLO4mWyC03tXvy5EARJ8DWb3lp4cB7F405XUV5jHKad9ZjAguorilqU86YwlMHZFu
+ LWNUqDwMnz4nUqhpXMWb7/xGEYrOzGsigIFsCWLh1OCNfwbOkjMxLGh7gzDl/Vf5fW
+ k8dRcCTH7HNEMSwmu1BOu1e/SNul8/DVFX21NpUtPSvo/EOSLLKSpFrJCFXndeO9fP
+ gmH46MqmZubEg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 060/105] drm/amd/display: disable otg toggle w/a
- on boot
-Date: Thu, 11 Aug 2022 11:27:44 -0400
-Message-Id: <20220811152851.1520029-60-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 064/105] drm/amdgpu: Fix one list corruption when
+ create queue fails
+Date: Thu, 11 Aug 2022 11:27:48 -0400
+Message-Id: <20220811152851.1520029-64-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811152851.1520029-1-sashal@kernel.org>
 References: <20220811152851.1520029-1-sashal@kernel.org>
@@ -55,57 +54,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <Charlene.Liu@amd.com>,
- Eric.Yang2@amd.com, sunpeng.li@amd.com, qingqing.zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, nicholas.kazlauskas@amd.com, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, paul.hsieh@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
+ airlied@linux.ie, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: xinhui pan <xinhui.pan@amd.com>
 
-[ Upstream commit 8a077d9caa3a274de36ee2fe7b608041f5690343 ]
+[ Upstream commit cc3cb791f19ad0c4f951f38c98aa513b042ab329 ]
 
-This w/a has a bad interaction with seamless boot toggling an
-active stream. Most panels recover, however some fail leading
-to display corruption.
+Queue would be freed when create_queue_cpsch fails
+So lets do queue cleanup otherwise various list and memory issues
+happen.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+Reviewed-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index f4381725b210..36b0cd47c1c7 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -173,11 +173,14 @@ static void dcn315_update_clocks(struct clk_mgr *clk_mgr_base,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index e017b4240472..06417c7abca4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1666,14 +1666,13 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 	if (q->properties.is_active) {
+ 		increment_queue_count(dqm, qpd, q);
+ 
+-		if (!dqm->dev->shared_resources.enable_mes) {
++		if (!dqm->dev->shared_resources.enable_mes)
+ 			retval = execute_queues_cpsch(dqm,
+-					     KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+-		} else {
++					KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
++		else
+ 			retval = add_queue_mes(dqm, q, qpd);
+-			if (retval)
+-				goto cleanup_queue;
+-		}
++		if (retval)
++			goto cleanup_queue;
  	}
  
- 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
--		dcn315_disable_otg_wa(clk_mgr_base, true);
-+		/* No need to apply the w/a if we haven't taken over from bios yet */
-+		if (clk_mgr_base->clks.dispclk_khz)
-+			dcn315_disable_otg_wa(clk_mgr_base, true);
- 
- 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
- 		dcn315_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
--		dcn315_disable_otg_wa(clk_mgr_base, false);
-+		if (clk_mgr_base->clks.dispclk_khz)
-+			dcn315_disable_otg_wa(clk_mgr_base, false);
- 
- 		update_dispclk = true;
- 	}
+ 	/*
 -- 
 2.35.1
 
