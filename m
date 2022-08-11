@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DABC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89AC9C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE33314B9D9;
-	Thu, 11 Aug 2022 16:03:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A506510EAAE;
- Thu, 11 Aug 2022 16:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E15C14BD5F;
+	Thu, 11 Aug 2022 16:05:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB9A8EBF6;
+ Thu, 11 Aug 2022 16:04:54 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4703AB82182;
- Thu, 11 Aug 2022 16:03:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E12C433C1;
- Thu, 11 Aug 2022 16:03:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EE69B613F8;
+ Thu, 11 Aug 2022 16:04:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59BB0C433D6;
+ Thu, 11 Aug 2022 16:04:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660233807;
- bh=DETJOHCyZk9uMEeFcuyCR2LyeCUrvN5IBA3ErPll1DM=;
+ s=k20201202; t=1660233893;
+ bh=OzEj7iSPd7OSbMPJ0qrU/1dYtF3z9Ywt9E+cjg53Epo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QiMV67ZjMWjx9hdll8K/GSuAHwPGbe9M87/9/+9NPSDmp/OiOTBDmud3i6t9nGEPA
- MQmTpO1pAREapvIIfs7APcM3iTuQVr2uLXhmb2pobbFUxxAVO89DvaDHNRVeELn4wN
- sCTVh1aLX+qp+222AzIy8GIMDJ7Zd7BpIucIcnSAUIoY8ezCBC2h/zvg88kkxXK7gB
- wEtfrLCb0uUDT8Vav36HTgmE922SwDtyiLioOCEjdErx9ZGqWSkWzjN8m5PYrHXKon
- T6Mogqrv1mR4iYuPcXwu/gZGVvvbm7uKxKJSOdFthfIjpsoORWdfuE6FljUJJVKqD2
- NtmcwIE5iF1Tg==
+ b=e9bLXYW0e6kdSojnvd7eMMx1iDMPf5N8klGWanxdujwchumYuSqoqx4bmzZCtszZ6
+ gc/8N/0rMz8E7sA3kBEcoRHn6GYoaqnOnfhlOC5JiZ9ZNmVd3i4kJD/DqJpEKZZf/N
+ 6q3gRDKRdEbyQ48L6eqxtM13BnnOWTw98KSTLR9TpsCyZg0rXYpUF4TxELo/rQTd9e
+ h7CLhV8QcW4UT9zoHA7gdEwvfzCmnGjWrdErotskLTvqaIIlytDVsi9s+ZDvprzS48
+ B/offXey/SLgTTJvVrd4uhn5Mh+6QPnS+2ke6k/ZWGZpZge0+JTSktOfOeywhQWepC
+ x6OuT1CRaC/TA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 60/69] drm/amdkfd: Correct mmu_notifier_get
- failure handling
-Date: Thu, 11 Aug 2022 11:56:09 -0400
-Message-Id: <20220811155632.1536867-60-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 08/46] drm/amd/display: Detect dpcd_rev when
+ hotplug mst monitor
+Date: Thu, 11 Aug 2022 12:03:32 -0400
+Message-Id: <20220811160421.1539956-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811155632.1536867-1-sashal@kernel.org>
-References: <20220811155632.1536867-1-sashal@kernel.org>
+In-Reply-To: <20220811160421.1539956-1-sashal@kernel.org>
+References: <20220811160421.1539956-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,59 +54,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
- airlied@linux.ie, Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+ tzimmermann@suse.de, sunpeng.li@amd.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Jerry.Zuo@amd.com,
+ Hersen Wu <hersenwu@amd.com>, Roman.Li@amd.com, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ daniel@ffwll.ch, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, nicholas.kazlauskas@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-[ Upstream commit 0593ad215359d51514c1e6c81ce28ea598efed6b ]
+[ Upstream commit 453b0016a054df0f442fda8a145b97a33816cab9 ]
 
-If process has signal pending, mmu_notifier_get_locked fails and calls
-ops->free_notifier, kfd_process_free_notifier will schedule
-kfd_process_wq_release as process refcount is 1, but process structure
-is already freed. This use after free bug causes system crash with
-different backtrace.
+[Why]
+Once mst topology is constructed, later on new connected monitors
+are reported to source by CSN message. Within CSN, there is no
+carried info of DPCD_REV comparing to LINK_ADDRESS reply. As the
+result, we might leave some ports connected to DP but without DPCD
+revision number which will affect us determining the capability of
+the DP Rx.
 
-The fix is to increase process refcount and then decrease the refcount
-after mmu_notifier_get success.
+[How]
+Send out remote DPCD read when the port's dpcd_rev is 0x0 in
+detect_ctx(). Firstly, read out the value from DPCD 0x2200. If the
+return value is 0x0, it's likely the DP1.2 DP Rx then we reques
+revision from DPCD 0x0 again.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Hersen Wu <hersenwu@amd.com>
+Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 38 ++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 21ec8a18cad2..bc502c378281 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1340,6 +1340,11 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
- 			(uintptr_t)process->mm);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index d617e98afb76..c6418462ecb0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -279,12 +279,48 @@ dm_dp_mst_detect(struct drm_connector *connector,
+ {
+ 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+ 	struct amdgpu_dm_connector *master = aconnector->mst_port;
++	struct drm_dp_mst_port *port = aconnector->port;
++	int connection_status;
  
-+	/* Avoid free_notifier to start kfd_process_wq_release if
-+	 * mmu_notifier_get failed because of pending signal.
-+	 */
-+	kref_get(&process->ref);
+ 	if (drm_connector_is_unregistered(connector))
+ 		return connector_status_disconnected;
+ 
+-	return drm_dp_mst_detect_port(connector, ctx, &master->mst_mgr,
++	connection_status = drm_dp_mst_detect_port(connector, ctx, &master->mst_mgr,
+ 				      aconnector->port);
 +
- 	/* MMU notifier registration must be the last call that can fail
- 	 * because after this point we cannot unwind the process creation.
- 	 * After this point, mmu_notifier_put will trigger the cleanup by
-@@ -1352,6 +1357,7 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	}
- 	BUG_ON(mn != &process->mmu_notifier);
++	if (port->pdt != DP_PEER_DEVICE_NONE && !port->dpcd_rev) {
++		uint8_t dpcd_rev;
++		int ret;
++
++		ret = drm_dp_dpcd_readb(&port->aux, DP_DP13_DPCD_REV, &dpcd_rev);
++
++		if (ret == 1) {
++			port->dpcd_rev = dpcd_rev;
++
++			/* Could be DP1.2 DP Rx case*/
++			if (!dpcd_rev) {
++				ret = drm_dp_dpcd_readb(&port->aux, DP_DPCD_REV, &dpcd_rev);
++
++				if (ret == 1)
++					port->dpcd_rev = dpcd_rev;
++			}
++
++			if (!dpcd_rev)
++				DRM_DEBUG_KMS("Can't decide DPCD revision number!");
++		}
++
++		/*
++		 * Could be legacy sink, logical port etc on DP1.2.
++		 * Will get Nack under these cases when issue remote
++		 * DPCD read.
++		 */
++		if (ret != 1)
++			DRM_DEBUG_KMS("Can't access DPCD");
++	} else if (port->pdt == DP_PEER_DEVICE_NONE) {
++		port->dpcd_rev = 0;
++	}
++
++	return connection_status;
+ }
  
-+	kfd_unref_process(process);
- 	get_task_struct(process->lead_thread);
- 
- 	return process;
+ static int dm_dp_mst_atomic_check(struct drm_connector *connector,
 -- 
 2.35.1
 
