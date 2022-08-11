@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73420C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:05:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED45CC19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C2895194;
-	Thu, 11 Aug 2022 16:05:28 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16B6514BC1E;
- Thu, 11 Aug 2022 16:05:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 693158D66D;
+	Thu, 11 Aug 2022 16:05:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA9F900E1;
+ Thu, 11 Aug 2022 16:05:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 19AA8B821AC;
- Thu, 11 Aug 2022 16:05:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F65C433C1;
- Thu, 11 Aug 2022 16:05:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BC6A8613F8;
+ Thu, 11 Aug 2022 16:05:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA21C433D6;
+ Thu, 11 Aug 2022 16:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660233906;
- bh=HacvzdrZnmxSn3Ds6DRbQwkz80U2LbgSHuzkHWtp9Y8=;
+ s=k20201202; t=1660233912;
+ bh=xLtHnm8micGLNicVMjboefOx/JO/OJlkNNbj8JJtSvw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mum3/2FByQ3R4z6AMdZXV8oeVExiqzsQkCjldmdLgMgbc2IeVhtCPpDNsegHTjh84
- WdnBGiOE5FqB1cH7iT/x4jXikIBp4/E39TbkiBIqky/DSE8A1+JCvD68d50leNy15S
- 7zciXlmJGwLIwCA/7hBsTPnNTXHWKA1RDzUxQ0fzDCHJLcneZxB0zjCc2pk8qdVyWZ
- jpzwXyWofbRpFfZGLh3yJj38g5vAkUKxDPqtgocc/9tbeDH6Qo+Z2sG/rFrktu9scM
- FQ8wYReYw2V8FGGTwjTkCDacOOk9dH4nYPv4j2qUYl71ZHMXbkp8+qMoeSeceRZdiY
- NQ67DAg0qeR2A==
+ b=doAu4RdcwgdsuJKXXhtTvc2qZ/a5jUEUuJ0MdbJBnTJS+6yDGoNRW7UiLjtl/BSOQ
+ GouofQOtd2Yqwc83EZSbp/RrzxMuVN67aietQWfRBevlYaeVT3MrxdFMbq+PMjIbJ0
+ 1192NBqwOhOybFH2pqD7NAPb/hREV7AxeseNNafWAIFmODvzR6G2ZeEyY0Ze2fzVhW
+ FkVvWjBRLgl7DGyalPJaZv1KghnCXgyLrIaMO0n6thYfdCWAiKBQQleIugtqYkhDU8
+ Irw/WMl9uyum/khSkIEhA1mpZ4I+BAjJuw/vLjzeSk7FSWUkXF6nBX57EmMbj0hZ9t
+ FB4H1DmaL2dWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 09/46] drm/amd/display: Fix dpp dto for disabled
- pipes
-Date: Thu, 11 Aug 2022 12:03:33 -0400
-Message-Id: <20220811160421.1539956-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 11/46] drm/radeon: Initialize fences array
+ entries in radeon_sa_bo_next_hole
+Date: Thu, 11 Aug 2022 12:03:35 -0400
+Message-Id: <20220811160421.1539956-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811160421.1539956-1-sashal@kernel.org>
 References: <20220811160421.1539956-1-sashal@kernel.org>
@@ -55,67 +54,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric.Cyr@amd.com, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- dri-devel@lists.freedesktop.org, Yi-Ling.Chen2@amd.com,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, isabbasso@riseup.net, Jun.Lei@amd.com,
- Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>, gabe.teeger@amd.com,
- wenjing.liu@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, Duncan Ma <duncan.ma@amd.com>,
- mwen@igalia.com, Daniel Wheeler <daniel.wheeler@amd.com>, Sungjoon.Kim@amd.com,
- Hansen Dsouza <Hansen.Dsouza@amd.com>, Xinhui.Pan@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, daniel@ffwll.ch,
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Duncan Ma <duncan.ma@amd.com>
+From: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
 
-[ Upstream commit d4965c53b95d7533dfc2309d2fc25838bd33220e ]
+[ Upstream commit 0381ac3ca2e727d4dfb7264d9416a8ba6bb6c18b ]
 
-[Why]
-When switching from 1 pipe to 4to1 mpc combine,
-DppDtoClk aren't enabled for the disabled pipes
-pior to programming the pipes. Upon optimizing
-bandwidth, DppDto are enabled causing intermittent
-underflow.
+Similar to the handling of amdgpu_sa_bo_next_hole in commit 6a15f3ff19a8
+("drm/amdgpu: Initialize fences array entries in amdgpu_sa_bo_next_hole"),
+we thought a patch might be needed here as well.
 
-[How]
-Update dppclk dto whenever pipe are flagged to
-enable.
+The entries were only initialized once in radeon_sa_bo_new. If a fence
+wasn't signalled yet in the first radeon_sa_bo_next_hole call, but then
+got signalled before a later radeon_sa_bo_next_hole call, it could
+destroy the fence but leave its pointer in the array, resulting in
+use-after-free in radeon_sa_bo_new.
 
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Reviewed-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
-Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Duncan Ma <duncan.ma@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/radeon/radeon_sa.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 3d778760a3b5..7289752d44ad 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1376,11 +1376,15 @@ static void dcn20_update_dchubp_dpp(
- 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
- 	struct dpp *dpp = pipe_ctx->plane_res.dpp;
- 	struct dc_plane_state *plane_state = pipe_ctx->plane_state;
-+	struct dccg *dccg = dc->res_pool->dccg;
- 	bool viewport_changed = false;
+diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
+index 310c322c7112..0981948bd9ed 100644
+--- a/drivers/gpu/drm/radeon/radeon_sa.c
++++ b/drivers/gpu/drm/radeon/radeon_sa.c
+@@ -267,6 +267,8 @@ static bool radeon_sa_bo_next_hole(struct radeon_sa_manager *sa_manager,
+ 	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+ 		struct radeon_sa_bo *sa_bo;
  
- 	if (pipe_ctx->update_flags.bits.dppclk)
- 		dpp->funcs->dpp_dppclk_control(dpp, false, true);
- 
-+	if (pipe_ctx->update_flags.bits.enable)
-+		dccg->funcs->update_dpp_dto(dccg, dpp->inst, pipe_ctx->plane_res.bw.dppclk_khz);
++		fences[i] = NULL;
 +
- 	/* TODO: Need input parameter to tell current DCHUB pipe tie to which OTG
- 	 * VTG is within DCHUBBUB which is commond block share by each pipe HUBP.
- 	 * VTG is 1:1 mapping with OTG. Each pipe HUBP will select which VTG
+ 		if (list_empty(&sa_manager->flist[i])) {
+ 			continue;
+ 		}
+@@ -332,10 +334,8 @@ int radeon_sa_bo_new(struct radeon_device *rdev,
+ 
+ 	spin_lock(&sa_manager->wq.lock);
+ 	do {
+-		for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+-			fences[i] = NULL;
++		for (i = 0; i < RADEON_NUM_RINGS; ++i)
+ 			tries[i] = 0;
+-		}
+ 
+ 		do {
+ 			radeon_sa_bo_try_free(sa_manager);
 -- 
 2.35.1
 
