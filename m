@@ -4,44 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FA4C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C6D1C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96F8514B938;
-	Thu, 11 Aug 2022 12:54:18 +0000 (UTC)
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10D57A72DC;
- Thu, 11 Aug 2022 07:26:01 +0000 (UTC)
-X-UUID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
-X-CPASD-INFO: 12437b500c9c49a980b461ad49267f8a@eoJuU2SUY2Bcg3uvg3ysc1hhkmRmXYG
- zdnNSZmWWZIGVgnxsTV5qXFWCgGpQYWNdYlV3fGtQYmBgZFB5i4Jyj1RgXmCCVHSTgHNsVGNlkg==
-X-CLOUD-ID: 12437b500c9c49a980b461ad49267f8a
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:196.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:245.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5
- .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-
- 5, AUF:2, DUF:2126, ACD:46, DCD:46, SL:0, EISP:0, AG:0, CFC:0.597, CFSR:0.039,
- UAT:0, RA
- F:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: 5c3c5a507470455b949f29b3a7ea64c0-20220811
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 634263236; Thu, 11 Aug 2022 15:25:53 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/radeon: add a force flush to delay work when radeon
-Date: Thu, 11 Aug 2022 15:25:40 +0800
-Message-Id: <20220811072540.964309-1-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84766A1C22;
+	Thu, 11 Aug 2022 12:54:19 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0739113277
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 11:02:54 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id l21so7450326ljj.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 04:02:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:from:to:cc;
+ bh=iwbijT25JOQabEJoAdZbUrL+K+nZlUlywCNjAPaRkPY=;
+ b=Zwmv+zhwDMR2nSKdFJwP2quzKJ6loGMdS1t7skyjM7Np9UwvBEvxE06ihAie/nti4/
+ diw7tb/KgC66OQQK6thMASgGBL0BBl5jJtfOlAFyaWnCzCsKUra2xCgo3eC6liJpPAlX
+ iombHyCRKc/M6HnExt6By5qPTL9bSeEfccm4nS96YDwPAuj3qnRos8hU3C4VE09A+O0s
+ OgyLJHo6Uq1ZGqoC+XdYzhesM/6b/GagdS7N6IYe/V3+fm5KMrMsOG5yrDi2RM6N4EU+
+ ldv3wgvnqCU9DkoAzWQbGewePPsQ1LEKFFMG4HLp/o8Hmj+9EcuygvsNiQt0TNnN9ETn
+ o7Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=iwbijT25JOQabEJoAdZbUrL+K+nZlUlywCNjAPaRkPY=;
+ b=oLNecQSkLixz11kZ3TytQR4j6++dp8mabaiZ+weCrDrr/ppVOcLe3SLS7v4gRgsiyb
+ rayGh5PvHH91PpKt23iL+f5pkVU7HXu7jn/A8xrdapImOtjh5jBFnNwlnP+2Uw+hmsIr
+ mwaWN/wXpKQTTwpauq7KbSAtLE714IisBfT7Wcn0jcbZLEzhA4IGbDG6i8c7l9Waki7X
+ TNpvOSCq1xEhR5qs1kPALoVOZTsyhjDlclLhiH2Z1WhXKKjmS8Zf8LR7LD6zR6k40aQd
+ 71ksAZjxHqEKzzWbowNfBsnt5N5SVPX0AJFxQwigGV1Bsi9lQBWmfI8bMVbmgXPIUvCV
+ Wptw==
+X-Gm-Message-State: ACgBeo2rTxPKYVKJqneSz1xLn1yrvlWayi7nAkjKjmJeE2apHzvNa60u
+ tve/Vxf4hlD37LRbLfskvUtWzg==
+X-Google-Smtp-Source: AA6agR4ykeceqsDPELylN8UCyzrVw8F81lb8BHUuAicXDhJl8e5U6VRW1MUnNOJMxICZLpwoZ8cc/A==
+X-Received: by 2002:a05:651c:3d9:b0:25e:505f:2355 with SMTP id
+ f25-20020a05651c03d900b0025e505f2355mr10669447ljp.453.1660215772980; 
+ Thu, 11 Aug 2022 04:02:52 -0700 (PDT)
+Received: from mutt (c-e429e555.07-21-73746f28.bbcust.telenor.se.
+ [85.229.41.228]) by smtp.gmail.com with ESMTPSA id
+ q11-20020a2eb4ab000000b0025d75995a07sm781439ljm.24.2022.08.11.04.02.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Aug 2022 04:02:52 -0700 (PDT)
+Date: Thu, 11 Aug 2022 13:02:50 +0200
+From: Anders Roxell <anders.roxell@linaro.org>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: Re: [PATCH v2 2/3] drm/amd/display: consider DSC pass-through during
+ mode validation
+Message-ID: <20220811110250.GA520@mutt>
+References: <20220805211317.176672-1-hamza.mahfooz@amd.com>
+ <20220805211317.176672-2-hamza.mahfooz@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220805211317.176672-2-hamza.mahfooz@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Thu, 11 Aug 2022 12:54:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,77 +72,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Ian Chen <ian.chen@amd.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, Imre Deak <imre.deak@intel.com>,
+ dri-devel@lists.freedesktop.org, Roman Li <Roman.Li@amd.com>,
+ Imran Khan <imran.f.khan@oracle.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Kees Cook <keescook@chromium.org>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, hersenxs.wu@amd.com,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Claudio Suarez <cssk@net-c.es>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@intel.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Although radeon card fence and wait for gpu to finish processing current batch rings,
-there is still a corner case that radeon lockup work queue may not be fully flushed,
-and meanwhile the radeon_suspend_kms() function has called pci_set_power_state() to
-put device in D3hot state.
-Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
-> Configuration and Message requests are the only TLPs accepted by a Function in
-> the D3hot state. All other received Requests must be handled as Unsupported Requests,
-> and all received Completions may optionally be handled as Unexpected Completions.
-This issue will happen in following logs:
-Unable to handle kernel paging request at virtual address 00008800e0008010
-CPU 0 kworker/0:3(131): Oops 0
-pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 Tainted: G        W
-pc is at si_gpu_check_soft_reset+0x3c/0x240
-ra is at si_dma_is_lockup+0x34/0xd0
-v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
-t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
-t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
-s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
-s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
-s6 = fff00007ef07bd98
-a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
-a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
-t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
-t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
-gp = ffffffff81d89690  sp = 00000000aa814126
-Disabling lock debugging due to kernel taint
-Trace:
-[<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
-[<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
-[<ffffffff80977010>] process_one_work+0x280/0x550
-[<ffffffff80977350>] worker_thread+0x70/0x7c0
-[<ffffffff80977410>] worker_thread+0x130/0x7c0
-[<ffffffff80982040>] kthread+0x200/0x210
-[<ffffffff809772e0>] worker_thread+0x0/0x7c0
-[<ffffffff80981f8c>] kthread+0x14c/0x210
-[<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
-[<ffffffff80981e40>] kthread+0x0/0x210
- Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8  40230101
- <88210000> 4821ed21
-So force lockup work queue flush to fix this problem.
 
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
----
- drivers/gpu/drm/radeon/radeon_device.c | 3 +++
- 1 file changed, 3 insertions(+)
+On 2022-08-05 17:13, Hamza Mahfooz wrote:
+> Add a mode validation routine for DSC pass-through. Both the link from
+> source to hub, and the link from hub to monitor are checked, according
+> to the current link training result and full pbn returned by enum path
+> resource sideband message.
+> 
+> Pick up the minimum value as the bandwidth bottleneck for the end to
+> end link bandwidth constraint, and check if the maximum DSC decompression
+> bandwidth can fit.
+> 
+> Co-authored-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 15692cb241fc..e608ca26780a 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		if (r) {
- 			/* delay GPU reset to resume */
- 			radeon_fence_driver_force_completion(rdev, i);
-+		} else {
-+			/* finish executing delayed work */
-+			flush_delayed_work(&rdev->fence_drv[i].lockup_work);
- 		}
- 	}
- 
--- 
-2.25.1
+Hi,
+
+Building an arm64 allmodconfig kernel from todays next tag, next-20220811.
+I can see the following build error.
+
+ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+
+When I reverted this patch I was able to build an arm64 allmodconfig
+kernel.
 
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+Cheers,
+Anders
