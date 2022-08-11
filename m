@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C86E2C00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:31:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC74C00140
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDB214B3A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1563932F3;
 	Fri, 12 Aug 2022 16:31:50 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD69E9363E;
- Fri, 12 Aug 2022 07:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660287890; x=1691823890;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=Wv3mliKJHlOvyzG83octad0uOqX2aKpqEvow5oXSetg=;
- b=iV8Ua9PW9/BCMIOcqZ0cX4g7WFsAQyrc8fyahj0kmRiTlyMRsQUg5P0E
- AKQ9tR+dlaQAe+En+c4oap/Z70Z/GzkvxB8PdsjjxT+j5DOSjaCpidqXz
- XgN3MnRD9sq08Q9s4Ep3LtP1RANcVk9JzqjI+08ZuWJ/Z9LYEUIKyUj+7
- dUZi77wfcD2IaTCOto4YrFUzSDLyuqrjESz/B5UjDvKzGBZ+i8wcHihMj
- 12h6wob9NGZAIeHBwG70ANm1kTluWGsRDVYpwh3Wc2hgKNmJc1Dd52zrB
- MhOyHNV+aWJhwqgCNiBL4daLEo8U/rfyxG1f5kazsCYteX1Jwzaz7+aae A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="292801785"
-X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="292801785"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 00:04:50 -0700
-X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="581987316"
-Received: from ebrazil-mobl1.amr.corp.intel.com (HELO localhost)
- ([10.252.37.174])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 00:04:46 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Jouni =?utf-8?Q?H?=
- =?utf-8?Q?=C3=B6gander?=
- <jouni.hogander@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v3 2/3] drm/amdgpu_dm: Rely on split out luminance
- calculation function
-In-Reply-To: <BL1PR12MB5144D129C543A4FAD451FFF1F7649@BL1PR12MB5144.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220719095700.14923-1-jouni.hogander@intel.com>
- <20220719095700.14923-3-jouni.hogander@intel.com>
- <877d3opc4d.fsf@intel.com>
- <BL1PR12MB5144D129C543A4FAD451FFF1F7649@BL1PR12MB5144.namprd12.prod.outlook.com>
-Date: Fri, 12 Aug 2022 10:04:44 +0300
-Message-ID: <87h72irlgz.fsf@intel.com>
+Received: from gimli.rothwell.id.au (gimli.rothwell.id.au [103.230.158.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7233F929C4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 23:07:40 +0000 (UTC)
+Received: from authenticated.rothwell.id.au (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.rothwell.id.au (Postfix) with ESMTPSA id 4M3jBY2S2CzyZt;
+ Fri, 12 Aug 2022 09:07:33 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rothwell.id.au;
+ s=201702; t=1660259255;
+ bh=MQdGlv7/KuLvICsIqGjekw2CdHuPtmyaZo7g6m/4FjI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=adZNluClMa2RHl848Ly9cmmxaBRWrS5jN925SdAWWhmWEqgqt1j6UPqyrhqmTz7dx
+ 5/OLBxkgKq0xH+1eeUdBZkuhyMZ6W33mnxSu+fPSPNXEiixZMceZ9S/ONjEGAScSWq
+ fQ34MLaIPk3soIwNg5I/x8Z5iovR/F+idT0otWFtHsiEOrN/GEpoMVrKzeniPK8foV
+ uKaaFFVdJkGqulsfxrpHZbdNDVSbIYC9eVLwOe/dzR0IjlMRiOAc2VHLSzWh3GvDQq
+ jzl/WG7CdoDbDm4z2Da/8yZnUMmvlMF3k1MY5bX7boTxbH1evSclE2TEWbk2sZQ+WQ
+ 5jx5A7bpu5c+w==
+Date: Fri, 12 Aug 2022 09:07:31 +1000
+From: Stephen Rothwell <sfr@rothwell.id.au>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: build failure of next-20220811 due to b1a63a0b48ad
+ ("drm/amd/display: consider DSC pass-through during mode validation")
+Message-ID: <20220812090731.31da7d85@oak.ozlabs.ibm.com>
+In-Reply-To: <YvU4GD8HtZ1A4dhI@debian>
+References: <YvU4GD8HtZ1A4dhI@debian>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; boundary="Sig_/lBwBYWJZfaTJxqb/SqOb3za";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 12 Aug 2022 16:31:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,154 +52,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, Manasi Navare <manasi.d.navare@intel.com>,
- Mika Kahola <mika.kahola@intel.com>,
- Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, linux-next@vger.kernel.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 11 Aug 2022, "Deucher, Alexander" <Alexander.Deucher@amd.com> wrote:
-> [Public]
->
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jani
->> Nikula
->> Sent: Thursday, August 4, 2022 5:55 AM
->> To: Jouni H=C3=B6gander <jouni.hogander@intel.com>; dri-
->> devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; amd-
->> gfx@lists.freedesktop.org
->> Cc: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman
->> <Roman.Li@amd.com>; Manasi Navare <manasi.d.navare@intel.com>; Mika
->> Kahola <mika.kahola@intel.com>; Jouni H=C3=B6gander
->> <jouni.hogander@intel.com>; Wentland, Harry
->> <Harry.Wentland@amd.com>
->> Subject: Re: [PATCH v3 2/3] drm/amdgpu_dm: Rely on split out luminance
->> calculation function
->>=20
->> On Tue, 19 Jul 2022, Jouni H=C3=B6gander <jouni.hogander@intel.com> wrot=
-e:
->> > Luminance range calculation was split out into drm_edid.c and is now
->> > part of edid parsing. Rely on values calculated during edid parsing
->> > and use these for caps->aux_max_input_signal and caps-
->> >aux_min_input_signal.
->>=20
->> Harry, I'll merge patches 1 & 3 in this series through drm-misc-next, be=
-cause I
->> think they're good to go, and fix stuff in i915.
->>=20
->> Can I get your rb/ack to merge this patch as well, or do you want to tak=
-e this
->> later via your tree?
->
-> You can take this via drm-misc.
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+--Sig_/lBwBYWJZfaTJxqb/SqOb3za
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Thanks, pushed the series to drm-misc-next.
+Hi all,
 
-BR,
-Jani.
+On Thu, 11 Aug 2022 18:10:48 +0100 "Sudip Mukherjee (Codethink)" <sudipm.mu=
+kherjee@gmail.com> wrote:
+>
+> Not sure if it has been reported, builds of riscv, alpha, s390, arm,
+> arm64, xtensa, mips, csky allmodconfig have failed to build next-20220811
+> with the error:
+>=20
+> ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/amd/amd=
+gpu/amdgpu.ko] undefined!
+> ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd/amdgp=
+u/amdgpu.ko] undefined!
+>=20
+> git bisect pointed to b1a63a0b48ad ("drm/amd/display: consider DSC pass-t=
+hrough during mode validation")
+> And, reverting that commit has fixed the build failure.
+>=20
+> I will be happy to test any patch or provide any extra log if needed.
 
->
->
->>=20
->> BR,
->> Jani.
->>=20
->>=20
->> >
->> > v2: Use values calculated during edid parsing
->> >
->> > Cc: Roman Li <roman.li@amd.com>
->> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->> > Cc: Harry Wentland <harry.wentland@amd.com>
->> > Cc: Lyude Paul <lyude@redhat.com>
->> > Cc: Mika Kahola <mika.kahola@intel.com>
->> > Cc: Jani Nikula <jani.nikula@intel.com>
->> > Cc: Manasi Navare <manasi.d.navare@intel.com>
->> > Signed-off-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
->> > ---
->> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35
->> > +++----------------
->> >  1 file changed, 4 insertions(+), 31 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > index 3e83fed540e8..eb7abdeb8653 100644
->> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > @@ -2903,15 +2903,12 @@ static struct drm_mode_config_helper_funcs
->> > amdgpu_dm_mode_config_helperfuncs =3D {
->> >
->> >  static void update_connector_ext_caps(struct amdgpu_dm_connector
->> > *aconnector)  {
->> > -	u32 max_avg, min_cll, max, min, q, r;
->> >  	struct amdgpu_dm_backlight_caps *caps;
->> >  	struct amdgpu_display_manager *dm;
->> >  	struct drm_connector *conn_base;
->> >  	struct amdgpu_device *adev;
->> >  	struct dc_link *link =3D NULL;
->> > -	static const u8 pre_computed_values[] =3D {
->> > -		50, 51, 52, 53, 55, 56, 57, 58, 59, 61, 62, 63, 65, 66, 68, 69,
->> > -		71, 72, 74, 75, 77, 79, 81, 82, 84, 86, 88, 90, 92, 94, 96, 98};
->> > +	struct drm_luminance_range_info *luminance_range;
->> >  	int i;
->> >
->> >  	if (!aconnector || !aconnector->dc_link) @@ -2933,8 +2930,6 @@
->> > static void update_connector_ext_caps(struct amdgpu_dm_connector
->> *aconnector)
->> >  	caps =3D &dm->backlight_caps[i];
->> >  	caps->ext_caps =3D &aconnector->dc_link->dpcd_sink_ext_caps;
->> >  	caps->aux_support =3D false;
->> > -	max_avg =3D conn_base->hdr_sink_metadata.hdmi_type1.max_fall;
->> > -	min_cll =3D conn_base->hdr_sink_metadata.hdmi_type1.min_cll;
->> >
->> >  	if (caps->ext_caps->bits.oled =3D=3D 1 /*||
->> >  	    caps->ext_caps->bits.sdr_aux_backlight_control =3D=3D 1 || @@
->> > -2946,31 +2941,9 @@ static void update_connector_ext_caps(struct
->> amdgpu_dm_connector *aconnector)
->> >  	else if (amdgpu_backlight =3D=3D 1)
->> >  		caps->aux_support =3D true;
->> >
->> > -	/* From the specification (CTA-861-G), for calculating the maximum
->> > -	 * luminance we need to use:
->> > -	 *	Luminance =3D 50*2**(CV/32)
->> > -	 * Where CV is a one-byte value.
->> > -	 * For calculating this expression we may need float point precision;
->> > -	 * to avoid this complexity level, we take advantage that CV is divi=
-ded
->> > -	 * by a constant. From the Euclids division algorithm, we know that
->> CV
->> > -	 * can be written as: CV =3D 32*q + r. Next, we replace CV in the
->> > -	 * Luminance expression and get 50*(2**q)*(2**(r/32)), hence we
->> just
->> > -	 * need to pre-compute the value of r/32. For pre-computing the
->> values
->> > -	 * We just used the following Ruby line:
->> > -	 *	(0...32).each {|cv| puts (50*2**(cv/32.0)).round}
->> > -	 * The results of the above expressions can be verified at
->> > -	 * pre_computed_values.
->> > -	 */
->> > -	q =3D max_avg >> 5;
->> > -	r =3D max_avg % 32;
->> > -	max =3D (1 << q) * pre_computed_values[r];
->> > -
->> > -	// min luminance: maxLum * (CV/255)^2 / 100
->> > -	q =3D DIV_ROUND_CLOSEST(min_cll, 255);
->> > -	min =3D max * DIV_ROUND_CLOSEST((q * q), 100);
->> > -
->> > -	caps->aux_max_input_signal =3D max;
->> > -	caps->aux_min_input_signal =3D min;
->> > +	luminance_range =3D &conn_base->display_info.luminance_range;
->> > +	caps->aux_min_input_signal =3D luminance_range->min_luminance;
->> > +	caps->aux_max_input_signal =3D luminance_range->max_luminance;
->> >  }
->> >
->> >  void amdgpu_dm_update_connector_after_detect(
->>=20
->> --
->> Jani Nikula, Intel Open Source Graphics Center
+I have reverted that commit in today's linux-next.
 
 --=20
-Jani Nikula, Intel Open Source Graphics Center
+Cheers,
+Stephen Rothwell
+
+--Sig_/lBwBYWJZfaTJxqb/SqOb3za
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmL1i7MACgkQAVBC80lX
+0GzSzAf8DKPebARHzdTqD13VNr3O67jzPL8ES7pQodgFmZMSKK3Y+vrG88X3EVSk
+ix+XD73wo/KvGZwASDZf7CMKj84ihNm3re6hPjsLcHMeZ4bpwJi46enWVl+EA3zQ
+cDzSOP++Vl1dm/RNZXMVm30CIvVjX8MgDuwGqXhWvbWL2Q0yq1xg3dddCYLl9y4p
+R3MSWvVXijrkQSdsM0v6oYI80x5GpcQPk+H+fpsmkd0EwKDKG0sNste7Sbk9XfqM
+ljtDoOkgQ85wzHC8IExlgQnjDMswtlW/b78kzXfdysl8KIQrHjo5aOsds0ZeHkCZ
+tbr3b9HgZktRYDXh16COSYyVZFzJKg==
+=Mbox
+-----END PGP SIGNATURE-----
+
+--Sig_/lBwBYWJZfaTJxqb/SqOb3za--
