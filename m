@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC94C25B0C
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA88C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 16:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9435112B78B;
-	Thu, 11 Aug 2022 16:10:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA1E14B21F;
- Thu, 11 Aug 2022 16:09:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3250C18A33F;
+	Thu, 11 Aug 2022 16:11:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65AF211B31F;
+ Thu, 11 Aug 2022 16:10:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AA09EB821A0;
- Thu, 11 Aug 2022 16:09:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D07C433C1;
- Thu, 11 Aug 2022 16:09:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D69B96147D;
+ Thu, 11 Aug 2022 16:10:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45026C433C1;
+ Thu, 11 Aug 2022 16:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660234195;
+ s=k20201202; t=1660234257;
  bh=yl0xHkcESV7NTyfRvJaAPC4xYMup5ytE1fDcH4xEmw4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ongw9yAQVb5u0jTBYLcngSFPOZWOT/deZl8HLRfmURamJ2LnTxD5GBA0xpzZveHHy
- oSBMYfpb26DmKkdaquKfmJM7wbwo+S50nZqf3eynlG7rBLeowV4TrgtJHGmsuGMnLa
- 9DBR9XiAZNYiAa4s6TFtGdfc9IMQP1fBhQ37tHMZBbL6Bkr+rAyeGqhW2TdRjdFdpe
- LWnozOTUHya85nVW1p/npOQy1Dfv7mAUmdFBGn3sl+tdzxwDi7u78hh48BuJf2O1an
- qRRgz8BT/vdxuNZF9BQnRefzRd/bREX72bAyNsFSq4gtR/qDRcWwNK5H9tdPUOPhYN
- 7ToW733VzgFBg==
+ b=PZsf+Qk+S666bLuy3lmVFklbYDSuDLX2nbmrWGEW3xTu5+Uqcp/p/2whe4DT+od0c
+ u71u8T0sCZyKTkTPWBo8SIiLvbD07/+q6xRDPBulthKhi4KEFnbCM/aR4K2DQvajdR
+ OOo1UJ5Os7/UxWzbS44b2xVSfi8MfxuDoodHCI2TXfPbu2IkpQInjCyftnrHWLr9M5
+ CyY0qZdjEPtALbGL0/jUZRtlEiYyvKhkD36wV4pQnIsRYWHwQclcEOIycTlYcMpDPN
+ mH87JMTFDdieA0t0ww8W5wL2/33aPfPDwLAyVKRk3/te6NJq0sCXMwtg5GDPRRlk9n
+ /lC9PPbGoe1eA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 03/14] drm/radeon: Initialize fences array
+Subject: [PATCH AUTOSEL 4.14 03/14] drm/radeon: Initialize fences array
  entries in radeon_sa_bo_next_hole
-Date: Thu, 11 Aug 2022 12:09:31 -0400
-Message-Id: <20220811160948.1542842-3-sashal@kernel.org>
+Date: Thu, 11 Aug 2022 12:10:32 -0400
+Message-Id: <20220811161050.1543183-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811160948.1542842-1-sashal@kernel.org>
-References: <20220811160948.1542842-1-sashal@kernel.org>
+In-Reply-To: <20220811161050.1543183-1-sashal@kernel.org>
+References: <20220811161050.1543183-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
