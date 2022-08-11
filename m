@@ -4,62 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C6D1C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F19BC19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 12:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84766A1C22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1ECA1B12;
 	Thu, 11 Aug 2022 12:54:19 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0739113277
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 11:02:54 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id l21so7450326ljj.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 04:02:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:from:to:cc;
- bh=iwbijT25JOQabEJoAdZbUrL+K+nZlUlywCNjAPaRkPY=;
- b=Zwmv+zhwDMR2nSKdFJwP2quzKJ6loGMdS1t7skyjM7Np9UwvBEvxE06ihAie/nti4/
- diw7tb/KgC66OQQK6thMASgGBL0BBl5jJtfOlAFyaWnCzCsKUra2xCgo3eC6liJpPAlX
- iombHyCRKc/M6HnExt6By5qPTL9bSeEfccm4nS96YDwPAuj3qnRos8hU3C4VE09A+O0s
- OgyLJHo6Uq1ZGqoC+XdYzhesM/6b/GagdS7N6IYe/V3+fm5KMrMsOG5yrDi2RM6N4EU+
- ldv3wgvnqCU9DkoAzWQbGewePPsQ1LEKFFMG4HLp/o8Hmj+9EcuygvsNiQt0TNnN9ETn
- o7Fw==
+Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com
+ [IPv6:2607:f8b0:4864:20::e29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A56A9B43
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 07:35:02 +0000 (UTC)
+Received: by mail-vs1-xe29.google.com with SMTP id b124so17446555vsc.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:35:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=Zf4dPRTYmplJYeainFGksxHZErpXbpZxUB9mz4KvGrY=;
+ b=nXD1DDRQxBFX9R4LYgBCQHorbHZNm390NaV3B+cj/xb3heP0KUVnJABJPG+Va8QtN+
+ WcyubkKOS0Ee4jT8NBbVamVnC8EhsaFyHk8fknCcUjwiZh03ZWO5MAF5Q+RrNjoBV2IB
+ qW+1FD2gtKnB0RC00sYnKkV/Tb4cyOSeAlGsvC4hfoaz35eWik3BgxG2W86CDxKM9D4s
+ O0jLsmjAzWpiQKKoJ71QNhDiPR9Q+1w37bfGaJId0D816AO4Y+0vjlEJ4BqxHoIZEzCy
+ mkABN76w1bCznBaZk4EmR1zBQkKmFYzGHqlUajXXBO6wJJ0PxhWAgW259SLgcP0u4Kxv
+ Q51g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=iwbijT25JOQabEJoAdZbUrL+K+nZlUlywCNjAPaRkPY=;
- b=oLNecQSkLixz11kZ3TytQR4j6++dp8mabaiZ+weCrDrr/ppVOcLe3SLS7v4gRgsiyb
- rayGh5PvHH91PpKt23iL+f5pkVU7HXu7jn/A8xrdapImOtjh5jBFnNwlnP+2Uw+hmsIr
- mwaWN/wXpKQTTwpauq7KbSAtLE714IisBfT7Wcn0jcbZLEzhA4IGbDG6i8c7l9Waki7X
- TNpvOSCq1xEhR5qs1kPALoVOZTsyhjDlclLhiH2Z1WhXKKjmS8Zf8LR7LD6zR6k40aQd
- 71ksAZjxHqEKzzWbowNfBsnt5N5SVPX0AJFxQwigGV1Bsi9lQBWmfI8bMVbmgXPIUvCV
- Wptw==
-X-Gm-Message-State: ACgBeo2rTxPKYVKJqneSz1xLn1yrvlWayi7nAkjKjmJeE2apHzvNa60u
- tve/Vxf4hlD37LRbLfskvUtWzg==
-X-Google-Smtp-Source: AA6agR4ykeceqsDPELylN8UCyzrVw8F81lb8BHUuAicXDhJl8e5U6VRW1MUnNOJMxICZLpwoZ8cc/A==
-X-Received: by 2002:a05:651c:3d9:b0:25e:505f:2355 with SMTP id
- f25-20020a05651c03d900b0025e505f2355mr10669447ljp.453.1660215772980; 
- Thu, 11 Aug 2022 04:02:52 -0700 (PDT)
-Received: from mutt (c-e429e555.07-21-73746f28.bbcust.telenor.se.
- [85.229.41.228]) by smtp.gmail.com with ESMTPSA id
- q11-20020a2eb4ab000000b0025d75995a07sm781439ljm.24.2022.08.11.04.02.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Aug 2022 04:02:52 -0700 (PDT)
-Date: Thu, 11 Aug 2022 13:02:50 +0200
-From: Anders Roxell <anders.roxell@linaro.org>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [PATCH v2 2/3] drm/amd/display: consider DSC pass-through during
- mode validation
-Message-ID: <20220811110250.GA520@mutt>
-References: <20220805211317.176672-1-hamza.mahfooz@amd.com>
- <20220805211317.176672-2-hamza.mahfooz@amd.com>
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=Zf4dPRTYmplJYeainFGksxHZErpXbpZxUB9mz4KvGrY=;
+ b=WxZ7Vmc1RYTi6mP/M6TUTDPRRm7dTcYOWDpop9uGuGLhYn56SADM1b8HGtZBItDIy2
+ F4/MSwdQHm4c0oY8GgCiD+Iw6r4c+EO5QH6t8XNj8fwAlDffTIt9WlLAwePNQ9j5kV6J
+ cSRioSQ7ZqGMArpSGyYZIkVEIk/8AY2rsEAht4Socg6vL54nbdbpGDcoT7M5kA8ijbIE
+ tiK2UNrPx6uI9/Cuez97Q6IDOrMHoNDIEWbbTB17W8auAbjHU7iQkClMVmESPBfRcUR/
+ 2KH2UI5yoH6mG5ch4V8J+U+YFYerhh8e6ehpEuaPumfcEWuwyoniDuzvZl4pI+25Fgl2
+ 3jPg==
+X-Gm-Message-State: ACgBeo1Y6na1vSwuHw99dvpxcjLhoZNODhPXbM5Ut4Doi7TNF1BA7GH2
+ /sRZ5GggIX0j/vpn55JGeeMIcqItchJBNgJi82ma6g==
+X-Google-Smtp-Source: AA6agR7P7/8YGFQUN6OSOy19y0QIwoBp1FpPcb467Or9uEETD0mmcu/Y5akkWCYCeP9e3yf8bVeQbZ0ulqnOPFAbmtE=
+X-Received: by 2002:a67:c198:0:b0:383:b020:f7c4 with SMTP id
+ h24-20020a67c198000000b00383b020f7c4mr13892853vsj.71.1660203301565; Thu, 11
+ Aug 2022 00:35:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220805211317.176672-2-hamza.mahfooz@amd.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20220811004010.61299-1-tales.aparecida@gmail.com>
+ <20220811004010.61299-3-tales.aparecida@gmail.com>
+In-Reply-To: <20220811004010.61299-3-tales.aparecida@gmail.com>
+From: David Gow <davidgow@google.com>
+Date: Thu, 11 Aug 2022 15:34:50 +0800
+Message-ID: <CABVgOSmkeybnR2sGEEgn1Cb0cR2eKxW=vhXkHjC5xCuhaxsqVg@mail.gmail.com>
+Subject: Re: [PATCH 2/8] drm/amd/display: Introduce KUnit tests to the
+ bw_fixed library
+To: Tales Aparecida <tales.aparecida@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 11 Aug 2022 12:54:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,54 +66,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, Imre Deak <imre.deak@intel.com>,
- dri-devel@lists.freedesktop.org, Roman Li <Roman.Li@amd.com>,
- Imran Khan <imran.f.khan@oracle.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Kees Cook <keescook@chromium.org>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
+Cc: siqueirajordao@riseup.net, David Airlie <airlied@linux.ie>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
+ Isabella Basso <isabbasso@riseup.net>, andrealmeid@riseup.net,
+ Jonathan Corbet <corbet@lwn.net>, magalilemes00@gmail.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ KUnit Development <kunit-dev@googlegroups.com>,
  Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Leo Li <sunpeng.li@amd.com>, hersenxs.wu@amd.com,
- Mikita Lipski <mikita.lipski@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Claudio Suarez <cssk@net-c.es>, Thomas Zimmermann <tzimmermann@suse.de>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@intel.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+ Leo Li <sunpeng.li@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
+ Trevor Woerner <twoerner@gmail.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Aug 11, 2022 at 8:40 AM Tales Aparecida
+<tales.aparecida@gmail.com> wrote:
+>
+> From: Ma=C3=ADra Canal <maira.canal@usp.br>
+>
+> KUnit unifies the test structure and provides helper tools that simplify
+> the development of tests. Basic use case allows running tests as regular
+> processes, which makes easier to run unit tests on a development machine
+> and to integrate the tests in a CI system.
+>
+> This commit introduces a unit test to the bw_fixed library, which
+> performs a lot of the mathematical operations involving fixed-point
+> arithmetic and the conversion of integers to fixed-point representation
+> inside the Display Mode Library.
+>
+> As fixed-point representation is the base foundation of the DML calcs
+> operations, this unit tests intend to assure the proper functioning of
+> the basic mathematical operations of fixed-point arithmetic, such as
+> multiplication, conversion from fractional to fixed-point number, and
+> more.  You can run it with: ./tools/testing/kunit/kunit.py run \
+>         --arch=3Dx86_64 \
+>         --kunitconfig=3Ddrivers/gpu/drm/amd/display/tests/
+>
+> Signed-off-by: Ma=C3=ADra Canal <maira.canal@usp.br>
+> Co-developed-by: Magali Lemes <magalilemes00@gmail.com>
+> Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
+> Co-developed-by: Tales Aparecida <tales.aparecida@gmail.com>
+> Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+> ---
 
-On 2022-08-05 17:13, Hamza Mahfooz wrote:
-> Add a mode validation routine for DSC pass-through. Both the link from
-> source to hub, and the link from hub to monitor are checked, according
-> to the current link training result and full pbn returned by enum path
-> resource sideband message.
-> 
-> Pick up the minimum value as the bandwidth bottleneck for the end to
-> end link bandwidth constraint, and check if the maximum DSC decompression
-> bandwidth can fit.
-> 
-> Co-authored-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Not directly related to this patch, but I get a whole stack of
+warnings about the definition of MIN_I64 causing integer overflow:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/../../../tests/dc/dml=
+/calcs/bw_fixed_test.c:214:31:
+note: in expansion of macro =E2=80=98MIN_I64=E2=80=99
+ 214 |         KUNIT_EXPECT_EQ(test, MIN_I64 + 1, res.value);
+     |                               ^~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
+warning: integer overflow in expression =E2=80=98-9223372036854775808=E2=80=
+=99 of type
+=E2=80=98long long int=E2=80=99 results in =E2=80=98-9223372036854775808=E2=
+=80=99 [-Woverflow]
+  30 |         (int64_t)(-(1LL << 63))
+     |                   ^
 
-Hi,
+This seems to fix it (I'll re-send it out as a separate patch so gmail
+doesn't mangle it once I'm a bit more convinced it's the best
+implementation):
 
-Building an arm64 allmodconfig kernel from todays next tag, next-20220811.
-I can see the following build error.
+--- 8< ---
+From 84e84664873dc9e98dff5ee9f74d95872e6cd423 Mon Sep 17 00:00:00 2001
+From: David Gow <davidgow@google.com>
+Date: Thu, 11 Aug 2022 15:21:02 +0800
+Subject: [PATCH] drm/amd/display: MIN_I64 definition causes overflow
+MIME-Version: 1.0
+Content-Type: text/plain; charset=3DUTF-8
+Content-Transfer-Encoding: 8bit
 
-ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
+integer overflow, because it is treated as a positive value, which is
+then negated. The temporary postive value is not necessarily
+representable.
 
-When I reverted this patch I was able to build an arm64 allmodconfig
-kernel.
+This causes the following warning:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
+warning: integer overflow in expression =E2=80=98-9223372036854775808=E2=80=
+=99 of type
+=E2=80=98long long int=E2=80=99 results in =E2=80=98-9223372036854775808=E2=
+=80=99 [-Woverflow]
+  30 |         (int64_t)(-(1LL << 63))
+     |                   ^
 
+Writing out (INT_MIN - 1) - 1 works instead.
+
+Signed-off-by: David Gow <davidgow@google.com>
+---
+drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c | 6 +++---
+1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
+b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
+index fbe8d0661396..3850f7f0f679 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
+@@ -26,12 +26,12 @@
+#include "bw_fixed.h"
+
+
+-#define MIN_I64 \
+-       (int64_t)(-(1LL << 63))
+-
+#define MAX_I64 \
+       (int64_t)((1ULL << 63) - 1)
+
++#define MIN_I64 \
++       (-MAX_I64 - 1)
++
+#define FRACTIONAL_PART_MASK \
+       ((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
+
+--
+2.37.1.595.g718a3a8f04-goog
+--- 8< ---
+
+Otherwise, this test seems to okay. I'll review it (and the series)
+more properly over then next few days.
 
 Cheers,
-Anders
+-- David
