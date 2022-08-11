@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E55CC19F2D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 07:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67641C25B0C
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 07:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF56DA6E98;
-	Thu, 11 Aug 2022 07:30:22 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAFD111A136;
- Wed, 10 Aug 2022 18:53:20 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
- [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 944246601C70;
- Wed, 10 Aug 2022 19:53:16 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1660157599;
- bh=xbCaL2ScXB+T0FyoL/VdM0qhBj61RQMv/0Mh8aht9Y0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=byieT9EU43F/eRBpe3bi/nsXqvGsphP+xnN+9uCcJQiiqE+2eL+6OggtflfgiZV5H
- 2tbgBedC4VmW8VqMPGH+MSJmFXxmN5L0KjGxSmnjKSb9TYnT6q+8+bdtF2Dueo+auX
- 67XZQj1miiDmUza/2oi5U1NkSKSVPEVKs1DgEoiMZjakSsK7ADM0J790qkaQ8pphu7
- M1BkTB2bL3dJox2DaLhHDMTu8D3c4zfRYO6jQNX4dYPdDaIr7OfFFbIsXhbVC8CrhI
- DDaWDFnqfaqxGjPW9cdp+mVCoxjC3Q4VxEfkM8NccRtG0HVYtdCNsAeJQgHxfz0CIU
- fpCGA/irmwkpA==
-Message-ID: <0863cafa-c252-e194-3d23-ef640941e36e@collabora.com>
-Date: Wed, 10 Aug 2022 21:53:13 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F21EA7072;
+	Thu, 11 Aug 2022 07:30:17 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E4E112FA8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 03:05:05 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id b16so21376352edd.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 20:05:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=CG6MAVobgAYGHZbI0IFM6W4PbFNyxeF/bPZUNWhmbHI=;
+ b=i9WldlQgb1YGnmOMjtTEJNK/5uZC9isGoa0gAQSHsoM4nTWzDbJ8gMpoQSkP9uY2DC
+ 0aT+mqnPiVdpavbJmuIl6gYr3NrK5muaTiCf+sx47ZubIRQKUSR1W//cDbrbykFRodL0
+ xw2oLZOAAM9JG6XiyKlGM0Jj1Pnvn/TK+xWTStKZ+oI5PK+Ag5keDylpFA7966dLiOHH
+ cf8kAhu2p1u7yDdBpxhR7nXmnV410l/g5Q0rQrMUYmCJcADPNxz29+BP98E7esxnFbio
+ Hslk4ArLWCxqNG9u/yE+0ORGZjEqN94DQsZwf3OyCSr9TNUumLBotjCp1wkXBlpvIV19
+ rxuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=CG6MAVobgAYGHZbI0IFM6W4PbFNyxeF/bPZUNWhmbHI=;
+ b=r/5brNVVlz9To3fp8refI0+eMmYIZ1c4ZJx47I49ZMRQ/bpi882g/aeHxRJbgEMCi6
+ LMLQ33RrPoBAK5467ISO7jphrjUyJdItw+mUiXeVFSam2BQEQZJK1Kmq+/UVdp3leWzl
+ Dq6BvvnbO5vG7hx7AAZf8I0Cg0H4aiccIyuSq/bFYhrya0rK9VHyydU9AlZ215pVsPd/
+ xbmyRfv9Bom74hezVqg71GDNpVu/DcTqTydCg4H3qxcXx0rXkv6Tr++BRSJy5EwZwe9J
+ B866iGsadBq7nJm918LaL9sFhCFxIxMvXCrtX7aBJit6eTj7v+Xrgyl+sSAqLbHP4Tfj
+ llSQ==
+X-Gm-Message-State: ACgBeo2yHMWhSJU2Tg8sJgc75P30kKriIQXlt2im9eKoBRRuS7DjIBTD
+ WmeFkdpYhKObbgoHBGZkOF/A0GWuDB0+QlXNGOngYmNUYB8Sl/ih
+X-Google-Smtp-Source: AA6agR51BIEzzCvEF6+PKfUaoAUTpclrHYoeUmny3JEP0CWzT4pVQvFolfiaKvJY5Y9L77qS0Whk292/UwtZc5ST7Kw=
+X-Received: by 2002:a05:6402:2547:b0:43e:4cc4:85d3 with SMTP id
+ l7-20020a056402254700b0043e4cc485d3mr28586932edb.233.1660187103905; Wed, 10
+ Aug 2022 20:05:03 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [Linaro-mm-sig] [PATCH v2 3/5] dma-buf: Move all dma-bufs to
- dynamic locking specification
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
- <20220725151839.31622-4-dmitry.osipenko@collabora.com>
- <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
- <562fbacf-3673-ff3c-23a1-124284b4456c@collabora.com>
- <87724722-b9f3-a016-c25c-4b0415f2c37f@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <87724722-b9f3-a016-c25c-4b0415f2c37f@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20220811004010.61299-1-tales.aparecida@gmail.com>
+ <20220811004010.61299-2-tales.aparecida@gmail.com>
+In-Reply-To: <20220811004010.61299-2-tales.aparecida@gmail.com>
+From: Daniel Latypov <dlatypov@google.com>
+Date: Wed, 10 Aug 2022 20:04:52 -0700
+Message-ID: <CAGS_qxryOVG_ZvV1+i_egPZO8Ngq4EoFRK=Q_J9S8urj3kPyxA@mail.gmail.com>
+Subject: Re: [PATCH 1/8] drm/amd/display: Introduce KUnit tests for fixed31_32
+ library
+To: Tales Aparecida <tales.aparecida@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 11 Aug 2022 07:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,80 +65,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rdma@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- spice-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
+Cc: andrealmeid@riseup.net, Thomas Zimmermann <tzimmermann@suse.de>,
+ siqueirajordao@riseup.net, Jonathan Corbet <corbet@lwn.net>,
+ David Airlie <airlied@linux.ie>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, David Airlie <airlied@linux.ie>,
- amd-gfx@lists.freedesktop.org, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>
+ Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
+ Leo Li <sunpeng.li@amd.com>, Isabella Basso <isabbasso@riseup.net>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, magalilemes00@gmail.com,
+ mairacanal@riseup.net, Trevor Woerner <twoerner@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/10/22 21:25, Christian König wrote:
-> Am 10.08.22 um 19:49 schrieb Dmitry Osipenko:
->> On 8/10/22 14:30, Christian König wrote:
->>> Am 25.07.22 um 17:18 schrieb Dmitry Osipenko:
->>>> This patch moves the non-dynamic dma-buf users over to the dynamic
->>>> locking specification. The strict locking convention prevents deadlock
->>>> situation for dma-buf importers and exporters.
->>>>
->>>> Previously the "unlocked" versions of the dma-buf API functions weren't
->>>> taking the reservation lock and this patch makes them to take the lock.
->>>>
->>>> Intel and AMD GPU drivers already were mapping imported dma-bufs under
->>>> the held lock, hence the "locked" variant of the functions are added
->>>> for them and the drivers are updated to use the "locked" versions.
->>> In general "Yes, please", but that won't be that easy.
->>>
->>> You not only need to change amdgpu and i915, but all drivers
->>> implementing the map_dma_buf(), unmap_dma_buf() callbacks.
->>>
->>> Auditing all that code is a huge bunch of work.
->> Hm, neither of drivers take the resv lock in map_dma_buf/unmap_dma_buf.
->> It's easy to audit them all and I did it. So either I'm missing
->> something or it doesn't take much time to check them all. Am I really
->> missing something?
-> 
-> Ok, so this is only changing map/unmap now?
+On Wed, Aug 10, 2022 at 5:40 PM Tales Aparecida
+<tales.aparecida@gmail.com> wrote:
+>
+> The fixed31_32 library performs a lot of the mathematical operations
+> involving fixed-point arithmetic and the conversion of integers to
+> fixed-point representation.
+>
+> This unit tests intend to assure the proper functioning of the basic
+> mathematical operations of fixed-point arithmetic, such as
+> multiplication, conversion from fractional to fixed-point number,
+> and more. Use kunit_tool to run:
+>
+> $ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+>         --kunitconfig=drivers/gpu/drm/amd/display/tests/
 
-It also vmap/vunmap and attach/detach: In the previous patch I added the
-_unlocked postfix to the func names and in this patch I made them all to
-actually take the lock.
+Nice, thanks for including a kunitconfig, that'll help a lot.
 
-> In this case please separate this from the documentation change.
+Just as an FYI: if you're working on top of torvalds/master, I think
+you would no longer need --arch=x86_64.
+Before, CONFIG_PCI=y was tricky to enable on UML, but commit
+6fc3a8636a7b ("kunit: tool: Enable virtio/PCI by default on UML")
+landed for 6.0.
 
-I'll factor out the doc in the v3.
+I.e. I can run this command on torvalds/master w/ no other patches applied:
 
-> I would also drop the _locked postfix from the function name, just
-> having _unlocked on all functions which are supposed to be called with
-> the lock held should be sufficient.
+$ ./tools/testing/kunit/kunit.py config --kunitconfig=/dev/stdin <<EOF
+CONFIG_KUNIT=y
+CONFIG_PCI=y
+CONFIG_DRM=y
+CONFIG_DRM_AMDGPU=y
+CONFIG_DRM_AMD_DC=y
+EOF
 
-Noted for the v3.
+I haven't tried to apply this series locally yet to double-check, but
+I'm pretty sure that means these tests should work as well.
+Running under UML would hopefully have faster compile times and be
+less resource heavy than a QEMU VM (but I've not measured to verify
+that).
 
-> Thanks for looking into this,
-> Christian.
-
-Thank you for the review.
-
--- 
-Best regards,
-Dmitry
+Daniel
