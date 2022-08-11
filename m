@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC4FDC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:44:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 535C7C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:44:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4D2B46CD;
-	Thu, 11 Aug 2022 15:44:10 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C8D8A13C5;
- Thu, 11 Aug 2022 15:44:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF2BB46E2;
+	Thu, 11 Aug 2022 15:44:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59B29B468D;
+ Thu, 11 Aug 2022 15:44:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 929F8B82150;
- Thu, 11 Aug 2022 15:44:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF677C433C1;
- Thu, 11 Aug 2022 15:43:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D2AF2616C6;
+ Thu, 11 Aug 2022 15:44:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E2BC433C1;
+ Thu, 11 Aug 2022 15:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232638;
- bh=3rN/T8Jde922Nv2ildGBzsoOl8hKjx9VEx2KhnzC9Ik=;
+ s=k20201202; t=1660232662;
+ bh=lNmtDLIAAiL3OFFYkzeWZzx9f+FhqJ2Knhh21WF6OUM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=a5oXq7iyJZtt1dv/Okh8oMUbuSBIZa7CLjt6UOd3oPQIFDZawk7ElocQnvfz7oHvA
- BW9hp7xRCVkXA+BJc55FE1WgbJJGz3WHq5WnrpkiUopzt8K9VIkHdRdEMBBKnuWDlS
- tPrkUnxVuWZZe6zKzWbWY70PpT9UwiLpAa0scF9N6YQF6xANOdmFASk8xd1TRlwIH+
- b+bVfvJqpWyTCD6hw8C3BQ0Jq0EeHYUDKFYh9Mr79/ZuMUG+IAyXShCHDcjtn+/sGi
- BCZj+9w1wzRhkzegY4bEdMaK4Byw2G9nS17O0WuAR2aCl+o4f81nCv12YDqyl5YGOO
- BC4eMoHdB6jJQ==
+ b=UuN7KA5ay2FrIrO5TcUDrpAWmHzJO/bhZY2VbMMf3JRnLhFY8WkTa384OgWXX2oMp
+ ea8qp9sRAUkG3+3QKBwbUGYIErDm+yFzZM+shBg5IcqAORjnWZQo0evgAYturhzFMP
+ c+Io8L6fuX3AKd4vohWX9o8zDwgAUgZTxzjz1mem0mpjljdLpfv1f2UN3Cm5PzRGEC
+ emnjtFGN8VhVxwQ4ACr81ovTiBLXRjx62jKYRKuoAQOnRSG/OtVSrQ2efwn1MJzcbt
+ BaqExrvCLpIAXg7dHAwzYXGmetRhgGbERRLx+T8uF7f4a3Mh/6gWnvtHC2GFkDKLdc
+ eBsYkilhQvw+A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 12/93] drm/amd/display: Detect dpcd_rev when
- hotplug mst monitor
-Date: Thu, 11 Aug 2022 11:41:06 -0400
-Message-Id: <20220811154237.1531313-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 16/93] drm/amd/display: Fix dpp dto for disabled
+ pipes
+Date: Thu, 11 Aug 2022 11:41:10 -0400
+Message-Id: <20220811154237.1531313-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811154237.1531313-1-sashal@kernel.org>
 References: <20220811154237.1531313-1-sashal@kernel.org>
@@ -55,98 +55,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, Jerry.Zuo@amd.com, Hersen Wu <hersenwu@amd.com>,
- Roman.Li@amd.com, airlied@linux.ie, Daniel Wheeler <daniel.wheeler@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- nicholas.kazlauskas@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Aric.Cyr@amd.com, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
+ dri-devel@lists.freedesktop.org, Yi-Ling.Chen2@amd.com,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, isabbasso@riseup.net, Jun.Lei@amd.com,
+ Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>, gabe.teeger@amd.com,
+ wenjing.liu@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Duncan Ma <duncan.ma@amd.com>,
+ mwen@igalia.com, Daniel Wheeler <daniel.wheeler@amd.com>, Sungjoon.Kim@amd.com,
+ Hansen Dsouza <Hansen.Dsouza@amd.com>, Xinhui.Pan@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Duncan Ma <duncan.ma@amd.com>
 
-[ Upstream commit 453b0016a054df0f442fda8a145b97a33816cab9 ]
+[ Upstream commit d4965c53b95d7533dfc2309d2fc25838bd33220e ]
 
 [Why]
-Once mst topology is constructed, later on new connected monitors
-are reported to source by CSN message. Within CSN, there is no
-carried info of DPCD_REV comparing to LINK_ADDRESS reply. As the
-result, we might leave some ports connected to DP but without DPCD
-revision number which will affect us determining the capability of
-the DP Rx.
+When switching from 1 pipe to 4to1 mpc combine,
+DppDtoClk aren't enabled for the disabled pipes
+pior to programming the pipes. Upon optimizing
+bandwidth, DppDto are enabled causing intermittent
+underflow.
 
 [How]
-Send out remote DPCD read when the port's dpcd_rev is 0x0 in
-detect_ctx(). Firstly, read out the value from DPCD 0x2200. If the
-return value is 0x0, it's likely the DP1.2 DP Rx then we reques
-revision from DPCD 0x0 again.
+Update dppclk dto whenever pipe are flagged to
+enable.
 
-Reviewed-by: Hersen Wu <hersenwu@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Signed-off-by: Duncan Ma <duncan.ma@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 38 ++++++++++++++++++-
- 1 file changed, 37 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index d864cae1af67..bcbb6f6f8c82 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -363,12 +363,48 @@ dm_dp_mst_detect(struct drm_connector *connector,
- {
- 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
- 	struct amdgpu_dm_connector *master = aconnector->mst_port;
-+	struct drm_dp_mst_port *port = aconnector->port;
-+	int connection_status;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index b627c41713cc..76decaed5acd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1412,11 +1412,15 @@ static void dcn20_update_dchubp_dpp(
+ 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
+ 	struct dpp *dpp = pipe_ctx->plane_res.dpp;
+ 	struct dc_plane_state *plane_state = pipe_ctx->plane_state;
++	struct dccg *dccg = dc->res_pool->dccg;
+ 	bool viewport_changed = false;
  
- 	if (drm_connector_is_unregistered(connector))
- 		return connector_status_disconnected;
+ 	if (pipe_ctx->update_flags.bits.dppclk)
+ 		dpp->funcs->dpp_dppclk_control(dpp, false, true);
  
--	return drm_dp_mst_detect_port(connector, ctx, &master->mst_mgr,
-+	connection_status = drm_dp_mst_detect_port(connector, ctx, &master->mst_mgr,
- 				      aconnector->port);
++	if (pipe_ctx->update_flags.bits.enable)
++		dccg->funcs->update_dpp_dto(dccg, dpp->inst, pipe_ctx->plane_res.bw.dppclk_khz);
 +
-+	if (port->pdt != DP_PEER_DEVICE_NONE && !port->dpcd_rev) {
-+		uint8_t dpcd_rev;
-+		int ret;
-+
-+		ret = drm_dp_dpcd_readb(&port->aux, DP_DP13_DPCD_REV, &dpcd_rev);
-+
-+		if (ret == 1) {
-+			port->dpcd_rev = dpcd_rev;
-+
-+			/* Could be DP1.2 DP Rx case*/
-+			if (!dpcd_rev) {
-+				ret = drm_dp_dpcd_readb(&port->aux, DP_DPCD_REV, &dpcd_rev);
-+
-+				if (ret == 1)
-+					port->dpcd_rev = dpcd_rev;
-+			}
-+
-+			if (!dpcd_rev)
-+				DRM_DEBUG_KMS("Can't decide DPCD revision number!");
-+		}
-+
-+		/*
-+		 * Could be legacy sink, logical port etc on DP1.2.
-+		 * Will get Nack under these cases when issue remote
-+		 * DPCD read.
-+		 */
-+		if (ret != 1)
-+			DRM_DEBUG_KMS("Can't access DPCD");
-+	} else if (port->pdt == DP_PEER_DEVICE_NONE) {
-+		port->dpcd_rev = 0;
-+	}
-+
-+	return connection_status;
- }
- 
- static int dm_dp_mst_atomic_check(struct drm_connector *connector,
+ 	/* TODO: Need input parameter to tell current DCHUB pipe tie to which OTG
+ 	 * VTG is within DCHUBBUB which is commond block share by each pipe HUBP.
+ 	 * VTG is 1:1 mapping with OTG. Each pipe HUBP will select which VTG
 -- 
 2.35.1
 
