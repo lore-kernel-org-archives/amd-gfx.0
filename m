@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1680C25B0C
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1427C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:45:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D649BB472D;
-	Thu, 11 Aug 2022 15:45:09 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35918B0857;
- Thu, 11 Aug 2022 15:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9BC7B4766;
+	Thu, 11 Aug 2022 15:45:42 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F65F11B966;
+ Thu, 11 Aug 2022 15:45:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D98A9B82150;
- Thu, 11 Aug 2022 15:44:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13D87C43141;
- Thu, 11 Aug 2022 15:44:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B1B1DB82165;
+ Thu, 11 Aug 2022 15:45:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC3DC433D6;
+ Thu, 11 Aug 2022 15:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232694;
- bh=xLtHnm8micGLNicVMjboefOx/JO/OJlkNNbj8JJtSvw=;
+ s=k20201202; t=1660232731;
+ bh=drsoLwNUyuxmaoCNziTsEssVslCYX761EjJmCqn/8AM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dKoCiRo+R6szgxiWbTDverN6Z3O6+k9MC6oPg0mrrGEojcyic0HnJ2rtawLQCarjC
- A39iWP7Cd4xJnuQMwHCBmhRTY5Z+xvNqX4rW1ofDryK/KbIBcTTXV/yjmjD23HCHrf
- rhuOiDL8xhTU9YMjGzBA7AyDKLL+m1FK6ub/JqYP0kyyupjJTJ7Xyy9yCpQY7r5jU6
- vfcXwt4WXtKnnRs6bMyWQnkMO0JBFnitNmJxQAZdQmS+EBgBrV8kFtmcHOfKfMMD8l
- +Y/fiPDwYejSsl2CzwtqJONlouOyavwWe4ceb/R+BzwzHneUpExbdwpTqmo6kIQq/2
- tM0PzwuGHn1Ng==
+ b=KlG6ZwKCIsN+6bnmv+pmDFuwvDB7FG1SXT16zuUwTuDOxWkIEPy+f9a4cgCOfwOJb
+ gON0SFcWGxs5gpyGxDx0b+dPmzOfuXWAac4OiY+BNNarCoak4HoLcnfo3VgejZm2Tl
+ zkDKzibRuo0/W19ifUsopoJB2M3OW0npbFVLNWG+x6o1dyMWVwbzDor0hl5OjqNvRR
+ Rh8B8sYqFcFbYAIjNT83qRREMZ+98cxtT5jWzUXy1RrYYO4tRX3pM8GWvEnUJeFcLa
+ ld7VsTDCyCVYW7s7vqUiXYNz8bTRE+KSp4PYD/SBztANkHOgCB8Zz3MhzlsUCQxP2D
+ iDQJ9yGJdU9og==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 19/93] drm/radeon: Initialize fences array
- entries in radeon_sa_bo_next_hole
-Date: Thu, 11 Aug 2022 11:41:13 -0400
-Message-Id: <20220811154237.1531313-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 24/93] drm/amd/display: Fix monitor flash issue
+Date: Thu, 11 Aug 2022 11:41:18 -0400
+Message-Id: <20220811154237.1531313-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811154237.1531313-1-sashal@kernel.org>
 References: <20220811154237.1531313-1-sashal@kernel.org>
@@ -55,59 +53,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Hansen Dsouza <Hansen.Dsouza@amd.com>,
+ sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Shah Dharati <dharshah@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
+From: Shah Dharati <dharshah@amd.com>
 
-[ Upstream commit 0381ac3ca2e727d4dfb7264d9416a8ba6bb6c18b ]
+[ Upstream commit b840b64bc8ed3fc46f6d6aa7f97c43862a33bea5 ]
 
-Similar to the handling of amdgpu_sa_bo_next_hole in commit 6a15f3ff19a8
-("drm/amdgpu: Initialize fences array entries in amdgpu_sa_bo_next_hole"),
-we thought a patch might be needed here as well.
+[Why & How]
+For a some specific monitors, when connected on boot or hot plug,
+monitor flash for 1/2 seconds can happen during first HDCP query
+operation. Ading some delay in the init sequence for these monitors
+fixes the issue, so it is implemented as monitor specific patch.
 
-The entries were only initialized once in radeon_sa_bo_new. If a fence
-wasn't signalled yet in the first radeon_sa_bo_next_hole call, but then
-got signalled before a later radeon_sa_bo_next_hole call, it could
-destroy the fence but leave its pointer in the array, resulting in
-use-after-free in radeon_sa_bo_new.
-
-Signed-off-by: Xiaohui Zhang <xiaohuizhang@ruc.edu.cn>
+Co-authored-by: Shah Dharati <dharshah@amd.com>
+Reviewed-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Shah Dharati <dharshah@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_sa.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
-index 310c322c7112..0981948bd9ed 100644
---- a/drivers/gpu/drm/radeon/radeon_sa.c
-+++ b/drivers/gpu/drm/radeon/radeon_sa.c
-@@ -267,6 +267,8 @@ static bool radeon_sa_bo_next_hole(struct radeon_sa_manager *sa_manager,
- 	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
- 		struct radeon_sa_bo *sa_bo;
- 
-+		fences[i] = NULL;
-+
- 		if (list_empty(&sa_manager->flist[i])) {
- 			continue;
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
+index 1f4095b26409..c5f6c11de7e5 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
+@@ -524,7 +524,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_dp_transition(struct mod_hdcp *hdcp,
+ 			set_watchdog_in_ms(hdcp, 3000, output);
+ 			set_state_id(hdcp, output, D2_A6_WAIT_FOR_RX_ID_LIST);
+ 		} else {
+-			callback_in_ms(0, output);
++			callback_in_ms(1, output);
+ 			set_state_id(hdcp, output, D2_SEND_CONTENT_STREAM_TYPE);
  		}
-@@ -332,10 +334,8 @@ int radeon_sa_bo_new(struct radeon_device *rdev,
- 
- 	spin_lock(&sa_manager->wq.lock);
- 	do {
--		for (i = 0; i < RADEON_NUM_RINGS; ++i) {
--			fences[i] = NULL;
-+		for (i = 0; i < RADEON_NUM_RINGS; ++i)
- 			tries[i] = 0;
--		}
- 
- 		do {
- 			radeon_sa_bo_try_free(sa_manager);
+ 		break;
 -- 
 2.35.1
 
