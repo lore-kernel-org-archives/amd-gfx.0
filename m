@@ -4,59 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B2EC19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 17:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E272C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 18:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E122118B0B9;
-	Thu, 11 Aug 2022 17:54:42 +0000 (UTC)
-Received: from mail-ua1-x92a.google.com (mail-ua1-x92a.google.com
- [IPv6:2607:f8b0:4864:20::92a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B848714A95E
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 17:53:19 +0000 (UTC)
-Received: by mail-ua1-x92a.google.com with SMTP id z14so7215360uaq.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 10:53:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=4eqqIkPfZArmnTbnGS6yRbiCSnrDlM1kjkH3YRCwXjI=;
- b=AELMy2VjIZGUFjl/RQJQbx21lQGuuUqkrFeqWQb0QaXZdfnAARuLynQGC4pJcNmKr8
- vENeNvC6H4FIVfo8zs9cTnYP0A4yI3TmO5S1ZdWvFdYlWwbtZSiKA+atIo8d3IoBk/JO
- JSVqtGIXnbdN8SBgQR9IIB0TGxVT+KK2BHp6xTBAMQ8r7yeAz2sThi1fJaVCYq2k+yTP
- /yPKu0wDYmwLwSPQyvppfrXWdWUeWYCbhqA2IpFkW/e9liiHm4oldcRtaINJ2/eeW5cU
- I5t9iczK3kUwgII6odHZLECjK2J3OgfdcY7uXfx/5f0mmsx9elwtm4WlaKF2JJzpZcoO
- PCvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=4eqqIkPfZArmnTbnGS6yRbiCSnrDlM1kjkH3YRCwXjI=;
- b=ear6D6KvA2ERdmLYQEmItPmL6fRJzLgRterS47vJH7y4Al3CmvECGlgdOt8AJOKJeA
- 69sYNw30VWNwuchAeEvxeNP1JfbSHifm6arrbScbktdsHxX78S81/3CAEnQ416DE8S6p
- QGy7aGJnK7InishYUmpQnJHmVKft8fcq8ZyehUqDiuHXwVKt+9wPVnqg3rjERaaI1CTw
- iVYLnRQzMQiQhZkTNbiNGEJyjtFfwgjRFMhUauU25sfdSc1btdZTukFVP8zSvIDNrC8E
- DbsA+pEw82dpG2+xVPyPWyu5ccyNZr5z7XE94iI9iDmK47xDVgZu9Kd9vmDuAgXyDM6N
- q5cg==
-X-Gm-Message-State: ACgBeo09Nb9trKUuymqnX38em68pvyayaR7Kl04dMaXWHbnEAelQ0wnd
- tvIrJpd8wgSfGFY30ddcGv1+DBZQZU88tRJe9nFbsQ==
-X-Google-Smtp-Source: AA6agR6IGERKC7F5XIjScrYMJWXun9TSnc/Z86zvodrEuTCpnxG9XISa6MOeqa6FG/ZnmdgeSDfv/sbIcpQ1+x09pxc=
-X-Received: by 2002:ab0:2359:0:b0:387:2dff:87d5 with SMTP id
- h25-20020ab02359000000b003872dff87d5mr153463uao.104.1660240398549; Thu, 11
- Aug 2022 10:53:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 433F92B730;
+	Thu, 11 Aug 2022 18:00:21 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8C572B716;
+ Thu, 11 Aug 2022 18:00:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MLU90gOWCaG2FnDWxAD38p29tcPatiPg5qty4B+52TbNGKdfqJ+p2s61hEbvYWnT/lRECPvQW5sr56RyXvjanDv4/d/i8kiIFyBen7VqoW1n54t6RoY8r4oryujchsgWulk+M9zuVqiDk6Ori7GFF3Ag+eTabjoQX4uVn5tDISsNVsaoei7QV4/t4YNBkWICFRcnlIFcXGtGaFbjWByo/umIttIVB8JPVWJhnVXdL8CPQlWVr32cpUJLie2myY0rSTfIeqLrr82qhVRrHr9cyhmCRimD/PBE/9sU3VWVTWWwPcbJ8/zp34y6AqrabLVC+ip++pqmRWJcRu+2AcZnMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=timqpckBfRhbWsGHEn42+tLc54XtQGdgMoFK2dCnqds=;
+ b=X85/LAn+lFru1aKwDYCkbekecqlDAAO4zynDFDwM+dlOdTvAKI9Ds/AqI7HU2bt1Yb/atdripPwlPj2siOUt70kKNPmjTOveFcvBApoWJSfYyuqVAMKx7CpMCwO7BUU3fs0QB1mPbhtz4v82tcVpGJT827QKS7dJmn/A4SwR+/6dtp+wv5L5RIsPuyYfQSEPBb5tfSb5JhQIf6Jo9QMzfUuvQhNffJ7/nBxVmHTwmGdil7gnW07YVpMcL2E7ZRIQR1zReSIAq395d7EOBN8qG0lAvIp00Winkocl/+brl+i4qp6pGe6hXOjbHBw8mFmicHX0S0uTZVZmmS9zFLJTHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=timqpckBfRhbWsGHEn42+tLc54XtQGdgMoFK2dCnqds=;
+ b=DSohfxvZqozpUDFdbUGaLLSPSa4qzfO2r9SC/TFZXnvgDHh4ASWipyxNv+6slcLT2LSwXcNFZ+KdI39Twnk6M2z5fbE4LYhmwehSziWOYWmcacNRfAc0Zmk6BtSByNqgkDA3fKTniKcY7BdckJ+sb8IuXMI+ah/JQnNerT0ZwpU=
+Received: from BN0PR04CA0054.namprd04.prod.outlook.com (2603:10b6:408:e8::29)
+ by CH2PR12MB4053.namprd12.prod.outlook.com (2603:10b6:610:7c::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Thu, 11 Aug
+ 2022 18:00:11 +0000
+Received: from BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e8:cafe::1d) by BN0PR04CA0054.outlook.office365.com
+ (2603:10b6:408:e8::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16 via Frontend
+ Transport; Thu, 11 Aug 2022 18:00:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT029.mail.protection.outlook.com (10.13.177.68) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5525.11 via Frontend Transport; Thu, 11 Aug 2022 18:00:10 +0000
+Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 11 Aug
+ 2022 13:00:09 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] drm/amd/display: fix DSC related non-x86/PPC64 compilation
+ issue
+Date: Thu, 11 Aug 2022 13:57:58 -0400
+Message-ID: <20220811175759.1518840-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <CADVatmN_TzJKdfM40BQPW=cRm5VxX=qAKxq2yW4P_xDN6=VoOA@mail.gmail.com>
+References: <CADVatmN_TzJKdfM40BQPW=cRm5VxX=qAKxq2yW4P_xDN6=VoOA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20220811004010.61299-1-tales.aparecida@gmail.com>
- <20220811004010.61299-8-tales.aparecida@gmail.com>
- <CABVgOSmJm0W1OAk7Ja8zb_WMcj=kXx7-w9J747k5sRySi1Jyfw@mail.gmail.com>
- <1716b7b6-9fd0-214e-aeab-55220aa70a9d@riseup.net>
-In-Reply-To: <1716b7b6-9fd0-214e-aeab-55220aa70a9d@riseup.net>
-From: David Gow <davidgow@google.com>
-Date: Fri, 12 Aug 2022 01:53:07 +0800
-Message-ID: <CABVgOSm9R38OY_0D=8zFDaFxkOCFaiAeikxZ-7TZXa9L4LmZZw@mail.gmail.com>
-Subject: Re: [PATCH 7/8] drm/amd/display: Introduce KUnit tests to dc_dmub_srv
- library
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 11 Aug 2022 17:54:37 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d6b4697c-eefd-4c26-1423-08da7bc3558c
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4053:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /cnmYBLMt1h29tUH9gFU/UHibwt6K/lI021ZNYhI/XKQCJVIH1di9jIHxzQCDd+yYk3NOQfRb8zfBRAGybCHdayn1lBwCxFbWd72eDhB4JKeeF6otOojpk4/Zza5O6yCNTJW760qgbTFEZgxFvQtkxoPDDP7yXFUMACh+VhvyUj/+hpZyN84WoPXFnh/Qwi75Iio/oepyqAPPhJw3ViIXtD52lekK4vgThNj2glgkF4CEjoSIMZAEBZ+bYSVWtx3lxtbdYD21Yp0qNrZN009j2rXv/SlQETnJr0zOjfxL8PPLtWv98u7ne1F2dqROooMnkSTWwbC16o4RpLMb9prlUeuOwj3TEJK1yohxOlaZTnMZ3cct7GraAFLDLeaC7tmP5XrKfSXc+QHky2Z7BoWQnyjInLQEkB7QbPrr67jeWHZihpMUIspbHnssfYBGEeIb1Nwob20NL6bq/FD6/0FbAdgvmewBX4g8TlY89WzXj/JFZK9ocuSnjZvnrHVlXVM57Q+qIQ2BzP7mlv5u9fnjISZDyWJtwG9ZPkorIdL9msk62+5/lWtCupToj0uOGQodvFSMaovyC06pnHGSrDf4+30dtF+JXtWzHmbQn3l5H80P+x/AWgda4ok04GqnaADooAt58waH7x4TdJjWsKwpAjAc5854k3SD2NEiFxB+RrjQ6eOoU/jUBTWWaeJioYhVvqYP9K+njsKBAy1xAQ9FttIQC2rjjZ6gGc2KbTl4dQA7jf58sX8u7SSlGwgoUPP59siesbQ2aWRXv7nOHONpK+068cPLVYC76EOBKyV5m212Q2XbEVp541SzgBjEzLEZGeMetFeAN+Z6JPkqcu33v2w8p3qGP0LgUgsOhcS5Rxh3bfIv/L20IE5ScMhJu/+
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(136003)(376002)(346002)(396003)(46966006)(40470700004)(36840700001)(36756003)(7696005)(478600001)(6666004)(86362001)(41300700001)(26005)(356005)(81166007)(2616005)(1076003)(47076005)(336012)(16526019)(186003)(426003)(83380400001)(82310400005)(40480700001)(70206006)(5660300002)(4326008)(8676002)(316002)(6916009)(70586007)(54906003)(36860700001)(82740400003)(44832011)(8936002)(2906002)(40460700003)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2022 18:00:10.9491 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6b4697c-eefd-4c26-1423-08da7bc3558c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4053
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,430 +100,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrealmeid@riseup.net, Thomas Zimmermann <tzimmermann@suse.de>,
- siqueirajordao@riseup.net, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, Tales Aparecida <tales.aparecida@gmail.com>,
- Trevor Woerner <twoerner@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
- Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- magalilemes00@gmail.com, Isabella Basso <isabbasso@riseup.net>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- KUnit Development <kunit-dev@googlegroups.com>
+Cc: Anders Roxell <anders.roxell@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Rodrigo
+ Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ hersen wu <hersenxs.wu@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>, Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 11, 2022 at 9:38 PM Ma=C3=ADra Canal <mairacanal@riseup.net> wr=
-ote:
->
->
->
-> On 8/11/22 04:37, David Gow wrote:
-> > On Thu, Aug 11, 2022 at 8:41 AM Tales Aparecida
-> > <tales.aparecida@gmail.com> wrote:
-> >>
-> >> From: Ma=C3=ADra Canal <mairacanal@riseup.net>
-> >>
-> >> Add unit test to the SubVP feature in order to avoid possible
-> >> regressions and assure the code robustness.
-> >>
-> >> Signed-off-by: Ma=C3=ADra Canal <mairacanal@riseup.net>
-> >> Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
-> >> ---
-> >
-> > FYI: This seems to have a dependency issue. See below.
-> >
-> > Otherwise, I haven't had a chance to review it properly yet, but I'll
-> > try to take a closer look over the next few days.
-> >
-> > Cheers,
-> > -- David
-> >
-> >>   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   4 +
-> >>   .../amd/display/tests/dc/dc_dmub_srv_test.c   | 285 ++++++++++++++++=
-++
-> >>   2 files changed, 289 insertions(+)
-> >>   create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_=
-test.c
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gp=
-u/drm/amd/display/dc/dc_dmub_srv.c
-> >> index 2d61c2a91cee..f5dd1f69840e 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> >> @@ -809,3 +809,7 @@ void dc_dmub_srv_log_diagnostic_data(struct dc_dmu=
-b_srv *dc_dmub_srv)
-> >>                  diag_data.is_cw0_enabled,
-> >>                  diag_data.is_cw6_enabled);
-> >>   }
-> >> +
-> >> +#if IS_ENABLED(CONFIG_AMD_DC_BASICS_KUNIT_TEST)
-> >> +#include "../tests/dc/dc_dmub_srv_test.c"
-> >> +#endif
-> >> diff --git a/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c b=
-/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
-> >> new file mode 100644
-> >> index 000000000000..051079cbf65e
-> >> --- /dev/null
-> >> +++ b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
-> >> @@ -0,0 +1,285 @@
-> >> +// SPDX-License-Identifier: MIT
-> >> +/*
-> >> + * KUnit tests for dc_dmub_srv.c
-> >> + *
-> >> + * Copyright (C) 2022, Ma=C3=ADra Canal <mairacanal@riseup.net>
-> >> + */
-> >> +
-> >> +#include <kunit/test.h>
-> >> +#include "dc_dmub_srv.h"
-> >> +
-> >> +struct populate_subvp_cmd_drr_info_test_case {
-> >> +       const char *desc;
-> >> +       struct dc *dc;
-> >> +       struct pipe_ctx *subvp_pipe;
-> >> +       struct pipe_ctx *vblank_pipe;
-> >> +       const u8 drr_in_use;
-> >> +       const u8 drr_window_size_ms;
-> >> +       const u16 min_vtotal_supported;
-> >> +       const u16 max_vtotal_supported;
-> >> +       const u8 use_ramping;
-> >> +};
-> >> +
-> >> +struct populate_subvp_cmd_drr_info_test_case populate_subvp_cmd_drr_i=
-nfo_cases[] =3D {
-> >> +       {
-> >> +               .desc =3D "Same Clock Frequency",
-> >> +               .dc =3D &(struct dc) {
-> >> +                       .caps =3D {
-> >> +                               .subvp_prefetch_end_to_mall_start_us =
-=3D 0,
-> >> +                       }
-> >> +               },
-> >> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 2784,
-> >> +                                       .v_addressable =3D 1080,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                               .mall_stream_config =3D {
-> >> +                                       .paired_stream =3D &(struct dc=
-_stream_state) {
-> >> +                                               .timing =3D {
-> >> +                                                       .h_total =3D 3=
-600,
-> >> +                                                       .v_total =3D 1=
-111,
-> >> +                                                       .v_addressable=
- =3D 1080,
-> >> +                                                       .v_front_porch=
- =3D 3,
-> >> +                                                       .pix_clk_100hz=
- =3D 1855800,
-> >> +                                               },
-> >> +                                       },
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 2784,
-> >> +                                       .v_total =3D 1111,
-> >> +                                       .v_addressable =3D 1080,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .drr_in_use =3D true,
-> >> +               .use_ramping =3D false,
-> >> +               .drr_window_size_ms =3D 4,
-> >> +               .min_vtotal_supported =3D 2540,
-> >> +               .max_vtotal_supported =3D 2619,
-> >> +       },
-> >> +       {
-> >> +               .desc =3D "Same Clock Frequency with Prefetch End to M=
-all Start",
-> >> +               .dc =3D &(struct dc) {
-> >> +                       .caps =3D {
-> >> +                               .subvp_prefetch_end_to_mall_start_us =
-=3D 500,
-> >> +                       }
-> >> +               },
-> >> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 2784,
-> >> +                                       .v_addressable =3D 1080,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                               .mall_stream_config =3D {
-> >> +                                       .paired_stream =3D &(struct dc=
-_stream_state) {
-> >> +                                               .timing =3D {
-> >> +                                                       .h_total =3D 3=
-600,
-> >> +                                                       .v_total =3D 1=
-111,
-> >> +                                                       .v_addressable=
- =3D 1080,
-> >> +                                                       .v_front_porch=
- =3D 3,
-> >> +                                                       .pix_clk_100hz=
- =3D 1855800,
-> >> +                                               },
-> >> +                                       },
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 2784,
-> >> +                                       .v_total =3D 1111,
-> >> +                                       .v_addressable =3D 1080,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .drr_in_use =3D true,
-> >> +               .use_ramping =3D false,
-> >> +               .drr_window_size_ms =3D 4,
-> >> +               .min_vtotal_supported =3D 2540,
-> >> +               .max_vtotal_supported =3D 2619,
-> >> +       },
-> >> +       {
-> >> +               .desc =3D "Same Clock Frequency Not Multiple of 2",
-> >> +               .dc =3D &(struct dc) {
-> >> +                       .caps =3D {
-> >> +                               .subvp_prefetch_end_to_mall_start_us =
-=3D 0,
-> >> +                       }
-> >> +               },
-> >> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 2784,
-> >> +                                       .v_addressable =3D 1080,
-> >> +                                       .pix_clk_100hz =3D 1866743,
-> >> +                               },
-> >> +                               .mall_stream_config =3D {
-> >> +                                       .paired_stream =3D &(struct dc=
-_stream_state) {
-> >> +                                               .timing =3D {
-> >> +                                                       .h_total =3D 3=
-600,
-> >> +                                                       .v_total =3D 2=
-400,
-> >> +                                                       .v_addressable=
- =3D 2360,
-> >> +                                                       .v_front_porch=
- =3D 4,
-> >> +                                                       .pix_clk_100hz=
- =3D 1866743,
-> >> +                                               },
-> >> +                                       },
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 3600,
-> >> +                                       .v_total =3D 2400,
-> >> +                                       .v_addressable =3D 2360,
-> >> +                                       .pix_clk_100hz =3D 1866743,
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .drr_in_use =3D true,
-> >> +               .use_ramping =3D false,
-> >> +               .drr_window_size_ms =3D 4,
-> >> +               .min_vtotal_supported =3D 1387,
-> >> +               .max_vtotal_supported =3D 2875,
-> >> +       },
-> >> +       {
-> >> +               .desc =3D "Different Clock Frequency for smaller h_tot=
-al and v_total",
-> >> +               .dc =3D &(struct dc) {
-> >> +                       .caps =3D {
-> >> +                               .subvp_prefetch_end_to_mall_start_us =
-=3D 300,
-> >> +                       }
-> >> +               },
-> >> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 1280,
-> >> +                                       .v_addressable =3D 600,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                               .mall_stream_config =3D {
-> >> +                                       .paired_stream =3D &(struct dc=
-_stream_state) {
-> >> +                                               .timing =3D {
-> >> +                                                       .h_total =3D 1=
-280,
-> >> +                                                       .v_total =3D 7=
-20,
-> >> +                                                       .v_addressable=
- =3D 600,
-> >> +                                                       .v_front_porch=
- =3D 4,
-> >> +                                                       .pix_clk_100hz=
- =3D 1866743,
-> >> +                                               },
-> >> +                                       },
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 1280,
-> >> +                                       .v_total =3D 720,
-> >> +                                       .v_addressable =3D 600,
-> >> +                                       .pix_clk_100hz =3D 2100800,
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .drr_in_use =3D true,
-> >> +               .use_ramping =3D false,
-> >> +               .drr_window_size_ms =3D 4,
-> >> +               .min_vtotal_supported =3D 1477,
-> >> +               .max_vtotal_supported =3D 9954,
-> >> +       },
-> >> +       {
-> >> +               .desc =3D "Different Clock Frequency for approximately=
- 1920x1080",
-> >> +               .dc =3D &(struct dc) {
-> >> +                       .caps =3D {
-> >> +                               .subvp_prefetch_end_to_mall_start_us =
-=3D 0,
-> >> +                       }
-> >> +               },
-> >> +               .subvp_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 1920,
-> >> +                                       .v_addressable =3D 1000,
-> >> +                                       .pix_clk_100hz =3D 1855800,
-> >> +                               },
-> >> +                               .mall_stream_config =3D {
-> >> +                                       .paired_stream =3D &(struct dc=
-_stream_state) {
-> >> +                                               .timing =3D {
-> >> +                                                       .h_total =3D 1=
-911,
-> >> +                                                       .v_total =3D 1=
-080,
-> >> +                                                       .v_addressable=
- =3D 1000,
-> >> +                                                       .v_front_porch=
- =3D 7,
-> >> +                                                       .pix_clk_100hz=
- =3D 1866743,
-> >> +                                               },
-> >> +                                       },
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .vblank_pipe =3D &(struct pipe_ctx) {
-> >> +                       .stream =3D &(struct dc_stream_state) {
-> >> +                               .timing =3D {
-> >> +                                       .h_total =3D 1280,
-> >> +                                       .v_total =3D 720,
-> >> +                                       .v_addressable =3D 600,
-> >> +                                       .pix_clk_100hz =3D 2100800,
-> >> +                               },
-> >> +                       },
-> >> +               },
-> >> +               .drr_in_use =3D true,
-> >> +               .use_ramping =3D false,
-> >> +               .drr_window_size_ms =3D 4,
-> >> +               .min_vtotal_supported =3D 2482,
-> >> +               .max_vtotal_supported =3D 8971,
-> >> +       },
-> >> +};
-> >> +
-> >> +static void populate_subvp_cmd_drr_info_test_to_desc(struct
-> >> +               populate_subvp_cmd_drr_info_test_case * t, char *desc)
-> >> +{
-> >> +       strcpy(desc, t->desc);
-> >> +}
-> >> +
-> >> +KUNIT_ARRAY_PARAM(populate_subvp_cmd_drr_info, populate_subvp_cmd_drr=
-_info_cases,
-> >> +                 populate_subvp_cmd_drr_info_test_to_desc);
-> >> +
-> >> +static void populate_subvp_cmd_drr_info_test(struct kunit *test)
-> >> +{
-> >> +       const struct populate_subvp_cmd_drr_info_test_case *test_param=
- =3D
-> >> +               test->param_value;
-> >> +       struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 *pipe_dat=
-a;
-> >> +
-> >> +       pipe_data =3D kunit_kzalloc(test,
-> >> +                                 sizeof(struct dmub_cmd_fw_assisted_m=
-clk_switch_pipe_data_v2),
-> >> +                                 GFP_KERNEL);
-> >> +
-> >> +       populate_subvp_cmd_drr_info(test_param->dc, test_param->subvp_=
-pipe,
-> >> +                                   test_param->vblank_pipe, pipe_data=
-);
-> >
-> > Should this be hidden behind an #ifdef CONFIG_DRM_AMD_DC_DCN
-> >
-> > Otherwise, there are build issues under UML:
-> > ../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_tes=
-t.c:
-> > In function =E2=80=98populate_subvp_cmd_drr_info_test=E2=80=99:
-> > ../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_tes=
-t.c:260:9:
-> > error: implicit declaration of function =E2=80=98populate_subvp_cmd_drr=
-_info=E2=80=99;
-> > did you mean =E2=80=98populate_subvp_cmd_drr_info_test=E2=80=99? [-Werr=
-or
-> > =3Dimplicit-function-declaration]
-> >   260 |         populate_subvp_cmd_drr_info(test_param->dc,
-> > test_param->subvp_pipe,
-> >       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >       |         populate_subvp_cmd_drr_info_test
-> > cc1: some warnings being treated as errors
-> > make[5]: *** [../scripts/Makefile.build:249:
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.o] Error 1
-> >
-> > Making the test skip itself if this isn't enabled worked fine here.
-> >
-> >
->
-> Currently, we don't support UML as there are some build problems on
-> AMDGPU. You can apply the patch that I sent previously to run the tests
-> with UML, and this warning will not happen anymore, but for now, the
-> tests will work properly only on x86_64.
->
+Need to protect DSC code with CONFIG_DRM_AMD_DC_DCN.
+Fixes the following build errors on arm64:
+ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
 
-Fair enough: I definitely don't expect these all to work perfectly on
-UML (particularly in v1).
+Fixes: 0087990a9f57 ("drm/amd/display: consider DSC pass-through during mode validation")
+Reported-by: Anders Roxell <anders.roxell@linaro.org>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+v2: Fix WERROR build failure by guarding unused variables
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> Moreover, I don't know if it is worth adding an #ifdef
-> CONFIG_DRM_AMD_DC_DCN on all the functions, as most of the functions
-> that we are testing are built under CONFIG_DRM_AMD_DC_DCN.
->
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index ef6c94cd852b..ce6929224a6e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1387,8 +1387,6 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
+ 	return (ret == 0);
+ }
+ 
+-#endif
+-
+ static unsigned int kbps_from_pbn(unsigned int pbn)
+ {
+ 	unsigned int kbps = pbn;
+@@ -1416,17 +1414,19 @@ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ 
+ 	return bw_range->max_target_bpp_x16 && bw_range->min_target_bpp_x16;
+ }
++#endif /* CONFIG_DRM_AMD_DC_DCN */
+ 
+ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	struct amdgpu_dm_connector *aconnector,
+ 	struct dc_stream_state *stream)
+ {
++	int bpp, pbn, branch_max_throughput_mps = 0;
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	struct dc_link_settings cur_link_settings;
+ 	unsigned int end_to_end_bw_in_kbps = 0;
+ 	unsigned int upper_link_bw_in_kbps = 0, down_link_bw_in_kbps = 0;
+ 	unsigned int max_compressed_bw_in_kbps = 0;
+ 	struct dc_dsc_bw_range bw_range = {0};
+-	int bpp, pbn, branch_max_throughput_mps = 0;
+ 
+ 	/*
+ 	 * check if the mode could be supported if DSC pass-through is supported
+@@ -1461,13 +1461,16 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 			return DC_FAIL_BANDWIDTH_VALIDATE;
+ 		}
+ 	} else {
++#endif
+ 		/* check if mode could be supported within full_pbn */
+ 		bpp = convert_dc_color_depth_into_bpc(stream->timing.display_color_depth) * 3;
+ 		pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp, false);
+ 
+ 		if (pbn > aconnector->port->full_pbn)
+ 			return DC_FAIL_BANDWIDTH_VALIDATE;
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	}
++#endif
+ 
+ 	/* check is mst dsc output bandwidth branch_overall_throughput_0_mps */
+ 	switch (stream->timing.pixel_encoding) {
+-- 
+2.37.1
 
-Even if it's not worth explicitly #ifdef-ing around individual tests
-which use this, it's definitely important to make sure this test code
-is behind some sort of dependency on CONFIG_DRM_AMD_DC_DCN. It
-shouldn't be possible to create a valid .config which will cause a
-compile error here. (It breaks, for example, randconfig builds.)
-
-Could we at least have a "depends on" in the Kconfig, so that it's not
-possible to create a broken config?
-
-Cheers,
--- David
