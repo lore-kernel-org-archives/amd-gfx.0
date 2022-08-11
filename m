@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DC8C00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 00:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340F2C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 00:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED40B112761;
-	Thu, 11 Aug 2022 00:41:07 +0000 (UTC)
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [IPv6:2607:f8b0:4864:20::e33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B417A97A7C
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:40:50 +0000 (UTC)
-Received: by mail-vs1-xe33.google.com with SMTP id 129so16866640vsq.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 17:40:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F401B97AA4;
+	Thu, 11 Aug 2022 00:41:12 +0000 (UTC)
+Received: from mail-vs1-xe34.google.com (mail-vs1-xe34.google.com
+ [IPv6:2607:f8b0:4864:20::e34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15CCC97AB2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 00:40:56 +0000 (UTC)
+Received: by mail-vs1-xe34.google.com with SMTP id j2so16903389vsp.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 17:40:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=yumtWw16ut9yxBBV4zua/gB81aa6CJBs8W8sqVgedBI=;
- b=J2vbNsTQtWc2bGhNzxhwlt6YOBzvQMBrEG2zrSdswNjTxZ+oa3DpiVKiIoxMaQ4jc3
- m/te4IoF0NFN1ISN4ZdKY3Vm/az0vSV+JR3ZDn81w7huX93/wzEz1eBX3r/U9dQdwiHn
- 02OrAShYOxjEq5OWREyuyl9ZGwrZl0RfxSB6R3uuJc9xlShR2mWQn3SvcIQcp+MfQIC5
- QQ/rEOpEacXbz5ucOVjduV0aYt1vUBAgVZw31aqpqX41YQbaYrsBnMJCuVRwWhDChe/3
- 4SRZ45d+ReluqCQQNNySzq1G4jD7WVJ3PDg97sD/YWe+jr96XET0SWRGw98wahKBKsLj
- t9iA==
+ bh=cLlytlV290u98L3rGTcPbYM15C81gm5ChFOPwzLAQhQ=;
+ b=JhqlNdWFvAa6n/rHo/i+pq4kPQ3gQDSalm3GWInUygZw/hj2RWc/tUnxzdwpgwdgfA
+ /OgVP0V/Q8Kne29t9kFvodpENsckWOrCSWdZVS7w9+3/l0TlqIAuaoOe4APa/jud66Vf
+ qgu2hQtmWzY1bJKI62T2w4nVPPWmA//CFpgKTYwAUN87qNQ+Ea8+yleY3St5/sMzpx+P
+ lIwRlDrBMvrpPP3ljHrx6BKFT26AGlww2lXRUhsqzV6HqfTbmFBphZHYq7BjNQhupiVs
+ vXHUIEvUbegPkf+hpVh0QlFe5A+cMiKMg9UVEXKep2XdsZFeLLkvb9VEhSec8oxR1jW8
+ BiEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=yumtWw16ut9yxBBV4zua/gB81aa6CJBs8W8sqVgedBI=;
- b=xbh3wRvpwC3mji3HdyiNUiEvJpZuTO1oRFxmPQsUfq2ae2h0+6ofnJoijB6O0eZcmF
- saKz/ocnCwOF6PzJ8jQY3aVKAVj/rF5k8ypti+FavUblcfOQpYHulZFqtrDhpR7cCjvj
- yYjRVsHDY8eRiAR0p/PKtnaUgjM6Zcq79BUwYAtnbwmiTEgjl60ZAmeCHptg+D0SRbsv
- E5zSFpu1++ZQrCi/y2+cP+hKN4RHb1AeDT4TA3XKTdxFT/R2yNUPpW42Cq4gyjY+Mhrt
- t0S9ZI4STSsOLDdESTCOpyqECpKaXIJ3TYn7YU+dYNbpV1vXG9d7wlcUdNonw9bBGK2L
- 3uEg==
-X-Gm-Message-State: ACgBeo2RZFMPbTarEG3EcQZhl1gvjjd8I3AVVRIWWRyzh3OtHEFNdbmh
- 48C94KU3LUawn1sO7EpxX1U=
-X-Google-Smtp-Source: AA6agR4gLHq/07oLktZwn2wITr+Ef94zVK48r4yKnffpcc56VYmHUwAVCcguQYNAE7gVmcrhCBt/uw==
-X-Received: by 2002:a67:a449:0:b0:357:3407:9f60 with SMTP id
- p9-20020a67a449000000b0035734079f60mr13383781vsh.17.1660178449719; 
- Wed, 10 Aug 2022 17:40:49 -0700 (PDT)
+ bh=cLlytlV290u98L3rGTcPbYM15C81gm5ChFOPwzLAQhQ=;
+ b=pUisVjBH4ynOLc8MyGak296yCjqsMpGXR5u2XcoJdSh6blRVCWZbM3n/es0Z5Zqvad
+ Mg3DSpjX6FwOc7AkaRpSndCWR0aRxywfKEV7sxuSTTB21piDPFFhrEfrj1xLLYGO5+Tv
+ y9RUc0mwzxxbb1uDTU3cDSeB7e/FWvfTf11f4gqXILoVuKj0i/NRkKPZHvEtOBlM6tCs
+ JVB5gCYQ9og0NS2dNwwA5o9a5c9Of811ksEHtjooVfjCKFw7nSGn824lZuF+YI1mX7lK
+ x3tjJ3KbNJD26K8Hj2S1ar1z6dKkzfgAoE8AwQR49LpUp8P0eBUBL7rOKFKiKGjq8Ql9
+ m6Ig==
+X-Gm-Message-State: ACgBeo1LMSdd/CRVzWKg8bFjqc7z+cvw0rfmCo2m4h1Hfz9lGRJSSTJ9
+ IkcE0W5Kflq07mK9h8E37As=
+X-Google-Smtp-Source: AA6agR6s/9c96IBvlbAZWB9+foqwFqXHyI5lj2xEO97Q3MSyDdLCIoBVoG/ekvPUk+bDwvZedPPhgg==
+X-Received: by 2002:a67:26c4:0:b0:358:5195:fb40 with SMTP id
+ m187-20020a6726c4000000b003585195fb40mr12760038vsm.0.1660178455082; 
+ Wed, 10 Aug 2022 17:40:55 -0700 (PDT)
 Received: from localhost.localdomain ([2804:14c:4c2:8202::1003])
  by smtp.gmail.com with ESMTPSA id
- z188-20020a1fc9c5000000b003791113188csm893072vkf.55.2022.08.10.17.40.44
+ z188-20020a1fc9c5000000b003791113188csm893072vkf.55.2022.08.10.17.40.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 17:40:49 -0700 (PDT)
+ Wed, 10 Aug 2022 17:40:54 -0700 (PDT)
 From: Tales Aparecida <tales.aparecida@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -57,15 +57,13 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH 5/8] drm/amd/display: Introduce KUnit to
- dcn20/display_mode_vba_20 library
-Date: Wed, 10 Aug 2022 21:40:07 -0300
-Message-Id: <20220811004010.61299-6-tales.aparecida@gmail.com>
+Subject: [PATCH 6/8] drm/amd/display: Introduce KUnit tests for dcn20_fpu
+Date: Wed, 10 Aug 2022 21:40:08 -0300
+Message-Id: <20220811004010.61299-7-tales.aparecida@gmail.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220811004010.61299-1-tales.aparecida@gmail.com>
 References: <20220811004010.61299-1-tales.aparecida@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,267 +84,597 @@ Cc: siqueirajordao@riseup.net, magalilemes00@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Maíra Canal <mairacanal@riseup.net>
+From: Magali Lemes <magalilemes00@gmail.com>
 
-The display_mode_vba_20 deals with hundreds of display parameters for
-the DCN20 and sometimes does it in odd ways. The addition of unit tests
-intends to assure the quality of the code delivered by HW engineers and,
-also make it possible to refactor the code decreasing concerns about adding
-bugs to the codebase.
+This commit adds unit tests to the functions dcn20_cap_soc_clocks and
+dcn21_update_bw_bounding_box from dcn20/dcn20_fpu.
 
-Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
 Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
 ---
- .../dc/dml/dcn20/display_mode_vba_20.c        |   4 +
- .../dc/dml/dcn20/display_mode_vba_20_test.c   | 227 ++++++++++++++++++
- 2 files changed, 231 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   4 +
+ .../tests/dc/dml/dcn20/dcn20_fpu_test.c       | 560 ++++++++++++++++++
+ 2 files changed, 564 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/dcn20_fpu_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-index d3b5b6fedf04..738d8c1f5def 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-@@ -5112,3 +5112,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				locals->OutputBppPerState[mode_lib->vba.VoltageLevel][k];
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index ca44df4fca74..ad30d6ef9603 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2390,3 +2390,7 @@ void dcn201_populate_dml_writeback_from_context_fpu(struct dc *dc,
  	}
+ 
  }
 +
 +#if IS_ENABLED(CONFIG_DML_KUNIT_TEST)
-+#include "../../tests/dc/dml/dcn20/display_mode_vba_20_test.c"
++#include "../../tests/dc/dml/dcn20/dcn20_fpu_test.c"
 +#endif
-diff --git a/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
+diff --git a/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/dcn20_fpu_test.c b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/dcn20_fpu_test.c
 new file mode 100644
-index 000000000000..7abaf0a8d50a
+index 000000000000..71b1391cda91
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
-@@ -0,0 +1,227 @@
++++ b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/dcn20_fpu_test.c
+@@ -0,0 +1,560 @@
 +// SPDX-License-Identifier: MIT
 +/*
-+ * KUnit tests for dml/dcn20/display_mode_vba_20.c
++ * KUnit tests for dml/dcn20/dcn20_fpu.h
 + *
-+ * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
++ * Copyright (C) 2022, Magali Lemes <magalilemes00@gmail.com>
 + */
 +
 +#include <kunit/test.h>
-+#include "dml/display_mode_enums.h"
 +
-+static void DSC_compute_delay_test(struct kunit *test)
++#include "dc/inc/resource.h"
++#include "dc/inc/hw/clk_mgr.h"
++#include "dc/dcn21/dcn21_resource.h"
++
++#include "dml/dcn20/dcn20_fpu.h"
++
++/**
++ * DOC: Unit tests for AMDGPU DML dcn20/dcn20_fpu.h
++ */
++
++struct dcn20_cap_soc_clocks_test_case {
++	const char *desc;
++	struct _vcs_dpi_soc_bounding_box_st bb;
++	struct pp_smu_nv_clock_table max_clocks;
++	const int clock_states;
++	const struct _vcs_dpi_voltage_scaling_st expected_clock_limits[DC__VOLTAGE_STATES];
++};
++
++struct dcn21_update_bw_bounding_box_test_case {
++	const char *desc;
++	struct dc dc;
++	struct clk_bw_params bw_params;
++	const int clocks_to_compare;
++	const struct _vcs_dpi_voltage_scaling_st expected_clock_limits[DC__VOLTAGE_STATES];
++};
++
++struct dcn20_cap_soc_clocks_test_case dcn20_cap_soc_clocks_test_cases[] = {
++	{
++		.desc = "4-state bounding box clock limits ",
++		.bb = {
++			.clock_limits = {
++				{
++					.dcfclk_mhz = 506.0,
++					.fabricclk_mhz = 506.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 400.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 506.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 1600.0,
++				},
++				{
++					.dcfclk_mhz = 540.0,
++					.fabricclk_mhz = 540.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 540.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 8000.0,
++				},
++				{
++					.dcfclk_mhz = 675.0,
++					.fabricclk_mhz = 675.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 675.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 10000.0,
++				},
++				{
++					.dcfclk_mhz = 1265.0,
++					.fabricclk_mhz = 1266.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 1266.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 15000.0,
++				},
++			},
++			.num_states = 4,
++		},
++		.max_clocks = {
++			.dcfClockInKhz = 1265000,
++			.uClockInKhz = 875000,
++			.fabricClockInKhz = 0,
++			.displayClockInKhz = 1284000,
++			.dppClockInKhz = 0,
++			.phyClockInKhz = 810000,
++			.socClockInKhz = 1266000,
++			.dscClockInKhz = 0,
++		},
++		.clock_states = 4,
++		.expected_clock_limits = {
++			{
++				.dcfclk_mhz = 506.0,
++				.fabricclk_mhz = 506.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 506.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 1600.0,
++			},
++			{
++				.dcfclk_mhz = 540.0,
++				.fabricclk_mhz = 540.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 540.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 8000.0,
++			},
++			{
++				.dcfclk_mhz = 675.0,
++				.fabricclk_mhz = 675.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 675.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 10000.0,
++			},
++			{
++				.dcfclk_mhz = 1265.0,
++				.fabricclk_mhz = 1266.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1266.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 14000.0,
++			},
++		},
++	},
++	{
++		.desc = "One duplicate clock state",
++		.bb = {
++			.clock_limits = {
++				{
++					.dcfclk_mhz = 506.0,
++					.fabricclk_mhz = 506.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 400.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 506.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 1600.0,
++				},
++				{
++					.dcfclk_mhz = 675.0,
++					.fabricclk_mhz = 675.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 675.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 10000.0,
++				},
++				{
++					.dcfclk_mhz = 675.0,
++					.fabricclk_mhz = 675.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 675.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 10000.0,
++				},
++				{
++					.dcfclk_mhz = 1265.0,
++					.fabricclk_mhz = 1266.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 1284.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 1266.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 15000.0,
++				},
++			},
++			.num_states = 4,
++		},
++		.max_clocks = {
++			.dcfClockInKhz = 1265000,
++			.uClockInKhz = 875000,
++			.fabricClockInKhz = 0,
++			.displayClockInKhz = 1284000,
++			.dppClockInKhz = 0,
++			.phyClockInKhz = 810000,
++			.socClockInKhz = 1266000,
++			.dscClockInKhz = 0,
++		},
++		.clock_states = 3,
++		.expected_clock_limits = {
++			{
++				.dcfclk_mhz = 506.0,
++				.fabricclk_mhz = 506.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 506.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 1600.0,
++			},
++			{
++				.dcfclk_mhz = 675.0,
++				.fabricclk_mhz = 675.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 675.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 10000.0,
++			},
++			{
++				.dcfclk_mhz = 675.0,
++				.fabricclk_mhz = 675.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 675.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 10000.0,
++			},
++		},
++	},
++	{
++		.desc = "Zeroed max clocks",
++		.bb = {
++			.clock_limits = {
++				{
++					.dcfclk_mhz = 506.0,
++					.fabricclk_mhz = 506.0,
++					.dispclk_mhz = 1284.0,
++					.dppclk_mhz = 400.0,
++					.phyclk_mhz = 810.0,
++					.socclk_mhz = 506.0,
++					.dscclk_mhz = 428.0,
++					.dram_speed_mts = 1600.0,
++				},
++			},
++			.num_states = 1,
++		},
++		.max_clocks = {
++			.dcfClockInKhz = 0,
++			.uClockInKhz = 0,
++			.fabricClockInKhz = 0,
++			.displayClockInKhz = 0,
++			.dppClockInKhz = 0,
++			.phyClockInKhz = 0,
++			.socClockInKhz = 0,
++			.dscClockInKhz = 0,
++		},
++		.clock_states = 1,
++		.expected_clock_limits = {
++			{
++				.dcfclk_mhz = 506.0,
++				.fabricclk_mhz = 506.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 506.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 1600.0,
++			},
++		},
++	},
++};
++
++struct dcn21_update_bw_bounding_box_test_case dcn21_update_bw_bounding_box_test_data[] = {
++	{
++		.desc = "5-entry bounding box clocks table",
++		.dc = {
++			.res_pool = &(struct resource_pool) {
++				.pipe_count = 2,
++				.res_cap = &(struct resource_caps) {
++					.num_timing_generator = 3
++				},
++			},
++		},
++		.bw_params = {
++			.num_channels = 1,
++			.clk_table = {
++				.entries = {
++					{
++						.voltage = 0,
++						.dcfclk_mhz = 200,
++						.fclk_mhz = 400,
++						.memclk_mhz = 800,
++						.socclk_mhz = 0,
++					},
++					{
++						.voltage = 0,
++						.dcfclk_mhz = 201,
++						.fclk_mhz = 800,
++						.memclk_mhz = 1600,
++						.socclk_mhz = 0,
++					},
++					{
++						.voltage = 0,
++						.dcfclk_mhz = 553,
++						.fclk_mhz = 1067,
++						.memclk_mhz = 1067,
++						.socclk_mhz = 0,
++					},
++					{
++						.voltage = 0,
++						.dcfclk_mhz = 602,
++						.fclk_mhz = 1333,
++						.memclk_mhz = 1600,
++						.socclk_mhz = 0,
++					},
++					{
++						.voltage = 0,
++						.dispclk_mhz = 1372,
++						.dppclk_mhz = 1372,
++						.phyclk_mhz = 810,
++						.phyclk_d18_mhz = 667,
++						.dtbclk_mhz = 600,
++					},
++				},
++
++				.num_entries = 5,
++			},
++		},
++		.expected_clock_limits = {
++			{
++				.state = 0,
++				.dcfclk_mhz = 200.0,
++				.fabricclk_mhz = 400.0,
++				.dispclk_mhz = 600.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 205.67,
++				.dram_speed_mts = 1600.0,
++			},
++			{
++				.state = 1,
++				.dcfclk_mhz = 200.0,
++				.fabricclk_mhz = 400.0,
++				.dispclk_mhz = 600.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 205.67,
++				.dram_speed_mts = 1600.0,
++			},
++			{
++				.state = 2,
++				.dcfclk_mhz = 201,
++				.fabricclk_mhz = 800.0,
++				.dispclk_mhz = 600.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 205.67,
++				.dram_speed_mts = 3200.0,
++			},
++			{
++				.state = 3,
++				.dcfclk_mhz = 553.0,
++				.fabricclk_mhz = 1067.0,
++				.dispclk_mhz = 757.89,
++				.dppclk_mhz = 685.71,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 287.67,
++				.dram_speed_mts = 2134.0,
++			},
++			{
++				.state = 4,
++				.dcfclk_mhz = 602.0,
++				.fabricclk_mhz = 1333.0,
++				.dispclk_mhz = 847.06,
++				.dppclk_mhz = 757.89,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 318.334,
++				.dram_speed_mts = 3200.0,
++			},
++			{
++				.state = 5,
++				.dcfclk_mhz = 0.0,
++				.fabricclk_mhz = 0.0,
++				.dispclk_mhz = 600.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 205.67,
++				.dram_speed_mts = 0.0,
++			},
++			{
++				.state = 6,
++				.dcfclk_mhz = 0.0,
++				.fabricclk_mhz = 0.0,
++				.dispclk_mhz = 600.0,
++				.dppclk_mhz = 400.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 0.0,
++				.dscclk_mhz = 205.67,
++				.dram_speed_mts = 0.0,
++			},
++		},
++		.clocks_to_compare = 6,
++	},
++};
++
++/**
++ * dcn20_cap_soc_clocks_test - KUnit test for dcn20_cap_soc_clocks
++ * @test: represents a running instance of a test.
++ */
++static void dcn20_cap_soc_clocks_test(struct kunit *test)
 +{
-+	/* 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_444), 30);
++	struct dcn20_cap_soc_clocks_test_case *test_param =
++		(struct dcn20_cap_soc_clocks_test_case *)test->param_value;
++	int i;
 +
-+	/* 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_420), 48);
++	DC_FP_START();
++	dcn20_cap_soc_clocks(&test_param->bb, test_param->max_clocks);
++	DC_FP_END();
 +
-+	/* 4:2:2 n-encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_n422), 49);
++	/* Check if no clock limit is higher than the specified maximum */
++	for (i = 0; i < test_param->bb.num_states; i++) {
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].dcfclk_mhz,
++				test_param->expected_clock_limits[i].dcfclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].fabricclk_mhz,
++				test_param->expected_clock_limits[i].fabricclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].dispclk_mhz,
++				test_param->expected_clock_limits[i].dispclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].dppclk_mhz,
++				test_param->expected_clock_limits[i].dppclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].phyclk_mhz,
++				test_param->expected_clock_limits[i].phyclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].socclk_mhz,
++				test_param->expected_clock_limits[i].socclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].dscclk_mhz,
++				test_param->expected_clock_limits[i].dscclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->bb.clock_limits[i].dram_speed_mts,
++				test_param->expected_clock_limits[i].dram_speed_mts);
++	}
 +
-+	/* 4:2:2 s-encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_s422), 30);
++	KUNIT_EXPECT_EQ(test, test_param->clock_states, test_param->bb.num_states);
 +}
 +
-+static void calculate_TWait_test(struct kunit *test)
++static struct _vcs_dpi_soc_bounding_box_st original_dcn2_1_soc;
++static struct _vcs_dpi_ip_params_st original_dcn2_1_ip;
++
++/**
++ * dcn20_fpu_dcn21_update_bw_bounding_box_test_init - Store backup copies of DCN global structures
++ * @test: represents a running instance of a test.
++ */
++int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
 +{
-+	/* Zeroed Prefetch Mode */
++	memcpy(&original_dcn2_1_soc, &dcn2_1_soc, sizeof(struct _vcs_dpi_soc_bounding_box_st));
++	memcpy(&original_dcn2_1_ip, &dcn2_1_ip, sizeof(struct _vcs_dpi_ip_params_st));
 +
-+	/* DRAMClockChangeLatency > UrgentLatencyPixelDataOnly > SREnterPlusExitTime*/
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1300000, 1200000, 1000000), 2500000);
-+
-+	/* DRAMClockChangeLatency > SREnterPlusExitTime > UrgentLatencyPixelDataOnly */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1300000, 900000, 1200000), 2200000);
-+
-+	/* UrgentLatencyPixelDataOnly > DRAMClockChangeLatency > SREnterPlusExitTime */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 2000000, 900000), 3000000);
-+
-+	/* UrgentLatencyPixelDataOnly > SREnterPlusExitTime > DRAMClockChangeLatency */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 1200000, 1100000), 2200000);
-+
-+	/* SREnterPlusExitTime > DRAMClockChangeLatency > UrgentLatencyPixelDataOnly */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 900000, 2000000), 2000000);
-+
-+	/* SREnterPlusExitTime > UrgentLatencyPixelDataOnly > DRAMClockChangeLatency */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 1200000, 1300000), 2200000);
-+
-+	/* Prefetch Mode equals 1 */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 2500000, 2000000, 900000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1300000, 900000, 1200000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1100000, 1200000, 1000000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 1200000, 1100000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 900000, 2000000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 1200000, 1300000), 1300000);
-+
-+	/* Prefetch Mode greater than 1 */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 2500000, 2000000, 900000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(2, 2500000, 900000, 2000000), 900000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(5, 1100000, 1200000, 1000000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(4, 1000000, 1300000, 1200000), 1300000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(6, 1000000, 900000, 2000000), 900000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(3, 1000000, 1200000, 1300000), 1200000);
++	return 0;
 +}
 +
-+static void trunc_to_valid_BPP_test(struct kunit *test)
++/**
++ * dcn20_fpu_dcn21_update_bw_bounding_box_test_exit - Restore original values
++ * of DCN global structures
++ * @test: represents a running instance of a test.
++ */
++static void dcn20_fpu_dcn21_update_bw_bounding_box_test_exit(struct kunit *test)
 +{
-+	/* HDMI output for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, true, dm_hdmi, dm_420, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_hdmi, dm_420, 10), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.01, false, dm_hdmi, dm_420, 0), 15);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15, false, dm_hdmi, dm_420, 8), 15);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12.01, true, dm_hdmi, dm_420, 0), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, true, dm_hdmi, dm_420, 5), 12);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.99, false, dm_hdmi, dm_420, 5), BPP_INVALID);
-+
-+	/* HDMI output for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, true, dm_hdmi, dm_444, 0), 36);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, true, dm_hdmi, dm_444, 10), 36);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_hdmi, dm_444, 0), 30);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_hdmi, dm_444, 8), 30);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, true, dm_hdmi, dm_444, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, true, dm_hdmi, dm_444, 5), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, true, dm_hdmi, dm_444, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_hdmi, dm_444, 5), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.99, false, dm_hdmi, dm_444, 5), BPP_INVALID);
-+
-+	/* HDMI output for different encoding types */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, true, dm_hdmi, dm_n422, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, true, dm_hdmi, dm_s422, 10), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_hdmi, dm_n422, 0), 20);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_hdmi, dm_s422, 8), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, true, dm_hdmi, dm_n422, 0), 16);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, true, dm_hdmi, dm_s422, 5), 16);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.99, false, dm_hdmi, dm_n422, 5), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_hdmi, dm_s422, 0), BPP_INVALID);
-+
-+	/* Display Port output with DSC enabled and 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(5.99, true, dm_dp, dm_420, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_dp, dm_420, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, true, dm_dp, dm_420, 8), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(1.5 * 8 - 1 / (double)16, true, dm_dp, dm_420, 8), 11);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7, true, dm_dp, dm_420, 3), 4);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(1.5 * 9 - 1 / (double)16, true, dm_dp, dm_420, 9), 13);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.25, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6 + 1 / (double)3, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.50, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.75, true, dm_dp, dm_420, 8), 6);
-+
-+	/* Embedded Display Port output with DSC enabled and n-4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.99, true, dm_edp, dm_n422, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_edp, dm_n422, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16, true, dm_edp, dm_n422, 7), 14);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(2 * 7 - 1 / (double)16, true, dm_edp, dm_n422, 7), 13);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7, true, dm_edp, dm_n422, 3), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(2 * 9 - 1 / (double)16, true, dm_edp, dm_n422, 9), 17);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11 + 1 / (double)3, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.40, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.50, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.75, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.95, true, dm_edp, dm_n422, 8), 11);
-+
-+	/* Display Port 2.0 output with DSC enabled and 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7.99, true, dm_dp2p0, dm_444, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_dp2p0, dm_444, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(22, true, dm_dp2p0, dm_444, 11), 22);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 7 - 1 / (double)16, true, dm_dp2p0, dm_444, 7), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(14, true, dm_dp2p0, dm_444, 3), 9);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 9 - 1 / (double)16, true, dm_dp2p0, dm_444, 9), 26);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17 + 1 / (double)3, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.40, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.50, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.75, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.95, true, dm_dp2p0, dm_444, 7), 17);
-+
-+	/* WB output with DSC enabled and 4:2:2 s-encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7.99, true, dm_wb, dm_s422, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_wb, dm_s422, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(22, true, dm_wb, dm_s422, 11), 22);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 7 - 1 / (double)16, true, dm_wb, dm_s422, 7), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_wb, dm_s422, 3), 9);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 9 - 1 / (double)16, true, dm_wb, dm_s422, 9), 26);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17 + 1 / (double)3, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.40, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.50, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.75, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.95, true, dm_wb, dm_s422, 7), 17);
-+
-+	/* Display Port output with DSC disabled for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, false, dm_dp, dm_420, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, false, dm_dp, dm_420, 10), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.01, false, dm_dp, dm_420, 0), 15);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15, false, dm_dp, dm_420, 8), 15);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12.01, false, dm_dp, dm_420, 0), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, false, dm_dp, dm_420, 5), 12);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.99, false, dm_dp, dm_420, 5), BPP_INVALID);
-+
-+	/* Embedded Display Port output with DSC disabled for 4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, false, dm_edp, dm_s422, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, false, dm_edp, dm_n422, 10), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(20.01, false, dm_edp, dm_s422, 0), 20);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(20, false, dm_edp, dm_n422, 8), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16.01, false, dm_edp, dm_s422, 0), 16);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16, false, dm_edp, dm_n422, 5), 16);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.99, false, dm_edp, dm_s422, 5), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, false, dm_edp, dm_n422, 5), BPP_INVALID);
-+
-+	/* WB output with DSC disabled for 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, false, dm_wb, dm_444, 0), 36);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, false, dm_wb, dm_444, 10), 36);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_wb, dm_444, 0), 30);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_wb, dm_444, 8), 30);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, false, dm_wb, dm_444, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, false, dm_wb, dm_444, 5), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, false, dm_wb, dm_444, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, false, dm_wb, dm_444, 5), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.99, false, dm_wb, dm_444, 5), BPP_INVALID);
++	memcpy(&dcn2_1_soc, &original_dcn2_1_soc, sizeof(struct _vcs_dpi_soc_bounding_box_st));
++	memcpy(&dcn2_1_ip, &original_dcn2_1_ip, sizeof(struct _vcs_dpi_ip_params_st));
 +}
 +
-+static struct kunit_case display_mode_vba_20_cases[] = {
-+	KUNIT_CASE(DSC_compute_delay_test),
-+	KUNIT_CASE(calculate_TWait_test),
-+	KUNIT_CASE(trunc_to_valid_BPP_test),
++/**
++ * dcn21_update_bw_bounding_box_test - KUnit test for dcn21_update_bw_bounding_box
++ * @test: represents a running instance of a test.
++ */
++static void dcn21_update_bw_bounding_box_test(struct kunit *test)
++{
++	struct dcn21_update_bw_bounding_box_test_case *test_param =
++		(struct dcn21_update_bw_bounding_box_test_case *)test->param_value;
++	int i;
++
++	DC_FP_START();
++	dcn21_update_bw_bounding_box(&test_param->dc, &test_param->bw_params);
++	DC_FP_END();
++
++	KUNIT_EXPECT_EQ(test, test_param->dc.res_pool->res_cap->num_timing_generator,
++			dcn2_1_ip.max_num_otg);
++	KUNIT_EXPECT_EQ(test, test_param->dc.res_pool->pipe_count, dcn2_1_ip.max_num_dpp);
++	KUNIT_EXPECT_EQ(test, test_param->bw_params.num_channels, dcn2_1_soc.num_chans);
++
++	for (i = 0; i <= test_param->clocks_to_compare; i++) {
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].state,
++				dcn2_1_soc.clock_limits[i].state);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].dcfclk_mhz,
++				dcn2_1_soc.clock_limits[i].dcfclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].fabricclk_mhz,
++				dcn2_1_soc.clock_limits[i].fabricclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].dispclk_mhz,
++				dcn2_1_soc.clock_limits[i].dispclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].dppclk_mhz,
++				dcn2_1_soc.clock_limits[i].dppclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].phyclk_mhz,
++				dcn2_1_soc.clock_limits[i].phyclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].socclk_mhz,
++				dcn2_1_soc.clock_limits[i].socclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].dscclk_mhz,
++				dcn2_1_soc.clock_limits[i].dscclk_mhz);
++		KUNIT_EXPECT_EQ(test, test_param->expected_clock_limits[i].dram_speed_mts,
++				dcn2_1_soc.clock_limits[i].dram_speed_mts);
++	}
++
++	if (test_param->bw_params.clk_table.num_entries)
++		KUNIT_EXPECT_EQ(test, test_param->bw_params.clk_table.num_entries,
++				dcn2_1_soc.num_states);
++}
++
++static void dcn20_cap_soc_clocks_test_to_desc(struct dcn20_cap_soc_clocks_test_case *t, char *desc)
++{
++	strcpy(desc, t->desc);
++}
++
++static void dcn21_update_bw_bounding_box_test_to_desc(struct dcn21_update_bw_bounding_box_test_case *t, char *desc)
++{
++	strcpy(desc, t->desc);
++}
++
++KUNIT_ARRAY_PARAM(dcn20_cap_soc_clocks,
++		  dcn20_cap_soc_clocks_test_cases,
++		  dcn20_cap_soc_clocks_test_to_desc);
++
++static struct kunit_case dcn20_fpu_test_cases[] = {
++	KUNIT_CASE_PARAM(dcn20_cap_soc_clocks_test, dcn20_cap_soc_clocks_gen_params),
 +	{  }
 +};
 +
-+static struct kunit_suite display_mode_vba_20_suite = {
-+	.name = "display_mode_vba_20",
-+	.test_cases = display_mode_vba_20_cases,
++static struct kunit_suite dcn20_fpu_test_suite = {
++	.name = "dml_dcn20_fpu",
++	.test_cases = dcn20_fpu_test_cases,
 +};
 +
-+kunit_test_suite(display_mode_vba_20_suite);
++KUNIT_ARRAY_PARAM(dcn21_update_bw_bounding_box,
++		  dcn21_update_bw_bounding_box_test_data,
++		  dcn21_update_bw_bounding_box_test_to_desc);
++
++static struct kunit_case dcn20_fpu_dcn21_update_bw_bounding_box_test_cases[] = {
++	KUNIT_CASE_PARAM(dcn21_update_bw_bounding_box_test,
++			 dcn21_update_bw_bounding_box_gen_params),
++	{  }
++};
++
++static struct kunit_suite dcn21_update_bw_bounding_box_test_suite = {
++	.name = "dml_dcn20_fpu_dcn21_update_bw_bounding_box_test",
++	.init = dcn20_fpu_dcn21_update_bw_bounding_box_test_init,
++	.exit = dcn20_fpu_dcn21_update_bw_bounding_box_test_exit,
++	.test_cases = dcn20_fpu_dcn21_update_bw_bounding_box_test_cases,
++};
++
++kunit_test_suites(&dcn20_fpu_test_suite, &dcn21_update_bw_bounding_box_test_suite);
 -- 
 2.37.0
 
