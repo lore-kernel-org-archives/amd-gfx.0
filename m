@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521E1C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3D2C25B06
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01601B44EA;
-	Thu, 11 Aug 2022 15:36:27 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9633A2E1F;
- Thu, 11 Aug 2022 15:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA3CB45AF;
+	Thu, 11 Aug 2022 15:39:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18504B45AF;
+ Thu, 11 Aug 2022 15:39:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7390FB82157;
- Thu, 11 Aug 2022 15:36:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F19DC433B5;
- Thu, 11 Aug 2022 15:36:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9835A616CA;
+ Thu, 11 Aug 2022 15:39:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93189C433C1;
+ Thu, 11 Aug 2022 15:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232174;
- bh=3WO1X/r96fVsa2TO+JzUldSo6EvsERimnvGpjqkZ4pc=;
+ s=k20201202; t=1660232340;
+ bh=7ryKt3BvDv8KyfJYLeaDSvJJFnVL4177BFp4TNwqe/E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nuO4RWeN8Z6N8ieq5f8QWfzCrdoZHUb5nbW9p50BWnSyPO1dMhee1Uddvh4XA8kua
- r/rdUD+Ih4AP4ut46ecTE3uOh5gbAHHbRda/+HKZ5IsSX7U5A8mmjKrcIyA7PrM0IE
- PKLO4mWyC03tXvy5EARJ8DWb3lp4cB7F405XUV5jHKad9ZjAguorilqU86YwlMHZFu
- LWNUqDwMnz4nUqhpXMWb7/xGEYrOzGsigIFsCWLh1OCNfwbOkjMxLGh7gzDl/Vf5fW
- k8dRcCTH7HNEMSwmu1BOu1e/SNul8/DVFX21NpUtPSvo/EOSLLKSpFrJCFXndeO9fP
- gmH46MqmZubEg==
+ b=EatQvS4a/p1Za8mUpLLsmd0LAXAW2f24ONwRmMb5EvZyjxnKniSQ2GiV/Rv3G+cK8
+ /x7VCljiRjWXTBAbh0VRks5AccoqrB3VsW49KLu4Z/rEKqlywmhzF/IfiLsby5ZLdV
+ h0wn0S2Ph3Cwv2CdClEKDfrpyBYTlGke7BKRxMEeqmeCg7PailE5wnsxR1L4SXrnUX
+ gMzCF0HzmLKpcfYZ5HKvk77NqaFjqz/DU2fsgq2zdi8MuO+NrPtji8087zXkHIn1fn
+ 1FNygqH8miT2ND7kllWhBjjD9Wu+DQWhy56YqMQlGvwGa80tbIg+vMvE1UvifYdL9w
+ gdee6Zd1z71Zw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 064/105] drm/amdgpu: Fix one list corruption when
- create queue fails
-Date: Thu, 11 Aug 2022 11:27:48 -0400
-Message-Id: <20220811152851.1520029-64-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 070/105] drm/amdgpu: fix file permissions on some
+ files
+Date: Thu, 11 Aug 2022 11:27:54 -0400
+Message-Id: <20220811152851.1520029-70-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811152851.1520029-1-sashal@kernel.org>
 References: <20220811152851.1520029-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -54,54 +56,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
- airlied@linux.ie, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, charlene.liu@amd.com,
+ Guchun Chen <guchun.chen@amd.com>, airlied@linux.ie, Xinhui.Pan@amd.com,
+ zhan.liu@amd.com, amd-gfx@lists.freedesktop.org, HaoPing.Liu@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
+ harry.wentland@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: xinhui pan <xinhui.pan@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit cc3cb791f19ad0c4f951f38c98aa513b042ab329 ]
+[ Upstream commit 0a94608f0f7de9b1135ffea3546afe68eafef57f ]
 
-Queue would be freed when create_queue_cpsch fails
-So lets do queue cleanup otherwise various list and memory issues
-happen.
+Drop execute.
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2085
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h   | 0
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h  | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h    | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h   | 0
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h  | 0
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h | 0
+ 6 files changed, 0 insertions(+), 0 deletions(-)
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e017b4240472..06417c7abca4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1666,14 +1666,13 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
- 	if (q->properties.is_active) {
- 		increment_queue_count(dqm, qpd, q);
- 
--		if (!dqm->dev->shared_resources.enable_mes) {
-+		if (!dqm->dev->shared_resources.enable_mes)
- 			retval = execute_queues_cpsch(dqm,
--					     KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
--		} else {
-+					KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
-+		else
- 			retval = add_queue_mes(dqm, q, qpd);
--			if (retval)
--				goto cleanup_queue;
--		}
-+		if (retval)
-+			goto cleanup_queue;
- 	}
- 
- 	/*
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_11_0_1_sh_mask.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_3_sh_mask.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_2_0_3_sh_mask.h
+old mode 100755
+new mode 100644
 -- 
 2.35.1
 
