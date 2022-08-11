@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C88C19F2A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 13:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245D8C19F2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 13:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE0C8DF3A;
-	Thu, 11 Aug 2022 13:22:55 +0000 (UTC)
-Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E72858D716
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 13:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED4F14BF01;
+	Thu, 11 Aug 2022 13:38:55 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86660B1321
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 13:38:40 +0000 (UTC)
 Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
  client-signature RSA-PSS (2048 bits) client-digest SHA256)
  (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx0.riseup.net (Postfix) with ESMTPS id 4M3SCn4DZrz9sF3;
- Thu, 11 Aug 2022 13:22:45 +0000 (UTC)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4M3SZ72NdSzDqKr;
+ Thu, 11 Aug 2022 13:38:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1660224166; bh=jgxcJWwtwfKgw5HutrqI20z18f8f70toYUux33HP6iw=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
- b=mIThNjLtvHJOJpRKkz+VgQ9tdVSBH2Ciqr42Qqz6yC1xgOPu/5dzG0nbPPfs+1tfO
- rgengHTLVgiUrfQH3R1b6pCuQpXvFQjYWEexD8y+e7eSm5VdR3rbTDompKPCcaUo75
- KZxvqtQCiufw4Gy1BRakKJdvr1HC2rR8tsepB/zo=
-X-Riseup-User-ID: D97836AAD10454D85E822580D34A18EB6711DFE45D17A8F64E17202019FF7FC3
+ t=1660225119; bh=vq+Cbeu3UKOfkia5fURiOBo4nBY+jY+YmtYIcsnNRvQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=W41w/tX1hX1lcM+mFo6pnC1Trw7FU/0pbXnZkRtWq9Ungm/HWpbcx6dYof60YADow
+ bUtoJpC8J3cOTZ4MBORQdqMxQwFfJzBx05oRcS9L72fZ5cyhQGK9BIhKN74QBDe4rL
+ ozn1MYv4HeZsUz0kR9u9NRESQWjxq46twDuTbD5A=
+X-Riseup-User-ID: 82FF68496D755400318D547C504BD5B1BED3723C02F86B38398B3325844870F0
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews2.riseup.net (Postfix) with ESMTPSA id 4M3SCf33V5z1yWw;
- Thu, 11 Aug 2022 13:22:38 +0000 (UTC)
-Message-ID: <345e6701-aa18-c347-a515-62d897125a4f@riseup.net>
-Date: Thu, 11 Aug 2022 10:22:31 -0300
+ by fews2.riseup.net (Postfix) with ESMTPSA id 4M3SZ01NXwz1yWd;
+ Thu, 11 Aug 2022 13:38:31 +0000 (UTC)
+Message-ID: <1716b7b6-9fd0-214e-aeab-55220aa70a9d@riseup.net>
+Date: Thu, 11 Aug 2022 10:38:29 -0300
 MIME-Version: 1.0
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-Subject: Re: [PATCH 1/8] drm/amd/display: Introduce KUnit tests for fixed31_32
+Subject: Re: [PATCH 7/8] drm/amd/display: Introduce KUnit tests to dc_dmub_srv
  library
-To: David Gow <davidgow@google.com>, Daniel Latypov <dlatypov@google.com>
-References: <20220811004010.61299-1-tales.aparecida@gmail.com>
- <20220811004010.61299-2-tales.aparecida@gmail.com>
- <CAGS_qxryOVG_ZvV1+i_egPZO8Ngq4EoFRK=Q_J9S8urj3kPyxA@mail.gmail.com>
- <CABVgOSm0Sakf8wnwCt8xB09+U3rzgxYPToOWkJK4ssfc-AkX2A@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <CABVgOSm0Sakf8wnwCt8xB09+U3rzgxYPToOWkJK4ssfc-AkX2A@mail.gmail.com>
+To: David Gow <davidgow@google.com>,
+ Tales Aparecida <tales.aparecida@gmail.com>
+References: <20220811004010.61299-1-tales.aparecida@gmail.com>
+ <20220811004010.61299-8-tales.aparecida@gmail.com>
+ <CABVgOSmJm0W1OAk7Ja8zb_WMcj=kXx7-w9J747k5sRySi1Jyfw@mail.gmail.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
+In-Reply-To: <CABVgOSmJm0W1OAk7Ja8zb_WMcj=kXx7-w9J747k5sRySi1Jyfw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -57,15 +57,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: andrealmeid@riseup.net, Thomas Zimmermann <tzimmermann@suse.de>,
  siqueirajordao@riseup.net, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, Tales Aparecida <tales.aparecida@gmail.com>,
- Trevor Woerner <twoerner@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@linux.ie>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, mwen@igalia.com,
  Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  magalilemes00@gmail.com, Isabella Basso <isabbasso@riseup.net>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
+ Trevor Woerner <twoerner@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  KUnit Development <kunit-dev@googlegroups.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -73,221 +72,375 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 8/11/22 04:19, David Gow wrote:
-> On Thu, Aug 11, 2022 at 11:05 AM 'Daniel Latypov' via KUnit
-> Development <kunit-dev@googlegroups.com> wrote:
+On 8/11/22 04:37, David Gow wrote:
+> On Thu, Aug 11, 2022 at 8:41 AM Tales Aparecida
+> <tales.aparecida@gmail.com> wrote:
 >>
->> On Wed, Aug 10, 2022 at 5:40 PM Tales Aparecida
->> <tales.aparecida@gmail.com> wrote:
->>>
->>> The fixed31_32 library performs a lot of the mathematical operations
->>> involving fixed-point arithmetic and the conversion of integers to
->>> fixed-point representation.
->>>
->>> This unit tests intend to assure the proper functioning of the basic
->>> mathematical operations of fixed-point arithmetic, such as
->>> multiplication, conversion from fractional to fixed-point number,
->>> and more. Use kunit_tool to run:
->>>
->>> $ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
->>>          --kunitconfig=drivers/gpu/drm/amd/display/tests/
+>> From: Maíra Canal <mairacanal@riseup.net>
 >>
->> Nice, thanks for including a kunitconfig, that'll help a lot.
+>> Add unit test to the SubVP feature in order to avoid possible
+>> regressions and assure the code robustness.
 >>
->> Just as an FYI: if you're working on top of torvalds/master, I think
->> you would no longer need --arch=x86_64.
->> Before, CONFIG_PCI=y was tricky to enable on UML, but commit
->> 6fc3a8636a7b ("kunit: tool: Enable virtio/PCI by default on UML")
->> landed for 6.0.
->>
->> I.e. I can run this command on torvalds/master w/ no other patches applied:
->>
->> $ ./tools/testing/kunit/kunit.py config --kunitconfig=/dev/stdin <<EOF
->> CONFIG_KUNIT=y
->> CONFIG_PCI=y
->> CONFIG_DRM=y
->> CONFIG_DRM_AMDGPU=y
->> CONFIG_DRM_AMD_DC=y
->> EOF
->>
->> I haven't tried to apply this series locally yet to double-check, but
->> I'm pretty sure that means these tests should work as well.
->> Running under UML would hopefully have faster compile times and be
->> less resource heavy than a QEMU VM (but I've not measured to verify
->> that).
->>
+>> Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+>> Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+>> ---
 > 
+> FYI: This seems to have a dependency issue. See below.
 > 
-> There are still a few issues which prevent these tests from working on
-> UML I haven't had a chance to go through all of them yet, but I'll
-> drop a couple of quick responses to some of the individual patches.
-> 
-> The first thing to note is that amdgpu doesn't actually build on UML
-> at all without:
-> https://patchwork.kernel.org/project/linux-rdma/patch/20220218075727.2737623-3-davidgow@google.com/
-> 
-> IIRC, no-one liked spreading !defined(CONFIG_UML) everwhere. Replacing
-> it with IS_ENABLED(CONFIG_X86) also works, as X86_64 is defined on
-> UML, but X86 isn't.
-> 
-> The other issues are basically just other missing #ifdef checks or
-> dependencies. Plus there's a warning on my system even under x86_64
-> for integer overflow in the MIN_I64 definition.
-
-Currently, we only support the tests to x86_64, as the DC core don't
-build to UML yet. In the future, I intend to send the patch that enables
-the tests to run on UML, but for the first iteration, we focused in running
-the tests on x86.
-
-If you want with UML, you can apply the following patch (which is working in
-progress yet):
-------
- From cac02e5d714d78e1d69995383b818eec26661925 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
-Date: Sat, 23 Jul 2022 14:57:41 -0300
-Subject: [PATCH] drm/amdgpu: Enable compilation under UML
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-The User-Mode Linux configuration is used by KUnit to execute kernel
-results directly. This removes the need for a test machine or a virtual
-machine. Therefore, as KUnit tests are being added to AMDGPU, it is
-interesting to enable compilation under UML, as it eases running the tests
-on CI and developers' machines.
-
-Also, the use of UML is encouraged by the KUnit team [1], as it is considered
-a better practice to write tests that run on UML to tests that only run
-under a particular architecture.
-
-[1] https://docs.kernel.org/dev-tools/kunit/usage.html#writing-tests-for-other-architectures
-
-Signed-off-by: Maíra Canal <mairacanal@riseup.net>
----
-  drivers/gpu/drm/amd/amdkfd/kfd_crat.c               | 6 +++---
-  drivers/gpu/drm/amd/amdkfd/kfd_topology.c           | 2 +-
-  drivers/gpu/drm/amd/display/Kconfig                 | 2 +-
-  drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c       | 8 ++++----
-  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 2 +-
-  5 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index a5409531a2fd..bbed3284e78e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1766,7 +1766,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
-  	return 0;
-  }
-  
--#ifdef CONFIG_X86_64
-+#if IS_ENABLED(CONFIG_X86)
-  static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
-  				uint32_t *num_entries,
-  				struct crat_subtype_iolink *sub_type_hdr)
-@@ -1825,7 +1825,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
-  	struct crat_subtype_generic *sub_type_hdr;
-  	int avail_size = *size;
-  	int numa_node_id;
--#ifdef CONFIG_X86_64
-+#if IS_ENABLED(CONFIG_X86)
-  	uint32_t entries = 0;
-  #endif
-  	int ret = 0;
-@@ -1890,7 +1890,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
-  			sub_type_hdr->length);
-  
-  		/* Fill in Subtype: IO Link */
--#ifdef CONFIG_X86_64
-+#if IS_ENABLED(CONFIG_X86)
-  		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
-  				&entries,
-  				(struct crat_subtype_iolink *)sub_type_hdr);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 25990bec600d..5f0e58c430a1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1923,7 +1923,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
-  	first_cpu_of_numa_node = cpumask_first(cpumask);
-  	if (first_cpu_of_numa_node >= nr_cpu_ids)
-  		return -1;
--#ifdef CONFIG_X86_64
-+#if IS_ENABLED(CONFIG_X86)
-  	return cpu_data(first_cpu_of_numa_node).apicid;
-  #else
-  	return first_cpu_of_numa_node;
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 72e7a63da79f..d066af22ecea 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -6,7 +6,7 @@ config DRM_AMD_DC
-  	bool "AMD DC - Enable new display engine"
-  	default y
-  	select SND_HDA_COMPONENT if SND_HDA_CORE
--	select DRM_AMD_DC_DCN if (X86 || PPC64)
-+	select DRM_AMD_DC_DCN if (X86 || PPC64 || UML)
-  	help
-  	  Choose this option if you want to use the new display engine
-  	  support for AMDGPU. This adds required support for Vega and
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c
-index 660510842ecf..a591090784ee 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c
-@@ -39,7 +39,7 @@
-  #define REG(reg)\
-  	(gpio->regs->reg)
-  
--static void store_registers(
-+static void hw_gpio_store_registers(
-  	struct hw_gpio *gpio)
-  {
-  	REG_GET(MASK_reg, MASK, &gpio->store.mask);
-@@ -48,7 +48,7 @@ static void store_registers(
-  	/* TODO store GPIO_MUX_CONTROL if we ever use it */
-  }
-  
--static void restore_registers(
-+static void hw_gpio_restore_registers(
-  	struct hw_gpio *gpio)
-  {
-  	REG_UPDATE(MASK_reg, MASK, gpio->store.mask);
-@@ -63,7 +63,7 @@ bool dal_hw_gpio_open(
-  {
-  	struct hw_gpio *pin = FROM_HW_GPIO_PIN(ptr);
-  
--	store_registers(pin);
-+	hw_gpio_store_registers(pin);
-  
-  	ptr->opened = (dal_hw_gpio_config_mode(pin, mode) == GPIO_RESULT_OK);
-  
-@@ -132,7 +132,7 @@ void dal_hw_gpio_close(
-  {
-  	struct hw_gpio *pin = FROM_HW_GPIO_PIN(ptr);
-  
--	restore_registers(pin);
-+	hw_gpio_restore_registers(pin);
-  
-  	ptr->mode = GPIO_MODE_UNKNOWN;
-  	ptr->opened = false;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index e4fcbf8a7eb5..825b80590f1b 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -1738,7 +1738,7 @@ static int smu7_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
-  
-  static bool intel_core_rkl_chk(void)
-  {
--#if IS_ENABLED(CONFIG_X86_64)
-+#if IS_ENABLED(CONFIG_X86)
-  	struct cpuinfo_x86 *c = &cpu_data(0);
-  
-  	return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ROCKETLAKE);
--- 
-2.37.1
-------
-
-Best Regards,
-- Maíra Canal
-
+> Otherwise, I haven't had a chance to review it properly yet, but I'll
+> try to take a closer look over the next few days.
 > 
 > Cheers,
 > -- David
+> 
+>>   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   4 +
+>>   .../amd/display/tests/dc/dc_dmub_srv_test.c   | 285 ++++++++++++++++++
+>>   2 files changed, 289 insertions(+)
+>>   create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> index 2d61c2a91cee..f5dd1f69840e 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> @@ -809,3 +809,7 @@ void dc_dmub_srv_log_diagnostic_data(struct dc_dmub_srv *dc_dmub_srv)
+>>                  diag_data.is_cw0_enabled,
+>>                  diag_data.is_cw6_enabled);
+>>   }
+>> +
+>> +#if IS_ENABLED(CONFIG_AMD_DC_BASICS_KUNIT_TEST)
+>> +#include "../tests/dc/dc_dmub_srv_test.c"
+>> +#endif
+>> diff --git a/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
+>> new file mode 100644
+>> index 000000000000..051079cbf65e
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
+>> @@ -0,0 +1,285 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * KUnit tests for dc_dmub_srv.c
+>> + *
+>> + * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
+>> + */
+>> +
+>> +#include <kunit/test.h>
+>> +#include "dc_dmub_srv.h"
+>> +
+>> +struct populate_subvp_cmd_drr_info_test_case {
+>> +       const char *desc;
+>> +       struct dc *dc;
+>> +       struct pipe_ctx *subvp_pipe;
+>> +       struct pipe_ctx *vblank_pipe;
+>> +       const u8 drr_in_use;
+>> +       const u8 drr_window_size_ms;
+>> +       const u16 min_vtotal_supported;
+>> +       const u16 max_vtotal_supported;
+>> +       const u8 use_ramping;
+>> +};
+>> +
+>> +struct populate_subvp_cmd_drr_info_test_case populate_subvp_cmd_drr_info_cases[] = {
+>> +       {
+>> +               .desc = "Same Clock Frequency",
+>> +               .dc = &(struct dc) {
+>> +                       .caps = {
+>> +                               .subvp_prefetch_end_to_mall_start_us = 0,
+>> +                       }
+>> +               },
+>> +               .subvp_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 2784,
+>> +                                       .v_addressable = 1080,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                               .mall_stream_config = {
+>> +                                       .paired_stream = &(struct dc_stream_state) {
+>> +                                               .timing = {
+>> +                                                       .h_total = 3600,
+>> +                                                       .v_total = 1111,
+>> +                                                       .v_addressable = 1080,
+>> +                                                       .v_front_porch = 3,
+>> +                                                       .pix_clk_100hz = 1855800,
+>> +                                               },
+>> +                                       },
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .vblank_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 2784,
+>> +                                       .v_total = 1111,
+>> +                                       .v_addressable = 1080,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .drr_in_use = true,
+>> +               .use_ramping = false,
+>> +               .drr_window_size_ms = 4,
+>> +               .min_vtotal_supported = 2540,
+>> +               .max_vtotal_supported = 2619,
+>> +       },
+>> +       {
+>> +               .desc = "Same Clock Frequency with Prefetch End to Mall Start",
+>> +               .dc = &(struct dc) {
+>> +                       .caps = {
+>> +                               .subvp_prefetch_end_to_mall_start_us = 500,
+>> +                       }
+>> +               },
+>> +               .subvp_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 2784,
+>> +                                       .v_addressable = 1080,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                               .mall_stream_config = {
+>> +                                       .paired_stream = &(struct dc_stream_state) {
+>> +                                               .timing = {
+>> +                                                       .h_total = 3600,
+>> +                                                       .v_total = 1111,
+>> +                                                       .v_addressable = 1080,
+>> +                                                       .v_front_porch = 3,
+>> +                                                       .pix_clk_100hz = 1855800,
+>> +                                               },
+>> +                                       },
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .vblank_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 2784,
+>> +                                       .v_total = 1111,
+>> +                                       .v_addressable = 1080,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .drr_in_use = true,
+>> +               .use_ramping = false,
+>> +               .drr_window_size_ms = 4,
+>> +               .min_vtotal_supported = 2540,
+>> +               .max_vtotal_supported = 2619,
+>> +       },
+>> +       {
+>> +               .desc = "Same Clock Frequency Not Multiple of 2",
+>> +               .dc = &(struct dc) {
+>> +                       .caps = {
+>> +                               .subvp_prefetch_end_to_mall_start_us = 0,
+>> +                       }
+>> +               },
+>> +               .subvp_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 2784,
+>> +                                       .v_addressable = 1080,
+>> +                                       .pix_clk_100hz = 1866743,
+>> +                               },
+>> +                               .mall_stream_config = {
+>> +                                       .paired_stream = &(struct dc_stream_state) {
+>> +                                               .timing = {
+>> +                                                       .h_total = 3600,
+>> +                                                       .v_total = 2400,
+>> +                                                       .v_addressable = 2360,
+>> +                                                       .v_front_porch = 4,
+>> +                                                       .pix_clk_100hz = 1866743,
+>> +                                               },
+>> +                                       },
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .vblank_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 3600,
+>> +                                       .v_total = 2400,
+>> +                                       .v_addressable = 2360,
+>> +                                       .pix_clk_100hz = 1866743,
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .drr_in_use = true,
+>> +               .use_ramping = false,
+>> +               .drr_window_size_ms = 4,
+>> +               .min_vtotal_supported = 1387,
+>> +               .max_vtotal_supported = 2875,
+>> +       },
+>> +       {
+>> +               .desc = "Different Clock Frequency for smaller h_total and v_total",
+>> +               .dc = &(struct dc) {
+>> +                       .caps = {
+>> +                               .subvp_prefetch_end_to_mall_start_us = 300,
+>> +                       }
+>> +               },
+>> +               .subvp_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 1280,
+>> +                                       .v_addressable = 600,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                               .mall_stream_config = {
+>> +                                       .paired_stream = &(struct dc_stream_state) {
+>> +                                               .timing = {
+>> +                                                       .h_total = 1280,
+>> +                                                       .v_total = 720,
+>> +                                                       .v_addressable = 600,
+>> +                                                       .v_front_porch = 4,
+>> +                                                       .pix_clk_100hz = 1866743,
+>> +                                               },
+>> +                                       },
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .vblank_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 1280,
+>> +                                       .v_total = 720,
+>> +                                       .v_addressable = 600,
+>> +                                       .pix_clk_100hz = 2100800,
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .drr_in_use = true,
+>> +               .use_ramping = false,
+>> +               .drr_window_size_ms = 4,
+>> +               .min_vtotal_supported = 1477,
+>> +               .max_vtotal_supported = 9954,
+>> +       },
+>> +       {
+>> +               .desc = "Different Clock Frequency for approximately 1920x1080",
+>> +               .dc = &(struct dc) {
+>> +                       .caps = {
+>> +                               .subvp_prefetch_end_to_mall_start_us = 0,
+>> +                       }
+>> +               },
+>> +               .subvp_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 1920,
+>> +                                       .v_addressable = 1000,
+>> +                                       .pix_clk_100hz = 1855800,
+>> +                               },
+>> +                               .mall_stream_config = {
+>> +                                       .paired_stream = &(struct dc_stream_state) {
+>> +                                               .timing = {
+>> +                                                       .h_total = 1911,
+>> +                                                       .v_total = 1080,
+>> +                                                       .v_addressable = 1000,
+>> +                                                       .v_front_porch = 7,
+>> +                                                       .pix_clk_100hz = 1866743,
+>> +                                               },
+>> +                                       },
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .vblank_pipe = &(struct pipe_ctx) {
+>> +                       .stream = &(struct dc_stream_state) {
+>> +                               .timing = {
+>> +                                       .h_total = 1280,
+>> +                                       .v_total = 720,
+>> +                                       .v_addressable = 600,
+>> +                                       .pix_clk_100hz = 2100800,
+>> +                               },
+>> +                       },
+>> +               },
+>> +               .drr_in_use = true,
+>> +               .use_ramping = false,
+>> +               .drr_window_size_ms = 4,
+>> +               .min_vtotal_supported = 2482,
+>> +               .max_vtotal_supported = 8971,
+>> +       },
+>> +};
+>> +
+>> +static void populate_subvp_cmd_drr_info_test_to_desc(struct
+>> +               populate_subvp_cmd_drr_info_test_case * t, char *desc)
+>> +{
+>> +       strcpy(desc, t->desc);
+>> +}
+>> +
+>> +KUNIT_ARRAY_PARAM(populate_subvp_cmd_drr_info, populate_subvp_cmd_drr_info_cases,
+>> +                 populate_subvp_cmd_drr_info_test_to_desc);
+>> +
+>> +static void populate_subvp_cmd_drr_info_test(struct kunit *test)
+>> +{
+>> +       const struct populate_subvp_cmd_drr_info_test_case *test_param =
+>> +               test->param_value;
+>> +       struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 *pipe_data;
+>> +
+>> +       pipe_data = kunit_kzalloc(test,
+>> +                                 sizeof(struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2),
+>> +                                 GFP_KERNEL);
+>> +
+>> +       populate_subvp_cmd_drr_info(test_param->dc, test_param->subvp_pipe,
+>> +                                   test_param->vblank_pipe, pipe_data);
+> 
+> Should this be hidden behind an #ifdef CONFIG_DRM_AMD_DC_DCN
+> 
+> Otherwise, there are build issues under UML:
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c:
+> In function ‘populate_subvp_cmd_drr_info_test’:
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c:260:9:
+> error: implicit declaration of function ‘populate_subvp_cmd_drr_info’;
+> did you mean ‘populate_subvp_cmd_drr_info_test’? [-Werror
+> =implicit-function-declaration]
+>   260 |         populate_subvp_cmd_drr_info(test_param->dc,
+> test_param->subvp_pipe,
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>       |         populate_subvp_cmd_drr_info_test
+> cc1: some warnings being treated as errors
+> make[5]: *** [../scripts/Makefile.build:249:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.o] Error 1
+> 
+> Making the test skip itself if this isn't enabled worked fine here.
+> 
+> 
+
+Currently, we don't support UML as there are some build problems on 
+AMDGPU. You can apply the patch that I sent previously to run the tests 
+with UML, and this warning will not happen anymore, but for now, the 
+tests will work properly only on x86_64.
+
+Moreover, I don't know if it is worth adding an #ifdef 
+CONFIG_DRM_AMD_DC_DCN on all the functions, as most of the functions 
+that we are testing are built under CONFIG_DRM_AMD_DC_DCN.
+
+Best Regards
+- Maíra Canal
+
+> 
+> 
+>> +
+>> +       KUNIT_EXPECT_EQ(test, test_param->drr_in_use,
+>> +                       pipe_data->pipe_config.vblank_data.drr_info.drr_in_use);
+>> +       KUNIT_EXPECT_EQ(test, test_param->drr_window_size_ms,
+>> +                       pipe_data->pipe_config.vblank_data.drr_info.drr_window_size_ms);
+>> +       KUNIT_EXPECT_EQ(test, test_param->use_ramping,
+>> +                       pipe_data->pipe_config.vblank_data.drr_info.use_ramping);
+>> +       KUNIT_EXPECT_EQ(test, test_param->min_vtotal_supported,
+>> +                       pipe_data->pipe_config.vblank_data.drr_info.min_vtotal_supported);
+>> +       KUNIT_EXPECT_EQ(test, test_param->max_vtotal_supported,
+>> +                       pipe_data->pipe_config.vblank_data.drr_info.max_vtotal_supported);
+>> +}
+>> +
+>> +static struct kunit_case dc_dmub_srv_cases[] = {
+>> +       KUNIT_CASE_PARAM(populate_subvp_cmd_drr_info_test, populate_subvp_cmd_drr_info_gen_params),
+>> +       {  }
+>> +};
+>> +
+>> +static struct kunit_suite dc_dmub_srv_suite = {
+>> +       .name = "dc_dmub_srv",
+>> +       .test_cases = dc_dmub_srv_cases,
+>> +};
+>> +
+>> +kunit_test_suite(dc_dmub_srv_suite);
+>> --
+>> 2.37.0
+>>
+>> --
+>> You received this message because you are subscribed to the Google Groups "KUnit Development" group.
+>> To unsubscribe from this group and stop receiving emails from it, send an email to kunit-dev+unsubscribe@googlegroups.com.
+>> To view this discussion on the web visit https://groups.google.com/d/msgid/kunit-dev/20220811004010.61299-8-tales.aparecida%40gmail.com.
