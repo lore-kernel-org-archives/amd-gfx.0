@@ -4,63 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 625FAC00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 11:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2225BC25B0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 13:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7CC4112CED;
-	Fri, 12 Aug 2022 11:39:32 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D7D9A85D
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Aug 2022 11:39:24 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id y13so1527836ejp.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Aug 2022 04:39:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=NKnvBrSorWxczg0raWCrTMjgPQ+YZHC9w7rGBeUA1bg=;
- b=e0Qi36FSBNL36O8Ize+xZNs6KD9SzOsJBiJnf2ztdWfLGvxBX8Lf3iahaIo5zspteN
- 8UpDWXD2YTR1Sai1QDbcoF8tU/CEnLnxW51N2ExZQLykLo+/r1IEwStPDvzWxYXTt4WS
- 3S5bl5al68KXZgFoOU8Qd7l2WSwDl1VlFX+iv2kfmGXnuxu5WjW7uQkH+2eYqrVQwL/N
- CY9wpeomGAOsOWaya2MLfoCpuUSwjRlWcPk4VgPx4CJ4GEplpazxyC+I6X5M0f+y05n0
- B1Mx48lDAT9fzsPFNGRSX0wYtDQpieUZm8dDPwvmpkljpaa8dQSgKK9h6bzOG5XjkfLX
- IFYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=NKnvBrSorWxczg0raWCrTMjgPQ+YZHC9w7rGBeUA1bg=;
- b=Pp+Ow+ryplxuze2TI+KnurEYizw4z1EQIW+4TLBksqDi+jWgEUyY6dmNqmiit/9Jql
- 0TwxCc9eT6Z6cA/qpWqZdiraVFhZh0yyiJ2AGfqeWIAe37pBkxzyXQTHRIRMCCN5jN/m
- iK9y1VEaq3AODIRcMO8QejjZg2kTpBLg4YGM3ab4PmmjiqWb9lG+krwcvpOtP7zCvXfr
- cdaGUGHq6P8/2lmB55kl5DPDd27lgF2JFjXZrPW2S0kBR+ZrDEB2/ST4meNgTy+vMLv+
- kpwA709U9sYhdmam/UC5n5m9SPjVLeNCDcsuUp65rYyTJimc4zMF6KavK4Mm0Rv+Htw+
- N2GQ==
-X-Gm-Message-State: ACgBeo0Zu6WBDfjLwCUEkqrmvtD1u+IsKoKYymRUdHB4PUtRt4C6HQcY
- 9rVTH3ckmisDgG9wkh97ZoOLRmIHiuo=
-X-Google-Smtp-Source: AA6agR60WHggCBzcSzVNy0TAJTy7nCNk8R6R3pr4T61KT6CPMm+wzdunfPVBDmw/E3XDUPRVDbUM9A==
-X-Received: by 2002:a17:907:3e93:b0:730:a92b:e7e1 with SMTP id
- hs19-20020a1709073e9300b00730a92be7e1mr2474115ejc.621.1660304363095; 
- Fri, 12 Aug 2022 04:39:23 -0700 (PDT)
-Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
- [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
- r30-20020a50d69e000000b0043bbc9503ddsm1197869edi.76.2022.08.12.04.39.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Aug 2022 04:39:22 -0700 (PDT)
-Message-ID: <a8d38251-92ab-17ce-a3cd-c68fb7cb3ff7@gmail.com>
-Date: Fri, 12 Aug 2022 13:39:20 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 933BDB36AE;
+	Fri, 12 Aug 2022 13:31:27 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD9AB3681;
+ Fri, 12 Aug 2022 13:31:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T7pKYGBS2hno1ccWdGP5uuaE6BuKBoGpzMbu/k9SZhFc0J4kYvIo2GolDfaNZzbUomMmY5R5xV7Rgl/rbf/eMN6Wi2SB9wdAMJQ9UUTvE1LIiFH/bCVey7i8pWl4gBXafnAUUiUCyS6KIVGRbraZeq1qF3nJLJNBlkrDJG8qTIOzJRablOQvk1Giv3BjbKJdLekKrY7+dtatUN31B37+QUqDegMyvxj+igRRJ3MqbTWYpnZ86R70z5UzgX9Cx8mT5Pz9DyLGPpchKaOdm7WZ3Ww3jQ+NVXxMY/Brlmq/QljXPiKkWh9OKYEnepfPNti5ymYOG9B/6IN8yU1Maxxo/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KbNRQJ/zTc0t98A1TikGffsdb2mRwRw2BNjAec2m31g=;
+ b=SW9x7JJokLTSz2TRCnYS8EZa9b0yaawTHBeJ9XRtAK1SqlR/P+nx/3/cs5ub+P2hlxAHRiMHhjkM7kO3kw7phF4PQCkjAlqZpGCfEQ+t36NHNwfoa206NSMqlxgPmJcP4pkQdGArU+//iLTpHL5Tvhbhs79O548K3D6ysqDuDvOUkrSVXbwrQSHqdSQIRATyxuHUIU4wi7TVKp11mesusgEiA249e7ZOqHB0iCqhyl6pGl7bApUJmcScTE6PzEcLO1LS6gq/xOCDot33+HOZVsdnVbfe7lG9YjvPekeCq7H3vFrvvudQOBOG75o0MMAg8ZO8qTj5BSzvDCM9yJ8j5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KbNRQJ/zTc0t98A1TikGffsdb2mRwRw2BNjAec2m31g=;
+ b=fElHmAk04ir77sEjHxafusooeaw/l7MwS7BGm5VDJA1emKkk5iGABgZMin2Gj0zNpbUsR/HL3JKxgN4Na9cgVPkcZ0Qrp/5WdjkXOJSB6nPwXGjj+CX3osvADYqahqcX4NjQ7ycUagoKSD5vENOuDI12ccxSebwiCd5Yz6PrSN4=
+Received: from DM6PR02CA0158.namprd02.prod.outlook.com (2603:10b6:5:332::25)
+ by BN8PR12MB3411.namprd12.prod.outlook.com (2603:10b6:408:40::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17; Fri, 12 Aug
+ 2022 13:31:18 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:332:cafe::b5) by DM6PR02CA0158.outlook.office365.com
+ (2603:10b6:5:332::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17 via Frontend
+ Transport; Fri, 12 Aug 2022 13:31:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5525.11 via Frontend Transport; Fri, 12 Aug 2022 13:31:18 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Fri, 12 Aug 2022 08:31:01 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>
+Subject: [PATCH v6 1/6] drm/ttm: Add new callbacks to ttm res mgr
+Date: Fri, 12 Aug 2022 06:30:43 -0700
+Message-ID: <20220812133048.2814-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdgpu: modify mcbp implement for gfx9(v3)
-Content-Language: en-US
-To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
-References: <20220811031953.963227-1-Jiadong.Zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220811031953.963227-1-Jiadong.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 54d66383-6c0b-49b5-e564-08da7c66f013
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3411:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8c8XtZoBQCf1OBV1GnkCBe2dZp2Zh1n+3Uggp8X+6b2aQvKN2hwlvG8GBdJn20RNcgpXP/OA8EjvHm1XWeuM7MiruTtg9Z8DJZgNRfe4z3YUZ1TmwPI4MsKsfcrykNmgI4uACziwi7eCVPX/Ysnaunjs1JfUHJVQNt5Vv7JMBP7U2b1xl5nUvHuRtfqTRtZcdVAZZIdXJVsq0WnvhAlkR8zTx2E71Jnwu/SvUfP/76a09LgM23DphqdEVFIx8JKpUH4eiAj91/LuyJ0vcGNZUOjorg6GpUi2NdOpDhj1G81k1cEJsbDAHJ/NGcKSpM7k+Gu7ilfpPXRMpEt1rMHSMO9VqQ/OMzSX4kJBZmfQXbcfklS93p1jIrcXuvziFSfSePbfk5eUYQvbfS7iTm8BfEcRu62JRTNBdZn7HQb4ev2KpbhOh9anLfrwTnJHpucFdCe94Et1ZosXgET9ZDzRQfiDApnvj21oL1ZQ0UHpX5f3B3tXDYtITunjImWsXWrmRB9PIhW/GObKRzNRyVfOfAVJesEXai9O08J20T4C81ocOEIvfDHACC2h7SIus8c5UWKfE9o1vU0R/6fv9BpBz+KPglBH/i4pVoA+b6ghWRHwbvJw0Uw6pe5XbhANcUShB3JfxWeQL2UjIGIEmdCy2qmOxOEioOP+0L+i3hSWPQmK9TZx4E7yrAOU9AF1XGl9M3gD63cfmszTJbxFB6OvO23GulLifx/Bhfxq09wSsvSuTdld9rEHIfYb2kNKhhRYTDiV7ScODzF9PuA7c4ygyshFF7k5AsvelOI5nxzYZHgVLCUjAyWrOFz0jaNx3TO4WnzMJY6Y3zycZi4mUy7H0Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(396003)(346002)(376002)(39860400002)(46966006)(40470700004)(36840700001)(186003)(336012)(16526019)(66574015)(2616005)(47076005)(1076003)(82310400005)(83380400001)(8676002)(70206006)(426003)(36756003)(5660300002)(2906002)(70586007)(8936002)(6666004)(41300700001)(26005)(7696005)(4326008)(478600001)(86362001)(40460700003)(54906003)(36860700001)(40480700001)(316002)(82740400003)(356005)(110136005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2022 13:31:18.1596 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54d66383-6c0b-49b5-e564-08da7c66f013
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,313 +98,218 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ray.Huang@amd.com, aaron.liu@amd.com
+Cc: alexander.deucher@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ luben.tuikov@amd.com, christian.koenig@amd.com, matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+We are adding two new callbacks to ttm resource manager
+function to handle intersection and compatibility of
+placement and resources.
 
+v2: move the amdgpu and ttm_range_manager changes to
+    separate patches (Christian)
+v3: rename "intersect" to "intersects" (Matthew)
+v4: move !place check to the !res if and return false
+    in ttm_resource_compatible() function (Christian)
+v5: move bits of code from patch number 6 to avoid
+    temporary driver breakup (Christian)
 
-Am 11.08.22 um 05:19 schrieb jiadong.zhu@amd.com:
-> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
->
-> 1. Use unmap_queue package to trigger preemption on gfx9
->     Add trailing fence to track the preemption done.
-> 2. Modify emit_ce_meta emit_de_meta functions
->     for the resumed ibs.
->
-> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   1 +
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 161 ++++++++++++++++++++---
->   drivers/gpu/drm/amd/amdgpu/soc15d.h      |   2 +
->   3 files changed, 143 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 82c178a9033a..ca626f0ad7b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -59,6 +59,7 @@ enum amdgpu_ring_priority_level {
->   #define AMDGPU_FENCE_FLAG_64BIT         (1 << 0)
->   #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
->   #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c       |  9 ++--
+ drivers/gpu/drm/ttm/ttm_resource.c | 77 +++++++++++++++++++++++++++++-
+ include/drm/ttm/ttm_resource.h     | 40 ++++++++++++++++
+ 3 files changed, 119 insertions(+), 7 deletions(-)
 
-> +#define AMDGPU_FENCE_FLAG_EXEC          (1 << 3)
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index c1bd006a5525..f066e8124c50 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -518,6 +518,9 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
+ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 			      const struct ttm_place *place)
+ {
++	struct ttm_resource *res = bo->resource;
++	struct ttm_device *bdev = bo->bdev;
++
+ 	dma_resv_assert_held(bo->base.resv);
+ 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+ 		return true;
+@@ -525,11 +528,7 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	/* Don't evict this BO if it's outside of the
+ 	 * requested placement range
+ 	 */
+-	if (place->fpfn >= (bo->resource->start + bo->resource->num_pages) ||
+-	    (place->lpfn && place->lpfn <= bo->resource->start))
+-		return false;
+-
+-	return true;
++	return ttm_resource_intersects(bdev, res, place, bo->base.size);
+ }
+ EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+ 
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 20f9adcc3235..0d1f862a582b 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -253,10 +253,84 @@ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
+ }
+ EXPORT_SYMBOL(ttm_resource_free);
+ 
++/**
++ * ttm_resource_intersects - test for intersection
++ *
++ * @bdev: TTM device structure
++ * @res: The resource to test
++ * @place: The placement to test
++ * @size: How many bytes the new allocation needs.
++ *
++ * Test if @res intersects with @place and @size. Used for testing if evictions
++ * are valueable or not.
++ *
++ * Returns true if the res placement intersects with @place and @size.
++ */
++bool ttm_resource_intersects(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size)
++{
++	struct ttm_resource_manager *man;
++
++	if (!res)
++		return false;
++
++	if (!place)
++		return true;
++
++	man = ttm_manager_type(bdev, res->mem_type);
++	if (!man->func->intersects) {
++		if (place->fpfn >= (res->start + res->num_pages) ||
++		    (place->lpfn && place->lpfn <= res->start))
++			return false;
++
++		return true;
++	}
++
++	return man->func->intersects(man, res, place, size);
++}
++
++/**
++ * ttm_resource_compatible - test for compatibility
++ *
++ * @bdev: TTM device structure
++ * @res: The resource to test
++ * @place: The placement to test
++ * @size: How many bytes the new allocation needs.
++ *
++ * Test if @res compatible with @place and @size.
++ *
++ * Returns true if the res placement compatible with @place and @size.
++ */
++bool ttm_resource_compatible(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size)
++{
++	struct ttm_resource_manager *man;
++
++	if (!res || !place)
++		return false;
++
++	man = ttm_manager_type(bdev, res->mem_type);
++	if (!man->func->compatible) {
++		if (res->start < place->fpfn ||
++		    (place->lpfn && (res->start + res->num_pages) > place->lpfn))
++			return false;
++
++		return true;
++	}
++
++	return man->func->compatible(man, res, place, size);
++}
++
+ static bool ttm_resource_places_compat(struct ttm_resource *res,
+ 				       const struct ttm_place *places,
+ 				       unsigned num_placement)
+ {
++	struct ttm_buffer_object *bo = res->bo;
++	struct ttm_device *bdev = bo->bdev;
+ 	unsigned i;
+ 
+ 	if (res->placement & TTM_PL_FLAG_TEMPORARY)
+@@ -265,8 +339,7 @@ static bool ttm_resource_places_compat(struct ttm_resource *res,
+ 	for (i = 0; i < num_placement; i++) {
+ 		const struct ttm_place *heap = &places[i];
+ 
+-		if (res->start < heap->fpfn || (heap->lpfn &&
+-		    (res->start + res->num_pages) > heap->lpfn))
++		if (!ttm_resource_compatible(bdev, res, heap, bo->base.size))
+ 			continue;
+ 
+ 		if ((res->mem_type == heap->mem_type) &&
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index ca89a48c2460..5afc6d664fde 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -88,6 +88,38 @@ struct ttm_resource_manager_func {
+ 	void (*free)(struct ttm_resource_manager *man,
+ 		     struct ttm_resource *res);
+ 
++	/**
++	 * struct ttm_resource_manager_func member intersects
++	 *
++	 * @man: Pointer to a memory type manager.
++	 * @res: Pointer to a struct ttm_resource to be checked.
++	 * @place: Placement to check against.
++	 * @size: Size of the check.
++	 *
++	 * Test if @res intersects with @place + @size. Used to judge if
++	 * evictions are valueable or not.
++	 */
++	bool (*intersects)(struct ttm_resource_manager *man,
++			   struct ttm_resource *res,
++			   const struct ttm_place *place,
++			   size_t size);
++
++	/**
++	 * struct ttm_resource_manager_func member compatible
++	 *
++	 * @man: Pointer to a memory type manager.
++	 * @res: Pointer to a struct ttm_resource to be checked.
++	 * @place: Placement to check against.
++	 * @size: Size of the check.
++	 *
++	 * Test if @res compatible with @place + @size. Used to check of
++	 * the need to move the backing store or not.
++	 */
++	bool (*compatible)(struct ttm_resource_manager *man,
++			   struct ttm_resource *res,
++			   const struct ttm_place *place,
++			   size_t size);
++
+ 	/**
+ 	 * struct ttm_resource_manager_func member debug
+ 	 *
+@@ -329,6 +361,14 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
+ 		       const struct ttm_place *place,
+ 		       struct ttm_resource **res);
+ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res);
++bool ttm_resource_intersects(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size);
++bool ttm_resource_compatible(struct ttm_device *bdev,
++			     struct ttm_resource *res,
++			     const struct ttm_place *place,
++			     size_t size);
+ bool ttm_resource_compat(struct ttm_resource *res,
+ 			 struct ttm_placement *placement);
+ void ttm_resource_set_bo(struct ttm_resource *res,
 
-Ok, that here needs much more explanation why you need it and how all 
-this is supposed to work?
-
-Regards,
-Christian.
-
->   
->   #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 5332899642dc..887021fd56aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -751,7 +751,7 @@ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev);
->   static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
->   				struct amdgpu_cu_info *cu_info);
->   static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);
-> -static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);
-> +static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume);
->   static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);
->   static void gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev,
->   					  void *ras_error_status);
-> @@ -824,9 +824,10 @@ static void gfx_v9_0_kiq_unmap_queues(struct amdgpu_ring *kiq_ring,
->   			PACKET3_UNMAP_QUEUES_DOORBELL_OFFSET0(ring->doorbell_index));
->   
->   	if (action == PREEMPT_QUEUES_NO_UNMAP) {
-> -		amdgpu_ring_write(kiq_ring, lower_32_bits(gpu_addr));
-> -		amdgpu_ring_write(kiq_ring, upper_32_bits(gpu_addr));
-> -		amdgpu_ring_write(kiq_ring, seq);
-> +		amdgpu_ring_write(kiq_ring, lower_32_bits(ring->wptr & ring->buf_mask));
-> +		amdgpu_ring_write(kiq_ring, 0);
-> +		amdgpu_ring_write(kiq_ring, 0);
-> +
->   	} else {
->   		amdgpu_ring_write(kiq_ring, 0);
->   		amdgpu_ring_write(kiq_ring, 0);
-> @@ -5446,11 +5447,16 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
->   
->   	control |= ib->length_dw | (vmid << 24);
->   
-> -	if (amdgpu_sriov_vf(ring->adev) && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
-> +	if ((amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp) && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
->   		control |= INDIRECT_BUFFER_PRE_ENB(1);
->   
-> +		if (flags & AMDGPU_IB_PREEMPTED)
-> +			control |= INDIRECT_BUFFER_PRE_RESUME(1);
-> +
->   		if (!(ib->flags & AMDGPU_IB_FLAG_CE) && vmid)
-> -			gfx_v9_0_ring_emit_de_meta(ring);
-> +			gfx_v9_0_ring_emit_de_meta(ring,
-> +				 (!amdgpu_sriov_vf(ring->adev) && flags & AMDGPU_IB_PREEMPTED) ?
-> +					true : false);
->   	}
->   
->   	amdgpu_ring_write(ring, header);
-> @@ -5505,6 +5511,7 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
->   	bool write64bit = flags & AMDGPU_FENCE_FLAG_64BIT;
->   	bool int_sel = flags & AMDGPU_FENCE_FLAG_INT;
->   	bool writeback = flags & AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-> +	bool exec = flags & AMDGPU_FENCE_FLAG_EXEC;
->   
->   	/* RELEASE_MEM - flush caches, send int */
->   	amdgpu_ring_write(ring, PACKET3(PACKET3_RELEASE_MEM, 6));
-> @@ -5515,6 +5522,7 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
->   					       EOP_TC_WB_ACTION_EN |
->   					       EOP_TC_MD_ACTION_EN)) |
->   				 EVENT_TYPE(CACHE_FLUSH_AND_INV_TS_EVENT) |
-> +				 (exec ? EOP_EXEC : 0x0) |
->   				 EVENT_INDEX(5)));
->   	amdgpu_ring_write(ring, DATA_SEL(write64bit ? 2 : 1) | INT_SEL(int_sel ? 2 : 0));
->   
-> @@ -5620,33 +5628,135 @@ static void gfx_v9_ring_emit_sb(struct amdgpu_ring *ring)
->   	amdgpu_ring_write(ring, 0);
->   }
->   
-> -static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring)
-> +static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool resume)
->   {
-> +	struct amdgpu_device *adev = ring->adev;
->   	struct v9_ce_ib_state ce_payload = {0};
-> -	uint64_t csa_addr;
-> +	uint64_t offset, ce_payload_gpu_addr;
-> +	void *ce_payload_cpu_addr;
->   	int cnt;
->   
->   	cnt = (sizeof(ce_payload) >> 2) + 4 - 2;
-> -	csa_addr = amdgpu_csa_vaddr(ring->adev);
-> +
-> +	if (ring->is_mes_queue) {
-> +		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-> +				  gfx[0].gfx_meta_data) +
-> +			offsetof(struct v9_gfx_meta_data, ce_payload);
-> +		ce_payload_gpu_addr =
-> +			amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-> +		ce_payload_cpu_addr =
-> +			amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-> +	} else {
-> +		offset = offsetof(struct v9_gfx_meta_data, ce_payload);
-> +		ce_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
-> +		ce_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
-> +	}
->   
->   	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt));
->   	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
->   				 WRITE_DATA_DST_SEL(8) |
->   				 WR_CONFIRM) |
->   				 WRITE_DATA_CACHE_POLICY(0));
-> -	amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, ce_payload)));
-> -	amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, ce_payload)));
-> -	amdgpu_ring_write_multiple(ring, (void *)&ce_payload, sizeof(ce_payload) >> 2);
-> +	amdgpu_ring_write(ring, lower_32_bits(ce_payload_gpu_addr));
-> +	amdgpu_ring_write(ring, upper_32_bits(ce_payload_gpu_addr));
-> +
-> +	if (resume)
-> +		amdgpu_ring_write_multiple(ring, ce_payload_cpu_addr,
-> +					   sizeof(ce_payload) >> 2);
-> +	else
-> +		amdgpu_ring_write_multiple(ring, (void *)&ce_payload,
-> +					   sizeof(ce_payload) >> 2);
-> +}
-> +
-> +static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ring *ring)
-> +{
-> +	int i, r = 0;
-> +	struct amdgpu_device *adev = ring->adev;
-> +	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
-> +	struct amdgpu_ring *kiq_ring = &kiq->ring;
-> +	unsigned long flags;
-> +
-> +	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-> +		return -EINVAL;
-> +
-> +	spin_lock_irqsave(&kiq->ring_lock, flags);
-> +
-> +	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-> +		spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	/* assert preemption condition */
-> +	amdgpu_ring_set_preempt_cond_exec(ring, false);
-> +
-> +	ring->trail_seq += 1;
-> +	amdgpu_ring_alloc(ring, 13);
-> +	gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
-> +				  ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC);
-> +	/*reset the CP_VMID_PREEMPT after trailing fence*/
-> +	amdgpu_ring_emit_wreg(ring,
-> +				  SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),
-> +				  0x0);
-> +
-> +	/* assert IB preemption, emit the trailing fence */
-> +	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
-> +				   ring->trail_fence_gpu_addr,
-> +				   ring->trail_seq);
-> +
-> +	amdgpu_ring_commit(kiq_ring);
-> +	spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> +
-> +	/* poll the trailing fence */
-> +	for (i = 0; i < adev->usec_timeout; i++) {
-> +		if (ring->trail_seq ==
-> +		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-> +			break;
-> +		udelay(1);
-> +	}
-> +
-> +	if (i >= adev->usec_timeout) {
-> +		r = -EINVAL;
-> +		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-> +	}
-> +
-> +	amdgpu_ring_commit(ring);
-> +
-> +	/* deassert preemption condition */
-> +	amdgpu_ring_set_preempt_cond_exec(ring, true);
-> +	return r;
->   }
->   
-> -static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
-> +static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
->   {
-> +	struct amdgpu_device *adev = ring->adev;
->   	struct v9_de_ib_state de_payload = {0};
-> -	uint64_t csa_addr, gds_addr;
-> +	uint64_t offset, gds_addr, de_payload_gpu_addr;
-> +	void *de_payload_cpu_addr;
->   	int cnt;
->   
-> -	csa_addr = amdgpu_csa_vaddr(ring->adev);
-> -	gds_addr = csa_addr + 4096;
-> +	if (ring->is_mes_queue) {
-> +		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-> +				  gfx[0].gfx_meta_data) +
-> +			offsetof(struct v9_gfx_meta_data, de_payload);
-> +		de_payload_gpu_addr =
-> +			amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-> +		de_payload_cpu_addr =
-> +			amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-> +
-> +		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-> +				  gfx[0].gds_backup) +
-> +			offsetof(struct v9_gfx_meta_data, de_payload);
-> +		gds_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-> +	} else {
-> +		offset = offsetof(struct v9_gfx_meta_data, de_payload);
-> +		de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
-> +		de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
-> +
-> +		gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
-> +				 AMDGPU_CSA_SIZE - adev->gds.gds_size,
-> +				 PAGE_SIZE);
-> +	}
-> +
->   	de_payload.gds_backup_addrlo = lower_32_bits(gds_addr);
->   	de_payload.gds_backup_addrhi = upper_32_bits(gds_addr);
->   
-> @@ -5656,9 +5766,15 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
->   				 WRITE_DATA_DST_SEL(8) |
->   				 WR_CONFIRM) |
->   				 WRITE_DATA_CACHE_POLICY(0));
-> -	amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, de_payload)));
-> -	amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, de_payload)));
-> -	amdgpu_ring_write_multiple(ring, (void *)&de_payload, sizeof(de_payload) >> 2);
-> +	amdgpu_ring_write(ring, lower_32_bits(de_payload_gpu_addr));
-> +	amdgpu_ring_write(ring, upper_32_bits(de_payload_gpu_addr));
-> +
-> +	if (resume)
-> +		amdgpu_ring_write_multiple(ring, de_payload_cpu_addr,
-> +					   sizeof(de_payload) >> 2);
-> +	else
-> +		amdgpu_ring_write_multiple(ring, (void *)&de_payload,
-> +					   sizeof(de_payload) >> 2);
->   }
->   
->   static void gfx_v9_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
-> @@ -5674,8 +5790,10 @@ static void gfx_v9_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
->   {
->   	uint32_t dw2 = 0;
->   
-> -	if (amdgpu_sriov_vf(ring->adev))
-> -		gfx_v9_0_ring_emit_ce_meta(ring);
-> +	if (amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp)
-> +		gfx_v9_0_ring_emit_ce_meta(ring,
-> +					(!amdgpu_sriov_vf(ring->adev) &&
-> +						flags & AMDGPU_IB_PREEMPTED) ? true : false);
->   
->   	dw2 |= 0x80000000; /* set load_enable otherwise this package is just NOPs */
->   	if (flags & AMDGPU_HAVE_CTX_SWITCH) {
-> @@ -7024,6 +7142,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
->   	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
->   	.init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
->   	.patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
-> +	.preempt_ib = gfx_v9_0_ring_preempt_ib,
->   	.emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
->   	.emit_wreg = gfx_v9_0_ring_emit_wreg,
->   	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> index 799925d22fc8..614e9f8467fb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> @@ -162,6 +162,7 @@
->   		 * 2 - Bypass
->   		 */
->   #define     INDIRECT_BUFFER_PRE_ENB(x)		 ((x) << 21)
-> +#define     INDIRECT_BUFFER_PRE_RESUME(x)           ((x) << 30)
->   #define	PACKET3_COPY_DATA				0x40
->   #define	PACKET3_PFP_SYNC_ME				0x42
->   #define	PACKET3_COND_WRITE				0x45
-> @@ -184,6 +185,7 @@
->   #define		EOP_TC_ACTION_EN                        (1 << 17) /* L2 */
->   #define		EOP_TC_NC_ACTION_EN			(1 << 19)
->   #define		EOP_TC_MD_ACTION_EN			(1 << 21) /* L2 metadata */
-> +#define		EOP_EXEC					(1 << 28) /* For Trailing Fence */
->   
->   #define		DATA_SEL(x)                             ((x) << 29)
->   		/* 0 - discard
+base-commit: 730c2bf4ad395acf0aa0820535fdb8ea6abe5df1
+-- 
+2.25.1
 
