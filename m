@@ -4,33 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE0CC00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A43B8C25B0F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 448F110F925;
-	Fri, 12 Aug 2022 16:33:39 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89AE911AD28;
- Fri, 12 Aug 2022 01:39:25 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R411e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VM.WXdZ_1660268359; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VM.WXdZ_1660268359) by smtp.aliyun-inc.com;
- Fri, 12 Aug 2022 09:39:20 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: daniel@ffwll.ch
-Subject: [PATCH -next 4/4] drm/amd/display: clean up one inconsistent indenting
-Date: Fri, 12 Aug 2022 09:39:12 +0800
-Message-Id: <20220812013912.70000-4-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20220812013912.70000-1-yang.lee@linux.alibaba.com>
-References: <20220812013912.70000-1-yang.lee@linux.alibaba.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C93595894;
+	Fri, 12 Aug 2022 16:36:02 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65A9495735
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Aug 2022 16:35:56 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-10dc1b16c12so1490666fac.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Aug 2022 09:35:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=TmmaVF67TdSxwg3EoC+X0VsFUossmYFWWdOWK7R7Hyg=;
+ b=ONHXcvEeNjXKT8h4SuGlrKEX0jYwB0uyeE+gZ6NCsS0n5SsNZB16SFGbrHik/sQtcp
+ rY7YXsYVtuJlJtrxZdsd3nFbPIWmOjxVElidm8xg5+07qgl2IoI93VoDIwfoTqu2bFRx
+ E1X4YRnMq3iPy/pA+F4LITuenH1PzWAQB2um4xM1uJnBgzl9Os3sKTaJP0a25RLk29g3
+ X7XvsF3YCUuBO3mjpeg6PI6Wmxqxrp/CPvH3lAJ85QpfdaemPQXbTwNGUalJpWgVdjV/
+ qnCn8LQWdIoqdxAHSMqq9AEnv2VYtpshFpDO1pQSaXE4y/VqhvOzSM0PtCqMbNuuZIoH
+ yHaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=TmmaVF67TdSxwg3EoC+X0VsFUossmYFWWdOWK7R7Hyg=;
+ b=VvtwGfvOqamFIig/tPkDn6uxBYzQ1FEED8/kALPSomRE1CfC/5iky+dvBKNOZEb4b5
+ mhnK85MZ0yymOrU/99JRmKPKUY/JXIuUyZWIOxU4AfldWG6NmlMV7+W/I1GpDRYK3sFR
+ LtyzdzKKWM+Clt4aM308AdZmmuoXUPlCz0QvTowiQlGu0/8Y0BSQ0wN3nu0aJ3vIjjEh
+ OiKfne25Ku7Kqipss/ntAQ7jey3ueTGbU7IzSsNPNZgRzsNWZWXcaizrtPBwBZt0U/3e
+ lqMr22eSspXcZcQEadYv85VmTDtuMjaDWU2LHAf22qaxDgd1kvdGi2xVebr12xTnY6kF
+ WFnA==
+X-Gm-Message-State: ACgBeo3JtzRlftp9QxjmCQHpPqVbcvsJatLRz0qnKiWN9pt6WPTilBhi
+ wAaItMJXTT3AMHMnmcElKdaCI2yiMWVYEaLAT9c=
+X-Google-Smtp-Source: AA6agR5Uzr2AviGK2Ps3utUgoD21nHLYitg/Yy+fRrAypLElJ6dyez7D1tM6Dc6kga9iHYZYZfElNvU/yq8o3+LLC0E=
+X-Received: by 2002:a05:6870:3398:b0:113:7f43:d0e9 with SMTP id
+ w24-20020a056870339800b001137f43d0e9mr2030756oae.33.1660322155360; Fri, 12
+ Aug 2022 09:35:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 12 Aug 2022 16:31:46 +0000
+References: <20220812101953.3884354-1-tim.huang@amd.com>
+In-Reply-To: <20220812101953.3884354-1-tim.huang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 12 Aug 2022 12:35:44 -0400
+Message-ID: <CADnq5_Pmi5PCpgdHDhXBY-fcUaKiP7G82-cJw6NZNhRTJH-Lbw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: enable IH Clock Gating for OSS IP v6.0.1
+To: Tim Huang <tim.huang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,41 +63,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Abaci Robot <abaci@linux.alibaba.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The indentation of statements in the same curly bracket should be
-consistent.
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1892
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 4aecbf230446..1a2554438f77 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -640,9 +640,9 @@ bool dcn32_set_output_transfer_func(struct dc *dc,
- 					stream->out_transfer_func,
- 					&mpc->blender_params, false))
- 				params = &mpc->blender_params;
--		 /* there are no ROM LUTs in OUTGAM */
--		if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
--			BREAK_TO_DEBUGGER();
-+			 /* there are no ROM LUTs in OUTGAM */
-+			if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
-+				BREAK_TO_DEBUGGER();
- 		}
- 	}
- 
--- 
-2.20.1.7.g153144c
-
+On Fri, Aug 12, 2022 at 6:20 AM Tim Huang <tim.huang@amd.com> wrote:
+>
+> Enable AMD_CG_SUPPORT_IH_CG support.
+>
+> Signed-off-by: Tim Huang <tim.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index 6c3440e7ed3f..1ff7fc7bb340 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -602,6 +602,7 @@ static int soc21_common_early_init(void *handle)
+>                         AMD_CG_SUPPORT_HDP_LS |
+>                         AMD_CG_SUPPORT_ATHUB_MGCG |
+>                         AMD_CG_SUPPORT_ATHUB_LS |
+> +                       AMD_CG_SUPPORT_IH_CG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+>                         AMD_CG_SUPPORT_JPEG_MGCG;
+>                 adev->pg_flags =
+> --
+> 2.25.1
+>
