@@ -4,90 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F089C00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 10:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F641C25B0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 10:56:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34397AD417;
-	Fri, 12 Aug 2022 10:20:55 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BE9AD3E5
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Aug 2022 10:20:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CuwF8V+VhX1LHHUw/Hro/Eqkci4lK1xWDhS1iM1Lcvy2hY5Z6t2fZ3VQGMeBmptA7sNOaqMBddDeegEm4wuUKwk4cYvjDm3vgQ49vp29D3mrQxKGKKEoSBV2w/NB88Uax7ZwmxBbei8ekNnS6Ri68xW/OBgVSY9kvHrgmcdMTLFlj7PQtyOyy2Sj+BbwP7ewtlMv21Ohm30n6C7Ai9SEVnAhs6WzaHWcNNd2TqaI9K6R3RajaLk5/JXbemtWEqqeQE16sKPiUIMOnYTrkyyA3I/+5EWVGQBxK4nOkW8mBu4+CRU9v/WaZQz+Pe7s9Kys8o9WOaUuNTeSb/3Ck5bcgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yNPd62T+ifzTaAK2WckBn35UCAh4lbQ58TLEj0SeYhA=;
- b=AnkS23JQrvf+EvS83QAqbHJuxdES6fbKJfrZRMrMH4fdowG0mAIrOJU3kyMxxKXzL2BR6ReypXFOdFJMPzfOcCGvAkjUYnhC8iZNDIzhuthSnUgdHkrFSCeJH5ojl+0yRvTGx6rrmwHJ03p0ElkyAnjpPq80UiAzsTCj+YHAgGBFkAhDza+Tu7tBVbJ4cDpqzVhwOIZBCoCynjKzAsjbfxLH2JfnvxrYZ2LcFqszTHluTePm8CMaWHFfZIpawKFe08W8devfk9vEsHNngNa8TEqIwUhKdyTuOabuJvgV/TJu/N2OZThpVbb6D7aLX1LMiNLqhH2Lsn8WJiFQVqfFpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yNPd62T+ifzTaAK2WckBn35UCAh4lbQ58TLEj0SeYhA=;
- b=Ui7sqdT+XLKO+Ox9PMAQN/FY5Ql0m+vbGeve7tdB08abfjsJDMDUEEqYfoZfSNNo61YER3F0g3y0WaVHHXz2K4jz9UmXohjyhFrIjVUy+zd/i86j4ZPTa6QMTybyleFsqiqEMUzv5QxO9OGMgSKzxv8REQe4WYQB5VAivsTcguQ=
-Received: from BN8PR12CA0016.namprd12.prod.outlook.com (2603:10b6:408:60::29)
- by BYAPR12MB2918.namprd12.prod.outlook.com (2603:10b6:a03:13c::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17; Fri, 12 Aug
- 2022 10:20:40 +0000
-Received: from BN8NAM11FT075.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:60:cafe::d7) by BN8PR12CA0016.outlook.office365.com
- (2603:10b6:408:60::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16 via Frontend
- Transport; Fri, 12 Aug 2022 10:20:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT075.mail.protection.outlook.com (10.13.176.208) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.7 via Frontend Transport; Fri, 12 Aug 2022 10:20:39 +0000
-Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 12 Aug
- 2022 05:20:37 -0500
-From: Tim Huang <tim.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/pm: Enable GFXOFF feature for SMU IP v13.0.4
-Date: Fri, 12 Aug 2022 18:19:53 +0800
-Message-ID: <20220812101953.3884354-2-tim.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220812101953.3884354-1-tim.huang@amd.com>
-References: <20220812101953.3884354-1-tim.huang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A54BAEE54;
+	Fri, 12 Aug 2022 10:56:15 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79D6B93FF1;
+ Fri, 12 Aug 2022 10:56:02 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id s23so413600wmj.4;
+ Fri, 12 Aug 2022 03:56:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=wCpuZt7zsXJCv3TvvAq6C8ZRf18JeBZLzSKLyeoAOvA=;
+ b=fnS1IPb0E6N1C98wxeCMIWt6EtshUj7O+SNyhhr57QZBHDadvq4q27+uS9ThH0DE7v
+ MCxkfL+z13JSzOaI7VdqGJqXXe+vibHJ4cAM28KU7yo5nsCVQsmbpN6unHBGUDsb6/Gq
+ i6A+pa9Kq7qkyErb7k4tHbzu8NxB1toJu09kR68HSincaHrgUUU4in19ra3LCidpG1z0
+ gJIpje3PsxPgNmKNDG5coEyNNl2fVnrYNnfkxakrZhvd+qTLeCyPLp/Rdvl5t6zDUJZC
+ wiS42T3nbhVS56q6c0k7YFG5i0zIdFqBE6zsCaZBbW9p69kIO9iSVOiAOkFv/QGPQ5S+
+ Qikg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=wCpuZt7zsXJCv3TvvAq6C8ZRf18JeBZLzSKLyeoAOvA=;
+ b=RmaemZVPVoJ5u09mV0hzXIEw26GPJB8ce7lyAEsS73lUtehMbesREUvivgHM2ck3yS
+ VlqO83MLHPz22HbGmpgq+sCDUTxgqwFRKV3hMHHURQu6dSaghhRBIhWmVhj18FTRCx9I
+ GZyZ/nRKKB9/q4ti5st1BxNgu7cqg9aZsXBEsjrnw1idpWzF35huS2wMPD2V4FuTMeTx
+ lLOb36Itgmy31p77Jg/4Vu2dCXoRYAXFcu4SU/9kXciTr5dwbRztAJ7SPTcUrf3CAr9x
+ RIoTK2lPiDXzLNKpOLyD5ZgNQ93Bn+tMWGLLt87e7THrdUsKWl7dRiBGpti68VnZmnK0
+ TwwQ==
+X-Gm-Message-State: ACgBeo2cdzmLV+wa3KV0KKj2X0ZNj0cy9TgHdmngz1B1PjLDM/QVrYEx
+ f2UVSTVozoIQmyM2OxCnF2w=
+X-Google-Smtp-Source: AA6agR7d5inXLGzsnj4k2QyMbh37IJq1TJbdxWbcr3Zz8PUpaIsqBHZlXkkbkDbpsRtZaYoT2BbxjA==
+X-Received: by 2002:a1c:cc11:0:b0:3a4:c032:c44 with SMTP id
+ h17-20020a1ccc11000000b003a4c0320c44mr9006222wmb.84.1660301760738; 
+ Fri, 12 Aug 2022 03:56:00 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ t5-20020a5d4605000000b0021b956da1dcsm1586433wrq.113.2022.08.12.03.55.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Aug 2022 03:56:00 -0700 (PDT)
+Message-ID: <b23e4037-2030-32d0-d626-b5a846fcafeb@gmail.com>
+Date: Fri, 12 Aug 2022 12:55:58 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6d53d214-8300-4a9b-671c-08da7c4c4e2f
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2918:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YmQqq+XPXcIt16107Jv/KeAyNMAGnNLBh+eCPL4TCujKYkZXFAbZQwTduD4uMe6FdvptpRWsW1kpiUybIZfOzjUw3JYDA01RonhK4/3mvSlIZsOMPSgA9G9g+2AW5DScj1hOD3FPekKVXDhwVhrJ/KaUAAxykGnZ9FDQKAVV9S82+mlKf9u3f+aERVgxpucH87fWSNFgtADJc8MblCYrQmdGhrVTWiLNdB3XeiH4E0MQTTCJiwZcAN5AlynjcUrCyB2WN7vqAcBSQT2s6rDnJNiB7z8LQEz7R2ku3XHfuXcuVu0onhF3BaCCl8f4imOFBCvL26z/p1s7MslE0X7YSo57V9IFER9fpebyK4kuBKba2CYS5mwR/OqAZV81RqYVucSmaRzC0Z9qOUJKfPdEFtZ9R0hcqmba+jTCOLGk9v70DdGEnH4ZapKLfXRHaOxycA+9zUqkdk5dgs/gPHNRUDEX0D9LZXtmkgA9L+1UPc03mXW+qeaQU2baPAy66MFhjgPpxDMmZFZEr80q5ewqxZVpQaM/i3GcSOEX6sB8V5cfEPdmw/1fuUaoj0k5A5faRKIHzwFh6gCswf6/5eYlGnsPMYu6xWofwryNwUx+7mY1Ot8ipwr+ICwmaMMdgLeXzQRg/Uj7Ksw1deQfUbs1VrgxynpBMwAQoZreAxoGPAitxwmL8fc0s30dADrx5pfKN0rh9OuDEBCWhz52LNrxzbf1l3Me+2K4ASyXbKA56+KTBJj5fv+tFzIUjiBLfB0Ed8jAZaG+WGtMFnpcZhB7L3VZ1Lvtw4wfSwN6M4EXKIc4E2yEQ+6T3JQF3Dm1sWwHuUh4AE7UiMjhZaRwWG631Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(396003)(46966006)(36840700001)(40470700004)(356005)(81166007)(47076005)(82740400003)(16526019)(186003)(1076003)(336012)(2616005)(26005)(41300700001)(6666004)(426003)(7696005)(8676002)(82310400005)(70586007)(36756003)(40480700001)(86362001)(4326008)(6916009)(4744005)(316002)(70206006)(54906003)(40460700003)(478600001)(5660300002)(36860700001)(83380400001)(2906002)(8936002)(44832011)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2022 10:20:39.6809 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d53d214-8300-4a9b-671c-08da7c4c4e2f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT075.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2918
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/radeon: add a force flush to delay work when radeon
+Content-Language: en-US
+To: Zhenneng Li <lizhenneng@kylinos.cn>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20220811072540.964309-1-lizhenneng@kylinos.cn>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220811072540.964309-1-lizhenneng@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,34 +73,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
- Tim Huang <tim.huang@amd.com>
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The driver needs to set EnableGfxImu message parameter to tell the PMFW
-to set the flag that enables the GFXOFF feature.
+Am 11.08.22 um 09:25 schrieb Zhenneng Li:
+> Although radeon card fence and wait for gpu to finish processing current batch rings,
+> there is still a corner case that radeon lockup work queue may not be fully flushed,
+> and meanwhile the radeon_suspend_kms() function has called pci_set_power_state() to
+> put device in D3hot state.
 
-Signed-off-by: Tim Huang <tim.huang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+If I'm not completely mistaken the reset worker uses the suspend/resume 
+functionality as well to get the hardware into a working state again.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index e56ec06012dd..3651f6f75068 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -2345,8 +2345,8 @@ int smu_v13_0_set_gfx_power_up_by_imu(struct smu_context *smu)
- 
- 	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
- 					       SMU_MSG_EnableGfxImu);
--
--	return smu_cmn_send_msg_without_waiting(smu, index, 0);
-+	/* Param 1 to tell PMFW to enable GFXOFF feature */
-+	return smu_cmn_send_msg_without_waiting(smu, index, 1);
- }
- 
- int smu_v13_0_od_edit_dpm_table(struct smu_context *smu,
--- 
-2.25.1
+So if I'm not completely mistaken this here would lead to a deadlock, 
+please double check that.
+
+Regards,
+Christian.
+
+> Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
+>> Configuration and Message requests are the only TLPs accepted by a Function in
+>> the D3hot state. All other received Requests must be handled as Unsupported Requests,
+>> and all received Completions may optionally be handled as Unexpected Completions.
+> This issue will happen in following logs:
+> Unable to handle kernel paging request at virtual address 00008800e0008010
+> CPU 0 kworker/0:3(131): Oops 0
+> pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 Tainted: G        W
+> pc is at si_gpu_check_soft_reset+0x3c/0x240
+> ra is at si_dma_is_lockup+0x34/0xd0
+> v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
+> t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
+> t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
+> s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
+> s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
+> s6 = fff00007ef07bd98
+> a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
+> a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
+> t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
+> t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
+> gp = ffffffff81d89690  sp = 00000000aa814126
+> Disabling lock debugging due to kernel taint
+> Trace:
+> [<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
+> [<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
+> [<ffffffff80977010>] process_one_work+0x280/0x550
+> [<ffffffff80977350>] worker_thread+0x70/0x7c0
+> [<ffffffff80977410>] worker_thread+0x130/0x7c0
+> [<ffffffff80982040>] kthread+0x200/0x210
+> [<ffffffff809772e0>] worker_thread+0x0/0x7c0
+> [<ffffffff80981f8c>] kthread+0x14c/0x210
+> [<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
+> [<ffffffff80981e40>] kthread+0x0/0x210
+>   Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8  40230101
+>   <88210000> 4821ed21
+> So force lockup work queue flush to fix this problem.
+>
+> Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+> ---
+>   drivers/gpu/drm/radeon/radeon_device.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> index 15692cb241fc..e608ca26780a 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
+>   		if (r) {
+>   			/* delay GPU reset to resume */
+>   			radeon_fence_driver_force_completion(rdev, i);
+> +		} else {
+> +			/* finish executing delayed work */
+> +			flush_delayed_work(&rdev->fence_drv[i].lockup_work);
+>   		}
+>   	}
+>   
 
