@@ -4,42 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23581C00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4507C00140
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:33:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B83D9396E;
-	Fri, 12 Aug 2022 16:32:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFEC8A306F;
- Fri, 12 Aug 2022 06:03:52 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1C3606173F;
- Fri, 12 Aug 2022 06:03:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C92C433D6;
- Fri, 12 Aug 2022 06:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1660284229;
- bh=TcpkxNLDwa143ZU3Y00QybKC5IjhDquFERYw7okxaeo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WQQHeVF7BdL2rNB1+B0q9GiyDuPMCFPh3j7XxDgJVevz5ZKQElZxbdogISLhpNrJ+
- Ubo+bTcuLzd5gLM9Vxea9vnaFWYNpJYDQ30+UhqFkZEbg4hcSxvPtww74RnSn0KX1w
- 1OClOT7CtRUeNXRN1IFWZ1mm/9hi2htv6+wP01MY=
-Date: Fri, 12 Aug 2022 08:03:47 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH v4 00/41] DYNDBG: opt-in class'd debug for modules, use
- in drm.
-Message-ID: <YvXtQ7/FJFSVXlGU@kroah.com>
-References: <20220720153233.144129-1-jim.cromie@gmail.com>
- <CAJfuBxxPRj-u5S45pPfAEaE46ji0--MTVxryEAUPe1+1c1jgEw@mail.gmail.com>
- <17628790-3905-460d-8734-981cfa8e7e51@akamai.com>
- <YvUz2Nk6YHl+jVwR@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E31293A70;
+	Fri, 12 Aug 2022 16:32:59 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7769A90408;
+ Fri, 12 Aug 2022 01:39:17 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R731e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VM.TwFc_1660268353; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VM.TwFc_1660268353) by smtp.aliyun-inc.com;
+ Fri, 12 Aug 2022 09:39:14 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: daniel@ffwll.ch
+Subject: [PATCH -next 1/4] drm/amd/display: clean up one inconsistent indenting
+Date: Fri, 12 Aug 2022 09:39:09 +0800
+Message-Id: <20220812013912.70000-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YvUz2Nk6YHl+jVwR@phenom.ffwll.local>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Aug 2022 16:31:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,60 +40,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jim.cromie@gmail.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- robdclark@gmail.com, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Jason Baron <jbaron@akamai.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org
+Cc: airlied@linux.ie, Abaci Robot <abaci@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 11, 2022 at 06:52:40PM +0200, Daniel Vetter wrote:
-> On Wed, Aug 03, 2022 at 04:13:05PM -0400, Jason Baron wrote:
-> > 
-> > 
-> > On 8/3/22 15:56, jim.cromie@gmail.com wrote:
-> > > On Wed, Jul 20, 2022 at 9:32 AM Jim Cromie <jim.cromie@gmail.com> wrote:
-> > >>
-> > > 
-> > >> Hi Jason, Greg, DRM-folk,
-> > >>
-> > >> This adds 'typed' "class FOO" support to dynamic-debug, where 'typed'
-> > >> means either DISJOINT (like drm debug categories), or VERBOSE (like
-> > >> nouveau debug-levels).  Use it in DRM modules: core, helpers, and in
-> > >> drivers i915, amdgpu, nouveau.
-> > >>
-> > > 
-> > > This revision fell over, on a conflict with something in drm-MUMBLE
-> > > 
-> > > Error: patch https://urldefense.com/v3/__https://patchwork.freedesktop.org/api/1.0/series/106427/revisions/2/mbox/__;!!GjvTz_vk!UCPl5Uf32cDVwwysMTfaLwoGLWomargFXuR8HjBA3xsUOjxXHXC5hneAkP4iWK91yc-LjjJxWW89-51Z$ 
-> > > not applied
-> > > Applying: dyndbg: fix static_branch manipulation
-> > > Applying: dyndbg: fix module.dyndbg handling
-> > > Applying: dyndbg: show both old and new in change-info
-> > > Applying: dyndbg: reverse module walk in cat control
-> > > Applying: dyndbg: reverse module.callsite walk in cat control
-> > > Applying: dyndbg: use ESCAPE_SPACE for cat control
-> > > Applying: dyndbg: let query-modname override actual module name
-> > > Applying: dyndbg: add test_dynamic_debug module
-> > > Applying: dyndbg: drop EXPORTed dynamic_debug_exec_queries
-> > > 
-> > > Jason,
-> > > those above are decent maintenance patches, particularly the drop export.
-> > > It would be nice to trim this unused api this cycle.
-> > 
-> > Hi Jim,
-> > 
-> > Agreed - I was thinking the same thing. Feel free to add
-> > Acked-by: Jason Baron <jbaron@akamai.com> to those first 9.
-> 
-> Does Greg KH usually pick up dyndbg patches or someone else or do I need
-> to do something? Would be great to get some movement here since -rc1 goes
-> out and merging will restart next week.
+The indentation of statements in the same curly bracket should be
+consistent.
 
-Yes, I can take these into my tree after -rc1 is out.
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1886
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c  | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-thanks,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+index c87091683b5d..7ebf25e87933 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+@@ -518,13 +518,16 @@ void dcn321_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
+ 
+ 			if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
+ 				if (bb_info.dram_clock_change_latency_100ns > 0)
+-					dcn3_21_soc.dram_clock_change_latency_us = bb_info.dram_clock_change_latency_100ns * 10;
++					dcn3_21_soc.dram_clock_change_latency_us =
++						bb_info.dram_clock_change_latency_100ns * 10;
+ 
+-			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
+-				dcn3_21_soc.sr_enter_plus_exit_time_us = bb_info.dram_sr_enter_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
++					dcn3_21_soc.sr_enter_plus_exit_time_us =
++						bb_info.dram_sr_enter_exit_latency_100ns * 10;
+ 
+-			if (bb_info.dram_sr_exit_latency_100ns > 0)
+-				dcn3_21_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_exit_latency_100ns > 0)
++					dcn3_21_soc.sr_exit_time_us =
++						bb_info.dram_sr_exit_latency_100ns * 10;
+ 			}
+ 		}
+ 
+-- 
+2.20.1.7.g153144c
 
-greg k-h
