@@ -4,52 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC2EC00140
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC518C00140
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 16:33:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A55693B20;
-	Fri, 12 Aug 2022 16:32:59 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B016094F71;
- Fri, 12 Aug 2022 11:46:27 +0000 (UTC)
-Received: from [192.168.2.145] (unknown [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BD19E66016F2;
- Fri, 12 Aug 2022 12:46:23 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1660304786;
- bh=C5rdDWAQ0gULbYpYsWO6A2mmdZ/uxYEqrEknr4MoOf8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=f3cXPfNXtZHtoSYE1rfxtQ30MUhUVhGrG/NArO1c7kQB8/Xy+FmlqaaOTXT5gVdlP
- JQXrT9UtGLSc+oBaf/E/efq95t8eHa3wW8rsdseitQlUvtaI4DwUh/ptuZTZ+7D4oa
- 7gYb8ygLDMwAttTQiJt/HYS3piyRQe36Z1IpIZJqOFl16YT77Eqw1UGF1vppI4t/Vf
- GlTMr5So6lTOFJQj6bSYwIN6RamDBXBlbOMkDkPHaJHbuvpX0ALyNVMapf4xI3a4LC
- uDEbP9wEVI4gkRbHJNZkFWXDO04u0wVdnPFCF2dEImetIe9dBjI0qKFkC2Wjrvs/O9
- MpZiQvPIhyRKg==
-Message-ID: <b7bc8c98-d613-a50d-454c-06ca76d707e1@collabora.com>
-Date: Fri, 12 Aug 2022 14:46:20 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ABE993B5A;
+	Fri, 12 Aug 2022 16:33:05 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB7499516;
+ Fri, 12 Aug 2022 01:39:20 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R751e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VM.f8BQ_1660268355; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VM.f8BQ_1660268355) by smtp.aliyun-inc.com;
+ Fri, 12 Aug 2022 09:39:16 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: daniel@ffwll.ch
+Subject: [PATCH -next 2/4] drm/amd/display: clean up one inconsistent indenting
+Date: Fri, 12 Aug 2022 09:39:10 +0800
+Message-Id: <20220812013912.70000-2-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20220812013912.70000-1-yang.lee@linux.alibaba.com>
+References: <20220812013912.70000-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [Linaro-mm-sig] [PATCH v2 3/5] dma-buf: Move all dma-bufs to
- dynamic locking specification
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
- <20220725151839.31622-4-dmitry.osipenko@collabora.com>
- <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
- <562fbacf-3673-ff3c-23a1-124284b4456c@collabora.com>
- <87724722-b9f3-a016-c25c-4b0415f2c37f@amd.com>
- <0863cafa-c252-e194-3d23-ef640941e36e@collabora.com>
- <93484389-1f79-b364-700f-60769fc5f8a5@gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <93484389-1f79-b364-700f-60769fc5f8a5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Aug 2022 16:31:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,81 +42,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rdma@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- spice-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, David Airlie <airlied@linux.ie>,
- amd-gfx@lists.freedesktop.org, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: airlied@linux.ie, Abaci Robot <abaci@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/12/22 14:34, Christian König wrote:
-> 
-> 
-> Am 10.08.22 um 20:53 schrieb Dmitry Osipenko:
->> On 8/10/22 21:25, Christian König wrote:
->>> Am 10.08.22 um 19:49 schrieb Dmitry Osipenko:
->>>> On 8/10/22 14:30, Christian König wrote:
->>>>> Am 25.07.22 um 17:18 schrieb Dmitry Osipenko:
->>>>>> This patch moves the non-dynamic dma-buf users over to the dynamic
->>>>>> locking specification. The strict locking convention prevents
->>>>>> deadlock
->>>>>> situation for dma-buf importers and exporters.
->>>>>>
->>>>>> Previously the "unlocked" versions of the dma-buf API functions
->>>>>> weren't
->>>>>> taking the reservation lock and this patch makes them to take the
->>>>>> lock.
->>>>>>
->>>>>> Intel and AMD GPU drivers already were mapping imported dma-bufs
->>>>>> under
->>>>>> the held lock, hence the "locked" variant of the functions are added
->>>>>> for them and the drivers are updated to use the "locked" versions.
->>>>> In general "Yes, please", but that won't be that easy.
->>>>>
->>>>> You not only need to change amdgpu and i915, but all drivers
->>>>> implementing the map_dma_buf(), unmap_dma_buf() callbacks.
->>>>>
->>>>> Auditing all that code is a huge bunch of work.
->>>> Hm, neither of drivers take the resv lock in map_dma_buf/unmap_dma_buf.
->>>> It's easy to audit them all and I did it. So either I'm missing
->>>> something or it doesn't take much time to check them all. Am I really
->>>> missing something?
->>> Ok, so this is only changing map/unmap now?
->> It also vmap/vunmap and attach/detach: In the previous patch I added the
->> _unlocked postfix to the func names and in this patch I made them all to
->> actually take the lock.
-> 
-> 
-> Take your patch "[PATCH v2 2/5] drm/gem: Take reservation lock for
-> vmap/vunmap operations" as a blueprint on how to approach it.
-> 
-> E.g. one callback at a time and then document the result in the end.
+1. The indentation of statements in the same curly bracket should be
+consistent.
+2. Variable declarations in the same function should be aligned.
 
-Yeah, I'll do it for v3. I'm vaguely recalling that there was a problem
-when I wanted to split this patch in the past, but don't remember what
-it was.. maybe that problem is gone now, will see :)
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1887
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1888
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1889
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c    | 13 ++++++++-----
+ .../amd/display/dc/dml/dcn32/display_mode_vba_32.c  |  6 +++---
+ .../display/dc/dml/dcn32/display_mode_vba_util_32.c |  2 +-
+ 3 files changed, 12 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 3316c4a64901..a8539922715e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2135,13 +2135,16 @@ void dcn32_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_pa
+ 
+ 			if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
+ 				if (bb_info.dram_clock_change_latency_100ns > 0)
+-					dcn3_2_soc.dram_clock_change_latency_us = bb_info.dram_clock_change_latency_100ns * 10;
++					dcn3_2_soc.dram_clock_change_latency_us =
++						bb_info.dram_clock_change_latency_100ns * 10;
+ 
+-			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
+-				dcn3_2_soc.sr_enter_plus_exit_time_us = bb_info.dram_sr_enter_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
++					dcn3_2_soc.sr_enter_plus_exit_time_us =
++						bb_info.dram_sr_enter_exit_latency_100ns * 10;
+ 
+-			if (bb_info.dram_sr_exit_latency_100ns > 0)
+-				dcn3_2_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_exit_latency_100ns > 0)
++					dcn3_2_soc.sr_exit_time_us =
++						bb_info.dram_sr_exit_latency_100ns * 10;
+ 			}
+ 		}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index cb2025771646..6a4f730419c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -677,9 +677,9 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 				dml_ceil((double) v->WritebackDelay[mode_lib->vba.VoltageLevel][k]
+ 				/ (mode_lib->vba.HTotal[k] / mode_lib->vba.PixelClock[k]), 1));
+ 
+-	// Clamp to max OTG vstartup register limit
+-	if (v->MaxVStartupLines[k] > 1023)
+-		v->MaxVStartupLines[k] = 1023;
++		// Clamp to max OTG vstartup register limit
++		if (v->MaxVStartupLines[k] > 1023)
++			v->MaxVStartupLines[k] = 1023;
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 		dml_print("DML::%s: k=%d MaxVStartupLines = %d\n", __func__, k, v->MaxVStartupLines[k]);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index 05fc14a47fba..3ba76aab0a20 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -4277,7 +4277,7 @@ void dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
+ 	double ActiveClockChangeLatencyHidingY;
+ 	double ActiveClockChangeLatencyHidingC;
+ 	double ActiveClockChangeLatencyHiding;
+-    double EffectiveDETBufferSizeY;
++	double EffectiveDETBufferSizeY;
+ 	double     ActiveFCLKChangeLatencyMargin[DC__NUM_DPP__MAX];
+ 	double     USRRetrainingLatencyMargin[DC__NUM_DPP__MAX];
+ 	double TotalPixelBW = 0.0;
 -- 
-Best regards,
-Dmitry
+2.20.1.7.g153144c
+
