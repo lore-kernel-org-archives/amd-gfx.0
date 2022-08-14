@@ -4,89 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FBA4C00140
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 07:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42440C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 07:46:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A17512BE81;
-	Mon, 15 Aug 2022 07:06:09 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDFBEAB720
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 07:05:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BkWrWDCTVgOMBpUEAx0oEvKAAL1K2tBwDpaCrNNVdcGX3pi2MkzHrTi5cA+1CdsIh9M4KztOIiqANCBxqIOJ+tPFFZtgi78LUbD+RgZ3x1kFjEIh7otnTzHUqzj8/rYp3BTnpgUEChr8jnZF1YO397WVgoGXNrjgvAEnSyerG4wslkFq54r2ScttE7ChpHGWBive2hIZ5pHhlQkQcadbVBWab0Yj4q0asqW3zLRC+wP+pIaLgkA/Nq7u/0D7yfoqBORbzNstuR5c6cOaG8LsbA35xOXd5pOtzeyR65Tkg07kzC/tpQaHG8zxF+WpLIfLefbyP6qBYPPiednBj2qxtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dwdRQnXNW0rqy0cS1NcB8OLzk+FJeYPgUHZdvWXjQm4=;
- b=igZ7FfF/jwXKjTYMBQaBJoNtB67hh1Me/8Wm1eVgTgin/Tv4Y3wKjKQhIZByfIOZFdn8jC+5ujYuNSRjza1Kt6lI8oqfAySsUwZPxjsdY9McvbXPs8K5YXQIft6YbZu9hDZDVDKIbWObc2dEMx3yqDBfXJp4fX4DxtFF9A5SllP1jfwtpnFUQi0uWsmi2n6zNC+EFqGsN/1V8TbyW1qQKPwTJOD8SIFqXRV/gYuKNsvSlQeoCxNKkcnZKG4VtE+FYuh50bBnowlJo+x+yxsDFmYXRM47b/4IGUNAcUBPyBjsqUZP4yL3wSspRXtHD1a4XvZyLQ+VI6BGoNLWFyKvug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dwdRQnXNW0rqy0cS1NcB8OLzk+FJeYPgUHZdvWXjQm4=;
- b=SOxM0bNLXmNrQUkQC92Q0E44dv209NCU+ZwxOJJWzmE3bNNVy7/ESDEfHcJyPgNoRQ4MdoTURWDAapLz4aVyGWE4Fn6aGmAYSk4CqAOYBDpIwYJkynds8x0jiEvkAg3En8FWyPRXU+9XDc8V+VfSflai+wjEFnJcSRkjp7fCm4s=
-Received: from MW4PR03CA0261.namprd03.prod.outlook.com (2603:10b6:303:b4::26)
- by BL1PR12MB5850.namprd12.prod.outlook.com (2603:10b6:208:395::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Mon, 15 Aug
- 2022 07:05:45 +0000
-Received: from CO1NAM11FT083.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b4:cafe::38) by MW4PR03CA0261.outlook.office365.com
- (2603:10b6:303:b4::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.15 via Frontend
- Transport; Mon, 15 Aug 2022 07:05:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT083.mail.protection.outlook.com (10.13.174.92) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.7 via Frontend Transport; Mon, 15 Aug 2022 07:05:45 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 15 Aug
- 2022 02:05:41 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: TA unload messages are not actually sent to psp
- when amdgpu is uninstalled
-Date: Mon, 15 Aug 2022 15:05:12 +0800
-Message-ID: <20220815070512.452430-1-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3539DB0D91;
+	Mon, 15 Aug 2022 07:46:09 +0000 (UTC)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2AC11B9DB
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Aug 2022 21:23:07 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id t22so5475724pjy.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Aug 2022 14:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc;
+ bh=8fYJW0YsZezv+V5o+zeS6R7vePJpRsrRYCSuJghbotQ=;
+ b=g7UhXuCxm6RXO+fQ1s13B/EoUHQG0ybIsM1zxmHCFF6nWoxxHwHqZM36x+XZdvd+Sc
+ kr5NSNDwnjXf25hCw8jiQKrVlZOga00mGISQUCTVAD/b511QbDyQ/SclCUzI0b1HjVf/
+ GMP/vjtOZw083WKcaQHkUOc7dqaAcJ+IaQVvRCg/bZTvmcKzHw1liDgan2OX7+FEuntB
+ Lpa43nRWIhVIR6oTRIWYoI2E3iHB5IUo1gnqIp/B9X3FARbBjOh5J+rCSrayFqSKn547
+ L/90zfWGCSvBYQJrsqVR8TfbYyec55Z+8rYa1xIgX0WAo+UOPIjz5Fz8GSZdmkYkn1Ex
+ Pv8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc;
+ bh=8fYJW0YsZezv+V5o+zeS6R7vePJpRsrRYCSuJghbotQ=;
+ b=ExqE+OCpImWzUYgoioHuXWdBVnBkm8RM4a9A5ZdcQ1Dm55sBo1q8ls6ik4stRY5Wup
+ UQEd6OPG4MDvArk/1u57f7Bt4sGheOCbkVFU8LHImQpDl7u6+dE487QcygFbL89Hwc66
+ 0bGqdFyxaI7pMTlgCb7zjS/otrZlL0oYqyg1V2MCTM+7IBHssULMnFpjg87Rs8iYBv37
+ OSAaxxodr0N2J0bFsqwhjO/wWfwnPK6tN+XXb3Q2VgIYpAGe9xURvg+0fKOeWyyXOtJ7
+ oYxMz3KZoW0nG0sPb5kFY1xQr5zhgShC4sqh8UV+XQWwT9cT8Jov/h8ROGp9d0sTew8t
+ AeUg==
+X-Gm-Message-State: ACgBeo23+KZEUjOXB2zfIx1pMGh4vk1pnpay8QIxz9wewI9vZ+OTogRE
+ PmyVK+x+hIe+w7Dq/XCad07AXz/uKpfEylZOxSp3Dwk9PiZO
+X-Google-Smtp-Source: AA6agR570Av4I0m/M7ElD2+WkNe5yChgxwC+7Jf5a9L1rCDhBNMGgCLuxNaaFCt+hC95kpkKUvsE4BsEjD2u0v6wAO0=
+X-Received: by 2002:a17:90b:2687:b0:1f7:362a:2d08 with SMTP id
+ pl7-20020a17090b268700b001f7362a2d08mr14713056pjb.218.1660512187188; Sun, 14
+ Aug 2022 14:23:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4767ded6-5c59-4e76-5f03-08da7e8c9339
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5850:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /09qFK4O3u30IArOUBPdYOHvN4bws8OnvfISsMuquYZbXFMvmZS9+h4ymJtdycjP2CnNekGggA7z3WoPA2WcDyDCzzn18uVwAtesEdA4SkMS4zwIzwKKw+/862+Vv7um/M6cNReI8zwxf/7rnaGZFRnBrP3B6gN7R1yUtloxlLU0/kK3fYoMUe9B2Ct23VJVMS1iIRJsRUgTtskXKgQ8mO2rz/r1bCfK16NpHzo+/8FHUrtypURdxMhgZWrz4Euv+bT++hTReB/cNFwew/eUSLwAAPd616Q2tDrW5whczogvCoypPVyE5IBOlLgMUDgxUgF1KxpcO+Wi9pjaXcDrBqJdqVXjdvJg9TNXyu63XcY/OEizxOclgYX9A+UREXCrzziHR1Eo0oOlXNIlMH42ZPHy9IVSm9WkHJ7jF/h3T5n7HIP+yV63uTnStZxuygWHpwPjEZV5hxO2+GMGV3tyfeNaxSrSw+7L0KHYOA/LWtUVHylfYBFEexPneNB+sDZ334I5upX6Xh7sJZuf8+r/ageVmb92y6JhvKiCKnrZQ1jOjrmsGwHGsBDbADr2qj8amdwf300kwYDgTxZWHf4iuWUC67l+RKoHCHddtU72LBTXMmMMyJL5b2nRWR4372Fy29SP4b9NYAn9BGMF3YpbNW8S05AHGBNNA6p1TiGtc9gwPs6fhc3Bu3E1D4Yp4DkmW0KH/e2eFpXGryUCWRFaJ57s5QXvbBrZonkkeEYClF0PIXVpyskpR8pZsKHLQv9ilVpBy8LrhTAuqbyIfNfuBSmAAhH/+4BjFM/FdBezXm3miwYp1Bz0Eg/4QwCvM/EqZJStvQOhs+F8Rh1c57A1QQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(136003)(396003)(39860400002)(36840700001)(40470700004)(46966006)(2616005)(7696005)(41300700001)(26005)(478600001)(6666004)(86362001)(81166007)(83380400001)(426003)(336012)(16526019)(186003)(36756003)(47076005)(356005)(1076003)(6916009)(316002)(54906003)(82310400005)(70586007)(8936002)(4326008)(15650500001)(40480700001)(8676002)(2906002)(82740400003)(36860700001)(5660300002)(40460700003)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 07:05:45.5003 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4767ded6-5c59-4e76-5f03-08da7e8c9339
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT083.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5850
+From: Pratham Sharma <prathamsharmasv@gmail.com>
+Date: Mon, 15 Aug 2022 02:52:56 +0530
+Message-ID: <CAEVueCJXQTPsgUHFM-fyLeaP5GTXh+66Nd8aU2gFF3_uhyb5WA@mail.gmail.com>
+Subject: [REQUEST] Unusable state of Laptop powered by AMD SmartShift
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="0000000000001008a805e63a1fe1"
+X-Mailman-Approved-At: Mon, 15 Aug 2022 07:45:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,59 +60,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking.Zhang@amd.com,
- Guchun.Chen@amd.com, yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The psp_cmd_submit_buf function is called by psp_hw_fini to
-send TA unload messages to psp to terminate ras, asd and tmr.
-But when amdgpu is uninstalled, drm_dev_unplug is called
-earlier than psp_hw_fini in amdgpu_pci_remove, the calling
-order as follows:
-static void amdgpu_pci_remove(struct pci_dev *pdev)
-{
-	drm_dev_unplug
-	......
-	amdgpu_driver_unload_kms->amdgpu_device_fini_hw->...
-		->.hw_fini->psp_hw_fini->...
-		->psp_ta_unload->psp_cmd_submit_buf
-	......
-}
-The program will return when calling drm_dev_enter in
-psp_cmd_submit_buf.
+--0000000000001008a805e63a1fe1
+Content-Type: text/plain; charset="UTF-8"
 
-So the call to drm_dev_enter in psp_cmd_submit_buf should
-be removed, so that the TA unload messages can be sent to the
-psp when amdgpu is uninstalled.
+I come from
+https://gitlab.freedesktop.org/drm/amd/-/issues/1707
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ----
- 1 file changed, 4 deletions(-)
+I have a DELL G5 SE, it's a laptop specced with a Ryzen 5 4600H, a Renoir
+iGPU driving the display and RX5600M for all GPU intensive tasks.
+It's as good as it gets, all AMD powered, it doesn't have a dGPU from the
+You Know Who so I expected good open source driver support in the Linux
+kernel.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index b067ce45d226..0578d8d094a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -585,9 +585,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 	if (psp->adev->no_hw_access)
- 		return 0;
- 
--	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
--		return 0;
--
- 	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
- 
- 	memcpy(psp->cmd_buf_mem, cmd, sizeof(struct psp_gfx_cmd_resp));
-@@ -651,7 +648,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 	}
- 
- exit:
--	drm_dev_exit(idx);
- 	return ret;
- }
- 
--- 
-2.25.1
+But sadly, the state of the laptop is that it's not usable for daily
+routine tasks like even opening a browser, maybe fire up Spotify or open
+Steam/Lutris.
+You would probably be guessing, I'm a novice who's filling the mailing list
+with the issues which need to be reported on freedesktop's amd drm GitLab
+but
+the thing is it has been in the Issues for almost an year, here
+<https://gitlab.freedesktop.org/drm/amd/-/issues/1707> it is. People on
+that issue thread like me have spent months watching and reporting logs on
+different kernel releases,
+there's a person who has spent weeks on bisecting but we've got almost no
+developer's attention. I would post logs here too but I think you'll find
+enough logs on that Issues thread.
 
+If you need logs here too, please let me know, I'll post them.
+
+So I just want to say that it's like playing a Russian Roulette, everytime
+I open/close a Electron/Chromium application like a browser Brave, or
+Spotify or VS Code,
+a gaming client like Steam/Lutris, there's a chance that it make the system
+freeze in which even trying to switch to another TTY doesn't work and the
+only option is
+a reset with Magic SYSRQ keys. This has made my laptop unusable, I have had
+my laptop crash in front of my friends in class by just trying to open VS
+Code
+believe me that's not a good look.
+
+Could we finally get some dev attention on that GitLab thread and get a
+patch out for this machine(there are other machines too with similar specs
+reporting this issue on GitLab)?
+
+--0000000000001008a805e63a1fe1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>I come from<br></div><div><a href=3D"https://gitlab.f=
+reedesktop.org/drm/amd/-/issues/1707">https://gitlab.freedesktop.org/drm/am=
+d/-/issues/1707</a><br></div><div><br></div><div>I have a DELL G5 SE, it&#3=
+9;s a laptop specced with a Ryzen 5 4600H, a Renoir iGPU driving the displa=
+y and RX5600M for all GPU intensive tasks.</div><div>It&#39;s as good as it=
+ gets, all AMD powered, it doesn&#39;t have a dGPU from the You Know Who so=
+ I expected good open source driver support in the Linux kernel.</div><div>=
+<br></div><div>But sadly, the state of the laptop is that it&#39;s not usab=
+le for daily routine tasks like even opening a browser, maybe fire up Spoti=
+fy or open Steam/Lutris.</div><div>You would probably be guessing, I&#39;m =
+a novice who&#39;s filling the mailing list with the issues which need to b=
+e reported on freedesktop&#39;s amd drm GitLab but</div><div>the thing is i=
+t has been in the Issues for almost an year, <a href=3D"https://gitlab.free=
+desktop.org/drm/amd/-/issues/1707">here</a> it is. People on that issue thr=
+ead like me have spent months watching and reporting logs on different kern=
+el releases,</div><div>there&#39;s a person who has spent weeks on bisectin=
+g but we&#39;ve got almost no developer&#39;s attention. I would post logs =
+here too but I think you&#39;ll find enough logs on that Issues thread.</di=
+v><div><br></div><div>If you need logs here too, please let me know, I&#39;=
+ll post them.</div><div><br></div><div>So I just want to say that it&#39;s =
+like playing a Russian Roulette, everytime I open/close a Electron/Chromium=
+ application like a browser Brave, or Spotify or VS Code,</div><div>a gamin=
+g client like Steam/Lutris, there&#39;s a chance that it make the system fr=
+eeze in which even trying to switch to another TTY doesn&#39;t work and the=
+ only option is</div><div>a reset with Magic SYSRQ keys. This has made my l=
+aptop unusable, I have had my laptop crash in front of my friends in class =
+by just trying to open VS Code</div><div>believe me that&#39;s not a good l=
+ook.</div><div><br></div><div>Could we finally get some dev attention on th=
+at GitLab thread and get a patch out for this machine(there are other machi=
+nes too with similar specs reporting this issue on GitLab)?<br></div></div>
+
+--0000000000001008a805e63a1fe1--
