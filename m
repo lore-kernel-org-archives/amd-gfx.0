@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42440C00140
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 07:46:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B40C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 07:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3539DB0D91;
-	Mon, 15 Aug 2022 07:46:09 +0000 (UTC)
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2AC11B9DB
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Aug 2022 21:23:07 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id t22so5475724pjy.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Aug 2022 14:23:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2C3B0D8A;
+	Mon, 15 Aug 2022 07:46:23 +0000 (UTC)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACCAADFB5;
+ Mon, 15 Aug 2022 07:01:23 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id 17so5709760pli.0;
+ Mon, 15 Aug 2022 00:01:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc;
- bh=8fYJW0YsZezv+V5o+zeS6R7vePJpRsrRYCSuJghbotQ=;
- b=g7UhXuCxm6RXO+fQ1s13B/EoUHQG0ybIsM1zxmHCFF6nWoxxHwHqZM36x+XZdvd+Sc
- kr5NSNDwnjXf25hCw8jiQKrVlZOga00mGISQUCTVAD/b511QbDyQ/SclCUzI0b1HjVf/
- GMP/vjtOZw083WKcaQHkUOc7dqaAcJ+IaQVvRCg/bZTvmcKzHw1liDgan2OX7+FEuntB
- Lpa43nRWIhVIR6oTRIWYoI2E3iHB5IUo1gnqIp/B9X3FARbBjOh5J+rCSrayFqSKn547
- L/90zfWGCSvBYQJrsqVR8TfbYyec55Z+8rYa1xIgX0WAo+UOPIjz5Fz8GSZdmkYkn1Ex
- Pv8g==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=lBxuKExwJiydRUzCxRZG0pdDOfLn9vnu6Gvrg3IOunk=;
+ b=N2pYGvniog5ztC4WpHJhrj6BeJx9tktZsy+GCUmnqRhXpAxABkZ5aqV9Q0nkMNfvgS
+ ir2vahkblaz1/952V515s81n2Db6xV+r6LR9ZFy5etUzT0MD/rkgSC+aQS18vQ7PeQq3
+ EV8RTskC5koFGiIDYAyZETNdqzN0BJQLix4lR7x8vmaMTI14jzOKqJvyAWzXi+Q0FaGK
+ xpkXSvzYKRIpRF6K9td0tdRAwp+70PzydSVHL477nXuTwLZLw85Mb7fTaIwvHJdjpPGO
+ cFMzSaiNmWBQ2Dq9jDn1rUCV8uFPuuNcsPPCf13pmU2xAAbvM2C3ToEIqPiVa6wQS0Wn
+ epSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc;
- bh=8fYJW0YsZezv+V5o+zeS6R7vePJpRsrRYCSuJghbotQ=;
- b=ExqE+OCpImWzUYgoioHuXWdBVnBkm8RM4a9A5ZdcQ1Dm55sBo1q8ls6ik4stRY5Wup
- UQEd6OPG4MDvArk/1u57f7Bt4sGheOCbkVFU8LHImQpDl7u6+dE487QcygFbL89Hwc66
- 0bGqdFyxaI7pMTlgCb7zjS/otrZlL0oYqyg1V2MCTM+7IBHssULMnFpjg87Rs8iYBv37
- OSAaxxodr0N2J0bFsqwhjO/wWfwnPK6tN+XXb3Q2VgIYpAGe9xURvg+0fKOeWyyXOtJ7
- oYxMz3KZoW0nG0sPb5kFY1xQr5zhgShC4sqh8UV+XQWwT9cT8Jov/h8ROGp9d0sTew8t
- AeUg==
-X-Gm-Message-State: ACgBeo23+KZEUjOXB2zfIx1pMGh4vk1pnpay8QIxz9wewI9vZ+OTogRE
- PmyVK+x+hIe+w7Dq/XCad07AXz/uKpfEylZOxSp3Dwk9PiZO
-X-Google-Smtp-Source: AA6agR570Av4I0m/M7ElD2+WkNe5yChgxwC+7Jf5a9L1rCDhBNMGgCLuxNaaFCt+hC95kpkKUvsE4BsEjD2u0v6wAO0=
-X-Received: by 2002:a17:90b:2687:b0:1f7:362a:2d08 with SMTP id
- pl7-20020a17090b268700b001f7362a2d08mr14713056pjb.218.1660512187188; Sun, 14
- Aug 2022 14:23:07 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=lBxuKExwJiydRUzCxRZG0pdDOfLn9vnu6Gvrg3IOunk=;
+ b=mXCbsyX+uosUIlED3AMw0bc143z7TxAUdcsJZ3MYwrbeRBwfeOrPqkdKCU4AHKyszS
+ NsppbZUYr4SfNnqUaxCc644HFDv25RNi/IHyJVBNPVgS3ir9NrYnAm4ExPEFS+Ogaxmm
+ /jG0T5Wr8Mqu3YXEVHHMYPqnR6hgqlErRBcMlDpESl3xOmVLNuFk6Fi4jmN5Gxu+JdI0
+ BFp3viSFbmAwxQtWl0US0wFcrCXw2IvNoB11V3fY4T2WOWH1jPJQJ7LZMm4N77k2NzCI
+ IIQjavPNYxxHxAXQg/v+23lHKHN61osJONcLU6M3j3W8g/fvOggCvRZPVJTnA4qvrzJ6
+ 8tHw==
+X-Gm-Message-State: ACgBeo0h8tlitg57+kIIJyPDeqzdU1Meu7LYI8qykxpqm8EliDABQ8hk
+ +ThTY4ovA0u5AfqvXKFTZzpBej9sbhsSRK4p
+X-Google-Smtp-Source: AA6agR7sVypDFOcf7uuBLF8hsvBcfE4nZsErFsVMqm9kaY77S3uHGMBjMpNocX1KWARSUXPR0DWzEA==
+X-Received: by 2002:a17:902:d4c1:b0:16f:8311:54bc with SMTP id
+ o1-20020a170902d4c100b0016f831154bcmr14884497plg.25.1660546882289; 
+ Mon, 15 Aug 2022 00:01:22 -0700 (PDT)
+Received: from fedora.. ([103.159.189.139]) by smtp.gmail.com with ESMTPSA id
+ g2-20020aa79dc2000000b0052d27ccea39sm6224743pfq.19.2022.08.15.00.01.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Aug 2022 00:01:21 -0700 (PDT)
+From: Khalid Masum <khalid.masum.92@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org
+Subject: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
+ vcn_v4_0_stop
+Date: Mon, 15 Aug 2022 13:00:56 +0600
+Message-Id: <20220815070056.10816-1-khalid.masum.92@gmail.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-From: Pratham Sharma <prathamsharmasv@gmail.com>
-Date: Mon, 15 Aug 2022 02:52:56 +0530
-Message-ID: <CAEVueCJXQTPsgUHFM-fyLeaP5GTXh+66Nd8aU2gFF3_uhyb5WA@mail.gmail.com>
-Subject: [REQUEST] Unusable state of Laptop powered by AMD SmartShift
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000001008a805e63a1fe1"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 15 Aug 2022 07:45:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,85 +69,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Wan Jiabing <wanjiabing@vivo.com>, Khalid Masum <khalid.masum.92@gmail.com>,
+ David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Sonny Jiang <sonny.jiang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Ruijing Dong <ruijing.dong@amd.com>,
+ James Zhu <James.Zhu@amd.com>, Leo Liu <leo.liu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000001008a805e63a1fe1
-Content-Type: text/plain; charset="UTF-8"
+The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten
+before it can be used. Remove this assignment.
 
-I come from
-https://gitlab.freedesktop.org/drm/amd/-/issues/1707
+Addresses-Coverity: 1504988 ("Unused value")
+Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
+Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I have a DELL G5 SE, it's a laptop specced with a Ryzen 5 4600H, a Renoir
-iGPU driving the display and RX5600M for all GPU intensive tasks.
-It's as good as it gets, all AMD powered, it doesn't have a dGPU from the
-You Know Who so I expected good open source driver support in the Linux
-kernel.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index ca14c3ef742e..80b8a2c66b36 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
+ 		fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+ 
+ 		if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+-			r = vcn_v4_0_stop_dpg_mode(adev, i);
++			vcn_v4_0_stop_dpg_mode(adev, i);
+ 			continue;
+ 		}
+ 
+-- 
+2.37.1
 
-But sadly, the state of the laptop is that it's not usable for daily
-routine tasks like even opening a browser, maybe fire up Spotify or open
-Steam/Lutris.
-You would probably be guessing, I'm a novice who's filling the mailing list
-with the issues which need to be reported on freedesktop's amd drm GitLab
-but
-the thing is it has been in the Issues for almost an year, here
-<https://gitlab.freedesktop.org/drm/amd/-/issues/1707> it is. People on
-that issue thread like me have spent months watching and reporting logs on
-different kernel releases,
-there's a person who has spent weeks on bisecting but we've got almost no
-developer's attention. I would post logs here too but I think you'll find
-enough logs on that Issues thread.
-
-If you need logs here too, please let me know, I'll post them.
-
-So I just want to say that it's like playing a Russian Roulette, everytime
-I open/close a Electron/Chromium application like a browser Brave, or
-Spotify or VS Code,
-a gaming client like Steam/Lutris, there's a chance that it make the system
-freeze in which even trying to switch to another TTY doesn't work and the
-only option is
-a reset with Magic SYSRQ keys. This has made my laptop unusable, I have had
-my laptop crash in front of my friends in class by just trying to open VS
-Code
-believe me that's not a good look.
-
-Could we finally get some dev attention on that GitLab thread and get a
-patch out for this machine(there are other machines too with similar specs
-reporting this issue on GitLab)?
-
---0000000000001008a805e63a1fe1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I come from<br></div><div><a href=3D"https://gitlab.f=
-reedesktop.org/drm/amd/-/issues/1707">https://gitlab.freedesktop.org/drm/am=
-d/-/issues/1707</a><br></div><div><br></div><div>I have a DELL G5 SE, it&#3=
-9;s a laptop specced with a Ryzen 5 4600H, a Renoir iGPU driving the displa=
-y and RX5600M for all GPU intensive tasks.</div><div>It&#39;s as good as it=
- gets, all AMD powered, it doesn&#39;t have a dGPU from the You Know Who so=
- I expected good open source driver support in the Linux kernel.</div><div>=
-<br></div><div>But sadly, the state of the laptop is that it&#39;s not usab=
-le for daily routine tasks like even opening a browser, maybe fire up Spoti=
-fy or open Steam/Lutris.</div><div>You would probably be guessing, I&#39;m =
-a novice who&#39;s filling the mailing list with the issues which need to b=
-e reported on freedesktop&#39;s amd drm GitLab but</div><div>the thing is i=
-t has been in the Issues for almost an year, <a href=3D"https://gitlab.free=
-desktop.org/drm/amd/-/issues/1707">here</a> it is. People on that issue thr=
-ead like me have spent months watching and reporting logs on different kern=
-el releases,</div><div>there&#39;s a person who has spent weeks on bisectin=
-g but we&#39;ve got almost no developer&#39;s attention. I would post logs =
-here too but I think you&#39;ll find enough logs on that Issues thread.</di=
-v><div><br></div><div>If you need logs here too, please let me know, I&#39;=
-ll post them.</div><div><br></div><div>So I just want to say that it&#39;s =
-like playing a Russian Roulette, everytime I open/close a Electron/Chromium=
- application like a browser Brave, or Spotify or VS Code,</div><div>a gamin=
-g client like Steam/Lutris, there&#39;s a chance that it make the system fr=
-eeze in which even trying to switch to another TTY doesn&#39;t work and the=
- only option is</div><div>a reset with Magic SYSRQ keys. This has made my l=
-aptop unusable, I have had my laptop crash in front of my friends in class =
-by just trying to open VS Code</div><div>believe me that&#39;s not a good l=
-ook.</div><div><br></div><div>Could we finally get some dev attention on th=
-at GitLab thread and get a patch out for this machine(there are other machi=
-nes too with similar specs reporting this issue on GitLab)?<br></div></div>
-
---0000000000001008a805e63a1fe1--
