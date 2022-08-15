@@ -4,70 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 506A6C25B0E
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8AEC00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46CF8B98C8;
-	Mon, 15 Aug 2022 19:02:21 +0000 (UTC)
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48644C9148;
- Mon, 15 Aug 2022 15:54:06 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id y1so6695689plb.2;
- Mon, 15 Aug 2022 08:54:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B5CD26D1;
+	Mon, 15 Aug 2022 19:02:22 +0000 (UTC)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F25B9150B;
+ Mon, 15 Aug 2022 17:02:03 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id a22so6513705pfg.3;
+ Mon, 15 Aug 2022 10:02:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=rsucpEsc5D3CWajO1pTl308RBgWxNbG9t1oS7UmiC60=;
- b=c9IES/GUi/YRTnq8ntFq9iy84T/2qbs+aIfYv0AyQOVaTtypUcAHdLJICt2zAB4X/B
- 4dYwLy7OnU1nSzGDcBqno4X26p9T2Rg3umFQoxDVNUxYdxj86i442PX0qvGtXBZBJT5O
- 3sQ5JTHhnGZBS32J/RkD8vUQ6rKmI+qWTjOgzPlT90vKfz4HJTgGYUiLH6LhUxHnPRWg
- M503lWMUUWF75jkVCwy+h4wAHiI/g8EqkepRunM5afsGvgMLb76BvDnja1k0sJtz48N1
- KfPpIcLxyCXHahCV+A1E+VmS4mGWbTJ5B6r4dj8WQC7yHITiP6iEfPkTD4I+ua+M2mn4
- ob2w==
+ :from:to:cc; bh=kVI9j3DYdqBdWkziBWW1kk/pn2Ueg4C4jZV3ff8Htjw=;
+ b=gZqQLXqcl92oRRJt+5e5u2qjisa8kzB6aZhxd9PIhqUmCxltZj383GoU8Cz3j8Tk4c
+ vN3dentoCQF+MRI0FvyRZDu3ppO1yOn+l9OA8GhHnGrLqRWgaIjY5eBqJDZC13icn8hw
+ +JAwQvLxC0EWZOG74h3jwKTqvyhuQAgdTqTQO3xsOZuG6xc4trx06//kNQR1Qf0Ld1Qt
+ tKFvpd6kAwyjbVJ8t5yuX1bSinVtAAjspK7Ilp9HakXaNORZYJnsYGPk0LyRyExCiuIq
+ zgLrz1HmdPJhISBHvYLb3Ttimvk0hFUuuNhLGuw8c59leJyeKyuYyxmeeXGhUtcLAc0k
+ 0nSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=rsucpEsc5D3CWajO1pTl308RBgWxNbG9t1oS7UmiC60=;
- b=U4o860sd0UWzeLbI/ajrSdSxE14zfgaDAbWhtuKktVqABhPcHYwAashrFYshsNkQAF
- QP5A7+3DKNgB/sWclLgtbntQJPqzFNQDYJ5cFlXnsa1kFqiAUFWD5Hcc+5UekYQZqE9d
- gOjIDA5gZMl37HhZb1iv5F3BFQ2xOkETwbF558LacKBSlKIzRJZBryuzZQTRR/EaHnuV
- YTcq3uwxVPdi5ickJgSbg2Ki5gb10oMlAyLQ5r4YQ1NTVoHo6wApNb/AMOf29/Ks9Ny+
- BycSx0+5ofq+nFDOzt44Jfqp/vOiivBXV/b08i5rLRPcFnN2f9YQYVtBS6gKwdxINfnc
- j1dQ==
-X-Gm-Message-State: ACgBeo3qOQjzxWLpGiaR0ar0d8FGaDVZL12yAH09W3HsqZ2coOQGbSaE
- DO9t6QzF5cBKxDZCFGDlQBg=
-X-Google-Smtp-Source: AA6agR7rXwMmQoFFhV9guzX50xC2Hx5lxc/ntTUb9/whlW1Pw7vwVN3TsUywF9bJ3hq6crg1K1/dIA==
-X-Received: by 2002:a17:90a:c38f:b0:1f3:2f26:e7c4 with SMTP id
- h15-20020a17090ac38f00b001f32f26e7c4mr28048030pjt.124.1660578845751; 
- Mon, 15 Aug 2022 08:54:05 -0700 (PDT)
-Received: from [192.168.141.45] ([103.230.106.6])
+ bh=kVI9j3DYdqBdWkziBWW1kk/pn2Ueg4C4jZV3ff8Htjw=;
+ b=yXLg74SpL1geW94zzIOYWy2BjI7MM6P8Ob5OVe9HV2HUTAA46nF6fALukQY0Ufut6j
+ sPzruywfKfOJ6v7PlcAueGXLL1vPLmkgc79/hgCb6kYbI4gSrWKzHcAhAv+ry+irV2il
+ 07P271xilHAk5gy5riRG8QnXJz0H97p1/QbYEUIIhOlnCp3FMKoIg7wq1fIm7hOemJ3L
+ 7oWjVGah92qDaq5CV5p9Mv6tsdYQnaj6ndiu3HIlqSmmivC5k1X+BhWMfvwspfrDnUUU
+ lr5ROgMRf/V7sIjCiFnZfuV4bx7R4lUOa2rS0tnCFdsU61bzXZjCcIvlePIH8jp1Vn+k
+ GxcA==
+X-Gm-Message-State: ACgBeo18Pd7Q85uNlyMMVtYZ3qONdnGbwG9cA9xz2vXWnPUlXcMkEfsJ
+ y41AF2mSdIUey67kfzlRD2A=
+X-Google-Smtp-Source: AA6agR5RZ22iqECqURoT+vxzrH03J8Q9Bvu9e6PkSFwJuTLDiJCN3IdbpLDIa0y8FwM7EIYwWL+bEw==
+X-Received: by 2002:aa7:88d1:0:b0:52e:f8e:aab5 with SMTP id
+ k17-20020aa788d1000000b0052e0f8eaab5mr17090966pff.63.1660582921848; 
+ Mon, 15 Aug 2022 10:02:01 -0700 (PDT)
+Received: from [192.168.0.110] ([103.159.189.138])
  by smtp.gmail.com with ESMTPSA id
- p67-20020a62d046000000b0052ddaffbcc1sm6719244pfg.30.2022.08.15.08.53.59
+ l20-20020a17090b079400b001f89383d587sm4767063pjz.56.2022.08.15.10.01.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Aug 2022 08:54:05 -0700 (PDT)
-Message-ID: <f8734af1-6e31-75c9-9556-9519709284f1@gmail.com>
-Date: Mon, 15 Aug 2022 21:53:54 +0600
+ Mon, 15 Aug 2022 10:02:01 -0700 (PDT)
+Message-ID: <1e720378-8398-3e4a-5a77-e34b2fec58fd@gmail.com>
+Date: Mon, 15 Aug 2022 23:01:49 +0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
 Subject: Re: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
  vcn_v4_0_stop
 Content-Language: en-US
-To: "Dong, Ruijing" <Ruijing.Dong@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kernel-mentees@lists.linuxfoundation.org"
- <linux-kernel-mentees@lists.linuxfoundation.org>
+To: Greg KH <greg@kroah.com>
 References: <20220815070056.10816-1-khalid.masum.92@gmail.com>
  <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
- <86088c17-585c-4a53-312d-ef339b824538@gmail.com>
- <SJ1PR12MB6194C83D51101ACD97B55F0295689@SJ1PR12MB6194.namprd12.prod.outlook.com>
+ <86088c17-585c-4a53-312d-ef339b824538@gmail.com> <YvpwVh359EMGa5kO@kroah.com>
 From: Khalid Masum <khalid.masum.92@gmail.com>
-In-Reply-To: <SJ1PR12MB6194C83D51101ACD97B55F0295689@SJ1PR12MB6194.namprd12.prod.outlook.com>
+In-Reply-To: <YvpwVh359EMGa5kO@kroah.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 15 Aug 2022 19:02:05 +0000
@@ -82,41 +76,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, "Jiang, Sonny" <Sonny.Jiang@amd.com>,
+Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>, "Liu,
+ Leo" <Leo.Liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Jiang,
+ Sonny" <Sonny.Jiang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+ Alexander" <Alexander.Deucher@amd.com>, "Dong, Ruijing" <Ruijing.Dong@amd.com>,
+ "Zhu, James" <James.Zhu@amd.com>,
+ "linux-kernel-mentees@lists.linuxfoundation.org"
+ <linux-kernel-mentees@lists.linuxfoundation.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/15/22 21:17, Dong, Ruijing wrote:
-> [AMD Official Use Only - General]
+On 8/15/22 22:12, Greg KH wrote:
+> On Mon, Aug 15, 2022 at 09:11:18PM +0600, Khalid Masum wrote:
+>> On 8/15/22 20:15, Dong, Ruijing wrote:
+>>> [AMD Official Use Only - General]
+>>>
+>>> Sorry, which "r" value was overwritten?  I didn't see the point of making this change.
+>>>
+>>> Thanks
+>>> Ruijing
+>>>
+>>> -----Original Message-----
+>>> From: Khalid Masum <khalid.masum.92@gmail.com>
+>>> Sent: Monday, August 15, 2022 3:01 AM
+>>> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; linux-kernel-mentees@lists.linuxfoundation.org
+>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; Zhu, James <James.Zhu@amd.com>; Jiang, Sonny <Sonny.Jiang@amd.com>; Dong, Ruijing <Ruijing.Dong@amd.com>; Wan Jiabing <wanjiabing@vivo.com>; Liu, Leo <Leo.Liu@amd.com>; Khalid Masum <khalid.masum.92@gmail.com>
+>>> Subject: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in vcn_v4_0_stop
+>>>
+>>> The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten before it can be used. Remove this assignment.
+>>>
+>>> Addresses-Coverity: 1504988 ("Unused value")
+>>> Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
+>>> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+>>> index ca14c3ef742e..80b8a2c66b36 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+>>> @@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
+>>>                   fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+>>>
+>>>                   if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+>>> -                       r = vcn_v4_0_stop_dpg_mode(adev, i);
+>>> +                       vcn_v4_0_stop_dpg_mode(adev, i);
+>>>                           continue;
+>>>                   }
+>>>
+>>> --
+>>> 2.37.1
+>>>
+>>
+>> After value is overwritten soon right after the diff.
+>>
+>> See:
+>> drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+>>
+>> static int vcn_v4_0_stop(struct amdgpu_device *adev)
+>> {
+>>          volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+>> ...
+>>
+>>          for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+>>                  fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
+>>                  fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+>>
+>>                  if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+>>                          r = vcn_v4_0_stop_dpg_mode(adev, i);
+>>                          continue;
+>>                  }
+>>
+>>                  /* wait for vcn idle */
+>>                  r = SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS,
+>> UVD_STATUS__IDLE, 0x7);
+>>
+>> Here, any value assigned to r is overwritten before it could
+>> be used. So the assignment in the true branch of the if statement
+>> here can be removed.
 > 
-> If the condition was met and it came to execute vcn_4_0_stop_dpg_mode, then it would never have a chance to go for /*wait for vcn idle*/, isn't it?
+> Why not fix vcn_v4_0_stop_dpg_mode() to not return anything, as it does
+> not, and then remove this assignment as well, which would fix up
+> everything at once to be more obvious what is happening and why.
 
-Hypothetically, some other thread might set adev->pg_flags NULL and in 
-that case it will get the chance to go for /* wait for vcn idle */.
+That makes sense. I shall send a v2 this way. Thanks for your suggestion.
 
-
-> I still didn't see obvious purpose of this change.
 > 
->                  if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
->       ==>              r = vcn_v4_0_stop_dpg_mode(adev, i);
-
-Regardless of that, this assignment to r is unnecessary. Because this 
-value of r is never used. This patch simply removes this unnecessary
-assignment.
-
->                           continue;
->                   }
+> thanks,
 > 
->                   /* wait for vcn idle */
->                   r = SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, UVD_STATUS__IDLE, 0x7);
-> 
-> Thanks
-> Ruijing
-> 
+> greg k-h
 
-Thanks,
+thanks,
    -- Khalid Masum
+
