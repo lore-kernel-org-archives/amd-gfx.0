@@ -4,46 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06DE6C25B06
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 00:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FBA4C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 07:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC1C9538E;
-	Mon, 15 Aug 2022 00:20:19 +0000 (UTC)
-Received: from mx0.riseup.net (mx0.riseup.net [198.252.153.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C27CE11BF19;
- Mon, 15 Aug 2022 00:20:11 +0000 (UTC)
-Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx0.riseup.net (Postfix) with ESMTPS id 4M5Zfz1Gmpz9sNt;
- Mon, 15 Aug 2022 00:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1660522811; bh=jq7j1PaCuaYOhK8IBgLkHW2SmpjHRy3ID/Ygd5BJPmw=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=pAgtKCEdl6uGBs8JO7CLozJtazm5Uk+6DzWMNwICXcL+evzrXOwVF7kTd41hZtdlh
- VpbZX4pGvsws8oSpD4Cn0ylpktreBE0Je3oTiDV5DXf785Aot0gxWdUJd4YdNZLMbJ
- Uy2ZiU536sStdC38wPiUax8dwPlc3O9smuoy4sIE=
-X-Riseup-User-ID: 2D5718D621D7FD407F0500978020029A908F06A32F2CB14F6AC58C42362A2115
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews2.riseup.net (Postfix) with ESMTPSA id 4M5Zfx4Cfqz1yQc;
- Mon, 15 Aug 2022 00:20:09 +0000 (UTC)
-Message-ID: <be6f1ce4-46b1-7a80-230c-b99f203ce8ad@riseup.net>
-Date: Sun, 14 Aug 2022 21:20:01 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A17512BE81;
+	Mon, 15 Aug 2022 07:06:09 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDFBEAB720
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 07:05:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BkWrWDCTVgOMBpUEAx0oEvKAAL1K2tBwDpaCrNNVdcGX3pi2MkzHrTi5cA+1CdsIh9M4KztOIiqANCBxqIOJ+tPFFZtgi78LUbD+RgZ3x1kFjEIh7otnTzHUqzj8/rYp3BTnpgUEChr8jnZF1YO397WVgoGXNrjgvAEnSyerG4wslkFq54r2ScttE7ChpHGWBive2hIZ5pHhlQkQcadbVBWab0Yj4q0asqW3zLRC+wP+pIaLgkA/Nq7u/0D7yfoqBORbzNstuR5c6cOaG8LsbA35xOXd5pOtzeyR65Tkg07kzC/tpQaHG8zxF+WpLIfLefbyP6qBYPPiednBj2qxtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dwdRQnXNW0rqy0cS1NcB8OLzk+FJeYPgUHZdvWXjQm4=;
+ b=igZ7FfF/jwXKjTYMBQaBJoNtB67hh1Me/8Wm1eVgTgin/Tv4Y3wKjKQhIZByfIOZFdn8jC+5ujYuNSRjza1Kt6lI8oqfAySsUwZPxjsdY9McvbXPs8K5YXQIft6YbZu9hDZDVDKIbWObc2dEMx3yqDBfXJp4fX4DxtFF9A5SllP1jfwtpnFUQi0uWsmi2n6zNC+EFqGsN/1V8TbyW1qQKPwTJOD8SIFqXRV/gYuKNsvSlQeoCxNKkcnZKG4VtE+FYuh50bBnowlJo+x+yxsDFmYXRM47b/4IGUNAcUBPyBjsqUZP4yL3wSspRXtHD1a4XvZyLQ+VI6BGoNLWFyKvug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dwdRQnXNW0rqy0cS1NcB8OLzk+FJeYPgUHZdvWXjQm4=;
+ b=SOxM0bNLXmNrQUkQC92Q0E44dv209NCU+ZwxOJJWzmE3bNNVy7/ESDEfHcJyPgNoRQ4MdoTURWDAapLz4aVyGWE4Fn6aGmAYSk4CqAOYBDpIwYJkynds8x0jiEvkAg3En8FWyPRXU+9XDc8V+VfSflai+wjEFnJcSRkjp7fCm4s=
+Received: from MW4PR03CA0261.namprd03.prod.outlook.com (2603:10b6:303:b4::26)
+ by BL1PR12MB5850.namprd12.prod.outlook.com (2603:10b6:208:395::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Mon, 15 Aug
+ 2022 07:05:45 +0000
+Received: from CO1NAM11FT083.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b4:cafe::38) by MW4PR03CA0261.outlook.office365.com
+ (2603:10b6:303:b4::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.15 via Frontend
+ Transport; Mon, 15 Aug 2022 07:05:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT083.mail.protection.outlook.com (10.13.174.92) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5546.7 via Frontend Transport; Mon, 15 Aug 2022 07:05:45 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 15 Aug
+ 2022 02:05:41 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: TA unload messages are not actually sent to psp
+ when amdgpu is uninstalled
+Date: Mon, 15 Aug 2022 15:05:12 +0800
+Message-ID: <20220815070512.452430-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: Re: [BUG][5.20] refcount_t: underflow; use-after-free
-Content-Language: en-US
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
-References: <CABXGCsM58-8fxVKAVkwsshg+33B_1_t_WesG160AtVBe1ZvKiw@mail.gmail.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-In-Reply-To: <CABXGCsM58-8fxVKAVkwsshg+33B_1_t_WesG160AtVBe1ZvKiw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4767ded6-5c59-4e76-5f03-08da7e8c9339
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5850:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /09qFK4O3u30IArOUBPdYOHvN4bws8OnvfISsMuquYZbXFMvmZS9+h4ymJtdycjP2CnNekGggA7z3WoPA2WcDyDCzzn18uVwAtesEdA4SkMS4zwIzwKKw+/862+Vv7um/M6cNReI8zwxf/7rnaGZFRnBrP3B6gN7R1yUtloxlLU0/kK3fYoMUe9B2Ct23VJVMS1iIRJsRUgTtskXKgQ8mO2rz/r1bCfK16NpHzo+/8FHUrtypURdxMhgZWrz4Euv+bT++hTReB/cNFwew/eUSLwAAPd616Q2tDrW5whczogvCoypPVyE5IBOlLgMUDgxUgF1KxpcO+Wi9pjaXcDrBqJdqVXjdvJg9TNXyu63XcY/OEizxOclgYX9A+UREXCrzziHR1Eo0oOlXNIlMH42ZPHy9IVSm9WkHJ7jF/h3T5n7HIP+yV63uTnStZxuygWHpwPjEZV5hxO2+GMGV3tyfeNaxSrSw+7L0KHYOA/LWtUVHylfYBFEexPneNB+sDZ334I5upX6Xh7sJZuf8+r/ageVmb92y6JhvKiCKnrZQ1jOjrmsGwHGsBDbADr2qj8amdwf300kwYDgTxZWHf4iuWUC67l+RKoHCHddtU72LBTXMmMMyJL5b2nRWR4372Fy29SP4b9NYAn9BGMF3YpbNW8S05AHGBNNA6p1TiGtc9gwPs6fhc3Bu3E1D4Yp4DkmW0KH/e2eFpXGryUCWRFaJ57s5QXvbBrZonkkeEYClF0PIXVpyskpR8pZsKHLQv9ilVpBy8LrhTAuqbyIfNfuBSmAAhH/+4BjFM/FdBezXm3miwYp1Bz0Eg/4QwCvM/EqZJStvQOhs+F8Rh1c57A1QQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(136003)(396003)(39860400002)(36840700001)(40470700004)(46966006)(2616005)(7696005)(41300700001)(26005)(478600001)(6666004)(86362001)(81166007)(83380400001)(426003)(336012)(16526019)(186003)(36756003)(47076005)(356005)(1076003)(6916009)(316002)(54906003)(82310400005)(70586007)(8936002)(4326008)(15650500001)(40480700001)(8676002)(2906002)(82740400003)(36860700001)(5660300002)(40460700003)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 07:05:45.5003 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4767ded6-5c59-4e76-5f03-08da7e8c9339
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT083.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5850
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,187 +98,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking.Zhang@amd.com,
+ Guchun.Chen@amd.com, yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mikhail
+The psp_cmd_submit_buf function is called by psp_hw_fini to
+send TA unload messages to psp to terminate ras, asd and tmr.
+But when amdgpu is uninstalled, drm_dev_unplug is called
+earlier than psp_hw_fini in amdgpu_pci_remove, the calling
+order as follows:
+static void amdgpu_pci_remove(struct pci_dev *pdev)
+{
+	drm_dev_unplug
+	......
+	amdgpu_driver_unload_kms->amdgpu_device_fini_hw->...
+		->.hw_fini->psp_hw_fini->...
+		->psp_ta_unload->psp_cmd_submit_buf
+	......
+}
+The program will return when calling drm_dev_enter in
+psp_cmd_submit_buf.
 
-Looks like this use-after-free problem was introduced on
-90af0ca047f3049c4b46e902f432ad6ef1e2ded6. Checking this patch it seems
-like: if amdgpu_cs_vm_handling return r != 0, then it will unlock
-bo_list_mutex inside the function amdgpu_cs_vm_handling and again on
-amdgpu_cs_parser_fini.
+So the call to drm_dev_enter in psp_cmd_submit_buf should
+be removed, so that the TA unload messages can be sent to the
+psp when amdgpu is uninstalled.
 
-Maybe the following patch will help:
-
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
-From 71d718c0f53a334bb59bcd5dabd29bbe92c724af Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
-Date: Sun, 14 Aug 2022 21:12:24 -0300
-Subject: [PATCH] drm/amdgpu: Fix use-after-free on amdgpu_bo_list mutex
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Fixes: 90af0ca047f3 ("drm/amdgpu: Protect the amdgpu_bo_list list with a
-mutex v2")
-Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Signed-off-by: Maíra Canal <mairacanal@riseup.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index d8f1335bc68f..a7fce7b14321 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -837,17 +837,14 @@ static int amdgpu_cs_vm_handling(struct
-amdgpu_cs_parser *p)
- 			continue;
-
- 		r = amdgpu_vm_bo_update(adev, bo_va, false);
--		if (r) {
--			mutex_unlock(&p->bo_list->bo_list_mutex);
-+		if (r)
- 			return r;
--		}
-
- 		r = amdgpu_sync_fence(&p->job->sync, bo_va->last_pt_update);
--		if (r) {
--			mutex_unlock(&p->bo_list->bo_list_mutex);
-+		if (r)
- 			return r;
--		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index b067ce45d226..0578d8d094a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -585,9 +585,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	if (psp->adev->no_hw_access)
+ 		return 0;
+ 
+-	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+-		return 0;
+-
+ 	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+ 
+ 	memcpy(psp->cmd_buf_mem, cmd, sizeof(struct psp_gfx_cmd_resp));
+@@ -651,7 +648,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
  	}
-+	mutex_unlock(&p->bo_list->bo_list_mutex);
-
- 	r = amdgpu_vm_handle_moved(adev, vm);
- 	if (r)
+ 
+ exit:
+-	drm_dev_exit(idx);
+ 	return ret;
+ }
+ 
 -- 
-2.37.1
----
-Best Regards,
-- Maíra Canal
+2.25.1
 
-On 8/14/22 18:11, Mikhail Gavrilov wrote:
-> Hi folks.
-> Joined testing 5.20 today (7ebfc85e2cd7).
-> I encountered a frequently GPU freeze, after which a message appears
-> in the kernel logs:
-> [ 220.280990] ------------[ cut here ]------------
-> [ 220.281000] refcount_t: underflow; use-after-free.
-> [ 220.281019] WARNING: CPU: 1 PID: 3746 at lib/refcount.c:28
-> refcount_warn_saturate+0xba/0x110
-> [ 220.281029] Modules linked in: uinput rfcomm snd_seq_dummy
-> snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
-> nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
-> nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
-> nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
-> qrtr bnep sunrpc snd_seq_midi snd_seq_midi_event vfat intel_rapl_msr
-> fat intel_rapl_common snd_hda_codec_realtek mt76x2u
-> snd_hda_codec_generic snd_hda_codec_hdmi mt76x2_common iwlmvm
-> mt76x02_usb edac_mce_amd mt76_usb snd_hda_intel snd_intel_dspcfg
-> mt76x02_lib snd_intel_sdw_acpi snd_usb_audio snd_hda_codec mt76
-> kvm_amd uvcvideo mac80211 snd_hda_core btusb eeepc_wmi snd_usbmidi_lib
-> videobuf2_vmalloc videobuf2_memops kvm btrtl snd_rawmidi asus_wmi
-> snd_hwdep videobuf2_v4l2 btbcm iwlwifi ledtrig_audio libarc4 btintel
-> snd_seq videobuf2_common sparse_keymap btmtk irqbypass videodev
-> snd_seq_device joydev xpad iwlmei platform_profile bluetooth
-> ff_memless snd_pcm mc rapl
-> [ 220.281185] video snd_timer cfg80211 wmi_bmof snd pcspkr soundcore
-> k10temp i2c_piix4 rfkill mei asus_ec_sensors acpi_cpufreq zram
-> hid_logitech_hidpp amdgpu igb dca drm_ttm_helper ttm crct10dif_pclmul
-> iommu_v2 crc32_pclmul gpu_sched crc32c_intel ucsi_ccg drm_buddy nvme
-> typec_ucsi ghash_clmulni_intel drm_display_helper ccp nvme_core typec
-> sp5100_tco cec wmi ip6_tables ip_tables fuse
-> [ 220.281258] Unloaded tainted modules: amd64_edac():1 amd64_edac():1
-> amd64_edac():1 amd64_edac():1 amd64_edac():1 amd64_edac():1
-> amd64_edac():1 amd64_edac():1 amd64_edac():1 pcc_cpufreq():1
-> amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 amd64_edac():1 pcc_cpufreq():1
-> amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
-> amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
-> amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 pcc_cpufreq():1
-> [ 220.281388] pcc_cpufreq():1 fjes():1 pcc_cpufreq():1 fjes():1
-> fjes():1 fjes():1 fjes():1 fjes():1 fjes():1 fjes():1
-> [ 220.281415] CPU: 1 PID: 3746 Comm: chrome:cs0 Tainted: G W L -------
-> --- 5.20.0-0.rc0.20220812git7ebfc85e2cd7.10.fc38.x86_64 #1
-> [ 220.281421] Hardware name: System manufacturer System Product
-> Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
-> [ 220.281426] RIP: 0010:refcount_warn_saturate+0xba/0x110
-> [ 220.281431] Code: 01 01 e8 79 4a 6f 00 0f 0b e9 42 47 a5 00 80 3d de
-> 7e be 01 00 75 85 48 c7 c7 f8 98 8e 98 c6 05 ce 7e be 01 01 e8 56 4a
-> 6f 00 <0f> 0b e9 1f 47 a5 00 80 3d b9 7e be 01 00 0f 85 5e ff ff ff 48
-> c7
-> [ 220.281437] RSP: 0018:ffffb4b0d18d7a80 EFLAGS: 00010282
-> [ 220.281443] RAX: 0000000000000026 RBX: 0000000000000003 RCX: 0000000000000000
-> [ 220.281448] RDX: 0000000000000001 RSI: ffffffff988d06dc RDI: 00000000ffffffff
-> [ 220.281452] RBP: 00000000ffffffff R08: 0000000000000000 R09: ffffb4b0d18d7930
-> [ 220.281457] R10: 0000000000000003 R11: ffffa0672e2fffe8 R12: ffffa058ca360400
-> [ 220.281461] R13: ffffa05846c50a18 R14: 00000000fffffe00 R15: 0000000000000003
-> [ 220.281465] FS: 00007f82683e06c0(0000) GS:ffffa066e2e00000(0000)
-> knlGS:0000000000000000
-> [ 220.281470] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [ 220.281475] CR2: 00003590005cc000 CR3: 00000001fca46000 CR4: 0000000000350ee0
-> [ 220.281480] Call Trace:
-> [ 220.281485] <TASK>
-> [ 220.281490] amdgpu_cs_ioctl+0x4e2/0x2070 [amdgpu]
-> [ 220.281806] ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
-> [ 220.282028] drm_ioctl_kernel+0xa4/0x150
-> [ 220.282043] drm_ioctl+0x21f/0x420
-> [ 220.282053] ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
-> [ 220.282275] ? lock_release+0x14f/0x460
-> [ 220.282282] ? _raw_spin_unlock_irqrestore+0x30/0x60
-> [ 220.282290] ? _raw_spin_unlock_irqrestore+0x30/0x60
-> [ 220.282297] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282305] ? _raw_spin_unlock_irqrestore+0x40/0x60
-> [ 220.282317] amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
-> [ 220.282534] __x64_sys_ioctl+0x90/0xd0
-> [ 220.282545] do_syscall_64+0x5b/0x80
-> [ 220.282551] ? futex_wake+0x6c/0x150
-> [ 220.282568] ? lock_is_held_type+0xe8/0x140
-> [ 220.282580] ? do_syscall_64+0x67/0x80
-> [ 220.282585] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282592] ? do_syscall_64+0x67/0x80
-> [ 220.282597] ? do_syscall_64+0x67/0x80
-> [ 220.282602] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282609] entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> [ 220.282616] RIP: 0033:0x7f8282a4f8bf
-> [ 220.282639] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10
-> 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00
-> 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28 00
-> 00
-> [ 220.282644] RSP: 002b:00007f82683df410 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000010
-> [ 220.282651] RAX: ffffffffffffffda RBX: 00007f82683df588 RCX: 00007f8282a4f8bf
-> [ 220.282655] RDX: 00007f82683df4d0 RSI: 00000000c0186444 RDI: 0000000000000018
-> [ 220.282659] RBP: 00007f82683df4d0 R08: 00007f82683df5e0 R09: 00007f82683df4b0
-> [ 220.282663] R10: 00001d04000a0600 R11: 0000000000000246 R12: 00000000c0186444
-> [ 220.282667] R13: 0000000000000018 R14: 00007f82683df588 R15: 0000000000000003
-> [ 220.282689] </TASK>
-> [ 220.282693] irq event stamp: 6232311
-> [ 220.282697] hardirqs last enabled at (6232319): [<ffffffff9718cd7e>]
-> __up_console_sem+0x5e/0x70
-> [ 220.282704] hardirqs last disabled at (6232326):
-> [<ffffffff9718cd63>] __up_console_sem+0x43/0x70
-> [ 220.282709] softirqs last enabled at (6232072): [<ffffffff970ff669>]
-> __irq_exit_rcu+0xf9/0x170
-> [ 220.282716] softirqs last disabled at (6232061):
-> [<ffffffff970ff669>] __irq_exit_rcu+0xf9/0x170
-> [ 220.282722] ---[ end trace 0000000000000000 ]---
-> 
-> 
-> Full kernel log is here:
-> https://pastebin.com/gn01DVxE
-> 
-> My GPU hardware is AMD Radeon 6900XT.
-> 
