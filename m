@@ -4,42 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7337C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:02:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B128FC00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C18BD1BF;
-	Wed, 24 Aug 2022 17:00:30 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7676B9D4A;
- Mon, 15 Aug 2022 14:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=RrH4eWU03e065wwHvvpiAmOHxfpRqSBh3MQbyr57ReI=; b=WAvG11EmjzW4oK+0A7ZPf9a1j0
- iYi3AcXBSLN/BrHJht0qSlZ3bvqLKEmslbPvZIm0O9+LdIPjWkR4ZZpQa9y36Wi76cnNlQ11l1xGv
- EQbdJyepYSkBfLyyTbAqmx1jAZuf5aarq9Fiq7udqArovs6iMeJv9Z2zo1lNF6iMr0L3AhtvGU3eW
- 46iD4R65elSiiw/CJXfJwm0dtrhHVfUGXtMnlU9GUKCzobdHvTb6FLr8zjGokEeP9prkWMRr8a3mE
- Dhca5XZ7BUz7gr7vE2HA2lYrupflI6iRh0gY4RNzO5/86tq3k5M7LguZtufLAbwEcyDCrbmmk0H1H
- E9VKTgqQ==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oNbUW-009U0o-9L; Mon, 15 Aug 2022 16:54:56 +0200
-Date: Mon, 15 Aug 2022 13:54:41 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>
-Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free on amdgpu_bo_list mutex
-Message-ID: <20220815145441.scqsi4udv2t7z57k@mail.igalia.com>
-References: <20220815113931.53226-1-mairacanal@riseup.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0359EBD3A8;
+	Wed, 24 Aug 2022 17:02:19 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C254CB2FF;
+ Mon, 15 Aug 2022 15:11:27 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ o3-20020a17090a0a0300b001f7649cd317so14767367pjo.0; 
+ Mon, 15 Aug 2022 08:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc; bh=4pmq2cDtg0ydyuU0PpZLDkBCJ0OouWioIf1c6XMyXOk=;
+ b=UZ9096jjWqCBf17hXnyVKDrCNj3DJVCItRZWHpeEILmz8aWMZ0dNOD5lz0V5HMWICJ
+ 51N0i+/iG09bmULlptqybK9Y8WQGz5LvrYsgCPDphgf2sFGpDQui0AonT3eqjI6ff1Mi
+ eFa8s26yVIJhSbjAkVhy+wtasrXDwuhQ221yGjmLJPUJ/edPvy7WmC79UsZ+oZYnZNJr
+ cMMumf6dA0h7OTPHoqd0mZphf1NX1LcFbNr2b5WvB7itW0anhNODt5wyI1AGfJNimNV7
+ 4ynQJ7dwM0P6RyIfGLFSpBPFuHy+m2SVp0FbWvLw51w/GhsvGER/dtgU2yekRKDOyoDV
+ aq7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=4pmq2cDtg0ydyuU0PpZLDkBCJ0OouWioIf1c6XMyXOk=;
+ b=fXQM53FrH6MueRROOjPCHvjhbEQWuMM5JUI7+GPxMK3pqcEMYdQBTR6RqmJ/rvD01r
+ M5xVObVx4nAZQ+++bgCm2+o1Tj9NUg7Z11zmugMqxeNfwi1jpLG37rXR0H3uktdo1dcy
+ OYmCXkWhyG19N1WdcJq5aR2A2aA/4NgkQdkT4TSgmV4sVEk6tPvAFZ6lWhQgDcfk3pfn
+ smFkoWX4yi8QxwuL8cFDL7SmHtihEQmaOWyVnTBaj7Yl1l7xmZSDwHycndTHGf+ZvGyb
+ JxHPh+Bv2as5eVy6M2qF45nyzaAz07M1I+GdxADU7njzFUKVTZOOsWn91Wa0N+Sm702C
+ 0kXA==
+X-Gm-Message-State: ACgBeo1ON87frKeqPTJhD/6xSXeUMVaO3rihQbwL29Knfr8knM8D8AMP
+ 07fL3TRxHkI9myJvyscc+cs=
+X-Google-Smtp-Source: AA6agR7zDZWmDimewQ5T+cgTmvM9ZGGWIVm6LAiRhL7a4FKt7o56LofqV71sHQV80sOx2nI/9Pswvw==
+X-Received: by 2002:a17:902:c94c:b0:16e:ce7d:1fe with SMTP id
+ i12-20020a170902c94c00b0016ece7d01femr17690162pla.168.1660576286635; 
+ Mon, 15 Aug 2022 08:11:26 -0700 (PDT)
+Received: from [192.168.0.110] ([103.159.189.156])
+ by smtp.gmail.com with ESMTPSA id
+ h12-20020a170902b94c00b0016ef87334aesm7096733pls.162.2022.08.15.08.11.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Aug 2022 08:11:26 -0700 (PDT)
+Message-ID: <86088c17-585c-4a53-312d-ef339b824538@gmail.com>
+Date: Mon, 15 Aug 2022 21:11:18 +0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="giisndjw5d6njnaf"
-Content-Disposition: inline
-In-Reply-To: <20220815113931.53226-1-mairacanal@riseup.net>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+From: Khalid Masum <khalid.masum.92@gmail.com>
+Subject: Re: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
+ vcn_v4_0_stop
+To: "Dong, Ruijing" <Ruijing.Dong@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-kernel-mentees@lists.linuxfoundation.org"
+ <linux-kernel-mentees@lists.linuxfoundation.org>
+References: <20220815070056.10816-1-khalid.masum.92@gmail.com>
+ <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
+Content-Language: en-US
+In-Reply-To: <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 15 Aug 2022 19:02:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,173 +81,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, "Jiang, Sonny" <Sonny.Jiang@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---giisndjw5d6njnaf
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 08/15, Ma=EDra Canal wrote:
-> If amdgpu_cs_vm_handling returns r !=3D 0, then it will unlock the
-> bo_list_mutex inside the function amdgpu_cs_vm_handling and again on
-> amdgpu_cs_parser_fini. This problem results in the following
-> use-after-free problem:
->=20
-> [ 220.280990] ------------[ cut here ]------------
-> [ 220.281000] refcount_t: underflow; use-after-free.
-> [ 220.281019] WARNING: CPU: 1 PID: 3746 at lib/refcount.c:28 refcount_war=
-n_saturate+0xba/0x110
-> [ 220.281029] ------------[ cut here ]------------
-> [ 220.281415] CPU: 1 PID: 3746 Comm: chrome:cs0 Tainted: G W L ------- --=
-- 5.20.0-0.rc0.20220812git7ebfc85e2cd7.10.fc38.x86_64 #1
-> [ 220.281421] Hardware name: System manufacturer System Product Name/ROG =
-STRIX X570-I GAMING, BIOS 4403 04/27/2022
-> [ 220.281426] RIP: 0010:refcount_warn_saturate+0xba/0x110
-> [ 220.281431] Code: 01 01 e8 79 4a 6f 00 0f 0b e9 42 47 a5 00 80 3d de
-> 7e be 01 00 75 85 48 c7 c7 f8 98 8e 98 c6 05 ce 7e be 01 01 e8 56 4a
-> 6f 00 <0f> 0b e9 1f 47 a5 00 80 3d b9 7e be 01 00 0f 85 5e ff ff ff 48
-> c7
-> [ 220.281437] RSP: 0018:ffffb4b0d18d7a80 EFLAGS: 00010282
-> [ 220.281443] RAX: 0000000000000026 RBX: 0000000000000003 RCX: 0000000000=
-000000
-> [ 220.281448] RDX: 0000000000000001 RSI: ffffffff988d06dc RDI: 00000000ff=
-ffffff
-> [ 220.281452] RBP: 00000000ffffffff R08: 0000000000000000 R09: ffffb4b0d1=
-8d7930
-> [ 220.281457] R10: 0000000000000003 R11: ffffa0672e2fffe8 R12: ffffa058ca=
-360400
-> [ 220.281461] R13: ffffa05846c50a18 R14: 00000000fffffe00 R15: 0000000000=
-000003
-> [ 220.281465] FS: 00007f82683e06c0(0000) GS:ffffa066e2e00000(0000) knlGS:=
-0000000000000000
-> [ 220.281470] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [ 220.281475] CR2: 00003590005cc000 CR3: 00000001fca46000 CR4: 0000000000=
-350ee0
-> [ 220.281480] Call Trace:
-> [ 220.281485] <TASK>
-> [ 220.281490] amdgpu_cs_ioctl+0x4e2/0x2070 [amdgpu]
-> [ 220.281806] ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
-> [ 220.282028] drm_ioctl_kernel+0xa4/0x150
-> [ 220.282043] drm_ioctl+0x21f/0x420
-> [ 220.282053] ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
-> [ 220.282275] ? lock_release+0x14f/0x460
-> [ 220.282282] ? _raw_spin_unlock_irqrestore+0x30/0x60
-> [ 220.282290] ? _raw_spin_unlock_irqrestore+0x30/0x60
-> [ 220.282297] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282305] ? _raw_spin_unlock_irqrestore+0x40/0x60
-> [ 220.282317] amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
-> [ 220.282534] __x64_sys_ioctl+0x90/0xd0
-> [ 220.282545] do_syscall_64+0x5b/0x80
-> [ 220.282551] ? futex_wake+0x6c/0x150
-> [ 220.282568] ? lock_is_held_type+0xe8/0x140
-> [ 220.282580] ? do_syscall_64+0x67/0x80
-> [ 220.282585] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282592] ? do_syscall_64+0x67/0x80
-> [ 220.282597] ? do_syscall_64+0x67/0x80
-> [ 220.282602] ? lockdep_hardirqs_on+0x7d/0x100
-> [ 220.282609] entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> [ 220.282616] RIP: 0033:0x7f8282a4f8bf
-> [ 220.282639] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10
-> 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00
-> 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28 00
-> 00
-> [ 220.282644] RSP: 002b:00007f82683df410 EFLAGS: 00000246 ORIG_RAX: 00000=
-00000000010
-> [ 220.282651] RAX: ffffffffffffffda RBX: 00007f82683df588 RCX: 00007f8282=
-a4f8bf
-> [ 220.282655] RDX: 00007f82683df4d0 RSI: 00000000c0186444 RDI: 0000000000=
-000018
-> [ 220.282659] RBP: 00007f82683df4d0 R08: 00007f82683df5e0 R09: 00007f8268=
-3df4b0
-> [ 220.282663] R10: 00001d04000a0600 R11: 0000000000000246 R12: 00000000c0=
-186444
-> [ 220.282667] R13: 0000000000000018 R14: 00007f82683df588 R15: 0000000000=
-000003
-> [ 220.282689] </TASK>
-> [ 220.282693] irq event stamp: 6232311
-> [ 220.282697] hardirqs last enabled at (6232319): [<ffffffff9718cd7e>] __=
-up_console_sem+0x5e/0x70
-> [ 220.282704] hardirqs last disabled at (6232326): [<ffffffff9718cd63>] _=
-_up_console_sem+0x43/0x70
-> [ 220.282709] softirqs last enabled at (6232072): [<ffffffff970ff669>] __=
-irq_exit_rcu+0xf9/0x170
-> [ 220.282716] softirqs last disabled at (6232061): [<ffffffff970ff669>] _=
-_irq_exit_rcu+0xf9/0x170
-> [ 220.282722] ---[ end trace 0000000000000000 ]---
->=20
-> Therefore, remove the mutex_unlock from the amdgpu_cs_vm_handling
-> function, so that amdgpu_cs_submit and amdgpu_cs_parser_fini can handle
-> the unlock.
->=20
-> Fixes: 90af0ca047f3 ("drm/amdgpu: Protect the amdgpu_bo_list list with a =
-mutex v2")
-> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Signed-off-by: Ma=EDra Canal <mairacanal@riseup.net>
+On 8/15/22 20:15, Dong, Ruijing wrote:
+> [AMD Official Use Only - General]
+> 
+> Sorry, which "r" value was overwritten?  I didn't see the point of making this change.
+> 
+> Thanks
+> Ruijing
+> 
+> -----Original Message-----
+> From: Khalid Masum <khalid.masum.92@gmail.com>
+> Sent: Monday, August 15, 2022 3:01 AM
+> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; linux-kernel-mentees@lists.linuxfoundation.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; Zhu, James <James.Zhu@amd.com>; Jiang, Sonny <Sonny.Jiang@amd.com>; Dong, Ruijing <Ruijing.Dong@amd.com>; Wan Jiabing <wanjiabing@vivo.com>; Liu, Leo <Leo.Liu@amd.com>; Khalid Masum <khalid.masum.92@gmail.com>
+> Subject: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in vcn_v4_0_stop
+> 
+> The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten before it can be used. Remove this assignment.
+> 
+> Addresses-Coverity: 1504988 ("Unused value")
+> Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
+> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
 > ---
-> Thanks Melissa and Christian for the feedback on mutex_unlock.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index d8f1335bc68f..b7bae833c804 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -837,16 +837,12 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
-arser *p)
->  			continue;
-> =20
->  		r =3D amdgpu_vm_bo_update(adev, bo_va, false);
-> -		if (r) {
-> -			mutex_unlock(&p->bo_list->bo_list_mutex);
-> +		if (r)
->  			return r;
-> -		}
-> =20
->  		r =3D amdgpu_sync_fence(&p->job->sync, bo_va->last_pt_update);
-> -		if (r) {
-> -			mutex_unlock(&p->bo_list->bo_list_mutex);
-> +		if (r)
->  			return r;
-> -		}
-Nice catch, Ma=EDra!
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index ca14c3ef742e..80b8a2c66b36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
+>                  fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+> 
+>                  if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+> -                       r = vcn_v4_0_stop_dpg_mode(adev, i);
+> +                       vcn_v4_0_stop_dpg_mode(adev, i);
+>                          continue;
+>                  }
+> 
+> --
+> 2.37.1
+> 
 
-Reviewed-by: Melissa Wen <mwen@igalia.com>
+After value is overwritten soon right after the diff.
 
->  	}
-> =20
->  	r =3D amdgpu_vm_handle_moved(adev, vm);
-> --=20
-> 2.37.2
->=20
+See:
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
 
---giisndjw5d6njnaf
-Content-Type: application/pgp-signature; name="signature.asc"
+static int vcn_v4_0_stop(struct amdgpu_device *adev)
+{
+         volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+...
 
------BEGIN PGP SIGNATURE-----
+         for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+                 fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
+                 fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmL6XisACgkQwqF3j0dL
-ehwNyhAAl08bFtnkOEzrR9xOQOi+okthKLBgO6CRI1YDHyByBJlJ+lr+XCTvRpWU
-V2uU9l+qt3IuZ2vdm+INU3x5+ftcbxuZPawSU1Dv0bMbvtfBsee9V/vh+HRW0fDi
-8tkBLBrQv/J2HdZAN5CXB+or/M7Mjil0J0//RA16vxzLHyVc28wRGtTO4ntck+Uu
-P+2ON9tYzOVsbhTMuILfBH1P/nQzPYhZQK3Aahdex7TGyngYS5FQZ4e2bTGOGWd9
-17YL+qkL20CwRGnC1LCLT7/yxA/9KhYmfzAOJ9rs8OS6KS/w5G1BTTfIeg1uJA7N
-umT97eBdl4TRhUIxOgcN7n/i6oyoR7aMwUIa0HpeSDK/EKNxZkdNeSr3Mrflo4wN
-jGGN1Gw2BDDVNvH5pBe97TrinEMUzjKhaNNt98D68iE2OEBTEP6LHj1fC+oYmjZR
-pKegZZEkVTNum4YgSnVfAq53FxwBaUVUazKam/VA37UHlmY1qpwpAMG0SPby1HfB
-f4kYtbEW9UQ6ePmu9WDdUVTJjgjuzAdbh4Dy1o1YiudyMpjIb3MCX+90tL6ouihC
-M11cfF4R3Bdi9NSDVTZIgM51gZ/BgnrsPVsjbGN4DGc+Hf6kdwIdZcxmfg3+OhXw
-V5aKSvbZOFS+kEtKawE+afkwczT4t0s8S+wYy9bBvehLiyJH9AY=
-=yLta
------END PGP SIGNATURE-----
+                 if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+                         r = vcn_v4_0_stop_dpg_mode(adev, i);
+                         continue;
+                 }
 
---giisndjw5d6njnaf--
+                 /* wait for vcn idle */
+                 r = SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, 
+UVD_STATUS__IDLE, 0x7);
+
+Here, any value assigned to r is overwritten before it could
+be used. So the assignment in the true branch of the if statement
+here can be removed.
+
+Thanks,
+   -- Khalid Masum
