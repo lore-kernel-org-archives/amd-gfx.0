@@ -4,72 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B128FC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1049C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0359EBD3A8;
-	Wed, 24 Aug 2022 17:02:19 +0000 (UTC)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C254CB2FF;
- Mon, 15 Aug 2022 15:11:27 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- o3-20020a17090a0a0300b001f7649cd317so14767367pjo.0; 
- Mon, 15 Aug 2022 08:11:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F420BD489;
+	Wed, 24 Aug 2022 17:18:19 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 647F3D4439;
+ Mon, 15 Aug 2022 20:22:10 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id o184so9718506oif.13;
+ Mon, 15 Aug 2022 13:22:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc; bh=4pmq2cDtg0ydyuU0PpZLDkBCJ0OouWioIf1c6XMyXOk=;
- b=UZ9096jjWqCBf17hXnyVKDrCNj3DJVCItRZWHpeEILmz8aWMZ0dNOD5lz0V5HMWICJ
- 51N0i+/iG09bmULlptqybK9Y8WQGz5LvrYsgCPDphgf2sFGpDQui0AonT3eqjI6ff1Mi
- eFa8s26yVIJhSbjAkVhy+wtasrXDwuhQ221yGjmLJPUJ/edPvy7WmC79UsZ+oZYnZNJr
- cMMumf6dA0h7OTPHoqd0mZphf1NX1LcFbNr2b5WvB7itW0anhNODt5wyI1AGfJNimNV7
- 4ynQJ7dwM0P6RyIfGLFSpBPFuHy+m2SVp0FbWvLw51w/GhsvGER/dtgU2yekRKDOyoDV
- aq7Q==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=KUREXGO6jnd0bVGmD0b7wZHGhfBeIpSV7ISn3FBvF0g=;
+ b=JVd7W9eNeC0LVvIMOinSk+P3PbZ0QvzqiK78lUWaC/aeWGVRVPfOuQQ2twhXTjfHIF
+ u7BSqTsZjJkD9tVZIpymEVjuC4ijnZY8oTKHpf3/hmtRAZ+vLY+mOb1wcFGEZSP8Xla0
+ 67Mvs50TMjeV/4b48ccuKW4FRtzxqKJlYj/+8+D6zDhzo0v8ZVqHx5e2sQbkjAY6Cp7j
+ uMkulLi3/iZr+pBL0o5Rc4uEVpQShr3ROTP8nfBYSrf/0yNJLlX6gxWkBOeI2O9IBcJo
+ L57K2iFjZ2MYb2AVioKHP59giORw537DKt1r57cFQ8DS6hH5ar+OWJOKMCf385hAp/8J
+ 9Wmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=4pmq2cDtg0ydyuU0PpZLDkBCJ0OouWioIf1c6XMyXOk=;
- b=fXQM53FrH6MueRROOjPCHvjhbEQWuMM5JUI7+GPxMK3pqcEMYdQBTR6RqmJ/rvD01r
- M5xVObVx4nAZQ+++bgCm2+o1Tj9NUg7Z11zmugMqxeNfwi1jpLG37rXR0H3uktdo1dcy
- OYmCXkWhyG19N1WdcJq5aR2A2aA/4NgkQdkT4TSgmV4sVEk6tPvAFZ6lWhQgDcfk3pfn
- smFkoWX4yi8QxwuL8cFDL7SmHtihEQmaOWyVnTBaj7Yl1l7xmZSDwHycndTHGf+ZvGyb
- JxHPh+Bv2as5eVy6M2qF45nyzaAz07M1I+GdxADU7njzFUKVTZOOsWn91Wa0N+Sm702C
- 0kXA==
-X-Gm-Message-State: ACgBeo1ON87frKeqPTJhD/6xSXeUMVaO3rihQbwL29Knfr8knM8D8AMP
- 07fL3TRxHkI9myJvyscc+cs=
-X-Google-Smtp-Source: AA6agR7zDZWmDimewQ5T+cgTmvM9ZGGWIVm6LAiRhL7a4FKt7o56LofqV71sHQV80sOx2nI/9Pswvw==
-X-Received: by 2002:a17:902:c94c:b0:16e:ce7d:1fe with SMTP id
- i12-20020a170902c94c00b0016ece7d01femr17690162pla.168.1660576286635; 
- Mon, 15 Aug 2022 08:11:26 -0700 (PDT)
-Received: from [192.168.0.110] ([103.159.189.156])
- by smtp.gmail.com with ESMTPSA id
- h12-20020a170902b94c00b0016ef87334aesm7096733pls.162.2022.08.15.08.11.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Aug 2022 08:11:26 -0700 (PDT)
-Message-ID: <86088c17-585c-4a53-312d-ef339b824538@gmail.com>
-Date: Mon, 15 Aug 2022 21:11:18 +0600
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=KUREXGO6jnd0bVGmD0b7wZHGhfBeIpSV7ISn3FBvF0g=;
+ b=bp56VAWXXBLvBoV6sDyhu3zDZ6jo1KmC7QQyJOdhYU4QOEOt/Duvye8g7UboYoV63J
+ nm5FgoBINvFjR5B45hajqxhNpDX3twcnNHT3qEP8t+PMEcia2/GRc6/Evl6RJ9j9oe9B
+ A5n5ClG6DF6epkfOJZmK0CWM1qcQ7rM0Jo8Wm3wvqm3pqeY2T6XfgduvjI61CXpDfRyb
+ xkDr4YbophTJW1mgig7Lq6wTdnmcsvDN7J3i2t9u+gWrhYkIzz1XaNk77op7yB6F49uv
+ OV4ejTQllePqJ8aBuMaFks1dDGWd7Xu7EFkay8c9dpH91XW/w2wArW7t1EWyRdpOjF0I
+ nydA==
+X-Gm-Message-State: ACgBeo1pCmRQjmbN49+opWPLi1JOipiqEiIxlE5PzEoula7PccbZu0ei
+ PzxPvaaemPkFXmzX9mcdB8+Tq2Oe7lBvdr2V9gI=
+X-Google-Smtp-Source: AA6agR6/HoPU6iiFYk8vyjp+FTggm6uWYFAiy68hDHp9aGnJKMy5dFHVdevch5QQawGn+Cd4BEr765eFuhcI+C+eawI=
+X-Received: by 2002:a05:6808:1491:b0:343:7543:1a37 with SMTP id
+ e17-20020a056808149100b0034375431a37mr6706596oiw.106.1660594929626; Mon, 15
+ Aug 2022 13:22:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-From: Khalid Masum <khalid.masum.92@gmail.com>
-Subject: Re: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
- vcn_v4_0_stop
-To: "Dong, Ruijing" <Ruijing.Dong@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kernel-mentees@lists.linuxfoundation.org"
- <linux-kernel-mentees@lists.linuxfoundation.org>
-References: <20220815070056.10816-1-khalid.masum.92@gmail.com>
- <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
-Content-Language: en-US
-In-Reply-To: <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 15 Aug 2022 19:02:05 +0000
+References: <20220719103954.6737-1-strochuk@ispras.ru>
+ <fac8ce6e-6f5f-598d-35cc-7bf01ac90f30@amd.com>
+ <f750ab62-7deb-21a1-753e-1ee838386265@amd.com>
+In-Reply-To: <f750ab62-7deb-21a1-753e-1ee838386265@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Aug 2022 16:21:58 -0400
+Message-ID: <CADnq5_ORzjVFR9nxaJO6giVoGT8_BVtdq8PURjPrzOd7jpoH7g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove useless condition in
+ amdgpu_job_stop_all_jobs_on_sched()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,81 +66,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, "Jiang, Sonny" <Sonny.Jiang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: ldv-project@linuxtesting.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Jack Zhang <Jack.Zhang1@amd.com>, amd-gfx@lists.freedesktop.org,
+ Andrey Strachuk <strochuk@ispras.ru>, Emma Anholt <emma@anholt.net>,
+ Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Melissa Wen <mwen@igalia.com>, Surbhi Kakarya <surbhi.kakarya@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/15/22 20:15, Dong, Ruijing wrote:
-> [AMD Official Use Only - General]
-> 
-> Sorry, which "r" value was overwritten?  I didn't see the point of making this change.
-> 
-> Thanks
-> Ruijing
-> 
-> -----Original Message-----
-> From: Khalid Masum <khalid.masum.92@gmail.com>
-> Sent: Monday, August 15, 2022 3:01 AM
-> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; linux-kernel-mentees@lists.linuxfoundation.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; Zhu, James <James.Zhu@amd.com>; Jiang, Sonny <Sonny.Jiang@amd.com>; Dong, Ruijing <Ruijing.Dong@amd.com>; Wan Jiabing <wanjiabing@vivo.com>; Liu, Leo <Leo.Liu@amd.com>; Khalid Masum <khalid.masum.92@gmail.com>
-> Subject: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in vcn_v4_0_stop
-> 
-> The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten before it can be used. Remove this assignment.
-> 
-> Addresses-Coverity: 1504988 ("Unused value")
-> Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
-> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index ca14c3ef742e..80b8a2c66b36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
->                  fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
-> 
->                  if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> -                       r = vcn_v4_0_stop_dpg_mode(adev, i);
-> +                       vcn_v4_0_stop_dpg_mode(adev, i);
->                          continue;
->                  }
-> 
-> --
-> 2.37.1
-> 
+Applied.  Thanks!
 
-After value is overwritten soon right after the diff.
-
-See:
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-
-static int vcn_v4_0_stop(struct amdgpu_device *adev)
-{
-         volatile struct amdgpu_vcn4_fw_shared *fw_shared;
-...
-
-         for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-                 fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
-                 fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
-
-                 if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-                         r = vcn_v4_0_stop_dpg_mode(adev, i);
-                         continue;
-                 }
-
-                 /* wait for vcn idle */
-                 r = SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, 
-UVD_STATUS__IDLE, 0x7);
-
-Here, any value assigned to r is overwritten before it could
-be used. So the assignment in the true branch of the if statement
-here can be removed.
-
-Thanks,
-   -- Khalid Masum
+On Fri, Aug 12, 2022 at 7:13 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> @Alex was that one already picked up?
+>
+> Am 25.07.22 um 18:40 schrieb Andrey Grodzovsky:
+> > Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> >
+> > Andrey
+> >
+> > On 2022-07-19 06:39, Andrey Strachuk wrote:
+> >> Local variable 'rq' is initialized by an address
+> >> of field of drm_sched_job, so it does not make
+> >> sense to compare 'rq' with NULL.
+> >>
+> >> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> >>
+> >> Signed-off-by: Andrey Strachuk <strochuk@ispras.ru>
+> >> Fixes: 7c6e68c777f1 ("drm/amdgpu: Avoid HW GPU reset for RAS.")
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 4 ----
+> >>   1 file changed, 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> index 67f66f2f1809..600401f2a98f 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> @@ -285,10 +285,6 @@ void amdgpu_job_stop_all_jobs_on_sched(struct
+> >> drm_gpu_scheduler *sched)
+> >>       /* Signal all jobs not yet scheduled */
+> >>       for (i =3D DRM_SCHED_PRIORITY_COUNT - 1; i >=3D
+> >> DRM_SCHED_PRIORITY_MIN; i--) {
+> >>           struct drm_sched_rq *rq =3D &sched->sched_rq[i];
+> >> -
+> >> -        if (!rq)
+> >> -            continue;
+> >> -
+> >>           spin_lock(&rq->lock);
+> >>           list_for_each_entry(s_entity, &rq->entities, list) {
+> >>               while ((s_job =3D
+> >> to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
+>
