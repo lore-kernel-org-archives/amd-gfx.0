@@ -4,88 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E84BFC00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 16:47:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23423C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 16:58:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1371CBC08F;
-	Wed, 24 Aug 2022 16:47:03 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2059.outbound.protection.outlook.com [40.107.100.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A3E11AE60
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 10:05:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fwPh6L1lcILcyWh1JozT6hgHrgISNYOAUiYtCu0HkLMQG4xUtfxg+Xt687rW8AAxKOY8y5OncJj1J/DTOKB35vukzZXSaJIhLFz2GtnLpa5dJJ4MPf59ukskK9/0e6gmBNjrzQhN/utLzoxNmyZE7lbO0iV41qT3Nu6f1jmxqKbyq0PG2K9EmxyhhNN95tXH8QdnSe9HaJARr1prBGBgrblZw0WyuMC7zL7+EbgsfiyMlBffLqhtz9zl8lCZvrSSIOKPYjrnW1ThhW0kHb8ln5LBqzhxsfT0vIzmmbVFWfagzouamH+31tWmExu1S36BEzcbvfXotNyO61mQVzBcxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cDiUZwgE/Dv3uJBDAH/9v8POifiKXr0QQOmOasK6NxQ=;
- b=NbbA3ybcERrYosPS0LBUmeZtK0xd0lHPuPULB5LXAwC6nu6pjRRjIzlwQ/5On7GYJLDHsBRHzeMjC8R4eoWOWHUSa1KnJqrMfBOhoQCUyHpy8bX94FlyFiI6G/Ajtb/emFVnM6J7aFJKnfCn3p9NLg/qRbeLgr569XwED0WLUnZCGBxbtsh/Mqn31toJXwuqJrWDdGOwGW05GJuZaGmYaOHFP+Sf5uyAsLi6alX/TIbG7E6fryH7UeQlQ4s5LB3vTTOzkpRyxgBNqYvRqiBX17e6UXnCKubbpThAX2xqzTGI4iEgt4XPEs0eNWSRiFOgVFysqKr+UWTBtnJaR+VLog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cDiUZwgE/Dv3uJBDAH/9v8POifiKXr0QQOmOasK6NxQ=;
- b=hQav6OuWIBn3dx2J5xDOlWTjo4xzbHto3EsG8mavFJgtoNZhVe6RDXv7w0YC42R8DrGh6w93xLn1Ur3YKICJvVLm8JhmAyMl1ZXsBpG9FrA6y2ZPOY9bH8r7EWOJBuhxtPGGk72KEjf6RxyAwAyFuZ9WZRlUTpltn0PvcF1yKRY=
-Received: from BN9PR03CA0184.namprd03.prod.outlook.com (2603:10b6:408:f9::9)
- by MW2PR12MB2428.namprd12.prod.outlook.com (2603:10b6:907:6::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Mon, 15 Aug
- 2022 10:05:00 +0000
-Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f9:cafe::dd) by BN9PR03CA0184.outlook.office365.com
- (2603:10b6:408:f9::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.16 via Frontend
- Transport; Mon, 15 Aug 2022 10:05:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5525.11 via Frontend Transport; Mon, 15 Aug 2022 10:05:00 +0000
-Received: from canli.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 15 Aug
- 2022 05:04:57 -0500
-From: Candice Li <candice.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix UBSAN shift-out-of-bounds for gfx v9_0
-Date: Mon, 15 Aug 2022 18:04:37 +0800
-Message-ID: <20220815100437.3207-1-candice.li@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A05BCA11;
+	Wed, 24 Aug 2022 16:57:36 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB1412A11C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 14:21:45 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id c185so8715926oia.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 07:21:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=uaTYe9PliYSAimx5WaPpE8t9m2pmil7j7JfXxitdH/E=;
+ b=DTjAQksBtQ70eldEbO6ifWYYMxqFuIQjgOZSBYOhHk6X1wLf6mJUJ5piynuOa55vvE
+ oRPvNRW9Sb4Kj9AOeWh0J6SCH87gs+Z52ZNLK05cmAynY9MuFhaOxqoazsmVSBdVQ7AH
+ kBKDiq8ZRdu+wNyFGCVnWvBJYXLEM0yULSdS404ZmDMLSNmUey9wMlwgoQ3wH5oLDrL3
+ ujPQiSiPjKO7Iip7bkqM1oKQpvINfXqMlFtyOVk38vx3/uAY/s3jhvTtpXfEW3ijNkVw
+ I0KU0w6Wabl0/SNqpP7Dd2wr9NvpGqnXF6zcLmPbzHNDD3fn/hJ2+hxBRT+n6T17CqbN
+ MYLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=uaTYe9PliYSAimx5WaPpE8t9m2pmil7j7JfXxitdH/E=;
+ b=kU8YhtW9xRaUDjyX5T9sRwSiBJdRrJV7KnHq8U+MHT9gKcOWmohcsc9L5cSV/0XvfO
+ oOgAx7Pxe/oswWk4lBa2HhAyG1TMaUccQtPIWbEbs74Vv7bGlROTNxyAF4/d/9Cecz8n
+ MmZ/r378hQENowWSIPLznm1T81x2P2asGUMFgKfc1bKrO2Fi8BGA2BtT+0b4IvDT4iK5
+ bFjdoH9iY4VUyGjdbwajyifE5tGEgHXkwOGCwOlfKqwAnYzX+Dmm3b+2+qXIOv3ZlnCX
+ hXGmsL1W+z25UOXTMUShlz9RSHVy/q+QFp8MFmpC0jBjwgYa6fAeTBIPafvFJ8xU2Wf2
+ kytg==
+X-Gm-Message-State: ACgBeo0hg/58KIKmBbmMr0l73qAnbQCHVqFvmnckYV01Giy46LGmEpu8
+ ETkvm4X3BLPJgetxQ3T9u2BnoMO91IlgRNTv9K0=
+X-Google-Smtp-Source: AA6agR7yTRw04AsJRf6WWXrhLxueTUAYBdnIO7oqtEV8Z1YNTf6TcT3OUalDAx5X9ThaSsujG4FpE6Q9vRBQuUmj4x4=
+X-Received: by 2002:a05:6808:1491:b0:343:7543:1a37 with SMTP id
+ e17-20020a056808149100b0034375431a37mr6150642oiw.106.1660573304854; Mon, 15
+ Aug 2022 07:21:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1081bccb-f24c-4412-3085-08da7ea59d85
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2428:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qN/WlqNPClmTwfUMbNH+b2Kutb3075tpqPTzxrZWG5IjkL8PieEbdF/W7Zmjmi4AC6RiaYQiL1wwTWS+Uyt89dpwR56psdhqFilS4yD/AJdnCUwqmp2rTmEvNAHB7TvcpqsHWsnTf95DFYJ8uVCzBeYY2iJDWe7lZpPGeve4xnmx1qda/wnbnDQveTPTICV6OdKmq5eOMo1qX0xPdQKNli5iOm4hz5TVDZyMvJsNPMktKq8Xa3dCOlAuv3pL7zc5rcIlsIfu5NZIsCKiW8zliK1ODuxHVj+JyWl8Hw8Zk9BzfXV5srg2YU7I2jhA97dk78d/j6Oy2yIF2PHD2XR2WytK/Y5HjcTys6ZP3+Pyu1wXZL1y/reUznZajK7xkHy60hKUt7lVy61soUdzxHFrAkyr3bpk6kFYtY63gI+M1RcgZetWYXIHa/DZCLoQchzOzz1L7xX+mrqLS4At/YecRPJOjWD3MzpI8CcRqk1ZS1VanHJhS9bRX3jbuL1DuUIgkXQDhyYfQCS0IWcwrTckAHU45ufeqz8My+jDFgYN8FV/6wzn2wfgcVqGFENZJzEz7/8zm0hnRJy577cjKmiqUrFexQYYsrpXLgKmUiW+D6IKNtL2ebVp+ahb3Gvww8NDsEltCMd4TcBgobYnB13Qzbw3EVI0CdJ3FpnOJWz5tR79OhbEMs9NGd8nocEUo/WT6wdDabudzieqM5AAh+hRQPgEwZk+dqQt6uTQjtl7mHP+Z3Fxt6//Rr1QHaqTXwHDyg9qW87fDl4TceBHDXB+OFp34YOcvOMSQv1VFb6iHeFoxHALC0coSLnJL90s48mX1dtqfU1sO6u2p/xvaG0R9g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(376002)(396003)(39860400002)(40470700004)(36840700001)(46966006)(44832011)(70586007)(70206006)(82740400003)(356005)(8676002)(4326008)(83380400001)(26005)(82310400005)(478600001)(6666004)(86362001)(41300700001)(16526019)(40480700001)(336012)(426003)(186003)(47076005)(7696005)(2616005)(6916009)(1076003)(316002)(40460700003)(2906002)(8936002)(5660300002)(36756003)(81166007)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 10:05:00.3020 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1081bccb-f24c-4412-3085-08da7ea59d85
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2428
+References: <20220815070512.452430-1-YiPeng.Chai@amd.com>
+In-Reply-To: <20220815070512.452430-1-YiPeng.Chai@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Aug 2022 10:21:33 -0400
+Message-ID: <CADnq5_NLzjD+4q0vF8n8JRaOf3iiGYoNN+W9K3FPLEP+_FHjUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: TA unload messages are not actually sent to
+ psp when amdgpu is uninstalled
+To: YiPeng Chai <YiPeng.Chai@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,44 +63,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Candice Li <candice.li@amd.com>
+Cc: yipechai@amd.com, Guchun.Chen@amd.com, amd-gfx@lists.freedesktop.org,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check shift number to avoid doing a shift operation when the number
-of bits shifted equal to or greater than number of bits in the operand.
+On Mon, Aug 15, 2022 at 3:06 AM YiPeng Chai <YiPeng.Chai@amd.com> wrote:
+>
+> The psp_cmd_submit_buf function is called by psp_hw_fini to
+> send TA unload messages to psp to terminate ras, asd and tmr.
+> But when amdgpu is uninstalled, drm_dev_unplug is called
+> earlier than psp_hw_fini in amdgpu_pci_remove, the calling
+> order as follows:
+> static void amdgpu_pci_remove(struct pci_dev *pdev)
+> {
+>         drm_dev_unplug
+>         ......
+>         amdgpu_driver_unload_kms->amdgpu_device_fini_hw->...
+>                 ->.hw_fini->psp_hw_fini->...
+>                 ->psp_ta_unload->psp_cmd_submit_buf
+>         ......
+> }
+> The program will return when calling drm_dev_enter in
+> psp_cmd_submit_buf.
+>
+> So the call to drm_dev_enter in psp_cmd_submit_buf should
+> be removed, so that the TA unload messages can be sent to the
+> psp when amdgpu is uninstalled.
+>
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index b067ce45d226..0578d8d094a7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -585,9 +585,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>         if (psp->adev->no_hw_access)
+>                 return 0;
+>
+> -       if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+> -               return 0;
+> -
 
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+This check is to prevent the hardware from being accessed if the card
+is removed.  I think we need to fix the ordering elsewhere.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7f187558220e9a..0b9215b6e4b316 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2494,7 +2494,7 @@ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- static void gfx_v9_0_setup_rb(struct amdgpu_device *adev)
- {
- 	int i, j;
--	u32 data;
-+	u32 data, shift_num;
- 	u32 active_rbs = 0;
- 	u32 rb_bitmap_width_per_sh = adev->gfx.config.max_backends_per_se /
- 					adev->gfx.config.max_sh_per_se;
-@@ -2504,8 +2504,10 @@ static void gfx_v9_0_setup_rb(struct amdgpu_device *adev)
- 		for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
- 			gfx_v9_0_select_se_sh(adev, i, j, 0xffffffff);
- 			data = gfx_v9_0_get_rb_active_bitmap(adev);
--			active_rbs |= data << ((i * adev->gfx.config.max_sh_per_se + j) *
--					       rb_bitmap_width_per_sh);
-+			shift_num = min(((i * adev->gfx.config.max_sh_per_se + j) *
-+						  rb_bitmap_width_per_sh), __builtin_clz(data));
-+			if (data)
-+				active_rbs |= data << shift_num;
- 		}
- 	}
- 	gfx_v9_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
--- 
-2.17.1
+Alex
 
+>         memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+>
+>         memcpy(psp->cmd_buf_mem, cmd, sizeof(struct psp_gfx_cmd_resp));
+> @@ -651,7 +648,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>         }
+>
+>  exit:
+> -       drm_dev_exit(idx);
+>         return ret;
+>  }
+>
+> --
+> 2.25.1
+>
