@@ -4,57 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B2A1C25B08
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:02:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B57C3F6B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1680D26CE;
-	Mon, 15 Aug 2022 19:02:31 +0000 (UTC)
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23513D0DC0;
- Mon, 15 Aug 2022 18:34:50 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id gp7so7630206pjb.4;
- Mon, 15 Aug 2022 11:34:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=fpZDxV3FuvKhUJk99+fRvjd0nkg0TSmKhn6atJ1wty8=;
- b=a1K+P6NVeHSYaQMtXr/LyitVsOi7nOVeQHeTYjzFN9ULPSC59iBbE8SiHTl0W/rmkp
- fRSn62nD1SfUPJnD+khvkRZfhjIkb2buWTPfmjYE3iLXaj2PL8HpwpVeWMCpyn+VPoPA
- EcvW9DMwcscmwN1+PMPMPCK4ZnFmomRZxjvDv9faTz7z4byWzH/tYj6oi6dl+MLug7+Z
- iXye3WTEZwDkiCrqGp9qidOfFhjaQC+Q46v85npKusBU4nnWRSViJMpATPWWUVZwU50E
- Tz7Fqbxb/Rv+uksfmWRJ21PhkVNDlBvCWVKL8X2xJkMapqilUATc3QDp6N0ERShI+EYf
- fZEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=fpZDxV3FuvKhUJk99+fRvjd0nkg0TSmKhn6atJ1wty8=;
- b=ffhowk6K+1OEf+1xvUn2qcqdFqHRVsVrNvj3py43vZWbe6bD1ilZpl8ZwEsbl955Jk
- GoMFWmGDr4t4Yz6dnZOEO55wIH1AnpTXrpaJVmg+mwu6TL/4RsQaPQhNtU7gCJe99Q/2
- OelzVoUBbMI3qt5Z+X3ncr74YopN5ZYBO2+jr4gHUQOpzRN5AasthIK6tRURL/ZPahqQ
- TLTyvc4u8/XUnLON26s02InO9O6JpUOm2T1Kok6OlUfHoOLmEntt/lIE4Myz9dbRO+2H
- VCA7Wlce9oVsCCtyK7dmCyRSQ6EaATyeD3h3H6yU5GCAmhKGZLPU++hxTLLVyZLQuS64
- J0hQ==
-X-Gm-Message-State: ACgBeo25h5vuXMeNRs9NzG4NkdNWHSUmEQMRxV/aZ9wABT6OR+alDM1X
- xaaPpiv0FPyRSuPS6UQzhKIQL77bSngjSA0r
-X-Google-Smtp-Source: AA6agR6DID+aTGefAK9b7+8YBYaTXPl4EGnNCw/qrKaz5t3HTdVMKH0b7FbPSyTAVyNyT+6GEmiRqg==
-X-Received: by 2002:a17:903:2601:b0:16d:b055:2985 with SMTP id
- jd1-20020a170903260100b0016db0552985mr18216404plb.161.1660588489692; 
- Mon, 15 Aug 2022 11:34:49 -0700 (PDT)
-Received: from fedora.. ([103.159.189.148]) by smtp.gmail.com with ESMTPSA id
- q6-20020a170902a3c600b0016c78f9f024sm7305175plb.104.2022.08.15.11.34.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Aug 2022 11:34:49 -0700 (PDT)
-From: Khalid Masum <khalid.masum.92@gmail.com>
-To: Ruijing Dong <ruijing.dong@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH linux-next] drm/amdgpu/vcn: Return void from the stop_dbg_mode
-Date: Tue, 16 Aug 2022 00:34:25 +0600
-Message-Id: <20220815183425.14867-1-khalid.masum.92@gmail.com>
-X-Mailer: git-send-email 2.37.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A945CD26D9;
+	Mon, 15 Aug 2022 19:02:36 +0000 (UTC)
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Aug 2022 18:15:14 UTC
+Received: from albert.telenet-ops.be (albert.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:1a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DE3CFECC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 18:15:14 +0000 (UTC)
+Received: from ramsan.of.borg ([84.195.186.194])
+ by albert.telenet-ops.be with bizsmtp
+ id 7uA42800C4C55Sk06uA4oE; Mon, 15 Aug 2022 20:10:09 +0200
+Received: from geert (helo=localhost)
+ by ramsan.of.borg with local-esmtp (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1oNeXL-001DJO-RF; Mon, 15 Aug 2022 20:10:03 +0200
+Date: Mon, 15 Aug 2022 20:10:03 +0200 (CEST)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+X-X-Sender: geert@ramsan.of.borg
+To: linux-kernel@vger.kernel.org
+Subject: Re: Build regressions/improvements in v6.0-rc1
+In-Reply-To: <20220815180438.2875559-1-geert@linux-m68k.org>
+Message-ID: <alpine.DEB.2.22.394.2208152006320.289321@ramsan.of.borg>
+References: <CAHk-=wgRFjPHV-Y_eKP9wQMLFDgG+dEUHiv5wC17OQHsG5z7BA@mail.gmail.com>
+ <20220815180438.2875559-1-geert@linux-m68k.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 X-Mailman-Approved-At: Mon, 15 Aug 2022 19:02:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,66 +46,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wan Jiabing <wanjiabing@vivo.com>, Khalid Masum <khalid.masum.92@gmail.com>,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Sonny Jiang <sonny.jiang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- James Zhu <James.Zhu@amd.com>, Leo Liu <leo.liu@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, linux-parisc@vger.kernel.org,
+ linux-sh@vger.kernel.org, netdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, kvmarm@lists.cs.columbia.edu,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no point in returning an int here. It only returns 0 which
-the caller never uses. Therefore return void and remove the unnecessary 
-assignment.
+On Mon, 15 Aug 2022, Geert Uytterhoeven wrote:
+> Below is the list of build error/warning regressions/improvements in
+> v6.0-rc1[1] compared to v5.19[2].
+>
+> Summarized:
+>  - build errors: +26/-15
 
-Addresses-Coverity: 1504988 ("Unused value")
-Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
-Suggested-by: Ruijing Dong <ruijing.dong@amd.com>
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
----
-Past discussions:
-- V1 Link: https://lore.kernel.org/lkml/20220815070056.10816-1-khalid.masum.92@gmail.com/
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: .cfi_endproc without corresponding .cfi_startproc:  => 32
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: bad or irreducible absolute expression:  => 16
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: junk at end of line, first unrecognized character is `:':  => 16
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: no such instruction: `be 0x100(%sr2,%r0)':  => 29
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: no such instruction: `ldi 0,%r20':  => 30
+   + /kisskb/src/arch/parisc/kernel/vdso32/restart_syscall.S: Error: no such instruction: `ldw 0(%sp),%r31':  => 26
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: no such instruction: `ble 0x100(%sr2,%r0)':  => 51, 46
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: no such instruction: `ldi 0,%r25':  => 44
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: no such instruction: `ldi 1,%r25':  => 49
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: no such instruction: `ldi 173,%r20':  => 50, 45
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.callinfo':  => 40
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.entry':  => 41
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.exit':  => 54
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.proc':  => 39
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.procend':  => 55
+   + /kisskb/src/arch/parisc/kernel/vdso32/sigtramp.S: Error: unknown pseudo-op: `.stringz':  => 76
 
-Changes since V1:
-- Make stop_dbg_mode return void
-- Update commit description
+parisc64-gcc11/generic-64bit_defconfig
+parisc-gcc11/generic-32bit_defconfig
+parisc-gcc11/parisc-{allmod,allno,def}config
 
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+   + /kisskb/src/arch/sh/include/asm/io.h: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]:  => 239:34
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index ca14c3ef742e..fb2d74f30448 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1115,7 +1115,7 @@ static int vcn_v4_0_start(struct amdgpu_device *adev)
-  *
-  * Stop VCN block with dpg mode
-  */
--static int vcn_v4_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
-+static void vcn_v4_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
- {
- 	uint32_t tmp;
- 
-@@ -1133,7 +1133,6 @@ static int vcn_v4_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
- 	/* disable dynamic power gating mode */
- 	WREG32_P(SOC15_REG_OFFSET(VCN, inst_idx, regUVD_POWER_STATUS), 0,
- 		~UVD_POWER_STATUS__UVD_PG_MODE_MASK);
--	return 0;
- }
- 
- /**
-@@ -1154,7 +1153,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
- 		fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
- 
- 		if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
--			r = vcn_v4_0_stop_dpg_mode(adev, i);
-+			vcn_v4_0_stop_dpg_mode(adev, i);
- 			continue;
- 		}
- 
--- 
-2.37.1
+sh4-gcc11/sh-allmodconfig (drivers/staging/octeon/ethernet-mem.c)
 
+   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c: error: the frame size of 2096 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 6806:1
+   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c: error: the frame size of 2160 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3778:1
+
+x86_64-gcc8/x86-allmodconfig
+
+   + /kisskb/src/include/linux/bitfield.h: error: call to '__field_overflow' declared with attribute error: value doesn't fit into mask:  => 151:3
+
+mipsel-gcc5/mips-allmodconfig (net/mac80211/tx.c)
+
+   + /kisskb/src/include/linux/compiler_types.h: error: call to '__compiletime_assert_603' declared with attribute error: FIELD_GET: mask is not constant:  => 354:38
+
+arm64-gcc5/arm64-allmodconfig (arch/arm64/kvm/arm.c)
+
+   + /kisskb/src/include/linux/random.h: error: 'latent_entropy' undeclared (first use in this function):  => 25:39
+
+powerpc-gcc5/powerpc-all{mod,yes}config
+powerpc-gcc5/ppc32_allmodconfig
+powerpc-gcc5/ppc64_book3e_allmodconfig
+powerpc-gcc5/ppc64le_allmodconfig
+
+   + /kisskb/src/include/linux/random.h: error: 'latent_entropy' undeclared (first use in this function); did you mean 'add_latent_entropy'?:  => 25:46
+
+powerpc-gcc11/powerpc-all{mod,yes}config
+powerpc-gcc11/ppc64_book3e_allmodconfig
+
+   + {standard input}: Error: displacement to undefined symbol .L377 overflows 12-bit field:  => 2286
+   + {standard input}: Error: displacement to undefined symbol .L378 overflows 8-bit field :  => 2302
+   + {standard input}: Error: displacement to undefined symbol .L382 overflows 8-bit field :  => 2213
+
+sh4-gcc11/sh-allmodconfig (seen before, root cause is internal compiler error)
+
+> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/568035b01cfb107af8d2e4bd2fb9aea22cf5b868/ (all 135 configs)
+> [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/3d7cb6b04c3f3115719235cc6866b10326de34cd/ (all 135 configs)
+
+Gr{oetje,eeting}s,
+
+ 						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+ 							    -- Linus Torvalds
