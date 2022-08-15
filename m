@@ -4,119 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1995C00140
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:12:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CF33C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 14:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA30BB62B;
-	Mon, 15 Aug 2022 13:12:50 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEE25C5D31;
- Mon, 15 Aug 2022 13:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B42B5983;
+	Mon, 15 Aug 2022 14:07:47 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2086.outbound.protection.outlook.com [40.107.100.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4505C8B57B;
+ Mon, 15 Aug 2022 14:07:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xx/+yFx62zwolwPhBtsJ3EhFv7dJF1bi1mmscGGN+hlnI1pAxF8ptfolkTvetRS3QQtRW7B13ZRKxMf6tWLUXhGVGiRnf3ZPLK0vnXsPBS0HXdMh8KB+52gCfjTBlsXzsmphPX8Ped2L/mB8tV51mEpRpa493470MrgAPdl/USUv5xXlyi7DIXWBLfoH3V5kSfOaxXLoEyT8jPN8xmM+kIU3Hh9U1ppWL0cdpk5ROhcaH811056WI9Or3UsaEyczM9Dx8zcpLmmJ0V9LVRWgd+3BbF2ezHIYp28LHROIFT4fFAjbiNwA+mC2ZrsZZIjXfRptmtwYfwOt0htjBY/C1g==
+ b=Nz/zSYvkhQuJSl3pnbSxE8UO1KI7Swqw8NjPLe00J+fPfFnGSC09n89czxvQBDlVbwdaR5iDxBdTAFKGBLTkoRLZG7UmhK/taaBMD2eODU9YDhrakglmE+3op3wfRQim/a/5ZrEpTs+ImdIXAq6F9KsZZU/MkOsG4r8IhYzu+Q6nKJd4ouRC30QSOwF+mdTVZ4/sZiN9A2+fuGwIEgOz0t+xTO09+jweF2Q/QJpzCSArMICd+Im40Iab5Zk7Psjx+5YXFz7iSdfQLzvlUHGOUYhvFz02RJ6QsQ3Z9kXPOJaCAPiDRwDqVyFTK1KEpuW5os1I7aLE4R21HfTc5SWY8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bQSq4wxA2nuQU5tz6eTzbLn6+CgrZlpIzvYwJd8vOlA=;
- b=jpAQq08coj/3h9obVZ1TCJe0KFBhW3jFDMZoZXTeucf+dIOY3EvCt/glegABbHFstmHBarXl1XFPiWzu1Za7DyHv+j6Y3msUTMgk+D0n4Tbw4j3lq7HzYfuvwEqsfMbHTdlUGxjlJryyUd+ei7qt6S/tCRm0s7VjyEHPPa6ta3M4NRwbT7SNERcB3T2LwRoiyq5IHYHk6O/P5jTuZbB+u9dPyWraEUXNXHCWvbAzg08etilj76Mr8ju826uQFZjBV7YPJCA+14m9AVWbRKmBkdzsJ5DFg8Hl4bfJLMH4Fg8ozhMP8JpShjdPTwp9nYaP9MFmPpb/OO7BcAyrjxjYfg==
+ bh=xUpBy66JAtqF8GoXjy5DrLL6hMPyV0F//b8U8BIeK2A=;
+ b=Zc7W27v/KVyJVaOOuvHBkSmzgL6so/gpa2pGLF5DLwhs19p4qcM4yqGe6MhSSuVpJUuznMExh6mSYhkAbDn7fHCcoG2alZEGis0YIFqZPzBPPzUo24iaHL4I8wLkfGIpxIK3J01F04cMEoWaHa0A6PxSF4eSdvS/zoTpNxvSC6yJyUnaEd3xfe9I7t0YaSDQdk6KMtWHBs0ko7P7FVqiPMGuEZpHgUM7LiznJ7qgsdx+2/q+s6VCE4GIjj9e7CeJ0n03AaLpm7O94/O0xw8sE48x8hKXKpWSsjOh4Ig1e1IPHn/5IZBngVLB9GqBcjVsWrJ/tuWZXj80/mJFkn0yMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bQSq4wxA2nuQU5tz6eTzbLn6+CgrZlpIzvYwJd8vOlA=;
- b=43fLkNUyBHsWUtnkWbnNKsVcLCtTxDrhyWdIlUTebVxD73L1tMNjstMqP+NFpc6VWoCaxqEe4XdbTtGisnthzg+C2bVwHqtgB7MZiNQWKF378jxZFCPXFgogJlTOVmwSfARrnmxzADzk7DQXvZbPCDkZfOTH+HDtRjcsI2assA0=
+ bh=xUpBy66JAtqF8GoXjy5DrLL6hMPyV0F//b8U8BIeK2A=;
+ b=oim0cUY/ci31zDPCyhNiVsjA1IgmbcRlBTdmx5ebiuUSx+CijX/5M89FsVzcc3hvuX88tJAHTKDVW2NedFDiIhE6oD1ACfkeHlYGsRsQTQTgAg4BNmXn/rkbx0n5naj2pTdbzFgSGcJIwPia6ynFIPQ5lkNRs9wO9QgU/s+pfuw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM5PR12MB1788.namprd12.prod.outlook.com (2603:10b6:3:109::19) with
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
+ by DM6PR12MB3801.namprd12.prod.outlook.com (2603:10b6:5:1cc::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Mon, 15 Aug
- 2022 13:12:23 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Mon, 15 Aug 2022
- 13:12:23 +0000
-Message-ID: <c3c1310b-5e84-e4e9-0df9-3f45c976a508@amd.com>
-Date: Mon, 15 Aug 2022 15:12:18 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Mon, 15 Aug
+ 2022 14:07:07 +0000
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::41d6:e904:8340:1570]) by DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::41d6:e904:8340:1570%3]) with mapi id 15.20.5504.027; Mon, 15 Aug 2022
+ 14:07:07 +0000
+Content-Type: multipart/alternative;
+ boundary="------------h83oWwEiZhOcjMJE0MQy1JIG"
+Message-ID: <aaad4922-48a8-e360-4176-d8ed30b123df@amd.com>
+Date: Mon, 15 Aug 2022 10:07:05 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/radeon: add a force flush to delay work when radeon
-Content-Language: en-US
-To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20220811072540.964309-1-lizhenneng@kylinos.cn>
- <b23e4037-2030-32d0-d626-b5a846fcafeb@gmail.com>
- <db2a43da-256d-402e-882b-c05436d4e83b@kylinos.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <db2a43da-256d-402e-882b-c05436d4e83b@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0116.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::20) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ Thunderbird/91.12.0
+Subject: Re: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
+ vcn_v4_0_stop
+Content-Language: en-CA
+To: Khalid Masum <khalid.masum.92@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org
+References: <20220815070056.10816-1-khalid.masum.92@gmail.com>
+From: James Zhu <jamesz@amd.com>
+In-Reply-To: <20220815070056.10816-1-khalid.masum.92@gmail.com>
+X-ClientProxiedBy: CH0PR03CA0099.namprd03.prod.outlook.com
+ (2603:10b6:610:cd::14) To DM5PR12MB1753.namprd12.prod.outlook.com
+ (2603:10b6:3:10d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e10d7949-8940-425f-b7ab-08da7ebfca84
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1788:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22d75adf-b722-4324-1e1d-08da7ec7704c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3801:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J9Vl4qKqMYlExBJ063GhvRSSe2Fz65yfUaEzQZP/wiWANyq+TBfD5roQoY8qtR61J8PAVlRWBM1VuR4bVVBDod6dnu++aDgUHfmtAIzBLxahlVuaMNlWNfUsNqcs3KNsliMvNz5agDjeT5VfK6B9LzNaTcA7kYise2qYSBOx4CywXJHbKsMgLRo8uqMdPkAZU8EaipiY/LhhYIcHuLymiuuAZRLjOoSb8T4z9ArmA7WhEsM6VjmOE3CbbJ+PTnGRF6vuqX4PpqOC8Aa2ERiQxzVJIuV6J2/VdpQTONvhv0Qjp4ZdVLpRKx+WDZXTgMHvbSmGlSsbRsf42CgckPsGuJb5P/TVIpjmcGJ5vQMLr12ifj3Jr7ftNNeFRElXoB//zXDCcYGbcIh3DxUunGRE5L5wbYMO2naXLs8sGuA0/4LmENWO/1kmRPtrj75c9J03S2ONRJZkZ8l7WZ043G8V4dVNPTG2AVW1kb8UseNfKbryRjDuV3MeG6grrsXBWP4IOSXUHFyFaEN6ceS688FMeC+RSvXEBYAx8n5d8XSaB3gI1QK3Qv+zG0a+FsfvZjtry3HUfixJXFPw5gzdpeQt3Z5SrR8AevrcL6VnWxZjAG/Su9EQLsxmpO92Pt4K/5F4/Sa/W2Ome2OP+xBT2P5+fr4yRY31c5FwYOUEzIrM7cLWlyXv3oJx1+Ah13kjemvc4z+SZAjjnq3uTZnOo6xyCTxe3ID6yZlDMU37pJlRujDi0/5e6CM32eLVqyLB5EkAY9L5oTJYLPvpsrUNENzGFmEEX1bx2fQLt4hSU3pE1J48HI0eAs6h1oh5NjDbBhli7hyI8g/ssXWvm8O6Dtamtw==
+X-Microsoft-Antispam-Message-Info: 42ML1rdJKokKH8ifHIVNjHVgYeaelnWsyO4m+89mgbpKhhTfgi+2yd1r7EZvu/QLhKCinxY/cx/QXDoAu7M6sHIsevxZ8EMWk6VI6JlDfchZRctxMOCmBnMGwse7wSX99k6LVWn1jbSkj0GN0CsewHm4ROEra7J8HwNrVaS5GPdIGL+IT35C+fNx4vgGO7nxFwkcEl5TthBsvciXEu7cWBgi/SuUwJATb1kWxpx8kt46rlMl8SbuiLFY5M646CnqFh38rimLC8rw9cW2KyxJ5VIlogZKhuB49CH6INRtad2X1eZi/9GAQ9gV4l5W+UZV5o+42efWR66+qzS75hmy6g8RkdGX96cdJsd7WwB+oKgRlsK5h3B0Y1QKOTzGY+/Sc3c9hbshM2WIDt1yVj9kb155uMVBdrBTCOBdY+pntfu74rA74LjInNwmrcbPN7iduzJICJzwbIrt2zfEUcUFDvA+W96QJpPIlvIZe4aA/o4SuwBUFjmZltpYECGm6tSHKssgoTnOWHb4dJ9576uwhly0q6HVmwFR1C+3I0RPgCwq44s7fauyddVWoaVBRaEnmoIte9JB86FzqUx2nkogCeY0nAclv0Up5BqS3XW5ii6miO+OnM+uWds9ogxw7GfTHO6BtuoB5kT6/ZQ8oR1o6YOS0M1yqXRZTpyZnUmybGRBtEDMPtY9k5mq55nsXhPq33icK1XBr5CMUmrji0Cr4FW28v8C2x3WI34sic2uMdIfufrynEQDekT/UG6dkQgTXT7sAv1Tjnt6+ge0fGVDT5lYikUR0Ze141/WygCGwDw0I1V/IBqugOGNp9MHgMwG
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(54906003)(41300700001)(2616005)(6666004)(86362001)(6506007)(186003)(36756003)(6512007)(66574015)(83380400001)(316002)(6636002)(110136005)(31696002)(4326008)(66946007)(66476007)(2906002)(66556008)(6486002)(5660300002)(478600001)(31686004)(8676002)(8936002)(38100700002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(376002)(136003)(39860400002)(366004)(5660300002)(2906002)(33964004)(41300700001)(6506007)(31696002)(53546011)(38100700002)(83380400001)(2616005)(478600001)(186003)(6486002)(26005)(6512007)(54906003)(316002)(36756003)(66946007)(31686004)(8676002)(4326008)(66556008)(66476007)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXJzS3hUWU5BclNyQ0lhWDJZbFdZL2haSGdzZXNVZU5CYzZta2hUMmZ4N2pz?=
- =?utf-8?B?Y1llL2VaNk5xK21idWJBcTBvQ0RWcG5iNEpZd2xVK05UOG56anVGRVZoQzZm?=
- =?utf-8?B?ZDkvTzdqM1NURlNWQ3Z0d0Y3bzArVnhuVmxDNUNnVlI2c3BpZW5WcUJ6WVpx?=
- =?utf-8?B?WlVXeUQ2L3dJTkVIY2RrYmducXZoU1QvdERCZjRsUVNWdGkxcEkrT3RoWUF5?=
- =?utf-8?B?VW85MnU3RmhiRU4rRU5UOElOeGFjTDhvNEI5d3QzOFh1Y1BEbUJEbGRuV2Rv?=
- =?utf-8?B?ZW1laEd0S0Vma0twVkxLS2M0cS9NUVByVEFiQjY0UWJXblRMVkljVkVkYzlq?=
- =?utf-8?B?dHc5d2FDc0ZnMWpVdHIxYmFEaHkzZ2FHb0pCeEY4aysxc2VJcVNrczBRT1Vz?=
- =?utf-8?B?UWJheXFnVUt4cmpYWnJWV2pnOHJFYTRhSEwyVjExVkMydGZISTgzQWFzYmQ0?=
- =?utf-8?B?N1M3YVJSZjM1dlJtMjA1YnByeTd4Nm5za3BWWlIvWHgvUUdScGFmaUR4VHJm?=
- =?utf-8?B?RTh2T2ZnbHhxMmpodVRVOFhiakwzOWVXYUFGT0RhUUtESnZSUlZ2VGdnRHk2?=
- =?utf-8?B?MnBtZ00xcEMvemE1WFhpWTdJTWN0ekFCbmIxZms2NlV2YmpManp0eXdyRjJ5?=
- =?utf-8?B?NHJTdlBseUxjS2VnRC9VSS9SU0wyV09YLzVWSWpPcEMxd1R6UTE3YTZxOGtB?=
- =?utf-8?B?b2JTaXUxTEhubEpleWd5Y3FGdGtibUlGM0NrWVJXNWxnVW94anRIVUN0S1h4?=
- =?utf-8?B?Q3kwdkU5U25WelpjRmRkNFFOTUFjb0FRMTZPNzVXMG5Lb2VIcGVVTXFaaEFm?=
- =?utf-8?B?c2t3djc0c2s0RlRPUyt2NFZ2RTBzOFNyZDlSLzU0NlJNUlgydVRPS0FKcXpI?=
- =?utf-8?B?STAwaGkrM05PaTJGYkRqaWVZRW1uK0h5aWxoaDdxVDlkUGk3aS9IN0ZhbmYv?=
- =?utf-8?B?dG9wbjVGVlI4Tk5uSHJnZi9FUENEd080aFMvTW0wblh3QnlHS2hEYlI2VGtO?=
- =?utf-8?B?cms0czM0eFp1L0lnZjhic0ZObUdNaXRzeHpPS3dVcEpEYmpxaHZQaEVDdW54?=
- =?utf-8?B?T1NyeGZZRzhScmpVeENabDdraFljVHp5R2FOaEV1VkFUK1dHVmNIVml3OFNN?=
- =?utf-8?B?QVdIMzZFSEt2enVOS0N4MjVrR2hhMUJSTG5RTjU1LythY0VEQXRzclFlMkE1?=
- =?utf-8?B?Z0hueHBYK2E1RVVmS1NHNzEvc0oya3RMNnlVbUp1U1BCcTNsRm9qUDE4bGRV?=
- =?utf-8?B?UnVXcjFrVW84L3d4MTM3UzUwTmVaNGNIT2Y5VVRoRHlRMW9lYTY2Rjg1UXdQ?=
- =?utf-8?B?eFh5QlJkTGg3ZXFlcFFDREtQKzVydDRTTmRZNXdwclhWZ3FveVd0MkhoRTN1?=
- =?utf-8?B?eVJNa3Q4eUg5K3JzWTdWdHloVDFvMFRScEExYW5jMEVJamtnV0VuTDN0cU5N?=
- =?utf-8?B?TGVFdjJ3SnRHc3A2Um54cGlDMHdqOUxEYUdWanR4ak9vbDQwcDBwKzN2Qm1V?=
- =?utf-8?B?SUR6MmRlQW5RSUh0MW4rc1o3aWZhdmZINjhQZ0hRSjB3VXNYckJtMFlKTXpk?=
- =?utf-8?B?VGxpNXJRQUxQTStaakN6UlhFQ2JLdGJRemxOUTEzWmNuWElXREFlUFkrMWQv?=
- =?utf-8?B?a1VDOVozTHA0M3hmRStFdjdtZG1BVDlwOTZDNlp5VlNZS0RramVYU1NrdWRT?=
- =?utf-8?B?cFh5ZW5hMXZpKzdKNGFEYjVRZWVsTFFQOHlyazlyU2Z4VU1ZV2laVXdHcGk1?=
- =?utf-8?B?OWgzK3JLWXlXSU50RVNyd2wreTZKRFlUVlRiNlFsNjdWOVJpN09GWGpNUHl1?=
- =?utf-8?B?TzkyTmtPbVRrNTNpTUl4OFFxejhsZVlnUWVYYktjWnBxOGEyZ0ZpM2VqelRn?=
- =?utf-8?B?MkpvT3Q0cE9NYTRtbXI3R0dncDNETk5aNFkvSkIxQVhHL0JDZ3hQbmppVWtL?=
- =?utf-8?B?a2FzNXlnanAzeTJFOWVnVDdYa2dqWjBRT3VWeDd0TmQ5SXJBSUc1SVdZK2E4?=
- =?utf-8?B?QU8xL0ViNy9pd21leHJWbVcyMmx2bjdRQmlPRmcwaDNvTk1LWGJTWXVlQmVK?=
- =?utf-8?B?ekJ0OTFtNHErYTJQcWg2KytyZVJmWGFkeURjNExrald2bWI3ZFp1Znh6dXpN?=
- =?utf-8?B?bFAwOWJJeUdNdVI0blp6TUFXMWxXQTBHYlErUGpHRG5nSVl1Vmg4TU5LTWFG?=
- =?utf-8?Q?d4FIWckU8NvOdzejuGrqjfYIRKtcbhzEUYurMGSU0QP0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YTBrTHM2VHNNRUx6U0JERzJreGprV3plQTNRV2syMURGTUgyc1d2NlFleldz?=
+ =?utf-8?B?bmFaNzJJKys0SkhnM1JSMXdobEZXdnJ1dUpvYWdlY2hMV2l2RXNSMExFSmJi?=
+ =?utf-8?B?cS9hbTg2Z2swVTNIZTVMNm1MTW9HMG1BVmFyeWM0Z3R5c0xZcUkrckpsZkNC?=
+ =?utf-8?B?ZTNJMFUzNEQwNGZ6eUR4TFJzLytES1NibmQwZDJhaXZYUUZWRGV1cU1CaklN?=
+ =?utf-8?B?REhsVUl2MyttSGluTXcwa2pOYUJhd3BFd1Q1N2x4b3pKNXFHbG1YczNqTmwz?=
+ =?utf-8?B?S1QrM2w2R1dZTDJuTDlCek5xVmVmb3M4UHZvdytRSy9oSHcxYi9QWE9MUk5U?=
+ =?utf-8?B?eDBsbWxmbTB1YVplbXMzUmRkVzhxb0lxVXB0UURsYlh2SVcxTUtoWGxLUnBm?=
+ =?utf-8?B?aGVCSDNMM3JUc3lDZmNWdmw5aFZOS3hIQUZGNG5PUXcrQWM5Q0hTUkw5cWxn?=
+ =?utf-8?B?WkRRaUxDTm90b2VtRFlSV1Juc3Q2WTFheEliRTQvY256c1hyS2R3c3BoRURx?=
+ =?utf-8?B?di9GZk0yb2RLdHl3Nm9RY2xFd1QxOEo3eDJUTENjTEZtdHBrYmxFNUZrVVFY?=
+ =?utf-8?B?bTlYVlE2OGZsVzh1TXFWNUNEa2hGb3VtNkhtOGpheHFpd0h4VVc5aTR2TTlZ?=
+ =?utf-8?B?ckFOdlpuVTJjdFJoYUZqRkRLdkUvSWppZDFDYThVT3VQbXJJWE8rdldTOWJu?=
+ =?utf-8?B?eGQvUUZJN25zRHhpOFo2UUJza2tFSytWS2wySkwrK212RVNFZUs1YTdVVzBa?=
+ =?utf-8?B?Qi9zYXBJcWtua0FnVTVhWVNtN0ZrbVpFVzg3bUVscktHeGJGQjFiYVZucE1l?=
+ =?utf-8?B?N0t1YU5zN09wdVFGZzVob1dvdXlNM2FFekQzZUtaN2ViTlZ1bHpBWjFveG95?=
+ =?utf-8?B?YVVsWE5PSFcxNGNpaE1xcENGU0RRUGhETlljdTh0R29Rb0M1MFd0WFFXM3hs?=
+ =?utf-8?B?VzUyM0RrdC9KditQVHJnUkFIWlUrQUxxT2RqL25paWJWWDRDREdiNUdDQlNM?=
+ =?utf-8?B?dmIxSmdoVXJiM2RjbGxyVmF2L3N3eS95dEd2MWx0dXRGMlo1VnBTckplMzE2?=
+ =?utf-8?B?VkJuTTBxYWNwNkdSb3ZaaDZ4a3hZbVlXeFhCN25SckhVL3NKNURISmF2eEJ5?=
+ =?utf-8?B?dXlwNzMvd0MwTnFaaUJ2M1h5WHhFK1ZQMGNVbmNCNStaM2hWY2xHS0VSTmhn?=
+ =?utf-8?B?K1pYRzZnelRYMkxOYkFnUmk1allDWWhLdy8rQlhQU2MwY0g1bXRhRS9kNEtp?=
+ =?utf-8?B?ZnhhTVFuOW9pZ1IrZzZmNnFETW5HbjlMYTlkdUU3V09zVFRKaFdYVGJOdFlS?=
+ =?utf-8?B?RW5rNC9YbzJDQ2ZKeWR0c1VvT2VycitOaml4S21QY2NIb1lCY2I0ZGJ5ZHlP?=
+ =?utf-8?B?bm1GR0pPcTc5QnNXTHp1cWpSc0pOeTk0Z2pmcndXTTRMVXh1Nmh4ZFBxbERY?=
+ =?utf-8?B?VkJCakgxVnBWZVBsNGF4cFpucHEzcHUyZ25pVEdUOWVLTy9XWDl6NHZ1M0NB?=
+ =?utf-8?B?MTNBb1dlbldLZ0MrbEt2enlKSUxQRi9XSEt1T2lnNXZINUVZeHViSmdKQ20z?=
+ =?utf-8?B?VklyWXI5OUVmT1FiejU3Nm5vVGlrTDNUdGlKS2ZYRjA2dVVTOGZxYUk4bzEy?=
+ =?utf-8?B?TGF6U0laQ3RpUGp1WHJDZGJ3SUExcVlKY05pd3lOdERwM1RJZk5tZUF2cEFE?=
+ =?utf-8?B?Y3BTWDhwNjEra3U0elNwT3MrK0hwbGdYNmxFc3FYUUdwMm03emhTOTkwbXFu?=
+ =?utf-8?B?R0tkK0dVVVlPYzVpS3hWTFo0UHRMY1M5NjlIOGdPdHREL2VLZ015VDZBQ3NY?=
+ =?utf-8?B?cHlCbGQxMkJXYnZQYm45OXEvTzB1ZWIvZ2xyQTFuVGRGOFgydldaTTVIdzFN?=
+ =?utf-8?B?TjF4ejh2eFBobXF5YmEvaElEdm9wVWxwT0NUOGFNVkxyUmp3WnA2YU92ckwz?=
+ =?utf-8?B?Wmhkc1R0M3FMeXFxR29CMFlTSEN3VXNhdGVaakorclB0blpWblQ0Z0M0SGFR?=
+ =?utf-8?B?Rkx6K3VSNlFJeW02N3JraVF3cUc3QmhXa0JpWWdMeVIwZXJHQ2YwN2tqWmtK?=
+ =?utf-8?B?T1FTdFpLTVBsREhzenUrdDVodmNTeGV4c1h5TlN5Vi9EOVZJVWdaemF0RTVw?=
+ =?utf-8?Q?cVq/wMyV1NMYkkgXjA3eHfVzx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e10d7949-8940-425f-b7ab-08da7ebfca84
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22d75adf-b722-4324-1e1d-08da7ec7704c
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 13:12:23.0551 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 14:07:07.5693 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ahszCX0VXaEKbSLxK4/KuT/XWGjYguRSi2uyU442aUmPDzrWus+TJcJKUPjLdBNn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1788
+X-MS-Exchange-CrossTenant-UserPrincipalName: T5/SXUwDITbQkMpJACpSuCjqNsfQtZ/Ow4ajYZ9dJK3hvvyNNA9UWzC0rBLaagvI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3801
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,108 +126,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
+Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Sonny Jiang <sonny.jiang@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Ruijing Dong <ruijing.dong@amd.com>, James Zhu <James.Zhu@amd.com>,
+ Leo Liu <leo.liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.08.22 um 09:34 schrieb 李真能:
+--------------h83oWwEiZhOcjMJE0MQy1JIG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+ThispatchisReviewed-by:JamesZhu<James.Zhu@amd.com>
+
+On 2022-08-15 3:00 a.m., Khalid Masum wrote:
+> The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten
+> before it can be used. Remove this assignment.
 >
-> 在 2022/8/12 18:55, Christian König 写道:
->> Am 11.08.22 um 09:25 schrieb Zhenneng Li:
->>> Although radeon card fence and wait for gpu to finish processing 
->>> current batch rings,
->>> there is still a corner case that radeon lockup work queue may not 
->>> be fully flushed,
->>> and meanwhile the radeon_suspend_kms() function has called 
->>> pci_set_power_state() to
->>> put device in D3hot state.
->>
->> If I'm not completely mistaken the reset worker uses the 
->> suspend/resume functionality as well to get the hardware into a 
->> working state again.
->>
->> So if I'm not completely mistaken this here would lead to a deadlock, 
->> please double check that.
+> Addresses-Coverity: 1504988 ("Unused value")
+> Fixes: 8da1170a16e4 ("drm/amdgpu: add VCN4 ip block support")
+> Signed-off-by: Khalid Masum<khalid.masum.92@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> We have tested many times, there are no deadlock.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index ca14c3ef742e..80b8a2c66b36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
+>   		fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+>   
+>   		if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+> -			r = vcn_v4_0_stop_dpg_mode(adev, i);
+> +			vcn_v4_0_stop_dpg_mode(adev, i);
+>   			continue;
+>   		}
+>   
+--------------h83oWwEiZhOcjMJE0MQy1JIG
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Testing doesn't tells you anything, you need to audit the call paths.
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>
+</p>
+    <pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This<span style=" color:#c0c0c0;"> </span>patch<span style=" color:#c0c0c0;"> </span>is<span style=" color:#c0c0c0;"> </span>Reviewed-by:<span style=" color:#c0c0c0;"> </span>James<span style=" color:#c0c0c0;"> </span>Zhu<span style=" color:#c0c0c0;"> </span><a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a></pre>
+    <p><style type="text/css">p, li { white-space: pre-wrap; }</style></p>
+    <div class="moz-cite-prefix">On 2022-08-15 3:00 a.m., Khalid Masum
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20220815070056.10816-1-khalid.masum.92@gmail.com">
+      <pre class="moz-quote-pre" wrap="">The value assigned from vcn_v4_0_stop_dbg_mode to r is overwritten
+before it can be used. Remove this assignment.
 
-> In which situation, there would lead to a deadlock?
+Addresses-Coverity: 1504988 (&quot;Unused value&quot;)
+Fixes: 8da1170a16e4 (&quot;drm/amdgpu: add VCN4 ip block support&quot;)
+Signed-off-by: Khalid Masum <a class="moz-txt-link-rfc2396E" href="mailto:khalid.masum.92@gmail.com">&lt;khalid.masum.92@gmail.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-GPU resets.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index ca14c3ef742e..80b8a2c66b36 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1154,7 +1154,7 @@ static int vcn_v4_0_stop(struct amdgpu_device *adev)
+ 		fw_shared-&gt;sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+ 
+ 		if (adev-&gt;pg_flags &amp; AMD_PG_SUPPORT_VCN_DPG) {
+-			r = vcn_v4_0_stop_dpg_mode(adev, i);
++			vcn_v4_0_stop_dpg_mode(adev, i);
+ 			continue;
+ 		}
+ 
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-Regards,
-Christian.
-
->
->>
->> Regards,
->> Christian.
->>
->>> Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
->>>> Configuration and Message requests are the only TLPs accepted by a 
->>>> Function in
->>>> the D3hot state. All other received Requests must be handled as 
->>>> Unsupported Requests,
->>>> and all received Completions may optionally be handled as 
->>>> Unexpected Completions.
->>> This issue will happen in following logs:
->>> Unable to handle kernel paging request at virtual address 
->>> 00008800e0008010
->>> CPU 0 kworker/0:3(131): Oops 0
->>> pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 
->>> Tainted: G        W
->>> pc is at si_gpu_check_soft_reset+0x3c/0x240
->>> ra is at si_dma_is_lockup+0x34/0xd0
->>> v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
->>> t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
->>> t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
->>> s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
->>> s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
->>> s6 = fff00007ef07bd98
->>> a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
->>> a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
->>> t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
->>> t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
->>> gp = ffffffff81d89690  sp = 00000000aa814126
->>> Disabling lock debugging due to kernel taint
->>> Trace:
->>> [<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
->>> [<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
->>> [<ffffffff80977010>] process_one_work+0x280/0x550
->>> [<ffffffff80977350>] worker_thread+0x70/0x7c0
->>> [<ffffffff80977410>] worker_thread+0x130/0x7c0
->>> [<ffffffff80982040>] kthread+0x200/0x210
->>> [<ffffffff809772e0>] worker_thread+0x0/0x7c0
->>> [<ffffffff80981f8c>] kthread+0x14c/0x210
->>> [<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
->>> [<ffffffff80981e40>] kthread+0x0/0x210
->>>   Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8 40230101
->>>   <88210000> 4821ed21
->>> So force lockup work queue flush to fix this problem.
->>>
->>> Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
->>> ---
->>>   drivers/gpu/drm/radeon/radeon_device.c | 3 +++
->>>   1 file changed, 3 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c 
->>> b/drivers/gpu/drm/radeon/radeon_device.c
->>> index 15692cb241fc..e608ca26780a 100644
->>> --- a/drivers/gpu/drm/radeon/radeon_device.c
->>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->>> @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device *dev, 
->>> bool suspend,
->>>           if (r) {
->>>               /* delay GPU reset to resume */
->>>               radeon_fence_driver_force_completion(rdev, i);
->>> +        } else {
->>> +            /* finish executing delayed work */
->>> + flush_delayed_work(&rdev->fence_drv[i].lockup_work);
->>>           }
->>>       }
->>
-
+--------------h83oWwEiZhOcjMJE0MQy1JIG--
