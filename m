@@ -4,88 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81D9C25B0D
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 08:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD43C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 08:46:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 337DC8A9C1;
-	Mon, 15 Aug 2022 08:41:39 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD4FCA03C2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 08:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9399B8FA0F;
+	Mon, 15 Aug 2022 08:46:40 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1B40AE8DC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 08:45:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HWTw1QUMgoB9qxA4vR3Zw78higUrPW2BYeiiRqON+eZ7bCH1JLqKZq7lj/rDzdsBCZldBUUZc7CB3svkgIw1bzxiuWWfeE3Uyp0Q5Pjj2WlPBM55QVMaPmusUwnXK8qRPN6fuYhughaCMJdfKlhKge+PAc3/kvC0GIHtwBwLG5tmonZrCFObS+lLcdd1MabEz9x/OD+qmFnqv8tUp/2hMC4YwsyJYRd5G4zgL52c6GXVKNQgwarEpCdijtqnACugRwUHZolnSuisRG+nf354aXWRRy1QBaioblbPqnzK5nEmFyK9PzhjFGDlSWkCcigK092fiSziB5t7PXYAwEMuPw==
+ b=AMmX59T9QzziClLA6g+Vq3NXsA/h0S3lKPxsa0OFrYZAMiD4OvadwkdPvKheoc/7aFGf0f+slhZyE4QIa12o5SCjDzR7CJ3rjUAqCFaN5afX+/U5nAqn9j6CPJNSlR9p92gMcx/66u0hQhRAY7RTZ3v6JA71s0Dj0lPDXcTnRFS22F87KNwtd8F9sR2UlQXcw+x2AwZdtrWj0CPV9TgD0Q90H/901VMuJbxlyQWNlbUj75YWdkyAfFEA/goLccvI/fam9PPh8rJyFA6hrZoZMkWRN+GlHAJFojwhLzbRHYKlkCNeWsvXKsEz0zBNdrtvUM6qzKHcG0EW0o2cxjgjgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=czM1pDg3la2WC5ti4Bs/QrOF+iOf83FGysTc+qg2RXY=;
- b=fhEnMKrsakpC6iRmfSzsEUhbYY69IVONSTA3dDxlQcQclYtlEz7FjAYemjGOAkzfLVpgBlCjgY96Ie4NM353uqDpbq0P+kTFJyGmtPJzZP21DO67RoGs9ifFoX/8A1vAp2vlI0xMknHnBbOqcDcb7kJKQqfYcAZtg9Py0msog5/cKDps7ShBNCjY9fXSrvhgrb2MFPjKNf/M/JaXQNpvEJKCiwQH8xq96u0S/zBvv0T4Mcac4qLit7Zp3ScJWyg4hOafr6Tm5dF6lBJ9a4WabcR6Wl681M55fWejFo8LJ4xdY6huz3iMBlRXvGrwhdlrbZkJ4/dLf0uQViXpoNdNIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Wd/blX0Qu/gEdiQ6sTXUcBrg7Sd54Uln5LBG/LlU7XM=;
+ b=apsq3Pw/CGER/x8WGIJw++7UauYSpfEJ3LEkIY32KUPDOqHsPythbkvtLZHClCa2/nVGpjJ+U40YYjDRZs+qs7h7FHaetMqe8Iq63vQkt6rIcEbii8hZAI0scB1X6BgDXqXbIyr+S9TfAG9ov8wk9hbd5g6wcBZ7+1Vu8pSDq0DhMi0FbbyFFAGZtzYTW0as2SeECoVzi/IM7zWMbN7zUljtC5lpEIcp5CDcNZUzZ5+FbrXOoUA4BEZTDvycJqw3HeLdN7K6mAz5DmH9YiAbBh79UzEI+JXLBuIvYOXcZ0bHiyuzG0y64Vbn5cbmepsbu/RhNdbgyeRnsvVG6miBmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=czM1pDg3la2WC5ti4Bs/QrOF+iOf83FGysTc+qg2RXY=;
- b=UrnXYicIKE48QmhWCOK9wzSgaP2Qzvh+5E4iybB5V5T6uHHGhLoio3MGcsgbb6oamJAUpuqQbWpG5sHQL1HFwT6Lzn4vSj662eBRmFu2Hx3UN28rc8FZBpvoILGoXEZU1RbWhfPCZfFB51veFwbsa+455WI42bhdBN8e/cTSgMg=
-Received: from DS7PR03CA0092.namprd03.prod.outlook.com (2603:10b6:5:3b7::7) by
- CH2PR12MB3735.namprd12.prod.outlook.com (2603:10b6:610:25::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5525.10; Mon, 15 Aug 2022 08:40:39 +0000
-Received: from DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b7:cafe::1c) by DS7PR03CA0092.outlook.office365.com
- (2603:10b6:5:3b7::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.14 via Frontend
- Transport; Mon, 15 Aug 2022 08:40:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT074.mail.protection.outlook.com (10.13.173.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.7 via Frontend Transport; Mon, 15 Aug 2022 08:40:39 +0000
-Received: from shane-u20.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 15 Aug
- 2022 03:40:37 -0500
-From: Shane Xiao <shane.xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Add secure display TA load for Renoir
-Date: Mon, 15 Aug 2022 16:39:52 +0800
-Message-ID: <20220815083952.1303363-1-shane.xiao@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 12f90557-23b4-4b22-5fd9-08da7e99d52a
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3735:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xQWdz1y1rm6SCTWGyd9o5DJI3+gIVNU28ewzNtjj5wfMgCciAGhAspDBBszlM9fYQ4zlHzjdrsNx8XHqnO24XJoiU4AJAtSwDmY2ezSGpYsdHm7eEUbhyHSyWB/vfztSxCUVyTWUWPMwHoSAIeV1V/Ozp4jPH8FbFE+BLcFf6GJ5x4oofzW47c5Zbg86sU2OQtDqlyny7KsybN5rXcNO6gHjgIxf+ZyORF0qH4AJ3d/jfGX7B6O0agWS8ZW4V/erzGbvG0MeoTh96qfD47UfoSo4qfOQNJcQr1gBIAY+zrt9LkqKaOzRtnfnkTXLuh9PmY2tUn9pcvEQ9RhPXcSftu/4st739OXNuz87jiPQ2PTtkqVga6wGL0gEI4/Zw/0ZQKedbH+K+J9VoT2m40qP+yloLAcfm2n1aArxg3xpJa2F3Ws2oM2dOyz09mN/59O5ZgXOQSEmW2nB5pL4LqdBd5SlwdJdMiLHjtrXOdBro8J7VoQ+0Uqd1s9b680ATpWGHsY2yulFt17blwwRQOHlLqPTSO7RtIxu+/PoofOIDkC8qio5PVcp7VaC3oIRz+B1akzg3Ah0rwoGB6fBMkOLu6ZeysoDYgeBgAUusMRtoMPIVvoiQ9bqrPx49rIFkGlyYsD3KKky80HgdjLEa8afSKh4HJ29kbiK4jlzr12PNCjYNKADSCYpK/Wk2AA64PhvTsRKRMJEaeKHGCWRvJ03ySjJSivYZURSq3K5918ol5gSP4CBmiFHOKddsgUvz9VL9lHIOmzZCiCE8OCE8ifGhXoUA5jv7luMaAbGPxoC+HYfkaHzTCRXw7Jh26G/ZB5AAdbTd8ZZ6//GJgdf+ACwUg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(346002)(396003)(39860400002)(376002)(36840700001)(46966006)(40470700004)(44832011)(5660300002)(316002)(6666004)(6916009)(70586007)(41300700001)(70206006)(4326008)(86362001)(36756003)(8676002)(8936002)(2906002)(26005)(7696005)(336012)(36860700001)(81166007)(40480700001)(356005)(40460700003)(186003)(426003)(82310400005)(47076005)(1076003)(2616005)(16526019)(478600001)(82740400003)(36900700001);
+ bh=Wd/blX0Qu/gEdiQ6sTXUcBrg7Sd54Uln5LBG/LlU7XM=;
+ b=m57WEx/pfB8soY8djQ111mg6cqizE9DFuBAYGQx7DH4oR6QHD/4+OwsfK6EarVmSftMz7YwM5x0M6cpFBfIJwp5lenZIrzZyfHgu6JPcNZ85d59/NxGWzhFpwaNiDfpLPLB0CmWLfg92dR3FArCOy5F3Vwu/hTQZtcfdZuOOjUE=
+Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
+ by BYAPR12MB2869.namprd12.prod.outlook.com (2603:10b6:a03:132::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Mon, 15 Aug
+ 2022 08:45:51 +0000
+Received: from BL1PR12MB5237.namprd12.prod.outlook.com
+ ([fe80::2956:2de2:e437:ee5f]) by BL1PR12MB5237.namprd12.prod.outlook.com
+ ([fe80::2956:2de2:e437:ee5f%3]) with mapi id 15.20.5525.011; Mon, 15 Aug 2022
+ 08:45:51 +0000
+From: "Liu, Aaron" <Aaron.Liu@amd.com>
+To: "Xiao, Shane" <shane.xiao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add secure display TA load for Renoir
+Thread-Topic: [PATCH] drm/amdgpu: Add secure display TA load for Renoir
+Thread-Index: AQHYsILa+CL38lndOUeDTmRtKbcX5a2vpb5w
+Date: Mon, 15 Aug 2022 08:45:51 +0000
+Message-ID: <BL1PR12MB523716B907C1EC94B7CA834DF0689@BL1PR12MB5237.namprd12.prod.outlook.com>
+References: <20220815083952.1303363-1-shane.xiao@amd.com>
+In-Reply-To: <20220815083952.1303363-1-shane.xiao@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-08-15T08:45:48Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4ecae737-ab3e-4f7e-be4b-178a1094aa05;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-08-15T08:45:48Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 13353783-3f5d-41fd-8b6d-54bc1b0b0a87
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6ac17c72-4fde-4230-36a1-08da7e9a8ec3
+x-ms-traffictypediagnostic: BYAPR12MB2869:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 9bdhkBq+MUuuS7ytR5nEyauMOiPTEDSfRtgV5pIEgV85r0mF+cT1h8eKQCQXtHoEfGL3xR9vDjgH1g0oNGlOGLVZZFssS0+8r/LoZxhSvkqi7ET4VTgJP6A5nthEv7gbeiYM1jIVLuNF0kcXxk1Y33F5jyVLKMYgdiUPCbfKud58lRNYgn8bYmUHCQ+2hZx1RVWcjFF9B9y7tSm30TPwi3guZJB139aQBE3Rkf2fyWSPG5D/XlR8yc2/3BfigcDmZaGv4vPDIL9HdV1dL5d7mhjdSjj+6+eiMkS8DTcyM3yxHdYobcZ0JubG259FcfaynDL72TYyhKRVmjy758n+MZNUSkqJ8Y2oKfqCmsqwUo29MiRIsH1V8Zl/wcgakgTnaZavXPOvDMZU2E4bqIOSysEyvWaOL16ABoP7flDAh4vhh00fdBRUsRRY3Zfp0VMDA7b6Ye4u46hooqi1P3Pr29UPyBpmKFtP90xEjA09d0w71GTR9a7nwngpJOKgdP1gGFLS57aIYA7s571y3Qq3zfKU+9Jo79QBbJ7Scq5iqGLh6sMCV/fUER/bgevphuD5SJmRMJaSGOrphzPmql5cabw8uxWSOdOr7qWpCuRbaIxWJ4h7rrggnTetwRDxZqZLpz0jD5XLn438U9wE/Xd+e3lY7qbdifnND9i46LNSUOgc0Rb6SJi8zjYJG20hof/f3xFiEYJKRP37FXt2hAOXi9piu3UxJm+lMOZzDP4nijrsHRaEcL56RH4Sc1GhJ5JTS/uTHb95W/WcFjUI2VNudGD2FOk+i5MGHrznOhXGkJ4jKEioUsqJ7UP898JrxVsD
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(39860400002)(346002)(376002)(396003)(366004)(52536014)(4326008)(38100700002)(122000001)(38070700005)(5660300002)(64756008)(66946007)(76116006)(66556008)(66446008)(8676002)(186003)(53546011)(478600001)(71200400001)(66476007)(41300700001)(26005)(7696005)(316002)(9686003)(6506007)(83380400001)(110136005)(8936002)(86362001)(55016003)(33656002)(2906002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LXz1Usiljy7GPiyiriScqz2hBE6jjVr5B++3X1feQfxrgK15I65YiaIPNMCm?=
+ =?us-ascii?Q?+7i66+bC5xleo0dPwrVTszCBobqAsA/ZOjEoYQIdTfaecyTkZ3YL+84MISZm?=
+ =?us-ascii?Q?1VoVPYsrMfaIfGlzUaTq7WRdoG3qbIc+EKSxpInzExa85a4lRxEkOZSunqsp?=
+ =?us-ascii?Q?zso7m6ii0dq29DV3CFIhmRxwZpRRvKIeMZZxiD5ToPEmPo4Uo2iEWYa8VgH1?=
+ =?us-ascii?Q?bno6yFkNTRDVE1FfG65bu5J94NJ0iiuOXP14K3BXiLfBIp1++1PmfWmXMp6W?=
+ =?us-ascii?Q?LvfO93+UvfA+mxmEzmq//lutfvcLqJGWEqsRZMK1YEEmRUdlIrDlHdUJfXMu?=
+ =?us-ascii?Q?OUjtlGAqd202BCxX88myCF+EMhPb3HPpIVwJMtZz+wV4Mo/z3w9yTk37azQo?=
+ =?us-ascii?Q?iGM+y58REdHlpbRZSWOfUnzLaHSB8zxvwf3g0QLdOhq1/cc5mihoKt3tQ0HE?=
+ =?us-ascii?Q?D5PBiSlIJwFvLG5+2c1Q0qZJokPOLEiHxqMKIO5CoxprYDZUNCFNez4sxpIE?=
+ =?us-ascii?Q?34aOtfM4xR8QPHZTUAJGT4mIwpAwrTz3d/Ln2/jNOps7YOnlEWGF9wKkTygw?=
+ =?us-ascii?Q?TqW9HDT4Tsh6sd+YiDLlyfzAkNw+leKuohGEb0cW7P0wgU1ihtQttqCQm1QT?=
+ =?us-ascii?Q?XqFG+JV4uZVTgAsiwtruUflOIbO68BqB1iCW/UcrU0Uug3f2KO000QD3ynYi?=
+ =?us-ascii?Q?Z3m0dAZn2KNU5KVNBEEvYAXaYZZFbFdISknmA2OA1x99mCKmxDVCMuO2uEcH?=
+ =?us-ascii?Q?elAAR25syJJi4spMO0cPTKKieOnVgQU45uNP9g69/VBEuZJB4j7McxqU/iyg?=
+ =?us-ascii?Q?7gp+yYL59YQ/Xq4mrkxOIbrN1wBDq83H4byDzG4DRyh1qbpuTTnKIuBusn3l?=
+ =?us-ascii?Q?b1UlK+VLPoGv5FpQvp5vtbBGei2g3/bEooEQP4DhL0g+SCqsWT9v8av67tXK?=
+ =?us-ascii?Q?TCL9PfzHD0nrBL5FMz2fBpiMqnmmOodQ0LANOW0M0ydf/7UZj3srExP3Hr8E?=
+ =?us-ascii?Q?OWw89SliuuFNJGnRZLwzj0K4AuNg2JUx/oL1VE20xywlibai6c4ZMDg3uXbk?=
+ =?us-ascii?Q?ey3VV7MazAg1bqx0KUKsIG92l94R4eDkFdLlGSbEIysLAJDg01f531692m2b?=
+ =?us-ascii?Q?g3yInwprjn2LpzAh8kogi1lUF0wq1L/rjwapVzlcK13gvrSNpd/VPzwJodCd?=
+ =?us-ascii?Q?yfpe3cVseO926yQaSPdnSXGlSGd7XkXptUKgLENnbIvQQbnK3+xNZrejG5Wz?=
+ =?us-ascii?Q?R0rDBDprRj5i1OmYZ2n3baAvWGEZPG4p3aEg/twbfy78F+zJUqWugMht04+3?=
+ =?us-ascii?Q?/rMWyLGkN8Ss7qELk1PjSpddpNglO0nkDTf5qYFDEYIHsDQZUW67ZMVItDTO?=
+ =?us-ascii?Q?88obdOkRG8c14i5oDCSYKu8+Qp+LLkIY5lXngBMl5leCUk0IjrCP6xVYwqh8?=
+ =?us-ascii?Q?V+j73woWmXpqWZEFO4bxA4DaoW8EHk952ppGTAzJ3ldvK+NgnE+lP1jX9dek?=
+ =?us-ascii?Q?jvaLDkW4bA/lAJ+PTkmNm21jYSZ9HHEFaGrSV/HRER+I1e9M6pzmXocqOO7E?=
+ =?us-ascii?Q?IpkJ/wH68SvRBPYhtWI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2022 08:40:39.6672 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12f90557-23b4-4b22-5fd9-08da7e99d52a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3735
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ac17c72-4fde-4230-36a1-08da7e9a8ec3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2022 08:45:51.1412 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: r70Z6qpfrxrFM8/7Gdq8ThmRneQGPr7HjRHwGMM7YlswvIWS0AMnFoTkpU9aCfmC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,38 +129,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Shane Xiao <shane.xiao@amd.com>
+Cc: "Xiao, Shane" <shane.xiao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add secure display TA load for Renoir
+[AMD Official Use Only - General]
 
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Reviewed-by: Aaron Liu <aaron.liu@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-index a2588200ea58..0b2ac418e4ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -101,6 +101,16 @@ static int psp_v12_0_init_microcode(struct psp_context *psp)
- 		adev->psp.dtm_context.context.bin_desc.start_addr =
- 			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
- 			le32_to_cpu(ta_hdr->dtm.offset_bytes);
-+
-+		if (adev->apu_flags & AMD_APU_IS_RENOIR) {
-+			adev->psp.securedisplay_context.context.bin_desc.fw_version =
-+				le32_to_cpu(ta_hdr->securedisplay.fw_version);
-+			adev->psp.securedisplay_context.context.bin_desc.size_bytes =
-+				le32_to_cpu(ta_hdr->securedisplay.size_bytes);
-+			adev->psp.securedisplay_context.context.bin_desc.start_addr =
-+				(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
-+				le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
-+		}
- 	}
- 
- 	return 0;
--- 
-2.25.1
-
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Shane Xiao
+> Sent: Monday, August 15, 2022 4:40 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Xiao, Shane <shane.xiao@amd.com>
+> Subject: [PATCH] drm/amdgpu: Add secure display TA load for Renoir
+>=20
+> Add secure display TA load for Renoir
+>=20
+> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> index a2588200ea58..0b2ac418e4ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> @@ -101,6 +101,16 @@ static int psp_v12_0_init_microcode(struct
+> psp_context *psp)
+>  		adev->psp.dtm_context.context.bin_desc.start_addr =3D
+>  			(uint8_t *)adev-
+> >psp.hdcp_context.context.bin_desc.start_addr +
+>  			le32_to_cpu(ta_hdr->dtm.offset_bytes);
+> +
+> +		if (adev->apu_flags & AMD_APU_IS_RENOIR) {
+> +			adev-
+> >psp.securedisplay_context.context.bin_desc.fw_version =3D
+> +				le32_to_cpu(ta_hdr-
+> >securedisplay.fw_version);
+> +			adev-
+> >psp.securedisplay_context.context.bin_desc.size_bytes =3D
+> +				le32_to_cpu(ta_hdr-
+> >securedisplay.size_bytes);
+> +			adev-
+> >psp.securedisplay_context.context.bin_desc.start_addr =3D
+> +				(uint8_t *)adev-
+> >psp.hdcp_context.context.bin_desc.start_addr +
+> +				le32_to_cpu(ta_hdr-
+> >securedisplay.offset_bytes);
+> +		}
+>  	}
+>=20
+>  	return 0;
+> --
+> 2.25.1
