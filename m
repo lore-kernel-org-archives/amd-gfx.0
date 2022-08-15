@@ -4,76 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2DCBC282E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:03:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AEF6C00140
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 19:10:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA88ED2679;
-	Mon, 15 Aug 2022 19:02:57 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE875D0D18;
- Mon, 15 Aug 2022 18:32:54 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- t2-20020a17090a4e4200b001f21572f3a4so7520325pjl.0; 
- Mon, 15 Aug 2022 11:32:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 560D0C38CC;
+	Mon, 15 Aug 2022 19:10:18 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB69D298A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 19:10:01 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-10ea30a098bso9159603fac.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Aug 2022 12:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=8bJQmDi/lCA9PqirReS3MPMutajyKB5RDjNh4fqCzaA=;
- b=jdED2coZKjWQwnNfe6vINVdrNYG/s4Ap5/xy5Gcip3nOeogSVmoaiJccuFjEMCn604
- aiAZAQA12xrgovQ0EK7RmswbJp8NFIGlbMK7CJIoj829dlR/YYKVOetZHn6kiWBGYqVw
- iKFOwG4d+6zBCeFAM+4iDS7+9tD9UBi/j3bzxO26XKdYiOx4BB2DNlOWrPLyESziZRHe
- LEaQNj92ErOuotlQ1magSPuxiMp4HGWT4qlqOjqs26rIJlOdgx2ohKm85mKBuL0W3Xiz
- UuCSlnwEL0+m8YK540p/n30zlzjGqOSmL/ZEk6NbS6E6meNvlkJSA2GfQZf+c2O2OWU8
- uGRA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=f731vXyj9kE2PS2td0VZE/8R3zNjbSQbrlI/oLIGPrw=;
+ b=DqBcpU3CCjC5XydMyiRv1wpkXHBLOs3N36r5scxGdN8vzBEdZBBi6Ajc6VKxPfLsRq
+ Vy07SvUMEdrBT4DFd8yxCm+WIdigo/s0yAmNAJruoBR40UgCtG2GRIyqZQ4Eojy78r6T
+ m2ZsD5CiH/QFNF/39xB5SHHCqLmf8DPpAoLa6kTvcjmzxWwGg2uNTso685WXAo1UXTjI
+ Vl3ltFH67gkEY3fcYTbLLoOyhKTlyjrEnZZSMOrKDrjqFhrBZKZv/43RPx+gXophArHQ
+ JxSChn6rzNLqlr9raE03jhXm6uzDdEcap2tkUvQKiPVkc9pOGLNtrwGsb2F4vq2Bd0tc
+ +Lrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=8bJQmDi/lCA9PqirReS3MPMutajyKB5RDjNh4fqCzaA=;
- b=qDu02swJzIY4khoq6Ai+ihBPvayTfYFoFL2AFeJOkfoinxTqAd7PeHqIbhW1lMfwy5
- ZOz8g5RgrW0VWbTtOoXju0Ex9Wm56HmtHoB4AC56HMfl+88UoIfwO0cpNr5hzmvVEGHX
- Fd8RCvUZ+yK83S8QyYeg9k0awtQEC06RlIQWoyDfrZsovNu6vMZwEkT64VR3TOuJ6vii
- hPNkiLV2+VQrbXdbZiFSXTeKX/LkQECuHPvbs4rZEyEtyim/vzSNAXa++PJTlf2j+jxM
- UlA5TGnHWFA2mv+iWHYQr/xIsxHfvUgJ2YKsVBMVj5EaZm9qznNwTBSjCZzFw6CcMIFG
- mH/g==
-X-Gm-Message-State: ACgBeo1gUXJCLNpL1FoH3piwKolwJFelskXG5Am4bkdKcFPYa1cGI61L
- 2vnFZzbuV0pLhdBuS7XcUXPc2ywWRmF7WZDG
-X-Google-Smtp-Source: AA6agR6Clbh4D6hp8u1BwYfWLa6d/Cwe/QwEr2ontSg2+IYjxn4HZJNCGeWwoDVqjl6HR/cTznhCPA==
-X-Received: by 2002:a17:902:c201:b0:172:6c9d:14b9 with SMTP id
- 1-20020a170902c20100b001726c9d14b9mr7195297pll.161.1660588374426; 
- Mon, 15 Aug 2022 11:32:54 -0700 (PDT)
-Received: from [192.168.0.110] ([103.159.189.148])
- by smtp.gmail.com with ESMTPSA id
- 200-20020a6216d1000000b005289fad1bbesm7034667pfw.94.2022.08.15.11.32.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Aug 2022 11:32:53 -0700 (PDT)
-Message-ID: <83820e90-04ac-16cd-b5be-87e1a0bbfca8@gmail.com>
-Date: Tue, 16 Aug 2022 00:32:46 +0600
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=f731vXyj9kE2PS2td0VZE/8R3zNjbSQbrlI/oLIGPrw=;
+ b=gVPLQcDObtxBx8cIGoO+9I2FhiGXj8wLfc7DXFEbiTsQI6vyE0eOMJ7jL4s6SImWPO
+ 36zBCP+H5BkeGdf2yzCSqFFUNCqRQxiPujSCoilf3wz/ELsquXxEtNKKqVOQbMRrxAs3
+ fYj1F7Uoe9WMVW3IK4sx4f+euPl2qBuLaOaAVMap/h0MwQKBDq/hraxAcypbdIVTVWna
+ YbODIoBx+vHBsivKM5R9C1fcY5WA/Q4uU3sLCyWx/z3jfmlHiiZFJhuDLxVHGb8iBkk9
+ dxFP0lbR7mh6GKroYfmDDrS5WS1YBXYPUxsWEyXG4KlUa2GoYA6iQgGKId9fgR3jkOtt
+ g7eA==
+X-Gm-Message-State: ACgBeo1bqbmsG25Ir30L2lqd43VKuFaFYSXKT7LbKcLPqAPRXrEXIpki
+ BWR5PIiNn+JYKVmANXLdJuGQbuQzzyEs/KOtidI=
+X-Google-Smtp-Source: AA6agR71Ke7aqFbjCQCxpYJ3DqQlMHobrL3rgfT3KnukoQAHA8nNHv5n+N+UwD1HocX8mjlcUEVJBn763/iwbqDxrvY=
+X-Received: by 2002:a05:6870:e98b:b0:10d:fe5c:f818 with SMTP id
+ r11-20020a056870e98b00b0010dfe5cf818mr7521951oao.106.1660590600264; Mon, 15
+ Aug 2022 12:10:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH linux-next] drm/amdgpu/vcn: Remove unused assignment in
- vcn_v4_0_stop
-Content-Language: en-US
-To: "Dong, Ruijing" <Ruijing.Dong@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kernel-mentees@lists.linuxfoundation.org"
- <linux-kernel-mentees@lists.linuxfoundation.org>
-References: <20220815070056.10816-1-khalid.masum.92@gmail.com>
- <SJ1PR12MB61944B1D53330D5E9531158695689@SJ1PR12MB6194.namprd12.prod.outlook.com>
- <86088c17-585c-4a53-312d-ef339b824538@gmail.com>
- <SJ1PR12MB6194C83D51101ACD97B55F0295689@SJ1PR12MB6194.namprd12.prod.outlook.com>
- <f8734af1-6e31-75c9-9556-9519709284f1@gmail.com>
- <SJ1PR12MB6194033EC36251B95A6737A095689@SJ1PR12MB6194.namprd12.prod.outlook.com>
-From: Khalid Masum <khalid.masum.92@gmail.com>
-In-Reply-To: <SJ1PR12MB6194033EC36251B95A6737A095689@SJ1PR12MB6194.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 15 Aug 2022 19:02:05 +0000
+References: <20220815181716.918439-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20220815181716.918439-1-Harish.Kasiviswanathan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Aug 2022 15:09:48 -0400
+Message-ID: <CADnq5_Of=MUk8U2RGA65zwGaVN6GhNZGKaqxETB98-=xaPE3HA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add decode_iv_ts helper for ih_v6 block
+To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,25 +63,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wan Jiabing <wanjiabing@vivo.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, "Jiang, Sonny" <Sonny.Jiang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/15/22 22:00, Dong, Ruijing wrote:
-> [AMD Official Use Only - General]
-> 
-> Then please update commit message, this change is due to "value r is never used, and remove unnecessary assignment", that makes sense to me.
-> 
-> Thanks
-> Ruijing
-> 
-Greg also pointed out that the function vcn_v4_0_stop_dpg_mode should 
-return void. I shall send a patch shortly with these two changes. Thanks 
-for your suggestion.
+On Mon, Aug 15, 2022 at 2:18 PM Harish Kasiviswanathan
+<Harish.Kasiviswanathan@amd.com> wrote:
+>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Thanks,
-   -- Khalid Masum
+Please add a basic commit message.  With that:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> index 92dc60a9d209..085e613f3646 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> @@ -727,6 +727,7 @@ static const struct amd_ip_funcs ih_v6_0_ip_funcs = {
+>  static const struct amdgpu_ih_funcs ih_v6_0_funcs = {
+>         .get_wptr = ih_v6_0_get_wptr,
+>         .decode_iv = amdgpu_ih_decode_iv_helper,
+> +       .decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+>         .set_rptr = ih_v6_0_set_rptr
+>  };
+>
+> --
+> 2.25.1
+>
