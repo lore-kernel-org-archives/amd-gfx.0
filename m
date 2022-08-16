@@ -4,57 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1049C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:18:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F912C32796
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F420BD489;
-	Wed, 24 Aug 2022 17:18:19 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 647F3D4439;
- Mon, 15 Aug 2022 20:22:10 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id o184so9718506oif.13;
- Mon, 15 Aug 2022 13:22:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF9FF14AB57;
+	Wed, 24 Aug 2022 17:46:36 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5E778D7E5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 08:15:27 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ s11-20020a1cf20b000000b003a52a0945e8so5003503wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 01:15:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=KUREXGO6jnd0bVGmD0b7wZHGhfBeIpSV7ISn3FBvF0g=;
- b=JVd7W9eNeC0LVvIMOinSk+P3PbZ0QvzqiK78lUWaC/aeWGVRVPfOuQQ2twhXTjfHIF
- u7BSqTsZjJkD9tVZIpymEVjuC4ijnZY8oTKHpf3/hmtRAZ+vLY+mOb1wcFGEZSP8Xla0
- 67Mvs50TMjeV/4b48ccuKW4FRtzxqKJlYj/+8+D6zDhzo0v8ZVqHx5e2sQbkjAY6Cp7j
- uMkulLi3/iZr+pBL0o5Rc4uEVpQShr3ROTP8nfBYSrf/0yNJLlX6gxWkBOeI2O9IBcJo
- L57K2iFjZ2MYb2AVioKHP59giORw537DKt1r57cFQ8DS6hH5ar+OWJOKMCf385hAp/8J
- 9Wmg==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=Zx6YCldx1HRWfx99BJr0gRf5MR/3jypQHCG2lSsJaCM=;
+ b=fTK09Lv04Yf0s6Jbz3izVe0MRv5WWsoV3Ufsa0I4vL3QywTdc76ALjDQbqJZB7hKKT
+ cY1PcdpNyuB1eFMr6xeF1p12t775VtxJoBBJyAkF+s41k/KtVF/8uIw284sCPPCfkiPL
+ LL8oslo5B3y++ymrbNssxetQ4ZDv8nzqemYSqFv2zCtuIaAxHaqIyo7+ShgQfyKye9fr
+ cDIurcOr/ttHtbtPW7JibmcUoT2y/DSgYWtVXrjtzBVperWKAuaG9akiCLT+M/MsUlcB
+ aKLxwspzlvoTEV2ZihVtRasz3SdG1KTt8Sx/CQf2SLR8jvr35pzVRV5m9xxVYIiq9ogS
+ Jv5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=KUREXGO6jnd0bVGmD0b7wZHGhfBeIpSV7ISn3FBvF0g=;
- b=bp56VAWXXBLvBoV6sDyhu3zDZ6jo1KmC7QQyJOdhYU4QOEOt/Duvye8g7UboYoV63J
- nm5FgoBINvFjR5B45hajqxhNpDX3twcnNHT3qEP8t+PMEcia2/GRc6/Evl6RJ9j9oe9B
- A5n5ClG6DF6epkfOJZmK0CWM1qcQ7rM0Jo8Wm3wvqm3pqeY2T6XfgduvjI61CXpDfRyb
- xkDr4YbophTJW1mgig7Lq6wTdnmcsvDN7J3i2t9u+gWrhYkIzz1XaNk77op7yB6F49uv
- OV4ejTQllePqJ8aBuMaFks1dDGWd7Xu7EFkay8c9dpH91XW/w2wArW7t1EWyRdpOjF0I
- nydA==
-X-Gm-Message-State: ACgBeo1pCmRQjmbN49+opWPLi1JOipiqEiIxlE5PzEoula7PccbZu0ei
- PzxPvaaemPkFXmzX9mcdB8+Tq2Oe7lBvdr2V9gI=
-X-Google-Smtp-Source: AA6agR6/HoPU6iiFYk8vyjp+FTggm6uWYFAiy68hDHp9aGnJKMy5dFHVdevch5QQawGn+Cd4BEr765eFuhcI+C+eawI=
-X-Received: by 2002:a05:6808:1491:b0:343:7543:1a37 with SMTP id
- e17-20020a056808149100b0034375431a37mr6706596oiw.106.1660594929626; Mon, 15
- Aug 2022 13:22:09 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=Zx6YCldx1HRWfx99BJr0gRf5MR/3jypQHCG2lSsJaCM=;
+ b=RjlaKGURgorjwTFQQ9SbXk9WA2MqByx+DdBkPt3oNRsYTprTBrT2RG2FbefNPuRxze
+ jnRMunreYPiZnFU/hOGrelcqs1HTTeZ/ONxs6HMMeEsFlk/7oI9lGDeIhNLRZJhTBBdO
+ GkQz8hjIN7MnbpztAGqwwdp3nnTnr/vlh8tknqPyDgAd6+hPzHbf5eLwwHcYVw0po6L9
+ ee/H4fBEnRLgFQiRzeRZiDAbKNIx5GTUtrXDggP8P1BHlu6RZrt83eWIw9kkM6zZE3wv
+ kTmsC2v77bAFMpxPtTCWldj8DMDReDbx1HuV8TSWsTkU70jYMwPZOrF82EJsf1M8bLb1
+ gDdA==
+X-Gm-Message-State: ACgBeo04goaDjK3NiPaBqyviOKruqbJFkijaPfxNTQtKx7t8uSu47gXf
+ hnIjkWfJZ0otHk+Yrze5RuQ=
+X-Google-Smtp-Source: AA6agR6gmV8mFd1T6xccjhywPmMIEIXxvHP4YeHhH09az7S/mLOnDYP49tI5AqCIIhFx1mMFUgBxdQ==
+X-Received: by 2002:a05:600c:210b:b0:3a5:bb92:d22d with SMTP id
+ u11-20020a05600c210b00b003a5bb92d22dmr12300084wml.99.1660637724952; 
+ Tue, 16 Aug 2022 01:15:24 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ co26-20020a0560000a1a00b0021e2fccea97sm9450739wrb.64.2022.08.16.01.15.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Aug 2022 01:15:24 -0700 (PDT)
+Message-ID: <94a17bf5-a4a7-e867-14ce-3a0c314a8535@gmail.com>
+Date: Tue, 16 Aug 2022 10:15:24 +0200
 MIME-Version: 1.0
-References: <20220719103954.6737-1-strochuk@ispras.ru>
- <fac8ce6e-6f5f-598d-35cc-7bf01ac90f30@amd.com>
- <f750ab62-7deb-21a1-753e-1ee838386265@amd.com>
-In-Reply-To: <f750ab62-7deb-21a1-753e-1ee838386265@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Aug 2022 16:21:58 -0400
-Message-ID: <CADnq5_ORzjVFR9nxaJO6giVoGT8_BVtdq8PURjPrzOd7jpoH7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove useless condition in
- amdgpu_job_stop_all_jobs_on_sched()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCHv2] drm/amdgpu: Fix interrupt handling on ih_soft ring
+Content-Language: en-US
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220815192557.3348828-1-mukul.joshi@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220815192557.3348828-1-mukul.joshi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,60 +73,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ldv-project@linuxtesting.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jack Zhang <Jack.Zhang1@amd.com>, amd-gfx@lists.freedesktop.org,
- Andrey Strachuk <strochuk@ispras.ru>, Emma Anholt <emma@anholt.net>,
- Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>, Surbhi Kakarya <surbhi.kakarya@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Am 15.08.22 um 21:25 schrieb Mukul Joshi:
+> There are no backing hardware registers for ih_soft ring.
+> As a result, don't try to access hardware registers for read
+> and write pointers when processing interrupts on the IH soft
+> ring.
+>
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
-On Fri, Aug 12, 2022 at 7:13 AM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 7 ++++++-
+>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 7 ++++++-
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 7 ++++++-
+>   3 files changed, 18 insertions(+), 3 deletions(-)
 >
-> @Alex was that one already picked up?
->
-> Am 25.07.22 um 18:40 schrieb Andrey Grodzovsky:
-> > Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> >
-> > Andrey
-> >
-> > On 2022-07-19 06:39, Andrey Strachuk wrote:
-> >> Local variable 'rq' is initialized by an address
-> >> of field of drm_sched_job, so it does not make
-> >> sense to compare 'rq' with NULL.
-> >>
-> >> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> >>
-> >> Signed-off-by: Andrey Strachuk <strochuk@ispras.ru>
-> >> Fixes: 7c6e68c777f1 ("drm/amdgpu: Avoid HW GPU reset for RAS.")
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 4 ----
-> >>   1 file changed, 4 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> index 67f66f2f1809..600401f2a98f 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> @@ -285,10 +285,6 @@ void amdgpu_job_stop_all_jobs_on_sched(struct
-> >> drm_gpu_scheduler *sched)
-> >>       /* Signal all jobs not yet scheduled */
-> >>       for (i =3D DRM_SCHED_PRIORITY_COUNT - 1; i >=3D
-> >> DRM_SCHED_PRIORITY_MIN; i--) {
-> >>           struct drm_sched_rq *rq =3D &sched->sched_rq[i];
-> >> -
-> >> -        if (!rq)
-> >> -            continue;
-> >> -
-> >>           spin_lock(&rq->lock);
-> >>           list_for_each_entry(s_entity, &rq->entities, list) {
-> >>               while ((s_job =3D
-> >> to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index 4b5396d3e60f..eec13cb5bf75 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -409,9 +409,11 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -483,6 +485,9 @@ static void navi10_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index cdd599a08125..03b7066471f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -334,9 +334,11 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -409,6 +411,9 @@ static void vega10_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index 3b4eb8285943..2022ffbb8dba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -385,9 +385,11 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -461,6 +463,9 @@ static void vega20_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
+
