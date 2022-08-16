@@ -4,57 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DCDC28B2B
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 13:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E76C25B0E
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 14:18:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBC1A9919;
-	Tue, 16 Aug 2022 13:06:47 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72AA39019E
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 13:06:37 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id o184so11932253oif.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 06:06:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=E/jHs13Z6JstU50hsR05SVnRuktMwvVWg9BTbSuNvLI=;
- b=RFW43fG7h+9ly2vZ0BAj0Rbw/RNh8+DamcRTE4qoxvihLooQ3cDIWCDzW9rZ3xmqW9
- Q9AclRpQfTeID1QoTaXc4yLde7XQu7I6kfgggzwlS8BQcFx/aly6HmvBDb0hgfTkH4wQ
- JveBG1XRsMEmc3++NqinEWq/PO+USkPASveCGa+kI9GkmsjDDCZgawUZp7OP37zGlC8Q
- I3heLiHH/5zlEgDIKTvTXEp9NDXPu98oZgs47/bJDt8QWECNbBVxkL6fVU5KLL+IgIUo
- wW6ioS1uIyr3OH8KMhfPkPrpnPbx375leFLiMmAOVc3S2n7etJGtDjm1kM5KvUIx5pG4
- 6r0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=E/jHs13Z6JstU50hsR05SVnRuktMwvVWg9BTbSuNvLI=;
- b=KDQ72bKIIbFSjsWiJxzwKEnnriKBUIQWVtrpBc4OeCimIoRYjt38IFxJTDEjh6djVI
- /BhWJTokYSQjcEgRHyEysed2H1RgBoL2rIoIMSCBq/MP9ihmBz0vyySFZ4PqqZaXKZjM
- u8o+dX1ay3PmJdep6oUs/sUgOwu2bsjKS55isceCQ3EvMpYXVDMssRQAHIR+HnW3D9a4
- HeM9uCiezDGrk+E1dyiloHfeTpZ59IHLsUYnkVKnO9ZRRt0rMgufWwDSu9Ig+uHDuh26
- QbKz7X7XCARoQ58yaIPs7/75oLmLMu8uAeXjt/xvKQWZiZajMr4CleLDuTZ2r3Xxpe4i
- FXgw==
-X-Gm-Message-State: ACgBeo0/e63xG1Ho0V9JCEeyhqHnNX5ncgtOeYxNgygg02+ZiB4MF9yx
- hNfim8yB1CNi5P1ISgLl99z4FTYQ6WnxYA2qxSI=
-X-Google-Smtp-Source: AA6agR5OsHNMsQGl9BeeGZL/XjtEd28lzEu5Eb6Oa8q8c2n8wsQzOJSP9mWW1/OmR1JBssfulKeEeq3Ad40muZfDsIo=
-X-Received: by 2002:a05:6808:ecb:b0:33a:3b54:37f9 with SMTP id
- q11-20020a0568080ecb00b0033a3b5437f9mr8453398oiv.33.1660655196123; Tue, 16
- Aug 2022 06:06:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D6DACC02;
+	Tue, 16 Aug 2022 14:18:45 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9177918B41E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 14:18:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZNWvNB9iyL0DtBHu3VkhqbL7+9xHGw5Idn6xiQsGHw4+2SVLZfYPdVV4cmfvKKfOLZmVnkF+3uWnADPGWSenavAwklnD/SGkvG6NnXN21I44V5KNdsKNr1QJOYYSlTKVVJ7tFN4/8euaLXcYoodEBpHP8iaiGqjaWk2cGmzz7YORrpYz87sh1Q8hGDSasQdkyBtJp+r1bqJspxt/wApbCWytgVwCqDFPzxOFhZv7AyYxzNIQ8inKxrb+zVIoBz76NJA3T8rOjopsS52yYLRqcPfjonR2ezkNx35LfDFtuL1Mm1ZLpt2rpvYjb7MMulQEjG8zH+QIAXOjuz+bBjCnAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lLhsuq2qsJI5A21JaBQafjv/Q1cIxLZ56AVHs6xwTo4=;
+ b=apmPu3a7KfpolO0UbVWdL+0wwyXjVcZeeqTWd2RA7I7EdUij2RafqX/ue6HoGiBxtaU4ISQ5pSCbiCb+W9KtGRYYi3rBZZA7hnQs7LLxdnbY+peL1bwj/FHH39r21BshFjww4BQNn+CV+jBESUwYZKizOKbBHIrD+F7Cd6TOahu+jqk3gPjSUqB+vQIxuXdfZavmrp2BVFq7cty/C5sv7iWdsblNwnmtcarUZLt+97XsK3RTpo4rtzYEuYiapKw1P1cfj+zE1vB+TWudqG52ipWKlDxsAfifh2W/aaIjov2/EpdeaGl0rfGfdiBMa8M5bUpY+ltDjguHB0+ExBPvgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lLhsuq2qsJI5A21JaBQafjv/Q1cIxLZ56AVHs6xwTo4=;
+ b=zN/Gxdw/WC5f+V4oK7xOK3+/qVQHwSevQzMgJlD4PdiSnEor1JaViJkXoof/ikBF4U9NjjNYPcEYFf+f9TPlyKILyeUG0n7geDL63VbrSj0DPyNn3GI32K7yhKcrd7saNx4Oi0evsZiJfNY1Erq/BMIDjzdErHfEt1WWc8PPF3g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by LV2PR12MB5871.namprd12.prod.outlook.com (2603:10b6:408:174::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.27; Tue, 16 Aug
+ 2022 14:18:31 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115%5]) with mapi id 15.20.5504.028; Tue, 16 Aug 2022
+ 14:18:31 +0000
+Message-ID: <232c643f-33f9-5b37-2329-e0e0b46d6219@amd.com>
+Date: Tue, 16 Aug 2022 10:18:28 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCHv2] drm/amdgpu: Fix interrupt handling on ih_soft ring
+Content-Language: en-US
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220815192557.3348828-1-mukul.joshi@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220815192557.3348828-1-mukul.joshi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0278.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::12) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20220811154819.3566210-1-Rodrigo.Siqueira@amd.com>
- <20220811154819.3566210-2-Rodrigo.Siqueira@amd.com>
- <DM5PR12MB130852E9DF9AFD42861235B185649@DM5PR12MB1308.namprd12.prod.outlook.com>
- <9ea11548-0c86-21d5-517f-0fbe263c3f72@amd.com>
-In-Reply-To: <9ea11548-0c86-21d5-517f-0fbe263c3f72@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Aug 2022 09:06:24 -0400
-Message-ID: <CADnq5_Otp4gH6epMcdUmqjQ_e0rrfL4GtyHOwKWTzmv9RTr83A@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] Documentation/gpu: Add info table for ASICs
-To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 190ab78d-399a-4f84-44dd-08da7f923228
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5871:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MKwOxCmT9IXWul7V8tkDZ70CgqTKV/9e0Z/vIR06OtekMH6SHUJcW+lec9khlj8h016dxGo1Dbtn4JgqxmtbZ9um4NwBlYN7+Xq9M91+Hl5zNUTNn6khX/vDVRvgKQslm5oXqPs53hLjU0yQKqd/vJunEaNvuQHkqPD4VC6Qvw6SDH6XkldKu9NpsMFlcW8SLbaRFNzH5lT83xwVEta1ObjzcvXJuDN7JLbVhoYeKwmltXSXPFLG5jviwTzpwiIeFkZYN4CJnA6KZv9mEVnM1eqK6/Ky3ApWDtaeMC4o4JDpEbr8m25mqG5l4WGeTrh5NnzDwlfTmYPk03+m2MUzLj459GvPsTy+LL/QB0DEGYQ/+P1YQvIaxbgP/HouYD9+iekltgDnt5XVwSA1yly+MOV55vokb9QqZskpCy7Dd1dgrV8ar+IanRIVASnyyNooq5aYYV+1dfwEjoRDARO1/95I3MEuiY8D1oK27+Yj9oTY5k6zORTbRxyAcVl4wlaMuoQlq0CleL3NgOVP/R5VvTeoPxzOdyOQ2Z8Uu4e9r+3aPcvz5gH+Sc4glXZ3VhKYxs9UcVvId9Dl1YwQRaLKbCYxjvFKoGndN6tzaCXGKzJYQLikFo6ex8kvnx8Zm42Z63YWPNhaL6o+gf12DbJ6HaEVCE3c1Uo22P8PLJrc3IRlyCJc8fptwIehOzVnXem7egwB5njbfv+hSlIrJaGAaQYpwZxAeNCuczXx7ZBrELPVI23m+faRwRUxfiwIfJe3VEATZ8qQ9VDZ+pizwY1S6zc9kpxHC9WuzYPzi566Neevf4d9W9CQoJXTyIYWzQVuzilIoCWlgVsJzENwQ3zV9RJ0BisSF3ipGuSMOr2sWBk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(8676002)(66476007)(316002)(66556008)(66946007)(5660300002)(8936002)(44832011)(38100700002)(2906002)(36756003)(31696002)(86362001)(6506007)(6666004)(6486002)(83380400001)(478600001)(41300700001)(26005)(2616005)(6512007)(186003)(31686004)(21314003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTBhVVlJMzhveVBaSFpyejIxazdXelduZkxxenNTOEFtUWt3bzQ0cElHdWdo?=
+ =?utf-8?B?a3AvNjBSNjA2MlF0dW43dUFqUmpwZjFPdjZQNjdIVDkrSVhibnNBR3krczVq?=
+ =?utf-8?B?eGtTWjJSeHptRnFSeVY1SHhSYzhoMDQxMVk0S2JZbi9tN1ZxYzhHNC9zVk82?=
+ =?utf-8?B?QWlaelFJOEtuaDlTUllZVHhMTGhtUXJjdGlCZGF2TzMwUFZFTnhUZS9pYVF3?=
+ =?utf-8?B?VHU2dzZNRm9kMzI0MWN0VFA3dkRpSnNZMlROQ2ZuNEdaeFVXY2xXNTAzMXd3?=
+ =?utf-8?B?TnVzSVNsejhaNk9neUhGZTZzWUtWb2RQOWFOU3IxWG1pd1N6QVZaN3g1cWlh?=
+ =?utf-8?B?MjRrV3B1WWI3RVZ6T2lSTkI5Q1Z1cVlRU1QrMytEMVBJOFZRYldmL0VBSWJv?=
+ =?utf-8?B?VXZXYVIwK00vZE0wMU5SMU1yN2VOcVhNZ1p5WktKaDNGdFR0NkxabmhtR1Vp?=
+ =?utf-8?B?WWJPaCt2MlBTRStFa1dBck1kWlFFY2JkRnJ2VFB0VUNXaG9FUkFEOXgzdWYr?=
+ =?utf-8?B?bUFqR3M0dkhJUjRUU3V0YU9pM3FFQzdsc3cyNzBRWlpoRHd6anZySkFMbmpF?=
+ =?utf-8?B?M05zS21rZHJ4b1A2cDNMdE9hTXZRd1JxYlFZV3hpbDRRdmkvV2xIM0V1ZEx3?=
+ =?utf-8?B?K1dVaTFYU1l4UHp3bmRuRXoxLzVLYXFhQ0p6d0hmTkRPN2FCYnVoRkl2OHU1?=
+ =?utf-8?B?eVlnS1RFOWU5aE56RnhrQWNBeHV3NW5FQ3NxbDVXM0FPTnR0aEk3Ky9yNUhI?=
+ =?utf-8?B?VUxxWVA3VlVoZThYbDdtLzRDNHRvOUFrSTIzbnduUHh2QVNLM3gwOStFdnhB?=
+ =?utf-8?B?SXhab2JaYVV4UDB2WnBLbnF2b1dJajVFNU1xMFg0andBQm1uN1lzUlYxTEVG?=
+ =?utf-8?B?VGtJN1A1QWVFYVFTOHhQQ0pXOFNINmh3aVQvMHorRlFJUWc5MitmczQwNERa?=
+ =?utf-8?B?TnVocmJTcWtjL09WRS9jTjlMWFYvSzBkR1FoRXFjcnBkWXcyaTB4a21lN214?=
+ =?utf-8?B?OGJxazF2R1d0UjVNa0R2N2h5VVVXU1JpYlBzQUpCV1pjdUgraFpJemFkS3Zm?=
+ =?utf-8?B?Y2I1aEs3QVRKMXFaNGJZRGhJenVHUXNvYkJJZjVjSFp2SEdVZDlMeGNheWpa?=
+ =?utf-8?B?dXdUYmhkL0R2NmFKWkNNaEJGSU53Z1BkT0Z3YkhIbGNUbG9zdlFZK2NDSlU3?=
+ =?utf-8?B?alhKbEVrNjVVVWptOWJrK28rb1l5UjVXVjlKRUtCVi9rT21HZmMzVnNQendF?=
+ =?utf-8?B?SlkwVkJiUVFlNW5QL1BwY0V6UGU5MC9qSGliWmVoOW1nc3ovRkt4MDRVbEhV?=
+ =?utf-8?B?b3RWWUpVK3kxUUgxU0NCdTdwblI3dEtBMTJwUklJSlZhZXNOMG5QL0hGL1k4?=
+ =?utf-8?B?MktHTzNhQy9LNzVOSEFwV1lZY1N2MnhlRUVseENub3B6NW9VYlloZzgvbGxP?=
+ =?utf-8?B?QjBHbS9xd0VLQ2Q0Kzl4RkxTMjJJTitxVXoxV3RUMWJibC9NdW5WQ1dTSGpN?=
+ =?utf-8?B?bWZaOS9oSGFwc1I0em5Ia1BNODVsRlkyY2ZrNTRTbXA3V2xqNWt2ekI3M0wz?=
+ =?utf-8?B?bGJ5blFVUTI1TVlHRGJvU21MVGZSM0U3ZzR6Yy9SRzFZazdHYW1JS3B4N0lN?=
+ =?utf-8?B?TTdjNnh0dGg5V0VXUm9NMjRrb0YxSkpWaTM2eFJwdmZXNy93UkdPMkJvWTM0?=
+ =?utf-8?B?UFJ2NWlqc09kNWt2T3YveU94RTRXQmxGa2JldG4vVUN0cldyd3grMzNFWGpu?=
+ =?utf-8?B?UGhjSnFOVmdvdVpCQVZ0ZEFHUGU2MUZxTzN2dEV5Qm1Pc1U1SmpQYy9wOEtC?=
+ =?utf-8?B?azdnSHlRb1VYRGxSVVpzZXR0b3kxeFVrVFFPcWZHaDdzT3A1d1dYeEZ6dWpW?=
+ =?utf-8?B?RDdMREIzek9DMS90N3hXMU9ydFl0V3pFcXpnV2U0ZmRPSWUrME1mYTAxSkox?=
+ =?utf-8?B?b2tLQlNFQ2pCbjdUMi9nalM3Q1h2aHhDTVh5dlJXK0RnT1ZEWTBreVlnUUlF?=
+ =?utf-8?B?SmRPVU5XR2Y0dlpxWGR2RzlETjNIT0RzaDNOYW02bkJqMHRwYTgxUTBYbjJL?=
+ =?utf-8?B?dGZIbm9jOHNjcDdvckZweEppL1hsaTZ0elJ1NjBqakZya0xPQzJJOXdzcy91?=
+ =?utf-8?Q?J5CL/9WfzbBEQhUeSMYfIffiU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 190ab78d-399a-4f84-44dd-08da7f923228
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 14:18:31.1361 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WmnFQ58tCqcdQVvnrI3ZPCb8QPA+4ke7kSMYu2YV5qHke5St6vul4/LHK7nXxOIx7xDpkgroaqJ1VDq+BfuRxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5871
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,249 +123,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, "Hung,
- Alex" <Alex.Hung@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>,
- "Russell, Kent" <Kent.Russell@amd.com>, Simon Ser <contact@emersion.fr>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Sean Paul <seanpaul@chromium.org>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- Pierre-Loup <pgriffais@valvesoftware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 11, 2022 at 3:45 PM Rodrigo Siqueira Jordao
-<Rodrigo.Siqueira@amd.com> wrote:
+Am 2022-08-15 um 15:25 schrieb Mukul Joshi:
+> There are no backing hardware registers for ih_soft ring.
+> As a result, don't try to access hardware registers for read
+> and write pointers when processing interrupts on the IH soft
+> ring.
 >
-> Hi Kent,
->
-> First of all, thanks for your feedback.
-> See my comments inline.
->
-> On 2022-08-11 12:02, Russell, Kent wrote:
-> > [AMD Official Use Only - General]
-> >
-> > I noticed that you added DCE and VCE/UVD prefixes in the columns, but n=
-ot GC or SDMA.
-> > E.g.
-> >     CHIP                  DCE      GC             VCE                  =
-         SDMA
-> >   BONAIRE      DCE 8  7        VCE 2 / UVD 4.2        1
-> >
->
-> Are you referencing when I added it in some specific lines? If so, I
-> added it because we may have a different architecture for the same area.
-> For example, DCE is our old display architecture, and we replaced it
-> with DCN. That's why I added DCE/DCN in the label, and in the ASIC
-> description, I specify if it is a DCE or DCN.
->
-> > For consistency, should we drop the DCE/VCE/UVD prefixes and add a sepa=
-rate UVD column, so it's just:
->
-> Iirc UVD is the previous version of VCE; in that case, I think they
-> should be grouped. Or is UVD a different component?
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
-DCE was the old display IP and it was replaced with DCN.  UVD/VCE
-where the old video decode/encode IPs and they were replaced with VCN.
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
->
-> >     CHIP                  DCE      GC           VCE    UVD    SDMA
-> >   BONAIRE      8      7       VCE 2   4.2     1
-> > ? I know that from a compute perspective, I'd like to have the columns =
-represent the fields, so there's less to parse through, but I am not a disp=
-lay guy so the DCE/VCE/UVD relationship is a mystery to me.
-> >
-> > Also, for VG10 you have SDMA 4.0.0, but Polaris it's SDMA 3 . Again, ju=
-st consistency with trailing decimals. I don't know if that's just because =
-we didn't do point releases on SDMA <4 or whatnot, but it's something I obs=
-erved.
->
-> I also don't know if we have a good reason for not using the decimal
-> part, but I can add it to all components if it makes sense. Maybe Alex kn=
-ow?
 
-The old parts didn't really have well enumerated IP minor versions
-like we do today.  We could make up minor/rev numbers, but we don't
-really have them in most cases.  We could do something like 8.x or 7.x
-if you think that is clearer.
-
-Alex
-
+> ---
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 7 ++++++-
+>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 7 ++++++-
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 7 ++++++-
+>   3 files changed, 18 insertions(+), 3 deletions(-)
 >
-> Thanks
-> Siqueira
->
-> >
-> > I am not staunchly steadfast one way or another, I just wanted to hear =
-rationale for it. Especially if we're maintaining it going forward, and for=
- when someone inevitably starts parsing it via automated script and needs c=
-onsistency. If you're confident in the format and can justify it, then that=
-'s sufficient for me.
-> >
-> >   Kent
-> >
-> >> -----Original Message-----
-> >> From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
-> >> Sent: Thursday, August 11, 2022 11:48 AM
-> >> To: amd-gfx@lists.freedesktop.org
-> >> Cc: Wentland, Harry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas
-> >> <Nicholas.Kazlauskas@amd.com>; Lakha, Bhawanpreet
-> >> <Bhawanpreet.Lakha@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>;
-> >> Hung, Alex <Alex.Hung@amd.com>; Pelloux-Prayer, Pierre-Eric <Pierre-
-> >> eric.Pelloux-prayer@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>;
-> >> Simon Ser <contact@emersion.fr>; Pekka Paalanen
-> >> <pekka.paalanen@collabora.com>; Sean Paul <seanpaul@chromium.org>; Mar=
-k
-> >> Yacoub <markyacoub@chromium.org>; Pierre-Loup
-> >> <pgriffais@valvesoftware.com>; Michel D=C3=A4nzer
-> >> <michel.daenzer@mailbox.org>; Russell, Kent <Kent.Russell@amd.com>
-> >> Subject: [PATCH v2 1/3] Documentation/gpu: Add info table for ASICs
-> >>
-> >> Amdgpu driver is used in an extensive range of devices, and each ASIC
-> >> has some specific configuration. As a result of this variety, sometime=
-s
-> >> it is hard to identify the correct block that might cause the issue.
-> >> This commit expands the amdgpu kernel-doc to alleviate this issue by
-> >> introducing one ASIC table that describes dGPU and another one that
-> >> shares the APU info.
-> >>
-> >> Cc: Harry Wentland <harry.wentland@amd.com>
-> >> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> >> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-> >> Cc: Hersen Wu <hersenxs.wu@amd.com>
-> >> Cc: Alex Hung <alex.hung@amd.com>
-> >> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> >> Cc: Leo Li <sunpeng.li@amd.com>
-> >> Cc: Simon Ser <contact@emersion.fr>
-> >> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-> >> Cc: Sean Paul <seanpaul@chromium.org>
-> >> Cc: Mark Yacoub <markyacoub@chromium.org>
-> >> Cc: Pierre-Loup <pgriffais@valvesoftware.com>
-> >> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
-> >> Cc: Kent Russell <Kent.Russell@amd.com>
-> >> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> >> ---
-> >>   .../gpu/amdgpu/apu-asic-info-table.csv        |  8 +++++++
-> >>   .../gpu/amdgpu/dgpu-asic-info-table.csv       | 24 +++++++++++++++++=
-++
-> >>   Documentation/gpu/amdgpu/driver-misc.rst      | 17 +++++++++++++
-> >>   3 files changed, 49 insertions(+)
-> >>   create mode 100644 Documentation/gpu/amdgpu/apu-asic-info-table.csv
-> >>   create mode 100644 Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> >>
-> >> diff --git a/Documentation/gpu/amdgpu/apu-asic-info-table.csv
-> >> b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
-> >> new file mode 100644
-> >> index 000000000000..98c6988e424e
-> >> --- /dev/null
-> >> +++ b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
-> >> @@ -0,0 +1,8 @@
-> >> +Product Name, Code Reference, DCN/DCE version, GC version, VCE/UVD/VC=
-N
-> >> version, SDMA version
-> >> +Radeon R* Graphics, CARRIZO/STONEY, DCE 11, 8, VCE 3 / UVD 6, 3
-> >> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx,
-> >> RAVEN/PICASSO, DCN 1.0, 9.1.0, VCN 1.0, 4.1.0
-> >> +Ryzen 4000 series, RENOIR, DCN 2.1, 9.3, VCN 2.2, 4.1.2
-> >> +Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx,
-> >> RAVEN2, DCN 1.0, 9.2.2, VCN 1.0.1, 4.1.1
-> >> +SteamDeck, VANGOGH, DCN 3.0.1, 10.3.1, VCN 3.1.0, 5.2.1
-> >> +Ryzen 5000 series, GREEN SARDINE, DCN 2.1, 9.3, VCN 2.2, 4.1.1
-> >> +Ryzen 6000 Zen, YELLOW CARP, 3.1.2, 10.3.3, VCN 3.1.1, 5.2.3
-> >> diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> >> b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> >> new file mode 100644
-> >> index 000000000000..84617aa35dab
-> >> --- /dev/null
-> >> +++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> >> @@ -0,0 +1,24 @@
-> >> +Product Name, Code Reference, DCN/DCE version, GC version, VCN versio=
-n,
-> >> SDMA version
-> >> +AMD Radeon (TM) HD 8500M/ 8600M /M200 /M320 /M330 /M335 Series,
-> >> HAINAN, --,  6, --, --
-> >> +AMD Radeon HD 7800 /7900 /FireGL Series, TAHITI, DCE 6, 6, VCE 1 / UV=
-D 3, --
-> >> +AMD Radeon R7 (TM|HD) M265 /M370 /8500M /8600 /8700 /8700M, OLAND,
-> >> DCE 6, 6, VCE 1 / UVD 3, --
-> >> +AMD Radeon (TM) (HD|R7) 7800 /7970 /8800 /8970 /370/ Series, PITCAIRN=
-,
-> >> DCE 6, 6, VCE 1 / UVD 3, --
-> >> +AMD Radeon (TM|R7|R9|HD) E8860 /M360 /7700 /7800 /8800 /9000(M)
-> >> /W4100 Series, VERDE, DCE 6, 6, VCE 1 / UVD 3, --
-> >> +AMD Radeon HD M280X /M380 /7700 /8950 /W5100, BONAIRE, DCE 8, 7, VCE
-> >> 2 / UVD 4.2, 1
-> >> +AMD Radeon (R9|TM) 200 /390 /W8100 /W9100 Series, HAWAII, DCE 8, 7, V=
-CE
-> >> 2 / UVD 4.2, 1
-> >> +AMD Radeon (TM) R(5|7) M315 /M340 /M360, TOPAZ, *, 8, --, 2
-> >> +AMD Radeon (TM) R9 200 /380 /W7100 /S7150 /M390 /M395 Series, TONGA,
-> >> DCE 10, 8, VCE 3 / UVD 5, 3
-> >> +AMD Radeon (FirePro) (TM) R9 Fury Series, FIJI, DCE 10, 8, VCE 3 / UV=
-D 6, 3
-> >> +Radeon RX 470 /480 /570 /580 /590 Series - AMD Radeon (TM) (Pro WX) 5=
-100
-> >> /E9390 /E9560 /E9565 /V7350 /7100 /P30PH, POLARIS10, DCE 11.2, 8, VCE =
-3.4 /
-> >> UVD 6.3, 3
-> >> +Radeon (TM) (RX|Pro WX) E9260 /460 /V5300X /550 /560(X) Series, POLAR=
-IS11,
-> >> DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3
-> >> +Radeon (RX/Pro) 500 /540(X) /550 /640 /WX2100 /WX3100 /WX200 Series,
-> >> POLARIS12, DCE 11.2, 8, VCE 3.4 / UVD 6.3, 3
-> >> +Radeon (RX|TM) (PRO|WX) Vega /MI25 /V320 /V340L /8200 /9100 /SSG
-> >> MxGPU, VEGA10, DCE 12, 9.0.1, VCE 4.0.0 / UVD 7.0.0, 4.0.0
-> >> +AMD Radeon (Pro) VII /MI50 /MI60, VEGA20, DCE 12, 9.4.0, VCE 4.1.0 / =
-UVD
-> >> 7.2.0, 4.2.0
-> >> +MI100, ARCTURUS, *, 9.4.1, VCN 2.5.0, 4.2.2
-> >> +MI200, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0
-> >> +AMD Radeon (RX|Pro) 5600(M|XT) /5700 (M|XT|XTB) /W5700, NAVI10, DCN
-> >> 2.0.0, 10.1.10, VCN 2.0.0, 5.0.0
-> >> +AMD Radeon (Pro) 5300 /5500XTB/5500(XT|M) /W5500M /W5500, NAVI14,
-> >> DCN 2.0.0, 10.1.1, VCN 2.0.2, 5.0.2
-> >> +AMD Radeon RX 6800(XT) /6900(XT) /W6800, SIENNA_CICHLID, DCN 3.0.0,
-> >> 10.3.0, VCN 3.0.0, 5.2.0
-> >> +AMD Radeon RX 6700 XT / 6800M / 6700M, NAVY_FLOUNDER, DCN 3.0.0,
-> >> 10.3.2, VCN 3.0.0, 5.2.2
-> >> +AMD Radeon RX 6600(XT) /6600M /W6600 /W6600M, DIMGREY_CAVEFISH,
-> >> DCN 3.0.2, 10.3.4, VCN 3.0.16, 5.2.4
-> >> +AMD Radeon RX 6500M /6300M /W6500M /W6300M, BEIGE_GOBY, DCN
-> >> 3.0.3, 10.3.5, VCN 3.0.33, 5.2.5
-> >> diff --git a/Documentation/gpu/amdgpu/driver-misc.rst
-> >> b/Documentation/gpu/amdgpu/driver-misc.rst
-> >> index e3d6b2fa2493..1800543d45f7 100644
-> >> --- a/Documentation/gpu/amdgpu/driver-misc.rst
-> >> +++ b/Documentation/gpu/amdgpu/driver-misc.rst
-> >> @@ -32,6 +32,23 @@ unique_id
-> >>   .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> >>      :doc: unique_id
-> >>
-> >> +Accelerated Processing Units (APU) Info
-> >> +---------------------------------------
-> >> +
-> >> +.. csv-table::
-> >> +   :header-rows: 1
-> >> +   :widths: 3, 2, 2, 1, 1, 1
-> >> +   :file: ./apu-asic-info-table.csv
-> >> +
-> >> +Discrete GPU Info
-> >> +-----------------
-> >> +
-> >> +.. csv-table::
-> >> +   :header-rows: 1
-> >> +   :widths: 3, 2, 2, 1, 1, 1
-> >> +   :file: ./dgpu-asic-info-table.csv
-> >> +
-> >> +
-> >>   GPU Memory Usage Information
-> >>   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
-> >>
-> >> --
-> >> 2.35.1
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index 4b5396d3e60f..eec13cb5bf75 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -409,9 +409,11 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -483,6 +485,9 @@ static void navi10_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index cdd599a08125..03b7066471f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -334,9 +334,11 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -409,6 +411,9 @@ static void vega10_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index 3b4eb8285943..2022ffbb8dba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -385,9 +385,11 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
+>   	u32 wptr, tmp;
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> -	if (ih == &adev->irq.ih) {
+> +	if (ih == &adev->irq.ih || ih == &adev->irq.ih_soft) {
+>   		/* Only ring0 supports writeback. On other rings fall back
+>   		 * to register-based code with overflow checking below.
+> +		 * ih_soft ring doesn't have any backing hardware registers,
+> +		 * update wptr and return.
+>   		 */
+>   		wptr = le32_to_cpu(*ih->wptr_cpu);
+>   
+> @@ -461,6 +463,9 @@ static void vega20_ih_set_rptr(struct amdgpu_device *adev,
+>   {
+>   	struct amdgpu_ih_regs *ih_regs;
+>   
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>   	if (ih->use_doorbell) {
+>   		/* XXX check if swapping is necessary on BE */
+>   		*ih->rptr_cpu = ih->rptr;
