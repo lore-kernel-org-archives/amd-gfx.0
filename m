@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C8DC25B08
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 20:47:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AE5C25B08
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 20:57:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E669653E;
-	Wed, 17 Aug 2022 20:47:29 +0000 (UTC)
-Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
- [IPv6:2607:f8b0:4864:20::e2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED23A7809;
- Wed, 17 Aug 2022 20:39:53 +0000 (UTC)
-Received: by mail-vs1-xe2c.google.com with SMTP id o123so14342195vsc.3;
- Wed, 17 Aug 2022 13:39:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D016A8B03;
+	Wed, 17 Aug 2022 20:57:52 +0000 (UTC)
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [IPv6:2607:f8b0:4864:20::f31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC59A8AF2;
+ Wed, 17 Aug 2022 20:57:41 +0000 (UTC)
+Received: by mail-qv1-xf31.google.com with SMTP id u10so10940871qvp.12;
+ Wed, 17 Aug 2022 13:57:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=Pby1yMSBPXIRmnbK0mp8JoI7OWrC1joW57AiQcbBP0Q=;
- b=inC+UgcY0EIaKzbjmu9TomN+u6btHsSO05ufbPi8fwp81bBlk7mkWQVr7pqZ9RRqLU
- hvBJbrD1nAXbb0hc5VwXN8Zy0wnZm1nu/acyUVP51b3R3tpQPCOkPmzPFeHbyBLmJyeD
- uUsXNzjU/sI4QGzkncRbj0amd+xLIyLUVu96aUe4zdN5DyQq8bScni4Xe6fhYbd8MlXQ
- fldeeRjYOZMaUDbfhU72Iu9YETXX3PT74/PjlHmCWhL1iSDhIi5IpALmZhk32MpKs2FF
- E8mXcJQcYSqqpqHwX1R1NrAsGeifiFjZgcxsHNJrwzwd55cY55RnJW8VJH40ZxVikK/Z
- 43hA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=NSencxNLAYlXEjBY7G7wHQ85I3w1a9PoMMHRBumwv+M=;
+ b=PCsr/WPwx9uPbLFkArNKjD83uUoWe1WgGbndd+/pXvFHPZkeh5HXx3QzWdzLwwCYYy
+ IunQALRIHUxvbDRtIZ2wFaRmumntCgHR/3aXVPjcaDVz7jxFwkVzFZwSWBNHL+ZkPNMX
+ oXLZbVgW/T5G4Q51MBBuMCqJzRnFmr2Rs8+Kgp9LdMrjoHYGDKlDJuMrSe1wobRh6neZ
+ ph9j27eXXY4MLN7mIJ49u6XNkuo95Qjp6gn+MHn7Px6I1VR7K6TDaAHkQz66dGhkcTp1
+ drwCvo8IAWN6PdmqL1+WemVzUbpvXzeJVipG7/3NJjQpOhJQr2iQCevqC6sEg6E5cO+g
+ 84Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=Pby1yMSBPXIRmnbK0mp8JoI7OWrC1joW57AiQcbBP0Q=;
- b=bztTUnQlobMZIt6upPRaZAdfeetkJupjFj2htWDz6rl5BZw8+k6NcnRSrIjYDqcouA
- dKOo8RpxCDC6/jZxsNrHeS02c/aAC0mkmHt4lZWR3hcB/HV9LdyeLawFDugACXt3XVUm
- 2ydsBFiMPLl3gRz5eeHugtuAnABo8KYC5V2QBsouKz2BJPbCo6MiFiX7vOh9r6rXL0A/
- IrWaQa31TeYB1/LrfTHVUmN//k4SBlgXYM/140bTUX/q9LOwGR5m+dh7ZgAN9Bnb0o39
- IzB/3ilmYtYsADMqmYoruXsrYlwFJ+ntUAfXSN/i8tjYFC6uaI+q37A9jF89wCIxBzf9
- D6UQ==
-X-Gm-Message-State: ACgBeo17bC8kXRVZqXLXgTt/V2lBfEk11p/W5raOaEKpTvw94VUKcd9X
- rVd1BtCOVghlPsQr6as/aHtoWSQrx3nGzgdGKdRS6G6Seo6mU1hO
-X-Google-Smtp-Source: AA6agR7TXYadG2mmWjKCH/W19SWAIUnwsaui5VCW1HOoHb7uysbbyVqhETXpaRT38pEdo0NpybxBnNWQxdaC+V4gaI0=
-X-Received: by 2002:a67:be01:0:b0:388:7361:2eb3 with SMTP id
- x1-20020a67be01000000b0038873612eb3mr11215542vsq.14.1660768792854; Wed, 17
- Aug 2022 13:39:52 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=NSencxNLAYlXEjBY7G7wHQ85I3w1a9PoMMHRBumwv+M=;
+ b=eJVdlDB+y7VACIrUVfN78DFq29nes/nNDHSnFlMzHJciv/K3Cj7HIS1r9E7UrLDf/W
+ vrrVrsOcbyKp6GTTF58f2SH+/968lvSpWbRLk1mEMDGYpnjvihf3BO/vOytyCS9dsdFu
+ VvDRPOM9bV/oRMo0lQUXPEf+g3gnMVFyidn5zSWG3cSHO7nNLO2tkQ3PiiCX6FGSMuSb
+ d32hUYtJeRsViG/RAuhXLjLaC21NKRrXEro8h2EkGP8MNdOPW+uvD8XMduC0lLntsvJu
+ RBTalLDIXSHUZxgzzvU0mq+89TrIj2AVryyFbP4yVFOAYeVOeUutZxJF8CBvo9GZJ3aV
+ Etmg==
+X-Gm-Message-State: ACgBeo0KiZEwmXbL8dC3QBMb9t3ydIRjI0dKXh6t1cEdgjrfPj9STYi6
+ OjPhqSWTtlV24TyC8dj6N3UMQ8Ae0o4LinqZtLI=
+X-Google-Smtp-Source: AA6agR7sS4FOMjFp8oYIQ4gL5M5RZqi4Uj9IBODUSuhQLmLR5aaXYv3d6Hkh3AcdDuGz27tZaSaEEwDYPLFMvdAf1AU=
+X-Received: by 2002:a05:6214:2462:b0:496:465f:702 with SMTP id
+ im2-20020a056214246200b00496465f0702mr6089686qvb.84.1660769860173; Wed, 17
+ Aug 2022 13:57:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <YvU4GD8HtZ1A4dhI@debian>
- <20220812090731.31da7d85@oak.ozlabs.ibm.com>
- <20220817094309.140c346e@canb.auug.org.au>
-In-Reply-To: <20220817094309.140c346e@canb.auug.org.au>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Wed, 17 Aug 2022 21:39:17 +0100
-Message-ID: <CADVatmO-kc93dQc9TPy7ZjGuLUUut7or1VLGYkLWTw803mkWiQ@mail.gmail.com>
-Subject: Re: build failure of next-20220811 due to b1a63a0b48ad
- ("drm/amd/display: consider DSC pass-through during mode validation")
-To: Stephen Rothwell <sfr@canb.auug.org.au>
+References: <CABXGCsM58-8fxVKAVkwsshg+33B_1_t_WesG160AtVBe1ZvKiw@mail.gmail.com>
+ <be6f1ce4-46b1-7a80-230c-b99f203ce8ad@riseup.net>
+ <CABXGCsMFYnE+Wn2EAWuC8DSVj=TVprj6ABZwRK-hXcw-1hnMyw@mail.gmail.com>
+ <CABXGCsMpGabZ32j_ObEHa_har2W8M8RWuqnx3d=yJT2NX_ztNg@mail.gmail.com>
+ <20220817160751.moqhebkiuiydraka@mail.igalia.com>
+ <CABXGCsOM9An-+EeaGWm0OA1FN2p94=BF210Lhy0tiO6ye9onWQ@mail.gmail.com>
+ <dd2ee57a-2ab2-db94-36d9-8faced18fe61@riseup.net>
+In-Reply-To: <dd2ee57a-2ab2-db94-36d9-8faced18fe61@riseup.net>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 18 Aug 2022 01:57:29 +0500
+Message-ID: <CABXGCsMc_D_iJ-r-_s8q13Vq6dgfQg1tnp-0aojfv5Q8izTrfw@mail.gmail.com>
+Subject: Re: [BUG][5.20] refcount_t: underflow; use-after-free
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 17 Aug 2022 20:47:09 +0000
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +69,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, linux-next <linux-next@vger.kernel.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 17, 2022 at 12:43 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+On Wed, Aug 17, 2022 at 11:43 PM Ma=C3=ADra Canal <mairacanal@riseup.net> w=
+rote:
 >
-> Hi all,
+> Hi Mikhail,
 >
-> On Fri, 12 Aug 2022 09:07:31 +1000 Stephen Rothwell <sfr@rothwell.id.au> wrote:
-> >
-> > On Thu, 11 Aug 2022 18:10:48 +0100 "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com> wrote:
-> > >
-> > > Not sure if it has been reported, builds of riscv, alpha, s390, arm,
-> > > arm64, xtensa, mips, csky allmodconfig have failed to build next-20220811
-> > > with the error:
-> > >
-> > > ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> > > ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> > >
-> > > git bisect pointed to b1a63a0b48ad ("drm/amd/display: consider DSC pass-through during mode validation")
-> > > And, reverting that commit has fixed the build failure.
-> > >
-> > > I will be happy to test any patch or provide any extra log if needed.
-> >
-> > I have reverted that commit in today's linux-next.
->
-> I have removed that revert.  Sudip, can you recheck when linux-next is
-> released, please?
+> Looks like 45ecaea738830b9d521c93520c8f201359dcbd95 ("drm/sched: Partial
+> revert of 'drm/sched: Keep s_fence->parent pointer'") introduced the
+> error. Try reverting it and check if the use-after-free still happens.
 
-The build failure is not seen with next-20220817.
+Thanks, but unfortunately, this did not lead to the expected result.
+Again happens use-after-free in an incomprehensible context.
+From the new: added warning "suspicious RCU usage" but it looks like
+it is completely not related to the use-after-free issue.
 
+[ 215.434115] ------------[ cut here ]------------
+[ 215.434184] refcount_t: underflow; use-after-free.
+[ 215.434204] WARNING: CPU: 7 PID: 1258 at lib/refcount.c:28
+refcount_warn_saturate+0xba/0x110
+[ 215.434214] Modules linked in: uinput rfcomm snd_seq_dummy
+snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
+nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
+nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
+nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
+qrtr bnep sunrpc binfmt_misc snd_seq_midi snd_seq_midi_event
+intel_rapl_msr intel_rapl_common snd_hda_codec_realtek vfat
+snd_hda_codec_generic snd_hda_codec_hdmi mt76x2u fat mt76x2_common
+snd_hda_intel mt76x02_usb snd_intel_dspcfg snd_intel_sdw_acpi mt76_usb
+iwlmvm edac_mce_amd snd_usb_audio snd_hda_codec mt76x02_lib
+snd_hda_core snd_usbmidi_lib snd_hwdep snd_rawmidi uvcvideo mt76
+kvm_amd snd_seq videobuf2_vmalloc videobuf2_memops snd_seq_device
+mac80211 videobuf2_v4l2 videobuf2_common kvm btusb iwlwifi snd_pcm
+btrtl videodev libarc4 eeepc_wmi btbcm asus_wmi iwlmei btintel
+ledtrig_audio xpad irqbypass sparse_keymap btmtk platform_profile
+joydev
+[ 215.434436] hid_logitech_hidpp rapl ff_memless mc snd_timer
+bluetooth cfg80211 video pcspkr wmi_bmof snd soundcore k10temp
+i2c_piix4 rfkill mei asus_ec_sensors acpi_cpufreq zram amdgpu
+drm_ttm_helper ttm iommu_v2 ucsi_ccg gpu_sched crct10dif_pclmul
+crc32_pclmul typec_ucsi drm_buddy crc32c_intel ghash_clmulni_intel ccp
+igb sp5100_tco typec drm_display_helper nvme dca nvme_core cec wmi
+ip6_tables ip_tables fuse
+[ 215.434528] Unloaded tainted modules: amd64_edac():1 amd64_edac():1
+amd64_edac():1 amd64_edac():1 amd64_edac():1 amd64_edac():1
+amd64_edac():1 amd64_edac():1 amd64_edac():1 amd64_edac():1
+amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
+pcc_cpufreq():1 amd64_edac():1 amd64_edac():1 pcc_cpufreq():1
+pcc_cpufreq():1 amd64_edac():1 amd64_edac():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1
+amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1
+pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
+amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1
+pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
+pcc_cpufreq():1 pcc_cpufreq():1 pcc_cpufreq():1 fjes():1
+[ 215.434672] pcc_cpufreq():1 fjes():1 pcc_cpufreq():1 fjes():1
+pcc_cpufreq():1 fjes():1 fjes():1 fjes():1 fjes():1 fjes():1
+[ 215.434702] CPU: 7 PID: 1258 Comm: kworker/7:3 Tainted: G W L
+------- --- 6.0.0-0.rc1.20220817git3cc40a443a04.14.fc38.x86_64 #1
+[ 215.434709] Hardware name: System manufacturer System Product
+Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
+[ 215.434715] Workqueue: events drm_sched_entity_kill_jobs_work [gpu_sched]
+[ 215.434728] RIP: 0010:refcount_warn_saturate+0xba/0x110
+[ 215.434734] Code: 01 01 e8 59 59 6f 00 0f 0b e9 22 46 a5 00 80 3d be
+7d be 01 00 75 85 48 c7 c7 c0 99 8e 92 c6 05 ae 7d be 01 01 e8 36 59
+6f 00 <0f> 0b e9 ff 45 a5 00 80 3d 99 7d be 01 00 0f 85 5e ff ff ff 48
+c7
+[ 215.434740] RSP: 0018:ffff9ccb0237fe60 EFLAGS: 00010286
+[ 215.434747] RAX: 0000000000000026 RBX: ffff8d531f6f2828 RCX: 000000000000=
+0000
+[ 215.434753] RDX: 0000000000000001 RSI: ffffffff928d07a4 RDI: 00000000ffff=
+ffff
+[ 215.434757] RBP: ffff8d61e47f5600 R08: 0000000000000000 R09: ffff9ccb0237=
+fd10
+[ 215.434762] R10: 0000000000000003 R11: ffff8d622e2fffe8 R12: ffff8d61e47f=
+c800
+[ 215.434767] R13: ffff8d5313e95500 R14: ffff8d61e47fc805 R15: ffff8d531f6f=
+2830
+[ 215.434772] FS: 0000000000000000(0000) GS:ffff8d61e4600000(0000)
+knlGS:0000000000000000
+[ 215.434777] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 215.434782] CR2: 00007f0c8b815048 CR3: 00000001ab0e8000 CR4: 000000000035=
+0ee0
+[ 215.434788] Call Trace:
+[ 215.434792] <TASK>
+[ 215.434797] process_one_work+0x2a0/0x600
+[ 215.434819] worker_thread+0x4f/0x3a0
+[ 215.434830] ? process_one_work+0x600/0x600
+[ 215.434836] kthread+0xf5/0x120
+[ 215.434842] ? kthread_complete_and_exit+0x20/0x20
+[ 215.434854] ret_from_fork+0x22/0x30
+[ 215.434881] </TASK>
+[ 215.434885] irq event stamp: 134873
+[ 215.434890] hardirqs last enabled at (134881): [<ffffffff9118ce7e>]
+__up_console_sem+0x5e/0x70
+[ 215.434897] hardirqs last disabled at (134888): [<ffffffff9118ce63>]
+__up_console_sem+0x43/0x70
+[ 215.434903] softirqs last enabled at (131264): [<ffffffff910ff769>]
+__irq_exit_rcu+0xf9/0x170
+[ 215.434910] softirqs last disabled at (131257): [<ffffffff910ff769>]
+__irq_exit_rcu+0xf9/0x170
+[ 215.434917] ---[ end trace 0000000000000000 ]---
 
--- 
-Regards
-Sudip
+Full kerner log: https://pastebin.com/qED477Pz
+
+--=20
+Best Regards,
+Mike Gavrilov.
