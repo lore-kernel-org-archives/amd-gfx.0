@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD3F3C25B08
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 19:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 428C1C2BB41
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 19:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F912A524F;
-	Wed, 17 Aug 2022 19:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF06CA5253;
+	Wed, 17 Aug 2022 19:39:30 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF757A521E
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:39:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E46C1A5219
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660765161;
+ s=mimecast20190719; t=1660765155;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dghKN9sgINB8op+a+z7QukDv2xnE+e1D1M1hzE9qLkk=;
- b=OnzPJAQhVrwxF1OjLTPJfWzvaK7T9JkTbtLPsOUL6bEfUz2PIR12UpXaNr7aSJy6aXh+oz
- 3fSq0CfZFS7T9I5ClblYv5XM0uZCZ1RwCQANWFInRRN6hBlvEkHdkHgx7gy/0CvbtnMko2
- 4ObJlkp6pi6M+hZApg4Rdg4r4MEcjDc=
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AQdElMOBqNwCUNSzM6jowFAj5/LKM6OhpXSrVpWye1g=;
+ b=ezrGISlLwAuPVY/5YEyMrDZKH0IPTbocWGIxze02ln76Q+V1asUzkNZnX4TKLnjKVq9KXi
+ jCR/Lu16mhVBMiXGUphUpvGMOtuamxeVF8/tDZlEtnU6K8qSYlxO4DY05ueRbJsuVMLXHI
+ VNUylzQ6nkJLndieDzHJTTwP4y/8lDE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-411-y3uNfhipOuurKQWP_0RaeA-1; Wed, 17 Aug 2022 15:39:15 -0400
-X-MC-Unique: y3uNfhipOuurKQWP_0RaeA-1
+ us-mta-93-HHKcV3N_NNWdZv5P6t3Ysw-1; Wed, 17 Aug 2022 15:39:08 -0400
+X-MC-Unique: HHKcV3N_NNWdZv5P6t3Ysw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE93B185A7B2;
- Wed, 17 Aug 2022 19:39:14 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F695803520;
+ Wed, 17 Aug 2022 19:39:07 +0000 (UTC)
 Received: from emerald.redhat.com (unknown [10.22.18.168])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E6593492C3B;
- Wed, 17 Aug 2022 19:39:13 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id AA0F3492C3B;
+ Wed, 17 Aug 2022 19:39:06 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [RFC v4 02/17] drm/amdgpu/dm/mst: Rename get_payload_table()
-Date: Wed, 17 Aug 2022 15:38:31 -0400
-Message-Id: <20220817193847.557945-3-lyude@redhat.com>
-In-Reply-To: <20220817193847.557945-1-lyude@redhat.com>
-References: <20220817193847.557945-1-lyude@redhat.com>
+Subject: [RFC v4 00/17] drm/display/dp_mst: Drop Radeon MST support,
+ make MST atomic-only
+Date: Wed, 17 Aug 2022 15:38:29 -0400
+Message-Id: <20220817193847.557945-1-lyude@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,61 +60,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, Jani Nikula <jani.nikula@intel.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <Roman.Li@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@intel.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This function isn't too confusing if you see the comment around the
-call-site for it, but if you don't then it's not at all obvious this is
-meant to copy DRM's payload table over to DC's internal state structs.
-Seeing this function before finding that comment definitely threw me into a
-loop a few times.
+For quite a while we've been carrying around a lot of legacy modesetting
+code in the MST helpers that has been rather annoying to keep around,
+and very often gets in the way of trying to implement additional
+functionality in MST such as fallback link rate retraining, dynamic BPC
+management and DSC support, etc. because of the fact that we can't rely
+on atomic for everything.
 
-So, let's rename this to make it's purpose more obvious regardless of where
-in the code you are.
+Luckily, we only actually have one user of the legacy MST code in the
+kernel - radeon. Originally I was thinking of trying to maintain this
+code and keep it around in some form, but I'm pretty unconvinced anyone
+is actually using this. My reasoning for that is because I've seen
+nearly no issues regarding MST on radeon for quite a while now - despite
+the fact my local testing seems to indicate it's quite broken. This
+isn't too surprising either, as MST support in radeon.ko is gated behind
+a module parameter that isn't enabled by default. This isn't to say I
+wouldn't be open to alternative suggestions, but I'd rather not be the
+one to have to spend time on that if at all possible! Plus, I already
+floated the idea of dropping this code by AMD folks a few times and
+didn't get much resistance.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+As well, this series has some basic refactoring that I did along the way
+and some bugs I had to fix in order to get my atomic-only MST code
+working. Most of this is pretty straight forward and simply renaming
+things to more closely match the DisplayPort specification, as I think
+this will also make maintaining this code a lot easier in the long run
+(I've gotten myself confused way too many times because of this).
+
+So far I've tested this on all three MST drivers: amdgpu, i915 and
+nouveau, along with making sure that removing the radeon MST code
+doesn't break anything else. The one thing I very much could use help
+with regarding testing though is making sure that this works with
+amdgpu's DSC support on MST.
+
+So, with this we should be using the atomic state as much as possible
+with MST modesetting, hooray!
+
+V4:
+* Get rid of fix that Wayne pointed out isn't needed
+
 Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Sean Paul <sean@poorly.run>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 3aa385860eea..77c545e670d5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -153,8 +153,9 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	return result;
- }
- 
--static void get_payload_table(struct amdgpu_dm_connector *aconnector,
--			      struct dc_dp_mst_stream_allocation_table *proposed_table)
-+static void
-+fill_dc_mst_payload_table_from_drm(struct amdgpu_dm_connector *aconnector,
-+				   struct dc_dp_mst_stream_allocation_table *proposed_table)
- {
- 	int i;
- 	struct drm_dp_mst_topology_mgr *mst_mgr =
-@@ -252,7 +253,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
- 	 * stream. AMD ASIC stream slot allocation should follow the same
- 	 * sequence. copy DRM MST allocation to dc */
- 
--	get_payload_table(aconnector, proposed_table);
-+	fill_dc_mst_payload_table_from_drm(aconnector, proposed_table);
- 
- 	return true;
- }
+Lyude Paul (17):
+  drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
+  drm/amdgpu/dm/mst: Rename get_payload_table()
+  drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
+  drm/display/dp_mst: Call them time slots, not VCPI slots
+  drm/display/dp_mst: Fix confusing docs for
+    drm_dp_atomic_release_time_slots()
+  drm/display/dp_mst: Add some missing kdocs for atomic MST structs
+  drm/display/dp_mst: Add helper for finding payloads in atomic MST
+    state
+  drm/display/dp_mst: Add nonblocking helpers for DP MST
+  drm/display/dp_mst: Don't open code modeset checks for releasing time
+    slots
+  drm/display/dp_mst: Fix modeset tracking in
+    drm_dp_atomic_release_vcpi_slots()
+  drm/nouveau/kms: Cache DP encoders in nouveau_connector
+  drm/nouveau/kms: Pull mst state in for all modesets
+  drm/display/dp_mst: Add helpers for serializing SST <-> MST
+    transitions
+  drm/display/dp_mst: Drop all ports from topology on CSNs before
+    queueing link address work
+  drm/display/dp_mst: Maintain time slot allocations when deleting
+    payloads
+  drm/radeon: Drop legacy MST support
+  drm/display/dp_mst: Move all payload info into the atomic state
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   68 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  108 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  125 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   10 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    4 +-
+ .../amd/display/include/link_service_types.h  |   14 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 1137 ++++++++---------
+ drivers/gpu/drm/i915/display/intel_display.c  |    6 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |    9 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   91 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |   24 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  197 ++-
+ drivers/gpu/drm/nouveau/dispnv50/disp.h       |    2 +
+ drivers/gpu/drm/nouveau/nouveau_connector.c   |   18 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.h   |    3 +
+ drivers/gpu/drm/radeon/Makefile               |    2 +-
+ drivers/gpu/drm/radeon/atombios_crtc.c        |   11 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c    |   59 -
+ drivers/gpu/drm/radeon/radeon_atombios.c      |    2 -
+ drivers/gpu/drm/radeon/radeon_connectors.c    |   61 +-
+ drivers/gpu/drm/radeon/radeon_device.c        |    1 -
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        |  778 -----------
+ drivers/gpu/drm/radeon/radeon_drv.c           |    4 -
+ drivers/gpu/drm/radeon/radeon_encoders.c      |   14 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c       |   10 +-
+ drivers/gpu/drm/radeon/radeon_mode.h          |   40 -
+ include/drm/display/drm_dp_mst_helper.h       |  234 ++--
+ 27 files changed, 955 insertions(+), 2077 deletions(-)
+ delete mode 100644 drivers/gpu/drm/radeon/radeon_dp_mst.c
+
 -- 
 2.37.1
 
