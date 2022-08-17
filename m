@@ -4,54 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FEC8C3F6B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 13:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 055A2C25B08
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 13:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 852E19333A;
-	Wed, 17 Aug 2022 13:36:06 +0000 (UTC)
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40CE10E628;
- Wed, 17 Aug 2022 07:31:41 +0000 (UTC)
-X-UUID: 2993fb4b1ee34224812979cd1cb2a666-20220817
-X-CPASD-INFO: 77a6565381f94db6bd83362bf0bd7da0@gIebVmJoY2NkUaiFg6etcIKVaGNjYlK
- xqGqClGWUjVCVgnxsTV5qXFWCgGpQYWNdYlV3fGtQYmBgZFB5i4Jyj1RgXmCCVHSTgHlxgWZjZg==
-X-CLOUD-ID: 77a6565381f94db6bd83362bf0bd7da0
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:168.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:248.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5
- .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-
- 5, AUF:4, DUF:2585, ACD:52, DCD:52, SL:0, EISP:0, AG:0, CFC:0.606, CFSR:0.084,
- UAT:0, RA
- F:2, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: 2993fb4b1ee34224812979cd1cb2a666-20220817
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: 2993fb4b1ee34224812979cd1cb2a666-20220817
-X-User: lizhenneng@kylinos.cn
-Received: from [172.20.124.41] [(116.128.244.169)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256 128/128)
- with ESMTP id 399347349; Wed, 17 Aug 2022 15:31:41 +0800
-Message-ID: <2f38b94b-0965-80f2-5bae-840765ffc4da@kylinos.cn>
-Date: Wed, 17 Aug 2022 15:31:32 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8426093321;
+	Wed, 17 Aug 2022 13:36:18 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E0CC91B95
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 13:05:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1660741556;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5Bb7dToDVYNe7JAROkpJKR5S/ALfzfxwMNw63SU+PbA=;
+ b=RfEXLVpNPJzukI07gkHr6bJKuRovi0cXaqrth4OcVrIrjXSY97c2voG+ppLYo+Sdh6CLFu
+ IRDAy5WaizWArD7vNktAELNfceWiq+uFdWfqJM89A2YgXmd5MCXRXyMfkEzf0q1rZz5zX1
+ Owv9CaEvx6YVoyMo+BlMBWUR7D8dN2Q=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-390-z06IJkrDNE-cDNRP9vVf7g-1; Wed, 17 Aug 2022 09:05:54 -0400
+X-MC-Unique: z06IJkrDNE-cDNRP9vVf7g-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ o2-20020a056402438200b0043d552deb2aso8673097edc.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 06:05:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=5Bb7dToDVYNe7JAROkpJKR5S/ALfzfxwMNw63SU+PbA=;
+ b=VykYfVT5z+klFVZ+57+IySKwxR01IvgO4+UwQAKzxZ570IU3BKyGVDF1zj5HkLY89C
+ sqtyYOpMhkgX7ZAa4Kr9a8Y+77z/GJ/caoiVe0ta9TvCORaecM8FTm4CRLwIFQ/B+5na
+ R7rXH+cNuZmZGowqJ4kxCl++q0xv9nTIwouK/Dzy5pKjEAnOmFD2mYszftqd6Vp5KE3e
+ P6Ihh694/MW2o6nbRQ0WORGupe0zTPdsub5MiM/boIdGRebZ3sOWUK7emOBxXfmoJAHO
+ N4SnmpzcQ2wktBw1hQL3OoR6QcN3Oc7IL37Z+2iBIEJI4s83DJl2Li3PiLoTEvDM9I6a
+ Xmfw==
+X-Gm-Message-State: ACgBeo27rg/ufgx/7y9vAa+kjgkT2ZiALayaGoXaww30hN0bSfHSjLxs
+ IxbbCP4ZiOhEYzU1zieAUYJFrh3ZduzGhzGzTSVvvr94BybTjjYR1ofoDTwVS/Hm48Ul/h4C+mP
+ XY53zj8Iuqj20hTH1dNYOWntB5g==
+X-Received: by 2002:a05:6402:438d:b0:43d:b383:660f with SMTP id
+ o13-20020a056402438d00b0043db383660fmr22910431edc.283.1660741553758; 
+ Wed, 17 Aug 2022 06:05:53 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR4s4Ny0f0Ire0xndhK1NrT/mXOvYYx89AxmZwcwm0z10Nafkp7oHY0nXhWi10Hz10jrx9IRwA==
+X-Received: by 2002:a05:6402:438d:b0:43d:b383:660f with SMTP id
+ o13-20020a056402438d00b0043db383660fmr22910393edc.283.1660741553531; 
+ Wed, 17 Aug 2022 06:05:53 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ e20-20020a50ec94000000b0043c83ac66e3sm10606845edr.92.2022.08.17.06.05.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Aug 2022 06:05:52 -0700 (PDT)
+Message-ID: <13f55d75-ce98-5ee7-9d7c-5205dfcf1582@redhat.com>
+Date: Wed, 17 Aug 2022 15:05:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
-Subject: Re: [PATCH] drm/radeon: add a force flush to delay work when radeon
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20220811072540.964309-1-lizhenneng@kylinos.cn>
- <b23e4037-2030-32d0-d626-b5a846fcafeb@gmail.com>
- <db2a43da-256d-402e-882b-c05436d4e83b@kylinos.cn>
- <c3c1310b-5e84-e4e9-0df9-3f45c976a508@amd.com>
-From: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>
-In-Reply-To: <c3c1310b-5e84-e4e9-0df9-3f45c976a508@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 03/29] drm/amdgpu: Don't register backlight when
+ another backlight should be used
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20220712193910.439171-1-hdegoede@redhat.com>
+ <20220712193910.439171-4-hdegoede@redhat.com>
+ <CADnq5_PcpwtgdBrn7_1B4Fq5CNGbkSO94c5Qzf8NfbnpwBqHAw@mail.gmail.com>
+ <CADnq5_PBMtshPza9yRAZCEtwVSiHAs6AY8B8CttHF8ZyLuiX6w@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <CADnq5_PBMtshPza9yRAZCEtwVSiHAs6AY8B8CttHF8ZyLuiX6w@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 17 Aug 2022 13:35:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,120 +91,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
+Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ Ben Skeggs <bskeggs@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
-在 2022/8/15 21:12, Christian König 写道:
-> Am 15.08.22 um 09:34 schrieb 李真能:
+On 7/20/22 18:46, Alex Deucher wrote:
+> On Wed, Jul 20, 2022 at 12:44 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >>
->> 在 2022/8/12 18:55, Christian König 写道:
->>> Am 11.08.22 um 09:25 schrieb Zhenneng Li:
->>>> Although radeon card fence and wait for gpu to finish processing 
->>>> current batch rings,
->>>> there is still a corner case that radeon lockup work queue may not 
->>>> be fully flushed,
->>>> and meanwhile the radeon_suspend_kms() function has called 
->>>> pci_set_power_state() to
->>>> put device in D3hot state.
+>> On Tue, Jul 12, 2022 at 3:39 PM Hans de Goede <hdegoede@redhat.com> wrote:
 >>>
->>> If I'm not completely mistaken the reset worker uses the 
->>> suspend/resume functionality as well to get the hardware into a 
->>> working state again.
+>>> Before this commit when we want userspace to use the acpi_video backlight
+>>> device we register both the GPU's native backlight device and acpi_video's
+>>> firmware acpi_video# backlight device. This relies on userspace preferring
+>>> firmware type backlight devices over native ones.
 >>>
->>> So if I'm not completely mistaken this here would lead to a 
->>> deadlock, please double check that.
+>>> Registering 2 backlight devices for a single display really is
+>>> undesirable, don't register the GPU's native backlight device when
+>>> another backlight device should be used.
+>>>
+>>> Changes in v2:
+>>> - To avoid linker errors when amdgpu is builtin and video_detect.c is in
+>>>   a module, select ACPI_VIDEO and its deps if ACPI && X86 are enabled.
+>>>   When these are not set, ACPI_VIDEO is disabled, ensuring the stubs
+>>>   from acpi/video.h will be used.
+>>>
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 >>
->> We have tested many times, there are no deadlock.
->
-> Testing doesn't tells you anything, you need to audit the call paths.
->
->> In which situation, there would lead to a deadlock?
->
-> GPU resets.
+>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> Actually, can you use dev_info for the messages below rather than
+> DRM_INFO?  That makes it easier to tell which GPU is affected in a
+> multi-GPU system.  With that changed,
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Although flush_delayed_work(&rdev->fence_drv[i].lockup_work) will wait 
-for a lockup_work to finish executing the last queueing,  but this 
-kernel func haven't get any lock, and lockup_work will run in another 
-kernel thread, so I think flush_delayed_work could not lead to a deadlock.
+Thank you for the ack. I've changed the DRM_INFO(...) calls with
+drm_info(drm_dev, ...) calls for the version 3 of this series
+which I'm preparing.
 
-Therefor if radeon_gpu_reset is called in another thread when 
-radeon_suspend_kms is blocked on flush_delayed_work, there could not 
-lead to a deadlock.
+Regards,
 
->
-> Regards,
-> Christian.
->
+Hans
+
+
+> 
 >>
+>>> ---
+>>>  drivers/gpu/drm/Kconfig                           | 6 ++++++
+>>>  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c    | 7 +++++++
+>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+>>>  3 files changed, 20 insertions(+)
 >>>
->>> Regards,
->>> Christian.
+>>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>>> index aaa7ad1f0614..d65119860760 100644
+>>> --- a/drivers/gpu/drm/Kconfig
+>>> +++ b/drivers/gpu/drm/Kconfig
+>>> @@ -258,6 +258,12 @@ config DRM_AMDGPU
+>>>         select HWMON
+>>>         select BACKLIGHT_CLASS_DEVICE
+>>>         select INTERVAL_TREE
+>>> +       # amdgpu depends on ACPI_VIDEO when X86 and ACPI are both enabled
+>>> +       # for select to work, ACPI_VIDEO's dependencies must also be selected
+>>> +       select INPUT if ACPI && X86
+>>> +       select X86_PLATFORM_DEVICES if ACPI && X86
+>>> +       select ACPI_WMI if ACPI && X86
+>>> +       select ACPI_VIDEO if ACPI && X86
+>>>         help
+>>>           Choose this option if you have a recent AMD Radeon graphics card.
 >>>
->>>> Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
->>>>> Configuration and Message requests are the only TLPs accepted by a 
->>>>> Function in
->>>>> the D3hot state. All other received Requests must be handled as 
->>>>> Unsupported Requests,
->>>>> and all received Completions may optionally be handled as 
->>>>> Unexpected Completions.
->>>> This issue will happen in following logs:
->>>> Unable to handle kernel paging request at virtual address 
->>>> 00008800e0008010
->>>> CPU 0 kworker/0:3(131): Oops 0
->>>> pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 
->>>> Tainted: G        W
->>>> pc is at si_gpu_check_soft_reset+0x3c/0x240
->>>> ra is at si_dma_is_lockup+0x34/0xd0
->>>> v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
->>>> t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
->>>> t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
->>>> s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
->>>> s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
->>>> s6 = fff00007ef07bd98
->>>> a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
->>>> a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
->>>> t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
->>>> t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
->>>> gp = ffffffff81d89690  sp = 00000000aa814126
->>>> Disabling lock debugging due to kernel taint
->>>> Trace:
->>>> [<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
->>>> [<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
->>>> [<ffffffff80977010>] process_one_work+0x280/0x550
->>>> [<ffffffff80977350>] worker_thread+0x70/0x7c0
->>>> [<ffffffff80977410>] worker_thread+0x130/0x7c0
->>>> [<ffffffff80982040>] kthread+0x200/0x210
->>>> [<ffffffff809772e0>] worker_thread+0x0/0x7c0
->>>> [<ffffffff80981f8c>] kthread+0x14c/0x210
->>>> [<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
->>>> [<ffffffff80981e40>] kthread+0x0/0x210
->>>>   Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8 40230101
->>>>   <88210000> 4821ed21
->>>> So force lockup work queue flush to fix this problem.
->>>>
->>>> Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
->>>> ---
->>>>   drivers/gpu/drm/radeon/radeon_device.c | 3 +++
->>>>   1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c 
->>>> b/drivers/gpu/drm/radeon/radeon_device.c
->>>> index 15692cb241fc..e608ca26780a 100644
->>>> --- a/drivers/gpu/drm/radeon/radeon_device.c
->>>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->>>> @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device 
->>>> *dev, bool suspend,
->>>>           if (r) {
->>>>               /* delay GPU reset to resume */
->>>>               radeon_fence_driver_force_completion(rdev, i);
->>>> +        } else {
->>>> +            /* finish executing delayed work */
->>>> + flush_delayed_work(&rdev->fence_drv[i].lockup_work);
->>>>           }
->>>>       }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>> index fa7421afb9a6..abf209e36fca 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>> @@ -26,6 +26,8 @@
 >>>
->
+>>>  #include <linux/pci.h>
+>>>
+>>> +#include <acpi/video.h>
+>>> +
+>>>  #include <drm/drm_crtc_helper.h>
+>>>  #include <drm/amdgpu_drm.h>
+>>>  #include "amdgpu.h"
+>>> @@ -184,6 +186,11 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
+>>>         if (!(adev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
+>>>                 return;
+>>>
+>>> +       if (!acpi_video_backlight_use_native()) {
+>>> +               DRM_INFO("Skipping amdgpu atom DIG backlight registration\n");
+>>> +               return;
+>>> +       }
+>>> +
+>>>         pdata = kmalloc(sizeof(struct amdgpu_backlight_privdata), GFP_KERNEL);
+>>>         if (!pdata) {
+>>>                 DRM_ERROR("Memory allocation failed\n");
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 5eb111d35793..3b03a95e59a8 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -86,6 +86,8 @@
+>>>  #include <drm/drm_audio_component.h>
+>>>  #include <drm/drm_gem_atomic_helper.h>
+>>>
+>>> +#include <acpi/video.h>
+>>> +
+>>>  #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+>>>
+>>>  #include "dcn/dcn_1_0_offset.h"
+>>> @@ -4050,6 +4052,11 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
+>>>         amdgpu_dm_update_backlight_caps(dm, dm->num_of_edps);
+>>>         dm->brightness[dm->num_of_edps] = AMDGPU_MAX_BL_LEVEL;
+>>>
+>>> +       if (!acpi_video_backlight_use_native()) {
+>>> +               DRM_INFO("Skipping amdgpu DM backlight registration\n");
+>>> +               return;
+>>> +       }
+>>> +
+>>>         props.max_brightness = AMDGPU_MAX_BL_LEVEL;
+>>>         props.brightness = AMDGPU_MAX_BL_LEVEL;
+>>>         props.type = BACKLIGHT_RAW;
+>>> --
+>>> 2.36.0
+>>>
+> 
+
