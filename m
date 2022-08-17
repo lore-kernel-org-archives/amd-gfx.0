@@ -4,120 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3C9C25B08
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 11:40:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09632C25B08
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 13:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C8CD8D6C8;
-	Wed, 17 Aug 2022 11:40:45 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5689614A109;
- Wed, 17 Aug 2022 11:40:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LfnrD5dwC/HDC/KNcrL9eBTR39M2LnXChF2Nivt45pWl4n2JXOhDZcHgwbLv0m6uOw/aN/gafy60aDoach91QlModegVQMI62cwSWM+O5PwdBlUKXXQhSAIPM3RoL5oC00wCJwLWdpYejZ8a4w/u2AgMNXTnG/uhWSSpw4z2ukk80QPvCkUwqSvKuZPRLUf0E64GigCX+01cV4yqIVM/WCR03X/OMMkTE1Kilyx2rSNNXRtfvuX0Jw5cWXBwVFCMnOSyzFC3DnBzGkkIaz7y1AFgZoeeUAklw8pvaxt33IHwB1gUCDzvFC8BUJO1TiA1c/FHyHh+LA0NPgLRMI+7tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T1kBHE31rpl7iLqb0SVQ0uhqvNjSAxM+eJGLPSx7dpg=;
- b=AOC2zaeUZ+FzP4u5N4wNziDW/L7VV10iGKvVKuNYpzJtDWl5oUp6kgCltMIuFTc8Hx13CEEq86/tuP0HsSlPF4JLEFFLEpcs+Xqi1caPso0ZfVyv9qX2gYvQQotk0dBGh9Qg+4KpSYWXL0ZIBZSUKYhcvPnUAQjmXLTf8QKP3eqCnEn9e1mr4WLTWX76nd//2bj/HS8qEsjsb+eC9L46WBpoRYWtVS9Ln31sgsP9M9kBeOGD8GJcFV+1Oh9C1mkNeiWPD4xqgGYbSy59SlYNB7lO6wrxf48sKme12KuuUG+ZjpDBaxjgK5m966LDwjmLEOyII3anjxq9XQgwrPvi7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T1kBHE31rpl7iLqb0SVQ0uhqvNjSAxM+eJGLPSx7dpg=;
- b=M6AA83bfZIiurze2og2Mlhg94nCgSI4SUESjvVP8TYi5O4J25cSz+1RiOOUPkzagzwW86MwZF+qZ0irrUcWLIZ3pNcJiAJUf1MnE4OT/ZrEM2m3heugE5jyy4iISbpbIDBzYYh0SaThev4xXsCFkymwMz7Az5IM5kBqMwSXWjrc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BY5PR12MB4257.namprd12.prod.outlook.com (2603:10b6:a03:20f::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.10; Wed, 17 Aug
- 2022 11:40:36 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Wed, 17 Aug 2022
- 11:40:36 +0000
-Message-ID: <cc30a694-c784-f42c-bab6-b45c70202c56@amd.com>
-Date: Wed, 17 Aug 2022 13:40:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/radeon: add a force flush to delay work when radeon
-Content-Language: en-US
-To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20220811072540.964309-1-lizhenneng@kylinos.cn>
- <b23e4037-2030-32d0-d626-b5a846fcafeb@gmail.com>
- <db2a43da-256d-402e-882b-c05436d4e83b@kylinos.cn>
- <c3c1310b-5e84-e4e9-0df9-3f45c976a508@amd.com>
- <2f38b94b-0965-80f2-5bae-840765ffc4da@kylinos.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <2f38b94b-0965-80f2-5bae-840765ffc4da@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS8PR04CA0008.eurprd04.prod.outlook.com
- (2603:10a6:20b:310::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEFFD932FD;
+	Wed, 17 Aug 2022 13:36:04 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B85111B416
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 12:23:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1660738979;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h+thdpDoudXZQJ3kYuzPHAYfPMsROPSZCPAFRjj8VQg=;
+ b=D3cyQ5b8kMYYfntaypwIr1PZ4eE4r56pYSAp4v9taT0BkmAjaUhRJCzXSiI/qjDUCwW1Px
+ ijPMwlb34/uxYLy5tqp1g7mhPw+a5YJ7zDxPRhV7Y8esJ1VIo8dIABxzRQFhneMk26uDxf
+ xwvmPUg2eiI5gjh8t01jd/RIpNLHbHk=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-27-rLgfmK2GNqmECBNGRdpCnA-1; Wed, 17 Aug 2022 08:22:58 -0400
+X-MC-Unique: rLgfmK2GNqmECBNGRdpCnA-1
+Received: by mail-ed1-f72.google.com with SMTP id
+ z20-20020a05640235d400b0043e1e74a495so8725725edc.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 05:22:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=h+thdpDoudXZQJ3kYuzPHAYfPMsROPSZCPAFRjj8VQg=;
+ b=atN/0vazGnmKaq2uyJahxwYRrWZPYZPsjZj8fPAjjKg4qXHlHIXzabBoTuXAD6M0LM
+ jyXRWZD8Dwbld8yKxTfJDPzmL6F8UodmjYjML/4pXKHT5F95817HOGuPEoRjp32t7diE
+ 23/4VZYYxvG26+t0I44wT+a/F+jOotDRCiIt3/5h2cvTlx1wm7u8X57AOwfG+5BfOn7B
+ c3jcP2C67BlbYPmk+u7s3s4HcK4RSF/42TJJXnrnCaRoT51/RVo7/p7TA5UIn9wfFrLD
+ I5eSMmDP1l5oPwUM/zIzClhWHW33YlLxmOrXMDQHcPhzROGLJ1l6/5CPr+2t3uT7xQfB
+ IxMg==
+X-Gm-Message-State: ACgBeo1NLVTx6r5Ei8ONDdMHGemiVqQtQM3kYfq0cyml5oj9llg9Py/k
+ +uS3AIPRHcjI4qJsvzx7ZEpvZwQni8Bm6+pq73tQvxmxFxBucm/cmvXcJXqUhZn5D3tfULIiMIH
+ 35rM+dCoSnVGF3/0ATq2aV8tnCw==
+X-Received: by 2002:aa7:c14e:0:b0:43d:7bad:b53e with SMTP id
+ r14-20020aa7c14e000000b0043d7badb53emr23022627edp.353.1660738976129; 
+ Wed, 17 Aug 2022 05:22:56 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR4UMusTRK+UubmEDbDTQoZTheHLxKggBTNK1RaM+C6D2bfQpVUmnGaxhxtRxGEabsv61C3Fwg==
+X-Received: by 2002:aa7:c14e:0:b0:43d:7bad:b53e with SMTP id
+ r14-20020aa7c14e000000b0043d7badb53emr23022601edp.353.1660738975886; 
+ Wed, 17 Aug 2022 05:22:55 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ n26-20020a170906379a00b007308fab3eb7sm6651315ejc.195.2022.08.17.05.22.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Aug 2022 05:22:55 -0700 (PDT)
+Message-ID: <d3475f26-4862-f47e-5d72-216af82551b6@redhat.com>
+Date: Wed, 17 Aug 2022 14:22:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5a1a935c-5908-4b39-f59c-08da80454d62
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4257:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0i3Tr4L4LvBDW0ZF2kK8Cu4h+/ysrLmZELXc9PBTl6GAI392VvKFtr8ToDlySs+pptpnDoDm0wR+AIL3X4YNkQt9XopP/oEkxcw7E7Nqhsol+YQrJDFJHCo6d9ztEQcMRmuUOzmwT897fpqpaRx9Ak57WFXTIpMdKg8Jz1hJy70usb9uj0OLmfvEltnDtJ9NcqlUj7r7J+x5YxdkFMNCA7H3AFmFPbBGk2fKyYwADqFMkD3N3ZUFQN+BueVNk/c8QsrJ1zIBHsrTPi68GMBts5r9i7rULJX5GEZb8qOfQJHsR7D1hpYxWxwnDuI0KOik2ZoZ958KkmJSAL8g9xQtojRZSs1deddnYAVEfXQlIWjuVBtQ3046zmEgW7WjJfT+Xy9nC/y8elbmf7lOjaW+Y/TXkdeCTC0f4YzUV9oidSJj3T2K9U0JFlJ9jabdMxxUP+usN8o7QzxhUSDuPrRrCcOgctkUjsQg1RN1uBM7OyFaMEZPSA9uhB/uYtSHwuiKWtBFL0nz28beXB6gC961OI0qS+raOrrBJ1CpL7+aypvcRQ2f5MrBwSDUTRltkQOt4nlz5CYcYaZiGOrJEoKJH4WkJO1PE6HoV2FwbVM64CT1hOltOo+H6qT2XN3PYqW6ItijuibyWo/9YGYli3HYdHSKJw+ej/JxKVxYU+IHJEDsFRyV3xriEZXZuuzoh4PUxVkx1NTMR/w/qhVVzrvQP00R04Zs4eUyoOwOjUCi9zzmU2xP4fOUahLBkQp2q245/NvKxEl2l/wIUQTA17xqYFH3cWUd1x8sBKK2KzK5eMaX36VE+NfC/SQ2px+MD16mPcOOIeb6NWbHgGXDtJEjsw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(396003)(39860400002)(136003)(376002)(346002)(66574015)(83380400001)(186003)(2616005)(6486002)(478600001)(38100700002)(316002)(41300700001)(66556008)(6666004)(54906003)(6506007)(6636002)(5660300002)(2906002)(8936002)(66946007)(26005)(31686004)(31696002)(110136005)(6512007)(8676002)(66476007)(36756003)(4326008)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWNwMHZGWlFWVjlxUUR5R2Fud0FJVFM1RzMyRWo2a2o4UzVmTUNobmwwSDJw?=
- =?utf-8?B?ZmRDK3F3WGhWT0tmU3h5RHhFMlVGeHJqOWg1MkZjM3BaM3UzbzZsSXRhZTFt?=
- =?utf-8?B?N0gxQ3A1QVRqV2N0cE1XWEExQ3o3WHlFTjVtcEZ5V0xSQm92bFdqOGZXd0ly?=
- =?utf-8?B?OCtQZ3hGYWorMkgrdGM2aEk4STVOVUdEWVdsd204MDJvQVZqTEhGSGxlTE5D?=
- =?utf-8?B?bVFnQzFPSWJvVjdEamRPRDZObWhJNy9IV0t4WG1wM0V1L2J1S3RSWWQyR3VJ?=
- =?utf-8?B?UmhhSEtyOWFjSE9kZVpNeDc3L1Z4b2sxSm90OFZSUnRvcUhpQ0RxdVZlV3BK?=
- =?utf-8?B?YUViakZHZStvL0grbXZQTjRodUltMEdTQ2JweWppbVEvU3FYSU4weU5Jek53?=
- =?utf-8?B?YjkzTC9tS285VVRzVlVYd2JlSlpGU3lxQ1ByZElvY1hzOVRIN0hQcjM2Z2Ny?=
- =?utf-8?B?S0RLUW5yT0JsWmZsRWJZTnhrcWRuaVRBZlFHaVFzYzNGMkQ4V3FpSmFtWlNj?=
- =?utf-8?B?bkt1WmF3c3oyVkpRWC9qcnRSMklJTTZjVUJxdEhHVlFtU0pNcGt6TnBFSjJQ?=
- =?utf-8?B?eldzVUY0aFUzeEUwOEJxd0YyWERSVW9PaVV3bU96Qld6SjB4RG1oT3RJZEFN?=
- =?utf-8?B?MHR2SDlkOU5OVDRhdlV0YzgrblhHdVBibTV2L3Bydkl4OWpLMStXZU1qMU8y?=
- =?utf-8?B?YTBpU1FpWjdGeS9iM0JzQmZPNStwY3lxNmlnMGhJekJsWGg3R1MvRTVxVEhZ?=
- =?utf-8?B?c0MxRWY5Yzl2OENreEVzZ2JGd29GcElDSUt4Q1pyMVI0NnF6dVFYQWxpSzQw?=
- =?utf-8?B?Z1FzQlJMclo4TTVoYWFkaDN5dDFTanhqV0hQTmJDTENsRWJVODBxMjk0OU5I?=
- =?utf-8?B?K3RXMDZzWEpuRXNpSUx6RUVLekNneWRtUGRSRWl5cHdQeE1McW94T29xVGRG?=
- =?utf-8?B?QTd6K1I4ZGdzMEcwN0hBSm1nTHZncXp5Mk00Nlc1QWJvZW5jbzBXcTQ4WWFG?=
- =?utf-8?B?VkFlZHVjNTAvbGs5VXE2dldvZW5lbkpzeE5zemdvV1BsTllOMitrUUxYakw1?=
- =?utf-8?B?VVk3YXRhbXlGVERZb3IrT1ZsUlFCRnp3ekxlWE1lNTR1UVdwbVJhZFlicG8y?=
- =?utf-8?B?eldIbDdsSXZ4UE5nalRBbDh4WlpUSzJaeGZzdGRpeDNOZWl6UHdyeHpDTFgy?=
- =?utf-8?B?aWkxVjV2RUxnVGxzdFBVd2NFV0d0MHNZUFNGbXJ3WnRYeDlMUGxQVzk3Ujd6?=
- =?utf-8?B?TGV0YytYVTdqMDJOQmpDZUpUUktVNHJLd0MxQ3VnVDdmZEIxT2ViSTFFaCtE?=
- =?utf-8?B?VmJoaGYxUWd6MU9FbExyWXFzdVNreWV4Yk5MK2I5ZWVZNlhoZGVSbC9jRjli?=
- =?utf-8?B?bzdnNnB4bzFlSm9JejJ4cEpBZFA2WXQ0cU1BVk5DOEZ2YmF6T1lCS0V0VTd0?=
- =?utf-8?B?bVpFTHp4RDMvdWF6d3RuWXZldDBvWTRPN2NpR1dLemFWWitoV0tXSVZCRHk2?=
- =?utf-8?B?ZmhqYWszOTFmaFhDVHRkdXNzdy80aFl3K3RqWU9Wa3hORHIrY0pFbGMvY0RY?=
- =?utf-8?B?cmdQR1NKNHBmYWRwbzJyQ242ZVFDMjJVMC9xQVpqYWprUEJiQTh5NUJxNi9h?=
- =?utf-8?B?LzlEdFdvUEYrWFlKV0J2VzIvWUg1ODdIYkpLTjMyVkhHR3plK3QvZk9Za3RY?=
- =?utf-8?B?ZWNxMDVUSFI4Zm9peFU3b2lZRUQvbnFFWVdGKzNpZkZiR05ISTYwdUtneUJK?=
- =?utf-8?B?UDlSVXNFUE16UE1RSHZqVy9OZzBQanhRRmVlQW93d1ljOG42cXRTSCt4Y21x?=
- =?utf-8?B?c24vTUJ2eVZvaXhKSmFzQk1BZEdPZHdzeWZHcmZROFFVUk0yTkc5V3JuY0xN?=
- =?utf-8?B?TUNQSHRGRCt5VDkweTB6amlpaWFHaWZxNTk1TG9HdUM1a0JlWFdJT3ZUMEhR?=
- =?utf-8?B?cVJhbDlUL1ZCNHJwMUZ6WEszR25sOGlsMEJ5dU91b1liK2xvUHc3T3QxRWxP?=
- =?utf-8?B?aGRUWHpWa05BeFBZRGJBZjFtVnNlZEJScDljd3VpWnphVmdhTStNNUp3MVc3?=
- =?utf-8?B?V1R3ZXp6a2NBNGEvZmdZYWNSMFdSS3poM3BSWjlGRnpTNHRzR3RWRFhOOEdF?=
- =?utf-8?Q?UvPmkBPA1ynXm5Ox4ehxMZaFA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a1a935c-5908-4b39-f59c-08da80454d62
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2022 11:40:36.7651 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y16OZnmPnkoxrzpKbh4THFwM209AKZcwm1EXWBKH3OanimyBchM6Xzc9mZBfZ3hP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4257
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v2 16/29] ACPI: video: Add Nvidia WMI EC brightness
+ control detection
+From: Hans de Goede <hdegoede@redhat.com>
+To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220712193910.439171-1-hdegoede@redhat.com>
+ <20220712193910.439171-17-hdegoede@redhat.com>
+ <8cde70e6-1115-9b7f-d550-52b9e3623c85@nvidia.com>
+ <f68353f9-fb4c-b5fe-f7f8-69b97865c720@redhat.com>
+In-Reply-To: <f68353f9-fb4c-b5fe-f7f8-69b97865c720@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 17 Aug 2022 13:35:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,139 +104,254 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.08.22 um 09:31 schrieb 李真能:
->
-> 在 2022/8/15 21:12, Christian König 写道:
->> Am 15.08.22 um 09:34 schrieb 李真能:
+Hi Daniel,
+
+On 7/15/22 13:59, Hans de Goede wrote:
+> Hi Daniel,
+> 
+> On 7/12/22 22:13, Daniel Dadap wrote:
+>> Thanks, Hans:
+>>
+>> On 7/12/22 14:38, Hans de Goede wrote:
+>>> On some new laptop designs a new Nvidia specific WMI interface is present
+>>> which gives info about panel brightness control and may allow controlling
+>>> the brightness through this interface when the embedded controller is used
+>>> for brightness control.
 >>>
->>> 在 2022/8/12 18:55, Christian König 写道:
->>>> Am 11.08.22 um 09:25 schrieb Zhenneng Li:
->>>>> Although radeon card fence and wait for gpu to finish processing 
->>>>> current batch rings,
->>>>> there is still a corner case that radeon lockup work queue may not 
->>>>> be fully flushed,
->>>>> and meanwhile the radeon_suspend_kms() function has called 
->>>>> pci_set_power_state() to
->>>>> put device in D3hot state.
->>>>
->>>> If I'm not completely mistaken the reset worker uses the 
->>>> suspend/resume functionality as well to get the hardware into a 
->>>> working state again.
->>>>
->>>> So if I'm not completely mistaken this here would lead to a 
->>>> deadlock, please double check that.
+>>> When this WMI interface is present and indicates that the EC is used,
+>>> then this interface should be used for brightness control.
 >>>
->>> We have tested many times, there are no deadlock.
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>> ---
+>>>   drivers/acpi/Kconfig           |  1 +
+>>>   drivers/acpi/video_detect.c    | 35 ++++++++++++++++++++++++++++++++++
+>>>   drivers/gpu/drm/gma500/Kconfig |  2 ++
+>>>   drivers/gpu/drm/i915/Kconfig   |  2 ++
+>>>   include/acpi/video.h           |  1 +
+>>>   5 files changed, 41 insertions(+)
+>>>
+>>> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
+>>> index 1e34f846508f..c372385cfc3f 100644
+>>> --- a/drivers/acpi/Kconfig
+>>> +++ b/drivers/acpi/Kconfig
+>>> @@ -212,6 +212,7 @@ config ACPI_VIDEO
+>>>       tristate "Video"
+>>>       depends on X86 && BACKLIGHT_CLASS_DEVICE
+>>>       depends on INPUT
+>>> +    depends on ACPI_WMI
+>>>       select THERMAL
+>>>       help
+>>>         This driver implements the ACPI Extensions For Display Adapters
+>>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+>>> index 8c2863403040..7b89dc9a04a2 100644
+>>> --- a/drivers/acpi/video_detect.c
+>>> +++ b/drivers/acpi/video_detect.c
+>>> @@ -75,6 +75,35 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
+>>>       return AE_OK;
+>>>   }
+>>>   +#define WMI_BRIGHTNESS_METHOD_SOURCE            2
+>>> +#define WMI_BRIGHTNESS_MODE_GET                0
+>>> +#define WMI_BRIGHTNESS_SOURCE_EC            2
+>>> +
+>>> +struct wmi_brightness_args {
+>>> +    u32 mode;
+>>> +    u32 val;
+>>> +    u32 ret;
+>>> +    u32 ignored[3];
+>>> +};
+>>> +
+>>> +static bool nvidia_wmi_ec_supported(void)
+>>> +{
+>>> +    struct wmi_brightness_args args = {
+>>> +        .mode = WMI_BRIGHTNESS_MODE_GET,
+>>> +        .val = 0,
+>>> +        .ret = 0,
+>>> +    };
+>>> +    struct acpi_buffer buf = { (acpi_size)sizeof(args), &args };
+>>> +    acpi_status status;
+>>> +
+>>> +    status = wmi_evaluate_method("603E9613-EF25-4338-A3D0-C46177516DB7", 0,
+>>> +                     WMI_BRIGHTNESS_METHOD_SOURCE, &buf, &buf);
+>>> +    if (ACPI_FAILURE(status))
+>>> +        return false;
+>>> +
+>>> +    return args.ret == WMI_BRIGHTNESS_SOURCE_EC;
+>>> +}
+>>> +
 >>
->> Testing doesn't tells you anything, you need to audit the call paths.
 >>
->>> In which situation, there would lead to a deadlock?
+>> The code duplication here with nvidia-wmi-ec-backlight.c is a little unfortunate. Can we move the constants, struct definition, and WMI GUID from that file to a header file that's used both by the EC backlight driver and the ACPI video driver?
+> 
+> Yes that is a good idea. I suggest using include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+> to move the shared definitions there.
+> 
+> If you can submit 2 patches on top of this series:
+> 
+> 1. Moving the definitions from drivers/platform/x86/nvidia-wmi-ec-backlight.c to
+>    include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+> 
+> 2. Switching the code from this patch over to using the new nvidia-wmi-ec-backlight.h
+> 
+> Then for the next version I'll add patch 1. to the series and squash patch 2.
+> into this one.
+
+Note: I'm preparing a v3 of the series and I've made these changes myself now.
+
+>> I was thinking it might be nice to add a wrapper around wmi_brightness_notify() in nvidia-wmi-ec-backlight.c that does this source == WMI_BRIGHTNESS_SOURCE_EC test, and then export it so that it can be called both here and in the EC backlight driver's probe routine, but then I guess that would make video.ko depend on nvidia-wmi-ec-backlight.ko, which seems wrong. It also seems wrong to implement the WMI plumbing in the ACPI video driver, and export it so that the EC backlight driver can use it, so I guess I can live with the duplication of the relatively simple WMI stuff here, it would just be nice to not have to define all of the API constants, structure, and GUID twice.
+> 
+> Agreed.
+> 
 >>
->> GPU resets.
->
-> Although flush_delayed_work(&rdev->fence_drv[i].lockup_work) will wait 
-> for a lockup_work to finish executing the last queueing,  but this 
-> kernel func haven't get any lock, and lockup_work will run in another 
-> kernel thread, so I think flush_delayed_work could not lead to a 
-> deadlock.
->
-> Therefor if radeon_gpu_reset is called in another thread when 
-> radeon_suspend_kms is blocked on flush_delayed_work, there could not 
-> lead to a deadlock.
+>>
+>>>   /* Force to use vendor driver when the ACPI device is known to be
+>>>    * buggy */
+>>>   static int video_detect_force_vendor(const struct dmi_system_id *d)
+>>> @@ -518,6 +547,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+>>>   static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+>>>   {
+>>>       static DEFINE_MUTEX(init_mutex);
+>>> +    static bool nvidia_wmi_ec_present;
+>>>       static bool native_available;
+>>>       static bool init_done;
+>>>       static long video_caps;
+>>> @@ -530,6 +560,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+>>>           acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
+>>>                       ACPI_UINT32_MAX, find_video, NULL,
+>>>                       &video_caps, NULL);
+>>> +        nvidia_wmi_ec_present = nvidia_wmi_ec_supported();
+>>>           init_done = true;
+>>>       }
+>>>       if (native)
+>>> @@ -547,6 +578,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+>>>       if (acpi_backlight_dmi != acpi_backlight_undef)
+>>>           return acpi_backlight_dmi;
+>>>   +    /* Special cases such as nvidia_wmi_ec and apple gmux. */
+>>> +    if (nvidia_wmi_ec_present)
+>>> +        return acpi_backlight_nvidia_wmi_ec;
+>>
+>>
+>> Should there also be a change to the EC backlight driver to call acpi_video_get_backlight_type() and make sure we get acpi_backlight_nvidia_wmi_ec? I don't see such a change in this patch series; I could implement it (and test it) against your patch if there's some reason you didn't do so with the current patchset.
+> 
+> I was thinking about this myself too and I decided it was not necessary since
+> acpi_video_get_backlight_type() will always return acpi_backlight_nvidia_wmi_ec.
+> 
+> But thinking more about this, that is not true, a user might try to force
+> using a different backlight firmware interface by e.g. adding:
+> acpi_backlight=video on the kernel commandline.
+> 
+> So yes a patch adding something like this:
+> 
+> 	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
+> 		return -ENODEV;
+> 
+> to the EC backlight driver would be very welcome.
 
-Ok sounds like you didn't go what I wanted to say.
-
-The key problem is that radeon_gpu_reset() calls radeon_suspend() which 
-in turn calls rdev->asic->suspend().
-
-And this function in turn could end up in radeon_suspend_kms() again, 
-but I'm not 100% sure about that.
-
-Just double check the order of function called here (e.g. if 
-radeon_suspend_kms() call radeon_suspend() or the other way around).  
-Apart from that your patch looks correct to me as well.
+I will also add a patch for this to v3 of the series myself.
 
 Regards,
-Christian.
 
->
+Hans
+
+
+
+> 
 >>
->> Regards,
->> Christian.
 >>
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
->>>>>> Configuration and Message requests are the only TLPs accepted by 
->>>>>> a Function in
->>>>>> the D3hot state. All other received Requests must be handled as 
->>>>>> Unsupported Requests,
->>>>>> and all received Completions may optionally be handled as 
->>>>>> Unexpected Completions.
->>>>> This issue will happen in following logs:
->>>>> Unable to handle kernel paging request at virtual address 
->>>>> 00008800e0008010
->>>>> CPU 0 kworker/0:3(131): Oops 0
->>>>> pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 
->>>>> Tainted: G        W
->>>>> pc is at si_gpu_check_soft_reset+0x3c/0x240
->>>>> ra is at si_dma_is_lockup+0x34/0xd0
->>>>> v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
->>>>> t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
->>>>> t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
->>>>> s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
->>>>> s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
->>>>> s6 = fff00007ef07bd98
->>>>> a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
->>>>> a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
->>>>> t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
->>>>> t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
->>>>> gp = ffffffff81d89690  sp = 00000000aa814126
->>>>> Disabling lock debugging due to kernel taint
->>>>> Trace:
->>>>> [<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
->>>>> [<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
->>>>> [<ffffffff80977010>] process_one_work+0x280/0x550
->>>>> [<ffffffff80977350>] worker_thread+0x70/0x7c0
->>>>> [<ffffffff80977410>] worker_thread+0x130/0x7c0
->>>>> [<ffffffff80982040>] kthread+0x200/0x210
->>>>> [<ffffffff809772e0>] worker_thread+0x0/0x7c0
->>>>> [<ffffffff80981f8c>] kthread+0x14c/0x210
->>>>> [<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
->>>>> [<ffffffff80981e40>] kthread+0x0/0x210
->>>>>   Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8 40230101
->>>>>   <88210000> 4821ed21
->>>>> So force lockup work queue flush to fix this problem.
->>>>>
->>>>> Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
->>>>> ---
->>>>>   drivers/gpu/drm/radeon/radeon_device.c | 3 +++
->>>>>   1 file changed, 3 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c 
->>>>> b/drivers/gpu/drm/radeon/radeon_device.c
->>>>> index 15692cb241fc..e608ca26780a 100644
->>>>> --- a/drivers/gpu/drm/radeon/radeon_device.c
->>>>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->>>>> @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device 
->>>>> *dev, bool suspend,
->>>>>           if (r) {
->>>>>               /* delay GPU reset to resume */
->>>>>               radeon_fence_driver_force_completion(rdev, i);
->>>>> +        } else {
->>>>> +            /* finish executing delayed work */
->>>>> + flush_delayed_work(&rdev->fence_drv[i].lockup_work);
->>>>>           }
->>>>>       }
->>>>
+>>> +
+>>>       /* On systems with ACPI video use either native or ACPI video. */
+>>>       if (video_caps & ACPI_VIDEO_BACKLIGHT) {
+>>>           /*
+>>> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+>>> index 0cff20265f97..807b989e3c77 100644
+>>> --- a/drivers/gpu/drm/gma500/Kconfig
+>>> +++ b/drivers/gpu/drm/gma500/Kconfig
+>>> @@ -7,6 +7,8 @@ config DRM_GMA500
+>>>       select ACPI_VIDEO if ACPI
+>>>       select BACKLIGHT_CLASS_DEVICE if ACPI
+>>>       select INPUT if ACPI
+>>> +    select X86_PLATFORM_DEVICES if ACPI
+>>> +    select ACPI_WMI if ACPI
+>>
+>>
+>> I'm not sure I understand why the Intel DRM drivers pick up the additional platform/x86 and WMI dependencies here. ACPI_VIDEO already depends on these, doesn't it?
+> 
+> It does.
+> 
+>> If Kconfig doesn't otherwise automatically pull in an option's dependencies when selecting that option
+> 
+> Right that is the reason why this is done, for select the Kconfig block must also select all deps
+> 
+>> then shouldn't Nouveau's Kconfig get updated as well?
+>> It selects ACPI_VIDEO in some configuration cases.
+> 
+> nouveau's Kconfig block already selects ACPI_WMI:
+> 
+> config DRM_NOUVEAU
+> 	tristate "Nouveau (NVIDIA) cards"
+> 	...
+> 	select X86_PLATFORM_DEVICES if ACPI && X86
+> 	select ACPI_WMI if ACPI && X86
+> 	...
+> 	select ACPI_VIDEO if ACPI && X86
+> 
+> That is why this patch does not add this.
+> 
+>> (It looks like amdgpu doesn't currently select ACPI_VIDEO, maybe because it doesn't depend on it the way the Intel drivers do: there are several AMD+NVIDIA iGPU/dGPU designs out there which use this backlight interface.)
+> 
+> Correct, but with this series amdgpu/radeon also start using ACPI_VIDEO
+> functions so these patches:
+> 
+> https://patchwork.freedesktop.org/patch/493650/
+> https://patchwork.freedesktop.org/patch/493653/
+> 
+> Add the necessary selects and I cheated a bit and also made
+> them select ACPI_WMI already even though that is only
+> necessary after this patch (which comes later in the series).
+> 
+> I hope this answers al your questions...
+> 
+> Regards,
+> 
+> Hans
+> 
+> 
+> 
+>>
+>>
+>>>       help
+>>>         Say yes for an experimental 2D KMS framebuffer driver for the
+>>>         Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
+>>> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+>>> index 7ae3b7d67fcf..3efce05d7b57 100644
+>>> --- a/drivers/gpu/drm/i915/Kconfig
+>>> +++ b/drivers/gpu/drm/i915/Kconfig
+>>> @@ -23,6 +23,8 @@ config DRM_I915
+>>>       # but for select to work, need to select ACPI_VIDEO's dependencies, ick
+>>>       select BACKLIGHT_CLASS_DEVICE if ACPI
+>>>       select INPUT if ACPI
+>>> +    select X86_PLATFORM_DEVICES if ACPI
+>>> +    select ACPI_WMI if ACPI
+>>>       select ACPI_VIDEO if ACPI
+>>>       select ACPI_BUTTON if ACPI
+>>>       select SYNC_FILE
+>>> diff --git a/include/acpi/video.h b/include/acpi/video.h
+>>> index 0625806d3bbd..91578e77ac4e 100644
+>>> --- a/include/acpi/video.h
+>>> +++ b/include/acpi/video.h
+>>> @@ -48,6 +48,7 @@ enum acpi_backlight_type {
+>>>       acpi_backlight_video,
+>>>       acpi_backlight_vendor,
+>>>       acpi_backlight_native,
+>>> +    acpi_backlight_nvidia_wmi_ec,
+>>>   };
+>>>     #if IS_ENABLED(CONFIG_ACPI_VIDEO)
 >>
 
