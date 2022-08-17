@@ -4,88 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F7BC25B08
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 13:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE741C28B2B
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 14:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 256AA9385C;
-	Wed, 17 Aug 2022 13:45:05 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 577EF9383E
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 13:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A240D944D4;
+	Wed, 17 Aug 2022 14:01:42 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 957F894458
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 14:01:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sxi+vUnnELC7OymbC4BngkBxlluv+jz3xOwPI+IiDAb/7hUwjBogrwhpvwtutMZrMlrSfzfjnV0J/H5YtMw9okIjXxOnR3FYnx5uc0unS7L66jHMiDdJlK6fjIVC4m0sGTRSgn71kpNpqxzAcTuiCYCYJOw3ZI3Ols8WFB7aHElh6a1hnqmmTzisxeefGbVxiJoQRX+Cd/Gbw+YpnVGNcHbzqBfcTB8P7yHs/cefE+8oDYM6tau5HQqPCh5oYuC50s7E2w2/gKV/2GrqMXhtYDQ17zXTNwL8hfsa17xNIdXP3TUSHCLVZ8nG/bqWOFLjJs/IZFNxfqdCFXIdk7Bi3g==
+ b=k3Rv9Gl0jfGL5t+bONIrSLdi/yZVbGUqQypGkTzqSHqOB4yeuJRENVW1x2pANxBso7OGqKHPUsqMsdUN5cFHMRtjYbnpLq6dy0B/bGBohV4Sn0Vwgh8gN1M+1rQZaaVroB60TrwH0/iWTuu0YhHa5jouUktzW7aaCE3zGe2NH+nfk9ikIpTBY5zK8F/llmJSrlExA4UGE2dQjk6TR3bKeoRv5dAO1nReRPUPhtqN88DgSBiCEoeMAT079W1Sw50sDe28mymwUjAAax+AyvuZzKMJhg5SgWY9kF7h2UfMF9J5tjV57BqsjZpuafeu4B72MmFRk6qPyAO2dSu1dOwk3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yk+OX33LaAH58TWBloxGXwNJIeu9gU4c0ESVBk4nYZ4=;
- b=m2aTeaG/9vDe4WM5ZcZARgrESa8ynRxN5XIFqHRErlVlirhTE+eFFdLqnVM7wYrv4BJlW5fg6rP7sWj7f1cHj67u7msP/ZKryB+YQ1ZSB5H+Ml5Fo6albGrZv8f9Wvy/atCX5Gn4E/MAnJ9LD2+qMh6BoxWvqi78xiC7QR7jSLd1Gf783Wldnws/FG1P0vHmviTt7Cb76dKK2QCcOLGAWpkSTBmUv2BGAPZAJhIOebFrFVW8lGW5+Q++XdR40TWcSry+hmgi2dnJo5+M8obfXzW+NihWRccScA9YggxhFwk/XdFe/kND1uOhKY4MJ1ztbmAeXI42XvYjMcrYWrq/Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=PbgEM/adtFEungrhDHt2dDoXu0KCooylBYdtHnlMafU=;
+ b=AOeoJQ1FB9aIdaVUFBhyim3A0X/co2kXONBehD1CgLGee+lXAaQHc913NJS6XtdrdSARf8Fbm89sTK5tSzTpbSKujZDGwDBphlJMExGfwdAzAP7LGfobA1MeKHqjQ9NRSKgtvtjbBqlemAbC62R5RvfSWrRo56xuCFGcvWOiay8dCdK9rmzbAJVhylNgjO1sqz2b6tCzJ/Zih10hwcZE4FdeFPBCqaOflUyR3Vkiyj2+Oh5Lj/TiByhBnPQpIafcoHltPFXZGcv29q3uajj9DIZZHBmOloeoreUtQN0vdALasyp6tTNNd0ZBPb/J97phm5ZArAS49EWA+OpdyqevRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yk+OX33LaAH58TWBloxGXwNJIeu9gU4c0ESVBk4nYZ4=;
- b=Gki7iDiBb/XdTYwfHHv3UOkmiJMg5SyQu5GiMl+Qo8PZTI0/ufvPpKnTnuD8KmAIdNUcxdPJMW+L4NqFYO4OF8Tr0l6Oq52wGdfC3hD/FvygB7Jr6PEfqylB7gvOZ94GojG+wi5yQ7HzlsrkZ7Ejf+XwR0ZPY3rdRHevas1ISfM=
-Received: from DS7PR05CA0025.namprd05.prod.outlook.com (2603:10b6:5:3b9::30)
- by BY5PR12MB4934.namprd12.prod.outlook.com (2603:10b6:a03:1db::18) with
+ bh=PbgEM/adtFEungrhDHt2dDoXu0KCooylBYdtHnlMafU=;
+ b=fObO9eiCHjAcWFHdDZAa2GvwXmkh+t36Dm2b3hiOBHBxG2pqZuGvP5fCa7niHhT26Bx4to4ae50ItW6xRhd6BjPCkHpceen9+3FoVQF3ZI0FRHwpLvS1jOLwsnFchgbyNOcWud0cQPVHJBEb81id8gCijHe5hitJ3y8rR3+DXX0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by CY4PR12MB1125.namprd12.prod.outlook.com (2603:10b6:903:43::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.10; Wed, 17 Aug
- 2022 13:44:42 +0000
-Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b9:cafe::eb) by DS7PR05CA0025.outlook.office365.com
- (2603:10b6:5:3b9::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11 via Frontend
- Transport; Wed, 17 Aug 2022 13:44:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.15 via Frontend Transport; Wed, 17 Aug 2022 13:44:42 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 17 Aug
- 2022 08:44:41 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Update mes_v11_api_def.h
-Date: Wed, 17 Aug 2022 09:44:28 -0400
-Message-ID: <20220817134428.3674667-1-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.28; Wed, 17 Aug
+ 2022 14:01:30 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5504.028; Wed, 17 Aug 2022
+ 14:01:30 +0000
+Message-ID: <fc69f557-5851-c1fa-da6c-435fdb13241c@amd.com>
+Date: Wed, 17 Aug 2022 10:01:28 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: TA unload messages are not actually sent to
+ psp when amdgpu is uninstalled
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
+References: <20220815070512.452430-1-YiPeng.Chai@amd.com>
+ <CADnq5_NLzjD+4q0vF8n8JRaOf3iiGYoNN+W9K3FPLEP+_FHjUg@mail.gmail.com>
+ <CH2PR12MB42155B12C1A2C1D7101EAA2EFC6A9@CH2PR12MB4215.namprd12.prod.outlook.com>
+ <CADnq5_NyNxCdJOC6d0du=+AAYA13xCFVXZRjsXEJT_rXSQTm-w@mail.gmail.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <CADnq5_NyNxCdJOC6d0du=+AAYA13xCFVXZRjsXEJT_rXSQTm-w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0112.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::21) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51835cac-4ee1-4f1b-83a6-08da8056a37a
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4934:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dd76985-9730-464d-f759-08da8058fbec
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1125:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rIZkHz7b0v5T3+B3gis0FFBekbEYnyztfSL3CFv86wUSslm5NkuAjNUzbuFJALeAs8Kz2PBrwl6d/JxFj1AkNLTseh87YEvuzfT3yLDIu7cY6mxs4B+ui0yIlbLF3uvoAfaljzxbeUsD/TwMONeAGO0vs7p1isDtXFJigwEU2vgqINTV9v1ZcgQ/NboX2GAwLdZ5sNNYVPcv6IzrRjrLqGL4o4wccmbGJKaxRFmqLBCM7caqQxtDo9aCt5ligoqk5M/Bt/ahRj+RU+oKdbi4ISfc54mIaKxRQwkjU6aa6ClPdH1XolHakfJuYWGicDGITLLTwxtWF7w8SNg0aPb5Ajo4Kj2jbcqJsDzk2q+E9FK/SF26TDVLgAfAHRs4sPDZvcokrmUqYRO5oqrkl9KjZ88FQ7Se2ypJpJ06w5lxTJr6akkx2bsc6EW8I+SaDcG0qPVkz7IXJjQ6fLCH70br0T++pq2mLfFAQ+d0sMUrhMkvmrb3R68ReT0UqwfK/YzRyvy6/4q5Fw4Gis0H4uhCPKTekwkiGV5nmbpe0rtgVZ7mFW0Cv6kL+tl4xmsDfmbkyxlWEh7abkGAqrARXuzAgE5R5sG/LsX9Znr7f9gE8z4MngVTL5USwITcLJSx3VP6s77PjG5ajxoEEjvWBDZJ8MRDmyd3iLnMEwvA13dmALZ+2RJpuJ8mbo0um2A4QmYORvCY1BuPm4uklsdMyje4o94ZAeCeNC0IMbW377aGqrdrhAPAW+ImVhYoHXRjSQEkQQ1z9U/icZGGaWao4prAdbSoqYkJk+TcK4qksBdEpnvA+IJ66zoeokem5MV7CZd4JMcg+5OryaI9/4nJQxtVzA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(376002)(136003)(346002)(46966006)(36840700001)(40470700004)(26005)(316002)(41300700001)(2616005)(356005)(70206006)(6666004)(70586007)(82310400005)(2906002)(82740400003)(7696005)(8676002)(4326008)(81166007)(186003)(1076003)(5660300002)(47076005)(16526019)(40460700003)(478600001)(336012)(426003)(54906003)(6916009)(83380400001)(8936002)(36860700001)(86362001)(40480700001)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: /aoS59L1ja+QtVKEDlvDJJJ3AUEU0A5WurRsIsd2H9p5N65JXL6Y6J8RgkhUXjrZTq9TbPAIwwEK7d5kgS4kSkBU918WPIin2EIZvbHHyKDztDACEcrEEikCK/mku+NPdgqEF7Nqm59CMuNDsNAqGaQ2doXekz0mH8DobxgOe1VKWw79l8B3NfdtUNag4CXAqaVMuqBNal2SHrtvXqTrbE7Fq5ZK0ISd6uf/hJ5UW6VRstxHDErQUGXXX1enQc4/hx67wLjF6qXm3MEE0YuYgouMkDk1nh9t21amrfXe8EPYbNOHkTnBEcTTnoJTiASi3opukfsp+4Q8tmiytNakdq91do12cTOxVdJmR1cCfQzOmMIViuy95iuOXbAFvaDVldwSG8OQXTzWseJ6GIxwL2jBdyVbKrBX2Yz/6uiPWAC4h1vxZIqB4YiYKu1agPdaKSDXL8nuo+CQjANdLlVlkSwDTUKr13D/4HmPWFYnAnUByqyO4INtvDfndoVRMdcw2XZgPAO7lWgHHiiDfVWllerKsdLYAgIEKzSYFmyD5zsqyF6Yhg2XsYtEes9u6E3tzqotAhh0x95hjYLvukr0XxcfySqgwGlrkhShN/HEfpAW6UWNQl9S61BtCR5zF8MR978t7+DxqjAbiF1Zh7kw8Qt5GuYaJQtIciKUK15E1fpGFt5xSRslj6Lc+gZ8AwZU6EqXGu8CmPzsw98MnBaqBf0mtwZTtGQMDHYx5KdVhikIqkX6QrUIuJH4hXnEbb4V1FE/OLeh+T+7dSchWB+u2q/5n4j0ai90gdkjC/qyanBFRVcfhwlhQj/1rfDKBiSSnW9gcg7Uj+fa3CKRJQTYLw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(39860400002)(136003)(396003)(346002)(376002)(6636002)(6512007)(478600001)(186003)(6486002)(2616005)(83380400001)(66556008)(4326008)(8936002)(66476007)(66946007)(316002)(36756003)(54906003)(110136005)(31686004)(8676002)(38100700002)(2906002)(15650500001)(44832011)(41300700001)(6506007)(31696002)(5660300002)(53546011)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmxBU1REU3NleHJaMG1YWmJ2a0VtbFdYRFZaRzN4MU1zK2F3MExodXNuVkdJ?=
+ =?utf-8?B?blpuSWhFNkZyN0M3MFhERDRSOXlKTi80cWhtZDMwYVY4enNkdUNCLzNkMmZD?=
+ =?utf-8?B?bytVTC9YVXA2KzN0VE5oZlFYY2RlNGUzcGtCelZEWDdYRnJ0OXVDTEZLMERr?=
+ =?utf-8?B?eXdRaWpFN3pvV2NiWjdoRTdqVmJmU0pDWXY0RGY2eDdLSllGZTJKTEowVGpY?=
+ =?utf-8?B?c0wyZTdHaEpOdzJTbkFQMFBGcXZoeHc4SWRhbzRRRk5aZHMzbE5QcUVJN0Nt?=
+ =?utf-8?B?d1daaXRDaVUzRUFSek1mWGZxZTd4YTd3bFZDZWlEcmVvNE1MSlRjOVpSYTZD?=
+ =?utf-8?B?Y2VuTkNBTWg2NldhaUViRlFaUC81YzB4bVU0Z2RaZE5mN1BsdU02eWJncE1m?=
+ =?utf-8?B?ejVORVo4TXAxWkMzejN4YUZhTWpSbmw1Qzl3RHVlZGplNk5nU1RseTBxTzg2?=
+ =?utf-8?B?RDY0aFk2cGhGWXkrRVNKUWYzRlZmd1lCdEJKUGRjSjQ2R3JLSi85cnhzcisv?=
+ =?utf-8?B?S2dtV1BGYzBjTldBeGRIakdKZVVUdVRQcVBVL21RbHAweHR0b3k2bnhDVzdh?=
+ =?utf-8?B?b1dVdkRuRUVXSjRrWXhhU1Y1OUJiU2dSK0lJMXlURDBqS041SllheDVIaGhM?=
+ =?utf-8?B?TzdxVEFHenRMRXQ4ODgrbTd2YWFqblRlV3JTc1JXOVZBMVNTRmszZUlObGRk?=
+ =?utf-8?B?cnc3TXpiS1Nmay9HR053U1hVREJITmJuOExkaWpqckdnTmVuQUhyVGZrUW9C?=
+ =?utf-8?B?SGdqUWo2V0N4VUNOZDJUN2VPa1F3Y3NsbDJFbnRaVE5SaWpSdzBJclV3TEJU?=
+ =?utf-8?B?enFsc3JFSlNta2ZQM1JRdHlabWlKODRSSldEU1dYUW5jSWtNaWlSRG1rc3oy?=
+ =?utf-8?B?bGxtQ0pCRm5tR3NBUUpEcC96NmpKZHlHK2pPZ1VsQWZidUxTL1ZiNC9PeGw3?=
+ =?utf-8?B?aEhKRmRyaXZJc0VmVzhCM1dOSkd4M05NVkZNejFmdndVRWpwMjZnZTBFVlRC?=
+ =?utf-8?B?R1NnendEUjdkU1Fmc2ZTbjAzL3k0bi85dnRuT2ZnclhaSHRPWGg0aGZaY291?=
+ =?utf-8?B?T1pYSmVUdjVMWEVWcllpTEttQ0FhNVZXNElUTTl1b1A3Lys0U2lwUjJwbG1j?=
+ =?utf-8?B?UWVZMGhhV1hwamQ2RDFhOVVHVlpscVE1bTN0UEw1QUVUYlMrZEYzb3NhbGpQ?=
+ =?utf-8?B?U1ZHTitqa0doWXFBWjQ3NGNXeGdkMWZtSytMaThkREd6Q1BaY09teitETFhE?=
+ =?utf-8?B?cUxPVk1vaHN3L3NGRWVuMGYrY3hjV2Iyb1ppZEdjYnpGdjkzdFdoYktJQm5M?=
+ =?utf-8?B?NE1GekMydmNtYjJ3Skt1VjFHU0xkZGdDajVDeHZRc0pzeU93dHlCLzRtS0ZE?=
+ =?utf-8?B?U0JGZTFxdC9PUVcwSWI0cTMzbm0ydkVFRzJIM3NYc3hMTjNZZzc2SkdSMG8w?=
+ =?utf-8?B?YUI2ajVvTEIzRFo4elhQN285YmV2MjRZNExlSmJGZkU4U1o5NGV1Z2ZLQUha?=
+ =?utf-8?B?SUk0a0JXOFVRSkF4S25vNzF6YXk5QWlUTXBwU3pPZGRySE1hY1lzbnpXRElT?=
+ =?utf-8?B?eVQ5d2FZMG9hQ2ZGay9hbFdlbVZEMnIxWE5VMTVPKy9vWnp6bGJBYWVVZGJZ?=
+ =?utf-8?B?SmtrRm9OdU1VSENuOUhGcnBZcm9iUlVNSzNKTmRXUVAyRXIvRlRMOTVZZEpB?=
+ =?utf-8?B?Z0ZleFlGRXRaSUtycCtwRkd3dXY0WFY3VGdKdldlLzNMRzBVdXpTbklEclVK?=
+ =?utf-8?B?R3JVUW1NbGR6YldYZzVPQjVWTFI5eGMxWk01Yk83L0ViSkE2Y1MwTjdqZytY?=
+ =?utf-8?B?UE9LNnJmek9XdTIwZUVjLzhFcGpXM0xFY0JJc1V5VHo0S2t4TFl2LzhTNlZY?=
+ =?utf-8?B?aWNDV0Jra09iVjdtUW5MSEFYQVYxc2kwWDRpeUYzUzdEcWZSZjZYTkRLeTg4?=
+ =?utf-8?B?UHlqM2ZyZ3dheVRiTFpjMzlCWDVJZm5CUmdWUkN1dVl3Zk5vdmh6dHZmSHhK?=
+ =?utf-8?B?MGpHcDhxVjY4YWtRbWRCb3VSZEQzUUlESUdmZ01aMFZtZ215RldkN3VDMmZ1?=
+ =?utf-8?B?ZW4wOFRLL3V3Rjh0K2k0T2N2S1g5VFEyRWgxYklHMHZzRXBLSlBXUXZNTFor?=
+ =?utf-8?B?Wm8vSXBHRmxISFZnVWU1NWR4b1pSTlQ5R2xCSWZhWElBNnpkVE5MRFo4RTNY?=
+ =?utf-8?Q?8/BfGdoXq3XxSqqxyaQvNssw4nduyqO9YyB5xzn2137j?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2022 13:44:42.3510 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51835cac-4ee1-4f1b-83a6-08da8056a37a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dd76985-9730-464d-f759-08da8058fbec
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2022 14:01:30.0466 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4934
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lz2VfEWMcVG5l+l31x1mG1RA/EwoiGbkDAqTG1OszmjzW+khuUwgCrb19tFg1q8j4bZYzvvfZVbEksKpFC+rjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,47 +128,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack.Xiao@amd.com, Felix.Kuehling@amd.com,
- Graham Sider <Graham.Sider@amd.com>, Hawking.Zhang@amd.com
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-New GFX11 MES FW adds the trap_en bit. For now hardcode to 1 (traps
-enabled).
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 1 +
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 ++-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+On 2022-08-17 09:44, Alex Deucher wrote:
+> On Tue, Aug 16, 2022 at 10:54 PM Chai, Thomas <YiPeng.Chai@amd.com> wrote:
+>> [AMD Official Use Only - General]
+>>
+>> Hi Alex:
+>>    When removing an amdgpu device, it may be difficult to change the order of psp_hw_fini calls.
+>>
+>> 1. The drm_dev_unplug call is at the beginning in the amdgpu_pci_remove function,  which makes the gpu device inaccessible for userspace operations.  If the call to psp_hw_fini was moved before drm_dev_unplug,  userspace could access the gpu device but the psp might be removing. It has unknown issues.
+>>
+> +Andrey Grodzovsky
+>
+> We should fix the ordering in amdgpu_pci_remove() then I guess?  There
+> are lots of places where drm_dev_enter() is used to protect access to
+> the hardware which could be similarly affected.
+>
+> Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 120ea294abef..cc3fdbbcd314 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -183,6 +183,7 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
- 	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
- 	mes_add_queue_pkt.tma_addr = input->tma_addr;
- 	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
-+	mes_add_queue_pkt.trap_en = 1;
- 
- 	return mes_v11_0_submit_pkt_and_poll_completion(mes,
- 			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index 80dab1146439..50bfa513cb35 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -268,7 +268,8 @@ union MESAPI__ADD_QUEUE {
- 			uint32_t is_tmz_queue		: 1;
- 			uint32_t map_kiq_utility_queue  : 1;
- 			uint32_t is_kfd_process		: 1;
--			uint32_t reserved		: 22;
-+			uint32_t trap_en		: 1;
-+			uint32_t reserved		: 21;
- 		};
- 		struct MES_API_STATUS		api_status;
- 		uint64_t                        tma_addr;
--- 
-2.25.1
 
+We probably can try to move drm_dev_unplug after 
+amdgpu_driver_unload_kms. I don't remember now why drm_dev_unplug must 
+be the first thing we do in amdgpu_pci_remove and what impact it will 
+have but maybe give it a try.
+Also see if you can run libdrm hotplug test suite before and after the 
+change.
+
+Andrey
+
+
+>
+>> 2. psp_hw_fini is called by the .hw_fini iterator in amdgpu_device_ip_fini_early, referring to the code starting from amdgpu_pci_remove to .hw_fini is called,
+>>     there are many preparatory operations before calling .hw_fini,  which makes it very difficult to change the order of psp_hw_fini or all block .hw_fini.
+>>
+>>     So can we do a workaround in psp_cmd_submit_buf when removing amdgpu device?
+>>
+>> -----Original Message-----
+>> From: Alex Deucher <alexdeucher@gmail.com>
+>> Sent: Monday, August 15, 2022 10:22 PM
+>> To: Chai, Thomas <YiPeng.Chai@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: TA unload messages are not actually sent to psp when amdgpu is uninstalled
+>>
+>> On Mon, Aug 15, 2022 at 3:06 AM YiPeng Chai <YiPeng.Chai@amd.com> wrote:
+>>> The psp_cmd_submit_buf function is called by psp_hw_fini to send TA
+>>> unload messages to psp to terminate ras, asd and tmr.
+>>> But when amdgpu is uninstalled, drm_dev_unplug is called earlier than
+>>> psp_hw_fini in amdgpu_pci_remove, the calling order as follows:
+>>> static void amdgpu_pci_remove(struct pci_dev *pdev) {
+>>>          drm_dev_unplug
+>>>          ......
+>>>          amdgpu_driver_unload_kms->amdgpu_device_fini_hw->...
+>>>                  ->.hw_fini->psp_hw_fini->...
+>>>                  ->psp_ta_unload->psp_cmd_submit_buf
+>>>          ......
+>>> }
+>>> The program will return when calling drm_dev_enter in
+>>> psp_cmd_submit_buf.
+>>>
+>>> So the call to drm_dev_enter in psp_cmd_submit_buf should be removed,
+>>> so that the TA unload messages can be sent to the psp when amdgpu is
+>>> uninstalled.
+>>>
+>>> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ----
+>>>   1 file changed, 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> index b067ce45d226..0578d8d094a7 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> @@ -585,9 +585,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>>>          if (psp->adev->no_hw_access)
+>>>                  return 0;
+>>>
+>>> -       if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+>>> -               return 0;
+>>> -
+>> This check is to prevent the hardware from being accessed if the card is removed.  I think we need to fix the ordering elsewhere.
+>>
+>> Alex
+>>
+>>>          memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+>>>
+>>>          memcpy(psp->cmd_buf_mem, cmd, sizeof(struct
+>>> psp_gfx_cmd_resp)); @@ -651,7 +648,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>>>          }
+>>>
+>>>   exit:
+>>> -       drm_dev_exit(idx);
+>>>          return ret;
+>>>   }
+>>>
+>>> --
+>>> 2.25.1
+>>>
