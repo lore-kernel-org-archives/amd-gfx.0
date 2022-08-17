@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7640C25B08
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 18:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD3F3C25B08
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 19:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72938A2E5F;
-	Wed, 17 Aug 2022 18:43:27 +0000 (UTC)
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD179F2D9;
- Wed, 17 Aug 2022 18:43:07 +0000 (UTC)
-Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4M7H2f3dTnzDqNy;
- Wed, 17 Aug 2022 18:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1660761786; bh=pybABoossopvyk5GCmIybMdFUdJj94XeORKmXmsyBkA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eWqxU8J9ICiUUIl9vGm2Y3qok3XUsEQbxMFbBPn4fbBPgkLwD5DxaEeU/gI2KiT6G
- 6LLrlqzWb0pX4pLF+03bTaRAMS8lpUpqB0HoSWGzdGYX+IIpspnbpLOwiupiGLLkf8
- DhLr7oSeiPcN6V9tFjhwb2z9/KX9CT4k6coU5H+c=
-X-Riseup-User-ID: 174D87B460C20107E9EA535CD40FAE534F423A2963B4AE97779D65618A1E54BC
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4M7H2c1rhwz5vRK;
- Wed, 17 Aug 2022 18:43:04 +0000 (UTC)
-Message-ID: <dd2ee57a-2ab2-db94-36d9-8faced18fe61@riseup.net>
-Date: Wed, 17 Aug 2022 15:43:00 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F912A524F;
+	Wed, 17 Aug 2022 19:39:31 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF757A521E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1660765161;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dghKN9sgINB8op+a+z7QukDv2xnE+e1D1M1hzE9qLkk=;
+ b=OnzPJAQhVrwxF1OjLTPJfWzvaK7T9JkTbtLPsOUL6bEfUz2PIR12UpXaNr7aSJy6aXh+oz
+ 3fSq0CfZFS7T9I5ClblYv5XM0uZCZ1RwCQANWFInRRN6hBlvEkHdkHgx7gy/0CvbtnMko2
+ 4ObJlkp6pi6M+hZApg4Rdg4r4MEcjDc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-411-y3uNfhipOuurKQWP_0RaeA-1; Wed, 17 Aug 2022 15:39:15 -0400
+X-MC-Unique: y3uNfhipOuurKQWP_0RaeA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE93B185A7B2;
+ Wed, 17 Aug 2022 19:39:14 +0000 (UTC)
+Received: from emerald.redhat.com (unknown [10.22.18.168])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E6593492C3B;
+ Wed, 17 Aug 2022 19:39:13 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: [RFC v4 02/17] drm/amdgpu/dm/mst: Rename get_payload_table()
+Date: Wed, 17 Aug 2022 15:38:31 -0400
+Message-Id: <20220817193847.557945-3-lyude@redhat.com>
+In-Reply-To: <20220817193847.557945-1-lyude@redhat.com>
+References: <20220817193847.557945-1-lyude@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [BUG][5.20] refcount_t: underflow; use-after-free
-Content-Language: en-US
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Melissa Wen <mwen@igalia.com>
-References: <CABXGCsM58-8fxVKAVkwsshg+33B_1_t_WesG160AtVBe1ZvKiw@mail.gmail.com>
- <be6f1ce4-46b1-7a80-230c-b99f203ce8ad@riseup.net>
- <CABXGCsMFYnE+Wn2EAWuC8DSVj=TVprj6ABZwRK-hXcw-1hnMyw@mail.gmail.com>
- <CABXGCsMpGabZ32j_ObEHa_har2W8M8RWuqnx3d=yJT2NX_ztNg@mail.gmail.com>
- <20220817160751.moqhebkiuiydraka@mail.igalia.com>
- <CABXGCsOM9An-+EeaGWm0OA1FN2p94=BF210Lhy0tiO6ye9onWQ@mail.gmail.com>
-From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
-In-Reply-To: <CABXGCsOM9An-+EeaGWm0OA1FN2p94=BF210Lhy0tiO6ye9onWQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,128 +59,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Cc: Ian Chen <ian.chen@amd.com>, Jani Nikula <jani.nikula@intel.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <Roman.Li@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@intel.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This function isn't too confusing if you see the comment around the
+call-site for it, but if you don't then it's not at all obvious this is
+meant to copy DRM's payload table over to DC's internal state structs.
+Seeing this function before finding that comment definitely threw me into a
+loop a few times.
 
+So, let's rename this to make it's purpose more obvious regardless of where
+in the code you are.
 
-On 8/17/22 14:44, Mikhail Gavrilov wrote:
-> On Wed, Aug 17, 2022 at 9:08 PM Melissa Wen <mwen@igalia.com> wrote:
->>
->> Hi Mikhail,
->>
->> IIUC, you got this second user-after-free by applying the first version
->> of Maíra's patch, right? So, that version was adding another unbalanced
->> unlock to the cs ioctl flow, but it was solved in the latest version,
->> that you can find here: https://patchwork.freedesktop.org/patch/497680/
->> If this is the situation, can you check this last version?
->>
->> Thanks,
->>
->> Melissa
-> 
-> With the last version warning "bad unlock balance detected!" was gone,
-> but the user-after-free issue remains.
-> And again "Workqueue: events drm_sched_entity_kill_jobs_work [gpu_sched]".
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Hi Mikhail,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 3aa385860eea..77c545e670d5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -153,8 +153,9 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	return result;
+ }
+ 
+-static void get_payload_table(struct amdgpu_dm_connector *aconnector,
+-			      struct dc_dp_mst_stream_allocation_table *proposed_table)
++static void
++fill_dc_mst_payload_table_from_drm(struct amdgpu_dm_connector *aconnector,
++				   struct dc_dp_mst_stream_allocation_table *proposed_table)
+ {
+ 	int i;
+ 	struct drm_dp_mst_topology_mgr *mst_mgr =
+@@ -252,7 +253,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	 * stream. AMD ASIC stream slot allocation should follow the same
+ 	 * sequence. copy DRM MST allocation to dc */
+ 
+-	get_payload_table(aconnector, proposed_table);
++	fill_dc_mst_payload_table_from_drm(aconnector, proposed_table);
+ 
+ 	return true;
+ }
+-- 
+2.37.1
 
-Looks like 45ecaea738830b9d521c93520c8f201359dcbd95 ("drm/sched: Partial 
-revert of 'drm/sched: Keep s_fence->parent pointer'") introduced the 
-error. Try reverting it and check if the use-after-free still happens.
-
-Best Regards,
-- Maíra Canal
-
-> 
-> [  297.834779] ------------[ cut here ]------------
-> [  297.834818] refcount_t: underflow; use-after-free.
-> [  297.834831] WARNING: CPU: 30 PID: 2377 at lib/refcount.c:28
-> refcount_warn_saturate+0xba/0x110
-> [  297.834838] Modules linked in: uinput rfcomm snd_seq_dummy
-> snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
-> nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
-> nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
-> nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
-> qrtr bnep sunrpc binfmt_misc snd_seq_midi snd_seq_midi_event mt76x2u
-> mt76x2_common mt76x02_usb mt76_usb mt76x02_lib snd_hda_codec_realtek
-> iwlmvm intel_rapl_msr snd_hda_codec_generic snd_hda_codec_hdmi mt76
-> vfat fat snd_hda_intel intel_rapl_common mac80211 snd_intel_dspcfg
-> snd_intel_sdw_acpi snd_usb_audio snd_hda_codec snd_usbmidi_lib btusb
-> edac_mce_amd iwlwifi libarc4 uvcvideo snd_hda_core btrtl snd_rawmidi
-> snd_hwdep videobuf2_vmalloc btbcm kvm_amd videobuf2_memops snd_seq
-> iwlmei btintel videobuf2_v4l2 eeepc_wmi snd_seq_device
-> videobuf2_common btmtk kvm xpad videodev joydev irqbypass snd_pcm
-> asus_wmi hid_logitech_hidpp ff_memless cfg80211 bluetooth rapl mc
-> [  297.834932]  ledtrig_audio snd_timer sparse_keymap platform_profile
-> wmi_bmof snd video pcspkr k10temp i2c_piix4 rfkill soundcore mei
-> asus_ec_sensors acpi_cpufreq zram amdgpu drm_ttm_helper ttm
-> crct10dif_pclmul crc32_pclmul crc32c_intel iommu_v2 ucsi_ccg gpu_sched
-> typec_ucsi drm_buddy ghash_clmulni_intel drm_display_helper ccp igb
-> typec sp5100_tco nvme cec nvme_core dca wmi ip6_tables ip_tables fuse
-> [  297.834978] Unloaded tainted modules: amd64_edac():1 amd64_edac():1
-> amd64_edac():1 amd64_edac():1 amd64_edac():1 amd64_edac():1
-> amd64_edac():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
-> amd64_edac():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1
-> amd64_edac():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
-> amd64_edac():1 amd64_edac():1 pcc_cpufreq():1 pcc_cpufreq():1
-> amd64_edac():1 pcc_cpufreq():1 amd64_edac():1 amd64_edac():1
-> pcc_cpufreq():1 amd64_edac():1 pcc_cpufreq():1 amd64_edac():1
-> pcc_cpufreq():1 pcc_cpufreq():1 pcc_cpufreq():1 fjes():1
-> [  297.835055]  pcc_cpufreq():1 fjes():1 pcc_cpufreq():1 fjes():1
-> pcc_cpufreq():1 fjes():1 fjes():1 fjes():1 fjes():1 fjes():1
-> [  297.835071] CPU: 30 PID: 2377 Comm: kworker/30:6 Tainted: G
-> W    L    -------  ---
-> 6.0.0-0.rc1.20220817git3cc40a443a04.14.fc38.x86_64 #1
-> [  297.835075] Hardware name: System manufacturer System Product
-> Name/ROG STRIX X570-I GAMING, BIOS 4403 04/27/2022
-> [  297.835078] Workqueue: events drm_sched_entity_kill_jobs_work [gpu_sched]
-> [  297.835085] RIP: 0010:refcount_warn_saturate+0xba/0x110
-> [  297.835088] Code: 01 01 e8 59 59 6f 00 0f 0b e9 22 46 a5 00 80 3d
-> be 7d be 01 00 75 85 48 c7 c7 c0 99 8e aa c6 05 ae 7d be 01 01 e8 36
-> 59 6f 00 <0f> 0b e9 ff 45 a5 00 80 3d 99 7d be 01 00 0f 85 5e ff ff ff
-> 48 c7
-> [  297.835091] RSP: 0018:ffffbd3506df7e60 EFLAGS: 00010286
-> [  297.835095] RAX: 0000000000000026 RBX: ffff961b250cbc28 RCX: 0000000000000000
-> [  297.835097] RDX: 0000000000000001 RSI: ffffffffaa8d07a4 RDI: 00000000ffffffff
-> [  297.835100] RBP: ffff96276a3f5600 R08: 0000000000000000 R09: ffffbd3506df7d10
-> [  297.835102] R10: 0000000000000003 R11: ffff9627ae2fffe8 R12: ffff96276a3fc800
-> [  297.835105] R13: ffff9618c03e6600 R14: ffff96276a3fc805 R15: ffff961b250cbc30
-> [  297.835108] FS:  0000000000000000(0000) GS:ffff96276a200000(0000)
-> knlGS:0000000000000000
-> [  297.835110] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  297.835113] CR2: 0000621001e4a000 CR3: 000000018d958000 CR4: 0000000000350ee0
-> [  297.835116] Call Trace:
-> [  297.835118]  <TASK>
-> [  297.835121]  process_one_work+0x2a0/0x600
-> [  297.835133]  worker_thread+0x4f/0x3a0
-> [  297.835139]  ? process_one_work+0x600/0x600
-> [  297.835142]  kthread+0xf5/0x120
-> [  297.835145]  ? kthread_complete_and_exit+0x20/0x20
-> [  297.835151]  ret_from_fork+0x22/0x30
-> [  297.835166]  </TASK>
-> [  297.835168] irq event stamp: 198245
-> [  297.835171] hardirqs last  enabled at (198253):
-> [<ffffffffa918ce7e>] __up_console_sem+0x5e/0x70
-> [  297.835175] hardirqs last disabled at (198260):
-> [<ffffffffa918ce63>] __up_console_sem+0x43/0x70
-> [  297.835177] softirqs last  enabled at (196454):
-> [<ffffffffa9de3a4e>] addrconf_verify_rtnl+0x23e/0x920
-> [  297.835182] softirqs last disabled at (196448):
-> [<ffffffffa9de3835>] addrconf_verify_rtnl+0x25/0x920
-> [  297.835185] ---[ end trace 0000000000000000 ]---
-> 
-> 
-> Fill kernel log: https://pastebin.com/zbbY2zDU
-> 
