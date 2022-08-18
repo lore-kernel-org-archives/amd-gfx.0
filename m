@@ -4,57 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC5BC00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 15:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E898C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 15:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A73CBA02FB;
-	Thu, 18 Aug 2022 15:12:57 +0000 (UTC)
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD0A8CCCFC;
- Thu, 18 Aug 2022 10:44:10 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-3321c2a8d4cso30084447b3.5; 
- Thu, 18 Aug 2022 03:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=/Vg0MiE5047HvBd7kU3Dl8WG5Dtp7QWU7yaZmVgWvE0=;
- b=XBdxOIbpmad8maPo4XhdSMrnSkrWvg5nakK+efBLeJ5Dhda5817DMJDouZlliduGpJ
- cMI0PnJAxqFOOFm7rAFqrsLpEcmH508OQg92oOL0rAFnK/+n2gjeWpXrOogkawkZVQG5
- VP0N7xNN08DQPQ9SY53iFIHOhZ9JvL+U+KSRV4vFswq4WP11k7Zv9KelLOBoU8if2XHk
- kPiHeI2X96L2Hru8Eyz00HNQHoJG8ymiUmOE1Fe7MKZK3YDF79kwsWd7IhOxIKkwOS8/
- Jsv2X3wJnmvW8b+JIM6eTV/3XUOoVpybgNG3k4M2OVFKpCCOmcyDe03UYYN7UTmqNTHB
- pWFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=/Vg0MiE5047HvBd7kU3Dl8WG5Dtp7QWU7yaZmVgWvE0=;
- b=sd0GrX8jSPUSm2COVsAAtpZce6N1CVJpj2IOnc/pvkbKdUg70g0ub4j7x5V0J6JUFp
- oPk1fsrLy26q5ZN+7yfwyAEPRf/vd4p6Ma8fXATo+I4sgtE5kvtd7b0DTOPR91gnfvAr
- Fb8IX2rs+Pv+oYDpBJgYIsVoObDjEe2Pw7oOc7Nv7b26eCpuUyPWoBOsx58pqkuo/1XX
- 4gIqFm7qaD0FiA8gvMoB/4QG5eKkaqftX1PImh/tLDpcqmdByjsNNrKGDHuInNE4fvmq
- RA+6fGymzAqqW4WUou5KVlaSUWJXNMq9cJxRliYuzqWoWziMBsttSOrchdaoIsoodRhU
- e9OA==
-X-Gm-Message-State: ACgBeo2liC5ppynannomCnWvOKMVUf4eZ2E+/HpHihxUWVmK5qlZX7EF
- vpDjLg8CqxQ5U0sfa1FZ8C+Tc3NCXoZ+4wtQvDU=
-X-Google-Smtp-Source: AA6agR6bpMkfOdg/XRd/QTB2hcWngbdEhqg0DhxaakFttwjPtxVRnCyU9KJocZLjpI5nP8q5uNUBHgiRbNIJ29vaWxM=
-X-Received: by 2002:a5b:845:0:b0:683:6ed7:b3b6 with SMTP id
- v5-20020a5b0845000000b006836ed7b3b6mr2221253ybq.183.1660819449894; Thu, 18
- Aug 2022 03:44:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4CB4BBFF7;
+	Thu, 18 Aug 2022 15:13:00 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4399AB15;
+ Thu, 18 Aug 2022 15:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=CbGJK9ZiR1VZ+b3H1/bjKz89ere1vSVIkGBu0M3WHFo=; b=wruw1N6NJkF3bB+T5MEPjct/rN
+ m8LDaRWUWlwkM53A1OvK5nWg9gFfb3DnhRPMtMUkQeZu4el5tythqKYR6GzskMPvuDZqvDJEsZWiH
+ Dg9isqS9vy3J0/zntHKPv4Pv8+NGQurImbZOD9N1ThuywPoBSHsuBZKiBW7vyx3wWiuUVSvBIXRhl
+ ppLNVpDtmqx0WYUBG0rIATrkI5B8fJHBctF1lupg2qjmg5TFCNJaVotsHua5Rd2nRqzK3NBi/MVGl
+ 4L5RY3AIJBPeNJClwUKEJcKuGmwteVjjvy/qduSB02gKeTnfSup2cA9XmplXdi8DRbz3l5kiREQaa
+ b9sMIdRA==;
+Received: from [2601:1c0:6280:3f0::a6b3]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oOhAU-006SuS-M7; Thu, 18 Aug 2022 15:10:46 +0000
+Message-ID: <c1869a4b-ead1-2ae5-c9ec-61834b578216@infradead.org>
+Date: Thu, 18 Aug 2022 08:10:45 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: build failure of next-20220817 for amdgpu
+Content-Language: en-US
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 References: <Yv1lepjhg/6QKyQl@debian>
  <CADnq5_Od9W1iuzYpsmODOB=Xem97ogeH_t0JrjWC-S8h0XM9fA@mail.gmail.com>
  <5638aaf1-b808-bdc6-d84a-820f24facea6@infradead.org>
-In-Reply-To: <5638aaf1-b808-bdc6-d84a-820f24facea6@infradead.org>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Thu, 18 Aug 2022 11:43:34 +0100
-Message-ID: <CADVatmNA6-qCJEHNn-gRO6Nx88SsTrPsJn_F5J0NiFhyvijNxA@mail.gmail.com>
-Subject: Re: build failure of next-20220817 for amdgpu
-To: Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 18 Aug 2022 15:12:34 +0000
+ <CADVatmNA6-qCJEHNn-gRO6Nx88SsTrPsJn_F5J0NiFhyvijNxA@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <CADVatmNA6-qCJEHNn-gRO6Nx88SsTrPsJn_F5J0NiFhyvijNxA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 18 Aug 2022 15:12:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,41 +61,48 @@ Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  linux-next <linux-next@vger.kernel.org>,
  amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 18, 2022 at 3:09 AM Randy Dunlap <rdunlap@infradead.org> wrote:
->
->
->
-> On 8/17/22 19:01, Alex Deucher wrote:
-> > On Wed, Aug 17, 2022 at 6:03 PM Sudip Mukherjee (Codethink)
-> > <sudipm.mukherjee@gmail.com> wrote:
-> >>
-> >> Hi All,
-> >>
-> >> Not sure if it has been reported, build of next-20220817 fails with the
-> >> error:
-> >>
-> >> ERROR: modpost: "cpu_smallcore_map" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-> >>
-> >> Trying to do a git bisect to find out the offending commit.
-> >>
-> >
-> > Thanks.  I don't see that symbol in the driver at all.  Not sure where
-> > it is coming from.
-> >
->
-> It's powerpc only.
->
-> Sudip, is it non-CONFIG_SMP by any chance?
 
-Ohhh.. really sorry for the incomplete report. I should not try to
-mail while travelling.
 
-The error is seen with powerpc allmodconfig and it has CONFIG_SMP=y.
+On 8/18/22 03:43, Sudip Mukherjee wrote:
+> On Thu, Aug 18, 2022 at 3:09 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+>>
+>>
+>>
+>> On 8/17/22 19:01, Alex Deucher wrote:
+>>> On Wed, Aug 17, 2022 at 6:03 PM Sudip Mukherjee (Codethink)
+>>> <sudipm.mukherjee@gmail.com> wrote:
+>>>>
+>>>> Hi All,
+>>>>
+>>>> Not sure if it has been reported, build of next-20220817 fails with the
+>>>> error:
+>>>>
+>>>> ERROR: modpost: "cpu_smallcore_map" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>>>>
+>>>> Trying to do a git bisect to find out the offending commit.
+>>>>
+>>>
+>>> Thanks.  I don't see that symbol in the driver at all.  Not sure where
+>>> it is coming from.
+>>>
+>>
+>> It's powerpc only.
+>>
+>> Sudip, is it non-CONFIG_SMP by any chance?
+> 
+> Ohhh.. really sorry for the incomplete report. I should not try to
+> mail while travelling.
+> 
+> The error is seen with powerpc allmodconfig and it has CONFIG_SMP=y.
+
+OK, I see that also, but it doesn't make any sense (to me).
+
+I did 'objdump' on the code file (amdgpu.o) and it's listed as
+undefined but there are no code references to it.
 
 -- 
-Regards
-Sudip
+~Randy
