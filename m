@@ -4,48 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8A7DC00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 17:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32ECCC32772
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 17:55:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0B6510E316;
-	Thu, 18 Aug 2022 17:08:12 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AF710E316;
- Thu, 18 Aug 2022 17:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660842481; x=1692378481;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=OajO0ASt/ZPv6TOpBQulZOiOmqVfbqj+iY4/9LI5ksU=;
- b=Ak6I/bQWdOea0avJnenAckvZGh3lODsAdEfHj99rJqqBdyFhmpMLiIVO
- HjkOIG0ojsRI4MuX+YtixgHVFklPuntQru0FRikH0V0wT4QXrQnukzT9u
- wP7soD5Gv6WWVBtYT66zB7oqqN6ZuEJMyiRBfc3DwKNOXCmuO0E16Bn2w
- UxdND/Vmu/DzcA+Ib1iuBo9FCH44qPoYRl6bUf0BcUf0Tg9qFl8hdRAfd
- aITH6W3sV9TS4+tLa2QjZcEa1as0dQgRaMZLtRmtZSck11hNN/ajuN18z
- ruXRGFUqcx4VWuz342pIQLD1D8aAfgrHtoCSxx5Cm9uRqoqxEifCUJtCR A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="272591126"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="272591126"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 10:08:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="935889250"
-Received: from lkp-server01.sh.intel.com (HELO 44b6dac04a33) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 18 Aug 2022 10:07:58 -0700
-Received: from kbuild by 44b6dac04a33 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oOizt-0000JJ-1F;
- Thu, 18 Aug 2022 17:07:57 +0000
-Date: Fri, 19 Aug 2022 01:07:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 5b6a4bf680d61b1dd26629840f848d0df8983c62
-Message-ID: <62fe71b9.HTupW2Bu5CHrCfQc%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48C3710E248;
+	Thu, 18 Aug 2022 17:55:07 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA84410E2E0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 17:54:50 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ c128-20020a4a4f86000000b0044b0247f650so52054oob.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 10:54:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=E/rN+560dcFeJcrSrJXW0C4XHBrv2aiU2Wak6e44sig=;
+ b=GZh1Q4YxMrgnLeApxAUPTk2tS/CO8ZXNXImp9GgZ6/SGU8VQUdLDGPF0OMsQzT5pV0
+ KXpIEV1CuvDIvQyrjS3yQ+1UuqDp6Y1co8N2fzcaNyeWM48QA+S8qHWpt63h/kC8bqxq
+ GUsLcdsX278DjLXeOLaOzD4d1LMtzPo+6ZXmogw8K9Q4u/ct5cjvWDFIawJhoYLgT/hp
+ hpRDOuSOtJv03XN2Dq0N1Pc9cqZ2FMyU6nwStIN5JvBmaLktuG+aB/NOxVBG0Ha1xC6b
+ 9sK6kL4AUTWuZwjUjfIULWx5VDiQWILu6344VQq0wGA62l1nZ6b/XVJJtdyrSMeHzcsL
+ H7mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=E/rN+560dcFeJcrSrJXW0C4XHBrv2aiU2Wak6e44sig=;
+ b=guaKMqt+GVKpPp1TLaCfaHCoBSOJ6duh7zKVVbc7EYg7fZNvXHUi1nghmOd6IPHIF4
+ 50HLkCEFljF5WyYTUjHHzlJFLVvC66e+CSQ1Lysy1MWLGiLTN9Bj9T75FV+FtsT6mtQ3
+ GV+cJIxAZnE8zBYhf8EaoDcG9Ub83JRFhWO0Ppz/jQkAd3giYWFYASnNxPP8wKmj03WC
+ 8JZY/5p/FkHfyB+Wb4FUfBKWAjAAMnVez0C4Ws5fwKnJwrjlpcKSWZdirezAtIeblase
+ seeX4pSWgP8FAMS72PYpf9E289ZCZfYrwOVV8rD4QBQ1XBpDNGc8n3BpyhHtd3YBYUN/
+ TcAw==
+X-Gm-Message-State: ACgBeo0ywSR0hmDckwIV3C17lH/g5wFDvVODF9KQX6R8w0VFx/Aqfu3V
+ jmQF6TzMDrLg5vO4XA7QiLtPzvyix0pgtyql2Fs=
+X-Google-Smtp-Source: AA6agR7VOPhHy3c6X/iXdiSbBGxIPTlotKYjit4j9wW9phnSxljLUOU6PWiOiacamYPT/taNq6cN21sh8zKSw3zQxfU=
+X-Received: by 2002:a05:6820:541:b0:44a:907d:c641 with SMTP id
+ n1-20020a056820054100b0044a907dc641mr1262998ooj.65.1660845289986; Thu, 18 Aug
+ 2022 10:54:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <1e0f769e-008b-09b3-efaf-4a285323dc0d@FreeBSD.org>
+ <386722eb-2560-2542-92cd-4a2fc46aeacf@gmail.com>
+ <eef9f672-056e-6184-7f9d-0465654c13e8@FreeBSD.org>
+In-Reply-To: <eef9f672-056e-6184-7f9d-0465654c13e8@FreeBSD.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 Aug 2022 13:54:38 -0400
+Message-ID: <CADnq5_MvgV_guBerbJZH7o_j_y6bhASj=wQbVqSKnLVfYJEufg@mail.gmail.com>
+Subject: Re: Radeon HD 2600 XT, DVI outputs
+To: Andriy Gapon <avg@freebsd.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,161 +66,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 5b6a4bf680d61b1dd26629840f848d0df8983c62  Add linux-next specific files for 20220818
+On Thu, Aug 18, 2022 at 8:29 AM Andriy Gapon <avg@freebsd.org> wrote:
+>
+> On 2022-08-16 12:01, Christian K=C3=B6nig wrote:
+> > Hi Andriy,
+> >
+> > well first of all can you please test that with Linux? If this works on
+> > Linux then there is probably just something missing on the FreeBSD port=
+.
+>
+> Thank you for the suggestion.  This is something that I should have
+> tested from the start.  But I was overly confident that the problem
+> could not be a port problem as the hardware is so ancient and the port
+> exists for quite a long while and it's currently on the Linux 5.10 level.
+>
+> But, yes, it is a port problem after all.  I tested Debian with 5.10
+> kernel and the problem does not exist there.
+>
+> Here are some log messages from Linux:
+> [  397.379974] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:46:DVI-I-1]
+> [  397.395520] [drm:radeon_atom_dac_detect [radeon]] Bios 0 scratch
+> 20000 00000014
+> [  397.395534] [drm:radeon_atombios_connected_scratch_regs [radeon]]
+> DFP1 disconnected
+> [  397.395546] [drm:radeon_atombios_connected_scratch_regs [radeon]]
+> CRT2 disconnected
+> [  397.395550] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:46:DVI-I-1] status updated from unknown to
+> disconnected
+> [  397.395553] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:46:DVI-I-1] disconnected
+> [  397.395557] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:48:DIN-1]
+> [  397.411838] [drm:radeon_atom_dac_detect [radeon]] Bios 0 scratch
+> 20000 00000014
+> [  397.411856] [drm:radeon_atombios_connected_scratch_regs [radeon]] TV1
+> disconnected
+> [  397.411864] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:48:DIN-1] status updated from unknown to
+> disconnected
+> [  397.411867] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:48:DIN-1] disconnected
+> [  397.411873] [drm:drm_helper_probe_single_connector_modes
+> [drm_kms_helper]] [CONNECTOR:50:DVI-I-2]
+> [  397.446829] [drm:drm_add_display_info [drm]] Supported Monitor
+> Refresh rate range is 0 Hz - 0 Hz
+> [  397.446833] [drm:drm_add_display_info [drm]] non_desktop set to 0
+> [  397.446845] [drm:radeon_atombios_connected_scratch_regs [radeon]]
+> CRT1 disconnected
+> [  397.446855] [drm:radeon_atombios_connected_scratch_regs [radeon]]
+> DFP2 connected
+>
+> I guess that this tells us that the monitor (DVI-I-2 + DFP2) is detected
+> using some other method, so the detection does need to invoke
+> radeon_atom_dac_detect for it.
+>
+> I guess that radeon_dvi_detect() is what is responsible for detecting
+> DVI monitor connections.  So, it looks like the difference could be in
+> DDC / EDID probing.
 
-Error/Warning: (recently discovered and may have been fixed)
+DVI-I connectors support both analog and digital encoders so the
+driver has to determine which type of monitor is connected so that it
+can enable the right encoder.  If an EDID is available, we can check
+the digital bit to determine which encoder should be used.  If there
+is no EDID, it gets more complicated.  At that point we have to try
+and determine what type based on the hotplug detect pin or load
+detection on the DAC.
 
-drivers/base/regmap/regmap-mmio.c:231:17: error: implicit declaration of function 'writesq'; did you mean 'writeq'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:231:17: error: implicit declaration of function 'writesq'; did you mean 'writesl'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readq'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readsl'? [-Werror=implicit-function-declaration]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1046:5: warning: no previous prototype for 'fill_dc_scaling_info' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1222:6: warning: no previous prototype for 'handle_cursor_update' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:152:6: warning: no previous prototype for 'modifier_has_dcc' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1576:5: warning: no previous prototype for 'amdgpu_dm_plane_init' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:157:10: warning: no previous prototype for 'modifier_gfx9_swizzle_mode' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:752:5: warning: no previous prototype for 'fill_plane_buffer_attributes' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:83:31: warning: no previous prototype for 'amd_get_format_info' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:88:6: warning: no previous prototype for 'fill_blending_from_plane_state' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:992:5: warning: no previous prototype for 'dm_plane_helper_check_state' [-Wmissing-prototypes]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:905:28: warning: variable 'top' set but not used [-Wunused-but-set-variable]
-drivers/platform/mellanox/mlxreg-lc.c:866 mlxreg_lc_probe() warn: passing zero to 'PTR_ERR'
+Alex
 
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allmodconfig
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|-- alpha-allyesconfig
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- alpha-buildonly-randconfig-r002-20220818
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|-- alpha-randconfig-r024-20220818
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|-- alpha-randconfig-r031-20220818
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-
-elapsed time: 725m
-
-configs tested: 64
-configs skipped: 2
-
-gcc tested configs:
-x86_64                        randconfig-a011
-um                             i386_defconfig
-x86_64                        randconfig-a013
-um                           x86_64_defconfig
-x86_64                              defconfig
-x86_64                        randconfig-a015
-arm                                 defconfig
-i386                                defconfig
-x86_64                          rhel-8.3-func
-i386                          randconfig-a001
-arc                  randconfig-r043-20220818
-i386                          randconfig-a003
-x86_64                         rhel-8.3-kunit
-riscv                randconfig-r042-20220818
-powerpc                           allnoconfig
-x86_64                    rhel-8.3-kselftests
-s390                 randconfig-r044-20220818
-x86_64                           rhel-8.3-kvm
-mips                             allyesconfig
-i386                          randconfig-a014
-arc                               allnoconfig
-x86_64                        randconfig-a002
-m68k                             allmodconfig
-ia64                             allmodconfig
-powerpc                          allmodconfig
-i386                          randconfig-a005
-x86_64                               rhel-8.3
-alpha                             allnoconfig
-x86_64                           rhel-8.3-syz
-riscv                             allnoconfig
-i386                             allyesconfig
-arc                              allyesconfig
-csky                              allnoconfig
-i386                          randconfig-a012
-arm64                            allyesconfig
-sh                               allmodconfig
-i386                          randconfig-a016
-alpha                            allyesconfig
-x86_64                           allyesconfig
-arm                              allyesconfig
-x86_64                        randconfig-a004
-m68k                             allyesconfig
-x86_64                        randconfig-a006
-powerpc                      cm5200_defconfig
-arm                             pxa_defconfig
-powerpc                      ppc40x_defconfig
-powerpc                      mgcoge_defconfig
-
-clang tested configs:
-x86_64                        randconfig-a012
-x86_64                        randconfig-a016
-x86_64                        randconfig-a014
-hexagon              randconfig-r041-20220818
-hexagon              randconfig-r045-20220818
-i386                          randconfig-a002
-i386                          randconfig-a004
-i386                          randconfig-a013
-i386                          randconfig-a011
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-i386                          randconfig-a006
-i386                          randconfig-a015
-x86_64                        randconfig-a005
-x86_64                          rhel-8.3-rust
-mips                        maltaup_defconfig
-mips                     loongson1c_defconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+>
+>
+> > Am 16.08.22 um 10:48 schrieb Andriy Gapon:
+> >>
+> >> Out of necessity I had to use an ancient Radeon HD 2600 XT card.
+> >> It has two DVI outputs (and one S-video).
+> >>
+> >> I noticed a curious problem, if I attach a monitor to either of the
+> >> DVI outputs, then initially there is video output but as soon as
+> >> radeonkms driver attaches the monitor goes blank.
+> >> But if I attach the same monitor to either of the outputs using its VG=
+A
+> >> input and DVI->VGA converter, then the video works fine all the time.
+> >>
+> >> I tested the monitor's DVI input with a different machine and there it
+> >> works just fine (and, as I said, it also works fine before radeonkms
+> >> is loaded).
+> >>
+> >> Here is a piece of output from the driver with the direct DVI attachme=
+nt:
+> >> [drm] Radeon Display Connectors
+> >> [drm] Connector 0:
+> >> [drm]   DVI-I-1
+> >> [drm]   HPD1
+> >> [drm]   DDC: 0x7e50 0x7e50 0x7e54 0x7e54 0x7e58 0x7e58 0x7e5c 0x7e5c
+> >> [drm]   Encoders:
+> >> [drm]     DFP1: INTERNAL_KLDSCP_TMDS1
+> >> [drm]     CRT2: INTERNAL_KLDSCP_DAC2
+> >> [drm] Connector 1:
+> >> [drm]   DIN-1
+> >> [drm]   Encoders:
+> >> [drm]     TV1: INTERNAL_KLDSCP_DAC2
+> >> [drm] Connector 2:
+> >> [drm]   DVI-I-2
+> >> [drm]   HPD2
+> >> [drm]   DDC: 0x7e40 0x7e40 0x7e44 0x7e44 0x7e48 0x7e48 0x7e4c 0x7e4c
+> >> [drm]   Encoders:
+> >> [drm]     CRT1: INTERNAL_KLDSCP_DAC1
+> >> [drm]     DFP2: INTERNAL_LVTM1
+> >> drmn0: [drm] Cannot find any crtc or sizes
+> >>
+> >> The same scenario with additional diagnostics:
+> >> https://people.freebsd.org/~avg/radeon-2600-dvi-dvi.txt
+> >>
+> >>
+> >> And here is with the DVI->VGA configuration:
+> >> [drm] Radeon Display Connectors
+> >> [drm] Connector 0:
+> >> [drm]   DVI-I-1
+> >> [drm]   HPD1
+> >> [drm]   DDC: 0x7e50 0x7e50 0x7e54 0x7e54 0x7e58 0x7e58 0x7e5c 0x7e5c
+> >> [drm]   Encoders:
+> >> [drm]     DFP1: INTERNAL_KLDSCP_TMDS1
+> >> [drm]     CRT2: INTERNAL_KLDSCP_DAC2
+> >> [drm] Connector 1:
+> >> [drm]   DIN-1
+> >> [drm]   Encoders:
+> >> [drm]     TV1: INTERNAL_KLDSCP_DAC2
+> >> [drm] Connector 2:
+> >> [drm]   DVI-I-2
+> >> [drm]   HPD2
+> >> [drm]   DDC: 0x7e40 0x7e40 0x7e44 0x7e44 0x7e48 0x7e48 0x7e4c 0x7e4c
+> >> [drm]   Encoders:
+> >> [drm]     CRT1: INTERNAL_KLDSCP_DAC1
+> >> [drm]     DFP2: INTERNAL_LVTM1
+> >> [drm] fb mappable at 0xE0243000
+> >> [drm] vram apper at 0xE0000000
+> >> [drm] size 3145728
+> >> [drm] fb depth is 24
+> >> [drm]    pitch is 4096
+> >>
+> >> The same scenario with additional diagnostics:
+> >> https://people.freebsd.org/~avg/radeon-2600-dvi-vga.txt
+> >>
+> >>
+> >> Not sure if this is something with the hardware...
+> >>
+> >> Thanks!
+> >
+>
+>
+> --
+> Andriy Gapon
+>
+>
+> https://standforukraine.com
+> https://razomforukraine.org
