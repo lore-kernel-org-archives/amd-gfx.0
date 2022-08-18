@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A445AC00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E41C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC7710E129;
-	Thu, 18 Aug 2022 18:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0967910E186;
+	Thu, 18 Aug 2022 18:55:39 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA30F10EA74
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:45:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F91910E4AD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848304;
+ s=mimecast20190719; t=1660848222;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5+TG12UqCtmEosjJnkODC6uWWyAm1BJ6u+TpgFhRlew=;
- b=N/jjafRjB4bPcYr3nqDnOgo8qEsii1Ir5Nl43jYpDQ/L8uAdtwqqWfGaR8cbUhY9PfiWik
- CjjwtdejDN+lHQL5qeBDglnij0CKgw07IaD7h1CzxZwFDCu4S/zQoxqzlcnV2b7ftJuECJ
- GBGZL3mmrP9Ee3UXli3slw2PGj6fu6o=
+ bh=hEJ8SXloggM3M2XutUR+tagT8o5Og49UCIlmmB2kvDg=;
+ b=NOBeCjR0BrgS2c3tOEcHBePRx3bVI0VnaWa/OSsK0UK2ghcpyb4k05TlyQQ4YtHyoNajAi
+ 23E63jUGMVTfsQrayF3s3mCE+3dr/KwcJBvYKP09SRVCHksf5Ne9TXTkoAoWCSNva1P56+
+ V0Ew0Q/521geU8Ph75S8toxt9Ye1yGo=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-qEUP0MmoMnmXrGU18Njyjg-1; Thu, 18 Aug 2022 14:44:59 -0400
-X-MC-Unique: qEUP0MmoMnmXrGU18Njyjg-1
+ us-mta-412-MYdS7txrO8-_M9phFCn_lA-1; Thu, 18 Aug 2022 14:43:32 -0400
+X-MC-Unique: MYdS7txrO8-_M9phFCn_lA-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAF5B3C0E232;
- Thu, 18 Aug 2022 18:44:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 166083815D28;
+ Thu, 18 Aug 2022 18:43:31 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 26AE4492C3B;
- Thu, 18 Aug 2022 18:44:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7767C492C3B;
+ Thu, 18 Aug 2022 18:43:27 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v3 26/31] platform/x86: samsung-laptop: Move
- acpi_backlight=[vendor|native] quirks to ACPI video_detect.c
-Date: Thu, 18 Aug 2022 20:42:57 +0200
-Message-Id: <20220818184302.10051-27-hdegoede@redhat.com>
+Subject: [PATCH v3 04/31] drm/radeon: Don't register backlight when another
+ backlight should be used (v3)
+Date: Thu, 18 Aug 2022 20:42:35 +0200
+Message-Id: <20220818184302.10051-5-hdegoede@redhat.com>
 In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
 References: <20220818184302.10051-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -78,224 +78,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+Before this commit when we want userspace to use the acpi_video backlight
+device we register both the GPU's native backlight device and acpi_video's
+firmware acpi_video# backlight device. This relies on userspace preferring
+firmware type backlight devices over native ones.
 
-Move all the acpi_backlight=[vendor|native] quirks from samsung-laptop to
-drivers/acpi/video_detect.c .
+Registering 2 backlight devices for a single display really is
+undesirable, don't register the GPU's native backlight device when
+another backlight device should be used.
 
-Note the X360 -> acpi_backlight=native quirk is not moved because that
-already was present in drivers/acpi/video_detect.c .
+Changes in v2:
+- To avoid linker errors when amdgpu is builtin and video_detect.c is in
+  a module, select ACPI_VIDEO and its deps if ACPI is enabled.
+  When ACPI is disabled, ACPI_VIDEO is also always disabled, ensuring
+  the stubs from acpi/video.h will be used.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Changes in v3:
+- Use drm_info(drm_dev, "...") to log messages
+- ACPI_VIDEO can now be enabled on non X86 too,
+  adjust the Kconfig changes to match this.
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/video_detect.c           | 54 +++++++++++++++++
- drivers/platform/x86/samsung-laptop.c | 87 ---------------------------
- 2 files changed, 54 insertions(+), 87 deletions(-)
+ drivers/gpu/drm/Kconfig                         | 7 +++++++
+ drivers/gpu/drm/radeon/atombios_encoders.c      | 7 +++++++
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 7 +++++++
+ 3 files changed, 21 insertions(+)
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index a871ee69fcb2..66ea650fb45f 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -222,6 +222,33 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "GB-BXBT-2807"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_vendor,
-+	 /* Samsung N150/N210/N220 */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "N150/N210/N220"),
-+		DMI_MATCH(DMI_BOARD_NAME, "N150/N210/N220"),
-+		},
-+	},
-+	{
-+	 .callback = video_detect_force_vendor,
-+	 /* Samsung NF110/NF210/NF310 */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "NF110/NF210/NF310"),
-+		DMI_MATCH(DMI_BOARD_NAME, "NF110/NF210/NF310"),
-+		},
-+	},
-+	{
-+	 .callback = video_detect_force_vendor,
-+	 /* Samsung NC210 */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "NC210/NC110"),
-+		DMI_MATCH(DMI_BOARD_NAME, "NC210/NC110"),
-+		},
-+	},
- 	{
- 	.callback = video_detect_force_vendor,
- 	/* Sony VPCEH3U1E */
-@@ -572,6 +599,33 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Samsung N150P */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "N150P"),
-+		DMI_MATCH(DMI_BOARD_NAME, "N150P"),
-+		},
-+	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Samsung N145P/N250P/N260P */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "N145P/N250P/N260P"),
-+		DMI_MATCH(DMI_BOARD_NAME, "N145P/N250P/N260P"),
-+		},
-+	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Samsung N250P */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "N250P"),
-+		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
-+		},
-+	},
- 	/*
- 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
- 	 * working native and video interface. However the default detection
-diff --git a/drivers/platform/x86/samsung-laptop.c b/drivers/platform/x86/samsung-laptop.c
-index c187dcdf82f0..cc30cf08f32d 100644
---- a/drivers/platform/x86/samsung-laptop.c
-+++ b/drivers/platform/x86/samsung-laptop.c
-@@ -356,23 +356,13 @@ struct samsung_laptop {
- };
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 95ca33938b4a..0471505e951d 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -234,6 +234,13 @@ config DRM_RADEON
+ 	select HWMON
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
++	# radeon depends on ACPI_VIDEO when ACPI is enabled, for select to work
++	# ACPI_VIDEO's dependencies must also be selected.
++	select INPUT if ACPI
++	select ACPI_VIDEO if ACPI
++	# On x86 ACPI_VIDEO also needs ACPI_WMI
++	select X86_PLATFORM_DEVICES if ACPI && X86
++	select ACPI_WMI if ACPI && X86
+ 	help
+ 	  Choose this option if you have an ATI Radeon graphics card.  There
+ 	  are both PCI and AGP versions.  You don't need to choose this to
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index c93040e60d04..2b01edea8fe8 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -32,6 +32,8 @@
+ #include <drm/drm_file.h>
+ #include <drm/radeon_drm.h>
  
- struct samsung_quirks {
--	bool broken_acpi_video;
- 	bool four_kbd_backlight_levels;
- 	bool enable_kbd_backlight;
--	bool use_native_backlight;
- 	bool lid_handling;
- };
++#include <acpi/video.h>
++
+ #include "atom.h"
+ #include "radeon_atombios.h"
+ #include "radeon.h"
+@@ -209,6 +211,11 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	if (!(rdev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
+ 		return;
  
- static struct samsung_quirks samsung_unknown = {};
++	if (!acpi_video_backlight_use_native()) {
++		drm_info(dev, "Skipping radeon atom DIG backlight registration\n");
++		return;
++	}
++
+ 	pdata = kmalloc(sizeof(struct radeon_backlight_privdata), GFP_KERNEL);
+ 	if (!pdata) {
+ 		DRM_ERROR("Memory allocation failed\n");
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+index 1a66fb969ee7..0cd32c65456c 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+@@ -33,6 +33,8 @@
+ #include <drm/drm_util.h>
+ #include <drm/radeon_drm.h>
  
--static struct samsung_quirks samsung_broken_acpi_video = {
--	.broken_acpi_video = true,
--};
--
--static struct samsung_quirks samsung_use_native_backlight = {
--	.use_native_backlight = true,
--};
--
- static struct samsung_quirks samsung_np740u3e = {
- 	.four_kbd_backlight_levels = true,
- 	.enable_kbd_backlight = true,
-@@ -1540,76 +1530,6 @@ static const struct dmi_system_id samsung_dmi_table[] __initconst = {
- 		},
- 	},
- 	/* Specific DMI ids for laptop with quirks */
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "N150P",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "N150P"),
--		DMI_MATCH(DMI_BOARD_NAME, "N150P"),
--		},
--	 .driver_data = &samsung_use_native_backlight,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "N145P/N250P/N260P",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "N145P/N250P/N260P"),
--		DMI_MATCH(DMI_BOARD_NAME, "N145P/N250P/N260P"),
--		},
--	 .driver_data = &samsung_use_native_backlight,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "N150/N210/N220",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "N150/N210/N220"),
--		DMI_MATCH(DMI_BOARD_NAME, "N150/N210/N220"),
--		},
--	 .driver_data = &samsung_broken_acpi_video,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "NF110/NF210/NF310",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "NF110/NF210/NF310"),
--		DMI_MATCH(DMI_BOARD_NAME, "NF110/NF210/NF310"),
--		},
--	 .driver_data = &samsung_broken_acpi_video,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "X360",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "X360"),
--		DMI_MATCH(DMI_BOARD_NAME, "X360"),
--		},
--	 .driver_data = &samsung_broken_acpi_video,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "N250P",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "N250P"),
--		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
--		},
--	 .driver_data = &samsung_use_native_backlight,
--	},
--	{
--	 .callback = samsung_dmi_matched,
--	 .ident = "NC210",
--	 .matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
--		DMI_MATCH(DMI_PRODUCT_NAME, "NC210/NC110"),
--		DMI_MATCH(DMI_BOARD_NAME, "NC210/NC110"),
--		},
--	 .driver_data = &samsung_broken_acpi_video,
--	},
- 	{
- 	 .callback = samsung_dmi_matched,
- 	 .ident = "730U3E/740U3E",
-@@ -1654,15 +1574,8 @@ static int __init samsung_init(void)
- 	samsung->handle_backlight = true;
- 	samsung->quirks = quirks;
++#include <acpi/video.h>
++
+ #include "radeon.h"
+ #include "radeon_asic.h"
+ #include "radeon_legacy_encoders.h"
+@@ -387,6 +389,11 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ 		return;
+ #endif
  
--#ifdef CONFIG_ACPI
--	if (samsung->quirks->broken_acpi_video)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
--	if (samsung->quirks->use_native_backlight)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
--
- 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
- 		samsung->handle_backlight = false;
--#endif
- 
- 	ret = samsung_platform_init(samsung);
- 	if (ret)
++	if (!acpi_video_backlight_use_native()) {
++		drm_info(dev, "Skipping radeon legacy LVDS backlight registration\n");
++		return;
++	}
++
+ 	pdata = kmalloc(sizeof(struct radeon_backlight_privdata), GFP_KERNEL);
+ 	if (!pdata) {
+ 		DRM_ERROR("Memory allocation failed\n");
 -- 
 2.37.2
 
