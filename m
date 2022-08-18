@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F49C00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD4EC32772
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E5610EA7A;
-	Thu, 18 Aug 2022 18:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52FAB10EB33;
+	Thu, 18 Aug 2022 18:55:46 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F05AB10EE97
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:45:22 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C14B10EBA8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848321;
+ s=mimecast20190719; t=1660848262;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3SH44BXwktH40KCcDZ9+emR32b1FaNxTyVmnyphrNZ0=;
- b=MnvHr0PUWdJ3+duIqOJE3NeubE6Z9JtZs2vuc5O1sNNTBsQkDoMYlwz4/lzsIbefmsyn1S
- MwcKrxX33zz2oV4gOWBolX/SiIPzGTG5tY3zF/bi+KN+doFrYrge5xYVG/U0uETCSUP8QA
- YA9ioRHrDcaDmATvtzDNcq8vzwafKmE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=mQ93MFygjHtn+pj1JiwZkpRA5Z7Viuv96I2pphNTU0o=;
+ b=eXHvBfb9SWm4U6hzWglQPQ935jCqkpN5BwhZRneLC3UNBGlGlpgEp9zsN95vtjcmz2PpvI
+ 8lyx/hDk9o2VGdCs0Veyv8n18usWW7wIS2Puwkl3OPmKovVpaQLhMWw/ZDME0TkJUKEESx
+ Xx7ebG5MPDfQ91ZXBb+OiIdTvmx8HyY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-LFpjrYx6M1uDx4MF-Xar3w-1; Thu, 18 Aug 2022 14:45:20 -0400
-X-MC-Unique: LFpjrYx6M1uDx4MF-Xar3w-1
+ us-mta-182-woStfovqMROjSBVE2HNTYA-1; Thu, 18 Aug 2022 14:44:19 -0400
+X-MC-Unique: woStfovqMROjSBVE2HNTYA-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 490D285A581;
- Thu, 18 Aug 2022 18:45:18 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07DD83815D2A;
+ Thu, 18 Aug 2022 18:44:18 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A84A7492C3B;
- Thu, 18 Aug 2022 18:45:14 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 48EFF492C3B;
+ Thu, 18 Aug 2022 18:44:14 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v3 31/31] drm/todo: Add entry about dealing with brightness
- control on devices with > 1 panel
-Date: Thu, 18 Aug 2022 20:43:02 +0200
-Message-Id: <20220818184302.10051-32-hdegoede@redhat.com>
+Subject: [PATCH v3 16/31] ACPI: video: Refactor
+ acpi_video_get_backlight_type() a bit
+Date: Thu, 18 Aug 2022 20:42:47 +0200
+Message-Id: <20220818184302.10051-17-hdegoede@redhat.com>
 In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
 References: <20220818184302.10051-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -78,102 +78,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an entry summarizing the discussion about dealing with brightness
-control on devices with more then 1 internal panel.
+Refactor acpi_video_get_backlight_type() so that the heuristics /
+detection steps are stricly in order of descending precedence.
 
-The original discussion can be found here:
-https://lore.kernel.org/dri-devel/20220517152331.16217-1-hdegoede@redhat.com/
+Also move the comments describing the steps to when the various steps are
+actually done, to avoid the comments getting out of sync with the code.
 
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- Documentation/gpu/todo.rst | 68 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+ drivers/acpi/video_detect.c | 39 ++++++++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 7634c27ac562..393d218e4a0c 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -679,6 +679,74 @@ Contact: Sam Ravnborg
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index fb49b8f4523a..cc9d0d91e268 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -537,16 +537,6 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ /*
+  * Determine which type of backlight interface to use on this system,
+  * First check cmdline, then dmi quirks, then do autodetect.
+- *
+- * The autodetect order is:
+- * 1) Is the acpi-video backlight interface supported ->
+- *  no, use a vendor interface
+- * 2) Is this a win8 "ready" BIOS and do we have a native interface ->
+- *  yes, use a native interface
+- * 3) Else use the acpi-video interface
+- *
+- * Arguably the native on win8 check should be done first, but that would
+- * be a behavior change, which may causes issues.
+  */
+ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ {
+@@ -569,19 +559,36 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 		native_available = true;
+ 	mutex_unlock(&init_mutex);
  
- Level: Advanced
++	/*
++	 * The below heuristics / detection steps are in order of descending
++	 * presedence. The commandline takes presedence over anything else.
++	 */
+ 	if (acpi_backlight_cmdline != acpi_backlight_undef)
+ 		return acpi_backlight_cmdline;
  
-+Brightness handling on devices with multiple internal panels
-+============================================================
-+
-+On x86/ACPI devices there can be multiple backlight firmware interfaces:
-+(ACPI) video, vendor specific and others. As well as direct/native (PWM)
-+register programming by the KMS driver.
-+
-+To deal with this backlight drivers used on x86/ACPI call
-+acpi_video_get_backlight_type() which has heuristics (+quirks) to select
-+which backlight interface to use; and backlight drivers which do not match
-+the returned type will not register themselves, so that only one backlight
-+device gets registered (in a single GPU setup, see below).
-+
-+At the moment this more or less assumes that there will only
-+be 1 (internal) panel on a system.
-+
-+On systems with 2 panels this may be a problem, depending on
-+what interface acpi_video_get_backlight_type() selects:
-+
-+1. native: in this case the KMS driver is expected to know which backlight
-+   device belongs to which output so everything should just work.
-+2. video: this does support controlling multiple backlights, but some work
-+   will need to be done to get the output <-> backlight device mapping
-+
-+The above assumes both panels will require the same backlight interface type.
-+Things will break on systems with multiple panels where the 2 panels need
-+a different type of control. E.g. one panel needs ACPI video backlight control,
-+where as the other is using native backlight control. Currently in this case
-+only one of the 2 required backlight devices will get registered, based on
-+the acpi_video_get_backlight_type() return value.
-+
-+If this (theoretical) case ever shows up, then supporting this will need some
-+work. A possible solution here would be to pass a device and connector-name
-+to acpi_video_get_backlight_type() so that it can deal with this.
-+
-+Note in a way we already have a case where userspace sees 2 panels,
-+in dual GPU laptop setups with a mux. On those systems we may see
-+either 2 native backlight devices; or 2 native backlight devices.
-+
-+Userspace already has code to deal with this by detecting if the related
-+panel is active (iow which way the mux between the GPU and the panels
-+points) and then uses that backlight device. Userspace here very much
-+assumes a single panel though. It picks only 1 of the 2 backlight devices
-+and then only uses that one.
-+
-+Note that all userspace code (that I know off) is currently hardcoded
-+to assume a single panel.
-+
-+Before the recent changes to not register multiple (e.g. video + native)
-+/sys/class/backlight devices for a single panel (on a single GPU laptop),
-+userspace would see multiple backlight devices all controlling the same
-+backlight.
-+
-+To deal with this userspace had to always picks one preferred device under
-+/sys/class/backlight and will ignore the others. So to support brightness
-+control on multiple panels userspace will need to be updated too.
-+
-+There are plans to allow brightness control through the KMS API by adding
-+a "display brightness" property to drm_connector objects for panels. This
-+solves a number of issues with the /sys/class/backlight API, including not
-+being able to map a sysfs backlight device to a specific connector. Any
-+userspace changes to add support for brightness control on devices with
-+multiple panels really should build on top of this new KMS property.
-+
-+Contact: Hans de Goede
-+
-+Level: Advanced
-+
- Outside DRM
- ===========
++	/* DMI quirks override any autodetection. */
+ 	if (acpi_backlight_dmi != acpi_backlight_undef)
+ 		return acpi_backlight_dmi;
  
+-	if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
+-		return acpi_backlight_vendor;
+-
+-	if (acpi_osi_is_win8() && native_available)
+-		return acpi_backlight_native;
++	/* On systems with ACPI video use either native or ACPI video. */
++	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
++		/*
++		 * Windows 8 and newer no longer use the ACPI video interface,
++		 * so it often does not work. If the ACPI tables are written
++		 * for win8 and native brightness ctl is available, use that.
++		 *
++		 * The native check deliberately is inside the if acpi-video
++		 * block on older devices without acpi-video support native
++		 * is usually not the best choice.
++		 */
++		if (acpi_osi_is_win8() && native_available)
++			return acpi_backlight_native;
++		else
++			return acpi_backlight_video;
++	}
+ 
+-	return acpi_backlight_video;
++	/* No ACPI video (old hw), use vendor specific fw methods. */
++	return acpi_backlight_vendor;
+ }
+ 
+ enum acpi_backlight_type acpi_video_get_backlight_type(void)
 -- 
 2.37.2
 
