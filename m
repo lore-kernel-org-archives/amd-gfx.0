@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34733C32772
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC841C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F6210EC30;
-	Thu, 18 Aug 2022 18:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 028BA10EC5C;
+	Thu, 18 Aug 2022 18:55:49 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B114310EC93
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:37 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6832610E5C0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848276;
+ s=mimecast20190719; t=1660848229;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YqEqzSG53aD58AoTXBk3s3SN9cZL717VoO9W1oD9K+k=;
- b=BxjxH4yDhakNHQTwR6BO6KkDRH6V6hB05oOi1e1KusfPm1URbTuatHV543uyRmSQVkFpVS
- XdG9AbLtGPlrX2aTGXfMLsmxJQ/RydrIGimUC77pVQcRpW1ISeNPtwkxJ4BIVOd43ZipAR
- aQl+29fGO/ueuBzsjWp1uWi4gizDeaA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=c7cbLrhybeXhTd6E0KCP79PiLRPmdaDHe09WAOWHr3I=;
+ b=DrwU0HcWKrxAa1uV9AWAf1xzZ62jh/QNKK3YVqQ3B45pj/ac9D36UI6CO1kfYb58yeBK3J
+ 4GByRUet+cUb+8BkrcXErdXtVwludvy/XdJV6aA5uxDWPgOgnlmd4Gkf4L4GnhZ34BZXzt
+ mbaUxTHCAit3vgdw4/E4K4tp7DBZGA0=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-n5trYiWlPwi-yILLi5ny7A-1; Thu, 18 Aug 2022 14:44:35 -0400
-X-MC-Unique: n5trYiWlPwi-yILLi5ny7A-1
+ us-mta-259-iWkuLWGsMGaCrmdhUUlncA-1; Thu, 18 Aug 2022 14:43:44 -0400
+X-MC-Unique: iWkuLWGsMGaCrmdhUUlncA-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50A46811E75;
- Thu, 18 Aug 2022 18:44:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0813329AA3B6;
+ Thu, 18 Aug 2022 18:43:43 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8223B403340;
- Thu, 18 Aug 2022 18:44:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 19807403340;
+ Thu, 18 Aug 2022 18:43:38 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v3 20/31] platform/x86: apple-gmux: Stop calling acpi/video.h
- functions
-Date: Thu, 18 Aug 2022 20:42:51 +0200
-Message-Id: <20220818184302.10051-21-hdegoede@redhat.com>
+Subject: [PATCH v3 07/31] ACPI: video: Remove acpi_video_bus from list before
+ tearing it down
+Date: Thu, 18 Aug 2022 20:42:38 +0200
+Message-Id: <20220818184302.10051-8-hdegoede@redhat.com>
 In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
 References: <20220818184302.10051-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -78,50 +78,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that acpi_video_get_backlight_type() has apple-gmux detection (using
-apple_gmux_present()), it is no longer necessary for the apple-gmux code
-to manually remove possibly conflicting drivers.
+Move the list_del removing an acpi_video_bus from video_bus_head
+on teardown to before the teardown is done, to avoid code iterating
+over the video_bus_head list seeing acpi_video_bus objects on there
+which are (partly) torn down already.
 
-So remove the handling for this from the apple-gmux driver.
-
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/platform/x86/apple-gmux.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/acpi/acpi_video.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index ffe98a18440b..ca33df7ea550 100644
---- a/drivers/platform/x86/apple-gmux.c
-+++ b/drivers/platform/x86/apple-gmux.c
-@@ -21,7 +21,6 @@
- #include <linux/delay.h>
- #include <linux/pci.h>
- #include <linux/vga_switcheroo.h>
--#include <acpi/video.h>
- #include <asm/io.h>
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 5cbe2196176d..cde8ffa9f0b8 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -2111,14 +2111,14 @@ static int acpi_video_bus_remove(struct acpi_device *device)
  
- /**
-@@ -694,7 +693,6 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	 * backlight control and supports more levels than other options.
- 	 * Disable the other backlight choices.
- 	 */
--	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
- 	apple_bl_unregister();
+ 	video = acpi_driver_data(device);
  
- 	gmux_data->power_state = VGA_SWITCHEROO_ON;
-@@ -804,7 +802,6 @@ static void gmux_remove(struct pnp_dev *pnp)
- 	apple_gmux_data = NULL;
- 	kfree(gmux_data);
+-	acpi_video_bus_remove_notify_handler(video);
+-	acpi_video_bus_unregister_backlight(video);
+-	acpi_video_bus_put_devices(video);
+-
+ 	mutex_lock(&video_list_lock);
+ 	list_del(&video->entry);
+ 	mutex_unlock(&video_list_lock);
  
--	acpi_video_register();
- 	apple_bl_register();
- }
++	acpi_video_bus_remove_notify_handler(video);
++	acpi_video_bus_unregister_backlight(video);
++	acpi_video_bus_put_devices(video);
++
+ 	kfree(video->attached_array);
+ 	kfree(video);
  
 -- 
 2.37.2
