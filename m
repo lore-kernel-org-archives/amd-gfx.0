@@ -4,42 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61415C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 017C3C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 079D0C3611;
-	Wed, 24 Aug 2022 19:13:20 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2AB110E225
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 20:38:15 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 314636147D;
- Thu, 18 Aug 2022 20:38:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672B3C433C1;
- Thu, 18 Aug 2022 20:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660855094;
- bh=6Lsy0QaxfV6sD1O8kfNMv6jWWiIgfjbYjaUEeiQnpZU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=GHqlOIcqhocdbmY56+RBw2wUFa+XU+/RQhpmBU3iNw0GCy/D/PO6cTivwW30rUOpq
- 8QZuT5OINLUWYQ7/NK0GiYMiO9/5ohREqvLPLXcw3lMvTx89My7rN3zi++cGAL2nud
- 4o5HBR1ZTDttkXXxSGlgukaAYEQt4MFWQxnTU+zZjY9lGo/PE7JDCU3Q2l+suqrWDf
- Er6IONkOrkpDE+kNaEdmDV0m6IJr2Pd/3TgjtXlQe2zaYDuYWTwauJiS7ZNGK2fsU5
- oF7Z9DpqlgY6j4CkkMV9tqrPrOaWvQ9C6yHCchFqgol7HozQrWwv9+fTmKFNXO0qkd
- kDfbhLnGf4l2A==
-Date: Thu, 18 Aug 2022 15:38:12 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
-Message-ID: <20220818203812.GA2381243@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D50C214A7F7;
+	Wed, 24 Aug 2022 19:13:22 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFAB10F1EC;
+ Thu, 18 Aug 2022 22:05:57 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0E2338B;
+ Fri, 19 Aug 2022 00:05:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1660860355;
+ bh=xD92V269nPxYBK40XY1d1B25dDlefBuRONroqzpcmFY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QUU/hQ32HHQF3Iy3QdDKQ8vHxfX3BWD5YwCe6g4cz4OhMabwyKJRwPSxJmDyMWfOe
+ o9mQzoOLH8HQPNXzMdOtcgTe04KFBTzwsFMw3jNG7eIiJcaagzZGYK2Sguonkg5VxJ
+ 5c+cckw7toR6l9FhivXRTvYjNMNTgfP1UdrLaxS8=
+Date: Fri, 19 Aug 2022 01:05:52 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH] gpu: move from strlcpy with unused retval to strscpy
+Message-ID: <Yv63wP0jpCoVzuE+@pendragon.ideasonboard.com>
+References: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <bug-216373-41252@https.bugzilla.kernel.org/>
+In-Reply-To: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,91 +45,289 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stefan Roese <sr@denx.de>
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ amd-gfx@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Samuel Holland <samuel@sholland.org>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, linux-sunxi@lists.linux.dev,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Adding amdgpu folks]
+Hi Wolfram,
 
-On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=216373
+Thank you for the patch.
+
+On Thu, Aug 18, 2022 at 11:00:07PM +0200, Wolfram Sang wrote:
+> Follow the advice of the below link and prefer 'strscpy' in this
+> subsystem. Conversion is 1:1 because the return value is not used.
+> Generated by a coccinelle script.
 > 
->             Bug ID: 216373
->            Summary: Uncorrected errors reported for AMD GPU
->     Kernel Version: v6.0-rc1
->         Regression: No
-> ...
+> Link: https://lore.kernel.org/r/CAHk-=wgfRnXz0W3D37d01q3JFkr_i_uTL=V6A6G1oUZcprmknw@mail.gmail.com/
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-I marked this as a regression in bugzilla.
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-> Hardware:
-> CPU: Intel i7-12700K (Alder Lake)
-> GPU: AMD RX 6700 XT [1002:73df]
-> Motherboard: ASUS Prime Z690-A
+> ---
+>  drivers/gpu/drm/amd/amdgpu/atom.c                   | 2 +-
+>  drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c      | 2 +-
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 6 +++---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c           | 2 +-
+>  drivers/gpu/drm/display/drm_dp_helper.c             | 2 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c       | 2 +-
+>  drivers/gpu/drm/drm_mipi_dsi.c                      | 2 +-
+>  drivers/gpu/drm/i2c/tda998x_drv.c                   | 2 +-
+>  drivers/gpu/drm/i915/selftests/i915_perf.c          | 2 +-
+>  drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c             | 2 +-
+>  drivers/gpu/drm/radeon/radeon_atombios.c            | 4 ++--
+>  drivers/gpu/drm/radeon/radeon_combios.c             | 4 ++--
+>  drivers/gpu/drm/rockchip/inno_hdmi.c                | 2 +-
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c              | 2 +-
+>  drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c              | 2 +-
+>  15 files changed, 19 insertions(+), 19 deletions(-)
 > 
-> Problem:
-> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected PCI errors
-> for my GPU.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 1c5d9388ad0b..5f610e9a5f0f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -1509,7 +1509,7 @@ struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
+>  	str = CSTR(idx);
+>  	if (*str != '\0') {
+>  		pr_info("ATOM BIOS: %s\n", str);
+> -		strlcpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
+> +		strscpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
+>  	}
+>  
+>  	atom_rom_header = (struct _ATOM_ROM_HEADER *)CSTR(base);
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> index d3fe149d8476..81fb4e5dd804 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> @@ -794,7 +794,7 @@ void amdgpu_add_thermal_controller(struct amdgpu_device *adev)
+>  				struct i2c_board_info info = { };
+>  				const char *name = pp_lib_thermal_controller_names[controller->ucType];
+>  				info.addr = controller->ucI2cAddress >> 1;
+> -				strlcpy(info.type, name, sizeof(info.type));
+> +				strscpy(info.type, name, sizeof(info.type));
+>  				i2c_new_client_device(&adev->pm.i2c_bus->adapter, &info);
+>  			}
+>  		} else {
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> index 7d2ed0ed2fe2..4efb62bcdb63 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> @@ -542,8 +542,8 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	strlcpy(card->driver, DRIVER_NAME, sizeof(card->driver));
+> -	strlcpy(card->shortname, "DW-HDMI", sizeof(card->shortname));
+> +	strscpy(card->driver, DRIVER_NAME, sizeof(card->driver));
+> +	strscpy(card->shortname, "DW-HDMI", sizeof(card->shortname));
+>  	snprintf(card->longname, sizeof(card->longname),
+>  		 "%s rev 0x%02x, irq %d", card->shortname, revision,
+>  		 data->irq);
+> @@ -561,7 +561,7 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+>  
+>  	dw->pcm = pcm;
+>  	pcm->private_data = dw;
+> -	strlcpy(pcm->name, DRIVER_NAME, sizeof(pcm->name));
+> +	strscpy(pcm->name, DRIVER_NAME, sizeof(pcm->name));
+>  	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &snd_dw_hdmi_ops);
+>  
+>  	/*
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 25a60eb4d67c..4f3ae976e677 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -533,7 +533,7 @@ static struct i2c_adapter *dw_hdmi_i2c_adapter(struct dw_hdmi *hdmi)
+>  	adap->owner = THIS_MODULE;
+>  	adap->dev.parent = hdmi->dev;
+>  	adap->algo = &dw_hdmi_algorithm;
+> -	strlcpy(adap->name, "DesignWare HDMI", sizeof(adap->name));
+> +	strscpy(adap->name, "DesignWare HDMI", sizeof(adap->name));
+>  	i2c_set_adapdata(adap, hdmi);
+>  
+>  	ret = i2c_add_adapter(adap);
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index e5bab236b3ae..10a39b36a661 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2058,7 +2058,7 @@ int drm_dp_aux_register(struct drm_dp_aux *aux)
+>  	aux->ddc.owner = THIS_MODULE;
+>  	aux->ddc.dev.parent = aux->dev;
+>  
+> -	strlcpy(aux->ddc.name, aux->name ? aux->name : dev_name(aux->dev),
+> +	strscpy(aux->ddc.name, aux->name ? aux->name : dev_name(aux->dev),
+>  		sizeof(aux->ddc.name));
+>  
+>  	ret = drm_dp_aux_register_devnode(aux);
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 57e65423e50d..6bdf39937054 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -5780,7 +5780,7 @@ static int drm_dp_mst_register_i2c_bus(struct drm_dp_mst_port *port)
+>  	aux->ddc.dev.parent = parent_dev;
+>  	aux->ddc.dev.of_node = parent_dev->of_node;
+>  
+> -	strlcpy(aux->ddc.name, aux->name ? aux->name : dev_name(parent_dev),
+> +	strscpy(aux->ddc.name, aux->name ? aux->name : dev_name(parent_dev),
+>  		sizeof(aux->ddc.name));
+>  
+>  	return i2c_add_adapter(&aux->ddc);
+> diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
+> index c40bde96cfdf..9820b85a34c7 100644
+> --- a/drivers/gpu/drm/drm_mipi_dsi.c
+> +++ b/drivers/gpu/drm/drm_mipi_dsi.c
+> @@ -223,7 +223,7 @@ mipi_dsi_device_register_full(struct mipi_dsi_host *host,
+>  
+>  	dsi->dev.of_node = info->node;
+>  	dsi->channel = info->channel;
+> -	strlcpy(dsi->name, info->type, sizeof(dsi->name));
+> +	strscpy(dsi->name, info->type, sizeof(dsi->name));
+>  
+>  	ret = mipi_dsi_device_add(dsi);
+>  	if (ret) {
+> diff --git a/drivers/gpu/drm/i2c/tda998x_drv.c b/drivers/gpu/drm/i2c/tda998x_drv.c
+> index f8eb6f69be05..d49f0bd8d02c 100644
+> --- a/drivers/gpu/drm/i2c/tda998x_drv.c
+> +++ b/drivers/gpu/drm/i2c/tda998x_drv.c
+> @@ -1949,7 +1949,7 @@ static int tda998x_create(struct device *dev)
+>  	 * offset.
+>  	 */
+>  	memset(&cec_info, 0, sizeof(cec_info));
+> -	strlcpy(cec_info.type, "tda9950", sizeof(cec_info.type));
+> +	strscpy(cec_info.type, "tda9950", sizeof(cec_info.type));
+>  	cec_info.addr = priv->cec_addr;
+>  	cec_info.platform_data = &priv->cec_glue;
+>  	cec_info.irq = client->irq;
+> diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> index 88db2e3d81d0..8f5285654d7a 100644
+> --- a/drivers/gpu/drm/i915/selftests/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> @@ -28,7 +28,7 @@ alloc_empty_config(struct i915_perf *perf)
+>  	oa_config->perf = perf;
+>  	kref_init(&oa_config->ref);
+>  
+> -	strlcpy(oa_config->uuid, TEST_OA_CONFIG_UUID, sizeof(oa_config->uuid));
+> +	strscpy(oa_config->uuid, TEST_OA_CONFIG_UUID, sizeof(oa_config->uuid));
+>  
+>  	mutex_lock(&perf->metrics_lock);
+>  
+> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
+> index 6207eac88550..19541d197047 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
+> @@ -292,7 +292,7 @@ static int mtk_hdmi_ddc_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> -	strlcpy(ddc->adap.name, "mediatek-hdmi-ddc", sizeof(ddc->adap.name));
+> +	strscpy(ddc->adap.name, "mediatek-hdmi-ddc", sizeof(ddc->adap.name));
+>  	ddc->adap.owner = THIS_MODULE;
+>  	ddc->adap.class = I2C_CLASS_DDC;
+>  	ddc->adap.algo = &mtk_hdmi_ddc_algorithm;
+> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+> index 28c4413f4dc8..62fbbd6181bc 100644
+> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+> @@ -2104,7 +2104,7 @@ static int radeon_atombios_parse_power_table_1_3(struct radeon_device *rdev)
+>  			const char *name = thermal_controller_names[power_info->info.
+>  								    ucOverdriveThermalController];
+>  			info.addr = power_info->info.ucOverdriveControllerAddress >> 1;
+> -			strlcpy(info.type, name, sizeof(info.type));
+> +			strscpy(info.type, name, sizeof(info.type));
+>  			i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+>  		}
+>  	}
+> @@ -2354,7 +2354,7 @@ static void radeon_atombios_add_pplib_thermal_controller(struct radeon_device *r
+>  				struct i2c_board_info info = { };
+>  				const char *name = pp_lib_thermal_controller_names[controller->ucType];
+>  				info.addr = controller->ucI2cAddress >> 1;
+> -				strlcpy(info.type, name, sizeof(info.type));
+> +				strscpy(info.type, name, sizeof(info.type));
+>  				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+>  			}
+>  		} else {
+> diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
+> index 783a6b8802d5..795c3667f6d6 100644
+> --- a/drivers/gpu/drm/radeon/radeon_combios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_combios.c
+> @@ -2702,7 +2702,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
+>  				struct i2c_board_info info = { };
+>  				const char *name = thermal_controller_names[thermal_controller];
+>  				info.addr = i2c_addr >> 1;
+> -				strlcpy(info.type, name, sizeof(info.type));
+> +				strscpy(info.type, name, sizeof(info.type));
+>  				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+>  			}
+>  		}
+> @@ -2719,7 +2719,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
+>  				struct i2c_board_info info = { };
+>  				const char *name = "f75375";
+>  				info.addr = 0x28;
+> -				strlcpy(info.type, name, sizeof(info.type));
+> +				strscpy(info.type, name, sizeof(info.type));
+>  				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+>  				DRM_INFO("Possible %s thermal controller at 0x%02x\n",
+>  					 name, info.addr);
+> diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockchip/inno_hdmi.c
+> index 87b2243ea23e..98ed6cc931d0 100644
+> --- a/drivers/gpu/drm/rockchip/inno_hdmi.c
+> +++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
+> @@ -797,7 +797,7 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(struct inno_hdmi *hdmi)
+>  	adap->dev.parent = hdmi->dev;
+>  	adap->dev.of_node = hdmi->dev->of_node;
+>  	adap->algo = &inno_hdmi_algorithm;
+> -	strlcpy(adap->name, "Inno HDMI", sizeof(adap->name));
+> +	strscpy(adap->name, "Inno HDMI", sizeof(adap->name));
+>  	i2c_set_adapdata(adap, hdmi);
+>  
+>  	ret = i2c_add_adapter(adap);
+> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> index cf2cf51091a3..bf2924730d84 100644
+> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> @@ -730,7 +730,7 @@ static struct i2c_adapter *rk3066_hdmi_i2c_adapter(struct rk3066_hdmi *hdmi)
+>  	adap->dev.parent = hdmi->dev;
+>  	adap->dev.of_node = hdmi->dev->of_node;
+>  	adap->algo = &rk3066_hdmi_algorithm;
+> -	strlcpy(adap->name, "RK3066 HDMI", sizeof(adap->name));
+> +	strscpy(adap->name, "RK3066 HDMI", sizeof(adap->name));
+>  	i2c_set_adapdata(adap, hdmi);
+>  
+>  	ret = i2c_add_adapter(adap);
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
+> index c7d7e9fff91c..d1a65a921f5a 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
+> @@ -304,7 +304,7 @@ int sun4i_hdmi_i2c_create(struct device *dev, struct sun4i_hdmi *hdmi)
+>  	adap->owner = THIS_MODULE;
+>  	adap->class = I2C_CLASS_DDC;
+>  	adap->algo = &sun4i_hdmi_i2c_algorithm;
+> -	strlcpy(adap->name, "sun4i_hdmi_i2c adapter", sizeof(adap->name));
+> +	strscpy(adap->name, "sun4i_hdmi_i2c adapter", sizeof(adap->name));
+>  	i2c_set_adapdata(adap, hdmi);
+>  
+>  	ret = i2c_add_adapter(adap);
 
-Thank you very much for the report and for taking the trouble to
-bisect it and test Kai-Heng's patch!
+-- 
+Regards,
 
-I suspect that booting with "pci=noaer" should be a temporary
-workaround for this issue.  If it, can you add that to the bugzilla
-for anybody else who trips over this?
-
-> I have bisected this issue to: [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
-> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
-> Reverting that commit causes the errors to cease.
-
-I suspect the errors still occur, but we just don't notice and log
-them.
-
-> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a similar
-> problem, but it did not fix my issue.
-> 
-> [1]
-> https://lore.kernel.org/linux-pci/20220706123244.18056-1-kai.heng.feng@canonical.com/
->
-> dmesg snippet:
-> 
-> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error received:
-> 0000:03:00.0
-> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
-> type=Transaction Layer, (Requester ID)
-> amdgpu 0000:03:00.0:   device [1002:73df] error status/mask=00100000/00000000
-> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
-> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 00000000
-
-I think the TLP header decodes to:
-
-  0x40000001 = 0100 0000 ... 0000 0001 binary
-  0x0000000f = 0000 0000 ... 0000 1111 binary
-
-  Fmt           010b                 3 DW header with data
-  Type          0000b  010 0 0000    MWr Memory Write Request
-  Length        00 0000 0001b        1 DW
-  Requester ID  0x0000               00:00.0
-  Tag           0x00
-  Last DW BE    0000b                must be zero for 1 DW write
-  First DW BE   1111b                all 4 bytes in DW enabled
-  Address       0x95e7f000
-  Data          0x00000000
-
-So I think this is a 32-bit write of zero to PCI bus address
-0x95e7f000.
-
-Your dmesg log says:
-
-  pci 0000:02:00.0: PCI bridge to [bus 03]
-  pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
-  pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
-  [drm] register mmio base: 0x95E00000
-
-So this looks like a write to the device's BAR 5.  I don't see a PCI
-reason why this should fail.  Maybe there's some amdgpu reason?
-
-Bjorn
+Laurent Pinchart
