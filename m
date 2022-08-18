@@ -4,43 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E544C00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 13:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC5BC00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 15:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A63C59336C;
-	Thu, 18 Aug 2022 13:28:33 +0000 (UTC)
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B50F191F8D;
- Thu, 18 Aug 2022 13:28:12 +0000 (UTC)
-Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4M7m0q5Dl9zDrld;
- Thu, 18 Aug 2022 13:28:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1660829292; bh=zaUGBMbIeblCA6LFLVRPpXMwvonXUCHOihqI8qvG8vY=;
- h=From:To:Cc:Subject:Date:From;
- b=BSBw4cAtqDK2BT5dBjNPVPXWnuHWNwok2RUjVSqg5SdiJUXdSt6QgLoTDmf8BheEm
- XPrdJ114rJ0cUt1x9GjEH8sWT/q5zyaerUfYIEeJy/OAA0KO3F+ZOLOuQTqML2GLHE
- sgORapu82b7qyTQdnNYYZ+J5HGFC6n1g4u4ZYVt4=
-X-Riseup-User-ID: 453481205A61EBE5699C24A1AB7E334277963DE2B8DC79F4735518125DEB5B2E
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews2.riseup.net (Postfix) with ESMTPSA id 4M7m0j108Dz20cW;
- Thu, 18 Aug 2022 13:28:04 +0000 (UTC)
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amd/display: Include missing header
-Date: Thu, 18 Aug 2022 10:27:30 -0300
-Message-Id: <20220818132730.399334-1-mairacanal@riseup.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A73CBA02FB;
+	Thu, 18 Aug 2022 15:12:57 +0000 (UTC)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD0A8CCCFC;
+ Thu, 18 Aug 2022 10:44:10 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-3321c2a8d4cso30084447b3.5; 
+ Thu, 18 Aug 2022 03:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=/Vg0MiE5047HvBd7kU3Dl8WG5Dtp7QWU7yaZmVgWvE0=;
+ b=XBdxOIbpmad8maPo4XhdSMrnSkrWvg5nakK+efBLeJ5Dhda5817DMJDouZlliduGpJ
+ cMI0PnJAxqFOOFm7rAFqrsLpEcmH508OQg92oOL0rAFnK/+n2gjeWpXrOogkawkZVQG5
+ VP0N7xNN08DQPQ9SY53iFIHOhZ9JvL+U+KSRV4vFswq4WP11k7Zv9KelLOBoU8if2XHk
+ kPiHeI2X96L2Hru8Eyz00HNQHoJG8ymiUmOE1Fe7MKZK3YDF79kwsWd7IhOxIKkwOS8/
+ Jsv2X3wJnmvW8b+JIM6eTV/3XUOoVpybgNG3k4M2OVFKpCCOmcyDe03UYYN7UTmqNTHB
+ pWFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=/Vg0MiE5047HvBd7kU3Dl8WG5Dtp7QWU7yaZmVgWvE0=;
+ b=sd0GrX8jSPUSm2COVsAAtpZce6N1CVJpj2IOnc/pvkbKdUg70g0ub4j7x5V0J6JUFp
+ oPk1fsrLy26q5ZN+7yfwyAEPRf/vd4p6Ma8fXATo+I4sgtE5kvtd7b0DTOPR91gnfvAr
+ Fb8IX2rs+Pv+oYDpBJgYIsVoObDjEe2Pw7oOc7Nv7b26eCpuUyPWoBOsx58pqkuo/1XX
+ 4gIqFm7qaD0FiA8gvMoB/4QG5eKkaqftX1PImh/tLDpcqmdByjsNNrKGDHuInNE4fvmq
+ RA+6fGymzAqqW4WUou5KVlaSUWJXNMq9cJxRliYuzqWoWziMBsttSOrchdaoIsoodRhU
+ e9OA==
+X-Gm-Message-State: ACgBeo2liC5ppynannomCnWvOKMVUf4eZ2E+/HpHihxUWVmK5qlZX7EF
+ vpDjLg8CqxQ5U0sfa1FZ8C+Tc3NCXoZ+4wtQvDU=
+X-Google-Smtp-Source: AA6agR6bpMkfOdg/XRd/QTB2hcWngbdEhqg0DhxaakFttwjPtxVRnCyU9KJocZLjpI5nP8q5uNUBHgiRbNIJ29vaWxM=
+X-Received: by 2002:a5b:845:0:b0:683:6ed7:b3b6 with SMTP id
+ v5-20020a5b0845000000b006836ed7b3b6mr2221253ybq.183.1660819449894; Thu, 18
+ Aug 2022 03:44:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <Yv1lepjhg/6QKyQl@debian>
+ <CADnq5_Od9W1iuzYpsmODOB=Xem97ogeH_t0JrjWC-S8h0XM9fA@mail.gmail.com>
+ <5638aaf1-b808-bdc6-d84a-820f24facea6@infradead.org>
+In-Reply-To: <5638aaf1-b808-bdc6-d84a-820f24facea6@infradead.org>
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Date: Thu, 18 Aug 2022 11:43:34 +0100
+Message-ID: <CADVatmNA6-qCJEHNn-gRO6Nx88SsTrPsJn_F5J0NiFhyvijNxA@mail.gmail.com>
+Subject: Re: build failure of next-20220817 for amdgpu
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 18 Aug 2022 15:12:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,105 +66,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Magali Lemes <magalilemes00@gmail.com>,
- tales.aparecida@gmail.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- dri-devel@lists.freedesktop.org, isabbasso@riseup.net, andrealmeid@riseup.net
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ linux-next <linux-next@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The file amdgpu_dm_plane.c missed the header amdgpu_dm_plane.h, which
-resulted on the following warning:
+On Thu, Aug 18, 2022 at 3:09 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+>
+>
+> On 8/17/22 19:01, Alex Deucher wrote:
+> > On Wed, Aug 17, 2022 at 6:03 PM Sudip Mukherjee (Codethink)
+> > <sudipm.mukherjee@gmail.com> wrote:
+> >>
+> >> Hi All,
+> >>
+> >> Not sure if it has been reported, build of next-20220817 fails with the
+> >> error:
+> >>
+> >> ERROR: modpost: "cpu_smallcore_map" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+> >>
+> >> Trying to do a git bisect to find out the offending commit.
+> >>
+> >
+> > Thanks.  I don't see that symbol in the driver at all.  Not sure where
+> > it is coming from.
+> >
+>
+> It's powerpc only.
+>
+> Sudip, is it non-CONFIG_SMP by any chance?
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1046:5:
-warning: no previous prototype for 'fill_dc_scaling_info'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1222:6:
-warning: no previous prototype for 'handle_cursor_update'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:152:6:
-warning: no previous prototype for 'modifier_has_dcc'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1576:5:
-warning: no previous prototype for 'amdgpu_dm_plane_init'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:157:10:
-warning: no previous prototype for 'modifier_gfx9_swizzle_mode'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:752:5:
-warning: no previous prototype for 'fill_plane_buffer_attributes'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:83:31:
-warning: no previous prototype for 'amd_get_format_info'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:88:6:
-warning: no previous prototype for 'fill_blending_from_plane_state'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:992:5:
-warning: no previous prototype for 'dm_plane_helper_check_state'
-[-Wmissing-prototypes]
+Ohhh.. really sorry for the incomplete report. I should not try to
+mail while travelling.
 
-Therefore, include the missing header on the file and turn global functions
-that are not used outside of the file into static functions.
+The error is seen with powerpc allmodconfig and it has CONFIG_SMP=y.
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Maíra Canal <mairacanal@riseup.net>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 5 +++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h | 8 --------
- 2 files changed, 3 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index b841b8b0a9d8..e022be4df290 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -34,6 +34,7 @@
- #include "dal_asic_id.h"
- #include "amdgpu_display.h"
- #include "amdgpu_dm_trace.h"
-+#include "amdgpu_dm_plane.h"
- #include "gc/gc_11_0_0_offset.h"
- #include "gc/gc_11_0_0_sh_mask.h"
- 
-@@ -149,12 +150,12 @@ static void add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_
- 	*size += 1;
- }
- 
--bool modifier_has_dcc(uint64_t modifier)
-+static bool modifier_has_dcc(uint64_t modifier)
- {
- 	return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier);
- }
- 
--unsigned modifier_gfx9_swizzle_mode(uint64_t modifier)
-+static unsigned modifier_gfx9_swizzle_mode(uint64_t modifier)
- {
- 	if (modifier == DRM_FORMAT_MOD_LINEAR)
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 95168c2cfa6f..286981a2dd40 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -36,17 +36,9 @@ int fill_dc_scaling_info(struct amdgpu_device *adev,
- 			 const struct drm_plane_state *state,
- 			 struct dc_scaling_info *scaling_info);
- 
--void get_min_max_dc_plane_scaling(struct drm_device *dev,
--				  struct drm_framebuffer *fb,
--				  int *min_downscale, int *max_upscale);
--
- int dm_plane_helper_check_state(struct drm_plane_state *state,
- 				struct drm_crtc_state *new_crtc_state);
- 
--bool modifier_has_dcc(uint64_t modifier);
--
--unsigned int modifier_gfx9_swizzle_mode(uint64_t modifier);
--
- int fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 				 const struct amdgpu_framebuffer *afb,
- 				 const enum surface_pixel_format format,
 -- 
-2.37.2
-
+Regards
+Sudip
