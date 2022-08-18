@@ -4,106 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3EBC00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 08:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE65C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 09:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2F4BC1592;
-	Thu, 18 Aug 2022 08:06:23 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9953EB6983
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 08:05:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kl+WQlOYxtdRk2uuSfYQeKr4XA6PL2wYzdpXG+E/WDmm9l0WB9qUg6fUMv8zV9E08WHUz2jyqi13kVfEB3SG3OpYckR6vM7NcmqNGB7ITTz0QCWPSObc/N2c9XfuxTwpJDf9zkDI/ln2+36Rshulw/c3PcveaQDNJ05LF/vs1lMVvspNZLXVXDbKgIphb6sjLaTLwojNafURoDlJXGaNXbTZWwkWdFhuloTp2PTNrFzD89r5tbUSoFdTTXiguiPkvyzWbQtTBW4Cg7+W0V4XVzbwAujhpaLjvu70uo8tQ3yp09o/mR+g2dXJK325469PAKUTrp0jQNmomuqPfo/9Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PzuauV3WEne/UafMcGQDSjKCUbXtynJvir5Rvpprsug=;
- b=O1aLE2I/6xqmEPvRAuhtcRNLvUsH0+SIsWtZ3pZPx6epIWPlbPb68r957SMX5eABMzEs+YGtEX2IkRoajmwf+4x/wjcT6EjspZghJ3LXwc6sQV6fHuRU/8mik6ElZtxQy9jSiIlqUThRKyNmVmA2pYblLn8Efj2j0vSkEh7n/2hwjLgAO2WacW5j12BV9hqsYkbPyUO5cMzn+BpeV5aMY2z+49GPGjDLm0mZ7i9iREYdpQplq1pEmZ9alNduymSDIx6q3rPHPR+7tsGy+lqlSsU0j0oYGwhENTuehmuL2yWE7XfnZ5uH8ZaObjAnpMUI76yafIkve9vP/X3MCNb3BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PzuauV3WEne/UafMcGQDSjKCUbXtynJvir5Rvpprsug=;
- b=kG2Ik+S2ajrqI2szhqiTINyACRYGis04X6p1tnqALs0Wj5sKWd2zCOLl6moGwydwPK6i9XR8JUKAnHbxsb70kik8de1V4/iw0oYhw15dTN9FLCYH/uh/S+SOaVuXWAgejC/2fQHMQDWdNNjxzTutIIyY5uV457xPhElGXLYHGvo=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MN2PR12MB4582.namprd12.prod.outlook.com (2603:10b6:208:26b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Thu, 18 Aug
- 2022 08:05:54 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::b938:8710:3028:4e99]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::b938:8710:3028:4e99%4]) with mapi id 15.20.5525.019; Thu, 18 Aug 2022
- 08:05:54 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Check num_gfx_rings for gfx v9_0 rb setup.
-Thread-Topic: [PATCH] drm/amdgpu: Check num_gfx_rings for gfx v9_0 rb setup.
-Thread-Index: AQHYsrJmRSkNFwvqa0+ZZ49mQcGlta20TQLA
-Date: Thu, 18 Aug 2022 08:05:54 +0000
-Message-ID: <BN9PR12MB5257FADBD747368B1A3480B7FC6D9@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20220818032557.30044-1-candice.li@amd.com>
-In-Reply-To: <20220818032557.30044-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: bb2ca282-c0d0-4b87-7e5f-08da80f07960
-x-ms-traffictypediagnostic: MN2PR12MB4582:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GMKaFU1zbTcOQIyLc/WHOepNcoYBZMy9rS6h6zQzUvHFYhHJ0rFdAlDVnPVpGkodpaGDOKwXTOS8ncgsX4wNCr5z1K7m922WO/V4cZ7Y19e0WhANOiUAEjyNIoH14/5UVb8exQcGtVQx2GF1QvlI74oOCwQWf+Y703y10vTpInD49RCqNFPd+070Q3paOb4Ya1LNj/jM5gkOyuTDT7Mh6pbymJgXoH2sj6YcJees4qKJL4vWabIP9eTa/e5BxpMhuCO4Y0YqXC1eyR7gIq3h8W9HEW+L1GM5P3x0f4hDOYJ8G4GVgxeVRytyNOxfa7e2oNsbrhZA3mQjUyPffpaB3tT35hE7dUPfmdTe6ffBBJToKQ1cEcDBe7WXn9RIN3dGxIwR+O5G/xdIz/Vk6dDrCq1Elp4hubxo2a3tqyXkrFrqA6y8yaXSzOH7ci9alvm2fHyz/+bbNvt2CYigrV9HY4BviL/gGNpjalk22ar+6MKyTFMSVK3LKQtn8MDK4/28Go5sYNbBfc3NRt27pAR2q6YIxkgCzGCaHh9Wj72w9PXf6AjOxnxiQBMLQYLzG+VqldEwq6FkpFO98CXPuBva0A53RY/JEyyg0VNn/4Xh3a2fMAwo2lmRiJq9vZ83sD+ut8FXKRPshBexpY9a2jtUEH4PX8xo3dkI0m1LdBxx6yLpOFN5e0+gDelksME6KjBuTFUDz+1fisiEIEELjXyF+0jm/4gIXWfzyOWrOltNWE9hSKz0kDchIkntu1OFwdVX/V9nJlRsE4QXYLuKopu+oQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(4326008)(2906002)(508600001)(26005)(9686003)(86362001)(52536014)(7696005)(71200400001)(55016003)(6506007)(53546011)(110136005)(38070700005)(83380400001)(8936002)(76116006)(186003)(66556008)(66946007)(66476007)(8676002)(4744005)(64756008)(5660300002)(38100700002)(66446008)(122000001)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mpfLUvVZaLwpoB20ucQVSl19iundpHoy6jdkWhXnfr/G8WkeY2ev/WH0kom9?=
- =?us-ascii?Q?bzxJ565rM+BkAZXbDE0eAKhm3rso4spQQmaO+BIr3Ls/xbJsy05VyPbH6yKK?=
- =?us-ascii?Q?HAUPGMme0cRIh6DjYb+TWXEYU63n4UYv0FeaqSCtCOUwwkOK/pIomy9bfDqs?=
- =?us-ascii?Q?OSdABflKG2dkiL1Wzrqk1HbcYyklXOf0MNYg1KT55qgoHFtrUXM/HJjzo/lx?=
- =?us-ascii?Q?Iuds6FGU9hlQg4WeAuu5PNtO6WWyBQrrR+LvM7GcZDHjut2oWlEAHRH+eiQT?=
- =?us-ascii?Q?Kox1kerExLHeNX/6GN63CuXj0CDs7d4Nh0xJHPF2n9Ejc/YdWlAJLN5Sag5x?=
- =?us-ascii?Q?gSN7hVYvgtpggc5eXfHOs7rymgtj/MptVLbnMRbKQkiapXoJASwbcNMVvp/U?=
- =?us-ascii?Q?cXA4g9HBe+vcqVhjkRqqTXWcJo2tpy6RjWk5faaW7/X9r8QaDPyDe/aECJSU?=
- =?us-ascii?Q?ecYmROU88bq8iAO2gs/k0TqZ7JRZmJLA2sN/jKu9tnuVx+VcAdkXUul5qhqA?=
- =?us-ascii?Q?NSDcecyOicxjOZmzFwdsmKLbRsQHtNe7pEXHnzldVQP8wvo5ywJnhtxZN3gY?=
- =?us-ascii?Q?/c4RRZRv3If4XihoaI1RbdPXQpT02+dow57QNyYpYy1TGBOesO8xqWQJMmTt?=
- =?us-ascii?Q?X3Ch/5JhxUiBH2GyFtw39kjZfrURyDguebHBpCEPnUhpA4kXXIVc+ebjhNqL?=
- =?us-ascii?Q?6w/bTn4fyRevewdMUL+R5xV0h1sw9wOgsSuz+lY9bQQn19iqWcDrPot2W/7V?=
- =?us-ascii?Q?WDteJto6kdgykC/izAvq1npTwM5Lh4wEpbOfzMqe3c4eqR1eBeFWKv3Eoe1W?=
- =?us-ascii?Q?rSAVigWZi4wC66jPqggFkW6KvaVO2wgt9DsoJgjdv0Zjj0DbcuAPY39jDMCe?=
- =?us-ascii?Q?TsKEP4UejrJs5RXpo0r9HVBMqUR3aEpmRlwK9lpdpWCrtVbE8sZjD+RWqloZ?=
- =?us-ascii?Q?d5VzmHkw0ovoikgjWBgekDV7JUP7W/6wwIOxWebLZ1ZxniMPjqWlIG9h3Jik?=
- =?us-ascii?Q?qu7mgoxycpsM9TCSlpkC3+fgB6Nq0SaDCpu0jpIDUG4bIVlqtZ3FDdDwqZY9?=
- =?us-ascii?Q?X6pG2hKuFGUTk6Ayp74BYrzVeeCJyM0U80BdWwQ8UyMyYIlWqDs0fflnS79R?=
- =?us-ascii?Q?HiPjwNMG7H7kvWDugiNllyj5pkEizBqOzobpsQeDkQNkMvcNoJtcnUK29tP1?=
- =?us-ascii?Q?ENG5I2eHKAaaZPej74VNRqYf1JOQD2a5Y/6zVB1M6vpKZkp5YqzTT2NuWcZi?=
- =?us-ascii?Q?DB4XLiplLKPjVzlrQfifA9QcioEKi0CX71W5yl8Sop1vkDhNyNLc1+YNBeMm?=
- =?us-ascii?Q?JYw8mjadA4LPVwR0OVzguUoMG6TbN7PqILS+Emlq1v5nrftE9pXCERwx1JgT?=
- =?us-ascii?Q?8EyJ4febCNhaQGufGHeKG+n84BtHpTZjJXPet4d6fupdD1XBk/72JNwVgQ9h?=
- =?us-ascii?Q?87gTFlmALI9l3qv4dFnGm63TQCs/+G9/j7ABRJr8M9D6NcI8SYgpkinhKuao?=
- =?us-ascii?Q?X/DcnTH72WHhAZp8tvUWPvcewRyPj1t5eMG+I+EaqcbX2gz/ce2hThQnFsSX?=
- =?us-ascii?Q?fMsUzCoFqHDAd3v1MeNymVNjKiziLId4kdWxjXm7?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id A97CBC83A0;
+	Thu, 18 Aug 2022 09:34:16 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFB42BE9F;
+ Thu, 18 Aug 2022 09:33:58 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id y3so1146706eda.6;
+ Thu, 18 Aug 2022 02:33:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=N2XG0dA60CgZE82y3DI/0Og4FGzzItI/11ziaaTX6Ow=;
+ b=GYOSB0dnmZ4ZopjLDlaDuKHbIFrbCwX9xYB8zi6TS4YrAqeV+ES/fTTvT8T7lYLhPn
+ rKYeNMv3+aSOkGDyn4uFQqel7sDCCQ9wcFA5s9oPmxRB3i7rnP4hcUm9wNMMVmLeY7B7
+ Uq6u8Qgegag/N12Cg7wHfoXFDBR68lsUPonultI/I67Hd9naBXPjulw94s/aEWSMjUO5
+ V+Qi5ynGStpdbx4I0HfXO/wN/VJu8hNjPVQuNy4MstdQiERYxnNPeB0yVZ5wQIgvQ41V
+ TalhlYI/RZEdeww3zJmb22DxJFVPVM1tUL+HEtpQ3GntjdK4Bee9eCA10FNwWRA1pfSb
+ GoRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=N2XG0dA60CgZE82y3DI/0Og4FGzzItI/11ziaaTX6Ow=;
+ b=I98Ye+kuWLLX6huDh9HJzCKscZBg6kdryhNAnM/YVBWCb8L3lofByUktfg1DzNIS2V
+ DCrPHVoCp2DapoeJwaLtFNddKaCR2O8xyk2BXVMsCUbs6PVvJi3OaZyfURNgVwvdtX34
+ WOsJc6tCRAM9aytF+WXGZZEyixA43ll1Dnt01OJnfz0Polwee8wQaUzkCL2U4N5PZ3gV
+ 5HOEHs9bPccgLOTWKuwtOZhnRaZ5+8dl37HOTMPGOkxQDJwAgBKBNyj9yZxpV2nD5Nhs
+ RRign9gPynMnsevdvM9da0tyjQ9rDnkEesFjl1K7MAGESYY9al19Y61yLJZyvjF9W8/V
+ VzTg==
+X-Gm-Message-State: ACgBeo3HC3jOyG+GGIH1I2vMufylKx5ZHEQ1a5PGDU/DtADHOcgAx6nl
+ lIfZ9ZbCEGJLEGcDP0uR6YQ=
+X-Google-Smtp-Source: AA6agR46U3beNiVNDX6RqkSQZXwgMYzOtzbk7nA5ng0m0+w4aTivAuMjC9P5hhnPv0Sflo+AXV9xiQ==
+X-Received: by 2002:a05:6402:280f:b0:43d:f946:a895 with SMTP id
+ h15-20020a056402280f00b0043df946a895mr1636345ede.229.1660815236433; 
+ Thu, 18 Aug 2022 02:33:56 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ p25-20020a056402045900b00445e506ddcasm798883edw.57.2022.08.18.02.33.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Aug 2022 02:33:55 -0700 (PDT)
+Message-ID: <ec1ee656-6162-2f66-13b7-f2b83b00dba6@gmail.com>
+Date: Thu, 18 Aug 2022 11:33:54 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb2ca282-c0d0-4b87-7e5f-08da80f07960
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2022 08:05:54.2750 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fU46IqqilTJfJwmbyfYCABhqtjwYVw9LzieWB6ZYJ4GFkQFpC18FQA0dG+NrupVDUDXWR3ly2Uol1RPY/HAK3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4582
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/6] drm/ttm: Add usage to ttm_validate_buffer.
+Content-Language: en-US
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Felix Kuehling <felix.kuehling@amd.com>
+References: <20220813012801.1115950-1-bas@basnieuwenhuizen.nl>
+ <20220813012801.1115950-2-bas@basnieuwenhuizen.nl>
+ <60ac78e0-e65f-89c2-8404-2b65911f3e05@amd.com>
+ <CAP+8YyE7DrWHFML5FHyuDdtZW7iY9FLR8Jma2Ar5C9qB8rWReQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAP+8YyE7DrWHFML5FHyuDdtZW7iY9FLR8Jma2Ar5C9qB8rWReQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,45 +76,379 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+
+Am 18.08.22 um 02:30 schrieb Bas Nieuwenhuizen:
+> On Thu, Aug 18, 2022 at 12:04 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>> Am 2022-08-12 um 21:27 schrieb Bas Nieuwenhuizen:
+>>> This way callsites can choose between READ/BOOKKEEP reservations.
+>>>
+>>> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 5 +++++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 9 +++++++--
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c          | 1 +
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 8 ++++++--
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c          | 1 +
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 1 +
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 1 +
+>>>    drivers/gpu/drm/qxl/qxl_release.c                | 1 +
+>>>    drivers/gpu/drm/radeon/radeon_cs.c               | 2 ++
+>>>    drivers/gpu/drm/radeon/radeon_gem.c              | 1 +
+>>>    drivers/gpu/drm/radeon/radeon_vm.c               | 2 ++
+>>>    drivers/gpu/drm/ttm/ttm_execbuf_util.c           | 3 +--
+>>>    drivers/gpu/drm/vmwgfx/vmwgfx_resource.c         | 7 ++++++-
+>>>    drivers/gpu/drm/vmwgfx/vmwgfx_validation.c       | 1 +
+>>>    include/drm/ttm/ttm_execbuf_util.h               | 2 ++
+>>>    15 files changed, 38 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> index 4608599ba6bb..a6eb7697c936 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> @@ -775,6 +775,7 @@ static void add_kgd_mem_to_kfd_bo_list(struct kgd_mem *mem,
+>>>
+>>>        INIT_LIST_HEAD(&entry->head);
+>>>        entry->num_shared = 1;
+>>> +     entry->usage = DMA_RESV_USAGE_READ;
+>> KFD code never calls ttm_eu_fence_buffer_objects. Does it make sense to
+>> set this field at all in this case?
+> Okay, not super familiar with this code, just wanted to make sure that
+> whatever we're doing in this patch is obviously not a functional
+> change. I guess it isn't strictly necessaru.
+>
+>
+>> Furthermore, I remember reviewing an RFC patch series by Christian that
+>> replaced all the execbuf_util functions with an iterator API. Is
+>> Christian's work abandoned or still in progress? How will that interact
+>> with your patch series?
+> I think instead of doing the above one would just adjust the
+> DMA_RESV_USAGE_WRITE references in
+> https://patchwork.freedesktop.org/patch/484765/?series=103522&rev=1 to
+> DMA_RESV_USAGE_BOOKKEEP if the submission is on a context with
+> disabledimplicit sync. And then obviously this patch wouldn't be
+> necessary anymore (as well as the PD patch).
+
+Felix is right my series should already give you the opportunity to use 
+DMA_RESV_USAGE_BOOKKEEP.
+
+I'm currently rebasing that stuff, so this patch here can be dropped 
+when this series is ready.
+
+Apart from that I'm still somewhat sure that we would mess up the VM 
+synchronization in case of eviction which this here.
+
+But I really need more time to fully look into this once more.
+
+On the other hand the UAPI looks perfectly fine to me, so you can 
+probably keep that as granted for userspace implementation.
 
 Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Thursday, August 18, 2022 11:26
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: Check num_gfx_rings for gfx v9_0 rb setup.
+Christian.
 
-No need to set up rb when no gfx rings.
-
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index 7f187558220e9a..1d6d3a852a0b3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2597,7 +2597,8 @@ static void gfx_v9_0_constants_init(struct amdgpu_dev=
-ice *adev)
-=20
- 	gfx_v9_0_tiling_mode_table_init(adev);
-=20
--	gfx_v9_0_setup_rb(adev);
-+	if (adev->gfx.num_gfx_rings)
-+		gfx_v9_0_setup_rb(adev);
- 	gfx_v9_0_get_cu_info(adev, &adev->gfx.cu_info);
- 	adev->gfx.config.db_debug2 =3D RREG32_SOC15(GC, 0, mmDB_DEBUG2);
-=20
---=20
-2.17.1
+>
+>> Regards,
+>>     Felix
+>>
+>>
+>>>        entry->bo = &bo->tbo;
+>>>        mutex_lock(&process_info->lock);
+>>>        if (userptr)
+>>> @@ -919,6 +920,7 @@ static int reserve_bo_and_vm(struct kgd_mem *mem,
+>>>        ctx->kfd_bo.priority = 0;
+>>>        ctx->kfd_bo.tv.bo = &bo->tbo;
+>>>        ctx->kfd_bo.tv.num_shared = 1;
+>>> +     ctx->kfd_bo.tv.usage = DMA_RESV_USAGE_READ;
+>>>        list_add(&ctx->kfd_bo.tv.head, &ctx->list);
+>>>
+>>>        amdgpu_vm_get_pd_bo(vm, &ctx->list, &ctx->vm_pd[0]);
+>>> @@ -982,6 +984,7 @@ static int reserve_bo_and_cond_vms(struct kgd_mem *mem,
+>>>        ctx->kfd_bo.priority = 0;
+>>>        ctx->kfd_bo.tv.bo = &bo->tbo;
+>>>        ctx->kfd_bo.tv.num_shared = 1;
+>>> +     ctx->kfd_bo.tv.usage = DMA_RESV_USAGE_READ;
+>>>        list_add(&ctx->kfd_bo.tv.head, &ctx->list);
+>>>
+>>>        i = 0;
+>>> @@ -2207,6 +2210,7 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
+>>>                list_add_tail(&mem->resv_list.head, &resv_list);
+>>>                mem->resv_list.bo = mem->validate_list.bo;
+>>>                mem->resv_list.num_shared = mem->validate_list.num_shared;
+>>> +             mem->resv_list.usage = mem->validate_list.usage;
+>>>        }
+>>>
+>>>        /* Reserve all BOs and page tables for validation */
+>>> @@ -2406,6 +2410,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
+>>>                list_add_tail(&mem->resv_list.head, &ctx.list);
+>>>                mem->resv_list.bo = mem->validate_list.bo;
+>>>                mem->resv_list.num_shared = mem->validate_list.num_shared;
+>>> +             mem->resv_list.usage = mem->validate_list.usage;
+>>>        }
+>>>
+>>>        ret = ttm_eu_reserve_buffers(&ctx.ticket, &ctx.list,
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> index d8f1335bc68f..f1ceb25d1b84 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> @@ -57,6 +57,7 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
+>>>        p->uf_entry.tv.bo = &bo->tbo;
+>>>        /* One for TTM and two for the CS job */
+>>>        p->uf_entry.tv.num_shared = 3;
+>>> +     p->uf_entry.tv.usage = DMA_RESV_USAGE_READ;
+>>>
+>>>        drm_gem_object_put(gobj);
+>>>
+>>> @@ -522,8 +523,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>>>        mutex_lock(&p->bo_list->bo_list_mutex);
+>>>
+>>>        /* One for TTM and one for the CS job */
+>>> -     amdgpu_bo_list_for_each_entry(e, p->bo_list)
+>>> +     amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+>>>                e->tv.num_shared = 2;
+>>> +             e->tv.usage = DMA_RESV_USAGE_READ;
+>>> +     }
+>>>
+>>>        amdgpu_bo_list_get_list(p->bo_list, &p->validated);
+>>>
+>>> @@ -1282,8 +1285,10 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>>>        amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
+>>>
+>>>        /* Make sure all BOs are remembered as writers */
+>>> -     amdgpu_bo_list_for_each_entry(e, p->bo_list)
+>>> +     amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+>>>                e->tv.num_shared = 0;
+>>> +             e->tv.usage = DMA_RESV_USAGE_WRITE;
+>>> +     }
+>>>
+>>>        ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+>>>        mutex_unlock(&p->adev->notifier_lock);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+>>> index c6d4d41c4393..24941ed1a5ec 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+>>> @@ -75,6 +75,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>>        INIT_LIST_HEAD(&csa_tv.head);
+>>>        csa_tv.bo = &bo->tbo;
+>>>        csa_tv.num_shared = 1;
+>>> +     csa_tv.usage = DMA_RESV_USAGE_READ;
+>>>
+>>>        list_add(&csa_tv.head, &list);
+>>>        amdgpu_vm_get_pd_bo(vm, &list, &pd);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> index 8ef31d687ef3..f8cf52eb1931 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> @@ -208,6 +208,7 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
+>>>
+>>>        tv.bo = &bo->tbo;
+>>>        tv.num_shared = 2;
+>>> +     tv.usage = DMA_RESV_USAGE_READ;
+>>>        list_add(&tv.head, &list);
+>>>
+>>>        amdgpu_vm_get_pd_bo(vm, &list, &vm_pd);
+>>> @@ -733,10 +734,13 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>>>                        return -ENOENT;
+>>>                abo = gem_to_amdgpu_bo(gobj);
+>>>                tv.bo = &abo->tbo;
+>>> -             if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID)
+>>> +             if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
+>>>                        tv.num_shared = 1;
+>>> -             else
+>>> +                     tv.usage = DMA_RESV_USAGE_READ;
+>>> +             } else {
+>>>                        tv.num_shared = 0;
+>>> +                     tv.usage = DMA_RESV_USAGE_WRITE;
+>>> +             }
+>>>                list_add(&tv.head, &list);
+>>>        } else {
+>>>                gobj = NULL;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> index 69a70a0aaed9..6b1da37c2280 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> @@ -996,6 +996,7 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
+>>>
+>>>        csa_tv.bo = &ctx_data->meta_data_obj->tbo;
+>>>        csa_tv.num_shared = 1;
+>>> +     csa_tv.usage = DMA_RESV_USAGE_READ;
+>>>
+>>>        list_add(&csa_tv.head, &list);
+>>>        amdgpu_vm_get_pd_bo(vm, &list, &pd);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index dc76d2b3ce52..1b5d2317b987 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -325,6 +325,7 @@ void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
+>>>        entry->tv.bo = &vm->root.bo->tbo;
+>>>        /* Two for VM updates, one for TTM and one for the CS job */
+>>>        entry->tv.num_shared = 4;
+>>> +     entry->tv.usage = DMA_RESV_USAGE_READ;
+>>>        entry->user_pages = NULL;
+>>>        list_add(&entry->tv.head, validated);
+>>>    }
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> index 7b332246eda3..83531b00b29d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> @@ -1410,6 +1410,7 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
+>>>
+>>>                ctx->tv[gpuidx].bo = &vm->root.bo->tbo;
+>>>                ctx->tv[gpuidx].num_shared = 4;
+>>> +             ctx->tv[gpuidx].usage = DMA_RESV_USAGE_READ;
+>>>                list_add(&ctx->tv[gpuidx].head, &ctx->validate_list);
+>>>        }
+>>>
+>>> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+>>> index 368d26da0d6a..0c6e45992604 100644
+>>> --- a/drivers/gpu/drm/qxl/qxl_release.c
+>>> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+>>> @@ -184,6 +184,7 @@ int qxl_release_list_add(struct qxl_release *release, struct qxl_bo *bo)
+>>>        qxl_bo_ref(bo);
+>>>        entry->tv.bo = &bo->tbo;
+>>>        entry->tv.num_shared = 0;
+>>> +     entry->tv.usage = DMA_RESV_USAGE_WRITE;
+>>>        list_add_tail(&entry->tv.head, &release->bos);
+>>>        return 0;
+>>>    }
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+>>> index 446f7bae54c4..6cc470dcf177 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_cs.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_cs.c
+>>> @@ -184,6 +184,8 @@ static int radeon_cs_parser_relocs(struct radeon_cs_parser *p)
+>>>
+>>>                p->relocs[i].tv.bo = &p->relocs[i].robj->tbo;
+>>>                p->relocs[i].tv.num_shared = !r->write_domain;
+>>> +             p->relocs[i].tv.usage = r->write_domain ? DMA_RESV_USAGE_WRITE :
+>>> +                                                       DMA_RESV_USAGE_READ;
+>>>
+>>>                radeon_cs_buckets_add(&buckets, &p->relocs[i].tv.head,
+>>>                                      priority);
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+>>> index 8c01a7f0e027..e7abd535bdc2 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+>>> @@ -636,6 +636,7 @@ static void radeon_gem_va_update_vm(struct radeon_device *rdev,
+>>>
+>>>        tv.bo = &bo_va->bo->tbo;
+>>>        tv.num_shared = 1;
+>>> +     tv.usage = DMA_RESV_USAGE_READ;
+>>>        list_add(&tv.head, &list);
+>>>
+>>>        vm_bos = radeon_vm_get_bos(rdev, bo_va->vm, &list);
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_vm.c b/drivers/gpu/drm/radeon/radeon_vm.c
+>>> index 987cabbf1318..72ff5347b56d 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_vm.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_vm.c
+>>> @@ -144,6 +144,7 @@ struct radeon_bo_list *radeon_vm_get_bos(struct radeon_device *rdev,
+>>>        list[0].allowed_domains = RADEON_GEM_DOMAIN_VRAM;
+>>>        list[0].tv.bo = &vm->page_directory->tbo;
+>>>        list[0].tv.num_shared = 1;
+>>> +     list[0].tv.usage = DMA_RESV_USAGE_READ;
+>>>        list[0].tiling_flags = 0;
+>>>        list_add(&list[0].tv.head, head);
+>>>
+>>> @@ -156,6 +157,7 @@ struct radeon_bo_list *radeon_vm_get_bos(struct radeon_device *rdev,
+>>>                list[idx].allowed_domains = RADEON_GEM_DOMAIN_VRAM;
+>>>                list[idx].tv.bo = &list[idx].robj->tbo;
+>>>                list[idx].tv.num_shared = 1;
+>>> +             list[idx].tv.usage = DMA_RESV_USAGE_READ;
+>>>                list[idx].tiling_flags = 0;
+>>>                list_add(&list[idx++].tv.head, head);
+>>>        }
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_execbuf_util.c b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+>>> index dbee34a058df..44a6bce66cf7 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+>>> @@ -154,8 +154,7 @@ void ttm_eu_fence_buffer_objects(struct ww_acquire_ctx *ticket,
+>>>        list_for_each_entry(entry, list, head) {
+>>>                struct ttm_buffer_object *bo = entry->bo;
+>>>
+>>> -             dma_resv_add_fence(bo->base.resv, fence, entry->num_shared ?
+>>> -                                DMA_RESV_USAGE_READ : DMA_RESV_USAGE_WRITE);
+>>> +             dma_resv_add_fence(bo->base.resv, fence, entry->usage);
+>>>                ttm_bo_move_to_lru_tail_unlocked(bo);
+>>>                dma_resv_unlock(bo->base.resv);
+>>>        }
+>>> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+>>> index a7d62a4eb47b..0de0365504d6 100644
+>>> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+>>> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+>>> @@ -131,6 +131,7 @@ static void vmw_resource_release(struct kref *kref)
+>>>
+>>>                        val_buf.bo = bo;
+>>>                        val_buf.num_shared = 0;
+>>> +                     val_buf.usage = DMA_RESV_USAGE_WRITE;
+>>>                        res->func->unbind(res, false, &val_buf);
+>>>                }
+>>>                res->backup_dirty = false;
+>>> @@ -553,6 +554,7 @@ vmw_resource_check_buffer(struct ww_acquire_ctx *ticket,
+>>>        ttm_bo_get(&res->backup->base);
+>>>        val_buf->bo = &res->backup->base;
+>>>        val_buf->num_shared = 0;
+>>> +     val_buf->usage = DMA_RESV_USAGE_WRITE;
+>>>        list_add_tail(&val_buf->head, &val_list);
+>>>        ret = ttm_eu_reserve_buffers(ticket, &val_list, interruptible, NULL);
+>>>        if (unlikely(ret != 0))
+>>> @@ -658,6 +660,7 @@ static int vmw_resource_do_evict(struct ww_acquire_ctx *ticket,
+>>>
+>>>        val_buf.bo = NULL;
+>>>        val_buf.num_shared = 0;
+>>> +     val_buf.usage = DMA_RESV_USAGE_WRITE;
+>>>        ret = vmw_resource_check_buffer(ticket, res, interruptible, &val_buf);
+>>>        if (unlikely(ret != 0))
+>>>                return ret;
+>>> @@ -709,6 +712,7 @@ int vmw_resource_validate(struct vmw_resource *res, bool intr,
+>>>
+>>>        val_buf.bo = NULL;
+>>>        val_buf.num_shared = 0;
+>>> +     val_buf.usage = DMA_RESV_USAGE_WRITE;
+>>>        if (res->backup)
+>>>                val_buf.bo = &res->backup->base;
+>>>        do {
+>>> @@ -777,7 +781,8 @@ void vmw_resource_unbind_list(struct vmw_buffer_object *vbo)
+>>>    {
+>>>        struct ttm_validate_buffer val_buf = {
+>>>                .bo = &vbo->base,
+>>> -             .num_shared = 0
+>>> +             .num_shared = 0,
+>>> +             .usage = DMA_RESV_USAGE_WRITE
+>>>        };
+>>>
+>>>        dma_resv_assert_held(vbo->base.base.resv);
+>>> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
+>>> index f46891012be3..913e91962af1 100644
+>>> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
+>>> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
+>>> @@ -289,6 +289,7 @@ int vmw_validation_add_bo(struct vmw_validation_context *ctx,
+>>>                if (!val_buf->bo)
+>>>                        return -ESRCH;
+>>>                val_buf->num_shared = 0;
+>>> +             val_buf->usage = DMA_RESV_USAGE_WRITE;
+>>>                list_add_tail(&val_buf->head, &ctx->bo_list);
+>>>                bo_node->as_mob = as_mob;
+>>>                bo_node->cpu_blit = cpu_blit;
+>>> diff --git a/include/drm/ttm/ttm_execbuf_util.h b/include/drm/ttm/ttm_execbuf_util.h
+>>> index a99d7fdf2964..5b65f5e1354a 100644
+>>> --- a/include/drm/ttm/ttm_execbuf_util.h
+>>> +++ b/include/drm/ttm/ttm_execbuf_util.h
+>>> @@ -41,12 +41,14 @@
+>>>     * @head:           list head for thread-private list.
+>>>     * @bo:             refcounted buffer object pointer.
+>>>     * @num_shared:     How many shared fences we want to add.
+>>> + * @usage           dma resv usage of the fences to add.
+>>>     */
+>>>
+>>>    struct ttm_validate_buffer {
+>>>        struct list_head head;
+>>>        struct ttm_buffer_object *bo;
+>>>        unsigned int num_shared;
+>>> +     enum dma_resv_usage usage;
+>>>    };
+>>>
+>>>    /**
 
