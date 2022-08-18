@@ -4,116 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33AF1C25B0E
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 07:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17ED4C25B0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 07:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4387610E0A1;
-	Fri, 19 Aug 2022 07:06:07 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2070.outbound.protection.outlook.com [40.107.102.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACA9210E400
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Aug 2022 07:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C242010EFD4;
+	Fri, 19 Aug 2022 07:40:36 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1A710E2A5;
+ Thu, 18 Aug 2022 20:07:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bm8EhRn79+cBXfgJ7RMitE8j5i36h0Mpj/srzwVENlgd19setV/SUoU+Yuo7KQc2zsadsT6TBLu/zYwDQr4dtW6rRRVkaFB0e7t2XHVSNyCd+FiP6BRq0eI6PCpTSZJwB3TQbk3+MIAX6r1bK3Zg9Z1NQhwPrWMRbEh5Ja7AAHebkXzwYmsOd8HWsSeMNvRapJKgoFBYVYCIxFG65zxkShcd/NC9CLY4Wyheu7ZnLFuXX4sD4I/IKftTm9mDln1U+nL2XUW/AxRzQF3tVgTVmJ/x1v5eY5MAgGWDwcwv8wOEtNmr8DtQuDtH1sj3SEIaYDfu8WukbOAw6TiH4Nse2w==
+ b=X+hrpLoUdiemQTW1/zyUPy411eTyhRAeSD7ClTaYfMZPUGNDZ+UO0cqiqEUyrRl8LsWDfc2Q6I0E7lQMT3OYkWlet4ToEBKvQzZnVYgQ8n93rdIISndpeKr5l4EnvxPLyA8TUJUfeGGFn123IGFhcZaaxt9HYk3T5dB5R/iw363XWZ61SrIe5IVHfruVBJJOLkiN1LrVm2drbgBE+Jx78VtKVF+NokUJOhS7JjvhdEOlO0xbGdI756oVEeqxw+nYwFbWCTvOMjoUjmNcsUnZ4Uqg8tNIZoihSu7NW6nBeHTYMW8YSNgp4BHsfbjEJtk76hHdb2BGsE87m9L+6eJ1Gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=73SX5CrFtZhejT/p89iboesh6/GU1AKaUc/LDHHqB84=;
- b=RfpAIKmv81WiCWXy8g1Mu7KjFz7VNtpa0CYcU5dBCpdjeZf5tCdhdnEv1SyPkl32wPj95mMnxfpztFdexX2SjT0ttsvrporbDl3OUhdBxwh4qT94Tc9u11ZABv418JvFDkzNtirJPgpC/QX7dyKx8iOJW8NsE9GqfWi1jmBrhI8rmbxUQ5RaX2jOn44mxqq6pFzB524qwjUHHXPAyuIawl/UeTjaOKyNPoeVAxt72gW7D8e3bMG9DmByN07vAGOsyAj61kw2D8EY0VDqpj497DKBAIZpj6dtzCNa4Q2kjuJAkwA2KquPUuM9WXo1tGna4AP6dZDYF8pAgs0BcsS4Rw==
+ bh=hiT4Or1gdW1aTRdBd32veGESwwAtVr/W27ag3VMlre8=;
+ b=knEd3xyA70syDori05AUOVrVewH3ks2vo0KgFcPfFvO8vE30A5fGaLFaTqoq7Al3TQXAGLOZaFur3OQ0CmCygnTr0lhepVRhUZY17SCtARG8Eqr0i31OWlal3rg9L7qWYAoGl+3KrPILqXcvgzUqkCHH2R4XW3bpGW224qmib3t8XreuGjr4/OC0MzUz2n+GYDfxXGJIJUcp5Jzws6TmTaUUeWr130zyxnvXJf6j/l/Iu7vrWkg9Uevsr338NFkuxNTQLu1+4C6FD1I2ItMlOIVPyqEW45MCT/RLumvJOi/5tz3mgso+4GIOjU3FCDuXRw58HbZ8mgF7mZ7Q20yZqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=73SX5CrFtZhejT/p89iboesh6/GU1AKaUc/LDHHqB84=;
- b=4RCAUay+iWl5JzPm5oiEjDeFIWtlxfXQr38B7p+rg4T0kI9W4mx8j8hNqhHvIpyELCQ2nHZ5deY3qamYUrQffOclKTs4AViwg4Xbvb/v1YbygKPMUkfmbB+cwe7Yn2hRZUfJwVmTeUljLQuhMdyDnwz762djW3bup990juVNuog=
+ bh=hiT4Or1gdW1aTRdBd32veGESwwAtVr/W27ag3VMlre8=;
+ b=ezX15m7cDQTEgNXMCI1bpxY9xRPt/c6vM26ReinX1BI0NsM23DKULxfyx0PMYzN2wuPdpcdm2ZGIURfJGJLoNcMxGam3cD1bLq4KkZQQIqeySs0ZC4UDm7mageWExLiWOBnuJ8ujV3RNSrEV+mWoNo73yJrEnIQ0DIPEkf9KMybxO7R9oUdXMddD2epaBNoyzB/WXLfyxz+BTrOK8dUWTUuHRL2yit4gCLmcxEtsiDMcDX7rZuK0hTFVUbRECbt7Dq4znL4IsxvkN9FUqWQDdAYTCwxf10qLrjsm/Qk+FZ8rZKDl9O2DeLsHZJ3l0hU+aUAytT4y3BjS2yXzA+S/qg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM5PR12MB1465.namprd12.prod.outlook.com (2603:10b6:4:7::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5504.16; Fri, 19 Aug 2022 07:05:58 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Fri, 19 Aug 2022
- 07:05:58 +0000
-Message-ID: <c1a4da18-a6e1-c633-a585-1b4940a5de59@amd.com>
-Date: Fri, 19 Aug 2022 09:05:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
-Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-References: <20220818203812.GA2381243@bhelgaas>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220818203812.GA2381243@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
+ MN0PR12MB6079.namprd12.prod.outlook.com (2603:10b6:208:3c9::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Thu, 18 Aug
+ 2022 20:07:52 +0000
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02]) by DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02%3]) with mapi id 15.20.5546.016; Thu, 18 Aug 2022
+ 20:07:52 +0000
+Subject: Re: [PATCH v3 09/31] ACPI: video: Make backlight class device
+ registration a separate step (v2)
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220818184302.10051-1-hdegoede@redhat.com>
+ <20220818184302.10051-10-hdegoede@redhat.com>
+From: Daniel Dadap <ddadap@nvidia.com>
+Message-ID: <b177636d-bc68-cd25-4a28-8131ef4625fe@nvidia.com>
+Date: Thu, 18 Aug 2022 15:07:46 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
+In-Reply-To: <20220818184302.10051-10-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0008.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+Content-Language: en-US
+X-ClientProxiedBy: SA9P221CA0027.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:806:25::32) To DM6PR12MB2763.namprd12.prod.outlook.com
+ (2603:10b6:5:48::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 630930a7-4f96-4f48-a4a4-08da81b14401
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e466b45-4d2e-48e8-19fe-08da8155550d
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6079:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HfNe9CLMqJcZKEMzFh+/xX1A2z3hA3b0KXORyf5aQW8u/rV4UHjxafG0WpISXM+MUPv64bqbY+BeeCWcz2wSLaNrqM8iDZskxj18NpU55GWF5ADkRvlhTOgGB/i9OxMnJ5ciO9s6kZtF9Ef29RP6vl2seB6mfMRJ9bjojwu6mgt9hdIiyUeEaqS0U8dYj/d+CPdz/TXxeq/XP95Ne5RjndLJVRRjwhpRTRR6CYeEjacfOXxa82aPVzrbKMZohtLwag/RrobasdVX9AKj8ko0UkwSP4Qs151iqOj9x30xyIEMS2duZBjmo9k+rruLQPqBsUXwEYwejTLO9HsIE5J+AWT3aoTSQn9CzXuX24PSahDvzH3m336U8cxewxNUSti8BX1m5Tk4GlyJ6wXWAchu6LSVAc9MSb99Jg5JavXO6+W5CjQS6svOwNV7IhMyAcfFm3HwGIt/9FwXB7sy71TgfgvSiUUSJGfRAFQN8krLJXcPUSb3NpSEz3KYM3eUfZ8XUJz+LaYsxg7ktr84LMiPO37hot/8fkhkpKCu63+QyEluPmDs6IFCdz9qVgDk2usgb+1GklgC2TkQNGjx3oEFskUWhn05LgQJla+uchPa9tf6YBHzWkqLetPcl9rY+IP1plGl86Du77PStt9G4EnlH8/RIT4Rpr3yyy/8x2aySdQl5BPQMJ/DPkl1JUhpQs+LQuZVbqJgNjkIeLrTXVSPFcWMvUPWrjkNwxTKzlpPx2J9p06qqEwQzVpNGdJNd/AKjBzsl13nU91fiOHnQDGri9rLK8OcMTrjWBkW1aIGydf+nt7soc3qkDuR75E5Ot/BMQaI3/nPhwoAxbbKiUt7h1hctGb66cVIN91mIzrxZE0=
+X-Microsoft-Antispam-Message-Info: 281cgpfCA6v/PROI1wKvmJXqKNBq4MPhhcN8CT/6FRVqun4AGwC/wJUxXophwkKtoCNw/41NsDNkRi3NDfYJvBDh9u0sd4OrE5/PORiRWGatN9bqlENMZs36MvBuLC5/YEJXF/r2rfoRa6vP4hF1gvo2ltCIiBPw8MKYaVb45MOAORhQamkDjG8RdGnSAGNY14WmMAbVVs7l1hmT0Npz6bFR3proCLvYe8GzI1dhhg60L7aQFFiAn3bh128RABavVj1OTljSJBA5h6GwV6x+rv8Lr6l0ub4gvW/s5pjcrtPczomA+8Ez7dBvxkwLX43Z7mvPnQq3+RWDjKtxd36VPugViatJirolYSbkQSbutbjxyLzKzF/C8WYT15lxioi38C/pr/3c6v5Dp1Q3MSS+yGizeuEWTLKtEiXDC7K+7VlLSFKhzZLVLpaGtm78AoI4/oOXj8xyogvVG2Kc5Brtca2alAFoRsLMg/Z62lFHNUvNga3Eh9+aukY+Wx3WRCfiRva8R2XmZVG8bzFfXXaXW8MP/RtIY+HF9q2L+cvCwD1jm31gNDxebG+MGSJsplFV6Av7WdEC1uWPgPs9niTuRjZ1LdhbOylFRLl3jIc59+Ied6tq7zOQJEMYTq1DcrSx1DeJpNXCMU0L+rMtckxqIsaQ/s8VNGjpb648Yp7zewxwYbr/tCOW4bklxmd8ShEOSa6giQqOnZv4yKJElNSmlUHy9eFwQnxPpQqjGbvYzbUcmZsGHdCyANRmd/eXz3mcNFqPr8GWu78qr6ZXWC0QoTK1A2ZqBkdi0qgMDVblWVcR5SlKCZdItS1J6SEnY5EK9OhQ9lbWKzHM5Xr712wb5uJSXWRyVf1Lmc3t9RCyvdobqMtVaS3Zo7s7p3RhaOi0gD3eDK61P3MSOb2oOFOWWg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(366004)(376002)(396003)(39860400002)(346002)(36756003)(6666004)(86362001)(41300700001)(478600001)(186003)(6506007)(6512007)(31696002)(2906002)(6486002)(2616005)(83380400001)(966005)(45080400002)(66476007)(66946007)(110136005)(5660300002)(31686004)(4326008)(66556008)(8676002)(6636002)(316002)(54906003)(38100700002)(8936002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(366004)(376002)(346002)(39860400002)(396003)(6666004)(66946007)(31696002)(6506007)(26005)(316002)(5660300002)(66476007)(110136005)(38100700002)(86362001)(4326008)(66556008)(54906003)(8936002)(6512007)(36756003)(8676002)(53546011)(41300700001)(921005)(186003)(2906002)(478600001)(7416002)(31686004)(2616005)(6486002)(16799955002)(83380400001)(966005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V3VNQ1VvaEFPU1VJa3JYQkJlOStxZFcrem53Skk1VHdvSGVPOVI2RHpubUN4?=
- =?utf-8?B?SU1xeW5xQ1g2OGRkZWdxU0lId21MWmptTGVwb0xVYVBuYnhNRVhTWHZlVG5H?=
- =?utf-8?B?RnZxSGtsZVZQSmpxYXA1WFdHcjI1VmZkbFZaUll3cThDelNHamU5VnUyYm84?=
- =?utf-8?B?NkM5RkRpbC9kY1NwalJZeGdPWklxNkxnVWdNdTR4aVJEa3lRcWcyNzFHNUlY?=
- =?utf-8?B?elc0Z3pNRkZTTnlVSlFNN1pseDhuZU1FK0hMTjA5NHppdjFQbFBLMW8wQXQx?=
- =?utf-8?B?U0tpVVBmUXpmUGgvcFdsSmtvaTFCV2N0ajAxQ0J4NW9idTk1RFBYMCtZNUVL?=
- =?utf-8?B?NnBId0MvRmhsTG4xNzlLRW9kZllaOStjM24rdXJlckVxMlhWbUNKMEpYalVP?=
- =?utf-8?B?YlhnZlQwN3FTWnlxc1preXZSS2lHWmkrM05iOXljZ1hpbzUzM0JTQ2lWL1BB?=
- =?utf-8?B?Y3pob241QnZiUE9BTXVMS01ZTThtNHpjcnRROXJsZ2JLVFRHRXRwSk9XY1RT?=
- =?utf-8?B?cmtYd0NBczU5Zjh1NHhzN2QrK2tlR2tDVWFIb3ZDZnFuT1NpbU96cFVjeHhu?=
- =?utf-8?B?V2dON1dxbXU1ZlppekZJa3UyM2x6ZCtCbXRDYVhDQ0NTMmtGbExIOGkwWnZ0?=
- =?utf-8?B?UzZpbE96Z1NiMjArTGRmWG4zWnhtb25lZFRiRlZmME5ENGIwbno5a3hBc2VT?=
- =?utf-8?B?UGl3M3QwQ0VuSUkzNExpRlRiU3hycmhzcFh2Qk1nVzF0WmNCREZMOWxsVFVl?=
- =?utf-8?B?c1NKRFh4VXRrYlBBc1RCL2hLNzd3cFVwK0t3UW1QRGNRaFIvTnpWQ0s5aXJm?=
- =?utf-8?B?WjZONmZkZ1hiOE1hUlo5dDg2a21GelQ5Sms1RCtKUmpNSGt1SzB3bGF6eVVk?=
- =?utf-8?B?ZXZ1a0VqK29tQzJPdzNZNGVIcVJZYTI4RXo3RUc1NVdvTUxUUm1UNERpaFpo?=
- =?utf-8?B?MXhiMFoweFZJUUZ5RWFwdkdmYnhCTWNvRVNUYXhxcmRzZGhJaVRuZzlnLzl5?=
- =?utf-8?B?WWtDZUJtZVUxd1BOUktaOTFmZElpM1JsZ1hjakROQnlrMmdYcU14NU9jN2kz?=
- =?utf-8?B?S05JSURmT0J5YVVNZ0JueFZQWEpOcElVOEZ4aWcrdkNlckRSblUrT2JTSGJK?=
- =?utf-8?B?N0RlSS80MEpUUzNiU09WbFNiY3JOWDNEeHBsREozWnJ4ZzNHWExpZE5BTXlR?=
- =?utf-8?B?a2hQMUNvUlprUHQrZjRBQ3o5VDlyQmhpaHBSYTZncUVCSmRtRVltVkpuUnUz?=
- =?utf-8?B?a01WWUJ4czNSYkd1RzhFZUxZSDgvb0hwblhsZ0Judy9iR1VDaE9DVGZSY0hZ?=
- =?utf-8?B?ZU1FMUpCSm9mamtXWW93V1dkMWF6SkpkMTQ3UlJXd0tiR3JOczY3TGh2SjNN?=
- =?utf-8?B?SncrTTQ2eXlzUzNGcmhZdWJwOUgzTGV4UGtuTk5kRHZoMlhVQ0xHY0NJT1Mr?=
- =?utf-8?B?VGNrUWxpa2tuRmVYZ3ZiS0JxVTJVcjV0ZzdzVWdTOFpuYVhtNmJyOTNub3Fx?=
- =?utf-8?B?dUhSZUtUazRsQUNPQ2xPNVRzbzYwSnRIVTBIRE9LMW4zUmhuMXJaWXhzc2ox?=
- =?utf-8?B?aVdqZE5MdW9BOTBrQVhRdUw0bWNRdTRuakJSV3lvNnAzK2s4alZyQXRkbUFV?=
- =?utf-8?B?SmxSNUtZcnQ3OUtZZnlCUW1SWE9mQWhERElNVTN0SXlCWElldU12b04vUWRC?=
- =?utf-8?B?eWZQSG5MWmhSUkdYZVpBTzQyWCtmUkdSdWtjQUlHcU5NSnppSEhCRitTRG8z?=
- =?utf-8?B?akJZTE9SVFBYY1RkTnhaaDdQOHZZSWx6WjhDYUhXZ3lDQy9pM2dKNmh5VXF0?=
- =?utf-8?B?VnVYUmpzSXB0b29Hc1V0MWdEWXpOOG9ZZ3BkSHRDZjNML1MzeHcyTmpreWJy?=
- =?utf-8?B?OFY5TUVHVjVzYURCOXJQaDl2WDM0OC9TeTJESnYvTUd6TTUzRFhMd0VBc3hW?=
- =?utf-8?B?WXlJM2JoT3RXNGdaeTdpZ3A2a0hHWHhvN3NQaFJZall2VjVGbjRvUVlDQlZF?=
- =?utf-8?B?ZVhRU3lYT21qeWlURVdMTHkrOHBIZnFBVDhKSVRSb05IclZxWlRjNVdVaDJm?=
- =?utf-8?B?T3NzWlE2a3dOTzFONlEzL1JzYnZLV1RrYmxWLzJudzhxdXdoYjZOLzl0WEE3?=
- =?utf-8?B?K29vdStTdlYzWDZ3clkxTkJMUGJJMUt2UnR1K0VuUVFxbXdmcjRHbmZxL1Jv?=
- =?utf-8?Q?WLDY4nyXukoLXDyqxqzhHE1kALlwarlb2VLgp9yi4NnU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 630930a7-4f96-4f48-a4a4-08da81b14401
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWEwaE1jMitZK3FvR3BoVU9Dc0FwTTFtQWtNdVRwcmpxam9VTEptd2JhS0xa?=
+ =?utf-8?B?SFlWKzFKejBMdDY3ZyswSUF4bVZtWk1DdEdXM2xjUSttNEV2SjdsWXlWMXI1?=
+ =?utf-8?B?bmRwZ2dneHhKZTIzN2Y2RDZSRExrY3oxZmJWb05qTFB3cXR4Zk15aVZCS0NB?=
+ =?utf-8?B?QmNrWlFMUFpRNVJqQWo4QTVqNzIyVmM1ZXRjTEJVVEpiK1lyQklONU9TY1ZD?=
+ =?utf-8?B?dTNWZTlhSWM4elZGT0hwdFYxaDZqbU9TU2RybWJuZGgrZGxYVWFISytTZGxG?=
+ =?utf-8?B?SkxkRGg4bzRhUkJhSWpKUmlBQzN3MWdnSTgyOFJLZzkyTnpDeUwxRXdpTXNx?=
+ =?utf-8?B?cG1nNE1qR1RST3pjNFd5b3dlSmdGQnluQTdXMElGOFFkcndtaEZpNW9qYk5B?=
+ =?utf-8?B?aHdJRDNNZGNwRUljVUE1ejNFY3U0VGRrT3VLOVR1Y1JrYjhTTmYvalhHWmhv?=
+ =?utf-8?B?cUtwTlY4YjhpSk0xUGpkVlU0SkVkdmlFQ1hGYzVtT3VDUTRaeThTZXphUDhQ?=
+ =?utf-8?B?N2lCRjhPVGZZNk9UdkVrQ0VjTDRHUmUyVnBhTHZiNXc1UHdFNjJONHN5dFN1?=
+ =?utf-8?B?bEJaSTNwUWVjV0h5YzM0cC8rTmdEZUwzWFNMVDNuR2tCTis0TEZQK1JXcUJE?=
+ =?utf-8?B?VFM3Y0JsQlh0WUdKN2lNdnRncFhrUkl3a3VoeENxQVJuQ1BPYkZ4SWNmUXRQ?=
+ =?utf-8?B?NXd1QzFjTzN1eVRySzVwZ1I3VnozbXQyNHJSRnBTQ3E0SkRpUVpUNjJTcWNO?=
+ =?utf-8?B?TnhnZG1QcDVQQU9iOS9nT3EzcSt0RkdIY2FBcHhNQlpEM1RkK28raUFnbHNF?=
+ =?utf-8?B?NEl3dGpXODZGMnlLOVlpdzhSMi96L3VMV0FjR2ZrTGRNWlEzUlAvMjMwMjVG?=
+ =?utf-8?B?STErYitKM2pocFJpTzAxUk5DQjlQVmVJQXVKNUIzemtYaHBwVjU4Y1dJc1NO?=
+ =?utf-8?B?RmJwbVZ6RmFXdWlpK1pKUnZWMGVUeEcxeC9KdXdJYmhUNGFZM3BLK2krRGcz?=
+ =?utf-8?B?NVpjNml1RXUxWDlDVU1BcTBaMU1ib2NZNkcybHBudStlZ2ZJM291UlJsV0NZ?=
+ =?utf-8?B?Qnc0WjZyQUExUWV4YWNMMVlLV3I2Y25JNlNMaWtSR3kxZE5hVkdSNXFTZitD?=
+ =?utf-8?B?QlN0UjZFOUZQY3NieWtMR2ZiSnNLYVJrZGZ3S1I0aUUvUkpHTUI4WlkyZmU5?=
+ =?utf-8?B?cFcwVEZ0Y3oxQmxhNkkwUlllOUJpbWpWaVprYnhMYlFadXpZcmdpLy9uYUp3?=
+ =?utf-8?B?S0pTVEZmalBCaUhzR2UyYzlpaTRQbzBPUUJRVUNNVnUrVlFxV2xvT3NMNUw4?=
+ =?utf-8?B?RjlJemZ2WXUvdkZyK1RHUmhmaVViRXR5Y0x6ajF4ejEwMWtHL3RoRTRvajJ0?=
+ =?utf-8?B?L1duY0lEN0RSeWs4aTJxRldaOHRlcE41NWh1cGdrVXI4NlFVQS95dUlneSs2?=
+ =?utf-8?B?SVQxUVVzS05zZVM5MU1LTzFxbHhTb0FOc0k0aWtiL0g5d1ZpTHRQaG5XWnND?=
+ =?utf-8?B?cHpNOGdtZUUxbzNFU3lVR2Y0eStXa2ExK1lSZmJhUW8zZDFHaDV3TGFZc2tl?=
+ =?utf-8?B?NXdaOXloVHA0SGhSTUdRVWs4ZTR4Ym9RRnBxcCtvY25TM1c2dldJa3FacXF6?=
+ =?utf-8?B?RThBTHRJOVRLSVVzNmNTc1hvdUErR3hGS0haVGc5Rlo5L2RBSGZ3SWtPYkIv?=
+ =?utf-8?B?Tkg5L2hiNk9yOXFpak9kV3pPalVZdVdKU0Z4YkpMOU4yeXluYXNROHl6OGww?=
+ =?utf-8?B?VCtNd0Y5U00xR1hZRE9DQjhBbGY2VFdXWXBXdE9ocUxISXJkbmRJdldIZllL?=
+ =?utf-8?B?K0g2QWZ0T0ZmTExuZWJiRU5KTE55M0doVi90K2RISHRzTUdrellncDJhVHI0?=
+ =?utf-8?B?N0hXazF2R3ZYbVFmbHNxS0lxSG9xV25iVUplTHA4TWVDLzQ3ekhHcnl5OEI0?=
+ =?utf-8?B?cStQa2RSSEtIOXRQR2h0VDZTUVRPZlF1ZU9iOW5naTNKUmU1VHNnQXRhZUxS?=
+ =?utf-8?B?T2UrdjZLczZ3QWIvMHVVRkIrRWhBMXlhU05lRnNIaWgwY3Z2Qk9NWC9qWHFV?=
+ =?utf-8?B?K2w1SWlqS2NDaUtPODQ5Q01XSlpNV3J5R0ExLzZVRFpaZFVZNVZKYk5hU2VU?=
+ =?utf-8?Q?b8sN5L0b+MfcTN22wPQ/S8SXk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e466b45-4d2e-48e8-19fe-08da8155550d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2022 07:05:57.8686 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 20:07:52.7502 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dcf26Ht0wqU0GKnXNwmTV6YFeTcCkg+b4VuofD4euhCUTIMPWZqzIvwC7RdpzMRo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1465
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9RejiDhdShmOR89kGDRVR4mOKq9o0HSXfdEhKOh0nivkA/LjBj2RjiwRtd5IKQC01KaVwPAca1sbFJYCGBAh2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6079
+X-Mailman-Approved-At: Fri, 19 Aug 2022 07:40:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,110 +140,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stefan Roese <sr@denx.de>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-acpi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Bjorn,
 
-Am 18.08.22 um 22:38 schrieb Bjorn Helgaas:
-> [Adding amdgpu folks]
+On 8/18/22 1:42 PM, Hans de Goede wrote:
+> On x86/ACPI boards the acpi_video driver will usually initialize before
+> the kms driver (except i915). This causes /sys/class/backlight/acpi_video0
+> to show up and then the kms driver registers its own native backlight
+> device after which the drivers/acpi/video_detect.c code unregisters
+> the acpi_video0 device (when acpi_video_get_backlight_type()==native).
 >
-> On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org wrote:
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C62cca3872daa46ee7a0a08da8159950a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964519011973266%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=TFF9LWIXBbdrU27%2FbjDfP8FTUhW874X8%2FA0kIrGrjJs%3D&amp;reserved=0
->>
->>              Bug ID: 216373
->>             Summary: Uncorrected errors reported for AMD GPU
->>      Kernel Version: v6.0-rc1
->>          Regression: No
->> ...
-> I marked this as a regression in bugzilla.
+> This means that userspace briefly sees 2 devices and the disappearing of
+> acpi_video0 after a brief time confuses the systemd backlight level
+> save/restore code, see e.g.:
+> https://bbs.archlinux.org/viewtopic.php?id=269920
 >
->> Hardware:
->> CPU: Intel i7-12700K (Alder Lake)
->> GPU: AMD RX 6700 XT [1002:73df]
->> Motherboard: ASUS Prime Z690-A
->>
->> Problem:
->> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected PCI errors
->> for my GPU.
-> Thank you very much for the report and for taking the trouble to
-> bisect it and test Kai-Heng's patch!
+> To fix this make backlight class device registration a separate step
+> done by a new acpi_video_register_backlight() function. The intend is for
+> this to be called by the drm/kms driver *after* it is done setting up its
+> own native backlight device. So that acpi_video_get_backlight_type() knows
+> if a native backlight will be available or not at acpi_video backlight
+> registration time, avoiding the add + remove dance.
 >
-> I suspect that booting with "pci=noaer" should be a temporary
-> workaround for this issue.  If it, can you add that to the bugzilla
-> for anybody else who trips over this?
+> Note the new acpi_video_register_backlight() function is also called from
+> a delayed work to ensure that the acpi_video backlight devices does get
+> registered if necessary even if there is no drm/kms driver or when it is
+> disabled.
 >
->> I have bisected this issue to: [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
->> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
->> Reverting that commit causes the errors to cease.
-> I suspect the errors still occur, but we just don't notice and log
-> them.
+> Changes in v2:
+> - Make register_backlight_delay a module parameter, mainly so that it can
+>    be disabled by Nvidia binary driver users
 >
->> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a similar
->> problem, but it did not fix my issue.
->>
->> [1]
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flinux-pci%2F20220706123244.18056-1-kai.heng.feng%40canonical.com%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C62cca3872daa46ee7a0a08da8159950a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964519011973266%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=Y0ofsDYgNGXoQn2e%2BbCM4NHaMOUnEJPqL8lqs1YJzrQ%3D&amp;reserved=0
->>
->> dmesg snippet:
->>
->> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error received:
->> 0000:03:00.0
->> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
->> type=Transaction Layer, (Requester ID)
->> amdgpu 0000:03:00.0:   device [1002:73df] error status/mask=00100000/00000000
->> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
->> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 00000000
-> I think the TLP header decodes to:
+> Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>   drivers/acpi/acpi_video.c | 50 ++++++++++++++++++++++++++++++++++++---
+>   include/acpi/video.h      |  2 ++
+>   2 files changed, 49 insertions(+), 3 deletions(-)
 >
->    0x40000001 = 0100 0000 ... 0000 0001 binary
->    0x0000000f = 0000 0000 ... 0000 1111 binary
->
->    Fmt           010b                 3 DW header with data
->    Type          0000b  010 0 0000    MWr Memory Write Request
->    Length        00 0000 0001b        1 DW
->    Requester ID  0x0000               00:00.0
->    Tag           0x00
->    Last DW BE    0000b                must be zero for 1 DW write
->    First DW BE   1111b                all 4 bytes in DW enabled
->    Address       0x95e7f000
->    Data          0x00000000
->
-> So I think this is a 32-bit write of zero to PCI bus address
-> 0x95e7f000.
->
-> Your dmesg log says:
->
->    pci 0000:02:00.0: PCI bridge to [bus 03]
->    pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
->    pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
->    [drm] register mmio base: 0x95E00000
->
-> So this looks like a write to the device's BAR 5.  I don't see a PCI
-> reason why this should fail.  Maybe there's some amdgpu reason?
-
-Well I have seen a couple of boards where stuff like that happened, but 
-from my experience this always has some hardware problem as background.
-
- From my understanding what essentially happens is that a write doesn't 
-make it to the device (e.g. transmission errors can't be corrected).
-
-It's quite likely that the write is then either dropped and doesn't 
-matter that much (just clearing the framebuffer for example) or repeated 
-and because of this everything still seems to work fine.
-
-Either way I suggest to try this with some other hartdware 
-configuration. E.g. put the GPU in another system and see if it still 
-gives the same issues or put another GPU into this system.
-
-Regards,
-Christian.
+> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+> index 8545bf94866f..09dd86f86cf3 100644
+> --- a/drivers/acpi/acpi_video.c
+> +++ b/drivers/acpi/acpi_video.c
+> @@ -73,6 +73,16 @@ module_param(device_id_scheme, bool, 0444);
+>   static int only_lcd = -1;
+>   module_param(only_lcd, int, 0444);
+>   
+> +/*
+> + * Display probing is known to take up to 5 seconds, so delay the fallback
+> + * backlight registration by 5 seconds + 3 seconds for some extra margin.
+> + */
+> +static int register_backlight_delay = 8;
+> +module_param(register_backlight_delay, int, 0444);
 
 
->
-> Bjorn
+Would it make sense to make this parameter writable from userspace, e.g. 
+so that it can be set by a udev rule rather than relying on a riskier 
+kernel command line edit? Then again, that probably makes things more 
+complicated, since you'd have to check the parameter again when the 
+worker fires, and changing the parameter to a non-zero value from either 
+zero or a different non-zero value would be too weird. And making a 
+separate writable parameter to allow userspace to turn the worker into a 
+noop despite it being enabled when the kernel was initially loaded seems 
+wrong, too.
 
+
+> +MODULE_PARM_DESC(register_backlight_delay,
+> +	"Delay in seconds before doing fallback (non GPU driver triggered) "
+> +	"backlight registration, set to 0 to disable.");
+> +
+>   static bool may_report_brightness_keys;
+>   static int register_count;
+>   static DEFINE_MUTEX(register_count_mutex);
+> @@ -81,6 +91,9 @@ static LIST_HEAD(video_bus_head);
+>   static int acpi_video_bus_add(struct acpi_device *device);
+>   static int acpi_video_bus_remove(struct acpi_device *device);
+>   static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
+> +static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
+> +static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
+> +			    acpi_video_bus_register_backlight_work);
+>   void acpi_video_detect_exit(void);
+>   
+>   /*
+> @@ -1859,8 +1872,6 @@ static int acpi_video_bus_register_backlight(struct acpi_video_bus *video)
+>   	if (video->backlight_registered)
+>   		return 0;
+>   
+> -	acpi_video_run_bcl_for_osi(video);
+> -
+>   	if (acpi_video_get_backlight_type() != acpi_backlight_video)
+>   		return 0;
+>   
+> @@ -2086,7 +2097,11 @@ static int acpi_video_bus_add(struct acpi_device *device)
+>   	list_add_tail(&video->entry, &video_bus_head);
+>   	mutex_unlock(&video_list_lock);
+>   
+> -	acpi_video_bus_register_backlight(video);
+> +	/*
+> +	 * The userspace visible backlight_device gets registered separately
+> +	 * from acpi_video_register_backlight().
+> +	 */
+> +	acpi_video_run_bcl_for_osi(video);
+>   	acpi_video_bus_add_notify_handler(video);
+>   
+>   	return 0;
+> @@ -2125,6 +2140,11 @@ static int acpi_video_bus_remove(struct acpi_device *device)
+>   	return 0;
+>   }
+>   
+> +static void acpi_video_bus_register_backlight_work(struct work_struct *ignored)
+> +{
+> +	acpi_video_register_backlight();
+> +}
+> +
+>   static int __init is_i740(struct pci_dev *dev)
+>   {
+>   	if (dev->device == 0x00D1)
+> @@ -2235,6 +2255,18 @@ int acpi_video_register(void)
+>   	 */
+>   	register_count = 1;
+>   
+> +	/*
+> +	 * acpi_video_bus_add() skips registering the userspace visible
+> +	 * backlight_device. The intend is for this to be registered by the
+> +	 * drm/kms driver calling acpi_video_register_backlight() *after* it is
+> +	 * done setting up its own native backlight device. The delayed work
+> +	 * ensures that acpi_video_register_backlight() always gets called
+> +	 * eventually, in case there is no drm/kms driver or it is disabled.
+> +	 */
+> +	if (register_backlight_delay)
+> +		schedule_delayed_work(&video_bus_register_backlight_work,
+> +				      register_backlight_delay * HZ);
+> +
+>   leave:
+>   	mutex_unlock(&register_count_mutex);
+>   	return ret;
+> @@ -2245,6 +2277,7 @@ void acpi_video_unregister(void)
+>   {
+>   	mutex_lock(&register_count_mutex);
+>   	if (register_count) {
+> +		cancel_delayed_work_sync(&video_bus_register_backlight_work);
+>   		acpi_bus_unregister_driver(&acpi_video_bus);
+>   		register_count = 0;
+>   		may_report_brightness_keys = false;
+> @@ -2253,6 +2286,17 @@ void acpi_video_unregister(void)
+>   }
+>   EXPORT_SYMBOL(acpi_video_unregister);
+>   
+> +void acpi_video_register_backlight(void)
+> +{
+> +	struct acpi_video_bus *video;
+> +
+> +	mutex_lock(&video_list_lock);
+> +	list_for_each_entry(video, &video_bus_head, entry)
+> +		acpi_video_bus_register_backlight(video);
+> +	mutex_unlock(&video_list_lock);
+> +}
+> +EXPORT_SYMBOL(acpi_video_register_backlight);
+> +
+>   void acpi_video_unregister_backlight(void)
+>   {
+>   	struct acpi_video_bus *video;
+> diff --git a/include/acpi/video.h b/include/acpi/video.h
+> index 4705e339c252..0625806d3bbd 100644
+> --- a/include/acpi/video.h
+> +++ b/include/acpi/video.h
+> @@ -53,6 +53,7 @@ enum acpi_backlight_type {
+>   #if IS_ENABLED(CONFIG_ACPI_VIDEO)
+>   extern int acpi_video_register(void);
+>   extern void acpi_video_unregister(void);
+> +extern void acpi_video_register_backlight(void);
+>   extern int acpi_video_get_edid(struct acpi_device *device, int type,
+>   			       int device_id, void **edid);
+>   extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
+> @@ -69,6 +70,7 @@ extern int acpi_video_get_levels(struct acpi_device *device,
+>   #else
+>   static inline int acpi_video_register(void) { return -ENODEV; }
+>   static inline void acpi_video_unregister(void) { return; }
+> +static inline void acpi_video_register_backlight(void) { return; }
+>   static inline int acpi_video_get_edid(struct acpi_device *device, int type,
+>   				      int device_id, void **edid)
+>   {
