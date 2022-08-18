@@ -4,52 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1796C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 18:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B2CDC00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:12:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97AEFC0ACC;
-	Wed, 24 Aug 2022 18:36:45 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9562711252A
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660765250;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nRkEWxEO8DrSLjzrrLiKcOrYhMxWHkW7Qi7UVUSsLqo=;
- b=Qklq0kvbC0bxNVtNc1CYjbWilp22B0UDUKTbwSD2bkjvR8L/VLuvMWGT6nwsZ85441p2Go
- TIODlliekn38vEQqxrTl3Y0hOT0G/udDRH9VkF9cWOGPS1ZWlXgDVAfZG3WYF13avwEdl/
- 9NDdkcWgDU1la7Een01VjpbpH+fjqRc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-661-WeTt46ojOsa886CMCTJ_Bg-1; Wed, 17 Aug 2022 15:40:48 -0400
-X-MC-Unique: WeTt46ojOsa886CMCTJ_Bg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D7C2185A7BA;
- Wed, 17 Aug 2022 19:40:47 +0000 (UTC)
-Received: from emerald.redhat.com (unknown [10.22.18.168])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5D1DE492C3B;
- Wed, 17 Aug 2022 19:40:46 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [RFC v4 15/17] drm/display/dp_mst: Maintain time slot allocations
- when deleting payloads
-Date: Wed, 17 Aug 2022 15:38:44 -0400
-Message-Id: <20220817193847.557945-16-lyude@redhat.com>
-In-Reply-To: <20220817193847.557945-1-lyude@redhat.com>
-References: <20220817193847.557945-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C5FC35A9;
+	Wed, 24 Aug 2022 19:12:14 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C701010E29A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 17:37:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=arXFVw+dAciyTEaBNZK+Gl9DYY8XyTb5OEBxULrRzlhAAS+v7deOXFU6zVTPsa0qCTvo0nvKQ0WOx0SiZbPQLmxOYDfO92mTWCQGiOHd4UA7Sh8srJzCy3eBnpSU7zZOdAvHMB/3o69WQTczpiLNGYU6TzP/G8D1SkY4qAA5HvResCburtDNp5u/jV5Q1mji+lwRbGAPKhNuz8yjbN+TjQNhkY/6WJAuE5pSDp4+1IncjlO1CHy0tIV8hc/y6EucnaqlZhZ243uEqSDc47KMXaaWTIHpi+cS6f7cGMrKQWlV0Bt1sg6C6PfR9Rjn1BW/JypkTQTojk4jDJNc9+PlJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dbZ+1Z0ZuhL3L1ZS/MN/G3BKnMVEcWHFNQW0HAuohoU=;
+ b=P0Ek/jepMqCxw5e8DfHzTMQTYvvEPZvQjlryx/t+DSIs47b/2wWb6RIy8gsk8ql3SyYNlo17IjjGVmdd/YfnRIlhhHzIqFik3s207HoK65CKD3TyZHOd2fhavgQdxDJqd9h5lH7ohRj3GV0vX9Y2uiLjh/UZFPDmO3WfJBB/RZMbVWfadM/2wWmUB4CptNUHNX/gWsVtnZJHWrPYzbYkE3Zhk79p13G5S13uNF10DRTvgud+PlGDe8Sp61cCZqfqTI3tjHC+jGG6u0qaKm/LahIckS4Kiuz68uoglUuL11uVaKclf+wKvvntFpumbg/6RwWVtSHLRHk6okuDpN7A3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dbZ+1Z0ZuhL3L1ZS/MN/G3BKnMVEcWHFNQW0HAuohoU=;
+ b=tQ7Hq2hWZU6ZZbD0fyXLnugh13jMJ6dPQoy/NTTNw82cAih0ResTajB7CzX8MR5dyRfc77YG+OyUN5HKilEx3HTxiWVekEFQEcBzUAukzqOWPRyXAxMNo8GBOWLINvSbRhmIIr5Z6qc8MZYWarIJHDFK7p5ztrD7/odserWbZMU=
+Received: from DS7PR05CA0043.namprd05.prod.outlook.com (2603:10b6:8:2f::22) by
+ DM5PR12MB2472.namprd12.prod.outlook.com (2603:10b6:4:b9::39) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5525.10; Thu, 18 Aug 2022 17:37:35 +0000
+Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2f:cafe::10) by DS7PR05CA0043.outlook.office365.com
+ (2603:10b6:8:2f::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.4 via Frontend
+ Transport; Thu, 18 Aug 2022 17:37:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5546.15 via Frontend Transport; Thu, 18 Aug 2022 17:37:35 +0000
+Received: from VC-PC.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 18 Aug
+ 2022 12:37:34 -0500
+From: Vignesh Chander <Vignesh.Chander@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: skip set_topology_info for VF
+Date: Thu, 18 Aug 2022 13:38:10 -0400
+Message-ID: <20220818173810.17368-1-Vignesh.Chander@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 22f3fe11-a6d7-4729-313a-08da81405649
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2472:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZlL3S44Lk9WiIDwImHJhYzZ8NrF/FobupawBiNpqi5E16+lpPigtclWC0tKa7wVjhhS6MkM+N5ELUFa4viy43mDIpizf+G6nhq1cOS8BmRPKHaz2jifcUpxWjh42NKl3MYNgvtWVbzyfwYK/NpxTg8Ke2UQg5YLJvOwg2WVvaoeVWdlG3izYBgGTrDwYAZ2zSX3kDddQFOHBOqL5x2YY2MeSKVlSk94fS3XDTD2lii4AEHarj4n/AHaXOOkGzSPMusMspvFWyYVRnGgpAyABmEuaOUjJfHMbLjGbYKCOm1gsI1n1YwBkZZF7qBPv14Nq3v2mbGs+4jxZjPxr08Amq+qmbT6AhwKCikO1FvD9CvFI7r8aaigZJvqPMzMSLPQJIFrLPfz8l1k9Oln53y11mUyTdEXxLcKJzq04GBXtK7UXEdlcE3S/GQMCTKP/Iu5XhbtB9P1pbrti3+6AYGQt+LGzlMOtZm30TLZbF7laERf+tAsCOgVPtLEbfCnUCVI1Kd1fJcqhCMsK3R6BwSsG14zeQC0Q/tCjsyqAvO9NsFDmqu7kfqksmUrlJYRwU4VyqslHVKlo9pepbYf0bTKOpWtK0VMCZPr/tZ/jrOoHXWWn4huxqohsjjltQ0zR+Ifzc8DiUIaKs5hAo3qtFQSCGfeOSMU+ywLp/WUydupTxkqADRRd67nkaHkOJ21aNi4avizVnyo5wtKPnHC7H0ekWpJWPbbeVBK4+IGFHrprbqV+2tqWLTyS9o0qe9Z3QnBy0hG3A5vdHaQ4edqb0M8HMv1ikrgvIg/6/YPsFn3zGO4tdkA7ukEZwwa8JeDo+XOiV4OCR6G2ukgUV3dtKVVM6w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(376002)(346002)(39860400002)(136003)(40470700004)(46966006)(36840700001)(82740400003)(40460700003)(83380400001)(1076003)(2616005)(426003)(47076005)(36860700001)(186003)(40480700001)(82310400005)(356005)(336012)(81166007)(478600001)(16526019)(6916009)(41300700001)(316002)(6666004)(70586007)(54906003)(5660300002)(7696005)(26005)(2906002)(8936002)(8676002)(4326008)(86362001)(36756003)(4744005)(70206006)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 17:37:35.0780 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22f3fe11-a6d7-4729-313a-08da81405649
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2472
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,115 +97,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sean Paul <sean@poorly.run>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: Jonathan.kim@amd.com, Vignesh Chander <Vignesh.Chander@amd.com>,
+ shaoyun.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, we set drm_dp_atomic_payload->time_slots to 0 in order to
-indicate that we're about to delete a payload in the current atomic state.
-Since we're going to be dropping all of the legacy code for handling the
-payload table however, we need to be able to ensure that we still keep
-track of the current time slot allocations for each payload so we can reuse
-this info when asking the root MST hub to delete payloads. We'll also be
-using it to recalculate the start slots of each VC.
+Skip set_topology_info as xgmi TA will now block it
+and host needs to program it.
 
-So, let's keep track of the intent of a payload in drm_dp_atomic_payload by
-adding ->delete, which we set whenever we're planning on deleting a payload
-during the current atomic commit.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Wayne Lin <Wayne.Lin@amd.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Sean Paul <sean@poorly.run>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Vignesh Chander <Vignesh.Chander@amd.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 14 +++++++-------
- include/drm/display/drm_dp_mst_helper.h       |  5 ++++-
- 2 files changed, 11 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index a5460cadf2c8..c4073d733c59 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4407,7 +4407,7 @@ int drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
- 		 * releasing and allocating the same timeslot allocation,
- 		 * which is an error
- 		 */
--		if (WARN_ON(!prev_slots)) {
-+		if (drm_WARN_ON(mgr->dev, payload->delete)) {
- 			drm_err(mgr->dev,
- 				"cannot allocate and release time slots on [MST PORT:%p] in the same state\n",
- 				port);
-@@ -4512,10 +4512,10 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 1b108d03e785..1a2b4c4b745c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -504,6 +504,9 @@ int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_dev
+ {
+ 	int ret;
  
- 	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->time_slots);
--	if (payload->time_slots) {
-+	if (!payload->delete) {
- 		drm_dp_mst_put_port_malloc(port);
--		payload->time_slots = 0;
- 		payload->pbn = 0;
-+		payload->delete = true;
- 	}
- 
- 	return 0;
-@@ -5239,7 +5239,7 @@ drm_dp_mst_duplicate_state(struct drm_private_obj *obj)
- 
- 	list_for_each_entry(pos, &old_state->payloads, next) {
- 		/* Prune leftover freed timeslot allocations */
--		if (!pos->time_slots)
-+		if (pos->delete)
- 			continue;
- 
- 		payload = kmemdup(pos, sizeof(*payload), GFP_KERNEL);
-@@ -5271,8 +5271,8 @@ static void drm_dp_mst_destroy_state(struct drm_private_obj *obj,
- 	int i;
- 
- 	list_for_each_entry_safe(pos, tmp, &mst_state->payloads, next) {
--		/* We only keep references to ports with non-zero VCPIs */
--		if (pos->time_slots)
-+		/* We only keep references to ports with active payloads */
-+		if (!pos->delete)
- 			drm_dp_mst_put_port_malloc(pos->port);
- 		kfree(pos);
- 	}
-@@ -5400,7 +5400,7 @@ drm_dp_mst_atomic_check_payload_alloc_limits(struct drm_dp_mst_topology_mgr *mgr
- 
- 	list_for_each_entry(payload, &mst_state->payloads, next) {
- 		/* Releasing payloads is always OK-even if the port is gone */
--		if (!payload->time_slots) {
-+		if (payload->delete) {
- 			drm_dbg_atomic(mgr->dev, "[MST PORT:%p] releases all time slots\n",
- 				       payload->port);
- 			continue;
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index b9c361b242ea..8b847836a0b4 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -560,8 +560,11 @@ struct drm_dp_mst_atomic_payload {
- 	int time_slots;
- 	/** @pbn: The payload bandwidth for this payload */
- 	int pbn;
++	if (amdgpu_sriov_vf(adev))
++		return 0;
 +
-+	/** @delete: Whether or not we intend to delete this payload during this atomic commit */
-+	bool delete : 1;
- 	/** @dsc_enabled: Whether or not this payload has DSC enabled */
--	bool dsc_enabled;
-+	bool dsc_enabled : 1;
- 
- 	/** @next: The list node for this payload */
- 	struct list_head next;
+ 	/* Each psp need to set the latest topology */
+ 	ret = psp_xgmi_set_topology_info(&adev->psp,
+ 					 atomic_read(&hive->number_devices),
 -- 
-2.37.1
+2.25.1
 
