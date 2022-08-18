@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5CBC25B08
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 02:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 745F6C25B08
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 02:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31CB2B97E;
-	Thu, 18 Aug 2022 02:11:17 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3977C8F2E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 22:11:36 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4M7Mg3364yz4x3w;
- Thu, 18 Aug 2022 08:11:27 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1660774288;
- bh=F66RbYXiYyVuI/3tkkg221uAGbsIY1Cnm1yFM4222QU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cUaYwjSbYhgfG7JnQcyDVoJNz3jd1HmaPmKvMDl6rJVkWJj/5MZ7OoOs2OWLk24tG
- OVUHwjyRKI72kEGqeHd4Qy2MMYcYNF8u5Xn/4TrNT2OD8ZVLfj+fcGQzT10Dt+GaSf
- GzVAEnSsBRRKQlwitnW+nBeukoOZl1+zFiy+VRS3RPxKrnBKxyhtH+0gmtaQW4CWQU
- h9HZWgFmn3flvalEzornOdqumgKK5x57UKkomgMKkGUwCHDXJUozu1VEjOwPX/DnoU
- QhTBYkXQmEgWIBnoAUzlW/cWbaRSBe7dAMQzsY+QF9tcZLI2lRxo7buDXT0SUBSgav
- jIcHHYSrEBt/w==
-Date: Thu, 18 Aug 2022 08:11:26 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Subject: Re: build failure of next-20220811 due to b1a63a0b48ad
- ("drm/amd/display: consider DSC pass-through during mode validation")
-Message-ID: <20220818081126.4421bb3e@canb.auug.org.au>
-In-Reply-To: <CADVatmO-kc93dQc9TPy7ZjGuLUUut7or1VLGYkLWTw803mkWiQ@mail.gmail.com>
-References: <YvU4GD8HtZ1A4dhI@debian>
- <20220812090731.31da7d85@oak.ozlabs.ibm.com>
- <20220817094309.140c346e@canb.auug.org.au>
- <CADVatmO-kc93dQc9TPy7ZjGuLUUut7or1VLGYkLWTw803mkWiQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28530B3BF2;
+	Thu, 18 Aug 2022 02:11:20 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA947B3B91;
+ Thu, 18 Aug 2022 02:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=OSvVOdfA6FOAs8kDqxv//qJumZqVNEgMpVWHYd6sYHE=; b=ys1VzU4EM8SGT6HcPcATTxTCBz
+ YhGNIaQuwsVtux+02LwQJ/ONRdIWcjxqbhHsZnXNkUYHiHeWn6xuTfqAi7a138FzBqBGJNXsOYVkM
+ 5+xI3dUvYbZkXDnDkqMkIm0KmCG1M9hmg4ckZ5uSEs0euHB1SyEHVKvNGUHXSrH1m/diER7q9Es0E
+ 9oBnFdFbT78A2q9ZPvgQaNcuNy5cgi9ObJIkMW5Lc/palxBvc7GZ1MV5ugbLwZZJVYWkxOcsdz+IM
+ LNMbfnGN06rM+MEEUGTWUnOv7Eu5db00otKav1YD6eWbQuGZlnlF/kBK40DoSO9RJeu7X1+L4umRk
+ ASA7BsYw==;
+Received: from [2601:1c0:6280:3f0::a6b3]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oOUyN-00AzBi-GK; Thu, 18 Aug 2022 02:09:27 +0000
+Message-ID: <5638aaf1-b808-bdc6-d84a-820f24facea6@infradead.org>
+Date: Wed, 17 Aug 2022 19:09:26 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/y_P4uE_RmhYMsSeHGlsEA4e";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: build failure of next-20220817 for amdgpu
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+References: <Yv1lepjhg/6QKyQl@debian>
+ <CADnq5_Od9W1iuzYpsmODOB=Xem97ogeH_t0JrjWC-S8h0XM9fA@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <CADnq5_Od9W1iuzYpsmODOB=Xem97ogeH_t0JrjWC-S8h0XM9fA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 18 Aug 2022 02:11:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,79 +53,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, linux-next <linux-next@vger.kernel.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-next@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/y_P4uE_RmhYMsSeHGlsEA4e
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Hi Sudip,
 
-On Wed, 17 Aug 2022 21:39:17 +0100 Sudip Mukherjee <sudipm.mukherjee@gmail.=
-com> wrote:
->
-> On Wed, Aug 17, 2022 at 12:43 AM Stephen Rothwell <sfr@canb.auug.org.au> =
-wrote:
-> >
-> > On Fri, 12 Aug 2022 09:07:31 +1000 Stephen Rothwell <sfr@rothwell.id.au=
-> wrote: =20
-> > >
-> > > On Thu, 11 Aug 2022 18:10:48 +0100 "Sudip Mukherjee (Codethink)" <sud=
-ipm.mukherjee@gmail.com> wrote: =20
-> > > >
-> > > > Not sure if it has been reported, builds of riscv, alpha, s390, arm,
-> > > > arm64, xtensa, mips, csky allmodconfig have failed to build next-20=
-220811
-> > > > with the error:
-> > > >
-> > > > ERROR: modpost: "dc_dsc_compute_bandwidth_range" [drivers/gpu/drm/a=
-md/amdgpu/amdgpu.ko] undefined!
-> > > > ERROR: modpost: "dc_dsc_get_policy_for_timing" [drivers/gpu/drm/amd=
-/amdgpu/amdgpu.ko] undefined!
-> > > >
-> > > > git bisect pointed to b1a63a0b48ad ("drm/amd/display: consider DSC =
-pass-through during mode validation")
-> > > > And, reverting that commit has fixed the build failure.
-> > > >
-> > > > I will be happy to test any patch or provide any extra log if neede=
-d. =20
-> > >
-> > > I have reverted that commit in today's linux-next. =20
-> >
-> > I have removed that revert.  Sudip, can you recheck when linux-next is
-> > released, please? =20
->=20
-> The build failure is not seen with next-20220817.
+On 8/17/22 19:01, Alex Deucher wrote:
+> On Wed, Aug 17, 2022 at 6:03 PM Sudip Mukherjee (Codethink)
+> <sudipm.mukherjee@gmail.com> wrote:
+>>
+>> Hi All,
+>>
+>> Not sure if it has been reported, build of next-20220817 fails with the
+>> error:
+>>
+>> ERROR: modpost: "cpu_smallcore_map" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>>
+>> Trying to do a git bisect to find out the offending commit.
+>>
+> 
+> Thanks.  I don't see that symbol in the driver at all.  Not sure where
+> it is coming from.
+> 
 
-Excellent, thanks.
+It's powerpc only.
 
---=20
-Cheers,
-Stephen Rothwell
+Sudip, is it non-CONFIG_SMP by any chance?
 
---Sig_/y_P4uE_RmhYMsSeHGlsEA4e
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+> 
+> 
+>> I will be happy to test any patch or provide any extra log if needed.
+>>
+>>
+>> --
+>> Regards
+>> Sudip
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmL9Z44ACgkQAVBC80lX
-0Gxx+gf+KDLvy87g7b1sZVfaG9pEljZ5Ynr/9YvGBEjJWYYs/rxOvYAmYyXRmWt5
-oO3+wj0BOXGBmvnvXDcsW5L3wkigUfI0rloJGGHKuXKssmQTi7lqmt1S9/jeH6cD
-hOkUaXTJj1TTApBLUCImG3jfC5TmetOLXkruU5aoQQ/YZBV4ljBvwiuJ3FXi0gRK
-hJO0EYBu7pZtetLL/yEbG3oiipzyPhLYt+wv4Mm9b8Hrk+JBZ77gs7qgk2hCqlpX
-rNsNDf+ePiJOqWPlDWd3AK5m9AhJm1g9CIr+kjAmUGP24+yuiMNvEDc0E1zxdlk1
-EcbrLOvEmtSU7giPmQxfSME6fl8/1g==
-=01UZ
------END PGP SIGNATURE-----
-
---Sig_/y_P4uE_RmhYMsSeHGlsEA4e--
+-- 
+~Randy
