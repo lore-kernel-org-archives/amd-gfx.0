@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F090C32773
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4E3C00140
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1E6810ED5C;
-	Thu, 18 Aug 2022 18:55:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D6110EDD8;
+	Thu, 18 Aug 2022 18:55:57 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC5110EC48
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9882910ED53
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848275;
+ s=mimecast20190719; t=1660848283;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eMRBJxq87CBXyk/TjPWjUIyp8oSUCkcWSAUi9s9Ld4I=;
- b=fPCRkAy7O6cTCiVjUFdHIaonYqNcMslEkaWcjZ0qMAYtLyGfiHWSVJMb4FyIyeAxMA0lTN
- /EFL6g6wjUvxTeBBJfvfVuHn1oI3+9ugdYd+43lRtBvTLN8xU0QLSAEEaAVvunMVjtxm/2
- kKfdVWFHwIfY2nxP/1mIHmleBcX51TM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=vOxA7M57LgfZ+b681HqbtQ4Xukb82O1rjr5pBWh1XVM=;
+ b=GO/PlD/LAAc9Y6NMvb7zbDc1BWR+WvK2WXwUZnG5570EPO58ncwiplhY5Tw1gYi11KLo7o
+ budMAVKeAU6+8zBZInFP32oCDVbF9c+EnunL0jw9NnmkcAk4mxnh7zXlo231P3+4HyyewA
+ qrdNnzfGdxb3tUi6Nor55rLw3Ec1nx4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-151-N4vyCZg2NLqv7PDiTSNnDw-1; Thu, 18 Aug 2022 14:44:31 -0400
-X-MC-Unique: N4vyCZg2NLqv7PDiTSNnDw-1
+ us-mta-173-XLOO7rybP9mBvWoSZD3nww-1; Thu, 18 Aug 2022 14:44:39 -0400
+X-MC-Unique: XLOO7rybP9mBvWoSZD3nww-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4CCB03C0E231;
- Thu, 18 Aug 2022 18:44:30 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 445C1811E75;
+ Thu, 18 Aug 2022 18:44:38 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A986F492C3B;
- Thu, 18 Aug 2022 18:44:26 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 85F8A492C3B;
+ Thu, 18 Aug 2022 18:44:34 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v3 19/31] platform/x86: nvidia-wmi-ec-backlight: Use
- acpi_video_get_backlight_type()
-Date: Thu, 18 Aug 2022 20:42:50 +0200
-Message-Id: <20220818184302.10051-20-hdegoede@redhat.com>
+Subject: [PATCH v3 21/31] platform/x86: toshiba_acpi: Stop using
+ acpi_video_set_dmi_backlight_type()
+Date: Thu, 18 Aug 2022 20:42:52 +0200
+Message-Id: <20220818184302.10051-22-hdegoede@redhat.com>
 In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
 References: <20220818184302.10051-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -78,75 +78,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an acpi_video_get_backlight_type() == acpi_backlight_nvidia_wmi_ec
-check. This will make nvidia-wmi-ec-backlight properly honor the user
-selecting a different backlight driver through the acpi_backlight=...
-kernel commandline option.
+acpi_video_set_dmi_backlight_type() is troublesome because it may end up
+getting called after other backlight drivers have already called
+acpi_video_get_backlight_type() resulting in the other drivers
+already being registered even though they should not.
 
-Since the auto-detect code check for nvidia-wmi-ec-backlight in
-drivers/acpi/video_detect.c already checks that the WMI advertised
-brightness-source is the embedded controller, this new check makes it
-unnecessary for nvidia_wmi_ec_backlight_probe() to check this itself.
+In case of the acpi_video backlight, acpi_video_set_dmi_backlight_type()
+actually calls acpi_video_unregister_backlight() since that is often
+probed earlier, leading to userspace seeing the acpi_video0 class
+device being briefly available, leading to races in userspace where
+udev probe-rules try to access the device and it is already gone.
 
-Suggested-by: Daniel Dadap <ddadap@nvidia.com>
+In case of toshiba_acpi there are no DMI quirks to move to
+acpi/video_detect.c, but it also (ab)uses it for transflective
+displays. Adding transflective display support to video_detect.c would
+be quite involved. But luckily there are only 2 known models with
+a transflective display, so we can just add DMI quirks for those.
+
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/platform/x86/Kconfig                   |  1 +
- drivers/platform/x86/nvidia-wmi-ec-backlight.c | 14 +++-----------
- 2 files changed, 4 insertions(+), 11 deletions(-)
+ drivers/acpi/video_detect.c         | 19 +++++++++++++++++++
+ drivers/platform/x86/toshiba_acpi.c | 16 ----------------
+ 2 files changed, 19 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index f2f98e942cf2..0cc5ac35fc57 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -93,6 +93,7 @@ config PEAQ_WMI
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index 8c0db00a48cf..891138d47def 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -190,6 +190,25 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		},
+ 	},
  
- config NVIDIA_WMI_EC_BACKLIGHT
- 	tristate "EC Backlight Driver for Hybrid Graphics Notebook Systems"
-+	depends on ACPI_VIDEO
- 	depends on ACPI_WMI
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	help
-diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-index e84e1d629b14..83d544180264 100644
---- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-+++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
- #include <linux/types.h>
- #include <linux/wmi.h>
-+#include <acpi/video.h>
- 
- /**
-  * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
-@@ -87,19 +88,10 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
- {
- 	struct backlight_properties props = {};
- 	struct backlight_device *bdev;
--	u32 source;
- 	int ret;
- 
--	ret = wmi_brightness_notify(wdev, WMI_BRIGHTNESS_METHOD_SOURCE,
--	                           WMI_BRIGHTNESS_MODE_GET, &source);
--	if (ret)
--		return ret;
--
--	/*
--	 * This driver is only to be used when brightness control is handled
--	 * by the EC; otherwise, the GPU driver(s) should control brightness.
--	 */
--	if (source != WMI_BRIGHTNESS_SOURCE_EC)
-+	/* drivers/acpi/video_detect.c also checks that SOURCE == EC */
-+	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
- 		return -ENODEV;
- 
++	/*
++	 * Toshiba models with Transflective display, these need to use
++	 * the toshiba_acpi vendor driver for proper Transflective handling.
++	 */
++	{
++	 .callback = video_detect_force_vendor,
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "TOSHIBA"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "PORTEGE R500"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "TOSHIBA"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "PORTEGE R600"),
++		},
++	},
++
  	/*
+ 	 * These models have a working acpi_video backlight control, and using
+ 	 * native backlight causes a regression where backlight does not work
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index 0fc9e8b8827b..030dc37d50b8 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -271,14 +271,6 @@ static const struct key_entry toshiba_acpi_alt_keymap[] = {
+ 	{ KE_END, 0 },
+ };
+ 
+-/*
+- * List of models which have a broken acpi-video backlight interface and thus
+- * need to use the toshiba (vendor) interface instead.
+- */
+-static const struct dmi_system_id toshiba_vendor_backlight_dmi[] = {
+-	{}
+-};
+-
+ /*
+  * Utility
+  */
+@@ -2881,14 +2873,6 @@ static int toshiba_acpi_setup_backlight(struct toshiba_acpi_dev *dev)
+ 		return 0;
+ 	}
+ 
+-	/*
+-	 * Tell acpi-video-detect code to prefer vendor backlight on all
+-	 * systems with transflective backlight and on dmi matched systems.
+-	 */
+-	if (dev->tr_backlight_supported ||
+-	    dmi_check_system(toshiba_vendor_backlight_dmi))
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+-
+ 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
+ 		return 0;
+ 
 -- 
 2.37.2
 
