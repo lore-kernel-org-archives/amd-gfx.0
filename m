@@ -4,67 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9612C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61415C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C11EE14BB76;
-	Wed, 24 Aug 2022 19:12:44 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33FE210E970
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848300;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bGmxjTC329YfKDZQ5Je0yyDKIkqA4WAm4riI44+DPbM=;
- b=gPMcKSSow7BKzx56Vh+GhUWfv+GsZdxVFN96YJ4S+Xn1adtjj30esJo0Qr0IbTlnQFzZZA
- NIviarlOww37SC43wHHioWLT+xwhTaO2oKJ+EWOd8uuklNtyzqMrCKl9jxSURxl76ozBTh
- 42yfwaoH/Wk3Zrl3caFdi/ceJY+64tw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-610-qPaX2vxOOvuKBZmIuP1l2A-1; Thu, 18 Aug 2022 14:44:55 -0400
-X-MC-Unique: qPaX2vxOOvuKBZmIuP1l2A-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 079D0C3611;
+	Wed, 24 Aug 2022 19:13:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2AB110E225
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 20:38:15 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5CF01C0754D;
- Thu, 18 Aug 2022 18:44:53 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 31272400F36;
- Thu, 18 Aug 2022 18:44:50 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v3 25/31] platform/x86: asus-wmi: Move acpi_backlight=native
- quirks to ACPI video_detect.c
-Date: Thu, 18 Aug 2022 20:42:56 +0200
-Message-Id: <20220818184302.10051-26-hdegoede@redhat.com>
-In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
-References: <20220818184302.10051-1-hdegoede@redhat.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 314636147D;
+ Thu, 18 Aug 2022 20:38:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672B3C433C1;
+ Thu, 18 Aug 2022 20:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660855094;
+ bh=6Lsy0QaxfV6sD1O8kfNMv6jWWiIgfjbYjaUEeiQnpZU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=GHqlOIcqhocdbmY56+RBw2wUFa+XU+/RQhpmBU3iNw0GCy/D/PO6cTivwW30rUOpq
+ 8QZuT5OINLUWYQ7/NK0GiYMiO9/5ohREqvLPLXcw3lMvTx89My7rN3zi++cGAL2nud
+ 4o5HBR1ZTDttkXXxSGlgukaAYEQt4MFWQxnTU+zZjY9lGo/PE7JDCU3Q2l+suqrWDf
+ Er6IONkOrkpDE+kNaEdmDV0m6IJr2Pd/3TgjtXlQe2zaYDuYWTwauJiS7ZNGK2fsU5
+ oF7Z9DpqlgY6j4CkkMV9tqrPrOaWvQ9C6yHCchFqgol7HozQrWwv9+fTmKFNXO0qkd
+ kDfbhLnGf4l2A==
+Date: Thu, 18 Aug 2022 15:38:12 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
+Message-ID: <20220818203812.GA2381243@bhelgaas>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Mailman-Approved-At: Thu, 18 Aug 2022 18:55:27 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bug-216373-41252@https.bugzilla.kernel.org/>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,111 +51,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
+Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
+ linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stefan Roese <sr@denx.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the asus-wmi quirk_entry.wmi_backlight_native quirk-flag, which
-called acpi_video_set_dmi_backlight_type(acpi_backlight_native) and replace
-it with acpi/video_detect.c video_detect_dmi_table[] entries using the
-video_detect_force_native callback.
+[Adding amdgpu folks]
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=216373
+> 
+>             Bug ID: 216373
+>            Summary: Uncorrected errors reported for AMD GPU
+>     Kernel Version: v6.0-rc1
+>         Regression: No
+> ...
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/acpi/video_detect.c        |  8 ++++++++
- drivers/platform/x86/asus-nb-wmi.c | 14 --------------
- drivers/platform/x86/asus-wmi.c    |  3 ---
- drivers/platform/x86/asus-wmi.h    |  1 -
- 4 files changed, 8 insertions(+), 18 deletions(-)
+I marked this as a regression in bugzilla.
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 1574ff837e31..a871ee69fcb2 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -564,6 +564,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "GA503"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Asus UX303UB */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
-+		},
-+	},
- 	/*
- 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
- 	 * working native and video interface. However the default detection
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 810a94557a85..bbfed85051ee 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -97,11 +97,6 @@ static struct quirk_entry quirk_asus_x200ca = {
- 	.wmi_backlight_set_devstate = true,
- };
- 
--static struct quirk_entry quirk_asus_ux303ub = {
--	.wmi_backlight_native = true,
--	.wmi_backlight_set_devstate = true,
--};
--
- static struct quirk_entry quirk_asus_x550lb = {
- 	.wmi_backlight_set_devstate = true,
- 	.xusb2pr = 0x01D9,
-@@ -372,15 +367,6 @@ static const struct dmi_system_id asus_quirks[] = {
- 		},
- 		.driver_data = &quirk_asus_x200ca,
- 	},
--	{
--		.callback = dmi_matched,
--		.ident = "ASUSTeK COMPUTER INC. UX303UB",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
--		},
--		.driver_data = &quirk_asus_ux303ub,
--	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. UX330UAK",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 5cf9d9aff164..434249ac47a5 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3634,9 +3634,6 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	if (asus->driver->quirks->wmi_force_als_set)
- 		asus_wmi_set_als();
- 
--	if (asus->driver->quirks->wmi_backlight_native)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
--
- 	if (asus->driver->quirks->xusb2pr)
- 		asus_wmi_set_xusb2pr(asus);
- 
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index 30770e411301..f30252efe1db 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -29,7 +29,6 @@ struct quirk_entry {
- 	bool hotplug_wireless;
- 	bool scalar_panel_brightness;
- 	bool store_backlight_power;
--	bool wmi_backlight_native;
- 	bool wmi_backlight_set_devstate;
- 	bool wmi_force_als_set;
- 	bool use_kbd_dock_devid;
--- 
-2.37.2
+> Hardware:
+> CPU: Intel i7-12700K (Alder Lake)
+> GPU: AMD RX 6700 XT [1002:73df]
+> Motherboard: ASUS Prime Z690-A
+> 
+> Problem:
+> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected PCI errors
+> for my GPU.
 
+Thank you very much for the report and for taking the trouble to
+bisect it and test Kai-Heng's patch!
+
+I suspect that booting with "pci=noaer" should be a temporary
+workaround for this issue.  If it, can you add that to the bugzilla
+for anybody else who trips over this?
+
+> I have bisected this issue to: [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
+> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
+> Reverting that commit causes the errors to cease.
+
+I suspect the errors still occur, but we just don't notice and log
+them.
+
+> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a similar
+> problem, but it did not fix my issue.
+> 
+> [1]
+> https://lore.kernel.org/linux-pci/20220706123244.18056-1-kai.heng.feng@canonical.com/
+>
+> dmesg snippet:
+> 
+> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error received:
+> 0000:03:00.0
+> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
+> type=Transaction Layer, (Requester ID)
+> amdgpu 0000:03:00.0:   device [1002:73df] error status/mask=00100000/00000000
+> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
+> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 00000000
+
+I think the TLP header decodes to:
+
+  0x40000001 = 0100 0000 ... 0000 0001 binary
+  0x0000000f = 0000 0000 ... 0000 1111 binary
+
+  Fmt           010b                 3 DW header with data
+  Type          0000b  010 0 0000    MWr Memory Write Request
+  Length        00 0000 0001b        1 DW
+  Requester ID  0x0000               00:00.0
+  Tag           0x00
+  Last DW BE    0000b                must be zero for 1 DW write
+  First DW BE   1111b                all 4 bytes in DW enabled
+  Address       0x95e7f000
+  Data          0x00000000
+
+So I think this is a 32-bit write of zero to PCI bus address
+0x95e7f000.
+
+Your dmesg log says:
+
+  pci 0000:02:00.0: PCI bridge to [bus 03]
+  pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
+  pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
+  [drm] register mmio base: 0x95E00000
+
+So this looks like a write to the device's BAR 5.  I don't see a PCI
+reason why this should fail.  Maybe there's some amdgpu reason?
+
+Bjorn
