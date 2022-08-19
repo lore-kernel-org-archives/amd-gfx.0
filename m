@@ -4,117 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B2BC25B0E
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 08:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE07C32771
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 10:07:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECC0010E9A2;
-	Fri, 19 Aug 2022 08:34:24 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8BC010E9BB
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Aug 2022 08:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B16710E55D;
+	Fri, 19 Aug 2022 10:07:38 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 971DE10E77E;
+ Fri, 19 Aug 2022 10:07:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RRrG6S+D8B1lD3t2B7mRVPFRrmc+WLT8RlcDZW1VoxRA3QggBs+02meX9EeA8a2WIVoIL5bs9Z92CrlcmUo+cqoL1i6Y2RvrDG9g51WfH77MO1PC4dytHBXYRHb/YP3P4YDqdbhu1D6NvXzOkG8iVA7KcZFEijYPa+UfBBGnoSs1aav2eXLqVc9WVmjUDczVExhbavPD7RoHHvAnpgCEkHfgU2DdmAzpRKutDS9HE+SZmxRsnMuaCOWoepJrOXa+hLZQAP46+xvIVjHMj3ySmf0poHSeEf7DSaPfNvn+18wRBEA0CSZNhYOLUR0MsiUxBjMhDCsKxzsCHkTe5f3xGg==
+ b=mr7xbyqzzgDVGkmzRfNkchp5CQvPBNMx0EOXt+AyiS1Qp092S3RRJCMWzpCp10y2VkDUkqIHd24aC10zdlOLvpd1bfW9TWcdATiS7wkQP3L6ViYO52h4ohIBnNVHlBheRtyXjKsTHGbLA8tOZJtGbqd01JZAjEQy/odCs8Ji6X7ZkQybOSSnOoeheegnJEPjTTL7GXgsLUFqaxDWUC2AW+QDE8LWHopZLexNMOb+cdd3jPCJDPan3MlM080UBOSe+mGNLmAuT+nWZ4dCSrMVTYRzqH47PVCwwdOIPk5OFzFxveWvvbu39n18uXICo5FgAyXWKOOuqYkFTNwsqyQD+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UaFL2Mj+unXNZUwlHaZeg9ReB5iQJrAkmzI7D5goiJs=;
- b=Zsm6IbPFl2xg961AweRYTX+P+oIwIfwD4H+mL7u7UoD/+Y9NTBsksfLaAnhrLcb/fQq9HmDsO9K+inzW2Fga2qjxHJPO3zIU6xqW1A0vRkRuymoCqU/+XNB82eBcucXXVTD/DJhpZNQ9I6IrtKlRaAwXhh6Bslds8Dz8HY9MEiilO7lU8Ymnn4JxCzQaoY43W8G2hpCYUvyvTQBjYjk/HAsPmxJnQP2IAcBNgFaOiyZV+bMwY+PwH+7ZO5u0ohE0n7UVcFYrHdNzT7Eltcu+yq6SGAjiEI5D0DMQIVN+ZkVVU2fgDA9qanLtbsALY9EBEON/C6ilWoPSweN9zoHpgg==
+ bh=bljK2icGTaTEDY3GBrjDw0PbwB3FC8/syTleF2Nb5jU=;
+ b=aFb8Gil+9tKaK5EKISZkCxW3aXb6iVF6TNpl3PDSe5UYd6R9T1le8vJdm1w1aiJgGAQ9ZQ4UgTtILSU5MIE2qR1+0xCGXw4GvIRVEaKPVdQa4iEi+Vmdr21Ki9pdoqGxchHw9v4eMWyXN9h7T7Mat35iXJ1J9cSnTGu5qadoQZyBwhJOa+3EhLEaY3mJ0YQGjk7EHAZTDb/PxjqCLLnjmDqJA5r8pVzk09+VUOG48epdtCKKX96Mmi+41LybGbL486ZyQMvjYnhXrq9XHGFP84xBgroAtDUX+JkqFIghwMWbtFJRgLwxQ9/D8H5Hb3DeuA1jbPMZW0Haoi1r0bSF4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UaFL2Mj+unXNZUwlHaZeg9ReB5iQJrAkmzI7D5goiJs=;
- b=ArocNPzmgq0SOM7EMNa5+pzhUCQ3sI81cxj7klKTZkFNValEWBHRb28fINfsk36rmddXQRrqkBiL1JAuBgjuN5G9sbM+OL28lYQBLNPuspYT3QgM2zG2bwLg3yPaCE1LKLP5X9gMHvZ3K/jbHq950rXLlPgKk7/FFbdjCo7t8tU=
+ bh=bljK2icGTaTEDY3GBrjDw0PbwB3FC8/syTleF2Nb5jU=;
+ b=ib00q1DrR9QhpY7yfAXoEPfwhIfenr0xiOWZ3+VEWcnPbXWCLNrX+vvlNucssQlhARqhSQfN7/u9rHisr0/SrM7v3pukGU2ROMdxgFj/6zRn/xBluexU3IJBtOgQYPAMfni4dvrpGOvnrVJxRCTSbDpymYsrtGSgfhpIIsldmnI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM6PR12MB3002.namprd12.prod.outlook.com (2603:10b6:5:117::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Fri, 19 Aug
- 2022 08:34:16 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::4195:ca0b:381f:7900]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::4195:ca0b:381f:7900%4]) with mapi id 15.20.5546.016; Fri, 19 Aug 2022
- 08:34:15 +0000
-Message-ID: <fc036a10-5c13-fdd7-9d98-2b5f0f8af383@amd.com>
-Date: Fri, 19 Aug 2022 14:03:59 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BY5PR12MB4869.namprd12.prod.outlook.com (2603:10b6:a03:1d9::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.18; Fri, 19 Aug
+ 2022 10:07:26 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5504.020; Fri, 19 Aug 2022
+ 10:07:26 +0000
+Content-Type: multipart/alternative;
+ boundary="------------BwWEM0gKYUioBCws7pfhRl28"
+Message-ID: <ae63a061-3fe0-ae46-51f3-46d80fda3987@amd.com>
+Date: Fri, 19 Aug 2022 12:07:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/radeon: add a force flush to delay work when radeon
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-References: <20220818203812.GA2381243@bhelgaas>
- <c1a4da18-a6e1-c633-a585-1b4940a5de59@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <c1a4da18-a6e1-c633-a585-1b4940a5de59@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::12) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20220811072540.964309-1-lizhenneng@kylinos.cn>
+ <b23e4037-2030-32d0-d626-b5a846fcafeb@gmail.com>
+ <db2a43da-256d-402e-882b-c05436d4e83b@kylinos.cn>
+ <c3c1310b-5e84-e4e9-0df9-3f45c976a508@amd.com>
+ <2f38b94b-0965-80f2-5bae-840765ffc4da@kylinos.cn>
+ <cc30a694-c784-f42c-bab6-b45c70202c56@amd.com>
+ <103b4a67-385c-68f5-f40f-39bbc1d9f723@kylinos.cn>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <103b4a67-385c-68f5-f40f-39bbc1d9f723@kylinos.cn>
+X-ClientProxiedBy: AS9PR04CA0129.eurprd04.prod.outlook.com
+ (2603:10a6:20b:531::9) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 27edcbb0-651b-49a0-709c-08da81bd99b0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3002:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0316e20-ea2e-48cb-6c24-08da81ca9dd7
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4869:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: h+z6jrJ8VC4xIFHNgh9uz2Pj9/wlh7CJ8xehV7cKJ5sR7CbsuOkDA+3paubg5v+r9mVmceaNQ2TL1QX8DWUlVBBaQc3JDK/jm9/Wq+unqyqTL8ZzlOpuWiwVZAEnOzpRx2UytnD3hbvz20NaJsVkKc6vw9JeuCCIjoZfz0fjp/itAGCHEPpbud7azGXKdWdkmc2NK3BwngYLywJdKcOX03JigaFEncsCRu2Xbz/48uKsL3iJQXAKbeHgTecnIU2FCz2OsHBpARoBGqfeesJK7YkCs8mq6RBxRlKJkJ4LCWPgu7wP0nO8lTPnOMrj3cuqPyPeSmwvfx3efbDugnvqwDFT6wiy0Fs2Qj0JUF1QuJe6AVCW+ABcRPdHT7d0wOWCbunBEFmoW2EWt6sOHnIGnsBdXOsmP1AplBgYkNUEBcLfpLPHrnYvWxk/Pi5BApj3qq3+f3j5iyyUXiu7AkrEx/v2fv3mNZtft6QcDhy2FQryoDkx+Y83jMkpgcE07zVVSjTtmRVbQ6ZQKr9azR47+WdKEKEqgeUWBwFbK/GMNwF1lXsvzeDsFwTyS7DUySWk3Wi+RGJ7jhhGkFh8w1zvc3mBFDfT0kgrUJn1opA6WAgeSivM7sz0WeIYUZcpoW6oSQvllDbOv2/jo0/Y0FDoTMoN03/tD0S4z7pvTSqLqKXnXkiQVHd2WnI/EtJle0vMZUgfOlBQwKF6jCjVieA0iuc5oR2xaHBB9bogpTaPUKMWqwGY/gBFChNBlp1NNSjnxHOy9uK8NQvr/Fw75xB3yX9VJGRJUMk9fw/1LLNbxB8ClKop5Us2gpw/NGjEnIczAqzw1DoGaI0VGUrsXINx3UA1rQcaKeZM5HP2oov+RZ0=
+X-Microsoft-Antispam-Message-Info: bW38UlmEJDpjX1jTG0IZwzIrZlHdriOlK6GVTahlIQgyHEmUTzlduCF8rDTwEQpxO8R45HbOjnyiJjLQxS0IhW79eofBqk2wczRnFw7Uwc42sPSCoGutjiuelTSnDQZ4w+0Egq+srevgWUZmCfTEa3Srk+tPKKRbIrh+yZQMHG8fz/fjfq/01Pd0jhSbGanIlFZo0LGO/q1Cs32Rk9IsDEzrJE6AOZRovlmlBUOmD3JVI2Q191HwDUKFzEbHAE6OayoavSl1PYfMvNXlACMSchgUpzSskOqD56HDXBKySJp0q1pY08bqIPPLber0ugpcDbBX7TL1Mk3vQx6Qeyg49lHYpLLIjfVxerHIHK8mAtsFKZtHXLnuWHtDYJLO2Or5fpqKsJbMHY1yklTRPnXnUc0/9w+YPhP1SJfj5ZPT85Iu1COo4OH8g4hHe+pkmbq+wLjhWWgLMHUnowgVEwCq/Atstsizlv0ZFnIiU7Fg3eT7lT1YujGfir7hNpAWDiMET8QMP2gPjnQwtnSv7H44HB8Kpq4Y0gQIvRiC+p13WwH+jGqEpHfU50tjsQfOAQBiJtRsTrl31bCrsqvKeQAwkdvkWhoKNsm/gGLYqRVsxAlvUb1rmsFNTV63Ma4GCxtg4KIfBtGsT3K0J58KT19SsGVwdQA/j4DGt1jswRYaR1nZr7J28eoX1DXDKROK4mvQsHUoVwi0Gl9o9oelP+X2v5MsEpALIvE65y0V7IJ0Km8OLcitXaV6j2ixM6+sOOs7SQaohg2s1SRBoLkTZZ3rumeB4ST5YBmiq+13nczmZNg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(83380400001)(86362001)(66574015)(2616005)(38100700002)(8936002)(2906002)(31696002)(186003)(4326008)(66556008)(66946007)(8676002)(110136005)(45080400002)(6486002)(966005)(6512007)(41300700001)(478600001)(31686004)(316002)(26005)(6506007)(6666004)(53546011)(54906003)(5660300002)(36756003)(66476007)(6636002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(8676002)(4326008)(66476007)(110136005)(316002)(6636002)(54906003)(66556008)(66946007)(8936002)(5660300002)(30864003)(2906002)(38100700002)(86362001)(31696002)(36756003)(478600001)(41300700001)(6506007)(33964004)(6666004)(6486002)(66574015)(186003)(83380400001)(6512007)(2616005)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTg2cHBJVVBoSGpLWGJCZjl1WVlhNFJQdHBNYSttM05PQWxoK0tSRG5FeWZs?=
- =?utf-8?B?UGRUQWdtNm5KbDVDQjdtb0NNNmFRbERvMGZaUCtpSGtGY3BZZjVlMUVXZWZL?=
- =?utf-8?B?SmpDYzhuazk5NmJzeXY1aUpSV3R2WFBFS1JpbERkQldNWFRQVnZUcnN0TjJk?=
- =?utf-8?B?S0g4dFBocU4zaCtEV2luUkZyenNSWlByZVdnTjFKTTRBWDRJbHNYTXJGdlgx?=
- =?utf-8?B?VXlsdFo1OCtVaFkya3hER0Foc2FNMzV6NnhLanVQTVVxZjlOVTBMYjBvT0Nh?=
- =?utf-8?B?L0E4UlhYdnBLRTlXNzJmQVlKTUtZWjBrRVpyWUtWV09Hd0puQVY5a0FpOEJx?=
- =?utf-8?B?RTZ2M1k2OW5rTXhPQktLUHBJSTEySWpWa0tmZFloWDBCb28xM3BrbkFXOWxo?=
- =?utf-8?B?akRldVRQbFR1RkppdldjZ0F4SjdZakt3Rm02LzJWQU52ZCtFME5ISVRUb1hF?=
- =?utf-8?B?RDRPNWVOb1pCUUdRd3JGdkVJTitINXJiTWFjUjg2UFFIdyswYmxzbXlscUd6?=
- =?utf-8?B?WFNHVUt4VzZpR1o4YXBSMVhDeTc0VVNWQ2RNa0l0dFpGWDhETUdNSSt2VURS?=
- =?utf-8?B?VUhNaUplSjBZMUo4dDk5RFhNR28vUG5kMlVwYk04OENjRnloNzBBd250dlU2?=
- =?utf-8?B?OE9OSm04T1VDQ3JBUW1JV0VDWVQ5WXVtcmFXU254KzRMd0wyR05UZ1dSQzg4?=
- =?utf-8?B?NE5jRmxCYkd2MHZIazh3TzR3NVZvVnlrQUczQ1RIakVqOG9TZGJJbHBrVkV6?=
- =?utf-8?B?VDNvWmd0V1B2SWZVYThsK2MwWXh5MHlqa001dXZsamxoYmpTSmVISzZHZmR4?=
- =?utf-8?B?NC81Q3hwZVRFK1d1NzBZRkpZM0pEclNURXdmL1RYK3k4KzVYMGVWMndmT2Iw?=
- =?utf-8?B?RVFVLzZWdDBmem5vTDVOZEczZ3A3NTlIOXZDZnhtVUR3Q0NqL3lobVM4dG1m?=
- =?utf-8?B?UmFQVEhTdjRaVWNoL0RITEpqamlvMDQ3RC9uT1EvZHJFNFZuTHVyOU9uRjJv?=
- =?utf-8?B?dEVwVVFFRzZ3Y09LMGdKOTMvNm9EbytwYnkrWDRJaHFtd0NvSG5YNmNRdkxx?=
- =?utf-8?B?U1VOeHlyemg0ZzZud1g2VVhtNmJUZFcxOHREaVJVUjZoc1hWU1FTamNWUldL?=
- =?utf-8?B?YTB3REpXZWg3NHVRVUlsMll4Y1NYMVhHL3JRL0drYWlzaE11allINFNvckc1?=
- =?utf-8?B?YThTZ1BWNzNqWElNWW83Z1JYb096TW0wbU5wR3lqU2NoRWphWGh3WnJKaGc0?=
- =?utf-8?B?QmIyNVhLMDNQQ0w2d1ozNTlYSDcySlhKaTVaR3RPMTUyRWVESzBzbno4azNU?=
- =?utf-8?B?V0VWNjBvSzJyWUs4d3hJWUR6QWRhdldWT1dGVUgvdTlmN0FqK3QwbnAvOFRJ?=
- =?utf-8?B?d0dDdXFnWTFtdnBvR3FoMFFkdForVlMzb3pucXVFTHl0VXQwWWUzTFM2SGV1?=
- =?utf-8?B?bHgzbnVUWnFsV25FYmxybzZWSkk5cWJ0cFJuK2I5N25VNUZvZDJjNkQ1Q2FY?=
- =?utf-8?B?LzlRbEE3NGtaM3pjVjNObDl0OFVTaXZKcmwzOTBCSUlzMTgxL1JmOWxQblpQ?=
- =?utf-8?B?Y3RuanRldVhBS1pHeXoyVkZNMXloWTA0NXlOVXZpNjBQUDhJZVM5Yk5MM2dt?=
- =?utf-8?B?MGkzQ3RBcGttTlZ0UVVlZWtMdGNJNFlFd1F0dzBRTDRTZlhwNUdseGp2NURT?=
- =?utf-8?B?Z1lDYUFudDhFYVZJQnRIYVoxV2t2RW5LMXdSQlFmN1FyNmgydVI2aXFsSVVq?=
- =?utf-8?B?Sy96by9Lc1BhbmF6ZHF2bGpKb2ZPbGtrOGJjYm1IbWptWHVLb0Q5QnR2TDBY?=
- =?utf-8?B?aVE3Yzh2WC9TL3pYVjBldnVPNVZLNlFmRGk5alE2MHJOM2pNalM3SDVoQUZL?=
- =?utf-8?B?Q0xOUjRDWkErRGNjZTdkbGhCY2NOMWV4OUVrN0NaUS9MWUlGcTRGcGpZWlpU?=
- =?utf-8?B?ZTJJMjh2akZQTUtibm1nTkc0b2d3ZUNsMEczMFJXVVd6MTlNVW83SFBPTEQ1?=
- =?utf-8?B?R2VVZDdlR3hjVEVOT1QxQ2N5TStvUy80aklkcGtxSmhCa2swZmV0VVBxTXJn?=
- =?utf-8?B?a0tOZEtiekZJYWJoWGxoUTBRYmJuNmNBbGNmRXBjV1ExMnFRc1UwK1g2UzJN?=
- =?utf-8?Q?xGwhrgjnUs/FIhjge3lohLdlT?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R09Pa0U5dEE4M3h0SWVsWWlTSHpmR3V4YkswdzNlKyt4dHN1S3UyNWpMTCs4?=
+ =?utf-8?B?bUxKZyt3Y0Jqdjd5TVhzS0oxcGlPWUtMS0NQK0hsMWV1MDNTRzZzaGpub2FB?=
+ =?utf-8?B?eWVzOWIzRlpPeUVtUnhtRnJ2MkIrK3ppV0ZaVW5ObE1DT1N3WXdrQzU4Rld5?=
+ =?utf-8?B?UXZ5WXVzMkZKVXptVlptaUFERnJSWSsyTkJvbHZqMElxZDlyU2wrZkVOZmQr?=
+ =?utf-8?B?bENNN3FHbENDMTNObHlJTitucFdVbitBcmxYeDJOLzdXZlZubXVYVnBuZ2ll?=
+ =?utf-8?B?S1kwUU1lQWI2NEpqLzlPVDlSZXNEOTU5VXNVM21HU05YRjhTZ08xM3JLR1dL?=
+ =?utf-8?B?cS92bzNqUUswNW1RY0pLY0F2NTZBK1JQL2k2azgvN0VEVDRWK2I2cGs1UUF0?=
+ =?utf-8?B?L0Jrb01RTUU3ck1XUUk3ZnpNTHN3N3dUazRNQ2NRNTJGdEttSWUxN2t0a1Nj?=
+ =?utf-8?B?c0g0REpWK0taUVNIcEU4WFlmRW1FaGVrZGhERjByZ3hyNkovdXdOSlcra05i?=
+ =?utf-8?B?SWhueXBHaTVrdEYwNkdvUWlaSDJ6ZC9FMUhCUnNiYkJnSk5zTWthWU9mZEhh?=
+ =?utf-8?B?VWJ3aDgrelpRb2w1SWpBN2w1QW54R2YvN1pKcFRkMU4zWnpOR0pUSVFiaEZm?=
+ =?utf-8?B?b2RIM0hIcmhLZ2FwRXE2OGVzR3krSEs4UG9NamVDUHdJanR6aWZnaEdzaWda?=
+ =?utf-8?B?UFd0SXNMSjM2NFhSRzRPL3ZjNFk4VEk5aklQK3JwS0RmaUp6emlPNW9OMEkv?=
+ =?utf-8?B?L094VStKQSsyRWZwQnJaZnNNSGZDWGFpYS84ZWdNNkk4R1FlNmJtL3M4UHgz?=
+ =?utf-8?B?OU81TVdqODBid1BSR0g2bWQwZDdtRVRzclptc2JJNW1tOTFPejROQjZiSTdZ?=
+ =?utf-8?B?Ny96NW9VaDgwR09tTUNBUUZaUDEwRFlrYTFTdWk0d29RWitHR3ZyTVFQMktQ?=
+ =?utf-8?B?MGVLNHJ1enUyZmIyeUVGRTdQZXE4TnhCRGpUSXZJemErTk9qNUNTdzA2R2RS?=
+ =?utf-8?B?T0xDVHRRVjBVZU05MXY4N0RSemxxWFlSOFFCYmdqUXJETHFTSjN1TkMweE5K?=
+ =?utf-8?B?UGl5cm9GeVlweE80ODJSUSs4MzdkamFrenJIR2V6bkRneFIveXpHNkJPZ21P?=
+ =?utf-8?B?ZjA5eUZOTlZnbEFUZnY1VmdrZG9oTm1PS0RRZWRYcEN3S0hoaGN4MEU3aGcy?=
+ =?utf-8?B?ZUI0Q3lFRmhzWEZQNmE3V3czdVdoOTlQUHE1eHM3UnA5ekQ5N0lld2ZlMUVp?=
+ =?utf-8?B?dnBlZVBBWTQvOVNBcTFNdk5MQjlFM3VrZHBVQUY5aFpMMDJTUVNNdC84L3Nk?=
+ =?utf-8?B?MlRML1dFaEhPc3RVTGF1YWd4aVRZTnRXZTlxS2hKSFFNdExDZWNaQ1QyZEdr?=
+ =?utf-8?B?U1VLV3ZMWTdXL3NTSUNpdDVyT011TmpTNWhLbGhJcGdzU0ZHWStnNW1xZ05G?=
+ =?utf-8?B?bVVmNEI3czRGdnhRSW16dHI4d0ZkRjdCazBKc3VwN1lBK3JPU3BwOE8xN3Zr?=
+ =?utf-8?B?dndGUjhhU012a0l6UlVBZUhGYjBHZ2YwQmFFc1hlTEpMblluTVhGZU12dzVS?=
+ =?utf-8?B?NU5VZWZyakxsS2ZWNm1aUlowVU9GNURrcHVBY0dqVzE4V0Y5VTRGUDUyWE9l?=
+ =?utf-8?B?NVlReS8xUzE3MzFjTERBQy93Ly9GME43RTRDM01JOThXUDVpMVRIL3hCbi9h?=
+ =?utf-8?B?S1EwU1ZWbEdhQjRGeWVuVU5EUGNFaGJVeWxLUHowZ2lmbk45RnEvTGhmUzhu?=
+ =?utf-8?B?MmMzZmdibXR0cGRpTGRMTlBqK1lxN2xmRG9oVFMyQjhhak9TL3JuUXdaemtE?=
+ =?utf-8?B?SVA2NWZUZEFabHlXL0NSTTdIU1VPMmp2NC8xMU5ISXFkUy9VeXppRlJFd3FZ?=
+ =?utf-8?B?NkFYT3drRDhxZTcyTHpkK1pETHpaa0xqd1plTjUrY2xBZGZBaUZDVVFzdUdL?=
+ =?utf-8?B?ZXErS1g5VkROWDJKTDRyYWdJbUxLUnUvZjYwR1Z1TGFhck42a2x4TlJPcUxM?=
+ =?utf-8?B?ekRYbXMyZ0szcDA5dEQ2S3FmUHg2MG9LTFVjMndsamp5WFJCWEJ4RzRkbmRW?=
+ =?utf-8?B?S1M4LytGZEY2Rk5xT1JHWGpjb1JwY3Yrd2I5a1VZYzZpU3dwdzVFeEZTZVp0?=
+ =?utf-8?B?OGpURXBERmdibnZ4eGRZSGhUMTM1bjdCeVhxWTJvcnZaVG5rMWFuMkhNVjZ5?=
+ =?utf-8?Q?hAuCvmo6/7NpUxbkgQsd52Mu6Cgym0GxVeiKMpo3rj5v?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27edcbb0-651b-49a0-709c-08da81bd99b0
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0316e20-ea2e-48cb-6c24-08da81ca9dd7
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2022 08:34:15.6906 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2022 10:07:25.9426 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GrGtEiZhtBT1AnQ+vlBJip+A3vqL5mR/pSyDrxTvDqdmhub1IfihwY1jsbgWEW8Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3002
+X-MS-Exchange-CrossTenant-UserPrincipalName: uC7Pdb+/w4hTnlH3k2iPPEklbL9nm2SEGPWxq0fWQUGeE8gl9YM00WmQ+lCA7mq4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,136 +132,388 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stefan Roese <sr@denx.de>
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------BwWEM0gKYUioBCws7pfhRl28
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Am 19.08.22 um 11:34 schrieb 李真能:
+>
+> 在 2022/8/17 19:40, Christian König 写道:
+>
+>> Am 17.08.22 um 09:31 schrieb 李真能:
+>>>
+>>> 在 2022/8/15 21:12, Christian König 写道:
+>>>> Am 15.08.22 um 09:34 schrieb 李真能:
+>>>>>
+>>>>> 在 2022/8/12 18:55, Christian König 写道:
+>>>>>> Am 11.08.22 um 09:25 schrieb Zhenneng Li:
+>>>>>>> Although radeon card fence and wait for gpu to finish processing 
+>>>>>>> current batch rings,
+>>>>>>> there is still a corner case that radeon lockup work queue may 
+>>>>>>> not be fully flushed,
+>>>>>>> and meanwhile the radeon_suspend_kms() function has called 
+>>>>>>> pci_set_power_state() to
+>>>>>>> put device in D3hot state.
+>>>>>>
+>>>>>> If I'm not completely mistaken the reset worker uses the 
+>>>>>> suspend/resume functionality as well to get the hardware into a 
+>>>>>> working state again.
+>>>>>>
+>>>>>> So if I'm not completely mistaken this here would lead to a 
+>>>>>> deadlock, please double check that.
+>>>>>
+>>>>> We have tested many times, there are no deadlock.
+>>>>
+>>>> Testing doesn't tells you anything, you need to audit the call paths.
+>>>>
+>>>>> In which situation, there would lead to a deadlock?
+>>>>
+>>>> GPU resets.
+>>>
+>>> Although flush_delayed_work(&rdev->fence_drv[i].lockup_work) will 
+>>> wait for a lockup_work to finish executing the last queueing,  but 
+>>> this kernel func haven't get any lock, and lockup_work will run in 
+>>> another kernel thread, so I think flush_delayed_work could not lead 
+>>> to a deadlock.
+>>>
+>>> Therefor if radeon_gpu_reset is called in another thread when 
+>>> radeon_suspend_kms is blocked on flush_delayed_work, there could not 
+>>> lead to a deadlock.
+>>
+>> Ok sounds like you didn't go what I wanted to say.
+>>
+>> The key problem is that radeon_gpu_reset() calls radeon_suspend() 
+>> which in turn calls rdev->asic->suspend().
+>>
+>> And this function in turn could end up in radeon_suspend_kms() again, 
+>> but I'm not 100% sure about that.
+>>
+>> Just double check the order of function called here (e.g. if 
+>> radeon_suspend_kms() call radeon_suspend() or the other way around).  
+>> Apart from that your patch looks correct to me as well.
+>>
+> radeon_gpu_reset will call radeon_suspend, but radeon_suspend will not 
+> call radeon_suspend_kms, the more detail of call flow, we can see the 
+> attachement file: radeon-suspend-reset.png.
+>
+> Sorry  I may have mistaken your meaning.
+>
 
-On 8/19/2022 12:35 PM, Christian König wrote:
-> Hi Bjorn,
-> 
-> Am 18.08.22 um 22:38 schrieb Bjorn Helgaas:
->> [Adding amdgpu folks]
->>
->> On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org 
->> wrote:
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=05%7C01%7Clijo.lazar%40amd.com%7C59322ae65b814f132a7e08da81b14a95%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964895716218989%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=tSdOYv7x%2BO6Rm01OFSDV0j3gevlhTF9lOq9pY2AixRM%3D&amp;reserved=0 
->>>
->>>
->>>              Bug ID: 216373
->>>             Summary: Uncorrected errors reported for AMD GPU
->>>      Kernel Version: v6.0-rc1
->>>          Regression: No
->>> ...
->> I marked this as a regression in bugzilla.
->>
->>> Hardware:
->>> CPU: Intel i7-12700K (Alder Lake)
->>> GPU: AMD RX 6700 XT [1002:73df]
->>> Motherboard: ASUS Prime Z690-A
->>>
->>> Problem:
->>> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected 
->>> PCI errors
->>> for my GPU.
->> Thank you very much for the report and for taking the trouble to
->> bisect it and test Kai-Heng's patch!
->>
->> I suspect that booting with "pci=noaer" should be a temporary
->> workaround for this issue.  If it, can you add that to the bugzilla
->> for anybody else who trips over this?
->>
->>> I have bisected this issue to: 
->>> [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
->>> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
->>> Reverting that commit causes the errors to cease.
->> I suspect the errors still occur, but we just don't notice and log
->> them.
->>
->>> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a 
->>> similar
->>> problem, but it did not fix my issue.
->>>
->>> [1]
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flinux-pci%2F20220706123244.18056-1-kai.heng.feng%40canonical.com%2F&amp;data=05%7C01%7Clijo.lazar%40amd.com%7C59322ae65b814f132a7e08da81b14a95%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964895716218989%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=7U52%2BsKIHHn1%2B%2F40dbPS38IGBrBYgBxCXAoFKcrTVGU%3D&amp;reserved=0 
->>>
->>>
->>> dmesg snippet:
->>>
->>> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error 
->>> received:
->>> 0000:03:00.0
->>> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
->>> type=Transaction Layer, (Requester ID)
->>> amdgpu 0000:03:00.0:   device [1002:73df] error 
->>> status/mask=00100000/00000000
->>> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
->>> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 
->>> 00000000
->> I think the TLP header decodes to:
->>
->>    0x40000001 = 0100 0000 ... 0000 0001 binary
->>    0x0000000f = 0000 0000 ... 0000 1111 binary
->>
->>    Fmt           010b                 3 DW header with data
->>    Type          0000b  010 0 0000    MWr Memory Write Request
->>    Length        00 0000 0001b        1 DW
->>    Requester ID  0x0000               00:00.0
->>    Tag           0x00
->>    Last DW BE    0000b                must be zero for 1 DW write
->>    First DW BE   1111b                all 4 bytes in DW enabled
->>    Address       0x95e7f000
->>    Data          0x00000000
->>
->> So I think this is a 32-bit write of zero to PCI bus address
->> 0x95e7f000.
->>
->> Your dmesg log says:
->>
->>    pci 0000:02:00.0: PCI bridge to [bus 03]
->>    pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
->>    pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
->>    [drm] register mmio base: 0x95E00000
->>
->> So this looks like a write to the device's BAR 5.  I don't see a PCI
->> reason why this should fail.  Maybe there's some amdgpu reason?
-> 
-> Well I have seen a couple of boards where stuff like that happened, but 
-> from my experience this always has some hardware problem as background.
-> 
->  From my understanding what essentially happens is that a write doesn't 
-> make it to the device (e.g. transmission errors can't be corrected).
-> 
-> It's quite likely that the write is then either dropped and doesn't 
-> matter that much (just clearing the framebuffer for example) or repeated 
-> and because of this everything still seems to work fine.
-> 
-> Either way I suggest to try this with some other hartdware 
-> configuration. E.g. put the GPU in another system and see if it still 
-> gives the same issues or put another GPU into this system.
-> 
+Ok in this case my memory of the call flow wasn't correct any more.
 
-Or, it could be amdgpu or some other software component -
+Feel free to add an Acked-by: Christian König <christian.koenig@amd.com> 
+to the patch.
 
-register mmio base: 0x95E00000
-Address       0x95e7f000
-
-0x95e7f000 indicates access from CPU to a register offset 0x7FE000. This 
-doesn't look like a valid register offset for this chip (device 
-[1002:73df]). Any other clues in dmesg?
+Alex should then pick it up for upstreaming.
 
 Thanks,
-Lijo
+Christian.
 
-
-> Regards,
-> Christian.
-> 
-> 
+>
+>> Regards,
+>> Christian.
 >>
->> Bjorn
-> 
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
+>>>>>>>> Configuration and Message requests are the only TLPs accepted 
+>>>>>>>> by a Function in
+>>>>>>>> the D3hot state. All other received Requests must be handled as 
+>>>>>>>> Unsupported Requests,
+>>>>>>>> and all received Completions may optionally be handled as 
+>>>>>>>> Unexpected Completions.
+>>>>>>> This issue will happen in following logs:
+>>>>>>> Unable to handle kernel paging request at virtual address 
+>>>>>>> 00008800e0008010
+>>>>>>> CPU 0 kworker/0:3(131): Oops 0
+>>>>>>> pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 
+>>>>>>> Tainted: G        W
+>>>>>>> pc is at si_gpu_check_soft_reset+0x3c/0x240
+>>>>>>> ra is at si_dma_is_lockup+0x34/0xd0
+>>>>>>> v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
+>>>>>>> t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
+>>>>>>> t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
+>>>>>>> s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
+>>>>>>> s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
+>>>>>>> s6 = fff00007ef07bd98
+>>>>>>> a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
+>>>>>>> a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
+>>>>>>> t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = 
+>>>>>>> ff6769c5d964b800
+>>>>>>> t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
+>>>>>>> gp = ffffffff81d89690  sp = 00000000aa814126
+>>>>>>> Disabling lock debugging due to kernel taint
+>>>>>>> Trace:
+>>>>>>> [<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
+>>>>>>> [<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
+>>>>>>> [<ffffffff80977010>] process_one_work+0x280/0x550
+>>>>>>> [<ffffffff80977350>] worker_thread+0x70/0x7c0
+>>>>>>> [<ffffffff80977410>] worker_thread+0x130/0x7c0
+>>>>>>> [<ffffffff80982040>] kthread+0x200/0x210
+>>>>>>> [<ffffffff809772e0>] worker_thread+0x0/0x7c0
+>>>>>>> [<ffffffff80981f8c>] kthread+0x14c/0x210
+>>>>>>> [<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
+>>>>>>> [<ffffffff80981e40>] kthread+0x0/0x210
+>>>>>>>   Code: ad3e0008  43f0074a  ad7e0018  ad9e0020 8c3001e8 40230101
+>>>>>>>   <88210000> 4821ed21
+>>>>>>> So force lockup work queue flush to fix this problem.
+>>>>>>>
+>>>>>>> Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+>>>>>>> ---
+>>>>>>>   drivers/gpu/drm/radeon/radeon_device.c | 3 +++
+>>>>>>>   1 file changed, 3 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c 
+>>>>>>> b/drivers/gpu/drm/radeon/radeon_device.c
+>>>>>>> index 15692cb241fc..e608ca26780a 100644
+>>>>>>> --- a/drivers/gpu/drm/radeon/radeon_device.c
+>>>>>>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+>>>>>>> @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct drm_device 
+>>>>>>> *dev, bool suspend,
+>>>>>>>           if (r) {
+>>>>>>>               /* delay GPU reset to resume */
+>>>>>>> radeon_fence_driver_force_completion(rdev, i);
+>>>>>>> +        } else {
+>>>>>>> +            /* finish executing delayed work */
+>>>>>>> + flush_delayed_work(&rdev->fence_drv[i].lockup_work);
+>>>>>>>           }
+>>>>>>>       }
+>>>>>>
+>>>>
+>>
+
+--------------BwWEM0gKYUioBCws7pfhRl28
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Am 19.08.22 um 11:34 schrieb 李真能:<br>
+    <blockquote type="cite" cite="mid:103b4a67-385c-68f5-f40f-39bbc1d9f723@kylinos.cn">
+      
+      <p>在 2022/8/17 19:40, Christian König 写道:<br>
+      </p>
+      <blockquote type="cite" cite="mid:cc30a694-c784-f42c-bab6-b45c70202c56@amd.com">Am
+        17.08.22 um 09:31 schrieb 李真能: <br>
+        <blockquote type="cite"> <br>
+          在 2022/8/15 21:12, Christian König 写道: <br>
+          <blockquote type="cite">Am 15.08.22 um 09:34 schrieb 李真能: <br>
+            <blockquote type="cite"> <br>
+              在 2022/8/12 18:55, Christian König 写道: <br>
+              <blockquote type="cite">Am 11.08.22 um 09:25 schrieb
+                Zhenneng Li: <br>
+                <blockquote type="cite">Although radeon card fence and
+                  wait for gpu to finish processing current batch rings,
+                  <br>
+                  there is still a corner case that radeon lockup work
+                  queue may not be fully flushed, <br>
+                  and meanwhile the radeon_suspend_kms() function has
+                  called pci_set_power_state() to <br>
+                  put device in D3hot state. <br>
+                </blockquote>
+                <br>
+                If I'm not completely mistaken the reset worker uses the
+                suspend/resume functionality as well to get the hardware
+                into a working state again. <br>
+                <br>
+                So if I'm not completely mistaken this here would lead
+                to a deadlock, please double check that. <br>
+              </blockquote>
+              <br>
+              We have tested many times, there are no deadlock. <br>
+            </blockquote>
+            <br>
+            Testing doesn't tells you anything, you need to audit the
+            call paths. <br>
+            <br>
+            <blockquote type="cite">In which situation, there would lead
+              to a deadlock? <br>
+            </blockquote>
+            <br>
+            GPU resets. <br>
+          </blockquote>
+          <br>
+          Although
+          flush_delayed_work(&amp;rdev-&gt;fence_drv[i].lockup_work)
+          will wait for a lockup_work to finish executing the last
+          queueing,&nbsp; but this kernel func haven't get any lock, and
+          lockup_work will run in another kernel thread, so I think
+          flush_delayed_work could not lead to a deadlock. <br>
+          <br>
+          Therefor if radeon_gpu_reset is called in another thread when
+          radeon_suspend_kms is blocked on flush_delayed_work, there
+          could not lead to a deadlock. <br>
+        </blockquote>
+        <br>
+        Ok sounds like you didn't go what I wanted to say. <br>
+        <br>
+        The key problem is that radeon_gpu_reset() calls
+        radeon_suspend() which in turn calls
+        rdev-&gt;asic-&gt;suspend(). <br>
+        <br>
+        And this function in turn could end up in radeon_suspend_kms()
+        again, but I'm not 100% sure about that. <br>
+        <br>
+        Just double check the order of function called here (e.g. if
+        radeon_suspend_kms() call radeon_suspend() or the other way
+        around).&nbsp; Apart from that your patch looks correct to me as
+        well. <br>
+        <br>
+      </blockquote>
+      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px;
+        margin-right:0px; -qt-block-indent:0; text-indent:0px;">radeon_gpu_reset
+        will call radeon_suspend, but radeon_suspend will not call
+        radeon_suspend_kms, the more detail of call flow, we can see the
+        attachement file: radeon-suspend-reset.png.</p>
+      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px;
+        margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sorry&nbsp; I
+        may have mistaken your meaning.<br>
+      </p>
+    </blockquote>
+    <br>
+    Ok in this case my memory of the call flow wasn't correct any more.<br>
+    <br>
+    Feel free to add an Acked-by: Christian König
+    <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a> to the patch.<br>
+    <br>
+    Alex should then pick it up for upstreaming.<br>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite" cite="mid:103b4a67-385c-68f5-f40f-39bbc1d9f723@kylinos.cn">
+      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px;
+        margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+      <p>
+        <style type="text/css">p, li { white-space: pre-wra</style><br>
+      </p>
+      <blockquote type="cite" cite="mid:cc30a694-c784-f42c-bab6-b45c70202c56@amd.com">Regards,
+        <br>
+        Christian. <br>
+        <br>
+        <blockquote type="cite"> <br>
+          <blockquote type="cite"> <br>
+            Regards, <br>
+            Christian. <br>
+            <br>
+            <blockquote type="cite"> <br>
+              <blockquote type="cite"> <br>
+                Regards, <br>
+                Christian. <br>
+                <br>
+                <blockquote type="cite">Per PCI spec rev 4.0 on
+                  5.3.1.4.1 D3hot State. <br>
+                  <blockquote type="cite">Configuration and Message
+                    requests are the only TLPs accepted by a Function in
+                    <br>
+                    the D3hot state. All other received Requests must be
+                    handled as Unsupported Requests, <br>
+                    and all received Completions may optionally be
+                    handled as Unexpected Completions. <br>
+                  </blockquote>
+                  This issue will happen in following logs: <br>
+                  Unable to handle kernel paging request at virtual
+                  address 00008800e0008010 <br>
+                  CPU 0 kworker/0:3(131): Oops 0 <br>
+                  pc = [&lt;ffffffff811bea5c&gt;]&nbsp; ra =
+                  [&lt;ffffffff81240844&gt;]&nbsp; ps = 0000 Tainted:
+                  G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; W <br>
+                  pc is at si_gpu_check_soft_reset+0x3c/0x240 <br>
+                  ra is at si_dma_is_lockup+0x34/0xd0 <br>
+                  v0 = 0000000000000000&nbsp; t0 = fff08800e0008010&nbsp; t1 =
+                  0000000000010000 <br>
+                  t2 = 0000000000008010&nbsp; t3 = fff00007e3c00000&nbsp; t4 =
+                  fff00007e3c00258 <br>
+                  t5 = 000000000000ffff&nbsp; t6 = 0000000000000001&nbsp; t7 =
+                  fff00007ef078000 <br>
+                  s0 = fff00007e3c016e8&nbsp; s1 = fff00007e3c00000&nbsp; s2 =
+                  fff00007e3c00018 <br>
+                  s3 = fff00007e3c00000&nbsp; s4 = fff00007fff59d80&nbsp; s5 =
+                  0000000000000000 <br>
+                  s6 = fff00007ef07bd98 <br>
+                  a0 = fff00007e3c00000&nbsp; a1 = fff00007e3c016e8&nbsp; a2 =
+                  0000000000000008 <br>
+                  a3 = 0000000000000001&nbsp; a4 = 8f5c28f5c28f5c29&nbsp; a5 =
+                  ffffffff810f4338 <br>
+                  t8 = 0000000000000275&nbsp; t9 = ffffffff809b66f8&nbsp; t10 =
+                  ff6769c5d964b800 <br>
+                  t11= 000000000000b886&nbsp; pv = ffffffff811bea20&nbsp; at =
+                  0000000000000000 <br>
+                  gp = ffffffff81d89690&nbsp; sp = 00000000aa814126 <br>
+                  Disabling lock debugging due to kernel taint <br>
+                  Trace: <br>
+                  [&lt;ffffffff81240844&gt;] si_dma_is_lockup+0x34/0xd0
+                  <br>
+                  [&lt;ffffffff81119610&gt;]
+                  radeon_fence_check_lockup+0xd0/0x290 <br>
+                  [&lt;ffffffff80977010&gt;]
+                  process_one_work+0x280/0x550 <br>
+                  [&lt;ffffffff80977350&gt;] worker_thread+0x70/0x7c0 <br>
+                  [&lt;ffffffff80977410&gt;] worker_thread+0x130/0x7c0 <br>
+                  [&lt;ffffffff80982040&gt;] kthread+0x200/0x210 <br>
+                  [&lt;ffffffff809772e0&gt;] worker_thread+0x0/0x7c0 <br>
+                  [&lt;ffffffff80981f8c&gt;] kthread+0x14c/0x210 <br>
+                  [&lt;ffffffff80911658&gt;]
+                  ret_from_kernel_thread+0x18/0x20 <br>
+                  [&lt;ffffffff80981e40&gt;] kthread+0x0/0x210 <br>
+                  &nbsp; Code: ad3e0008&nbsp; 43f0074a&nbsp; ad7e0018&nbsp; ad9e0020&nbsp;
+                  8c3001e8 40230101 <br>
+                  &nbsp; &lt;88210000&gt; 4821ed21 <br>
+                  So force lockup work queue flush to fix this problem.
+                  <br>
+                  <br>
+                  Signed-off-by: Zhenneng Li <a class="moz-txt-link-rfc2396E" href="mailto:lizhenneng@kylinos.cn" moz-do-not-send="true">&lt;lizhenneng@kylinos.cn&gt;</a>
+                  <br>
+                  --- <br>
+                  &nbsp; drivers/gpu/drm/radeon/radeon_device.c | 3 +++ <br>
+                  &nbsp; 1 file changed, 3 insertions(+) <br>
+                  <br>
+                  diff --git a/drivers/gpu/drm/radeon/radeon_device.c
+                  b/drivers/gpu/drm/radeon/radeon_device.c <br>
+                  index 15692cb241fc..e608ca26780a 100644 <br>
+                  --- a/drivers/gpu/drm/radeon/radeon_device.c <br>
+                  +++ b/drivers/gpu/drm/radeon/radeon_device.c <br>
+                  @@ -1604,6 +1604,9 @@ int radeon_suspend_kms(struct
+                  drm_device *dev, bool suspend, <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) { <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* delay GPU reset to resume */ <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  radeon_fence_driver_force_completion(rdev, i); <br>
+                  +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else { <br>
+                  +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* finish executing delayed work */ <br>
+                  +
+                  flush_delayed_work(&amp;rdev-&gt;fence_drv[i].lockup_work);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+                </blockquote>
+                <br>
+              </blockquote>
+            </blockquote>
+            <br>
+          </blockquote>
+        </blockquote>
+        <br>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------BwWEM0gKYUioBCws7pfhRl28--
