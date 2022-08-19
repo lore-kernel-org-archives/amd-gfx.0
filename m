@@ -4,36 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659D6C25B0E
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 07:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B2BC25B0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 08:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6521410F12B;
-	Fri, 19 Aug 2022 07:40:37 +0000 (UTC)
-X-Greylist: delayed 396 seconds by postgrey-1.36 at gabe;
- Thu, 18 Aug 2022 21:06:53 UTC
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 531CE10E6D7
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 21:06:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=k1; bh=W17cGhyZCof31/jqq1/AzJYm+5x
- 9xItdgevlD2TeU6Q=; b=iND1ayaiEeF23vqwp2t99AhA21f4S7lSY9mmnfVk27s
- Eoiz57FBw8IMzzVAbWg1E3n367AC6xmyEdKq/EEqw1HhyComafPvAR5WdWCZdRdx
- zQLVGzN0Pzu98VEB3WfV+BmvcSEZ+y+q/mmewCFBgFRjxC1S7OoxuotwNq6ZCkmA
- =
-Received: (qmail 3959910 invoked from network); 18 Aug 2022 23:00:09 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 18 Aug 2022 23:00:09 +0200
-X-UD-Smtp-Session: l3s3148p1@Io5CRIrm9OIucref
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] gpu: move from strlcpy with unused retval to strscpy
-Date: Thu, 18 Aug 2022 23:00:07 +0200
-Message-Id: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC0010E9A2;
+	Fri, 19 Aug 2022 08:34:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8BC010E9BB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Aug 2022 08:34:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RRrG6S+D8B1lD3t2B7mRVPFRrmc+WLT8RlcDZW1VoxRA3QggBs+02meX9EeA8a2WIVoIL5bs9Z92CrlcmUo+cqoL1i6Y2RvrDG9g51WfH77MO1PC4dytHBXYRHb/YP3P4YDqdbhu1D6NvXzOkG8iVA7KcZFEijYPa+UfBBGnoSs1aav2eXLqVc9WVmjUDczVExhbavPD7RoHHvAnpgCEkHfgU2DdmAzpRKutDS9HE+SZmxRsnMuaCOWoepJrOXa+hLZQAP46+xvIVjHMj3ySmf0poHSeEf7DSaPfNvn+18wRBEA0CSZNhYOLUR0MsiUxBjMhDCsKxzsCHkTe5f3xGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UaFL2Mj+unXNZUwlHaZeg9ReB5iQJrAkmzI7D5goiJs=;
+ b=Zsm6IbPFl2xg961AweRYTX+P+oIwIfwD4H+mL7u7UoD/+Y9NTBsksfLaAnhrLcb/fQq9HmDsO9K+inzW2Fga2qjxHJPO3zIU6xqW1A0vRkRuymoCqU/+XNB82eBcucXXVTD/DJhpZNQ9I6IrtKlRaAwXhh6Bslds8Dz8HY9MEiilO7lU8Ymnn4JxCzQaoY43W8G2hpCYUvyvTQBjYjk/HAsPmxJnQP2IAcBNgFaOiyZV+bMwY+PwH+7ZO5u0ohE0n7UVcFYrHdNzT7Eltcu+yq6SGAjiEI5D0DMQIVN+ZkVVU2fgDA9qanLtbsALY9EBEON/C6ilWoPSweN9zoHpgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UaFL2Mj+unXNZUwlHaZeg9ReB5iQJrAkmzI7D5goiJs=;
+ b=ArocNPzmgq0SOM7EMNa5+pzhUCQ3sI81cxj7klKTZkFNValEWBHRb28fINfsk36rmddXQRrqkBiL1JAuBgjuN5G9sbM+OL28lYQBLNPuspYT3QgM2zG2bwLg3yPaCE1LKLP5X9gMHvZ3K/jbHq950rXLlPgKk7/FFbdjCo7t8tU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DM6PR12MB3002.namprd12.prod.outlook.com (2603:10b6:5:117::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Fri, 19 Aug
+ 2022 08:34:16 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::4195:ca0b:381f:7900]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::4195:ca0b:381f:7900%4]) with mapi id 15.20.5546.016; Fri, 19 Aug 2022
+ 08:34:15 +0000
+Message-ID: <fc036a10-5c13-fdd7-9d98-2b5f0f8af383@amd.com>
+Date: Fri, 19 Aug 2022 14:03:59 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+References: <20220818203812.GA2381243@bhelgaas>
+ <c1a4da18-a6e1-c633-a585-1b4940a5de59@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <c1a4da18-a6e1-c633-a585-1b4940a5de59@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 19 Aug 2022 07:40:30 +0000
+X-ClientProxiedBy: PN2PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::12) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 27edcbb0-651b-49a0-709c-08da81bd99b0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3002:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: h+z6jrJ8VC4xIFHNgh9uz2Pj9/wlh7CJ8xehV7cKJ5sR7CbsuOkDA+3paubg5v+r9mVmceaNQ2TL1QX8DWUlVBBaQc3JDK/jm9/Wq+unqyqTL8ZzlOpuWiwVZAEnOzpRx2UytnD3hbvz20NaJsVkKc6vw9JeuCCIjoZfz0fjp/itAGCHEPpbud7azGXKdWdkmc2NK3BwngYLywJdKcOX03JigaFEncsCRu2Xbz/48uKsL3iJQXAKbeHgTecnIU2FCz2OsHBpARoBGqfeesJK7YkCs8mq6RBxRlKJkJ4LCWPgu7wP0nO8lTPnOMrj3cuqPyPeSmwvfx3efbDugnvqwDFT6wiy0Fs2Qj0JUF1QuJe6AVCW+ABcRPdHT7d0wOWCbunBEFmoW2EWt6sOHnIGnsBdXOsmP1AplBgYkNUEBcLfpLPHrnYvWxk/Pi5BApj3qq3+f3j5iyyUXiu7AkrEx/v2fv3mNZtft6QcDhy2FQryoDkx+Y83jMkpgcE07zVVSjTtmRVbQ6ZQKr9azR47+WdKEKEqgeUWBwFbK/GMNwF1lXsvzeDsFwTyS7DUySWk3Wi+RGJ7jhhGkFh8w1zvc3mBFDfT0kgrUJn1opA6WAgeSivM7sz0WeIYUZcpoW6oSQvllDbOv2/jo0/Y0FDoTMoN03/tD0S4z7pvTSqLqKXnXkiQVHd2WnI/EtJle0vMZUgfOlBQwKF6jCjVieA0iuc5oR2xaHBB9bogpTaPUKMWqwGY/gBFChNBlp1NNSjnxHOy9uK8NQvr/Fw75xB3yX9VJGRJUMk9fw/1LLNbxB8ClKop5Us2gpw/NGjEnIczAqzw1DoGaI0VGUrsXINx3UA1rQcaKeZM5HP2oov+RZ0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(83380400001)(86362001)(66574015)(2616005)(38100700002)(8936002)(2906002)(31696002)(186003)(4326008)(66556008)(66946007)(8676002)(110136005)(45080400002)(6486002)(966005)(6512007)(41300700001)(478600001)(31686004)(316002)(26005)(6506007)(6666004)(53546011)(54906003)(5660300002)(36756003)(66476007)(6636002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTg2cHBJVVBoSGpLWGJCZjl1WVlhNFJQdHBNYSttM05PQWxoK0tSRG5FeWZs?=
+ =?utf-8?B?UGRUQWdtNm5KbDVDQjdtb0NNNmFRbERvMGZaUCtpSGtGY3BZZjVlMUVXZWZL?=
+ =?utf-8?B?SmpDYzhuazk5NmJzeXY1aUpSV3R2WFBFS1JpbERkQldNWFRQVnZUcnN0TjJk?=
+ =?utf-8?B?S0g4dFBocU4zaCtEV2luUkZyenNSWlByZVdnTjFKTTRBWDRJbHNYTXJGdlgx?=
+ =?utf-8?B?VXlsdFo1OCtVaFkya3hER0Foc2FNMzV6NnhLanVQTVVxZjlOVTBMYjBvT0Nh?=
+ =?utf-8?B?L0E4UlhYdnBLRTlXNzJmQVlKTUtZWjBrRVpyWUtWV09Hd0puQVY5a0FpOEJx?=
+ =?utf-8?B?RTZ2M1k2OW5rTXhPQktLUHBJSTEySWpWa0tmZFloWDBCb28xM3BrbkFXOWxo?=
+ =?utf-8?B?akRldVRQbFR1RkppdldjZ0F4SjdZakt3Rm02LzJWQU52ZCtFME5ISVRUb1hF?=
+ =?utf-8?B?RDRPNWVOb1pCUUdRd3JGdkVJTitINXJiTWFjUjg2UFFIdyswYmxzbXlscUd6?=
+ =?utf-8?B?WFNHVUt4VzZpR1o4YXBSMVhDeTc0VVNWQ2RNa0l0dFpGWDhETUdNSSt2VURS?=
+ =?utf-8?B?VUhNaUplSjBZMUo4dDk5RFhNR28vUG5kMlVwYk04OENjRnloNzBBd250dlU2?=
+ =?utf-8?B?OE9OSm04T1VDQ3JBUW1JV0VDWVQ5WXVtcmFXU254KzRMd0wyR05UZ1dSQzg4?=
+ =?utf-8?B?NE5jRmxCYkd2MHZIazh3TzR3NVZvVnlrQUczQ1RIakVqOG9TZGJJbHBrVkV6?=
+ =?utf-8?B?VDNvWmd0V1B2SWZVYThsK2MwWXh5MHlqa001dXZsamxoYmpTSmVISzZHZmR4?=
+ =?utf-8?B?NC81Q3hwZVRFK1d1NzBZRkpZM0pEclNURXdmL1RYK3k4KzVYMGVWMndmT2Iw?=
+ =?utf-8?B?RVFVLzZWdDBmem5vTDVOZEczZ3A3NTlIOXZDZnhtVUR3Q0NqL3lobVM4dG1m?=
+ =?utf-8?B?UmFQVEhTdjRaVWNoL0RITEpqamlvMDQ3RC9uT1EvZHJFNFZuTHVyOU9uRjJv?=
+ =?utf-8?B?dEVwVVFFRzZ3Y09LMGdKOTMvNm9EbytwYnkrWDRJaHFtd0NvSG5YNmNRdkxx?=
+ =?utf-8?B?U1VOeHlyemg0ZzZud1g2VVhtNmJUZFcxOHREaVJVUjZoc1hWU1FTamNWUldL?=
+ =?utf-8?B?YTB3REpXZWg3NHVRVUlsMll4Y1NYMVhHL3JRL0drYWlzaE11allINFNvckc1?=
+ =?utf-8?B?YThTZ1BWNzNqWElNWW83Z1JYb096TW0wbU5wR3lqU2NoRWphWGh3WnJKaGc0?=
+ =?utf-8?B?QmIyNVhLMDNQQ0w2d1ozNTlYSDcySlhKaTVaR3RPMTUyRWVESzBzbno4azNU?=
+ =?utf-8?B?V0VWNjBvSzJyWUs4d3hJWUR6QWRhdldWT1dGVUgvdTlmN0FqK3QwbnAvOFRJ?=
+ =?utf-8?B?d0dDdXFnWTFtdnBvR3FoMFFkdForVlMzb3pucXVFTHl0VXQwWWUzTFM2SGV1?=
+ =?utf-8?B?bHgzbnVUWnFsV25FYmxybzZWSkk5cWJ0cFJuK2I5N25VNUZvZDJjNkQ1Q2FY?=
+ =?utf-8?B?LzlRbEE3NGtaM3pjVjNObDl0OFVTaXZKcmwzOTBCSUlzMTgxL1JmOWxQblpQ?=
+ =?utf-8?B?Y3RuanRldVhBS1pHeXoyVkZNMXloWTA0NXlOVXZpNjBQUDhJZVM5Yk5MM2dt?=
+ =?utf-8?B?MGkzQ3RBcGttTlZ0UVVlZWtMdGNJNFlFd1F0dzBRTDRTZlhwNUdseGp2NURT?=
+ =?utf-8?B?Z1lDYUFudDhFYVZJQnRIYVoxV2t2RW5LMXdSQlFmN1FyNmgydVI2aXFsSVVq?=
+ =?utf-8?B?Sy96by9Lc1BhbmF6ZHF2bGpKb2ZPbGtrOGJjYm1IbWptWHVLb0Q5QnR2TDBY?=
+ =?utf-8?B?aVE3Yzh2WC9TL3pYVjBldnVPNVZLNlFmRGk5alE2MHJOM2pNalM3SDVoQUZL?=
+ =?utf-8?B?Q0xOUjRDWkErRGNjZTdkbGhCY2NOMWV4OUVrN0NaUS9MWUlGcTRGcGpZWlpU?=
+ =?utf-8?B?ZTJJMjh2akZQTUtibm1nTkc0b2d3ZUNsMEczMFJXVVd6MTlNVW83SFBPTEQ1?=
+ =?utf-8?B?R2VVZDdlR3hjVEVOT1QxQ2N5TStvUy80aklkcGtxSmhCa2swZmV0VVBxTXJn?=
+ =?utf-8?B?a0tOZEtiekZJYWJoWGxoUTBRYmJuNmNBbGNmRXBjV1ExMnFRc1UwK1g2UzJN?=
+ =?utf-8?Q?xGwhrgjnUs/FIhjge3lohLdlT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27edcbb0-651b-49a0-709c-08da81bd99b0
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2022 08:34:15.6906 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GrGtEiZhtBT1AnQ+vlBJip+A3vqL5mR/pSyDrxTvDqdmhub1IfihwY1jsbgWEW8Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,281 +126,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Samuel Holland <samuel@sholland.org>,
- Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-sunxi@lists.linux.dev, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Evan Quan <evan.quan@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Sandy Huang <hjc@rock-chips.com>,
- Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
+ linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stefan Roese <sr@denx.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Follow the advice of the below link and prefer 'strscpy' in this
-subsystem. Conversion is 1:1 because the return value is not used.
-Generated by a coccinelle script.
 
-Link: https://lore.kernel.org/r/CAHk-=wgfRnXz0W3D37d01q3JFkr_i_uTL=V6A6G1oUZcprmknw@mail.gmail.com/
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- drivers/gpu/drm/amd/amdgpu/atom.c                   | 2 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c      | 2 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 6 +++---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c           | 2 +-
- drivers/gpu/drm/display/drm_dp_helper.c             | 2 +-
- drivers/gpu/drm/display/drm_dp_mst_topology.c       | 2 +-
- drivers/gpu/drm/drm_mipi_dsi.c                      | 2 +-
- drivers/gpu/drm/i2c/tda998x_drv.c                   | 2 +-
- drivers/gpu/drm/i915/selftests/i915_perf.c          | 2 +-
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c             | 2 +-
- drivers/gpu/drm/radeon/radeon_atombios.c            | 4 ++--
- drivers/gpu/drm/radeon/radeon_combios.c             | 4 ++--
- drivers/gpu/drm/rockchip/inno_hdmi.c                | 2 +-
- drivers/gpu/drm/rockchip/rk3066_hdmi.c              | 2 +-
- drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c              | 2 +-
- 15 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 1c5d9388ad0b..5f610e9a5f0f 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1509,7 +1509,7 @@ struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
- 	str = CSTR(idx);
- 	if (*str != '\0') {
- 		pr_info("ATOM BIOS: %s\n", str);
--		strlcpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
-+		strscpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
- 	}
- 
- 	atom_rom_header = (struct _ATOM_ROM_HEADER *)CSTR(base);
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-index d3fe149d8476..81fb4e5dd804 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-@@ -794,7 +794,7 @@ void amdgpu_add_thermal_controller(struct amdgpu_device *adev)
- 				struct i2c_board_info info = { };
- 				const char *name = pp_lib_thermal_controller_names[controller->ucType];
- 				info.addr = controller->ucI2cAddress >> 1;
--				strlcpy(info.type, name, sizeof(info.type));
-+				strscpy(info.type, name, sizeof(info.type));
- 				i2c_new_client_device(&adev->pm.i2c_bus->adapter, &info);
- 			}
- 		} else {
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
-index 7d2ed0ed2fe2..4efb62bcdb63 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
-@@ -542,8 +542,8 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	strlcpy(card->driver, DRIVER_NAME, sizeof(card->driver));
--	strlcpy(card->shortname, "DW-HDMI", sizeof(card->shortname));
-+	strscpy(card->driver, DRIVER_NAME, sizeof(card->driver));
-+	strscpy(card->shortname, "DW-HDMI", sizeof(card->shortname));
- 	snprintf(card->longname, sizeof(card->longname),
- 		 "%s rev 0x%02x, irq %d", card->shortname, revision,
- 		 data->irq);
-@@ -561,7 +561,7 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
- 
- 	dw->pcm = pcm;
- 	pcm->private_data = dw;
--	strlcpy(pcm->name, DRIVER_NAME, sizeof(pcm->name));
-+	strscpy(pcm->name, DRIVER_NAME, sizeof(pcm->name));
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &snd_dw_hdmi_ops);
- 
- 	/*
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 25a60eb4d67c..4f3ae976e677 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -533,7 +533,7 @@ static struct i2c_adapter *dw_hdmi_i2c_adapter(struct dw_hdmi *hdmi)
- 	adap->owner = THIS_MODULE;
- 	adap->dev.parent = hdmi->dev;
- 	adap->algo = &dw_hdmi_algorithm;
--	strlcpy(adap->name, "DesignWare HDMI", sizeof(adap->name));
-+	strscpy(adap->name, "DesignWare HDMI", sizeof(adap->name));
- 	i2c_set_adapdata(adap, hdmi);
- 
- 	ret = i2c_add_adapter(adap);
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index e5bab236b3ae..10a39b36a661 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2058,7 +2058,7 @@ int drm_dp_aux_register(struct drm_dp_aux *aux)
- 	aux->ddc.owner = THIS_MODULE;
- 	aux->ddc.dev.parent = aux->dev;
- 
--	strlcpy(aux->ddc.name, aux->name ? aux->name : dev_name(aux->dev),
-+	strscpy(aux->ddc.name, aux->name ? aux->name : dev_name(aux->dev),
- 		sizeof(aux->ddc.name));
- 
- 	ret = drm_dp_aux_register_devnode(aux);
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 57e65423e50d..6bdf39937054 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5780,7 +5780,7 @@ static int drm_dp_mst_register_i2c_bus(struct drm_dp_mst_port *port)
- 	aux->ddc.dev.parent = parent_dev;
- 	aux->ddc.dev.of_node = parent_dev->of_node;
- 
--	strlcpy(aux->ddc.name, aux->name ? aux->name : dev_name(parent_dev),
-+	strscpy(aux->ddc.name, aux->name ? aux->name : dev_name(parent_dev),
- 		sizeof(aux->ddc.name));
- 
- 	return i2c_add_adapter(&aux->ddc);
-diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
-index c40bde96cfdf..9820b85a34c7 100644
---- a/drivers/gpu/drm/drm_mipi_dsi.c
-+++ b/drivers/gpu/drm/drm_mipi_dsi.c
-@@ -223,7 +223,7 @@ mipi_dsi_device_register_full(struct mipi_dsi_host *host,
- 
- 	dsi->dev.of_node = info->node;
- 	dsi->channel = info->channel;
--	strlcpy(dsi->name, info->type, sizeof(dsi->name));
-+	strscpy(dsi->name, info->type, sizeof(dsi->name));
- 
- 	ret = mipi_dsi_device_add(dsi);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/i2c/tda998x_drv.c b/drivers/gpu/drm/i2c/tda998x_drv.c
-index f8eb6f69be05..d49f0bd8d02c 100644
---- a/drivers/gpu/drm/i2c/tda998x_drv.c
-+++ b/drivers/gpu/drm/i2c/tda998x_drv.c
-@@ -1949,7 +1949,7 @@ static int tda998x_create(struct device *dev)
- 	 * offset.
- 	 */
- 	memset(&cec_info, 0, sizeof(cec_info));
--	strlcpy(cec_info.type, "tda9950", sizeof(cec_info.type));
-+	strscpy(cec_info.type, "tda9950", sizeof(cec_info.type));
- 	cec_info.addr = priv->cec_addr;
- 	cec_info.platform_data = &priv->cec_glue;
- 	cec_info.irq = client->irq;
-diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
-index 88db2e3d81d0..8f5285654d7a 100644
---- a/drivers/gpu/drm/i915/selftests/i915_perf.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
-@@ -28,7 +28,7 @@ alloc_empty_config(struct i915_perf *perf)
- 	oa_config->perf = perf;
- 	kref_init(&oa_config->ref);
- 
--	strlcpy(oa_config->uuid, TEST_OA_CONFIG_UUID, sizeof(oa_config->uuid));
-+	strscpy(oa_config->uuid, TEST_OA_CONFIG_UUID, sizeof(oa_config->uuid));
- 
- 	mutex_lock(&perf->metrics_lock);
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
-index 6207eac88550..19541d197047 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c
-@@ -292,7 +292,7 @@ static int mtk_hdmi_ddc_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	strlcpy(ddc->adap.name, "mediatek-hdmi-ddc", sizeof(ddc->adap.name));
-+	strscpy(ddc->adap.name, "mediatek-hdmi-ddc", sizeof(ddc->adap.name));
- 	ddc->adap.owner = THIS_MODULE;
- 	ddc->adap.class = I2C_CLASS_DDC;
- 	ddc->adap.algo = &mtk_hdmi_ddc_algorithm;
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-index 28c4413f4dc8..62fbbd6181bc 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -2104,7 +2104,7 @@ static int radeon_atombios_parse_power_table_1_3(struct radeon_device *rdev)
- 			const char *name = thermal_controller_names[power_info->info.
- 								    ucOverdriveThermalController];
- 			info.addr = power_info->info.ucOverdriveControllerAddress >> 1;
--			strlcpy(info.type, name, sizeof(info.type));
-+			strscpy(info.type, name, sizeof(info.type));
- 			i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
- 		}
- 	}
-@@ -2354,7 +2354,7 @@ static void radeon_atombios_add_pplib_thermal_controller(struct radeon_device *r
- 				struct i2c_board_info info = { };
- 				const char *name = pp_lib_thermal_controller_names[controller->ucType];
- 				info.addr = controller->ucI2cAddress >> 1;
--				strlcpy(info.type, name, sizeof(info.type));
-+				strscpy(info.type, name, sizeof(info.type));
- 				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
- 			}
- 		} else {
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 783a6b8802d5..795c3667f6d6 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -2702,7 +2702,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
- 				struct i2c_board_info info = { };
- 				const char *name = thermal_controller_names[thermal_controller];
- 				info.addr = i2c_addr >> 1;
--				strlcpy(info.type, name, sizeof(info.type));
-+				strscpy(info.type, name, sizeof(info.type));
- 				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
- 			}
- 		}
-@@ -2719,7 +2719,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
- 				struct i2c_board_info info = { };
- 				const char *name = "f75375";
- 				info.addr = 0x28;
--				strlcpy(info.type, name, sizeof(info.type));
-+				strscpy(info.type, name, sizeof(info.type));
- 				i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
- 				DRM_INFO("Possible %s thermal controller at 0x%02x\n",
- 					 name, info.addr);
-diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockchip/inno_hdmi.c
-index 87b2243ea23e..98ed6cc931d0 100644
---- a/drivers/gpu/drm/rockchip/inno_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
-@@ -797,7 +797,7 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(struct inno_hdmi *hdmi)
- 	adap->dev.parent = hdmi->dev;
- 	adap->dev.of_node = hdmi->dev->of_node;
- 	adap->algo = &inno_hdmi_algorithm;
--	strlcpy(adap->name, "Inno HDMI", sizeof(adap->name));
-+	strscpy(adap->name, "Inno HDMI", sizeof(adap->name));
- 	i2c_set_adapdata(adap, hdmi);
- 
- 	ret = i2c_add_adapter(adap);
-diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-index cf2cf51091a3..bf2924730d84 100644
---- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-@@ -730,7 +730,7 @@ static struct i2c_adapter *rk3066_hdmi_i2c_adapter(struct rk3066_hdmi *hdmi)
- 	adap->dev.parent = hdmi->dev;
- 	adap->dev.of_node = hdmi->dev->of_node;
- 	adap->algo = &rk3066_hdmi_algorithm;
--	strlcpy(adap->name, "RK3066 HDMI", sizeof(adap->name));
-+	strscpy(adap->name, "RK3066 HDMI", sizeof(adap->name));
- 	i2c_set_adapdata(adap, hdmi);
- 
- 	ret = i2c_add_adapter(adap);
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
-index c7d7e9fff91c..d1a65a921f5a 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c
-@@ -304,7 +304,7 @@ int sun4i_hdmi_i2c_create(struct device *dev, struct sun4i_hdmi *hdmi)
- 	adap->owner = THIS_MODULE;
- 	adap->class = I2C_CLASS_DDC;
- 	adap->algo = &sun4i_hdmi_i2c_algorithm;
--	strlcpy(adap->name, "sun4i_hdmi_i2c adapter", sizeof(adap->name));
-+	strscpy(adap->name, "sun4i_hdmi_i2c adapter", sizeof(adap->name));
- 	i2c_set_adapdata(adap, hdmi);
- 
- 	ret = i2c_add_adapter(adap);
--- 
-2.35.1
+On 8/19/2022 12:35 PM, Christian König wrote:
+> Hi Bjorn,
+> 
+> Am 18.08.22 um 22:38 schrieb Bjorn Helgaas:
+>> [Adding amdgpu folks]
+>>
+>> On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org 
+>> wrote:
+>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=05%7C01%7Clijo.lazar%40amd.com%7C59322ae65b814f132a7e08da81b14a95%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964895716218989%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=tSdOYv7x%2BO6Rm01OFSDV0j3gevlhTF9lOq9pY2AixRM%3D&amp;reserved=0 
+>>>
+>>>
+>>>              Bug ID: 216373
+>>>             Summary: Uncorrected errors reported for AMD GPU
+>>>      Kernel Version: v6.0-rc1
+>>>          Regression: No
+>>> ...
+>> I marked this as a regression in bugzilla.
+>>
+>>> Hardware:
+>>> CPU: Intel i7-12700K (Alder Lake)
+>>> GPU: AMD RX 6700 XT [1002:73df]
+>>> Motherboard: ASUS Prime Z690-A
+>>>
+>>> Problem:
+>>> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected 
+>>> PCI errors
+>>> for my GPU.
+>> Thank you very much for the report and for taking the trouble to
+>> bisect it and test Kai-Heng's patch!
+>>
+>> I suspect that booting with "pci=noaer" should be a temporary
+>> workaround for this issue.  If it, can you add that to the bugzilla
+>> for anybody else who trips over this?
+>>
+>>> I have bisected this issue to: 
+>>> [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
+>>> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
+>>> Reverting that commit causes the errors to cease.
+>> I suspect the errors still occur, but we just don't notice and log
+>> them.
+>>
+>>> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a 
+>>> similar
+>>> problem, but it did not fix my issue.
+>>>
+>>> [1]
+>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flinux-pci%2F20220706123244.18056-1-kai.heng.feng%40canonical.com%2F&amp;data=05%7C01%7Clijo.lazar%40amd.com%7C59322ae65b814f132a7e08da81b14a95%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637964895716218989%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=7U52%2BsKIHHn1%2B%2F40dbPS38IGBrBYgBxCXAoFKcrTVGU%3D&amp;reserved=0 
+>>>
+>>>
+>>> dmesg snippet:
+>>>
+>>> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error 
+>>> received:
+>>> 0000:03:00.0
+>>> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
+>>> type=Transaction Layer, (Requester ID)
+>>> amdgpu 0000:03:00.0:   device [1002:73df] error 
+>>> status/mask=00100000/00000000
+>>> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
+>>> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 
+>>> 00000000
+>> I think the TLP header decodes to:
+>>
+>>    0x40000001 = 0100 0000 ... 0000 0001 binary
+>>    0x0000000f = 0000 0000 ... 0000 1111 binary
+>>
+>>    Fmt           010b                 3 DW header with data
+>>    Type          0000b  010 0 0000    MWr Memory Write Request
+>>    Length        00 0000 0001b        1 DW
+>>    Requester ID  0x0000               00:00.0
+>>    Tag           0x00
+>>    Last DW BE    0000b                must be zero for 1 DW write
+>>    First DW BE   1111b                all 4 bytes in DW enabled
+>>    Address       0x95e7f000
+>>    Data          0x00000000
+>>
+>> So I think this is a 32-bit write of zero to PCI bus address
+>> 0x95e7f000.
+>>
+>> Your dmesg log says:
+>>
+>>    pci 0000:02:00.0: PCI bridge to [bus 03]
+>>    pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
+>>    pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
+>>    [drm] register mmio base: 0x95E00000
+>>
+>> So this looks like a write to the device's BAR 5.  I don't see a PCI
+>> reason why this should fail.  Maybe there's some amdgpu reason?
+> 
+> Well I have seen a couple of boards where stuff like that happened, but 
+> from my experience this always has some hardware problem as background.
+> 
+>  From my understanding what essentially happens is that a write doesn't 
+> make it to the device (e.g. transmission errors can't be corrected).
+> 
+> It's quite likely that the write is then either dropped and doesn't 
+> matter that much (just clearing the framebuffer for example) or repeated 
+> and because of this everything still seems to work fine.
+> 
+> Either way I suggest to try this with some other hartdware 
+> configuration. E.g. put the GPU in another system and see if it still 
+> gives the same issues or put another GPU into this system.
+> 
 
+Or, it could be amdgpu or some other software component -
+
+register mmio base: 0x95E00000
+Address       0x95e7f000
+
+0x95e7f000 indicates access from CPU to a register offset 0x7FE000. This 
+doesn't look like a valid register offset for this chip (device 
+[1002:73df]). Any other clues in dmesg?
+
+Thanks,
+Lijo
+
+
+> Regards,
+> Christian.
+> 
+> 
+>>
+>> Bjorn
+> 
