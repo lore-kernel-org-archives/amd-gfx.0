@@ -4,72 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD82C00140
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 21:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D6BAC28B2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 01:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DC710F0BE;
-	Thu, 18 Aug 2022 21:37:37 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4485F10F0BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 21:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660858651;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lScf9Dov1eqBcZW4o7xmR0mpAM2ZlF/Ug/GDTkmjTuQ=;
- b=bNelv68u96csnOjL00mLYGQrOoFqT+wuKLtjfaQPzXM2aU/7MwvvYVOPVQvi9YhXnvw13D
- ZTJO2dRJz02nlxpNu0840G3TDjjql2I7eGWVDHzB774C4xKPF84FJ/Xqg9crW6UJInvYMG
- Nsxn085amJMVDxSDwMHLQmztExH3Y2c=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-438-hTzNrkIkOd-ICDhOhS6bMg-1; Thu, 18 Aug 2022 17:37:30 -0400
-X-MC-Unique: hTzNrkIkOd-ICDhOhS6bMg-1
-Received: by mail-qt1-f197.google.com with SMTP id
- z6-20020ac875c6000000b0034454b14c91so2096524qtq.15
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 14:37:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F48010EAEA;
+	Fri, 19 Aug 2022 01:53:55 +0000 (UTC)
+Received: from mail-vk1-xa32.google.com (mail-vk1-xa32.google.com
+ [IPv6:2607:f8b0:4864:20::a32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B01010EAEA;
+ Fri, 19 Aug 2022 01:53:50 +0000 (UTC)
+Received: by mail-vk1-xa32.google.com with SMTP id w129so1629560vkg.10;
+ Thu, 18 Aug 2022 18:53:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=N0PWF6mpMkapDmr2x+HcuoLa7BiJFVqo/4zstKJkGXc=;
+ b=jVOcOR4dyUUmu0Ru38o7pgFej2RbLG6EiG7e+69dbvV07sSLuI6X2SzYwzrszF5Ey3
+ vGHq8To9NtIljhtfQzCI8QodAxfnYRmcu9mVczzohxV/qAj6kVswX/rYNlR11xrlcs+p
+ PJ7eMBT+Jc5+gtcizMID9lGBRZS6pee3R6DwnTaaT4tkw2KhomAAISLtc3jzb84G0VjE
+ TRkUG0dTtEiEzRuOVqd9JfgzpQ8ZPMBa8ATOg5uEG07FEXh7gXSLs112cMTlS4N1lOTK
+ RzebJTGmpKPZGvNxVssgWiJhfyXA7XkkggP9Q9JqAVz1DvAQt4GK78x4TZRTvEfySjXT
+ DLFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization:date
- :to:from:subject:message-id:x-gm-message-state:from:to:cc;
- bh=lScf9Dov1eqBcZW4o7xmR0mpAM2ZlF/Ug/GDTkmjTuQ=;
- b=wQKmiiQYk7Py1YtiQ0rYBu0j16KpkV/Z0VYQuVZ+oisbKAIz+jEevKJ5Ew2fbJjR1g
- uA7LGi9v/bdHuocOFBzMcKrwelWBkdVt7wz0CdAom+Rx8bSXxn3IvPFNA3UHMQwz2UOf
- ajwbAtC3sDoPYtPeXZ2B3ygoTmsq0UkH6Zk0FuPqvwfCarRCENfnHTMmCQXv1YuTaIAg
- tJ7uS4MOX8//8oo73F+MvGo4glKDSLRL3gp48I6I4a/JhWWgg+KZJXLqdEatnIPinS/e
- gZWsc6IAbRKE44cOjG5lXLNGh6zJNxWr2L8gVn4R7kg6o2jWLO0p9sa4TZ9jlG0FtCiq
- jqmA==
-X-Gm-Message-State: ACgBeo3x3K2meKZMEwMRDKXfW85UzVPkpYG/Jb9aUNs2GfucNykIi57E
- SJZLuhL396IdmDeFTHiOd9w7BSGgV3rHgM4hyFrnQ97YWK6zLN+NxmkmSZHaKlza0LyppGXHzIm
- 3xC7PI0BU4cxwlkTA9Xxr/WFJY+ddyWsaTv7iULdm6fwtDDJ1sZESGiB/idogt/MI+eUPMC5hJw
- ==
-X-Received: by 2002:a05:620a:2b82:b0:6bb:3ded:1bff with SMTP id
- dz2-20020a05620a2b8200b006bb3ded1bffmr3530888qkb.174.1660858649940; 
- Thu, 18 Aug 2022 14:37:29 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR52/mWS4i/mA2/DXhrjp2Ad98s1ss1sBNyF0zAQnm7ohmf+sanhHf+zcpfIwZQ0XFH8xC41Hw==
-X-Received: by 2002:a05:620a:2b82:b0:6bb:3ded:1bff with SMTP id
- dz2-20020a05620a2b8200b006bb3ded1bffmr3530878qkb.174.1660858649646; 
- Thu, 18 Aug 2022 14:37:29 -0700 (PDT)
-Received: from [192.168.8.138] (pool-100-0-245-4.bstnma.fios.verizon.net.
- [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
- bl8-20020a05622a244800b00342fdc4004fsm1780154qtb.52.2022.08.18.14.37.28
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=N0PWF6mpMkapDmr2x+HcuoLa7BiJFVqo/4zstKJkGXc=;
+ b=J9cBQloOS783LREAqiRLdcR/6OpCWcBOv3jD/vk2bTBEuKO9/CA+mPe0qHoB0rDstv
+ +PtG++lKhEGL+a1SXkyFbENHnSM7x7HaCwUr73WuLEQ+ezLeQXOKh2PFMTUx3MyfpN/j
+ UvzyIygYlT1K1WdBWFn2V2z73UxTcHHKi5kQ6TyXQAs84xkRtkXuVTixQWRyNhMFt8p+
+ SsPKrb756B+v0Nzf3ssTe95yftCIUk33VxTMi10jxH9gFGZYl4HC+9WuJnXnY2TaVdNL
+ lpGFHns0IS4adq90JPwVPapBfSV9vLhMQtAYIPbSL2dm1XtGF29GmOyV1ArRhKsJIjHF
+ N3zQ==
+X-Gm-Message-State: ACgBeo07bFKbFm2Y4Ai8PSNAYjfMYH8EiF6QM7m05vUeySyjTEDHMHvI
+ 8F+BLgVYCEOdFLlAUt2Wsas=
+X-Google-Smtp-Source: AA6agR55Z7HWq5kYxU4cZZDHiLU1jvf2NOKy5WIq3lZuv6az8K3G4nCMud1VCwJwc6cN2GLenYT/bw==
+X-Received: by 2002:a1f:1887:0:b0:388:97f9:ad42 with SMTP id
+ 129-20020a1f1887000000b0038897f9ad42mr26354vky.18.1660874029241; 
+ Thu, 18 Aug 2022 18:53:49 -0700 (PDT)
+Received: from fedora.. ([2804:7f0:b443:d427:216e:21e9:69ca:fc9b])
+ by smtp.gmail.com with ESMTPSA id
+ v12-20020a67ff8c000000b0038712af0dbesm1666992vsq.22.2022.08.18.18.53.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Aug 2022 14:37:29 -0700 (PDT)
-Message-ID: <273ff2cbd345f5dc5c4fe203fd2474ec23f06fb2.camel@redhat.com>
-Subject: Requests For Proposals for hosting XDC 2023 are now open
-From: Lyude Paul <lyude@redhat.com>
-To: amd-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, etnaviv@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 17:37:28 -0400
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ Thu, 18 Aug 2022 18:53:48 -0700 (PDT)
+From: Magali Lemes <magalilemes00@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: remove unused header
+Date: Thu, 18 Aug 2022 22:53:02 -0300
+Message-Id: <20220819015302.1731088-1-magalilemes00@gmail.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,42 +68,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Magali Lemes <magalilemes00@gmail.com>, tales.aparecida@gmail.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ mairacanal@riseup.net, dri-devel@lists.freedesktop.org, isabbasso@riseup.net,
+ andrealmeid@riseup.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello everyone!
+dml_wrapper* files were removed in commit 724449e30433
+("drm/amd/display: Remove unused code"), as they are not used anywhere.
+However, the header file wasn't removed, so remove the header as well.
 
-The X.org board is soliciting proposals to host XDC in 2023. Since
-XDC 2022 is being held in North America this year, XDC 2023 is expected
-to be in Europe. However, the board is open to other locations,
-especially if there's an interesting co-location with another
-conference.
+Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
+---
+ .../gpu/drm/amd/display/dc/inc/dml_wrapper.h  | 34 -------------------
+ 1 file changed, 34 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/inc/dml_wrapper.h
 
-If you're considering hosting XDC, we've assembled a wiki page with
-what's generally expected and needed:
-
-https://www.x.org/wiki/Events/RFP/
-
-When submitting your proposal, please make sure to include at least the
-key information about the potential location in question, possible
-dates along with estimated costs. Proposals can be submitted to board
-at foundation.x.org until the deadline of *September 1st, 2022*. 
-
-Additionally, an quirk early heads-up to the board if you're
-considering hosting would be appreciated, in case we need to adjust the
-schedule a bit. Also, earlier is better since there generally will be a
-bit of Q&A with organizers.
-
-And if you just have some questions about what organizing XDC entails,
-please feel free to chat with previous organizers, or someone from the
-board.
-
-Best regards,
-	Lyude Paul
-On behalf of X.org
-
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dml_wrapper.h b/drivers/gpu/drm/amd/display/dc/inc/dml_wrapper.h
+deleted file mode 100644
+index 5dcfbd8e2697..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/inc/dml_wrapper.h
++++ /dev/null
+@@ -1,34 +0,0 @@
+-/*
+- * Copyright 2015 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-#ifndef DML_WRAPPER_H_
+-#define DML_WRAPPER_H_
+-
+-#include "dc.h"
+-#include "dml/display_mode_vba.h"
+-
+-bool dml_validate(struct dc *dc, struct dc_state *context, bool fast_validate);
+-
+-#endif
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+2.37.1
 
