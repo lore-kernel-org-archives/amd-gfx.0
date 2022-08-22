@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E4BC28D13
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 15:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C9E8C28D13
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 15:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDC7610E3D9;
-	Mon, 22 Aug 2022 15:30:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F7093D6A
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 15:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E077910DE;
+	Mon, 22 Aug 2022 15:53:03 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2052.outbound.protection.outlook.com [40.107.100.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 872559566F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 15:52:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z0TSzpzWmlTND/uLq1wVKpox9p1J+P3vSTM8QdkA5g3e20A6nMKSMDH0nmc2Di4/PzWS2KUg7DbdKacmp/Pyz6RQMCjYCnFoURM9vwsueEVwrOc+dwU+FM+15lvqIqqs6ub3s3NYBuAzP20/Sqm2PKLaHAw4/LL1fEH7Cm0b4ksieptDvr1MAoRj0SE3OuhhxHZba7tCQtsj/F4uorFnXzyWiftEJ4A8Da9LTy3ZURRx7wkM0S/lbW0939R6PSIIS8Z6sNJNORQG74LoQ0Qvwn83RQn0qR+Tqly5NHzPkQQAcXlm5xE3Dq8UV/StaLauOQVL8B4AVDyssEpNGLgU4A==
+ b=HJinEACBXZXmmjw3eV4/USBtUwfww+L5SeVfWujApewnSxX6CI+VjzDN2PaOMW+AsCiL+TLD4slyqVZ3TSGcuuIaKozC4foZoaNwDU7v5dXQyR2l/Ephn0VZN+JrowT3CqZd9cE4T8rPbIYhi7RAH9TUvMU8xkd9z6SSqYZgBvVZSLy2Ftz/cdh/yH2v0glBqoLMTBkTmCeYyRE0/MxzEWbD8rM8MOE2FcUYfpbVaiDAj8mv6rCETq9aionJ6P6bEEcokLjYS2atdI3AJwknMWRc6F/6GySltScx/0bhS2wHQECpZmqzWEQ02pxA7w7xLMwDBmGB0c1x8GWhK3DB5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YVmWE1aFkQfAjGHPmB/I3nEyJymX1zFebH9lvubFLg8=;
- b=hJwsmknTB2KasN2dNsUoUM7i0JQ/mVty+f0QNQowjnhyauwokI/WOplTYLiV1W+ko5BRVEPDY/bCPU2lpUhD7WL9C9sdfL8rAgQEWyHONKy3BwhWYf9FEIIKWjqh4zyM03PRRgGSy6VJ9xnuQ2iP76Xs/qNJuE97rPNTsoAaP3HYhGU5eo5Z7mghfqNrU87Oun1MVh1UyFGmkpn72+zB2a4ZC+RgCBLYCwuRcnn7SgFQ5sYbqSAiNyuz257CUW5mnkF/Md1alK2cqPTX5LqVbjH30QDPGOHFULMAAaP6mrvGvT8ngBzlm037Hkpsibl8BHbJADABvvyqpS2UMo0lqQ==
+ bh=P7OhAX2/oRi7CaNLMhKjAGoSuBHTc4lpuojINfvlOxE=;
+ b=TwOf9+jNrpDkJ+ZQVkfb+RDxMytY06VYhqE7zQksZ+rV92gmVtPSQvJXs2J1OAmSXsyurFA4tCjocMqEdwnBlgnxt8iI9LO9QXjb0z6HX385dM/01kNlVWvGfC/+MvOiVz+RU5hBZ4SH2MvcrOMK1pDRRXFZXXUtdp0acHXCkzC5Cq7J7IE+vJ4FOzvatOpUkfdzFEI5sMDBxRDLxkY1ZQzSnmB9lcQYvD62B+9+3zzCbV1xN9K28V9G4ypR3g1KnBeJEXmU2AcFzFQ3TbfWd6A0HTSrrmHMK2+WxQ4l5R67lSR7LS3BqwzOMnErWU8waRIj35IUJMnOFGYtvw2n/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YVmWE1aFkQfAjGHPmB/I3nEyJymX1zFebH9lvubFLg8=;
- b=tmQRCWDl9o1mbCNAD17LX3rtUA1ELKE5Y7kQuHLxhe+Mst452dB17EUT07XMLdfEjkHMFAQ05HxSDIDkl4idNbq+cZ2BI/esTBc280kynVvM6S//h/Zge9k2LPb1HfXSo8wvUT/ZLvneS13LJT3ncs1F3Gv7RweI1asXmgHG5RI=
-Received: from BN9PR03CA0952.namprd03.prod.outlook.com (2603:10b6:408:108::27)
- by LV2PR12MB5989.namprd12.prod.outlook.com (2603:10b6:408:171::20)
+ bh=P7OhAX2/oRi7CaNLMhKjAGoSuBHTc4lpuojINfvlOxE=;
+ b=h5wYsXpij/bB3nC1XUy4Np1eTj255/DectgLHmtSiSN08eLJIIuPEmcAz9EI15qEe7XldlA7r8/XgYpYGK8TAe3waD7devFAVVpeSrVd4wnL3PH6faEd5qg3zF/uV/Z+0jfOAq8+d/W0BDNHBup3XuGQ2EQU58SjQhuRGiqIBDA=
+Received: from BN9PR03CA0945.namprd03.prod.outlook.com (2603:10b6:408:108::20)
+ by BL0PR12MB4658.namprd12.prod.outlook.com (2603:10b6:207:32::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.22; Mon, 22 Aug
- 2022 15:30:20 +0000
-Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:108:cafe::36) by BN9PR03CA0952.outlook.office365.com
- (2603:10b6:408:108::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.22 via Frontend
- Transport; Mon, 22 Aug 2022 15:30:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.28; Mon, 22 Aug
+ 2022 15:52:39 +0000
+Received: from BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:108:cafe::de) by BN9PR03CA0945.outlook.office365.com
+ (2603:10b6:408:108::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21 via Frontend
+ Transport; Mon, 22 Aug 2022 15:52:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
+ BN8NAM11FT109.mail.protection.outlook.com (10.13.176.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.15 via Frontend Transport; Mon, 22 Aug 2022 15:30:20 +0000
-Received: from magnus.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5546.7 via Frontend Transport; Mon, 22 Aug 2022 15:52:39 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 22 Aug
- 2022 10:30:19 -0500
-From: Daniel Phillips <daniel.phillips@amd.com>
+ 2022 10:52:33 -0500
+From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: Use kfd_lock_pdd_by_id helper in more places
-Date: Mon, 22 Aug 2022 08:30:03 -0700
-Message-ID: <20220822153003.6349-1-daniel.phillips@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix page table setup on Arcturus
+Date: Mon, 22 Aug 2022 11:52:17 -0400
+Message-ID: <20220822155217.911506-1-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9992d490-8cf4-47c1-8918-08da8453396e
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5989:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bb2bdab-c920-4e49-32ee-08da8456575a
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4658:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uKKSDRvGE5bgTnzY7oiw0fhPvli+piAXzWg41u6UplRsnPGmWo1f3iraGijCxF45Izn3ZByQkVqxciwDjI1oTd8hC/ovD98Cf0aoJgHP2yzBW8RCa9I2geQwureFagKtUmBwz279q7DRmnEpR4eYg1XcdhrH6Vv+9uwYsfe7IB0+ea7dnZkMUactnoLfNBab2tFmSANczFXC57XWiVV2Mp4pm5ah7Owd6f7YzITSeIdrTR/gTvoFzKKENlaw5IdBV0Apz57y8W6ANkFw9H4s7bN5I5acumE2yKS01rAIM67NHveq+57t9WctTdyuSxAShCioNYXdnCz47JBkF7HrVFmB2jt3RdYrGA6JEm65ziKeKQQKrKVs2uuiKq3WaAvfxAtOX/jMYVgkmhk3ZY3eWuRFfmbYFw3H7486MxrthRybV2QU92YSAHt/eyMGujcAintI/kpE6BQ4ix1bcCuHYXLFf3fkt9OlFDMGnGYUFTl2c5Zwe5kkV2F9MpmKMSARwhF8niiG9KuJJQVILfkikyf9l2pnmikxMnsjzKI6eKzmtLAaMu5iqZUDY/ioN7IxXtpIPW7wG1sr4o/oKsRo6ZihYCHKcYF0Vm7bf1ve67Rgj9i7LlM4q8QkVY3Y1EyNu7QRcQq9ZhMvGr5SLcV0M+YKv6iGLK6p5rWD5OsNcFkNsPerF9MVHz5iVdbqQKO27cjAMbStnWLgjYFjqgZBCQ6Yz71f6kwGM720wSl1VbkNRyWO1nHqE4WBmXcM3Yo/Qq71GCedUauryLjr9JxwrSwiXeaGHju8UnmU34CV0A45xOywZ1HlHg/vk+PuhRQx
+X-Microsoft-Antispam-Message-Info: oSmMFCqDWxSjRumT1WhvAVm/LPKSExW1eM2aTRE34hMwo8axcAUx+EzKme+dqO/8PUmFijvtFD4KBd5f7UfUzlaKPrhlIO23K+Sf0sT47lHwon9lddRD7XIdM9RhjYeMnFof3vcLDVwNZ/lQlMvqMAc2jWiQOsjQngvHQFMVccRIRQ70IJzEuXTF5SntWy353nExcCmurWdjwu49+G7vS7p/e0RbvawEMmnu0XbehaETXBUxZEtSyOMfzl/05I+WInd3EH1U21HQHLBXxLqN+0UIEJeTjAXVV5rotpIX8GF5D0qZD+T0RKdOal8CIqE0Yv1h2PxqrVrUPVBaHxW98Z5OSW/o7P9OKZObHDHxGLHRea1D5uZaI6dXze0lw1JofjBjKtDrgLGG8VAkMhMTb4QMnVvF5tKY2fTyfnCb66B8SMNsfGNHAWJvNKEw1J663rQSGozuO6XIEMb0aK1ykRgiTZhH1nGSFPQo2Ff6FHy9AQVrrZM/ooBPlcqHPwBJ0QdKV+IpJcncP/KT4U3bi/G1AxlxFgxITIf+ASxCN9uIufC7+Z1lipXB1m1oez4CfSBJb/cCV1HBJ6a33RNgGgql4aDGox115WpfjuRFuODg/3ZHX16e83NeR1o/ceHyhg/2z5glBhBr7mOWaqd0chkj6wDlajWg7CALRiF4+EZqwpq+FnezIUPHzpSagMn+pS6xW+oBB/uODE+UboCchz5NSUIM20lGi1TgTwQi+79YF+66FbeiYIHk3L3rWQJfrauTt2UcSRyDfW/B10wasIdUt1DHbSjBxIfLEHx1dP4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(346002)(39860400002)(376002)(396003)(36840700001)(46966006)(40470700004)(41300700001)(6666004)(7696005)(478600001)(1076003)(186003)(16526019)(336012)(2616005)(8936002)(426003)(47076005)(26005)(83380400001)(2906002)(5660300002)(44832011)(40460700003)(40480700001)(82310400005)(316002)(6916009)(54906003)(86362001)(4326008)(8676002)(70586007)(70206006)(82740400003)(36860700001)(36756003)(356005)(81166007)(36900700001);
+ SFS:(13230016)(4636009)(376002)(39860400002)(136003)(396003)(346002)(46966006)(36840700001)(40470700004)(83380400001)(36756003)(2616005)(36860700001)(16526019)(336012)(186003)(1076003)(2906002)(40460700003)(7696005)(426003)(47076005)(26005)(44832011)(82740400003)(40480700001)(8936002)(316002)(478600001)(86362001)(70586007)(6666004)(8676002)(41300700001)(356005)(82310400005)(5660300002)(70206006)(81166007)(6916009)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2022 15:30:20.6262 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9992d490-8cf4-47c1-8918-08da8453396e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2022 15:52:39.3148 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bb2bdab-c920-4e49-32ee-08da8456575a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5989
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,282 +97,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Phillips <daniel.phillips@amd.com>, felix.kuehling@amd.com
+Cc: Mukul Joshi <mukul.joshi@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert most of the "mutex_lock; kfd_process_device_data_by_id" occurrences
-in kfd_chardev to use the kfd_lock_pdd_by_id. These will now consistently
-log debug output if the lookup fails. Sites where kfd_process_device_data_by_id
-is used without locking are not converted for now.
+When translate_further is enabled, page table depth needs to
+be updated. This was missing on Arcturus MMHUB init. This was
+causing address translations to fail for SDMA user-mode queues.
 
-Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
+Fixes: 2abf2573b1c69 ("drm/amdgpu: Enable translate_further to extend UTCL2 reach"
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 96 ++++++++----------------
- 1 file changed, 32 insertions(+), 64 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 2b3d8bc8f0aa..bb5528c55b73 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -75,6 +75,7 @@ static inline struct kfd_process_device *kfd_lock_pdd_by_id(struct kfd_process *
- 	if (pdd)
- 		return pdd;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index 6e0145b2b408..445cb06b9d26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -295,9 +295,17 @@ static void mmhub_v9_4_disable_identity_aperture(struct amdgpu_device *adev,
+ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+ {
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
++	unsigned int num_level, block_size;
+ 	uint32_t tmp;
+ 	int i;
  
-+	pr_debug("Could not find gpu id 0x%x\n", gpu_id);
- 	mutex_unlock(&p->mutex);
- 	return NULL;
- }
-@@ -311,14 +312,9 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 
- 	pr_debug("Looking for gpu id 0x%x\n", args->gpu_id);
- 
--	mutex_lock(&p->mutex);
--
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
--		err = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return -EINVAL;
- 	dev = pdd->dev;
- 
- 	pdd = kfd_bind_process_to_device(dev, p);
-@@ -405,7 +401,6 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
- err_wptr_map_gart:
- err_bind_process:
--err_pdd:
- 	mutex_unlock(&p->mutex);
- 	return err;
- }
-@@ -566,13 +561,9 @@ static int kfd_ioctl_set_memory_policy(struct file *filep,
- 		return -EINVAL;
- 	}
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
--		err = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return -EINVAL;
- 
- 	pdd = kfd_bind_process_to_device(pdd->dev, p);
- 	if (IS_ERR(pdd)) {
-@@ -596,7 +587,6 @@ static int kfd_ioctl_set_memory_policy(struct file *filep,
- 		err = -EINVAL;
- 
- out:
--err_pdd:
- 	mutex_unlock(&p->mutex);
- 
- 	return err;
-@@ -609,13 +599,9 @@ static int kfd_ioctl_set_trap_handler(struct file *filep,
- 	int err = 0;
- 	struct kfd_process_device *pdd;
- 
--	mutex_lock(&p->mutex);
--
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		err = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return -EINVAL;
- 
- 	pdd = kfd_bind_process_to_device(pdd->dev, p);
- 	if (IS_ERR(pdd)) {
-@@ -626,7 +612,6 @@ static int kfd_ioctl_set_trap_handler(struct file *filep,
- 	kfd_process_set_trap_handler(&pdd->qpd, args->tba_addr, args->tma_addr);
- 
- out:
--err_pdd:
- 	mutex_unlock(&p->mutex);
- 
- 	return err;
-@@ -663,13 +648,12 @@ static int kfd_ioctl_get_clock_counters(struct file *filep,
- 	struct kfd_ioctl_get_clock_counters_args *args = data;
- 	struct kfd_process_device *pdd;
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	mutex_unlock(&p->mutex);
--	if (pdd)
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (pdd) {
-+		mutex_unlock(&p->mutex);
- 		/* Reading GPU clock counter from KGD */
- 		args->gpu_clock_counter = amdgpu_amdkfd_get_gpu_clock_counter(pdd->dev->adev);
--	else
-+	} else
- 		/* Node without GPU resource */
- 		args->gpu_clock_counter = 0;
- 
-@@ -886,12 +870,9 @@ static int kfd_ioctl_set_scratch_backing_va(struct file *filep,
- 	struct kfd_dev *dev;
- 	long err;
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		err = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return -EINVAL;
- 	dev = pdd->dev;
- 
- 	pdd = kfd_bind_process_to_device(dev, p);
-@@ -912,7 +893,6 @@ static int kfd_ioctl_set_scratch_backing_va(struct file *filep,
- 	return 0;
- 
- bind_process_to_device_fail:
--err_pdd:
- 	mutex_unlock(&p->mutex);
- 	return err;
- }
-@@ -973,12 +953,9 @@ static int kfd_ioctl_acquire_vm(struct file *filep, struct kfd_process *p,
- 	if (!drm_file)
- 		return -EINVAL;
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		ret = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return -EINVAL;
- 
- 	if (pdd->drm_file) {
- 		ret = pdd->drm_file == drm_file ? 0 : -EBUSY;
-@@ -995,7 +972,6 @@ static int kfd_ioctl_acquire_vm(struct file *filep, struct kfd_process *p,
- 	return 0;
- 
- err_unlock:
--err_pdd:
- err_drm_file:
- 	mutex_unlock(&p->mutex);
- 	fput(drm_file);
-@@ -1063,12 +1039,9 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	}
- 	mutex_unlock(&p->svms.lock);
- #endif
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	if (!pdd) {
--		err = -EINVAL;
--		goto err_pdd;
--	}
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	if (!pdd)
-+		return EINVAL;
- 
- 	dev = pdd->dev;
- 
-@@ -1140,7 +1113,6 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, (struct kgd_mem *)mem,
- 					       pdd->drm_priv, NULL);
- err_unlock:
--err_pdd:
- err_large_bar:
- 	mutex_unlock(&p->mutex);
- 	return err;
-@@ -1231,8 +1203,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 		goto copy_from_user_failed;
- 	}
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, GET_GPU_ID(args->handle));
-+	pdd = kfd_lock_pdd_by_id(p, GET_GPU_ID(args->handle));
- 	if (!pdd) {
- 		err = -EINVAL;
- 		goto get_process_device_data_failed;
-@@ -1304,12 +1275,12 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 
- 	return err;
- 
--get_process_device_data_failed:
- bind_process_to_device_failed:
- get_mem_obj_from_handle_failed:
- map_memory_to_gpu_failed:
- 	mutex_unlock(&p->mutex);
- copy_from_user_failed:
-+get_process_device_data_failed:
- sync_memory_failed:
- 	kfree(devices_arr);
- 
-@@ -1347,8 +1318,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 		goto copy_from_user_failed;
- 	}
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, GET_GPU_ID(args->handle));
-+	pdd = kfd_lock_pdd_by_id(p, GET_GPU_ID(args->handle));
- 	if (!pdd) {
- 		err = -EINVAL;
- 		goto bind_process_to_device_failed;
-@@ -1398,10 +1368,10 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 
- 	return 0;
- 
--bind_process_to_device_failed:
- get_mem_obj_from_handle_failed:
- unmap_memory_from_gpu_failed:
- 	mutex_unlock(&p->mutex);
-+bind_process_to_device_failed:
- copy_from_user_failed:
- sync_memory_failed:
- 	kfree(devices_arr);
-@@ -1517,11 +1487,10 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 	if (IS_ERR(dmabuf))
- 		return PTR_ERR(dmabuf);
- 
--	mutex_lock(&p->mutex);
--	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
-+	pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
- 	if (!pdd) {
- 		r = -EINVAL;
--		goto err_unlock;
-+		goto err_pdd;
- 	}
- 
- 	pdd = kfd_bind_process_to_device(pdd->dev, p);
-@@ -1555,6 +1524,7 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 					       pdd->drm_priv, NULL);
- err_unlock:
- 	mutex_unlock(&p->mutex);
-+err_pdd:
- 	dma_buf_put(dmabuf);
- 	return r;
- }
-@@ -1566,13 +1536,11 @@ static int kfd_ioctl_smi_events(struct file *filep,
- 	struct kfd_ioctl_smi_events_args *args = data;
- 	struct kfd_process_device *pdd;
- 
--	mutex_lock(&p->mutex);
--
--	pdd = kfd_process_device_data_by_id(p, args->gpuid);
--	mutex_unlock(&p->mutex);
-+	pdd = kfd_lock_pdd_by_id(p, args->gpuid);
- 	if (!pdd)
- 		return -EINVAL;
- 
-+	mutex_unlock(&p->mutex);
- 	return kfd_smi_event_open(pdd->dev, &args->anon_fd);
- }
- 
++	num_level = adev->vm_manager.num_level;
++	block_size = adev->vm_manager.block_size;
++	if (adev->gmc.translate_further)
++		num_level -= 1;
++	else
++		block_size -= 9;
++
+ 	for (i = 0; i <= 14; i++) {
+ 		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmVML2VC0_VM_CONTEXT1_CNTL,
+ 				hubid * MMHUB_INSTANCE_REGISTER_OFFSET + i);
+@@ -305,7 +313,7 @@ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+ 				    ENABLE_CONTEXT, 1);
+ 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+ 				    PAGE_TABLE_DEPTH,
+-				    adev->vm_manager.num_level);
++				    num_level);
+ 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+ 				    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
+ 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+@@ -323,7 +331,7 @@ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+ 				    EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
+ 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+ 				    PAGE_TABLE_BLOCK_SIZE,
+-				    adev->vm_manager.block_size - 9);
++				    block_size);
+ 		/* Send no-retry XNACK on fault to suppress VM fault storm. */
+ 		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+ 				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
 -- 
 2.35.1
 
