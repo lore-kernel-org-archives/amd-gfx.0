@@ -4,57 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05466C00140
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Aug 2022 23:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF19C28D13
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 04:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A49E93E44;
-	Sun, 21 Aug 2022 23:08:23 +0000 (UTC)
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37A8793E34
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Aug 2022 23:08:10 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-31f445bd486so249333337b3.13
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Aug 2022 16:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=kTg3NWoceTSulITQJTfRzuCJ9YeiELYhJuzCAMt3SUI=;
- b=WExndwP4sqma2taxVfY5YhIo41S8jZUBQqHXA1hTIWVIcAELzjty+9yavJmXZheOvB
- 61O7rAkJe1q485kiHbQ3CNWO/t/CuFhd/J/01PFTf9kHcuqo8fnEIH/D6F7sO0AbGbsm
- GaF8/Lf2lusU4fY75PUh5i7Ad2Mvo28cq/B87P9HafW3AzQC51+OZE1+IQwsxjMZEzYf
- WTwqQ5cMjW1zuj+RYER/CIqqBqtvZihT4HhZj9bvpDS/uEyAsOcZVv0fDU0/cyeXHn+V
- o/AMaFVPnRgYAxFUHo4hQc3OU6aVrfU1fm8w+X/fgfzSgTKu8ca3v67cjtrl+xKSYyiC
- imtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=kTg3NWoceTSulITQJTfRzuCJ9YeiELYhJuzCAMt3SUI=;
- b=Qi/nJAHjWh4Sj2hRbGazCGjHpMgwQ+6+DFLioZr190pvpPKBwKXe0D36kfjr3TZgxE
- n8AlRdG0Z3qGw4DbuvS4lwlA6mLGfHZ5MdsYPV1Pdjd6u91oI83VXUKTy8ICM2xYgs5I
- S7YceTFkxQAdA5Q8QehUofaTozqLAbXbPRwIDP1Tr4dNoAWRaFu/0OmHfhq/ernbYjz0
- TJebT4BGOAmobnaRtjnZwstigjWTG2gHV6Giz33M95r2CWedS5gDlmwktO/M2ntELwwb
- x1r9Lv+vusMC9YIz9VTFpZQFjeFjuSAtwamCZUolHlZbhHiaovWX0nDySX2EP0z7IGLb
- 2bkw==
-X-Gm-Message-State: ACgBeo07BQLSIeq9/FBTPvJmmaFjOq+ZOXdY+cvEBvrWpPeE+BQW+eKb
- VHe2fM7vtdTIIdnk8znTGWoyPOtep2M4UvZeYj1hTg==
-X-Google-Smtp-Source: AA6agR5gSY7F3NsAWEXEdTmIT1n9ot0U95hIKMODwRp+z9yjFCnV1WaTIQ56llzT3nhB7yanlniIfHTHK1BMT+a5lS8=
-X-Received: by 2002:a25:8c88:0:b0:691:f58e:3a4 with SMTP id
- m8-20020a258c88000000b00691f58e03a4mr16830129ybl.645.1661123289023; Sun, 21
- Aug 2022 16:08:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3D2D992CB;
+	Mon, 22 Aug 2022 04:58:38 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2064.outbound.protection.outlook.com [40.107.212.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4E6A992AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 04:58:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=f+iiOmrdV/1YMNbQiwsZMsM9oX3GtFTGsj6iocR6PeCsxjnDeAa1YTlf+ok404o8muu654cFXGVL8lhLBS51npSa19d1dJtfi7PmXANXNI430DAilbh9bNy5GLcqFeyFZdsAldXsJpAb2hjsdxwm9bWVf7uk9u/ncyFL+EXfo7tL2b1LlPymVJdSp5uUb16Q/n1GZWeTIDqaj4QibQWm5uTVPQpZMKGW4tI63zxaFFhlaQ4K42vgD2Jnr+KVhri09mV5Fm8orcWiX1KpUWe0srF+Ip1RQJkEhlMzJOz9vHscwRu2LI/6QJpSuNddw/vTy4E0i0tpQ9GHVaPIt0NZsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/VQVlcIayA1+GQ6SBww4wcawioTham0gYZLOWkvbbjA=;
+ b=mmTB683VnOss4lsE0ET2PHMnMjqgJGfRnbmxojjihvaHzJ+2RKcyX44767Q0DiSVuvkT8xtw7sCqBGP9DBFDYR2bbJ2n2NE3KuFzIOkCkpvw7Oc6tuv0HHQQoy5pCSQXHxkfWfTEd1OH9+Q7w+7HGH6paM1c+kqSbqjHz5YO2+nVC/gBFdPliDETRcj2Ntw2IkRbtFyVkIjIvoQeS04eyjPgsFUbn/gfm7PbOgxOaY46nJfAMq+W+oVVkp9bquG9zu1TdchM50L70+ysqjLd8zkK4g/vgHT3BLdZWcdmfqJw5NY9K419d2Kt+2EoAq9jk5Hzpvuclrq3uIdnMbdJrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/VQVlcIayA1+GQ6SBww4wcawioTham0gYZLOWkvbbjA=;
+ b=tDEDrk5h2y30x0iMsudoGVWq3AaRZwTZmbX2r+fan26lfmlezqmDzQkJ7N17QFv2LVZGN0S4pmHpqsUXjQVXqI+RQKdQWsRozGaFuOeCr5+tqkzZjPqE62QaPP0jdI5ZU2d3+MVbsW5iNJaEJmgXDTHXhQX8wF7YnQAagI+XjF4=
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
+ by CH2PR12MB3767.namprd12.prod.outlook.com (2603:10b6:610:26::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Mon, 22 Aug
+ 2022 04:58:20 +0000
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::d0ca:88b0:e558:2de1]) by CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::d0ca:88b0:e558:2de1%4]) with mapi id 15.20.5504.028; Mon, 22 Aug 2022
+ 04:58:20 +0000
+From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: enable NBIO IP v7.7.0 Clock Gating
+Thread-Topic: [PATCH 3/3] drm/amdgpu: enable NBIO IP v7.7.0 Clock Gating
+Thread-Index: AQHYsqjW9pKjLN0LLk6/so+XJE3AEa26YdlF
+Date: Mon, 22 Aug 2022 04:58:19 +0000
+Message-ID: <CY5PR12MB6369D3880CA541ABAF85A9A1C1719@CY5PR12MB6369.namprd12.prod.outlook.com>
+References: <20220818021732.4087442-1-tim.huang@amd.com>
+ <20220818021732.4087442-3-tim.huang@amd.com>
+In-Reply-To: <20220818021732.4087442-3-tim.huang@amd.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-08-22T04:56:47.6183253Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f21b1483-6936-496a-0505-08da83faeef2
+x-ms-traffictypediagnostic: CH2PR12MB3767:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: bskHpXYLzCjhxd1tVRG477ZxKaGIu0SBqwGmIJ1HPhJD73PoeITY5mCZ7T+jb0bq/XLhjjgzVgUuYR3MeqyqtDFFNrzzIWjox4OhqZ/V1IHlxJyEm62T1x+6wkkDpSzM17mZRPls73CBJS2ThFG1M29U5mnJ/fOCtTEJu1l2zP/clEFb9LbC7zOUTMLCtE41uJGElMofN4kc4ZwqgK9FON/dd3dvlHEnurhLJ2I4+Iapm+/plVB+yyMa4HQURMFxeFE3/lT6e1+a4Kjjxs16lNR7CPi8UY0NYPqDlxpZP/Oidhnfhz8R/ttqYmqhgkoGbD9ldhWcx4AfaAxd7GeTA4DoPcWOaLDSXfFcMRC2YQne3ap4zNRdLytoQuMhoOpZB+GSmm3cpTjuFrhHiJ7pI28cbxt/oAppxDudHUhwXjkXaPCD6g1mRiToyoQu64zdpfeSIi9Ml4J1FVMkqaIoXNToabpCnQCruITC464/i+N8pQmyEjvBheweDymKCAcKw7OE3kdOpkhf2aGCuMDWkrR+fUh7ZroMs/DA1AIyM/HmSSu4gON8/XnBsUdZN5kMcwaergS3l9b43bai9aATbxeWke6xhYUwY/8bxcIqWpUuP5tg+iormPgpzF9LvcLhVHNn0Z0/n8B+murEvoZaPNeCW0oHH/cuMcOZyHLQpT8X7b79D9H/Bx3Jyt/LDwCLmE9Sm9H7kKHfrM7TLKQjmIggNkzd6d+HUgrkYq1gd9HkSnG7AENqcgNLNvf2TNIrMNE85BBzRnChS/QpmD56Jg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(366004)(396003)(39860400002)(136003)(346002)(376002)(38100700002)(122000001)(316002)(38070700005)(8936002)(86362001)(52536014)(8676002)(64756008)(2906002)(66446008)(91956017)(66556008)(66946007)(66476007)(76116006)(5660300002)(4326008)(7696005)(9686003)(6506007)(55016003)(71200400001)(41300700001)(478600001)(54906003)(83380400001)(186003)(110136005)(33656002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?ZDBuQ0d4VWNIOEhxU3ZpaVRNQXZ6VDVQSUVCMXovcU0wMjF5ZUJUOWNoWXM2?=
+ =?gb2312?B?R3VISlgyclJZMkg3WFRIckZxdzB2TnU3dDJRZzRTL1pjKzVKVGRSYnhwb2Fo?=
+ =?gb2312?B?WEpBb1VBOVpYTGZacTd0OUFGcHJPZnVRbzZ5KzJ2RWdyN3VveTFPQ011Q0Nt?=
+ =?gb2312?B?RjZsQTd1WkJqMHNOTjJzekF4VFk0TWt6WU1ZNWgrSmI5aEtXRGRsbU4wdlE4?=
+ =?gb2312?B?OTZjbzU0WnBGMXVtQUo2czBKM1RDajZtYmhwTjlUVm9UVG42M2w1YThsbEhQ?=
+ =?gb2312?B?UU8wamd3OHFmTVg5QWRXK082Qk0yUlNlei90WjFsUVdHOWFRK01nbWdqQTJS?=
+ =?gb2312?B?MURMQ2FobGFoMURZdnNiRm5wUU1lTkFvazFqZDliYlkzME51cm9MNkl4anhL?=
+ =?gb2312?B?MVc1MGlHUU1UeC8rZ3JkNkRqaWhIYmx1T1dGcXpmcTQybURLa1lVWGdjNlNy?=
+ =?gb2312?B?UFJWVHlUL3g5cytzUEhkT20xQks0OXMxWTdBOEE1YjdteEM0WHJZN1JJZGEr?=
+ =?gb2312?B?NzVJNFQreDhaZnIyanBGY1dPUnVTcHNybHZkQkVWdjhBeGhia0JYelprM0Jr?=
+ =?gb2312?B?bHFRQWpTWWttZmYva3FXbUgyYnQ5VnNRNnJxUTFQcVVhVjRmeDI1M012L1Zv?=
+ =?gb2312?B?MlI4ZTd4V3FEM2NKeEhhb0VZNmtxUFpobmIyRWtPbG1aWW5DYm52V3k5WVBW?=
+ =?gb2312?B?WWoxRWMydDhmR3hEaWhSU3hQSjlVK2lsYlVtd3VhVmdhSWZSUWRYYW9HaVQy?=
+ =?gb2312?B?R0ZsQXdKdkdQUGNkU3V5VktRa0graEJCN1p1bGVSMG1CSmdndEFMUzVkK3BK?=
+ =?gb2312?B?UUtXbzdUdkpOaklBK0pGcUhnczJEKzRRVURReDg5ek5zMXMxUDJQTzRac2E2?=
+ =?gb2312?B?ams1dTFHTXV4eU5Zci9TU09KNGhYK2pic1RXcVkyWkdaM0FqdXVOK29zSkVJ?=
+ =?gb2312?B?UUNWTEJCWlFOWHY1OERadG5ESEdHKzMwVU4veVRzazFpbWZ6U2NIYkx4Njdh?=
+ =?gb2312?B?ek41ZS9oMWErRm5PK2tQRUJBd0RjTXowSzlOMzFpOVhBNVNkdW5OaVVCZGFs?=
+ =?gb2312?B?R2owUW85V1FZSXp2REpHVWlTNzA2ZkZjOFhZSTg3RzBLM25yZ0NZM0dZVE9z?=
+ =?gb2312?B?LzdyS3BodXhRaXdKK09WcjBZbzRMUmFtdmtsOEljbzluTCs1dnplYnZVeHl2?=
+ =?gb2312?B?ODhxalIvSXZRL2pxNFhUK0FpNFppUE1xQy8yZkZrUDAraW0yUVJwR21wVS9q?=
+ =?gb2312?B?YzFTcDZiT0p5Y3luT0tGb0lqTVhmbWRxK04rejE2OE1NcTdyVnd6YWpYNjls?=
+ =?gb2312?B?RmpZODM0YUsvNjlrN0lCbmhKOXE1aDRBeXJ5VGhmcDM0OGtpZDg4VzNnWWN3?=
+ =?gb2312?B?eTEwOXpWQzgwcks5d1NwSTZscHFoNU51ckw2dVIxOUVwakN5ZmlmbVduV3NW?=
+ =?gb2312?B?VmNldHc5dVcxcDdMekVZbFBmSDFPU2I1NGUxTkJQNnJ1OCtOVE9MV3NUVG51?=
+ =?gb2312?B?bEhqYmRaaE93aThPZEZ6dVNBMHZZNGsxN2hJakE1cDdHS2cvNDA2NzZSNFU0?=
+ =?gb2312?B?TTJNZklmekNTQmNLU3pFSWdjSnB0ZlZZZ3pIaTVVOFM4a0Qwci9lMVJ1Ykk5?=
+ =?gb2312?B?V2VkZVB1UHJqbFVCZU1PeXpGL1VFcm1yK2poakFQemkzbzBvR0pBYXovUXN2?=
+ =?gb2312?B?TFFCQm50UWZoMmRRQzNYS2NYQ2VVTlpvK0tLc3pQRm1YS3hhS3FwdWdEcEM1?=
+ =?gb2312?B?RUIzNXJlMWRReUthQnpjY0FjeWo4OW1lS0hKb0x3TTVWNFppSzUzU09tSmdP?=
+ =?gb2312?B?YzREdmF6ZGtLU2lyS1NXbk40Y2RVRVFkSlBMUnhiQTRpd1loMzQ2OEVMeklY?=
+ =?gb2312?B?NG1ldEUyZkk3WUJoU2U1OUIyZmplZzJYTGt2OXVQOHVpMGVlOFdmT1Y4dDBT?=
+ =?gb2312?B?cUUrWlBtRmpnUzJJKzBhMHdSdldJQ3lkV0QwQjArV1ZpY0w4MTRMM3Z3OUhm?=
+ =?gb2312?B?Y1JVS3BPR0x6QVNLZjBLN2dqTFUrTFJsVmJZYUxNNFlLVE9qc0dUMFViaGYx?=
+ =?gb2312?B?YUllQzFiS2w1MnVPdzFRUWs1V0o4TFc2Nk15STZTY1hHTjE5V202ZjdDL2p1?=
+ =?gb2312?B?cTFtc2J1NzlxaitNN05ZRTg1WFVSMVlRQVVBOXJVeStpM1pTTUVmbjd5aDU2?=
+ =?gb2312?Q?zAycA0zgLAmCdUL3JyVV30VKCcdHIyBOU01BrxEVgTql?=
+Content-Type: multipart/alternative;
+ boundary="_000_CY5PR12MB6369D3880CA541ABAF85A9A1C1719CY5PR12MB6369namp_"
 MIME-Version: 1.0
-References: <20220813012801.1115950-1-bas@basnieuwenhuizen.nl>
- <c83f20bd-a753-ddcb-d4f3-fb5348189153@amd.com>
-In-Reply-To: <c83f20bd-a753-ddcb-d4f3-fb5348189153@amd.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Mon, 22 Aug 2022 01:08:02 +0200
-Message-ID: <CAP+8YyGU1=MRt_ycn4U2npeVdsgLQjfo66jWU4DtODjiAhxQ4w@mail.gmail.com>
-Subject: Re: [PATCH 0/6] amdgpu: Allow explicitly synchronized submissions.
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f21b1483-6936-496a-0505-08da83faeef2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Aug 2022 04:58:19.9934 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8TlstyUkLFuuUgmvl1+VaTX8QQ8VQv2MkCYnEEF45Ic767lUmB6Y6CuvYu7m/rp3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3767
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,315 +131,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ Tim" <Tim.Huang@amd.com>, "Du, Xiaojian" <Xiaojian.Du@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 18, 2022 at 3:20 PM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Hi Bas,
->
-> I've just pushed the branch drm-exec to my fdo repository:
-> https://gitlab.freedesktop.org/ckoenig/linux-drm.git
->
-> This branch contains all the gang submit patches as well as the latest
-> drm-exec stuff. VCN3/4 video decoding has some issues on it, but that
-> probably shouldn't bother your work.
+--_000_CY5PR12MB6369D3880CA541ABAF85A9A1C1719CY5PR12MB6369namp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-Hi Christian,
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClRoaXMgc2VyaWVzIGlzOg0KDQpS
+ZXZpZXdlZC1ieTogWWlmYW4gWmhhbmcNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQq3orz+yMs6IEh1YW5nLCBUaW0gPFRpbS5IdWFuZ0BhbWQuY29tPg0Kt6LLzcqxvOQ6IFRodXJz
+ZGF5LCBBdWd1c3QgMTgsIDIwMjIgMTA6MTc6MzIgQU0NCsrVvP7IyzogYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0Ks63LzTogRGV1
+Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhhbmcsIFlpZmFu
+IDxZaWZhbjEuWmhhbmdAYW1kLmNvbT47IER1LCBYaWFvamlhbiA8WGlhb2ppYW4uRHVAYW1kLmNv
+bT47IEh1YW5nLCBUaW0gPFRpbS5IdWFuZ0BhbWQuY29tPg0K1vfM4jogW1BBVENIIDMvM10gZHJt
+L2FtZGdwdTogZW5hYmxlIE5CSU8gSVAgdjcuNy4wIENsb2NrIEdhdGluZw0KDQpFbmFibGUgQU1E
+X0NHX1NVUFBPUlRfQklGX01HQ0cgYW5kIEFNRF9DR19TVVBQT1JUX0JJRl9MUyBzdXBwb3J0Lg0K
+DQpTaWduZWQtb2ZmLWJ5OiBUaW0gSHVhbmcgPHRpbS5odWFuZ0BhbWQuY29tPg0KLS0tDQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMjEuYyB8IDcgKysrLS0tLQ0KIDEgZmlsZSBjaGFu
+Z2VkLCAzIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MyMS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc29jMjEuYw0KaW5kZXggMWZmN2ZjN2JiMzQwLi45ODJjMTI5NjQ4NzkgMTAwNjQ0DQotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MyMS5jDQorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9zb2MyMS5jDQpAQCAtNjAzLDYgKzYwMyw4IEBAIHN0YXRpYyBpbnQgc29j
+MjFfY29tbW9uX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQ0KICAgICAgICAgICAgICAgICAgICAg
+ICAgIEFNRF9DR19TVVBQT1JUX0FUSFVCX01HQ0cgfA0KICAgICAgICAgICAgICAgICAgICAgICAg
+IEFNRF9DR19TVVBQT1JUX0FUSFVCX0xTIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICBBTURf
+Q0dfU1VQUE9SVF9JSF9DRyB8DQorICAgICAgICAgICAgICAgICAgICAgICBBTURfQ0dfU1VQUE9S
+VF9CSUZfTUdDRyB8DQorICAgICAgICAgICAgICAgICAgICAgICBBTURfQ0dfU1VQUE9SVF9CSUZf
+TFMgfA0KICAgICAgICAgICAgICAgICAgICAgICAgIEFNRF9DR19TVVBQT1JUX1ZDTl9NR0NHIHwN
+CiAgICAgICAgICAgICAgICAgICAgICAgICBBTURfQ0dfU1VQUE9SVF9KUEVHX01HQ0c7DQogICAg
+ICAgICAgICAgICAgIGFkZXYtPnBnX2ZsYWdzID0NCkBAIC03MDIsNiArNzA0LDcgQEAgc3RhdGlj
+IGludCBzb2MyMV9jb21tb25fc2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwNCiAg
+ICAgICAgIHN3aXRjaCAoYWRldi0+aXBfdmVyc2lvbnNbTkJJT19IV0lQXVswXSkgew0KICAgICAg
+ICAgY2FzZSBJUF9WRVJTSU9OKDQsIDMsIDApOg0KICAgICAgICAgY2FzZSBJUF9WRVJTSU9OKDQs
+IDMsIDEpOg0KKyAgICAgICBjYXNlIElQX1ZFUlNJT04oNywgNywgMCk6DQogICAgICAgICAgICAg
+ICAgIGFkZXYtPm5iaW8uZnVuY3MtPnVwZGF0ZV9tZWRpdW1fZ3JhaW5fY2xvY2tfZ2F0aW5nKGFk
+ZXYsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0ZSA9PSBBTURfQ0dfU1RB
+VEVfR0FURSk7DQogICAgICAgICAgICAgICAgIGFkZXYtPm5iaW8uZnVuY3MtPnVwZGF0ZV9tZWRp
+dW1fZ3JhaW5fbGlnaHRfc2xlZXAoYWRldiwNCkBAIC03MDksMTAgKzcxMiw2IEBAIHN0YXRpYyBp
+bnQgc29jMjFfY29tbW9uX3NldF9jbG9ja2dhdGluZ19zdGF0ZSh2b2lkICpoYW5kbGUsDQogICAg
+ICAgICAgICAgICAgIGFkZXYtPmhkcC5mdW5jcy0+dXBkYXRlX2Nsb2NrX2dhdGluZyhhZGV2LA0K
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdGUgPT0gQU1EX0NHX1NUQVRFX0dB
+VEUpOw0KICAgICAgICAgICAgICAgICBicmVhazsNCi0gICAgICAgY2FzZSBJUF9WRVJTSU9OKDcs
+IDcsIDApOg0KLSAgICAgICAgICAgICAgIGFkZXYtPmhkcC5mdW5jcy0+dXBkYXRlX2Nsb2NrX2dh
+dGluZyhhZGV2LA0KLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0ZSA9PSBBTURf
+Q0dfU1RBVEVfR0FURSk7DQotICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICBkZWZhdWx0
+Og0KICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgIH0NCi0tDQoyLjI1LjENCg0K
 
-The drm-exec branch doesn't seem to be capable of running Forza
-Horizon 5. First bad commit seems to be
+--_000_CY5PR12MB6369D3880CA541ABAF85A9A1C1719CY5PR12MB6369namp_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
 
-commit 8bb3e919ce0109512f6631422f3fe52169836261
-Author: Christian K=C3=B6nig <christian.koenig@amd.com>
-Date:   Thu Jul 14 10:23:38 2022 +0200
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div dir=3D"ltr">
+<div></div>
+<div>
+<div>
+<div dir=3D"ltr"><span style=3D"caret-color:rgb(33, 33, 33);color:rgb(33, 3=
+3, 33);font-size:14.666666984558105px;display:inline !important">This serie=
+s is:</span><br style=3D"caret-color:rgb(33, 33, 33);color:rgb(33, 33, 33);=
+font-size:14.666666984558105px">
+<br style=3D"caret-color:rgb(33, 33, 33);color:rgb(33, 33, 33);font-size:14=
+.666666984558105px">
+<span style=3D"caret-color:rgb(33, 33, 33);color:rgb(33, 33, 33);font-size:=
+14.666666984558105px;display:inline !important">Reviewed-by: Yifan Zhang</s=
+pan></div>
+</div>
+</div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> Huang, =
+Tim &lt;Tim.Huang@amd.com&gt;<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> Thursday, August 18, 2022 10:17:32 AM<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.=
+freedesktop.org&gt;<br>
+<b>=B3=AD=CB=CD:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; =
+Zhang, Yifan &lt;Yifan1.Zhang@amd.com&gt;; Du, Xiaojian &lt;Xiaojian.Du@amd=
+.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&gt;<br>
+<b>=D6=F7=CC=E2:</b> [PATCH 3/3] drm/amdgpu: enable NBIO IP v7.7.0 Clock Ga=
+ting</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Enable AMD_CG_SUPPORT_BIF_MGCG and AMD_CG_SUPPORT_=
+BIF_LS support.<br>
+<br>
+Signed-off-by: Tim Huang &lt;tim.huang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc21.c | 7 +++----<br>
+&nbsp;1 file changed, 3 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
+u/soc21.c<br>
+index 1ff7fc7bb340..982c12964879 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
+@@ -603,6 +603,8 @@ static int soc21_common_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_ATHUB_MGCG |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_ATHUB_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_IH_CG |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_B=
+IF_MGCG |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_B=
+IF_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_VCN_MGCG |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_JPEG_MGCG;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags =3D<br>
+@@ -702,6 +704,7 @@ static int soc21_common_set_clockgating_state(void *han=
+dle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versio=
+ns[NBIO_HWIP][0]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(4, 3, 0):<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(4, 3, 1):<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(7, 7, 0):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;update_medium_grain_clock_gat=
+ing(adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state =3D=3D AMD_CG_STATE_GATE);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;update_medium_grain_light_sle=
+ep(adev,<br>
+@@ -709,10 +712,6 @@ static int soc21_common_set_clockgating_state(void *ha=
+ndle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;update_clock_gating(adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state =3D=3D AMD_CG_STATE_GATE);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(7, 7, 0):<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;hdp.funcs-&gt;update_clock_gating(adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state =3D=3D AMD_CG_STATE_GATE);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-   drm/amdgpu: revert "partial revert "remove ctx->lock" v2"
-
-   This reverts commit 94f4c4965e5513ba624488f4b601d6b385635aec.
-
-   We found that the bo_list is missing a protection for its list entries.
-   Since that is fixed now this workaround can be removed again.
-
-   Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-
-and
-
-https://patchwork.freedesktop.org/patch/497679/ ("drm/amdgpu: Fix
-use-after-free on amdgpu_bo_list mutex")
-
-seems to fix things at that patch, but I'm not seeing the obvious
-rebase over "drm/amdgpu: cleanup and reorder amdgpu_cs.c" yet (and/or
-whether further issues were introduced).
-
-
-Error logs:
-
-[  124.821691] ------------[ cut here ]------------
-[  124.821696] WARNING: CPU: 3 PID: 2485 at
-drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:667
-amdgpu_ttm_tt_get_user_pages+0x15c/0x190 [amdgpu]
-[  124.821955] Modules linked in: uinput snd_seq_dummy snd_hrtimer
-snd_seq snd_seq_device ccm algif_aead cbc des_generic libdes ecb md4
-cmac algif_hash algif_skcipher af_alg bnep intel_rapl_msr
-intel_rapl_common snd_soc_acp5x_mach snd_acp5x_i2s snd_acp5x_pcm_dma
-edac_mce_amd kvm_amd kvm rtw88_8822ce rtw88_8822c rtw88_pci irqbypass
-rapl rtw88_core pcspkr joydev mac80211 btusb s
-nd_hda_codec_hdmi btrtl libarc4 snd_hda_intel btbcm btintel
-snd_intel_dspcfg btmtk snd_pci_acp5x i2c_piix4 snd_soc_nau8821
-snd_intel_sdw_acpi snd_rn_pci_acp3x cfg80211 bluetooth snd_soc_core
-snd_hda_codec snd_acp_config snd_soc_acpi snd_pci_acp3x ecdh_generic
-snd_hda_core cdc_acm mousedev snd_compress ecc rfkill snd_hwdep
-ac97_bus snd_pcm_dmaengine ina2xx_adc snd_pcm kfifo_buf
-spi_amd snd_timer opt3001 ina2xx snd industrialio soundcore mac_hid
-acpi_cpufreq fuse ip_tables x_tables overlay ext4 crc16 mbcache jbd2
-mmc_block vfat fat usbhid amdgpu drm_ttm_helper ttm agpgart drm_exec
-gpu_sched i2c_algo_bit
-[  124.822016]  drm_display_helper drm_kms_helper syscopyarea
-sysfillrect sysimgblt fb_sys_fops drm serio_raw atkbd crct10dif_pclmul
-libps2 crc32_pclmul vivaldi_fmap sdhci_pci ghash_clmulni_intel i8042
-ccp cqhci sdhci aesni_intel hid_multitouch xhci_pci crypto_simd cryptd
-wdat_wdt mmc_core cec sp5100_tco rng_core xhci_pci_renesas serio video
-i2c_hid_acpi 8250_dw i2c_hid btrfs
-blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq
-dm_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
-[  124.822051] CPU: 3 PID: 2485 Comm: ForzaHorizon5.e Not tainted
-5.18.0-1-neptune-00172-g067e00b76d9c #23
-[  124.822054] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/202=
-2
-[  124.822055] RIP: 0010:amdgpu_ttm_tt_get_user_pages+0x15c/0x190 [amdgpu]
-[  124.822262] Code: e1 ef c0 48 c7 c7 10 4a 0c c1 e8 5f f7 3e dd eb
-9c 48 c7 c6 85 0a f6 c0 bf 02 00 00 00 e8 8c 74 e2 ff 41 be f2 ff ff
-ff eb 8b <0f> 0b eb f4 41 be fd ff ff ff e9 7c ff ff ff 48 83 b8 a0 00
-00 00
-[  124.822264] RSP: 0018:ffffa257827afb98 EFLAGS: 00010282
-[  124.822267] RAX: ffff8b82240e6000 RBX: ffff8b8200a31100 RCX: 00000000000=
-00001
-[  124.822268] RDX: 0000000000000dc0 RSI: ffff8b82240e6000 RDI: ffff8b82a4c=
-7e800
-[  124.822269] RBP: ffff8b82ee809320 R08: 0000000000001000 R09: ffff8b82240=
-e6000
-[  124.822270] R10: 0000000000000006 R11: 0000000000000000 R12: ffff8b82ee6=
-dc9c0
-[  124.822272] R13: 0000000031880000 R14: 0000000000000001 R15: ffff8b823fa=
-ce440
-[  124.822273] FS:  000000002773f640(0000) GS:ffff8b852fec0000(0000)
-knlGS:000000001aba0000
-[  124.822275] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  124.822276] CR2: 0000000003ff4000 CR3: 00000001f1c2e000 CR4: 00000000003=
-50ee0
-[  124.822278] Call Trace:
-[  124.822281]  <TASK>
-[  124.822285]  amdgpu_cs_ioctl+0x9cc/0x2070 [amdgpu]
-[  124.822496]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[  124.822701]  drm_ioctl_kernel+0xc5/0x170 [drm]
-[  124.822728]  ? futex_wait+0x18f/0x260
-[  124.822733]  drm_ioctl+0x229/0x400 [drm]
-[  124.822757]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[  124.822963]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
-[  124.823165]  __x64_sys_ioctl+0x8c/0xc0
-[  124.823169]  do_syscall_64+0x3a/0x80
-[  124.823174]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  124.823177] RIP: 0033:0x7f5525e1059b
-[  124.823180] Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff ff ff 5b 5d
-4c 89 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d a5 a8 0c 00 f7 d8 64 89
-01 48
-[  124.823182] RSP: 002b:000000002773d548 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[  124.823185] RAX: ffffffffffffffda RBX: 000000002773d5d0 RCX: 00007f5525e=
-1059b
-[  124.823186] RDX: 000000002773d5d0 RSI: 00000000c0186444 RDI: 00000000000=
-00021
-[  124.823187] RBP: 00000000c0186444 R08: 00007f54a4043c80 R09: 00000000277=
-3d590
-[  124.823188] R10: 0000000000000000 R11: 0000000000000246 R12: 00007f54a40=
-43d50
-[  124.823190] R13: 0000000000000021 R14: 00007f54a4043cb0 R15: 00007f54a40=
-43d20
-[  124.823192]  </TASK>
-[  124.823193] ---[ end trace 0000000000000000 ]---
-[  124.823197] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-process the buffer list -14!
-[  124.823410] ------------[ cut here ]------------
-[  124.823411] refcount_t: underflow; use-after-free.
-[  124.823418] WARNING: CPU: 3 PID: 2485 at lib/refcount.c:28
-refcount_warn_saturate+0xa6/0xf0
-[  124.823424] Modules linked in: uinput snd_seq_dummy snd_hrtimer
-snd_seq snd_seq_device ccm algif_aead cbc des_generic libdes ecb md4
-cmac algif_hash algif_skcipher af_alg bnep intel_rapl_msr
-intel_rapl_common snd_soc_acp5x_mach snd_acp5x_i2s snd_acp5x_pcm_dma
-edac_mce_amd kvm_amd kvm rtw88_8822ce rtw88_8822c rtw88_pci irqbypass
-rapl rtw88_core pcspkr joydev mac80211 btusb s
-nd_hda_codec_hdmi btrtl libarc4 snd_hda_intel btbcm btintel
-snd_intel_dspcfg btmtk snd_pci_acp5x i2c_piix4 snd_soc_nau8821
-snd_intel_sdw_acpi snd_rn_pci_acp3x cfg80211 bluetooth snd_soc_core
-snd_hda_codec snd_acp_config snd_soc_acpi snd_pci_acp3x ecdh_generic
-snd_hda_core cdc_acm mousedev snd_compress ecc rfkill snd_hwdep
-ac97_bus snd_pcm_dmaengine ina2xx_adc snd_pcm kfifo_buf
-spi_amd snd_timer opt3001 ina2xx snd industrialio soundcore mac_hid
-acpi_cpufreq fuse ip_tables x_tables overlay ext4 crc16 mbcache jbd2
-mmc_block vfat fat usbhid amdgpu drm_ttm_helper ttm agpgart drm_exec
-gpu_sched i2c_algo_bit
-[  124.823485]  drm_display_helper drm_kms_helper syscopyarea
-sysfillrect sysimgblt fb_sys_fops drm serio_raw atkbd crct10dif_pclmul
-libps2 crc32_pclmul vivaldi_fmap sdhci_pci ghash_clmulni_intel i8042
-ccp cqhci sdhci aesni_intel hid_multitouch xhci_pci crypto_simd cryptd
-wdat_wdt mmc_core cec sp5100_tco rng_core xhci_pci_renesas serio video
-i2c_hid_acpi 8250_dw i2c_hid btrfs
-blake2b_generic libcrc32c crc32c_generic crc32c_intel xor raid6_pq
-dm_mirror dm_region_hash dm_log dm_mod pkcs8_key_parser crypto_user
-[  124.823516] CPU: 3 PID: 2485 Comm: ForzaHorizon5.e Tainted: G
- W         5.18.0-1-neptune-00172-g067e00b76d9c #23
-[  124.823519] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0105 03/21/202=
-2
-[  124.823520] RIP: 0010:refcount_warn_saturate+0xa6/0xf0
-[  124.823523] Code: 05 2d c4 6d 01 01 e8 90 68 58 00 0f 0b c3 80 3d
-1d c4 6d 01 00 75 95 48 c7 c7 b8 db ba 9e c6 05 0d c4 6d 01 01 e8 71
-68 58 00 <0f> 0b c3 80 3d fc c3 6d 01 00 0f 85 72 ff ff ff 48 c7 c7 10
-dc ba
-[  124.823524] RSP: 0018:ffffa257827afba8 EFLAGS: 00010286
-[  124.823526] RAX: 0000000000000000 RBX: ffffa257827afc58 RCX: 00000000000=
-00027
-[  124.823527] RDX: ffff8b852fee0768 RSI: 0000000000000001 RDI: ffff8b852fe=
-e0760
-[  124.823528] RBP: 0000000000000000 R08: 0000000000000000 R09: ffffa257827=
-af9b8
-[  124.823529] R10: 0000000000000003 R11: ffffffff9f2c5168 R12: 00000000fff=
-fffff
-[  124.823530] R13: 0000000000000018 R14: 0000000000000001 R15: ffff8b823fa=
-ce440
-[  124.823531] FS:  000000002773f640(0000) GS:ffff8b852fec0000(0000)
-knlGS:000000001aba0000
-[  124.823533] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  124.823534] CR2: 0000000003ff4000 CR3: 00000001f1c2e000 CR4: 00000000003=
-50ee0
-[  124.823535] Call Trace:
-[  124.823537]  <TASK>
-[  124.823537]  amdgpu_cs_parser_fini+0x11e/0x160 [amdgpu]
-[  124.823745]  amdgpu_cs_ioctl+0x40a/0x2070 [amdgpu]
-[  124.823954]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[  124.824159]  drm_ioctl_kernel+0xc5/0x170 [drm]
-[  124.824185]  ? futex_wait+0x18f/0x260
-[  124.824189]  drm_ioctl+0x229/0x400 [drm]
-[  124.824213]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[  124.824444]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
-[  124.824651]  __x64_sys_ioctl+0x8c/0xc0
-[  124.824655]  do_syscall_64+0x3a/0x80
-[  124.824660]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  124.824663] RIP: 0033:0x7f5525e1059b
-[  124.824665] Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff ff ff 5b 5d
-4c 89 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d a5 a8 0c 00 f7 d8 64 89
-01 48
-[  124.824667] RSP: 002b:000000002773d548 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[  124.824670] RAX: ffffffffffffffda RBX: 000000002773d5d0 RCX: 00007f5525e=
-1059b
-[  124.824671] RDX: 000000002773d5d0 RSI: 00000000c0186444 RDI: 00000000000=
-00021
-[  124.824673] RBP: 00000000c0186444 R08: 00007f54a4043c80 R09: 00000000277=
-3d590
-[  124.824674] R10: 0000000000000000 R11: 0000000000000246 R12: 00007f54a40=
-43d50
-[  124.824675] R13: 0000000000000021 R14: 00007f54a4043cb0 R15: 00007f54a40=
-43d20
-[  124.824677]  </TASK>
-[  124.824678] ---[ end trace 0000000000000000 ]---
-
-
-
->
-> Please rebase this work on top. It should at least make the TTM changes
-> unnecessary.
->
-> Going to take a closer look into the VM sync changes now.
->
-> Regards,
-> Christian.
->
-> Am 13.08.22 um 03:27 schrieb Bas Nieuwenhuizen:
-> > This adds a context option to use DMA_RESV_USAGE_BOOKKEEP for userspace=
- submissions,
-> > based on Christians TTM work.
-> >
-> > Disabling implicit sync is something we've wanted in radv for a while f=
-or resolving
-> > some corner cases. A more immediate thing that would be solved here is =
-avoiding a
-> > bunch of implicit sync on GPU map/unmap operations as well, which helps=
- with stutter
-> > around sparse maps/unmaps.
-> >
-> > This has seen a significant improvement in stutter in Forza Horizon 5 a=
-nd Forza
-> > Horizon 4. (As games that had significant issues in sparse binding rela=
-ted stutter).
-> > I've been able to pass a full vulkan-cts run on navi21 with this.
-> >
-> > Userspace code for this is available at
-> > https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/18032 and a b=
-ranch
-> > for the kernel code is available at
-> > https://github.com/BNieuwenhuizen/linux/tree/no-implicit-sync-5.19
-> >
-> > This is a follow-up on RFC series https://patchwork.freedesktop.org/ser=
-ies/104578/ .
-> >
-> > The main changes were:
-> >
-> > 1) Instead of replacing num_shared with usage, I'm just adding usage, s=
-ince
-> >     num_shared was actually needed.
-> > 2) We now agree that DMA_RESV_USAGE_BOOKKEEP is reasonable for this pur=
-pose.
-> >
-> > Please let me know if I missed anything, especially with the change to =
-VM updates,
-> > as we went back and forth a ton of times on that.
-> >
-> >
-> > Bas Nieuwenhuizen (6):
-> >    drm/ttm: Add usage to ttm_validate_buffer.
-> >    drm/amdgpu: Add separate mode for syncing DMA_RESV_USAGE_BOOKKEEP.
-> >    drm/amdgpu: Allow explicit sync for VM ops.
-> >    drm/amdgpu: Refactor amdgpu_vm_get_pd_bo.
-> >    drm/amdgpu: Add option to disable implicit sync for a context.
-> >    drm/amdgpu: Bump amdgpu driver version.
-> >
-> >   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 16 +++++++---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 20 +++++++++---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c       |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       | 32 +++++++++++++++++-=
--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 12 ++++---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 11 ++++---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c      | 11 +++++--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h      |  4 +--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |  2 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  5 ++-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c    |  3 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  3 +-
-> >   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  1 +
-> >   drivers/gpu/drm/qxl/qxl_release.c             |  1 +
-> >   drivers/gpu/drm/radeon/radeon_cs.c            |  2 ++
-> >   drivers/gpu/drm/radeon/radeon_gem.c           |  1 +
-> >   drivers/gpu/drm/radeon/radeon_vm.c            |  2 ++
-> >   drivers/gpu/drm/ttm/ttm_execbuf_util.c        |  3 +-
-> >   drivers/gpu/drm/vmwgfx/vmwgfx_resource.c      |  7 +++-
-> >   drivers/gpu/drm/vmwgfx/vmwgfx_validation.c    |  1 +
-> >   include/drm/ttm/ttm_execbuf_util.h            |  2 ++
-> >   include/uapi/drm/amdgpu_drm.h                 |  3 ++
-> >   28 files changed, 122 insertions(+), 37 deletions(-)
-> >
->
+--_000_CY5PR12MB6369D3880CA541ABAF85A9A1C1719CY5PR12MB6369namp_--
