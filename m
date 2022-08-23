@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07DB2C32774
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 20:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 462B9C28D13
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 01:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26785897D4;
-	Mon, 22 Aug 2022 20:10:05 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91416A1817;
- Mon, 22 Aug 2022 20:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D12CBA90DA;
+	Tue, 23 Aug 2022 01:23:24 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E9F7A90AE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 01:22:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZA/83YKjpI66T2/mOa93cN9N1SzL1IJAdd0p6HZCajgiFCNqDj0eCYFSTyXcZPN/dRf+kSWjx353SBNcnE1FTQwcmd5r6iUElE/pu6zlfD9ATt/L7RHhVgmXX1QMiN2hCRZjolNZjbn53ro8KcBfvaRUp3nljnBfU7rziL3WSFEDFDWXN4zZt85+CVwNNO2lT4foNsaRsJ68pCMRw+5/wZVi0CXACZFr/pxkNXD55VN7aMbzIJUQ/yexihmCHLRvI9TyEOP0wpo/+1pnJ8tJLL6QM5WLNRy0HamROKf9EcdVdDo40YMH3rHJVaRNY8fhCWPz2r3+h/v5ooSF/IgqPw==
+ b=hQ3kl8GyvMOgHaXceuHUymrX9iG/hl/qGJB18tAosFOQHJH4U11HfrE8DsqpW8fp+92Z5ZJD4iuG2nCuyRYbZZioAryKB0ZT1qxFWdcJ4ek2e7JVte7yX/TxC6b8NYsroY26HjMtNoyQsri2zIMmFNWR3HGRYFh+/dDrD2a27LUHXd2vBrji09+JSDjjg1tFsUYqiqD+bK804rVQ+6y/881D3PJMDETv7wPmA0sZeeRzw3Jpp5BKkwKUO7YfCbBO4uChJqPeI1JBZbDVP2rk/sehgA1MivHHvkzXDxpNwXJ+gluYNBuSl/nZOsYfSRec1BLGOBn2iEMbDxVfiLDgMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0lli4GmsaketVPG3bpiidqnKTatWmjiZC8PDZcjqh8U=;
- b=iokjaEcQQ2mjTn5m1rb0ptml6smV5owwp8HpUiaSHBmtCLD1mL5+0vTIeJRY0utFdNNrRvuJWEu+Ma1txNOQFfzGlYxrvA55nWVX3a4W0crecicMBGgnDe+TED2M+BvnjsPbDoNKwsMit7Ng0rZ2C98pZiC7Q0a4RXPkPS0/0pcdNSBcSgcVLc+8DSFakhCnJ3F+JbB8iKXmUSw6q1YAKkIDXcBwNloGw1GmRxQdebBeFMLqjDHnoTVPyx08uYB0GL/eQTt8QNpo7oFSZvxRaI+X2RiT5wxp7QVnAl4Y86u9B7aZGOvQLPYeDhat35q6e8j8guewuKAc/GG5nGRaug==
+ bh=ZWN6qoivxNHrz5IxBsrTJJVFJYEzWEGMlgBLjLGnADY=;
+ b=oQ+YamKEJwCg5LQb/hM633O2IGlr4FV8mjwX4lKcFgD6co+dyRd0Bh9eC1IytNAGY4akU3BccL2I7YFZI8f0jMhiY5pkv9mEk1nN5pdT7J4MjqpQICBxU8/j7QeV1Aj2SWyl9lbSyAgbTOE8q2iW+9mtnfBW118G72uK5syw69F2VzZ0d2HbVQ7dNcCTzDkznmwNQFXcyFKU7nzPaCptWm1kYLT9jop/2ZcnQFrmBh29iAn0iqAGHnczTyVULFQ04mjWcMLcycpVmM0wr7gq1vHEyal4h5YadaXNPIU67MCn/SHgySDnnxxqQEVY9sVB032ipTq7yNifQpwFi9eipA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0lli4GmsaketVPG3bpiidqnKTatWmjiZC8PDZcjqh8U=;
- b=cIp9oyU7/Gc4sagS4iBq+CTQPio6kdXI7APGb0lw3OC55qYzU6nNqmMWvKMffnvK6fUE3fklAG5cvU3M4crL47LkoaVANHtWI+1h4tQ35q4XphzqWs73t8T089hvdj/aXGbcaHn2nhnmNH+bvd/EPZKvqyss4V+Pl5nK76HvGOU=
-Received: from BN9PR03CA0337.namprd03.prod.outlook.com (2603:10b6:408:f6::12)
- by SN7PR12MB6958.namprd12.prod.outlook.com (2603:10b6:806:262::15)
+ bh=ZWN6qoivxNHrz5IxBsrTJJVFJYEzWEGMlgBLjLGnADY=;
+ b=SYeqqQa6BT6wq6VoWrS4F4TYOPwC20XxQ4c6dnjiGFMF7bMxOu0szYy8D6MZ3SRJSPpXwWSrQsf5HiRliVPwurjMEFVaIIuwbY1tTgl8zYz9tST0Pj77t7tdyRKYjE/Ak0iHul5EaV0mcYioSQPnBXKXYuTUgfiF9AaoBZvXmMg=
+Received: from BN8PR04CA0020.namprd04.prod.outlook.com (2603:10b6:408:70::33)
+ by BL1PR12MB5222.namprd12.prod.outlook.com (2603:10b6:208:31e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.16; Mon, 22 Aug
- 2022 20:09:31 +0000
-Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f6:cafe::35) by BN9PR03CA0337.outlook.office365.com
- (2603:10b6:408:f6::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.23 via Frontend
- Transport; Mon, 22 Aug 2022 20:09:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.16; Tue, 23 Aug
+ 2022 01:22:51 +0000
+Received: from BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:70:cafe::f1) by BN8PR04CA0020.outlook.office365.com
+ (2603:10b6:408:70::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.20 via Frontend
+ Transport; Tue, 23 Aug 2022 01:22:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
+ BN8NAM11FT079.mail.protection.outlook.com (10.13.177.61) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.15 via Frontend Transport; Mon, 22 Aug 2022 20:09:31 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 22 Aug 2022 15:09:29 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-Subject: [PATCH] drm/sced: Add FIFO policy for scheduler rq
-Date: Mon, 22 Aug 2022 16:09:17 -0400
-Message-ID: <20220822200917.440681-1-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 15.20.5546.7 via Frontend Transport; Tue, 23 Aug 2022 01:22:51 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 22 Aug
+ 2022 20:22:50 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: update SMU 13.0.0 driver_if header
+Date: Tue, 23 Aug 2022 09:22:31 +0800
+Message-ID: <20220823012231.1923038-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 36d8a15e-65de-4807-7243-08da847a3998
-X-MS-TrafficTypeDiagnostic: SN7PR12MB6958:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb1f8450-6187-4d5d-4653-08da84a5ff84
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5222:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 87YbGnaP19G43fA6Wa2aqryo+kn5jLTkHVqsR15PVXAqE8WGpMVDBxdXAnEwXPOD46OG7aQkwz2yVrbCU//2+7qddPTX7TXtwpt3awsF0p+IIuadmN4LC3ktw9U36Pv6uid2JdpKTX32C1RGdV/HrnSHLPj3NN6eOlkHCTLxQpMwG5px3UlV6ghdJmwqsLiSq65UE9fYYMiYO12n02dqP/X3yMue+DxbaQl656tcJX9ZW+1yn4Jx8+/M+fz8zfShicBG8PSAwifiGo+rLj3yz1Xkadqd1ZfJlr9r/ywCJPN0f+/7qmcKaUH+WjwZgKeCixffZmTZ6mP0ozHxF1SPMYLrwNXjiyv94Ny3uhBY6aMY/rC8rtSussQrJZ5tMWXH8UjkWSeSjC3zaEj+HRjajSmK+YzFCNRLqo5/bFHmcR8gGPVwBWCKJqYQdOLLYjgl0K1L5ol2/YZ7zU/6rwQ9opF8dFdzNj4xo0foG1bd8J5foLwRN7Pq+Cg8aOWdbIrRPMWKyypPCI0iDjhlvjEVgalPuWUBGzKUiRvkEHEoVb9slw4GcPc45HcbCCrEfvRLlZA1Q+EP8yGby/hGLkXxjoWn9rJ7xvZ5n40tCF27zxA2yYLMKxR8Pvh+kFe33qAjjuL/2IiBncYM+/M3i1N5tybxwtOpGjAdYnTucaNbB5DvQiVTDHl0dm+hD4lfDUrtdKg+lKb9qlldhyHaFxHuyiK9CKuQLdFdlyYGiGybkhqc74SfC1kC96KsvUAbkQkKHsXBfdE2bIY1MN8fWPsVCP4c2x6s1cCubpi70FQb3nAVzExE/dmJVCdfwdGb3Bfw
+X-Microsoft-Antispam-Message-Info: XLJ46u0Eil6t+wkw3uxDjZcHDcE2mi7/Y9eDi7AiFfL2qy4o1Qr+fONrQfvGNehVqH9vYh3GKEfDUCVQSBvz+NFlkriZ5gNoiaj18a/zQVf2CG2uJz+NAJnBbYb9wfdm6GatViUyf/U88/RrOd8GD6CUTkk1jaqoTRYBgNvIr5G3cpaEZyhRV9IhDA3JmTTKAUVYRBIvMUs8QF20inZR34xPjuKEj3GZKWZSAXabcuYxJwVY4R+3BU+6qKZujFSazy/zkr6tXANETri5cezgTMruW8dRru5SDupiA/ECRAqBvpMFCnFxgoL4RGmJhF+kms7c6g1y0vD1RldjZtucChKHFGGrmMX3F/j0QubGFuxI4vyICibAKU1dkrv59Y2X8xUIVPiIVlJyUvnuUJsj36oMhyTouXCzus0WcwOOX61eIHLtC5BVK6tq4ZeAXan3kpXWEnnLfa03jruWy2h2giVCB+3dx4C6zhC6qi9Hxk57dLo6iBOKM5BfjDc8sHg9RhYW0rzHE+0wLtX0D8MK9spDesaJKT4wBLD/HBizSLluMl6mrnXbhKuD2AxmNz6IaoRMe/jgaZg0/1DbFSCG4ejER5qOYyxd2wLye6sqlAkIbXewBQJ0yBcHSTfzafCMjEUFWZkxn4sWYj816kbEttfsLrwRrjYcSWxZyGCkSMi7u8HZjdi7lTC2HSkQEd7JCiutck6E6lzpdu4R6mM7Rg8l0t0Hk+83jfiea7WtAozczeuWTPUYFspGyPkTjzMnmeNnr/mjJ8i6pjUp9atYiCmGDhp17y57qsib62y/G4E=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(376002)(136003)(396003)(346002)(46966006)(36840700001)(40470700004)(70586007)(8676002)(4326008)(70206006)(82740400003)(40460700003)(86362001)(356005)(44832011)(81166007)(8936002)(2906002)(6666004)(7696005)(41300700001)(82310400005)(26005)(478600001)(40480700001)(5660300002)(83380400001)(316002)(36860700001)(1076003)(186003)(426003)(2616005)(6916009)(336012)(16526019)(54906003)(47076005)(36756003)(36900700001);
+ SFS:(13230016)(4636009)(346002)(396003)(136003)(39860400002)(376002)(36840700001)(46966006)(40470700004)(2906002)(36756003)(82310400005)(40480700001)(8676002)(4326008)(70586007)(70206006)(6916009)(54906003)(19627235002)(316002)(26005)(5660300002)(478600001)(6666004)(41300700001)(7696005)(82740400003)(81166007)(356005)(86362001)(2616005)(16526019)(336012)(47076005)(426003)(1076003)(186003)(36860700001)(8936002)(44832011)(83380400001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2022 20:09:31.2890 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36d8a15e-65de-4807-7243-08da847a3998
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2022 01:22:51.7050 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb1f8450-6187-4d5d-4653-08da84a5ff84
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6958
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5222
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,174 +97,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Li
- Yunxiang <Yunxiang.Li@amd.com>, luben.tuikov@amd.com,
- amd-gfx@lists.freedesktop.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>,
+ hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Poblem: Given many entities competing for same rq on
-same scheduler an uncceptabliy long wait time for some
-jobs waiting stuck in rq before being picked up are
-observed (seen using  GPUVis).
-The issue is due to Round Robin policy used by scheduler
-to pick up the next entity for execution. Under stress
-of many entities and long job queus within entity some
-jobs could be stack for very long time in it's entity's
-queue before being popped from the queue and executed
-while for other entites with samller job queues a job
-might execute ealier even though that job arrived later
-then the job in the long queue.
+To fit the latest 78.53 PMFW.
 
-Fix:
-Add FIFO selection policy to entites in RQ, chose next enitity
-on rq in such order that if job on one entity arrived
-ealrier then job on another entity the first job will start
-executing ealier regardless of the length of the entity's job
-queue.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I16b36a3c209c82fc2d48325f7e6ef5a702678782
 ---
- drivers/gpu/drm/scheduler/sched_entity.c |  2 +
- drivers/gpu/drm/scheduler/sched_main.c   | 65 ++++++++++++++++++++++--
- include/drm/gpu_scheduler.h              |  8 +++
- 3 files changed, 71 insertions(+), 4 deletions(-)
+ .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     | 31 +++++++++++--------
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 +-
+ 2 files changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 6b25b2f4f5a3..3bb7f69306ef 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -507,6 +507,8 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	atomic_inc(entity->rq->sched->score);
- 	WRITE_ONCE(entity->last_user, current->group_leader);
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
-+	sched_job->submit_ts = ktime_get();
-+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+index 78620b0bd279..f745cd8f1ab7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+@@ -24,12 +24,8 @@
+ #ifndef SMU13_DRIVER_IF_V13_0_0_H
+ #define SMU13_DRIVER_IF_V13_0_0_H
  
- 	/* first job wakes up scheduler */
- 	if (first) {
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 68317d3a7a27..c123aa120d06 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -59,6 +59,19 @@
- #define CREATE_TRACE_POINTS
- #include "gpu_scheduler_trace.h"
+-// *** IMPORTANT ***
+-// PMFW TEAM: Always increment the interface version on any change to this file
+-#define SMU13_DRIVER_IF_VERSION  0x23
+-
+ //Increment this version if SkuTable_t or BoardTable_t change
+-#define PPTABLE_VERSION 0x1D
++#define PPTABLE_VERSION 0x22
  
-+
-+
-+int drm_sched_policy = -1;
-+
-+/**
-+ * DOC: sched_policy (int)
-+ * Used to override default entites scheduling policy in a run queue.
-+ */
-+MODULE_PARM_DESC(sched_policy,
-+		"specify schedule policy for entites on a runqueue (-1 = auto(default) value, 0 = Round Robin,1  = use FIFO");
-+module_param_named(sched_policy, drm_sched_policy, int, 0444);
-+
-+
- #define to_drm_sched_job(sched_job)		\
- 		container_of((sched_job), struct drm_sched_job, queue_node)
+ #define NUM_GFXCLK_DPM_LEVELS    16
+ #define NUM_SOCCLK_DPM_LEVELS    8
+@@ -1193,8 +1189,17 @@ typedef struct {
+   // SECTION: Advanced Options
+   uint32_t          DebugOverrides;
  
-@@ -120,14 +133,16 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- }
++  // Section: Total Board Power idle vs active coefficients
++  uint8_t     TotalBoardPowerSupport;
++  uint8_t     TotalBoardPowerPadding[3];
++
++  int16_t     TotalIdleBoardPowerM;
++  int16_t     TotalIdleBoardPowerB;
++  int16_t     TotalBoardPowerM;
++  int16_t     TotalBoardPowerB;
++
+   // SECTION: Sku Reserved
+-  uint32_t         Spare[64];
++  uint32_t         Spare[61];
  
- /**
-- * drm_sched_rq_select_entity - Select an entity which could provide a job to run
-+ * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
-  *
-  * @rq: scheduler run queue to check.
-  *
-- * Try to find a ready entity, returns NULL if none found.
-+ * Try to find a ready entity, in round robin manner.
-+ *
-+ * Returns NULL if none found.
-  */
- static struct drm_sched_entity *
--drm_sched_rq_select_entity(struct drm_sched_rq *rq)
-+drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
- {
- 	struct drm_sched_entity *entity;
+   // Padding for MMHUB - do not modify this
+   uint32_t     MmHubPadding[8];
+@@ -1259,7 +1264,8 @@ typedef struct {
+   // SECTION: Clock Spread Spectrum
  
-@@ -163,6 +178,45 @@ drm_sched_rq_select_entity(struct drm_sched_rq *rq)
- 	return NULL;
- }
+   // UCLK Spread Spectrum
+-  uint16_t     UclkSpreadPadding;
++  uint8_t      UclkTrainingModeSpreadPercent;
++  uint8_t      UclkSpreadPadding;
+   uint16_t     UclkSpreadFreq;      // kHz
  
-+/**
-+ * drm_sched_rq_select_entity_fifo - Select an entity which could provide a job to run
-+ *
-+ * @rq: scheduler run queue to check.
-+ *
-+ * Try to find a ready entity, based on FIFO order of jobs arrivals.
-+ *
-+ * Returns NULL if none found.
-+ */
-+static struct drm_sched_entity *
-+drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
-+{
-+	struct drm_sched_entity *tmp, *entity = NULL;
-+	ktime_t oldest_ts = KTIME_MAX;
-+	struct drm_sched_job *sched_job;
-+
-+	spin_lock(&rq->lock);
-+
-+	list_for_each_entry(tmp, &rq->entities, list) {
-+
-+		if (drm_sched_entity_is_ready(tmp)) {
-+			sched_job = to_drm_sched_job(spsc_queue_peek(&tmp->job_queue));
-+
-+			if (ktime_before(sched_job->submit_ts, oldest_ts)) {
-+				oldest_ts = sched_job->submit_ts;
-+				entity = tmp;
-+			}
-+		}
-+	}
-+
-+	if (entity) {
-+		rq->current_entity = entity;
-+		reinit_completion(&entity->entity_idle);
-+	}
-+
-+	spin_unlock(&rq->lock);
-+	return entity;
-+}
-+
- /**
-  * drm_sched_job_done - complete a job
-  * @s_job: pointer to the job which is done
-@@ -804,7 +858,10 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+   // UCLK Spread Spectrum
+@@ -1272,11 +1278,7 @@ typedef struct {
  
- 	/* Kernel run queue has higher priority than normal run queue*/
- 	for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= DRM_SCHED_PRIORITY_MIN; i--) {
--		entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
-+		entity = drm_sched_policy != 1 ?
-+				drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
-+				drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
-+
- 		if (entity)
- 			break;
- 	}
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index addb135eeea6..95865881bfcf 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -314,6 +314,14 @@ struct drm_sched_job {
+   // Section: Memory Config
+   uint8_t      DramWidth; // Width of interface to the channel for each DRAM module. See DRAM_BIT_WIDTH_TYPE_e
+-  uint8_t      PaddingMem1[3];
+-
+-  // Section: Total Board Power
+-  uint16_t     TotalBoardPower;     //Only needed for TCP Estimated case, where TCP = TGP+Total Board Power
+-  uint16_t     BoardPowerPadding;
++  uint8_t      PaddingMem1[7];
  
- 	/** @last_dependency: tracks @dependencies as they signal */
- 	unsigned long			last_dependency;
-+
-+       /**
-+	* @submit_ts:
-+	*
-+	* Marks job submit time
-+	*/
-+       ktime_t				submit_ts;
-+
- };
+   // SECTION: UMC feature flags
+   uint8_t      HsrEnabled;
+@@ -1375,8 +1377,11 @@ typedef struct {
+   uint16_t Vcn1ActivityPercentage  ;
  
- static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
+   uint32_t EnergyAccumulator;
+-  uint16_t AverageSocketPower    ;
++  uint16_t AverageSocketPower;
++  uint16_t AverageTotalBoardPower;
++
+   uint16_t AvgTemperature[TEMP_COUNT];
++  uint16_t TempPadding;
+ 
+   uint8_t  PcieRate               ;
+   uint8_t  PcieWidth              ;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+index 6fe2fe92ebd7..ac308e72241a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -30,7 +30,7 @@
+ #define SMU13_DRIVER_IF_VERSION_ALDE 0x08
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x05
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_5 0x04
+-#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0 0x2C
++#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0 0x2E
+ #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x2C
+ 
+ #define SMU13_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
 -- 
-2.25.1
+2.29.0
 
