@@ -4,117 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01C9AC32772
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 18:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62901C32772
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 21:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC01113501;
-	Tue, 23 Aug 2022 18:57:39 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4FD113501;
- Tue, 23 Aug 2022 18:57:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AFue+X2bvKrBNWasme6l+ggvRnMNFIAl8oRtyYQtx9p5hu49yPjUwhGPlW5w6Op0qBTTsPjpESbfwUdNspYUAGm/nEqCYjSW65PaAgGinXpIqp10nUwrYLgWlohYHqOafmeTZLqGRvKlFXwTZ39vwTbMgANradPcuBEktxH37J6zCr7Hr4BHmkCHrB61GlU+tdD4V+ieQSngGSn9QItmkSUxQ6XLePGjZr4UhZ0SCEx+IXYQFETNQIZiI9qLQsbBag/46o3xj1qJZLXP2M6VJzozvSctiLPy9t3pDfEBwcZfSW1nV8Eo/aOTK25bVBNJJdWfdSEq3Lt6VZ2n/Vhnlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/kZnjk/aVwbGzWFm7jsyaaegjhYMvLGdoP+mXga8aLM=;
- b=c4+srqRtTq0qaP2qwJ9CD4W9nPAMNHn4ZGIoDsHpyUrqlzfquflVX1EydeOHWhJIAQ2k9gJVQzlxikRtC2TrpOO73oA53HGVeRL6SbQSWphjpdAkjoDSdIUYipan+ZlYev9lMTgGSbxQ2F4RB1N6XnY4hQuxieeIowcOoBEBk1tAjEBIQuhUHuwdS2eGUhKpsqqKTpMXbz7P7bxEIySFSNalanFnchkEx5/SNZx3KtYH5Wpw4VKxRxUt38RzzgEgr3JWP39UNT8A8k0sZMFlBqf4bSyzSSHE3XE9tF0d5YgSquaLpV90DbMjpkUIMi4z388npzdnC8IHBVwgStw0hA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/kZnjk/aVwbGzWFm7jsyaaegjhYMvLGdoP+mXga8aLM=;
- b=lernyiMZF6t6JxfSAkd93A4p7OKBYf8452lv6d+/CmC0EmnGjrqCRhxjlVe+FUmvfhI5FZ0L2txNH/ykXh+DZkvFlggmpa+rZkMoksg+0MARZ2racf56RrZ7Cq+FG1Lff/7ON034CLTHg1utDGuIawcOvHy//wUg6CdoWW4VP0Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.18; Tue, 23 Aug
- 2022 18:57:29 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5566.015; Tue, 23 Aug 2022
- 18:57:28 +0000
-Message-ID: <54bbcee9-68c7-5b4d-1050-7f098c96a805@amd.com>
-Date: Tue, 23 Aug 2022 14:57:25 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/sced: Add FIFO policy for scheduler rq
-Content-Language: en-US
-To: Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org
-References: <20220822200917.440681-1-andrey.grodzovsky@amd.com>
- <d5c45e7a-257b-7c60-33b5-7c103b0b1f93@amd.com>
- <bf0791b0-c917-6b6e-75bf-0c16869aa045@amd.com>
- <1eadb06c-7d2c-0317-a34a-c219c68b93c3@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-In-Reply-To: <1eadb06c-7d2c-0317-a34a-c219c68b93c3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT2PR01CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::17) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE0C10F9CD;
+	Tue, 23 Aug 2022 21:09:30 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C137210FA35
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 21:09:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1661288963;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GQSM/RGh8mGdrtSfQj9vauiNBm4oVfOIxDJRMUWZlC0=;
+ b=ghQwTbyRWdk/jkb9tzuaCZ8SsY7n9O6xjmZtv8ie8EBiNMGhfwbWApr3nV99H2DsJ6LTb1
+ WhfljhMAUZTHG+QGjQdAqlNkEzOeu7ZFTlmtbYbqoTFm5SNFx2dhDtWbYYfmk91HN92cb5
+ 8SLrEHLWIlgnJwn/bSDUAAKEKIHmSaA=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-100--6S-2788OQmJYJjbc4BjMg-1; Tue, 23 Aug 2022 17:09:22 -0400
+X-MC-Unique: -6S-2788OQmJYJjbc4BjMg-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ ea4-20020ad458a4000000b0049682af0ca8so8357637qvb.21
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 14:09:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:user-agent:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=GQSM/RGh8mGdrtSfQj9vauiNBm4oVfOIxDJRMUWZlC0=;
+ b=0T/DFSV5SljPbuGauk+VCy+zELPywVyNTcacteVirvOMRmlkzKsUHa3UmLohnGww/T
+ gH1/g+DEV1CwnPmUVwiyz5BDof7ZexqAGiQHYXpdjGT7xv8PWYJiIPot7N6wuilqOoOl
+ epjS141tw3D4vcmGEcSfxd+LwPotLVSQmqBIpH1anFhiPnrtGg3G5RRFZVjhVOS88KAT
+ uwwNYrcO5vPVmF6aPlWrk8vYUr6M9LchrLBkza5pOWK17Rj8UGOQnfqXmHvSzjt8tbD8
+ O2ueA8imJNYpUUDT2DtBDSzPvgKbOuRQRY5L0yG4SFifDN+iDke83tAmMbnrAjWvblyP
+ 832Q==
+X-Gm-Message-State: ACgBeo3riGII/cYUM/BErNfNZIZGHt9vXl0xw8RA4YKWp+MuWJssvSKc
+ +rk1wiV2SJRxxKBBXkqjUcK5vEr0KOtfAmxe5JGlBGQFdpqcfjF54fY62llmi/AT+oELhARqZTi
+ oJoWg2D5mlnxeM6BcWVaDKCmbBg==
+X-Received: by 2002:ac8:5dd1:0:b0:343:7ddc:8d0a with SMTP id
+ e17-20020ac85dd1000000b003437ddc8d0amr21524795qtx.615.1661288962414; 
+ Tue, 23 Aug 2022 14:09:22 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR69HDzVSzJrEZ+8qYYkXXMohhZEq9scSqarTaD8uVSSTD+0zynybEJisjiWIws6Y1e5GcHLDw==
+X-Received: by 2002:ac8:5dd1:0:b0:343:7ddc:8d0a with SMTP id
+ e17-20020ac85dd1000000b003437ddc8d0amr21524783qtx.615.1661288962182; 
+ Tue, 23 Aug 2022 14:09:22 -0700 (PDT)
+Received: from [192.168.8.139] (pool-100-0-245-4.bstnma.fios.verizon.net.
+ [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
+ j12-20020a05620a288c00b006b61b2cb1d2sm13834744qkp.46.2022.08.23.14.09.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Aug 2022 14:09:21 -0700 (PDT)
+Message-ID: <4f179363055570228d2932c9636735a269f3b5ef.camel@redhat.com>
+Subject: Re: [RFC v4 00/17] drm/display/dp_mst: Drop Radeon MST support,
+ make MST atomic-only
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Date: Tue, 23 Aug 2022 17:09:19 -0400
+In-Reply-To: <c22a559b64b1ca9f9d80ed9b5a6a4e97636cd19c.camel@redhat.com>
+References: <20220817193847.557945-1-lyude@redhat.com>
+ <c22a559b64b1ca9f9d80ed9b5a6a4e97636cd19c.camel@redhat.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5e781101-445f-48fb-3248-08da85395385
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3661:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3hUEgvxso8NayuK31LaeNRH1a1g5IxcV5WBK7gvKkqVcV3ZcpGOQMYc5p7bvvWvTvo8cYwvdbpWYWJ4MXNYh4CWR+nB/0FduWMtoOCMucCE7/bRZRsArYAXSsHuN/zOdxE89aBqpaaK8+1H7cnwd8p3x2L1UzauwG+DeCYSSsOJ3nk3Hyaq+bcWOA0/ApqOXjb+oceiJA9rihxkC+kthIG2d29Xwm86oSP+8TYbiBWUWf4IiGITvc7FVh57bfRKwgIDIkYMixtjqoLTzAETMkbpheVAbZeQiv2e79UWhgA5IpkyEhIKvmAS0uHH6dfkl7xjrU17/xjNPydxULF58L/YcMfh5BKJ5F1Ke4rxgVQLqWNgJCVVUDDnLw8XK7utb4ja58/iSEBFcLXq8CwH2+bNLspvXklY1PCcBzV5SXN1Ju+MS8/03oOMslds3Anwh2PAsa5GNQkqwgywRtcQB+KOnlQ38L5gEIAmfl2oykhdYC0HOUd1kQ0ZyJoYD/mrh+BVER3BxQgHqwTsDDjDf5+Q9MV7NIpewknY5gM64SNBysceF6Fw6xYrAmg8ANMD7jzK6dU8uWl4XlRPzTIcit5dRHwX0KDQq6FVIHaD5VmhQWL3GUr2TWWPpeXUxrlg/d9S0p0eIL00mZzq2Hy/syHBMUJuQfK5Fe+lPs9mqFGl/gUoP667rOJtdClILBGSp4dUFUJOCdG1lmYjvDEATRUlPEPOA3HmcIEsnDjDyN9HEdl76ZyTqeMuq8niu/wgAlFu28c283dU2NvEkyocaqzIpoxw1lGtYI5cOVslG+ng=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(83380400001)(44832011)(2906002)(8936002)(4326008)(66946007)(66476007)(8676002)(66556008)(5660300002)(6666004)(6506007)(26005)(53546011)(6486002)(41300700001)(36756003)(31686004)(6512007)(186003)(2616005)(478600001)(31696002)(86362001)(316002)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnFJN0VRQithVXpXb2hGNlpLWTJBTFI1NFRwVjNIV0xobXI2dmdTdDR3bmtu?=
- =?utf-8?B?b2F3SXdKMVMwenVvazZRL1BpK2dVWmpUN0REM0R5UmRiN2plV1JSS1BwaEps?=
- =?utf-8?B?MG1QbjArRWRKdEpxaUkvMkNleFE4eEFvQ2ovWVhPZUxBaU1MeDgwMUgwdW1W?=
- =?utf-8?B?ZFpnRXJKa1VLT0ZaVWxFM1VmeXlNV05laGJNb3BhcXpZVzdPZ1doWGs3RXVP?=
- =?utf-8?B?c3lxZ1pYZnp2NnNma3FkcFFOQ01yendQRHZBdUx0eUppNlpvcXpUL21jSjVs?=
- =?utf-8?B?ODhrSjN2U0VOSWx2VFV2RW1QWlhPKzRIU01vQXFJalhJNUtFcVZNcmc5eVdv?=
- =?utf-8?B?ZFdDeGtmbi8rTDJHR2h0NE9OOGVLc1p4MS9RaE9RazFCSXFNQW8zVVZYSnVC?=
- =?utf-8?B?WEFTRGpKZjVDQ3JuZDJhaTlUVmZ6UVdpc0p6RnBRVytYSHRLY0VzSllzMko2?=
- =?utf-8?B?U05Td3Z4b2xQY0t3RC9DZ2VrMlVpWkNPWWliMURQUmxsVjU5NTR4Q3VKSUtT?=
- =?utf-8?B?QUhhZkE1MTJCSlhoaG96eit6RDl1QkNaYzNNdFk0TXhaazRFU2ROUk4rc2NQ?=
- =?utf-8?B?Yk0wMjZIbmRWRE1SaytPYUoydDV2dXcxQ1dIdS9sd2diWS9PQXhnUGFRTm9R?=
- =?utf-8?B?VWxXOWt2NEIrUkM2c2MrMEh3NENvckloa0t4N2FON2c1VFhiMVhQcjNuQTUw?=
- =?utf-8?B?dElycjhsNEtnUEVhb1lISUEybEFVWFcxbkFiaEJUR3VQcDFzUWJyN2FQRFhz?=
- =?utf-8?B?YTZXMENmL0hHcUZJSFB3a3BuVU52M3gvOWJMMXYyTzNmVzdTS2hmZTZWMXhW?=
- =?utf-8?B?WUtkdlVMSzJEdUgxY2hadXVPdlF5YjFwdXF4QjIwbzkvY2NObGdyUjlZZUtU?=
- =?utf-8?B?b3pKaUUyZWVGT21pdVdSWVJZRGFPM1B3VWJTTjlqNDVhNUVNU1ZwWTdQWm5J?=
- =?utf-8?B?SFlzcEVYVzBYUk92eld5YURwaExvUFFCb0dqL2F5TmxQaTV3TEZxZlRjemIy?=
- =?utf-8?B?SkRiYWFTbnRRUW5lcWVSa3ZuZmluR2d4dXJsaThIMnRyWG9IaWlWUEhUV0hw?=
- =?utf-8?B?bmdRZDlqc0srcmtTQW1nTU9VQzJpVFVQNlRSZ3hnS2lUSXRoMGUvOHpiWDhy?=
- =?utf-8?B?azhndXVweE00dWNJUEhzOWhXa1JidzR1VTJ5Vlc0bmZVWFAyL0lLVU50RDZt?=
- =?utf-8?B?VGkxOTBVdEN3YTRlYjFLSUFOK1A0Qlk3OUM4R245UjJqejBZdFZhY2x0KzFI?=
- =?utf-8?B?UmNXRHQ4YlJGRllEU1lWaVBjUlRhZThpemxIVjd4TU9rR1MvNnBmdXJNMWFZ?=
- =?utf-8?B?d0lCNDFiM1VmcXhMMkNkbUI4eHNsc3JlbWdDbkI5TmRwQU16cjFmVlV4YWpV?=
- =?utf-8?B?dmlXNlBTcTN3UFp4WEFDZDJWN1NPT0dWVldDVytYdXd3OGY0ME9NMTQ3NllP?=
- =?utf-8?B?NmNqTUx4Tmw2RkZicmlSc3ZpVkJuMm5KTEIwZ1M0ZHlPRnJjeVFEU0N5WHJJ?=
- =?utf-8?B?dFo0Z2p1b2ZVNWQzNER0U3RhZFhyUjZlaUkwQ2VMeWNDT3lLUHZ1M01QOHBl?=
- =?utf-8?B?dW8waU82SUFDZEpkRGNqZXF2YUp6dFczUVFrZzZ2UWx2WWRJbUc4d3F0bmxu?=
- =?utf-8?B?dUdtTUV4OUlxVjRkN0xaMVJaN1RKdXBVakpBNk1tMGNIN0tlNFQ0V09wVnZn?=
- =?utf-8?B?VHIrSFFxazBEUDMvWWNSTlBWZUlnTUNweFVZcFRtdkJPemhVZTVYeGR3SWJm?=
- =?utf-8?B?OVlSSGNnTUVaam9SMVBXWEJzTzJ4TUwrOGxqY3FTVXhMbG8rVWZhSEI4TjZo?=
- =?utf-8?B?dzA2Ti9peWM1TXJDWUVVY0R0QWhMcUdvc2tKOTNhaHB4ZFhxMnBBQWhZbkdu?=
- =?utf-8?B?NTJ4SzZXS3dHTHZPWWVTMCtDOE53TGRGY3BoZ0VZOXJSZWxGZkxpcm5iU3hk?=
- =?utf-8?B?cksvTmIrWlF5SUtWNUphYlhkbDhEQnZxR3dOc1ZBd1J4Mzc0ZERIT3IzdWlU?=
- =?utf-8?B?MG16Y25CQ0VSQU1ITVErZEtUa0VNN04vOGRqUDlLZTJSb2FESlB0VzBWMGVV?=
- =?utf-8?B?enpBVW9HbWNmR1pNTGtQWFA5cVJiNGJ2YlJQOWFtR1JZYmE1ZTR5ZGtmc1lu?=
- =?utf-8?Q?qxyepjd8J6b0hAtblcuBWZi4Q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e781101-445f-48fb-3248-08da85395385
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2022 18:57:28.8464 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HHOfhwSsKtQ3SAzGJEFcYrNovtBGfBJnB9wS4xxKYW65P/VbV4dTytX+62tXgylJsBjTohd7gG2/pEZobSQfxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3661
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,269 +86,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Li Yunxiang <Yunxiang.Li@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>,
+ Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-08-23 14:30, Luben Tuikov wrote:
+Actually, talked with airlied and they suggested at this point I should just
+go ahead and push. So, pushed! Have fun getting nice DSC support everyone :)
 
->
-> On 2022-08-23 14:13, Andrey Grodzovsky wrote:
->> On 2022-08-23 12:58, Luben Tuikov wrote:
->>> Inlined:
->>>
->>> On 2022-08-22 16:09, Andrey Grodzovsky wrote:
->>>> Poblem: Given many entities competing for same rq on
->>> ^Problem
->>>
->>>> same scheduler an uncceptabliy long wait time for some
->>> ^unacceptably
->>>
->>>> jobs waiting stuck in rq before being picked up are
->>>> observed (seen using  GPUVis).
->>>> The issue is due to Round Robin policy used by scheduler
->>>> to pick up the next entity for execution. Under stress
->>>> of many entities and long job queus within entity some
->>> ^queues
->>>
->>>> jobs could be stack for very long time in it's entity's
->>>> queue before being popped from the queue and executed
->>>> while for other entites with samller job queues a job
->>> ^entities; smaller
->>>
->>>> might execute ealier even though that job arrived later
->>> ^earlier
->>>
->>>> then the job in the long queue.
->>>>
->>>> Fix:
->>>> Add FIFO selection policy to entites in RQ, chose next enitity
->>>> on rq in such order that if job on one entity arrived
->>>> ealrier then job on another entity the first job will start
->>>> executing ealier regardless of the length of the entity's job
->>>> queue.
->>>>
->>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>> Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/scheduler/sched_entity.c |  2 +
->>>>    drivers/gpu/drm/scheduler/sched_main.c   | 65 ++++++++++++++++++++++--
->>>>    include/drm/gpu_scheduler.h              |  8 +++
->>>>    3 files changed, 71 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> index 6b25b2f4f5a3..3bb7f69306ef 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> @@ -507,6 +507,8 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>>>    	atomic_inc(entity->rq->sched->score);
->>>>    	WRITE_ONCE(entity->last_user, current->group_leader);
->>>>    	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
->>>> +	sched_job->submit_ts = ktime_get();
->>>> +
->>>>    
->>>>    	/* first job wakes up scheduler */
->>>>    	if (first) {
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->>>> index 68317d3a7a27..c123aa120d06 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>> @@ -59,6 +59,19 @@
->>>>    #define CREATE_TRACE_POINTS
->>>>    #include "gpu_scheduler_trace.h"
->>>>    
->>>> +
->>>> +
->>>> +int drm_sched_policy = -1;
->>>> +
->>>> +/**
->>>> + * DOC: sched_policy (int)
->>>> + * Used to override default entites scheduling policy in a run queue.
->>>> + */
->>>> +MODULE_PARM_DESC(sched_policy,
->>>> +		"specify schedule policy for entites on a runqueue (-1 = auto(default) value, 0 = Round Robin,1  = use FIFO");
->>>> +module_param_named(sched_policy, drm_sched_policy, int, 0444);
->>> As per Christian's comments, you can drop the "auto" and perhaps leave one as the default,
->>> say the RR.
->>>
->>> I do think it is beneficial to have a module parameter control the scheduling policy, as shown above.
->>
->> Christian is not against it, just against adding 'auto' here - like the
->> default.
-> Exactly what I said.
->
-> Also, I still think an O(1) scheduling (picking next to run) should be
-> what we strive for in such a FIFO patch implementation.
-> A FIFO mechanism is by it's nature an O(1) mechanism for picking the next
-> element.
->
-> Regards,
-> Luben
+On Tue, 2022-08-23 at 13:26 -0400, Lyude Paul wrote:
+> Would anyone have any issues if I merged this today? The whole series is
+> acked, but I'm not sure if we would like to wait for R-b's?
+> 
+> 
+> On Wed, 2022-08-17 at 15:38 -0400, Lyude Paul wrote:
+> > For quite a while we've been carrying around a lot of legacy modesetting
+> > code in the MST helpers that has been rather annoying to keep around,
+> > and very often gets in the way of trying to implement additional
+> > functionality in MST such as fallback link rate retraining, dynamic BPC
+> > management and DSC support, etc. because of the fact that we can't rely
+> > on atomic for everything.
+> > 
+> > Luckily, we only actually have one user of the legacy MST code in the
+> > kernel - radeon. Originally I was thinking of trying to maintain this
+> > code and keep it around in some form, but I'm pretty unconvinced anyone
+> > is actually using this. My reasoning for that is because I've seen
+> > nearly no issues regarding MST on radeon for quite a while now - despite
+> > the fact my local testing seems to indicate it's quite broken. This
+> > isn't too surprising either, as MST support in radeon.ko is gated behind
+> > a module parameter that isn't enabled by default. This isn't to say I
+> > wouldn't be open to alternative suggestions, but I'd rather not be the
+> > one to have to spend time on that if at all possible! Plus, I already
+> > floated the idea of dropping this code by AMD folks a few times and
+> > didn't get much resistance.
+> > 
+> > As well, this series has some basic refactoring that I did along the way
+> > and some bugs I had to fix in order to get my atomic-only MST code
+> > working. Most of this is pretty straight forward and simply renaming
+> > things to more closely match the DisplayPort specification, as I think
+> > this will also make maintaining this code a lot easier in the long run
+> > (I've gotten myself confused way too many times because of this).
+> > 
+> > So far I've tested this on all three MST drivers: amdgpu, i915 and
+> > nouveau, along with making sure that removing the radeon MST code
+> > doesn't break anything else. The one thing I very much could use help
+> > with regarding testing though is making sure that this works with
+> > amdgpu's DSC support on MST.
+> > 
+> > So, with this we should be using the atomic state as much as possible
+> > with MST modesetting, hooray!
+> > 
+> > V4:
+> > * Get rid of fix that Wayne pointed out isn't needed
+> > 
+> > Cc: Wayne Lin <Wayne.Lin@amd.com>
+> > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> > Cc: Jani Nikula <jani.nikula@intel.com>
+> > Cc: Imre Deak <imre.deak@intel.com>
+> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > Cc: Sean Paul <sean@poorly.run>
+> > 
+> > Lyude Paul (17):
+> >   drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
+> >   drm/amdgpu/dm/mst: Rename get_payload_table()
+> >   drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
+> >   drm/display/dp_mst: Call them time slots, not VCPI slots
+> >   drm/display/dp_mst: Fix confusing docs for
+> >     drm_dp_atomic_release_time_slots()
+> >   drm/display/dp_mst: Add some missing kdocs for atomic MST structs
+> >   drm/display/dp_mst: Add helper for finding payloads in atomic MST
+> >     state
+> >   drm/display/dp_mst: Add nonblocking helpers for DP MST
+> >   drm/display/dp_mst: Don't open code modeset checks for releasing time
+> >     slots
+> >   drm/display/dp_mst: Fix modeset tracking in
+> >     drm_dp_atomic_release_vcpi_slots()
+> >   drm/nouveau/kms: Cache DP encoders in nouveau_connector
+> >   drm/nouveau/kms: Pull mst state in for all modesets
+> >   drm/display/dp_mst: Add helpers for serializing SST <-> MST
+> >     transitions
+> >   drm/display/dp_mst: Drop all ports from topology on CSNs before
+> >     queueing link address work
+> >   drm/display/dp_mst: Maintain time slot allocations when deleting
+> >     payloads
+> >   drm/radeon: Drop legacy MST support
+> >   drm/display/dp_mst: Move all payload info into the atomic state
+> > 
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   68 +-
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  108 +-
+> >  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  125 +-
+> >  drivers/gpu/drm/amd/display/dc/core/dc_link.c |   10 +-
+> >  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    4 +-
+> >  .../amd/display/include/link_service_types.h  |   14 +-
+> >  drivers/gpu/drm/display/drm_dp_mst_topology.c | 1137 ++++++++---------
+> >  drivers/gpu/drm/i915/display/intel_display.c  |    6 +
+> >  drivers/gpu/drm/i915/display/intel_dp.c       |    9 +
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   91 +-
+> >  drivers/gpu/drm/i915/display/intel_hdcp.c     |   24 +-
+> >  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  197 ++-
+> >  drivers/gpu/drm/nouveau/dispnv50/disp.h       |    2 +
+> >  drivers/gpu/drm/nouveau/nouveau_connector.c   |   18 +-
+> >  drivers/gpu/drm/nouveau/nouveau_connector.h   |    3 +
+> >  drivers/gpu/drm/radeon/Makefile               |    2 +-
+> >  drivers/gpu/drm/radeon/atombios_crtc.c        |   11 +-
+> >  drivers/gpu/drm/radeon/atombios_encoders.c    |   59 -
+> >  drivers/gpu/drm/radeon/radeon_atombios.c      |    2 -
+> >  drivers/gpu/drm/radeon/radeon_connectors.c    |   61 +-
+> >  drivers/gpu/drm/radeon/radeon_device.c        |    1 -
+> >  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  778 -----------
+> >  drivers/gpu/drm/radeon/radeon_drv.c           |    4 -
+> >  drivers/gpu/drm/radeon/radeon_encoders.c      |   14 +-
+> >  drivers/gpu/drm/radeon/radeon_irq_kms.c       |   10 +-
+> >  drivers/gpu/drm/radeon/radeon_mode.h          |   40 -
+> >  include/drm/display/drm_dp_mst_helper.h       |  234 ++--
+> >  27 files changed, 955 insertions(+), 2077 deletions(-)
+> >  delete mode 100644 drivers/gpu/drm/radeon/radeon_dp_mst.c
+> > 
+> 
 
+-- 
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
-The only solution i see for this now is keeping a global per rq jobs 
-list parallel to SPCP queue per entity - we use this list when we switch
-to FIFO scheduling, we can even start building  it ONLY when we switch 
-to FIFO building it gradually as more jobs come. Do you have other solution
-in mind ?
-
-Andrey
-
->
->>
->>>> +
->>>> +
->>>>    #define to_drm_sched_job(sched_job)		\
->>>>    		container_of((sched_job), struct drm_sched_job, queue_node)
->>>>    
->>>> @@ -120,14 +133,16 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>>    }
->>>>    
->>>>    /**
->>>> - * drm_sched_rq_select_entity - Select an entity which could provide a job to run
->>>> + * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
->>>>     *
->>>>     * @rq: scheduler run queue to check.
->>>>     *
->>>> - * Try to find a ready entity, returns NULL if none found.
->>>> + * Try to find a ready entity, in round robin manner.
->>>> + *
->>>> + * Returns NULL if none found.
->>>>     */
->>>>    static struct drm_sched_entity *
->>>> -drm_sched_rq_select_entity(struct drm_sched_rq *rq)
->>>> +drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
->>>>    {
->>>>    	struct drm_sched_entity *entity;
->>>>    
->>>> @@ -163,6 +178,45 @@ drm_sched_rq_select_entity(struct drm_sched_rq *rq)
->>>>    	return NULL;
->>>>    }
->>>>    
->>>> +/**
->>>> + * drm_sched_rq_select_entity_fifo - Select an entity which could provide a job to run
->>>> + *
->>>> + * @rq: scheduler run queue to check.
->>>> + *
->>>> + * Try to find a ready entity, based on FIFO order of jobs arrivals.
->>>> + *
->>>> + * Returns NULL if none found.
->>>> + */
->>>> +static struct drm_sched_entity *
->>>> +drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
->>>> +{
->>>> +	struct drm_sched_entity *tmp, *entity = NULL;
->>>> +	ktime_t oldest_ts = KTIME_MAX;
->>>> +	struct drm_sched_job *sched_job;
->>>> +
->>>> +	spin_lock(&rq->lock);
->>>> +
->>>> +	list_for_each_entry(tmp, &rq->entities, list) {
->>>> +
->>>> +		if (drm_sched_entity_is_ready(tmp)) {
->>>> +			sched_job = to_drm_sched_job(spsc_queue_peek(&tmp->job_queue));
->>>> +
->>>> +			if (ktime_before(sched_job->submit_ts, oldest_ts)) {
->>>> +				oldest_ts = sched_job->submit_ts;
->>>> +				entity = tmp;
->>>> +			}
->>>> +		}
->>>> +	}
->>> Here I think we need an O(1) lookup of the next job to pick out to run.
->>> I see a number of optimizations, for instance keeping the current/oldest
->>> timestamp in the rq struct itself,
->>
->> This was my original design with rb tree based min heap per rq based on
->> time stamp of
->> the oldest job waiting in each entity's job queue (head of entity's SPCP
->> job queue). But how in this
->> case you record the timestamps of all the jobs waiting in entity's the
->> SPCP queue behind the head job ?
->> If you record only the oldest job and more jobs come you have no place
->> to store their timestamps and so
->> on next job select after current HEAD how you will know who came before
->> or after between 2 job queues of
->> of 2 entities ?
->>
->>
->>> or better yet keeping the next job
->>> to pick out to run at a head of list (a la timer wheel implementation).
->>> For suck an optimization to work, you'd prep things up on job insertion, rather
->>> than on job removal/pick to run.
->>
->> I looked at timer wheel and I don't see how this applies here - it
->> assumes you know before
->> job submission your deadline time for job's execution to start - which
->> we don't so I don't see
->> how we can use it. This seems more suitable for real time scheduler
->> implementation where you
->> have a hard requirement to execute a job by some specific time T.
->>
->> I also mentioned a list, obviously there is the brute force solution of
->> just ordering all jobs in one giant list and get
->> naturally a FIFO ordering this way with O(1) insertions and extractions
->> but I assume we don't want one giant jobs queue
->> for all the entities to avoid more dependeies between them (like locking
->> the entire list when one specific entity is killed and
->> needs to remove it's jobs from SW queue).
->>
->>> I'm also surprised that there is no job transition from one queue to another,
->>> as it is picked to run next--for the above optimizations to implemented, you'd
->>> want a state transition from (state) queue to queue.
->>
->> Not sure what you have in mind here ? How this helps ?
->>
->> Andrey
->>
->>
->>> Regards,
->>> Luben
->>>
->> In my origianl design
->>
->>>> +
->>>> +	if (entity) {
->>>> +		rq->current_entity = entity;
->>>> +		reinit_completion(&entity->entity_idle);
->>>> +	}
->>>> +
->>>> +	spin_unlock(&rq->lock);
->>>> +	return entity;
->>>> +}
->>>> +
->>>>    /**
->>>>     * drm_sched_job_done - complete a job
->>>>     * @s_job: pointer to the job which is done
->>>> @@ -804,7 +858,10 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
->>>>    
->>>>    	/* Kernel run queue has higher priority than normal run queue*/
->>>>    	for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= DRM_SCHED_PRIORITY_MIN; i--) {
->>>> -		entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
->>>> +		entity = drm_sched_policy != 1 ?
->>>> +				drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
->>>> +				drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
->>>> +
->>>>    		if (entity)
->>>>    			break;
->>>>    	}
->>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->>>> index addb135eeea6..95865881bfcf 100644
->>>> --- a/include/drm/gpu_scheduler.h
->>>> +++ b/include/drm/gpu_scheduler.h
->>>> @@ -314,6 +314,14 @@ struct drm_sched_job {
->>>>    
->>>>    	/** @last_dependency: tracks @dependencies as they signal */
->>>>    	unsigned long			last_dependency;
->>>> +
->>>> +       /**
->>>> +	* @submit_ts:
->>>> +	*
->>>> +	* Marks job submit time
->>>> +	*/
->>>> +       ktime_t				submit_ts;
->>>> +
->>>>    };
->>>>    
->>>>    static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
-> Regards,
